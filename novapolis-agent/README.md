@@ -1,12 +1,10 @@
-# CVN Agent
-  
-[![CI](https://github.com/Panicgrinder/cvn-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Panicgrinder/cvn-agent/actions/workflows/ci.yml)
+# Novapolis Agent
+
+Ein FastAPI-Backend für einen Conversational Agent innerhalb der Novapolis Suite, der Ollama als LLM verwendet.
 
 ## Lizenz
 
 Dieses Projekt steht unter der MIT-Lizenz. Siehe die Datei `LICENSE` im Repository-Wurzelverzeichnis.
-
-Ein FastAPI-Backend für einen Conversational Agent, der Ollama als LLM verwendet.
 
 ## Neuigkeiten (2025-10-20)
 

@@ -1,6 +1,4 @@
-"""
-API-Router für die verschiedenen Endpunkte.
-"""
+"""API-Router für die verschiedenen Endpunkte."""
 
 from typing import List
 

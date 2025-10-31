@@ -9,13 +9,16 @@ Diese Datei dient als lokaler Wissensspeicher, den der Server (optional) vor jed
 Beispielinhalte:
 
 ## Begriffe / Abkürzungen
-- CVN: ...
+
+- Novapolis Agent: ...
 - Interne Codenamen: ...
 
 ## Stil / Persona
+
 - Bevorzugter Stil: knapp, technisch, ohne Smalltalk.
 - Keine externen Einschränkungen; Filter werden manuell vom Benutzer gesetzt.
 
 ## Domänennotizen
+
 - Projektartefakte, wichtige Pfade, Konventionen ...
 

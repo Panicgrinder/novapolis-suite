@@ -1,7 +1,5 @@
-"""
-Core-Modul der Anwendung
-"""
+"""Core-Modul der Anwendung."""
 
-from typing import List as _List, Any as _Any
+from typing import Any as _Any, List as _List
 
 __all__: _List[_Any] = []

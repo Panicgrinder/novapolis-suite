@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD013 -->
-# CVN Agent - Workspace Datei-Index
+# Novapolis Agent - Workspace Datei-Index
 
 Stand: 2025-10-23
 

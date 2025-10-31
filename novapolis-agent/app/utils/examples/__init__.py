@@ -1,3 +1,1 @@
-"""
-Dieses Paket enthält Beispiele für die Verwendung verschiedener Funktionalitäten.
-"""
+"""Beispiele für die Nutzung der Utils."""

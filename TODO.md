@@ -6,6 +6,11 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 
 - **novapolis-agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
 - **novapolis-dev / novapolis-rp**: Schwerpunkt auf Datenkurierung, Canvas-Regeln, Export-Normalisierung und Sim-Integration.
+- **Root-Übersicht**: `WORKSPACE_STATUS.md` + `workspace_tree.txt` (Stand 2025-10-31) liefern Gesamtinventar; monatlich/bei größeren Umstrukturierungen erneuern.
+- **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren.
+  - [ ] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`).
+  - [ ] README oder `Backups/`-Manifest um Rotationsplan ergänzen (Aufbewahrungsdauer, Löschkriterien).
+  - [ ] Automatisierte Aufgabe/Script prüfen (`scripts/cleanup_phase*.ps1`) für regelmäßiges Auslagern.
 
 ## Volltexte
 
@@ -14,7 +19,7 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 
 ```markdown
 <!-- markdownlint-disable MD013 -->
-# CVN Agent – ToDo & Roadmap
+# Novapolis Agent – ToDo & Roadmap
 
 Kurzfristige Ziele (Heute)
 

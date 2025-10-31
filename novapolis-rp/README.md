@@ -48,7 +48,7 @@ Dieses Repo enthält die Arbeitsbasis für das Novapolis‑RP: strukturierte Dat
 
 ### Agenten-Modul
 
-Der frühere Code aus `panicgrinder/cvn-agent` ist jetzt als Unterprojekt in `agents/cvn_agent/` enthalten. Das externe Repo wurde archiviert; alle aktiven Entwicklungen laufen hier weiter.
+Der Agent-Code wird inzwischen ausschließlich im Schwesterprojekt `../novapolis-agent/` gepflegt. Dieses Repository bündelt nur noch die RP-Daten, Workflows und begleitenden Tools.
 
 ### Ziele
 

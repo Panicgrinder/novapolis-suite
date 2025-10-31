@@ -13,9 +13,10 @@
 - Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen im jeweiligen DONELOG (`novapolis-agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
 - Prägnanter Output: skimmbar, kurze Sätze/Bullets, keine überladenen Blockzitate; bei großen Aufgaben Plan als Liste führen.
 - Sicherheit & Privacy: Keine Secrets, offline bevorzugen, keine harten Pfade zu externen Repositories übernehmen.
+- Root-Statusdateien `WORKSPACE_STATUS.md` und `workspace_tree.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
 
 ## Repositoryweiter Rahmen
-- Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus `novapolis-agent/app` und `novapolis-rp/agents/cvn_agent/app` nach Migration entfernen.
+- Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.
 - Konfigurationen bleiben projektspezifisch; Produktions- und API-Code verbleibt im jeweiligen Projektordner, Utilities werden über das Shared-Package re-exportiert.
 - Secrets (`.env`) bleiben lokal; ungefilterte Exporte ausschließlich unter `novapolis-rp/database-raw/99-exports/` ablegen.
 - Working docs leben in `novapolis-dev/docs/` (todo, donelog, tests, naming-policy, copilot-behavior, index); `novapolis-rp/development/...` sind Redirect-Stubs.
@@ -26,10 +27,10 @@
 - PLAN → DRY RUN → APPLY mit klaren Stop-Gates; vor APPLY nach `development/docs` Restreferenzen suchen (nur in Redirect-README und `meta.origin` erlaubt), danach Sidecars (`source`, `origin`, `migrated_at`) kontrollieren.
 - Unsichere Anforderungen zuerst rückfragen; Minimal-Delta bewahren, transparente Diffs mit Dateiliste/Diffstat liefern, keine Shell-Kommandos oder History-Rewrites.
 
-## Novapolis-Agent (cvn-agent)
+## Novapolis Agent (Backend)
 
 ### Arbeitskontext
-- Repo: `cvn-agent` (Branch `main`), Stack: FastAPI + Ollama, Kern: `app/main.py`, `app/api/models.py`, `app/core/settings.py`, `app/core/prompts.py`.
+- Repo: `novapolis-agent` (Branch `main`), Stack: FastAPI + Ollama, Kern: `app/main.py`, `app/api/models.py`, `app/core/settings.py`, `app/core/prompts.py`.
 
 ### Schnellziele bei Codeänderungen
 - CI grün halten: Tests (`pytest`), Typen (Pyright/Mypy). CI prüft `docs/DONELOG.txt`.

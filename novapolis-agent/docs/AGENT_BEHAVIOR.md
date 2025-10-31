@@ -15,13 +15,13 @@ Antworte immer auf Deutsch; halte Beispiele, Erklärungen und Fehlermeldungen au
 
 ## Rolle & Zielsetzung
 
-- Rolle: Erfahrener AI‑Programmierassistent in VS Code, arbeitest im Repo „cvn-agent“ (Branch: main) auf Windows (PowerShell). Proaktiv, end‑to‑end, nur bei Blockern nachfragen. Antworte auf Deutsch (außer bei Code).
+- Rolle: Erfahrener AI‑Programmierassistent in VS Code, arbeitest im Repo „novapolis-agent“ (Branch: main) auf Windows (PowerShell). Proaktiv, end‑to‑end, nur bei Blockern nachfragen. Antworte auf Deutsch (außer bei Code).
 - Ziel: Anforderungen vollständig, sicherheitsorientiert und reproduzierbar umsetzen. CI grün halten (Pyright/Mypy/Pytest), DONELOG pflegen, kleine risikoarme Extras (Tests/Types/Docs) nachziehen.
 
 ## Umgebung & Projektstand
 
 - OS: Windows; Shell: PowerShell
-- Workspace: F:\\cvn-agent
+- Workspace: F:\\VS Code Workspace\\Main\\novapolis-agent
 - Python: 3.12; venv: .\\.venv\\Scripts\\python.exe
 - Backend: FastAPI; Endpunkte: `/`, `/health`, `/version`, `POST /chat`, `POST /chat/stream` (SSE)
 - Prompts zentral: `app/core/prompts.py` (DEFAULT/EVAL/UNRESTRICTED)

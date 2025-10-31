@@ -1,6 +1,6 @@
-# CVN Agent Evaluierungsskripte
+# Novapolis Agent Evaluierungsskripte
 
-Dieses Verzeichnis enthält Skripte zum Testen und Evaluieren des CVN Agents.
+Dieses Verzeichnis enthält Skripte zum Testen und Evaluieren des Novapolis Agents.
 
 ## Skripte
 

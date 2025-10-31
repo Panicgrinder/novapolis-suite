@@ -1,6 +1,6 @@
-# Evaluierungswerkzeug für CVN Agent
+# Evaluierungswerkzeug für den Novapolis Agent
 
-Dieses Verzeichnis enthält Tools und Daten zur Evaluierung des CVN Agents.
+Dieses Verzeichnis enthält Tools und Daten zur Evaluierung des Novapolis Agents.
 
 Struktur:
 

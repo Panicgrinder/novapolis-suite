@@ -1,6 +1,6 @@
 """API-Package für die Anwendung."""
 
-from typing import List as _List, Any as _Any
+from typing import Any as _Any, List as _List
 
 from . import sim
 

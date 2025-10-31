@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "novapolis-agent"
+version = "0.1.0"
+description = "Novapolis Agent as standalone module"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["novapolis_agent*", "agents*"]

@@ -1,17 +1,9 @@
-"""
-Einfache, optionale In-Memory Sitzungsverwaltung.
+"""Einfache In-Memory Sitzungsverwaltung."""
 
-Zweck:
-- Nachrichtenkontext pro session_id puffern (klein, flüchtig)
-- Begrenzen nach Anzahl Nachrichten und Gesamtlänge
-
-Hinweis:
-- Nicht persistent; für Production ggf. Redis o.ä. nutzen.
-"""
 from __future__ import annotations
 
-from typing import Dict, List, Mapping
 from threading import RLock
+from typing import Dict, List, Mapping
 
 
 class SessionMemory:
@@ -30,27 +22,18 @@ class SessionMemory:
         max_messages: int,
         max_chars: int,
     ) -> List[Mapping[str, str]]:
-        """
-        Fügt Nachrichten an und trimmt nach Anzahl und Zeichen.
-        Gibt den aktuellen, getrimmten Verlauf zurück.
-        """
         with self._lock:
-            cur = self._by_id.get(session_id, [])
-            cur.extend(messages)
-            # Trim nach Anzahl
-            if max_messages > 0 and len(cur) > max_messages:
-                cur = cur[-max_messages:]
-            # Trim nach Zeichen
+            current = self._by_id.get(session_id, [])
+            current.extend(messages)
+            if max_messages > 0 and len(current) > max_messages:
+                current = current[-max_messages:]
             if max_chars > 0:
-                def total_chars(seq: List[Mapping[str, str]]) -> int:
-                    return sum(len(str(m.get("content", ""))) for m in seq)
-                while cur and total_chars(cur) > max_chars:
-                    cur.pop(0)
-            self._by_id[session_id] = cur
-            return list(cur)
+                while current and sum(len(str(m.get("content", ""))) for m in current) > max_chars:
+                    current.pop(0)
+            self._by_id[session_id] = current
+            return list(current)
 
 
-# Singleton-ähnliche, einfache Instanz
 session_memory = SessionMemory()
 
 __all__ = ["SessionMemory", "session_memory"]

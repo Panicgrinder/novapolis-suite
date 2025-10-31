@@ -2,6 +2,23 @@
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
  
+Agent-Runtime entkoppelt (2025-10-31)
+
+- `novapolis-rp/agents/cvn_agent/` vollständig entfernt; Root-README, RP-README und Ignore-Regeln auf das eigenständige `novapolis-agent`-Repository umgestellt.
+- Verweise auf das gebündelte Runtime-Paket bereinigt (`requirements.txt`, `.github/copilot-instructions.md`).
+- Obsoletes Patch `_cvn_agent_removal.patch` gelöscht; RP-Workspace enthält nur noch Daten/Docs.
+- Leeres Paketverzeichnis `novapolis-rp/agents/` entfernt; keine Agent-Stubs mehr im RP-Repo.
+
+Workspace-Status Snapshot (2025-10-31)
+
+- Gesamtübersicht `WORKSPACE_STATUS.md` auf Root-Ebene angelegt (Stand 2025-10-31) inkl. Health-Checks, Risiken, Empfehlungen.
+- Vollständigen Verzeichnisbaum via `tree /A /F` erzeugt und als `workspace_tree.txt` im Root abgelegt.
+- Root-`TODO.md` um Verweis auf Statusbericht ergänzt (Pflegezyklus vermerkt).
+- Redundante Snapshot-Datei `workspace_tree_full.txt` als Backup abgelegt; zusätzlich kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt` erzeugt.
+- README-Hinweise für `.tmp-datasets/` und `.tmp-results/` ergänzt, Zweck der temporären Artefakte dokumentiert.
+- Archivierungsplan in `TODO.md` konkretisiert (ZIP-Rotation, Manifest/Script-Aufgaben); Status-Doku verweist jetzt auf koordinierte Snapshot-Aktualisierung.
+- Redundanten Snapshot `workspace_tree_compact.txt` entfernt, da `workspace_tree_dirs.txt` die kompakte Ansicht abdeckt.
+
 Relocation Follow-up (2025-10-31)
 
 - Datenpools `database-curated`, `database-raw`, `database-rp` wieder unter `novapolis-rp/` verankert; Dev Hub verweist nur noch auf diese Quelle (`README.md`, `docs/todo.md`).

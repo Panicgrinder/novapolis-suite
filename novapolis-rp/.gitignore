@@ -32,19 +32,6 @@ desktop.ini
 /novapolis-rp/.coverage.*
 /novapolis-rp/.cache/
 
-# CVN Agent runtime (bundled inside novapolis-rp)
-/novapolis-rp/agents/cvn_agent/.coverage
-/novapolis-rp/agents/cvn_agent/.coverage.*
-/novapolis-rp/agents/cvn_agent/.pytest_cache/
-/novapolis-rp/agents/cvn_agent/.mypy_cache/
-/novapolis-rp/agents/cvn_agent/__pycache__/
-/novapolis-rp/agents/cvn_agent/outputs/
-/novapolis-rp/agents/cvn_agent/data/
-/novapolis-rp/agents/cvn_agent/tmp/
-/novapolis-rp/agents/cvn_agent/.tmp*/
-/novapolis-rp/agents/cvn_agent/*.log
-/novapolis-rp/agents/cvn_agent/.env
-
 # Generic logs / temp files
 *.log
 *.bak

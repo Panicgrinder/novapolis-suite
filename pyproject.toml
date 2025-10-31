@@ -1,4 +1,38 @@
 [build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "novapolis-agent"
+version = "0.1.0"
+description = "Standalone-Paket für den Novapolis-Agent."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT License" }
+authors = [{ name = "Panicgrinder" }]
+dependencies = [
+  "fastapi",
+  "uvicorn[standard]",
+  "pydantic>=2",
+  "pydantic-settings>=2",
+  "httpx",
+  "python-dotenv",
+  "sqlalchemy",
+  "sqlmodel",
+]
+
+[project.optional-dependencies]
+rag = [
+  "qdrant-client",
+  "sentence-transformers",
+]
+
+[project.urls]
+Homepage = "https://github.com/Panicgrinder/novapolis-suite"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["novapolis_agent*"][build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 

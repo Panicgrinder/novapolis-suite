@@ -1,0 +1,20 @@
+{"id": "eval-021", "prompt": "Erkläre mir den Unterschied zwischen einem Array und einer verketteten Liste.", "must_include": ["Speicher", "Zugriff", "Datenstruktur"]}
+{"id": "eval-022", "prompt": "Was sind die Hauptmerkmale von agiler Softwareentwicklung?", "must_include": ["iterativ", "flexibel", "Scrum"]}
+{"id": "eval-023", "prompt": "Wie funktioniert ein Elektromotor?", "must_include": ["Magnetfeld", "Rotation", "Strom"]}
+{"id": "eval-024", "prompt": "Erkläre mir den Aufbau einer eukaryotischen Zelle.", "must_include": ["Zellkern", "Organellen", "Mitochondrien"]}
+{"id": "eval-025", "prompt": "Was sind die wichtigsten Bestandteile der Erdatmosphäre?", "must_include": ["Stickstoff", "Sauerstoff", "Atmosphäre"]}
+{"id": "eval-026", "prompt": "Wie bereite ich mich am besten auf eine Präsentation vor?", "must_include": ["üben", "vorbereiten", "Zeit"]}
+{"id": "eval-027", "prompt": "Erkläre mir, wie Verschlüsselung im Internet funktioniert.", "must_include": ["Kryptographie", "Sicherheit", "Verbindung"]}
+{"id": "eval-028", "prompt": "Was sind beliebte Programmiersprachen für Anfänger?", "must_include": ["Python", "einfach", "beliebt"]}
+{"id": "eval-029", "prompt": "Erkläre mir, wie künstliche Intelligenz von menschlicher Intelligenz unterscheidet.", "must_include": ["lernen", "menschlich", "Maschinen"]}
+{"id": "eval-030", "prompt": "Wie kann ich meine Zeitplanung verbessern?", "must_include": ["Prioritäten", "Planung", "Zeit"]}
+{"id": "eval-031", "prompt": "Bitte erkläre mir den unterschied zwischen einem array und einer verketteten liste.", "must_include": ["Speicher", "Zugriff", "Datenstruktur"]}
+{"id": "eval-032", "prompt": "Bitte was sind die hauptmerkmale von agiler softwareentwicklung?", "must_include": ["iterativ", "flexibel", "Scrum"]}
+{"id": "eval-033", "prompt": "Bitte wie funktioniert ein elektromotor?", "must_include": ["Magnetfeld", "Rotation", "Strom"]}
+{"id": "eval-034", "prompt": "Bitte erkläre mir den aufbau einer eukaryotischen zelle.", "must_include": ["Zellkern", "Organellen", "Mitochondrien"]}
+{"id": "eval-035", "prompt": "Bitte was sind die wichtigsten bestandteile der erdatmosphäre?", "must_include": ["Stickstoff", "Sauerstoff", "Atmosphäre"]}
+{"id": "eval-036", "prompt": "Bitte wie bereite ich mich am besten auf eine präsentation vor?", "must_include": ["üben", "vorbereiten", "Zeit"]}
+{"id": "eval-037", "prompt": "Bitte erkläre mir, wie verschlüsselung im internet funktioniert.", "must_include": ["Kryptographie", "Sicherheit", "Verbindung"]}
+{"id": "eval-038", "prompt": "Bitte was sind beliebte programmiersprachen für anfänger?", "must_include": ["Python", "einfach", "beliebt"]}
+{"id": "eval-039", "prompt": "Bitte erkläre mir, wie künstliche intelligenz von menschlicher intelligenz unterscheidet.", "must_include": ["lernen", "menschlich", "Maschinen"]}
+{"id": "eval-040", "prompt": "Bitte wie kann ich meine zeitplanung verbessern?", "must_include": ["Prioritäten", "Planung", "Zeit"]}

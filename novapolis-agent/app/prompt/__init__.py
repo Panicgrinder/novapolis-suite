@@ -1,6 +1,4 @@
-"""
-Prompt-Vorlagen für die Anwendung.
-"""
+"""Prompt-Vorlagen für die Anwendung."""
 
 from typing import List
 

@@ -1,3 +1,1 @@
-"""
-Dieses Modul enthält Hilfsfunktionen für die Anwendung.
-"""
+"""Hilfsfunktionen für die Anwendung."""

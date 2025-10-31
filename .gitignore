@@ -1,4 +1,13 @@
-# Novapolis consolidated .gitignore
+__pycache__/
+.pytest_cache/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+.env
+.coverage
+coverage.xml# Novapolis consolidated .gitignore
 
 # OS / Editor cruft
 .DS_Store

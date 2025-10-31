@@ -1,18 +1,18 @@
-# Anpassung des CVN Agents
+# Anpassung des Novapolis Agents
 
-Diese Anleitung erklärt, wie Sie den CVN Agent ohne die üblichen Einschränkungen
+Diese Anleitung erklärt, wie Sie den Novapolis Agent ohne die üblichen Einschränkungen
 von KI-Assistenten verwenden können. Sie haben volle Kontrolle über den Inhalt und
 die Regeln, die in Ihrer privaten Installation des Agents gelten.
 
 ## Übersicht
 
-Der CVN Agent wurde so konzipiert, dass Sie ihn vollständig an Ihre Bedürfnisse anpassen können.
+Der Novapolis Agent wurde so konzipiert, dass Sie ihn vollständig an Ihre Bedürfnisse anpassen können.
 Als privater Benutzer haben Sie die Möglichkeit, Einschränkungen zu entfernen und den
 Agent genau so zu konfigurieren, wie Sie es für Ihre Zwecke benötigen.
 
 ## Verfügbare Modi
 
-Der CVN Agent unterstützt drei verschiedene Modi:
+Der Novapolis Agent unterstützt drei verschiedene Modi:
 
 1. **Standard-Modus**: Rollenspiel als Chronistin von Novapolis mit allgemeinen Inhalten
 2. **Evaluierungs-Modus**: Sachliche Antworten ohne Rollenspiel (für Tests)
@@ -20,7 +20,7 @@ Der CVN Agent unterstützt drei verschiedene Modi:
 
 ## Anpassung des uneingeschränkten Modus
 
-Um den CVN Agent ohne Einschränkungen zu verwenden, können Sie:
+Um den Novapolis Agent ohne Einschränkungen zu verwenden, können Sie:
 
 1. Den uneingeschränkten Prompt anpassen:
 
@@ -47,7 +47,7 @@ Um den CVN Agent ohne Einschränkungen zu verwenden, können Sie:
 
 ## Datenschutz und Verantwortung
 
-Da der CVN Agent auf Ihrem lokalen System läuft und Ollama als Backend verwendet,
+Da der Novapolis Agent auf Ihrem lokalen System läuft und Ollama als Backend verwendet,
 bleiben alle Ihre Anfragen und Anpassungen privat. Sie allein sind für die Art der
 Inhalte verantwortlich, die Sie generieren.
 

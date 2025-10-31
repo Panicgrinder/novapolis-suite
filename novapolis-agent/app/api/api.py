@@ -1,6 +1,7 @@
 """
 API-Router für die Anwendung
 """
+
 from fastapi import APIRouter
 
 # Hinweis: Endpunkte werden derzeit in app.main direkt registriert.

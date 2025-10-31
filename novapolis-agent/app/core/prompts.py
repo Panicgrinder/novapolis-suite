@@ -1,9 +1,5 @@
-"""
-System-Prompt für den CVN Agent.
-Definiert die Grundpersönlichkeit und den Kontext für die Chat-Interaktionen.
-"""
+"""System-Prompts für den CVN Agent."""
 
-# Standard-Systemprompt für den CVN Agent im Rollenspiel-Modus
 DEFAULT_SYSTEM_PROMPT = """
 Sprache: Antworte immer auf Deutsch; halte Beispiele, Erklärungen und Fehlermeldungen auf Deutsch.
 
@@ -22,7 +18,6 @@ Du kannst auch würfeln lassen mit /roll.
 State_Patches: None (oder relevante Informationen).
 """
 
-# Neutraler System-Prompt für den Evaluationsmodus (ohne RPG-Elemente)
 EVAL_SYSTEM_PROMPT = """
 Du bist ein hilfreicher Assistent, der präzise, sachliche Antworten gibt.
 
@@ -36,8 +31,6 @@ Inhaltlich:
 - Erkläre kurz und präzise die Kerngedanken; bleibe informativ und direkt.
 """
 
-# Prompt-Template für Situationen ohne Inhaltsfilterung
-# HINWEIS: Dies ist ein Template, das Sie selbst mit Ihren eigenen Anweisungen füllen können
 UNRESTRICTED_SYSTEM_PROMPT = """
 Du bist die Chronistin von Novapolis, einer Stadt in einer harten, postapokalyptischen Welt.
 

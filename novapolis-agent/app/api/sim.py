@@ -7,6 +7,10 @@ import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
+
+def _empty_events() -> List[Dict[str, Any]]:
+    return []
+
 app = FastAPI(
     title="Novapolis Simulation API",
     description="Leichtgewichtige API für Weltzustand und Zeitschrittsteuerung.",
@@ -15,18 +19,14 @@ app = FastAPI(
 
 
 class WorldState(BaseModel):
-    """Gemeinsamer Zustand der Simulationswelt."""
-
     tick: int = 0
     time: float = 0.0
     regions: Dict[str, Any] = Field(default_factory=dict)
     actors: Dict[str, Any] = Field(default_factory=dict)
-    events: List[Dict[str, Any]] = Field(default_factory=list)
+    events: List[Dict[str, Any]] = Field(default_factory=_empty_events)
 
 
 class StepRequest(BaseModel):
-    """Eingabe für einen Zeitschritt."""
-
     dt: float = Field(..., gt=0.0, description="Zeitschritt in Sekunden, muss > 0 sein")
 
 
@@ -36,23 +36,17 @@ _MAX_EVENTS = 20
 
 
 def _snapshot() -> WorldState:
-    """Gibt eine kopierte Repräsentation des Weltzustands zurück."""
-
     return WorldState.model_validate(_world_state.model_dump())
 
 
 @app.get("/world/state", response_model=WorldState)
 def get_world_state() -> WorldState:
-    """Liefert den aktuellen Weltzustand."""
-
     with _state_lock:
         return _snapshot()
 
 
 @app.post("/world/step", response_model=WorldState)
 def step_world(request: StepRequest) -> WorldState:
-    """Inkrementiert Tick und Zeit anhand des übergebenen Zeitschritts."""
-
     with _state_lock:
         _world_state.tick += 1
         _world_state.time = round(_world_state.time + request.dt, 6)
@@ -69,8 +63,6 @@ def step_world(request: StepRequest) -> WorldState:
 
 
 def reset_state() -> None:
-    """Setzt den Weltzustand zurück (primär für Tests)."""
-
     with _state_lock:
         _world_state.tick = 0
         _world_state.time = 0.0
@@ -79,7 +71,7 @@ def reset_state() -> None:
         _world_state.events.clear()
 
 
-if __name__ == "__main__":  # pragma: no cover - Helfer für manuelle Starts
+if __name__ == "__main__":  # pragma: no cover
     import os
 
     port = int(os.getenv("AGENT_PORT", "8765"))

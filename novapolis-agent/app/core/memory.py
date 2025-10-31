@@ -5,7 +5,7 @@ import json
 from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Deque, Dict, Iterable, List, Mapping, Optional
+from typing import Deque, Dict, List, Mapping, Optional
 
 from .settings import settings
 
@@ -20,13 +20,13 @@ class _Turn:
 
 
 class MemoryStore:
-    async def append(self, session_id: str, role: str, content: str) -> None:  # pragma: no cover - interface
+    async def append(self, session_id: str, role: str, content: str) -> None:
         raise NotImplementedError
 
-    async def get_window(self, session_id: str, max_chars: int, max_turns: int) -> List[Dict[str, str]]:  # pragma: no cover - interface
+    async def get_window(self, session_id: str, max_chars: int, max_turns: int) -> List[Dict[str, str]]:
         raise NotImplementedError
 
-    async def clear(self, session_id: str) -> None:  # pragma: no cover - interface
+    async def clear(self, session_id: str) -> None:
         raise NotImplementedError
 
 
@@ -35,20 +35,6 @@ class InMemoryStore(MemoryStore):
         self._by_id: Dict[str, Deque[_Turn]] = {}
         self._locks: Dict[str, asyncio.Lock] = {}
         self._global_lock = asyncio.Lock()
-
-    def _get_lock(self, session_id: str) -> asyncio.Lock:
-        # Double-checked pattern with a global lock to create per-session locks
-        if session_id in self._locks:
-            return self._locks[session_id]
-        # Slow path
-        async def _ensure() -> asyncio.Lock:
-            async with self._global_lock:
-                if session_id not in self._locks:
-                    self._locks[session_id] = asyncio.Lock()
-                return self._locks[session_id]
-        # We cannot await here; ensure upfront caller uses _ensure_lock
-        # Fallback: return a global lock for early use (rare)
-        return self._global_lock
 
     async def _ensure_lock(self, session_id: str) -> asyncio.Lock:
         async with self._global_lock:
@@ -61,42 +47,31 @@ class InMemoryStore(MemoryStore):
     async def append(self, session_id: str, role: str, content: str) -> None:
         lock = await self._ensure_lock(session_id)
         async with lock:
-            existing = self._by_id.get(session_id)
-            if existing is None:
-                q: Deque[_Turn] = deque()
-                self._by_id[session_id] = q
-            else:
-                q = existing
-            q.append(_Turn(role=role, content=content))
-            # Trim to max turns (hard cap)
+            queue: Optional[Deque[_Turn]] = self._by_id.get(session_id)
+            if queue is None:
+                queue = deque[_Turn]()
+                self._by_id[session_id] = queue
+            queue.append(_Turn(role=role, content=content))
             max_turns = max(0, int(getattr(settings, "MEMORY_MAX_TURNS", 20)))
             if max_turns > 0:
-                while len(q) > max_turns:
-                    q.popleft()
-            # Trim by chars (soft cap): drop from left until under budget
+                while len(queue) > max_turns:
+                    queue.popleft()
             max_chars = max(0, int(getattr(settings, "MEMORY_MAX_CHARS", 8000)))
             if max_chars > 0:
-                def _sum_chars(it: Iterable[_Turn]) -> int:
-                    return sum(len(t.content) for t in it)
-                while q and _sum_chars(q) > max_chars:
-                    q.popleft()
+                while queue and sum(len(turn.content) for turn in queue) > max_chars:
+                    queue.popleft()
 
     async def get_window(self, session_id: str, max_chars: int, max_turns: int) -> List[Dict[str, str]]:
         lock = await self._ensure_lock(session_id)
         async with lock:
-            q: Optional[Deque[_Turn]] = self._by_id.get(session_id)
-            if not q:
+            queue: Optional[Deque[_Turn]] = self._by_id.get(session_id)
+            if not queue:
                 return []
-            # Work on a copy to compute window
-            items: List[_Turn] = list(q)
-        # Compute window outside lock
+            items: List[_Turn] = list(queue)
         items = items[-max_turns:] if max_turns > 0 else items
-        # Trim from left by chars
-        def _sum_chars_list(lst: List[_Turn]) -> int:
-            return sum(len(t.content) for t in lst)
-        while items and max_chars > 0 and _sum_chars_list(items) > max_chars:
+        while items and max_chars > 0 and sum(len(t.content) for t in items) > max_chars:
             items.pop(0)
-        return [t.to_message() for t in items]
+        return [turn.to_message() for turn in items]
 
     async def clear(self, session_id: str) -> None:
         lock = await self._ensure_lock(session_id)
@@ -126,25 +101,22 @@ class JsonlStore(MemoryStore):
     async def append(self, session_id: str, role: str, content: str) -> None:
         lock = await self._ensure_lock(session_id)
         async with lock:
-            p = self._path(session_id)
+            path = self._path(session_id)
             line = json.dumps({"role": role, "content": content}, ensure_ascii=False)
-            with p.open("a", encoding="utf-8") as f:
-                f.write(line + "\n")
+            with path.open("a", encoding="utf-8") as handle:
+                handle.write(line + "\n")
 
     async def get_window(self, session_id: str, max_chars: int, max_turns: int) -> List[Dict[str, str]]:
         lock = await self._ensure_lock(session_id)
         async with lock:
-            p = self._path(session_id)
-            if not p.exists():
+            path = self._path(session_id)
+            if not path.exists():
                 return []
-            # Read last N lines efficiently
-            # Simple approach: read all and slice (sufficient for small budgets); can optimize later.
             try:
-                with p.open("r", encoding="utf-8") as f:
-                    lines = f.readlines()
+                with path.open("r", encoding="utf-8") as handle:
+                    lines = handle.readlines()
             except Exception:
                 return []
-        # Outside lock: compute window
         turns: List[_Turn] = []
         for line in lines[-max_turns:]:
             try:
@@ -154,20 +126,17 @@ class JsonlStore(MemoryStore):
                 turns.append(_Turn(role=role, content=content))
             except Exception:
                 continue
-        # Trim by chars
-        def _sum_chars_list(lst: List[_Turn]) -> int:
-            return sum(len(t.content) for t in lst)
-        while turns and max_chars > 0 and _sum_chars_list(turns) > max_chars:
+        while turns and max_chars > 0 and sum(len(t.content) for t in turns) > max_chars:
             turns.pop(0)
-        return [t.to_message() for t in turns]
+        return [turn.to_message() for turn in turns]
 
     async def clear(self, session_id: str) -> None:
         lock = await self._ensure_lock(session_id)
         async with lock:
-            p = self._path(session_id)
+            path = self._path(session_id)
             try:
-                if p.exists():
-                    p.unlink()
+                if path.exists():
+                    path.unlink()
             except Exception:
                 pass
 
@@ -201,27 +170,19 @@ async def compose_with_memory(
     max_chars: Optional[int] = None,
     max_turns: Optional[int] = None,
 ) -> List[Dict[str, str]]:
-    """
-    Lädt ein Fenster aus der Memory und komponiert es vor die neuen Nachrichten.
-    Budgetiert anschließend von links anhand der Zeichenzahl.
-    """
     if not session_id or not getattr(settings, "MEMORY_ENABLED", True):
-        return [dict(m) for m in messages]
+        return [dict(message) for message in messages]
     try:
         store = get_memory_store()
         mc = max_chars if isinstance(max_chars, int) else int(getattr(settings, "MEMORY_MAX_CHARS", 8000))
         mt = max_turns if isinstance(max_turns, int) else int(getattr(settings, "MEMORY_MAX_TURNS", 20))
         window = await store.get_window(session_id, max_chars=mc, max_turns=mt)
-        composed: List[Dict[str, str]] = list(window) + [dict(m) for m in messages]
-        # Truncation by chars, left side first
-        def sum_chars(msgs: List[Mapping[str, str]]) -> int:
-            return sum(len(str(m.get("content", ""))) for m in msgs)
-        from typing import cast as _cast, Mapping as _Mapping
-        while composed and mc > 0 and sum_chars(_cast(List[_Mapping[str, str]], composed)) > mc:
+        composed: List[Dict[str, str]] = list(window) + [dict(message) for message in messages]
+        while composed and mc > 0 and sum(len(str(m.get("content", ""))) for m in composed) > mc:
             composed.pop(0)
         return composed
     except Exception:
-        return [dict(m) for m in messages]
+        return [dict(message) for message in messages]
 
 
 __all__ = [
