@@ -13,7 +13,7 @@
 - Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen im jeweiligen DONELOG (`novapolis-agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
 - Prägnanter Output: skimmbar, kurze Sätze/Bullets, keine überladenen Blockzitate; bei großen Aufgaben Plan als Liste führen.
 - Sicherheit & Privacy: Keine Secrets, offline bevorzugen, keine harten Pfade zu externen Repositories übernehmen.
-- Root-Statusdateien `WORKSPACE_STATUS.md` und `workspace_tree.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
+- Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
 
 ## Repositoryweiter Rahmen
 - Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.
