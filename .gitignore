@@ -15,7 +15,6 @@ desktop.ini
 
 # Workspace folders that stay untracked here
 /Backups/
-/novapolis-rp/
 
 # General cache / build artifacts across subprojects
 **/__pycache__/
@@ -24,6 +23,7 @@ desktop.ini
 **/.ruff_cache/
 **/.coverage
 **/.coverage.*
+**/.env
 
 # Root VS Code settings (project-specific ones are tracked per subfolder)
 /.vscode/*

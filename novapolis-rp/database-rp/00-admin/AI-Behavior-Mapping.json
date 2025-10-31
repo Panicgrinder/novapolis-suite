@@ -1,0 +1,10 @@
+{
+  "title": "AI Behavior Mapping (leichtgewichtig)",
+  "category": "admin",
+  "slug": "ai-behavior-mapping",
+  "version": "0.1",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/00-admin/AI-Behavior-Mapping.md"
+}

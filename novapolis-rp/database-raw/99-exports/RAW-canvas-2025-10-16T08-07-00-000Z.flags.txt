@@ -1,0 +1,4 @@
+FLAG: vorsichtig_behandeln
+NOTE: Namens-/ID-Drift erkannt. System-ID "novapolis_logistik_v1" weicht von Schema ab (erwartet: logistik_novapolis_v1/v2). Händlerkontakt "Senn Daru" ist im Kanon/Repo nicht belegt; gegen Händlergilde-Daten (Marven Kael/Arlen Dross, [CARAVAN-LEADERSHIP]) validieren und ggf. normalisieren.
+SOURCE_FILE: RAW-canvas-2025-10-16T08-07-00-000Z.txt
+SCOPE: relations_log (Novapolis) — Partner-Identitäten, Link-Graph, interne Begriffe prüfen/angleichen.

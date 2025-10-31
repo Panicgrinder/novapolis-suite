@@ -1,0 +1,4 @@
+FLAG: vorsichtig_behandeln
+NOTE: Cross-link mismatch: Systemverknüpfungen include logistik_novapolis_v1 while this canvas is v2. Align to v2 set or document rationale before promotion.
+SOURCE_FILE: RAW-canvas-2025-10-16T12-30-00-000Z.txt
+SCOPE: inventory (C6) — verify counts vs logistics and link graph.

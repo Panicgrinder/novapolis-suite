@@ -1,0 +1,59 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate-linux:
+    name: Linux / Node 20
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: coding/tools/validators/package-lock.json
+
+      - name: Install validator deps
+        run: npm ci --prefix coding/tools/validators
+
+      - name: Validate curated + rp data
+        run: npm --prefix coding/tools/validators run validate
+
+      - name: Check naming (database-rp)
+        run: npm --prefix coding/tools/validators run check:names
+
+      - name: Markdown lint
+        run: npx --yes markdownlint-cli2 "**/*.md"
+
+  validate-windows:
+    name: Windows / PS1 wrappers
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run validators (PS1 wrapper)
+        shell: pwsh
+        run: |
+          powershell -NoProfile -ExecutionPolicy Bypass -File "coding/tools/validators/run_validate_all.ps1"
+
+      - name: Run name-lint (PS1 wrapper)
+        shell: pwsh
+        run: |
+          powershell -NoProfile -ExecutionPolicy Bypass -File "coding/tools/validators/run_check_names.ps1"
+
+      - name: Run markdown-lint (PS1 wrapper)
+        shell: pwsh
+        run: |
+          powershell -NoProfile -ExecutionPolicy Bypass -File "coding/tools/validators/run_lint_markdown.ps1"

@@ -1,0 +1,10 @@
+{
+  "title": "Echo",
+  "category": "character",
+  "slug": "echo",
+  "version": "0.9",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/02-characters/Echo.md"
+}

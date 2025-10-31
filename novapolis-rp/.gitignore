@@ -1,0 +1,52 @@
+# Novapolis consolidated .gitignore
+
+# OS / Editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Root-level virtual env & tooling caches
+/.venv/
+/.ruff_cache/
+/.mypy_cache/
+/.pytest_cache/
+/.cache/
+/.hypothesis/
+
+# Workspace folders that stay untracked here
+/Backups/
+/novapolis-dev/
+/novapolis-agent/
+/novapolis-sim/
+
+# Root VS Code settings (project-specific ones are tracked per subfolder)
+/.vscode/*
+!/.vscode/settings.json
+/.history/
+
+# Novapolis-RP caches and temporary artifacts
+/novapolis-rp/.pytest_cache/
+/novapolis-rp/.mypy_cache/
+/novapolis-rp/.ruff_cache/
+/novapolis-rp/.coverage
+/novapolis-rp/.coverage.*
+/novapolis-rp/.cache/
+
+# CVN Agent runtime (bundled inside novapolis-rp)
+/novapolis-rp/agents/cvn_agent/.coverage
+/novapolis-rp/agents/cvn_agent/.coverage.*
+/novapolis-rp/agents/cvn_agent/.pytest_cache/
+/novapolis-rp/agents/cvn_agent/.mypy_cache/
+/novapolis-rp/agents/cvn_agent/__pycache__/
+/novapolis-rp/agents/cvn_agent/outputs/
+/novapolis-rp/agents/cvn_agent/data/
+/novapolis-rp/agents/cvn_agent/tmp/
+/novapolis-rp/agents/cvn_agent/.tmp*/
+/novapolis-rp/agents/cvn_agent/*.log
+/novapolis-rp/agents/cvn_agent/.env
+
+# Generic logs / temp files
+*.log
+*.bak
+*.tmp
+~$*

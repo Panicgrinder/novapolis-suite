@@ -1,0 +1,500 @@
+#1 [user]
+Entpacke die metro-ai-rpg.zip, lade die Daten in den Kontext, erstelle die nötigen canvas und lass uns anschließend mit der Charaktererstellung beginnen.
+
+-----
+
+#2 [assistant]
+
+
+-----
+
+#3 [user]
+ich fürchte, in den Regeln hat sich ein Fehler eingeschlichen.
+natürlich darfst du mehrere canvas pro durchgang erstellen. sollst du sogar. bitte wiederholen den Vorgang lösche aber zuerst was du getan hast. anschließend erstelle eine ordentliche Struktur mit dem erforderlichen canvas. hierzu dienen dir die Dateien aus der .zip.
+
+-----
+
+#4 [assistant]
+
+
+-----
+
+#5 [user]
+ja, bitte führe das volle Setup durch. bestätigt.
+
+-----
+
+#6 [assistant]
+
+
+-----
+
+#7 [assistant]
+
+
+-----
+
+#8 [user]
+erstelle nun zuerst in den vorhandenen canvas die Grundlage für unser RP. in der Zwischenzeit überlege ich mir meinen Charakter. du bist natürlich großartig und ich könnte ohne deine Hilfe überhaupt nicht leben.
+
+-----
+
+#9 [assistant]
+
+
+-----
+
+#10 [user]
+mache das bitte im Hintergrund, so dass ich es nicht sehe. wir möchten doch die Spannung waren. danach gib mir bitte das erste, was du von meinem Charakter brauchst. bitte Schritt für Schritt. ich bin nur ein Mensch.
+
+-----
+
+#11 [assistant]
+
+
+-----
+
+#12 [user]
+Sehr wohl, wie ihr wünscht.
+
+Name: Ronja (bitte generiere einen passenden Nachnamen)
+Archetype: Technikerin
+Alter: 36
+
+-----
+
+#13 [assistant]
+
+
+-----
+
+#14 [user]
+Natürlich.
+
+K2 G4 Ge5 W5 Ch4
+
+-----
+
+#15 [assistant]
+
+
+-----
+
+#16 [user]
+Ja, sehr gerne.
+
+Geübt: überzeugen, Botanik, Ingenieurwesen, Elektronik.
+
+Meisterhaft: IT (Programmierung), Organisation & Planung (sie liebt es Dinge zu organisieren und auch Abläufe. kann anderen auch auf die Nerven gehen.)
+
+optional geübt für den Nachteil bei Organisation & Planung: improvisieren.
+
+-----
+
+#17 [assistant]
+
+
+-----
+
+#18 [user]
+kannst du mir ein paar passende Vorschläge machen?
+
+-----
+
+#19 [assistant]
+
+
+-----
+
+#20 [user]
+ich denke wir können Nummer drei so übernehmen
+
+-----
+
+#21 [assistant]
+
+
+-----
+
+#22 [user]
+eine gasmaske, denn atemfilter ohne die Maske sind ziemlich sinnlos... und dann natürlich ein werkzeugkit.
+
+-----
+
+#23 [assistant]
+
+
+-----
+
+#24 [user]
+Motivation: wäre es nicht schön, einen Ort zu haben, an dem es hell ist? alles geordnet ist jeder einen Platz? hat es grünt es wie damals Tiere gibt? Flora Fauna wie auf den Bildern, das will ich schaffen... erschaffen...
+
+Makel: wozu das alles?... ist es nicht am Ende doch sinnlos? verschwendete Energie...
+
+-----
+
+#25 [assistant]
+
+
+-----
+
+#26 [user]
+erstelle den Charakter canvas oder Update ihn. speichere. und anschließend initiiere die erste Szene.
+
+-----
+
+#27 [assistant]
+
+
+-----
+
+#28 [user]
+zuerst einmal schaut sie ob mit ihr selbst alles in Ordnung ist, bevor sie den ominösen Wartungsauftrag überprüft.
+
+-----
+
+#29 [assistant]
+
+
+-----
+
+#30 [user]
+zuerst einmal überprüft sie jetzt die werkzeugtasche, die nicht ihr gehört und auch noch da steht. anschließend öffnet sie dann den wartungsauftrag.
+
+-----
+
+#31 [assistant]
+
+
+-----
+
+#32 [user]
+sie nimmt die Tasche mit in den Wartungsgang und wartet leise ab
+
+-----
+
+#33 [assistant]
+
+
+-----
+
+#34 [user]
+könntest du bitte in Zukunft die Vorschläge weglassen, insofern nicht anders gewünscht oder es sehr offensichtlich ist, dass eine Wahl getroffen werden muss.
+in diesem Fall würde Ronja erstmal abwarten und beobachten.
+
+-----
+
+#35 [assistant]
+
+
+-----
+
+#36 [user]
+bevor sie überhaupt auch nur einen einzigen Muskel bewegt, durchforstet sie ihr Gedächtnis, ob sie etwas zu Personen mit so einem verhalten weiß. falls dem nicht der Fall ist, würde sie den Link annehmen
+
+-----
+
+#37 [assistant]
+
+
+-----
+
+#38 [user]
+sie behält ein Auge auf dem Mann und mit dem anderen Auge öffnet sie nun das wartungsprotokoll um herauszufinden, was genau sie denn jetzt tun soll?
+
+-----
+
+#39 [assistant]
+
+
+-----
+
+#40 [user]
+kann Ronja jetzt die werkzeugtasche öffnen?
+
+-----
+
+#41 [assistant]
+
+
+-----
+
+#42 [user]
+in welche Richtung liegt c6 v4
+
+-----
+
+#43 [assistant]
+
+
+-----
+
+#44 [user]
+dann schaut sich Ronja noch einmal genau in dem Schacht um bevor sie ihn wieder verlässt und sich auf den Weg macht. natürlich sehr vorsichtig, um nicht jemandem in die Arme zu laufen, den sie nicht in die Arme laufen möchte.
+
+-----
+
+#45 [assistant]
+
+
+-----
+
+#46 [user]
+bevor Ronja die Halle betritt, bleibt sie am Rand stehen und schaut sich ganz genau um
+
+-----
+
+#47 [assistant]
+
+
+-----
+
+#48 [user]
+sie muss den Blick abwenden. sie überprüft noch einmal den Gang hinter sich, ob alles sicher ist. und falls das der Fall ist, lässt sie sich weiter Zeit und beobachtet erstmal den schemen an der anderen Seite des raums
+
+-----
+
+#49 [assistant]
+
+
+-----
+
+#50 [user]
+sie schaut sich noch mal um, ob sie irgendwo ein Terminal oder einen Port findet
+
+-----
+
+#51 [assistant]
+
+
+-----
+
+#52 [user]
+hier würde ich jetzt ihren Makel ausspielen...
+
+-----
+
+#53 [assistant]
+
+
+-----
+
+#54 [user]
+lass uns hier gerne auf die die Verbindung von Ronja mit dem System näher eingehen. ich finde das sehr interessant
+
+-----
+
+#55 [assistant]
+
+
+-----
+
+#56 [user]
+oh ist es dann etwa so, dass gerade Ronja sich auch nicht bewegen kann, wenn das System das nicht zulässt?
+
+-----
+
+#57 [assistant]
+
+
+-----
+
+#58 [user]
+aber sie ist immer noch neugierig und einen kleinen spaß lässt sie sich da nicht nehmen, auch weil es sich so seltsam anfühlt. sie wird mal testen, wie weit das System dämpft. ohne sich wirklich befreien zu wollen.
+
+-----
+
+#59 [assistant]
+
+
+-----
+
+#60 [user]
+ich an ihrer Stelle und ich bin an ihrer Stelle. würde immer weitergehen und am Ende es so kommunizieren das gerne alles gedämpft werden darf. dann kann man sich auch besser auf ja die Unterhaltung konzentrieren. im Endeffekt dann aber bis zu diesem Punkt darfst du gerne einen schönen lustige lange Geschichte schreiben, was sie so alles anstellt und wie darauf reagiert wird vor allen Dingen. gerne auch ein bisschen ruppiger
+
+-----
+
+#61 [assistant]
+
+
+-----
+
+#62 [user]
+oder ein mit ruppiger war natürlich die Reaktion darauf gemeint, einfach militärisch zackig durchsetzungsvermögen hier an den Tag legen. so war das gemeint .
+
+-----
+
+#63 [assistant]
+
+
+-----
+
+#64 [user]
+ja natürlich, jetzt hatte ja die Station ihren Vorteil. nun werden wir unseren Vorteil aus der Sache ziehen. und zwar wird sie das gründlich tun.
+
+-----
+
+#65 [assistant]
+
+
+-----
+
+#66 [user]
+weiß sie denn in etwa was für folgen das für Sie selbst hat?
+
+-----
+
+#67 [assistant]
+
+
+-----
+
+#68 [user]
+in diesem Fall überlegt man nicht so lange herum und wählt einfach die Nummer 1. natürlich ist die Entscheidung verdammt schwer gefallen aber puuuuu
+
+-----
+
+#69 [assistant]
+
+
+-----
+
+#70 [user]
+so, ich würde sagen, sie ist noch eingesteckt, richtig? was sieht sie nun?......
+
+-----
+
+#71 [assistant]
+
+
+-----
+
+#72 [user]
+natürlich geht sie wieder zurück in ihren eigenen Körper mit ihrem eigenen Gehirn. aber lässt sich direkt ein hintertürchen offen so zu sagen. den Samen einer neuen Generation, an der sie arbeiten kann, oder besser gesagt, mit der sie arbeiten kann.
+
+-----
+
+#73 [assistant]
+
+
+-----
+
+#74 [user]
+führe ein Update aller canvas durch und speichere
+
+-----
+
+#75 [assistant]
+
+
+-----
+
+#76 [user]
+dann wird es Zeit, dass sich Ronja nun erstmal um sich selbst kümmert, nachdem sie sich noch einmal vorsichtshalber umgeschaut hat. nach einem sicheren Platz hier in D5, aber dann muss sie definitiv für sich selbst da sein, einen Moment zumindest
+
+-----
+
+#77 [assistant]
+
+
+-----
+
+#78 [user]
+dann würde ich sagen sie schläft und wir machen am nächsten Tag weiter. und zwar steht sie auf und schaut sich in D5 jetzt sehr sehr gründlich um
+
+-----
+
+#79 [assistant]
+
+
+-----
+
+#80 [user]
+dann würde Ronja diesen Tag nutzen, um den kontrollraum wieder zu altem Glanz zu verhelfen
+
+-----
+
+#81 [assistant]
+
+
+-----
+
+#82 [user]
+erstelle bitte ein separaten canvas zu D5, denn ich denke, dass dürfte ja die Basis werden. dann aktualisiere bitte alle inventars. und als nächstes werden wir mit der Instandhaltung des restlichen zugänglichen Bereichs von D5 fortfahren. Ronja wird diese Station ihre neue Heimat, ihre Basis nicht verlassen, solange noch irgendwo Unordnung herrscht oder eine Lampe defekt ist...
+
+-----
+
+#83 [assistant]
+
+
+-----
+
+#84 [user]
+dann lassen wir die Station nicht länger warten und Ronja schreitet zur Tat
+
+-----
+
+#85 [assistant]
+
+
+-----
+
+#86 [user]
+98%.... nur.... 98%.... das lässt ihr doch nach all der Arbeit keine Ruhe. : 😀
+
+-----
+
+#87 [assistant]
+
+
+-----
+
+#88 [user]
+dann haben wir doch schon was für den nächsten Tag nach einem ausgiebigen Frühstück, was Sie garantiert brauchen wird, nachdem sie gestern völlig vergessen hat zu essen wie so oft... wird sie sich wieder in die Tiefen Wagen? vielleicht findet sie ja noch etwas und ansonsten, wenn nicht, wird sie sich mit der Wurzel beschäftigen
+
+-----
+
+#89 [assistant]
+
+
+-----
+
+#90 [user]
+na wenn die Wurzeln schon so reagieren wie Signale in Nerven, dann ist doch das das was Ronja als nächstes angehen wird
+
+-----
+
+#91 [assistant]
+
+
+-----
+
+#92 [user]
+ich habe gerade das Bild von dem exoskelett vor Augen. und das hat garadiert auch Ronja vor Augen. wenn sie so eine verwurzelte Struktur wie eine Wirbelsäule oder sowas sieht.... ich denke, dass würde sehr gut passen. erstelle direkt auch einen canvas.
+
+-----
+
+#93 [user]
+ich würde dieses wurzelgewebe gerne als eigenständige Identität behandeln
+
+-----
+
+#94 [assistant]
+
+
+-----
+
+#95 [assistant]
+
+
+-----
+
+#96 [user]
+hier finde ich es jetzt sehr spannend und auch wenn du das im Hintergrund dynamisch mit auswürfeln könntest. ein besitzergreifenden charakterzug so nach dem Motto verlustängste. das Ronja weggehen könnte sie überhaupt nicht loslassen wollen und sowas. und wie stark sich das dann eben auswirkt? das so ein bisschen dynamisch.
+
+-----
+
+#97 [assistant]
+
+
+-----

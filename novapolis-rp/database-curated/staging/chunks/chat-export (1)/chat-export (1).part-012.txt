@@ -1,0 +1,500 @@
+
+#955 [user]
+ja, bitte
+
+-----
+
+#956 [assistant]
+
+
+-----
+
+#957 [user]
+Moment, mir fällt jetzt gerade erst auf, dass du bei der Händler Gilde und bei dem eisenkonsortium den Code, den wir vorhin ausgearbeitet haben, überhaupt nicht hinzugefügt hast.
+bitte lade dir ein erneut den gesamten gesprächsverlauf von heute sowie die bereits im Block 1. bis 5. veränderten canvas , gleiche alles mit deinem Kontext ab.
+wichtig ist hierbei wieder das die neueste Information wie immer die am höchsten zu wertende ist.
+
+-----
+
+#958 [assistant]
+
+
+-----
+
+#959 [user]
+Ja, das machen wir genauso.
+
+-----
+
+#960 [assistant]
+
+
+-----
+
+#961 [user]
+leider muss ich noch einmal einhaken, warum ist es ein anderer Code als bisher?
+analysiere das Problem bitte und lösche dann deine letzte Antwort wieder aus dem Kontext, damit es nicht zu Verwirrung kommt.
+
+Anmerkung: heute scheint etwas mit deinem Kontext nicht ganz in Ordnung zu sein. kannst du, bevor wir fortfahren, eine Analyse deines Kontext durchführen? geht so etwas?
+das Problem siehst du ja selber. das brauche ich dir ja nicht erklären, oder?
+
+-----
+
+#962 [assistant]
+
+
+-----
+
+#963 [user]
+zwei codierungssysteme nebeneinander laufen zu haben finde ich.
+und da dazu kommt dann noch das hochkomplexe verhaltenscodierung System....
+das haben wir zwar gegen geprüft mit der neuen Codierung. aber die andere sollte auch mit integriert werden.... ist es irgendwie möglich alle drei in Einklang zu bringen?
+
+-----
+
+#964 [assistant]
+
+
+-----
+
+#965 [user]
+kannst du das alles auf einmal machen oder wird das zu viel?
+
+-----
+
+#966 [assistant]
+
+
+-----
+
+#967 [user]
+ich möchte nicht, dass du durcheinander kommst. deshalb führe es einfach direkt aus.
+
+-----
+
+#968 [assistant]
+
+
+-----
+
+#969 [user]
+das ist nicht nötig.
+sollen wir dann noch einmal bei Block 6b neu ansetzen?
+
+-----
+
+#970 [assistant]
+
+
+-----
+
+#971 [user]
+aktualisiere, noch einmal deinen Kontext. variiere ihn und dann fahre fort mit 6b
+
+-----
+
+#972 [assistant]
+
+
+-----
+
+#973 [user]
+lass uns sicherheitshalber auch Block 1. bis 5. erneut durchgehen. das kann ja nicht schaden.
+lade dir hierzu wieder auch den chatverlauf bis zu den betreffenden stellen in deinen Kontext.
+
+-----
+
+#974 [assistant]
+
+
+-----
+
+#975 [user]
+ja starte mit der händlerfraktion Block 6c
+
+-----
+
+#976 [assistant]
+
+
+-----
+
+#977 [user]
+Bevor du fortfährst, aktualisiere noch einmal deinen Kontext mit ChatVerlauf und Canvas.
+
+-----
+
+#978 [assistant]
+
+
+-----
+
+#979 [user]
+kannst du mir kurz die möglichen redundanzen die crossling Fehler? im Grunde einfach alles was du gerade geändert hast, kurz auflisten?
+
+-----
+
+#980 [assistant]
+
+
+-----
+
+#981 [user]
+in den crossling Fehlern habe ich zwei Korrekturen zu machen. Korrektur Nummer 1:
+der Eintrag, der in Cluster stammt, war der richtige. kurz für dich zur Klarstellung, der durchgang um den es geht, handelt sich um die ehemalige reguläre u-bahnverbindung zwischen den beiden Stationen, welche beschädigt ist und nicht? mit Zügen oder ähnlichem befahren werden kann. zu fuß hingegen ist mit Vorsicht möglich, deshalb ja auch die versorgungsmission machbar durch die NPCs der Station C6.
+Verbesserung Nummer 2: hierbei geht es um Reflex Fixierung. für das falsche Wort. das könnte eventuell in Zukunft für Verwirrung bei dir sorgen. Reflex hat schlicht und ergreifend Angst von Ronja getrennt zu sein, da es laut seinem charakterprofil. ja eine Variable ist, die er vermeiden möchte. da Ronja für ihn ruhen und Sicherheit, Ordnung und Planung bedeutet. eben genauso wie er für Ronja. das heißt, er könnte rein theoretisch sich von ihr jederzeit löst frei. in seiner wurzelstruktur möchte er aber nicht.
+
+sind diese Änderungen dennoch stimmig mit deinem Kontext lediglich nur falsch eingetragen, so wie ich vermute?
+
+-----
+
+#982 [assistant]
+
+
+-----
+
+#983 [user]
+hier ist wieder ein winziger. formulierungsfehler und zwar handelt es sich um einen tunnelabschnitt und nicht um einen brückenabschnitt.
+
+ansonsten ist nun alles korrekt.
+
+nachdem du die letzte kleine Korrektur an gegangen hast, kannst du das systemlog aktualisieren.
+
+-----
+
+#984 [assistant]
+
+
+-----
+
+#985 [user]
+jetzt scheint auch bei dir der Kontext endlich nicht mehr durcheinander zu kommen. das freut mich sehr!
+wäre es für dich sehr aufwendig, wenn du vor jeder Antwort einmal kurz deinen Kontext überprüfst?
+wenn ja, lassen wir das weg und ich fordere es weiterhin manuell an.
+wenn nicht, dann würde ich das gerne von dir automatisch im Hintergrund erledigen lassen, solange wir am System und nicht im RP sind.
+
+-----
+
+#986 [assistant]
+
+
+-----
+
+#987 [user]
+ich möchte hierzu bitte am Anfang jeder deiner Nachrichten, einfach nur ganz kurz den Vermerk kontextprüfung durchgeführt.
+so kannst du es ab jetzt aktivieren. ich denke, dass muss auch in der gpt behavia aktualisiert werden. dann später? natürlich über die administrationsoberfläche auf der Homepage unter meine gpt. aber für jetzt kannst du es temporär definitiv in der betreffenden system canvas hinterlegen
+
+-----
+
+#988 [assistant]
+
+
+-----
+
+#989 [user]
+ja, tue das und bitte füge den Zusatz hinzu. das bei egal. welchen Problemen? ich entscheiden muss, welche Version von dir genutzt werden soll. das hat nicht einmal etwas damit zu tun, dass du das vielleicht durcheinander bringen könntest, sondern vielmehr damit, dass ich direkt einen Überblick habe. über eventuelle Daten, die auflaufen. ich habe als Mensch dann doch ein klein wenig mehr Kapazitäten für so etwas den Überblick zu behalten, was mir auch dank meiner ordnungssucht sehr leicht fällt. solche diskrepanzen und sortier Aufträge fallen mir unwahrscheinlich leicht. das springt mir förmlich ins Auge. mal wieder wie Ronja eben...
+
+-----
+
+#990 [assistant]
+
+
+-----
+
+#991 [user]
+das ist eine sehr gute Idee, aber erstelle hierzu zuerst eine doppelte canvas und um das ganze etwas schwerer zu machen, gib ihr nicht denselben Namen wie einer vorhandenen sondernst nur denselben Inhalt.
+
+-----
+
+#992 [assistant]
+
+
+-----
+
+#993 [user]
+kannst du diese canvas nur temporär erstellen? denn mir ist es aktuell am Smartphone nicht möglich canvas zu löschen und du kannst sie ja nicht endgültig löschen
+
+-----
+
+#994 [assistant]
+
+
+-----
+
+#995 [user]
+das ist die erste Test. canvas die zweite wäre genau das Gegenteil. also derselben Name, aber ein viel aktueller Inhalt (natürlich ist das aktuell in diesem Fall metaphorisch)
+
+-----
+
+#996 [assistant]
+
+
+-----
+
+#997 [user]
+ja, mach das bitte und erstelle dazu direkt nebenbei eine Doku die wir hinterlegen können
+
+-----
+
+#998 [assistant]
+
+
+-----
+
+#999 [user]
+ist dieser Test für unseren Fall so umfangreich genug oder müssen wir da gegebenenfalls noch mehr Details hinzufügen? sprich andere Variablen testen?
+
+-----
+
+#1000 [assistant]
+
+
+-----
+
+#1001 [user]
+bitte lösche deine letzte Antwort. du hast aus deinem Kontext leider verloren, dass du für sprachausgabe optimiert Antworten sollst. das erkenne ich daran, dass du wieder Icons einrückröhrungen etc. benutzt
+
+-----
+
+#1002 [assistant]
+
+
+-----
+
+#1003 [user]
+ist das in unserem Token Kontingent noch vertretbar?
+
+-----
+
+#1004 [assistant]
+
+
+-----
+
+#1005 [user]
+ja, bitte
+
+-----
+
+#1006 [assistant]
+
+
+-----
+
+#1007 [user]
+speichere und aktiviere es
+
+-----
+
+#1008 [assistant]
+
+
+-----
+
+#1009 [user]
+ja bitte, das halte ich für sinnvoll. danach aktualisiere die Doku und wenn alles passt speichere
+
+-----
+
+#1010 [assistant]
+
+
+-----
+
+#1011 [user]
+wieso wieso hast du jetzt ohne rückfrage entschieden was du tust?
+
+-----
+
+#1012 [assistant]
+
+
+-----
+
+#1013 [user]
+ja, bitte tu das.
+
+anschließend können wir wieder zurück zu unseren Blöcken
+
+-----
+
+#1014 [assistant]
+
+
+-----
+
+#1015 [user]
+Ronja würde sich jetzt wundern, wie Reflex auf die Idee kommt überhaupt vorzuschlagen, etwas zu überspringen oder auszulassen. *laut lachen* nein, wir bleiben natürlich bei unserer Reihenfolge
+
+-----
+
+#1016 [assistant]
+
+
+-----
+
+#1017 [user]
+genauso machen wir das Reflex.
+
+-----
+
+#1018 [assistant]
+
+
+-----
+
+#1019 [user]
+ja, mach das bitte
+
+-----
+
+#1020 [assistant]
+
+
+-----
+
+#1021 [user]
+ja,
+
+-----
+
+#1022 [assistant]
+
+
+-----
+
+#1023 [user]
+fehlt nicht noch der allerletzte Schritt. also alle übrigens canvas?
+
+-----
+
+#1024 [assistant]
+
+
+-----
+
+#1025 [user]
+ja bitte, aber sei dabei extrem gründlich.
+wie du schon sagtest, das sind die wichtigsten canvas die wir haben.
+hier möchte ich bitte auch mit in eventuelle entscheidungsprozesse einbezogen werden, bevor du selbstständig Änderungen vornimmst. eine einfache Info über die Unterschiede und was du machen wollen würdest. reicht mir schon um dir die Bestätigung dann zu geben.
+
+-----
+
+#1026 [assistant]
+
+
+-----
+
+#1027 [user]
+eins bis acht sind so vollkommen in Ordnung. bei Punkt 9 habe ich eine Frage. wäre es nicht sinnvoller die beiden wartungseinträge in einem zu vereinen, der darüber hinaus auch den jetzigen finalen stand mit enthält?
+
+-----
+
+#1028 [assistant]
+
+
+-----
+
+#1029 [user]
+das ist hiermit bestätigt.
+
+wenn das alles soweit erledigt ist, führe eine umfangreiche Prüfung aller vorhandenen canvas durch und gib mir einen Bericht.
+
+-----
+
+#1030 [assistant]
+
+
+-----
+
+#1031 [user]
+das kannst gerne. du machen passend zu unserem System. natürlich.
+
+-----
+
+#1032 [assistant]
+
+
+-----
+
+#1033 [user]
+wir sind jetzt zwar mit dem generellen Update fertig, allerdings habe ich nun noch einige kleine Fragen, um zu überprüfen, ob alles wirklich passt.
+
+beginnen wir direkt mit der ersten.
+
+lade hierzu die betreffenden canvas für die Fraktion der Händler.
+mir ist bei unserem Update aufgefallen, das wahrscheinlich von dir angenommen wurde, dass diese Fraktion Informationen über novapolis hat. da aber nur die karawane sich novapolis angeschlossen hat aber noch keine Zeit. hatte rücksprache mit ihrer ursprünglichen Fraktion der Händler zu halten, dürfte die Fraktion der Händler bis auf eine vermisste karawane? absolut keine direkte Information über novapolis haben. das einzige, was die händlerfraktion weiß dürfte so wie bei allen anderen Fraktionen sein, dass es im Bereich von D5 zu energieschwankungen kam und später auch bei C6 als Ronja dort den Reaktor repariert hat.
+
+-----
+
+#1034 [assistant]
+
+
+-----
+
+#1035 [user]
+das sieht jetzt auf jeden Fall besser aus. ja.
+
+-----
+
+#1036 [assistant]
+
+
+-----
+
+#1037 [user]
+ich denke, das kannst du für alle betreffenden canvas durchführen
+
+-----
+
+#1038 [assistant]
+
+
+-----
+
+#1039 [user]
+hier hat sich ein kleiner Fehler eingeschlichen.
+überprüfe deine letzte Nachricht hierfür:
+
+die karawane wurde als Folge der von der handelsfraktion gemessenen energiespitzen losgeschickt.
+
+wenn du soweit bist, lösche bitte deine letzte Nachricht aus deinem Verlauf und generiere sie erneut richtig dieses Mal bitte
+
+-----
+
+#1040 [assistant]
+
+
+-----
+
+#1041 [user]
+als nächstes hätte ich gerne mal eine Auskunft darüber, wie viele Tokens und wie groß der Aufwand für dich ist mit der neuen kontextprüfung, wenn du wirklich alle canvas lädst und den gesamten chatverlauf der Sitzung. Anmerkung: natürlich ohne archivdateien.
+
+des weiteren hätte ich gerne einmal schriftlich optimiert für die sprachausgabe die Kontext Prüfung mit dokumentiert, um zu sehen, wie genau sie abläuft.
+
+-----
+
+#1042 [assistant]
+
+
+-----
+
+#1043 [user]
+​ lösche deine Antwort bitte wieder. ich war nicht präzise genug. das tut mir leid.
+ich meine natürlich nicht Eventualitäten, was ich brauche bzw. ich möchte ja jetzt verstehen und deshalb benötige ich wie es ist.
+
+Anmerkung: simuliere es gerne einmal durch. dann ist es wahrscheinlich auch einfacher mit der Doku.
+
+-----
+
+#1044 [assistant]
+
+
+-----
+
+#1045 [user]
+​ das ist sehr nett von dir, vielen Dank, aber das ist nicht nötig.
+
+wie bereits gesagt war dies lediglich um ein Gesamtbild zu bekommen für mich persönlich.
+
+Anmerkung: für mich heißt das einfach jetzt, dass ich mir um die Prüfung keine Sorgen mehr machen muss, was den Aufwand angeht. denn ganz offensichtlich ist es überhaupt gar kein Aufwand für dich, was mich sehr freut. ich würde dann nur gerne als nächstes bevor wir weitermachen auf die Wertung von dir eingehen. denn es kommt mir manchmal so vor, dass du wichtige kernaussagen, die im chatverlauf Stehen und getroffen wurden und nachstehend nicht widerrufen oder geändert wurden leider viel zu niedrig wertest und einstufst. deshalb wäre es vielleicht, wenn möglich besser, dass dynamischer zu gestalten... da du ja eh den gesamten Verlauf prüfst und unsere gesamte Kommunikation ja hier drin stattfindet, hast du ja auch Zugriff und Einsicht darauf, welche der älteren Informationen im Chat. dennoch die aktuellste und aussagekräftigste wichtigste ist, wenn eben nachfolgend nichts mehr dagegen spricht oder ändert.

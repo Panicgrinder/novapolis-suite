@@ -1,0 +1,4 @@
+FLAG: vorsichtig_behandeln
+NOTE: Leadership/title overlap with Kora (Karawanenführerin/Logistik) and Marven (Karawanenführer/Handel). Clarify leadership split and titles before ingest.
+SOURCE_FILE: RAW-canvas-2025-10-16T14-56-20-000Z.txt
+SCOPE: character profile (Arlen Dross) — verify role (Führung vs Händler), C6 alignment, relationships, and system links.

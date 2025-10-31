@@ -1,0 +1,12 @@
+{DOCID:char_ronja_v2,TYPE:character,OWNER:novapolis,VERSION:v2,TIMESTAMP:2025-10-16_11:45}
+Name:Ronja;Nachname:Vallin;Alter:36;Geschlecht:weiblich;Rolle:Technikerin;Fraktion:Novapolis;Status:aktiv;
+Attribute:Kraft2;Geschick4;Geist5;Wille5;Charisma4;
+Fertigkeiten_geübt:Überzeugen,Botanik,Ingenieurwesen,Elektronik;Fertigkeiten_meisterhaft:IT-Programmierung,Organisation&Planung;Fertigkeiten_optional:Improvisation;
+Motivation:Schaffung einer geordneten, lebendigen Welt – hell, grün, voller Struktur und Hoffnung;
+Makel:Zweifel am Sinn ihres Tuns, Erschöpfung, Neigung zur Sinnlosigkeit;
+Verhaltenssignatur:R4=O82-T79-L70-E60-N69-C45-S38-M20-kpr;Bezeichnung:Architektin des Widerspruchs;Beschreibung:Perfektionistische Technikerin zwischen Rationalität und Fragilität. Kontrolliert, empathisch, getrieben von Neugier und Angst. Kindlich in Faszination, paranoid in Vorsicht, rational im Handeln.;
+Beziehungen:Reflex(symbiontisch,abhängig);Jonas(unterstützend);Pahl(passiv);Fraktion:Novapolis(loyal);
+Inventar:Werkzeugkit,Gasmasken-Set;Standort:C6(aktuell),D5(primärbasis);
+Gesundheit:stabil;GeistigerZustand:instabil_aber_funktional;Erholungsbedarf:hoch;
+Systemverknüpfungen:ai_behavior_index_v2,fraktionsinventar_novapolis_v1,index_novapolis_v2,logistik_novapolis_v1,missionslog_novapolis_v1;
+Routine:Validierung:Auto;Intervall:7InGameTage;LetzterLauf:2025-10-16_11:45;NächsterLauf:NachFraktionszug_Woche4;Systemstatus:grün;

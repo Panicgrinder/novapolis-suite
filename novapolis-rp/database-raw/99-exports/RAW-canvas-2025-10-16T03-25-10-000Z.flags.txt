@@ -1,0 +1,4 @@
+FLAG: vorsichtig_behandeln
+NOTE: Außenwissen/Geheimhaltung beachten ([FR-KNOWLEDGE]): Keine Kenntnis über Novapolis/D5 im Canvas festhalten; Chat‑Stellen, die C6/D5 auf Fernsensoren setzen, als Drift prüfen. H‑47/SÜDFRAGMENT mit Ereignislog [EVENT-TIMELINE] abgleichen. Arkologie_A1‑Taxonomie mit Cluster/Relations konsistent halten.
+SOURCE_FILE: RAW-canvas-2025-10-16T03-25-10-000Z.txt
+SCOPE: character (Arkologie A1/Forschung) — Wissensstand, Signal‑Mapping, Standort‑/System‑Konsistenz.

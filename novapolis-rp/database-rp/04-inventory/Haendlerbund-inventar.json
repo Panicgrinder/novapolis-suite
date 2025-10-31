@@ -1,0 +1,10 @@
+{
+  "title": "Inventar – Händlerbund (Fraktion)",
+  "category": "inventory",
+  "slug": "haendlerbund-inventar",
+  "version": "0.1",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/04-inventory/Haendlerbund-inventar.md"
+}

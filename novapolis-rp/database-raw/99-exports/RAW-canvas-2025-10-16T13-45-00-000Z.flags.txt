@@ -1,0 +1,5 @@
+FLAG: vorsichtig_behandeln
+FLAG: korrupt
+NOTE: References 'Ronja_Vallin' which conflicts with canon (Ronja Kerschner). Review and normalize before ingest.
+SOURCE_FILE: RAW-canvas-2025-10-16T13-45-00-000Z.txt
+SCOPE: character profile (Reflex) — verify binding partner naming and related semantics.

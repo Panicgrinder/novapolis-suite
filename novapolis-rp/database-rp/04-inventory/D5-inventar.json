@@ -1,0 +1,10 @@
+{
+  "title": "D5 – Inventar",
+  "category": "inventory",
+  "slug": "d5-inventar",
+  "version": "0.9",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/04-inventory/D5-inventar.md"
+}

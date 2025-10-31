@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://novapolis.local/schemas/curated-manifest.schema.json",
+  "title": "Curated Staging Manifest",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": { "type": "string", "minLength": 1 },
+      "source": { "type": "string", "minLength": 1 },
+      "type": { "type": "string", "enum": ["raw-txt", "raw-jsonl"] },
+      "status": { "type": "string", "enum": ["pending", "in-progress", "reviewed", "approved"] },
+      "createdAt": { "type": "string" },
+      "artifacts": {
+        "type": "object",
+        "properties": {
+          "normalized": { "type": "string" },
+          "chunksDir": { "type": "string" },
+          "index": { "type": "string" },
+          "reports": { "type": "object", "additionalProperties": { "type": "string" } },
+          "review": { "type": "string" },
+          "views": { "type": "object", "additionalProperties": { "type": "string" } }
+        },
+        "additionalProperties": true
+      },
+      "notes": { "type": "string" }
+    },
+    "required": ["id", "source", "type", "status", "createdAt"],
+    "additionalProperties": true
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "novapolis-validators",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Schema and cross-reference validators for Novapolis-RP",
+  "type": "module",
+  "scripts": {
+    "build": "echo 'no build'",
+    "validate:curated": "node src/validate-curated.js",
+    "validate:rp": "node src/validate-rp.js",
+    "validate:crossrefs": "node src/check-crossrefs.js",
+    "check:names": "node src/check-names.js",
+    "validate": "node src/validate-all.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "chalk": "^5.3.0",
+    "fast-glob": "^3.3.2",
+    "gray-matter": "^4.0.3",
+    "yaml": "^2.5.1"
+  }
+}

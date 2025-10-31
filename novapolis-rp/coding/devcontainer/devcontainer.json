@@ -1,0 +1,16 @@
+{
+  "name": "Novapolis-RP – Docs/Markdown Lint",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "remoteUser": "node",
+  "workspaceFolder": "/workspaces/Novapolis-RP",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/Novapolis-RP,type=bind,consistency=cached",
+  "features": {},
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "DavidAnson.vscode-markdownlint"
+      ]
+    }
+  },
+  "postCreateCommand": "npm i -g markdownlint-cli2 markdownlint-cli2-formatter-default"
+}

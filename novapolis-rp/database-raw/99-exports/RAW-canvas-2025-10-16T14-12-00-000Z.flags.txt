@@ -1,0 +1,5 @@
+FLAG: vorsichtig_behandeln
+FLAG: korrupt
+NOTE: Conflicts with canon [JONAS-SIS] — this RAW asserts the sister is dead, while canon keeps status as missing/unknown. Normalize on ingest and add review note.
+SOURCE_FILE: RAW-canvas-2025-10-16T14-12-00-000Z.txt
+SCOPE: character profile (Jonas) — verify sister status, surname consistency (Merek), relationships, and location against canon.

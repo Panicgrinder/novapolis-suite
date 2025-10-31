@@ -1,0 +1,29 @@
+[
+  {
+    "id": "export-1-chat-export-1",
+    "source": "database-raw/99-exports/chat-export (1).txt",
+    "type": "raw-txt",
+    "status": "in-progress",
+    "createdAt": "2025-10-27",
+    "artifacts": {
+      "normalized": "database-curated/staging/chat-export (1).normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/chat-export (1)",
+      "index": "database-curated/staging/chunks/chat-export (1)/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.md",
+        "segmentHashW5": "database-curated/staging/reports/segment-hash-w5.txt",
+        "deltaA": "database-curated/staging/reports/delta-chat-export-1_vs_chat-export.md",
+        "deltaB": "database-curated/staging/reports/delta-chat-export-1_vs_RAW-02-54.md",
+        "deltaC": "database-curated/staging/reports/delta-chat-export_vs_RAW-02-54.md"
+      },
+      "review": "database-curated/staging/chat-export (1).review.md"
+    ,
+    "views": {
+      "recent500": "database-curated/staging/recent-500.txt",
+      "recent1000": "database-curated/staging/recent-1000.txt",
+      "reverseDir": "database-curated/staging/chunks/chat-export (1)/reverse"
+    }
+    },
+    "notes": "Testlauf; hohe Duplikatwahrscheinlichkeit; als erste zu kuratierende Datei. Normalisiert und gechunked."
+  }
+]
