@@ -1,4 +1,0 @@
-FLAG: vorsichtig_behandeln
-NOTE: Owner indicated uncertainty; handle with caution during curation and ingestion.
-SOURCE_FILE: RAW-canvas-2025-10-16T14-41-00-000Z.txt
-SCOPE: character profile (Pahl) — verify health status, relationships, and role against canon.

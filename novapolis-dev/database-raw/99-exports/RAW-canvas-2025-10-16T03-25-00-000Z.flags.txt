@@ -1,4 +1,0 @@
-FLAG: vorsichtig_behandeln
-NOTE: Außenwissen/Geheimhaltung beachten ([FR-KNOWLEDGE]): Canvas darf keine Kenntnis von Novapolis/D5 implizieren. H‑47‑Routenstatus der Konklave prüfen/mappen (gegen Ereignislog [EVENT-TIMELINE]). Standort‑Taxonomie uneinheitlich (H12 vs. „Sektor_H3“ im Cluster‑Index) – vor Promotion harmonisieren.
-SOURCE_FILE: RAW-canvas-2025-10-16T03-25-00-000Z.txt
-SCOPE: character (Eisenkonklave/Führung) — Wissensstand/Diplomatie, Standort‑Code, Systemverknüpfungen/Versionen.

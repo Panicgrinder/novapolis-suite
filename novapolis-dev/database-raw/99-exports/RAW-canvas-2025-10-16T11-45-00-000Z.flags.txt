@@ -1,5 +1,0 @@
-FLAG: vorsichtig_behandeln
-FLAG: korrupt
-NOTE: Reported as dangerous/corrupted. Do not ingest into database-rp without manual review.
-SOURCE_FILE: RAW-canvas-2025-10-16T11-45-00-000Z.txt
-SCOPE: character profile (Ronja) — verify surname, relationships, locations, and system links against canon.

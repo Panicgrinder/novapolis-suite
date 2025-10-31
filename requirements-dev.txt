@@ -1,0 +1,4 @@
+# Aggregate development dependencies for the consolidated workspace.
+# Includes linting, testing, and training extras from the agent project.
+-r novapolis-agent/requirements-dev.txt
+-r novapolis-agent/requirements-train.txt

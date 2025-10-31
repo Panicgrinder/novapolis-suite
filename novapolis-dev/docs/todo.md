@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD022 MD041 -->
-last-updated: 2025-10-29T17:35:00+01:00
+last-updated: 2025-10-31T00:00:00+01:00
 ---
 ---
 
@@ -13,7 +13,9 @@ Aktive Aufgaben
 ---------------
 
 - [ ] Relocation Follow-ups
-  - [ ] Roll out `.github/copilot-instructions.md` to agent/sim later
+  - [x] Zentrale `.github/copilot-instructions.md` im Monorepo verankert; Duplikate in agent/RP entfernt (2025-10-31)
+  - [x] Datenverzeichnisse `database-curated`, `database-raw`, `database-rp` zurück nach `novapolis-rp/` verschoben (2025-10-31)
+  - [ ] novapolis-sim/README verweist explizit auf zentrale Copilot-Anweisungen
   - [ ] Externe Skripte/Notizen erneut auf Altpfade prüfen
   - [ ] Set removal date for legacy stubs after downstream confirmation
   - [ ] Post-merge sweep for stragglers

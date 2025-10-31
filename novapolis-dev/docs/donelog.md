@@ -1,6 +1,13 @@
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+ 
+Relocation Follow-up (2025-10-31)
+
+- Datenpools `database-curated`, `database-raw`, `database-rp` wieder unter `novapolis-rp/` verankert; Dev Hub verweist nur noch auf diese Quelle (`README.md`, `docs/todo.md`).
+- `novapolis-agent/docs/TODO.md` um aktuellen RAG-Status aktualisiert (Tests & Doku als erledigt markiert).
+- Zentrale Markdown-Lint-Checks via `.github/workflows/markdownlint.yml` reaktiviert; rp-spezifische Duplikat-Workflows entfernt (`docs-lint.yml`, redundante Schritte in `validate.yml`).
+
 Dev Hub Konsolidierung (2025-10-29)
 
 - Dev Hub vom ehemaligen RP-Development-Hub nach `novapolis-dev/docs` verlegt; Referenzen aktualisiert und Meta-Sidecars harmonisiert.

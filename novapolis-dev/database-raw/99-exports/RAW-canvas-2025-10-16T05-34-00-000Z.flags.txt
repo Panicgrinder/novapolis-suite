@@ -1,4 +1,0 @@
-FLAG: vorsichtig_behandeln
-NOTE: Timeline/Namensprüfung erforderlich. "H-47" (Händlergruppe) ist als Konzept belegt, aber Kontakt-Identität im Repo nicht bestätigt; mit Händlergilde-Kanon (Marven/Arlen) und [WORLD-TURNS] abgleichen. "Allianz" als Oberstruktur gegen [SECRECY]/[FR-KNOWLEDGE] prüfen. Ereignisse mit Missionslog/Sim-Woche synchronisieren.
-SOURCE_FILE: RAW-canvas-2025-10-16T05-34-00-000Z.txt
-SCOPE: event_log (Weltgeschehen) — Datums-/Episoden-Abgleich, Benennungen, Verlinkungen.

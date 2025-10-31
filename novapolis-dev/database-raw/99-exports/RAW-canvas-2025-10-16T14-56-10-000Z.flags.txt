@@ -1,4 +1,0 @@
-FLAG: vorsichtig_behandeln
-NOTE: Leadership role overlaps with existing Kora (Karawanenführerin/Logistik). Clarify caravan leadership split before ingest.
-SOURCE_FILE: RAW-canvas-2025-10-16T14-56-10-000Z.txt
-SCOPE: character profile (Marven Kael) — verify leadership vs Kora, C6 HQ designation, relationships, and trading links.

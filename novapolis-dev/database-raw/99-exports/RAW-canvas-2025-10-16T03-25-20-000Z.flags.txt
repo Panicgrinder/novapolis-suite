@@ -1,4 +1,0 @@
-FLAG: vorsichtig_behandeln
-NOTE: Abgleich mit bestehenden Reflex-Regeln erforderlich: [REFLEX-DETACH] (keine vollständige Trennung), [REFLEX-SPEECH] (Tympanon/Schall), [PROXIMITY] (Nähe stabilisiert), [UNIQUE] (Einzigartigkeit noch zu bestätigen). Angabe „Entfernen möglich“ vs. Nicht‑Trennen‑Regel harmonisieren (Labor-/Notfallausnahme?). Frequenzband (7.3–8.0 Hz) dokumentieren und gegen ai_behavior_index_v2/psymatrix spiegeln. Terminologie [SYSTEM→REFLEX] vereinheitlichen.
-SOURCE_FILE: RAW-canvas-2025-10-16T03-25-20-000Z.txt
-SCOPE: entity (Reflex/Wurzelgewebe D5) — Mechanik/Regeln, Bindungslogik, Wissens-/Terminologie-Konsistenz.

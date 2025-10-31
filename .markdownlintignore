@@ -1,0 +1,12 @@
+Backups/
+cvn-agent-main.bundle
+novapolis-agent.bundle
+cvn-agend-novapolis-rp-workspace.code-workspace
+novapolis.code-workspace
+.venv/
+novapolis-agent/outputs/
+novapolis-agent/data/logs/
+novapolis-agent/eval/results/
+novapolis-rp/database-curated/
+novapolis-rp/database-rp/
+novapolis-rp/database-raw/

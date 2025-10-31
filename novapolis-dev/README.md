@@ -37,6 +37,6 @@ Der Dev Hub verknüpft die Arbeitsstände aus `novapolis-agent/`, `novapolis-sim
 - `migrations/` – Änderungs- und Umzugshistorie
 - `roadmaps/` – Langfristige Planungen (Platzhalter)
 - `integrations/` – Schnittstellen- und Abstimmungsdokumente (Platzhalter)
-- `raw/`, `curated/` – zukünftige Spiegel für Datenpools (Platzhalter)
+- `raw/`, `curated/` – optionale lokale Skizzen; produktive Datenpools liegen unter `../novapolis-rp/database-*`
 
 Bitte dokumentiert neue Arbeitsstände ausschließlich hier und verweist in den Produktiv-Repositories auf dieses Hub.

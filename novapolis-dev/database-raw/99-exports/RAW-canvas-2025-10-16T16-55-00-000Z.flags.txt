@@ -1,4 +1,0 @@
-FLAG: vorsichtig_behandeln
-NOTE: Extra flag requested by owner; handle with caution during curation and ingestion.
-SOURCE_FILE: RAW-canvas-2025-10-16T16-55-00-000Z.txt
-SCOPE: semantic cluster index; verify before propagation to database-rp/

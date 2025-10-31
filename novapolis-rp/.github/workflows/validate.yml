@@ -28,8 +28,6 @@ jobs:
       - name: Check naming (database-rp)
         run: npm --prefix coding/tools/validators run check:names
 
-      - name: Markdown lint
-        run: npx --yes markdownlint-cli2 "**/*.md"
 
   validate-windows:
     name: Windows / PS1 wrappers
@@ -53,7 +51,3 @@ jobs:
         run: |
           powershell -NoProfile -ExecutionPolicy Bypass -File "coding/tools/validators/run_check_names.ps1"
 
-      - name: Run markdown-lint (PS1 wrapper)
-        shell: pwsh
-        run: |
-          powershell -NoProfile -ExecutionPolicy Bypass -File "coding/tools/validators/run_lint_markdown.ps1"

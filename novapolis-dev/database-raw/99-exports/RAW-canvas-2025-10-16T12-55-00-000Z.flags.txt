@@ -1,4 +1,0 @@
-FLAG: vorsichtig_behandeln
-NOTE: Cross-link mismatch: Verknüpfungen include logistik_novapolis_v1 while this canvas is v2. Normalize to v2 or justify mixed-version linkage before promotion.
-SOURCE_FILE: RAW-canvas-2025-10-16T12-55-00-000Z.txt
-SCOPE: logistics (C6) — check storage locations, transport paths, and link graph alignment.

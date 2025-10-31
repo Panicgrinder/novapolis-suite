@@ -1,8 +1,0 @@
-{DOCID:inventar_c6_v2,TYPE:inventory,OWNER:novapolis,LOCATION:C6,VERSION:v2,TIMESTAMP:2025-10-16_12:30}
-Ressourcen:Luftfilter(3),Ersatzrohre(12),Kabelspulen(6),Schmieröl(5),Strommodule(2),Wasserkanister(4);
-Werkzeuge:Wartungsschlüssel(2),Druckmesser(1),Schweißgerät(1);
-Elektronik:Sensorpaket(1),tragbarerDatenkern(1_unbekannt_funktion);
-Lebensmittel:Rationen(9),Wasserflaschen(10);
-Sonstiges:Schutzanzüge(2),Ersatzmasken(3);
-Systemverknüpfungen:logistik_novapolis_v1,index_novapolis_v2,missionslog_novapolis_v1;
-Routine:Validierung:Auto;Intervall:7InGameTage;LetzterLauf:2025-10-16_12:30;NächsterLauf:NachFraktionszug_Woche4;Systemstatus:grün;

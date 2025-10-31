@@ -1,0 +1,22 @@
+{
+  "config": {
+    "default": true,
+    "MD005": false,
+    "MD007": false,
+    "MD013": false,
+    "MD022": false,
+    "MD029": false,
+    "MD032": false,
+    "MD033": false,
+    "MD036": false,
+    "MD041": false
+  },
+  "globs": [
+    "README.md",
+    "TODO.md",
+    "DONELOG.md",
+    ".github/**/*.md",
+    "novapolis-dev/docs/**/*.md",
+    "novapolis-rp/coding/tools/**/*.md"
+  ]
+}
