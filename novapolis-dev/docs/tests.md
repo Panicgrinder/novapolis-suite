@@ -7,8 +7,8 @@ Tests & Prequel
 Bestehende Testabdeckung
 ------------------------
 
-- `novapolis-agent/tests/` (pytest): deckt die Simulations-API (`app/api/sim.py`) inklusive `GET /world/state` und `POST /world/step` ab; Testdatei `tests/tests_sim_api.py` prüft Statuscodes, Payload und Tick-Updates.
-- `novapolis-agent/coverage.xml`: erzeugt durch pytest, dient als Referenz für API-Abdeckung.
+- `novapolis_agent/tests/` (pytest): deckt die Simulations-API (`app/api/sim.py`) inklusive `GET /world/state` und `POST /world/step` ab; Testdatei `tests/tests_sim_api.py` prüft Statuscodes, Payload und Tick-Updates.
+- `novapolis_agent/coverage.xml`: erzeugt durch pytest, dient als Referenz für API-Abdeckung.
 - `cvn-agent/` Tasking: VS-Code-Tasks/Launch-Konfigurationen ermöglichen Uvicorn-Start und pytest-Ausführung (siehe `novapolis-dev/docs/donelog.md`, Einträge vom 27./29.10.2025).
 - `novapolis-sim/`: keine automatisierten Tests; manuelle Prüfung via Godot-Editor.
 
@@ -43,7 +43,7 @@ Offline-Verhalten
 Testprotokolle
 --------------
 
-- 2025-10-29: `python -m pytest tests\tests_sim_api.py` (ausgeführt im Verzeichnis `novapolis-agent`) – **Bestanden**.
+- 2025-10-29: `python -m pytest tests\tests_sim_api.py` (ausgeführt im Verzeichnis `novapolis_agent`) – **Bestanden**.
 
 Abstimmung & Folgearbeiten
 --------------------------

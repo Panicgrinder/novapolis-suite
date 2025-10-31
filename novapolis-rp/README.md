@@ -36,7 +36,7 @@ Viel Spaß und gute Fahrt durch D5/C6!
 
 ## Visualisierung
 
-- Das Backend `novapolis-agent` stellt eine Simulations-API bereit (`GET /world/state`, `POST /world/step`) auf Port `AGENT_PORT` (Standard 8765).
+- Das Backend `novapolis_agent` stellt eine Simulations-API bereit (`GET /world/state`, `POST /world/step`) auf Port `AGENT_PORT` (Standard 8765).
 - Das Godot-Projekt `novapolis-sim` fragt jeden 0,2 s einen Schritt `{dt:0.1}` ab und visualisiert Tick sowie Zeit.
 - Startfolge: Agent per `uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload` (oder VS-Code-Task) starten, anschließend `novapolis-sim` in Godot öffnen und **Play** drücken.
 
@@ -48,7 +48,7 @@ Dieses Repo enthält die Arbeitsbasis für das Novapolis‑RP: strukturierte Dat
 
 ### Agenten-Modul
 
-Der Agent-Code wird inzwischen ausschließlich im Schwesterprojekt `../novapolis-agent/` gepflegt. Dieses Repository bündelt nur noch die RP-Daten, Workflows und begleitenden Tools.
+Der Agent-Code wird inzwischen ausschließlich im Schwesterprojekt `../novapolis_agent/` gepflegt. Dieses Repository bündelt nur noch die RP-Daten, Workflows und begleitenden Tools.
 
 ### Ziele
 

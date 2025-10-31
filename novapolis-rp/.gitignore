@@ -16,7 +16,7 @@ desktop.ini
 # Workspace folders that stay untracked here
 /Backups/
 /novapolis-dev/
-/novapolis-agent/
+/novapolis_agent/
 /novapolis-sim/
 
 # Root VS Code settings (project-specific ones are tracked per subfolder)

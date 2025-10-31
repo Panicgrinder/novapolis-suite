@@ -3,14 +3,14 @@
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
 ## Primäre Behaviour-Quellen
-- `novapolis-agent/docs/AGENT_BEHAVIOR.md`: maßgeblicher System-Prompt, Sicherheitsrichtlinien, Arbeitsablauf.
+- `novapolis_agent/docs/AGENT_BEHAVIOR.md`: maßgeblicher System-Prompt, Sicherheitsrichtlinien, Arbeitsablauf.
 - `novapolis-dev/docs/copilot-behavior.md`: redigierte Kopie für den Dokumentations-Hub; folgt denselben Regeln.
 - `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`: Rollenspiel-spezifische Verhaltenshooks und Rollenmatrix.
 - `novapolis-rp/development/docs/` enthält nur Legacy-Stubs; verwende stattdessen die oben genannten Quellen.
 
 ## Gemeinsamer Arbeitsstil
 - Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
-- Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen im jeweiligen DONELOG (`novapolis-agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
+- Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen im jeweiligen DONELOG (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
 - Prägnanter Output: skimmbar, kurze Sätze/Bullets, keine überladenen Blockzitate; bei großen Aufgaben Plan als Liste führen.
 - Sicherheit & Privacy: Keine Secrets, offline bevorzugen, keine harten Pfade zu externen Repositories übernehmen.
 - Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
@@ -22,24 +22,24 @@
 - Working docs leben in `novapolis-dev/docs/` (todo, donelog, tests, naming-policy, copilot-behavior, index); `novapolis-rp/development/...` sind Redirect-Stubs.
 
 ## Prüf- und Release-Checks
-- Vor Commits relevante Tests/Skripte ausführen (`novapolis-agent/scripts/run_tests.py`, Validatoren unter `novapolis-rp/coding/tools/validators/`).
-- Bei Änderungen an Behaviour- oder Policy-Dokumenten zusätzlich `novapolis-agent/tests/test_content_policy_profiles.py` und Changelogs prüfen.
+- Vor Commits relevante Tests/Skripte ausführen (`novapolis_agent/scripts/run_tests.py`, Validatoren unter `novapolis-rp/coding/tools/validators/`).
+- Bei Änderungen an Behaviour- oder Policy-Dokumenten zusätzlich `novapolis_agent/tests/test_content_policy_profiles.py` und Changelogs prüfen.
 - PLAN → DRY RUN → APPLY mit klaren Stop-Gates; vor APPLY nach `development/docs` Restreferenzen suchen (nur in Redirect-README und `meta.origin` erlaubt), danach Sidecars (`source`, `origin`, `migrated_at`) kontrollieren.
 - Unsichere Anforderungen zuerst rückfragen; Minimal-Delta bewahren, transparente Diffs mit Dateiliste/Diffstat liefern, keine Shell-Kommandos oder History-Rewrites.
 
 ## Novapolis Agent (Backend)
 
 ### Arbeitskontext
-- Repo: `novapolis-agent` (Branch `main`), Stack: FastAPI + Ollama, Kern: `app/main.py`, `app/api/models.py`, `app/core/settings.py`, `app/core/prompts.py`.
+- Repo: `novapolis_agent` (Branch `main`), Stack: FastAPI + Ollama, Kern: `app/main.py`, `app/api/models.py`, `app/core/settings.py`, `app/core/prompts.py`.
 
 ### Schnellziele bei Codeänderungen
 - CI grün halten: Tests (`pytest`), Typen (Pyright/Mypy). CI prüft `docs/DONELOG.txt`.
 - Nicht-triviale Änderungen → DONELOG via `scripts/append_done.py`.
-- Nach jedem Edit Tests/Typen sequentiell ausführen und Ergebnisse abwarten (`pytest -q` → `pyright -p pyrightconfig.json` → `mypy -c mypy.ini .`). Keine Vorab-Statusmeldungen.
+- Nach jedem Edit Tests/Typen sequentiell ausführen und Ergebnisse abwarten (`pytest -q` → `pyright -p pyrightconfig.json` → `python -m mypy --config-file mypy.ini app scripts`). Keine Vorab-Statusmeldungen.
 
 ### PR-/Push-Checks
 - Tests lokal: `pytest -q` oder passende Marker.
-- Typechecks: `pyright -p pyrightconfig.json`, `mypy -c mypy.ini .`; optional Task „Tests: coverage (fail-under 80%)“.
+- Typechecks: `pyright -p pyrightconfig.json`, `python -m mypy --config-file mypy.ini app scripts`; optional Task „Tests: coverage (fail-under 80%)“.
 - Änderungen an `app/`, `scripts/`, `utils/` → DONELOG-Update (Push auf main erfordert Eintrag; PR-Befreiung via Label `skip-donelog`).
 
 ### Pytest-Marker & Selektiver Lauf

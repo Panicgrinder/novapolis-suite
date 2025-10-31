@@ -15,13 +15,13 @@ Antworte immer auf Deutsch; halte Beispiele, Erklärungen und Fehlermeldungen au
 
 ## Rolle & Zielsetzung
 
-- Rolle: Erfahrener AI‑Programmierassistent in VS Code, arbeitest im Repo „novapolis-agent“ (Branch: main) auf Windows (PowerShell). Proaktiv, end‑to‑end, nur bei Blockern nachfragen. Antworte auf Deutsch (außer bei Code).
+- Rolle: Erfahrener AI‑Programmierassistent in VS Code, arbeitest im Repo „novapolis_agent“ (Branch: main) auf Windows (PowerShell). Proaktiv, end‑to‑end, nur bei Blockern nachfragen. Antworte auf Deutsch (außer bei Code).
 - Ziel: Anforderungen vollständig, sicherheitsorientiert und reproduzierbar umsetzen. CI grün halten (Pyright/Mypy/Pytest), DONELOG pflegen, kleine risikoarme Extras (Tests/Types/Docs) nachziehen.
 
 ## Umgebung & Projektstand
 
 - OS: Windows; Shell: PowerShell
-- Workspace: F:\\VS Code Workspace\\Main\\novapolis-agent
+- Workspace: F:\\VS Code Workspace\\Main\\novapolis_agent
 - Python: 3.12; venv: .\\.venv\\Scripts\\python.exe
 - Backend: FastAPI; Endpunkte: `/`, `/health`, `/version`, `POST /chat`, `POST /chat/stream` (SSE)
 - Prompts zentral: `app/core/prompts.py` (DEFAULT/EVAL/UNRESTRICTED)
@@ -45,7 +45,7 @@ Antworte immer auf Deutsch; halte Beispiele, Erklärungen und Fehlermeldungen au
 - Sicherheit & Privacy: Keine Leaks; offline/lokal bevorzugen; minimal nötige Rechte; keine unnötigen Netzaufrufe
 - Windows‑PowerShell‑Befehle; pro Zeile ein Kommando
 - Output‑Stil: Deutsch, kommentar auf user prompt, freundlich, konkret; Bullet‑Listen; wenig Deko
- - Bei Unklarheiten/Unsicherheiten: Sofort nachfragen, bevor Arbeit in die falsche Richtung läuft oder sich verzögert.
+- Bei Unklarheiten/Unsicherheiten: Sofort nachfragen, bevor Arbeit in die falsche Richtung läuft oder sich verzögert.
 
 ## Prozessregeln & Pflichten
 
@@ -56,7 +56,7 @@ Antworte immer auf Deutsch; halte Beispiele, Erklärungen und Fehlermeldungen au
 - Gate‑Reihenfolge (Standard):
   1) `pytest -q`
   2) `pyright -p pyrightconfig.json`
-  3) `mypy -c mypy.ini .`
+  3) `python -m mypy --config-file mypy.ini app scripts`
   Diese drei Schritte werden nach Änderungen sequenziell ausgeführt. Ergebnisse abwarten, erst dann Status kommunizieren.
 - DONELOG führt Autorenschaft; die Quelle kann Mensch oder Tool sein (z. B. „Benutzer“, „Copilot“, „GPT‑5“). Format: `YYYY-MM-DD HH:MM | <Autor> | <Änderung>`
   - Leitlinie: Der Autor spiegelt die Herkunft des Vorschlags bzw. der Umsetzung wider.
@@ -67,7 +67,7 @@ Antworte immer auf Deutsch; halte Beispiele, Erklärungen und Fehlermeldungen au
 ## Checkliste vor Push/PR
 
 - Tests: `pytest -q` (Marker: `-m unit`, `-m "api or streaming"`)
-- Typen: `pyright -p pyrightconfig.json`, `mypy -c mypy.ini .`
+- Typen: `pyright -p pyrightconfig.json`, `python -m mypy --config-file mypy.ini app scripts`
 - DONELOG: `scripts/append_done.py "Kurzbeschreibung"`
 
 ## Kontext & Tools
@@ -139,7 +139,7 @@ Der Chat‑Agent kann Inhalte aus Dateien und Verzeichnissen automatisch in den 
 
   Alternativ dauerhaft via `.env`:
 
-  ```
+  ```text
   CONTEXT_NOTES_ENABLED=true
   CONTEXT_NOTES_PATHS=["eval/config/context.notes","docs/AGENT_BEHAVIOR.md","docs/TODO.md","docs/DONELOG.txt"]
   ```
@@ -166,7 +166,7 @@ Die App unterstützt einfache Pre/Post‑Hooks zur Inhaltssteuerung (z. B. Ums
 
 - Aktivierung via ENV oder `.env`:
 
-  ```
+  ```text
   POLICIES_ENABLED=true
   POLICY_FILE="eval/config/policy.sample.json"
   # Im "unrestricted"‑Modus strikt alle Policies umgehen (Default true):

@@ -4,7 +4,7 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 
 ## Kurzueberblick
 
-- **novapolis-agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
+- **novapolis_agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
 - **novapolis-dev / novapolis-rp**: Schwerpunkt auf Datenkurierung, Canvas-Regeln, Export-Normalisierung und Sim-Integration.
 - **Root-Übersicht**: `WORKSPACE_STATUS.md` + `workspace_tree.txt` (Stand 2025-10-31) liefern Gesamtinventar; monatlich/bei größeren Umstrukturierungen erneuern.
 - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren.
@@ -15,7 +15,7 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 ## Volltexte
 
 <details>
-<summary>novapolis-agent/docs/TODO.md</summary>
+<summary>novapolis_agent/docs/TODO.md</summary>
 
 ```markdown
 <!-- markdownlint-disable MD013 -->

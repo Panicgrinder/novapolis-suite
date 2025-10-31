@@ -1,3 +1,3 @@
 FROM mcr.microsoft.com/devcontainers/python:3.12
 
-WORKDIR /workspaces/novapolis-agent
+WORKDIR /workspaces/novapolis_agent

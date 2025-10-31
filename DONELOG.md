@@ -4,13 +4,13 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 
 ## Kurzueberblick
 
-- **novapolis-agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
+- **novapolis_agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
 - **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
 
 ## Volltexte
 
 <details>
-<summary>novapolis-agent/docs/DONELOG.txt</summary>
+<summary>novapolis_agent/docs/DONELOG.txt</summary>
 
 ```text
 # DONELOG – Abgeschlossene Arbeiten
@@ -131,6 +131,7 @@ Beispiel:
 2025-10-31 13:22 | Panicgrinder | Markdownlint-Workflow geprüft; offene Funde aus novapolis-rp erfasst
 2025-10-31 14:05 | Copilot | Dokumentation auf Novapolis-Agent umgestellt (AGENT_BEHAVIOR, README, TODO, customization, Index, Eval-Doku, Kontextsample aktualisiert).
 2025-10-31 15:10 | Copilot | Root-Dokumente (Copilot-Anleitung, README, TODO, DONELOG) an Novapolis-Agent Branding angepasst.
+2025-10-31 23:40 | Copilot | Agent-Workspace in `novapolis_agent` umbenannt, Mypy-Flow angepasst und Statusdateien bereinigt.
 ```
 
 </details>

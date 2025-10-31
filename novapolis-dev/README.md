@@ -8,13 +8,13 @@ Der Dev Hub fungiert als gemeinsame Schaltstelle für Agent-, Sim- und RP-Teams 
 - Zentraler Anlaufpunkt für Entwicklungsunterlagen (Agent, Sim, RP)
 - Gemeinsame Policies, Roadmaps, Integrationen
 - Verweise auf produktive Repositories:
-  - `novapolis-agent/`
+  - `novapolis_agent/`
   - `novapolis-sim/`
   - `novapolis-rp/`
 
 ## Scope & Repos
 
-Der Dev Hub verknüpft die Arbeitsstände aus `novapolis-agent/`, `novapolis-sim/` und `novapolis-rp/`. Alle teamweiten Policies, Planungen und Integrationen landen zentral hier und werden von dort aus in die Produktiv-Repositories gespiegelt.
+Der Dev Hub verknüpft die Arbeitsstände aus `novapolis_agent/`, `novapolis-sim/` und `novapolis-rp/`. Alle teamweiten Policies, Planungen und Integrationen landen zentral hier und werden von dort aus in die Produktiv-Repositories gespiegelt.
 
 ## Primary Docs
 

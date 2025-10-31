@@ -40,21 +40,21 @@ desktop.ini
 /.history/
 
 # Novapolis Agent artifacts
-/novapolis-agent/.env
-/novapolis-agent/.env.*.local
-/novapolis-agent/.coverage
-/novapolis-agent/.coverage.*
-/novapolis-agent/coverage.xml
-/novapolis-agent/app/**/__pycache__/
-/novapolis-agent/data/logs/
-/novapolis-agent/outputs/
-/novapolis-agent/.tmp*/
-/novapolis-agent/.tmp-datasets/
-/novapolis-agent/.tmp-results/
-/novapolis-agent/.pytest_cache/
-/novapolis-agent/.mypy_cache/
-/novapolis-agent/.ruff_cache/
-/novapolis-agent/.DS_Store
+/novapolis_agent/.env
+/novapolis_agent/.env.*.local
+/novapolis_agent/.coverage
+/novapolis_agent/.coverage.*
+/novapolis_agent/coverage.xml
+/novapolis_agent/app/**/__pycache__/
+/novapolis_agent/data/logs/
+/novapolis_agent/outputs/
+/novapolis_agent/.tmp*/
+/novapolis_agent/.tmp-datasets/
+/novapolis_agent/.tmp-results/
+/novapolis_agent/.pytest_cache/
+/novapolis_agent/.mypy_cache/
+/novapolis_agent/.ruff_cache/
+/novapolis_agent/.DS_Store
 
 # Novapolis Dev / Sim temp
 /novapolis-dev/.DS_Store

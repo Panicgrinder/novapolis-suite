@@ -2,16 +2,16 @@
 
 ## Überblick
 
-- Mono-Repo bündelt `novapolis-agent`, `novapolis-rp`, `novapolis-dev`, `novapolis-sim`, gemeinsame Pakete unter `packages/`
+- Mono-Repo bündelt `novapolis_agent`, `novapolis-rp`, `novapolis-dev`, `novapolis-sim`, gemeinsame Pakete unter `packages/`
 - Produkttiver Code liegt ausschließlich im Agent-Backend; RP-Workspace enthält nur noch Daten, Workflows, Tools
 - Root-Dokumente (`README.md`, `TODO.md`, `WORKSPACE_STATUS.md`) liefern Einstieg ohne Projektwechsel
 - Kopilot-Anweisungen konsolidiert unter `.github/copilot-instructions.md`
 
 ## Health-Checks & Open Items
 
-- Tests: keine neuen Läufe in dieser Session (zuletzt `pytest`/`pyright`/`mypy` im Agent-Projekt grün laut DONELOG)
+- Tests: 2025-10-31 – `pytest -q`, `pyright -p pyrightconfig.json`, `python -m mypy --config-file mypy.ini app scripts` im Agent-Projekt grün
 - TODO-Backlog: siehe `TODO.md` (Agent-Fokus auf RAG/Tool-Use, RP auf Kurations-Pipeline)
-- Policies & Behaviour: maßgeblich `novapolis-agent/docs/AGENT_BEHAVIOR.md`, `novapolis-dev/docs/copilot-behavior.md`
+- Policies & Behaviour: maßgeblich `novapolis_agent/docs/AGENT_BEHAVIOR.md`, `novapolis-dev/docs/copilot-behavior.md`
 - Risiken kurz:
   - Verzeichnis-Bulk unter `outputs/` (LoRA-Runs) wächst; mittelfristig archivieren oder auslagern
   - VS-Code Settings liegen projektweise verteilt; Root-Scoping für gemeinsame Instruktionen in Planung
@@ -19,16 +19,16 @@
 
 ## Wichtige Artefakte & Logs
 
-- DONELOGs: `novapolis-agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`
+- DONELOGs: `novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`
 - Changelog-Übersicht auf Root-Ebene: `DONELOG.md`
-- Auswertungen & Berichte: `novapolis-agent/eval/results/`, `novapolis-agent/scripts/reports/`
+- Auswertungen & Berichte: `novapolis_agent/eval/results/`, `novapolis_agent/scripts/reports/`
 - Backups/Exports: `Backups/` (Release-Artefakte), `novapolis-rp/database-raw/99-exports/`
 
 ## Struktur-Snapshot
 
 - Vollständiger Verzeichnisbaum: `workspace_tree_full.txt` (Backup-Snapshot, generiert am 2025-10-31 via `tree /A /F`)
 - Arbeitsansicht: `workspace_tree.txt` (unverändert) und kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt`
-- Historische Agent-Dateiinventur: `novapolis-agent/WORKSPACE_INDEX.md`
+- Historische Agent-Dateiinventur: `novapolis_agent/WORKSPACE_INDEX.md`
 - Für gezielte Suchen weiterhin `scripts/audit_workspace.py` nutzen (prüft Referenzen & Altlasten)
 
 ## Nächste Empfehlungen

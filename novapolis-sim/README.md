@@ -5,7 +5,7 @@ Ein minimales Godot-4-Projekt zur Visualisierung des Simulationszustands aus dem
 ## How to run
 
 1. Stelle sicher, dass die Python-Seite läuft:
-   - In `novapolis-agent` `.env` anlegen (`AGENT_PORT=8765` Standard).
+   - In `novapolis_agent` `.env` anlegen (`AGENT_PORT=8765` Standard).
    - VS Code Task `Run Agent Dev` starten **oder**
      `uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload` ausführen.
 2. Starte Godot 4 und öffne dieses Verzeichnis (`novapolis-sim`).

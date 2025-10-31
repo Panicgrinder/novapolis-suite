@@ -245,7 +245,8 @@
 				"mypy",
 				"--config-file",
 				"${workspaceFolder}/mypy.ini",
-				"."
+				"app",
+				"scripts"
 			],
 			"problemMatcher": [
 				{

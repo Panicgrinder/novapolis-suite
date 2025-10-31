@@ -1,7 +1,7 @@
 Filtered directories (excl. outputs, Backups, venv, caches)  2025-10-31 22:31
   - .github
   - eval
-  - novapolis-agent
+  - novapolis_agent
   - novapolis-dev
   - novapolis-rp
   - novapolis-sim
