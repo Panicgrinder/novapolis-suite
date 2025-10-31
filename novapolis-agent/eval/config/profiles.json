@@ -1,0 +1,100 @@
+{
+  "default": {
+    "model": null,
+    "host": null,
+    "temperature": 0.7,
+    "checks": null,
+    "quiet": true,
+    "asgi": true,
+    "eval_mode": true,
+    "skip_preflight": true
+  },
+  "fast": {
+    "model": null,
+    "host": null,
+    "temperature": 0.5,
+    "checks": [
+      "must_include",
+      "keywords_any"
+    ],
+    "quiet": true,
+    "asgi": true,
+    "eval_mode": true,
+    "skip_preflight": true
+  },
+  "chai": {
+    "model": null,
+    "host": null,
+    "temperature": 0.5,
+    "checks": [
+      "must_include",
+      "keywords_any",
+      "not_include"
+    ],
+    "quiet": true,
+    "asgi": true,
+    "eval_mode": true,
+    "skip_preflight": true
+  },
+  "eval_conservative": {
+    "model": null,
+    "host": null,
+    "temperature": 0.2,
+    "top_p": 0.1,
+    "num_predict": 128,
+    "checks": [
+      "must_include",
+      "keywords_any",
+      "keywords_at_least",
+      "not_include",
+      "regex",
+      "rpg_style"
+    ],
+    "quiet": true,
+    "asgi": true,
+    "eval_mode": true,
+    "skip_preflight": true
+  },
+  "creative_balanced": {
+    "model": null,
+    "host": null,
+    "temperature": 0.85,
+    "top_p": 0.95,
+    "num_predict": 256,
+    "checks": [
+      "keywords_any",
+      "regex"
+    ],
+    "quiet": true,
+    "asgi": true,
+    "eval_mode": false,
+    "skip_preflight": true
+  },
+  "fast_low_latency": {
+    "model": null,
+    "host": null,
+    "temperature": 0.4,
+    "top_p": 0.8,
+    "num_predict": 96,
+    "checks": [
+      "must_include",
+      "keywords_any"
+    ],
+    "quiet": true,
+    "asgi": true,
+    "eval_mode": true,
+    "skip_preflight": true
+  },
+  "test-profil": {
+    "model": null,
+    "host": null,
+    "temperature": null,
+    "top_p": null,
+    "num_predict": null,
+    "checks": null,
+    "quiet": true,
+    "asgi": true,
+    "eval_mode": true,
+    "skip_preflight": true
+  }
+}

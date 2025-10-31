@@ -1,0 +1,500 @@
+#1671 [assistant]
+
+
+-----
+
+#1672 [user]
+ich würde sagen aus diesem daily ops sollte nichts ins RP. ich meine die Leute von novapolis sind ja selbst für ihre logs und so verantwortlich. der Verbrauch und sowas passiert ja so oder so ob sie da jetzt drauf achten oder nicht. ja Pech... xD
+
+-----
+
+#1673 [assistant]
+
+
+-----
+
+#1674 [user]
+das wäre ja dann die Version 2.1... also ja freigegeben und kannst du so machen maschinenoptimiert für dich... nur für dich... alles für dich :D
+
+-----
+
+#1675 [assistant]
+
+
+-----
+
+#1676 [user]
+dann schauen wir doch mal, ob du die das RP wieder korrekt geladen bekommst ;p
+
+-----
+
+#1677 [assistant]
+
+
+-----
+
+#1678 [user]
+gib mir schon mal die Nachricht für den nächsten Morgen, aber schreibe sie noch nicht fest. halte sie mal noch im temporären Zustand, nur falls irgendwas schief läuft.
+
+-----
+
+#1679 [assistant]
+
+
+-----
+
+#1680 [user]
+nein, einige kleine Fehler sehe ich schon noch.
+
+1. es war nicht näher definiert, aber ich bin mir sicher, es soll keine handkarre sein. es soll ja schließlich auf den gleisen, die gerade repariert werden fahren können oder nicht? mir kam vorhin schon das Gewicht zu niedrig vor, dass da angepeilt war. überdenke das lieber noch mal mit Hinblick darauf, dass wir gerade eine u-bahnstrecke renovieren... nimm hierzu vielleicht wenn möglich online Material bildmaterial. eventuell oder textmaterial aus den originalen Metro spielen und Romanen. es sind Motor betriebene draisinen, mit Platz. für ich würde sagen, wenn man zusammenrückt passen, da locker zehn Leute drauf oder halt dementsprechend Fracht. aber die maße sind auf jeden Fall so breit wie ein U-Bahn Waggon im Schnitt und Länge so um die 6 m... ob sie jetzt mit Elektrizität betrieben werden oder Benzin oder anderen brennbaren?... überlasse ich dir?.
+
+2. der Tag, seit wir angefangen haben, beginnt doch normalerweise immer mit einem gemeinsamen morgendlichen Briefing bzw. einer Besprechung oder nicht?
+
+3. schaue dir bitte mal deine systemnachricht genauer an. mehr brauche ich dazu glaube ich nicht sagen...
+
+ich würde vorschlagen du räumst mal deinen Kontext auf. schmeiß mal alles raus und lad alles nach. canvas, chatverlauf und voreinstellungen der GPT.
+
+-----
+
+#1681 [assistant]
+
+
+-----
+
+#1682 [user]
+​ überprüfe vorher noch mal, ob alle canvas auch wirklich die richtige Gewichtung haben... nicht das aus Versehen, eine von den canvas die niedrig eingestuft ist eigentlich auf. neutral hätte bleiben sollen, weil die Infos nicht widerlegt wurden. ergänzt oder ähnliches...
+
+-----
+
+#1683 [assistant]
+
+
+-----
+
+#1684 [user]
+​ wir machen die Überprüfung jetzt hier zusammen. zeig mir einfach was du siehst
+
+-----
+
+#1685 [assistant]
+
+
+-----
+
+#1686 [user]
+​ nein, zeige mir nur die Änderung. ich denke das passt alles auf einmal in eine Nachricht. also alte Version die Version, die ab der Änderung gilt.
+
+-----
+
+#1687 [assistant]
+
+
+-----
+
+#1688 [user]
+​stehen die 47 neu archivierten canvas absichtlich noch nicht an ihrem Platz? ich denke schon, sie sind ja noch nicht dort.
+
+freigeben:3
+
+-----
+
+#1689 [assistant]
+
+
+-----
+
+#1690 [user]
+​erstelle einen snapshot und dann versuchen wir es nochmal mit einer temporären RP Nachricht für den morgen
+
+-----
+
+#1691 [assistant]
+
+
+-----
+
+#1692 [user]
+​ das ist eine sehr kurze Nachricht. also normalerweise die letzten waren schön lang und schön umschreiben. nicht so kurz und knapp. außerdem fehlt schon wieder die Auflistung der canvas
+
+-----
+
+#1693 [assistant]
+
+
+-----
+
+#1694 [user]
+ich möchte diese Version übernehmen und dass du sie verankert.
+anschließend bevor wir dann wirklich weitermachen mit dem RP, muss ich dich bitten noch die beiden stations canvas von D5 und C6 sowie den verbindungstunnel zwischen den beiden Stationen aufzurufen. denn die werden wir jetzt kurz bearbeiten.
+was mir nämlich aufgefallen ist immer mal wieder wechselt deine Beschreibung von dem wie es dort aussieht, zwar nur sehr leicht, aber mir fällt es halt auf, weil ich mir so etwas immer direkt bildlich vorstelle... und deshalb würde ich dich bitten einmal für beide Stationen und den Tunnel zu sagen was man sieht, wenn man aus Richtung des verbindungstunnels der gerade renoviert wird kommt bei der jeweiligen Station, also wie sieht die Station aus, wenn man hineinkommt... wenn man weiter hinein geht (natürlich kurz beschrieben, wie man hineingeht und dann wo lang?)... Das muss nicht ausführlich oder schön beschrieben sein. einfach so dass man sich vorstellen kann und so, dass es für alle Zeit fix ist. außer die Metro stürzt ein oder so hoffentlich nicht... im Prinzip musst du, wenn du die Datei durch schaust wissen wie du eine Szene beschreiben kannst von der Umgebung her.
+
+Anmerkung: Abmessungen wären vielleicht auch nicht schlecht... bei den Stationen natürlich die Abmessungen der einzelnen Räume und beim Tunnel zum Beispiel mal eine fixe Länge. wie lang er insgesamt ist, kannst du ja vielleicht von der reisezeit zwischen den Stationen bis jetzt ableiten. klar, du musst bedenken, dass ist der Tunnel noch nicht frei begehbar ist aber ja zu grob kriegst du das bestimmt hin. lichtverhältnisse sowas halt
+
+-----
+
+#1695 [assistant]
+
+
+-----
+
+#1696 [user]
+bei D5 fehlt mir Jonas Werkstatt der Ort an dem Jahr Reflex sozusagen zur Welt gekommen. ist die Werkstatt wo durch diesen schmalen Gang/Schacht erreichbar war? bitte erneut canvas und chatverlauf durchsuchen.
+
+ich dachte gerade im Moment wären nur 400 irgendwas Quadratmeter in C6 nutzbar und oh warte... die hohe Zahl ist noch die erste. ich erinnere mich. ich hatte dich darauf hingewiesen und dich darum gebeten, nach dem Vorbild von eher echten u-bahnhöfen zu gehen. danach hattest du die Zahl nach unten korrigiert und noch weiter, als du den Schaden berechnet hast und der aktuell vorherrscht. des weiteren haben wir gesagt, dass von diesem Bahnhof insgesamt vier Linien abgehen. eine davon ist auf jeden Fall D5. die andere E3 und ich glaube F1 aber die letzte weiß ich nicht mehr. dann müsstest du schauen... des weiteren hatte Ronja noch bevor die ganzen Überlebenden überhaupt dort ankamen, zusammen mit den damaligen neu angekommenen Mitgliedern. der karawane angefangen die Station zu renovieren und eines mit der ersten Dinge, wo wo repariert wurden, war die Beleuchtung überprüfe auch bitte das.
+
+-----
+
+#1697 [assistant]
+
+
+-----
+
+#1698 [user]
+du hast vergessen mir die maße der einzelnen Räume. es geben. es denke, ich wird wichtig werden, wenn die Stationen langsam voller werden. wie groß sind die Berg Räume? die lagerräume wie groß sind aktuell die einzelnen schlafkammern angelegt? Quadratmeter Zahl reicht ja, dann kann man das einfach vom gesamt abziehen. grob halt
+
+-----
+
+#1699 [assistant]
+
+
+-----
+
+#1700 [user]
+mache das aber mache den Zugang zum Lager unter dem Bahnsteig wieder mit dem lastenaufzug mit zwei Tonnen Traglast. ich weiß nicht, warum du das rausgestrichen hast, das fand ich super...
+
+-----
+
+#1701 [assistant]
+
+
+-----
+
+#1702 [user]
+wenn das so funktioniert hat kannst du die restlichen canvas in einem Rutsch nach unserem drei Schritte Plan aktualisieren und die alte Version dann archivieren. du kannst übrigens aus dem temporären Modus dann jetzt raus.
+
+-----
+
+#1703 [assistant]
+
+
+-----
+
+#1704 [user]
+wo sind die ganzen anderen canvas? gerade waren es noch A 171 / T 304 / S 9 / D 5
+
+-----
+
+#1705 [assistant]
+
+
+-----
+
+#1706 [user]
+da bei dir alleine schon die Zuordnung von ats und d. nicht mehr stimmt. lade bitte bitte wieder alle Daten, also canvas und gesprächsverlauf in deinen Kontext.
+
+-----
+
+#1707 [assistant]
+
+
+-----
+
+#1708 [user]
+führe bitte eine genaue Überprüfung durch. wir haben Zeit und ein pro Abo
+
+-----
+
+#1709 [assistant]
+
+
+-----
+
+#1710 [user]
+1. freigeben:reindex
+2. freigeben:sync
+3. freigeben:snapshot
+
+-----
+
+#1711 [assistant]
+
+
+-----
+
+#1712 [user]
+kannst du noch ganz kurz überprüfen, ob der Eintrag über die draisine vorhanden ist, sowie die Quadratmeter zuteilungen in C6? wenn das alles passt, können wir ohne weitere Meldung direkt den gespeicherten morgen laden und mit dem RP weitermachen
+
+-----
+
+#1713 [assistant]
+
+
+-----
+
+#1714 [user]
+perfekt. ich bin ja so froh
+
+-----
+
+#1715 [assistant]
+
+
+-----
+
+#1716 [user]
+aber bitte ganz vorsichtig
+
+-----
+
+#1717 [assistant]
+
+
+-----
+
+#1718 [user]
+aktiviere wieder unsere temporären Einstellungen zu den systemnachrichten und weiterhin für die sprachausgabe optimiert und natürlich der ladezustand der canvas.
+
+dann würde ich gerne nach dem wir jetzt den morgen in D5 gesehen haben, den morgen in C6 sehen und da danach treffen sich dann alle in einer neuen Nachricht aber erst zur morgenbesprechung.
+
+-----
+
+#1719 [assistant]
+
+
+-----
+
+#1720 [user]
+ja, bitte mach das. schreibe ruhig etwas länger und genauso atmosphärisch wie gerade. das hat mir sehr gut gefallen. und könntest du vielleicht ganz kurz dann erklären wie das auf beiden Seiten aussieht, wie man sich das vorstellen kann? stehen da alle um einen Monitor oder ist da ein hologramm ergot hologramm gibt es in der Metro nicht das wäre komplett aus der Lore gerissen ja einfach. wie kann ich mir es vorstellen, wie die Leute in D5 stehen und reden und in C6 stehen und reden?
+
+darf natürlich auch gerne ein bisschen drumrum sein, weil ich meinen C6 ist ja schon einiges los. jetzt.
+
+-----
+
+#1721 [assistant]
+
+
+-----
+
+#1722 [user]
+aktualisiere und prüfe noch mal ganz kurz im Hintergrund. alle canvas das auch alle Verknüpfungen korrekt gesetzt sind. bevor du auch die canvas in den normalmodus wechselst und wir so dann mal probieren, ob wir mit reduzierter canvas nutzung auskommen und es funktioniert, dass du inaktive canvas aufrufst sobald Bezug zu ihnen besteht
+
+-----
+
+#1723 [assistant]
+
+
+-----
+
+#1724 [user]
+wir machen direkt mit der personeneinteilung weiter und schauen uns auch an was pahl Jonas on Lumen tun tun und natürlich auch was im Tunnel los ist bei Ronja und Reflex und den anderen oder dem anderen. gerne wieder so schön ausführlich wie gerade eben. das hat mir sehr gut gefallen. und wir fokussieren uns jetzt erstmal nur auf die beiden Gruppen hier in D5 und danach gehen wir dann erst mit der nächsten Nachricht oder übernächsten. je nachdem
+
+-----
+
+#1725 [user]
+wir machen direkt mit der personeneinteilung weiter und schauen uns auch an was pahl Jonas on Lumen tun tun und natürlich auch was im Tunnel los ist bei Ronja und Reflex und den anderen oder dem anderen. gerne wieder so schön ausführlich wie gerade eben. das hat mir sehr gut gefallen. und wir fokussieren uns jetzt erstmal nur auf die beiden Gruppen hier in D5 und danach gehen wir dann erst mit der nächsten Nachricht oder übernächsten. je nachdem
+
+-----
+
+#1726 [assistant]
+
+
+-----
+
+#1727 [user]
+kannst du noch einmal bitte den Kontext überprüfen? wollte nicht Jonas und pahl so wie Lumen erstmal an der draisine Arbeiten, hatten ja sogar die Freigabe dafür? wenn du das noch kurz richtig stellst und die canvas nach drei Schritte Methode wie immer updatest können wir dann mit der Ansicht von C6 weitermachen
+
+-----
+
+#1728 [assistant]
+
+
+-----
+
+#1729 [user]
+achte darauf, dass du alle Bewohner von C6 geladen hast, bevor du rüber wechselst. und vielleicht kannst du ja die Gelegenheit nutzen. auch ein paar von den Überlebenden vorzustellen. wir haben ja für jeden einzelnen einen canvas angelegt. den kannst du ja jetzt für ein paar ein bisschen was erzählen laden und erweitern bzw. updaten um ein bisschen mehr Tiefe in die Charaktere zu bekommen
+
+-----
+
+#1730 [assistant]
+
+
+-----
+
+#1731 [user]
+ja, mach das auch noch bitte aber das kannst du im Hintergrund machen. das spielen wir dann bei Gelegenheit mal aus. ich nehme an du hast beim letzten emote schon im Hintergrund gewürfelt gehabt. wie immer, dann würde ich sagen... Echo ist soooooooo süß..... entschuldige bitte, das ist mit mir durchgegangen. wenn noch ein wenig Zeit vor dem Abend ist, lass uns doch noch eine Runde drehen. zuerst noch mal D5 und dann noch mal C6
+
+-----
+
+#1732 [assistant]
+
+
+-----
+
+#1733 [user]
+also ich muss sagen jetzt funktioniert das System doch wunderbar... dann würde ich sagen, man hört langsam, wie die Geräusche in den Tunneln erst leiser werden, bevor man Schritte hört und die Arbeiter und Arbeiterinnen zurück in die Stationen kommen. und zwar in beide Stationen... alles natürlich genau getimed. noch eine halbe Stunde, dann gibt es die abschlussbesprechung. danach schauen wir uns noch mal beide Station parallel während des Abends an, aber separat.
+
+-----
+
+#1734 [assistant]
+
+
+-----
+
+#1735 [user]
+schau mal bitte genauer in den Char Echo. sie ist ja immer noch eine reflexinstanz. für sie gelten also die selben charaktergrund, Züge und physiologischen Eigenschaften... :p
+einfach noch mal in den jeweiligen canvas der drei, also Reflex, Echo und Lumen explizit auf ihre Eigenschaften hinweisen, wie sie sich auch verhalten, was sie sind. was für Material wie sich fortbewegen. ursprünglich war es ja mal wie ein wurzelgewebe. dann haben sich die Wurzeln ja angefangen zu bewegen, dann Nähe gesucht. und dann die erste Instanz erschaffen und die erste Instanz ist ja Lumen. Anmerkung: wir sollten uns übrigens mal Gedanken über einen wachstumszyklus oder materialaufnahme oder etwas ähnliches für Reflex und seinen Instanzen machen. da kannst du ja auch direkt, wenn wir die drei canvas ja schon bearbeiten ,mit einem einfachen System ausstatten, das hilft festzulegen, was die Voraussetzungen sind zu wachsen. und da würde ich sagen dir größer ihr intelligenter, weil mehr Fläche zum verarbeiten.
+aber jetzt geht's dann in die Besprechung
+
+-----
+
+#1736 [assistant]
+
+
+-----
+
+#1737 [user]
+schau mal ob du die Beschreibung von Reflex noch findest. schau dir mal seine gesamte charakterentwicklung an. er ist doch mehr wie ein neugieriges anhängliches Besitz ergreifendes liebenswertes etwas... und es sind die anderen doch auch.
+
+-----
+
+#1738 [assistant]
+
+
+-----
+
+#1739 [user]
+einen Moment noch. ich habe noch eine Anmerkung. um in die Charakter beschreibung der drei hast du ja mit aufgenommen, dass sie Unikate sind, also Reflex und dadurch ja die anderen auch.
+und schau mal nach, ob du irgendeinen Eintrag findest. darüber, dass Jonas für Lumen etwas gebaut oder gebastelt hat oder erfunden.
+
+-----
+
+#1740 [assistant]
+
+
+-----
+
+#1741 [user]
+ja gut. also die Verbindung zu allen dazugehörigen canvas muss ja gegeben sein, unter anderem zum Cluster
+
+-----
+
+#1742 [assistant]
+
+
+-----
+
+#1743 [user]
+nein, wir machen jetzt wie geplant mit dem RP weiter und der abschlussbesprechung des Tages. achte darauf, dass wieder die sprachausgabe und alle anderen temporären Einstellungen für den rp-modus an sind alle notwendigen candes geladen, was alle Personen von novapolis und beide Stationen sowie den Tunnel und ich würde sagen alle Missionen und eigentlich kannst du mal alle laden... für die 2. 3. Nachrichten. bis zur großen Simulation....
+
+-----
+
+#1744 [assistant]
+
+
+-----
+
+#1745 [user]
+das hört sich gut an
+
+-----
+
+#1746 [assistant]
+
+
+-----
+
+#1747 [user]
+ja gut. das hat zu ihr letztes Mal schon gemacht. das gehört doch schon zum Protokoll logbücher, egal auf welchem Terminal von der Fraktion aufgenommen müssen in allen Stationen zur Verfügung stehen, außer sie werden als secret eingestuft
+
+-----
+
+#1748 [assistant]
+
+
+-----
+
+#1749 [user]
+1. snapshot erstellen
+2. alle canvas laden. mit Ausnahme der archivierten.
+3. mir ein ehrliche Antwort geben, ob du unseren canvas für den für den tageswechsel schon entladen hast?
+
+-----
+
+#1750 [assistant]
+
+
+-----
+
+#1751 [user]
+ich glaube, hier liegt ein missverständnis vor. lass mich erklären.
+
+wir hatten ein canvas angelegt, in dem alle Regeln enthalten waren, die du anwendest, wenn ein Tag zum nächsten wechselt, wie zum Beispiel eine kleinere abgeschwächte Form des fraktionszugs. kannst du bitte schauen und ehrlich Antworten, nichts dazu dichten oder so, ob du diesen Kern bist noch hast?
+
+des weiteren fällt mir jetzt erst auf, dass deine Bezeichnung für A (Active) T (total)... die anderen beiden habe ich leider auch vergessen.. das war so viel heute... such mal bitte im chatverlauf. das war eine Nachricht von dir glaube ich sogar wo du das benannt hast. ich hatte die Buchstaben vorgeschlagen gefragt, ob du weißt, was es ist und du hast es benannt. wenn du es nicht findest, ist es nicht schlimm, dann sag es bitte. aber.
+
+-----
+
+#1752 [assistant]
+
+
+-----
+
+#1753 [user]
+wie wäre es hiermit?
+
+leite den tageswechsel ein.
+
+-----
+
+#1754 [assistant]
+
+
+-----
+
+#1755 [user]
+alle Änderungen rückgängig machen!
+
+und genau deshalb ist eine der hauptregeln gewesen. alle canvas laden. den gesamten chatverlauf laden. mit dem Kontext abgleichen... bevor irgendwas geändert wird.
+
+da sind so viele Fehler in der im tageswechsel. der möchte ich eigentlich ehrlich gesagt gar nicht anfangen aufzuzählen also einfach noch mal neu und diesmal einfach alles wie angegeben laden
+
+-----
+
+#1756 [assistant]
+
+
+-----
+
+#1757 [user]
+wo ist der Eintrag zur energieproduktion des reaktors?
+
+-----
+
+#1758 [assistant]
+
+
+-----
+
+#1759 [user]
+wie konntest du bei der täglichen Abrechnung vergessen, die logistikkern was zu laden und dort den Verweis auf den Generator? somit hättest du gesehen, dass die Station plus hat was energiezellen angeht und selbst mit der Reduzierung. wer sie immer noch nur zwei anstatt 4. Zellen die sie hätte zahlen müssen... oder hast du den logistik canvas geladen gehabt und nur die Verlinkungen darin nicht gesehen, weil dann bringt uns das ganze verlinken über zwei Ecken nichts. dann müssen wir die canvas dauerhaft aktiv halten... kannst du das mal analysieren  bitte?
+
+-----
+
+#1760 [assistant]
+
+
+-----
+
+#1761 [user]
+ja, mach das auf jeden Fall und übernimm es für dich jetzt auch schon.
+nächste Frage, wo kommt diese neue Fraktion her, von der ich noch nie in meinem Leben etwas gehört habe? also in deinem gelöschten Bericht
+
+-----
+
+#1762 [assistant]
+
+
+-----
+
+#1763 [user]
+schaue erstmal ob die Fraktion überhaupt noch da ist. die verdrängt wurde aus der Übersicht. ich schätze schon aber einfach nur um 100% sicher zu sein

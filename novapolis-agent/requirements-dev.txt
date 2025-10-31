@@ -1,0 +1,5 @@
+pytest
+pytest-cov
+pytest-asyncio
+pyright>=1.1.406
+mypy

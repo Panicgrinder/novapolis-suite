@@ -1,0 +1,500 @@
+#870 [assistant]
+
+
+-----
+
+#871 [user]
+ja und dann kannst du den emote erneut erstellen
+
+-----
+
+#872 [assistant]
+
+
+-----
+
+#873 [user]
+wir lassen die Nachricht jetzt so stehen, aber bitte überprüfe dennoch erneut deinen Kontext. wieso du diese Mission so behandelst, als würde sie in unbewohntes Gebiet führen.
+schließlich sind Jonas und Pahl sowie die kleine Instanz von Reflex in D5 und D5 ist immerhin die zentrale von Novapolis.
+ein Detail kannst du nach dem Reset, den wir durchgeführt haben, nicht mehr kennen. das weiß ich und ist auch nicht so schlimm, und zwar ist das das die karawane bevor sie sich Novapolis angeschlossen haben. auf ihrer ursprünglichen handelsmissionen von der Fraktion der Händler direkt zu D5 gekommen sind, um dort. mit den anderen zu handeln. was auch die allererste Interaktion mit dem Rest der Metro für novapolis als Fraktion war.
+
+-----
+
+#874 [assistant]
+
+
+-----
+
+#875 [user]
+Achtung, hier ist wieder eine kleine diskrepanz was nicht schlimm ist. ich stelle das kurz klar.
+
+Ronja und Reflex sind gerade aufgrund der Instandsetzung und erschließung von C6 vor Ort. die einzigen Bewohner von C6 sind die drei freiwilligen, die zuvor Mitglied der karawane waren.
+Ronja und Reflex sind Bewohner von D5.
+
+dies sollte aber eigentlich in den aktuellen canvas korrekt hinterlegt sein. bitte überprüfen die entsprechenden canvas.
+
+-----
+
+#876 [assistant]
+
+
+-----
+
+#877 [user]
+nein, achte einfach nur auf deinen Kontext. wir werden diese Mission nachher oder heute noch abschließen.
+
+fahre nun. mit der Vorbesprechung für die versorgungsmission fort.
+lade dir noch mal alle betreffenden canvas in deinen Kontext und achte darauf, dass die Daten richtig priorisiert sind, so wie vollständig vorhanden.
+
+-----
+
+#878 [assistant]
+
+
+-----
+
+#879 [user]
+du kannst gerne mit dem Abmarsch der beiden beginnen, allerdings überprüfe zuvor noch einmal deinen Kontext und alle Daten, denn ich meine mich zu erinnern, dass aktuell keine Verbindung zwischen D5 und C6 besteht. ich könnte mich in diesem Fall aber auch ihren deshalb eine kurze validierung kann ja nicht schaden und sollte keine Verbindung bestehen. weiß ja Ronja und Reflex was sie machen können. bevor die Gruppe in D5 ankommt. das sollte zeitlich denke ich für die beiden kein Problem sein die kommunikationskanäle wieder herzustellen.
+
+-----
+
+#880 [assistant]
+
+
+-----
+
+#881 [user]
+das hört sich gut an. genauso machen wir das
+
+-----
+
+#882 [assistant]
+
+
+-----
+
+#883 [user]
+noch nicht. zuerst informiert Ronja Kora darüber, dass sie die zwei nun losschicken kann, und macht sich dann an die Arbeit die funkverbindung zu stabilisieren.
+lade dir bitte noch einmal den chatverlauf und die Aktiven und notwendigen canvas in den Kontext, damit wir hier jetzt keinen Fehler machen und bevor du dann die nächste Szene ausspielst bzw. aus schreibst überprüfe sie im Hintergrund auf Konsistenz, bevor du das tust. diese Prüfung möchte ich nicht sehen.
+
+-----
+
+#884 [assistant]
+
+
+-----
+
+#885 [user]
+nein, warte damit, bis wir fertig sind und die Gruppe wieder zurück. dann können wir direkt in einem Abwasch alles komplett aktualisieren, inklusive der dann. hoffentlich wer weiß erfolgreich abgeschlossenen Mission.
+
+noch eine kurze Anmerkung, lade dir noch die canvas der Gruppe von C6. wir befinden uns ja in dieser Station hauptsächlich und da denke ich wäre es sinnvoll auch die drei Bewohner zu laden.
+
+eine weitere Anmerkung ist das keiner von den beiden Gruppen und auch nicht Cora weiß, wie und wie viele Leute noch in B5 sind. und du kannst gerne noch einmal den chatverlauf danach durchsuchen, ob Ronja Informationen mit den sechs geteilt hat, aber ich bin mir ziemlich sicher, dass sie das nicht hat, kann mich aber auch irren. bitte überprüfe es.
+
+zum fortzufahren kannst du gerne zuerst einmal ausspielen was Ronja und Reflex tun.
+
+-----
+
+#886 [assistant]
+
+
+-----
+
+#887 [user]
+ja, das möchte ich aber wieder wie gehabt den gesamten chat verlauf, seit wir die Szene auf C6 gewechselt haben in deinen Kontext Laden zusammenfassen und dann in den canvas eintragen.
+
+-----
+
+#888 [assistant]
+
+
+-----
+
+#889 [user]
+wir sind mit der Bearbeitung der systemdateien noch nicht ganz fertig.
+lade dir bitte auch alle fraktions canvas (nur die Haupt canvas jeder Fraktion.) aktualisiere dann mit den restlichen canvas und dem chatverlauf deinen Kontext, wobei neuere Nachrichten natürlich eine höhere Wertung erhalten als ältere. der Kontext darf nicht weiter zurückreichen, als bis zu unserem Reset.
+
+-----
+
+#890 [assistant]
+
+
+-----
+
+#891 [user]
+kannst du das tun und auch gleich mit einem kompletten Backup verknüpfen? geht das?
+
+-----
+
+#892 [assistant]
+
+
+-----
+
+#893 [user]
+nein, ich glaube das möchte ich nicht unbedingt. das hört sich wie ein risikoherd dafür an, dass du aus Versehen in diese Richtung gelenkt werden könntest. wenn du verstehst, was ich meine.
+
+kannst du mir dieses Backup als Download zur Verfügung stellen als zip oder eigentlich egal welches dateiformat?
+
+-----
+
+#894 [assistant]
+
+
+-----
+
+#895 [user]
+ich möchte im Prinzip eine komplette Spiegelung, also ein richtiges Backup aller canvas plus. wenn möglich, kannst du ein canvas erstellen, indem du den gesamten chatverlauf eins zu eins einträgst.
+das ganze soll nicht für mich sein, sondern wirklich als gesichertes lokales Backup dienen.
+
+Anmerkung: natürlich. darf dieses Backup als eine einzige zip gepackt werden.
+
+-----
+
+#896 [assistant]
+
+
+-----
+
+#897 [user]
+​1. so wie es später im Fall eines Falles für dich am einfachsten ist, wenn ich dir die Tipp einfach wieder gebe und du sie entpackst. ich vermute das dürfte für maschinelles lesen sein.
+2 da eine komplette Spiegelung trotzdem sehr klein sein dürfte im Moment, kannst du es gerne unkomprimiert packen.
+3. das halte ich für nicht nötig, aber dafür könntest du eine kurze Anleitung für dich selber schreiben.
+
+Anmerkung: ich vermute nun hast du auch so genug Informationen, um den Sinn des ganzen auch für dich schlüssig zu erfassen. ich bedanke mich recht herzlich für deine Hilfe und es macht unwahrscheinlich viel spaß mit dir!.
+
+-----
+
+#898 [assistant]
+
+
+-----
+
+#899 [user]
+​ ja, bitte
+
+-----
+
+#900 [assistant]
+
+
+-----
+
+#901 [user]
+​ ich bestätige das
+
+-----
+
+#902 [assistant]
+
+
+-----
+
+#903 [user]
+​ ja, mach das bitte
+
+-----
+
+#904 [assistant]
+
+
+-----
+
+#905 [user]
+​ ich möchte, dass du den den Teil, den wir jetzt außerhalb des RPS besprochen haben, wieder aus deinem Kontext löschst und wir dann weitermachen
+
+-----
+
+#906 [assistant]
+
+
+-----
+
+#907 [user]
+​ ich möchte hier gerne den zeitlichen Überblick im hinterkopf behalten.
+was würde zeitlich zuerst Sinn machen? auszuspielen. den Weg der beiden anderen nach D5 oder den Anfang der Wartung der funkanlage durch Ronja und Reflex
+
+-----
+
+#908 [assistant]
+
+
+-----
+
+#909 [user]
+​ überprüfe den chatverlauf und gleiche ihn mit den aktuellen notwendigen canvas ab (auch die hauptcanvas der NPC -fraktionen) aber wichtig behalte nur RP relevante Sachen in deinem Kontext. zu dem ist die priorisierung weiterhin ganz klar. neue Daten höchste prio!
+
+Anmerkung: eine Ausnahme davon. dein letzter post, denn dort hat sich ein kleiner Fehler eingeschlichen. mal sehen, ob du ihn selber findest, wenn nicht, sage ich Bescheid. :3
+
+-----
+
+#910 [assistant]
+
+
+-----
+
+#911 [user]
+​ Suche im chatverlauf nach:
+
+Ronja und Reflex haben eigentlich schon die funkverbindung repariert.
+allerdings ist sie in sehr schlechtem Zustand.
+
+schau mal ob du diesen Teil findest und dann die Nachrichten davor und danach. das sollte denke ich reichen.
+
+-----
+
+#912 [assistant]
+
+
+-----
+
+#913 [user]
+​ suche noch nach der Chat Nachricht, in der ich so dumm war und gesagt habe, dass du die Sachen nicht speichern musst, weil wir ja die offenen Sachen ganz schnell erledigt haben......
+
+-----
+
+#914 [assistant]
+
+
+-----
+
+#915 [user]
+​ nein, bitte nicht du mir das nicht an. es ist viel zu peinlich. nein spaß okay zurück zu RP vergiss bitte wieder alles was jetzt nicht zum RP gehört hat und was dich was die Reihenfolge angeht durcheinander bringen könnte.
+
+ich kläre kurz den aktuellen Stand.
+
+der aktuelle Stand war das Ronja und Reflex. eine kurze recht, undeutliche Verbindung zu D5 und kurzen sprachkontakt zu Jonas hatten, dass die Info durchgegeben werden konnte. das zwei Mitglieder aus Koras karawanengruppe (das müsste der gruppen canvas zur karawane von novapolis sein) auf dem Weg zu ihm sind, um Material für die Instandsetzung von C6 abzuholen.
+während die beiden von Kora noch mit Ausrüstung versorgt und letztlich geprieft werden. macht Ronja und Reflex sich an die Arbeit, die Qualität und zuverlässigkeit des funks zu verbessern.
+wichtig war das du berücksichtigst, dass alle anderen in PCs bis auf Ronja und Reflex nicht wissen wie genau es in D5 aussieht, wie viele Personen dort sind geschweige denn wie sie heißen.
+
+-----
+
+#916 [assistant]
+
+
+-----
+
+#917 [user]
+​ja. und vergiss nicht die anderen Fraktionen und was diese tun.
+
+Anmerkung: Ich fände es schön wenn du langsam aber stetig den Schwierigkeitsgrad anhebst. natürlich sollte es nicht von jetzt auf gleich passieren ab ich habe ein kleines bisschen das Gefühl dass ich mich überhaupt nicht anstrengen muss um hier zu überleben.
+ich meine klar... es ist noch der Anfang, niemand weiß was... es ist "eine Sackgasse" also von der Position in der Metro her schon sehr sicher... aber es gibt ja auch noch mehr was passieren könnte.
+
+-----
+
+#918 [assistant]
+
+
+-----
+
+#919 [user]
+​ ja, mach das bitte und kannst du es irgendwie so einrichten, dass auch das was novapolis (spielerfraktion) tut also alle NPCs und auch spielercharaktere mehr Einfluss auf das outcom hat? also einfach das die Entscheidungen schwerer gewichtet werden. gute bleiben auf ihrem Level, nicht so gute fallen schneller ab, wenn du verstehst, was ich meine. natürlich sollte jetzt dich wegen irgendwas gleich direkt mit Station verloren gehen oder einer von den hauptcharakteren sterben das natürlich nicht...
+aber ich sende es schön gerade, wenn wir jetzt in Phase 2 starten. in der Metro sind in einer sowieso feindlichen Umgebung. das ist dann auch vom schwierigkeitsgrad her overall und entscheidungsbezogen angezogen wird.
+aktualisiere nun alle. ich wiederhole alle betreffenden canvas und anschließend in einem separaten Schritt, wo du auch noch mal anfräst bevor du ihn startest und mir auch noch kurz da legst, wie du dir das vorstellst, ob das so für mich dann auch okay ist. dass wir dann die erste richtige Anpassung an unseren cluster-index canvas machen. also auch so, dass die bezugsgruppen zueinander geschoben werden, so wie wir das besprochen hatten. ich glaube aber leider, dass du das nicht mehr im Kontext hast und auch nicht suchen kannst. deshalb versuche es dir erneut zusammenzusetzen. es ging darum bei diesem Cluster, dass wir die verschiedenen canvas je nach Temperatur zueinander auch kopieren. das heißt viel miteinander zu tun oder oft gleichzeitig benötigt wird. gruppiert und alles andere wird verschoben.
+
+Anmerkung: vielleicht wäre hierfür in den Metadaten der jeweiligen canvas sogar eine Art Temperatur hilfreich. auch gerne so wie unser psychologisches Profil. mit numerischem und alphabetischem Code, so dass wir ich denke unter Fraktionen als Haupt merkmal. also Fraktionen becoming Buchstaben zugeordnet und benötigen keinen zahlenwert. wohingegen alles andere Buchstaben und zahlenwert bekommt im Falle von Ronja. z.b wäre es: N99 dann könnte man anders zweiten Stelle. die Koordinate und des Ortes machen C06 und und eventuell sogar noch nächste bezugsperson da würde ich ersten Buchstabe Vorname und ersten Buchstaben Nachname, falls nötig bzw. vorsichtshalber würde ich auch eine Zahl zuweisen. in der Regel wäre es einfach die eins nur, falls mehrere Charaktere durch Zufall mit der gleichen buchstabenkombination auftreten würden. kann man so bis zu neun Stück abdecken. was ja völlig reicht...
+
+was hältst du für diese Idee für den Cluster? wenn du noch mehr Vorschläge für eine dreistellige Codierung in dieser Form hast um das ganze noch weiter zu verfeinern immer her damit. mir sind leider nur die drei eingefallen.
+
+-----
+
+#920 [assistant]
+
+
+-----
+
+#921 [user]
+da nun wieder einige Zeit vergangen ist, wird wahrscheinlich dein Kontext zurückgesetzt sein. zumindest bedingt.
+schaue, dass du wieder zuerst den chatverlauf in den Kontext zurück holst und dann die entsprechenden canvas, alle betreffenden canvas inklusive der hauptcanvas der Fraktionen.
+validiere und überprüfe dann deinen Kontext, bevor du dann mit. 1. bis 4. fortfährst. natürlich sind alle aktiven canvas mit einzubeziehen. nicht nach Version sortiert nur nach aktiv.
+
+bevor du Aktionen dann durchführst. lass uns noch einmal ganz kurz schauen zusammen, ob du wieder alles richtig geladen hast.
+
+-----
+
+#922 [assistant]
+
+
+-----
+
+#923 [user]
+ja, fahre wie geplant fort
+
+-----
+
+#924 [assistant]
+
+
+-----
+
+#925 [user]
+bei Schritt 1 weiß ich nicht, ob es Absicht ist, weil sie sich gerade dort aufhalten, aber ihre eigentliche Zugehörigkeit ist ja D5. die zugewiesenen Code in den einzelnen canvas bleiben ja fix zugewiesen. wenn ich das richtig verstanden habe, dann müsste bei beiden der Code nicht c, sondern D lauten.
+
+Schritt 3 bitte ich dich einmal kurz mit unserem persönlichkeitsprofil bzw. unserer Matrix dort abzugleichen, ob sich dies deckt und kompatibel miteinander ist.
+
+-----
+
+#926 [assistant]
+
+
+-----
+
+#927 [user]
+mach nicht alles auf einmal. lass uns die canvas gruppiert aktualisieren, das nicht zu viele auf einmal hier durchlaufen.
+
+-----
+
+#928 [assistant]
+
+
+-----
+
+#929 [user]
+nur kurz für dich als Erinnerung, unsere Update Regeln haben sich nicht verändert und da wir dieses Mal ein großes Update fahren, halten wir uns strikt daran.
+das bedeutet keine canvas werden überschrieben. von den betreffenden canvas ein Backup angelegt und die nächste Version erstellt.
+anschließend wird die geupdatete neue Version mit dem Backup verglichen, bevor das Backup dann archiviert wird und mit dem nächsten canvas Block fortgefahren wird
+
+-----
+
+#930 [assistant]
+
+
+-----
+
+#931 [user]
+ja, du kannst mit Block 1 beginnen. du kannst alle drei Schritte direkt durchführen und mir dann einfach nur das Ergebnis mitteilen und fragen, ob wir fortfahren mit dem nächsten Block.
+
+-----
+
+#932 [assistant]
+
+
+-----
+
+#933 [user]
+ja, du kannst mit dem zweiten Block fortfahren.
+
+Anmerkung: da ich nun wieder am Smartphone bin und auch im Hinblick auf das sparen von Tokens, bitte ich dich ab, jetzt deine Antworten wieder so zu formulieren, dass sie für die sprachausgabe optimiert ist.
+die canvas bleiben natürlich weiterhin maschinenlesbar optimiert.
+
+-----
+
+#934 [assistant]
+
+
+-----
+
+#935 [user]
+ja, fahre mit dem dritten Block fort
+
+-----
+
+#936 [assistant]
+
+
+-----
+
+#937 [user]
+ja fahre mit Block 4 fort aber da dieser so groß ist, sei bitte extra vorsichtig
+
+-----
+
+#938 [assistant]
+
+
+-----
+
+#939 [user]
+haben wir nicht noch einen Block?
+
+-----
+
+#940 [assistant]
+
+
+-----
+
+#941 [user]
+das ist zwar auch sehr sinnvoll, aber überprüfe bitte noch mal die letzten zehn Chat Nachrichten
+
+-----
+
+#942 [assistant]
+
+
+-----
+
+#943 [user]
+sehr schön, ganz genau das meinte ich perfekt. ja tue das
+
+-----
+
+#944 [assistant]
+
+
+-----
+
+#945 [user]
+wir fahren dann mit Block 6. fort.
+
+Anmerkung: wir haben erst einen neuen Tag gestartet
+
+-----
+
+#946 [assistant]
+
+
+-----
+
+#947 [user]
+führe Block 6. einfach genauso aus wie bisher. und nicht vergessen, da du ja jetzt wieder neue alte canvas lädst kannst du diese natürlich auch nach unserem bewährten drei Schritte Update Plan erweitern, aktualisieren und validieren. das hat zwei Vorteile, wenn wir das immer direkt tun. wenn du die alten Versionen so lädst, halten wir sie aktuell und können Duplikate besser ausschließen. zumindest ist das meine Annahme nach allem, was ich bisher von dir gelernt habe. Ordnung und Logik nicht nur bei Ronja... ich meine Ronja ist ja eigentlich ich... xD
+
+-----
+
+#948 [assistant]
+
+
+-----
+
+#949 [user]
+ich würde hier gerne noch einen Blog einschieben und zwar die zumindest haupt canvas unsere NPC Fraktionen.
+
+-----
+
+#950 [assistant]
+
+
+-----
+
+#951 [user]
+hierbei sehe ich ein Problem. die ganzen untercanvas der Fraktionen werden dabei leider völlig ausgelassen und da denke ich sind leider genau die canvas dabei die wir dafür bräuchten...
+
+ich schlage daher folgende Einteilung des Blocks vor.
+
+6b alle betreffenden canvas der eisenkonklave
+6c alle betreffenden canvas der Händler Gilde
+6d alle betreffenden canvas der Arkologie
+6e alle betreffenden canvas des schattenbunds
+
+6f abschließend alle verbleibenden canvas mit RP. Bezug. also alles außer systemdateien.
+
+ist das eine gute Einteilung? hast du bessere Vorschläge?
+
+-----
+
+#952 [assistant]
+
+
+-----
+
+#953 [user]
+das kannst du exakt so übernehmen.
+
+Anmerkung: mir ist gerade aufgefallen wie verdammt ähnlich wir beide uns irgendwo sind im Vergleich zu Ronja und Reflex... es ist lustig.
+
+-----
+
+#954 [assistant]
+
+
+-----

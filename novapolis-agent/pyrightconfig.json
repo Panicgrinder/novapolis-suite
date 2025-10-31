@@ -1,0 +1,39 @@
+{
+  "typeCheckingMode": "standard",
+  "pythonVersion": "3.12",
+  "venvPath": ".",
+  "venv": ".venv",
+  "include": ["app", "utils"],
+  "exclude": [
+    ".venv",
+    "build",
+    "dist",
+    "data",
+    "outputs",
+  "eval/results",
+    "tests",
+    "scripts",
+    "**/__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache"
+  ],
+  "reportMissingImports": "warning",
+  "reportMissingTypeStubs": false,
+  "reportUnknownMemberType": "warning",
+  "reportUnknownArgumentType": "warning",
+  "reportUnknownVariableType": "warning",
+  "reportGeneralTypeIssues": "warning",
+  "reportOptionalSubscript": "warning",
+  "reportOptionalMemberAccess": "warning",
+  "reportPrivateUsage": "none",
+  "reportUnusedImport": "warning",
+  "reportUnusedVariable": "warning",
+  "executionEnvironments": [
+    {
+      "root": ".",
+      "pythonVersion": "3.12",
+      "extraPaths": []
+    }
+  ]
+}

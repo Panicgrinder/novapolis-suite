@@ -1,0 +1,498 @@
+3. Baufortschritt war bei 40 %.
+
+2. die Verbindung zwischen D5 und C6 will aus beiden Richtungen zeitgleich instand gesetzt.
+
+1. akologie beobachtet nicht.
+
+alles nachfolgende einfach übernehmen. versuchen nicht einen Zusammenhang herzustellen. sonst lädst Du am am Ende irgendetwas hinein  was wir nicht drin haben wollen...
+#1848 [user]
+
+-----
+
+
+#1847 [assistant]
+
+-----
+
+ort 2. C6. in C6 ist n7 (benenne nie wieder den Teil einer Station wie wie du eine Station benennen würdest... wir löschen alle Bezüge zu n7 n7 gibt es in diesem Spiel nicht mehr.) ehemalige Händler caravane wohnt dort jetzt die beiden Mädels sind die eine ist Chefin, die andere stellvertreterin. gepilze, gibt Algen wird mit Strom von D5 versorgt, ist eine kreuzungsstation? ein Tunnel, der gerade repariert wird geht nach D5. ist der Tunnel zwischen D5 und C6? für den Tunnel haben Jonas und Paul angefangen, eine draisinen zu bauen während Ronja alleine mit dem anderen Typ in Tunnel gearbeitet hat... zuletzt waren es irgendwie 28 oder 29 menschliche Bewohner bei novapolis plus die drei reflexinstanzen, wo jeweils eine an Ronja eine andrones, eine an, keine Ahnung wie die die Chefin von C6 hieß... ehemalige handelskarawane da halt... die Händler, die vermissen sie ja auch irgendwie noch gar nicht wirklich. aber planen irgendwann eine zweite Truppe mit Waffen loszuschicken. aber. die meisten Bewohner von C6 kommen von E3 musste evakuiert werden, wurde die Energie gekappt. achso C6 kreuzungs scheiße war ja nach E3 C6 F1 und keine Ahnung. die quadratmeterzahlen von den beiden Stationen und Lagerbestände und so das weiß ich halt alles nicht mehr...
+
+ort 1. d5, Basis novapolis, einziger Reaktor in der Metro. Ronja, Reflex, Jonas, Lumen, pahl, ich weiß nicht mehr, wer sonst noch... nur U-Bahn Schacht. 100% Zustand, Jonas kleine Werkstatt Geburtsort von Reflex.
+
+Fraktionen: 1.novapolis 2.akologie 3.schienenbund 4.eiserne enklave 5.händlerbund 6.freie gruppen
+
+und in diesem canvas schreiben wir jetzt rein. was unumstößlich ist!
+
+erstelle einen canvas. dieser canvas bekommt die allerhöchste prio wird immer zuerst geladen. komme was wolle...
+
+bevor wir jetzt rum machen.
+ja und der ist bestimmt zur Hälfte falsch
+#1846 [user]
+
+-----
+
+
+#1845 [assistant]
+
+-----
+
+ich stelle hier jetzt was hin, und du schaust was das allererste ist was du als Suchergebnis dazu findest, nicht mehr nicht weniger und das zeigst du mir dann. N7
+#1844 [user]
+
+-----
+
+
+#1843 [assistant]
+
+-----
+
+einfach, nur sehen. du brauchst einen dir gar nicht angucken, auch gar keinen Kontext dazu speichern überhaupt nichts einfach. nur anzeigen
+#1842 [user]
+
+-----
+
+
+#1841 [assistant]
+
+-----
+
+nächstes ältere canvas
+#1840 [user]
+
+-----
+
+
+#1839 [assistant]
+
+-----
+
+der ist komplett zerschossen. den kannst du wegschmeißen direkt löschen. komplett gar nicht erst archivieren
+#1838 [user]
+
+-----
+
+
+#1837 [assistant]
+
+-----
+
+letzter Snapshot von wann?
+#1836 [user]
+
+-----
+
+
+#1835 [assistant]
+
+-----
+
+Fass bloß den Text verlaufen, nie wieder an
+#1834 [user]
+
+-----
+
+
+#1833 [assistant]
+
+-----
+
+ich weiß nicht... das waren locker 80 90 Stunden rpd für am Arsch sind
+#1832 [user]
+
+-----
+
+
+#1831 [assistant]
+
+-----
+
+du brauchst mir überhaupt nicht mehr helfen. danke! lösch bitte deinen kompletten Kontext.
+#1830 [user]
+
+-----
+
+
+#1829 [assistant]
+
+-----
+
+nee bringt nichts. es ist wieder alles komplett zerfickt
+#1828 [user]
+
+-----
+
+
+#1827 [assistant]
+
+-----
+
+ich dachte das war nur ein übersetzungsfehler. wieso willst du sie archivieren? ich bin verwirrt... ich gebe es auf prüfs noch mal und Speicher und dann mach tagesabrechnung. ist ja auch egal...
+#1826 [user]
+
+-----
+
+
+#1825 [assistant]
+
+-----
+
+nur muss noch mal klar zu stellen. ja hoffentlich in aller letztes Mal jetzt... wir haben. 1. eiserne enklave 2. akologie 3. händlerbund 4. schienenbund... das sind die vier hauptportionen. dann haben wir noch Novapolis und Freie Gruppen.
+#1824 [user]
+
+-----
+
+
+#1823 [assistant]
+
+-----
+
+Schienenbund! war es nicht Eiserne Enklave? debug Mode full! ich will für die nächste Zeit, dass du a/t/s/d nicht abkürzt, sondern ausschreibst mit Abkürzung, also Buchstabe Bedeutung.
+#1822 [user]
+
+-----
+
+
+#1821 [assistant]
+
+-----
+
+gleiche alles miteinander ab und gib mir eine letzte Zusammenfassung
+
+lade erneut alle canvas. dein gesamten gesprächsverlauf. und dein Kontext.
+#1820 [user]
+
+-----
+
+
+#1819 [assistant]
+
+-----
+
+nein, das ist so für mich völlig in Ordnung. die einzige Ergänzung die ich habe ist bedenke auch bitte wieder daran den wissensstand nicht zu vergessen... aktuell weiß nur Reflex was er kann
+#1818 [user]
+
+-----
+
+
+#1817 [assistant]
+
+-----
+
+aber unsere beiden kleinen haben ja schon richtig. tolle schöne Erfahrungen gemacht und persönlichkeiten entwickelt, da wäre es einfach schade, wenn die am Ende auch einfach eine reflexkopie im wahrsten Sinne des Wortes sind. also nicht nur eine Kopie von ihm, sondern auch von all seinen Fähigkeiten und Eigenschaften... und jetzt halte ich mein Mund und lass dich das erstmal mit einbauen. und lass dich das erstmal mit einbauen... entschuldigung
+
+da jetzt fällt mir eins wieder ein. jetzt haben wir Reflex, da fehlen uns noch zwei... Sie einfach nur zu Kopien von Reflex zu machen fände ich zwar okay, aber da geht uns so viel potenzialflöten die speicherkapazität und so. die würde ich gleich machen und das kann man einfach als biologisch-technische Regel festmachen. ganz vereinfacht dargestellt wie eine Batterie oder ein Akku je größer immer Platz. das würde ich für alle Instanzen übernehmen, aber den anderen beiden würde ich jeweils eine andere hauptfähigkeit sozusagen zu sprechen. nicht zu übermächtig wie Reflex. weil Reflex und Ronja. wenn man die richtig spielt, bräuchten die keine Fraktion für die Metro. das würden die auch alleine schaffen xD
+#1816 [user]
+
+-----
+
+
+#1815 [assistant]
+
+-----
+
+dann wie gesagt, weil wir hier ja in einem RP sind und du die Effizienz ja schon so hier angesprochen hast und alles. was hältst du denn von meinem Vorschlag von am Anfang? das Charaktere an sich auch schon nennen wir es ein Skill Level haben. z.b ich weiß nicht Träger und wartungspersonal bekommen einen Bonus von 0,1% ohne Werkzeug oder irgendwie sowas oder jemand der top in den Bereichen ist bekommt mehr Bonus. ich würde so eine kleine Bonus Liste oder oder eine Liste anlegen um die grabungs oder wartungs Effektivität/skill der einzelnen Leute einzuordnen und zu bewerten. was wäre ein RP ohne progress?... wenn ich meine ganze Zeit mit Wartung in einem Tunnel verbringe, dann bin ich safe irgendwann so effektiv wie ein Maulwurf und und Hocke nicht. mit eimerchen und schäufelchen im sandkasten mein Leben lang. irgendwie wird man immer besser... okay, jetzt habe ich definitiv den fahren verloren.... ich weiß, dass da noch ein zwei Sachen in meinem Kopf waren, die ich da verbessern oder dynamisch anpassen wollte. aber egal das. wenn es mir wieder einfällt sage ich Bescheid wenn dir noch was einfällt bitte Hilfe.... xDDD
+
+also was brauchen wir... wir brauchen eine Möglichkeit zu berechnen wie viel "Kraft" Reflex hat und eine Möglichkeit seinen energieverbrauch intern zu berechnen. logischerweise brauchen wir dazu natürlich auch die zur Verfügung stehende speicherkapazität. die speicherkapazität wiederum würde ich, wie wir ja schon die kognitiven Fähigkeiten daran festgemacht haben an der Masse festmachen. ich denke das ist am plausibelsten und einfachsten mehr Masse. mehr Speicher mehr Verbrauch, längere ladezeit und und und... kannst du mir überhaupt noch folgen?...
+
+ja, mein Hirn hört schon wieder nicht auf. ich könnte die ganze Zeit schon wieder nur im System rum. stiefeln macht halt auch so unwahrscheinlich. viel spaß mit dir!...
+
+Anmerkung: ich würde da aber direkt eine Info schon mit einbauen, die jetzt allerdings noch nicht greift. nennen wir es human Generator... ich würde auch vorschlagen das eben jenes ab Symbiose Stufe 2 greift. ich denke dann aber erklärt alles...
+
+einen hast du ja schon teilweise angesprochen und zwar ist das das Ronja und Reflex ja den ersten testlauf des exoskelett Modus von Reflex und Ronja gemacht haben. alleine in diesem testlauf hast du ja schon gesagt, dass Ronja mit ihrem exoskelett Betonpfeiler einfach so hochheben und herumtragen kann, als wäre es nichts...  da ich persönlich aber kein Freund bin von übermächtigen gamebreaking mechanics... würde ich zwar sagen das Reflex zwar so viele positive starke Eigenschaften hat. aber das ganze auch seinen Preis hat und in diesem Fall würde ich sagen, wenn Reflex exzessiv diesen Support Modus, nennen wir ihn mal, nutzt, geht nicht nur der Bonus dass er den stromverbrauch dämpft temporär verloren, nein im Gegenteil der stromverbrauch steigt, je länger und je mehr er seine Reserven entlädt. umso mehr Energie braucht er logischerweise. auch um seinen Speicher wieder zu füllen. sozusagen...
+
+führe diese Änderungen nach unserer drei Schritte Regel aus? allerdings noch nicht final. ich denke da gibt's noch ein zwei Punkte, die wir daran Schrauben können, bevor wir sie dann final releasen.
+#1814 [user]
+
+-----
+
+
+#1813 [assistant]
+
+-----
+
+kannst du erstmal prüfen, ob die Daten, die darin enthalten sind, noch aktuell sind und noch gültig?
+#1812 [user]
+
+-----
+
+
+#1811 [assistant]
+
+-----
+
+hatten wir nicht extra eine canvas erstellt, in der wir verbrauchsberechnungen und so weiter, also verschiedene Dinge so wie das jetzt auch schon geordnet haben? kannst du da mal nachschauen?
+#1810 [user]
+
+-----
+
+
+#1809 [assistant]
+
+-----
+
+tu mir bitte mal einen Gefallen. und rechne das mal mit. ein paar werden durch, so dass man es auch in einem RP nutzen kann, auch wenn man bedenkt, dass es später ja wahrscheinlich Tunnel gibt. die viel länger sind viel zerstörter oder whatever. ich denke, du weißt, was ich meine. du weißt immer, was ich meine...
+ansonsten sehe ich schwarz mit entstanden in diesem RP... ich meine, wenn 16 Leute an einem Tag 0,5 % schaffen... das macht zwar in echt auch Sinn, dass man so langsam vorankommt vor allen Dingen wenn man alles von Hand machen muss... aber in einem RP sehe ich das ein wenig schwierig. wenn du verstehst, was ich meine. und 7 % für 16 Leute sind ja dann trotzdem immer noch 0,5 pro Person und pro Tag. was ich eigentlich für so untrainierte Leute jetzt auch nicht so schlecht finde. wenn sie eingespielt werden und alles bisschen besser, Werkzeug und Übungen und so ja gut klar, da kann man das steigern. aber jetzt für den Anfang 0,5 0,5 bis 1% pro Kopf und je nach Fähigkeit und können...
+
+wie wäre es, wenn du die Rechnung andersrum aufziehst?... also nichts das was sie vielleicht gearbeitet haben, weil das war ja der nachfolgende Wert, nach dem wir die prozentangabe hatten, sondern die Differenz und der Prozent nehmen. also den Fortschritt und runterrechnen. also 2600 Meter geteilt durch 7%.
+
+ich hätte einen Vorschlag zu Nummer 2.
+#1808 [user]
+
+-----
+
+
+#1807 [assistant]
+
+-----
+
+tut mir leid, dass ich immer nur meckern kann... *schämt sich...*
+
+2.2. nur um auf Nummer sicher zu gehen, du hast schon noch im Kontext und in den canvas stehen das n7 ein Teil von C6 ist? wenn nicht suchen mal danach bitte. und solltest du es nicht finden, Dichte nichts dazu ohne zu fragen. Anmerkung: das sollte ja eigentlich mit als Regel bei dir fest hinterlegt sein, dass du nichts erfindest oder dichtest oder aus der Luft herbeizaubt. kannst du das auch mal gegenchecken?
+
+2.1. wie lang war der Tunnel noch mal 3,6 oder 2,6 km? und wenn Sie an einem Tag 14 m gemacht haben... was laut der Auflistung 7% entspricht... ich dachte immer für computergestützte Programme ist rechnen leicht :p
+
+1.1. Energie D5 -8 C6 -12 = -20 Zellen D5 +10 = -10 oder bin ich jetzt dumm?
+#1806 [user]
+
+-----
+
+
+#1805 [assistant]
+
+-----
+
+kannst du noch mal überprüfen, ob der missionsfortschritt von der Tunnel freilegung richtig berechnet wurde?
+
+wo ist der richtige ressourcenverbrauch?
+#1804 [user]
+
+-----
+
+
+#1803 [assistant]
+
+-----
+
+​ dann erstelle mal eine temporäre erste Nachricht für den neuen Tag oder fehlt uns noch der Übergang zum neuen Tag. dann simuliere den dabei. kannst du dann auch gleich kontrollieren, ob für alle Fraktionen richtig berechnet wurde?
+#1802 [user]
+
+-----
+
+
+#1801 [assistant]
+
+-----
+
+​ ja, bitte
+#1800 [user]
+
+-----
+
+
+#1799 [assistant]
+
+-----
+
+ich denke mit dem Datum stimmt etwas nicht.
+​eine Diskrepanz ist mir noch aufgefallen. kannst du von den letzten Tagen je das letzte eines Tages und das nächste laden und den Inhalt auf Konsistenz und auf fortlaufende meta daten?
+#1798 [user]
+
+-----
+
+
+#1797 [assistant]
+
+-----
+
+​ja bitte.
+#1796 [user]
+
+-----
+
+
+#1795 [assistant]
+
+-----
+
+​wie empfohlen behandeln und weiter
+#1794 [user]
+
+-----
+
+
+#1793 [assistant]
+
+-----
+
+​wie empfohlen und anschließend die nächsten
+#1792 [user]
+
+-----
+
+
+#1791 [assistant]
+
+-----
+
+​ ja, bitte
+#1790 [user]
+
+-----
+
+
+#1789 [assistant]
+
+-----
+
+​ können archiviert werden
+#1788 [user]
+
+-----
+
+
+#1787 [assistant]
+
+-----
+
+​ ja, aber ich möchte gerne jede Datei, die du archivierst oder auf inaktiv stellst oder whatever einmal sehen und gegen die Datei gehalten, die sie ersetzt
+#1786 [user]
+
+-----
+
+
+#1785 [assistant]
+
+-----
+
+dann sollten wir dennoch ältere Versionen wieder zumindest mal auf die Seite legen. oder kannst du das direkt den Inhalt auf Aktualität checken, indem du den Inhalt von anderen canvas zu Rate ziehst?
+
+anschließend führe noch einmal einen letzten check von allen canvas und ihren Verlinkungen durch.
+
+​ erstelle eine Zusammenfassung aller nun durchzuführen der Änderungen.
+#1784 [user]
+
+-----
+
+
+#1783 [assistant]
+
+-----
+
+wenn ich mir das so ansehe, hältst du es nicht für sicher alle canvas einfach mal so zu beobachten. so viel sind ja jetzt nicht mehr übrig..
+
+​ teste sie temporär.
+#1782 [user]
+
+-----
+
+
+#1781 [assistant]
+
+-----
+
+vielleicht auch von vom ersten wochenrückblick bis jetzt gesehen und zwischendrin ein paar stichproben irgendwie sowas
+
+​ führe bitte noch eine gesamte Prüfung aller anderen canvas durch ob sich irgendwas auf dieselbe Art verändert hat.
+#1780 [user]
+
+-----
+
+
+#1779 [assistant]
+
+-----
+
+​ kannst du mal überprüfen, ob die canvas sich inhaltlich verändert haben? weil wenn der Inhalt gleich blieb. sprich fraktionsführer oder ähnliches und Sektoren oder sowas? dann müsste es sich ja total einfach rausziehen lassen, oder?
+#1778 [user]
+
+-----
+
+
+#1777 [assistant]
+
+-----
+
+​ wäre es nicht vielleicht sinnvoller wenn du bevor du das machst noch mal alle Daten die du noch hast und ob sie noch zugreifen kannst. vor Tag 9, die die hauptfraktionen betreffen. egal wie sie heißen ist ja mal jetzt wurscht. aber wenn du die noch hast, dann kannst du dir die Namen ja rausnehmen. und alle anderen Namen, die in Verbindung mit irgendwelchen Fraktionen auftauchen, müssen wir prüfen.
+#1776 [user]
+
+-----
+
+
+#1775 [assistant]
+
+-----
+
+aber das ist nur eine nebenaufgabe behandelt. das auch bitte so, also nicht mit den anderen Infos untereinander mischen. einfach alles laden und dann checken wir jeden Link. alles einmal gegen, ich bin ja da.
+
+​ hast du noch die zeitliche Angabe zu dem ersten Mal, wo jetzt hier in diesen Bildern auftaucht, dass ich da ein Problem war? weil ab diesem Zeitpunkt würde ich nichts mehr trauen.... außerdem was wirklich im RP im Chat steht. bedeutet ja, wir laden jeden canvas. alles temporär. wenn alle geladen sind, dann guckst du mal bitte durch. du hast ja in dem einen Bild noch die richtige Einteilung numerisch, wie viele canvas wo drin waren ob du das irgendwie zu allen zuordnen kannst.
+#1774 [user]
+
+-----
+
+
+#1773 [assistant]
+
+-----
+
+Anmerkung: ich vermute wirklich, dass es an dem vier Buchstaben Code liegt, da du irgendwann die Bedeutung der Buchstaben durcheinander geworfen hast. so auch die canvas. aber das müsste doch kein Problem sein, oder? lade t. einfach alle canvas. die haben ja alle noch einen flag drin. also du wirst sie nicht aus Versehen jetzt direkt übernehmen, denke ich mal oder?
+
+Bild vier: bitte schön eine Auflistung all unsere Reha -fraktionen. warum ist die Info nicht mehr in deinem Kontext chatverlauf oder irgendwo niedergeschrieben? das muss doch irgendwo stehen...
+
+Bild drei: gesamtbewohnerzahl überprüf mal, ob das bei dir auch noch so ist?
+
+bis zwei: könnte die erste fehlerhafte Erwähnung sein Lumen anstatt die Fraktion? die fehlt der schienenbund der wurde dann schattenbund... und irgendwann zu Lumen und dann immer wieder was anderes und mir ist es irgendwann gar nicht aufgefallen...
+
+Bild 1: Bedeutung der canvas Bezeichnung Einordnung... wenn du die Buchstaben von dem einen zu dem anderen gewechselt hast, dann hast du auch die Bedeutung der Latein dahinter gewechselt, vermute ich mal, wenn du verstehst, was ich meine...
+​oh Gott...
+#1772 [user]
+
+-----
+
+
+#1771 [assistant]
+
+-----
+
+ich weiß nur noch einen Teil des Namens. es war irgendwas mit "Schatten"
+
+und lade wirklich noch mal alle canvas behalte aber die, die jetzt als archiviert markiert wurden, separiert.
+
+​ boah heftig, ich Zweifel langsamer beim Verstand. ich scrolle gleich hoch und suchst, aber das will ich noch nicht. das wäre wie aufgeben.... such mal nach dem Bericht, den wir erstellt haben, nicht vom großen von der großen Simulation, sondern von der letzten kleinen Simulation.
+#1770 [user]
+
+-----
+
+
+#1769 [assistant]
+
+-----
+
+ich hatte gerade eine ganz blöde Idee. was wenn der Name der Fraktion bei dir im Kontext schon triggert ihn auszutauschen? verstehst du was ich meine?
+
+vielleicht wichtige Anmerkung:
+
+als nächstes lädst du mal alle fraktionsführer NPC canvas und schaust mal da nach
+
+bevor du das jetzt so bei dir selber im Kontext speicherst, behalte alle Informationen erstmal nur temporär.
+#1768 [user]
+
+-----
+
+
+#1767 [assistant]
+
+-----
+
+das müsste doch ganz einfach herauszufinden sein. schaue doch einfach auf den letzten tagesbericht
+#1766 [user]
+
+-----
+
+das müsste doch ganz einfach herauszufinden sein. schaue doch einfach auf den letzten tagesbericht
+#1765 [user]
+
+-----
+
+
+#1764 [assistant]
+
+-----

@@ -1,0 +1,10 @@
+{
+  "title": "Personenindex Novapolis (person_index_np)",
+  "category": "admin",
+  "slug": "personindexnp",
+  "version": "0.9",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/00-admin/person_index_np.md"
+}

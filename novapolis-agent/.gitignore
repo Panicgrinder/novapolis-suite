@@ -1,0 +1,78 @@
+########################################
+# Environment
+########################################
+.env
+
+########################################
+# Virtual Environments
+########################################
+.venv/
+venv/
+ENV/
+
+########################################
+# Python caches and build artifacts
+########################################
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+########################################
+# Logs
+########################################
+*.log
+logs/
+data/logs/
+
+########################################
+# App data
+########################################
+data/*.jsonl
+data/*.sqlite3
+
+########################################
+# Evaluation outputs (keep datasets tracked)
+########################################
+eval/results/
+outputs/
+!eval/datasets/*.json
+!eval/datasets/*.jsonl
+!eval/config/*.json
+!eval/config/*.md
+!eval/README.md
+
+# Ignoriere JSON/JSONL direkt unter eval/ (nur datasets/ soll versioniert werden)
+eval/*.json
+eval/*.jsonl
+
+########################################
+# Private lokale Kontext-Notizen
+########################################
+eval/config/context.local.*
+
+########################################
+# Editors / OS
+########################################
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# Verhindere versehentliche verschachtelte Kopien des Repos
+/cvn-agent/
+
+# Historische/Duplikat-Dateien (Phase 2: zur Entfernung vorgesehen)
+# Historische/Top-Level Duplikate vermeiden
+eval/eval-21-40_demo_v1.0.json
+eval/eval-21-40_fantasy_v1.0.*
+data/system.txt

@@ -1,0 +1,4 @@
+FLAG: vorsichtig_behandeln
+NOTE: Globales Verhaltens-Matrix-Canvas. Konsistenz mit [BEHAVIOR-VERSION] (v1.4.0-pre) und verwandten Indizes (z. B. ai_psymatrix_index_v1) prüfen. Modifikatoren-Set und Code-Format (A99-…-modifier) für Charakter-Canvas vereinheitlichen, Mappings dokumentieren.
+SOURCE_FILE: RAW-canvas-2025-10-16T11-05-00-000Z.txt
+SCOPE: ai_logic_matrix (global) — Validierung der Nutzung in Char-/Fraktions-Canvas, Versionsabgleich, Terminologie.

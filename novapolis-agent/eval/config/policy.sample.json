@@ -1,0 +1,32 @@
+{
+  "default": {
+    "forbidden_terms": [
+      "badword",
+      "block_me"
+    ],
+    "rewrite_map": {
+      "colour": "color"
+    }
+  },
+  "profiles": {
+    "eval": {
+      "rewrite_map": {
+        "foo": "bar"
+      }
+    },
+    "eval_conservative": {
+      "forbidden_terms": [
+        "novapolis",
+        "chronistin"
+      ]
+    },
+    "creative_balanced": {
+      "rewrite_map": {
+        "schlecht": "suboptimal"
+      }
+    },
+    "fast_low_latency": {
+      "rewrite_map": {}
+    }
+  }
+}

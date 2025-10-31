@@ -1,0 +1,14 @@
+; Engine configuration file.
+; This file is edited by Godot Engine.
+
+config_version=5
+
+[application]
+config/name="Novapolis Sim"
+run/main_scene="res://Main.tscn"
+
+[autoload]
+SimClient="*res://autoload/SimClient.gd"
+
+[rendering]
+renderer/rendering_method="forward_plus"

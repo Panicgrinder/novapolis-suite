@@ -1,0 +1,17 @@
+{
+  "title": "Senn Daru",
+  "category": "character",
+  "slug": "senn-daru",
+  "version": "0.9",
+  "last_updated": "2025-10-27T20:05:00+01:00",
+  "tags": [],
+  "affiliations": [
+    "haendlerbund"
+  ],
+  "primary_location": "c6",
+  "last_seen": "c6",
+  "dependencies": [
+    "c6"
+  ],
+  "source": "database-rp/02-characters/Senn-Daru.md"
+}

@@ -1,0 +1,7 @@
+{DOCID:logistik_c6_v2,TYPE:logistics,OWNER:novapolis,LOCATION:C6,VERSION:v2,TIMESTAMP:2025-10-16_12:55}
+Transportwege:Tunnel_D5-C6(status_instabil),Seitenschacht_B3(status_gesperrt);
+Lager:Primärlager(C6-Bereich3),Sekundärlager(Kontrollraum);
+Frachtgut:tragbarerDatenkern(1_versiegelt_unbekannt),Luftfilter(3),Ersatzrohre(12),Kabelspulen(6),Schmieröl(5),Strommodule(2),Wasserkanister(4),Werkzeugsets(2),Sensorpaket(1),Rationen(9),Wasserflaschen(10),Schutzanzüge(2),Ersatzmasken(3);
+Verbrauch:Wasser(1ProTag),Rationen(1ProTag),Filter(0.2ProTag);
+Verknüpfungen:inventar_c6_v2,logistik_novapolis_v1,index_novapolis_v2,missionslog_novapolis_v1;
+Routine:Validierung:Auto;Intervall:7InGameTage;LetzterLauf:2025-10-16_12:55;NächsterLauf:NachFraktionszug_Woche4;Systemstatus:grün;

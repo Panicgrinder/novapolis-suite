@@ -1,0 +1,10 @@
+{
+  "title": "Logistik Novapolis",
+  "category": "admin",
+  "slug": "logistik",
+  "version": "0.9",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/00-admin/Logistik.md"
+}

@@ -1,0 +1,12 @@
+{
+  "title": "Done Log (Novapolis-RP)",
+  "category": "admin",
+  "slug": "donelog",
+  "version": "0.9",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "novapolis-dev/docs/donelog.md",
+  "origin": "novapolis-rp/development/docs/donelog.md",
+  "migrated_at": "2025-10-29"
+}

@@ -1,0 +1,4 @@
+FLAG: vorsichtig_behandeln
+NOTE: New logistics canvas (v2). Review consistency of link graph; ensure Systemverknüpfungen reference v2 counterparts where applicable; schedule for curation.
+SOURCE_FILE: RAW-canvas-2025-10-16T13-05-00-000Z.txt
+SCOPE: logistics (Novapolis-wide) — verify D5/C6 stocks, transport cycle, and cross-system references.

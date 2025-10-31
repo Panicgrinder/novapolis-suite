@@ -1,0 +1,93 @@
+{
+  "folders": [
+    { "name": "cvn-agent", "path": "cvn-agent" },
+    { "name": "novapolis-rp", "path": "novapolis-rp" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/.pytest_cache": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/dist": true
+    },
+    "python.analysis.typeCheckingMode": "basic",
+    "editor.defaultFormatter": "ms-python.python",
+    "editor.formatOnSave": true,
+    "markdownlint.config": {
+      "line-length": false
+    },
+    "git.openRepositoryInParentFolders": "always",
+    "git.detectSubmodules": false
+  },
+  "launch": {
+    "configurations": [
+      {
+        "name": "cvn-agent: api dev",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder:cvn-agent}/app/main.py",
+        "cwd": "${workspaceFolder:cvn-agent}",
+        "args": ["--host", "0.0.0.0", "--port", "8000"],
+        "envFile": "${workspaceFolder}/.env"
+      },
+      {
+        "name": "novapolis: tooling",
+        "type": "python",
+        "request": "launch",
+        "program": "${workspaceFolder:novapolis-rp}/tools/cli.py",
+        "cwd": "${workspaceFolder:novapolis-rp}",
+        "args": ["serve", "--port", "8010"],
+        "envFile": "${workspaceFolder}/.env"
+      }
+    ],
+    "compounds": [
+      {
+        "name": "dev: agent + rp",
+        "configurations": [
+          "cvn-agent: api dev",
+          "novapolis: tooling"
+        ],
+        "stopAll": true
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "agent: install",
+        "type": "shell",
+        "command": "python -m venv .venv && . .venv/bin/activate && pip install -U pip && pip install -e .[dev]",
+        "options": { "cwd": "${workspaceFolder:cvn-agent}" },
+        "problemMatcher": []
+      },
+      {
+        "label": "rp: install",
+        "type": "shell",
+        "command": "python -m venv .venv && . .venv/bin/activate && pip install -U pip && pip install -e .[dev]",
+        "options": { "cwd": "${workspaceFolder:novapolis-rp}" },
+        "problemMatcher": []
+      },
+      {
+        "label": "agent: test",
+        "type": "shell",
+        "command": ". .venv/bin/activate && pytest -q",
+        "options": { "cwd": "${workspaceFolder:cvn-agent}" },
+        "group": "test"
+      },
+      {
+        "label": "rp: validate",
+        "type": "shell",
+        "command": ". .venv/bin/activate && make validate || npm run validate || echo 'no validate task'",
+        "options": { "cwd": "${workspaceFolder:novapolis-rp}" }
+      },
+      {
+        "label": "dev: all checks",
+        "dependsOn": ["agent: test", "rp: validate"],
+        "group": "build"
+      }
+    ]
+  }
+}

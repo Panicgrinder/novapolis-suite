@@ -1,0 +1,10 @@
+{
+  "title": "Inventar – Schienenbund (Fraktion)",
+  "category": "inventory",
+  "slug": "schienenbund-inventar",
+  "version": "0.1",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/04-inventory/Schienenbund-inventar.md"
+}

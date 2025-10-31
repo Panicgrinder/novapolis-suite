@@ -1,0 +1,10 @@
+{
+  "title": "Echo – Wissensstand & Trainingsstand",
+  "category": "character",
+  "slug": "echo-wissensstand-trainingsstand",
+  "version": "0.9",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/02-characters/Echo-Wissensstand-Trainingsstand.md"
+}

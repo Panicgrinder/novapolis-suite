@@ -1,0 +1,12 @@
+{
+  "title": "Benennung – Regeln (Dateien/Ordner)",
+  "category": "policy",
+  "slug": "naming-policy",
+  "version": "0.9",
+  "tags": ["naming"],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "novapolis-dev/docs/naming-policy.md",
+  "origin": "novapolis-rp/development/docs/naming-policy.md",
+  "migrated_at": "2025-10-29"
+}

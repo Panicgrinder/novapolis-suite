@@ -1,0 +1,63 @@
+# Novapolis consolidated .gitignore
+
+# OS / Editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Root-level virtual env & tooling caches
+/.venv/
+/.ruff_cache/
+/.mypy_cache/
+/.pytest_cache/
+/.cache/
+/.hypothesis/
+
+# Workspace folders that stay untracked here
+/Backups/
+/novapolis-rp/
+
+# General cache / build artifacts across subprojects
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.coverage
+**/.coverage.*
+
+# Root VS Code settings (project-specific ones are tracked per subfolder)
+/.vscode/*
+!/.vscode/settings.json
+/.history/
+
+# Novapolis Agent artifacts
+/novapolis-agent/.env
+/novapolis-agent/.env.*.local
+/novapolis-agent/.coverage
+/novapolis-agent/.coverage.*
+/novapolis-agent/coverage.xml
+/novapolis-agent/app/**/__pycache__/
+/novapolis-agent/data/logs/
+/novapolis-agent/outputs/
+/novapolis-agent/.tmp*/
+/novapolis-agent/.tmp-datasets/
+/novapolis-agent/.tmp-results/
+/novapolis-agent/.pytest_cache/
+/novapolis-agent/.mypy_cache/
+/novapolis-agent/.ruff_cache/
+/novapolis-agent/.DS_Store
+
+# Novapolis Dev / Sim temp
+/novapolis-dev/.DS_Store
+/novapolis-dev/**/__pycache__/
+/novapolis-sim/.godot/
+/novapolis-sim/.import/
+
+# Generic logs / temp files
+*.log
+*.bak
+*.tmp
+~$*
+*.swp
+*.swo
+*.bundle

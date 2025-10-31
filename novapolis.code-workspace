@@ -1,0 +1,14 @@
+{
+  "folders": [
+    {
+      "path": "./novapolis-agent"
+    },
+    {
+      "path": "./novapolis-rp"
+    },
+    {
+      "path": "./novapolis-sim"
+    }
+  ],
+  "settings": {}
+}

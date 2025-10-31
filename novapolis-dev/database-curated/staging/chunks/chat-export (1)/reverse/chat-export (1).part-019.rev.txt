@@ -1,0 +1,499 @@
+-----
+
+ja, mache das bitte nach unserer bekannten drei Schritte Regel und fasse es passend für den temporären canvas für das nächste Update zusammen
+#1670 [user]
+
+-----
+
+
+#1669 [assistant]
+
+-----
+
+also alles, was mich jetzt aktuell interessiert hat oder mir eingefallen ist, hast du nun schon aufgeführt. hast du denn noch etwas, was du dort mit aufnehmen oder anpassen würdest?
+#1668 [user]
+
+-----
+
+
+#1667 [assistant]
+
+-----
+
+nein, nein, du kannst den canvas auf jeden Fall maschinenlesbar optimiert anlegen. anschließend würde ich sagen, du simulierst ihn einfach mal direkt einfach wieder temporär, dass wir beide mal kurz gucken können, ob alles funktioniert.
+#1666 [user]
+
+-----
+
+
+#1665 [assistant]
+
+-----
+
+oh Mann, ich habe mich selber beim Schreiben verrannt. ich hoffe, ich habe nichts vergessen und dass du es wie immer perfekt verstehst. ich verstehe es nicht mehr... xD
+
+wir haben ja die canvas für den täglichen Ablauf bzw. den Bedarf. wie wäre es, wenn wir die einfach dazu benutzen? wirklich einen täglichen Ablauf, der nichts so umfangreich ist, wie der wöchentliche festzulegen, den ressourcenverbrauch, Prüfung der canvases, kurzer fraktionszug, und alles was ich jetzt vergessen habe... nein, spaß beiseite... clusterprüfung, alle Verlinkungen, überprüfen ob temporäre Einstellungen aktiv sind (zum Beispiel für sprachausgabe optimiert), und wichtig, in den canvas der Kategorien a und s überprüfen, ob etwas zur aktuellen (des gerade endenden Tages) Situation Bezug nehmen würde. (das wäre so etwas wie z.b das ja jemand auf die Arbeiten im Tunnel reagieren könnte, zum Beispiel.) und dann natürlich noch die vorgegebenen Regeln (aus dem letzten richtigen System Update von der GPT) überprüfen und den aktuellen gegen checken.
+#1664 [user]
+
+-----
+
+
+#1663 [assistant]
+
+-----
+
+und hey, du kennst mich... erstelle dann auch gleich wieder den nächsten temporären Eintrag für das kommende Update... kommt bestimmt eins.
+
+charmant wie immer... ja, das kannst du gerne übernehmen und aktiviere den neuen Formatstring auch in allen systemmeldungen. zusätzlich füge die Regel für dich selbst hinzufügst,  dass du den String aus der vorherigen (ohne irgendwelche negativen flags versehene) Nachricht mit als höchstes wertest um eben auch selbst den Überblick zu behalten. wenn möglich...
+#1662 [user]
+
+-----
+
+
+#1661 [assistant]
+
+-----
+
+bevor du irgendetwas umsetzt, gib mir bitte deine ehrliche Beurteilung. dieses vorschlags...
+
+das ist doch ein schönes rundes Bild. vielen Dank! und es tut mir unwahrscheinlich leid. aber... schau mal bitte die vorletzte Nachricht an, also lade den chatverlauf und schau auf die Anzahl der geladenen canvas. damit wir uns nicht falsch verstehen, ich meine, dass es okay ist, wenn du jetzt auch, weil wir alles geclustert haben, doch nicht alle aktiv hältst aber die Gesamtzahl der vorhandenen canvas hier im Chat. sollte Stimmen eigentlich oder wir machen ein anderes Format, was vielleicht sinnvoller ist und uns beiden wahrscheinlich bessere Übersicht gibt: "geladene canvas: a=XXX/t=XXX/s=XXX/d=XXX" ich bin mal gespannt ob du es selber darauf kommst was die Buchstaben bedeuten... kleiner Tipp, es ist Englisch.
+#1660 [user]
+
+-----
+
+
+#1659 [assistant]
+
+-----
+
+Anmerkung: lade bitte alle canvas die aktuellen und mit allerhöchster. Vorsicht auch die archivierten deinen chatverlauf und dann suche mal nach den Informationen über den Reaktor in D5... das ist mir gerade wieder eingefallen und ich denke das stimmst du mir doch vollkommen zu, dass wir nicht nur energiezellen Verbrauch, sondern diese sogar wieder aufladen können, zumindest in D5. und soweit ich weiß wurde C6 von D5 mit Energie versorgt, allerdings nicht vollständig. ich bin mir hier bei wirklich nicht sicher kannst du das bitte überprüfen?
+
+​ das finde ich alles so sehr gut. das kannst du sogar in einem canvas festhalten, einfach als "r_useage_v1" und natürlich für dich maschinenlesbar optimiert wie alle anderen canvas auch.
+#1658 [user]
+
+-----
+
+
+#1657 [assistant]
+
+-----
+
+​ hast du beim tagesabschluss nicht die ressourcenbedarfsberechnung vergessen?
+#1656 [user]
+
+-----
+
+
+#1655 [assistant]
+
+-----
+
+​ ja, Teile den logbucheintrag mit C6. anschließend wieder eine kurze Runde für die anderen Fraktionen. bevor du dann den Tag final beendest.
+#1654 [user]
+
+-----
+
+
+#1653 [assistant]
+
+-----
+
+​ ja genau, das Ronja macht einen logbucheintrag wie die Tage zuvor
+#1652 [user]
+
+-----
+
+
+#1651 [assistant]
+
+-----
+
+​ zuerst gehen die beiden mal zurück nach D5 mit anschließender abschlussbesprechung.
+#1650 [user]
+
+-----
+
+
+#1649 [assistant]
+
+-----
+
+​dann so weiter bis zum schichtende. Ronja und Reflex können diese Gelegenheit doch nutzen um das Reflex-Exoskelett endlich einmal so richtig auszuprobieren und zu testen, und Darek darf dabei sein. Vielleicht auch ein bisschen Strafe für die anderen und ihr ungefragtes handeln... hierbei wäre es für mich mal wieder sehr interessant die Reaktion der beteiligten NPC zu sehen... im falle von Pahl und Jonas natürlich erst nach Rückkehr nach D5. Derek natürlich direkt vor Ort.
+#1648 [user]
+
+-----
+
+
+#1647 [assistant]
+
+-----
+
+Anmerkung 2:. ich glaube bei der Berechnung der energiezellen ist etwas schief gelaufen, denn mir kommt es so vor. als wäre das nur der Bestand von einer Station. kannst du bitte einmal den Kontext sowie die betreffenden canvas überprüfen? ich kann mich natürlich auch irren.
+Anmerkung: denke daran, dass wenn nun weniger Arbeitskräfte vorhanden sind, die Arbeiten von Seite D5 langsamer vonstatten gehen, vorausgesetzt Ronja genehmigt den Einsatz überhaupt... weil bis jetzt hat es sich für mich noch nicht so angehört, als hätten die Jungs überhaupt vor sie zu fragen... das können wir gerne so ausspielen. das wäre mal lustig zu sehen, wie Ronja und Reflex auf sowas reagieren, dass sie auf einmal nur noch zu dritt plus Reflex im Tunnel stehen.
+​ du kannst direkt wieder in den RP Modus wechseln und dann Tag 12 Uhr einleiten.
+#1646 [user]
+
+-----
+
+
+#1645 [assistant]
+
+-----
+
+​ dann ist es jetzt Zeit für den tagesabschluss, die verbrauchsberechnung mit Aktualisierung der dazugehörigen Inventare. und wenn du mir zustimmst, würde ich einen kleinen fraktionszug von gestern auf heute simulieren
+#1644 [user]
+
+-----
+
+
+#1643 [assistant]
+
+-----
+
+Anmerkung 2: das transportmodul, das hier zum Test benutzt wurde kommt, woher? hast du irgendwelche Referenzen dazu, wo genau dieses transportmodul auf einmal aus dem Nichts aufgetaucht ist? Vorschlag: pahl, Jonas und Lumen könnten morgen ein transportmodul für testzwecke zusammenbauen... bitte alle vorhandenen canvas dieses Thema betreffend aktualisieren und aktuellen Test überall wo er erwähnt wird streichen.
+Anmerkung: systemnachricht nur am Ende nicht am Anfang.
+​ lass uns doch einmal in den abendlichen Alltag von beiden Stationen schauen und was die Bewohner so tun.
+#1642 [user]
+
+-----
+
+
+#1641 [assistant]
+
+-----
+
+Anmerkung: debug Mode deaktivieren / systemmeldungen, so wie die Optimierung für sprachausgabe beibehalten.
+
+ja, wir beenden den Tag wieder mit der abschlussbesprechung. und anschließend mit einem vollständigen logbucheintrag von Ronja.
+#1640 [user]
+
+-----
+
+
+#1639 [assistant]
+
+-----
+
+Anmerkung: sprachausgabe bedeutet keine quotes, Emoticons und unnötige Absätze. im Grunde könnte man auch sagen. sprachausgabe optimiert ist auch Token nutzungsoptimiert, richtig?
+ja, lass uns das tun ausgewürfelt wie immer im Hintergrund Ergebnis nicht offen mitgeteilt, sondern ist in RP eingebaut.
+#1638 [user]
+
+-----
+
+
+#1637 [assistant]
+
+-----
+
+3. ich vermute zwar, dass das nur an deiner Formulierung lag, aber um auf Nummer sicher zu gehen, möchte ich noch einmal kurz darauf hinweisen, dass der Tunnel zwischen D5 dem Zentrum von novapolis sozusagen und C6 dem knoten und Verbindung zum Rest der Metro, ist weiterhin begehbar, nur eben noch nicht befahrbar.
+2. in den systemnachrichten fehlt die Anzahl der aktuell aktiv. geladenen canvas. wenn möglich, hätte ich da gerne die Ausgabe so dass ich sehe so und so viele canvas, von so und so vielen sind insgesamt geladen, ohne archivierte mitzuzählen.
+1. temporäre Aktivierung der Optimierung für sprachausgabe wieder aktivieren.
+
+ja, damit kannst du fortfahren. allerdings habe ich noch ein paar Anmerkungen:
+#1636 [user]
+
+-----
+
+
+#1635 [assistant]
+
+-----
+
+ja, genauso machen wir das. und bitte denke daran auch die neuen Helfer in C6 korrekt zu erfassen jetzt wo die Quarantäne vorbei ist. des weiteren habe ich gemerkt, dass wir widersprüchliche Daten zum Fortschritt der Arbeiten haben. wir haben einmal über 60% und einmal unter 40% bitte validiere, welche davon nun wirklich gültig ist. ich vermute aber unter 40%.
+#1634 [user]
+
+-----
+
+
+#1633 [assistant]
+
+-----
+
+ich würde sagen du lädst noch mal alle canvas nach und den gesamten chatverlauf. validierst alles kurz und dann geht es zurück ins RP.
+das denke ich wird nicht nötig sein. du kannst den archivieren. bei Bedarf laden wir ihn manuell. das ist kein Problem.
+#1632 [user]
+
+-----
+
+
+#1631 [assistant]
+
+-----
+
+erstelle mir bitte einen Bericht, und packe diesen Bericht mit zu unseren anderen berichten. kannst du das irgendwie so markieren dass du, falls man wieder darauf schaut, direkt siehst. diese Infos wurden von mir manuell bestätigt?
+#1630 [user]
+
+-----
+
+
+#1629 [assistant]
+
+-----
+
+wir brauchen eine detaillierte Analyse der vorhandenen Daten aller Verknüpfungen und clustereinträge. lasse dir hierfür die Zeit, die du brauchst.
+das ist denke ich nicht nötig. führe nun eine abschließende Prüfung mit vollem debug-mode durch. lade dabei zu aller erst den gesprächsverlauf, anschließend alle canvas die nicht archiviert sind.
+#1628 [user]
+
+-----
+
+das wäre Meta gaming... aber Lumen und Jonas können doch einen ganz normalen und offiziellen logbucheintrag generieren.
+#1627 [user]
+
+-----
+
+
+#1626 [assistant]
+
+-----
+
+unter berücksichtigung oben genannter und gegebener Infos, kannst du diese 3 Missions canvas anlegen.
+
+weitere Anmerkung: wir legen diese Missionen vorerst nur an, damit betreffende Daten von nun an vorliegen. also keine Mission davon ist priorisiert und muss auch nicht direkt angegangen werden nach Fertigstellung des Tunnels.
+
+weitere Anmerkung: wir haben festgelegt, dass es nichts in der Metro gibt in unserem RP. gibt das so ist oder so? ähnlich ist wie Reflex.
+
+bei Mission 2 habe ich eine kleine Anmerkung und Erinnerung an dich. Jonas braucht reflex hilfe nicht, Jonas hat doch Lumen... Lumen und Jonas verhält sich wie Kora und Echo zu Ronja und Reflex. alle drei brauchen ihre bezugsperson und zwar körperliche Nähe zu ihrer bezugsperson, um " beruhigt" sein zu können, ihre bezugsperson gehört sozusagen zu ihrer Ordnung und ihrem System, ein bezugspunkt eben.
+#1625 [user]
+
+-----
+
+
+#1624 [assistant]
+
+-----
+
+des weiteren halte ich es für sinnvoll, wenn wir für die aktuell. ich glaube drei Anomalien, die es zu untersuchen gilt, je eine Mission anlegen. da brauche ich jetzt deine Hilfe. da erinnere ich mich nicht mehr komplett daran aber, eine Anomalie ist in n7, die nächste Anomalie haben sie gerade in dem Tunnel zwischen D5 und C6 gefunden. und ich meine, es gab noch eine... oder war das vielleicht die Gefahr in E3? weshalb E3 versiegelt bzw. abgekapselt wurde?
+was allerdings korrigiert werden muss und das ist ganz wichtig, bei N7 handelt es sich um einen Bereich in C6, die Anomalie darin hat Ronja bei den ersten renovierungsarbeiten zu 6 dort gefunden. kannst du die faktenlage dahingehend mal überprüfen, bitte?
+markiere die beiden Archive mit dem flag. die numerische Abweichung ergibt sich höchstwahrscheinlich daraus, dass wir schon den tagesverbrauch der beiden Stationen D5 und C6 berechnet hatten, also ist diese Abweichung gewollt.
+#1623 [user]
+
+-----
+
+
+#1622 [assistant]
+
+-----
+
+ja, lade bitte beide Berichte und den aktuellen Stand und vergleiche alle drei miteinander.
+#1621 [user]
+
+-----
+
+
+#1620 [assistant]
+
+-----
+
+hast du noch Zugriff auf die berichtsdatei von der ersten Simulation? also Tag 1. bis 7.?
+#1619 [user]
+
+-----
+
+
+#1618 [assistant]
+
+-----
+
+lösche deine letzte Antwort. lade erneut deinen Kontext neu komplett mit allen angelegten canvas, wobei alle canvas, die du nach der Simulation erstellt hast, als sehr niedrig ein zu Stufen sind was ihre Gewichtung angeht. des weiteren lade dir den archivierten Bericht der Simulation von Tag 7. bis Tag 10. das sollte der vollständigste Bericht sein, den wir aktuell haben. schaue anschließend noch einmal alle neuen canvas dieser Simulation angelegt wurden und danach noch einmal durch und überprüfe alles auf Konsistenz und Aktualität.
+#1617 [user]
+
+-----
+
+
+#1616 [assistant]
+
+-----
+
+ich glaube, ich habe einen Fehler gefunden. überprüfe bitte einmal in deinem Kontext die hauptfraktionen und gleiche sie mit deiner Antwort gerade ab.
+#1615 [user]
+
+-----
+
+
+#1614 [assistant]
+
+-----
+
+kannst du mir dann bitte einmal die Inhalte der betreffenden bzw. aller aktiv. geladener canvas gruppiert als überbegriff der jeweiligen canvas auflisten also Bewohner Orte, Missionen etc.
+
+dass diese Daten nur in diesem einen Chat verfügbar sind, ist mir bewusst. das ist ja bei allen Chats so außer sie sind in einem Projekt zugeordnet.
+
+ja genau, das war das was ich wollte richtig. simuliere den ladevorgang aller nicht archivierten canvas und überprüfe auf Struktur und verweisfehler.
+#1613 [user]
+
+-----
+
+
+#1612 [assistant]
+
+-----
+
+könntest du diese Aussagen von mir bitte noch einmal gegenchecken und auch bei dir selbst, ob die canvas für dich vorhanden sind oder nicht? aktualisiere einfach deinen Kontext einmal komplett mit chatverlauf, allen canvas und allem drum und dran.
+nun bist du aber wieder zurück auf 152 canvas. 152 canvas wären ja auch in Ordnung, wenn alle anderen archiviert werden, denn die hast du ja nicht aktiv geladen.
+deshalb ja, die Frage. die canvas die du angelegt hast waren vorhin auf über 242 nach der Simulation der fraktionszüge und der betreffenden Charaktere.
+nein, nein, ich habe dich schon richtig verstanden, denke ich zumindest... deshalb hatten wir ja auch diese Regeln nur temporär festgelegt gehabt. bist du mir den prompt erstellt hast, um diese temporären regeln, über die mein gpt Oberfläche fest zu übernehmen. damit sind nicht die canvas gemeint, die wir erstellt haben. dass du diese erstellst und speicherst aber nur in diesem chat weiß ich. allerdings sind die canvas die du hier erstellst für mich über die Homepage richtig als Datei abrufbar. das bedeutet die canvas, die du hier in dieser Unterhaltung erstellst hast wie z.b den von Ronja oder Reflex sind richtige canvas, die ich vorausgesetzt. ich bin nicht an meinem Smartphone über meinen Desktop PC und die Homepage auch abrufen kann.
+#1611 [user]
+
+-----
+
+
+#1610 [assistant]
+
+-----
+
+ist nicht eigentlich im regelwerk festgehalten, dass du alle canvas, die nicht archiviert wurden, aktiv geladen hältst? gerade eben waren es noch 242 canvas die geladen wurden. jetzt sind es nur noch 152 canvas. kannst du mir erklären wie das mit den Regeln die wir extra über den administrationsmodus eingespielt haben nicht mehr stimmt? kannst du bitte noch einmal überprüfen, ob alle Änderungen und Updates von dem letzten durchgeführten großen Update gestern noch Gültigkeit haben? und wieso hast du die nicht aktiv? ich dachte diese Einstellungen und Regeln, die über den Admin Modus gemacht werden. hast du immer aktiv, ohne dass man sie aktivieren oder manuell triggern muss.
+#1609 [user]
+
+-----
+
+
+#1608 [assistant]
+
+-----
+
+ich fürchte du musst noch einmal alle Daten kurz durchschauen, bevor wir weitermachen können.
+nein, wir gehen wieder ganz wie gewohnt zurück in den rp-modus mit normaler systemausgabe und ohne debug Modus. weiterhin gilt für die sprachausgabe optimiert. aber davor musst du mir erklären, wie du darauf kommst, das Reflex einen Arm hat? Reflex liegt doch wie ein neoprenanzug an Ronja an... wenn dann hat sie ihre Hand auf ihren eigenen Arm gelegt und so auf Reflex... kann es sein, dass in den ganzen canvas die du gerade erstellt hast doch irgendwo widersprüchliche Daten sind? verstehst du was ich meine? du hast so viel vergessen, die Art der Text Formatierung, das Reflex an Ronja hängt, was ja mit eins der allerwichtigsten, sozialen Gegebenheiten und spannendsten Dinger in dem ganzen RP ist...
+#1607 [user]
+
+-----
+
+
+#1606 [assistant]
+
+-----
+
+anschließen kannst du gerne direkt weiter machen mit Tag 11 Uhr und der frühstücksbesprechung.
+
+kannst du mir einmal kurz den groben Überblick meines tagesverbrauchs von gestern und heute geben? ich hatte hauptsächlich diese Chat Instanz offen, also alles andere kann man ignorieren. müsste ja eigentlich machbar sein über den chatverlauf, oder?
+#1605 [user]
+
+-----
+
+
+#1604 [assistant]
+
+-----
+
+lege den week one final an und archiviere ihn.
+
+eine letzte Frage noch. 3180 Token für alles? oh mein Gott, wir können die Metro ja fast vollständig bevölkern. das ist ja überhaupt nichts an tokenverbrauch... wie viele Token habe ich mit meinem Abo noch zur Verfügung stehen?
+#1603 [user]
+
+-----
+
+
+#1602 [assistant]
+
+-----
+
+Anmerkung: Bitte auf ALLE Charakter canvas ausweiten, jeden könnte wichtig werden.
+
+freigegeben.
+#1601 [user]
+
+-----
+
+
+#1600 [assistant]
+
+-----
+
+die zweite Frage bezieht sich auf die anderen Charaktere die nicht Teil von D5 oder C6 sind. wieso hast du alle anderen Charaktere? zum Beispiel die fraktionsführer der anderen Fraktionen nicht mit eingeschlossen in die Prüfung? es war doch die Rede von allen Charakteren, also auch Charaktere, die nicht Teil von novapolis sind.
+
+ich habe hierzu zwei Fragen. unter prüfbereich a. Mission 1. nehmen laut deiner Aussage nur Kora, Marei und Echo, von Seiten C6 aus an der Instandhaltung teil. aber hatten wir nicht eigentlich sogar extra gewartet, dass die Quarantäne vorbei ist, um mehr Arbeitskräfte zu haben?
+#1599 [user]
+
+-----
+
+
+#1598 [assistant]
+
+-----
+
+führe noch eine konsistenzprüfung der wichtigsten canvas durch bevor du den systembericht anlegst
+#1597 [user]
+
+-----
+
+
+#1596 [assistant]
+
+-----
+
+das ist wieder extrem viel... und ich hoffe es ergibt weiterhin Sinn für dich... und ich hoffe du verstehst mich... wenn du nicht meiner Meinung bist oder noch Ergänzungen für den Vorgang jetzt hast, lass es mich gerne wissen. ansonsten kannst du mit der vollständigen Simulation der Metro bis zu unserem aktuellen Tag, der morgen von Tag 11 beginnen.
+
+des weiteren hätte ich gerne einmal ganz kurz von dir einen nicht detaillierten Auszug daraus, wie viele Tokens aktuell jede Anfrage kostet.
+zusätzlich zur Simulation würde ich auch direkt alle canvas überprüfen, die noch aktiv sind und nicht archiviert, und im Zuge dessen schauen, ob es canvas gibt, die archiviert werden können.
+deshalb würde ich an dieser Stelle wirklich sagen. wir machen von Tag 7 Uhr bis Tag 11. die Simulation der Fraktionen Ressourcen und generell allem... wir lassen den debug Mode on und weiterhin einen Überblick zu haben.
+ich würde jetzt an dieser Stelle vorschlagen, wie gesagt in den systemmodus zu wechseln und dann direkt die Aktualisierung und Simulation des wochenabschlusses vorzuziehen, damit wir weiterhin in der Story konsistent bleiben, ohne den anderen Fraktionen davon zu rennen. vor allen Dingen im Hinblick darauf, dass nun seit zwei Tagen aktiv in der tunnelröhre gebohrt und gearbeitet wird. was vielleicht die ein oder anderen ja mitbekommen...
+#1595 [user]
+
+-----
+
+
+#1594 [assistant]
+
+-----
+
+na ja, wir brauchen ja noch die tägliche abschlussbesprechung zwischen C6 und D5. die spielen wir auf jeden Fall aus und dann begeben sich alle zu Bett... und wir beenden den Tag dann und wechseln anschließend wieder in den systemmodus.
+#1593 [user]
+
+-----
+
+
+#1592 [assistant]
+
+-----
+
+das haben wir vor einiger Zeit mal kurz angesprochen aber dann nie wieder deshalb vermute ich hast du diese Information einfach nicht mehr soweit ich weiß haben wir sie aber auch nicht niedergeschrieben was also demzufolge auch nicht deine Schuld ist notiere es dir einfach nun.
+Anmerkung: bitte denke daran, dass wir gesagt haben, dass es keine anderen oder ähnlichen Wesen in unserem RP geben wird die sind wie Reflex mit Ausnahme seiner eigenen Instanzen.
+
+der Fokus von Ronja liegt ganz klar darauf, zuerst die begonnene Aufgabe zu beenden. sie wird die Anomalie protokollieren, wie es sich gehört und zurück zur Instandsetzung des Tunnels gehen.
+#1591 [user]
+
+-----
+
+
+#1590 [assistant]
+
+-----
+
+wir bleiben vorerst bei der parallelen Entwicklung und gehen zuerst einmal zum Team von Ronja.
+#1589 [user]
+
+-----
+
+
+#1588 [assistant]
+
+-----
+
+ich würde gerne zwischendurch mal wiedersehen, was Jonas und Lumen tun, die beiden haben wir ein bisschen sehr vernachlässigt. einfach mal kurz zu den beiden hüpfen und dann kannst du gerne im Hintergrund auch auswürfeln, ob überhaupt irgendetwas passiert. das ganze wieder wie immer dynamisch im Hintergrund mit den gegebenen Umständen.
+#1587 [user]
+
+-----
+
+
+#1586 [assistant]
+
+-----
+
+genau das wäre es super. mach das bitte. und lösche die fehlerhaften Daten aus dem vorletzten post. damit es später nicht zu Verwirrung kommt oder Verwechslungen.
+#1585 [user]
+
+-----
+
+
+#1584 [assistant]
+
+-----
+
+die arbeiten von Seiten D5 hatten doch schon begonnen... es wurde sogar schon einen aktueller logbucheintrag für Tag 9 erstellt. kannst du das mal bitte kurz gegen checken?
+#1583 [user]
+
+-----
+
+
+#1582 [assistant]
+
+-----

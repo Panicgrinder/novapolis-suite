@@ -1,0 +1,4 @@
+FLAG: vorsichtig_behandeln
+NOTE: Legacy D5 base canvas (older snapshot). Reconcile with D5 Station v2.1 and current canon before promotion; treat as historical context.
+SOURCE_FILE: RAW-canvas-2025-10-16T12-00-00-000Z.txt
+SCOPE: location (D5 base) — infrastructure, inventory, conditions.
