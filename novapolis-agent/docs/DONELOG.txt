@@ -116,3 +116,4 @@ Beispiel:
 2025-10-31 13:22 | Panicgrinder | Markdownlint-Workflow geprüft; offene Funde aus novapolis-rp erfasst
 2025-10-31 14:05 | Copilot | Dokumentation auf Novapolis-Agent umgestellt (AGENT_BEHAVIOR, README, TODO, customization, Index, Eval-Doku, Kontextsample aktualisiert).
 2025-10-31 15:10 | Copilot | Root-Dokumente (Copilot-Anleitung, README, TODO, DONELOG) an Novapolis-Agent Branding angepasst.
+2025-10-31 23:12 | Copilot | Synonyme für "freundlich" ergänzt, pytest grün, Eval-Lauf (ASGI, Limit 50, Hint+Retry) protokolliert.
