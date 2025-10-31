@@ -129,8 +129,8 @@ Beispiel:
 2025-10-25 23:58 | Panicgrinder | eval_ui: profiles support top_p/num_predict; added sample profile policies; updated eval README; tests+types PASS
 2025-10-26 00:10 | Panicgrinder | eval_ui: robust multi-select (comma/space/semicolon, ranges); search datasets+eval for packages; gates PASS
 2025-10-31 13:22 | Panicgrinder | Markdownlint-Workflow geprüft; offene Funde aus novapolis-rp erfasst
-2025-10-31 14:05 | Copilot | Dokumentation auf Novapolis-Agent umgestellt (AGENT_BEHAVIOR, README, TODO, customization, Index, Eval-Doku, Kontextsample aktualisiert).
-2025-10-31 15:10 | Copilot | Root-Dokumente (Copilot-Anleitung, README, TODO, DONELOG) an Novapolis-Agent Branding angepasst.
+2025-10-31 14:05 | Copilot | Dokumentation auf Novapolis Agent umgestellt (AGENT_BEHAVIOR, README, TODO, customization, Index, Eval-Doku, Kontextsample aktualisiert).
+2025-10-31 15:10 | Copilot | Root-Dokumente (Copilot-Anleitung, README, TODO, DONELOG) an Novapolis Agent Branding angepasst.
 2025-10-31 23:40 | Copilot | Agent-Workspace in `novapolis_agent` umbenannt, Mypy-Flow angepasst und Statusdateien bereinigt.
 ```
 

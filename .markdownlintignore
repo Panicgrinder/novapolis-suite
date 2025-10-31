@@ -1,6 +1,6 @@
 Backups/
 cvn-agent-main.bundle
-novapolis-agent.bundle
+novapolis_agent.bundle
 cvn-agend-novapolis-rp-workspace.code-workspace
 novapolis.code-workspace
 .venv/

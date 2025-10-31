@@ -1,6 +1,6 @@
 # Novapolis Sim
 
-Ein minimales Godot-4-Projekt zur Visualisierung des Simulationszustands aus dem Novapolis-Agenten.
+Ein minimales Godot-4-Projekt zur Visualisierung des Simulationszustands aus dem Novapolis Agenten.
 
 ## How to run
 
