@@ -3,24 +3,26 @@ title: Lyra Hest
 category: character
 slug: lyra-hest
 version: "0.9"
-last_updated: 2025-10-27T20:05:00+01:00
+last_updated: 2025-11-02T11:35:00+01:00
 tags: []
 affiliations: ["novapolis"]
 dependencies: ["d5", "c6"]
 primary_location: d5
 last_seen: d5
 ---
+<!-- markdownlint-disable MD025 -->
 
 # Lyra Hest
 
-- Meta: last-updated: 2025-10-27T20:05:00+01:00
+- Meta: last-updated: 2025-11-02T11:35:00+01:00
+- Verhaltenssignatur: `LYH1=O74-L68-T62-E58-S54-N46-M32-C28-P48-r` – strukturiert, loyal gegenüber Novapolis und rational in Logistikentscheidungen.
 
 - Rolle: Stellvertretende Leitung (Zivil/Logistik)
 - Werte: tbd
 - Skills:
-	- Geübt: tbd
-	- Meisterhaft: tbd
-	- Optional: tbd
+  - Geübt: tbd
+  - Meisterhaft: tbd
+  - Optional: tbd
 - Ausrüstung: tbd
 - Motivation: tbd
 - Makel: tbd

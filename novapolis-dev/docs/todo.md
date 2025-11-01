@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD022 MD041 -->
-last-updated: 2025-11-01T16:45:00+01:00
+last-updated: 2025-11-02T12:45:00+01:00
 ---
 ---
 
@@ -21,9 +21,9 @@ Priorität A – Charaktere & Führung
 - [ ] Marven Kael → neues Canvas; Flags beachten (Konvoi-/Handelsleitung extern, keine Doppelrolle mit Kora).
 - [ ] Arlen Dross → neues Canvas; Rolle als Händler/Vermittler präzisieren; Reflex-Einschätzung aufnehmen.
 - [ ] Pahl → neues Canvas; Gesundheitsstatus (Atembeschwerden) verifizieren; Beziehungen/Risiken dokumentieren.
-- [ ] Ronja Kerschner → bestehendes Canvas mit RAW-Insights ergänzen; Nachname auf "Kerschner" halten; Drift-Kommentare markieren.
+- [x] Ronja Kerschner → Canvas `database-rp/02-characters/Ronja-Kerschner.{md,json}` auf Version 1.0 gehoben (2025-11-01T17:10+01:00); RAW-Signatur/Status übernommen, Drift "Vallin" dokumentiert.
 - [ ] Reflex (Primärinstanz) → Canvas + Wissensstand erweitern; Frequenzband 7.3–8.0 Hz und Detachment-Regeln aus RAW übernehmen; `[REFLEX-*]` prüfen.
-- [ ] Jonas Merek → Canvas anreichern; Schwester-Status auf "vermisst/unklar" normalisieren; Schuldflag als Kommentar kennzeichnen.
+- [x] Jonas Merek → Canvas anreichern; Schwester-Status auf "vermisst/unklar" normalisieren; Schuldflag als Kommentar kennzeichnen. *(2025-11-02T13:55+01:00 erledigt)*
 
 Plan Charakter-Review (laufend)
 --------------------------------
@@ -31,7 +31,7 @@ Plan Charakter-Review (laufend)
 Reihenfolge
 -----------
 
-- Ronja Kerschner → Abgleich `resolved.md`, RAW `char_ronja_v2` + Flag, Rollenmatrix, Ziele, Systemverknüpfungen, Drift-Notizen.
+- Ronja Kerschner → Abgleich `resolved.md`, RAW `char_ronja_v2` + Flag, Rollenmatrix, Ziele, Systemverknüpfungen, Drift-Notizen. *(erledigt 2025-11-01T17:10+01:00)*
 - Jonas Merek → RAW `RAW-canvas-2025-10-16T14-12-00-000Z.*`, Schwesterstatus gemäß `[FACT][JONAS-SIS]`, Werkstatt-/Tunnelinfos konsolidieren.
 - Lumen → Jonas-Quellen + `[FACT][PROXIMITY]`, Fähigkeiten/Kopplung und Trainings-Canvas aktualisieren.
 - Kora Malenkov → RAW `RAW-canvas-2025-10-16T14-56-00-000Z.txt`, paranoide Vorsicht, C6-Linienstatus (FACT `C6-LINES`), Echo-Interaktion.
@@ -47,6 +47,7 @@ Arbeitsschritte pro Charakter
 - Quellen sammeln: `database-curated/staging/reports/resolved.md`, `.../uncertainties.md`, zugehörige RAW-/Flag-Dateien, overlap-Reports.
 - Canvas aktualisieren (Werte, Skills, Motivation, Wissensmatrix, Beziehungen, Ziele, Risiken) und Systemverknüpfungen prüfen.
 - Zugehörige Wissens-/Trainings-Canvases mitziehen (Instanzen).
+- Behavior-Signatur gegen Anchor-Register prüfen; Drift-Flags dokumentieren.
 - JSON-Sidecar, `char-block-nord-sources.md`, `person_index_np.md`, DONELOGs (`novapolis-dev/docs/donelog.md`, Root `DONELOG.md`) und TODO-Status aktualisieren.
 - Nach einem Bündel Updates Validator laufen lassen (`coding/tools/validators/run_validate_all.ps1`).
 
@@ -64,7 +65,8 @@ Priorität C – Systeme, Indizes, Ereignisse
 
 - [ ] Ereignislog Weltgeschehen → neues Admin-Canvas; Begriff "Allianz" gegen `[SECRECY]` prüfen; H-47 als Ex-Karawane markieren.
 - [ ] Relationslog Novapolis → neues Canvas/Project-Canvas; Händlerkontakt "Senn Daru" verlinken; ID-Schema `logistik_novapolis_v2` angleichen.
-- [ ] AI-Behavior-Index → `AI-Behavior-Mapping.md` + JSON-Sidecar erweitern; Cluster/Modifikatoren dokumentieren.
+- [x] AI-Behavior-Index → `AI-Behavior-Mapping.md` + JSON-Sidecar erweitert (2025-11-01T17:40+01:00); Cluster, Modifikatoren, Anchor-Register, Psymatrix-Abgleich dokumentiert.
+- [x] Validator „behavior_matrix_check.py“ → Anchor-Register + `ai_psymatrix_index_v1` Diff-Report erzeugen; Automation vorbereiten. *(2025-11-02T12:40+01:00 – Skript `coding/tools/validators/behavior_matrix_check.py` angelegt, Format-Checks aktiv; Psymatrix-Diff folgt sobald Quelle vorliegt.)*
 - [ ] Meta-Cluster-Index → neues Admin-Canvas; Spannungen/PsyLinks gegen Kanon verifizieren.
 - [ ] Missionslog Querverweise aktualisieren (nur falls Rohdaten relevante Ereignisse tragen).
 

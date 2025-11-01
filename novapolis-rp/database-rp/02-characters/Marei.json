@@ -1,0 +1,22 @@
+{
+  "title": "Marei",
+  "category": "character",
+  "slug": "marei",
+  "version": "0.9",
+  "last_updated": "2025-11-02T13:45:00+01:00",
+  "last_change": "Import aus RAW (marei_v1)",
+  "tags": [],
+  "affiliations": [
+    "novapolis",
+    "e3"
+  ],
+  "primary_location": "c6",
+  "last_seen": "c6",
+  "dependencies": [
+    "kora-malenkov",
+    "verbindungstunnel-c6-e3",
+    "c6",
+    "e3"
+  ],
+  "source": "database-rp/02-characters/Marei.md"
+}

@@ -28,28 +28,38 @@ Diese Datei ist der „Wahrheitsspeicher“. Änderungen hier sind kanonisch.
 ### Pahl (Leittechniker)
 - Ex-Union (C6), geborgen; in Rekonvaleszenz (Jonas betreut).
 
+### Marei
+- Leitung E3 bis Evakuierung; heute Stellvertretung C6 (Logistik/Organisation).
+- Koordiniert Inventarabgleiche D5↔C6 gemeinsam mit Kora; betreut die 20 Evakuierten aus E3.
+- Erwartet strukturierte Freigaben über Ronja; pflegt Logistik-Knoten protokolliert.
+
 ## Orte
 - D5 – Hauptbasis; Kontrollraum restauriert; bewohnt.
-- C6 – Teilaktiv; Reaktor stabilisiert; Überwachungssplitter; mögliche Funde/Leichen protokolliert.
+- C6 – Teilaktiv; Reaktor stabilisiert; Überwachungssplitter; 20 Evakuierte aus E3 + 4 Karawanenmitglieder integriert.
+- E3 – Station evakuiert, Energiezufuhr getrennt, Anomalie „E3-Gefahr“ (Monitoring passiv), Wiederinbetriebnahme offen.
 - Tunnel D5–C6 – beschädigt; Kartierung & Wiederaufbau als Projekt „Nordlinie 01“.
+- Verbindungstunnel C6–E3 – begehbar, C6-seitig gesichert; E3-Ende verriegelt.
 
 ## Inventar / Ressourcen
-- D5-Inventar gepflegt. C6-Funde verbucht (Filter, Energiezellen, Werkzeuge).
+- D5-Inventar gepflegt.
+- C6-Funde verbucht (Filter, Energiezellen, Werkzeuge); Versorgungsschwerpunkte mit Marei abgestimmt.
 - Fehlend/Offen: Schweißausrüstung, Adapter DN60. Hydrofilter-Behälter als Reserve.
 
 ## Projekte
 - Nordlinie 01 – Verbindungstunnel instandsetzen; Materialliste, Abschnitte, Blocker.
+- E3-Restaurierungsplanung – Warnmeldungen analysieren, Sensorik/Anomalie klären, Reaktivierungsbedingungen definieren.
 
 ## Timeline (sehr knapp)
 1. Erwachen D5 → Selbstcheck → Wartungsauftrag.
 2. Erstkontakt Reflex, Dämpfungs-Test, Regeln.
-3. C6: Funk/Scan, Reaktorstabilisierung, Suche/Leichenfund (vermerkt).
+3. C6: Funk/Scan, Reaktorstabilisierung, Suche/Leichenfund; Evakuierungsaufnahme (20 Personen) gemeinsam mit Marei.
 4. D5: Wiederaufbau; Jonas eingebunden; Pahl in Pflege.
 5. Projektstart „Nordlinie 01“; Vorratsläufe; Überwachung an C6.
 
 ## Offene Fäden
 - Nordlinie 01: Schweißgerät, DN60-Adapter, Statikprüfung.
 - C6: Überwachungssplitter auswerten; eventuelle Überlebende.
+- E3: Anomalie „E3-Gefahr“ untersuchen; Reaktivierungsplan abstimmen.
 - Reflex-Forschung: Sensorik, Trägerarchitektur („Wirbelsäule“), Exo-Prototyp.
 - Fraktionen: Signale/Beobachtungen sammeln.
 - Jonas: Vertrauen festigen; Werkstatt einrichten.

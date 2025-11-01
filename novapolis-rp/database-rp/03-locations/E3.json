@@ -1,13 +1,12 @@
 {
-  "title": "C6 – Außenposten",
+  "title": "E3 – Evakuierte Station",
   "category": "location",
-  "slug": "c6",
+  "slug": "e3",
   "version": "0.9",
   "tags": [],
   "affiliations": [],
   "dependencies": [
-    "verbindungstunnel-d5-c6",
     "verbindungstunnel-c6-e3"
   ],
-  "source": "database-rp/03-locations/C6.md"
+  "source": "database-rp/03-locations/E3.md"
 }

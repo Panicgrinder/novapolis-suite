@@ -6,11 +6,28 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 
 - **novapolis_agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
 - **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
+- 2025-11-02: Memory-Bundle und Root-Doku auf Evakuierungsstatus Marei/E3/C6 synchronisiert; offene Aufgabenliste angepasst.
+- 2025-11-02: Jonas-Merek-Canvas auf Version 1.0 konsolidiert (Werte, Rollen, Sicherheitsprotokolle; Schuldflag normalisiert) und dev TODO/DONELOG nachgezogen.
+- 2025-11-02: Behavior-Signaturen für Echo/Lumen/Liora/Lyra/Senn/Varek kuratiert; Validator `behavior_matrix_check.py` um Psymatrix-Diff und Dokumentation ergänzt.
+- 2025-11-01: AI Behavior Matrix (Version 1.0) – RAW `ai_behavior_index_v2` promotet, Cluster/Intensität/Modifikatoren, vollst. Anchor-Register (02-characters) + Psymatrix dokumentiert.
+- 2025-11-01: Ronja-Canvas (Version 1.0) – RAW char_ronja_v2 integriert, Drift „Vallin“ dokumentiert, TODO-Boards aktualisiert.
 - 2025-11-01: Echo-Canvas (Front-Matter/JSON) formal angeglichen, keine inhaltlichen Änderungen.
 - 2025-11-01: Canvas-Rettung Sprint 1 – Liora Navesh abgeschlossen (Canvas + JSON, Quellen/TODO/Personenindex aktualisiert).
 - 2025-11-01: Root-Dokumentation (`README.md`, `TODO.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`) aktualisiert; Tree-Snapshot-Refresh als Folgeaufgabe markiert.
 
 ## Volltexte
+
+Memory-Bundle Refresh (2025-11-02T10:15:00+01:00)
+
+- `novapolis-rp/database-rp/00-admin/memory-bundle.md` vollständig neu strukturiert: Evakuierung E3→C6, Marei-Rolle, Tunnelstatus und Projektlisten aktualisiert; Charaktersektionen gestrafft.
+- Root-Dokumentation (`README.md`, `TODO.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`) auf Stand 2025-11-02 gehoben; TODO-Checkboxen für Memory-Bundle-Aufgaben abgeschlossen.
+- Folgeaufgabe: Tree-Snapshots (`workspace_tree*.txt`) beim nächsten Struktur-Update regenerieren.
+
+Jonas Merek Canvas (2025-11-02T13:55:00+01:00)
+
+- Charakter-Canvas `novapolis-rp/database-rp/02-characters/Jonas-Merek.md` auf Version 1.0 aktualisiert: Werte/Skills aus RAW `char_jonas_v2` übernommen, Rollen (Werkstatt, Logistik, Terminal) präzisiert und Sicherheit/Proximity-Protokolle ergänzt.
+- Korrupten Makel („Schuld am Tod der Schwester“) gemäß FACT `[JONAS-SIS]` bereinigt – Schwesterstatus als „vermisst/unklar“ festgehalten, Schuldgefühle als subjektive Notiz geführt.
+- JSON-Sidecar & Dependencies (`missionslog`, `ai_behavior_index_v2`) synchronisiert, `char-block-nord-sources.md` sowie dev TODO/DONELOG aktualisiert.
 
 <details>
 <summary>novapolis_agent/docs/DONELOG.txt</summary>
@@ -147,11 +164,39 @@ Beispiel:
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
 
+Canvas-Rettung Sprint 1 – AI Behavior Matrix (2025-11-01T17:55:00+01:00)
+
+- RAW-Canvas `database-raw/99-exports/RAW-canvas-2025-10-16T11-05-00-000Z.txt` promotet: `database-rp/00-admin/AI-Behavior-Mapping.md` auf Version 1.0 erweitert (Cluster-Tabelle, Intensitätsskala, Modifikatoren, Pflege-Routine, Einsatzrichtlinien).
+- Anchor-Register um alle aktuellen Charaktere in `02-characters/` ergänzt (inkl. Echo/Lumen/Liora/Lyra/Senn/Varek; `n/a` markiert fehlende Signaturen); Psymatrix-Abgleich-Routine mit Schwellen (`PsySignatur_Dissonanz`, Kohäsion) dokumentiert.
+- Sidecar `AI-Behavior-Mapping.json` synchronisiert (Version 1.0, last_updated, dependencies `ai_behavior_index_v2`/`ai_psymatrix_index_v1`, Tag-Set ergänzt).
+- TODO aktualisiert (AI-Behavior-Index erledigt, Validator-Follow-up) und Arbeitsablauf um Anchor-Check erweitert; Quellen/Flag-Hinweise verankert.
+
+Canvas-Rettung Sprint 1 – Ronja Kerschner (2025-11-01T17:12:00+01:00)
+
+- Charakter-Canvas `database-rp/02-characters/Ronja-Kerschner.md` auf Version 1.0 aktualisiert; Status-/Systemabschnitte aus RAW `char_ronja_v2` übernommen und Drift („Vallin“) gemäß `resolved.md #[NAME-RONJA]` dokumentiert.
+- JSON-Sidecar (`Ronja-Kerschner.json`) synchronisiert; Routine- und Systemverknüpfungen mit Review-Hinweis auf logistik-/inventar-v1 markiert.
+- TODO-Boards (`novapolis-dev/docs/todo.md`, Root `TODO.md`) aktualisiert; Aufgabe „Ronja Kerschner“ auf erledigt gesetzt.
+- Quellenhinweise erweitert (Canvas-Quellenblock + `char-block-nord-sources.md` Ronja-Abschnitt aktualisiert); Metadaten-Zeitstempel angepasst.
+
+Canvas-Rettung Sprint 1 – Echo Metadatenabgleich (2025-11-01T16:35:00+01:00)
+
+- Canvas `database-rp/02-characters/Echo.md` um Front-Matter ergänzt (Titel, Version, Zugehörigkeit, Standort, Dependencies) und Markdown-Formatierung mit Leerzeichen/Abständen an Vorlagen angepasst.
+- JSON-Sidecar `database-rp/02-characters/Echo.json` auf dieselben Metafelder synchronisiert (last_updated, tags, affiliations, primary_location, dependencies).
+- Keine Inhaltsänderungen; Fokus auf formale Angleichung für Lint/Validator-Kompatibilität.
+
+Canvas-Rettung Sprint 1 – Liora Navesh (2025-11-01T16:25:00+01:00)
+
+- Charakter-Canvas `database-rp/02-characters/Liora-Navesh.md` + JSON-Sidecar erstellt; Arkologie-A1-Taxonomie und Validierungsintervall übernommen, Novapolis/D5 weiterhin als unbekannt markiert, SÜDFRAGMENT-Signale und A9-Protokolle hervorgehoben.
+- Quellenreport `char-block-nord-sources.md` aktualisiert; Flag-Hinweise (Secrecy, Taxonomie) als abgearbeitet vermerkt und Curated-Verweis ergänzt.
+- `novapolis-dev/docs/todo.md` → Liora-Aufgabe als erledigt mit Zeitstempel 2025-11-01T16:20+01:00 markiert; last-updated synchronisiert.
+- Personenindex `database-rp/00-admin/person_index_np.md` um Liora ergänzt (Rolle, Zugehörigkeit Arkologie A1, Fokus auf SÜDFRAGMENT, keine Novapolis-Kenntnisse).
+- JSON-Sidecar verweist auf Canvas und Abhängigkeiten (`ai_behavior_index_v2`, `relationslog_arkologie_v1`, `ereignislog_weltgeschehen_v1`, `cluster_index_v1`).
+
 Canvas-Rettung Sprint 1 – Varek Solun (2025-11-01T15:55:00+01:00)
 
 - Charakter-Canvas `database-rp/02-characters/Varek-Solun.md` + JSON-Sidecar erstellt; Standortcode H12 (Alias „Sektor_H3“) harmonisiert, Wissensstand gemäß FACT SECRECY auf Gerüchte begrenzt.
 - Quellen/Drift-Notizen in `char-block-nord-sources.md` aktualisiert; Flag-Hinweise (Novapolis-Außenwissen, Standortcodierung) als erledigt markiert.
-- `novapolis-dev/docs/todo.md` und Root-`TODO.md` → Varek-Aufgabe als erledigt vermerkt (Zeitstempel 2025-11-01T15:45+01:00).
+- `novapolis-dev/docs/todo.md` und Root-`TODO.md` → Varek-Aufgabe als erledigt vermerkt (Zeitstempel 2025-11-01T15:45:00+01:00).
 - Personenindex `database-rp/00-admin/person_index_np.md` um Varek ergänzt (Rolle, Zugehörigkeit, Verlinkung).
 - JSON-Sidecar referenziert Metadaten + Quelle; Routine- und Systemverknüpfungen dokumentiert.
 

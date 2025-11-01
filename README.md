@@ -33,8 +33,8 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 
 ## Aktuelle Statusdokumente
 
-- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) – Stand 2025-11-01, fasst Health-Checks, Risiken und Artefakte zusammen.
-- [`TODO.md`](TODO.md) – Zentraler Aufgabenueberblick (Stand 2025-11-01) inklusive Folgeaufgaben fuer Tree-Snapshots.
+- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) – Stand 2025-11-02, fasst Health-Checks, Risiken und Artefakte zusammen.
+- [`TODO.md`](TODO.md) – Zentraler Aufgabenueberblick (Stand 2025-11-02) inklusive Folgeaufgaben fuer Tree-Snapshots.
 - [`workspace_tree_full.txt`](workspace_tree_full.txt) – Vollstaendiger Verzeichnisbaum (Stand 2025-10-31; naechste Regeneration geplant).
 
 ## Naechste Schritte

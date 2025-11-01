@@ -3,7 +3,7 @@ title: Lumen
 category: character
 slug: lumen
 version: "0.9"
-last_updated: 2025-10-27T20:05:00+01:00
+last_updated: 2025-11-02T11:25:00+01:00
 tags: []
 affiliations: ["novapolis"]
 dependencies: ["jonas-merek", "reflex", "d5"]
@@ -13,14 +13,15 @@ last_seen: d5
 
 # Lumen
 
-- Meta: last-updated: 2025-10-27T20:05:00+01:00
+- Meta: last-updated: 2025-11-02T11:25:00+01:00
+- Verhaltenssignatur: `LMN1=L78-T71-E60-O49-N44-S52-C26-M18-P28-ks` – sucht Nähe zu Jonas, hilft technisch fokussiert und bleibt kindlich-selbstlos im Support.
 
 - Rolle: Reflex‑Instanz (an Jonas gekoppelt)
 - Werte: tbd
 - Skills:
-	- Geübt: tbd
-	- Meisterhaft: tbd
-	- Optional: tbd
+  - Geübt: tbd
+  - Meisterhaft: tbd
+  - Optional: tbd
 - Ausrüstung/Körper: Reflex‑Material (formbar, schützend) in Miniatur‑Konfiguration
 - Motivation: Stabil bei Jonas; Assistenz in Werkstatt
 - Makel: Instabilität bei Distanz

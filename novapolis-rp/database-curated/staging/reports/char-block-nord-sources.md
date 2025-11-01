@@ -83,7 +83,7 @@
 - **Flag** `RAW-canvas-2025-10-16T11-45-00-000Z.flags.txt`
   - Markiert als korrupt; Nachname, Beziehungen, Locations gegen Kanon prüfen.
 - **Curated**
-  - `database-rp/02-characters/Ronja-Kerschner.md` – bereits mit kanonischem Nachnamen, Rollenmatrix, Reflex-Interaktionsregeln.
+  - `database-rp/02-characters/Ronja-Kerschner.md` (Stand 2025-11-01T17:10+01:00) – Version 1.0, Status-/Systemabschnitte aus RAW übernommen, Drift „Vallin“ dokumentiert.
 - **resolved.md Bezug**
   - `[NAME-RONJA]` – bestätigter Nachname „Kerschner“; `[FACT][REFLEX-*]`, `[FACT][ROLES]` liefern weitere Leitplanken.
 
@@ -110,7 +110,7 @@
 - **Flag** `RAW-canvas-2025-10-16T14-12-00-000Z.flags.txt`
   - Markiert als korrupt; Schwesterstatus gegen Kanon normalisieren.
 - **Curated**
-  - `database-rp/02-characters/Jonas-Merek.md` – Nachname Korrektur, Makel/Werte noch `tbd`, Notizen zur Werkstatt und Lumen-Kopplung.
+  - `database-rp/02-characters/Jonas-Merek.md` (Version 1.0 – 2025-11-02T13:55+01:00) – Werte/Skills übernommen, Schuldflag als Kommentar (Schwester vermisst), Rollen Logistik/Werkstatt/Terminal, Sicherheitsprotokolle ergänzt.
 - **resolved.md Bezug**
   - `[FACT][JONAS-SIS]` – Schwesterstatus bleibt „vermisst/unklar“, Schuldflag als non-canon deklarieren.
 

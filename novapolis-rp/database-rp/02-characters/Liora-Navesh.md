@@ -3,7 +3,7 @@ title: Liora Navesh
 category: character
 slug: liora-navesh
 version: "0.9"
-last_updated: 2025-11-01T16:20:00+01:00
+last_updated: 2025-11-02T11:30:00+01:00
 last_change: "Import aus RAW (char_liora_navesh_v1)"
 tags: []
 affiliations: ["arkologie_a1"]
@@ -16,7 +16,8 @@ last_seen: arkologie_a1
 
 # Liora Navesh
 
-- Meta: last-updated: 2025-11-01T16:20:00+01:00
+- Meta: last-updated: 2025-11-02T11:30:00+01:00
+- Verhaltenssignatur: `LNR1=O82-T76-N68-S58-L52-M47-E34-C21-P55-r` – analytisch-strukturiert, sucht abgesicherte Erkenntniswege und handelt streng rational.
 - Rolle: Leiterin Forschungsrat / Chefärztin Biotechnologie der Arkologie A1 (Quelle: FACT ARKO-RESEARCH)
 - Werte: Kraft 2 · Geschick 3 · Geist 5 · Wille 4 · Charisma 4
 - Skills:

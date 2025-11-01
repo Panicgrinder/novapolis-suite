@@ -9,6 +9,7 @@ Inhalte
   - `src/validate-rp.js` – prüft Markdown (H1 vorhanden, optionale Front-Matter-Typen)
   - `src/check-crossrefs.js` – prüft Szenen-Referenzen (characters/locations/inventory)
   - `src/validate-all.js` – führt alles nacheinander aus
+  - `behavior_matrix_check.py` – prüft Signatur-Format & Quellen im Anchor-Register (`AI-Behavior-Mapping.md`) und vergleicht Intensitäten mit `ai_psymatrix_index_v1` (sobald vorhanden)
 
 Nutzung (lokal)
 - Voraussetzungen: Node.js 20+ oder Docker
@@ -19,6 +20,8 @@ Nutzung (lokal)
   - Lokal: `npm --prefix coding/tools/validators run validate`
   - Namen prüfen (robust, ohne Inline-Command):
     - `powershell -ExecutionPolicy Bypass -File coding/tools/validators/run_check_names.ps1`
+  - Behavior-Matrix-Check (optional):
+    - `python coding/tools/validators/behavior_matrix_check.py`
 
 CI/Tasks
 - VS Code Task `validate:data` versucht zuerst Docker, sonst lokal.

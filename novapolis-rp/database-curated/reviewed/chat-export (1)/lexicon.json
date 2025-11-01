@@ -1,5 +1,9 @@
 {
   "by_slug": {
+    "echo": {
+      "category": "character",
+      "title": "Echo"
+    },
     "jonas-merek": {
       "category": "character",
       "title": "Jonas Merek"
@@ -12,9 +16,17 @@
       "category": "character",
       "title": "Lumen"
     },
+    "liora-navesh": {
+      "category": "character",
+      "title": "Liora Navesh"
+    },
     "lyra-hest": {
       "category": "character",
       "title": "Lyra Hest"
+    },
+    "marei": {
+      "category": "character",
+      "title": "Marei"
     },
     "reflex": {
       "category": "character",
@@ -28,13 +40,17 @@
       "category": "character",
       "title": "Senn Daru"
     },
+    "varek-solun": {
+      "category": "character",
+      "title": "Varek Solun"
+    },
     "c6": {
       "category": "location",
-      "title": "C6"
+      "title": "C6 – Außenposten"
     },
     "d5": {
       "category": "location",
-      "title": "D5"
+      "title": "D5 – Hauptbasis"
     },
     "c6-nord": {
       "category": "location",
@@ -55,9 +71,22 @@
     "f1": {
       "category": "location",
       "title": "F1"
+    },
+    "verbindungstunnel-d5-c6": {
+      "category": "location",
+      "title": "Verbindungstunnel D5–C6"
+    },
+    "verbindungstunnel-c6-e3": {
+      "category": "location",
+      "title": "Verbindungstunnel C6–E3"
     }
   },
   "aliases": {
+    "Echo": "echo",
+    "echo": "echo",
+    "Echo (Instanz)": "echo",
+    "Instanz Echo": "echo",
+    "instanz echo": "echo",
     "Jonas Merek": "jonas-merek",
     "merek": "jonas-merek",
     "jonas": "jonas-merek",
@@ -69,11 +98,18 @@
     "Kora": "kora-malenkov",
     "Malenkov": "kora-malenkov",
     "Lumen": "lumen",
+    "Liora Navesh": "liora-navesh",
+    "Liora": "liora-navesh",
+    "liora": "liora-navesh",
+    "Navesh": "liora-navesh",
+    "navesh": "liora-navesh",
     "Lyra Hest": "lyra-hest",
     "lyra": "lyra-hest",
     "Lyra": "lyra-hest",
     "Hest": "lyra-hest",
     "hest": "lyra-hest",
+    "Marei": "marei",
+    "marei": "marei",
     "Reflex (Primärinstanz)": "reflex",
     "(primärinstanz)": "reflex",
     "Reflex": "reflex",
@@ -89,22 +125,37 @@
     "Daru": "senn-daru",
     "senn": "senn-daru",
     "daru": "senn-daru",
+    "Varek Solun": "varek-solun",
+    "Varek": "varek-solun",
+    "varek": "varek-solun",
+    "Solun": "varek-solun",
+    "solun": "varek-solun",
     "C6": "c6",
     "c6": "c6",
     "D5": "d5",
     "d5": "d5",
+    "Station E3": "e3",
+    "E3": "e3",
+    "e3": "e3",
     "C6 Nord": "c6-nord",
     "nord": "c6-nord",
     "Nord": "c6-nord",
     "Mission C6-Nord (Sealed room)": "mission-c6-nord",
-    "Mission": "mission-c6-nord",
-    "room)": "mission-c6-nord",
-    "mission": "mission-c6-nord",
     "C6-Nord": "c6-nord",
     "N7": "c6-nord",
     "n7": "c6-nord",
     "Mission C6-Nord": "mission-c6-nord",
-    "C6-Nord Mission": "mission-c6-nord"
+    "C6-Nord Mission": "mission-c6-nord",
+    "Verbindungstunnel D5–C6": "verbindungstunnel-d5-c6",
+    "Verbindungstunnel D5-C6": "verbindungstunnel-d5-c6",
+    "Tunnel D5-C6": "verbindungstunnel-d5-c6",
+    "Tunnel C6-D5": "verbindungstunnel-d5-c6",
+    "Verbindungstunnel C6–E3": "verbindungstunnel-c6-e3",
+    "Verbindungstunnel C6-E3": "verbindungstunnel-c6-e3",
+    "Tunnel C6-E3": "verbindungstunnel-c6-e3",
+    "Tunnel E3-C6": "verbindungstunnel-c6-e3",
+    "C6–E3": "verbindungstunnel-c6-e3",
+    "C6-E3": "verbindungstunnel-c6-e3"
   },
   "redirects": {
     "n7": "c6-nord"

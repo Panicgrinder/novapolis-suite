@@ -2,9 +2,9 @@
   "title": "Ronja Kerschner",
   "category": "character",
   "slug": "ronja-kerschner",
-  "version": "0.9",
-  "last_updated": "2025-10-28T07:06:11+01:00",
-  "last_change": "Safety/Signals präzisiert",
+  "version": "1.0",
+  "last_updated": "2025-11-01T17:10:00+01:00",
+  "last_change": "RAW-Insights (char_ronja_v2) integriert, Drift markiert",
   "tags": [],
   "affiliations": [
     "novapolis"

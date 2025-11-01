@@ -1,10 +1,10 @@
-# Workspace-Status (Stand 2025-11-01)
+# Workspace-Status (Stand 2025-11-02)
 
 ## Überblick
 
 - Mono-Repo bündelt `novapolis_agent`, `novapolis-rp`, `novapolis-dev`, `novapolis-sim`, gemeinsame Pakete unter `packages/`
 - Produktiver Code liegt ausschließlich im Agent-Backend; RP-Workspace enthält weiterhin Daten, Workflows, Tools
-- Root-Dokumente (`README.md`, `TODO.md`, `WORKSPACE_STATUS.md`) wurden am 2025-11-01 synchronisiert und liefern Einstieg ohne Projektwechsel
+- Root-Dokumente (`README.md`, `TODO.md`, `WORKSPACE_STATUS.md`) wurden am 2025-11-02 synchronisiert und liefern Einstieg ohne Projektwechsel
 - Kopilot-Anweisungen konsolidiert unter `.github/copilot-instructions.md`
 - Struktur-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) zuletzt am 2025-10-31 erzeugt; Regeneration ist als Folgeaufgabe notiert (`TODO.md`)
 
@@ -16,7 +16,7 @@
 - Risiken kurz:
   - Verzeichnis-Bulk unter `outputs/` (LoRA-Runs) wächst; mittelfristig archivieren oder auslagern
   - VS-Code Settings liegen projektweise verteilt; Root-Scoping für gemeinsame Instruktionen bleibt geplant
-  - RP-Datenpflege erfordert regelmäßigen Sync mit Memory-Bundle (siehe `novapolis-dev/docs/todo.md`)
+  - RP-Datenpflege erfordert regelmäßigen Sync mit Memory-Bundle (seit 2025-11-02 aktualisiert, siehe `novapolis-rp/database-rp/00-admin/memory-bundle.md`)
   - Tree-Snapshots benötigen Refresh zur nächsten Inventur (letzter Stand 2025-10-31)
 
 ## Wichtige Artefakte & Logs

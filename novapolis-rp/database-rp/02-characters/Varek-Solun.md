@@ -3,7 +3,7 @@ title: Varek Solun
 category: character
 slug: varek-solun
 version: "0.9"
-last_updated: 2025-11-01T15:45:00+01:00
+last_updated: 2025-11-02T11:45:00+01:00
 last_change: "Import aus RAW (char_varek_solun_v1)"
 tags: []
 affiliations: ["eisenkonklave"]
@@ -12,9 +12,12 @@ primary_location: h12
 last_seen: h12
 ---
 
+<!-- markdownlint-disable MD025 -->
+
 # Varek Solun
 
-- Meta: last-updated: 2025-11-01T15:45:00+01:00
+- Meta: last-updated: 2025-11-02T11:45:00+01:00
+- Verhaltenssignatur: `VRS1=O88-M76-S68-T62-L55-N44-C28-E25-P60-pr` – kontrollorientiert, führt mit strenger Autorität und paranoid-rationaler Wachsamkeit.
 - Rolle: Kommandant der Eisenkonklave (Militär & Zivil) (Quelle: FACT EK-LEADERSHIP)
 - Werte: noch offen (Union-Bewertungen nicht veröffentlicht)
 - Skills:

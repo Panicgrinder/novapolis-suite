@@ -3,7 +3,7 @@ title: Echo
 category: character
 slug: echo
 version: "0.9"
-last_updated: 2025-10-27T20:05:00+01:00
+last_updated: 2025-11-02T11:20:00+01:00
 tags: ["instanz"]
 affiliations: ["novapolis"]
 dependencies: ["kora-malenkov", "reflex", "echo-wissensstand-trainingsstand", "c6"]
@@ -15,7 +15,8 @@ last_seen: c6
 
 # Echo
 
-- Meta: last-updated: 2025-10-27T20:05:00+01:00
+- Meta: last-updated: 2025-11-02T11:20:00+01:00
+- Verhaltenssignatur: `ECO1=L85-S74-T62-E58-N52-O44-C28-M16-P30-ks` – bindet sich eng an Kora, reagiert kindlich-selbstlos und priorisiert Schutzinstinkte.
 
 - Rolle: Reflex‑Instanz (an Kora gekoppelt)
 - Werte: tbd

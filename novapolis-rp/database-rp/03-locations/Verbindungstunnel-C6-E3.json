@@ -1,0 +1,13 @@
+{
+  "title": "Verbindungstunnel C6–E3",
+  "category": "location",
+  "slug": "verbindungstunnel-c6-e3",
+  "version": "0.9",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [
+    "c6",
+    "e3"
+  ],
+  "source": "database-rp/03-locations/Verbindungstunnel-C6-E3.md"
+}

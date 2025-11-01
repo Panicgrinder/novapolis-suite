@@ -6,7 +6,7 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 
 - **novapolis_agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
 - **novapolis-dev / novapolis-rp**: Fokus auf Canvas-Rettung Sprint 1 (Charaktere/Logistik/Systeme) sowie bestehende Datenkurierungs- und Sim-Aufgaben.
-- **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-01) + `workspace_tree*.txt` (Stand 2025-10-31) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
+- **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-02) + `workspace_tree*.txt` (Stand 2025-10-31) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
   - [ ] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) neu erzeugen und ablegen (letzter Lauf 2025-10-31).
 - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren.
   - [ ] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`).
@@ -515,7 +515,7 @@ Priorität A – Charaktere & Führung
 - [ ] Marven Kael → neues Canvas; Flags beachten (Konvoi-/Handelsleitung extern, keine Doppelrolle mit Kora).
 - [ ] Arlen Dross → neues Canvas; Rolle als Händler/Vermittler präzisieren; Reflex-Einschätzung aufnehmen.
 - [ ] Pahl → neues Canvas; Gesundheitsstatus (Atembeschwerden) verifizieren; Beziehungen/Risiken dokumentieren.
-- [ ] Ronja Kerschner → bestehendes Canvas mit RAW-Insights ergänzen; Nachname auf "Kerschner" halten; Drift-Kommentare markieren.
+- [x] Ronja Kerschner → Canvas `database-rp/02-characters/Ronja-Kerschner.{md,json}` Version 1.0 (2025-11-01T17:10+01:00); RAW-Signatur/Status ergänzt, Drift "Vallin" dokumentiert.
 - [ ] Reflex (Primärinstanz) → Canvas + Wissensstand erweitern; Frequenzband 7.3–8.0 Hz und Detachment-Regeln aus RAW übernehmen; `[REFLEX-*]` prüfen.
 - [ ] Jonas Merek → Canvas anreichern; Schwester-Status auf "vermisst/unklar" normalisieren; Schuldflag als Kommentar kennzeichnen.
 
@@ -632,11 +632,11 @@ Aktive Aufgaben
   - [ ] Canvas „Mission Tunnel“ – Felder/Metriken (Abschnitte, %Fortschritt, Blocker)
   - [ ] Export „alle Canvas“ – Sortierung nach letztem Update (Quelle für Timestamps klären)
 
-- [ ] Memory-Bundle gegen Export prüfen und ggf. verdichten
-  - [ ] Welt-/Kanon-Kernpunkte aktualisieren
-  - [ ] Charakter-Kompakteinträge (Ronja, Reflex, Jonas) aktualisieren
-  - [ ] Orte (D5, C6, Tunnel) und Projekt „Nordlinie 01“ einpflegen
-  - [ ] Offene Loops/Blocking-Issues ergänzen
+- [x] Memory-Bundle gegen Export prüfen und ggf. verdichten
+  - [x] Welt-/Kanon-Kernpunkte aktualisieren
+  - [x] Charakter-Kompakteinträge (Ronja, Reflex, Jonas) aktualisieren
+  - [x] Orte (D5, C6, Tunnel) und Projekt „Nordlinie 01“ einpflegen
+  - [x] Offene Loops/Blocking-Issues ergänzen
 
 - [ ] Charakter-Canvas prüfen/ergänzen
   - [ ] Gegen Extrahate aus dem Export abgleichen

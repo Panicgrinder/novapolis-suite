@@ -29,6 +29,10 @@
       "json": "database-rp/02-characters/Kora-Malenkov.json"
     },
     {
+      "md": "database-rp/02-characters/Marei.md",
+      "json": "database-rp/02-characters/Marei.json"
+    },
+    {
       "md": "database-rp/02-characters/Lumen-Wissensstand-Trainingsstand.md",
       "json": "database-rp/02-characters/Lumen-Wissensstand-Trainingsstand.json"
     },
@@ -67,8 +71,16 @@
       "json": "database-rp/03-locations/D5.json"
     },
     {
+      "md": "database-rp/03-locations/E3.md",
+      "json": "database-rp/03-locations/E3.json"
+    },
+    {
       "md": "database-rp/03-locations/Verbindungstunnel-D5-C6.md",
       "json": "database-rp/03-locations/Verbindungstunnel-D5-C6.json"
+    },
+    {
+      "md": "database-rp/03-locations/Verbindungstunnel-C6-E3.md",
+      "json": "database-rp/03-locations/Verbindungstunnel-C6-E3.json"
     }
   ],
   "other": [

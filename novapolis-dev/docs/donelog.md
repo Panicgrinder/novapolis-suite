@@ -2,6 +2,39 @@
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
 
+Canvas-Rettung Sprint 1 – C6/E3 Linienabgleich (2025-11-02T13:30:00+01:00)
+
+- Neue Location-Canvas `database-rp/03-locations/Verbindungstunnel-C6-E3.{md,json}` angelegt (Status, Nutzung als Evakuierungsroute für 20 E3-Flüchtlinge, Aufgabenliste); Index (`database-rp/index.json`) erweitert und Metadaten mit C6/E3 verknüpft.
+- `database-rp/03-locations/C6.md` um Bevölkerung/Verbindungen ergänzt (20 Evakuierte aus E3, 4 Karawanenmitglieder, aktive Tunnel); Sidecar `C6.json` Dependencies auf beide Tunnel gesetzt.
+- Lexikon `database-curated/reviewed/chat-export (1)/lexicon.json` aktualisiert (Slug/Aliasse für C6–E3-Tunnel, neue Bewohner-Kontexte beibehalten).
+
+Canvas-Rettung Sprint 1 – Behavior-Signaturen & Validator (2025-11-02T12:45:00+01:00)
+
+- Anchor-Signaturen für Echo, Lumen, Liora, Lyra, Senn und Varek kuratiert (`AI-Behavior-Mapping.md` aktualisiert, Quelle auf Canvas verwiesen, Sidecar-Zeitstempel synchronisiert).
+- Charakter-Canvases (`02-characters/*.md` + JSON) um Verhaltenseinträge ergänzt; Skill-Listen auf Leerzeichen-Indents umgestellt, Markdownlint-Ausnahmen (MD025) lokalisiert.
+- Validator `coding/tools/validators/behavior_matrix_check.py` erweitert (Signatur-Format/Quellen-Check + Psymatrix-Diff >5-Punkte-Schwelle), README und TODO mit Ausführungshinweis aktualisiert; Task als erledigt markiert.
+
+Canvas-Rettung Sprint 1 – AI Behavior Matrix (2025-11-01T17:55:00+01:00)
+
+- RAW-Canvas `database-raw/99-exports/RAW-canvas-2025-10-16T11-05-00-000Z.txt` promotet: `database-rp/00-admin/AI-Behavior-Mapping.md` auf Version 1.0 erweitert (Cluster-Tabelle, Intensitätsskala, Modifikatoren, Pflege-Routine, Einsatzrichtlinien).
+- Anchor-Register um alle aktuellen Charaktere in `02-characters/` ergänzt (inkl. Echo/Lumen/Liora/Lyra/Senn/Varek; `n/a` markiert fehlende Signaturen); Psymatrix-Abgleich-Routine mit Schwellen (`PsySignatur_Dissonanz`, Kohäsion) dokumentiert.
+- Sidecar `AI-Behavior-Mapping.json` synchronisiert (Version 1.0, last_updated, dependencies `ai_behavior_index_v2`/`ai_psymatrix_index_v1`, Tag-Set ergänzt).
+- TODO aktualisiert (AI-Behavior-Index erledigt, Validator-Follow-up) und Arbeitsablauf um Anchor-Check erweitert; Quellen/Flag-Hinweise verankert.
+
+Canvas-Rettung Sprint 1 – Jonas Merek (2025-11-02T13:55:00+01:00)
+
+- Charakter-Canvas `database-rp/02-characters/Jonas-Merek.md` auf Version 1.0 gehoben; Werte/Skills aus RAW übernommen, Rollen (Werkstatt/Logistik/Terminal) konsolidiert, Sicherheits- & Proximity-Protokolle ergänzt.
+- Korruptes RAW-Makel („Schuld am Tod der Schwester“) aufgelöst – Schwesterstatus gemäß FACT `[JONAS-SIS]` als „vermisst/unklar“ dokumentiert, Schuldflag als subjektives Kommentar markiert.
+- JSON-Sidecar synchronisiert (Version, Tags, Dependencies `missionslog`, `ai_behavior_index_v2`); `char-block-nord-sources.md` und TODO aktualisiert.
+- Verweise auf FACTs `[PROXIMITY]`, `[COMMS-PROTO]`, `[C6-FIRST]`, `[FR-KNOWLEDGE]` eingepflegt; Validierungsintervall notiert.
+
+Canvas-Rettung Sprint 1 – Ronja Kerschner (2025-11-01T17:12:00+01:00)
+
+- Charakter-Canvas `database-rp/02-characters/Ronja-Kerschner.md` auf Version 1.0 aktualisiert; Status-/Systemabschnitte aus RAW `char_ronja_v2` übernommen und Drift („Vallin“) gemäß `resolved.md #[NAME-RONJA]` dokumentiert.
+- JSON-Sidecar (`Ronja-Kerschner.json`) synchronisiert; Routine- und Systemverknüpfungen mit Review-Hinweis auf logistik-/inventar-v1 markiert.
+- TODO-Boards (`novapolis-dev/docs/todo.md`, Root `TODO.md`) aktualisiert; Aufgabe „Ronja Kerschner“ auf erledigt gesetzt.
+- Quellenhinweise erweitert (Canvas-Quellenblock + `char-block-nord-sources.md` Ronja-Abschnitt aktualisiert); Metadaten-Zeitstempel angepasst.
+
 Canvas-Rettung Sprint 1 – Echo Metadatenabgleich (2025-11-01T16:35:00+01:00)
 
 - Canvas `database-rp/02-characters/Echo.md` um Front-Matter ergänzt (Titel, Version, Zugehörigkeit, Standort, Dependencies) und Markdown-Formatierung mit Leerzeichen/Abständen an Vorlagen angepasst.
