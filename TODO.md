@@ -650,9 +650,9 @@ Regel: Abgeschlossene Arbeiten dokumentieren (DONELOG)
 </details>
 
 <details>
-<summary>novapolis-dev/docs/todo.md (Link, driftfrei)</summary>
+<summary>novapolis-dev/docs/todo.index.md (Link, driftfrei)</summary>
 
-- Live-Quelle: `novapolis-dev/docs/todo.md`
+- Live-Quelle: `novapolis-dev/docs/todo.index.md`
 - Zuletzt aktualisiert: 2025-11-02T16:05:00+01:00
 - Hinweis: Volltext wird hier nicht mehr gespiegelt; bitte den obigen Link öffnen.
 

@@ -93,7 +93,7 @@ Hinweise:
 - Vorgehen zur Drift-Prüfung:
   1. Signaturwerte aus dem Anchor-Register ziehen.
   2. Aktuelle Cluster-Intensitäten in die Psymatrix einspeisen (Skript-Pending; bis dahin manuell via Vergleich der letzten Validierung).
-  3. Abweichung >5 Punkte pro Cluster → Flag „INTENSITY-DRIFT“ setzen (Canvas + DONELOG) und `novapolis-dev/docs/todo.md` aktualisieren.
+  3. Abweichung >5 Punkte pro Cluster → Flag „INTENSITY-DRIFT“ setzen (Canvas + DONELOG) und `novapolis-dev/docs/todo.index.md` aktualisieren.
   4. `PsySignatur_Dissonanz` im Meta-Cluster-Index kontrollieren; bei >0.25 Moderation/Guard-Hooks im Charakter-Canvas ergänzen.
 - Automatisierung: Validator-Hook vorbereiten (`validators/behavior_matrix_check.py`, TODO) → liest Anchor-Tabelle + Psymatrix, erzeugt Report (Diff, Empfehlung).
 - Sobald `ai_psymatrix_index_v1` als RAW-Canvas vorliegt, hier verlinken und Sidecar-Dependency erweitern.
@@ -102,7 +102,7 @@ Hinweise:
 - **Charakter-Canvas**: Jede Signatur erhält einen Kurzkommentar (Stresslage, gewünschter Drift). Beispiel siehe `Ronja-Kerschner.md`.
 - **KI-Interaktion**: Reflex nutzt Signaturen als Leitplanke – hohe `S` → sofort Schutz anbieten, hoher `N` → Erkundungsangebote.
 - **Missionsplanung**: Logistik- und Missionslog erfassen Änderungen (>5 Punkte Differenz) als Hinweis auf Belastung/Verhaltensdrift.
-- **Tooling**: Validatoren vergleichen Signaturen gegen `ai_psymatrix_index_v1`; Abweichungen lösen Review-Tasks aus (`novapolis-dev/docs/todo.md`).
+- **Tooling**: Validatoren vergleichen Signaturen gegen `ai_psymatrix_index_v1`; Abweichungen lösen Review-Tasks aus (`novapolis-dev/docs/todo.index.md`).
 
 ## Pflege & Routine
 - Auto-Validierung alle 7 InGame-Tage (Systemstatus aktuell *grün*).

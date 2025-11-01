@@ -22,7 +22,7 @@ Primary Docs
 ------------
 
 - `docs/donelog.md` — laufende Fortschritte und Beschluesse
-- `docs/todo.md` — Index für Aufgaben (Module)
+- `docs/todo.index.md` — Index für Aufgaben (Module)
   - `docs/todo.rp.md` — RP-Aufgaben (Kanon/Canvas/Projekte)
   - `docs/todo.dev.md` — Dev-Aufgaben (Tooling, Lint/CI, Validatoren)
   - `docs/todo.agent.md` — Agent-Aufgaben (Backend, Tests/Typing, Scripts)
@@ -38,7 +38,7 @@ Primary Docs
 Kernprinzipien:
 
 - Aenderungen an Code oder signifikanten Dateien kurz in `novapolis-dev/docs/donelog.md` dokumentieren.
-- Aufgabenpflege und Priorisierung in `novapolis-dev/docs/todo.md`.
+- Aufgabenpflege und Priorisierung im Modul: `docs/todo.rp.md`, `docs/todo.dev.md`, `docs/todo.agent.md`; Index: `docs/todo.index.md`.
 - Tooling liegt weiterhin in `coding/tools/`; dieses Index liefert nur Verweise.
 
 Dokumentierte Datenpfade
