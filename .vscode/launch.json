@@ -1,0 +1,47 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Agent: Run API (uvicorn)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "app.main:app",
+        "--reload"
+      ],
+      "cwd": "${workspaceFolder}/novapolis_agent",
+      "justMyCode": true,
+      "envFile": "${workspaceFolder}/novapolis_agent/.env"
+    },
+    {
+      "name": "Agent: Run Simulation API (uvicorn)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "app.api.sim:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "${env:AGENT_PORT}"
+      ],
+      "cwd": "${workspaceFolder}/novapolis_agent",
+      "justMyCode": true,
+      "env": {
+        "AGENT_PORT": "8765"
+      },
+      "envFile": "${workspaceFolder}/novapolis_agent/.env"
+    },
+    {
+      "name": "Agent: Pytest (-q)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["-q"],
+      "cwd": "${workspaceFolder}/novapolis_agent",
+      "justMyCode": true,
+      "envFile": "${workspaceFolder}/novapolis_agent/.env"
+    }
+  ]
+}

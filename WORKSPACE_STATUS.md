@@ -1,7 +1,6 @@
----
-stand: 2025-11-01 23:26
-update: Workspaces bereinigt: neue kanonische Datei `novapolis-suite.code-workspace`; alte Workspace-Dateien als deprecated markiert.
-checks: markdownlint-cli2 FAIL (50 errors, siehe Terminalausgabe)
+stand: 2025-11-01 23:45
+update: Alte Workspace-Dateien entfernt; Bundle-Dateien nach `Backups/` verschoben; markdownlint-cli2 PASS.
+checks: markdownlint-cli2 PASS
 ---
 
 # Workspace-Status

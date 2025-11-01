@@ -1,7 +1,6 @@
----
-stand: 2025-11-01 16:28
-update: Heading-Format in DONELOG auf Setext-Style gebracht.
-checks: markdownlint-cli2 (PRESENTATION=SHARED) FAIL – Drittanbieter in .venv
+stand: 2025-11-01 23:45
+update: Workspaces bereinigt; markdownlint PASS notiert.
+checks: markdownlint-cli2 PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -12,6 +11,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-01 23:45: Workspace-Bereinigung – alte `.code-workspace` Dateien entfernt; markdownlint-cli2 PASS (Root-Lauf, keine Fehler). `WORKSPACE_STATUS.md` aktualisiert.
 - **novapolis_agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
 - **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
 - 2025-11-01: Markdownlint zentralisiert – Root-Task vereinheitlicht, Agent-Wrapper entfernt, `run_lint_markdown.ps1` als Hinweisstub belassen.

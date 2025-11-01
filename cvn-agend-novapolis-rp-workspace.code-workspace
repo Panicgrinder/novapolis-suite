@@ -1,8 +1,0 @@
-{
-  // DEPRECATED: Falscher Name ("agend" statt "agent").
-  // Bitte `novapolis-suite.code-workspace` verwenden.
-  "folders": [
-    { "path": "." }
-  ],
-  "settings": {}
-}

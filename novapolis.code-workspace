@@ -1,8 +1,0 @@
-{
-  // DEPRECATED: Diese Workspace-Datei wird nicht mehr gepflegt.
-  // Bitte stattdessen `novapolis-suite.code-workspace` im Repo-Root öffnen.
-  "folders": [
-    { "path": "." }
-  ],
-  "settings": {}
-}

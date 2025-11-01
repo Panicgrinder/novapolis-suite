@@ -37,6 +37,7 @@ desktop.ini
 # Root VS Code settings (project-specific ones are tracked per subfolder)
 /.vscode/*
 !/.vscode/settings.json
+!/.vscode/launch.json
 /.history/
 
 # Novapolis Agent artifacts
