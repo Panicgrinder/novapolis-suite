@@ -5,14 +5,25 @@ param(
 $ErrorActionPreference = 'Stop'
 
 function Get-RepoRoot {
-    $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-    return (Resolve-Path (Join-Path $scriptDir '..')).Path
+    try {
+        $top = git rev-parse --show-toplevel 2>$null
+        if ($LASTEXITCODE -eq 0 -and $top) { return $top.Trim() }
+    } catch {}
+    return (Get-Location).Path
 }
 
 function Get-CurrentTimestamp {
     # Required command per policy
     $ts = & powershell -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"
     return $ts.Trim()
+}
+
+function Get-SnapshotLock([string]$root) {
+    $lockPath = Join-Path $root ".snapshot.now"
+    if (Test-Path $lockPath) {
+        try { return (Get-Content -Path $lockPath -Raw -ErrorAction Stop).Trim() } catch { return $null }
+    }
+    return $null
 }
 
 function Get-StagedMarkdownFiles {
@@ -62,6 +73,7 @@ try { git rev-parse --is-inside-work-tree *> $null } catch {
 }
 
 $current = Get-CurrentTimestamp
+$lock = Get-SnapshotLock -root $root
 $files = Get-StagedMarkdownFiles
 
 if (-not $files -or $files.Count -eq 0) {
@@ -81,18 +93,33 @@ foreach ($f in $files) {
         continue
     }
 
-    if (-not (Is-TimestampFresh $standTs $current $ToleranceMinutes)) {
-        $failed += [pscustomobject]@{ File=$f; Stand=$standTs; Now=$current }
+    # Dual gate:
+    # 1) Stand vs. NOW must be fresh (±Tolerance)
+    # 2) A snapshot lock (.snapshot.now) must exist and itself be fresh and near-identical to stand
+    $okNow = Is-TimestampFresh $standTs $current $ToleranceMinutes
+    $okLock = $false
+    if ($lock) {
+        # lock must be fresh to now AND close to stand (strict ±2 min)
+        $okLockNow = Is-TimestampFresh $lock $current $ToleranceMinutes
+        $okLockStand = Is-TimestampFresh $lock $standTs 2
+        $okLock = ($okLockNow -and $okLockStand)
+    }
+
+    if (-not ($okNow -and $okLock)) {
+        $failed += [pscustomobject]@{ File=$f; Stand=$standTs; Now=$current; Lock=$lock }
     }
 }
 
 if ($failed.Count -gt 0) {
-    Write-Host "[snapshot-gate] FAIL: Nicht-aktueller 'stand:' Timestamp in folgenden Dateien:" -ForegroundColor Red
+    Write-Host "[snapshot-gate] FAIL: Snapshot-Anforderung nicht erfüllt in folgenden Dateien:" -ForegroundColor Red
     foreach ($x in $failed) {
-        Write-Host (" - {0}: stand={1} | now={2}" -f $x.File, $x.Stand, $x.Now) -ForegroundColor Red
+        $lockVal = $x.Lock
+        if (-not $lockVal) { $lockVal = '<none>' }
+        Write-Host (" - {0}: stand={1} | now={2} | lock={3}" -f $x.File, $x.Stand, $x.Now, $lockVal) -ForegroundColor Red
     }
-    Write-Host "\nBitte vor dem Commit die Systemzeit holen und übernehmen:" -ForegroundColor Red
+    Write-Host "\nBitte VOR dem Edit/Commit die Systemzeit abrufen und Lock setzen:" -ForegroundColor Red
     Write-Host '  cd "F:/VS Code Workspace/Main"; powershell -NoProfile -Command "Get-Date -Format ''yyyy-MM-dd HH:mm''"' -ForegroundColor Red
+    Write-Host '  cd "F:/VS Code Workspace/Main"; powershell -NoProfile -ExecutionPolicy Bypass -File scripts/snapshot_write_lock.ps1' -ForegroundColor Red
     Write-Host "Danach YAML-Frontmatter 'stand:' aktualisieren und erneut committen." -ForegroundColor Red
     Write-Host "Bypass (nicht empfohlen): setx SNAPSHOT_GATE_BYPASS 1 (neues Terminal nötig)" -ForegroundColor DarkYellow
     exit 1
