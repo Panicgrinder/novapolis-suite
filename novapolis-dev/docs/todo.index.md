@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-01 18:12
-update: Sim-Board ergänzt; Index klargestellt (Navigation)
+stand: 2025-11-01 18:17
+update: Verweis auf Root-Übersicht (`TODO.md`) ergänzt
 checks: keine
 ---
 
@@ -22,3 +22,8 @@ Hinweise (Index)
 
 - Vollständig erledigte Abschnitte (H2/H3, alle [x]) bitte manuell in `novapolis-dev/archiv/todo.<modul>.archive.md` verschieben; unter der Abschnittsüberschrift `archived_at: YYYY-MM-DD HH:MM` ergänzen.
 - Automatisierung (Validator/Dry-Run) folgt nach Stabilisierung der Struktur.
+
+Verweise
+--------
+
+- Root-Übersicht: `TODO.md` (Kurzüberblick, Meta-Aufgaben, Links)
