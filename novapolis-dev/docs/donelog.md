@@ -68,6 +68,12 @@ Canvas-Rettung Sprint 1 – Reflex (2025-11-02T16:05:00+01:00)
 - JSON-Sidecar aktualisiert (Tags `instanz`/`sicherheit`/`symbiose`, Dependencies auf Ronja/Lumen/Echo + Missionslog/Logistik); Quellenreport und Memory-Bundle auf neuen Kanonstand gebracht.
 - TODO-Checkpoint für Reflex abgeschlossen; `[REFLEX-*]`-FACTs mit Canvas verknüpft, Instanz-Training in `Reflex-Wissensstand-Trainingsstand.md` referenziert.
 
+Validator-Tooling Docker-Pfadfix (2025-11-02T16:30:00+01:00)
+
+- Node-Validatoren (`validate-*.js`, `check-*.js`) auf `import.meta.url`-basierte Repo-Root-Ermittlung umgestellt, damit Docker-Läufe die JSON/Markdown-Pfade finden.
+- `validate-all.js` Exitcode- und Status-Logging überarbeitet; Status-Datei-Schreibpfad repariert.
+- `run_validate_all.ps1` erfolgreich im Container (`node:22-alpine`) ausgeführt, temporäre Artefakte (`node_modules`, `.last-run`) entfernt.
+
 Canvas-Rettung Sprint 1 – Ronja Kerschner (2025-11-01T17:12:00+01:00)
 
 - Charakter-Canvas `database-rp/02-characters/Ronja-Kerschner.md` auf Version 1.0 aktualisiert; Status-/Systemabschnitte aus RAW `char_ronja_v2` übernommen und Drift („Vallin“) gemäß `resolved.md #[NAME-RONJA]` dokumentiert.

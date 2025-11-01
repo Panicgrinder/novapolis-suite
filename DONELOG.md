@@ -61,6 +61,12 @@ Reflex Canvas (2025-11-02T16:05:00+01:00)
 - Quellenreport `char-block-nord-sources.md`, Memory-Bundle und TODO/DONELOG-Einträge synchronisiert; `[REFLEX-*]`-FACTs als Referenz verankert.
 - JSON-Sidecar um neue Tags/Dependencies (Ronja, Lumen, Echo, Missionslog, Logistik) erweitert; RAW-Entity `ent_d5_reflex_v1` als technische Quelle hinterlegt.
 
+Validator Docker-Pfadfix (2025-11-02T16:30:00+01:00)
+
+- Validator-Skripte (`validate-*.js`, `check-*.js`) auf relative Pfadermittlung via `import.meta.url` umgestellt, damit Docker-Läufe die Repo-Wurzel korrekt finden.
+- `validate-all.js` Exitcode-Handling überarbeitet (Status-Logging, Fehlerpropagation), Statusfile-Schreibpfad repariert.
+- `run_validate_all.ps1` geprüft – Lauf in node:22-alpine erfolgreich, temporäre `node_modules`/`.last-run` anschließend bereinigt.
+
 <summary>novapolis_agent/docs/DONELOG.txt</summary>
 
 ```text

@@ -1,11 +1,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 import chalk from 'chalk';
 
-const repoRoot = path.resolve(process.cwd());
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const repoRoot = path.resolve(__dirname, '..', '..', '..', '..');
 const manifestPath = path.join(repoRoot, 'database-curated', 'staging', 'manifest.json');
 const schemaPath = path.join(repoRoot, 'coding', 'tools', 'validators', 'schemas', 'curated-manifest.schema.json');
 

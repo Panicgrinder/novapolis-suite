@@ -1,11 +1,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
+import { fileURLToPath } from 'node:url';
 import fg from 'fast-glob';
 import matter from 'gray-matter';
 import chalk from 'chalk';
 
-const repoRoot = path.resolve(process.cwd());
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const repoRoot = path.resolve(__dirname, '..', '..', '..', '..');
 const rpRoot = path.join(repoRoot, 'database-rp');
 
 function ensureFileHasHeading(mdContent, file) {
