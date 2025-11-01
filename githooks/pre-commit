@@ -1,0 +1,12 @@
+#!/bin/sh
+# Snapshot gate: enforce fresh 'stand:' timestamps in staged Markdown files.
+# Runs a PowerShell validator that itself uses Get-Date as per policy.
+
+if command -v powershell.exe >/dev/null 2>&1; then
+  exec powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/snapshot_gate.ps1
+elif command -v pwsh >/dev/null 2>&1; then
+  exec pwsh -NoProfile -File scripts/snapshot_gate.ps1
+else
+  echo "[snapshot-gate] No PowerShell available; skipping." >&2
+  exit 0
+fi
