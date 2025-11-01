@@ -12,6 +12,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 - 2025-11-02: Marven-Kael-Canvas angelegt (Konvoiführung, Handelsprotokolle, Händlergilde-Scope) und Quellen/Tasks aktualisiert.
 - 2025-11-02: Behavior-Signaturen für Echo/Lumen/Liora/Lyra/Senn/Varek kuratiert; Validator `behavior_matrix_check.py` um Psymatrix-Diff und Dokumentation ergänzt.
  - 2025-11-02: Copilot-Modelle/Stop‑Gate dokumentiert: `.github/copilot-instructions.md` um Moduswechsel/Reminder/STOP‑Gate ergänzt; Spiegelupdate in `novapolis-dev/docs/copilot-behavior.md`; `WORKSPACE_STATUS.md` führt aktuellen Modus/Stop‑Gate.
+ - 2025-11-02: RP-Daten konsolidiert – kuratierte Reports, Memory-Bundle und Charakter‑Canvases (Reflex/Ronja/Kora/Jonas) aktualisiert; `[FACT]`/`[FACT?]`-Status vereinheitlicht.
 - 2025-11-01: AI Behavior Matrix (Version 1.0) – RAW `ai_behavior_index_v2` promotet, Cluster/Intensität/Modifikatoren, vollst. Anchor-Register (02-characters) + Psymatrix dokumentiert.
 - 2025-11-01: Ronja-Canvas (Version 1.0) – RAW char_ronja_v2 integriert, Drift „Vallin“ dokumentiert, TODO-Boards aktualisiert.
 - 2025-11-01: Echo-Canvas (Front-Matter/JSON) formal angeglichen, keine inhaltlichen Änderungen.
