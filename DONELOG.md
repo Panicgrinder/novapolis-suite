@@ -11,6 +11,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 - 2025-11-02: Kora-Malenkov-Canvas auf Version 1.0 gehoben (Logistikscope, Echo-Protokolle, Händlergilde/Novapolis Zugehörigkeit) und Dokumentation synchronisiert.
 - 2025-11-02: Marven-Kael-Canvas angelegt (Konvoiführung, Handelsprotokolle, Händlergilde-Scope) und Quellen/Tasks aktualisiert.
 - 2025-11-02: Behavior-Signaturen für Echo/Lumen/Liora/Lyra/Senn/Varek kuratiert; Validator `behavior_matrix_check.py` um Psymatrix-Diff und Dokumentation ergänzt.
+ - 2025-11-02: Copilot-Modelle/Stop‑Gate dokumentiert: `.github/copilot-instructions.md` um Moduswechsel/Reminder/STOP‑Gate ergänzt; Spiegelupdate in `novapolis-dev/docs/copilot-behavior.md`; `WORKSPACE_STATUS.md` führt aktuellen Modus/Stop‑Gate.
 - 2025-11-01: AI Behavior Matrix (Version 1.0) – RAW `ai_behavior_index_v2` promotet, Cluster/Intensität/Modifikatoren, vollst. Anchor-Register (02-characters) + Psymatrix dokumentiert.
 - 2025-11-01: Ronja-Canvas (Version 1.0) – RAW char_ronja_v2 integriert, Drift „Vallin“ dokumentiert, TODO-Boards aktualisiert.
 - 2025-11-01: Echo-Canvas (Front-Matter/JSON) formal angeglichen, keine inhaltlichen Änderungen.
@@ -60,6 +61,12 @@ Reflex Canvas (2025-11-02T16:05:00+01:00)
 - Charakter-Canvas `novapolis-rp/database-rp/02-characters/Reflex.{md,json}` auf Version 1.0 aktualisiert: Symbiose-Stufe I (Frequenzband 7.3–8.0 Hz), Detachment-/Stop-Regeln, Instanzleitung und Signalsätze dokumentiert.
 - Quellenreport `char-block-nord-sources.md`, Memory-Bundle und TODO/DONELOG-Einträge synchronisiert; `[REFLEX-*]`-FACTs als Referenz verankert.
 - JSON-Sidecar um neue Tags/Dependencies (Ronja, Lumen, Echo, Missionslog, Logistik) erweitert; RAW-Entity `ent_d5_reflex_v1` als technische Quelle hinterlegt.
+
+Modell-Modus & Stop‑Gate Doku (2025-11-02T16:55:00+01:00)
+
+- `.github/copilot-instructions.md`: Abschnitt „Modell‑Profile & Moduswechsel (GPT‑5 ↔ GPT‑5 Codex)“ und „STOP‑Gate vor Code‑Aktionen“ hinzugefügt; Reminder‑Policy ohne 1×/Session‑Limit (Opt‑out: „Bitte nicht erinnern“).
+- `novapolis-dev/docs/copilot-behavior.md`: Spiegelabschnitt mit denselben Regeln ergänzt.
+- `WORKSPACE_STATUS.md`: Abschnitt „Aktueller Arbeitsmodus“ (Modus: General, Stop‑Gate: an, Erinnerungen: aktiv) aufgenommen.
 
 Validator Docker-Pfadfix (2025-11-02T16:30:00+01:00)
 

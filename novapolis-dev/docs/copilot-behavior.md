@@ -39,6 +39,32 @@ Antworte immer auf Deutsch; halte Beispiele, Erklaerungen und Fehlermeldungen au
   - Szenen: Front-Matter einhalten (characters/locations/inventoryRefs) und Co-Occurrence-Regeln beachten.
 - Bei Unklarheiten: Rueckfrage stellen bevor gearbeitet wird.
 
+## Modell-Profile & Moduswechsel (GPT-5 ↔ GPT-5 Codex)
+
+- Standardmodus: GPT-5 (General) fuer redaktionelle Arbeiten, Kanon-/Quellenabgleich, `[FACT]`↔`[FACT?]`-Revalidierung, Policy-/Prozess-Checks und Textkurierung.
+- Codex-Modus (umschalten bei Bedarf): Fuer Code-schwere Aufgaben wie Skripte/Validatoren, Tests/CI, API-/Service-Aenderungen, Parser/RegEx, Datentransformationen.
+- Heuristische Trigger (nur Hinweis, kein Autoswitch):
+  - Edits in Quellcodepfaden: `novapolis_agent/app/**`, `novapolis_agent/scripts/**`, `novapolis_agent/utils/**`, `novapolis_agent/tests/**`, `packages/**`, `novapolis-rp/coding/**`.
+  - Anforderungen: „Bitte Skript/Validator/Test bauen“, „API anpassen“, „Pytest/Typing fixen“.
+  - Geplante Ausfuehrung technischer Tasks: Pytest/Mypy/Pyright, Linter-/Build-Themen.
+- Erinnerung/Prompting-Policy:
+  - Wenn aktueller Modus = GPT-5 und ein Trigger erkannt wird, freundlich hinweisen: „Hinweis: Fuer Code-Aenderungen ist Codex sinnvoll. Jetzt auf GPT-5 Codex wechseln?“
+  - Nutzerentscheid respektieren; bei „nein“ weiter im aktuellen Modus arbeiten. Auf Wunsch „Bitte nicht erinnern“ stelle ich Erinnerungen ein, bis du wieder gruenes Licht gibst.
+- Transparenz: Den aktiven Modus im naechsten Status-Update kurz erwaehnen (z. B. „Modus: General“), wenn ein Wechsel stattfand oder Code-Arbeit ansteht.
+
+### STOP-Gate vor Code-Aktionen
+
+- Vor potenziell code-schweren Aktionen (Dateiedits unter Codepfaden, Skript-/Validator-Neubau, Test-/Typecheck-Runs, API/Service-Aenderungen) wird ein hartes Stop-Gate gesetzt.
+- Ablauf:
+  1) Ausgabe „STOP: Moduswechsel empfohlen. Bitte Modus waehlen.“
+  2) Warten auf explizite Bestaetigung:
+     - „Wechsel: Modus Codex“ → sofort auf Codex wechseln und fortfahren.
+     - „Weiter: Modus General“ → im General-Modus fortfahren.
+  3) Ohne Bestaetigung keine Code-Aenderungen/startenden Laeufe durchfuehren.
+- Hinweise:
+  - Das STOP-Gate gilt nur fuer Code-Aktionen; reine Redaktions-/Kanonarbeiten laufen ohne Unterbrechung weiter.
+  - Du kannst das Gate jederzeit durch die Formulierung „Stop-Gate aus (Session)“ deaktivieren und mit „Stop-Gate an“ wieder aktivieren.
+
 ## Kontext-Injektion
 
 - Lokale Kontext-Notizen sollten innerhalb des Projekts gepflegt werden (`novapolis-dev/docs/` fuer Dokumente, `coding/tools/` fuer Skripte).

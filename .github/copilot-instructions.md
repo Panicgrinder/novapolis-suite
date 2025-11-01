@@ -15,6 +15,34 @@
 - Sicherheit & Privacy: Keine Secrets, offline bevorzugen, keine harten Pfade zu externen Repositories übernehmen.
 - Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
 
+### Modell-Profile & Moduswechsel (GPT‑5 ↔ GPT‑5 Codex)
+
+- Standardmodus: GPT‑5 (General) für redaktionelle Arbeiten, Kanon-/Quellenabgleich, `[FACT]`↔`[FACT?]`‑Revalidierung, Policy-/Prozess‑Checks und Textkurierung.
+- Codex-Modus (umschalten bei Bedarf): Für Code‑schwere Aufgaben wie Skripte/Validatoren, Tests/CI, API‑/Service‑Änderungen, Parser/RegEx, Datentransformationen.
+- Heuristische Trigger für Wechselvorschlag (nicht automatisch, nur Hinweis):
+	- Edits in Quellcodepfaden: `novapolis_agent/app/**`, `novapolis_agent/scripts/**`, `novapolis_agent/utils/**`, `novapolis_agent/tests/**`, `packages/**`, `novapolis-rp/coding/**`.
+	- Anforderung: „Bitte Skript/Validator/Test bauen“, „API anpassen“, „Pytest/Typing fixen“.
+	- Geplante Ausführung technischer Tasks: Pytest/Mypy/Pyright, Linter-/Build‑Themen.
+- Erinnerung/Prompting‑Policy:
+	- Wenn aktueller Modus = GPT‑5 und ein Trigger erkannt wird, freundlich hinweisen: „Hinweis: Für Code‑Änderungen ist Codex sinnvoll. Jetzt auf GPT‑5 Codex wechseln?“
+	- Nutzerentscheid respektieren; bei „nein“ weiter im aktuellen Modus arbeiten. Auf Wunsch „Bitte nicht erinnern“ stelle ich Erinnerungen ein, bis du wieder grünes Licht gibst.
+	- Explizite Nutzerwahl überschreibt Heuristik: „Modus Codex“/„Modus General“ setzt sofort um.
+- Transparenz: Den aktiven Modus im nächsten Status‑Update kurz erwähnen (z. B. „Modus: General“), wenn ein Wechsel stattfand oder Code‑Arbeit ansteht.
+- Optional: In `WORKSPACE_STATUS.md` im Abschnitt „Aktueller Arbeitsmodus“ die letzte Wahl notieren (nur wenn erwünscht).
+
+#### STOP‑Gate vor Code‑Aktionen
+
+- Vor potenziell code‑schweren Aktionen (Dateiedits unter Codepfaden, Skript-/Validator‑Neubau, Test-/Typecheck‑Runs, API/Service‑Änderungen) wird ein hartes Stop‑Gate gesetzt.
+- Ablauf:
+	1) Ausgabe „STOP: Moduswechsel empfohlen. Bitte Modus wählen.“
+	2) Warten auf explizite Bestätigung:
+		 - „Wechsel: Modus Codex“ → sofort auf Codex wechseln und fortfahren.
+		 - „Weiter: Modus General“ → im General‑Modus fortfahren.
+	3) Ohne Bestätigung keine Code‑Änderungen/startenden Läufe durchführen.
+- Hinweise:
+	- Das STOP‑Gate gilt nur für Code‑Aktionen; reine Redaktions-/Kanonarbeiten laufen ohne Unterbrechung weiter.
+	- Du kannst das Gate jederzeit durch die Formulierung „Stop‑Gate aus (Session)“ deaktivieren und mit „Stop‑Gate an“ wieder aktivieren.
+
 ## Repositoryweiter Rahmen
 - Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.
 - Konfigurationen bleiben projektspezifisch; Produktions- und API-Code verbleibt im jeweiligen Projektordner, Utilities werden über das Shared-Package re-exportiert.

@@ -8,6 +8,12 @@
 - Kopilot-Anweisungen konsolidiert unter `.github/copilot-instructions.md`
 - Struktur-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) zuletzt am 2025-10-31 erzeugt; Regeneration ist als Folgeaufgabe notiert (`TODO.md`)
 
+## Aktueller Arbeitsmodus
+
+- Modus: General (GPT‑5)
+- Stop‑Gate: an (vor Code‑Aktionen explizite Bestätigung erforderlich: „Wechsel: Modus Codex“ oder „Weiter: Modus General“)
+- Erinnerungen: Wechselhinweise bei Code‑Triggern aktiv; „Bitte nicht erinnern“ schaltet Hinweise ab bis zur Reaktivierung
+
 ## Health-Checks & Open Items
 
 - Tests: 2025-10-31 – `pytest -q`, `pyright -p pyrightconfig.json`, `python -m mypy --config-file mypy.ini app scripts` im Agent-Projekt grün (keine neuen Läufe seitdem dokumentiert)
