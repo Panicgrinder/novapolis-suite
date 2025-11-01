@@ -1,14 +1,26 @@
-Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-01 03:30
+Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-02 00:40
 Top-Level
   - .github
   - eval
+  - githooks
   - novapolis_agent
   - novapolis-dev
   - novapolis-rp
   - novapolis-sim
   - packages
+  - scripts
+
+.github/
+  - workflows/
+
+eval/
+  - config/
+
+githooks/
+  - pre-commit
 
 novapolis_agent/
+  - agents/
   - app/
   - docs/
   - eval/
@@ -18,8 +30,9 @@ novapolis_agent/
   - utils/
 
 novapolis-dev/
-  - docs/
+  - archive/
   - curated/
+  - docs/
   - integrations/
   - migrations/
   - raw/
@@ -30,15 +43,22 @@ novapolis-rp/
   - database-curated/
   - database-raw/
   - database-rp/
+  - development/
   - Main/
-    - tools/
-    - docs/
-    - migrations/
     - novapolis-dev/
 
 novapolis-sim/
   - autoload/
   - novapolis-sim/
+
+packages/
+  - novapolis_common/
+
+scripts/
+  - cleanup_workspace_files.ps1
+  - install_hooks.ps1
+  - snapshot_gate.ps1
+  - snapshot_write_lock.ps1
   - scripts/
 
 packages/
