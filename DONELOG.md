@@ -6,6 +6,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 
 - **novapolis_agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
 - **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
+- 2025-11-01: Root-Dokumentation (`README.md`, `TODO.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`) aktualisiert; Tree-Snapshot-Refresh als Folgeaufgabe markiert.
 
 ## Volltexte
 

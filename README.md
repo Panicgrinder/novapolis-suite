@@ -31,6 +31,12 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 - Nicht-triviale Aenderungen werden weiterhin im jeweiligen DONELOG des Projekts dokumentiert (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
 - Der Agent-Workspace nutzt jetzt den Paketnamen `novapolis_agent`; aeltere Referenzen mit Bindestrich bitte bei Gelegenheit bereinigen (siehe Aufgaben in `TODO.md`).
 
+## Aktuelle Statusdokumente
+
+- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) – Stand 2025-11-01, fasst Health-Checks, Risiken und Artefakte zusammen.
+- [`TODO.md`](TODO.md) – Zentraler Aufgabenueberblick (Stand 2025-11-01) inklusive Folgeaufgaben fuer Tree-Snapshots.
+- [`workspace_tree_full.txt`](workspace_tree_full.txt) – Vollstaendiger Verzeichnisbaum (Stand 2025-10-31; naechste Regeneration geplant).
+
 ## Naechste Schritte
 
 1. Doppelte Module identifizieren und schrittweise in `packages/novapolis_common` verschieben.
