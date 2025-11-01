@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD022 MD041 -->
-last-updated: 2025-11-02T12:45:00+01:00
+last-updated: 2025-11-02T15:25:00+01:00
 ---
 ---
 
@@ -17,10 +17,10 @@ Priorität A – Charaktere & Führung
 
 - [x] Varek Solun → Canvas `database-rp/02-characters/Varek-Solun.{md,json}` angelegt (2025-11-01T15:45+01:00); Standort H12 harmonisiert, Novapolis-Wissen auf Gerüchte begrenzt.
 - [x] Liora Navesh → Canvas `database-rp/02-characters/Liora-Navesh.{md,json}` angelegt (2025-11-01T16:20+01:00); Novapolis/D5 als unbekannt markiert, Taxonomie Arkologie A1 harmonisiert, SÜDFRAGMENT-Fokus übertragen.
-- [ ] Kora Malenkov → bestehendes Canvas auf Version 1.0 heben; Rollen laut `[CARAVAN-LEADERSHIP]` klarziehen; paranoide Vorsicht + Echo-Notizen übernehmen.
-- [ ] Marven Kael → neues Canvas; Flags beachten (Konvoi-/Handelsleitung extern, keine Doppelrolle mit Kora).
-- [ ] Arlen Dross → neues Canvas; Rolle als Händler/Vermittler präzisieren; Reflex-Einschätzung aufnehmen.
-- [ ] Pahl → neues Canvas; Gesundheitsstatus (Atembeschwerden) verifizieren; Beziehungen/Risiken dokumentieren.
+- [x] Kora Malenkov → bestehendes Canvas auf Version 1.0 heben; Rollen laut `[CARAVAN-LEADERSHIP]` klarziehen; paranoide Vorsicht + Echo-Notizen übernehmen. *(2025-11-02T14:20+01:00 erledigt)*
+- [x] Marven Kael → neues Canvas; Flags beachten (Konvoi-/Handelsleitung extern, keine Doppelrolle mit Kora). *(2025-11-02T14:45+01:00 erledigt)*
+- [x] Arlen Dross → neues Canvas; Rolle als Händler/Vermittler präzisieren; Reflex-Einschätzung aufnehmen. *(2025-11-02T15:05+01:00 erledigt)*
+- [x] Pahl → neues Canvas; Gesundheitsstatus (Atembeschwerden) verifizieren; Beziehungen/Risiken dokumentieren. *(2025-11-02T15:25+01:00 erledigt)*
 - [x] Ronja Kerschner → Canvas `database-rp/02-characters/Ronja-Kerschner.{md,json}` auf Version 1.0 gehoben (2025-11-01T17:10+01:00); RAW-Signatur/Status übernommen, Drift "Vallin" dokumentiert.
 - [ ] Reflex (Primärinstanz) → Canvas + Wissensstand erweitern; Frequenzband 7.3–8.0 Hz und Detachment-Regeln aus RAW übernehmen; `[REFLEX-*]` prüfen.
 - [x] Jonas Merek → Canvas anreichern; Schwester-Status auf "vermisst/unklar" normalisieren; Schuldflag als Kommentar kennzeichnen. *(2025-11-02T13:55+01:00 erledigt)*
@@ -37,8 +37,8 @@ Reihenfolge
 - Kora Malenkov → RAW `RAW-canvas-2025-10-16T14-56-00-000Z.txt`, paranoide Vorsicht, C6-Linienstatus (FACT `C6-LINES`), Echo-Interaktion.
 - Senn Daru → Relationslog `RAW-canvas-2025-10-16T08-07-00-000Z.*`, Handels-/Diplomatie-Notizen, Wissensgrenzen.
 - Marven Kael → RAW `RAW-canvas-2025-10-16T14-56-10-000Z.*`, Konvoi-/Handelsleitung (`[FACT][CARAVAN-LEADERSHIP]`), Beziehungen Händlergilde/Novapolis.
-- Arlen Dross → RAW `RAW-canvas-2025-10-16T14-56-20-000Z.*`, Vermittlerrolle, Reflex-Einschätzung.
-- Pahl → RAW `RAW-canvas-2025-10-16T14-41-00-000Z.*`, Gesundheitsstatus, Risiken, Energie-/Generatorwissen.
+- Arlen Dross → RAW `RAW-canvas-2025-10-16T14-56-20-000Z.*`, Vermittlerrolle, Reflex-Einschätzung. *(erledigt 2025-11-02T15:05+01:00)*
+- Pahl → RAW `RAW-canvas-2025-10-16T14-41-00-000Z.*`, Gesundheitsstatus, Risiken, Energie-/Generatorwissen. *(erledigt 2025-11-02T15:25+01:00)*
 - Reflex (Primärinstanz) → RAW `char_reflex_v2`, FACTs `[REFLEX-*]` (Frequenzband, Detach, Speech), Wissens-/Trainings-Canvas synchronisieren.
 
 Arbeitsschritte pro Charakter

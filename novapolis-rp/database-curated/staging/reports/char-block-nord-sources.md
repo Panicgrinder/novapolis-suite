@@ -35,7 +35,7 @@
 - **Flag** (selber Raw, kein separates Flagfile)
   - Keine Flag-Datei vorhanden; Leadership-Overlap mit Marven/Arlen über `[CARAVAN-LEADERSHIP]` adressiert.
 - **Curated**
-  - `database-rp/02-characters/Kora-Malenkov.md` (Version 0.9) – Platzhalterwerte (tbd) mit Notizen: intern/logistische Leitung C6, Echo-Bezug.
+  - `database-rp/02-characters/Kora-Malenkov.md` (Version 1.0 – 2025-11-02T14:20+01:00) – Werte/Skills übernommen, Logistik/Sicherheitsrollen präzisiert, Echo-Protokolle dokumentiert, Scope-Abgrenzung zu Marven/Arlen festgehalten.
 - **resolved.md Bezug**
   - `[FACT][CARAVAN-LEADERSHIP]` – weist interne Logistik Kora zu, externen Konvoi Marven, Arlen als Händler/Vermittler.
 
@@ -47,7 +47,7 @@
 - **Flag** `RAW-canvas-2025-10-16T14-56-10-000Z.flags.txt`
   - Führungstitel mit Kora abstimmen; klarer Scope (Konvoi/Handel extern).
 - **Curated**
-  - Kein bestehendes Canvas.
+  - `database-rp/02-characters/Marven-Kael.md` (Version 1.0 – 2025-11-02T14:45+01:00) – Konvoi-/Handelsrolle geklärt, Sicherheits- und Verhandlungsprotokolle dokumentiert, FACT `[CARAVAN-LEADERSHIP]` umgesetzt.
 - **resolved.md Bezug**
   - `[FACT][CARAVAN-LEADERSHIP]` – bestätigt Marven als externe Konvoi-/Handelsleitung.
 
@@ -59,7 +59,7 @@
 - **Flag** `RAW-canvas-2025-10-16T14-56-20-000Z.flags.txt`
   - Titel mit Kora/Marven abgleichen; Rolle als Händler/Vermittler konkretisieren.
 - **Curated**
-  - Kein Canvas vorhanden.
+  - `database-rp/02-characters/Arlen-Dross.{md,json}` (Version 1.0 – 2025-11-02T15:05+01:00) – Diplomatie-/Vermittlerrolle ausgearbeitet, Abgrenzung zu Kora/Marven umgesetzt, Reflex-Wissensgrenzen dokumentiert, FACT `[CARAVAN-LEADERSHIP]` verankert.
 - **resolved.md Bezug**
   - `[FACT][CARAVAN-LEADERSHIP]` – Arlen als Händler/Vermittler ohne Führungsduplikat.
 
@@ -71,7 +71,7 @@
 - **Flag** `RAW-canvas-2025-10-16T14-41-00-000Z.flags.txt`
   - Status unsicher; Daten vor Promotion validieren.
 - **Curated**
-  - Kein Canvas aktuell.
+  - `database-rp/02-characters/Pahl.{md,json}` (Version 1.0 – 2025-11-02T15:25+01:00) – Herkunft korrigiert (einziger Überlebender des C6-Reaktorunfalls, Bergung durch Ronja/Reflex, Transfer nach D5 durch Jonas – FACT `[PAHL-RESCUE]`), Gesundheitsstatus dokumentiert, Hausregeln/Wartungsscope präzisiert.
 - **resolved.md Bezug**
   - Keine explizite Pahl-spezifische Entscheidung in `resolved.md`; Pahl wird in Ronja-Canvas und FACT `[POP]`/`[C6-HELPERS]` implizit erwähnt.
 

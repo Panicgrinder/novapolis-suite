@@ -68,6 +68,7 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [JEALOUSY-GLOVES]** (Mechanik/Policy): Reflex-Handschutz hat Priorität; externe Handschuhe nur mit Freigabe, sonst Warnung/Abbruch. Quellen: #1087.
 - **[FACT] [CARAVAN-LEADERSHIP]** (Charakter/Rollen): Kora leitet Logistik (intern), Marven Kael führt Konvoi/Handel (extern), Arlen Dross bleibt Händler/Vermittler. Quellen: RAW-canvas-2025-10-16T14-56-00-000Z; RAW-canvas-2025-10-16T14-56-10-000Z; RAW-canvas-2025-10-16T14-56-20-000Z.
 - **[FACT] [JONAS-SIS]** (Charakter/Lore): Jonas' Schwester bleibt vermisst/unklar; kein Todesnachweis, non-canon Schuldflag normalisieren. Quellen: #717–#721; RAW-canvas-2025-10-16T14-12-00-000Z.
+- **[FACT] [PAHL-RESCUE]** (Charakter/Lore): Pahl überlebte als Einziger den Reaktorunfall in C6; Ronja und Reflex stabilisierten die Anlage und retteten ihn, Jonas brachte ihn anschließend nach D5 und überwacht die Rekonvaleszenz. Quellen: chat-export (1) part-018 (Abschnitt „einziger Überlebender… in C6“), part-009 („...noch verletzt ist von dem defekten Reaktor damals in C6“), Memory-Bundle.
 
 ## Canvas & Verwaltung – Struktur & Inhalte
 

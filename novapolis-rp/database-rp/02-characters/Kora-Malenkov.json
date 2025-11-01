@@ -2,17 +2,26 @@
   "title": "Kora Malenkov",
   "category": "character",
   "slug": "kora-malenkov",
-  "version": "0.9",
-  "last_updated": "2025-10-27T20:05:00+01:00",
-  "tags": [],
+  "version": "1.0",
+  "last_updated": "2025-11-02T14:20:00+01:00",
+  "last_change": "Upgrade aus RAW char_kora_malenkov_v2 + FACT [CARAVAN-LEADERSHIP]",
+  "tags": [
+    "logistik",
+    "haendlerbund"
+  ],
   "affiliations": [
-    "novapolis"
+    "novapolis",
+    "haendlerbund"
   ],
   "primary_location": "c6",
   "last_seen": "c6",
   "dependencies": [
     "echo",
-    "c6"
+    "c6",
+    "logistik",
+    "missionslog",
+    "ai_behavior_index_v2",
+    "caravan_moves"
   ],
   "source": "database-rp/02-characters/Kora-Malenkov.md"
 }

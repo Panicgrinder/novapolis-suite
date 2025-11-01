@@ -28,6 +28,40 @@ Canvas-Rettung Sprint 1 – Jonas Merek (2025-11-02T13:55:00+01:00)
 - JSON-Sidecar synchronisiert (Version, Tags, Dependencies `missionslog`, `ai_behavior_index_v2`); `char-block-nord-sources.md` und TODO aktualisiert.
 - Verweise auf FACTs `[PROXIMITY]`, `[COMMS-PROTO]`, `[C6-FIRST]`, `[FR-KNOWLEDGE]` eingepflegt; Validierungsintervall notiert.
 
+Canvas-Rettung Sprint 1 – Kora Malenkov (2025-11-02T14:20:00+01:00)
+
+- Charakter-Canvas `database-rp/02-characters/Kora-Malenkov.md` auf Version 1.0 aktualisiert; Werte/Skills aus RAW übernommen, Rollen- und Sicherheitsverantwortung für C6 (Logistik, Echo-Schutz, Terminalprozesse) präzisiert.
+- FACT `[CARAVAN-LEADERSHIP]` und `[PROXIMITY]` konsolidiert: interne Logistikführung abgegrenzt zu Marven/Arlen, Echo-Protokolle und Kontrolllisten dokumentiert, Händlergilde+Novapolis Zugehörigkeit festgehalten.
+- JSON-Sidecar erweitert (Version, Tags `logistik`/`haendlerbund`, Dependencies `logistik`, `missionslog`, `ai_behavior_index_v2`, `caravan_moves`); `char-block-nord-sources.md`, dev TODO sowie Personenindex-Notiz ergänzt.
+- Hinweise auf Sicherheits-/Ermüdungsrisiken und Evakuierungskoordination integriert; Validierungsintervall erfasst.
+
+Canvas-Rettung Sprint 1 – Marven Kael (2025-11-02T14:45:00+01:00)
+
+- Neues Charakter-Canvas `database-rp/02-characters/Marven-Kael.md` erstellt; Konvoi-/Handelsrolle aus RAW übernommen, Sicherheits- und Verhandlungsprotokolle festgeschrieben, Zugehörigkeit zur Händlergilde betont.
+- FACT `[CARAVAN-LEADERSHIP]` umgesetzt: klare Trennung zwischen externem Konvoi (Marven), interner Logistik (Kora) und Vermittlung (Arlen); `[FR-KNOWLEDGE]` berücksichtigt (keine Novapolis-Koordinaten).
+- JSON-Sidecar ergänzt (Version 1.0, Tags `karawane`/`haendlerbund`, Dependencies `caravan_moves`, `ai_behavior_index_v2`, `missionslog`, `logistik`, `c6`); Quellenreport aktualisiert, dev TODO abgehakt.
+- Risiko- und Zielsetzungen dokumentiert (Entscheidungsstarre, Crewschutz, Handelsabkommen); Validierungsintervall notiert.
+
+Canvas-Rettung Sprint 1 – Arlen Dross (2025-11-02T15:05:00+01:00)
+
+- Charakter-Canvas `database-rp/02-characters/Arlen-Dross.md` auf Version 1.0 gehoben; Diplomatie-/Vermittlerrolle gegenüber Novapolis ausgearbeitet, Abgrenzung zu Kora (Logistik) und Marven (Konvoi) gemäß FACT `[CARAVAN-LEADERSHIP]` dokumentiert.
+- Wissensmatrix und Sicherheitslinien ergänzt: `[FR-KNOWLEDGE]` respektiert (keine Novapolis-Koordinaten), Reflex als unkalkulierbare Variable mit klaren Freigabesignalen beschrieben, Routine/Validierungszyklen aus RAW übernommen.
+- JSON-Sidecar erstellt (Tags `karawane`/`haendlerbund`/`diplomatie`, Dependencies `caravan_moves`, `ai_behavior_index_v2`, `missionslog`, `logistik`, `c6`, `handel_diplomatie_haendlergilde_v1`, `index_haendlergilde_v1`); Quellenreport `char-block-nord-sources.md`, TODO und Personenindex aktualisiert.
+- Risiko-/Zielkatalog ergänzt (Entscheidungsparalyse mitigieren, Handelsprotokoll standardisieren, Crew-Moderation sichern); Signals-Beispiele und Systemverknüpfungen dokumentiert.
+
+Canvas-Rettung Sprint 1 – Pahl (2025-11-02T15:25:00+01:00)
+
+- Charakter-Canvas `database-rp/02-characters/Pahl.md` erstellt; Gesundheitsstatus (Reha, Atemprotokolle) aus RAW verifiziert, Rollen (Systemaufsicht, Wartungsplanung, Hausregeln) gemäß FACT `[HOUSE-RULES]`/`[LOGISTICS]` beschrieben.
+- Wissens- und Sicherheitsmatrix ergänzt (Atemlog, Belastungsgrenzen, Validierungsintervall, Eskalationspfade „Regel Blau/Rot“), Interaktionshinweise aus Chatpassagen zum Lagerzugang integriert.
+- JSON-Sidecar angelegt (Tags `technik`/`novapolis`/`gesundheit`, Dependencies `d5`, `logistik`, `missionslog`, `ai_behavior_index_v2`, `ronja-kerschner`, `jonas-merek`, `reflex`); Quellenreport aktualisiert, dev TODO abgehakt.
+- Ziele/Risiken erweitert (Reha abschließen, Systemhandbuch v1.0, Wartungsschnittstelle D5↔C6); Signals-Beispiele dokumentiert.
+
+Canvas-Rettung Sprint 1 – Pahl Herkunfts-Abgleich (2025-11-02T15:50:00+01:00)
+
+- FACT `[PAHL-RESCUE]` in `database-curated/staging/reports/resolved.md` aufgenommen: C6-Reaktorunfall, Rettung durch Ronja/Reflex, Transfer & Reha unter Jonas.
+- Canvas `Pahl.md`/`Pahl.json` angepasst (Herkunft, Dependency `c6`, Quellenblock), Memory-Bundle und Personenindex synchronisiert, Quellenreport `char-block-nord-sources.md` erweitert.
+- RAW-Flag-Hinweis belassen, aber kanonische Herkunft auf `[PAHL-RESCUE]` gestellt.
+
 Canvas-Rettung Sprint 1 – Ronja Kerschner (2025-11-01T17:12:00+01:00)
 
 - Charakter-Canvas `database-rp/02-characters/Ronja-Kerschner.md` auf Version 1.0 aktualisiert; Status-/Systemabschnitte aus RAW `char_ronja_v2` übernommen und Drift („Vallin“) gemäß `resolved.md #[NAME-RONJA]` dokumentiert.

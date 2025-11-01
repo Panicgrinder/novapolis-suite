@@ -8,6 +8,8 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 - **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
 - 2025-11-02: Memory-Bundle und Root-Doku auf Evakuierungsstatus Marei/E3/C6 synchronisiert; offene Aufgabenliste angepasst.
 - 2025-11-02: Jonas-Merek-Canvas auf Version 1.0 konsolidiert (Werte, Rollen, Sicherheitsprotokolle; Schuldflag normalisiert) und dev TODO/DONELOG nachgezogen.
+- 2025-11-02: Kora-Malenkov-Canvas auf Version 1.0 gehoben (Logistikscope, Echo-Protokolle, Händlergilde/Novapolis Zugehörigkeit) und Dokumentation synchronisiert.
+- 2025-11-02: Marven-Kael-Canvas angelegt (Konvoiführung, Handelsprotokolle, Händlergilde-Scope) und Quellen/Tasks aktualisiert.
 - 2025-11-02: Behavior-Signaturen für Echo/Lumen/Liora/Lyra/Senn/Varek kuratiert; Validator `behavior_matrix_check.py` um Psymatrix-Diff und Dokumentation ergänzt.
 - 2025-11-01: AI Behavior Matrix (Version 1.0) – RAW `ai_behavior_index_v2` promotet, Cluster/Intensität/Modifikatoren, vollst. Anchor-Register (02-characters) + Psymatrix dokumentiert.
 - 2025-11-01: Ronja-Canvas (Version 1.0) – RAW char_ronja_v2 integriert, Drift „Vallin“ dokumentiert, TODO-Boards aktualisiert.
@@ -29,7 +31,30 @@ Jonas Merek Canvas (2025-11-02T13:55:00+01:00)
 - Korrupten Makel („Schuld am Tod der Schwester“) gemäß FACT `[JONAS-SIS]` bereinigt – Schwesterstatus als „vermisst/unklar“ festgehalten, Schuldgefühle als subjektive Notiz geführt.
 - JSON-Sidecar & Dependencies (`missionslog`, `ai_behavior_index_v2`) synchronisiert, `char-block-nord-sources.md` sowie dev TODO/DONELOG aktualisiert.
 
+Kora Malenkov Canvas (2025-11-02T14:20:00+01:00)
+
+- Charakter-Canvas `novapolis-rp/database-rp/02-characters/Kora-Malenkov.md` auf Version 1.0 angehoben: Werte/Skills und Verhaltenssignatur aus RAW `char_kora_malenkov_v2` übernommen, Logistik-/Sicherheitsrollen für C6 ausgearbeitet und Echo-Protokolle dokumentiert.
+- FACTs `[CARAVAN-LEADERSHIP]`, `[PROXIMITY]`, `[FR-KNOWLEDGE]` integriert: Abgrenzung zu Marven/Arlen, Händlergilde + Novapolis Zugehörigkeit, Freigabeprozesse (Missionslog/Logistik) festgeschrieben.
+- JSON-Sidecar erweitert (Tags `logistik`/`haendlerbund`, Dependencies `logistik`, `missionslog`, `ai_behavior_index_v2`, `caravan_moves`), `char-block-nord-sources.md`, dev TODO/DONELOG aktualisiert und Personenindex-Notiz ergänzt.
+
+Marven Kael Canvas (2025-11-02T14:45:00+01:00)
+
+- Neues Charakter-Canvas `novapolis-rp/database-rp/02-characters/Marven-Kael.md` angelegt: Werte/Skills und Verhaltenssignatur aus RAW `char_marven_v2` übernommen, Konvoi-/Handelsrolle inklusive Sicherheits- und Verhandlungsprotokollen ausgearbeitet.
+- FACTs `[CARAVAN-LEADERSHIP]` und `[FR-KNOWLEDGE]` berücksichtigt – klare Abgrenzung zur internen Logistik (Kora) und zu Arlens Vermittlungsrolle, Schutz der Händlergilde-Koordinaten, strukturierte Verhandlungsabläufe dokumentiert.
+- JSON-Sidecar ergänzt (Tags `karawane`/`haendlerbund`, Dependencies `caravan_moves`, `ai_behavior_index_v2`, `missionslog`, `logistik`, `c6`), Quellenreport `char-block-nord-sources.md`, dev TODO/DONELOG und Personenindex aktualisiert.
+
+Arlen Dross Canvas (2025-11-02T15:05:00+01:00)
+
+
+Pahl Canvas (2025-11-02T15:25:00+01:00)
+
 <details>
+Pahl Herkunfts-Abgleich (2025-11-02T15:50:00+01:00)
+
+- FACT `[PAHL-RESCUE]` in `database-curated/staging/reports/resolved.md` dokumentiert: C6-Reaktorunfall, Rettung durch Ronja/Reflex, Transfer nach D5 unter Jonas' Obhut.
+- Canvas/JSON (`Pahl.{md,json}`) aktualisiert (Herkunft, Dependency `c6`, Quellenblock) sowie Memory-Bundle, Personenindex und `char-block-nord-sources.md` synchronisiert.
+- RAW-Flag bleibt als Vorsichtshinweis bestehen, Kanon orientiert sich jetzt an `[PAHL-RESCUE]`.
+
 <summary>novapolis_agent/docs/DONELOG.txt</summary>
 
 ```text

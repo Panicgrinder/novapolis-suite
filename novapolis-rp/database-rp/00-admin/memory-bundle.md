@@ -26,7 +26,7 @@ Diese Datei ist der „Wahrheitsspeicher“. Änderungen hier sind kanonisch.
 - Werkstatt (Kämmerchen) unter Aufsicht.
 
 ### Pahl (Leittechniker)
-- Ex-Union (C6), geborgen; in Rekonvaleszenz (Jonas betreut).
+- Einziger Überlebender des C6-Reaktorunfalls; Ronja & Reflex bargen ihn, Jonas brachte ihn nach D5 und betreut die Reha.
 
 ### Marei
 - Leitung E3 bis Evakuierung; heute Stellvertretung C6 (Logistik/Organisation).
