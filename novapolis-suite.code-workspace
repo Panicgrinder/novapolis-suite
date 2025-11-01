@@ -1,0 +1,7 @@
+{
+  // Canonical workspace for the novapolis-suite mono-repo (clean, single-root)
+  "folders": [
+    { "path": "." }
+  ],
+  "settings": {}
+}

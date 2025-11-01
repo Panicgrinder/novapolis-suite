@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-01 09:47
-update: YAML-Frontmatter ergänzt; Titel-Stand entfernt.
-checks: keine
+stand: 2025-11-01 23:26
+update: Workspaces bereinigt: neue kanonische Datei `novapolis-suite.code-workspace`; alte Workspace-Dateien als deprecated markiert.
+checks: markdownlint-cli2 FAIL (50 errors, siehe Terminalausgabe)
 ---
 
 # Workspace-Status

@@ -1,10 +1,8 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	],
-	"settings": {
-		"godotTools.editorPath.godot3": "f:\\Downloads\\Godot_v4.5.1-stable_win64.exe\\Godot_v4.5.1-stable_win64.exe"
-	}
+  // DEPRECATED: Falscher Name ("agend" statt "agent").
+  // Bitte `novapolis-suite.code-workspace` verwenden.
+  "folders": [
+    { "path": "." }
+  ],
+  "settings": {}
 }
