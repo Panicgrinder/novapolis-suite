@@ -18,4 +18,13 @@
   "remote.autoForwardPortsSource": "hybrid",
   "extensions.autoCheckUpdates": true,
   "extensions.autoUpdate": true
+  ,
+  // Ensure tasks/automation use the same shell profile deterministically
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.automationProfile.windows": {
+    "path": "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+    "args": ["-NoProfile"]
+  },
+  // Reuse the task terminal on rerun (no new terminals)
+  "task.terminal.reuseOnRerun": true
 }

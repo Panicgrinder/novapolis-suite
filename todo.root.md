@@ -1,6 +1,6 @@
-stand: 2025-11-01 18:38
-update: Root-Archiv verlinkt; kleinere Korrekturen
-checks: keine
+stand: 2025-11-01 19:23
+update: Volltexte-Summary/Links korrigiert; Details-Block geschlossen
+checks: markdownlint-cli2 FAIL
 ---
 
 <!-- markdownlint-disable MD003 -->
@@ -180,7 +180,11 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
 ## Volltexte
 
 <details>
-<summary>novapolis_agent/docs/TODO.md</summary>
+<summary>Historischer Snapshot (Agent TODO, archiviert)</summary>
+
+Autoritativer Stand:
+- SSOT: `novapolis-dev/docs/todo.agent.md`
+- Archiv: `novapolis-dev/archive/todo.agent.archive.md`
 
 ```markdown
 <!-- markdownlint-disable MD013 -->
@@ -576,6 +580,8 @@ Später
 - [x] AGENT_BEHAVIOR.md: DONELOG Autoren‑Definition präzisieren
   - Ziel: In `AGENT_BEHAVIOR.md` ergänzen, dass der Autor in `docs/DONELOG.txt` die Herkunft des Vorschlags widerspiegelt (z. B. „Panicgrinder“ für Benutzer‑/Owner‑Vorschläge; „Copilot“ für automatisch initiierte/umgesetzte Vorschläge).
   - Akzeptanz: Abschnitt „Regel: Abgeschlossene Arbeiten dokumentieren (DONELOG)“ erweitert; konkrete Beispiele hinzugefügt.
+
+</details>
 
 Metriken
 

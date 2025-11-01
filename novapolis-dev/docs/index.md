@@ -32,6 +32,13 @@ Primary Docs
 - `docs/prompts/chat-restart.md` — kopierfertiger Prompt für Chat-/Session-Neustarts (veraltet; aktuell nicht nutzen)
 - Meta-Sidecars: `novapolis-dev/docs/meta/*.json` (Quelle, Ursprung, Migrationsstempel)
 
+Specs
+-----
+
+- `docs/specs/annotation-spec.md` — Knowledge/Actions/Skill‑Ableitung (YAML‑Snippets)
+- `docs/specs/scheduler-spec.md` — Tickloser Min‑Heap Scheduler (24×1h, Events/Locks/Interrupts)
+- `docs/specs/tts-exporter-coqui.md` — Build‑Time Export (Coqui→OGG), Task‑Skelett & Kontrakt
+
 > [!NOTE]
 > Legacy-Kopien im ehemaligen RP-Development-Verzeichnis bleiben nur temporaer als Verweis bestehen und werden nach Downstream-Sign-off entfernt.
 

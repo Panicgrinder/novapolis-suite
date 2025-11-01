@@ -13,6 +13,7 @@
     "MD041": false
   },
   "ignores": [
+    ".venv/**",
     "novapolis_agent/eval/results/**",
     "novapolis_agent/outputs/**",
     "outputs/**",

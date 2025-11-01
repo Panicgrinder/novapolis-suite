@@ -1,5 +1,5 @@
-stand: 2025-11-01 18:38
-update: Pfadkorrektur archiv→archive (Archiv-Hinweis aktualisiert)
+stand: 2025-11-01 22:39
+update: Coqui‑Exporter README verlinkt; Task‑Skelett angelegt; Tabs→Spaces für Lint
 checks: keine
 ---
 
@@ -20,14 +20,26 @@ Offene Aufgaben (Dev)
 
 - [ ] (Platzhalter) Sammle Dev‑Aufgaben hier. Falls bisher in Root `todo.root.md` oder Agent‑TODO gepflegt, bitte verschieben.
 
+Neue Aufgaben – Zeitmodell & TTS (2025-11-01 22:24)
+---------------------------------------------------
+
+- [ ] Annotation‑Spec (1 Seite) anlegen: Knowledge‑Schema (Quelle/Kanal/Confidence/Freshness/Visibility), Action‑Schema (base_duration/locks/interruptible/may_trigger_event), Skill‑Ableitung aus Verhaltensmatrix (Formel + Beispiel‑Gewichte).
+  - [ ] Ablagevorschlag: `novapolis-dev/docs/specs/annotation-spec.md` (YAML‑Snippets inklusive).
+  - [ ] Link: Siehe `novapolis-dev/docs/specs/annotation-spec.md`.
+- [ ] Scheduler‑Spec (tick‑los, Min‑Heap): Mikro‑Turns innerhalb 1‑h‑Epochen (Hybrid‑Modell) – Inputs/Outputs/Fehlerpfade + 3 Beispielaktionen.
+  - [ ] Link: Siehe `novapolis-dev/docs/specs/scheduler-spec.md`.
+- [ ] TTS‑Tooling (Build‑Time): VS Code Task‑Entwurf „TTS: export (Coqui→OGG)“ ohne Code – nur Task‑Skelett/README notieren; eigentliche Implementierung folgt im Agent/Tools.
+  - [ ] Link: Siehe `novapolis-dev/docs/specs/tts-exporter-coqui.md`.
+- [ ] Templates: Minimal‑YAML‑Snippets für `knowledge:` und `actions:` bereitstellen (Copy/Paste in Canvases).
+
 Bereinigung Alt‑TODOs (nur SSOT behalten)
 -----------------------------------------
 
 - [ ] Kandidatenliste prüfen und löschen, sobald alle Referenzen entfernt sind:
-	- Root‑Redirect: `TODO.md` (verweist auf `todo.root.md`)
-	- Agent‑Redirect: `novapolis_agent/docs/TODO.md` (verweist auf `novapolis-dev/docs/todo.agent.md`)
-	- Historischer Redirect: `novapolis-dev/docs/todo.md` (verweist auf `docs/todo.index.md`)
-	- Mirror/Stub: `novapolis-rp/Main/novapolis-dev/docs/todo.md` (Redirect‑Stub, Mirror‑Policy beachten)
+  - Root‑Redirect: `TODO.md` (verweist auf `todo.root.md`)
+  - Agent‑Redirect: `novapolis_agent/docs/TODO.md` (verweist auf `novapolis-dev/docs/todo.agent.md`)
+  - Historischer Redirect: `novapolis-dev/docs/todo.md` (verweist auf `docs/todo.index.md`)
+  - Mirror/Stub: `novapolis-rp/Main/novapolis-dev/docs/todo.md` (Redirect‑Stub, Mirror‑Policy beachten)
   
 Hinweise
 --------

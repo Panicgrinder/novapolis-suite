@@ -1,5 +1,5 @@
-stand: 2025-11-01 19:10
-update: Vollständig erledigten Abschnitt „Priorität A – Charaktere & Führung“ ins Archiv verschoben
+stand: 2025-11-01 22:31
+update: Referenzen auf Annotation‑Spec ergänzt (Runden/Knowledge/Actions); keine Strukturänderungen
 checks: keine
 ---
 
@@ -236,3 +236,32 @@ Hintergrund & Notizen
 - Nach jedem Post interne 200-Token-Zusammenfassung (vom SL) einfordern.
 
 </details>
+
+Neue Aufgaben – Zeitmodell, Annotation & Logs (2025-11-01 22:24)
+----------------------------------------------------------------
+
+- 24×1h‑Runden (PC‑zentriert) einführen
+  - [ ] Policy festhalten: Stunde spult leise weiter, bis ein PC‑relevantes Ereignis eintritt (z. B. „Reflex weckt Ronja“).
+  - [ ] Pro Stunde zwei Logs führen: `world_log` (Wahrheit) und `pc_log` (nur Sichtbares für den PC).
+  - [ ] Sichtbarkeit umsetzen: scope `private|allies_only|pc|public`, plus `channel`, `source`, `confidence`, `freshness` (siehe Knowledge‑Schema unten).
+  - [ ] Referenz: `novapolis-dev/docs/specs/annotation-spec.md`.
+
+- Knowledge‑Annotation schrittweise ergänzen (wichtige Charaktere/Missionen zuerst)
+  - [ ] Charaktere: Reflex, Ronja, Jonas – Knowledge‑Einträge in dedizierten Dateien (z. B. `Reflex-Wissensstand-Trainingsstand.md`) und/oder Canvas‑Frontmatter `knowledge:`.
+  - [ ] Missionen/Ereignisse: je Kernereignis mind. ein Knowledge‑Item mit `about`, `channel`, `source`, `scope`, `confidence`, `freshness`, `visibility_to`, `attachments`.
+  - [ ] Rückblendenprozess: Items per Log/Funk von `allies_only/hidden` → `pc` heben (keine Retcons, nur Sichtbarkeit).
+  - [ ] Referenz: `novapolis-dev/docs/specs/annotation-spec.md`.
+
+- Actions‑Schema (für möglichen „Zug‑um‑Zug“‑Wechsel) jetzt leicht mitpflegen
+  - [ ] In Missions‑/Orts‑Canvases `actions:` notieren: `verb`, `base_duration_min`, `effort`, `interruptible`, `locks`, `may_trigger_event`, `resources`.
+  - [ ] Kernaktionen definieren (5–10): Reinigen, Reparatur, Reise, Wache, Funk, Erste Hilfe, Erkundung.
+  - [ ] Naming‑Konvention und kurze Beispiele dokumentieren.
+  - [ ] Referenz: `novapolis-dev/docs/specs/annotation-spec.md`.
+
+- Skills aus Verhaltensmatrix ableiten (ohne zweites System)
+  - [ ] Mapping‑Gewichte je Skill (0–3) vorschlagen (Matrix‑Dimensionen → Skill), Ausgangswerte pro Rolle.
+  - [ ] Formel/Beispiele im Spec verlinken; Ableitung on‑demand, keine Duplikat‑Wahrheit.
+
+- TTS (gemischt)
+  - [ ] Vorproduzierte OGG‑Summaries je Stunde (world/pc) – Kandidaten markieren.
+  - [ ] Live‑Dialoge via Coqui XTTS v2 mit Cache (Hash(Text+Stimme)); Fallback Windows/Azure nur bei Bedarf.
