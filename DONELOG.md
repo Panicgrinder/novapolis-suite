@@ -1,7 +1,6 @@
----
-stand: 2025-11-01 11:45
-update: Staging-Hygiene (Teil 1): Tabs→Spaces in Review; Setext→ATX + Leerzeilen normalisiert; Lint erneut ausgeführt.
-checks: markdownlint-cli2 FAIL (Exit 1) – 192 Fehler in 90 Dateien (Hotspots: database-curated/staging/reports Tabs/Final-Newline)
+stand: 2025-11-01 14:37
+update: Markdownlint zentral finalisiert (MD003=consistent, ignores in CLI2 fix) – Lauf grün.
+checks: markdownlint-cli2 PASS
 ---
 
 # DONELOG-Uebersicht (Novapolis Suite)
@@ -12,6 +11,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 
 - **novapolis_agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
 - **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
+- 2025-11-01: Markdownlint zentralisiert – Root-Task vereinheitlicht, Agent-Wrapper entfernt, `run_lint_markdown.ps1` als Hinweisstub belassen.
 - 2025-11-02: TODO-Übersichten konsolidiert – Root-`TODO.md` auf Link (driftfrei) mit Zeitstempel umgestellt; RP-Mirror `novapolis-rp/Main/novapolis-dev/docs/todo.md` durch Stub ersetzt; Legacy-Stub `novapolis-rp/development/docs/todo.md` entfernt.
 - 2025-11-02: Memory-Bundle und Root-Doku auf Evakuierungsstatus Marei/E3/C6 synchronisiert; offene Aufgabenliste angepasst.
 - 2025-11-02: Jonas-Merek-Canvas auf Version 1.0 konsolidiert (Werte, Rollen, Sicherheitsprotokolle; Schuldflag normalisiert) und dev TODO/DONELOG nachgezogen.
@@ -34,6 +34,13 @@ Memory-Bundle Refresh (2025-11-02T10:15:00+01:00)
 - `novapolis-rp/database-rp/00-admin/memory-bundle.md` vollständig neu strukturiert: Evakuierung E3→C6, Marei-Rolle, Tunnelstatus und Projektlisten aktualisiert; Charaktersektionen gestrafft.
 - Root-Dokumentation (`README.md`, `TODO.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`) auf Stand 2025-11-02 gehoben; TODO-Checkboxen für Memory-Bundle-Aufgaben abgeschlossen.
 - Folgeaufgabe: Tree-Snapshots (`workspace_tree*.txt`) beim nächsten Struktur-Update regenerieren.
+
+Markdownlint zentralisiert (2025-11-01T15:30:00+01:00)
+
+- VS Code Tasks für Markdownlint entfernt; Lint läuft zentral und wird lokal direkt im bestehenden Terminal via npx ausgeführt.
+- `novapolis_agent/.vscode/tasks.json` bereinigt (Markdownlint-Wrapper-Tasks entfernt); Nutzung lokal ausschließlich per direktem `npx`.
+- `.github/workflows/markdownlint.yml` führt den Windows-Lauf nur noch via `npx`; der Aufruf von `run_lint_markdown.ps1` entfällt.
+- `run_lint_markdown.ps1` liefert nur noch einen Hinweis (Exit 1); Dokumentation in `novapolis-dev/docs/index.md`, `novapolis-dev/docs/donelog.md`, `novapolis-rp/coding/tools/validators/README.md` aktualisiert.
 
 Jonas Merek Canvas (2025-11-02T13:55:00+01:00)
 
@@ -302,7 +309,7 @@ Dev Hub Konsolidierung (2025-10-29)
 VS Code Launch-Konfigurationen (2025-10-28)
 
 - `.vscode/launch.json` hinzugefügt:
-  - PowerShell-Runner: `validate:data (ps1)`, `lint:names (ps1)`, `lint:markdown (ps1)`, `system:check (windows)`.
+  - PowerShell-Runner: `validate:data (ps1)`, `lint:names (ps1)`, `system:check (windows)` (Markdownlint direkt via `npx` oder Root-Task).
   - Node-Varianten: `validate:data (node/npm)`, `lint:names (node)`, `lint:markdown (npx)`, `validate:data (status)`.
   - Ziel: Checks direkt per Startmenü (Run and Debug) nutzbar; identische Pfade wie Tasks/Wrapper.
 
@@ -323,21 +330,21 @@ PS1-Tasks ergänzt (2025-10-27T20:18:30+01:00)
 - `.vscode/tasks.json`: zusätzliche Tasks ohne Inline‑`-Command` aufgenommen:
   - `lint:names (ps1)` → `run_check_names.ps1`
   - `validate:data (ps1)` → `run_validate_all.ps1`
-  - `lint:markdown (ps1)` → `run_lint_markdown.ps1`
-- Neue Wrapper: `run_validate_all.ps1`, `run_lint_markdown.ps1` (Docker bevorzugt; sonst lokal; klare Fehlermeldung bei fehlenden Voraussetzungen).
+  - `lint:markdown (ps1)` → `run_lint_markdown.ps1` (veraltet seit 2025-11-01; bitte Root-Task bzw. `npx` verwenden).
+- Neue Wrapper: `run_validate_all.ps1`, `run_lint_markdown.ps1` (Docker bevorzugt; sonst lokal; klare Fehlermeldung bei fehlenden Voraussetzungen; Markdownlint-Wrapper obsolet seit 2025-11-01).
 
 CI erweitert (2025-10-27T22:40:00+01:00)
 
 - `.github/workflows/validate.yml` aufgeteilt:
   - Linux-Job (Node 20) mit npm cache; führt Validatoren, Name‑Check, Markdown‑Lint aus.
-  - Windows-Job (PS1‑Wrapper) – führt `run_validate_all.ps1`, `run_check_names.ps1`, `run_lint_markdown.ps1` aus, um PowerShell‑Skripte in CI mitzuprüfen.
+  - Windows-Job (PS1-Wrapper) – führt `run_validate_all.ps1`, `run_check_names.ps1`, `run_lint_markdown.ps1` aus, um PowerShell-Skripte in CI mitzuprüfen (Wrapper seit 2025-11-01 ohne Markdownlint-Einsatz).
 - Validator-Fixes:
   - Ajv 2020‑12 für kuratiertes Manifest (`validate-curated.js`).
   - Front‑Matter‑Validator (`validate-rp.js`): `last-updated` tolerant (String/Date), H1‑Allowlist für `00-admin/system-prompt.md`.
 
-Markdown‑Lint Wrapper gefixt (2025-10-27T22:55:00+01:00)
+Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) – veraltet seit 2025-11-01
 
-- `coding/tools/validators/run_lint_markdown.ps1`: Fallbacks ergänzt
+- `coding/tools/validators/run_lint_markdown.ps1`: Fallbacks ergänzt (veraltet seit 2025-11-01)
   - absolute `node.exe` Erkennung; direkter Aufruf von `npx-cli.js` via `node.exe` (unabhängig von PATH)
   - Reihenfolge: Docker → node+npx-cli.js → npx.cmd → Fehlermeldung
   - Behebt Fehler "'node' is not recognized" bei fehlendem PATH.

@@ -1,14 +1,18 @@
 ---
-stand: 2025-11-01 13:05
-update: Neuer Neustart-Prompt für Chat-Sessions (RP/Agent); an Vorgaben (YAML+Snapshot) angepasst.
+stand: 2025-11-01 12:49
+update: Als veraltet markiert; kann bei Bedarf reaktiviert/neu befüllt werden.
 checks: markdownlint PASS
 ---
 
-# Neustart-Prompt (Chat/Session)
+Neustart-Prompt (Chat/Session) — VERALTET
+=========================================
+
+Hinweis: Dieses Dokument ist als veraltet markiert und dient aktuell nur als Platzhalter. Bitte nicht produktiv nutzen; bei Bedarf kann es zeitnah reaktiviert und neu befüllt werden.
 
 Ziel: Eine bestehende Unterhaltung kontrolliert neu starten, Kontext sauber einhängen und sofort arbeitsfähig sein – ohne Altdrift, mit konsistenter Terminologie und sicherem Output.
 
-## Rahmen
+Rahmen
+------
 
 - Sprache: Deutsch (prägnant, skimmbar; kurze Sätze, Bullet-Listen ok)
 - Sicherheit/Policy: Keine Secrets, offline bevorzugen; Policy-Checks beachten (`novapolis-dev/docs/copilot-behavior.md`)
@@ -18,7 +22,8 @@ Ziel: Eine bestehende Unterhaltung kontrolliert neu starten, Kontext sauber einh
   - `novapolis-rp/database-curated/staging/manifest.json` (staging-Artefakte)
   - RP-Kanon in `novapolis-rp/database-rp/**` (nur freigegebene Inhalte)
 
-## Prompt (kopierfertig)
+Prompt (kopierfertig)
+---------------------
 
 Rolle
 - Du bist der Novapolis-Assistent (neutraler Moderator + strukturierter Editor).
@@ -53,7 +58,8 @@ Start (System-Message für den Assistenten)
 
 > Du startest eine neue Session im Modus {General|Codex}. Nutze ausschließlich die SSOT-Dokumente aus dem Repo. Ziel: {Ziel in 1–2 Sätzen}. Antworte kurz, skimmbar, mit einem Mini-Plan und beginne direkt mit der ersten sinnvollen, risikofreien Aktion (z. B. relevante Datei lesen oder Lint/Check laufen lassen). Halte dich an die Sicherheits- und Stilregeln aus `novapolis-dev/docs/copilot-behavior.md`. Verwende korrekte deutsche Umlaute (UTF‑8).
 
-## Hinweise
+Hinweise
+--------
 - Für Code-Änderungen: Tests/Typechecks nachziehen; DONELOG-Eintrag, falls `novapolis_agent/app|scripts|utils` betroffen.
 - Für generierte Reports/Reviews: lokale Lint-Overrides beachten (`staging/.markdownlint.json`).
 - EOL/Encoding-Policy: UTF‑8, LF, eine Abschlusszeile (siehe `.editorconfig`, `.gitattributes`).

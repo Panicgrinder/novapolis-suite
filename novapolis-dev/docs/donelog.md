@@ -14,6 +14,13 @@ Canvas-Rettung Sprint 1 – Behavior-Signaturen & Validator (2025-11-02T12:45:00
 - Charakter-Canvases (`02-characters/*.md` + JSON) um Verhaltenseinträge ergänzt; Skill-Listen auf Leerzeichen-Indents umgestellt, Markdownlint-Ausnahmen (MD025) lokalisiert.
 - Validator `coding/tools/validators/behavior_matrix_check.py` erweitert (Signatur-Format/Quellen-Check + Psymatrix-Diff >5-Punkte-Schwelle), README und TODO mit Ausführungshinweis aktualisiert; Task als erledigt markiert.
 
+Markdownlint zentralisiert (2025-11-01T15:30:00+01:00)
+
+- VS Code Tasks für Markdownlint gestrichen; zentraler Lauf bleibt. Lokal erfolgt Lint direkt im bestehenden Terminal via npx.
+- `novapolis_agent/.vscode/tasks.json`: Markdownlint-Wrapper-Tasks gestrichen; lokal nur noch direkter `npx`-Befehl.
+- `.github/workflows/markdownlint.yml`: Windows-Job lintet ausschließlich via `npx`; `run_lint_markdown.ps1` wird nicht mehr aufgerufen.
+- `run_lint_markdown.ps1` zu einem Hinweisskript degradiert (Exit 1); Doku (`novapolis-dev/docs/index.md`, `novapolis-rp/coding/tools/validators/README.md`) verweist auf den direkten `npx`-Aufruf.
+
 - 2025-11-01 13:08 — Prompt für Chat-Neustart ergänzt (`docs/prompts/chat-restart.md`); Index-Link gesetzt; Curation-Writer für UTF‑8+LF+EOF gehärtet und Orchestrator `build_staging_reports.py`+PS1 hinzugefügt. Lint weiter grün.
 
 Canvas-Rettung Sprint 1 – Jonas Merek (2025-11-02T13:55:00+01:00)
@@ -149,7 +156,7 @@ Dev Hub Konsolidierung (2025-10-29)
 VS Code Launch-Konfigurationen (2025-10-28)
 
 - `.vscode/launch.json` hinzugefügt:
-  - PowerShell-Runner: `validate:data (ps1)`, `lint:names (ps1)`, `lint:markdown (ps1)`, `system:check (windows)`.
+  - PowerShell-Runner: `validate:data (ps1)`, `lint:names (ps1)`, `system:check (windows)` (Markdownlint direkt via `npx` oder Root-Task).
   - Node-Varianten: `validate:data (node/npm)`, `lint:names (node)`, `lint:markdown (npx)`, `validate:data (status)`.
   - Ziel: Checks direkt per Startmenü (Run and Debug) nutzbar; identische Pfade wie Tasks/Wrapper.
 
@@ -170,21 +177,21 @@ PS1-Tasks ergänzt (2025-10-27T20:18:30+01:00)
 - `.vscode/tasks.json`: zusätzliche Tasks ohne Inline‑`-Command` aufgenommen:
   - `lint:names (ps1)` → `run_check_names.ps1`
   - `validate:data (ps1)` → `run_validate_all.ps1`
-  - `lint:markdown (ps1)` → `run_lint_markdown.ps1`
-- Neue Wrapper: `run_validate_all.ps1`, `run_lint_markdown.ps1` (Docker bevorzugt; sonst lokal; klare Fehlermeldung bei fehlenden Voraussetzungen).
+  - `lint:markdown (ps1)` → `run_lint_markdown.ps1` (veraltet seit 2025-11-01; bitte Root-Task bzw. `npx` verwenden).
+- Neue Wrapper: `run_validate_all.ps1`, `run_lint_markdown.ps1` (Docker bevorzugt; sonst lokal; klare Fehlermeldung bei fehlenden Voraussetzungen; Markdownlint-Wrapper obsolet seit 2025-11-01).
 
 CI erweitert (2025-10-27T22:40:00+01:00)
 
 - `.github/workflows/validate.yml` aufgeteilt:
-  - Linux-Job (Node 20) mit npm cache; führt Validatoren, Name‑Check, Markdown‑Lint aus.
-  - Windows-Job (PS1‑Wrapper) – führt `run_validate_all.ps1`, `run_check_names.ps1`, `run_lint_markdown.ps1` aus, um PowerShell‑Skripte in CI mitzuprüfen.
+  - Linux-Job (Node 20) mit npm cache; führt Validatoren, Name-Check, Markdown-Lint aus.
+  - Windows-Job (PS1-Wrapper) – führt `run_validate_all.ps1`, `run_check_names.ps1`, `run_lint_markdown.ps1` aus, um PowerShell-Skripte in CI mitzuprüfen (Wrapper seit 2025-11-01 ohne Markdownlint-Einsatz).
 - Validator-Fixes:
   - Ajv 2020‑12 für kuratiertes Manifest (`validate-curated.js`).
   - Front‑Matter‑Validator (`validate-rp.js`): `last-updated` tolerant (String/Date), H1‑Allowlist für `00-admin/system-prompt.md`.
 
-Markdown‑Lint Wrapper gefixt (2025-10-27T22:55:00+01:00)
+Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) – veraltet seit 2025-11-01
 
-- `coding/tools/validators/run_lint_markdown.ps1`: Fallbacks ergänzt
+- `coding/tools/validators/run_lint_markdown.ps1`: Fallbacks ergänzt (veraltet seit 2025-11-01)
   - absolute `node.exe` Erkennung; direkter Aufruf von `npx-cli.js` via `node.exe` (unabhängig von PATH)
   - Reihenfolge: Docker → node+npx-cli.js → npx.cmd → Fehlermeldung
   - Behebt Fehler "'node' is not recognized" bei fehlendem PATH.

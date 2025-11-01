@@ -43,7 +43,3 @@ jobs:
         shell: pwsh
         run: |
           npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"
-      - name: Verify RP markdownlint wrapper
-        shell: pwsh
-        run: |
-          ./novapolis-rp/coding/tools/validators/run_lint_markdown.ps1 -VerboseMode

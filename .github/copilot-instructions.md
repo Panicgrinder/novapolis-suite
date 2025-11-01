@@ -1,6 +1,6 @@
 # Copilot-Projektanweisungen (Novapolis Suite)
 
-Stand: 2025-11-01 10:15 – Tabs→Spaces bereinigt; YAML-Frontmatter hier weiterhin aus (Fallback-Kopfzeile).
+Stand: 2025-11-01 15:25 – Terminal-Policy & zentrales Markdownlint finalisiert.
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
@@ -17,11 +17,19 @@ Stand: 2025-11-01 10:15 – Tabs→Spaces bereinigt; YAML-Frontmatter hier weite
 - Sicherheit & Privacy: Keine Secrets, offline bevorzugen, keine harten Pfade zu externen Repositories übernehmen.
 - Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
 
+### Terminal-Policy (lokale Läufe)
+
+- Keine separaten VS Code Task‑Terminals für Lint/Checks/Tests verwenden. Läufe finden ausschließlich im bestehenden PowerShell‑Terminal statt.
+- VS Code Markdownlint‑Tasks wurden entfernt; lokale Ausführung erfolgt direkt via `npx` im aktiven Terminal.
+- Statuskommunikation: kurze PASS/FAIL‑Notiz nach tatsächlicher Ausführung; Frontmatter `checks` erst nach realem Lauf aktualisieren.
+
 ### Update-Logistik (Snapshot)
 
 - Timestamp: Änderungen mit `YYYY-MM-DD HH:mm` (lokale Zeit) vermerken – gilt für Kopfzeilen („Stand“, „Letzte Aktualisierung“), DONELOG-Einträge und kurze Statusnotizen.
+- Systemzeit vor Updates per Task `Snapshot: now (timestamp)` oder `Get-Date -Format 'yyyy-MM-dd HH:mm'` abrufen und übernehmen.
 - Kurznotiz: 1–2 Sätze oder Bullet, was angepasst wurde (analog zu `novapolis-rp/database-rp/02-*`). Bei komplexeren Tasks optional Primärpfad referenzieren (`app/...`, `scripts/...`).
 - Prüfungen: Relevante Checks nennen (z. B. `pytest -q`, `pyright`, `markdownlint-cli2`) inkl. Ergebnis/Exit-Status; bei Bedarf Link/Dateipfad zur Ausgabe ergänzen.
+- Markdownlint-Läufe protokollieren: Lauf/Command + PASS/FAIL direkt nach dem Lauf im Status erwähnen.
 - Dokumentpflege: Betroffene Artefakte synchron halten (`TODO.md`, `novapolis_agent/docs/TODO.md`, DONELOGs, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, README/Index-Seiten). Strukturänderungen → zusätzlich Tree-Snapshots aktualisieren; Behaviour-Änderungen → `AGENT_BEHAVIOR.md` & Kopien prüfen.
 - Referenzen: Wenn vorhanden Issue-/PR-Links, Commit-Hash oder Kontextnotizen angeben (Inline oder als Fußnote). Für wiederkehrende Schritte Templates/Tasks im Root `.vscode/` ergänzen.
 
@@ -177,6 +185,20 @@ Hinweis für OpenAI Custom Instructions
 - Prägnant, skimmbar; kurze Sätze, Bullet-Listen ok, keine überladenen Blockzitate.
 - Bei Codeänderungen minimaler Patch mit kurzer Begründung und Prüfung.
 - Bei größeren Aufgaben ToDo-Liste (Plan) sichtbar führen und aktualisieren.
+
+### Markdownlint (zentral)
+
+- Zentrale Konfiguration: `.markdownlint-cli2.jsonc` im Root.
+  - MD003 = `consistent` (pro Datei einheitlicher Heading‑Stil; gemischte ATX/Setext in derselben Datei → FAIL). Empfehlung: ATX verwenden und Inhalte vereinheitlichen.
+  - `ignores` in der CLI2‑Config decken generierte/kuratierte Bereiche ab (u. a. `novapolis_agent/eval/results/**`, `novapolis_agent/outputs/**`, `outputs/**`, `novapolis-rp/.pytest_cache/**`).
+- Lokaler Lauf (nur im bestehenden Terminal): `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"`.
+- Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc "**/*.md"`.
+- Wrapper/Tasks: Entfernt bzw. als Hinweis‑Stub belassen (`novapolis-rp/coding/tools/validators/run_lint_markdown.ps1`).
+
+### Mirrors/Redirect‑Stubs
+
+- Unter `novapolis-rp/Main/novapolis-dev/docs/` liegen nur noch Redirect‑Stubs; Single Source of Truth ist `novapolis-dev/docs/**`.
+- Änderungen an Arbeitsregeln/Dokumentation ausschließlich in den Live‑Quellen vornehmen; Stubs nicht bearbeiten.
 
 **Export/Importer**
 - Export: `coding/tools/chat-exporter/` (Auto-Scroll, Inaktivitäts-Stop, speicherschonend).

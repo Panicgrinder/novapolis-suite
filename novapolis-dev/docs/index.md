@@ -2,7 +2,6 @@
 stand: 2025-11-01 09:47
 update: Frontmatter korrigiert (YAML); last-updated übernommen.
 checks: keine
-last-updated: 2025-10-29T16:30:00+01:00
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -27,7 +26,7 @@ Primary Docs
 - `docs/copilot-behavior.md` — verbindliche Arbeitsweise & Sicherheitsregeln
 - `docs/naming-policy.md` — Dateibenennung fuer alle Novapolis-Repos
 - `docs/tests.md` — Testabdeckung, Sim-/Client-Checks
-- `docs/prompts/chat-restart.md` — kopierfertiger Prompt für Chat-/Session-Neustarts
+- `docs/prompts/chat-restart.md` — kopierfertiger Prompt für Chat-/Session-Neustarts (veraltet; aktuell nicht nutzen)
 - Meta-Sidecars: `novapolis-dev/docs/meta/*.json` (Quelle, Ursprung, Migrationsstempel)
 
 > [!NOTE]
@@ -87,4 +86,4 @@ Hinweise:
 - Bei PowerShell-Quoting-Problemen (Unexpected token) statt des Tasks direkt ausfuehren:
   - `powershell -ExecutionPolicy Bypass -File coding/tools/validators/run_check_names.ps1`
 - Alternativ stehen PS1-Tasks ohne Inline-Command bereit:
-  - "lint:names (ps1)" / "validate:data (ps1)" / "lint:markdown (ps1)"
+  - "lint:names (ps1)" / "validate:data (ps1)"; Markdown-Lint direkt via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"` ausführen.

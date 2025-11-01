@@ -1,6 +1,7 @@
 {
   "config": {
     "default": true,
+    "MD003": { "style": "consistent" },
     "MD005": false,
     "MD007": false,
     "MD013": false,
@@ -11,19 +12,13 @@
     "MD036": false,
     "MD041": false
   },
+  "ignores": [
+    "novapolis_agent/eval/results/**",
+    "novapolis_agent/outputs/**",
+    "outputs/**",
+    "novapolis-rp/.pytest_cache/**"
+  ],
   "globs": [
-    "README.md",
-    "TODO.md",
-    "DONELOG.md",
-    "novapolis_agent/README.md",
-    "novapolis_agent/docs/**/*.md",
-    "novapolis_agent/examples/**/*.md",
-    ".github/**/*.md",
-    "novapolis-dev/docs/**/*.md",
-    "novapolis-rp/README.md",
-    "novapolis-rp/coding/**/*.md",
-    "novapolis-rp/database-rp/**/*.md",
-    "novapolis-rp/database-curated/**/*.md",
-    "novapolis-rp/development/**/*.md"
+    "**/*.md"
   ]
 }

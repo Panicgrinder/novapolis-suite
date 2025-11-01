@@ -1,6 +1,7 @@
-# Done Log (Novapolis Dev Hub)
+<!-- Legacy Mirror Stub (ersetzt am 2025-11-01) -->
+# Done Log (Novapolis Dev Hub) – Spiegel entfernt
 
-## 2025-11-01
+Diese Datei war eine veraltete Spiegelung. Bitte nutze die kanonische Quelle:
 
-- Canvas-Rettungsplan erstellt (`database-curated/staging/reports/canvas-rescue-plan.md`) mit Prioritäten, Workflow und Sprint-Zielen.
-- Quellenkonsolidierung für Charakter-Block Nord angelegt (`database-curated/staging/reports/char-block-nord-sources.md`) inkl. Drift-Overrides (Ronja/Kerschner, Jonas/Schwesterstatus).
+- Live-Quelle: `/Main/novapolis-dev/docs/donelog.md`
+- Hinweis: Änderungen bitte ausschließlich an der Live-Quelle vornehmen.
