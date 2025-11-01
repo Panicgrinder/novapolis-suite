@@ -18,7 +18,7 @@ Ein schlanker Workspace für dein AI-geführtes RP „Chronist von Novapolis“.
 1) Lege deine Exporte in `99-exports/` (z. B. `chat-export-complete.txt`, PDF).
 2) Öffne `00-admin/memory-bundle.md` als Kanon. Bei Änderungen dort nachführen.
 3) Starte einen neuen Chat mit dem Inhalt aus `00-admin/system-prompt.md` als System-Prompt und poste dann das Memory-Bundle als User-Nachricht.
-4) Logge Fortschritt in `novapolis-dev/docs/donelog.md`. Offene Aufgaben in `novapolis-dev/docs/todo.index.md` pflegen.
+4) Logge Fortschritt in `novapolis-dev/docs/donelog.md`. Offene Aufgaben im RP-Board `novapolis-dev/docs/todo.rp.md` pflegen (Index: `novapolis-dev/docs/todo.index.md`).
 
 ## Export-Hinweis
 
@@ -63,7 +63,7 @@ Der Agent-Code wird inzwischen ausschließlich im Schwesterprojekt `../novapolis
 
 ## Wie beitragen (kurz)
 
-- Nutze `novapolis-dev/docs/todo.index.md` für Aufgaben und `novapolis-dev/docs/donelog.md` für Abschlüsse.
+- Nutze `novapolis-dev/docs/todo.rp.md` für RP-Aufgaben und `novapolis-dev/docs/donelog.md` für Abschlüsse (der Index `novapolis-dev/docs/todo.index.md` dient nur der Navigation).
 - PRs: kurze Beschreibung, was/warum geändert wurde; große Blöcke in überschaubare Schritte teilen.
 
 ## Badges
