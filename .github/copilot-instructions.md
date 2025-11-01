@@ -1,6 +1,6 @@
 # Copilot-Projektanweisungen (Novapolis Suite)
 
-Stand: 2025-11-01 15:25 – Terminal-Policy & zentrales Markdownlint finalisiert.
+Stand: 2025-11-01 17:25 – Terminal-Policy & zentrales Markdownlint finalisiert.
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
@@ -22,6 +22,7 @@ Stand: 2025-11-01 15:25 – Terminal-Policy & zentrales Markdownlint finalisiert
 - Keine separaten VS Code Task‑Terminals für Lint/Checks/Tests verwenden. Läufe finden ausschließlich im bestehenden PowerShell‑Terminal statt.
 - VS Code Markdownlint‑Tasks wurden entfernt; lokale Ausführung erfolgt direkt via `npx` im aktiven Terminal.
 - Statuskommunikation: kurze PASS/FAIL‑Notiz nach tatsächlicher Ausführung; Frontmatter `checks` erst nach realem Lauf aktualisieren.
+- Snapshot‑Gate (pre‑commit) aktiv.
 
 ### Update-Logistik (Snapshot)
 
