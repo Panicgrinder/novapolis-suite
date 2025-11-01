@@ -9,7 +9,6 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 
 ## Fraktionen & Benennungen
 
-- **[FACT] [NAME]** (Fraktion): Benennungen "Schatten" und "Lumen" gelten als Drift und bleiben ungenutzt. Quellen: Canvas-Drift part-011.
 - **[FACT] [SET]** (Fraktion): Kanonisch sind vier Hauptfraktionen plus Novapolis/Freie Gruppen. Quellen: #1824.
 - **[FACT] [GHOST-FACTION]** (Fraktion): Die vermeintliche unbekannte Fraktion existiert nicht; als Drift markieren und bereinigen. Quellen: #1761–#1763.
 - **[FACT] [COUNT]** (Fraktion): Vier Hauptfraktionen heißen Eiserne Enklave, Akologie, Händlerbund, Schienenbund; Novapolis/Freie Gruppen ergänzen. Quellen: #1427; #1824.
