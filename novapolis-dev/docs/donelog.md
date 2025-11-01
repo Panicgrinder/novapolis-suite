@@ -68,6 +68,12 @@ Canvas-Rettung Sprint 1 – Reflex (2025-11-02T16:05:00+01:00)
 - JSON-Sidecar aktualisiert (Tags `instanz`/`sicherheit`/`symbiose`, Dependencies auf Ronja/Lumen/Echo + Missionslog/Logistik); Quellenreport und Memory-Bundle auf neuen Kanonstand gebracht.
 - TODO-Checkpoint für Reflex abgeschlossen; `[REFLEX-*]`-FACTs mit Canvas verknüpft, Instanz-Training in `Reflex-Wissensstand-Trainingsstand.md` referenziert.
 
+Copilot – Moduswechsel/Erinnerungen/STOP‑Gate (2025-11-02T16:55:00+01:00)
+
+- `.github/copilot-instructions.md`: Abschnitt „Modell‑Profile & Moduswechsel (GPT‑5 ↔ GPT‑5 Codex)“ ergänzt; Erinnerung/Prompting‑Policy ohne 1×/Session‑Limit (Opt‑out: „Bitte nicht erinnern“); STOP‑Gate vor Code‑Aktionen mit expliziter Moduswahl.
+- `novapolis-dev/docs/copilot-behavior.md`: Spiegel der Regeln aufgenommen (Moduswechsel, Reminder, STOP‑Gate).
+- `WORKSPACE_STATUS.md`: „Aktueller Arbeitsmodus“ dokumentiert (Modus: General, Stop‑Gate: an, Erinnerungen: aktiv).
+
 Validator-Tooling Docker-Pfadfix (2025-11-02T16:30:00+01:00)
 
 - Node-Validatoren (`validate-*.js`, `check-*.js`) auf `import.meta.url`-basierte Repo-Root-Ermittlung umgestellt, damit Docker-Läufe die JSON/Markdown-Pfade finden.
