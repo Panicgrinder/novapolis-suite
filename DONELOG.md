@@ -6,6 +6,8 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 
 - **novapolis_agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
 - **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
+- 2025-11-01: Echo-Canvas (Front-Matter/JSON) formal angeglichen, keine inhaltlichen Änderungen.
+- 2025-11-01: Canvas-Rettung Sprint 1 – Liora Navesh abgeschlossen (Canvas + JSON, Quellen/TODO/Personenindex aktualisiert).
 - 2025-11-01: Root-Dokumentation (`README.md`, `TODO.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`) aktualisiert; Tree-Snapshot-Refresh als Folgeaufgabe markiert.
 
 ## Volltexte
@@ -144,6 +146,55 @@ Beispiel:
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+Canvas-Rettung Sprint 1 – Varek Solun (2025-11-01T15:55:00+01:00)
+
+- Charakter-Canvas `database-rp/02-characters/Varek-Solun.md` + JSON-Sidecar erstellt; Standortcode H12 (Alias „Sektor_H3“) harmonisiert, Wissensstand gemäß FACT SECRECY auf Gerüchte begrenzt.
+- Quellen/Drift-Notizen in `char-block-nord-sources.md` aktualisiert; Flag-Hinweise (Novapolis-Außenwissen, Standortcodierung) als erledigt markiert.
+- `novapolis-dev/docs/todo.md` und Root-`TODO.md` → Varek-Aufgabe als erledigt vermerkt (Zeitstempel 2025-11-01T15:45+01:00).
+- Personenindex `database-rp/00-admin/person_index_np.md` um Varek ergänzt (Rolle, Zugehörigkeit, Verlinkung).
+- JSON-Sidecar referenziert Metadaten + Quelle; Routine- und Systemverknüpfungen dokumentiert.
+
+Canvas-Rettung Vorbereitungsrunde (2025-11-01T14:30:00+01:00)
+
+- Canvas-Rettungsplan in `database-curated/staging/reports/canvas-rescue-plan.md` ausgearbeitet (Prioritäten A–C, Workflow, Sprint-Checkpoints, Prüfpfade).
+- Quellenaggregation `char-block-nord-sources.md` erstellt (RAW-Referenzen, Drift-Overrides für Ronja/Jonas, Flag-Hinweise gebündelt).
+- TODO-Board `novapolis-dev/docs/todo.md` auf Canvas-Rettung Sprint 1 fokussiert, Altbacklog in Archiv-Section überführt.
+- Hinweis gesetzt: Jede Canvas-Migration → JSON-Sidecar + DONELOG-Eintrag obligatorisch.
+
+Root-Dokumentation (2025-11-01T00:00:00Z)
+
+- Root-Übersichten `WORKSPACE_STATUS.md`, `TODO.md`, `README.md`, `DONELOG.md` auf Stand 2025-11-01 gebracht (Health-Checks, Aufgaben, Querlinks).
+- Tree-Snapshots (`workspace_tree*.txt`) als fällige Folgeaufgabe markiert.
+
+Dev-Hub QA (2025-11-01)
+
+- Modul `novapolis-dev` vollständig geprüft: Primärdokumente, Meta-Sidecars und Platzhalterverzeichnisse vorhanden; keine offenen Drift-Punkte.
+- Rolle des Dev-Hubs bestätigt – Dokumentations-/Planungsdrehscheibe, Datenströme verbleiben in `novapolis-rp` (`database-raw`, `database-curated`, `database-rp`).
+
+Agent-Runtime entkoppelt (2025-10-31)
+
+- `novapolis-rp/agents/cvn_agent/` vollständig entfernt; Root-README, RP-README und Ignore-Regeln auf das eigenständige `novapolis_agent`-Repository umgestellt.
+- Verweise auf das gebündelte Runtime-Paket bereinigt (`requirements.txt`, `.github/copilot-instructions.md`).
+- Obsoletes Patch `_cvn_agent_removal.patch` gelöscht; RP-Workspace enthält nur noch Daten/Docs.
+- Leeres Paketverzeichnis `novapolis-rp/agents/` entfernt; keine Agent-Stubs mehr im RP-Repo.
+
+Workspace-Status Snapshot (2025-10-31)
+
+- Gesamtübersicht `WORKSPACE_STATUS.md` auf Root-Ebene angelegt (Stand 2025-10-31) inkl. Health-Checks, Risiken, Empfehlungen.
+- Vollständigen Verzeichnisbaum via `tree /A /F` erzeugt und als `workspace_tree.txt` im Root abgelegt.
+- Root-`TODO.md` um Verweis auf Statusbericht ergänzt (Pflegezyklus vermerkt).
+- Redundante Snapshot-Datei `workspace_tree_full.txt` als Backup abgelegt; zusätzlich kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt` erzeugt.
+- README-Hinweise für `.tmp-datasets/` und `.tmp-results/` ergänzt, Zweck der temporären Artefakte dokumentiert.
+- Archivierungsplan in `TODO.md` konkretisiert (ZIP-Rotation, Manifest/Script-Aufgaben); Status-Doku verweist jetzt auf koordinierte Snapshot-Aktualisierung.
+- Redundanten Snapshot `workspace_tree_compact.txt` entfernt, da `workspace_tree_dirs.txt` die kompakte Ansicht abdeckt.
+
+Relocation Follow-up (2025-10-31)
+
+- Datenpools `database-curated`, `database-raw`, `database-rp` wieder unter `novapolis-rp/` verankert; Dev Hub verweist nur noch auf diese Quelle (`README.md`, `docs/todo.md`).
+- `novapolis_agent/docs/TODO.md` um aktuellen RAG-Status aktualisiert (Tests & Doku als erledigt markiert).
+- Zentrale Markdown-Lint-Checks via `.github/workflows/markdownlint.yml` reaktiviert; rp-spezifische Duplikat-Workflows entfernt (`docs-lint.yml`, redundante Schritte in `validate.yml`).
+
 Dev Hub Konsolidierung (2025-10-29)
 
 - Dev Hub vom ehemaligen RP-Development-Hub nach `novapolis-dev/docs` verlegt; Referenzen aktualisiert und Meta-Sidecars harmonisiert.

@@ -5,7 +5,7 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 ## Kurzueberblick
 
 - **novapolis_agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
-- **novapolis-dev / novapolis-rp**: Schwerpunkt auf Datenkurierung, Canvas-Regeln, Export-Normalisierung und Sim-Integration.
+- **novapolis-dev / novapolis-rp**: Fokus auf Canvas-Rettung Sprint 1 (Charaktere/Logistik/Systeme) sowie bestehende Datenkurierungs- und Sim-Aufgaben.
 - **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-01) + `workspace_tree*.txt` (Stand 2025-10-31) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
   - [ ] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) neu erzeugen und ablegen (letzter Lauf 2025-10-31).
 - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren.
@@ -493,7 +493,7 @@ Regel: Abgeschlossene Arbeiten dokumentieren (DONELOG)
 
 ```markdown
 <!-- markdownlint-disable MD022 MD041 -->
-last-updated: 2025-10-29T17:35:00+01:00
+last-updated: 2025-11-01T14:40:00+01:00
 ---
 ---
 
@@ -503,11 +503,67 @@ TODO (Novapolis-RP)
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/todo.md` am 2025-10-29 -->
 
+Canvas-Rettung – Sprint 1 (Stand 2025-11-01)
+--------------------------------------------
+
+Priorität A – Charaktere & Führung
+----------------------------------
+
+- [x] Varek Solun → Canvas `database-rp/02-characters/Varek-Solun.{md,json}` angelegt (2025-11-01T15:45+01:00); Standort H12 harmonisiert, Novapolis-Wissen auf Gerüchte begrenzt.
+- [ ] Liora Navesh → neues Canvas `.../Liora-Navesh.*`; RAW 2025-10-16T03:25Z; Sicherstellen, dass Novapolis/D5 unbekannt bleibt; Taxonomie "Arkologie A1" übernehmen.
+- [ ] Kora Malenkov → bestehendes Canvas auf Version 1.0 heben; Rollen laut `[CARAVAN-LEADERSHIP]` klarziehen; paranoide Vorsicht + Echo-Notizen übernehmen.
+- [ ] Marven Kael → neues Canvas; Flags beachten (Konvoi-/Handelsleitung extern, keine Doppelrolle mit Kora).
+- [ ] Arlen Dross → neues Canvas; Rolle als Händler/Vermittler präzisieren; Reflex-Einschätzung aufnehmen.
+- [ ] Pahl → neues Canvas; Gesundheitsstatus (Atembeschwerden) verifizieren; Beziehungen/Risiken dokumentieren.
+- [ ] Ronja Kerschner → bestehendes Canvas mit RAW-Insights ergänzen; Nachname auf "Kerschner" halten; Drift-Kommentare markieren.
+- [ ] Reflex (Primärinstanz) → Canvas + Wissensstand erweitern; Frequenzband 7.3–8.0 Hz und Detachment-Regeln aus RAW übernehmen; `[REFLEX-*]` prüfen.
+- [ ] Jonas Merek → Canvas anreichern; Schwester-Status auf "vermisst/unklar" normalisieren; Schuldflag als Kommentar kennzeichnen.
+
+Priorität B – Logistik & Inventar
+---------------------------------
+
+- [ ] `inventar_c6_v2` → neues Canvas `database-rp/04-inventory/C6-inventar.*`; Systemlinks auf v2 aktualisieren.
+- [ ] `logistik_c6_v2` → Inhalte nach `00-admin/Logistik.md` übernehmen; Mixed-Version-Referenzen bereinigen.
+- [ ] `logistik_novapolis_v2` → Lagerstände/Wochenzyklen in Logistik-Canvas einpflegen; Tagesreport ergänzen.
+- [ ] `station_d5_v2.1` + Legacy D5 → Standort-Canvas aktualisieren; Lastenaufzug, Grundfläche, Historie kennzeichnen.
+- [ ] Inventar-Deltas (`Novapolis-inventar`, `D5-inventar`) synchronisieren; Links zu Missionslog prüfen.
+
+Priorität C – Systeme, Indizes, Ereignisse
+------------------------------------------
+
+- [ ] Ereignislog Weltgeschehen → neues Admin-Canvas; Begriff "Allianz" gegen `[SECRECY]` prüfen; H-47 als Ex-Karawane markieren.
+- [ ] Relationslog Novapolis → neues Canvas/Project-Canvas; Händlerkontakt "Senn Daru" verlinken; ID-Schema `logistik_novapolis_v2` angleichen.
+- [ ] AI-Behavior-Index → `AI-Behavior-Mapping.md` + JSON-Sidecar erweitern; Cluster/Modifikatoren dokumentieren.
+- [ ] Meta-Cluster-Index → neues Admin-Canvas; Spannungen/PsyLinks gegen Kanon verifizieren.
+- [ ] Missionslog Querverweise aktualisieren (nur falls Rohdaten relevante Ereignisse tragen).
+
+Arbeitsregeln & Referenzen
+---------------------------
+
+- Workflow siehe `database-curated/staging/reports/canvas-rescue-plan.md`.
+- Quellen + Drift-Notizen in `.../staging/reports/char-block-nord-sources.md` berücksichtigen.
+- FACT-Beschlüsse aus `database-curated/staging/reports/resolved.md` vor Promotion prüfen.
+- Jede Migration mit JSON-Sidecar und DONELOG-Eintrag dokumentieren (`novapolis-dev/docs/donelog.md`).
+- Flags (`vorsichtig_behandeln`, `korrupt`) sichtbar übernehmen, bis Review abgeschlossen ist.
+
+Linkübersicht
+-------------
+
+- Plan: `database-curated/staging/reports/canvas-rescue-plan.md`
+- Quellen: `database-curated/staging/reports/char-block-nord-sources.md`
+- RAW: `database-raw/99-exports/`
+- Kanon/Policies: `database-curated/staging/reports/resolved.md`, `novapolis_agent/docs/AGENT_BEHAVIOR.md`
+
+<details>
+<summary>Archiviertes Backlog (Stand 2025-10-29)</summary>
+
 Aktive Aufgaben
 ---------------
 
 - [ ] Relocation Follow-ups
-  - [ ] Roll out `.github/copilot-instructions.md` to agent/sim later
+  - [x] Zentrale `.github/copilot-instructions.md` im Monorepo verankert; Duplikate in agent/RP entfernt (2025-10-31)
+  - [x] Datenverzeichnisse `database-curated`, `database-raw`, `database-rp` zurück nach `novapolis-rp/` verschoben (2025-10-31)
+  - [ ] novapolis-sim/README verweist explizit auf zentrale Copilot-Anweisungen
   - [ ] Externe Skripte/Notizen erneut auf Altpfade prüfen
   - [ ] Set removal date for legacy stubs after downstream confirmation
   - [ ] Post-merge sweep for stragglers
@@ -557,12 +613,12 @@ Aktive Aufgaben
   - [x] Weiter rückwärts bis part-001 (stichprobenweise tiefer, Fokus auf strittige Stellen)
 
   - [ ] Tagging‑Pipeline (YAML‑getrieben)
-    - [x] 019–016: Dry‑Run → Write (Heuristiken: N7→c6-nord, NOTE/EVENT, MISSION C6-Nord, Sektor-Codes)
+    - [x] 019–016: Dry‑Run → Write (Heuristiken: N7→c6‑nord, NOTE/EVENT, MISSION C6‑Nord, Sektor‑Codes)
     - [ ] 015–010: Dry‑Run → Write
     - [ ] 009–001: Dry‑Run → Write
-    - [ ] Alias-Kollisionen prüfen/entscheiden ("C6" → c6 vs c6-nord; Präferenz festlegen und ggf. Alias entfernen)
+    - [ ] Alias‑Kollisionen prüfen/entscheiden ("C6" → c6 vs c6‑nord; Präferenz festlegen und ggf. Alias entfernen)
     - [ ] Unresolved klären: `Echo`, `Reflex-Wissensstand-Trainingsstand` (MD anlegen/Slug anpassen)
-    - [ ] Co-Occurrence-Vorschläge prüfen (falls vorhanden) und Alias-Liste gezielt ergänzen
+    - [ ] Co‑Occurrence‑Vorschläge prüfen (falls vorhanden) und Alias-Liste gezielt ergänzen
 
 - [ ] Regeln & Verwaltung (Canvas)
   - [ ] Unumstößlich-Canvas finalisieren (Fraktionen, D5/C6-Kernfakten, N7-Entfernung)
@@ -591,16 +647,16 @@ Aktive Aufgaben
 - [ ] Orte
   - [ ] Gegen Extrahate aus dem Export abgleichen
   - [ ] D5 – Fix-Beschreibung (vom Tunnel aus), Maße je Raum, Lastenaufzug 2t unter Bahnsteig
-  - [ ] C6 – Fix-Beschreibung, Beleuchtung (historisch), nutzbare m² je Raum, Liniennetz (D5, F1, verschütteter Trakt, Karawanenlinie) + Wandtunnel; Konflikte zu 4-Linien-Angaben auflösen
+  - [ ] C6 – Fix-Beschreibung, Beleuchtung (historisch), nutzbare m² je Raum, Liniennetz (D5, F1, verschütteter Trakt, Karawanenlinie) + Wandtunnel; Konflikte zu 4‑Linien-Angaben auflösen
   - [ ] Tunnel D5–C6 – Gesamtlänge fixieren (ggf. aus Reisezeit), Schaden, Materialliste
-  - [ ] C6-Nord (N7) – Sealed Room: Status/Mission-Canvas, Abgrenzung Metro-Kontext dokumentieren
+  - [ ] C6‑Nord (N7) – Sealed Room: Status/Mission-Canvas, Abgrenzung Metro-Kontext dokumentieren
 
 - [ ] Projekte
   - [ ] Gegen Extrahate aus dem Export abgleichen
   - [ ] Nordlinie 01 – Abschnitte, Material, Blocker
   - [ ] Draisine – Spezifikation (Breite≈U-Bahn, Länge ~6 m, ~10 Pers., Antrieb), Baufortschritt dokumentieren
   - [ ] Tunnel-Fortschritt – Methode festlegen (Differenz vs. %/Tag/Person), 40%-Stand verifizieren
-  - [ ] Mission C6-Nord – Ereignisse/Status pflegen; Trigger/Guards verlinken (AI-Behavior-Mapping)
+  - [ ] Mission C6‑Nord – Ereignisse/Status pflegen; Trigger/Guards verlinken (AI-Behavior-Mapping)
 
 - [ ] Inventar
   - [ ] Gegen Extrahate aus dem Export abgleichen
@@ -646,6 +702,8 @@ Hintergrund & Notizen
 
 - Vorschläge nur auf Anfrage; Kontinuität strikt wahren.
 - Nach jedem Post interne 200-Token-Zusammenfassung (vom SL) einfordern.
+
+</details>
 ```
 
 </details>

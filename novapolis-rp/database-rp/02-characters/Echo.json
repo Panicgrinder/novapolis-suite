@@ -3,8 +3,20 @@
   "category": "character",
   "slug": "echo",
   "version": "0.9",
-  "tags": [],
-  "affiliations": [],
-  "dependencies": [],
+  "last_updated": "2025-10-27T20:05:00+01:00",
+  "tags": [
+    "instanz"
+  ],
+  "affiliations": [
+    "novapolis"
+  ],
+  "primary_location": "c6",
+  "last_seen": "c6",
+  "dependencies": [
+    "kora-malenkov",
+    "reflex",
+    "echo-wissensstand-trainingsstand",
+    "c6"
+  ],
   "source": "database-rp/02-characters/Echo.md"
 }

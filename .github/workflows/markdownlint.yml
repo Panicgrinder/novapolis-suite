@@ -27,7 +27,7 @@ jobs:
         with:
           globs: |
             **/*.md
-          config: .markdownlint.jsonc
+          config: .markdownlint-cli2.jsonc
 
   markdownlint-windows:
     name: markdownlint (windows)
@@ -41,13 +41,9 @@ jobs:
           node-version: '20'
       - name: Run markdownlint via npx
         shell: pwsh
-        env:
-          MARKDOWNLINT_CONFIG: .markdownlint.jsonc
         run: |
-          npx --yes markdownlint-cli2 "**/*.md"
+          npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"
       - name: Verify RP markdownlint wrapper
         shell: pwsh
-        env:
-          MARKDOWNLINT_CONFIG: .markdownlint.jsonc
         run: |
           ./novapolis-rp/coding/tools/validators/run_lint_markdown.ps1 -VerboseMode

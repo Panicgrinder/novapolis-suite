@@ -17,4 +17,4 @@ Vorinstalliert:
 
 Konfiguration:
 
-- Die Regeln werden aus `.markdownlint.jsonc` im Repo-Root gelesen.
+- Die Regeln werden aus `.markdownlint-cli2.jsonc` im Repo-Root gelesen.

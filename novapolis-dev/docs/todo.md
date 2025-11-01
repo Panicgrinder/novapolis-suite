@@ -1,5 +1,5 @@
 <!-- markdownlint-disable MD022 MD041 -->
-last-updated: 2025-10-31T00:00:00+01:00
+last-updated: 2025-11-01T16:45:00+01:00
 ---
 ---
 
@@ -8,6 +8,85 @@ TODO (Novapolis-RP)
 
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/todo.md` am 2025-10-29 -->
+
+Canvas-Rettung – Sprint 1 (Stand 2025-11-01)
+--------------------------------------------
+
+Priorität A – Charaktere & Führung
+----------------------------------
+
+- [x] Varek Solun → Canvas `database-rp/02-characters/Varek-Solun.{md,json}` angelegt (2025-11-01T15:45+01:00); Standort H12 harmonisiert, Novapolis-Wissen auf Gerüchte begrenzt.
+- [x] Liora Navesh → Canvas `database-rp/02-characters/Liora-Navesh.{md,json}` angelegt (2025-11-01T16:20+01:00); Novapolis/D5 als unbekannt markiert, Taxonomie Arkologie A1 harmonisiert, SÜDFRAGMENT-Fokus übertragen.
+- [ ] Kora Malenkov → bestehendes Canvas auf Version 1.0 heben; Rollen laut `[CARAVAN-LEADERSHIP]` klarziehen; paranoide Vorsicht + Echo-Notizen übernehmen.
+- [ ] Marven Kael → neues Canvas; Flags beachten (Konvoi-/Handelsleitung extern, keine Doppelrolle mit Kora).
+- [ ] Arlen Dross → neues Canvas; Rolle als Händler/Vermittler präzisieren; Reflex-Einschätzung aufnehmen.
+- [ ] Pahl → neues Canvas; Gesundheitsstatus (Atembeschwerden) verifizieren; Beziehungen/Risiken dokumentieren.
+- [ ] Ronja Kerschner → bestehendes Canvas mit RAW-Insights ergänzen; Nachname auf "Kerschner" halten; Drift-Kommentare markieren.
+- [ ] Reflex (Primärinstanz) → Canvas + Wissensstand erweitern; Frequenzband 7.3–8.0 Hz und Detachment-Regeln aus RAW übernehmen; `[REFLEX-*]` prüfen.
+- [ ] Jonas Merek → Canvas anreichern; Schwester-Status auf "vermisst/unklar" normalisieren; Schuldflag als Kommentar kennzeichnen.
+
+Plan Charakter-Review (laufend)
+--------------------------------
+
+Reihenfolge
+-----------
+
+- Ronja Kerschner → Abgleich `resolved.md`, RAW `char_ronja_v2` + Flag, Rollenmatrix, Ziele, Systemverknüpfungen, Drift-Notizen.
+- Jonas Merek → RAW `RAW-canvas-2025-10-16T14-12-00-000Z.*`, Schwesterstatus gemäß `[FACT][JONAS-SIS]`, Werkstatt-/Tunnelinfos konsolidieren.
+- Lumen → Jonas-Quellen + `[FACT][PROXIMITY]`, Fähigkeiten/Kopplung und Trainings-Canvas aktualisieren.
+- Kora Malenkov → RAW `RAW-canvas-2025-10-16T14-56-00-000Z.txt`, paranoide Vorsicht, C6-Linienstatus (FACT `C6-LINES`), Echo-Interaktion.
+- Senn Daru → Relationslog `RAW-canvas-2025-10-16T08-07-00-000Z.*`, Handels-/Diplomatie-Notizen, Wissensgrenzen.
+- Marven Kael → RAW `RAW-canvas-2025-10-16T14-56-10-000Z.*`, Konvoi-/Handelsleitung (`[FACT][CARAVAN-LEADERSHIP]`), Beziehungen Händlergilde/Novapolis.
+- Arlen Dross → RAW `RAW-canvas-2025-10-16T14-56-20-000Z.*`, Vermittlerrolle, Reflex-Einschätzung.
+- Pahl → RAW `RAW-canvas-2025-10-16T14-41-00-000Z.*`, Gesundheitsstatus, Risiken, Energie-/Generatorwissen.
+- Reflex (Primärinstanz) → RAW `char_reflex_v2`, FACTs `[REFLEX-*]` (Frequenzband, Detach, Speech), Wissens-/Trainings-Canvas synchronisieren.
+
+Arbeitsschritte pro Charakter
+-----------------------------
+
+- Quellen sammeln: `database-curated/staging/reports/resolved.md`, `.../uncertainties.md`, zugehörige RAW-/Flag-Dateien, overlap-Reports.
+- Canvas aktualisieren (Werte, Skills, Motivation, Wissensmatrix, Beziehungen, Ziele, Risiken) und Systemverknüpfungen prüfen.
+- Zugehörige Wissens-/Trainings-Canvases mitziehen (Instanzen).
+- JSON-Sidecar, `char-block-nord-sources.md`, `person_index_np.md`, DONELOGs (`novapolis-dev/docs/donelog.md`, Root `DONELOG.md`) und TODO-Status aktualisieren.
+- Nach einem Bündel Updates Validator laufen lassen (`coding/tools/validators/run_validate_all.ps1`).
+
+Priorität B – Logistik & Inventar
+---------------------------------
+
+- [ ] `inventar_c6_v2` → neues Canvas `database-rp/04-inventory/C6-inventar.*`; Systemlinks auf v2 aktualisieren.
+- [ ] `logistik_c6_v2` → Inhalte nach `00-admin/Logistik.md` übernehmen; Mixed-Version-Referenzen bereinigen.
+- [ ] `logistik_novapolis_v2` → Lagerstände/Wochenzyklen in Logistik-Canvas einpflegen; Tagesreport ergänzen.
+- [ ] `station_d5_v2.1` + Legacy D5 → Standort-Canvas aktualisieren; Lastenaufzug, Grundfläche, Historie kennzeichnen.
+- [ ] Inventar-Deltas (`Novapolis-inventar`, `D5-inventar`) synchronisieren; Links zu Missionslog prüfen.
+
+Priorität C – Systeme, Indizes, Ereignisse
+------------------------------------------
+
+- [ ] Ereignislog Weltgeschehen → neues Admin-Canvas; Begriff "Allianz" gegen `[SECRECY]` prüfen; H-47 als Ex-Karawane markieren.
+- [ ] Relationslog Novapolis → neues Canvas/Project-Canvas; Händlerkontakt "Senn Daru" verlinken; ID-Schema `logistik_novapolis_v2` angleichen.
+- [ ] AI-Behavior-Index → `AI-Behavior-Mapping.md` + JSON-Sidecar erweitern; Cluster/Modifikatoren dokumentieren.
+- [ ] Meta-Cluster-Index → neues Admin-Canvas; Spannungen/PsyLinks gegen Kanon verifizieren.
+- [ ] Missionslog Querverweise aktualisieren (nur falls Rohdaten relevante Ereignisse tragen).
+
+Arbeitsregeln & Referenzen
+---------------------------
+
+- Workflow siehe `database-curated/staging/reports/canvas-rescue-plan.md`.
+- Quellen + Drift-Notizen in `.../staging/reports/char-block-nord-sources.md` berücksichtigen.
+- FACT-Beschlüsse aus `database-curated/staging/reports/resolved.md` vor Promotion prüfen.
+- Jede Migration mit JSON-Sidecar und DONELOG-Eintrag dokumentieren (`novapolis-dev/docs/donelog.md`).
+- Flags (`vorsichtig_behandeln`, `korrupt`) sichtbar übernehmen, bis Review abgeschlossen ist.
+
+Linkübersicht
+-------------
+
+- Plan: `database-curated/staging/reports/canvas-rescue-plan.md`
+- Quellen: `database-curated/staging/reports/char-block-nord-sources.md`
+- RAW: `database-raw/99-exports/`
+- Kanon/Policies: `database-curated/staging/reports/resolved.md`, `novapolis_agent/docs/AGENT_BEHAVIOR.md`
+
+<details>
+<summary>Archiviertes Backlog (Stand 2025-10-29)</summary>
 
 Aktive Aufgaben
 ---------------
@@ -154,3 +233,5 @@ Hintergrund & Notizen
 
 - Vorschläge nur auf Anfrage; Kontinuität strikt wahren.
 - Nach jedem Post interne 200-Token-Zusammenfassung (vom SL) einfordern.
+
+</details>

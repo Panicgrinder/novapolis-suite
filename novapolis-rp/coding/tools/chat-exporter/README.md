@@ -10,16 +10,16 @@ WICHTIG: Exporte immer nur nach `database-raw/99-exports/` speichern. Ungefilter
 - Deduplizierung pro Node (keine Doppel-Exports)
 - Stoppt automatisch nach 20 Sekunden ohne neue Nachrichten (oder nach 10 Minuten Maximaldauer)
 - Export speicherarm:
-	- Direktes Dateistreaming via File System Access API (Chrome/Edge)
-	- Fallback: Chunked-Downloads (mehrere Teile) statt alles im RAM zu halten
-	- TXT mit Headern und optionalen Block-Trennern
+  - Direktes Dateistreaming via File System Access API (Chrome/Edge)
+  - Fallback: Chunked-Downloads (mehrere Teile) statt alles im RAM zu halten
+  - TXT mit Headern und optionalen Block-Trennern
 
 ## Nutzung
 1. Öffne die Zielseite im Browser (mit allen sichtbaren Nachrichten).
 2. Öffne die Entwicklerkonsole (F12) und wechsle auf den Tab „Console“.
 3. Kopiere den kompletten Inhalt von `chat-exporter.js` und füge ihn in die Konsole ein; Enter drücken.
-	- Mit File System Access API wirst du nach einem Speicherort gefragt; wähle bitte `database-raw/99-exports/`.
-	- Ohne FS-API lädt der Browser stattdessen mehrere Teil-Dateien (z. B. `…-part-001.txt`).
+  - Mit File System Access API wirst du nach einem Speicherort gefragt; wähle bitte `database-raw/99-exports/`.
+  - Ohne FS-API lädt der Browser stattdessen mehrere Teil-Dateien (z. B. `…-part-001.txt`).
 4. Warte, bis der Auto-Scroll seinen Job gemacht hat und der/die Download(s) automatisch starten.
 
 ## Anpassungen

@@ -1,4 +1,6 @@
-<!-- migrated-placeholder: original content unavailable -->
 # Done Log (Novapolis Dev Hub)
 
-Diese Datei wurde aus dem Legacy-Stub übernommen. Bitte tatsächlichen Inhalt nachpflegen.
+## 2025-11-01
+
+- Canvas-Rettungsplan erstellt (`database-curated/staging/reports/canvas-rescue-plan.md`) mit Prioritäten, Workflow und Sprint-Zielen.
+- Quellenkonsolidierung für Charakter-Block Nord angelegt (`database-curated/staging/reports/char-block-nord-sources.md`) inkl. Drift-Overrides (Ronja/Kerschner, Jonas/Schwesterstatus).

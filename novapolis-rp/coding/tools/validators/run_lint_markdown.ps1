@@ -7,6 +7,7 @@ $script:dotSourced = ($MyInvocation.InvocationName -eq ".")
 function Finish([int]$code) { $global:LASTEXITCODE = $code; if ($script:dotSourced) { if ($VerboseMode) { Write-Host "[lint:markdown] dot-sourced; returning code $code" -ForegroundColor Yellow }; return } else { exit $code } }
 
 $workspaceRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..\..")).Path
+$configPath = Join-Path $workspaceRoot ".markdownlint-cli2.jsonc"
 $hasDocker = $null -ne (Get-Command docker -ErrorAction SilentlyContinue)
 
 # Resolve node.exe (absolute) to avoid PATH issues
@@ -93,7 +94,7 @@ if ($VerboseMode) {
 
 if ($hasDocker) {
     Write-Host "[lint:markdown] Running in Docker (node:20-alpine)" -ForegroundColor Cyan
-    $out = & docker run --rm -v "${workspaceRoot}:/workdir" -w /workdir node:20-alpine sh -lc "npx --yes markdownlint-cli2 '**/*.md'" 2>&1
+    $out = & docker run --rm -v "${workspaceRoot}:/workdir" -w /workdir node:20-alpine sh -lc "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'" 2>&1
     $code = $LASTEXITCODE
     $out | ForEach-Object { Write-Host $_ }
     Write-Status ($code -eq 0) $code 'docker:npx' ($out -join [Environment]::NewLine)
@@ -120,7 +121,7 @@ elseif ($hasNpmCmd) {
     Pop-Location
     Push-Location $workspaceRoot
     Write-Host "[lint:markdown] Running locally (node + installed bin)" -ForegroundColor Cyan
-    $out = & $nodeExe $binAbs "**/*.md" 2>&1
+    $out = & $nodeExe $binAbs "--config" $configPath "**/*.md" 2>&1
     $code = $LASTEXITCODE
     $out | ForEach-Object { Write-Host $_ }
     Write-Status ($code -eq 0) $code 'node:local-bin' ($out -join [Environment]::NewLine)
@@ -130,7 +131,7 @@ elseif ($hasNpmCmd) {
 elseif ($hasNode -and $hasNpxCli) {
     Write-Host "[lint:markdown] Running locally (node + npx-cli.js)" -ForegroundColor Cyan
     Push-Location $workspaceRoot
-    $out = & $nodeExe $npxCli --yes markdownlint-cli2 "**/*.md" 2>&1
+    $out = & $nodeExe $npxCli --yes markdownlint-cli2 --config $configPath "**/*.md" 2>&1
     $code = $LASTEXITCODE
     $out | ForEach-Object { Write-Host $_ }
     Write-Status ($code -eq 0) $code 'node:npx-cli' ($out -join [Environment]::NewLine)
@@ -139,7 +140,7 @@ elseif ($hasNode -and $hasNpxCli) {
 }
 elseif ($hasNpxCmd) {
     Write-Host "[lint:markdown] Running locally (npx.cmd)" -ForegroundColor Cyan
-    $out = & $npxCmd --yes markdownlint-cli2 "**/*.md" 2>&1
+    $out = & $npxCmd --yes markdownlint-cli2 --config $configPath "**/*.md" 2>&1
     $code = $LASTEXITCODE
     $out | ForEach-Object { Write-Host $_ }
     Write-Status ($code -eq 0) $code 'npx:cmd' ($out -join [Environment]::NewLine)

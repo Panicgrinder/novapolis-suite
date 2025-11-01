@@ -15,8 +15,12 @@
     "README.md",
     "TODO.md",
     "DONELOG.md",
+    "novapolis_agent/README.md",
+    "novapolis_agent/docs/**/*.md",
+    "novapolis_agent/examples/**/*.md",
     ".github/**/*.md",
     "novapolis-dev/docs/**/*.md",
-    "novapolis-rp/coding/tools/**/*.md"
+    "novapolis-rp/README.md",
+    "novapolis-rp/coding/**/*.md"
   ]
 }

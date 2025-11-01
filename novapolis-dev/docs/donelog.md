@@ -2,6 +2,35 @@
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
 
+Canvas-Rettung Sprint 1 – Echo Metadatenabgleich (2025-11-01T16:35:00+01:00)
+
+- Canvas `database-rp/02-characters/Echo.md` um Front-Matter ergänzt (Titel, Version, Zugehörigkeit, Standort, Dependencies) und Markdown-Formatierung mit Leerzeichen/Abständen an Vorlagen angepasst.
+- JSON-Sidecar `database-rp/02-characters/Echo.json` auf dieselben Metafelder synchronisiert (last_updated, tags, affiliations, primary_location, dependencies).
+- Keine Inhaltsänderungen; Fokus auf formale Angleichung für Lint/Validator-Kompatibilität.
+
+Canvas-Rettung Sprint 1 – Liora Navesh (2025-11-01T16:25:00+01:00)
+
+- Charakter-Canvas `database-rp/02-characters/Liora-Navesh.md` + JSON-Sidecar erstellt; Arkologie-A1-Taxonomie und Validierungsintervall übernommen, Novapolis/D5 weiterhin als unbekannt markiert, SÜDFRAGMENT-Signale und A9-Protokolle hervorgehoben.
+- Quellenreport `char-block-nord-sources.md` aktualisiert; Flag-Hinweise (Secrecy, Taxonomie) als abgearbeitet vermerkt und Curated-Verweis ergänzt.
+- `novapolis-dev/docs/todo.md` → Liora-Aufgabe als erledigt mit Zeitstempel 2025-11-01T16:20+01:00 markiert; last-updated synchronisiert.
+- Personenindex `database-rp/00-admin/person_index_np.md` um Liora ergänzt (Rolle, Zugehörigkeit Arkologie A1, Fokus auf SÜDFRAGMENT, keine Novapolis-Kenntnisse).
+- JSON-Sidecar verweist auf Canvas und Abhängigkeiten (`ai_behavior_index_v2`, `relationslog_arkologie_v1`, `ereignislog_weltgeschehen_v1`, `cluster_index_v1`).
+
+Canvas-Rettung Sprint 1 – Varek Solun (2025-11-01T15:55:00+01:00)
+
+- Charakter-Canvas `database-rp/02-characters/Varek-Solun.md` + JSON-Sidecar erstellt; Standortcode H12 (Alias „Sektor_H3“) harmonisiert, Wissensstand gemäß FACT SECRECY auf Gerüchte begrenzt.
+- Quellen/Drift-Notizen in `char-block-nord-sources.md` aktualisiert; Flag-Hinweise (Novapolis-Außenwissen, Standortcodierung) als erledigt markiert.
+- `novapolis-dev/docs/todo.md` und Root-`TODO.md` → Varek-Aufgabe als erledigt vermerkt (Zeitstempel 2025-11-01T15:45+01:00).
+- Personenindex `database-rp/00-admin/person_index_np.md` um Varek ergänzt (Rolle, Zugehörigkeit, Verlinkung).
+- JSON-Sidecar referenziert Metadaten + Quelle; Routine- und Systemverknüpfungen dokumentiert.
+
+Canvas-Rettung Vorbereitungsrunde (2025-11-01T14:30:00+01:00)
+
+- Canvas-Rettungsplan in `database-curated/staging/reports/canvas-rescue-plan.md` ausgearbeitet (Prioritäten A–C, Workflow, Sprint-Checkpoints, Prüfpfade).
+- Quellenaggregation `char-block-nord-sources.md` erstellt (RAW-Referenzen, Drift-Overrides für Ronja/Jonas, Flag-Hinweise gebündelt).
+- TODO-Board `novapolis-dev/docs/todo.md` auf Canvas-Rettung Sprint 1 fokussiert, Altbacklog in Archiv-Section überführt.
+- Hinweis gesetzt: Jede Canvas-Migration → JSON-Sidecar + DONELOG-Eintrag obligatorisch.
+
 Root-Dokumentation (2025-11-01T00:00:00Z)
 
 - Root-Übersichten `WORKSPACE_STATUS.md`, `TODO.md`, `README.md`, `DONELOG.md` auf Stand 2025-11-01 gebracht (Health-Checks, Aufgaben, Querlinks).
@@ -139,14 +168,14 @@ Markdown‑Lint Wrapper gefixt (2025-10-27T22:55:00+01:00)
   - Views: `database-curated/staging/recent-500.txt`, `recent-1000.txt`, Reverse-Chunks unter `.../reverse/`
   - Unklarheiten-Liste erstellt: `database-curated/staging/reports/uncertainties.md`
   - Kanon-Canvas (Draft) vorbereitet: `database-rp/00-admin/canon-canvas.draft.md` (vorläufig, kein Wiedereinstiegspunkt)
- 
+
  - ToDo aktualisiert: JSONL als optional/pausiert markiert; TXT-Normalisierung + 500er-Chunks (Index/Views) vermerkt; Review-Aufgabe „part-021 annotieren“ ergänzt (`novapolis-dev/docs/todo.md`).
  - Review erweitert: Abschnitt für `Chunk part-021 (global 10001–10500)` mit [FACT?]/[OPEN] hinzugefügt in `database-curated/staging/chat-export (1).review.md`.
  - Unklarheiten mit Evidenz angereichert (Fraktionen, Layout/2t-Aufzug, Tunnel-Länge, Energie/Logistik-Verknüpfungen, Day-Switch, A/T/S/D, Draisine): `database-curated/staging/reports/uncertainties.md` aktualisiert.
  - Review weiter ergänzt: `Chunk part-020 (global 9501–10000)` ergänzt (Weekly‑Sim/Canvas‑Audit, Reflex‑Regeln, Anomalien) mit [FACT?]/[OPEN].
  - Unklarheiten erweitert: `database-curated/staging/reports/uncertainties.md` → [CARAVAN-LEADERSHIP].
  - Report hinzugefügt: `database-curated/staging/reports/overlap-arlen-dross.md` (Overlap-Check, Vorschlag Titel-Entzerrung: Arlen als Händler/Vermittler).
- 
+
 2025-10-27 (später)
 - Admin‑Canvas angelegt: `database-rp/00-admin/Canvas-T+0-Timeline.md` (Tagesanker, Sequenz, Debug‑Hinweise, Links)
 - Admin‑Canvas angelegt: `database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md` (Tageswechsel‑Prozedur, ATSD+Canvas‑Zahl, Logs, Testfälle)
@@ -260,7 +289,7 @@ Reflex – Guards & Wissens-/Trainings-Canvases (2025-10-28)
     - `02-characters/Reflex-Wissensstand-Trainingsstand.md`
     - `02-characters/Lumen-Wissensstand-Trainingsstand.md`
     - `02-characters/Echo-Wissensstand-Trainingsstand.md`
- 
+
 Hybrid-Metadaten angereichert (2025-10-28)
 - Tool hinzugefügt: `coding/tools/metadata/enrich_metadata.py` (füllt fehlende Felder aus Front-Matter/H1; nicht-destruktiv, Markdown bleibt unverändert).
 - Task ergänzt: `.vscode/tasks.json` → `gpt:enrich:metadata` (läuft über `with_lock.ps1`, bevorzugt `.venv`-Python).

@@ -27,13 +27,11 @@ Primary Docs
 > [!NOTE]
 > Legacy-Kopien im ehemaligen RP-Development-Verzeichnis bleiben nur temporaer als Verweis bestehen und werden nach Downstream-Sign-off entfernt.
 
-
 Kernprinzipien:
 
 - Aenderungen an Code oder signifikanten Dateien kurz in `novapolis-dev/docs/donelog.md` dokumentieren.
 - Aufgabenpflege und Priorisierung in `novapolis-dev/docs/todo.md`.
 - Tooling liegt weiterhin in `coding/tools/`; dieses Index liefert nur Verweise.
-
 
 Dokumentierte Datenpfade
 ------------------------
