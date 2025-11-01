@@ -31,6 +31,14 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 - Nicht-triviale Aenderungen werden weiterhin im jeweiligen DONELOG des Projekts dokumentiert (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
 - Der Agent-Workspace nutzt jetzt den Paketnamen `novapolis_agent`; aeltere Referenzen mit Bindestrich bitte bei Gelegenheit bereinigen (siehe Aufgaben in `TODO.md`).
 
+### Hinweise für Mitarbeit (Moduswechsel & Stop‑Gate)
+
+- Moduswahl: Redaktion/Kanon bitte im General‑Modus (GPT‑5) arbeiten; Code‑Aufgaben (Skripte/Validatoren, Tests/CI, API/Services) im Codex‑Modus.
+- Details & Regeln: siehe `.github/copilot-instructions.md` (Abschnitt „Modell‑Profile & Moduswechsel“ und „STOP‑Gate vor Code‑Aktionen“); Spiegel im Dev‑Hub: `novapolis-dev/docs/copilot-behavior.md`.
+- Stop‑Gate: Vor Code‑Aktionen wird ein hartes Stop‑Gate gesetzt (explizit „Wechsel: Modus Codex“ oder „Weiter: Modus General“).
+- Erinnerungen: Bei Code‑Triggern weise ich auf den Moduswechsel hin; „Bitte nicht erinnern“ deaktiviert Hinweise bis zur Reaktivierung.
+- Aktueller Status (Modus/Stop‑Gate): siehe `WORKSPACE_STATUS.md`.
+
 ## Aktuelle Statusdokumente
 
 - [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) – Stand 2025-11-02, fasst Health-Checks, Risiken und Artefakte zusammen.
