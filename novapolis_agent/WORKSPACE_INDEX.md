@@ -1,6 +1,5 @@
----
-stand: 2025-11-01 09:44
-update: YAML-Frontmatter eingeführt; Stand/Letzte Aktualisierung migriert.
+stand: 2025-11-01 18:38
+update: TODO-Verweis auf Dev-SSOT umgestellt.
 checks: keine
 ---
 
@@ -107,7 +106,7 @@ Hinweis Datenmodelle: Quelle ist [`app/api/models.py`](app/api/models.py).
 
 - [`docs/customization.md`](docs/customization.md) - Anpassungs-Dokumentation für private Nutzung
 - [`docs/ARCHIVE_PLAN.md`](docs/ARCHIVE_PLAN.md) - Archiv-/Bereinigungs-Plan (Phasen)
-- [`docs/TODO.md`](docs/TODO.md) - ToDo & Roadmap für lokale Entwicklungsarbeit
+- Zentral: [`novapolis-dev/docs/todo.agent.md`](../novapolis-dev/docs/todo.agent.md) – ToDo & Roadmap (SSOT)
 - [`docs/AGENT_BEHAVIOR.md`](docs/AGENT_BEHAVIOR.md) - System-Prompt, Richtlinien & System-Infos (zentral)
 - [`docs/DONELOG.txt`](docs/DONELOG.txt) - DONELOG – Abgeschlossene Arbeiten
   (Hinweis: `AGENT_PROMPT.md` und `BEHAVIOR.md` wurden konsolidiert → `AGENT_BEHAVIOR.md`)

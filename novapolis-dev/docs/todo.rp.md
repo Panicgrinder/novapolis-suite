@@ -1,6 +1,5 @@
----
-stand: 2025-11-01 17:55
-update: Inhalte aus todo.md hierher verlagert (SSOT, Kanon-only RP)
+stand: 2025-11-01 18:38
+update: Pfadkorrektur archiv→archive (Archiv-Hinweis aktualisiert)
 checks: keine
 ---
 
@@ -18,7 +17,7 @@ Canvas-Rettung – Sprint 1 (Stand 2025-11-01)
 Archiv-Hinweis (manuell, bis Validator bereit)
 -----------------------------------------------
 
-- Sobald ein Abschnitt (H2/H3) vollständig abgehakt ist ([x] überall) und – für RP – kanonisiert, bitte den gesamten Block manuell nach `novapolis-dev/archiv/todo.<modul>.archive.md` verschieben (neuester oben).
+- Sobald ein Abschnitt (H2/H3) vollständig abgehakt ist ([x] überall) und – für RP – kanonisiert, bitte den gesamten Block manuell nach `novapolis-dev/archive/todo.<modul>.archive.md` verschieben (neuester oben).
 - Direkt unter der Abschnitts-Überschrift im Archiv eine Zeile ergänzen: `archived_at: YYYY-MM-DD HH:MM`.
 - Automatisierung folgt erst nach Struktur-Review/Validator (Dry-Run only). Keine halb fertigen Blöcke verschieben.
 

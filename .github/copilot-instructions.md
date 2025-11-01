@@ -1,6 +1,6 @@
 # Copilot-Projektanweisungen (Novapolis Suite)
 
-Stand: 2025-11-01 17:25 – Terminal-Policy & zentrales Markdownlint finalisiert.
+Stand: 2025-11-01 18:38 – Terminal-Policy & zentrales Markdownlint finalisiert; Typos-Hinweis ergänzt.
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
@@ -16,6 +16,12 @@ Stand: 2025-11-01 17:25 – Terminal-Policy & zentrales Markdownlint finalisiert
 - Prägnanter Output: skimmbar, kurze Sätze/Bullets, keine überladenen Blockzitate; bei großen Aufgaben Plan als Liste führen.
 - Sicherheit & Privacy: Keine Secrets, offline bevorzugen, keine harten Pfade zu externen Repositories übernehmen.
 - Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
+
+### Tippfehler-/Benennungshygiene
+
+- Proaktiv auf offensichtliche Tippfehler und inkonsistente Benennungen hinweisen (z. B. „archiv“ → „archive“ bei Ordnernamen/Dateien).
+- Bei Korrekturen mit Minimal‑Delta vorgehen: Redirects/Stubs belassen bis alle Verweise umverdrahtet sind, dann aufräumen.
+- Vor dem Entfernen von Redirect-/Mirror‑Stubs eingehende Links per Suche prüfen und erst danach löschen.
 
 ### Terminal-Policy (lokale Läufe)
 

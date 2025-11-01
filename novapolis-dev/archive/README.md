@@ -1,13 +1,15 @@
 ---
-stand: 2025-11-01 16:56
-update: TODO-Archiv-Struktur (Agent/Dev/RP/Sim) angelegt; Kanon-only für RP festgelegt.
+stand: 2025-11-01 18:38
+update: Root-Archiv ergänzt; Pfade vereinheitlicht (archive)
 checks: keine
 ---
 
-# TODO-Archive (Übersicht)
+TODO-Archive (Übersicht)
+========================
 
 Diese Ordnerseite bündelt die TODO-Archive pro Modul. Ziel: Haupt-TODOs schlank halten und vollständig erledigte Abschnitte hier ablegen.
 
+- [todo.root.archive.md](./todo.root.archive.md)
 - [todo.agent.archive.md](./todo.agent.archive.md)
 - [todo.dev.archive.md](./todo.dev.archive.md)
 - [todo.rp.archive.md](./todo.rp.archive.md) – Kanon-only verbindlich

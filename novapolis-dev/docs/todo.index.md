@@ -1,6 +1,5 @@
----
-stand: 2025-11-01 18:21
-update: Verweis auf Root-Übersicht (`todo.root.md`) aktualisiert
+stand: 2025-11-01 18:38
+update: Pfadkorrektur archiv→archive; Root-Archiv in Hinweise verlinkt
 checks: keine
 ---
 
@@ -20,7 +19,7 @@ TODO-Index (Novapolis-Dev)
 Hinweise (Index)
 ----------------
 
-- Vollständig erledigte Abschnitte (H2/H3, alle [x]) bitte manuell in `novapolis-dev/archiv/todo.<modul>.archive.md` verschieben; unter der Abschnittsüberschrift `archived_at: YYYY-MM-DD HH:MM` ergänzen.
+- Vollständig erledigte Abschnitte (H2/H3, alle [x]) bitte manuell in `novapolis-dev/archive/todo.<modul>.archive.md` verschieben; unter der Abschnittsüberschrift `archived_at: YYYY-MM-DD HH:MM` ergänzen. Übersicht aller Archive: `novapolis-dev/archive/README.md`.
 - Automatisierung (Validator/Dry-Run) folgt nach Stabilisierung der Struktur.
 
 Verweise

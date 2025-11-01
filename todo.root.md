@@ -1,8 +1,9 @@
----
-stand: 2025-11-01 18:20
-update: Umbenennung von ROOT `TODO.md` → `todo.root.md` (einheitliches Namensschema)
+stand: 2025-11-01 18:38
+update: Root-Archiv verlinkt; kleinere Korrekturen
 checks: keine
 ---
+
+<!-- markdownlint-disable MD003 -->
 
 # TODO-Uebersicht (Novapolis Suite)
 
@@ -16,6 +17,7 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
   - [ ] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) neu erzeugen und ablegen (letzter Lauf 2025-10-31).
 - 2025-11-01: DONELOG-Heading-Stil auf Setext gemäß MD003 korrigiert; Markdownlint bleibt zentral via npx.
 - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren.
+  - Root-Archiv (vollständig erledigte Root-Blöcke): `novapolis-dev/archive/todo.root.archive.md`.
   - [ ] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`).
   - [ ] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`).
   - [ ] README oder `Backups/`-Manifest um Rotationsplan ergänzen (Aufbewahrungsdauer, Löschkriterien).
