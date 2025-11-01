@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-01 18:17
-update: Verweis auf Root-Übersicht (`TODO.md`) ergänzt
+stand: 2025-11-01 18:21
+update: Verweis auf Root-Übersicht (`todo.root.md`) aktualisiert
 checks: keine
 ---
 
@@ -26,4 +26,4 @@ Hinweise (Index)
 Verweise
 --------
 
-- Root-Übersicht: `TODO.md` (Kurzüberblick, Meta-Aufgaben, Links)
+- Root-Übersicht: `todo.root.md` (Kurzüberblick, Meta-Aufgaben, Links)

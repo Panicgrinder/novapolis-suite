@@ -1,19 +1,17 @@
 ---
-stand: 2025-11-01 18:21
-update: Redirect-Stub – bitte `todo.root.md` verwenden (einheitlicher Name)
+stand: 2025-11-01 18:20
+update: Umbenennung von ROOT `TODO.md` → `todo.root.md` (einheitliches Namensschema)
 checks: keine
 ---
 
-<!-- Redirect-Stub: Diese Root-Übersicht wurde zu `todo.root.md` umbenannt. Bitte dort pflegen. -->
+# TODO-Uebersicht (Novapolis Suite)
 
-# Weiterleitung
-
-- Root-Übersicht: `todo.root.md`
+Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vollstaendigen Projekt-Listen sind unten eingebettet, damit sie ohne Kontextwechsel eingesehen werden koennen.
 
 ## Kurzueberblick
 
 - **novapolis_agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
-- **novapolis-dev / novapolis-rp**: Fokus auf Canvas-Rettung Sprint 1 (Charaktere/Logistik/Systeme) sowie bestehende Datenkurierungs- und Sim-Aufgaben.
+- **novapolis-dev / novapolis-rp**: Fokus auf Canvas-Rettung Sprint (Charaktere/Logistik/Systeme) sowie bestehende Datenkurierungs- und Sim-Aufgaben.
 - **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-02) + `workspace_tree*.txt` (Stand 2025-10-31) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
   - [ ] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) neu erzeugen und ablegen (letzter Lauf 2025-10-31).
 - 2025-11-01: DONELOG-Heading-Stil auf Setext gemäß MD003 korrigiert; Markdownlint bleibt zentral via npx.
@@ -22,7 +20,7 @@ checks: keine
   - [ ] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`).
   - [ ] README oder `Backups/`-Manifest um Rotationsplan ergänzen (Aufbewahrungsdauer, Löschkriterien).
   - [ ] Automatisierte Aufgabe/Script prüfen (`scripts/cleanup_phase*.ps1`) für regelmäßiges Auslagern.
- - **Lokale AI Einbindung (organisch)**: Phasenplan/Go‑Kriterien/Metriken in Abschnitt „Lokale AI – Einbindung (organisch)“ unten; Start mit Phase 0–1 möglich (ohne Zeitdruck, mit harten Fallbacks).
+ - **Lokale AI Einbindung (organisch)**: Phasenplan/Go‑Kriterien/Metriken in Abschnitt „Lokale AI – Einbindung (organisch)“ unten; Start mit Phase01 möglich (ohne Zeitdruck, mit harten Fallbacks).
  - **Editor‑Setup**: Konsolidierung `.vscode` auf Root vorbereiten (siehe Abschnitt „Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)“).
 
 ## Lokale AI – Einbindung (organisch)
@@ -46,7 +44,7 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
   - Logging mit Redaction (keine PII im Klartext)
   - Flags: `RAG_ON`, `SHADOW_ON`, `CANARY_PCT`
 - novapolis-rp
-  - Canvas‑Rettung Sprint 1 Kerne abgeschlossen; Memory‑Bundle konsistent
+  - Canvas‑Rettung Sprint1 Kerne abgeschlossen; Memory‑Bundle konsistent
   - Sidecars konsistent (tags/dependencies/last_updated)
   - Validator‑Pipeline (Behavior/Psymatrix) ohne kritische Findings
   - 200–500 kuratierte Q/A‑Paare oder Chat‑Turns als Startbasis
@@ -57,15 +55,15 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
 
 ### Phasenplan (sanft, mit Fallbacks)
 
-- Phase 0 – Vorbereitung (ab sofort möglich)
+- Phase0 – Vorbereitung (ab sofort möglich)
   - Datenquellen fixieren (Canvases, Eval, Policies), Redaction klären, Minimal‑Metriken definieren
-- Phase 1 – Schattenmodus (1–2 Wochen)
+- Phase1 – Schattenmodus (1–2 Wochen)
   - Lokale AI beantwortet parallel, keine Nutzerwirkung; Stichproben‑Review 1–2×/Woche
   - Erfolg: ≥80% Accept in Stichproben, 0 kritische Policy‑Verstöße
-- Phase 2 – RAG‑only + Canary‑Inferenz (5–10% oder selektive Szenen)
+- Phase2 – RAG‑only + Canary‑Inferenz (5–10% oder selektive Szenen)
   - Erst RAG aktiv, dann kleine Canary‑Quote mit hartem Fallback/Rate‑Limit
   - Erfolg: Qualität/Latenz ≥ Status quo; Fallback selten
-- Phase 3 – Lernschleife v0.1 (1–2‑wöchig)
+- Phase3 – Lernschleife v0.1 (1–2‑wöchig)
   - Kuratierte Deltas → Train/Val‑Pack, LoRA‑Mini; Versionierung, einfache A/B‑Checks
 
 ### Metriken (leichtgewichtig)
@@ -116,15 +114,15 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
 
 ### Plan (Etappen)
 
-- Etappe 0 – Inventur (dieser PR‑Teil)
+- Etappe0 – Inventur (dieser PR‑Teil)
   - [ ] Liste aller `.vscode`‑Dateien erstellen (Root, Agent, RP)
   - [ ] Settings/Launch/Tasks diffen und Konflikte notieren
   - [ ] Mapping definieren: was zentralisiert wird, was projekt‑spezifisch bleibt
-- Etappe 1 – Zentralisierung (additiv, ohne Löschen)
+- Etappe1 – Zentralisierung (additiv, ohne Löschen)
   - [ ] Root‑Tasks ergänzen: `pytest -q` (cwd Agent), `Tests: coverage (fail‑under)`, `markdownlint (cli2)`, `markdownlint fix (cli2)` (erledigt)
   - [ ] Root‑Settings um Copilot‑Workspace‑Instructions aus RP ergänzen (keine Python‑Konflikte)
   - [ ] Agent‑Tasks optional auf Root‑Tasks verweisen (mittels eindeutiger Labels)
-- Etappe 2 – Bereinigung (nach 3–5 Tagen stabiler Nutzung)
+- Etappe2 – Bereinigung (nach 3–5Tagen stabiler Nutzung)
   - [ ] Dubletten entfernen oder Agent‑`tasks.json` auf Minimal‑Set reduzieren
   - [ ] Launch‑Profile optional ins Root migrieren (nur wenn stabil; sonst belassen)
   - [ ] Dokumentation: kurzer Abschnitt „Editor‑Setup“ im Root‑README
@@ -144,7 +142,7 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
 - Root‑Settings
   - [x] Copilot-Workspace-Instructions aus `novapolis-rp/.vscode/settings.json` in Root übernehmen/vereinheitlichen
   - [ ] Interpreter/pytestArgs zentral lassen; RP‑Settings entschlacken (keine Python‑Dopplung)
-- Agent/RP Cleanup (Etappe 2)
+- Agent/RP Cleanup (Etappe2)
   - [ ] Agent‑`tasks.json` Dubletten entfernen, falls Root‑Tasks etabliert
   - [ ] RP‑Settings auf Workspace‑Instructions beschränken (falls Root diese zentral führt)
 
@@ -161,7 +159,7 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
   - Mitigation: Jede Task im Root mit `options.cwd=novapolis_agent` + `envFile` testen.
 - Risiko: Launch‑Profile brechen bei Migration.
   - Mitigation: Launch zunächst im Agent belassen; Migration optional/später.
-- Backout: Sub‑`.vscode` beibehalten bis Etappe 2; jederzeit reaktivierbar.
+- Backout: Sub‑`.vscode` beibehalten bis Etappe2; jederzeit reaktivierbar.
 
 ### Betroffene Dateien (geplant)
 
@@ -175,7 +173,7 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
 
 - [ ] Root‑Tasks laufen (lint, fix, pytest, coverage)
 - [ ] Keine Konflikte in Settings (Interpreter/ENV)
-- [ ] 3–5 Tage Nutzung ohne Beschwerden → Go für Etappe 2
+- [ ] 3–5Tage Nutzung ohne Beschwerden → Go für Etappe2
 
 ## Volltexte
 
@@ -627,13 +625,8 @@ Regel: Abgeschlossene Arbeiten dokumentieren (DONELOG)
 
 - [ ] RAG (lokal, optional)
   - Ziel: Einfaches Retrieval (zunächst TF‑IDF; perspektivisch FAISS/Qdrant), Indizierung für Markdown/Text, Query‑Augmentation.
-  - Aktueller Stand:
-    - [x] Leichtgewichtiges TF‑IDF‑Retrieval implementiert (`utils/rag.py`); optional via Settings (`RAG_ENABLED`, `RAG_INDEX_PATH`, `RAG_TOP_K`).
-    - [x] Pyright‑Warnungen im RAG‑Code entfernt (strikte Typisierung in `from_dict`; 0 Warnungen).
-    - [x] Guards für fehlenden Index getestet (`tests/test_rag_guards.py`) – Stream/Non‑Stream funktionieren ohne Index (fail‑open).
-  - Nächste Schritte:
-    - [ ] Unit‑Tests für Retrieval/Ranking und Save/Load‑Roundtrip (`retrieve`, `save_index`/`load_index`).
-    - [ ] Doku: RAG‑Nutzung & Indexer (Flags, Pfade, CLI `scripts/rag_indexer.py`, empfohlene Tasks).
+  - Akzeptanzkriterien:
+    - Indexer‑Script + Retrieval‑Hook; deterministische Tests (Treffer/Kein‑Treffer).
 
 - [ ] Profile/Personas
   - Ziel: Profile als JSON (Prompts/Policies/Options), Auswahl via Header/Token/Session.
@@ -641,21 +634,36 @@ Regel: Abgeschlossene Arbeiten dokumentieren (DONELOG)
     - Profile werden geladen, validiert und angewandt.
     - Tests: Profilwechsel beeinflusst Prompt/Optionen/Policy.
 
-- [ ] Erweiterte LLM‑Options
-  - Ziel: num_ctx, repeat_penalty, presence/frequency_penalty etc. per `ChatRequest.options`
-    validiert und weitergereicht.
+- [ ] Evaluierung & Telemetrie
+  - Ziel: Policy‑Coverage‑Tests; Metriken (Latenz p50/p95, Länge, RAG‑HitRate); strukturierte Logs.
   - Akzeptanzkriterien:
-    - Pydantic‑Schema + Validation‑Tests.
-    - Durchreichung an Ollama Payload + Smoke‑Test.
-```
+    - Berichte in `eval/results/reports/metrics/` mit Zeitstempel (z. B. `YYYYMMDD_HHMM`); mind. 3 Kennzahlen.
 
-</details>
+### Langfristig
 
-<details>
-<summary>novapolis-dev/docs/todo.index.md (Link, driftfrei)</summary>
+- [ ] Admin‑UI/Settings
+  - Ziel: UI zur Steuerung von Policies/Profilen/Sessions; Live‑Logs/Health; Schutz (AuthN/Z optional).
+  - Akzeptanz: Minimal‑UI mit 2–3 Screens; Read/Write Policies; Tests (smoke).
 
-- Live-Quelle: `novapolis-dev/docs/todo.index.md`
-- Zuletzt aktualisiert: 2025-11-02T16:05:00+01:00
-- Hinweis: Volltext wird hier nicht mehr gespiegelt; bitte den obigen Link öffnen.
+- [ ] Persistenter Memory‑Store & DSGVO‑Löschung
+  - Ziel: SQLite/Postgres Speicherung + „Right to be forgotten“‑Routinen; Export/Pruning.
+  - Akzeptanz: CRUD + Purge; Tests für Löschpfade.
 
-</details>
+- [ ] Skalierung/Resilienz
+  - Ziel: Worker/Queue, Retry/Timeout‑Policies, Backpressure; Limits observabel.
+  - Akzeptanz: Stresstest‑Skript + Metriken.
+
+### Kleine Auffälligkeiten / Verbesserungen
+
+- [x] Einheitliches Message‑Schema
+  - Ziel: `ChatRequest.messages` akzeptiert `ChatMessage` und dicts; Validator normalisiert Einträge.
+  - Status: Done — Pydantic‑Validator ergänzt; Tests hinzugefügt (`tests/test_messages_schema.py`); Flow bleibt rückwärtskompatibel.
+
+- [x] Streaming‑Meta/Fehler-Modell
+  - Ziel: Ersten SSE‑Meta‑Event (Params/Mode/RID) senden; Fehler zusätzlich protokollieren.
+  - Status: Done — Erster `event: meta` mit `{params: {mode, request_id, model, options}}` wird zu Beginn des Streams gesendet; bestehendes Policy‑Meta/Delta am Ende bleibt erhalten.
+  - Akzeptanz: Tests prüfen Meta‑Event + Error‑Event (neu: `tests/test_streaming_initial_meta.py`; bestehende Error‑/Policy‑Tests grün).
+
+- [ ] Settings/Options erweitern
+  - Ziel: Mehr Ollama‑Optionen exponieren, klar dokumentieren; Defaults in Settings.
+  - Akzeptanz: Doku + Validation‑Tests.

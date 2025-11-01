@@ -19,4 +19,4 @@ Hinweis
 Offene Aufgaben (Dev)
 ---------------------
 
-- [ ] (Platzhalter) Sammle Dev‑Aufgaben hier. Falls bisher in Root `TODO.md` oder Agent‑TODO gepflegt, bitte verschieben.
+- [ ] (Platzhalter) Sammle Dev‑Aufgaben hier. Falls bisher in Root `todo.root.md` oder Agent‑TODO gepflegt, bitte verschieben.
