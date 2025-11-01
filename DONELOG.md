@@ -6,8 +6,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 
 - **novapolis_agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
 - **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
-- 2025-11-02: Root-`TODO.md` spiegelt `novapolis-dev/docs/todo.md` nicht mehr inline; stattdessen Link (driftfrei) + Zeitstempel übernommen.
-- 2025-11-02: RP: Veraltete TODO-Spiegelung unter `novapolis-rp/Main/novapolis-dev/docs/todo.md` durch Stub mit Link auf die kanonische Quelle ersetzt.
+- 2025-11-02: TODO-Übersichten konsolidiert – Root-`TODO.md` auf Link (driftfrei) mit Zeitstempel umgestellt; RP-Mirror `novapolis-rp/Main/novapolis-dev/docs/todo.md` durch Stub ersetzt; Legacy-Stub `novapolis-rp/development/docs/todo.md` entfernt.
 - 2025-11-02: Memory-Bundle und Root-Doku auf Evakuierungsstatus Marei/E3/C6 synchronisiert; offene Aufgabenliste angepasst.
 - 2025-11-02: Jonas-Merek-Canvas auf Version 1.0 konsolidiert (Werte, Rollen, Sicherheitsprotokolle; Schuldflag normalisiert) und dev TODO/DONELOG nachgezogen.
 - 2025-11-02: Kora-Malenkov-Canvas auf Version 1.0 gehoben (Logistikscope, Echo-Protokolle, Händlergilde/Novapolis Zugehörigkeit) und Dokumentation synchronisiert.
