@@ -22,7 +22,10 @@ Primary Docs
 ------------
 
 - `docs/donelog.md` — laufende Fortschritte und Beschluesse
-- `docs/todo.md` — offene Aufgaben, Prioritaeten, Follow-ups
+- `docs/todo.md` — Index für Aufgaben (Module)
+  - `docs/todo.rp.md` — RP-Aufgaben (Kanon/Canvas/Projekte)
+  - `docs/todo.dev.md` — Dev-Aufgaben (Tooling, Lint/CI, Validatoren)
+  - `docs/todo.agent.md` — Agent-Aufgaben (Backend, Tests/Typing, Scripts)
 - `docs/copilot-behavior.md` — verbindliche Arbeitsweise & Sicherheitsregeln
 - `docs/naming-policy.md` — Dateibenennung fuer alle Novapolis-Repos
 - `docs/tests.md` — Testabdeckung, Sim-/Client-Checks
