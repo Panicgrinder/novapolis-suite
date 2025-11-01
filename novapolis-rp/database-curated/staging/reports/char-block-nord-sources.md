@@ -85,7 +85,7 @@
 - **Curated**
   - `database-rp/02-characters/Ronja-Kerschner.md` (Stand 2025-11-01T17:10+01:00) – Version 1.0, Status-/Systemabschnitte aus RAW übernommen, Drift „Vallin“ dokumentiert.
 - **resolved.md Bezug**
-  - `[NAME-RONJA]` – bestätigter Nachname „Kerschner“; `[FACT][REFLEX-*]`, `[FACT][ROLES]` liefern weitere Leitplanken.
+  - `[NAME-RONJA]` – bestätigter Nachname „Kerschner“; `[FACT?][REFLEX-*]`, `[FACT][ROLES]` liefern weitere Leitplanken.
 
 ## Reflex (Primärinstanz)
 
@@ -99,7 +99,7 @@
   - `database-rp/02-characters/Reflex.{md,json}` (Version 1.0 – 2025-11-02T16:05+01:00) – Symbiose-Stufe I vollständig dokumentiert (Frequenzband, Detachment-Regeln, Instanzleitung, Sicherheitsprotokolle, Signalsätze).
   - `database-rp/02-characters/Reflex-Wissensstand-Trainingsstand.md` – Detailmatrix für Wissen/Training, Stop- und Dämpfungsziele.
 - **resolved.md Bezug**
-  - Mehrere `[FACT]`-Einträge: `[REFLEX]`, `[INSTANCES]`, `[PROXIMITY]`, `[REFLEX-SPEECH]`, `[REFLEX-CONTROL]`, `[REFLEX-DETACH]`, `[JEALOUSY-GLOVES]`, `[UNIQUE]`, `[GROWTH]`.
+  - Mehrere `[FACT?]`-Einträge aktuell in Review: `[REFLEX]`, `[INSTANCES]`, `[PROXIMITY]`, `[REFLEX-SPEECH]`, `[REFLEX-CONTROL]`, `[REFLEX-DETACH]`, `[JEALOUSY-GLOVES]`.
 
 ## Jonas Merek
 

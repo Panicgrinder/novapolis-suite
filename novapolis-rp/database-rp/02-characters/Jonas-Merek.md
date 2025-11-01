@@ -32,7 +32,7 @@ last_seen: d5
 
 - Herkunft: Station E2, Überlebender des Gasunfalls; Evakuierung über Tunnelknoten, Schwester seitdem vermisst (kein Todesnachweis).
 - Aufgenommen nach Mission „C6-Aufnahme Jonas“ (siehe FACT [C6-FIRST]); arbeitet unter Aufsicht von Ronja und Reflex.
-- Lumen ist an Jonas gekoppelt (Nähe-Kopplung stabilisiert beide, Quelle: FACT [PROXIMITY]).
+- Lumen ist an Jonas gekoppelt (Nähe-Kopplung stabilisiert beide, Quelle: FACT? [PROXIMITY]).
 
 ## Rollen & Verantwortlichkeiten (Pflichtfelder)
 

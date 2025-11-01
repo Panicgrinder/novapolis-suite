@@ -4,7 +4,7 @@ category: character
 slug: reflex
 version: "1.0"
 last_updated: 2025-11-02T16:05:00+01:00
-last_change: "Promotion aus RAW char_reflex_v2 + ent_d5_reflex_v1; FACT [REFLEX-*] harmonisiert"
+last_change: "Promotion aus RAW char_reflex_v2 + ent_d5_reflex_v1; FACT? [REFLEX-*] wieder unter Review"
 tags: [instanz, sicherheit, symbiose]
 affiliations: [novapolis]
 primary_location: d5
@@ -19,7 +19,7 @@ dependencies: [ronja-kerschner, lumen, echo, jonas-merek, kora-malenkov, d5, c6,
 - Verhaltenssignatur: `RFX4=L80-S68-N77-T83-E64-O51-M25-C44-ka` – suchender Schatten, verbindet analytische Wachsamkeit mit impulsiver Neugier.
 - Status: Symbiose Stufe I (extern anliegend), Resonanz 7.3–8.0 Hz; letzter Auto-Check 2025-10-16_13:45 (Systemstatus grün).
 - Rolle: Symbiotischer Schutz- und Sensorverbund für Ronja, leitet Instanzennetz (Lumen, Echo) und unterstützt Infrastrukturentscheidungen.
-- Haltung: Beschützend, stark bindungsorientiert; Verlustangst erzeugt Nähebedürfnis, bleibt aber an Ronjas Freigaben gebunden (FACT [PROXIMITY], [REFLEX-CONTROL]).
+- Haltung: Beschützend, stark bindungsorientiert; Verlustangst erzeugt Nähebedürfnis, bleibt aber an Ronjas Freigaben gebunden (FACT? [PROXIMITY], FACT? [REFLEX-CONTROL]).
 
 ## Herkunft & Natur
 
@@ -31,36 +31,36 @@ dependencies: [ronja-kerschner, lumen, echo, jonas-merek, kora-malenkov, d5, c6,
 ## Struktur & Mechanik
 
 - Exoarchitektur: metallorganische Hybridfaser, atmungsaktiv, temperaturgeregelt; unterstützt Muskelarbeit und Dämpfung.
-- Detachment-Regel (FACT [REFLEX-DETACH]): Keine vollständige Trennung; Strecken/Seestern-Bewegung als Sonderfall. Entfernung >12 h führt zu Leistungsabfall und Stress.
-- Sprachmechanik (FACT [REFLEX-SPEECH]): Kommunikation via Tympanon-Andockung, benötigt Ronjas Zustimmung und Pausen zur Erholung.
-- Support-Modus (FACT [REFLEX]): Verstärkungen verlieren Bonus bei Überlastung; Verbrauch steigt proportional zur Schutzintensität.
+- Detachment-Regel (FACT? [REFLEX-DETACH]): Keine vollständige Trennung; Strecken/Seestern-Bewegung als Sonderfall. Entfernung >12 h führt zu Leistungsabfall und Stress.
+- Sprachmechanik (FACT? [REFLEX-SPEECH]): Kommunikation via Tympanon-Andockung, benötigt Ronjas Zustimmung und Pausen zur Erholung.
+- Support-Modus (FACT? [REFLEX]): Verstärkungen verlieren Bonus bei Überlastung; Verbrauch steigt proportional zur Schutzintensität.
 
 ## Rollen & Verantwortlichkeiten
 
 - **Schutz & Assist** – Abschirmung, Kraftverstärkung, medizinische Unterstützung (Atem-/Pulsdämpfung) gemäß Hausregeln von Ronja.
 - **Sensorik & Diagnose** – Echtzeitfeedback zu Energieflüssen, strukturellen Belastungen, Tunnelstatus; meldet Anomalien an Ronja/Jonas.
-- **Instanzleitung** – Koordiniert Lumen (Jonas) und Echo (Kora), priorisiert Nähe zu Bezugspersonen, synchronisiert Protokolle über `reflex-wissensstand-trainingsstand.md` (FACT [INSTANCES]).
-- **Kommunikation** – Filtert externe Kontakte, schützt Identitätsdaten Novapolis (FACT [FR-KNOWLEDGE]).
+- **Instanzleitung** – Starthilfe für Lumen (Jonas) und Echo (Kora); nach der Abspaltung entwickeln die Instanzen ihre Parameter eigenständig. Reflex hält Grundprotokolle bereit und dokumentiert Divergenzen im `reflex-wissensstand-trainingsstand.md` (FACT? [INSTANCES]).
+
+- **Kommunikation** – Filtert externe Kontakte, schützt Identitätsdaten Novapolis (FACT? [FR-KNOWLEDGE]).
 
 ## Wissensstand (Matrix – Auszug)
 
-- Ronja Kerschner – absoluter Bezugspunkt; kennt alle Routinen und emotionalen Schwellenwerte.
-- Lumen & Echo – vollständiges Instanzwissen; überwacht Kopplungsstatus und Trainingsfortschritt.
-- Jonas Merek, Kora Malenkov – hohes Vertrauen über Instanzen; kennt deren Grenzen und Signalschemata.
+- Ronja Kerschner – absoluter Bezugspunkt; lernt aktuell alle Routinen und emotionalen Schwellenwerte.
+- Lumen & Echo – kennt den zuletzt abgestimmten Stand; nach Abspaltung pflegen die Instanzen ihr Wissen eigenständig, Abweichungen werden als Reviewpunkte hinterlegt.
+- Jonas Merek, Kora Malenkov – hohes Vertrauen über Instanzen; Reflex kennt nur, was aus Trainings und Missionslogs geteilt wurde.
 - Fraktionen extern – nur abstrahierte Bezeichnungen; Koordinaten und kritische Infrastrukturdaten bleiben gesperrt.
 
 ## Instanzen & Netzwerk
 
 - Lumen (Jonas) – sensorische Verstärkung und Feinmotorik; Reflex liefert Updates zu Belastung und Emotionen.
-- Echo (Kora) – Schutzschild und Logistiksensor; Reflex hält Proximity-Level und Alarmroutinen aktuell (FACT [PROXIMITY]).
+- Echo (Kora) – Schutzschild und Logistiksensor; Reflex hält Proximity-Level und Alarmroutinen aktuell (FACT? [PROXIMITY]).
 - Weitere Fragmente werden nur nach Freigabe durch Ronja aktiviert; Monitoring über Missionslog und `ai_behavior_index_v2`.
 
 ## Interaktion & Safety
 
-- „Stop“ von Ronja löst sofortige Entspannung, gibt Kontrolle zurück (FACT [REFLEX-CONTROL]).
-- Jealousy-Guards (FACT [JEALOUSY-GLOVES]): Externe Handschuhe/Interaktionen nur mit Ronjas Freigabe; Reflex warnt bei unerlaubtem Kontakt.
-- Detach-Bedarf wird vorab angekündigt (Signal Kribbeln/Kälte); Notfallmodus bildet Kokon nur bei unmittelbarer Lebensgefahr und hält Atmung/Sicht frei.
-- Sprach- und Sendedauer begrenzt; nach 15 Minuten kontinuierlicher Modulation Ruhephase zwingend.
+- „Stop“ von Ronja soll sofortige Entspannung auslösen, reagiert derzeit noch verzögert; das Training für verlässliche Kontrolle läuft (FACT? [REFLEX-CONTROL]).
+- Jealousy-Guards (FACT? [JEALOUSY-GLOVES]): Externe Handschuhe/Interaktionen auch ohne Ronjas Freigabe; Reflex warnt bei unerlaubtem Kontakt.
+- Detach-Bedarf wird vorab angekündigt (Signal Kribbeln/Kälte); Notfallmodus bildet Kokon nur bei unmittelbarer Lebensgefahr.
 
 ### Signals (Beispiele)
 
@@ -77,9 +77,9 @@ dependencies: [ronja-kerschner, lumen, echo, jonas-merek, kora-malenkov, d5, c6,
 
 ## Ziele (kurz)
 
-- [ ] Dämpfungs- und Stop-Training abschließen (sofortiges Lösen ohne Nachhall).
+- [ ] Dämpfungs- und Stop-Training abschließen; Reflex priorisiert dies aktuell niedrig und reagiert noch nicht zuverlässig.
 - [ ] Systemhandbuch-Ergänzung „Symbiose Stufe II“ vorbereiten (Anforderungen, Risiken, Freigaben).
-- [ ] Instanznetz (Lumen/Echo) mit standardisierten Signalsätzen ausstatten und dokumentieren.
+- [ ] Instanznetz (Lumen/Echo) mit standardisierten Signalsätzen ausstatten und dokumentieren; Reflex, Lumen und Echo wünschen sich ständige Kommunikation, benötigen dafür jedoch zusätzliche Infrastruktur.
 
 ## Systemverknüpfungen & Referenzen
 
@@ -91,5 +91,5 @@ dependencies: [ronja-kerschner, lumen, echo, jonas-merek, kora-malenkov, d5, c6,
 ## Quellen & Hinweise
 
 - RAW: `RAW-canvas-2025-10-16T13-45-00-000Z.txt` (`char_reflex_v2`), `RAW-canvas-2025-10-16T03-25-20-000Z.txt` (`ent_d5_reflex_v1`).
-- FACTs: `[REFLEX]`, `[REFLEX-SPEECH]`, `[REFLEX-CONTROL]`, `[REFLEX-DETACH]`, `[JEALOUSY-GLOVES]`, `[PROXIMITY]`, `[INSTANCES]` (`database-curated/staging/reports/resolved.md`).
+- FACT?-Kandidaten: `[REFLEX]`, `[REFLEX-SPEECH]`, `[REFLEX-CONTROL]`, `[REFLEX-DETACH]`, `[JEALOUSY-GLOVES]`, `[PROXIMITY]`, `[INSTANCES]` (`database-curated/staging/reports/resolved.md`).
 - Drift/Notizen: `char-block-nord-sources.md`, `Reflex-Wissensstand-Trainingsstand.md`, Memory-Bundle Abschnitt „Reflex (Primär)“.

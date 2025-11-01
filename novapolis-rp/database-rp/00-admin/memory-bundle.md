@@ -19,8 +19,8 @@ Diese Datei ist der „Wahrheitsspeicher“. Änderungen hier sind kanonisch.
 ### Reflex (Primär)
 - Herkunft: emergent aus Ronjas Stabilisierung des D5-Reaktors; kein Fremdkörper.
 - Natur: Wurzel-/Netzkollektiv, Symbiose-Stufe I (perlmuttfarbene Zweithaut, Resonanz 7.3–8.0 Hz), Instanzen/Fragmente möglich (Lumen, Echo).
-- Grenzen: keine vollständige Trennung (FACT [REFLEX-DETACH]); Entfernung >12 h erzeugt Stress. „Stop“ von Ronja löst sofortige Freigabe (FACT [REFLEX-CONTROL]). Handschuhe/äußere Kontakte nur mit Freigabe (FACT [JEALOUSY-GLOVES]).
-- Kommunikation: Tympanon-Andockung, Pausenpflicht (FACT [REFLEX-SPEECH]); Support-Modus verliert Bonus bei Überlastung (FACT [REFLEX]).
+- Grenzen: keine vollständige Trennung (FACT? [REFLEX-DETACH]); Entfernung >12 h erzeugt Stress. „Stop“ von Ronja soll Freigabe auslösen, Training läuft noch (FACT? [REFLEX-CONTROL]). Handschuhe/äußere Kontakte nur mit Freigabe, Regelwerk Prüfung offen (FACT? [JEALOUSY-GLOVES]).
+- Kommunikation: Tympanon-Andockung, Pausenpflicht (FACT? [REFLEX-SPEECH]); Support-Modus verliert Bonus bei Überlastung, Bedarf für Bestätigung offen (FACT? [REFLEX]).
 
 ### Jonas Merek
 - Mechaniker/Logistik; kam über Verbindungstunnel; grundsätzlich vertrauenswürdig, beobachtet.

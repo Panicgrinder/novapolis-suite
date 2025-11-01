@@ -32,7 +32,7 @@ last_seen: c6
 
 - Herkunft in Außenlinien der Händlergilde; nach wiederholten Überfällen Fokus auf kontrollierte Prozesse.
 - Koordiniert gemeinsam mit Marei die 20 Evakuierten aus E3 und C6-Basiscrew; externer Konvoi (Marven Kael) bleibt getrennt geführt (FACT [CARAVAN-LEADERSHIP]).
-- Echo ist als Reflex-Instanz eng an sie gekoppelt und dient als mobile Schutz-/Sensorplattform (FACT [PROXIMITY]).
+- Echo ist als Reflex-Instanz eng an sie gekoppelt und dient als mobile Schutz-/Sensorplattform (FACT? [PROXIMITY]).
 
 ## Rollen & Verantwortlichkeiten
 

@@ -125,31 +125,32 @@ Hinweis: Diese Liste basiert auf den Chunks part-011 und part-022 (neueste Passa
 	- Beschluss: Strikte Trennung bestätigt; Datenkern verbleibt in C6.
 
 ## Charaktere / Mechaniken
-- [x] [REFLEX] Exoskelett/Support-Modus: Bonus entfällt bei exzessiver Nutzung, Verbrauch steigt – übernehmen?
-- [x] [INSTANCES] Reflex-Instanzen: gleiche Kapazitätslogik (Masse~Speicher), aber unterschiedliche Hauptfähigkeiten – übernehmen?
-    - Beschluss: Übernommen – Kapazität folgt Masse~Speicher-Logik wie bei Reflex, Hauptfähigkeiten können je Instanz differieren.
-- [x] [KNOWLEDGE] Wissensstand: nur Reflex kennt eigene Fähigkeiten – gültig?
-    - Beschluss: Gültig – ausschließlich Reflex kennt seine vollen Fähigkeiten; Dritte erhalten nur beobachtbare/kommunizierte Teilaspekte.
- - [x] [GROWTH] Wachstums-/Materialaufnahmeregeln für Reflex/Instanzen definieren (Skalierung mit Fläche/Masse, Voraussetzungen).
+- [ ] [REFLEX] Exoskelett/Support-Modus: Bonus entfällt bei exzessiver Nutzung, Verbrauch steigt – Review 2025-11-01 offen.
+- [ ] [INSTANCES] Reflex-Instanzen: gleiche Kapazitätslogik (Masse~Speicher), aber unterschiedliche Hauptfähigkeiten – Review 2025-11-01 offen.
+    - Review-Hinweis 2025-11-01: Frühere Beschlussfassung pausiert; Validierung nach aktuellem Instanz-Training nachreichen.
+- [ ] [KNOWLEDGE] Wissensstand: nur Reflex kennt eigene Fähigkeiten – gültig?
+	- Status 2025-11-02: Review erneut geöffnet, da Reflex-Canvas abweichende Wissensstände dokumentiert.
+- [ ] [GROWTH] Wachstums-/Materialaufnahmeregeln für Reflex/Instanzen definieren (Skalierung mit Fläche/Masse, Voraussetzungen).
 	- Evidenz: #1735 (Wachstumszyklus/Materalaufnahme Vorschlag).
-    - Beschluss: Hybrid – flächen-/massenbasierte Skalierung mit Energiebedarf und sicherheitsrelevanten Voraussetzungen; zusätzlich missions-/ereignisbasierte Meilensteine (Freischaltungen/Upgrades) mit Protokoll.
- - [x] [UNIQUE] Einzigartigkeit: Keine anderen (wesen-/mechanikgleichen) Entitäten wie Reflex in der Metro (nur Reflex + Instanzen).
+    - Status 2025-11-02: Trainingsprotokolle widersprechen bisherigen Annahmen – erneute Validierung nötig.
+- [ ] [UNIQUE] Einzigartigkeit: Keine anderen (wesen-/mechanikgleichen) Entitäten wie Reflex in der Metro (nur Reflex + Instanzen).
 	 - Evidenz: #1591, #1625 (Regelhinweis).
-	 - Beschluss: F.1 – Kanon bestätigt.
- - [x] [PROXIMITY] Nähe-Kopplung: Lumen↔Jonas, Echo↔Kora, Reflex↔Ronja – Nähe zur Bezugsperson als Stabilitätsfaktor.
+	 - Status 2025-11-02: Instanzdefinitionen erneut prüfen; Konflikte mit aktuellen RAW-Meldungen.
+- [ ] [PROXIMITY] Nähe-Kopplung: Lumen↔Jonas, Echo↔Kora, Reflex↔Ronja – Review 2025-11-01 (Schwellen/Training).
 	 - Evidenz: #1625 (Bezugsperson/physische Nähe).
-    - Beschluss: Nähe stabilisiert; mit zunehmender Distanz steigen Instabilität/Verbrauch und Limits greifen früher. Schwellwerte werden in den Mechanik-Notizen geführt.
- - [x] [REFLEX-SPEECH] Reflex Sprech‑Mechanik: Tympanon‑Andockung (feines Gewebe), Stimulus per Schallübertragung; Grenzen, Einwilligung, Dauer/Erschöpfung.
+    - Review-Hinweis 2025-11-01: Schwellenwerte und Distanzfolgen neu erfassen; Mechanik-Notizen aktualisieren.
+- [ ] [REFLEX-SPEECH] Reflex Sprech‑Mechanik: Tympanon‑Andockung (feines Gewebe), Stimulus per Schallübertragung; Grenzen, Einwilligung, Dauer/Erschöpfung.
 	- Evidenz: #1181 (Trommelfell‑Idee), #1185 (Überlagerung Mund/Sprache).
- - [x] [REFLEX-CONTROL] Schutz‑Übernahme: Trigger/Schwellen, welche Sinne werden wann gedämpft/freigegeben (Atmung/Sicht), Rückgabe‑Prozess.
+- [ ] [REFLEX-CONTROL] Schutz‑Übernahme: Trigger/Schwellen, welche Sinne werden wann gedämpft/freigegeben (Atmung/Sicht), Rückgabe‑Prozess.
 	- Evidenz: #1183–#1187, #1190–#1207 (Kontrolle/psychologisches Profil).
- - [x] [REFLEX-APPEARANCE] Erscheinungsbild/Standardabdeckung (metallisch‑perlmutt, „Neopren“); Hände‑/Gesichts‑Schutzkriterien.
+- [ ] [REFLEX-APPEARANCE] Erscheinungsbild/Standardabdeckung (metallisch-perlmutt, „Neopren“); Hände-/Gesichts-Schutzkriterien.
 	- Evidenz: #1057 (Aussehen/Abdeckung), #1087 (Handschutz, Eifersucht).
- - [x] [REFLEX-DETACH] Detachment‑Regel: Keine vollständige Trennung von Ronja; Strecken/Seestern‑Bewegung erlaubt.
+    - Status 2025-11-02: Handschutz-Signale in Trainingslog abweichend – Darstellung aktualisieren.
+- [ ] [REFLEX-DETACH] Detachment‑Regel: Keine vollständige Trennung von Ronja; Strecken/Seestern‑Bewegung erlaubt.
 	- Evidenz: #1059 (Bewegung/Bindung), #847–#848 (nicht trennen).
- - [x] [JEALOUSY-GLOVES] Handschuh‑Eifersuchtslogik: externe Handschuhe vs. Reflex‑Handschutz; Policy formulieren.
+- [ ] [JEALOUSY-GLOVES] Handschuh‑Eifersuchtslogik: externe Handschuhe vs. Reflex‑Handschutz; Policy formulieren.
 	- Evidenz: #1087 (keine fremden Handschuhe; Reflex schützt Hände).
-    - Beschluss: Reflex-Handschutz hat Priorität. Externe Handschuhe nur mit expliziter Freigabe; sonst Warnung und Abbruch/Zurückdrängung der Auflage. Einwilligung/Kompatibilität sind Voraussetzung.
+    - Review-Hinweis 2025-11-01: Freigabelogik und Warnstufen erneut abstimmen; Dokumentation aktualisieren.
  - [x] [CARAVAN-LEADERSHIP] Doppelspitze der Karawane klären: Kora (Karawanenführerin/Logistikkoordinatorin) vs. Marven Kael (Karawanenführer/Handelskoordinator) – Rollenabgrenzung, Primärverantwortung, Kanon.
 	- Evidenz: `database-raw/99-exports/RAW-canvas-2025-10-16T14-56-00-000Z.txt` (Kora), `database-raw/99-exports/RAW-canvas-2025-10-16T14-56-10-000Z.txt` (Marven); Chat-Hinweise zur „Anführerin der Karawane“ in C6 in RAW-Chat-Exports.
  	- Ergänzende Evidenz: `database-raw/99-exports/RAW-canvas-2025-10-16T14-56-20-000Z.txt` (Arlen Dross, „Karawanenführer/Händler“) → zusätzliche Titel-Overlap.

@@ -47,14 +47,14 @@ dependencies: [reflex, lumen, echo, jonas-merek, kora-malenkov, d5, c6]
 
 ## Reflex – Interaktion & Safety (Hausregeln)
 - Kopplung: Stufe I – Reflex liegt wie ein „Neoprenanzug“ auf; kein Verschmelzen in der Haut (aktuelle Stufe)
-- Consent Gate: keine erzwungene Übernahme gegen Ronjas Willen; bei akuter Angst kann Reflex eine Schutz‑Umhüllung initiieren, muss bei „Stop“ sofort lösen; Überreaktionen sind kurz und reversibel, danach Rückfrage/Regulation; Sprache ist priorisiert, außer bei unmittelbarer Gefahr [REFLEX-CONTROL]
-- Sprech‑Mechanik: Tympanon‑Andockung, Schall‑Stimulus; Dauer/Erschöpfung beachten [REFLEX-SPEECH]
-- Detachment/Mikro‑Instanz: keine vollständige Trennung; Labor/Notfall‑Sonderfall ≤ 15 m, ≤ 12 h; Energie‑Debuff aktiv [REFLEX-DETACH]
-- Handschuh‑Policy: Reflex‑Handschutz hat Priorität; externe Handschuhe nur mit expliziter Freigabe [JEALOUSY-GLOVES]
+- Consent Gate: keine erzwungene Übernahme gegen Ronjas Willen; bei akuter Angst kann Reflex eine Schutz‑Umhüllung initiieren, Ziel bleibt sofortiges Lösen bei „Stop“, reagiert derzeit noch verzögert; Überreaktionen sollen kurz bleiben, Nachregulation prüfen (FACT? [REFLEX-CONTROL])
+- Sprech‑Mechanik: Tympanon‑Andockung, Schall‑Stimulus; Dauer/Erschöpfung beachten, Feinabstimmung offen (FACT? [REFLEX-SPEECH])
+- Detachment/Mikro‑Instanz: keine vollständige Trennung; Labor/Notfall‑Sonderfall ≤ 15 m, ≤ 12 h; Energie‑Debuff aktiv, Grenzen erneut verifizieren (FACT? [REFLEX-DETACH])
+- Handschuh‑Policy: Reflex‑Handschutz hat Priorität; externe Handschuhe nur mit expliziter Freigabe, Regelset in Review (FACT? [JEALOUSY-GLOVES])
 
 ### Signals (Beispiele)
 - Request: „Reflex, Schutz leicht – Hände frei.“ → Assist/Support, Hände unbedeckt, Sicht/Atmung frei.
-- Stop: „Stopp.“ → Sofortige Lösung/Entkopplung, Rückfrage und Rückkehr zu Observe/Idle.
+- Stop: „Stopp.“ → Soll unmittelbare Lösung auslösen, reagiert aktuell verzögert; Nachregulation/Feedback zwingend dokumentieren.
 
 ## Status & Kondition
 - Gesundheit: stabil; geistiger Zustand „instabil, aber funktional“ – Erholungsbedarf hoch (RAW `char_ronja_v2`).
