@@ -1,0 +1,11 @@
+# Normalize line endings and enforce text handling
+* text=auto
+
+# Markdown and text files: LF endings in repo; editors can translate if configured
+*.md text eol=lf
+*.txt text eol=lf
+
+# Ensure UTF-8 is used for text files (Git 2.10+ supports working-tree-encoding)
+# Uncomment if needed and your team uses older encodings in working tree
+# *.md text working-tree-encoding=UTF-8
+# *.txt text working-tree-encoding=UTF-8

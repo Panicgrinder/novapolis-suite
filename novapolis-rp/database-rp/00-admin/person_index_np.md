@@ -1,3 +1,7 @@
+---
+stand: 2025-11-01 09:51
+update: Frontmatter normalisiert (YAML oben); Metafelder übernommen.
+checks: keine
 canvas: person_index_np
 last-updated: 2025-11-02T15:25:00+01:00
 category: A

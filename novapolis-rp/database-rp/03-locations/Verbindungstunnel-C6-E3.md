@@ -1,4 +1,16 @@
-# Verbindungstunnel C6–E3
+---
+title: Verbindungstunnel C6–E3
+category: location
+slug: verbindungstunnel-c6-e3
+version: "1.0"
+last_updated: 2025-11-01T10:27:01+01:00
+affiliations: [novapolis]
+status: offen
+connections: ["c6", "e3"]
+tags: []
+---
+
+## Verbindungstunnel C6–E3
 
 ## Status
 - Offen, begehbar; nicht instandgesetzt

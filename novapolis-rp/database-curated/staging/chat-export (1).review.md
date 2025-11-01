@@ -17,26 +17,19 @@ Checkliste
 - [ ] Stichprobe (≥10%) gegen PDF geprüft
 - [ ] Offene Punkte dokumentiert ([OPEN])
 
-Szenenanker [SCENE]
-- 
+## Szenenanker [SCENE]
 
-Kanon-Fakten [FACT]
-- 
+## Kanon-Fakten [FACT]
 
-Charaktere [CHAR]
-- 
+## Charaktere [CHAR]
 
-Orte [LOC]
-- 
+## Orte [LOC]
 
-Projekte [PROJ]
-- 
+## Projekte [PROJ]
 
-Inventar [INV]
-- 
+## Inventar [INV]
 
-Offen [OPEN]
-- 
+## Offen [OPEN]
 
 ## Chunk part-011 (global 10001–10819) – Neueste Nachrichten
 
@@ -327,9 +320,9 @@ Szenenanker [SCENE]
 Kanon-Fakten [FACT?]
 - [FACT?] Betriebsmodus: Alle nicht‑archivierten Canvas sollen aktiv geladen sein; Systemmeldungen sollen die Anzahl geladener Canvas anzeigen (#1317–#1339).
 - [FACT?] C6 Zugänge/Linien (vorläufig):
-	- U‑Bahn‑Station mit 2 Gleisen; ein Gleis Richtung verschütteter Trakt, das andere Richtung D5.
-	- Zusätzliche Linie Verbindung F1↔(andere Richtung) für Karawanentransport.
-	- Ein „Wandtunnel“ (Fußgängerzugang) existiert und war der historische Zugang der Karawane (#1345–#1349).
+  - U‑Bahn‑Station mit 2 Gleisen; ein Gleis Richtung verschütteter Trakt, das andere Richtung D5.
+  - Zusätzliche Linie Verbindung F1↔(andere Richtung) für Karawanentransport.
+  - Ein „Wandtunnel“ (Fußgängerzugang) existiert und war der historische Zugang der Karawane (#1345–#1349).
 - [FACT?] Echo ist Reflex‑Instanz bei Kora; Lumen ist die Instanz bei Jonas; Echo kann nicht „fliegen“ und muss physisch aufschließen (#1355, #1375, #1359–#1363).
 - [FACT?] E3 wurde vor Evakuierung gewarnt; danach Netztrennung/Evakuierung → Ankunft C6; Quarantäne angewandt (#1391–#1397, #1399).
 
@@ -583,11 +576,11 @@ Kanon‑Fakten [FACT?]
 - [FACT?] Gruppen‑Canvas für Bewohner/Caravan statt Einzel‑Canvas (#815).
 - [FACT?] Symbiose Stufe 1: nur direkte/verbale Kommunikation; Reflex bleibt an Ronja; Fortbewegung möglich, kein vollständiges Lösen (#831, #847–#848).
 - [FACT?] Reinit‑Prompt schlägt feste Weltzustände vor (vorläufig):
-	- station_c6_v2.3: 440 m²; Abschnitte A/B/C; Status Gelb‑Rot.
-	- Mission Freilegung_C6_Nord aktiv.
-	- Fracht: Kiste 7A „lebendiger Metallstaub“ resoniert mit Reflex; Kiste 9B Konklave‑Module RL (Ziel E2), Warnhinweis.
-	- Reflex‑Regeln: Hauptkörper sprachfähig, gebunden; Nebeninstanz D5 nicht sprachfähig.
-	- Keine „herbeigezauberten“ Geräte (#855, #843–#846).
+  - station_c6_v2.3: 440 m²; Abschnitte A/B/C; Status Gelb‑Rot.
+  - Mission Freilegung_C6_Nord aktiv.
+  - Fracht: Kiste 7A „lebendiger Metallstaub“ resoniert mit Reflex; Kiste 9B Konklave‑Module RL (Ziel E2), Warnhinweis.
+  - Reflex‑Regeln: Hauptkörper sprachfähig, gebunden; Nebeninstanz D5 nicht sprachfähig.
+  - Keine „herbeigezauberten“ Geräte (#855, #843–#846).
 
 Charaktere [CHAR]
 - [CHAR] Kora/Händlerführung: Aufteilung/Bedarfe abstimmen (#811–#819).
@@ -939,4 +932,5 @@ Inventar/Verbrauch [INV]
 Offen/Prüfaufträge [OPEN]
 - [OPEN] „System“ vs. Reflex: Terminologie vereinheitlichen (Schutzmechanik) (#56–#60, später #1183–#1207).
 - [OPEN] Wurzelgewebe: Einordnung als Anomalie/Ort/Entität festlegen; Protokoll/Canvas definieren (#92–#94).
+<!-- EOF -->
 

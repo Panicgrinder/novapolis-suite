@@ -1,7 +1,8 @@
 import sys
 import os
 import difflib
-from typing import List, Tuple
+import argparse
+from typing import List, Tuple, Optional
 
 
 def read_lines(path: str) -> List[str]:
@@ -25,43 +26,55 @@ def unified_diff_stats(a_path: str, b_path: str) -> Tuple[int, int]:
     return adds, dels
 
 
-def report(a_path: str, b_path: str):
+def render_report(a_path: str, b_path: str) -> str:
     a = read_lines(a_path)
     b = read_lines(b_path)
     sim = jaccard(a, b)
     adds, dels = unified_diff_stats(a_path, b_path)
-    print(f"# Delta-Report\n")
-    print(f"Vergleich: {a_path}  <->  {b_path}\n")
-    print(f"- Zeilen A: {len(a)}\n- Zeilen B: {len(b)}")
-    print(f"- Jaccard-Ähnlichkeit (Zeilenmenge): {sim:.3f}")
-    print(f"- Diff: +{adds}  -{dels}\n")
+    parts: List[str] = []
+    parts.append("# Delta-Report\n")
+    parts.append(f"Vergleich: {a_path}  <->  {b_path}\n")
+    parts.append(f"- Zeilen A: {len(a)}\n- Zeilen B: {len(b)}")
+    parts.append(f"- Jaccard-Ähnlichkeit (Zeilenmenge): {sim:.3f}")
+    parts.append(f"- Diff: +{adds}  -{dels}\n")
 
     # Show a small context diff sample
-    print("## Diff (A->B) – Auszug")
+    parts.append("## Diff (A->B) – Auszug")
     diff = difflib.unified_diff(a, b, fromfile=a_path, tofile=b_path, n=3, lineterm="")
     shown = 0
-    # Ensure UTF-8 friendly output even on Windows consoles
+    for line in diff:
+        parts.append(line)
+        shown += 1
+        if shown > 200:  # keep sample bounded
+            parts.append("... (gekürzt) ...")
+            break
+    return "\n".join(parts).rstrip("\n") + "\n"
+
+
+def main(argv: Optional[List[str]] = None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("fileA")
+    ap.add_argument("fileB")
+    ap.add_argument("--out", dest="out", help="Optional output .md path; if omitted, prints to stdout")
+    args = ap.parse_args(argv)
+
+    a, b = args.fileA, args.fileB
+    if not os.path.isfile(a) or not os.path.isfile(b):
+        print("Both files must exist.", file=sys.stderr)
+        sys.exit(2)
+
     try:
         sys.stdout.reconfigure(encoding='utf-8', errors='replace')  # type: ignore[attr-defined]
     except Exception:
         pass
-    for line in diff:
-        print(line)
-        shown += 1
-        if shown > 200:  # keep sample bounded
-            print("... (gekürzt) ...")
-            break
 
-
-def main(argv: List[str]):
-    if len(argv) != 2:
-        print("Usage: python delta_report.py <fileA> <fileB>", file=sys.stderr)
-        sys.exit(2)
-    a, b = argv
-    if not os.path.isfile(a) or not os.path.isfile(b):
-        print("Both files must exist.", file=sys.stderr)
-        sys.exit(2)
-    report(a, b)
+    content = render_report(a, b)
+    if args.out:
+        os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
+        with open(args.out, 'w', encoding='utf-8', newline='\n') as f:
+            f.write(content)
+    else:
+        print(content, end="")
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()

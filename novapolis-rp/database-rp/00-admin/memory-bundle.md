@@ -1,3 +1,11 @@
+---
+stand: 2025-11-01 09:51
+update: Frontmatter ergänzt (YAML); Inhalt unverändert.
+checks: keine
+category: Admin
+canvas: memory-bundle
+---
+
 # Memory-Bundle (Kanon, kompakt)
 
 Diese Datei ist der „Wahrheitsspeicher“. Änderungen hier sind kanonisch.

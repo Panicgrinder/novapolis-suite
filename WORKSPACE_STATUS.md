@@ -1,4 +1,10 @@
-# Workspace-Status (Stand 2025-11-02)
+---
+stand: 2025-11-01 09:47
+update: YAML-Frontmatter ergänzt; Titel-Stand entfernt.
+checks: keine
+---
+
+# Workspace-Status
 
 ## Überblick
 

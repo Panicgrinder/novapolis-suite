@@ -1,6 +1,11 @@
-<!-- markdownlint-disable MD041 -->
+---
+stand: 2025-11-01 09:47
+update: Frontmatter korrigiert (YAML); last-updated übernommen.
+checks: keine
 last-updated: 2025-10-29T16:30:00+01:00
 ---
+
+<!-- markdownlint-disable MD041 -->
 
 <!-- context-core: true; context-id: novapolis-rp; priority: high -->
 > [!IMPORTANT]
@@ -22,6 +27,7 @@ Primary Docs
 - `docs/copilot-behavior.md` — verbindliche Arbeitsweise & Sicherheitsregeln
 - `docs/naming-policy.md` — Dateibenennung fuer alle Novapolis-Repos
 - `docs/tests.md` — Testabdeckung, Sim-/Client-Checks
+- `docs/prompts/chat-restart.md` — kopierfertiger Prompt für Chat-/Session-Neustarts
 - Meta-Sidecars: `novapolis-dev/docs/meta/*.json` (Quelle, Ursprung, Migrationsstempel)
 
 > [!NOTE]

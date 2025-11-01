@@ -1,7 +1,11 @@
-<!-- markdownlint-disable MD022 MD041 -->
+---
+stand: 2025-11-01 09:47
+update: Frontmatter korrigiert (YAML); last-updated übernommen.
+checks: keine
 last-updated: 2025-11-02T16:05:00+01:00
 ---
----
+
+<!-- markdownlint-disable MD022 MD041 -->
 
 TODO (Novapolis-RP)
 ===================

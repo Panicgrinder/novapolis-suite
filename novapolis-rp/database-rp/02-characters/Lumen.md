@@ -11,7 +11,7 @@ primary_location: d5
 last_seen: d5
 ---
 
-# Lumen
+## Lumen
 
 - Meta: last-updated: 2025-11-02T11:25:00+01:00
 - Verhaltenssignatur: `LMN1=L78-T71-E60-O49-N44-S52-C26-M18-P28-ks` – sucht Nähe zu Jonas, hilft technisch fokussiert und bleibt kindlich-selbstlos im Support.

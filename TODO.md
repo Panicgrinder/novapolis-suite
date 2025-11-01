@@ -1,3 +1,9 @@
+---
+stand: 2025-11-01 09:23
+update: YAML-Frontmatter eingeführt (Snapshot-Regel) und Root-Task „DONELOG: append entry (root alias)“ vermerkt.
+checks: keine
+---
+
 # TODO-Uebersicht (Novapolis Suite)
 
 Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vollstaendigen Projekt-Listen sind unten eingebettet, damit sie ohne Kontextwechsel eingesehen werden koennen.
@@ -13,6 +19,160 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
   - [ ] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`).
   - [ ] README oder `Backups/`-Manifest um Rotationsplan ergänzen (Aufbewahrungsdauer, Löschkriterien).
   - [ ] Automatisierte Aufgabe/Script prüfen (`scripts/cleanup_phase*.ps1`) für regelmäßiges Auslagern.
+ - **Lokale AI Einbindung (organisch)**: Phasenplan/Go‑Kriterien/Metriken in Abschnitt „Lokale AI – Einbindung (organisch)“ unten; Start mit Phase 0–1 möglich (ohne Zeitdruck, mit harten Fallbacks).
+ - **Editor‑Setup**: Konsolidierung `.vscode` auf Root vorbereiten (siehe Abschnitt „Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)“).
+
+## Lokale AI – Einbindung (organisch)
+
+Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner Canary → begrenzte Beta, mit Redaction/Flags/Metriken und klaren Rückfallpfaden.
+
+### Zusammenfassung (Checkliste)
+
+- [x] Inclusion‑Ziele definiert (Rollen: RAG, Schattenmodus‑Inferenz, Canary, Lernschleife)
+- [x] Readiness‑Gates je Modul definiert (agent/rp/dev/sim)
+- [x] Phasenplan entworfen (Schatten → Canary → Limited Beta → Stabilisierung)
+- [x] Daten‑ & Telemetrieplan (Hygiene, Consent, Redaction, Metriken)
+- [ ] Immediate next steps checklist (siehe unten)
+
+### Go‑Kriterien je Modul (Beta‑Readiness, organisch)
+
+- novapolis_agent
+  - Tests/Typen PASS an 2 aufeinanderfolgenden Tagen
+  - Policy‑/Rewrite‑Hooks aktiv, Session‑Memory (Basis)
+  - RAG‑Minimum indexiert (10–50 Kern‑Docs, deterministischer Retriever‑Test PASS)
+  - Logging mit Redaction (keine PII im Klartext)
+  - Flags: `RAG_ON`, `SHADOW_ON`, `CANARY_PCT`
+- novapolis-rp
+  - Canvas‑Rettung Sprint 1 Kerne abgeschlossen; Memory‑Bundle konsistent
+  - Sidecars konsistent (tags/dependencies/last_updated)
+  - Validator‑Pipeline (Behavior/Psymatrix) ohne kritische Findings
+  - 200–500 kuratierte Q/A‑Paare oder Chat‑Turns als Startbasis
+- novapolis-dev
+  - Tasks/Validatoren laufen; kurzer Leitfaden „Wie wir lokal lernen“ (optional)
+- novapolis-sim
+  - Für Start nicht erforderlich (später als Szenario‑Generator hilfreich)
+
+### Phasenplan (sanft, mit Fallbacks)
+
+- Phase 0 – Vorbereitung (ab sofort möglich)
+  - Datenquellen fixieren (Canvases, Eval, Policies), Redaction klären, Minimal‑Metriken definieren
+- Phase 1 – Schattenmodus (1–2 Wochen)
+  - Lokale AI beantwortet parallel, keine Nutzerwirkung; Stichproben‑Review 1–2×/Woche
+  - Erfolg: ≥80% Accept in Stichproben, 0 kritische Policy‑Verstöße
+- Phase 2 – RAG‑only + Canary‑Inferenz (5–10% oder selektive Szenen)
+  - Erst RAG aktiv, dann kleine Canary‑Quote mit hartem Fallback/Rate‑Limit
+  - Erfolg: Qualität/Latenz ≥ Status quo; Fallback selten
+- Phase 3 – Lernschleife v0.1 (1–2‑wöchig)
+  - Kuratierte Deltas → Train/Val‑Pack, LoRA‑Mini; Versionierung, einfache A/B‑Checks
+
+### Metriken (leichtgewichtig)
+
+- Qualität (Stichprobe): Accept/Revise/Reject‑Rate
+- Policy: Block/Rewrite‑Rate (kritische Verstöße = 0)
+- RAG: HitRate@K, Overlap‑Score mit Antwort
+- Runtime: p50/p95 Latenz, Token‑Längen (in/out)
+- Lernen: Anteil promoteter Antworten vs. Status quo
+
+### Datenschutz & Datenhygiene
+
+- Redaction: Namen/Orte/IDs durch Platzhalter; Export‑Prüfung vor Training
+- Consent/Scope markieren (was darf ins Training)
+- Retention: Rohlogs kurzlebig, kuratierte Datasets versioniert
+- Audit: jede Promotion mit Quelle/Datum/Tests notieren
+
+### Go/No‑Go Checkliste (aktiv zu pflegen)
+
+- [ ] Tests/Typen PASS (2 Tage in Folge)
+- [ ] RAG‑Minimum indexiert, Retriever‑Test PASS
+- [ ] Redaction aktiv (keine PII in Logs/Datasets)
+- [ ] Flags gesetzt: `RAG_ON`, `SHADOW_ON`, `CANARY_PCT`
+- [ ] Stichprobe (Schattenmodus) ≥80% „Accept“
+
+### Nächste Schritte (sofort, ohne Codeänderungen)
+
+- [ ] Schattenmodus‑Logging mit Redaction intern aktivieren
+- [ ] 10–20 Kern‑Dokumente (Memory‑Bundle + Schlüssel‑Canvases) indexieren (RAG‑Minimum)
+- [ ] Wöchentlichen Review‑Slot (30–45 min) für Stichproben + Kurations‑Delta einplanen
+
+## Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)
+
+Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bereitstellt, ohne projekt‑spezifische Profile (Launch/CWD/ENV) zu beschädigen. Sanft, reversibel, mit Inventur vor Migration.
+
+### Annahmen & Rahmen
+
+- Root verwendet `.venv` (Windows) und zentralen Interpreter (`.vscode/settings.json`).
+- `novapolis_agent` ist der einzige Code‑Bereich mit Tests/Launch‑Profilen; `novapolis-rp` ist primär Daten/Docs/Tools.
+- Markdownlint läuft via cli2 in CI; lokale Tasks existieren in Agent‑Projekt (bereits erweitert um Root‑`TODO.md`/`DONELOG.md`).
+
+### Akzeptanzkriterien
+
+- Alle Standard‑Tasks sind vom Root aus ausführbar: Lint (markdownlint), Fix, `pytest -q`, Coverage (fail‑under 80).
+- Tasks nutzen korrektes CWD und ENV: `cwd=novapolis_agent/`, `envFile=novapolis_agent/.env`, Interpreter aus Root `.venv`.
+- Copilot‑Workspace‑Instructions zentral im Root; keine doppelten, widersprüchlichen Settings.
+- Projekt‑spezifische Launch‑Profile funktionieren unverändert (zunächst im Agent‑Ordner belassen).
+
+### Plan (Etappen)
+
+- Etappe 0 – Inventur (dieser PR‑Teil)
+  - [ ] Liste aller `.vscode`‑Dateien erstellen (Root, Agent, RP)
+  - [ ] Settings/Launch/Tasks diffen und Konflikte notieren
+  - [ ] Mapping definieren: was zentralisiert wird, was projekt‑spezifisch bleibt
+- Etappe 1 – Zentralisierung (additiv, ohne Löschen)
+  - [ ] Root‑Tasks ergänzen: `pytest -q` (cwd Agent), `Tests: coverage (fail‑under)`, `markdownlint (cli2)`, `markdownlint fix (cli2)` (erledigt)
+  - [ ] Root‑Settings um Copilot‑Workspace‑Instructions aus RP ergänzen (keine Python‑Konflikte)
+  - [ ] Agent‑Tasks optional auf Root‑Tasks verweisen (mittels eindeutiger Labels)
+- Etappe 2 – Bereinigung (nach 3–5 Tagen stabiler Nutzung)
+  - [ ] Dubletten entfernen oder Agent‑`tasks.json` auf Minimal‑Set reduzieren
+  - [ ] Launch‑Profile optional ins Root migrieren (nur wenn stabil; sonst belassen)
+  - [ ] Dokumentation: kurzer Abschnitt „Editor‑Setup“ im Root‑README
+
+### Aufgabenliste (konkret)
+
+- Inventur
+  - [ ] Auflisten: `.vscode/settings.json` (Root, Agent, RP), `.vscode/tasks.json` (Root, Agent), `.vscode/launch.json` (Agent)
+  - [ ] Unterschiede festhalten: Interpreter‑Pfad, pytestArgs, envFile, Copilot‑Instructions
+- Root‑Tasks
+  - [x] Markdownlint: lint/fix (cli2) repo‑weit (Root‑Tasks vorhanden)
+  - [x] Tests: `pytest -q` (cwd=`novapolis_agent`)
+  - [x] Tests: Coverage (fail-under=80) (cwd=`novapolis_agent`)
+  - [x] Optional: „Append DONELOG entry“ als Root-Alias mit cwd `novapolis_agent` (2025-11-01 09:05)
+    - Änderung: VS Code Task `DONELOG: append entry (root alias)` in `/.vscode/tasks.json` ergänzt.
+    - Prüfungen: keine (reine Task-Erweiterung).
+- Root‑Settings
+  - [x] Copilot-Workspace-Instructions aus `novapolis-rp/.vscode/settings.json` in Root übernehmen/vereinheitlichen
+  - [ ] Interpreter/pytestArgs zentral lassen; RP‑Settings entschlacken (keine Python‑Dopplung)
+- Agent/RP Cleanup (Etappe 2)
+  - [ ] Agent‑`tasks.json` Dubletten entfernen, falls Root‑Tasks etabliert
+  - [ ] RP‑Settings auf Workspace‑Instructions beschränken (falls Root diese zentral führt)
+
+### Snapshot‑Frontmatter Migration (YAML)
+
+- [ ] Etappe 0 (2025-11-01 09:10): Regel aktiv, Mischbetrieb erlaubt — YAML bevorzugt, `Stand:`/`Letzte Aktualisierung:` weiterhin gültig.
+- [ ] Etappe 1: Bei Änderungen an Dokus YAML-Frontmatter ergänzen/aktualisieren (`stand`, `update`, `checks`).
+- [ ] Etappe 2: Sweep — bestehende Kopfzeilen migrieren (TODO, README/Index, Policies). Diff klein halten; `checks` kurz.
+- [ ] Etappe 3: Legacy-Kopfzeilen auslaufen lassen; Instruktionen aktualisieren (nur YAML erlaubt).
+
+### Risiken & Backout
+
+- Risiko: Falsches CWD/ENV führt zu fehlschlagenden Tasks.
+  - Mitigation: Jede Task im Root mit `options.cwd=novapolis_agent` + `envFile` testen.
+- Risiko: Launch‑Profile brechen bei Migration.
+  - Mitigation: Launch zunächst im Agent belassen; Migration optional/später.
+- Backout: Sub‑`.vscode` beibehalten bis Etappe 2; jederzeit reaktivierbar.
+
+### Betroffene Dateien (geplant)
+
+- `/.vscode/settings.json` (merge Workspace‑Instructions)
+- `/.vscode/tasks.json` (ergänzte Root‑Tasks)
+- `/novapolis_agent/.vscode/tasks.json` (später reduzieren)
+- `/novapolis_agent/.vscode/launch.json` (vorerst unverändert)
+- `/novapolis-rp/.vscode/settings.json` (später verschlanken)
+
+### Go/No‑Go für Migration
+
+- [ ] Root‑Tasks laufen (lint, fix, pytest, coverage)
+- [ ] Keine Konflikte in Settings (Interpreter/ENV)
+- [ ] 3–5 Tage Nutzung ohne Beschwerden → Go für Etappe 2
 
 ## Volltexte
 
@@ -54,7 +214,7 @@ Kurzfristige Ziele (Heute)
   - Status: Done (Pyright 1.1.406; 0 Fehler, 0 Warnungen im App-Bereich; Tests grün; tests/ & scripts/ vorerst aus Pyright-Analyse ausgeschlossen – schrittweise Reaktivierung geplant)
 
 - [x] Markdownlint-Konfiguration & Tasks
-  - Status: Done (`.markdownlint.json` hinzugefügt; VS Code Tasks für Lint/Fix; README/TODO/Customization bereinigt)
+  - Status: Done (Root `.markdownlint-cli2.jsonc` aktiv; VS Code Tasks für Lint/Fix; README/TODO/Customization bereinigt; Legacy `.markdownlint.json` entfernt)
 
 1–2 Tage
 

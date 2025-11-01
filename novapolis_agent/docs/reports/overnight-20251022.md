@@ -24,8 +24,8 @@ Pakete
 Hinweise
 
 - Viele Antworten im RPG-Stil; die Checks erwarteten häufig neutral/allgemein.
-	Für bessere Scores im Eval-Modus den Systemprompt explizit auf Evaluations-Style trimmen,
-	oder Checks/Datensätze anpassen.
+  Für bessere Scores im Eval-Modus den Systemprompt explizit auf Evaluations-Style trimmen,
+  oder Checks/Datensätze anpassen.
 - Vollständiger Overnight-Run kann mit höherem Limit oder ohne `--limit` erfolgen.
 
 Letzte Aktualisierung: 2025-10-22

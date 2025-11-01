@@ -1,7 +1,11 @@
+---
+stand: 2025-11-01 09:44
+update: YAML-Frontmatter eingeführt; Stand/Letzte Aktualisierung migriert.
+checks: keine
+---
+
 <!-- markdownlint-disable MD013 -->
 # Novapolis Agent - Workspace Datei-Index
-
-Stand: 2025-10-23
 
 ## Vollständiger Index aller Dateien im Workspace (aktualisiert)
 
@@ -12,7 +16,6 @@ Stand: 2025-10-23
 - [`.env`](.env) - Umgebungsvariablen (private Konfiguration)
 - [`.env.example`](.env.example) - Template für Umgebungsvariablen
 - [`.gitignore`](.gitignore) - Git-Ignorier-Regeln
-- [`.markdownlint.json`](.markdownlint.json) - Markdownlint-Konfiguration
 - [`coverage.xml`](coverage.xml) - Coverage-Report (XML, generiert)
 - [`analysis_chat_routers.md`](analysis_chat_routers.md) - Analyse der Chat-Router
 - [`cleanup_recommendations.md`](cleanup_recommendations.md) - Aufräum-Empfehlungen
@@ -228,8 +231,6 @@ Hinweis Datenmodelle: Quelle ist [`app/api/models.py`](app/api/models.py).
 - [`.githooks/pre-commit`](.githooks/pre-commit) - Lokaler Pre-commit Hook (DONELOG/Lint)
 
 Repository-Hinweis: Standard-Branch ist `main`.
-
-Letzte Aktualisierung: 2025-10-25
 
 Hinweise:
 

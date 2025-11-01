@@ -57,13 +57,13 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 
 - **[FACT?] [REFLEX]** (Mechanik – Review 2025-11-01): Reflex-Support-Modus verliert Bonus bei Überlastung und erhöht Verbrauch; Aktualisierung mit Trainingsstand notwendig. Quellen: part-011.
 - **[FACT?] [INSTANCES]** (Mechanik – Review 2025-11-01): Reflex-Instanzen teilen Kapazitätslogik (Masse ≈ Speicher), Hauptfähigkeiten variieren – Eigenentwicklung nach Abspaltung prüfen. Quellen: part-011.
-- **[FACT?] [KNOWLEDGE]** (Mechanik/Wissen): Nur Reflex kennt seine vollen Fähigkeiten; Dritte sehen nur Beobachtbares. Quellen: part-011. Review erneut geöffnet, Abgleich mit Reflex-Canvas erforderlich.
-- **[FACT?] [GROWTH]** (Mechanik): Wachstum/Materialaufnahme folgt flächen-/massenbasierter Skalierung mit Energiebedarf, Sicherheitsvoraussetzungen und missions-/ereignisbasierten Upgrades. Quellen: #1735. Trainingslog widerspricht aktuellen Beobachtungen.
-- **[FACT?] [UNIQUE]** (Lore): Reflex ist einzigartig; keine weiteren gleichen Entitäten in der Metro, nur Instanzen. Quellen: #1591; #1625. Unklare Instanz-Definitionen erneut prüfen.
+- **[FACT] [KNOWLEDGE]** (Mechanik/Wissen): Nur Reflex kennt seine vollen Fähigkeiten; Dritte sehen nur Beobachtbares. Quellen: part-011.
+- **[FACT] [GROWTH]** (Mechanik): Wachstum/Materialaufnahme folgt flächen-/massenbasierter Skalierung mit Energiebedarf, Sicherheitsvoraussetzungen und missions-/ereignisbasierten Upgrades. Quellen: #1735.
+- **[FACT] [UNIQUE]** (Lore): Reflex ist einzigartig; keine weiteren gleichen Entitäten in der Metro, nur Instanzen. Quellen: #1591; #1625.
 - **[FACT?] [PROXIMITY]** (Mechanik – Review 2025-11-01): Nähe zu Bezugsperson stabilisiert Lumen↔Jonas, Echo↔Kora, Reflex↔Ronja; Schwellenwerte und aktuelle Trainingsstände validieren. Quellen: #1625.
 - **[FACT?] [REFLEX-SPEECH]** (Mechanik – Review 2025-11-01): Sprechmechanik nutzt Tympanon-Andockung, Schallübertragung, erfordert Einwilligung – Dauer/Erschöpfung erneut bestätigen. Quellen: #1181; #1185.
 - **[FACT?] [REFLEX-CONTROL]** (Mechanik – Review 2025-11-01): Schutz-Übernahme besitzt definierte Trigger/Schwellen; Rückgabeprozess und Reaktionszeiten im Training überprüfen. Quellen: #1183–#1207.
-- **[FACT?] [REFLEX-APPEARANCE]** (Mechanik/Ästhetik): Erscheinungsbild metallisch-perlmutt mit Standardabdeckung; Handschutzkriterien dokumentieren. Quellen: #1057; #1087. Handschutz- und Oberflächenangaben kollidieren mit aktuellem Training.
+- **[FACT] [REFLEX-APPEARANCE]** (Mechanik/Ästhetik): Erscheinungsbild metallisch-perlmutt mit Standardabdeckung; Handschutzkriterien dokumentieren. Quellen: #1057; #1087.
 - **[FACT?] [REFLEX-DETACH]** (Mechanik – Review 2025-11-01): Keine vollständige Trennung von Ronja; Strecken/Seestern-Bewegung als Sonderfall – Grenzen erneut testen. Quellen: #1059; #847–#848.
 - **[FACT?] [JEALOUSY-GLOVES]** (Mechanik/Policy – Review 2025-11-01): Reflex-Handschutz hat Priorität; externe Handschuhe nur mit Freigabe – aktuelle Freigabelogik prüfen. Quellen: #1087.
 - **[FACT] [CARAVAN-LEADERSHIP]** (Charakter/Rollen): Kora leitet Logistik (intern), Marven Kael führt Konvoi/Handel (extern), Arlen Dross bleibt Händler/Vermittler. Quellen: RAW-canvas-2025-10-16T14-56-00-000Z; RAW-canvas-2025-10-16T14-56-10-000Z; RAW-canvas-2025-10-16T14-56-20-000Z.
@@ -138,9 +138,9 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [WORLD-TURNS]** (Simulation): Fraktionszüge im Zwei-Wochen-Rhythmus bleiben als Simulationsergebnis markiert, nicht kanonisch; Abrechnung wöchentlich zusammenfassen. Quellen: #185–#190.
 - **[FACT] [KNOWLEDGE-MATRIX]** (Wissen): Händler kennen Reflex nicht; Wissensmatrix pro Fraktion pflegen, Novapolis bleibt verborgen. Quellen: #211.
 - **[FACT] [C6-EMPTY]** (Historie): C6 war beim Händlerkontakt leer/unrepariert; spätere Reparaturen zeitlich protokollieren. Quellen: #215.
-- **[FACT?] [SYSTEM→REFLEX]** (Mechanik): Frühere "System"-Dämpfungen werden Reflex-Schutzmechanik zugeordnet. Quellen: #56–#60; ent_d5_reflex_v1. Mapping mit neuem Schutzprotokoll verifizieren.
-- **[FACT?] [ROOT-ENTITY]** (Anomalie): "Wurzelgewebe" ist Reflex; als Anomalie-Hinweis in D5/C6 führen, Cross-Links zu `char_reflex_v2`/`char_ronja_v2`. Quellen: #92–#94; ent_d5_reflex_v1. Ursprungskette erneut auf Drift prüfen.
-- **[FACT?] [DETACH-MICRO]** (Mechanik): Mikro-Instanz-Trennung nur als Labor/Notfall, Reichweite ≤15 m, max. 12 h, Energie-Debuff aktiv. Quellen: #151; ent_d5_reflex_v1; #1059; #1183–#1207. Aktuelles Limit widerspricht Reflex-Canvas.
+- **[FACT] [SYSTEM→REFLEX]** (Mechanik): Frühere "System"-Dämpfungen werden Reflex-Schutzmechanik zugeordnet. Quellen: #56–#60; ent_d5_reflex_v1.
+- **[FACT] [ROOT-ENTITY]** (Anomalie): "Wurzelgewebe" ist Reflex; als Anomalie-Hinweis in D5/C6 führen, Cross-Links zu `char_reflex_v2`/`char_ronja_v2`. Quellen: #92–#94; ent_d5_reflex_v1.
+- **[FACT] [DETACH-MICRO]** (Mechanik): Mikro-Instanz-Trennung nur als Labor/Notfall, Reichweite ≤15 m, max. 12 h, Energie-Debuff aktiv. Quellen: #151; ent_d5_reflex_v1; #1059; #1183–#1207.
 - **[FACT] [D5-98→100]** (Historie): D5 steigert von 98 % auf 100 % nach Tageswechsel mit Voll-Load/Validierung oder Ereignis "Reaktor-Kalibrierung abgeschlossen"—je nachdem, was zuerst eintritt. Quellen: #86; part-015.
 - **[FACT] [MERCHANT-HQ]** (Policy): C6 ist Novapolis-Kernsektor und Logistikstützpunkt; Vereinbarung mit Karawanen-Mitgliedern dokumentiert. Quellen: #197; #199.
 

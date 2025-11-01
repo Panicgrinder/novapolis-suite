@@ -1,11 +1,14 @@
 ---
 canvas: Inventar Freie Gruppen
 last-updated: 2025-10-27T16:48:28+01:00
-category: A
-version: 0.1
+category: inventory
+slug: freie-gruppen-inventar
+owner: freie-gruppen
+scope: faction
+version: "0.1"
 ---
 
-# Inventar – Freie Gruppen (Sammelgruppe)
+## Inventar – Freie Gruppen (Sammelgruppe)
 
 ## Bestände (Auszug)
 - Kugeln (neu/alt): tbd

@@ -473,39 +473,52 @@
 			}
 		},
 		{
-			"label": "Lint: markdownlint (docs+README)",
-			"type": "shell",
-			"command": "markdownlint",
-			"args": [
-				"README.md",
-				"docs/**/*.md"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Fix: markdownlint --fix (docs+README)",
-			"type": "shell",
-			"command": "markdownlint",
-			"args": [
-				"--fix",
-				"README.md",
-				"docs/**/*.md"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Markdownlint: lint",
+			"label": "Lint: markdownlint-cli2 (docs+README)",
 			"type": "process",
 			"command": "npx",
 			"args": [
 				"-y",
-				"@davidanson/markdownlint-cli2",
+				"markdownlint-cli2",
+				"--config",
+				"../.markdownlint-cli2.jsonc",
+				"README.md",
+				"TODO.md",
+				"DONELOG.md",
+				"docs/**/*.md"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Fix: markdownlint-cli2 --fix (docs+README)",
+			"type": "process",
+			"command": "npx",
+			"args": [
+				"-y",
+				"markdownlint-cli2-fix",
+				"--config",
+				"../.markdownlint-cli2.jsonc",
+				"README.md",
+				"TODO.md",
+				"DONELOG.md",
+				"docs/**/*.md"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Markdownlint: lint (cli2)",
+			"type": "process",
+			"command": "npx",
+			"args": [
+				"-y",
+				"markdownlint-cli2",
+				"--config",
+				"../.markdownlint-cli2.jsonc",
 				"**/*.md"
 			],
 			"options": {
@@ -520,7 +533,9 @@
 			"command": "npx",
 			"args": [
 				"-y",
-				"@davidanson/markdownlint-cli2-fix",
+				"markdownlint-cli2-fix",
+				"--config",
+				"../.markdownlint-cli2.jsonc",
 				"**/*.md"
 			],
 			"options": {
@@ -535,7 +550,7 @@
 			"args": [
 				"-NoProfile",
 				"-Command",
-				"if (Get-Command npx -ErrorAction SilentlyContinue) { npx -y @davidanson/markdownlint-cli2 '**/*.md' } elseif (Get-Command markdownlint -ErrorAction SilentlyContinue) { markdownlint 'README.md' 'docs/**/*.md' } else { Write-Error 'Weder npx noch markdownlint gefunden. Bitte Node.js/NPM installieren oder markdownlint-cli global bereitstellen.'; exit 1 }"
+				"if (Get-Command npx -ErrorAction SilentlyContinue) { npx -y markdownlint-cli2 --config '../.markdownlint-cli2.jsonc' '**/*.md' } elseif (Get-Command markdownlint-cli2 -ErrorAction SilentlyContinue) { markdownlint-cli2 --config '../.markdownlint-cli2.jsonc' '**/*.md' } else { Write-Error 'Weder npx noch markdownlint-cli2 gefunden. Bitte Node.js/NPM installieren oder markdownlint-cli2 global bereitstellen.'; exit 1 }"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"

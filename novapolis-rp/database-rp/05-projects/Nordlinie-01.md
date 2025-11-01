@@ -1,4 +1,16 @@
-# Projekt: Nordlinie 01 (Tunnel D5–C6)
+---
+title: Nordlinie 01 (Tunnel D5–C6)
+category: project
+slug: nordlinie-01
+status: active
+locations: ["d5", "c6", "verbindungstunnel-d5-c6"]
+dependencies: ["novapolis-inventar", "missionslog"]
+version: "1.0"
+last_updated: 2025-11-01T10:27:01+01:00
+tags: []
+---
+
+## Projekt: Nordlinie 01 (Tunnel D5–C6)
 
 ## Ziel
 Wiederinbetriebnahme des Verbindungstunnels zwischen D5 und C6.

@@ -14,12 +14,7 @@ Canvas-Rettung Sprint 1 – Behavior-Signaturen & Validator (2025-11-02T12:45:00
 - Charakter-Canvases (`02-characters/*.md` + JSON) um Verhaltenseinträge ergänzt; Skill-Listen auf Leerzeichen-Indents umgestellt, Markdownlint-Ausnahmen (MD025) lokalisiert.
 - Validator `coding/tools/validators/behavior_matrix_check.py` erweitert (Signatur-Format/Quellen-Check + Psymatrix-Diff >5-Punkte-Schwelle), README und TODO mit Ausführungshinweis aktualisiert; Task als erledigt markiert.
 
-Canvas-Rettung Sprint 1 – AI Behavior Matrix (2025-11-01T17:55:00+01:00)
-
-- RAW-Canvas `database-raw/99-exports/RAW-canvas-2025-10-16T11-05-00-000Z.txt` promotet: `database-rp/00-admin/AI-Behavior-Mapping.md` auf Version 1.0 erweitert (Cluster-Tabelle, Intensitätsskala, Modifikatoren, Pflege-Routine, Einsatzrichtlinien).
-- Anchor-Register um alle aktuellen Charaktere in `02-characters/` ergänzt (inkl. Echo/Lumen/Liora/Lyra/Senn/Varek; `n/a` markiert fehlende Signaturen); Psymatrix-Abgleich-Routine mit Schwellen (`PsySignatur_Dissonanz`, Kohäsion) dokumentiert.
-- Sidecar `AI-Behavior-Mapping.json` synchronisiert (Version 1.0, last_updated, dependencies `ai_behavior_index_v2`/`ai_psymatrix_index_v1`, Tag-Set ergänzt).
-- TODO aktualisiert (AI-Behavior-Index erledigt, Validator-Follow-up) und Arbeitsablauf um Anchor-Check erweitert; Quellen/Flag-Hinweise verankert.
+- 2025-11-01 13:08 — Prompt für Chat-Neustart ergänzt (`docs/prompts/chat-restart.md`); Index-Link gesetzt; Curation-Writer für UTF‑8+LF+EOF gehärtet und Orchestrator `build_staging_reports.py`+PS1 hinzugefügt. Lint weiter grün.
 
 Canvas-Rettung Sprint 1 – Jonas Merek (2025-11-02T13:55:00+01:00)
 
@@ -28,12 +23,7 @@ Canvas-Rettung Sprint 1 – Jonas Merek (2025-11-02T13:55:00+01:00)
 - JSON-Sidecar synchronisiert (Version, Tags, Dependencies `missionslog`, `ai_behavior_index_v2`); `char-block-nord-sources.md` und TODO aktualisiert.
 - Verweise auf FACTs `[PROXIMITY]`, `[COMMS-PROTO]`, `[C6-FIRST]`, `[FR-KNOWLEDGE]` eingepflegt; Validierungsintervall notiert.
 
-Canvas-Rettung Sprint 1 – Kora Malenkov (2025-11-02T14:20:00+01:00)
-
-- Charakter-Canvas `database-rp/02-characters/Kora-Malenkov.md` auf Version 1.0 aktualisiert; Werte/Skills aus RAW übernommen, Rollen- und Sicherheitsverantwortung für C6 (Logistik, Echo-Schutz, Terminalprozesse) präzisiert.
-- FACT `[CARAVAN-LEADERSHIP]` und `[PROXIMITY]` konsolidiert: interne Logistikführung abgegrenzt zu Marven/Arlen, Echo-Protokolle und Kontrolllisten dokumentiert, Händlergilde+Novapolis Zugehörigkeit festgehalten.
-- JSON-Sidecar erweitert (Version, Tags `logistik`/`haendlerbund`, Dependencies `logistik`, `missionslog`, `ai_behavior_index_v2`, `caravan_moves`); `char-block-nord-sources.md`, dev TODO sowie Personenindex-Notiz ergänzt.
-- Hinweise auf Sicherheits-/Ermüdungsrisiken und Evakuierungskoordination integriert; Validierungsintervall erfasst.
+- 2025-11-01 13:08 — Prompt für Chat-Neustart ergänzt (`docs/prompts/chat-restart.md`); Index-Link gesetzt; Curation-Writer für UTF‑8+LF+EOF gehärtet und Orchestrator `build_staging_reports.py`+PS1 hinzugefügt. Lint weiter grün.
 
 Canvas-Rettung Sprint 1 – Marven Kael (2025-11-02T14:45:00+01:00)
 

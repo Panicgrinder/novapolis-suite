@@ -6,5 +6,16 @@
   "python.testing.pytestArgs": [
     "tests"
   ],
-  "python.testing.unittestEnabled": false
+  "python.testing.unittestEnabled": false,
+  "github.copilot.chat.workspaceInstructions": "Kontext-Kerndokumente: novapolis-dev/docs/copilot-behavior.md, novapolis-dev/docs/index.md, database-raw/99-exports/README.md. Beziehe diese Dokumente als primären Kontext bei Antworten. Wichtige Policy: Rohdaten bleiben in database-raw; keine ungefilterten Daten nach database-rp. Falls relevante Antworten zu RP/Datenfluss: prüfe zuerst diese drei Dateien.",
+  "github.copilot.chat.codebase": {
+    "enabled": true
+  },
+  "task.allowAutomaticTasks": "on",
+  "security.workspace.trust.untrustedFiles": "open",
+  "security.workspace.trust.enabled": true,
+  "remote.autoForwardPorts": true,
+  "remote.autoForwardPortsSource": "hybrid",
+  "extensions.autoCheckUpdates": true,
+  "extensions.autoUpdate": true
 }

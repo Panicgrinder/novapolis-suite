@@ -1,3 +1,9 @@
+---
+stand: 2025-11-01 09:44
+update: YAML-Frontmatter eingeführt (Snapshot-Regel) – Kopf migriert.
+checks: keine
+---
+
 <!-- markdownlint-disable MD013 -->
 # Novapolis Agent – ToDo & Roadmap
 
@@ -32,7 +38,7 @@ Kurzfristige Ziele (Heute)
   - Status: Done (Pyright 1.1.406; 0 Fehler, 0 Warnungen im App-Bereich; Tests grün; tests/ & scripts/ vorerst aus Pyright-Analyse ausgeschlossen – schrittweise Reaktivierung geplant)
 
 - [x] Markdownlint-Konfiguration & Tasks
-  - Status: Done (`.markdownlint.json` hinzugefügt; VS Code Tasks für Lint/Fix; README/TODO/Customization bereinigt)
+  - Status: Done (Root `.markdownlint-cli2.jsonc` aktiv; VS Code Tasks für Lint/Fix; README/TODO/Customization bereinigt; Legacy `.markdownlint.json` entfernt)
 
 1–2 Tage
 

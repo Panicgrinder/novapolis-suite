@@ -1,11 +1,14 @@
 ---
 canvas: Karawanenbewegungen
 last-updated: 2025-10-27T16:48:28+01:00
-category: A
-version: 0.1
+category: project
+slug: caravan-moves
+status: planned
+version: "0.1"
+tags: []
 ---
 
-# Karawanenbewegungen (Übersicht)
+## Karawanenbewegungen (Übersicht)
 
 Ziel: Bewegungen/Pläne der Händlerkarawanen erfassen (Zeitleiste, Routen, Risiken, Abhängigkeiten). Dient Logistik und Missionsplanung.
 

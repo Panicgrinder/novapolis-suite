@@ -79,7 +79,7 @@ Unterstützte Optionen (Auszug):
 
 Diese Werte setzen sinnvolle Standard‑Parameter, die bei fehlenden Request‑Overrides greifen.
 
-```
+```ini
 # Sampling
 TEMPERATURE=0.7
 TOP_P=0.9

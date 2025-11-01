@@ -21,16 +21,22 @@ from typing import Dict, Any, Iterable, List
 CTRL_RE = re.compile(r"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]")
 ZW_RE = re.compile(r"[\u200B\u200C\u200D\u2060\uFEFF]")
 MULTI_NL_RE = re.compile(r"\n{3,}")
-MULTI_SPACE_RE = re.compile(r"[ \t]{3,}")
+# Kompakt: Tabs/Spaces zusammenfassen – Ziel ist 1 Space (Token-schonend)
+MULTI_SPACE_RE = re.compile(r"[ \t]{2,}")
 
 
 def clean_text(s: str) -> str:
     s = s.replace("\r\n", "\n").replace("\r", "\n")
     s = CTRL_RE.sub("", s)
     s = ZW_RE.sub("", s)
-    # Whitespace moderat normalisieren
+    # Zeilenweise Whitespace-Kompaktion: Tabs→Space, mehrfach Spaces/Tabs→1 Space, trailing Spaces entfernen
     s = MULTI_NL_RE.sub("\n\n", s)
-    s = MULTI_SPACE_RE.sub("  ", s)
+    # Erst grob: Tabs als Space
+    s = s.replace("\t", " ")
+    # Dann: Runs von 2+ Spaces/Tabs zu einem Space reduzieren
+    s = MULTI_SPACE_RE.sub(" ", s)
+    # Trailing Spaces pro Zeile entfernen (aber Newlines erhalten)
+    s = "\n".join(line.rstrip(" \t") for line in s.split("\n"))
     return s.strip()
 
 

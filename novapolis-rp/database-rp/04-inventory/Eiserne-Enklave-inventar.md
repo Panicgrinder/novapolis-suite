@@ -1,11 +1,14 @@
 ---
 canvas: Inventar Eiserne Enklave
 last-updated: 2025-10-27T16:48:28+01:00
-category: A
-version: 0.1
+category: inventory
+slug: eiserne-enklave-inventar
+owner: eiserne-enklave
+scope: faction
+version: "0.1"
 ---
 
-# Inventar – Eiserne Enklave (Fraktion)
+## Inventar – Eiserne Enklave (Fraktion)
 
 ## Bestände (Auszug)
 - Kugeln (neu/alt): tbd

@@ -1,6 +1,13 @@
+---
+stand: 2025-11-01 09:51
+update: Frontmatter ergänzt (YAML); Fließtext unverändert.
+checks: keine
+status: v0.1 (Entwurf, aktiv)
+category: Admin
+---
+
 # C6 – Logistik-Policy (Novapolis)
 
-Status: v0.1 (Entwurf, aktiv)
 Bezug: [MERCHANT-HQ] S.3 in `database-curated/staging/reports/uncertainties.md`
 
 ## Zweck

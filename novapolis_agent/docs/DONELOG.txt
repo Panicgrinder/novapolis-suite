@@ -118,3 +118,5 @@ Beispiel:
 2025-10-31 15:10 | Copilot | Root-Dokumente (Copilot-Anleitung, README, TODO, DONELOG) an Novapolis Agent Branding angepasst.
 2025-10-31 23:12 | Copilot | Synonyme für "freundlich" ergänzt, pytest grün, Eval-Lauf (ASGI, Limit 50, Hint+Retry) protokolliert.
 2025-10-31 23:40 | Copilot | Projektordner in `novapolis_agent` umbenannt, Mypy-Lauf via `python -m mypy --config-file mypy.ini app scripts` etabliert, Tree-/Ignore-Dateien und Behaviour-Doku angepasst.
+2025-11-01 10:07 | Copilot | Markdownlint (Docs-only): Tabs→Spaces in `.github/copilot-instructions.md` und overnight-Report; fehlende Fenced-Language (`ini`) in `docs/customization.md` ergänzt. Keine Codeänderungen.
+2025-11-01 10:15 | Copilot | Markdownlint: `scripts/README.md` manuell bereinigt (Fenced-Language/Blank-Lines/Tabs/Newline); RP-Dokus (`novapolis-rp/NEW_REPO.md`, `database-rp/06-scenes/README.md`) korrigiert (Codefences/Final-Newline).

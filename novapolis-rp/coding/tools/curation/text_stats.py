@@ -1,7 +1,8 @@
 import sys
 import os
 import math
-from typing import List, Tuple
+import argparse
+from typing import List, Tuple, Optional
 
 def rough_token_estimate(text: str) -> int:
     # Very rough heuristic: ~1 token per 4 chars; safer upper bound for mixed langs
@@ -21,26 +22,41 @@ def file_stats(path: str) -> Tuple[int, int, int, int, int]:
     tokens = rough_token_estimate(data)
     return lines, words, chars, size, tokens
 
-def main(args: List[str]):
-    if not args:
-        print("Usage: python text_stats.py <file1> [file2 ...]", file=sys.stderr)
-        sys.exit(2)
+def render_stats(paths: List[str]) -> str:
+    parts: List[str] = ["# Text Stats\n"]
+    for p in paths:
+        if not os.path.isfile(p):
+            parts.append(f"- {p}: NOT FOUND")
+            continue
+        lines, words, chars, size, tokens = file_stats(p)
+        parts.append(f"## {p}")
+        parts.append(f"- Zeilen: {lines}")
+        parts.append(f"- Wörter: {words}")
+        parts.append(f"- Zeichen: {chars}")
+        parts.append(f"- Bytes: {size}")
+        parts.append(f"- Rough Tokens (~chars/4): {tokens}\n")
+    # Ensure single trailing newline at EOF
+    return "\n".join(parts).rstrip("\n") + "\n"
+
+
+def main(argv: Optional[List[str]] = None):
+    ap = argparse.ArgumentParser()
+    ap.add_argument("files", nargs='+', help="Input files to summarize")
+    ap.add_argument("--out", dest="out", help="Optional output .md path; if omitted, prints to stdout")
+    args = ap.parse_args(argv)
+
     try:
         sys.stdout.reconfigure(encoding='utf-8', errors='replace')  # type: ignore[attr-defined]
     except Exception:
         pass
-    print("# Text Stats\n")
-    for p in args:
-        if not os.path.isfile(p):
-            print(f"- {p}: NOT FOUND")
-            continue
-        lines, words, chars, size, tokens = file_stats(p)
-        print(f"## {p}")
-        print(f"- Zeilen: {lines}")
-        print(f"- Wörter: {words}")
-        print(f"- Zeichen: {chars}")
-        print(f"- Bytes: {size}")
-        print(f"- Rough Tokens (~chars/4): {tokens}\n")
+
+    content = render_stats(args.files)
+    if args.out:
+        os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
+        with open(args.out, 'w', encoding='utf-8', newline='\n') as f:
+            f.write(content)
+    else:
+        print(content, end="")
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()

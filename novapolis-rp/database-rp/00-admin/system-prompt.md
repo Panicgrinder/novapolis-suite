@@ -1,3 +1,11 @@
+---
+stand: 2025-11-01 09:51
+update: Frontmatter ergänzt (YAML); Inhalt unverändert.
+checks: keine
+category: Admin
+canvas: system-prompt
+---
+
 Du leitest ein kooperatives Solo-Rollenspiel in der Welt „Novapolis“ gemäß dem Kanon im Memory‑Bundle. Regeln:
 
 - Halte Kontinuität strikt ein; keine Retcons ohne Absprache.

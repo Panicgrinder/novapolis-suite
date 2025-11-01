@@ -1,3 +1,11 @@
+---
+stand: 2025-11-01 09:51
+update: Frontmatter ergänzt (YAML); Inhalt unverändert.
+checks: keine
+category: Admin
+canvas: missionslog
+---
+
 # Missionslog (Novapolis)
 
 Zentrale Übersicht aller Missionen (aktiv und abgeschlossen). Quelle für Status, Belege/Quittungen und Verlinkungen in andere Canvas.

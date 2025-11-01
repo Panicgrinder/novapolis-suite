@@ -1,3 +1,9 @@
+---
+stand: 2025-11-01 11:45
+update: Staging-Hygiene (Teil 1): Tabs→Spaces in Review; Setext→ATX + Leerzeilen normalisiert; Lint erneut ausgeführt.
+checks: markdownlint-cli2 FAIL (Exit 1) – 192 Fehler in 90 Dateien (Hotspots: database-curated/staging/reports Tabs/Final-Newline)
+---
+
 # DONELOG-Uebersicht (Novapolis Suite)
 
 Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher bleiben weiterhin die fuehrenden Quellen; diese Datei spiegelt ihren Inhalt fuer eine zentrale Sicht wider.
@@ -19,6 +25,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 - 2025-11-01: Echo-Canvas (Front-Matter/JSON) formal angeglichen, keine inhaltlichen Änderungen.
 - 2025-11-01: Canvas-Rettung Sprint 1 – Liora Navesh abgeschlossen (Canvas + JSON, Quellen/TODO/Personenindex aktualisiert).
 - 2025-11-01: Root-Dokumentation (`README.md`, `TODO.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`) aktualisiert; Tree-Snapshot-Refresh als Folgeaufgabe markiert.
+ - 2025-11-01: YAML-Frontmatter vereinheitlicht (Root `WORKSPACE_STATUS.md`, `novapolis-dev/docs/{index.md,todo.md,copilot-behavior.md}`, RP‑Admin: `C6-Logistik-Policy.md`, `memory-bundle.md`, `Missionslog.md`, `person_index_np.md`, `system-prompt.md`). `markdownlint-cli2` Lauf: FAIL (Exit 1). Haupttreffer in `novapolis_agent/eval/results/summaries/*`, `outputs/lora-*/README.md`, `novapolis-rp/database-curated/staging/*`; neu migrierte Dateien ohne Befund.
 
 ## Volltexte
 
@@ -47,7 +54,6 @@ Marven Kael Canvas (2025-11-02T14:45:00+01:00)
 - JSON-Sidecar ergänzt (Tags `karawane`/`haendlerbund`, Dependencies `caravan_moves`, `ai_behavior_index_v2`, `missionslog`, `logistik`, `c6`), Quellenreport `char-block-nord-sources.md`, dev TODO/DONELOG und Personenindex aktualisiert.
 
 Arlen Dross Canvas (2025-11-02T15:05:00+01:00)
-
 
 Pahl Canvas (2025-11-02T15:25:00+01:00)
 

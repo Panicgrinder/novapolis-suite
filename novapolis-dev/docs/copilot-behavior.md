@@ -1,3 +1,9 @@
+---
+stand: 2025-11-01 09:47
+update: YAML-Frontmatter ergänzt.
+checks: keine
+---
+
 <!-- markdownlint-disable MD041 -->
 <!-- context-core: true; context-id: novapolis-rp; priority: high -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->

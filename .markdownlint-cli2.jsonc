@@ -21,6 +21,9 @@
     ".github/**/*.md",
     "novapolis-dev/docs/**/*.md",
     "novapolis-rp/README.md",
-    "novapolis-rp/coding/**/*.md"
+    "novapolis-rp/coding/**/*.md",
+    "novapolis-rp/database-rp/**/*.md",
+    "novapolis-rp/database-curated/**/*.md",
+    "novapolis-rp/development/**/*.md"
   ]
 }

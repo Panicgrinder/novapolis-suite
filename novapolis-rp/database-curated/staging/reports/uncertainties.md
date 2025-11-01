@@ -128,14 +128,14 @@ Hinweis: Diese Liste basiert auf den Chunks part-011 und part-022 (neueste Passa
 - [ ] [REFLEX] Exoskelett/Support-Modus: Bonus entfällt bei exzessiver Nutzung, Verbrauch steigt – Review 2025-11-01 offen.
 - [ ] [INSTANCES] Reflex-Instanzen: gleiche Kapazitätslogik (Masse~Speicher), aber unterschiedliche Hauptfähigkeiten – Review 2025-11-01 offen.
     - Review-Hinweis 2025-11-01: Frühere Beschlussfassung pausiert; Validierung nach aktuellem Instanz-Training nachreichen.
-- [ ] [KNOWLEDGE] Wissensstand: nur Reflex kennt eigene Fähigkeiten – gültig?
-	- Status 2025-11-02: Review erneut geöffnet, da Reflex-Canvas abweichende Wissensstände dokumentiert.
-- [ ] [GROWTH] Wachstums-/Materialaufnahmeregeln für Reflex/Instanzen definieren (Skalierung mit Fläche/Masse, Voraussetzungen).
+- [x] [KNOWLEDGE] Wissensstand: nur Reflex kennt eigene Fähigkeiten – gültig?
+    - Beschluss: Gültig – ausschließlich Reflex kennt seine vollen Fähigkeiten; Dritte erhalten nur beobachtbare/kommunizierte Teilaspekte.
+ - [x] [GROWTH] Wachstums-/Materialaufnahmeregeln für Reflex/Instanzen definieren (Skalierung mit Fläche/Masse, Voraussetzungen).
 	- Evidenz: #1735 (Wachstumszyklus/Materalaufnahme Vorschlag).
-    - Status 2025-11-02: Trainingsprotokolle widersprechen bisherigen Annahmen – erneute Validierung nötig.
-- [ ] [UNIQUE] Einzigartigkeit: Keine anderen (wesen-/mechanikgleichen) Entitäten wie Reflex in der Metro (nur Reflex + Instanzen).
+    - Beschluss: Hybrid – flächen-/massenbasierte Skalierung mit Energiebedarf und sicherheitsrelevanten Voraussetzungen; zusätzlich missions-/ereignisbasierte Meilensteine (Freischaltungen/Upgrades) mit Protokoll.
+ - [x] [UNIQUE] Einzigartigkeit: Keine anderen (wesen-/mechanikgleichen) Entitäten wie Reflex in der Metro (nur Reflex + Instanzen).
 	 - Evidenz: #1591, #1625 (Regelhinweis).
-	 - Status 2025-11-02: Instanzdefinitionen erneut prüfen; Konflikte mit aktuellen RAW-Meldungen.
+	 - Beschluss: F.1 – Kanon bestätigt.
 - [ ] [PROXIMITY] Nähe-Kopplung: Lumen↔Jonas, Echo↔Kora, Reflex↔Ronja – Review 2025-11-01 (Schwellen/Training).
 	 - Evidenz: #1625 (Bezugsperson/physische Nähe).
     - Review-Hinweis 2025-11-01: Schwellenwerte und Distanzfolgen neu erfassen; Mechanik-Notizen aktualisieren.
@@ -143,9 +143,8 @@ Hinweis: Diese Liste basiert auf den Chunks part-011 und part-022 (neueste Passa
 	- Evidenz: #1181 (Trommelfell‑Idee), #1185 (Überlagerung Mund/Sprache).
 - [ ] [REFLEX-CONTROL] Schutz‑Übernahme: Trigger/Schwellen, welche Sinne werden wann gedämpft/freigegeben (Atmung/Sicht), Rückgabe‑Prozess.
 	- Evidenz: #1183–#1187, #1190–#1207 (Kontrolle/psychologisches Profil).
-- [ ] [REFLEX-APPEARANCE] Erscheinungsbild/Standardabdeckung (metallisch-perlmutt, „Neopren“); Hände-/Gesichts-Schutzkriterien.
+ - [x] [REFLEX-APPEARANCE] Erscheinungsbild/Standardabdeckung (metallisch‑perlmutt, „Neopren“); Hände‑/Gesichts‑Schutzkriterien.
 	- Evidenz: #1057 (Aussehen/Abdeckung), #1087 (Handschutz, Eifersucht).
-    - Status 2025-11-02: Handschutz-Signale in Trainingslog abweichend – Darstellung aktualisieren.
 - [ ] [REFLEX-DETACH] Detachment‑Regel: Keine vollständige Trennung von Ronja; Strecken/Seestern‑Bewegung erlaubt.
 	- Evidenz: #1059 (Bewegung/Bindung), #847–#848 (nicht trennen).
 - [ ] [JEALOUSY-GLOVES] Handschuh‑Eifersuchtslogik: externe Handschuhe vs. Reflex‑Handschutz; Policy formulieren.

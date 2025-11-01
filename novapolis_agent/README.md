@@ -41,7 +41,7 @@ Dieses Projekt steht unter der MIT-Lizenz. Siehe die Datei `LICENSE` im Reposito
    ```powershell
    pip install -r requirements.txt
    ```
-   
+
    Oder manuell:
 
    ```bash
@@ -135,7 +135,6 @@ Der Server liest `AGENT_PORT` (Standard `8765`) aus der Umgebung.
 
 Konfiguration per `.env` (siehe Beispiele in `app/core/settings.py`). Wichtige Felder:
 
-
 Hinweis: Bei aktiviertem Rate Limiting wird pro IP innerhalb eines 60s-Fensters begrenzt (in-memory, best-effort).
 
 ### LLM-Optionen (Ollama) – Defaults & Overrides
@@ -152,7 +151,7 @@ Unterstützte Optionen (Auswahl):
 
 Zentrale Defaults (aus Settings; Beispielwerte):
 
-```
+```ini
 TEMPERATURE=0.7
 TOP_P=0.9
 TOP_K=40
@@ -180,7 +179,7 @@ Hinweise:
 
 Die Inhalts‑Policies sind standardmäßig aus. Zur Aktivierung in `.env` oder Umgebungsvariablen setzen:
 
-```
+```ini
 POLICIES_ENABLED=true
 POLICY_FILE="eval/config/policy.sample.json"
 # Im "unrestricted"‑Modus strikt alle Policies umgehen:
@@ -193,7 +192,7 @@ Hinweise:
    `forbidden_terms` werden vereinigt, `rewrite_map` überlagert die Schlüssel.
 - `mode=eval` mappt implizit auf `profile_id="eval"`.
 - Details und Tests siehe `docs/AGENT_BEHAVIOR.md` und `tests/test_content_policy_profiles.py`.
- 
+
 ## Optionale CLI-Tools
 
 Für erweiterte Workflows stehen optionale Skripte zur Verfügung (nicht Teil des API-Pflichtpfads):

@@ -1,11 +1,14 @@
 ---
 canvas: Inventar Novapolis
 last-updated: 2025-10-27T16:48:28+01:00
-category: A
-version: 0.1
+category: inventory
+slug: novapolis-inventar
+owner: novapolis
+scope: faction
+version: "0.1"
 ---
 
-# Inventar – Novapolis (Fraktion)
+## Inventar – Novapolis (Fraktion)
 
 Hinweis: Fraktionsinventare strikt getrennt (Policy Y.1). Abrechnung im Wochenzyklus.
 

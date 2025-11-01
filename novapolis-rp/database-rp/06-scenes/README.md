@@ -13,12 +13,14 @@ Empfohlene Front-Matter zur Validierung und Cross-Refs:
 
 Beispiel:
 
+```yaml
 ---
 id: scene-2025-10-27-a
 characters: ["Jonas-Merek", "Ronja-Kerschner"]
 locations: ["Verbindungstunnel-D5-C6"]
 inventoryRefs: ["Novapolis-inventar"]
 ---
+```
 
 H1-Überschrift ist Pflicht (wird geprüft). Inhalt frei.
 
