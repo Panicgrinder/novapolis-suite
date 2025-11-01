@@ -20,6 +20,7 @@ Der Dev Hub verknüpft die Arbeitsstände aus `novapolis_agent/`, `novapolis-sim
 
 - `docs/donelog.md` – tägliche Fortschritte und Beschlüsse
 - `docs/todo.index.md` – TODO-Index (Navigation zu Modul-Boards)
+  - Module: Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent.md`, Sim `docs/todo.sim.md`
 - `docs/copilot-behavior.md` – Arbeitsweise, Stil, Sicherheitsleitplanken
 - `docs/naming-policy.md` – verbindliche Dateibenennung im Verbund
 - `docs/tests.md` – Testabdeckung und Sim-/Client-Checkliste
@@ -27,7 +28,7 @@ Der Dev Hub verknüpft die Arbeitsstände aus `novapolis_agent/`, `novapolis-sim
 ## Contributor Workflow
 
 - Änderungen zuerst hier dokumentieren, anschließend in den Ziel-Repos umsetzen.
-- Fortschritt stets in `docs/donelog.md` loggen, Aufgaben im Dev-Board `docs/todo.dev.md` pflegen.
+- Fortschritt stets in `docs/donelog.md` loggen; Aufgaben in den jeweiligen Modul-Boards pflegen (Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent.md`, Sim `docs/todo.sim.md`).
 - Vor Commits die Leitlinien aus `docs/copilot-behavior.md` gegenprüfen.
 
 ## Struktur
