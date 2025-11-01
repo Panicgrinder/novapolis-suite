@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-01 09:23
-update: YAML-Frontmatter eingeführt (Snapshot-Regel) und Root-Task „DONELOG: append entry (root alias)“ vermerkt.
-checks: keine
+stand: 2025-11-01 16:32
+update: DONELOG-Heading-Stil (MD003) + TODO-Kurzueberblick synchronisiert.
+checks: markdownlint-cli2 (PRESENTATION=SHARED) FAIL – Drittanbieter in .venv
 ---
 
 # TODO-Uebersicht (Novapolis Suite)
@@ -14,6 +14,7 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 - **novapolis-dev / novapolis-rp**: Fokus auf Canvas-Rettung Sprint 1 (Charaktere/Logistik/Systeme) sowie bestehende Datenkurierungs- und Sim-Aufgaben.
 - **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-02) + `workspace_tree*.txt` (Stand 2025-10-31) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
   - [ ] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) neu erzeugen und ablegen (letzter Lauf 2025-10-31).
+- 2025-11-01: DONELOG-Heading-Stil auf Setext gemäß MD003 korrigiert; Markdownlint bleibt zentral via npx.
 - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren.
   - [ ] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`).
   - [ ] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`).

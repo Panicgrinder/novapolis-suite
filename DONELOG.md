@@ -1,13 +1,16 @@
-stand: 2025-11-01 14:37
-update: Markdownlint zentral finalisiert (MD003=consistent, ignores in CLI2 fix) – Lauf grün.
-checks: markdownlint-cli2 PASS
+---
+stand: 2025-11-01 16:28
+update: Heading-Format in DONELOG auf Setext-Style gebracht.
+checks: markdownlint-cli2 (PRESENTATION=SHARED) FAIL – Drittanbieter in .venv
 ---
 
-# DONELOG-Uebersicht (Novapolis Suite)
+DONELOG-Uebersicht (Novapolis Suite)
+====================================
 
 Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher bleiben weiterhin die fuehrenden Quellen; diese Datei spiegelt ihren Inhalt fuer eine zentrale Sicht wider.
 
-## Kurzueberblick
+Kurzueberblick
+--------------
 
 - **novapolis_agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
 - **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
@@ -27,7 +30,8 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 - 2025-11-01: Root-Dokumentation (`README.md`, `TODO.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`) aktualisiert; Tree-Snapshot-Refresh als Folgeaufgabe markiert.
  - 2025-11-01: YAML-Frontmatter vereinheitlicht (Root `WORKSPACE_STATUS.md`, `novapolis-dev/docs/{index.md,todo.md,copilot-behavior.md}`, RP‑Admin: `C6-Logistik-Policy.md`, `memory-bundle.md`, `Missionslog.md`, `person_index_np.md`, `system-prompt.md`). `markdownlint-cli2` Lauf: FAIL (Exit 1). Haupttreffer in `novapolis_agent/eval/results/summaries/*`, `outputs/lora-*/README.md`, `novapolis-rp/database-curated/staging/*`; neu migrierte Dateien ohne Befund.
 
-## Volltexte
+Volltexte
+---------
 
 Memory-Bundle Refresh (2025-11-02T10:15:00+01:00)
 
