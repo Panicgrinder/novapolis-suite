@@ -96,8 +96,8 @@
 - **Flag** `RAW-canvas-2025-10-16T03-25-20-000Z.flags.txt`
   - Abgleich mit bestehenden Reflex-Regeln (Detachment, Speech, Proximity etc.) erforderlich; Terminologie harmonisieren.
 - **Curated**
-  - `database-rp/02-characters/Reflex.md` – enthält Leitplanken Stufe I, Emotionale Dynamik, Pending Fragen.
-  - `database-rp/02-characters/Reflex-Wissensstand-Trainingsstand.md` (hier noch nicht ausgewertet).
+  - `database-rp/02-characters/Reflex.{md,json}` (Version 1.0 – 2025-11-02T16:05+01:00) – Symbiose-Stufe I vollständig dokumentiert (Frequenzband, Detachment-Regeln, Instanzleitung, Sicherheitsprotokolle, Signalsätze).
+  - `database-rp/02-characters/Reflex-Wissensstand-Trainingsstand.md` – Detailmatrix für Wissen/Training, Stop- und Dämpfungsziele.
 - **resolved.md Bezug**
   - Mehrere `[FACT]`-Einträge: `[REFLEX]`, `[INSTANCES]`, `[PROXIMITY]`, `[REFLEX-SPEECH]`, `[REFLEX-CONTROL]`, `[REFLEX-DETACH]`, `[JEALOUSY-GLOVES]`, `[UNIQUE]`, `[GROWTH]`.
 

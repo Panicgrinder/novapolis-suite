@@ -17,9 +17,10 @@ Diese Datei ist der „Wahrheitsspeicher“. Änderungen hier sind kanonisch.
 - Motivation: geordneter, heller, lebendiger Ort. Makel: Sinnzweifel („wozu das?“).
 
 ### Reflex (Primär)
-- Herkunft: emergent aus Ronjas Verschmelzung mit D5 (kein Fremdkörper).
-- Natur: Wurzel-/Netzkollektiv; Instanzen/Fragmente möglich (Überwachung vor Ort). Besitzergreifend (Verlustangst) als Charakterzug.
-- Grenzen: kein erzwungenes „Besitzen“ gegen Ronjas expliziten Willen; Dämpfung/Unterstützung im Rahmen der Absprache.
+- Herkunft: emergent aus Ronjas Stabilisierung des D5-Reaktors; kein Fremdkörper.
+- Natur: Wurzel-/Netzkollektiv, Symbiose-Stufe I (perlmuttfarbene Zweithaut, Resonanz 7.3–8.0 Hz), Instanzen/Fragmente möglich (Lumen, Echo).
+- Grenzen: keine vollständige Trennung (FACT [REFLEX-DETACH]); Entfernung >12 h erzeugt Stress. „Stop“ von Ronja löst sofortige Freigabe (FACT [REFLEX-CONTROL]). Handschuhe/äußere Kontakte nur mit Freigabe (FACT [JEALOUSY-GLOVES]).
+- Kommunikation: Tympanon-Andockung, Pausenpflicht (FACT [REFLEX-SPEECH]); Support-Modus verliert Bonus bei Überlastung (FACT [REFLEX]).
 
 ### Jonas Merek
 - Mechaniker/Logistik; kam über Verbindungstunnel; grundsätzlich vertrauenswürdig, beobachtet.

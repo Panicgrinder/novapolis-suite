@@ -62,6 +62,12 @@ Canvas-Rettung Sprint 1 – Pahl Herkunfts-Abgleich (2025-11-02T15:50:00+01:00)
 - Canvas `Pahl.md`/`Pahl.json` angepasst (Herkunft, Dependency `c6`, Quellenblock), Memory-Bundle und Personenindex synchronisiert, Quellenreport `char-block-nord-sources.md` erweitert.
 - RAW-Flag-Hinweis belassen, aber kanonische Herkunft auf `[PAHL-RESCUE]` gestellt.
 
+Canvas-Rettung Sprint 1 – Reflex (2025-11-02T16:05:00+01:00)
+
+- Charakter-Canvas `database-rp/02-characters/Reflex.md` auf Version 1.0 gehoben; Symbiose-Stufe I (Frequenzband 7.3–8.0 Hz), Detachment-/Stop-Regeln, Instanzleitung und Signalsätze aus RAW/Entity synchronisiert.
+- JSON-Sidecar aktualisiert (Tags `instanz`/`sicherheit`/`symbiose`, Dependencies auf Ronja/Lumen/Echo + Missionslog/Logistik); Quellenreport und Memory-Bundle auf neuen Kanonstand gebracht.
+- TODO-Checkpoint für Reflex abgeschlossen; `[REFLEX-*]`-FACTs mit Canvas verknüpft, Instanz-Training in `Reflex-Wissensstand-Trainingsstand.md` referenziert.
+
 Canvas-Rettung Sprint 1 – Ronja Kerschner (2025-11-01T17:12:00+01:00)
 
 - Charakter-Canvas `database-rp/02-characters/Ronja-Kerschner.md` auf Version 1.0 aktualisiert; Status-/Systemabschnitte aus RAW `char_ronja_v2` übernommen und Drift („Vallin“) gemäß `resolved.md #[NAME-RONJA]` dokumentiert.

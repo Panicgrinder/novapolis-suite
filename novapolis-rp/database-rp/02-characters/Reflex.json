@@ -1,28 +1,33 @@
 {
-  "title": "Reflex (Primärinstanz)",
+  "title": "Reflex",
   "category": "character",
   "slug": "reflex",
-  "version": "0.9",
-  "last_updated": "2025-10-28T07:06:11+01:00",
-  "last_change": "Risiken/Leitplanken Stufe I ergänzt",
+  "version": "1.0",
+  "last_updated": "2025-11-02T16:05:00+01:00",
+  "last_change": "Promotion aus RAW char_reflex_v2 + ent_d5_reflex_v1; FACT [REFLEX-*] harmonisiert",
   "tags": [
     "instanz",
-    "sicherheit"
+    "sicherheit",
+    "symbiose"
   ],
   "affiliations": [
     "novapolis"
   ],
   "primary_location": "d5",
-  "last_seen": "c6",
+  "last_seen": "d5",
   "dependencies": [
-    "reflex-wissensstand-trainingsstand",
+    "ronja-kerschner",
     "lumen",
     "echo",
-    "ronja-kerschner",
     "jonas-merek",
     "kora-malenkov",
+    "ronja-kerschner",
     "d5",
-    "c6"
+    "c6",
+    "ai_behavior_index_v2",
+    "reflex-wissensstand-trainingsstand",
+    "missionslog",
+    "logistik"
   ],
   "source": "database-rp/02-characters/Reflex.md"
 }

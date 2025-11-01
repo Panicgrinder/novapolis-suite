@@ -55,6 +55,12 @@ Pahl Herkunfts-Abgleich (2025-11-02T15:50:00+01:00)
 - Canvas/JSON (`Pahl.{md,json}`) aktualisiert (Herkunft, Dependency `c6`, Quellenblock) sowie Memory-Bundle, Personenindex und `char-block-nord-sources.md` synchronisiert.
 - RAW-Flag bleibt als Vorsichtshinweis bestehen, Kanon orientiert sich jetzt an `[PAHL-RESCUE]`.
 
+Reflex Canvas (2025-11-02T16:05:00+01:00)
+
+- Charakter-Canvas `novapolis-rp/database-rp/02-characters/Reflex.{md,json}` auf Version 1.0 aktualisiert: Symbiose-Stufe I (Frequenzband 7.3–8.0 Hz), Detachment-/Stop-Regeln, Instanzleitung und Signalsätze dokumentiert.
+- Quellenreport `char-block-nord-sources.md`, Memory-Bundle und TODO/DONELOG-Einträge synchronisiert; `[REFLEX-*]`-FACTs als Referenz verankert.
+- JSON-Sidecar um neue Tags/Dependencies (Ronja, Lumen, Echo, Missionslog, Logistik) erweitert; RAW-Entity `ent_d5_reflex_v1` als technische Quelle hinterlegt.
+
 <summary>novapolis_agent/docs/DONELOG.txt</summary>
 
 ```text

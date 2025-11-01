@@ -22,7 +22,7 @@ Priorität A – Charaktere & Führung
 - [x] Arlen Dross → neues Canvas; Rolle als Händler/Vermittler präzisieren; Reflex-Einschätzung aufnehmen. *(2025-11-02T15:05+01:00 erledigt)*
 - [x] Pahl → neues Canvas; Gesundheitsstatus (Atembeschwerden) verifizieren; Beziehungen/Risiken dokumentieren. *(2025-11-02T15:25+01:00 erledigt)*
 - [x] Ronja Kerschner → Canvas `database-rp/02-characters/Ronja-Kerschner.{md,json}` auf Version 1.0 gehoben (2025-11-01T17:10+01:00); RAW-Signatur/Status übernommen, Drift "Vallin" dokumentiert.
-- [ ] Reflex (Primärinstanz) → Canvas + Wissensstand erweitern; Frequenzband 7.3–8.0 Hz und Detachment-Regeln aus RAW übernehmen; `[REFLEX-*]` prüfen.
+- [x] Reflex (Primärinstanz) → Canvas + Wissensstand erweitern; Frequenzband 7.3–8.0 Hz und Detachment-Regeln aus RAW übernehmen; `[REFLEX-*]` prüfen. *(2025-11-02T16:05+01:00 erledigt)*
 - [x] Jonas Merek → Canvas anreichern; Schwester-Status auf "vermisst/unklar" normalisieren; Schuldflag als Kommentar kennzeichnen. *(2025-11-02T13:55+01:00 erledigt)*
 
 Plan Charakter-Review (laufend)
@@ -39,7 +39,7 @@ Reihenfolge
 - Marven Kael → RAW `RAW-canvas-2025-10-16T14-56-10-000Z.*`, Konvoi-/Handelsleitung (`[FACT][CARAVAN-LEADERSHIP]`), Beziehungen Händlergilde/Novapolis.
 - Arlen Dross → RAW `RAW-canvas-2025-10-16T14-56-20-000Z.*`, Vermittlerrolle, Reflex-Einschätzung. *(erledigt 2025-11-02T15:05+01:00)*
 - Pahl → RAW `RAW-canvas-2025-10-16T14-41-00-000Z.*`, Gesundheitsstatus, Risiken, Energie-/Generatorwissen. *(erledigt 2025-11-02T15:25+01:00)*
-- Reflex (Primärinstanz) → RAW `char_reflex_v2`, FACTs `[REFLEX-*]` (Frequenzband, Detach, Speech), Wissens-/Trainings-Canvas synchronisieren.
+- Reflex (Primärinstanz) → RAW `char_reflex_v2`, FACTs `[REFLEX-*]` (Frequenzband, Detach, Speech), Wissens-/Trainings-Canvas synchronisieren. *(erledigt 2025-11-02T16:05+01:00)*
 
 Arbeitsschritte pro Charakter
 -----------------------------
