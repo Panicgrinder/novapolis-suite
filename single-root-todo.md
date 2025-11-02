@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-03 00:22
-update: Frontmatter-Migration & Tree-Snapshots als erledigt markiert
+stand: 2025-11-03 00:29
+update: Bundle-Umbenennung nach Schema abgeschlossen; Rotation-Log ergänzt
 checks: markdownlint-cli2 (all md) PASS
 ---
 
@@ -62,8 +62,9 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
   - [x] Audit dokumentiert: `Backups/AUDIT.md`
   - [x] Skripte ergänzt: `scripts/update_backups_manifest.ps1`, `scripts/rotate_backups.ps1`
   - [x] README + initiales Manifest: `Backups/README.md`, `Backups/manifest.v1.json`
-  - [ ] Bundles umbenennen (Schema) & Rotation-Läufe dokumentieren (`rotation.log`)
-    - [x] `rotation.log` angelegt (2025-11-03 00:22) – Schema-Vorschlag und Umbenennung stehen unter STOP-Gate (Bestätigung erforderlich)
+  - [x] Bundles umbenennen (Schema) & Rotation-Läufe dokumentieren (`rotation.log`)
+    - 2025-11-03 00:28: `cvn-agent-main.bundle` → `cvn-agent-main-20251103-0028-rev1.bundle` (sha256 protokolliert)
+    - 2025-11-03 00:28: `novapolis_agent.bundle` → `novapolis-agent-backup-20251103-0028-rev1.bundle` (sha256 protokolliert)
 
 ## Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
 
