@@ -1,5 +1,5 @@
-stand: 2025-11-02 18:26
-update: README auf YAML-Frontmatter migriert
+stand: 2025-11-02 18:58
+update: WORKSPACE_STATUS PowerShell-Update vermerkt
 checks: markdownlint-cli2 PASS
 ---
 
@@ -157,6 +157,7 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
 - [ ] Etappe 2: Sweep — bestehende Kopfzeilen migrieren (TODO, README/Index, Policies). Diff klein halten; `checks` kurz.
 - [ ] Etappe 3: Legacy-Kopfzeilen auslaufen lassen; Instruktionen aktualisieren (nur YAML erlaubt).
 - Fortschritt 2025-11-02: README.md auf YAML-Frontmatter umgestellt (lint PASS).
+- Fortschritt 2025-11-02: WORKSPACE_STATUS.md aktualisiert (PowerShell 7.5.4 aktiv, Hinweis für Terminals).
 
 ### Risiken & Backout
 

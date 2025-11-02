@@ -1,5 +1,5 @@
-stand: 2025-11-02 18:26
-update: README auf YAML-Frontmatter umgestellt
+stand: 2025-11-02 18:46
+update: WORKSPACE_STATUS aktualisiert (PowerShell 7 Hinweis)
 checks: markdownlint-cli2 PASS
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -46,6 +46,7 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
     - Interne Anker/Links unverändert funktionsfähig.
     - Snapshot-Zeitstempel (`stand`) und Kurznotiz (`update`) pro Commit aktualisiert.
   - 2025-11-02: README.md auf YAML-Frontmatter migriert (lint PASS).
+  - 2025-11-02: WORKSPACE_STATUS.md aktualisiert (PowerShell 7.5.4 via VS Code Extension).
 - [ ] Tree-Snapshots aktualisieren bei Strukturänderungen
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [ ] Backups & Releases (Manifest/Checksums/Rotation) pflegen

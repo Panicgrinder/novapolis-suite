@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-02 17:28
-update: VS-Code-Settings zentralisiert; externe Profile entfernt
+stand: 2025-11-02 18:45
+update: PowerShell 7.5.4 über VS Code Extension aktiv; Status aktualisiert
 checks: markdownlint-cli2 PASS
 ---
 
@@ -15,6 +15,7 @@ checks: markdownlint-cli2 PASS
 - Root-Dokumente (`README.md`, `todo.root.md`, `WORKSPACE_STATUS.md`) wurden am 2025-11-02 synchronisiert und liefern Einstieg ohne Projektwechsel
 - Kopilot-Anweisungen konsolidiert unter `.github/copilot-instructions.md`
 - Struktur-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) am 2025-11-02 via Tasks `Workspace tree:*` regeneriert; nächste Prüfung Mitte November.
+- PowerShell-Erweiterung läuft auf `pwsh` 7.5.4; Standard-Terminals lassen sich bei Bedarf auf PowerShell 7 umstellen.
 
 ## Aktueller Arbeitsmodus
 
