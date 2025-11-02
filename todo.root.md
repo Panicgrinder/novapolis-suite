@@ -1,5 +1,5 @@
-stand: 2025-11-02 16:36
-update: Kurzvermerk zum Unklarheiten‑STOP ergänzt
+stand: 2025-11-02 17:28
+update: Workspace-Settings konsolidiert; User/Profil-Configs entfernt
 checks: markdownlint-cli2 PASS
 ---
 
@@ -124,7 +124,7 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
   - [ ] Mapping definieren: was zentralisiert wird, was projekt‑spezifisch bleibt
 - Etappe1 – Zentralisierung (additiv, ohne Löschen)
   - [ ] Root‑Tasks ergänzen: `pytest -q` (cwd Agent), `Tests: coverage (fail‑under)`, `markdownlint (cli2)`, `markdownlint fix (cli2)` (erledigt)
-  - [ ] Root‑Settings um Copilot‑Workspace‑Instructions aus RP ergänzen (keine Python‑Konflikte)
+  - [x] Root‑Settings um Copilot‑Workspace‑Instructions aus RP ergänzen (keine Python‑Konflikte) - 2025-11-02: User-/Profil-Configs zurückgesetzt, nur Root-Settings aktiv
   - [ ] Agent‑Tasks optional auf Root‑Tasks verweisen (mittels eindeutiger Labels)
 - Etappe2 – Bereinigung (nach 3–5Tagen stabiler Nutzung)
   - [ ] Dubletten entfernen oder Agent‑`tasks.json` auf Minimal‑Set reduzieren
@@ -145,7 +145,7 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
     - Prüfungen: keine (reine Task-Erweiterung).
 - Root‑Settings
   - [x] Copilot-Workspace-Instructions aus `novapolis-rp/.vscode/settings.json` in Root übernehmen/vereinheitlichen
-  - [ ] Interpreter/pytestArgs zentral lassen; RP‑Settings entschlacken (keine Python‑Dopplung)
+  - [x] Interpreter/pytestArgs zentral lassen; RP‑Settings entschlacken (keine Python‑Dopplung) - 2025-11-02: Profil-/User-Overrides entfernt, CWD/Interpreter nur noch im Root definiert
 - Agent/RP Cleanup (Etappe2)
   - [ ] Agent‑`tasks.json` Dubletten entfernen, falls Root‑Tasks etabliert
   - [ ] RP‑Settings auf Workspace‑Instructions beschränken (falls Root diese zentral führt)

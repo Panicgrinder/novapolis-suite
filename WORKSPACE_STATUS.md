@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-02 16:43
-update: Kurzvermerk zum Unklarheiten‑STOP ergänzt
-checks: Workspace tree: full PASS; Workspace tree: directories PASS; Workspace tree: summary (dirs) PASS; markdownlint PASS
+stand: 2025-11-02 17:28
+update: VS-Code-Settings zentralisiert; externe Profile entfernt
+checks: markdownlint-cli2 PASS
 ---
 
 # Workspace-Status
@@ -29,9 +29,9 @@ checks: Workspace tree: full PASS; Workspace tree: directories PASS; Workspace t
 - Policies & Behaviour: maßgeblich `novapolis_agent/docs/AGENT_BEHAVIOR.md`, `novapolis-dev/docs/copilot-behavior.md`
 - Risiken kurz:
   - Verzeichnis-Bulk unter `outputs/` (LoRA-Runs) wächst; mittelfristig archivieren oder auslagern
-  - VS-Code Settings liegen projektweise verteilt; Root-Scoping für gemeinsame Instruktionen bleibt geplant
   - RP-Datenpflege erfordert regelmäßigen Sync mit Memory-Bundle (seit 2025-11-02 aktualisiert, siehe `novapolis-rp/database-rp/00-admin/memory-bundle.md`)
   - Tree-Snapshots benötigen Refresh zur nächsten Inventur (letzter Stand 2025-10-31)
+  - VS-Code-Settings: Nutzer-/Profil-Overrides entfernt, nur Root-Workspace-Config aktiv
 
 ## Wichtige Artefakte & Logs
 
@@ -56,6 +56,6 @@ checks: Workspace tree: full PASS; Workspace tree: directories PASS; Workspace t
 
 ## Nächste Empfehlungen
 
-- Root-`.vscode` planen, um gemeinsame Copilot-/Interpreter-Defaults zu setzen (Projekt-spezifische Tasks bleiben lokal)
+- Root-`.vscode` ist maßgeblich; optionale Ergänzungen (z. B. PowerShell-7-Tasks) bei Bedarf ergänzen
 - Outputs/Checkpoints reviewen und aussortieren oder in Backups verschieben (LoRA-Zwischenstände)
 - Regelmäßige Aktualisierung: `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` gemeinsam mit `todo.root.md` pflegen (empfohlen bis Mitte November oder nach strukturellen Änderungen)

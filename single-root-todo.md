@@ -1,5 +1,5 @@
-stand: 2025-11-02 16:32
-update: Hinweis zum Unklarheiten‑STOP ergänzt (siehe copilot-instructions)
+stand: 2025-11-02 17:28
+update: User-/Profil-Settings entfernt; nur Root-Workspace-Settings aktiv
 checks: markdownlint-cli2 PASS
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -30,6 +30,7 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
 
 - [x] .vscode-Konsolidierung (Root-zentriert) weiterführen (Etappen 0–2)
   - Referenz: Abschnitt "Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)" in `todo.root.md`.
+  - 2025-11-02: User- und Profil-Settings bereinigt; nur `/.vscode/settings.json` bleibt maßgeblich.
 - [ ] Snapshot-Frontmatter-Migration vorantreiben (Etappen 1–3)
   - YAML-Frontmatter sukzessive ergänzen; bei Sweeps Diff klein halten.
   - Scope (Dateien/Pfade): Root-Dokumente (`README.md`, `todo.root.md`, `single-root-todo.md`, `WORKSPACE_STATUS.md`), `novapolis-dev/docs/**/*.md`, `novapolis_agent/docs/**/*.md`, ausgewählte `novapolis-rp/**/docs/**/*.md`. Ausnahmen beibehalten: `.github/copilot-instructions.md` ohne YAML-Frontmatter.
