@@ -1,5 +1,6 @@
-stand: 2025-11-01 23:45
-update: Workspaces bereinigt; markdownlint PASS notiert.
+---
+stand: 2025-11-02 19:11
+update: YAML-Frontmatter endgültig vereinheitlicht
 checks: markdownlint-cli2 PASS
 ---
 
@@ -12,6 +13,7 @@ Kurzueberblick
 --------------
 
 - 2025-11-01 23:45: Workspace-Bereinigung – alte `.code-workspace` Dateien entfernt; markdownlint-cli2 PASS (Root-Lauf, keine Fehler). `WORKSPACE_STATUS.md` aktualisiert.
+- 2025-11-02 19:11: YAML-Frontmatter auf allen Root-Dokumenten finalisiert; markdownlint-cli2 PASS (Repo-Lauf).
 - **novapolis_agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
 - **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
 - 2025-11-01: Markdownlint zentralisiert – Root-Task vereinheitlicht, Agent-Wrapper entfernt, `run_lint_markdown.ps1` als Hinweisstub belassen.

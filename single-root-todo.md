@@ -1,6 +1,8 @@
-stand: 2025-11-02 18:46
-update: WORKSPACE_STATUS aktualisiert (PowerShell 7 Hinweis)
+---
+stand: 2025-11-02 19:11
+update: Frontmatter-Block ergänzt (Root-Migration abgeschlossen)
 checks: markdownlint-cli2 PASS
+---
 
 <!-- markdownlint-disable MD022 MD041 -->
 
@@ -34,6 +36,7 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
 - [ ] Snapshot-Frontmatter-Migration vorantreiben (Etappen 1–3)
   - YAML-Frontmatter sukzessive ergänzen; bei Sweeps Diff klein halten.
   - Scope (Dateien/Pfade): Root-Dokumente (`README.md`, `todo.root.md`, `single-root-todo.md`, `WORKSPACE_STATUS.md`), `novapolis-dev/docs/**/*.md`, `novapolis_agent/docs/**/*.md`, ausgewählte `novapolis-rp/**/docs/**/*.md`. Ausnahmen beibehalten: `.github/copilot-instructions.md` ohne YAML-Frontmatter.
+  - Root-Dokumente abgeschlossen am 2025-11-02 19:11; nächster Sweep: `novapolis-dev/docs/**/*.md`.
   - Vorgehen:
     1. Scan: Markdown-Dateien ohne YAML-Frontmatter oder mit Legacy-Header (`Stand:`, `Letzte Aktualisierung:`) identifizieren.
     2. Migration: YAML-Frontmatter am Dokumentanfang einfügen (Schlüssel: `stand`, `update`, `checks`). Legacy-Kopfzeilen nach YAML überführen, bestehende MD-Lint-Disable-Kommentare unterhalb der Frontmatter belassen.
