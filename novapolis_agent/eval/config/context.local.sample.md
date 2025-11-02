@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD012 -->
 # Kontext-Notizen (lokal)
 
 Diese Datei dient als lokaler Wissensspeicher, den der Server (optional) vor jede Unterhaltung als zusätzliche System-Notiz injizieren kann.
@@ -19,6 +20,6 @@ Beispielinhalte:
 - Keine externen Einschränkungen; Filter werden manuell vom Benutzer gesetzt.
 
 ## Domänennotizen
-
 - Projektartefakte, wichtige Pfade, Konventionen ...
+<!-- EOF -->
 

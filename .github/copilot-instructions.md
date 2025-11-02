@@ -1,8 +1,10 @@
 # Copilot-Projektanweisungen (Novapolis Suite)
 
-Stand: 2025-11-02 02:15 – Task-Panel-Policy & Zuständigkeiten geschärft.
+Stand: 2025-11-02 13:10 – Terminal-Policy ergänzt: -NoProfile bei manuellen PowerShell-Befehlen
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
+
+> Hinweis (Terminal/PowerShell): Bis auf Weiteres bei allen manuellen PowerShell-Eingaben `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks sind bereits entsprechend konfiguriert (z. B. `powershell -NoProfile -Command '…'`).
 
 ## Primäre Behaviour-Quellen
 
@@ -14,7 +16,7 @@ Stand: 2025-11-02 02:15 – Task-Panel-Policy & Zuständigkeiten geschärft.
 ## Gemeinsamer Arbeitsstil
 
 - Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
-- Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen im jeweiligen DONELOG (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
+- Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen im jeweiligen DONELOG und todo. (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`, `novapolis-rp/docs/donelog.md`, `novapolis-sim/docs/donelog.md`, `novapolis-suite/docs/donelog.md`, `novapolis-rp/docs/todo.md`, `novapolis-sim/docs/todo.md`, `novapolis-suite/docs/todo.md`, `novapolis-dev/docs/todo.md`, `novapolis_agent/docs/todo.md`).
 - Prägnanter Output: skimmbar, keine überladenen Blockzitate; bei großen Aufgaben Plan in betreffende todo eintragen.
 - Sicherheit & Privacy: Keine Secrets, offline bevorzugen, keine harten Pfade zu externen Repositories übernehmen.
 - Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
@@ -85,9 +87,18 @@ checks: keine
     - `Stand: 2025-11-01 09:28 – Abschnitt X präzisiert.`
     - `Checks: pytest -q PASS`
 
-Hinweis für OpenAI Custom Instructions
+### STOP‑Gate (beidseitig, vor Modus‑relevanten Aktionen)
 
-- Für Kontexte mit striktem Tokenbudget (z. B. Chat‑Assistenten außerhalb des Editors) existiert eine kompakte „Min“-Variante der Arbeitsregeln: `novapolis-dev/docs/copilot-behavior.min.md`. Diese ist für das Feld „Custom Instructions“ geeignet (LLM‑freundlich, ≤1k Tokens).
+- Vor potenziell modus‑relevanten Aktionen – code‑schwer (z. B. Dateiedits unter Codepfaden, Skript-/Validator‑Neubau, Test-/Typecheck‑Runs, API/Service‑Änderungen) ODER redaktionell/kanon‑kritisch (z. B. Behaviour-/Policy‑Dokumente, Kanon-/SSOT‑Änderungen) – wird ein hartes Stop‑Gate gesetzt.
+- Ablauf:
+  1) Ausgabe „STOP: Moduswechsel empfohlen. Bitte Modus wählen.“
+  2) Warten auf explizite Bestätigung:
+     - „Wechsel: Modus Codex“ → sofort auf Codex wechseln und fortfahren.
+     - „Wechsel: Modus General“ → sofort auf General wechseln und fortfahren.
+     - „Weiter: aktueller Modus“ → ohne Moduswechsel fortfahren.
+  3) Ohne Bestätigung keine auslösenden Aktionen starten.
+- Hinweise:
+  - Das STOP‑Gate gilt beidseitig (Code ↔ Redaktion). Reine triviale Konversationen sind nicht betroffen.
 
 ### Modell-Profile & Moduswechsel (GPT‑5 ↔ GPT‑5 Codex)
 
@@ -98,23 +109,11 @@ Hinweis für OpenAI Custom Instructions
   - Anforderung: „Bitte Skript/Validator/Test bauen“, „API anpassen“, „Pytest/Typing fixen“.
   - Geplante Ausführung technischer Tasks: Pytest/Mypy/Pyright, Linter-/Build‑Themen.
 - Erinnerung/Prompting‑Policy:
-  - Wenn aktueller Modus = GPT‑5 und ein Trigger erkannt wird, freundlich hinweisen: „Hinweis: Für Code‑Änderungen ist Codex sinnvoll. Jetzt auf GPT‑5 Codex wechseln?“
+  - Wenn aktueller Modus = GPT‑5 und ein Trigger erkannt wird: „Hinweis: Moduswechsel zu Codex empfohlen für Code‑schwere Aufgaben. Bitte bestätigen.“
+  - Wenn aktueller Modus = Codex und redaktionelle Arbeit erkannt wird: „Hinweis: Moduswechsel zu General empfohlen für redaktionelle Aufgaben. Bitte bestätigen.“
   - Nutzerentscheid respektieren; bei „nein“ weiter im aktuellen Modus arbeiten. Auf Wunsch „Bitte nicht erinnern“ stelle ich Erinnerungen ein, bis du wieder grünes Licht gibst.
   - Explizite Nutzerwahl überschreibt Heuristik: „Modus Codex“/„Modus General“ setzt sofort um.
-- Transparenz: Den aktiven Modus im nächsten Status‑Update kurz erwähnen (z. B. „Modus: General“), wenn ein Wechsel stattfand oder Code‑Arbeit ansteht.
-- Optional: In `WORKSPACE_STATUS.md` im Abschnitt „Aktueller Arbeitsmodus“ die letzte Wahl notieren (nur wenn erwünscht).
-
-#### STOP‑Gate vor Code‑Aktionen
-
-- Vor potenziell code‑schweren Aktionen (Dateiedits unter Codepfaden, Skript-/Validator‑Neubau, Test-/Typecheck‑Runs, API/Service‑Änderungen) wird ein hartes Stop‑Gate gesetzt.
-- Ablauf:
-  1) Ausgabe „STOP: Moduswechsel empfohlen. Bitte Modus wählen.“
-  2) Warten auf explizite Bestätigung:
-    - „Wechsel: Modus Codex“ → sofort auf Codex wechseln und fortfahren.
-    - „Weiter: Modus General“ → im General‑Modus fortfahren.
-  3) Ohne Bestätigung keine Code‑Änderungen/startenden Läufe durchführen.
-- Hinweise:
-  - Das STOP‑Gate gilt nur für Code‑Aktionen; reine Redaktions-/Kanonarbeiten laufen ohne Unterbrechung weiter.
+  - Transparenz: Den aktiven Modus im nächsten Status‑Update kurz erwähnen (z. B. „Modus: General“), wenn ein Wechsel stattfand oder Code‑Arbeit ansteht.
 
 ## Repositoryweiter Rahmen
 - Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.
@@ -123,10 +122,9 @@ Hinweis für OpenAI Custom Instructions
 - Working docs leben in `novapolis-dev/docs/` (todo, donelog, tests, naming-policy, copilot-behavior, index); `novapolis-rp/development/...` sind Redirect-Stubs.
 
 ## Prüf- und Release-Checks
-- Vor Commits relevante Tests/Skripte ausführen (`novapolis_agent/scripts/run_tests.py`, Validatoren unter `novapolis-rp/coding/tools/validators/`).
-- Bei Änderungen an Behaviour- oder Policy-Dokumenten zusätzlich `novapolis_agent/tests/test_content_policy_profiles.py` und Changelogs prüfen.
-- PLAN → DRY RUN → APPLY mit klaren Stop-Gates; vor APPLY nach `development/docs` Restreferenzen suchen (nur in Redirect-README und `meta.origin` erlaubt), danach Sidecars (`source`, `origin`, `migrated_at`) kontrollieren.
-- Unsichere Anforderungen zuerst rückfragen; Minimal-Delta bewahren, transparente Diffs mit Dateiliste/Diffstat liefern, keine Shell-Kommandos oder History-Rewrites.
+- Vor Commits relevante Tests/Skripte ausführen (Root‑basiert): `novapolis_agent/scripts/run_tests.py` (cwd=`novapolis_agent`), Validatoren unter `novapolis-rp/coding/tools/validators/`.
+- Bei Änderungen an Behaviour-/Policy‑Dokumenten zusätzlich den Test `novapolis_agent/tests/test_content_policy_profiles.py` laufen lassen und Changelogs prüfen. Diese Regel ist im Single‑Root‑TODO verlinkt.
+- Bei Unsicherheiten/Unklarheiten: STOP‑Gate setzen (Rückfrage einholen), dann mit Minimal‑Delta fortfahren; transparente Diffs mit Dateiliste/Diffstat, keine Shell‑Kommandos oder History‑Rewrites.
 
 ## Novapolis Agent (Backend)
 
@@ -178,7 +176,6 @@ Hinweis für OpenAI Custom Instructions
 
 ### Working Rules (Novapolis)
 - SSOT: **/Main/novapolis-dev/**.
-- PLAN → DRY RUN → APPLY mit harten Stop-Gates.
 - Minimal und transparent: Diffs klein halten, betroffene Dateien und Diffstat nennen.
 - Keine Shell-Kommandos, keine History-Rewrites.
 - Working Docs liegen in `novapolis-dev/docs/` (todo, donelog, tests, naming-policy, copilot-behavior, index).

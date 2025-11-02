@@ -3,22 +3,18 @@ stand: 2025-11-01 22:31
 update: Referenzen auf Annotation‑Spec ergänzt (Runden/Knowledge/Actions); keine Strukturänderungen
 checks: keine
 ---
-
-<!-- markdownlint-disable MD022 MD041 -->
-
+<!-- markdownlint-disable MD012 MD022 MD041 -->
 # TODO (Novapolis-RP)
 
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/todo.md` am 2025-10-29 -->
 
 ## Canvas-Rettung – Sprint 1 (Stand 2025-11-01)
-
 ## Archiv-Hinweis (manuell, bis Validator bereit)
 
 - Sobald ein Abschnitt (H2/H3) vollständig abgehakt ist ([x] überall) und – für RP – kanonisiert, bitte den gesamten Block manuell nach `novapolis-dev/archive/todo.<modul>.archive.md` verschieben (neuester oben).
 - Direkt unter der Abschnitts-Überschrift im Archiv eine Zeile ergänzen: `archived_at: YYYY-MM-DD HH:MM`.
 - Automatisierung folgt erst nach Struktur-Review/Validator (Dry-Run only). Keine halb fertigen Blöcke verschieben.
-
 
 ## Plan Charakter-Review (laufend)
 
@@ -222,7 +218,6 @@ checks: keine
 - Nach jedem Post interne 200-Token-Zusammenfassung (vom SL) einfordern.
 
 </details>
-
 ## Neue Aufgaben – Zeitmodell, Annotation & Logs (2025-11-01 22:24)
 
 - 24×1h‑Runden (PC‑zentriert) einführen

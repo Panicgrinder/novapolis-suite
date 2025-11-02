@@ -1,5 +1,5 @@
-stand: 2025-11-02 12:08
-update: Root pyproject auf Tools-only bereinigt; README Editable-Hinweis angepasst
+stand: 2025-11-02 13:46
+update: Tree-Snapshots aktualisiert (full/dirs/summary)
 checks: markdownlint-cli2 PASS
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -14,6 +14,7 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
 - Archivierung: Fertige Blöcke (alle [x]) bitte in die jeweiligen Modul-Archive unter `novapolis-dev/archive/` verschieben.
 - Snapshot-Kopf: YAML-Frontmatter oben bei Änderungen aktualisieren (`stand`, `update`, `checks`).
 - Lint: Markdownlint läuft repo-weit via npx/Task. Bei FAIL bitte minimalen Patch anwenden.
+ - Terminal/PowerShell: Bis auf Weiteres bei allen manuellen PowerShell-Eingaben `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks sind bereits entsprechend konfiguriert (z. B. `powershell -NoProfile -Command '…'`).
 
 ## Kurzüberblick (Module & Quellen)
 
@@ -30,6 +31,18 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
   - Referenz: Abschnitt "Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)" in `todo.root.md`.
 - [ ] Snapshot-Frontmatter-Migration vorantreiben (Etappen 1–3)
   - YAML-Frontmatter sukzessive ergänzen; bei Sweeps Diff klein halten.
+  - Scope (Dateien/Pfade): Root-Dokumente (`README.md`, `todo.root.md`, `single-root-todo.md`, `WORKSPACE_STATUS.md`), `novapolis-dev/docs/**/*.md`, `novapolis_agent/docs/**/*.md`, ausgewählte `novapolis-rp/**/docs/**/*.md`. Ausnahmen beibehalten: `.github/copilot-instructions.md` ohne YAML-Frontmatter.
+  - Vorgehen:
+    1. Scan: Markdown-Dateien ohne YAML-Frontmatter oder mit Legacy-Header (`Stand:`, `Letzte Aktualisierung:`) identifizieren.
+    2. Migration: YAML-Frontmatter am Dokumentanfang einfügen (Schlüssel: `stand`, `update`, `checks`). Legacy-Kopfzeilen nach YAML überführen, bestehende MD-Lint-Disable-Kommentare unterhalb der Frontmatter belassen.
+    3. Validierung: `markdownlint-cli2` laufen lassen; einheitlicher Heading-Stil je Datei (MD003=consistent) sichern.
+    4. Sonderfälle: Dateien mit Parser-Einschränkungen im Fallback-Format belassen (Klartext-Kopfzeile), generierte/kuratierte Bereiche gemäß CLI2-Ignores ausnehmen.
+    5. Batch-Strategie: In kleinen Sweeps (10–20 Dateien) migrieren; Minimal-Delta, semantisch neutrale Änderungen, jeweils DONELOG-Notiz.
+  - Akzeptanzkriterien (Migration):
+    - YAML-Frontmatter vorhanden und korrekt befüllt; keine doppelten Kopfzeilen.
+    - Lint PASS (markdownlint-cli2), keine neuen Regelverstöße.
+    - Interne Anker/Links unverändert funktionsfähig.
+    - Snapshot-Zeitstempel (`stand`) und Kurznotiz (`update`) pro Commit aktualisiert.
 - [ ] Tree-Snapshots aktualisieren bei Strukturänderungen
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [ ] Backups & Releases (Manifest/Checksums/Rotation) pflegen
@@ -167,6 +180,12 @@ Notiz (2025-11-02 11:35): CI im Root ergänzt:
 
 Notiz (2025-11-02 11:52): Modul-Workflows entfernt; Root-Workflows aktiv. Nächster Schritt: Trigger/Paths justieren und README-Hinweis ergänzen.
 Notiz (2025-11-02 12:08): Root `pyproject.toml` konsolidiert (tools-only: black/ruff); README „Editable“ auf `packages/novapolis_common` umgestellt.
+Notiz (2025-11-02 12:41): Prüf-/Release-Checks aktualisiert (Root-cwd, STOP‑Gate bei Unsicherheiten); Behaviour/Policy‑Änderungen erfordern Test `test_content_policy_profiles.py` + Changelogs.
+
+### Prüf-/Release-Checks (konkret)
+
+- [ ] Vor Commits: `novapolis_agent/scripts/run_tests.py` (cwd=`novapolis_agent`), Validatoren unter `novapolis-rp/coding/tools/validators/`.
+- [ ] Behaviour-/Policy‑Änderungen: `novapolis_agent/tests/test_content_policy_profiles.py` laufen lassen; Changelogs prüfen.
 
 ### Akzeptanzkriterien (gesamt)
 
