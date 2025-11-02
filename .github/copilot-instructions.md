@@ -1,10 +1,12 @@
 # Copilot-Projektanweisungen (Novapolis Suite)
 
-Stand: 2025-11-02 13:10 – Terminal-Policy ergänzt: -NoProfile bei manuellen PowerShell-Befehlen
+Stand: 2025-11-02 16:23 – Unklarheiten‑STOP ergänzt; kurzer Hinweis oben ergänzt
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
 > Hinweis (Terminal/PowerShell): Bis auf Weiteres bei allen manuellen PowerShell-Eingaben `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks sind bereits entsprechend konfiguriert (z. B. `powershell -NoProfile -Command '…'`).
+>
+> Hinweis (STOP): „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe.
 
 ## Primäre Behaviour-Quellen
 
@@ -99,6 +101,22 @@ checks: keine
   3) Ohne Bestätigung keine auslösenden Aktionen starten.
 - Hinweise:
   - Das STOP‑Gate gilt beidseitig (Code ↔ Redaktion). Reine triviale Konversationen sind nicht betroffen.
+
+### Unklarheiten‑STOP (global, immer gültig)
+
+- „Grün“ gilt nur bis zum nächsten unerwarteten Ereignis. Sobald etwas außerhalb des Plans liegt, sofort STOP – unabhängig vom aktiven Modus.
+- Unerwartet = mindestens eins davon:
+  - Abweichung vom Plan/Ergebnis oder Modul‑Erwartung
+  - Widerspruch (Quellen/Regeln/Invarianten/SSOT)
+  - Unsicherheit über Bedeutung/Wirkung/Reichweite
+  - Sicherheits-/Privacy‑Bedenken
+  - Falscher/unklarer Modus (General ↔ Codex)
+- Ausnahmen (kein STOP): Bereiche, die explizit als „RAW“, „noisy“ oder „staging/experimentell“ gekennzeichnet sind.
+- Vorgehen bei STOP:
+  1) Kurzstatus: Was ist abweichend/unklar (1–2 Sätze)?
+  2) 1–2 Vorschläge (inkl. „keine Aktion“) zur Auswahl darlegen.
+  3) Auf Freigabe warten – keine Folgeaktionen bis Bestätigung.
+- Priorität: Dieses STOP hat Vorrang vor dem Moduswechsel‑Gate. Falls eine Lösung Code erfordert, danach Moduswechsel vorschlagen und bestätigen lassen.
 
 ### Modell-Profile & Moduswechsel (GPT‑5 ↔ GPT‑5 Codex)
 

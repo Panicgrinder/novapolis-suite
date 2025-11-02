@@ -1,5 +1,5 @@
-stand: 2025-11-02 13:46
-update: Tree-Snapshots aktualisiert (full/dirs/summary)
+stand: 2025-11-02 14:31
+update: Backups-Skripte & Manifest initialisiert
 checks: markdownlint-cli2 PASS
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -46,7 +46,10 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
 - [ ] Tree-Snapshots aktualisieren bei Strukturänderungen
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [ ] Backups & Releases (Manifest/Checksums/Rotation) pflegen
-  - Manifest/README prüfen; optionale Verschlüsselung evaluieren.
+  - [x] Audit dokumentiert: `Backups/AUDIT.md`
+  - [x] Skripte ergänzt: `scripts/update_backups_manifest.ps1`, `scripts/rotate_backups.ps1`
+  - [x] README + initiales Manifest: `Backups/README.md`, `Backups/manifest.v1.json`
+  - [ ] Bundles umbenennen (Schema) & Rotation-Läufe dokumentieren (`rotation.log`)
 
 ## Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
 
