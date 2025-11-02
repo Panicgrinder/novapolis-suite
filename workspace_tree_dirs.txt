@@ -1,4 +1,4 @@
-Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-02 13:45
+Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-03 00:18
 Top-Level
   - .github
   - .tmp-datasets
@@ -28,12 +28,12 @@ githooks/
   - (leer)
 
 novapolis_agent/
+  - _archived
   - .devcontainer
   - .githooks
   - .github
   - .tmp-datasets
   - .tmp-results
-  - _archived
   - agents
   - app
   - data

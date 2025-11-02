@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-02 23:44
-update: Frontmatter-Migration abgeschlossen (RP-Docs = Redirect-Stubs)
+stand: 2025-11-03 00:18
+update: Tree-Snapshots aktualisiert (full/dirs/summary)
 checks: markdownlint-cli2 (all md) PASS
 ---
 
@@ -21,6 +21,12 @@ Frontmatter-Migration – Agent Docs Sweep (2025-11-02T23:36:00+01:00)
 Frontmatter-Migration – Abschluss (2025-11-02T23:44:00+01:00)
 
 - RP-Docs unter `novapolis-rp/**/docs/**` sind Redirect-/Mirror-Stubs (SSOT: `novapolis-dev/docs/**`), daher keine Migration erforderlich.
+- Checks: markdownlint-cli2 (all md) PASS.
+
+Workspace Tree – Aktualisierung (2025-11-03T00:18:00+01:00)
+
+- Tasks ausgeführt: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
+- Aktualisierte Artefakte: `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`.
 - Checks: markdownlint-cli2 (all md) PASS.
 
 Frontmatter-Migration – TODO-SSOTs (2025-11-02T22:48:00+01:00)
