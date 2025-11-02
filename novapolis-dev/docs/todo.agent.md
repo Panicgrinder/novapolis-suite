@@ -1,3 +1,4 @@
+﻿---
 stand: 2025-11-01 22:24
 update: Neue Aufgaben ergänzt (Coqui‑Exporter/Service, Templates) – nur Planung
 checks: markdownlint-cli2 FAIL
@@ -17,8 +18,7 @@ checks: markdownlint-cli2 FAIL
 
 - [ ] Inhalte aus `novapolis_agent/docs/TODO.md` migrieren und gliedern.
 
-Neue Aufgaben – TTS & Tools (2025-11-01 22:24)
-----------------------------------------------
+## Neue Aufgaben - TTS & Tools (2025-11-01 22:24)
 
 - [ ] Coqui‑Exporter (Build‑Time, Planung): Script `scripts/tts_coqui_export.py` (Text→WAV→OGG, Hash‑Cache, Voice‑Mapping), Zielordner `novapolis-sim/assets/voiceovers/de/`.
 - [ ] Mini‑Service (Runtime, Planung): FastAPI‑Wrapper (Text→WAV/OGG), simple Auth/Rate‑Limit, lokaler Cache; nur Schnittstelle/Mappings definieren.
@@ -28,3 +28,4 @@ Neue Aufgaben – TTS & Tools (2025-11-01 22:24)
 ## Archivierte Blöcke (Agent)
 
 - Kurzfristige Ziele (Heute) – archiviert am 2025-11-01 19:16 → `novapolis-dev/archive/todo.agent.archive.md`
+

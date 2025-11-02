@@ -13,9 +13,11 @@ python run_eval.py [prompts_datei] [api_url]
 ```
 
 Parameter:
- - openai_finetune.py – OpenAI-Fine-Tuning anstoßen
+
 - `prompts_datei`: Pfad zur JSON/JSONL-Datei mit Testfällen (Standard: `eval/datasets/eval-*.json`)
 - `api_url`: URL des Chat-Endpunkts (Standard: `http://localhost:8000/chat`)
+
+Hinweis: Für OpenAI-Finetuning steht `openai_finetune.py` bereit.
 
 Beispiel:
 
@@ -31,6 +33,7 @@ python scripts/run_eval.py --packages eval/datasets/eval-*.json http://localhost
 ### Abhängigkeiten
 
 Das Skript benötigt die folgenden Python-Pakete:
+
 - httpx
 - rich
 

@@ -1,3 +1,4 @@
+---
 stand: 2025-11-01 19:10
 update: Abschnitt „Priorität A – Charaktere & Führung“ aus RP-Board archiviert
 checks: keine
@@ -8,21 +9,25 @@ checks: keine
 Zweck: Kanonisierte, vollständig abgeschlossene TODO-Abschnitte aus RP-bezogenen TODOs (primär `novapolis-rp/**`) aufnehmen.
 
 Kanon-Only (verbindlich)
+
 - In dieses Archiv dürfen ausschließlich Abschnitte mit kanonisierten Inhalten. RAW/unstetige/unsichere Inhalte bleiben im Dev-/Working-Kontext.
 - Quellenangaben bleiben erhalten; idealerweise mit Verweis auf Commit/PR/Issue.
 
 Regeln (kurz)
+
 - Nur vollständig abgehakte Abschnitte ([x] überall) verschieben.
 - Inhalt unverändert übernehmen; direkt unter der Abschnitts-Überschrift: `archived_at: YYYY-MM-DD HH:MM`.
 - Headings in diesem Archiv: ATX (MD003 consistent per Datei).
 - Präsentation: Lint-Läufe mit PRESENTATION=SHARED.
 
 Ablage
+
 - Neueste Einträge oben einfügen.
 
 <!-- Hier unterhalb neue, vollständig erledigte und kanonisierte Blöcke einfügen (neu zuerst). -->
 
 ## Priorität A – Charaktere & Führung
+
 archived_at: 2025-11-01 19:10
 
 - [x] Varek Solun → Canvas `database-rp/02-characters/Varek-Solun.{md,json}` angelegt (2025-11-01T15:45+01:00); Standort H12 harmonisiert, Novapolis-Wissen auf Gerüchte begrenzt.

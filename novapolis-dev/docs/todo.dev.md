@@ -1,5 +1,5 @@
-stand: 2025-11-01 22:39
-update: Coqui‑Exporter README verlinkt; Task‑Skelett angelegt; Tabs→Spaces für Lint
+stand: 2025-11-02 03:29
+update: MCP-Server-Prototyp als Dev-Aufgabe ergänzt
 checks: keine
 ---
 
@@ -19,6 +19,7 @@ Offene Aufgaben (Dev)
 ---------------------
 
 - [ ] (Platzhalter) Sammle Dev‑Aufgaben hier. Falls bisher in Root `todo.root.md` oder Agent‑TODO gepflegt, bitte verschieben.
+- [ ] MCP-Server-Prototyp vorbereiten (`novapolis-dev/integrations/`): Minimalen lokalen MCP-Server aufsetzen, Launch/Docs ergänzen, Verbindungstest mit Web-Client dokumentieren.
 
 Neue Aufgaben – Zeitmodell & TTS (2025-11-01 22:24)
 ---------------------------------------------------

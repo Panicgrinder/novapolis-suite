@@ -1,3 +1,4 @@
+---
 stand: 2025-11-01 18:38
 update: TODO-Verweis auf Dev-SSOT umgestellt.
 checks: keine

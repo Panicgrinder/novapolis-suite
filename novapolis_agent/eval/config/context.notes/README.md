@@ -8,7 +8,7 @@ Dieses Verzeichnis enthält „angeheftete“ Kontext-Referenzen für den Agente
 
 Beispiel-ORDER:
 
-```
+```text
 AGENT_BEHAVIOR.ref
 DONELOG.ref
 REPORTS.ref

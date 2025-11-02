@@ -41,7 +41,7 @@ Stand: 2025-11-02 02:15 – Task-Panel-Policy & Zuständigkeiten geschärft.
 
 ### Kanonische Tasks (Referenz)
 
-- Checks: *lint+pytest* (Aggregator: erst markdownlint, nur bei Lint-PASS folgt pytest).
+- Checks: *lint+pytest* (Task ruft zuerst `Lint: markdownlint-cli2 (all md)` und danach `Tests: pytest (-q)` sequenziell auf).
 - Git: *commit+push* (Commit-Message per Prompt, dann Push).
 - Lint: *markdownlint-cli2 (all md)*.
 - Snapshot: *now (timestamp)*.
