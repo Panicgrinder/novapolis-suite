@@ -1,3 +1,9 @@
+---
+stand: 2025-11-02 18:23
+update: YAML-Frontmatter ergänzt
+checks: markdownlint-cli2 PASS
+---
+
 # Novapolis Suite
 
 Die Novapolis Suite fasst Agent-Backend, Rollenspiel-Datenbasis, Dev-Dokumentation und Simulation unter einem gemeinsamen Repository zusammen. Ziel ist, doppelte Module zu konsolidieren, Arbeitsablaeufe zu vereinheitlichen und einen schnellen Ueberblick ueber alle laufenden Aufgaben zu behalten.

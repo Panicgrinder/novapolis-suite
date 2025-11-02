@@ -1,5 +1,5 @@
-stand: 2025-11-02 17:28
-update: User-/Profil-Settings entfernt; nur Root-Workspace-Settings aktiv
+stand: 2025-11-02 18:26
+update: README auf YAML-Frontmatter umgestellt
 checks: markdownlint-cli2 PASS
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -45,6 +45,7 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
     - Lint PASS (markdownlint-cli2), keine neuen Regelverstöße.
     - Interne Anker/Links unverändert funktionsfähig.
     - Snapshot-Zeitstempel (`stand`) und Kurznotiz (`update`) pro Commit aktualisiert.
+  - 2025-11-02: README.md auf YAML-Frontmatter migriert (lint PASS).
 - [ ] Tree-Snapshots aktualisieren bei Strukturänderungen
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [ ] Backups & Releases (Manifest/Checksums/Rotation) pflegen

@@ -1,5 +1,5 @@
-stand: 2025-11-02 17:28
-update: Workspace-Settings konsolidiert; User/Profil-Configs entfernt
+stand: 2025-11-02 18:26
+update: README auf YAML-Frontmatter migriert
 checks: markdownlint-cli2 PASS
 ---
 
@@ -156,6 +156,7 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
 - [ ] Etappe 1: Bei Änderungen an Dokus YAML-Frontmatter ergänzen/aktualisieren (`stand`, `update`, `checks`).
 - [ ] Etappe 2: Sweep — bestehende Kopfzeilen migrieren (TODO, README/Index, Policies). Diff klein halten; `checks` kurz.
 - [ ] Etappe 3: Legacy-Kopfzeilen auslaufen lassen; Instruktionen aktualisieren (nur YAML erlaubt).
+- Fortschritt 2025-11-02: README.md auf YAML-Frontmatter umgestellt (lint PASS).
 
 ### Risiken & Backout
 
