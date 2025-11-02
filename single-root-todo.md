@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-02 23:44
-update: Frontmatter-Migration abgeschlossen (Dev/Agent ok; RP-Docs=Stubs)
+stand: 2025-11-03 00:22
+update: Frontmatter-Migration & Tree-Snapshots als erledigt markiert
 checks: markdownlint-cli2 (all md) PASS
 ---
 
@@ -33,7 +33,7 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
 - [x] .vscode-Konsolidierung (Root-zentriert) weiterführen (Etappen 0–2)
   - Referenz: Abschnitt "Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)" in `todo.root.md`.
   - 2025-11-02: User- und Profil-Settings bereinigt; nur `/.vscode/settings.json` bleibt maßgeblich.
-- [ ] Snapshot-Frontmatter-Migration vorantreiben (Etappen 1–3)
+- [x] Snapshot-Frontmatter-Migration vorantreiben (Etappen 1–3)
   - YAML-Frontmatter sukzessive ergänzen; bei Sweeps Diff klein halten.
   - Scope (Dateien/Pfade): Root-Dokumente (`README.md`, `todo.root.md`, `single-root-todo.md`, `WORKSPACE_STATUS.md`), `novapolis-dev/docs/**/*.md`, `novapolis_agent/docs/**/*.md`, ausgewählte `novapolis-rp/**/docs/**/*.md`. Ausnahmen beibehalten: `.github/copilot-instructions.md` ohne YAML-Frontmatter.
   - Root-Dokumente abgeschlossen am 2025-11-02 19:11; nächster Sweep: `novapolis-dev/docs/**/*.md`.
@@ -56,13 +56,14 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
   - 2025-11-02: `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/tests.md` mit YAML-Frontmatter versehen; Lint docs focused PASS.
   - 2025-11-02: `novapolis_agent/docs/*` (7 Dateien) mit YAML-Frontmatter versehen; Lint docs focused PASS.
   - 2025-11-02: RP‑Docs unter `novapolis-rp/**/docs/**` sind Redirect-/Mirror‑Stubs → keine Migration nötig.
-- [ ] Tree-Snapshots aktualisieren bei Strukturänderungen
+- [x] Tree-Snapshots aktualisieren bei Strukturänderungen
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [ ] Backups & Releases (Manifest/Checksums/Rotation) pflegen
   - [x] Audit dokumentiert: `Backups/AUDIT.md`
   - [x] Skripte ergänzt: `scripts/update_backups_manifest.ps1`, `scripts/rotate_backups.ps1`
   - [x] README + initiales Manifest: `Backups/README.md`, `Backups/manifest.v1.json`
   - [ ] Bundles umbenennen (Schema) & Rotation-Läufe dokumentieren (`rotation.log`)
+    - [x] `rotation.log` angelegt (2025-11-03 00:22) – Schema-Vorschlag und Umbenennung stehen unter STOP-Gate (Bestätigung erforderlich)
 
 ## Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
 
