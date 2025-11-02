@@ -1,5 +1,5 @@
-stand: 2025-11-02 14:31
-update: Backups-Skripte & Manifest initialisiert
+stand: 2025-11-02 16:32
+update: Hinweis zum Unklarheiten‑STOP ergänzt (siehe copilot-instructions)
 checks: markdownlint-cli2 PASS
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -15,6 +15,7 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
 - Snapshot-Kopf: YAML-Frontmatter oben bei Änderungen aktualisieren (`stand`, `update`, `checks`).
 - Lint: Markdownlint läuft repo-weit via npx/Task. Bei FAIL bitte minimalen Patch anwenden.
  - Terminal/PowerShell: Bis auf Weiteres bei allen manuellen PowerShell-Eingaben `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks sind bereits entsprechend konfiguriert (z. B. `powershell -NoProfile -Command '…'`).
+- STOP-Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → Abschnitt „Unklarheiten‑STOP (global, immer gültig)“.
 
 ## Kurzüberblick (Module & Quellen)
 

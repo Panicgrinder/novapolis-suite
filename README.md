@@ -52,6 +52,7 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 - Stop‑Gate: Vor Code‑Aktionen wird ein hartes Stop‑Gate gesetzt (explizit „Wechsel: Modus Codex“ oder „Weiter: Modus General“).
 - Erinnerungen: Bei Code‑Triggern weise ich auf den Moduswechsel hin; „Bitte nicht erinnern“ deaktiviert Hinweise bis zur Reaktivierung.
 - Aktueller Status (Modus/Stop‑Gate): siehe `WORKSPACE_STATUS.md`.
+ - Unklarheiten‑STOP: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
 ## Aktuelle Statusdokumente
 

@@ -1,5 +1,5 @@
-stand: 2025-11-02 09:00
-update: „Offene Punkte (Kurzfristig)“ archiviert; Hinweis ergänzt.
+stand: 2025-11-02 16:36
+update: Kurzvermerk zum Unklarheiten‑STOP ergänzt
 checks: markdownlint-cli2 PASS
 ---
 
@@ -10,6 +10,8 @@ checks: markdownlint-cli2 PASS
 Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vollstaendigen Projekt-Listen sind unten eingebettet, damit sie ohne Kontextwechsel eingesehen werden koennen.
 
 ## Kurzueberblick
+
+- Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
 - **novapolis_agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
 - **novapolis-dev / novapolis-rp**: Fokus auf Canvas-Rettung Sprint (Charaktere/Logistik/Systeme) sowie bestehende Datenkurierungs- und Sim-Aufgaben.

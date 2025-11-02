@@ -1,12 +1,14 @@
 ---
-stand: 2025-11-02 02:13
-update: Task-Panel-Policy geschärft; Workspace-Tree-Snapshots regeneriert.
-checks: Workspace tree: full PASS; Workspace tree: directories PASS; Workspace tree: summary (dirs) PASS
+stand: 2025-11-02 16:43
+update: Kurzvermerk zum Unklarheiten‑STOP ergänzt
+checks: Workspace tree: full PASS; Workspace tree: directories PASS; Workspace tree: summary (dirs) PASS; markdownlint PASS
 ---
 
 # Workspace-Status
 
 ## Überblick
+
+- Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
 - Mono-Repo bündelt `novapolis_agent`, `novapolis-rp`, `novapolis-dev`, `novapolis-sim`, gemeinsame Pakete unter `packages/`
 - Produktiver Code liegt ausschließlich im Agent-Backend; RP-Workspace enthält weiterhin Daten, Workflows, Tools
