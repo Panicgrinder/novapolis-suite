@@ -11,14 +11,22 @@ Die Novapolis Suite fasst Agent-Backend, Rollenspiel-Datenbasis, Dev-Dokumentati
 
 ## Gemeinsames Python-Paket
 
-Geteilte Python-Helfer leben in `packages/novapolis_common`. Installiere das Repository als Editable, damit das Paket im Interpreter verfuegbar ist:
+Geteilte Python-Helfer leben in `packages/novapolis_common`. Installiere das Shared‑Paket bei Bedarf als Editable (nicht mehr das gesamte Repo):
 
 ```powershell
 Set-Location "F:/VS Code Workspace/Main"
-F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -e .
+# venv aktiv (falls noch nicht):
+F:/VS Code Workspace/Main/.venv/Scripts/Activate.ps1
+
+# Dependencies (Root):
+F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -r requirements.txt
+F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+
+# Optional: Shared-Paket als Editable
+F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -e packages/novapolis_common
 ```
 
-Module, die aktuell mehrfach in den Projekten vorkommen, sollten nach `packages/novapolis_common` wandern. Projektspezifische Verdrahtung (API, Policies, Szenenlogik) verbleibt in den jeweiligen Ordnern.
+Module, die aktuell mehrfach in den Projekten vorkommen, sollten nach `packages/novapolis_common` wandern. Projektspezifische Verdrahtung (API, Policies, Szenenlogik) verbleibt in den jeweiligen Ordnern. Packaging/Build‑Konfigurationen verbleiben in den Modul-/Paketpfaden; das Root `pyproject.toml` ist tools‑only.
 
 ## Abhaengigkeiten
 

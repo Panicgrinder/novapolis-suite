@@ -1,5 +1,5 @@
-stand: 2025-11-02 11:57
-update: .vscode-Konsolidierung: RP-Python-Overrides entfernt
+stand: 2025-11-02 12:08
+update: Root pyproject auf Tools-only bereinigt; README Editable-Hinweis angepasst
 checks: markdownlint-cli2 PASS
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -82,6 +82,14 @@ Zielbild: Eine Wahrheit im Root (`/Main`), eine Python-Umgebung im Root (`.venv`
 - [ ] Soft-Freeze: Keine neuen Modul-Tasks/Interpreter-Overrides bis Abschluss Etappe 2
 - [ ] Kommunikation: Kurznotiz im Root-README und im Dev-Hub-Index
 
+Inventur-Status (2025-11-02 12:05):
+
+- Gefunden:
+  - `/.vscode/settings.json` → Interpreter zentral (`.venv`) und CWD/Env für Agent gesetzt – behalten
+  - `/.vscode/launch.json` → CWD=`novapolis_agent`, keine Modul-Interpreter – behalten
+  - `/novapolis-rp/.vscode/settings.json` → kein Interpreter-Override – behalten
+- Nicht gefunden: modulare `tasks.json`-Overrides (Stand jetzt keine vorhanden)
+
 ### Etappe 1 – Eine venv im Root, Interpreter zentral
 
 - [ ] Root-Umgebung anlegen/vereinheitlichen: `.venv/` im Root; Dependencies aus `requirements*.txt` installieren
@@ -158,6 +166,7 @@ Notiz (2025-11-02 11:35): CI im Root ergänzt:
 - [ ] README Hinweis: Workflows liegen ausschließlich im Root
 
 Notiz (2025-11-02 11:52): Modul-Workflows entfernt; Root-Workflows aktiv. Nächster Schritt: Trigger/Paths justieren und README-Hinweis ergänzen.
+Notiz (2025-11-02 12:08): Root `pyproject.toml` konsolidiert (tools-only: black/ruff); README „Editable“ auf `packages/novapolis_common` umgestellt.
 
 ### Akzeptanzkriterien (gesamt)
 
@@ -174,7 +183,7 @@ Aktueller Stand (geprüft): `novapolis-suite.code-workspace` ist als Multi-root 
 - [x] Entscheidung: `.code-workspace` entfernen ODER auf Single-root reduzieren (nur `{ "path": "." }`).
 - [x] Falls behalten: `folders` auf nur Root setzen; modulare Einträge entfernen.
 - [x] Godot-Setting (`godotTools.editorPath.godot3`) in Root-`.vscode/settings.json` überführen.
-- [ ] README-Hinweis: Workspace künftig über den Root-Ordner öffnen (nicht Multi-root `.code-workspace`).
+- [x] README-Hinweis: Workspace künftig über den Root-Ordner öffnen (nicht Multi-root `.code-workspace`).
 
 Notiz (2025-11-02 10:27): `.code-workspace` wurde auf Single-root reduziert (nur `{"path": "."}`); `godotTools.editorPath.godot3` ins Root `/.vscode/settings.json` migriert.
 
