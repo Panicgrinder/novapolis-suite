@@ -5,7 +5,7 @@ Generates Backups/manifest.v1.json and manifest.v1.sha256sum.txt with SHA-256 ch
 .DESCRIPTION
 Enumerates backup artifacts in the Backups directory, computes deterministic metadata,
 and emits a JSON manifest next to a sha256sum-compatible checksum list.
-Run with PowerShell -NoProfile to avoid user profile side-effects.
+Run with PowerShell 7 (pwsh) -NoProfile to avoid user profile side-effects.
 #>
 [CmdletBinding()]
 param(

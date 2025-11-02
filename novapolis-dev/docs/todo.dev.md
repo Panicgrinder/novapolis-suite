@@ -1,3 +1,4 @@
+---
 stand: 2025-11-02 03:29
 update: MCP-Server-Prototyp als Dev-Aufgabe ergänzt
 checks: keine

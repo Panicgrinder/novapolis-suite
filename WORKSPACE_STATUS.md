@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-02 18:45
-update: PowerShell 7.5.4 über VS Code Extension aktiv; Status aktualisiert
-checks: markdownlint-cli2 PASS
+stand: 2025-11-02 22:48
+update: pwsh als Standard-Terminal/Taks hinterlegt; Gitignore ergänzt
+checks: keine
 ---
 
 # Workspace-Status
@@ -15,7 +15,7 @@ checks: markdownlint-cli2 PASS
 - Root-Dokumente (`README.md`, `todo.root.md`, `WORKSPACE_STATUS.md`) wurden am 2025-11-02 synchronisiert und liefern Einstieg ohne Projektwechsel
 - Kopilot-Anweisungen konsolidiert unter `.github/copilot-instructions.md`
 - Struktur-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) am 2025-11-02 via Tasks `Workspace tree:*` regeneriert; nächste Prüfung Mitte November.
-- PowerShell-Erweiterung läuft auf `pwsh` 7.5.4; Standard-Terminals lassen sich bei Bedarf auf PowerShell 7 umstellen.
+- PowerShell-Standard: Terminal-Profile & VS-Code-Tasks laufen jetzt über `pwsh` 7.5.4; Windows PowerShell bleibt nur noch Fallback.
 
 ## Aktueller Arbeitsmodus
 
@@ -41,7 +41,7 @@ checks: markdownlint-cli2 PASS
 - Auswertungen & Berichte: `novapolis_agent/eval/results/`, `novapolis_agent/scripts/reports/`
 - Backups/Exports: `Backups/` (Release-Artefakte), `novapolis-rp/database-raw/99-exports/`
 - VS-Code-Empfehlungen: `.vscode/extensions.json` bündelt Python-, Markdownlint-, Copilot-, GitLens- und PowerShell-Extensions
-- Gitignore: `Fehleranalyse und Auditplan.pdf` als lokaler Export ausgeschlossen
+- Gitignore: `Fehleranalyse und Auditplan.pdf` sowie Godot-Editor-Binaries (`novapolis-sim/Godot_v*.exe`) als lokale Artefakte ausgeschlossen
 
 ## Struktur-Snapshot
 

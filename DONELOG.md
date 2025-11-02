@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-02 19:11
-update: YAML-Frontmatter endgültig vereinheitlicht
-checks: markdownlint-cli2 PASS
+stand: 2025-11-02 22:48
+update: pwsh-Standard dokumentiert; Godot-Binaries aus Git ausgeschlossen
+checks: keine
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -14,6 +14,7 @@ Kurzueberblick
 
 - 2025-11-01 23:45: Workspace-Bereinigung – alte `.code-workspace` Dateien entfernt; markdownlint-cli2 PASS (Root-Lauf, keine Fehler). `WORKSPACE_STATUS.md` aktualisiert.
 - 2025-11-02 19:11: YAML-Frontmatter auf allen Root-Dokumenten finalisiert; markdownlint-cli2 PASS (Repo-Lauf).
+- 2025-11-02 22:31: Shell-Hooks/Tasks auf PowerShell 7 (`pwsh`) umgestellt; `.gitignore` ignoriert lokale Godot-Editor-Binaries (novapolis-sim).
 - **novapolis_agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
 - **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
 - 2025-11-01: Markdownlint zentralisiert – Root-Task vereinheitlicht, Agent-Wrapper entfernt, `run_lint_markdown.ps1` als Hinweisstub belassen.
@@ -34,6 +35,13 @@ Kurzueberblick
 
 Volltexte
 ---------
+
+PowerShell 7 Standard & Gitignore (2025-11-02T22:31:00+01:00)
+
+- `.vscode/settings.json` setzt Terminal-Profile/Automation jetzt auf PowerShell 7 (`pwsh`), Tasks (`.vscode/tasks.json`) nutzen `pwsh -NoProfile` statt Windows PowerShell.
+- Git-Hooks und Snapshot-Skripte (`githooks/pre-commit`, `scripts/snapshot_*`, Diagnosetools) erkennen `pwsh` bevorzugt, behalten Fallback auf `powershell.exe`.
+- CI-Workflows/Validatoren (`.github/workflows/validate-rp.yml`, `novapolis-rp/.github/workflows/validate.yml`) führen PS1-Wrapper mit `pwsh` aus; Dokumentation (`.github/copilot-instructions.md`, `single-root-todo.md`, `WORKSPACE_STATUS.md`) auf neuen Standard synchronisiert.
+- Root-`.gitignore` ergänzt Ausnahmeregel für lokale Godot-Editor-Binaries (`novapolis-sim/Godot_v*.exe`).
 
 Memory-Bundle Refresh (2025-11-02T10:15:00+01:00)
 

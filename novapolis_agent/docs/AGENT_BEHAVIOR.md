@@ -1,3 +1,9 @@
+---
+stand: 2025-11-02 23:36
+update: YAML-Frontmatter ergänzt; Inhalt unverändert
+checks: markdownlint-cli2 (docs focused) PASS
+---
+
 <!-- markdownlint-disable MD013 -->
 # AGENT_BEHAVIOR – System-Prompt, Richtlinien & System-Infos
 

@@ -1,3 +1,9 @@
+---
+stand: 2025-11-02 23:36
+update: YAML-Frontmatter ergänzt; Inhalt unverändert
+checks: markdownlint-cli2 (docs focused) PASS
+---
+
 # Kontext-Architektur: Developer × Copilot × Prompt Assistant
 
 Dieses Dokument beschreibt, wie die Zusammenarbeit zwischen dir (Developer), GitHub Copilot (lokal im Editor) und dem GPT‑basierten Copilot Prompt Assistant (Chat) funktioniert. Ziel: effizienter Fluss von Idee → Code → Review → PR – mit klarem Scope und Datenschutz.

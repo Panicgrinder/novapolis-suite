@@ -62,6 +62,7 @@ desktop.ini
 /novapolis-dev/**/__pycache__/
 /novapolis-sim/.godot/
 /novapolis-sim/.import/
+novapolis-sim/Godot_v*.exe
 
 # Generic logs / temp files
 *.log

@@ -1,6 +1,28 @@
+---
+stand: 2025-11-02 23:36
+update: Agent-Docs Frontmatter-Sweep vermerkt
+checks: markdownlint-cli2 (docs focused) PASS
+---
+
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+Frontmatter-Migration – Docs Sweep (2025-11-02T23:23:00+01:00)
+
+- `docs/donelog.md` und `docs/tests.md` um YAML-Frontmatter ergänzt; Status-Header inkl. Lint-Ergebnis aktualisiert.
+- Checks: markdownlint-cli2 (docs focused) PASS.
+
+Frontmatter-Migration – Agent Docs Sweep (2025-11-02T23:36:00+01:00)
+
+- `novapolis_agent/docs/{AGENT_BEHAVIOR,ARCHIVE_PLAN,CONTEXT_ARCH,customization,REPORTS,training}.md` und `novapolis_agent/docs/reports/overnight-20251022.md` mit YAML-Frontmatter versehen.
+- Checks: markdownlint-cli2 (docs focused) PASS.
+
+Frontmatter-Migration – TODO-SSOTs (2025-11-02T22:48:00+01:00)
+
+- `docs/todo.{index,dev,sim}.md` mit vollständiger YAML-Frontmatter versehen (`---`-Delimiter ergänzt); Inhalte unverändert.
+- Hinweis im Root-Single-Root-Plan bleibt gültig (Migration Etappe 1–3 wird fortgesetzt).
+- Checks: markdownlint-cli2 (docs focused) PASS.
 
 Single Root TODO (Root) angelegt (2025-11-02 10:02)
 

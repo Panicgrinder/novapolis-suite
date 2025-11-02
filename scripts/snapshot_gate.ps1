@@ -13,8 +13,9 @@ function Get-RepoRoot {
 }
 
 function Get-CurrentTimestamp {
-    # Required command per policy
-    $ts = & powershell -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"
+    # Required command per policy (prefer PowerShell 7 / pwsh)
+    $shell = if (Get-Command pwsh -ErrorAction SilentlyContinue) { 'pwsh' } else { 'powershell' }
+    $ts = & $shell -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"
     return $ts.Trim()
 }
 
@@ -118,8 +119,8 @@ if ($failed.Count -gt 0) {
         Write-Host (" - {0}: stand={1} | now={2} | lock={3}" -f $x.File, $x.Stand, $x.Now, $lockVal) -ForegroundColor Red
     }
     Write-Host "\nBitte VOR dem Edit/Commit die Systemzeit abrufen und Lock setzen:" -ForegroundColor Red
-    Write-Host '  cd "F:/VS Code Workspace/Main"; powershell -NoProfile -Command "Get-Date -Format ''yyyy-MM-dd HH:mm''"' -ForegroundColor Red
-    Write-Host '  cd "F:/VS Code Workspace/Main"; powershell -NoProfile -ExecutionPolicy Bypass -File scripts/snapshot_write_lock.ps1' -ForegroundColor Red
+    Write-Host '  cd "F:/VS Code Workspace/Main"; pwsh -NoProfile -Command "Get-Date -Format ''yyyy-MM-dd HH:mm''"' -ForegroundColor Red
+    Write-Host '  cd "F:/VS Code Workspace/Main"; pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/snapshot_write_lock.ps1' -ForegroundColor Red
     Write-Host "Danach YAML-Frontmatter 'stand:' aktualisieren und erneut committen." -ForegroundColor Red
     Write-Host "Bypass (nicht empfohlen): setx SNAPSHOT_GATE_BYPASS 1 (neues Terminal nötig)" -ForegroundColor DarkYellow
     exit 1

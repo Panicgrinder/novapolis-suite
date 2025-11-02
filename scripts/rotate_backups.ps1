@@ -5,7 +5,7 @@ Implements tiered retention (daily/weekly/monthly/yearly) for backup artifacts.
 .DESCRIPTION
 Analyzes backup files in the Backups directory, determines which artifacts should be kept
 according to configured retention windows, and optionally deletes the surplus files.
-Run with PowerShell -NoProfile to avoid user profile side-effects.
+Run with PowerShell 7 (pwsh) -NoProfile to avoid user profile side-effects.
 #>
 [CmdletBinding()]
 param(

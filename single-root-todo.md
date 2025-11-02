@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-02 19:11
-update: Frontmatter-Block ergänzt (Root-Migration abgeschlossen)
-checks: markdownlint-cli2 PASS
+stand: 2025-11-02 23:36
+update: Frontmatter-Sweep (Agent-Docs) ergänzt; Statusliste erweitert
+checks: markdownlint-cli2 (docs focused) PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -16,7 +16,7 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
 - Archivierung: Fertige Blöcke (alle [x]) bitte in die jeweiligen Modul-Archive unter `novapolis-dev/archive/` verschieben.
 - Snapshot-Kopf: YAML-Frontmatter oben bei Änderungen aktualisieren (`stand`, `update`, `checks`).
 - Lint: Markdownlint läuft repo-weit via npx/Task. Bei FAIL bitte minimalen Patch anwenden.
- - Terminal/PowerShell: Bis auf Weiteres bei allen manuellen PowerShell-Eingaben `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks sind bereits entsprechend konfiguriert (z. B. `powershell -NoProfile -Command '…'`).
+- Terminal/Pwsh: Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks sind bereits entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`).
 - STOP-Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → Abschnitt „Unklarheiten‑STOP (global, immer gültig)“.
 
 ## Kurzüberblick (Module & Quellen)
@@ -50,6 +50,11 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
     - Snapshot-Zeitstempel (`stand`) und Kurznotiz (`update`) pro Commit aktualisiert.
   - 2025-11-02: README.md auf YAML-Frontmatter migriert (lint PASS).
   - 2025-11-02: WORKSPACE_STATUS.md aktualisiert (PowerShell 7.5.4 via VS Code Extension).
+  - 2025-11-02: Tasks & Hooks auf `pwsh`-Standard umgestellt (Settings, Tasks, pre-commit, Snapshot-Gate).
+  - 2025-11-02: `.gitignore` erweitert – Godot-Editor-Binaries (`novapolis-sim/Godot_v*.exe`) bleiben lokal.
+  - 2025-11-02: `novapolis-dev/docs/todo.{index,dev,sim}.md` auf YAML-Frontmatter (mit `---`-Delimiter) gebracht; Lint docs focused PASS.
+  - 2025-11-02: `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/tests.md` mit YAML-Frontmatter versehen; Lint docs focused PASS.
+  - 2025-11-02: `novapolis_agent/docs/*` (7 Dateien) mit YAML-Frontmatter versehen; Lint docs focused PASS.
 - [ ] Tree-Snapshots aktualisieren bei Strukturänderungen
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [ ] Backups & Releases (Manifest/Checksums/Rotation) pflegen
@@ -122,12 +127,12 @@ Inventur-Status (2025-11-02 12:05):
   - Dateien prüfen: `novapolis_agent/.vscode/settings.json`, `novapolis-rp/.vscode/settings.json`, `novapolis-sim/.vscode/settings.json`
   - Akzeptanz: Keine interpreterPath-/defaultInterpreterPath-Overrides außerhalb des Root mehr vorhanden
 
-Optionale Befehle (PowerShell):
+Optionale Befehle (Pwsh):
 
 ```powershell
-# Root venv erstellen (Windows)
+# Root venv erstellen (Windows, pwsh)
 py -3 -m venv .venv
-.\.venv\Scripts\Activate.ps1
+\.venv\Scripts\Activate.ps1
 pip install -U pip
 pip install -r requirements.txt
 pip install -r requirements-dev.txt

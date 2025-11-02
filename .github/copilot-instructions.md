@@ -1,10 +1,10 @@
 # Copilot-Projektanweisungen (Novapolis Suite)
 
-Stand: 2025-11-02 16:23 – Unklarheiten‑STOP ergänzt; kurzer Hinweis oben ergänzt
+Stand: 2025-11-02 21:03 – Tasks & Hooks auf PowerShell 7 (pwsh) umgestellt; Hinweis aktualisiert
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
-> Hinweis (Terminal/PowerShell): Bis auf Weiteres bei allen manuellen PowerShell-Eingaben `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks sind bereits entsprechend konfiguriert (z. B. `powershell -NoProfile -Command '…'`).
+> Hinweis (Terminal/Pwsh): Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks sind bereits entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`).
 >
 > Hinweis (STOP): „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe.
 

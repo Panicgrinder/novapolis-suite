@@ -1,3 +1,9 @@
+---
+stand: 2025-11-02 23:23
+update: YAML-Frontmatter ergänzt; Inhalt unverändert
+checks: markdownlint-cli2 (docs focused) PASS
+---
+
 Tests & Prequel
 ===============
 

@@ -1,7 +1,14 @@
 {
   // Canonical workspace for the novapolis-suite mono-repo (single-root)
   "folders": [
-    { "path": "." }
+    {
+      "path": "."
+    },
+    {
+      "path": "C:/Users/FloAu/AppData/Roaming/Code"
+    }
   ],
-  "settings": {}
+  "settings": {
+    "powershell.cwd": "Code"
+  }
 }

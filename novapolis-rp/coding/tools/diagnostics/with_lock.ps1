@@ -49,8 +49,14 @@ try {
         $exit = $LASTEXITCODE
     }
     elseif ($Command) {
-        powershell -NoProfile -ExecutionPolicy Bypass -Command $Command
-        $exit = $LASTEXITCODE
+        if (Get-Command pwsh -ErrorAction SilentlyContinue) {
+            pwsh -NoProfile -ExecutionPolicy Bypass -Command $Command
+            $exit = $LASTEXITCODE
+        }
+        else {
+            powershell -NoProfile -ExecutionPolicy Bypass -Command $Command
+            $exit = $LASTEXITCODE
+        }
     }
     else {
         Write-Error "with_lock.ps1: Kein -ScriptFile oder -Command angegeben."

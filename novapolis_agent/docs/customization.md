@@ -1,3 +1,9 @@
+---
+stand: 2025-11-02 23:36
+update: YAML-Frontmatter ergänzt; Inhalt unverändert
+checks: markdownlint-cli2 (docs focused) PASS
+---
+
 # Anpassung des Novapolis Agents
 
 Diese Anleitung erklärt, wie Sie den Novapolis Agent ohne die üblichen Einschränkungen

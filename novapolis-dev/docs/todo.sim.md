@@ -1,3 +1,4 @@
+---
 stand: 2025-11-01 22:31
 update: Referenz auf Scheduler‑Spec ergänzt; Tab→Spaces Fix
 checks: keine

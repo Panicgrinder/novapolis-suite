@@ -44,9 +44,9 @@ jobs:
       - name: Run validators (PS1 wrapper)
         shell: pwsh
         run: |
-          powershell -NoProfile -ExecutionPolicy Bypass -File "novapolis-rp/coding/tools/validators/run_validate_all.ps1"
+            pwsh -NoProfile -ExecutionPolicy Bypass -File "novapolis-rp/coding/tools/validators/run_validate_all.ps1"
 
       - name: Run name-lint (PS1 wrapper)
         shell: pwsh
         run: |
-          powershell -NoProfile -ExecutionPolicy Bypass -File "novapolis-rp/coding/tools/validators/run_check_names.ps1"
+            pwsh -NoProfile -ExecutionPolicy Bypass -File "novapolis-rp/coding/tools/validators/run_check_names.ps1"
