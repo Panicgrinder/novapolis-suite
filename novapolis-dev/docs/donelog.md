@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-02 23:36
-update: Agent-Docs Frontmatter-Sweep vermerkt
-checks: markdownlint-cli2 (docs focused) PASS
+stand: 2025-11-02 23:44
+update: Frontmatter-Migration abgeschlossen (RP-Docs = Redirect-Stubs)
+checks: markdownlint-cli2 (all md) PASS
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -17,6 +17,11 @@ Frontmatter-Migration – Agent Docs Sweep (2025-11-02T23:36:00+01:00)
 
 - `novapolis_agent/docs/{AGENT_BEHAVIOR,ARCHIVE_PLAN,CONTEXT_ARCH,customization,REPORTS,training}.md` und `novapolis_agent/docs/reports/overnight-20251022.md` mit YAML-Frontmatter versehen.
 - Checks: markdownlint-cli2 (docs focused) PASS.
+
+Frontmatter-Migration – Abschluss (2025-11-02T23:44:00+01:00)
+
+- RP-Docs unter `novapolis-rp/**/docs/**` sind Redirect-/Mirror-Stubs (SSOT: `novapolis-dev/docs/**`), daher keine Migration erforderlich.
+- Checks: markdownlint-cli2 (all md) PASS.
 
 Frontmatter-Migration – TODO-SSOTs (2025-11-02T22:48:00+01:00)
 

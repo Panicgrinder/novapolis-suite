@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-02 23:36
-update: Frontmatter-Sweep (Agent-Docs) ergänzt; Statusliste erweitert
-checks: markdownlint-cli2 (docs focused) PASS
+stand: 2025-11-02 23:44
+update: Frontmatter-Migration abgeschlossen (Dev/Agent ok; RP-Docs=Stubs)
+checks: markdownlint-cli2 (all md) PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -55,6 +55,7 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
   - 2025-11-02: `novapolis-dev/docs/todo.{index,dev,sim}.md` auf YAML-Frontmatter (mit `---`-Delimiter) gebracht; Lint docs focused PASS.
   - 2025-11-02: `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/tests.md` mit YAML-Frontmatter versehen; Lint docs focused PASS.
   - 2025-11-02: `novapolis_agent/docs/*` (7 Dateien) mit YAML-Frontmatter versehen; Lint docs focused PASS.
+  - 2025-11-02: RP‑Docs unter `novapolis-rp/**/docs/**` sind Redirect-/Mirror‑Stubs → keine Migration nötig.
 - [ ] Tree-Snapshots aktualisieren bei Strukturänderungen
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [ ] Backups & Releases (Manifest/Checksums/Rotation) pflegen
