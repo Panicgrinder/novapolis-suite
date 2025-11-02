@@ -71,3 +71,6 @@ desktop.ini
 *.swp
 *.swo
 *.bundle
+
+# Local analysis exports
+Fehleranalyse\ und\ Auditplan.pdf

@@ -31,6 +31,12 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 - Nicht-triviale Aenderungen werden weiterhin im jeweiligen DONELOG des Projekts dokumentiert (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
 - Der Agent-Workspace nutzt jetzt den Paketnamen `novapolis_agent`; aeltere Referenzen mit Bindestrich bitte bei Gelegenheit bereinigen (siehe Aufgaben in `todo.root.md`).
 
+## Workspace öffnen
+
+1. VS Code über `novapolis-suite.code-workspace` starten (Root `Main` wird automatisch geladen).
+2. Die Module `novapolis_agent`, `novapolis-dev`, `novapolis-rp`, `novapolis-sim` und `packages` sind als zusätzliche Ordner im Workspace eingebunden.
+3. Automatisierte Läufe erfolgen ausschließlich über das Tasks-Panel (`presentation.panel=shared`); spontane Shell-Kommandos gehören ins User-Terminal.
+
 ### Hinweise für Mitarbeit (Moduswechsel & Stop‑Gate)
 
 - Moduswahl: Redaktion/Kanon bitte im General‑Modus (GPT‑5) arbeiten; Code‑Aufgaben (Skripte/Validatoren, Tests/CI, API/Services) im Codex‑Modus.
@@ -43,7 +49,7 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 
 - [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) – Stand 2025-11-02, fasst Health-Checks, Risiken und Artefakte zusammen.
 - [`todo.root.md`](todo.root.md) – Zentraler Aufgabenueberblick (Stand 2025-11-02) inklusive Folgeaufgaben fuer Tree-Snapshots.
-- [`workspace_tree_full.txt`](workspace_tree_full.txt) – Vollstaendiger Verzeichnisbaum (Stand 2025-10-31; naechste Regeneration geplant).
+- [`workspace_tree_full.txt`](workspace_tree_full.txt) – Vollstaendiger Verzeichnisbaum (Stand 2025-11-02 02:11; regenerierbar via Tasks `Workspace tree: full/directories/summary (dirs)`).
 
 ## Naechste Schritte
 

@@ -1,5 +1,5 @@
-stand: 2025-11-01 19:23
-update: Volltexte-Summary/Links korrigiert; Details-Block geschlossen
+stand: 2025-11-02 02:12
+update: Workspace-Tree-Tasks ergänzt; Terminal-Policy in Docs verankert
 checks: markdownlint-cli2 FAIL
 ---
 
@@ -13,8 +13,8 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 
 - **novapolis_agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
 - **novapolis-dev / novapolis-rp**: Fokus auf Canvas-Rettung Sprint (Charaktere/Logistik/Systeme) sowie bestehende Datenkurierungs- und Sim-Aufgaben.
-- **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-02) + `workspace_tree*.txt` (Stand 2025-10-31) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
-  - [ ] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) neu erzeugen und ablegen (letzter Lauf 2025-10-31).
+- **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-02) + `workspace_tree*.txt` (Stand 2025-11-02) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
+  - [x] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) am 2025-11-02 via Tasks `Workspace tree:*` regeneriert.
 - 2025-11-01: DONELOG-Heading-Stil auf Setext gemäß MD003 korrigiert; Markdownlint bleibt zentral via npx.
 - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren.
   - Root-Archiv (vollständig erledigte Root-Blöcke): `novapolis-dev/archive/todo.root.archive.md`.
@@ -139,7 +139,7 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
   - [x] Tests: `pytest -q` (cwd=`novapolis_agent`)
   - [x] Tests: Coverage (fail-under=80) (cwd=`novapolis_agent`)
   - [x] Optional: „Append DONELOG entry“ als Root-Alias mit cwd `novapolis_agent` (2025-11-01 09:05)
-    - Änderung: VS Code Task `DONELOG: append entry (root alias)` in `/.vscode/tasks.json` ergänzt.
+    - Änderung: VS Code Task `DONELOG: append entry` in `/.vscode/tasks.json` ergänzt.
     - Prüfungen: keine (reine Task-Erweiterung).
 - Root‑Settings
   - [x] Copilot-Workspace-Instructions aus `novapolis-rp/.vscode/settings.json` in Root übernehmen/vereinheitlichen

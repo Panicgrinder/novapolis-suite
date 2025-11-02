@@ -1,6 +1,8 @@
-Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-02 00:40
+Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-02 02:11
 Top-Level
   - .github
+  - .tmp-datasets
+  - .tmp-results
   - eval
   - githooks
   - novapolis_agent
@@ -11,55 +13,64 @@ Top-Level
   - scripts
 
 .github/
-  - workflows/
+  - workflows
+
+.tmp-datasets/
+  - (leer)
+
+.tmp-results/
+  - (leer)
 
 eval/
-  - config/
+  - config
 
 githooks/
-  - pre-commit
+  - (leer)
 
 novapolis_agent/
-  - agents/
-  - app/
-  - docs/
-  - eval/
-  - examples/
-  - scripts/
-  - tests/
-  - utils/
+  - .devcontainer
+  - .githooks
+  - .github
+  - .tmp-datasets
+  - .tmp-results
+  - _archived
+  - agents
+  - app
+  - data
+  - docs
+  - eval
+  - examples
+  - novapolis_agent
+  - scripts
+  - tests
+  - utils
 
 novapolis-dev/
-  - archive/
-  - curated/
-  - docs/
-  - integrations/
-  - migrations/
-  - raw/
-  - roadmaps/
+  - archive
+  - curated
+  - docs
+  - integrations
+  - migrations
+  - raw
+  - roadmaps
 
 novapolis-rp/
-  - coding/
-  - database-curated/
-  - database-raw/
-  - database-rp/
-  - development/
-  - Main/
-    - novapolis-dev/
+  - .github
+  - coding
+  - database-curated
+  - database-raw
+  - database-rp
+  - development
+  - Main
 
 novapolis-sim/
-  - autoload/
-  - novapolis-sim/
+  - autoload
+  - novapolis-sim
+  - scripts
 
 packages/
-  - novapolis_common/
+  - novapolis_common
 
 scripts/
-  - cleanup_workspace_files.ps1
-  - install_hooks.ps1
-  - snapshot_gate.ps1
-  - snapshot_write_lock.ps1
-  - scripts/
+  - (leer)
 
-packages/
-  - novapolis_common/

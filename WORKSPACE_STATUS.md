@@ -1,6 +1,7 @@
-stand: 2025-11-01 23:45
-update: Alte Workspace-Dateien entfernt; Bundle-Dateien nach `Backups/` verschoben; markdownlint-cli2 PASS.
-checks: markdownlint-cli2 PASS
+---
+stand: 2025-11-02 02:13
+update: Task-Panel-Policy geschärft; Workspace-Tree-Snapshots regeneriert.
+checks: Workspace tree: full PASS; Workspace tree: directories PASS; Workspace tree: summary (dirs) PASS
 ---
 
 # Workspace-Status
@@ -11,7 +12,7 @@ checks: markdownlint-cli2 PASS
 - Produktiver Code liegt ausschließlich im Agent-Backend; RP-Workspace enthält weiterhin Daten, Workflows, Tools
 - Root-Dokumente (`README.md`, `todo.root.md`, `WORKSPACE_STATUS.md`) wurden am 2025-11-02 synchronisiert und liefern Einstieg ohne Projektwechsel
 - Kopilot-Anweisungen konsolidiert unter `.github/copilot-instructions.md`
-- Struktur-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) zuletzt am 2025-10-31 erzeugt; Regeneration ist als Folgeaufgabe notiert (`todo.root.md`)
+- Struktur-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) am 2025-11-02 via Tasks `Workspace tree:*` regeneriert; nächste Prüfung Mitte November.
 
 ## Aktueller Arbeitsmodus
 
@@ -36,13 +37,20 @@ checks: markdownlint-cli2 PASS
 - Changelog-Übersicht auf Root-Ebene: `DONELOG.md` (aktualisiert 2025-11-01)
 - Auswertungen & Berichte: `novapolis_agent/eval/results/`, `novapolis_agent/scripts/reports/`
 - Backups/Exports: `Backups/` (Release-Artefakte), `novapolis-rp/database-raw/99-exports/`
+- VS-Code-Empfehlungen: `.vscode/extensions.json` bündelt Python-, Markdownlint-, Copilot-, GitLens- und PowerShell-Extensions
+- Gitignore: `Fehleranalyse und Auditplan.pdf` als lokaler Export ausgeschlossen
 
 ## Struktur-Snapshot
 
-- Vollständiger Verzeichnisbaum: `workspace_tree_full.txt` (Stand 2025-10-31; Regeneration offen)
-- Arbeitsansicht: `workspace_tree.txt` (Stand 2025-10-31) und kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt`
+- Vollständiger Verzeichnisbaum: `workspace_tree_full.txt` (Stand 2025-11-02 02:11; Task `Workspace tree: full`)
+- Arbeitsansicht: `workspace_tree.txt` (Stand 2025-11-02 02:11; Task `Workspace tree: directories`) und kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt` (Stand 2025-11-02 02:11; Task `Workspace tree: summary (dirs)`)
 - Historische Agent-Dateiinventur: `novapolis_agent/WORKSPACE_INDEX.md`
 - Für gezielte Suchen weiterhin `scripts/audit_workspace.py` nutzen (prüft Referenzen & Altlasten)
+
+## VS-Code-Erweiterungen
+
+- **Empfohlen (Workspace)**: `ms-python.python`, `ms-python.vscode-pylance`, `davidanson.vscode-markdownlint`, `github.copilot`, `github.copilot-chat`, `eamodio.gitlens`, `ms-vscode.powershell`
+- **Zusätzliche lokale Installationen**: u. a. `donjayamanne.githistory`, GitHub-/Remote-/Containers-Tools sowie die .NET-Suite; bleiben optional und sind nicht als Workspace-Empfehlung erforderlich
 
 ## Nächste Empfehlungen
 

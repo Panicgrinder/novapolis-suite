@@ -1,6 +1,6 @@
 # Copilot-Projektanweisungen (Novapolis Suite)
 
-Stand: 2025-11-02 00:30 – Terminal-Policy um sequentielle Task-Läufe ergänzt.
+Stand: 2025-11-02 02:15 – Task-Panel-Policy & Zuständigkeiten geschärft.
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
@@ -13,7 +13,7 @@ Stand: 2025-11-02 00:30 – Terminal-Policy um sequentielle Task-Läufe ergänzt
 ## Gemeinsamer Arbeitsstil
 - Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
 - Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen im jeweiligen DONELOG (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
-- Prägnanter Output: skimmbar, kurze Sätze/Bullets, keine überladenen Blockzitate; bei großen Aufgaben Plan als Liste führen.
+- Prägnanter Output: skimmbar, keine überladenen Blockzitate; bei großen Aufgaben Plan in betreffende todo eintragen.
 - Sicherheit & Privacy: Keine Secrets, offline bevorzugen, keine harten Pfade zu externen Repositories übernehmen.
 - Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
 
@@ -23,14 +23,44 @@ Stand: 2025-11-02 00:30 – Terminal-Policy um sequentielle Task-Läufe ergänzt
 - Bei Korrekturen mit Minimal‑Delta vorgehen: Redirects/Stubs belassen bis alle Verweise umverdrahtet sind, dann aufräumen.
 - Vor dem Entfernen von Redirect-/Mirror‑Stubs eingehende Links per Suche prüfen und erst danach löschen.
 
-### Terminal-Policy (lokale Läufe)
+### Checkliste: Task-Läufe
 
-- Keine separaten VS Code Task‑Terminals für Lint/Checks/Tests verwenden. Läufe finden ausschließlich im bestehenden PowerShell‑Terminal statt.
-- Läufe strikt sequentiell planen: Erst neuen Task/Command starten, wenn der vorherige vollständig abgeschlossen, ausgewertet und an den Nutzer zurückgemeldet wurde (keine parallelen Task-Starts oder Doppel-Triggers).
-- VS Code Markdownlint‑Tasks wurden entfernt; lokale Ausführung erfolgt direkt via `npx` im aktiven Terminal.
-- Statuskommunikation: kurze PASS/FAIL‑Notiz nach tatsächlicher Ausführung; Frontmatter `checks` erst nach realem Lauf aktualisieren.
-- Vor jedem Start prüfen, ob noch Prozesse laufen oder Ausgaben ausstehen; bei Unsicherheit Rückfrage halten statt erneut auszuführen.
-- Snapshot‑Gate (pre‑commit) aktiv.
+- Automation-Konsole auf Idle prüfen.
+- Benötigten Task im Tasks-Panel starten.
+- Exit-Code und vollständigen Output abwarten.
+- 2–3 s Cooldown einhalten, dann erst den nächsten Task starten.
+
+### Copilot vs. Mensch (Verantwortungsmatrix)
+
+- Copilot: startet und überwacht Tasks im gemeinsamen Panel.
+- Copilot: dokumentiert PASS/FAIL-Ergebnisse und aktualisiert `checks` nach realen Läufen.
+- Copilot: pflegt Task-Definitionen und fordert bei fehlenden Tasks Freigabe ein.
+- Mensch: nutzt das User-Terminal für ad-hoc Shell-Kommandos und Explorationsläufe.
+- Mensch: bestätigt Moduswechsel (Stop-Gate) und gibt neue Tasks oder Anpassungen frei.
+- Mensch: sorgt dafür, dass das User-Terminal frei ist, wenn Copilot Tasks starten soll.
+
+### Kanonische Tasks (Referenz)
+
+- Checks: *lint+pytest* (Aggregator: erst markdownlint, nur bei Lint-PASS folgt pytest).
+- Git: *commit+push* (Commit-Message per Prompt, dann Push).
+- Lint: *markdownlint-cli2 (all md)*.
+- Snapshot: *now (timestamp)*.
+- Hinweis: Labels müssen exakt den Einträgen in `.vscode/tasks.json` entsprechen; bei Abweichung **nicht starten**, sondern Rückfrage.
+
+### Kanonische Task-Labels
+
+- `Tests: pytest (-q)`
+- `Tests: coverage (fail-under)`
+- `DONELOG: append entry`
+- `Snapshot: now (timestamp)`
+- `TTS: export (Coqui→OGG)`
+- `Git: commit+push`
+- `Checks: lint+pytest`
+- `Lint: markdownlint-cli2 (all md)`
+- `Lint: markdownlint-cli2 (docs focused)`
+- `Workspace tree: full`
+- `Workspace tree: directories`
+- `Workspace tree: summary (dirs)`
 
 ### Update-Logistik (Snapshot)
 
@@ -57,7 +87,7 @@ Beispiel:
 ```markdown
 ---
 stand: 2025-11-01 09:05
-update: Root-Task „DONELOG: append entry (root alias)“ ergänzt.
+update: Task „DONELOG: append entry“ ergänzt.
 checks: keine
 ---
 ```
