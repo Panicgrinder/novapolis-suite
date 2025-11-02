@@ -1,12 +1,7 @@
 {
-  // Canonical workspace for the novapolis-suite mono-repo (clean, single-root)
+  // Canonical workspace for the novapolis-suite mono-repo (single-root)
   "folders": [
-    { "name": "Main", "path": "." },
-    { "name": "novapolis_agent", "path": "novapolis_agent" },
-    { "name": "novapolis-dev", "path": "novapolis-dev" },
-    { "name": "novapolis-rp", "path": "novapolis-rp" },
-    { "name": "novapolis-sim", "path": "novapolis-sim" },
-    { "name": "packages", "path": "packages" }
+    { "path": "." }
   ],
   "settings": {}
 }

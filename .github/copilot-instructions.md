@@ -5,12 +5,14 @@ Stand: 2025-11-02 02:15 – Task-Panel-Policy & Zuständigkeiten geschärft.
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
 ## Primäre Behaviour-Quellen
+
 - `novapolis_agent/docs/AGENT_BEHAVIOR.md`: maßgeblicher System-Prompt, Sicherheitsrichtlinien, Arbeitsablauf.
 - `novapolis-dev/docs/copilot-behavior.md`: redigierte Kopie für den Dokumentations-Hub; folgt denselben Regeln.
 - `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`: Rollenspiel-spezifische Verhaltenshooks und Rollenmatrix.
 - `novapolis-rp/development/docs/` enthält nur Legacy-Stubs; verwende stattdessen die oben genannten Quellen.
 
 ## Gemeinsamer Arbeitsstil
+
 - Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
 - Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen im jeweiligen DONELOG (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
 - Prägnanter Output: skimmbar, keine überladenen Blockzitate; bei großen Aufgaben Plan in betreffende todo eintragen.
@@ -23,16 +25,8 @@ Stand: 2025-11-02 02:15 – Task-Panel-Policy & Zuständigkeiten geschärft.
 - Bei Korrekturen mit Minimal‑Delta vorgehen: Redirects/Stubs belassen bis alle Verweise umverdrahtet sind, dann aufräumen.
 - Vor dem Entfernen von Redirect-/Mirror‑Stubs eingehende Links per Suche prüfen und erst danach löschen.
 
-### Checkliste: Task-Läufe
-
-- Automation-Konsole auf Idle prüfen.
-- Benötigten Task im Tasks-Panel starten.
-- Exit-Code und vollständigen Output abwarten.
-- 2–3 s Cooldown einhalten, dann erst den nächsten Task starten.
-
 ### Copilot vs. Mensch (Verantwortungsmatrix)
 
-- Copilot: startet und überwacht Tasks im gemeinsamen Panel.
 - Copilot: dokumentiert PASS/FAIL-Ergebnisse und aktualisiert `checks` nach realen Läufen.
 - Copilot: pflegt Task-Definitionen und fordert bei fehlenden Tasks Freigabe ein.
 - Mensch: nutzt das User-Terminal für ad-hoc Shell-Kommandos und Explorationsläufe.
@@ -46,21 +40,7 @@ Stand: 2025-11-02 02:15 – Task-Panel-Policy & Zuständigkeiten geschärft.
 - Lint: *markdownlint-cli2 (all md)*.
 - Snapshot: *now (timestamp)*.
 - Hinweis: Labels müssen exakt den Einträgen in `.vscode/tasks.json` entsprechen; bei Abweichung **nicht starten**, sondern Rückfrage.
-
-### Kanonische Task-Labels
-
-- `Tests: pytest (-q)`
-- `Tests: coverage (fail-under)`
-- `DONELOG: append entry`
-- `Snapshot: now (timestamp)`
-- `TTS: export (Coqui→OGG)`
-- `Git: commit+push`
-- `Checks: lint+pytest`
-- `Lint: markdownlint-cli2 (all md)`
-- `Lint: markdownlint-cli2 (docs focused)`
-- `Workspace tree: full`
-- `Workspace tree: directories`
-- `Workspace tree: summary (dirs)`
+- Gates können jederzeit durch die Formulierung „Stop‑Gate aus (Session)“ deaktivieren und mit „Stop‑Gate an“ wieder aktivieren.
 
 ### Update-Logistik (Snapshot)
 
@@ -71,6 +51,7 @@ Stand: 2025-11-02 02:15 – Task-Panel-Policy & Zuständigkeiten geschärft.
 - Markdownlint-Läufe protokollieren: Lauf/Command + PASS/FAIL direkt nach dem Lauf im Status erwähnen.
 - Dokumentpflege: Betroffene Artefakte synchron halten (`TODO.md`, `novapolis_agent/docs/TODO.md`, DONELOGs, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, README/Index-Seiten). Strukturänderungen → zusätzlich Tree-Snapshots aktualisieren; Behaviour-Änderungen → `AGENT_BEHAVIOR.md` & Kopien prüfen.
 - Referenzen: Wenn vorhanden Issue-/PR-Links, Commit-Hash oder Kontextnotizen angeben (Inline oder als Fußnote). Für wiederkehrende Schritte Templates/Tasks im Root `.vscode/` ergänzen.
+- Nicht-triviale Änderungen → in zugehörige TODO oder DONELOG.
 
 #### YAML-Frontmatter (kompakt & LLM-freundlich)
 
@@ -134,7 +115,6 @@ Hinweis für OpenAI Custom Instructions
   3) Ohne Bestätigung keine Code‑Änderungen/startenden Läufe durchführen.
 - Hinweise:
   - Das STOP‑Gate gilt nur für Code‑Aktionen; reine Redaktions-/Kanonarbeiten laufen ohne Unterbrechung weiter.
-  - Du kannst das Gate jederzeit durch die Formulierung „Stop‑Gate aus (Session)“ deaktivieren und mit „Stop‑Gate an“ wieder aktivieren.
 
 ## Repositoryweiter Rahmen
 - Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.
@@ -155,7 +135,7 @@ Hinweis für OpenAI Custom Instructions
 
 ### Schnellziele bei Codeänderungen
 - CI grün halten: Tests (`pytest`), Typen (Pyright/Mypy). CI prüft `docs/DONELOG.txt`.
-- Nicht-triviale Änderungen → DONELOG via `scripts/append_done.py`.
+
 - Nach jedem Edit Tests/Typen sequentiell ausführen und Ergebnisse abwarten (`pytest -q` → `pyright -p pyrightconfig.json` → `python -m mypy --config-file mypy.ini app scripts`). Keine Vorab-Statusmeldungen.
 
 ### PR-/Push-Checks

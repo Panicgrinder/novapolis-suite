@@ -24,7 +24,6 @@
   // 4) Extensions: Updates automatisch prüfen/installieren
   "extensions.autoCheckUpdates": true,
   "extensions.autoUpdate": true,
-
-  "python.testing.pytestEnabled": false,
-  "python.defaultInterpreterPath": "${workspaceFolder}/../.venv/Scripts/python.exe"
+  
+  // Hinweis: Python-Settings werden zentral im Root verwaltet (Single-Root). Keine Modul-Overrides.
 }

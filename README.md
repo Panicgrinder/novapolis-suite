@@ -33,9 +33,9 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 
 ## Workspace öffnen
 
-1. VS Code über `novapolis-suite.code-workspace` starten (Root `Main` wird automatisch geladen).
-2. Die Module `novapolis_agent`, `novapolis-dev`, `novapolis-rp`, `novapolis-sim` und `packages` sind als zusätzliche Ordner im Workspace eingebunden.
-3. Automatisierte Läufe erfolgen ausschließlich über das Tasks-Panel (`presentation.panel=shared`); spontane Shell-Kommandos gehören ins User-Terminal.
+1. VS Code über den Root-Ordner `Main/` öffnen (Single‑Root). Die frühere Multi‑Root‑Workspace-Datei wird nicht mehr verwendet.
+2. Workflows laufen ausschließlich zentral aus dem Root (`/.github/workflows`). Modulverzeichnisse enthalten keine eigenen `.github/workflows` mehr.
+3. Automatisierte Läufe erfolgen über das Tasks-Panel (Shared‑Panel); spontane Shell‑Kommandos gehören ins User‑Terminal.
 
 ### Hinweise für Mitarbeit (Moduswechsel & Stop‑Gate)
 

@@ -2,6 +2,16 @@
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
 
+Single Root TODO (Root) angelegt (2025-11-02 10:02)
+
+- Neue Datei `single-root-todo.md` im Repo-Root erstellt (Scaffold mit YAML-Frontmatter, Modul-Links, Root-Aufgaben).
+- Lint: markdownlint-cli2 PASS.
+
+Monorepo Single Root – Umstellungsplan ergänzt (2025-11-02 10:10)
+
+- In `single-root-todo.md` Abschnitt „Monorepo Single Root – Umstellungsplan (Schritt für Schritt)“ hinzugefügt (Etappen 0–5, Akzeptanzkriterien, optionale PowerShell-Befehle).
+- Lint: markdownlint-cli2 PASS.
+
 Canvas-Rettung Sprint 1 – C6/E3 Linienabgleich (2025-11-02T13:30:00+01:00)
 
 - Neue Location-Canvas `database-rp/03-locations/Verbindungstunnel-C6-E3.{md,json}` angelegt (Status, Nutzung als Evakuierungsroute für 20 E3-Flüchtlinge, Aufgabenliste); Index (`database-rp/index.json`) erweitert und Metadaten mit C6/E3 verknüpft.
