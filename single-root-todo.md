@@ -1,6 +1,8 @@
----stand: 2025-11-03 03:20
-update: Betriebsmodi-Anleitung und Logstruktur verankert
-## checks: keine
+---
+stand: 2025-11-03 23:22
+update: Frontmatter (YAML) korrigiert; Checks in YAML verschoben.
+checks: keine
+---
 
 <!-- markdownlint-disable MD022 MD041 -->
 
