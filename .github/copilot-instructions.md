@@ -145,10 +145,10 @@ checks: keine
 
 ### Betriebsmodi (Standardlauf & Sicherheitsprotokoll)
 
-- **Standardlauf:** Default nach Freigabe eines STOP-Gates. Vor jedem Task einen Expected-State-Block festhalten (Ziel, Nicht-Ziele, Invarianten, Scope, Budgets, Akzeptanzchecks, Risiken) und reguläre Dokumentationspflichten erfüllen.
-- **Sicherheitsprotokoll:** Aktiv bei STOP-Auslösern, Drift außerhalb Budgets oder manueller Anforderung. In Paketen zu 3–5 Operationen arbeiten, nach jedem Paket IST/SOLL abgleichen und Driftbewertung melden.
-- **Expected State & Logging:** Vorlage siehe `novapolis-dev/docs/process/betriebsmodi-sicherheitsprotokoll-notizen.md`. Rohlogs lokal in `novapolis-dev/logs/betriebsmodi-*.tmp.md` führen, verdichtete Zusammenfassungen optional committen (Vorlage `novapolis-dev/logs/log-template.md`).
-- **Ausstieg:** Sicherheitsprotokoll erst verlassen, wenn Ursache behoben ist und zwei Pakete ohne neue Drift außerhalb Budgets verlaufen oder der Nutzer explizit freigibt. Abschlussbericht (Befund, Checks, Rest-Risiken) bereitstellen.
+- **Standardlauf:** Default nach Freigabe eines STOP‑Gates. Vor jedem Task einen Expected-State-Block festhalten (Ziel, Nicht-Ziele, Invarianten, Scope, Budgets, Akzeptanzchecks, Risiken) und reguläre Dokumentationspflichten erfüllen.
+– **Sicherheitsprotokoll:** Aktiv bei STOP-Auslösern, Drift außerhalb Budgets oder manueller Anforderung. In Paketen zu 3–5 Operationen arbeiten, nach jedem Paket IST/SOLL abgleichen und Driftbewertung melden.
+– **Expected State & Logging:** Vorlage siehe `novapolis-dev/docs/process/betriebsmodi-sicherheitsprotokoll-notizen.md`. Rohlogs lokal in `novapolis-dev/logs/betriebsmodi-*.tmp.md` führen, verdichtete Zusammenfassungen optional committen (Vorlage `novapolis-dev/logs/log-template.md`).
+– **Ausstieg:** Sicherheitsprotokoll erst verlassen, wenn Ursache behoben ist und zwei Pakete ohne neue Drift außerhalb Budgets verlaufen oder der Nutzer explizit freigibt. Abschlussbericht (Befund, Checks, Rest-Risiken) bereitstellen.
 
 ## Repositoryweiter Rahmen
 - Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.
