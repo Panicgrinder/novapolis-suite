@@ -40,6 +40,10 @@ desktop.ini
 !/.vscode/launch.json
 /.history/
 
+# Local VS Code extension snapshots (do not track)
+/extensions.installed.txt
+/extensions.status.txt
+
 # Novapolis Agent artifacts
 /novapolis_agent/.env
 /novapolis_agent/.env.*.local
