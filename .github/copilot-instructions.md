@@ -34,7 +34,7 @@ Stand: 2025-11-03 03:20 – Betriebsmodi Standardlauf/Sicherheitsprotokoll veran
 - Copilot: dokumentiert PASS/FAIL-Ergebnisse und aktualisiert `checks` nach realen Läufen.
 - Copilot: pflegt Task-Definitionen und fordert bei fehlenden Tasks Freigabe ein.
 - Mensch: nutzt das User-Terminal für ad-hoc Shell-Kommandos und Explorationsläufe.
-- Mensch: bestätigt Moduswechsel (Stop-Gate) und gibt neue Tasks oder Anpassungen frei.
+- Mensch: bestätigt Moduswechsel (STOP‑Gate) und gibt neue Tasks oder Anpassungen frei.
 - Mensch: sorgt dafür, dass das User-Terminal frei ist, wenn Copilot Tasks starten soll.
 
 ### Kanonische Tasks (Referenz)
@@ -44,7 +44,7 @@ Stand: 2025-11-03 03:20 – Betriebsmodi Standardlauf/Sicherheitsprotokoll veran
 - Lint: *markdownlint-cli2 (all md)*.
 - Snapshot: *now (timestamp)*.
 - Hinweis: Labels müssen exakt den Einträgen in `.vscode/tasks.json` entsprechen; bei Abweichung **nicht starten**, sondern Rückfrage.
-- Gates können jederzeit durch die Formulierung „Stop‑Gate aus (Session)“ deaktivieren und mit „Stop‑Gate an“ wieder aktivieren.
+- Gates können jederzeit durch die Formulierung „STOP‑Gate aus (Session)“ deaktivieren und mit „STOP‑Gate an“ wieder aktivieren.
 
 ### Update-Logistik (Snapshot)
 
@@ -53,6 +53,12 @@ Stand: 2025-11-03 03:20 – Betriebsmodi Standardlauf/Sicherheitsprotokoll veran
 - Kurznotiz: 1–2 Sätze oder Bullet, was angepasst wurde (analog zu `novapolis-rp/database-rp/02-*`). Bei komplexeren Tasks optional Primärpfad referenzieren (`app/...`, `scripts/...`).
 - Prüfungen: Relevante Checks nennen (z. B. `pytest -q`, `pyright`, `markdownlint-cli2`) inkl. Ergebnis/Exit-Status; bei Bedarf Link/Dateipfad zur Ausgabe ergänzen.
 - Markdownlint-Läufe protokollieren: Lauf/Command + PASS/FAIL direkt nach dem Lauf im Status erwähnen.
+ 
+#### Workspace‑Tree‑Artefakte (Zuordnung)
+
+- „Workspace tree: full“ → `workspace_tree_full.txt`
+- „Workspace tree: directories“ → `workspace_tree.txt`
+- „Workspace tree: summary (dirs)“ → `workspace_tree_dirs.txt`
 - Dokumentpflege: Betroffene Artefakte synchron halten (`TODO.md`, `novapolis_agent/docs/TODO.md`, DONELOGs, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, README/Index-Seiten). Strukturänderungen → zusätzlich Tree-Snapshots aktualisieren; Behaviour-Änderungen → `AGENT_BEHAVIOR.md` & Kopien prüfen.
 - Referenzen: Wenn vorhanden Issue-/PR-Links, Commit-Hash oder Kontextnotizen angeben (Inline oder als Fußnote). Für wiederkehrende Schritte Templates/Tasks im Root `.vscode/` ergänzen.
 - Nicht-triviale Änderungen → in zugehörige TODO oder DONELOG.
@@ -123,6 +129,7 @@ checks: keine
 
 ### Modell-Profile & Moduswechsel (GPT‑5 ↔ GPT‑5 Codex)
 
+- Kurzdefinition: General = redaktionelle/Analyse‑Arbeiten; Codex = Code/Tests/Build‑/CI‑Arbeiten.
 - Standardmodus: GPT‑5 (General) für redaktionelle Arbeiten, Kanon-/Quellenabgleich, `[FACT]`↔`[FACT?]`‑Revalidierung, Policy-/Prozess‑Checks und Textkurierung.
 - Codex-Modus (umschalten bei Bedarf): Für Code‑schwere Aufgaben wie Skripte/Validatoren, Tests/CI, API‑/Service‑Änderungen, Parser/RegEx, Datentransformationen.
 - Heuristische Trigger für Wechselvorschlag (nicht automatisch, nur Hinweis):
@@ -146,6 +153,7 @@ checks: keine
 ## Repositoryweiter Rahmen
 - Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.
 - Konfigurationen bleiben projektspezifisch; Produktions- und API-Code verbleibt im jeweiligen Projektordner, Utilities werden über das Shared-Package re-exportiert.
+- Doppelte Modulpfade (z. B. parallele `novapolis_agent/novapolis_agent/**` und `novapolis_agent/app/**`) sind als Legacy zu behandeln; Neu‑Anpassungen bitte nur unter den aktiven Pfaden vornehmen (siehe `novapolis_agent/WORKSPACE_INDEX.md`).
 - Secrets (`.env`) bleiben lokal; ungefilterte Exporte ausschließlich unter `novapolis-rp/database-raw/99-exports/` ablegen.
 - Working docs leben in `novapolis-dev/docs/` (todo, donelog, tests, naming-policy, copilot-behavior, index); `novapolis-rp/development/...` sind Redirect-Stubs.
 
@@ -153,6 +161,8 @@ checks: keine
 - Vor Commits relevante Tests/Skripte ausführen (Root‑basiert): `novapolis_agent/scripts/run_tests.py` (cwd=`novapolis_agent`), Validatoren unter `novapolis-rp/coding/tools/validators/`.
 - Bei Änderungen an Behaviour-/Policy‑Dokumenten zusätzlich den Test `novapolis_agent/tests/test_content_policy_profiles.py` laufen lassen und Changelogs prüfen. Diese Regel ist im Single‑Root‑TODO verlinkt.
 - Bei Unsicherheiten/Unklarheiten: STOP‑Gate setzen (Rückfrage einholen), dann mit Minimal‑Delta fortfahren; transparente Diffs mit Dateiliste/Diffstat, keine Shell‑Kommandos oder History‑Rewrites.
+
+Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Root sind wirksam. Kopien/Spiegel in Unterordnern (z. B. `novapolis_agent/.github/workflows/`) gelten als Stubs/Archiv und werden von GitHub Actions nicht ausgeführt. Cleanup als eigener Task vorschlagen (vorher eingehende Verweise prüfen).
 
 ## Novapolis Agent (Backend)
 
@@ -197,7 +207,7 @@ checks: keine
 - CI/Workflows: `.github/workflows/ci.yml`, `.github/workflows/enforce-donelog.yml`.
 - Tests siehe `tests/` (u. a. `test_app_*` für Health/Request-ID/Rate-Limit; Streaming-/Policy-Tests definieren Format).
 - Skripte: `scripts/` (Eval/Export/Train/Reports) – vorhandene CLI-Optionen nutzen.
-- Beim Aktualisieren dieser Datei Hinweise aus `docs/AGENT_BEHAVIOR.md` beachten (Progress-Cadence, DONELOG, Shell-Hinweise); Checks abwarten, ggf. Task „All checks: tests+pyright+mypy“ nutzen.
+- Beim Aktualisieren dieser Datei Hinweise aus `docs/AGENT_BEHAVIOR.md` beachten (Progress-Cadence, DONELOG, Shell-Hinweise); nach Änderungen Checks abwarten. Manuelle Reihenfolge für Vollprüfungen: erst `pytest -q`, dann `pyright -p pyrightconfig.json`, danach `python -m mypy --config-file mypy.ini app scripts`.
 - Feedbackbedarf (Marker, Tasks, Troubleshooting) kurz melden.
 
 ## Novapolis-RP
@@ -238,6 +248,8 @@ checks: keine
 - Lokaler Lauf (nur im bestehenden Terminal): `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"`.
 - Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc "**/*.md"`.
 - Wrapper/Tasks: Entfernt bzw. als Hinweis‑Stub belassen (`novapolis-rp/coding/tools/validators/run_lint_markdown.ps1`).
+
+Optionaler Zusatz: „Lint: markdownlint-cli2 (docs focused)“ kann für einen schnellen Dokumentations‑Lint genutzt werden (`novapolis-dev/docs/**`, `novapolis_agent/docs/**`).
 
 ### Mirrors/Redirect‑Stubs
 
