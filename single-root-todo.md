@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-03 23:22
-update: Frontmatter (YAML) korrigiert; Checks in YAML verschoben.
+stand: 2025-11-03 23:56
+update: VS Code Workspace-Status auf Single-root korrigiert.
 checks: keine
 ---
 
@@ -216,7 +216,7 @@ Notiz (2025-11-02 12:41): Prüf-/Release-Checks aktualisiert (Root-cwd, STOP‑G
 
 ### VS Code Workspace (Multi-root → Single-root)
 
-Aktueller Stand (geprüft): `novapolis-suite.code-workspace` ist als Multi-root konfiguriert (folders: `Main`, `novapolis_agent`, `novapolis-dev`, `novapolis-rp`, `novapolis-sim`, `packages`). Das hält den Multi-root-Modus am Leben und konterkariert die Single-Root-Umstellung.
+Aktueller Stand (geprüft): `novapolis-suite.code-workspace` ist als Single-root konfiguriert (folders: nur `{ "path": "." }`). Der Multi-root-Modus ist entfernt und unterstützt die Single-Root-Umstellung.
 
 - [x] Entscheidung: `.code-workspace` entfernen ODER auf Single-root reduzieren (nur `{ "path": "." }`).
 - [x] Falls behalten: `folders` auf nur Root setzen; modulare Einträge entfernen.
