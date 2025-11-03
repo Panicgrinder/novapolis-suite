@@ -51,13 +51,13 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 2. Workflows laufen ausschließlich zentral aus dem Root (`/.github/workflows`). Modulverzeichnisse enthalten keine eigenen `.github/workflows` mehr.
 3. Automatisierte Läufe erfolgen über das Tasks-Panel (Shared‑Panel); spontane Shell‑Kommandos gehören ins User‑Terminal.
 
-### Hinweise für Mitarbeit (Moduswechsel & Stop‑Gate)
+### Hinweise für Mitarbeit (Moduswechsel & STOP‑Gate)
 
 - Moduswahl: Redaktion/Kanon bitte im General‑Modus (GPT‑5) arbeiten; Code‑Aufgaben (Skripte/Validatoren, Tests/CI, API/Services) im Codex‑Modus.
 - Details & Regeln: siehe `.github/copilot-instructions.md` (Abschnitt „Modell‑Profile & Moduswechsel“ und „STOP‑Gate vor Code‑Aktionen“); Spiegel im Dev‑Hub: `novapolis-dev/docs/copilot-behavior.md`.
-- Stop‑Gate: Vor Code‑Aktionen wird ein hartes Stop‑Gate gesetzt (explizit „Wechsel: Modus Codex“ oder „Weiter: Modus General“).
+- STOP‑Gate: Vor Code‑Aktionen wird ein hartes STOP‑Gate gesetzt (explizit „Wechsel: Modus Codex“ oder „Weiter: Modus General“).
 - Erinnerungen: Bei Code‑Triggern weise ich auf den Moduswechsel hin; „Bitte nicht erinnern“ deaktiviert Hinweise bis zur Reaktivierung.
-- Aktueller Status (Modus/Stop‑Gate): siehe `WORKSPACE_STATUS.md`.
+- Aktueller Status (Modus/STOP‑Gate): siehe `WORKSPACE_STATUS.md`.
  - Unklarheiten‑STOP: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
 ## Bekannte Einschränkungen (temporär)

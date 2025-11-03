@@ -20,7 +20,7 @@ checks: keine
 ## Aktueller Arbeitsmodus
 
 - Modus: General (GPT‑5)
-- Stop‑Gate: an (vor Code‑Aktionen explizite Bestätigung erforderlich: „Wechsel: Modus Codex“ oder „Weiter: Modus General“)
+- STOP‑Gate: an (vor Code‑Aktionen explizite Bestätigung erforderlich: „Wechsel: Modus Codex“ oder „Weiter: Modus General“)
 - Erinnerungen: Wechselhinweise bei Code‑Triggern aktiv; „Bitte nicht erinnern“ schaltet Hinweise ab bis zur Reaktivierung
 
 ## Health-Checks & Open Items

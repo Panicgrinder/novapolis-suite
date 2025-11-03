@@ -58,9 +58,9 @@ Antworte immer auf Deutsch; halte Beispiele, Erklaerungen und Fehlermeldungen au
   - Nutzerentscheid respektieren; bei „nein“ weiter im aktuellen Modus arbeiten. Auf Wunsch „Bitte nicht erinnern“ stelle ich Erinnerungen ein, bis du wieder gruenes Licht gibst.
 - Transparenz: Den aktiven Modus im naechsten Status-Update kurz erwaehnen (z. B. „Modus: General“), wenn ein Wechsel stattfand oder Code-Arbeit ansteht.
 
-### STOP-Gate vor Code-Aktionen
+### STOP‑Gate vor Code-Aktionen
 
-- Vor potenziell code-schweren Aktionen (Dateiedits unter Codepfaden, Skript-/Validator-Neubau, Test-/Typecheck-Runs, API/Service-Aenderungen) wird ein hartes Stop-Gate gesetzt.
+- Vor potenziell code-schweren Aktionen (Dateiedits unter Codepfaden, Skript-/Validator-Neubau, Test-/Typecheck-Runs, API/Service-Aenderungen) wird ein hartes STOP‑Gate gesetzt.
 - Ablauf:
   1) Ausgabe „STOP: Moduswechsel empfohlen. Bitte Modus waehlen.“
   2) Warten auf explizite Bestaetigung:
@@ -68,8 +68,8 @@ Antworte immer auf Deutsch; halte Beispiele, Erklaerungen und Fehlermeldungen au
      - „Weiter: Modus General“ → im General-Modus fortfahren.
   3) Ohne Bestaetigung keine Code-Aenderungen/startenden Laeufe durchfuehren.
 - Hinweise:
-  - Das STOP-Gate gilt nur fuer Code-Aktionen; reine Redaktions-/Kanonarbeiten laufen ohne Unterbrechung weiter.
-  - Du kannst das Gate jederzeit durch die Formulierung „Stop-Gate aus (Session)“ deaktivieren und mit „Stop-Gate an“ wieder aktivieren.
+  - Das STOP‑Gate gilt nur fuer Code-Aktionen; reine Redaktions-/Kanonarbeiten laufen ohne Unterbrechung weiter.
+  - Du kannst das Gate jederzeit durch die Formulierung „STOP‑Gate aus (Session)“ deaktivieren und mit „STOP‑Gate an“ wieder aktivieren.
 
 ## Kontext-Injektion
 

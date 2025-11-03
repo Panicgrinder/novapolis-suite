@@ -36,7 +36,7 @@ function Confirm-ExpectedInput {
 Write-Host "STOP: Git commit+push Task gestartet." -ForegroundColor Yellow
 Write-Host "Gib 'START' ein, um die Sequenz zu beginnen, ansonsten wird abgebrochen." -ForegroundColor Yellow
 
-Confirm-ExpectedInput -Prompt "Stop-Gate Eingabe" -Expected "START"
+Confirm-ExpectedInput -Prompt "STOP‑Gate Eingabe" -Expected "START"
 
 Write-Host ""  # leere Zeile
 

@@ -97,7 +97,7 @@ checks: keine
 
 ### STOP‑Gate (beidseitig, vor Modus‑relevanten Aktionen)
 
-- Vor potenziell modus‑relevanten Aktionen – code‑schwer (z. B. Dateiedits unter Codepfaden, Skript-/Validator‑Neubau, Test-/Typecheck‑Runs, API/Service‑Änderungen) ODER redaktionell/kanon‑kritisch (z. B. Behaviour-/Policy‑Dokumente, Kanon-/SSOT‑Änderungen) – wird ein hartes Stop‑Gate gesetzt.
+- Vor potenziell modus‑relevanten Aktionen – code‑schwer (z. B. Dateiedits unter Codepfaden, Skript-/Validator‑Neubau, Test-/Typecheck‑Runs, API/Service‑Änderungen) ODER redaktionell/kanon‑kritisch (z. B. Behaviour-/Policy‑Dokumente, Kanon-/SSOT‑Änderungen) – wird ein hartes STOP‑Gate gesetzt.
 - Ablauf:
   1) Ausgabe „STOP: Moduswechsel empfohlen. Bitte Modus wählen.“
   2) Warten auf explizite Bestätigung:

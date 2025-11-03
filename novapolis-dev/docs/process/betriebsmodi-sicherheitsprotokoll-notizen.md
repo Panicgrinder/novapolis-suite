@@ -12,11 +12,11 @@ Dieses Dokument sammelt die Detailregeln für die Betriebsmodi "Standardlauf" un
 
 ## Standardlauf (Baseline-Modus)
 
-- **Zweck:** Normaler Arbeitsfluss ohne zusätzliche Einschränkungen. Fokus auf Effizienz bei gleichzeitiger Einhaltung der bestehenden STOP-Gates.
-- **Aktivierung:** Default nach Freigabe eines STOP-Gates oder nachdem das Sicherheitsprotokoll (siehe unten) sauber abgeschlossen wurde.
+-- **Zweck:** Normaler Arbeitsfluss ohne zusätzliche Einschränkungen. Fokus auf Effizienz bei gleichzeitiger Einhaltung der bestehenden STOP‑Gates.
+– **Aktivierung:** Default nach Freigabe eines STOP‑Gates oder nachdem das Sicherheitsprotokoll (siehe unten) sauber abgeschlossen wurde.
 - **Verpflichtungen:**
   - Erwartungszustand (siehe Abschnitt "Expected State") vor Taskbeginn festhalten.
-  - STOP-Gates pro bestehender Regel anwenden (Moduswechsel, Unsicherheiten, Policies).
+  - STOP‑Gates pro bestehender Regel anwenden (Moduswechsel, Unsicherheiten, Policies).
   - Ergebnisse und Prüfungen wie gewohnt dokumentieren (DONELOG, TODOs, Checks in Frontmatter).
 - **Rückfall in Sicherheitsprotokoll:** Bei unerwarteten Abweichungen, Budget-/Test-/Pfad-Drifts oder manueller Anforderung.
 
