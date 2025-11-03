@@ -55,3 +55,4 @@
 - Systemverknüpfungen (logistik_novapolis_v1/v2) konsistent halten; wenn Migrationspfad noch nicht existiert, `Placeholder` mit TODO notieren.
 - Bei neuen Canvas JSON-Sidecar nicht vergessen (Schema wie bei bestehenden Dateien); Einträge in `database-rp/index.json` erweitern.
 - Vor finaler Promotion prüfen, ob zusätzliche Redirects/Alias (z. B. `Sektor_H3`) in Admin-Docs dokumentiert werden müssen.
+

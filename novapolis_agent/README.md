@@ -30,7 +30,7 @@ Dieses Projekt steht unter der MIT-Lizenz. Siehe die Datei `LICENSE` im Reposito
 1. Python 3.12 installieren
 2. Virtuelle Umgebung erstellen und aktivieren:
 
-   ```powershell
+```powershell
    python -m venv venv
    .\venv\Scripts\activate  # Windows
    source venv/bin/activate  # Linux/Mac
@@ -38,19 +38,19 @@ Dieses Projekt steht unter der MIT-Lizenz. Siehe die Datei `LICENSE` im Reposito
 
 3. Abhängigkeiten installieren:
 
-   ```powershell
+```powershell
    pip install -r requirements.txt
    ```
 
-   Oder manuell:
+Oder manuell:
 
-   ```bash
+```bash
    pip install fastapi uvicorn httpx python-dotenv
    ```
 
 4. Ollama installieren und starten:
 
-   ```bash
+```bash
    # Windows-Installer von https://ollama.com/download/windows
    # Nach der Installation:
    ollama serve
@@ -58,7 +58,7 @@ Dieses Projekt steht unter der MIT-Lizenz. Siehe die Datei `LICENSE` im Reposito
 
 5. LLM-Modell herunterladen:
 
-   ```powershell
+```powershell
    ollama pull llama3.1:8b
    ```
 
@@ -113,7 +113,7 @@ Der Server liest `AGENT_PORT` (Standard `8765`) aus der Umgebung.
 1. `.env.example` nach `.env` kopieren oder `AGENT_PORT` manuell setzen.
 2. VS Code Task `Run Agent Dev` ausführen **oder**
 
-   ```powershell
+```powershell
    $port = $env:AGENT_PORT
    if (-not $port) { $port = 8765 }
    uvicorn app.api.sim:app --host 127.0.0.1 --port $port --reload
@@ -121,7 +121,7 @@ Der Server liest `AGENT_PORT` (Standard `8765`) aus der Umgebung.
 
 3. Probeaufruf:
 
-   ```powershell
+```powershell
    Invoke-RestMethod -Uri "http://127.0.0.1:$port/world/state" -Method Get
    ```
 
@@ -224,7 +224,7 @@ Der Agent kann optional Kontext‑Snippets aus einem lokalen Text‑Korpus (Mark
    - Baut einen JSON‑Index über `.md`/`.txt` Dateien (nicht rekursiv für Ordner‑Top‑Level)
    - Beispiel (PowerShell):
 
-      ```powershell
+```powershell
       .\.venv\Scripts\python.exe scripts\rag_indexer.py --input docs eval\config --out eval\results\rag\index.json
       ```
 
@@ -325,7 +325,7 @@ Sitzungshistorie persistiert.
 
 - Beispiel: SSE-Tail beim Streaming (eval_mode)
 
-   ```text
+```text
    event: delta
    data: {"text":"..."}
    event: meta
@@ -345,14 +345,14 @@ Sitzungshistorie persistiert.
 
 - CHAI (ASGI, eval-Profil, fokussierte Checks):
 
-   ```bash
+```bash
    python scripts/run_eval.py --asgi --packages "eval/datasets/chai-ai_small_v1.jsonl" \
       --profile eval --checks rpg_style,term_inclusion --quiet
    ```
 
 - Combined 001–100 (ASGI, eval-Profil, fokussierte Checks):
 
-   ```bash
+```bash
    python scripts/run_eval.py --asgi --packages "eval/datasets/combined_eval_001-100.jsonl" \
       --profile eval --checks rpg_style,term_inclusion --quiet
    ```
@@ -363,3 +363,4 @@ Sitzungshistorie persistiert.
 - Push regelmäßig, damit der Remote-Index aktuell bleibt.
 - Nutzung in Prompts: `@workspace` oder `#codebase` hinzufügen, optional Code markieren/auswählen.
 - Status und Index-Build über die Copilot-Statusleiste; bei Bedarf "Build Remote Workspace Index" ausführen.
+

@@ -390,3 +390,4 @@ Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) – veraltet seit 2025-
 - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T14-12-00-000Z.flags.txt` (vorsichtig_behandeln, korrupt; Grund: Konflikt m
 
 ```
+

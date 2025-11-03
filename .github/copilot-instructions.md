@@ -53,7 +53,7 @@ Stand: 2025-11-03 03:20 – Betriebsmodi Standardlauf/Sicherheitsprotokoll veran
 - Kurznotiz: 1–2 Sätze oder Bullet, was angepasst wurde (analog zu `novapolis-rp/database-rp/02-*`). Bei komplexeren Tasks optional Primärpfad referenzieren (`app/...`, `scripts/...`).
 - Prüfungen: Relevante Checks nennen (z. B. `pytest -q`, `pyright`, `markdownlint-cli2`) inkl. Ergebnis/Exit-Status; bei Bedarf Link/Dateipfad zur Ausgabe ergänzen.
 - Markdownlint-Läufe protokollieren: Lauf/Command + PASS/FAIL direkt nach dem Lauf im Status erwähnen.
- 
+
 #### Workspace‑Tree‑Artefakte (Zuordnung)
 
 - „Workspace tree: full“ → `workspace_tree_full.txt`
@@ -263,3 +263,4 @@ Optionaler Zusatz: „Lint: markdownlint-cli2 (docs focused)“ kann für einen 
 **Ziele**
 - Stabiles Gedächtnis (Admin: system-prompt/memory-bundle) und reibungsloser Szenenstart.
 - Reproduzierbare, nachvollziehbare Schritte (Dokumentation & kleine Commits).
+

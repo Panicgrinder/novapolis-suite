@@ -27,3 +27,4 @@ Empfohlene Maßnahmen
 Offene Punkte
 - Endgültige Titel/Index-Einträge und Zuordnung im Personenindex.
 - Konsequente Verlinkung im C6-Canvas und Händlerstützpunkt-Policy.
+

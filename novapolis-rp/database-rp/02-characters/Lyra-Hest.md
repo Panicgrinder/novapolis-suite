@@ -53,3 +53,4 @@ last_seen: d5
 - [D5](../03-locations/D5.md) · [C6](../03-locations/C6.md)
 - [Novapolis‑Inventar](../04-inventory/Novapolis-inventar.md)
 - [Admin: Logistik](../00-admin/Logistik.md) · [Missionslog](../00-admin/Missionslog.md) · [Personenindex](../00-admin/person_index_np.md)
+

@@ -24,3 +24,4 @@ tags: []
 - [ ] Sensorik/Belüftung überprüfen und mit D5-Zentrale koppeln
 - [ ] Rückweg aus E3 sichern, Zugangskontrollen definieren
 - [ ] Materialliste für dauerhafte Stabilisierung vorbereiten
+

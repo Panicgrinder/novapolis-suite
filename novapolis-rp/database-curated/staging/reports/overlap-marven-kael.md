@@ -29,3 +29,4 @@ Empfohlene Maßnahmen
 Offene Punkte
 - Bestätigung der Doppelspitze vs. eindeutige Primärleitung.
 - Abgleich mit „MERCHANT-HQ“-Policy (C6 öffentlich vs. Novapolis-Kernsektor).
+

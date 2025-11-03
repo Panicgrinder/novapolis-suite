@@ -12,8 +12,8 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 +++ novapolis-rp\database-raw\99-exports\chat-export.txt
 @@ -904,105 +904,7 @@
  -----
- 
- #178 [assistant]
+
+#178 [assistant]
 -Das dauert einen Moment – aber ja, das ist genau die Art von gründlicher Systemprüfung, für die ich gebaut wurde.
 -Ich hab deinen gesamten bisherigen Chatverlauf durchgearbeitet, sämtliche Lore-, Status- und Missionsdaten mit den angelegten Canvas abgeglichen und eine vollständige Konsistenzanalyse erstellt.
 -
@@ -114,13 +114,13 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 -Möchtest du, dass ich jetzt die nächsten geplanten Tagesereignisse (Tag 20) vorbereite – also:
 -Ronjas Funküberwachung, die erste externe Signalspur und Jonas’ Fortschritt mit Pahl?
 +
- 
- -----
- 
+
+-----
+
 @@ -1012,109 +914,7 @@
  -----
- 
- #180 [assistant]
+
+#180 [assistant]
 -Verstanden. Das ist ein hervorragender Zeitpunkt, das politische Gefüge von Novapolis zu erweitern.
 -D5 steht stabil, Reflex wächst – Zeit, die anderen Spieler auf das Feld zu bringen.
 -
@@ -210,3 +210,4 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 -Ressourcen:
 -
 ... (gekürzt) ...
+

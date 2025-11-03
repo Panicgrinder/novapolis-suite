@@ -76,3 +76,4 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 1. Doppelte Module identifizieren und schrittweise in `packages/novapolis_common` verschieben.
 2. Tests und Typpruefungen nach jeder Migration laufen lassen (`pytest`, `pyright`, `mypy`).
 3. Nach jedem groesseren Schritt DONELOG aktualisieren und Root-Uebersichten synchron halten.
+

@@ -97,3 +97,4 @@ last_seen: c6
 - FACT: `[CARAVAN-LEADERSHIP]`, `[FR-KNOWLEDGE]` (`database-curated/staging/reports/resolved.md`).
 - Drift & Notizen: `database-curated/staging/reports/char-block-nord-sources.md` (Scope-Abgrenzung zu Kora/Arlen).
 - Validierung: Automatik alle 7 In-Game-Tage; letzter Lauf 2025-10-16_14:56 (Systemstatus grün).
+

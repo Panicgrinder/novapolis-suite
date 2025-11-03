@@ -934,3 +934,4 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Wurzelgewebe: Einordnung als Anomalie/Ort/Entität festlegen; Protokoll/Canvas definieren (#92–#94).
 <!-- EOF -->
 
+

@@ -30,19 +30,19 @@ Um den Novapolis Agent ohne Einschränkungen zu verwenden, können Sie:
 
 1. Den uneingeschränkten Prompt anpassen:
 
-   ```bash
+```bash
    python scripts/customize_prompts.py --customize-unrestricted
    ```
 
 2. Eigene Regeln definieren:
 
-   ```bash
+```bash
    python scripts/customize_prompts.py --create-rules
    ```
 
 3. Den uneingeschränkten Modus beim Aufruf aktivieren:
 
-   ```bash
+```bash
    curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d '{"messages":[{"role":"user","content":"Deine Anfrage"}],"unrestricted_mode":true}'
    ```
 
@@ -149,3 +149,4 @@ Invoke-RestMethod -Uri "http://127.0.0.1:8000/chat" -Method Post -Body $body -Co
 
 Weitere Details und die vollständige Liste der Optionen finden Sie auch in der README unter
 „LLM‑Optionen (Ollama) – Defaults & Overrides“.
+

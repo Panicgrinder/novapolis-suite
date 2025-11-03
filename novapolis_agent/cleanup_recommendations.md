@@ -46,3 +46,4 @@
 3. Copilot Code-Suche (@workspace / #codebase)
    - Empfehlung: Remote-Index primär nutzen; lokaler Index als Fallback.
    - Regelmäßig pushen, damit der Remote-Index aktuell bleibt.
+

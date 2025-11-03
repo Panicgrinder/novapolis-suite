@@ -26,3 +26,4 @@ tags: []
 ## Aktionen
 - [ ] Lagerplätze definieren und QR/Tagging überlegen
 - [ ] Verbrauchslog anlegen
+

@@ -38,3 +38,4 @@ archived_at: 2025-11-01 19:16
 - [x] Eval-Pfade harmonisieren & Meta-Header erweitern
   - Ziel: Nutzung von `eval/datasets|results|config`, Meta mit overrides (model/host/temperature).
   - Status: Done (Runner/UI angepasst, Ergebnisse validiert).
+

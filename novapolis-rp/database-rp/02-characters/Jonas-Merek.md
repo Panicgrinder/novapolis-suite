@@ -97,3 +97,4 @@ last_seen: d5
 - FACT: `[JONAS-SIS]`, `[PROXIMITY]`, `[COMMS-PROTO]`, `[FR-KNOWLEDGE]`, `[C6-FIRST]` (`database-curated/staging/reports/resolved.md`).
 - Drift/Quellen: `database-curated/staging/reports/char-block-nord-sources.md` (Hinweis Schuldflag nur als Kommentar).
 - Validierung: Automatischer Check alle 7 In-Game-Tage; letzter Lauf 2025-10-16_14:12 (Systemstatus grün).
+

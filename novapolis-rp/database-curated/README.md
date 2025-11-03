@@ -25,3 +25,4 @@ Benennungsempfehlungen:
 - <basename>.facts.md – extrahierte Fakten/Anker
 
 Hinweis: Für Parser/Importer siehe `coding/tools/curation/ingest_jsonl.py` und `coding/tools/chat-exporter/`.
+

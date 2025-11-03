@@ -192,3 +192,4 @@ archived_at: 2025-11-02 09:00
   - Status: Done — `cleanup_recommendations.md` und `README.md` sind konsistent;
     zentrale Endpunkte in [`app/main.py`](../app/main.py): `/`, `/health`, `/version`,
     `POST /chat`, `POST /chat/stream`
+

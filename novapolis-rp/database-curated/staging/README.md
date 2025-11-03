@@ -26,3 +26,4 @@ Qualitätssicherung (Checkliste):
 - [ ] Mindestens 10% Stichprobe gegen Sekundärquelle geprüft (PDF)
 - [ ] Extrakte (Fakten/Szenenanker) erstellt
 - [ ] Offene Punkte dokumentiert ([OPEN])
+

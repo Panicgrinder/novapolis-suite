@@ -66,3 +66,4 @@ Stand: 2025-10-27
 ## Revision
 - 0.1-draft (2025-10-27): Grundstruktur angelegt; alle Fakten vorläufig.
  - 0.1-draft.1 (2025-10-27): Front‑Matter ergänzt; Tippfehler „Akologie“→„Arkologie“ korrigiert.
+

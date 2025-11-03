@@ -28,3 +28,4 @@ Hinweise
 - Zeitstempel immer lokal im Format YYYYMMDD_HHMM
 - Pfade relativ zum Repository angeben
 - Keine sensiblen Daten/Secrets ablegen
+

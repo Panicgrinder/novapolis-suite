@@ -36,8 +36,9 @@ Select-String -Path .gitignore -SimpleMatch "eval/eval-21-40_demo_v1.0.json","ev
 
 - PowerShell (WhatIf/Dry-Run):
 
-  scripts\cleanup_phase4.ps1 -WhatIf:$true
+scripts\cleanup_phase4.ps1 -WhatIf:$true
 
 - Ausführen (löscht Dateien):
 
-  scripts\cleanup_phase4.ps1 -WhatIf:$false -Confirm:$true
+scripts\cleanup_phase4.ps1 -WhatIf:$false -Confirm:$true
+

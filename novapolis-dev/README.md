@@ -41,3 +41,4 @@ Der Dev Hub verknüpft die Arbeitsstände aus `novapolis_agent/`, `novapolis-sim
 - `raw/`, `curated/` – optionale lokale Skizzen; produktive Datenpools liegen unter `../novapolis-rp/database-*`
 
 Bitte dokumentiert neue Arbeitsstände ausschließlich hier und verweist in den Produktiv-Repositories auf dieses Hub.
+

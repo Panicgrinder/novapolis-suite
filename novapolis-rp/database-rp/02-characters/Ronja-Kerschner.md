@@ -98,3 +98,4 @@ dependencies: [reflex, lumen, echo, jonas-merek, kora-malenkov, d5, c6]
 - RAW: `database-raw/99-exports/RAW-canvas-2025-10-16T11-45-00-000Z.txt` (`char_ronja_v2`, Flag `korrupt`).
 - Beschlüsse: `database-curated/staging/reports/resolved.md` (`#[NAME-RONJA]`, `[REFLEX-*]`, `[ROLES]`, `[FR-KNOWLEDGE]`).
 - Drift-Protokoll: `database-curated/staging/reports/char-block-nord-sources.md` (Ronja-Abschnitt).
+

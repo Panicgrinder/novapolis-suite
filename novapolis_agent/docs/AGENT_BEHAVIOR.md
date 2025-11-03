@@ -88,20 +88,20 @@ Antworte immer auf Deutsch; halte Beispiele, Erklärungen und Fehlermeldungen au
 
 - Eval (ASGI, quiet; Beispiel chai):
 
-  ```powershell
+```powershell
   $env:QUICK_EVAL_LIMIT = '30'
   .\.venv\Scripts\python.exe scripts\run_eval.py --packages "eval/datasets/chai-ai_small_v1.jsonl" --asgi --eval-mode --skip-preflight --quiet
   ```
 
 - Kuratieren → OpenAI‑Chat + Train/Val:
 
-  ```powershell
+```powershell
   .\.venv\Scripts\python.exe scripts\curate_dataset_from_latest.py --format openai_chat
   ```
 
 - Validate‑only (OpenAI‑Format):
 
-  ```powershell
+```powershell
   $train = (Get-ChildItem "eval/results/finetune" -Filter "*_train.jsonl" | Sort-Object LastWriteTime -Descending | Select-Object -First 1).FullName
   $val   = $train -replace "_train.jsonl","_val.jsonl"
   .\.venv\Scripts\python.exe scripts\openai_finetune.py $train $val --validate-only
@@ -109,7 +109,7 @@ Antworte immer auf Deutsch; halte Beispiele, Erklärungen und Fehlermeldungen au
 
 - LoRA Mini‑Run (TinyLlama, 10 Schritte):
 
-  ```powershell
+```powershell
   .\.venv\Scripts\python.exe scripts\train_lora.py $train --output "outputs/lora-mini" --max-steps 10 --per-device-train-batch-size 1 --grad-accum 4 --lr 1e-4 --lora-r 8 --lora-alpha 16 --lora-dropout 0.05
   ```
 
@@ -137,15 +137,15 @@ Der Chat‑Agent kann Inhalte aus Dateien und Verzeichnissen automatisch in den 
   - Optional: `CONTEXT_NOTES_MAX_CHARS=4000`
 - Pfade/Ordner setzen (Beispiel PowerShell für die aktuelle Session):
 
-  ```powershell
+```powershell
   $env:CONTEXT_NOTES_ENABLED = 'true'
   # Dateien ODER Verzeichnisse möglich; Verzeichnisse werden (nicht rekursiv) gescannt.
   $env:CONTEXT_NOTES_PATHS = '["eval/config/context.notes","docs/AGENT_BEHAVIOR.md","docs/TODO.md","docs/DONELOG.txt"]'
   ```
 
-  Alternativ dauerhaft via `.env`:
+Alternativ dauerhaft via `.env`:
 
-  ```text
+```text
   CONTEXT_NOTES_ENABLED=true
   CONTEXT_NOTES_PATHS=["eval/config/context.notes","docs/AGENT_BEHAVIOR.md","docs/TODO.md","docs/DONELOG.txt"]
   ```
@@ -162,7 +162,7 @@ Hinweise:
   - `docs/REPORTS.md`
   - `WORKSPACE_INDEX.md`
 
- Hinweis: Standardmäßig sucht die App nach `eval/config/context.local.*`. Weitere Pfade wie dieses Dokument können per ENV ergänzt werden. Beim Laden werden übermäßige Leerzeilen reduziert, um Tokens zu sparen (Inhalte bleiben erhalten).
+Hinweis: Standardmäßig sucht die App nach `eval/config/context.local.*`. Weitere Pfade wie dieses Dokument können per ENV ergänzt werden. Beim Laden werden übermäßige Leerzeilen reduziert, um Tokens zu sparen (Inhalte bleiben erhalten).
 
 Wenn aktiviert, lädt die App beim Chat die Inhalte (Text/JSON/JSONL) und injiziert sie in die System‑Nachricht (siehe `utils/context_notes.py`, `app/api/chat.py`).
 
@@ -172,7 +172,7 @@ Die App unterstützt einfache Pre/Post‑Hooks zur Inhaltssteuerung (z. B. Ums
 
 - Aktivierung via ENV oder `.env`:
 
-  ```text
+```text
   POLICIES_ENABLED=true
   POLICY_FILE="eval/config/policy.sample.json"
   # Im "unrestricted"‑Modus strikt alle Policies umgehen (Default true):
@@ -181,7 +181,7 @@ Die App unterstützt einfache Pre/Post‑Hooks zur Inhaltssteuerung (z. B. Ums
 
 - Policy‑Datei (JSON) Struktur:
 
-  ```json
+```json
   {
     "forbidden_terms": ["badword"],
     "rewrite_map": { "foo": "bar" }
@@ -197,7 +197,7 @@ Die App unterstützt einfache Pre/Post‑Hooks zur Inhaltssteuerung (z. B. Ums
 
 - POLICY_FILE kann entweder flach sein oder Profile enthalten:
 
-  ```json
+```json
   {
     "default": { "forbidden_terms": [], "rewrite_map": {} },
     "profiles": {
@@ -226,3 +226,4 @@ Die App unterstützt einfache Pre/Post‑Hooks zur Inhaltssteuerung (z. B. Ums
 Kurzvariante
 
 Arbeite proaktiv end‑to‑end, halte CI grün (Pyright/Mypy/Pytest), pflege `docs/DONELOG.txt`. Nutze zentrale Prompts, beachte Windows‑Pfadspezifika. Fortschritt nach 3–5 Schritten, nur Deltas. Sicherheits‑ und Qualitätsregeln strikt einhalten. Dieses Dokument wird (wenn `CONTEXT_NOTES_ENABLED=true`) automatisch in den Kontext geladen.
+

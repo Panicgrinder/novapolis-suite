@@ -20,3 +20,4 @@ Hinweise
 
 - Originaldateien unter `coding/` bleiben bestehen, bis die Aufräumfreigabe erfolgt.
 - Weitere Datenmigrationen (Roh- und Kurationsdaten) folgen in separaten Protokollen.
+

@@ -31,3 +31,4 @@ Dieses Verzeichnis hält Rohlogs und verdichtete Zusammenfassungen aus Sitzungen
 ## Vorlage
 
 Siehe `log-template.md` in diesem Ordner. Kopiere die Datei und passe Inhalte an.
+

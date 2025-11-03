@@ -1,4 +1,4 @@
-﻿---
+---
 stand: 2025-11-01 22:31
 update: Referenzen auf Annotation‑Spec ergänzt (Runden/Knowledge/Actions); keine Strukturänderungen
 checks: keine
@@ -128,7 +128,7 @@ checks: keine
   - [x] Chunk part-001 annotieren ([FACT?]/[OPEN], global 1–500)
   - [x] Weiter rückwärts bis part-001 (stichprobenweise tiefer, Fokus auf strittige Stellen)
 
-  - [ ] Tagging‑Pipeline (YAML‑getrieben)
+- [ ] Tagging‑Pipeline (YAML‑getrieben)
     - [x] 019–016: Dry‑Run → Write (Heuristiken: N7→c6‑nord, NOTE/EVENT, MISSION C6‑Nord, Sektor‑Codes)
     - [ ] 015–010: Dry‑Run → Write
     - [ ] 009–001: Dry‑Run → Write
@@ -245,4 +245,5 @@ checks: keine
 - TTS (gemischt)
   - [ ] Vorproduzierte OGG‑Summaries je Stunde (world/pc) – Kandidaten markieren.
   - [ ] Live‑Dialoge via Coqui XTTS v2 mit Cache (Hash(Text+Stimme)); Fallback Windows/Azure nur bei Bedarf.
+
 

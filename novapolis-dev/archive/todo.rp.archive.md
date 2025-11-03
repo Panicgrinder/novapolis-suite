@@ -39,3 +39,4 @@ archived_at: 2025-11-01 19:10
 - [x] Ronja Kerschner → Canvas `database-rp/02-characters/Ronja-Kerschner.{md,json}` auf Version 1.0 gehoben (2025-11-01T17:10+01:00); RAW-Signatur/Status übernommen, Drift "Vallin" dokumentiert.
 - [x] Reflex (Primärinstanz) → Canvas + Wissensstand erweitern; Frequenzband 7.3–8.0 Hz und Detachment-Regeln aus RAW übernehmen; `[REFLEX-*]` prüfen. *(2025-11-02T16:05+01:00 erledigt)*
 - [x] Jonas Merek → Canvas anreichern; Schwester-Status auf "vermisst/unklar" normalisieren; Schuldflag als Kommentar kennzeichnen. *(2025-11-02T13:55+01:00 erledigt)*
+

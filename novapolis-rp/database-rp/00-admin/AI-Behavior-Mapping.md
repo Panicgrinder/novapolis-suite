@@ -127,3 +127,4 @@ Hinweise:
 - RAW: `database-raw/99-exports/RAW-canvas-2025-10-16T11-05-00-000Z.txt` (`ai_behavior_index_v2`).
 - Flags: `database-raw/99-exports/RAW-canvas-2025-10-16T11-05-00-000Z.flags.txt` (Hinweise auf globale Matrix + Konsistenzprüfungen).
 - Done-Log: Eintrag „Canvas-Rettung Sprint 1 – AI Behavior Matrix“ (2025-11-01T17:25+01:00) für Promotion & Erweiterung.
+

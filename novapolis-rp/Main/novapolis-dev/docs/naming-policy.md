@@ -5,3 +5,4 @@ Diese Datei war eine veraltete Spiegelung. Bitte nutze die kanonische Quelle:
 
 - Live-Quelle: `/Main/novapolis-dev/docs/naming-policy.md`
 - Hinweis: Änderungen bitte ausschließlich an der Live-Quelle vornehmen.
+

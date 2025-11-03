@@ -23,3 +23,4 @@ Grundregeln
 
 Hinweis
 - Optional kann später ein Skript die Migration automatisieren (Dry-Run/Apply). Bis dahin bitte manuell verschieben (Cut&Paste), Frontmatter `stand/update/checks` der betroffenen Dateien kurz aktualisieren.
+

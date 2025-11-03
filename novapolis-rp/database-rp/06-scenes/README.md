@@ -33,3 +33,4 @@ Folgende Paare müssen in Szenen gemeinsam auftreten (wird validiert):
 - Kora-Malenkov → Echo
 
 Wenn eine Szene einen der linken Einträge enthält, muss der rechte ebenfalls in `characters` stehen.
+

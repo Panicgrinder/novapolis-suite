@@ -1,4 +1,4 @@
-﻿---
+---
 stand: 2025-11-01 22:24
 update: Neue Aufgaben ergänzt (Coqui‑Exporter/Service, Templates) – nur Planung
 checks: markdownlint-cli2 FAIL
@@ -23,4 +23,5 @@ checks: markdownlint-cli2 FAIL
 
 ## Archivierte Blöcke (Agent)
 - Kurzfristige Ziele (Heute) – archiviert am 2025-11-01 19:16 → `novapolis-dev/archive/todo.agent.archive.md`
+
 

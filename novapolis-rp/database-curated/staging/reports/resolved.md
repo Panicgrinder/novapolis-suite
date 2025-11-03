@@ -147,3 +147,4 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 ## Timeline & Ereignislog
 
 - **[FACT] [EVENT-TIMELINE]** (Timeline): Ereignislog (E-0001..E-0005) wird kanonisiert mit Start T+0; H-47 war Karawane, Mitglieder schlossen sich Novapolis an, Terminologie "Allianz" an Kanon anpassen. Quellen: RAW-canvas-2025-10-16T05-34-00-000Z.
+

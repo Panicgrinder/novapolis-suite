@@ -118,3 +118,4 @@
 
 - `char_ronja_v2` (RAW, korrupt) → Nachname „Vallin“. **Override:** Kanon bleibt „Ronja Kerschner“ (`resolved.md #[NAME-RONJA]`). Notiz hier behalten, falls die Fehlbenennung in weiteren Rohquellen auftaucht.
 - `char_jonas_v2` (RAW, korrupt) → Makel „Schuld am Tod der Schwester“ impliziert ihren Tod. **Override:** Kanonischer Status „Schwester vermisst/unklar“ (`resolved.md #[JONAS-SIS]`). Schuldflag nur als Kommentar kennzeichnen, nicht als Fakt übernehmen.
+

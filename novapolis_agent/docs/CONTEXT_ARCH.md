@@ -94,3 +94,4 @@ Dieses Dokument beschreibt, wie die Zusammenarbeit zwischen dir (Developer), Git
 
 - Standard für Berichte: siehe `docs/REPORTS.md`.
 - Automatisierte Reports (Dependencies/Coverage/Konsistenz) werden unter `eval/results/reports/<topic>/<timestamp>` abgelegt und per CI als Artefakte hochgeladen.
+

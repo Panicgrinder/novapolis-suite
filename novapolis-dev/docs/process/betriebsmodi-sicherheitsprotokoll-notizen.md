@@ -90,3 +90,4 @@ Ampelbewertung:
 ## Offene Punkte
 
 - Abstimmung, ob Rotationsregeln automatisiert werden sollen (Skript oder manueller Leitfaden).
+

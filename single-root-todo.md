@@ -1,7 +1,6 @@
 ---stand: 2025-11-03 03:20
 update: Betriebsmodi-Anleitung und Logstruktur verankert
-checks: keine
----
+## checks: keine
 
 <!-- markdownlint-disable MD022 MD041 -->
 
@@ -243,3 +242,5 @@ Notiz (2025-11-02 10:27): `.code-workspace` wurde auf Single-root reduziert (nur
 - [ ] Modul-`pyproject.toml` konsolidieren oder isolieren (Tests/Lint steuern via CWD/paths)
 
 Notiz (2025-11-02 11:35): Root `pyproject.toml` jetzt tools-only (black/ruff/pytest). Packaging verbleibt in Modulen/Paketen.
+
+

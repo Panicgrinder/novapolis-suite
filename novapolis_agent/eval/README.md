@@ -8,7 +8,7 @@ Struktur:
 - `config/`: Konfiguration (z. B. `synonyms.json` für Keyword-Prüfungen)
 - `results/`: Ausgabedateien der Evaluierung (generiert, `results_*.jsonl`)
 
- Hinweis: Private, lokale Synonyme können in `config/synonyms.local.json` gepflegt werden (git-ignoriert). Diese werden automatisch mit `config/synonyms.json` gemerged. Eine Vorlage liegt als `config/synonyms.local.sample.json` bei.
+Hinweis: Private, lokale Synonyme können in `config/synonyms.local.json` gepflegt werden (git-ignoriert). Diese werden automatisch mit `config/synonyms.json` gemerged. Eine Vorlage liegt als `config/synonyms.local.sample.json` bei.
 
 ## Profile & Synonyme
 
@@ -20,14 +20,14 @@ Struktur:
   - `creative_balanced`: kreativer, ausgewogener Lauf (höhere Temperatur, eval_mode=false, Checks: keywords_any, regex)
   - `fast_low_latency`: schnelle, latenzoptimierte Runs (moderate Temperatur, wenige Checks; eval_mode=true)
 
-  Diese Profile werden im Konsolen-UI (`scripts/eval_ui.py`) angeboten und setzen u. a. `--asgi`, `--eval-mode`, `--quiet` und die aktiven Checktypen. Modell/Host/Temperatur sowie Sampling-Optionen wie `top_p` und `num_predict` können pro Profil hinterlegt werden; zusätzlich lassen sich Werte zur Laufzeit per CLI-Flags in `scripts/run_eval.py` überschreiben.
+Diese Profile werden im Konsolen-UI (`scripts/eval_ui.py`) angeboten und setzen u. a. `--asgi`, `--eval-mode`, `--quiet` und die aktiven Checktypen. Modell/Host/Temperatur sowie Sampling-Optionen wie `top_p` und `num_predict` können pro Profil hinterlegt werden; zusätzlich lassen sich Werte zur Laufzeit per CLI-Flags in `scripts/run_eval.py` überschreiben.
 
 - Synonyme: `config/synonyms.json` bildet Basis; `config/synonyms.local.json` (gitignored) wird automatisch darübergelegt (Merge). Beispiel: `config/synonyms.local.sample.json`.
 
 Hinweis zu Policies mit Profilen:
 - Beispielregeln pro Profil sind in `config/policy.sample.json` hinterlegt (z. B. spezifische `forbidden_terms` für `eval_conservative`). Diese werden gemerged (default → profiles[profile_id]) und greifen, wenn `POLICIES_ENABLED=true` gesetzt ist.
 
- Hinweis: Einige VS Code Tasks nutzen bereits Profil/Checks-Presets (z. B. „Eval: run (ASGI, quiet)“).
+Hinweis: Einige VS Code Tasks nutzen bereits Profil/Checks-Presets (z. B. „Eval: run (ASGI, quiet)“).
 
 ## Format der Datasets (JSON/JSONL)
 
@@ -47,3 +47,4 @@ Hinweis zu Policies mit Profilen:
 - `messages`: Liste von Nachrichten, die an den Chat-Endpunkt gesendet werden
 - `checks`: Prüfbedingungen für die Antwort
   - `must_include`: Liste von Begriffen, die in der Antwort enthalten sein müssen
+

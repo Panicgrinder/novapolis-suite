@@ -42,3 +42,4 @@ Vorgehen bei Altbestand
 
 - Erst Dry-Run ausführen und Liste prüfen.
 - Danach gezielt `--apply` verwenden (Commit in kleinem Batch), Review.
+

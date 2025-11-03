@@ -72,3 +72,4 @@ So startest du den Platzhalter in VS Code:
 1) Menü: Terminal → Run Task…
 2) Wähle: `TTS: export (Coqui→OGG)`
 3) Ergebnis: Eine Hinweiszeile im gemeinsamen Tasks‑Terminal; keine Dateien werden erzeugt.
+

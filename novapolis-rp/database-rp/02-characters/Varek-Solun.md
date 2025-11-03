@@ -98,3 +98,4 @@ last_seen: h12
 - Flag: `RAW-canvas-2025-10-16T03-25-00-000Z.flags.txt`
 - Beschlüsse: FACT EK-LEADERSHIP, FACT EK-TAXONOMY, FACT SECRECY (`database-curated/staging/reports/resolved.md`)
 - Drift-Notizen konsolidiert in `database-curated/staging/reports/char-block-nord-sources.md`
+

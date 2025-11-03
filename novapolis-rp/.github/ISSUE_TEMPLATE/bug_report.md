@@ -33,3 +33,4 @@ Optional Screenshots oder relevante Log‑Ausschnitte.
 ## Zusätzliche Infos
 
 Weitere Hinweise, Workarounds, Links.
+

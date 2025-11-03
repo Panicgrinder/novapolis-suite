@@ -27,3 +27,4 @@ Hinweis: Felder gemäß Beschluss – Name, Rolle(n), Zugehörigkeit, Status, No
 | Marei | Stellvertretung C6, ehem. Stationsleitung E3 | Novapolis (C6) | aktiv | Koordiniert Evakuierte, Inventar- und Logistikabgleich D5↔C6 | [Marei](../02-characters/Marei.md), [C6](../03-locations/C6.md), [E3](../03-locations/E3.md) |
 
 Legende Zugehörigkeit: Station/Fraktion. Bitte Links auf Charakter-/Lokations-Canvas ergänzen.
+

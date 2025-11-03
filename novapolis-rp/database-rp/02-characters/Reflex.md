@@ -93,3 +93,4 @@ dependencies: [ronja-kerschner, lumen, echo, jonas-merek, kora-malenkov, d5, c6,
 - RAW: `RAW-canvas-2025-10-16T13-45-00-000Z.txt` (`char_reflex_v2`), `RAW-canvas-2025-10-16T03-25-20-000Z.txt` (`ent_d5_reflex_v1`).
 - FACT?-Kandidaten: `[REFLEX]`, `[REFLEX-SPEECH]`, `[REFLEX-CONTROL]`, `[REFLEX-DETACH]`, `[JEALOUSY-GLOVES]`, `[PROXIMITY]`, `[INSTANCES]` (`database-curated/staging/reports/resolved.md`).
 - Drift/Notizen: `char-block-nord-sources.md`, `Reflex-Wissensstand-Trainingsstand.md`, Memory-Bundle Abschnitt „Reflex (Primär)“.
+

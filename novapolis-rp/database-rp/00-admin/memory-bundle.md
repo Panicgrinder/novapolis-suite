@@ -78,3 +78,4 @@ Diese Datei ist der „Wahrheitsspeicher“. Änderungen hier sind kanonisch.
 - Ort: D5, Morgen nach C6-Operation. Pahl wird versorgt (Jonas), Ronja plant Vorräte + Exo-Arbeit.
 - Nächste Schritte: Status-Ping C6, Material-Run oder Laborphase.
 - Risiko: Fraktionsaufmerksamkeit, Tunnelgefahren, Ressourcenknappheit.
+

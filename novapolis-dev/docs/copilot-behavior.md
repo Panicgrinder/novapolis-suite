@@ -83,3 +83,4 @@ Arbeite proaktiv, halte Test/CI-Status gruen, pflege `novapolis-dev/docs/donelog
 ---
 
 Hinweis: Aktualisierungen an diesem Dokument sollten kurz in `novapolis-dev/docs/donelog.md` dokumentiert werden.
+

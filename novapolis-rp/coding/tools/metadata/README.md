@@ -48,3 +48,4 @@ node coding/tools/metadata/init-metadata.js --overwrite
 
 - Keine bestehenden JSONs überschreiben, außer wenn bewusst gewünscht (Flag `--overwrite`).
 - Für Batch-Läufe in VS Code kann ein Task genutzt werden (siehe `.vscode/tasks.json`).
+

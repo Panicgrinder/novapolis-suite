@@ -96,3 +96,4 @@ Hinweise:
 - Verantwortliche: tbd
 - Inventar‑Link: tbd
 - Orte/Projekte: [C6](../03-locations/C6.md)
+

@@ -97,3 +97,4 @@ last_seen: arkologie_a1
 - Flag: `RAW-canvas-2025-10-16T03-25-10-000Z.flags.txt`
 - Beschlüsse: FACT ARKO-RESEARCH, FACT ARKO-TAXONOMY, FACT SECRECY (`database-curated/staging/reports/resolved.md`)
 - Drift-Notizen konsolidiert in `database-curated/staging/reports/char-block-nord-sources.md`
+

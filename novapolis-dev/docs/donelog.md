@@ -294,7 +294,7 @@ Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) – veraltet seit 2025-
   - Unklarheiten-Liste erstellt: `database-curated/staging/reports/uncertainties.md`
   - Kanon-Canvas (Draft) vorbereitet: `database-rp/00-admin/canon-canvas.draft.md` (vorläufig, kein Wiedereinstiegspunkt)
 
- - ToDo aktualisiert: JSONL als optional/pausiert markiert; TXT-Normalisierung + 500er-Chunks (Index/Views) vermerkt; Review-Aufgabe „part-021 annotieren“ ergänzt (`novapolis-dev/docs/todo.md`).
+- ToDo aktualisiert: JSONL als optional/pausiert markiert; TXT-Normalisierung + 500er-Chunks (Index/Views) vermerkt; Review-Aufgabe „part-021 annotieren“ ergänzt (`novapolis-dev/docs/todo.md`).
  - Review erweitert: Abschnitt für `Chunk part-021 (global 10001–10500)` mit [FACT?]/[OPEN] hinzugefügt in `database-curated/staging/chat-export (1).review.md`.
  - Unklarheiten mit Evidenz angereichert (Fraktionen, Layout/2t-Aufzug, Tunnel-Länge, Energie/Logistik-Verknüpfungen, Day-Switch, A/T/S/D, Draisine): `database-curated/staging/reports/uncertainties.md` aktualisiert.
  - Review weiter ergänzt: `Chunk part-020 (global 9501–10000)` ergänzt (Weekly‑Sim/Canvas‑Audit, Reflex‑Regeln, Anomalien) mit [FACT?]/[OPEN].
@@ -327,7 +327,7 @@ Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) – veraltet seit 2025-
 
 - Behavior/Emotionen präzisiert (2025-10-27T17:32:08+01:00):
 
-  - `database-rp/02-characters/Ronja-Kerschner.md` – Consent-Zeile geschärft (Angst→Schutz-Umhüllung möglich; „Stop“=sofort lösen; Rückfrage bei Unklarheit), last-updated aktualisiert.
+- `database-rp/02-characters/Ronja-Kerschner.md` – Consent-Zeile geschärft (Angst→Schutz-Umhüllung möglich; „Stop“=sofort lösen; Rückfrage bei Unklarheit), last-updated aktualisiert.
   - `database-rp/00-admin/AI-Behavior-Mapping.md` – Leitplanke „Affekt-Gewichtung“ ergänzt (Kind-/Gefühlslogik ohne Regelbruch: Stop priorisiert, Training→Rückfrage).
   - `database-rp/02-characters/Reflex.md` – Abschnitt „Emotionale Dynamik (kanonisch)“ hinzugefügt (Beschützertrieb, Verlustangst/Eifersucht, Affekt-Gewichtung, Heuristik statt Regelwissen). Quellen: kuratierte Beschlüsse ([PROXIMITY], [JEALOUSY-GLOVES], [REFLEX-CONTROL]) + RAW-Chat-Passagen (Besitzergreifend/Schutz/Umhüllung, Exo-Idee, Instanz-Überwachung C6).
 
@@ -450,3 +450,4 @@ Sim-Visualisierung angebunden (2025-10-29T15:50:00Z)
 - `novapolis_agent`: FastAPI-Miniserver `app/api/sim.py` ergänzt (`GET /world/state`, `POST /world/step`), Task/Launch für Uvicorn, pytest-Abdeckung (`tests/tests_sim_api.py`).
 - `novapolis-sim`: Godot-4-Mini-Client (Autoload `SimClient`, Szene `Main.tscn`) pollt die API und zeigt Tick/Zeit inkl. Status bei Offline-Agent.
 - `novapolis-rp`: README-Abschnitt „Visualisierung“ ergänzt; Donelog/TODO synchronisiert.
+

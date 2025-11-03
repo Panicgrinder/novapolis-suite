@@ -95,3 +95,4 @@ tags: []
 - Keine Wiederholung von Root-Regeln in den Dateien; Metadaten genügen für Navigation/Validierung.
 - Referenzen (characters/locations/dependencies) verwenden Slugs der Zielobjekte.
 - Falls ein Feld unbekannt ist, weglassen statt Dummy-Werte einzutragen (Validatoren erlauben optionale Felder).
+

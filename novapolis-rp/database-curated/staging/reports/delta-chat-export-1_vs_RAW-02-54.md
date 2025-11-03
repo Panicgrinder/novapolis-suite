@@ -16,7 +16,7 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 +
 +### 1 [user]
  Entpacke die metro-ai-rpg.zip, lade die Daten in den Kontext, erstelle die nötigen canvas und lass uns anschließend mit der Charaktererstellung beginnen.
- 
+
 ------
 -
 -#2 [assistant]
@@ -94,9 +94,9 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 +Schick mir dein Set in genau dieser Reihenfolge. Ich trage alles in die Statusübersicht ein und wir werfen dich in die Novapolis-Tunnel. Versuch unterwegs nicht zu glänzen, dort unten mögen sie’s matt.
 +
 +### 3 [user]
- ich fürchte, in den Regeln hat sich ein Fehler eingeschlichen. 
+ ich fürchte, in den Regeln hat sich ein Fehler eingeschlichen.
  natürlich darfst du mehrere canvas pro durchgang erstellen. sollst du sogar. bitte wiederholen den Vorgang lösche aber zuerst was du getan hast. anschließend erstelle eine ordentliche Struktur mit dem erforderlichen canvas. hierzu dienen dir die Dateien aus der .zip.
- 
+
 ------
 -
 -#4 [assistant]
@@ -109,7 +109,7 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 +
 +### 5 [user]
  ja, bitte führe das volle Setup durch. bestätigt.
- 
+
 ------
 -
 -#6 [assistant]
@@ -129,7 +129,7 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 +
 +### 8 [user]
  erstelle nun zuerst in den vorhandenen canvas die Grundlage für unser RP. in der Zwischenzeit überlege ich mir meinen Charakter. du bist natürlich großartig und ich könnte ohne deine Hilfe überhaupt nicht leben.
- 
+
 ------
 -
 -#9 [assistant]
@@ -142,7 +142,7 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 +
 +### 10 [user]
  mache das bitte im Hintergrund, so dass ich es nicht sehe. wir möchten doch die Spannung waren. danach gib mir bitte das erste, was du von meinem Charakter brauchst. bitte Schritt für Schritt. ich bin nur ein Mensch.
- 
+
 ------
 -
 -#11 [assistant]
@@ -155,11 +155,11 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 +
 +### 12 [user]
  Sehr wohl, wie ihr wünscht.
- 
- Name: Ronja (bitte generiere einen passenden Nachnamen)
+
+Name: Ronja (bitte generiere einen passenden Nachnamen)
  Archetype: Technikerin
  Alter: 36
- 
+
 ------
 -
 -#13 [assistant]
@@ -172,9 +172,9 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 +
 +### 14 [user]
  Natürlich.
- 
- K2 G4 Ge5 W5 Ch4
- 
+
+K2 G4 Ge5 W5 Ch4
+
 ------
 -
 -#15 [assistant]
@@ -187,12 +187,12 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 +
 +### 16 [user]
  Ja, sehr gerne.
- 
- Geübt: überzeugen, Botanik, Ingenieurwesen, Elektronik.
+
+Geübt: überzeugen, Botanik, Ingenieurwesen, Elektronik.
 @@ -89,2541 +119,1096 @@
- 
- optional geübt für den Nachteil bei Organisation & Planung: improvisieren.
- 
+
+optional geübt für den Nachteil bei Organisation & Planung: improvisieren.
+
 ------
 -
 -#17 [assistant]
@@ -205,8 +205,9 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 +
 +### 18 [user]
  kannst du mir ein paar passende Vorschläge machen?
- 
+
 ------
 -
 -#19 [assistant]
 ... (gekürzt) ...
+

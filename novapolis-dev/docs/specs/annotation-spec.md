@@ -197,3 +197,4 @@ Verweise
 - RP‑TODO: Zeitmodell/Annotation & Logs
 - Sim‑TODO: Epoch‑Loader, Audio, Scheduler‑Hook
 - Agent‑TODO: Coqui‑Exporter/Service (Build‑Time/Runtime)
+

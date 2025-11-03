@@ -30,3 +30,4 @@ Neue Aufgaben – Epochen & Audio (2025-11-01 22:24)
 - [ ] Scheduler‑Hook vorbereiten: Min‑Heap‑basierte Event‑Queue (ohne Logik), nur Schnittstellen/Types.
   - [ ] Referenz: `novapolis-dev/docs/specs/scheduler-spec.md`.
 - [ ] UI‑Controls: Stundensprung, Auto‑Advance (wenn kein PC‑Event), Replay‑Seed sichtbar machen.
+

@@ -26,3 +26,4 @@ Dieser Ordner enthält den geplanten MCP-Server, der sich mit der OpenAI-Evaluat
 - Authentifizierung gegen die OpenAI-Plattform definieren (API-Key, Header).
 - MCP-spezifische Schnittstellen implementieren (Tools/Resources).
 - Verbindungstests dokumentieren.
+

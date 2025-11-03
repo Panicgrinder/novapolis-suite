@@ -49,7 +49,7 @@ checks: keine
 
 - [`app/__init__.py`](app/__init__.py) - App-Package-Initialisierung
 - [`app/main.py`](app/main.py) - FastAPI Hauptanwendung mit Chat-/Stream-/Health-Endpunkten
-  
+
 Hinweis Datenmodelle: Quelle ist [`app/api/models.py`](app/api/models.py).
 
 #### app/api
@@ -238,3 +238,4 @@ Hinweise:
   `app/prompt/system.txt` wurde entfernt (Altlast, nicht produktiv genutzt).
 - Eval-Daten bitte ausschließlich unter [`eval/datasets/...`](eval/datasets/) pflegen. Zusätzliche
   Dateien im Ordner `eval/` sind dokumentiert.
+

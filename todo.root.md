@@ -263,7 +263,7 @@ Kurzfristige Ziele (Heute)
   - Status: Done — Alle genannten Skripte sind jetzt auf `check_untyped_defs=True`
     gestellt und mypy-clean.
 
-  - Ziel: Mehr Edge- und Fehlerpfade testen (Streaming-Fehler, Timeout/Rate-Limit, dependency_check-Sonderfälle, Export/Prepare-Interop).
+- Ziel: Mehr Edge- und Fehlerpfade testen (Streaming-Fehler, Timeout/Rate-Limit, dependency_check-Sonderfälle, Export/Prepare-Interop).
   - Hinweis: Windows-Pfade beachten (keine Laufwerks-Mismatches; projektwurzelnahe Temp-Verzeichnisse nutzen).
   - Gruppierung: pytest-Marker eingerichtet (unit, api, streaming, eval, scripts);
     VS Code Tasks für "Tests: unit" und "Tests: api+streaming" hinzugefügt.
@@ -330,7 +330,7 @@ Kurzfristige Ziele (Heute)
   - "Tests: coverage app (≥85%)"
   - "Tests: coverage scripts (≥60%)"
   - "Tests: coverage (fail-under)" (kombiniert, 80)
-  
+
 ### Zusätzliche kurzfristige Abschlüsse (2025-10-21)
 
 Hinweis: Abschnitt am 2025-11-02 08:38 in `novapolis-dev/archive/todo.root.archive.md` archiviert.
@@ -342,12 +342,11 @@ Hinweis: Abschnitt am 2025-11-02 08:40 in `novapolis-dev/archive/todo.root.archi
 ### Kurz-Update (2025-10-25)
 
 Hinweis: Abschnitt am 2025-11-02 08:36 in `novapolis-dev/archive/todo.root.archive.md` archiviert.
-  
+
 Hinweise:
 
 - Branch-Coverage ist in `.coveragerc` aktiviert; schwere/interactive Skripte sind ausgeschlossen.
 - Zielwerte werden sukzessive angehoben, sobald Teilbereiche stabil darüber liegen.
-
 
 ### 3–7 Tage
 
@@ -601,3 +600,4 @@ Regel: Abgeschlossene Arbeiten dokumentieren (DONELOG)
 - [ ] Settings/Options erweitern
   - Ziel: Mehr Ollama‑Optionen exponieren, klar dokumentieren; Defaults in Settings.
   - Akzeptanz: Doku + Validation‑Tests.
+

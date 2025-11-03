@@ -7,7 +7,7 @@ Analyse:
   - Fügt Systemprompt direkt hinzu, wenn keiner vorhanden ist
   - Ruft generate_reply() direkt auf
 
-  - Altstruktur (entfernt): APIRouter ohne Präfix, eigene Helper-Funktion
+- Altstruktur (entfernt): APIRouter ohne Präfix, eigene Helper-Funktion
   - Heutiger Stand: zentrale Verarbeitung in `app/api/chat.py` inkl. Systemprompt-Injektion und Modus-Handling
 
 Hauptunterschiede:
@@ -21,3 +21,4 @@ Empfehlung:
 - Altes Router-Setup wurde entfernt.
 - Aktuelle Chat-Verarbeitung: `app/api/chat.py` mit `process_chat_request` und Modus-Handling (eval/unrestricted).
 """
+

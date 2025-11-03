@@ -103,3 +103,4 @@ Hinweise:
   - `powershell -ExecutionPolicy Bypass -File coding/tools/validators/run_check_names.ps1`
 - Alternativ stehen PS1-Tasks ohne Inline-Command bereit:
   - "lint:names (ps1)" / "validate:data (ps1)"; Markdown-Lint direkt via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"` ausführen.
+

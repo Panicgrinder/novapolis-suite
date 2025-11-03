@@ -98,3 +98,4 @@ last_seen: c6
 - FACT: `[CARAVAN-LEADERSHIP]`, `[FR-KNOWLEDGE]` (`database-curated/staging/reports/resolved.md`).
 - Drift & Notizen: `database-curated/staging/reports/char-block-nord-sources.md`, `overlap-arlen-dross.md`.
 - Validierung: Auto (Intervall 7 In-Game-Tage); nächster Lauf nach Fraktionszug Woche 4.
+

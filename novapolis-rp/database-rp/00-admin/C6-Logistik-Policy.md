@@ -66,3 +66,4 @@ Hinweis: Zonen sind schematisch („nicht als Referenz“). Genaue Lage siehe `0
 
 ## Änderungen/Versionierung
 - Änderungen per 3‑Schritt‑Prozess; kleine Commits; Verweise auf IDs (S.3, L.1, Y.1, U.2, H.1)
+

@@ -52,3 +52,4 @@ Dieser Leitfaden zeigt den minimalen End‑to‑End‑Ablauf mit vorhandenen Skr
   - `--ids eval-foo,eval-bar` (gezielt bestimmte IDs rerunnen)
 - Nutzt Meta/Overrides aus der Results-Datei (Profil, Modell, Host, Temperatur, Checks).
 - Tipp: Mit `--cache` in `scripts/run_eval.py` lassen sich identische Antworten cachen und teure Aufrufe sparen.
+

@@ -63,3 +63,4 @@ Hinweise
 - Für Code-Änderungen: Tests/Typechecks nachziehen; DONELOG-Eintrag, falls `novapolis_agent/app|scripts|utils` betroffen.
 - Für generierte Reports/Reviews: lokale Lint-Overrides beachten (`staging/.markdownlint.json`).
 - EOL/Encoding-Policy: UTF‑8, LF, eine Abschlusszeile (siehe `.editorconfig`, `.gitattributes`).
+

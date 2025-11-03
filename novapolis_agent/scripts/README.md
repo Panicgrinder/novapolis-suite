@@ -42,3 +42,4 @@ Installation:
 ```bash
 pip install httpx rich
 ```
+

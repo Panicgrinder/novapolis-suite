@@ -68,3 +68,4 @@ Beispiel: ATSD "A3-T+1-20:15-S1-D:mid"
 - Logistik (Admin) → ./Logistik.md
 - C6 (Ort) → ../03-locations/C6.md
 - C6 – Logistik‑Policy → ./C6-Logistik-Policy.md
+

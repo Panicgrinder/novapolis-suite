@@ -183,7 +183,7 @@ Hinweis: Diese Liste basiert auf den Chunks part-011 und part-022 (neueste Passa
 	- Evidenz: #1747 (Protokoll-Regel).
     - Beschluss: Station‑übergreifend verfügbar; Ausnahme „secret“.
 
- - [x] [SYSMSG] System-/Debug-Meldungen: Persistenz sicherstellen; temporäre Einstellungen in eigenem Canvas pflegen; fehlende Meldungen diagnostizieren.
+- [x] [SYSMSG] System-/Debug-Meldungen: Persistenz sicherstellen; temporäre Einstellungen in eigenem Canvas pflegen; fehlende Meldungen diagnostizieren.
 	- Evidenz: #1501–#1505 (fehlende Meldungen), #1531–#1534 (geladene Canvas zählen), #1535–#1541 (Update-Flow).
     - Beschluss: Dauerhafte Persistenz aktivieren; jede Systemmeldung enthält den ATSD-String.
  - [x] [CATEGORIES] Canvas‑Kategorien A/B/C: Regeln/Workflows definieren (Audit, Reaktivierung, Risiken) und dokumentieren.
@@ -281,14 +281,14 @@ Hinweis: Diese Liste basiert auf den Chunks part-011 und part-022 (neueste Passa
 	- Beschluss: Bestätigt – Missionsanlage für C6‑Nord (vormals N7), Tunnel D5–C6, E3‑Gefahr.
  - [x] [C6-HELPERS] Quarantäne vorbei – C6 Helferzahlen aktualisieren und in Canvas erfassen.
 
-	- Evidenz: #1492–#1497, #1509.
+- Evidenz: #1492–#1497, #1509.
     - Beschluss: T.1 – Quarantäne vorbei. Rollenzuteilung der 20 Evakuierten aus E3 dynamisch durch System/GPT; zusätzlich 4 Mitglieder der ursprünglichen Karawane aktiv in C6; 2 Karawanenmitglieder bei Ronja/Pahl/Jonas in D5.
 - [x] [WAGON] „Schienenwagen“/Transportreferenz: Quelle belegen oder entfernen; stattdessen Test-Transportmodul planen.
 	- Beschluss: Quelle belegt (Romanvorlage/PC‑Spielereihe als Inspiration). In‑Canon neutral/generisch führen; optionales Test‑Transportmodul als PoC planen.
 ## Fahrzeuge / Transport
 	- Evidenz: #442–#447; #789–#795; #450–#454 (Erstfall unklar, ggf. markieren).
 
- - [x] [MISSIONS-LOG] Missionslog (aktiv/abgeschlossen) mit Feldern (Name, Ziel, Start/Ende, Status, Belege) festlegen.
+- [x] [MISSIONS-LOG] Missionslog (aktiv/abgeschlossen) mit Feldern (Name, Ziel, Start/Ende, Status, Belege) festlegen.
 	- Evidenz: #493–#505.
 	 - Beschluss: Felder: Name, Ziel, Start, Ende, Status, Belege/Quittungen, Verantwortliche, Inventar‑Link. Pfad: `database-rp/00-admin/Missionslog.md`.
 
@@ -296,7 +296,7 @@ Hinweis: Diese Liste basiert auf den Chunks part-011 und part-022 (neueste Passa
 	- Evidenz: #501.
     - Beschluss: Beide erfassen – Fehlschlag dokumentieren; „Aufnahme von Jonas“ separat als abgeschlossen.
 
- - [x] [ANOMALY-IN-LOC] Anomalien im Lokations‑Canvas führen; Effekte (Debuffs) in Charakter‑Canvas abbilden.
+- [x] [ANOMALY-IN-LOC] Anomalien im Lokations‑Canvas führen; Effekte (Debuffs) in Charakter‑Canvas abbilden.
   - Beschluss: W.1 – Anomalien in Lokations‑Canvas verankern; Debuff-/Effekt‑Felder in betroffenen Charakter‑Canvas pflegen.
   - Evidenz: #507.
 
@@ -364,3 +364,4 @@ Ergänzungen – Chunks part-003..001
 - [x] [MERCHANT-HQ] Händler‑Stützpunkt in C6 (öffentlich) vs. C6 als Novapolis‑Kernsektor (Kontrolle): Policy exakter fassen (Zonen, Zugriffsrechte).
   - Beschluss: S.3 – C6 ist Teil von Novapolis und dient der Logistikabteilung als Stützpunkt (Vereinbarung mit ehemaligen Karawanen‑Mitgliedern). Für Details/erweiterte Suche markieren und ausarbeiten.
   - Evidenz: #197, #199.
+

@@ -31,3 +31,4 @@ CI/Tasks
 - Hinweis: Falls PowerShell-Tasks mit `Unexpected token` fehlschlagen, nutze den Wrapper `run_check_names.ps1` (s.o.); `run_lint_markdown.ps1` ist veraltet und verweist nur noch auf den direkten `npx`-Aufruf.
 
 Hinweis: RP-Markdown wird bewusst "soft" validiert (H1 + optionale Typprüfungen). Szenen-Front-Matter (empfohlen): YAML mit Feldern `characters`, `locations`, `inventoryRefs`.
+

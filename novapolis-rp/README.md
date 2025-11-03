@@ -73,3 +73,4 @@ Der Agent-Code wird inzwischen ausschließlich im Schwesterprojekt `../novapolis
 ## Lizenz
 
 MIT – siehe `LICENSE`.
+

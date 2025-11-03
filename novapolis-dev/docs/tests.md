@@ -57,3 +57,4 @@ Abstimmung & Folgearbeiten
 - Intro-Text aus finalen Inhalten auswählen und im Dev-Board `novapolis-dev/docs/todo.dev.md` als Aufgabe notieren (z. B. unter "Visualisierung"), bevor Umsetzung startet.
 - Keine Änderungen an API-Endpunkten notwendig; bestehende Polling-Logik wird nur um UI-Ausgaben ergänzt.
 - Manuelle Tests künftig in `novapolis-dev/docs/donelog.md` dokumentieren (Datum, Kurzresultat).
+

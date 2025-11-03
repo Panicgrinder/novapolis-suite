@@ -49,3 +49,4 @@ last_seen: c6
 
 ## Links
 - C6 → ../03-locations/C6.md
+

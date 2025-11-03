@@ -35,3 +35,4 @@ WICHTIG: Exporte immer nur nach `database-raw/99-exports/` speichern. Ungefilter
 Raw → Curated Flow:
 - Roh-Exporte liegen ausschließlich unter `database-raw/99-exports/`.
 - Für die Übernahme ins RP (z. B. `database-rp/06-scenes/`) erst ein Curation-/Ingest-Script verwenden (siehe `coding/tools/curation/`).
+

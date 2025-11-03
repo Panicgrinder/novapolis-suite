@@ -105,3 +105,4 @@ last_seen: d5
 - Flag: `database-raw/99-exports/RAW-canvas-2025-10-16T14-41-00-000Z.flags.txt` – Herkunft aus RAW nur als Vorsichtshinweis, durch FACT `[PAHL-RESCUE]` übersteuert.
 - FACTs: `[PAHL-RESCUE]`, `[HOUSE-RULES]`, `[POP]`, `[C6-HELPERS]`, `[FR-KNOWLEDGE]` (`database-curated/staging/reports/resolved.md`).
 - Drift/Notizen: `database-curated/staging/reports/char-block-nord-sources.md`, Memory-Bundle (Pahl in Pflege), Chat-Referenzen (Lagervorfall, D5-Kommando).
+

@@ -22,3 +22,4 @@ last-updated: 2025-10-27T20:20:00+01:00
 
 ## Notizen
 - Exoskelett‑Entwicklung (perlmutt/Neopren‑ähnliche Trägerarchitektur): Stabilität/Energie/Schnittstellen tbd.
+
