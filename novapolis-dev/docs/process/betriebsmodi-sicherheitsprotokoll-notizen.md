@@ -1,5 +1,6 @@
-stand: 2025-11-03 03:57
-update: STOP-Regeln (Task-Queue), manuelle Testpflicht, <1s-PASS Heuristik
+---
+stand: 2025-11-03 04:32
+update: Hinweis ergänzt: Multi‑Root → keine Wrapper‑Tasks; Terminal ausschließlich manuell bis Single‑Root.
 checks: keine
 ---
 
@@ -35,6 +36,7 @@ Dieses Dokument sammelt die Detailregeln für die Betriebsmodi "Standardlauf" un
   - STOP-Priorisierung: Debug/Analyse vor Ausführung. Keine neuen Build-/Test-/Run-Tasks automatisch starten; Task-Anfragen werden in eine Queue gelegt und erst nach Freigabe gestartet.
   - Manuell-ausführen-Pflicht: Bei Coverage-Gates und Fehlersuche Tests manuell im Terminal (expliziter Interpreter, korrektes cwd) starten; Task-Runs nur ergänzend nutzen.
   - Test-Plausibilität: Kommt ein kompletter Testlauf „instant“ (< 1 s) mit PASS zurück, als verdächtig werten und unmittelbar manuell wiederholen; Ergebnis und Laufzeit im Log notieren.
+  - Multi‑Root‑Hinweis (temporär): Wenn VS Code den Workspace als Multi‑Root erkennt, sind Wrapper‑Tasks/Automationen unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single‑Root: KEINE WRAPPER – Terminal ausschließlich manuell.
 - **Deaktivierung:**
   - Ursache identifiziert und mitigiert **und** zwei Pakete in Folge ohne Drift außerhalb der Budgets.
   - Alternativ manuelle Freigabe durch Nutzer.

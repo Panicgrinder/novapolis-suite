@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-02 18:23
-update: YAML-Frontmatter ergänzt
-checks: markdownlint-cli2 PASS
+stand: 2025-11-03 04:30
+update: Hinweis aufgenommen: VS Code Multi‑Root → Wrapper‑Tasks aus; Terminal nur manuell; Link zur Fallakte.
+checks: keine
 ---
 
 # Novapolis Suite
@@ -59,6 +59,11 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 - Erinnerungen: Bei Code‑Triggern weise ich auf den Moduswechsel hin; „Bitte nicht erinnern“ deaktiviert Hinweise bis zur Reaktivierung.
 - Aktueller Status (Modus/Stop‑Gate): siehe `WORKSPACE_STATUS.md`.
  - Unklarheiten‑STOP: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
+
+## Bekannte Einschränkungen (temporär)
+
+- VS Code erkennt den Workspace aktuell als Multi‑Root. Wrapper‑Tasks/Automationen verhalten sich unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single‑Root gilt: KEINE WRAPPER, Terminal ausschließlich manuell nutzen.
+  - Fallakte: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
 
 ## Aktuelle Statusdokumente
 

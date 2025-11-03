@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-02 22:48
-update: pwsh als Standard-Terminal/Taks hinterlegt; Gitignore ergänzt
+stand: 2025-11-03 04:31
+update: Hinweis ergänzt: VS Code Multi‑Root → Wrapper‑Tasks deaktiviert; Terminal nur manuell (Link zur Fallakte).
 checks: keine
 ---
 
@@ -33,6 +33,7 @@ checks: keine
   - RP-Datenpflege erfordert regelmäßigen Sync mit Memory-Bundle (seit 2025-11-02 aktualisiert, siehe `novapolis-rp/database-rp/00-admin/memory-bundle.md`)
   - Tree-Snapshots benötigen Refresh zur nächsten Inventur (letzter Stand 2025-10-31)
   - VS-Code-Settings: Nutzer-/Profil-Overrides entfernt, nur Root-Workspace-Config aktiv
+  - VS Code Multi‑Root (temporär): Wrapper‑Tasks verhalten sich unzuverlässig (CWD/Quoting). Bis zur Bereinigung gilt: KEINE WRAPPER; Terminal ausschließlich manuell. Fallakte: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
 
 ## Wichtige Artefakte & Logs
 

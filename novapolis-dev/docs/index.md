@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-01 09:47
-update: Frontmatter korrigiert (YAML); last-updated übernommen.
+stand: 2025-11-03 04:32
+update: Betriebsnotiz ergänzt: VS Code Multi‑Root → Wrapper‑Tasks aus; Terminal nur manuell; Link zur Fallakte.
 checks: keine
 ---
 
@@ -31,6 +31,12 @@ Primary Docs
 - `docs/tests.md` — Testabdeckung, Sim-/Client-Checks
 - `docs/prompts/chat-restart.md` — kopierfertiger Prompt für Chat-/Session-Neustarts (veraltet; aktuell nicht nutzen)
 - Meta-Sidecars: `novapolis-dev/docs/meta/*.json` (Quelle, Ursprung, Migrationsstempel)
+
+Betriebsnotiz (temporär)
+------------------------
+
+- VS Code markiert den Workspace aktuell als Multi‑Root. Wrapper‑Tasks/Automationen sind unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single‑Root gilt: KEINE WRAPPER, Terminal ausschließlich manuell nutzen.
+  - Fallakte: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
 
 Specs
 -----
