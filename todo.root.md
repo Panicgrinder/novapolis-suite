@@ -1,7 +1,6 @@
----
-stand: 2025-11-02 19:11
-update: Snapshot-Frontmatter-Migration abgeschlossen (Root)
-checks: markdownlint-cli2 PASS
+stand: 2025-11-03 04:15
+update: Terminal/Tasks-Hinweis ergänzt: KEINE WRAPPER, Terminal nur manuell; Blocker: Multi-Root-Markierung.
+checks: keine
 ---
 
 <!-- markdownlint-disable MD003 -->
@@ -16,6 +15,8 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 
 - **novapolis_agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
 - **novapolis-dev / novapolis-rp**: Fokus auf Canvas-Rettung Sprint (Charaktere/Logistik/Systeme) sowie bestehende Datenkurierungs- und Sim-Aufgaben.
+- **Terminal/Tasks (STOP)**: VS Code markiert den Workspace aktuell fälschlich als Multi‑Root; Wrapper‑Tasks/Automationen sind unzuverlässig. Bis zur Bereinigung: KEINE WRAPPER, TERMINAL NUR MANUELL NUTZEN. Lösung erst nach Aufräumen (Single‑Root‑Struktur).
+  - Open Case: Terminal/Tasks Multi‑Root → `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
 - **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-02) + `workspace_tree*.txt` (Stand 2025-11-02) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
   - [x] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) am 2025-11-02 via Tasks `Workspace tree:*` regeneriert.
 - 2025-11-01: DONELOG-Heading-Stil auf Setext gemäß MD003 korrigiert; Markdownlint bleibt zentral via npx.
@@ -109,6 +110,7 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
 - Root verwendet `.venv` (Windows) und zentralen Interpreter (`.vscode/settings.json`).
 - `novapolis_agent` ist der einzige Code‑Bereich mit Tests/Launch‑Profilen; `novapolis-rp` ist primär Daten/Docs/Tools.
 - Markdownlint läuft via cli2 in CI; lokale Tasks existieren in Agent‑Projekt (bereits erweitert um Root‑`TODO.md`/`DONELOG.md`).
+- Aktueller Blocker: VS Code erkennt den Workspace als Multi‑Root; Wrapper‑Tasks laufen unzuverlässig. Vorgabe bis zur Bereinigung: KEINE WRAPPER – Terminal ausschließlich manuell nutzen.
 
 ### Akzeptanzkriterien
 
@@ -120,6 +122,7 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
 ### Plan (Etappen)
 
 - Etappe0 – Inventur (dieser PR‑Teil)
+  - [ ] Vorab: Multi‑Root → Single‑Root bereinigen (Workspace aufräumen, eindeutige Root). Erst danach Wrapper‑Tasks reaktivieren.
   - [ ] Liste aller `.vscode`‑Dateien erstellen (Root, Agent, RP)
   - [ ] Settings/Launch/Tasks diffen und Konflikte notieren
   - [ ] Mapping definieren: was zentralisiert wird, was projekt‑spezifisch bleibt
@@ -165,6 +168,8 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
   - Mitigation: Jede Task im Root mit `options.cwd=novapolis_agent` + `envFile` testen.
 - Risiko: Launch‑Profile brechen bei Migration.
   - Mitigation: Launch zunächst im Agent belassen; Migration optional/später.
+- Risiko: VS Code Multi‑Root‑Markierung verhindert stabile Task‑Ausführung.
+  - Mitigation: Wrapper‑Tasks deaktivieren; bis zur Single‑Root‑Bereinigung ausschließlich manuelle Terminal‑Läufe.
 - Backout: Sub‑`.vscode` beibehalten bis Etappe2; jederzeit reaktivierbar.
 
 ### Betroffene Dateien (geplant)

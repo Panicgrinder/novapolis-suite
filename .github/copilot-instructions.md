@@ -1,6 +1,6 @@
 # Copilot-Projektanweisungen (Novapolis Suite)
 
-Stand: 2025-11-02 21:03 – Tasks & Hooks auf PowerShell 7 (pwsh) umgestellt; Hinweis aktualisiert
+Stand: 2025-11-03 03:20 – Betriebsmodi Standardlauf/Sicherheitsprotokoll verankert
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
@@ -101,6 +101,9 @@ checks: keine
   3) Ohne Bestätigung keine auslösenden Aktionen starten.
 - Hinweise:
   - Das STOP‑Gate gilt beidseitig (Code ↔ Redaktion). Reine triviale Konversationen sind nicht betroffen.
+  - Während STOP gilt „Debug/Analyse vor Ausführung“: Keine neuen Build/Test/Run‑Tasks automatisch starten. Laufende Task‑Wünsche werden in eine interne Queue gelegt und erst nach Freigabe gestartet.
+  - Test‑Ergebnis‑Heuristik (Plausibilität): Wenn ein vollständiger Testlauf quasi sofort (< 1 s) mit PASS zurückkommt, ist das verdächtig (möglicher Fehlaufruf/Scope‑Fehler). In diesem Fall Tests manuell im Terminal mit gesetztem cwd ausführen und die Laufzeit/Ergebnisse im Log vermerken.
+  - Manuell‑ausführen‑Pflicht (kritische Läufe): Bei Coverage‑Gates oder Fehlersuche Tests immer manuell im Terminal mit explizitem Interpreter und Arbeitsverzeichnis starten; Task‑Runs erst nach einem erfolgreichen manuellen Lauf verwenden.
 
 ### Unklarheiten‑STOP (global, immer gültig)
 
@@ -132,6 +135,13 @@ checks: keine
   - Nutzerentscheid respektieren; bei „nein“ weiter im aktuellen Modus arbeiten. Auf Wunsch „Bitte nicht erinnern“ stelle ich Erinnerungen ein, bis du wieder grünes Licht gibst.
   - Explizite Nutzerwahl überschreibt Heuristik: „Modus Codex“/„Modus General“ setzt sofort um.
   - Transparenz: Den aktiven Modus im nächsten Status‑Update kurz erwähnen (z. B. „Modus: General“), wenn ein Wechsel stattfand oder Code‑Arbeit ansteht.
+
+### Betriebsmodi (Standardlauf & Sicherheitsprotokoll)
+
+- **Standardlauf:** Default nach Freigabe eines STOP-Gates. Vor jedem Task einen Expected-State-Block festhalten (Ziel, Nicht-Ziele, Invarianten, Scope, Budgets, Akzeptanzchecks, Risiken) und reguläre Dokumentationspflichten erfüllen.
+- **Sicherheitsprotokoll:** Aktiv bei STOP-Auslösern, Drift außerhalb Budgets oder manueller Anforderung. In Paketen zu 3–5 Operationen arbeiten, nach jedem Paket IST/SOLL abgleichen und Driftbewertung melden.
+- **Expected State & Logging:** Vorlage siehe `novapolis-dev/docs/process/betriebsmodi-sicherheitsprotokoll-notizen.md`. Rohlogs lokal in `novapolis-dev/logs/betriebsmodi-*.tmp.md` führen, verdichtete Zusammenfassungen optional committen (Vorlage `novapolis-dev/logs/log-template.md`).
+- **Ausstieg:** Sicherheitsprotokoll erst verlassen, wenn Ursache behoben ist und zwei Pakete ohne neue Drift außerhalb Budgets verlaufen oder der Nutzer explizit freigibt. Abschlussbericht (Befund, Checks, Rest-Risiken) bereitstellen.
 
 ## Repositoryweiter Rahmen
 - Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.

@@ -1,7 +1,6 @@
----
-stand: 2025-11-03 00:29
-update: Bundle-Umbenennung nach Schema abgeschlossen; Rotation-Log ergänzt
-checks: markdownlint-cli2 (all md) PASS
+stand: 2025-11-03 03:20
+update: Betriebsmodi-Anleitung und Logstruktur verankert
+checks: keine
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -193,6 +192,7 @@ Notiz (2025-11-02 11:35): CI im Root ergänzt:
   - `validate-rp.yml` (RP-Validatoren)
   - `markdownlint.yml` (global)
   - `enforce-donelog.yml` (global)
+- [x] Betriebsmodi „Standardlauf“/„Sicherheitsprotokoll“ beschreiben und in Anleitungen verankern (2025-11-03)
 - [ ] Trigger/Paths prüfen: nur relevante Pfade bauen/testen (Performance)
 - [ ] README Hinweis: Workflows liegen ausschließlich im Root
 

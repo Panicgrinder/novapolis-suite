@@ -1,6 +1,5 @@
----
-stand: 2025-11-02 03:29
-update: MCP-Server-Prototyp als Dev-Aufgabe ergänzt
+stand: 2025-11-03 03:20
+update: Betriebsmodi konsolidiert (Instruktionen, Logging)
 checks: keine
 ---
 
@@ -21,6 +20,7 @@ Offene Aufgaben (Dev)
 
 - [ ] (Platzhalter) Sammle Dev‑Aufgaben hier. Falls bisher in Root `todo.root.md` oder Agent‑TODO gepflegt, bitte verschieben.
 - [ ] MCP-Server-Prototyp vorbereiten (`novapolis-dev/integrations/`): Minimalen lokalen MCP-Server aufsetzen, Launch/Docs ergänzen, Verbindungstest mit Web-Client dokumentieren.
+- [x] Betriebsmodi „Standardlauf“/„Sicherheitsprotokoll“ konsolidieren (Prozess-Docs, Logging-Template, Anpassung Copilot-Instruktionen) (2025-11-03)
 
 Neue Aufgaben – Zeitmodell & TTS (2025-11-01 22:24)
 ---------------------------------------------------
