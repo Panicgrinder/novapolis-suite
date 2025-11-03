@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-03 04:30
-update: Hinweis aufgenommen: VS Code Multi‑Root → Wrapper‑Tasks aus; Terminal nur manuell; Link zur Fallakte.
+stand: 2025-11-04 00:02
+update: Hinweis ergänzt: CI‑Workflows sind pfad‑gefiltert (nur relevante Pfade triggern Builds/Tests).
 checks: keine
 ---
 
@@ -50,6 +50,7 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 1. VS Code über den Root-Ordner `Main/` öffnen (Single‑Root). Die frühere Multi‑Root‑Workspace-Datei wird nicht mehr verwendet.
 2. Workflows laufen ausschließlich zentral aus dem Root (`/.github/workflows`). Modulverzeichnisse enthalten keine eigenen `.github/workflows` mehr.
 3. Automatisierte Läufe erfolgen über das Tasks-Panel (Shared‑Panel); spontane Shell‑Kommandos gehören ins User‑Terminal.
+4. CI‑Workflows sind pfad‑gefiltert: Sie laufen nur bei relevanten Änderungen (z. B. `ci.yml` für `novapolis_agent/**`, `enforce-donelog.yml` für Agent‑Code/DONELOG, `validate-rp.yml` für `novapolis-rp/**`; `markdownlint.yml` bereits mit `paths`).
 
 ### Hinweise für Mitarbeit (Moduswechsel & STOP‑Gate)
 
