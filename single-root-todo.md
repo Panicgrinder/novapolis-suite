@@ -1,4 +1,4 @@
-stand: 2025-11-03 03:20
+---stand: 2025-11-03 03:20
 update: Betriebsmodi-Anleitung und Logstruktur verankert
 checks: keine
 ---
