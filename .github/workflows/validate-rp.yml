@@ -2,7 +2,13 @@ name: validate-rp
 
 on:
   push:
+    paths:
+      - "novapolis-rp/**"
+      - ".github/workflows/validate-rp.yml"
   pull_request:
+    paths:
+      - "novapolis-rp/**"
+      - ".github/workflows/validate-rp.yml"
   workflow_dispatch:
 
 jobs:

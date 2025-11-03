@@ -3,8 +3,20 @@ name: Enforce DONELOG Update
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    paths:
+      - "novapolis_agent/app/**"
+      - "novapolis_agent/scripts/**"
+      - "novapolis_agent/utils/**"
+      - "novapolis_agent/docs/DONELOG.txt"
+      - ".github/workflows/enforce-donelog.yml"
   push:
     branches: [ main ]
+    paths:
+      - "novapolis_agent/app/**"
+      - "novapolis_agent/scripts/**"
+      - "novapolis_agent/utils/**"
+      - "novapolis_agent/docs/DONELOG.txt"
+      - ".github/workflows/enforce-donelog.yml"
 
 jobs:
   check-donelog:

@@ -3,7 +3,23 @@ name: CI (Python)
 on:
   push:
     branches: [ "**" ]
+    paths:
+      - "novapolis_agent/**"
+      - "packages/novapolis_common/**"
+      - ".github/workflows/ci.yml"
+      - "novapolis_agent/requirements*.txt"
+      - "novapolis_agent/pyrightconfig.json"
+      - "novapolis_agent/mypy.ini"
+      - "novapolis_agent/pytest.ini"
   pull_request:
+    paths:
+      - "novapolis_agent/**"
+      - "packages/novapolis_common/**"
+      - ".github/workflows/ci.yml"
+      - "novapolis_agent/requirements*.txt"
+      - "novapolis_agent/pyrightconfig.json"
+      - "novapolis_agent/mypy.ini"
+      - "novapolis_agent/pytest.ini"
   workflow_dispatch: {}
 
 jobs:
