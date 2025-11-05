@@ -5,7 +5,7 @@ Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-si
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
-> Hinweis (Terminal/Pwsh): Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. WICHTIG: `-Command` NICHT mehr für Aufgaben mit Pfaden/Argumenten verwenden (bricht bei Leerzeichen in Pfaden wie `F:\VS Code Workspace\…`). Stattdessen konsequent `-File` mit Wrapper‑Skripten verwenden. Die VS Code Tasks sind entsprechend umgestellt (z. B. `pwsh -NoProfile -File "${workspaceFolder}/scripts/run_pytest.ps1"`).
+> Hinweis (Terminal/Pwsh): Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Tasks verwenden wieder `-Command`; achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`), damit Leerzeichen in Pfaden keine Fehler auslösen.
 > Ausnahme (Systemzeit): Für einfache, pfadfreie Einzeiler ist `-Command` erlaubt und kanonisch. Systemzeit immer so ermitteln: `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
 >
 > Hinweis (STOP): „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe.
@@ -51,12 +51,9 @@ Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-si
 - Hinweis: Labels müssen exakt den Einträgen in `.vscode/tasks.json` entsprechen; bei Abweichung **nicht starten**, sondern Rückfrage.
 - Gates können jederzeit durch die Formulierung „STOP‑Gate aus (Session)“ deaktivieren und mit „STOP‑Gate an“ wieder aktivieren.
 
-Zusatz (pwsh‑Wrappers):
-- Python‑basierte Tasks laufen über Wrapper‑Skripte und `-File` (robustes Quoting, korrekte Exit‑Codes):
-  - `Tests: pytest (-q)` → `${workspaceFolder}/scripts/run_pytest.ps1`
-  - `Tests: coverage (fail-under)` → `${workspaceFolder}/scripts/run_coverage.ps1`
-  - `DONELOG: append entry` → `${workspaceFolder}/scripts/run_done_append.ps1`
-  - Begründung: `-Command` teilt Argumente/Pfade mit Leerzeichen in Tokens auf (Fehler wie `&: The term 'F:\\VS' is not recognized …`). `-File` vermeidet das zuverlässig.
+Zusatz (pwsh):
+- Für Tasks mit Python-Nutzung wird per `-Command` direkt der Interpreter aus `.venv` (Fallback `python`) aufgerufen; CWD/Coverage-Pfade sind im Task hinterlegt.
+- Bei Pfaden mit Leerzeichen bitte `${workspaceFolder}` und `Join-Path` verwenden.
 
 ### Update-Logistik
 
@@ -121,7 +118,7 @@ checks: keine
   - Das STOP‑Gate gilt beidseitig (Code ↔ Redaktion). Reine triviale Konversationen sind nicht betroffen.
   - Während STOP gilt „Debug/Analyse vor Ausführung“: Keine neuen Build/Test/Run‑Tasks automatisch starten. Laufende Task‑Wünsche werden in eine interne Queue gelegt und erst nach Freigabe gestartet.
   - Test‑Ergebnis‑Heuristik (Plausibilität): Wenn ein vollständiger Testlauf quasi sofort (< 1 s) mit PASS zurückkommt, ist das verdächtig (möglicher Fehlaufruf/Scope‑Fehler). In diesem Fall Tests manuell im Terminal mit gesetztem cwd ausführen und die Laufzeit/Ergebnisse im Log vermerken.
-  - Manuell‑ausführen‑Pflicht (kritische Läufe): Bei Coverage‑Gates oder Fehlersuche per pwsh‑Wrapper laufen lassen (cwd=`novapolis_agent`). Inline‑`-Command` vermeiden bei komplexen Befehlen.
+  - Manuell‑ausführen‑Pflicht (kritische Läufe): Bei Coverage‑Gates oder Fehlersuche im Terminal mit gesetztem cwd=`novapolis_agent` arbeiten und Befehle mit `Join-Path` sauber quoten.
 
 ### Unklarheiten‑STOP (global, immer gültig)
 
