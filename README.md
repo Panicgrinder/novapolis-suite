@@ -45,12 +45,43 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 - Nicht-triviale Aenderungen werden weiterhin im jeweiligen DONELOG des Projekts dokumentiert (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
 - Der Agent-Workspace nutzt jetzt den Paketnamen `novapolis_agent`; aeltere Referenzen mit Bindestrich bitte bei Gelegenheit bereinigen (siehe Aufgaben in `todo.root.md`).
 
+### Copilot Instructions (kanonisch)
+
+- Die verbindlichen Arbeits-/Antwortrichtlinien liegen zentral unter `.github/copilot-instructions.md` (dieses Repo, Root/.github).
+- Ergänzende Hintergrunddokumente liegen im Dev‑Hub: `novapolis-dev/docs/` (z. B. `copilot-behavior.md`, `index.md`).
+- In VS Code sind diese Dokumente als primärer Kontext hinterlegt (siehe `/.vscode/settings.json` → `github.copilot.chat.workspaceInstructions`).
+
+### Lint/Format & EOL-Policy (Root)
+
+- Markdownlint: Konfiguration unter `.markdownlint-cli2.jsonc` (Root). Optionales Ignore-File `.markdownlintignore`.
+- Editorconfig: `.editorconfig` definiert Spaces (2), EOL und Markdown‑Listen‑Indent; `*.ps1` erzwingt CRLF.
+- Python: Black/Ruff über `pyproject.toml` (tools‑only im Root; Packaging bleibt in den Modulpfaden).
+- Git EOL: `.gitattributes` erzwingt LF für Text/Markdown, CRLF für Windows‑Scripts (`*.ps1`, `*.cmd`, `*.bat`, `*.psm1`), und markiert Binärdateien mit `-text` (keine Fake‑Diffs).
+
+Lint ausführen (optional, lokal):
+
+```powershell
+Set-Location "F:/VS Code Workspace/Main"
+npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"
+```
+
 ## Workspace öffnen
 
 1. VS Code über den Root-Ordner `Main/` öffnen (Single‑Root). Die frühere Multi‑Root‑Workspace-Datei wird nicht mehr verwendet.
 2. Workflows laufen ausschließlich zentral aus dem Root (`/.github/workflows`). Modulverzeichnisse enthalten keine eigenen `.github/workflows` mehr.
 3. Automatisierte Läufe erfolgen über das Tasks-Panel (Shared‑Panel); spontane Shell‑Kommandos gehören ins User‑Terminal.
 4. CI‑Workflows sind pfad‑gefiltert: Sie laufen nur bei relevanten Änderungen (z. B. `ci.yml` für `novapolis_agent/**`, `enforce-donelog.yml` für Agent‑Code/DONELOG, `validate-rp.yml` für `novapolis-rp/**`; `markdownlint.yml` bereits mit `paths`).
+
+### Godot (Simulation)
+
+- Kanonische Projektdatei: `novapolis-sim/project.godot` (Option A gewählt).
+- Das vormals verschachtelte Projekt unter `novapolis-sim/novapolis-sim/` wurde archiviert: `Backups/novapolis-sim-archived-20251104/`.
+- Editor‑Pfad ist in `.vscode/settings.json` hinterlegt; Tasks/Repo verweisen nur auf die kanonische Datei.
+
+### Archiv
+
+- Historisierte oder ältere Planungs-/Prozessdokumente werden zentral unter `novapolis-dev/archive/` abgelegt.
+- Bitte keine Archive in Unterprojekten anlegen; verlinke stattdessen nach `novapolis-dev/archive/`.
 
 ### Hinweise für Mitarbeit (Moduswechsel & STOP‑Gate)
 
@@ -71,6 +102,7 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 - [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) – Stand 2025-11-02, fasst Health-Checks, Risiken und Artefakte zusammen.
 - [`todo.root.md`](todo.root.md) – Zentraler Aufgabenueberblick (Stand 2025-11-02) inklusive Folgeaufgaben fuer Tree-Snapshots.
 - [`workspace_tree_full.txt`](workspace_tree_full.txt) – Vollstaendiger Verzeichnisbaum (Stand 2025-11-02 02:11; regenerierbar via Tasks `Workspace tree: full/directories/summary (dirs)`).
+ - Backups befinden sich zentral unter `Backups/` (keine tool‑lesbaren Backups neben aktiven Configs).
 
 ## Naechste Schritte
 

@@ -40,5 +40,15 @@ Der Dev Hub verknüpft die Arbeitsstände aus `novapolis_agent/`, `novapolis-sim
 - `integrations/` – Schnittstellen- und Abstimmungsdokumente (Platzhalter)
 - `raw/`, `curated/` – optionale lokale Skizzen; produktive Datenpools liegen unter `../novapolis-rp/database-*`
 
+## Archiv
+
+- Zentrales Archiv für historisierte Dokumente: `archive/`
+- Bitte keine separaten Archive in Unterprojekten anlegen; verlinkt stattdessen nach `novapolis-dev/archive/`.
+
+## Copilot Instructions
+
+- Kanonisches Richtlinien-Dokument liegt im Repo-Root unter `.github/copilot-instructions.md`.
+- Ergänzende Detailregeln und Hintergrundtexte: `docs/` (z. B. `copilot-behavior.md`).
+
 Bitte dokumentiert neue Arbeitsstände ausschließlich hier und verweist in den Produktiv-Repositories auf dieses Hub.
 

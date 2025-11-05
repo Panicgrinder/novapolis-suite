@@ -2,6 +2,7 @@
   "config": {
     "default": true,
     "MD003": { "style": "consistent" },
+    "MD012": false,
     "MD005": false,
     "MD007": false,
     "MD013": false,
@@ -10,7 +11,8 @@
     "MD032": false,
     "MD033": false,
     "MD036": false,
-    "MD041": false
+    "MD041": false,
+    "MD047": false
   },
   "ignores": [
     ".venv/**",

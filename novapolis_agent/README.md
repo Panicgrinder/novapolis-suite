@@ -36,11 +36,24 @@ Dieses Projekt steht unter der MIT-Lizenz. Siehe die Datei `LICENSE` im Reposito
    source venv/bin/activate  # Linux/Mac
    ```
 
-3. Abhängigkeiten installieren:
+3. Abhängigkeiten installieren (eine der beiden Varianten):
+
+- Aus dem Repo-Root (empfohlen, bündelt alles):
 
 ```powershell
    pip install -r requirements.txt
-   ```
+```
+
+- Direkt im Modul `novapolis_agent` (granular):
+
+```powershell
+   # Basis-Laufzeit
+   pip install -r requirements/base.txt
+   # Dev-Extras (Tests, Lint)
+   pip install -r requirements/dev.txt
+   # Optional: Trainings-Extras
+   pip install -r requirements/train.txt
+```
 
 Oder manuell:
 

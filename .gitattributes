@@ -9,3 +9,23 @@
 # Uncomment if needed and your team uses older encodings in working tree
 # *.md text working-tree-encoding=UTF-8
 # *.txt text working-tree-encoding=UTF-8
+
+# Windows script files: CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.psm1 text eol=crlf
+
+# Unix shell scripts: LF
+*.sh text eol=lf
+
+# Common binaries (no EOL normalization)
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text
+*.pdf -text
+*.zip -text
+*.gz -text
+*.7z -text
+*.exe -text

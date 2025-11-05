@@ -7,7 +7,9 @@ build/
 .venv/
 .env
 .coverage
-coverage.xml# Novapolis consolidated .gitignore
+coverage.xml
+
+# Novapolis consolidated .gitignore
 
 # OS / Editor cruft
 .DS_Store

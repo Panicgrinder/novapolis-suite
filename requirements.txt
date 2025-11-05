@@ -1,3 +1,3 @@
 # Aggregate runtime dependencies for the consolidated workspace.
-# Install this file if you need everything required by the agent und RP projects.
--r novapolis_agent/requirements.txt
+# Install this from the repo root to get the Agent runtime deps.
+-r novapolis_agent/requirements/base.txt

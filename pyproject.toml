@@ -5,7 +5,8 @@
 [tool.black]
 line-length = 100
 target-version = ["py311"]
-exclude = """
+# Use a literal triple-quoted string so backslashes don't need escaping
+exclude = '''
 (
   ^\.venv
   | ^Backups
@@ -14,7 +15,7 @@ exclude = """
   | ^novapolis_agent/eval/results
   | ^novapolis-rp/\.pytest_cache
 )
-"""
+'''
 
 [tool.ruff]
 line-length = 100

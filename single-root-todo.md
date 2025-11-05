@@ -245,4 +245,3 @@ Notiz (2025-11-02 10:27): `.code-workspace` wurde auf Single-root reduziert (nur
 
 Notiz (2025-11-02 11:35): Root `pyproject.toml` jetzt tools-only (black/ruff/pytest). Packaging verbleibt in Modulen/Paketen.
 
-

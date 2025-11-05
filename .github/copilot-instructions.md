@@ -1,10 +1,12 @@
 # Copilot-Projektanweisungen (Novapolis Suite)
 
-Stand: 2025-11-03 03:20 – Betriebsmodi Standardlauf/Sicherheitsprotokoll verankert
+Stand: 2025-11-05  
+Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-sim/project.godot`)
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
-> Hinweis (Terminal/Pwsh): Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks sind bereits entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`).
+> Hinweis (Terminal/Pwsh): Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. WICHTIG: `-Command` NICHT mehr für Aufgaben mit Pfaden/Argumenten verwenden (bricht bei Leerzeichen in Pfaden wie `F:\VS Code Workspace\…`). Stattdessen konsequent `-File` mit Wrapper‑Skripten verwenden. Die VS Code Tasks sind entsprechend umgestellt (z. B. `pwsh -NoProfile -File "${workspaceFolder}/scripts/run_pytest.ps1"`).
+> Ausnahme (Systemzeit): Für einfache, pfadfreie Einzeiler ist `-Command` erlaubt und kanonisch. Systemzeit immer so ermitteln: `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
 >
 > Hinweis (STOP): „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe.
 
@@ -13,12 +15,16 @@ Stand: 2025-11-03 03:20 – Betriebsmodi Standardlauf/Sicherheitsprotokoll veran
 - `novapolis_agent/docs/AGENT_BEHAVIOR.md`: maßgeblicher System-Prompt, Sicherheitsrichtlinien, Arbeitsablauf.
 - `novapolis-dev/docs/copilot-behavior.md`: redigierte Kopie für den Dokumentations-Hub; folgt denselben Regeln.
 - `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`: Rollenspiel-spezifische Verhaltenshooks und Rollenmatrix.
-- `novapolis-rp/development/docs/` enthält nur Legacy-Stubs; verwende stattdessen die oben genannten Quellen.
+- `novapolis-rp/development/docs/` enthielt Legacy-Stubs und wurde entfernt (2025-11-05). Verwende ausschließlich die oben genannten Live‑Quellen im Dev‑Hub.
 
 ## Gemeinsamer Arbeitsstil
 
 - Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
-- Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen im jeweiligen DONELOG und todo. (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`, `novapolis-rp/docs/donelog.md`, `novapolis-sim/docs/donelog.md`, `novapolis-suite/docs/donelog.md`, `novapolis-rp/docs/todo.md`, `novapolis-sim/docs/todo.md`, `novapolis-suite/docs/todo.md`, `novapolis-dev/docs/todo.md`, `novapolis_agent/docs/todo.md`).
+- Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen:
+  - Root: `DONELOG.md`, `todo.root.md`.
+  - Agent: `novapolis_agent/docs/DONELOG.txt` (und projektinterne TODOs, falls vorhanden).
+  - Dev‑Hub: `novapolis-dev/docs/donelog.md`, `novapolis-dev/docs/todo.*.md`.
+  - Weitere Projekt‑TODOs nur, wenn tatsächlich vorhanden; ansonsten Root/Dev‑Hub nutzen.
 - Prägnanter Output: skimmbar, keine überladenen Blockzitate; bei großen Aufgaben Plan in betreffende todo eintragen.
 - Sicherheit & Privacy: Keine Secrets, offline bevorzugen, keine harten Pfade zu externen Repositories übernehmen.
 - Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
@@ -42,14 +48,20 @@ Stand: 2025-11-03 03:20 – Betriebsmodi Standardlauf/Sicherheitsprotokoll veran
 - Checks: *lint+pytest* (Task ruft zuerst `Lint: markdownlint-cli2 (all md)` und danach `Tests: pytest (-q)` sequenziell auf).
 - Git: *commit+push* (Commit-Message per Prompt, dann Push).
 - Lint: *markdownlint-cli2 (all md)*.
-- Snapshot: *now (timestamp)*.
 - Hinweis: Labels müssen exakt den Einträgen in `.vscode/tasks.json` entsprechen; bei Abweichung **nicht starten**, sondern Rückfrage.
 - Gates können jederzeit durch die Formulierung „STOP‑Gate aus (Session)“ deaktivieren und mit „STOP‑Gate an“ wieder aktivieren.
 
-### Update-Logistik (Snapshot)
+Zusatz (pwsh‑Wrappers):
+- Python‑basierte Tasks laufen über Wrapper‑Skripte und `-File` (robustes Quoting, korrekte Exit‑Codes):
+  - `Tests: pytest (-q)` → `${workspaceFolder}/scripts/run_pytest.ps1`
+  - `Tests: coverage (fail-under)` → `${workspaceFolder}/scripts/run_coverage.ps1`
+  - `DONELOG: append entry` → `${workspaceFolder}/scripts/run_done_append.ps1`
+  - Begründung: `-Command` teilt Argumente/Pfade mit Leerzeichen in Tokens auf (Fehler wie `&: The term 'F:\\VS' is not recognized …`). `-File` vermeidet das zuverlässig.
+
+### Update-Logistik
 
 - Timestamp: Änderungen mit `YYYY-MM-DD HH:mm` (lokale Zeit) vermerken – gilt für Kopfzeilen („Stand“, „Letzte Aktualisierung“), DONELOG-Einträge und kurze Statusnotizen.
-- Systemzeit vor Updates per Task `Snapshot: now (timestamp)` oder `Get-Date -Format 'yyyy-MM-dd HH:mm'` abrufen und übernehmen.
+- Systemzeit (kanonisch): `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
 - Kurznotiz: 1–2 Sätze oder Bullet, was angepasst wurde (analog zu `novapolis-rp/database-rp/02-*`). Bei komplexeren Tasks optional Primärpfad referenzieren (`app/...`, `scripts/...`).
 - Prüfungen: Relevante Checks nennen (z. B. `pytest -q`, `pyright`, `markdownlint-cli2`) inkl. Ergebnis/Exit-Status; bei Bedarf Link/Dateipfad zur Ausgabe ergänzen.
 - Markdownlint-Läufe protokollieren: Lauf/Command + PASS/FAIL direkt nach dem Lauf im Status erwähnen.
@@ -59,7 +71,7 @@ Stand: 2025-11-03 03:20 – Betriebsmodi Standardlauf/Sicherheitsprotokoll veran
 - „Workspace tree: full“ → `workspace_tree_full.txt`
 - „Workspace tree: directories“ → `workspace_tree.txt`
 - „Workspace tree: summary (dirs)“ → `workspace_tree_dirs.txt`
-- Dokumentpflege: Betroffene Artefakte synchron halten (`TODO.md`, `novapolis_agent/docs/TODO.md`, DONELOGs, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, README/Index-Seiten). Strukturänderungen → zusätzlich Tree-Snapshots aktualisieren; Behaviour-Änderungen → `AGENT_BEHAVIOR.md` & Kopien prüfen.
+- Dokumentpflege: Betroffene Artefakte synchron halten (Root: `todo.root.md`, `DONELOG.md`; Agent: `novapolis_agent/docs/DONELOG.txt`; Dev‑Hub: `novapolis-dev/docs/todo.*.md`, `novapolis-dev/docs/donelog.md`; außerdem `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, README/Index-Seiten). Strukturänderungen → zusätzlich Tree-Snapshots aktualisieren; Behaviour-Änderungen → `AGENT_BEHAVIOR.md` & Kopien prüfen.
 - Referenzen: Wenn vorhanden Issue-/PR-Links, Commit-Hash oder Kontextnotizen angeben (Inline oder als Fußnote). Für wiederkehrende Schritte Templates/Tasks im Root `.vscode/` ergänzen.
 - Nicht-triviale Änderungen → in zugehörige TODO oder DONELOG.
 
@@ -109,7 +121,7 @@ checks: keine
   - Das STOP‑Gate gilt beidseitig (Code ↔ Redaktion). Reine triviale Konversationen sind nicht betroffen.
   - Während STOP gilt „Debug/Analyse vor Ausführung“: Keine neuen Build/Test/Run‑Tasks automatisch starten. Laufende Task‑Wünsche werden in eine interne Queue gelegt und erst nach Freigabe gestartet.
   - Test‑Ergebnis‑Heuristik (Plausibilität): Wenn ein vollständiger Testlauf quasi sofort (< 1 s) mit PASS zurückkommt, ist das verdächtig (möglicher Fehlaufruf/Scope‑Fehler). In diesem Fall Tests manuell im Terminal mit gesetztem cwd ausführen und die Laufzeit/Ergebnisse im Log vermerken.
-  - Manuell‑ausführen‑Pflicht (kritische Läufe): Bei Coverage‑Gates oder Fehlersuche Tests immer manuell im Terminal mit explizitem Interpreter und Arbeitsverzeichnis starten; Task‑Runs erst nach einem erfolgreichen manuellen Lauf verwenden.
+  - Manuell‑ausführen‑Pflicht (kritische Läufe): Bei Coverage‑Gates oder Fehlersuche per pwsh‑Wrapper laufen lassen (cwd=`novapolis_agent`). Inline‑`-Command` vermeiden bei komplexen Befehlen.
 
 ### Unklarheiten‑STOP (global, immer gültig)
 
@@ -156,6 +168,8 @@ checks: keine
 - Doppelte Modulpfade (z. B. parallele `novapolis_agent/novapolis_agent/**` und `novapolis_agent/app/**`) sind als Legacy zu behandeln; Neu‑Anpassungen bitte nur unter den aktiven Pfaden vornehmen (siehe `novapolis_agent/WORKSPACE_INDEX.md`).
 - Secrets (`.env`) bleiben lokal; ungefilterte Exporte ausschließlich unter `novapolis-rp/database-raw/99-exports/` ablegen.
 - Working docs leben in `novapolis-dev/docs/` (todo, donelog, tests, naming-policy, copilot-behavior, index); `novapolis-rp/development/...` sind Redirect-Stubs.
+ - Backups/Altstände gehören zentral nach `Backups/` (keine tool‑lesbaren Backups neben aktiven Configs).
+ - Godot (Sim): Kanonische Projektdatei ist `novapolis-sim/project.godot` (Option A). Das frühere, verschachtelte Projekt wurde nach `Backups/novapolis-sim-archived-20251104/` verschoben.
 
 ## Prüf- und Release-Checks
 - Vor Commits relevante Tests/Skripte ausführen (Root‑basiert): `novapolis_agent/scripts/run_tests.py` (cwd=`novapolis_agent`), Validatoren unter `novapolis-rp/coding/tools/validators/`.
@@ -226,7 +240,7 @@ Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Roo
 **Primärer Kontext**
 - `novapolis-dev/docs/copilot-behavior.md` – Arbeitsweise, Stil, Sicherheit.
 - `novapolis-dev/docs/index.md` – Navigation & Prozessreferenz.
-- `database-raw/99-exports/README.md` – RAW-Policy (keine ungefilterten Daten nach `database-rp/`).
+- `novapolis-rp/database-raw/99-exports/README.md` – RAW-Policy (keine ungefilterten Daten nach `database-rp/`).
 
 **Wichtige Regeln**
 - Sprache: Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
@@ -242,14 +256,56 @@ Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Roo
 
 ### Markdownlint (zentral)
 
-- Zentrale Konfiguration: `.markdownlint-cli2.jsonc` im Root.
   - MD003 = `consistent` (pro Datei einheitlicher Heading‑Stil; gemischte ATX/Setext in derselben Datei → FAIL). Empfehlung: ATX verwenden und Inhalte vereinheitlichen.
   - `ignores` in der CLI2‑Config decken generierte/kuratierte Bereiche ab (u. a. `novapolis_agent/eval/results/**`, `novapolis_agent/outputs/**`, `outputs/**`, `novapolis-rp/.pytest_cache/**`).
 - Lokaler Lauf (nur im bestehenden Terminal): `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"`.
+  - Wrapper/Tasks: Nicht benötigt; Lint läuft direkt via Task (Exit‑Code wird durchgereicht). Ältere Wrapper verbleiben ggf. als Stubs im Archiv.
 - Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc "**/*.md"`.
 - Wrapper/Tasks: Entfernt bzw. als Hinweis‑Stub belassen (`novapolis-rp/coding/tools/validators/run_lint_markdown.ps1`).
 
 Optionaler Zusatz: „Lint: markdownlint-cli2 (docs focused)“ kann für einen schnellen Dokumentations‑Lint genutzt werden (`novapolis-dev/docs/**`, `novapolis_agent/docs/**`).
+
+#### Diagnose‑Playbook bei Lint‑FAIL (pwsh, konservativ)
+
+Ziel: Lint‑Fehler reproduzierbar erfassen, schnell auswerten und mit minimalem Risiko beheben.
+
+- Ausführung (repo‑weit, Konfiguration aus Root):
+  - Bestehendes Terminal (PowerShell 7, `-NoProfile`) verwenden.
+  - Vollständige Ausgabe in Datei sichern:
+    - Beispiel: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md" 2>&1 | Tee-Object -FilePath lint_fail.out`
+- Analyse (PowerShell‑only, Python via Here‑String in `python -` pipen):
+  - Hintergrund: Kein Bash, keine Backticks; UTF‑8 sicher; kein Multi‑Line `python -c`.
+  - Muster (Interpreter anpassen, z. B. auf Workspace‑Venv):
+
+```powershell
+$python = 'F:\VS Code Workspace\Main\.venv\Scripts\python.exe'  # ggf. anpassen
+$script = @"
+import pathlib, re
+from collections import defaultdict
+
+p = pathlib.Path('lint_fail.out')
+text = p.read_text(encoding='utf-8', errors='ignore')
+by_rule = defaultdict(list)
+for line in text.splitlines():
+    # Erwartetes Format (markdownlint-cli2): path:line MDxxx/…
+    m = re.match(r'^(.*?):\d+\s+(MD\d+)\b', line)
+    if m:
+        by_rule[m.group(2)].append(m.group(1))
+
+for rule, files in sorted(by_rule.items()):
+    uniq = sorted(set(files))
+    print(f"{rule}: {len(files)} Treffer in {len(uniq)} Dateien")
+"@
+$script | & $python -
+```
+
+- Typische Befunde und Fixes:
+  - MD012/no-multiple-blank-lines: Doppelte Leerzeilen entfernen (konservativ, nur überzählige Leerzeilen).
+  - MD047/single-trailing-newline: Fehlende Abschluss‑Zeile am Dateiende hinzufügen (genau eine).
+- Akzeptanzchecks:
+  - Nach Fix: „Lint: markdownlint-cli2 (docs focused)“ optional zur schnellen Verifikation.
+  - Voller Lauf „Lint: markdownlint-cli2 (all md)“ kann weiterhin FAIL sein, bis alle betroffenen Dateien bereinigt sind.
+  - Ergebnisse kurz protokollieren (PASS/FAIL, ggf. Pfad zur Ausgabe z. B. `lint_fail.out`).
 
 ### Mirrors/Redirect‑Stubs
 

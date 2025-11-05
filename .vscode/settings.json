@@ -8,7 +8,7 @@
   ],
   "python.testing.unittestEnabled": false,
   "python.analysis.typeCheckingMode": "standard",
-  "github.copilot.chat.workspaceInstructions": "Kontext-Kerndokumente: novapolis-dev/docs/copilot-behavior.md, novapolis-dev/docs/index.md, database-raw/99-exports/README.md. Beziehe diese Dokumente als primären Kontext bei Antworten. Wichtige Policy: Rohdaten bleiben in database-raw; keine ungefilterten Daten nach database-rp. Falls relevante Antworten zu RP/Datenfluss: prüfe zuerst diese drei Dateien.",
+  "github.copilot.chat.workspaceInstructions": "Primärdokument: .github/copilot-instructions.md. Ergänzende Kerndokumente: novapolis-dev/docs/copilot-behavior.md, novapolis-dev/docs/index.md, novapolis-rp/database-raw/99-exports/README.md. Beziehe diese Dokumente als primären Kontext bei Antworten. Wichtige Policy: Rohdaten bleiben in database-raw; keine ungefilterten Daten nach database-rp. Falls relevante Antworten zu RP/Datenfluss: prüfe zuerst diese drei Dateien.",
   "github.copilot.chat.codebase": {
     "enabled": true
   },
@@ -20,15 +20,16 @@
   "extensions.autoCheckUpdates": true,
   "extensions.autoUpdate": true
   ,
+  "terminal.integrated.cwd": "${workspaceFolder}",
   // Ensure tasks/automation use the same shell profile deterministically
   "terminal.integrated.profiles.windows": {
-    "PowerShell": {
+    "PowerShell 7": {
       "path": "C:/Program Files/PowerShell/7/pwsh.exe",
       "args": ["-NoProfile"],
       "icon": "terminal-powershell"
     }
   },
-  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.defaultProfile.windows": "PowerShell 7",
   "terminal.integrated.automationProfile.windows": {
     "path": "C:/Program Files/PowerShell/7/pwsh.exe",
     "args": ["-NoProfile"]
@@ -36,5 +37,5 @@
   // Reuse the task terminal on rerun (no new terminals)
   "task.terminal.reuseOnRerun": true,
   // Godot editor path migrated from .code-workspace to root settings
-  "godotTools.editorPath.godot3": "f:\\Downloads\\Godot_v4.5.1-stable_win64.exe\\Godot_v4.5.1-stable_win64.exe"
+  "godotTools.editorPath.godot4": "${workspaceFolder}\\novapolis-sim\\Godot_v4.5.1-stable_win64.exe"
 }

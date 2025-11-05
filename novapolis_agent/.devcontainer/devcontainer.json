@@ -2,7 +2,7 @@
   "name": "Novapolis Agent",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
   "forwardPorts": [8765, 11434],
-  "postCreateCommand": "pip install -r requirements.txt && pip install -r requirements-dev.txt",
+  "postCreateCommand": "pip install -r requirements/base.txt && pip install -r requirements/dev.txt",
   "remoteEnv": {
     "AGENT_PORT": "8765"
   },
