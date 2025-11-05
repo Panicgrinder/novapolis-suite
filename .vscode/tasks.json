@@ -86,7 +86,7 @@
 				"cwd": "${workspaceFolder}"
 			},
 			"dependsOn": [
-				"Lint: markdownlint (all md)",
+				"Lint: markdownlint-cli2 (all md)",
 				"Tests: coverage (fail-under)"
 			],
 			"dependsOrder": "sequence",
@@ -171,7 +171,7 @@
 		}
 		,
 		{
-			"label": "Lint: markdownlint (all md)",
+			"label": "Lint: markdownlint-cli2 (all md)",
 			"type": "shell",
 			"command": "pwsh",
 			"args": [
@@ -194,7 +194,7 @@
 			}
 		},
 		{
-			"label": "Lint: markdownlint (docs focused)",
+			"label": "Lint: markdownlint-cli2 (docs focused)",
 			"type": "shell",
 			"command": "pwsh",
 			"args": [

@@ -1,6 +1,6 @@
 # Copilot-Projektanweisungen (Novapolis Suite)
 
-Stand: 2025-11-05  
+Stand: 2025-11-05 18:33 – Lint-Regeln (pwsh + npx --yes) präzisiert; Task-Labels auf „markdownlint-cli2“ synchronisiert.  
 Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-sim/project.godot`)
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
@@ -255,7 +255,7 @@ Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Roo
 
   - MD003 = `consistent` (pro Datei einheitlicher Heading‑Stil; gemischte ATX/Setext in derselben Datei → FAIL). Empfehlung: ATX verwenden und Inhalte vereinheitlichen.
   - `ignores` in der CLI2‑Config decken generierte/kuratierte Bereiche ab (u. a. `novapolis_agent/eval/results/**`, `novapolis_agent/outputs/**`, `outputs/**`, `novapolis-rp/.pytest_cache/**`).
-- Lokaler Lauf (nur im bestehenden Terminal): `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"`.
+- Lokaler Lauf (nur im bestehenden Terminal, unter pwsh -NoProfile): `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"`.
   - Wrapper/Tasks: Nicht benötigt; Lint läuft direkt via Task (Exit‑Code wird durchgereicht). Ältere Wrapper verbleiben ggf. als Stubs im Archiv.
 - Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc "**/*.md"`.
 - Wrapper/Tasks: Entfernt bzw. als Hinweis‑Stub belassen (`novapolis-rp/coding/tools/validators/run_lint_markdown.ps1`).

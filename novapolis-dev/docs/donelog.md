@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-03 00:18
-update: Tree-Snapshots aktualisiert (full/dirs/summary)
-checks: markdownlint-cli2 (all md) PASS
+stand: 2025-11-05 18:33
+update: Docs-Snapshot: Lint-Regeln (pwsh+npx --yes) & Task-Labels synchronisiert
+checks: markdownlint-cli2 (docs focused) FAIL (MD003 in single-root-todo.md, donelog.md)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -9,6 +9,12 @@ checks: markdownlint-cli2 (all md) PASS
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
 
 Frontmatter-Migration – Docs Sweep (2025-11-02T23:23:00+01:00)
+Docs-Snapshot – Lint-Regeln synchronisiert (2025-11-05 18:33)
+
+- Regeln präzisiert: markdownlint via pwsh und `npx --yes markdownlint-cli2` (keine Wrapper).
+- Task-Labels in `.vscode/tasks.json` auf „Lint: markdownlint-cli2 …“ vereinheitlicht.
+- Checks: markdownlint-cli2 (docs focused) FAIL – MD003/heading-style in `novapolis-dev/docs/donelog.md` und vielfach in `single-root-todo.md` (pro Datei konsistenter Stil erforderlich).
+
 
 - `docs/donelog.md` und `docs/tests.md` um YAML-Frontmatter ergänzt; Status-Header inkl. Lint-Ergebnis aktualisiert.
 - Checks: markdownlint-cli2 (docs focused) PASS.

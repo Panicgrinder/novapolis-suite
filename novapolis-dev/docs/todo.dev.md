@@ -1,6 +1,7 @@
-stand: 2025-11-03 03:20
-update: Betriebsmodi konsolidiert (Instruktionen, Logging)
-checks: keine
+---
+stand: 2025-11-05 18:33
+update: Frontmatter/Stand aktualisiert; Lint-Regeln (npx --yes, pwsh) notiert
+checks: markdownlint-cli2 (docs focused) FAIL (MD003 in Root-Doku)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->

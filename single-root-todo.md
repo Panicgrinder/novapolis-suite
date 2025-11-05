@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-03 23:56
-update: VS Code Workspace-Status auf Single-root korrigiert.
-checks: keine
+stand: 2025-11-05 18:33
+update: Snapshot aktualisiert (Lint-Regeln/Checks protokolliert)
+checks: markdownlint-cli2 (docs focused) FAIL (MD003)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
