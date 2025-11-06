@@ -1,3 +1,9 @@
+---
+stand: 2025-11-06 15:22
+update: MD003 Setext + YAML Frontmatter
+checks: markdownlint-cli2 PASS (single file)
+---
+
 Devcontainer – Docs/Markdown Lint
 =================================
 
