@@ -1,22 +1,25 @@
 ---
-stand: 2025-11-02 23:36
-update: YAML-Frontmatter ergänzt; Inhalt unverändert
-checks: markdownlint-cli2 (docs focused) PASS
+stand: 2025-11-06 02:33
+update: Markdownlint geprüft (Setext-Stil bestätigt)
+checks: markdownlint-cli2 (single file) PASS
 ---
 
-# Anpassung des Novapolis Agents
+Anpassung des Novapolis Agents
+==============================
 
 Diese Anleitung erklärt, wie Sie den Novapolis Agent ohne die üblichen Einschränkungen
 von KI-Assistenten verwenden können. Sie haben volle Kontrolle über den Inhalt und
 die Regeln, die in Ihrer privaten Installation des Agents gelten.
 
-## Übersicht
+Übersicht
+---------
 
 Der Novapolis Agent wurde so konzipiert, dass Sie ihn vollständig an Ihre Bedürfnisse anpassen können.
 Als privater Benutzer haben Sie die Möglichkeit, Einschränkungen zu entfernen und den
 Agent genau so zu konfigurieren, wie Sie es für Ihre Zwecke benötigen.
 
-## Verfügbare Modi
+Verfügbare Modi
+---------------
 
 Der Novapolis Agent unterstützt drei verschiedene Modi:
 
@@ -24,7 +27,8 @@ Der Novapolis Agent unterstützt drei verschiedene Modi:
 2. **Evaluierungs-Modus**: Sachliche Antworten ohne Rollenspiel (für Tests)
 3. **Uneingeschränkter Modus**: Vollständig anpassbarer Modus ohne externe Filterung
 
-## Anpassung des uneingeschränkten Modus
+Anpassung des uneingeschränkten Modus
+------------------------------------
 
 Um den Novapolis Agent ohne Einschränkungen zu verwenden, können Sie:
 
@@ -46,12 +50,14 @@ Um den Novapolis Agent ohne Einschränkungen zu verwenden, können Sie:
    curl -X POST http://localhost:8000/chat -H "Content-Type: application/json" -d '{"messages":[{"role":"user","content":"Deine Anfrage"}],"unrestricted_mode":true}'
    ```
 
-## Wichtige Dateien für die Anpassung
+Wichtige Dateien für die Anpassung
+----------------------------------
 
 - `app/core/prompts.py`: Enthält alle System-Prompts
 - `examples/unrestricted_prompt_example.txt`: Beispiel für einen uneingeschränkten Prompt
 
-## Datenschutz und Verantwortung
+Datenschutz und Verantwortung
+----------------------------
 
 Da der Novapolis Agent auf Ihrem lokalen System läuft und Ollama als Backend verwendet,
 bleiben alle Ihre Anfragen und Anpassungen privat. Sie allein sind für die Art der
@@ -61,12 +67,14 @@ Denken Sie daran, dass der uneingeschränkte Modus vollständig unter Ihrer Kont
 Sie können den Systemprompt nach Ihren Vorstellungen gestalten, ohne die Einschränkungen,
 die normalerweise bei öffentlichen KI-Diensten gelten würden.
 
-## Beispiel für einen uneingeschränkten Prompt
+Beispiel für einen uneingeschränkten Prompt
+-------------------------------------------
 
 In der Datei `examples/unrestricted_prompt_example.txt` finden Sie ein Beispiel für
 einen uneingeschränkten Prompt, den Sie als Ausgangspunkt verwenden können.
 
-## LLM‑Optionen (Sampling/Decoding) anpassen
+LLM‑Optionen (Sampling/Decoding) anpassen
+----------------------------------------
 
 Neben den Prompts können Sie auch die LLM‑Optionen (Sampling/Decoding) feinsteuern. Es gibt zwei Ebenen:
 

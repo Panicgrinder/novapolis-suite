@@ -1,7 +1,8 @@
 {
   "config": {
     "default": true,
-    "MD003": { "style": "consistent" },
+    "MD003": { "style": "setext_with_atx" },
+    "MD035": false,
     "MD012": false,
     "MD005": false,
     "MD007": false,
@@ -22,8 +23,5 @@
     "novapolis-rp/.pytest_cache/**",
     "novapolis-rp/database-curated/staging/**",
     "novapolis-rp/database-curated/staging/reports/**"
-  ],
-  "globs": [
-    "**/*.md"
   ]
 }

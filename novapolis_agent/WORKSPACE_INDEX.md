@@ -1,13 +1,15 @@
----
-stand: 2025-11-01 18:38
-update: TODO-Verweis auf Dev-SSOT umgestellt.
+stand: 2025-11-06 02:09
+update: H1/H2 auf Setext-Stil gebracht (MD003-Aufräumrunde).
 checks: keine
 ---
 
 <!-- markdownlint-disable MD013 -->
-# Novapolis Agent - Workspace Datei-Index
 
-## Vollständiger Index aller Dateien im Workspace (aktualisiert)
+Novapolis Agent - Workspace Datei-Index
+=======================================
+
+Vollständiger Index aller Dateien im Workspace (aktualisiert)
+------------------------------------------------------------
 
 ### Root-Verzeichnis
 

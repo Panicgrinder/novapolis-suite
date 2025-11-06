@@ -6,11 +6,13 @@ checks: markdownlint-cli2 (docs focused) FAIL (MD003)
 
 <!-- markdownlint-disable MD022 MD041 -->
 
-# Single Root TODO (Novapolis Suite)
+Single Root TODO (Novapolis Suite)
+=================================
 
 Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle laufenden Arbeiten im Monorepo. Die fachlichen Single Sources of Truth (SSOT) bleiben in den Modul-TODOs unter `novapolis-dev/docs/` erhalten.
 
-## Hinweise
+Hinweise
+--------
 
 - SSOT: Modul-TODOs bleiben maßgeblich. Diese Datei dient als komfortabler Root-Einstieg.
 - Archivierung: Fertige Blöcke (alle [x]) bitte in die jeweiligen Modul-Archive unter `novapolis-dev/archive/` verschieben.
@@ -19,7 +21,8 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
 - Terminal/Pwsh: Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks sind bereits entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`).
 - STOP-Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → Abschnitt „Unklarheiten‑STOP (global, immer gültig)“.
 
-## Kurzüberblick (Module & Quellen)
+Kurzüberblick (Module & Quellen)
+--------------------------------
 
 - Index: `novapolis-dev/docs/todo.index.md`
 - Agent: `novapolis-dev/docs/todo.agent.md`
@@ -28,7 +31,8 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
 - Sim: `novapolis-dev/docs/todo.sim.md`
 - Root-Übersicht (ausführlich): `todo.root.md`
 
-## Offene Aufgaben (Root – quer durchs Repo)
+Offene Aufgaben (Root – quer durchs Repo)
+----------------------------------------
 
 - [x] .vscode-Konsolidierung (Root-zentriert) weiterführen (Etappen 0–2)
   - Referenz: Abschnitt "Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)" in `todo.root.md`.
@@ -66,7 +70,8 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
     - 2025-11-03 00:28: `cvn-agent-main.bundle` → `cvn-agent-main-20251103-0028-rev1.bundle` (sha256 protokolliert)
     - 2025-11-03 00:28: `novapolis_agent.bundle` → `novapolis-agent-backup-20251103-0028-rev1.bundle` (sha256 protokolliert)
 
-## Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
+Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
+-------------------------------------------------
 
 ### Agent (Backend)
 
@@ -96,12 +101,14 @@ Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle lauf
 - [ ] Event-Signals (on_action_start/end, ...)
 - [ ] Scheduler-Hook vorbereiten
 
-## Pflege & Regeln
+Pflege & Regeln
+---------------
 
 - DONELOG-Pflege: Substanzielle Arbeiten bitte in den passenden DONELOG eintragen (`novapolis-dev/docs/donelog.md` bzw. `novapolis_agent/docs/DONELOG.txt`).
 - Minimal-Delta: Kleine, zielgerichtete Patches; Redirect-/Mirror-Stubs erst nach Link-Prüfung entfernen.
 
-## Monorepo Single Root – Umstellungsplan (Schritt für Schritt)
+Monorepo Single Root – Umstellungsplan (Schritt für Schritt)
+-----------------------------------------------------------
 
 Zielbild: Eine Wahrheit im Root (`/Main`), eine Python-Umgebung im Root (`.venv`), zentrale Tasks/Settings. Module sind „dumme“ Unterordner ohne eigene Interpreter/Tasks. Tests werden nur dort entdeckt/ausgeführt, wo sie hingehören.
 

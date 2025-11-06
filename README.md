@@ -1,21 +1,23 @@
----
-stand: 2025-11-04 00:02
-update: Hinweis ergänzt: CI‑Workflows sind pfad‑gefiltert (nur relevante Pfade triggern Builds/Tests).
+stand: 2025-11-06 02:00
+update: H1/H2 auf Setext-Stil umgestellt (MD003-Aufräumstart).
 checks: keine
 ---
 
-# Novapolis Suite
+Novapolis Suite
+===============
 
 Die Novapolis Suite fasst Agent-Backend, Rollenspiel-Datenbasis, Dev-Dokumentation und Simulation unter einem gemeinsamen Repository zusammen. Ziel ist, doppelte Module zu konsolidieren, Arbeitsablaeufe zu vereinheitlichen und einen schnellen Ueberblick ueber alle laufenden Aufgaben zu behalten.
 
-## Projekte im Repository
+Projekte im Repository
+----------------------
 
 - **novapolis_agent** – FastAPI-Backend, Eval-Tooling und Trainingsskripte fuer den produktiven Novapolis Agent.
 - **novapolis-rp** – Weltbau-Daten, Rollenspiel-Workflows und begleitende Tools (ohne Agent-Laufzeit).
 - **novapolis-dev** – Kuratierte Datensaetze, Prozess- und Policy-Dokumentation als Arbeits-Hub.
 - **novapolis-sim** – Godot-Szene und Skripte fuer den Simulations-Prototypen.
 
-## Gemeinsames Python-Paket
+Gemeinsames Python-Paket
+-------------------------
 
 Geteilte Python-Helfer leben in `packages/novapolis_common`. Installiere das Shared‑Paket bei Bedarf als Editable (nicht mehr das gesamte Repo):
 
@@ -34,11 +36,13 @@ F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -e packages/no
 
 Module, die aktuell mehrfach in den Projekten vorkommen, sollten nach `packages/novapolis_common` wandern. Projektspezifische Verdrahtung (API, Policies, Szenenlogik) verbleibt in den jeweiligen Ordnern. Packaging/Build‑Konfigurationen verbleiben in den Modul-/Paketpfaden; das Root `pyproject.toml` ist tools‑only.
 
-## Abhaengigkeiten
+Abhaengigkeiten
+---------------
 
 Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins aller Teilprojekte. Fuer einzelne Bereiche koennen weiterhin die lokalen Requirements-Dateien genutzt werden.
 
-## Zentrale Arbeitsrichtlinien
+Zentrale Arbeitsrichtlinien
+---------------------------
 
 - `.github/copilot-instructions.md` enthaelt die konsolidierten Behaviour-Vorgaben fuer alle Teilprojekte.
 - Root `todo.root.md` und `DONELOG.md` liefern einen Gesamtueberblick ueber offene Aufgaben und erledigte Arbeiten ohne die Projekt-spezifischen Dateien oeffnen zu muessen.
@@ -65,7 +69,8 @@ Set-Location "F:/VS Code Workspace/Main"
 npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"
 ```
 
-## Workspace öffnen
+Workspace öffnen
+-----------------
 
 1. VS Code über den Root-Ordner `Main/` öffnen (Single‑Root). Die frühere Multi‑Root‑Workspace-Datei wird nicht mehr verwendet.
 2. Workflows laufen ausschließlich zentral aus dem Root (`/.github/workflows`). Modulverzeichnisse enthalten keine eigenen `.github/workflows` mehr.
@@ -92,19 +97,22 @@ npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"
 - Aktueller Status (Modus/STOP‑Gate): siehe `WORKSPACE_STATUS.md`.
  - Unklarheiten‑STOP: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
-## Bekannte Einschränkungen (temporär)
+Bekannte Einschränkungen (temporär)
+-----------------------------------
 
 - VS Code erkennt den Workspace aktuell als Multi‑Root. Wrapper‑Tasks/Automationen verhalten sich unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single‑Root gilt: KEINE WRAPPER, Terminal ausschließlich manuell nutzen.
   - Fallakte: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
 
-## Aktuelle Statusdokumente
+Aktuelle Statusdokumente
+------------------------
 
 - [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) – Stand 2025-11-02, fasst Health-Checks, Risiken und Artefakte zusammen.
 - [`todo.root.md`](todo.root.md) – Zentraler Aufgabenueberblick (Stand 2025-11-02) inklusive Folgeaufgaben fuer Tree-Snapshots.
 - [`workspace_tree_full.txt`](workspace_tree_full.txt) – Vollstaendiger Verzeichnisbaum (Stand 2025-11-02 02:11; regenerierbar via Tasks `Workspace tree: full/directories/summary (dirs)`).
  - Backups befinden sich zentral unter `Backups/` (keine tool‑lesbaren Backups neben aktiven Configs).
 
-## Naechste Schritte
+Naechste Schritte
+-----------------
 
 1. Doppelte Module identifizieren und schrittweise in `packages/novapolis_common` verschieben.
 2. Tests und Typpruefungen nach jeder Migration laufen lassen (`pytest`, `pyright`, `mypy`).

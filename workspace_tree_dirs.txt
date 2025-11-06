@@ -1,6 +1,7 @@
-Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-03 00:18
+Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-06 03:33
 Top-Level
   - .github
+  - .ruff_cache
   - .tmp-datasets
   - .tmp-results
   - eval
@@ -14,6 +15,9 @@ Top-Level
 
 .github/
   - workflows
+
+.ruff_cache/
+  - 0.6.9
 
 .tmp-datasets/
   - (leer)
@@ -41,6 +45,7 @@ novapolis_agent/
   - eval
   - examples
   - novapolis_agent
+  - requirements
   - scripts
   - tests
   - utils
@@ -50,6 +55,7 @@ novapolis-dev/
   - curated
   - docs
   - integrations
+  - logs
   - migrations
   - raw
   - roadmaps
@@ -60,12 +66,9 @@ novapolis-rp/
   - database-curated
   - database-raw
   - database-rp
-  - development
-  - Main
 
 novapolis-sim/
   - autoload
-  - novapolis-sim
   - scripts
 
 packages/

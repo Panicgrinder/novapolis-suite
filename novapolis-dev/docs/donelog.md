@@ -1,12 +1,33 @@
 ---
-stand: 2025-11-05 18:33
-update: Docs-Snapshot: Lint-Regeln (pwsh+npx --yes) & Task-Labels synchronisiert
-checks: markdownlint-cli2 (docs focused) FAIL (MD003 in single-root-todo.md, donelog.md)
+stand: 2025-11-06 03:34
+update: Workspace-Tree-Snapshots erneuert; Doku synchronisiert
+checks: Tasks Workspace tree:* PASS
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+Chat-Neustart-Prompt entfernt (2025-11-06 03:07)
+---------------------------------------------
+
+- Veraltete Datei `docs/prompts/chat-restart.md` gelöscht; Index-Verweis entfernt.
+- Hinweis im Root-DONELOG/TODO aktualisiert (siehe entsprechende Einträge).
+- Checks: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "novapolis-dev/docs/index.md"` PASS.
+
+Workspace Tree – Refresh (2025-11-06 03:34)
+-----------------------------------------
+
+- Tasks ausgeführt: `Workspace tree: full`, `Workspace tree: directories`, `Workspace tree: summary (dirs)`.
+- Artefakte aktualisiert: `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`.
+- Follow-up: Root-Status (`WORKSPACE_STATUS.md`), Root-DONELOG und Agent-DONELOG ergänzt.
+
+Markdownlint-Stub entfernt (2025-11-06 03:18)
+--------------------------------------------
+
+- `novapolis-rp/coding/tools/validators/run_lint_markdown.ps1` gelöscht; README-Hinweis angepasst.
+- `.github/copilot-instructions.md` Abschnitt zu Markdownlint aktualisiert (keine Stub-Nennung mehr).
+- Checks: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "novapolis-rp/coding/tools/validators/README.md"` PASS.
 
 Frontmatter-Migration – Docs Sweep (2025-11-02T23:23:00+01:00)
 Docs-Snapshot – Lint-Regeln synchronisiert (2025-11-05 18:33)
@@ -273,7 +294,8 @@ Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) – veraltet seit 2025-
  - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T14-56-20-000Z.txt` (Quelle: Canvas; Charakter Arlen Dross v2; TIMESTAMP: 2025-10-16_14:56).
  - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T14-56-20-000Z.flags.txt` (vorsichtig_behandeln; Grund: Führungs-/Titel-Overlap mit Kora/Marven, vor Promotion klären).
 
-# Done Log (Novapolis-RP)
+Done Log (Novapolis-RP)
+=======================
 
 **Hinweis (2025-10-29):** Dieses Done-Log liegt nun unter `novapolis-dev/docs/donelog.md`. Historische Einträge behalten Bezüge auf den "Development-Hub" inhaltlich bei, ohne die alten Pfadangaben.
 

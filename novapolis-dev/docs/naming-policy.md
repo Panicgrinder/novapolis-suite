@@ -1,5 +1,6 @@
----
-last-updated: 2025-10-27T19:30:00+01:00
+stand: 2025-11-06 02:47
+update: Markdownlint geprüft; Format auf YAML-Frontmatter standardisiert
+checks: markdownlint-cli2 (single file) PASS
 ---
 
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->

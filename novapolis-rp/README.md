@@ -1,8 +1,10 @@
-# Novapolis-RP Workspace (F:)
+Novapolis-RP Workspace (F:)
+===========================
 
 Ein schlanker Workspace für dein AI-geführtes RP „Chronist von Novapolis“. Fokus: belastbares Gedächtnis, saubere Struktur, schneller Szenenstart.
 
-## Ordnerstruktur
+Ordnerstruktur
+--------------
 
 - 00-admin/ – Systemprompt, Memory-Bundle, Meta
 - 01-canon/ – Welt-Lore, Regeln, Fraktionen
@@ -13,18 +15,21 @@ Ein schlanker Workspace für dein AI-geführtes RP „Chronist von Novapolis“.
 - 06-scenes/ – Szenen-Notizen, Tagebuch
 - 99-exports/ – Exporte (PDF/TXT) aus Chat
 
-## Quickstart
+Quickstart
+----------
 
 1) Lege deine Exporte in `99-exports/` (z. B. `chat-export-complete.txt`, PDF).
 2) Öffne `00-admin/memory-bundle.md` als Kanon. Bei Änderungen dort nachführen.
 3) Starte einen neuen Chat mit dem Inhalt aus `00-admin/system-prompt.md` als System-Prompt und poste dann das Memory-Bundle als User-Nachricht.
 4) Logge Fortschritt in `novapolis-dev/docs/donelog.md`. Offene Aufgaben im RP-Board `novapolis-dev/docs/todo.rp.md` pflegen (Index: `novapolis-dev/docs/todo.index.md`).
 
-## Export-Hinweis
+Export-Hinweis
+--------------
 
 Bei sehr langen Threads: Auto-Exporter aus der Konsole verwenden (wurde dir im Chat geliefert). Speichere Zwischenstände in `99-exports/`.
 
-## Schreibstil
+Schreibstil
+-----------
 
 - Keine Zitatblöcke in Antworten (besser für Screenreader).
 - Cinematisch, fokussiert, 250–400 Wörter je Antwort.
@@ -34,7 +39,8 @@ Viel Spaß und gute Fahrt durch D5/C6!
 
 ---
 
-## Visualisierung
+Visualisierung
+--------------
 
 - Das Backend `novapolis_agent` stellt eine Simulations-API bereit (`GET /world/state`, `POST /world/step`) auf Port `AGENT_PORT` (Standard 8765).
 - Das Godot-Projekt `novapolis-sim` fragt jeden 0,2 s einen Schritt `{dt:0.1}` ab und visualisiert Tick sowie Zeit.
@@ -42,7 +48,8 @@ Viel Spaß und gute Fahrt durch D5/C6!
 
 ---
 
-## Projektüberblick
+Projektüberblick
+-----------------
 
 Dieses Repo enthält die Arbeitsbasis für das Novapolis‑RP: strukturierte Daten (Admin, Kanon, Charaktere, Orte, Inventar, Projekte, Szenen) und ein leichtgewichtiges Coding‑Verzeichnis mit Hilfsdokumenten.
 
@@ -56,21 +63,25 @@ Der Agent-Code wird inzwischen ausschließlich im Schwesterprojekt `../novapolis
 - Klare, nachvollziehbare Dokumentation und Exporte
 - Einfache Automatisierung für Checks (Markdown‑Lint)
 
-## Status & Automatisierung
+Status & Automatisierung
+------------------------
 
 - Lizenz: MIT (siehe `LICENSE`)
 - CI: einfacher Markdown‑Lint‑Check via GitHub Actions
 
-## Wie beitragen (kurz)
+Wie beitragen (kurz)
+--------------------
 
 - Nutze `novapolis-dev/docs/todo.rp.md` für RP-Aufgaben und `novapolis-dev/docs/donelog.md` für Abschlüsse (der Index `novapolis-dev/docs/todo.index.md` dient nur der Navigation).
 - PRs: kurze Beschreibung, was/warum geändert wurde; große Blöcke in überschaubare Schritte teilen.
 
-## Badges
+Badges
+------
 
 ![Docs Lint](https://github.com/Panicgrinder/Novapolis-RP/actions/workflows/docs-lint.yml/badge.svg)
 
-## Lizenz
+Lizenz
+------
 
 MIT – siehe `LICENSE`.
 

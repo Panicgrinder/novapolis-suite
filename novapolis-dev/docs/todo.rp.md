@@ -1,24 +1,29 @@
 ---
-stand: 2025-11-01 22:31
-update: Referenzen auf Annotation‑Spec ergänzt (Runden/Knowledge/Actions); keine Strukturänderungen
-checks: keine
+stand: 2025-11-06 02:52
+update: Frontmatter auf YAML umgestellt; markdownlint PASS
+checks: markdownlint-cli2 PASS
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
-# TODO (Novapolis-RP)
+TODO (Novapolis-RP)
+===================
 
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/todo.md` am 2025-10-29 -->
 
-## Canvas-Rettung – Sprint 1 (Stand 2025-11-01)
-## Archiv-Hinweis (manuell, bis Validator bereit)
+Canvas-Rettung – Sprint 1 (Stand 2025-11-01)
+--------------------------------------------
+Archiv-Hinweis (manuell, bis Validator bereit)
+----------------------------------------------
 
 - Sobald ein Abschnitt (H2/H3) vollständig abgehakt ist ([x] überall) und – für RP – kanonisiert, bitte den gesamten Block manuell nach `novapolis-dev/archive/todo.<modul>.archive.md` verschieben (neuester oben).
 - Direkt unter der Abschnitts-Überschrift im Archiv eine Zeile ergänzen: `archived_at: YYYY-MM-DD HH:MM`.
 - Automatisierung folgt erst nach Struktur-Review/Validator (Dry-Run only). Keine halb fertigen Blöcke verschieben.
 
-## Plan Charakter-Review (laufend)
+Plan Charakter-Review (laufend)
+-------------------------------
 
-## Reihenfolge
+Reihenfolge
+-----------
 
 - Ronja Kerschner → Abgleich `resolved.md`, RAW `char_ronja_v2` + Flag, Rollenmatrix, Ziele, Systemverknüpfungen, Drift-Notizen. *(erledigt 2025-11-01T17:10+01:00)*
 - Jonas Merek → RAW `RAW-canvas-2025-10-16T14-12-00-000Z.*`, Schwesterstatus gemäß `[FACT][JONAS-SIS]`, Werkstatt-/Tunnelinfos konsolidieren. *(erledigt 2025-11-02T13:55+01:00)*
@@ -30,7 +35,8 @@ checks: keine
 - Pahl → RAW `RAW-canvas-2025-10-16T14-41-00-000Z.*`, Gesundheitsstatus, Risiken, Energie-/Generatorwissen. *(erledigt 2025-11-02T15:25+01:00)*
 - Reflex (Primärinstanz) → RAW `char_reflex_v2`, FACTs `[REFLEX-*]` (Frequenzband, Detach, Speech), Wissens-/Trainings-Canvas synchronisieren. *(erledigt 2025-11-02T16:05+01:00)*
 
-## Arbeitsschritte pro Charakter
+Arbeitsschritte pro Charakter
+-----------------------------
 
 - Quellen sammeln: `database-curated/staging/reports/resolved.md`, `.../uncertainties.md`, zugehörige RAW-/Flag-Dateien, overlap-Reports.
 - Canvas aktualisieren (Werte, Skills, Motivation, Wissensmatrix, Beziehungen, Ziele, Risiken) und Systemverknüpfungen prüfen.
@@ -39,7 +45,8 @@ checks: keine
 - JSON-Sidecar, `char-block-nord-sources.md`, `person_index_np.md`, DONELOGs (`novapolis-dev/docs/donelog.md`, Root `DONELOG.md`) und TODO-Status aktualisieren.
 - Nach einem Bündel Updates Validator laufen lassen (`coding/tools/validators/run_validate_all.ps1`).
 
-## Priorität B – Logistik & Inventar
+Priorität B – Logistik & Inventar
+---------------------------------
 
 - [ ] `inventar_c6_v2` → neues Canvas `database-rp/04-inventory/C6-inventar.*`; Systemlinks auf v2 aktualisieren.
 - [ ] `logistik_c6_v2` → Inhalte nach `00-admin/Logistik.md` übernehmen; Mixed-Version-Referenzen bereinigen.
@@ -47,7 +54,8 @@ checks: keine
 - [ ] `station_d5_v2.1` + Legacy D5 → Standort-Canvas aktualisieren; Lastenaufzug, Grundfläche, Historie kennzeichnen.
 - [ ] Inventar-Deltas (`Novapolis-inventar`, `D5-inventar`) synchronisieren; Links zu Missionslog prüfen.
 
-## Priorität C – Systeme, Indizes, Ereignisse
+Priorität C – Systeme, Indizes, Ereignisse
+-----------------------------------------
 
 - [ ] Ereignislog Weltgeschehen → neues Admin-Canvas; Begriff "Allianz" gegen `[SECRECY]` prüfen; H-47 als Ex-Karawane markieren.
 - [ ] Relationslog Novapolis → neues Canvas/Project-Canvas; Händlerkontakt "Senn Daru" verlinken; ID-Schema `logistik_novapolis_v2` angleichen.
@@ -56,7 +64,8 @@ checks: keine
 - [ ] Meta-Cluster-Index → neues Admin-Canvas; Spannungen/PsyLinks gegen Kanon verifizieren.
 - [ ] Missionslog Querverweise aktualisieren (nur falls Rohdaten relevante Ereignisse tragen).
 
-## Arbeitsregeln & Referenzen
+Arbeitsregeln & Referenzen
+--------------------------
 
 - Workflow siehe `database-curated/staging/reports/canvas-rescue-plan.md`.
 - Quellen + Drift-Notizen in `.../staging/reports/char-block-nord-sources.md` berücksichtigen.
@@ -64,7 +73,8 @@ checks: keine
 - Jede Migration mit JSON-Sidecar und DONELOG-Eintrag dokumentieren (`novapolis-dev/docs/donelog.md`).
 - Flags (`vorsichtig_behandeln`, `korrupt`) sichtbar übernehmen, bis Review abgeschlossen ist.
 
-## Linkübersicht
+Linkübersicht
+-------------
 
 - Plan: `database-curated/staging/reports/canvas-rescue-plan.md`
 - Quellen: `database-curated/staging/reports/char-block-nord-sources.md`
@@ -74,7 +84,8 @@ checks: keine
 <details>
 <summary>Archiviertes Backlog (Stand 2025-10-29)</summary>
 
-## Aktive Aufgaben
+Aktive Aufgaben
+---------------
 
 - [ ] Relocation Follow-ups
   - [x] Zentrale `.github/copilot-instructions.md` im Monorepo verankert; Duplikate in agent/RP entfernt (2025-10-31)
@@ -207,18 +218,21 @@ checks: keine
     - [x] Dry-Run lokal ausführen (Task: "lint:names (auto)") – 0 Verstöße
     - [x] Renames: aktuell nicht erforderlich
 
-## Abgeschlossene Basisaufgaben
+Abgeschlossene Basisaufgaben
+----------------------------
 
 - [x] Workspace auf F:\Novapolis-RP anlegen (Ordnerstruktur)
 - [x] Admin-Setup: README, Memory-Bundle, System-Prompt, Donelog
 
-## Hintergrund & Notizen
+Hintergrund & Notizen
+---------------------
 
 - Vorschläge nur auf Anfrage; Kontinuität strikt wahren.
 - Nach jedem Post interne 200-Token-Zusammenfassung (vom SL) einfordern.
 
 </details>
-## Neue Aufgaben – Zeitmodell, Annotation & Logs (2025-11-01 22:24)
+Neue Aufgaben – Zeitmodell, Annotation & Logs (2025-11-01 22:24)
+----------------------------------------------------------------
 
 - 24×1h‑Runden (PC‑zentriert) einführen
   - [ ] Policy festhalten: Stunde spult leise weiter, bis ein PC‑relevantes Ereignis eintritt (z. B. „Reflex weckt Ronja“).

@@ -1,17 +1,19 @@
 ---
-stand: 2025-11-01 22:39
-update: TTS-Exporter (Coqui→OGG) – README/Contract und VS Code Task-Skizze hinzugefügt (ohne Code)
-checks: keine
+stand: 2025-11-06 02:55
+update: Frontmatter auf YAML migriert; markdownlint PASS
+checks: markdownlint-cli2 PASS
 ---
 
-# TTS-Exporter (Build-Time) – Coqui → OGG
+TTS-Exporter (Build-Time) – Coqui → OGG
+======================================
 
 Ziel: Vorproduzierte Audio-Summaries pro Epoche/Slot (world_log/pc_log) offline erzeugen. Diese Seite definiert den Kontrakt und die Aufrufe – die eigentliche Implementierung folgt im Agent/Tools.
 
 - Scope: Build-Time Batch (kein Live-TTS). Live-Dialoge laufen separat (Runtime-Service) und sind hier nicht Bestandteil.
 - Referenzen: `novapolis-dev/docs/specs/annotation-spec.md` (Audio-Namensschema), `novapolis-dev/docs/specs/scheduler-spec.md` (Epochen/Slots).
 
-## Kontrakt (Kurz)
+Kontrakt (Kurz)
+---------------
 
 - Input
   - Quelle: Textdateien/Chunks (z. B. stündliche Summaries aus `world_log`/`pc_log`) – UTF-8
@@ -26,7 +28,8 @@ Ziel: Vorproduzierte Audio-Summaries pro Epoche/Slot (world_log/pc_log) offline 
   - Idempotent: Wiederholter Lauf ohne Textänderung erzeugt keine neuen Dateien
   - Robust gegen leere/zu kurze Texte (skip/0‑Byte verhindern)
 
-## CLI-Skizze (geplant)
+CLI-Skizze (geplant)
+--------------------
 
 ```powershell
 # Noch nicht implementiert – Platzhalter-Signatur
@@ -45,13 +48,15 @@ Parameter (geplant):
 - --cache: Pfad für Cache (Default: `.cache/tts/`)
 - --normalize: einfache Normalisierung (Trim, Unicode NFC, Whitespace)
 
-## Umgebung/Prereqs (geplant)
+Umgebung/Prereqs (geplant)
+--------------------------
 
 - Python Env: `novapolis_agent/requirements.txt` wird um Coqui‑Pakete ergänzt (später)
 - Lokaler Cache: `.cache/tts/` (Hash(Text+Voice) → OGG)
 - Windows/PowerShell kompatible Pfade/Beispiele
 
-## VS Code Task (Skeleton)
+VS Code Task (Skeleton)
+-----------------------
 
 Diese Task dient als Platzhalter, bis das Skript existiert. Sie schreibt nur eine TODO‑Meldung ins Terminal.
 
@@ -59,13 +64,15 @@ Diese Task dient als Platzhalter, bis das Skript existiert. Sie schreibt nur ein
 - Gruppe: build
 - Aufruf: PowerShell `Write-Host` Hinweis
 
-## Notes
+Notes
+-----
 
 - Live‑Service Schnittstelle (separat): Text→Audio‑Stream, Voice‑Preset, OGG Output
 - Audio‑Lautheit/Limiter erst in der Implementierung definieren (RMS/LUFS Zielwerte)
 - OGG vs. WAV: OGG bevorzugt (Dateigröße); WAV optional für Mastering
 
-## Try it (Task)
+Try it (Task)
+-------------
 
 So startest du den Platzhalter in VS Code:
 

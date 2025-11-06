@@ -253,12 +253,11 @@ Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Roo
 
 ### Markdownlint (zentral)
 
-  - MD003 = `consistent` (pro Datei einheitlicher Heading‑Stil; gemischte ATX/Setext in derselben Datei → FAIL). Empfehlung: ATX verwenden und Inhalte vereinheitlichen.
+  - MD003 = `setext_with_atx` (H1/H2 im Setext‑Stil, H3+ im ATX‑Stil; je Level konsistent innerhalb der Datei). Keine gemischten Stile für dasselbe Level in einer Datei.
   - `ignores` in der CLI2‑Config decken generierte/kuratierte Bereiche ab (u. a. `novapolis_agent/eval/results/**`, `novapolis_agent/outputs/**`, `outputs/**`, `novapolis-rp/.pytest_cache/**`).
 - Lokaler Lauf (nur im bestehenden Terminal, unter pwsh -NoProfile): `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"`.
-  - Wrapper/Tasks: Nicht benötigt; Lint läuft direkt via Task (Exit‑Code wird durchgereicht). Ältere Wrapper verbleiben ggf. als Stubs im Archiv.
+  - Wrapper/Tasks: Nicht benötigt; Lint läuft direkt via Task (Exit‑Code wird durchgereicht).
 - Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc "**/*.md"`.
-- Wrapper/Tasks: Entfernt bzw. als Hinweis‑Stub belassen (`novapolis-rp/coding/tools/validators/run_lint_markdown.ps1`).
 
 Optionaler Zusatz: „Lint: markdownlint-cli2 (docs focused)“ kann für einen schnellen Dokumentations‑Lint genutzt werden (`novapolis-dev/docs/**`, `novapolis_agent/docs/**`).
 

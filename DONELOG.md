@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-02 22:48
-update: pwsh-Standard dokumentiert; Godot-Binaries aus Git ausgeschlossen
-checks: keine
+stand: 2025-11-06 04:52
+update: MD003: weiteres README konvertiert (RP curated); targeted lint PASS
+checks: markdownlint-cli2 (5 files total in this batch) PASS; pytest -q PASS, check_frontmatter.py PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -11,6 +11,22 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 
 Kurzueberblick
 --------------
+
+- 2025-11-06 04:50: MD003-Setext-Korrekturen in `packages/README.md`, `novapolis_agent/scripts/README.md`, `novapolis_agent/eval/README.md`, `novapolis_agent/eval/DEPRECATIONS.md`; targeted markdownlint PASS (4 Dateien).
+- 2025-11-06 04:52: MD003-Setext-Korrektur in `novapolis-rp/database-curated/README.md`; targeted markdownlint PASS.
+- 2025-11-06 04:40: Demo-Test entfernt (`tests/test_intentional_failure.py`) und `pytest -q` manuell via pwsh ausgeführt – Suite PASS.
+- 2025-11-06 04:15: Frontmatter-Validator mit Demo-Datei geübt; `check_frontmatter.py` PASS nach Korrektur; absichtlicher pytest-Fail dokumentiert.
+- 2025-11-06 03:34: Workspace-Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) via Tasks aktualisiert; Status-/Donelog-Docs nachgezogen.
+- 2025-11-06 03:07: `novapolis-dev/docs/prompts/chat-restart.md` entfernt; Index-Verweis bereinigt; Markdownlint (index/donelog) PASS.
+- 2025-11-06 03:18: `novapolis-rp/coding/tools/validators/run_lint_markdown.ps1` entfernt; README & Copilot-Anweisungen aktualisiert; Markdownlint (validators/README.md) PASS.
+- 2025-11-06 02:57: RP/Sim-Dokumente (`todo.sim.md`, Specs-Batch, Betriebsmodi-Notizen) auf YAML-Frontmatter gebracht und einzeln gelinted – alle Läufe PASS.
+- 2025-11-06 02:52: `novapolis-dev/docs/todo.rp.md` auf YAML-Frontmatter umgestellt und einzeln gelinted (`markdownlint todo.rp.md`) – PASS.
+- 2025-11-06 02:00: H1/H2 in `README.md`, `WORKSPACE_STATUS.md` auf Setext-Stil umgestellt; Scope-Lint (`markdownlint README.md WORKSPACE_STATUS.md`) PASS; globaler Repo-Lauf weiter MD003-Backlog (Archive/weitere Readmes).
+- 2025-11-06 02:42: `novapolis_agent/docs/training.md` sowie `docs/reports/overnight-20251022.md` gelinted; Frontmatter auf aktuellen Stand gebracht.
+- 2025-11-06 02:35: Agent-Dokumente (`customization.md`, `ARCHIVE_PLAN.md`, `CONTEXT_ARCH.md`, `REPORTS.md`) gelinted; Frontmatter aktualisiert; Einzelläufe PASS.
+- 2025-11-06 02:30: `novapolis_agent/docs/DONELOG.txt` mit YAML-Frontmatter versehen, Pfadangaben in Backticks und H1 auf Setext-Stil gebracht; Lint-Einzellauf (`markdownlint DONELOG.txt`) PASS.
+- 2025-11-06 02:23: README (Agent) komplett auf Setext-Stil gebracht, YAML-Frontmatter ergänzt; `docs/AGENT_BEHAVIOR.md` auf YAML-Frontmatter umgestellt. Lint-Einzelläufe (`markdownlint README.md`, `markdownlint AGENT_BEHAVIOR.md`) PASS.
+- 2025-11-06 01:54: Testsuite manuell (pytest -q, pyright, mypy) PASS; markdownlint-cli2 FAIL (MD003 – Setext-Konsistenz über Archiv-/README-Bestand prüfen).
 
 - 2025-11-01 23:45: Workspace-Bereinigung – alte `.code-workspace` Dateien entfernt; markdownlint-cli2 PASS (Root-Lauf, keine Fehler). `WORKSPACE_STATUS.md` aktualisiert.
 - 2025-11-02 19:11: YAML-Frontmatter auf allen Root-Dokumenten finalisiert; markdownlint-cli2 PASS (Repo-Lauf).

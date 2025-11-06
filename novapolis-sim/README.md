@@ -1,12 +1,15 @@
-# Novapolis Sim
+Novapolis Sim
+=============
 
 Ein minimales Godot-4-Projekt zur Visualisierung des Simulationszustands aus dem Novapolis Agenten.
 
-## Aufgaben & Planung
+Aufgaben & Planung
+------------------
 
 - Aufgaben für das Simulations‑Modul bitte im Board `novapolis-dev/docs/todo.sim.md` pflegen (der Index `novapolis-dev/docs/todo.index.md` dient nur der Navigation).
 
-## How to run
+How to run
+----------
 
 1. Stelle sicher, dass die Python-Seite läuft:
    - In `novapolis_agent` `.env` anlegen (`AGENT_PORT=8765` Standard).

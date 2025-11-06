@@ -1,6 +1,7 @@
-stand: 2025-11-03 04:15
-update: Terminal/Tasks-Hinweis ergänzt: KEINE WRAPPER, Terminal nur manuell; Blocker: Multi-Root-Markierung.
-checks: keine
+---
+stand: 2025-11-06 04:55
+update: MD003-Batch (5 Dateien) konvertiert; targeted markdownlint PASS; Demo-Test entfernt; Validator PASS.
+checks: markdownlint-cli2 FAIL (Repo, 437x MD003 Setext); targeted batch PASS; pytest -q PASS; check_frontmatter.py PASS
 ---
 
 <!-- markdownlint-disable MD003 -->
@@ -13,8 +14,23 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
+- 2025-11-06 04:52: MD003-Setext-Korrektur in `novapolis-rp/database-curated/README.md`; targeted markdownlint PASS.
+- 2025-11-06 04:50: MD003-Setext-Korrekturen in `packages/README.md`, `novapolis_agent/scripts/README.md`, `novapolis_agent/eval/README.md`, `novapolis_agent/eval/DEPRECATIONS.md`; targeted markdownlint PASS (4 Dateien).
+- 2025-11-06 04:40: Demo-Test wieder entfernt (`tests/test_intentional_failure.py`), `pytest -q` via pwsh PASS; Frontmatter-Validator-Demo abgeschlossen.
+- 2025-11-06 04:15: Frontmatter-Validator mit Demo-Datei geprüft (`check_frontmatter.py` → Fehlermeldungen bestätigt, nach Fix PASS); absichtlicher pytest-Fail durch `tests/test_intentional_failure.py` dokumentiert.
+- 2025-11-06 03:45: Repo-weiter Markdownlint-Lauf zeigte 437× MD003 (Setext-Stil). YAML-Hinweis oben beachten; Bereinigung schrittweise angehen.
+- 2025-11-06 03:18: Veraltetes Markdownlint-Skript entfernt (`novapolis-rp/coding/tools/validators/run_lint_markdown.ps1`); README & Copilot-Anweisungen aktualisiert.
+- 2025-11-06 03:07: Veralteten Chat-Neustart-Prompt entfernt (`novapolis-dev/docs/prompts/chat-restart.md`); Index/DONELOG aktualisiert; Markdownlint (index/donelog) PASS.
+- 2025-11-06 02:57: RP/Sim-Dokumente (`todo.sim.md`, Specs-Batch, Betriebsmodi-Notizen) auf YAML-Frontmatter gebracht und einzeln gelinted – PASS; DONELOG aktualisiert.
+- 2025-11-06 02:52: `novapolis-dev/docs/todo.rp.md` auf YAML-Frontmatter gebracht und einzeln gelinted (`markdownlint todo.rp.md`) – PASS; DONELOG aktualisiert.
+- 2025-11-06 02:42: `novapolis_agent/docs/training.md` und `docs/reports/overnight-20251022.md` gelinted und mit aktuellem Stand versehen; DONELOG/TODO aktualisiert.
+- 2025-11-06 02:35: Agent-Dokumente (`customization.md`, `ARCHIVE_PLAN.md`, `CONTEXT_ARCH.md`, `REPORTS.md`) gelinted; Frontmatter/Checks aktualisiert; dokumentiert in DONELOG.
+- 2025-11-06 02:30: `novapolis_agent/docs/DONELOG.txt` auf YAML-Frontmatter/Setext umgestellt; Lint-Einzellauf PASS; Root-DONELOG aktualisiert.
+- 2025-11-06 02:23: README (Agent) und `docs/AGENT_BEHAVIOR.md` Heading/Frontmatter angepasst, Lint-Einzelläufe PASS; Zwischenschritt in DONELOG erfasst.
+
 - **novapolis_agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
 - **novapolis-dev / novapolis-rp**: Fokus auf Canvas-Rettung Sprint (Charaktere/Logistik/Systeme) sowie bestehende Datenkurierungs- und Sim-Aufgaben.
+- **YAML/Setext-Hinweis**: Bei allen Markdown-Anpassungen Frontmatter (stand/update/checks) synchronisieren und H1/H2 konsequent im Setext-Stil halten; laufender MD003-Backlog (122 Dateien laut letztem Markdownlint-Lauf).
 - **Terminal/Tasks (STOP)**: VS Code markiert den Workspace aktuell fälschlich als Multi‑Root; Wrapper‑Tasks/Automationen sind unzuverlässig. Bis zur Bereinigung: KEINE WRAPPER, TERMINAL NUR MANUELL NUTZEN. Lösung erst nach Aufräumen (Single‑Root‑Struktur).
   - Open Case: Terminal/Tasks Multi‑Root → `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
 - **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-02) + `workspace_tree*.txt` (Stand 2025-11-02) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
@@ -28,6 +44,47 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
   - [ ] Automatisierte Aufgabe/Script prüfen (`scripts/cleanup_phase*.ps1`) für regelmäßiges Auslagern.
  - **Lokale AI Einbindung (organisch)**: Phasenplan/Go‑Kriterien/Metriken in Abschnitt „Lokale AI – Einbindung (organisch)“ unten; Start mit Phase01 möglich (ohne Zeitdruck, mit harten Fallbacks).
  - **Editor‑Setup**: Konsolidierung `.vscode` auf Root vorbereiten (siehe Abschnitt „Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)“).
+
+- Neu (2025-11-06): Modulstatus → Agent: Gelb‑grün, Dev: Grün, RP: Gelb, Sim: Gelb. Konkrete 1–2‑Tage‑Schritte siehe Abschnitt „Nächstes Vorgehen (1–2 Tage)“.
+
+## Modulstatus (2025-11-06)
+
+- Agent (Backend): Gelb‑grün. Tests/Typen zuletzt grün, aber kein dokumentierter Lauf seit 2025‑10‑31; leichte Driftgefahr bei Scripts/Eval‑Artefakten.
+- RP (Daten/Canvases): Gelb. Kurations‑Pipeline aktiv, einige Review-/Tagging‑Schritte offen.
+- Dev (Dok‑Hub): Grün. Frontmatter‑Migration weitgehend durch, Donelog/Index gepflegt.
+- Sim (Godot): Gelb. Option A gesetzt, Projektdatei kanonisch; Headless‑Lade‑Check offen.
+
+## Nächstes Vorgehen (1–2 Tage)
+
+Hinweis: Aufgrund des Multi‑Root‑STOPs keine Wrapper‑Tasks verwenden; bei Bedarf Befehle manuell im Terminal ausführen und Ergebnisse kurz dokumentieren.
+
+### novapolis_agent
+
+- [ ] Tests/Typen sequenziell laufen lassen (manuell) und Ergebnis protokollieren: `DONELOG.md` (Root) und `novapolis_agent/docs/DONELOG.txt` (Agent).
+- [x] 2025-11-06 04:40: Demo-Test `novapolis_agent/tests/test_intentional_failure.py` entfernt; pytest -q PASS.
+- [ ] Konsistenz‑Audit/Report aktualisieren (Sichtprüfung): `novapolis_agent/scripts/reports/generate_consistency_report.py` und Kandidaten aus `novapolis_agent/scripts/audit_workspace.py` prüfen.
+- [ ] Optional nach Review: Cleanup‑Kandidaten (Phase 4) nur mit Freigabe angehen (`novapolis_agent/scripts/cleanup_phase4.ps1`).
+
+### novapolis-rp
+
+- [ ] Export konsolidieren: Offene Aufgabe „`99-exports/chat-export-complete.txt`“ abschließen; Delta‑Befunde in SSOT‑Canvases spiegeln.
+- [ ] Tagging‑Pipeline 015–010 vom Dry‑Run auf Write heben; anschließend kurzem Lint‑Protokoll in `novapolis-dev/docs/donelog.md` vermerken.
+
+### novapolis-dev
+
+- [ ] Tree‑Artefakte neu erzeugen (manuell): `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`; Zeitstempel/Status in `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` aktualisieren.
+- [ ] Optional: Kurzer Abschnitt „Editor‑Setup“ im Root‑`README.md` ergänzen (Hinweis auf STOP/Multi‑Root, manuelle Terminal‑Läufe).
+- [ ] Markdownlint MD003 (aktive Docs): Scope auf essentielle Readmes/Dokus begrenzen, Stichproben-Lint (`markdownlint-cli2`), pro Datei Setext-Stil angleichen und Resttreffer außerhalb des Scopes katalogisieren.
+
+### novapolis-sim
+
+- [ ] Headless‑Lade‑Check des Godot‑Projekts `novapolis-sim/project.godot` durchführen; Warnungen/Fehler als Kurznotiz festhalten.
+
+## Risiken (kurz)
+
+- Tests/Typing nicht tagesaktuell (Agent) → mögliche stille Drift.
+- RP: Offene Tagging-/Export‑Schritte; Deltas noch nicht vollständig in SSOT gespiegelt.
+- Multi‑Root‑Markierung stört Tasks → bis zur Bereinigung ausschließlich manuelle Läufe.
 
 ## Lokale AI – Einbindung (organisch)
 

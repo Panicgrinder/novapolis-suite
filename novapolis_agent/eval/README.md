@@ -1,4 +1,5 @@
-# Evaluierungswerkzeug für den Novapolis Agent
+Evaluierungswerkzeug für den Novapolis Agent
+===========================================
 
 Dieses Verzeichnis enthält Tools und Daten zur Evaluierung des Novapolis Agents.
 
@@ -10,7 +11,8 @@ Struktur:
 
 Hinweis: Private, lokale Synonyme können in `config/synonyms.local.json` gepflegt werden (git-ignoriert). Diese werden automatisch mit `config/synonyms.json` gemerged. Eine Vorlage liegt als `config/synonyms.local.sample.json` bei.
 
-## Profile & Synonyme
+Profile & Synonyme
+------------------
 
 - Profile: `config/profiles.json` enthält vorkonfigurierte Lauf-Presets für die Evaluierung (Quiet/ASGI/Eval-Modus, Checks, Temperatur). Aktuell verfügbar:
   - `default`: allgemeine Defaults (eval_mode=true, quiet, ASGI)
@@ -29,7 +31,8 @@ Hinweis zu Policies mit Profilen:
 
 Hinweis: Einige VS Code Tasks nutzen bereits Profil/Checks-Presets (z. B. „Eval: run (ASGI, quiet)“).
 
-## Format der Datasets (JSON/JSONL)
+Format der Datasets (JSON/JSONL)
+--------------------------------
 
 ```json
 {

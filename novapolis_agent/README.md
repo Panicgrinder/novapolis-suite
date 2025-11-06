@@ -1,12 +1,21 @@
-# Novapolis Agent
+---
+stand: 2025-11-06 02:11
+update: H1/H2 auf Setext-Stil umgestellt (MD003)
+checks: keine
+---
+
+Novapolis Agent
+===============
 
 Ein FastAPI-Backend für einen Conversational Agent innerhalb der Novapolis Suite, der Ollama als LLM verwendet.
 
-## Lizenz
+Lizenz
+------
 
 Dieses Projekt steht unter der MIT-Lizenz. Siehe die Datei `LICENSE` im Repository-Wurzelverzeichnis.
 
-## Neuigkeiten (2025-10-20)
+Neuigkeiten (2025-10-20)
+------------------------
 
 - Demo→Fantasy: Datensatz-Bezeichnungen vereinheitlicht (`eval-21-40_fantasy_v1.0.*`).
    Maßgeblich sind die Dateien unter `eval/datasets/`.
@@ -20,12 +29,14 @@ Dieses Projekt steht unter der MIT-Lizenz. Siehe die Datei `LICENSE` im Reposito
 - Legacy-Bereinigung: Unbenutzte Legacy-Endpunkte unter `app/api/endpoints/`
    entfernt; doppelte Exporte in `app/services/__init__.py` bereinigt.
 
-## Repository-Info
+Repository-Info
+---------------
 
 - Standard-Branch: `main`
 - Optional: Zusätzliche Pyright-Konfig für Skripte: `pyrightconfig.scripts.json`
 
-## Einrichtung
+Einrichtung
+----------
 
 1. Python 3.12 installieren
 2. Virtuelle Umgebung erstellen und aktivieren:
@@ -75,13 +86,15 @@ Oder manuell:
    ollama pull llama3.1:8b
    ```
 
-## Anwendung starten
+Anwendung starten
+-----------------
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-## API-Endpunkte
+API-Endpunkte
+-------------
 
 - `GET /`: Basis-Endpunkt für Gesundheitsprüfung
 - `POST /chat`: Chat-Endpunkt zum Senden von Nachrichten an das LLM
@@ -100,7 +113,8 @@ Oder mit PowerShell:
 Invoke-RestMethod -Uri "http://127.0.0.1:8000/chat" -Method Post -Body '{"messages":[{"role":"user","content":"Du bist die Chronistin. Stell dich kurz vor."}]}' -ContentType "application/json"
 ```
 
-## Swagger-Dokumentation
+Swagger-Dokumentation
+---------------------
 
 Zugriff auf die API-Dokumentation unter:
 
@@ -108,7 +122,8 @@ Zugriff auf die API-Dokumentation unter:
 http://127.0.0.1:8000/docs
 ```
 
-## Simulation API
+Simulation API
+--------------
 
 Eine kompakte Simulation steckt in `app/api/sim.py` und stellt einen stetig
 fortschreibbaren Weltzustand bereit. Die Endpunkte dienen als leichtgewichtige
@@ -144,7 +159,8 @@ Der Server liest `AGENT_PORT` (Standard `8765`) aus der Umgebung.
 2. Post-Create installiert `requirements.txt` und `requirements-dev.txt` automatisch.
 3. Task `Run Agent Dev` startet den Uvicorn-Server im Container; der Port 8765 wird an den Host weitergeleitet.
 
-## Einstellungen/Umgebung
+Einstellungen/Umgebung
+----------------------
 
 Konfiguration per `.env` (siehe Beispiele in `app/core/settings.py`). Wichtige Felder:
 
@@ -206,7 +222,8 @@ Hinweise:
 - `mode=eval` mappt implizit auf `profile_id="eval"`.
 - Details und Tests siehe `docs/AGENT_BEHAVIOR.md` und `tests/test_content_policy_profiles.py`.
 
-## Optionale CLI-Tools
+Optionale CLI-Tools
+-------------------
 
 Für erweiterte Workflows stehen optionale Skripte zur Verfügung (nicht Teil des API-Pflichtpfads):
 
@@ -224,7 +241,8 @@ Tipps:
 - Viele Schritte sind als VS Code Tasks vorhanden (Suche nach „Finetune“, „Eval“, „Summary“).
 - Alle Skripte akzeptieren `--help` mit Kurzbeschreibung und Argumenten.
 
-## Lokales RAG (optional)
+Lokales RAG (optional)
+----------------------
 
 Der Agent kann optional Kontext‑Snippets aus einem lokalen Text‑Korpus (Markdown/TXT) via leichtgewichtigem TF‑IDF‑Retriever injizieren.
 
@@ -248,17 +266,21 @@ Der Agent kann optional Kontext‑Snippets aus einem lokalen Text‑Korpus (Mark
 - Task‑Hinweise:
    - Es gibt aktuell keinen dedizierten VS Code Task für den Indexer; der obige Aufruf funktioniert plattformneutral über den aktiven Interpreter.
    - Optional kann ein eigener Task ergänzt werden, der `scripts/rag_indexer.py` mit gewünschten `--input`/`--out` Werten ausführt.
-## Datenmodelle (Quelle)
+
+Datenmodelle (Quelle)
+---------------------
 
 Die zentralen Pydantic-Modelle für Requests/Responses liegen in `app/api/models.py`.
 Historische `app/schemas.py` wurde entfernt. Bitte nur `app/api/models.py` importieren.
 
-## Workspace-Zusammenfassung
+Workspace-Zusammenfassung
+--------------------------
 
 - Neueste Gesamt-Zusammenfassung (LLM+Heuristik):
    - eval/results/summaries/summary_ALL_20250824_0306_MIXED.md
 
-## Datensatz-Kurierung (3–7 Tage)
+Datensatz-Kurierung (3–7 Tage)
+------------------------------
 
 Aus Eval-Ergebnissen Trainingspakete erzeugen:
 
@@ -266,7 +288,8 @@ Aus Eval-Ergebnissen Trainingspakete erzeugen:
 - Ablauf: nimmt die neueste `results_*.jsonl`, exportiert in `openai_chat` oder `alpaca`, erzeugt deduplizierte Train/Val-Dateien.
 - Ausgabe liegt unter `eval/results/finetune/`.
 
-## Finetune workflow
+Finetune workflow
+-----------------
 
 Schneller Export und Vorbereitung von Trainingspaketen auf Basis der neuesten
 Evaluations-Ergebnisse (`eval/results/results_*.jsonl`). Zwei VS Code Tasks sind vorhanden:
@@ -284,7 +307,8 @@ Evaluations-Ergebnisse (`eval/results/results_*.jsonl`). Zwei VS Code Tasks sind
 
 Akzeptanz: Das Ausführen beider Tasks erzeugt valide JSONL-Dateien für Train/Val ohne JSON-Fehler.
 
-## Fine-Tuning / LoRA Mini-Pipeline (3–7 Tage)
+Fine-Tuning / LoRA Mini-Pipeline (3–7 Tage)
+------------------------------------------
 
 - Skript: `scripts/fine_tune_pipeline.py`
 - Voraussetzungen: passende PyTorch-Installation und optionale Pakete aus `requirements-train.txt`.
@@ -295,7 +319,8 @@ Akzeptanz: Das Ausführen beider Tasks erzeugt valide JSONL-Dateien für Train/V
       --per-device-train-batch-size 1 \
       --bf16
 
-## Eval: Synonyme mit privatem Overlay
+Eval: Synonyme mit privatem Overlay
+----------------------------------
 
 Für die Keyword-Checks in der Evaluierung können Synonyme aus `eval/config/synonyms.json` geladen werden.
 Zusätzlich können lokale, private Ergänzungen in
@@ -304,7 +329,8 @@ Diese Datei ist git-ignoriert und wird automatisch mit der Basisdatei gemerged.
 
 - Beispiel: `eval/config/synonyms.local.sample.json` kopieren zu `synonyms.local.json` und anpassen.
 
-## Lokale Kontext-Notizen (optional)
+Lokale Kontext-Notizen (optional)
+----------------------------------
 
 Der Server kann optionale, lokale Kontext-Notizen als zusätzliche
 System-Nachricht injizieren. Das ist nützlich für projektspezifisches Wissen
@@ -320,7 +346,8 @@ oder interne Begriffe.
    System-Prompt), sowohl im normalen als auch im Streaming-Endpunkt.
 - Fehlende Overlay-Datei wird stillschweigend ignoriert.
 
-## Eval-Style-Guard (Post-Hook im eval_mode)
+Eval-Style-Guard (Post-Hook im eval_mode)
+----------------------------------------
 
 Der Streaming-Post-Hook normalisiert im `eval_mode` die finale
 Assistenten-Antwort heuristisch: neutral, kurz, ohne Rollenspiel/Emoji/
@@ -370,7 +397,8 @@ Sitzungshistorie persistiert.
       --profile eval --checks rpg_style,term_inclusion --quiet
    ```
 
-## Copilot @workspace / #codebase (Code-Suche)
+Copilot @workspace / #codebase (Code-Suche)
+-------------------------------------------
 
 - Empfehlung: Remote-Index nutzen (Repo liegt auf GitHub). Lokaler Index dient als Fallback.
 - Push regelmäßig, damit der Remote-Index aktuell bleibt.

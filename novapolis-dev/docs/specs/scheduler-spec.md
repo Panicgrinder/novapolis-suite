@@ -1,17 +1,19 @@
 ---
-stand: 2025-11-01 22:31
-update: Scheduler-Spec (tickloser Min-Heap, 24×1h) erstellt; Beispiele und Kontrakt ergänzt
-checks: keine
+stand: 2025-11-06 02:55
+update: Frontmatter auf YAML migriert; markdownlint PASS
+checks: markdownlint-cli2 PASS
 ---
 
-# Scheduler-Spec (ticklos, Min-Heap, 24×1h-Epochen)
+Scheduler-Spec (ticklos, Min-Heap, 24×1h-Epochen)
+=================================================
 
 Diese Spezifikation beschreibt den mikroskopischen Zeitablauf innerhalb einer 24×1h-Epoche mittels einer ticklosen, ereignisgetriebenen Min-Heap-Queue. Sie ergänzt die Annotation-Spezifikation (Knowledge/Actions/Skills) und definiert Schnittstellen, Datenstrukturen, Invarianten und Fehlerpfade.
 
 - Referenz: `novapolis-dev/docs/specs/annotation-spec.md` (Felder: `knowledge`, `actions`, Skill-Ableitung)
 - Verweise: `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.rp.md`
 
-## Kurz-Kontrakt
+Kurz-Kontrakt
+-------------
 
 - Eingaben
   - epoch: `{ index: int, start_at: ISO8601, end_at: ISO8601 }` (24×1h; PC-zentriert)
@@ -34,7 +36,8 @@ Diese Spezifikation beschreibt den mikroskopischen Zeitablauf innerhalb einer 24
   - Ressourcenmangel → `InsufficientResources`
   - Zeitüberlauf jenseits `epoch.end_at` → Carry-over in nächste Epoche (Split-Policy, s. u.)
 
-## Datenmodell
+Datenmodell
+-----------
 
 - ActionDef
   - `verb: string`, `base_duration_min: int ≥ 1`, `effort: low|medium|high`, `interruptible: bool`
@@ -49,7 +52,8 @@ Diese Spezifikation beschreibt den mikroskopischen Zeitablauf innerhalb einer 24
 - Zeitrepräsentation
   - Intern `t` in Minuten relativ zu `epoch.start` (int); extern zusätzlich ISO8601
 
-## Dauerformel
+Dauerformel
+-----------
 
 Die effektive Dauer ergibt sich aus Basisdauer, Anstrengung und Skill-Faktoren sowie optionalen Modifikatoren (z. B. Tageszeit, Wetter):
 
@@ -72,7 +76,8 @@ $$
 
 Hinweis: Skill-Level `s` stammt aus der Annotation-Spec (lineare Ableitung aus der Verhaltensmatrix) und wird per Mapping in einen Faktor überführt.
 
-## Algorithmus (ticklos)
+Algorithmus (ticklos)
+---------------------
 
 - Neue Aktion `A` wird eingereicht (Zeit `t_submit`):
   1) Validieren (`verb` bekannt, Dauer > 0, Ressourcen vorhanden)
@@ -109,18 +114,21 @@ function schedule(actions_submitted, action_defs, skills, epoch):
   carry_over(heap, epoch.next)
 ```
 
-## Interrupts & Prioritäten
+Interrupts & Prioritäten
+------------------------
 
 - Interrupt-Quelle: Notfall-/PC-relevantes Event mit höherer Priorität
 - Regel: Nur `interruptible=true`-Aktionen werden präemptiert; Restdauer `d_rem = t_end - t_interrupt` wird gespeichert (nicht verfallen)
 - Wiederaufnahme: Neue Instanz mit gleicher `id` und `d_eff = d_rem` (Locks neu erwerben)
 
-## Locks & Deadlocks
+Locks & Deadlocks
+-----------------
 
 - Exklusive Locks werden in fester globaler Reihenfolge erworben (z. B. alphabetisch), um zyklische Abhängigkeiten zu vermeiden
 - Warte-Strategie: FIFO-Queue pro Lock; `t_start` einer Aktion ist das Maximum der Freigabezeiten aller benötigten Locks
 
-## Beispiele (3 Aktionen)
+Beispiele (3 Aktionen)
+----------------------
 
 ### Beispiel 1: Reinigen (60m, medium, interruptible)
 
@@ -189,20 +197,23 @@ actions_submitted:
 - Belegt `radio` exklusiv; kann `visibility_change` auslösen (z. B. Nachricht erreicht PC)
 - Interrupt-Regel: Darf andere `interruptible` Jobs mit niedrigerer Priorität unterbrechen, wenn so konfiguriert
 
-## Logs & Sichtbarkeit
+Logs & Sichtbarkeit
+-------------------
 
 - `world_log`: vollständige Kette aller Events in Echtzeit
 - `pc_log`: nur PC-sichtbare Events; Retro-Reveals erfolgen als `visibility_change`-Events (keine Änderung historischer Einträge)
 - Audio-Dateien (wenn erzeugt) folgen dem Schema `epoch{dd}_slot{hh}_{channel}.ogg`
 
-## Akzeptanzkriterien
+Akzeptanzkriterien
+------------------
 
 - Locks werden nie doppelt vergeben; Deadlocks verhindert durch Reihenfolge
 - Nicht-unterbrechbare Aktionen laufen ohne Preemption durch
 - Epochen-Überlauf erzeugt Carry-over ohne Informationsverlust
 - Beispiel-Inputs ergeben deterministische, nachvollziehbare Event-Sequenzen
 
-## Anhang: Schnittstellen (Skizze)
+Anhang: Schnittstellen (Skizze)
+--------------------------------
 
 ```yaml
 # ActionInstance (eingereicht)

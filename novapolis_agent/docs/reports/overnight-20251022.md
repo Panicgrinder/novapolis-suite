@@ -1,17 +1,19 @@
 ---
-stand: 2025-11-02 23:36
-update: YAML-Frontmatter ergänzt; Inhalt unverändert
-checks: markdownlint-cli2 (docs focused) PASS
+stand: 2025-11-06 02:40
+update: Markdownlint geprüft (Setext-Stil bestätigt)
+checks: markdownlint-cli2 (single file) PASS
 ---
 
-# Overnight Evaluation (Teilrun – 50 Einträge)
+Overnight Evaluation (Teilrun – 50 Einträge)
+===========================================
 
 - Tag: overnight-20251022
 - Modus: ASGI (in-process)
 - Ergebnisse: eval/results/results_20251022_0042_overnight-20251022.jsonl
 - Zeit: 2025-10-22 00:42–00:48
 
-## Zusammenfassung
+Zusammenfassung
+--------------
 
 - Erfolgreich: 2/50 (4.0%)
 - RPG-Stil erkannt: 48/50 (96.0%)

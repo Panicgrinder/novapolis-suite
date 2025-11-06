@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-01 18:38
-update: Pfadkorrektur archiv→archive; Root-Archiv in Hinweise verlinkt
-checks: keine
+stand: 2025-11-06 02:48
+update: Markdownlint geprüft; keine weiteren Änderungen
+checks: markdownlint-cli2 (single file) PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->

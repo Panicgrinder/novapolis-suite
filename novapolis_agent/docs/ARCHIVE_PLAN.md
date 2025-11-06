@@ -1,10 +1,11 @@
 ---
-stand: 2025-11-02 23:36
-update: YAML-Frontmatter ergänzt; Inhalt unverändert
-checks: markdownlint-cli2 (docs focused) PASS
+stand: 2025-11-06 02:33
+update: Markdownlint geprüft (Setext-Stil bestätigt)
+checks: markdownlint-cli2 (single file) PASS
 ---
 
-# Archiv-Plan (Phase 2)
+Archiv-Plan (Phase 2)
+=====================
 
 Ziel: Vorsichtige Bereinigung klarer Duplikate/Altdateien ohne funktionale Änderungen.
 
@@ -32,7 +33,8 @@ Test-Path "data/system.txt"
 Select-String -Path .gitignore -SimpleMatch "eval/eval-21-40_demo_v1.0.json","eval/eval-21-40_fantasy_v1.0.*","data/system.txt"
 ```
 
-## Phase 4 – Ausführung
+Phase 4 – Ausführung
+--------------------
 
 - PowerShell (WhatIf/Dry-Run):
 

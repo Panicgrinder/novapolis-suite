@@ -1,9 +1,11 @@
-# Novapolis Dev Hub
+Novapolis Dev Hub
+==================
 
 Dieser Arbeitsbereich bündelt teamübergreifende Dokumentation, ToDos, DoneLogs und Migrationsnotizen für alle Novapolis-Projekte.
 Der Dev Hub fungiert als gemeinsame Schaltstelle für Agent-, Sim- und RP-Teams und ersetzt die früheren verteilten „development“-Bereiche.
 
-## Zweck
+Zweck
+-----
 
 - Zentraler Anlaufpunkt für Entwicklungsunterlagen (Agent, Sim, RP)
 - Gemeinsame Policies, Roadmaps, Integrationen
@@ -12,11 +14,13 @@ Der Dev Hub fungiert als gemeinsame Schaltstelle für Agent-, Sim- und RP-Teams 
   - `novapolis-sim/`
   - `novapolis-rp/`
 
-## Scope & Repos
+Scope & Repos
+-------------
 
 Der Dev Hub verknüpft die Arbeitsstände aus `novapolis_agent/`, `novapolis-sim/` und `novapolis-rp/`. Alle teamweiten Policies, Planungen und Integrationen landen zentral hier und werden von dort aus in die Produktiv-Repositories gespiegelt.
 
-## Primary Docs
+Primary Docs
+------------
 
 - `docs/donelog.md` – tägliche Fortschritte und Beschlüsse
 - `docs/todo.index.md` – TODO-Index (Navigation zu Modul-Boards)
@@ -25,13 +29,15 @@ Der Dev Hub verknüpft die Arbeitsstände aus `novapolis_agent/`, `novapolis-sim
 - `docs/naming-policy.md` – verbindliche Dateibenennung im Verbund
 - `docs/tests.md` – Testabdeckung und Sim-/Client-Checkliste
 
-## Contributor Workflow
+Contributor Workflow
+--------------------
 
 - Änderungen zuerst hier dokumentieren, anschließend in den Ziel-Repos umsetzen.
 - Fortschritt stets in `docs/donelog.md` loggen; Aufgaben in den jeweiligen Modul-Boards pflegen (Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent.md`, Sim `docs/todo.sim.md`).
 - Vor Commits die Leitlinien aus `docs/copilot-behavior.md` gegenprüfen.
 
-## Struktur
+Struktur
+--------
 
 - `docs/` – Arbeitsdokumente (ToDos, DoneLogs, Policies, Testpläne)
 - `docs/meta/` – Metadaten zu den Arbeitsdokumenten
@@ -40,12 +46,14 @@ Der Dev Hub verknüpft die Arbeitsstände aus `novapolis_agent/`, `novapolis-sim
 - `integrations/` – Schnittstellen- und Abstimmungsdokumente (Platzhalter)
 - `raw/`, `curated/` – optionale lokale Skizzen; produktive Datenpools liegen unter `../novapolis-rp/database-*`
 
-## Archiv
+Archiv
+------
 
 - Zentrales Archiv für historisierte Dokumente: `archive/`
 - Bitte keine separaten Archive in Unterprojekten anlegen; verlinkt stattdessen nach `novapolis-dev/archive/`.
 
-## Copilot Instructions
+Copilot Instructions
+--------------------
 
 - Kanonisches Richtlinien-Dokument liegt im Repo-Root unter `.github/copilot-instructions.md`.
 - Ergänzende Detailregeln und Hintergrundtexte: `docs/` (z. B. `copilot-behavior.md`).

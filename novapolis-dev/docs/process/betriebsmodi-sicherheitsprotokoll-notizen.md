@@ -1,16 +1,18 @@
 ---
-stand: 2025-11-03 04:32
-update: Hinweis ergänzt: Multi‑Root → keine Wrapper‑Tasks; Terminal ausschließlich manuell bis Single‑Root.
-checks: keine
+stand: 2025-11-06 02:55
+update: Frontmatter auf YAML migriert; markdownlint PASS
+checks: markdownlint-cli2 PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
 
-# Betriebsmodi – Arbeitsnotizen
+Betriebsmodi – Arbeitsnotizen
+=============================
 
 Dieses Dokument sammelt die Detailregeln für die Betriebsmodi "Standardlauf" und "Sicherheitsprotokoll". Es dient als Grundlage für die spätere Konsolidierung in den offiziellen Arbeitsanweisungen (`.github/copilot-instructions.md`, Modul-TODOs, README-Hinweise).
 
-## Standardlauf (Baseline-Modus)
+Standardlauf (Baseline-Modus)
+-----------------------------
 
 -- **Zweck:** Normaler Arbeitsfluss ohne zusätzliche Einschränkungen. Fokus auf Effizienz bei gleichzeitiger Einhaltung der bestehenden STOP‑Gates.
 – **Aktivierung:** Default nach Freigabe eines STOP‑Gates oder nachdem das Sicherheitsprotokoll (siehe unten) sauber abgeschlossen wurde.
@@ -20,7 +22,8 @@ Dieses Dokument sammelt die Detailregeln für die Betriebsmodi "Standardlauf" un
   - Ergebnisse und Prüfungen wie gewohnt dokumentieren (DONELOG, TODOs, Checks in Frontmatter).
 - **Rückfall in Sicherheitsprotokoll:** Bei unerwarteten Abweichungen, Budget-/Test-/Pfad-Drifts oder manueller Anforderung.
 
-## Sicherheitsprotokoll (Schutzmodus)
+Sicherheitsprotokoll (Schutzmodus)
+----------------------------------
 
 - **Zweck:** Eng getaktete Arbeitsschritte bei erhöhter Unsicherheit, um Drift schnell zu erkennen und Ursachen zu dokumentieren.
 - **Aktivierung (automatisch oder manuell):**
@@ -42,7 +45,8 @@ Dieses Dokument sammelt die Detailregeln für die Betriebsmodi "Standardlauf" un
   - Alternativ manuelle Freigabe durch Nutzer.
   - Rückmeldung an Nutzer mit Kurzreport (Befund, durchgeführte Prüfungen, Rest-Risiken).
 
-## Expected State (Soll-Beschreibung)
+Expected State (Soll-Beschreibung)
+----------------------------------
 
 Vor jedem Task wird ein Expected-State-Block erstellt (Teil der TODO- oder Log-Notiz):
 
@@ -54,7 +58,8 @@ Vor jedem Task wird ein Expected-State-Block erstellt (Teil der TODO- oder Log-N
 - **Akzeptanzchecks:** 3–5 konkrete Prüfungen, die den Erfolg belegen.
 - **Risiken/Abhängigkeiten:** Externe Faktoren oder bekannte Stolpersteine.
 
-## Drift-Kategorien
+Drift-Kategorien
+----------------
 
 Drift wird als Abweichung vom Expected State bewertet. Kategorien (Ampel, individuell gewichtbar):
 
@@ -69,7 +74,8 @@ Ampelbewertung:
 - **Gelb (weiter im Protokoll):** Leichte Überschreitungen innerhalb der Budgets.
 - **Gelb eskaliert:** Wiederholte Überschreitungen in zwei Paketen hintereinander.
 
-## Logging & Ablage
+Logging & Ablage
+----------------
 
 - **Arbeitsverzeichnis:** `novapolis-dev/logs/` (ggf. neu anlegen, steht jetzt bereit). Datei je Sitzung, z. B. `betriebsmodi-20251103-0256.tmp.md`.
 - **Vorlage:** `novapolis-dev/logs/log-template.md` enthält Frontmatter, Expected-State-Block und Paketstruktur.
@@ -80,14 +86,16 @@ Ampelbewertung:
 - **Rotation:** Letzte fünf Rohlogs behalten, ältere komprimieren oder entfernen. Kürzere Zusammenfassungen dürfen ins Repo committed werden.
 - **CI-Sicherheit:** Keine Skripte/Tasks in `novapolis-dev/logs/`, um CI nicht zu beeinträchtigen.
 
-## Modul-spezifische Expected-State-Stichpunkte
+Modul-spezifische Expected-State-Stichpunkte
+-------------------------------------------
 
 - **Agent (Python):** Tests grün, API-Signaturen unverändert, Scope auf `novapolis_agent/**`, Budget ≤ 5 Dateien/≤ 200 Zeilen, Checks = relevanter Pytest-Subset + Lint + Dev-Server-Dry-Run.
 - **RP (Daten/Regeln):** Schema konsistent, Referenzen gültig, Scope auf betroffene Dateninsel, Budget = begrenzte Datensätze, Checks = Schema-Validator, Link-Checker, Diff-Stat.
 - **Sim (Godot):** Projekt lädt ohne neue Warnungen, Scope auf betroffene Szene/Skript, Budget = limitierte Ressourcen keine unnötigen Binärdateien, Checks = Headless-Load, Log ohne Warnungen.
 - **Root/Workflows:** Actions laufen grün, Pfadfilter korrekt, Scope auf `.github/workflows/**`, Budget = eine Datei pro Schritt, Checks = Workflow-Lint und optionaler Dry-Run.
 
-## Offene Punkte
+Offene Punkte
+------------
 
 - Abstimmung, ob Rotationsregeln automatisiert werden sollen (Skript oder manueller Leitfaden).
 

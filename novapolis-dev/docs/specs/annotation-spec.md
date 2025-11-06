@@ -1,14 +1,16 @@
 ---
-stand: 2025-11-01 22:24
-update: Erstfassung – Annotation-Spec (Knowledge/Actions/Skill‑Ableitung) mit YAML‑Snippets für RP/Sim/Agent
-checks: keine
+stand: 2025-11-06 02:55
+update: Frontmatter auf YAML migriert; markdownlint PASS
+checks: markdownlint-cli2 PASS
 ---
 
-# Annotation‑Spec (Knowledge · Actions · Skill‑Ableitung)
+Annotation‑Spec (Knowledge · Actions · Skill‑Ableitung)
+=======================================================
 
 Ziel: Schlanke, konsistente Annotationen, die im 24×1h‑Modus sofort nutzbar sind und später ohne Rework auf einen feingranularen „Zug‑um‑Zug“‑Scheduler umschalten können. Fokus auf Copy‑&‑Paste‑Snippets (YAML) in Canvases.
 
-## 1) Knowledge (Wissens-/Sichtbarkeitsmodell)
+1) Knowledge (Wissens-/Sichtbarkeitsmodell)
+------------------------------------------
 
 Grundidee: Ereignisse/Informationen werden als Knowledge‑Items erfasst. Sichtbarkeit ist pro Akteur steuerbar, inklusive Quelle, Kanal, Vertrauensgrad und Frische. Rückblenden ändern Sichtbarkeit (kein Retcon der Weltwahrheit).
 
@@ -50,7 +52,8 @@ Hinweise
 - Wichtige Charaktere können eine eigene Datei für Detailwissen führen (z. B. `Reflex-Wissensstand-Trainingsstand.md`).
 - Knowledge‑Items sind ideale Trigger/Interrupts im späteren Mikro‑Scheduler (z. B. „Reflex weckt Ronja“).
 
-## 2) Actions (für möglichen „Zug‑um‑Zug“‑Wechsel vorbereiten)
+2) Actions (für möglichen „Zug‑um‑Zug“‑Wechsel vorbereiten)
+-----------------------------------------------------------
 
 Eine Aktion definiert Basisdauer, Ressourcen/Locks und Interrupt‑Regeln. Effektive Dauer ergibt sich aus Skill/Tools/Umständen. So könnt ihr später ohne Rework einen tick‑losen Scheduler (Min‑Heap nach end_at) einsetzen.
 
@@ -94,7 +97,8 @@ Event‑Queue (später)
 - Plan: Für alle aktiven Akteure erste Aktion planen → Min‑Heap nach end_at → Pop → Outcome → Folgeaktion(en). Locks prüfen; Interrupts erlauben (Alarm, Funk, Unfall).
 - Überläufe über das Epochenende werden gesplittet; Rest startet in der nächsten Stunde mit start_at=0.
 
-## 3) Skill‑Ableitung aus Verhaltensmatrix (keine zweite Wahrheit)
+3) Skill‑Ableitung aus Verhaltensmatrix (keine zweite Wahrheit)
+--------------------------------------------------------------
 
 Die Verhaltensmatrix bleibt die „dynamische Wahrheit“. Skills (0–3) sind eine abgeleitete Sicht für Dauer/Erfolg – jederzeit aus der Matrix berechenbar.
 
@@ -145,20 +149,23 @@ Leitlinien
 - Rollen/Tools/Umstände wirken als Faktoren (f_tools, f_cond), nicht als eigene Skill‑Systeme.
 - Für wichtige Charaktere (z. B. Reflex/Ronja/Jonas) kann eine kleine "override"‑Sektion gepflegt werden, falls der Matrix‑Vektor temporär unvollständig ist (Debug).
 
-## 4) Logs & Dateikonventionen (für RP/Sim/TTS)
+4) Logs & Dateikonventionen (für RP/Sim/TTS)
+--------------------------------------------
 
 - 24×1h‑Modus: `epoch{dd}/slot{hh}/` als logische Einteilung (oder pro Tag ein Verzeichnis mit 24 Slots).
 - Audio (OGG) Namensschema: `epoch{dd}_slot{hh}_{channel}.ogg` (channel: world|pc|sys|ally).
 - Knowledge‑Attachments können auf diese IDs verweisen; pc_log spielt nur `*_pc.ogg`.
 
-## 5) Akzeptanzkriterien
+5) Akzeptanzkriterien
+---------------------
 
 - Jede Stunde erzeugt (mind.) world_log und pc_log; Sichtbarkeit konsistent mit Knowledge.
 - Aktionen im Canvas besitzen verb + base_duration_min; 5–10 Kernaktionen existieren.
 - Skill‑Ableitung definiert (W/base), mindestens 3 Skills mit Beispielgewichten.
 - Späterer Wechsel zu Mikro‑Turns ist ohne Datenmigration möglich (nur Engine/Scheduler nötig).
 
-## 6) Quick‑Start (Copy/Paste)
+6) Quick‑Start (Copy/Paste)
+---------------------------
 
 In Charakter‑ oder Missions‑Canvas (Frontmatter‑Block genügt):
 

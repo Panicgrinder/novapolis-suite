@@ -20,7 +20,7 @@ Nutzung (lokal)
   - Lokal: `npm --prefix coding/tools/validators run validate`
   - Namen prüfen (robust, ohne Inline-Command):
     - `powershell -ExecutionPolicy Bypass -File coding/tools/validators/run_check_names.ps1`
-  - Markdown-Lint (zentral, ohne Wrapper):
+  - Markdown-Lint (zentral):
     - `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"`
   - Behavior-Matrix-Check (optional):
     - `python coding/tools/validators/behavior_matrix_check.py`
@@ -28,7 +28,7 @@ Nutzung (lokal)
 CI/Tasks
 - VS Code Task `validate:data` versucht zuerst Docker, sonst lokal.
 - CI Workflow `.github/workflows/validate.yml` führt Schema-/Cross-Ref-Checks aus und lintet Markdown.
-- Hinweis: Falls PowerShell-Tasks mit `Unexpected token` fehlschlagen, nutze den Wrapper `run_check_names.ps1` (s.o.); `run_lint_markdown.ps1` ist veraltet und verweist nur noch auf den direkten `npx`-Aufruf.
+- Hinweis: Falls PowerShell-Tasks mit `Unexpected token` fehlschlagen, nutze den Wrapper `run_check_names.ps1` (s.o.). Markdown-Lint läuft ausschließlich über den direkten `npx`-Aufruf.
 
 Hinweis: RP-Markdown wird bewusst "soft" validiert (H1 + optionale Typprüfungen). Szenen-Front-Matter (empfohlen): YAML mit Feldern `characters`, `locations`, `inventoryRefs`.
 

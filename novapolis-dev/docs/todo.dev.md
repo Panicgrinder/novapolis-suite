@@ -1,7 +1,6 @@
----
-stand: 2025-11-05 18:33
-update: Frontmatter/Stand aktualisiert; Lint-Regeln (npx --yes, pwsh) notiert
-checks: markdownlint-cli2 (docs focused) FAIL (MD003 in Root-Doku)
+stand: 2025-11-06 02:49
+update: Markdownlint geprüft; Statusangabe angepasst
+checks: markdownlint-cli2 (single file) PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->

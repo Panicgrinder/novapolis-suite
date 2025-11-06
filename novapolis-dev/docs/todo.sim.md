@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-01 22:31
-update: Referenz auf Scheduler‑Spec ergänzt; Tab→Spaces Fix
-checks: keine
+stand: 2025-11-06 02:54
+update: Frontmatter aktualisiert; markdownlint PASS
+checks: markdownlint-cli2 PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->

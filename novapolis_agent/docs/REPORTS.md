@@ -1,10 +1,11 @@
 ---
-stand: 2025-11-02 23:36
-update: YAML-Frontmatter ergänzt; Inhalt unverändert
-checks: markdownlint-cli2 (docs focused) PASS
+stand: 2025-11-06 02:33
+update: Markdownlint geprüft (Setext-Stil bestätigt)
+checks: markdownlint-cli2 (single file) PASS
 ---
 
-# Reports-Standard
+Reports-Standard
+================
 
 Dieser Leitfaden definiert eine einheitliche Struktur für Prüf- und Konsistenzberichte.
 

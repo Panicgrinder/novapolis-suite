@@ -1,7 +1,6 @@
----
-stand: 2025-11-03 04:32
-update: Betriebsnotiz ergänzt: VS Code Multi‑Root → Wrapper‑Tasks aus; Terminal nur manuell; Link zur Fallakte.
-checks: keine
+stand: 2025-11-06 03:07
+update: Verweis auf Chat-Neustart-Prompt entfernt
+checks: markdownlint-cli2 PASS (single file)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -29,7 +28,6 @@ Primary Docs
 - `docs/copilot-behavior.md` — verbindliche Arbeitsweise & Sicherheitsregeln
 - `docs/naming-policy.md` — Dateibenennung fuer alle Novapolis-Repos
 - `docs/tests.md` — Testabdeckung, Sim-/Client-Checks
-- `docs/prompts/chat-restart.md` — kopierfertiger Prompt für Chat-/Session-Neustarts (veraltet; aktuell nicht nutzen)
 - Meta-Sidecars: `novapolis-dev/docs/meta/*.json` (Quelle, Ursprung, Migrationsstempel)
 
 Betriebsnotiz (temporär)

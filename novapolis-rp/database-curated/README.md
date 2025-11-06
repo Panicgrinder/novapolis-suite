@@ -1,4 +1,5 @@
-# Database Curated
+Database Curated
+=================
 
 Dieser Bereich dient als Arbeitszone für die Aufbereitung (Curation) der Exporte aus `database-raw/99-exports/`.
 
