@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-06 15:35
-update: MD003 + YAML Frontmatter (weitere 5 Dateien); targeted lint/validator PASS.
-checks: markdownlint-cli2 PASS (targeted, 5 Dateien); check_frontmatter.py PASS; repo-weit MD003 offen; pytest -q PASS
+stand: 2025-11-06 15:51
+update: MD003 + YAML Frontmatter (weitere 5 Dateien); targeted lint PASS.
+checks: markdownlint-cli2 PASS (targeted, 5 Dateien); check_frontmatter.py n/a; repo-weit MD003 offen; pytest -q PASS
 ---
 
 <!-- markdownlint-disable MD003 -->
@@ -18,6 +18,8 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 - 2025-11-06 15:22: YAML-Frontmatter (stand/update/checks) in denselben 3 Dateien ergänzt; frontmatter-Validator PASS (targeted).
 - 2025-11-06 15:30: YAML-Frontmatter ergänzt und MD003-Konformität bestätigt (Setext bereits vorhanden bzw. H1 ergänzt) in `packages/README.md`, `novapolis-sim/README.md`, `novapolis-rp/README.md`, `novapolis-dev/README.md`, `novapolis-rp/coding/tools/validators/README.md`; targeted markdownlint + frontmatter-Validator PASS (5 Dateien).
 - 2025-11-06 15:35: MD003 Setext + YAML‑Updates in `novapolis-dev/logs/README.md`, `novapolis-dev/integrations/mcp-openai-eval/README.md`, `novapolis-rp/database-curated/staging/README.md`, `novapolis-rp/database-rp/06-scenes/README.md`, `.tmp-results/README.md`; targeted markdownlint + frontmatter-Validator PASS (5 Dateien).
+- 2025-11-06 15:44: YAML-Frontmatter ergänzt und MD003/Setext vereinheitlicht in `novapolis-rp/database-curated/README.md`, `novapolis-rp/database-raw/99-exports/README.md`, `.tmp-datasets/README.md`, `novapolis_agent/eval/config/context.notes/README.md`; targeted markdownlint + frontmatter-Validator PASS (4 Dateien).
+- 2025-11-06 15:51: MD003 Setext + YAML-Frontmatter (falls fehlend) in `Backups/README.md`, `Backups/AUDIT.md`, `novapolis-dev/logs/log-template.md`, `novapolis_agent/data/logs/README.md`, `eval/config/context.local.md`; targeted markdownlint PASS (5 Dateien).
 - 2025-11-06 04:52: MD003-Setext-Korrektur in `novapolis-rp/database-curated/README.md`; targeted markdownlint PASS.
 - 2025-11-06 04:50: MD003-Setext-Korrekturen in `packages/README.md`, `novapolis_agent/scripts/README.md`, `novapolis_agent/eval/README.md`, `novapolis_agent/eval/DEPRECATIONS.md`; targeted markdownlint PASS (4 Dateien).
 - 2025-11-06 04:40: Demo-Test wieder entfernt (`tests/test_intentional_failure.py`), `pytest -q` via pwsh PASS; Frontmatter-Validator-Demo abgeschlossen.

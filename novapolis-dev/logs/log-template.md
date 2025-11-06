@@ -1,21 +1,24 @@
 ---
-stand: 2025-11-03 03:20
-update: Template für Betriebsmodus-Logs
+stand: 2025-11-06 15:51
+update: MD003 Setext H1/H2 umgesetzt
 checks: keine
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
 
-# Betriebsmodus-Log
+Betriebsmodus-Log
+=================
 
-## Meta
+Meta
+----
 
 - Aufgabe: <kurzbeschreibung>
 - Modus: <Standardlauf|Sicherheitsprotokoll>
 - Beteiligte: <optional>
 - Erwartete Checks: <pytest -q PASS, ...>
 
-## Expected State
+Expected State
+--------------
 
 - Ziel:
 - Nicht-Ziele:
@@ -25,7 +28,8 @@ checks: keine
 - Akzeptanzchecks:
 - Risiken/Abhängigkeiten:
 
-## Paket 1 (YYYY-MM-DD HH:MM)
+Paket 1 (YYYY-MM-DD HH:MM)
+---------------------------
 
 - Operationen:
 - IST vs. SOLL:
@@ -33,7 +37,8 @@ checks: keine
 - Maßnahmen:
 - Nächste Schritte:
 
-## Paket 2 (YYYY-MM-DD HH:MM)
+Paket 2 (YYYY-MM-DD HH:MM)
+---------------------------
 
 - Operationen:
 - IST vs. SOLL:
@@ -43,7 +48,8 @@ checks: keine
 
 <!-- Weitere Pakete bei Bedarf -->
 
-## Auswertung
+Auswertung
+----------
 
 - Befund:
 - Durchgeführte Checks:

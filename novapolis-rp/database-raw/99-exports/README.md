@@ -1,8 +1,15 @@
+---
+stand: 2025-11-06 15:38
+update: YAML Frontmatter ergänzt; H1 auf Setext umgestellt
+checks: markdownlint-cli2 PASS (single file)
+---
+
 <!-- context-core: true; context-id: novapolis-rp; priority: high -->
 > [!IMPORTANT]
 > Kontext‑Kerndokument (RAW‑Policy): Rohdaten gehören ausschließlich hierher. Keine ungefilterten Daten in `database-rp/`.
 
-# Exporte
+Exporte
+=======
 
 Lege hier deine geretteten Daten ab:
 

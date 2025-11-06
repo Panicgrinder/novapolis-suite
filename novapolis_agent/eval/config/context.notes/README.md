@@ -1,3 +1,12 @@
+---
+stand: 2025-11-06 15:38
+update: YAML Frontmatter ergänzt; H1 hinzugefügt (Setext)
+checks: markdownlint-cli2 PASS (single file)
+---
+
+Kontext‑Referenzen (context.notes)
+==================================
+
 Dieses Verzeichnis enthält „angeheftete“ Kontext-Referenzen für den Agenten.
 
 - .ref-Dateien verweisen auf die tatsächlichen Zieldateien (erste Zeile Pfad).
