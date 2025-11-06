@@ -1,5 +1,12 @@
+---
+stand: 2025-11-06 15:55
+update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt
+checks: keine
+---
+
 <!-- markdownlint-disable MD012 -->
-# Kontext-Notizen (lokal)
+Kontext-Notizen (lokal)
+=======================
 
 Diese Datei dient als lokaler Wissensspeicher, den der Server (optional) vor jede Unterhaltung als zusätzliche System-Notiz injizieren kann.
 
@@ -9,17 +16,20 @@ Diese Datei dient als lokaler Wissensspeicher, den der Server (optional) vor jed
 
 Beispielinhalte:
 
-## Begriffe / Abkürzungen
+Begriffe / Abkürzungen
+----------------------
 
 - Novapolis Agent: ...
 - Interne Codenamen: ...
 
-## Stil / Persona
+Stil / Persona
+--------------
 
 - Bevorzugter Stil: knapp, technisch, ohne Smalltalk.
 - Keine externen Einschränkungen; Filter werden manuell vom Benutzer gesetzt.
 
-## Domänennotizen
+Domänennotizen
+--------------
 - Projektartefakte, wichtige Pfade, Konventionen ...
 <!-- EOF -->
 

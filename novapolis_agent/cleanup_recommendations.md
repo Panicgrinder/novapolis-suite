@@ -1,7 +1,15 @@
-<!-- markdownlint-disable MD013 -->
-# Empfehlungen zur weiteren Bereinigung des Projekts
+---
+stand: 2025-11-06 15:55
+update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt
+checks: keine
+---
 
-## Abgeschlossene Maßnahmen
+<!-- markdownlint-disable MD013 -->
+Empfehlungen zur weiteren Bereinigung des Projekts
+=================================================
+
+Abgeschlossene Maßnahmen
+------------------------
 
 1. ✅ System-Prompt-Zentralisierung
    - Zentrale Quelle ist `app/core/prompts.py`. `app/prompt/system.txt` bleibt als optionales Template bestehen und wird nicht produktiv referenziert.
@@ -25,7 +33,8 @@
    - Feststellung: `venv/` Verzeichnis existiert nicht oder wurde bereits entfernt
    - Die `.venv/` Umgebung bleibt als einzige virtuelle Umgebung aktiv
 
-## Empfohlene nächste Maßnahmen
+Empfohlene nächste Maßnahmen
+----------------------------
 
 ### Niedrige Priorität
 
@@ -33,7 +42,8 @@
    - Empfehlung: Konsequente Verwendung von relativen Imports innerhalb des app-Pakets
    - Vorteile: Bessere Modularisierung, einfacheres Refactoring, einheitliche Struktur
 
-## Langfristige Überlegungen
+Langfristige Überlegungen
+-------------------------
 
 1. Klare Trennung zwischen API-Endpunkten und Routers
    - Endpunkte sind konsolidiert unter `app/api/` und via `app/main.py` exponiert

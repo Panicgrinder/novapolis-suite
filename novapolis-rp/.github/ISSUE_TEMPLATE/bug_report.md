@@ -5,11 +5,13 @@ labels: bug
 assignees: ''
 ---
 
-## Beschreibung
+Beschreibung
+------------
 
 Kurze, prägnante Beschreibung des Bugs.
 
-## Reproduktion
+Reproduktion
+------------
 
 Schritte zum Reproduzieren des Verhaltens:
 
@@ -17,20 +19,24 @@ Schritte zum Reproduzieren des Verhaltens:
 2. ...
 3. ...
 
-## Erwartetes Verhalten
+Erwartetes Verhalten
+--------------------
 
 Was hättest du erwartet?
 
-## Screenshots/Logs
+Screenshots/Logs
+----------------
 
 Optional Screenshots oder relevante Log‑Ausschnitte.
 
-## Umfeld
+Umfeld
+------
 
 - OS: [z. B. Windows 11]
 - Kontext: [z. B. VS Code]
 
-## Zusätzliche Infos
+Zusätzliche Infos
+-----------------
 
 Weitere Hinweise, Workarounds, Links.
 
