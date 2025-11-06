@@ -1,8 +1,12 @@
 ---
+stand: 2025-11-06 15:34
+update: YAML Frontmatter ergänzt; H1/H2 auf Setext umgestellt
+checks: markdownlint-cli2 PASS (single file)
 last-updated: 2025-10-27T19:20:00+01:00
 ---
 
-# Scenes – Konventionen
+Scenes – Konventionen
+=====================
 
 Empfohlene Front-Matter zur Validierung und Cross-Refs:
 
@@ -24,7 +28,8 @@ inventoryRefs: ["Novapolis-inventar"]
 
 H1-Überschrift ist Pflicht (wird geprüft). Inhalt frei.
 
-## Co-Occurrence (Bezugspaare)
+Co-Occurrence (Bezugspaare)
+---------------------------
 
 Folgende Paare müssen in Szenen gemeinsam auftreten (wird validiert):
 
