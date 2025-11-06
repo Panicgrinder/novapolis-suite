@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-06 04:52
-update: MD003: weiteres README konvertiert (RP curated); targeted lint PASS
-checks: markdownlint-cli2 (5 files total in this batch) PASS; pytest -q PASS, check_frontmatter.py PASS
+stand: 2025-11-06 15:22
+update: MD003: H1/H2 auf Setext (3 Dateien) – targeted PASS
+checks: markdownlint-cli2 PASS (3 Dateien, targeted); pytest -q PASS, check_frontmatter.py PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -12,6 +12,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-06 15:22: MD003-Setext-Korrekturen in `novapolis-rp/coding/tools/chat-exporter/README.md`, `novapolis-rp/coding/tools/metadata/README.md`, `novapolis-rp/coding/devcontainer/README.md`; targeted markdownlint PASS (3 Dateien).
 - 2025-11-06 04:50: MD003-Setext-Korrekturen in `packages/README.md`, `novapolis_agent/scripts/README.md`, `novapolis_agent/eval/README.md`, `novapolis_agent/eval/DEPRECATIONS.md`; targeted markdownlint PASS (4 Dateien).
 - 2025-11-06 04:52: MD003-Setext-Korrektur in `novapolis-rp/database-curated/README.md`; targeted markdownlint PASS.
 - 2025-11-06 04:40: Demo-Test entfernt (`tests/test_intentional_failure.py`) und `pytest -q` manuell via pwsh ausgeführt – Suite PASS.

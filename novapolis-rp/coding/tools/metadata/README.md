@@ -1,4 +1,5 @@
-# GPT Hybrid Metadata
+GPT Hybrid Metadata
+===================
 
 Dieses Tool erzeugt zu jeder Markdown-Datei (`*.md`) eine gleichnamige JSON-Metadatendatei im selben Ordner.
 
@@ -16,7 +17,8 @@ Dieses Tool erzeugt zu jeder Markdown-Datei (`*.md`) eine gleichnamige JSON-Meta
 }
 ```
 
-## Nutzung
+Nutzung
+-------
 
 - Dry-Run (zeigt nur an, was erstellt würde):
 
@@ -38,13 +40,15 @@ node coding/tools/metadata/init-metadata.js --overwrite
 
 > Hinweis: Ordner wie `node_modules/`, `.git/`, `.venv/` und `database-raw/99-exports/` werden übersprungen.
 
-## Integration mit lokalem GPT Agent (persistentes Gedächtnis)
+Integration mit lokalem GPT Agent (persistentes Gedächtnis)
+------------------------------------------------------------
 
 - Agent liest/aktualisiert die JSON-Dateien neben den `.md`-Dateien.
 - Empfohlen: Agent schreibt nur Felder wie `chapter`, `characters`, `location`, `tags` oder zusätzliche Felder (z. B. `storyState`, `relations`, `summary`).
 - Markdown-Dateien bleiben Quelle der Wahrheit für den Textinhalt; JSON hält Struktur/State.
 
-## Tipps
+Tipps
+-----
 
 - Keine bestehenden JSONs überschreiben, außer wenn bewusst gewünscht (Flag `--overwrite`).
 - Für Batch-Läufe in VS Code kann ein Task genutzt werden (siehe `.vscode/tasks.json`).

@@ -1,4 +1,5 @@
-# Devcontainer – Docs/Markdown Lint
+Devcontainer – Docs/Markdown Lint
+=================================
 
 Dieser Devcontainer bietet eine Node-Umgebung (Node 22) mit vorinstalliertem `markdownlint-cli2`.
 

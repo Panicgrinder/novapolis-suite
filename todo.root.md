@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-06 04:55
-update: MD003-Batch (5 Dateien) konvertiert; targeted markdownlint PASS; Demo-Test entfernt; Validator PASS.
-checks: markdownlint-cli2 FAIL (Repo, 437x MD003 Setext); targeted batch PASS; pytest -q PASS; check_frontmatter.py PASS
+stand: 2025-11-06 15:22
+update: MD003-Batch (3 Dateien) konvertiert; targeted markdownlint PASS.
+checks: targeted PASS (markdownlint-cli2, 3 Dateien); repo-weiter Lauf weiterhin MD003 offen; pytest -q PASS; check_frontmatter.py PASS
 ---
 
 <!-- markdownlint-disable MD003 -->
@@ -14,6 +14,7 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
+- 2025-11-06 15:22: MD003-Setext-Korrekturen in `novapolis-rp/coding/tools/chat-exporter/README.md`, `novapolis-rp/coding/tools/metadata/README.md`, `novapolis-rp/coding/devcontainer/README.md`; targeted markdownlint PASS (3 Dateien).
 - 2025-11-06 04:52: MD003-Setext-Korrektur in `novapolis-rp/database-curated/README.md`; targeted markdownlint PASS.
 - 2025-11-06 04:50: MD003-Setext-Korrekturen in `packages/README.md`, `novapolis_agent/scripts/README.md`, `novapolis_agent/eval/README.md`, `novapolis_agent/eval/DEPRECATIONS.md`; targeted markdownlint PASS (4 Dateien).
 - 2025-11-06 04:40: Demo-Test wieder entfernt (`tests/test_intentional_failure.py`), `pytest -q` via pwsh PASS; Frontmatter-Validator-Demo abgeschlossen.
