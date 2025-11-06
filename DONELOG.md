@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-06 15:22
-update: MD003 + YAML Frontmatter (3 Dateien); targeted Lint/Validator PASS
-checks: markdownlint-cli2 PASS (3 Dateien, targeted); check_frontmatter.py PASS; pytest -q PASS
+stand: 2025-11-06 15:30
+update: MD003 + YAML Frontmatter (weitere 5 Dateien); targeted Lint/Validator PASS
+checks: markdownlint-cli2 PASS (5 Dateien, targeted); check_frontmatter.py PASS; pytest -q PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -14,6 +14,7 @@ Kurzueberblick
 
 - 2025-11-06 15:22: MD003-Setext-Korrekturen in `novapolis-rp/coding/tools/chat-exporter/README.md`, `novapolis-rp/coding/tools/metadata/README.md`, `novapolis-rp/coding/devcontainer/README.md`; targeted markdownlint PASS (3 Dateien).
 - 2025-11-06 15:22: YAML-Frontmatter (stand/update/checks) in denselben 3 Dateien ergänzt; frontmatter-Validator PASS (targeted).
+- 2025-11-06 15:30: YAML-Frontmatter ergänzt und MD003-Konformität bestätigt (Setext bereits vorhanden bzw. H1 ergänzt) in `packages/README.md`, `novapolis-sim/README.md`, `novapolis-rp/README.md`, `novapolis-dev/README.md`, `novapolis-rp/coding/tools/validators/README.md`; targeted markdownlint + frontmatter-Validator PASS (5 Dateien).
 - 2025-11-06 04:50: MD003-Setext-Korrekturen in `packages/README.md`, `novapolis_agent/scripts/README.md`, `novapolis_agent/eval/README.md`, `novapolis_agent/eval/DEPRECATIONS.md`; targeted markdownlint PASS (4 Dateien).
 - 2025-11-06 04:52: MD003-Setext-Korrektur in `novapolis-rp/database-curated/README.md`; targeted markdownlint PASS.
 - 2025-11-06 04:40: Demo-Test entfernt (`tests/test_intentional_failure.py`) und `pytest -q` manuell via pwsh ausgeführt – Suite PASS.

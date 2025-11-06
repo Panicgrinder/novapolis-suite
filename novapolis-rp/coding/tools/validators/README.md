@@ -1,4 +1,11 @@
+---
+stand: 2025-11-06 15:22
+update: H1 als Setext + YAML Frontmatter
+checks: markdownlint-cli2 PASS (single file)
+---
+
 Validator-Suite (Novapolis-RP)
+==============================
 
 Validiert kuratierte Artefakte und RP-Daten (Schemata + Cross-Refs).
 

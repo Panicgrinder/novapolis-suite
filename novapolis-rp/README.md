@@ -1,3 +1,9 @@
+---
+stand: 2025-11-06 15:22
+update: YAML Frontmatter ergänzt (MD003-konform)
+checks: markdownlint-cli2 PASS (single file)
+---
+
 Novapolis-RP Workspace (F:)
 ===========================
 
