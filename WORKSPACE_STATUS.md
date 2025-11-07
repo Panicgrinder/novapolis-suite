@@ -1,4 +1,5 @@
-stand: 2025-11-07 02:29
+---
+stand: 2025-11-07 03:06
 update: Tree-Snapshots regeneriert; entfernte Markdownlint-Overrides dokumentiert; Arbeitsmodus aktualisiert.
 checks: markdownlint-cli2 PASS (staging reports/dev/agent)
 ---
