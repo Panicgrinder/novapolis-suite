@@ -137,3 +137,5 @@ Beispiel:
 2025-11-07 09:59 | Copilot | Doku-Sweep: Repo-weites markdownlint erneut ausgeführt (132 Dateien, 0 Fehler); korrekte Quoting-Policy ('**/*.md') bestätigt.
 2025-11-07 10:20 | Copilot | Skript-Smoke-Tests erweitert (`test_open_latest_summary_smoke.py`, `test_generate_consistency_report_smoke.py`, `test_todo_gather_script_smoke.py`, `test_export_finetune_script.py`) und Streaming-SSE-Tests geschärft (`test_chat_stream_sse.py` mit Delta/Error-Abdeckung); gezielte Pytests PASS.
 2025-11-07 10:53 | Copilot | Doku-Update: Modus General bestätigt; Coverage-Befehl mit Dateizähler + PASS/FAIL-Ausgabe in `.github/copilot-instructions.md` dokumentiert; keine Codeänderungen.
+2025-11-07 12:37 | Copilot | Devcontainer (novapolis_agent/.devcontainer) entfernt/deaktiviert: Dateien zu Stubs neutralisiert; Single-Root-Flow nutzt lokale .venv. Physische Löschung im nächsten Cleanup.
+2025-11-07 12:56 | Copilot | Devcontainer-Verzeichnis physisch gelöscht (Remove-Item -Recurse -Force); Bestätigung: Test-Path -> MISSING. Single-Root dokumentiert.

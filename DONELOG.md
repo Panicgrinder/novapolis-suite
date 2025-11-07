@@ -1,6 +1,6 @@
-stand: 2025-11-07 10:53
-update: Modus General (GPT-5) erneut bestätigt; Copilot-Anweisungen um Coverage-Dateizähler + PASS/FAIL ergänzt.
-checks: keine
+stand: 2025-11-07 11:58
+update: Wrapper-Policy präzisiert (Skript-Only via -File); single-root-todo Etappe 3b konsolidiert; Coverage-Status (~66%) notiert.
+checks: markdownlint (file) pending
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -11,6 +11,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-07 11:58: Wrapper-Policy in `.github/copilot-instructions.md` vereinheitlicht (Skript-Wrapper zwingend via `pwsh -NoProfile -File`); `single-root-todo.md` Hinweis angepasst (Wrapper-Pflicht + Etappe 3b); aktueller Coverage-Lauf (~66% < 80%) bleibt unter Fail-Under – Verbesserung eingeplant.
 - 2025-11-07 10:53: Moduswechsel dokumentiert (General aktiv); Coverage-Befehl in Copilot-Anweisungen mit Dateizähler + PASS/FAIL-Ausgabe ergänzt; keine Codeänderungen.
 - 2025-11-07 09:59: Doku-Sweep – markdownlint-Aufruf (npx, `'**/*.md'`) repo-weit erneut geprüft; 132 Dateien gelinted, 0 Fehler. Keine Codeänderungen.
 - 2025-11-07 08:59: Copilot-Anweisung ergänzt – Schnell-Index und pwsh-Cheat-Sheet hinzugefügt; markdownlint repo-weit PASS. Keine Codeänderungen.

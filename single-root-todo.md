@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-07 07:55
-update: VS-Code-Taskliste um Checks: types/full ergänzt; Markdownlint Hinweis unverändert.
-checks: keine
+stand: 2025-11-07 12:56
+update: Devcontainer-Verzeichnis physisch gelöscht; DONELOG/TODO aktualisiert.
+checks: markdownlint (file) PASS; pytest -q PASS; search (tasks/settings/devcontainer) PASS; Remove-Item PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -18,7 +18,7 @@ Hinweise
 - Archivierung: Fertige Blöcke (alle [x]) bitte in die jeweiligen Modul-Archive unter `novapolis-dev/archive/` verschieben.
 - Snapshot-Kopf: YAML-Frontmatter oben bei Änderungen aktualisieren (`stand`, `update`, `checks`).
 - Lint: Markdownlint läuft repo-weit ausschließlich manuell via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (keine VS Code Tasks oder Wrapper). Bei FAIL bitte minimalen Patch anwenden.
-- Terminal/Pwsh: Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks (ohne Markdownlint) sind entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`).
+- Terminal/Pwsh: Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks (ohne Markdownlint) sind entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`). Für komplexe/mehrachsige Abläufe sind Skript‑Wrapper via `pwsh -NoProfile -File <script.ps1>` Pflicht; Details siehe `.github/copilot-instructions.md`.
 - STOP-Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → Abschnitt „Unklarheiten‑STOP (global, immer gültig)“.
 
 Kurzüberblick (Module & Quellen)
@@ -34,6 +34,9 @@ Kurzüberblick (Module & Quellen)
 Offene Aufgaben (Root – quer durchs Repo)
 ----------------------------------------
 
+- [x] Wrapper-Policy präzisiert & gespiegelt (Root/TODO)
+  - 2025-11-07: `.github/copilot-instructions.md` vereinheitlicht (Wrapper via `pwsh -NoProfile -File` zwingend); Hinweis in diesem Dokument ergänzt.
+  - Lint (focused) PASS.
 - [x] .vscode-Konsolidierung (Root-zentriert) weiterführen (Etappen 0–2)
   - Referenz: Abschnitt "Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)" in `todo.root.md`.
   - 2025-11-02: User- und Profil-Settings bereinigt; nur `/.vscode/settings.json` bleibt maßgeblich.
@@ -72,6 +75,7 @@ Offene Aufgaben (Root – quer durchs Repo)
   - [x] Bundles umbenennen (Schema) & Rotation-Läufe dokumentieren (`rotation.log`)
     - 2025-11-03 00:28: `cvn-agent-main.bundle` → `cvn-agent-main-20251103-0028-rev1.bundle` (sha256 protokolliert)
     - 2025-11-03 00:28: `novapolis_agent.bundle` → `novapolis-agent-backup-20251103-0028-rev1.bundle` (sha256 protokolliert)
+
 
 Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
 -------------------------------------------------
@@ -139,45 +143,56 @@ Inventur-Status (2025-11-02 12:05):
 
 ### Etappe 1 – Eine venv im Root, Interpreter zentral
 
-- [ ] Root-Umgebung anlegen/vereinheitlichen: `.venv/` im Root; Dependencies aus `requirements*.txt` installieren
-- [ ] VS Code: Interpreter im Root setzen (Workspace-Level); alle Ordner-Overrides entfernen
+- [x] Root-Umgebung anlegen/vereinheitlichen: `.venv/` im Root; Dependencies aus `requirements*.txt` installieren
+- [x] VS Code: Interpreter im Root setzen (Workspace-Level); alle Ordner-Overrides entfernen
   - Akzeptanz: Python-Interpreter zeigt überall auf `${workspaceFolder}/.venv` (bzw. Python aus dieser venv)
-- [ ] Entfernen/Neutralisieren von Modul-Interpreter-Hinweisen
+- [x] Entfernen/Neutralisieren von Modul-Interpreter-Hinweisen
   - Dateien prüfen: `novapolis_agent/.vscode/settings.json`, `novapolis-rp/.vscode/settings.json`, `novapolis-sim/.vscode/settings.json`
   - Akzeptanz: Keine interpreterPath-/defaultInterpreterPath-Overrides außerhalb des Root mehr vorhanden
 
-Optionale Befehle (Pwsh):
+Status (2025-11-07 12:05):
+- Skript `scripts/setup_root_venv.ps1` hinzugefügt (idempotent, erstellt/aktualisiert .venv, installiert requirements/base+dev+train).
+- Ausführung erfolgreich (Python 3.13.2, pip 25.3). Anforderungen bereits erfüllt (Pakete vorhanden).
+- VS Code Settings verweisen auf `${workspaceFolder}/.venv/Scripts/python.exe` (Bestätigung).
+- Modul-Settings mit Interpreter-Override außerhalb Root nicht vorhanden.
+- Akzeptanzkriterien erfüllt → Etappe 1 abgehakt.
+
+Optionaler manueller Run (Referenz, kein weiterer Bedarf):
 
 ```powershell
-# Root venv erstellen (Windows, pwsh)
-py -3 -m venv .venv
-\.venv\Scripts\Activate.ps1
-pip install -U pip
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
+pwsh -NoProfile -File scripts/setup_root_venv.ps1
 ```
+
 
 ### Etappe 2 – Tasks zentral, CWD gezielt
 
-- [ ] Root `.vscode/tasks.json`: Alle Standard-Tasks hier definieren
-  - Markdownlint: kein Task (npx-only im Terminal)
-  - Linters: `Checks: linters (all)` (Ruff + Black, bereits vorhanden)
-  - Typen: `Checks: types (pyright+mypy)` ergänzen (cwd=`novapolis_agent`)
-  - Aggregiert: `Checks: full` (Sequenz lint → types → coverage) anlegen
-  - Tests: `pytest -q` (cwd=`novapolis_agent`), Coverage (cwd=`novapolis_agent`)
-  - DONELOG-Append (cwd=`novapolis_agent`)
-  - Optional: `ruff` (lint/fix), `black` (format)
-- [ ] Modul-Tasks deaktivieren/entfernen (nach Verifikation)
-  - Akzeptanz: Start aller Prüf-/Test-Tasks aus Root; Modul-Tasks nicht mehr erforderlich
-- [ ] ENV bleibt Root: Keine Modul-spezifischen `envFile`/Interpreter-Zuweisungen
+- [x] Root `.vscode/tasks.json`: Alle Standard-Tasks zentral (Lint, Types, Full, Coverage, Pytest (-q), Marker-Tests (unit/api+streaming), DONELOG append). Fix-/Format-Tasks bewusst nicht dauerhaft.
+  Abschluss (2025-11-07 11:09): Konsolidierung erfolgt; Policy: ruff/black Fix nur ad-hoc manuell.
+  Optional (deferred): Marker-Tasks für eval/scripts bei Bedarf nachziehen.
 
-### Etappe 3 – Test-Discovery steuern (nur dort, wo Tests sind)
+### Etappe 3 – Test-Discovery (Präzisierung)
 
-- [ ] Testlauf standardisieren: Root-Task „Tests: pytest (-q)“ mit `cwd=novapolis_agent`
-- [ ] Exklusion anderer Ordner absichern
-  - Variante A (bevorzugt): `cwd` strikt auf `novapolis_agent`
+- [x] Testlauf standardisieren: Root-Task „Tests: pytest (-q)“ mit `cwd=novapolis_agent` (vorhanden)
+- [x] Root-Absicherung: `pytest.ini` im Root mit `testpaths = novapolis_agent/tests` ergänzt (migrationsfreundlich für spätere Root-Runs)
+- [x] Godot-/Datenordner von Testdiscovery ausschließen (über `norecursedirs`/Ignores in Root-Config abgedeckt)
+
+  Status (2025-11-07 11:16):
+  - Aktive Strategie: Kombination aus Variante A (Tasks mit `cwd=novapolis_agent`) und Root-Absicherung via `testpaths` (Variante B) → beides funktionsfähig.
+  - Marker wurden im Root gespiegelt, damit Root-Runs ohne UnknownMark-Warnungen funktionieren.
+  - Drift-Risiko minimiert: Root-Config ist minimal gehalten; Modul-Config bleibt vorerst bestehen.
+- [x] Modul-Tasks deaktivieren/entfernen (nach Verifikation)
+  - Status 2025-11-07 12:30: Suche `**/.vscode/tasks.json` zeigt nur Root-Datei; keine modulare Tasks vorhanden → akzeptiert.
+  - Akzeptanz: Start aller Prüf-/Test-Tasks aus Root; Modul-Tasks nicht mehr erforderlich (erfüllt)
+- [x] ENV bleibt Root: Keine Modul-spezifischen `envFile`/Interpreter-Zuweisungen
+  - Status 2025-11-07 12:30: Keine `/.vscode/settings.json` in Modulen gefunden; Root `settings.json` setzt `python.defaultInterpreterPath` und ein zentrales `python.envFile` (Agent-`.env`) → keine Modul-Overrides.
+
+### Etappe 3b – Test-Discovery steuern (nur dort, wo Tests sind)
+
+- [x] Testlauf standardisieren: Root-Task „Tests: pytest (-q)“ mit `cwd=novapolis_agent`
+- [x] Exklusion anderer Ordner absichern
+  - Variante A (bevorzugt): `cwd` strikt auf `novapolis_agent` (Wrapper: `scripts/run_pytest_quick.ps1`)
   - Variante B: Root-`pytest.ini` mit `testpaths = novapolis_agent/tests` (falls Root-Run ohne cwd genutzt wird)
-- [ ] Godot-/Datenordner von Testdiscovery ausschließen (falls Root-Discovery aktiv)
+- [x] Godot-/Datenordner von Testdiscovery ausschließen (falls Root-Discovery aktiv)
   - Akzeptanz: `pytest -q` findet ausschließlich Agent-Tests
 
 ### Etappe 4 – Lint/Format global vereinheitlichen
@@ -265,6 +280,9 @@ Notiz (2025-11-02 10:27): `.code-workspace` wurde auf Single-root reduziert (nur
 - [x] `novapolis-sim/.editorconfig` „root = true“ entfernt
 - [x] Root `pyproject.toml` bereinigen (doppelte [project]/[build-system] entfernen, einheitliche Tools/Config)
 - [ ] Modul-`pyproject.toml` konsolidieren oder isolieren (Tests/Lint steuern via CWD/paths)
+
+Notiz (2025-11-07 12:37): Devcontainer für Agent entfernt/deaktiviert (novapolis_agent/.devcontainer/* auf Stub gesetzt). Single‑Root nutzt lokale `.venv`; keine Container-Abhängigkeit.
+Notiz (2025-11-07 12:56): Devcontainer-Ordner physisch gelöscht; keine aktive VS Code Devcontainer-Konfiguration mehr im Repo.
 
 Notiz (2025-11-02 11:35): Root `pyproject.toml` jetzt tools-only (black/ruff/pytest). Packaging verbleibt in Modulen/Paketen.
 
