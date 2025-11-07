@@ -99,5 +99,5 @@ Hinweise:
 - Tasks sind im Workspace vorkonfiguriert; CI bleibt massgeblich.
 - Bei PowerShell-Quoting-Problemen (Unexpected token) statt des Tasks direkt ausfuehren:
   - `powershell -ExecutionPolicy Bypass -File coding/tools/validators/run_check_names.ps1`
-- Markdown-Lint lokal: ausschließlich direkt im Terminal via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"` (keine Wrapper/Tasks).
+- Markdown-Lint lokal: ausschließlich direkt im Terminal via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (keine Wrapper/Tasks).
 

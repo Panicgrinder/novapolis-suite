@@ -28,7 +28,7 @@ Nutzung (lokal)
   - Namen prüfen (robust, ohne Inline-Command):
     - `powershell -ExecutionPolicy Bypass -File coding/tools/validators/run_check_names.ps1`
   - Markdown-Lint (zentral):
-    - `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"`
+  - `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'`
   - Behavior-Matrix-Check (optional):
     - `python coding/tools/validators/behavior_matrix_check.py`
 

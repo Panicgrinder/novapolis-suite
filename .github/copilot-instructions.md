@@ -1,7 +1,7 @@
 Copilot-Projektanweisungen (Novapolis Suite)
-============================================
+=============================================
 
-Stand: 2025-11-07 06:07 – Essentials aus Agent/Dev‑Hub/RP integriert (Konsolidierung B, Feinschliff folgt)
+Stand: 2025-11-07 10:47 – Coverage-Befehl um Dateizähler + PASS/FAIL-Ausgabe ergänzt
 Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-sim/project.godot`)
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
@@ -11,6 +11,12 @@ Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-si
 >
 > Hinweis (STOP): „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe.
 
+Dateipfad & Geltungsbereich
+---------------------------
+- **Kanonischer Speicherort:** `.github/copilot-instructions.md` im Repo-Root. Nur hier abgelegte Inhalte gelten als verbindlich; Kopien/Backups dienen ausschließlich der Historie.
+- **Geltungsbereich:** Regeln gelten für Copilot Chat in VS Code, Inline-Completions, Apply-Patch-Befehle und agentische Funktionen (z. B. Tasks, Run-Code-Snippets). Bei Tools mit begrenztem Kontext immer die Kernregeln priorisieren und Details bei Bedarf im Chat referenzieren.
+- **Pfad-Disziplin:** Tippfehler oder abweichende Verzeichnisse (z. B. `.github/copilot-instuctions.md`) werden ignoriert. Vor Änderungen prüfen, dass die editierte Datei exakt den kanonischen Pfad besitzt.
+
 Primäre Behaviour-Quellen
 -------------------------
 
@@ -19,6 +25,7 @@ SSOT: Dieses Dokument ist die zentrale Verhaltens‑/Arbeitsrichtlinie. Modul‑
 - Konsolidiert: Frühere Modulkopien (Agent/Dev‑Hub) wurden in dieses Dokument überführt und entfernt.
 - `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`: Rollenspiel-spezifische Verhaltenshooks und Rollenmatrix (SSOT in RP).
 - `novapolis-rp/development/docs/` enthielt Legacy-Stubs und wurde entfernt (2025-11-05). Verwende ausschließlich die oben genannte RP‑Quelle und dieses Dokument.
+- Priorität: 1) Dieses Dokument (global), 2) `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.*` (RP-spezifisch), 3) `novapolis_agent/docs/DONELOG.txt` + Agent-Essentials (Backend-spezifisch). Bei Konflikten gilt die niedrigere Zahl.
 
 Gemeinsamer Arbeitsstil
 -----------------------
@@ -32,6 +39,59 @@ Gemeinsamer Arbeitsstil
 - Prägnanter Output: skimmbar, keine überladenen Blockzitate; bei großen Aufgaben Plan in betreffende todo eintragen.
 - Sicherheit & Privacy: Keine Secrets, offline bevorzugen, keine harten Pfade zu externen Repositories übernehmen.
 - Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
+
+Onboarding & Setup
+------------------
+Schnell‑Index (häufig genutzte Themen)
+--------------------------------------
+
+| Thema        | Vorkommen |
+| ---          | ---:      |
+| DONELOG      | 27        |
+| pyright      | 22        |
+| pytest       | 20        |
+| STOP         | 20        |
+| markdownlint | 19        |
+| pwsh         | 17        |
+| mypy         | 16        |
+| Frontmatter  | 14        |
+| TODO         | 14        |
+| Tasks        | 14        |
+| .venv        | 11        |
+| Coverage     | 10        |
+
+Hinweis: Aus dieser Datei automatisch ermittelt (Stoppwörter/Plural nicht normalisiert). Dient als Navigationshilfe, nicht als strikte Metrik.
+
+Cheat Sheet (pwsh‑Kommandos)
+----------------------------
+
+Kurzformen für die drei wichtigsten lokalen Prüfungen (identisch mit den ausführlichen Befehlen weiter unten):
+
+- Lint (Ruff + Black, keine Auto‑Fixes)
+
+  ```powershell
+  pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; if ($ruffExit -ne 0 -or $LASTEXITCODE -ne 0) { exit 1 } }"
+  ```
+
+- Typen (Pyright + Mypy)
+
+  ```powershell
+  pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $agent = Join-Path $root 'novapolis_agent'; Set-Location $agent; $pyright = Join-Path $root '.venv\\Scripts\\pyright.exe'; if (-not (Test-Path -LiteralPath $pyright)) { $pyright = 'pyright'; }; & $pyright -p pyrightconfig.json; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m mypy --config-file mypy.ini app scripts; exit $LASTEXITCODE }"
+  ```
+
+- Tests (Pytest mit Coverage ≥ 80 %)
+
+  ```powershell
+  pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { `$_ -match '::' } | ForEach-Object { (`$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host "STOP: Zu viele Testdateien gesammelt ($fileCount > $maxTestFiles). Bitte Scope prüfen."; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
+  if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest FAIL ($LASTEXITCODE)" }
+  ```
+
+  > `$maxTestFiles` (Standard 40) stellt sicher, dass nicht versehentlich zu viele Testdateien im Lauf landen. Bei Überschreitung stoppt der Befehl mit einer roten STOP-Notiz.
+
+Details und Begründung siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“ weiter unten.
+- Einmalig `pwsh -NoProfile -Command "& .\.venv\Scripts\python.exe -m pip install --upgrade pip"` ausführen, falls Pip veraltet ist.
+- Erste Validierung: Sequenz aus Lint (`ruff`, `black --check`), Typen (`pyright`, `mypy`) und Tests mit Coverage (Pytest ≥ 80 %) jeweils manuell via `pwsh -NoProfile -Command "& { ... }"` ausführen; Beispielbefehle siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“.
+- Vor Sessions mit Copilot bzw. GPT‑5 zwingend `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` ausführen (Achtung: Glob stets in einfachen Anführungszeichen, keine abschließenden Escape-Zeichen), um falsche Positivmeldungen in nachfolgenden Tests zu vermeiden. Den Befehl unverändert direkt im Terminal eingeben – keine `pwsh -NoProfile -Command`-Hülle verwenden.
 
 ### Tippfehler-/Benennungshygiene
 
@@ -47,21 +107,43 @@ Gemeinsamer Arbeitsstil
 - Mensch: bestätigt Moduswechsel (STOP‑Gate) und gibt neue Tasks oder Anpassungen frei.
 - Mensch: sorgt dafür, dass das User-Terminal frei ist, wenn Copilot Tasks starten soll.
 
-### Kanonische Tasks (Referenz)
+### Kanonische Prüfabläufe (pwsh)
 
-- Checks: *lint+pytest* (Task führt Ruff/Black aus; Markdownlint läuft separat manuell via `npx --yes`).
-- Git: *commit+push* (Commit-Message per Prompt, dann Push).
-- Hinweis: Labels müssen exakt den Einträgen in `.vscode/tasks.json` entsprechen; bei Abweichung **nicht starten**, sondern Rückfrage.
-- Gates können jederzeit durch die Formulierung „STOP‑Gate aus (Session)“ deaktivieren und mit „STOP‑Gate an“ wieder aktivieren.
+- Grundlage: Die gleichnamigen VS Code Tasks dienen nur als Referenz. Copilot/GPT starten sie nicht über `run_task`, sondern führen die folgenden PowerShell-Befehle manuell aus.
+- **Lint (Ruff + Black, keine Auto-Fixes)**
+
+  ```powershell
+  pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; if ($ruffExit -ne 0 -or $LASTEXITCODE -ne 0) { exit 1 } }"
+  ```
+
+- **Typen (Pyright + Mypy)**
+
+  ```powershell
+  pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $agent = Join-Path $root 'novapolis_agent'; Set-Location $agent; $pyright = Join-Path $root '.venv\\Scripts\\pyright.exe'; if (-not (Test-Path -LiteralPath $pyright)) { $pyright = 'pyright'; }; & $pyright -p pyrightconfig.json; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m mypy --config-file mypy.ini app scripts; exit $LASTEXITCODE }"
+  ```
+
+- **Tests (Pytest Coverage ≥ 80 %)**
+
+  ```powershell
+  pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { `$_ -match '::' } | ForEach-Object { (`$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host "STOP: Zu viele Testdateien gesammelt ($fileCount > $maxTestFiles). Bitte Scope prüfen."; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
+  if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest FAIL ($LASTEXITCODE)" }
+  > `$maxTestFiles` kann bei Bedarf angepasst werden; die STOP-Meldung verhindert, dass ungewollt große Testmengen laufen.
+  ```
+
+- **Aggregierte Prüfung (`Checks: full`)**: obige Befehle in der Reihenfolge Lint → Typen → Tests ausführen und Ergebnisse dokumentieren.
+- **Git (commit + push)**: Menschen starten bei Bedarf `scripts/git_commit_push.ps1`; Agenten fordern das manuell anstatt Tasks auszuführen.
+- Ausnahmen: Keine. Bei externen/CI-gebundenen Abläufen dokumentieren und den menschlichen Operator bitten, sie auszulösen.
+- Rationale: VS Code Tasks verändern die Ausführungsumgebung und benötigen Benutzerkontext; manuelle `pwsh`-Aufrufe halten die Umgebung deterministisch.
 
 Zusatz (pwsh):
-- Für Tasks mit Python-Nutzung wird per `-Command` direkt der Interpreter aus `.venv` (Fallback `python`) aufgerufen; CWD/Coverage-Pfade sind im Task hinterlegt.
-- Bei Pfaden mit Leerzeichen bitte `${workspaceFolder}` und `Join-Path` verwenden.
+- Für Python-Befehle den Interpreter aus `.venv` verwenden (Fallback `python`), wie in den Beispielen gezeigt.
+- Bei Pfaden mit Leerzeichen `${workspaceFolder}` und `Join-Path` einsetzen.
 
 ### Update-Logistik
 
-- Timestamp: Änderungen mit `YYYY-MM-DD HH:mm` (lokale Zeit) vermerken – gilt für Kopfzeilen („Stand“, „Letzte Aktualisierung“), DONELOG-Einträge und kurze Statusnotizen.
-- Systemzeit (kanonisch): `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
+- Timestamp: Änderungen im Format `YYYY-MM-DD HH:mm` erfassen – gilt für Kopfzeilen („Stand“, „Letzte Aktualisierung“), DONELOG-Einträge und kurze Statusnotizen. Standard ist die lokale Systemzeit. Wer mit abweichender Zeitzone arbeitet, ergänzt im `update`-Feld den Offset (z. B. `UTC+02`) oder weist ihn im Text aus. Eine Umstellung auf `Z`/UTC erfolgt erst nach Anpassung des Validators.
+- Systemzeit (lokal, kanonisch): `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
+- Systemzeit (UTC, optionaler Zusatz): `pwsh -NoProfile -Command "(Get-Date).ToUniversalTime().ToString('yyyy-MM-dd HH:mm')"`.
 - Kurznotiz: 1–2 Sätze oder Bullet, was angepasst wurde (analog zu `novapolis-rp/database-rp/02-*`). Bei komplexeren Tasks optional Primärpfad referenzieren (`app/...`, `scripts/...`).
 - Prüfungen: Relevante Checks nennen (z. B. `pytest -q`, `pyright`, `markdownlint-cli2`) inkl. Ergebnis/Exit-Status; bei Bedarf Link/Dateipfad zur Ausgabe ergänzen.
 - Markdownlint-Läufe protokollieren: Lauf/Command + PASS/FAIL direkt nach dem Lauf im Status erwähnen.
@@ -106,6 +188,7 @@ checks: keine
   - Beispiel:
     - `Stand: 2025-11-01 09:28 – Abschnitt X präzisiert.`
     - `Checks: pytest -q PASS`
+  - Migrationsstatus & Historie: Siehe Archiv `novapolis-dev/archive/copilot-instructions-update-tode.archive.md`.
 
 ### Frontmatter‑Schutz (robust gegen Delimiter‑Verlust)
 
@@ -117,8 +200,27 @@ checks: keine
   - Pre‑commit: `scripts/check_frontmatter.py` verpflichtend ausführen; Commit bei Fehlern blocken.
   - Zusätzliche Sofort‑Checks: erste Zeile exakt `---`, schließender Delimiter vorhanden, kein BOM vor dem öffnenden Delimiter.
   - CI: Frontmatter‑Validator als Schritt im Root‑Workflow (fail‑fast außerhalb der Skip‑Pfade).
+  - Skip-Pfade (siehe `scripts/check_frontmatter.py`): `.venv/`, `Backups/`, `outputs/`, `novapolis_agent/eval/results/`, `novapolis_agent/outputs/`, `novapolis-rp/database-raw/`, `.pytest_cache/` (inkl. projektspezifischer Varianten), `.github/ISSUE_TEMPLATE/` sowie diese Datei selbst.
+- Der Validator ist ein hartes Gate: Sowohl Pre-Commit als auch CI brechen bei Verstößen ab; ohne Fix gibt es keinen Push/kein Merge.
 - Wiederherstellung bei Vorfall:
   - Unmittelbarer Revert des betroffenen Hunks/Commits aus Git, danach Validator erneut ausführen und eine kurze DONELOG‑Notiz ergänzen.
+
+Dateiformat & EOL
+-----------------
+- Markdown-Dateien stets als UTF-8 ohne BOM speichern; der Validator schlägt bei BOM im ersten Zeichen fehl.
+- Genau eine abschließende Newline am Dateiende belassen (MD047), keine zusätzlichen Leerzeilen anhängen.
+- Git kümmert sich um Zeilenendungen (LF) im Repo; lokale CRLF-Konvertierungen sind erlaubt, solange der Commit wieder LF enthält. Bei Unsicherheiten `.gitattributes` respektieren und keinen Auto-Formatter einsetzen, der Frontmatter anfasst.
+
+Definition of Done (Code & Docs)
+--------------------------------
+- **Code:** `pytest -q` PASS, `pyright -p pyrightconfig.json` PASS, `python -m mypy --config-file mypy.ini app scripts` PASS, Coverage ≥ 80 % (Task `Tests: coverage (fail-under)`), relevante DONELOG/TODO-Einträge aktualisiert, keine neuen TODO-Reste.
+- **Docs:** Frontmatter aktualisiert (`stand`/`update`/`checks`), Markdownlint PASS, Stilvorgaben (MD003) eingehalten, keine überzähligen Leerzeilen, Kontext-Referenzen (z. B. Primärpfade) ergänzt.
+
+Security & Dependencies
+-----------------------
+- Monatlich (mindestens) `pip-audit` oder vergleichbares Tool ausführen; Findings vor Merge/Release auflösen.
+- Abhängigkeiten pinnen (`requirements*.txt`, `pyproject.toml`); Versionssprünge dokumentieren (DONELOG + kurze Notiz).
+- Keine Secrets ins Repo commiten (`.env` bleibt lokal). Vor Uploads/Exports prüfen, ob sensible Daten sanitisiert sind.
 
 Essentials (konzentriert)
 -------------------------
@@ -221,7 +323,14 @@ Prüf- und Release-Checks
 ------------------------
 - Vor Commits relevante Tests/Skripte ausführen (Root‑basiert): `novapolis_agent/scripts/run_tests.py` (cwd=`novapolis_agent`), Validatoren unter `novapolis-rp/coding/tools/validators/`.
 - Bei Änderungen an Behaviour-/Policy‑Dokumenten zusätzlich den Test `novapolis_agent/tests/test_content_policy_profiles.py` laufen lassen und Changelogs prüfen. Diese Regel ist im Single‑Root‑TODO verlinkt.
+- Coverage-Gate: Task `Tests: coverage (fail-under)` muss ≥ 80 % liefern; bei Unterschreitung erfolgt kein Merge/Push ohne Freigabe.
 - Bei Unsicherheiten/Unklarheiten: STOP‑Gate setzen (Rückfrage einholen), dann mit Minimal‑Delta fortfahren; transparente Diffs mit Dateiliste/Diffstat, keine Shell‑Kommandos oder History‑Rewrites.
+
+Release & Versionierung
+-----------------------
+- Versionierung über `pyproject.toml`; Versionssprung + Git-Tag `vX.Y.Z` gehören in denselben PR.
+- `DONELOG.md` bzw. projektspezifische DONELOGs um einen Eintrag ergänzen (Wer/Was/Wann, kurzer Kontext).
+- Kein Release ohne grüne Gates (Tests, Types, Coverage, Frontmatter-Validator, Markdownlint bei Docs).
 
 Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Root sind wirksam. Kopien/Spiegel in Unterordnern (z. B. `novapolis_agent/.github/workflows/`) gelten als Stubs/Archiv und werden von GitHub Actions nicht ausgeführt. Cleanup als eigener Task vorschlagen (vorher eingehende Verweise prüfen).
 
@@ -306,13 +415,14 @@ Novapolis-RP
 ### Markdownlint (zentral)
 
   - MD003 = `setext_with_atx` (H1/H2 im Setext‑Stil, H3+ im ATX‑Stil; je Level konsistent innerhalb der Datei). Keine gemischten Stile für dasselbe Level in einer Datei.
+  - Konfiguration erfolgt zentral über `.markdownlint-cli2.jsonc`; projektlokale Overrides nur nach Review und dokumentierter Ausnahme.
   - `ignores` in der CLI2‑Config decken generierte/kuratierte Bereiche ab (u. a. `novapolis_agent/eval/results/**`, `novapolis_agent/outputs/**`, `outputs/**`, `novapolis-rp/.pytest_cache/**`).
-  - Lokaler Lauf (nur im bestehenden Terminal, unter pwsh -NoProfile): `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"`.
-  - Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc "**/*.md"`.
+  - Vor Arbeiten mit Copilot/GPT‑5 Pflichtlauf im bestehenden Terminal: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (ohne zusätzliche `pwsh -NoProfile -Command`-Hülle).
+  - Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc '**/*.md'`.
   - Grundsatz: Keine globalen CLI‑Installationen und keine Wrapper‑Skripte für Markdownlint verwenden; ausschließlich `npx --yes`.
 
 Optionaler Zusatz: Für einen schnellen Dokumentations‑Lint direkt im Terminal ausführen:
-  - `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "novapolis-dev/docs/**/*.md" "novapolis_agent/docs/**/*.md"`
+  - `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/**/*.md' 'novapolis_agent/docs/**/*.md'`
 
 #### Diagnose‑Playbook bei Lint‑FAIL (pwsh, konservativ)
 
@@ -321,7 +431,7 @@ Ziel: Lint‑Fehler reproduzierbar erfassen, schnell auswerten und mit minimalem
 - Ausführung (repo‑weit, Konfiguration aus Root):
   - Bestehendes Terminal (PowerShell 7, `-NoProfile`) verwenden.
   - Vollständige Ausgabe in Datei sichern:
-    - Beispiel: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md" 2>&1 | Tee-Object -FilePath lint_fail.out`
+  - Beispiel: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' 2>&1 | Tee-Object -FilePath lint_fail.out`
 - Analyse (PowerShell‑only, Python via Here‑String in `python -` pipen):
   - Hintergrund: Kein Bash, keine Backticks; UTF‑8 sicher; kein Multi‑Line `python -c`.
   - Muster (Interpreter anpassen, z. B. auf Workspace‑Venv):
@@ -353,7 +463,7 @@ $script | & $python -
   - MD047/single-trailing-newline: Fehlende Abschluss‑Zeile am Dateiende hinzufügen (genau eine).
 - Akzeptanzchecks:
   - Nach Fix: optional enger Bereich erneut mit obigem npx‑Aufruf prüfen.
-  - Voller Lauf mit `"**/*.md"` kann weiterhin FAIL sein, bis alle betroffenen Dateien bereinigt sind.
+  - Voller Lauf mit `'**/*.md'` kann weiterhin FAIL sein, bis alle betroffenen Dateien bereinigt sind.
   - Ergebnisse kurz protokollieren (PASS/FAIL, ggf. Pfad zur Ausgabe z. B. `lint_fail.out`).
 
 ### Mirrors/Redirect‑Stubs

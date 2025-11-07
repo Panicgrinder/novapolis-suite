@@ -66,7 +66,7 @@ Lint ausführen (optional, lokal):
 
 ```powershell
 Set-Location "F:/VS Code Workspace/Main"
-npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"
+npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'
 ```
 
 Workspace öffnen

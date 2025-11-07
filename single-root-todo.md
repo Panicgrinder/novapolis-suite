@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-07 05:59
-update: Pre-commit Gate + CI‑Job für Frontmatter ergänzt (scoped); A+B erledigt; Option C offen
-checks: markdownlint-cli2 "**/*.md" PASS; frontmatter (scoped) PASS; pre-commit hook erweitert
+stand: 2025-11-07 07:55
+update: VS-Code-Taskliste um Checks: types/full ergänzt; Markdownlint Hinweis unverändert.
+checks: keine
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -17,8 +17,8 @@ Hinweise
 - SSOT: Modul-TODOs bleiben maßgeblich. Diese Datei dient als komfortabler Root-Einstieg.
 - Archivierung: Fertige Blöcke (alle [x]) bitte in die jeweiligen Modul-Archive unter `novapolis-dev/archive/` verschieben.
 - Snapshot-Kopf: YAML-Frontmatter oben bei Änderungen aktualisieren (`stand`, `update`, `checks`).
-- Lint: Markdownlint läuft repo-weit via npx/Task. Bei FAIL bitte minimalen Patch anwenden.
-- Terminal/Pwsh: Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks sind bereits entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`).
+- Lint: Markdownlint läuft repo-weit ausschließlich manuell via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (keine VS Code Tasks oder Wrapper). Bei FAIL bitte minimalen Patch anwenden.
+- Terminal/Pwsh: Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks (ohne Markdownlint) sind entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`).
 - STOP-Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → Abschnitt „Unklarheiten‑STOP (global, immer gültig)“.
 
 Kurzüberblick (Module & Quellen)
@@ -160,7 +160,10 @@ pip install -r requirements-dev.txt
 ### Etappe 2 – Tasks zentral, CWD gezielt
 
 - [ ] Root `.vscode/tasks.json`: Alle Standard-Tasks hier definieren
-  - Lint: `markdownlint-cli2` (repo-weit)
+  - Markdownlint: kein Task (npx-only im Terminal)
+  - Linters: `Checks: linters (all)` (Ruff + Black, bereits vorhanden)
+  - Typen: `Checks: types (pyright+mypy)` ergänzen (cwd=`novapolis_agent`)
+  - Aggregiert: `Checks: full` (Sequenz lint → types → coverage) anlegen
   - Tests: `pytest -q` (cwd=`novapolis_agent`), Coverage (cwd=`novapolis_agent`)
   - DONELOG-Append (cwd=`novapolis_agent`)
   - Optional: `ruff` (lint/fix), `black` (format)

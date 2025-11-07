@@ -1,7 +1,6 @@
----
-stand: 2025-11-07 06:27
-update: Behaviour-SSOT konsolidiert; alte Behaviour-Dokumente entfernt; Referenzen gedreht.
-checks: keine
+stand: 2025-11-07 09:59
+update: Doku-Sweep: markdownlint-Nutzung repo-weit verifiziert (naked npx, korrektes Quoting); erneuter Lauf PASS (132 Dateien).
+checks: markdownlint-cli2 PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -12,11 +11,16 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-07 09:59: Doku-Sweep – markdownlint-Aufruf (npx, `'**/*.md'`) repo-weit erneut geprüft; 132 Dateien gelinted, 0 Fehler. Keine Codeänderungen.
+- 2025-11-07 08:59: Copilot-Anweisung ergänzt – Schnell-Index und pwsh-Cheat-Sheet hinzugefügt; markdownlint repo-weit PASS. Keine Codeänderungen.
+- 2025-11-07 08:46: Copilot-Anweisung überarbeitet – Task-Beschreibungen in `.github/copilot-instructions.md` auf konkrete pwsh-Kommandos umgestellt und Widerspruch zu Task-Ausführung entfernt. Keine Tests.
+- 2025-11-07 08:34: Legacy-Kompatibilitätsschicht `utils/__init__.py` ergänzt, re-exportiert Module aus `novapolis_agent.utils` für bestehende Importpfade (`from utils.*`). Smoke-Test `tests/test_api_health.py` PASS. Voller Pytest-Coverage-Lauf via pwsh fehlgeschlagen (Coverage 65.64 % < 80 %).
+- 2025-11-07 08:24: Copilot-Anweisung präzisiert: Copilot/GPT dürfen keine VS Code Tasks ausführen; alle Tests/Lint/Typechecks sind via PowerShell (pwsh, -NoProfile) direkt auszuführen. Beispiel-Pattern in `.github/copilot-instructions.md` ergänzt. Reine Dokuänderung.
 - 2025-11-07 06:27: Behaviour-SSOT konsolidiert: `.github/copilot-instructions.md` ist jetzt alleinige Quelle. Alte Dokumente `novapolis_agent/docs/AGENT_BEHAVIOR.md` und `novapolis-dev/docs/copilot-behavior.md` gelöscht (pwsh), alle zentralen Verweise gedreht (Root/Dev/Agent READMEs, WORKSPACE_STATUS, Agent WORKSPACE_INDEX, training.md, Dev-Index, .vscode/settings.json, RP todo); Kontext‑Notes `.ref` aktualisiert. Keine Codeänderungen.
 - 2025-11-07 04:56: Archiv-TODOs (`novapolis-dev/archive/todo.*.archive.md`) auf Setext gebracht, Timestamps/Checks erneuert; `.github/ISSUE_TEMPLATE/feature_request.md` vereinheitlicht; repo-weites `markdownlint-cli2` PASS (132 Dateien).
 - 2025-11-07 03:12: `todo.root.md` auf Setext (H1/H2) umgestellt, YAML-Frontmatter korrigiert; Einzel-Lint PASS.
 - 2025-11-07 02:29: Tree‑Snapshots aktualisiert; Staging‑Reports (Setext + YAML‑Frontmatter) vereinheitlicht und gelinted (scoped PASS); Status ergänzt.
-- 2025-11-07 02:19: DONELOGs/Status-Docs synchronisiert (`todo.root.md`, `WORKSPACE_STATUS.md`, `single-root-todo.md`); Repo-weites markdownlint-Ergebnis (MD003‑Backlog) dokumentiert; VS Code Lint‑Task (Quoting "**/*.md") angeglichen.
+- 2025-11-07 02:19: DONELOGs/Status-Docs synchronisiert (`todo.root.md`, `WORKSPACE_STATUS.md`, `single-root-todo.md`); Repo-weites markdownlint-Ergebnis (MD003‑Backlog) dokumentiert; VS Code Lint‑Task (Quoting `'**/*.md'`) angeglichen.
 - 2025-11-07 01:39: TODO/WORKSPACE_STATUS aktualisiert (Single-Repo-Governance-Reminder, Aufgaben für Lint-Overrides, Staging-Report-Migration, Metadata-Konsolidierung, Archiv-Ablage) – reine Doku-Anpassung.
 - 2025-11-07 01:27: Workspace-Konfliktanalyse abgeschlossen (Markdownlint-Overrides in `novapolis-rp/database-curated/staging/**`, Staging-Reports ohne Frontmatter, doppelte Metadata-Skripte `.js/.py`, Alt-Notiz `novapolis_agent/analysis_chat_routers.md`). Ergebnisse in TODO/Status erfasst.
 - 2025-11-06 15:58: MD003 Setext + YAML-Frontmatter in `novapolis_agent/cleanup_recommendations.md`, `Backups/novapolis-rp-development-archived-20251105/development/README.md`, `novapolis-dev/logs/betriebsmodi-20251103-0341.tmp.md`, `novapolis-rp/.github/ISSUE_TEMPLATE/bug_report.md`, `novapolis_agent/eval/config/context.local.sample.md`; targeted markdownlint PASS (5 Dateien); Logs aktualisiert.

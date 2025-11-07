@@ -1,5 +1,4 @@
----
-stand: 2025-11-07 06:31
+stand: 2025-11-07 09:59
 update: SSOT Verhalten konsolidiert; Duplikate gelöscht; Referenzen aktualisiert
 checks: markdownlint-cli2 PASS
 ---
@@ -7,6 +6,12 @@ checks: markdownlint-cli2 PASS
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+Doku-Sweep: markdownlint konsolidiert (2025-11-07 09:59)
+-----------------------------------------------------
+
+- Repo-weiter Check: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` → 132 Dateien, 0 Fehler.
+- Referenzen zum markdownlint-Befehl erneut geprüft (naked npx, korrektes Quoting mit einfachen Anführungszeichen). Keine inhaltlichen Änderungen.
 
 SSOT-Verhalten konsolidiert; Duplikate gelöscht (2025-11-07 06:31)
 -----------------------------------------------------------------
@@ -33,7 +38,7 @@ Staging-Reports – Setext/Frontmatter konsolidiert (2025-11-07 02:29)
 Lint-Tooling & Status-Docs Sync (2025-11-07 02:19)
 --------------------------------------------------
 
-- VS Code Task angepasst: markdownlint-Aufruf mit korrekt gequotetem Pattern ("**/*.md").
+- VS Code Task angepasst: markdownlint-Aufruf mit korrekt gequotetem Pattern ('**/*.md').
 - Repo-weiten markdownlint-Lauf und MD003-Backlog in den Status-Dokumenten festgehalten.
 - Status-Dokumente synchronisiert: `todo.root.md`, `WORKSPACE_STATUS.md`, `single-root-todo.md`.
 

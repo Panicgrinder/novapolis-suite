@@ -1,7 +1,6 @@
----
-stand: 2025-11-07 06:30
-update: Markdownlint-Wrapper & Tasks entfernt (npx-only); SSOT aktualisiert.
-checks: keine
+stand: 2025-11-07 09:59
+update: Doku-Sweep: markdownlint repo-weit (132 Dateien) erneut PASS; keine funktionalen Änderungen.
+checks: markdownlint-cli2 PASS
 ---
 
 Workspace-Status

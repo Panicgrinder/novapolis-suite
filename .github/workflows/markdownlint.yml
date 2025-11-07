@@ -42,7 +42,7 @@ jobs:
       - name: Run markdownlint via npx
         shell: pwsh
         run: |
-          npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"
+          npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'
 
   frontmatter-validator:
     name: frontmatter (validator)
