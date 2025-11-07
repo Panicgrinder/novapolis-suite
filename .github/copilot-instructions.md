@@ -1,7 +1,7 @@
 Copilot-Projektanweisungen (Novapolis Suite)
 =============================================
 
-Stand: 2025-11-07 11:48 – Wrapper-Policy präzisiert (komplexe Abläufe zwingend als Skript via `pwsh -NoProfile -File <script>`; Inline `-Command` nur echte Einzeiler, Cheat Sheet rein menschliche Referenz).
+Stand: 2025-11-07 19:09 – Doku aufgeräumt (.env-Beispiele zentralisiert, Warnhinweise ergänzt; YAML-Frontmatter unverändert gelassen).
 Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-sim/project.godot`)
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->

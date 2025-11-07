@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-07 04:56
-update: Archive-TODOs & Issue-Template auf Setext gebracht; Repo-Lint PASS.
+stand: 2025-11-07 19:13
+update: Env-Beispiele zentralisiert; Legacy-Stub entfernt; Frontmatter-Zeit synchronisiert.
 checks: markdownlint-cli2 PASS
 ---
 
@@ -197,7 +197,7 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
 ### Akzeptanzkriterien
 
 - Alle Standard‑Tasks sind vom Root aus ausführbar: Lint (markdownlint), Fix, `pytest -q`, Coverage (fail‑under 80).
-- Tasks nutzen korrektes CWD und ENV: `cwd=novapolis_agent/`, `envFile=novapolis_agent/.env`, Interpreter aus Root `.venv`.
+- Tasks nutzen korrektes CWD; ENV liegt jetzt zentral im Root: `cwd=novapolis_agent/`, `envFile=.env` (Root), Interpreter aus Root `.venv`.
 - Copilot‑Workspace‑Instructions zentral im Root; keine doppelten, widersprüchlichen Settings.
 - Projekt‑spezifische Launch‑Profile funktionieren unverändert (zunächst im Agent‑Ordner belassen).
 

@@ -1,5 +1,6 @@
-stand: 2025-11-07 10:53
-update: Modus General bestätigt; Copilot-Anweisungen: Coverage-Befehl mit Dateizähler+PASS/FAIL dokumentiert.
+---
+stand: 2025-11-07 19:13
+update: Frontmatter sync (env-Doku zentralisiert); Sammel-Stand aktualisiert.
 checks: keine
 ---
 

@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-07 06:20
+stand: 2025-11-07 19:13
 update: Verweise auf modulare Behaviour-Dokumente entfernt; SSOT ist .github/copilot-instructions.md.
 checks: keine
 ---

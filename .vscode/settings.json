@@ -1,6 +1,6 @@
 {
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv/Scripts/python.exe",
-  "python.envFile": "${workspaceFolder}/novapolis_agent/.env",
+  "python.envFile": "${workspaceFolder}/.env",
   "python.testing.cwd": "${workspaceFolder}/novapolis_agent",
   "python.testing.pytestEnabled": true,
   "python.testing.pytestArgs": [

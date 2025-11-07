@@ -12,7 +12,7 @@
       ],
       "cwd": "${workspaceFolder}/novapolis_agent",
       "justMyCode": true,
-      "envFile": "${workspaceFolder}/novapolis_agent/.env"
+  "envFile": "${workspaceFolder}/.env"
     },
     {
       "name": "Agent: Run Simulation API (uvicorn)",
@@ -31,7 +31,7 @@
       "env": {
         "AGENT_PORT": "8765"
       },
-      "envFile": "${workspaceFolder}/novapolis_agent/.env"
+  "envFile": "${workspaceFolder}/.env"
     },
     {
       "name": "Agent: Pytest (-q)",
@@ -41,7 +41,7 @@
       "args": ["-q"],
       "cwd": "${workspaceFolder}/novapolis_agent",
       "justMyCode": true,
-      "envFile": "${workspaceFolder}/novapolis_agent/.env"
+  "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
