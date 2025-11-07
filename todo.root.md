@@ -1,15 +1,16 @@
-stand: 2025-11-07 02:10
-update: Repo-weites markdownlint-Ergebnis dokumentiert und Skriptprüfung für Markdown-Ausgaben angestoßen.
-checks: markdownlint-cli2 "**/*.md" FAIL (MD003)
+---
+stand: 2025-11-07 03:10
+update: H1/H2 auf Setext umgestellt; YAML-Frontmatter korrigiert.
+checks: markdownlint-cli2 (file) PASS
 ---
 
-<!-- markdownlint-disable MD003 -->
-
-# TODO-Uebersicht (Novapolis Suite)
+TODO-Uebersicht (Novapolis Suite)
+=================================
 
 Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vollstaendigen Projekt-Listen sind unten eingebettet, damit sie ohne Kontextwechsel eingesehen werden koennen.
 
-## Kurzueberblick
+Kurzueberblick
+--------------
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
@@ -58,14 +59,16 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 
 - Neu (2025-11-06): Modulstatus → Agent: Gelb‑grün, Dev: Grün, RP: Gelb, Sim: Gelb. Konkrete 1–2‑Tage‑Schritte siehe Abschnitt „Nächstes Vorgehen (1–2 Tage)“.
 
-## Modulstatus (2025-11-06)
+Modulstatus (2025-11-06)
+------------------------
 
 - Agent (Backend): Gelb‑grün. Tests/Typen zuletzt grün, aber kein dokumentierter Lauf seit 2025‑10‑31; leichte Driftgefahr bei Scripts/Eval‑Artefakten.
 - RP (Daten/Canvases): Gelb. Kurations‑Pipeline aktiv, einige Review-/Tagging‑Schritte offen.
 - Dev (Dok‑Hub): Grün. Frontmatter‑Migration weitgehend durch, Donelog/Index gepflegt.
 - Sim (Godot): Gelb. Option A gesetzt, Projektdatei kanonisch; Headless‑Lade‑Check offen.
 
-## Nächstes Vorgehen (1–2 Tage)
+Nächstes Vorgehen (1–2 Tage)
+----------------------------
 
 Hinweis: Aufgrund des Multi‑Root‑STOPs keine Wrapper‑Tasks verwenden; bei Bedarf Befehle manuell im Terminal ausführen und Ergebnisse kurz dokumentieren.
 
@@ -98,13 +101,15 @@ Hinweis: Aufgrund des Multi‑Root‑STOPs keine Wrapper‑Tasks verwenden; bei 
 
 - [ ] Headless‑Lade‑Check des Godot‑Projekts `novapolis-sim/project.godot` durchführen; Warnungen/Fehler als Kurznotiz festhalten.
 
-## Risiken (kurz)
+Risiken (kurz)
+--------------
 
 - Tests/Typing nicht tagesaktuell (Agent) → mögliche stille Drift.
 - RP: Offene Tagging-/Export‑Schritte; Deltas noch nicht vollständig in SSOT gespiegelt.
 - Multi‑Root‑Markierung stört Tasks → bis zur Bereinigung ausschließlich manuelle Läufe.
 
-## Lokale AI – Einbindung (organisch)
+Lokale AI – Einbindung (organisch)
+----------------------------------
 
 Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner Canary → begrenzte Beta, mit Redaction/Flags/Metriken und klaren Rückfallpfaden.
 
@@ -176,7 +181,8 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
 - [ ] 10–20 Kern‑Dokumente (Memory‑Bundle + Schlüssel‑Canvases) indexieren (RAG‑Minimum)
 - [ ] Wöchentlichen Review‑Slot (30–45 min) für Stichproben + Kurations‑Delta einplanen
 
-## Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)
+Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)
+------------------------------------------------------
 
 Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bereitstellt, ohne projekt‑spezifische Profile (Launch/CWD/ENV) zu beschädigen. Sanft, reversibel, mit Inventur vor Migration.
 
@@ -261,7 +267,8 @@ Ziel: Ein einziges `.vscode/` im Repo‑Root, das Standard‑Tasks/Settings bere
 - [ ] Keine Konflikte in Settings (Interpreter/ENV)
 - [ ] 3–5Tage Nutzung ohne Beschwerden → Go für Etappe2
 
-## Volltexte
+Volltexte
+---------
 
 <details>
 <summary>Historischer Snapshot (Agent TODO, archiviert)</summary>
@@ -395,7 +402,8 @@ Kurzfristige Ziele (Heute)
     Lint/Fix Tasks ergänzt; Windows-Optimierungen für Hook-Tasks und
     Markdownlint-Fallback)
 
-## Coverage-Ziele & Tasks
+Coverage-Ziele & Tasks
+-----------------------
 
 - Ziele (vereinbart):
   - App: ≥85% Zeilen, ≥75–80% Branches (inkrementell anziehen)
@@ -606,7 +614,8 @@ Regel: Abgeschlossene Arbeiten dokumentieren (DONELOG)
 - VS Code Task: "Append DONELOG entry" fragt nach einer Kurzbeschreibung und ruft
   `scripts/append_done.py` mit dem aktiven Python-Interpreter auf.
 
-## Roadmap Nächste Schritte (Agent-Funktionen)
+Roadmap Nächste Schritte (Agent-Funktionen)
+-------------------------------------------
 
 - [ ] Session‑Memory (Kurz/Mittelfrist)
   - Ziel: Gesprächskontext je `session_id` persistieren (In‑Memory + optional JSONL/SQLite),
