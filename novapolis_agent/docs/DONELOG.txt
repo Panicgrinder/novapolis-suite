@@ -142,4 +142,4 @@ Beispiel:
 2025-11-07 12:37 | Copilot | Devcontainer (novapolis_agent/.devcontainer) entfernt/deaktiviert: Dateien zu Stubs neutralisiert; Single-Root-Flow nutzt lokale .venv. Physische Löschung im nächsten Cleanup.
 2025-11-07 12:56 | Copilot | Devcontainer-Verzeichnis physisch gelöscht (Remove-Item -Recurse -Force); Bestätigung: Test-Path -> MISSING. Single-Root dokumentiert.
 2025-11-07 13:05 | Copilot | Etappe 4 abgeschlossen: ruff/black zentral (Root pyproject), Tasks vorhanden, pre-commit nutzt Root .venv; keine Modul-Tool-Konflikte.
-2025-11-07 18:25 | Panicgrinder | Pytest Voll-Lauf: 240 passed, 1 skipped; Coverage-Gate fehlgeschlagen, vorerst ignoriert (Single-Root).
+2025-11-07 18:25 | Panicgrinder | Pytest Voll-Lauf: 240 passed, 1 skipped; Coverage-Gate fehlgeschlagen, vorerst ignoriert (Single-Root).2025-11-07 21:26 | Panicgrinder | update Frontmatter und betroffene Dateien (commit d06ab6b)
