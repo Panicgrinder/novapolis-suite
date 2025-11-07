@@ -1,6 +1,6 @@
-stand: 2025-11-07 09:59
-update: Doku-Sweep: markdownlint-Nutzung repo-weit verifiziert (naked npx, korrektes Quoting); erneuter Lauf PASS (132 Dateien).
-checks: markdownlint-cli2 PASS
+stand: 2025-11-07 10:53
+update: Modus General (GPT-5) erneut bestätigt; Copilot-Anweisungen um Coverage-Dateizähler + PASS/FAIL ergänzt.
+checks: keine
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -11,6 +11,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-07 10:53: Moduswechsel dokumentiert (General aktiv); Coverage-Befehl in Copilot-Anweisungen mit Dateizähler + PASS/FAIL-Ausgabe ergänzt; keine Codeänderungen.
 - 2025-11-07 09:59: Doku-Sweep – markdownlint-Aufruf (npx, `'**/*.md'`) repo-weit erneut geprüft; 132 Dateien gelinted, 0 Fehler. Keine Codeänderungen.
 - 2025-11-07 08:59: Copilot-Anweisung ergänzt – Schnell-Index und pwsh-Cheat-Sheet hinzugefügt; markdownlint repo-weit PASS. Keine Codeänderungen.
 - 2025-11-07 08:46: Copilot-Anweisung überarbeitet – Task-Beschreibungen in `.github/copilot-instructions.md` auf konkrete pwsh-Kommandos umgestellt und Widerspruch zu Task-Ausführung entfernt. Keine Tests.

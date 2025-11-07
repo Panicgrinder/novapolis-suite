@@ -1,7 +1,7 @@
 Copilot-Projektanweisungen (Novapolis Suite)
 =============================================
 
-Stand: 2025-11-07 10:47 – Coverage-Befehl um Dateizähler + PASS/FAIL-Ausgabe ergänzt
+Stand: 2025-11-07 10:53 – Moduswechsel dokumentiert (GPT-5 General aktiv), Coverage-Befehl mit Dateizähler + PASS/FAIL-Ausgabe
 Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-sim/project.godot`)
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
@@ -290,6 +290,7 @@ Essentials (konzentriert)
 
 - Kurzdefinition: General = redaktionelle/Analyse‑Arbeiten; Codex = Code/Tests/Build‑/CI‑Arbeiten.
 - Standardmodus: GPT‑5 (General) für redaktionelle Arbeiten, Kanon-/Quellenabgleich, `[FACT]`↔`[FACT?]`‑Revalidierung, Policy-/Prozess‑Checks und Textkurierung.
+- Aktueller Modus: General (GPT‑5) – bestätigt 2025-11-07 10:53.
 - Codex-Modus (umschalten bei Bedarf): Für Code‑schwere Aufgaben wie Skripte/Validatoren, Tests/CI, API‑/Service‑Änderungen, Parser/RegEx, Datentransformationen.
 - Heuristische Trigger für Wechselvorschlag (nicht automatisch, nur Hinweis):
   - Edits in Quellcodepfaden: `novapolis_agent/app/**`, `novapolis_agent/scripts/**`, `novapolis_agent/utils/**`, `novapolis_agent/tests/**`, `packages/**`, `novapolis-rp/coding/**`.

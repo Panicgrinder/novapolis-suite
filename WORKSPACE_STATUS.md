@@ -1,6 +1,6 @@
-stand: 2025-11-07 09:59
-update: Doku-Sweep: markdownlint repo-weit (132 Dateien) erneut PASS; keine funktionalen Änderungen.
-checks: markdownlint-cli2 PASS
+stand: 2025-11-07 10:53
+update: Modus General bestätigt; Copilot-Anweisungen: Coverage-Befehl mit Dateizähler+PASS/FAIL dokumentiert.
+checks: keine
 ---
 
 Workspace-Status
