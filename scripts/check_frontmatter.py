@@ -16,6 +16,8 @@ SKIP_PATTERNS = (
     "novapolis-rp/database-raw/",
     "novapolis-rp/.pytest_cache/",
     "Backups/",
+    # Canonical exception: this file intentionally has no YAML frontmatter
+    ".github/copilot-instructions.md",
 )
 
 
