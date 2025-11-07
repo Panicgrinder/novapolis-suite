@@ -1,7 +1,7 @@
 Copilot-Projektanweisungen (Novapolis Suite)
 ============================================
 
-Stand: 2025-11-05 18:33 – Lint-Regeln (pwsh + npx --yes) präzisiert; Task-Labels auf „markdownlint-cli2“ synchronisiert.  
+Stand: 2025-11-07 02:51 – H1/H2 auf Setext umgestellt (MD003).
 Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-sim/project.godot`)
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
