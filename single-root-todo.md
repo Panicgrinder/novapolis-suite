@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-07 02:10
-update: markdownlint-Gesamtlauf und Skript-Prüfauftrag ergänzt
-checks: markdownlint-cli2 "**/*.md" FAIL (MD003)
+stand: 2025-11-07 05:59
+update: Pre-commit Gate + CI‑Job für Frontmatter ergänzt (scoped); A+B erledigt; Option C offen
+checks: markdownlint-cli2 "**/*.md" PASS; frontmatter (scoped) PASS; pre-commit hook erweitert
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -60,6 +60,8 @@ Offene Aufgaben (Root – quer durchs Repo)
   - 2025-11-02: `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/tests.md` mit YAML-Frontmatter versehen; Lint docs focused PASS.
   - 2025-11-02: `novapolis_agent/docs/*` (7 Dateien) mit YAML-Frontmatter versehen; Lint docs focused PASS.
   - 2025-11-02: RP‑Docs unter `novapolis-rp/**/docs/**` sind Redirect-/Mirror‑Stubs → keine Migration nötig.
+  - 2025-11-07 05:28: Quick‑Fix A umgesetzt (YAML‑Delimiter ergänzt) für `README.md` und `novapolis-dev/docs/index.md`; Validator‑Skip‑Pfade (B) erweitert um `.pytest_cache/` und `.github/ISSUE_TEMPLATE/`. Repo‑weiter Lauf zeigt v. a. `novapolis-rp/database-rp/**` ohne Frontmatter. Option C: breit ergänzen ODER vorübergehend ausschließen (Entscheidung ausstehend).
+  - 2025-11-07 05:59: Pre‑commit‑Hook um Frontmatter‑Check erweitert (nur geänderte `.md`‑Dateien). CI: In `markdownlint.yml` zusätzlicher Job „frontmatter (validator)“ für sichere Pfade (`novapolis-dev/docs`, `novapolis_agent/docs`, Root‑Docs). Option C bleibt offen.
 - [x] Tree-Snapshots aktualisieren bei Strukturänderungen
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [ ] Backups & Releases (Manifest/Checksums/Rotation) pflegen
@@ -78,7 +80,9 @@ Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
 
 - Quelle: `novapolis-dev/docs/todo.agent.md`
 - [ ] TTS/Coqui – Exporter & Mini-Service (Planung)
-- [ ] VS Code Tasks für TTS-Fluss (Planung)
+  - Implementiere `novapolis_agent/scripts/tts_export_coqui.py` gemäß `novapolis-dev/docs/specs/tts-exporter-coqui.md` (CLI-Nutzung, ohne VS Code Task).
+  - Akzeptanz: Referenzinput → OGG-Ausgabe; kurze Run-Notiz im DONELOG.
+- [ ] CLI-Fluss/Script für TTS-Export definieren (Planung)
 - [ ] Templates `knowledge:/actions:` (nur Doku-Verlinkung)
 
 ### Dev (Tooling/Infra)
@@ -87,6 +91,10 @@ Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
 - [ ] MCP-Server-Prototyp (lokal, Minimal)
 - [ ] Annotation-/Scheduler-/TTS-Specs vervollständigen
 - [ ] Templates für `knowledge:` und `actions:` bereitstellen
+- [ ] Frontmatter-Validator in CI integrieren
+  - Akzeptanz: CI-Job failt bei fehlender/inkorrekter YAML-Frontmatter außerhalb der Skip-Pfade (Ausnahme `.github/copilot-instructions.md`).
+  - Stand 2025-11-07 05:28: A erledigt (Delimiter‑Quick‑Fix in Kern‑Docs), B erledigt (Skip‑Pfade verfeinert). Option C (RP‑Scope: ergänzen vs. temporär ausschließen) offen.
+  - Stand 2025-11-07 05:59: Pre‑commit‑Gate aktiv (staged `.md`), CI‑Frontmatter‑Check in `markdownlint.yml` (scoped). Keine Breaking‑Änderung für RP‑Daten.
 
 ### RP (Kanon/Canvas)
 
@@ -195,6 +203,7 @@ Notiz (2025-11-02 11:35): CI im Root ergänzt:
 - [x] Modul-Workflows entfernen oder migrieren (Root-only):
   - `novapolis_agent/.github/workflows/ci.yml`
   - `novapolis_agent/.github/workflows/enforce-donelog.yml`
+  - `novapolis_agent/.github/workflows/consistency-report.yml`
   - `novapolis-rp/.github/workflows/validate.yml`
 - [x] Root-Workflows finalisieren (nur unter `/.github/workflows/*.yml`):
   - `ci.yml` (Python, cwd `novapolis_agent`)
@@ -208,6 +217,7 @@ Notiz (2025-11-02 11:35): CI im Root ergänzt:
 Notiz (2025-11-02 11:52): Modul-Workflows entfernt; Root-Workflows aktiv. Nächster Schritt: Trigger/Paths justieren und README-Hinweis ergänzen.
 Notiz (2025-11-02 12:08): Root `pyproject.toml` konsolidiert (tools-only: black/ruff); README „Editable“ auf `packages/novapolis_common` umgestellt.
 Notiz (2025-11-02 12:41): Prüf-/Release-Checks aktualisiert (Root-cwd, STOP‑Gate bei Unsicherheiten); Behaviour/Policy‑Änderungen erfordern Test `test_content_policy_profiles.py` + Changelogs.
+Notiz (2025-11-07 05:15): Modul-Workflows entfernt (siehe Liste oben); Root-Workflows bleiben die einzige Quelle unter `/.github/workflows/`.
 
 ### Prüf-/Release-Checks (konkret)
 
@@ -239,6 +249,8 @@ Notiz (2025-11-02 10:27): `.code-workspace` wurde auf Single-root reduziert (nur
   - `novapolis-rp/database-curated/staging/.markdownlint.json`
   - `novapolis-rp/database-curated/staging/reports/.markdownlint.json`
   - Maßnahme: Root-CLI2-Ignores ergänzt, damit diese Bereiche nicht lint-blocken. Weitere Konsolidierung optional (Dateien später entfernen).
+  
+  Notiz (2025-11-07 05:28): Lokale `.markdownlint.json`‑Overrides weiterhin vorhanden (staging/, reports/). Sie werden durch Root‑Ignores neutralisiert; optional später entfernen.
 - EditorConfig (potentielle Override-Gefahr):
   - `novapolis-sim/novapolis-sim/.editorconfig` hatte `root = true` → entfernt. Defer jetzt zur Root-.editorconfig.
 - Pyproject (Fragmentierung):

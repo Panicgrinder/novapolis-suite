@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-06 15:22
-update: YAML Frontmatter ergänzt (MD003-konform)
-checks: markdownlint-cli2 PASS (single file)
+stand: 2025-11-07 06:20
+update: Verweise auf lokale copilot-behavior.md entfernt; SSOT ist .github/copilot-instructions.md.
+checks: keine
 ---
 
 Novapolis Dev Hub
@@ -31,7 +31,7 @@ Primary Docs
 - `docs/donelog.md` – tägliche Fortschritte und Beschlüsse
 - `docs/todo.index.md` – TODO-Index (Navigation zu Modul-Boards)
   - Module: Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent.md`, Sim `docs/todo.sim.md`
-- `docs/copilot-behavior.md` – Arbeitsweise, Stil, Sicherheitsleitplanken
+- `.github/copilot-instructions.md` – Arbeitsweise, Stil, Sicherheitsleitplanken (SSOT)
 - `docs/naming-policy.md` – verbindliche Dateibenennung im Verbund
 - `docs/tests.md` – Testabdeckung und Sim-/Client-Checkliste
 
@@ -40,7 +40,7 @@ Contributor Workflow
 
 - Änderungen zuerst hier dokumentieren, anschließend in den Ziel-Repos umsetzen.
 - Fortschritt stets in `docs/donelog.md` loggen; Aufgaben in den jeweiligen Modul-Boards pflegen (Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent.md`, Sim `docs/todo.sim.md`).
-- Vor Commits die Leitlinien aus `docs/copilot-behavior.md` gegenprüfen.
+- Vor Commits die Leitlinien aus `.github/copilot-instructions.md` gegenprüfen.
 
 Struktur
 --------
@@ -61,8 +61,7 @@ Archiv
 Copilot Instructions
 --------------------
 
-- Kanonisches Richtlinien-Dokument liegt im Repo-Root unter `.github/copilot-instructions.md`.
-- Ergänzende Detailregeln und Hintergrundtexte: `docs/` (z. B. `copilot-behavior.md`).
+- Kanonisches Richtlinien-Dokument liegt im Repo-Root unter `.github/copilot-instructions.md` (SSOT).
 
 Bitte dokumentiert neue Arbeitsstände ausschließlich hier und verweist in den Produktiv-Repositories auf dieses Hub.
 

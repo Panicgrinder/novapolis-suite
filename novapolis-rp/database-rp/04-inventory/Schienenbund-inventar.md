@@ -1,6 +1,6 @@
 ---
 canvas: Inventar Schienenbund
-last-updated: 2025-11-07T03:32:00+01:00
+last-updated: 2025-11-07T04:32:00+01:00
 category: inventory
 slug: schienenbund-inventar
 owner: schienenbund
@@ -9,7 +9,7 @@ version: "0.1"
 ---
 
 Inventar – Schienenbund (Fraktion)
-----------------------------------
+==================================
 
 Bestände (Auszug)
 -----------------
@@ -25,4 +25,3 @@ Links
 -----
 - Logistik (Admin) → ../00-admin/Logistik.md
 - Missionslog → ../00-admin/Missionslog.md
-

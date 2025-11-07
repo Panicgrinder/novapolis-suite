@@ -79,7 +79,7 @@ Linkübersicht
 - Plan: `database-curated/staging/reports/canvas-rescue-plan.md`
 - Quellen: `database-curated/staging/reports/char-block-nord-sources.md`
 - RAW: `database-raw/99-exports/`
-- Kanon/Policies: `database-curated/staging/reports/resolved.md`, `novapolis_agent/docs/AGENT_BEHAVIOR.md`
+- Kanon/Policies: `database-curated/staging/reports/resolved.md`, `.github/copilot-instructions.md`
 
 <details>
 <summary>Archiviertes Backlog (Stand 2025-10-29)</summary>

@@ -1,12 +1,13 @@
 ---
-stand: 2025-11-01 09:51
+stand: 2025-11-07 04:09
 update: Frontmatter ergänzt (YAML); Inhalt unverändert.
 checks: keine
 category: Admin
 canvas: missionslog
 ---
 
-# Missionslog (Novapolis)
+Missionslog (Novapolis)
+=======================
 
 Zentrale Übersicht aller Missionen (aktiv und abgeschlossen). Quelle für Status, Belege/Quittungen und Verlinkungen in andere Canvas.
 
@@ -26,11 +27,13 @@ Hinweise:
 
 ---
 
-## Prozess L.1 – Missionsfluss
+Prozess L.1 – Missionsfluss
+---------------------------
 - Status → Inventarabschluss → Verlinkungen (Logistik/Missionen) → Archiv
 - Referenz: [C6 – Logistik‑Policy](./C6-Logistik-Policy.md)
 
-## Aktiv
+Aktiv
+-----
 
 ### Anomalie: C6‑Nord (vormals N7)
 - Ziel: Lokalisieren, Effekte erfassen, Risiken/Trigger katalogisieren
@@ -75,7 +78,8 @@ Hinweise:
 
 ---
 
-## Abgeschlossen
+Abgeschlossen
+-------------
 
 ### Erste Mission nach C6: Fehlschlag
 - Ziel: tbd
@@ -96,4 +100,3 @@ Hinweise:
 - Verantwortliche: tbd
 - Inventar‑Link: tbd
 - Orte/Projekte: [C6](../03-locations/C6.md)
-

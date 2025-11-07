@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-06 02:40
-update: Markdownlint geprüft (Setext-Stil bestätigt)
-checks: markdownlint-cli2 (single file) PASS
+stand: 2025-11-07 06:20
+update: Doku-Verweis auf konsolidiertes SSOT (.github/copilot-instructions.md) angepasst.
+checks: keine
 ---
 
 Training & Fine-Tuning – Kurzleitfaden
@@ -48,7 +48,7 @@ Hinweise
 
 - Pfade/Konfiguration: `app/core/settings.py` (Eval‑Dirs, Patterns)
 - Synonyme/Checks: `eval/config/{synonyms.json,synonyms.local.json}`
-- Doku: `docs/CONTEXT_ARCH.md`, `docs/AGENT_BEHAVIOR.md`, `docs/REPORTS.md`
+- Doku: `docs/CONTEXT_ARCH.md`, `../.github/copilot-instructions.md`, `docs/REPORTS.md`
 - Optional: VS‑Code‑Tasks für die Schritte vorhanden.
 
 ### Reruns (Profile-aware)

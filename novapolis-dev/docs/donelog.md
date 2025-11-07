@@ -1,11 +1,19 @@
-stand: 2025-11-07 02:29
-update: Staging-Reports Setext/Frontmatter konsolidiert; Tree/Status sync.
-checks: markdownlint-cli2 PASS (staging/dev/agent)
+---
+stand: 2025-11-07 04:56
+update: Archiv-TODOs & Issue-Template Setext; Repo-Lint PASS.
+checks: markdownlint-cli2 PASS
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+Archiv-TODOs & Issue-Template Setext (2025-11-07 04:56)
+------------------------------------------------------
+
+- Archiv-TODO-Dateien unter `novapolis-dev/archive/todo.*.archive.md` auf Setext-Stil (H1/H2) gebracht; Frontmatter (stand/update/checks) synchronisiert.
+- `.github/ISSUE_TEMPLATE/feature_request.md` auf Setext-Stil umgestellt; Markdownlint repo-weit (`**/*.md`, 132 Dateien) PASS dokumentiert.
+- Checks: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` PASS.
 
 Staging-Reports – Setext/Frontmatter konsolidiert (2025-11-07 02:29)
 --------------------------------------------------------------------

@@ -1,12 +1,24 @@
 #!/bin/sh
-# Snapshot gate: enforce fresh 'stand:' timestamps in staged Markdown files.
-# Runs a PowerShell validator that itself uses Get-Date as per policy.
+# Composite pre-commit: snapshot gate + frontmatter validator (changed Markdown files only)
 
 if command -v pwsh >/dev/null 2>&1; then
-  exec pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/snapshot_gate.ps1
+  pwsh -NoProfile -ExecutionPolicy Bypass -Command "& { $ErrorActionPreference='Stop'; 
+    & 'scripts/snapshot_gate.ps1'; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE };
+    # Collect staged Markdown files
+    $staged = git diff --cached --name-only --diff-filter=ACMRT -- '*.md';
+    if (-not $staged -or $staged.Count -eq 0) { Write-Host '[pre-commit] No staged Markdown files. Skipping frontmatter check.'; exit 0 };
+    $root = (Get-Location).Path; $py = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $py)) { $py = 'python' };
+    & $py 'scripts/check_frontmatter.py' @staged; exit $LASTEXITCODE }"
+  exit $?
 elif command -v powershell.exe >/dev/null 2>&1; then
-  exec powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/snapshot_gate.ps1
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& { $ErrorActionPreference='Stop'; 
+    & 'scripts/snapshot_gate.ps1'; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE };
+    $staged = git diff --cached --name-only --diff-filter=ACMRT -- '*.md';
+    if (-not $staged -or $staged.Count -eq 0) { Write-Host '[pre-commit] No staged Markdown files. Skipping frontmatter check.'; exit 0 };
+    $root = (Get-Location).Path; $py = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $py)) { $py = 'python' };
+    & $py 'scripts/check_frontmatter.py' @staged; exit $LASTEXITCODE }"
+  exit $?
 else
-  echo "[snapshot-gate] No PowerShell available; skipping." >&2
+  echo "[pre-commit] No PowerShell available; skipping." >&2
   exit 0
 fi

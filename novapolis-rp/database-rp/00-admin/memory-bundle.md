@@ -1,22 +1,25 @@
 ---
-stand: 2025-11-01 09:51
+stand: 2025-11-07 04:09
 update: Frontmatter ergänzt (YAML); Inhalt unverändert.
 checks: keine
 category: Admin
 canvas: memory-bundle
 ---
 
-# Memory-Bundle (Kanon, kompakt)
+Memory-Bundle (Kanon, kompakt)
+==============================
 
 Diese Datei ist der „Wahrheitsspeicher“. Änderungen hier sind kanonisch.
 
-## Kanon
+Kanon
+-----
 - Setting: Post-Collapse-Metro/Stationen; Novapolis-Sektoren (D5 Hauptbasis, C6 Außenposten).
 - Leitmotiv: Technik, Improvisation, Wiederaufbau. Ton: ruhig, fokussiert, cinematisch.
 - Regeln: Kontinuität > Stil; keine Retcons ohne Absprache; Vorschläge nur auf Anfrage.
 - Spielhilfe: Nach jedem SL-Post kurze interne Gedächtnisnotiz (max. 200 Tokens).
 
-## Charaktere
+Charaktere
+----------
 ### Ronja Kerschner
 - Rolle: Technikerin (36)
 - Werte: K2 G4 Ge5 W5 Ch4
@@ -42,30 +45,35 @@ Diese Datei ist der „Wahrheitsspeicher“. Änderungen hier sind kanonisch.
 - Koordiniert Inventarabgleiche D5↔C6 gemeinsam mit Kora; betreut die 20 Evakuierten aus E3.
 - Erwartet strukturierte Freigaben über Ronja; pflegt Logistik-Knoten protokolliert.
 
-## Orte
+Orte
+----
 - D5 – Hauptbasis; Kontrollraum restauriert; bewohnt.
 - C6 – Teilaktiv; Reaktor stabilisiert; Überwachungssplitter; 20 Evakuierte aus E3 + 4 Karawanenmitglieder integriert.
 - E3 – Station evakuiert, Energiezufuhr getrennt, Anomalie „E3-Gefahr“ (Monitoring passiv), Wiederinbetriebnahme offen.
 - Tunnel D5–C6 – beschädigt; Kartierung & Wiederaufbau als Projekt „Nordlinie 01“.
 - Verbindungstunnel C6–E3 – begehbar, C6-seitig gesichert; E3-Ende verriegelt.
 
-## Inventar / Ressourcen
+Inventar / Ressourcen
+---------------------
 - D5-Inventar gepflegt.
 - C6-Funde verbucht (Filter, Energiezellen, Werkzeuge); Versorgungsschwerpunkte mit Marei abgestimmt.
 - Fehlend/Offen: Schweißausrüstung, Adapter DN60. Hydrofilter-Behälter als Reserve.
 
-## Projekte
+Projekte
+--------
 - Nordlinie 01 – Verbindungstunnel instandsetzen; Materialliste, Abschnitte, Blocker.
 - E3-Restaurierungsplanung – Warnmeldungen analysieren, Sensorik/Anomalie klären, Reaktivierungsbedingungen definieren.
 
-## Timeline (sehr knapp)
+Timeline (sehr knapp)
+---------------------
 1. Erwachen D5 → Selbstcheck → Wartungsauftrag.
 2. Erstkontakt Reflex, Dämpfungs-Test, Regeln.
 3. C6: Funk/Scan, Reaktorstabilisierung, Suche/Leichenfund; Evakuierungsaufnahme (20 Personen) gemeinsam mit Marei.
 4. D5: Wiederaufbau; Jonas eingebunden; Pahl in Pflege.
 5. Projektstart „Nordlinie 01“; Vorratsläufe; Überwachung an C6.
 
-## Offene Fäden
+Offene Fäden
+------------
 - Nordlinie 01: Schweißgerät, DN60-Adapter, Statikprüfung.
 - C6: Überwachungssplitter auswerten; eventuelle Überlebende.
 - E3: Anomalie „E3-Gefahr“ untersuchen; Reaktivierungsplan abstimmen.
@@ -74,8 +82,8 @@ Diese Datei ist der „Wahrheitsspeicher“. Änderungen hier sind kanonisch.
 - Jonas: Vertrauen festigen; Werkstatt einrichten.
 - Hydrofilter: Aufbereitung/Tests.
 
-## Aktuelle Szene (Startzustand)
+Aktuelle Szene (Startzustand)
+-----------------------------
 - Ort: D5, Morgen nach C6-Operation. Pahl wird versorgt (Jonas), Ronja plant Vorräte + Exo-Arbeit.
 - Nächste Schritte: Status-Ping C6, Material-Run oder Laborphase.
 - Risiko: Fraktionsaufmerksamkeit, Tunnelgefahren, Ressourcenknappheit.
-

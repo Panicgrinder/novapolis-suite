@@ -5,23 +5,28 @@ labels: enhancement
 assignees: ''
 ---
 
-## Motivation
+Motivation
+----------
 
 Welches Problem soll gelöst werden? Warum ist das wichtig?
 
-## Vorschlag
+Vorschlag
+---------
 
 Beschreibe die gewünschte Lösung oder das Feature.
 
-## Alternativen
+Alternativen
+------------
 
 Gibt es alternative Ansätze?
 
-## Kontext
+Kontext
+-------
 
 Verweise auf Dateien/Ordner (z. B. `database-rp/05-projects/`), verwandte Issues oder Notizen.
 
-## Akzeptanzkriterien
+Akzeptanzkriterien
+------------------
 
 - [ ] ...
 - [ ] ...

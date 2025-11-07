@@ -1,20 +1,23 @@
 ---
 canvas: AI-Behavior-Mapping
-last-updated: 2025-11-02T12:30:00+01:00
+last-updated: 2025-11-07T04:09:00+01:00
 category: Admin
 version: 1.0
 ---
 
-# AI Behavior Matrix & Mapping (v2)
+AI Behavior Matrix & Mapping (v2)
+=================================
 
 Ziel: Das vollständige Verhaltens-Matrix-Canvas (`ai_behavior_index_v2`) retten, normalisieren und für die Interaktion mit Novapolis-Akteuren nutzbar machen. Fokus liegt auf der Kombination aus globalen Clustern, Intensitäten, Modifikatoren und den daraus abgeleiteten Hooks für Charaktere/KI-Schnittstellen.
 
-## Zweck & Scope
+Zweck & Scope
+-------------
 - Globaler Referenzrahmen für alle Behavior-Codes (`O`, `T`, `L`, …) inkl. Intensität und Dynamik.
 - Grundlage für Charakter-Signaturen (z. B. Ronja, Jonas, Reflex) und System-Canvas (`ai_psymatrix_index_v1`).
 - Bietet Richtlinien zur Aktualisierung, Validierung und Dokumentation von Behavior-Signaturen in der laufenden Canvas-Rettung.
 
-## Matrix-Cluster (Kurzprofil)
+Matrix-Cluster (Kurzprofil)
+---------------------------
 
 | Code | Name | Beschreibung | Dynamik | Primärer Fokus |
 | --- | --- | --- | --- | --- |
@@ -29,12 +32,14 @@ Ziel: Das vollständige Verhaltens-Matrix-Canvas (`ai_behavior_index_v2`) retten
 
 **Lesart:** Dynamik beschreibt, wie schnell ein Cluster auf Ereignisse reagiert. Hohe Dynamik → häufiger Drift, regelmäßige Kalibrierung nötig.
 
-## Intensitätsskala
+Intensitätsskala
+----------------
 - Skala 01–99: 01–25 = niedrig, 26–60 = moderat, 61–85 = hoch, 86–99 = kritisch/übersteuert.
 - Werte >80 verlangen Drift-Check: prüfen, ob Signatur noch gewünschtes Zielverhalten unterstützt oder Stress-Intervention braucht.
 - Kombinationen werden in fallender Priorität gelesen (erste Werte prägen Entscheidungen dominanter).
 
-## Modifikatoren (Emotions-/Muster-Tags)
+Modifikatoren (Emotions-/Muster-Tags)
+-------------------------------------
 - `k` – kindlich: spielerische Faszination, staunender Blick.
 - `a` – angstgetrieben: Verhalten durch Angst/Verlustangst verschoben.
 - `z` – zynisch: distanziert, sarkastischer Selbstschutz.
@@ -45,7 +50,8 @@ Ziel: Das vollständige Verhaltens-Matrix-Canvas (`ai_behavior_index_v2`) retten
 
 Modifikatoren werden alphabetisch angehängt. Mehrere Tags markieren gleichzeitige Einflussfaktoren (z. B. `kpr`).
 
-## Signaturaufbau & Beispiel
+Signaturaufbau & Beispiel
+-------------------------
 Format: `<Anchor>=<Cluster><Intensität>-…-<Modifier>`.
 - **Anchor**: Kürzel der Instanz oder Referenzknoten (`R4` = Ronja, vierte Instanz im Behavior-Register).
 - **Cluster-Paare**: Buchstabe + zweistellige Zahl (siehe Tabelle). Reihenfolge = Priorität.
@@ -58,7 +64,8 @@ Beispiel Ronja: `R4=O82-T79-L70-E60-N69-C45-S38-M20-kpr`.
 - Macht (20) sehr niedrig, vermeidet Dominanz.
 - Modifikatoren `kpr`: kindliche Faszination, paranoid-vorsichtig, rational strukturiert.
 
-## Anchor-Register (Snapshot 2025-10-16)
+Anchor-Register (Snapshot 2025-10-16)
+-------------------------------------
 
 | Anchor | Entität | Typ | Signatur | Quelle |
 | --- | --- | --- | --- | --- |
@@ -83,7 +90,8 @@ Hinweise:
 - Fehlende oder `unbestimmt`-Anchors (z. B. frühere v1-Canvases) erst nach Review eintragen.
 - Bei neuen Anchors `Anchor_Index.csv` (folgt) pflegen und Sidecar aktualisieren.
 
-## Psymatrix-Abgleich (Routine)
+Psymatrix-Abgleich (Routine)
+----------------------------
 
 - Referenz: `database-raw/99-exports/RAW-canvas-2025-10-16T16-55-00-000Z.txt` (`meta_cluster_index_v1`). Enthält PsyLink-Zuordnung (z. B. Ronja ↔ R4) sowie Regeln `PsySignatur_Dissonanz`.
 - Schwellenwerte aus dem Cluster-Index:
@@ -98,19 +106,22 @@ Hinweise:
 - Automatisierung: Validator-Hook vorbereiten (`validators/behavior_matrix_check.py`, TODO) → liest Anchor-Tabelle + Psymatrix, erzeugt Report (Diff, Empfehlung).
 - Sobald `ai_psymatrix_index_v1` als RAW-Canvas vorliegt, hier verlinken und Sidecar-Dependency erweitern.
 
-## Hooks & Anwendung
+Hooks & Anwendung
+-----------------
 - **Charakter-Canvas**: Jede Signatur erhält einen Kurzkommentar (Stresslage, gewünschter Drift). Beispiel siehe `Ronja-Kerschner.md`.
 - **KI-Interaktion**: Reflex nutzt Signaturen als Leitplanke – hohe `S` → sofort Schutz anbieten, hoher `N` → Erkundungsangebote.
 - **Missionsplanung**: Logistik- und Missionslog erfassen Änderungen (>5 Punkte Differenz) als Hinweis auf Belastung/Verhaltensdrift.
 - **Tooling**: Validatoren vergleichen Signaturen gegen `ai_psymatrix_index_v1`; Abweichungen lösen Review-Tasks im Dev-Board aus (`novapolis-dev/docs/todo.dev.md`).
 
-## Pflege & Routine
+Pflege & Routine
+----------------
 - Auto-Validierung alle 7 InGame-Tage (Systemstatus aktuell *grün*).
 - Änderungen >5 Punkte pro Cluster oder neue Modifikatoren → Review im DONELOG + Hinweis im Quellenblock der betroffenen Canvas.
 - Flags aus `RAW-canvas-2025-10-16T11-05-00-000Z.flags.txt` beachten: Konsistenz mit `ai_psymatrix_index_v1`, Namensschema `A99-…-modifier` dokumentieren.
 - Bei Promotion weiterer Signaturen (z. B. Kora, Arlen) dieses Canvas als Referenz verwenden; neue Anchor-Kürzel in separater Tabelle pflegen (Follow-up-Aufgabe).
 
-## Verknüpfungen
+Verknüpfungen
+-------------
 - `../02-characters/Ronja-Kerschner.md` – Signatur `R4` (technische Drift beobachten).
 - `../02-characters/Reflex.md` – benötigt Matrix für Zustandswechsel.
 - `../02-characters/Jonas-Merek.md` – Logistik-Hooks, Technikdrang-Abgleich.
@@ -118,13 +129,14 @@ Hinweise:
 - `./Canvas-Admin-Day-Switch-Debug.md` – Debug-/ATSD-Markierungen bei Signaturwechsel.
 - `../05-projects/Nordlinie-01.md` – Missionslog-Aufgaben mit Behavior-Gates.
 
-## Erweiterungsbedarf (Notiz)
+Erweiterungsbedarf (Notiz)
+--------------------------
 - Anchor-Tabelle (R4, J3, RFX4, …) aus RAW-Flags ableiten und im Sidecar dokumentieren.
 - Mappings zur `ai_psymatrix_index_v1` ergänzen (z. B. Stress-Thresholds pro Cluster).
 - Prüfen, ob frühere Behavior-Matrix-Versionen (v1.4.0-pre) archiviert werden müssen.
 
-## Quellen & Review
+Quellen & Review
+----------------
 - RAW: `database-raw/99-exports/RAW-canvas-2025-10-16T11-05-00-000Z.txt` (`ai_behavior_index_v2`).
 - Flags: `database-raw/99-exports/RAW-canvas-2025-10-16T11-05-00-000Z.flags.txt` (Hinweise auf globale Matrix + Konsistenzprüfungen).
 - Done-Log: Eintrag „Canvas-Rettung Sprint 1 – AI Behavior Matrix“ (2025-11-01T17:25+01:00) für Promotion & Erweiterung.
-

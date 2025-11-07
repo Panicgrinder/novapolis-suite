@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-07 03:06
-update: Tree-Snapshots regeneriert; entfernte Markdownlint-Overrides dokumentiert; Arbeitsmodus aktualisiert.
-checks: markdownlint-cli2 PASS (staging reports/dev/agent)
+stand: 2025-11-07 06:20
+update: Behaviour-Quellen konsolidiert → SSOT .github/copilot-instructions.md; Referenzzeile angepasst.
+checks: keine
 ---
 
 Workspace-Status
@@ -35,7 +35,7 @@ Health-Checks & Open Items
 
 - Tests: 2025-10-31 – `pytest -q`, `pyright -p pyrightconfig.json`, `python -m mypy --config-file mypy.ini app scripts` im Agent-Projekt grün (keine neuen Läufe seitdem dokumentiert)
 - TODO-Backlog: siehe `todo.root.md` (Stand 2025-11-07; Fokus Agent: RAG/Tool-Use/Policies, RP: Kurations-Pipeline & Canvas-Pflege, Skriptprüfung für Markdown-Ausgaben)
-- Policies & Behaviour: maßgeblich `novapolis_agent/docs/AGENT_BEHAVIOR.md`, `novapolis-dev/docs/copilot-behavior.md`
+- Policies & Behaviour: maßgeblich `.github/copilot-instructions.md` (SSOT)
 - Risiken kurz:
   - Verzeichnis-Bulk unter `outputs/` (LoRA-Runs) wächst; mittelfristig archivieren oder auslagern
   - RP-Datenpflege erfordert regelmäßigen Sync mit Memory-Bundle (seit 2025-11-02 aktualisiert, siehe `novapolis-rp/database-rp/00-admin/memory-bundle.md`)

@@ -1,4 +1,11 @@
-# Review – chat-export (1).txt
+---
+stand: 2025-11-07 04:43
+update: H1/H2 auf Setext umgestellt.
+checks: markdownlint-cli2 (staging) PASS
+---
+
+Review – chat-export (1).txt
+============================
 
 Quelle: `database-raw/99-exports/chat-export (1).txt`
 Status: pending
@@ -17,21 +24,29 @@ Checkliste
 - [ ] Stichprobe (≥10%) gegen PDF geprüft
 - [ ] Offene Punkte dokumentiert ([OPEN])
 
-## Szenenanker [SCENE]
+Szenenanker [SCENE]
+-------------------
 
-## Kanon-Fakten [FACT]
+Kanon-Fakten [FACT]
+-------------------
 
-## Charaktere [CHAR]
+Charaktere [CHAR]
+-----------------
 
-## Orte [LOC]
+Orte [LOC]
+----------
 
-## Projekte [PROJ]
+Projekte [PROJ]
+---------------
 
-## Inventar [INV]
+Inventar [INV]
+--------------
 
-## Offen [OPEN]
+Offen [OPEN]
+------------
 
-## Chunk part-011 (global 10001–10819) – Neueste Nachrichten
+Chunk part-011 (global 10001–10819) – Neueste Nachrichten
+---------------------------------------------------------
 
 - Kontext: Meta-/Recovery-Phase, Fokus auf Canvas-Konsistenz, Fraktionsnamen, Backup und Tagesabschluss.
 - Referenz: Nachrichten-ID-Bereich ca. #1765–#1906.
@@ -70,7 +85,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Erstellung „unumstößlicher“ Kanon‑Canvas mit Priorität 1 (Msg #1846 Einleitung; „wird immer zuerst geladen“).
 - [OPEN] Backup/Export: Gesamter Chat als Markdown/JSON; ZIP‑Paket; Zählung der Nachrichten; Persistenz nach Kontext‑Reset verifizieren (Msgs #1875–#1906).
 
-## Chunk part-022 (global 10501–10819) – Neueste Nachrichten (II)
+Chunk part-022 (global 10501–10819) – Neueste Nachrichten (II)
+--------------------------------------------------------------
 
 - Kontext: Administrative Konsolidierung, Sicherungen/Exporte, Wiederherstellungsschritte, Setup für weitere Prüfung.
 - Referenz: Nachrichten-ID-Bereich ca. #1849–#1906.
@@ -106,7 +122,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Reihenfolge/Namensschema für „alle Canvas“ bei Markdown‑Export: Sortierung nach letztem Aktualisierungszeitpunkt (wie gewünscht) – Metadatenbasis klären.
 - [OPEN] JSON‑Splits: Falls genutzt, eindeutige message_id‑Strategie und Mapping zu globalen Zeilen festlegen (nur wenn später nötig).
 
-## Chunk part-021 (global 10001–10500) – Fraktions-/Canvas-Debug, Energie/Progress-Methodik
+Chunk part-021 (global 10001–10500) – Fraktions-/Canvas-Debug, Energie/Progress-Methodik
+----------------------------------------------------------------------------------------
 
 - Kontext: Intensive Canvas-/Fraktionsprüfung, Aufsetzen eines „unumstößlichen“ Canvas, Rechen-/Methodikfragen zu Energie und Baufortschritt.
 - Referenz: Nachrichten-ID-Bereich ca. #1764–#1848.
@@ -147,7 +164,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Tagesgrenzen-Check: „letztes eines Tages“ vs. „nächstes des Folgetags“ korrigieren/markieren (Msg #1798, #1802).
 - [OPEN] Prozess: Archivieren/Ersetzen nur mit Sichtprüfung/Diff (Anforderung: vor jeder Archivierung Anzeige und Gegenüberstellung, Msg #1786).
 
-## Chunk part-020 (global 9501–10000) – Setup RP‑Modus, Draisinen‑Specs, Stationen fixieren
+Chunk part-020 (global 9501–10000) – Setup RP‑Modus, Draisinen‑Specs, Stationen fixieren
+----------------------------------------------------------------------------------------
 
 - Kontext: Admin/Setup für sauberen RP‑Start (Temporär‑Nachrichten, Snapshots, Reindex/Sync), Draisinen‑Spezifikation, feste Stations‑Beschreibungen inkl. Maße, Logistik/Verknüpfungen.
 - Referenz: Nachrichten-ID-Bereich ca. #1671–#1763.
@@ -186,7 +204,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Tageswechsel‑Canvas/Regeln wiederherstellen; Wechsel nur nach Komplett‑Load; Validierungscheckliste festlegen (#1751, #1753–#1755).
 - [OPEN] Energie‑Bilanz: Reaktorproduktion, Soll‑Zellen und Logistik‑Verlinkungen prüfen, damit Tagesabrechnung korrekt erfolgt (#1757–#1759).
 
-## Chunk part-019 (global 9001–9500) – Weekly‑Sim/Canvas‑Audit, Reflex‑Regeln, Anomalien
+Chunk part-019 (global 9001–9500) – Weekly‑Sim/Canvas‑Audit, Reflex‑Regeln, Anomalien
+-------------------------------------------------------------------------------------
 
 - Kontext: Übergang zu Systemmodus für Wochen‑Simulation (Tag 7–11), umfassender Canvas‑Audit, Regeln/Policies, RP‑Fortsetzung mit konsistenter Datenbasis.
 - Referenz: Nachrichten-ID-Bereich ca. #1582–#1670.
@@ -225,7 +244,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Fraktionsset/Divergenzen: Hauptfraktionen gegen Archiv/Reports abgleichen; N7‑Status als Bereich in C6 fixieren (#1615–#1617, #1623).
 - [OPEN] A/T/S/D‑String in Systemmeldungen aufnehmen; Bedeutung definieren und letzten „guten“ String hoch werten (#1660–#1662).
 
-## Chunk part-018 (global 8501–9000) – Mission 2 Planung, Bestandsaufnahmen, System‑Update‑Vorbereitung
+Chunk part-018 (global 8501–9000) – Mission 2 Planung, Bestandsaufnahmen, System‑Update‑Vorbereitung
+----------------------------------------------------------------------------------------------------
 
 - Kontext: Vorbereitung Mission 2 (Aufklärung äußere Linien), Inventar/Bestandsaufnahmen D5/C6, Bevölkerungsklärung/Archivierungen, temporäre Einstellungen/System‑Update, Debug-/Systemmeldungen.
 - Referenz: Nachrichten-ID-Bereich ca. #1492–#1581.
@@ -261,7 +281,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Schienenwagen/Transport: Quelle belegen oder entfernen; vorläufig Test‑Transportmodul erst planen, nicht als existent ausgeben (#1575, Bezug zu #1642 in part‑019/020).
 - [OPEN] Quarantäne‑Ende und Start paralleler Arbeiten von C6‑Seite validieren (vermutlich Tag 10) (#1573).
 
-## Chunk part-017 (global 8001–8500) – C6‑Führung, Rückweg nach D5, Fraktions‑Züge, Missionsplanung
+Chunk part-017 (global 8001–8500) – C6‑Führung, Rückweg nach D5, Fraktions‑Züge, Missionsplanung
+------------------------------------------------------------------------------------------------
 
 - Kontext: Tag 6–7: Quarantäne‑Tag 2 Organisation (Marei/Kora/Ronja), Echo‑Verhalten, Wochen‑Sim (Fraktionen/Nicht‑Fraktionen), Rückkehr Ronja+Reflex nach D5 mit zwei Begleitern, Datenkonsolidierung und Sitzungen.
 - Referenz: Nachrichten-ID-Bereich ca. #1405–#1491.
@@ -304,7 +325,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Umzug C6→D5: Sicherstellen, dass Tarv und Derek korrekt verschoben wurden; Leena/Rian bleiben erhalten; alle Cluster/Beziehungen/Standorte aktualisieren (#1471–#1480, #1474).
 - [OPEN] E3‑Netztrennung: Monitoring‑Implikationen für Fraktionen definieren (wer merkt es, welche Canvas) (#1429, Anschluss an Energie‑Policy).
 
-## Chunk part-016 (global 7501–8000) – System‑Last/Canvas‑Kategorien, C6‑Linien, Echo‑Kora, E3‑Evakuierung
+Chunk part-016 (global 7501–8000) – System‑Last/Canvas‑Kategorien, C6‑Linien, Echo‑Kora, E3‑Evakuierung
+-------------------------------------------------------------------------------------------------------
 
 - Kontext: Admin‑Themen (Tokenverbrauch, alle nicht‑archivierten Canvas aktiv laden, Systemmeldung mit Canvas‑Zahl, Kategorien A/B/C Reaktivierung), RP‑Fokus auf C6 (Zugänge/Linien), Karawanen‑Test, Echo‑Instanzbindung an Kora, Kontakt zu E3 und Evakuierung, Quarantäne/Versorgung in C6.
 - Referenz: Nachrichten-ID-Bereich ca. #1307–#1403.
@@ -347,7 +369,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Systemmeldung: Formatstring mit Canvas‑Zahl standardisieren und persistieren (Verknüpfung zu A/T/S/D‑String) (#1339).
 - [OPEN] E3‑Evakuierung/Policy: Trigger, Ablauf, Ressourcenwirkung (Energie frei für D5/C6), Sichtbarkeitsregeln für Fraktionen dokumentieren (#1391–#1397).
 
-## Chunk part-015 (global 7001–7500) – Rückkehr C6, Rollen/Leitung, Admin‑Prozess, D5‑Slice‑of‑Life
+Chunk part-015 (global 7001–7500) – Rückkehr C6, Rollen/Leitung, Admin‑Prozess, D5‑Slice‑of‑Life
+------------------------------------------------------------------------------------------------
 
 - Kontext: Rückblick/Neuaufnahme RP‑Faden: Ankunft/Bestandsaufnahme C6, Aufgaben‑Zuordnung durch Kora, Admin‑3‑Schritt‑Prozess, Fraktionszüge (abgeschwächt), D5‑Zwischenszene Jonas↔Reflex‑Instanz, Korrektur Karawanen‑Missionsstatus.
 - Referenz: Nachrichten‑ID‑Bereich ca. #1209–#1306.
@@ -391,7 +414,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Novapolis‑Geheimhaltung in Fraktionszügen modellieren (Wissen/Erkennung → 0) (#1261–#1264).
 - [OPEN] Karawanen‑Mission sauber archivieren, inkl. Inventarabschluss und Verlinkungen (Canvas „Logistik“/„Missionen“) (#1291–#1299, #1301–#1306).
 
-## Chunk part-014 (global 6501–7000) – D5‑Zwischenfall, Rollen/Regeln, Inventar‑Prozess, System‑Update, Reflex‑Kontrolle
+Chunk part-014 (global 6501–7000) – D5‑Zwischenfall, Rollen/Regeln, Inventar‑Prozess, System‑Update, Reflex‑Kontrolle
+---------------------------------------------------------------------------------------------------------------------
 
 - Kontext: D5‑Intermezzo (Mikk stöbert, Pahl führt), Vorschlag: Reflex‑Instanz als Guide, Versorgungsmission für C6 vorbereiten (Inventar/Comms), Rollen-/Canvas‑Konsolidierung, Behavior/Archiv‑Update, tiefe Szene Ronja↔Reflex (Schutz/Übernahme der Kontrolle).
 - Referenz: Nachrichten‑ID‑Bereich ca. #1128–#1208.
@@ -447,7 +471,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Verhalten v1.4.0‑pre: Prüfen, ob alles übernommen/kompatibel ist; Narrator‑Neutralität konfigurierbar? (#1167–#1173, #1187).
 - [OPEN] Reflex‑Sprechmechanik/Trommelfell: Grenzen, Zustimmung, Erschöpfung; Schutz‑Trigger/Schwellen definieren (#1181, #1183–#1187, #1190–#1207).
 
-## Chunk part-013 (global 6001–6500) – Reflex‑Profil/Verhalten, D5‑Layout/Pläne, Comms/Tunnel, Kontext‑Reload
+Chunk part-013 (global 6001–6500) – Reflex‑Profil/Verhalten, D5‑Layout/Pläne, Comms/Tunnel, Kontext‑Reload
+----------------------------------------------------------------------------------------------------------
 
 - Kontext: Vertiefung Reflex‑Charakter (Aussehen/Bewegung/Bindung), Korrekturen zu Symbiose‑Stufen, D5‑Struktur/Skizzen‑Canvas, Comms/Tunnel‑Details, Systemkontext neu laden, Führungsrollen klären.
 - Referenz: Nachrichten‑ID‑Bereich ca. #1046–#1127.
@@ -486,7 +511,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Comms‑Reichweite: Gleichzeitiges Hören in beiden Stationen plausibilisieren; Reichweiten-/Dämpfungsmodell definieren (#1087–#1088).
 - [OPEN] Neid/Handschuhe‑Regel: Situationslogik und Grenzen dokumentieren (#1087).
 
-## Chunk part-012 (global 5501–6000) – Codes/Cluster, Kontextprüfung, Backups, Schwierigkeitsgrad, Fraktionswissen
+Chunk part-012 (global 5501–6000) – Codes/Cluster, Kontextprüfung, Backups, Schwierigkeitsgrad, Fraktionswissen
+---------------------------------------------------------------------------------------------------------------
 
 - Kontext: Integrationsarbeit an Codierungssystemen, wiederholte Kontextprüfungen, Backup‑Strategie, Vorbesprechung Versorgungsmission, Schwierigkeitsgrad/Outcome‑Gewichtung, Cluster‑Index‑Idee.
 - Referenz: Nachrichten‑ID‑Bereich ca. #955–#1045.
@@ -524,7 +550,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Backup‑ZIP: Format/Ort/Downloadpfad festlegen (Repo vs. extern) (#893–#899).
 - [OPEN] Cluster‑Index: Konkrete 3‑stellige Syntax + Temperaturmetadaten definieren (#919).
 
-## Chunk part-011 (global 5001–5500) – Vorbesprechung Versorgung, Comms‑Reparatur, Canvas‑Ladung, Fraktionsblöcke
+Chunk part-011 (global 5001–5500) – Vorbesprechung Versorgung, Comms‑Reparatur, Canvas‑Ladung, Fraktionsblöcke
+--------------------------------------------------------------------------------------------------------------
 
 - Kontext: Missionseinordnung, C6/D5‑Besetzungen klären, Comms‑Reparatur priorisieren, Canvas‑Ladung/Blöcke‑Update, Backup‑Thema, RP‑Fortsetzung.
 - Referenz: Nachrichten‑ID‑Bereich ca. #870–#954.
@@ -557,7 +584,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Schwierigkeit/Outcome‑Gewichtung operationalisieren (Regeln, Schwellen, Rückkopplung in Canvas) (#917–#919).
 - [OPEN] Comms‑Qualitätsschema (Skala, Effekte auf Szenen) definieren (#911–#913).
 
-## Chunk part-010 (global 4501–5000) – C6‑Raumplanung, Bewohner/Caravan‑Canvas, Reflex‑Vorstellung, Anomalie‑Kisten, Reinit‑Prompt
+Chunk part-010 (global 4501–5000) – C6‑Raumplanung, Bewohner/Caravan‑Canvas, Reflex‑Vorstellung, Anomalie‑Kisten, Reinit‑Prompt
+-------------------------------------------------------------------------------------------------------------------------------
 
 - Kontext: Morgen in C6, Frühstück und Stationsaufteilung, belastbare Nutzfläche und Limitierungen, Gruppen‑Canvas, Reflex‑Vorstellung, Fracht/Kisten, interne Gänge sichern, Geräte‑Erfindungen strikt vermeiden, Kontext‑Reset + Reinit‑Prompt mit festen Weltzuständen.
 - Referenz: Nachrichten‑ID‑Bereich ca. #801–#869.
@@ -601,7 +629,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Reinit‑Prompt Inhalte in Admin/Unumstößlich‑Canvas prüfen/übernehmen; Evidenz/Versionierung (#855).
 - [OPEN] Anomalie‑Kisten (7A/9B): Herkunft, Risiken, Interaktion mit Reflex; Öffnung nur mit Beschluss/Protokoll (#825–#833, #855).
 
-## Chunk part-009 (global 4001–4500) – Core‑Chars Update, Kora‑Rollenfix, Woche‑1‑Sim, D5‑Slice Jonas/Pahl, Inventar‑Trennung
+Chunk part-009 (global 4001–4500) – Core‑Chars Update, Kora‑Rollenfix, Woche‑1‑Sim, D5‑Slice Jonas/Pahl, Inventar‑Trennung
+--------------------------------------------------------------------------------------------------------------------------
 
 - Kontext: Backup↔Neue Version‑Vergleiche, Jonas/Pahl‑Canvas mit psych. Profil, Kora‑Rollenklärung (Novapolis‑Karawane vs. Händlergilde), Backups archivieren, erste Wochen‑Simulation aufsetzen, D5‑Alltag Jonas/Pahl mit Reflex‑Instanz, Dialog‑Canvas anlegen, Inventare D5/C6 strikt trennen.
 - Referenz: Nachrichten‑ID‑Bereich ca. #706–#800.
@@ -640,7 +669,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Woche‑Sim‑Parameter (Zyklen, Scope, Grenzen) definieren (#742–#746, #775–#779).
 - [OPEN] Dialog‑Canvas‑Blockformat/Index finalisieren (#789–#795).
 
-## Chunk part-008 (global 3501–4000) – Indexe/Archive, Maschinenformat, Stations‑Ressourcen, Handel+Diplomatie, Logistik
+Chunk part-008 (global 3501–4000) – Indexe/Archive, Maschinenformat, Stations‑Ressourcen, Handel+Diplomatie, Logistik
+---------------------------------------------------------------------------------------------------------------------
 
 - Kontext: Index/Meta‑Index anlegen (Novapolis, Händler, Meta Rest), Archivpfad trennen, Maschinenformat für Canvas, Station‑getrennte Ressourcen/Produktion, C6‑Generator (repariert), Handels/Diplomatie‑Canvas, Logistik mit Tunnel‑Restriktionen, Fraktionshandelsbeziehungen.
 - Referenz: Nachrichten‑ID‑Bereich ca. #611–#700.
@@ -676,7 +706,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Handelsbeziehungen initialisieren: Bedarfe/Überhänge je Fraktion; Diplomatie‑Gewichte (#562–#568).
 - [OPEN] Logistik‑Verknüpfung in Handelsregeln formal machen (#585–#591).
 
-## Chunk part-007 (global 3001–3500) – Fracht/ Missionen, Stations‑Trennung, Index/Meta‑Index, Maschinenformat‑Policy
+Chunk part-007 (global 3001–3500) – Fracht/ Missionen, Stations‑Trennung, Index/Meta‑Index, Maschinenformat‑Policy
+------------------------------------------------------------------------------------------------------------------
 
 - Kontext: Fracht der Karawane definieren und Missions‑Canvas aktualisieren; Vorschlag station‑gebundener Ressourcen‑Canvas; Handelslogs/‑Diplomatie aufsetzen; Logistik‑Canvas; Index/Meta‑Index; Policy „Canvas maschinenoptimiert“.
 - Referenz: Nachrichten‑ID‑Bereich ca. #511–#610.
@@ -710,7 +741,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Maschinenformat‑Leitfaden schriftlich in Admin‑Canvas festhalten (#605–#610).
 - [OPEN] Index/Meta‑Index Pflege‑Zyklus (wöchentlich) definieren (#647).
 
-## Chunk part-006 (global 2501–3000) – Charaktere/Gruppen-Canvas, Dialog-Canvas, Reflex-Stufe, Jonas/E2, Missionslog/Anomalien
+Chunk part-006 (global 2501–3000) – Charaktere/Gruppen-Canvas, Dialog-Canvas, Reflex-Stufe, Jonas/E2, Missionslog/Anomalien
+---------------------------------------------------------------------------------------------------------------------------
 
 - Kontext: Konsolidierung der Canvas-Struktur (Charaktere, Gruppen), strikte Gruppenregeln für Novapolis, Dialog-Canvas mit Blockformat, Korrekturen zu Reflex-Symbiose, Jonas’ Herkunft/Aufsicht, Missionslog-Setups, Anomalien/Caravan-Logik.
 - Referenz: Nachrichten-ID-Bereich ca. #419–#510.
@@ -750,7 +782,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Jonas’ Herkunft E2 vs. E3 und Schwester‑Status belegen (#456).
 - [OPEN] Fraktionsführer (drei) benennen und in Gruppenstruktur abbilden (#460).
 
-## Chunk part-005 (global 2001–2500) – Versionierung/Backups, C6-Korrektur, Fraktionen/Inventare, Währung/Bullets
+Chunk part-005 (global 2001–2500) – Versionierung/Backups, C6-Korrektur, Fraktionen/Inventare, Währung/Bullets
+--------------------------------------------------------------------------------------------------------------
 
 - Kontext: Verhaltens-/Regel‑Update (Versionierung, Kontextprüfung, Archivierung), C6‑Beschreibung/Fehlerkorrektur, Fraktions‑Canvas und Inventare, Währung als „Kugeln“ mit 10:1‑Ratio, Index‑Validierung.
 - Referenz: Nachrichten-ID-Bereich ca. #320–#418.
@@ -787,7 +820,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Fraktionsbeziehungen/Wissensstände: Außenfraktionen wissen nichts von D5/Novapolis (prüfen) (#368–#376).
 - [OPEN] Verteilungslogik Kugeln definieren (Startmengen, Umlauf) und dokumentieren (#388–#397).
 
-## Chunk part-004 (global 1501–2000) – C6‑Instandsetzung, Comms‑Priorität, Sensoren/Verbrauch, Canvas‑Fehler, Wochen-/Handelszyklus
+Chunk part-004 (global 1501–2000) – C6‑Instandsetzung, Comms‑Priorität, Sensoren/Verbrauch, Canvas‑Fehler, Wochen-/Handelszyklus
+--------------------------------------------------------------------------------------------------------------------------------
 
 - Kontext: Vorbereitung auf C6‑Arbeiten (Materialtransport, Reflex als Exo), Priorisierung Kommunikationslink, Sensorsetup und Materialprüfung, wiederholte Canvas‑Überschreibungen und Ursache, Wochen‑Zyklus und Handelszyklus koppeln, Reflex/Ronja‑Szene vertiefen.
 - Referenz: Nachrichten-ID-Bereich ca. #221–#319.
@@ -824,7 +858,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Canvas‑Index‑Stabilität: Leitfaden gegen „falsches Canvas überschrieben“ festschreiben (#261–#266, #301–#306).
 - [OPEN] Wochen‑/Handelszyklus formal dokumentieren (Startpunkt, Scope) (#281–#285).
 
-## Chunk part-003 (global 1001–1500) – Fraktionsanlage, Weltzüge, Händlerkontakt C6, C6 als Puffer, Canvas‑Fehler
+Chunk part-003 (global 1001–1500) – Fraktionsanlage, Weltzüge, Händlerkontakt C6, C6 als Puffer, Canvas‑Fehler
+--------------------------------------------------------------------------------------------------------------
 
 - Kontext: Anlage von drei Hauptfraktionen (Arkologie A1, Eisenkonklave, Flüsterkollektiv) plus Händlergilde, zweiwöchige Fraktionszüge bis Tag 20, Karawane Richtung D‑Sektor, C6 als öffentlich zugänglicher Puffersektor von Novapolis, mehrfache Canvas‑Überschreibungsfehler, Erstkontakt Reflex↔Händler in leerer C6.
 - Referenz: Nachrichten-ID-Bereich ca. #179–#220.
@@ -861,7 +896,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Wissensmatrix: Händler kennen Reflex nicht – in Wissens‑/Sichtbarkeitsmatrix verankern (#211).
 - [OPEN] C6‑Status (leer vs. später teils repariert) chronologisch konsistent führen (#215).
 
-## Chunk part-002 (global 501–1000) – Symbiose Stufe 1, Jonas‑Einführung, C6‑Check, Nordlinie 01, Stil/Regeln
+Chunk part-002 (global 501–1000) – Symbiose Stufe 1, Jonas‑Einführung, C6‑Check, Nordlinie 01, Stil/Regeln
+----------------------------------------------------------------------------------------------------------
 
 - Kontext: Präzisierung Reflex=Neoprenanzug (Stufe 1), Jonas anlegen, D5 98%‑Status (früh), C6 prüfen (Funken/Scans), Leichenhinweise, Projekt „Nordlinie 01“, Inventarupdates, Stilregel (ohne Quotes), Regellockerung zu Canvas‑Anzahl, umfassender Datenabgleich.
 - Referenz: Nachrichten-ID-Bereich ca. #98–#178.
@@ -900,7 +936,8 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] Jonas‑Werkstatt/Beaufsichtigung durch Reflex‑Instanz konsistent verankern (Detachment‑Regeln beachten) (#131–#132).
 - [OPEN] D5 98% → 100% Übergang zeitlich markieren und referenzieren (#86 vs. spätere Teile).
 
-## Chunk part-001 (global 1–500) – Setup, Ronja Charakter, erste Szenen in D5, Wurzelgewebe‑Idee
+Chunk part-001 (global 1–500) – Setup, Ronja Charakter, erste Szenen in D5, Wurzelgewebe‑Idee
+---------------------------------------------------------------------------------------------
 
 - Kontext: ZIP‑Setup/Struktur, Mehrfach‑Canvas erlaubt, Ronja Charakterdaten (Skills/Inventar/Motivation/Makel), erste Erkundungsszenen in D5, „System“‑Dämpfungserlebnis, Interesse am Wurzelgewebe als eigens identifizierte Entität.
 - Referenz: Nachrichten-ID-Bereich ca. #1–#97.
@@ -933,5 +970,3 @@ Offen/Prüfaufträge [OPEN]
 - [OPEN] „System“ vs. Reflex: Terminologie vereinheitlichen (Schutzmechanik) (#56–#60, später #1183–#1207).
 - [OPEN] Wurzelgewebe: Einordnung als Anomalie/Ort/Entität festlegen; Protokoll/Canvas definieren (#92–#94).
 <!-- EOF -->
-
-

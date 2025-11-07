@@ -1,16 +1,15 @@
 ---
-title: Inventar – D5
+last-updated: 2025-11-07T04:32:00+01:00
 category: inventory
 slug: d5-inventar
 owner: d5
 scope: location
 version: "0.1"
-last_updated: 2025-11-07T03:32:00+01:00
 tags: []
 ---
 
 D5 – Inventar
---------------
+==============
 
 Bestände (verbucht)
 -------------------
@@ -31,4 +30,3 @@ Aktionen
 --------
 - [ ] Lagerplätze definieren und QR/Tagging überlegen
 - [ ] Verbrauchslog anlegen
-

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-07 03:10
-update: H1/H2 auf Setext umgestellt; YAML-Frontmatter korrigiert.
-checks: markdownlint-cli2 (file) PASS
+stand: 2025-11-07 04:56
+update: Archive-TODOs & Issue-Template auf Setext gebracht; Repo-Lint PASS.
+checks: markdownlint-cli2 PASS
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -14,6 +14,7 @@ Kurzueberblick
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
+- 2025-11-07 04:56: Archiv-TODOs (`novapolis-dev/archive/todo.*.archive.md`) auf Setext (H1/H2) umgestellt, Checks/Timestamps aktualisiert; `.github/ISSUE_TEMPLATE/feature_request.md` konsistent gemacht; repo-weites `markdownlint-cli2` PASS (132 Dateien).
 - 2025-11-07 02:10: markdownlint-cli2 repo-weit ausgeführt (367× MD003 Setext-Stil offen); Analyse der Markdown-generierenden Skripte (Chat-Exporter, Reports, todo_gather) vorbereitet.
 - 2025-11-07 01:27: Workspace-Analyse für widersprüchliche Einstellungen und Alt-Markdown durchgeführt; Kandidaten protokolliert (Lint-Override-Dateien, Staging-Reports ohne Frontmatter, doppelte Metadata-Skripte).
 - Reminder Single-Repo: Alle Module (Agent/RP/Dev/Sim) laufen unter `Main/`; zentrale Verwaltung im Root, Archive nach `novapolis-dev/archive/**`, Löschungen erst nach Integration + Freigabe.

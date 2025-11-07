@@ -8,7 +8,7 @@
   ],
   "python.testing.unittestEnabled": false,
   "python.analysis.typeCheckingMode": "standard",
-  "github.copilot.chat.workspaceInstructions": "Primärdokument: .github/copilot-instructions.md. Ergänzende Kerndokumente: novapolis-dev/docs/copilot-behavior.md, novapolis-dev/docs/index.md, novapolis-rp/database-raw/99-exports/README.md. Beziehe diese Dokumente als primären Kontext bei Antworten. Wichtige Policy: Rohdaten bleiben in database-raw; keine ungefilterten Daten nach database-rp. Falls relevante Antworten zu RP/Datenfluss: prüfe zuerst diese drei Dateien.",
+  "github.copilot.chat.workspaceInstructions": "Primärdokument: .github/copilot-instructions.md (SSOT). Ergänzende Navigation: novapolis-dev/docs/index.md; für RP-Datenflüsse: novapolis-rp/database-raw/99-exports/README.md. Wichtige Policy: Rohdaten bleiben in database-raw; keine ungefilterten Daten nach database-rp.",
   "github.copilot.chat.codebase": {
     "enabled": true
   },

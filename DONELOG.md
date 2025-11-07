@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-07 03:12
-update: todo.root.md (H1/H2 Setext + YAML) gelinted; Kurznotiz ergänzt.
-checks: markdownlint-cli2 PASS (staging/dev/agent)
+stand: 2025-11-07 04:56
+update: Archiv-TODOs & Issue-Template Setext; Repo-Lint PASS protokolliert.
+checks: markdownlint-cli2 PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -12,6 +12,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-07 04:56: Archiv-TODOs (`novapolis-dev/archive/todo.*.archive.md`) auf Setext gebracht, Timestamps/Checks erneuert; `.github/ISSUE_TEMPLATE/feature_request.md` vereinheitlicht; repo-weites `markdownlint-cli2` PASS (132 Dateien).
 - 2025-11-07 03:12: `todo.root.md` auf Setext (H1/H2) umgestellt, YAML-Frontmatter korrigiert; Einzel-Lint PASS.
 - 2025-11-07 02:29: Tree‑Snapshots aktualisiert; Staging‑Reports (Setext + YAML‑Frontmatter) vereinheitlicht und gelinted (scoped PASS); Status ergänzt.
 - 2025-11-07 02:19: DONELOGs/Status-Docs synchronisiert (`todo.root.md`, `WORKSPACE_STATUS.md`, `single-root-todo.md`); Repo-weites markdownlint-Ergebnis (MD003‑Backlog) dokumentiert; VS Code Lint‑Task (Quoting "**/*.md") angeglichen.

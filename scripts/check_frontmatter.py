@@ -15,6 +15,9 @@ SKIP_PATTERNS = (
     "outputs/",
     "novapolis-rp/database-raw/",
     "novapolis-rp/.pytest_cache/",
+    ".pytest_cache/",
+    "novapolis_agent/.pytest_cache/",
+    ".github/ISSUE_TEMPLATE/",
     "Backups/",
     # Canonical exception: this file intentionally has no YAML frontmatter
     ".github/copilot-instructions.md",
@@ -27,19 +30,23 @@ def should_skip(path: Path) -> bool:
     return any(pattern in posix for pattern in SKIP_PATTERNS)
 
 
-def parse_frontmatter(path: Path) -> dict[str, str] | None:
-    """Extract a minimal frontmatter dict or None if absent."""
-    try:
-        text = path.read_text(encoding="utf-8")
-    except UnicodeDecodeError:
-        return None
+def parse_frontmatter_block(text: str) -> tuple[dict[str, str] | None, list[str]]:
+    """Extract frontmatter dict and collect structural issues."""
+    errors: list[str] = []
+    # BOM explicitly flagged
+    if text.startswith("\ufeff"):
+        errors.append("BOM vor Frontmatter (erste Zeile)")
+        # remove BOM for further checks
+        text = text.lstrip("\ufeff")
 
     if not text.startswith("---\n"):
-        return None
+        errors.append("Erste Zeile ist nicht '---'")
+        return None, errors
 
     end = text.find("\n---", 4)
     if end == -1:
-        return None
+        errors.append("Schließender Frontmatter-Delimiter fehlt ('---')")
+        return None, errors
 
     block = text[4:end].splitlines()
     data: dict[str, str] = {}
@@ -48,10 +55,11 @@ def parse_frontmatter(path: Path) -> dict[str, str] | None:
         if not stripped or stripped.startswith("#"):
             continue
         if ":" not in stripped:
-            return None
+            errors.append("Ungültige Zeile in Frontmatter: ':' fehlt")
+            return None, errors
         key, value = stripped.split(":", 1)
         data[key.strip()] = value.strip()
-    return data
+    return data, errors
 
 
 def validate_frontmatter(path: Path) -> list[str]:
@@ -59,7 +67,14 @@ def validate_frontmatter(path: Path) -> list[str]:
     if should_skip(path):
         return []
 
-    data = parse_frontmatter(path)
+    try:
+        text = path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        return ["Datei ist nicht UTF-8-dekodierbar"]
+
+    data, struct_errors = parse_frontmatter_block(text)
+    if struct_errors:
+        return struct_errors
     if data is None:
         return ["Frontmatter fehlt oder ist unvollständig"]
 

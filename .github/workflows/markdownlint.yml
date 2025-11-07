@@ -43,3 +43,22 @@ jobs:
         shell: pwsh
         run: |
           npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"
+
+  frontmatter-validator:
+    name: frontmatter (validator)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run frontmatter validator (scoped)
+        run: |
+          python scripts/check_frontmatter.py \
+            novapolis_agent/docs \
+            README.md \
+            todo.root.md \
+            single-root-todo.md \
+            WORKSPACE_STATUS.md

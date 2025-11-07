@@ -1,6 +1,6 @@
 ---
 canvas: Karawanenbewegungen
-last-updated: 2025-10-27T16:48:28+01:00
+last-updated: 2025-11-07T04:09:00+01:00
 category: project
 slug: caravan-moves
 status: planned
@@ -41,4 +41,3 @@ Links
 - C6 → ../03-locations/C6.md
 - D5 → ../03-locations/D5.md
 - Missionslog → ../00-admin/Missionslog.md
-

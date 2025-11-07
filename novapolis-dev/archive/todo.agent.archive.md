@@ -1,10 +1,11 @@
 ---
-stand: 2025-11-01 19:16
-update: Block „Kurzfristige Ziele (Heute)“ aus Altdatei archiviert
-checks: keine
+stand: 2025-11-07 04:56
+update: H1/H2 auf Setext gestellt; Timestamp aktualisiert.
+checks: markdownlint-cli2 PASS
 ---
 
-# TODO-Archiv – Agent
+TODO-Archiv – Agent
+===================
 
 Zweck: Vollständig abgeschlossene TODO-Abschnitte aus `novapolis_agent/docs/TODO.md` aufnehmen, damit `TODO.md` schlank bleibt.
 
@@ -12,7 +13,7 @@ Regeln (kurz)
 
 - Nur Abschnitte verschieben, deren Checklisten vollständig auf [x] stehen.
 - Inhalt unverändert übernehmen. Direkt unter der Abschnitts-Überschrift eine Einzeile ergänzen: `archived_at: YYYY-MM-DD HH:MM`.
-- Headings in diesem Archiv: ATX (MD003 consistent per Datei).
+- Headings in diesem Archiv: Setext (MD003 konform, H1/H2).
 - Präsentation: Lint-Läufe mit PRESENTATION=SHARED.
 - DONELOG: Ein Zeilen-Eintrag im Agent-DONELOG genügt (kein Volltext hier).
 
@@ -22,7 +23,8 @@ Ablage
 
 <!-- Hier unterhalb neue, vollständig erledigte Blöcke einfügen (neu zuerst). -->
 
-## Kurzfristige Ziele (Heute)
+Kurzfristige Ziele (Heute)
+--------------------------
 
 archived_at: 2025-11-01 19:16
 

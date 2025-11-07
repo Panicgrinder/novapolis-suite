@@ -1,9 +1,9 @@
 ---
 title: Verbindungstunnel C6–E3
+last_updated: 2025-11-07T04:32:00+01:00
 category: location
 slug: verbindungstunnel-c6-e3
 version: "1.0"
-last_updated: 2025-11-01T10:27:01+01:00
 affiliations: [novapolis]
 status: offen
 connections: ["c6", "e3"]
@@ -28,4 +28,3 @@ Aufgaben
 - [ ] Sensorik/Belüftung überprüfen und mit D5-Zentrale koppeln
 - [ ] Rückweg aus E3 sichern, Zugangskontrollen definieren
 - [ ] Materialliste für dauerhafte Stabilisierung vorbereiten
-

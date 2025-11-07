@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-06 02:11
-update: H1/H2 auf Setext-Stil umgestellt (MD003)
+stand: 2025-11-07 06:28
+update: Verweis auf AGENT_BEHAVIOR.md durch SSOT (.github/copilot-instructions.md) ersetzt.
 checks: keine
 ---
 
@@ -220,7 +220,7 @@ Hinweise:
 - Policy‑Datei kann „default“ und „profiles“ enthalten. Merge‑Reihenfolge: `default` → `profiles[profile_id]`;
    `forbidden_terms` werden vereinigt, `rewrite_map` überlagert die Schlüssel.
 - `mode=eval` mappt implizit auf `profile_id="eval"`.
-- Details und Tests siehe `docs/AGENT_BEHAVIOR.md` und `tests/test_content_policy_profiles.py`.
+- Details und Tests siehe `../.github/copilot-instructions.md` und `tests/test_content_policy_profiles.py`.
 
 Optionale CLI-Tools
 -------------------

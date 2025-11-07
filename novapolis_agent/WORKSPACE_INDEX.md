@@ -110,7 +110,7 @@ Hinweis Datenmodelle: Quelle ist [`app/api/models.py`](app/api/models.py).
 - [`docs/customization.md`](docs/customization.md) - Anpassungs-Dokumentation für private Nutzung
 - [`docs/ARCHIVE_PLAN.md`](docs/ARCHIVE_PLAN.md) - Archiv-/Bereinigungs-Plan (Phasen)
 - Zentral: [`novapolis-dev/docs/todo.agent.md`](../novapolis-dev/docs/todo.agent.md) – ToDo & Roadmap (SSOT)
-- [`docs/AGENT_BEHAVIOR.md`](docs/AGENT_BEHAVIOR.md) - System-Prompt, Richtlinien & System-Infos (zentral)
+- Zentrale Behaviour‑Richtlinien: [`../.github/copilot-instructions.md`](../.github/copilot-instructions.md) – SSOT für Arbeitsweise/Sicherheit
 - [`docs/DONELOG.txt`](docs/DONELOG.txt) - DONELOG – Abgeschlossene Arbeiten
   (Hinweis: `AGENT_PROMPT.md` und `BEHAVIOR.md` wurden konsolidiert → `AGENT_BEHAVIOR.md`)
 - [`docs/REPORTS.md`](docs/REPORTS.md) - Berichte/Reports Überblick

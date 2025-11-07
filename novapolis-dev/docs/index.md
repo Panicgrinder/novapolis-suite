@@ -1,5 +1,6 @@
-stand: 2025-11-06 03:07
-update: Verweis auf Chat-Neustart-Prompt entfernt
+---
+stand: 2025-11-07 05:24
+update: Frontmatter-Delimiter ergänzt; Snapshot aktualisiert (keine inhaltlichen Änderungen)
 checks: markdownlint-cli2 PASS (single file)
 ---
 
@@ -25,7 +26,7 @@ Primary Docs
   - `docs/todo.rp.md` — RP-Aufgaben (Kanon/Canvas/Projekte)
   - `docs/todo.dev.md` — Dev-Aufgaben (Tooling, Lint/CI, Validatoren)
   - `docs/todo.agent.md` — Agent-Aufgaben (Backend, Tests/Typing, Scripts)
-- `docs/copilot-behavior.md` — verbindliche Arbeitsweise & Sicherheitsregeln
+  - `.github/copilot-instructions.md` — verbindliche Arbeitsweise & Sicherheitsregeln (SSOT)
 - `docs/naming-policy.md` — Dateibenennung fuer alle Novapolis-Repos
 - `docs/tests.md` — Testabdeckung, Sim-/Client-Checks
 - Meta-Sidecars: `novapolis-dev/docs/meta/*.json` (Quelle, Ursprung, Migrationsstempel)

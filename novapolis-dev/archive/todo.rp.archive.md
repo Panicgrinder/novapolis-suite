@@ -1,10 +1,10 @@
----
-stand: 2025-11-01 19:10
-update: Abschnitt „Priorität A – Charaktere & Führung“ aus RP-Board archiviert
-checks: keine
+stand: 2025-11-07 04:56
+update: H1/H2 auf Setext umgestellt; Timestamp aktualisiert.
+checks: markdownlint-cli2 PASS
 ---
 
-# TODO-Archiv – RP
+TODO-Archiv – RP
+================
 
 Zweck: Kanonisierte, vollständig abgeschlossene TODO-Abschnitte aus RP-bezogenen TODOs (primär `novapolis-rp/**`) aufnehmen.
 
@@ -17,7 +17,7 @@ Regeln (kurz)
 
 - Nur vollständig abgehakte Abschnitte ([x] überall) verschieben.
 - Inhalt unverändert übernehmen; direkt unter der Abschnitts-Überschrift: `archived_at: YYYY-MM-DD HH:MM`.
-- Headings in diesem Archiv: ATX (MD003 consistent per Datei).
+- Headings in diesem Archiv: Setext (MD003 konform, H1/H2).
 - Präsentation: Lint-Läufe mit PRESENTATION=SHARED.
 
 Ablage
@@ -26,7 +26,8 @@ Ablage
 
 <!-- Hier unterhalb neue, vollständig erledigte und kanonisierte Blöcke einfügen (neu zuerst). -->
 
-## Priorität A – Charaktere & Führung
+Priorität A – Charaktere & Führung
+----------------------------------
 
 archived_at: 2025-11-01 19:10
 

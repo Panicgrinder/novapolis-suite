@@ -1,5 +1,6 @@
-stand: 2025-11-06 02:00
-update: H1/H2 auf Setext-Stil umgestellt (MD003-Aufräumstart).
+---
+stand: 2025-11-07 06:20
+update: Verweise auf modulare Behaviour-Dokumente entfernt; SSOT ist .github/copilot-instructions.md.
 checks: keine
 ---
 
@@ -51,8 +52,7 @@ Zentrale Arbeitsrichtlinien
 
 ### Copilot Instructions (kanonisch)
 
-- Die verbindlichen Arbeits-/Antwortrichtlinien liegen zentral unter `.github/copilot-instructions.md` (dieses Repo, Root/.github).
-- Ergänzende Hintergrunddokumente liegen im Dev‑Hub: `novapolis-dev/docs/` (z. B. `copilot-behavior.md`, `index.md`).
+- Die verbindlichen Arbeits-/Antwortrichtlinien liegen zentral unter `.github/copilot-instructions.md` (dieses Repo, Root/.github). Ergänzende Navigation: `novapolis-dev/docs/index.md`.
 - In VS Code sind diese Dokumente als primärer Kontext hinterlegt (siehe `/.vscode/settings.json` → `github.copilot.chat.workspaceInstructions`).
 
 ### Lint/Format & EOL-Policy (Root)
@@ -91,7 +91,7 @@ Workspace öffnen
 ### Hinweise für Mitarbeit (Moduswechsel & STOP‑Gate)
 
 - Moduswahl: Redaktion/Kanon bitte im General‑Modus (GPT‑5) arbeiten; Code‑Aufgaben (Skripte/Validatoren, Tests/CI, API/Services) im Codex‑Modus.
-- Details & Regeln: siehe `.github/copilot-instructions.md` (Abschnitt „Modell‑Profile & Moduswechsel“ und „STOP‑Gate vor Code‑Aktionen“); Spiegel im Dev‑Hub: `novapolis-dev/docs/copilot-behavior.md`.
+- Details & Regeln: siehe `.github/copilot-instructions.md` (Abschnitt „Modell‑Profile & Moduswechsel“ und „STOP‑Gate vor Code‑Aktionen“).
 - STOP‑Gate: Vor Code‑Aktionen wird ein hartes STOP‑Gate gesetzt (explizit „Wechsel: Modus Codex“ oder „Weiter: Modus General“).
 - Erinnerungen: Bei Code‑Triggern weise ich auf den Moduswechsel hin; „Bitte nicht erinnern“ deaktiviert Hinweise bis zur Reaktivierung.
 - Aktueller Status (Modus/STOP‑Gate): siehe `WORKSPACE_STATUS.md`.

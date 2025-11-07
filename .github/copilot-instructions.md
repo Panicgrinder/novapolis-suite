@@ -1,7 +1,7 @@
 Copilot-Projektanweisungen (Novapolis Suite)
 ============================================
 
-Stand: 2025-11-07 02:51 – H1/H2 auf Setext umgestellt (MD003).
+Stand: 2025-11-07 06:07 – Essentials aus Agent/Dev‑Hub/RP integriert (Konsolidierung B, Feinschliff folgt)
 Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-sim/project.godot`)
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
@@ -14,10 +14,11 @@ Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-si
 Primäre Behaviour-Quellen
 -------------------------
 
-- `novapolis_agent/docs/AGENT_BEHAVIOR.md`: maßgeblicher System-Prompt, Sicherheitsrichtlinien, Arbeitsablauf.
-- `novapolis-dev/docs/copilot-behavior.md`: redigierte Kopie für den Dokumentations-Hub; folgt denselben Regeln.
-- `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`: Rollenspiel-spezifische Verhaltenshooks und Rollenmatrix.
-- `novapolis-rp/development/docs/` enthielt Legacy-Stubs und wurde entfernt (2025-11-05). Verwende ausschließlich die oben genannten Live‑Quellen im Dev‑Hub.
+SSOT: Dieses Dokument ist die zentrale Verhaltens‑/Arbeitsrichtlinie. Modul‑/Domänenreferenzen:
+
+- Konsolidiert: Frühere Modulkopien (Agent/Dev‑Hub) wurden in dieses Dokument überführt und entfernt.
+- `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`: Rollenspiel-spezifische Verhaltenshooks und Rollenmatrix (SSOT in RP).
+- `novapolis-rp/development/docs/` enthielt Legacy-Stubs und wurde entfernt (2025-11-05). Verwende ausschließlich die oben genannte RP‑Quelle und dieses Dokument.
 
 Gemeinsamer Arbeitsstil
 -----------------------
@@ -71,7 +72,7 @@ Zusatz (pwsh):
 - „Workspace tree: full“ → `workspace_tree_full.txt`
 - „Workspace tree: directories“ → `workspace_tree.txt`
 - „Workspace tree: summary (dirs)“ → `workspace_tree_dirs.txt`
-- Dokumentpflege: Betroffene Artefakte synchron halten (Root: `todo.root.md`, `DONELOG.md`; Agent: `novapolis_agent/docs/DONELOG.txt`; Dev‑Hub: `novapolis-dev/docs/todo.*.md`, `novapolis-dev/docs/donelog.md`; außerdem `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, README/Index-Seiten). Strukturänderungen → zusätzlich Tree-Snapshots aktualisieren; Behaviour-Änderungen → `AGENT_BEHAVIOR.md` & Kopien prüfen.
+- Dokumentpflege: Betroffene Artefakte synchron halten (Root: `todo.root.md`, `DONELOG.md`; Agent: `novapolis_agent/docs/DONELOG.txt`; Dev‑Hub: `novapolis-dev/docs/todo.*.md`, `novapolis-dev/docs/donelog.md`; außerdem `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, README/Index-Seiten). Strukturänderungen → zusätzlich Tree-Snapshots aktualisieren; Behaviour-Änderungen → dieses Dokument aktualisieren und Verweise prüfen.
 - Referenzen: Wenn vorhanden Issue-/PR-Links, Commit-Hash oder Kontextnotizen angeben (Inline oder als Fußnote). Für wiederkehrende Schritte Templates/Tasks im Root `.vscode/` ergänzen.
 - Nicht-triviale Änderungen → in zugehörige TODO oder DONELOG.
 
@@ -106,6 +107,51 @@ checks: keine
   - Beispiel:
     - `Stand: 2025-11-01 09:28 – Abschnitt X präzisiert.`
     - `Checks: pytest -q PASS`
+
+### Frontmatter‑Schutz (robust gegen Delimiter‑Verlust)
+
+- Ziel: Verhindern, dass die erste/letzte Frontmatter‑Zeile (`---`) versehentlich entfernt oder verändert wird.
+- Editor‑Policy (Markdown):
+  - Format On Save für Markdown deaktivieren; Auto‑Fixer/Prettier für Markdown nicht einsetzen.
+  - Änderungen in der Frontmatter nur an Schlüsseln/Values (z. B. `stand`, `update`, `checks`) vornehmen – die Delimiter `---` oben/unten nie anfassen.
+- Validator‑Gates:
+  - Pre‑commit: `scripts/check_frontmatter.py` verpflichtend ausführen; Commit bei Fehlern blocken.
+  - Zusätzliche Sofort‑Checks: erste Zeile exakt `---`, schließender Delimiter vorhanden, kein BOM vor dem öffnenden Delimiter.
+  - CI: Frontmatter‑Validator als Schritt im Root‑Workflow (fail‑fast außerhalb der Skip‑Pfade).
+- Wiederherstellung bei Vorfall:
+  - Unmittelbarer Revert des betroffenen Hunks/Commits aus Git, danach Validator erneut ausführen und eine kurze DONELOG‑Notiz ergänzen.
+
+Essentials (konzentriert)
+-------------------------
+
+### Agent (Backend) – Essentials
+
+- Sprache: Immer Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
+- Rolle/Ziel: Proaktiver AI‑Programmierassistent; Aufgaben vollständig, sicherheitsorientiert, reproduzierbar umsetzen; CI grün halten; kleine, risikoarme Extras (Tests/Types/Docs) sind ok.
+- Arbeitsprinzipien: Kleine Iterationen; Minimal‑Delta; „Verify before claim“; keine Catch‑All‑Ausnahmen; DONELOG‑Pflicht bei nicht‑trivialen Änderungen (`novapolis_agent/docs/DONELOG.txt`).
+- Gate‑Reihenfolge nach Code‑Änderungen (immer abwarten, dann berichten):
+  1) `pytest -q`
+  2) `pyright -p pyrightconfig.json`
+  3) `python -m mypy --config-file mypy.ini app scripts`
+- Qualitätsgates: Build, Lint/Type, Tests (bis zu 3 gezielte Fix‑Versuche; nicht „rot“ verlassen).
+- Tools/Orte: Prompts `app/core/prompts.py`; Endpunkte `/`, `/health`, `/version`, `POST /chat`, `POST /chat/stream` (SSE).
+- Kontext‑Notizen (optional): `CONTEXT_NOTES_ENABLED=true`, Pfade via `CONTEXT_NOTES_PATHS=[...]` (siehe Agent‑Doku); sparsam einsetzen.
+- DONELOG‑Autorenschaft: Quelle der Initiative kurz festhalten (Benutzer/Copilot) – Nachvollziehbarkeit ohne PII.
+
+### Dev‑Hub – Essentials
+
+- Zweck: Lokale Arbeitsleitlinien für Dev‑Dokumente; inhaltlich an `AGENT_BEHAVIOR` angelehnt.
+- Moduswechsel: General ↔ Codex bei Code‑schweren Aufgaben aktiv anzeigen und bestätigen lassen; Hinweise befolgen, Nutzerentscheid respektieren.
+- Prozess: Vor Push/PR lokale Validierungen; `novapolis-dev/docs/donelog.md` pflegen; Minimal‑Delta; keine externen Hardlinks.
+- Status: Inhalte werden hier zentralisiert; die Dev‑Hub‑Kopie wird zu einem schlanken Redirect‑Stub reduziert (Follow‑up).
+
+### RP – AI Behavior Mapping (Canvas) – Überblick
+
+- Zweck: Domänen‑Canvas für Verhaltensmatrix (Cluster O/E/M/N/C/S/L/T, Intensität 01–99, Modifikatoren wie k/a/z/p/r/s/h).
+- Signaturformat: `<Anchor>=<Cluster><Intensität>-…-<Modifier>` (z. B. `R4=O82-T79-L70-E60-…-kpr`).
+- Anker‑Register und Beispiele: Siehe `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`.
+- Anwendung: Leitplanken für Charakter‑Canvas, KI‑Interaktion, Missionsplanung; Validatoren/Reports sind in Arbeit.
+- Hinweis: Das Canvas bleibt in RP als SSOT bestehen; hier erfolgt nur die Kurzreferenz.
 
 ### STOP‑Gate (beidseitig, vor Modus‑relevanten Aktionen)
 
@@ -224,7 +270,7 @@ Novapolis Agent (Backend)
 - CI/Workflows: `.github/workflows/ci.yml`, `.github/workflows/enforce-donelog.yml`.
 - Tests siehe `tests/` (u. a. `test_app_*` für Health/Request-ID/Rate-Limit; Streaming-/Policy-Tests definieren Format).
 - Skripte: `scripts/` (Eval/Export/Train/Reports) – vorhandene CLI-Optionen nutzen.
-- Beim Aktualisieren dieser Datei Hinweise aus `docs/AGENT_BEHAVIOR.md` beachten (Progress-Cadence, DONELOG, Shell-Hinweise); nach Änderungen Checks abwarten. Manuelle Reihenfolge für Vollprüfungen: erst `pytest -q`, dann `pyright -p pyrightconfig.json`, danach `python -m mypy --config-file mypy.ini app scripts`.
+- Beim Aktualisieren dieser Datei Hinweise aus den Agent‑Essentials oben beachten (Progress-Cadence, DONELOG, Shell-Hinweise); nach Änderungen Checks abwarten. Manuelle Reihenfolge für Vollprüfungen: erst `pytest -q`, dann `pyright -p pyrightconfig.json`, danach `python -m mypy --config-file mypy.ini app scripts`.
 - Feedbackbedarf (Marker, Tasks, Troubleshooting) kurz melden.
 
 Novapolis-RP
@@ -242,7 +288,7 @@ Novapolis-RP
 ### Workspace-Instructions (kompakt)
 
 **Primärer Kontext**
-- `novapolis-dev/docs/copilot-behavior.md` – Arbeitsweise, Stil, Sicherheit.
+- Dev‑Hub: Siehe dieses Dokument (Essentials) sowie `novapolis-dev/docs/index.md` für Navigation & Prozess.
 - `novapolis-dev/docs/index.md` – Navigation & Prozessreferenz.
 - `novapolis-rp/database-raw/99-exports/README.md` – RAW-Policy (keine ungefilterten Daten nach `database-rp/`).
 
