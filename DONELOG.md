@@ -427,3 +427,4 @@ Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) – veraltet seit 2025-
 
 ```
 
+2025-11-07 21:29 | Panicgrinder | update Frontmatter und betroffene Dateien (commit d06ab6b)
