@@ -1,25 +1,7 @@
 {
-  // Canonical workspace for the novapolis-suite mono-repo (single-root)
-  "folders": [
-    {
-      "path": "."
-    }
-  ],
-  "settings": {
-    "github.copilot.enable": {
-      "*": false
-    },
-    "github.copilot.chat.agent.autoFix": false,
-    "github.copilot.chat.agent.currentEditorContext.enabled": false,
-    "github.copilot.chat.localeOverride": "de",
-    "github.copilot.nextEditSuggestions.fixes": false,
-    "github.copilot.chat.reviewAgent.enabled": false,
-    "github.copilot.chat.reviewSelection.enabled": false,
-    "github.copilot.chat.alternateGptPrompt.enabled": true,
-    "github.copilot.chat.edits.suggestRelatedFilesFromGitHistory": false,
-    "github.copilot.chat.generateTests.codeLens": false,
-    "github.copilot.chat.languageContext.typescript.items": "minimal",
-    "chat.disableAIFeatures": false
-    
-  }
+    "folders": [
+        {
+            "path": "."
+        }
+    ]
 }

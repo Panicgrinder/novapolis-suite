@@ -6,6 +6,10 @@ Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-si
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
+Hinweis: Eine Kurzreferenz aller Überschriften dieser Anleitung findet sich in
+`.github/copilot-instructions-headings.md` (Extrakt der H1/H2/H3-Überschriften).
+
+
 > Hinweis (Terminal/Pwsh): Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Für einfache, kurze Einzeiler weiterhin `-Command` Inline nutzen; für komplexe oder mehrzeilige Abläufe (Coverage, Artefakt-Erzeugung, umfangreiche Prüf-Sequenzen) zwingend Skript-Wrapper nutzen: `pwsh -NoProfile -File <script.ps1>`. Wrapper sind nur in dieser Form erlaubt (kein indirektes Aufrufen per `-Command` mit Here-Strings). Achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`) bei allen Inline-Kommandos.
 > Ausnahme (Systemzeit): Für einfache, pfadfreie Einzeiler ist `-Command` erlaubt und kanonisch. Systemzeit immer so ermitteln: `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
 >
