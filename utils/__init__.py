@@ -3,11 +3,9 @@
 Dieses Paket reicht die Module aus ``novapolis_agent.utils`` weiter, damit
 bestehende Importpfade ohne Anpassungen funktionieren.
 """
-
+from collections.abc import Iterable
 from importlib import import_module
 import sys
-from types import ModuleType
-from typing import Iterable
 
 _BASE_PACKAGE = "novapolis_agent.utils"
 _module = sys.modules[__name__]

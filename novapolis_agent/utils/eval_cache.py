@@ -49,3 +49,4 @@ class EvalCache:
             self._idx[key] = value
             with open(self.path, "a", encoding="utf-8") as f:
                 f.write(data + "\n")
+

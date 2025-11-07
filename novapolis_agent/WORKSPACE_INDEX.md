@@ -1,5 +1,6 @@
-stand: 2025-11-06 02:09
-update: H1/H2 auf Setext-Stil gebracht (MD003-Aufräumrunde).
+---
+stand: 2025-11-07 18:10
+update: Stub-Verzeichnisse (.github, .tmp-*) entfernt.
 checks: keine
 ---
 
@@ -36,8 +37,6 @@ Vollständiger Index aller Dateien im Workspace (aktualisiert)
 - [`__pycache__/`](__pycache__/) - Python-Bytecode-Cache (generiert)
 - [`.mypy_cache/`](.mypy_cache/) - mypy-Cache (generiert)
 - [`.pytest_cache/`](.pytest_cache/) - Pytest-Cache (generiert)
-- [`.tmp-datasets/`](.tmp-datasets/) - Temporäre Artefakte (generiert)
-- [`.tmp-results/`](.tmp-results/) - Temporäre Artefakte (generiert)
 
 ### .vscode
 
@@ -223,10 +222,6 @@ Hinweis Datenmodelle: Quelle ist [`app/api/models.py`](app/api/models.py).
     - [`tests/test_streaming_fallback_and_request_id.py`](tests/test_streaming_fallback_and_request_id.py)
     - [`tests/test_prepare_finetune_pack_extras.py`](tests/test_prepare_finetune_pack_extras.py)
     - Weitere Tests siehe Ordnerliste unter `tests/`.
-
-### .github
-
-- [`.github/workflows/`](.github/workflows/) - CI-Workflows (GitHub Actions)
 
 ### .githooks (optional)
 

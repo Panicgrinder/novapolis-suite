@@ -13,9 +13,8 @@ Formate:
 """
 from __future__ import annotations
 
-from datetime import datetime, tzinfo
 import os
-from typing import Optional
+from datetime import datetime, tzinfo
 
 try:
     # Python 3.9+: zoneinfo aus der stdlib
@@ -24,7 +23,7 @@ except Exception:  # pragma: no cover - Fallback für sehr alte Umgebungen
     ZoneInfo = None  # type: ignore
 
 
-def _get_tz() -> Optional[tzinfo]:
+def _get_tz() -> tzinfo | None:
     tz_name = os.getenv("CVN_TZ") or os.getenv("TZ")
     if tz_name and ZoneInfo is not None:
         try:

@@ -1,9 +1,8 @@
 ---
-stand: 2025-11-07 12:56
-update: Devcontainer-Verzeichnis physisch gelöscht; DONELOG/TODO aktualisiert.
-checks: markdownlint (file) PASS; pytest -q PASS; search (tasks/settings/devcontainer) PASS; Remove-Item PASS
+stand: 2025-11-07 18:23
+update: Pytest Volllauf protokolliert (Tests PASS; Coverage-Gate vorerst ignoriert)
+checks: pytest: 240 passed, 1 skipped (PASS); coverage gate FAIL (temporär waived)
 ---
-
 <!-- markdownlint-disable MD022 MD041 -->
 
 Single Root TODO (Novapolis Suite)
@@ -197,11 +196,13 @@ pwsh -NoProfile -File scripts/setup_root_venv.ps1
 
 ### Etappe 4 – Lint/Format global vereinheitlichen
 
-- [ ] Markdownlint: eine zentrale Config (`.markdownlint-cli2.jsonc`) – bereits vorhanden
-- [ ] Python: `ruff` (Lint/Fix) und `black` (Format) zentral konfigurieren (Root `pyproject.toml`)
-  - Tasks ergänzen: `lint:ruff`, `fix:ruff`, `format:black`
-  - Akzeptanz: Ein Satz Regeln, keine Modul-Sonderwege
-- [ ] Optional: Pre-commit-Hooks auf Root-venv umstellen
+- [x] Markdownlint: eine zentrale Config (`.markdownlint-cli2.jsonc`) – vorhanden (Root)
+- [x] Python: `ruff` (Lint/Fix) und `black` (Format) zentral konfigurieren (Root `pyproject.toml`)
+  - Status 2025-11-07 13:05: `[tool.black]` und `[tool.ruff]` im Root; keine Modul‑Sonder‑Configs.
+  - Tasks vorhanden: `lint:ruff`, `fix:ruff`, `format:black` in `/.vscode/tasks.json`.
+  - Akzeptanz: Ein Satz Regeln, keine Modul-Sonderwege (erfüllt)
+- [x] Optional: Pre-commit-Hooks auf Root-venv umstellen
+  - Status 2025-11-07 13:05: `githooks/pre-commit` nutzt `${workspaceFolder}/.venv/Scripts/python.exe` (Fallback `python`).
 
 ### Etappe 5 – Aufräumen & CI-Angleichung
 
