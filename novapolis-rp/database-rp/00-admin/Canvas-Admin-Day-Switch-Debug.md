@@ -1,21 +1,24 @@
 ---
 canvas: Admin Day-Switch & Debug
-last-updated: 2025-10-27T18:13:52+01:00
+last-updated: 2025-11-07T03:32:00+01:00
 category: Admin
 version: 0.1
 ---
 
-# Admin: Day‑Switch & Debug
+Admin: Day‑Switch & Debug
+=========================
 
 Ziel: Sicheren Tageswechsel durchführen (Persistenz) und bei Bedarf Debug‑Ausgaben aktivieren, ohne Spielstand/Canvas zu beschädigen.
 
-## Mechanik
+Mechanik
+--------
 
 - Persistenz: Systemmeldungen mit ATSD‑String + Canvas‑Zahl protokollieren (Beginn/Ende)
 - Tageswechsel: Status einfrieren → Inventarabschluss → Verlinkungen → Archiv (Prozess L.1)
 - Debug‑Mode: zuschaltbar für erweiterte Ausgaben (nur Admin)
 
-## ATSD‑String (Definition)
+ATSD‑String (Definition)
+------------------------
 
 - A = Aktionen (Anzahl abgeschlossene Missions-/Arbeitsblöcke)
 - T = Timeline‑Marker (z. B. T+0, T+1; inkl. Uhrzeitfenster)
@@ -24,7 +27,8 @@ Ziel: Sicheren Tageswechsel durchführen (Persistenz) und bei Bedarf Debug‑Aus
 
 Beispiel: ATSD "A3-T+1-20:15-S1-D:mid"
 
-## Prozedur (Checkliste)
+Prozedur (Checkliste)
+---------------------
 
 1. Vorbereitungen
    - Canvas‑Zahl prüfen/notieren
@@ -44,24 +48,28 @@ Beispiel: ATSD "A3-T+1-20:15-S1-D:mid"
 [SYSTEM] Day-Switch: end   | ATSD=A{n}-T+{k}-{hh}:{mm}-S{s}-D:{small|mid|large} | Canvas={count}
 ```
 
-## Logs & Evidenz
+Logs & Evidenz
+--------------
 
 - Minimal: Zeit, ATSD, Canvas‑Zahl, Who+What
 - Optional: Differenzlisten (Inventare, Energie‑Konten), Missionsstatus
 
-## Fehlerfälle & Recovery
+Fehlerfälle & Recovery
+----------------------
 
 - Abbruch vor Archivierung → erneut bei Schritt „2. Abschluss T“ einsetzen
 - Debug‑Mode blieb an → sofort deaktivieren, Systemmeldung mit Hinweis setzen
 - Inkonsistente Verlinkung → Missionslog/Orte/Projekte mit Backlink‑Check durchgehen
 
-## Testfälle
+Testfälle
+---------
 
 - Leerer Tageswechsel (keine Missionen) → keine Differenzen außer Zähler
 - Aktiver Missionsabschluss → erzeugt Links + Archiv‑Eintrag
 - Debug‑Mode an/aus → keine Persistenzfehler
 
-## Links
+Links
+-----
 
 - Timeline (T+0) → ./Canvas-T+0-Timeline.md
 - Missionslog → ./Missionslog.md

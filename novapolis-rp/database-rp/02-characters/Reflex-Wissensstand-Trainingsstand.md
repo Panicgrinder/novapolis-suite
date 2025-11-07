@@ -1,10 +1,12 @@
 ---
-last-updated: 2025-10-27T20:20:00+01:00
+last-updated: 2025-11-07T03:32:00+01:00
 ---
 
-# Reflex – Wissensstand & Trainingsstand
+Reflex – Wissensstand & Trainingsstand
+======================================
 
-## Wissensstand (Detailmatrix)
+Wissensstand (Detailmatrix)
+---------------------------
 - Ronja – Bezugsperson (maximal)
 - Lumen – eigene Instanz (sehr hoch)
 - Echo – eigene Instanz (sehr hoch)
@@ -14,12 +16,14 @@ last-updated: 2025-10-27T20:20:00+01:00
 - Intern (Novapolis): Reflex/Instanzen bekannt (reguliert)
 - Extern: keine Offenlegung ohne Freigabe [FR-KNOWLEDGE]
 
-## Trainingsstand
+Trainingsstand
+--------------
 - Dämpfung motorischer Signale: in Arbeit; Verhalten noch unsicher.
 - Stop‑Reaktionen: Training erforderlich; kurze Überreaktionen möglich; Zielzustand: sofortiges Lösen bei "Stop" (Status: im Aufbau).
 - Sensorische Kopplung: derzeit zurückgestellt bis Freigabe (Stufe‑Definition offen).
 - Notfall‑Umhüllung/Kokon: nur gemäß Guards in `Reflex.md` (Lebensgefahr; Ausmaß/Dauer dynamisch).
 
-## Notizen
+Notizen
+-------
 - Exoskelett‑Entwicklung (perlmutt/Neopren‑ähnliche Trägerarchitektur): Stabilität/Energie/Schnittstellen tbd.
 

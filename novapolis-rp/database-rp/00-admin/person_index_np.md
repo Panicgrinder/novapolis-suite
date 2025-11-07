@@ -1,14 +1,15 @@
 ---
-stand: 2025-11-01 09:51
-update: Frontmatter normalisiert (YAML oben); Metafelder übernommen.
-checks: keine
+stand: 2025-11-07 03:32
+update: H1/H2 auf Setext umgestellt; Stand aktualisiert.
+checks: markdownlint-cli2 PASS (single file)
 canvas: person_index_np
-last-updated: 2025-11-02T15:25:00+01:00
+last-updated: 2025-11-07T03:32:00+01:00
 category: A
 version: 0.9
 ---
 
-# Personenindex Novapolis (person_index_np)
+Personenindex Novapolis (person_index_np)
+=========================================
 
 Hinweis: Felder gemäß Beschluss – Name, Rolle(n), Zugehörigkeit, Status, Notizen, Verlinkungen. Wöchentliche Pflege (siehe INDEX-CYCLE).
 

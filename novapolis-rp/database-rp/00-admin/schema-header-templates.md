@@ -1,17 +1,20 @@
 ---
-stand: 2025-11-01 10:23
-update: RP Header-Templates (Characters/Locations/Inventory/Projects/Scenes) ergänzt; Root-Regeln bleiben SSOT.
-checks: keine
+stand: 2025-11-07 03:32
+update: H1/H2 auf Setext umgestellt; Stand aktualisiert.
+checks: markdownlint-cli2 PASS (single file)
 ---
 
-# RP Header-Templates (Frontmatter)
+RP Header-Templates (Frontmatter)
+=================================
 
 Hinweis
+-------
 - Die folgenden Frontmatter-Beispiele sind minimal und domänenspezifisch.
 - Regeln/Validatoren bleiben zentral (Root) verwaltet; hier nur Metadatenanker (id/slug/category/...).
 - Slugs in kebab-case; optionale Felder nur verwenden, wenn sinnvoll/gegeben.
 
-## 02-characters
+02-characters
+--------------
 
 ```yaml
 ---
@@ -28,7 +31,8 @@ dependencies: [reflex, lumen, echo, jonas-merek, kora-malenkov, d5, c6]
 ---
 ```
 
-## 03-locations
+03-locations
+-------------
 
 ```yaml
 ---
@@ -44,7 +48,8 @@ tags: []
 ---
 ```
 
-## 04-inventory
+04-inventory
+------------
 
 ```yaml
 ---
@@ -59,7 +64,8 @@ tags: []
 ---
 ```
 
-## 05-projects
+05-projects
+-----------
 
 ```yaml
 ---
@@ -76,7 +82,8 @@ tags: []
 ---
 ```
 
-## 06-scenes
+06-scenes
+---------
 
 ```yaml
 ---
@@ -91,7 +98,8 @@ tags: []
 ---
 ```
 
-## Hinweise zur Verwendung
+Hinweise zur Verwendung
+-----------------------
 - Keine Wiederholung von Root-Regeln in den Dateien; Metadaten genügen für Navigation/Validierung.
 - Referenzen (characters/locations/dependencies) verwenden Slugs der Zielobjekte.
 - Falls ein Feld unbekannt ist, weglassen statt Dummy-Werte einzutragen (Validatoren erlauben optionale Felder).
