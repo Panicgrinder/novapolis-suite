@@ -10,17 +10,21 @@ connections: ["d5", "c6"]
 tags: []
 ---
 
-## Verbindungstunnel D5–C6
+Verbindungstunnel D5–C6
+-----------------------
 
-## Status
+Status
+------
 - Strukturelle Schäden; kartiert
 
-## Material/Bedarf
+Material/Bedarf
+----------------
 - Schweißgerät (fehlt)
 - Adapter DN60 (fehlt)
 - Stützelemente, Kabeltrassen
 
-## Aufgaben
+Aufgaben
+-------
 - [ ] Abschnitte priorisieren
 - [ ] Materiallauf planen
 - [ ] Sicherheit (Belüftung/Fluchtwege)
