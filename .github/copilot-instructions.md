@@ -1,4 +1,5 @@
-# Copilot-Projektanweisungen (Novapolis Suite)
+Copilot-Projektanweisungen (Novapolis Suite)
+============================================
 
 Stand: 2025-11-05 18:33 – Lint-Regeln (pwsh + npx --yes) präzisiert; Task-Labels auf „markdownlint-cli2“ synchronisiert.  
 Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-sim/project.godot`)
@@ -10,14 +11,16 @@ Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-si
 >
 > Hinweis (STOP): „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe.
 
-## Primäre Behaviour-Quellen
+Primäre Behaviour-Quellen
+-------------------------
 
 - `novapolis_agent/docs/AGENT_BEHAVIOR.md`: maßgeblicher System-Prompt, Sicherheitsrichtlinien, Arbeitsablauf.
 - `novapolis-dev/docs/copilot-behavior.md`: redigierte Kopie für den Dokumentations-Hub; folgt denselben Regeln.
 - `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`: Rollenspiel-spezifische Verhaltenshooks und Rollenmatrix.
 - `novapolis-rp/development/docs/` enthielt Legacy-Stubs und wurde entfernt (2025-11-05). Verwende ausschließlich die oben genannten Live‑Quellen im Dev‑Hub.
 
-## Gemeinsamer Arbeitsstil
+Gemeinsamer Arbeitsstil
+-----------------------
 
 - Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
 - Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen:
@@ -159,7 +162,8 @@ checks: keine
 – **Expected State & Logging:** Vorlage siehe `novapolis-dev/docs/process/betriebsmodi-sicherheitsprotokoll-notizen.md`. Rohlogs lokal in `novapolis-dev/logs/betriebsmodi-*.tmp.md` führen, verdichtete Zusammenfassungen optional committen (Vorlage `novapolis-dev/logs/log-template.md`).
 – **Ausstieg:** Sicherheitsprotokoll erst verlassen, wenn Ursache behoben ist und zwei Pakete ohne neue Drift außerhalb Budgets verlaufen oder der Nutzer explizit freigibt. Abschlussbericht (Befund, Checks, Rest-Risiken) bereitstellen.
 
-## Repositoryweiter Rahmen
+Repositoryweiter Rahmen
+-----------------------
 - Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.
 - Konfigurationen bleiben projektspezifisch; Produktions- und API-Code verbleibt im jeweiligen Projektordner, Utilities werden über das Shared-Package re-exportiert.
 - Doppelte Modulpfade (z. B. parallele `novapolis_agent/novapolis_agent/**` und `novapolis_agent/app/**`) sind als Legacy zu behandeln; Neu‑Anpassungen bitte nur unter den aktiven Pfaden vornehmen (siehe `novapolis_agent/WORKSPACE_INDEX.md`).
@@ -168,14 +172,16 @@ checks: keine
  - Backups/Altstände gehören zentral nach `Backups/` (keine tool‑lesbaren Backups neben aktiven Configs).
  - Godot (Sim): Kanonische Projektdatei ist `novapolis-sim/project.godot` (Option A). Das frühere, verschachtelte Projekt wurde nach `Backups/novapolis-sim-archived-20251104/` verschoben.
 
-## Prüf- und Release-Checks
+Prüf- und Release-Checks
+------------------------
 - Vor Commits relevante Tests/Skripte ausführen (Root‑basiert): `novapolis_agent/scripts/run_tests.py` (cwd=`novapolis_agent`), Validatoren unter `novapolis-rp/coding/tools/validators/`.
 - Bei Änderungen an Behaviour-/Policy‑Dokumenten zusätzlich den Test `novapolis_agent/tests/test_content_policy_profiles.py` laufen lassen und Changelogs prüfen. Diese Regel ist im Single‑Root‑TODO verlinkt.
 - Bei Unsicherheiten/Unklarheiten: STOP‑Gate setzen (Rückfrage einholen), dann mit Minimal‑Delta fortfahren; transparente Diffs mit Dateiliste/Diffstat, keine Shell‑Kommandos oder History‑Rewrites.
 
 Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Root sind wirksam. Kopien/Spiegel in Unterordnern (z. B. `novapolis_agent/.github/workflows/`) gelten als Stubs/Archiv und werden von GitHub Actions nicht ausgeführt. Cleanup als eigener Task vorschlagen (vorher eingehende Verweise prüfen).
 
-## Novapolis Agent (Backend)
+Novapolis Agent (Backend)
+-------------------------
 
 ### Arbeitskontext
 - Repo: `novapolis_agent` (Branch `main`), Stack: FastAPI + Ollama, Kern: `app/main.py`, `app/api/models.py`, `app/core/settings.py`, `app/core/prompts.py`.
@@ -221,7 +227,8 @@ Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Roo
 - Beim Aktualisieren dieser Datei Hinweise aus `docs/AGENT_BEHAVIOR.md` beachten (Progress-Cadence, DONELOG, Shell-Hinweise); nach Änderungen Checks abwarten. Manuelle Reihenfolge für Vollprüfungen: erst `pytest -q`, dann `pyright -p pyrightconfig.json`, danach `python -m mypy --config-file mypy.ini app scripts`.
 - Feedbackbedarf (Marker, Tasks, Troubleshooting) kurz melden.
 
-## Novapolis-RP
+Novapolis-RP
+------------
 
 ### Working Rules (Novapolis)
 - SSOT: **/Main/novapolis-dev/**.
