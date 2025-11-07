@@ -92,7 +92,6 @@ Validierung & Tasks
 - Lokale VS Code Tasks (Docker bevorzugt, sonst Node):
   - "validate:data (auto)" – Validatoren (Schema, Cross-Refs, Co-Occurrence)
   - "lint:names (auto)" – Benennung nach `novapolis-dev/docs/naming-policy.md`
-  - "lint:markdown (auto)" – Markdown-Lint
   - "system:check (windows)" – Umgebung pruefen
 
 Hinweise:
@@ -100,6 +99,5 @@ Hinweise:
 - Tasks sind im Workspace vorkonfiguriert; CI bleibt massgeblich.
 - Bei PowerShell-Quoting-Problemen (Unexpected token) statt des Tasks direkt ausfuehren:
   - `powershell -ExecutionPolicy Bypass -File coding/tools/validators/run_check_names.ps1`
-- Alternativ stehen PS1-Tasks ohne Inline-Command bereit:
-  - "lint:names (ps1)" / "validate:data (ps1)"; Markdown-Lint direkt via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"` ausführen.
+- Markdown-Lint lokal: ausschließlich direkt im Terminal via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"` (keine Wrapper/Tasks).
 

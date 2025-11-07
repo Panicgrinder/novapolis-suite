@@ -35,14 +35,8 @@ if [ -n "${MD_FILES}" ]; then
       fi
       exit 1
     fi
-  elif command -v markdownlint-cli2 >/dev/null 2>&1; then
-    echo "→ Prüfe Markdown mit markdownlint-cli2 (global)"
-    if ! markdownlint-cli2 --config .markdownlint-cli2.jsonc ${MD_FILES}; then
-      echo "⚠ markdownlint-cli2 hat Probleme gefunden. Bitte globales Tool für Fix verwenden: 'markdownlint-cli2-fix'." >&2
-      exit 1
-    fi
   else
-    echo "[WARN] markdownlint-cli2 nicht gefunden. Überspringe Markdown-Prüfung. Installieren: 'npm install -g markdownlint-cli2'" >&2
+    echo "[WARN] npx/Node nicht gefunden. Überspringe Markdown-Prüfung. Bitte Node.js installieren und via 'npx --yes markdownlint-cli2' ausführen." >&2
   fi
 fi
 

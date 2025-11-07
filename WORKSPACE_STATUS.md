@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-07 06:20
-update: Behaviour-Quellen konsolidiert → SSOT .github/copilot-instructions.md; Referenzzeile angepasst.
+stand: 2025-11-07 06:30
+update: Markdownlint-Wrapper & Tasks entfernt (npx-only); SSOT aktualisiert.
 checks: keine
 ---
 
@@ -13,6 +13,7 @@ Workspace-Status
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
 - 2025-11-07 02:29: Tree-Snapshots aktualisiert (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) und entfernte Markdownlint-Overrides in `novapolis-rp/database-curated/staging/**` festgehalten; Staging‑Reports (Setext+Frontmatter) gelinted → PASS.
+- 2025-11-07 06:30: Alle Markdownlint VS-Code-Tasks & Wrapper-Doku entfernt; Ausführung jetzt ausschließlich manuell via `npx --yes markdownlint-cli2` (Policy npx-only).
 - 2025-11-07 02:10: markdownlint-cli2 repo-weit ausgeführt (367× MD003 offen); Skriptprüfung für Markdown-Ausgaben (Chat-Exporter, Reports, todo_gather) vorbereitet.
 - 2025-11-07 01:39: TODO aktualisiert (Single-Repo-Reminder; Aufgaben zu Lint-Overrides, Staging-Reports, Metadata-Konsolidierung, Archiv-Ablage).
 - 2025-11-07 01:27: Konfliktanalyse durchgeführt (Markdownlint-Overrides, Staging-Reports ohne Frontmatter, doppelte Metadata-Skripte, Chat-Router-Notiz). Maßnahmen in TODO/DONELOG erfasst.

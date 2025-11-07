@@ -1,12 +1,20 @@
 ---
-stand: 2025-11-07 04:56
-update: Archiv-TODOs & Issue-Template Setext; Repo-Lint PASS.
+stand: 2025-11-07 06:31
+update: SSOT Verhalten konsolidiert; Duplikate gelöscht; Referenzen aktualisiert
 checks: markdownlint-cli2 PASS
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+SSOT-Verhalten konsolidiert; Duplikate gelöscht (2025-11-07 06:31)
+-----------------------------------------------------------------
+
+- Verhalten/Arbeitsregeln zentralisiert in `.github/copilot-instructions.md` (SSOT).
+- Alte Dokumente gelöscht: `novapolis_agent/docs/AGENT_BEHAVIOR.md`, `novapolis-dev/docs/copilot-behavior.md`.
+- Referenzen repo-weit auf SSOT aktualisiert (Root/Agent/Dev-Hub); Root-DONELOG ergänzt.
+- Checks: markdownlint-cli2 (docs focused) PASS.
 
 Archiv-TODOs & Issue-Template Setext (2025-11-07 04:56)
 ------------------------------------------------------

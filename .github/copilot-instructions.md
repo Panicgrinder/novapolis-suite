@@ -49,9 +49,8 @@ Gemeinsamer Arbeitsstil
 
 ### Kanonische Tasks (Referenz)
 
-- Checks: *lint+pytest* (Task ruft zuerst `Lint: markdownlint-cli2 (all md)` und danach `Tests: pytest (-q)` sequenziell auf).
+- Checks: *lint+pytest* (Task führt Ruff/Black aus; Markdownlint läuft separat manuell via `npx --yes`).
 - Git: *commit+push* (Commit-Message per Prompt, dann Push).
-- Lint: *markdownlint-cli2 (all md)*.
 - Hinweis: Labels müssen exakt den Einträgen in `.vscode/tasks.json` entsprechen; bei Abweichung **nicht starten**, sondern Rückfrage.
 - Gates können jederzeit durch die Formulierung „STOP‑Gate aus (Session)“ deaktivieren und mit „STOP‑Gate an“ wieder aktivieren.
 
@@ -308,11 +307,12 @@ Novapolis-RP
 
   - MD003 = `setext_with_atx` (H1/H2 im Setext‑Stil, H3+ im ATX‑Stil; je Level konsistent innerhalb der Datei). Keine gemischten Stile für dasselbe Level in einer Datei.
   - `ignores` in der CLI2‑Config decken generierte/kuratierte Bereiche ab (u. a. `novapolis_agent/eval/results/**`, `novapolis_agent/outputs/**`, `outputs/**`, `novapolis-rp/.pytest_cache/**`).
-- Lokaler Lauf (nur im bestehenden Terminal, unter pwsh -NoProfile): `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"`.
-  - Wrapper/Tasks: Nicht benötigt; Lint läuft direkt via Task (Exit‑Code wird durchgereicht).
-- Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc "**/*.md"`.
+  - Lokaler Lauf (nur im bestehenden Terminal, unter pwsh -NoProfile): `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md"`.
+  - Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc "**/*.md"`.
+  - Grundsatz: Keine globalen CLI‑Installationen und keine Wrapper‑Skripte für Markdownlint verwenden; ausschließlich `npx --yes`.
 
-Optionaler Zusatz: „Lint: markdownlint-cli2 (docs focused)“ kann für einen schnellen Dokumentations‑Lint genutzt werden (`novapolis-dev/docs/**`, `novapolis_agent/docs/**`).
+Optionaler Zusatz: Für einen schnellen Dokumentations‑Lint direkt im Terminal ausführen:
+  - `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "novapolis-dev/docs/**/*.md" "novapolis_agent/docs/**/*.md"`
 
 #### Diagnose‑Playbook bei Lint‑FAIL (pwsh, konservativ)
 
@@ -352,8 +352,8 @@ $script | & $python -
   - MD012/no-multiple-blank-lines: Doppelte Leerzeilen entfernen (konservativ, nur überzählige Leerzeilen).
   - MD047/single-trailing-newline: Fehlende Abschluss‑Zeile am Dateiende hinzufügen (genau eine).
 - Akzeptanzchecks:
-  - Nach Fix: „Lint: markdownlint-cli2 (docs focused)“ optional zur schnellen Verifikation.
-  - Voller Lauf „Lint: markdownlint-cli2 (all md)“ kann weiterhin FAIL sein, bis alle betroffenen Dateien bereinigt sind.
+  - Nach Fix: optional enger Bereich erneut mit obigem npx‑Aufruf prüfen.
+  - Voller Lauf mit `"**/*.md"` kann weiterhin FAIL sein, bis alle betroffenen Dateien bereinigt sind.
   - Ergebnisse kurz protokollieren (PASS/FAIL, ggf. Pfad zur Ausgabe z. B. `lint_fail.out`).
 
 ### Mirrors/Redirect‑Stubs

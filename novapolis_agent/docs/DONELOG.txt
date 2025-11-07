@@ -1,5 +1,5 @@
-stand: 2025-11-07 02:19
-update: Eintrag ergänzt (Status-Docs/Lint/Tasks)
+stand: 2025-11-07 06:31
+update: SSOT Verhalten konsolidiert; lokale Duplikate entfernt
 checks: keine
 ---
 
@@ -133,3 +133,4 @@ Beispiel:
 2025-11-06 04:15 | Copilot | Absichtlichen Demo-Test `tests/test_intentional_failure.py` hinzugefügt (erzwingt pytest-FAIL) und YAML-Frontmatter-Validator mit Beispieldatei geprüft; Fehlermeldungen dokumentiert.
 2025-11-06 04:40 | Copilot | Demo-Test wieder entfernt, `pytest -q` manuell per pwsh ausgeführt (Suite PASS); Frontmatter-Demo abgeschlossen.
 2025-11-07 02:19 | Copilot | Root-Status-Docs synchronisiert (`todo.root.md`, `WORKSPACE_STATUS.md`, `single-root-todo.md`); Repo-weites markdownlint-Ergebnis dokumentiert; VS Code Lint-Task (Quoting "**/*.md") angeglichen.
+2025-11-07 06:31 | Copilot | Verhalten-SSOT konsolidiert (.github/copilot-instructions.md); alte Verhaltensdokus entfernt; Referenzen aktualisiert.

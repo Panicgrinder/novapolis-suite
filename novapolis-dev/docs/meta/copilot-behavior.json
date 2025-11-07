@@ -6,7 +6,9 @@
   "tags": ["policy"],
   "affiliations": [],
   "dependencies": [],
-  "source": "novapolis-dev/docs/copilot-behavior.md",
+  "source": ".github/copilot-instructions.md",
   "origin": "novapolis-rp/development/docs/copilot-behavior.md",
-  "migrated_at": "2025-10-29"
+  "migrated_at": "2025-10-29",
+  "ssot": true,
+  "updated_at": "2025-11-07 06:38"
 }

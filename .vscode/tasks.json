@@ -1,290 +1,88 @@
+// VS Code tasks configuration. Markdownlint tasks removed per policy (use npx --yes manually).
 {
-	"$schema": "vscode://schemas/tasks",
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "Checks: linters (all)",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-Command",
-				"& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; } & npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc \"**/*.md\"; $mdExit = $LASTEXITCODE; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; $blackExit = $LASTEXITCODE; if ($mdExit -ne 0 -or $ruffExit -ne 0 -or $blackExit -ne 0) { exit 1 } }"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"group": "build",
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			}
-		},
-		{
-			"label": "Tests: pytest (-q)",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-Command",
-				"& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; } & $python -m pytest -q; exit $LASTEXITCODE }"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}/novapolis_agent"
-			},
-			"group": "test",
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Tests: coverage (fail-under)",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-Command",
-				"& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; } $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; & $python -m pytest -q --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}/novapolis_agent"
-			},
-			"group": "test",
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Checks: lint+pytest+coverage",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-Command",
-				"Write-Host 'Checks: lint+pytest+coverage completed.'"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"dependsOn": [
-				"Lint: markdownlint-cli2 (all md)",
-				"Tests: coverage (fail-under)"
-			],
-			"dependsOrder": "sequence",
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "DONELOG: append entry",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-Command",
-				"& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; } $script = Join-Path $root 'novapolis_agent'; $script = Join-Path $script 'scripts'; $script = Join-Path $script 'append_done.py'; & $python $script; exit $LASTEXITCODE }"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}/novapolis_agent"
-			},
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			},
-			"problemMatcher": []
-		},
-
-		{
-			"label": "TTS: export (Coqui→OGG)",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-Command",
-				"Write-Host \"TODO: Implement novapolis_agent/scripts/tts_export_coqui.py (see novapolis-dev/docs/specs/tts-exporter-coqui.md)\""
-			],
-			"isBackground": false,
-			"group": "build",
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			}
-		}
-		,
-		{
-			"label": "Git: commit+push",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-File",
-				"${workspaceFolder}/scripts/git_commit_push.ps1"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			}
-		}
-		,
-		{
-			"label": "Lint: markdownlint-cli2 (all md)",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-Command",
-				"& npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc \"**/*.md\"; exit $LASTEXITCODE"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"group": "build",
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			}
-		},
-		{
-			"label": "Lint: markdownlint-cli2 (docs focused)",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-Command",
-				"& npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc \"novapolis-dev/docs/**/*.md\" \"novapolis_agent/docs/**/*.md\"; exit $LASTEXITCODE"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"group": "build",
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			}
-		}
-		,
-		{
-			"label": "Workspace tree: full",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-Command",
-				"tree /A /F | Out-File -Encoding ascii workspace_tree_full.txt"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"group": "build",
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			}
-		},
-		{
-			"label": "Workspace tree: directories",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-Command",
-				"tree /A | Out-File -Encoding ascii workspace_tree.txt"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"group": "build",
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			}
-		},
-		{
-			"label": "Workspace tree: summary (dirs)",
-			"type": "shell",
-			"command": "pwsh",
-			"args": [
-				"-NoProfile",
-				"-File",
-				"${workspaceFolder}/scripts/update_workspace_tree_dirs.ps1"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}"
-			},
-			"group": "build",
-			"presentation": {
-				"reveal": "always",
-				"panel": "dedicated",
-				"clear": false,
-				"group": "dedicated-all"
-			},
-			"runOptions": {
-				"instanceLimit": 1
-			}
-		}
-	]
+  "$schema": "vscode://schemas/tasks",
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Checks: linters (all)",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-Command",
+        "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; } & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; $blackExit = $LASTEXITCODE; if ($ruffExit -ne 0 -or $blackExit -ne 0) { exit 1 } }"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Tests: coverage (fail-under)",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-Command",
+        "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; } $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; & $python -m pytest -q --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
+      ],
+      "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Checks: lint+pytest+coverage",
+      "type": "shell",
+      "command": "pwsh",
+      "args": ["-NoProfile", "-Command", "Write-Host 'Checks: lint+pytest+coverage completed.'"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "dependsOn": ["Tests: coverage (fail-under)"],
+      "dependsOrder": "sequence",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Git: commit+push",
+      "type": "shell",
+      "command": "pwsh",
+      "args": ["-NoProfile", "-File", "${workspaceFolder}/scripts/git_commit_push.ps1"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 }
+    },
+    {
+      "label": "Workspace tree: full",
+      "type": "shell",
+      "command": "pwsh",
+      "args": ["-NoProfile", "-Command", "tree /A /F | Out-File -Encoding ascii workspace_tree_full.txt"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 }
+    },
+    {
+      "label": "Workspace tree: directories",
+      "type": "shell",
+      "command": "pwsh",
+      "args": ["-NoProfile", "-Command", "tree /A | Out-File -Encoding ascii workspace_tree.txt"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 }
+    },
+    {
+      "label": "Workspace tree: summary (dirs)",
+      "type": "shell",
+      "command": "pwsh",
+      "args": ["-NoProfile", "-File", "${workspaceFolder}/scripts/update_workspace_tree_dirs.ps1"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 }
+    }
+  ]
 }

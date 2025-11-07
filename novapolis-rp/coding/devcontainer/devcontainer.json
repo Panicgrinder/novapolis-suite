@@ -12,5 +12,5 @@
       ]
     }
   },
-  "postCreateCommand": "npm i -g markdownlint-cli2 markdownlint-cli2-formatter-default"
+  "postCreateCommand": "echo 'markdownlint global install removed; use npx --yes markdownlint-cli2'"
 }
