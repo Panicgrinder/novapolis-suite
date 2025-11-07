@@ -3,7 +3,7 @@ title: Liora Navesh
 category: character
 slug: liora-navesh
 version: "0.9"
-last_updated: 2025-11-02T11:30:00+01:00
+last_updated: 2025-11-07T03:32:00+01:00
 last_change: "Import aus RAW (char_liora_navesh_v1)"
 tags: []
 affiliations: ["arkologie_a1"]
@@ -14,9 +14,10 @@ last_seen: arkologie_a1
 
 <!-- markdownlint-disable MD025 -->
 
-# Liora Navesh
+Liora Navesh
+============
 
-- Meta: last-updated: 2025-11-02T11:30:00+01:00
+- Meta: last-updated: 2025-11-07T03:32:00+01:00
 - Verhaltenssignatur: `LNR1=O82-T76-N68-S58-L52-M47-E34-C21-P55-r` – analytisch-strukturiert, sucht abgesicherte Erkenntniswege und handelt streng rational.
 - Rolle: Leiterin Forschungsrat / Chefärztin Biotechnologie der Arkologie A1 (Quelle: FACT ARKO-RESEARCH)
 - Werte: Kraft 2 · Geschick 3 · Geist 5 · Wille 4 · Charisma 4
@@ -28,19 +29,22 @@ last_seen: arkologie_a1
 - Motivation: Anomale Signale („SÜDFRAGMENT“) katalogisieren und Arkologie gegen biologische Risiken absichern
 - Makel: klinische Distanz, utilitaristischer Bias, geringe Toleranz für unvalidierte Daten
 
-## Rollen & Verantwortlichkeiten (Pflichtfelder)
+Rollen & Verantwortlichkeiten (Pflichtfelder)
+---------------------------------------------
 
 - Forschungsrat – steuert biotechnologische Programme der Arkologie A1
 - Medizinische Leitung – legt MedTech-Protokolle (A9) fest, überwacht Sicherheitsfreigaben
 - Anomalie-Analyse – bewertet SÜDFRAGMENT-Signale, koordiniert Gegenmaßnahmen bei biologischen Auffälligkeiten
 
-## Zugehörigkeit & Standort
+Zugehörigkeit & Standort
+------------------------
 
 - Zugehörigkeit: Arkologie A1
 - Standort: Arkologie A1, Kuppel Nordost (Primärarbeitsplatz)
 - Status: aktiv; Validierungsintervall 7 In-Game-Tage (Systemstatus „gelb“)
 
-## Wissensstand (Matrix – Auszug)
+Wissensstand (Matrix – Auszug)
+------------------------------
 
 - Intern (Arkologie): Vollzugriff auf Forschungs- und MedTech-Protokolle, kennt H-47-Funkstillstand und anomale Süd-Signale (SÜDFRAGMENT) laut Ereignislog
 - Extern (Metro):
@@ -48,50 +52,58 @@ last_seen: arkologie_a1
   - Händlergilde: beschränkter Austausch über geprüfte Lieferketten
   - Eisenkonklave: Konkurrenz um Ressourcen/Sicherheitszonen, diplomatisch angespannt
 
-## Motivation & Makel
+Motivation & Makel
+------------------
 
 - Nutzt Nutzenmaximierung als Leitlinie; das Verstehen von Anomalien bedeutet Sicherheit für die Arkologie
 - Stellt Datenvalidität über Diplomatie, reagiert skeptisch auf unbestätigte Berichte
 - Klinische Distanz erschwert Empathie mit externen Fraktionen
 
-## Fähigkeiten & Methodik
+Fähigkeiten & Methodik
+----------------------
 
 - Leitung großskaliger Forschungsprogramme, inklusive Bioreaktorbetrieb
 - Erstellung und Durchsetzung von A9-Sicherheitsfreigaben
 - Einsatzplanung für MedTech-Teams mit Fokus auf Biosicherheitszonen
 
-## Diplomatie & Beziehungen
+Diplomatie & Beziehungen
+------------------------
 
 - Arkologie A1 – volle Loyalität; wissenschaftliche Prioritäten dominieren Entscheidungen
 - Händlergilde – pragmatischer Austausch unter Sicherheitsauflagen
 - Eisenkonklave – Wettbewerb um anomale Ressourcen; Kooperation nur unter strenger Kontrolle
 - Novapolis – unbekannt; alle Meldungen verlangen externe Validierung
 
-## Risiken & Schutzmaßnahmen
+Risiken & Schutzmaßnahmen
+-------------------------
 
 - Diplomatiewiderstand durch harte Sicherheitsauflagen
 - Potenzielle Fehleinschätzungen bei Anomalie-Signalen ohne Feldzugang
 - Ethische Spannungen bei utilitaristischen Entscheidungen – Gegenmaßnahme: Ethikboard konsultieren
 
-## Systemverknüpfungen & Referenzen
+Systemverknüpfungen & Referenzen
+--------------------------------
 
 - `ai_behavior_index_v2` – Cluster-/Modifikatorprofil für Arkologie-Akteure
 - `relationslog_arkologie_v1` – Kontakte, Spannungen und Handelskanäle
 - `ereignislog_weltgeschehen_v1` – Verknüpfung für SÜDFRAGMENT/TIMELINE-Abgleich
 - `cluster_index_v1` – Standortcodierung „Arkologie_A1“ (Alias gepflegt)
 
-## Ziele (kurz)
+Ziele (kurz)
+------------
 
 - [ ] SÜDFRAGMENT-Signale katalogisieren und Kontrollpfade definieren
 - [ ] Biosicherheitsprotokolle für Arkologie A1 iterieren und auditieren
 - [ ] Stabilen Austauschkanal für verifizierte Daten mit der Händlergilde etablieren
 
-## Routine & Validierung
+Routine & Validierung
+---------------------
 
 - Automatisierte Validierung alle 7 In-Game-Tage; letzter Lauf 2025-10-16_03:25, nächster nach Fraktionszug Woche 4
 - Systemstatus „gelb“ → Monitoring der Anomalie-Feeds fortlaufend einplanen
 
-## Quellen & Verweise
+Quellen & Verweise
+------------------
 
 - RAW: `database-raw/99-exports/RAW-canvas-2025-10-16T03-25-10-000Z.txt`
 - Flag: `RAW-canvas-2025-10-16T03-25-10-000Z.flags.txt`
