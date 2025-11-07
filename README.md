@@ -1,9 +1,9 @@
 ---
-stand: 2025-11-07 19:13
-update: Verweise auf modulare Behaviour-Dokumente entfernt; SSOT ist .github/copilot-instructions.md.
+
+stand: 2025-11-07 21:45
+update: Test frontmatter update (dry)
 checks: keine
 ---
-
 Novapolis Suite
 ===============
 

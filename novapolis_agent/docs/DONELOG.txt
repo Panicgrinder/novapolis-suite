@@ -144,3 +144,4 @@ Beispiel:
 2025-11-07 13:05 | Copilot | Etappe 4 abgeschlossen: ruff/black zentral (Root pyproject), Tasks vorhanden, pre-commit nutzt Root .venv; keine Modul-Tool-Konflikte.
 2025-11-07 18:25 | Panicgrinder | Pytest Voll-Lauf: 240 passed, 1 skipped; Coverage-Gate fehlgeschlagen, vorerst ignoriert (Single-Root).2025-11-07 21:26 | Panicgrinder | update Frontmatter und betroffene Dateien (commit d06ab6b)
 2025-11-07 21:29 | Panicgrinder | update Frontmatter und betroffene Dateien (commit d06ab6b)
+2025-11-07 21:45 | Panicgrinder | Test frontmatter update (dry)
