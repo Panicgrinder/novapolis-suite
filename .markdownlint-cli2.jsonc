@@ -20,8 +20,6 @@
     "novapolis_agent/eval/results/**",
     "novapolis_agent/outputs/**",
     "outputs/**",
-    "novapolis-rp/.pytest_cache/**",
-    "novapolis-rp/database-curated/staging/**",
-    "novapolis-rp/database-curated/staging/reports/**"
+    "novapolis-rp/.pytest_cache/**"
   ]
 }

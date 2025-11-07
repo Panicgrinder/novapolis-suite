@@ -1,4 +1,11 @@
-# Overlap-Check: Marven Kael (Händlergilde v2)
+---
+stand: 2025-11-07 01:47
+update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt.
+checks: keine
+---
+
+Overlap-Check: Marven Kael (Händlergilde v2)
+============================================
 
 Status: vorläufige Prüfung abgeschlossen
 
@@ -29,4 +36,3 @@ Empfohlene Maßnahmen
 Offene Punkte
 - Bestätigung der Doppelspitze vs. eindeutige Primärleitung.
 - Abgleich mit „MERCHANT-HQ“-Policy (C6 öffentlich vs. Novapolis-Kernsektor).
-

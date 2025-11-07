@@ -1,4 +1,11 @@
-# Prequel Resolution Log
+---
+stand: 2025-11-07 01:47
+update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt.
+checks: keine
+---
+
+Prequel Resolution Log
+======================
 
 - Datum: 2025-11-01
 - Zeitstempel: 2025-11-01T00:00:00Z
@@ -7,7 +14,8 @@
 
 Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel aus `uncertainties.md` entfernt. Künftige `[FACT?]`-Markierungen werden nach Klärung ebenfalls hier ergänzt.
 
-## Fraktionen & Benennungen
+Fraktionen & Benennungen
+------------------------
 
 - **[FACT] [SET]** (Fraktion): Kanonisch sind vier Hauptfraktionen plus Novapolis/Freie Gruppen. Quellen: #1824.
 - **[FACT] [GHOST-FACTION]** (Fraktion): Die vermeintliche unbekannte Fraktion existiert nicht; als Drift markieren und bereinigen. Quellen: #1761–#1763.
@@ -17,7 +25,8 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [ARKO-RESEARCH]** (Fraktion/Charakter): Dr. Liora Navesh leitet den Forschungsrat/Chief Medical der Arkologie A1; "SÜDFRAGMENT" bleibt ohne H-47-Mapping, Wissen über Novapolis/D5 strikt verbergen. Quellen: RAW-canvas-2025-10-16T03-25-10-000Z; RAW-canvas-2025-10-16T05-34-00-000Z; Cluster-Index Arkologie_A1.
 - **[FACT] [ARKO-TAXONOMY]** (Fraktion/Ort): Anzeige-Name "Arkologie A1", System-ID "Arkologie_A1"; Redirects aus "arkologie_a1" setzen. Quellen: char_liora_navesh_v1; relationslog_arkologie_v1.
 
-## Orte & Stationen
+Orte & Stationen
+----------------
 
 - **[FACT] [D5]** (Ort): D5 ist Basis von Novapolis und beherbergt den einzigen Reaktor (Status 100 %). Quellen: Stations-Canvas D5.
 - **[FACT] [C6]** (Ort): C6 bleibt Karawanenstützpunkt mit Algen-/Pilzproduktion, erhält begrenzt Strom aus D5; Tunnel D5–C6 in Reparatur. Quellen: #1694; #1698; #1712.
@@ -31,7 +40,8 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [C6-SQM]** (Ort): C6 startet mit 440 m² nutzbarer Fläche (A 30 %, B 40 %, C 30 %). Quellen: #805–#808; #855.
 - **[FACT] [MAPS]** (Dokumentation): Schematische Karten für Novapolis sind zulässig mit Hinweis "nicht als Referenz" und Versionierung/Layern. Quellen: #1091–#1104.
 
-## Projekte / Tunnel Nordlinie
+Projekte / Tunnel Nordlinie
+---------------------------
 
 - **[FACT] [PROGRESS]** (Projekt): Letzter Baufortschritt der Nordlinie liegt bei 40 %. Quellen: Projektprotokoll Nordlinie.
 - **[FACT] [METHOD]** (Projekt): Fortschritt berechnet sich aus Tagesleistung (Meter pro Tag/Team), skaliert nach Teamgröße/Erschöpfung. Quellen: Projektprotokoll Nordlinie.
@@ -39,7 +49,8 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [PARALLEL]** (Projekt): Arbeiten von der C6-Seite starten, sobald das Quarantäneende bestätigt ist. Quellen: #1573.
 - **[FACT] [EVAL]** (Projekt): Freigabe erfolgt nach Checkliste (Ziele/Abschnitte, Blocker, Personal C6, Zeit-/Materialbedarf, Ereignislog). Quellen: #1488–#1489.
 
-## Energie & Inventar
+Energie & Inventar
+------------------
 
 - **[FACT] [ENERGY]** (Energie): Dynamische Tagesbilanz pro Knoten; Darstellung "D5 -8 / C6 -12 = -20; D5 +10 = -10" zulässig (aktuelle Werte). Quellen: #1806; #1757–#1759.
 - **[FACT] [LOG-LINKS]** (Energie/Logistik): Logistik-Konten: Kernkonten dauerhaft aktiv, periphere Konten Lazy-Load mit Health-Check. Quellen: #1759.
@@ -53,7 +64,8 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [MODULE-9B]** (Inventar/Diplomatie): Inhalt Kiste 9B unbekannt; Tests nur unter Aufsicht, diplomatische Risiken dokumentieren. Quellen: #855.
 - **[FACT] [INV-SPLIT]** (Inventar): Inventare D5 und C6 strikt getrennt; keine stillen Transfers; Datenkern bleibt in C6. Quellen: #771–#775; #684–#689; #911.
 
-## Charaktere & Mechaniken
+Charaktere & Mechaniken
+-----------------------
 
 - **[FACT?] [REFLEX]** (Mechanik – Review 2025-11-01): Reflex-Support-Modus verliert Bonus bei Überlastung und erhöht Verbrauch; Aktualisierung mit Trainingsstand notwendig. Quellen: part-011.
 - **[FACT?] [INSTANCES]** (Mechanik – Review 2025-11-01): Reflex-Instanzen teilen Kapazitätslogik (Masse ≈ Speicher), Hauptfähigkeiten variieren – Eigenentwicklung nach Abspaltung prüfen. Quellen: part-011.
@@ -70,7 +82,8 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [JONAS-SIS]** (Charakter/Lore): Jonas' Schwester bleibt vermisst/unklar; kein Todesnachweis, non-canon Schuldflag normalisieren. Quellen: #717–#721; RAW-canvas-2025-10-16T14-12-00-000Z.
 - **[FACT] [PAHL-RESCUE]** (Charakter/Lore): Pahl überlebte als Einziger den Reaktorunfall in C6; Ronja und Reflex stabilisierten die Anlage und retteten ihn, Jonas brachte ihn anschließend nach D5 und überwacht die Rekonvaleszenz. Quellen: chat-export (1) part-018 (Abschnitt „einziger Überlebender… in C6“), part-009 („...noch verletzt ist von dem defekten Reaktor damals in C6“), Memory-Bundle.
 
-## Canvas & Verwaltung – Struktur & Inhalte
+Canvas & Verwaltung – Struktur & Inhalte
+----------------------------------------
 
 - **[FACT] [VERSION]** (Canvas): Stations-Canvas D5/C6 Version 0.9 benötigt Pflichtfelder (Status, Energie, Logistik, Population, Zugehörigkeit, Verlinkungen, Quellen). Quellen: Canvas-Planung v0.9.
 - **[FACT] [INDEX]** (Canvas): `person_index_np` Felder: Name, Rolle(n), Zugehörigkeit, Status, Notizen, Verlinkungen. Quellen: Index-Plan.
@@ -85,7 +98,8 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [ROLES]** (Canvas/Validierung): Charakter-Canvas enthält Pflichtfelder (Wächter, Technik, Leitung, Logistik, Med); Validierungschecks bei Missions-/Schichtzuweisung, Führungspersonen haben min. zwei Rollen. Quellen: #1239–#1243; #1225–#1231.
 - **[FACT] [INV-PER-FACTION]** (Canvas/Inventar): Separate Inventare je Fraktion inklusive Fraktionshändler, jeweils verlinkt. Quellen: #275–#276; #385–#387.
 
-## Canvas & Verwaltung – Prozesse & Policies
+Canvas & Verwaltung – Prozesse & Policies
+-----------------------------------------
 
 - **[FACT] [DAYSWITCH]** (Prozess): Tageswechsel-Reihenfolge: alles laden → prüfen → wechseln → archivieren; Fehler-/Rollback-Regeln verbindlich. Quellen: #1751–#1755.
 - **[FACT] [ATSD]** (Prozess): ATSD-Format steht für Aktiv, Total, System, Defekt; einheitliche Strings verwenden. Quellen: #1704; #1751.
@@ -106,7 +120,8 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [MEETING]** (Prozess): Sitzungsablauf: Intro → Wissensabgleich → Berichte → Entscheidungen; Systemausgaben vor RP bestätigen. Quellen: #1453–#1459.
 - **[FACT] [MOVE]** (Prozess): Umzüge C6→D5 folgen Checkliste (Personen, Cluster, Zuordnung, Validierung, Archiv); Fall Tarv/Derek als Vorlage. Quellen: #1471–#1480.
 
-## Canvas & Verwaltung – System & Output
+Canvas & Verwaltung – System & Output
+-------------------------------------
 
 - **[FACT] [BEHAVIOR-VERSION]** (System): Verhalten/Systemversionierung auf v0.9 zurückgesetzt; Archiv nutzt In-Game-Zeit, Liveschaltungen dokumentieren. Quellen: Behavior-Notes.
 - **[FACT] [AI-BEHAVIOR-INDEX]** (System): `ai_behavior_index_v2` ist kanonisch (Cluster O/E/M/N/C/S/L/T; Modifikatoren k/a/z/p/r/s/h; Format O82-E74-…-p); Mapping je Charakter verpflichtend. Quellen: RAW-canvas-2025-10-16T11-05-00-000Z.
@@ -117,13 +132,15 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [DIALOG-BLOCK]** (System): Dialog-Canvas nutzt Blöcke mit Zeitstempel, Beteiligten, Topic, inklusive Index/Verlinkungen. Quellen: #789–#795.
 - **[FACT] [SIM-WEEK]** (System): Wochen-Simulation läuft im 7-Tage-Rhythmus ab Karawanen-Beitritt und koppelt an Handelszyklus; Textausgabe dokumentieren. Quellen: #742–#746; #775–#779; #281–#285.
 
-## Sicherungen & Backups
+Sicherungen & Backups
+---------------------
 
 - **[FACT] [BACKUP-ZIP]** (Backup): Wöchentliche ZIP-Backups planen; Speicherort/Format und Zugriff vorab definieren. Quellen: #895–#899.
 - **[FACT] [ZIP]** (Backup): Behauptetes Archiv "metro_ai_rpg_full_backup.zip" existiert nicht im Repo und wird verworfen. Quellen: #1875–#1906.
 - **[FACT] [DUMPS]** (Backup): Markdown-Dump, Chat-Zusammenfassung und Roh-Chat bleiben optionale Bedarfs-Sicherungen. Quellen: #1875–#1906.
 
-## Missionen, Bewegungen & Anomalien
+Missionen, Bewegungen & Anomalien
+---------------------------------
 
 - **[FACT] [ANOMALIES]** (Mission): Drei Anomalie-Missionen anlegen (C6-Nord, Tunnel D5–C6, E3-Gefahr). Quellen: #1623–#1625.
 - **[FACT] [C6-HELPERS]** (Roster): Quarantäne beendet; 20 Evakuierte aus E3 dynamisch zuteilen, 4 Karawanenmitglieder aktiv in C6, 2 bei Ronja/Pahl/Jonas in D5. Quellen: #1492–#1509.
@@ -133,7 +150,8 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [ANOMALY-IN-LOC]** (Canvas): Anomalien in Lokations-Canvas pflegen; Effekte/Debuffs in betroffenen Charakter-Canvas eintragen. Quellen: #507.
 - **[FACT] [CARAVAN-MOVE]** (Dokumentation): Bewegungen der Karawane in eigenem Canvas `caravan_moves.md` (z. B. `05-projects/` oder `00-admin/`) dokumentieren. Quellen: #509.
 
-## Ergänzungen (Prequel-Chunks part-003..001)
+Ergänzungen (Prequel-Chunks part-003..001)
+------------------------------------------
 
 - **[FACT] [WORLD-TURNS]** (Simulation): Fraktionszüge im Zwei-Wochen-Rhythmus bleiben als Simulationsergebnis markiert, nicht kanonisch; Abrechnung wöchentlich zusammenfassen. Quellen: #185–#190.
 - **[FACT] [KNOWLEDGE-MATRIX]** (Wissen): Händler kennen Reflex nicht; Wissensmatrix pro Fraktion pflegen, Novapolis bleibt verborgen. Quellen: #211.
@@ -144,7 +162,7 @@ Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel au
 - **[FACT] [D5-98→100]** (Historie): D5 steigert von 98 % auf 100 % nach Tageswechsel mit Voll-Load/Validierung oder Ereignis "Reaktor-Kalibrierung abgeschlossen"—je nachdem, was zuerst eintritt. Quellen: #86; part-015.
 - **[FACT] [MERCHANT-HQ]** (Policy): C6 ist Novapolis-Kernsektor und Logistikstützpunkt; Vereinbarung mit Karawanen-Mitgliedern dokumentiert. Quellen: #197; #199.
 
-## Timeline & Ereignislog
+Timeline & Ereignislog
+----------------------
 
 - **[FACT] [EVENT-TIMELINE]** (Timeline): Ereignislog (E-0001..E-0005) wird kanonisiert mit Start T+0; H-47 war Karawane, Mitglieder schlossen sich Novapolis an, Terminologie "Allianz" an Kanon anpassen. Quellen: RAW-canvas-2025-10-16T05-34-00-000Z.
-

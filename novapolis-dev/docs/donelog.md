@@ -1,12 +1,33 @@
----
-stand: 2025-11-06 03:34
-update: Workspace-Tree-Snapshots erneuert; Doku synchronisiert
-checks: Tasks Workspace tree:* PASS
+stand: 2025-11-07 02:19
+update: Lint-Task/Status-Docs synchronisiert; DONELOGs ergänzt.
+checks: keine
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+Lint-Tooling & Status-Docs Sync (2025-11-07 02:19)
+--------------------------------------------------
+
+- VS Code Task angepasst: markdownlint-Aufruf mit korrekt gequotetem Pattern ("**/*.md").
+- Repo-weiten markdownlint-Lauf und MD003-Backlog in den Status-Dokumenten festgehalten.
+- Status-Dokumente synchronisiert: `todo.root.md`, `WORKSPACE_STATUS.md`, `single-root-todo.md`.
+
+TODO/Status-Update (2025-11-07 01:39)
+-------------------------------------
+
+- `todo.root.md` erweitert (Single-Repo-Governance-Reminder, Aufgaben zu Markdownlint-Overrides, Staging-Report-Migration, Metadata-Skripte, Archiv-Ablage).
+- `WORKSPACE_STATUS.md` synchronisiert (aktueller Hinweis auf neue Aufgaben).
+- Keine Builds/Tests ausgeführt (Dokumentationspflege).
+
+Workspace-Konfliktanalyse (2025-11-07 01:27)
+--------------------------------------------
+
+- Bestehende Markdownlint-Overrides unter `novapolis-rp/database-curated/staging/.markdownlint.json` und `.../reports/.markdownlint.json` identifiziert (deaktivieren zentrale Regeln MD003/MD012/MD047). Empfehlung: Overrides evaluieren, Konfiguration an globale Policy anpassen oder entfernen.
+- Staging-Reports (`novapolis-rp/database-curated/staging/reports/*.md`) ohne YAML-Frontmatter/Setext-Headings erfasst; Kandidaten für Migration in den Dev-Hub bzw. Konvertierung in Setext-Format.
+- Doppelte Metadata-Initialisierungsskripte (`novapolis-rp/coding/tools/metadata/init-metadata.js` & `init_metadata.py`) dokumentiert; Entscheidung über kanonische Implementierung offen.
+- Legacy-Notiz `novapolis_agent/analysis_chat_routers.md` (Triple-Quote-Stub) als Alt-Dokument markiert.
 
 Chat-Neustart-Prompt entfernt (2025-11-06 03:07)
 ---------------------------------------------

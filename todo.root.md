@@ -1,6 +1,6 @@
-stand: 2025-11-06 15:58
-update: MD003 + YAML Frontmatter (weitere 5 Dateien, templates+logs-2); targeted lint PASS; Logs aktualisiert.
-checks: markdownlint-cli2 PASS (targeted, 5 Dateien); check_frontmatter.py n/a; repo-weit MD003 offen; pytest -q n/a
+stand: 2025-11-07 02:10
+update: Repo-weites markdownlint-Ergebnis dokumentiert und Skriptprüfung für Markdown-Ausgaben angestoßen.
+checks: markdownlint-cli2 "**/*.md" FAIL (MD003)
 ---
 
 <!-- markdownlint-disable MD003 -->
@@ -12,6 +12,10 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 ## Kurzueberblick
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
+
+- 2025-11-07 02:10: markdownlint-cli2 repo-weit ausgeführt (367× MD003 Setext-Stil offen); Analyse der Markdown-generierenden Skripte (Chat-Exporter, Reports, todo_gather) vorbereitet.
+- 2025-11-07 01:27: Workspace-Analyse für widersprüchliche Einstellungen und Alt-Markdown durchgeführt; Kandidaten protokolliert (Lint-Override-Dateien, Staging-Reports ohne Frontmatter, doppelte Metadata-Skripte).
+- Reminder Single-Repo: Alle Module (Agent/RP/Dev/Sim) laufen unter `Main/`; zentrale Verwaltung im Root, Archive nach `novapolis-dev/archive/**`, Löschungen erst nach Integration + Freigabe.
 
 - 2025-11-06 15:58: MD003 Setext + YAML-Frontmatter in `novapolis_agent/cleanup_recommendations.md`, `Backups/novapolis-rp-development-archived-20251105/development/README.md`, `novapolis-dev/logs/betriebsmodi-20251103-0341.tmp.md`, `novapolis-rp/.github/ISSUE_TEMPLATE/bug_report.md`, `novapolis_agent/eval/config/context.local.sample.md`; targeted markdownlint PASS (5 Dateien); Logs aktualisiert.
 - 2025-11-06 15:22: MD003-Setext-Korrekturen in `novapolis-rp/coding/tools/chat-exporter/README.md`, `novapolis-rp/coding/tools/metadata/README.md`, `novapolis-rp/coding/devcontainer/README.md`; targeted markdownlint PASS (3 Dateien).
@@ -43,6 +47,7 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
   - [x] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) am 2025-11-02 via Tasks `Workspace tree:*` regeneriert.
 - 2025-11-01: DONELOG-Heading-Stil auf Setext gemäß MD003 korrigiert; Markdownlint bleibt zentral via npx.
 - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren.
+ - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren; abgeschlossene Dokument-Blöcke nach Review unter `novapolis-dev/archive/` ablegen.
   - Root-Archiv (vollständig erledigte Root-Blöcke): `novapolis-dev/archive/todo.root.archive.md`.
   - [ ] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`).
   - [ ] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`).
@@ -68,19 +73,26 @@ Hinweis: Aufgrund des Multi‑Root‑STOPs keine Wrapper‑Tasks verwenden; bei 
 
 - [ ] Tests/Typen sequenziell laufen lassen (manuell) und Ergebnis protokollieren: `DONELOG.md` (Root) und `novapolis_agent/docs/DONELOG.txt` (Agent).
 - [x] 2025-11-06 04:40: Demo-Test `novapolis_agent/tests/test_intentional_failure.py` entfernt; pytest -q PASS.
+- [ ] Markdown-Ausgabe der Skripte (todo_gather, summarize_eval_results, map_reduce_summary_llm, Reports) sowie Chat-Exporter auf Setext/YAML-Konformität prüfen und ggf. anpassen.
 - [ ] Konsistenz‑Audit/Report aktualisieren (Sichtprüfung): `novapolis_agent/scripts/reports/generate_consistency_report.py` und Kandidaten aus `novapolis_agent/scripts/audit_workspace.py` prüfen.
 - [ ] Optional nach Review: Cleanup‑Kandidaten (Phase 4) nur mit Freigabe angehen (`novapolis_agent/scripts/cleanup_phase4.ps1`).
+- [ ] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` auswerten; Inhalte in aktive Doku übernehmen oder Datei nach Freigabe entfernen.
 
 ### novapolis-rp
 
 - [ ] Export konsolidieren: Offene Aufgabe „`99-exports/chat-export-complete.txt`“ abschließen; Delta‑Befunde in SSOT‑Canvases spiegeln.
 - [ ] Tagging‑Pipeline 015–010 vom Dry‑Run auf Write heben; anschließend kurzem Lint‑Protokoll in `novapolis-dev/docs/donelog.md` vermerken.
+- [ ] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` prüfen; auf Minimal-Ausnahmen reduzieren oder entfernen.
+- [ ] Staging-Reports (`database-curated/staging/reports/*.md`) mit YAML-Frontmatter/Setext nachziehen oder in `novapolis-dev/docs/` migrieren; Altdateien nach Freigabe löschen.
+- [ ] Metadata-Initialisierungsskripte (`coding/tools/metadata/init-metadata.js` vs. `init_metadata.py`) konsolidieren und kanonische Variante dokumentieren.
 
 ### novapolis-dev
 
 - [ ] Tree‑Artefakte neu erzeugen (manuell): `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`; Zeitstempel/Status in `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` aktualisieren.
 - [ ] Optional: Kurzer Abschnitt „Editor‑Setup“ im Root‑`README.md` ergänzen (Hinweis auf STOP/Multi‑Root, manuelle Terminal‑Läufe).
 - [ ] Markdownlint MD003 (aktive Docs): Scope auf essentielle Readmes/Dokus begrenzen, Stichproben-Lint (`markdownlint-cli2`), pro Datei Setext-Stil angleichen und Resttreffer außerhalb des Scopes katalogisieren.
+- [ ] YAML-Frontmatter-Backlog priorisieren: Offene Markdown-Dateien mit `stand/update/checks` nachrüsten (Ausnahme `.github/copilot-instructions.md`), Priorität gemäß zuletzt gemeldeten Lint-Treffern.
+- [ ] Übernahme/Staging-Integration: Inhalte aus `novapolis-rp/database-curated/staging/reports/` nach Review in `novapolis-dev/docs/` spiegeln und Altstände archivieren.
 
 ### novapolis-sim
 

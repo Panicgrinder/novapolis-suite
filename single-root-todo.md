@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-05 18:33
-update: Snapshot aktualisiert (Lint-Regeln/Checks protokolliert)
-checks: markdownlint-cli2 (docs focused) FAIL (MD003)
+stand: 2025-11-07 02:10
+update: markdownlint-Gesamtlauf und Skript-Prüfauftrag ergänzt
+checks: markdownlint-cli2 "**/*.md" FAIL (MD003)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -63,6 +63,7 @@ Offene Aufgaben (Root – quer durchs Repo)
 - [x] Tree-Snapshots aktualisieren bei Strukturänderungen
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [ ] Backups & Releases (Manifest/Checksums/Rotation) pflegen
+- [ ] Markdown-Ausgaben der Skripte (Chat-Exporter, todo_gather, summarize_eval_results, Reports) auf Setext-/Frontmatter-Konformität prüfen und anpassen.
   - [x] Audit dokumentiert: `Backups/AUDIT.md`
   - [x] Skripte ergänzt: `scripts/update_backups_manifest.ps1`, `scripts/rotate_backups.ps1`
   - [x] README + initiales Manifest: `Backups/README.md`, `Backups/manifest.v1.json`

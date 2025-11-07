@@ -1,4 +1,11 @@
-# Overlap-Check: Arlen Dross (Händlergilde v2)
+---
+stand: 2025-11-07 01:47
+update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt.
+checks: keine
+---
+
+Overlap-Check: Arlen Dross (Händlergilde v2)
+============================================
 
 Status: vorläufige Prüfung abgeschlossen
 
@@ -27,4 +34,3 @@ Empfohlene Maßnahmen
 Offene Punkte
 - Endgültige Titel/Index-Einträge und Zuordnung im Personenindex.
 - Konsequente Verlinkung im C6-Canvas und Händlerstützpunkt-Policy.
-

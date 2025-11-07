@@ -1,6 +1,14 @@
-# Charakter-Block Nord – Quellenstand (2025-11-01)
+---
+stand: 2025-11-07 01:47
+update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt.
+checks: keine
+---
 
-## Varek Solun
+Charakter-Block Nord – Quellenstand (2025-11-01)
+================================================
+
+Varek Solun
+-----------
 
 - **RAW** `RAW-canvas-2025-10-16T03-25-00-000Z.txt` (`char_varek_solun_v1`)
   - Kommandant/Führer der Eisenkonklave, Standort `H12`, Alias "Sektor_H3".
@@ -14,7 +22,8 @@
 - **resolved.md Bezug**
   - `[FACT][EK-LEADERSHIP]`, `[FACT][EK-TAXONOMY]` – bestätigt Führung (Varek/Lyra) und Standortcode `H12` mit Alias.
 
-## Liora Navesh
+Liora Navesh
+------------
 
 - **RAW** `RAW-canvas-2025-10-16T03-25-10-000Z.txt` (`char_liora_navesh_v1`)
   - Leiterin Forschungsrat/Chefärztin Biotechnologie Arkologie A1.
@@ -27,7 +36,8 @@
 - **resolved.md Bezug**
   - `[FACT][ARKO-RESEARCH]`, `[FACT][ARKO-TAXONOMY]` – Rollenzuweisung und Namensschema bestätigt.
 
-## Kora Malenkov
+Kora Malenkov
+-------------
 
 - **RAW** `RAW-canvas-2025-10-16T14-56-00-000Z.txt` (`char_kora_malenkov_v2`)
   - Rolle: Karawanenführerin/Logistikkoordinatorin, aktuell in C6; betont paranoide Vorsicht.
@@ -39,7 +49,8 @@
 - **resolved.md Bezug**
   - `[FACT][CARAVAN-LEADERSHIP]` – weist interne Logistik Kora zu, externen Konvoi Marven, Arlen als Händler/Vermittler.
 
-## Marven Kael
+Marven Kael
+-----------
 
 - **RAW** `RAW-canvas-2025-10-16T14-56-10-000Z.txt` (`char_marven_v2`)
   - Rolle: Karawanenführer/Handelskoordinator, Ort C6 (Karawanen-HQ).
@@ -51,7 +62,8 @@
 - **resolved.md Bezug**
   - `[FACT][CARAVAN-LEADERSHIP]` – bestätigt Marven als externe Konvoi-/Handelsleitung.
 
-## Arlen Dross
+Arlen Dross
+-----------
 
 - **RAW** `RAW-canvas-2025-10-16T14-56-20-000Z.txt` (`char_arlen_dross_v2`)
   - Rolle: Karawanenführer/Händler, Ort C6; diplomatisch, Vermittlerrolle.
@@ -63,7 +75,8 @@
 - **resolved.md Bezug**
   - `[FACT][CARAVAN-LEADERSHIP]` – Arlen als Händler/Vermittler ohne Führungsduplikat.
 
-## Pahl
+Pahl
+----
 
 - **RAW** `RAW-canvas-2025-10-16T14-41-00-000Z.txt` (`char_pahl_v2`)
   - Rolle: Ingenieur/Wartungsleiter (geschwächt), Ort D5 Technikbereich.
@@ -75,7 +88,8 @@
 - **resolved.md Bezug**
   - Keine explizite Pahl-spezifische Entscheidung in `resolved.md`; Pahl wird in Ronja-Canvas und FACT `[POP]`/`[C6-HELPERS]` implizit erwähnt.
 
-## Ronja Kerschner
+Ronja Kerschner
+---------------
 
 - **RAW** `RAW-canvas-2025-10-16T11-45-00-000Z.txt` (`char_ronja_v2` – `korrupt`)
   - Nennt Nachnamen „Vallin“; beschreibt aktuelle Rollen, Motivationen, Systemverknüpfungen.
@@ -87,7 +101,8 @@
 - **resolved.md Bezug**
   - `[NAME-RONJA]` – bestätigter Nachname „Kerschner“; `[FACT][REFLEX-*]`, `[FACT][ROLES]` liefern weitere Leitplanken.
 
-## Reflex (Primärinstanz)
+Reflex (Primärinstanz)
+----------------------
 
 - **RAW** `RAW-canvas-2025-10-16T13-45-00-000Z.txt` (`char_reflex_v2`)
   - Beschreibt Reflex als organische KI-Symbiontstruktur; betont Loyalität zu Ronja, mögliche emotionale Dysregulation.
@@ -101,7 +116,8 @@
 - **resolved.md Bezug**
   - Mehrere `[FACT?]`-Einträge aktuell in Review: `[REFLEX]`, `[INSTANCES]`, `[PROXIMITY]`, `[REFLEX-SPEECH]`, `[REFLEX-CONTROL]`, `[REFLEX-DETACH]`, `[JEALOUSY-GLOVES]`.
 
-## Jonas Merek
+Jonas Merek
+-----------
 
 - **RAW** `RAW-canvas-2025-10-16T03-12-00-000Z.txt` (`char_jonas_v1`)
   - Frühfassung: Werkstatt unter D5, Schwester beim E2-Vorfall zurückgelassen, Wahl zwischen C6 und Werkstatt.
@@ -114,8 +130,8 @@
 - **resolved.md Bezug**
   - `[FACT][JONAS-SIS]` – Schwesterstatus bleibt „vermisst/unklar“, Schuldflag als non-canon deklarieren.
 
-## Drift-Dokumentation (Overrides)
+Drift-Dokumentation (Overrides)
+-------------------------------
 
 - `char_ronja_v2` (RAW, korrupt) → Nachname „Vallin“. **Override:** Kanon bleibt „Ronja Kerschner“ (`resolved.md #[NAME-RONJA]`). Notiz hier behalten, falls die Fehlbenennung in weiteren Rohquellen auftaucht.
 - `char_jonas_v2` (RAW, korrupt) → Makel „Schuld am Tod der Schwester“ impliziert ihren Tod. **Override:** Kanonischer Status „Schwester vermisst/unklar“ (`resolved.md #[JONAS-SIS]`). Schuldflag nur als Kommentar kennzeichnen, nicht als Fakt übernehmen.
-

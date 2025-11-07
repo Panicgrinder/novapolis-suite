@@ -9,7 +9,7 @@
 			"args": [
 				"-NoProfile",
 				"-Command",
-				"& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; } & npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'; $mdExit = $LASTEXITCODE; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; $blackExit = $LASTEXITCODE; if ($mdExit -ne 0 -or $ruffExit -ne 0 -or $blackExit -ne 0) { exit 1 } }"
+				"& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; } & npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc \"**/*.md\"; $mdExit = $LASTEXITCODE; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; $blackExit = $LASTEXITCODE; if ($mdExit -ne 0 -or $ruffExit -ne 0 -or $blackExit -ne 0) { exit 1 } }"
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"

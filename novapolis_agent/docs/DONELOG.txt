@@ -1,7 +1,6 @@
----
-stand: 2025-11-06 04:40
-update: Demo-Test entfernt; pytest erneut grün
-checks: pytest -q PASS, check_frontmatter.py PASS
+stand: 2025-11-07 02:19
+update: Eintrag ergänzt (Status-Docs/Lint/Tasks)
+checks: keine
 ---
 
 DONELOG – Abgeschlossene Arbeiten
@@ -133,3 +132,4 @@ Beispiel:
 2025-11-06 03:34 | Copilot | Workspace-Tree-Snapshots aktualisiert; Root-Status und Dev-DONELOG synchronisiert; keine neuen Checks erforderlich.
 2025-11-06 04:15 | Copilot | Absichtlichen Demo-Test `tests/test_intentional_failure.py` hinzugefügt (erzwingt pytest-FAIL) und YAML-Frontmatter-Validator mit Beispieldatei geprüft; Fehlermeldungen dokumentiert.
 2025-11-06 04:40 | Copilot | Demo-Test wieder entfernt, `pytest -q` manuell per pwsh ausgeführt (Suite PASS); Frontmatter-Demo abgeschlossen.
+2025-11-07 02:19 | Copilot | Root-Status-Docs synchronisiert (`todo.root.md`, `WORKSPACE_STATUS.md`, `single-root-todo.md`); Repo-weites markdownlint-Ergebnis dokumentiert; VS Code Lint-Task (Quoting "**/*.md") angeglichen.

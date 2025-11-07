@@ -1,4 +1,11 @@
-# Delta-Report
+---
+stand: 2025-11-07 01:47
+update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt.
+checks: keine
+---
+
+Delta-Report
+============
 
 Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapolis-rp\database-raw\99-exports\RAW-chat-export-2025-10-23T02-54-55-897Z.txt
 
@@ -7,11 +14,14 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 - Jaccard-Ähnlichkeit (Zeilenmenge): 0.263
 - Diff: +2982  -6141
 
-## Diff (A->B) – Auszug
+Diff (A->B) – Auszug
+--------------------
+
+```diff
 --- novapolis-rp\database-raw\99-exports\chat-export (1).txt
 +++ novapolis-rp\database-raw\99-exports\RAW-chat-export-2025-10-23T02-54-55-897Z.txt
 @@ -1,86 +1,116 @@
--#1 [user]
+- #1 [user]
 +# Chat-Export
 +
 +### 1 [user]
@@ -19,12 +29,12 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 
 ------
 -
--#2 [assistant]
+- #2 [assistant]
 -
 -
 ------
 -
--#3 [user]
+- #3 [user]
 +### 2 [assistant]
 +Erledigt. Archiv aufgerissen, Eingeweide sortiert, Systembasis geladen. Deine heilige „Statusübersicht“ thront jetzt im Canvas. Wenn irgendwas davon explodiert, lag es nicht an mir, sondern an der Postapokalypse.
 +
@@ -99,12 +109,12 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 
 ------
 -
--#4 [assistant]
+- #4 [assistant]
 -
 -
 ------
 -
--#5 [user]
+- #5 [user]
 +### 4 [assistant]
 +
 +### 5 [user]
@@ -112,17 +122,17 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 
 ------
 -
--#6 [assistant]
+- #6 [assistant]
 -
 -
 ------
 -
--#7 [assistant]
+- #7 [assistant]
 -
 -
 ------
 -
--#8 [user]
+- #8 [user]
 +### 6 [assistant]
 +
 +### 7 [assistant]
@@ -132,12 +142,12 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 
 ------
 -
--#9 [assistant]
+- #9 [assistant]
 -
 -
 ------
 -
--#10 [user]
+- #10 [user]
 +### 9 [assistant]
 +
 +### 10 [user]
@@ -145,12 +155,12 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 
 ------
 -
--#11 [assistant]
+- #11 [assistant]
 -
 -
 ------
 -
--#12 [user]
+- #12 [user]
 +### 11 [assistant]
 +
 +### 12 [user]
@@ -162,12 +172,12 @@ Name: Ronja (bitte generiere einen passenden Nachnamen)
 
 ------
 -
--#13 [assistant]
+- #13 [assistant]
 -
 -
 ------
 -
--#14 [user]
+- #14 [user]
 +### 13 [assistant]
 +
 +### 14 [user]
@@ -177,12 +187,12 @@ K2 G4 Ge5 W5 Ch4
 
 ------
 -
--#15 [assistant]
+- #15 [assistant]
 -
 -
 ------
 -
--#16 [user]
+- #16 [user]
 +### 15 [assistant]
 +
 +### 16 [user]
@@ -195,12 +205,12 @@ optional geübt für den Nachteil bei Organisation & Planung: improvisieren.
 
 ------
 -
--#17 [assistant]
+- #17 [assistant]
 -
 -
 ------
 -
--#18 [user]
+- #18 [user]
 +### 17 [assistant]
 +
 +### 18 [user]
@@ -208,6 +218,6 @@ optional geübt für den Nachteil bei Organisation & Planung: improvisieren.
 
 ------
 -
--#19 [assistant]
+- #19 [assistant]
 ... (gekürzt) ...
-
+```
