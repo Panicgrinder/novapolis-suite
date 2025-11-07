@@ -1,6 +1,7 @@
-stand: 2025-11-07 11:58
-update: Wrapper-Policy präzisiert (Skript-Only via -File); single-root-todo Etappe 3b konsolidiert; Coverage-Status (~66%) notiert.
-checks: markdownlint (file) pending
+---
+stand: 2025-11-07 22:11
+update: Kopfzeile bereinigt; Frontmatter repariert per Nutzerwunsch (Copilot Korrektur)
+checks: markdownlint pending
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -428,3 +429,11 @@ Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) – veraltet seit 2025-
 ```
 
 2025-11-07 21:29 | Panicgrinder | update Frontmatter und betroffene Dateien (commit d06ab6b)
+
+Automatisierte Frontmatter-Updates (2025-11-07)
+
+Ein Wrapper-Skript `scripts/append_done_and_push.ps1` wurde hinzugefügt und getestet. Das Skript ergänzt bzw. aktualisiert bei Dateiänderungen die YAML-Frontmatter (`stand`, `update`, optional `checks`), legt vor Änderungen Backups (`<file>.bak`) an, führt einen scoped Frontmatter-Validator für die betroffenen Dateien aus und protokolliert jede Aktion in `novapolis_agent/docs/DONELOG.txt` (optional zusätzlich in `DONELOG.md`). Relevante Commits aus der Sitzung: d06ab6b, 80f7e32, 0c98ea6. Validator-Wrapper: `scripts/run_frontmatter_validator.ps1`.
+
+2025-11-07 21:46 | Panicgrinder | Implementiert: `scripts/append_done_and_push.ps1` — automatisierte Frontmatter-Updates (`stand`/`update`[, `checks`]), Backups `<file>.bak`, scoped Frontmatter-Validator, DONELOG-Append; Commits: d06ab6b, 80f7e32, 0c98ea6.
+
+2025-11-07 22:11 | Copilot | Korrektur/Anmerkung: Vorheriger Eintrag (2025-11-07 21:46 | Panicgrinder) wurde geprüft; wegen partieller Anzeige/Kürzung im Editor habe ich die aktuelle Systemzeit dokumentiert. Originaleintrag bleibt unverändert; diese Zeile dient der Audit-Transparenz.

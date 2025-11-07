@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-07 19:13
-update: Env-Beispiele zentralisiert; Legacy-Stub entfernt; Frontmatter-Zeit synchronisiert.
-checks: markdownlint-cli2 PASS
+stand: 2025-11-07 21:46
+update: append_done_and_push.ps1 implementiert: Frontmatter-Aktualisierung standardmäßig; todo.root.md ergänzt.
+checks: frontmatter-validator PASS; markdownlint-cli2 PASS
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -13,6 +13,8 @@ Kurzueberblick
 --------------
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
+
+- 2025-11-07 21:46: `scripts/append_done_and_push.ps1` erweitert: Frontmatter-Aktualisierung wird nun automatisch für veränderte Markdown/Text-Dateien durchgeführt (Backups, scoped validator, DONELOG-Eintrag). Validatorlauf (targeted) PASS.
 
 - 2025-11-07 04:56: Archiv-TODOs (`novapolis-dev/archive/todo.*.archive.md`) auf Setext (H1/H2) umgestellt, Checks/Timestamps aktualisiert; `.github/ISSUE_TEMPLATE/feature_request.md` konsistent gemacht; repo-weites `markdownlint-cli2` PASS (132 Dateien).
 - 2025-11-07 02:10: markdownlint-cli2 repo-weit ausgeführt (367× MD003 Setext-Stil offen); Analyse der Markdown-generierenden Skripte (Chat-Exporter, Reports, todo_gather) vorbereitet.
