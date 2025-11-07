@@ -1,11 +1,18 @@
-stand: 2025-11-07 02:19
-update: Lint-Task/Status-Docs synchronisiert; DONELOGs ergänzt.
-checks: keine
+stand: 2025-11-07 02:29
+update: Staging-Reports Setext/Frontmatter konsolidiert; Tree/Status sync.
+checks: markdownlint-cli2 PASS (staging/dev/agent)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+Staging-Reports – Setext/Frontmatter konsolidiert (2025-11-07 02:29)
+--------------------------------------------------------------------
+
+- Reports unter `novapolis-rp/database-curated/staging/reports/*.md` auf YAML-Frontmatter und Setext-Überschriften gebracht; lokale Markdownlint-Overrides in `staging/.markdownlint.json` und `staging/reports/.markdownlint.json` entfernt.
+- Lint-Scope-Runs: staging reports (10 Dateien) PASS; dev/agent docs PASS. Repo-weites Pattern-Quoting in Tasks/Terminal korrigiert.
+- Follow-up: Lange TODO-Dateien (MD003-Konsistenz) separat bereinigen.
 
 Lint-Tooling & Status-Docs Sync (2025-11-07 02:19)
 --------------------------------------------------

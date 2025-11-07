@@ -1,6 +1,6 @@
-stand: 2025-11-07 02:19
-update: DONELOGs synchronisiert; Lint-Tooling/Status-Docs vermerkt.
-checks: keine
+stand: 2025-11-07 02:29
+update: Tree-Snapshots/Lint (staging reports) ergänzt.
+checks: markdownlint-cli2 PASS (staging/dev/agent)
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -11,6 +11,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-07 02:29: Tree‑Snapshots aktualisiert; Staging‑Reports (Setext + YAML‑Frontmatter) vereinheitlicht und gelinted (scoped PASS); Status ergänzt.
 - 2025-11-07 02:19: DONELOGs/Status-Docs synchronisiert (`todo.root.md`, `WORKSPACE_STATUS.md`, `single-root-todo.md`); Repo-weites markdownlint-Ergebnis (MD003‑Backlog) dokumentiert; VS Code Lint‑Task (Quoting "**/*.md") angeglichen.
 - 2025-11-07 01:39: TODO/WORKSPACE_STATUS aktualisiert (Single-Repo-Governance-Reminder, Aufgaben für Lint-Overrides, Staging-Report-Migration, Metadata-Konsolidierung, Archiv-Ablage) – reine Doku-Anpassung.
 - 2025-11-07 01:27: Workspace-Konfliktanalyse abgeschlossen (Markdownlint-Overrides in `novapolis-rp/database-curated/staging/**`, Staging-Reports ohne Frontmatter, doppelte Metadata-Skripte `.js/.py`, Alt-Notiz `novapolis_agent/analysis_chat_routers.md`). Ergebnisse in TODO/Status erfasst.

@@ -1,7 +1,6 @@
----
-stand: 2025-11-07 02:10
-update: markdownlint-Gesamtlauf dokumentiert und Skriptprüfung für Markdown-Ausgaben vermerkt.
-checks: markdownlint-cli2 "**/*.md" FAIL (MD003)
+stand: 2025-11-07 02:29
+update: Tree-Snapshots regeneriert; entfernte Markdownlint-Overrides dokumentiert; Arbeitsmodus aktualisiert.
+checks: markdownlint-cli2 PASS (staging reports/dev/agent)
 ---
 
 Workspace-Status
@@ -12,6 +11,7 @@ Workspace-Status
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
+- 2025-11-07 02:29: Tree-Snapshots aktualisiert (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) und entfernte Markdownlint-Overrides in `novapolis-rp/database-curated/staging/**` festgehalten; Staging‑Reports (Setext+Frontmatter) gelinted → PASS.
 - 2025-11-07 02:10: markdownlint-cli2 repo-weit ausgeführt (367× MD003 offen); Skriptprüfung für Markdown-Ausgaben (Chat-Exporter, Reports, todo_gather) vorbereitet.
 - 2025-11-07 01:39: TODO aktualisiert (Single-Repo-Reminder; Aufgaben zu Lint-Overrides, Staging-Reports, Metadata-Konsolidierung, Archiv-Ablage).
 - 2025-11-07 01:27: Konfliktanalyse durchgeführt (Markdownlint-Overrides, Staging-Reports ohne Frontmatter, doppelte Metadata-Skripte, Chat-Router-Notiz). Maßnahmen in TODO/DONELOG erfasst.
@@ -25,8 +25,8 @@ Workspace-Status
 Aktueller Arbeitsmodus
 ----------------------
 
-- Modus: Codex (GPT‑5 Codex)
-- STOP‑Gate: an (vor Code‑Aktionen explizite Bestätigung erforderlich: „Wechsel: Modus Codex“ oder „Weiter: Modus General“)
+- Modus: General (GPT‑5)
+- STOP‑Gate: an (vor Code‑/kanon‑kritischen Aktionen explizite Bestätigung erforderlich)
 - Erinnerungen: Wechselhinweise bei Code‑Triggern aktiv; „Bitte nicht erinnern“ schaltet Hinweise ab bis zur Reaktivierung
 
 Health-Checks & Open Items
@@ -52,11 +52,11 @@ Wichtige Artefakte & Logs
 - VS-Code-Empfehlungen: `.vscode/extensions.json` bündelt Python-, Markdownlint-, Copilot-, GitLens- und PowerShell-Extensions
 - Gitignore: `Fehleranalyse und Auditplan.pdf` sowie Godot-Editor-Binaries (`novapolis-sim/Godot_v*.exe`) als lokale Artefakte ausgeschlossen
 
-Struktur-Snapshot
------------------
+- Struktur-Snapshot
+-------------------
 
-- Vollständiger Verzeichnisbaum: `workspace_tree_full.txt` (Stand 2025-11-06 03:34; Task `Workspace tree: full`)
-- Arbeitsansicht: `workspace_tree.txt` (Stand 2025-11-06 03:34; Task `Workspace tree: directories`) und kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt` (Stand 2025-11-06 03:34; Task `Workspace tree: summary (dirs)`)
+- Vollständiger Verzeichnisbaum: `workspace_tree_full.txt` (Stand 2025-11-07 02:29; Terminal `tree /A /F`)
+- Arbeitsansicht: `workspace_tree.txt` (Stand 2025-11-07 02:29; Terminal `tree /A`) und kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt` (Stand 2025-11-07 02:29; Script `scripts/update_workspace_tree_dirs.ps1`)
 - Historische Agent-Dateiinventur: `novapolis_agent/WORKSPACE_INDEX.md`
 - Für gezielte Suchen weiterhin `scripts/audit_workspace.py` nutzen (prüft Referenzen & Altlasten)
 
