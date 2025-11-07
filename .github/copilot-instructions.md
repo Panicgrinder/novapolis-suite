@@ -1,12 +1,12 @@
 Copilot-Projektanweisungen (Novapolis Suite)
 =============================================
 
-Stand: 2025-11-07 10:53 – Moduswechsel dokumentiert (GPT-5 General aktiv), Coverage-Befehl mit Dateizähler + PASS/FAIL-Ausgabe
+Stand: 2025-11-07 11:48 – Wrapper-Policy präzisiert (komplexe Abläufe zwingend als Skript via `pwsh -NoProfile -File <script>`; Inline `-Command` nur echte Einzeiler, Cheat Sheet rein menschliche Referenz).
 Hinweis: Single‑Root, pwsh 7, Godot Option A aktiv (kanonisch: `novapolis-sim/project.godot`)
 
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
-> Hinweis (Terminal/Pwsh): Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Tasks verwenden wieder `-Command`; achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`), damit Leerzeichen in Pfaden keine Fehler auslösen.
+> Hinweis (Terminal/Pwsh): Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Für einfache, kurze Einzeiler weiterhin `-Command` Inline nutzen; für komplexe oder mehrzeilige Abläufe (Coverage, Artefakt-Erzeugung, umfangreiche Prüf-Sequenzen) zwingend Skript-Wrapper nutzen: `pwsh -NoProfile -File <script.ps1>`. Wrapper sind nur in dieser Form erlaubt (kein indirektes Aufrufen per `-Command` mit Here-Strings). Achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`) bei allen Inline-Kommandos.
 > Ausnahme (Systemzeit): Für einfache, pfadfreie Einzeiler ist `-Command` erlaubt und kanonisch. Systemzeit immer so ermitteln: `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
 >
 > Hinweis (STOP): „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe.
@@ -63,9 +63,11 @@ Schnell‑Index (häufig genutzte Themen)
 Hinweis: Aus dieser Datei automatisch ermittelt (Stoppwörter/Plural nicht normalisiert). Dient als Navigationshilfe, nicht als strikte Metrik.
 
 Cheat Sheet (pwsh‑Kommandos)
-----------------------------
+-----------------------------
 
-Kurzformen für die drei wichtigsten lokalen Prüfungen (identisch mit den ausführlichen Befehlen weiter unten):
+ACHTUNG: Rein dokumentarische Referenz für Menschen. Copilot/GPT verwendet für komplexe oder mehrschrittige Prüfungen ausschließlich Skript-Wrapper über `pwsh -NoProfile -File <script.ps1>`. Inline `-Command` ist nur für echte, kurze Einzeiler erlaubt.
+
+Kurzformen für die drei wichtigsten lokalen Prüfungen (identisch mit den ausführlichen Befehlen weiter unten – für manuelle Runs; Wrapper-Alternative siehe Hinweis unter Tests):
 
 - Lint (Ruff + Black, keine Auto‑Fixes)
 
@@ -82,8 +84,14 @@ Kurzformen für die drei wichtigsten lokalen Prüfungen (identisch mit den ausf�
 - Tests (Pytest mit Coverage ≥ 80 %)
 
   ```powershell
-  pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { `$_ -match '::' } | ForEach-Object { (`$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host "STOP: Zu viele Testdateien gesammelt ($fileCount > $maxTestFiles). Bitte Scope prüfen."; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
+  pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { `$_ -match '::' } | ForEach-Object { (`$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host \"STOP: Zu viele Testdateien gesammelt ($fileCount > $maxTestFiles). Bitte Scope prüfen.\"; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
   if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest FAIL ($LASTEXITCODE)" }
+  ```
+  
+  Empfohlen (Wrapper, Copilot/GPT):
+  
+  ```powershell
+  pwsh -NoProfile -File scripts\run_pytest_coverage.ps1
   ```
 
   > `$maxTestFiles` (Standard 40) stellt sicher, dass nicht versehentlich zu viele Testdateien im Lauf landen. Bei Überschreitung stoppt der Befehl mit einer roten STOP-Notiz.
@@ -109,7 +117,7 @@ Details und Begründung siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“ we
 
 ### Kanonische Prüfabläufe (pwsh)
 
-- Grundlage: Die gleichnamigen VS Code Tasks dienen nur als Referenz. Copilot/GPT starten sie nicht über `run_task`, sondern führen die folgenden PowerShell-Befehle manuell aus.
+- Grundlage: Die gleichnamigen VS Code Tasks dienen nur als Referenz. Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern ausschließlich über Skript-Wrapper via `pwsh -NoProfile -File <script.ps1>`. Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
 - **Lint (Ruff + Black, keine Auto-Fixes)**
 
   ```powershell
@@ -138,6 +146,7 @@ Details und Begründung siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“ we
 Zusatz (pwsh):
 - Für Python-Befehle den Interpreter aus `.venv` verwenden (Fallback `python`), wie in den Beispielen gezeigt.
 - Bei Pfaden mit Leerzeichen `${workspaceFolder}` und `Join-Path` einsetzen.
+ - Wrapper-Richtlinie: Wenn ein Befehl mehr als ~120 Zeichen umfasst, Artefakte schreibt (z. B. JUnit/Coverage/XML) oder mehrere logische Schritte enthält (Collect-Guard, Ausführung, Summary), als eigenes Skript unter `scripts/` ablegen und ausschließlich über `pwsh -NoProfile -File` starten. Keine mehrstufigen Inline-Blöcke mit verschachtelten `& { ... }` für solche Fälle.
 
 ### Update-Logistik
 
