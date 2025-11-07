@@ -10,18 +10,22 @@ last_updated: 2025-11-01T10:27:01+01:00
 tags: []
 ---
 
-## Projekt: Nordlinie 01 (Tunnel D5–C6)
+Projekt: Nordlinie 01 (Tunnel D5–C6)
+------------------------------------
 
-## Ziel
+Ziel
+----
 Wiederinbetriebnahme des Verbindungstunnels zwischen D5 und C6.
 
-## Phasen
+Phasen
+------
 1) Aufnahme & Kartierung ✓
 2) Materialbeschaffung (Schweißgerät, Adapter DN60, Stützen)
 3) Abschnittsweise Reparatur (Sicherung → Trassen → Tests)
 4) Betriebsaufnahme (Probefahrt/Lasttest)
 
-## Aufgabenliste
+Aufgabenliste
+-------------
 - [ ] Stückliste finalisieren
 - [ ] Schweißgerät beschaffen/bauen
 - [ ] Adapter DN60 fertigen/beschaffen
@@ -29,16 +33,19 @@ Wiederinbetriebnahme des Verbindungstunnels zwischen D5 und C6.
 - [ ] Abschnitt B Trassen ziehen
 - [ ] Abschlussprüfung/Protokoll
 
-## Risiken
+Risiken
+-------
 - Instabilitäten in Altschächten
 - Fraktionsaktivität/Diebstahl
 
-## Notizen
+Notizen
+-------
 - Überwachungs-Splitter an C6 liefert Frühwarnungen.
 
 ---
 
-## Mission Tunnel – Monitoring
+Mission Tunnel – Monitoring
+---------------------------
 
 - Abschnitte: A/B/C/D (Definition und Länge je Abschnitt)
 - %Fortschritt: 40% (Gesamt), je Abschnitt aktualisieren
