@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-07 19:10
-update: Extrahierte Überschriften aus .github/copilot-instructions.md
-checks: none
+stand: 2025-11-08 23:20
+update: Überschriftenliste aktualisiert; Vorschläge für neue Regel-IDs ergänzt
+checks: keine
 ---
 
 Hinweis: Diese Datei ist eine Extrakt‑Referenz. Sie enthält die aus
@@ -9,48 +9,50 @@ Hinweis: Diese Datei ist eine Extrakt‑Referenz. Sie enthält die aus
 selbst unter dem Pfad `.github/copilot-instructions-headings.md` im
 Repository abzulegen.
 
-Copilot-Projektanweisungen (Novapolis Suite)
-============================================
+Aktuelle Überschriften (Extrakt)
+================================
 
-Die folgenden Überschriften wurden aus `.github/copilot-instructions.md` extrahiert (H1/H2/H3/Abschnittstitel):
+Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-08 23:02` der Datei `.github/copilot-instructions.md`.
 
-- Copilot-Projektanweisungen (Novapolis Suite)
+- LLM-Dokumentenheader (nicht löschen)
+- Kurzreferenz aller Überschriften dieser Anleitung
 - Dateipfad & Geltungsbereich
 - Primäre Behaviour-Quellen
 - Gemeinsamer Arbeitsstil
 - Onboarding & Setup
 - Cheat Sheet (pwsh‑Kommandos)
-- Tippfehler-/Benennungshygiene
-- Copilot vs. Mensch (Verantwortungsmatrix)
 - Kanonische Prüfabläufe (pwsh)
-- Zusatz (pwsh)
-- Update-Logistik
 - Workspace‑Tree‑Artefakte (Zuordnung)
 - YAML-Frontmatter (kompakt & LLM-freundlich)
-- Frontmatter‑Schutz (robust gegen Delimiter‑Verlust)
+- Frontmatter‑Schutz (true)(robust gegen Delimiter‑Verlust)
 - Dateiformat & EOL
 - Definition of Done (Code & Docs)
 - Security & Dependencies
+- Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
+- Semantische Regeln
+- Kompakter Meta-Block für normale Antworten
+- Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
+- STOP-Gates & Modi
 - Essentials (konzentriert)
-- Agent (Backend) – Essentials
-- Dev‑Hub – Essentials
-- RP – AI Behavior Mapping (Canvas) – Überblick
-- STOP‑Gate (beidseitig, vor Modus‑relevanten Aktionen)
-- Unklarheiten‑STOP (global, immer gültig)
-- Modell-Profile & Moduswechsel (GPT‑5 ↔ GPT‑5 Codex)
-- Betriebsmodi (Standardlauf & Sicherheitsprotokoll)
 - Repositoryweiter Rahmen
 - Prüf- und Release-Checks
 - Release & Versionierung
-- Hinweis (CI‑Workflows)
 - Novapolis Agent (Backend)
-- Schnellziele bei Codeänderungen
-- PR-/Push-Checks
-- Pytest-Marker & Selektiver Lauf
-- API & Integration
-- Konventionen
-- Häufige Fehlerquellen
-- Workflows & Artefakte
-- Nachschlagen & Meta
+- Novapolis-RP
+- Workspace-Instructions (kompakt)
+- Diagnose‑Playbook bei Lint‑FAIL (pwsh, konservativ)
+- Mirrors/Redirect‑Stubs
+- Export/Importer
+- Ziele
 
-(Ende der Liste)
+Abgeleitete neue Regel-ID Vorschläge (nicht bindend)
+---------------------------------------------------
+- ID R-COV: Coverage-Gate (Mindest-Coverage ≥80% vor Merge durchsetzen)
+- ID R-IDX: Headings-Index-Pflege (Aktualisierung bei strukturrelevanten Änderungen)
+- ID R-COMM: Kommunikationsstil (prägnant, deutsch, keine Füllphrasen)
+- ID R-RED: Redundanz-Handling (Duplikate nur mit Freigabe entfernen, vorher melden)
+- ID R-TODO: Konsistenz von TODO/DONELOG-Einträgen (Format, Pflichtfelder)
+- ID R-TIME: Timestamp-Konvention (lokales Format yyyy-MM-dd HH:mm; Quelle pwsh Get-Date)
+- ID R-SAFE: Minimaländerungen ohne semantischen Eingriff (nur Orthografie/Lint, wenn eingeschränkt erlaubt)
+
+(Ende des Extrakts)

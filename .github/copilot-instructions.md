@@ -9,7 +9,7 @@
  Precedence: Immer zuerst laden → alle Aktionen, Tests und Änderungen müssen den hier definierten Regeln folgen.  
  Compliance: Wrapper-Policy, STOP-Gate, Frontmatter-Policy, Lint-Policy, Security-Checks, Logging-Receipt, Meta-/Systeminfo-Protokollierung.  
  Audit: Jede Antwort oder Änderung endet mit einem Postflight-Block nach Abschnitt „Meta-/Systeminfo-Protokollierung“.  
- Timestamp: 2025-11-08 22:27
+ Timestamp: 2025-11-08 23:20
 ============================
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
@@ -39,8 +39,9 @@ Gemeinsamer Arbeitsstil
  - Für verschiedene Optionen gibt es einen "Zustand", definiert als:
    - "(true)" Eintrag muss umgesetzt/befolgt werden.
    - "(false)" Eintrag hat aktuell keine Gültigkeit. Muss mit `yyyy-MM-dd HH:mm` und `name` und kurze info z.b. Grund: & Aufgabe: usw. versehen.
-   - Einträge die weder mit "(true)" noch mit "(false)" versehen sind, gelten als "(true)"
-   - Es gilt immer das Übergeordnete, -> Alleinstehende, -> Referenz.
+   - Einträge, die weder mit "(true)" noch mit "(false)" versehen sind, gelten als "(true)".
+   - Es gilt:
+     - Übergeordnete Einträge gelten über alleinstehende und referenzierte Einträge.
  - Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
  - Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen:
    - Root: `DONELOG.md`, `todo.root.md`.
@@ -74,7 +75,7 @@ Onboarding & Setup
 
 Cheat Sheet (pwsh‑Kommandos)
 -----------------------------
- - ACHTUNG: Rein dokumentarische Referenz für Menschen. Copilot/GPT verwendet für komplexe oder mehrschrittige Prüfungen ausschließlich Skript-Wrapper über `pwsh -NoProfile -File <script.ps1>`. Inline `-Command` ist nur für echte, kurze Einzeiler erlaubt.
+ - ACHTUNG: Rein dokumentarische Referenz für Menschen. Copilot/GPT verwendet für komplexe oder mehrschrittige Prüfungen ausschließlich Skript-Wrapper über `pwsh -NoProfile -File <script.ps1>`. Inline `-Command` ist nur für echte kurze Einzeiler erlaubt.
  - Kurzformen für die drei wichtigsten lokalen Prüfungen (identisch mit den ausführlichen Befehlen weiter unten für manuelle Runs; Wrapper-Alternative siehe Hinweis unter Tests).
 
  ### Lint (Ruff + Black, keine Auto‑Fixes)
@@ -111,21 +112,22 @@ Kanonische Prüfabläufe (pwsh)
  - Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern ausschließlich über Skript-Wrapper via `pwsh -NoProfile -File <script.ps1>`. Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
 
  ## Lint (Ruff + Black, keine Auto-Fixes)(true)
- ```powershell
- pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; if ($ruffExit -ne 0 -or $LASTEXITCODE -ne 0) { exit 1 } }"
- ```
+ Hinweis: Für agentische Ausführung NICHT die nachfolgenden Inline-Muster verwenden:
+   ```powershell
+   pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; if ($ruffExit -ne 0 -or $LASTEXITCODE -ne 0) { exit 1 } }"
+   ```
 
- ## Typen (Pyright + Mypy)
- ```powershell
- pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $agent = Join-Path $root 'novapolis_agent'; Set-Location $agent; $pyright = Join-Path $root '.venv\\Scripts\\pyright.exe'; if (-not (Test-Path -LiteralPath $pyright)) { $pyright = 'pyright'; }; & $pyright -p pyrightconfig.json; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m mypy --config-file mypy.ini app scripts; exit $LASTEXITCODE }"
- ```
+   ## Typen (Pyright + Mypy)
+   ```powershell
+   pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $agent = Join-Path $root 'novapolis_agent'; Set-Location $agent; $pyright = Join-Path $root '.venv\\Scripts\\pyright.exe'; if (-not (Test-Path -LiteralPath $pyright)) { $pyright = 'pyright'; }; & $pyright -p pyrightconfig.json; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m mypy --config-file mypy.ini app scripts; exit $LASTEXITCODE }"
+   ```
 
- ## Tests (Pytest Coverage ≥ 80 %)
-  ```powershell
-  pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { `$_ -match '::' } | ForEach-Object { (`$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host "STOP: Zu viele Testdateien gesammelt ($fileCount > $maxTestFiles). Bitte Scope prüfen."; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
-  if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest FAIL ($LASTEXITCODE)" }
-  > `$maxTestFiles` kann bei Bedarf angepasst werden; die STOP-Meldung verhindert, dass ungewollt große Testmengen laufen.
-  ```
+   ## Tests (Pytest Coverage ≥ 80 %)
+   ```powershell
+   pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { `$_ -match '::' } | ForEach-Object { (`$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host "STOP: Zu viele Testdateien gesammelt ($fileCount > $maxTestFiles). Bitte Scope prüfen."; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
+   if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest FAIL ($LASTEXITCODE)" }
+   > `$maxTestFiles` kann bei Bedarf angepasst werden; die STOP-Meldung verhindert, dass ungewollt große Testmengen laufen.
+   ```
 
  ## Aggregierte Prüfung (`Checks: full`): 
    - obige Befehle in der Reihenfolge Lint → Typen → Tests ausführen und Ergebnisse dokumentieren.
@@ -510,4 +512,3 @@ Workspace-Instructions (kompakt)
 ## Ziele
  - Stabiles Gedächtnis (Admin: system-prompt/memory-bundle) und reibungsloser Szenenstart.
  - Reproduzierbare, nachvollziehbare Schritte (Dokumentation & kleine Commits).
-

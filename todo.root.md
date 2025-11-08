@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-07 21:46
-update: append_done_and_push.ps1 implementiert: Frontmatter-Aktualisierung standardmäßig; todo.root.md ergänzt.
-checks: frontmatter-validator PASS; markdownlint-cli2 PASS
+stand: 2025-11-08 23:21
+update: Headings-Index aktualisiert; neue Regel-ID Vorschläge protokolliert
+checks: none
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -13,6 +13,8 @@ Kurzueberblick
 --------------
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
+
+- 2025-11-08 23:21: Headings-Extrakt (`.github/copilot-instructions-headings.md`) aktualisiert; Vorschlagsliste neuer Regel-IDs (R-COV, R-IDX, R-COMM, R-RED, R-TODO, R-TIME, R-SAFE) ergänzt. Klärungsbedarf offen: Precedence zwischen Preflight (false) und „Semantische Regeln“ (obligatorisch); Anwendung der Default-(true)-Regel bei gleichrangigen Abschnitten.
 
 - 2025-11-07 21:46: `scripts/append_done_and_push.ps1` erweitert: Frontmatter-Aktualisierung wird nun automatisch für veränderte Markdown/Text-Dateien durchgeführt (Backups, scoped validator, DONELOG-Eintrag). Validatorlauf (targeted) PASS.
 
