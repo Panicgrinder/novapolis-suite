@@ -36,6 +36,10 @@ Primäre Behaviour-Quellen
 
 Gemeinsamer Arbeitsstil
 -----------------------
+ - Für verschiedene Optionen gibt es einen "zustand" definiert als:
+   - "(true)" gleichbedeutend wie aktiv, bereit, o.ä.
+   - "(false)" wie der name schon sagt gilt diese Regel, Richtlinie, o.ä. aktuell nicht. Muss mit <yyyy-MM-dd HH:mm> und <name> versehen werden.
+   Klarstellung: Einträge die weder mit "(true)" noch mit "(false)" versehen sind, gelten als "(true)"
  - Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
  - Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen:
    - Root: `DONELOG.md`, `todo.root.md`.
@@ -44,7 +48,7 @@ Gemeinsamer Arbeitsstil
    - Weitere Projekt‑TODOs nur, wenn tatsächlich vorhanden; ansonsten Root/Dev‑Hub nutzen.
  - Prägnanter Output: skimmbar, keine überladenen Blockzitate; bei großen Aufgaben Plan in betreffende todo eintragen.
  - Sicherheit & Privacy: Keine Secrets, offline bevorzugen, keine harten Pfade zu externen Repositories übernehmen.
- - Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren.
+ - Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren. (zuletzt aktualisiert: 2025:11:08 21:18)
 
 Onboarding & Setup
 ------------------
@@ -71,7 +75,7 @@ Cheat Sheet (pwsh‑Kommandos)
 -----------------------------
  - ACHTUNG: Rein dokumentarische Referenz für Menschen. Copilot/GPT verwendet für komplexe oder mehrschrittige Prüfungen ausschließlich Skript-Wrapper über `pwsh -NoProfile -File <script.ps1>`. Inline `-Command` ist nur für echte, kurze Einzeiler erlaubt.
  - Kurzformen für die drei wichtigsten lokalen Prüfungen (identisch mit den ausführlichen Befehlen weiter unten für manuelle Runs; Wrapper-Alternative siehe Hinweis unter Tests):
- - ACHTUNG: Copilot erstellt keine neuen VS Code Tasks. Bereits vorhandene Tasks dürfen genutzt werden, wenn sie einen `pwsh -NoProfile -File <script.ps1>`-Wrapper einsetzen und damit vollständige Ausgaben liefern.
+ - ACHTUNG: Copilot darf neue VS Code Tasks erstellen, aber diese Tasks und bereits vorhandene, dürfen nur dann genutzt werden, wenn sie einen `pwsh -NoProfile -File <script.ps1>`-Wrapper einsetzen und damit vollständige Ausgaben liefern.
 
  ### Lint (Ruff + Black, keine Auto‑Fixes)
    ```powershell
