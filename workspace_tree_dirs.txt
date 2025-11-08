@@ -1,4 +1,4 @@
-Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-07 02:29
+Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-08 17:01
 Top-Level
   - .github
   - .ruff_cache
@@ -12,6 +12,7 @@ Top-Level
   - novapolis-sim
   - packages
   - scripts
+  - utils
 
 .github/
   - workflows
@@ -32,10 +33,6 @@ githooks/
   - (leer)
 
 novapolis_agent/
-  - _archived
-  - .devcontainer
-  - .githooks
-  - .github
   - .tmp-datasets
   - .tmp-results
   - agents
@@ -75,5 +72,8 @@ packages/
   - novapolis_common
 
 scripts/
+  - (leer)
+
+utils/
   - (leer)
 

@@ -75,6 +75,7 @@ Cheat Sheet (pwsh‑Kommandos)
 -----------------------------
  - ACHTUNG: Rein dokumentarische Referenz für Menschen. Copilot/GPT verwendet für komplexe oder mehrschrittige Prüfungen ausschließlich Skript-Wrapper über `pwsh -NoProfile -File <script.ps1>`. Inline `-Command` ist nur für echte, kurze Einzeiler erlaubt.
  - Kurzformen für die drei wichtigsten lokalen Prüfungen (identisch mit den ausführlichen Befehlen weiter unten für manuelle Runs; Wrapper-Alternative siehe Hinweis unter Tests):
+ - ACHTUNG: Es dürfen keine VS Code Tasks erstellt oder genutzt werden. (Nur als direkte eingabe in das pwsh terminal via `pwsh -NoProfile -file**`)
 
  ### Lint (Ruff + Black, keine Auto‑Fixes)
    ```powershell
@@ -235,7 +236,7 @@ Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
    - Prüfung: markdownlint=<PASS/FAIL>, ExitcodeLint=<N>, behobenLint=<ja/nein>, Frontmatter-Validator=<PASS/FAIL>, ExitcodeFM=<N>, behobenFM=<ja/nein>, Cleanup-WhatIf-Exit=<N>, behobenWhatIf=<ja/nein>, Cleanup-Real-Exit=<N>, behobenReal=<ja/nein>, WorkspaceScanRoot=<Zahl>, WorkspaceScanRecurse=<Zahl>
    - Regeln: IDs=<R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG>, Details=R-WRAP über -File erzwungen; R-STOP aktiv vor Real; R-FM geprüft; R-LINT ausgeführt; R-SCAN Root-only; R-CTX Quellen geladen; R-SEC geprüft; R-LOG Receipt erstellt
    - Todos: offen=<Anzahl>, BeispielFix=<Kurzbeschreibung>, ReRun=<Testname>, Fällig=<Datum/Zeit>
-   - Ende: Timestamp=<yyyy-MM-dd HH:mm> (aktuelle Systemzeit)
+   - Ende: Timestamp=<yyyy-MM-dd HH:mm> (jedesmal aktuelle Systemzeit über pwsh einholen.)
 
  ### Semantische Regeln
    - Preflight ist obligatorisch vor jedem Schreib-, Erstell- oder Löschvorgang.
@@ -245,6 +246,20 @@ Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
    - Quellen müssen als absolute Pfade angegeben werden.
    - Todos wird automatisch in die todo.md übernommen, falls vorhanden.
    - Timestamp verwendet lokales Format yyyy-MM-dd HH:mm, Zeitzone Europe/Berlin.
+
+  Kompakter Meta-Block für normale Antworten
+  -----------------------------------------
+   - Zweck: Für alltägliche, nicht-ausführende Antworten (keine Dateiänderung, keine Task-Starts) ist ein sehr kompakter, maschinenlesbarer Meta-Block am Ende der Nachricht erlaubt und erwünscht. Er erleichtert automatisches Parsing und dokumentiert kurz Kontext/Absicht ohne die Preflight/Postflight-Pflicht zu ersetzen.
+   - Format (einzeilig, komma-separiert):
+     - Meta: Modus=General, Arbeitsverzeichnis=<Pfad|optional>, RepoRoot=<Pfad|optional>, PSScriptRoot=<Pfad|optional>, PSVersion=<x.y.z|optional>, Aufruf=<Aufruf|none>, Aktion=<Kurzbeschreibung>, Timestamp=<yyyy-MM-dd HH:mm>
+   - Minimalbeispiel (sehr kurz):
+     - Meta: Modus=General
+   - Beispiel (empfohlen, wenn etwas Kontext nützlich ist):
+     - Meta: Modus=General, Arbeitsverzeichnis=F:\\VS Code Workspace\\Main, RepoRoot=F:\\VS Code Workspace\\Main, PSScriptRoot=scripts, PSVersion=pwsh 7.3, Aufruf=none, Aktion=Antwort auf Coverage-Summary, Timestamp=2025-11-08 17:00
+   - Regeln:
+     - Dieser kompakte Meta-Block ersetzt nicht die Preflight- oder Postflight-Blöcke, wenn Dateien verändert oder Skripte ausgeführt werden. Für jede auszuführende Aktion ist weiterhin ein Preflight (vorher) und ein Postflight (nachher) erforderlich.
+     - Der kompakte Block soll eine einzelne Zeile bleiben, sparsam verwendet werden und keine sensiblen Informationen enthalten.
+     - Felder sind optional; wenn nur der Modus angegeben wird, genügt `Meta: Modus=General`.
 
 Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
 -----------------------------------------------------------------
