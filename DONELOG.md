@@ -1,6 +1,6 @@
-stand: 2025-11-07 23:30
-update: Cleanup-Skript ausgeführt (WhatIf+Real); DONELOG ergänzt
-checks: cleanup_workspace_files.ps1 WhatIf/Real PASS
+stand: 2025-11-08 01:04
+update: Cleanup-Postflight via -File abgeschlossen; Receipt in DONELOG ergänzt
+checks: cleanup_workspace_files.ps1 WhatIf PASS / Real PASS; markdownlint DONELOG PASS; frontmatter validator FAIL
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -11,7 +11,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
-- 2025-11-07 23:30: Preflight-Bereinigung `scripts/cleanup_workspace_files.ps1` ausgeführt (WhatIf PASS, Real PASS; 1 Datei entfernt, keine weiteren Funde).
+- 2025-11-08 01:04: Cleanup-Postflight (WhatIf/Real, Root-Scan, Lint, Frontmatter) – PASS/FAIL Details.
 - 2025-11-07 11:58: Wrapper-Policy in `.github/copilot-instructions.md` vereinheitlicht (Skript-Wrapper zwingend via `pwsh -NoProfile -File`); `single-root-todo.md` Hinweis angepasst (Wrapper-Pflicht + Etappe 3b); aktueller Coverage-Lauf (~66% < 80%) bleibt unter Fail-Under – Verbesserung eingeplant.
 - 2025-11-07 10:53: Moduswechsel dokumentiert (General aktiv); Coverage-Befehl in Copilot-Anweisungen mit Dateizähler + PASS/FAIL-Ausgabe ergänzt; keine Codeänderungen.
 - 2025-11-07 09:59: Doku-Sweep – markdownlint-Aufruf (npx, `'**/*.md'`) repo-weit erneut geprüft; 132 Dateien gelinted, 0 Fehler. Keine Codeänderungen.
@@ -73,11 +73,36 @@ Kurzueberblick
 Volltexte
 ---------
 
-Preflight-Bereinigung (2025-11-07T23:30:00+01:00)
+Postflight-Bereinigung (2025-11-08T01:04:00+01:00)
 
-- `scripts/cleanup_workspace_files.ps1` als Preflight-Schritt mit WhatIf geprüft (geplante Löschung von `novapolis-suite.code-workspace` bestätigt) und anschließend real ausgeführt (Datei entfernt, keine weiteren Treffer).
-- Ausgaben dokumentiert (WhatIf/Real PASS); `single-root-todo.md` bleibt für Preflight-Planung offen.
-- DONELOG aktualisiert.
+Arbeitsverzeichnis: F:\VS Code Workspace\Main (VS Code Workspace-Root geöffnet, kein "No folder opened").
+
+Receipt:
+- RepoRoot laut Skript: F:\VS Code Workspace\Main
+- PSScriptRoot: F:\VS Code Workspace\Main\scripts
+- WhatIf-Lauf (pwsh -NoProfile -File F:/VS Code Workspace/Main/scripts/cleanup_workspace_files.ps1 -VerboseLog -WhatIf): Ziel F:\VS Code Workspace\Main\novapolis-suite.code-workspace; Konsole meldete "Would delete ..."; $?=True; LASTEXITCODE=0.
+- Real-Lauf (pwsh -NoProfile -File F:/VS Code Workspace/Main/scripts/cleanup_workspace_files.ps1 -VerboseLog): Ziel F:\VS Code Workspace\Main\novapolis-suite.code-workspace; Konsole meldete "Deleted: ..."; $?=True; LASTEXITCODE=0.
+- SHA256 cleanup_workspace_files.ps1: 7E94DACE615BBF7C08E3A355C34BD5F01032639831B8B62A2F2671A85C9E4453.
+- Suchstrategie: Root-only by design; zusätzlicher -Recurse-Check dient ausschließlich der Verifikation.
+
+Scans:
+- Get-ChildItem -Path "F:/VS Code Workspace/Main" -Filter "*.code-workspace": 0
+- Get-ChildItem -Path "F:/VS Code Workspace/Main" -Filter "*.code-workspace" -Recurse: 0
+
+Lint/Validator:
+- npx --yes markdownlint-cli2 DONELOG.md: PASS (Exitcode 0)
+- scripts/run_frontmatter_validator.ps1: FAIL (Exitcode 1)
+
+Frontmatter fehlend: 55 Dateien in novapolis-rp/database-rp (weitere Abweichungen siehe Validator-Log)
+
+Beispiel: novapolis-rp/database-rp/02-characters/Echo.md fehlt keys: stand, update, checks
+
+Validator rerun geplant nach Fix
+
+Bestätigungen:
+- cleanup_workspace_files.ps1 ausschließlich via pwsh -NoProfile -File ausgeführt (keine -Command-Varianten).
+- single-root-todo.md blieb unverändert und diente nur als Preflight-Kontext.
+- Neuer Helfer scripts/diagnostics.ps1 liefert Root/Recursive-Counts sowie Hash für künftige Receipts.
 
 PowerShell 7 Standard & Gitignore (2025-11-02T22:31:00+01:00)
 
