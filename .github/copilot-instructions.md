@@ -9,7 +9,7 @@
  Precedence: Immer zuerst laden → alle Aktionen, Tests und Änderungen müssen den hier definierten Regeln folgen.  
  Compliance: Wrapper-Policy, STOP-Gate, Frontmatter-Policy, Lint-Policy, Security-Checks, Logging-Receipt, Meta-/Systeminfo-Protokollierung.  
  Audit: Jede Antwort oder Änderung endet mit einem Postflight-Block nach Abschnitt „Meta-/Systeminfo-Protokollierung“.  
- Timestamp: 2025-11-08 20:22
+ Timestamp: 2025-11-08 22:27
 ============================
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
@@ -36,10 +36,11 @@ Primäre Behaviour-Quellen
 
 Gemeinsamer Arbeitsstil
 -----------------------
- - Für verschiedene Optionen gibt es einen "zustand" definiert als:
-   - "(true)" gleichbedeutend wie aktiv, bereit, o.ä.
-   - "(false)" wie der name schon sagt gilt diese Regel, Richtlinie, o.ä. aktuell nicht. Muss mit <yyyy-MM-dd HH:mm> und <name> versehen werden.
-   Klarstellung: Einträge die weder mit "(true)" noch mit "(false)" versehen sind, gelten als "(true)"
+ - Für verschiedene Optionen gibt es einen "Zustand", definiert als:
+   - "(true)" Eintrag muss umgesetzt/befolgt werden.
+   - "(false)" Eintrag hat aktuell keine Gültigkeit. Muss mit `yyyy-MM-dd HH:mm` und `name` und kurze info z.b. Grund: & Aufgabe: usw. versehen.
+   - Einträge die weder mit "(true)" noch mit "(false)" versehen sind, gelten als "(true)"
+   - Es gilt immer das Übergeordnete, -> Alleinstehende, -> Referenz.
  - Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
  - Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen:
    - Root: `DONELOG.md`, `todo.root.md`.
@@ -74,8 +75,7 @@ Onboarding & Setup
 Cheat Sheet (pwsh‑Kommandos)
 -----------------------------
  - ACHTUNG: Rein dokumentarische Referenz für Menschen. Copilot/GPT verwendet für komplexe oder mehrschrittige Prüfungen ausschließlich Skript-Wrapper über `pwsh -NoProfile -File <script.ps1>`. Inline `-Command` ist nur für echte, kurze Einzeiler erlaubt.
- - Kurzformen für die drei wichtigsten lokalen Prüfungen (identisch mit den ausführlichen Befehlen weiter unten für manuelle Runs; Wrapper-Alternative siehe Hinweis unter Tests):
- - ACHTUNG: Copilot darf neue VS Code Tasks erstellen, aber diese Tasks und bereits vorhandene, dürfen nur dann genutzt werden, wenn sie einen `pwsh -NoProfile -File <script.ps1>`-Wrapper einsetzen und damit vollständige Ausgaben liefern.
+ - Kurzformen für die drei wichtigsten lokalen Prüfungen (identisch mit den ausführlichen Befehlen weiter unten für manuelle Runs; Wrapper-Alternative siehe Hinweis unter Tests).
 
  ### Lint (Ruff + Black, keine Auto‑Fixes)
    ```powershell
@@ -106,9 +106,11 @@ Cheat Sheet (pwsh‑Kommandos)
 
 Kanonische Prüfabläufe (pwsh)
 -----------------------------
- - Grundlage: Die gleichnamigen VS Code Tasks dienen nur als Referenz. Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern ausschließlich über Skript-Wrapper via `pwsh -NoProfile -File <script.ps1>`. Copilot erstellt keine neuen Tasks; vorhandene Tasks dürfen laufen, sofern sie diesen Wrapper beibehalten. Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
+ ## VS Code Tasks ausführen.(true)
+ - Grundlage: Die gleichnamigen VS Code Tasks dienen nur als Referenz. Copilot/GPT erstellt keine neuen VS Code Tasks. 
+ - Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern ausschließlich über Skript-Wrapper via `pwsh -NoProfile -File <script.ps1>`. Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
 
- ## Lint (Ruff + Black, keine Auto-Fixes)
+ ## Lint (Ruff + Black, keine Auto-Fixes)(true)
  ```powershell
  pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; if ($ruffExit -ne 0 -or $LASTEXITCODE -ne 0) { exit 1 } }"
  ```
@@ -174,11 +176,11 @@ Kanonische Prüfabläufe (pwsh)
      - `Checks: pytest -q PASS`
  - Migrationsstatus & Historie: Siehe Archiv `novapolis-dev/archive/copilot-instructions-update-tode.archive.md`.
 
- ## Frontmatter‑Schutz (robust gegen Delimiter‑Verlust)
+ ## Frontmatter‑Schutz (true)(robust gegen Delimiter‑Verlust)
    - Ziel: Verhindern, dass die erste/letzte Frontmatter‑Zeile (`---`) versehentlich entfernt oder verändert wird.
    - Editor‑Policy (Markdown):
      - Format On Save für Markdown deaktivieren; Auto‑Fixer/Prettier für Markdown nicht einsetzen.
-     - Änderungen in der Frontmatter nur an Schlüsseln/Values (z. B. `stand`, `update`, `checks`) vornehmen – die Delimiter `---` oben/unten nie anfassen.
+     - Änderungen in der Frontmatter nur an Schlüsseln/Values (z. B. `stand`, `update`, `checks`) vornehmen – die Delimiter `---` oben/unten nie anfassen. Sollten diese fehlen und nichts im betrefenden Dokument spricht dagegen, füge die erste Zeile `---` wieder hinzu (yaml fix).
    - Validator‑Gates:
      - Pre‑commit: `scripts/check_frontmatter.py` verpflichtend ausführen; Commit bei Fehlern blocken.
      - Zusätzliche Sofort‑Checks: erste Zeile exakt `---`, schließender Delimiter vorhanden, kein BOM vor dem öffnenden Delimiter.
@@ -210,7 +212,7 @@ Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
    - Das Format ist minimalistisch, maschinenlesbar und tokenoptimiert.
    - Er ist verpflichtend für jede Änderung oder Erstellung von Dateien, Prüf- und Validierungsvorgänge sowie komplexe Abläufe mit Mehrschritt-Logik.
 
- ### Preflight (deaktiviert 08.11.2025 20:58 Panicgrinder)(vor jeder Änderung)
+ ### Preflight (false)( 08.11.2025 20:58 Panicgrinder Grund: Copilot/GPT beendet direkt nach dem ausgeben des preflights seine Nachricht und schreibt nicht weiter. Aufgabe: Analyse und Fehlerbehebung zu einem anderen Zeitpunkt, da Postflight intakt.)(vor jeder Änderung)
    - Vor jeder Aktion, die Dateien verändert oder generiert, muss Copilot einen Preflight-Block ausgeben, bevor irgendetwas ausgeführt wird.
    - Dieser Block dient der Vorschau und Bestätigung, dass alle Regeln, Pfade, STOP-Gates und Policies korrekt geladen sind.
 
@@ -223,7 +225,7 @@ Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
    - Wird bei aktivem STOP-Gate durch eine manuelle Freigabe fortgesetzt.
    - Darf nicht übersprungen werden.
 
- ### Postflight (scharf)(nach Abschluss eines vollständigen Arbeitsvorgangs)
+ ### Postflight (true)(nach Abschluss eines vollständigen Arbeitsvorgangs)
    - Nach Abschluss eines vollständigen, logisch abgeschlossenen Vorgangs (z. B. Vereinheitlichung mehrerer Dokumente, Ausführung aller Tests, Erstellung eines Skripts) muss Copilot genau einen Postflight-Block ausgeben.
    - Es dürfen keine Zwischenblöcke bei Mehrfachdateien oder Schleifen erzeugt werden.
    - Ergebnisse sind gesammelt und am Ende auszugeben.
@@ -281,7 +283,7 @@ Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
 
 STOP-Gates & Modi
 -----------------
- ## STOP‑Gate (scharf)(beidseitig, vor Modus‑relevanten Aktionen)
+ ## STOP‑Gate (true)(scharf)(beidseitig, vor Modus‑relevanten Aktionen)
    - Vor potenziell modus‑relevanten Aktionen – code‑schwer (z. B. Dateiedits unter Codepfaden, Skript-/Validator‑Neubau, Test-/Typecheck‑Runs, API/Service‑Änderungen) ODER redaktionell/kanon‑kritisch (z. B. Behaviour-/Policy‑Dokumente, Kanon-/SSOT‑Änderungen) – wird ein hartes STOP‑Gate gesetzt.
    - Ablauf:
      1) Ausgabe „STOP: Moduswechsel empfohlen <GPT-Modus>. Bitte Modus wählen.“
@@ -297,7 +299,7 @@ STOP-Gates & Modi
    - Manuell‑ausführen‑Pflicht (kritische Läufe): 
      - Bei Coverage‑Gates oder Fehlersuche im Terminal mit gesetztem cwd=`/Main` arbeiten und Befehle mit `Join-Path` sauber quoten (mit -NoProfile -Command).
 
-  ## Unklarheiten‑STOP (scharf)(global, immer gültig)
+  ## Unklarheiten‑STOP (true)(global, immer gültig)
    - „Grün“ gilt nur bis zum nächsten unerwarteten Ereignis. Sobald etwas außerhalb des Plans liegt, sofort STOP. (unabhängig vom aktiven Modus).
    - Unerwartet = mindestens eins davon:
      - Abweichung vom Plan/Ergebnis oder Modul‑Erwartung
