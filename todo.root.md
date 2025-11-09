@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-09 21:25
-update: Workspace-Analysebefunde ergänzt (lose Enden, Stubs, Duplikate, Obsoletes); Headings-Index zuvor aktualisiert; neue Regel-IDs protokolliert
-checks: none
+stand: 2025-11-10 00:01
+update: Workspace-Analysebefunde ergänzt; Tests/Coverage (novapolis_agent) ausgeführt und PASS (298 passed, 1 skipped); Total coverage 81.66%
+checks: pytest coverage PASS
 ---
 
 TODO-Uebersicht (Novapolis Suite)

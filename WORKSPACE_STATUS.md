@@ -1,6 +1,8 @@
+---
 stand: 2025-11-09 22:11
 update: Validator/Test/Coverage Receipts aufgenommen; Statusblöcke ergänzt.
 checks: Frontmatter VALIDATOR PASS; Pytest PASS; Coverage 81.66%
+---
 
 Recent Changes
 --------------
