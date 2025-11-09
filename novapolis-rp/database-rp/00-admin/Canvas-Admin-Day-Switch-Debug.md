@@ -1,4 +1,12 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+canvas: Admin Day-Switch & Debug
+last-updated: 2025-11-07T03:32:00+01:00
+category: Admin
+version: 0.1
+---
 canvas: Admin Day-Switch & Debug
 last-updated: 2025-11-07T03:32:00+01:00
 category: Admin

@@ -1,4 +1,19 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+title: Lumen
+category: character
+slug: lumen
+version: "1.0"
+last_updated: 2025-11-07T03:32:00+01:00
+last_change: "Promotion aus RAW char_lumen_v2 + FACT [LUMEN-REFLEX-COUPLING]"
+tags: [instanz, sicherheit, symbiose]
+affiliations: [novapolis]
+dependencies: [ronja-kerschner, reflex, echo, d5, c6, ai_behavior_index_v2, reflex-wissensstand-trainingsstand, missionslog, logistik]
+primary_location: d5
+last_seen: d5
+---
 title: Lumen
 category: character
 slug: lumen

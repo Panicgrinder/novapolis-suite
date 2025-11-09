@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any, Dict, cast
 
 from app.api.models import ChatOptions, ChatRequest
 
@@ -30,3 +30,18 @@ def test_chat_options_allows_dict_backcompat() -> None:
     req = ChatRequest(messages=[{"role": "user", "content": "hi"}], options=opts)
     d = req.model_dump()
     assert d["options"]["session_id"] == "s42"
+
+
+def test_chat_request_message_coercion_handles_various_inputs() -> None:
+    from app.api.models import ChatMessage
+
+    class Dummy:
+        def __init__(self) -> None:
+            self.role = "system"
+            self.content = "attrs"
+
+    msg = ChatMessage(role="assistant", content="model")
+    req = ChatRequest(messages=[msg, {"role": "user", "content": "dict"}, cast(Any, Dummy())])
+    serialized = req.model_dump()
+    roles = [item["role"] for item in serialized["messages"]]
+    assert roles == ["assistant", "user", "system"]

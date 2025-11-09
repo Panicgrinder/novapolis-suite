@@ -2,6 +2,7 @@
 stand: 2025-11-03 04:23
 update: Status-Notiz ergänzt: letztes Commit+Push vor VS Code Neustart; Case bleibt bis Mono-Workspace-Umstellung geschlossen (Hint).
 checks: keine (STOP – keine automatisierten Läufe)
+---
 
 Open Case: VS Code Multi-Root & unzuverlässige Tasks/Terminal
 =============================================================

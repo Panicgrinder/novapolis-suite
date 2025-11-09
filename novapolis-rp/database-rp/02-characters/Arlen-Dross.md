@@ -1,4 +1,19 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+title: Arlen Dross
+category: character
+slug: arlen-dross
+version: "1.0"
+last_updated: 2025-11-07T03:32:00+01:00
+last_change: "Promotion aus RAW char_arlen_dross_v2 + FACT [CARAVAN-LEADERSHIP]"
+tags: ["karawane", "haendlerbund", "diplomatie"]
+affiliations: ["haendlerbund"]
+dependencies: ["caravan_moves", "ai_behavior_index_v2", "missionslog", "logistik", "c6", "handel_diplomatie_haendlergilde_v1", "index_haendlergilde_v1"]
+primary_location: c6
+last_seen: c6
+---
 title: Arlen Dross
 category: character
 slug: arlen-dross

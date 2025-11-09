@@ -1,4 +1,19 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+title: Varek Solun
+category: character
+slug: varek-solun
+version: "0.9"
+last_updated: 2025-11-07T03:32:00+01:00
+last_change: "Import aus RAW (char_varek_solun_v1)"
+tags: []
+affiliations: ["eisenkonklave"]
+dependencies: ["eisenkonklave", "ai_behavior_index_v2", "relationslog_eisenkonklave_v1", "cluster_index_v1"]
+primary_location: h12
+last_seen: h12
+---
 title: Varek Solun
 category: character
 slug: varek-solun

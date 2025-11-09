@@ -10,7 +10,7 @@ LLM-Dokumentenheader (nicht löschen)
  Precedence: Immer zuerst laden → alle Aktionen, Tests und Änderungen müssen den hier definierten Regeln folgen.  
  Compliance: Wrapper-Policy, STOP-Gate, Frontmatter-Policy, Lint-Policy, Security-Checks, Logging-Receipt, Meta-/Systeminfo-Protokollierung.  
  Audit: Jede Antwort oder Änderung endet mit einem Postflight-Block nach Abschnitt „Meta-/Systeminfo-Protokollierung“.  
- Timestamp: 2025-11-09 01:19
+ Timestamp: 2025-11-09 17:48
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
 Kurzreferenz aller Überschriften dieser Anleitung
@@ -105,7 +105,8 @@ Kanonische Prüfabläufe (pwsh)
      ```powershell
      pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { `$_ -match '::' } | ForEach-Object { (`$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host "STOP: Zu viele Testdateien gesammelt ($fileCount > $maxTestFiles). Bitte Scope prüfen."; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
      if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest FAIL ($LASTEXITCODE)" }
-     > `$maxTestFiles` kann bei Bedarf angepasst werden; die STOP-Meldung verhindert, dass ungewollt große Testmengen laufen.
+   > `$maxTestFiles` kann bei Bedarf angepasst werden; die STOP-Meldung verhindert, dass ungewollt große Testmengen laufen.
+   > Aktueller Status (Stand: 2025-11-09 17:48): Coverage-Gate ≥ 80 % ist erfüllt (zuletzt 81.66 % Gesamt, via Wrapper-Skript).
      ```
 
 ### Aggregierte Prüfung (`Checks: full`): 

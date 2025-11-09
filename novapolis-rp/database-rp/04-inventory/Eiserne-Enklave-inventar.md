@@ -1,4 +1,15 @@
 ---
+stand: 2025-11-07 04:32
+update: frontmatter INIT
+checks: pending
+canvas: Inventar Eiserne Enklave
+last-updated: 2025-11-07T04:32:00+01:00
+category: inventory
+slug: eiserne-enklave-inventar
+owner: eiserne-enklave
+scope: faction
+version: "0.1"
+---
 canvas: Inventar Eiserne Enklave
 last-updated: 2025-11-07T04:32:00+01:00
 category: inventory

@@ -1,3 +1,8 @@
+---
+stand: 2025-11-09 18:36
+update: frontmatter INIT
+checks: pending
+---
 Novapolis Agent Evaluierungsskripte
 ===================================
 

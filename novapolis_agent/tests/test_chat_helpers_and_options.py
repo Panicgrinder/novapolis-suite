@@ -184,3 +184,89 @@ def test_stream_injects_eval_or_unrestricted_system_prompt(monkeypatch: pytest.M
 async def _consume_all(agen: Any) -> None:
     async for _ in agen:
         pass
+
+
+@pytest.mark.unit
+def test_normalize_ollama_options_comprehensive(monkeypatch: pytest.MonkeyPatch) -> None:
+    from app.api import chat_helpers
+    from types import SimpleNamespace
+
+    monkeypatch.setattr(
+        chat_helpers,
+        "settings",
+        SimpleNamespace(
+            TEMPERATURE=0.8,
+            REQUEST_MAX_TOKENS=128,
+            TOP_P=0.9,
+            TOP_K=40,
+            NUM_CTX_DEFAULT=1024,
+            REPEAT_PENALTY=1.1,
+            MIN_P=0.0,
+            TYPICAL_P=0.8,
+            TFS_Z=0.5,
+            MIROSTAT=1,
+            MIROSTAT_TAU=5.0,
+            MIROSTAT_ETA=0.1,
+            PENALIZE_NEWLINE=False,
+            REPEAT_LAST_N=64,
+            OLLAMA_HOST="http://ollama.local",
+        ),
+        raising=False,
+    )
+
+    raw = {
+        "temperature": "0.6",
+        "num_predict": "256",
+        "top_p": 1.5,
+        "top_k": "12",
+        "num_ctx": 2048,
+        "repeat_penalty": "1.3",
+        "presence_penalty": "0.2",
+        "frequency_penalty": "0.4",
+        "seed": "123",
+        "repeat_last_n": 32,
+        "stop": "END",
+        "min_p": -0.5,
+        "typical_p": 1.5,
+        "tfs_z": 2.0,
+        "mirostat": 5,
+        "mirostat_tau": "3.5",
+        "mirostat_eta": "0.6",
+        "penalize_newline": "on",
+        "host": "http://custom",
+    }
+
+    options, host = chat_helpers.normalize_ollama_options(raw, eval_mode=True)
+    assert host == "http://custom"
+    assert 0.0 <= options["temperature"] <= 0.25  # clamped for eval_mode
+    assert options["num_predict"] == 128  # clamped to max tokens
+    assert options["top_p"] == 1.0
+    assert options["top_k"] == 12
+    assert options["num_ctx"] == 2048
+    assert options["repeat_penalty"] == 1.3
+    assert options["presence_penalty"] == 0.2
+    assert options["frequency_penalty"] == 0.4
+    assert options["seed"] == 123
+    assert options["repeat_last_n"] == 32
+    assert options["stop"] == ["END"]
+    assert options["min_p"] == 0.0
+    assert options["typical_p"] == 1.0
+    assert options["tfs_z"] == 1.0
+    assert options["mirostat"] == 2
+    assert options["mirostat_tau"] == 3.5
+    assert options["mirostat_eta"] == 0.6
+    assert options["penalize_newline"] is True
+
+
+@pytest.mark.unit
+def test_chat_helper_coercers_handle_invalid_inputs() -> None:
+    from app.api import chat_helpers
+
+    assert chat_helpers._coerce_float(object()) is None
+    assert chat_helpers._coerce_int(object()) is None
+    assert chat_helpers._coerce_str_list(42) is None
+    assert chat_helpers._coerce_str_list(["a", 1, None]) == ["a", "1", "None"]
+    assert chat_helpers._coerce_bool("off") is False
+    assert chat_helpers._coerce_bool(0) is False
+    assert chat_helpers._coerce_bool(1) is True
+    assert chat_helpers._coerce_bool("maybe") is None

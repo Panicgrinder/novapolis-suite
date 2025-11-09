@@ -1,3 +1,4 @@
+---
 stand: 2025-11-07 06:45
 update: Policy: markdownlint nur via npx --yes (keine Global-Installs)
 checks: markdownlint-cli2 PASS (single file)

@@ -1,3 +1,4 @@
+---
 stand: 2025-11-07 04:56
 update: H1/H2 auf Setext umgestellt; Timestamp aktualisiert.
 checks: markdownlint-cli2 PASS

@@ -1,5 +1,6 @@
-stand: 2025-11-07 09:59
-update: SSOT Verhalten konsolidiert; Duplikate gelöscht; Referenzen aktualisiert
+---
+stand: 2025-11-09 17:51
+update: Coverage-Gate erreicht (81.66%); Governance-Anweisung aktualisiert; globale DONELOGs ergänzt
 checks: markdownlint-cli2 PASS
 ---
 
@@ -117,6 +118,14 @@ Single Root TODO (Root) angelegt (2025-11-02 10:02)
 - Lint: markdownlint-cli2 PASS.
 
 Monorepo Single Root – Umstellungsplan ergänzt (2025-11-02 10:10)
+Coverage-Gate erreicht (2025-11-09 17:51)
+----------------------------------------
+
+- Gesamt-Coverage via Wrapper `scripts/run_pytest_coverage.ps1`: 81.66% (fail-under 80 bestanden).
+- Neue Tests decken interne Chat-API-Zweige (Stream/Non-Stream), Memory-Truncation-Kantenfälle und Script-Fallbacks ab.
+- Governance-Dokument `.github/copilot-instructions.md` Zeitstempel aktualisiert; Root- und Agent-DONELOG Frontmatter angepasst.
+- Checks: pytest coverage PASS; markdownlint (repo-weit) zuvor PASS.
+
 
 - In `single-root-todo.md` Abschnitt „Monorepo Single Root – Umstellungsplan (Schritt für Schritt)“ hinzugefügt (Etappen 0–5, Akzeptanzkriterien, optionale PowerShell-Befehle).
 - Lint: markdownlint-cli2 PASS.

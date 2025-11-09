@@ -1,4 +1,19 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+title: Ronja Kerschner
+category: character
+slug: ronja-kerschner
+version: "1.0"
+last_updated: 2025-11-07T03:32:00+01:00
+last_change: "RAW-Insights (char_ronja_v2) integriert, Drift markiert"
+tags: []
+affiliations: [novapolis]
+primary_location: d5
+last_seen: c6
+dependencies: [reflex, lumen, echo, jonas-merek, kora-malenkov, d5, c6]
+---
 title: Ronja Kerschner
 category: character
 slug: ronja-kerschner

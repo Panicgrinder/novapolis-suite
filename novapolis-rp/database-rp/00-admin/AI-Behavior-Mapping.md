@@ -1,4 +1,12 @@
 ---
+stand: 2025-11-07 04:09
+update: frontmatter INIT
+checks: pending
+canvas: AI-Behavior-Mapping
+last-updated: 2025-11-07T04:09:00+01:00
+category: Admin
+version: 1.0
+---
 canvas: AI-Behavior-Mapping
 last-updated: 2025-11-07T04:09:00+01:00
 category: Admin

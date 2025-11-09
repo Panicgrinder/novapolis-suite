@@ -1,3 +1,4 @@
+---
 stand: 2025-11-07 07:51
 update: ToDo-Liste abgeschlossen; verbleibende Aufgabe in single-root-todo.md überführt.
 checks: keine

@@ -1,4 +1,19 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+title: Marven Kael
+category: character
+slug: marven-kael
+version: "1.0"
+last_updated: 2025-11-07T03:32:00+01:00
+last_change: "Promotion aus RAW char_marven_v2 + FACT [CARAVAN-LEADERSHIP]"
+tags: ["karawane", "haendlerbund"]
+affiliations: ["haendlerbund"]
+dependencies: ["caravan_moves", "ai_behavior_index_v2", "missionslog", "logistik", "c6"]
+primary_location: c6
+last_seen: c6
+---
 title: Marven Kael
 category: character
 slug: marven-kael

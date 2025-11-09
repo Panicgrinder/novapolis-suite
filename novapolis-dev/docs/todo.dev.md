@@ -1,3 +1,4 @@
+---
 stand: 2025-11-06 02:49
 update: Markdownlint geprüft; Statusangabe angepasst
 checks: markdownlint-cli2 (single file) PASS

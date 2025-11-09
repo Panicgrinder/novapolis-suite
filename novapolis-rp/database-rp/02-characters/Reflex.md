@@ -1,4 +1,19 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+title: Reflex
+category: character
+slug: reflex
+version: "1.0"
+last_updated: 2025-11-07T03:32:00+01:00
+last_change: "Promotion aus RAW char_reflex_v2 + ent_d5_reflex_v1; FACT? [REFLEX-*] wieder unter Review"
+tags: [instanz, sicherheit, symbiose]
+affiliations: [novapolis]
+primary_location: d5
+last_seen: d5
+dependencies: [ronja-kerschner, lumen, echo, jonas-merek, kora-malenkov, d5, c6, ai_behavior_index_v2, reflex-wissensstand-trainingsstand, missionslog, logistik]
+---
 title: Reflex
 category: character
 slug: reflex

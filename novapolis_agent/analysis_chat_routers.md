@@ -1,3 +1,8 @@
+---
+stand: 2025-11-09 18:36
+update: frontmatter INIT
+checks: pending
+---
 """
 Vergleich und Zusammenführung der Chat-Router aus routers/chat.py und api/endpoints/chat.py
 

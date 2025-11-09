@@ -1,4 +1,18 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+title: Echo
+category: character
+slug: echo
+version: "0.9"
+last_updated: 2025-11-07T03:32:00+01:00
+tags: ["instanz"]
+affiliations: ["novapolis"]
+dependencies: ["kora-malenkov", "reflex", "echo-wissensstand-trainingsstand", "c6"]
+primary_location: c6
+last_seen: c6
+---
 title: Echo
 category: character
 slug: echo

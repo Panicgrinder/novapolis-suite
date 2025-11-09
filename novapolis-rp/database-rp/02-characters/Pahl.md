@@ -1,4 +1,19 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+title: Pahl
+category: character
+slug: pahl
+version: "1.0"
+last_updated: 2025-11-07T03:32:00+01:00
+last_change: "Promotion aus RAW char_pahl_v2 (vorsichtig_behandeln) + FACTs [HOUSE-RULES]/[POP]/[PAHL-RESCUE]"
+tags: ["technik", "novapolis", "gesundheit"]
+affiliations: ["novapolis"]
+dependencies: ["d5", "c6", "logistik", "missionslog", "ai_behavior_index_v2", "ronja-kerschner", "jonas-merek", "reflex"]
+primary_location: d5
+last_seen: d5
+---
 title: Pahl
 category: character
 slug: pahl

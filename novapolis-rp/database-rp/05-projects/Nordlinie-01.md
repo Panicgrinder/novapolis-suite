@@ -1,4 +1,17 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+title: Nordlinie 01 (Tunnel D5–C6)
+category: project
+slug: nordlinie-01
+status: active
+locations: ["d5", "c6", "verbindungstunnel-d5-c6"]
+dependencies: ["novapolis-inventar", "missionslog"]
+version: "1.0"
+last_updated: 2025-11-07T03:32:00+01:00
+tags: []
+---
 title: Nordlinie 01 (Tunnel D5–C6)
 category: project
 slug: nordlinie-01

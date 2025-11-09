@@ -1,4 +1,19 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+title: Jonas Merek
+category: character
+slug: jonas-merek
+version: "1.0"
+last_updated: 2025-11-07T03:32:00+01:00
+last_change: "Upgrade aus RAW char_jonas_v2 (korrupt) + resolved #[JONAS-SIS]"
+tags: ["werkstatt", "novapolis"]
+affiliations: ["novapolis"]
+dependencies: ["lumen", "d5", "missionslog", "ai_behavior_index_v2"]
+primary_location: d5
+last_seen: d5
+---
 title: Jonas Merek
 category: character
 slug: jonas-merek

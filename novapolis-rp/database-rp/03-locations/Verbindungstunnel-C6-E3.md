@@ -1,4 +1,17 @@
 ---
+stand: 2025-11-07 04:32
+update: frontmatter INIT
+checks: pending
+title: Verbindungstunnel C6–E3
+last_updated: 2025-11-07T04:32:00+01:00
+category: location
+slug: verbindungstunnel-c6-e3
+version: "1.0"
+affiliations: [novapolis]
+status: offen
+connections: ["c6", "e3"]
+tags: []
+---
 title: Verbindungstunnel C6–E3
 last_updated: 2025-11-07T04:32:00+01:00
 category: location

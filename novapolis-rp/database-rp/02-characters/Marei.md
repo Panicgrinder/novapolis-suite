@@ -1,4 +1,18 @@
 ---
+stand: 2025-11-07 03:32
+update: frontmatter INIT
+checks: pending
+title: Marei
+category: character
+slug: marei
+version: "0.9"
+last_updated: 2025-11-07T03:32:00+01:00
+tags: []
+affiliations: ["novapolis", "e3"]
+dependencies: ["kora-malenkov", "verbindungstunnel-c6-e3", "c6", "e3"]
+primary_location: c6
+last_seen: c6
+---
 title: Marei
 category: character
 slug: marei

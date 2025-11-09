@@ -1,3 +1,4 @@
+---
 stand: 2025-11-06 02:47
 update: Markdownlint geprüft; Format auf YAML-Frontmatter standardisiert
 checks: markdownlint-cli2 (single file) PASS

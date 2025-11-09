@@ -1,6 +1,7 @@
-stand: 2025-11-08 01:04
-update: Cleanup-Postflight via -File abgeschlossen; Receipt in DONELOG ergänzt
-checks: cleanup_workspace_files.ps1 WhatIf PASS / Real PASS; markdownlint DONELOG PASS; frontmatter validator FAIL
+---
+stand: 2025-11-09 17:51
+update: Coverage-Gate ≥80% erreicht (81.66%) und Governance-Doku-Zeitstempel aktualisiert; DONELOGs ergänzt
+checks: markdownlint DONELOG PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -11,6 +12,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-09 17:51: Testabdeckung ≥80% erreicht (81.66% via Wrapper); Chat-API interne Zweige getestet (Stream/Non-Stream); Governance-Anweisung aktualisiert; DONELOGs ergänzt.
 - 2025-11-08 01:04: Cleanup-Postflight (WhatIf/Real, Root-Scan, Lint, Frontmatter) – PASS/FAIL Details.
 - 2025-11-07 11:58: Wrapper-Policy in `.github/copilot-instructions.md` vereinheitlicht (Skript-Wrapper zwingend via `pwsh -NoProfile -File`); `single-root-todo.md` Hinweis angepasst (Wrapper-Pflicht + Etappe 3b); aktueller Coverage-Lauf (~66% < 80%) bleibt unter Fail-Under – Verbesserung eingeplant.
 - 2025-11-07 10:53: Moduswechsel dokumentiert (General aktiv); Coverage-Befehl in Copilot-Anweisungen mit Dateizähler + PASS/FAIL-Ausgabe ergänzt; keine Codeänderungen.

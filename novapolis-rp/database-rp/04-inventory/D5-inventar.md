@@ -1,4 +1,15 @@
 ---
+stand: 2025-11-07 04:32
+update: frontmatter INIT
+checks: pending
+last-updated: 2025-11-07T04:32:00+01:00
+category: inventory
+slug: d5-inventar
+owner: d5
+scope: location
+version: "0.1"
+tags: []
+---
 last-updated: 2025-11-07T04:32:00+01:00
 category: inventory
 slug: d5-inventar
