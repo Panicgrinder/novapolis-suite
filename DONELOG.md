@@ -1,6 +1,5 @@
----
-stand: 2025-11-09 17:51
-update: Coverage-Gate ≥80% erreicht (81.66%) und Governance-Doku-Zeitstempel aktualisiert; DONELOGs ergänzt
+stand: 2025-11-09 22:11
+update: Receipts ergänzt (Frontmatter-Validator PASS; Tests/Coverage PASS 81.66%)
 checks: markdownlint DONELOG PASS
 ---
 
@@ -12,6 +11,8 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-09 22:11: Frontmatter-Validator PASS (scoped); Fix an `todo.root.md` (fehlender `---` Delimiter ergänzt); Policy R-FM/R-LINT bestätigt.
+- 2025-11-09 22:11: Tests/Coverage PASS – 298 passed, 1 skipped; Total coverage 81.66% (coverage.py line-rate 84.07%, branch-rate 74.25%); Artefakt: `outputs/test-artifacts/coverage.xml`.
 - 2025-11-09 17:51: Testabdeckung ≥80% erreicht (81.66% via Wrapper); Chat-API interne Zweige getestet (Stream/Non-Stream); Governance-Anweisung aktualisiert; DONELOGs ergänzt.
 - 2025-11-08 01:04: Cleanup-Postflight (WhatIf/Real, Root-Scan, Lint, Frontmatter) – PASS/FAIL Details.
 - 2025-11-07 11:58: Wrapper-Policy in `.github/copilot-instructions.md` vereinheitlicht (Skript-Wrapper zwingend via `pwsh -NoProfile -File`); `single-root-todo.md` Hinweis angepasst (Wrapper-Pflicht + Etappe 3b); aktueller Coverage-Lauf (~66% < 80%) bleibt unter Fail-Under – Verbesserung eingeplant.

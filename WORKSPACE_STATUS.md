@@ -1,7 +1,6 @@
----
-stand: 2025-11-07 19:13
-update: Frontmatter sync (env-Doku zentralisiert); Sammel-Stand aktualisiert.
-checks: keine
+stand: 2025-11-09 22:11
+update: Validator/Test/Coverage Receipts aufgenommen; Statusblöcke ergänzt.
+checks: Frontmatter VALIDATOR PASS; Pytest PASS; Coverage 81.66%
 ---
 
 Workspace-Status
@@ -34,7 +33,8 @@ Aktueller Arbeitsmodus
 Health-Checks & Open Items
 ---------------------------
 
-- Tests: 2025-10-31 – `pytest -q`, `pyright -p pyrightconfig.json`, `python -m mypy --config-file mypy.ini app scripts` im Agent-Projekt grün (keine neuen Läufe seitdem dokumentiert)
+- Tests (2025-11-09 22:11): `pytest` PASS (298 passed, 1 skipped); Coverage 81.66% (Fail-Under 80% erfüllt); Frontmatter-Validator PASS nach Fix an `todo.root.md` (fehlender `---`).
+- Typen: Letzter vollständiger Lauf unverändert grün (pyright/mypy – keine neuen Fehler seit vorherigem Bericht); Folge-Lauf geplant nach nächster Codeänderung.
 - TODO-Backlog: siehe `todo.root.md` (Stand 2025-11-07; Fokus Agent: RAG/Tool-Use/Policies, RP: Kurations-Pipeline & Canvas-Pflege, Skriptprüfung für Markdown-Ausgaben)
 - Policies & Behaviour: maßgeblich `.github/copilot-instructions.md` (SSOT)
 - Risiken kurz:
@@ -59,7 +59,7 @@ Wichtige Artefakte & Logs
 
 - Vollständiger Verzeichnisbaum: `workspace_tree_full.txt` (Stand 2025-11-07 02:29; Terminal `tree /A /F`)
 - Arbeitsansicht: `workspace_tree.txt` (Stand 2025-11-07 02:29; Terminal `tree /A`) und kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt` (Stand 2025-11-07 02:29; Script `scripts/update_workspace_tree_dirs.ps1`)
-- Historische Agent-Dateiinventur: `novapolis_agent/WORKSPACE_INDEX.md`
+- Historische Agent-Dateiinventur (jetzt Root): `WORKSPACE_INDEX.md`
 - Für gezielte Suchen weiterhin `scripts/audit_workspace.py` nutzen (prüft Referenzen & Altlasten)
 
 VS-Code-Erweiterungen
@@ -74,4 +74,5 @@ Nächste Empfehlungen
 - Root-`.vscode` ist maßgeblich; optionale Ergänzungen (z. B. PowerShell-7-Tasks) bei Bedarf ergänzen
 - Outputs/Checkpoints reviewen und aussortieren oder in Backups verschieben (LoRA-Zwischenstände)
 - Regelmäßige Aktualisierung: `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` gemeinsam mit `todo.root.md` pflegen (empfohlen bis Mitte November oder nach strukturellen Änderungen)
+- Promotion abgeschlossen: Index liegt als `WORKSPACE_INDEX.md` im Root; nächster Schritt: Tree-Snapshot aktualisieren.
 

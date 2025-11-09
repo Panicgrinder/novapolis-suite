@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-08 23:21
-update: Headings-Index aktualisiert; neue Regel-ID Vorschläge protokolliert
+stand: 2025-11-09 21:25
+update: Workspace-Analysebefunde ergänzt (lose Enden, Stubs, Duplikate, Obsoletes); Headings-Index zuvor aktualisiert; neue Regel-IDs protokolliert
 checks: none
 ---
 
@@ -13,6 +13,8 @@ Kurzueberblick
 --------------
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
+ 
+- 2025-11-09 21:25: Workspace-Analyse durchgeführt (Root/Ordner-Ebene, stichprobenartig Dateien). Befunde ergänzt: Frontmatter-Backlog (R-FM), Multi-Root-Abschluss (R-STOP/R-WRAP), Artefakt-Bereinigung (R-SEC/R-SAFE), Tree-/Status-Snapshots (R-IDX).
 
 - 2025-11-08 23:21: Headings-Extrakt (`.github/copilot-instructions-headings.md`) aktualisiert; Vorschlagsliste neuer Regel-IDs (R-COV, R-IDX, R-COMM, R-RED, R-TODO, R-TIME, R-SAFE) ergänzt. Klärungsbedarf offen: Precedence zwischen Preflight (false) und „Semantische Regeln“ (obligatorisch); Anwendung der Default-(true)-Regel bei gleichrangigen Abschnitten.
 
@@ -85,6 +87,21 @@ Hinweis: Aufgrund des Multi‑Root‑STOPs keine Wrapper‑Tasks verwenden; bei 
 - [ ] Konsistenz‑Audit/Report aktualisieren (Sichtprüfung): `novapolis_agent/scripts/reports/generate_consistency_report.py` und Kandidaten aus `novapolis_agent/scripts/audit_workspace.py` prüfen.
 - [ ] Optional nach Review: Cleanup‑Kandidaten (Phase 4) nur mit Freigabe angehen (`novapolis_agent/scripts/cleanup_phase4.ps1`).
 - [ ] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` auswerten; Inhalte in aktive Doku übernehmen oder Datei nach Freigabe entfernen.
+ 
+#### Tests/Typen/Coverage (Priorität mittel‑hoch, R‑COV)
+ - Akzeptanzkriterien:
+   - pytest PASS; pyright PASS; mypy PASS.
+   - Coverage ≥ 80 % mit Branch‑Erfassung, fail‑under aktiv.
+   - Receipt mit Zeitstempel, Commit‑SHA und getrennten Anteilen (App/Scripts) in `DONELOG.md`; Verweis/Kurzsummary in `WORKSPACE_STATUS.md`.
+   - CI‑Gate aktiv (nicht nur lokal).
+ - Schritte (STOP beachten; Wrapper‑Policy gilt):
+   - Läufe sequenziell ausführen (CWD `novapolis_agent`), anschließend Standard‑Wrapper `scripts/run_pytest_coverage.ps1` verwenden.
+   - Ergebnisse/Quoten protokollieren (getrennt App/Scripts, Branch‑Coverage), Receipts schreiben, CI‑Fail‑Under prüfen.
+ - Receipts/Belege:
+   - `DONELOG.md`: „R‑COV“ mit PASS/Quoten, Zeitstempel, Commit‑SHA.
+   - `WORKSPACE_STATUS.md`: kurzer Statusblock „Tests/Typen/Coverage aktuell“ mit Datum/Quote.
+ - [ ] Skript-Ladefallbacks vereinheitlichen (direkte Imports statt dynamischer Spez): `scripts/reports/generate_consistency_report.py` ↔ `scripts/audit_workspace.py` prüfen und vereinheitlichen. (R-CTX)
+ - [ ] Test-/Artefakt-Reste prüfen (pyc, test_*_event.meta.json etc.) – sicherstellen, dass sie gitignored sind und nicht eingecheckt werden. (R-SEC)
 
 ### novapolis-rp
 
@@ -93,14 +110,48 @@ Hinweis: Aufgrund des Multi‑Root‑STOPs keine Wrapper‑Tasks verwenden; bei 
 - [ ] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` prüfen; auf Minimal-Ausnahmen reduzieren oder entfernen.
 - [ ] Staging-Reports (`database-curated/staging/reports/*.md`) mit YAML-Frontmatter/Setext nachziehen oder in `novapolis-dev/docs/` migrieren; Altdateien nach Freigabe löschen.
 - [ ] Metadata-Initialisierungsskripte (`coding/tools/metadata/init-metadata.js` vs. `init_metadata.py`) konsolidieren und kanonische Variante dokumentieren.
+ 
+#### Frontmatter/Markdown‑Sweep (Priorität hoch, R‑FM/R‑LINT)
+ - Akzeptanzkriterien:
+   - Frontmatter‑Validator PASS im vereinbarten Scope (Zählwerte vor/nach Fix dokumentiert).
+   - Markdownlint PASS im definierten Scope; H1/H2 Setext konsistent.
+   - „behoben=ja“ mit Zahlen in `DONELOG.md` und zusammengefasst in `WORKSPACE_STATUS.md`.
+   - Generatoren, die Markdown erzeugen, schreiben Setext + Pflicht‑Frontmatter per Default (kurze Generator‑Quittung).
+ - Schritte (Reihenfolge strikt: erst Frontmatter, dann MD003):
+   - Frontmatter: betroffene Dateien zählen, Pflichtfelder (`stand`, `update`, `checks`) ergänzen, Validator erneut laufen lassen, Zählwerte/PASS loggen.
+   - Markdown: MD003‑Treffer im Scope beheben; Lint erneut laufen lassen; PASS loggen.
+ - Receipts/Belege:
+   - `DONELOG.md`: „R‑FM/R‑LINT“ mit Zahlenpaaren (vorher/nachher) und PASS.
+   - `WORKSPACE_STATUS.md`: Kurznotiz mit Datum/Scope/Zahlen.
+ - [ ] Frontmatter-Backlog in `database-rp` schließen; danach Validator-Rerun loggen (R-FM). (Vorheriger FAIL vermerkt, kein "behoben=ja" Receipt gefunden.)
 
 ### novapolis-dev
 
 - [ ] Tree‑Artefakte neu erzeugen (manuell): `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`; Zeitstempel/Status in `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` aktualisieren.
+ - Kontext: Generations-Cadence dokumentieren (wann „full“ vs. „dirs“ vs. „summary“). (R-IDX)
 - [ ] Optional: Kurzer Abschnitt „Editor‑Setup“ im Root‑`README.md` ergänzen (Hinweis auf STOP/Multi‑Root, manuelle Terminal‑Läufe).
 - [ ] Markdownlint MD003 (aktive Docs): Scope auf essentielle Readmes/Dokus begrenzen, Stichproben-Lint (`markdownlint-cli2`), pro Datei Setext-Stil angleichen und Resttreffer außerhalb des Scopes katalogisieren.
 - [ ] YAML-Frontmatter-Backlog priorisieren: Offene Markdown-Dateien mit `stand/update/checks` nachrüsten (Ausnahme `.github/copilot-instructions.md`), Priorität gemäß zuletzt gemeldeten Lint-Treffern.
 - [ ] Übernahme/Staging-Integration: Inhalte aus `novapolis-rp/database-curated/staging/reports/` nach Review in `novapolis-dev/docs/` spiegeln und Altstände archivieren.
+ 
+#### Multi‑Root‑STOP auflösen (Priorität hoch, R‑STOP/R‑WRAP)
+ - Akzeptanzkriterien:
+   - Keine `*.code-workspace` im gesamten Workspace (rekursive Prüfung dokumentiert; Zählwert gefunden/entfernt).
+   - Keine mehrschrittigen Inline „-Command“‑Relikte in `tasks.json`; Mehrschritt via Wrapper‑Skripte (`pwsh -NoProfile -File`).
+   - `WORKSPACE_STATUS.md` enthält Eintrag „Multi‑Root abgeschlossen“ mit Zeitstempel und Commit‑Referenz.
+   - Ein Wrapper‑Task erfolgreich ausgeführt und in `DONELOG.md` vermerkt (Exitcode/kurzer Output).
+ - Schritte (STOP beachten; WhatIf/Review vor Real):
+   - Rekursiv nach `*.code-workspace` suchen; Treffer entfernen/ins `Backups/` verschieben; Zählwerte protokollieren.
+   - `tasks.json` auf Inline‑Ketten prüfen; auf Wrapper‑Aufrufe umstellen.
+   - Wrapper‑Task testweise ausführen (z. B. `scripts/run_pytest_coverage.ps1`) und Receipt erfassen.
+   - `WORKSPACE_STATUS.md` und `DONELOG.md` aktualisieren (Zeitstempel, Commit, Zählwerte „gefunden/entfernt“).
+ - Receipts/Belege:
+   - `DONELOG.md`: „R‑STOP/R‑WRAP“ mit Zählwerten + Wrapper‑Task‑Output/Exitcode.
+   - `WORKSPACE_STATUS.md`: Block „Multi‑Root abgeschlossen“ mit Datum/Commit.
+ - [ ] Multi-Root Fallakte schließen: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md` finalisieren; `WORKSPACE_STATUS.md` aktualisieren. (R-WRAP/R-STOP)
+ - [ ] Prüfen/Entfernen: Backup-/Schatten-Datei `README.md.bak` (Root) → löschen oder nach `Backups/` verschieben. (R-SEC/R-SAFE)
+ - [ ] Prüfen/Entfernen: `lint.out` (Root, falls vorhanden) → archivieren oder löschen. (R-LINT/R-SAFE)
+ - [ ] Verifizieren: `novapolis-suite.code-workspace` laut älterem Tree gelistet – falls noch vorhanden, entfernen/archivieren. (R-CTX/R-SAFE)
 
 ### novapolis-sim
 
