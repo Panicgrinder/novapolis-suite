@@ -139,16 +139,16 @@ if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest 
 
 Markdownlint (zentral)
 ---
-  MD003 = `setext_with_atx` (H1/H2 im Setext‑Stil, H3+ im ATX‑Stil; je Level konsistent innerhalb der Datei). Keine gemischten Stile für dasselbe Level in einer Datei.
+MD003 = `setext_with_atx` (H1/H2 im Setext‑Stil, H3+ im ATX‑Stil; je Level konsistent innerhalb der Datei). Keine gemischten Stile für dasselbe Level in einer Datei.
 ### Konfiguration erfolgt zentral über `.markdownlint-cli2.jsonc`; projektlokale Overrides nur nach Review und dokumentierter Ausnahme.
-   `ignores` in der CLI2‑Config decken generierte/kuratierte Bereiche ab (u. a. `novapolis_agent/eval/results/**`, `novapolis_agent/outputs/**`, `outputs/**`, `novapolis-rp/.pytest_cache/**`).
+`ignores` in der CLI2‑Config decken generierte/kuratierte Bereiche ab (u. a. `novapolis_agent/eval/results/**`, `novapolis_agent/outputs/**`, `outputs/**`, `novapolis-rp/.pytest_cache/**`).
 ### Vor Arbeiten mit Copilot/GPT‑5 Pflichtlauf im bestehenden Terminal
-   `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (ohne zusätzliche `pwsh -NoProfile -Command`-Hülle).
-   - Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc '**/*.md'`.
+`npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (ohne zusätzliche `pwsh -NoProfile -Command`-Hülle).
+- Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc '**/*.md'`.
 ### Grundsatz
-     Keine globalen CLI‑Installationen und keine Wrapper‑Skripte für Markdownlint verwenden; ausschließlich `npx --yes`.
+Keine globalen CLI‑Installationen und keine Wrapper‑Skripte für Markdownlint verwenden; ausschließlich `npx --yes`.
 ### Optionaler Zusatz: Für einen schnellen Dokumentations‑Lint direkt im Terminal ausführen
-     `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/**/*.md' 'novapolis_agent/docs/**/*.md'`
+`npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/**/*.md' 'novapolis_agent/docs/**/*.md'`
 
 YAML-Frontmatter (kompakt & LLM-freundlich)
 ---
@@ -240,17 +240,18 @@ Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
 
 
 ### Kompakter Meta-Block für normale Antworten
-#### Zweck: Für alltägliche, nicht-ausführende Antworten (keine Dateiänderung, keine Task-Starts) ist ein sehr kompakter, maschinenlesbarer Meta-Block am Ende der Nachricht erlaubt und erwünscht. Er erleichtert automatisches Parsing und dokumentiert kurz Kontext/Absicht ohne die Preflight/Postflight-Pflicht zu ersetzen.
+#### Zweck
+Für alltägliche, nicht-ausführende Antworten (keine Dateiänderung, keine Task-Starts) ist ein sehr kompakter, maschinenlesbarer Meta-Block am Ende der Nachricht erlaubt und erwünscht. Er erleichtert automatisches Parsing und dokumentiert kurz Kontext/Absicht ohne die Preflight/Postflight-Pflicht zu ersetzen.
 #### Format (einzeilig, komma-separiert)
-   - Meta: Modus=General, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini|optional>, Arbeitsverzeichnis=<Pfad|optional>, RepoRoot=<Pfad|optional>, PSScriptRoot=<Pfad|optional>, PSVersion=<x.y.z|optional>, Aufruf=<Aufruf|none>, Aktion=<Kurzbeschreibung>, Timestamp=<yyyy-MM-dd HH:mm>
-       - Minimalbeispiel (sehr kurz):
-       - Meta: Modus=General
-##### Beispiel (empfohlen, wenn etwas Kontext nützlich ist):
-     - Meta: Modus=General, Arbeitsverzeichnis=F:\\VS Code Workspace\\Main, RepoRoot=F:\\VS Code Workspace\\Main, PSScriptRoot=scripts, PSVersion=pwsh 7.3, Aufruf=none, Aktion=Antwort auf Coverage-Summary, Timestamp=2025-11-08 17:00
+ - Meta: Modus=General, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini|optional>, Arbeitsverzeichnis=<Pfad|optional>, RepoRoot=<Pfad|optional>, PSScriptRoot=<Pfad|optional>, PSVersion=<x.y.z|optional>, Aufruf=<Aufruf|none>, Aktion=<Kurzbeschreibung>, Timestamp=<yyyy-MM-dd HH:mm>
+  - Minimalbeispiel (sehr kurz)
+  - Meta: Modus=General
+#### Beispiel (empfohlen, wenn etwas Kontext nützlich ist)
+- Meta: Modus=General, Arbeitsverzeichnis=F:\\VS Code Workspace\\Main, RepoRoot=F:\\VS Code Workspace\\Main, PSScriptRoot=scripts, PSVersion=pwsh 7.3, Aufruf=none, Aktion=Antwort auf Coverage-Summary, Timestamp=2025-11-08 17:00
 #### Regeln
-     - Dieser kompakte Meta-Block ersetzt nicht die Preflight- oder Postflight-Blöcke, wenn Dateien verändert oder Skripte ausgeführt werden. Für jede auszuführende Aktion ist weiterhin ein Preflight (vorher) und ein Postflight (nachher) erforderlich.
-     - Der kompakte Block soll eine einzelne Zeile bleiben, sparsam verwendet werden und keine sensiblen Informationen enthalten.
-     - Felder sind optional; wenn nur der Modus angegeben wird, genügt `Meta: Modus=General`.
+- Dieser kompakte Meta-Block ersetzt nicht die Preflight- oder Postflight-Blöcke, wenn Dateien verändert oder Skripte ausgeführt werden. Für jede auszuführende Aktion ist weiterhin ein Preflight (vorher) und ein Postflight (nachher) erforderlich.
+- Der kompakte Block soll eine einzelne Zeile bleiben, sparsam verwendet werden und keine sensiblen Informationen enthalten.
+- Felder sind optional; wenn nur der Modus angegeben wird, genügt `Meta: Modus=General`.
 
 Semantische Regeln
 ---
@@ -360,7 +361,6 @@ Essentials (konzentriert)
    - Hinweis: Das Canvas bleibt in RP als SSOT bestehen; hier erfolgt nur die Kurzreferenz.
 
 Repositoryweiter Rahmen
-Repositoryweiter Rahmen
 ---
 - Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.
 - Konfigurationen bleiben projektspezifisch; Produktions- und API-Code verbleibt im jeweiligen Projektordner, Utilities werden über das Shared-Package re-exportiert.
@@ -388,7 +388,7 @@ Release & Versionierung
 Die Hauptmodule
 ---
 ### Novapolis Agent (Backend)
-### Arbeitskontext
+#### Arbeitskontext
 - Repo: `novapolis_agent` (Branch `main`), Stack: FastAPI + Ollama, Kern: `app/main.py`, `app/api/models.py`, `app/core/settings.py`, `app/core/prompts.py`.
 #### Schnellziele bei Codeänderungen
 - CI grün halten: Tests (`pytest`), Typen (Pyright/Mypy). CI prüft `docs/DONELOG.txt`.
@@ -401,15 +401,15 @@ Die Hauptmodule
 - Unit: `pytest -q -m unit`.
 - API/Streaming: `pytest -q -m "api or streaming"`.
 - Selektiv: `pytest -q -k test_rate_limit_headers_on_success`.
-### API & Integration
+#### API & Integration
 - Endpunkte: `/`, `/health`, `/version`, `POST /chat`, `POST /chat/stream` (SSE).
 - Prompts zentral in `app/core/prompts.py`; Kontext-Notizen via ENV `CONTEXT_NOTES_ENABLED=true`, Pfade in Settings.
 - Synonyme: Basis `eval/config/synonyms.json`, Overlay `eval/config/synonyms.local.json` (optional, Merge).
-### Konventionen
+#### Konventionen
 - Modelle ausschließlich über `app/api/models.py` importieren (nicht `app/schemas.py`).
 - Middleware setzt `X-Request-ID` auch bei Fehlern; HTTPException-Header werden gemergt.
 - Rate-Limit per ENV; Tests nutzen `monkeypatch.setenv(...)` und Module-Reload.
-### Häufige Fehlerquellen
+#### Häufige Fehlerquellen
 - Streaming/SSE: Generator liefert Events; Tests erwarten `event: meta` mit `"policy_post"`, `event: delta` mit `"text"`, `event: done`.
 - Rate-Limit-Header: Bei Erfolg `X-RateLimit-{Limit,Remaining,Window}`, bei 429 zusätzlich `Retry-After`.
 - CORS-ENV `BACKEND_CORS_ORIGINS` akzeptiert JSON-Liste oder Komma-Liste (Validator in `settings`).
@@ -424,7 +424,7 @@ Die Hauptmodule
 - Feedbackbedarf (Marker, Tasks, Troubleshooting) kurz melden.
 
 ### Novapolis-RP
-### Working Rules (Novapolis)
+#### Working Rules (Novapolis)
 - SSOT: **/Main/novapolis-dev/**.
 - Minimal und transparent: Diffs klein halten, betroffene Dateien und Diffstat nennen.
 - Keine Shell-Kommandos, keine History-Rewrites.
@@ -505,7 +505,7 @@ Ziele
  - Stabiles Gedächtnis (Admin: system-prompt/memory-bundle) und reibungsloser Szenenstart.
  - Reproduzierbare, nachvollziehbare Schritte (Dokumentation & kleine Commits).
  
-Hinweis (Terminal/Pwsh):
+Hinweis (Terminal/Pwsh)
 ---
 ### Standard ist jetzt PowerShell 7 (`pwsh`).
  Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Für einfache, kurze Einzeiler weiterhin `-Command` Inline nutzen; für komplexe oder mehrzeilige Abläufe (Coverage, Artefakt-Erzeugung, umfangreiche Prüf-Sequenzen) zwingend Skript-Wrapper nutzen: `pwsh -NoProfile -File <script.ps1>`. Wrapper sind nur in dieser Form erlaubt (kein indirektes Aufrufen per `-Command` mit Here-Strings). - Achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`) bei allen Inline-Kommandos.
@@ -513,4 +513,4 @@ Hinweis (Terminal/Pwsh):
  Für einfache, pfadfreie Einzeiler ist `-Command` erlaubt und kanonisch. 
 ##### Systemzeit immer so ermitteln: `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
 
-Postflight: STOP-Gate dedupliziert, Meta-/Systeminfo konsolidiert, Prüfabläufe und Module korrekt gerelevelt, Heading-Stile vereinheitlicht; Lint-Ziele MD001/MD003/MD007/MD009/MD012/MD023/MD025/MD032/MD047 erfüllt.
+Postflight: Duplikate entfernt, Module gerelevelt, Codeblock-Einrückungen behoben, STOP/Prüfabläufe auf H2 normalisiert, Markdownlint konsolidiert, Heading-Interpunktion bereinigt, Whitespace normalisiert; Lint-Ziele MD001/MD003/MD007/MD009/MD012/MD023/MD025/MD031/MD032/MD047 erfüllt.
