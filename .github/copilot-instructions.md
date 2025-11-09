@@ -123,6 +123,9 @@ if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest 
    - Wrapper-Richtlinie: Wenn ein Befehl mehr als ~120 Zeichen umfasst, Artefakte schreibt (z. B. JUnit/Coverage/XML) oder mehrere logische Schritte enthält (Collect-Guard, Ausführung, Summary), als eigenes Skript unter `scripts/` ablegen und ausschließlich über `pwsh -NoProfile -File` starten. Keine mehrstufigen Inline-Blöcke mit verschachtelten `& { ... }` für solche Fälle.
 
 ### Update-Logistik
+   - Zeitquelle: Bei jeder Angabe von Zeitstempeln muss die aktuelle lokale Systemzeit zum Zeitpunkt der Ausgabe frisch eingeholt werden (keine gecachten Werte, keine Vorausberechnung). Die Referenz ist der direkte Aufruf über PowerShell:
+     - `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`
+     - Gilt für alle Kontexte in diesem Dokument (z. B. Frontmatter `stand`, Logs/DONELOG, Postflight/Abort, Statusnotizen, Release‑Einträge) und ist zwingend pro Ereignis erneut auszuführen.
    - Timestamp: Änderungen im Format `YYYY-MM-DD HH:mm` erfassen (aktuell) – gilt für Kopfzeilen („Stand“, „Letzte Aktualisierung“), DONELOG-Einträge und kurze Statusnotizen. Standard ist die lokale Systemzeit. Wer mit abweichender Zeitzone arbeitet, ergänzt im `update`-Feld den Offset (z. B. `UTC+02`) oder weist ihn im Text aus. Eine Umstellung auf `Z`/UTC erfolgt erst nach Anpassung des Validators.
    - Systemzeit (lokal, kanonisch): `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
    - Kurznotiz: 1–2 Sätze oder Bullet, was angepasst wurde (analog zu `novapolis-rp/database-rp/02-*`). Bei komplexeren Tasks optional Primärpfad referenzieren (`app/...`, `scripts/...`).
@@ -130,12 +133,12 @@ if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest 
    - Markdownlint-Läufe protokollieren: Lauf/Command + PASS/FAIL direkt nach dem Lauf im Status erwähnen.
 
 ### Workspace‑Tree‑Artefakte (Zuordnung)
-   - „Workspace tree: full“ → `workspace_tree_full.txt`
-   - „Workspace tree: directories“ → `workspace_tree.txt`
-   - „Workspace tree: summary (dirs)“ → `workspace_tree_dirs.txt`
-   - Dokumentpflege: Betroffene Artefakte synchron halten (Root: `todo.root.md`, `DONELOG.md`; Agent: `novapolis_agent/docs/DONELOG.txt`; Dev‑Hub: `novapolis-dev/docs/todo.*.md`, `novapolis-dev/docs/donelog.md`; außerdem `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, README/Index-Seiten). Strukturänderungen → zusätzlich Tree-Snapshots aktualisieren; Behaviour-Änderungen → dieses Dokument aktualisieren und Verweise prüfen.
-   - Referenzen: Wenn vorhanden Issue-/PR-Links, Commit-Hash oder Kontextnotizen angeben (Inline oder als Fußnote). Für wiederkehrende Schritte Templates/Tasks im Root `.vscode/` ergänzen.
-   - Nicht-triviale Änderungen → in zugehörige TODO oder DONELOG.
+ - „Workspace tree: full“ → `workspace_tree_full.txt`
+ - „Workspace tree: directories“ → `workspace_tree.txt`
+ - „Workspace tree: summary (dirs)“ → `workspace_tree_dirs.txt`
+ - Dokumentpflege: Betroffene Artefakte synchron halten (Root: `todo.root.md`, `DONELOG.md`; Agent: `novapolis_agent/docs/DONELOG.txt`; Dev‑Hub: `novapolis-dev/docs/todo.*.md`, `novapolis-dev/docs/donelog.md`; außerdem `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, README/Index-Seiten). Strukturänderungen → zusätzlich Tree-Snapshots aktualisieren; Behaviour-Änderungen → dieses Dokument aktualisieren und Verweise prüfen.
+ - Referenzen: Wenn vorhanden Issue-/PR-Links, Commit-Hash oder Kontextnotizen angeben (Inline oder als Fußnote). Für wiederkehrende Schritte Templates/Tasks im Root `.vscode/` ergänzen.
+ - Nicht-triviale Änderungen → in zugehörige TODO oder DONELOG.
 
 Markdownlint (zentral)
 ---
@@ -244,8 +247,8 @@ Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
 Für alltägliche, nicht-ausführende Antworten (keine Dateiänderung, keine Task-Starts) ist ein sehr kompakter, maschinenlesbarer Meta-Block am Ende der Nachricht erlaubt und erwünscht. Er erleichtert automatisches Parsing und dokumentiert kurz Kontext/Absicht ohne die Preflight/Postflight-Pflicht zu ersetzen.
 #### Format (einzeilig, komma-separiert)
  - Meta: Modus=General, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini|optional>, Arbeitsverzeichnis=<Pfad|optional>, RepoRoot=<Pfad|optional>, PSScriptRoot=<Pfad|optional>, PSVersion=<x.y.z|optional>, Aufruf=<Aufruf|none>, Aktion=<Kurzbeschreibung>, Timestamp=<yyyy-MM-dd HH:mm>
-  - Minimalbeispiel (sehr kurz)
-  - Meta: Modus=General
+ - Minimalbeispiel (sehr kurz)
+ - Meta: Modus=General
 #### Beispiel (empfohlen, wenn etwas Kontext nützlich ist)
 - Meta: Modus=General, Arbeitsverzeichnis=F:\\VS Code Workspace\\Main, RepoRoot=F:\\VS Code Workspace\\Main, PSScriptRoot=scripts, PSVersion=pwsh 7.3, Aufruf=none, Aktion=Antwort auf Coverage-Summary, Timestamp=2025-11-08 17:00
 #### Regeln
@@ -293,33 +296,33 @@ STOP-Gates & Modi
 ### STOP‑Gate (true)(scharf)(beidseitig, vor Modus‑relevanten Aktionen)
 #### Vor potenziell modus‑relevanten Aktionen – code‑schwer (z. B. Dateiedits unter Codepfaden, Skript-/Validator‑Neubau, Test-/Typecheck‑Runs, API/Service‑Änderungen) ODER redaktionell/kanon‑kritisch (z. B. Behaviour-/Policy‑Dokumente, Kanon-/SSOT‑Änderungen) – wird ein hartes STOP‑Gate gesetzt.
 #### Ablauf
-   1. Ausgabe „STOP: Moduswechsel empfohlen <GPT-Modus>. Bitte Modus wählen.“
-    2. Warten auf explizite Bestätigung:
-       - „Wechsel: Modus Codex“ → sofort auf Codex wechseln und fortfahren.
-       - „Wechsel: Modus General“ → sofort auf General wechseln und fortfahren.
-       - „Wechsel: Modus Mini“ → sofort auf Mini wechseln und fortfahren.
-       - „Weiter: aktueller Modus“ → ohne Moduswechsel fortfahren.
-   3. Ohne Bestätigung keine auslösenden Aktionen starten.
+1. Ausgabe „STOP: Moduswechsel empfohlen <GPT-Modus>. Bitte Modus wählen.“
+2. Warten auf explizite Bestätigung:
+   - „Wechsel: Modus Codex“ → sofort auf Codex wechseln und fortfahren.
+   - „Wechsel: Modus General“ → sofort auf General wechseln und fortfahren.
+   - „Wechsel: Modus Mini“ → sofort auf Mini wechseln und fortfahren.
+   - „Weiter: aktueller Modus“ → ohne Moduswechsel fortfahren.
+3. Ohne Bestätigung keine auslösenden Aktionen starten.
 #### Hinweise
-     - Das STOP‑Gate gilt beidseitig (Code ↔ Redaktion). Reine triviale Konversationen sind nicht betroffen.
-     - Während STOP gilt „Debug/Analyse vor Ausführung“: Keine neuen Build/Test/Run‑Tasks automatisch starten
-     - Laufende Task‑Wünsche werden in eine interne Queue gelegt und erst nach Freigabe gestartet.
-     - Manuell‑ausführen‑Pflicht (kritische Läufe): 
-     - Bei Coverage‑Gates oder Fehlersuche im Terminal mit gesetztem cwd=`/Main` arbeiten und Befehle mit `Join-Path` sauber quoten (mit -NoProfile -Command).
+ - Das STOP‑Gate gilt beidseitig (Code ↔ Redaktion). Reine triviale Konversationen sind nicht betroffen.
+ - Während STOP gilt „Debug/Analyse vor Ausführung“: Keine neuen Build/Test/Run‑Tasks automatisch starten.
+ - Laufende Task‑Wünsche werden in eine interne Queue gelegt und erst nach Freigabe gestartet.
+ - Manuell‑ausführen‑Pflicht (kritische Läufe):
+ - Bei Coverage‑Gates oder Fehlersuche im Terminal mit gesetztem cwd=`/Main` arbeiten und Befehle mit `Join-Path` sauber quoten (mit -NoProfile -Command).
 
 ### Unklarheiten‑STOP (true)(global, immer gültig)
 #### „Grün“ gilt nur bis zum nächsten unerwarteten Ereignis. Sobald etwas außerhalb des Plans liegt, sofort STOP. (unabhängig vom aktiven Modus).
 #### Unerwartet = mindestens eins davon
-     - Abweichung vom Plan/Ergebnis oder Modul‑Erwartung
-     - Widerspruch (Quellen/Regeln/Invarianten/SSOT)
-     - Unsicherheit über Bedeutung/Wirkung/Reichweite
-     - Sicherheits-/Privacy‑Bedenken
-     - Falscher/unklarer Modus (General ↔ Codex)
-     - Ausnahmen (kein STOP): Bereiche, die explizit als „RAW“, „noisy“ oder „staging/experimentell“ gekennzeichnet sind.
+ - Abweichung vom Plan/Ergebnis oder Modul‑Erwartung
+ - Widerspruch (Quellen/Regeln/Invarianten/SSOT)
+ - Unsicherheit über Bedeutung/Wirkung/Reichweite
+ - Sicherheits-/Privacy‑Bedenken
+ - Falscher/unklarer Modus (General ↔ Codex)
+ - Ausnahmen (kein STOP): Bereiche, die explizit als „RAW“, „noisy“ oder „staging/experimentell“ gekennzeichnet sind.
 #### Vorgehen bei STOP
-     1. Kurzstatus: Was ist abweichend/unklar (1–2 Sätze)?
-     2. 1–2 Vorschläge (inkl. „keine Aktion“) zur Auswahl darlegen.
-     3. Auf Freigabe warten – keine Folgeaktionen bis Bestätigung.
+1. Kurzstatus: Was ist abweichend/unklar (1–2 Sätze)?
+2. 1–2 Vorschläge (inkl. „keine Aktion“) zur Auswahl darlegen.
+3. Auf Freigabe warten – keine Folgeaktionen bis Bestätigung.
 ### Priorität: Dieses STOP hat Vorrang vor dem Moduswechsel‑Gate. Falls eine Lösung Code erfordert, danach Moduswechsel vorschlagen und bestätigen lassen.
 
 Modell-Profile & Moduswechsel (GPT-5, GPT-5 Codex, GPT-5 mini)
@@ -513,4 +516,4 @@ Hinweis (Terminal/Pwsh)
  Für einfache, pfadfreie Einzeiler ist `-Command` erlaubt und kanonisch. 
 ##### Systemzeit immer so ermitteln: `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
 
-Postflight: Duplikate entfernt, Module gerelevelt, Codeblock-Einrückungen behoben, STOP/Prüfabläufe auf H2 normalisiert, Markdownlint konsolidiert, Heading-Interpunktion bereinigt, Whitespace normalisiert; Lint-Ziele MD001/MD003/MD007/MD009/MD012/MD023/MD025/MD031/MD032/MD047 erfüllt.
+Postflight: STOP-Gate dedupliziert, Modell-Profile konsolidiert, Prüfabläufe und Module korrekt gerelevelt, Markdownlint-Sektion vereinheitlicht, Meta-Block harmonisiert, Heading-Interpunktion und -Einzug bereinigt, Whitespace normalisiert; Lint-Ziele MD001/MD003/MD007/MD009/MD012/MD023/MD025/MD031/MD032/MD047 erfüllt.
