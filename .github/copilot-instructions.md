@@ -1,16 +1,16 @@
 LLM-Dokumentenheader (nicht löschen)
 ====================================
- Type: Copilot Instruction Set / Project Governance  
- Scope: Novapolis-Suite (VS Code Workspace Main)  
- Language: Deutsch  
- Encoding: UTF-8 / Unix-EOL  
- Purpose: Legt alle verbindlichen Regeln, STOP-Gates, Policies und Ablaufprotokolle für Copilot-gestützte Aktionen im Projekt fest.  
- Structure: Markdown (H1/H2 = Setext, H3+ = ATX) – hierarchisch eingerückt; jede Regel mit semantischem Kontext.  
- Priority: Dieses Dokument ist SSOT (Single Source of Truth) für Copilot-Verhalten – es überschreibt lokale oder temporäre Session-Prompts.  
- Precedence: Immer zuerst laden → alle Aktionen, Tests und Änderungen müssen den hier definierten Regeln folgen.  
- Compliance: Wrapper-Policy, STOP-Gate, Frontmatter-Policy, Lint-Policy, Security-Checks, Logging-Receipt, Meta-/Systeminfo-Protokollierung.  
- Audit: Jede Antwort oder Änderung endet mit einem Postflight-Block nach Abschnitt „Meta-/Systeminfo-Protokollierung“.  
- Timestamp: 2025-11-09 17:48
+- Type: Copilot Instruction Set / Project Governance
+- Scope: Novapolis-Suite (VS Code Workspace Main)
+- Language: Deutsch
+- Encoding: UTF-8 / Unix-EOL
+- Purpose: Legt alle verbindlichen Regeln, STOP-Gates, Policies und Ablaufprotokolle für Copilot-gestützte Aktionen im Projekt fest.
+- Structure: Markdown (H1/H2 = Setext, H3+ = ATX) – hierarchisch eingerückt; jede Regel mit semantischem Kontext.
+- Priority: Dieses Dokument ist SSOT (Single Source of Truth) für Copilot-Verhalten – es überschreibt lokale oder temporäre Session-Prompts.
+- Precedence: Immer zuerst laden → alle Aktionen, Tests und Änderungen müssen den hier definierten Regeln folgen.
+- Compliance: Wrapper-Policy, STOP-Gate, Frontmatter-Policy, Lint-Policy, Security-Checks, Logging-Receipt, Meta-/Systeminfo-Protokollierung.
+- Audit: Jede Antwort oder Änderung endet mit einem Postflight-Block nach Abschnitt „Meta-/Systeminfo-Protokollierung“.
+- Timestamp: 2025-11-09 20:24
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
 Kurzreferenz aller Überschriften dieser Anleitung
@@ -20,38 +20,38 @@ Kurzreferenz aller Überschriften dieser Anleitung
 
 Dateipfad & Geltungsbereich
 ---
-#### Kanonischer Speicherort:
- `.github/copilot-instructions.md` im Repo-Root. Nur hier abgelegte Inhalte gelten als verbindlich; Kopien/Backups dienen ausschließlich der Historie.
-#### Geltungsbereich:
- Regeln gelten für Copilot Chat in VS Code, Inline-Completions, Apply-Patch-Befehle und agentische Funktionen (z. B. Tasks, Run-Code-Snippets). Bei Tools mit begrenztem Kontext immer die Kernregeln priorisieren und Details bei Bedarf im Chat referenzieren.
-#### Pfad-Disziplin: 
- Tippfehler oder abweichende Verzeichnisse (z. B. `.github/copilot-instuctions.md`) werden ignoriert. Vor Änderungen prüfen, dass die editierte Datei exakt den kanonischen Pfad besitzt.
+### Kanonischer Speicherort
+- `.github/copilot-instructions.md` im Repo-Root. Nur hier abgelegte Inhalte gelten als verbindlich; Kopien/Backups dienen ausschließlich der Historie.
+### Geltungsbereich
+- Regeln gelten für Copilot Chat in VS Code, Inline-Completions, Apply-Patch-Befehle und agentische Funktionen (z. B. Tasks, Run-Code-Snippets). Bei Tools mit begrenztem Kontext immer die Kernregeln priorisieren und Details bei Bedarf im Chat referenzieren.
+### Pfad-Disziplin
+- Tippfehler oder abweichende Verzeichnisse (z. B. `.github/copilot-instuctions.md`) werden ignoriert. Vor Änderungen prüfen, dass die editierte Datei exakt den kanonischen Pfad besitzt.
 
 Primäre Behaviour-Quellen
 ---
-### SSOT: Dieses Dokument ist die zentrale Verhaltens‑/Arbeitsrichtlinie. Modul‑/Domänenreferenzen:
-   - Konsolidiert: Frühere Modulkopien (Agent/Dev‑Hub) wurden in dieses Dokument überführt und entfernt.
-   - `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`: Rollenspiel-spezifische Verhaltenshooks und Rollenmatrix (SSOT in RP).
-   - `novapolis-rp/development/docs/` enthielt Legacy-Stubs und wurde entfernt (2025-11-05). Verwende ausschließlich die oben genannte RP‑Quelle und dieses Dokument.
-#### Priorität:
-  - 11 Dieses Dokument (global), 2. `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.*` (RP-spezifisch), 3. `novapolis_agent/docs/DONELOG.txt` + Agent-Essentials (Backend-spezifisch). Bei Konflikten gilt die niedrigere Zahl.
+### SSOT: Dieses Dokument ist die zentrale Verhaltens‑/Arbeitsrichtlinie. Modul‑/Domänenreferenzen
+- Konsolidiert: Frühere Modulkopien (Agent/Dev‑Hub) wurden in dieses Dokument überführt und entfernt.
+- `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`: Rollenspiel-spezifische Verhaltenshooks und Rollenmatrix (SSOT in RP).
+- `novapolis-rp/development/docs/` enthielt Legacy-Stubs und wurde entfernt (2025-11-05). Verwende ausschließlich die oben genannte RP‑Quelle und dieses Dokument.
+#### Priorität
+- 11 Dieses Dokument (global), 2. `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.*` (RP-spezifisch), 3. `novapolis_agent/docs/DONELOG.txt` + Agent-Essentials (Backend-spezifisch). Bei Konflikten gilt die niedrigere Zahl.
 
 Gemeinsamer Arbeitsstil
 ---
-### Für verschiedene Optionen gibt es einen "Zustand", definiert als:
-   - "(true)" Eintrag muss umgesetzt/befolgt werden.
-   - "(false)" Eintrag hat aktuell keine Gültigkeit. Muss mit `yyyy-MM-dd HH:mm` und `name` und kurze info z.b. Grund: & Aufgabe: usw. versehen.
-   - Einträge, die weder mit "(true)" noch mit "(false)" versehen sind, gelten als "(true)".
-   - Es gilt:
-     - Übergeordnete Einträge gelten über alleinstehende und referenzierte Einträge.
- - Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
-### Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen:
-   - Root: `DONELOG.md`, `todo.root.md`.
-   - Agent: `novapolis_agent/docs/DONELOG.txt` (und projektinterne TODOs, falls vorhanden).
-   - Dev‑Hub: `novapolis-dev/docs/donelog.md`, `novapolis-dev/docs/todo.*.md`.
-   - Weitere Projekt‑TODOs nur, wenn tatsächlich vorhanden; ansonsten Root/Dev‑Hub nutzen.
- - Prägnanter Output: skimmbar, keine überladenen Blockzitate; bei großen Aufgaben Plan in betreffende todo eintragen.
- - Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren. (zuletzt aktualisiert: 2025:11:08 21:18)
+### Für verschiedene Optionen gibt es einen "Zustand", definiert als
+- "(true)" Eintrag muss umgesetzt/befolgt werden.
+- "(false)" Eintrag hat aktuell keine Gültigkeit. Muss mit `yyyy-MM-dd HH:mm` und `name` und kurze info z.b. Grund: & Aufgabe: usw. versehen.
+- Einträge, die weder mit "(true)" noch mit "(false)" versehen sind, gelten als "(true)".
+- Es gilt:
+   - Übergeordnete Einträge gelten über alleinstehende und referenzierte Einträge.
+- Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
+### Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen
+- Root: `DONELOG.md`, `todo.root.md`.
+- Agent: `novapolis_agent/docs/DONELOG.txt` (und projektinterne TODOs, falls vorhanden).
+- Dev‑Hub: `novapolis-dev/docs/donelog.md`, `novapolis-dev/docs/todo.*.md`.
+- Weitere Projekt‑TODOs nur, wenn tatsächlich vorhanden; ansonsten Root/Dev‑Hub nutzen.
+- Prägnanter Output: skimmbar, keine überladenen Blockzitate; bei großen Aufgaben Plan in betreffende todo eintragen.
+- Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren. (zuletzt aktualisiert: 2025:11:08 21:18)
 
 Onboarding & Setup
 ---
@@ -72,47 +72,52 @@ Onboarding & Setup
  | .venv        | 11        |
  | Coverage     | 10        |
 
- - Hinweis: Aus dieser Datei automatisch ermittelt (Stoppwörter/Plural nicht normalisiert). Dient als Navigationshilfe, nicht als strikte Metrik.
+- Hinweis: Aus dieser Datei automatisch ermittelt (Stoppwörter/Plural nicht normalisiert). Dient als Navigationshilfe, nicht als strikte Metrik.
 
 Kanonische Prüfabläufe (pwsh)
 ---
- # Empfohlen (Wrapper, Copilot/GPT):
-   ```powershell
-   pwsh -NoProfile -File scripts\run_pytest_coverage.ps1
-   ```
-   - `$maxTestFiles` (Standard 40) stellt sicher, dass nicht versehentlich zu viele Testdateien im Lauf landen. Bei Überschreitung stoppt der Befehl mit einer roten STOP-Notiz.
-   - Details und Begründung siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“ weiter unten.
-   - Einmalig `pwsh -NoProfile -Command "& .\.venv\Scripts\python.exe -m pip install --upgrade pip"` ausführen, falls Pip veraltet ist.
-   - Erste Validierung: Sequenz aus Lint (`ruff`, `black --check`), Typen (`pyright`, `mypy`) und Tests mit Coverage (Pytest ≥ 80 %) jeweils manuell via `pwsh -NoProfile -Command "& { ... }"` ausführen; Beispielbefehle siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“.
-   - Vor dokumentationsbezogenen Sessions mit Copilot bzw. GPT‑5 zwingend `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` ausführen (Achtung: Glob stets in einfachen Anführungszeichen, keine abschließenden Escape-Zeichen), um falsche Positivmeldungen in nachfolgenden Tests zu vermeiden. Den Befehl unverändert direkt im Terminal eingeben – keine `pwsh -NoProfile -Command`-Hülle verwenden.
+### Empfohlen (Wrapper, Copilot/GPT)
 
-   ## VS Code Tasks ausführen.(true)
-     - Grundlage: Die gleichnamigen VS Code Tasks dienen nur als Referenz. Copilot/GPT erstellt keine neuen VS Code Tasks. 
-     - Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern ausschließlich über Skript-Wrapper via `pwsh -NoProfile -File <script.ps1>`. Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
+```powershell
+pwsh -NoProfile -File scripts\run_pytest_coverage.ps1
+```
 
-   ## Lint (Ruff + Black, keine Auto-Fixes)(true)
-   Hinweis: Für agentische Ausführung NICHT die nachfolgenden Inline-Muster verwenden:
-     ```powershell
-     pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; if ($ruffExit -ne 0 -or $LASTEXITCODE -ne 0) { exit 1 } }"
-     ```
+- `$maxTestFiles` (Standard 40) stellt sicher, dass nicht versehentlich zu viele Testdateien im Lauf landen. Bei Überschreitung stoppt der Befehl mit einer roten STOP-Notiz.
+- Details und Begründung siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“ weiter unten.
+- Einmalig `pwsh -NoProfile -Command "& .\.venv\Scripts\python.exe -m pip install --upgrade pip"` ausführen, falls Pip veraltet ist.
+- Erste Validierung: Sequenz aus Lint (`ruff`, `black --check`), Typen (`pyright`, `mypy`) und Tests mit Coverage (Pytest ≥ 80 %) jeweils manuell via `pwsh -NoProfile -Command "& { ... }"` ausführen; Beispielbefehle siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“.
+- Vor dokumentationsbezogenen Sessions mit Copilot bzw. GPT‑5 zwingend `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` ausführen (Achtung: Glob stets in einfachen Anführungszeichen, keine abschließenden Escape-Zeichen), um falsche Positivmeldungen in nachfolgenden Tests zu vermeiden. Den Befehl unverändert direkt im Terminal eingeben – keine `pwsh -NoProfile -Command`-Hülle verwenden.
 
-   ## Typen (Pyright + Mypy)
-     ```powershell
-     pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $agent = Join-Path $root 'novapolis_agent'; Set-Location $agent; $pyright = Join-Path $root '.venv\\Scripts\\pyright.exe'; if (-not (Test-Path -LiteralPath $pyright)) { $pyright = 'pyright'; }; & $pyright -p pyrightconfig.json; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m mypy --config-file mypy.ini app scripts; exit $LASTEXITCODE }"
-     ```
+### VS Code Tasks ausführen.(true)
+- Grundlage: Die gleichnamigen VS Code Tasks dienen nur als Referenz. Copilot/GPT erstellt keine neuen VS Code Tasks.
+- Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern ausschließlich über Skript-Wrapper via `pwsh -NoProfile -File <script.ps1>`. Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
 
-   ## Tests (Pytest Coverage ≥ 80 %)
-     ```powershell
-     pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { `$_ -match '::' } | ForEach-Object { (`$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host "STOP: Zu viele Testdateien gesammelt ($fileCount > $maxTestFiles). Bitte Scope prüfen."; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
-     if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest FAIL ($LASTEXITCODE)" }
-   > `$maxTestFiles` kann bei Bedarf angepasst werden; die STOP-Meldung verhindert, dass ungewollt große Testmengen laufen.
-   > Aktueller Status (Stand: 2025-11-09 17:48): Coverage-Gate ≥ 80 % ist erfüllt (zuletzt 81.66 % Gesamt, via Wrapper-Skript).
-     ```
+### Lint (Ruff + Black, keine Auto-Fixes)(true)
+Hinweis: Für agentische Ausführung NICHT die nachfolgenden Inline-Muster verwenden:
 
-### Aggregierte Prüfung (`Checks: full`): 
+```powershell
+pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; if ($ruffExit -ne 0 -or $LASTEXITCODE -ne 0) { exit 1 } }"
+```
+
+### Typen (Pyright + Mypy)
+
+```powershell
+pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $agent = Join-Path $root 'novapolis_agent'; Set-Location $agent; $pyright = Join-Path $root '.venv\\Scripts\\pyright.exe'; if (-not (Test-Path -LiteralPath $pyright)) { $pyright = 'pyright'; }; & $pyright -p pyrightconfig.json; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m mypy --config-file mypy.ini app scripts; exit $LASTEXITCODE }"
+```
+
+### Tests (Pytest Coverage ≥ 80 %)
+
+```powershell
+pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { ``$_ -match '::' } | ForEach-Object { (``$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host 'STOP: Zu viele Testdateien gesammelt (' + $fileCount + ' > ' + $maxTestFiles + '). Bitte Scope prüfen.'; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
+if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest FAIL ($LASTEXITCODE)" }
+```
+> `$maxTestFiles` kann bei Bedarf angepasst werden; die STOP-Meldung verhindert, dass ungewollt große Testmengen laufen.
+> Aktueller Status (Stand: 2025-11-09 17:48): Coverage-Gate ≥ 80 % ist erfüllt (zuletzt 81.66 % Gesamt, via Wrapper-Skript).
+
+### Aggregierte Prüfung (`Checks: full`)
    - obige Befehle in der Reihenfolge Lint → Typen → Tests ausführen und Ergebnisse dokumentieren.
 
-### Zusatz (pwsh):
+### Zusatz (pwsh)
    - Für Python-Befehle den Interpreter aus `.venv` verwenden (Fallback `python`), wie in den Beispielen gezeigt.
    - Bei Pfaden mit Leerzeichen `${workspaceFolder}` und `Join-Path` einsetzen.
    - Wrapper-Richtlinie: Wenn ein Befehl mehr als ~120 Zeichen umfasst, Artefakte schreibt (z. B. JUnit/Coverage/XML) oder mehrere logische Schritte enthält (Collect-Guard, Ausführung, Summary), als eigenes Skript unter `scripts/` ablegen und ausschließlich über `pwsh -NoProfile -File` starten. Keine mehrstufigen Inline-Blöcke mit verschachtelten `& { ... }` für solche Fälle.
@@ -137,12 +142,12 @@ Markdownlint (zentral)
   MD003 = `setext_with_atx` (H1/H2 im Setext‑Stil, H3+ im ATX‑Stil; je Level konsistent innerhalb der Datei). Keine gemischten Stile für dasselbe Level in einer Datei.
 ### Konfiguration erfolgt zentral über `.markdownlint-cli2.jsonc`; projektlokale Overrides nur nach Review und dokumentierter Ausnahme.
    `ignores` in der CLI2‑Config decken generierte/kuratierte Bereiche ab (u. a. `novapolis_agent/eval/results/**`, `novapolis_agent/outputs/**`, `outputs/**`, `novapolis-rp/.pytest_cache/**`).
-### Vor Arbeiten mit Copilot/GPT‑5 Pflichtlauf im bestehenden Terminal:
+### Vor Arbeiten mit Copilot/GPT‑5 Pflichtlauf im bestehenden Terminal
    `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (ohne zusätzliche `pwsh -NoProfile -Command`-Hülle).
    - Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc '**/*.md'`.
-### Grundsatz:
+### Grundsatz
      Keine globalen CLI‑Installationen und keine Wrapper‑Skripte für Markdownlint verwenden; ausschließlich `npx --yes`.
-### Optionaler Zusatz: Für einen schnellen Dokumentations‑Lint direkt im Terminal ausführen:
+### Optionaler Zusatz: Für einen schnellen Dokumentations‑Lint direkt im Terminal ausführen
      `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/**/*.md' 'novapolis_agent/docs/**/*.md'`
 
 YAML-Frontmatter (kompakt & LLM-freundlich)
@@ -161,7 +166,7 @@ YAML-Frontmatter (kompakt & LLM-freundlich)
      checks: keine
      ---
 
-### Hinweise:
+### Hinweise
    - Bei jedem Schreibvorgang Frontmatter-Zeitstempel und `update`/`checks` aktualisieren.
    - Ausnahme: Für dieses Dokument (`.github/copilot-instructions.md`) keine YAML-Frontmatter verwenden (Parser-Einschränkung). Snapshot hier weiterhin per `Stand:`-Zeile pflegen.
    - Fallback (allgemein): Wenn YAML-Frontmatter technisch nicht einsetzbar ist (Parser/Format-Einschränkung), nutze am Dokumentanfang eine kompakte Kopfzeile im Klartext:
@@ -204,17 +209,17 @@ Security & Dependencies
 
 Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
 ---
-### Zweck:
+### Zweck
    - Dieser Abschnitt definiert, wann und wie Copilot automatisch Meta- und Systeminformationen ausgibt, um jede Aktion revisionssicher zu dokumentieren.
    - Das Format ist minimalistisch, maschinenlesbar und tokenoptimiert.
    - Er ist verpflichtend für jede Änderung oder Erstellung von Dateien, Prüf- und Validierungsvorgänge sowie komplexe Abläufe mit Mehrschritt-Logik.
 
-### Preflight (false)( 08.11.2025 20:58 Panicgrinder Grund: Copilot/GPT beendet direkt nach dem ausgeben des preflights seine Nachricht und schreibt nicht weiter. Aufgabe: Analyse und Fehlerbehebung zu einem anderen Zeitpunkt, da Postflight intakt.)(vor jeder Änderung)
+### Preflight (false)(08.11.2025 20:58 Panicgrinder Grund: Copilot/GPT beendet direkt nach dem Ausgeben des Preflights seine Nachricht und schreibt nicht weiter. Aufgabe: Analyse und Fehlerbehebung zu einem anderen Zeitpunkt, da Postflight intakt.)(vor jeder Änderung)
    - Vor jeder Aktion, die Dateien verändert oder generiert, muss Copilot einen Preflight-Block ausgeben, bevor irgendetwas ausgeführt wird.
    - Dieser Block dient der Vorschau und Bestätigung, dass alle Regeln, Pfade, STOP-Gates und Policies korrekt geladen sind.
-#### Format (Pflichtfelder fett, optionale Angaben in Klammern):
-     - Meta: Modus=Preflight, **Arbeitsverzeichnis=<Pfad>**, **RepoRoot=<Pfad>**, (PSScriptRoot=<Pfad>), (PSVersion=<x.y.z>), Aufruf=pwsh -NoProfile -File <Pfad.zum.Skript.ps1>, (SHA256=<Hash.der.Skriptdatei>), STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
-#### Verhalten:
+#### Format (Pflichtfelder fett, optionale Angaben in Klammern)
+   - Meta: Modus=Preflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, **Arbeitsverzeichnis=<Pfad>**, **RepoRoot=<Pfad>**, (PSScriptRoot=<Pfad>), (PSVersion=<x.y.z>), Aufruf=pwsh -NoProfile -File <Pfad.zum.Skript.ps1>, (SHA256=<Hash.der.Skriptdatei>), STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
+#### Verhalten
      - Keine Änderungen, kein Schreiben, keine Commits.
      - Dient ausschließlich der Kontexterkennung und Validierung.
      - Wird bei aktivem STOP-Gate durch eine manuelle Freigabe fortgesetzt.
@@ -224,10 +229,10 @@ Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
 #### Nach Abschluss eines vollständigen, logisch abgeschlossenen Vorgangs (z. B. Vereinheitlichung mehrerer Dokumente, Ausführung aller Tests, Erstellung eines Skripts) muss Copilot genau einen Postflight-Block ausgeben.
    - Es dürfen keine Zwischenblöcke bei Mehrfachdateien oder Schleifen erzeugt werden.
    - Ergebnisse sind gesammelt und am Ende auszugeben.
-#### Falls ein Vorgang unerwartet abgebrochen wird oder ein STOP-Gate ausgelöst wurde:
-     - Meta: Modus=Abort, Grund=<Kurzbeschreibung>, Zeitpunkt=<yyyy-MM-dd HH:mm>
-#### Format für erfolgreiche Postflight-Ausgabe:
-     - Meta: Modus=Postflight, Arbeitsverzeichnis=<Pfad>, RepoRoot=<Pfad>, PSScriptRoot=<Pfad>, PSVersion=<x.y.z>, Aufruf=pwsh -NoProfile -File <Pfad.zum.Skript.ps1>, SHA256=<Hash.der.Skriptdatei>, STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
+#### Falls ein Vorgang unerwartet abgebrochen wird oder ein STOP-Gate ausgelöst wurde
+   - Meta: Modus=Abort, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Grund=<Kurzbeschreibung>, Zeitpunkt=<yyyy-MM-dd HH:mm>
+#### Format für erfolgreiche Postflight-Ausgabe
+   - Meta: Modus=Postflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Arbeitsverzeichnis=<Pfad>, RepoRoot=<Pfad>, PSScriptRoot=<Pfad>, PSVersion=<x.y.z>, Aufruf=pwsh -NoProfile -File <Pfad.zum.Skript.ps1>, SHA256=<Hash.der.Skriptdatei>, STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
      - Prüfung: markdownlint=<PASS/FAIL>, ExitcodeLint=<N>, behobenLint=<ja/nein>, Frontmatter-Validator=<PASS/FAIL>, ExitcodeFM=<N>, behobenFM=<ja/nein>, Cleanup-WhatIf-Exit=<N>, behobenWhatIf=<ja/nein>, Cleanup-Real-Exit=<N>, behobenReal=<ja/nein>, WorkspaceScanRoot=<Zahl>, WorkspaceScanRecurse=<Zahl>
      - Regeln: IDs=<R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG>, Details=R-WRAP über -File erzwungen; R-STOP aktiv vor Real; R-FM geprüft; R-LINT ausgeführt; R-SCAN Root-only; R-CTX Quellen geladen; R-SEC geprüft; R-LOG Receipt erstellt
      - Todos: offen=<Anzahl>, BeispielFix=<Kurzbeschreibung>, ReRun=<Testname>, Fällig=<Datum/Zeit>
@@ -236,13 +241,13 @@ Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
 
 ### Kompakter Meta-Block für normale Antworten
 #### Zweck: Für alltägliche, nicht-ausführende Antworten (keine Dateiänderung, keine Task-Starts) ist ein sehr kompakter, maschinenlesbarer Meta-Block am Ende der Nachricht erlaubt und erwünscht. Er erleichtert automatisches Parsing und dokumentiert kurz Kontext/Absicht ohne die Preflight/Postflight-Pflicht zu ersetzen.
-#### Format (einzeilig, komma-separiert):
-     - Meta: Modus=General, Arbeitsverzeichnis=<Pfad|optional>, RepoRoot=<Pfad|optional>, PSScriptRoot=<Pfad|optional>, PSVersion=<x.y.z|optional>, Aufruf=<Aufruf|none>, Aktion=<Kurzbeschreibung>, Timestamp=<yyyy-MM-dd HH:mm>
+#### Format (einzeilig, komma-separiert)
+   - Meta: Modus=General, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini|optional>, Arbeitsverzeichnis=<Pfad|optional>, RepoRoot=<Pfad|optional>, PSScriptRoot=<Pfad|optional>, PSVersion=<x.y.z|optional>, Aufruf=<Aufruf|none>, Aktion=<Kurzbeschreibung>, Timestamp=<yyyy-MM-dd HH:mm>
        - Minimalbeispiel (sehr kurz):
        - Meta: Modus=General
 ##### Beispiel (empfohlen, wenn etwas Kontext nützlich ist):
      - Meta: Modus=General, Arbeitsverzeichnis=F:\\VS Code Workspace\\Main, RepoRoot=F:\\VS Code Workspace\\Main, PSScriptRoot=scripts, PSVersion=pwsh 7.3, Aufruf=none, Aktion=Antwort auf Coverage-Summary, Timestamp=2025-11-08 17:00
-#### Regeln:
+#### Regeln
      - Dieser kompakte Meta-Block ersetzt nicht die Preflight- oder Postflight-Blöcke, wenn Dateien verändert oder Skripte ausgeführt werden. Für jede auszuführende Aktion ist weiterhin ein Preflight (vorher) und ein Postflight (nachher) erforderlich.
      - Der kompakte Block soll eine einzelne Zeile bleiben, sparsam verwendet werden und keine sensiblen Informationen enthalten.
      - Felder sind optional; wenn nur der Modus angegeben wird, genügt `Meta: Modus=General`.
@@ -265,7 +270,7 @@ Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
  - Alle Agenten, Skripte und Copilot-Instanzen müssen diese Struktur respektieren, bevor eine Änderung ausgeführt oder ein Receipt erstellt wird.
  - Abweichungen sind nur mit expliziter Freigabe im STOP-Gate zulässig.
 
- ### aktuell vergebene Regel-IDs
+### aktuell vergebene Regel-IDs
    - ID R-WRAP: Wrapper-Policy – Skripte und Mehrschritt-Prozesse dürfen ausschließlich über „pwsh -NoProfile -File“ mit absolutem Pfad ausgeführt werden. Inline „-Command“ ist nur für echte Einzeiler erlaubt.
    - ID R-STOP: STOP-Gate – Jede modusrelevante oder sicherheitskritische Aktion muss vor Ausführung explizit bestätigt werden.
    - ID R-FM: Frontmatter-Policy – Dokumente müssen gültige YAML-Frontmatter-Blöcke mit definierten Schlüsseln (stand, update, checks) enthalten. Fehlende oder beschädigte Frontmatter werden durch den Validator erkannt und gemeldet.
@@ -286,14 +291,15 @@ STOP-Gates & Modi
 ---
 ### STOP‑Gate (true)(scharf)(beidseitig, vor Modus‑relevanten Aktionen)
 #### Vor potenziell modus‑relevanten Aktionen – code‑schwer (z. B. Dateiedits unter Codepfaden, Skript-/Validator‑Neubau, Test-/Typecheck‑Runs, API/Service‑Änderungen) ODER redaktionell/kanon‑kritisch (z. B. Behaviour-/Policy‑Dokumente, Kanon-/SSOT‑Änderungen) – wird ein hartes STOP‑Gate gesetzt.
-#### Ablauf:
+#### Ablauf
    1. Ausgabe „STOP: Moduswechsel empfohlen <GPT-Modus>. Bitte Modus wählen.“
-   2. Warten auf explizite Bestätigung:
-     - „Wechsel: Modus Codex“ → sofort auf Codex wechseln und fortfahren.
-     - „Wechsel: Modus General“ → sofort auf General wechseln und fortfahren.
-     - „Weiter: aktueller Modus“ → ohne Moduswechsel fortfahren.
+    2. Warten auf explizite Bestätigung:
+       - „Wechsel: Modus Codex“ → sofort auf Codex wechseln und fortfahren.
+       - „Wechsel: Modus General“ → sofort auf General wechseln und fortfahren.
+       - „Wechsel: Modus Mini“ → sofort auf Mini wechseln und fortfahren.
+       - „Weiter: aktueller Modus“ → ohne Moduswechsel fortfahren.
    3. Ohne Bestätigung keine auslösenden Aktionen starten.
-#### Hinweise:
+#### Hinweise
      - Das STOP‑Gate gilt beidseitig (Code ↔ Redaktion). Reine triviale Konversationen sind nicht betroffen.
      - Während STOP gilt „Debug/Analyse vor Ausführung“: Keine neuen Build/Test/Run‑Tasks automatisch starten
      - Laufende Task‑Wünsche werden in eine interne Queue gelegt und erst nach Freigabe gestartet.
@@ -302,33 +308,36 @@ STOP-Gates & Modi
 
 ### Unklarheiten‑STOP (true)(global, immer gültig)
 #### „Grün“ gilt nur bis zum nächsten unerwarteten Ereignis. Sobald etwas außerhalb des Plans liegt, sofort STOP. (unabhängig vom aktiven Modus).
-#### Unerwartet = mindestens eins davon:
+#### Unerwartet = mindestens eins davon
      - Abweichung vom Plan/Ergebnis oder Modul‑Erwartung
      - Widerspruch (Quellen/Regeln/Invarianten/SSOT)
      - Unsicherheit über Bedeutung/Wirkung/Reichweite
      - Sicherheits-/Privacy‑Bedenken
      - Falscher/unklarer Modus (General ↔ Codex)
      - Ausnahmen (kein STOP): Bereiche, die explizit als „RAW“, „noisy“ oder „staging/experimentell“ gekennzeichnet sind.
-#### Vorgehen bei STOP:
+#### Vorgehen bei STOP
      1. Kurzstatus: Was ist abweichend/unklar (1–2 Sätze)?
      2. 1–2 Vorschläge (inkl. „keine Aktion“) zur Auswahl darlegen.
      3. Auf Freigabe warten – keine Folgeaktionen bis Bestätigung.
 ### Priorität: Dieses STOP hat Vorrang vor dem Moduswechsel‑Gate. Falls eine Lösung Code erfordert, danach Moduswechsel vorschlagen und bestätigen lassen.
 
-### Modell-Profile & Moduswechsel (GPT‑5 ↔ GPT‑5 Codex)
- - Kurzdefinition: General = redaktionelle/Analyse‑Arbeiten; Codex = Code/Tests/Build‑/CI‑Arbeiten.
- - Standardmodus: GPT‑5 (General) für redaktionelle Arbeiten, Kanon-/Quellenabgleich, `[FACT]`↔`[FACT?]`‑Revalidierung, Policy-/Prozess‑Checks und Textkurierung.
- - Aktiver Modus wird zu Sitzungsbeginn sowie bei STOP-Gates im Chat bestätigt; dieser Abschnitt dokumentiert ausschließlich die Wechselheuristiken.
- - Codex-Modus (umschalten bei Bedarf): Für Code‑schwere Aufgaben wie Skripte/Validatoren, Tests/CI, API‑/Service‑Änderungen, Parser/RegEx, Datentransformationen.
-#### Heuristische Trigger für Wechselvorschlag (nicht automatisch, nur Hinweis):
-   - Edits in Quellcodepfaden: `novapolis_agent/app/**`, `novapolis_agent/scripts/**`, `novapolis_agent/utils/**`, `novapolis_agent/tests/**`, `packages/**`, `novapolis-rp/coding/**`.
-   - Anforderung: „Bitte Skript/Validator/Test bauen“, „API anpassen“, „Pytest/Typing fixen“.
-   - Geplante Ausführung technischer Tasks: Pytest/Mypy/Pyright, Linter-/Build‑Themen.
-#### Erinnerung/Prompting‑Policy:
-   - Wenn aktueller Modus = GPT‑5 und ein Trigger erkannt wird: „Hinweis: Moduswechsel zu Codex empfohlen für Code‑schwere Aufgaben. Bitte bestätigen.“
-   - Wenn aktueller Modus = Codex und redaktionelle Arbeit erkannt wird: „Hinweis: Moduswechsel zu General empfohlen für redaktionelle Aufgaben. Bitte bestätigen.“
-   - Nutzerentscheid respektieren; bei „nein“ weiter im aktuellen Modus arbeiten.
-   - Explizite Nutzerwahl überschreibt Heuristik: „Modus Codex“/„Modus General“ setzt sofort um.
+Modell-Profile & Moduswechsel (GPT-5, GPT-5 Codex, GPT-5 mini)
+---
+### General (GPT-5)
+   - Zweck: Hochwertiger redaktioneller und Analyse-Modus für Policy-Kurierung, Quellenabgleich, strukturierte Reviews, semantische Validierung und präzise Zusammenfassungen.
+### Codex (GPT-5 Codex)
+   - Zweck: Code-, Test-, Build-/CI- und Refactor-orientierter Modus für technische Skripte, Parser, Typ-/Lint-kritische Änderungen und Implementierungen.
+### Mini (GPT-5 mini)
+   - Zweck: Schneller, kosteneffizienter Tagesmodus mit großem Lesekontext; ideal für breite Datei-Reviews, Dokumentationspflege, Massentriage von TODO/Logs, konservative Low-Risk-Fixes und umfangreiche Übersichtsausgaben. Nicht erste Wahl für heikle Refactors, migrationskritische Schritte oder SSOT-Neufassung.
+#### Standardmodus
+   - Standard: General (GPT-5) für redaktionelle Arbeiten und initialen Kontext. Wechsel zu Codex bei Code-/Test-/CI-Schwerpunkt; Wechsel zu Mini bei großflächigen Review-/Pflegeaufgaben.
+#### Heuristische Trigger
+   - Codex-Trigger: Edits in `novapolis_agent/app/**`, `novapolis_agent/scripts/**`, `novapolis_agent/utils/**`, `novapolis_agent/tests/**`, `packages/**`, `novapolis-rp/coding/**`; Anforderungen wie „Validator bauen“, „API anpassen“, „Pytest fixen“.
+   - Mini-Trigger: Viele Dateien gleichzeitig lesen, Bulk-Dokumentationspflege, Log-/TODO-Massentriage, konservative Streu-Fixes ohne tiefen Codeeingriff.
+   - General-Trigger: Policy-/Prozess-Anpassungen, SSOT-Abgleich, semantische Strukturierung.
+#### Prompting-Policy
+   - Bei erkanntem Trigger Hinweis auf empfohlenen Moduswechsel; Nutzerentscheidung ist maßgeblich.
+   - Explizite Wahl („Modus Codex“, „Modus General“, „Modus Mini“) setzt sofort um.
 
 Essentials (konzentriert)
 ---
@@ -351,108 +360,107 @@ Essentials (konzentriert)
    - Hinweis: Das Canvas bleibt in RP als SSOT bestehen; hier erfolgt nur die Kurzreferenz.
 
 Repositoryweiter Rahmen
+Repositoryweiter Rahmen
 ---
- - Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.
- - Konfigurationen bleiben projektspezifisch; Produktions- und API-Code verbleibt im jeweiligen Projektordner, Utilities werden über das Shared-Package re-exportiert.
- - Doppelte Modulpfade (z. B. parallele `novapolis_agent/novapolis_agent/**` und `novapolis_agent/app/**`) sind als Legacy zu behandeln; Neu‑Anpassungen bitte nur unter den aktiven Pfaden vornehmen (siehe `novapolis_agent/WORKSPACE_INDEX.md`).
- - Secrets (`.env`) bleiben lokal; ungefilterte Exporte ausschließlich unter `novapolis-rp/database-raw/99-exports/` ablegen.
- - Working docs (Projektweit) leben in `novapolis-dev/docs/` (todo, donelog, tests, naming-policy, copilot-behavior, index); `novapolis-rp/development/...` sind Redirect-Stubs.
- - Backups/Altstände gehören zentral nach `Backups/` (keine tool‑lesbaren Backups neben aktiven Configs).
- - Godot (Sim): Kanonische Projektdatei ist `novapolis-sim/project.godot` (Option A). Das frühere, verschachtelte Projekt wurde nach `Backups/novapolis-sim-archived-20251104/` verschoben.
+- Gemeinsamer Code gehört nach `packages/novapolis_common`; doppelte Module aus den Teilprojekten nach Migration entfernen.
+- Konfigurationen bleiben projektspezifisch; Produktions- und API-Code verbleibt im jeweiligen Projektordner, Utilities werden über das Shared-Package re-exportiert.
+- Doppelte Modulpfade (z. B. parallele `novapolis_agent/novapolis_agent/**` und `novapolis_agent/app/**`) sind als Legacy zu behandeln; Neu‑Anpassungen bitte nur unter den aktiven Pfaden vornehmen (siehe `novapolis_agent/WORKSPACE_INDEX.md`).
+- Secrets (`.env`) bleiben lokal; ungefilterte Exporte ausschließlich unter `novapolis-rp/database-raw/99-exports/` ablegen.
+- Working docs (Projektweit) leben in `novapolis-dev/docs/` (todo, donelog, tests, naming-policy, copilot-behavior, index); `novapolis-rp/development/...` sind Redirect-Stubs.
+- Backups/Altstände gehören zentral nach `Backups/` (keine tool‑lesbaren Backups neben aktiven Configs).
+- Godot (Sim): Kanonische Projektdatei ist `novapolis-sim/project.godot` (Option A). Das frühere, verschachtelte Projekt wurde nach `Backups/novapolis-sim-archived-20251104/` verschoben.
 
 Prüf- und Release-Checks
 ------------------------
- - Vor Commits relevante Tests/Skripte ausführen (Root‑basiert): `novapolis_agent/scripts/run_tests.py` (cwd=`novapolis_agent`), Validatoren unter `novapolis-rp/coding/tools/validators/`.
- - Bei Änderungen an Behaviour-/Policy‑Dokumenten zusätzlich den Test `novapolis_agent/tests/test_content_policy_profiles.py` laufen lassen und Changelogs prüfen. Diese Regel ist im Single‑Root‑TODO verlinkt.
- - Coverage-Gate: Task `Tests: coverage (fail-under)` muss ≥ 80 % liefern; bei Unterschreitung erfolgt kein Merge/Push ohne Freigabe.
- - Bei Unsicherheiten/Unklarheiten: STOP‑Gate setzen (Rückfrage einholen), dann mit Minimal‑Delta fortfahren; transparente Diffs mit Dateiliste/Diffstat, keine Shell‑Kommandos oder History‑Rewrites.
+- Vor Commits relevante Tests/Skripte ausführen (Root‑basiert): `novapolis_agent/scripts/run_tests.py` (cwd=`novapolis_agent`), Validatoren unter `novapolis-rp/coding/tools/validators/`.
+- Bei Änderungen an Behaviour-/Policy‑Dokumenten zusätzlich den Test `novapolis_agent/tests/test_content_policy_profiles.py` laufen lassen und Changelogs prüfen. Diese Regel ist im Single‑Root‑TODO verlinkt.
+- Coverage-Gate: Task `Tests: coverage (fail-under)` muss ≥ 80 % liefern; bei Unterschreitung erfolgt kein Merge/Push ohne Freigabe.
+- Bei Unsicherheiten/Unklarheiten: STOP‑Gate setzen (Rückfrage einholen), dann mit Minimal‑Delta fortfahren; transparente Diffs mit Dateiliste/Diffstat, keine Shell‑Kommandos oder History‑Rewrites.
 
 Release & Versionierung
 -----------------------
- - Versionierung über `pyproject.toml`; Versionssprung + Git-Tag `vX.Y.Z` gehören in denselben PR.
- - `DONELOG.md` bzw. projektspezifische DONELOGs um einen Eintrag ergänzen (Wer/Was/Wann, kurzer Kontext).
- - Kein Release ohne grüne Gates (Tests, Types, Coverage, Frontmatter-Validator, Markdownlint bei Docs).
+- Versionierung über `pyproject.toml`; Versionssprung + Git-Tag `vX.Y.Z` gehören in denselben PR.
+- `DONELOG.md` bzw. projektspezifische DONELOGs um einen Eintrag ergänzen (Wer/Was/Wann, kurzer Kontext).
+- Kein Release ohne grüne Gates (Tests, Types, Coverage, Frontmatter-Validator, Markdownlint bei Docs).
 
- - Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Root sind wirksam. Kopien/Spiegel in Unterordnern (z. B. `novapolis_agent/.github/workflows/`) gelten als Stubs/Archiv und werden von GitHub Actions nicht ausgeführt. Cleanup als eigener Task vorschlagen (vorher eingehende Verweise prüfen).
+- Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Root sind wirksam. Kopien/Spiegel in Unterordnern (z. B. `novapolis_agent/.github/workflows/`) gelten als Stubs/Archiv und werden von GitHub Actions nicht ausgeführt. Cleanup als eigener Task vorschlagen (vorher eingehende Verweise prüfen).
 
 Die Hauptmodule
 ---
-Novapolis Agent (Backend)
----
- ### Arbeitskontext
-   - Repo: `novapolis_agent` (Branch `main`), Stack: FastAPI + Ollama, Kern: `app/main.py`, `app/api/models.py`, `app/core/settings.py`, `app/core/prompts.py`.
- #### Schnellziele bei Codeänderungen
-   - CI grün halten: Tests (`pytest`), Typen (Pyright/Mypy). CI prüft `docs/DONELOG.txt`.
-   - Nach jedem Edit Tests/Typen sequentiell ausführen und Ergebnisse abwarten (`pytest -q` → `pyright -p pyrightconfig.json` → `python -m mypy --config-file mypy.ini app scripts`). Keine Vorab-Statusmeldungen.
- #### PR-/Push-Checks
-   - Tests lokal: `pytest -q` oder passende Marker.
-   - Typechecks: `pyright -p pyrightconfig.json`, `python -m mypy --config-file mypy.ini app scripts`; optional Task „Tests: coverage (fail-under 80%)“.
-   - Änderungen an `app/`, `scripts/`, `utils/` → DONELOG-Update (Push auf main erfordert Eintrag; PR-Befreiung via Label `skip-donelog`).
- #### Pytest-Marker & Selektiver Lauf
-   - Unit: `pytest -q -m unit`.
-   - API/Streaming: `pytest -q -m "api or streaming"`.
-   - Selektiv: `pytest -q -k test_rate_limit_headers_on_success`.
- ## API & Integration
-   - Endpunkte: `/`, `/health`, `/version`, `POST /chat`, `POST /chat/stream` (SSE).
-   - Prompts zentral in `app/core/prompts.py`; Kontext-Notizen via ENV `CONTEXT_NOTES_ENABLED=true`, Pfade in Settings.
-   - Synonyme: Basis `eval/config/synonyms.json`, Overlay `eval/config/synonyms.local.json` (optional, Merge).
- ### Konventionen
-   - Modelle ausschließlich über `app/api/models.py` importieren (nicht `app/schemas.py`).
-   - Middleware setzt `X-Request-ID` auch bei Fehlern; HTTPException-Header werden gemergt.
-   - Rate-Limit per ENV; Tests nutzen `monkeypatch.setenv(...)` und Module-Reload.
- ## Häufige Fehlerquellen
-   - Streaming/SSE: Generator liefert Events; Tests erwarten `event: meta` mit `"policy_post"`, `event: delta` mit `"text"`, `event: done`.
-   - Rate-Limit-Header: Bei Erfolg `X-RateLimit-{Limit,Remaining,Window}`, bei 429 zusätzlich `Retry-After`.
-   - CORS-ENV `BACKEND_CORS_ORIGINS` akzeptiert JSON-Liste oder Komma-Liste (Validator in `settings`).
- #### Workflows & Artefakte
-   - Lokal starten: `uvicorn app.main:app --reload` (Swagger `/docs`).
-   - Finetune-Export/Prepare: Tasks „Finetune: export (latest)“ → `scripts/export_finetune.py`, „Finetune: prepare (split)“ → `scripts/prepare_finetune_pack.py` (Outputs `eval/results/finetune/`).
- #### Nachschlagen & Meta
- - CI/Workflows: `.github/workflows/ci.yml`, `.github/workflows/enforce-donelog.yml`.
-   - Tests siehe `tests/` (u. a. `test_app_*` für Health/Request-ID/Rate-Limit; Streaming-/Policy-Tests definieren Format).
-   - Skripte: `scripts/` (Eval/Export/Train/Reports) – vorhandene CLI-Optionen nutzen.
-   - Beim Aktualisieren dieser Datei Hinweise aus den Agent‑Essentials oben beachten (Progress-Cadence, DONELOG, Shell-Hinweise); nach Änderungen Checks abwarten. Manuelle Reihenfolge für Vollprüfungen: erst `pytest -q`, dann `pyright -p pyrightconfig.json`, danach `python -m mypy --config-file mypy.ini app scripts`.
- - Feedbackbedarf (Marker, Tasks, Troubleshooting) kurz melden.
+### Novapolis Agent (Backend)
+### Arbeitskontext
+- Repo: `novapolis_agent` (Branch `main`), Stack: FastAPI + Ollama, Kern: `app/main.py`, `app/api/models.py`, `app/core/settings.py`, `app/core/prompts.py`.
+#### Schnellziele bei Codeänderungen
+- CI grün halten: Tests (`pytest`), Typen (Pyright/Mypy). CI prüft `docs/DONELOG.txt`.
+- Nach jedem Edit Tests/Typen sequentiell ausführen und Ergebnisse abwarten (`pytest -q` → `pyright -p pyrightconfig.json` → `python -m mypy --config-file mypy.ini app scripts`). Keine Vorab-Statusmeldungen.
+#### PR-/Push-Checks
+- Tests lokal: `pytest -q` oder passende Marker.
+- Typechecks: `pyright -p pyrightconfig.json`, `python -m mypy --config-file mypy.ini app scripts`; optional Task „Tests: coverage (fail-under 80%)“.
+- Änderungen an `app/`, `scripts/`, `utils/` → DONELOG-Update (Push auf main erfordert Eintrag; PR-Befreiung via Label `skip-donelog`).
+#### Pytest-Marker & Selektiver Lauf
+- Unit: `pytest -q -m unit`.
+- API/Streaming: `pytest -q -m "api or streaming"`.
+- Selektiv: `pytest -q -k test_rate_limit_headers_on_success`.
+### API & Integration
+- Endpunkte: `/`, `/health`, `/version`, `POST /chat`, `POST /chat/stream` (SSE).
+- Prompts zentral in `app/core/prompts.py`; Kontext-Notizen via ENV `CONTEXT_NOTES_ENABLED=true`, Pfade in Settings.
+- Synonyme: Basis `eval/config/synonyms.json`, Overlay `eval/config/synonyms.local.json` (optional, Merge).
+### Konventionen
+- Modelle ausschließlich über `app/api/models.py` importieren (nicht `app/schemas.py`).
+- Middleware setzt `X-Request-ID` auch bei Fehlern; HTTPException-Header werden gemergt.
+- Rate-Limit per ENV; Tests nutzen `monkeypatch.setenv(...)` und Module-Reload.
+### Häufige Fehlerquellen
+- Streaming/SSE: Generator liefert Events; Tests erwarten `event: meta` mit `"policy_post"`, `event: delta` mit `"text"`, `event: done`.
+- Rate-Limit-Header: Bei Erfolg `X-RateLimit-{Limit,Remaining,Window}`, bei 429 zusätzlich `Retry-After`.
+- CORS-ENV `BACKEND_CORS_ORIGINS` akzeptiert JSON-Liste oder Komma-Liste (Validator in `settings`).
+#### Workflows & Artefakte
+- Lokal starten: `uvicorn app.main:app --reload` (Swagger `/docs`).
+- Finetune-Export/Prepare: Tasks „Finetune: export (latest)“ → `scripts/export_finetune.py`, „Finetune: prepare (split)“ → `scripts/prepare_finetune_pack.py` (Outputs `eval/results/finetune/`).
+#### Nachschlagen & Meta
+- CI/Workflows: `.github/workflows/ci.yml`, `.github/workflows/enforce-donelog.yml`.
+- Tests siehe `tests/` (u. a. `test_app_*` für Health/Request-ID/Rate-Limit; Streaming-/Policy-Tests definieren Format).
+- Skripte: `scripts/` (Eval/Export/Train/Reports) – vorhandene CLI-Optionen nutzen.
+- Beim Aktualisieren dieser Datei Hinweise aus den Agent‑Essentials oben beachten (Progress-Cadence, DONELOG, Shell-Hinweise); nach Änderungen Checks abwarten. Manuelle Reihenfolge für Vollprüfungen: erst `pytest -q`, dann `pyright -p pyrightconfig.json`, danach `python -m mypy --config-file mypy.ini app scripts`.
+- Feedbackbedarf (Marker, Tasks, Troubleshooting) kurz melden.
 
-Novapolis-RP
-------------
- ## Working Rules (Novapolis)
-   - SSOT: **/Main/novapolis-dev/**.
-   - Minimal und transparent: Diffs klein halten, betroffene Dateien und Diffstat nennen.
-   - Keine Shell-Kommandos, keine History-Rewrites.
-   - Working Docs liegen in `novapolis-dev/docs/` (todo, donelog, tests, naming-policy, copilot-behavior, index).
-   - `novapolis-rp/development/...` sind Redirect-Stubs – nicht hineinschreiben.
-   - Vor APPLY nach verbliebenen `development/docs`-Referenzen suchen (nur in Redirect-README und `meta.origin` erlaubt).
-   - Nach APPLY sicherstellen, dass verschobene Docs Sidecars mit `source`, `origin`, `migrated_at` besitzen.
+### Novapolis-RP
+### Working Rules (Novapolis)
+- SSOT: **/Main/novapolis-dev/**.
+- Minimal und transparent: Diffs klein halten, betroffene Dateien und Diffstat nennen.
+- Keine Shell-Kommandos, keine History-Rewrites.
+- Working Docs liegen in `novapolis-dev/docs/` (todo, donelog, tests, naming-policy, copilot-behavior, index).
+- `novapolis-rp/development/...` sind Redirect-Stubs – nicht hineinschreiben.
+- Vor APPLY nach verbliebenen `development/docs`-Referenzen suchen (nur in Redirect-README und `meta.origin` erlaubt).
+- Nach APPLY sicherstellen, dass verschobene Docs Sidecars mit `source`, `origin`, `migrated_at` besitzen.
 
 Workspace-Instructions (kompakt)
 ---
 ### Primärer Kontext
-   - Dev‑Hub: Siehe dieses Dokument (Essentials) sowie `novapolis-dev/docs/index.md` für Navigation & Prozess.
-   - `novapolis-dev/docs/index.md` – Navigation & Prozessreferenz.
-   - `novapolis-rp/database-raw/99-exports/README.md` – RAW-Policy (keine ungefilterten Daten nach `database-rp/`).
+- Dev‑Hub: Siehe dieses Dokument (Essentials) sowie `novapolis-dev/docs/index.md` für Navigation & Prozess.
+- `novapolis-dev/docs/index.md` – Navigation & Prozessreferenz.
+- `novapolis-rp/database-raw/99-exports/README.md` – RAW-Policy (keine ungefilterten Daten nach `database-rp/`).
 
 ### Wichtige Regeln
-   - Sprache: Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
-   - RAW-Only: Ungefilterte Exporte ausschließlich unter `database-raw/99-exports/` speichern.
-   - Curation-Flow: Für RP-Nutzung stets Ingest/Curation verwenden (`coding/tools/curation/`).
-   - Minimal-Delta: Änderungen klein halten; `novapolis-dev/docs/donelog.md` pflegen.
-   - Sicherheit & Privacy: Keine Secrets; offline bevorzugen.
+- Sprache: Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
+- RAW-Only: Ungefilterte Exporte ausschließlich unter `database-raw/99-exports/` speichern.
+- Curation-Flow: Für RP-Nutzung stets Ingest/Curation verwenden (`coding/tools/curation/`).
+- Minimal-Delta: Änderungen klein halten; `novapolis-dev/docs/donelog.md` pflegen.
+- Sicherheit & Privacy: Keine Secrets; offline bevorzugen.
 
 ### Antworten & Format
-   - Prägnant, skimmbar; kurze Sätze, Bullet-Listen ok, keine überladenen Blockzitate.
-   - Bei größeren Aufgaben ToDo-Liste des betroffenen Moduls oder `Main/todo-root.md` ergänzen.
+- Prägnant, skimmbar; kurze Sätze, Bullet-Listen ok, keine überladenen Blockzitate.
+- Bei größeren Aufgaben ToDo-Liste des betroffenen Moduls oder `Main/todo-root.md` ergänzen.
 
 
 ### Diagnose‑Playbook bei Lint‑FAIL (pwsh, konservativ)
-   - Ziel: Lint‑Fehler reproduzierbar erfassen, schnell auswerten und mit minimalem Risiko beheben.
-   - Ausführung (repo‑weit, Konfiguration aus Root):
-   - Bestehendes Terminal (PowerShell 7, `-NoProfile`) verwenden.
-   - Vollständige Ausgabe in Datei sichern:
-   - Beispiel: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' 2>&1 | Tee-Object -FilePath lint_fail.out`
-   - Analyse (PowerShell‑only, Python via Here‑String in `python -` pipen):
-   - Hintergrund: Kein Bash, keine Backticks; UTF‑8 sicher; kein Multi‑Line `python -c`.
-   - Muster (Interpreter anpassen, z. B. auf Workspace‑Venv):
+- Ziel: Lint‑Fehler reproduzierbar erfassen, schnell auswerten und mit minimalem Risiko beheben.
+- Ausführung (repo‑weit, Konfiguration aus Root):
+- Bestehendes Terminal (PowerShell 7, `-NoProfile`) verwenden.
+- Vollständige Ausgabe in Datei sichern:
+- Beispiel: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' 2>&1 | Tee-Object -FilePath lint_fail.out`
+- Analyse (PowerShell‑only, Python via Here‑String in `python -` pipen):
+- Hintergrund: Kein Bash, keine Backticks; UTF‑8 sicher; kein Multi‑Line `python -c`.
+- Muster (Interpreter anpassen, z. B. auf Workspace‑Venv):
 
   ```powershell
   $python = 'F:\VS Code Workspace\Main\.venv\Scripts\python.exe'  # ggf. anpassen
@@ -476,13 +484,13 @@ Workspace-Instructions (kompakt)
   $script | & $python -
   ```
 
-### Typische Befunde und Fixes:
-   - MD012/no-multiple-blank-lines: Doppelte Leerzeilen entfernen (konservativ, nur überzählige Leerzeilen).
-   - MD047/single-trailing-newline: Fehlende Abschluss‑Zeile am Dateiende hinzufügen (genau eine).
-#### Akzeptanzchecks:
-     - Nach Fix: optional enger Bereich erneut mit obigem npx‑Aufruf prüfen.
-     - Voller Lauf mit `'**/*.md'` kann weiterhin FAIL sein, bis alle betroffenen Dateien bereinigt sind.
-     - Ergebnisse kurz protokollieren (PASS/FAIL, ggf. Pfad zur Ausgabe z. B. `lint_fail.out`).
+### Typische Befunde und Fixes
+- MD012/no-multiple-blank-lines: Doppelte Leerzeilen entfernen (konservativ, nur überzählige Leerzeilen).
+- MD047/single-trailing-newline: Fehlende Abschluss‑Zeile am Dateiende hinzufügen (genau eine).
+#### Akzeptanzchecks
+   - Nach Fix: optional enger Bereich erneut mit obigem npx‑Aufruf prüfen.
+   - Voller Lauf mit `'**/*.md'` kann weiterhin FAIL sein, bis alle betroffenen Dateien bereinigt sind.
+   - Ergebnisse kurz protokollieren (PASS/FAIL, ggf. Pfad zur Ausgabe z. B. `lint_fail.out`).
 
 #### Mirrors/Redirect‑Stubs
  - Unter `novapolis-rp/Main/novapolis-dev/docs/` liegen nur noch Redirect‑Stubs; Single Source of Truth ist `novapolis-dev/docs/**`.
@@ -501,6 +509,8 @@ Hinweis (Terminal/Pwsh):
 ---
 ### Standard ist jetzt PowerShell 7 (`pwsh`).
  Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Für einfache, kurze Einzeiler weiterhin `-Command` Inline nutzen; für komplexe oder mehrzeilige Abläufe (Coverage, Artefakt-Erzeugung, umfangreiche Prüf-Sequenzen) zwingend Skript-Wrapper nutzen: `pwsh -NoProfile -File <script.ps1>`. Wrapper sind nur in dieser Form erlaubt (kein indirektes Aufrufen per `-Command` mit Here-Strings). - Achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`) bei allen Inline-Kommandos.
-#### Ausnahme (Systemzeit):
+#### Ausnahme (Systemzeit)
  Für einfache, pfadfreie Einzeiler ist `-Command` erlaubt und kanonisch. 
 ##### Systemzeit immer so ermitteln: `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
+
+Postflight: STOP-Gate dedupliziert, Meta-/Systeminfo konsolidiert, Prüfabläufe und Module korrekt gerelevelt, Heading-Stile vereinheitlicht; Lint-Ziele MD001/MD003/MD007/MD009/MD012/MD023/MD025/MD032/MD047 erfüllt.
