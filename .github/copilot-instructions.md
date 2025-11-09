@@ -9,7 +9,7 @@
  Precedence: Immer zuerst laden → alle Aktionen, Tests und Änderungen müssen den hier definierten Regeln folgen.  
  Compliance: Wrapper-Policy, STOP-Gate, Frontmatter-Policy, Lint-Policy, Security-Checks, Logging-Receipt, Meta-/Systeminfo-Protokollierung.  
  Audit: Jede Antwort oder Änderung endet mit einem Postflight-Block nach Abschnitt „Meta-/Systeminfo-Protokollierung“.  
- Timestamp: 2025-11-08 23:20
+ Timestamp: 2025-11-09 01:19
 ============================
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
@@ -500,4 +500,3 @@ Hinweis (Terminal/Pwsh):
  ## Ausnahme (Systemzeit):
  Für einfache, pfadfreie Einzeiler ist `-Command` erlaubt und kanonisch. 
  ### Systemzeit immer so ermitteln: `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
-
