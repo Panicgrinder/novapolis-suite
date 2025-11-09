@@ -1,4 +1,5 @@
-# LLM-Dokumentenheader (nicht löschen)
+LLM-Dokumentenheader (nicht löschen)
+====================================
  Type: Copilot Instruction Set / Project Governance  
  Scope: Novapolis-Suite (VS Code Workspace Main)  
  Language: Deutsch  
@@ -10,7 +11,6 @@
  Compliance: Wrapper-Policy, STOP-Gate, Frontmatter-Policy, Lint-Policy, Security-Checks, Logging-Receipt, Meta-/Systeminfo-Protokollierung.  
  Audit: Jede Antwort oder Änderung endet mit einem Postflight-Block nach Abschnitt „Meta-/Systeminfo-Protokollierung“.  
  Timestamp: 2025-11-09 01:19
-============================
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
 Kurzreferenz aller Überschriften dieser Anleitung
@@ -20,32 +20,32 @@ Kurzreferenz aller Überschriften dieser Anleitung
 
 Dateipfad & Geltungsbereich
 ---
- #### Kanonischer Speicherort:
+#### Kanonischer Speicherort:
  `.github/copilot-instructions.md` im Repo-Root. Nur hier abgelegte Inhalte gelten als verbindlich; Kopien/Backups dienen ausschließlich der Historie.
- # Geltungsbereich:
+#### Geltungsbereich:
  Regeln gelten für Copilot Chat in VS Code, Inline-Completions, Apply-Patch-Befehle und agentische Funktionen (z. B. Tasks, Run-Code-Snippets). Bei Tools mit begrenztem Kontext immer die Kernregeln priorisieren und Details bei Bedarf im Chat referenzieren.
- ### Pfad-Disziplin: 
+#### Pfad-Disziplin: 
  Tippfehler oder abweichende Verzeichnisse (z. B. `.github/copilot-instuctions.md`) werden ignoriert. Vor Änderungen prüfen, dass die editierte Datei exakt den kanonischen Pfad besitzt.
 
 Primäre Behaviour-Quellen
 ---
- ### SSOT: Dieses Dokument ist die zentrale Verhaltens‑/Arbeitsrichtlinie. Modul‑/Domänenreferenzen:
+### SSOT: Dieses Dokument ist die zentrale Verhaltens‑/Arbeitsrichtlinie. Modul‑/Domänenreferenzen:
    - Konsolidiert: Frühere Modulkopien (Agent/Dev‑Hub) wurden in dieses Dokument überführt und entfernt.
    - `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`: Rollenspiel-spezifische Verhaltenshooks und Rollenmatrix (SSOT in RP).
    - `novapolis-rp/development/docs/` enthielt Legacy-Stubs und wurde entfernt (2025-11-05). Verwende ausschließlich die oben genannte RP‑Quelle und dieses Dokument.
-   ## Priorität:
-     - 11 Dieses Dokument (global), 2. `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.*` (RP-spezifisch), 3. `novapolis_agent/docs/DONELOG.txt` + Agent-Essentials (Backend-spezifisch). Bei Konflikten gilt die niedrigere Zahl.
+#### Priorität:
+  - 11 Dieses Dokument (global), 2. `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.*` (RP-spezifisch), 3. `novapolis_agent/docs/DONELOG.txt` + Agent-Essentials (Backend-spezifisch). Bei Konflikten gilt die niedrigere Zahl.
 
 Gemeinsamer Arbeitsstil
 ---
- ## Für verschiedene Optionen gibt es einen "Zustand", definiert als:
+### Für verschiedene Optionen gibt es einen "Zustand", definiert als:
    - "(true)" Eintrag muss umgesetzt/befolgt werden.
    - "(false)" Eintrag hat aktuell keine Gültigkeit. Muss mit `yyyy-MM-dd HH:mm` und `name` und kurze info z.b. Grund: & Aufgabe: usw. versehen.
    - Einträge, die weder mit "(true)" noch mit "(false)" versehen sind, gelten als "(true)".
    - Es gilt:
      - Übergeordnete Einträge gelten über alleinstehende und referenzierte Einträge.
  - Standard-Antwortsprache ist Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
- ### Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen:
+### Arbeite iterativ, halte Tests und Typprüfungen grün, dokumentiere substanzielle Änderungen:
    - Root: `DONELOG.md`, `todo.root.md`.
    - Agent: `novapolis_agent/docs/DONELOG.txt` (und projektinterne TODOs, falls vorhanden).
    - Dev‑Hub: `novapolis-dev/docs/donelog.md`, `novapolis-dev/docs/todo.*.md`.
@@ -55,7 +55,7 @@ Gemeinsamer Arbeitsstil
 
 Onboarding & Setup
 ---
- - Schnell‑Index (häufig genutzte Themen)
+- Schnell‑Index (häufig genutzte Themen)
 
  | Thema        | Vorkommen |
  | ---          | ---:      |
@@ -75,7 +75,7 @@ Onboarding & Setup
  - Hinweis: Aus dieser Datei automatisch ermittelt (Stoppwörter/Plural nicht normalisiert). Dient als Navigationshilfe, nicht als strikte Metrik.
 
 Kanonische Prüfabläufe (pwsh)
-===
+---
  # Empfohlen (Wrapper, Copilot/GPT):
    ```powershell
    pwsh -NoProfile -File scripts\run_pytest_coverage.ps1
@@ -108,22 +108,22 @@ Kanonische Prüfabläufe (pwsh)
      > `$maxTestFiles` kann bei Bedarf angepasst werden; die STOP-Meldung verhindert, dass ungewollt große Testmengen laufen.
      ```
 
- # Aggregierte Prüfung (`Checks: full`): 
+### Aggregierte Prüfung (`Checks: full`): 
    - obige Befehle in der Reihenfolge Lint → Typen → Tests ausführen und Ergebnisse dokumentieren.
 
- ## Zusatz (pwsh):
+### Zusatz (pwsh):
    - Für Python-Befehle den Interpreter aus `.venv` verwenden (Fallback `python`), wie in den Beispielen gezeigt.
    - Bei Pfaden mit Leerzeichen `${workspaceFolder}` und `Join-Path` einsetzen.
    - Wrapper-Richtlinie: Wenn ein Befehl mehr als ~120 Zeichen umfasst, Artefakte schreibt (z. B. JUnit/Coverage/XML) oder mehrere logische Schritte enthält (Collect-Guard, Ausführung, Summary), als eigenes Skript unter `scripts/` ablegen und ausschließlich über `pwsh -NoProfile -File` starten. Keine mehrstufigen Inline-Blöcke mit verschachtelten `& { ... }` für solche Fälle.
 
- # Update-Logistik
+### Update-Logistik
    - Timestamp: Änderungen im Format `YYYY-MM-DD HH:mm` erfassen (aktuell) – gilt für Kopfzeilen („Stand“, „Letzte Aktualisierung“), DONELOG-Einträge und kurze Statusnotizen. Standard ist die lokale Systemzeit. Wer mit abweichender Zeitzone arbeitet, ergänzt im `update`-Feld den Offset (z. B. `UTC+02`) oder weist ihn im Text aus. Eine Umstellung auf `Z`/UTC erfolgt erst nach Anpassung des Validators.
    - Systemzeit (lokal, kanonisch): `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
    - Kurznotiz: 1–2 Sätze oder Bullet, was angepasst wurde (analog zu `novapolis-rp/database-rp/02-*`). Bei komplexeren Tasks optional Primärpfad referenzieren (`app/...`, `scripts/...`).
    - Prüfungen: Relevante Checks nennen (z. B. `pytest -q`, `pyright`, `markdownlint-cli2`) inkl. Ergebnis/Exit-Status; bei Bedarf Link/Dateipfad zur Ausgabe ergänzen.
    - Markdownlint-Läufe protokollieren: Lauf/Command + PASS/FAIL direkt nach dem Lauf im Status erwähnen.
 
- ## Workspace‑Tree‑Artefakte (Zuordnung)
+### Workspace‑Tree‑Artefakte (Zuordnung)
    - „Workspace tree: full“ → `workspace_tree_full.txt`
    - „Workspace tree: directories“ → `workspace_tree.txt`
    - „Workspace tree: summary (dirs)“ → `workspace_tree_dirs.txt`
@@ -131,16 +131,17 @@ Kanonische Prüfabläufe (pwsh)
    - Referenzen: Wenn vorhanden Issue-/PR-Links, Commit-Hash oder Kontextnotizen angeben (Inline oder als Fußnote). Für wiederkehrende Schritte Templates/Tasks im Root `.vscode/` ergänzen.
    - Nicht-triviale Änderungen → in zugehörige TODO oder DONELOG.
 
- # Markdownlint (zentral)
-   MD003 = `setext_with_atx` (H1/H2 im Setext‑Stil, H3+ im ATX‑Stil; je Level konsistent innerhalb der Datei). Keine gemischten Stile für dasselbe Level in einer Datei.
-   ## Konfiguration erfolgt zentral über `.markdownlint-cli2.jsonc`; projektlokale Overrides nur nach Review und dokumentierter Ausnahme.
+Markdownlint (zentral)
+---
+  MD003 = `setext_with_atx` (H1/H2 im Setext‑Stil, H3+ im ATX‑Stil; je Level konsistent innerhalb der Datei). Keine gemischten Stile für dasselbe Level in einer Datei.
+### Konfiguration erfolgt zentral über `.markdownlint-cli2.jsonc`; projektlokale Overrides nur nach Review und dokumentierter Ausnahme.
    `ignores` in der CLI2‑Config decken generierte/kuratierte Bereiche ab (u. a. `novapolis_agent/eval/results/**`, `novapolis_agent/outputs/**`, `outputs/**`, `novapolis-rp/.pytest_cache/**`).
-   ## Vor Arbeiten mit Copilot/GPT‑5 Pflichtlauf im bestehenden Terminal:
+### Vor Arbeiten mit Copilot/GPT‑5 Pflichtlauf im bestehenden Terminal:
    `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (ohne zusätzliche `pwsh -NoProfile -Command`-Hülle).
    - Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc '**/*.md'`.
-   ## Grundsatz:
+### Grundsatz:
      Keine globalen CLI‑Installationen und keine Wrapper‑Skripte für Markdownlint verwenden; ausschließlich `npx --yes`.
-   ## Optionaler Zusatz: Für einen schnellen Dokumentations‑Lint direkt im Terminal ausführen:
+### Optionaler Zusatz: Für einen schnellen Dokumentations‑Lint direkt im Terminal ausführen:
      `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/**/*.md' 'novapolis_agent/docs/**/*.md'`
 
 YAML-Frontmatter (kompakt & LLM-freundlich)
@@ -159,7 +160,7 @@ YAML-Frontmatter (kompakt & LLM-freundlich)
      checks: keine
      ---
 
- # Hinweise:
+### Hinweise:
    - Bei jedem Schreibvorgang Frontmatter-Zeitstempel und `update`/`checks` aktualisieren.
    - Ausnahme: Für dieses Dokument (`.github/copilot-instructions.md`) keine YAML-Frontmatter verwenden (Parser-Einschränkung). Snapshot hier weiterhin per `Stand:`-Zeile pflegen.
    - Fallback (allgemein): Wenn YAML-Frontmatter technisch nicht einsetzbar ist (Parser/Format-Einschränkung), nutze am Dokumentanfang eine kompakte Kopfzeile im Klartext:
@@ -170,7 +171,8 @@ YAML-Frontmatter (kompakt & LLM-freundlich)
      - `Checks: pytest -q PASS`
  - Migrationsstatus & Historie: Siehe Archiv `novapolis-dev/archive/copilot-instructions-update-tode.archive.md`.
 
- # Frontmatter‑Schutz (true)(robust gegen Delimiter‑Verlust)
+Frontmatter‑Schutz (true)(robust gegen Delimiter‑Verlust)
+---
    - Ziel: Verhindern, dass die erste/letzte Frontmatter‑Zeile (`---`) versehentlich entfernt oder verändert wird.
    - Editor‑Policy (Markdown):
      - Format On Save für Markdown deaktivieren; Auto‑Fixer/Prettier für Markdown nicht einsetzen.
@@ -200,30 +202,30 @@ Security & Dependencies
    - Keine Secrets ins Repo commiten (`.env` bleibt lokal). Vor Uploads/Exports prüfen, ob sensible Daten sanitisiert sind.
 
 Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
-===
- ## Zweck:
+---
+### Zweck:
    - Dieser Abschnitt definiert, wann und wie Copilot automatisch Meta- und Systeminformationen ausgibt, um jede Aktion revisionssicher zu dokumentieren.
    - Das Format ist minimalistisch, maschinenlesbar und tokenoptimiert.
    - Er ist verpflichtend für jede Änderung oder Erstellung von Dateien, Prüf- und Validierungsvorgänge sowie komplexe Abläufe mit Mehrschritt-Logik.
 
- # Preflight (false)( 08.11.2025 20:58 Panicgrinder Grund: Copilot/GPT beendet direkt nach dem ausgeben des preflights seine Nachricht und schreibt nicht weiter. Aufgabe: Analyse und Fehlerbehebung zu einem anderen Zeitpunkt, da Postflight intakt.)(vor jeder Änderung)
+### Preflight (false)( 08.11.2025 20:58 Panicgrinder Grund: Copilot/GPT beendet direkt nach dem ausgeben des preflights seine Nachricht und schreibt nicht weiter. Aufgabe: Analyse und Fehlerbehebung zu einem anderen Zeitpunkt, da Postflight intakt.)(vor jeder Änderung)
    - Vor jeder Aktion, die Dateien verändert oder generiert, muss Copilot einen Preflight-Block ausgeben, bevor irgendetwas ausgeführt wird.
    - Dieser Block dient der Vorschau und Bestätigung, dass alle Regeln, Pfade, STOP-Gates und Policies korrekt geladen sind.
-   ## Format (Pflichtfelder fett, optionale Angaben in Klammern):
+#### Format (Pflichtfelder fett, optionale Angaben in Klammern):
      - Meta: Modus=Preflight, **Arbeitsverzeichnis=<Pfad>**, **RepoRoot=<Pfad>**, (PSScriptRoot=<Pfad>), (PSVersion=<x.y.z>), Aufruf=pwsh -NoProfile -File <Pfad.zum.Skript.ps1>, (SHA256=<Hash.der.Skriptdatei>), STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
-   ## Verhalten:
+#### Verhalten:
      - Keine Änderungen, kein Schreiben, keine Commits.
      - Dient ausschließlich der Kontexterkennung und Validierung.
      - Wird bei aktivem STOP-Gate durch eine manuelle Freigabe fortgesetzt.
      - Darf nicht übersprungen werden.
 
- # Postflight (true)(nach Abschluss eines vollständigen Arbeitsvorgangs)
-   ## Nach Abschluss eines vollständigen, logisch abgeschlossenen Vorgangs (z. B. Vereinheitlichung mehrerer Dokumente, Ausführung aller Tests, Erstellung eines Skripts) muss Copilot genau einen Postflight-Block ausgeben.
+### Postflight (true)(nach Abschluss eines vollständigen Arbeitsvorgangs)
+#### Nach Abschluss eines vollständigen, logisch abgeschlossenen Vorgangs (z. B. Vereinheitlichung mehrerer Dokumente, Ausführung aller Tests, Erstellung eines Skripts) muss Copilot genau einen Postflight-Block ausgeben.
    - Es dürfen keine Zwischenblöcke bei Mehrfachdateien oder Schleifen erzeugt werden.
    - Ergebnisse sind gesammelt und am Ende auszugeben.
-   ## Falls ein Vorgang unerwartet abgebrochen wird oder ein STOP-Gate ausgelöst wurde:
+#### Falls ein Vorgang unerwartet abgebrochen wird oder ein STOP-Gate ausgelöst wurde:
      - Meta: Modus=Abort, Grund=<Kurzbeschreibung>, Zeitpunkt=<yyyy-MM-dd HH:mm>
-   ## Format für erfolgreiche Postflight-Ausgabe:
+#### Format für erfolgreiche Postflight-Ausgabe:
      - Meta: Modus=Postflight, Arbeitsverzeichnis=<Pfad>, RepoRoot=<Pfad>, PSScriptRoot=<Pfad>, PSVersion=<x.y.z>, Aufruf=pwsh -NoProfile -File <Pfad.zum.Skript.ps1>, SHA256=<Hash.der.Skriptdatei>, STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
      - Prüfung: markdownlint=<PASS/FAIL>, ExitcodeLint=<N>, behobenLint=<ja/nein>, Frontmatter-Validator=<PASS/FAIL>, ExitcodeFM=<N>, behobenFM=<ja/nein>, Cleanup-WhatIf-Exit=<N>, behobenWhatIf=<ja/nein>, Cleanup-Real-Exit=<N>, behobenReal=<ja/nein>, WorkspaceScanRoot=<Zahl>, WorkspaceScanRecurse=<Zahl>
      - Regeln: IDs=<R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG>, Details=R-WRAP über -File erzwungen; R-STOP aktiv vor Real; R-FM geprüft; R-LINT ausgeführt; R-SCAN Root-only; R-CTX Quellen geladen; R-SEC geprüft; R-LOG Receipt erstellt
@@ -231,15 +233,15 @@ Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
      - Ende: Timestamp=<yyyy-MM-dd HH:mm> (jedesmal aktuelle Systemzeit über pwsh einholen.)
 
 
- # Kompakter Meta-Block für normale Antworten
-   ## Zweck: Für alltägliche, nicht-ausführende Antworten (keine Dateiänderung, keine Task-Starts) ist ein sehr kompakter, maschinenlesbarer Meta-Block am Ende der Nachricht erlaubt und erwünscht. Er erleichtert automatisches Parsing und dokumentiert kurz Kontext/Absicht ohne die Preflight/Postflight-Pflicht zu ersetzen.
-   ## Format (einzeilig, komma-separiert):
+### Kompakter Meta-Block für normale Antworten
+#### Zweck: Für alltägliche, nicht-ausführende Antworten (keine Dateiänderung, keine Task-Starts) ist ein sehr kompakter, maschinenlesbarer Meta-Block am Ende der Nachricht erlaubt und erwünscht. Er erleichtert automatisches Parsing und dokumentiert kurz Kontext/Absicht ohne die Preflight/Postflight-Pflicht zu ersetzen.
+#### Format (einzeilig, komma-separiert):
      - Meta: Modus=General, Arbeitsverzeichnis=<Pfad|optional>, RepoRoot=<Pfad|optional>, PSScriptRoot=<Pfad|optional>, PSVersion=<x.y.z|optional>, Aufruf=<Aufruf|none>, Aktion=<Kurzbeschreibung>, Timestamp=<yyyy-MM-dd HH:mm>
        - Minimalbeispiel (sehr kurz):
        - Meta: Modus=General
-   ### Beispiel (empfohlen, wenn etwas Kontext nützlich ist):
+##### Beispiel (empfohlen, wenn etwas Kontext nützlich ist):
      - Meta: Modus=General, Arbeitsverzeichnis=F:\\VS Code Workspace\\Main, RepoRoot=F:\\VS Code Workspace\\Main, PSScriptRoot=scripts, PSVersion=pwsh 7.3, Aufruf=none, Aktion=Antwort auf Coverage-Summary, Timestamp=2025-11-08 17:00
-   ## Regeln:
+#### Regeln:
      - Dieser kompakte Meta-Block ersetzt nicht die Preflight- oder Postflight-Blöcke, wenn Dateien verändert oder Skripte ausgeführt werden. Für jede auszuführende Aktion ist weiterhin ein Preflight (vorher) und ein Postflight (nachher) erforderlich.
      - Der kompakte Block soll eine einzelne Zeile bleiben, sparsam verwendet werden und keine sensiblen Informationen enthalten.
      - Felder sind optional; wenn nur der Modus angegeben wird, genügt `Meta: Modus=General`.
@@ -280,67 +282,67 @@ Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
    - ID R-SAFE: Minimaländerungen ohne semantischen Eingriff (nur Orthografie/Lint, wenn eingeschränkt erlaubt)
 
 STOP-Gates & Modi
-===
- # STOP‑Gate (true)(scharf)(beidseitig, vor Modus‑relevanten Aktionen)
-   ## Vor potenziell modus‑relevanten Aktionen – code‑schwer (z. B. Dateiedits unter Codepfaden, Skript-/Validator‑Neubau, Test-/Typecheck‑Runs, API/Service‑Änderungen) ODER redaktionell/kanon‑kritisch (z. B. Behaviour-/Policy‑Dokumente, Kanon-/SSOT‑Änderungen) – wird ein hartes STOP‑Gate gesetzt.
-   ## Ablauf:
+---
+### STOP‑Gate (true)(scharf)(beidseitig, vor Modus‑relevanten Aktionen)
+#### Vor potenziell modus‑relevanten Aktionen – code‑schwer (z. B. Dateiedits unter Codepfaden, Skript-/Validator‑Neubau, Test-/Typecheck‑Runs, API/Service‑Änderungen) ODER redaktionell/kanon‑kritisch (z. B. Behaviour-/Policy‑Dokumente, Kanon-/SSOT‑Änderungen) – wird ein hartes STOP‑Gate gesetzt.
+#### Ablauf:
    1. Ausgabe „STOP: Moduswechsel empfohlen <GPT-Modus>. Bitte Modus wählen.“
    2. Warten auf explizite Bestätigung:
      - „Wechsel: Modus Codex“ → sofort auf Codex wechseln und fortfahren.
      - „Wechsel: Modus General“ → sofort auf General wechseln und fortfahren.
      - „Weiter: aktueller Modus“ → ohne Moduswechsel fortfahren.
    3. Ohne Bestätigung keine auslösenden Aktionen starten.
-   ### Hinweise:
+#### Hinweise:
      - Das STOP‑Gate gilt beidseitig (Code ↔ Redaktion). Reine triviale Konversationen sind nicht betroffen.
      - Während STOP gilt „Debug/Analyse vor Ausführung“: Keine neuen Build/Test/Run‑Tasks automatisch starten
      - Laufende Task‑Wünsche werden in eine interne Queue gelegt und erst nach Freigabe gestartet.
      - Manuell‑ausführen‑Pflicht (kritische Läufe): 
      - Bei Coverage‑Gates oder Fehlersuche im Terminal mit gesetztem cwd=`/Main` arbeiten und Befehle mit `Join-Path` sauber quoten (mit -NoProfile -Command).
 
-  # Unklarheiten‑STOP (true)(global, immer gültig)
-   ## „Grün“ gilt nur bis zum nächsten unerwarteten Ereignis. Sobald etwas außerhalb des Plans liegt, sofort STOP. (unabhängig vom aktiven Modus).
-   ## Unerwartet = mindestens eins davon:
+### Unklarheiten‑STOP (true)(global, immer gültig)
+#### „Grün“ gilt nur bis zum nächsten unerwarteten Ereignis. Sobald etwas außerhalb des Plans liegt, sofort STOP. (unabhängig vom aktiven Modus).
+#### Unerwartet = mindestens eins davon:
      - Abweichung vom Plan/Ergebnis oder Modul‑Erwartung
      - Widerspruch (Quellen/Regeln/Invarianten/SSOT)
      - Unsicherheit über Bedeutung/Wirkung/Reichweite
      - Sicherheits-/Privacy‑Bedenken
      - Falscher/unklarer Modus (General ↔ Codex)
      - Ausnahmen (kein STOP): Bereiche, die explizit als „RAW“, „noisy“ oder „staging/experimentell“ gekennzeichnet sind.
-   ## Vorgehen bei STOP:
+#### Vorgehen bei STOP:
      1. Kurzstatus: Was ist abweichend/unklar (1–2 Sätze)?
      2. 1–2 Vorschläge (inkl. „keine Aktion“) zur Auswahl darlegen.
      3. Auf Freigabe warten – keine Folgeaktionen bis Bestätigung.
-   # Priorität: Dieses STOP hat Vorrang vor dem Moduswechsel‑Gate. Falls eine Lösung Code erfordert, danach Moduswechsel vorschlagen und bestätigen lassen.
+### Priorität: Dieses STOP hat Vorrang vor dem Moduswechsel‑Gate. Falls eine Lösung Code erfordert, danach Moduswechsel vorschlagen und bestätigen lassen.
 
- # Modell-Profile & Moduswechsel (GPT‑5 ↔ GPT‑5 Codex)
+### Modell-Profile & Moduswechsel (GPT‑5 ↔ GPT‑5 Codex)
  - Kurzdefinition: General = redaktionelle/Analyse‑Arbeiten; Codex = Code/Tests/Build‑/CI‑Arbeiten.
  - Standardmodus: GPT‑5 (General) für redaktionelle Arbeiten, Kanon-/Quellenabgleich, `[FACT]`↔`[FACT?]`‑Revalidierung, Policy-/Prozess‑Checks und Textkurierung.
  - Aktiver Modus wird zu Sitzungsbeginn sowie bei STOP-Gates im Chat bestätigt; dieser Abschnitt dokumentiert ausschließlich die Wechselheuristiken.
  - Codex-Modus (umschalten bei Bedarf): Für Code‑schwere Aufgaben wie Skripte/Validatoren, Tests/CI, API‑/Service‑Änderungen, Parser/RegEx, Datentransformationen.
- ## Heuristische Trigger für Wechselvorschlag (nicht automatisch, nur Hinweis):
+#### Heuristische Trigger für Wechselvorschlag (nicht automatisch, nur Hinweis):
    - Edits in Quellcodepfaden: `novapolis_agent/app/**`, `novapolis_agent/scripts/**`, `novapolis_agent/utils/**`, `novapolis_agent/tests/**`, `packages/**`, `novapolis-rp/coding/**`.
    - Anforderung: „Bitte Skript/Validator/Test bauen“, „API anpassen“, „Pytest/Typing fixen“.
    - Geplante Ausführung technischer Tasks: Pytest/Mypy/Pyright, Linter-/Build‑Themen.
- ## Erinnerung/Prompting‑Policy:
+#### Erinnerung/Prompting‑Policy:
    - Wenn aktueller Modus = GPT‑5 und ein Trigger erkannt wird: „Hinweis: Moduswechsel zu Codex empfohlen für Code‑schwere Aufgaben. Bitte bestätigen.“
    - Wenn aktueller Modus = Codex und redaktionelle Arbeit erkannt wird: „Hinweis: Moduswechsel zu General empfohlen für redaktionelle Aufgaben. Bitte bestätigen.“
    - Nutzerentscheid respektieren; bei „nein“ weiter im aktuellen Modus arbeiten.
    - Explizite Nutzerwahl überschreibt Heuristik: „Modus Codex“/„Modus General“ setzt sofort um.
 
 Essentials (konzentriert)
-===
- ## Agent (Backend) – Essentials
+---
+### Agent (Backend) – Essentials
    - Aktiver Codepfad: `novapolis_agent/app/**`, Hilfsskripte unter `novapolis_agent/scripts/`.
    - Grüne Gates: `pytest -q`, `pyright -p pyrightconfig.json`, `python -m mypy --config-file mypy.ini app scripts`, Coverage ≥ 80 % (`scripts/run_pytest_coverage.ps1`).
    - DONELOG-Pflicht: Änderungen in `app/`, `scripts/`, `utils/` im `novapolis_agent/docs/DONELOG.txt` protokollieren.
    - Streaming- und Rate-Limit-Checks berücksichtigen (`tests/test_app_*`, SSE-Events `meta`/`delta`/`done`).
 
- ## Dev‑Hub – Essentials
+### Dev‑Hub – Essentials
    - Arbeitsdokumentation lebt unter `novapolis-dev/docs/**` (todo, donelog, index, naming-policy).
    - Redirect-Stubs in `novapolis-rp/development/...` bleiben unverändert; echte Inhalte ausschließlich im Dev-Hub pflegen.
    - Struktur- oder Regeländerungen im `novapolis-dev/docs/donelog.md` und im Root-DONELOG festhalten; betroffene Tree-Artefakte aktualisieren.
 
- ## RP – AI Behavior Mapping (Canvas) – Überblick
+### RP – AI Behavior Mapping (Canvas) – Überblick
    - Zweck: Domänen‑Canvas für Verhaltensmatrix (Cluster O/E/M/N/C/S/L/T, Intensität 01–99, Modifikatoren wie k/a/z/p/r/s/h).
    - Signaturformat: `<Anchor>=<Cluster><Intensität>-…-<Modifier>` (z. B. `R4=O82-T79-L70-E60-…-kpr`).
    - Anker‑Register und Beispiele: Siehe `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`.
@@ -373,7 +375,7 @@ Release & Versionierung
  - Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Root sind wirksam. Kopien/Spiegel in Unterordnern (z. B. `novapolis_agent/.github/workflows/`) gelten als Stubs/Archiv und werden von GitHub Actions nicht ausgeführt. Cleanup als eigener Task vorschlagen (vorher eingehende Verweise prüfen).
 
 Die Hauptmodule
-===
+---
 Novapolis Agent (Backend)
 ---
  ### Arbeitskontext
@@ -423,25 +425,25 @@ Novapolis-RP
    - Nach APPLY sicherstellen, dass verschobene Docs Sidecars mit `source`, `origin`, `migrated_at` besitzen.
 
 Workspace-Instructions (kompakt)
-===
- ## Primärer Kontext
+---
+### Primärer Kontext
    - Dev‑Hub: Siehe dieses Dokument (Essentials) sowie `novapolis-dev/docs/index.md` für Navigation & Prozess.
    - `novapolis-dev/docs/index.md` – Navigation & Prozessreferenz.
    - `novapolis-rp/database-raw/99-exports/README.md` – RAW-Policy (keine ungefilterten Daten nach `database-rp/`).
 
- ## Wichtige Regeln
+### Wichtige Regeln
    - Sprache: Deutsch (Erklärungen, Beispiele, Fehlermeldungen).
    - RAW-Only: Ungefilterte Exporte ausschließlich unter `database-raw/99-exports/` speichern.
    - Curation-Flow: Für RP-Nutzung stets Ingest/Curation verwenden (`coding/tools/curation/`).
    - Minimal-Delta: Änderungen klein halten; `novapolis-dev/docs/donelog.md` pflegen.
    - Sicherheit & Privacy: Keine Secrets; offline bevorzugen.
 
- ## Antworten & Format
+### Antworten & Format
    - Prägnant, skimmbar; kurze Sätze, Bullet-Listen ok, keine überladenen Blockzitate.
    - Bei größeren Aufgaben ToDo-Liste des betroffenen Moduls oder `Main/todo-root.md` ergänzen.
 
 
- ## Diagnose‑Playbook bei Lint‑FAIL (pwsh, konservativ)
+### Diagnose‑Playbook bei Lint‑FAIL (pwsh, konservativ)
    - Ziel: Lint‑Fehler reproduzierbar erfassen, schnell auswerten und mit minimalem Risiko beheben.
    - Ausführung (repo‑weit, Konfiguration aus Root):
    - Bestehendes Terminal (PowerShell 7, `-NoProfile`) verwenden.
@@ -473,10 +475,10 @@ Workspace-Instructions (kompakt)
   $script | & $python -
   ```
 
- ## Typische Befunde und Fixes:
+### Typische Befunde und Fixes:
    - MD012/no-multiple-blank-lines: Doppelte Leerzeilen entfernen (konservativ, nur überzählige Leerzeilen).
    - MD047/single-trailing-newline: Fehlende Abschluss‑Zeile am Dateiende hinzufügen (genau eine).
-   ## Akzeptanzchecks:
+#### Akzeptanzchecks:
      - Nach Fix: optional enger Bereich erneut mit obigem npx‑Aufruf prüfen.
      - Voller Lauf mit `'**/*.md'` kann weiterhin FAIL sein, bis alle betroffenen Dateien bereinigt sind.
      - Ergebnisse kurz protokollieren (PASS/FAIL, ggf. Pfad zur Ausgabe z. B. `lint_fail.out`).
@@ -489,14 +491,15 @@ Workspace-Instructions (kompakt)
  - Export: `coding/tools/chat-exporter/` (Auto-Scroll, Inaktivitäts-Stop, speicherschonend).
  - Ingest: `coding/tools/curation/ingest_jsonl.py` (streamend, chunked, sanftes Cleaning).
  
-# Ziele
+Ziele
+---
  - Stabiles Gedächtnis (Admin: system-prompt/memory-bundle) und reibungsloser Szenenstart.
  - Reproduzierbare, nachvollziehbare Schritte (Dokumentation & kleine Commits).
  
 Hinweis (Terminal/Pwsh):
 ---
- # Standard ist jetzt PowerShell 7 (`pwsh`).
+### Standard ist jetzt PowerShell 7 (`pwsh`).
  Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Für einfache, kurze Einzeiler weiterhin `-Command` Inline nutzen; für komplexe oder mehrzeilige Abläufe (Coverage, Artefakt-Erzeugung, umfangreiche Prüf-Sequenzen) zwingend Skript-Wrapper nutzen: `pwsh -NoProfile -File <script.ps1>`. Wrapper sind nur in dieser Form erlaubt (kein indirektes Aufrufen per `-Command` mit Here-Strings). - Achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`) bei allen Inline-Kommandos.
- ## Ausnahme (Systemzeit):
+#### Ausnahme (Systemzeit):
  Für einfache, pfadfreie Einzeiler ist `-Command` erlaubt und kanonisch. 
- ### Systemzeit immer so ermitteln: `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
+##### Systemzeit immer so ermitteln: `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
