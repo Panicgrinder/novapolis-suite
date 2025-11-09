@@ -388,6 +388,20 @@ Release & Versionierung
 
 - Hinweis (CI‑Workflows): Nur Workflows unter `.github/workflows/` am Repo‑Root sind wirksam. Kopien/Spiegel in Unterordnern (z. B. `novapolis_agent/.github/workflows/`) gelten als Stubs/Archiv und werden von GitHub Actions nicht ausgeführt. Cleanup als eigener Task vorschlagen (vorher eingehende Verweise prüfen).
 
+Doku-Update (true)
+---
+Bedeutung: Wenn aktiv, hält Copilot alle relevanten Arbeitsdokumente synchron, sobald eine Änderung fachlich oder strukturell wirksam ist.
+Trigger (auslösend, nicht optional): neue/verschobene/umbenannte Dateien, geänderte Tests/Lints/Validatoren, Behaviour-Änderungen, Release-Schritte, aktualisierte Skripte oder Workflows.
+Pflichtschritte pro Änderungsfall:
+- TODOs aktualisieren: erledigte Punkte abhaken/verschieben, neue Nacharbeiten erfassen (Root `todo.root.md`, Dev-Hub `novapolis-dev/docs/todo.*.md`, projektspezifische TODOs nur wenn vorhanden).
+- DONELOG ergänzen: kurzer, prüfbarer Receipt mit Wer/Was/Wann/Kontext (Root `DONELOG.md`, Agent `novapolis_agent/docs/DONELOG.txt`, Dev-Hub `novapolis-dev/docs/donelog.md`).
+- READMEs/Indexseiten synchronisieren: betroffene Abschnitte, Links, Anker und Zählungen nachziehen (insb. `novapolis-dev/docs/index.md`, `WORKSPACE_INDEX.md`).
+- Frontmatter pflegen: `stand` mit lokaler Systemzeit `yyyy-MM-dd HH:mm`, `update` kurz, `checks` mit relevanten Ergebnissen; keine Delimiter anfassen.
+- Lint/Validator laufen lassen und Ergebnis notieren: `markdownlint-cli2` für Docs, Frontmatter-Validator; nur grüne Zustände gelten als abgeschlossen.
+- Strukturänderungen dokumentieren: bei Verschiebungen/Neuordnung Arbeitsbaum-Artefakte aktualisieren (`workspace_tree_full.txt`, `workspace_tree_dirs.txt`) und in den Statusdateien vermerken (`WORKSPACE_STATUS.md`).
+### Grenzen: rein orthografische Mikro-Fixes ohne semantische Wirkung dürfen gebündelt werden, solange Frontmatter, Lint und Status grün bleiben.
+### STOP-Gate: Unklarheit über Geltungsbereich, kollidierende Quellen oder rote Checks erzwingen STOP; erst nach Klärung fortfahren.
+
 Die Hauptmodule
 ---
 ### Novapolis Agent (Backend)

@@ -1,6 +1,15 @@
 stand: 2025-11-09 22:11
 update: Validator/Test/Coverage Receipts aufgenommen; Statusblöcke ergänzt.
 checks: Frontmatter VALIDATOR PASS; Pytest PASS; Coverage 81.66%
+
+Recent Changes
+--------------
+
+- 2025-11-09 22:38: Wrapper‑Umstellung: Lange inline `pwsh -NoProfile -Command` Tasks in `/.vscode/tasks.json` wurden auf `-File` Wrapper‑Skripte umgestellt. Hinzugefügt: `scripts/checks_linters.ps1`, `scripts/checks_types.ps1`, `scripts/tests_pytest_root.ps1`. Backup‑Marker: `Backups/tasks.json.bak`.
+- 2025-11-09 22:42: Post‑Run Summary: `scripts/checks_linters.ps1` (ruff/black) produced many style/format issues (see linter output summary). `scripts/checks_types.ps1` (pyright+mypy) reported 0 errors and 12 warnings. `scripts/tests_pytest_root.ps1` (`pytest -q`) aborted during collection with multiple ImportErrors (missing package paths / module imports). See `novapolis_agent/docs/DONELOG.txt` for details.
+
+- 2025-11-09 22:55: Tests executed: After installing `novapolis_agent` editable into root `.venv` and running pytest with CWD `novapolis_agent`, the test suite completed successfully (100% collected; run shown as completed). See `novapolis_agent/docs/DONELOG.txt` for the run receipt.
+
 ---
 
 Workspace-Status
