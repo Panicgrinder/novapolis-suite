@@ -1,17 +1,17 @@
 ---
-stand: 2025-11-07 18:23
+stand: 2025-11-09 02:46
 update: Pytest Volllauf protokolliert (Tests PASS; Coverage-Gate vorerst ignoriert)
-checks: pytest: 240 passed, 1 skipped (PASS); coverage gate FAIL (temporär waived)
+checks: markdownlint-cli2 PASS; frontmatter PASS
+archived: true
 ---
-<!-- markdownlint-disable MD022 MD041 -->
+<!-- markdownlint-disable MD001 MD022 MD041 -->
 
 Single Root TODO (Novapolis Suite)
 =================================
 
 Dieses Dokument bietet eine zentrale, lesefreundliche Übersicht über alle laufenden Arbeiten im Monorepo. Die fachlichen Single Sources of Truth (SSOT) bleiben in den Modul-TODOs unter `novapolis-dev/docs/` erhalten.
 
-Hinweise
---------
+### Hinweise
 
 - SSOT: Modul-TODOs bleiben maßgeblich. Diese Datei dient als komfortabler Root-Einstieg.
 - Archivierung: Fertige Blöcke (alle [x]) bitte in die jeweiligen Modul-Archive unter `novapolis-dev/archive/` verschieben.
@@ -20,8 +20,7 @@ Hinweise
 - Terminal/Pwsh: Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks (ohne Markdownlint) sind entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`). Für komplexe/mehrachsige Abläufe sind Skript‑Wrapper via `pwsh -NoProfile -File <script.ps1>` Pflicht; Details siehe `.github/copilot-instructions.md`.
 - STOP-Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → Abschnitt „Unklarheiten‑STOP (global, immer gültig)“.
 
-Kurzüberblick (Module & Quellen)
---------------------------------
+### Kurzüberblick (Module & Quellen)
 
 - Index: `novapolis-dev/docs/todo.index.md`
 - Agent: `novapolis-dev/docs/todo.agent.md`
@@ -30,8 +29,7 @@ Kurzüberblick (Module & Quellen)
 - Sim: `novapolis-dev/docs/todo.sim.md`
 - Root-Übersicht (ausführlich): `todo.root.md`
 
-Offene Aufgaben (Root – quer durchs Repo)
-----------------------------------------
+### Offene Aufgaben (Root – quer durchs Repo)
 
 - [x] Wrapper-Policy präzisiert & gespiegelt (Root/TODO)
   - 2025-11-07: `.github/copilot-instructions.md` vereinheitlicht (Wrapper via `pwsh -NoProfile -File` zwingend); Hinweis in diesem Dokument ergänzt.
@@ -67,6 +65,7 @@ Offene Aufgaben (Root – quer durchs Repo)
 - [x] Tree-Snapshots aktualisieren bei Strukturänderungen
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [ ] Backups & Releases (Manifest/Checksums/Rotation) pflegen
+  - Status 2025-11-08: Manifest generated_at 2025-11-08 (UTC), Einträge: 3
 - [ ] Markdown-Ausgaben der Skripte (Chat-Exporter, todo_gather, summarize_eval_results, Reports) auf Setext-/Frontmatter-Konformität prüfen und anpassen.
   - [x] Audit dokumentiert: `Backups/AUDIT.md`
   - [x] Skripte ergänzt: `scripts/update_backups_manifest.ps1`, `scripts/rotate_backups.ps1`
@@ -76,8 +75,7 @@ Offene Aufgaben (Root – quer durchs Repo)
     - 2025-11-03 00:28: `novapolis_agent.bundle` → `novapolis-agent-backup-20251103-0028-rev1.bundle` (sha256 protokolliert)
 
 
-Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
--------------------------------------------------
+### Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
 
 ### Agent (Backend)
 
@@ -113,14 +111,12 @@ Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
 - [ ] Event-Signals (on_action_start/end, ...)
 - [ ] Scheduler-Hook vorbereiten
 
-Pflege & Regeln
----------------
+### Pflege & Regeln
 
 - DONELOG-Pflege: Substanzielle Arbeiten bitte in den passenden DONELOG eintragen (`novapolis-dev/docs/donelog.md` bzw. `novapolis_agent/docs/DONELOG.txt`).
 - Minimal-Delta: Kleine, zielgerichtete Patches; Redirect-/Mirror-Stubs erst nach Link-Prüfung entfernen.
 
-Monorepo Single Root – Umstellungsplan (Schritt für Schritt)
------------------------------------------------------------
+### Monorepo Single Root – Umstellungsplan (Schritt für Schritt)
 
 Zielbild: Eine Wahrheit im Root (`/Main`), eine Python-Umgebung im Root (`.venv`), zentrale Tasks/Settings. Module sind „dumme“ Unterordner ohne eigene Interpreter/Tasks. Tests werden nur dort entdeckt/ausgeführt, wo sie hingehören.
 
@@ -253,7 +249,7 @@ Notiz (2025-11-07 05:15): Modul-Workflows entfernt (siehe Liste oben); Root-Work
 
 ### VS Code Workspace (Multi-root → Single-root)
 
-Aktueller Stand (geprüft): `novapolis-suite.code-workspace` ist als Single-root konfiguriert (folders: nur `{ "path": "." }`). Der Multi-root-Modus ist entfernt und unterstützt die Single-Root-Umstellung.
+Aktueller Stand (geprüft): `novapolis-suite.code-workspace` entfernt/archiviert, siehe Archivhinweis.
 
 - [x] Entscheidung: `.code-workspace` entfernen ODER auf Single-root reduzieren (nur `{ "path": "." }`).
 - [x] Falls behalten: `folders` auf nur Root setzen; modulare Einträge entfernen.
@@ -286,4 +282,12 @@ Notiz (2025-11-07 12:37): Devcontainer für Agent entfernt/deaktiviert (novapoli
 Notiz (2025-11-07 12:56): Devcontainer-Ordner physisch gelöscht; keine aktive VS Code Devcontainer-Konfiguration mehr im Repo.
 
 Notiz (2025-11-02 11:35): Root `pyproject.toml` jetzt tools-only (black/ruff/pytest). Packaging verbleibt in Modulen/Paketen.
+
+Archiv-Hinweis: Archiviert am 2025-11-09, siehe Historie/Backups.
+
+Postflight:
+Meta: Modus=Postflight, Timestamp=2025-11-09 02:46
+Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG,R-COV,R-IDX,R-COMM,R-RED,R-TODO,R-TIME,R-SAFE
+Lint: PASS, behoben=MD003 (H1/H2→ATX H3 für Nicht-Titel), verbleibend=none
+Frontmatter: PASS
 
