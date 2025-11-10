@@ -122,31 +122,22 @@ def _write_md_with_frontmatter(out: str, md_body: str, update_text: str = "Gener
     # Erzeuge Frontmatter
     ts = now_human() if now_human is not None else ""
 
-    # Konvertiere nur die Kopfsektion: erste H1 (# ) und die erste H2 (## )
-    body = md_body
-    # Normalize line endings
-    body = body.replace('\r\n', '\n').lstrip('\ufeff')
-
-    # If document starts with an H1 ATX, convert it
-    if body.startswith('# '):
-        parts = body.split('\n', 1)
-        first = parts[0][2:].rstrip()
-        rest = parts[1] if len(parts) > 1 else ''
-        underline = '=' * len(first)
-        body = f"{first}\n{underline}\n\n{rest.lstrip()}"
-
-    # Convert all H2 (ATX '## ') to Setext-style (underline with '-')
+    # Konvertiere höchstens die allererste H1 (# ) direkt am Dokumentanfang,
+    # aber NICHT wenn sie "TODO-Status" enthält. Keine weiteren H1/H2 anfassen.
+    body = md_body.replace('\r\n', '\n').lstrip('\ufeff')
     lines = body.split('\n')
-    i = 0
-    while i < len(lines):
-        ln = lines[i]
-        if ln.startswith('## '):
-            h2 = ln[3:].rstrip()
-            lines[i] = h2
-            lines.insert(i+1, '-' * len(h2))
-            i += 2
-        else:
-            i += 1
+    # finde erste nicht-leere Zeile
+    idx = 0
+    while idx < len(lines) and lines[idx].strip() == "":
+        idx += 1
+    if idx < len(lines) and lines[idx].startswith('# '):
+        first_title = lines[idx][2:].strip()
+        # Nur konvertieren, wenn Titel nicht "TODO-Status" enthält
+        if 'todo-status' not in first_title.lower():
+            underline = '=' * len(first_title)
+            # ersetze die H1-Zeile durch Setext-Variante und füge Leerzeile danach ein
+            new_head = [first_title, underline, ""]
+            lines = lines[:idx] + new_head + lines[idx+1:]
     body = '\n'.join(lines)
 
     # Ensure single trailing newline at EOF
