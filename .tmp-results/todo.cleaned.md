@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-10 06:00
-update: Erstfassung bereinigte Aufgabenliste (Root), JSON-Draht für Copilot/GPT
-checks: pending
+stand: 2025-11-10 22:01
+update: Status nach Workspace-Audit & Tests ergänzt; Wrapper/Scanner-Aufgaben verlinkt
+checks: markdownlint pending, Tests run_pytest_quick.ps1 PASS (2025-11-10)
 ---
 
 Bereinigte Aufgabenliste (Root)
@@ -47,3 +47,5 @@ Hinweise
 
 - STOP-Marker: Tagging-Write, Cleanup Phase 4, Multi-Root-Abschluss.
 - SSOT: Detailkontext und Volltextliste in `todo.root.md`; diese Datei dient als Arbeitsfahrplan für Copilot/GPT.
+- 2025-11-10 20:17: WORKSPACE_INDEX Header-Duplikate und SimClient Variable gefixt (Commit 5922521). `run_pytest_quick.ps1` PASS.
+- Wrapper-Aufgaben: `scripts/run_checks_and_report.ps1` (Lint/Typen/Tests + Report) finalisieren; Link-Scanner `scripts/scan_links.ps1` implementieren und Reports unter `.tmp-results/scan/` ablegen.
