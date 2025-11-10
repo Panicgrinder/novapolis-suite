@@ -28,7 +28,6 @@ Während der Agent nicht erreichbar ist, bleibt die Oberfläche responsiv und ze
 
 Weitere Assets oder Artefakte werden nicht benötigt; das Projekt arbeitet ausschließlich mit Bordmitteln von Godot 4.
 
- 
 Local Start / Stop / Verify (Developer)
 -------------------------------------
 
@@ -71,4 +70,14 @@ Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -and ($_.CommandLi
 ```
 
 Hinweis: `SimClient.gd` stellt `step_interval` und `port` als `@export` bereit (Inspector), sodass du Polling‑Intervall und Port bei Bedarf anpassen kannst.
+
+Avoiding the Editor / (DEBUG) window
+-----------------------------------
+
+Wenn du vermeiden willst, dass Godot das Editorfenster mit „(DEBUG)“ öffnet, starte die Simulation headless oder führe eine exportierte Release‑Build aus. Zwei einfache Optionen:
+
+- Headless verifier (schnell, für CI / Smoke): `pwsh -File .\scripts\run_sim_headless.ps1` — startet lokal die `verify_sim.gd` im Headless‑Modus, kein Editorfenster.
+- Release/Export (empfohlen für Produktion): Exportiere das Projekt (`Project -> Export`) als Windows Desktop und starte die erzeugte `.exe` — das läuft ohne Editor‑Overlay und ohne Debug‑Label.
+
+Hinweis: Wenn deine lokale Godot‑Binary eine Debug‑Build ist, zeigt das exportierte Editor‑Playfenster weiterhin Debug‑Markierungen. Lade im Zweifelsfall die offizielle Release‑Binary von `https://godotengine.org` oder nutze einen Export (Release) für produktives Ausführen.
 
