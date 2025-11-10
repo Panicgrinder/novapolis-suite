@@ -1,5 +1,6 @@
 LLM-Dokumentenheader (nicht löschen)
 ====================================
+- Hinweis: Zeitzone Europe/Berlin. Preflight ist deaktiviert (in review, Stand: 2025-11-10 11:00); bis zur Reaktivierung gilt: Postflight verpflichtend, kompakter Meta-Block dient als Belegspur.
 - Type: Copilot Instruction Set / Project Governance
 - Scope: Novapolis-Suite (VS Code Workspace Main)
 - Language: Deutsch
@@ -34,7 +35,10 @@ Primäre Behaviour-Quellen
 - `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}`: Rollenspiel-spezifische Verhaltenshooks und Rollenmatrix (SSOT in RP).
 - `novapolis-rp/development/docs/` enthielt Legacy-Stubs und wurde entfernt (2025-11-05). Verwende ausschließlich die oben genannte RP‑Quelle und dieses Dokument.
 #### Priorität
-- 11 Dieses Dokument (global), 2. `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.*` (RP-spezifisch), 3. `novapolis_agent/docs/DONELOG.txt` + Agent-Essentials (Backend-spezifisch). Bei Konflikten gilt die niedrigere Zahl.
+- 1. Dieses Dokument (global)
+- 2. `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.*` (RP-spezifisch)
+- 3. `novapolis_agent/docs/DONELOG.txt` + Agent-Essentials (Backend-spezifisch)
+   Bei Konflikten gilt die niedrigere Zahl.
 
 Gemeinsamer Arbeitsstil
 ---
@@ -51,7 +55,7 @@ Gemeinsamer Arbeitsstil
 - Dev‑Hub: `novapolis-dev/docs/donelog.md`, `novapolis-dev/docs/todo.*.md`.
 - Weitere Projekt‑TODOs nur, wenn tatsächlich vorhanden; ansonsten Root/Dev‑Hub nutzen.
 - Prägnanter Output: skimmbar, keine überladenen Blockzitate; bei großen Aufgaben Plan in betreffende todo eintragen.
-- Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren. (zuletzt aktualisiert: 2025:11:08 21:18)
+- Root-Statusdateien `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` als globalen Kontext heranziehen und nach größeren Umstrukturierungen oder mindestens monatlich aktualisieren. (zuletzt aktualisiert: 2025-11-08 21:18)
 
 Onboarding & Setup
 ---
@@ -112,7 +116,7 @@ pwsh -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'
 if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest FAIL ($LASTEXITCODE)" }
 ```
 > `$maxTestFiles` kann bei Bedarf angepasst werden; die STOP-Meldung verhindert, dass ungewollt große Testmengen laufen.
-> Aktueller Status (Stand: 2025-11-09 17:48): Coverage-Gate ≥ 80 % ist erfüllt (zuletzt 81.66 % Gesamt, via Wrapper-Skript).
+> Coverage-Gate ≥ 80 % (dynamischer Wert). Aktueller Prozentwert wird nicht hier festgeschrieben; führende Quelle: `WORKSPACE_STATUS.md`.
 
 ### Aggregierte Prüfung (`Checks: full`)
    - obige Befehle in der Reihenfolge Lint → Typen → Tests ausführen und Ergebnisse dokumentieren.
@@ -191,11 +195,14 @@ Frontmatter‑Schutz (true)(robust gegen Delimiter‑Verlust)
      - Pre‑commit: `scripts/check_frontmatter.py` verpflichtend ausführen; Commit bei Fehlern blocken.
      - Zusätzliche Sofort‑Checks: erste Zeile exakt `---`, schließender Delimiter vorhanden, kein BOM vor dem öffnenden Delimiter.
      - CI: Frontmatter‑Validator als Schritt im Root‑Workflow (fail‑fast außerhalb der Skip‑Pfade).
-     - Skip-Pfade (siehe `scripts/check_frontmatter.py`): `.venv/`, `Backups/`, `outputs/`, `novapolis_agent/eval/results/`, `novapolis_agent/outputs/`, `novapolis-rp/database-raw/`, `.pytest_cache/` (inkl. projektspezifischer Varianten), `.github/ISSUE_TEMPLATE/` sowie diese Datei selbst.
+   - Skip-Pfade (siehe `scripts/check_frontmatter.py`): `.venv/`, `Backups/`, `outputs/`, `novapolis_agent/eval/results/`, `novapolis_agent/outputs/`, `novapolis-rp/database-raw/`, `.pytest_cache/` (inkl. Varianten), `.tmp-results/`, `eval/results/tmp_summaries/`, `novapolis_agent/.tmp-results/` sowie diese Datei selbst.
    - Der Validator ist ein hartes Gate: Sowohl Pre-Commit als auch CI brechen bei Verstößen ab; ohne Fix gibt es keinen Push/kein Merge.
 
 Dateiformat & EOL
 ---
+Frontmatter-Policy (Konsolidiert)
+---
+Standard: Alle Markdown-Dokumente (außer Ausnahme GOV-EX-FM-001 für diese Datei) führen YAML-Frontmatter mit Schlüsseln `stand`, `update`, `checks`. Schutz: Erste und letzte `---` niemals automatisch modifizieren; Validator (`scripts/check_frontmatter.py`) erzwingt Gültigkeit und Skip-Pfade. Ausnahme GOV-EX-FM-001: Diese Governance-Datei behält nur Kopfzeile + „Stand“-Zeile, keine Frontmatter. Frühere Einzelabschnitte bleiben bis vollständiger Merge zur Referenz bestehen.
    - Markdown-Dateien stets als UTF-8 ohne BOM speichern; der Validator schlägt bei BOM im ersten Zeichen fehl.
    - Genau eine abschließende Newline am Dateiende belassen (MD047), keine zusätzlichen Leerzeilen anhängen.
    - Git kümmert sich um Zeilenendungen (LF) im Repo; lokale CRLF-Konvertierungen sind erlaubt, solange der Commit wieder LF enthält. Bei Unsicherheiten `.gitattributes` respektieren und keinen Auto-Formatter einsetzen, der Frontmatter anfasst.
@@ -278,7 +285,7 @@ B. Quellen / Kontext
  6. TODO-Propagation (test): Automatische Übernahme von neu erkannten TODOs in `todo.root.md` ist optional; bis zur expliziten Aktivierung nur dokumentieren.
 
 C. Zeit / Timestamps
- 7. Timestamp-Format (aktiv): `YYYY-MM-DD HH:mm` lokale Zeit (Europe/Berlin); pro Ereignis frisch via `Get-DateS` ermittelt.
+ 7. Timestamp-Format (aktiv): `YYYY-MM-DD HH:mm` lokale Zeit (Europe/Berlin); pro Ereignis frisch via `Get-Date` ermittelt.
  8. Kein Reuse früherer Zeitstempel (aktiv): Jeder Pre-/Postflight holt Zeit erneut.
 
 D. STOP-Gate Interaktion
@@ -322,39 +329,22 @@ Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
    - ID R-TIME: Timestamp-Konvention (lokales Format yyyy-MM-dd HH:mm; Quelle pwsh Get-Date)
    - ID R-SAFE: Minimaländerungen ohne semantischen Eingriff (nur Orthografie/Lint, wenn eingeschränkt erlaubt)
 
+Ergänzende Präzisierungen (Determinismus & Prozessanker)
+---
+- Determinismus: Bei Generator-Runs werden zwei Läufe verglichen; Zeitanteile (Frontmatter-Timestamps, datumsbasierte Dateinamen) werden ignoriert; Bodies müssen textgleich sein, sonst STOP.
+- R-IDX Pflege: Headings-Index wird derzeit manuell aktualisiert (`.github/copilot-instructions-headings.md`); Script kann später ergänzt werden.
+- R-TODO Quelle: SSOT für Zählung `Todos: offen` ist `todo.root.md`; modulare TODO-Dateien sind optional und nicht Teil der Kennzahl.
+- R-WRAP Schwelle: Ein Einzeiler umfasst max. einen Prozessaufruf und höchstens einen Pipe-Schritt; darüber Wrapper via `pwsh -File` zwingend.
+- R-SCAN: Live-Scans nur Root-Ebene (aktiv); Artefakt-Skripte dürfen rekursiv Snapshots erzeugen (aktiv). Terminologie vereinheitlicht auf „aktiv“ / „deaktiviert“.
+- Security-Takt: Monatlicher `pip-audit` Lauf; Ergebnis (PASS/Findings) wird als Kurzzeile in `WORKSPACE_STATUS.md` dokumentiert.
+
 STOP-Gates & Modi
 ---
-### STOP‑Gate (true)(scharf)(beidseitig, vor Modus‑relevanten Aktionen)
-#### Vor potenziell modus‑relevanten Aktionen – code‑schwer (z. B. Dateiedits unter Codepfaden, Skript-/Validator‑Neubau, Test-/Typecheck‑Runs, API/Service‑Änderungen) ODER redaktionell/kanon‑kritisch (z. B. Behaviour-/Policy‑Dokumente, Kanon-/SSOT‑Änderungen) – wird ein hartes STOP‑Gate gesetzt.
-#### Ablauf
-1. Ausgabe „STOP: Moduswechsel empfohlen <GPT-Modus>. Bitte Modus wählen.“
-2. Warten auf explizite Bestätigung:
-   - „Wechsel: Modus Codex“ → sofort auf Codex wechseln und fortfahren.
-   - „Wechsel: Modus General“ → sofort auf General wechseln und fortfahren.
-   - „Wechsel: Modus Mini“ → sofort auf Mini wechseln und fortfahren.
-   - „Weiter: aktueller Modus“ → ohne Moduswechsel fortfahren.
-3. Ohne Bestätigung keine auslösenden Aktionen starten.
-#### Hinweise
- - Das STOP‑Gate gilt beidseitig (Code ↔ Redaktion). Reine triviale Konversationen sind nicht betroffen.
- - Während STOP gilt „Debug/Analyse vor Ausführung“: Keine neuen Build/Test/Run‑Tasks automatisch starten.
- - Laufende Task‑Wünsche werden in eine interne Queue gelegt und erst nach Freigabe gestartet.
- - Manuell‑ausführen‑Pflicht (kritische Läufe):
-- Bei Coverage‑Gates oder Fehlersuche im Terminal mit gesetztem cwd=`/Main` arbeiten und Befehle mit `Join-Path` sauber quoten (direkt ausführen oder bei Bedarf mit `pwsh -Command`).
-
-### Unklarheiten‑STOP (true)(global, immer gültig)
-#### „Grün“ gilt nur bis zum nächsten unerwarteten Ereignis. Sobald etwas außerhalb des Plans liegt, sofort STOP. (unabhängig vom aktiven Modus).
-#### Unerwartet = mindestens eins davon
- - Abweichung vom Plan/Ergebnis oder Modul‑Erwartung
- - Widerspruch (Quellen/Regeln/Invarianten/SSOT)
- - Unsicherheit über Bedeutung/Wirkung/Reichweite
- - Sicherheits-/Privacy‑Bedenken
- - Falscher/unklarer Modus (General ↔ Codex)
- - Ausnahmen (kein STOP): Bereiche, die explizit als „RAW“, „noisy“ oder „staging/experimentell“ gekennzeichnet sind.
-#### Vorgehen bei STOP
-1. Kurzstatus: Was ist abweichend/unklar (1–2 Sätze)?
-2. 1–2 Vorschläge (inkl. „keine Aktion“) zur Auswahl darlegen.
-3. Auf Freigabe warten – keine Folgeaktionen bis Bestätigung.
-### Priorität: Dieses STOP hat Vorrang vor dem Moduswechsel‑Gate. Falls eine Lösung Code erfordert, danach Moduswechsel vorschlagen und bestätigen lassen.
+### STOP‑Gate (Hard & Soft, aktiv)
+Klassen:
+- Hard-Trigger (Mutation/Sicherheit): Code-/Script-Änderungen, Validator-/Testläufe mit Seiteneffekten, Policy-/SSOT-Anpassungen. Ablauf: Empfehlung Moduswahl, explizite Bestätigung zwingend, keine Ausführung vor Freigabe.
+- Soft-Trigger (Mehrdeutigkeit/Konflikt): Unklare Quellen, widersprüchliche Regeln, Moduskonflikte, unspezifizierte Pfade. Ablauf: Kurzstatus + 1–2 Handlungsoptionen; Bestätigung vor Fortsetzung.
+Gemeinsame Regeln: Beidseitig (Code & Redaktion), triviale Gespräche ausgenommen, keine automatische Task-Kaskade während STOP. Hard hat Vorrang bei gleichzeitigem Auftreten. RAW/noisy/staging Bereiche: nur Soft solange keine Mutation.
 
 Modell-Profile & Moduswechsel (GPT-5, GPT-5 Codex, GPT-5 mini)
 ---
