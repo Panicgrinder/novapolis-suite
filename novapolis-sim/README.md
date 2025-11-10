@@ -9,6 +9,12 @@ Novapolis Sim
 
 Ein minimales Godot-4-Projekt zur Visualisierung des Simulationszustands aus dem Novapolis Agenten.
 
+Verbindungstest
+---------------
+
+2025-11-10 12:12 — Verbindung zwischen Godot und dem Agent-API (`POST /world/step`) erfolgreich verifiziert. Der Headless‑Verifier `res://scripts/verify_sim.gd` sowie der PowerShell‑Smoke‑Test `scripts/verify_sim.ps1` liefen durch und lieferten erwartete Antworten (z. B. `tick` und `time`). Ein Screenshot der laufenden Szene wurde als Audit‑Beleg erstellt.
+
+
 Aufgaben & Planung
 ------------------
 

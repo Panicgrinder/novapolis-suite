@@ -161,3 +161,4 @@ Beispiel:
 2025-11-10 08:40 | GitHub Copilot | Cleanup (Agent): `scripts/cleanup_phase3.ps1`, `cleanup_phase4.ps1`, `history_purge_plan.ps1` entfernt.
 
 2025-11-10 11:02 | GitHub Copilot | Sim module: added `novapolis-sim/scripts/verify_sim.gd` (headless verifier), `scripts/verify_sim.ps1` (PowerShell smoke test), updated `novapolis-sim/README.md` with start/stop/verify instructions, and patched `novapolis-sim/autoload/SimClient.gd` (exported `port`, increased default `step_interval`, exponential backoff and improved status messages). Ran smoke test and `novapolis_agent/tests/tests_sim_api.py` (both PASS).
+2025-11-10 12:12 | GitHub Copilot | Docs: Root and `novapolis-sim` README updated to record successful Godot ↔ Agent connection verification (headless verifier + smoke test). WORKSPACE_STATUS.md updated with sim verification note.

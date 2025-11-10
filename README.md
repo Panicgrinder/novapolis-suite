@@ -84,6 +84,11 @@ Workspace öffnen
 - Das vormals verschachtelte Projekt unter `novapolis-sim/novapolis-sim/` wurde archiviert: `Backups/novapolis-sim-archived-20251104/`.
 - Editor‑Pfad ist in `.vscode/settings.json` hinterlegt; Tasks/Repo verweisen nur auf die kanonische Datei.
 
+Verbindungsprüfung
+------------------
+
+2025-11-10 12:12 — Verbindung zwischen der lokalen Godot‑Instanz und dem Agent‑API (`POST /world/step`) wurde erfolgreich verifiziert. Headless‑Verifier (`novapolis-sim/scripts/verify_sim.gd`) und PowerShell‑Smoke‑Test (`scripts/verify_sim.ps1`) liefen lokal durch. Siehe `novapolis-sim/README.md` für Ausführungsbefehle und Audit‑Hinweise.
+
 ### Archiv
 
 - Historisierte oder ältere Planungs-/Prozessdokumente werden zentral unter `novapolis-dev/archive/` abgelegt.
