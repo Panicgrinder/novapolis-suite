@@ -9,6 +9,7 @@ Recent Changes
 
  - 2025-11-10 12:12: Sim-Verifizierung: Verbindung Godot ↔ Agent (`POST /world/step`) erfolgreich verifiziert; Headless‑Verifier und PowerShell‑Smoke‑Test PASS. Screenshot/Audit‑Beleg im Arbeitsverzeichnis erstellt.
  - 2025-11-11 00:09: Dokumentation: Review `scripts/run_checks_and_report.ps1` ergänzt; ToDo für Status-Fix (STOP -> FAIL) eingetragen; zugehörige Doku‑Änderungen committet.
+ - 2025-11-11 00:23: Code: `scripts/run_checks_and_report.ps1` angepasst (STOP-Fall jetzt als FAIL; STOP‑Flag in Regel-Output; robustere Postflight/exit-code); Commit `abe6829`.
  - 2025-11-10 08:40: Skript-Cleanup: entfernt `scripts/run_linters.ps1`, `scripts/tests_pytest_root.ps1`; archiviert Snapshot-Skripte nach `novapolis-dev/archive/scripts/`; Agent-Legacy-PowerShell (`cleanup_phase3.ps1`, `cleanup_phase4.ps1`, `history_purge_plan.ps1`) gelöscht; .tmp Audit aktualisiert.
 - 2025-11-10 08:19: Tool-Registry `settings` Alias wiederhergestellt; targeted pytest `tests/test_tools_registry.py` PASS (AttributeError behoben, R-LINT/R-LOG).
 - 2025-11-10 08:08: Ruff-Fixes in `novapolis_agent/app/tools/registry.py`, `novapolis_agent/scripts/append_done.py`, `novapolis_agent/scripts/rerun_failed.py`; moderne Typannotationen, Import-Sortierung und redundante Open-Modi bereinigt; DONELOGs aktualisiert.
