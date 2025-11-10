@@ -5,15 +5,21 @@ extends Node
 signal state_updated(state: Dictionary)
 signal status_updated(message: String)
 
-@export var step_interval: float = 0.2
+@export var step_interval: float = 0.5
 @export var step_dt: float = 0.1
 @export var host: String = "127.0.0.1"
+@export var port: int = 8765
 
 var _status_message: String = ""
 var _last_state: Dictionary = {}
 var _http: HTTPRequest
 var _timer: Timer
 var _busy: bool = false
+
+# Backoff / retry helpers
+var _backoff: float
+var _backoff_max: float = 8.0
+var _consecutive_failures: int = 0
 
 func _ready() -> void:
     _http = HTTPRequest.new()
@@ -27,6 +33,7 @@ func _ready() -> void:
     _timer.timeout.connect(_on_timer_timeout)
     add_child(_timer)
     _timer.start()
+    _backoff = step_interval
     _set_status("Warte auf Agent...")
 
 
@@ -49,7 +56,10 @@ func _step_world() -> void:
 
     var error := _http.request(url, headers, HTTPClient.METHOD_POST, payload)
     if error != OK:
-        _set_status("HTTP-Fehler %s" % error)
+        _consecutive_failures += 1
+        _backoff = clamp(_backoff * 2.0, step_interval, _backoff_max)
+        _timer.wait_time = _backoff
+        _set_status("HTTP-Fehler %d" % error)
         return
 
     var response = await _http.request_completed
@@ -58,19 +68,36 @@ func _step_world() -> void:
     var body: PackedByteArray = response[3]
 
     if result_code != HTTPRequest.RESULT_SUCCESS:
+        _consecutive_failures += 1
+        _backoff = clamp(_backoff * 2.0, step_interval, _backoff_max)
+        _timer.wait_time = _backoff
         _set_status("Verbindungsproblem (%d)" % result_code)
         return
 
     if http_status < 200 or http_status >= 300:
-        _set_status("Agent-Status %d" % http_status)
+        var resp_text := ""
+        # try to get a short string from body
+        if body.size() > 0:
+            resp_text = body.get_string_from_utf8().substr(0, 200)
+        _consecutive_failures += 1
+        _backoff = clamp(_backoff * 2.0, step_interval, _backoff_max)
+        _timer.wait_time = _backoff
+        _set_status("Agent-Status %d: %s" % [http_status, resp_text])
         return
 
     var parsed = JSON.parse_string(body.get_string_from_utf8())
     if typeof(parsed) != TYPE_DICTIONARY:
+        _consecutive_failures += 1
+        _backoff = clamp(_backoff * 2.0, step_interval, _backoff_max)
+        _timer.wait_time = _backoff
         _set_status("Antwort unlesbar")
         return
 
     _last_state = parsed
+    # success: reset backoff and timer interval
+    _consecutive_failures = 0
+    _backoff = step_interval
+    _timer.wait_time = step_interval
     _set_status("")
     state_updated.emit(_last_state)
     get_tree().call_group("world_listeners", "receive_world_state", _last_state)
