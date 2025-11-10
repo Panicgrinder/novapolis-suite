@@ -125,6 +125,9 @@ $result = [ordered]@{
     overall       = @{ pass = $true; failures = @(); exit = 0 }
 }
 
+# Track whether a STOP Gate was triggered (e.g. too many test files)
+$stopTriggered = $false
+
 if (-not $SkipCodeLint) {
     $ruffCmd = { & $script:pythonBinary -m ruff check . }
     $blackCmd = { & $script:pythonBinary -m black --check . }
@@ -178,7 +181,9 @@ if (-not $SkipTests) {
     $result.tests.collected_files = $fileCount
     if ($fileCount -gt $MaxTestFiles) {
         Write-Warning "STOP: Zu viele Testdateien gesammelt ($fileCount > $MaxTestFiles)."
-        $result.tests.ran = $false
+        # A STOP condition occurred — count the tests as 'ran' so the summary shows FAIL
+        $stopTriggered = $true
+        $result.tests.ran = $true
         $result.tests.pass = $false
         $result.tests.exit = 2
         Update-Overall -Root $result -Phase 'tests' -ExitCode 2
@@ -227,7 +232,7 @@ $docsExit = if ($result.lint_docs.ran) { $result.lint_docs.exit } else { 'NA' }
 
 $ruleUsage = [ordered]@{
     'R-WRAP' = $true
-    'R-STOP' = $false
+    'R-STOP' = $stopTriggered
     'R-FM' = (-not $SkipFrontmatter)
     'R-LINT' = ((-not $SkipCodeLint) -or (-not $SkipDocsLint))
     'R-SCAN' = $false
@@ -242,7 +247,13 @@ $ruleUsage = [ordered]@{
     'R-TIME' = $true
     'R-SAFE' = $true
 }
-$ruleString = ($ruleUsage.GetEnumerator() | ForEach-Object { "{0}({1})" -f $_.Key, $(if ($_.Value) { 'true' } else { 'false' }) }) -join ','
+$ruleString = (
+    $ruleUsage.GetEnumerator() |
+    ForEach-Object {
+        $val = if ($_.Value) { 'true' } else { 'false' }
+        "{0}({1})" -f $_.Key, $val
+    }
+) -join ','
 $ruleDetails = 'Automatisierter Checklauf; keine Mutationen.'
 
 $todoFile = Join-Path $repoRoot 'todo.root.md'
@@ -252,17 +263,20 @@ if (Test-Path -LiteralPath $todoFile) {
     $openTodos = if ($todoMatches) { $todoMatches.Count } else { 0 }
 }
 
+# Compute STOPGate string separately to avoid inline-expression parsing inside the hashtable
+$stopGate = if ($stopTriggered) { 'aktiv' } else { 'deaktiviert' }
+
 $postflight = [ordered]@{
     meta = [ordered]@{
         Modus = 'Postflight'
-        Modell = '<SET BY AGENT>'
+        Modell = 'GPT-5 mini'
         Arbeitsverzeichnis = $pwdPath
         RepoRoot = $repoRoot
         PSScriptRoot = $PSScriptRoot
         PSVersion = $psVersion
         Aufruf = $commandLine
         SHA256 = $scriptSha
-        STOPGate = 'deaktiviert'
+        STOPGate = $stopGate
         WrapperPolicy = 'erfuellt'
         Quellen = @(
             (Join-Path $repoRoot '.github\copilot-instructions.md'),
@@ -338,4 +352,11 @@ $body = @(
 
 Set-Content -LiteralPath $reportPath -Value ($body -join [Environment]::NewLine) -Encoding UTF8
 Write-Host "[run_checks] Report geschrieben: $reportPath" -ForegroundColor Green
-exit 0
+
+# Exit with the aggregated exit code so CI/consumers can detect failures
+if ($null -ne $result.overall.exit -and $result.overall.exit -ne 0) {
+    $exitCode = [int]$result.overall.exit
+} else {
+    $exitCode = 0
+}
+exit $exitCode
