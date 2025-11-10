@@ -13,7 +13,7 @@ Kurzueberblick
 --------------
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
- 
+
 - 2025-11-10 08:08: Ruff-Backlog Etappe gestartet – targeted Fixes in `novapolis_agent/app/tools/registry.py`, `novapolis_agent/scripts/append_done.py`, `novapolis_agent/scripts/rerun_failed.py`; DONELOG & `WORKSPACE_STATUS.md` aktualisiert (R-LINT, R-LOG).
 - 2025-11-09 21:25: Workspace-Analyse durchgeführt (Root/Ordner-Ebene, stichprobenartig Dateien). Befunde ergänzt: Frontmatter-Backlog (R-FM), Multi-Root-Abschluss (R-STOP/R-WRAP), Artefakt-Bereinigung (R-SEC/R-SAFE), Tree-/Status-Snapshots (R-IDX).
 - 2025-11-08 23:21: Headings-Extrakt (`.github/copilot-instructions-headings.md`) aktualisiert; Vorschlagsliste neuer Regel-IDs (R-COV, R-IDX, R-COMM, R-RED, R-TODO, R-TIME, R-SAFE) ergänzt. Klärungsbedarf offen: Precedence zwischen Preflight (false) und „Semantische Regeln“ (obligatorisch); Anwendung der Default-(true)-Regel bei gleichrangigen Abschnitten.
@@ -86,7 +86,7 @@ Hinweis: Aufgrund des Multi‑Root‑STOPs keine Wrapper‑Tasks verwenden; bei 
 - [ ] Konsistenz‑Audit/Report aktualisieren (Sichtprüfung): `novapolis_agent/scripts/reports/generate_consistency_report.py` und Kandidaten aus `novapolis_agent/scripts/audit_workspace.py` prüfen.
 - [ ] Optional nach Review: Cleanup‑Kandidaten (Phase 4) nur mit Freigabe angehen (`novapolis_agent/scripts/cleanup_phase4.ps1`).
 - [ ] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` auswerten; Inhalte in aktive Doku übernehmen oder Datei nach Freigabe entfernen.
- 
+
 #### Tests/Typen/Coverage (Priorität mittel‑hoch, R‑COV)
  - Akzeptanzkriterien:
    - pytest PASS; pyright PASS; mypy PASS.
@@ -109,7 +109,7 @@ Hinweis: Aufgrund des Multi‑Root‑STOPs keine Wrapper‑Tasks verwenden; bei 
 - [ ] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` prüfen; auf Minimal-Ausnahmen reduzieren oder entfernen.
 - [ ] Staging-Reports (`database-curated/staging/reports/*.md`) mit YAML-Frontmatter/Setext nachziehen oder in `novapolis-dev/docs/` migrieren; Altdateien nach Freigabe löschen.
 - [ ] Metadata-Initialisierungsskripte (`coding/tools/metadata/init-metadata.js` vs. `init_metadata.py`) konsolidieren und kanonische Variante dokumentieren.
- 
+
 #### Frontmatter/Markdown‑Sweep (Priorität hoch, R‑FM/R‑LINT)
  - Akzeptanzkriterien:
    - Frontmatter‑Validator PASS im vereinbarten Scope (Zählwerte vor/nach Fix dokumentiert).
@@ -132,7 +132,7 @@ Hinweis: Aufgrund des Multi‑Root‑STOPs keine Wrapper‑Tasks verwenden; bei 
 - [ ] Markdownlint MD003 (aktive Docs): Scope auf essentielle Readmes/Dokus begrenzen, Stichproben-Lint (`markdownlint-cli2`), pro Datei Setext-Stil angleichen und Resttreffer außerhalb des Scopes katalogisieren.
 - [ ] YAML-Frontmatter-Backlog priorisieren: Offene Markdown-Dateien mit `stand/update/checks` nachrüsten (Ausnahme `.github/copilot-instructions.md`), Priorität gemäß zuletzt gemeldeten Lint-Treffern.
 - [ ] Übernahme/Staging-Integration: Inhalte aus `novapolis-rp/database-curated/staging/reports/` nach Review in `novapolis-dev/docs/` spiegeln und Altstände archivieren.
- 
+
 #### Multi‑Root‑STOP auflösen (Priorität hoch, R‑STOP/R‑WRAP)
  - Akzeptanzkriterien:
    - Keine `*.code-workspace` im gesamten Workspace (rekursive Prüfung dokumentiert; Zählwert gefunden/entfernt).

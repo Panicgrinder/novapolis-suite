@@ -52,7 +52,7 @@ function Find-StandTimestamp([string]$content) {
     return $null
 }
 
-function Is-TimestampFresh([string]$standTs, [string]$nowTs, [int]$tolMin) {
+function Test-TimestampFresh([string]$standTs, [string]$nowTs, [int]$tolMin) {
     try {
         $fmt = 'yyyy-MM-dd HH:mm'
         $a = [datetime]::ParseExact($standTs, $fmt, $null)
@@ -101,12 +101,12 @@ foreach ($f in $files) {
     # Dual gate:
     # 1) Stand vs. NOW must be fresh (±Tolerance)
     # 2) A snapshot lock (.snapshot.now) must exist and itself be fresh and near-identical to stand
-    $okNow = Is-TimestampFresh $standTs $current $ToleranceMinutes
+    $okNow = Test-TimestampFresh $standTs $current $ToleranceMinutes
     $okLock = $false
     if ($lock) {
         # lock must be fresh to now AND close to stand (strict ±2 min)
-        $okLockNow = Is-TimestampFresh $lock $current $ToleranceMinutes
-        $okLockStand = Is-TimestampFresh $lock $standTs 2
+        $okLockNow = Test-TimestampFresh $lock $current $ToleranceMinutes
+        $okLockStand = Test-TimestampFresh $lock $standTs 2
         $okLock = ($okLockNow -and $okLockStand)
     }
 
