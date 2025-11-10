@@ -15,6 +15,7 @@ Hoch priorisiert (0–2 Tage)
 - [ ] Agent: Tests/Typen/Coverage abschließen (R-COV)
   - Ziel: `pytest -q` PASS, `pyright` PASS, `mypy` PASS, Coverage ≥80% mit Receipt.
   - Schritte: pytest → pyright → mypy → `scripts/run_pytest_coverage.ps1` (Receipt in `DONELOG.md` + `WORKSPACE_STATUS.md`).
+ - [ ] Agent: Korrektur `scripts/run_checks_and_report.ps1` - STOP-Fall bei zu vielen Testdateien muss als FAIL ausgewiesen werden. (2025-11-11 00:09)
 - [ ] Dev: Multi-Root bereinigen (R-STOP/R-WRAP)
   - [ ] `*.code-workspace` suchen und entfernen/verschieben (report counts)
   - [ ] `tasks.json` Inline-Ketten prüfen → Wrapper-Aufrufe

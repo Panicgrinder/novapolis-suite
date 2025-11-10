@@ -72,9 +72,9 @@ Modulstatus (2025-11-06)
 - Sim (Godot): Gelb. Option A gesetzt, Projektdatei kanonisch; Headless‑Lade‑Check offen.
 
 Nächstes Vorgehen (1–2 Tage)
-----------------------------
-
-Hinweis: Aufgrund des Multi‑Root‑STOPs keine Wrapper‑Tasks verwenden; bei Bedarf Befehle manuell im Terminal ausführen und Ergebnisse kurz dokumentieren.
+ - [ ] Korrektur: `scripts/run_checks_and_report.ps1` - STOP-Fall bei zu vielen Testdateien soll als Fehler/FAIL gemeldet werden (Statuszuordnung anpassen). (2025-11-11 00:09)
+ - [ ] Optional nach Review: Cleanup‑Kandidaten (Phase 4) nur mit Freigabe angehen (`novapolis_agent/scripts/cleanup_phase4.ps1`).
+ - [ ] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` auswerten; Inhalte in aktive Doku übernehmen oder Datei nach Freigabe entfernen.
 
 ### novapolis_agent
 

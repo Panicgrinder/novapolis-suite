@@ -87,6 +87,9 @@ pwsh -File scripts\run_pytest_coverage.ps1
 ```
 
 - `$maxTestFiles` (Standard 40) stellt sicher, dass nicht versehentlich zu viele Testdateien im Lauf landen. Bei Überschreitung stoppt der Befehl mit einer roten STOP-Notiz.
+ 
+Hinweis (2025-11-11): `scripts/run_checks_and_report.ps1` wurde überprüft und liefert bei Überschreitung von `$MaxTestFiles` aktuell einen STOP-Zustand; in der Report-Ausgabe wird dieser Fall derzeit als `SKIP` statt `FAIL` angezeigt. Dokumentiere und behebe bitte die Statuszuordnung im Script (oder passe die Report-Logik an), damit STOP-Bedingungen als Fehler sichtbar bleiben (R-STOP / R-LOG).
+Modus (bei Review): GPT-5 mini (Agent-review), Postflight erforderlich; Änderung in `scripts/run_checks_and_report.ps1` ist optional, ToDo angelegt.
 - Details und Begründung siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“ weiter unten.
 - Einmalig `& .\.venv\Scripts\python.exe -m pip install --upgrade pip` ausführen, falls Pip veraltet ist.
 - Erste Validierung: Sequenz aus Lint (`ruff`, `black --check`), Typen (`pyright`, `mypy`) und Tests mit Coverage (Pytest ≥ 80 %) jeweils manuell via `pwsh -Command "& { ... }"` oder direkt in der aktiven pwsh-Session ausführen; Beispielbefehle siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“.
