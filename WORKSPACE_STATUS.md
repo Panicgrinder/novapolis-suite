@@ -1,12 +1,16 @@
 ---
-stand: 2025-11-09 22:11
-update: Validator/Test/Coverage Receipts aufgenommen; Statusblöcke ergänzt.
-checks: Frontmatter VALIDATOR PASS; Pytest PASS; Coverage 81.66%
+stand: 2025-11-10 08:40
+update: Skriptbereinigung durchgeführt (Root/Agent); Snapshot-Skripte archiviert; Legacy-PS1 entfernt.
+checks: keine
 ---
 
 Recent Changes
 --------------
 
+- 2025-11-10 08:40: Skript-Cleanup: entfernt `scripts/run_linters.ps1`, `scripts/tests_pytest_root.ps1`; archiviert Snapshot-Skripte nach `novapolis-dev/archive/scripts/`; Agent-Legacy-PowerShell (`cleanup_phase3.ps1`, `cleanup_phase4.ps1`, `history_purge_plan.ps1`) gelöscht; .tmp Audit aktualisiert.
+- 2025-11-10 08:19: Tool-Registry `settings` Alias wiederhergestellt; targeted pytest `tests/test_tools_registry.py` PASS (AttributeError behoben, R-LINT/R-LOG).
+- 2025-11-10 08:08: Ruff-Fixes in `novapolis_agent/app/tools/registry.py`, `novapolis_agent/scripts/append_done.py`, `novapolis_agent/scripts/rerun_failed.py`; moderne Typannotationen, Import-Sortierung und redundante Open-Modi bereinigt; DONELOGs aktualisiert.
+- 2025-11-10 07:52: README-Link auf den erweiterten Copilot-Leitfaden ergänzt; `workspace_tree_dirs.txt`, `workspace_tree.txt`, `workspace_tree_full.txt` auf 2025-11-10 07:50 aktualisiert. Folgeanpassungen in `WORKSPACE_STATUS.md` vorgenommen.
 - 2025-11-09 22:38: Wrapper‑Umstellung: Lange inline `pwsh -NoProfile -Command` Tasks in `/.vscode/tasks.json` wurden auf `-File` Wrapper‑Skripte umgestellt. Hinzugefügt: `scripts/checks_linters.ps1`, `scripts/checks_types.ps1`, `scripts/tests_pytest_root.ps1`. Backup‑Marker: `Backups/tasks.json.bak`.
 - 2025-11-09 22:42: Post‑Run Summary: `scripts/checks_linters.ps1` (ruff/black) produced many style/format issues (see linter output summary). `scripts/checks_types.ps1` (pyright+mypy) reported 0 errors and 12 warnings. `scripts/tests_pytest_root.ps1` (`pytest -q`) aborted during collection with multiple ImportErrors (missing package paths / module imports). See `novapolis_agent/docs/DONELOG.txt` for details.
 
@@ -22,7 +26,7 @@ Workspace-Status
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
 
-- 2025-11-07 02:29: Tree-Snapshots aktualisiert (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) und entfernte Markdownlint-Overrides in `novapolis-rp/database-curated/staging/**` festgehalten; Staging‑Reports (Setext+Frontmatter) gelinted → PASS.
+- 2025-11-10 07:50: Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) regeneriert; README und Status auf den Copilot-Leitfaden verwiesen.
 - 2025-11-07 06:30: Alle Markdownlint VS-Code-Tasks & Wrapper-Doku entfernt; Ausführung jetzt ausschließlich manuell via `npx --yes markdownlint-cli2` (Policy npx-only).
 - 2025-11-07 02:10: markdownlint-cli2 repo-weit ausgeführt (367× MD003 offen); Skriptprüfung für Markdown-Ausgaben (Chat-Exporter, Reports, todo_gather) vorbereitet.
 - 2025-11-07 01:39: TODO aktualisiert (Single-Repo-Reminder; Aufgaben zu Lint-Overrides, Staging-Reports, Metadata-Konsolidierung, Archiv-Ablage).
@@ -44,7 +48,7 @@ Aktueller Arbeitsmodus
 Health-Checks & Open Items
 ---------------------------
 
-- Tests (2025-11-09 22:11): `pytest` PASS (298 passed, 1 skipped); Coverage 81.66% (Fail-Under 80% erfüllt); Frontmatter-Validator PASS nach Fix an `todo.root.md` (fehlender `---`).
+- Tests (2025-11-10 08:19 targeted): `pytest tests/test_tools_registry.py` PASS (Tool-Registry Alias-Fix verifiziert); Vorlauf 2025-11-09 22:11 (`pytest` 298 passed, 1 skipped; Coverage 81.66%; Frontmatter-Validator PASS nach Fix an `todo.root.md`).
 - Typen: Letzter vollständiger Lauf unverändert grün (pyright/mypy – keine neuen Fehler seit vorherigem Bericht); Folge-Lauf geplant nach nächster Codeänderung.
 - TODO-Backlog: siehe `todo.root.md` (Stand 2025-11-07; Fokus Agent: RAG/Tool-Use/Policies, RP: Kurations-Pipeline & Canvas-Pflege, Skriptprüfung für Markdown-Ausgaben)
 - Policies & Behaviour: maßgeblich `.github/copilot-instructions.md` (SSOT)
@@ -68,8 +72,8 @@ Wichtige Artefakte & Logs
 - Struktur-Snapshot
 -------------------
 
-- Vollständiger Verzeichnisbaum: `workspace_tree_full.txt` (Stand 2025-11-07 02:29; Terminal `tree /A /F`)
-- Arbeitsansicht: `workspace_tree.txt` (Stand 2025-11-07 02:29; Terminal `tree /A`) und kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt` (Stand 2025-11-07 02:29; Script `scripts/update_workspace_tree_dirs.ps1`)
+- Vollständiger Verzeichnisbaum: `workspace_tree_full.txt` (Stand 2025-11-10 07:50; Terminal `tree /A /F`)
+- Arbeitsansicht: `workspace_tree.txt` (Stand 2025-11-10 07:50; Terminal `tree /A`) und kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt` (Stand 2025-11-10 07:50; Script `scripts/update_workspace_tree_dirs.ps1`)
 - Historische Agent-Dateiinventur (jetzt Root): `WORKSPACE_INDEX.md`
 - Für gezielte Suchen weiterhin `scripts/audit_workspace.py` nutzen (prüft Referenzen & Altlasten)
 

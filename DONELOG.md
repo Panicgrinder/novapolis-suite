@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-09 22:11
-update: Receipts ergänzt (Frontmatter-Validator PASS; Tests/Coverage PASS 81.66%)
-checks: markdownlint DONELOG PASS
+stand: 2025-11-10 08:40
+update: Skriptbereinigung: zwei Root-Skripte entfernt, Snapshot-Skripte archiviert, drei Agent-PS1 entfernt; .tmp/DOCS aktualisiert.
+checks: keine
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -12,8 +12,18 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-10 08:40: Skript-Cleanup (Root/Agent):
+  - Entfernt: `scripts/run_linters.ps1`, `scripts/tests_pytest_root.ps1` (obsolet; ersetzt bzw. nicht mehr benötigt).
+  - Archiviert: `scripts/snapshot_gate.ps1`, `scripts/snapshot_write_lock.ps1` → `novapolis-dev/archive/scripts/`.
+  - Entfernt (Agent): `novapolis_agent/scripts/cleanup_phase3.ps1`, `cleanup_phase4.ps1`, `history_purge_plan.ps1` (Legacy/ungebraucht).
+  - Doku: `.tmp-results/script-audit/20251110_0829.md` Entscheidungen ergänzt; WORKSPACE_STATUS aktualisiert.
+- 2025-11-10 08:19: Tool-Registry `settings` Alias wiederhergestellt; targeted pytest `tests/test_tools_registry.py` PASS (AttributeError behoben).
 - 2025-11-09 22:11: Frontmatter-Validator PASS (scoped); Fix an `todo.root.md` (fehlender `---` Delimiter ergänzt); Policy R-FM/R-LINT bestätigt.
 - 2025-11-10 02:25: Generators: ensured Markdown generators write YAML frontmatter in order `stand`, `update`, `checks` and use Setext H1/H2; modified `novapolis_agent/scripts/todo_gather.py`, `novapolis_agent/scripts/map_reduce_summary_llm.py`, removed `scripts/tmp_fix_md.py`; dry-run receipts: `.tmp-results/markdown/20251110_0219/` & `.tmp-results/markdown/20251110_0220/`; markdownlint & frontmatter validator: PASS.
+- 2025-11-10 08:08: Ruff-Fixes in `novapolis_agent/app/tools/registry.py`, `novapolis_agent/scripts/append_done.py` und `novapolis_agent/scripts/rerun_failed.py` (moderne Typannotationen, Importe sortiert, redundante Open-Modi entfernt); DONELOGs aktualisiert.
+- 2025-11-10 07:54: README (Copilot-Link, Tree-Stände), `WORKSPACE_STATUS.md` (Recent Changes + Struktur-Snapshot) und Tree-Snapshots (`workspace_tree_dirs.txt`, `workspace_tree.txt`, `workspace_tree_full.txt`) auf 2025-11-10 07:50 gebracht; `scripts/update_workspace_tree_dirs.ps1`, `tree /A`, `tree /A /F` ausgeführt. Lint (`run_linters.ps1`) scheiterte an bestehenden Ruff-Verstößen (~2805 Funde, v. a. Import-Sortierung/Typing in Tests/Utils); `checks_types.ps1` meldete 12 Pyright-Warnungen (keine Errors); `run_pytest_coverage.ps1` endete mit 2 FAIL (AttributeError: `app.tools.registry` besitzt kein `settings`).
+- 2025-11-10 07:21: Leitfaden bereinigt (Tabs entfernt, fehlende Öffnungs-Frontmatter ergänzt, Lint erneut 0 Fehler); Frontmatter aktualisiert (`stand`, `update`, `checks`).
+- 2025-11-10 07:06: Leitfaden hinzugefügt `novapolis-dev/docs/copilot-vscode-usage.md` (VS Code + Copilot Nutzung); MD034 Bare URLs behoben (Winkelklammern); markdownlint scoped PASS (0 errors); Frontmatter gesetzt.
   - 2025-11-10 00:28: Tests/Coverage: 298 passed, 1 skipped; Total coverage 81.66%; Artifacts: `outputs/test-artifacts/coverage.xml`, `outputs/test-artifacts/junit.xml`.
   - 2025-11-10 00:35: Action: Marked `todo.root.md` follow-ups done (task-state updated); appended receipts to `DONELOG.md` and `novapolis_agent/docs/DONELOG.txt`; markdownlint re-run reported 4 trailing-space findings in `todo.root.md` (to fix).
   - 2025-11-10 01:13: Tests/Typen: Manuelle Sequenz ausgeführt (pytest → pyright → mypy).

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-09 17:51
-update: Coverage >80% (81.66%) erreicht durch neue Tests für Chat-API interne Zweige, Memory/Script-Kantenfälle.
-checks: pytest coverage PASS
+stand: 2025-11-10 08:40
+update: Agent-PS1 Legacy-Skripte entfernt; Root-Snapshot-PS1 archiviert (keine Codepfadänderung im Agent).
+checks: keine
 ---
 
 DONELOG – Abgeschlossene Arbeiten
@@ -79,6 +79,7 @@ Beispiel:
 2025-10-22 13:54 | Panicgrinder | Docs konsolidiert: AGENT_BEHAVIOR.md erstellt (Merge aus AGENT_PROMPT.md + BEHAVIOR.md); Settings CONTEXT_NOTES_PATHS um AGENT_BEHAVIOR/TODO/DONELOG erweitert; Referenzen & VS Code Task aktualisiert.
 2025-10-22 14:17 | Panicgrinder | Kontext: Digest in eval/config/context.local.md; Platzhalter-Logs für heute/gestern (data/logs/YYYY-MM-DD.jsonl) erstellt; Historie in docs/AGENT_BEHAVIOR.md präzisiert; TODO aktualisiert.
 2025-10-22 16:50 | Panicgrinder | Docs/Tasks: Referenzen nach Entfernen der verschachtelten Kopie geprueft; keine verbleibenden  enter cvn-agent/-Hinweise; VS Code Task auf AGENT_BEHAVIOR.md umgestellt; Tests gruen; Typechecks: Pyright 1 Fehler (Test named arg), Mypy weist bestehende unused-ignore in Tests aus.
+2025-11-10 08:08 | GitHub Copilot | Ruff-Aufräumarbeiten: registry.py auf moderne Typen umgestellt, append_done/rerun_failed Importe sortiert, Generics & open-Modi bereinigt.
 2025-10-22 17:30 | Panicgrinder | Typechecks gruen: Pyright Warnungen nur; Mypy konfiguriert (warn_unused_ignores in tests deaktiviert); Test-Fix: eval_mode aus ChatRequest() entfernt; tzinfo-Typ fix in time_utils.
 2025-10-22 18:56 | Panicgrinder | docs/prompts: Sprache dauerhaft auf Deutsch gesetzt (AGENT_BEHAVIOR.md, DEFAULT_SYSTEM_PROMPT, context.local.md). Tests/Typen grün.
 2025-10-22 19:19 | Panicgrinder | lint: Pyright-Warnungen reduziert  unbenutzte Imports in Scripts entfernt (curate_dataset_from_latest, eval_ui, export_finetune, fine_tune_pipeline, generate_eval_dataset, map_reduce_summary(_llm), reports/*, rerun_from_results, todo_gather). Tests/Typen grün.
@@ -156,3 +157,5 @@ Beispiel:
 2025-11-09 22:55 | Copilot | Installed `novapolis_agent` editable into Root `.venv` and executed `pytest -q` with CWD `novapolis_agent`. Test suite completed successfully (run completed, collection and execution finished). Wrapper scripts and tasks updated; recommend committing wrapper scripts and DONELOG entry.
 2025-11-10 00:28 | Copilot | Tests/Coverage: 298 passed, 1 skipped; Total coverage 81.66%; Artifacts: outputs/test-artifacts/coverage.xml, outputs/test-artifacts/junit.xml
 2025-11-10 00:01 | Copilot | Tests/Coverage: 298 passed, 1 skipped; Total coverage 81.66%; Artifacts: `outputs/test-artifacts/coverage.xml`, `outputs/test-artifacts/junit.xml`.
+2025-11-10 08:19 | GitHub Copilot | Tool-Registry: `settings` Alias wiederhergestellt; pytest tests/test_tools_registry.py PASS.
+2025-11-10 08:40 | GitHub Copilot | Cleanup (Agent): `scripts/cleanup_phase3.ps1`, `cleanup_phase4.ps1`, `history_purge_plan.ps1` entfernt.
