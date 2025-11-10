@@ -13,7 +13,14 @@ Kurzueberblick
 --------------
 
 - 2025-11-09 22:11: Frontmatter-Validator PASS (scoped); Fix an `todo.root.md` (fehlender `---` Delimiter ergänzt); Policy R-FM/R-LINT bestätigt.
+- 2025-11-10 02:25: Generators: ensured Markdown generators write YAML frontmatter in order `stand`, `update`, `checks` and use Setext H1/H2; modified `novapolis_agent/scripts/todo_gather.py`, `novapolis_agent/scripts/map_reduce_summary_llm.py`, removed `scripts/tmp_fix_md.py`; dry-run receipts: `.tmp-results/markdown/20251110_0219/` & `.tmp-results/markdown/20251110_0220/`; markdownlint & frontmatter validator: PASS.
   - 2025-11-10 00:28: Tests/Coverage: 298 passed, 1 skipped; Total coverage 81.66%; Artifacts: `outputs/test-artifacts/coverage.xml`, `outputs/test-artifacts/junit.xml`.
+  - 2025-11-10 00:35: Action: Marked `todo.root.md` follow-ups done (task-state updated); appended receipts to `DONELOG.md` and `novapolis_agent/docs/DONELOG.txt`; markdownlint re-run reported 4 trailing-space findings in `todo.root.md` (to fix).
+  - 2025-11-10 01:13: Tests/Typen: Manuelle Sequenz ausgeführt (pytest → pyright → mypy).
+    - Tests: `pytest` PASS — 298 passed, 1 skipped; Coverage: 81.66%; Artifacts: `outputs/test-artifacts/coverage.xml`, `outputs/test-artifacts/junit.xml`.
+    - Pyright: ausgeführt (lokales `.venv\Scripts\pyright.exe`); Typprüfungen lieferten 52 Fehler/warnungsähnliche Meldungen (siehe Terminal-Output).
+    - Mypy: ausgeführt mit `novapolis_agent/mypy.ini` (CWD=`novapolis_agent`); Ergebnis: PASS — "Success: no issues found in 62 source files".
+    - Aktion: Receipt in Root- und Agent-DONELOGs ergänzt; Todo `Tests/Typen sequenziell laufen lassen` als erledigt markiert.
   - 2025-11-10 00:01: Tests/Coverage: 298 passed, 1 skipped; Total coverage 81.66%; Artifacts: `outputs/test-artifacts/coverage.xml`, `outputs/test-artifacts/junit.xml`.
 - 2025-11-09 22:11: Tests/Coverage PASS – 298 passed, 1 skipped; Total coverage 81.66% (coverage.py line-rate 84.07%, branch-rate 74.25%); Artefakt: `outputs/test-artifacts/coverage.xml`.
 - 2025-11-09 17:51: Testabdeckung ≥80% erreicht (81.66% via Wrapper); Chat-API interne Zweige getestet (Stream/Non-Stream); Governance-Anweisung aktualisiert; DONELOGs ergänzt.
