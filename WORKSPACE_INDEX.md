@@ -30,21 +30,27 @@ Hinweis: Alle Pfade beginnen bei `novapolis_agent/`, sofern nicht anders angegeb
 - [`novapolis_agent/pytest.ini`](novapolis_agent/pytest.ini) - Pytest-Konfiguration
 - [`novapolis_agent/README.md`](novapolis_agent/README.md) - Projekt-Dokumentation
 - [`novapolis_agent/LICENSE`](novapolis_agent/LICENSE) - MIT-Lizenz
-- [`novapolis_agent/requirements.txt`](novapolis_agent/requirements.txt) - Python-Abhängigkeiten (Laufzeit)
-- [`novapolis_agent/requirements-dev.txt`](novapolis_agent/requirements-dev.txt) - Dev-Abhängigkeiten (Lint/Tests)
-- [`novapolis_agent/requirements-train.txt`](novapolis_agent/requirements-train.txt) - Zusatzabhängigkeiten (Training)
+ - [`novapolis_agent/requirements.txt`](requirements.txt) - Python-Abhängigkeiten (Laufzeit)
+ - [`novapolis_agent/requirements-dev.txt`](requirements-dev.txt) - Dev-Abhängigkeiten (Lint/Tests)
 - [`novapolis_agent/run_server.py`](novapolis_agent/run_server.py) - Server-Startskript
 - [`novapolis_agent/test_settings.py`](novapolis_agent/test_settings.py) - Einstellungen-Test
 - [`novapolis_agent/__pycache__/`](novapolis_agent/__pycache__/) - Python-Bytecode-Cache (generiert)
 - [`novapolis_agent/.mypy_cache/`](novapolis_agent/.mypy_cache/) - mypy-Cache (generiert)
 - [`novapolis_agent/.pytest_cache/`](novapolis_agent/.pytest_cache/) - Pytest-Cache (generiert)
 
-### VS Code (`novapolis_agent/.vscode`)
+### VS Code — Agent Workspace (`novapolis_agent/.vscode`)
 
 - [`novapolis_agent/.vscode/extensions.json`](novapolis_agent/.vscode/extensions.json) - VSCode-Erweiterungsempfehlungen
 - [`novapolis_agent/.vscode/launch.json`](novapolis_agent/.vscode/launch.json) - Startkonfigurationen
 - [`novapolis_agent/.vscode/settings.json`](novapolis_agent/.vscode/settings.json) - Workspace-spezifische Einstellungen
 - [`novapolis_agent/.vscode/tasks.json`](novapolis_agent/.vscode/tasks.json) - VSCode-Tasks (z. B. Tests, Eval)
+  - Enthält u. a. die Task „Eval: rerun from results“ (profile-aware Reruns aus results_*.jsonl)
+### VS Code — Root Workspace (`.vscode`)
+
+- [`.vscode/extensions.json`](.vscode/extensions.json) - VSCode-Erweiterungsempfehlungen
+- [`.vscode/launch.json`](.vscode/launch.json) - Startkonfigurationen
+- [`.vscode/settings.json`](.vscode/settings.json) - Workspace-spezifische Einstellungen
+- [`.vscode/tasks.json`](.vscode/tasks.json) - VSCode-Tasks (z. B. Tests, Eval)
   - Enthält u. a. die Task „Eval: rerun from results“ (profile-aware Reruns aus results_*.jsonl)
 
 ### App (`novapolis_agent/app`)
@@ -76,7 +82,6 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 
 #### `novapolis_agent/app/routers` (legacy/geparkt)
 
-- [`novapolis_agent/app/routers/README.md`](novapolis_agent/app/routers/README.md) - Hinweisdatei (Ordner nicht produktiv eingebunden)
 
 #### `novapolis_agent/app/services`
 
@@ -99,6 +104,9 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 - [`novapolis_agent/utils/message_helpers.py`](novapolis_agent/utils/message_helpers.py) - Message/Historie Utilities
 - [`novapolis_agent/utils/time_utils.py`](novapolis_agent/utils/time_utils.py) - Zeit-/Timestamp-Helfer
 - [`novapolis_agent/utils/rag.py`](novapolis_agent/utils/rag.py) - Leichtgewichtiger TF‑IDF RAG‑Retriever (Index/Save/Load/Retrieve)
+ - [`novapolis_agent/utils/eval_cache.py`](novapolis_agent/utils/eval_cache.py) - Einfacher JSONL-Cache für LLM-Summaries
+ - [`novapolis_agent/utils/time_utils.py`](novapolis_agent/utils/time_utils.py) - Zeit-/Timestamp-Helfer
+ - [`novapolis_agent/utils/rag.py`](novapolis_agent/utils/rag.py) - Leichtgewichtiger TF‑IDF RAG‑Retriever (Index/Save/Load/Retrieve)
 
 ### Daten (`novapolis_agent/data`)
 
@@ -227,6 +235,7 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 ### Git Hooks (optional)
 
 - [`novapolis_agent/.githooks/pre-commit`](novapolis_agent/.githooks/pre-commit) - Lokaler Pre-commit Hook (DONELOG/Lint)
+ - [`githooks/pre-commit`](githooks/pre-commit) - Lokaler Pre-commit Hook (DONELOG/Lint)
 
 Repository-Hinweis: Standard-Branch ist `main`.
 

@@ -50,8 +50,8 @@ func _step_world() -> void:
     if _http.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
         return
 
-    var port := _resolve_port()
-    var url := "http://%s:%d/world/step" % [host, port]
+    var resolved_port := _resolve_port()
+    var url := "http://%s:%d/world/step" % [host, resolved_port]
     var payload := JSON.stringify({"dt": step_dt})
     var headers := ["Content-Type: application/json"]
 
@@ -116,4 +116,4 @@ func _resolve_port() -> int:
     var env_port := OS.get_environment("AGENT_PORT")
     if env_port is String and env_port.is_valid_int():
         return int(env_port)
-    return 8765
+    return port
