@@ -975,6 +975,13 @@ F:.
 |   \---0.6.9
 +---.tmp-datasets
 +---.tmp-results
+|   +---markdown
+|   |   +---20251110_0219
+|   |   +---20251110_0220
+|   |   \---20251110_0324
+|   \---quality
+|       +---20251110_0405
+|       \---20251110_0412
 +---.venv
 |   +---Include
 |   |   \---site
@@ -1638,6 +1645,8 @@ F:.
 |   |       +---networkx-3.5.dist-info
 |   |       |   \---licenses
 |   |       +---nodeenv-1.9.1.dist-info
+|   |       +---novapolis_agent-0.1.0.dist-info
+|   |       |   \---licenses
 |   |       +---numpy
 |   |       |   +---char
 |   |       |   |   \---__pycache__
@@ -6409,15 +6418,16 @@ F:.
 |               \---VrsShaderRD
 |                   \---c86a9b4edb92bad6f336fcaf68fd7f5e123c9317179b774d48915216f3d81819
 +---eval
-|   \---config
+|   +---config
+|   \---results
+|       \---tmp_summaries
 +---githooks
 +---novapolis-dev
 |   +---archive
-|   +---curated
+|   |   \---2025
 |   +---docs
 |   |   +---meta
 |   |   +---process
-|   |   +---prompts
 |   |   \---specs
 |   +---integrations
 |   |   \---mcp-openai-eval
@@ -6689,13 +6699,10 @@ F:.
 |   |           \---mcp_openai_eval.egg-info
 |   +---logs
 |   |   \---screenshots
-|   +---migrations
-|   +---raw
-|   \---roadmaps
+|   \---migrations
 +---novapolis-rp
 |   +---.github
-|   |   +---ISSUE_TEMPLATE
-|   |   \---workflows
+|   |   \---ISSUE_TEMPLATE
 |   +---.pytest_cache
 |   |   \---v
 |   |       \---cache
@@ -6732,10 +6739,6 @@ F:.
 |   +---autoload
 |   \---scripts
 +---novapolis_agent
-|   +---.devcontainer
-|   +---.githooks
-|   +---.github
-|   |   \---workflows
 |   +---.mypy_cache
 |   |   \---3.12
 |   |       +---aiohappyeyeballs
@@ -7717,6 +7720,7 @@ F:.
 |   |       \---cache
 |   +---.tmp-datasets
 |   +---.tmp-results
+|   |   \---markdown
 |   +---agents
 |   |   \---cvn_agent
 |   +---app
@@ -7725,7 +7729,9 @@ F:.
 |   |   +---core
 |   |   |   \---__pycache__
 |   |   +---prompt
+|   |   |   \---__pycache__
 |   |   +---routers
+|   |   |   \---__pycache__
 |   |   +---services
 |   |   |   \---__pycache__
 |   |   +---tools
@@ -7770,6 +7776,7 @@ F:.
 |   |   |   |   \---examples
 |   |   |   \---__pycache__
 |   |   \---__pycache__
+|   +---novapolis_agent.egg-info
 |   +---outputs
 |   |   +---lora-20250824_0404
 |   |   +---lora-20250824_0446
@@ -7972,6 +7979,37 @@ F:.
 |   |   +---lora-20251106_0403
 |   |   +---lora-20251106_0438
 |   |   +---lora-20251106_0439
+|   |   +---lora-20251107_0833
+|   |   +---lora-20251107_1137
+|   |   +---lora-20251107_1213
+|   |   +---lora-20251107_1818
+|   |   +---lora-20251108_1704
+|   |   +---lora-20251108_1705
+|   |   +---lora-20251109_1655
+|   |   +---lora-20251109_1707
+|   |   +---lora-20251109_1708
+|   |   +---lora-20251109_1711
+|   |   +---lora-20251109_1715
+|   |   +---lora-20251109_1717
+|   |   +---lora-20251109_1722
+|   |   +---lora-20251109_1724
+|   |   +---lora-20251109_1727
+|   |   +---lora-20251109_1732
+|   |   +---lora-20251109_1733
+|   |   +---lora-20251109_1734
+|   |   +---lora-20251109_1742
+|   |   +---lora-20251109_1743
+|   |   +---lora-20251109_1744
+|   |   +---lora-20251109_1745
+|   |   +---lora-20251109_2202
+|   |   +---lora-20251109_2253
+|   |   +---lora-20251109_2357
+|   |   +---lora-20251110_0027
+|   |   +---lora-20251110_0057
+|   |   +---lora-20251110_0405
+|   |   +---lora-20251110_0406
+|   |   +---lora-20251110_0412
+|   |   +---lora-20251110_0508
 |   |   +---lora-chai-mini-0937
 |   |   |   \---checkpoint-10
 |   |   +---lora-gpu-smoke
@@ -7987,6 +8025,7 @@ F:.
 |   +---requirements
 |   +---scripts
 |   |   +---reports
+|   |   |   \---__pycache__
 |   |   \---__pycache__
 |   +---tests
 |   |   +---scripts
@@ -7994,10 +8033,11 @@ F:.
 |   |   \---__pycache__
 |   +---utils
 |   |   \---__pycache__
-|   +---_archived
 |   \---__pycache__
 +---outputs
-|   \---lora-20251031_1324
+|   \---test-artifacts
 +---packages
 |   \---novapolis_common
-\---scripts
++---scripts
+\---utils
+    \---__pycache__

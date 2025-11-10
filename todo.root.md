@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-10 00:01
-update: Workspace-Analysebefunde ergänzt; Tests/Coverage (novapolis_agent) ausgeführt und PASS (298 passed, 1 skipped); Total coverage 81.66%
-checks: pytest coverage PASS
+stand: 2025-11-10 08:11
+update: Ruff-Progress erfasst, Agent-Aufgaben angepasst
+checks: keine
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -14,17 +14,14 @@ Kurzueberblick
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
  
+- 2025-11-10 08:08: Ruff-Backlog Etappe gestartet – targeted Fixes in `novapolis_agent/app/tools/registry.py`, `novapolis_agent/scripts/append_done.py`, `novapolis_agent/scripts/rerun_failed.py`; DONELOG & `WORKSPACE_STATUS.md` aktualisiert (R-LINT, R-LOG).
 - 2025-11-09 21:25: Workspace-Analyse durchgeführt (Root/Ordner-Ebene, stichprobenartig Dateien). Befunde ergänzt: Frontmatter-Backlog (R-FM), Multi-Root-Abschluss (R-STOP/R-WRAP), Artefakt-Bereinigung (R-SEC/R-SAFE), Tree-/Status-Snapshots (R-IDX).
-
 - 2025-11-08 23:21: Headings-Extrakt (`.github/copilot-instructions-headings.md`) aktualisiert; Vorschlagsliste neuer Regel-IDs (R-COV, R-IDX, R-COMM, R-RED, R-TODO, R-TIME, R-SAFE) ergänzt. Klärungsbedarf offen: Precedence zwischen Preflight (false) und „Semantische Regeln“ (obligatorisch); Anwendung der Default-(true)-Regel bei gleichrangigen Abschnitten.
-
 - 2025-11-07 21:46: `scripts/append_done_and_push.ps1` erweitert: Frontmatter-Aktualisierung wird nun automatisch für veränderte Markdown/Text-Dateien durchgeführt (Backups, scoped validator, DONELOG-Eintrag). Validatorlauf (targeted) PASS.
-
 - 2025-11-07 04:56: Archiv-TODOs (`novapolis-dev/archive/todo.*.archive.md`) auf Setext (H1/H2) umgestellt, Checks/Timestamps aktualisiert; `.github/ISSUE_TEMPLATE/feature_request.md` konsistent gemacht; repo-weites `markdownlint-cli2` PASS (132 Dateien).
 - 2025-11-07 02:10: markdownlint-cli2 repo-weit ausgeführt (367× MD003 Setext-Stil offen); Analyse der Markdown-generierenden Skripte (Chat-Exporter, Reports, todo_gather) vorbereitet.
 - 2025-11-07 01:27: Workspace-Analyse für widersprüchliche Einstellungen und Alt-Markdown durchgeführt; Kandidaten protokolliert (Lint-Override-Dateien, Staging-Reports ohne Frontmatter, doppelte Metadata-Skripte).
 - Reminder Single-Repo: Alle Module (Agent/RP/Dev/Sim) laufen unter `Main/`; zentrale Verwaltung im Root, Archive nach `novapolis-dev/archive/**`, Löschungen erst nach Integration + Freigabe.
-
 - 2025-11-06 15:58: MD003 Setext + YAML-Frontmatter in `novapolis_agent/cleanup_recommendations.md`, `Backups/novapolis-rp-development-archived-20251105/development/README.md`, `novapolis-dev/logs/betriebsmodi-20251103-0341.tmp.md`, `novapolis-rp/.github/ISSUE_TEMPLATE/bug_report.md`, `novapolis_agent/eval/config/context.local.sample.md`; targeted markdownlint PASS (5 Dateien); Logs aktualisiert.
 - 2025-11-06 15:22: MD003-Setext-Korrekturen in `novapolis-rp/coding/tools/chat-exporter/README.md`, `novapolis-rp/coding/tools/metadata/README.md`, `novapolis-rp/coding/devcontainer/README.md`; targeted markdownlint PASS (3 Dateien).
 - 2025-11-06 15:22: YAML-Frontmatter (stand/update/checks) in denselben 3 Dateien ergänzt; frontmatter-Validator PASS (targeted).
@@ -82,8 +79,10 @@ Hinweis: Aufgrund des Multi‑Root‑STOPs keine Wrapper‑Tasks verwenden; bei 
 ### novapolis_agent
 
 - [ ] Tests/Typen sequenziell laufen lassen (manuell) und Ergebnis protokollieren: `DONELOG.md` (Root) und `novapolis_agent/docs/DONELOG.txt` (Agent).
+- [x] 2025-11-10 08:08: Ruff-Fixes in `app/tools/registry.py`, `scripts/append_done.py`, `scripts/rerun_failed.py`; targeted Ruff-Checks PASS, DONELOG & `WORKSPACE_STATUS.md` aktualisiert (R-LINT/R-LOG).
+- [ ] Ruff-Backlog weiter triagieren (restliche Agent-Skripte/Tools; Volumen >3000 Ruff-Meldungen; R-LINT, R-SEC).
 - [x] 2025-11-06 04:40: Demo-Test `novapolis_agent/tests/test_intentional_failure.py` entfernt; pytest -q PASS.
-- [ ] Markdown-Ausgabe der Skripte (todo_gather, summarize_eval_results, map_reduce_summary_llm, Reports) sowie Chat-Exporter auf Setext/YAML-Konformität prüfen und ggf. anpassen.
+- [x] Markdown-Ausgabe der Skripte (todo_gather, summarize_eval_results, map_reduce_summary_llm, Reports) sowie Chat-Exporter auf Setext/YAML-Konformität prüfen und ggf. anpassen. (2025-11-10 04:20)
 - [ ] Konsistenz‑Audit/Report aktualisieren (Sichtprüfung): `novapolis_agent/scripts/reports/generate_consistency_report.py` und Kandidaten aus `novapolis_agent/scripts/audit_workspace.py` prüfen.
 - [ ] Optional nach Review: Cleanup‑Kandidaten (Phase 4) nur mit Freigabe angehen (`novapolis_agent/scripts/cleanup_phase4.ps1`).
 - [ ] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` auswerten; Inhalte in aktive Doku übernehmen oder Datei nach Freigabe entfernen.

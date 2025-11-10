@@ -10,7 +10,7 @@ LLM-Dokumentenheader (nicht löschen)
 - Precedence: Immer zuerst laden → alle Aktionen, Tests und Änderungen müssen den hier definierten Regeln folgen.
 - Compliance: Wrapper-Policy, STOP-Gate, Frontmatter-Policy, Lint-Policy, Security-Checks, Logging-Receipt, Meta-/Systeminfo-Protokollierung.
 - Audit: Jede Antwort oder Änderung endet mit einem Postflight-Block nach Abschnitt „Meta-/Systeminfo-Protokollierung“.
-- Timestamp: 2025-11-09 20:24
+- Timestamp: 2025-11-10 06:49
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
 Kurzreferenz aller Überschriften dieser Anleitung
@@ -79,36 +79,36 @@ Kanonische Prüfabläufe (pwsh)
 ### Empfohlen (Wrapper, Copilot/GPT)
 
 ```powershell
-pwsh -NoProfile -File scripts\run_pytest_coverage.ps1
+pwsh -File scripts\run_pytest_coverage.ps1
 ```
 
 - `$maxTestFiles` (Standard 40) stellt sicher, dass nicht versehentlich zu viele Testdateien im Lauf landen. Bei Überschreitung stoppt der Befehl mit einer roten STOP-Notiz.
 - Details und Begründung siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“ weiter unten.
-- Einmalig `pwsh -NoProfile -Command "& .\.venv\Scripts\python.exe -m pip install --upgrade pip"` ausführen, falls Pip veraltet ist.
-- Erste Validierung: Sequenz aus Lint (`ruff`, `black --check`), Typen (`pyright`, `mypy`) und Tests mit Coverage (Pytest ≥ 80 %) jeweils manuell via `pwsh -NoProfile -Command "& { ... }"` ausführen; Beispielbefehle siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“.
-- Vor dokumentationsbezogenen Sessions mit Copilot bzw. GPT‑5 zwingend `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` ausführen (Achtung: Glob stets in einfachen Anführungszeichen, keine abschließenden Escape-Zeichen), um falsche Positivmeldungen in nachfolgenden Tests zu vermeiden. Den Befehl unverändert direkt im Terminal eingeben – keine `pwsh -NoProfile -Command`-Hülle verwenden.
+- Einmalig `& .\.venv\Scripts\python.exe -m pip install --upgrade pip` ausführen, falls Pip veraltet ist.
+- Erste Validierung: Sequenz aus Lint (`ruff`, `black --check`), Typen (`pyright`, `mypy`) und Tests mit Coverage (Pytest ≥ 80 %) jeweils manuell via `pwsh -Command "& { ... }"` oder direkt in der aktiven pwsh-Session ausführen; Beispielbefehle siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“.
+ - Vor dokumentationsbezogenen Sessions mit Copilot bzw. GPT‑5 zwingend `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` ausführen (Achtung: Glob stets in einfachen Anführungszeichen, keine abschließenden Escape-Zeichen), um falsche Positivmeldungen in nachfolgenden Tests zu vermeiden. Den Befehl unverändert direkt im Terminal eingeben – keine `pwsh -Command`-Hülle verwenden.
 
 ### VS Code Tasks ausführen.(true)
 - Grundlage: Die gleichnamigen VS Code Tasks dienen nur als Referenz. Copilot/GPT erstellt keine neuen VS Code Tasks.
-- Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern ausschließlich über Skript-Wrapper via `pwsh -NoProfile -File <script.ps1>`. Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
+- Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern bevorzugt über Skript-Wrapper via `pwsh -File <script.ps1>` (Profil erlaubt). Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
 
 ### Lint (Ruff + Black, keine Auto-Fixes)(true)
 Hinweis: Für agentische Ausführung NICHT die nachfolgenden Inline-Muster verwenden:
 
 ```powershell
-pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; if ($ruffExit -ne 0 -or $LASTEXITCODE -ne 0) { exit 1 } }"
+pwsh -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; if ($ruffExit -ne 0 -or $LASTEXITCODE -ne 0) { exit 1 } }"
 ```
 
 #### Typen (Pyright + Mypy)
 
 ```powershell
-pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $agent = Join-Path $root 'novapolis_agent'; Set-Location $agent; $pyright = Join-Path $root '.venv\\Scripts\\pyright.exe'; if (-not (Test-Path -LiteralPath $pyright)) { $pyright = 'pyright'; }; & $pyright -p pyrightconfig.json; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m mypy --config-file mypy.ini app scripts; exit $LASTEXITCODE }"
+pwsh -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $agent = Join-Path $root 'novapolis_agent'; Set-Location $agent; $pyright = Join-Path $root '.venv\\Scripts\\pyright.exe'; if (-not (Test-Path -LiteralPath $pyright)) { $pyright = 'pyright'; }; & $pyright -p pyrightconfig.json; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m mypy --config-file mypy.ini app scripts; exit $LASTEXITCODE }"
 ```
 
 #### Tests (Pytest Coverage ≥ 80 %)
 
 ```powershell
-pwsh -NoProfile -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { ``$_ -match '::' } | ForEach-Object { (``$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host 'STOP: Zu viele Testdateien gesammelt (' + $fileCount + ' > ' + $maxTestFiles + '). Bitte Scope prüfen.'; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
+pwsh -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { ``$_ -match '::' } | ForEach-Object { (``$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host 'STOP: Zu viele Testdateien gesammelt (' + $fileCount + ' > ' + $maxTestFiles + '). Bitte Scope prüfen.'; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
 if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest FAIL ($LASTEXITCODE)" }
 ```
 > `$maxTestFiles` kann bei Bedarf angepasst werden; die STOP-Meldung verhindert, dass ungewollt große Testmengen laufen.
@@ -120,15 +120,15 @@ if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest 
 ### Zusatz (pwsh)
    - Für Python-Befehle den Interpreter aus `.venv` verwenden (Fallback `python`), wie in den Beispielen gezeigt.
    - Bei Pfaden mit Leerzeichen `${workspaceFolder}` und `Join-Path` einsetzen.
-   - Wrapper-Richtlinie: Wenn ein Befehl mehr als ~120 Zeichen umfasst, Artefakte schreibt (z. B. JUnit/Coverage/XML) oder mehrere logische Schritte enthält (Collect-Guard, Ausführung, Summary), als eigenes Skript unter `scripts/` ablegen und ausschließlich über `pwsh -NoProfile -File` starten. Keine mehrstufigen Inline-Blöcke mit verschachtelten `& { ... }` für solche Fälle.
+   - Wrapper-Richtlinie: Wenn ein Befehl mehr als ~120 Zeichen umfasst, Artefakte schreibt (z. B. JUnit/Coverage/XML) oder mehrere logische Schritte enthält (Collect-Guard, Ausführung, Summary), als eigenes Skript unter `scripts/` ablegen und ausschließlich über `pwsh -File` starten. Keine mehrstufigen Inline-Blöcke mit verschachtelten `& { ... }` für solche Fälle.
 
 ### Update-Logistik
    - Zeitquelle: Bei jeder Angabe von Zeitstempeln muss die aktuelle lokale Systemzeit zum Zeitpunkt der Ausgabe frisch eingeholt werden (keine gecachten Werte, keine Vorausberechnung). Die Referenz ist der direkte Aufruf über PowerShell:
-     - `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`
+     - `Get-Date`
      - Gilt für alle Kontexte in diesem Dokument (z. B. Frontmatter `stand`, Logs/DONELOG, Postflight/Abort, Statusnotizen, Release‑Einträge) und ist zwingend pro Ereignis erneut auszuführen.
    - Timestamp: Änderungen im Format `YYYY-MM-DD HH:mm` erfassen (aktuell) – gilt für Kopfzeilen („Stand“, „Letzte Aktualisierung“), DONELOG-Einträge und kurze Statusnotizen. Standard ist die lokale Systemzeit. Wer mit abweichender Zeitzone arbeitet, ergänzt im `update`-Feld den Offset (z. B. `UTC+02`) oder weist ihn im Text aus. Eine Umstellung auf `Z`/UTC erfolgt erst nach Anpassung des Validators.
-   - Systemzeit (lokal, kanonisch): `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
-   - PowerShell-Version (lokal): `Write-Output $PSVersionTable.PSVersion.ToString()`.
+   - Systemzeit (lokal, kanonisch): `Get-Date`.
+   - PowerShell-Version (lokal): `Get-Host`.
    - Kurznotiz: 1–2 Sätze oder Bullet, was angepasst wurde (analog zu `novapolis-rp/database-rp/02-*`). Bei komplexeren Tasks optional Primärpfad referenzieren (`app/...`, `scripts/...`).
    - Prüfungen: Relevante Checks nennen (z. B. `pytest -q`, `pyright`, `markdownlint-cli2`) inkl. Ergebnis/Exit-Status; bei Bedarf Link/Dateipfad zur Ausgabe ergänzen.
    - Markdownlint-Läufe protokollieren: Lauf/Command + PASS/FAIL direkt nach dem Lauf im Status erwähnen.
@@ -147,7 +147,7 @@ MD003 = `setext_with_atx` (H1/H2 im Setext‑Stil, H3+ im ATX‑Stil; je Level k
 ### Konfiguration erfolgt zentral über `.markdownlint-cli2.jsonc`; projektlokale Overrides nur nach Review und dokumentierter Ausnahme.
 `ignores` in der CLI2‑Config decken generierte/kuratierte Bereiche ab (u. a. `novapolis_agent/eval/results/**`, `novapolis_agent/outputs/**`, `outputs/**`, `novapolis-rp/.pytest_cache/**`).
 ### Vor Arbeiten mit Copilot/GPT‑5 Pflichtlauf im bestehenden Terminal
-`npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (ohne zusätzliche `pwsh -NoProfile -Command`-Hülle).
+`npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (ohne zusätzliche `pwsh -Command`-Hülle).
 - Auto‑Fix optional: `npx --yes markdownlint-cli2-fix --config .markdownlint-cli2.jsonc '**/*.md'`.
 ### Grundsatz
 Keine globalen CLI‑Installationen und keine Wrapper‑Skripte für Markdownlint verwenden; ausschließlich `npx --yes`.
@@ -218,11 +218,11 @@ Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
    - Das Format ist minimalistisch, maschinenlesbar und tokenoptimiert.
    - Er ist verpflichtend für jede Änderung oder Erstellung von Dateien, Prüf- und Validierungsvorgänge sowie komplexe Abläufe mit Mehrschritt-Logik.
 
-### Preflight (false)(08.11.2025 20:58 Panicgrinder Grund: Copilot/GPT beendet direkt nach dem Ausgeben des Preflights seine Nachricht und schreibt nicht weiter. Aufgabe: Analyse und Fehlerbehebung zu einem anderen Zeitpunkt, da Postflight intakt.)(vor jeder Änderung)
+### Preflight (false)(08.11.2025 20:58 Panicgrinder Grund: Copilot/GPT beendet direkt nach dem Ausgeben des Preflights seine Nachricht und schreibt nicht weiter.) Preflight ist eine Preambel. Aufgabe: Analyse und Fehlerbehebung zu einem anderen Zeitpunkt, da Postflight intakt. (vor jeder Änderung)
    - Vor jeder Aktion, die Dateien verändert oder generiert, muss Copilot einen Preflight-Block ausgeben, bevor irgendetwas ausgeführt wird.
    - Dieser Block dient der Vorschau und Bestätigung, dass alle Regeln, Pfade, STOP-Gates und Policies korrekt geladen sind.
 #### Format (Pflichtfelder fett, optionale Angaben in Klammern)
-   - Meta: Modus=Preflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, **Arbeitsverzeichnis=<Pfad>**, **RepoRoot=<Pfad>**, (PSScriptRoot=<Pfad>), (PSVersion=<x.y.z>), Aufruf=pwsh -NoProfile -File <Pfad.zum.Skript.ps1>, (SHA256=<Hash.der.Skriptdatei>), STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
+   - Meta: Modus=Preflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, **Arbeitsverzeichnis=<Pfad>**, **RepoRoot=<Pfad>**, (PSScriptRoot=<Pfad>), (PSVersion=<x.y.z>), Aufruf=pwsh -File <Pfad.zum.Skript.ps1>, (SHA256=<Hash.der.Skriptdatei>), STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
 #### Verhalten
      - Keine Änderungen, kein Schreiben, keine Commits.
      - Dient ausschließlich der Kontexterkennung und Validierung.
@@ -236,7 +236,7 @@ Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
 #### Falls ein Vorgang unerwartet abgebrochen wird oder ein STOP-Gate ausgelöst wurde
    - Meta: Modus=Abort, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Grund=<Kurzbeschreibung>, Zeitpunkt=<yyyy-MM-dd HH:mm>
 #### Format für erfolgreiche Postflight-Ausgabe
-   - Meta: Modus=Postflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Arbeitsverzeichnis=<Pfad>, RepoRoot=<Pfad>, PSScriptRoot=<Pfad>, PSVersion=<x.y.z>, Aufruf=pwsh -NoProfile -File <Pfad.zum.Skript.ps1>, SHA256=<Hash.der.Skriptdatei>, STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
+   - Meta: Modus=Postflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Arbeitsverzeichnis=<Pfad>, RepoRoot=<Pfad>, PSScriptRoot=<Pfad>, PSVersion=<x.y.z>, Aufruf=pwsh -File <Pfad.zum.Skript.ps1>, SHA256=<Hash.der.Skriptdatei>, STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
      - Prüfung: markdownlint=<PASS/FAIL>, ExitcodeLint=<N>, behobenLint=<ja/nein>, Frontmatter-Validator=<PASS/FAIL>, ExitcodeFM=<N>, behobenFM=<ja/nein>, Cleanup-WhatIf-Exit=<N>, behobenWhatIf=<ja/nein>, Cleanup-Real-Exit=<N>, behobenReal=<ja/nein>, WorkspaceScanRoot=<Zahl>, WorkspaceScanRecurse=<Zahl>
      - Regeln: IDs=<R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG>, Details=R-WRAP über -File erzwungen; R-STOP aktiv vor Real; R-FM geprüft; R-LINT ausgeführt; R-SCAN Root-only; R-CTX Quellen geladen; R-SEC geprüft; R-LOG Receipt erstellt
      - Todos: offen=<Anzahl>, BeispielFix=<Kurzbeschreibung>, ReRun=<Testname>, Fällig=<Datum/Zeit>
@@ -257,15 +257,45 @@ Für alltägliche, nicht-ausführende Antworten (keine Dateiänderung, keine Tas
 - Der kompakte Block soll eine einzelne Zeile bleiben, sparsam verwendet werden und keine sensiblen Informationen enthalten.
 - Felder sind optional; wenn nur der Modus angegeben wird, genügt `Meta: Modus=General`.
 
-Semantische Regeln
+Semantische Regeln (Agent-spezifisch, kuratiert)
 ---
- - Preflight ist obligatorisch vor jedem Schreib-, Erstell- oder Löschvorgang.
- - Ohne Preflight darf keine Dateiänderung stattfinden.
- - Postflight wird genau einmal pro abgeschlossenem Vorgang erzeugt, nicht pro Datei.
- - behoben=ja nur, wenn derselbe Prüfschritt im selben Lauf erneut ausgeführt wurde und PASS ergibt.
- - Quellen müssen als absolute Pfade angegeben werden.
- - Todos wird automatisch in die todo.md übernommen, falls vorhanden.
- - Timestamp verwendet lokales Format yyyy-MM-dd HH:mm, Zeitzone Europe/Berlin.
+Zweck: Präzise, maschinen- und agentenfreundliche Auslegung zentraler Arbeitsregeln. Zustandsfelder verwenden normierte Bedeutungen (siehe Tabelle „Regelzustände“).
+
+Regelzustände (Normativ)
+ - aktiv / true / an: Regel ist verbindlich und muss eingehalten werden.
+ - aus / false / off: Regel ist temporär deaktiviert; Verstöße führen nicht zum Abbruch, aber sollen optional dokumentiert werden, falls "test" nicht gesetzt.
+ - scharf / ready / strikt: Regel löst vor auslösenden Aktionen zwingend ein STOP-Gate aus (Bestätigungspflicht). Kombination mit "aktiv" → höchste Strenge.
+ - test / testing / beobachtung: Regel wird nicht erzwungen, aber Verstöße werden gemeldet (Log / Hinweis im Receipt) und können zur Aktivierung führen.
+
+A. Pre-/Postflight Logik
+ 1. Preflight (false): Erforderlich VOR jeder Aktion, die Dateien verändert (apply_patch, create_file, delete) oder ausführende Skripte/Tests startet (run_in_terminal mit pwsh -File, Coverage-/Lint-Läufe). Nicht erforderlich für reine Lese-/Analyseaktionen (read_file, grep_search, fetch_webpage, Get-Date).
+ 2. Ohne Preflight keine Dateimutation (false). Versuche einen Patch oder Skriptlauf ohne vorangegangenen Preflight → STOP + Abbruch.
+ 3. Postflight genau EINMAL pro logisch abgeschlossenem Vorgang (aktiv). Mehrfach-Postflights für denselben Vorgang vermeiden.
+ 4. "behoben=ja" nur, wenn derselbe Prüfschritt (z. B. Frontmatter-Validator, markdownlint) im gleichen Lauf erst FAIL und danach PASS war (aktiv). Bei rein passendem Erstlauf → behoben=nein.
+
+B. Quellen / Kontext
+ 5. Quellenpfade im Pre-/Postflight als absolute Pfade aufführen (aktiv): Mindestens `.github/copilot-instructions.md` und alle unmittelbar betroffenen Arbeitsdateien.
+ 6. TODO-Propagation (test): Automatische Übernahme von neu erkannten TODOs in `todo.root.md` ist optional; bis zur expliziten Aktivierung nur dokumentieren.
+
+C. Zeit / Timestamps
+ 7. Timestamp-Format (aktiv): `YYYY-MM-DD HH:mm` lokale Zeit (Europe/Berlin); pro Ereignis frisch via `Get-DateS` ermittelt.
+ 8. Kein Reuse früherer Zeitstempel (aktiv): Jeder Pre-/Postflight holt Zeit erneut.
+
+D. STOP-Gate Interaktion
+ 9. STOP-Gate Vorrang (aktiv, scharf): Bei Unsicherheit/Abweichung ruht jede ausführende Aktion bis Bestätigung. Auslöser: Regelfehler, widersprüchliche Prioritäten, fehlende Quellen, unklare Moduswahl.
+
+E. Modus / Profile
+ 10. Moduswahl heuristisch (test): Empfehlung gemäß Mapping (siehe Tabelle unter „Modell-Profile & Moduswechsel“), aber Nutzerentscheidung hat Vorrang.
+
+F. Receipt Felder
+ 11. Todos: offen=<Anzahl> zählt verbleibende offene Items aus dem relevanten Kontext (aktiv). Bei fehlender Ermittlung test.
+ 12. BeispielFix: Kurzbeschreibung einer einzelnen konkreten Korrektur (aktiv) – leer lassen, wenn keine Korrektur stattfand.
+
+G. Validierung
+ 13. Reihenfolge der Prüfungen (aktiv): Lint → Typen → Tests → Coverage (falls umfassend). Abweichungen dokumentieren.
+ 14. Minimale Datenerfassung (aktiv): Keine sensiblen Daten (Secrets/PII) in Meta-Blöcken.
+
+Hinweis (Konsolidierung): Die früheren Einträge Sem01–Sem07 wurden in strukturierter Form abgelöst; Sem06 unklar formuliert → nun als TODO-Propagation (test) präzisiert.
 
 Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
 -----------------------------------------------------------------
@@ -276,7 +306,7 @@ Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
  - Abweichungen sind nur mit expliziter Freigabe im STOP-Gate zulässig.
 
 ### aktuell vergebene Regel-IDs
-   - ID R-WRAP: Wrapper-Policy – Skripte und Mehrschritt-Prozesse dürfen ausschließlich über „pwsh -NoProfile -File“ mit absolutem Pfad ausgeführt werden. Inline „-Command“ ist nur für echte Einzeiler erlaubt.
+   - ID R-WRAP: Wrapper-Policy – Skripte und Mehrschritt-Prozesse dürfen ausschließlich über „pwsh -File“ mit absolutem Pfad ausgeführt werden. Inline „-Command“ ist nur für echte Einzeiler erlaubt.
    - ID R-STOP: STOP-Gate – Jede modusrelevante oder sicherheitskritische Aktion muss vor Ausführung explizit bestätigt werden.
    - ID R-FM: Frontmatter-Policy – Dokumente müssen gültige YAML-Frontmatter-Blöcke mit definierten Schlüsseln (stand, update, checks) enthalten. Fehlende oder beschädigte Frontmatter werden durch den Validator erkannt und gemeldet.
    - ID R-LINT: Markdownlint-Policy – Dokumente müssen die Style-Regeln MD001–MD050 einhalten; insbesondere MD003 (Setext für H1/H2, ATX ab H3).
@@ -309,7 +339,7 @@ STOP-Gates & Modi
  - Während STOP gilt „Debug/Analyse vor Ausführung“: Keine neuen Build/Test/Run‑Tasks automatisch starten.
  - Laufende Task‑Wünsche werden in eine interne Queue gelegt und erst nach Freigabe gestartet.
  - Manuell‑ausführen‑Pflicht (kritische Läufe):
- - Bei Coverage‑Gates oder Fehlersuche im Terminal mit gesetztem cwd=`/Main` arbeiten und Befehle mit `Join-Path` sauber quoten (mit -NoProfile -Command).
+- Bei Coverage‑Gates oder Fehlersuche im Terminal mit gesetztem cwd=`/Main` arbeiten und Befehle mit `Join-Path` sauber quoten (direkt ausführen oder bei Bedarf mit `pwsh -Command`).
 
 ### Unklarheiten‑STOP (true)(global, immer gültig)
 #### „Grün“ gilt nur bis zum nächsten unerwarteten Ereignis. Sobald etwas außerhalb des Plans liegt, sofort STOP. (unabhängig vom aktiven Modus).
@@ -340,6 +370,18 @@ Modell-Profile & Moduswechsel (GPT-5, GPT-5 Codex, GPT-5 mini)
    - Codex-Trigger: Edits in `novapolis_agent/app/**`, `novapolis_agent/scripts/**`, `novapolis_agent/utils/**`, `novapolis_agent/tests/**`, `packages/**`, `novapolis-rp/coding/**`; Anforderungen wie „Validator bauen“, „API anpassen“, „Pytest fixen“.
    - Mini-Trigger: Viele Dateien gleichzeitig lesen, Bulk-Dokumentationspflege, Log-/TODO-Massentriage, konservative Streu-Fixes ohne tiefen Codeeingriff.
    - General-Trigger: Policy-/Prozess-Anpassungen, SSOT-Abgleich, semantische Strukturierung.
+#### Mapping-Tabelle (Agent-orientiert)
+| Aktion/Signal | Empfohlener Modus | Primäre Gründe | Preflight nötig | STOP-Risiko |
+|---------------|-------------------|----------------|-----------------|-------------|
+| Patch/Code-Refactor (app/, scripts/) | Codex | Präzise Codeanalyse, Typsicherheit | Ja | Mittel (abhängig von Klarheit) |
+| Tests/Typen/Coverage Lauf | Codex | Sequenz Lint→Typen→Tests | Ja | Niedrig (wenn klar) |
+| Große Doku-Sweeps (>10 Dateien) | Mini | Performance, breiter Lesekontext | Nein (nur Lesen) | Niedrig |
+| Einzelne Policy-/Governance-Anpassung | General | Semantische Präzision | Ja | Hoch (SSOT) |
+| Mehrfachanalyse Logs/Reports (read-only) | Mini | Breite Sicht, kein Codeeingriff | Nein | Niedrig |
+| Modulstrategie / Roadmap-Neuordnung | General | Priorisierung, semantische Struktur | Nein | Mittel |
+| Ambigue Moduswahl / Konflikt | General (Fallback) | Neutraler Review | Abhängig von Aktion | Hoch |
+#### Zustands-Annotation (optional)
+"aktiv" = Mapping anwenden; "test" = Empfehlung loggen aber freie Wahl; "scharf" = STOP vor Abweichung von empfohlenem Modus.
 #### Prompting-Policy
    - Bei erkanntem Trigger Hinweis auf empfohlenen Moduswechsel; Nutzerentscheidung ist maßgeblich.
    - Explizite Wahl („Modus Codex“, „Modus General“, „Modus Mini“) setzt sofort um.
@@ -470,10 +512,19 @@ Workspace-Instructions (kompakt)
 - Bei größeren Aufgaben ToDo-Liste des betroffenen Moduls oder `Main/todo-root.md` ergänzen.
 
 
+### Temporäre Aufgaben-Daten (.tmp-results)
+- Zweck: Schneller, kuratierter Arbeitsauszug für Copilot/GPT ohne die SSOT zu verändern. SSOT bleibt `todo.root.md`.
+- Dateien: `/.tmp-results/todo.cleaned.md` (menschlich lesbar) und `/.tmp-results/todo.cleaned.json` (maschinenlesbar, priorisiert).
+- Nutzung (Copilot/GPT):
+   - Bei ToDo-/Planungsaufgaben zuerst `todo.cleaned.json` laden und verwenden; bei Abweichungen zu `todo.root.md` → STOP und Rückfrage.
+   - Änderungen an Aufgabenlisten niemals direkt in `.tmp-results` als Quelle beginnen; stattdessen in `todo.root.md` pflegen und anschließend die temporären Dateien aktualisieren.
+- Pflege (Doku-Update=true): Aktualisierung der temporären Dateien erfolgt bei relevanten Änderungen an `todo.root.md` oder nach Sprint-Planungen. Frontmatter (`stand/update/checks`) in `.tmp-results/*.md` pflegen; Markdownlint/Frontmatter-Validator ausführen und Status notieren.
+- Lebenszyklus: `.tmp-results` ist flüchtig (kein langfristiges Archiv). Inhalte können ohne Vorwarnung rotiert/ersetzt werden; keine sensiblen Daten ablegen.
+
 ### Diagnose‑Playbook bei Lint‑FAIL (pwsh, konservativ)
 - Ziel: Lint‑Fehler reproduzierbar erfassen, schnell auswerten und mit minimalem Risiko beheben.
 - Ausführung (repo‑weit, Konfiguration aus Root):
-- Bestehendes Terminal (PowerShell 7, `-NoProfile`) verwenden.
+- Bestehendes Terminal (PowerShell 7, Profil aktiviert) verwenden.
 - Vollständige Ausgabe in Datei sichern:
 - Beispiel: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' 2>&1 | Tee-Object -FilePath lint_fail.out`
 - Analyse (PowerShell‑only, Python via Here‑String in `python -` pipen):
@@ -525,10 +576,9 @@ Ziele
  
 Hinweis (Terminal/Pwsh)
 ---
-### Standard ist jetzt PowerShell 7 (`pwsh`).
- Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Für einfache, kurze Einzeiler weiterhin `-Command` Inline nutzen; für komplexe oder mehrzeilige Abläufe (Coverage, Artefakt-Erzeugung, umfangreiche Prüf-Sequenzen) zwingend Skript-Wrapper nutzen: `pwsh -NoProfile -File <script.ps1>`. Wrapper sind nur in dieser Form erlaubt (kein indirektes Aufrufen per `-Command` mit Here-Strings). - Achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`) bei allen Inline-Kommandos.
+### Standard ist PowerShell 7 (`pwsh`) mit aktivem Profil.
+ Direkte Eingaben erfolgen in der laufenden Session (kein erneutes `pwsh` nötig). Für komplexe oder mehrzeilige Abläufe (Coverage, Artefakt-Erzeugung, umfangreiche Prüf-Sequenzen) Skript-Wrapper nutzen: `pwsh -File <script.ps1>`. Inline `pwsh -Command "..."` ist ausschließlich für echte Einzeiler oder externe Launcher (CI/Task) zulässig. Kein zusammengesetztes Mehrzeilen-Here-String über `-Command`; stattdessen Skript anlegen. Achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`).
 #### Ausnahme (Systemzeit)
- Für einfache, pfadfreie Einzeiler ist `-Command` erlaubt und kanonisch. 
-##### Systemzeit immer so ermitteln: `pwsh -NoProfile -Command "Get-Date -Format 'yyyy-MM-dd HH:mm'"`.
+ Einfache Ausgabe direkt: `Get-Date -Format 'yyyy-MM-dd HH:mm'`.
 
 Postflight: STOP-Gate dedupliziert, Modell-Profile konsolidiert, Prüfabläufe und Module korrekt gerelevelt, Markdownlint-Sektion vereinheitlicht, Meta-Block harmonisiert, Heading-Interpunktion und -Einzug bereinigt, Whitespace normalisiert; Lint-Ziele MD001/MD003/MD007/MD009/MD012/MD023/MD025/MD031/MD032/MD047 erfüllt.

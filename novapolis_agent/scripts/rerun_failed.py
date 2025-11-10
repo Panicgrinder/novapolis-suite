@@ -10,23 +10,28 @@ Aufruf:
   python scripts/run_eval.py --patterns "eval/results/tmp/rerun_*.jsonl"
 """
 from __future__ import annotations
-import os, glob, json, datetime as dt
-from typing import List, Dict, Any, Optional, cast
-from utils.eval_utils import strip_eval_prefix, ensure_eval_prefix
+
+import datetime as dt
+import glob
+import json
+import os
+from typing import Any, cast
+
+from utils.eval_utils import ensure_eval_prefix, strip_eval_prefix
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATASETS_DIR = os.path.join(PROJECT_ROOT, "eval", "datasets")
 RESULTS_DIR = os.path.join(PROJECT_ROOT, "eval", "results")
 TMP_DIR = os.path.join(RESULTS_DIR, "tmp")
 
-def _latest_results() -> Optional[str]:
+def _latest_results() -> str | None:
     files = sorted(glob.glob(os.path.join(RESULTS_DIR, "results_*.jsonl")))
     return files[-1] if files else None
 
-def _load_failed_ids(path: str) -> List[str]:
-    failed: List[str] = []
-    with open(path, "r", encoding="utf-8") as f:
-        for line in f:
+def _load_failed_ids(path: str) -> list[str]:
+    failed: list[str] = []
+    with open(path, encoding="utf-8") as handle:
+        for line in handle:
             line = line.strip()
             if not line:
                 continue
@@ -38,10 +43,12 @@ def _load_failed_ids(path: str) -> List[str]:
             rid = str(rec.get("id") or rec.get("item_id") or rec.get("eval_id") or "")
             success = bool(rec.get("success")) if "success" in rec else None
             error = rec.get("error")
-            failed_checks: List[Any] = rec.get("failed_checks") or []  # type: ignore[assignment]
+            failed_checks = rec.get("failed_checks") or []
+            if not isinstance(failed_checks, list):
+                failed_checks = []
             if not rid:
                 continue
-            if success is False or error or (isinstance(failed_checks, list) and len(failed_checks) > 0):
+            if success is False or error or failed_checks:
                 # Füge beide Schlüsselvarianten hinzu, um robust gegen Präfixe zu sein
                 if rid:
                     failed.append(rid)
@@ -49,12 +56,12 @@ def _load_failed_ids(path: str) -> List[str]:
                     failed.append(ensure_eval_prefix(rid))
     return sorted(set(failed))
 
-def _load_registry() -> Dict[str, Dict[str, Any]]:
-    reg: Dict[str, Dict[str, Any]] = {}
+def _load_registry() -> dict[str, dict[str, Any]]:
+    reg: dict[str, dict[str, Any]] = {}
     # JSONL zuerst
     for p in glob.glob(os.path.join(DATASETS_DIR, "eval-*.jsonl")):
-        with open(p, "r", encoding="utf-8") as f:
-            for line in f:
+        with open(p, encoding="utf-8") as handle:
+            for line in handle:
                 line = line.strip()
                 if not line:
                     continue
@@ -64,30 +71,30 @@ def _load_registry() -> Dict[str, Dict[str, Any]]:
                     continue
                 if not isinstance(obj, dict):
                     continue
-                objd2: Dict[str, Any] = cast(Dict[str, Any], obj)
-                rid = objd2.get("id")
+                obj_dict = cast(dict[str, Any], obj)
+                rid = obj_dict.get("id")
                 if isinstance(rid, str):
                     # Mappe sowohl mit als auch ohne eval- Präfix
-                    reg[rid] = objd2
-                    reg[strip_eval_prefix(rid)] = objd2
-                    reg[ensure_eval_prefix(rid)] = objd2
+                    reg[rid] = obj_dict
+                    reg[strip_eval_prefix(rid)] = obj_dict
+                    reg[ensure_eval_prefix(rid)] = obj_dict
     # JSON (Array)
     for p in glob.glob(os.path.join(DATASETS_DIR, "eval-*.json")):
         if p.endswith(".jsonl"):
             continue
         try:
-            arr = json.load(open(p, "r", encoding="utf-8"))
+            with open(p, encoding="utf-8") as handle:
+                arr = json.load(handle)
             if isinstance(arr, list):
-                arr_list: List[Any] = cast(List[Any], arr)
-                for obj in arr_list:
+                for obj in arr:
                     if not isinstance(obj, dict):
                         continue
-                    objd: Dict[str, Any] = cast(Dict[str, Any], obj)
-                    rid = objd.get("id")
+                    obj_dict = cast(dict[str, Any], obj)
+                    rid = obj_dict.get("id")
                     if isinstance(rid, str):
-                        reg[rid] = objd
-                        reg[strip_eval_prefix(rid)] = objd
-                        reg[ensure_eval_prefix(rid)] = objd
+                        reg[rid] = obj_dict
+                        reg[strip_eval_prefix(rid)] = obj_dict
+                        reg[ensure_eval_prefix(rid)] = obj_dict
         except Exception:
             continue
     return reg

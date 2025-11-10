@@ -9,10 +9,10 @@ Optional: Autor wird aus git config user.name gelesen; sonst Nutzername der Umge
 """
 from __future__ import annotations
 
-import os
-import sys
 import datetime as dt
+import os
 import subprocess
+import sys
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOG_PATH = os.path.join(PROJECT_ROOT, "docs", "DONELOG.txt")
@@ -20,7 +20,9 @@ LOG_PATH = os.path.join(PROJECT_ROOT, "docs", "DONELOG.txt")
 
 def get_author() -> str:
     try:
-        name = subprocess.check_output(["git", "config", "user.name"], cwd=PROJECT_ROOT, text=True).strip()
+        name = subprocess.check_output(
+            ["git", "config", "user.name"], cwd=PROJECT_ROOT, text=True
+        ).strip()
         if name:
             return name
     except Exception:
@@ -38,7 +40,7 @@ def main(argv: list[str]) -> int:
         return 2
     # Nutze zentrale Zeit-Helfer; Fallback auf lokale Systemzeit
     try:
-        from utils.time_utils import now_human_tz, tz_label  # type: ignore
+        from utils.time_utils import now_human_tz, tz_label
         ts = now_human_tz()
         tz_info = tz_label()
     except Exception:
@@ -51,7 +53,7 @@ def main(argv: list[str]) -> int:
     try:
         tz_env = os.getenv("CVN_TZ") or os.getenv("TZ")
         if tz_env and os.path.exists(LOG_PATH):
-            with open(LOG_PATH, "r", encoding="utf-8") as f:
+            with open(LOG_PATH, encoding="utf-8") as f:
                 content = f.read()
             if "Zeitzone:" not in content.splitlines()[0]:
                 # Füge eine Hinweiszeile nach der ersten Überschrift hinzu

@@ -5,16 +5,20 @@
 [tool.black]
 line-length = 100
 target-version = ["py311"]
-# Use a literal triple-quoted string so backslashes don't need escaping
+# Path-robust exclude: match directories anywhere in the tree (Black matches against
+# the full normalized path). Using boundary slashes avoids overmatching file names.
 exclude = '''
-(
-  ^\.venv
-  | ^Backups
-  | ^outputs
-  | ^novapolis_agent/outputs
-  | ^novapolis_agent/eval/results
-  | ^novapolis-rp/\.pytest_cache
-)
+/( 
+    \.venv
+  | Backups
+  | outputs
+  | novapolis_agent/outputs
+  | novapolis_agent/eval/results
+  | novapolis-rp/\.pytest_cache
+  | \.mypy_cache
+  | \.ruff_cache
+  | \.pytest_cache
+)/
 '''
 
 [tool.ruff]
