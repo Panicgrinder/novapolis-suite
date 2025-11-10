@@ -1,4 +1,5 @@
 <#
+Stand: 2025-11-10 11:35
 Lightweight PowerShell smoke test for the Novapolis Sim stack.
 
 What it does:

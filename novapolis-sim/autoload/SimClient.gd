@@ -1,4 +1,5 @@
 extends Node
+# Stand: 2025-11-10 11:35
 
 ## Pollt die Agent-API zyklisch und verteilt den Weltzustand an "world_listeners".
 

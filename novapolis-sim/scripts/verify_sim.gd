@@ -1,4 +1,5 @@
 extends SceneTree
+# Stand: 2025-11-10 11:35
 
 # Minimal headless verifier for the Novapolis Sim project.
 # Run with: Godot --path <project> -s res://scripts/verify_sim.gd
