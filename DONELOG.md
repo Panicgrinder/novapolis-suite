@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-10 08:40
-update: Skriptbereinigung: zwei Root-Skripte entfernt, Snapshot-Skripte archiviert, drei Agent-PS1 entfernt; .tmp/DOCS aktualisiert.
-checks: keine
+stand: 2025-11-12 01:40
+update: Postflight ergänzt (Checks-Report 20251112_013920)
+checks: markdownlint-cli2 PASS (scoped)
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -49,6 +49,17 @@ Kurzueberblick
 - 2025-11-07 02:19: DONELOGs/Status-Docs synchronisiert (`todo.root.md`, `WORKSPACE_STATUS.md`, `single-root-todo.md`); Repo-weites markdownlint-Ergebnis (MD003‑Backlog) dokumentiert; VS Code Lint‑Task (Quoting `'**/*.md'`) angeglichen.
 - 2025-11-07 01:39: TODO/WORKSPACE_STATUS aktualisiert (Single-Repo-Governance-Reminder, Aufgaben für Lint-Overrides, Staging-Report-Migration, Metadata-Konsolidierung, Archiv-Ablage) – reine Doku-Anpassung.
 - 2025-11-07 01:27: Workspace-Konfliktanalyse abgeschlossen (Markdownlint-Overrides in `novapolis-rp/database-curated/staging/**`, Staging-Reports ohne Frontmatter, doppelte Metadata-Skripte `.js/.py`, Alt-Notiz `novapolis_agent/analysis_chat_routers.md`). Ergebnisse in TODO/Status erfasst.
+2025-11-12 01:38 | Copilot | DONELOG-Sync (Root/Agent/Dev): Tab-Korrektur (MD010) in Agent-DONELOG, konsolidierte Frontmatter, vorbereitender Eintrag vor Skriptlauf `run_checks_and_report.ps1`.
+
+Postflight
+----------
+
+Meta: Modus=Postflight, Modell=GPT-5, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=pwsh -File F:\VS Code Workspace\Main\scripts\run_checks_and_report.ps1, SHA256=0C7898C7C7141B78597F9852C91FBD72C98F0AD300C5F77780C8302EEE2296E1, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=F:\VS Code Workspace\Main\.github\copilot-instructions.md;F:\VS Code Workspace\Main\WORKSPACE_STATUS.md;F:\VS Code Workspace\Main\scripts\run_checks_and_report.ps1, Aktion=Automatisierter Checklauf (Ruff/Black/Markdownlint/Frontmatter/Pyright/Mypy/Pytest)
+Prüfung: markdownlint=FAIL, ExitcodeLint=1, behobenLint=nein, Frontmatter-Validator=FAIL, ExitcodeFM=1, behobenFM=nein, Cleanup-WhatIf-Exit=NA, behobenWhatIf=nein, Cleanup-Real-Exit=NA, behobenReal=nein, WorkspaceScanRoot=0, WorkspaceScanRecurse=0, PSScriptAnalyzerRan=True, PSScriptAnalyzerExit=1, PSScriptAnalyzerBehoben=False
+Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG,R-COV,R-IDX,R-COMM,R-RED,R-TODO,R-TIME,R-SAFE, Details=Automatisierter Checklauf; keine Mutationen.
+Todos: offen=n/a, BeispielFix=Automatisierter Checklauf, ReRun=keiner, Fällig=2025-11-12 01:40
+ - 2025-11-12 00:15: Link-Scanner Pfade angepasst (Reports → `scan_links_reports`, Backups → `.tmp-datasets/lscan_links_backups`), erster Testlauf PASS (broken Links jetzt 1 verbleibend). TODO-Liste aktualisiert.
+ - 2025-11-12 01:05: Agent WORKSPACE_INDEX.md und Backup (.bak.linkscan) entfernt (redundant zur zentralen Doku); TODO angepasst (Index-Aufgaben konsolidiert).
 - 2025-11-06 15:58: MD003 Setext + YAML-Frontmatter in `novapolis_agent/cleanup_recommendations.md`, `Backups/novapolis-rp-development-archived-20251105/development/README.md`, `novapolis-dev/logs/betriebsmodi-20251103-0341.tmp.md`, `novapolis-rp/.github/ISSUE_TEMPLATE/bug_report.md`, `novapolis_agent/eval/config/context.local.sample.md`; targeted markdownlint PASS (5 Dateien); Logs aktualisiert.
 - 2025-11-06 15:22: MD003-Setext-Korrekturen in `novapolis-rp/coding/tools/chat-exporter/README.md`, `novapolis-rp/coding/tools/metadata/README.md`, `novapolis-rp/coding/devcontainer/README.md`; targeted markdownlint PASS (3 Dateien).
 - 2025-11-06 15:22: YAML-Frontmatter (stand/update/checks) in denselben 3 Dateien ergänzt; frontmatter-Validator PASS (targeted).
