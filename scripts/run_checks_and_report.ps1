@@ -1,16 +1,18 @@
+﻿[System.Diagnostics.CodeAnalysis.SuppressMessage('Style','PSUseOutputTypeCorrectly', Justification='Legacy script header kept minimal')]
 #requires -Version 7.0
 <#
-.SYNOPSIS
-Automatisierter Sammellauf fuer Lint-, Typ- und Test-Ergebnisse.
-.DESCRIPTION
-Fuehrt optionale Pruefschritte fuer Code-/Markdown-Lints, Frontmatter-Validator,
-Pyright, Mypy und Pytest (mit Coverage) aus und schreibt eine Markdown-Quittung
-unter .tmp-results/reports. Die Quittung enthaelt zusaetzlich eine Postflight-
-Schablone mit bereits ermittelten Fakten (Hash, Timestamp, Regel-Matrix usw.).
-.EXAMPLE
-pwsh -File scripts/run_checks_and_report.ps1
-.EXAMPLE
-pwsh -File scripts/run_checks_and_report.ps1 -SkipDocsLint -SkipFrontmatter
+ .SYNOPSIS
+ Automatisierter Sammellauf für Lint-, Typ- und Test-Ergebnisse.
+
+ .DESCRIPTION
+ Führt optionale Prüfschritte (Lint, Frontmatter, Typen, Tests, Coverage)
+ aus und schreibt eine strukturierte Markdown-Quittung unter `.tmp-results/reports`.
+
+ .EXAMPLE
+ pwsh -File scripts/run_checks_and_report.ps1
+
+ .EXAMPLE
+ pwsh -File scripts/run_checks_and_report.ps1 -SkipDocsLint -SkipFrontmatter
 #>
 [CmdletBinding()]
 param(
@@ -20,7 +22,7 @@ param(
     [switch]$SkipCoverage,
     [switch]$SkipFrontmatter,
     [switch]$SkipTests,
-    [int]$MaxTestFiles = 40
+    [int]$MaxTestFiles = 1000
 )
 
 Set-StrictMode -Version Latest
@@ -125,6 +127,9 @@ $result = [ordered]@{
     overall       = @{ pass = $true; failures = @(); exit = 0 }
 }
 
+# PSScriptAnalyzer result placeholder (PowerShell static analysis)
+$result.psscriptanalyzer = @{ ran = $false; pass = $null; exit = $null; issues = @() }
+
 # Track whether a STOP Gate was triggered (e.g. too many test files)
 $stopTriggered = $false
 
@@ -147,6 +152,52 @@ if (-not $SkipDocsLint) {
     $result.lint_docs.exit = $md.exit
     $result.lint_docs.pass = ($md.exit -eq 0)
     if ($md.exit -ne 0) { Update-Overall -Root $result -Phase 'lint_docs' -ExitCode $md.exit }
+}
+
+# PSScriptAnalyzer: statische Analyse von PowerShell-Skripten (falls verfügbar)
+try {
+    $pssaAvailable = $null -ne (Get-Module -ListAvailable -Name PSScriptAnalyzer)
+} catch {
+    $pssaAvailable = $false
+}
+if (-not $pssaAvailable) {
+    Write-Host "[run_checks] PSScriptAnalyzer nicht installiert. Versuche Installation (CurrentUser)..." -ForegroundColor Yellow
+    try {
+        Install-Module -Name PSScriptAnalyzer -Scope CurrentUser -Force -ErrorAction Stop
+        Import-Module PSScriptAnalyzer -ErrorAction Stop
+        $pssaAvailable = $true
+    } catch {
+        Write-Warning "PSScriptAnalyzer konnte nicht installiert/geladen werden: $_"
+        $pssaAvailable = $false
+    }
+}
+
+if ($pssaAvailable) {
+    Write-Host "[run_checks] Invoke-ScriptAnalyzer (scripts/) ..." -ForegroundColor Cyan
+    try {
+        $pssaResults = Invoke-ScriptAnalyzer -Path (Join-Path $repoRoot 'scripts') -Recurse -ErrorAction Stop
+    } catch {
+        Write-Warning "Invoke-ScriptAnalyzer fehlgeschlagen: $_"
+        $pssaResults = @()
+    }
+    $pssaIssues = @()
+    foreach ($r in $pssaResults) {
+        $pssaIssues += [ordered]@{
+            file = ($r.ScriptName -or $r.FilePath -or 'n/a')
+            rule = ($r.RuleName -or 'n/a')
+            severity = ($r.Severity -as [string])
+            line = ($r.Line -as [int])
+            message = ($r.Message -as [string])
+        }
+    }
+    $issueCount = ($pssaIssues | Where-Object { $_.severity -in @('Error','Warning') } | Measure-Object).Count
+    $result.psscriptanalyzer.ran = $true
+    $result.psscriptanalyzer.issues = $pssaIssues
+    $result.psscriptanalyzer.exit = if ($issueCount -gt 0) { 1 } else { 0 }
+    $result.psscriptanalyzer.pass = ($issueCount -eq 0)
+    if ($issueCount -gt 0) { Update-Overall -Root $result -Phase 'psscriptanalyzer' -ExitCode 1 }
+} else {
+    Write-Host "[run_checks] PSScriptAnalyzer nicht verfügbar; überspringe PSScriptAnalyse." -ForegroundColor DarkYellow
 }
 
 if ((-not $SkipFrontmatter) -and (Test-Path -LiteralPath $frontmatterScript)) {
@@ -225,7 +276,8 @@ $docsStatus = Get-Status -Ran $result.lint_docs.ran -Pass $result.lint_docs.pass
 $fmStatus = Get-Status -Ran $result.frontmatter.ran -Pass $result.frontmatter.pass
 $typeStatus = Get-Status -Ran $result.types.ran -Pass $result.types.pass
 $testStatus = Get-Status -Ran $result.tests.ran -Pass $result.tests.pass
-$summaryLine = "ruff/black=$codeStatus; markdownlint=$docsStatus; frontmatter=$fmStatus; types=$typeStatus; pytest=$testStatus (files=$($result.tests.collected_files); cov=$($result.tests.coverage))"
+$pssaStatus = Get-Status -Ran $result.psscriptanalyzer.ran -Pass $result.psscriptanalyzer.pass
+$summaryLine = "ruff/black=$codeStatus; markdownlint=$docsStatus; frontmatter=$fmStatus; types=$typeStatus; pytest=$testStatus; psscriptanalyzer=$pssaStatus (files=$($result.tests.collected_files); cov=$($result.tests.coverage))"
 
 $frontmatterExit = if ($result.frontmatter.ran) { $result.frontmatter.exit } else { 'NA' }
 $docsExit = if ($result.lint_docs.ran) { $result.lint_docs.exit } else { 'NA' }
@@ -298,6 +350,19 @@ $postflight = [ordered]@{
         behobenReal = 'nein'
         WorkspaceScanRoot = 0
         WorkspaceScanRecurse = 0
+        PSScriptAnalyzer = if ($result.psscriptanalyzer.ran) {
+            [ordered]@{
+                Ran = $true
+                Exitcode = $result.psscriptanalyzer.exit
+                Behoben = $false
+            }
+        } else {
+            [ordered]@{
+                Ran = $false
+                Exitcode = 'NA'
+                Behoben = 'n/a'
+            }
+        }
     }
     regeln = [ordered]@{
         IDs = $ruleString
@@ -343,7 +408,7 @@ $body = @(
     '',
     '```',
     "Meta: Modus=$($postflight.meta.Modus), Modell=$($postflight.meta.Modell), Arbeitsverzeichnis=$($postflight.meta.Arbeitsverzeichnis), RepoRoot=$($postflight.meta.RepoRoot), PSScriptRoot=$($postflight.meta.PSScriptRoot), PSVersion=$($postflight.meta.PSVersion), Aufruf=$($postflight.meta.Aufruf), SHA256=$($postflight.meta.SHA256), STOP-Gate=$($postflight.meta.STOPGate), Wrapper-Policy=$($postflight.meta.WrapperPolicy), Quellen=$([string]::Join(';', $postflight.meta.Quellen)), Aktion=$($postflight.meta.Aktion)",
-    "Pruefung: markdownlint=$($postflight.pruefung.markdownlint), ExitcodeLint=$($postflight.pruefung.ExitcodeLint), behobenLint=$($postflight.pruefung.behobenLint), Frontmatter-Validator=$($postflight.pruefung.Frontmatter), ExitcodeFM=$($postflight.pruefung.ExitcodeFM), behobenFM=$($postflight.pruefung.behobenFM), Cleanup-WhatIf-Exit=$($postflight.pruefung.CleanupWhatIfExit), behobenWhatIf=$($postflight.pruefung.behobenWhatIf), Cleanup-Real-Exit=$($postflight.pruefung.CleanupRealExit), behobenReal=$($postflight.pruefung.behobenReal), WorkspaceScanRoot=$($postflight.pruefung.WorkspaceScanRoot), WorkspaceScanRecurse=$($postflight.pruefung.WorkspaceScanRecurse)",
+    "Pruefung: markdownlint=$($postflight.pruefung.markdownlint), ExitcodeLint=$($postflight.pruefung.ExitcodeLint), behobenLint=$($postflight.pruefung.behobenLint), Frontmatter-Validator=$($postflight.pruefung.Frontmatter), ExitcodeFM=$($postflight.pruefung.ExitcodeFM), behobenFM=$($postflight.pruefung.behobenFM), Cleanup-WhatIf-Exit=$($postflight.pruefung.CleanupWhatIfExit), behobenWhatIf=$($postflight.pruefung.behobenWhatIf), Cleanup-Real-Exit=$($postflight.pruefung.CleanupRealExit), behobenReal=$($postflight.pruefung.behobenReal), WorkspaceScanRoot=$($postflight.pruefung.WorkspaceScanRoot), WorkspaceScanRecurse=$($postflight.pruefung.WorkspaceScanRecurse), PSScriptAnalyzerRan=$($postflight.pruefung.PSScriptAnalyzer.Ran), PSScriptAnalyzerExit=$($postflight.pruefung.PSScriptAnalyzer.Exitcode), PSScriptAnalyzerBehoben=$($postflight.pruefung.PSScriptAnalyzer.Behoben)",
     "Regeln: IDs=$($postflight.regeln.IDs), Details=$($postflight.regeln.Details)",
     "Todos: offen=$($postflight.todos.offen), BeispielFix=$($postflight.todos.BeispielFix), ReRun=$($postflight.todos.ReRun), Faellig=$($postflight.todos.Faellig)",
     "Ende: Timestamp=$($postflight.ende.Timestamp)",

@@ -1,11 +1,15 @@
 ---
-stand: 2025-11-06 15:34
-update: YAML Frontmatter ergänzt; H1 auf Setext umgestellt
-checks: markdownlint-cli2 PASS (single file)
+stand: 2025-11-12 01:03
+update: Stub → Inhalt zum Hub verlagert
+checks: pending
 ---
 
-Temporäre Ergebnis-Artefakte
-============================
+Temporäre Ergebnisse (Stub)
+===========================
+Policy & Nutzung jetzt im Hub: `novapolis-dev/docs/readme.hub.md` → "Temporäre Bereiche".
 
-Hier landen Zwischenstände und Hilfsdateien, die bei Auswertungen entstehen. Das Verzeichnis ist gitignored; Inhalte können nach erfolgreichem Lauf entfernt oder archiviert werden.
+Kurz:
+- Zwischenstände / Reports, gitignored.
+- Lösch-/Archivierung nach Verarbeitung.
+
 

@@ -1,7 +1,6 @@
----
-stand: 2025-11-06 02:50
-update: YAML-Delimiter ergänzt; Markdownlint geprüft
-checks: markdownlint-cli2 (single file) PASS
+stand: 2025-11-12 01:17
+update: Hub-Stubs Phase 1 notiert; TTS/Tools unverändert
+checks: keine
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 Novapolis Agent – ToDo & Roadmap (SSOT)
@@ -16,6 +15,7 @@ Hinweis
 Platzhalter
 -----------
 - [ ] Inhalte aus `novapolis_agent/docs/TODO.md` migrieren und gliedern.
+ - [ ] Abgleich mit Root Coverage-Gate (R-COV) und Aufnahme fehlender Prüfsteps (Receipt-Formate) in diesen Plan
 
 Neue Aufgaben - TTS & Tools (2025-11-01 22:24)
 ----------------------------------------------

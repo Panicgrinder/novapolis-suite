@@ -1,11 +1,15 @@
 ---
-stand: 2025-11-06 15:38
-update: YAML Frontmatter ergänzt; H1 auf Setext umgestellt
-checks: markdownlint-cli2 PASS (single file)
+stand: 2025-11-12 01:03
+update: Stub → Inhalt zum Hub verlagert
+checks: pending
 ---
 
-Temporäre Dataset-Artefakte
-===========================
+Temporäre Datasets (Stub)
+=========================
+Hinweise jetzt im Hub: `novapolis-dev/docs/readme.hub.md` → "Temporäre Bereiche".
 
-Dieses Verzeichnis sammelt kurzlebige Dateien, die beim Generieren oder Testen von Datasets entstehen. Inhalte werden nicht versioniert und können gefahrlos gelöscht werden, sobald die jeweiligen Läufe abgeschlossen sind.
+Kurz:
+- Kurzlebige Artefakte (Generierung/Test).
+- Löschbar nach Laufabschluss.
+
 

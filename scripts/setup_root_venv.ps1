@@ -32,7 +32,7 @@ if (-not (Test-Path -LiteralPath $venvPath)) {
     try {
         & py -3 -m venv $venvPath
         if ($LASTEXITCODE -eq 0) { $created = $true }
-    } catch {}
+    } catch { Write-Verbose $_ }
     if (-not $created) {
         Write-Warn "Fallback to 'python -m venv'"
         & python -m venv $venvPath

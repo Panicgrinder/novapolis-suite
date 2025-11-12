@@ -44,9 +44,9 @@ try {
         Start-Sleep -Seconds 1
         $waited += 1
     }
-    if ($waited -ge $maxWait) {
+        if ($waited -ge $maxWait) {
         Write-Host "[verify_sim] ERROR: uvicorn did not open port 8765 within timeout"
-        try { Stop-Process -Id $proc.Id -ErrorAction SilentlyContinue } catch {}
+        try { Stop-Process -Id $proc.Id -ErrorAction SilentlyContinue } catch { Write-Verbose $_ }
         exit 2
     }
 
@@ -59,10 +59,10 @@ try {
         Write-Host "[verify_sim] ERROR: POST failed: $($_.Exception.Message)"
         $exitCode = 3
     }
-} finally {
-    if ($proc -and ($proc.Id -ne $null)) {
+    } finally {
+    if ($proc -and ($null -ne $proc.Id)) {
         Write-Host "[verify_sim] Stopping uvicorn (PID $($proc.Id))"
-        try { Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue } catch {}
+        try { Stop-Process -Id $proc.Id -Force -ErrorAction SilentlyContinue } catch { Write-Verbose $_ }
     }
 }
 

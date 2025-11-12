@@ -157,7 +157,7 @@ try {
             } catch {
             Write-Error "Failed to update $($file): $($_)"
             # On error, restore backups
-            foreach ($b in $backups) { try { Copy-Item -Path $b -Destination ($b -replace '\.bak$','') -Force } catch {} }
+            foreach ($b in $backups) { try { Copy-Item -Path $b -Destination ($b -replace '\.bak$','') -Force } catch { Write-Verbose $_ } }
             exit 5
         }
     }

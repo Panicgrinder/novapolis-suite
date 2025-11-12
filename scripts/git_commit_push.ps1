@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 function Invoke-GitCommand {
     param (
@@ -71,3 +71,4 @@ Invoke-GitCommand -Arguments @("push") -Label "APPLY"
 Invoke-GitCommand -Arguments @("status", "--short", "--branch") -Label "VERIFY"
 
 Write-Host "Git commit+push Task abgeschlossen." -ForegroundColor Green
+

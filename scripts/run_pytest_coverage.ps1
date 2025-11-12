@@ -1,4 +1,4 @@
-<#
+﻿<#
 Runs pytest with coverage using the workspace's root venv if available.
 Splits logic across steps to avoid complex -Command quoting issues in VS Code tasks.
 Also writes machine-readable artifacts (JUnit XML, coverage XML) and a short summary.
@@ -95,3 +95,4 @@ try {
 finally {
     Pop-Location
 }
+

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-06 02:49
-update: Markdownlint geprüft; Statusangabe angepasst
-checks: markdownlint-cli2 (single file) PASS
+stand: 2025-11-12 01:17
+update: Docs-Hub Ergänzungen vermerkt; Redirect-/Index-Aufgabe ergänzt
+checks: keine
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -22,6 +22,8 @@ Offene Aufgaben (Dev)
 - [ ] (Platzhalter) Sammle Dev‑Aufgaben hier. Falls bisher in Root `todo.root.md` oder Agent‑TODO gepflegt, bitte verschieben.
 - [ ] MCP-Server-Prototyp vorbereiten (`novapolis-dev/integrations/`): Minimalen lokalen MCP-Server aufsetzen, Launch/Docs ergänzen, Verbindungstest mit Web-Client dokumentieren.
 - [x] Betriebsmodi „Standardlauf“/„Sicherheitsprotokoll“ konsolidieren (Prozess-Docs, Logging-Template, Anpassung Copilot-Instruktionen) (2025-11-03)
+ - [x] Docs/READMEs: Hub-README erweitert (TL;DR, direkte Tool-Links, Beispiele); Stubs Phase 1 konsolidiert (2025-11-12 01:12)
+ - [ ] Redirect-/Index-Strategie finalisieren: Rolle `WORKSPACE_INDEX.md` definieren oder durch Hub‑Verweis ersetzen; Duplikate vermeiden
 
 Neue Aufgaben – Zeitmodell & TTS (2025-11-01 22:24)
 ---------------------------------------------------

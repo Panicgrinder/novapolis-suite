@@ -1,7 +1,6 @@
----
-stand: 2025-11-06 02:52
-update: Frontmatter auf YAML umgestellt; markdownlint PASS
-checks: markdownlint-cli2 PASS
+stand: 2025-11-12 01:17
+update: Hub-Verweise Phase 1 konsolidiert; Szenen-Backfill offen
+checks: keine
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -61,6 +60,7 @@ Priorität C – Systeme, Indizes, Ereignisse
 - [ ] Relationslog Novapolis → neues Canvas/Project-Canvas; Händlerkontakt "Senn Daru" verlinken; ID-Schema `logistik_novapolis_v2` angleichen.
 - [x] AI-Behavior-Index → `AI-Behavior-Mapping.md` + JSON-Sidecar erweitert (2025-11-01T17:40+01:00); Cluster, Modifikatoren, Anchor-Register, Psymatrix-Abgleich dokumentiert.
 - [x] Validator „behavior_matrix_check.py“ → Anchor-Register + `ai_psymatrix_index_v1` Diff-Report erzeugen; Automation vorbereiten. *(2025-11-02T12:40+01:00 – Skript `coding/tools/validators/behavior_matrix_check.py` angelegt, Format-Checks aktiv; Psymatrix-Diff folgt sobald Quelle vorliegt.)*
+ - [ ] Hub-README Querverweis prüfen: Behavior-Matrix Abschnitt ergänzen (Validator Tools) – konsistente Terminologie
 - [ ] Meta-Cluster-Index → neues Admin-Canvas; Spannungen/PsyLinks gegen Kanon verifizieren.
 - [ ] Missionslog Querverweise aktualisieren (nur falls Rohdaten relevante Ereignisse tragen).
 
@@ -199,6 +199,7 @@ Aktive Aufgaben
   - [ ] `06-scenes/` füllen: letzte 3–5 Szenen rückwärts aus Export
   - [ ] Szenen-Kacheln: Datum, Kernentscheidungen, offene Fäden
   - [ ] Optional: Timeline-Index anlegen
+  - [ ] Beispiel-Frontmatter aus Hub auf erste neue Szene anwenden (Format-Test)
 
 - [ ] Nächste Spielsitzung vorbereiten
   - [ ] Szenen-Kachel 1: Status-Ping D5/C6/Nordlinie

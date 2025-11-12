@@ -1,25 +1,15 @@
 ---
-stand: 2025-11-06 15:38
-update: YAML Frontmatter ergänzt; H1 auf Setext umgestellt
-checks: markdownlint-cli2 PASS (single file)
+stand: 2025-11-12 01:03
+update: Stub → Inhalt zum Hub verlagert
+checks: pending
 ---
 
-<!-- context-core: true; context-id: novapolis-rp; priority: high -->
-> [!IMPORTANT]
-> Kontext‑Kerndokument (RAW‑Policy): Rohdaten gehören ausschließlich hierher. Keine ungefilterten Daten in `database-rp/`.
+RAW Exporte (Stub)
+==================
+RAW-Policy & Hinweise jetzt im Hub: `novapolis-dev/docs/readme.hub.md` → "Export & Ingest".
 
-Exporte
-=======
+Kurz:
+- Nur ungefilterte Exporte hier.
+- Weiterverarbeitung erst nach Curation (staging/).
 
-Lege hier deine geretteten Daten ab:
-
-- `chat-export-complete.txt` (aus Auto-Exporter)
-- original `chat-export (1).txt`
-- `Chronist von Novapolis - Ronjas Novapolis RP.pdf`
-
-Hinweise:
-
-- Große Chats werden im Browser virtualisiert. Für Vollständigkeit den Auto-Exporter nutzen (skrollt hoch, akkumuliert, speichert Zwischenstände).
-- Rohdaten bleiben ausschließlich hier unter `database-raw/`. Bitte nichts Ungefiltertes nach `database-rp/` verschieben.
-- Für die Übernahme in `database-rp/06-scenes/` verwende ein Curation-/Ingest‑Script (siehe `coding/tools/curation/`).
 

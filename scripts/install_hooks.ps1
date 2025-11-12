@@ -1,4 +1,4 @@
-$ErrorActionPreference = 'Stop'
+﻿$ErrorActionPreference = 'Stop'
 
 function Get-RepoRoot {
   param([string]$start)
@@ -18,3 +18,4 @@ Get-ChildItem -Path $src -File | ForEach-Object {
 
 Write-Host "Lokale Git-Hooks installiert (Quelle: githooks → Ziel: .git/hooks)." -ForegroundColor Green
 Write-Host "Hinweis: Git for Windows führt Shell-Hooks aus; dieser Hook ruft PowerShell auf." -ForegroundColor DarkGray
+

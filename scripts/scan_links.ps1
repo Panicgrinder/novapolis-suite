@@ -1,4 +1,4 @@
-#requires -Version 7.0
+﻿#requires -Version 7.0
 <#
 Scans a selected workspace directory for Markdown links and simple file references.
 Writes a markdown report under .tmp-results/reports/links.
@@ -18,6 +18,8 @@ param(
     [int]$ScopeIndex = -1,
     [switch]$IncludeCodeRefs,
     [switch]$IncludeExternal
+    ,
+    [switch]$AutoFix
 )
 
 $ErrorActionPreference = 'Stop'
@@ -27,36 +29,44 @@ if (-not $scriptPath) { $scriptPath = $MyInvocation.MyCommand.Path }
 if (-not $scriptPath) { throw 'Cannot determine script path. Run via pwsh -File.' }
 $repoRoot = Split-Path -Parent (Split-Path -Parent $scriptPath)
 $tmpRoot = Join-Path $repoRoot '.tmp-results'
-$linksDir = Join-Path $tmpRoot 'reports\links'
+$linksDir = Join-Path $tmpRoot 'reports\scan_links_reports'
 New-Item -ItemType Directory -Force -Path $linksDir | Out-Null
 
-Write-Host 'Verfügbare Scopes:' -ForegroundColor Cyan
+# Central backup directory for link-scan AutoFix backups
+$backupRoot = Join-Path $repoRoot '.tmp-datasets\lscan_links_backups'
+New-Item -ItemType Directory -Force -Path $backupRoot | Out-Null
+
+Write-Information 'Verfügbare Scopes:' -Tags 'LinkScan'
 $indexedScopes = @()
 for ($i = 0; $i -lt $Scopes.Count; $i++) {
     $candidate = $Scopes[$i]
     $abs = Join-Path $repoRoot $candidate
     if (Test-Path -LiteralPath $abs) {
         $indexedScopes += [pscustomobject]@{ Index = $i; Name = $candidate; Path = $abs }
-        Write-Host ("[{0}] {1}" -f $i, $candidate)
+        Write-Information ("[{0}] {1}" -f $i, $candidate) -Tags 'LinkScan'
     }
 }
 if (-not $indexedScopes) { throw 'Keine gültigen Scopes gefunden.' }
 
 $selectedIndex = $ScopeIndex
 if ($selectedIndex -lt 0) {
-    $selection = Read-Host 'Index wählen'
-    if (-not ($selection -as [int])) { throw 'Ungültige Auswahl.' }
-    $selectedIndex = [int]$selection
+    # Non-interactive mode: default to the first available indexed scope
+    $firstScope = $indexedScopes | Select-Object -First 1
+    if ($null -eq $firstScope) { throw 'Keine gültigen Scopes gefunden.' }
+    $selectedIndex = $firstScope.Index
 }
 
 $scope = $indexedScopes | Where-Object { $_.Index -eq $selectedIndex }
 if (-not $scope) { throw 'Auswahl nicht gefunden.' }
 $scopePath = $scope.Path
 
-Write-Host ("[link-scan] Starte Scan in {0}" -f $scope.Name) -ForegroundColor Cyan
+Write-Information ("[link-scan] Starte Scan in {0}" -f $scope.Name) -Tags 'LinkScan'
 $files = Get-ChildItem -LiteralPath $scopePath -Recurse -File -ErrorAction SilentlyContinue
+$files = @($files)
 $markdownLinks = New-Object System.Collections.Generic.List[object]
 $broken = New-Object System.Collections.Generic.List[object]
+
+$fixes = New-Object System.Collections.Generic.List[object]
 
 $absHttp = '^(https?:)?//'
 $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm'
@@ -67,8 +77,8 @@ foreach ($file in $files) {
     if (-not $content) { continue }
 
     if ($file.Extension -ieq '.md') {
-        $matches = [regex]::Matches($content, '\[[^\]]*\]\(([^)]+)\)')
-        foreach ($m in $matches) {
+        $mdMatches = [regex]::Matches($content, '\[[^\]]*\]\(([^)]+)\)')
+        foreach ($m in $mdMatches) {
             $target = $m.Groups[1].Value.Trim()
             if (-not $IncludeExternal -and $target -match $absHttp) { continue }
             $clean = $target -replace '#.*$','' -replace '\?.*$',''
@@ -93,8 +103,8 @@ foreach ($file in $files) {
 
     if ($IncludeCodeRefs) {
         $pattern = '(?<![A-Za-z0-9_\-])([A-Za-z0-9_\-./\\]+\.(md|txt|json|py|ps1|cfg|ini))'
-        $references = [regex]::Matches($content, $pattern)
-        foreach ($ref in $references) {
+        $codeRefMatches = [regex]::Matches($content, $pattern)
+        foreach ($ref in $codeRefMatches) {
             $pathRef = $ref.Groups[1].Value
             if (-not $IncludeExternal -and $pathRef -match $absHttp) { continue }
             $cleanRef = $pathRef -replace '#.*$',''
@@ -106,6 +116,88 @@ foreach ($file in $files) {
                     resolved = $resolvedRef
                 }) | Out-Null
             }
+        }
+    }
+}
+
+# Auto-fix logic: only run if requested and there are broken links
+if ($AutoFix -and $broken.Count -gt 0) {
+    Write-Information '[link-scan] AutoFix enabled — prüfe Duplikate und bereite Änderungen vor.' -Tags 'LinkScan'
+    # Group broken by target to avoid repeated work
+    $grouped = $broken | Group-Object -Property resolved -NoElement
+    foreach ($g in $grouped) {
+        $resolved = $g.Name
+        # determine the base file name to search for duplicates
+        $fileName = [IO.Path]::GetFileName($resolved)
+        if ([string]::IsNullOrWhiteSpace($fileName)) { continue }
+
+        # search the repo for files with that name
+        $matches = Get-ChildItem -LiteralPath $repoRoot -Recurse -File -ErrorAction SilentlyContinue | Where-Object { $_.Name -ieq $fileName }
+        $matchCount = ($matches | Measure-Object).Count
+
+        if ($matchCount -gt 1) {
+            # Multiple versions found — do not auto-resolve, record suggestion
+            $fixes.Add([pscustomobject]@{ target = $resolved; fix = 'mehrere Versionen. (Prüfen)'; matches = $matchCount }) | Out-Null
+            Write-Information ("[link-scan] Mehrere Versionen für {0} gefunden: {1} Treffer" -f $fileName, $matchCount) -Tags 'LinkScan'
+            continue
+        }
+
+        if ($matchCount -eq 1) {
+            $found = $matches | Select-Object -First 1
+            # compute a relative path from the markdown file's directory to the found file
+            # We'll compute per-broken-entry replacements below (need the original markdown file)
+            $fixes.Add([pscustomobject]@{ target = $resolved; fix = $found.FullName; matches = $matchCount }) | Out-Null
+            Write-Information ("[link-scan] Ein Treffer für {0} gefunden: {1}" -f $fileName, $found.FullName) -Tags 'LinkScan'
+        } else {
+            # no matches found in repo — leave as-is but note
+            $fixes.Add([pscustomobject]@{ target = $resolved; fix = 'nicht gefunden im Repo'; matches = 0 }) | Out-Null
+            Write-Information ("[link-scan] Keine Repo-Treffer für {0}" -f $fileName) -Tags 'LinkScan'
+        }
+    }
+
+    # Apply replacements per file: iterate broken items and update their source files
+    foreach ($b in $broken) {
+        $srcFile = $b.file
+        $target = $b.resolved
+        # find corresponding fix info (match by resolved path)
+        $info = $fixes | Where-Object { $_.target -eq $target } | Select-Object -First 1
+        if (-not $info) { continue }
+
+        # read content and prepare replacement string
+        $content = Get-Content -LiteralPath $srcFile -Raw -ErrorAction SilentlyContinue
+        if (-not $content) { continue }
+
+        if ($info.matches -gt 1) {
+            $replacement = 'mehrere Versionen. (Prüfen)'
+        } elseif ($info.matches -eq 1) {
+            # compute relative path from src file directory to found file
+            $foundFull = $info.fix
+            try {
+                $rel = [IO.Path]::GetRelativePath((Split-Path -Parent $srcFile), $foundFull)
+            } catch {
+                # fallback: use forward-slash relative from repo root
+                $rel = Join-Path '..' $fileName
+            }
+            # normalize for markdown links (use forward slashes)
+            $replacement = $rel -replace '\\','/'
+        } else {
+            $replacement = $info.fix
+        }
+
+        # make a backup before changing (store in central backup directory)
+        $stamp = Get-Date -Format 'yyyyMMdd_HHmmss'
+        $baseName = [IO.Path]::GetFileName($srcFile)
+        $backup = Join-Path $backupRoot ("{0}_{1}.bak.linkscan" -f $stamp, $baseName)
+        Copy-Item -LiteralPath $srcFile -Destination $backup -Force
+
+        # Replace exact occurrences of the original target inside parentheses in markdown and other simple refs
+        $escapedTarget = [regex]::Escape($b.target)
+        $pattern = "(?<=\()$escapedTarget(?=\))"
+        $newContent = [regex]::Replace($content, $pattern, [System.Text.RegularExpressions.MatchEvaluator]{ param($m) $replacement })
+
+        if ($newContent -ne $content) {
+            Set-Content -LiteralPath $srcFile -Value $newContent -Encoding utf8BOM
+            Write-Information ("[link-scan] Datei aktualisiert: {0} (ersetze {1} -> {2})" -f $srcFile, $b.target, $replacement) -Tags 'LinkScan'
         }
     }
 }
@@ -146,5 +238,6 @@ if ($broken.Count -eq 0) {
     }
 }
 
-Set-Content -LiteralPath $reportPath -Value ($summary -join [Environment]::NewLine) -Encoding UTF8
-Write-Host ("[link-scan] Report geschrieben: {0}" -f $reportPath) -ForegroundColor Green
+Set-Content -LiteralPath $reportPath -Value ($summary -join [Environment]::NewLine) -Encoding utf8BOM
+Write-Information ("[link-scan] Report geschrieben: {0}" -f $reportPath) -Tags 'LinkScan'
+

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-10 22:01
-update: Status nach Workspace-Audit & Tests ergänzt; Wrapper/Scanner-Aufgaben verlinkt
-checks: markdownlint pending, Tests run_pytest_quick.ps1 PASS (2025-11-10)
+stand: 2025-11-12 01:21
+update: TODO-Reconciliation & Module-Alignment abgeschlossen (Root/Dev/Agent/RP/Sim synchron)
+checks: keine
 ---
 
 Bereinigte Aufgabenliste (Root)
@@ -12,11 +12,9 @@ Hinweis: Temporärer, kuratierter Auszug für operative Arbeit (Copilot/GPT). SS
 Hoch priorisiert (0–2 Tage)
 --------------------------
 
-- [ ] Agent: Tests/Typen/Coverage abschließen (R-COV)
   - Ziel: `pytest -q` PASS, `pyright` PASS, `mypy` PASS, Coverage ≥80% mit Receipt.
   - Schritte: pytest → pyright → mypy → `scripts/run_pytest_coverage.ps1` (Receipt in `DONELOG.md` + `WORKSPACE_STATUS.md`).
- - [x] Agent: Korrektur `scripts/run_checks_and_report.ps1` - STOP-Fall bei zu vielen Testdateien muss als FAIL ausgewiesen werden. (2025-11-11 00:23)
-- [ ] Dev: Multi-Root bereinigen (R-STOP/R-WRAP)
+ - [x] Agent: Integration `PSScriptAnalyzer` in `scripts/run_checks_and_report.ps1` (2025-11-11 11:00)
   - [ ] `*.code-workspace` suchen und entfernen/verschieben (report counts)
   - [ ] `tasks.json` Inline-Ketten prüfen → Wrapper-Aufrufe
   - [ ] Wrapper-Probelauf `scripts/run_pytest_coverage.ps1` + Receipt
@@ -25,6 +23,29 @@ Hoch priorisiert (0–2 Tage)
   - Ziel: `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt` neu erzeugen; Status/Datum in `WORKSPACE_STATUS.md` + `novapolis-dev/docs/donelog.md`.
 - [ ] RP: Frontmatter/Lint Sweep (R-FM/R-LINT)
   - Reihenfolge: Frontmatter → MD003 Setext. Zählwerte vor/nach dokumentieren; PASS loggen.
+
+- [ ] Docs/READMEs: Konsolidierung & Leitlinien (Monorepo)
+  - [x] Kandidatenliste erstellt: `.tmp-results/reports/links/candidates_app-routers-README.md_20251111_2340.md` (22 reale README.md-Dateien)
+  - [x] Ein-Satz-Summaries für 22 README.md erzeugen (`.tmp-results/reports/links/readme_summaries.md`)
+  - [x] Stubs vs. zentrale Doku definieren (Hub erstellt, Stubs Phase 1 umgesetzt)
+  - [ ] Redirect-/Index-Strategie festlegen (`WORKSPACE_INDEX.md` vereinheitlichen / ggf. ersetzen durch Hub-Verweis)
+  - [ ] Entscheidungsliste: Welche Kern-READMEs verschlankt werden (PR-Plan)
+  - [x] Hub-README erweitert (TL;DR, Links, Beispiele, Governance-Querverweise)
+
+- [ ] Link-Scanner (`scripts/scan_links.ps1`) – Nacharbeiten
+  - [x] AutoFix + Backups implementiert; defekte Links 10 → 3 reduziert (Reports unter `.tmp-results/reports/scan_links_reports/`)
+  - [x] Report-Verzeichnis umbenannt → `.tmp-results/reports/scan_links_reports`
+  - [x] Backup-Pfad zentralisiert → `.tmp-datasets/lscan_links_backups`
+  - [ ] Bei Mehrdeutigkeit Kandidatenliste im Dry-Run mitschreiben (aktuell nur Zähler `matches=53`)
+  - [ ] Rescan nach Fix der 3 verbleibenden Links; Receipt archivieren
+  - [ ] Backups (*.bak.linkscan) prüfen/archivieren
+  - [ ] Automatisches Schreiben der Kandidaten-JSON im Dry-Run (Implementierung)
+  - [ ] Report-Summary in Hub unter "Temporäre Bereiche" verlinken (nach Automation)
+
+- [ ] Checks-Wrapper (`scripts/run_checks_and_report.ps1`) – Review/Nachzug
+  - [ ] Kurzreview der neuen PSScriptAnalyzer-Phase (Installationspfad, Exit-Codes, Receipt-Felder)
+  - [ ] Einbindung in „Checks: full“ Dokumentation (README/Status)
+  - [ ] Einmaliger Gesamtlauf inkl. Receipt unter `.tmp-results/reports/checks_report_*.md`
 
 Kurzfristig (3–7 Tage)
 ----------------------
@@ -35,6 +56,15 @@ Kurzfristig (3–7 Tage)
 - [ ] Dev: `README.md.bak` behandeln (verschieben nach `Backups/` oder löschen)
 - [ ] Dev: Abschnitt „Editor-Setup“ im Root-`README.md`
 - [ ] Sim: Godot headless Lade-Check (`novapolis-sim/project.godot`) und Kurzprotokoll
+
+Sofort-Themen (READMEs/Links/Index)
+-----------------------------------
+
+- [x] Entfernte Index-Datei: Links-Anpassungen nun direkt in verbleibenden READMEs geprüft (Agent WORKSPACE_INDEX entfernt)
+- [x] Ambiguität „matches=53“: Kandidatenliste JSON erzeugt
+  - Datei: `.tmp-results/reports/links/candidates_app-routers-README.json`
+  - Nächster Schritt: Scanner erweitern (Auto-Ausgabe JSON bei Dry-Run)
+- [x] Doppelte/parallel existierende Index-Dateien entfernt (`novapolis_agent/WORKSPACE_INDEX.md`, Backup `.bak.linkscan`)
 
 Lokale AI – Startpfad (organisch)
 ---------------------------------
@@ -50,3 +80,4 @@ Hinweise
 - SSOT: Detailkontext und Volltextliste in `todo.root.md`; diese Datei dient als Arbeitsfahrplan für Copilot/GPT.
 - 2025-11-10 20:17: WORKSPACE_INDEX Header-Duplikate und SimClient Variable gefixt (Commit 5922521). `run_pytest_quick.ps1` PASS.
 - Wrapper-Aufgaben: `scripts/run_checks_and_report.ps1` (Lint/Typen/Tests + Report) finalisieren; Link-Scanner `scripts/scan_links.ps1` implementieren und Reports unter `.tmp-results/scan/` ablegen.
+  - Hub-README: Erweiterung abgeschlossen (01:12); nächste Phase Index/Redirect-Strategie.

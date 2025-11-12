@@ -90,6 +90,7 @@ pwsh -File scripts\run_pytest_coverage.ps1
  
 Hinweis (2025-11-11 00:23): Das Issue in `scripts/run_checks_and_report.ps1` (STOP bei zu vielen Tests wurde als `SKIP` statt `FAIL` gemeldet) wurde behoben; das Skript meldet nun STOP als FAIL, setzt das `R-STOP`-Flag in der Regel-Übersicht und liefert den aggregierten Exitcode. Commit: `abe6829`.
 Modus (bei Review): GPT-5 mini (Agent-review), Postflight erforderlich; ToDo wurde erfüllt und in `.tmp-results/todo.cleaned.md` markiert.
+Hinweis (2025-11-11 11:00): `PSScriptAnalyzer` (PowerShell Static Analysis) wurde in `scripts/run_checks_and_report.ps1` integriert. Der Analyzer wird, falls verfügbar, automatisch ausgeführt und seine Ergebnisse im Postflight-Block (`PSScriptAnalyzer*`) protokolliert. Falls `PSScriptAnalyzer` nicht installiert ist, versucht das Skript eine Nutzer-Scoped-Installation; fehlgeschlagene Installationen werden als Warnung protokolliert.
 - Details und Begründung siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“ weiter unten.
 - Einmalig `& .\.venv\Scripts\python.exe -m pip install --upgrade pip` ausführen, falls Pip veraltet ist.
 - Erste Validierung: Sequenz aus Lint (`ruff`, `black --check`), Typen (`pyright`, `mypy`) und Tests mit Coverage (Pytest ≥ 80 %) jeweils manuell via `pwsh -Command "& { ... }"` oder direkt in der aktiven pwsh-Session ausführen; Beispielbefehle siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“.

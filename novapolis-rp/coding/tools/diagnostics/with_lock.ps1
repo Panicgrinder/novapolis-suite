@@ -65,7 +65,7 @@ try {
 }
 finally {
     if ($mutex) {
-        try { $mutex.ReleaseMutex() | Out-Null } catch { }
+        try { $mutex.ReleaseMutex() | Out-Null } catch { Write-Verbose $_ }
     }
 }
 exit $exit

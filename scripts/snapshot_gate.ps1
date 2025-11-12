@@ -1,4 +1,4 @@
-param(
+﻿param(
     [int]$ToleranceMinutes = 5
 )
 
@@ -8,7 +8,7 @@ function Get-RepoRoot {
     try {
         $top = git rev-parse --show-toplevel 2>$null
         if ($LASTEXITCODE -eq 0 -and $top) { return $top.Trim() }
-    } catch {}
+    } catch { Write-Verbose $_ }
     return (Get-Location).Path
 }
 
@@ -68,10 +68,7 @@ $root = Get-RepoRoot
 Set-Location $root
 
 # Only run if git is available
-try { git rev-parse --is-inside-work-tree *> $null } catch {
-    Write-Host "[snapshot-gate] Not a git repo. Skipping." -ForegroundColor Yellow
-    exit 0
-}
+try { git rev-parse --is-inside-work-tree *> $null } catch { Write-Host "[snapshot-gate] Not a git repo. Skipping." -ForegroundColor Yellow; exit 0 }
 
 $current = Get-CurrentTimestamp
 $lock = Get-SnapshotLock -root $root
@@ -128,3 +125,4 @@ if ($failed.Count -gt 0) {
 
 Write-Host "[snapshot-gate] PASS: Alle 'stand:'-Timestamps frisch (±$ToleranceMinutes min)." -ForegroundColor Green
 exit 0
+

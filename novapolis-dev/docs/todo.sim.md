@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-06 02:54
-update: Frontmatter aktualisiert; markdownlint PASS
-checks: markdownlint-cli2 PASS
+stand: 2025-11-12 01:17
+update: Godot-Headless-Check als Sofort-Aufgabe in Root gespiegelt; keine Strukturänderung
+checks: keine
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -20,6 +20,7 @@ Offene Aufgaben (Sim)
 ---------------------
 
 - [ ] (Platzhalter) Sammle Sim‑Aufgaben hier (Godot, Visualisierung, API‑Polling, Exportprofile).
+ - [ ] Headless‑Lade‑Check `novapolis-sim/project.godot` durchführen; Kurzprotokoll in `novapolis-dev/docs/donelog.md`
 
 Neue Aufgaben – Epochen & Audio (2025-11-01 22:24)
 --------------------------------------------------
