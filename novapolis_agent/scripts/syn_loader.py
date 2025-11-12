@@ -4,23 +4,22 @@ import json
 import logging
 import os
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 logger = logging.getLogger("syn_loader")
 
 ALLOWED_CHARS = set("abcdefghijklmnopqrstuvwxyz0123456789 äöüß./-_")
 
 
-def _merge_dicts(base: Dict[str, List[str]], overlay: Dict[str, List[str]]) -> Dict[str, List[str]]:
+def _merge_dicts(base: dict[str, list[str]], overlay: dict[str, list[str]]) -> dict[str, list[str]]:
     out = dict(base)
     for k, v in overlay.items():
         out[k] = list(v)
     return out
 
 
-def _sanitize_dict(d: Dict[str, List[str]]) -> Tuple[Dict[str, List[str]], int]:
+def _sanitize_dict(d: dict[str, list[str]]) -> tuple[dict[str, list[str]], int]:
     dropped = 0
-    out: Dict[str, List[str]] = {}
+    out: dict[str, list[str]] = {}
     for k, vals in d.items():
         if not isinstance(k, str):
             dropped += 1
@@ -29,7 +28,7 @@ def _sanitize_dict(d: Dict[str, List[str]]) -> Tuple[Dict[str, List[str]], int]:
         if not key:
             dropped += 1
             continue
-        norm_vals: List[str] = []
+        norm_vals: list[str] = []
         for val in vals:
             if not isinstance(val, str):
                 dropped += 1
@@ -45,7 +44,7 @@ def _sanitize_dict(d: Dict[str, List[str]]) -> Tuple[Dict[str, List[str]], int]:
     return out, dropped
 
 
-def load_synonyms() -> Tuple[Dict[str, List[str]], int]:
+def load_synonyms() -> tuple[dict[str, list[str]], int]:
     """Load and merge synonyms from eval/config/, with additional and local overlays.
     Returns (merged_dict, count_total).
     """
@@ -53,7 +52,7 @@ def load_synonyms() -> Tuple[Dict[str, List[str]], int]:
     add = Path("eval/config/synonyms.additional.json")
     local = Path("eval/config/synonyms.local.json")
 
-    def _read(p: Path) -> Dict[str, List[str]]:
+    def _read(p: Path) -> dict[str, list[str]]:
         try:
             if p.exists():
                 with p.open("r", encoding="utf-8") as f:
@@ -74,8 +73,8 @@ def load_synonyms() -> Tuple[Dict[str, List[str]], int]:
     sanitized, dropped = _sanitize_dict(merged)
 
     # logging
-    info_prefix = "JSON" if (os.environ.get("LOG_JSON", "").lower() in ("1", "true", "yes")) else "TEXT"
-    logger.info("Ladevorgang Synonyme gestartet")
+    log_mode = "JSON" if os.environ.get("LOG_JSON", "").lower() in ("1", "true", "yes") else "TEXT"
+    logger.info("Ladevorgang Synonyme gestartet (log_mode=%s)", log_mode)
     logger.info(f"Anzahl der Synonym-Einträge (merged): {len(sanitized)}; dropped={dropped}")
 
     return sanitized, len(sanitized)

@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import asyncio
-from typing import Any, Dict, Optional
-
-import pytest
+from typing import Any
 
 import app.api.chat as chat_module
+import pytest
 from app.api.models import ChatRequest
 
 
@@ -14,11 +12,13 @@ from app.api.models import ChatRequest
 async def test_stream_rag_guard_does_not_require_index(monkeypatch: pytest.MonkeyPatch) -> None:
     # RAG aktivieren und load_index -> None zurückgeben
     from app.core.settings import settings
+
     monkeypatch.setenv("RAG_ENABLED", "true")
     settings.RAG_ENABLED = True  # sicherstellen (ENV reload vermeiden)
 
     # load_index stubbt None, retrieve darf nicht abstürzen (wird aufgrund Guard nicht aufgerufen)
     import utils.rag as rag_mod
+
     monkeypatch.setattr(rag_mod, "load_index", lambda p: None)
 
     # Minimaler Request
@@ -38,7 +38,7 @@ def _fake_client_factory():
     class _Resp:
         status_code = 200
 
-        def json(self) -> Dict[str, Any]:
+        def json(self) -> dict[str, Any]:
             return {"message": {"content": "ok"}}
 
         def raise_for_status(self) -> None:
@@ -51,7 +51,7 @@ def _fake_client_factory():
         async def __aexit__(self, exc_type, exc, tb):
             return False
 
-        async def post(self, url: str, json: Dict[str, Any], headers: Dict[str, str]):
+        async def post(self, url: str, json: dict[str, Any], headers: dict[str, str]):
             return _Resp()
 
     return _Client
@@ -63,14 +63,17 @@ def _fake_client_factory():
 async def test_nonstream_rag_guard_does_not_require_index(monkeypatch: pytest.MonkeyPatch) -> None:
     # RAG aktivieren und load_index -> None zurückgeben
     from app.core.settings import settings
+
     monkeypatch.setenv("RAG_ENABLED", "true")
     settings.RAG_ENABLED = True
 
     import utils.rag as rag_mod
+
     monkeypatch.setattr(rag_mod, "load_index", lambda p: None)
 
     # httpx AsyncClient stubben, damit kein Netzwerk erfolgt
     import httpx
+
     monkeypatch.setattr(httpx, "AsyncClient", lambda *a, **k: _fake_client_factory()())
 
     req = ChatRequest(messages=[{"role": "user", "content": "frage"}])

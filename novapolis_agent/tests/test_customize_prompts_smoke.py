@@ -1,14 +1,17 @@
 from __future__ import annotations
 
-import sys
 import importlib
+import sys
 import types
+
 import pytest
 
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_customize_prompts_help_path(capsys: pytest.CaptureFixture[str], monkeypatch: pytest.MonkeyPatch) -> None:
+def test_customize_prompts_help_path(
+    capsys: pytest.CaptureFixture[str], monkeypatch: pytest.MonkeyPatch
+) -> None:
     # Simuliere Aufruf ohne Argumente -> parser.print_help() und normaler Exit (kein SystemExit)
     monkeypatch.setenv("PYTHONWARNINGS", "ignore")
 

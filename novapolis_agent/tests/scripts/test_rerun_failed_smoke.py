@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+import importlib
 import json
 import os
 from pathlib import Path
-import importlib
 
 import pytest
 
@@ -20,8 +20,12 @@ def test_rerun_failed_creates_tmp_dataset(tmp_path: Path, monkeypatch: pytest.Mo
 
     # Dataset mit ids
     with open(ds_dir / "eval-foo.jsonl", "w", encoding="utf-8") as f:
-        f.write(json.dumps({"id": "eval-001", "messages": [{"role": "user", "content": "a"}]}) + "\n")
-        f.write(json.dumps({"id": "eval-002", "messages": [{"role": "user", "content": "b"}]}) + "\n")
+        f.write(
+            json.dumps({"id": "eval-001", "messages": [{"role": "user", "content": "a"}]}) + "\n"
+        )
+        f.write(
+            json.dumps({"id": "eval-002", "messages": [{"role": "user", "content": "b"}]}) + "\n"
+        )
 
     # Results mit einem Fehler (für 001)
     res_path = res_dir / "results_20250101_1200.jsonl"

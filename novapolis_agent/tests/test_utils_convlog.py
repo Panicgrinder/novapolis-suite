@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-import json
 import datetime as dt
+import json
 
 import pytest
-
 from app.utils import convlog
 
 

@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-import httpx
 import asyncio
 from typing import Any
-from pytest import MonkeyPatch
 
-from app.services import llm as llm_module
+import httpx
 from app.api.models import ChatMessage
+from app.services import llm as llm_module
+from pytest import MonkeyPatch
 
 # Originalreferenz sichern, bevor wir etwas patchen
 RealAsyncClient = httpx.AsyncClient
@@ -39,7 +39,9 @@ def test_generate_reply_http_status_error(monkeypatch: MonkeyPatch) -> None:
 
 def test_generate_reply_request_error(monkeypatch: MonkeyPatch) -> None:
     def _factory(*args: Any, **kwargs: Any) -> httpx.AsyncClient:
-        return _async_client_request_error(httpx.ConnectError("nope", request=httpx.Request("POST", "http://x")))
+        return _async_client_request_error(
+            httpx.ConnectError("nope", request=httpx.Request("POST", "http://x"))
+        )
 
     monkeypatch.setattr(llm_module.httpx, "AsyncClient", _factory)
 

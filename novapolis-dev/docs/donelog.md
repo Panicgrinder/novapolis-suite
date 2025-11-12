@@ -532,11 +532,11 @@ Tagging-Pipeline – Heuristiken erweitert + Re-Run 019–016 (2025-10-28T11:10:
 - Folgearbeiten: Alias-Kollision "C6" (c6 vs c6-nord) entscheiden; fehlende Entities (`Echo`, `Reflex-Wissensstand-Trainingsstand`) anlegen/umbiegen; nächste Ranges 015–010, 009–001.
 
 Sim-Visualisierung angebunden (2025-10-29T15:50:00Z)
-2025-11-12 01:38 | Copilot | DONELOG-Sync (Dev-Hub): Frontmatter aktualisiert; zentraler Vorbereitungseintrag vor Repo-weitem Prüfskript `scripts/run_checks_and_report.ps1`.
+2025-11-12 01:38 | Copilot | DONELOG-Sync (Dev-Hub): Frontmatter aktualisiert; zentraler Vorbereitungseintrag vor Repo-weitem Prüfskript (damals PowerShell, inzwischen `python scripts/run_checks_and_report.py`).
 
 Postflight
 ----------
-Meta: Modus=Postflight, Modell=GPT-5, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=pwsh -File F:\VS Code Workspace\Main\scripts\run_checks_and_report.ps1, SHA256=0C7898C7C7141B78597F9852C91FBD72C98F0AD300C5F77780C8302EEE2296E1, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=F:\VS Code Workspace\Main\.github\copilot-instructions.md;F:\VS Code Workspace\Main\novapolis-dev\docs\donelog.md;F:\VS Code Workspace\Main\scripts\run_checks_and_report.ps1, Aktion=Automatisierter Checklauf (Dev-Hub Bezug)
+Meta: Modus=Postflight, Modell=GPT-5, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=python F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, SHA256=65570151AA983A6A3784D89B589486A214B8A171D1BA22766C1BF17C49F54E30, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=F:\VS Code Workspace\Main\.github\copilot-instructions.md;F:\VS Code Workspace\Main\novapolis-dev\docs\donelog.md;F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, Aktion=Automatisierter Checklauf (Dev-Hub Bezug; PowerShell-Variante archiviert)
 Prüfung: ruff=FAIL, black=FAIL, markdownlint=FAIL (global), frontmatter=FAIL (global), pyright=FAIL, mypy=FAIL, pytest=STOP (>40 Dateien), coverage=SKIP, PSScriptAnalyzerExit=1
 Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-CTX,R-SEC,R-LOG,R-COV,R-TIME,R-SAFE,R-IDX
 Todos: offen=n/a, BeispielFix=Baseline dokumentiert, ReRun=nach Style/Type-Fixes, Fällig=2025-11-12 01:45

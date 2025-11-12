@@ -3,20 +3,20 @@
 import datetime
 import json
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from utils.time_utils import now_iso
 
 
 def create_log_record(
-    messages: List[Dict[str, str]],
+    messages: list[dict[str, str]],
     response: str,
-    tool_calls: Optional[List[Dict[str, Any]]] = None,
-    summary: Optional[str] = None,
-    labels: Optional[Dict[str, Any]] = None,
-) -> Dict[str, Any]:
+    tool_calls: list[dict[str, Any]] | None = None,
+    summary: str | None = None,
+    labels: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     timestamp = now_iso()
-    record: Dict[str, Any] = {
+    record: dict[str, Any] = {
         "timestamp": timestamp,
         "messages": messages,
         "response": response,
@@ -30,7 +30,7 @@ def create_log_record(
     return record
 
 
-def log_turn(data: Dict[str, Any]) -> None:
+def log_turn(data: dict[str, Any]) -> None:
     log_dir = os.path.join("data", "logs")
     os.makedirs(log_dir, exist_ok=True)
     today = datetime.date.today()

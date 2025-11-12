@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 from importlib import reload
-from pytest import MonkeyPatch
 
 from app.core import settings as settings_module
+from pytest import MonkeyPatch
 
 
 def test_settings_parsing_from_env(monkeypatch: MonkeyPatch) -> None:
@@ -12,7 +12,7 @@ def test_settings_parsing_from_env(monkeypatch: MonkeyPatch) -> None:
     monkeypatch.setenv("PROJECT_DESCRIPTION", "Desc")
     monkeypatch.setenv("PROJECT_VERSION", "9.9.9")
     # In pydantic-settings v2 müssen Listenfelder als JSON serialisiert werden
-    monkeypatch.setenv("BACKEND_CORS_ORIGINS", "[\"http://localhost:3000\", \"http://127.0.0.1:5173\"]")
+    monkeypatch.setenv("BACKEND_CORS_ORIGINS", '["http://localhost:3000", "http://127.0.0.1:5173"]')
     monkeypatch.setenv("OLLAMA_HOST", "http://host:11434")
     monkeypatch.setenv("MODEL_NAME", "m:1")
 

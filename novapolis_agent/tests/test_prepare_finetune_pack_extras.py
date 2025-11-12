@@ -1,15 +1,15 @@
 from __future__ import annotations
 
-import os
 import json
-from typing import Any, Dict, List
+import os
+from typing import Any
 
 import pytest
 
-from scripts.prepare_finetune_pack import prepare_pack, _write_jsonl
+from scripts.prepare_finetune_pack import prepare_pack
 
 
-def _mk_jsonl(path: str, rows: List[Dict[str, Any]]) -> None:
+def _mk_jsonl(path: str, rows: list[dict[str, Any]]) -> None:
     with open(path, "w", encoding="utf-8") as f:
         for r in rows:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
@@ -17,16 +17,33 @@ def _mk_jsonl(path: str, rows: List[Dict[str, Any]]) -> None:
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_prepare_pack_dedupe_and_min_output(tmp_path: "os.PathLike[str]") -> None:
+def test_prepare_pack_dedupe_and_min_output(tmp_path: os.PathLike[str]) -> None:
     src = os.path.join(tmp_path, "src.jsonl")
     rows = [
-        {"messages": [{"role": "user", "content": "A"}, {"role": "assistant", "content": "Antwort eins"}]},
-        {"messages": [{"role": "user", "content": "A"}, {"role": "assistant", "content": "Antwort zwei"}]},
+        {
+            "messages": [
+                {"role": "user", "content": "A"},
+                {"role": "assistant", "content": "Antwort eins"},
+            ]
+        },
+        {
+            "messages": [
+                {"role": "user", "content": "A"},
+                {"role": "assistant", "content": "Antwort zwei"},
+            ]
+        },
         {"messages": [{"role": "user", "content": "B"}, {"role": "assistant", "content": "Kurz"}]},
     ]
     _mk_jsonl(src, rows)
 
-    res = prepare_pack(src, out_dir=str(tmp_path), format="openai_chat", train_ratio=0.5, seed=1, min_output_chars=6)
+    res = prepare_pack(
+        src,
+        out_dir=str(tmp_path),
+        format="openai_chat",
+        train_ratio=0.5,
+        seed=1,
+        min_output_chars=6,
+    )
     assert res.get("ok")
     counts = res.get("counts", {})
     # Dedupe entfernt doppelte Instruction "A", kurze Antwort "Kurz" wird gefiltert -> 1 verbleibender Eintrag
@@ -40,7 +57,7 @@ def test_prepare_pack_dedupe_and_min_output(tmp_path: "os.PathLike[str]") -> Non
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_prepare_pack_empty_or_all_filtered(tmp_path: "os.PathLike[str]") -> None:
+def test_prepare_pack_empty_or_all_filtered(tmp_path: os.PathLike[str]) -> None:
     src = os.path.join(tmp_path, "empty.jsonl")
     # Leere Datei
     with open(src, "w", encoding="utf-8") as f:

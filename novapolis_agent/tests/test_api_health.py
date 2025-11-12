@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from typing import Any, Dict
-from fastapi.testclient import TestClient
+from typing import Any
 
 import pytest
 from app.main import app
+from fastapi.testclient import TestClient
 
 
 @pytest.mark.api
@@ -13,6 +13,6 @@ def test_health_endpoint_returns_ok() -> None:
     client = TestClient(app)
     resp = client.get("/health")
     assert resp.status_code == 200
-    data: Dict[str, Any] = resp.json()
+    data: dict[str, Any] = resp.json()
     assert isinstance(data, dict)
     assert data.get("status") == "ok"

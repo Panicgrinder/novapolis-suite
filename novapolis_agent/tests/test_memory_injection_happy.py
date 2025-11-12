@@ -1,12 +1,7 @@
-import asyncio
-import json
-from typing import List, Dict
-
 import pytest
-from fastapi.testclient import TestClient
-
-from app.main import app
 from app.core.settings import settings
+from app.main import app
+from fastapi.testclient import TestClient
 
 
 @pytest.mark.asyncio

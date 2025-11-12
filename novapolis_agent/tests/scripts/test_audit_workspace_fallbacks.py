@@ -2,12 +2,15 @@ from __future__ import annotations
 
 import importlib
 from pathlib import Path
+
 import pytest
 
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_to_module_name_cross_drive_fallback(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_to_module_name_cross_drive_fallback(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     mod = importlib.import_module("scripts.audit_workspace")
     # Simuliere Pfad auf anderem Laufwerk durch künstliche PROJECT_ROOT
     fake_root = str(tmp_path / "Xroot")

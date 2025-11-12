@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from typing import Any
 
 from utils.eval_cache import EvalCache, make_key
@@ -11,7 +12,7 @@ def test_make_key_stable_for_equivalent_dicts() -> None:
     assert make_key(a) == make_key(b)
 
 
-def test_eval_cache_put_get_persist(tmp_path: "Any") -> None:
+def test_eval_cache_put_get_persist(tmp_path: Any) -> None:
     p = tmp_path / "cache.jsonl"
     cache = EvalCache(str(p))
     key = make_key({"a": 1, "b": 2})

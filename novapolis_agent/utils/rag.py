@@ -7,8 +7,7 @@ import re
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, cast
-
+from typing import cast
 
 TOKEN_RE = re.compile(r"[A-Za-zÄÖÜäöü0-9_]+", re.UNICODE)
 
@@ -145,7 +144,7 @@ def save_index(index: TfIdfIndex, out_path: str) -> None:
 
 def load_index(path: str) -> TfIdfIndex | None:
     try:
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             raw: dict[str, object] = cast(dict[str, object], json.load(f))
             return TfIdfIndex.from_dict(raw)
     except Exception:

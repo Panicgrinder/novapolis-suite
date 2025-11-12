@@ -1,11 +1,18 @@
-id: scene-2025-10-27-a
-characters: ["Jonas-Merek", "Ronja-Kerschner"]
-locations: ["Verbindungstunnel-D5-C6"]
-inventoryRefs: ["Novapolis-inventar"]
 ---
-stand: 2025-11-12 01:03
-update: Stub → Inhalt zum Hub verlagert
-checks: pending
+title: "Scenes Konventionen (Stub)"
+date: 2025-11-12 08:59
+tags: [doc]
+id: scene-2025-10-27-a
+characters:
+	- Jonas-Merek
+	- Ronja-Kerschner
+locations:
+	- Verbindungstunnel-D5-C6
+inventoryRefs:
+	- Novapolis-inventar
+stand: 2025-11-12 08:59
+update: Frontmatter konsolidiert und auf Governance-Format erweitert.
+checks: keine
 ---
 
 Scenes Konventionen (Stub)

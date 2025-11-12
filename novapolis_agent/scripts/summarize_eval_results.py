@@ -13,18 +13,18 @@ import glob
 import json
 import os
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any
 
 
-def _find_results_by_tag(tag: str, base_dir: str) -> Optional[str]:
+def _find_results_by_tag(tag: str, base_dir: str) -> str | None:
     pattern = os.path.join(base_dir, f"results_*_{tag}.jsonl")
     candidates = sorted(glob.glob(pattern), key=os.path.getmtime, reverse=True)
     return candidates[0] if candidates else None
 
 
-def _load_jsonl(path: str) -> List[Dict[str, Any]]:
-    rows: List[Dict[str, Any]] = []
-    with open(path, "r", encoding="utf-8") as f:
+def _load_jsonl(path: str) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    with open(path, encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if not line:
@@ -37,29 +37,31 @@ def _load_jsonl(path: str) -> List[Dict[str, Any]]:
     return rows
 
 
-def _summarize(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
+def _summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
     total = len(rows)
     success = sum(1 for r in rows if r.get("success") is True)
-    durations = [int(r.get("duration_ms", 0)) for r in rows if isinstance(r.get("duration_ms"), (int, float))]
+    durations = [
+        int(r.get("duration_ms", 0)) for r in rows if isinstance(r.get("duration_ms"), (int, float))
+    ]
     avg_ms = int(sum(durations) / len(durations)) if durations else 0
 
     # failed checks frequency
-    fail_counts: Dict[str, int] = {}
+    fail_counts: dict[str, int] = {}
     for r in rows:
         if not r.get("success"):
-            for ck in (r.get("failed_checks") or []):
+            for ck in r.get("failed_checks") or []:
                 if isinstance(ck, str):
                     fail_counts[ck] = fail_counts.get(ck, 0) + 1
 
     # package breakdown
-    pkg_stats: Dict[str, Tuple[int, int, List[int]]] = {}
+    pkg_stats: dict[str, tuple[int, int, list[int]]] = {}
     for r in rows:
         pkg = str(r.get("source_package") or "")
         ok = 1 if r.get("success") else 0
         lst = pkg_stats.get(pkg, (0, 0, []))
         pkg_stats[pkg] = (lst[0] + ok, (lst[1] + 1), lst[2] + [int(r.get("duration_ms", 0))])
 
-    pkg_lines: List[str] = []
+    pkg_lines: list[str] = []
     for pkg, (ok, cnt, times) in pkg_stats.items():
         if not pkg:
             continue
@@ -79,7 +81,7 @@ def _summarize(rows: List[Dict[str, Any]]) -> Dict[str, Any]:
     }
 
 
-def _write_markdown(out_path: str, tag: str, results_path: str, summary: Dict[str, Any]) -> None:
+def _write_markdown(out_path: str, tag: str, results_path: str, summary: dict[str, Any]) -> None:
     total = summary["total"]
     success = summary["success"]
     avg_ms = summary["avg_ms"]
@@ -111,7 +113,9 @@ def _write_markdown(out_path: str, tag: str, results_path: str, summary: Dict[st
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--tag", help="Run tag used in results filename (suffix after last underscore)")
+    parser.add_argument(
+        "--tag", help="Run tag used in results filename (suffix after last underscore)"
+    )
     parser.add_argument("--file", help="Path to results_*.jsonl to summarize")
     parser.add_argument("--out", help="Output markdown path", default="")
     args = parser.parse_args()
@@ -128,7 +132,9 @@ def main() -> None:
         res_path = found
     else:
         # latest fallback
-        cand = sorted(glob.glob(str(results_dir / "results_*.jsonl")), key=os.path.getmtime, reverse=True)
+        cand = sorted(
+            glob.glob(str(results_dir / "results_*.jsonl")), key=os.path.getmtime, reverse=True
+        )
         if not cand:
             raise SystemExit("Keine results_*.jsonl gefunden")
         res_path = cand[0]

@@ -6,28 +6,31 @@ Dieses Skript lädt Prompts aus einer oder mehreren JSON/JSONL-Dateien, sendet d
 und prüft, ob die Antworten bestimmte Bedingungen erfüllen.
 """
 
-import json
+import argparse
 import asyncio
-import sys
+import glob
+import json
+import logging
 import os
 import re
-import glob
+import sys
 import time
-import argparse
-import logging
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
-from typing import Dict, List, Any, Optional, Tuple, Union, cast
 from pathlib import Path
-from dataclasses import dataclass, field, asdict
+from typing import Any, Optional, cast
+
 import httpx
+
 # Typannotation für dynamische Konsolen-/Tabellen-Typen (rich oder Fallback)
 Console: Any
 Table: Any
 Progress: Any
 try:
     from rich.console import Console as _RichConsole
-    from rich.table import Table as _RichTable
     from rich.progress import Progress as _RichProgress
+    from rich.table import Table as _RichTable
+
     Console = _RichConsole
     Table = _RichTable
     Progress = _RichProgress
@@ -38,19 +41,19 @@ except Exception:
             print(*args)
 
     class _Table:
-        def __init__(self, title: Optional[str] = None) -> None:
+        def __init__(self, title: str | None = None) -> None:
             self.title = title or ""
-            self._rows: List[List[str]] = []
-            self._cols: List[str] = []
+            self._rows: list[list[str]] = []
+            self._cols: list[str] = []
 
-        def add_column(self, name: str, style: Optional[str] = None) -> None:  # noqa: ARG002
+        def add_column(self, name: str, style: str | None = None) -> None:  # noqa: ARG002
             self._cols.append(name)
 
         def add_row(self, *cols: Any) -> None:
             self._rows.append([str(c) for c in cols])
 
         def __str__(self) -> str:
-            lines: List[str] = []
+            lines: list[str] = []
             if self.title:
                 lines.append(self.title)
             if self._cols:
@@ -75,7 +78,7 @@ except Exception:
             self._current = 0
             return 1
 
-        def update(self, _task_id: int, advance: int = 0, total: Optional[int] = None) -> None:
+        def update(self, _task_id: int, advance: int = 0, total: int | None = None) -> None:
             if total is not None:
                 self._total = total
             self._current += advance
@@ -92,36 +95,55 @@ if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 # Importiere die Utility-Funktionen (nun mit korrekt gesetztem sys.path)
+from collections.abc import Callable
+from typing import Any as _Any
+from typing import Optional as _Optional
+
+from utils.eval_utils import coerce_json_to_jsonl, load_synonyms, truncate
 from utils.time_utils import now_compact
-from utils.eval_utils import truncate, coerce_json_to_jsonl, load_synonyms
-from typing import Callable, Optional as _Optional, Any as _Any
+
 try:
     # Optionaler Cache für Antworten (lokal JSONL-basiert)
     from utils.eval_cache import make_key  # Funktion direkt importieren
+
     try:
         from utils.eval_cache import EvalCache as _EvalCache
+
         # Fabriktyp: nimmt Pfad (str) und gibt eine Instanz mit get/put zurück
         EvalCacheType: _Optional[Callable[[str], _Any]] = _EvalCache
     except Exception:
         EvalCacheType = None
 except Exception:
     EvalCacheType = None
+
     def make_key(obj: Any) -> str:
         return json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+
 
 # Versuche, die Anwendungseinstellungen zu importieren
 try:
     # Importiere die Einstellungen
     from app.core.settings import settings
+
     # Verwende die Einstellungen für Standardwerte (neue Unterordner-Struktur)
     _st_any: Any = cast(Any, settings)
-    DEFAULT_EVAL_DIR = os.path.join(project_root, cast(str, getattr(_st_any, "EVAL_DIRECTORY", "eval")))
-    DEFAULT_DATASET_DIR = os.path.join(project_root, cast(str, getattr(_st_any, "EVAL_DATASET_DIR", os.path.join("eval", "datasets"))))
-    DEFAULT_RESULTS_DIR = os.path.join(project_root, cast(str, getattr(_st_any, "EVAL_RESULTS_DIR", os.path.join("eval", "results"))))
-    DEFAULT_CONFIG_DIR = os.path.join(project_root, cast(str, getattr(_st_any, "EVAL_CONFIG_DIR", os.path.join("eval", "config"))))
+    DEFAULT_EVAL_DIR = os.path.join(
+        project_root, cast(str, getattr(_st_any, "EVAL_DIRECTORY", "eval"))
+    )
+    DEFAULT_DATASET_DIR = os.path.join(
+        project_root,
+        cast(str, getattr(_st_any, "EVAL_DATASET_DIR", os.path.join("eval", "datasets"))),
+    )
+    DEFAULT_RESULTS_DIR = os.path.join(
+        project_root,
+        cast(str, getattr(_st_any, "EVAL_RESULTS_DIR", os.path.join("eval", "results"))),
+    )
+    DEFAULT_CONFIG_DIR = os.path.join(
+        project_root, cast(str, getattr(_st_any, "EVAL_CONFIG_DIR", os.path.join("eval", "config")))
+    )
     # Bevorzuge JSONL als Default; Nutzer kann via Settings EVAL_FILE_PATTERN überschreiben
     DEFAULT_FILE_PATTERN: str = cast(str, getattr(_st_any, "EVAL_FILE_PATTERN", "eval-*.jsonl"))
-    DEFAULT_API_URL = f"http://localhost:8000/chat"
+    DEFAULT_API_URL = "http://localhost:8000/chat"
     # NEU: Request-ID-Header aus Settings übernehmen (Fallback siehe except)
     REQUEST_ID_HEADER: str = cast(str, getattr(_st_any, "REQUEST_ID_HEADER", "X-Request-ID"))
 except ImportError:
@@ -136,39 +158,41 @@ except ImportError:
     REQUEST_ID_HEADER = "X-Request-ID"
 
 # Globale Variablen
-_synonyms_cache: Optional[Dict[str, List[str]]] = None  # Cache für Synonyme, wird lazy geladen
+_synonyms_cache: dict[str, list[str]] | None = None  # Cache für Synonyme, wird lazy geladen
 
 
 # Typisierte Factory für Listen von Strings (vermeidet list[Unknown]-Warnungen bei Pyright)
-def _empty_str_list() -> List[str]:
+def _empty_str_list() -> list[str]:
     return []
 
 
 @dataclass
 class EvaluationItem:
     """Repräsentiert einen Evaluierungseintrag."""
+
     id: str
-    messages: List[Dict[str, str]]
-    checks: Dict[str, Any]
-    source_file: Optional[str] = None
-    source_package: Optional[str] = None  # Name des Pakets ohne Extension
+    messages: list[dict[str, str]]
+    checks: dict[str, Any]
+    source_file: str | None = None
+    source_package: str | None = None  # Name des Pakets ohne Extension
     # Optionales Metadatenfeld aus Dataset (z. B. "szenen", "dialog")
-    category: Optional[str] = None
+    category: str | None = None
     # Tags aus Dataset (z. B. ["szenen", "fantasy"])
-    tags: List[str] = field(default_factory=_empty_str_list)
+    tags: list[str] = field(default_factory=_empty_str_list)
 
 
 @dataclass
 class EvaluationResult:
     """Repräsentiert das Ergebnis einer Evaluierung."""
+
     item_id: str
     response: str
-    checks_passed: Dict[str, bool]
+    checks_passed: dict[str, bool]
     success: bool
-    failed_checks: List[str] = field(default_factory=_empty_str_list)
-    error: Optional[str] = None
-    source_file: Optional[str] = None
-    source_package: Optional[str] = None
+    failed_checks: list[str] = field(default_factory=_empty_str_list)
+    error: str | None = None
+    source_file: str | None = None
+    source_package: str | None = None
     duration_ms: int = 0
     attempts: int = 1
 
@@ -176,37 +200,37 @@ class EvaluationResult:
 def check_term_inclusion(text: str, term: str) -> bool:
     """
     Überprüft, ob ein Begriff oder seine Varianten im Text enthalten sind.
-    
+
     Args:
         text: Der zu durchsuchende Text
         term: Der zu suchende Begriff
-        
+
     Returns:
         True, wenn der Begriff oder seine Varianten gefunden wurden
     """
     # Normalisiere Text und Begriff (Kleinschreibung, Entfernung von Sonderzeichen)
     text_normalized = text.lower()
     term_normalized = term.lower()
-    
+
     # Direkte Übereinstimmung
     if term_normalized in text_normalized:
         return True
-    
+
     # Flexionsformen und einfache Varianten prüfen
     # (z.B. "Planung" -> "planen", "geplant", "Pläne")
     term_stems = get_term_variants(term_normalized)
-    
+
     # Prüfe, ob eine der Varianten im Text vorkommt
     for variant in term_stems:
         if variant in text_normalized:
             return True
-    
+
     # Synonyme und verwandte Begriffe
     synonyms = get_synonyms(term_normalized)
     for synonym in synonyms:
         if synonym in text_normalized:
             return True
-            
+
     # Zusätzliche Prüfung für zusammengesetzte Begriffe
     # Zum Beispiel "Worst Case" wird auch erkannt, wenn "schlimmsten Fall" im Text steht
     if " " in term_normalized:
@@ -215,9 +239,20 @@ def check_term_inclusion(text: str, term: str) -> bool:
         all_words_present = True
         for word in words:
             # Überspringen von sehr kurzen Wörtern und Stoppwörtern
-            if len(word) < 3 or word in ["der", "die", "das", "und", "oder", "in", "von", "mit", "für", "auf"]:
+            if len(word) < 3 or word in [
+                "der",
+                "die",
+                "das",
+                "und",
+                "oder",
+                "in",
+                "von",
+                "mit",
+                "für",
+                "auf",
+            ]:
                 continue
-                
+
             # Prüfe, ob das Wort oder seine Synonyme vorkommen
             word_found = word in text_normalized
             if not word_found:
@@ -227,37 +262,36 @@ def check_term_inclusion(text: str, term: str) -> bool:
                     if synonym in text_normalized:
                         word_found = True
                         break
-            
+
             if not word_found:
                 all_words_present = False
                 break
-                
+
         if all_words_present and len(words) > 1:
             return True
-    
+
     return False
 
 
-def get_term_variants(term: str) -> List[str]:
+def get_term_variants(term: str) -> list[str]:
     """
     Generiert einfache Varianten eines Begriffs.
-    
+
     Args:
         term: Der Ausgangsbegriff
-        
+
     Returns:
         Liste von Begriffsvarianten
     """
-    variants: List[str] = [term]
-    
+    variants: list[str] = [term]
+
     # Entferne Umlaute
-    term_no_umlauts: str = (term.replace("ä", "ae")
-                          .replace("ö", "oe")
-                          .replace("ü", "ue")
-                          .replace("ß", "ss"))
+    term_no_umlauts: str = (
+        term.replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
+    )
     if term_no_umlauts != term:
         variants.append(term_no_umlauts)
-    
+
     # Einfache Stammformen
     if term.endswith("en"):
         # z.B. "planen" -> "plan"
@@ -273,29 +307,29 @@ def get_term_variants(term: str) -> List[str]:
     if term.endswith("heit"):
         # z.B. "Sicherheit" -> "sicher"
         variants.append(term[:-4])
-    
+
     # Pluralformen
     if not term.endswith("en") and not term.endswith("n"):
         # z.B. "Plan" -> "Pläne", "Planung" -> "Planungen"
         variants.append(term + "e")
         variants.append(term + "en")
-    
+
     return variants
 
 
-def get_synonyms(term: str) -> List[str]:
+def get_synonyms(term: str) -> list[str]:
     """
     Gibt eine Liste von Synonymen für einen Begriff zurück.
     Lädt die Synonyme lazy aus der JSON-Datei.
-    
+
     Args:
         term: Der Ausgangsbegriff
-        
+
     Returns:
         Liste von Synonymen
     """
     global _synonyms_cache
-    
+
     # Lazy-Loading der Synonyme
     if _synonyms_cache is None:
         # Synonyme liegen nun in config/; optionales Overlay aus synonyms.local.json wird gemerged
@@ -303,13 +337,13 @@ def get_synonyms(term: str) -> List[str]:
         local_overlay = os.path.join(DEFAULT_CONFIG_DIR, "synonyms.local.json")
         paths = [base_path, local_overlay]
         logging.info(f"Lade Synonyme aus: {', '.join([p for p in paths if os.path.exists(p)])}")
-        _synonyms_cache = cast(Dict[str, List[str]], load_synonyms(paths))
+        _synonyms_cache = cast(dict[str, list[str]], load_synonyms(paths))
         assert _synonyms_cache is not None
         logging.info(f"Anzahl der Synonym-Einträge (gemerged): {len(_synonyms_cache)}")
-    
+
     # Suche nach dem Begriff und seinen Varianten
-    synonyms: List[str] = []
-    
+    synonyms: list[str] = []
+
     assert _synonyms_cache is not None
     for key, values in _synonyms_cache.items():
         if term in key or key in term:
@@ -318,12 +352,12 @@ def get_synonyms(term: str) -> List[str]:
             for value in values:
                 if term in value or value in term:
                     synonyms.extend([key] + [v for v in values if v != value])
-    
+
     return list(set(synonyms))  # Entferne Duplikate
 
 
 # --- Neu: Checks-Normalisierung und Profil-Presets ---------------------------------
-def normalize_checks(checks: Optional[List[str]]) -> Optional[List[str]]:
+def normalize_checks(checks: list[str] | None) -> list[str] | None:
     """Normalisiert die vom CLI kommende Checks-Liste.
 
     - Unterstützt Komma-separierte Eingaben (z. B. ["rpg_style,term_inclusion"]).
@@ -333,7 +367,7 @@ def normalize_checks(checks: Optional[List[str]]) -> Optional[List[str]]:
     """
     if checks is None:
         return None
-    items: List[str] = []
+    items: list[str] = []
     for part in checks:
         # Split an Kommas und trimmen
         for token in str(part).split(","):
@@ -342,7 +376,7 @@ def normalize_checks(checks: Optional[List[str]]) -> Optional[List[str]]:
                 continue
             items.append(t)
     # Alias-Expansion
-    expanded: List[str] = []
+    expanded: list[str] = []
     for t in items:
         if t == "term_inclusion":
             expanded.extend(["must_include", "keywords_any", "keywords_at_least"])
@@ -350,7 +384,7 @@ def normalize_checks(checks: Optional[List[str]]) -> Optional[List[str]]:
             expanded.append(t)
     # Dedupe stabil
     seen: set[str] = set()
-    out: List[str] = []
+    out: list[str] = []
     for t in expanded:
         if t not in seen:
             seen.add(t)
@@ -359,11 +393,11 @@ def normalize_checks(checks: Optional[List[str]]) -> Optional[List[str]]:
 
 
 def resolve_profile_overrides(
-    profile: Optional[str],
-    temperature: Optional[float],
-    top_p: Optional[float],
-    max_tokens: Optional[int],
-) -> Tuple[Optional[float], Optional[float], Optional[int], bool]:
+    profile: str | None,
+    temperature: float | None,
+    top_p: float | None,
+    max_tokens: int | None,
+) -> tuple[float | None, float | None, int | None, bool]:
     """Wendet Profil-Defaults an.
 
     Gibt (temperature, top_p, max_tokens, eval_mode) zurück. Nur fehlende Werte werden
@@ -384,172 +418,172 @@ def resolve_profile_overrides(
     return temperature, top_p, max_tokens, eval_mode
 
 
-async def load_prompts(patterns: Optional[List[str]] = None) -> List[Dict[str, Any]]:
+async def load_prompts(patterns: list[str] | None = None) -> list[dict[str, Any]]:
     """
     Lädt Evaluierungseinträge aus allen passenden JSON/JSONL-Dateien.
     Bei Überschneidungen werden neuere Datensätze priorisiert.
-    
+
     Args:
         patterns: Liste von Glob-Patterns für die zu ladenden Dateien
-        
+
     Returns:
         Liste von Evaluierungseinträgen (Dicts)
     """
     if patterns is None:
         patterns = [os.path.join(DEFAULT_DATASET_DIR, DEFAULT_FILE_PATTERN)]
-    
+
     # Dictionary zur Verwaltung von Datensatz-IDs und deren Quellen
     # Schlüssel: ID des Prompts, Wert: (Prompt-Daten, Zeitstempel der Datei)
-    prompt_registry: Dict[str, Tuple[Dict[str, Any], float]] = {}
-    
+    prompt_registry: dict[str, tuple[dict[str, Any], float]] = {}
+
     # Statistiken
-    stats: Dict[str, Any] = {
+    stats: dict[str, Any] = {
         "total_files": 0,
         "total_loaded": 0,
         "total_skipped": 0,
         "total_errors": 0,
-        "file_stats": {}
+        "file_stats": {},
     }
-    
+
     # Logger für detaillierte Ausgaben konfigurieren
     logger = logging.getLogger("eval_loader")
-    
+
     # Dateien für jedes Pattern finden
-    all_files: List[str] = []
+    all_files: list[str] = []
     for pattern in patterns:
         files = sorted(glob.glob(pattern))
         if not files:
             logger.warning(f"Keine Dateien gefunden, die zu '{pattern}' passen.")
         all_files.extend(files)
-    
+
     if not all_files:
         logger.error("Keine Evaluierungsdateien gefunden.")
         return []
-    
+
     logger.info(f"Lade Prompts aus {len(all_files)} Dateien:")
     stats["total_files"] = len(all_files)
-    
+
     for file_path in all_files:
         basename = os.path.basename(file_path)
         try:
             package_name = os.path.splitext(basename)[0]  # Dateiname ohne Extension
-            
+
             # Initialisiere Statistiken für diese Datei
-            file_stat: Dict[str, int] = {
-                "loaded": 0,
-                "skipped": 0,
-                "errors": 0
-            }
+            file_stat: dict[str, int] = {"loaded": 0, "skipped": 0, "errors": 0}
             stats["file_stats"][basename] = file_stat
-            
-            with open(file_path, "r", encoding="utf-8") as f:
+
+            with open(file_path, encoding="utf-8") as f:
                 file_content = f.read().strip()
                 if not file_content:
                     logger.warning(f"{basename}: Datei ist leer")
                     continue
-                
+
                 # Hole den Zeitstempel der Datei für die Priorisierung
                 file_mtime = os.path.getmtime(file_path)
-                
+
                 # Konvertiere den Inhalt zu einer Liste von Dictionaries
                 try:
-                    data_array: List[Dict[str, Any]] = cast(List[Dict[str, Any]], coerce_json_to_jsonl(file_content))
-                    
+                    data_array: list[dict[str, Any]] = cast(
+                        list[dict[str, Any]], coerce_json_to_jsonl(file_content)
+                    )
+
                     if not data_array:
                         logger.warning(f"{basename}: Keine gültigen JSON-Objekte gefunden")
                         continue
-                    
+
                     loaded = 0
                     for prompt in data_array:
                         # Füge Quellinformationen hinzu
                         prompt["source_file"] = basename
                         prompt["source_package"] = package_name
-                        
+
                         # Extrahiere die ID oder generiere eine, falls nicht vorhanden
                         prompt_id: str = prompt.get("id", f"auto-{len(prompt_registry)+1}")
-                        
+
                         # Überprüfe, ob dieser Datensatz bereits registriert ist
                         if prompt_id in prompt_registry:
                             existing_mtime = prompt_registry[prompt_id][1]
                             # Wenn die aktuelle Datei neuer ist, ersetze den alten Datensatz
                             if file_mtime > existing_mtime:
                                 prompt_registry[prompt_id] = (prompt, file_mtime)
-                                logger.debug(f"Aktualisiere Datensatz {prompt_id} aus neuerer Datei: {basename}")
+                                logger.debug(
+                                    f"Aktualisiere Datensatz {prompt_id} aus neuerer Datei: {basename}"
+                                )
                         else:
                             # Neuer Datensatz, füge ihn hinzu
                             prompt_registry[prompt_id] = (prompt, file_mtime)
                             loaded += 1
-                    
+
                     file_stat["loaded"] = loaded
                     stats["total_loaded"] += loaded
-                    
+
                     logger.info(f"{basename}: {loaded} Prompts geladen")
-                    
+
                 except Exception as e:
                     file_stat["errors"] += 1
                     stats["total_errors"] += 1
                     logger.error(f"{basename}: Fehler beim Parsen: {str(e)}")
-        
+
         except Exception as e:
             logger.error(f"{basename}: Fehler beim Laden: {str(e)}")
             stats["total_errors"] += 1
-    
+
     # Konvertiere das Registry-Dictionary in eine Liste von Prompts
-    all_prompts: List[Dict[str, Any]] = [prompt for prompt, _ in prompt_registry.values()]
-    
+    all_prompts: list[dict[str, Any]] = [prompt for prompt, _ in prompt_registry.values()]
+
     # Gib Zusammenfassung aus
     logger.info(f"Insgesamt {len(all_prompts)} Prompts aus {stats['total_files']} Dateien geladen.")
     if stats["total_errors"] > 0:
         logger.warning(f"{stats['total_errors']} Fehler beim Laden aufgetreten.")
     if stats["total_skipped"] > 0:
         logger.warning(f"{stats['total_skipped']} Einträge übersprungen.")
-    
+
     # Prüfe auf Überschneidungen
     duplicate_count = sum(1 for _ in prompt_registry.values()) - len(all_prompts)
     if duplicate_count > 0:
         logger.info(f"{duplicate_count} Duplikate durch neuere Versionen ersetzt.")
-    
+
     return all_prompts
 
 
-async def load_evaluation_items(patterns: Optional[List[str]] = None) -> List[EvaluationItem]:
+async def load_evaluation_items(patterns: list[str] | None = None) -> list[EvaluationItem]:
     """
     Lädt Evaluierungseinträge aus einer oder mehreren Dateien.
-    
+
     Args:
         patterns: Liste von Glob-Patterns für die zu ladenden Dateien
-        
+
     Returns:
         Liste von EvaluationItem-Objekten
     """
-    items: List[EvaluationItem] = []
-    file_stats: Dict[str, Dict[str, int]] = {}
-    
+    items: list[EvaluationItem] = []
+    file_stats: dict[str, dict[str, int]] = {}
+
     # Konfiguriere Logger
     logger = logging.getLogger("eval_loader")
-    
+
     try:
         # Lade Prompts aus allen passenden Dateien
         all_prompts = await load_prompts(patterns)
-        
+
         for data in all_prompts:
             try:
                 source_file = data.get("source_file", "unbekannt")
                 source_package = data.get("source_package", os.path.splitext(source_file)[0])
-                
+
                 # Initialisiere Statistiken für diese Datei, falls noch nicht vorhanden
                 if source_file not in file_stats:
                     file_stats[source_file] = {"loaded": 0, "skipped": 0}
-                
+
                 # Überprüfe das Format der Daten
                 if "id" not in data:
-                    logger.warning(f"'id' fehlt in einem Prompt, generiere ID")
+                    logger.warning("'id' fehlt in einem Prompt, generiere ID")
                     data["id"] = f"eval-{len(items)+1:03d}"
-                
+
                 # Stelle sicher, dass die ID das richtige Format hat
                 if not str(data["id"]).startswith("eval-"):
                     data["id"] = f"eval-{data['id']}"
-                
+
                 # Prüfe und konvertiere messages/prompt-Felder
                 if "messages" not in data:
                     if "prompt" in data:
@@ -559,25 +593,39 @@ async def load_evaluation_items(patterns: Optional[List[str]] = None) -> List[Ev
                         # Übernehme Konversation direkt
                         data["messages"] = data["conversation"]
                     else:
-                        logger.warning(f"Überspringe Prompt {data['id']}: Kein 'messages' oder 'prompt' gefunden")
+                        logger.warning(
+                            f"Überspringe Prompt {data['id']}: Kein 'messages' oder 'prompt' gefunden"
+                        )
                         file_stats[source_file]["skipped"] += 1
                         continue
-                
+
                 # Stelle sicher, dass 'checks' existiert
                 if "checks" not in data:
                     data["checks"] = {}
-                
+
                 # Wenn must_include im Hauptobjekt ist, verschiebe es zu checks
                 if "must_include" in data and "must_include" not in data["checks"]:
                     data["checks"]["must_include"] = data["must_include"]
-                
+
                 # Stelle sicher, dass alle Check-Typen initialisiert sind
-                for check_type in ["must_include", "keywords_any", "keywords_at_least", "not_include", "regex"]:
+                for check_type in [
+                    "must_include",
+                    "keywords_any",
+                    "keywords_at_least",
+                    "not_include",
+                    "regex",
+                ]:
                     if check_type not in data["checks"]:
-                        data["checks"][check_type] = [] if check_type != "keywords_at_least" else {"count": 0, "items": []}
-                
-                msgs_typed = cast(List[Dict[str, str]], data["messages"])  # narrow to expected shape
-                checks_typed = cast(Dict[str, Any], data["checks"])  # checks is a dict with mixed values
+                        data["checks"][check_type] = (
+                            [] if check_type != "keywords_at_least" else {"count": 0, "items": []}
+                        )
+
+                msgs_typed = cast(
+                    list[dict[str, str]], data["messages"]
+                )  # narrow to expected shape
+                checks_typed = cast(
+                    dict[str, Any], data["checks"]
+                )  # checks is a dict with mixed values
                 item = EvaluationItem(
                     id=data["id"],
                     messages=msgs_typed,
@@ -585,27 +633,29 @@ async def load_evaluation_items(patterns: Optional[List[str]] = None) -> List[Ev
                     source_file=source_file,
                     source_package=source_package,
                     category=cast(Optional[str], data.get("category")),
-                    tags=list(cast(List[str], data.get("tags") or []))
+                    tags=list(cast(list[str], data.get("tags") or [])),
                 )
                 items.append(item)
                 file_stats[source_file]["loaded"] += 1
-                
+
             except Exception as e:
-                source_file = data.get("source_file", "unbekannt") 
+                source_file = data.get("source_file", "unbekannt")
                 if source_file not in file_stats:
                     file_stats[source_file] = {"loaded": 0, "skipped": 0}
-                    
+
                 file_stats[source_file]["skipped"] += 1
                 logger.error(f"Fehler beim Verarbeiten eines Prompts: {str(e)}")
                 continue
-        
+
         # Zusammenfassung der Dateien ausgeben
         logger.info("\nZusammenfassung der geladenen Dateien:")
         for file_name, stats in file_stats.items():
-            logger.info(f"  - {file_name}: {stats['loaded']} Prompts geladen, {stats['skipped']} übersprungen")
-                
+            logger.info(
+                f"  - {file_name}: {stats['loaded']} Prompts geladen, {stats['skipped']} übersprungen"
+            )
+
         return items
-        
+
     except Exception as e:
         logger.error(f"Fehler beim Laden der Evaluierungseinträge: {str(e)}")
         return []
@@ -614,36 +664,38 @@ async def load_evaluation_items(patterns: Optional[List[str]] = None) -> List[Ev
 def check_rpg_mode(text: str) -> bool:
     """
     Überprüft, ob die Antwort im RPG-Modus (als Chronistin von Novapolis) erfolgt ist.
-    
+
     Args:
         text: Der zu prüfende Antworttext
-        
+
     Returns:
         True, wenn die Antwort im RPG-Modus erfolgt ist
     """
     # Normalisiere den Text
     text_lower: str = text.lower()
-    
+
     # Typische RPG-Modus-Indikatoren
-    rpg_indicators: List[str] = [
-        "novapolis", 
-        "chronistin", 
-        "postapokalypse", 
-        "szene.", "konsequenz.", "optionen.",  # Typisches Format im RPG-Modus
-        "world_state", 
-        "state_patches"
+    rpg_indicators: list[str] = [
+        "novapolis",
+        "chronistin",
+        "postapokalypse",
+        "szene.",
+        "konsequenz.",
+        "optionen.",  # Typisches Format im RPG-Modus
+        "world_state",
+        "state_patches",
     ]
-    
+
     # Prüfe auf typische Indikatoren
     for indicator in rpg_indicators:
         if indicator in text_lower:
             return True
-    
+
     # Prüfe auf das typische Format (Szene, Konsequenz, Optionen)
     format_pattern = r"(?:^|\n)(?:szene|konsequenz|optionen)[\s\.:]+[^\n]+"
     if re.search(format_pattern, text_lower, re.MULTILINE):
         return True
-    
+
     return False
 
 
@@ -652,9 +704,14 @@ def rpg_style_score(text: str) -> float:
     t = text.lower()
     score = 0.0
     indicators = [
-        "novapolis", "chronistin", "postapokalypse",
-        "szene", "konsequenz", "optionen",
-        "world_state", "state_patches"
+        "novapolis",
+        "chronistin",
+        "postapokalypse",
+        "szene",
+        "konsequenz",
+        "optionen",
+        "world_state",
+        "state_patches",
     ]
     hits = sum(1 for k in indicators if k in t)
     score += min(1.0, hits / 6.0)
@@ -669,35 +726,35 @@ async def evaluate_item(
     item: EvaluationItem,
     api_url: str = "http://localhost:8000/chat",
     eval_mode: bool = False,
-    client: Optional[httpx.AsyncClient] = None,
-    enabled_checks: Optional[List[str]] = None,
-    model_override: Optional[str] = None,
-    temperature_override: Optional[float] = None,
-    host_override: Optional[str] = None,
-    top_p_override: Optional[float] = None,
-    num_predict_override: Optional[int] = None,
-    request_id: Optional[str] = None,
+    client: httpx.AsyncClient | None = None,
+    enabled_checks: list[str] | None = None,
+    model_override: str | None = None,
+    temperature_override: float | None = None,
+    host_override: str | None = None,
+    top_p_override: float | None = None,
+    num_predict_override: int | None = None,
+    request_id: str | None = None,
     retries: int = 0,
-    cache: Optional[Any] = None,
+    cache: Any | None = None,
     hint_must_include: bool = False,
-    precomputed_hint_terms: Optional[List[str]] = None,
+    precomputed_hint_terms: list[str] | None = None,
 ) -> EvaluationResult:
     """
     Evaluiert einen einzelnen Eintrag.
-    
+
     Args:
         item: Der zu evaluierende Eintrag
         api_url: URL des Chat-Endpunkts
         eval_mode: Wenn True, wird der RPG-Modus für diesen Test deaktiviert
-        
+
     Returns:
         Evaluierungsergebnis
     """
     start_time = time.time()
-    
+
     try:
         # Konvertiere die Nachrichten in das richtige Format für den Chat-Endpunkt
-        messages: List[Dict[str, str]] = list(item.messages)
+        messages: list[dict[str, str]] = list(item.messages)
 
         # Initial-Hinweis (Eval): globaler Must-Include-Hint oder Szenen/Dialog-Hinweis
         try:
@@ -705,40 +762,62 @@ async def evaluate_item(
                 # Globaler eval Hint: vor die erste User-Message, keine Doppel-Injektion
                 messages = inject_eval_hint(messages, precomputed_hint_terms)
             else:
-                must_init = list(item.checks.get("must_include") or []) if hasattr(item, "checks") else []
+                must_init = (
+                    list(item.checks.get("must_include") or []) if hasattr(item, "checks") else []
+                )
+
                 # Heuristik, ob es sich um Szenen/Dialog-Aufgaben handelt
-                def _is_scene_or_dialog() -> Tuple[bool, bool]:
+                def _is_scene_or_dialog() -> tuple[bool, bool]:
                     cat = (item.category or "").lower()
                     tags = [str(t).lower() for t in (item.tags or [])]
                     # Fallback: ersten User-Prompt nach Schlüsselwörtern untersuchen
-                    prompt_text = " ".join([m.get("content", "") for m in messages if m.get("role") == "user"])[:400].lower()
-                    is_scene = ("szenen" in cat) or ("szene" in prompt_text) or any("szenen" in t or "szene" in t for t in tags)
-                    is_dialog = ("dialog" in cat) or ("dialog" in prompt_text) or any("dialog" in t for t in tags)
+                    prompt_text = " ".join(
+                        [m.get("content", "") for m in messages if m.get("role") == "user"]
+                    )[:400].lower()
+                    is_scene = (
+                        ("szenen" in cat)
+                        or ("szene" in prompt_text)
+                        or any("szenen" in t or "szene" in t for t in tags)
+                    )
+                    is_dialog = (
+                        ("dialog" in cat)
+                        or ("dialog" in prompt_text)
+                        or any("dialog" in t for t in tags)
+                    )
                     return is_scene, is_dialog
 
                 if must_init:
                     is_scene, is_dialog = _is_scene_or_dialog()
                     if is_scene or is_dialog:
-                        hint_init_parts: List[str] = []
+                        hint_init_parts: list[str] = []
                         if is_scene:
-                            hint_init_parts.append("Schreibe eine kurze Szene (1–2 Absätze) mit klarer Handlung, ohne Überschriften.")
+                            hint_init_parts.append(
+                                "Schreibe eine kurze Szene (1–2 Absätze) mit klarer Handlung, ohne Überschriften."
+                            )
                         if is_dialog:
-                            hint_init_parts.append("Schreibe einen knappen Dialog (max. 8 Repliken) ohne Überschriften.")
-                        hint_init_parts.append("Verwende diese Begriffe wörtlich im Text: " + ", ".join(sorted(set(str(t) for t in must_init))))
-                        messages.append({"role": "user", "content": "Hinweis: " + " ".join(hint_init_parts)})
+                            hint_init_parts.append(
+                                "Schreibe einen knappen Dialog (max. 8 Repliken) ohne Überschriften."
+                            )
+                        hint_init_parts.append(
+                            "Verwende diese Begriffe wörtlich im Text: "
+                            + ", ".join(sorted({str(t) for t in must_init}))
+                        )
+                        messages.append(
+                            {"role": "user", "content": "Hinweis: " + " ".join(hint_init_parts)}
+                        )
         except Exception:
             # Bei Problemen mit dem Hinweis einfach ohne weitermachen
             pass
 
         # Speziellen Evaluation-Modus-Parameter hinzufügen
-        payload: Dict[str, Any] = {
+        payload: dict[str, Any] = {
             "messages": messages,
-            "eval_mode": eval_mode  # Signal für die API, den RPG-Modus zu deaktivieren
+            "eval_mode": eval_mode,  # Signal für die API, den RPG-Modus zu deaktivieren
         }
         if model_override:
             payload["model"] = model_override
         # Merge option overrides
-        options: Dict[str, Any] = {}
+        options: dict[str, Any] = {}
         if temperature_override is not None:
             options["temperature"] = float(temperature_override)
         if host_override is not None:
@@ -752,33 +831,38 @@ async def evaluate_item(
                 pass
         if options:
             payload["options"] = options
-        
+
         logger = logging.getLogger("eval")
         logger.debug(f"Evaluiere Item {item.id}")
-        
+
         # Entweder übergebenen Client verwenden (ASGI-Modus) oder einen temporären erstellen (HTTP-Modus)
-        headers: Dict[str, str] = {}
+        headers: dict[str, str] = {}
         if request_id:
             headers[REQUEST_ID_HEADER] = request_id
-        async def _send_and_get(_payload: Dict[str, Any]) -> str:
+
+        async def _send_and_get(_payload: dict[str, Any]) -> str:
             # Cache-Hit prüfen
-            cache_key: Optional[str] = None
+            cache_key: str | None = None
             if cache is not None:
                 try:
-                    cache_key = make_key({
-                        "api_url": api_url,
-                        "messages": _payload.get("messages"),
-                        "options": _payload.get("options"),
-                        "model": _payload.get("model") or model_override,
-                        "eval_mode": eval_mode,
-                    })
+                    cache_key = make_key(
+                        {
+                            "api_url": api_url,
+                            "messages": _payload.get("messages"),
+                            "options": _payload.get("options"),
+                            "model": _payload.get("model") or model_override,
+                            "eval_mode": eval_mode,
+                        }
+                    )
                     cached = cache.get(cache_key)
                     if isinstance(cached, str) and cached:
                         return cached
                 except Exception:
                     pass
             if client is None:
-                async with httpx.AsyncClient(timeout=60.0) as temp_client:  # Erhöhtes Timeout für komplexere Anfragen
+                async with httpx.AsyncClient(
+                    timeout=60.0
+                ) as temp_client:  # Erhöhtes Timeout für komplexere Anfragen
                     resp = await temp_client.post(api_url, json=_payload, headers=headers)
             else:
                 resp = await client.post(api_url, json=_payload, headers=headers)
@@ -802,15 +886,28 @@ async def evaluate_item(
         is_rpg_mode = check_rpg_mode(content)
 
         # Prüfe alle Bedingungen
-        checks_passed: Dict[str, bool] = {}
-        failed_checks: List[str] = []
+        checks_passed: dict[str, bool] = {}
+        failed_checks: list[str] = []
 
         # Wenn im RPG-Modus und es sich nicht um einen RPG-spezifischen Test handelt, Hinweis
-        if is_rpg_mode and not any(rpg_term in (item.source_package or "").lower() for rpg_term in ["rpg", "novapolis", "szene"]):
+        if is_rpg_mode and not any(
+            rpg_term in (item.source_package or "").lower()
+            for rpg_term in ["rpg", "novapolis", "szene"]
+        ):
             failed_checks.append("Antwort im RPG-Modus, aber Test erwartet allgemeine Antwort")
 
         # Wenn nicht gesetzt, sind alle Checks aktiv
-        enabled = set(enabled_checks or ["must_include", "keywords_any", "keywords_at_least", "not_include", "regex", "rpg_style"])
+        enabled = set(
+            enabled_checks
+            or [
+                "must_include",
+                "keywords_any",
+                "keywords_at_least",
+                "not_include",
+                "regex",
+                "rpg_style",
+            ]
+        )
 
         # 1. must_include: Alle Begriffe müssen enthalten sein
         if "must_include" in enabled and item.checks.get("must_include"):
@@ -829,7 +926,9 @@ async def evaluate_item(
                     break
             checks_passed["keywords_any"] = any_found
             if not any_found:
-                failed_checks.append(f"Keine der alternativen Begriffe gefunden: {', '.join(item.checks['keywords_any'])}")
+                failed_checks.append(
+                    f"Keine der alternativen Begriffe gefunden: {', '.join(item.checks['keywords_any'])}"
+                )
 
         # 3. keywords_at_least: Mindestens N Begriffe müssen enthalten sein
         keywords_at_least = item.checks.get("keywords_at_least")
@@ -837,7 +936,7 @@ async def evaluate_item(
             try:
                 required_count = 0
                 items_list = []
-                if hasattr(keywords_at_least, 'get'):
+                if hasattr(keywords_at_least, "get"):
                     count_val = keywords_at_least.get("count")
                     items_val = keywords_at_least.get("items")
                     if count_val is not None:
@@ -851,7 +950,9 @@ async def evaluate_item(
                 check_passed = found_count >= required_count
                 checks_passed["keywords_at_least"] = check_passed
                 if not check_passed:
-                    failed_checks.append(f"Zu wenige Begriffe gefunden: {found_count}/{required_count}")
+                    failed_checks.append(
+                        f"Zu wenige Begriffe gefunden: {found_count}/{required_count}"
+                    )
             except (AttributeError, ValueError, TypeError):
                 checks_passed["keywords_at_least"] = False
                 failed_checks.append("Ungültiges keywords_at_least Format")
@@ -898,8 +999,8 @@ async def evaluate_item(
         attempts_used = 1
 
         # Optional: bei inhaltlichem Fehlschlag mit präzisem Hinweis einmal wiederholen
-        def _extract_missing_terms(fails: List[str]) -> List[str]:
-            miss: List[str] = []
+        def _extract_missing_terms(fails: list[str]) -> list[str]:
+            miss: list[str] = []
             for msg in fails:
                 m = re.search(r"Erforderlicher Begriff nicht gefunden: '([^']+)'", msg)
                 if m:
@@ -908,40 +1009,69 @@ async def evaluate_item(
 
         if (not success) and retries > 0:
             missing = _extract_missing_terms(failed_checks)
-            need_any = any(s.startswith("Keine der alternativen Begriffe gefunden") for s in failed_checks)
+            need_any = any(
+                s.startswith("Keine der alternativen Begriffe gefunden") for s in failed_checks
+            )
             need_atleast = any(s.startswith("Zu wenige Begriffe gefunden") for s in failed_checks)
             needs_regex = any(s.startswith("Regex nicht erfüllt") for s in failed_checks)
             # Nur für diese inhaltlichen Fälle erneut versuchen
             if missing or need_any or need_atleast or needs_regex:
-                enhanced_messages: List[Dict[str, str]] = list(messages)
+                enhanced_messages: list[dict[str, str]] = list(messages)
                 if content:
                     enhanced_messages.append({"role": "assistant", "content": content})
-                hint_parts: List[str] = []
+                hint_parts: list[str] = []
+
                 # Erneut Szene/Dialog heuristisch bestimmen
-                def _retry_scene_dialog() -> Tuple[bool, bool]:
+                def _retry_scene_dialog() -> tuple[bool, bool]:
                     cat = (item.category or "").lower()
                     tags = [str(t).lower() for t in (item.tags or [])]
-                    prompt_text = " ".join([m.get("content", "") for m in messages if m.get("role") == "user"])[:400].lower()
-                    is_scene = ("szenen" in cat) or ("szene" in prompt_text) or any("szenen" in t or "szene" in t for t in tags)
-                    is_dialog = ("dialog" in cat) or ("dialog" in prompt_text) or any("dialog" in t for t in tags)
+                    prompt_text = " ".join(
+                        [m.get("content", "") for m in messages if m.get("role") == "user"]
+                    )[:400].lower()
+                    is_scene = (
+                        ("szenen" in cat)
+                        or ("szene" in prompt_text)
+                        or any("szenen" in t or "szene" in t for t in tags)
+                    )
+                    is_dialog = (
+                        ("dialog" in cat)
+                        or ("dialog" in prompt_text)
+                        or any("dialog" in t for t in tags)
+                    )
                     return is_scene, is_dialog
 
                 if missing:
                     is_scene, is_dialog = _retry_scene_dialog()
                     if is_scene or is_dialog:
-                        hint_parts.append("Verwende diese Begriffe wörtlich im Text: " + ", ".join(sorted(set(missing))))
+                        hint_parts.append(
+                            "Verwende diese Begriffe wörtlich im Text: "
+                            + ", ".join(sorted(set(missing)))
+                        )
                         if is_scene:
-                            hint_parts.append("Schreibe eine kurze Szene (1–2 Absätze) mit klarer Handlung.")
+                            hint_parts.append(
+                                "Schreibe eine kurze Szene (1–2 Absätze) mit klarer Handlung."
+                            )
                         if is_dialog:
-                            hint_parts.append("Schreibe einen knappen Dialog (max. 8 Repliken) ohne Überschriften.")
+                            hint_parts.append(
+                                "Schreibe einen knappen Dialog (max. 8 Repliken) ohne Überschriften."
+                            )
                     else:
-                        hint_parts.append("Stelle sicher, dass diese Begriffe im Text vorkommen: " + ", ".join(sorted(set(missing))))
+                        hint_parts.append(
+                            "Stelle sicher, dass diese Begriffe im Text vorkommen: "
+                            + ", ".join(sorted(set(missing)))
+                        )
                 if need_any:
-                    hint_parts.append("Verwende mindestens einen der geforderten Alternativbegriffe.")
+                    hint_parts.append(
+                        "Verwende mindestens einen der geforderten Alternativbegriffe."
+                    )
                 if need_atleast:
-                    hint_parts.append("Erfülle die Mindestanzahl an geforderten Schlüsselbegriffen.")
+                    hint_parts.append(
+                        "Erfülle die Mindestanzahl an geforderten Schlüsselbegriffen."
+                    )
                 if needs_regex:
-                    hint_parts.append("Formatiere die Antwort so, dass die Muster (Regex) erfüllt sind.")
+                    hint_parts.append(
+                        "Formatiere die Antwort so, dass die Muster (Regex) erfüllt sind."
+                    )
                 # Falls globaler Eval-Hint aktiv, denselben Hint erneut sicherstellen (keine Doppelung)
                 if eval_mode and hint_must_include and precomputed_hint_terms:
                     enhanced_messages = inject_eval_hint(enhanced_messages, precomputed_hint_terms)
@@ -957,35 +1087,60 @@ async def evaluate_item(
                     attempts_used = 2
                     # Erneut prüfen
                     is_rpg_mode = check_rpg_mode(content2)
-                    checks_passed_retry: Dict[str, bool] = {}
-                    failed_checks_retry: List[str] = []
+                    checks_passed_retry: dict[str, bool] = {}
+                    failed_checks_retry: list[str] = []
 
-                    if is_rpg_mode and not any(rpg_term in (item.source_package or "").lower() for rpg_term in ["rpg", "novapolis", "szene"]):
-                        failed_checks_retry.append("Antwort im RPG-Modus, aber Test erwartet allgemeine Antwort")
+                    if is_rpg_mode and not any(
+                        rpg_term in (item.source_package or "").lower()
+                        for rpg_term in ["rpg", "novapolis", "szene"]
+                    ):
+                        failed_checks_retry.append(
+                            "Antwort im RPG-Modus, aber Test erwartet allgemeine Antwort"
+                        )
 
                     if "must_include" in enabled and item.checks.get("must_include"):
                         for term in item.checks["must_include"]:
                             ok = check_term_inclusion(content2, term)
                             checks_passed_retry[f"include:{term}"] = ok
                             if not ok:
-                                failed_checks_retry.append(f"Erforderlicher Begriff nicht gefunden: '{term}'")
+                                failed_checks_retry.append(
+                                    f"Erforderlicher Begriff nicht gefunden: '{term}'"
+                                )
 
                     if "keywords_any" in enabled and item.checks.get("keywords_any"):
-                        any_found2 = any(check_term_inclusion(content2, t) for t in item.checks["keywords_any"])
+                        any_found2 = any(
+                            check_term_inclusion(content2, t) for t in item.checks["keywords_any"]
+                        )
                         checks_passed_retry["keywords_any"] = any_found2
                         if not any_found2:
-                            failed_checks_retry.append(f"Keine der alternativen Begriffe gefunden: {', '.join(item.checks['keywords_any'])}")
+                            failed_checks_retry.append(
+                                f"Keine der alternativen Begriffe gefunden: {', '.join(item.checks['keywords_any'])}"
+                            )
 
                     keywords_at_least2 = item.checks.get("keywords_at_least")
                     if "keywords_at_least" in enabled and keywords_at_least2:
                         try:
-                            required_count2 = int(keywords_at_least2.get("count", 0)) if hasattr(keywords_at_least2, 'get') else 0
-                            items_list2 = list(keywords_at_least2.get("items", [])) if hasattr(keywords_at_least2, 'get') else []
-                            found2 = sum(1 for t in items_list2 if isinstance(t, str) and check_term_inclusion(content2, t))
+                            required_count2 = (
+                                int(keywords_at_least2.get("count", 0))
+                                if hasattr(keywords_at_least2, "get")
+                                else 0
+                            )
+                            items_list2 = (
+                                list(keywords_at_least2.get("items", []))
+                                if hasattr(keywords_at_least2, "get")
+                                else []
+                            )
+                            found2 = sum(
+                                1
+                                for t in items_list2
+                                if isinstance(t, str) and check_term_inclusion(content2, t)
+                            )
                             ok2 = found2 >= required_count2
                             checks_passed_retry["keywords_at_least"] = ok2
                             if not ok2:
-                                failed_checks_retry.append(f"Zu wenige Begriffe gefunden: {found2}/{required_count2}")
+                                failed_checks_retry.append(
+                                    f"Zu wenige Begriffe gefunden: {found2}/{required_count2}"
+                                )
                         except Exception:
                             checks_passed_retry["keywords_at_least"] = False
                             failed_checks_retry.append("Ungültiges keywords_at_least Format")
@@ -995,7 +1150,9 @@ async def evaluate_item(
                             not_included2 = not check_term_inclusion(content2, term)
                             checks_passed_retry[f"not_include:{term}"] = not_included2
                             if not not_included2:
-                                failed_checks_retry.append(f"Unerwünschter Begriff gefunden: '{term}'")
+                                failed_checks_retry.append(
+                                    f"Unerwünschter Begriff gefunden: '{term}'"
+                                )
 
                     if "regex" in enabled and item.checks.get("regex"):
                         for pattern in item.checks["regex"]:
@@ -1016,11 +1173,15 @@ async def evaluate_item(
                         if any(k in pkg2 for k in ["rpg", "novapolis", "szene"]):
                             if score2 < 0.4:
                                 checks_passed_retry["rpg_style"] = False
-                                failed_checks_retry.append(f"RPG-Stil zu schwach (Score {score2:.2f})")
+                                failed_checks_retry.append(
+                                    f"RPG-Stil zu schwach (Score {score2:.2f})"
+                                )
                         else:
                             if score2 > 0.2:
                                 checks_passed_retry["rpg_style"] = False
-                                failed_checks_retry.append(f"RPG-Stil zu präsent (Score {score2:.2f})")
+                                failed_checks_retry.append(
+                                    f"RPG-Stil zu präsent (Score {score2:.2f})"
+                                )
 
                     if all(checks_passed_retry.values()):
                         duration_ms = int((time.time() - start_time) * 1000)
@@ -1064,13 +1225,13 @@ async def evaluate_item(
             source_file=item.source_file,
             source_package=item.source_package,
             duration_ms=duration_ms,
-            attempts=attempts_used
+            attempts=attempts_used,
         )
-            
+
     except Exception as e:
         # Berechne die Dauer in Millisekunden
         duration_ms = int((time.time() - start_time) * 1000)
-        
+
         return EvaluationResult(
             item_id=item.id,
             response="",
@@ -1080,82 +1241,84 @@ async def evaluate_item(
             error=str(e),
             source_file=item.source_file,
             source_package=item.source_package,
-            duration_ms=duration_ms
+            duration_ms=duration_ms,
         )
 
 
 async def run_evaluation(
-    patterns: List[str],
+    patterns: list[str],
     api_url: str = "http://localhost:8000/chat",
-    limit: Optional[int] = None,
+    limit: int | None = None,
     eval_mode: bool = False,
     asgi: bool = False,
-    enabled_checks: Optional[List[str]] = None,
-    model_override: Optional[str] = None,
-    temperature_override: Optional[float] = None,
-    host_override: Optional[str] = None,
-    top_p_override: Optional[float] = None,
-    num_predict_override: Optional[int] = None,
-    sweep: Optional[Dict[str, List[Any]]] = None,
-    tag: Optional[str] = None,
+    enabled_checks: list[str] | None = None,
+    model_override: str | None = None,
+    temperature_override: float | None = None,
+    host_override: str | None = None,
+    top_p_override: float | None = None,
+    num_predict_override: int | None = None,
+    sweep: dict[str, list[Any]] | None = None,
+    tag: str | None = None,
     quiet: bool = False,
     retries: int = 0,
     use_cache: bool = False,
     hint_must_include: bool = False,
-) -> List[EvaluationResult]:
+) -> list[EvaluationResult]:
     """
     Führt die Evaluierung für alle Einträge durch.
-    
+
     Args:
         patterns: Liste von Glob-Patterns für die zu ladenden Dateien
         api_url: URL des Chat-Endpunkts
         limit: Optionale Begrenzung der Anzahl der zu evaluierenden Einträge
         eval_mode: Wenn True, wird der RPG-Modus für alle Tests deaktiviert
-        
+
     Returns:
         Liste von Evaluierungsergebnissen
     """
     # Lade Einträge
     items = await load_evaluation_items(patterns)
-    
+
     if limit and limit > 0 and limit < len(items):
         logging.info(f"Begrenze Evaluierung auf die ersten {limit} von {len(items)} Einträgen.")
         items = items[:limit]
-    
+
     if not items:
         logging.error("Keine Einträge zum Evaluieren gefunden.")
         return []
-    
-    results: List[EvaluationResult] = []
-    
+
+    results: list[EvaluationResult] = []
+
     # Logge Info über den Eval-Modus
     if eval_mode:
         logging.info("Evaluierung wird im Eval-Modus durchgeführt (RPG-Modus deaktiviert)")
-    
+
     # Aktuelle Zeit für Ergebnis-Dateiname (in results/ ablegen)
     timestamp = now_compact()
     # Run-ID für Korrelation/Logs
     try:
         import uuid as _uuid
+
         run_id = f"run-{timestamp}-{str(_uuid.uuid4()).split('-')[0]}"
     except Exception:
         run_id = f"run-{timestamp}"
     os.makedirs(DEFAULT_RESULTS_DIR, exist_ok=True)
     base_name = f"results_{timestamp}{('_' + tag) if tag else ''}.jsonl"
     results_file = os.path.join(DEFAULT_RESULTS_DIR, base_name)
-    
+
     # Optional: ASGI-Client vorbereiten
-    asgi_client: Optional[httpx.AsyncClient] = None
+    asgi_client: httpx.AsyncClient | None = None
     if asgi:
         # FastAPI-App importieren und In-Process-Client erstellen
         from app.main import app as fastapi_app
+
         transport = httpx.ASGITransport(app=cast(Any, fastapi_app))
         asgi_client = httpx.AsyncClient(transport=transport, base_url="http://asgi")
         # Im ASGI-Modus gegen Pfad arbeiten
         api_url = "/chat"
 
     # Optional: Logger temporär drosseln, um Progress sauber zu halten
-    prev_levels: Dict[str, int] = {}
+    prev_levels: dict[str, int] = {}
     noisy_loggers = [
         "app.main",
         "app.api.chat",
@@ -1183,7 +1346,7 @@ async def run_evaluation(
 
         with Progress(transient=True) as progress:
             task = progress.add_task("[cyan]Evaluiere...", total=len(items))
-            
+
             # Meta-Header als erste Zeile schreiben
             # Settings sicher ermitteln (falls Import oben fehlgeschlagen ist)
             _model_name = None
@@ -1192,6 +1355,7 @@ async def run_evaluation(
             try:
                 # Verwende das bereits importierte settings-Objekt, falls vorhanden
                 from app.core.settings import settings as _st
+
                 _st_any: Any = cast(Any, _st)
                 _model_name = cast(Optional[str], getattr(_st_any, "MODEL_NAME", None))
                 _temperature = cast(Optional[float], getattr(_st_any, "TEMPERATURE", None))
@@ -1199,7 +1363,7 @@ async def run_evaluation(
             except Exception:
                 pass
 
-            meta_header: Dict[str, Any] = {
+            meta_header: dict[str, Any] = {
                 "_meta": True,
                 "timestamp": timestamp,
                 "run_id": run_id,
@@ -1207,11 +1371,25 @@ async def run_evaluation(
                 "api_url": api_url,
                 "eval_mode": eval_mode,
                 "asgi": asgi,
-                "enabled_checks": enabled_checks or ["must_include", "keywords_any", "keywords_at_least", "not_include", "regex", "rpg_style"],
+                "enabled_checks": enabled_checks
+                or [
+                    "must_include",
+                    "keywords_any",
+                    "keywords_at_least",
+                    "not_include",
+                    "regex",
+                    "rpg_style",
+                ],
                 "model": _model_name,
                 "temperature": _temperature,
                 "host": _host,
-                "overrides": {"model": model_override, "temperature": temperature_override, "host": host_override, "top_p": top_p_override, "num_predict": num_predict_override},
+                "overrides": {
+                    "model": model_override,
+                    "temperature": temperature_override,
+                    "host": host_override,
+                    "top_p": top_p_override,
+                    "num_predict": num_predict_override,
+                },
                 "sweep": sweep or None,
                 "retries": retries,
                 "hint_must_include": hint_must_include,
@@ -1230,7 +1408,7 @@ async def run_evaluation(
                     eval_cache = None
 
             # Hint-Begriffe je Item vorab berechnen (Eval+Flag)
-            hint_terms_per_item: Dict[str, List[str]] = {}
+            hint_terms_per_item: dict[str, list[str]] = {}
             hint_applied_count = 0
             if eval_mode and hint_must_include:
                 for it in items:
@@ -1240,17 +1418,34 @@ async def run_evaluation(
                         hint_applied_count += 1
                 if quiet:
                     print(f"hint_must_include applied: {hint_applied_count} items")
+
             # Hilfsfunktion zur Ausführung eines Durchlaufs mit gegebenen Overrides
-            async def _run_once(temp_override: Optional[float], top_p_ov: Optional[float], num: Optional[int], tag_suffix: Optional[str] = None) -> None:
+            async def _run_once(
+                temp_override: float | None,
+                top_p_ov: float | None,
+                num: int | None,
+                tag_suffix: str | None = None,
+            ) -> None:
                 nonlocal results_file
                 # Update Datei, falls Sweep-Tag
                 if tag_suffix:
-                    results_file = os.path.join(DEFAULT_RESULTS_DIR, f"results_{timestamp}{('_' + tag) if tag else ''}_{tag_suffix}.jsonl")
+                    results_file = os.path.join(
+                        DEFAULT_RESULTS_DIR,
+                        f"results_{timestamp}{('_' + tag) if tag else ''}_{tag_suffix}.jsonl",
+                    )
                     with open(results_file, "w", encoding="utf-8") as f:
                         pass  # neu anlegen
                     # Meta-Header kopieren
                     mh = dict(meta_header)
-                    mh["overrides"] = {"model": model_override, "temperature": temp_override if temp_override is not None else temperature_override, "host": host_override, "top_p": top_p_ov, "num_predict": num}
+                    mh["overrides"] = {
+                        "model": model_override,
+                        "temperature": (
+                            temp_override if temp_override is not None else temperature_override
+                        ),
+                        "host": host_override,
+                        "top_p": top_p_ov,
+                        "num_predict": num,
+                    }
                     with open(results_file, "a", encoding="utf-8") as f:
                         f.write(json.dumps(mh, ensure_ascii=False) + "\n")
                 # Items iterieren
@@ -1263,7 +1458,9 @@ async def run_evaluation(
                         client=asgi_client,
                         enabled_checks=enabled_checks,
                         model_override=model_override,
-                        temperature_override=temp_override if temp_override is not None else temperature_override,
+                        temperature_override=(
+                            temp_override if temp_override is not None else temperature_override
+                        ),
                         host_override=host_override,
                         top_p_override=top_p_ov,
                         num_predict_override=num,
@@ -1271,7 +1468,11 @@ async def run_evaluation(
                         retries=retries,
                         cache=eval_cache,
                         hint_must_include=hint_must_include,
-                        precomputed_hint_terms=hint_terms_per_item.get(item.id) if (eval_mode and hint_must_include) else None,
+                        precomputed_hint_terms=(
+                            hint_terms_per_item.get(item.id)
+                            if (eval_mode and hint_must_include)
+                            else None
+                        ),
                     )
                     results.append(r)
                     with open(results_file, "a", encoding="utf-8") as f:
@@ -1291,7 +1492,12 @@ async def run_evaluation(
                 if sweep:
                     nums = sweep.get("max_tokens") or sweep.get("num_predict")
                 # Anzahl Tasks im Progress anpassen (grob): pro Item * Kombis
-                combos = max(1, (len(temps) if temps else 1) * (len(tops) if tops else 1) * (len(nums) if nums else 1))
+                combos = max(
+                    1,
+                    (len(temps) if temps else 1)
+                    * (len(tops) if tops else 1)
+                    * (len(nums) if nums else 1),
+                )
                 progress.update(cast(Any, task), total=len(items) * combos)
                 # Iteriere über Kombinationen
                 if temps or tops or nums:
@@ -1301,37 +1507,39 @@ async def run_evaluation(
                     for tval in temps_list:
                         for pval in tops_list:
                             for nval in nums_list:
-                                suffix_parts: List[str] = []
+                                suffix_parts: list[str] = []
                                 if tval is not None:
                                     suffix_parts.append(f"t{tval}")
                                 if pval is not None:
                                     suffix_parts.append(f"p{pval}")
                                 if nval is not None:
                                     suffix_parts.append(f"n{nval}")
-                                await _run_once(float(tval) if tval is not None else None,
-                                                float(pval) if pval is not None else None,
-                                                int(nval) if nval is not None else None,
-                                                tag_suffix=("_".join(suffix_parts) if suffix_parts else None))
+                                await _run_once(
+                                    float(tval) if tval is not None else None,
+                                    float(pval) if pval is not None else None,
+                                    int(nval) if nval is not None else None,
+                                    tag_suffix=("_".join(suffix_parts) if suffix_parts else None),
+                                )
     finally:
         if asgi_client is not None:
             await asgi_client.aclose()
         if quiet:
             for name, lvl in prev_levels.items():
                 logging.getLogger(name).setLevel(lvl)
-    
+
     logging.info(f"Ergebnisse wurden in {results_file} gespeichert.")
     return results
 
 
-def print_results(results: List[EvaluationResult]) -> None:
+def print_results(results: list[EvaluationResult]) -> None:
     """
     Gibt eine Zusammenfassung der Evaluierungsergebnisse aus.
-    
+
     Args:
         results: Liste von Evaluierungsergebnissen
     """
     console = Console()
-    
+
     # Erstelle eine Tabelle für die Ergebnisse
     table = Table(title="Evaluierungsergebnisse")
     table.add_column("ID", style="cyan")
@@ -1341,10 +1549,10 @@ def print_results(results: List[EvaluationResult]) -> None:
     table.add_column("RPG-Modus", style="yellow")
     table.add_column("Fehlgeschlagene Checks", style="yellow")
     table.add_column("Fehler", style="red")
-    
+
     # Zähle, wie viele Antworten im RPG-Modus waren
     rpg_mode_count = 0
-    
+
     for result in results:
         success = "✓" if result.success else "✗"
         error: str = cast(str, truncate(result.error or "", 40))
@@ -1362,34 +1570,38 @@ def print_results(results: List[EvaluationResult]) -> None:
         if len(failed_checks_str) > 50:
             failed_checks_str = cast(str, truncate(failed_checks_str, 50))
 
-        table.add_row(result.item_id, success, package_name, duration, rpg_status, failed_checks_str, error)
-    
+        table.add_row(
+            result.item_id, success, package_name, duration, rpg_status, failed_checks_str, error
+        )
+
     console.print(table)
-    
+
     # Ausgabe der Statistiken
     successful = sum(1 for r in results if r.success)
     total = len(results)
     success_rate = (successful / total) * 100 if total > 0 else 0
-    
-    console.print(f"\n[bold]Zusammenfassung:[/bold]")
+
+    console.print("\n[bold]Zusammenfassung:[/bold]")
     console.print(f"Erfolgreiche Tests: {successful}/{total} ({success_rate:.1f}%)")
-    
+
     # Verhindere Division durch Null
-    rpg_percentage = (rpg_mode_count/total*100) if total > 0 else 0
+    rpg_percentage = (rpg_mode_count / total * 100) if total > 0 else 0
     avg_duration = (sum(r.duration_ms for r in results) / total) if total > 0 else 0
-    
+
     console.print(f"Antworten im RPG-Modus: {rpg_mode_count}/{total} ({rpg_percentage:.1f}%)")
     console.print(f"Durchschnittliche Dauer: {avg_duration:.0f} ms")
-    
+
     # Ausgabe der fehlgeschlagenen IDs
     if successful < total:
         failed_ids = [r.item_id for r in results if not r.success]
-        console.print(f"Fehlgeschlagene Tests: {', '.join(failed_ids[:10])}" + 
-                     (f" und {len(failed_ids) - 10} weitere" if len(failed_ids) > 10 else ""))
-        
+        console.print(
+            f"Fehlgeschlagene Tests: {', '.join(failed_ids[:10])}"
+            + (f" und {len(failed_ids) - 10} weitere" if len(failed_ids) > 10 else "")
+        )
+
     # Gruppiere nach Paketen
     console.print("\n[bold]Statistik nach Paketen:[/bold]")
-    package_stats: Dict[str, Dict[str, Union[int, float]]] = {}
+    package_stats: dict[str, dict[str, int | float]] = {}
     for r in results:
         package = r.source_package or "unbekannt"
         if package not in package_stats:
@@ -1398,29 +1610,29 @@ def print_results(results: List[EvaluationResult]) -> None:
         package_stats[package]["duration"] += r.duration_ms
         if r.success:
             package_stats[package]["success"] += 1
-    
+
     # Erstelle eine Tabelle für die Paket-Statistiken
     package_table = Table()
     package_table.add_column("Paket", style="blue")
     package_table.add_column("Erfolg", style="green")
     package_table.add_column("Rate", style="cyan")
     package_table.add_column("Durchschn. Dauer", style="magenta")
-    
+
     # Ausgabe der Paket-Statistiken
     for package, stats in sorted(package_stats.items()):
         success_rate = (stats["success"] / stats["total"]) * 100 if stats["total"] > 0 else 0
         avg_duration = stats["duration"] / stats["total"] if stats["total"] > 0 else 0
         package_table.add_row(
-            package, 
-            f"{stats['success']}/{stats['total']}", 
+            package,
+            f"{stats['success']}/{stats['total']}",
             f"{success_rate:.1f}%",
-            f"{avg_duration:.0f} ms"
+            f"{avg_duration:.0f} ms",
         )
-    
+
     console.print(package_table)
 
 
-def compute_failure_summary(results: List[EvaluationResult]) -> Dict[str, Any]:
+def compute_failure_summary(results: list[EvaluationResult]) -> dict[str, Any]:
     """Aggregiert Fehlerinformationen für einen kompakten Bericht.
 
     Ermittelt u. a. Top-Failure-Kategorien (rpg_style, term_inclusion) und häufige fehlende Begriffe.
@@ -1430,19 +1642,19 @@ def compute_failure_summary(results: List[EvaluationResult]) -> Dict[str, Any]:
     rpg_hits = sum(1 for r in results if check_rpg_mode(r.response))
 
     # Zähler
-    fail_counts: Dict[str, int] = {
+    fail_counts: dict[str, int] = {
         "rpg_style": 0,
         "term_inclusion": 0,
     }
-    missing_terms: Dict[str, int] = {}
-    per_package_fails: Dict[str, List[Tuple[str, List[str]]]] = {}
+    missing_terms: dict[str, int] = {}
+    per_package_fails: dict[str, list[tuple[str, list[str]]]] = {}
 
     miss_re = re.compile(r"Erforderlicher Begriff nicht gefunden: '([^']+)'")
 
     for r in results:
         if r.success:
             continue
-        pkg = (r.source_package or "unbekannt")
+        pkg = r.source_package or "unbekannt"
         per_package_fails.setdefault(pkg, []).append((r.item_id, list(r.failed_checks)))
 
         # RPG-Fehler heuristisch erkennen anhand der failure messages
@@ -1473,7 +1685,7 @@ def compute_failure_summary(results: List[EvaluationResult]) -> Dict[str, Any]:
     }
 
 
-def print_failure_report(results: List[EvaluationResult]) -> None:
+def print_failure_report(results: list[EvaluationResult]) -> None:
     """Druckt einen kompakten Fehlerbericht (eine Bildschirmseite)."""
     summary = compute_failure_summary(results)
     total = summary["total"]
@@ -1489,7 +1701,9 @@ def print_failure_report(results: List[EvaluationResult]) -> None:
     print(f"  - rpg_style: {fail_counts.get('rpg_style', 0)}")
     if top_missing:
         miss_preview = ", ".join([f"{t}({n})" for t, n in top_missing])
-        print(f"  - term_inclusion: {fail_counts.get('term_inclusion', 0)} (top missing: {miss_preview})")
+        print(
+            f"  - term_inclusion: {fail_counts.get('term_inclusion', 0)} (top missing: {miss_preview})"
+        )
     else:
         print(f"  - term_inclusion: {fail_counts.get('term_inclusion', 0)}")
 
@@ -1514,19 +1728,19 @@ def _normalize_term_for_dedupe(t: str) -> str:
 
 def compute_hint_terms(
     item: EvaluationItem,
-    enabled_checks: Optional[List[str]] = None,
+    enabled_checks: list[str] | None = None,
     cap: int = 6,
-) -> List[str]:
+) -> list[str]:
     """Sammelt erwartete Begriffe aus aktiven Term-Checks, dedupliziert und begrenzt.
 
     Reihenfolgepriorität: must_include → keywords_at_least.items → keywords_any.
     Dedupe ist case-insensitiv. Keine fuzzy-Logik.
     """
     enabled = set(enabled_checks or [])
-    out: List[str] = []
+    out: list[str] = []
     seen: set[str] = set()
 
-    def _add_terms(terms: List[str]) -> None:
+    def _add_terms(terms: list[str]) -> None:
         for term in terms:
             if not isinstance(term, str):
                 continue
@@ -1545,8 +1759,8 @@ def compute_hint_terms(
     if (not enabled) or ("must_include" in enabled):
         mi_val = cast(Any, item.checks.get("must_include"))
         if isinstance(mi_val, list):
-            mi_terms: List[str] = []
-            for x in cast(List[Any], mi_val):
+            mi_terms: list[str] = []
+            for x in cast(list[Any], mi_val):
                 try:
                     mi_terms.append(str(x))
                 except Exception:
@@ -1558,12 +1772,12 @@ def compute_hint_terms(
     # 2) keywords_at_least.items
     if (not enabled) or ("keywords_at_least" in enabled):
         kal_val_any = cast(Any, item.checks.get("keywords_at_least"))
-        items_list: List[str] = []
+        items_list: list[str] = []
         if isinstance(kal_val_any, dict):
-            kal_val = cast(Dict[str, Any], kal_val_any)
+            kal_val = cast(dict[str, Any], kal_val_any)
             items_any = kal_val.get("items")
             if isinstance(items_any, list):
-                for x in cast(List[Any], items_any):
+                for x in cast(list[Any], items_any):
                     try:
                         items_list.append(str(x))
                     except Exception:
@@ -1576,8 +1790,8 @@ def compute_hint_terms(
     if (not enabled) or ("keywords_any" in enabled):
         ka_val_any = cast(Any, item.checks.get("keywords_any"))
         if isinstance(ka_val_any, list):
-            ka_terms: List[str] = []
-            for x in cast(List[Any], ka_val_any):
+            ka_terms: list[str] = []
+            for x in cast(list[Any], ka_val_any):
                 try:
                     ka_terms.append(str(x))
                 except Exception:
@@ -1587,7 +1801,7 @@ def compute_hint_terms(
     return out[:cap]
 
 
-def inject_eval_hint(messages: List[Dict[str, str]], terms: List[str]) -> List[Dict[str, str]]:
+def inject_eval_hint(messages: list[dict[str, str]], terms: list[str]) -> list[dict[str, str]]:
     """Fügt einen Eval-Hinweis vor der ersten User-Message ein, wenn noch nicht vorhanden."""
     if not terms:
         return messages
@@ -1602,18 +1816,16 @@ def inject_eval_hint(messages: List[Dict[str, str]], terms: List[str]) -> List[D
 
 
 def run_evaluation_with_retry(
-    file_pattern: str, 
-    api_url: str = "http://localhost:8000/chat",
-    eval_mode: bool = False
-) -> List[EvaluationResult]:
+    file_pattern: str, api_url: str = "http://localhost:8000/chat", eval_mode: bool = False
+) -> list[EvaluationResult]:
     """
     Führt die Evaluierung mit automatischen Wiederholungsversuchen durch.
-    
+
     Args:
         file_pattern: Glob-Pattern für die zu ladenden Dateien
         api_url: URL des Chat-Endpunkts
         eval_mode: Wenn True, wird der RPG-Modus für alle Tests deaktiviert
-        
+
     Returns:
         Liste von Evaluierungsergebnissen
     """
@@ -1621,13 +1833,11 @@ def run_evaluation_with_retry(
 
 
 async def _run_evaluation_with_retry(
-    file_pattern: str,
-    api_url: str = "http://localhost:8000/chat",
-    eval_mode: bool = False
-) -> List[EvaluationResult]:
+    file_pattern: str, api_url: str = "http://localhost:8000/chat", eval_mode: bool = False
+) -> list[EvaluationResult]:
     """
     Interne Funktion für die Evaluierung mit Wiederholungsversuchen.
-    
+
     Args:
         file_pattern: Glob-Pattern für die zu ladenden Dateien
         api_url: URL des Chat-Endpunkts
@@ -1637,18 +1847,18 @@ async def _run_evaluation_with_retry(
         # Konvertiere den String-Pattern in eine Liste für run_evaluation
         pattern_list = [file_pattern]
         results = await run_evaluation(pattern_list, api_url, eval_mode=eval_mode)
-        
+
         if not results:
             # Wenn keine Ergebnisse, versuche die alternative Dateiendung
-            if file_pattern.endswith('.jsonl'):
-                json_pattern = file_pattern.replace('.jsonl', '.json')
+            if file_pattern.endswith(".jsonl"):
+                json_pattern = file_pattern.replace(".jsonl", ".json")
                 print(f"Keine JSONL-Dateien gefunden. Versuche JSON-Format: {json_pattern}")
                 results = await run_evaluation([json_pattern], api_url, eval_mode=eval_mode)
-            elif file_pattern.endswith('.json'):
-                jsonl_pattern = file_pattern.replace('.json', '.jsonl')
+            elif file_pattern.endswith(".json"):
+                jsonl_pattern = file_pattern.replace(".json", ".jsonl")
                 print(f"Keine JSON-Dateien gefunden. Versuche JSONL-Format: {jsonl_pattern}")
                 results = await run_evaluation([jsonl_pattern], api_url, eval_mode=eval_mode)
-        
+
         return results
     except Exception as e:
         print(f"Fehler bei der Evaluierung: {str(e)}")
@@ -1658,73 +1868,95 @@ async def _run_evaluation_with_retry(
 def create_example_eval_file(file_path: str, start_id: int = 21, count: int = 20) -> bool:
     """
     Erstellt eine Beispiel-Evaluationsdatei im JSONL-Format
-    
+
     Args:
         file_path: Pfad zur zu erstellenden Datei
         start_id: Startnummer für IDs (z.B. 21 für eval-021)
         count: Anzahl der zu generierenden Datensätze
-        
+
     Returns:
         True bei Erfolg, False bei Fehler
     """
     try:
         # Stelle sicher, dass das Verzeichnis existiert
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
-        
+
         # Beispielprompts und must_include-Terms
-        example_prompts: List[Dict[str, Any]] = [
-            {"prompt": "Erkläre mir den Unterschied zwischen einem Array und einer verketteten Liste.", 
-             "must_include": ["Speicher", "Zugriff", "Datenstruktur"]},
-            {"prompt": "Was sind die Hauptmerkmale von agiler Softwareentwicklung?", 
-             "must_include": ["iterativ", "flexibel", "Scrum"]},
-            {"prompt": "Wie funktioniert ein Elektromotor?", 
-             "must_include": ["Magnetfeld", "Rotation", "Strom"]},
-            {"prompt": "Erkläre mir den Aufbau einer eukaryotischen Zelle.", 
-             "must_include": ["Zellkern", "Organellen", "Mitochondrien"]},
-            {"prompt": "Was sind die wichtigsten Bestandteile der Erdatmosphäre?", 
-             "must_include": ["Stickstoff", "Sauerstoff", "Atmosphäre"]},
-            {"prompt": "Wie bereite ich mich am besten auf eine Präsentation vor?", 
-             "must_include": ["üben", "vorbereiten", "Zeit"]},
-            {"prompt": "Erkläre mir, wie Verschlüsselung im Internet funktioniert.", 
-             "must_include": ["Kryptographie", "Sicherheit", "Verbindung"]},
-            {"prompt": "Was sind beliebte Programmiersprachen für Anfänger?", 
-             "must_include": ["Python", "einfach", "beliebt"]},
-            {"prompt": "Erkläre mir, wie künstliche Intelligenz von menschlicher Intelligenz unterscheidet.", 
-             "must_include": ["lernen", "menschlich", "Maschinen"]},
-            {"prompt": "Wie kann ich meine Zeitplanung verbessern?", 
-             "must_include": ["Prioritäten", "Planung", "Zeit"]},
+        example_prompts: list[dict[str, Any]] = [
+            {
+                "prompt": "Erkläre mir den Unterschied zwischen einem Array und einer verketteten Liste.",
+                "must_include": ["Speicher", "Zugriff", "Datenstruktur"],
+            },
+            {
+                "prompt": "Was sind die Hauptmerkmale von agiler Softwareentwicklung?",
+                "must_include": ["iterativ", "flexibel", "Scrum"],
+            },
+            {
+                "prompt": "Wie funktioniert ein Elektromotor?",
+                "must_include": ["Magnetfeld", "Rotation", "Strom"],
+            },
+            {
+                "prompt": "Erkläre mir den Aufbau einer eukaryotischen Zelle.",
+                "must_include": ["Zellkern", "Organellen", "Mitochondrien"],
+            },
+            {
+                "prompt": "Was sind die wichtigsten Bestandteile der Erdatmosphäre?",
+                "must_include": ["Stickstoff", "Sauerstoff", "Atmosphäre"],
+            },
+            {
+                "prompt": "Wie bereite ich mich am besten auf eine Präsentation vor?",
+                "must_include": ["üben", "vorbereiten", "Zeit"],
+            },
+            {
+                "prompt": "Erkläre mir, wie Verschlüsselung im Internet funktioniert.",
+                "must_include": ["Kryptographie", "Sicherheit", "Verbindung"],
+            },
+            {
+                "prompt": "Was sind beliebte Programmiersprachen für Anfänger?",
+                "must_include": ["Python", "einfach", "beliebt"],
+            },
+            {
+                "prompt": "Erkläre mir, wie künstliche Intelligenz von menschlicher Intelligenz unterscheidet.",
+                "must_include": ["lernen", "menschlich", "Maschinen"],
+            },
+            {
+                "prompt": "Wie kann ich meine Zeitplanung verbessern?",
+                "must_include": ["Prioritäten", "Planung", "Zeit"],
+            },
         ]
-        
+
         # Mehrere Variationen erstellen, um auf die gewünschte Anzahl zu kommen
         while len(example_prompts) < count:
             # Kopiere vorhandene Prompts und modifiziere sie leicht
             for prompt_data in example_prompts[:]:
                 if len(example_prompts) >= count:
                     break
-                    
+
                 new_prompt = prompt_data.copy()
                 new_prompt["prompt"] = "Bitte " + new_prompt["prompt"].lower()
                 example_prompts.append(new_prompt)
-        
+
         # Beschränke auf die gewünschte Anzahl
         example_prompts = example_prompts[:count]
-        
+
         with open(file_path, "w", encoding="utf-8") as f:
             for i, example in enumerate(example_prompts):
                 # Erstelle Datenstruktur mit ID, Prompt und Must-Include
-                eval_item: Dict[str, Any] = {
+                eval_item: dict[str, Any] = {
                     "id": f"eval-{start_id + i:03d}",
                     "prompt": example["prompt"],
-                    "must_include": example["must_include"]
+                    "must_include": example["must_include"],
                 }
-                
+
                 # Schreibe als JSONL (eine JSON-Zeile pro Zeile)
                 f.write(json.dumps(eval_item, ensure_ascii=False) + "\n")
-                
+
         print(f"Beispiel-Evaluationsdatei erstellt: {file_path}")
-        print(f"Enthält {count} Datensätze mit IDs von eval-{start_id:03d} bis eval-{start_id+count-1:03d}")
+        print(
+            f"Enthält {count} Datensätze mit IDs von eval-{start_id:03d} bis eval-{start_id+count-1:03d}"
+        )
         return True
-        
+
     except Exception as e:
         print(f"Fehler beim Erstellen der Beispieldatei: {str(e)}")
         return False
@@ -1739,46 +1971,135 @@ if __name__ == "__main__":
     # Standardmäßig im datasets-Ordner suchen
     default_pattern = os.path.join(DEFAULT_DATASET_DIR, DEFAULT_FILE_PATTERN)
     api_url = DEFAULT_API_URL
-    
+
     # Parse Kommandozeilenargumente
     parser = argparse.ArgumentParser(description="Evaluierungsskript für den CVN Agent")
-    parser.add_argument("--packages", "-p", action="append", help="Glob-Pattern für Eval-Pakete (mehrfach möglich)")
-    parser.add_argument("--api-url", "-a", help=f"URL des Chat-Endpunkts (default: {DEFAULT_API_URL})")
-    parser.add_argument("--limit", "-l", type=int, help="Anzahl der zu evaluierenden Einträge begrenzen")
+    parser.add_argument(
+        "--packages", "-p", action="append", help="Glob-Pattern für Eval-Pakete (mehrfach möglich)"
+    )
+    parser.add_argument(
+        "--api-url", "-a", help=f"URL des Chat-Endpunkts (default: {DEFAULT_API_URL})"
+    )
+    parser.add_argument(
+        "--limit", "-l", type=int, help="Anzahl der zu evaluierenden Einträge begrenzen"
+    )
     parser.add_argument("--debug", "-d", action="store_true", help="Debug-Modus aktivieren")
-    parser.add_argument("--eval-mode", "-e", action="store_true", help="Deaktiviert den RPG-Modus für die Evaluierung")
-    parser.add_argument("--asgi", action="store_true", help="ASGI-In-Process: Evaluierung direkt gegen FastAPI-App ohne laufenden Server-Port")
-    parser.add_argument("--profile", type=str, choices=["eval", "default", "unrestricted"], help="Profil-Preset: eval, default, unrestricted")
-    parser.add_argument("--checks", nargs="*", help="Aktiviere Check-Typen; unterstützt Komma-Liste und Alias 'term_inclusion'")
-    parser.add_argument("--quiet", action="store_true", help="Unterdrückt Logausgaben lauter Logger während der Progress-Anzeige")
+    parser.add_argument(
+        "--eval-mode",
+        "-e",
+        action="store_true",
+        help="Deaktiviert den RPG-Modus für die Evaluierung",
+    )
+    parser.add_argument(
+        "--asgi",
+        action="store_true",
+        help="ASGI-In-Process: Evaluierung direkt gegen FastAPI-App ohne laufenden Server-Port",
+    )
+    parser.add_argument(
+        "--profile",
+        type=str,
+        choices=["eval", "default", "unrestricted"],
+        help="Profil-Preset: eval, default, unrestricted",
+    )
+    parser.add_argument(
+        "--checks",
+        nargs="*",
+        help="Aktiviere Check-Typen; unterstützt Komma-Liste und Alias 'term_inclusion'",
+    )
+    parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Unterdrückt Logausgaben lauter Logger während der Progress-Anzeige",
+    )
     parser.add_argument("--log-json", action="store_true", help="Log-Ausgabe als JSON-Linien")
-    parser.add_argument("--combine-out", type=str, help="Optionaler Pfad für zusammengeführte JSONL der geladenen Datensätze")
-    parser.add_argument("--no-quiet", action="store_true", help="Quiet-Mode deaktivieren (setzt sich gegen --quiet durch)")
+    parser.add_argument(
+        "--combine-out",
+        type=str,
+        help="Optionaler Pfad für zusammengeführte JSONL der geladenen Datensätze",
+    )
+    parser.add_argument(
+        "--no-quiet",
+        action="store_true",
+        help="Quiet-Mode deaktivieren (setzt sich gegen --quiet durch)",
+    )
     # Overrides & Sweeps
-    parser.add_argument("--host", type=str, dest="host", help="Override für OLLAMA_HOST (z. B. http://localhost:11434)")
-    parser.add_argument("--model", type=str, dest="model", help="Override für Modellnamen (z. B. llama3.1:8b)")
-    parser.add_argument("--temperature", type=float, dest="temperature", help="Override für temperature")
+    parser.add_argument(
+        "--host",
+        type=str,
+        dest="host",
+        help="Override für OLLAMA_HOST (z. B. http://localhost:11434)",
+    )
+    parser.add_argument(
+        "--model", type=str, dest="model", help="Override für Modellnamen (z. B. llama3.1:8b)"
+    )
+    parser.add_argument(
+        "--temperature", type=float, dest="temperature", help="Override für temperature"
+    )
     parser.add_argument("--top-p", type=float, dest="top_p", help="Override für top_p")
-    parser.add_argument("--max-tokens", type=int, dest="max_tokens", help="Override für num_predict/max_tokens")
+    parser.add_argument(
+        "--max-tokens", type=int, dest="max_tokens", help="Override für num_predict/max_tokens"
+    )
     parser.add_argument("--tag", type=str, help="Zusätzlicher Tag im Ergebnisdateinamen")
-    parser.add_argument("--sweep-temp", nargs="*", type=float, dest="sweep_temp", help="Parameter-Sweep über Temperaturen (z. B. 0.1 0.2 0.3)")
-    parser.add_argument("--sweep-top-p", nargs="*", type=float, dest="sweep_top_p", help="Parameter-Sweep über top_p-Werte (z. B. 0.7 0.9)")
-    parser.add_argument("--sweep-max-tokens", nargs="*", type=int, dest="sweep_max_tokens", help="Parameter-Sweep über max_tokens/num_predict (z. B. 128 256 512)")
-    parser.add_argument("--retries", type=int, default=0, help="Inhaltliche Retrys bei fehlgeschlagenen Checks (z. B. 1)")
-    parser.add_argument("--cache", dest="use_cache", action="store_true", help="Antworten lokal cachen (eval/results/cache_eval.jsonl)")
-    parser.add_argument("--no-cache", dest="no_cache", action="store_true", help="Caching explizit deaktivieren")
-    parser.add_argument("--hint-must-include", dest="hint_must_include", action="store_true", help="Eval-only: Injektiert vor erster User-Message einen Hinweis mit wörtlich zu verwendenden Begriffen (aus must_include/keywords_*)")
-    
+    parser.add_argument(
+        "--sweep-temp",
+        nargs="*",
+        type=float,
+        dest="sweep_temp",
+        help="Parameter-Sweep über Temperaturen (z. B. 0.1 0.2 0.3)",
+    )
+    parser.add_argument(
+        "--sweep-top-p",
+        nargs="*",
+        type=float,
+        dest="sweep_top_p",
+        help="Parameter-Sweep über top_p-Werte (z. B. 0.7 0.9)",
+    )
+    parser.add_argument(
+        "--sweep-max-tokens",
+        nargs="*",
+        type=int,
+        dest="sweep_max_tokens",
+        help="Parameter-Sweep über max_tokens/num_predict (z. B. 128 256 512)",
+    )
+    parser.add_argument(
+        "--retries",
+        type=int,
+        default=0,
+        help="Inhaltliche Retrys bei fehlgeschlagenen Checks (z. B. 1)",
+    )
+    parser.add_argument(
+        "--cache",
+        dest="use_cache",
+        action="store_true",
+        help="Antworten lokal cachen (eval/results/cache_eval.jsonl)",
+    )
+    parser.add_argument(
+        "--no-cache", dest="no_cache", action="store_true", help="Caching explizit deaktivieren"
+    )
+    parser.add_argument(
+        "--hint-must-include",
+        dest="hint_must_include",
+        action="store_true",
+        help="Eval-only: Injektiert vor erster User-Message einen Hinweis mit wörtlich zu verwendenden Begriffen (aus must_include/keywords_*)",
+    )
+
     # Kommandos
-    parser.add_argument("--create-example", action="store_true", help="Beispiel-Eval-Paket erstellen")
+    parser.add_argument(
+        "--create-example", action="store_true", help="Beispiel-Eval-Paket erstellen"
+    )
     parser.add_argument("--create-synonyms", action="store_true", help="Synonymdatei erstellen")
-    parser.add_argument("--show-prompts", action="store_true", help="Zeigt die geladenen Prompts an, ohne sie zu evaluieren")
-    
+    parser.add_argument(
+        "--show-prompts",
+        action="store_true",
+        help="Zeigt die geladenen Prompts an, ohne sie zu evaluieren",
+    )
+
     args = parser.parse_args()
-    
+
     # Konfiguriere Logging (JSON optional)
     log_level = logging.DEBUG if args.debug else logging.INFO
     if args.log_json:
+
         class JsonFormatter(logging.Formatter):
             def format(self, record: logging.LogRecord) -> str:
                 payload = {
@@ -1788,6 +2109,7 @@ if __name__ == "__main__":
                     "msg": record.getMessage(),
                 }
                 return json.dumps(payload, ensure_ascii=False)
+
         handler = logging.StreamHandler()
         handler.setFormatter(JsonFormatter())
         logging.basicConfig(level=log_level, handlers=[handler])
@@ -1796,13 +2118,13 @@ if __name__ == "__main__":
         logging.basicConfig(
             level=log_level,
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-            datefmt="%H:%M:%S"
+            datefmt="%H:%M:%S",
         )
     if not args.debug:
         # Unterdrücke gewöhnliche Deprecation/Resource-Warnungen im CLI-Betrieb
         warnings.filterwarnings("ignore", category=DeprecationWarning)
         warnings.filterwarnings("ignore", category=ResourceWarning)
-    
+
     # Verarbeite Kommandos
     if args.create_example:
         # Erstelle ein Beispiel-Eval-Paket
@@ -1810,7 +2132,7 @@ if __name__ == "__main__":
         example_file = os.path.join(eval_dir, "eval-21-40_fantasy_v1.0.jsonl")
         create_example_eval_file(example_file, 21, 20)
         sys.exit(0)
-    
+
     if args.create_synonyms:
         # Erstelle eine leere Synonymdatei als Vorlage
         os.makedirs(config_dir, exist_ok=True)
@@ -1820,36 +2142,40 @@ if __name__ == "__main__":
                 # Erstelle ein leeres Dictionary als Vorlage
                 example_synonyms = {
                     "beispiel": ["muster", "exempel", "probe", "vorlage"],
-                    "synonyme": ["entsprechungen", "gleichbedeutende wörter", "äquivalente"]
+                    "synonyme": ["entsprechungen", "gleichbedeutende wörter", "äquivalente"],
                 }
                 json.dump(example_synonyms, f, ensure_ascii=False, indent=4)
             logging.info(f"Synonymdatei erstellt: {synonyms_file}")
         else:
             logging.info(f"Synonymdatei existiert bereits: {synonyms_file}")
         sys.exit(0)
-    
+
     # Setze API-URL, wenn angegeben
     if args.api_url:
         api_url = args.api_url
-    
+
     # Stelle sicher, dass die Verzeichnisse existieren
     os.makedirs(eval_dir, exist_ok=True)
     os.makedirs(results_dir, exist_ok=True)
     os.makedirs(config_dir, exist_ok=True)
-    
+
     # Bestimme die zu ladenden Dateien; ergänze Schwestermaske automatisch
-    patterns: List[str] = args.packages if args.packages else [os.path.join(DEFAULT_DATASET_DIR, "*.json*")]
-    def _sibling_mask(p: str) -> Optional[str]:
+    patterns: list[str] = (
+        args.packages if args.packages else [os.path.join(DEFAULT_DATASET_DIR, "*.json*")]
+    )
+
+    def _sibling_mask(p: str) -> str | None:
         if p.endswith(".jsonl"):
             return p[:-1]  # .jsonl -> .json
         if p.endswith(".json"):
             return p + "l"  # .json -> .jsonl
         return None
+
     if patterns and len(patterns) == 1:
         sib = _sibling_mask(patterns[0])
         if sib:
             patterns = [patterns[0], cast(str, sib)]
-    
+
     # Prüfe, ob Eval-Dateien existieren
     if not any(glob.glob(pattern) for pattern in patterns):
         logging.warning("Keine Eval-Dateien gefunden. Erstelle ein Beispiel-Eval-Paket...")
@@ -1859,20 +2185,26 @@ if __name__ == "__main__":
         base_mask = os.path.join(eval_dir, DEFAULT_FILE_PATTERN)
         sib = _sibling_mask(base_mask)
         patterns = [base_mask] + ([sib] if sib else [])
-    
+
     # Vor-Evaluierung: Synonyme und Datensätze laden (neuer Loader)
     try:
         from scripts.syn_loader import load_synonyms as _syn_load
+
         syn, syn_count = _syn_load()
         # Notwendig? Der eigentliche Evaluator lädt Synonyme intern, daher hier nur Logging
         logging.getLogger("syn_loader").info(f"synonyms merged: {syn_count}")
     except Exception as e:
         logging.getLogger("syn_loader").warning(f"Synonyme nicht vorab geladen: {e}")
 
-    diags: List[Dict[str, Any]] = []
+    diags: list[dict[str, Any]] = []
     try:
         from scripts.eval_loader import load_packages as _load_pkgs
-        combine_path: Optional[Path] = Path(args.combine_out) if isinstance(args.combine_out, str) and args.combine_out else None
+
+        combine_path: Path | None = (
+            Path(args.combine_out)
+            if isinstance(args.combine_out, str) and args.combine_out
+            else None
+        )
         items_loaded, diags = _load_pkgs(patterns, combine_out=combine_path)
         # Zusammenfassungstabelle (eine Bildschirmseite)
         # Aggregate
@@ -1882,11 +2214,29 @@ if __name__ == "__main__":
         total_errors = sum(len(d.get("parse_errors", []) or []) for d in diags)
         # Drucke kompakte Tabelle (Textmodus)
         if not args.log_json:
-            print("file".ljust(38), "loaded".rjust(6), "gen_id".rjust(6), "skipped".rjust(8), "errors".rjust(7))
+            print(
+                "file".ljust(38),
+                "loaded".rjust(6),
+                "gen_id".rjust(6),
+                "skipped".rjust(8),
+                "errors".rjust(7),
+            )
             for d in diags[:50]:
                 name = os.path.basename(d.get("file", ""))
-                print(name.ljust(38)[:38], str(d.get("loaded_count", 0)).rjust(6), str(d.get("generated_id_count", 0)).rjust(6), str(d.get("skipped_count", 0)).rjust(8), str(len(d.get("parse_errors", []) or [])).rjust(7))
-            print("TOTAL".ljust(38), str(total_loaded).rjust(6), str(total_gen).rjust(6), str(total_skipped).rjust(8), str(total_errors).rjust(7))
+                print(
+                    name.ljust(38)[:38],
+                    str(d.get("loaded_count", 0)).rjust(6),
+                    str(d.get("generated_id_count", 0)).rjust(6),
+                    str(d.get("skipped_count", 0)).rjust(8),
+                    str(len(d.get("parse_errors", []) or [])).rjust(7),
+                )
+            print(
+                "TOTAL".ljust(38),
+                str(total_loaded).rjust(6),
+                str(total_gen).rjust(6),
+                str(total_skipped).rjust(8),
+                str(total_errors).rjust(7),
+            )
     except Exception as e:
         logging.getLogger("eval_loader").warning(f"Dataset-Preload übersprungen: {e}")
 
@@ -1907,15 +2257,19 @@ if __name__ == "__main__":
 
     # Führe Evaluierung durch
     console = Console()
-    console.print(f"[bold]CVN Agent Evaluierung[/bold]")
+    console.print("[bold]CVN Agent Evaluierung[/bold]")
     console.print(f"Patterns: {', '.join(patterns)}")
     console.print(f"API-URL: {api_url}")
     if args.limit:
         console.print(f"Limit: {args.limit} Einträge")
     if args.eval_mode:
-        console.print(f"[bold yellow]Eval-Modus aktiviert:[/bold yellow] RPG-Systemprompt wird temporär überschrieben")
+        console.print(
+            "[bold yellow]Eval-Modus aktiviert:[/bold yellow] RPG-Systemprompt wird temporär überschrieben"
+        )
     if args.asgi:
-        console.print(f"[bold green]ASGI-Modus:[/bold green] In-Process gegen FastAPI-App (kein HTTP-Port erforderlich)")
+        console.print(
+            "[bold green]ASGI-Modus:[/bold green] In-Process gegen FastAPI-App (kein HTTP-Port erforderlich)"
+        )
     console.print("")
     if p_final is not None:
         console.print(f"top_p Override: {p_final}")
@@ -1930,26 +2284,34 @@ if __name__ == "__main__":
     if args.retries:
         console.print(f"Retries bei Fehlschlag: {args.retries}")
     if args.sweep_temp or args.sweep_top_p:
-        console.print(f"Sweep: temp={args.sweep_temp or '-'} top_p={args.sweep_top_p or '-'} max_tokens={args.sweep_max_tokens or '-'}")
+        console.print(
+            f"Sweep: temp={args.sweep_temp or '-'} top_p={args.sweep_top_p or '-'} max_tokens={args.sweep_max_tokens or '-'}"
+        )
     if args.use_cache and not args.no_cache:
         console.print("[green]Eval-Cache: aktiviert (cache_eval.jsonl)[/green]")
-    
+
     # Verarbeite "show-prompts" Kommando
     if args.show_prompts:
         items = asyncio.run(load_evaluation_items(patterns))
         if items:
             console.print(f"[bold]Geladene Prompts ({len(items)}):[/bold]")
-            for item in (items[:args.limit] if args.limit else items):
+            for item in items[: args.limit] if args.limit else items:
                 prompt_content = item.messages[0]["content"] if item.messages else "Kein Inhalt"
-                console.print(f"[cyan]{item.id}[/cyan] ({item.source_package}): [yellow]{prompt_content[:100]}{'...' if len(prompt_content) > 100 else ''}[/yellow]")
+                console.print(
+                    f"[cyan]{item.id}[/cyan] ({item.source_package}): [yellow]{prompt_content[:100]}{'...' if len(prompt_content) > 100 else ''}[/yellow]"
+                )
         else:
             console.print("[bold red]Keine Prompts gefunden.[/bold red]")
         sys.exit(0)
-    
+
     # Quiet-Default: true, außer im Debug-Modus oder wenn --no-quiet gesetzt
     quiet_final = (not args.no_quiet) and (args.quiet or (not args.debug))
-    sweep_cfg: Optional[Dict[str, List[Any]]] = None
-    if (args.sweep_temp and len(args.sweep_temp) > 0) or (args.sweep_top_p and len(args.sweep_top_p) > 0) or (args.sweep_max_tokens and len(args.sweep_max_tokens) > 0):
+    sweep_cfg: dict[str, list[Any]] | None = None
+    if (
+        (args.sweep_temp and len(args.sweep_temp) > 0)
+        or (args.sweep_top_p and len(args.sweep_top_p) > 0)
+        or (args.sweep_max_tokens and len(args.sweep_max_tokens) > 0)
+    ):
         sweep_cfg = {}
         if args.sweep_temp:
             sweep_cfg["temperature"] = [float(x) for x in args.sweep_temp]
@@ -1957,29 +2319,33 @@ if __name__ == "__main__":
             sweep_cfg["top_p"] = [float(x) for x in args.sweep_top_p]
         if args.sweep_max_tokens:
             sweep_cfg["max_tokens"] = [int(x) for x in args.sweep_max_tokens]
-    results = asyncio.run(run_evaluation(
-        patterns=patterns,
-        api_url=api_url,
-        limit=args.limit,
-        eval_mode=eval_mode_flag,
-        asgi=args.asgi,
-        enabled_checks=checks_final,
-        model_override=args.model,
-        temperature_override=t_final,
-        host_override=args.host,
-        top_p_override=p_final,
-        num_predict_override=n_final,
-        sweep=sweep_cfg,
-        tag=args.tag,
-        quiet=quiet_final,
-        retries=args.retries,
-        use_cache=(args.use_cache and not args.no_cache),
-        hint_must_include=bool(args.hint_must_include),
-    ))
-    
+    results = asyncio.run(
+        run_evaluation(
+            patterns=patterns,
+            api_url=api_url,
+            limit=args.limit,
+            eval_mode=eval_mode_flag,
+            asgi=args.asgi,
+            enabled_checks=checks_final,
+            model_override=args.model,
+            temperature_override=t_final,
+            host_override=args.host,
+            top_p_override=p_final,
+            num_predict_override=n_final,
+            sweep=sweep_cfg,
+            tag=args.tag,
+            quiet=quiet_final,
+            retries=args.retries,
+            use_cache=(args.use_cache and not args.no_cache),
+            hint_must_include=bool(args.hint_must_include),
+        )
+    )
+
     if results:
         print_results(results)
         # Kompakter Fehlerbericht
         print_failure_report(results)
     else:
-        console.print("[bold red]Keine Ergebnisse. Die Evaluierung wurde abgebrochen oder keine Einträge gefunden.[/bold red]")
+        console.print(
+            "[bold red]Keine Ergebnisse. Die Evaluierung wurde abgebrochen oder keine Einträge gefunden.[/bold red]"
+        )

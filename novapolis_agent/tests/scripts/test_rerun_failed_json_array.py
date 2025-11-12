@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import contextlib
 import importlib
 import io
 import json
-import contextlib
 from pathlib import Path
+
 import pytest
 
 
@@ -28,10 +29,15 @@ def test_rerun_failed_with_json_array(monkeypatch: pytest.MonkeyPatch, tmp_path:
     datasets_dir = tmp_path / "eval" / "datasets"
     datasets_dir.mkdir(parents=True)
     arr_path = datasets_dir / "eval-sample.json"
-    arr_path.write_text(json.dumps([
-        {"id": "eval-2", "messages": [{"role": "user", "content": "hi"}]},
-        {"id": "eval-3", "messages": [{"role": "user", "content": "x"}]},
-    ]), encoding="utf-8")
+    arr_path.write_text(
+        json.dumps(
+            [
+                {"id": "eval-2", "messages": [{"role": "user", "content": "hi"}]},
+                {"id": "eval-3", "messages": [{"role": "user", "content": "x"}]},
+            ]
+        ),
+        encoding="utf-8",
+    )
 
     tmp_dir = results_dir / "tmp"
     monkeypatch.setattr(mod, "RESULTS_DIR", str(results_dir))

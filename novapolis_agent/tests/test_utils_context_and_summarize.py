@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-import os
 import json
+import os
 import tempfile
- 
+
+from app.utils.summarize import create_simple_summary, extract_key_points, summarize_turn
 
 from utils.context_notes import load_context_notes
-from app.utils.summarize import extract_key_points, create_simple_summary, summarize_turn
 
 
 def test_load_context_notes_prefers_first_existing_and_truncates():
@@ -25,12 +25,9 @@ def test_load_context_notes_prefers_first_existing_and_truncates():
 
 
 def test_summarize_helpers_basic():
-    messages = [
-        {"role": "user", "content": "Bitte nenne die Vorteile von Python."}
-    ]
+    messages = [{"role": "user", "content": "Bitte nenne die Vorteile von Python."}]
     response = (
-        "Wichtig ist, dass Python eine große Community hat. "
-        "Zusammenfassend: leicht zu lesen."
+        "Wichtig ist, dass Python eine große Community hat. " "Zusammenfassend: leicht zu lesen."
     )
     points = extract_key_points(response, max_points=3)
     assert points and isinstance(points, list)

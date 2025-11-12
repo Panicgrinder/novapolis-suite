@@ -1,9 +1,6 @@
 from __future__ import annotations
 
 import json
-import os
-import tempfile
-from typing import Any, Dict, List
 
 import pytest
 
@@ -24,7 +21,7 @@ def test_coerce_json_to_jsonl_parses_array_and_object() -> None:
 @pytest.mark.scripts
 @pytest.mark.unit
 def test_coerce_json_to_jsonl_handles_jsonl_and_garbage() -> None:
-    text = "\n".join(["{\"x\": 1}", "not-json", " { \"y\" : 2 } ", "", "{\"z\":3}"])
+    text = "\n".join(['{"x": 1}', "not-json", ' { "y" : 2 } ', "", '{"z":3}'])
     out = coerce_json_to_jsonl(text)
     assert [d.get("x") for d in out if "x" in d] == [1]
     assert [d.get("y") for d in out if "y" in d] == [2]

@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-import importlib
 import asyncio
-from typing import Any, Iterable
+import importlib
+from typing import Any
 
 import pytest
-
 from app.api.models import ChatRequest
 
 
@@ -26,22 +25,25 @@ def test_chat_helpers_insert_system_prompt(monkeypatch: pytest.MonkeyPatch) -> N
 def test_process_chat_ignores_invalid_top_p(monkeypatch: pytest.MonkeyPatch) -> None:
     # top_p als nicht-floatbarer String -> soll ignoriert werden (None)
     import app.api.chat as chat_module
-    import httpx
 
     captured_payload: dict[str, Any] = {}
 
     class _Resp:
         status_code = 200
+
         def raise_for_status(self) -> None:
             return
+
         def json(self) -> dict[str, Any]:
             return {"message": {"content": "ok"}}
 
     class _Client:
         async def __aenter__(self):
             return self
+
         async def __aexit__(self, exc_type, exc, tb):
             return False
+
         async def post(self, url, json, headers):
             captured_payload.update(json)
             return _Resp()
@@ -50,7 +52,9 @@ def test_process_chat_ignores_invalid_top_p(monkeypatch: pytest.MonkeyPatch) -> 
     importlib.reload(importlib.import_module("app.core.settings"))
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", lambda *a, **k: _Client())
 
-    req = ChatRequest(messages=[{"role": "user", "content": "hi"}], options={"top_p": "not-a-number"})
+    req = ChatRequest(
+        messages=[{"role": "user", "content": "hi"}], options={"top_p": "not-a-number"}
+    )
     res = asyncio.run(chat_module.process_chat_request(req))
     assert res.content == "ok"
     # options.top_p sollte nicht gesetzt sein
@@ -63,22 +67,25 @@ def test_process_chat_ignores_invalid_top_p(monkeypatch: pytest.MonkeyPatch) -> 
 def test_process_chat_uses_host_override(monkeypatch: pytest.MonkeyPatch) -> None:
     # host-Override in options soll URL beeinflussen
     import app.api.chat as chat_module
-    import httpx
 
     seen_url: list[str] = []
 
     class _Resp:
         status_code = 200
+
         def raise_for_status(self) -> None:
             return
+
         def json(self) -> dict[str, Any]:
             return {"message": {"content": "ok"}}
 
     class _Client:
         async def __aenter__(self):
             return self
+
         async def __aexit__(self, exc_type, exc, tb):
             return False
+
         async def post(self, url, json, headers):
             seen_url.append(url)
             return _Resp()
@@ -87,7 +94,9 @@ def test_process_chat_uses_host_override(monkeypatch: pytest.MonkeyPatch) -> Non
     importlib.reload(importlib.import_module("app.core.settings"))
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", lambda *a, **k: _Client())
 
-    req = ChatRequest(messages=[{"role": "user", "content": "hi"}], options={"host": "http://override:1234"})
+    req = ChatRequest(
+        messages=[{"role": "user", "content": "hi"}], options={"host": "http://override:1234"}
+    )
     res = asyncio.run(chat_module.process_chat_request(req))
     assert res.content == "ok"
     assert any(u.startswith("http://override:1234") for u in seen_url)
@@ -97,23 +106,26 @@ def test_process_chat_uses_host_override(monkeypatch: pytest.MonkeyPatch) -> Non
 @pytest.mark.api
 def test_num_predict_invalid_string_clamps(monkeypatch: pytest.MonkeyPatch) -> None:
     import app.api.chat as chat_module
-    import httpx
     from app.core.settings import settings
 
     captured_opts: dict[str, Any] = {}
 
     class _Resp:
         status_code = 200
+
         def raise_for_status(self) -> None:
             return
+
         def json(self) -> dict[str, Any]:
             return {"message": {"content": "ok"}}
 
     class _Client:
         async def __aenter__(self):
             return self
+
         async def __aexit__(self, exc_type, exc, tb):
             return False
+
         async def post(self, url, json, headers):
             captured_opts.update(json.get("options", {}))
             return _Resp()
@@ -132,15 +144,18 @@ def test_num_predict_invalid_string_clamps(monkeypatch: pytest.MonkeyPatch) -> N
 @pytest.mark.unit
 @pytest.mark.streaming
 def test_stream_injects_eval_or_unrestricted_system_prompt(monkeypatch: pytest.MonkeyPatch) -> None:
+    import json
+
     import app.api.chat as chat_module
-    import httpx, json
 
     captured_payloads: list[dict[str, Any]] = []
 
     class _Resp:
         status_code = 200
+
         def raise_for_status(self) -> None:
             return
+
         async def aiter_lines(self):
             # eine leere Antwort + done
             yield json.dumps({"message": {"content": ""}})
@@ -149,14 +164,17 @@ def test_stream_injects_eval_or_unrestricted_system_prompt(monkeypatch: pytest.M
     class _CM:
         async def __aenter__(self):
             return _Resp()
+
         async def __aexit__(self, exc_type, exc, tb):
             return False
 
     class _Client:
         async def __aenter__(self):
             return self
+
         async def __aexit__(self, exc_type, exc, tb):
             return False
+
         def stream(self, *args: Any, **kwargs: Any):
             # args[1] ist die URL, kwargs["json"] ist Payload
             captured_payloads.append(kwargs.get("json") or {})
@@ -188,8 +206,9 @@ async def _consume_all(agen: Any) -> None:
 
 @pytest.mark.unit
 def test_normalize_ollama_options_comprehensive(monkeypatch: pytest.MonkeyPatch) -> None:
-    from app.api import chat_helpers
     from types import SimpleNamespace
+
+    from app.api import chat_helpers
 
     monkeypatch.setattr(
         chat_helpers,

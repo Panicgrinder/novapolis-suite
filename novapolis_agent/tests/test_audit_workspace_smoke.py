@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import os
 import io
+import os
 from contextlib import redirect_stdout
 
 import pytest
@@ -9,7 +9,7 @@ import pytest
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_audit_workspace_runs_and_prints(tmp_path: "os.PathLike[str]") -> None:
+def test_audit_workspace_runs_and_prints(tmp_path: os.PathLike[str]) -> None:
     # Wir lenken die Projektwurzel temporär auf ein Mini-Workspace um
     # und erzeugen eine kleine Struktur mit 1 Python-Datei und 1 Markdown.
     ws = tmp_path
@@ -23,6 +23,7 @@ def test_audit_workspace_runs_and_prints(tmp_path: "os.PathLike[str]") -> None:
         f.write("# Titel\nText\n")
 
     from scripts import audit_workspace as aw
+
     aw.PROJECT_ROOT = str(ws)
 
     buf = io.StringIO()

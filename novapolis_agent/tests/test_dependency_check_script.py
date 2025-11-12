@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import io
-import sys
 import contextlib
+import io
 
 import pytest
 
@@ -12,6 +11,7 @@ import pytest
 def test_dependency_check_runs_and_reports_basic_info() -> None:
     # Import als Modul und main() ausführen, stdout capturen
     import importlib
+
     mod = importlib.import_module("scripts.dependency_check")
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):

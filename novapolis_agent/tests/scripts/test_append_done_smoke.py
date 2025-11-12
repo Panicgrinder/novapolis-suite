@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+
 import pytest
 
 
@@ -22,7 +23,7 @@ def test_append_done_writes_line(tmp_path: Path) -> None:
     assert rc == 0
 
     assert os.path.exists(log_path)
-    content = open(log_path, "r", encoding="utf-8").read().strip()
+    content = open(log_path, encoding="utf-8").read().strip()
     # Format: ts | author | msg
     assert "tester" in content
     assert "Kurzbeschreibung Testeintrag" in content

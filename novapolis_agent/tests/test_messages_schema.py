@@ -1,16 +1,18 @@
 from __future__ import annotations
 
 import asyncio
-import pytest
 
 import app.api.chat as chat_module
-from app.api.models import ChatRequest, ChatMessage
+import pytest
+from app.api.models import ChatMessage, ChatRequest
 
 
 class _Resp:
     status_code = 200
+
     def raise_for_status(self):
         return None
+
     def json(self):
         return {"message": {"content": "ok"}}
 
@@ -18,8 +20,10 @@ class _Resp:
 class _Client:
     async def __aenter__(self):
         return self
+
     async def __aexit__(self, exc_type, exc, tb):
         return False
+
     async def post(self, url, json, headers):
         return _Resp()
 
@@ -27,6 +31,7 @@ class _Client:
 def _patch_client(monkeypatch: pytest.MonkeyPatch) -> None:
     def _factory(*a: object, **k: object) -> _Client:
         return _Client()
+
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", _factory)
 
 

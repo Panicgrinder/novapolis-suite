@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from pathlib import Path
 import importlib
+from pathlib import Path
+
 import pytest
 
 
@@ -15,6 +16,7 @@ def test_open_latest_summary_empty_dir(tmp_path: Path) -> None:
 
     # main mit --print und leerem Ordner gibt 2 zurück
     import sys
+
     argv_bak = sys.argv
     try:
         sys.argv = ["open_latest_summary.py", "--print", "--dir", str(tmp_path)]

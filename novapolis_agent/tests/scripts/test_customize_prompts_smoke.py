@@ -1,7 +1,8 @@
-import os
-import json
 import builtins
+import json
+import os
 import tempfile
+
 from scripts import customize_prompts as cp
 
 
@@ -29,7 +30,7 @@ def test_customize_prompts_create_rules():
     # Prüfen
     rules_file = os.path.join(core_dir, "content_rules.json")
     assert os.path.exists(rules_file)
-    with open(rules_file, "r", encoding="utf-8") as fh:
+    with open(rules_file, encoding="utf-8") as fh:
         data = json.load(fh)
     assert data.get("Freundlichkeit") is True
     assert data.get("Beleidigungen") is False

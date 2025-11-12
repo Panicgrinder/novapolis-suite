@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-import httpx
-from typing import Any, Dict, List
 import asyncio
-from pytest import MonkeyPatch
+from typing import Any
 
+import httpx
 from app.api.models import ChatMessage, ChatResponse
+from pytest import MonkeyPatch
 
 # Nur wenn der LLM-Client existiert
 try:
@@ -14,7 +14,7 @@ except Exception:  # pragma: no cover
     generate_reply = None  # type: ignore
 
 
-def _client_with_mock(response_payload: Dict[str, Any]) -> httpx.AsyncClient:
+def _client_with_mock(response_payload: dict[str, Any]) -> httpx.AsyncClient:
     async def _handler(request: httpx.Request) -> httpx.Response:
         if request.url.path.endswith("/api/chat"):
             return httpx.Response(200, json=response_payload)
@@ -38,7 +38,7 @@ def test_generate_reply_with_mock_transport(monkeypatch: MonkeyPatch) -> None:
 
     monkeypatch.setattr(httpx, "AsyncClient", _factory)
 
-    msgs: List[ChatMessage] = [ChatMessage(role="user", content="hi")]
+    msgs: list[ChatMessage] = [ChatMessage(role="user", content="hi")]
 
     res: ChatResponse = asyncio.run(generate_reply(msgs))
     assert isinstance(res, ChatResponse)

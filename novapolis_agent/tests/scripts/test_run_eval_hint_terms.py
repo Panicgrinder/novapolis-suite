@@ -1,17 +1,14 @@
-import json
-from typing import Any, Dict, List
-
-import pytest
+from typing import Any
 
 # Importiere die zu testenden Helfer direkt aus dem Runner
-from scripts.run_eval import compute_hint_terms, EvaluationItem
+from scripts.run_eval import EvaluationItem, compute_hint_terms
 
 
 def _mk_item(
-    must: List[str], any_terms: List[str], atleast_count: int, atleast_items: List[str]
+    must: list[str], any_terms: list[str], atleast_count: int, atleast_items: list[str]
 ) -> EvaluationItem:
     messages = [{"role": "user", "content": "Sag etwas."}]
-    checks: Dict[str, Any] = {
+    checks: dict[str, Any] = {
         "must_include": must,
         "keywords_any": any_terms,
         "keywords_at_least": {"count": atleast_count, "items": atleast_items},
@@ -24,7 +21,7 @@ def test_compute_hint_terms_priority_dedupe_lower_cap():
         must=["Alpha", "beta", "Alpha"],
         any_terms=["gamma", "BETA", "delta"],
         atleast_count=2,
-        atleast_items=["epsilon", "Gamma", "zeta", "eta"]
+        atleast_items=["epsilon", "Gamma", "zeta", "eta"],
     )
     # Aktivieren: alle term checks
     enabled = ["must_include", "keywords_at_least", "keywords_any"]
@@ -38,11 +35,11 @@ def test_compute_hint_terms_priority_dedupe_lower_cap():
     # - Cap = 6
     assert terms == [
         "alpha",  # aus must
-        "beta",   # aus must (dedupe zu BETA später)
-        "epsilon", # aus at_least.items
-        "gamma",   # aus at_least.items (dedupe zu any 'gamma' später)
-        "zeta",    # aus at_least.items
-        "eta",     # aus at_least.items (Cap erreicht)
+        "beta",  # aus must (dedupe zu BETA später)
+        "epsilon",  # aus at_least.items
+        "gamma",  # aus at_least.items (dedupe zu any 'gamma' später)
+        "zeta",  # aus at_least.items
+        "eta",  # aus at_least.items (Cap erreicht)
     ]
 
     # Stelle sicher, dass KEIN weiterer Eintrag vorhanden ist (cap)

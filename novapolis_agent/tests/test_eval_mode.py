@@ -1,32 +1,38 @@
 import unittest
+from typing import Any, cast
 from unittest.mock import patch
-from typing import Any, Dict, cast
 
-from app.api.models import ChatRequest
 from app.api.chat import process_chat_request
+from app.api.models import ChatRequest
 from app.core.prompts import EVAL_SYSTEM_PROMPT
+
 
 class TestEvalMode(unittest.IsolatedAsyncioTestCase):
     async def test_eval_mode_overrides_system_prompt(self):
-        sent_payload: Dict[str, Any] = {}
+        sent_payload: dict[str, Any] = {}
 
         class ResponseStub:
             status_code = 200
+
             def raise_for_status(self):
                 return None
+
             def json(self):
                 return {"message": {"content": "OK"}}
 
         class FakeClient:
             def __init__(self, *args, **kwargs):
                 pass
+
             async def __aenter__(self):
                 return self
+
             async def __aexit__(self, exc_type, exc, tb):
                 return None
+
             async def post(self, url, json, headers=None):
                 nonlocal sent_payload
-                sent_payload = cast(Dict[str, Any], json)
+                sent_payload = cast(dict[str, Any], json)
                 return ResponseStub()
 
         with patch("app.api.chat.httpx.AsyncClient", FakeClient):

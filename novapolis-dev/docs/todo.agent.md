@@ -1,5 +1,9 @@
-stand: 2025-11-12 01:17
-update: Hub-Stubs Phase 1 notiert; TTS/Tools unverändert
+---
+title: "Novapolis Agent – ToDo & Roadmap (SSOT)"
+date: 2025-11-12 08:59
+tags: [doc]
+stand: 2025-11-12 08:59
+update: Frontmatter auf Governance-Format umgestellt.
 checks: keine
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->

@@ -1,22 +1,20 @@
 from __future__ import annotations
 
 import json
-from typing import Any, Dict, List, cast
+from typing import Any, cast
 
+import app.api.chat as chat_module
 import httpx
+from app.core import settings as settings_module
+from app.main import app
 from fastapi.testclient import TestClient
 from pytest import MonkeyPatch
-
-from app.main import app
-import app.api.chat as chat_module
-from app.core import settings as settings_module
-
 
 # Echten AsyncClient sichern, bevor gepatcht wird
 RealAsyncClient = httpx.AsyncClient
 
 
-def _mock_async_client_capture(payload_box: Dict[str, Any]) -> httpx.AsyncClient:
+def _mock_async_client_capture(payload_box: dict[str, Any]) -> httpx.AsyncClient:
     async def _handler(request: httpx.Request) -> httpx.Response:
         if request.url.path.endswith("/api/chat"):
             try:
@@ -24,9 +22,7 @@ def _mock_async_client_capture(payload_box: Dict[str, Any]) -> httpx.AsyncClient
             except Exception:
                 data = {}
             payload_box["last"] = data
-            return httpx.Response(200, json={
-                "message": {"role": "assistant", "content": "ok"}
-            })
+            return httpx.Response(200, json={"message": {"role": "assistant", "content": "ok"}})
         return httpx.Response(404)
 
     transport = httpx.MockTransport(_handler)
@@ -34,7 +30,7 @@ def _mock_async_client_capture(payload_box: Dict[str, Any]) -> httpx.AsyncClient
 
 
 def test_chat_applies_top_p_and_temperature_cap(monkeypatch: MonkeyPatch) -> None:
-    payload_box: Dict[str, Any] = {}
+    payload_box: dict[str, Any] = {}
 
     def _factory(*args: Any, **kwargs: Any) -> httpx.AsyncClient:
         return _mock_async_client_capture(payload_box)
@@ -52,8 +48,8 @@ def test_chat_applies_top_p_and_temperature_cap(monkeypatch: MonkeyPatch) -> Non
     )
     assert resp.status_code == 200
 
-    sent = cast(Dict[str, Any], payload_box.get("last") or {})
-    opts = cast(Dict[str, Any], sent.get("options", {}))
+    sent = cast(dict[str, Any], payload_box.get("last") or {})
+    opts = cast(dict[str, Any], sent.get("options", {}))
     # Temperatur sollte im Eval-Modus gedeckelt sein
     temp_val = opts.get("temperature")
     assert temp_val is not None and float(temp_val) <= 0.25
@@ -61,11 +57,12 @@ def test_chat_applies_top_p_and_temperature_cap(monkeypatch: MonkeyPatch) -> Non
     assert opts.get("top_p") == 0.9
     # num_predict sollte auf SETTINGS.REQUEST_MAX_TOKENS gedeckelt sein
     from app.core.settings import settings
+
     assert 1 <= int(opts.get("num_predict", 0)) <= settings.REQUEST_MAX_TOKENS
 
 
 def test_chat_injects_context_notes_when_enabled(monkeypatch: MonkeyPatch) -> None:
-    payload_box: Dict[str, Any] = {}
+    payload_box: dict[str, Any] = {}
 
     def _factory(*args: Any, **kwargs: Any) -> httpx.AsyncClient:
         return _mock_async_client_capture(payload_box)
@@ -73,9 +70,11 @@ def test_chat_injects_context_notes_when_enabled(monkeypatch: MonkeyPatch) -> No
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", _factory)
     # Kontext-Notizen aktivieren und Funktion stubben
     monkeypatch.setattr(settings_module.settings, "CONTEXT_NOTES_ENABLED", True, raising=False)
-    from typing import Iterable
+    from collections.abc import Iterable
+
     def _stub_load_context_notes(paths: Iterable[str], max_chars: int = 4000) -> str:
         return "CTX-NOTES"
+
     monkeypatch.setattr(chat_module, "load_context_notes", _stub_load_context_notes)
 
     client = TestClient(app)
@@ -85,8 +84,8 @@ def test_chat_injects_context_notes_when_enabled(monkeypatch: MonkeyPatch) -> No
     )
     assert resp.status_code == 200
 
-    sent = cast(Dict[str, Any], payload_box.get("last") or {})
-    msgs = cast(List[Dict[str, str]], sent.get("messages", []))
+    sent = cast(dict[str, Any], payload_box.get("last") or {})
+    msgs = cast(list[dict[str, str]], sent.get("messages", []))
     # Erwartet: [0] system default, [1] Kontext-Notizen
     assert msgs and msgs[0]["role"] == "system"
     assert msgs[1]["role"] == "system"

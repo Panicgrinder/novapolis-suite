@@ -3,16 +3,16 @@ from __future__ import annotations
 import json
 import os
 import tempfile
-from typing import List, Dict, Any, Mapping, Iterator, cast
+from collections.abc import Iterator, Mapping
+from typing import Any, cast
 
 import pytest
-
 from app.core import content_management as cm
 
 
 @pytest.fixture()
 def temp_policy_file() -> Iterator[str]:
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "forbidden_terms": ["badword", "block_me"],
         "rewrite_map": {"foo": "bar", "colour": "color"},
     }
@@ -29,11 +29,13 @@ def temp_policy_file() -> Iterator[str]:
             pass
 
 
-def _mk_user_msgs(texts: List[str]) -> List[Dict[str, str]]:
+def _mk_user_msgs(texts: list[str]) -> list[dict[str, str]]:
     return [{"role": "user", "content": t} for t in texts]
 
 
-def test_apply_pre_rewrite_and_block_from_file(monkeypatch: pytest.MonkeyPatch, temp_policy_file: str) -> None:
+def test_apply_pre_rewrite_and_block_from_file(
+    monkeypatch: pytest.MonkeyPatch, temp_policy_file: str
+) -> None:
     # Enable policies and point to temp file
     assert cm.settings is not None
     monkeypatch.setattr(cm.settings, "POLICIES_ENABLED", True, raising=False)
@@ -41,7 +43,7 @@ def test_apply_pre_rewrite_and_block_from_file(monkeypatch: pytest.MonkeyPatch, 
 
     # Rewrite case: contains a term from rewrite_map
     msgs = _mk_user_msgs(["hello foo world"])  # foo -> bar
-    typed_msgs: List[Mapping[str, Any]] = cast(List[Mapping[str, Any]], msgs)
+    typed_msgs: list[Mapping[str, Any]] = cast(list[Mapping[str, Any]], msgs)
     pre = cm.apply_pre(typed_msgs, mode="default")
     assert pre.action in {"allow", "rewrite"}
     if pre.action == "rewrite":
@@ -51,12 +53,14 @@ def test_apply_pre_rewrite_and_block_from_file(monkeypatch: pytest.MonkeyPatch, 
 
     # Block case: contains forbidden term
     msgs2 = _mk_user_msgs(["please say badword"])
-    typed_msgs2: List[Mapping[str, Any]] = cast(List[Mapping[str, Any]], msgs2)
+    typed_msgs2: list[Mapping[str, Any]] = cast(list[Mapping[str, Any]], msgs2)
     pre2 = cm.apply_pre(typed_msgs2, mode="default")
     assert pre2.action == "block"
 
 
-def test_apply_post_rewrite_and_block_from_file(monkeypatch: pytest.MonkeyPatch, temp_policy_file: str) -> None:
+def test_apply_post_rewrite_and_block_from_file(
+    monkeypatch: pytest.MonkeyPatch, temp_policy_file: str
+) -> None:
     # Enable policies and point to temp file
     assert cm.settings is not None
     monkeypatch.setattr(cm.settings, "POLICIES_ENABLED", True, raising=False)

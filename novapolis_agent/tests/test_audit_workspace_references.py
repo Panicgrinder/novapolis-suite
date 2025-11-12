@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import os
 import io
+import os
 from contextlib import redirect_stdout
 
 import pytest
@@ -9,7 +9,7 @@ import pytest
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_audit_workspace_scan_text_references_positive(tmp_path: "os.PathLike[str]") -> None:
+def test_audit_workspace_scan_text_references_positive(tmp_path: os.PathLike[str]) -> None:
     # Mini-Workspace aufbauen
     ws = tmp_path
     for p in ["app", "docs"]:
@@ -24,6 +24,7 @@ def test_audit_workspace_scan_text_references_positive(tmp_path: "os.PathLike[st
         f.write("# siehe ref_notes.md für Details\n")
 
     from scripts import audit_workspace as aw
+
     aw.PROJECT_ROOT = str(ws)
 
     refs = aw.scan_text_references()

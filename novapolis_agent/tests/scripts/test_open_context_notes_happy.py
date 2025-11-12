@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-import importlib
-from pathlib import Path
-import io
 import contextlib
+import importlib
+import io
 import types
+from pathlib import Path
+
 import pytest
 
 
@@ -17,12 +18,16 @@ def test_open_context_notes_happy(monkeypatch: pytest.MonkeyPatch, tmp_path: Pat
     target.parent.mkdir(parents=True, exist_ok=True)
     # Stub settings to point to our temp path
     # Patch settings directly in the module under test so the reference matches
-    monkeypatch.setattr(mod, "settings", types.SimpleNamespace(CONTEXT_NOTES_PATHS=[str(target)]), raising=False)
+    monkeypatch.setattr(
+        mod, "settings", types.SimpleNamespace(CONTEXT_NOTES_PATHS=[str(target)]), raising=False
+    )
 
     # Prevent actually opening a file
     called: dict[str, str] = {}
+
     def _open_file(p: str) -> None:  # noqa: ANN001
         called["path"] = p
+
     monkeypatch.setattr(mod, "open_file", _open_file)
 
     buf = io.StringIO()

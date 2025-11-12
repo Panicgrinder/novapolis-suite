@@ -1,10 +1,13 @@
 import json as _json
 import logging
 import time
-from typing import TYPE_CHECKING, Any, Dict, List, Mapping, Optional, cast
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, Optional, cast
 
 import httpx
 from fastapi import HTTPException, status
+
+from utils.context_notes import load_context_notes
 
 from ..core.content_management import apply_post, apply_pre, modify_prompt_for_freedom
 from ..core.memory import compose_with_memory, get_memory_store
@@ -13,7 +16,6 @@ from ..core.settings import settings
 from ..utils.session_memory import session_memory
 from .chat_helpers import normalize_ollama_options
 from .models import ChatRequest, ChatResponse
-from utils.context_notes import load_context_notes
 
 if TYPE_CHECKING:
     from utils.rag import TfIdfIndex as _TfIdfIndex
@@ -25,10 +27,10 @@ async def stream_chat_request(
     request: ChatRequest,
     eval_mode: bool = False,
     unrestricted_mode: bool = False,
-    client: Optional[httpx.AsyncClient] = None,
-    request_id: Optional[str] = None,
+    client: httpx.AsyncClient | None = None,
+    request_id: str | None = None,
 ):
-    messages: List[Dict[str, str]] = []
+    messages: list[dict[str, str]] = []
     for m in request.messages:
         if isinstance(m, dict):
             role = m.get("role", "user")
@@ -49,7 +51,9 @@ async def stream_chat_request(
                 pass
         messages.insert(0, {"role": "system", "content": sys_prompt})
     elif unrestricted_mode:
-        logger.info("Uneingeschränkter Modus aktiv (stream): Ersetze Systemprompt rid=%s", request_id)
+        logger.info(
+            "Uneingeschränkter Modus aktiv (stream): Ersetze Systemprompt rid=%s", request_id
+        )
         messages = [msg for msg in messages if msg.get("role") != "system"]
         sys_prompt = UNRESTRICTED_SYSTEM_PROMPT
         if getattr(settings, "CONTENT_POLICY_ENABLED", False):
@@ -70,7 +74,7 @@ async def stream_chat_request(
 
     try:
         enabled = bool(getattr(settings, "CONTEXT_NOTES_ENABLED", False))
-        notes: Optional[str] = None
+        notes: str | None = None
         try:
             notes = load_context_notes(
                 getattr(settings, "CONTEXT_NOTES_PATHS", []),
@@ -93,17 +97,21 @@ async def stream_chat_request(
                 user_texts = [m.get("content", "") for m in messages if m.get("role") == "user"]
                 query = user_texts[-1] if user_texts else ""
                 if query and idx is not None:
-                    from typing import Any as _Any, Dict as _Dict, List as _List
+                    from typing import Any as _Any
+                    from typing import Dict as _Dict
+                    from typing import List as _List
 
                     top_k = int(getattr(settings, "RAG_TOP_K", 3))
                     _hits_any: object = retrieve(idx, query, top_k=top_k)
                     hits = cast(_List[_Dict[str, _Any]], _hits_any)
                     if hits:
+
                         def _clip(value: str, limit: int = 400) -> str:
                             return value if len(value) <= limit else f"{value[:limit]}…"
 
                         snippet_text = "\n\n".join(
-                            f"- {h.get('source', '?')}: {_clip(str(h.get('text', '')))}" for h in hits
+                            f"- {h.get('source', '?')}: {_clip(str(h.get('text', '')))}"
+                            for h in hits
                         )
                         messages.insert(1, {"role": "system", "content": f"[RAG]\n{snippet_text}"})
             except FileNotFoundError:
@@ -113,11 +121,11 @@ async def stream_chat_request(
     except Exception:
         pass
 
-    session_id: Optional[str] = None
+    session_id: str | None = None
     try:
         sid_top = getattr(request, "session_id", None)
         opts_any0 = getattr(request, "options", None)
-        opts0: Dict[str, Any] = {}
+        opts0: dict[str, Any] = {}
         if isinstance(opts_any0, Mapping):
             opts0 = dict(cast(Mapping[str, Any], opts_any0))
         elif hasattr(opts_any0, "model_dump") and callable(getattr(opts_any0, "model_dump")):
@@ -132,20 +140,26 @@ async def stream_chat_request(
         session_id = None
 
     try:
-        messages = await compose_with_memory(cast(List[Mapping[str, str]], messages), session_id)
+        messages = await compose_with_memory(cast(list[Mapping[str, str]], messages), session_id)
     except Exception:
         pass
 
     try:
         mode = "unrestricted" if unrestricted_mode else ("eval" if eval_mode else "default")
         profile_id = getattr(request, "profile_id", None)
-        pre = apply_pre(cast(List[Mapping[str, Any]], messages), mode=mode, profile_id=profile_id)
+        pre = apply_pre(cast(list[Mapping[str, Any]], messages), mode=mode, profile_id=profile_id)
         if pre and getattr(pre, "action", "allow") == "block":
+
             async def _blocked_gen():
                 if getattr(settings, "LOG_JSON", False):
                     logger.info(
                         _json.dumps(
-                            {"event": "policy_pre", "action": "block", "mode": mode, "request_id": request_id},
+                            {
+                                "event": "policy_pre",
+                                "action": "block",
+                                "mode": mode,
+                                "request_id": request_id,
+                            },
                             ensure_ascii=False,
                         )
                     )
@@ -169,7 +183,12 @@ async def stream_chat_request(
             if getattr(settings, "LOG_JSON", False):
                 logger.info(
                     _json.dumps(
-                        {"event": "policy_pre", "action": "rewrite", "mode": mode, "request_id": request_id},
+                        {
+                            "event": "policy_pre",
+                            "action": "rewrite",
+                            "mode": mode,
+                            "request_id": request_id,
+                        },
                         ensure_ascii=False,
                     )
                 )
@@ -180,7 +199,7 @@ async def stream_chat_request(
 
     req_model = getattr(request, "model", None)
     raw_any = getattr(request, "options", None)
-    raw_opts: Dict[str, Any]
+    raw_opts: dict[str, Any]
     if isinstance(raw_any, Mapping):
         raw_opts = dict(cast(Mapping[str, Any], raw_any))
     elif hasattr(raw_any, "model_dump") and callable(getattr(raw_any, "model_dump")):
@@ -195,7 +214,7 @@ async def stream_chat_request(
     try:
         if getattr(settings, "SESSION_MEMORY_ENABLED", False):
             opts_mem = getattr(request, "options", None)
-            sess_id: Optional[str] = None
+            sess_id: str | None = None
             if isinstance(opts_mem, dict):
                 opts_mapping = cast(Mapping[str, Any], opts_mem)
                 val_any = opts_mapping.get("session_id")
@@ -213,7 +232,7 @@ async def stream_chat_request(
     except Exception:
         pass
 
-    ollama_payload: Dict[str, Any] = {
+    ollama_payload: dict[str, Any] = {
         "model": req_model or settings.MODEL_NAME,
         "messages": messages,
         "stream": True,
@@ -252,8 +271,10 @@ async def stream_chat_request(
         started = time.time()
         try:
             try:
-                mode0 = "unrestricted" if unrestricted_mode else ("eval" if eval_mode else "default")
-                params: Dict[str, Any] = {
+                mode0 = (
+                    "unrestricted" if unrestricted_mode else ("eval" if eval_mode else "default")
+                )
+                params: dict[str, Any] = {
                     "mode": mode0,
                     "request_id": request_id,
                     "model": ollama_payload.get("model"),
@@ -264,8 +285,10 @@ async def stream_chat_request(
                 pass
 
             async def _do_stream(_client: httpx.AsyncClient):
-                final_text_parts: List[str] = []
-                async with _client.stream("POST", ollama_url, json=ollama_payload, headers=headers) as resp:
+                final_text_parts: list[str] = []
+                async with _client.stream(
+                    "POST", ollama_url, json=ollama_payload, headers=headers
+                ) as resp:
                     resp.raise_for_status()
                     async for line in resp.aiter_lines():
                         if not line:
@@ -282,7 +305,11 @@ async def stream_chat_request(
                             yield f"data: {line}\n\n"
                 try:
                     final_text = "".join(final_text_parts)
-                    mode = "unrestricted" if unrestricted_mode else ("eval" if eval_mode else "default")
+                    mode = (
+                        "unrestricted"
+                        if unrestricted_mode
+                        else ("eval" if eval_mode else "default")
+                    )
                     profile_id = getattr(request, "profile_id", None)
                     action = "allow"
                     effective_text = final_text
@@ -297,7 +324,11 @@ async def stream_chat_request(
                         try:
                             fn = apply_post
                             text_key = "text"
-                            if callable(fn) and hasattr(fn, "__globals__") and isinstance(fn.__globals__, dict):
+                            if (
+                                callable(fn)
+                                and hasattr(fn, "__globals__")
+                                and isinstance(fn.__globals__, dict)
+                            ):
                                 globals_dict = fn.__globals__
                                 had_key = text_key in globals_dict
                                 prev_val = globals_dict.get(text_key)
@@ -330,7 +361,10 @@ async def stream_chat_request(
                             policy_post = "blocked"
                         elif effective_text != final_text and effective_text:
                             policy_post = "rewritten"
-                        meta: Dict[str, Any] = {"policy_post": policy_post, "request_id": request_id}
+                        meta: dict[str, Any] = {
+                            "policy_post": policy_post,
+                            "request_id": request_id,
+                        }
                         if policy_post == "rewritten":
                             delta_len = max(0, len(effective_text) - len(final_text))
                             meta["delta_len"] = delta_len
@@ -369,7 +403,8 @@ async def stream_chat_request(
             if getattr(settings, "LOG_JSON", False):
                 logger.exception(
                     _json.dumps(
-                        {"event": "model_error", "error": str(exc), "request_id": request_id}, ensure_ascii=False
+                        {"event": "model_error", "error": str(exc), "request_id": request_id},
+                        ensure_ascii=False,
                     )
                 )
             else:
@@ -388,7 +423,11 @@ async def stream_chat_request(
             if getattr(settings, "LOG_JSON", False):
                 logger.info(
                     _json.dumps(
-                        {"event": "model_stream_done", "duration_ms": duration_ms, "request_id": request_id},
+                        {
+                            "event": "model_stream_done",
+                            "duration_ms": duration_ms,
+                            "request_id": request_id,
+                        },
                         ensure_ascii=False,
                     )
                 )
@@ -403,11 +442,11 @@ async def process_chat_request(
     request: ChatRequest,
     eval_mode: bool = False,
     unrestricted_mode: bool = False,
-    client: Optional[httpx.AsyncClient] = None,
-    request_id: Optional[str] = None,
+    client: httpx.AsyncClient | None = None,
+    request_id: str | None = None,
 ) -> ChatResponse:
     try:
-        messages: List[Dict[str, str]] = []
+        messages: list[dict[str, str]] = []
         for m in request.messages:
             if isinstance(m, dict):
                 role = m.get("role", "user")
@@ -449,7 +488,7 @@ async def process_chat_request(
 
         try:
             enabled = bool(getattr(settings, "CONTEXT_NOTES_ENABLED", False))
-            notes: Optional[str] = None
+            notes: str | None = None
             try:
                 notes = load_context_notes(
                     getattr(settings, "CONTEXT_NOTES_PATHS", []),
@@ -469,22 +508,30 @@ async def process_chat_request(
                 rag_path = str(getattr(settings, "RAG_INDEX_PATH", "eval/results/rag/index.json"))
                 try:
                     idx: Optional["_TfIdfIndex"] = load_index(rag_path)
-                    user_texts2 = [m.get("content", "") for m in messages if m.get("role") == "user"]
+                    user_texts2 = [
+                        m.get("content", "") for m in messages if m.get("role") == "user"
+                    ]
                     query2 = user_texts2[-1] if user_texts2 else ""
                     if query2 and idx is not None:
-                        from typing import Any as _Any, Dict as _Dict, List as _List
+                        from typing import Any as _Any
+                        from typing import Dict as _Dict
+                        from typing import List as _List
 
                         top_k2 = int(getattr(settings, "RAG_TOP_K", 3))
                         _hits2_any: object = retrieve(idx, query2, top_k=top_k2)
                         hits2 = cast(_List[_Dict[str, _Any]], _hits2_any)
                         if hits2:
+
                             def _clip2(value: str, limit: int = 400) -> str:
                                 return value if len(value) <= limit else f"{value[:limit]}…"
 
                             snippet_text2 = "\n\n".join(
-                                f"- {h.get('source', '?')}: {_clip2(str(h.get('text', '')))}" for h in hits2
+                                f"- {h.get('source', '?')}: {_clip2(str(h.get('text', '')))}"
+                                for h in hits2
                             )
-                            messages.insert(1, {"role": "system", "content": f"[RAG]\n{snippet_text2}"})
+                            messages.insert(
+                                1, {"role": "system", "content": f"[RAG]\n{snippet_text2}"}
+                            )
                 except FileNotFoundError:
                     pass
                 except Exception:
@@ -492,11 +539,11 @@ async def process_chat_request(
         except Exception:
             pass
 
-        session_id: Optional[str] = None
+        session_id: str | None = None
         try:
             sid_top = getattr(request, "session_id", None)
             opts_any = getattr(request, "options", None)
-            opts0: Dict[str, Any] = {}
+            opts0: dict[str, Any] = {}
             if isinstance(opts_any, Mapping):
                 try:
                     opts0 = dict(cast(Mapping[str, Any], opts_any))
@@ -514,17 +561,25 @@ async def process_chat_request(
             session_id = None
 
         try:
-            messages = await compose_with_memory(cast(List[Mapping[str, str]], messages), session_id)
+            messages = await compose_with_memory(
+                cast(list[Mapping[str, str]], messages), session_id
+            )
         except Exception:
             pass
 
         try:
             mode = "unrestricted" if unrestricted_mode else ("eval" if eval_mode else "default")
             profile_id = getattr(request, "profile_id", None)
-            pre = apply_pre(cast(List[Mapping[str, Any]], messages), mode=mode, profile_id=profile_id)
+            pre = apply_pre(
+                cast(list[Mapping[str, Any]], messages), mode=mode, profile_id=profile_id
+            )
             if pre and getattr(pre, "action", "allow") == "block":
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="policy_block")
-            if pre and getattr(pre, "action", "allow") == "rewrite" and getattr(pre, "messages", None):
+            if (
+                pre
+                and getattr(pre, "action", "allow") == "rewrite"
+                and getattr(pre, "messages", None)
+            ):
                 pre_msgs = getattr(pre, "messages", None)
                 if pre_msgs:
                     messages = [
@@ -538,7 +593,12 @@ async def process_chat_request(
                 if getattr(settings, "LOG_JSON", False):
                     logger.info(
                         _json.dumps(
-                            {"event": "policy_pre", "action": "rewrite", "mode": mode, "request_id": request_id},
+                            {
+                                "event": "policy_pre",
+                                "action": "rewrite",
+                                "mode": mode,
+                                "request_id": request_id,
+                            },
                             ensure_ascii=False,
                         )
                     )
@@ -549,7 +609,7 @@ async def process_chat_request(
 
         req_model = getattr(request, "model", None)
         raw_any2 = getattr(request, "options", None)
-        raw_opts2: Dict[str, Any]
+        raw_opts2: dict[str, Any]
         if isinstance(raw_any2, Mapping):
             raw_opts2 = dict(cast(Mapping[str, Any], raw_any2))
         elif hasattr(raw_any2, "model_dump") and callable(getattr(raw_any2, "model_dump")):
@@ -564,7 +624,7 @@ async def process_chat_request(
         try:
             if getattr(settings, "SESSION_MEMORY_ENABLED", False):
                 opts2 = getattr(request, "options", None)
-                sess_id2: Optional[str] = None
+                sess_id2: str | None = None
                 if isinstance(opts2, dict):
                     opts_mapping2 = cast(Mapping[str, Any], opts2)
                     val_any2 = opts_mapping2.get("session_id")
@@ -575,14 +635,17 @@ async def process_chat_request(
                         sys_msgs2 = [m for m in messages if m.get("role") == "system"]
                         non_sys2 = [m for m in messages if m.get("role") != "system"]
                         prior2_cast = [
-                            {"role": str(m.get("role", "user")), "content": str(m.get("content", ""))}
+                            {
+                                "role": str(m.get("role", "user")),
+                                "content": str(m.get("content", "")),
+                            }
                             for m in prior2
                         ]
                         messages = sys_msgs2 + prior2_cast + non_sys2
         except Exception:
             pass
 
-        ollama_payload: Dict[str, Any] = {
+        ollama_payload: dict[str, Any] = {
             "model": req_model or settings.MODEL_NAME,
             "messages": messages,
             "stream": False,
@@ -633,7 +696,11 @@ async def process_chat_request(
         generated_content = result.get("message", {}).get("content", "")
 
         max_len = max(0, int(getattr(settings, "LOG_TRUNCATE_CHARS", 200)))
-        preview = generated_content if len(generated_content) <= max_len else f"{generated_content[:max_len]}..."
+        preview = (
+            generated_content
+            if len(generated_content) <= max_len
+            else f"{generated_content[:max_len]}..."
+        )
         started = getattr(response, "_started", None)
         duration_ms = int((time.time() - started) * 1000) if isinstance(started, float) else None
         if getattr(settings, "LOG_JSON", False):
@@ -652,7 +719,12 @@ async def process_chat_request(
             )
         else:
             if duration_ms is not None:
-                logger.info("Antwort von Ollama erhalten. %s ms rid=%s Inhalt: %s", duration_ms, request_id, preview)
+                logger.info(
+                    "Antwort von Ollama erhalten. %s ms rid=%s Inhalt: %s",
+                    duration_ms,
+                    request_id,
+                    preview,
+                )
             else:
                 logger.info("Antwort von Ollama erhalten. rid=%s Inhalt: %s", request_id, preview)
 
@@ -668,7 +740,12 @@ async def process_chat_request(
                 if getattr(settings, "LOG_JSON", False):
                     logger.info(
                         _json.dumps(
-                            {"event": "policy_post", "action": "rewrite", "mode": mode, "request_id": request_id},
+                            {
+                                "event": "policy_post",
+                                "action": "rewrite",
+                                "mode": mode,
+                                "request_id": request_id,
+                            },
                             ensure_ascii=False,
                         )
                     )
@@ -696,7 +773,7 @@ async def process_chat_request(
         try:
             sid_top = getattr(request, "session_id", None)
             opts_any = getattr(request, "options", None)
-            opts_err: Dict[str, Any] = {}
+            opts_err: dict[str, Any] = {}
             if isinstance(opts_any, Mapping):
                 try:
                     opts_err = dict(cast(Mapping[str, Any], opts_any))
@@ -707,7 +784,7 @@ async def process_chat_request(
             session_id = str(sid_val) if isinstance(sid_val, str) and sid_val else None
             if session_id and getattr(settings, "MEMORY_ENABLED", True):
                 store = get_memory_store()
-                raw_msgs: List[Dict[str, str]] = []
+                raw_msgs: list[dict[str, str]] = []
                 for m in request.messages:
                     if isinstance(m, dict):
                         role = m.get("role", "user")
@@ -724,7 +801,8 @@ async def process_chat_request(
         if getattr(settings, "LOG_JSON", False):
             logger.exception(
                 _json.dumps(
-                    {"event": "model_error", "error": str(exc), "request_id": request_id}, ensure_ascii=False
+                    {"event": "model_error", "error": str(exc), "request_id": request_id},
+                    ensure_ascii=False,
                 )
             )
         else:

@@ -37,12 +37,7 @@ def normalize_text(text: str) -> str:
     """Normalisiert einen Text für Vergleiche (Kleinschreibung & Zeichenbereinigung)."""
 
     text = text.lower()
-    text = (
-        text.replace("ä", "ae")
-        .replace("ö", "oe")
-        .replace("ü", "ue")
-        .replace("ß", "ss")
-    )
+    text = text.replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
     text = re.sub(r"[^\w\s-]", " ", text)
     text = re.sub(r"\s+", " ", text)
     return text.strip()

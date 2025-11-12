@@ -77,7 +77,7 @@ Temporäre Bereiche
 Checks: full
 ------------
 
-- Sammellauf-Skript: `scripts/run_checks_and_report.ps1` (Lint: ruff/black, Docs-Lint markdownlint, Frontmatter-Validator, Typen: pyright/mypy, Tests + Coverage ≥80%, PSScriptAnalyzer)
-- Report-Ausgabe: `.tmp-results/reports/checks_report_*.md` inkl. JSON-Blöcken & Postflight-Vorlage
-- Nutzung: Wrapper-Aufruf `pwsh -File scripts/run_checks_and_report.ps1` (keine Inline-Ketten). Exitcode aggregiert ersten Fehler.
+- Sammellauf-Skript: `python scripts/run_checks_and_report.py` (Lint: ruff/black, Docs-Lint markdownlint, Frontmatter-Validator, Typen: pyright/mypy, Tests + Coverage ≥80%; optionale Zusatz-Lints werden als SKIP protokolliert, falls nicht installiert)
+- Report-Ausgabe: `.tmp-results/reports/checks_run_<timestamp>/` mit konsolidiertem Markdown- und JSON-Report pro Lauf
+- Nutzung: Direktaufruf `python scripts/run_checks_and_report.py` (Wrapper-Policy bleibt aktiv). Exitcode aggregiert den ersten Pflicht-Check, der fehlschlägt.
 

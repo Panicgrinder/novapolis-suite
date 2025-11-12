@@ -11,6 +11,7 @@ Formate:
 - now_compact(): "YYYYMMDD_%H%M" (für Dateinamen/Reports)
 - now_iso(): ISO-8601 mit Offset (Sekundenauflösung)
 """
+
 from __future__ import annotations
 
 import os

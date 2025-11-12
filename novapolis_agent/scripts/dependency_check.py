@@ -1,23 +1,34 @@
 #!/usr/bin/env python
-import os
-import sys
 import glob
 import json
-from typing import List, Dict, Any, Tuple, cast
+import os
+import sys
+from typing import Any, cast
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
+
 def read(path: str) -> str:
-    with open(path, "r", encoding="utf-8", errors="ignore") as f:
+    with open(path, encoding="utf-8", errors="ignore") as f:
         return f.read()
 
-def ok(msg: str): print(f"[OK] {msg}")
-def warn(msg: str): print(f"[WARN] {msg}")
-def err(msg: str): print(f"[ERR] {msg}")
 
-def check_runner_constants() -> Dict[str, Any]:
+def ok(msg: str):
+    print(f"[OK] {msg}")
+
+
+def warn(msg: str):
+    print(f"[WARN] {msg}")
+
+
+def err(msg: str):
+    print(f"[ERR] {msg}")
+
+
+def check_runner_constants() -> dict[str, Any]:
     import importlib.util
+
     rp = os.path.join(ROOT, "scripts", "run_eval.py")
     spec = importlib.util.spec_from_file_location("run_eval", rp)
     if spec is None or spec.loader is None:
@@ -27,9 +38,16 @@ def check_runner_constants() -> Dict[str, Any]:
     spec.loader.exec_module(mod)
 
     req_attrs = [
-        "DEFAULT_EVAL_DIR", "DEFAULT_DATASET_DIR", "DEFAULT_RESULTS_DIR",
-        "DEFAULT_CONFIG_DIR", "DEFAULT_FILE_PATTERN",
-        "load_prompts", "load_evaluation_items", "evaluate_item", "run_evaluation", "print_results"
+        "DEFAULT_EVAL_DIR",
+        "DEFAULT_DATASET_DIR",
+        "DEFAULT_RESULTS_DIR",
+        "DEFAULT_CONFIG_DIR",
+        "DEFAULT_FILE_PATTERN",
+        "load_prompts",
+        "load_evaluation_items",
+        "evaluate_item",
+        "run_evaluation",
+        "print_results",
     ]
     missing = [a for a in req_attrs if not hasattr(mod, a)]
     for a in req_attrs:
@@ -57,8 +75,10 @@ def check_runner_constants() -> Dict[str, Any]:
 
     return {"mod": mod}
 
+
 def check_ui_refs():
     import importlib.util
+
     up = os.path.join(ROOT, "scripts", "eval_ui.py")
     spec = importlib.util.spec_from_file_location("eval_ui", up)
     if spec is None or spec.loader is None:
@@ -72,6 +92,7 @@ def check_ui_refs():
     else:
         warn("eval_ui: Prüfe Referenzen auf DEFAULT_*-Konstanten")
 
+
 def check_api_eval_prompt():
     ap = os.path.join(ROOT, "app", "api", "chat.py")
     code = read(ap)
@@ -83,10 +104,13 @@ def check_api_eval_prompt():
     else:
         err("app/api/chat.py: Eval-Systemprompt-Injektion nicht gefunden (eval_mode)")
 
+
 def check_synonyms():
-    from utils.eval_utils import load_synonyms
     # Ideale Orte laut Runner
     import importlib.util
+
+    from utils.eval_utils import load_synonyms
+
     rp = os.path.join(ROOT, "scripts", "run_eval.py")
     spec = importlib.util.spec_from_file_location("run_eval", rp)
     if spec is None or spec.loader is None:
@@ -107,7 +131,8 @@ def check_synonyms():
     else:
         ok("synonyms.local.json nicht vorhanden (optional, gitignored)")
 
-def coerce_json_to_jsonl(text: str) -> List[Dict[str, Any]]:
+
+def coerce_json_to_jsonl(text: str) -> list[dict[str, Any]]:
     # kleiner localer Fallback, falls utils nicht importiert werden soll
     try:
         data: Any = json.loads(text)
@@ -115,16 +140,16 @@ def coerce_json_to_jsonl(text: str) -> List[Dict[str, Any]]:
         data = None
 
     if isinstance(data, list):
-        result: List[Dict[str, Any]] = []
-        for x in cast(List[Any], data):
+        result: list[dict[str, Any]] = []
+        for x in cast(list[Any], data):
             if isinstance(x, dict):
-                result.append(cast(Dict[str, Any], x))
+                result.append(cast(dict[str, Any], x))
         return result
     if isinstance(data, dict):
-        return [cast(Dict[str, Any], data)]
+        return [cast(dict[str, Any], data)]
 
     # JSONL-Fallback
-    out: List[Dict[str, Any]] = []
+    out: list[dict[str, Any]] = []
     for line in (text or "").splitlines():
         line = line.strip()
         if not line:
@@ -132,10 +157,11 @@ def coerce_json_to_jsonl(text: str) -> List[Dict[str, Any]]:
         try:
             obj_any: Any = json.loads(line)
             if isinstance(obj_any, dict):
-                out.append(cast(Dict[str, Any], obj_any))
+                out.append(cast(dict[str, Any], obj_any))
         except Exception:
             pass
     return out
+
 
 def check_datasets_and_precedence():
     datasets_dir = os.path.join(ROOT, "eval", "datasets")
@@ -145,7 +171,7 @@ def check_datasets_and_precedence():
         return
     ok(f"{len(files)} Dataset-Dateien gefunden")
     # Prüfe Schema grob und Duplikat-Priorisierung
-    seen: Dict[str, Tuple[Dict[str, Any], float, str]] = {}
+    seen: dict[str, tuple[dict[str, Any], float, str]] = {}
     for fp in files:
         mtime = os.path.getmtime(fp)
         text = read(fp).strip()
@@ -157,7 +183,7 @@ def check_datasets_and_precedence():
             pid = str(obj.get("id") or f"{os.path.splitext(os.path.basename(fp))[0]}-{idx:04d}")
             has_messages = isinstance(obj.get("messages"), list)
             has_prompt = isinstance(obj.get("prompt"), str)
-            checks: Dict[str, Any] | Any = obj.get("checks") or obj.get("must_include") or {}
+            checks: dict[str, Any] | Any = obj.get("checks") or obj.get("must_include") or {}
             if not (has_messages or has_prompt):
                 warn(f"{os.path.basename(fp)}:{idx} hat weder messages noch prompt")
             if not checks:
@@ -165,12 +191,17 @@ def check_datasets_and_precedence():
             if pid in seen:
                 _, prev_mtime, prev = seen[pid]
                 if mtime > prev_mtime:
-                    ok(f"Prio: Neuere Datei überschreibt ältere ID {pid} ({os.path.basename(prev)} -> {os.path.basename(fp)})")
+                    ok(
+                        f"Prio: Neuere Datei überschreibt ältere ID {pid} ({os.path.basename(prev)} -> {os.path.basename(fp)})"
+                    )
                     seen[pid] = (obj, mtime, fp)
                 else:
-                    ok(f"Prio: Ältere Datei bleibt für ID {pid} (neueres wurde verworfen): {os.path.basename(prev)}")
+                    ok(
+                        f"Prio: Ältere Datei bleibt für ID {pid} (neueres wurde verworfen): {os.path.basename(prev)}"
+                    )
             else:
                 seen[pid] = (obj, mtime, fp)
+
 
 def check_prompt_files_not_referenced():
     # Historische Dateien sollten nicht referenziert werden
@@ -178,7 +209,7 @@ def check_prompt_files_not_referenced():
         os.path.join(ROOT, "data", "system.txt"),
         os.path.join(ROOT, "app", "prompt", "system.txt"),
     ]
-    code_files: List[str] = []
+    code_files: list[str] = []
     for base in ("app", "scripts", "utils"):
         for dp, _, fns in os.walk(os.path.join(ROOT, base)):
             for fn in fns:
@@ -209,6 +240,7 @@ def check_prompt_files_not_referenced():
         else:
             ok(f"Historische Prompt-Datei NICHT referenziert: {rel}")
 
+
 def main():
     print("= Dependency Check (wichtigste Daten) =")
     check_runner_constants()
@@ -218,6 +250,7 @@ def main():
     check_datasets_and_precedence()
     check_prompt_files_not_referenced()
     print("\nFertig.")
+
 
 if __name__ == "__main__":
     main()

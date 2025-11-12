@@ -6,7 +6,7 @@ checks: markdownlint-cli2 PASS (scoped)
 
 Postflight
 ----------
-Meta: Modus=Postflight, Modell=GPT-5, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=pwsh -File F:\VS Code Workspace\Main\scripts\run_checks_and_report.ps1, SHA256=0C7898C7C7141B78597F9852C91FBD72C98F0AD300C5F77780C8302EEE2296E1, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=F:\VS Code Workspace\Main\.github\copilot-instructions.md;F:\VS Code Workspace\Main\novapolis_agent\docs\DONELOG.txt;F:\VS Code Workspace\Main\scripts\run_checks_and_report.ps1, Aktion=Automatisierter Checklauf Backend-relevant
+Meta: Modus=Postflight, Modell=GPT-5, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=python F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, SHA256=65570151AA983A6A3784D89B589486A214B8A171D1BA22766C1BF17C49F54E30, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=F:\VS Code Workspace\Main\.github\copilot-instructions.md;F:\VS Code Workspace\Main\novapolis_agent\docs\DONELOG.txt;F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, Aktion=Automatisierter Checklauf Backend-relevant (PowerShell-Variante archiviert)
 Prüfung: ruff=FAIL, black=FAIL, markdownlint=FAIL, frontmatter=FAIL, pyright=FAIL, mypy=FAIL, pytest=STOP (>40 Testdateien), coverage=SKIP (STOP), PSScriptAnalyzerExit=1
 Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-CTX,R-SEC,R-LOG,R-COV,R-TIME,R-SAFE
 Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/Typ-Fixes, Fällig=2025-11-12 01:45
@@ -81,7 +81,7 @@ Beispiel:
 2025-10-21 13:35 | Copilot | Kompakte Timestamps zentralisiert: Scripts auf now_compact() umgestellt (export_finetune, map_reduce_summary[_llm], run_eval, rerun_from_results, reports/*, eval_ui, fine_tune_pipeline, todo_gather); Scripts-Tests grün.
 2025-10-21 12:47 | Panicgrinder | Reports: Konsistenz/Dependencies/Coverage Generatoren repariert (sys.path + now_compact); Reports erzeugt.
 2025-10-21 12:54 | Panicgrinder | TODO: Cleanup-Kandidaten-Sektion basierend auf Konsistenz-Report ergänzt; CLI-Tools markiert.
-2025-11-11 00:09 | Copilot | Dokumentation: Review `scripts/run_checks_and_report.ps1` ergänzt; ToDo für Status-Fix (STOP -> FAIL) eingetragen und Änderungen committet.
+2025-11-11 00:09 | Copilot | Dokumentation: Review des Checks-Wrappers (damals PowerShell, inzwischen `python scripts/run_checks_and_report.py`) ergänzt; ToDo für Status-Fix (STOP -> FAIL) eingetragen und Änderungen committet.
 2025-10-21 20:53 | Panicgrinder | Docs: removed remaining Compose mention in TODO (superproject and submodule). Also restored VS Code settings from backup to undo catch-all auto-approve.
 2025-10-21 20:57 | Panicgrinder | Tests: add pytest norecursedirs to ignore nested submodule; fix import mismatch and restore stable test runs (api, streaming, unit passing).
 2025-10-21 22:00 | Panicgrinder | Docs: add docs-only history purge plan and helper script; wording cleanup in DONELOG.
@@ -178,4 +178,4 @@ Beispiel:
 
 2025-11-10 11:02 | GitHub Copilot | Sim module: added `novapolis-sim/scripts/verify_sim.gd` (headless verifier), `scripts/verify_sim.ps1` (PowerShell smoke test), updated `novapolis-sim/README.md` with start/stop/verify instructions, and patched `novapolis-sim/autoload/SimClient.gd` (exported `port`, increased default `step_interval`, exponential backoff and improved status messages). Ran smoke test and `novapolis_agent/tests/tests_sim_api.py` (both PASS).
 2025-11-10 12:12 | GitHub Copilot | Docs: Root and `novapolis-sim` README updated to record successful Godot ↔ Agent connection verification (headless verifier + smoke test). WORKSPACE_STATUS.md updated with sim verification note.
-2025-11-12 01:38 | Copilot | DONELOG-Sync: Frontmatter aktualisiert, MD010 Tabs entfernt, Vorbereitung Skriptlauf `scripts/run_checks_and_report.ps1` (Repo-Gesamtlauf, Receipt-Auswertung folgt).
+2025-11-12 01:38 | Copilot | DONELOG-Sync: Frontmatter aktualisiert, MD010 Tabs entfernt, Vorbereitung Sammellauf (PowerShell-Vorgänger; Folgeausführung via `python scripts/run_checks_and_report.py`) – Repo-Gesamtlauf, Receipt-Auswertung folgt.

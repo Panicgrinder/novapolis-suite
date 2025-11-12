@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib
 import types
+
 import pytest
 
 
@@ -16,8 +17,9 @@ def test_quick_eval_main_with_stub(monkeypatch: pytest.MonkeyPatch) -> None:
     fake.DEFAULT_RESULTS_DIR = ".tmp-results"
     fake.DEFAULT_FILE_PATTERN = "eval-*.jsonl"
 
-    from typing import Any, List
-    async def _run_evaluation(**kwargs: Any) -> List[Any]:
+    from typing import Any
+
+    async def _run_evaluation(**kwargs: Any) -> list[Any]:
         return []
 
     def _print_results(results: object) -> None:

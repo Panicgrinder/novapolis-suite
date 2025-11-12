@@ -72,7 +72,7 @@ Modulstatus (2025-11-06)
 - Sim (Godot): Gelb. Option A gesetzt, Projektdatei kanonisch; Headless‑Lade‑Check offen.
 
 Nächstes Vorgehen (1–2 Tage)
- - [x] Korrektur: `scripts/run_checks_and_report.ps1` - STOP-Fall bei zu vielen Testdateien soll als Fehler/FAIL gemeldet werden (Statuszuordnung anpassen). (erledigt 2025-11-11 00:23, Commit abe6829)
+ - [x] Korrektur: Checks-Wrapper (damals PowerShell, jetzt `python scripts/run_checks_and_report.py`) - STOP-Fall bei zu vielen Testdateien soll als Fehler/FAIL gemeldet werden (Statuszuordnung anpassen). (erledigt 2025-11-11 00:23, Commit abe6829)
  - [ ] Optional nach Review: Cleanup‑Kandidaten (Phase 4) nur mit Freigabe angehen (`novapolis_agent/scripts/cleanup_phase4.ps1`).
  - [ ] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` auswerten; Inhalte in aktive Doku übernehmen oder Datei nach Freigabe entfernen.
 

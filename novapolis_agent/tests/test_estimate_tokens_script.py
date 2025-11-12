@@ -1,15 +1,14 @@
 from __future__ import annotations
 
 import os
-import json
 
 import pytest
 
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_estimate_tokens_is_text_and_count(tmp_path: "os.PathLike[str]") -> None:
-    from scripts.estimate_tokens import is_text_file, count_tokens
+def test_estimate_tokens_is_text_and_count(tmp_path: os.PathLike[str]) -> None:
+    from scripts.estimate_tokens import count_tokens, is_text_file
 
     # is_text_file
     assert is_text_file("a.py")
@@ -24,14 +23,17 @@ def test_estimate_tokens_is_text_and_count(tmp_path: "os.PathLike[str]") -> None
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_estimate_tokens_main_runs(tmp_path: "os.PathLike[str]") -> None:
-    import importlib, sys
+def test_estimate_tokens_main_runs(tmp_path: os.PathLike[str]) -> None:
+    import importlib
+
     mod = importlib.import_module("scripts.estimate_tokens")
     # Simulierter kleiner Baum
     root = os.path.join(tmp_path, "proj")
     os.makedirs(root, exist_ok=True)
-    with open(os.path.join(root, "a.py"), "w", encoding="utf-8") as f: f.write("print('hi')\n")
-    with open(os.path.join(root, "b.md"), "w", encoding="utf-8") as f: f.write("# doc\n")
+    with open(os.path.join(root, "a.py"), "w", encoding="utf-8") as f:
+        f.write("print('hi')\n")
+    with open(os.path.join(root, "b.md"), "w", encoding="utf-8") as f:
+        f.write("# doc\n")
     # Temporär root hijacken (os.path.dirname(os.path.dirname(__file__)) wird in main() verwendet)
     # Wir patchen __file__ indirekt, indem wir das Modul neu laden und sys.modules tricksen könnte komplex werden.
     # Stattdessen rufen wir count_tokens direkt – oder wir akzeptieren, dass main() auf das echte Repo zeigt.

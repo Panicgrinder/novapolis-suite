@@ -63,7 +63,9 @@ def test_append_done_adds_timezone_header(tmp_path: Path, monkeypatch: pytest.Mo
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_append_done_fallback_without_time_utils(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_append_done_fallback_without_time_utils(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     mod = _load_module()
     log_path = tmp_path / "docs" / "DONELOG.txt"
     log_path.parent.mkdir(parents=True)

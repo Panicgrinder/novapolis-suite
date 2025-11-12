@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import List
 
 import pytest
 
-from utils.rag import build_index, retrieve, save_index, load_index
+from utils.rag import build_index, load_index, retrieve, save_index
 
 
 @pytest.mark.unit
@@ -33,7 +32,7 @@ def test_retrieve_ranking_and_top_k(tmp_path: Path) -> None:
     # Top-K = 2 sollte beide Dokumente enthalten (alpha ist geteilt; beta ist spezifischer)
     hits2 = retrieve(idx, "alpha", top_k=2)
     assert len(hits2) == 2
-    sources2: List[str] = [h.get("source", "") for h in hits2]
+    sources2: list[str] = [h.get("source", "") for h in hits2]
     assert str(p1) in sources2 and str(p2) in sources2
 
 

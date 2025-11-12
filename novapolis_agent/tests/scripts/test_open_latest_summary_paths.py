@@ -1,15 +1,18 @@
 from __future__ import annotations
 
-import importlib
-from pathlib import Path
-import io
 import contextlib
+import importlib
+import io
+from pathlib import Path
+
 import pytest
 
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_open_latest_summary_error_when_missing(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_open_latest_summary_error_when_missing(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     mod = importlib.import_module("scripts.open_latest_summary")
     d = tmp_path / "eval" / "results" / "summaries"
     d.mkdir(parents=True)
@@ -17,6 +20,7 @@ def test_open_latest_summary_error_when_missing(monkeypatch: pytest.MonkeyPatch,
     with contextlib.redirect_stdout(buf):
         # simulate CLI
         import sys
+
         sys.argv = ["open_latest_summary.py", "--dir", str(d)]
         rc = mod.main()
     assert rc == 2
@@ -35,6 +39,7 @@ def test_open_latest_summary_happy_print(monkeypatch: pytest.MonkeyPatch, tmp_pa
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         import sys
+
         sys.argv = ["open_latest_summary.py", "--dir", str(d), "--print"]
         rc = mod.main()
     assert rc == 0

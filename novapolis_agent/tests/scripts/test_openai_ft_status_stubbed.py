@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import contextlib
 import importlib
 import io
-import contextlib
 import types
+
 import pytest
 
 
@@ -13,8 +14,10 @@ class _Ev:
         self.created_at = created_at
         self.level = level
         self.message = message
-    from typing import Dict, Any
-    def to_dict(self) -> Dict[str, Any]:
+
+    from typing import Any, Dict
+
+    def to_dict(self) -> dict[str, Any]:
         return {
             "id": self.id,
             "created_at": self.created_at,
@@ -24,13 +27,17 @@ class _Ev:
 
 
 class _Job:
-    def __init__(self, id: str, status: str, model: str = "gpt-4o", ftm: str | None = None) -> None:  # noqa: A002
+    def __init__(
+        self, id: str, status: str, model: str = "gpt-4o", ftm: str | None = None
+    ) -> None:  # noqa: A002
         self.id = id
         self.status = status
         self.model = model
         self.fine_tuned_model = ftm
-    from typing import Dict, Any
-    def to_dict(self) -> Dict[str, Any]:
+
+    from typing import Any, Dict
+
+    def to_dict(self) -> dict[str, Any]:
         return {
             "id": self.id,
             "status": self.status,
@@ -52,11 +59,11 @@ class _Client:
         )
 
     def _retrieve(self, job_id: str):  # noqa: ANN001
-        return self._jobs_seq[min(self._idx, len(self._jobs_seq)-1)]
+        return self._jobs_seq[min(self._idx, len(self._jobs_seq) - 1)]
 
     def _list_events(self, job_id: str, limit: int = 25):  # noqa: ANN001
-        evs = self._events_seq[min(self._idx, len(self._events_seq)-1)]
-        self._idx = min(self._idx + 1, len(self._jobs_seq)-1)
+        evs = self._events_seq[min(self._idx, len(self._events_seq) - 1)]
+        self._idx = min(self._idx + 1, len(self._jobs_seq) - 1)
         return types.SimpleNamespace(data=evs[:limit])
 
 
@@ -69,7 +76,7 @@ def test_openai_ft_status_no_follow(monkeypatch: pytest.MonkeyPatch) -> None:
     # Snapshot mode: one job + events
     client = _Client(
         jobs_seq=[_Job("ftjob-1", "running")],
-        events_seq=[[ _Ev("e1", 1, "info", "start"), _Ev("e2", 2, "warn", "warming up") ]],
+        events_seq=[[_Ev("e1", 1, "info", "start"), _Ev("e2", 2, "warn", "warming up")]],
     )
 
     # Patch OpenAI to return our client
@@ -78,6 +85,7 @@ def test_openai_ft_status_no_follow(monkeypatch: pytest.MonkeyPatch) -> None:
 
     buf = io.StringIO()
     import sys
+
     with contextlib.redirect_stdout(buf):
         # Simuliere CLI
         sys.argv = ["openai_ft_status.py", "ftjob-1", "--no-follow"]
@@ -96,8 +104,8 @@ def test_openai_ft_status_follow_terminates(monkeypatch: pytest.MonkeyPatch) -> 
     # Simuliere running -> succeeded mit zwei Polls
     jobs = [_Job("ftjob-2", "running"), _Job("ftjob-2", "succeeded", ftm="ft:gpt2")]  # noqa: PIE796
     events = [
-        [ _Ev("e1", 1, "info", "start") ],
-        [ _Ev("e2", 2, "info", "done") ],
+        [_Ev("e1", 1, "info", "start")],
+        [_Ev("e2", 2, "info", "done")],
     ]
     client = _Client(jobs, events)
 
@@ -107,6 +115,7 @@ def test_openai_ft_status_follow_terminates(monkeypatch: pytest.MonkeyPatch) -> 
 
     buf = io.StringIO()
     import sys
+
     with contextlib.redirect_stdout(buf):
         sys.argv = ["openai_ft_status.py", "ftjob-2", "--interval", "1"]
         mod.main()

@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import List
-
 import pytest
 
 
@@ -9,8 +7,9 @@ import pytest
 @pytest.mark.unit
 def test_get_term_variants_basic() -> None:
     import importlib
+
     run_eval = importlib.import_module("scripts.run_eval")
-    variants: List[str] = run_eval.get_term_variants("Planung")
+    variants: list[str] = run_eval.get_term_variants("Planung")
     vset = {v.lower() for v in variants}
     # Erwartet: Grundform, Stamm, -en Form, Pluralvarianten
     # Die Implementierung liefert die ursprüngliche Schreibweise, nicht zwingend lowercased
@@ -24,10 +23,11 @@ def test_get_term_variants_basic() -> None:
 @pytest.mark.unit
 def test_check_term_inclusion_with_variants_and_synonyms(monkeypatch: pytest.MonkeyPatch) -> None:
     import importlib
+
     run_eval = importlib.import_module("scripts.run_eval")
 
     # Synonyme deterministisch machen
-    def _fake_synonyms(term: str) -> List[str]:
+    def _fake_synonyms(term: str) -> list[str]:
         # Für "sicherheit" und "risiko" künstliche Synonyme liefern
         if term in ("sicherheit", "sicher"):
             return ["schutz", "absicherung"]

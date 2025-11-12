@@ -12,37 +12,52 @@ plus eine gemergte Gesamtdatei. Request-IDs werden pro Datei gesetzt.
 """
 from __future__ import annotations
 
-import os
-import sys
-import json
 import argparse
 import asyncio
+import json
+import os
+import sys
+from typing import TYPE_CHECKING, Any, Protocol, cast
+
 from utils.time_utils import now_compact, now_human
-from typing import List, Dict, Any, Tuple, Optional, TYPE_CHECKING, Protocol, cast
+
 """Cache/Key Utilities (robust gegen fehlende utils.eval_cache)."""
 # Cache für LLM-Summaries (EvalCache dynamisch geladen in _get_llm_cache)
 try:
     from utils.eval_cache import make_key
 except Exception:
-    def make_key(obj: Any) -> str:  # fallback
-        import hashlib, json as _json
-        return hashlib.sha256(_json.dumps(obj, sort_keys=True, default=str).encode("utf-8")).hexdigest()
-class _EvalCacheProto(Protocol):
-    def get(self, key: str) -> Optional[str]:
-        ...
-    def put(self, key: str, value: str) -> None:
-        ...
 
-_LLM_CACHE: Optional[_EvalCacheProto] = None
-def _get_llm_cache() -> Optional[_EvalCacheProto]:
+    def make_key(obj: Any) -> str:  # fallback
+        import hashlib
+        import json as _json
+
+        return hashlib.sha256(
+            _json.dumps(obj, sort_keys=True, default=str).encode("utf-8")
+        ).hexdigest()
+
+
+class _EvalCacheProto(Protocol):
+    def get(self, key: str) -> str | None: ...
+    def put(self, key: str, value: str) -> None: ...
+
+
+_LLM_CACHE: _EvalCacheProto | None = None
+
+
+def _get_llm_cache() -> _EvalCacheProto | None:
     global _LLM_CACHE
     if _LLM_CACHE is None:
         try:
             from utils.eval_cache import EvalCache as _EvalCacheCls
-            _LLM_CACHE = cast(_EvalCacheProto, _EvalCacheCls(os.path.join(PROJECT_ROOT, "eval", "results", "cache_llm.jsonl")))
+
+            _LLM_CACHE = cast(
+                _EvalCacheProto,
+                _EvalCacheCls(os.path.join(PROJECT_ROOT, "eval", "results", "cache_llm.jsonl")),
+            )
         except Exception:
             _LLM_CACHE = None
     return _LLM_CACHE
+
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
@@ -58,11 +73,20 @@ SCOPES = {
     "eval-datasets": os.path.join(PROJECT_ROOT, "eval", "datasets"),
 }
 
-EXCLUDE_DIR_NAMES = {"__pycache__", ".pytest_cache", ".git", ".venv", "venv", "node_modules", "results"}
+EXCLUDE_DIR_NAMES = {
+    "__pycache__",
+    ".pytest_cache",
+    ".git",
+    ".venv",
+    "venv",
+    "node_modules",
+    "results",
+}
 TEXT_EXTS = {".py", ".md", ".txt", ".json", ".jsonl"}
 
 # Import Settings und Heuristik-Fallback
 from app.core.settings import settings
+
 try:
     from scripts.map_reduce_summary import summarize_file as heuristic_summarize_file
 except Exception:
@@ -74,16 +98,16 @@ def is_text_file(path: str) -> bool:
     return ext.lower() in TEXT_EXTS
 
 
-def safe_read(path: str, max_bytes: Optional[int] = None) -> str:
+def safe_read(path: str, max_bytes: int | None = None) -> str:
     try:
-        with open(path, "r", encoding="utf-8", errors="ignore") as f:
+        with open(path, encoding="utf-8", errors="ignore") as f:
             return f.read() if max_bytes is None else f.read(max_bytes)
     except Exception:
         return ""
 
 
-def collect_files(scope_dir: str, max_files: int = 0) -> List[str]:
-    files: List[str] = []
+def collect_files(scope_dir: str, max_files: int = 0) -> list[str]:
+    files: list[str] = []
     for root, dirnames, filenames in os.walk(scope_dir):
         dirnames[:] = [d for d in dirnames if d not in EXCLUDE_DIR_NAMES]
         for fn in sorted(filenames):
@@ -96,10 +120,11 @@ def collect_files(scope_dir: str, max_files: int = 0) -> List[str]:
     return files
 
 
-def build_summary_prompt(rel_path: str, content: str) -> List[Dict[str, str]]:
+def build_summary_prompt(rel_path: str, content: str) -> list[dict[str, str]]:
     system = (
         "Du bist ein präziser Code- und Doku-Summarizer. Antworte kurz, strukturiert, in Markdown. "
-        "Liste wichtige Komponenten/APIs, Abhängigkeiten, Konfig-Punkte, Risiken und TODOs.")
+        "Liste wichtige Komponenten/APIs, Abhängigkeiten, Konfig-Punkte, Risiken und TODOs."
+    )
     user = (
         f"Erstelle eine kompakte Zusammenfassung dieser Datei: {rel_path}\n\n"
         "Formatvorgabe:\n"
@@ -108,7 +133,8 @@ def build_summary_prompt(rel_path: str, content: str) -> List[Dict[str, str]]:
         "- Konfiguration/Parameter\n"
         "- Risiken/Edge-Cases\n"
         "- TODO/Follow-ups (falls erkennbar)\n\n"
-        "Dateiinhalt (gekürzt):\n" + content)
+        "Dateiinhalt (gekürzt):\n" + content
+    )
     return [
         {"role": "system", "content": system},
         {"role": "user", "content": user},
@@ -120,7 +146,7 @@ if TYPE_CHECKING:
 
 
 async def llm_summarize_file(
-    client: "httpx.AsyncClient",
+    client: httpx.AsyncClient,
     api_url: str,
     path: str,
     run_id: str,
@@ -130,11 +156,11 @@ async def llm_summarize_file(
 ) -> str:
     rel = os.path.relpath(path, PROJECT_ROOT)
     # begrenze Inputgröße (große Dateien werden gekürzt)
-    content = safe_read(path, max_bytes=256*1024)
+    content = safe_read(path, max_bytes=256 * 1024)
     if len(content) > max_chars:
         content = content[:max_chars] + "\n... (gekürzt)"
     messages = build_summary_prompt(rel, content)
-    payload: Dict[str, Any] = {
+    payload: dict[str, Any] = {
         "messages": messages,
         # eigenes Systemprompt ist gesetzt → kein eval/unrestricted nötig
         "options": {
@@ -145,8 +171,10 @@ async def llm_summarize_file(
     # Cache-Hit prüfen
     cache = _get_llm_cache()
     if cache is not None:
-        cache_key = make_key({"rel": rel, "api": api_url, "options": payload["options"], "messages": messages})
-        cached: Optional[str] = cache.get(cache_key)
+        cache_key = make_key(
+            {"rel": rel, "api": api_url, "options": payload["options"], "messages": messages}
+        )
+        cached: str | None = cache.get(cache_key)
         if isinstance(cached, str) and cached:
             return cached
     headers = {"Content-Type": "application/json", settings.REQUEST_ID_HEADER: f"{run_id}-{rel}"}
@@ -155,16 +183,19 @@ async def llm_summarize_file(
     data_any = resp.json()
     # sichere Typisierung
     from typing import cast as _cast
-    data: Dict[str, Any]
+
+    data: dict[str, Any]
     if isinstance(data_any, dict):
-        data = _cast(Dict[str, Any], data_any)
+        data = _cast(dict[str, Any], data_any)
     else:
         data = {}
     try:
         summary = data.get("content") or data.get("message", {}).get("content") or ""
         # Cache schreiben
         if cache is not None and summary:
-            cache_key2 = make_key({"rel": rel, "api": api_url, "options": payload["options"], "messages": messages})
+            cache_key2 = make_key(
+                {"rel": rel, "api": api_url, "options": payload["options"], "messages": messages}
+            )
             cache.put(cache_key2, summary)
         return summary
     except Exception:
@@ -184,18 +215,20 @@ async def process_scope(
     num_predict: int,
     temperature: float,
     concurrency: int,
-) -> List[str]:
+) -> list[str]:
     import httpx
+
     files = collect_files(scope_dir, max_files=max_files)
     if not files:
         return []
 
-    summaries: List[str] = []
+    summaries: list[str] = []
 
     if use_llm:
         # Client vorbereiten (ASGI/HTTP)
         if asgi:
             from app.main import app as fastapi_app
+
             transport = httpx.ASGITransport(app=fastapi_app)
             client = httpx.AsyncClient(transport=transport, base_url="http://asgi", timeout=60.0)
             url = "/chat"
@@ -209,7 +242,9 @@ async def process_scope(
             nonlocal summaries
             async with sem:
                 try:
-                    s: str = await llm_summarize_file(client, url, p, run_id, max_chars, num_predict, temperature)
+                    s: str = await llm_summarize_file(
+                        client, url, p, run_id, max_chars, num_predict, temperature
+                    )
                 except Exception as e:
                     # Fallback auf Heuristik
                     if heuristic_summarize_file is not None:
@@ -239,7 +274,7 @@ async def process_scope(
     return summaries
 
 
-def write_md(out_path: str, title: str, sections: List[Tuple[str, List[str]]]) -> None:
+def write_md(out_path: str, title: str, sections: list[tuple[str, list[str]]]) -> None:
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         # YAML frontmatter required by project SSOT (stand, update, checks)
@@ -249,8 +284,8 @@ def write_md(out_path: str, title: str, sections: List[Tuple[str, List[str]]]) -
             ts = ""
         f.write("---\n")
         f.write(f"stand: {ts}\n")
-        f.write(f"update: Generated by map_reduce_summary_llm.py\n")
-        f.write(f"checks: PASS\n")
+        f.write("update: Generated by map_reduce_summary_llm.py\n")
+        f.write("checks: PASS\n")
         f.write("---\n\n")
 
         # Use Setext-style headings for H1 and H2 (MD003 project rule)
@@ -267,10 +302,12 @@ def write_md(out_path: str, title: str, sections: List[Tuple[str, List[str]]]) -
                 f.write("\n\n")
 
 
-async def amain(argv: Optional[List[str]] = None) -> int:
+async def amain(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
     # --llm-scopes darf optional ohne Wert übergeben werden (wird dann als leer interpretiert)
-    ap.add_argument("--llm-scopes", type=str, nargs="?", const="", default="app,scripts,utils,tests,docs")
+    ap.add_argument(
+        "--llm-scopes", type=str, nargs="?", const="", default="app,scripts,utils,tests,docs"
+    )
     ap.add_argument("--heuristic-scopes", type=str, default="eval-datasets")
     ap.add_argument("--asgi", action="store_true", help="ASGI In-Process statt HTTP")
     ap.add_argument("--out-dir", type=str, default=DEFAULT_OUT_DIR)
@@ -288,8 +325,8 @@ async def amain(argv: Optional[List[str]] = None) -> int:
     llm_scopes = [s.strip() for s in (args.llm_scopes or "").split(",") if s.strip()]
     h_scopes = [s.strip() for s in args.heuristic_scopes.split(",") if s.strip()]
 
-    produced: List[str] = []
-    merged_sections: List[Tuple[str, List[str]]] = []
+    produced: list[str] = []
+    merged_sections: list[tuple[str, list[str]]] = []
 
     for scope in llm_scopes + h_scopes:
         scope_dir = SCOPES.get(scope)
@@ -311,23 +348,38 @@ async def amain(argv: Optional[List[str]] = None) -> int:
         )
         if not summaries:
             continue
-        out_path = os.path.join(args.out_dir, f"summary_{timestamp}_{scope}_llm.md" if use_llm else f"summary_{timestamp}_{scope}_heuristic.md")
+        out_path = os.path.join(
+            args.out_dir,
+            (
+                f"summary_{timestamp}_{scope}_llm.md"
+                if use_llm
+                else f"summary_{timestamp}_{scope}_heuristic.md"
+            ),
+        )
         title = f"Workspace Zusammenfassung – {scope} ({'LLM' if use_llm else 'Heuristik'})"
         write_md(out_path, title, [("Dateien", summaries)])
         produced.append(out_path)
-        merged_sections.append((f"{scope} ({'LLM' if use_llm else 'Heuristik'})", summaries[: min(50, len(summaries))]))
+        merged_sections.append(
+            (f"{scope} ({'LLM' if use_llm else 'Heuristik'})", summaries[: min(50, len(summaries))])
+        )
 
     if produced:
         merged_path = os.path.join(args.out_dir, f"summary_ALL_{timestamp}_MIXED.md")
         write_md(merged_path, "Workspace Zusammenfassung – Gesamt (LLM+Heuristik)", merged_sections)
-        print(json.dumps({
-            "timestamp": timestamp,
-            "run_id": run_id,
-            "asgi": args.asgi,
-            "out_dir": args.out_dir,
-            "produced": produced,
-            "merged": merged_path,
-        }, ensure_ascii=False, indent=2))
+        print(
+            json.dumps(
+                {
+                    "timestamp": timestamp,
+                    "run_id": run_id,
+                    "asgi": args.asgi,
+                    "out_dir": args.out_dir,
+                    "produced": produced,
+                    "merged": merged_path,
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
         return 0
     else:
         print(json.dumps({"error": "Keine Scopes verarbeitet"}, ensure_ascii=False))

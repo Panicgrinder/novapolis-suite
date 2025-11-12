@@ -1,6 +1,7 @@
 import os
-import tempfile
 import sys
+import tempfile
+
 from scripts import open_latest_summary as ols
 
 

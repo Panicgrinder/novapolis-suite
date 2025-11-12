@@ -1,14 +1,16 @@
 import json
+from collections.abc import Iterable
 from pathlib import Path
-from typing import List, Optional, Iterable, Dict
+
 
 def _read_text(path: str) -> str:
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         return f.read()
+
 
 def _read_json(path: str) -> str:
     data = None
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         data = json.load(f)
     # Normalisiere in eine kompakte, menschenlesbare Textform
     if isinstance(data, dict):
@@ -18,9 +20,10 @@ def _read_json(path: str) -> str:
         return json.dumps(data, ensure_ascii=False, indent=2)
     return str(data)
 
+
 def _read_jsonl(path: str) -> str:
-    lines: List[str] = []
-    with open(path, "r", encoding="utf-8") as f:
+    lines: list[str] = []
+    with open(path, encoding="utf-8") as f:
         for line in f:
             s = line.strip()
             if not s:
@@ -33,10 +36,11 @@ def _read_jsonl(path: str) -> str:
                 lines.append(s)
     return "\n".join(lines)
 
+
 ALLOWED_EXTS = {".md", ".txt", ".json", ".jsonl", ".ref"}
 
 
-def _iter_paths(paths: List[str]) -> Iterable[Path]:
+def _iter_paths(paths: list[str]) -> Iterable[Path]:
     """Erweitert gemischte Eingaben (Dateien/Verzeichnisse) in eine geordnete Dateiliste.
 
     - Unterstützt Verzeichnisse: nimmt Dateien mit ALLOWED_EXTS (nicht rekursiv) auf
@@ -55,14 +59,15 @@ def _iter_paths(paths: List[str]) -> Iterable[Path]:
                 pp / "order.txt",
                 pp / ".order",
             ]
-            order: Optional[List[str]] = None
+            order: list[str] | None = None
             for of in order_files:
                 if of.exists() and of.is_file():
                     try:
                         lines = of.read_text(encoding="utf-8").splitlines()
                         # Filtern: Kommentare/Leerzeilen
                         order = [
-                            ln.strip() for ln in lines
+                            ln.strip()
+                            for ln in lines
                             if ln.strip() and not ln.strip().startswith("#")
                         ] or None
                     except Exception:
@@ -70,7 +75,7 @@ def _iter_paths(paths: List[str]) -> Iterable[Path]:
                     break
 
             # Kandidaten sammeln (erste Ebene, erlaubte Endungen)
-            candidates: Dict[str, Path] = {}
+            candidates: dict[str, Path] = {}
             for child in pp.iterdir():
                 if child.is_file() and child.suffix.lower() in ALLOWED_EXTS:
                     name_lower = child.name.lower()
@@ -81,7 +86,7 @@ def _iter_paths(paths: List[str]) -> Iterable[Path]:
                         continue
                     candidates[name_lower] = child
 
-            emitted: Dict[str, bool] = {}
+            emitted: dict[str, bool] = {}
             if order:
                 # Zuerst laut ORDER-Datei (case-insensitive Matching auf Dateinamen)
                 for name in order:
@@ -106,7 +111,7 @@ def _normalize_text(txt: str) -> str:
     """
     # Vereinheitliche Zeilenumbrüche (bewahrt CRLF beim Lesen durch Python, aber normalisiert intern)
     s = txt.replace("\r\n", "\n").replace("\r", "\n")
-    out_chars: List[str] = []
+    out_chars: list[str] = []
     nl_count = 0
     for ch in s:
         if ch == "\n":
@@ -121,7 +126,7 @@ def _normalize_text(txt: str) -> str:
     return res.strip()
 
 
-def _resolve_ref(path: Path) -> Optional[Path]:
+def _resolve_ref(path: Path) -> Path | None:
     """Liest eine .ref Datei: erste nicht-leere Zeile ist ein (relativer oder absoluter) Dateipfad."""
     try:
         content = path.read_text(encoding="utf-8")
@@ -139,7 +144,7 @@ def _resolve_ref(path: Path) -> Optional[Path]:
     return None
 
 
-def load_context_notes(paths: List[str], max_chars: int = 4000) -> Optional[str]:
+def load_context_notes(paths: list[str], max_chars: int = 4000) -> str | None:
     """
     Lädt lokale Kontext-Notizen aus Dateien und/oder Verzeichnissen.
     Unterstützte Formate: .md/.txt (Text), .json, .jsonl; zusätzlich .ref als Verweisdatei.
@@ -150,7 +155,7 @@ def load_context_notes(paths: List[str], max_chars: int = 4000) -> Optional[str]
     - .ref-Datei: enthält Pfad zu einer Zieldatei (erste nicht-leere Zeile), die geladen wird.
     - Rückgabe: zusammengeführter Text (mit \n\n separiert), auf max_chars gekürzt.
     """
-    chunks: List[str] = []
+    chunks: list[str] = []
     for path_obj in _iter_paths(paths):
         try:
             lower = path_obj.suffix.lower()

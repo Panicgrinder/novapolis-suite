@@ -1,10 +1,10 @@
 from __future__ import annotations
 
+import importlib
 import json
 import os
 from pathlib import Path
 from types import SimpleNamespace
-import importlib
 
 import pytest
 
@@ -15,7 +15,17 @@ def test_openai_finetune_validate_only(tmp_path: Path, monkeypatch: pytest.Monke
     # Minimal openai_chat JSONL (train/val gleich)
     def _mk(path: Path) -> None:
         with open(path, "w", encoding="utf-8") as f:
-            f.write(json.dumps({"messages": [{"role": "user", "content": "hi"}, {"role": "assistant", "content": "ok"}]}) + "\n")
+            f.write(
+                json.dumps(
+                    {
+                        "messages": [
+                            {"role": "user", "content": "hi"},
+                            {"role": "assistant", "content": "ok"},
+                        ]
+                    }
+                )
+                + "\n"
+            )
 
     train = tmp_path / "t.jsonl"
     val = tmp_path / "v.jsonl"
@@ -26,6 +36,7 @@ def test_openai_finetune_validate_only(tmp_path: Path, monkeypatch: pytest.Monke
 
     # CLI validate-only Pfad: ruft validate_openai_chat_jsonl und druckt VALIDATION_OK
     import sys
+
     argv_bak = sys.argv
     try:
         sys.argv = ["openai_finetune.py", os.fspath(train), os.fspath(val), "--validate-only"]
@@ -42,7 +53,9 @@ def test_openai_finetune_validate_only(tmp_path: Path, monkeypatch: pytest.Monke
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_openai_finetune_start_with_mock_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_openai_finetune_start_with_mock_client(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # JSONL vorbereiten
     path = tmp_path / "d.jsonl"
     with open(path, "w", encoding="utf-8") as f:

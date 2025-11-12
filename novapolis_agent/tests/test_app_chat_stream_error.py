@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -11,11 +12,15 @@ def test_chat_stream_internal_error_headers(monkeypatch: pytest.MonkeyPatch) -> 
     app = app_mod.app
 
     # Patch the imported symbol in app.main to return an SSE error generator
-    from typing import Any, AsyncIterator
+    from collections.abc import AsyncIterator
+    from typing import Any
+
     async def _sse_error(*_a: Any, **_k: Any) -> AsyncIterator[bytes]:
         async def _agen() -> AsyncIterator[bytes]:
             yield b"event: error\ndata: boom\n\n"
+
         return _agen()
+
     monkeypatch.setattr(app_mod, "stream_chat_request", _sse_error)
 
     client = TestClient(app)

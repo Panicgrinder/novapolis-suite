@@ -62,7 +62,9 @@ def test_open_file_windows_fallback(monkeypatch: pytest.MonkeyPatch, tmp_path: P
     monkeypatch.setattr(module.platform, "system", lambda: "Windows")
     calls: list[str] = []
     monkeypatch.setattr(module.os, "startfile", lambda path: calls.append(path), raising=False)
-    monkeypatch.setattr(module.os, "system", lambda cmd: (_ for _ in ()).throw(RuntimeError("should not run")))
+    monkeypatch.setattr(
+        module.os, "system", lambda cmd: (_ for _ in ()).throw(RuntimeError("should not run"))
+    )
 
     module.open_file(file_path)
     assert calls == [str(file_path)]
@@ -87,7 +89,9 @@ def test_open_file_linux_fallback(monkeypatch: pytest.MonkeyPatch, tmp_path: Pat
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_main_prints_path_when_requested(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_main_prints_path_when_requested(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     module = _load_module()
     file_path = tmp_path / "summary_ALL_20240101_MIXED.md"
     file_path.write_text("data", encoding="utf-8")
@@ -123,7 +127,9 @@ def test_main_opens_file_when_available(monkeypatch: pytest.MonkeyPatch, tmp_pat
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_main_reports_missing_directory(monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_main_reports_missing_directory(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     module = _load_module()
     empty_dir = tmp_path / "empty"
     empty_dir.mkdir()

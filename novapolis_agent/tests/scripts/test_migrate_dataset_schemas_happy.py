@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-import importlib
-from pathlib import Path
-import json
-import io
 import contextlib
+import importlib
+import io
+import json
+from pathlib import Path
+
 import pytest
 
 
@@ -21,7 +22,7 @@ def test_migrate_demo_dataset_happy(monkeypatch: pytest.MonkeyPatch, tmp_path: P
     # Mische JSON-Array mit prompt und must_include
     entries: list[dict[str, object]] = [
         {"id": "eval-1", "prompt": "Hi", "must_include": ["x"]},
-        {"id": "eval-2", "messages": [{"role":"user","content":"Hey"}], "must_include": ["y"]},
+        {"id": "eval-2", "messages": [{"role": "user", "content": "Hey"}], "must_include": ["y"]},
     ]
     src.write_text(json.dumps(entries, ensure_ascii=False), encoding="utf-8")
 

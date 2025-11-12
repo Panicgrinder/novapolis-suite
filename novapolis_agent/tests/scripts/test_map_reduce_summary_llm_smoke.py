@@ -1,6 +1,7 @@
-import os
 import asyncio
+import os
 import tempfile
+
 from scripts import map_reduce_summary_llm as mrl
 
 
@@ -17,16 +18,29 @@ def test_map_reduce_summary_llm_heuristic_only():
         old_scopes = dict(mrl.SCOPES)
         try:
             mrl.SCOPES = {**mrl.SCOPES, "eval-datasets": ds_dir}
-            rc = asyncio.run(mrl.amain([
-                "--llm-scopes", "",
-                "--heuristic-scopes", "eval-datasets",
-                "--out-dir", out_dir,
-                "--max-files", "1",
-                "--max-chars", "200"
-            ]))
+            rc = asyncio.run(
+                mrl.amain(
+                    [
+                        "--llm-scopes",
+                        "",
+                        "--heuristic-scopes",
+                        "eval-datasets",
+                        "--out-dir",
+                        out_dir,
+                        "--max-files",
+                        "1",
+                        "--max-chars",
+                        "200",
+                    ]
+                )
+            )
         finally:
             mrl.SCOPES = old_scopes
 
         assert rc == 0
-        files = [fn for fn in os.listdir(out_dir) if fn.startswith("summary_ALL_") and fn.endswith("_MIXED.md")]
+        files = [
+            fn
+            for fn in os.listdir(out_dir)
+            if fn.startswith("summary_ALL_") and fn.endswith("_MIXED.md")
+        ]
         assert files, "Erwartete gemergte Summary-Datei fehlt"

@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-import asyncio
 from pathlib import Path
 
 import pytest
-
 from app.core import memory
 
 
@@ -54,7 +52,9 @@ async def test_jsonl_store_persists_and_filters(tmp_path: Path) -> None:
 
 
 @pytest.mark.asyncio
-async def test_compose_with_memory_variants(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+async def test_compose_with_memory_variants(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     monkeypatch.setattr(memory, "_STORE", None, raising=False)
     monkeypatch.setattr(memory.settings, "MEMORY_ENABLED", True, raising=False)
     monkeypatch.setattr(memory.settings, "MEMORY_STORE", "jsonl", raising=False)
@@ -79,7 +79,9 @@ async def test_compose_with_memory_variants(monkeypatch: pytest.MonkeyPatch, tmp
 
 
 class _FailingStore(memory.MemoryStore):
-    async def append(self, session_id: str, role: str, content: str) -> None:  # pragma: no cover - not used
+    async def append(
+        self, session_id: str, role: str, content: str
+    ) -> None:  # pragma: no cover - not used
         raise RuntimeError
 
     async def get_window(self, session_id: str, max_chars: int, max_turns: int):

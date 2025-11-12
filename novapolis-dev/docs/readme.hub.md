@@ -55,8 +55,8 @@ Empfohlene Prüfläufe (manuell):
 
 ```powershell
 # Validierungen (Wrapper bevorzugen; Beispiele)
-# Vollcheck Wrapper (Lint/Typen/Tests/Coverage):
-pwsh -File ../../scripts/run_checks_and_report.ps1
+# Vollcheck Runner (Lint/Typen/Tests/Coverage):
+python ../../scripts/run_checks_and_report.py
 # Nur Coverage (mit Fail-Under-Gate):
 pwsh -File ../../scripts/run_pytest_coverage.ps1
 # Link-Scanner Dry-Run / Reports:
@@ -96,11 +96,11 @@ Metadata Layer
 
 ```json
 {
-	"chapter": 3,
-	"characters": ["ava", "bram"],
-	"location": "flussufer",
-	"tags": ["SCENE", "quiet"],
-	"source": "chat-export-2025-11-10.jsonl"
+  "chapter": 3,
+  "characters": ["ava", "bram"],
+  "location": "flussufer",
+  "tags": ["SCENE", "quiet"],
+  "source": "chat-export-2025-11-10.jsonl"
 }
 ```
 
@@ -126,6 +126,7 @@ Ausführliche Unterordner-READMEs wurden verkürzt (Stub) und zeigen auf dieses 
 
 Stub-Mapping (Phase 1)
 ----------------------
+
 | Pfad | Abschnitt | Typ |
 | ---- | --------- | ---- |
 | novapolis-rp/coding/tools/validators/README.md | Validator Tools | stub |
@@ -138,6 +139,7 @@ Stub-Mapping (Phase 1)
 | novapolis-rp/database-rp/06-scenes/README.md | Scenes Guidelines | stub |
 | novapolis_agent/eval/config/context.notes/README.md | Metadata Layer | stub |
 | novapolis-dev/integrations/mcp-openai-eval/README.md | Integrations (Future) | stub |
+
 | .tmp-results/README.md | Temporäre Bereiche | stub |
 | .tmp-datasets/README.md | Temporäre Bereiche | stub |
 

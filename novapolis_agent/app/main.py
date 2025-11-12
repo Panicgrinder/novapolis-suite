@@ -5,7 +5,10 @@ import logging
 import os as _os
 import platform as _platform
 import time
-from typing import Any, Dict, Mapping as _Mapping, Union as _Union, cast as _cast
+from collections.abc import Mapping as _Mapping
+from typing import Any
+from typing import Union as _Union
+from typing import cast as _cast
 
 import fastapi as _fastapi
 from fastapi import FastAPI, HTTPException, Request, Response, status
@@ -29,8 +32,8 @@ app = FastAPI(
 
 # Optional: Einfache In-Memory Rate-Limit Middleware (pro IP)
 if settings.RATE_LIMIT_ENABLED:
-    from collections import defaultdict, deque
     import threading
+    from collections import defaultdict, deque
     from typing import Deque
 
     from starlette.middleware.base import BaseHTTPMiddleware
@@ -42,7 +45,7 @@ if settings.RATE_LIMIT_ENABLED:
             self.window = float(settings.RATE_LIMIT_WINDOW_SEC)
             self.capacity = max(1, int(settings.RATE_LIMIT_REQUESTS_PER_MINUTE))
             self.burst = max(0, int(settings.RATE_LIMIT_BURST))
-            self.buckets: Dict[str, Deque[float]] = defaultdict(deque)
+            self.buckets: dict[str, Deque[float]] = defaultdict(deque)
 
         async def dispatch(self, request: Request, call_next):
             if request.url.path in set(settings.RATE_LIMIT_EXEMPT_PATHS):
@@ -101,13 +104,13 @@ if settings.BACKEND_CORS_ORIGINS:
 
 
 @app.get("/health", status_code=status.HTTP_200_OK)
-async def health_check() -> Dict[str, Any]:
+async def health_check() -> dict[str, Any]:
     """Gesundheitscheck für den API-Server."""
     return {"status": "ok", "time": time.time()}
 
 
 @app.get("/version", status_code=status.HTTP_200_OK)
-async def version_info() -> Dict[str, Any]:
+async def version_info() -> dict[str, Any]:
     """Gibt Version und Laufzeitinformationen der Anwendung zurück."""
     return {
         "app_name": settings.PROJECT_NAME,
@@ -172,7 +175,7 @@ async def request_context_mw(request: Request, call_next):
             logger.exception(f"Fehler bei {request.url.path} rid={rid}: {exc}")
         if isinstance(exc, HTTPException):
             raw_headers = getattr(exc, "headers", None)
-            headers: Dict[str, str] = {settings.REQUEST_ID_HEADER: str(rid)}
+            headers: dict[str, str] = {settings.REQUEST_ID_HEADER: str(rid)}
             try:
                 if isinstance(raw_headers, dict):
                     m: _Mapping[str, object] = _cast(_Mapping[str, object], raw_headers)
@@ -206,9 +209,9 @@ def _get_content_from_message(m: _Union[ChatMessage, _Mapping[str, str]]) -> str
 async def chat(request: ChatRequest, req: Request):
     try:
         _raw = await req.json()
-        request_data: Dict[str, Any] = {}
+        request_data: dict[str, Any] = {}
         if isinstance(_raw, dict):
-            request_data = _cast(Dict[str, Any], _raw)
+            request_data = _cast(dict[str, Any], _raw)
         eval_mode = bool(request_data.get("eval_mode", False))
         unrestricted_mode = bool(request_data.get("unrestricted_mode", False))
 

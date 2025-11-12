@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+
 import pytest
 
 BASE = pathlib.Path(__file__).resolve().parents[2]

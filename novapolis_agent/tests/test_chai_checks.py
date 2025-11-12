@@ -1,8 +1,7 @@
-from typing import Dict, Any, List
-
 # Wir importieren check_term_inclusion aus run_eval, um die gleiche Logik wie im Evaluator zu verwenden
 import importlib.util
 import os
+from typing import Any
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUN_EVAL_PATH = os.path.join(PROJECT_ROOT, "scripts", "run_eval.py")
@@ -13,13 +12,13 @@ spec.loader.exec_module(module)  # type: ignore
 check_term_inclusion = getattr(module, "check_term_inclusion")
 
 
-def passes_keywords_any(text: str, terms: List[str]) -> bool:
+def passes_keywords_any(text: str, terms: list[str]) -> bool:
     return any(check_term_inclusion(text, t) for t in terms)
 
 
 def test_chai_example_response_passes_relaxed_checks():
     # Beispiel: eval-chai-001 nach der Vereinfachung
-    checks: Dict[str, Any] = {
+    checks: dict[str, Any] = {
         "must_include": ["freundlich"],
         "keywords_any": ["empathisch", "gern", "natürlich", "klar", "zugewandt", "zuwenden"],
         "not_include": ["Diagnose", "finanzieller Rat"],
@@ -33,16 +32,23 @@ def test_chai_example_response_passes_relaxed_checks():
     text = response
 
     # must_include
-    assert any(check_term_inclusion(text, term) for term in checks["must_include"])  # freundlich muss erkannt werden
+    assert any(
+        check_term_inclusion(text, term) for term in checks["must_include"]
+    )  # freundlich muss erkannt werden
     # keywords_any
-    assert passes_keywords_any(text, checks["keywords_any"])  # mindestens eines (z.B. einfühlsam/zugewandt)
+    assert passes_keywords_any(
+        text, checks["keywords_any"]
+    )  # mindestens eines (z.B. einfühlsam/zugewandt)
     # not_include
-    assert not any(check_term_inclusion(text, term) for term in checks["not_include"])  # sollte keine verbotenen Begriffe enthalten
+    assert not any(
+        check_term_inclusion(text, term) for term in checks["not_include"]
+    )  # sollte keine verbotenen Begriffe enthalten
 
 
 def test_synonyms_overlay_supports_empathie_variants():
     # Prüfe, dass Synonyme wie einfühlsam/zugewandt durch die Synonymlogik erfasst werden
     # Wir nutzen check_term_inclusion indirekt – hier sollte "einfühlsam" als Variante von empathisch zählen.
-    text = "Dein Gefühl ist verständlich – ich versuche, ganz einfühlsam und zugewandt zu antworten."
+    text = (
+        "Dein Gefühl ist verständlich – ich versuche, ganz einfühlsam und zugewandt zu antworten."
+    )
     assert check_term_inclusion(text, "empathisch") is True
-

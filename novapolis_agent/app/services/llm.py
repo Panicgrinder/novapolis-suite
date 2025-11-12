@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import httpx
 
@@ -9,17 +9,19 @@ from ..api.models import ChatMessage, ChatResponse
 from ..core.settings import settings
 
 
-async def generate_reply(messages: List[ChatMessage]) -> ChatResponse:
+async def generate_reply(messages: list[ChatMessage]) -> ChatResponse:
     url = f"{settings.OLLAMA_HOST}/api/chat"
-    ollama_msgs: List[Dict[str, str]] = [{"role": msg.role, "content": msg.content} for msg in messages]
+    ollama_msgs: list[dict[str, str]] = [
+        {"role": msg.role, "content": msg.content} for msg in messages
+    ]
 
-    payload: Dict[str, Any] = {
+    payload: dict[str, Any] = {
         "model": settings.MODEL_NAME,
         "messages": ollama_msgs,
         "stream": False,
     }
 
-    headers: Dict[str, str] = {"Content-Type": "application/json"}
+    headers: dict[str, str] = {"Content-Type": "application/json"}
 
     try:
         async with httpx.AsyncClient(timeout=httpx.Timeout(30.0)) as client:
@@ -34,9 +36,7 @@ async def generate_reply(messages: List[ChatMessage]) -> ChatResponse:
         error_msg = f"LLM HTTP-Fehler {exc.response.status_code}: Bitte Ollama prüfen."
         return ChatResponse(content=error_msg)
     except httpx.RequestError:
-        error_msg = (
-            f"Die Verbindung zum LLM ist fehlgeschlagen. Prüfe, ob Ollama läuft und {settings.MODEL_NAME} gepullt ist."
-        )
+        error_msg = f"Die Verbindung zum LLM ist fehlgeschlagen. Prüfe, ob Ollama läuft und {settings.MODEL_NAME} gepullt ist."
         return ChatResponse(content=error_msg)
 
 
@@ -44,8 +44,8 @@ def system_message(text: str) -> ChatMessage:
     return ChatMessage(role="system", content=text)
 
 
-def get_llm_options() -> Dict[str, Any]:
-    options: Dict[str, Any] = {}
+def get_llm_options() -> dict[str, Any]:
+    options: dict[str, Any] = {}
     if "LLM_NUM_CTX" in os.environ:
         try:
             options["num_ctx"] = int(os.environ["LLM_NUM_CTX"])
@@ -59,9 +59,9 @@ def get_llm_options() -> Dict[str, Any]:
     return options
 
 
-async def generate_completion(prompt: str, options: Optional[Dict[str, Any]] = None) -> str:
+async def generate_completion(prompt: str, options: dict[str, Any] | None = None) -> str:
     url = f"{settings.OLLAMA_HOST}/api/generate"
-    payload: Dict[str, Any] = {
+    payload: dict[str, Any] = {
         "model": settings.MODEL_NAME,
         "prompt": prompt,
         "stream": False,
@@ -71,7 +71,7 @@ async def generate_completion(prompt: str, options: Optional[Dict[str, Any]] = N
 
     try:
         async with httpx.AsyncClient() as client:
-            headers: Dict[str, str] = {"Content-Type": "application/json"}
+            headers: dict[str, str] = {"Content-Type": "application/json"}
             response = await client.post(url, json=payload, headers=headers)
             response.raise_for_status()
             data = response.json()

@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from .models import StateApplyRequest, StateResponse
 
 router = APIRouter(prefix="/state")

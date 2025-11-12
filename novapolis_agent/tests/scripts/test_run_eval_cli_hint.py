@@ -1,10 +1,6 @@
-import json
-import asyncio
-from typing import Any, Dict
-
 import pytest
 
-from scripts.run_eval import run_evaluation, EvaluationItem
+from scripts.run_eval import EvaluationItem, run_evaluation
 
 
 @pytest.mark.asyncio
@@ -29,6 +25,7 @@ async def test_cli_like_asgi_smoke_with_hint(monkeypatch):
 
     # monkeypatch load_evaluation_items to return our single fixture
     from scripts import run_eval as _runner
+
     monkeypatch.setattr(_runner, "load_evaluation_items", _fake_loader)
 
     # asgi=True verwendet httpx.ASGITransport gegen app.main:app

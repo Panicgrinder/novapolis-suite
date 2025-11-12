@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import json
 import re
-from typing import Any, Dict, Iterable, List, Mapping, Optional, cast
+from collections.abc import Iterable, Mapping
+from typing import Any, cast
 
 CONTENT_FILTERING_ENABLED = False
 
@@ -59,14 +60,21 @@ except Exception:  # pragma: no cover - fail-open für Importzyklen
 
 
 class PreResult:
-    def __init__(self, action: str = "allow", messages: Optional[List[Dict[str, str]]] = None, reason: Optional[str] = None) -> None:
+    def __init__(
+        self,
+        action: str = "allow",
+        messages: list[dict[str, str]] | None = None,
+        reason: str | None = None,
+    ) -> None:
         self.action = action
         self.messages = messages
         self.reason = reason
 
 
 class PostResult:
-    def __init__(self, action: str = "allow", text: Optional[str] = None, reason: Optional[str] = None) -> None:
+    def __init__(
+        self, action: str = "allow", text: str | None = None, reason: str | None = None
+    ) -> None:
         self.action = action
         self.text = text
         self.reason = reason
@@ -75,7 +83,7 @@ class PostResult:
 _SENTENCE_SPLIT_RE = re.compile(r"(?<=[\.\?\!])\s+")
 
 
-def split_sentences(text: str) -> List[str]:
+def split_sentences(text: str) -> list[str]:
     try:
         return [part.strip() for part in _SENTENCE_SPLIT_RE.split(text) if part and part.strip()]
     except Exception:
@@ -96,14 +104,27 @@ def limit_sentences(text: str, max_sentences: int) -> str:
     return " ".join(split_sentences(text)[:max_sentences])
 
 
-_ROLEPLAY_MARKERS = ("ich:", "du:", "wir:", "narrator:", "erzähler:", "spieler:", "gm:", "*", "[", "]")
+_ROLEPLAY_MARKERS = (
+    "ich:",
+    "du:",
+    "wir:",
+    "narrator:",
+    "erzähler:",
+    "spieler:",
+    "gm:",
+    "*",
+    "[",
+    "]",
+)
 _FILLERS = ("gern", "gerne", "natürlich", "klar", "sicher", "also", "übrigens", "ähm")
 
 
 def _strip_roleplay_markers(value: str) -> str:
     value = re.sub(r"\*[^*]*\*", " ", value)
     value = re.sub(r"\[[^\]]*\]", " ", value)
-    value = re.sub(r"^(ich|du|wir|narrator|erzähler|spieler|gm)\s*:\s*", "", value, flags=re.IGNORECASE)
+    value = re.sub(
+        r"^(ich|du|wir|narrator|erzähler|spieler|gm)\s*:\s*", "", value, flags=re.IGNORECASE
+    )
     return value
 
 
@@ -154,17 +175,17 @@ def compact(text: str) -> str:
     return _compact_style(text)
 
 
-def _load_policy_file(path: str) -> Dict[str, Any]:
+def _load_policy_file(path: str) -> dict[str, Any]:
     try:
-        with open(path, "r", encoding="utf-8") as handle:
+        with open(path, encoding="utf-8") as handle:
             return json.load(handle)
     except Exception:
         return {}
 
 
-def _merge_terms(base: Iterable[str], overlay: Iterable[str]) -> List[str]:
-    seen: Dict[str, None] = {}
-    result: List[str] = []
+def _merge_terms(base: Iterable[str], overlay: Iterable[str]) -> list[str]:
+    seen: dict[str, None] = {}
+    result: list[str] = []
     for term in list(base) + list(overlay):
         try:
             value = str(term)
@@ -176,15 +197,15 @@ def _merge_terms(base: Iterable[str], overlay: Iterable[str]) -> List[str]:
     return result
 
 
-def _merge_rewrite_map(base: Mapping[str, Any], overlay: Mapping[str, Any]) -> Dict[str, str]:
-    merged: Dict[str, str] = {str(key): str(value) for key, value in dict(base).items()}
+def _merge_rewrite_map(base: Mapping[str, Any], overlay: Mapping[str, Any]) -> dict[str, str]:
+    merged: dict[str, str] = {str(key): str(value) for key, value in dict(base).items()}
     for key, value in dict(overlay).items():
         merged[str(key)] = str(value)
     return merged
 
 
-def _get_policies(*, mode: str = "default", profile_id: Optional[str] = None) -> Dict[str, Any]:
-    policies: Dict[str, Any] = {}
+def _get_policies(*, mode: str = "default", profile_id: str | None = None) -> dict[str, Any]:
+    policies: dict[str, Any] = {}
     if settings is None:
         return policies
     try:
@@ -197,30 +218,36 @@ def _get_policies(*, mode: str = "default", profile_id: Optional[str] = None) ->
                 if "default" in file_rules or "profiles" in file_rules:
                     base_raw = file_rules.get("default")
                     profiles_raw = file_rules.get("profiles")
-                    base: Dict[str, Any] = {}
+                    base: dict[str, Any] = {}
                     if isinstance(base_raw, dict):
-                        base = cast(Dict[str, Any], base_raw)
-                    profiles: Dict[str, Any] = {}
+                        base = cast(dict[str, Any], base_raw)
+                    profiles: dict[str, Any] = {}
                     if isinstance(profiles_raw, dict):
-                        profiles = cast(Dict[str, Any], profiles_raw)
+                        profiles = cast(dict[str, Any], profiles_raw)
                     pid = profile_id or ("eval" if mode == "eval" else None)
-                    overlay: Dict[str, Any] = {}
+                    overlay: dict[str, Any] = {}
                     if pid and isinstance(profiles, dict):
                         candidate = profiles.get(pid)
                         if isinstance(candidate, dict):
-                            overlay = cast(Dict[str, Any], candidate)
-                    forb_base = [str(x) for x in cast(List[Any], base.get("forbidden_terms", [])) if isinstance(x, str)]
-                    forb_overlay = [
-                        str(x) for x in cast(List[Any], overlay.get("forbidden_terms", [])) if isinstance(x, str)
+                            overlay = cast(dict[str, Any], candidate)
+                    forb_base = [
+                        str(x)
+                        for x in cast(list[Any], base.get("forbidden_terms", []))
+                        if isinstance(x, str)
                     ]
-                    rw_base: Dict[str, Any] = {}
+                    forb_overlay = [
+                        str(x)
+                        for x in cast(list[Any], overlay.get("forbidden_terms", []))
+                        if isinstance(x, str)
+                    ]
+                    rw_base: dict[str, Any] = {}
                     base_rw_raw = base.get("rewrite_map")
                     if isinstance(base_rw_raw, dict):
-                        rw_base = cast(Dict[str, Any], base_rw_raw)
-                    rw_overlay: Dict[str, Any] = {}
+                        rw_base = cast(dict[str, Any], base_rw_raw)
+                    rw_overlay: dict[str, Any] = {}
                     overlay_rw_raw = overlay.get("rewrite_map")
                     if isinstance(overlay_rw_raw, dict):
-                        rw_overlay = cast(Dict[str, Any], overlay_rw_raw)
+                        rw_overlay = cast(dict[str, Any], overlay_rw_raw)
                     policies["forbidden_terms"] = _merge_terms(forb_base, forb_overlay)
                     policies["rewrite_map"] = _merge_rewrite_map(rw_base, rw_overlay)
                 else:
@@ -242,10 +269,10 @@ def _should_bypass_policies(unrestricted_mode: bool) -> bool:
 
 
 def apply_pre(
-    messages: List[Mapping[str, Any]],
+    messages: list[Mapping[str, Any]],
     *,
     mode: str = "default",
-    profile_id: Optional[str] = None,
+    profile_id: str | None = None,
 ) -> PreResult:
     if _should_bypass_policies(unrestricted_mode=(mode == "unrestricted")):
         return PreResult(action="allow")
@@ -256,7 +283,7 @@ def apply_pre(
         forbidden = [str(x) for x in rules.get("forbidden_terms", []) if isinstance(x, str)]
         rewrite_map = {str(k): str(v) for k, v in dict(rules.get("rewrite_map", {})).items()}
         changed = False
-        new_msgs: List[Dict[str, str]] = []
+        new_msgs: list[dict[str, str]] = []
         for message in messages:
             role = str(message.get("role", "user"))
             content = str(message.get("content", ""))
@@ -279,7 +306,7 @@ def apply_post(
     text: str,
     *,
     mode: str = "default",
-    profile_id: Optional[str] = None,
+    profile_id: str | None = None,
 ) -> PostResult:
     if _should_bypass_policies(unrestricted_mode=(mode == "unrestricted")):
         return PostResult(action="allow")

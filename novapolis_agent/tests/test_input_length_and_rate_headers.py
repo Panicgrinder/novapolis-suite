@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import importlib
-from typing import Any
 
 import pytest
 from fastapi.testclient import TestClient
@@ -24,11 +23,7 @@ def test_chat_rejects_too_long_input(monkeypatch: pytest.MonkeyPatch) -> None:
 
     # 11 Zeichen -> über Limit 10
     too_long = "abcdefghijk"
-    resp = client.post("/chat", json={
-        "messages": [
-            {"role": "user", "content": too_long}
-        ]
-    })
+    resp = client.post("/chat", json={"messages": [{"role": "user", "content": too_long}]})
     assert resp.status_code == 400
     # Fehlerdetails enthalten Hinweis auf Länge und Limit
     detail = resp.json().get("detail", "")

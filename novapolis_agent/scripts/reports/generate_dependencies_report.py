@@ -6,11 +6,11 @@ It runs scripts/dependency_check.py and captures its output.
 """
 from __future__ import annotations
 
-import os
-import sys
 import io
 import json
-from typing import Any, Dict, List
+import os
+import sys
+from typing import Any
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 if ROOT not in sys.path:
@@ -30,7 +30,7 @@ def timestamp() -> str:
     return now_compact()
 
 
-def run_dependency_checks() -> List[str]:
+def run_dependency_checks() -> list[str]:
     """Import dependency_check and capture its stdout output as a list of lines."""
     import importlib.util
 
@@ -38,7 +38,9 @@ def run_dependency_checks() -> List[str]:
     old_stdout = sys.stdout
     sys.stdout = buf
     try:
-        spec = importlib.util.spec_from_file_location("dependency_check", os.path.join(ROOT, "scripts", "dependency_check.py"))
+        spec = importlib.util.spec_from_file_location(
+            "dependency_check", os.path.join(ROOT, "scripts", "dependency_check.py")
+        )
         if spec is None or spec.loader is None:
             print("[ERR] Could not create ModuleSpec for dependency_check.py")
             return []
@@ -55,7 +57,7 @@ def run_dependency_checks() -> List[str]:
     return lines
 
 
-def write_files(out_dir: str, params: Dict[str, Any], lines: List[str]) -> None:
+def write_files(out_dir: str, params: dict[str, Any], lines: list[str]) -> None:
     # params.txt: JSON metadata
     with open(os.path.join(out_dir, "params.txt"), "w", encoding="utf-8") as f:
         f.write(json.dumps(params, ensure_ascii=False, indent=2))
@@ -77,7 +79,7 @@ def main() -> int:
     ensure_dir(out_dir)
 
     lines = run_dependency_checks()
-    params: Dict[str, Any] = {
+    params: dict[str, Any] = {
         "timestamp": ts,
         "source": "scripts/reports/generate_dependencies_report.py",
         "tools": ["scripts/dependency_check.py"],

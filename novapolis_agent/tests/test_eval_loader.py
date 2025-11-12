@@ -1,11 +1,12 @@
-import os
-import time
 import json
+import os
 import tempfile
+import time
 import unittest
-from typing import Dict, Any
+from typing import Any
 
 from scripts.run_eval import load_prompts
+
 
 class TestEvalLoader(unittest.IsolatedAsyncioTestCase):
     async def test_newer_file_wins_on_same_id(self):
@@ -13,8 +14,8 @@ class TestEvalLoader(unittest.IsolatedAsyncioTestCase):
             f_old = os.path.join(tmp, "a.jsonl")
             f_new = os.path.join(tmp, "b.jsonl")
 
-            rec_old: Dict[str, Any] = {"id": "eval-999", "prompt": "ALT", "must_include": ["alt"]}
-            rec_new: Dict[str, Any] = {"id": "eval-999", "prompt": "NEU", "must_include": ["neu"]}
+            rec_old: dict[str, Any] = {"id": "eval-999", "prompt": "ALT", "must_include": ["alt"]}
+            rec_new: dict[str, Any] = {"id": "eval-999", "prompt": "NEU", "must_include": ["neu"]}
 
             with open(f_old, "w", encoding="utf-8") as f:
                 f.write(json.dumps(rec_old, ensure_ascii=False) + "\n")

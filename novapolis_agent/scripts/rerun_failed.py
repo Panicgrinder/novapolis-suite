@@ -24,9 +24,11 @@ DATASETS_DIR = os.path.join(PROJECT_ROOT, "eval", "datasets")
 RESULTS_DIR = os.path.join(PROJECT_ROOT, "eval", "results")
 TMP_DIR = os.path.join(RESULTS_DIR, "tmp")
 
+
 def _latest_results() -> str | None:
     files = sorted(glob.glob(os.path.join(RESULTS_DIR, "results_*.jsonl")))
     return files[-1] if files else None
+
 
 def _load_failed_ids(path: str) -> list[str]:
     failed: list[str] = []
@@ -55,6 +57,7 @@ def _load_failed_ids(path: str) -> list[str]:
                     failed.append(strip_eval_prefix(rid))
                     failed.append(ensure_eval_prefix(rid))
     return sorted(set(failed))
+
 
 def _load_registry() -> dict[str, dict[str, Any]]:
     reg: dict[str, dict[str, Any]] = {}
@@ -99,6 +102,7 @@ def _load_registry() -> dict[str, dict[str, Any]]:
             continue
     return reg
 
+
 def main() -> int:
     latest = _latest_results()
     if not latest:
@@ -128,6 +132,7 @@ def main() -> int:
     print("Nächster Schritt:")
     print('  python scripts/run_eval.py --patterns "eval/results/tmp/rerun_*.jsonl"')
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())

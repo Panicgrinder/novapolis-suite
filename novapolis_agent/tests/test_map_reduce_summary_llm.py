@@ -1,8 +1,7 @@
 import os
-from typing import List
+from pathlib import Path
 
 import pytest
-from pathlib import Path
 
 import scripts.map_reduce_summary_llm as mr
 
@@ -15,9 +14,17 @@ async def test_process_scope_llm_uses_stub(tmp_path):
     p: Path = base / "sample.md"
     p.write_text("Hello World", encoding="utf-8")
 
-    called: List[str] = []
+    called: list[str] = []
 
-    async def fake_llm(client, api_url: str, path: str, run_id: str, max_chars: int, num_predict: int, temperature: float) -> str:
+    async def fake_llm(
+        client,
+        api_url: str,
+        path: str,
+        run_id: str,
+        max_chars: int,
+        num_predict: int,
+        temperature: float,
+    ) -> str:
         called.append(path)
         # keep it simple to avoid cross-drive relpath issues
         return f"Datei: {os.path.basename(path)}\nZusammenfassung: OK"
@@ -44,6 +51,7 @@ async def test_process_scope_llm_uses_stub(tmp_path):
         mr.llm_summarize_file = orig
         try:
             import shutil
+
             shutil.rmtree(base.parent)
         except Exception:
             pass
@@ -51,7 +59,9 @@ async def test_process_scope_llm_uses_stub(tmp_path):
     # Assert
     assert len(res) == 1
     assert "Zusammenfassung: OK" in res[0]
-    assert called and os.path.normcase(os.path.abspath(called[0])) == os.path.normcase(str(p.resolve()))
+    assert called and os.path.normcase(os.path.abspath(called[0])) == os.path.normcase(
+        str(p.resolve())
+    )
 
 
 @pytest.mark.asyncio
@@ -87,6 +97,7 @@ async def test_process_scope_heuristic_minimal_fallback(tmp_path, monkeypatch):
     assert "content" in res[0]
     try:
         import shutil
+
         shutil.rmtree(base.parent)
     except Exception:
         pass

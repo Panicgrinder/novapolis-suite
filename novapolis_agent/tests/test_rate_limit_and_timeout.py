@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-import os
-import importlib
 import asyncio
+import importlib
 from typing import Any
 
 import pytest
@@ -19,7 +18,7 @@ def test_rate_limit_blocks_after_capacity(monkeypatch: pytest.MonkeyPatch) -> No
     monkeypatch.setenv("RATE_LIMIT_TRUSTED_IPS", "[]")
 
     # Settings und App frisch laden (damit Middleware hinzugefügt wird)
-    settings_mod = importlib.reload(importlib.import_module("app.core.settings"))
+    importlib.reload(importlib.import_module("app.core.settings"))
     app_mod = importlib.reload(importlib.import_module("app.main"))
     app = app_mod.app
 
@@ -39,15 +38,17 @@ def test_rate_limit_blocks_after_capacity(monkeypatch: pytest.MonkeyPatch) -> No
 
 @pytest.mark.unit
 def test_process_chat_timeout_returns_error_message(monkeypatch: pytest.MonkeyPatch) -> None:
-    import httpx
     import app.api.chat as chat_module
+    import httpx
     from app.api.models import ChatRequest
 
     class _Client:
-        async def __aenter__(self) -> "_Client":
+        async def __aenter__(self) -> _Client:
             return self
+
         async def __aexit__(self, exc_type, exc, tb) -> bool:
             return False
+
         async def post(self, *args: Any, **kwargs: Any):
             # Simulierte Timeout-Exception
             raise httpx.ReadTimeout("timeout", request=httpx.Request("POST", "http://x"))

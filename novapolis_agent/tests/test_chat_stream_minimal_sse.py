@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import json
 import httpx
 import pytest
-
-from app.main import app
 from app.core.settings import settings
+from app.main import app
 
 
 @pytest.mark.api
@@ -14,11 +12,12 @@ from app.core.settings import settings
 async def test_chat_stream_minimal_asgi() -> None:
     transport = httpx.ASGITransport(app=app)
     async with httpx.AsyncClient(transport=transport, base_url="http://asgi") as client:
-        from typing import Dict, Any
-        payload: Dict[str, Any] = {
+        from typing import Any
+
+        payload: dict[str, Any] = {
             "messages": [{"role": "user", "content": "Sag Hallo"}],
             "eval_mode": True,
-            "options": {"host": settings.OLLAMA_HOST}
+            "options": {"host": settings.OLLAMA_HOST},
         }
         resp = await client.post("/chat/stream", json=payload)
         # 200 OK, Body enthält SSE/Text; wir prüfen nur Status

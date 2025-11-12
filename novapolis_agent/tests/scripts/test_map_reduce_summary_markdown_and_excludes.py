@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-import os
-import importlib
-import json
-import io
 import contextlib
+import importlib
+import io
+import json
 from pathlib import Path
+
 import pytest
 
 
@@ -17,7 +17,8 @@ def test_summarize_markdown_and_merge(monkeypatch: pytest.MonkeyPatch, tmp_path:
     docs: Path = tmp_path / "docs"
     docs.mkdir()
     md1: Path = docs / "A.md"
-    md1.write_text("""
+    md1.write_text(
+        """
 # Titel A
 
 Einleitungstext.
@@ -25,17 +26,22 @@ Einleitungstext.
 ## Abschnitt 1
 - Punkt 1
 - Punkt 2
-""".strip(), encoding="utf-8")
+""".strip(),
+        encoding="utf-8",
+    )
 
     md2: Path = docs / "B.md"
-    md2.write_text("""
+    md2.write_text(
+        """
 # Titel B
 
 Text.
 
 ### Unterpunkt
 Weitere Details.
-""".strip(), encoding="utf-8")
+""".strip(),
+        encoding="utf-8",
+    )
 
     out_dir: Path = tmp_path / "out"
     out_dir.mkdir()
@@ -46,11 +52,16 @@ Weitere Details.
     # run summarization for markdown scope
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
-        rc = mod.main([
-            "--scopes", "TMPDOCS",
-            "--out-dir", str(out_dir),
-            "--max-files", "10",
-        ])
+        rc = mod.main(
+            [
+                "--scopes",
+                "TMPDOCS",
+                "--out-dir",
+                str(out_dir),
+                "--max-files",
+                "10",
+            ]
+        )
 
     assert rc == 0
     data = json.loads(buf.getvalue())
@@ -83,11 +94,16 @@ def test_walk_scope_excludes_dirs(monkeypatch: pytest.MonkeyPatch, tmp_path: Pat
     with contextlib.redirect_stdout(buf):
         # Temporär Scope injizieren; node_modules ist per Default ausgeschlossen
         monkeypatch.setitem(mod.SCOPES, "TMPROOT", str(root))
-        rc = mod.main([
-            "--scopes", "TMPROOT",
-            "--out-dir", str(out_dir),
-            "--max-files", "50",
-        ])
+        rc = mod.main(
+            [
+                "--scopes",
+                "TMPROOT",
+                "--out-dir",
+                str(out_dir),
+                "--max-files",
+                "50",
+            ]
+        )
 
     assert rc == 0
     data = json.loads(buf.getvalue())

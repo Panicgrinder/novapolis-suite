@@ -23,6 +23,7 @@
     "novapolis-rp/.pytest_cache/**",
     ".pytest_cache/**",
     "novapolis_agent/.pytest_cache/**",
+    ".tmp-results/**",
     "Main/scripts",
     ".github/copilot-instructions.md"
   ]

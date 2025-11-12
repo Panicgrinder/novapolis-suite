@@ -1,31 +1,31 @@
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, cast
 
 from pydantic import BaseModel, field_validator
 
 
 class ChatOptions(BaseModel):
-    host: Optional[str] = None
-    session_id: Optional[str] = None
+    host: str | None = None
+    session_id: str | None = None
 
-    temperature: Optional[float] = None
-    top_p: Optional[float] = None
-    num_predict: Optional[int] = None
-    max_tokens: Optional[int] = None
-    num_ctx: Optional[int] = None
-    repeat_penalty: Optional[float] = None
-    presence_penalty: Optional[float] = None
-    frequency_penalty: Optional[float] = None
-    seed: Optional[int] = None
-    repeat_last_n: Optional[int] = None
-    stop: Optional[Union[List[str], str]] = None
-    top_k: Optional[int] = None
-    min_p: Optional[float] = None
-    typical_p: Optional[float] = None
-    tfs_z: Optional[float] = None
-    mirostat: Optional[int] = None
-    mirostat_tau: Optional[float] = None
-    mirostat_eta: Optional[float] = None
-    penalize_newline: Optional[bool] = None
+    temperature: float | None = None
+    top_p: float | None = None
+    num_predict: int | None = None
+    max_tokens: int | None = None
+    num_ctx: int | None = None
+    repeat_penalty: float | None = None
+    presence_penalty: float | None = None
+    frequency_penalty: float | None = None
+    seed: int | None = None
+    repeat_last_n: int | None = None
+    stop: list[str] | str | None = None
+    top_k: int | None = None
+    min_p: float | None = None
+    typical_p: float | None = None
+    tfs_z: float | None = None
+    mirostat: int | None = None
+    mirostat_tau: float | None = None
+    mirostat_eta: float | None = None
+    penalize_newline: bool | None = None
 
 
 class ChatMessage(BaseModel):
@@ -34,28 +34,28 @@ class ChatMessage(BaseModel):
 
 
 class ChatRequest(BaseModel):
-    messages: List[Union[ChatMessage, Dict[str, str]]]
-    model: Optional[str] = None
-    options: Optional[Union[Dict[str, Any], ChatOptions]] = None
-    profile_id: Optional[str] = None
-    session_id: Optional[str] = None
+    messages: list[ChatMessage | dict[str, str]]
+    model: str | None = None
+    options: dict[str, Any] | ChatOptions | None = None
+    profile_id: str | None = None
+    session_id: str | None = None
 
     @field_validator("messages", mode="before")
     @classmethod
     def _coerce_messages(cls, value: Any) -> Any:
         try:
             if isinstance(value, (list, tuple)):
-                seq = list(cast(List[Any], value))
+                seq = list(cast(list[Any], value))
             else:
                 return cast(Any, value)
         except Exception:
             return cast(Any, value)
-        out: List[Union[ChatMessage, Dict[str, str]]] = []
+        out: list[ChatMessage | dict[str, str]] = []
         for entry in seq:
             if isinstance(entry, ChatMessage):
                 out.append(entry)
             elif isinstance(entry, dict):
-                data = cast(Dict[Any, Any], entry)
+                data = cast(dict[Any, Any], entry)
                 role = str(data.get("role", "user"))
                 content = str(data.get("content", ""))
                 out.append({"role": role, "content": content})
@@ -68,4 +68,4 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     content: str
-    model: Optional[str] = None
+    model: str | None = None

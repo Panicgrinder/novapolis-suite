@@ -3,9 +3,10 @@ from __future__ import annotations
 import asyncio
 import json
 from collections import deque
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Deque, Dict, List, Mapping, Optional
+from typing import Deque
 
 from .settings import settings
 
@@ -15,7 +16,7 @@ class _Turn:
     role: str
     content: str
 
-    def to_message(self) -> Dict[str, str]:
+    def to_message(self) -> dict[str, str]:
         return {"role": self.role, "content": self.content}
 
 
@@ -23,7 +24,9 @@ class MemoryStore:
     async def append(self, session_id: str, role: str, content: str) -> None:
         raise NotImplementedError
 
-    async def get_window(self, session_id: str, max_chars: int, max_turns: int) -> List[Dict[str, str]]:
+    async def get_window(
+        self, session_id: str, max_chars: int, max_turns: int
+    ) -> list[dict[str, str]]:
         raise NotImplementedError
 
     async def clear(self, session_id: str) -> None:
@@ -32,8 +35,8 @@ class MemoryStore:
 
 class InMemoryStore(MemoryStore):
     def __init__(self) -> None:
-        self._by_id: Dict[str, Deque[_Turn]] = {}
-        self._locks: Dict[str, asyncio.Lock] = {}
+        self._by_id: dict[str, Deque[_Turn]] = {}
+        self._locks: dict[str, asyncio.Lock] = {}
         self._global_lock = asyncio.Lock()
 
     async def _ensure_lock(self, session_id: str) -> asyncio.Lock:
@@ -47,7 +50,7 @@ class InMemoryStore(MemoryStore):
     async def append(self, session_id: str, role: str, content: str) -> None:
         lock = await self._ensure_lock(session_id)
         async with lock:
-            queue: Optional[Deque[_Turn]] = self._by_id.get(session_id)
+            queue: Deque[_Turn] | None = self._by_id.get(session_id)
             if queue is None:
                 queue = deque[_Turn]()
                 self._by_id[session_id] = queue
@@ -61,13 +64,15 @@ class InMemoryStore(MemoryStore):
                 while queue and sum(len(turn.content) for turn in queue) > max_chars:
                     queue.popleft()
 
-    async def get_window(self, session_id: str, max_chars: int, max_turns: int) -> List[Dict[str, str]]:
+    async def get_window(
+        self, session_id: str, max_chars: int, max_turns: int
+    ) -> list[dict[str, str]]:
         lock = await self._ensure_lock(session_id)
         async with lock:
-            queue: Optional[Deque[_Turn]] = self._by_id.get(session_id)
+            queue: Deque[_Turn] | None = self._by_id.get(session_id)
             if not queue:
                 return []
-            items: List[_Turn] = list(queue)
+            items: list[_Turn] = list(queue)
         items = items[-max_turns:] if max_turns > 0 else items
         while items and max_chars > 0 and sum(len(t.content) for t in items) > max_chars:
             items.pop(0)
@@ -83,7 +88,7 @@ class JsonlStore(MemoryStore):
     def __init__(self, base_dir: Path) -> None:
         self.base_dir = base_dir
         self.base_dir.mkdir(parents=True, exist_ok=True)
-        self._locks: Dict[str, asyncio.Lock] = {}
+        self._locks: dict[str, asyncio.Lock] = {}
         self._global_lock = asyncio.Lock()
 
     async def _ensure_lock(self, session_id: str) -> asyncio.Lock:
@@ -106,7 +111,9 @@ class JsonlStore(MemoryStore):
             with path.open("a", encoding="utf-8") as handle:
                 handle.write(line + "\n")
 
-    async def get_window(self, session_id: str, max_chars: int, max_turns: int) -> List[Dict[str, str]]:
+    async def get_window(
+        self, session_id: str, max_chars: int, max_turns: int
+    ) -> list[dict[str, str]]:
         lock = await self._ensure_lock(session_id)
         async with lock:
             path = self._path(session_id)
@@ -117,7 +124,7 @@ class JsonlStore(MemoryStore):
                     lines = handle.readlines()
             except Exception:
                 return []
-        turns: List[_Turn] = []
+        turns: list[_Turn] = []
         for line in lines[-max_turns:]:
             try:
                 obj = json.loads(line)
@@ -141,7 +148,7 @@ class JsonlStore(MemoryStore):
                 pass
 
 
-_STORE: Optional[MemoryStore] = None
+_STORE: MemoryStore | None = None
 
 
 def get_memory_store() -> MemoryStore:
@@ -164,20 +171,28 @@ def get_memory_store() -> MemoryStore:
 
 
 async def compose_with_memory(
-    messages: List[Mapping[str, str]],
-    session_id: Optional[str],
+    messages: list[Mapping[str, str]],
+    session_id: str | None,
     *,
-    max_chars: Optional[int] = None,
-    max_turns: Optional[int] = None,
-) -> List[Dict[str, str]]:
+    max_chars: int | None = None,
+    max_turns: int | None = None,
+) -> list[dict[str, str]]:
     if not session_id or not getattr(settings, "MEMORY_ENABLED", True):
         return [dict(message) for message in messages]
     try:
         store = get_memory_store()
-        mc = max_chars if isinstance(max_chars, int) else int(getattr(settings, "MEMORY_MAX_CHARS", 8000))
-        mt = max_turns if isinstance(max_turns, int) else int(getattr(settings, "MEMORY_MAX_TURNS", 20))
+        mc = (
+            max_chars
+            if isinstance(max_chars, int)
+            else int(getattr(settings, "MEMORY_MAX_CHARS", 8000))
+        )
+        mt = (
+            max_turns
+            if isinstance(max_turns, int)
+            else int(getattr(settings, "MEMORY_MAX_TURNS", 20))
+        )
         window = await store.get_window(session_id, max_chars=mc, max_turns=mt)
-        composed: List[Dict[str, str]] = list(window) + [dict(message) for message in messages]
+        composed: list[dict[str, str]] = list(window) + [dict(message) for message in messages]
         while composed and mc > 0 and sum(len(str(m.get("content", ""))) for m in composed) > mc:
             composed.pop(0)
         return composed

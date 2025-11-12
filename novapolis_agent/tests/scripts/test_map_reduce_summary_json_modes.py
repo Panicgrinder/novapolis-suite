@@ -1,21 +1,21 @@
 from __future__ import annotations
 
-import os
-import json
 import importlib
+import json
+import os
 
 import pytest
 
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_summarize_json_and_jsonl(tmp_path: "os.PathLike[str]") -> None:
+def test_summarize_json_and_jsonl(tmp_path: os.PathLike[str]) -> None:
     mod = importlib.import_module("scripts.map_reduce_summary")
 
     # JSON
     p_json = os.path.join(tmp_path, "a.json")
     with open(p_json, "w", encoding="utf-8") as f:
-        json.dump({"x": 1, "y": [1,2,3]}, f)
+        json.dump({"x": 1, "y": [1, 2, 3]}, f)
     out1 = mod.summarize_file(p_json)
     assert "JSON-Objekt" in out1 or "Top-Level-Felder" in out1
 

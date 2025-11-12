@@ -15,7 +15,9 @@ def _load_module():
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_open_latest_summary_find_and_print(monkeypatch: "pytest.MonkeyPatch", tmp_path: "os.PathLike[str]") -> None:
+def test_open_latest_summary_find_and_print(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: os.PathLike[str]
+) -> None:
     # Erzeuge zwei Dummy-Summary-Dateien im tmp-Summaries-Ordner
     sums_dir = Path(tmp_path) / "eval" / "results" / "summaries"
     os.makedirs(sums_dir, exist_ok=True)
@@ -35,6 +37,7 @@ def test_open_latest_summary_find_and_print(monkeypatch: "pytest.MonkeyPatch", t
 
     # Teste main() im print-only Modus
     import sys
+
     old_argv = sys.argv[:]
     sys.argv = ["open_latest_summary.py", "--print", "--dir", str(sums_dir)]
     try:
@@ -50,7 +53,11 @@ def test_open_latest_summary_find_and_print(monkeypatch: "pytest.MonkeyPatch", t
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_open_latest_summary_handles_missing(tmp_path: "os.PathLike[str]", monkeypatch: "pytest.MonkeyPatch", capsys: "pytest.CaptureFixture[str]") -> None:
+def test_open_latest_summary_handles_missing(
+    tmp_path: os.PathLike[str],
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     mod = _load_module()
 
     search_dir = Path(tmp_path) / "empty"
@@ -75,7 +82,9 @@ def test_open_latest_summary_handles_missing(tmp_path: "os.PathLike[str]", monke
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_open_file_prefers_webbrowser(monkeypatch: "pytest.MonkeyPatch", tmp_path: "os.PathLike[str]") -> None:
+def test_open_file_prefers_webbrowser(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: os.PathLike[str]
+) -> None:
     mod = _load_module()
 
     path = Path(tmp_path) / "dummy.md"
@@ -90,9 +99,17 @@ def test_open_file_prefers_webbrowser(monkeypatch: "pytest.MonkeyPatch", tmp_pat
     monkeypatch.setattr(mod.webbrowser, "open", fake_open)
 
     # Sicherstellen, dass keine Fallback-Kommandos verwendet werden
-    monkeypatch.setattr(mod.os, "system", lambda _: (_ for _ in ()).throw(AssertionError("unexpected os.system call")))
+    monkeypatch.setattr(
+        mod.os,
+        "system",
+        lambda _: (_ for _ in ()).throw(AssertionError("unexpected os.system call")),
+    )
     if hasattr(mod.os, "startfile"):
-        monkeypatch.setattr(mod.os, "startfile", lambda *_: (_ for _ in ()).throw(AssertionError("unexpected startfile call")))
+        monkeypatch.setattr(
+            mod.os,
+            "startfile",
+            lambda *_: (_ for _ in ()).throw(AssertionError("unexpected startfile call")),
+        )
 
     mod.open_file(path)
 
@@ -101,7 +118,9 @@ def test_open_file_prefers_webbrowser(monkeypatch: "pytest.MonkeyPatch", tmp_pat
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_open_file_falls_back_to_system(monkeypatch: "pytest.MonkeyPatch", tmp_path: "os.PathLike[str]") -> None:
+def test_open_file_falls_back_to_system(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: os.PathLike[str]
+) -> None:
     mod = _load_module()
 
     path = Path(tmp_path) / "dummy.md"

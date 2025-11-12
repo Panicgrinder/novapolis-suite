@@ -36,7 +36,11 @@ def _tz():
 
 def _fmt_epoch(epoch: int) -> str:
     tz = _tz()
-    dt = datetime.fromtimestamp(epoch, tz=tz) if tz is not None else datetime.fromtimestamp(epoch).astimezone()
+    dt = (
+        datetime.fromtimestamp(epoch, tz=tz)
+        if tz is not None
+        else datetime.fromtimestamp(epoch).astimezone()
+    )
     return dt.strftime("%Y-%m-%d %H:%M")
 
 
@@ -63,7 +67,7 @@ def blame_times(path: str) -> dict[int, int]:
 
 
 def normalize() -> int:
-    with open(DONELOG, "r", encoding="utf-8") as f:
+    with open(DONELOG, encoding="utf-8") as f:
         lines = f.read().splitlines()
     times = blame_times(DONELOG)
     pat = re.compile(r"^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}) \|")
@@ -91,7 +95,7 @@ def normalize() -> int:
         ts = _fmt_epoch(epoch)
         if ts != m.group(1):
             changed += 1
-        new_lines.append(ts + l[m.end(1):])
+        new_lines.append(ts + l[m.end(1) :])
 
     if changed:
         with open(DONELOG, "w", encoding="utf-8") as f:

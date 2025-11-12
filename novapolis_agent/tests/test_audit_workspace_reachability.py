@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import os
 import io
+import os
 from contextlib import redirect_stdout
 
 import pytest
@@ -9,7 +9,7 @@ import pytest
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_audit_reachability_graph(tmp_path: "os.PathLike[str]") -> None:
+def test_audit_reachability_graph(tmp_path: os.PathLike[str]) -> None:
     # Mini-Workspace: app.mod1 imports utils.mod2
     ws = tmp_path
     os.makedirs(os.path.join(ws, "app"), exist_ok=True)
@@ -20,6 +20,7 @@ def test_audit_reachability_graph(tmp_path: "os.PathLike[str]") -> None:
         f.write("VALUE=2\n")
 
     from scripts import audit_workspace as aw
+
     aw.PROJECT_ROOT = str(ws)
 
     pyfiles = aw.discover_pyfiles()

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -11,8 +12,10 @@ def test_chat_post_internal_error_sets_header(monkeypatch: pytest.MonkeyPatch) -
     app = app_mod.app
     # Patch process_chat_request in the module where it's imported
     from typing import Any, NoReturn
+
     async def _boom(*_a: Any, **_k: Any) -> NoReturn:
         raise RuntimeError("boom")
+
     monkeypatch.setattr(app_mod, "process_chat_request", _boom)
 
     client = TestClient(app)

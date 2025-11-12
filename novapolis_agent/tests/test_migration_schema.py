@@ -1,19 +1,19 @@
-import unittest
-import tempfile
-import os
 import json
+import os
 import sys
+import tempfile
+import unittest
 
 
 class TestMigrationSchema(unittest.TestCase):
     """Tests für das Dataset-Schema-Migrationsskript."""
-    
+
     def setUp(self):
         # Projekt-Root zum Python-Pfad hinzufügen
         project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         if project_root not in sys.path:
             sys.path.insert(0, project_root)
-    
+
     def test_migrate_old_to_new_schema(self):
         """Test der Migration von altem (prompt, must_include) zu neuem Schema (messages, checks)."""
         from scripts.migrate_dataset_schemas import migrate_demo_dataset
@@ -43,7 +43,7 @@ class TestMigrationSchema(unittest.TestCase):
                 self.assertTrue(success, "Migration sollte erfolgreich sein")
 
                 # Prüfe migrierte Datei
-                with open(old_file, "r", encoding="utf-8") as f:
+                with open(old_file, encoding="utf-8") as f:
                     migrated_lines = [json.loads(line) for line in f if line.strip()]
 
                 self.assertEqual(len(migrated_lines), 2)
@@ -64,7 +64,7 @@ class TestMigrationSchema(unittest.TestCase):
 
             finally:
                 os.chdir(original_cwd)
-    
+
     def test_migration_idempotent(self):
         """Test dass bereits migrierte Dateien nicht nochmals verändert werden."""
         from scripts.migrate_dataset_schemas import migrate_demo_dataset
@@ -91,10 +91,12 @@ class TestMigrationSchema(unittest.TestCase):
             try:
                 os.chdir(tmp_dir)
                 success = migrate_demo_dataset()
-                self.assertTrue(success, "Migration von bereits migrierten Daten sollte erfolgreich sein")
+                self.assertTrue(
+                    success, "Migration von bereits migrierten Daten sollte erfolgreich sein"
+                )
 
                 # Datei sollte unverändert bleiben
-                with open(new_file, "r", encoding="utf-8") as f:
+                with open(new_file, encoding="utf-8") as f:
                     unchanged_lines = [json.loads(line) for line in f if line.strip()]
 
                 self.assertEqual(len(unchanged_lines), 1)
@@ -102,26 +104,26 @@ class TestMigrationSchema(unittest.TestCase):
 
             finally:
                 os.chdir(original_cwd)
-    
+
     def test_migration_empty_file_handling(self):
         """Test dass leere Dateien korrekt behandelt werden."""
         from scripts.migrate_dataset_schemas import migrate_demo_dataset
-        
+
         with tempfile.TemporaryDirectory() as tmp_dir:
             datasets_dir = os.path.join(tmp_dir, "eval", "datasets")
             os.makedirs(datasets_dir, exist_ok=True)
-            
+
             # Erstelle leere Datei
             empty_file = os.path.join(datasets_dir, "eval-21-40_fantasy_v1.0.json")
             with open(empty_file, "w", encoding="utf-8") as f:
                 _ = f.write("")  # Leere Datei bewusst
-            
+
             original_cwd = os.getcwd()
             try:
                 os.chdir(tmp_dir)
                 success = migrate_demo_dataset()
                 self.assertFalse(success, "Migration einer leeren Datei sollte fehlschlagen")
-                
+
             finally:
                 os.chdir(original_cwd)
 

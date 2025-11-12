@@ -5,7 +5,7 @@ import asyncio
 import json
 import os
 import sys
-from typing import Any, Dict
+from typing import Any
 
 import httpx
 
@@ -16,8 +16,8 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 try:
-    from app.main import app  # type: ignore
     from app.core.settings import settings  # type: ignore
+    from app.main import app  # type: ignore
 except Exception as e:  # pragma: no cover
     raise SystemExit(f"Importfehler: {e}")
 
@@ -30,7 +30,7 @@ async def main() -> int:
         print("HEALTH", hr.status_code, hr.json())
 
         # Chat
-        payload: Dict[str, Any] = {
+        payload: dict[str, Any] = {
             "messages": [
                 {"role": "user", "content": "Erkläre in 2 Sätzen was eine verkettete Liste ist."}
             ],

@@ -3,9 +3,10 @@ from __future__ import annotations
 import json
 import logging
 import os
+from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import Any
 
 logger = logging.getLogger("eval_loader")
 
@@ -16,8 +17,8 @@ class FileDiag:
     loaded_count: int = 0
     skipped_count: int = 0
     generated_id_count: int = 0
-    parse_errors: List[str] = None  # type: ignore[assignment]
-    schema_issues: List[str] = None  # type: ignore[assignment]
+    parse_errors: list[str] = None  # type: ignore[assignment]
+    schema_issues: list[str] = None  # type: ignore[assignment]
 
     def __post_init__(self) -> None:
         if self.parse_errors is None:
@@ -26,7 +27,7 @@ class FileDiag:
             self.schema_issues = []
 
 
-def _iter_jsonl(path: Path) -> Iterable[Dict[str, Any]]:
+def _iter_jsonl(path: Path) -> Iterable[dict[str, Any]]:
     with path.open("r", encoding="utf-8") as f:
         for line in f:
             s = line.strip()
@@ -40,7 +41,7 @@ def _iter_jsonl(path: Path) -> Iterable[Dict[str, Any]]:
                 raise ValueError(f"jsonl parse error: {e}")
 
 
-def _load_json(path: Path) -> List[Dict[str, Any]]:
+def _load_json(path: Path) -> list[dict[str, Any]]:
     with path.open("r", encoding="utf-8") as f:
         data = json.load(f)
     if isinstance(data, list):
@@ -50,11 +51,13 @@ def _load_json(path: Path) -> List[Dict[str, Any]]:
     return []
 
 
-def _normalize_item(src: Dict[str, Any], *, file_stem: str, next_idx: int) -> Tuple[Optional[Dict[str, Any]], bool, List[str]]:
+def _normalize_item(
+    src: dict[str, Any], *, file_stem: str, next_idx: int
+) -> tuple[dict[str, Any] | None, bool, list[str]]:
     """
     Returns: (normalized_item_or_none, id_generated, schema_issues)
     """
-    issues: List[str] = []
+    issues: list[str] = []
     item = dict(src)
 
     # messages normalization
@@ -68,7 +71,7 @@ def _normalize_item(src: Dict[str, Any], *, file_stem: str, next_idx: int) -> Tu
         else:
             issues.append("missing messages")
             return None, False, issues
-    norm_msgs: List[Dict[str, str]] = []
+    norm_msgs: list[dict[str, str]] = []
     for m in msgs:
         if isinstance(m, dict):
             role = str(m.get("role", "user")).lower().strip()
@@ -90,7 +93,9 @@ def _normalize_item(src: Dict[str, Any], *, file_stem: str, next_idx: int) -> Tu
     return item, id_generated, issues
 
 
-def load_packages(patterns: List[str], combine_out: Optional[Path] = None) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+def load_packages(
+    patterns: list[str], combine_out: Path | None = None
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     """
     Load and normalize dataset packages from .json/.jsonl files.
 
@@ -98,22 +103,22 @@ def load_packages(patterns: List[str], combine_out: Optional[Path] = None) -> Tu
     diagnostics per file: file, loaded_count, skipped_count, generated_id_count, parse_errors (<=3), schema_issues
     """
     # resolve file list
-    files: List[Path] = []
+    files: list[Path] = []
     for pat in patterns:
         for p in Path().glob(pat):
             if p.is_file() and p.suffix.lower() in (".json", ".jsonl"):
                 files.append(p)
     # de-dup while keeping order
     seen = set()
-    unique_files: List[Path] = []
+    unique_files: list[Path] = []
     for p in files:
         key = str(p.resolve())
         if key not in seen:
             seen.add(key)
             unique_files.append(p)
 
-    items: List[Dict[str, Any]] = []
-    diags: List[Dict[str, Any]] = []
+    items: list[dict[str, Any]] = []
+    diags: list[dict[str, Any]] = []
 
     log_json = os.environ.get("LOG_JSON", "").lower() in ("1", "true", "yes")
 
@@ -129,7 +134,12 @@ def load_packages(patterns: List[str], combine_out: Optional[Path] = None) -> Tu
             diag.parse_errors.append(str(e))
             diags.append(diag.__dict__)
             if log_json:
-                logger.error(json.dumps({"event": "load_error", "file": str(path), "error": str(e)}, ensure_ascii=False))
+                logger.error(
+                    json.dumps(
+                        {"event": "load_error", "file": str(path), "error": str(e)},
+                        ensure_ascii=False,
+                    )
+                )
             else:
                 logger.error(f"{path.name}: Ladefehler: {e}")
             continue
@@ -156,32 +166,51 @@ def load_packages(patterns: List[str], combine_out: Optional[Path] = None) -> Tu
         if log_json:
             logger.info(json.dumps({"event": "file_loaded", **diag.__dict__}, ensure_ascii=False))
         else:
-            logger.info(f"{Path(diag.file).name}: loaded={diag.loaded_count} gen_id={diag.generated_id_count} skipped={diag.skipped_count} errors={len(diag.parse_errors)}")
+            logger.info(
+                f"{Path(diag.file).name}: loaded={diag.loaded_count} gen_id={diag.generated_id_count} skipped={diag.skipped_count} errors={len(diag.parse_errors)}"
+            )
         diags.append(diag.__dict__)
 
     # optional combined JSONL
     if combine_out is not None:
         try:
             combine_out.parent.mkdir(parents=True, exist_ok=True)
+
             # sort by numeric suffix in id if present
-            def _key(x: Dict[str, Any]) -> Tuple[str, int]:
+            def _key(x: dict[str, Any]) -> tuple[str, int]:
                 _id = str(x.get("id", ""))
                 # find last group of digits
                 import re
+
                 m = re.search(r"(\d+)$", _id)
                 if m:
                     return (_id[: m.start()], int(m.group(1)))
                 return (_id, -1)
+
             with combine_out.open("w", encoding="utf-8") as f:
                 for it in sorted(items, key=_key):
                     f.write(json.dumps(it, ensure_ascii=False) + "\n")
             if log_json:
-                logger.info(json.dumps({"event": "combined_written", "path": str(combine_out), "count": len(items)}, ensure_ascii=False))
+                logger.info(
+                    json.dumps(
+                        {
+                            "event": "combined_written",
+                            "path": str(combine_out),
+                            "count": len(items),
+                        },
+                        ensure_ascii=False,
+                    )
+                )
             else:
                 logger.info(f"Combined JSONL geschrieben: {combine_out} ({len(items)} Einträge)")
         except Exception as e:
             if log_json:
-                logger.error(json.dumps({"event": "combined_error", "path": str(combine_out), "error": str(e)}, ensure_ascii=False))
+                logger.error(
+                    json.dumps(
+                        {"event": "combined_error", "path": str(combine_out), "error": str(e)},
+                        ensure_ascii=False,
+                    )
+                )
             else:
                 logger.error(f"Fehler beim Schreiben der kombinierten JSONL: {e}")
 

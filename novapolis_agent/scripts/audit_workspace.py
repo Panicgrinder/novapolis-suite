@@ -6,10 +6,9 @@ Ergebnisse sind heuristisch und dienen als Startpunkt für Aufräumarbeiten.
 Ausführung:
   python scripts/audit_workspace.py
 """
+import ast
 import os
 import sys
-import ast
-from typing import Dict, Set, List
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC_DIRS = ["app", "scripts", "utils", "eval", "docs", "examples"]
@@ -26,16 +25,16 @@ def to_module_name(path: str) -> str:
         # Fallback: nutze absolute Pfadangabe und schneide Projektwurzel grob weg
         p = path.replace("\\", "/")
         root = PROJECT_ROOT.replace("\\", "/")
-        rel = p[len(root)+1:] if p.startswith(root + "/") else os.path.basename(p)
+        rel = p[len(root) + 1 :] if p.startswith(root + "/") else os.path.basename(p)
     if rel.endswith("/__init__.py"):
         rel = rel[: -len("/__init__.py")]
     elif rel.endswith(".py"):
-        rel = rel[: -3]
+        rel = rel[:-3]
     return rel.replace("/", ".")
 
 
-def discover_pyfiles() -> Dict[str, str]:
-    files: Dict[str, str] = {}
+def discover_pyfiles() -> dict[str, str]:
+    files: dict[str, str] = {}
     for base in SRC_DIRS:
         base_path = os.path.join(PROJECT_ROOT, base)
         if not os.path.isdir(base_path):
@@ -48,10 +47,10 @@ def discover_pyfiles() -> Dict[str, str]:
     return files
 
 
-def parse_imports(py_path: str) -> Set[str]:
-    deps: Set[str] = set()
+def parse_imports(py_path: str) -> set[str]:
+    deps: set[str] = set()
     try:
-        with open(py_path, "r", encoding="utf-8") as f:
+        with open(py_path, encoding="utf-8") as f:
             tree = ast.parse(f.read(), filename=py_path)
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
@@ -65,8 +64,8 @@ def parse_imports(py_path: str) -> Set[str]:
     return deps
 
 
-def build_graph(pyfiles: Dict[str, str]) -> Dict[str, Set[str]]:
-    graph: Dict[str, Set[str]] = {m: set() for m in pyfiles}
+def build_graph(pyfiles: dict[str, str]) -> dict[str, set[str]]:
+    graph: dict[str, set[str]] = {m: set() for m in pyfiles}
     mod_set = set(pyfiles.keys())
     for mod, path in pyfiles.items():
         imports = parse_imports(path)
@@ -78,9 +77,9 @@ def build_graph(pyfiles: Dict[str, str]) -> Dict[str, Set[str]]:
     return graph
 
 
-def reachable_from(entry_modules: List[str], graph: Dict[str, Set[str]]) -> Set[str]:
-    seen: Set[str] = set()
-    stack: List[str] = []
+def reachable_from(entry_modules: list[str], graph: dict[str, set[str]]) -> set[str]:
+    seen: set[str] = set()
+    stack: list[str] = []
     mod_set = set(graph.keys())
     # Seed: alle Module, die exakt oder als Suffix mit Entry übereinstimmen
     for em in entry_modules:
@@ -98,11 +97,11 @@ def reachable_from(entry_modules: List[str], graph: Dict[str, Set[str]]) -> Set[
     return seen
 
 
-def scan_text_references() -> List[str]:
+def scan_text_references() -> list[str]:
     # Findet Erwähnungen von relevanten Nicht-Python-Dateien in Code-Dateien
-    references: Set[str] = set()
+    references: set[str] = set()
     # Kandidaten sammeln
-    candidates: List[str] = []
+    candidates: list[str] = []
     exts = (".json", ".jsonl", ".md", ".txt")
     for base in SRC_DIRS:
         base_path = os.path.join(PROJECT_ROOT, base)
@@ -113,7 +112,7 @@ def scan_text_references() -> List[str]:
                 if fn.endswith(exts):
                     candidates.append(os.path.join(root, fn))
     # Code-Dateien
-    code_files: List[str] = []
+    code_files: list[str] = []
     for base in ["app", "scripts", "utils"]:
         base_path = os.path.join(PROJECT_ROOT, base)
         if os.path.isdir(base_path):
@@ -125,7 +124,7 @@ def scan_text_references() -> List[str]:
     names = {os.path.basename(p): p for p in candidates}
     for cf in code_files:
         try:
-            with open(cf, "r", encoding="utf-8") as f:
+            with open(cf, encoding="utf-8") as f:
                 content = f.read()
             for name, full in names.items():
                 if name in content:
@@ -152,7 +151,9 @@ def main() -> int:
             rel = p
         print(f" - {name}: {rel}")
 
-    print(f"\nGesamt Python-Module: {len(pyfiles)} | Erreichbar: {len(used)} | Potenziell ungenutzt: {len(unused)}")
+    print(
+        f"\nGesamt Python-Module: {len(pyfiles)} | Erreichbar: {len(used)} | Potenziell ungenutzt: {len(unused)}"
+    )
     if unused:
         print("\nPotenziell ungenutzte Python-Dateien:")
         for m in unused:
@@ -176,13 +177,17 @@ def main() -> int:
     print("\nHinweise:")
     hp = os.path.join(PROJECT_ROOT, "app", "routers", "health.py")
     if os.path.exists(hp):
-        print(" - app/routers/health.py: Separater Health-Router; in app/main.py existiert bereits /health. Prüfen ob eingebunden.")
+        print(
+            " - app/routers/health.py: Separater Health-Router; in app/main.py existiert bereits /health. Prüfen ob eingebunden."
+        )
     ap_prompt = os.path.join(PROJECT_ROOT, "app", "core", "prompts.py")
     if os.path.exists(ap_prompt):
         print(" - app/core/prompts.py: zentrale Prompt-Quelle (keine system.txt mehr).")
     cm = os.path.join(PROJECT_ROOT, "app", "core", "content_management.py")
     if os.path.exists(cm):
-        print(" - app/core/content_management.py: Nur nötig, wenn Inhaltsfilter aktiv genutzt wird.")
+        print(
+            " - app/core/content_management.py: Nur nötig, wenn Inhaltsfilter aktiv genutzt wird."
+        )
 
     return 0
 

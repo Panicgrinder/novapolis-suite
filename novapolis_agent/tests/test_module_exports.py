@@ -12,8 +12,7 @@ def test_api_router_module_exists() -> None:
 
 @pytest.mark.unit
 def test_prompt_and_router_packages_expose_all() -> None:
-    from app import prompt
-    from app import routers
+    from app import prompt, routers
 
     assert prompt.__all__ == []
     assert routers.__all__ == []

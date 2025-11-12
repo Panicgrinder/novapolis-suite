@@ -15,19 +15,19 @@ Hinweise:
 import argparse
 import json
 import os
-from typing import Any, Dict, List, Set
+from typing import Any
 
 import torch
 from datasets import Dataset
+from peft import LoraConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from trl import SFTTrainer
 from trl.trainer.sft_config import SFTConfig
-from peft import LoraConfig
 
 
-def _read_openai_chat_jsonl(path: str) -> List[Dict[str, Any]]:
-    rows: List[Dict[str, Any]] = []
-    with open(path, "r", encoding="utf-8") as f:
+def _read_openai_chat_jsonl(path: str) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    with open(path, encoding="utf-8") as f:
         for line in f:
             s = line.strip()
             if not s:
@@ -48,8 +48,8 @@ def load_openai_chat_jsonl(path: str) -> Dataset:
     return Dataset.from_list(rows)
 
 
-def format_with_chat_template(examples: Dict[str, Any], tokenizer: Any) -> Dict[str, List[str]]:
-    texts: List[str] = []
+def format_with_chat_template(examples: dict[str, Any], tokenizer: Any) -> dict[str, list[str]]:
+    texts: list[str] = []
     for msgs in examples.get("messages", []):
         try:
             text = tokenizer.apply_chat_template(
@@ -66,17 +66,19 @@ def format_with_chat_template(examples: Dict[str, Any], tokenizer: Any) -> Dict[
     return {"text": texts}
 
 
-def _present_target_modules(model: Any, candidates: List[str]) -> List[str]:
-    names: List[str] = list(dict(model.named_modules()).keys())
+def _present_target_modules(model: Any, candidates: list[str]) -> list[str]:
+    names: list[str] = list(dict(model.named_modules()).keys())
+
     def exists(c: str) -> bool:
         for n in names:
             if n.endswith(c) or (f".{c}" in n):
                 return True
         return False
+
     return [c for c in candidates if exists(c)]
 
 
-def guess_lora_target_modules(model: Any) -> List[str]:
+def guess_lora_target_modules(model: Any) -> list[str]:
     mt = getattr(getattr(model, "config", object()), "model_type", "") or ""
     mt = str(mt).lower()
     # Common presets
@@ -95,11 +97,13 @@ def guess_lora_target_modules(model: Any) -> List[str]:
         found = _present_target_modules(model, neox_like)
     else:
         # Fallback: try llama-like first, then gpt2-like
-        found = _present_target_modules(model, llama_like) or _present_target_modules(model, gpt2_like)
+        found = _present_target_modules(model, llama_like) or _present_target_modules(
+            model, gpt2_like
+        )
     if not found:
         # As last resort, try any module containing 'proj' or 'attn' or 'fc'
-        names: List[str] = list(dict(model.named_modules()).keys())
-        heur_set: Set[str] = set()
+        names: list[str] = list(dict(model.named_modules()).keys())
+        heur_set: set[str] = set()
         for n in names:
             base = n.split(".")[-1]
             if any(k in base for k in ("proj", "attn", "fc", "mlp")):
@@ -108,8 +112,8 @@ def guess_lora_target_modules(model: Any) -> List[str]:
     if not found:
         raise ValueError(f"Konnte keine passenden target_modules ermitteln für model_type='{mt}'.")
     # Preserve order and unique
-    seen: Set[str] = set()
-    unique: List[str] = []
+    seen: set[str] = set()
+    unique: list[str] = []
     for x in found:
         if x not in seen:
             seen.add(x)
@@ -117,7 +121,9 @@ def guess_lora_target_modules(model: Any) -> List[str]:
     return unique
 
 
-def build_lora_config(model: Any, r: int = 16, alpha: int = 32, dropout: float = 0.05) -> LoraConfig:
+def build_lora_config(
+    model: Any, r: int = 16, alpha: int = 32, dropout: float = 0.05
+) -> LoraConfig:
     targets = guess_lora_target_modules(model)
     mt = str(getattr(getattr(model, "config", object()), "model_type", "")).lower()
     fan_in_fan_out: bool = True if mt == "gpt2" else False
@@ -146,13 +152,22 @@ def main() -> int:
     p.add_argument("--model", default="TinyLlama/TinyLlama-1.1B-Chat-v1.0")
     p.add_argument("--output", default=os.path.join("outputs", "lora-out"))
     p.add_argument("--per-device-train-batch-size", type=int, default=1)
-    p.add_argument("--grad-accum", type=int, default=8, help="Gradient Accumulation steps (effektiver Batch auf kleinem VRAM)")
+    p.add_argument(
+        "--grad-accum",
+        type=int,
+        default=8,
+        help="Gradient Accumulation steps (effektiver Batch auf kleinem VRAM)",
+    )
     p.add_argument("--epochs", type=int, default=1)
     p.add_argument("--lr", type=float, default=2e-4)
     p.add_argument("--max-steps", type=int, default=-1)
     p.add_argument("--bf16", action="store_true")
     p.add_argument("--fp16", action="store_true")
-    p.add_argument("--load-in-4bit", action="store_true", help="4bit-Loading aktivieren (erfordert bitsandbytes und passenden Stack)")
+    p.add_argument(
+        "--load-in-4bit",
+        action="store_true",
+        help="4bit-Loading aktivieren (erfordert bitsandbytes und passenden Stack)",
+    )
     p.add_argument("--max-length", type=int, default=1024)
     # LoRA Hyperparameter explizit überschreibbar
     p.add_argument("--lora-r", type=int, default=int(os.getenv("LORA_R", "8")))
@@ -196,7 +211,10 @@ def main() -> int:
 
     # Sicherstellen, dass pad_token_id gesetzt ist (vermeidet Warnungen bei Padding)
     try:
-        if getattr(model.config, "pad_token_id", None) is None and getattr(tokenizer, "pad_token_id", None) is not None:
+        if (
+            getattr(model.config, "pad_token_id", None) is None
+            and getattr(tokenizer, "pad_token_id", None) is not None
+        ):
             model.config.pad_token_id = tokenizer.pad_token_id
     except Exception:
         pass

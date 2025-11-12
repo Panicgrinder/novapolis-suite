@@ -1,10 +1,11 @@
 from __future__ import annotations
 
+import contextlib
 import importlib
 import io
 import json
-import contextlib
 from pathlib import Path
+
 import pytest
 
 

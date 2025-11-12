@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import importlib
 import json
 import os
 from pathlib import Path
-import importlib
+
 import pytest
 
 
@@ -20,10 +21,12 @@ def test_open_context_notes_main_with_mock(monkeypatch: pytest.MonkeyPatch, tmp_
 
     # reload settings and module to pick up env
     import importlib as _imp
+
     _imp.reload(_imp.import_module("app.core.settings"))
     _imp.reload(mod)
 
     opened: list[str] = []
+
     def _fake_open(p: str) -> None:
         opened.append(p)
 

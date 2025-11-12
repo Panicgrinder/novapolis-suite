@@ -12,9 +12,8 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
-from typing import List, Dict
 
-TOPIC_TEMPLATES: List[str] = [
+TOPIC_TEMPLATES: list[str] = [
     "Fasse sachlich zusammen: {subject}",
     "Nenne kurz drei Aspekte zu: {subject}",
     "Erkläre neutral in einem Satz: {subject}",
@@ -22,7 +21,7 @@ TOPIC_TEMPLATES: List[str] = [
     "Formuliere höflich und knapp: {subject}",
 ]
 
-SUBJECTS: List[str] = [
+SUBJECTS: list[str] = [
     "Zeitmanagement",
     "Teamkommunikation",
     "Fehlersuche im Code",
@@ -46,7 +45,7 @@ SUBJECTS: List[str] = [
 ]
 
 # Words we often want included to exercise term_inclusion
-INCLUDE_WORDS: List[List[str]] = [
+INCLUDE_WORDS: list[list[str]] = [
     ["freundlich", "klar"],
     ["neutral", "sachlich"],
     ["kurz", "präzise"],
@@ -60,19 +59,15 @@ INCLUDE_WORDS: List[List[str]] = [
 ]
 
 
-def make_item(num: int, tpl_idx: int, subj_idx: int) -> Dict[str, object]:
+def make_item(num: int, tpl_idx: int, subj_idx: int) -> dict[str, object]:
     tpl = TOPIC_TEMPLATES[tpl_idx % len(TOPIC_TEMPLATES)]
     subj = SUBJECTS[subj_idx % len(SUBJECTS)]
     prompt = tpl.format(subject=subj)
     inc = INCLUDE_WORDS[(num + tpl_idx + subj_idx) % len(INCLUDE_WORDS)]
     return {
         "id": f"eval-{num:03d}",
-        "messages": [
-            {"role": "user", "content": prompt}
-        ],
-        "checks": {
-            "must_include": inc
-        }
+        "messages": [{"role": "user", "content": prompt}],
+        "checks": {"must_include": inc},
     }
 
 
@@ -88,7 +83,7 @@ def main() -> None:
     out_path = Path(args.out)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
-    items: List[Dict[str, object]] = []
+    items: list[dict[str, object]] = []
     for i in range(count):
         n = start + i
         items.append(make_item(n, i, n))
@@ -97,6 +92,7 @@ def main() -> None:
         for obj in items:
             # write as JSONL without importing json to keep it simple
             import json as _json
+
             f.write(_json.dumps(obj, ensure_ascii=False) + "\n")
 
     print(f"Wrote {len(items)} items to {out_path}")

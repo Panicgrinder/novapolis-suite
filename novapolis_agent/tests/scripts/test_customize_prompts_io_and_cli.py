@@ -1,17 +1,18 @@
 from __future__ import annotations
 
-import os
+import importlib
 import io
 import json
-import importlib
-from typing import Any
+import os
 
 import pytest
 
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_customize_prompts_create_rules_and_io(monkeypatch: pytest.MonkeyPatch, tmp_path: "os.PathLike[str]") -> None:
+def test_customize_prompts_create_rules_and_io(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: os.PathLike[str]
+) -> None:
     # Modul laden und auf temporäres project_root umbiegen
     mod = importlib.import_module("scripts.customize_prompts")
 
@@ -41,12 +42,13 @@ def test_customize_prompts_create_rules_and_io(monkeypatch: pytest.MonkeyPatch, 
     # capture stdout to ensure it runs through
     buf = io.StringIO()
     import contextlib
+
     with contextlib.redirect_stdout(buf):
         mod.create_content_rules()
 
     rules_file = os.path.join(app_core, "content_rules.json")
     assert os.path.exists(rules_file)
-    with open(rules_file, "r", encoding="utf-8") as f:
+    with open(rules_file, encoding="utf-8") as f:
         data = json.load(f)
     assert data.get("Beispiele") is True
     assert data.get("Offtopic") is False
@@ -58,6 +60,7 @@ def test_customize_prompts_main_help(monkeypatch: pytest.MonkeyPatch) -> None:
     mod = importlib.import_module("scripts.customize_prompts")
     # Rufe ohne Argumente auf, erwartet: help-Ausgabe, kein Crash
     import sys
+
     argv_backup = sys.argv[:]
     try:
         sys.argv = ["customize_prompts.py"]

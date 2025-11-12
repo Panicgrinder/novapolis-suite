@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Any, List, Optional, cast
+from typing import Any, cast
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -35,7 +35,7 @@ class Settings(BaseSettings):
     PENALIZE_NEWLINE: bool = False
     REPEAT_PENALTY: float = 1.1
     REPEAT_LAST_N: int = 64
-    NUM_CTX_DEFAULT: Optional[int] = None
+    NUM_CTX_DEFAULT: int | None = None
 
     EVAL_DIRECTORY: str = "eval"
     EVAL_DATASET_DIR: str = os.path.join("eval", "datasets")
@@ -43,7 +43,7 @@ class Settings(BaseSettings):
     EVAL_CONFIG_DIR: str = os.path.join("eval", "config")
     EVAL_FILE_PATTERN: str = "eval-*.json*"
 
-    BACKEND_CORS_ORIGINS: List[str] = []
+    BACKEND_CORS_ORIGINS: list[str] = []
 
     REQUEST_TIMEOUT: float = 60.0
     REQUEST_MAX_INPUT_CHARS: int = 16000
@@ -53,15 +53,15 @@ class Settings(BaseSettings):
     RATE_LIMIT_REQUESTS_PER_MINUTE: int = 60
     RATE_LIMIT_BURST: int = 30
     RATE_LIMIT_WINDOW_SEC: float = 60.0
-    RATE_LIMIT_TRUSTED_IPS: List[str] = ["127.0.0.1", "::1"]
-    RATE_LIMIT_EXEMPT_PATHS: List[str] = ["/health", "/docs", "/openapi.json"]
+    RATE_LIMIT_TRUSTED_IPS: list[str] = ["127.0.0.1", "::1"]
+    RATE_LIMIT_EXEMPT_PATHS: list[str] = ["/health", "/docs", "/openapi.json"]
 
     LOG_JSON: bool = False
     LOG_TRUNCATE_CHARS: int = 200
     REQUEST_ID_HEADER: str = "X-Request-ID"
 
     CONTEXT_NOTES_ENABLED: bool = False
-    CONTEXT_NOTES_PATHS: List[str] = [
+    CONTEXT_NOTES_PATHS: list[str] = [
         os.path.join("eval", "config", "context.local.md"),
         os.path.join("eval", "config", "context.local.jsonl"),
         os.path.join("eval", "config", "context.local.json"),
@@ -72,7 +72,7 @@ class Settings(BaseSettings):
 
     CONTENT_POLICY_ENABLED: bool = False
     POLICIES_ENABLED: bool = False
-    POLICY_FILE: Optional[str] = None
+    POLICY_FILE: str | None = None
     POLICY_STRICT_UNRESTRICTED_BYPASS: bool = True
 
     EVAL_POST_REWRITE_ENABLED: bool = True
@@ -98,7 +98,7 @@ class Settings(BaseSettings):
     MEMORY_DIR: Path = Path(".data/memory")
 
     TOOLS_ENABLED: bool = False
-    TOOLS_WHITELIST: List[str] = []
+    TOOLS_WHITELIST: list[str] = []
 
     RAG_ENABLED: bool = False
     RAG_INDEX_PATH: str = str(Path("eval/results/rag/index.json"))
@@ -109,7 +109,7 @@ class Settings(BaseSettings):
     AUTO_MODE_MEMORY_MAX: int = 1000
 
     @staticmethod
-    def _to_nonempty_str(value: Any) -> Optional[str]:
+    def _to_nonempty_str(value: Any) -> str | None:
         try:
             string_value = str(value).strip()
         except Exception:
@@ -118,12 +118,12 @@ class Settings(BaseSettings):
 
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
     @classmethod
-    def _coerce_cors(cls, value: Any) -> List[str]:
+    def _coerce_cors(cls, value: Any) -> list[str]:
         if value is None or value == "":
             return []
         if isinstance(value, list):
-            result: List[str] = []
-            for entry in cast(List[Any], value):
+            result: list[str] = []
+            for entry in cast(list[Any], value):
                 string_value = cls._to_nonempty_str(entry)
                 if string_value is not None:
                     result.append(string_value)
@@ -134,8 +134,8 @@ class Settings(BaseSettings):
 
                 parsed = json.loads(value)
                 if isinstance(parsed, list):
-                    result2: List[str] = []
-                    for entry in cast(List[Any], parsed):
+                    result2: list[str] = []
+                    for entry in cast(list[Any], parsed):
                         string_value = cls._to_nonempty_str(entry)
                         if string_value is not None:
                             result2.append(string_value)

@@ -1,20 +1,23 @@
 from __future__ import annotations
 
-import os
 import io
+import os
 from contextlib import redirect_stdout
+
 import pytest
 
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_fine_tune_pipeline_minimal_flows(tmp_path: "os.PathLike[str]") -> None:
+def test_fine_tune_pipeline_minimal_flows(tmp_path: os.PathLike[str]) -> None:
     out_dir = os.path.join(tmp_path, "eval", "results", "finetune")
     os.makedirs(out_dir, exist_ok=True)
 
-    from scripts import fine_tune_pipeline as ftp
     # Patch argv: kein train file vorhanden -> sollte mit Code 2 enden
     import sys
+
+    from scripts import fine_tune_pipeline as ftp
+
     old_argv = sys.argv[:]
     sys.argv = ["fine_tune_pipeline.py", "--finetune-dir", out_dir]
     try:
@@ -34,8 +37,10 @@ def test_fine_tune_pipeline_minimal_flows(tmp_path: "os.PathLike[str]") -> None:
     old_argv = sys.argv[:]
     sys.argv = [
         "fine_tune_pipeline.py",
-        "--finetune-dir", out_dir,
-        "--model", "some/private-model",
+        "--finetune-dir",
+        out_dir,
+        "--model",
+        "some/private-model",
         "--no-check",
     ]
     try:

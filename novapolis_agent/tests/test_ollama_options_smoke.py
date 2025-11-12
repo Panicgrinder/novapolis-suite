@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any
 
 from app.api.chat_helpers import normalize_ollama_options
 
 
 def test_normalize_ollama_options_extended_fields() -> None:
-    raw: Dict[str, Any] = {
+    raw: dict[str, Any] = {
         "temperature": 0.9,
         "max_tokens": 128,
         "num_ctx": 2048,
@@ -15,7 +15,7 @@ def test_normalize_ollama_options_extended_fields() -> None:
         "frequency_penalty": 0.3,
         "seed": 42,
         "repeat_last_n": 64,
-        "stop": ["\n\n", "<END>"]
+        "stop": ["\n\n", "<END>"],
     }
     opts, host = normalize_ollama_options(raw, eval_mode=False)
     assert isinstance(opts, dict) and isinstance(host, str)
@@ -31,7 +31,7 @@ def test_normalize_ollama_options_extended_fields() -> None:
 
 
 def test_eval_mode_caps_temperature() -> None:
-    raw: Dict[str, Any] = {"temperature": 0.8, "max_tokens": 5}
+    raw: dict[str, Any] = {"temperature": 0.8, "max_tokens": 5}
     opts, _ = normalize_ollama_options(raw, eval_mode=True)
     assert opts["temperature"] <= 0.25
     assert opts["num_predict"] == 5

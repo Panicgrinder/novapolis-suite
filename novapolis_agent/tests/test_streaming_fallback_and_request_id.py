@@ -4,9 +4,8 @@ import asyncio
 import json
 from typing import Any
 
-import pytest
-
 import app.api.chat as chat_module
+import pytest
 from app.api.models import ChatRequest
 
 
@@ -15,8 +14,10 @@ from app.api.models import ChatRequest
 def test_streaming_fallback_on_invalid_json(monkeypatch: pytest.MonkeyPatch) -> None:
     class _Resp:
         status_code = 200
+
         def raise_for_status(self) -> None:
             return
+
         async def aiter_lines(self):
             yield "{this is not json}"
             yield json.dumps({"done": True})
@@ -24,14 +25,17 @@ def test_streaming_fallback_on_invalid_json(monkeypatch: pytest.MonkeyPatch) -> 
     class _CM:
         async def __aenter__(self):
             return _Resp()
+
         async def __aexit__(self, exc_type, exc, tb):
             return False
 
     class _Client:
         async def __aenter__(self):
             return self
+
         async def __aexit__(self, exc_type, exc, tb):
             return False
+
         def stream(self, *args: Any, **kwargs: Any):
             return _CM()
 
@@ -41,6 +45,7 @@ def test_streaming_fallback_on_invalid_json(monkeypatch: pytest.MonkeyPatch) -> 
     agen = asyncio.run(chat_module.stream_chat_request(req))
 
     collected: list[str] = []
+
     async def _consume():
         async for s in agen:
             collected.append(s)
@@ -53,32 +58,37 @@ def test_streaming_fallback_on_invalid_json(monkeypatch: pytest.MonkeyPatch) -> 
 
 @pytest.mark.api
 def test_request_id_header_propagation(monkeypatch: pytest.MonkeyPatch) -> None:
-    from fastapi.testclient import TestClient
     import importlib
+
+    from fastapi.testclient import TestClient
 
     captured_headers: dict[str, str] = {}
 
-    import httpx
     import app.api.chat as chat_module
 
     class _Resp:
         status_code = 200
+
         def raise_for_status(self) -> None:
             return
+
         def json(self):
             return {"message": {"content": "ok"}}
 
     class _Client:
         async def __aenter__(self):
             return self
+
         async def __aexit__(self, exc_type, exc, tb):
             return False
+
         async def post(self, url, json, headers):
             captured_headers.update(headers)
             return _Resp()
 
     def _factory(*a, **k):
         return _Client()
+
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", _factory)
 
     # Rate-Limiter deaktivieren und App frisch laden

@@ -10,10 +10,11 @@ Standard: Nur erfolgreiche Antworten exportieren.
 """
 from __future__ import annotations
 
+import json
 import os
 import sys
-import json
-from typing import Any, Dict, List, Optional, Tuple, cast
+from typing import Any, cast
+
 from utils.time_utils import now_compact
 
 
@@ -22,6 +23,7 @@ def _load_run_eval_module():
     if project_root not in sys.path:
         sys.path.insert(0, project_root)
     import importlib.util
+
     run_eval_path = os.path.join(project_root, "scripts", "run_eval.py")
     spec = importlib.util.spec_from_file_location("run_eval", run_eval_path)
     if spec is None or spec.loader is None:
@@ -34,9 +36,9 @@ def _load_run_eval_module():
 run_eval = _load_run_eval_module()
 
 
-def _load_results(path: str) -> List[Dict[str, Any]]:
-    rows: List[Dict[str, Any]] = []
-    with open(path, "r", encoding="utf-8") as f:
+def _load_results(path: str) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    with open(path, encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if not line:
@@ -48,16 +50,16 @@ def _load_results(path: str) -> List[Dict[str, Any]]:
                 continue
             if not isinstance(raw, dict):
                 continue
-            data: Dict[str, Any] = cast(Dict[str, Any], raw)
+            data: dict[str, Any] = cast(dict[str, Any], raw)
             if data.get("_meta") is True:
                 continue
             rows.append(data)
     return rows
 
 
-async def _load_items_map(patterns: Optional[List[str]] = None) -> Dict[str, Any]:
+async def _load_items_map(patterns: list[str] | None = None) -> dict[str, Any]:
     items = await run_eval.load_evaluation_items(patterns)
-    id_map: Dict[str, Any] = {}
+    id_map: dict[str, Any] = {}
     for it in items:
         # Primärer Key: die vom Loader gesetzte ID
         try:
@@ -67,18 +69,18 @@ async def _load_items_map(patterns: Optional[List[str]] = None) -> Dict[str, Any
         id_map[key] = it
         # Sekundärer Key: falls die ID mit "eval-" beginnt, zusätzlich Variante ohne Präfix mappen
         if key.startswith("eval-"):
-            id_map[key[len("eval-"):]] = it
+            id_map[key[len("eval-") :]] = it
     return id_map
 
 
-def _first_user_message(messages: List[Dict[str, str]]) -> Tuple[str, str]:
+def _first_user_message(messages: list[dict[str, str]]) -> tuple[str, str]:
     """Liefert (instruction, input)."""
     if not messages:
         return ("", "")
     # Nimm die erste user-Nachricht als Instruction,
     # alles andere (weitere user/assistant/system) wird als Input zusammengefasst
     instruction = ""
-    others: List[str] = []
+    others: list[str] = []
     for m in messages:
         role = m.get("role")
         content = m.get("content", "")
@@ -92,16 +94,20 @@ def _first_user_message(messages: List[Dict[str, str]]) -> Tuple[str, str]:
 
 async def export_from_results(
     results_path: str,
-    out_dir: Optional[str] = None,
+    out_dir: str | None = None,
     format: str = "alpaca",
     include_failures: bool = False,
-    patterns: Optional[List[str]] = None,
-) -> Dict[str, Any]:
+    patterns: list[str] | None = None,
+) -> dict[str, Any]:
     if out_dir is None:
         # Nutze Settings statt hardcoded fallback
         try:
             from app.core.settings import settings
-            out_dir_str = os.path.join(os.path.dirname(os.path.dirname(__file__)), getattr(settings, "EVAL_RESULTS_DIR", "eval/results"))
+
+            out_dir_str = os.path.join(
+                os.path.dirname(os.path.dirname(__file__)),
+                getattr(settings, "EVAL_RESULTS_DIR", "eval/results"),
+            )
         except Exception:
             out_dir_str = str(getattr(run_eval, "DEFAULT_RESULTS_DIR", run_eval.DEFAULT_EVAL_DIR))
     else:
@@ -115,13 +121,13 @@ async def export_from_results(
     # Map Items laden: Bevorzuge explizite Source-Dateien aus den Results,
     # plus Standard-Globs aus Settings, damit auch nicht 'eval-*' benannte Datasets gefunden werden.
     if patterns is None:
-        cand: List[str] = []
+        cand: list[str] = []
         # 1) Explizite Quell-Dateien aus den Results
         try:
             ddir = str(getattr(run_eval, "DEFAULT_DATASET_DIR"))
         except Exception:
             ddir = None
-        src_files: List[str] = []
+        src_files: list[str] = []
         for r in rows:
             sf = r.get("source_file")
             if isinstance(sf, str) and sf:
@@ -165,12 +171,12 @@ async def export_from_results(
             if not item:
                 # Item evtl. nicht in aktuellen Paketen; überspringen
                 continue
-            messages = cast(List[Dict[str, str]], item.messages or [])
+            messages = cast(list[dict[str, str]], item.messages or [])
             response = r.get("response", "")
 
             if format == "alpaca":
                 instr, inp = _first_user_message(messages)
-                rec: Dict[str, Any] = {
+                rec: dict[str, Any] = {
                     "instruction": instr,
                     "input": inp,
                     "output": response,
@@ -183,9 +189,9 @@ async def export_from_results(
                 }
             elif format == "openai_chat":
                 # Bewahre alle bisherigen Nachrichten, hänge Assistant-Output an
-                msgs: List[Dict[str, str]] = list(messages)
+                msgs: list[dict[str, str]] = list(messages)
                 msgs.append({"role": "assistant", "content": response})
-                rec: Dict[str, Any] = {
+                rec: dict[str, Any] = {
                     "messages": msgs,
                     "meta": {
                         "id": item_id,
@@ -205,15 +211,25 @@ async def export_from_results(
 
 if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser(description="Exportiert Fine-Tuning-Datensatz aus results_*.jsonl")
+
+    parser = argparse.ArgumentParser(
+        description="Exportiert Fine-Tuning-Datensatz aus results_*.jsonl"
+    )
     parser.add_argument("results", help="Pfad zur results_*.jsonl Datei")
     parser.add_argument("--format", choices=["alpaca", "openai_chat"], default="alpaca")
-    parser.add_argument("--include-failures", action="store_true", help="Auch fehlgeschlagene Antworten exportieren")
+    parser.add_argument(
+        "--include-failures", action="store_true", help="Auch fehlgeschlagene Antworten exportieren"
+    )
     args = parser.parse_args()
 
     res = __import__(__name__)
     import asyncio
-    out = asyncio.run(export_from_results(args.results, format=args.format, include_failures=args.include_failures))
+
+    out = asyncio.run(
+        export_from_results(
+            args.results, format=args.format, include_failures=args.include_failures
+        )
+    )
     if out.get("ok"):
         print(f"Export: {out['out']} ({out['count']} Einträge)")
     else:

@@ -13,7 +13,7 @@ Hoch priorisiert (0–2 Tage)
 
   - Ziel: `pytest -q` PASS, `pyright` PASS, `mypy` PASS, Coverage ≥80% mit Receipt.
   - Schritte: pytest → pyright → mypy → `scripts/run_pytest_coverage.ps1` (Receipt in `DONELOG.md` + `WORKSPACE_STATUS.md`).
- - [x] Agent: Integration `PSScriptAnalyzer` in `scripts/run_checks_and_report.ps1` (2025-11-11 11:00)
+ - [x] Agent: Integration `PSScriptAnalyzer` in der damaligen PowerShell-Variante (jetzt durch `python scripts/run_checks_and_report.py` ersetzt) (2025-11-11 11:00)
   - [x] `*.code-workspace` suchen und entfernen/verschieben (report counts)
   - [ ] `tasks.json` Inline-Ketten prüfen → Wrapper-Aufrufe
   - [ ] Wrapper-Probelauf `scripts/run_pytest_coverage.ps1` + Receipt
@@ -41,7 +41,7 @@ Hoch priorisiert (0–2 Tage)
   - [x] Automatisches Schreiben der Kandidaten-JSON im Dry-Run (Implementierung)
   - [x] Report-Summary in Hub unter "Temporäre Bereiche" verlinken (nach Automation)
 
-- [ ] Checks-Wrapper (`scripts/run_checks_and_report.ps1`) – Review/Nachzug
+- [ ] Checks-Wrapper (`python scripts/run_checks_and_report.py`) – Review/Nachzug
   - [ ] Kurzreview der neuen PSScriptAnalyzer-Phase (Installationspfad, Exit-Codes, Receipt-Felder)
   - [ ] Einbindung in „Checks: full“ Dokumentation (README/Status)
   - [ ] Einmaliger Gesamtlauf inkl. Receipt unter `.tmp-results/reports/checks_report_*.md`
@@ -78,5 +78,5 @@ Hinweise
 - STOP-Marker: Tagging-Write, Cleanup Phase 4, Multi-Root-Abschluss.
 - SSOT: Detailkontext und Volltextliste in `todo.root.md`; diese Datei dient als Arbeitsfahrplan für Copilot/GPT.
 - 2025-11-10 20:17: WORKSPACE_INDEX Header-Duplikate und SimClient Variable gefixt (Commit 5922521). `run_pytest_quick.ps1` PASS.
-- Wrapper-Aufgaben: `scripts/run_checks_and_report.ps1` (Lint/Typen/Tests + Report) finalisieren; Link-Scanner `scripts/scan_links.ps1` implementieren und Reports unter `.tmp-results/scan/` ablegen.
+- Wrapper-Aufgaben: `python scripts/run_checks_and_report.py` (Lint/Typen/Tests + Report) finalisieren; Link-Scanner `scripts/scan_links.ps1` implementieren und Reports unter `.tmp-results/scan/` ablegen.
   - Hub-README: Erweiterung abgeschlossen (01:12); nächste Phase Index/Redirect-Strategie.

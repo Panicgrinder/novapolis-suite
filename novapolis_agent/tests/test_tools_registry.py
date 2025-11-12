@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import types
-from typing import Any, Dict, cast
+from typing import Any, cast
 
 import pytest
-
 from app.tools import registry
 
 
@@ -43,14 +42,14 @@ def test_is_allowed_respects_settings(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_call_tool_covers_error_paths(monkeypatch: pytest.MonkeyPatch) -> None:
     called = {}
 
-    def ok_tool(args: Dict[str, Any]) -> Dict[str, Any]:
+    def ok_tool(args: dict[str, Any]) -> dict[str, Any]:
         called.update(args)
         return {"value": args.get("value", 0) * 2}
 
-    def bad_tool(_: Dict[str, Any]) -> Any:
+    def bad_tool(_: dict[str, Any]) -> Any:
         return "oops"
 
-    def boom_tool(_: Dict[str, Any]) -> Dict[str, Any]:
+    def boom_tool(_: dict[str, Any]) -> dict[str, Any]:
         raise RuntimeError("boom")
 
     registry.register_tool("ok", ok_tool)

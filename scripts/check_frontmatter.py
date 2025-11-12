@@ -1,4 +1,5 @@
 """Simple YAML frontmatter validator for Markdown files."""
+
 from __future__ import annotations
 
 import argparse

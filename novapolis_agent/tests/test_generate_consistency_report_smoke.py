@@ -13,7 +13,9 @@ def _load_module():
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_generate_consistency_report_creates_report(tmp_path: Path, monkeypatch: "pytest.MonkeyPatch", capsys: "pytest.CaptureFixture[str]") -> None:
+def test_generate_consistency_report_creates_report(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
     mod = _load_module()
 
     out_root = tmp_path / "reports"
@@ -45,7 +47,9 @@ def test_generate_consistency_report_creates_report(tmp_path: Path, monkeypatch:
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_generate_consistency_report_write_files_empty(tmp_path: Path, monkeypatch: "pytest.MonkeyPatch") -> None:
+def test_generate_consistency_report_write_files_empty(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     mod = _load_module()
 
     report_dir = tmp_path / "empty"

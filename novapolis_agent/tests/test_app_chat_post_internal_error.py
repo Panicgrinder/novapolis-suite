@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from typing import Any, Dict
-from fastapi.testclient import TestClient
-import pytest
+from typing import Any
 
 import app.main as app_main
+import pytest
 from app.main import app
+from fastapi.testclient import TestClient
 
 
 @pytest.mark.api
@@ -18,7 +18,7 @@ def test_chat_post_endpoint_internal_error(monkeypatch: pytest.MonkeyPatch) -> N
     monkeypatch.setattr(app_main, "process_chat_request", _boom)
 
     client = TestClient(app)
-    payload: Dict[str, Any] = {
+    payload: dict[str, Any] = {
         "messages": [{"role": "user", "content": "hi"}],
     }
     resp = client.post("/chat", json=payload)

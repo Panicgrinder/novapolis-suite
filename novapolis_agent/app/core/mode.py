@@ -2,18 +2,26 @@ from __future__ import annotations
 
 import threading
 import time
-from typing import Any, Dict, List, Literal, Optional, Tuple
+from typing import Any, Literal
 
 Mode = Literal["rpg", "general"]
 
 
-def detect_requested_mode_from_messages(messages: List[Dict[str, Any]]) -> Optional[Mode]:
+def detect_requested_mode_from_messages(messages: list[dict[str, Any]]) -> Mode | None:
     if not messages:
         return None
-    text = " ".join(str(m.get("content", "")) for m in messages if str(m.get("role", "")).lower() == "user").lower()
-    if any(key in text for key in ["novapolis", "chronistin", "/roll", "szene:", "konsequenz:", "optionen:"]):
+    text = " ".join(
+        str(m.get("content", "")) for m in messages if str(m.get("role", "")).lower() == "user"
+    ).lower()
+    if any(
+        key in text
+        for key in ["novapolis", "chronistin", "/roll", "szene:", "konsequenz:", "optionen:"]
+    ):
         return "rpg"
-    if any(key in text for key in ["neutral", "sachlich", "ohne rpg", "kein rpg", "allgemein", "keine persona"]):
+    if any(
+        key in text
+        for key in ["neutral", "sachlich", "ohne rpg", "kein rpg", "allgemein", "keine persona"]
+    ):
         return "general"
     return None
 
@@ -22,10 +30,10 @@ class SessionModeStore:
     def __init__(self, ttl_minutes: int, max_entries: int):
         self._ttl = max(1, int(ttl_minutes)) * 60
         self._max = max(100, int(max_entries))
-        self._store: Dict[str, Tuple[Mode, float]] = {}
+        self._store: dict[str, tuple[Mode, float]] = {}
         self._lock = threading.Lock()
 
-    def get(self, sid: Optional[str]) -> Optional[Mode]:
+    def get(self, sid: str | None) -> Mode | None:
         if not sid:
             return None
         now = time.time()
@@ -39,7 +47,7 @@ class SessionModeStore:
                 return None
             return mode
 
-    def set(self, sid: Optional[str], mode: Mode) -> None:
+    def set(self, sid: str | None, mode: Mode) -> None:
         if not sid:
             return
         now = time.time()
@@ -63,10 +71,10 @@ SESSION_MODES = SessionModeStore(ttl_minutes=_ttl, max_entries=_max)
 
 def resolve_mode(
     *,
-    session_id: Optional[str],
+    session_id: str | None,
     eval_mode: bool,
     unrestricted_mode: bool,
-    messages: List[Dict[str, Any]],
+    messages: list[dict[str, Any]],
     default_mode: Mode,
     persist: bool = True,
 ) -> Mode:

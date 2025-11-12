@@ -5,11 +5,11 @@ Führt das lokale Konsistenz-Audit aus (scripts/audit_workspace.py) und schreibt
 """
 from __future__ import annotations
 
-import os
-import sys
 import io
 import json
-from typing import Any, Dict
+import os
+import sys
+from typing import Any
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 if ROOT not in sys.path:
@@ -39,6 +39,7 @@ def run_audit_workspace() -> str:
             from scripts.audit_workspace import main as audit_main  # type: ignore
         except Exception:
             import importlib.util as _util
+
             audit_path = os.path.join(ROOT, "scripts", "audit_workspace.py")
             spec = _util.spec_from_file_location("audit_workspace", audit_path)
             if spec is None or spec.loader is None:
@@ -56,7 +57,7 @@ def run_audit_workspace() -> str:
     return buf.getvalue()
 
 
-def write_files(out_dir: str, params: Dict[str, Any], text: str) -> None:
+def write_files(out_dir: str, params: dict[str, Any], text: str) -> None:
     with open(os.path.join(out_dir, "params.txt"), "w", encoding="utf-8") as f:
         f.write(json.dumps(params, ensure_ascii=False, indent=2))
     with open(os.path.join(out_dir, "report.md"), "w", encoding="utf-8") as f:
@@ -76,7 +77,7 @@ def main() -> int:
     ensure_dir(out_dir)
 
     out = run_audit_workspace()
-    params: Dict[str, Any] = {
+    params: dict[str, Any] = {
         "timestamp": ts,
         "source": "scripts/reports/generate_consistency_report.py",
         "tools": ["scripts/audit_workspace.py"],

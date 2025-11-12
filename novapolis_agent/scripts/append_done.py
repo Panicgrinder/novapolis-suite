@@ -41,6 +41,7 @@ def main(argv: list[str]) -> int:
     # Nutze zentrale Zeit-Helfer; Fallback auf lokale Systemzeit
     try:
         from utils.time_utils import now_human_tz, tz_label
+
         ts = now_human_tz()
         tz_info = tz_label()
     except Exception:

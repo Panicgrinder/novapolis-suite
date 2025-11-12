@@ -6,10 +6,10 @@ Falls keine coverage.xml existiert, wird ein kurzer Hinweis geschrieben.
 """
 from __future__ import annotations
 
-import os
 import json
+import os
 import sys
-from typing import Any, Dict, List, TypedDict
+from typing import Any, TypedDict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 if ROOT not in sys.path:
@@ -18,6 +18,7 @@ if ROOT not in sys.path:
 from utils.time_utils import now_compact  # noqa: E402
 
 REPORTS_ROOT = os.path.join(ROOT, "eval", "results", "reports", "coverage")
+
 
 def ensure_dir(path: str) -> None:
     os.makedirs(path, exist_ok=True)
@@ -33,19 +34,20 @@ class PkgSummary(TypedDict, total=False):
     line_rate: str | None
 
 
-def parse_coverage_xml(fp: str) -> Dict[str, Any]:
+def parse_coverage_xml(fp: str) -> dict[str, Any]:
     try:
         import xml.etree.ElementTree as ET
+
         tree = ET.parse(fp)
         root = tree.getroot()
         # Cobertura-Format: root tag ist "coverage"; Attribute line-rate, branch-rate etc.
-        data: Dict[str, Any] = {
+        data: dict[str, Any] = {
             "line_rate": root.attrib.get("line-rate"),
             "branch_rate": root.attrib.get("branch-rate"),
             "timestamp_attr": root.attrib.get("timestamp"),
         }
         # Summaries pro package/file optional sammeln
-        packages: List[PkgSummary] = []
+        packages: list[PkgSummary] = []
         for pkg in root.findall("packages/package"):
             pname = pkg.attrib.get("name")
             pr = pkg.attrib.get("branch-rate")
@@ -57,7 +59,7 @@ def parse_coverage_xml(fp: str) -> Dict[str, Any]:
         return {"error": str(e)}
 
 
-def write_files(out_dir: str, params: Dict[str, Any], content: Dict[str, Any]) -> None:
+def write_files(out_dir: str, params: dict[str, Any], content: dict[str, Any]) -> None:
     with open(os.path.join(out_dir, "params.txt"), "w", encoding="utf-8") as f:
         f.write(json.dumps(params, ensure_ascii=False, indent=2))
     with open(os.path.join(out_dir, "report.md"), "w", encoding="utf-8") as f:
@@ -65,7 +67,9 @@ def write_files(out_dir: str, params: Dict[str, Any], content: Dict[str, Any]) -
         f.write(f"Zeitpunkt: {params['timestamp']}\n\n")
         cov_xml = params.get("coverage_xml")
         if not cov_xml or not os.path.exists(cov_xml):
-            f.write("Es liegt keine coverage.xml vor. Bitte mit pytest --cov --cov-report=xml erzeugen.\n")
+            f.write(
+                "Es liegt keine coverage.xml vor. Bitte mit pytest --cov --cov-report=xml erzeugen.\n"
+            )
             return
         if "error" in content:
             f.write(f"Fehler beim Parsen: {content['error']}\n")
@@ -78,7 +82,9 @@ def write_files(out_dir: str, params: Dict[str, Any], content: Dict[str, Any]) -
         if content.get("packages"):
             f.write("## Pakete\n\n")
             for pkg in content["packages"]:
-                f.write(f"- {pkg['name']}: line-rate={pkg['line_rate']} branch-rate={pkg['branch_rate']}\n")
+                f.write(
+                    f"- {pkg['name']}: line-rate={pkg['line_rate']} branch-rate={pkg['branch_rate']}\n"
+                )
 
 
 def main() -> int:

@@ -13,7 +13,9 @@ def _load_module():
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_todo_gather_prints_summary(tmp_path: Path, monkeypatch: "pytest.MonkeyPatch", capsys: "pytest.CaptureFixture[str]") -> None:
+def test_todo_gather_prints_summary(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
     mod = _load_module()
 
     tmp_project = tmp_path / "project"
@@ -33,12 +35,16 @@ def test_todo_gather_prints_summary(tmp_path: Path, monkeypatch: "pytest.MonkeyP
     monkeypatch.setattr(mod, "PROJECT_ROOT", str(tmp_project))
     monkeypatch.setattr(mod, "RESULTS_DIR", str(eval_dir))
     monkeypatch.setattr(mod, "SUMMARIES_DIR", str(summaries_dir))
-    monkeypatch.setattr(mod, "feature_status", lambda: {
-        "caching_integrated": False,
-        "caching_available": True,
-        "fine_tune_pipeline_available": True,
-        "curate_dataset_available": True,
-    })
+    monkeypatch.setattr(
+        mod,
+        "feature_status",
+        lambda: {
+            "caching_integrated": False,
+            "caching_available": True,
+            "fine_tune_pipeline_available": True,
+            "curate_dataset_available": True,
+        },
+    )
 
     exit_code = mod.main([])
 
@@ -52,7 +58,9 @@ def test_todo_gather_prints_summary(tmp_path: Path, monkeypatch: "pytest.MonkeyP
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_todo_gather_write_md(tmp_path: Path, monkeypatch: "pytest.MonkeyPatch", capsys: "pytest.CaptureFixture[str]") -> None:
+def test_todo_gather_write_md(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
     mod = _load_module()
 
     tmp_project = tmp_path / "project"
@@ -65,12 +73,16 @@ def test_todo_gather_write_md(tmp_path: Path, monkeypatch: "pytest.MonkeyPatch",
     monkeypatch.setattr(mod, "RESULTS_DIR", str(eval_dir))
     monkeypatch.setattr(mod, "SUMMARIES_DIR", str(summaries_dir))
     monkeypatch.setattr(mod, "latest_results", lambda: None)
-    monkeypatch.setattr(mod, "feature_status", lambda: {
-        "caching_integrated": False,
-        "caching_available": False,
-        "fine_tune_pipeline_available": False,
-        "curate_dataset_available": False,
-    })
+    monkeypatch.setattr(
+        mod,
+        "feature_status",
+        lambda: {
+            "caching_integrated": False,
+            "caching_available": False,
+            "fine_tune_pipeline_available": False,
+            "curate_dataset_available": False,
+        },
+    )
 
     utils_time = importlib.import_module("utils.time_utils")
     monkeypatch.setattr(utils_time, "now_compact", lambda: "20251107_1215")

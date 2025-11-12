@@ -2,26 +2,26 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from threading import RLock
-from typing import Dict, List, Mapping
 
 
 class SessionMemory:
     def __init__(self) -> None:
-        self._by_id: Dict[str, List[Mapping[str, str]]] = {}
+        self._by_id: dict[str, list[Mapping[str, str]]] = {}
         self._lock = RLock()
 
-    def get(self, session_id: str) -> List[Mapping[str, str]]:
+    def get(self, session_id: str) -> list[Mapping[str, str]]:
         with self._lock:
             return list(self._by_id.get(session_id, []))
 
     def put_and_trim(
         self,
         session_id: str,
-        messages: List[Mapping[str, str]],
+        messages: list[Mapping[str, str]],
         max_messages: int,
         max_chars: int,
-    ) -> List[Mapping[str, str]]:
+    ) -> list[Mapping[str, str]]:
         with self._lock:
             current = self._by_id.get(session_id, [])
             current.extend(messages)

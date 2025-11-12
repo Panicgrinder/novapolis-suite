@@ -1,12 +1,14 @@
-import unittest
-import pytest
-from unittest.mock import patch
-from typing import Any, Dict, List, Optional
-import sys
 import os
+import sys
+import unittest
+from typing import Any
+from unittest.mock import patch
+
+import pytest
 
 # Cache für importierte Module
 _run_eval_module = None
+
 
 def _get_run_eval():
     """Cached import of run_eval module for better performance."""
@@ -16,8 +18,9 @@ def _get_run_eval():
         project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         if project_root not in sys.path:
             sys.path.insert(0, project_root)
-        
+
         from scripts import run_eval as _run_eval
+
         _run_eval_module = _run_eval
     return _run_eval_module
 
@@ -31,7 +34,7 @@ class ResponseStub:
     def raise_for_status(self):
         return None
 
-    def json(self) -> Dict[str, Any]:
+    def json(self) -> dict[str, Any]:
         # scripts.run_eval.evaluate_item erwartet ein Top-Level "content"
         return {"content": self._content}
 
@@ -71,14 +74,22 @@ class TestRPGHeuristics(unittest.IsolatedAsyncioTestCase):
         assert high >= 0.4
         assert low <= 0.2
 
-    async def _eval_with_content(self, pkg: str, content: str, checks: Optional[List[str]] = None) -> Any:
+    async def _eval_with_content(
+        self, pkg: str, content: str, checks: list[str] | None = None
+    ) -> Any:
         run_eval = _get_run_eval()
 
         # Item aufbauen
         item = run_eval.EvaluationItem(
             id="eval-xyz",
             messages=[{"role": "user", "content": "Test"}],
-            checks={"must_include": [], "keywords_any": [], "keywords_at_least": {"count": 0, "items": []}, "not_include": [], "regex": []},
+            checks={
+                "must_include": [],
+                "keywords_any": [],
+                "keywords_at_least": {"count": 0, "items": []},
+                "not_include": [],
+                "regex": [],
+            },
             source_file="demo.jsonl",
             source_package=pkg,
         )
@@ -106,9 +117,7 @@ class TestRPGHeuristics(unittest.IsolatedAsyncioTestCase):
         return await _run()
 
     async def test_rpg_style_check_behaves_by_package(self):
-        rpg_like = (
-            "Chronistin von Novapolis\nSzene: Marktplatz\nKonsequenz: ...\nOptionen: ...\nworld_state: {}\n"
-        )
+        rpg_like = "Chronistin von Novapolis\nSzene: Marktplatz\nKonsequenz: ...\nOptionen: ...\nworld_state: {}\n"
         general_text = "Dies ist eine sachliche, technische Erklärung ohne RPG-Elemente."
 
         # In RPG-Paket sollte rpg_style bestehen

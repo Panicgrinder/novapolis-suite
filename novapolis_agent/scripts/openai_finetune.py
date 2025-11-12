@@ -9,42 +9,45 @@ Voraussetzungen:
 """
 from __future__ import annotations
 
-import os
-import json
-from typing import Any, Dict, Optional, List
 import importlib
+import json
+import os
+from typing import Any
 
 # OpenAI-Client dynamisch importieren (zur Compile-Zeit optional)
 try:
     _openai_mod = importlib.import_module("openai")
-    _OpenAI_factory: Optional[Any] = getattr(_openai_mod, "OpenAI", None)
+    _OpenAI_factory: Any | None = getattr(_openai_mod, "OpenAI", None)
 except Exception:  # pragma: no cover - optional dependency at runtime
     _OpenAI_factory = None
 
 # .env laden (nur Workspace, keine Systemweite Variable nötig)
 try:
     from dotenv import load_dotenv
+
     load_dotenv()
 except Exception:
     pass
 
 
 def validate_openai_chat_jsonl(path: str, limit: int = 5) -> None:
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         for i, line in enumerate(f, 1):
             if not line.strip():
                 continue
-            obj: Dict[str, Any] = json.loads(line)
+            obj: dict[str, Any] = json.loads(line)
             assert isinstance(obj, dict), f"Zeile {i}: kein Objekt"
             assert "messages" in obj, f"Zeile {i}: 'messages' fehlt"
             assert isinstance(obj["messages"], list), f"Zeile {i}: 'messages' ist nicht Liste"
             for m in obj["messages"]:
-                assert isinstance(m, dict) and "role" in m and "content" in m, f"Zeile {i}: ungültige message"
+                assert (
+                    isinstance(m, dict) and "role" in m and "content" in m
+                ), f"Zeile {i}: ungültige message"
             if i >= limit:
                 break
 
 
-def start_finetune(train_path: str, val_path: str, model: str = "gpt-4o-mini") -> Dict[str, Any]:
+def start_finetune(train_path: str, val_path: str, model: str = "gpt-4o-mini") -> dict[str, Any]:
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         return {"ok": False, "error": "OPENAI_API_KEY fehlt"}
@@ -71,18 +74,33 @@ def start_finetune(train_path: str, val_path: str, model: str = "gpt-4o-mini") -
 
 if __name__ == "__main__":
     import argparse
+
     p = argparse.ArgumentParser(description="OpenAI Fine-Tuning Job starten")
     p.add_argument("train", help="Pfad zu *_train.jsonl (openai_chat)")
     p.add_argument("val", help="Pfad zu *_val.jsonl (openai_chat)")
     # Modell aus ENV überschreibbar: OPENAI_FINETUNE_MODEL; Fallback: gpt-4o-mini
     p.add_argument("--model", default=os.getenv("OPENAI_FINETUNE_MODEL", "gpt-4o-mini"))
-    p.add_argument("--official-only", action="store_true", help="Nur Modelle aus offizieller Allowlist zulassen")
+    p.add_argument(
+        "--official-only",
+        action="store_true",
+        help="Nur Modelle aus offizieller Allowlist zulassen",
+    )
     p.add_argument(
         "--official-models-file",
-        default=os.getenv("OPENAI_OFFICIAL_MODELS_FILE", os.path.join(os.path.dirname(os.path.dirname(__file__)), "eval", "config", "openai_official_models.json")),
-        help="Pfad zu JSON-Liste erlaubter Modell-IDs"
+        default=os.getenv(
+            "OPENAI_OFFICIAL_MODELS_FILE",
+            os.path.join(
+                os.path.dirname(os.path.dirname(__file__)),
+                "eval",
+                "config",
+                "openai_official_models.json",
+            ),
+        ),
+        help="Pfad zu JSON-Liste erlaubter Modell-IDs",
     )
-    p.add_argument("--validate-only", action="store_true", help="Nur JSONL prüfen, keinen Job starten")
+    p.add_argument(
+        "--validate-only", action="store_true", help="Nur JSONL prüfen, keinen Job starten"
+    )
     args = p.parse_args()
 
     if args.validate_only:
@@ -96,12 +114,16 @@ if __name__ == "__main__":
         # Optional: Nur Modelle aus Allowlist akzeptieren
         if args.official_only:
             try:
-                with open(args.official_models_file, "r", encoding="utf-8") as f:
-                    allowed: List[str] = json.load(f)
+                with open(args.official_models_file, encoding="utf-8") as f:
+                    allowed: list[str] = json.load(f)
                 if not isinstance(allowed, list) or not all(isinstance(x, str) for x in allowed):
-                    raise ValueError("Ungültiges Format der Allowlist (erwarte JSON-Array von Strings)")
+                    raise ValueError(
+                        "Ungültiges Format der Allowlist (erwarte JSON-Array von Strings)"
+                    )
             except FileNotFoundError:
-                print("Fehler: official-only aktiv, aber Allowlist fehlt:", args.official_models_file)
+                print(
+                    "Fehler: official-only aktiv, aber Allowlist fehlt:", args.official_models_file
+                )
                 raise SystemExit(2)
             except Exception as e:
                 print("Fehler beim Laden der Allowlist:", str(e))

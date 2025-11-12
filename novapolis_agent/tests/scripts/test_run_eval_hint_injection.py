@@ -28,5 +28,9 @@ def test_inject_eval_hint_is_idempotent_on_retry():
     twice = inject_eval_hint(once, terms)
 
     # Es bleibt bei genau einem Eval-Hinweis
-    hints = [m for m in twice if m.get("role") == "user" and str(m.get("content", "")).startswith("Hinweis (Eval):")]
+    hints = [
+        m
+        for m in twice
+        if m.get("role") == "user" and str(m.get("content", "")).startswith("Hinweis (Eval):")
+    ]
     assert len(hints) == 1

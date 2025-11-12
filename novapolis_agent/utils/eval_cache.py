@@ -1,6 +1,11 @@
 from __future__ import annotations
-import os, json, hashlib, threading
-from typing import Any, Dict, Optional
+
+import hashlib
+import json
+import os
+import threading
+from typing import Any
+
 
 def make_key(obj: Any) -> str:
     try:
@@ -9,20 +14,22 @@ def make_key(obj: Any) -> str:
         payload = repr(obj)
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
+
 class EvalCache:
     """
     Sehr einfacher JSONL-Cache:
     - Datei mit Zeilen {"k": <hash>, "v": <value>}
     - In-Memory-Index (dict) + append-on-write
     """
+
     def __init__(self, path: str) -> None:
         self.path = path
-        self._idx: Dict[str, Any] = {}
+        self._idx: dict[str, Any] = {}
         self._lock = threading.Lock()
         os.makedirs(os.path.dirname(self.path), exist_ok=True)
         if os.path.exists(self.path):
             try:
-                with open(self.path, "r", encoding="utf-8") as f:
+                with open(self.path, encoding="utf-8") as f:
                     for line in f:
                         line = line.strip()
                         if not line:
@@ -38,15 +45,14 @@ class EvalCache:
                 # defekte Cache-Datei wird ignoriert
                 pass
 
-    def get(self, key: str) -> Optional[Any]:
+    def get(self, key: str) -> Any | None:
         with self._lock:
             return self._idx.get(key)
 
     def put(self, key: str, value: Any) -> None:
-        rec: Dict[str, Any] = {"k": key, "v": value}
+        rec: dict[str, Any] = {"k": key, "v": value}
         data = json.dumps(rec, ensure_ascii=False)
         with self._lock:
             self._idx[key] = value
             with open(self.path, "a", encoding="utf-8") as f:
                 f.write(data + "\n")
-

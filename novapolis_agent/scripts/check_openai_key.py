@@ -9,9 +9,9 @@ Exit codes:
   4 = SDK not installed / other error
 """
 from __future__ import annotations
+
 import os
 import sys
-from typing import Optional
 
 try:
     from dotenv import load_dotenv
@@ -24,7 +24,7 @@ ENV_PATH = os.path.join(BASE_DIR, ".env")
 if load_dotenv:
     load_dotenv(dotenv_path=ENV_PATH, override=False)
 
-key: Optional[str] = os.getenv("OPENAI_API_KEY")
+key: str | None = os.getenv("OPENAI_API_KEY")
 if not key:
     print("OPENAI_API_KEY: MISSING")
     sys.exit(1)

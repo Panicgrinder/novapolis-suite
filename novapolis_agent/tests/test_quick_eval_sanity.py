@@ -1,8 +1,10 @@
-import types
 import importlib.abc
-import pytest
-import scripts.quick_eval as qe
+import types
 from importlib.machinery import ModuleSpec
+
+import pytest
+
+import scripts.quick_eval as qe
 
 
 @pytest.mark.scripts
@@ -12,8 +14,10 @@ def test_load_run_eval_module_minimal(monkeypatch):
     class Loader(importlib.abc.Loader):
         def create_module(self, spec: ModuleSpec):
             return types.ModuleType("run_eval")
+
         def exec_module(self, module):
             from typing import Any, cast
+
             m = cast(Any, module)
             # inject the attributes accessed in quick_eval
             m.DEFAULT_DATASET_DIR = "eval/datasets"

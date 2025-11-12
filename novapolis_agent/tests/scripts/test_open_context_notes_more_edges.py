@@ -1,21 +1,28 @@
 from __future__ import annotations
 
-import os
-import json
 import importlib
+import json
+import os
+
 import pytest
 
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_open_context_notes_open_failure(monkeypatch: pytest.MonkeyPatch, tmp_path: "os.PathLike[str]") -> None:
+def test_open_context_notes_open_failure(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: os.PathLike[str]
+) -> None:
     mod = importlib.import_module("scripts.open_context_notes")
 
     # Zielpfad vorgeben über ENV settings
     monkeypatch.setenv("CONTEXT_NOTES_ENABLED", "true")
-    monkeypatch.setenv("CONTEXT_NOTES_PATHS", json.dumps([os.path.join(tmp_path, "eval", "config", "context.local.md")]))
+    monkeypatch.setenv(
+        "CONTEXT_NOTES_PATHS",
+        json.dumps([os.path.join(tmp_path, "eval", "config", "context.local.md")]),
+    )
 
     import importlib as _imp
+
     _imp.reload(_imp.import_module("app.core.settings"))
     _imp.reload(mod)
 
@@ -30,7 +37,7 @@ def test_open_context_notes_open_failure(monkeypatch: pytest.MonkeyPatch, tmp_pa
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_open_context_notes_ensure_with_sample(tmp_path: "os.PathLike[str]") -> None:
+def test_open_context_notes_ensure_with_sample(tmp_path: os.PathLike[str]) -> None:
     mod = importlib.import_module("scripts.open_context_notes")
     target = os.path.join(tmp_path, "eval", "config", "ctx.md")
     sample = os.path.join(os.path.dirname(target), "context.local.sample.md")
@@ -40,6 +47,6 @@ def test_open_context_notes_ensure_with_sample(tmp_path: "os.PathLike[str]") -> 
 
     out_path = mod.ensure_file(target)
     assert os.path.exists(out_path)
-    with open(out_path, "r", encoding="utf-8") as f:
+    with open(out_path, encoding="utf-8") as f:
         content = f.read()
     assert "SAMPLE-CONTENT" in content

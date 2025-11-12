@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Any, cast
 __runtime_settings_any: object | None = None
 try:
     from app.core.settings import settings as __rs
+
     __runtime_settings_any = __rs
 except Exception:  # pragma: no cover
     pass

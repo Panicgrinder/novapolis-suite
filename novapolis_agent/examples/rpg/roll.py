@@ -1,5 +1,6 @@
 import random
 import re
+
 from fastapi import APIRouter, HTTPException
 
 from .models import RollRequest, RollResponse
@@ -11,7 +12,7 @@ router = APIRouter(prefix="/roll")
 async def roll_dice(request: RollRequest) -> RollResponse:
     try:
         expression = request.dice_expression
-        pattern = r'^(\d*)d(\d+)([+-]\d+)?$'
+        pattern = r"^(\d*)d(\d+)([+-]\d+)?$"
         match = re.match(pattern, expression)
 
         if not match:

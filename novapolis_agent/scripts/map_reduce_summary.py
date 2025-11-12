@@ -17,12 +17,13 @@ Hinweis: Dieses Skript nutzt reine statische Heuristiken (AST/Headings/JSON-Stru
 """
 from __future__ import annotations
 
+import argparse
+import json
 import os
 import sys
-import json
-import argparse
+from typing import Any, cast
+
 from utils.time_utils import now_compact
-from typing import List, Dict, Any, Tuple, Optional, cast
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_OUT_DIR = os.path.join(PROJECT_ROOT, "eval", "results", "summaries")
@@ -36,7 +37,15 @@ SCOPES = {
     "eval-datasets": os.path.join(PROJECT_ROOT, "eval", "datasets"),
 }
 
-EXCLUDE_DIR_NAMES = {"__pycache__", ".pytest_cache", ".git", ".venv", "venv", "node_modules", "results"}
+EXCLUDE_DIR_NAMES = {
+    "__pycache__",
+    ".pytest_cache",
+    ".git",
+    ".venv",
+    "venv",
+    "node_modules",
+    "results",
+}
 TEXT_EXTS = {".py", ".md", ".txt", ".json", ".jsonl"}
 
 
@@ -47,7 +56,7 @@ def _safe_rel(path: str) -> str:
         # Fallback für Cross-Drive unter Windows
         p = path.replace("\\", "/")
         root = PROJECT_ROOT.replace("\\", "/")
-        return p[len(root)+1:] if p.startswith(root + "/") else p
+        return p[len(root) + 1 :] if p.startswith(root + "/") else p
 
 
 def is_text_file(path: str) -> bool:
@@ -55,9 +64,9 @@ def is_text_file(path: str) -> bool:
     return ext.lower() in TEXT_EXTS
 
 
-def safe_read(path: str, max_bytes: Optional[int] = None) -> str:
+def safe_read(path: str, max_bytes: int | None = None) -> str:
     try:
-        with open(path, "r", encoding="utf-8", errors="ignore") as f:
+        with open(path, encoding="utf-8", errors="ignore") as f:
             if max_bytes is None:
                 return f.read()
             else:
@@ -68,6 +77,7 @@ def safe_read(path: str, max_bytes: Optional[int] = None) -> str:
 
 def summarize_python(path: str, text: str, max_chars: int = 1200) -> str:
     import ast
+
     try:
         tree = ast.parse(text or safe_read(path))
     except Exception:
@@ -75,9 +85,9 @@ def summarize_python(path: str, text: str, max_chars: int = 1200) -> str:
         return (text or "").strip()[:max_chars]
 
     mod_doc = ast.get_docstring(tree) or ""
-    classes: List[Tuple[str, int]] = []  # (ClassName, method_count)
-    functions: List[str] = []
-    constants: List[str] = []
+    classes: list[tuple[str, int]] = []  # (ClassName, method_count)
+    functions: list[str] = []
+    constants: list[str] = []
 
     for node in tree.body:
         if isinstance(node, ast.ClassDef):
@@ -90,7 +100,7 @@ def summarize_python(path: str, text: str, max_chars: int = 1200) -> str:
                 if isinstance(t, ast.Name) and t.id.isupper():
                     constants.append(t.id)
 
-    lines: List[str] = []
+    lines: list[str] = []
     lines.append(f"Datei: {_safe_rel(path)}")
     if mod_doc:
         d = mod_doc.strip().splitlines()
@@ -112,8 +122,8 @@ def summarize_python(path: str, text: str, max_chars: int = 1200) -> str:
 def summarize_markdown(path: str, text: str, max_chars: int = 1200) -> str:
     lines = text.splitlines()
     headings = [ln.strip() for ln in lines if ln.lstrip().startswith("#")]
-    bullets = [ln.strip() for ln in lines if ln.lstrip().startswith(('-', '*'))]
-    out: List[str] = [f"Datei: {_safe_rel(path)}"]
+    bullets = [ln.strip() for ln in lines if ln.lstrip().startswith(("-", "*"))]
+    out: list[str] = [f"Datei: {_safe_rel(path)}"]
     if headings:
         out.append("Überschriften:")
         out.extend([f"- {h}" for h in headings[:12]])
@@ -134,8 +144,8 @@ def summarize_text(path: str, text: str, max_chars: int = 1200) -> str:
 
 def summarize_json(path: str, text: str, max_chars: int = 1200) -> str:
     # JSON vs JSONL erkennen
-    def jsonl_lines(t: str) -> List[Dict[str, Any]]:
-        out: List[Dict[str, Any]] = []
+    def jsonl_lines(t: str) -> list[dict[str, Any]]:
+        out: list[dict[str, Any]] = []
         for i, ln in enumerate(t.splitlines()[:50]):
             ln = ln.strip()
             if not ln:
@@ -143,7 +153,7 @@ def summarize_json(path: str, text: str, max_chars: int = 1200) -> str:
             try:
                 obj: Any = json.loads(ln)
                 if isinstance(obj, dict):
-                    out.append(cast(Dict[str, Any], obj))
+                    out.append(cast(dict[str, Any], obj))
             except Exception:
                 # stop on first non-json line beyond some threshold
                 if i > 3:
@@ -162,7 +172,7 @@ def summarize_json(path: str, text: str, max_chars: int = 1200) -> str:
             is_jsonl = True
             parsed = objs
 
-    lines: List[str] = [f"Datei: {_safe_rel(path)}"]
+    lines: list[str] = [f"Datei: {_safe_rel(path)}"]
     if parsed is None:
         lines.append("Hinweis: Konnte JSON nicht parsen; Rohtext-Ausschnitt folgt.")
         lines.append(content[:max_chars])
@@ -170,12 +180,12 @@ def summarize_json(path: str, text: str, max_chars: int = 1200) -> str:
 
     if is_jsonl and isinstance(parsed, list):
         # Vereine Felder der ersten N Objekte
-        key_counts: Dict[str, int] = {}
-        lst: List[Any] = cast(List[Any], parsed)
-        sample_list: List[Any] = lst[:30]
+        key_counts: dict[str, int] = {}
+        lst: list[Any] = cast(list[Any], parsed)
+        sample_list: list[Any] = lst[:30]
         for obj in sample_list:
             if isinstance(obj, dict):
-                d = cast(Dict[str, Any], obj)
+                d = cast(dict[str, Any], obj)
                 for k in list(d.keys()):
                     ks: str = str(k)
                     key_counts[ks] = key_counts.get(ks, 0) + 1
@@ -183,18 +193,18 @@ def summarize_json(path: str, text: str, max_chars: int = 1200) -> str:
         lines.append(f"JSONL mit ~{len(lst)} Beispielen (Ausschnitt)")
         lines.append("Felder (häufigste): " + ", ".join(f"{k}({c})" for k, c in top_keys))
     elif isinstance(parsed, list):
-        lst2: List[Any] = cast(List[Any], parsed)
+        lst2: list[Any] = cast(list[Any], parsed)
         n = len(lst2)
-        ex_keys: List[str] = []
+        ex_keys: list[str] = []
         if n:
             first: Any = lst2[0]
             if isinstance(first, dict):
-                d0 = cast(Dict[str, Any], first)
+                d0 = cast(dict[str, Any], first)
                 ex_keys = [str(k) for k in list(d0.keys())[:20]]
         lines.append(f"JSON-Array mit {n} Einträgen; Beispiel-Felder: {', '.join(ex_keys)}")
     elif isinstance(parsed, dict):
-        dparsed: Dict[str, Any] = cast(Dict[str, Any], parsed)
-        keys_list: List[str] = [str(k) for k in list(dparsed.keys())]
+        dparsed: dict[str, Any] = cast(dict[str, Any], parsed)
+        keys_list: list[str] = [str(k) for k in list(dparsed.keys())]
         lines.append(f"JSON-Objekt; Top-Level-Felder: {', '.join(keys_list[:25])}")
     else:
         lines.append("JSON-Inhalt erkannt (vereinfachte Struktur)")
@@ -203,7 +213,7 @@ def summarize_json(path: str, text: str, max_chars: int = 1200) -> str:
 
 def summarize_file(path: str, max_chars: int = 1200) -> str:
     _, ext = os.path.splitext(path)
-    text = safe_read(path, max_bytes=512*1024)  # large cap but safe
+    text = safe_read(path, max_bytes=512 * 1024)  # large cap but safe
     ext = ext.lower()
     if ext == ".py":
         return summarize_python(path, text, max_chars)
@@ -214,8 +224,8 @@ def summarize_file(path: str, max_chars: int = 1200) -> str:
     return summarize_text(path, text, max_chars)
 
 
-def walk_scope(scope_dir: str, max_files: int = 0) -> List[str]:
-    summaries: List[str] = []
+def walk_scope(scope_dir: str, max_files: int = 0) -> list[str]:
+    summaries: list[str] = []
     count = 0
     for root, dirnames, filenames in os.walk(scope_dir):
         # exclude noisy dirs
@@ -235,7 +245,7 @@ def walk_scope(scope_dir: str, max_files: int = 0) -> List[str]:
     return summaries
 
 
-def write_md(out_path: str, title: str, sections: List[Tuple[str, List[str]]]) -> None:
+def write_md(out_path: str, title: str, sections: list[tuple[str, list[str]]]) -> None:
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(f"# {title}\n\n")
@@ -246,19 +256,23 @@ def write_md(out_path: str, title: str, sections: List[Tuple[str, List[str]]]) -
                 f.write("\n\n")
 
 
-def main(argv: Optional[List[str]] = None) -> int:
+def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--scopes", type=str, default=",".join(SCOPES.keys()), help="Komma-separierte Scopes")
+    ap.add_argument(
+        "--scopes", type=str, default=",".join(SCOPES.keys()), help="Komma-separierte Scopes"
+    )
     ap.add_argument("--max-files", type=int, default=0, help="Max. Dateien pro Scope (0=alle)")
-    ap.add_argument("--max-chars", type=int, default=1200, help="Max. Zeichen pro Dateizusammenfassung")
+    ap.add_argument(
+        "--max-chars", type=int, default=1200, help="Max. Zeichen pro Dateizusammenfassung"
+    )
     ap.add_argument("--out-dir", type=str, default=DEFAULT_OUT_DIR)
     args = ap.parse_args(argv)
 
     timestamp = now_compact()
     scopes = [s.strip() for s in args.scopes.split(",") if s.strip()]
 
-    scope_files: List[str] = []
-    merged_sections: List[Tuple[str, List[str]]] = []
+    scope_files: list[str] = []
+    merged_sections: list[tuple[str, list[str]]] = []
 
     for scope in scopes:
         scope_dir = SCOPES.get(scope)
@@ -277,13 +291,19 @@ def main(argv: Optional[List[str]] = None) -> int:
     if scope_files:
         merged_path = os.path.join(args.out_dir, f"summary_ALL_{timestamp}.md")
         write_md(merged_path, "Workspace Zusammenfassung – Gesamt", merged_sections)
-        print(json.dumps({
-            "timestamp": timestamp,
-            "out_dir": args.out_dir,
-            "scopes": scopes,
-            "files": scope_files,
-            "merged": merged_path,
-        }, ensure_ascii=False, indent=2))
+        print(
+            json.dumps(
+                {
+                    "timestamp": timestamp,
+                    "out_dir": args.out_dir,
+                    "scopes": scopes,
+                    "files": scope_files,
+                    "merged": merged_path,
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
     else:
         print(json.dumps({"error": "Keine Scopes gefunden oder keine Dateien"}, ensure_ascii=False))
         return 1

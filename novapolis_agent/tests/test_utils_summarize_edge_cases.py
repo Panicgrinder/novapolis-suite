@@ -1,6 +1,11 @@
 from __future__ import annotations
 
-from app.utils.summarize import extract_key_points, create_simple_summary, summarize_turn, llm_summarize
+from app.utils.summarize import (
+    create_simple_summary,
+    extract_key_points,
+    llm_summarize,
+    summarize_turn,
+)
 
 
 def test_extract_key_points_empty_and_markers() -> None:
@@ -52,6 +57,6 @@ def test_summarize_turn_llm_path() -> None:
 
 def test_llm_summarize_calls_helpers() -> None:
     msgs = [{"role": "user", "content": "Hallo"}]
-    resp = "Zusammenfassend wichtig: Tests." 
+    resp = "Zusammenfassend wichtig: Tests."
     out = llm_summarize(msgs, resp)
     assert "summary" in out and "keyfacts" in out

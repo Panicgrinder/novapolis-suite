@@ -20,6 +20,7 @@ def test_rate_limit_exempt_and_trusted(monkeypatch: pytest.MonkeyPatch) -> None:
 
     seen_host: list[str] = []
     from typing import Any
+
     @app1.middleware("http")
     async def _capture_host(request: Any, call_next: Any):
         client = getattr(request, "client", None)
@@ -37,6 +38,7 @@ def test_rate_limit_exempt_and_trusted(monkeypatch: pytest.MonkeyPatch) -> None:
 
     # App mit trusted host neu laden
     import json as _json
+
     monkeypatch.setenv("RATE_LIMIT_TRUSTED_IPS", _json.dumps([host]))
     importlib.reload(importlib.import_module("app.core.settings"))
     app_mod2 = importlib.reload(importlib.import_module("app.main"))
@@ -51,16 +53,19 @@ def test_rate_limit_exempt_and_trusted(monkeypatch: pytest.MonkeyPatch) -> None:
 
 @pytest.mark.api
 def test_cors_headers_set(monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("BACKEND_CORS_ORIGINS", "[\"http://localhost:3000\"]")
+    monkeypatch.setenv("BACKEND_CORS_ORIGINS", '["http://localhost:3000"]')
     importlib.reload(importlib.import_module("app.core.settings"))
     app_mod = importlib.reload(importlib.import_module("app.main"))
     app = app_mod.app
     client = TestClient(app)
 
-    resp = client.options("/", headers={
-        "Origin": "http://localhost:3000",
-        "Access-Control-Request-Method": "POST",
-    })
+    resp = client.options(
+        "/",
+        headers={
+            "Origin": "http://localhost:3000",
+            "Access-Control-Request-Method": "POST",
+        },
+    )
     # Starlette setzt CORS-Header bei passender Origin
     assert resp.headers.get("access-control-allow-origin") == "http://localhost:3000"
 
@@ -73,7 +78,7 @@ def test_settings_cors_validator_variants(monkeypatch: pytest.MonkeyPatch) -> No
     s1 = Settings.model_validate({"BACKEND_CORS_ORIGINS": "a,b , c "})
     assert s1.BACKEND_CORS_ORIGINS == ["a", "b", "c"]
 
-    s2 = Settings.model_validate({"BACKEND_CORS_ORIGINS": "[\"x\", \"y\"]"})
+    s2 = Settings.model_validate({"BACKEND_CORS_ORIGINS": '["x", "y"]'})
     assert s2.BACKEND_CORS_ORIGINS == ["x", "y"]
 
     s3 = Settings.model_validate({"BACKEND_CORS_ORIGINS": ""})

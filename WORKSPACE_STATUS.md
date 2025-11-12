@@ -7,13 +7,13 @@ checks: pending (scoped lint)
 Recent Changes
 --------------
 
-- 2025-11-12 03:37: Checks: full Review abgeschlossen (`run_checks_and_report.ps1` PSScriptAnalyzer Phase verifiziert: Installationspfad CurrentUser, Exitcode=0 bei keinen Errors/Warnings; Receipt-Struktur JSON + Postflight-Vorlage bestätigt). Link-Scanner Rescan nun 0 defekte Verweise.
+- 2025-11-12 03:37: Checks: full Review abgeschlossen (damals PowerShell-Runner, inzwischen durch `python scripts/run_checks_and_report.py` ersetzt; PSScriptAnalyzer-Phase verifiziert, Receipt-Struktur JSON + Postflight-Vorlage bestätigt). Link-Scanner Rescan nun 0 defekte Verweise.
 - 2025-11-12 02:46: Governance: Vorangestellte Start-Checks entfernt aus `.github/copilot-instructions.md`; Postflight-Formulierung präzisiert (finaler Block am Ende der Nachricht); Headings-Extrakt aktualisiert & veraltete Regel-ID-Vorschläge gestrichen; Lint PASS (`.github/copilot-instructions-headings.md`).
 
  - 2025-11-10 12:12: Sim-Verifizierung: Verbindung Godot ↔ Agent (`POST /world/step`) erfolgreich verifiziert; Headless‑Verifier und PowerShell‑Smoke‑Test PASS. Screenshot/Audit‑Beleg im Arbeitsverzeichnis erstellt.
- - 2025-11-11 00:09: Dokumentation: Review `scripts/run_checks_and_report.ps1` ergänzt; ToDo für Status-Fix (STOP -> FAIL) eingetragen; zugehörige Doku‑Änderungen committet.
- - 2025-11-11 00:23: Code: `scripts/run_checks_and_report.ps1` angepasst (STOP-Fall jetzt als FAIL; STOP‑Flag in Regel-Output; robustere Postflight/exit-code); Commit `abe6829`.
- - 2025-11-11 11:00: Code: `scripts/run_checks_and_report.ps1` erweitert um `PSScriptAnalyzer`-Integration; Analyzer-Ergebnisse werden im Postflight-Block protokolliert (falls installiert). Bitte prüfen: automatischer Install-Versuch läuft mit `CurrentUser`-Scope. (Änderung: Analyzer-Integration)
+ - 2025-11-11 00:09: Dokumentation: Review des damaligen PowerShell-Checks-Wrappers ergänzt; ToDo für Status-Fix (STOP -> FAIL) eingetragen; zugehörige Doku‑Änderungen committet. Seit 2025-11-12 ist `python scripts/run_checks_and_report.py` der einzige Entry-Point.
+ - 2025-11-11 00:23: Code: PowerShell-Wrapper angepasst (STOP-Fall jetzt als FAIL; STOP‑Flag in Regel-Output; robustere Postflight/Exitcodes). Änderung inzwischen in die Python-Variante übernommen (Commit `abe6829`).
+ - 2025-11-11 11:00: Code: PowerShell-Wrapper um `PSScriptAnalyzer`-Integration erweitert; Erkenntnisse in die Python-Dokumentation übernommen. Der Analyzer läuft bei Bedarf separat über `scripts/` neben `python scripts/run_checks_and_report.py`.
  - 2025-11-10 08:40: Skript-Cleanup: entfernt `scripts/run_linters.ps1`, `scripts/tests_pytest_root.ps1`; archiviert Snapshot-Skripte nach `novapolis-dev/archive/scripts/`; Agent-Legacy-PowerShell (`cleanup_phase3.ps1`, `cleanup_phase4.ps1`, `history_purge_plan.ps1`) gelöscht; .tmp Audit aktualisiert.
 - 2025-11-10 08:19: Tool-Registry `settings` Alias wiederhergestellt; targeted pytest `tests/test_tools_registry.py` PASS (AttributeError behoben, R-LINT/R-LOG).
 - 2025-11-10 08:08: Ruff-Fixes in `novapolis_agent/app/tools/registry.py`, `novapolis_agent/scripts/append_done.py`, `novapolis_agent/scripts/rerun_failed.py`; moderne Typannotationen, Import-Sortierung und redundante Open-Modi bereinigt; DONELOGs aktualisiert.

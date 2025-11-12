@@ -3,15 +3,14 @@ from __future__ import annotations
 import argparse
 import os
 import platform
-from pathlib import Path
-from typing import Optional
 import webbrowser
+from pathlib import Path
 
 SUMMARY_DIR = Path(__file__).resolve().parents[1] / "eval" / "results" / "summaries"
 SUMMARY_GLOB = "summary_ALL_*_MIXED.md"
 
 
-def find_latest_summary(dir_path: Path = SUMMARY_DIR) -> Optional[Path]:
+def find_latest_summary(dir_path: Path = SUMMARY_DIR) -> Path | None:
     if not dir_path.exists():
         return None
     candidates = sorted(dir_path.glob(SUMMARY_GLOB))
@@ -45,8 +44,18 @@ def open_file(path: Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Open the latest merged workspace summary.")
-    parser.add_argument("--print", dest="do_print", action="store_true", help="Only print the path without opening it")
-    parser.add_argument("--dir", dest="dir", default=str(SUMMARY_DIR), help="Directory to search (default: eval/results/summaries)")
+    parser.add_argument(
+        "--print",
+        dest="do_print",
+        action="store_true",
+        help="Only print the path without opening it",
+    )
+    parser.add_argument(
+        "--dir",
+        dest="dir",
+        default=str(SUMMARY_DIR),
+        help="Directory to search (default: eval/results/summaries)",
+    )
     args = parser.parse_args()
 
     dir_path = Path(args.dir)

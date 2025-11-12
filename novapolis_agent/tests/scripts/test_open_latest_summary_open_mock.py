@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from pathlib import Path
 import importlib
+from pathlib import Path
 
 import pytest
 
@@ -21,11 +21,13 @@ def test_open_latest_summary_opened(monkeypatch: pytest.MonkeyPatch, tmp_path: P
     monkeypatch.setattr(mod, "SUMMARY_GLOB", "summary_ALL_*.md")
 
     opened: list[str] = []
+
     def _fake_open(path: Path) -> None:
         opened.append(str(path))
 
     monkeypatch.setattr(mod, "open_file", _fake_open)
     import sys
+
     argv_bak = sys.argv
     try:
         sys.argv = ["open_latest_summary.py", "--dir", str(sums_dir)]

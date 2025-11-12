@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-import io
 import contextlib
 import importlib
+import io
 
 import pytest
 

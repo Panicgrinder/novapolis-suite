@@ -1,16 +1,19 @@
 from __future__ import annotations
 
-import os
-from pathlib import Path
-import io
-from contextlib import redirect_stdout
 import importlib
+import io
+import os
+from contextlib import redirect_stdout
+from pathlib import Path
+
 import pytest
 
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_open_latest_summary_opens_latest(monkeypatch: "pytest.MonkeyPatch", tmp_path: "os.PathLike[str]") -> None:
+def test_open_latest_summary_opens_latest(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: os.PathLike[str]
+) -> None:
     sums_dir = Path(tmp_path) / "eval" / "results" / "summaries"
     os.makedirs(sums_dir, exist_ok=True)
     # Note: module uses SUMMARY_GLOB = "summary_ALL_*_MIXED.md"
@@ -29,6 +32,7 @@ def test_open_latest_summary_opens_latest(monkeypatch: "pytest.MonkeyPatch", tmp
     monkeypatch.setattr(mod, "open_file", fake_open_file)
 
     import sys
+
     old_argv = sys.argv[:]
     sys.argv = ["open_latest_summary.py", "--dir", str(sums_dir)]
     try:

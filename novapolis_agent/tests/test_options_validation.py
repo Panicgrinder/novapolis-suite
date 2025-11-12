@@ -1,6 +1,6 @@
-import pytest
-from typing import Any, Dict
+from typing import Any
 
+import pytest
 from app.api.chat_helpers import normalize_ollama_options
 from app.core.settings import settings
 
@@ -20,19 +20,19 @@ def test_normalize_includes_defaults_when_missing() -> None:
 
 @pytest.mark.unit
 def test_stop_string_is_coerced_to_list() -> None:
-    raw: Dict[str, Any] = {"stop": "END"}
+    raw: dict[str, Any] = {"stop": "END"}
     opts, _ = normalize_ollama_options(raw, eval_mode=False)
     assert opts.get("stop") == ["END"]
 
 
 @pytest.mark.unit
 def test_mirostat_and_clamping() -> None:
-    raw: Dict[str, Any] = {
-        "mirostat": 5,              # wird auf 2 geklemmt
-        "min_p": 1.5,               # auf 1.0 geklemmt
-        "typical_p": -0.2,          # auf 0.0 geklemmt
-        "tfs_z": 2,                 # auf 1.0 geklemmt
-        "penalize_newline": "true"
+    raw: dict[str, Any] = {
+        "mirostat": 5,  # wird auf 2 geklemmt
+        "min_p": 1.5,  # auf 1.0 geklemmt
+        "typical_p": -0.2,  # auf 0.0 geklemmt
+        "tfs_z": 2,  # auf 1.0 geklemmt
+        "penalize_newline": "true",
     }
     opts, _ = normalize_ollama_options(raw, eval_mode=False)
     assert opts.get("mirostat") == 2
@@ -44,6 +44,6 @@ def test_mirostat_and_clamping() -> None:
 
 @pytest.mark.unit
 def test_eval_mode_caps_temperature() -> None:
-    raw: Dict[str, Any] = {"temperature": 0.9}
+    raw: dict[str, Any] = {"temperature": 0.9}
     opts, _ = normalize_ollama_options(raw, eval_mode=True)
     assert opts["temperature"] <= 0.25

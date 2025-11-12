@@ -1,9 +1,8 @@
 """Tests für die Simulations-API."""
 
 import pytest
-from httpx import ASGITransport, AsyncClient
-
 from app.api import sim
+from httpx import ASGITransport, AsyncClient
 
 
 @pytest.fixture(autouse=True)

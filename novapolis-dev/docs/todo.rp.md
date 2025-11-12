@@ -1,5 +1,9 @@
-stand: 2025-11-12 01:17
-update: Hub-Verweise Phase 1 konsolidiert; Szenen-Backfill offen
+---
+title: "TODO (Novapolis-RP)"
+date: 2025-11-12 08:59
+tags: [doc]
+stand: 2025-11-12 08:59
+update: Frontmatter ergänzt und auf Governance-Format gebracht.
 checks: keine
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->

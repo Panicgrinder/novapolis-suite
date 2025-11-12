@@ -1,15 +1,16 @@
 """Minimalistische Simulations-API für die Novapolis-Welt."""
 
 from threading import Lock
-from typing import Any, Dict, List
+from typing import Any
 
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
 
-def _empty_events() -> List[Dict[str, Any]]:
+def _empty_events() -> list[dict[str, Any]]:
     return []
+
 
 app = FastAPI(
     title="Novapolis Simulation API",
@@ -21,9 +22,9 @@ app = FastAPI(
 class WorldState(BaseModel):
     tick: int = 0
     time: float = 0.0
-    regions: Dict[str, Any] = Field(default_factory=dict)
-    actors: Dict[str, Any] = Field(default_factory=dict)
-    events: List[Dict[str, Any]] = Field(default_factory=_empty_events)
+    regions: dict[str, Any] = Field(default_factory=dict)
+    actors: dict[str, Any] = Field(default_factory=dict)
+    events: list[dict[str, Any]] = Field(default_factory=_empty_events)
 
 
 class StepRequest(BaseModel):

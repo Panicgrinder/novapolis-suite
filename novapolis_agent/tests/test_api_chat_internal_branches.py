@@ -6,16 +6,15 @@ from typing import Any, cast
 
 import httpx
 import pytest
-from fastapi import HTTPException
-
 from app.api.models import ChatRequest
+from fastapi import HTTPException
 
 
 class _DummyStreamResponse:
     def __init__(self, lines: list[str]) -> None:
         self._lines = lines
 
-    async def __aenter__(self) -> "_DummyStreamResponse":
+    async def __aenter__(self) -> _DummyStreamResponse:
         return self
 
     async def __aexit__(self, exc_type, exc, tb) -> bool:
@@ -106,19 +105,33 @@ async def test_stream_chat_enriches_messages_and_rewrites(monkeypatch: pytest.Mo
     monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
 
     monkeypatch.setattr(chat_module, "load_context_notes", lambda *_: "Kontext", raising=False)
-    monkeypatch.setattr(chat_module, "modify_prompt_for_freedom", lambda text: text + " ++", raising=False)
+    monkeypatch.setattr(
+        chat_module, "modify_prompt_for_freedom", lambda text: text + " ++", raising=False
+    )
     monkeypatch.setattr("utils.rag.load_index", lambda *_: object())
-    monkeypatch.setattr("utils.rag.retrieve", lambda *_, **__: [{"source": "doc", "text": "Snippet"}])
+    monkeypatch.setattr(
+        "utils.rag.retrieve", lambda *_, **__: [{"source": "doc", "text": "Snippet"}]
+    )
 
     async def _compose(messages, session_id, **kwargs):
         return list(messages)
 
     monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
-    monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda _: [{"role": "assistant", "content": "memory"}]))
+    monkeypatch.setattr(
+        chat_module,
+        "session_memory",
+        SimpleNamespace(get=lambda _: [{"role": "assistant", "content": "memory"}]),
+    )
     monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="rewrite", text=text + " sanitized"))
+    monkeypatch.setattr(
+        chat_module,
+        "apply_post",
+        lambda text, **k: SimpleNamespace(action="rewrite", text=text + " sanitized"),
+    )
     monkeypatch.setattr(chat_module, "get_memory_store", lambda: dummy_store)
-    monkeypatch.setattr(chat_module, "normalize_ollama_options", lambda opts, **_: ({"unit": True}, "http://ollama"))
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({"unit": True}, "http://ollama")
+    )
 
     request = ChatRequest(
         messages=[{"role": "user", "content": "Hallo?"}],
@@ -133,7 +146,7 @@ async def test_stream_chat_enriches_messages_and_rewrites(monkeypatch: pytest.Mo
     )
     chunks = [chunk async for chunk in generator]
 
-    assert any("\"policy_post\": \"rewritten\"" in chunk for chunk in chunks)
+    assert any('"policy_post": "rewritten"' in chunk for chunk in chunks)
     assert any("hello world sanitized" in chunk for chunk in chunks if "event: delta" in chunk)
     assert dummy_store.records == [
         ("sess-1", "user", "Hallo?"),
@@ -188,9 +201,21 @@ async def test_process_chat_request_rewrite_and_memory(monkeypatch: pytest.Monke
     monkeypatch.setattr(settings, "LOG_TRUNCATE_CHARS", 50, raising=False)
     monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
     monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
-    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="rewrite", messages=[{"role": "user", "content": "pre rewritten"}]))
-    monkeypatch.setattr(chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="rewrite", text=text + " sanitized"))
-    monkeypatch.setattr(chat_module, "normalize_ollama_options", lambda opts, **_: ({"opt": True}, "http://ollama"))
+    monkeypatch.setattr(
+        chat_module,
+        "apply_pre",
+        lambda *a, **k: SimpleNamespace(
+            action="rewrite", messages=[{"role": "user", "content": "pre rewritten"}]
+        ),
+    )
+    monkeypatch.setattr(
+        chat_module,
+        "apply_post",
+        lambda text, **k: SimpleNamespace(action="rewrite", text=text + " sanitized"),
+    )
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({"opt": True}, "http://ollama")
+    )
     monkeypatch.setattr(chat_module, "get_memory_store", lambda: dummy_store)
     monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda _: []))
 
@@ -235,7 +260,9 @@ async def test_process_chat_request_policy_post_block(monkeypatch: pytest.Monkey
     monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
     monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
     monkeypatch.setattr(chat_module, "apply_post", lambda *a, **k: SimpleNamespace(action="block"))
-    monkeypatch.setattr(chat_module, "normalize_ollama_options", lambda opts, **_: ({"opt": True}, "http://ollama"))
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({"opt": True}, "http://ollama")
+    )
     monkeypatch.setattr(chat_module, "get_memory_store", lambda: _DummyStore())
     monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda _: []))
 
@@ -253,7 +280,9 @@ async def test_process_chat_request_policy_post_block(monkeypatch: pytest.Monkey
 
 
 @pytest.mark.asyncio
-async def test_process_chat_request_error_path_records_abort(monkeypatch: pytest.MonkeyPatch) -> None:
+async def test_process_chat_request_error_path_records_abort(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from app.api import chat as chat_module
 
     settings = chat_module.settings
@@ -271,7 +300,9 @@ async def test_process_chat_request_error_path_records_abort(monkeypatch: pytest
     monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
     monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
     monkeypatch.setattr(chat_module, "apply_post", lambda *a, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "normalize_ollama_options", lambda opts, **_: ({"opt": True}, "http://ollama"))
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({"opt": True}, "http://ollama")
+    )
     monkeypatch.setattr(chat_module, "get_memory_store", lambda: dummy_store)
     monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda _: []))
 

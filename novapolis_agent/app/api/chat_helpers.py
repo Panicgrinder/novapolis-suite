@@ -3,11 +3,12 @@ Hilfsfunktionen für den Chat-Endpunkt.
 """
 
 import functools
-from typing import Any, Dict, List, Optional, Tuple, cast
+from typing import Any, cast
 
-from .models import ChatMessage
 from app.core.prompts import DEFAULT_SYSTEM_PROMPT
 from app.core.settings import settings
+
+from .models import ChatMessage
 
 
 @functools.lru_cache(maxsize=1)
@@ -16,7 +17,7 @@ def get_system_prompt() -> str:
     return DEFAULT_SYSTEM_PROMPT.strip()
 
 
-def ensure_system_message(messages: List[ChatMessage]) -> List[ChatMessage]:
+def ensure_system_message(messages: list[ChatMessage]) -> list[ChatMessage]:
     """Stellt sicher, dass ein System-Turn enthalten ist."""
     has_system = any(msg.role == "system" for msg in messages)
     if not has_system:
@@ -26,24 +27,24 @@ def ensure_system_message(messages: List[ChatMessage]) -> List[ChatMessage]:
     return messages
 
 
-def _coerce_float(val: Any) -> Optional[float]:
+def _coerce_float(val: Any) -> float | None:
     try:
         return float(val)
     except Exception:
         return None
 
 
-def _coerce_int(val: Any) -> Optional[int]:
+def _coerce_int(val: Any) -> int | None:
     try:
         return int(val)
     except Exception:
         return None
 
 
-def _coerce_str_list(val: Any) -> Optional[List[str]]:
+def _coerce_str_list(val: Any) -> list[str] | None:
     if isinstance(val, list):
-        out: List[str] = []
-        for item in cast(List[Any], val):
+        out: list[str] = []
+        for item in cast(list[Any], val):
             try:
                 out.append(str(item))
             except Exception:
@@ -54,7 +55,7 @@ def _coerce_str_list(val: Any) -> Optional[List[str]]:
     return None
 
 
-def _coerce_bool(val: Any) -> Optional[bool]:
+def _coerce_bool(val: Any) -> bool | None:
     if isinstance(val, bool):
         return val
     if isinstance(val, (int, float)):
@@ -73,13 +74,13 @@ def _clamp01(value: float) -> float:
 
 
 def normalize_ollama_options(
-    raw_options: Dict[str, Any] | None,
+    raw_options: dict[str, Any] | None,
     *,
     eval_mode: bool = False,
-) -> Tuple[Dict[str, Any], str]:
+) -> tuple[dict[str, Any], str]:
     """Normalisiert Request-Options für Ollama und liefert Host zurück."""
-    ro: Dict[str, Any] = dict(raw_options or {})
-    out: Dict[str, Any] = {}
+    ro: dict[str, Any] = dict(raw_options or {})
+    out: dict[str, Any] = {}
 
     temp = _coerce_float(ro.get("temperature", settings.TEMPERATURE))
     if temp is None:
