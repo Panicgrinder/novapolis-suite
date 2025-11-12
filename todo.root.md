@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-12 01:21
-update: Root/Curated/Module TODOs abgeglichen; Alignment-Pass abgeschlossen
+stand: 2025-11-12 04:42
+update: Guard-Terminologie ergänzt; Hinweis zu Legacy-Start-Checks präzisiert
 checks: rein dokumentarisch
 ---
 
@@ -16,7 +16,7 @@ Kurzueberblick
 
 - 2025-11-10 08:08: Ruff-Backlog Etappe gestartet – targeted Fixes in `novapolis_agent/app/tools/registry.py`, `novapolis_agent/scripts/append_done.py`, `novapolis_agent/scripts/rerun_failed.py`; DONELOG & `WORKSPACE_STATUS.md` aktualisiert (R-LINT, R-LOG).
 - 2025-11-09 21:25: Workspace-Analyse durchgeführt (Root/Ordner-Ebene, stichprobenartig Dateien). Befunde ergänzt: Frontmatter-Backlog (R-FM), Multi-Root-Abschluss (R-STOP/R-WRAP), Artefakt-Bereinigung (R-SEC/R-SAFE), Tree-/Status-Snapshots (R-IDX).
-- 2025-11-08 23:21: Headings-Extrakt (`.github/copilot-instructions-headings.md`) aktualisiert; Vorschlagsliste neuer Regel-IDs (R-COV, R-IDX, R-COMM, R-RED, R-TODO, R-TIME, R-SAFE) ergänzt. Klärungsbedarf offen: Precedence zwischen Preflight (false) und „Semantische Regeln“ (obligatorisch); Anwendung der Default-(true)-Regel bei gleichrangigen Abschnitten.
+- 2025-11-08 23:21: Headings-Extrakt (`.github/copilot-instructions-headings.md`) aktualisiert; Vorschlagsliste neuer Regel-IDs (R-COV, R-IDX, R-COMM, R-RED, R-TODO, R-TIME, R-SAFE) ergänzt. Klärungsbedarf offen: Precedence zwischen abgeschafftem Start-Check (false) und „Semantische Regeln“ (obligatorisch); Anwendung der Default-(true)-Regel bei gleichrangigen Abschnitten.
 - 2025-11-07 21:46: `scripts/append_done_and_push.ps1` erweitert: Frontmatter-Aktualisierung wird nun automatisch für veränderte Markdown/Text-Dateien durchgeführt (Backups, scoped validator, DONELOG-Eintrag). Validatorlauf (targeted) PASS.
 - 2025-11-07 04:56: Archiv-TODOs (`novapolis-dev/archive/todo.*.archive.md`) auf Setext (H1/H2) umgestellt, Checks/Timestamps aktualisiert; `.github/ISSUE_TEMPLATE/feature_request.md` konsistent gemacht; repo-weites `markdownlint-cli2` PASS (132 Dateien).
 - 2025-11-07 02:10: markdownlint-cli2 repo-weit ausgeführt (367× MD003 Setext-Stil offen); Analyse der Markdown-generierenden Skripte (Chat-Exporter, Reports, todo_gather) vorbereitet.
@@ -342,8 +342,8 @@ Kurzfristige Ziele (Heute)
 - [x] Eval-Profile festziehen
   - Ziel: Reproduzierbare Läufe via `eval/config/profiles.json` (quiet default, temp, optionale Checks).
   - Status: Done (UI lädt Profile; Meta-Header vollständig; kurzer ASGI-Lauf konsistent).
-- [x] Eval-UI: Profile-/Quiet-/ASGI-/Skip-Preflight-Integration
-  - Ziel: Läufe steuerbar über Profile, reduzierte Logs, In-Process-ASGI, Preflight optional.
+- [x] Eval-UI: Profile-/Quiet-/ASGI-/Guard-Bypass-Integration
+  - Ziel: Läufe steuerbar über Profile, reduzierte Logs, In-Process-ASGI, optionaler Vorab-Guard.
   - Status: Done (Menü integriert, Flags wirksam, Trends/Exports ok).
 - [x] Synonym-Overlay (privat) einführen und mergen
   - Ziel: `eval/config/synonyms.local.json` (gitignored) automatisch mit `synonyms.json` mergen.

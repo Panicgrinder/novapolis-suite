@@ -184,7 +184,6 @@ def load_profiles() -> Dict[str, Dict[str, Any]]:
             "quiet": True,            # reduzierte Logs standardmäßig
             "asgi": True,             # In-Process-Client
             "eval_mode": True,        # RPG deaktiviert für Evals
-            "skip_preflight": True,   # Preflight sparen im ASGI-Modus
         }
     }
 
@@ -213,7 +212,7 @@ def action_edit_profiles() -> None:
     data = load_profiles()
     print("Profile bearbeiten/anlegen\n")
     name = input("Profilname (leer = default): ").strip() or "default"
-    prof = data.get(name, {"model": None, "host": None, "temperature": None, "top_p": None, "num_predict": None, "checks": None, "quiet": True, "asgi": True, "eval_mode": True, "skip_preflight": True})
+    prof = data.get(name, {"model": None, "host": None, "temperature": None, "top_p": None, "num_predict": None, "checks": None, "quiet": True, "asgi": True, "eval_mode": True})
     prof["model"] = input(f"Model [{prof.get('model') or '-'}]: ").strip() or prof.get("model")
     prof["host"] = input(f"Host [{prof.get('host') or '-'}]: ").strip() or prof.get("host")
     t = input(f"Temperature [{prof.get('temperature') if prof.get('temperature') is not None else '-'}]: ").strip()
@@ -253,11 +252,6 @@ def action_edit_profiles() -> None:
         prof["eval_mode"] = True
     elif e in ("n", "no"):
         prof["eval_mode"] = False
-    s = input(f"Preflight-Check überspringen? (y/n, leer = unverändert [{prof.get('skip_preflight')}]): ").strip().lower()
-    if s in ("y", "yes"):
-        prof["skip_preflight"] = True
-    elif s in ("n", "no"):
-        prof["skip_preflight"] = False
     data[name] = prof
     save_profiles(data)
     print("Gespeichert.")
@@ -321,7 +315,6 @@ def action_start_run() -> None:
     # Profillaufparameter
     prof_asgi = bool(profile.get("asgi", True))
     prof_eval = bool(profile.get("eval_mode", True))
-    prof_skip = bool(profile.get("skip_preflight", True))
 
     print(f"\nStarte Evaluierung (Profil: {profile_name}, Debug: {dbg}, Quiet: {quiet_mode}, ASGI: {prof_asgi}, Eval: {prof_eval}) …\n")
     if temperature_override is not None:
@@ -348,7 +341,6 @@ def action_start_run() -> None:
                 api_url=run_eval.DEFAULT_API_URL,
                 limit=(None if limit == 0 else limit),
                 eval_mode=prof_eval,
-                skip_preflight=prof_skip,
                 asgi=prof_asgi,
                 enabled_checks=enabled_checks,
                 model_override=model_override,

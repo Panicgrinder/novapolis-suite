@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-10 06:49
-update: Erster Vorschlagsentwurf für Governance-Optimierungen (agentenfokussiert)
+stand: 2025-11-12 04:42
+update: Hinweise auf veraltete Start-Prüfungen entfernt; Guard-Terminologie aktualisiert
 checks: noch keine
 ---
 
@@ -9,7 +9,7 @@ Kurzbeschreibung
 - Nicht-bindend; dient der Review und späteren gezielten Minimal-Patches.
 
 TL;DR-Blöcke (Einfüge-Vorschlag)
-- Semantische Regeln: 5-Punkte TL;DR (Preflight nur bei WRITE/RUN; STOP hat Vorrang; Timestamps immer frisch; Quellen nennen; Reihenfolge Lint→Typen→Tests).
+- Semantische Regeln: 5-Punkte TL;DR (Guard-Checks nur bei WRITE/RUN; STOP hat Vorrang; Timestamps immer frisch; Quellen nennen; Reihenfolge Lint→Typen→Tests).
 - Modell-Profile: 1-Zeiler, wann General/Codex/Mini zu wählen ist + 3 Heuristik-Stichpunkte.
 - Doku-Update: Kurzliste der Pflichtschritte (TODO/DONELOG, Frontmatter, Lint, Status-Artefakte).
 - Prüfläufe: Ein Satz pro Wrapper-Skript, keine Inline -Command für Mehrschritte.
@@ -35,11 +35,11 @@ Reihenfolge der Kapitel (Vorschlag)
 
 Tool-Policy Kurzmatrix (skizziert)
 - Allowed: Lesen (read_file/grep/fetch), Analyze-only.
-- STOP+Preflight: apply_patch/create_file/delete, run_in_terminal mit -File, install deps.
+- STOP+Guard-Check: apply_patch/create_file/delete, run_in_terminal mit -File, install deps.
 - Wrapper-Pflicht: Mehrschritt-Build/Test/Coverage → `pwsh -File` Skripte.
 
 Konkrete Textänderungen (Prosa-Minimaldiffs)
-- Semantische Regeln A.1: "Preflight erforderlich VOR jeder Aktion, die Dateien verändert oder Skripte/Tests startet." Klarstellen: Lesende Operationen explizit ausnehmen.
+- Semantische Regeln A.1: "Guard-Check erforderlich VOR jeder Aktion, die Dateien verändert oder Skripte/Tests startet." Klarstellen: Lesende Operationen explizit ausnehmen.
 - STOP-Gate: ersten Satz verkürzen, Signalsatz "Beidseitig (Code↔Redaktion)" beibehalten.
 - Zeit/Timestamps: Alle Beispiele auf lokale Zeit „YYYY-MM-DD HH:mm“ belassen; Hinweis auf Get-Date belassen.
 

@@ -1,4 +1,4 @@
 stand: 2025-11-10 09:34
-changed_sections: Preflight-Banner; Priorität; Zeitformat; Tippfehler Get-Date; STOP-Gates Merge; Frontmatter-Policy Konsolidiert; Coverage dynamisch Verweis; Determinismus & Prozessanker; Skip-Pfade aktualisiert; Security-Takt Hinweis; Zeitzone Hinweis
+changed_sections: Start-Check-Banner; Priorität; Zeitformat; Tippfehler Get-Date; STOP-Gates Merge; Frontmatter-Policy Konsolidiert; Coverage dynamisch Verweis; Determinismus & Prozessanker; Skip-Pfade aktualisiert; Security-Takt Hinweis; Zeitzone Hinweis
 markdownlint_exit: 0
 file: f:\VS Code Workspace\Main\.github\copilot-instructions.md

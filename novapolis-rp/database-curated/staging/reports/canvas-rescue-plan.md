@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-07 01:47
-update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt.
+stand: 2025-11-12 05:51
+update: Guard-Check ersetzt den alten Start-Schritt im Workflow
 checks: keine
 ---
 
@@ -48,7 +48,7 @@ Priorität C – Systeme, Indizes, Ereignisse
 Übertragungs-Workflow (pro Canvas)
 ----------------------------------
 
-- Preflight: Flag-Notizen lesen, relevante FACT-Beschlüsse (`resolved.md`) notieren, Drift-Markierungen (Alias, Geheimhaltung) abgleichen.
+- Guard-Check: Flag-Notizen lesen, relevante FACT-Beschlüsse (`resolved.md`) notieren, Drift-Markierungen (Alias, Geheimhaltung) abgleichen.
 - Normalisieren: Namen (z. B. „Ronja Vallin“ → „Ronja Kerschner“), System-IDs (CamelCase vs. snake_case) angleichen; externe Kenntnisse entfernen oder als „unbekannt“ markieren.
 - Strukturieren: Frontmatter nach bestehendem Schema (`title`, `category`, `version`, `last_updated`, Tags/Affiliations) pflegen; Pflichtfelder laut Policy ausfüllen (z. B. Rollenmatrix, Wissensstand, ATSD).
 - Quellenblock: In jedem Canvas RAW-Datei + relevante Beschlüsse verlinken (`Quelle: database-raw/... + resolved.md #[FACT]`).

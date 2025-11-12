@@ -1084,50 +1084,11 @@ async def evaluate_item(
         )
 
 
-async def preflight_check(api_url: str) -> bool:
-    """
-    Führt einen Preflight-Check gegen den API-Endpunkt durch.
-    
-    Args:
-        api_url: URL des Chat-Endpunkts
-        
-    Returns:
-        True, wenn der Check erfolgreich war, sonst False
-    """
-    logger = logging.getLogger("preflight")
-    
-    # Extrahiere die Basis-URL ohne Pfad
-    try:
-        from urllib.parse import urlsplit
-        parts = urlsplit(api_url)
-        base_url: str = f"{parts.scheme}://{parts.netloc}"
-    except Exception:
-        base_url = api_url.split("/")[0] + "//" + api_url.split("/")[2]
-    health_url: str = f"{base_url}/health"
-    
-    try:
-        logger.info(f"Führe Preflight-Check gegen {health_url} durch...")
-        
-        async with httpx.AsyncClient(timeout=5.0) as client:
-            response = await client.get(health_url)
-            
-            if response.status_code == 200:
-                logger.info("Preflight-Check erfolgreich.")
-                return True
-            else:
-                logger.error(f"Preflight-Check fehlgeschlagen: HTTP {response.status_code}")
-                return False
-    except Exception as e:
-        logger.error(f"Preflight-Check fehlgeschlagen: {str(e)}")
-        return False
-
-
 async def run_evaluation(
     patterns: List[str],
     api_url: str = "http://localhost:8000/chat",
     limit: Optional[int] = None,
     eval_mode: bool = False,
-    skip_preflight: bool = False,
     asgi: bool = False,
     enabled_checks: Optional[List[str]] = None,
     model_override: Optional[str] = None,
@@ -1150,17 +1111,10 @@ async def run_evaluation(
         api_url: URL des Chat-Endpunkts
         limit: Optionale Begrenzung der Anzahl der zu evaluierenden Einträge
         eval_mode: Wenn True, wird der RPG-Modus für alle Tests deaktiviert
-        skip_preflight: Wenn True, wird der Preflight-Check übersprungen
         
     Returns:
         Liste von Evaluierungsergebnissen
     """
-    # Führe Preflight-Check durch, außer wenn übersprungen (im ASGI-Modus nicht nötig)
-    if not asgi and not skip_preflight and not await preflight_check(api_url):
-        logging.error(f"API-Endpunkt {api_url} ist nicht erreichbar. Evaluierung abgebrochen.")
-        logging.info("Verwenden Sie --skip-preflight, um den Preflight-Check zu überspringen.")
-        return []
-    
     # Lade Einträge
     items = await load_evaluation_items(patterns)
     
@@ -1208,7 +1162,6 @@ async def run_evaluation(
         "httpx",
         "eval_loader",
         "eval",
-        "preflight",
         "asyncio",
     ]
     try:
@@ -1794,7 +1747,6 @@ if __name__ == "__main__":
     parser.add_argument("--limit", "-l", type=int, help="Anzahl der zu evaluierenden Einträge begrenzen")
     parser.add_argument("--debug", "-d", action="store_true", help="Debug-Modus aktivieren")
     parser.add_argument("--eval-mode", "-e", action="store_true", help="Deaktiviert den RPG-Modus für die Evaluierung")
-    parser.add_argument("--skip-preflight", "-s", action="store_true", help="Überspringt den Preflight-Check (nützlich, wenn der Server nicht läuft)")
     parser.add_argument("--asgi", action="store_true", help="ASGI-In-Process: Evaluierung direkt gegen FastAPI-App ohne laufenden Server-Port")
     parser.add_argument("--profile", type=str, choices=["eval", "default", "unrestricted"], help="Profil-Preset: eval, default, unrestricted")
     parser.add_argument("--checks", nargs="*", help="Aktiviere Check-Typen; unterstützt Komma-Liste und Alias 'term_inclusion'")
@@ -1962,8 +1914,6 @@ if __name__ == "__main__":
         console.print(f"Limit: {args.limit} Einträge")
     if args.eval_mode:
         console.print(f"[bold yellow]Eval-Modus aktiviert:[/bold yellow] RPG-Systemprompt wird temporär überschrieben")
-    if args.skip_preflight:
-        console.print(f"[bold red]Preflight-Check übersprungen:[/bold red] API-Verfügbarkeit wird nicht geprüft")
     if args.asgi:
         console.print(f"[bold green]ASGI-Modus:[/bold green] In-Process gegen FastAPI-App (kein HTTP-Port erforderlich)")
     console.print("")
@@ -2012,7 +1962,6 @@ if __name__ == "__main__":
         api_url=api_url,
         limit=args.limit,
         eval_mode=eval_mode_flag,
-        skip_preflight=args.skip_preflight,
         asgi=args.asgi,
         enabled_checks=checks_final,
         model_override=args.model,

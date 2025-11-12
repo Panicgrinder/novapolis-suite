@@ -1,6 +1,6 @@
 ---
 stand: 2025-11-12 02:41
-update: Preflight entfernt, Überschriften angepasst (Meta-/Kom­pakter Block), veraltete Einträge markiert
+update: Guard-Extrakt synchronisiert, Postflight-Liste erweitert, veraltete Einträge markiert
 checks: markdownlint scoped PASS
 ---
 
@@ -12,7 +12,7 @@ Repository abzulegen.
 Aktuelle Überschriften (Extrakt)
 ================================
 
-Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-12 14:10` der Datei `.github/copilot-instructions.md` (Preflight entfernt, Postflight konsolidiert).
+Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-12 14:10` der Datei `.github/copilot-instructions.md` (Postflight & Wrapper-Guards konsolidiert).
 
 - LLM-Dokumentenheader (nicht löschen)
 - Kurzreferenz aller Überschriften dieser Anleitung
@@ -27,6 +27,7 @@ Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-12 14:10` der Datei `.
 - Dateiformat & EOL
 - Definition of Done (Code & Docs)
 - Security & Dependencies
+- Historisch (veraltet)
 - Meta- / Systeminfo-Protokollierung (Postflight & kompakter Meta-Block)
 - Semantische Regeln
 - Kompakter Meta-Block (rein lesend)

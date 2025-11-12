@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-07 04:56
-update: H1/H2 auf Setext gestellt; Timestamp aktualisiert.
+stand: 2025-11-12 04:42
+update: Archivtext auf Guard-Check-Terminologie angepasst
 checks: markdownlint-cli2 PASS
 ---
 
@@ -31,8 +31,8 @@ archived_at: 2025-11-01 19:16
 - [x] Eval-Profile festziehen
   - Ziel: Reproduzierbare Läufe via `eval/config/profiles.json` (quiet default, temp, optionale Checks).
   - Status: Done (UI lädt Profile; Meta-Header vollständig; kurzer ASGI-Lauf konsistent).
-- [x] Eval-UI: Profile-/Quiet-/ASGI-/Skip-Preflight-Integration
-  - Ziel: Läufe steuerbar über Profile, reduzierte Logs, In-Process-ASGI, Preflight optional.
+- [x] Eval-UI: Profile-/Quiet-/ASGI-/Guard-Bypass-Integration
+  - Ziel: Läufe steuerbar über Profile, reduzierte Logs, In-Process-ASGI, optionaler Vorab-Guard.
   - Status: Done (Menü integriert, Flags wirksam, Trends/Exports ok).
 - [x] Synonym-Overlay (privat) einführen und mergen
   - Ziel: `eval/config/synonyms.local.json` (gitignored) automatisch mit `synonyms.json` mergen.

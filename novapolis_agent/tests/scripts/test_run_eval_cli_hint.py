@@ -36,7 +36,6 @@ async def test_cli_like_asgi_smoke_with_hint(monkeypatch):
         patterns=["dummy"],
         api_url="http://localhost:8000/chat",
         eval_mode=True,
-        skip_preflight=True,
         asgi=True,
         enabled_checks=["must_include"],
         quiet=True,

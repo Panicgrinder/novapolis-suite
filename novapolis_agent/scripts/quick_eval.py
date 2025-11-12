@@ -55,7 +55,6 @@ async def _main_async() -> int:
         eval_mode=True,
         asgi=True,
         quiet=True,
-        skip_preflight=True,
     )
     # Kurz ausgeben
     run_eval.print_results(results)

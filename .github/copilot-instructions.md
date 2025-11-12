@@ -11,6 +11,7 @@ LLM-Dokumentenheader (nicht löschen)
 - Compliance: Wrapper-Policy, STOP-Gate, Frontmatter-Policy, Lint-Policy, Security-Checks, Logging-Receipt, Meta-/Systeminfo-Protokollierung.
 - Audit: Jede Antwort oder Änderung endet mit einem Postflight-Block nach Abschnitt „Meta-/Systeminfo-Protokollierung“.
 - Timestamp: 2025-11-10 06:49
+- Änderung: Frühere Start-Checks abgeschafft; Postflight bleibt einzig verpflichtendes Gate, Wrapper-Guards übernehmen alle vorbereitenden Prüfungen.
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
 Kurzreferenz aller Überschriften dieser Anleitung
@@ -25,7 +26,7 @@ Dateipfad & Geltungsbereich
 ### Geltungsbereich
 - Regeln gelten für Copilot Chat in VS Code, Inline-Completions, Apply-Patch-Befehle und agentische Funktionen (z. B. Tasks, Run-Code-Snippets). Bei Tools mit begrenztem Kontext immer die Kernregeln priorisieren und Details bei Bedarf im Chat referenzieren.
 ### Pfad-Disziplin
-- Tippfehler oder abweichende Verzeichnisse (z. B. `.github/copilot-instuctions.md`) werden ignoriert. Vor Änderungen prüfen, dass die editierte Datei exakt den kanonischen Pfad besitzt.
+- Tippfehler oder abweichende Verzeichnisse (z. B. `.github/copilot-instuctions.md`, absichtliches Beispiel) werden ignoriert. Vor Änderungen prüfen, dass die editierte Datei exakt den kanonischen Pfad besitzt.
 
 Primäre Behaviour-Quellen
 ---
@@ -221,6 +222,11 @@ Security & Dependencies
    - Abhängigkeiten pinnen (`requirements*.txt`, `pyproject.toml`); Versionssprünge dokumentieren (DONELOG + kurze Notiz).
    - Keine Secrets ins Repo commiten (`.env` bleibt lokal). Vor Uploads/Exports prüfen, ob sensible Daten sanitisiert sind.
 
+Historisch (veraltet)
+---
+- Der vorangestellte Start-Check wurde am 2025-11-12 abgeschafft. Wrapper-Guards übernehmen seither alle vorbereitenden Prüfungen; neue Beiträge dürfen keine alten Bezeichner oder Parameter für diesen Schritt mehr einführen.
+- Legacy-Receipts oder Archive mit entsprechenden Alt-Begriffen bleiben nur zur Nachvollziehbarkeit bestehen. Aktive Dokumente, Skripte und Beispiele müssen ausschließlich Postflight + Guard-Notation verwenden.
+
 Meta- / Systeminfo-Protokollierung (Postflight & kompakter Meta-Block)
 ---
 ### Zweck
@@ -232,10 +238,19 @@ Meta- / Systeminfo-Protokollierung (Postflight & kompakter Meta-Block)
    - Keine Zwischen-Postflights für Teilaktionen; Ergebnisse gesammelt ausgeben.
    - Abort-Fall: Meta: Modus=Abort, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Grund=<Kurzbeschreibung>, Zeitpunkt=<yyyy-MM-dd HH:mm>.
 #### Format Postflight (erfolgreich)
-   - Meta: Modus=Postflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Arbeitsverzeichnis=<Pfad>, RepoRoot=<Pfad>, PSScriptRoot=<Pfad>, PSVersion=<x.y.z>, Aufruf=pwsh -File <Pfad.zum.Skript.ps1>, SHA256=<Hash.der.Skriptdatei>, STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
+   - Meta: Modus=Postflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Arbeitsverzeichnis=<Pfad>, RepoRoot=<Pfad>, PSScriptRoot=<Pfad>, PSVersion=<x.y.z>, Aufruf=pwsh -File <Pfad.zum.Skript.ps1>, SHA256=<Hash.der.Skriptdatei>, STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Wrapper-Guards=<GuardA:PASS|GuardB:PASS>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
      - Prüfung: markdownlint=<PASS/FAIL>, ExitcodeLint=<N>, behobenLint=<ja/nein>, Frontmatter-Validator=<PASS/FAIL>, ExitcodeFM=<N>, behobenFM=<ja/nein>, Cleanup-WhatIf-Exit=<N>, behobenWhatIf=<ja/nein>, Cleanup-Real-Exit=<N>, behobenReal=<ja/nein>, WorkspaceScanRoot=<Zahl>, WorkspaceScanRecurse=<Zahl>
      - Regeln: IDs=<R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG>, Details=R-WRAP über -File erzwungen; R-STOP aktiv vor Real; R-FM geprüft; R-LINT ausgeführt; R-SCAN Root-only; R-CTX Quellen geladen; R-SEC geprüft; R-LOG Receipt erstellt
      - Todos: offen=<Anzahl>, BeispielFix=<Kurzbeschreibung>, ReRun=<Testname>, Fällig=<Datum/Zeit>
+       - Beispiel (Dummy):
+
+          ```
+         Meta: Modus=Postflight, Modell=GPT-5 Codex, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.4.1, Aufruf=pwsh -File scripts\run_linters.ps1, SHA256=..., STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Wrapper-Guards=PfadCheck:PASS|StopGate:PASS, Quellen=.github/copilot-instructions.md;README.md, Aktion=Lint-Checks aktualisiert
+         Prüfung: markdownlint=PASS, ExitcodeLint=0, behobenLint=nein, Frontmatter-Validator=PASS, ExitcodeFM=0, behobenFM=nein, Cleanup-WhatIf-Exit=0, behobenWhatIf=nein, Cleanup-Real-Exit=0, behobenReal=nein, WorkspaceScanRoot=0, WorkspaceScanRecurse=0
+          Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG, Details=R-WRAP über -File erzwungen; R-STOP aktiv bestätigt; R-FM geprüft; R-LINT ausgeführt; R-SCAN Root-only; R-CTX Quellen geladen; R-SEC geprüft; R-LOG Receipt erstellt
+          Todos: offen=12, BeispielFix=Markdownlint-Report verlinkt, ReRun=pytest -q, Fällig=2025-11-12 17:00
+          Ende: Timestamp=2025-11-12 04:00
+          ```
      - Ende: Timestamp=<yyyy-MM-dd HH:mm>
 
 ### Kompakter Meta-Block (rein lesend)
@@ -254,18 +269,18 @@ Regelzustände (Normativ)
  - test / testing / beobachtung: Regel wird nicht erzwungen, aber Verstöße werden gemeldet (Log / Hinweis im Receipt) und können zur Aktivierung führen.
 
 A. Postflight Logik
- 1. Preflight (false): Erforderlich VOR jeder Aktion, die Dateien verändert (apply_patch, create_file, delete) oder ausführende Skripte/Tests startet (run_in_terminal mit pwsh -File, Coverage-/Lint-Läufe). Nicht erforderlich für reine Lese-/Analyseaktionen (read_file, grep_search, fetch_webpage, Get-Date).
- 1. Postflight (aktiv): Nach jeder Dateiänderung oder Skript-/Testausführung genau EIN Postflight am Ende des vollständigen Vorgangs.
- 2. Keine Dateimutationen ohne nachfolgenden Postflight-Receipt.
- 3. "behoben=ja" nur, wenn ein Prüfschritt im selben Lauf erst FAIL und dann PASS war; bei sofortigem PASS "behoben=nein".
+ 1. Wrapper-Guards (aktiv): Vor jeder Dateiänderung oder skriptgestützten Mutation definierte Guard-Prüfungen ausführen (Pfad-Check, STOP-Gate-Bewertung, Kontextquellen). Guards ersetzen sämtliche vormals vorgeschalteten Start-Prüfungen und dienen ausschließlich als Abbruchkriterium vor dem eigentlichen Schritt.
+ 2. Postflight (aktiv): Nach jeder Dateiänderung oder Skript-/Testausführung genau EIN Postflight am Ende des vollständigen Vorgangs.
+ 3. Keine Dateimutationen ohne nachfolgenden Postflight-Receipt.
+ 4. "behoben=ja" nur, wenn ein Prüfschritt im selben Lauf erst FAIL und dann PASS war; bei sofortigem PASS "behoben=nein".
 
 B. Quellen / Kontext
- 5. Quellenpfade im Pre-/Postflight als absolute Pfade aufführen (aktiv): Mindestens `.github/copilot-instructions.md` und alle unmittelbar betroffenen Arbeitsdateien.
+ 5. Quellenpfade in Guard-Checks und Postflights als absolute Pfade aufführen (aktiv): Mindestens `.github/copilot-instructions.md` und alle unmittelbar betroffenen Arbeitsdateien.
  6. TODO-Propagation (test): Automatische Übernahme von neu erkannten TODOs in `todo.root.md` ist optional; bis zur expliziten Aktivierung nur dokumentieren.
 
 C. Zeit / Timestamps
  7. Timestamp-Format (aktiv): `YYYY-MM-DD HH:mm` lokale Zeit (Europe/Berlin); pro Ereignis frisch via `Get-Date` ermittelt.
- 8. Kein Reuse früherer Zeitstempel (aktiv): Jeder Pre-/Postflight holt Zeit erneut.
+ 8. Kein Reuse früherer Zeitstempel (aktiv): Jeder Postflight holt Zeit erneut.
 
 D. STOP-Gate Interaktion
  9. STOP-Gate Vorrang (aktiv, scharf): Bei Unsicherheit/Abweichung ruht jede ausführende Aktion bis Bestätigung. Auslöser: Regelfehler, widersprüchliche Prioritäten, fehlende Quellen, unklare Moduswahl.

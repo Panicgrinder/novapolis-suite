@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-12 01:40
-update: Postflight ergänzt (Checks-Report 20251112_013920)
+stand: 2025-11-12 04:42
+update: Hinweis auf Guard-Check-Kontext ergänzt; keine neuen Läufe
 checks: markdownlint-cli2 PASS (scoped)
 ---
 
@@ -135,7 +135,7 @@ Validator rerun geplant nach Fix
 
 Bestätigungen:
 - cleanup_workspace_files.ps1 ausschließlich via pwsh -NoProfile -File ausgeführt (keine -Command-Varianten).
-- single-root-todo.md blieb unverändert und diente nur als Preflight-Kontext.
+- `single-root-todo.md` blieb unverändert und diente nur als Kontext für den damaligen Start-Check.
 - Neuer Helfer scripts/diagnostics.ps1 liefert Root/Recursive-Counts sowie Hash für künftige Receipts.
 
 PowerShell 7 Standard & Gitignore (2025-11-02T22:31:00+01:00)

@@ -37,3 +37,7 @@ extend-exclude = [
 select = ["E", "F", "W", "B", "I", "UP", "RUF"]
 ignore = ["E203"]  # Black-Kompatibilität für Slices
 fixable = ["ALL"]
+
+[tool.novapolis.checks]
+# Globale Prüfschwellen und Einstellungen für den Python-basierten Sammellauf
+coverage_fail_under = 80
