@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-07 06:20
-update: Verweise auf lokale copilot-behavior.md entfernt; SSOT ist .github/copilot-instructions.md.
-checks: keine
+stand: 2025-11-12 03:37
+update: Abschnitt Checks: full (PSScriptAnalyzer + Sammellauf) ergänzt
+checks: pending (nach Lint/Validator)
 ---
 
 Novapolis Dev Hub
@@ -64,4 +64,20 @@ Copilot Instructions
 - Kanonisches Richtlinien-Dokument liegt im Repo-Root unter `.github/copilot-instructions.md` (SSOT).
 
 Bitte dokumentiert neue Arbeitsstände ausschließlich hier und verweist in den Produktiv-Repositories auf dieses Hub.
+
+
+Temporäre Bereiche
+------------------
+
+- Link-Scanner: `scripts/scan_links.ps1`
+  - Reports: `.tmp-results/reports/scan_links_reports/`
+  - Kandidaten (Dry-Run JSON): `.tmp-results/reports/links/*.json`
+  - Status: 0 defekte Verweise (Rescan abgeschlossen)
+
+Checks: full
+------------
+
+- Sammellauf-Skript: `scripts/run_checks_and_report.ps1` (Lint: ruff/black, Docs-Lint markdownlint, Frontmatter-Validator, Typen: pyright/mypy, Tests + Coverage ≥80%, PSScriptAnalyzer)
+- Report-Ausgabe: `.tmp-results/reports/checks_report_*.md` inkl. JSON-Blöcken & Postflight-Vorlage
+- Nutzung: Wrapper-Aufruf `pwsh -File scripts/run_checks_and_report.ps1` (keine Inline-Ketten). Exitcode aggregiert ersten Fehler.
 

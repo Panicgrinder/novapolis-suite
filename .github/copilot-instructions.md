@@ -1,6 +1,5 @@
 LLM-Dokumentenheader (nicht löschen)
 ====================================
-- Hinweis: Zeitzone Europe/Berlin. Preflight ist deaktiviert (in review, Stand: 2025-11-10 11:00); bis zur Reaktivierung gilt: Postflight verpflichtend, kompakter Meta-Block dient als Belegspur.
 - Type: Copilot Instruction Set / Project Governance
 - Scope: Novapolis-Suite (VS Code Workspace Main)
 - Language: Deutsch
@@ -222,51 +221,27 @@ Security & Dependencies
    - Abhängigkeiten pinnen (`requirements*.txt`, `pyproject.toml`); Versionssprünge dokumentieren (DONELOG + kurze Notiz).
    - Keine Secrets ins Repo commiten (`.env` bleibt lokal). Vor Uploads/Exports prüfen, ob sensible Daten sanitisiert sind.
 
-Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
+Meta- / Systeminfo-Protokollierung (Postflight & kompakter Meta-Block)
 ---
 ### Zweck
-   - Dieser Abschnitt definiert, wann und wie Copilot automatisch Meta- und Systeminformationen ausgibt, um jede Aktion revisionssicher zu dokumentieren.
-   - Das Format ist minimalistisch, maschinenlesbar und tokenoptimiert.
-   - Er ist verpflichtend für jede Änderung oder Erstellung von Dateien, Prüf- und Validierungsvorgänge sowie komplexe Abläufe mit Mehrschritt-Logik.
+   - Revisionssichere Dokumentation aller Änderungen und Skriptausführungen über einen abschließenden Postflight-Block.
+   - Kompakter Meta-Block nur für rein lesende / erklärende Antworten (ohne Dateimutationen oder Skriptläufe).
 
-### Preflight (false)(08.11.2025 20:58 Panicgrinder Grund: Copilot/GPT beendet direkt nach dem Ausgeben des Preflights seine Nachricht und schreibt nicht weiter.) Preflight ist eine Preambel. Aufgabe: Analyse und Fehlerbehebung zu einem anderen Zeitpunkt, da Postflight intakt. (vor jeder Änderung)
-   - Vor jeder Aktion, die Dateien verändert oder generiert, muss Copilot einen Preflight-Block ausgeben, bevor irgendetwas ausgeführt wird.
-   - Dieser Block dient der Vorschau und Bestätigung, dass alle Regeln, Pfade, STOP-Gates und Policies korrekt geladen sind.
-#### Format (Pflichtfelder fett, optionale Angaben in Klammern)
-   - Meta: Modus=Preflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, **Arbeitsverzeichnis=<Pfad>**, **RepoRoot=<Pfad>**, (PSScriptRoot=<Pfad>), (PSVersion=<x.y.z>), Aufruf=pwsh -File <Pfad.zum.Skript.ps1>, (SHA256=<Hash.der.Skriptdatei>), STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
-#### Verhalten
-     - Keine Änderungen, kein Schreiben, keine Commits.
-     - Dient ausschließlich der Kontexterkennung und Validierung.
-     - Wird bei aktivem STOP-Gate durch eine manuelle Freigabe fortgesetzt.
-     - Darf nicht übersprungen werden.
-
-### Postflight (true)(nach Abschluss eines vollständigen Arbeitsvorgangs)
-#### Nach Abschluss eines vollständigen, logisch abgeschlossenen Vorgangs (z. B. Vereinheitlichung mehrerer Dokumente, Ausführung aller Tests, Erstellung eines Skripts) muss Copilot genau einen Postflight-Block ausgeben.
-   - Es dürfen keine Zwischenblöcke bei Mehrfachdateien oder Schleifen erzeugt werden.
-   - Ergebnisse sind gesammelt und am Ende auszugeben.
-#### Falls ein Vorgang unerwartet abgebrochen wird oder ein STOP-Gate ausgelöst wurde
-   - Meta: Modus=Abort, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Grund=<Kurzbeschreibung>, Zeitpunkt=<yyyy-MM-dd HH:mm>
-#### Format für erfolgreiche Postflight-Ausgabe
+### Postflight (aktiv)
+   - Nach jedem logisch abgeschlossenen Vorgang mit Dateimutationen oder Skript-/Testausführungen genau EIN Postflight-Block – dieser steht immer als letzter Block am Ende der ausgegebenen Nachricht.
+   - Keine Zwischen-Postflights für Teilaktionen; Ergebnisse gesammelt ausgeben.
+   - Abort-Fall: Meta: Modus=Abort, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Grund=<Kurzbeschreibung>, Zeitpunkt=<yyyy-MM-dd HH:mm>.
+#### Format Postflight (erfolgreich)
    - Meta: Modus=Postflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Arbeitsverzeichnis=<Pfad>, RepoRoot=<Pfad>, PSScriptRoot=<Pfad>, PSVersion=<x.y.z>, Aufruf=pwsh -File <Pfad.zum.Skript.ps1>, SHA256=<Hash.der.Skriptdatei>, STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
      - Prüfung: markdownlint=<PASS/FAIL>, ExitcodeLint=<N>, behobenLint=<ja/nein>, Frontmatter-Validator=<PASS/FAIL>, ExitcodeFM=<N>, behobenFM=<ja/nein>, Cleanup-WhatIf-Exit=<N>, behobenWhatIf=<ja/nein>, Cleanup-Real-Exit=<N>, behobenReal=<ja/nein>, WorkspaceScanRoot=<Zahl>, WorkspaceScanRecurse=<Zahl>
      - Regeln: IDs=<R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG>, Details=R-WRAP über -File erzwungen; R-STOP aktiv vor Real; R-FM geprüft; R-LINT ausgeführt; R-SCAN Root-only; R-CTX Quellen geladen; R-SEC geprüft; R-LOG Receipt erstellt
      - Todos: offen=<Anzahl>, BeispielFix=<Kurzbeschreibung>, ReRun=<Testname>, Fällig=<Datum/Zeit>
-     - Ende: Timestamp=<yyyy-MM-dd HH:mm> (jedesmal aktuelle Systemzeit über pwsh einholen.)
+     - Ende: Timestamp=<yyyy-MM-dd HH:mm>
 
-
-### Kompakter Meta-Block für normale Antworten
-#### Zweck
-Für alltägliche, nicht-ausführende Antworten (keine Dateiänderung, keine Task-Starts) ist ein sehr kompakter, maschinenlesbarer Meta-Block am Ende der Nachricht erlaubt und erwünscht. Er erleichtert automatisches Parsing und dokumentiert kurz Kontext/Absicht ohne die Preflight/Postflight-Pflicht zu ersetzen.
-#### Format (einzeilig, komma-separiert)
- - Meta: Modus=General, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini|optional>, Arbeitsverzeichnis=<Pfad|optional>, RepoRoot=<Pfad|optional>, PSScriptRoot=<Pfad|optional>, PSVersion=<x.y.z|optional>, Aufruf=<Aufruf|none>, Aktion=<Kurzbeschreibung>, Timestamp=<yyyy-MM-dd HH:mm>
- - Minimalbeispiel (sehr kurz)
- - Meta: Modus=General
-#### Beispiel (empfohlen, wenn etwas Kontext nützlich ist)
-- Meta: Modus=General, Arbeitsverzeichnis=F:\\VS Code Workspace\\Main, RepoRoot=F:\\VS Code Workspace\\Main, PSScriptRoot=scripts, PSVersion=pwsh 7.3, Aufruf=none, Aktion=Antwort auf Coverage-Summary, Timestamp=2025-11-08 17:00
-#### Regeln
-- Dieser kompakte Meta-Block ersetzt nicht die Preflight- oder Postflight-Blöcke, wenn Dateien verändert oder Skripte ausgeführt werden. Für jede auszuführende Aktion ist weiterhin ein Preflight (vorher) und ein Postflight (nachher) erforderlich.
-- Der kompakte Block soll eine einzelne Zeile bleiben, sparsam verwendet werden und keine sensiblen Informationen enthalten.
-- Felder sind optional; wenn nur der Modus angegeben wird, genügt `Meta: Modus=General`.
+### Kompakter Meta-Block (rein lesend)
+   - Format (einzeilig, komma-separiert): Meta: Modus=General, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini|optional>, Aktion=<Kurzbeschreibung>, Timestamp=<yyyy-MM-dd HH:mm>[, Arbeitsverzeichnis=<Pfad>]
+   - Minimalbeispiel: Meta: Modus=General
+   - Keine sensitiven Daten; nur verwenden, wenn kein Postflight nötig ist.
 
 Semantische Regeln (Agent-spezifisch, kuratiert)
 ---
@@ -278,11 +253,11 @@ Regelzustände (Normativ)
  - scharf / ready / strikt: Regel löst vor auslösenden Aktionen zwingend ein STOP-Gate aus (Bestätigungspflicht). Kombination mit "aktiv" → höchste Strenge.
  - test / testing / beobachtung: Regel wird nicht erzwungen, aber Verstöße werden gemeldet (Log / Hinweis im Receipt) und können zur Aktivierung führen.
 
-A. Pre-/Postflight Logik
+A. Postflight Logik
  1. Preflight (false): Erforderlich VOR jeder Aktion, die Dateien verändert (apply_patch, create_file, delete) oder ausführende Skripte/Tests startet (run_in_terminal mit pwsh -File, Coverage-/Lint-Läufe). Nicht erforderlich für reine Lese-/Analyseaktionen (read_file, grep_search, fetch_webpage, Get-Date).
- 2. Ohne Preflight keine Dateimutation (false). Versuche einen Patch oder Skriptlauf ohne vorangegangenen Preflight → STOP + Abbruch.
- 3. Postflight genau EINMAL pro logisch abgeschlossenem Vorgang (aktiv). Mehrfach-Postflights für denselben Vorgang vermeiden.
- 4. "behoben=ja" nur, wenn derselbe Prüfschritt (z. B. Frontmatter-Validator, markdownlint) im gleichen Lauf erst FAIL und danach PASS war (aktiv). Bei rein passendem Erstlauf → behoben=nein.
+ 1. Postflight (aktiv): Nach jeder Dateiänderung oder Skript-/Testausführung genau EIN Postflight am Ende des vollständigen Vorgangs.
+ 2. Keine Dateimutationen ohne nachfolgenden Postflight-Receipt.
+ 3. "behoben=ja" nur, wenn ein Prüfschritt im selben Lauf erst FAIL und dann PASS war; bei sofortigem PASS "behoben=nein".
 
 B. Quellen / Kontext
  5. Quellenpfade im Pre-/Postflight als absolute Pfade aufführen (aktiv): Mindestens `.github/copilot-instructions.md` und alle unmittelbar betroffenen Arbeitsdateien.
@@ -322,7 +297,7 @@ Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
    - ID R-FM: Frontmatter-Policy – Dokumente müssen gültige YAML-Frontmatter-Blöcke mit definierten Schlüsseln (stand, update, checks) enthalten. Fehlende oder beschädigte Frontmatter werden durch den Validator erkannt und gemeldet.
    - ID R-LINT: Markdownlint-Policy – Dokumente müssen die Style-Regeln MD001–MD050 einhalten; insbesondere MD003 (Setext für H1/H2, ATX ab H3).
    - ID R-SCAN: Workspace-Scan – Definiert, ob der Workspace-Scan nur auf Root-Ebene oder rekursiv erfolgen darf. Standard ist Root-only by design.
-   - ID R-CTX: Kontextquelle – Stellt sicher, dass alle relevanten Steuerdateien (.github/copilot-instructions.md, README.md, single-root-todo.md usw.) vor einer Aktion geladen und im Preflight bestätigt wurden.
+   - ID R-CTX: Kontextquelle – Stellt sicher, dass alle relevanten Steuerdateien (.github/copilot-instructions.md, README.md, single-root-todo.md usw.) vor einer Aktion geladen und im Kontext referenziert wurden.
    - ID R-SEC: Sicherheitsprinzip – Keine destruktiven Änderungen ohne vorherige WhatIf-Phase, minimalinvasive Diffs, keine automatischen Löschungen außerhalb des Skriptkontextes.
    - ID R-LOG: Receipt-Pflicht – Nach jedem abgeschlossenen Vorgang muss ein vollständiger, formalisierter Postflight-Log (Receipt) im DONELOG.md angelegt oder ergänzt werden.
    - ID R-COV: Coverage-Gate (Mindest-Coverage ≥80% vor Merge durchsetzen)
@@ -365,15 +340,15 @@ Modell-Profile & Moduswechsel (GPT-5, GPT-5 Codex, GPT-5 mini)
    - Mini-Trigger: Viele Dateien gleichzeitig lesen, Bulk-Dokumentationspflege, Log-/TODO-Massentriage, konservative Streu-Fixes ohne tiefen Codeeingriff.
    - General-Trigger: Policy-/Prozess-Anpassungen, SSOT-Abgleich, semantische Strukturierung.
 #### Mapping-Tabelle (Agent-orientiert)
-| Aktion/Signal | Empfohlener Modus | Primäre Gründe | Preflight nötig | STOP-Risiko |
-|---------------|-------------------|----------------|-----------------|-------------|
-| Patch/Code-Refactor (app/, scripts/) | Codex | Präzise Codeanalyse, Typsicherheit | Ja | Mittel (abhängig von Klarheit) |
-| Tests/Typen/Coverage Lauf | Codex | Sequenz Lint→Typen→Tests | Ja | Niedrig (wenn klar) |
-| Große Doku-Sweeps (>10 Dateien) | Mini | Performance, breiter Lesekontext | Nein (nur Lesen) | Niedrig |
-| Einzelne Policy-/Governance-Anpassung | General | Semantische Präzision | Ja | Hoch (SSOT) |
-| Mehrfachanalyse Logs/Reports (read-only) | Mini | Breite Sicht, kein Codeeingriff | Nein | Niedrig |
-| Modulstrategie / Roadmap-Neuordnung | General | Priorisierung, semantische Struktur | Nein | Mittel |
-| Ambigue Moduswahl / Konflikt | General (Fallback) | Neutraler Review | Abhängig von Aktion | Hoch |
+| Aktion/Signal | Empfohlener Modus | Primäre Gründe | STOP-Risiko |
+|---------------|-------------------|----------------|-------------|
+| Patch/Code-Refactor (app/, scripts/) | Codex | Präzise Codeanalyse, Typsicherheit | Mittel |
+| Tests/Typen/Coverage Lauf | Codex | Sequenz Lint→Typen→Tests | Niedrig |
+| Große Doku-Sweeps (>10 Dateien) | Mini | Performance, breiter Lesekontext | Niedrig |
+| Einzelne Policy-/Governance-Anpassung | General | Semantische Präzision | Hoch |
+| Mehrfachanalyse Logs/Reports (read-only) | Mini | Breite Sicht, kein Codeeingriff | Niedrig |
+| Modulstrategie / Roadmap-Neuordnung | General | Priorisierung, semantische Struktur | Mittel |
+| Ambigue Moduswahl / Konflikt | General (Fallback) | Neutraler Review | Hoch |
 #### Zustands-Annotation (optional)
 "aktiv" = Mapping anwenden; "test" = Empfehlung loggen aber freie Wahl; "scharf" = STOP vor Abweichung von empfohlenem Modus.
 #### Prompting-Policy

@@ -32,6 +32,10 @@ $tmpRoot = Join-Path $repoRoot '.tmp-results'
 $linksDir = Join-Path $tmpRoot 'reports\scan_links_reports'
 New-Item -ItemType Directory -Force -Path $linksDir | Out-Null
 
+# Directory for candidate lists (dry-run ambiguous cases)
+$linksCandidatesDir = Join-Path $tmpRoot 'reports\links'
+New-Item -ItemType Directory -Force -Path $linksCandidatesDir | Out-Null
+
 # Central backup directory for link-scan AutoFix backups
 $backupRoot = Join-Path $repoRoot '.tmp-datasets\lscan_links_backups'
 New-Item -ItemType Directory -Force -Path $backupRoot | Out-Null
@@ -67,6 +71,10 @@ $markdownLinks = New-Object System.Collections.Generic.List[object]
 $broken = New-Object System.Collections.Generic.List[object]
 
 $fixes = New-Object System.Collections.Generic.List[object]
+"$fixes" | Out-Null
+
+# Collect ambiguous candidates for dry-run JSON output
+$ambiguousList = New-Object System.Collections.Generic.List[object]
 
 $absHttp = '^(https?:)?//'
 $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm'
@@ -139,6 +147,25 @@ if ($AutoFix -and $broken.Count -gt 0) {
             # Multiple versions found — do not auto-resolve, record suggestion
             $fixes.Add([pscustomobject]@{ target = $resolved; fix = 'mehrere Versionen. (Prüfen)'; matches = $matchCount }) | Out-Null
             Write-Information ("[link-scan] Mehrere Versionen für {0} gefunden: {1} Treffer" -f $fileName, $matchCount) -Tags 'LinkScan'
+
+            # collect candidates (relative to repo root) for dry-run JSON
+            try {
+                $cands = @()
+                foreach ($m in $matches) {
+                    $full = (Resolve-Path -LiteralPath $m.FullName).Path
+                    $rel = [IO.Path]::GetRelativePath($repoRoot, $full)
+                    $rel = $rel -replace '\\','/'
+                    $cands += $rel
+                }
+                $ambiguousList.Add([pscustomobject]@{
+                    target_resolved = $resolved
+                    base_name       = $fileName
+                    matches         = $matchCount
+                    candidates      = $cands
+                }) | Out-Null
+            } catch {
+                # ignore candidate collection failures
+            }
             continue
         }
 
@@ -200,6 +227,22 @@ if ($AutoFix -and $broken.Count -gt 0) {
             Write-Information ("[link-scan] Datei aktualisiert: {0} (ersetze {1} -> {2})" -f $srcFile, $b.target, $replacement) -Tags 'LinkScan'
         }
     }
+}
+
+# If we are in dry-run (no AutoFix) and have ambiguous candidates, write a JSON file
+if (-not $AutoFix -and $ambiguousList.Count -gt 0) {
+    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm'
+    $stampId = Get-Date -Format 'yyyyMMdd_HHmmss'
+    $candFile = Join-Path $linksCandidatesDir ("candidates_{0}_{1}.json" -f ($scope.Name.Replace('\\','-').Replace('/','-')), $stampId)
+    $payload = [pscustomobject]@{
+        target_scope  = $scope.Name
+        generated_at  = $timestamp
+        ambiguous     = $ambiguousList
+        notes         = 'Automatisch generierte Kandidatenliste für mehrdeutige Referenzen (Dry-Run)'
+    }
+    $json = $payload | ConvertTo-Json -Depth 6
+    Set-Content -LiteralPath $candFile -Value $json -Encoding utf8BOM
+    Write-Information ("[link-scan] Kandidaten-JSON geschrieben: {0}" -f $candFile) -Tags 'LinkScan'
 }
 
 $reportPath = Join-Path $linksDir ("link_report_{0}_{1}.md" -f $scope.Name.Replace('\\','-').Replace('/','-'), $stampId)

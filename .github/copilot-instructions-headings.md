@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-08 23:20
-update: Überschriftenliste aktualisiert; Vorschläge für neue Regel-IDs ergänzt
-checks: keine
+stand: 2025-11-12 02:41
+update: Preflight entfernt, Überschriften angepasst (Meta-/Kom­pakter Block), veraltete Einträge markiert
+checks: markdownlint scoped PASS
 ---
 
 Hinweis: Diese Datei ist eine Extrakt‑Referenz. Sie enthält die aus
@@ -12,7 +12,7 @@ Repository abzulegen.
 Aktuelle Überschriften (Extrakt)
 ================================
 
-Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-08 23:02` der Datei `.github/copilot-instructions.md`.
+Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-12 14:10` der Datei `.github/copilot-instructions.md` (Preflight entfernt, Postflight konsolidiert).
 
 - LLM-Dokumentenheader (nicht löschen)
 - Kurzreferenz aller Überschriften dieser Anleitung
@@ -20,7 +20,6 @@ Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-08 23:02` der Datei `.
 - Primäre Behaviour-Quellen
 - Gemeinsamer Arbeitsstil
 - Onboarding & Setup
-- Cheat Sheet (pwsh‑Kommandos)
 - Kanonische Prüfabläufe (pwsh)
 - Workspace‑Tree‑Artefakte (Zuordnung)
 - YAML-Frontmatter (kompakt & LLM-freundlich)
@@ -28,9 +27,9 @@ Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-08 23:02` der Datei `.
 - Dateiformat & EOL
 - Definition of Done (Code & Docs)
 - Security & Dependencies
-- Meta- / Systeminfo-Protokollierung (Preflight & Postflight, kompakt)
+- Meta- / Systeminfo-Protokollierung (Postflight & kompakter Meta-Block)
 - Semantische Regeln
-- Kompakter Meta-Block für normale Antworten
+- Kompakter Meta-Block (rein lesend)
 - Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
 - STOP-Gates & Modi
 - Essentials (konzentriert)
@@ -44,15 +43,5 @@ Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-08 23:02` der Datei `.
 - Mirrors/Redirect‑Stubs
 - Export/Importer
 - Ziele
-
-Abgeleitete neue Regel-ID Vorschläge (nicht bindend)
----------------------------------------------------
-- ID R-COV: Coverage-Gate (Mindest-Coverage ≥80% vor Merge durchsetzen)
-- ID R-IDX: Headings-Index-Pflege (Aktualisierung bei strukturrelevanten Änderungen)
-- ID R-COMM: Kommunikationsstil (prägnant, deutsch, keine Füllphrasen)
-- ID R-RED: Redundanz-Handling (Duplikate nur mit Freigabe entfernen, vorher melden)
-- ID R-TODO: Konsistenz von TODO/DONELOG-Einträgen (Format, Pflichtfelder)
-- ID R-TIME: Timestamp-Konvention (lokales Format yyyy-MM-dd HH:mm; Quelle pwsh Get-Date)
-- ID R-SAFE: Minimaländerungen ohne semantischen Eingriff (nur Orthografie/Lint, wenn eingeschränkt erlaubt)
 
 (Ende des Extrakts)

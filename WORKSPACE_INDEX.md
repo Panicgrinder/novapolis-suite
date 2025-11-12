@@ -1,13 +1,25 @@
 ---
-stand: 2025-11-09 22:11
-update: Datei vom Agent-Verzeichnis ins Repo-Root verschoben; Links auf `novapolis_agent/` angepasst
-checks: markdownlint PASS (scoped)
+stand: 2025-11-12 03:22
+update: TODO-Marker für verbleibenden defekten Link hinzugefügt (Phase-2 Konsolidierung)
+checks: pending (nach Lint)
 ---
 
 <!-- markdownlint-disable MD013 -->
 
 Novapolis Agent - Workspace Datei-Index
 =======================================
+
+Monorepo Redirect / Konsolidierung
+----------------------------------
+
+Dieser Datei-Index bleibt als detailreicher Agent-spezifischer Katalog bestehen, verweist aber nun zentral auf das Hub-README (`novapolis-dev/README.md`) für globale Navigations- und Governance-Hinweise.
+
+Geplante Vereinheitlichung (Phase 2):
+- Reduzierung redundanter Indexabschnitte auf einen kurzen Verweisblock.
+- Stubs anderer Teilmodule werden auf Hub-Abschnitt "Projektübersicht" verweisen.
+- Vollständige Entfernung historischer Duplikate nach Abschluss der README-Entscheidungsliste.
+
+Status: Phase 1 (Redirect-Hinweis) aktiv; Entscheidungsliste erstellt (`novapolis-dev/docs/readme_decisions.md`).
 
 Vollständiger Index aller Dateien im Agent-Verzeichnis
 ------------------------------------------------------
@@ -81,6 +93,7 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 - (entfernt) `novapolis_agent/app/prompt/system.txt` – Altlast gelöscht; zentrale Quelle ist `app/core/prompts.py`.
 
 #### `novapolis_agent/app/routers` (legacy/geparkt)
+  - TODO: Prüfen und entweder entfernen oder konsolidieren (verbleibender defekter Verweis aus Link-Scan)
 
 
 #### `novapolis_agent/app/services`

@@ -1,11 +1,14 @@
 ---
-stand: 2025-11-10 08:40
-update: Skriptbereinigung durchgeführt (Root/Agent); Snapshot-Skripte archiviert; Legacy-PS1 entfernt.
-checks: keine
+stand: 2025-11-12 03:37
+update: Checks: full Abschnitt ergänzt (PSScriptAnalyzer Review + Sammellauf), Link-Scanner 0 broken
+checks: pending (scoped lint)
 ---
 
 Recent Changes
 --------------
+
+- 2025-11-12 03:37: Checks: full Review abgeschlossen (`run_checks_and_report.ps1` PSScriptAnalyzer Phase verifiziert: Installationspfad CurrentUser, Exitcode=0 bei keinen Errors/Warnings; Receipt-Struktur JSON + Postflight-Vorlage bestätigt). Link-Scanner Rescan nun 0 defekte Verweise.
+ - 2025-11-12 02:46: Governance: Preflight entfernt aus `.github/copilot-instructions.md`; Postflight-Formulierung präzisiert (finaler Block am Ende der Nachricht); Headings-Extrakt aktualisiert & veraltete Regel-ID-Vorschläge gestrichen; Lint PASS (`.github/copilot-instructions-headings.md`).
 
  - 2025-11-10 12:12: Sim-Verifizierung: Verbindung Godot ↔ Agent (`POST /world/step`) erfolgreich verifiziert; Headless‑Verifier und PowerShell‑Smoke‑Test PASS. Screenshot/Audit‑Beleg im Arbeitsverzeichnis erstellt.
  - 2025-11-11 00:09: Dokumentation: Review `scripts/run_checks_and_report.ps1` ergänzt; ToDo für Status-Fix (STOP -> FAIL) eingetragen; zugehörige Doku‑Änderungen committet.
