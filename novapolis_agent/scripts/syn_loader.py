@@ -65,10 +65,10 @@ def load_synonyms() -> tuple[dict[str, list[str]], int]:
 
     b = _read(base)
     a = _read(add)
-    l = _read(local)
+    local_dict = _read(local)
 
     merged = _merge_dicts(b, a)
-    merged = _merge_dicts(merged, l)
+    merged = _merge_dicts(merged, local_dict)
 
     sanitized, dropped = _sanitize_dict(merged)
 

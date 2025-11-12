@@ -69,7 +69,7 @@ def test_export_alpaca_instruction_and_input_split(tmp_path: os.PathLike[str]) -
     assert out.get("ok")
     out_path = str(out.get("out"))
     with open(out_path, encoding="utf-8") as f:
-        rows = [json.loads(l) for l in f if l.strip()]
+        rows = [json.loads(line) for line in f if line.strip()]
     assert len(rows) == 1
     rec = rows[0]
     assert rec.get("instruction") == "U1"
@@ -132,5 +132,5 @@ def test_export_skips_unmapped_item(tmp_path: os.PathLike[str]) -> None:
     assert int(out.get("count", -1)) == 0
     out_path = str(out.get("out"))
     with open(out_path, encoding="utf-8") as f:
-        lines = [l for l in f if l.strip()]
+        lines = [line for line in f if line.strip()]
     assert len(lines) == 0

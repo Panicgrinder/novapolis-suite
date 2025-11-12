@@ -39,7 +39,7 @@ def test_migrate_dataset_schemas_happy_path(tmp_path: os.PathLike[str]) -> None:
 
         # Zieldatei ist jetzt JSONL mit migrierten Feldern
         with open(src, encoding="utf-8") as f:
-            lines = [json.loads(l) for l in f.read().splitlines() if l.strip()]
+            lines = [json.loads(line) for line in f.read().splitlines() if line.strip()]
         assert isinstance(lines, list) and len(lines) == 2
         # Erster Eintrag migriert prompt->messages und must_include->checks.must_include
         first = lines[0]

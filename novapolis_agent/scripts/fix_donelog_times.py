@@ -74,28 +74,28 @@ def normalize() -> int:
 
     # Finde Start der Einträge
     start = 0
-    for i, l in enumerate(lines):
-        if pat.match(l):
+    for i, line in enumerate(lines):
+        if pat.match(line):
             start = i
             break
 
     new_lines = lines[:start]
     changed = 0
     for idx in range(start, len(lines)):
-        l = lines[idx]
-        m = pat.match(l)
+        line = lines[idx]
+        m = pat.match(line)
         if not m:
-            new_lines.append(l)
+            new_lines.append(line)
             continue
         blame_idx = idx + 1  # 1-basiert
         epoch = times.get(blame_idx)
         if not epoch:
-            new_lines.append(l)
+            new_lines.append(line)
             continue
         ts = _fmt_epoch(epoch)
         if ts != m.group(1):
             changed += 1
-        new_lines.append(ts + l[m.end(1) :])
+        new_lines.append(ts + line[m.end(1) :])
 
     if changed:
         with open(DONELOG, "w", encoding="utf-8") as f:

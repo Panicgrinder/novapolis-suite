@@ -97,13 +97,9 @@ async def stream_chat_request(
                 user_texts = [m.get("content", "") for m in messages if m.get("role") == "user"]
                 query = user_texts[-1] if user_texts else ""
                 if query and idx is not None:
-                    from typing import Any as _Any
-                    from typing import Dict as _Dict
-                    from typing import List as _List
-
                     top_k = int(getattr(settings, "RAG_TOP_K", 3))
                     _hits_any: object = retrieve(idx, query, top_k=top_k)
-                    hits = cast(_List[_Dict[str, _Any]], _hits_any)
+                    hits = cast(list[dict[str, Any]], _hits_any)
                     if hits:
 
                         def _clip(value: str, limit: int = 400) -> str:
@@ -513,13 +509,9 @@ async def process_chat_request(
                     ]
                     query2 = user_texts2[-1] if user_texts2 else ""
                     if query2 and idx is not None:
-                        from typing import Any as _Any
-                        from typing import Dict as _Dict
-                        from typing import List as _List
-
                         top_k2 = int(getattr(settings, "RAG_TOP_K", 3))
                         _hits2_any: object = retrieve(idx, query2, top_k=top_k2)
-                        hits2 = cast(_List[_Dict[str, _Any]], _hits2_any)
+                        hits2 = cast(list[dict[str, Any]], _hits2_any)
                         if hits2:
 
                             def _clip2(value: str, limit: int = 400) -> str:

@@ -72,7 +72,7 @@ def test_export_finetune_openai_chat_with_patterns(tmp_path: os.PathLike[str]) -
     out_path = str(out.get("out"))
     assert os.path.exists(out_path)
     with open(out_path, encoding="utf-8") as f:
-        lines = [json.loads(l) for l in f if l.strip()]
+        lines = [json.loads(line) for line in f if line.strip()]
     assert len(lines) == 1
     rec = lines[0]
     assert isinstance(rec.get("messages"), list)

@@ -62,7 +62,7 @@ def test_rerun_failed_handles_eval_prefix_normalization(tmp_path: os.PathLike[st
     assert len(outs) == 1
     out_path = outs[0]
     with open(out_path, encoding="utf-8") as f:
-        lines = [json.loads(l) for l in f if l.strip()]
+        lines = [json.loads(line) for line in f if line.strip()]
     # beide Items sollten enthalten sein, unabhängig von eval- Präfix in results/dataset
     ids = {r.get("id") for r in lines}
     assert ids == {"eval-item-1", "item-2"}

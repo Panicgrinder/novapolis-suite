@@ -85,7 +85,7 @@ def test_export_filters_failures_by_default(tmp_path: os.PathLike[str]) -> None:
     assert out.get("ok")
     out_path = str(out.get("out"))
     with open(out_path, encoding="utf-8") as f:
-        lines = [json.loads(l) for l in f if l.strip()]
+        lines = [json.loads(line) for line in f if line.strip()]
     # Nur der erfolgreiche Eintrag wird exportiert
     assert len(lines) == 1
     assert lines[0]["meta"]["id"] == "item-ok"
@@ -115,7 +115,7 @@ def test_export_includes_failures_when_requested(tmp_path: os.PathLike[str]) -> 
     assert out.get("ok")
     out_path = str(out.get("out"))
     with open(out_path, encoding="utf-8") as f:
-        rows = [json.loads(l) for l in f if l.strip()]
+        rows = [json.loads(line) for line in f if line.strip()]
     # Beide Einträge sollten vorhanden sein (ok + err), Reihenfolge egal
     metas = [r.get("meta", {}) for r in rows]
     ids = {m.get("id") for m in metas}

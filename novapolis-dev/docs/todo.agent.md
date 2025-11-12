@@ -8,7 +8,7 @@ checks: keine
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 Novapolis Agent – ToDo & Roadmap (SSOT)
-=======================================
+---------------------------------------
 
 Hinweis
 ------
@@ -17,8 +17,6 @@ Hinweis
 - Bis zur vollständigen Migration verweist die alte Datei als Redirect-Stub auf diese Seite.
 
 Platzhalter
------------
-- [ ] Inhalte aus `novapolis_agent/docs/TODO.md` migrieren und gliedern.
  - [ ] Abgleich mit Root Coverage-Gate (R-COV) und Aufnahme fehlender Prüfsteps (Receipt-Formate) in diesen Plan
 
 Neue Aufgaben - TTS & Tools (2025-11-01 22:24)
