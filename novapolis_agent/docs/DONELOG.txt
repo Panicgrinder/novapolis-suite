@@ -1,3 +1,7 @@
+2025-11-14 16:50 | Copilot | Archive: moved `.tmp-datasets/lscan_links_backups/` snapshots into `Backups/archive-lscan_links_backups/20251112/` for long-term storage. Originals in `.tmp-datasets` left as pointer files for audit. Branch: `docs/2025-11-14-docs-sweep`.
+
+2025-11-07 21:46 | Panicgrinder | Implementiert: automatisierte Frontmatter-Updates (`stand`/`update`[, `checks`), Backups `<file>.bak`, scoped Frontmatter-Validator, DONELOG-Append; Duplicate reference to legacy wrapper removed.
+2025-11-07 22:11 | Copilot | Korrektur/Anmerkung: Vorheriger Eintrag (2025-11-07 21:46 | Panicgrinder) wurde geprüft; wegen partieller Anzeige/Kürzung im Editor habe ich die aktuelle Systemzeit dokumentiert. Originaleintrag bleibt unverändert; diese Zeile dient der Audit-Transparenz.
 ---
 stand: 2025-11-12 01:38
 update: Postflight (Checks-Report 20251112_013920 protokolliert)

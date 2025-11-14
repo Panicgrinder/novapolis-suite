@@ -336,6 +336,7 @@ Beispiel:
 2025-10-31 15:10 | Copilot | Root-Dokumente (Copilot-Anleitung, README, TODO, DONELOG) an Novapolis Agent Branding angepasst.
 2025-10-31 23:40 | Copilot | Agent-Workspace in `novapolis_agent` umbenannt, Mypy-Flow angepasst und Statusdateien bereinigt.
 2025-11-14 16:24 | Copilot | Docs sweep: Repaired YAML frontmatter in `.tmp-results/todo.cleaned.md` (added missing leading '---'), synchronized `checks: PASS` and timestamps in `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md` and `.tmp-results/governance.suggestions.md`; appended receipts and DONELOG entries. Receipt: `.tmp-results/reports/checks_report_20251114_162424.md`. Committed & pushed branch `docs/2025-11-14-docs-sweep` (chore(docs): fix frontmatter, update checks receipts).
+2025-11-14 16:50 | Copilot | Archive: moved two `.bak.linkscan` backups from `.tmp-datasets/lscan_links_backups/` to `Backups/archive-lscan_links_backups/20251112/` (files: `20251112_033338_WORKSPACE_INDEX.md.bak.linkscan`, `20251112_031821_WORKSPACE_INDEX.md.bak.linkscan`). Originals retained as pointer(s) in `.tmp-datasets` for audit. Committed & pushed on branch `docs/2025-11-14-docs-sweep`.
 
 Canvas-Rettung Sprint 1 - AI Behavior Matrix (2025-11-01T17:55:00+01:00)
 
