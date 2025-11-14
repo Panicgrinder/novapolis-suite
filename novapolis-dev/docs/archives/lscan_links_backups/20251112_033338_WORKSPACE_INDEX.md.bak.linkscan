@@ -1,0 +1,50 @@
+---
+stand: 2025-11-07 18:10
+update: Stub-Verzeichnisse (.github, .tmp-*) entfernt. Archivkopie erstellt unter novapolis-dev/docs/archives
+checks: archiviert
+---
+
+<!-- markdownlint-disable MD013 -->
+
+Novapolis Agent - Workspace Datei-Index (Archiv)
+===============================================
+
+Vollständiger Index aller Dateien im Workspace (archivierte Kopie)
+-----------------------------------------------------------------
+
+### Root-Verzeichnis
+
+- [`.coverage`](.coverage) - Coverage-Report (generiert)
+- [`.coveragerc`](.coveragerc) - Coverage-Konfiguration
+- [`.env`](.env) - Umgebungsvariablen (private Konfiguration)
+- [`.env.example`](.env.example) - Template für Umgebungsvariablen
+- [`.gitignore`](.gitignore) - Git-Ignorier-Regeln
+- [`coverage.xml`](coverage.xml) - Coverage-Report (XML, generiert)
+- [`analysis_chat_routers.md`](analysis_chat_routers.md) - Analyse der Chat-Router
+- [`cleanup_recommendations.md`](cleanup_recommendations.md) - Aufräum-Empfehlungen
+- [`CONTEXT_ARCH.md`](docs/CONTEXT_ARCH.md) – Kontextfluss Developer ⇄ Copilot ⇄ GPT (Rollen, Beispiele, Privacy)
+- [`mypy.ini`](mypy.ini) - mypy-Konfiguration
+- [`pyrightconfig.json`](pyrightconfig.json) - Python-Typsystem-Konfiguration
+- [`pytest.ini`](pytest.ini) - Pytest-Konfiguration
+- [`README.md`](README.md) - Projekt-Dokumentation
+- [`LICENSE`](LICENSE) - MIT-Lizenz
+- [`requirements.txt`](../requirements.txt) - Python-Abhängigkeiten (Laufzeit)
+- [`requirements-dev.txt`](../requirements-dev.txt) - Dev-Abhängigkeiten (Lint/Tests)
+- [`run_server.py`](run_server.py) - Server-Startskript
+- [`test_settings.py`](test_settings.py) - Einstellungen-Test
+- [`WORKSPACE_INDEX.md`](WORKSPACE_INDEX.md) - Dieser Datei-Index
+- [`__pycache__/`](__pycache__/) - Python-Bytecode-Cache (generiert)
+
+### .vscode
+
+- [`.vscode/extensions.json`](../.vscode/extensions.json) - VSCode-Erweiterungsempfehlungen
+- [`.vscode/launch.json`](../.vscode/launch.json) - Startkonfigurationen
+- [`.vscode/settings.json`](../.vscode/settings.json) - Workspace-spezifische Einstellungen
+- [`.vscode/tasks.json`](../.vscode/tasks.json) - VSCode-Tasks (z. B. Tests, Eval)
+
+### app
+
+- [`app/__init__.py`](app/__init__.py) - App-Package-Initialisierung
+- [`app/main.py`](app/main.py) - FastAPI Hauptanwendung mit Chat-/Stream-/Health-Endpunkten
+
+Hinweis: Dies ist eine konservative Archivkopie des Backup-Exports; aktive SSOT-Dateien verbleiben am Originalort.
