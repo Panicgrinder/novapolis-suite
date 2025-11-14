@@ -9,10 +9,9 @@ def beispiel_logging() -> None:
         {"role": "user", "content": "Wie ist das Wetter heute?"},
     ]
 
-    response = (
-        "Ich habe keinen Zugriff auf aktuelle Wetterdaten. Bitte überprüfen Sie einen Wetterdienst für die aktuellsten "
-        "Informationen."
-    )
+    part1 = "Ich habe keinen Zugriff auf aktuelle Wetterdaten. "
+    part2 = "Bitte überprüfen Sie einen Wetterdienst für die aktuellsten Informationen."
+    response = part1 + part2
 
     log_entry = create_log_record(
         messages=messages,

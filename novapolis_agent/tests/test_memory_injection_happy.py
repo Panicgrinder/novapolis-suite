@@ -36,4 +36,3 @@ async def test_memory_injection_happy(monkeypatch):
     assert r2.status_code in (200, 500, 400)
     # Da wir das eigentliche LLM nicht mocken, prüfen wir keine exakten Inhalte,
     # nur dass der Request nicht crasht. Ein genauerer Test folgt in anderen Fällen.
-

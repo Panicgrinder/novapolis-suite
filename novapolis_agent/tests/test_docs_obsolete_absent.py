@@ -25,4 +25,3 @@ def test_no_nested_cvn_agent_dir_tracked():
     assert not os.path.exists(
         suspect
     ), "Verschachtelte Kopie von AGENT_PROMPT.md gefunden; bitte Ordner entfernen."
-

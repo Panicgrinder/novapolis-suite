@@ -276,9 +276,11 @@ def action_edit_profiles() -> None:
     elif a in ("n", "no"):
         prof["asgi"] = False
     e_default = prof.get("eval_mode")
-    e = input(
-        f"Eval-Modus aktivieren (RPG aus)? (y/n, leer = unverändert [{e_default}]): "
-    ).strip().lower()
+    e = (
+        input(f"Eval-Modus aktivieren (RPG aus)? (y/n, leer = unverändert [{e_default}]): ")
+        .strip()
+        .lower()
+    )
     if e in ("y", "yes"):
         prof["eval_mode"] = True
     elif e in ("n", "no"):
@@ -860,4 +862,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

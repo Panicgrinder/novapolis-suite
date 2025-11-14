@@ -18,4 +18,3 @@ def test_dependency_check_prompt_reference_scan_runs() -> None:
     out = buf.getvalue()
     # Erwartet, dass eine Aussage getroffen wird (OK oder WARN) - aber kein Crash
     assert "Historische Prompt-Datei" in out or "existiert nicht" in out
-

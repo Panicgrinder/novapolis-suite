@@ -149,9 +149,21 @@ async def request_context_mw(request: Request, call_next):
                 )
             )
         else:
-            logger.info(
-                f"{request.method} {request.url.path} -> {int(response.status_code)} [{duration_ms} ms] rid={rid}"
+            method = request.method
+            path = request.url.path
+            status_code = int(response.status_code)
+            msg = (
+                method
+                + " "
+                + path
+                + " -> "
+                + str(status_code)
+                + " ["
+                + str(duration_ms)
+                + " ms] rid="
+                + str(rid)
             )
+            logger.info(msg)
         response.headers[settings.REQUEST_ID_HEADER] = rid
         return response
     except Exception as exc:
@@ -217,14 +229,25 @@ async def chat(request: ChatRequest, req: Request):
         for m in request.messages:
             total_chars += len(_get_content_from_message(m))
         if total_chars > settings.REQUEST_MAX_INPUT_CHARS:
+            detail_msg = (
+                "Input zu lang: "
+                + str(total_chars)
+                + " Zeichen (Limit "
+                + str(settings.REQUEST_MAX_INPUT_CHARS)
+                + ")."
+            )
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Input zu lang: {total_chars} Zeichen (Limit {settings.REQUEST_MAX_INPUT_CHARS}).",
+                detail=detail_msg,
             )
 
         rid = getattr(req.state, "request_id", None)
+        log_template = (
+            "Chat-Anfrage erhalten mit %s Nachrichten, Eval-Modus: %s, "
+            "Uneingeschränkter Modus: %s, rid=%s"
+        )
         logger.info(
-            "Chat-Anfrage erhalten mit %s Nachrichten, Eval-Modus: %s, Uneingeschränkter Modus: %s, rid=%s",
+            log_template,
             len(request.messages),
             eval_mode,
             unrestricted_mode,

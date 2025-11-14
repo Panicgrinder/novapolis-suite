@@ -36,6 +36,7 @@ def test_fine_tune_pipeline_no_check_with_dummy_train():
         finally:
             os.chdir(cwd)
 
-        # Wir erwarten, dass der Prozess startet und mit dem Rückgabecode des subprocess.call endet.
-        # Da train_lora.py existiert, kann der Call auf CI ggf. mit 0-Not-Run enden. Akzeptiere 0..255.
+        # Wir erwarten, dass der Prozess startet und einen Rückgabecode liefert.
+        # Da `train_lora.py` existiert, kann der Call auf CI mit 0 (Not-Run) enden.
+        # Akzeptiert werden daher Werte im Bereich 0..255.
         assert isinstance(rc, int)

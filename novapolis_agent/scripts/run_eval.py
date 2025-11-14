@@ -943,9 +943,7 @@ async def evaluate_item(
                     joined_alts = ", ".join(item.checks.get("keywords_any", []))
                 except Exception:
                     joined_alts = "<keine alternativen Begriffe>"
-                failed_checks.append(
-                    f"Keine der alternativen Begriffe gefunden: {joined_alts}"
-                )
+                failed_checks.append(f"Keine der alternativen Begriffe gefunden: {joined_alts}")
 
         # 3. keywords_at_least: Mindestens N Begriffe müssen enthalten sein
         keywords_at_least = item.checks.get("keywords_at_least")
@@ -1088,8 +1086,7 @@ async def evaluate_item(
                     )
                 if needs_regex:
                     hint_parts.append(
-                        "Formatiere die Antwort so, dass die Muster (Regex) "
-                        "erfüllt sind."
+                        "Formatiere die Antwort so, dass die Muster (Regex) " "erfüllt sind."
                     )
                 # Falls globaler Eval-Hint aktiv, denselben Hint erneut sicherstellen
                 # (keine Doppelung)
@@ -2334,8 +2331,14 @@ if __name__ == "__main__":
                 prompt_content = item.messages[0]["content"] if item.messages else "Kein Inhalt"
                 preview = prompt_content[:100] + ("..." if len(prompt_content) > 100 else "")
                 console.print(
-                    "[cyan]" + item.id + "[/cyan] (" + str(item.source_package) + "): "
-                    + "[yellow]" + preview + "[/yellow]"
+                    "[cyan]"
+                    + item.id
+                    + "[/cyan] ("
+                    + str(item.source_package)
+                    + "): "
+                    + "[yellow]"
+                    + preview
+                    + "[/yellow]"
                 )
         else:
             console.print("[bold red]Keine Prompts gefunden.[/bold red]")
@@ -2387,4 +2390,3 @@ if __name__ == "__main__":
             "[bold red]Keine Ergebnisse. Die Evaluierung wurde abgebrochen "
             "oder keine Einträge gefunden.[/bold red]"
         )
-

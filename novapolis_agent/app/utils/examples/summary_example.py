@@ -10,18 +10,24 @@ def beispiel_zusammenfassung() -> None:
         {"role": "user", "content": "Was sind die Hauptmerkmale von Python?"},
     ]
 
-    response = (
-        "Python ist eine vielseitige Programmiersprache mit zahlreichen Stärken.\n\n"
-        "Zu den wichtigsten Merkmalen von Python gehören:\n"
-        "1. Einfache Syntax und Lesbarkeit\n"
-        "2. Dynamische Typisierung\n"
-        "3. Große Standardbibliothek\n"
-        "4. Plattformunabhängigkeit\n"
-        "5. Starke Community und umfangreiche Bibliotheken wie NumPy, Pandas und TensorFlow\n\n"
-        "Wichtig ist, dass Python besonders für Einsteiger geeignet ist, aber dennoch für komplexe Aufgaben verwendet werden kann."
-        " Beachte, dass Python im Vergleich zu kompilierten Sprachen wie C++ etwas langsamer sein kann, aber dies wird durch die"
-        " Entwicklungsgeschwindigkeit oft ausgeglichen."
-    )
+    parts = [
+        "Python ist eine vielseitige Programmiersprache mit zahlreichen Stärken.\n\n",
+        "Zu den wichtigsten Merkmalen von Python gehören:\n",
+        "1. Einfache Syntax und Lesbarkeit\n",
+        "2. Dynamische Typisierung\n",
+        "3. Große Standardbibliothek\n",
+        "4. Plattformunabhängigkeit\n",
+        "5. Starke Community und umfangreiche Bibliotheken wie NumPy, Pandas und TensorFlow\n\n",
+        (
+            "Wichtig ist, dass Python besonders für Einsteiger geeignet ist, "
+            "aber dennoch für komplexe Aufgaben verwendet werden kann."
+        ),
+        (
+            "Beachte, dass Python im Vergleich zu kompilierten Sprachen wie C++ etwas langsamer sein kann, "
+            "aber dies wird durch die Entwicklungsgeschwindigkeit oft ausgeglichen."
+        ),
+    ]
+    response = "".join(parts)
 
     summary_data = summarize_turn(messages, response)
 

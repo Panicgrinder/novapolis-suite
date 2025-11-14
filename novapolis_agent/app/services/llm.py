@@ -36,7 +36,9 @@ async def generate_reply(messages: list[ChatMessage]) -> ChatResponse:
         error_msg = f"LLM HTTP-Fehler {exc.response.status_code}: Bitte Ollama prüfen."
         return ChatResponse(content=error_msg)
     except httpx.RequestError:
-        error_msg = f"Die Verbindung zum LLM ist fehlgeschlagen. Prüfe, ob Ollama läuft und {settings.MODEL_NAME} gepullt ist."
+        part1 = "Die Verbindung zum LLM ist fehlgeschlagen. Prüfe, ob Ollama läuft und "
+        part2 = str(settings.MODEL_NAME) + " gepullt ist."
+        error_msg = part1 + part2
         return ChatResponse(content=error_msg)
 
 

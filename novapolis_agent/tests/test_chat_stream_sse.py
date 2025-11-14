@@ -51,6 +51,7 @@ def test_stream_chat_sends_sse_chunks_and_done(monkeypatch: MonkeyPatch) -> None
 
     def fake_factory(*a, **k) -> object:
         return _make_fake_stream_client(["a", "b"])
+
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", fake_factory)
     req = ChatRequest(messages=[{"role": "user", "content": "hi"}])
     agen = asyncio.run(chat_module.stream_chat_request(req))

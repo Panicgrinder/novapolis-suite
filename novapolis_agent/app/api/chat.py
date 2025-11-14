@@ -275,7 +275,8 @@ async def stream_chat_request(
                     "model": ollama_payload.get("model"),
                     "options": ollama_payload.get("options", {}),
                 }
-                yield f"event: meta\ndata: {_json.dumps({'params': params}, ensure_ascii=False)}\n\n"
+                payload_json = _json.dumps({"params": params}, ensure_ascii=False)
+                yield "event: meta\ndata: " + payload_json + "\n\n"
             except Exception:
                 pass
 
@@ -363,14 +364,16 @@ async def stream_chat_request(
                         if policy_post == "rewritten":
                             delta_len = max(0, len(effective_text) - len(final_text))
                             meta["delta_len"] = delta_len
-                        yield f"event: meta\ndata: {_json.dumps(meta, ensure_ascii=False)}\n\n"
+                        meta_json = _json.dumps(meta, ensure_ascii=False)
+                        yield "event: meta\ndata: " + meta_json + "\n\n"
                     except Exception:
                         pass
 
                     if effective_text != final_text and effective_text:
                         try:
                             delta = {"text": effective_text}
-                            yield f"event: delta\ndata: {_json.dumps(delta, ensure_ascii=False)}\n\n"
+                            delta_json = _json.dumps(delta, ensure_ascii=False)
+                            yield "event: delta\ndata: " + delta_json + "\n\n"
                         except Exception:
                             pass
 
@@ -798,7 +801,8 @@ async def process_chat_request(
             )
         else:
             logger.exception("Fehler bei der Verarbeitung der Chat-Anfrage: %s", exc)
-        return ChatResponse(
-            content=f"Entschuldigung, bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten: {exc!s}",
-            model=settings.MODEL_NAME,
+        err_msg = (
+            "Entschuldigung, bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten: "
+            + str(exc)
         )
+        return ChatResponse(content=err_msg, model=settings.MODEL_NAME)

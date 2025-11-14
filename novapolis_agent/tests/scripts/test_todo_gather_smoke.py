@@ -18,10 +18,12 @@ def test_todo_gather_write_md():
         sample = os.path.join(results_dir, "results_20250101_0000.jsonl")
         with open(sample, "w", encoding="utf-8") as f:
             f.write(
-                '{"id":"eval-001","success":true,"rpg_mode":false,"duration_ms": 10, "package":"p1"}\n'
+                '{"id":"eval-001","success":true,"rpg_mode":false,'
+                '"duration_ms": 10, "package":"p1"}\n'
             )
             f.write(
-                '{"id":"eval-002","success":false,"rpg_mode":true,"duration_ms": 20, "package":"p1"}\n'
+                '{"id":"eval-002","success":false,"rpg_mode":true,'
+                '"duration_ms": 20, "package":"p1"}\n'
             )
 
         # Act

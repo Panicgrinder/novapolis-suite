@@ -40,8 +40,10 @@ async def test_cli_like_asgi_smoke_with_hint(monkeypatch):
         hint_must_include=True,
     )
 
-    # Wir erwarten Ergebnisse (der Test prüft in der Praxis, dass der Runner die Pipeline durchläuft)
+    # Wir erwarten Ergebnisse.
+    # Der Test prüft in der Praxis, dass der Runner die Pipeline durchläuft.
     assert isinstance(results, list)
 
-    # Zusätzlich: Der Runner sollte im quiet-Mode eine Statuszeile ausgeben, das prüfen wir indirekt,
-    # indem wir compute_hint_terms greift (weil must_include gesetzt) -> logs sind nicht trivial abzugreifen hier.
+    # Zusätzlich: Der Runner sollte im quiet-Mode eine Statuszeile ausgeben.
+    # Das prüfen wir nur indirekt, da compute_hint_terms greift (must_include gesetzt)
+    # und Logs schwer direkt auszuwerten sind.

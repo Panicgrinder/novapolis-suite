@@ -212,13 +212,7 @@ def load_packages(
             else:
                 path_str = str(combine_out)
                 count_str = str(len(items))
-                msg = (
-                    "Combined JSONL geschrieben: "
-                    + path_str
-                    + " ("
-                    + count_str
-                    + " Einträge)"
-                )
+                msg = "Combined JSONL geschrieben: " + path_str + " (" + count_str + " Einträge)"
                 logger.info(msg)
         except Exception as e:
             if log_json:

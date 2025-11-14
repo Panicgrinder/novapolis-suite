@@ -47,6 +47,7 @@ def _make_fake_stream_client(chunks: list[str]):
 def test_policy_stream_post_allow(monkeypatch):
     def fake_factory(*a, **k) -> object:
         return _make_fake_stream_client(["foo"])
+
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", fake_factory)
 
     def fake_apply_post(text: str, *, mode: str = "default", profile_id=None):

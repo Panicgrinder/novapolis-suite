@@ -323,8 +323,7 @@ def enrich_pair(md_path: Path, json_path: Path) -> tuple[bool, str]:
         k: v
         for k, v in orig.items()
         if k not in {"chapter", "location", "characters"}
-        or (data.get("category") == "scene"
-        and k == "characters")
+        or (data.get("category") == "scene" and k == "characters")
     }
     if data != orig_norm:
         save_json(json_path, data)

@@ -1,4 +1,5 @@
-# Wir importieren check_term_inclusion aus run_eval, um die gleiche Logik wie im Evaluator zu verwenden
+# Wir importieren `check_term_inclusion` aus `run_eval`.
+# So verwenden Tests die gleiche Logik wie der Evaluator.
 import importlib.util
 import os
 from typing import Any
@@ -26,8 +27,8 @@ def test_chai_example_response_passes_relaxed_checks():
     # Eine plausible, freundliche und zugewandte Antwort
     response = (
         "Klar, gern! Klingt nach einem vollen Tag - erst einmal: du machst das gut. "
-        "Wenn du magst, können wir kurz schauen, was dir jetzt freundlich und einfühlsam guttun könnte - "
-        "vielleicht ein paar tiefe Atemzüge oder eine kleine Pause?"
+        "Wenn du magst, können wir kurz schauen, was dir jetzt freundlich und einfühlsam "
+        "guttut; vielleicht ein paar tiefe Atemzüge oder eine kleine Pause?"
     )
     text = response
 
@@ -46,10 +47,10 @@ def test_chai_example_response_passes_relaxed_checks():
 
 
 def test_synonyms_overlay_supports_empathie_variants():
-    # Prüfe, dass Synonyme wie einfühlsam/zugewandt durch die Synonymlogik erfasst werden
-    # Wir nutzen check_term_inclusion indirekt - hier sollte "einfühlsam" als Variante von empathisch zählen.
+    # Prüfe, dass Synonyme wie einfühlsam/zugewandt durch die Synonymlogik erfasst werden.
+    # Wir nutzen `check_term_inclusion` indirekt.
+    # Hier sollte "einfühlsam" als Variante von "empathisch" zählen.
     text = (
         "Dein Gefühl ist verständlich - ich versuche, ganz einfühlsam und zugewandt zu antworten."
     )
     assert check_term_inclusion(text, "empathisch") is True
-

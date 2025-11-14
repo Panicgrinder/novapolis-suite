@@ -137,7 +137,9 @@ def test_num_predict_invalid_string_clamps(monkeypatch: pytest.MonkeyPatch) -> N
     req = ChatRequest(messages=[{"role": "user", "content": "hi"}], options={"num_predict": "NaN"})
     res = asyncio.run(chat_module.process_chat_request(req))
     assert res.content == "ok"
-    # sollte auf REQUEST_MAX_TOKENS gedeckelt sein; wenn parsing fehlschlägt, nutzt der Code REQUEST_MAX_TOKENS und clamped min 1
+    # Sollte auf REQUEST_MAX_TOKENS gedeckelt sein.
+    # Falls das Parsen fehlschlägt, verwendet der Code REQUEST_MAX_TOKENS
+    # (mit min-Clamping auf 1).
     assert 1 <= int(captured_opts.get("num_predict", 0)) <= settings.REQUEST_MAX_TOKENS
 
 

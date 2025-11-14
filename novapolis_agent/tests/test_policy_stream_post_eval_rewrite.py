@@ -48,6 +48,7 @@ def test_policy_stream_post_eval_rewrite(monkeypatch: pytest.MonkeyPatch):
     # Fake LLM stream producing one overly expressive chunk (RPG-ish)
     def fake_factory(*a, **k) -> object:
         return _make_fake_stream_client(["Ich: *nickt* Gerne helfe ich! :)"])
+
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", fake_factory)
 
     # Force policies enabled and eval settings for the test

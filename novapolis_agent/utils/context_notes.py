@@ -109,7 +109,8 @@ def _normalize_text(txt: str) -> str:
     - Mehr als zwei aufeinanderfolgende Zeilenumbrüche -> auf genau zwei reduzieren
     - Leitende und abschließende Leerzeichen entfernen
     """
-    # Vereinheitliche Zeilenumbrüche (bewahrt CRLF beim Lesen durch Python, aber normalisiert intern)
+    # Vereinheitliche Zeilenumbrüche.
+    # Bewahrt CRLF beim Lesen durch Python, normalisiert intern jedoch auf "\n".
     s = txt.replace("\r\n", "\n").replace("\r", "\n")
     out_chars: list[str] = []
     nl_count = 0
@@ -127,7 +128,12 @@ def _normalize_text(txt: str) -> str:
 
 
 def _resolve_ref(path: Path) -> Path | None:
-    """Liest eine .ref Datei: erste nicht-leere Zeile ist ein (relativer oder absoluter) Dateipfad."""
+    """
+    Liest eine .ref Datei.
+
+    Die erste nicht-leere Zeile wird als (relativer oder absoluter) Dateipfad
+    interpretiert und zurückgegeben, sofern sie existiert und eine Datei ist.
+    """
     try:
         content = path.read_text(encoding="utf-8")
         for line in content.splitlines():

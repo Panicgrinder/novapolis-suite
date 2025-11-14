@@ -177,4 +177,3 @@ if __name__ == "__main__":
         print("Train:", res["train"], "Val:", res["val"], "Counts:", res["counts"])
     else:
         print("Fehler:", res.get("error"))
-

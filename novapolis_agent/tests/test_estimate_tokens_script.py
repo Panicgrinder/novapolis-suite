@@ -40,4 +40,3 @@ def test_estimate_tokens_main_runs(tmp_path: os.PathLike[str]) -> None:
     # Hier: Nur smoke - main() darf laufen und JSON ausgeben; wichtigste ist: keine Exception.
     rc = mod.main()
     assert rc in (0, 1)
-
