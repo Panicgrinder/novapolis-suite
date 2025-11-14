@@ -5,10 +5,8 @@ checks: PASS
 ---
 
 Recent Changes
---------------
-
-- 2025-11-14 21:48: Repository scanned for inline PowerShell `-Command` occurrences; candidate report written to `.tmp-results/reports/inline_command_candidates_20251114_2148.md`. Review recommended for `githooks/pre-commit`, any remaining `.vscode/tasks.json` entries, and archived backup `tasks.json` files. Changes committed to branch `docs/2025-11-14-docs-sweep`.
-- 2025-11-14 22:09: Python wrapper prototype `scripts/task_wrappers/run_pytest_coverage.py` added and smoke-run executed; wrapper receipt: `.tmp-results/reports/run_pytest_coverage_wrapper_receipt_20251114_2209.md`. Original PowerShell `scripts/run_pytest_coverage.ps1` archived into `novapolis-dev/archive/scripts_archives_20251114_2155/run_pytest_coverage.ps1` with archive receipt: `.tmp-results/reports/run_pytest_coverage_ps1_archive_receipt_20251114_2209.md`. Changes committed to branch `docs/2025-11-14-docs-sweep`.
+ 2025-11-14 22:28: Governance: `.github/copilot-instructions.md` bereinigt — Inline `pwsh -Command` Empfehlung entfernt und durch Wrapper-Empfehlung (`python scripts/run_checks_and_report.py` oder `pwsh -File <script.ps1>`) ersetzt. Änderungen committed auf Branch `docs/2025-11-14-docs-sweep`.
+ 
 - 2025-11-14 21:39: Workspace tree regenerated via Python wrapper `scripts/task_wrappers/workspace_tree_full.py`; output written to `workspace_tree_full.txt` at repo root. Receipt: `.tmp-results/reports/workspace_tree_full_receipt_20251114_2139.md`. Changes committed to branch `docs/2025-11-14-docs-sweep`.
 - 2025-11-14 20:36: Checks-Wrapper ausgeführt (`python scripts/run_checks_and_report.py`); Markdown- und JSON-Reports erzeugt (`.tmp-results/reports/checks_report_20251114_203601.*`). Ergebnis als Receipt abgelegt: `.tmp-results/reports/checks_report_20251114_203601.md` / `.json`. Anschließend wurden alle vorhandenen `checks_run_*`-Ordner aus `.tmp-results/reports/` ins Archiv `novapolis-dev/archive/docs_archives_20251114_202548/old_tmp_reports/` verschoben. Änderungen committed & pushed auf Branch `docs/2025-11-14-docs-sweep`.
 - 2025-11-14 20:59: Dokumentation: `.tmp-results/todo.cleaned.md` aktualisiert (Docs/READMEs + Checks-Wrapper als erledigt) und auf Branch `docs/2025-11-14-docs-sweep` committed & gepusht (Commit-Message: "docs: mark Docs/READMEs and Checks-Wrapper done in .tmp-results/todo.cleaned.md"). Neuer konsolidierter Receipt: `.tmp-results/reports/checks_report_20251114_205007.md` (overall PASS, Coverage 83.49%).

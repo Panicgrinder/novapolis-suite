@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-14 22:09
-update: Inline `-Command` scan performed; Candidate report: `.tmp-results/reports/inline_command_candidates_20251114_2148.md`. Python wrapper prototype `scripts/task_wrappers/run_pytest_coverage.py` added; smoke-run receipt: `.tmp-results/reports/run_pytest_coverage_wrapper_receipt_20251114_2209.md`. Original PS1 archived to `novapolis-dev/archive/scripts_archives_20251114_2155/run_pytest_coverage.ps1` with archive receipt `.tmp-results/reports/run_pytest_coverage_ps1_archive_receipt_20251114_2209.md`.
+stand: 2025-11-14 22:20
+update: Inline `-Command` scan performed; governance doc cleaned (removed `pwsh -Command` recommendation) and replaced by wrapper guidance; Candidate report: `.tmp-results/reports/inline_command_candidates_20251114_2148.md`. Python wrapper prototype `scripts/task_wrappers/run_pytest_coverage.py` added; smoke-run receipt: `.tmp-results/reports/run_pytest_coverage_wrapper_receipt_20251114_2209.md`. Original PS1 archived to `novapolis-dev/archive/scripts_archives_20251114_2155/run_pytest_coverage.ps1` with archive receipt `.tmp-results/reports/run_pytest_coverage_ps1_archive_receipt_20251114_2209.md`.
 checks: PASS
 ---
 

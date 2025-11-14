@@ -93,7 +93,10 @@ Modus (bei Review): GPT-5 mini (Agent-review), Postflight erforderlich; ToDo wur
 Hinweis (2025-11-12 06:45): Das Python-Skript protokolliert alle Teilprüfungen (markdownlint, Frontmatter, Ruff/Black, Pyright, Mypy, Pytest) und generiert Markdown-/JSON-Reports unter `.tmp-results/reports/`. Die frühere PowerShell-Integration von `PSScriptAnalyzer` ist archiviert; bei Bedarf läuft der Analyzer separat über `scripts/`.
 - Details und Begründung siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“ weiter unten.
 - Einmalig `& .\.venv\Scripts\python.exe -m pip install --upgrade pip` ausführen, falls Pip veraltet ist.
-- Erste Validierung: Sequenz aus Lint (`ruff`, `black --check`), Typen (`pyright`, `mypy`) und Tests mit Coverage (Pytest ≥ 80 %) jeweils manuell via `pwsh -Command "& { ... }"` oder direkt in der aktiven pwsh-Session ausführen; Beispielbefehle siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“.
+ - Erste Validierung: Sequenz aus Lint (`ruff`, `black --check`), Typen (`pyright`, `mypy`) und Tests mit Coverage (Pytest ≥ 80 %) jeweils manuell via `python scripts/run_checks_and_report.py` oder über Skript-Wrapper (`pwsh -File <script.ps1>`) ausführen; Beispielbefehle siehe Abschnitt „Kanonische Prüfabläufe (pwsh)".
+ - Vor dokumentationsbezogenen Sessions mit Copilot bzw. GPT-5 zwingend `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` ausführen (Achtung: Glob stets in einfachen Anführungszeichen, keine abschließenden Escape-Zeichen), um falsche Positivmeldungen in nachfolgenden Tests zu vermeiden. Den Befehl unverändert direkt im Terminal eingeben - keine `pwsh -Command`-Hülle verwenden.
+ - Einmalig `& .\.venv\Scripts\python.exe -m pip install --upgrade pip` ausführen, falls Pip veraltet ist.
+ - Erste Validierung: Sequenz aus Lint (`ruff`, `black --check`), Typen (`pyright`, `mypy`) und Tests mit Coverage (Pytest ≥ 80 %) jeweils manuell via `python scripts/run_checks_and_report.py` oder über Skript-Wrapper (`pwsh -File <script.ps1>`) ausführen; Beispielbefehle siehe Abschnitt „Kanonische Prüfabläufe (pwsh)“.
  - Vor dokumentationsbezogenen Sessions mit Copilot bzw. GPT-5 zwingend `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` ausführen (Achtung: Glob stets in einfachen Anführungszeichen, keine abschließenden Escape-Zeichen), um falsche Positivmeldungen in nachfolgenden Tests zu vermeiden. Den Befehl unverändert direkt im Terminal eingeben - keine `pwsh -Command`-Hülle verwenden.
 
 ### VS Code Tasks ausführen.(true)
@@ -101,29 +104,6 @@ Hinweis (2025-11-12 06:45): Das Python-Skript protokolliert alle Teilprüfungen 
 - Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern bevorzugt über Skript-Wrapper via `pwsh -File <script.ps1>` (Profil erlaubt). Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
 
 ### Lint (Ruff + Black, keine Auto-Fixes)(true)
-Hinweis: Für agentische Ausführung NICHT die nachfolgenden Inline-Muster verwenden:
-
-```powershell
-pwsh -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check .; $ruffExit = $LASTEXITCODE; & $python -m black --check .; if ($ruffExit -ne 0 -or $LASTEXITCODE -ne 0) { exit 1 } }"
-```
-
-#### Typen (Pyright + Mypy)
-
-```powershell
-pwsh -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $agent = Join-Path $root 'novapolis_agent'; Set-Location $agent; $pyright = Join-Path $root '.venv\\Scripts\\pyright.exe'; if (-not (Test-Path -LiteralPath $pyright)) { $pyright = 'pyright'; }; & $pyright -p pyrightconfig.json; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m mypy --config-file mypy.ini app scripts; exit $LASTEXITCODE }"
-```
-
-#### Tests (Pytest Coverage ≥ 80 %)
-
-```powershell
-pwsh -Command "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; $cover = Join-Path $root 'novapolis_agent'; $cover = Join-Path $cover '.coveragerc'; $cwd = Join-Path $root 'novapolis_agent'; Set-Location $cwd; $maxTestFiles = 40; $collectOutput = & $python -m pytest --collect-only 2>&1; $collectedFiles = $collectOutput | Where-Object { ``$_ -match '::' } | ForEach-Object { (``$_ -split '::')[0] }; $uniqueFiles = $collectedFiles | Sort-Object -Unique; $fileCount = $uniqueFiles.Count; if ($fileCount -gt $maxTestFiles) { Write-Host 'STOP: Zu viele Testdateien gesammelt (' + $fileCount + ' > ' + $maxTestFiles + '). Bitte Scope prüfen.'; exit 2 }; & $python -m pytest --cov --cov-report=term-missing --cov-branch --cov-config $cover --cov-fail-under=80; exit $LASTEXITCODE }"
-if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest FAIL ($LASTEXITCODE)" }
-```
-> `$maxTestFiles` kann bei Bedarf angepasst werden; die STOP-Meldung verhindert, dass ungewollt große Testmengen laufen.
-> Coverage-Gate ≥ 80 % (dynamischer Wert). Aktueller Prozentwert wird nicht hier festgeschrieben; führende Quelle: `WORKSPACE_STATUS.md`.
-
-### Aggregierte Prüfung (`Checks: full`)
-   - obige Befehle in der Reihenfolge Lint → Typen → Tests ausführen und Ergebnisse dokumentieren.
 
 ### Zusatz (pwsh)
    - Für Python-Befehle den Interpreter aus `.venv` verwenden (Fallback `python`), wie in den Beispielen gezeigt.
