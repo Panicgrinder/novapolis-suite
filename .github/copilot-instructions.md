@@ -103,6 +103,8 @@ Hinweis (2025-11-12 06:45): Das Python-Skript protokolliert alle Teilprüfungen 
 - Grundlage: Die gleichnamigen VS Code Tasks dienen nur als Referenz. Copilot/GPT erstellt keine neuen VS Code Tasks.
 - Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern bevorzugt über Skript-Wrapper via `pwsh -File <script.ps1>` (Profil erlaubt). Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
 
+Hinweis (Python-Wrapper‑Vorzugsregel): Wo technisch möglich und plattformübergreifend sinnvoll, sind neue Wrapper in Python (`.py`) zu erstellen statt neuer PowerShell‑Skripte. Python‑Wrapper sollen die Workspace‑`venv` verwenden, klar dokumentierte CLI‑Optionen anbieten und Postflight‑Receipts (Timestamp, SHA256, Invocation, Output‑Pfad) erzeugen. PowerShell‑Skripte sind weiterhin zulässig, wenn native Windows‑Integration oder vorhandene PS‑Workflows dies zwingend erfordern.
+
 ### Lint (Ruff + Black, keine Auto-Fixes)(true)
 
 ### Zusatz (pwsh)
