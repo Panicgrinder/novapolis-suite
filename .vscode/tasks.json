@@ -83,7 +83,7 @@
     {
       "label": "Checks: full",
       "type": "shell",
-      "command": "python",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
       "args": ["${workspaceFolder}/scripts/task_wrappers/checks_full.py"],
       "options": { "cwd": "${workspaceFolder}" },
       "dependsOn": [
@@ -108,7 +108,7 @@
     {
       "label": "Workspace tree: full",
       "type": "shell",
-      "command": "python",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
       "args": ["${workspaceFolder}/scripts/task_wrappers/workspace_tree_full.py"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
@@ -118,7 +118,7 @@
     {
       "label": "Workspace tree: directories",
       "type": "shell",
-      "command": "python",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
       "args": ["${workspaceFolder}/scripts/task_wrappers/workspace_tree_dirs.py"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
@@ -151,7 +151,7 @@
     {
       "label": "Docs: DONELOG append",
       "type": "shell",
-      "command": "python",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
       "args": ["${workspaceFolder}/scripts/task_wrappers/donelog_append.py", "${input:doneMessage}", "${input:doneAuthor}"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
@@ -162,7 +162,7 @@
     {
       "label": "Tests: pytest (unit)",
       "type": "shell",
-      "command": "python",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
       "args": ["${workspaceFolder}/scripts/task_wrappers/pytest_unit.py"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "test",
@@ -174,7 +174,7 @@
     {
       "label": "Tests: pytest (api+streaming)",
       "type": "shell",
-      "command": "python",
+      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
       "args": ["${workspaceFolder}/scripts/task_wrappers/pytest_api_streaming.py"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "test",

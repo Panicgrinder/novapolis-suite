@@ -13,11 +13,10 @@ Kurzueberblick
 --------------
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit - dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten-STOP (global, immer gültig)“.
-
 - 2025-11-10 08:08: Ruff-Backlog Etappe gestartet - targeted Fixes in `novapolis_agent/app/tools/registry.py`, `novapolis_agent/scripts/append_done.py`, `novapolis_agent/scripts/rerun_failed.py`; DONELOG & `WORKSPACE_STATUS.md` aktualisiert (R-LINT, R-LOG).
 - 2025-11-09 21:25: Workspace-Analyse durchgeführt (Root/Ordner-Ebene, stichprobenartig Dateien). Befunde ergänzt: Frontmatter-Backlog (R-FM), Multi-Root-Abschluss (R-STOP/R-WRAP), Artefakt-Bereinigung (R-SEC/R-SAFE), Tree-/Status-Snapshots (R-IDX).
 - 2025-11-08 23:21: Headings-Extrakt (`.github/copilot-instructions-headings.md`) aktualisiert; Vorschlagsliste neuer Regel-IDs (R-COV, R-IDX, R-COMM, R-RED, R-TODO, R-TIME, R-SAFE) ergänzt. Klärungsbedarf offen: Precedence zwischen abgeschafftem Start-Check (false) und „Semantische Regeln“ (obligatorisch); Anwendung der Default-(true)-Regel bei gleichrangigen Abschnitten.
- - 2025-11-07 21:46: Implementiert: automatisierte Frontmatter-Aktualisierung für veränderte Markdown/Text-Dateien (Backups, scoped validator, DONELOG-Mechanismus). Legacy-Wrapper entfernt.
+- 2025-11-07 21:46: Implementiert: automatisierte Frontmatter-Aktualisierung für veränderte Markdown/Text-Dateien (Backups, scoped validator, DONELOG-Mechanismus). Legacy-Wrapper entfernt.
 - 2025-11-07 04:56: Archiv-TODOs (`novapolis-dev/archive/todo.*.archive.md`) auf Setext (H1/H2) umgestellt, Checks/Timestamps aktualisiert; `.github/ISSUE_TEMPLATE/feature_request.md` konsistent gemacht; repo-weites `markdownlint-cli2` PASS (132 Dateien).
 - 2025-11-07 02:10: markdownlint-cli2 repo-weit ausgeführt (367× MD003 Setext-Stil offen); Analyse der Markdown-generierenden Skripte (Chat-Exporter, Reports, todo_gather) vorbereitet.
 - 2025-11-07 01:27: Workspace-Analyse für widersprüchliche Einstellungen und Alt-Markdown durchgeführt; Kandidaten protokolliert (Lint-Override-Dateien, Staging-Reports ohne Frontmatter, doppelte Metadata-Skripte).
@@ -49,35 +48,33 @@ Kurzueberblick
 - **Terminal/Tasks (STOP)**: VS Code markiert den Workspace aktuell fälschlich als Multi-Root; Wrapper-Tasks/Automationen sind unzuverlässig. Bis zur Bereinigung: KEINE WRAPPER, TERMINAL NUR MANUELL NUTZEN. Lösung erst nach Aufräumen (Single-Root-Struktur).
   - Open Case: Terminal/Tasks Multi-Root → `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
 - **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-02) + `workspace_tree*.txt` (Stand 2025-11-02) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
-  - [x] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) am 2025-11-02 via Tasks `Workspace tree:*` regeneriert.
+- [x] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) am 2025-11-02 via Tasks `Workspace tree:*` regeneriert.
 - 2025-11-01: DONELOG-Heading-Stil auf Setext gemäß MD003 korrigiert; Markdownlint bleibt zentral via npx.
 - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren.
- - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren; abgeschlossene Dokument-Blöcke nach Review unter `novapolis-dev/archive/` ablegen.
-  - Root-Archiv (vollständig erledigte Root-Blöcke): `novapolis-dev/archive/todo.root.archive.md`.
-  - [ ] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`).
-  - [ ] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`).
-  - [ ] README oder `Backups/`-Manifest um Rotationsplan ergänzen (Aufbewahrungsdauer, Löschkriterien).
-  - [ ] Automatisierte Aufgabe/Script prüfen (`scripts/cleanup_phase*.ps1`) für regelmäßiges Auslagern.
- - **Lokale AI Einbindung (organisch)**: Phasenplan/Go-Kriterien/Metriken in Abschnitt „Lokale AI - Einbindung (organisch)“ unten; Start mit Phase01 möglich (ohne Zeitdruck, mit harten Fallbacks).
- - **Editor-Setup**: Konsolidierung `.vscode` auf Root vorbereiten (siehe Abschnitt „Editor-Setup - .vscode-Konsolidierung (Root-zentriert)“).
-
+- **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren; abgeschlossene Dokument-Blöcke nach Review unter `novapolis-dev/archive/` ablegen.
+- Root-Archiv (vollständig erledigte Root-Blöcke): `novapolis-dev/archive/todo.root.archive.md`.
+- [ ] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`).
+- [ ] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`).
+- [ ] README oder `Backups/`-Manifest um Rotationsplan ergänzen (Aufbewahrungsdauer, Löschkriterien).
+- [ ] Automatisierte Aufgabe/Script prüfen (`scripts/cleanup_phase*.ps1`) für regelmäßiges Auslagern.
+  - **Lokale AI Einbindung (organisch)**: Phasenplan/Go-Kriterien/Metriken in Abschnitt „Lokale AI - Einbindung (organisch)“ unten; Start mit Phase01 möglich (ohne Zeitdruck, mit harten Fallbacks).
+  - **Editor-Setup**: Konsolidierung `.vscode` auf Root vorbereiten (siehe Abschnitt „Editor-Setup - .vscode-Konsolidierung (Root-zentriert)“).
 - Neu (2025-11-06): Modulstatus → Agent: Gelb-grün, Dev: Grün, RP: Gelb, Sim: Gelb. Konkrete 1-2-Tage-Schritte siehe Abschnitt „Nächstes Vorgehen (1-2 Tage)“.
 
 Modulstatus (2025-11-06)
 ------------------------
-
 - Agent (Backend): Gelb-grün. Tests/Typen zuletzt grün, aber kein dokumentierter Lauf seit 2025-10-31; leichte Driftgefahr bei Scripts/Eval-Artefakten.
 - RP (Daten/Canvases): Gelb. Kurations-Pipeline aktiv, einige Review-/Tagging-Schritte offen.
 - Dev (Dok-Hub): Grün. Frontmatter-Migration weitgehend durch, Donelog/Index gepflegt.
 - Sim (Godot): Gelb. Option A gesetzt, Projektdatei kanonisch; Headless-Lade-Check offen.
 
 Nächstes Vorgehen (1-2 Tage)
- - [x] Korrektur: Checks-Wrapper (damals PowerShell, jetzt `python scripts/run_checks_and_report.py`) - STOP-Fall bei zu vielen Testdateien soll als Fehler/FAIL gemeldet werden (Statuszuordnung anpassen). (erledigt 2025-11-11 00:23, Commit abe6829)
- - [ ] Optional nach Review: Cleanup-Kandidaten (Phase 4) nur mit Freigabe angehen (`novapolis_agent/scripts/cleanup_phase4.ps1`).
- - [ ] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` auswerten; Inhalte in aktive Doku übernehmen oder Datei nach Freigabe entfernen.
+---
+- [x] Korrektur: Checks-Wrapper (damals PowerShell, jetzt `python scripts/run_checks_and_report.py`) - STOP-Fall bei zu vielen Testdateien soll als Fehler/FAIL gemeldet werden (Statuszuordnung anpassen). (erledigt 2025-11-11 00:23, Commit abe6829)
+- [ ] Optional nach Review: Cleanup-Kandidaten (Phase 4) nur mit Freigabe angehen (`novapolis_agent/scripts/cleanup_phase4.ps1`).
+- [ ] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` auswerten; Inhalte in aktive Doku übernehmen oder Datei nach Freigabe entfernen.
 
 ### novapolis_agent
-
 - [ ] Tests/Typen sequenziell laufen lassen (manuell) und Ergebnis protokollieren: `DONELOG.md` (Root) und `novapolis_agent/docs/DONELOG.txt` (Agent).
 - [x] 2025-11-10 08:08: Ruff-Fixes in `app/tools/registry.py`, `scripts/append_done.py`, `scripts/rerun_failed.py`; targeted Ruff-Checks PASS, DONELOG & `WORKSPACE_STATUS.md` aktualisiert (R-LINT/R-LOG).
 - [ ] Ruff-Backlog weiter triagieren (restliche Agent-Skripte/Tools; Volumen >3000 Ruff-Meldungen; R-LINT, R-SEC).
@@ -88,22 +85,21 @@ Nächstes Vorgehen (1-2 Tage)
 - [ ] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` auswerten; Inhalte in aktive Doku übernehmen oder Datei nach Freigabe entfernen.
 
 #### Tests/Typen/Coverage (Priorität mittel-hoch, R-COV)
- - Akzeptanzkriterien:
-   - pytest PASS; pyright PASS; mypy PASS.
-   - Coverage ≥ 80 % mit Branch-Erfassung, fail-under aktiv.
-   - Receipt mit Zeitstempel, Commit-SHA und getrennten Anteilen (App/Scripts) in `DONELOG.md`; Verweis/Kurzsummary in `WORKSPACE_STATUS.md`.
-   - CI-Gate aktiv (nicht nur lokal).
- - Schritte (STOP beachten; Wrapper-Policy gilt):
-   - Läufe sequenziell ausführen (CWD `novapolis_agent`), anschließend Standard-Wrapper `scripts/run_pytest_coverage.ps1` verwenden.
-   - Ergebnisse/Quoten protokollieren (getrennt App/Scripts, Branch-Coverage), Receipts schreiben, CI-Fail-Under prüfen.
- - Receipts/Belege:
-   - `DONELOG.md`: „R-COV“ mit PASS/Quoten, Zeitstempel, Commit-SHA.
-   - `WORKSPACE_STATUS.md`: kurzer Statusblock „Tests/Typen/Coverage aktuell“ mit Datum/Quote.
- - [ ] Skript-Ladefallbacks vereinheitlichen (direkte Imports statt dynamischer Spez): `scripts/reports/generate_consistency_report.py` ↔ `scripts/audit_workspace.py` prüfen und vereinheitlichen. (R-CTX)
- - [ ] Test-/Artefakt-Reste prüfen (pyc, test_*_event.meta.json etc.) - sicherstellen, dass sie gitignored sind und nicht eingecheckt werden. (R-SEC)
+- Akzeptanzkriterien:
+  - pytest PASS; pyright PASS; mypy PASS.
+  - Coverage ≥ 80 % mit Branch-Erfassung, fail-under aktiv.
+  - Receipt mit Zeitstempel, Commit-SHA und getrennten Anteilen (App/Scripts) in `DONELOG.md`; Verweis/Kurzsummary in `WORKSPACE_STATUS.md`.
+  - CI-Gate aktiv (nicht nur lokal).
+- Schritte (STOP beachten; Wrapper-Policy gilt):
+  - Läufe sequenziell ausführen (CWD `novapolis_agent`), anschließend Standard-Wrapper `scripts/run_pytest_coverage.ps1` verwenden.
+  - Ergebnisse/Quoten protokollieren (getrennt App/Scripts, Branch-Coverage), Receipts schreiben, CI-Fail-Under prüfen.
+- Receipts/Belege:
+  - `DONELOG.md`: „R-COV“ mit PASS/Quoten, Zeitstempel, Commit-SHA.
+  - `WORKSPACE_STATUS.md`: kurzer Statusblock „Tests/Typen/Coverage aktuell“ mit Datum/Quote.
+- [ ] Skript-Ladefallbacks vereinheitlichen (direkte Imports statt dynamischer Spez): `scripts/reports/generate_consistency_report.py` ↔ `scripts/audit_workspace.py` prüfen und vereinheitlichen. (R-CTX)
+- [ ] Test-/Artefakt-Reste prüfen (pyc, test_*_event.meta.json etc.) - sicherstellen, dass sie gitignored sind und nicht eingecheckt werden. (R-SEC)
 
 ### novapolis-rp
-
 - [ ] Export konsolidieren: Offene Aufgabe „`99-exports/chat-export-complete.txt`“ abschließen; Delta-Befunde in SSOT-Canvases spiegeln.
 - [ ] Tagging-Pipeline 015-010 vom Dry-Run auf Write heben; anschließend kurzem Lint-Protokoll in `novapolis-dev/docs/donelog.md` vermerken.
 - [ ] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` prüfen; auf Minimal-Ausnahmen reduzieren oder entfernen.
@@ -111,66 +107,61 @@ Nächstes Vorgehen (1-2 Tage)
 - [ ] Metadata-Initialisierungsskripte (`coding/tools/metadata/init-metadata.js` vs. `init_metadata.py`) konsolidieren und kanonische Variante dokumentieren.
 
 #### Frontmatter/Markdown-Sweep (Priorität hoch, R-FM/R-LINT)
- - Akzeptanzkriterien:
-   - Frontmatter-Validator PASS im vereinbarten Scope (Zählwerte vor/nach Fix dokumentiert).
-   - Markdownlint PASS im definierten Scope; H1/H2 Setext konsistent.
-   - „behoben=ja“ mit Zahlen in `DONELOG.md` und zusammengefasst in `WORKSPACE_STATUS.md`.
-   - Generatoren, die Markdown erzeugen, schreiben Setext + Pflicht-Frontmatter per Default (kurze Generator-Quittung).
- - Schritte (Reihenfolge strikt: erst Frontmatter, dann MD003):
-   - Frontmatter: betroffene Dateien zählen, Pflichtfelder (`stand`, `update`, `checks`) ergänzen, Validator erneut laufen lassen, Zählwerte/PASS loggen.
-   - Markdown: MD003-Treffer im Scope beheben; Lint erneut laufen lassen; PASS loggen.
- - Receipts/Belege:
-   - `DONELOG.md`: „R-FM/R-LINT“ mit Zahlenpaaren (vorher/nachher) und PASS.
-   - `WORKSPACE_STATUS.md`: Kurznotiz mit Datum/Scope/Zahlen.
- - [ ] Frontmatter-Backlog in `database-rp` schließen; danach Validator-Rerun loggen (R-FM). (Vorheriger FAIL vermerkt, kein "behoben=ja" Receipt gefunden.)
+- Akzeptanzkriterien:
+  - Frontmatter-Validator PASS im vereinbarten Scope (Zählwerte vor/nach Fix dokumentiert).
+  - Markdownlint PASS im definierten Scope; H1/H2 Setext konsistent.
+  - „behoben=ja“ mit Zahlen in `DONELOG.md` und zusammengefasst in `WORKSPACE_STATUS.md`.
+  - Generatoren, die Markdown erzeugen, schreiben Setext + Pflicht-Frontmatter per Default (kurze Generator-Quittung).
+- Schritte (Reihenfolge strikt: erst Frontmatter, dann MD003):
+  - Frontmatter: betroffene Dateien zählen, Pflichtfelder (`stand`, `update`, `checks`) ergänzen, Validator erneut laufen lassen, Zählwerte/PASS loggen.
+  - Markdown: MD003-Treffer im Scope beheben; Lint erneut laufen lassen; PASS loggen.
+- Receipts/Belege:
+  - `DONELOG.md`: „R-FM/R-LINT“ mit Zahlenpaaren (vorher/nachher) und PASS.
+  - `WORKSPACE_STATUS.md`: Kurznotiz mit Datum/Scope/Zahlen.
+- [ ] Frontmatter-Backlog in `database-rp` schließen; danach Validator-Rerun loggen (R-FM). (Vorheriger FAIL vermerkt, kein "behoben=ja" Receipt gefunden.)
 
 ### novapolis-dev
-
 - [ ] Tree-Artefakte neu erzeugen (manuell): `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`; Zeitstempel/Status in `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` aktualisieren.
  - Kontext: Generations-Cadence dokumentieren (wann „full“ vs. „dirs“ vs. „summary“). (R-IDX)
 - [ ] Optional: Kurzer Abschnitt „Editor-Setup“ im Root-`README.md` ergänzen (Hinweis auf STOP/Multi-Root, manuelle Terminal-Läufe).
 - [ ] Markdownlint MD003 (aktive Docs): Scope auf essentielle Readmes/Dokus begrenzen, Stichproben-Lint (`markdownlint-cli2`), pro Datei Setext-Stil angleichen und Resttreffer außerhalb des Scopes katalogisieren.
 - [ ] YAML-Frontmatter-Backlog priorisieren: Offene Markdown-Dateien mit `stand/update/checks` nachrüsten (Ausnahme `.github/copilot-instructions.md`), Priorität gemäß zuletzt gemeldeten Lint-Treffern.
 - [ ] Übernahme/Staging-Integration: Inhalte aus `novapolis-rp/database-curated/staging/reports/` nach Review in `novapolis-dev/docs/` spiegeln und Altstände archivieren.
- - [x] Docs-Hub aktualisiert: TL;DR/Links/Beispiele ergänzt; Stubs Phase 1 konsolidiert (2025-11-12 01:12).
+- [x] Docs-Hub aktualisiert: TL;DR/Links/Beispiele ergänzt; Stubs Phase 1 konsolidiert (2025-11-12 01:12).
 
 #### Multi-Root-STOP auflösen (Priorität hoch, R-STOP/R-WRAP)
- - Akzeptanzkriterien:
-   - Keine `*.code-workspace` im gesamten Workspace (rekursive Prüfung dokumentiert; Zählwert gefunden/entfernt).
-   - Keine mehrschrittigen Inline „-Command“-Relikte in `tasks.json`; Mehrschritt via Wrapper-Skripte (`pwsh -NoProfile -File`).
-   - `WORKSPACE_STATUS.md` enthält Eintrag „Multi-Root abgeschlossen“ mit Zeitstempel und Commit-Referenz.
-   - Ein Wrapper-Task erfolgreich ausgeführt und in `DONELOG.md` vermerkt (Exitcode/kurzer Output).
- - Schritte (STOP beachten; WhatIf/Review vor Real):
-   - Rekursiv nach `*.code-workspace` suchen; Treffer entfernen/ins `Backups/` verschieben; Zählwerte protokollieren.
-   - `tasks.json` auf Inline-Ketten prüfen; auf Wrapper-Aufrufe umstellen.
-   - Wrapper-Task testweise ausführen (z. B. `scripts/run_pytest_coverage.ps1`) und Receipt erfassen.
-   - `WORKSPACE_STATUS.md` und `DONELOG.md` aktualisieren (Zeitstempel, Commit, Zählwerte „gefunden/entfernt“).
- - Receipts/Belege:
-   - `DONELOG.md`: „R-STOP/R-WRAP“ mit Zählwerten + Wrapper-Task-Output/Exitcode.
-   - `WORKSPACE_STATUS.md`: Block „Multi-Root abgeschlossen“ mit Datum/Commit.
- - [ ] Multi-Root Fallakte schließen: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md` finalisieren; `WORKSPACE_STATUS.md` aktualisieren. (R-WRAP/R-STOP)
- - [ ] Prüfen/Entfernen: Backup-/Schatten-Datei `README.md.bak` (Root) → löschen oder nach `Backups/` verschieben. (R-SEC/R-SAFE)
- - [ ] Prüfen/Entfernen: `lint.out` (Root, falls vorhanden) → archivieren oder löschen. (R-LINT/R-SAFE)
- - [ ] Verifizieren: `novapolis-suite.code-workspace` laut älterem Tree gelistet - falls noch vorhanden, entfernen/archivieren. (R-CTX/R-SAFE)
+- Akzeptanzkriterien:
+  - Keine `*.code-workspace` im gesamten Workspace (rekursive Prüfung dokumentiert; Zählwert gefunden/entfernt).
+  - Keine mehrschrittigen Inline „-Command“-Relikte in `tasks.json`; Mehrschritt via Wrapper-Skripte (`pwsh -NoProfile -File`).
+  - `WORKSPACE_STATUS.md` enthält Eintrag „Multi-Root abgeschlossen“ mit Zeitstempel und Commit-Referenz.
+  - Ein Wrapper-Task erfolgreich ausgeführt und in `DONELOG.md` vermerkt (Exitcode/kurzer Output).
+- Schritte (STOP beachten; WhatIf/Review vor Real):
+  - Rekursiv nach `*.code-workspace` suchen; Treffer entfernen/ins `Backups/` verschieben; Zählwerte protokollieren.
+  - `tasks.json` auf Inline-Ketten prüfen; auf Wrapper-Aufrufe umstellen.
+  - Wrapper-Task testweise ausführen (z. B. `scripts/run_pytest_coverage.ps1`) und Receipt erfassen.
+  - `WORKSPACE_STATUS.md` und `DONELOG.md` aktualisieren (Zeitstempel, Commit, Zählwerte „gefunden/entfernt“).
+- Receipts/Belege:
+  - `DONELOG.md`: „R-STOP/R-WRAP“ mit Zählwerten + Wrapper-Task-Output/Exitcode.
+  - `WORKSPACE_STATUS.md`: Block „Multi-Root abgeschlossen“ mit Datum/Commit.
+- [ ] Multi-Root Fallakte schließen: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md` finalisieren; `WORKSPACE_STATUS.md` aktualisieren. (R-WRAP/R-STOP)
+- [ ] Prüfen/Entfernen: Backup-/Schatten-Datei `README.md.bak` (Root) → löschen oder nach `Backups/` verschieben. (R-SEC/R-SAFE)
+- [ ] Prüfen/Entfernen: `lint.out` (Root, falls vorhanden) → archivieren oder löschen. (R-LINT/R-SAFE)
+- [ ] Verifizieren: `novapolis-suite.code-workspace` laut älterem Tree gelistet - falls noch vorhanden, entfernen/archivieren. (R-CTX/R-SAFE)
 
 ### novapolis-sim
-
 - [ ] Headless-Lade-Check des Godot-Projekts `novapolis-sim/project.godot` durchführen; Warnungen/Fehler als Kurznotiz festhalten.
 
 Risiken (kurz)
 --------------
-
 - Tests/Typing nicht tagesaktuell (Agent) → mögliche stille Drift.
 - RP: Offene Tagging-/Export-Schritte; Deltas noch nicht vollständig in SSOT gespiegelt.
 - Multi-Root-Markierung stört Tasks → bis zur Bereinigung ausschließlich manuelle Läufe.
 
 Lokale AI - Einbindung (organisch)
 ----------------------------------
-
 Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner Canary → begrenzte Beta, mit Redaction/Flags/Metriken und klaren Rückfallpfaden.
 
 ### Zusammenfassung (Checkliste)
-
 - [x] Inclusion-Ziele definiert (Rollen: RAG, Schattenmodus-Inferenz, Canary, Lernschleife)
 - [x] Readiness-Gates je Modul definiert (agent/rp/dev/sim)
 - [x] Phasenplan entworfen (Schatten → Canary → Limited Beta → Stabilisierung)
@@ -178,7 +169,6 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
 - [ ] Immediate next steps checklist (siehe unten)
 
 ### Go-Kriterien je Modul (Beta-Readiness, organisch)
-
 - novapolis_agent
   - Tests/Typen PASS an 2 aufeinanderfolgenden Tagen
   - Policy-/Rewrite-Hooks aktiv, Session-Memory (Basis)
@@ -196,7 +186,6 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
   - Für Start nicht erforderlich (später als Szenario-Generator hilfreich)
 
 ### Phasenplan (sanft, mit Fallbacks)
-
 - Phase0 - Vorbereitung (ab sofort möglich)
   - Datenquellen fixieren (Canvases, Eval, Policies), Redaction klären, Minimal-Metriken definieren
 - Phase1 - Schattenmodus (1-2 Wochen)
@@ -209,7 +198,6 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
   - Kuratierte Deltas → Train/Val-Pack, LoRA-Mini; Versionierung, einfache A/B-Checks
 
 ### Metriken (leichtgewichtig)
-
 - Qualität (Stichprobe): Accept/Revise/Reject-Rate
 - Policy: Block/Rewrite-Rate (kritische Verstöße = 0)
 - RAG: HitRate@K, Overlap-Score mit Antwort
@@ -217,14 +205,12 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
 - Lernen: Anteil promoteter Antworten vs. Status quo
 
 ### Datenschutz & Datenhygiene
-
 - Redaction: Namen/Orte/IDs durch Platzhalter; Export-Prüfung vor Training
 - Consent/Scope markieren (was darf ins Training)
 - Retention: Rohlogs kurzlebig, kuratierte Datasets versioniert
 - Audit: jede Promotion mit Quelle/Datum/Tests notieren
 
 ### Go/No-Go Checkliste (aktiv zu pflegen)
-
 - [ ] Tests/Typen PASS (2 Tage in Folge)
 - [ ] RAG-Minimum indexiert, Retriever-Test PASS
 - [ ] Redaction aktiv (keine PII in Logs/Datasets)
@@ -232,32 +218,27 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
 - [ ] Stichprobe (Schattenmodus) ≥80% „Accept“
 
 ### Nächste Schritte (sofort, ohne Codeänderungen)
-
 - [ ] Schattenmodus-Logging mit Redaction intern aktivieren
 - [ ] 10-20 Kern-Dokumente (Memory-Bundle + Schlüssel-Canvases) indexieren (RAG-Minimum)
 - [ ] Wöchentlichen Review-Slot (30-45 min) für Stichproben + Kurations-Delta einplanen
 
 Editor-Setup - .vscode-Konsolidierung (Root-zentriert)
 ------------------------------------------------------
-
 Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitstellt, ohne projekt-spezifische Profile (Launch/CWD/ENV) zu beschädigen. Sanft, reversibel, mit Inventur vor Migration.
 
 ### Annahmen & Rahmen
-
 - Root verwendet `.venv` (Windows) und zentralen Interpreter (`.vscode/settings.json`).
 - `novapolis_agent` ist der einzige Code-Bereich mit Tests/Launch-Profilen; `novapolis-rp` ist primär Daten/Docs/Tools.
 - Markdownlint läuft via cli2 in CI; lokale Tasks existieren in Agent-Projekt (bereits erweitert um Root-`TODO.md`/`DONELOG.md`).
 - Aktueller Blocker: VS Code erkennt den Workspace als Multi-Root; Wrapper-Tasks laufen unzuverlässig. Vorgabe bis zur Bereinigung: KEINE WRAPPER - Terminal ausschließlich manuell nutzen.
 
 ### Akzeptanzkriterien
-
 - Alle Standard-Tasks sind vom Root aus ausführbar: Lint (markdownlint), Fix, `pytest -q`, Coverage (fail-under 80).
 - Tasks nutzen korrektes CWD; ENV liegt jetzt zentral im Root: `cwd=novapolis_agent/`, `envFile=.env` (Root), Interpreter aus Root `.venv`.
 - Copilot-Workspace-Instructions zentral im Root; keine doppelten, widersprüchlichen Settings.
 - Projekt-spezifische Launch-Profile funktionieren unverändert (zunächst im Agent-Ordner belassen).
 
 ### Plan (Etappen)
-
 - Etappe0 - Inventur (dieser PR-Teil)
   - [ ] Vorab: Multi-Root → Single-Root bereinigen (Workspace aufräumen, eindeutige Root). Erst danach Wrapper-Tasks reaktivieren.
   - [ ] Liste aller `.vscode`-Dateien erstellen (Root, Agent, RP)
@@ -273,7 +254,6 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
   - [ ] Dokumentation: kurzer Abschnitt „Editor-Setup“ im Root-README
 
 ### Aufgabenliste (konkret)
-
 - Inventur
   - [ ] Auflisten: `.vscode/settings.json` (Root, Agent, RP), `.vscode/tasks.json` (Root, Agent), `.vscode/launch.json` (Agent)
   - [ ] Unterschiede festhalten: Interpreter-Pfad, pytestArgs, envFile, Copilot-Instructions
@@ -292,7 +272,6 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
   - [ ] RP-Settings auf Workspace-Instructions beschränken (falls Root diese zentral führt)
 
 ### Snapshot-Frontmatter Migration (YAML)
-
 - [ ] Etappe 0 (2025-11-01 09:10): Regel aktiv, Mischbetrieb erlaubt — YAML bevorzugt, `Stand:`/`Letzte Aktualisierung:` weiterhin gültig.
 - [ ] Etappe 1: Bei Änderungen an Dokus YAML-Frontmatter ergänzen/aktualisieren (`stand`, `update`, `checks`).
 - [ ] Etappe 2: Sweep — bestehende Kopfzeilen migrieren (TODO, README/Index, Policies). Diff klein halten; `checks` kurz.
@@ -300,7 +279,6 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 - Fortschritt 2025-11-02 19:11: Root-Dokumente (`README.md`, `todo.root.md`, `single-root-todo.md`, `DONELOG.md`, `WORKSPACE_STATUS.md`) tragen konsolidierte YAML-Frontmatter; markdownlint-cli2 PASS.
 
 ### Risiken & Backout
-
 - Risiko: Falsches CWD/ENV führt zu fehlschlagenden Tasks.
   - Mitigation: Jede Task im Root mit `options.cwd=novapolis_agent` + `envFile` testen.
 - Risiko: Launch-Profile brechen bei Migration.
@@ -310,7 +288,6 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 - Backout: Sub-`.vscode` beibehalten bis Etappe2; jederzeit reaktivierbar.
 
 ### Betroffene Dateien (geplant)
-
 - `/.vscode/settings.json` (merge Workspace-Instructions)
 - `/.vscode/tasks.json` (ergänzte Root-Tasks)
 - `/novapolis_agent/.vscode/tasks.json` (später reduzieren)
@@ -318,14 +295,12 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 - `/novapolis-rp/.vscode/settings.json` (später verschlanken)
 
 ### Go/No-Go für Migration
-
 - [ ] Root-Tasks laufen (lint, fix, pytest, coverage)
 - [ ] Keine Konflikte in Settings (Interpreter/ENV)
 - [ ] 3-5Tage Nutzung ohne Beschwerden → Go für Etappe2
 
 Volltexte
 ---------
-
 <details>
 <summary>Historischer Snapshot (Agent TODO, archiviert)</summary>
 
@@ -338,7 +313,7 @@ Autoritativer Stand:
 # Novapolis Agent - ToDo & Roadmap
 
 Kurzfristige Ziele (Heute)
-
+---
 - [x] Eval-Profile festziehen
   - Ziel: Reproduzierbare Läufe via `eval/config/profiles.json` (quiet default, temp, optionale Checks).
   - Status: Done (UI lädt Profile; Meta-Header vollständig; kurzer ASGI-Lauf konsistent).
@@ -363,15 +338,13 @@ Kurzfristige Ziele (Heute)
 - [x] Unit-Tests: Synonym-Overlay-Merge
   - Ziel: Test, dass `synonyms.local.json` korrekt gemerged wird und fehlende Datei still ignoriert wird.
   - Status: Done (zwei Tests hinzugefügt, beide grün).
-
 - [x] Pyright-Upgrade & Typwarnungen bereinigt
   - Status: Done (Pyright 1.1.406; 0 Fehler, 0 Warnungen im App-Bereich; Tests grün; tests/ & scripts/ vorerst aus Pyright-Analyse ausgeschlossen - schrittweise Reaktivierung geplant)
-
 - [x] Markdownlint-Konfiguration & Tasks
   - Status: Done (Root `.markdownlint-cli2.jsonc` aktiv; VS Code Tasks für Lint/Fix; README/TODO/Customization bereinigt; Legacy `.markdownlint.json` entfernt)
 
 1-2 Tage
-
+---
 - [x] Qualitäts-Heuristiken fürs RPG (stilistische Checks)
   - Status: Done (rpg_style-Score + Check; Unit-Tests hinzugefügt; per Checks-Liste aktivierbar)
 - [x] Parameter-Sweeps (temperature, top_p, max_tokens)
@@ -386,12 +359,10 @@ Kurzfristige Ziele (Heute)
   - Status: Done (POST /chat/stream liefert text/event-stream;
     serverseitige Chunk-Ausgabe via Ollama-Stream; Logs & Fehler-Ereignisse;
     kompatibel zu bestehender /chat API)
-
 - [x] DONELOG-Disziplin auch für Agent-Änderungen
   - Ziel: Sicherstellen, dass direkte Pushes auf `main` ebenfalls einen DONELOG-Eintrag erfordern; bequemer Editor-Flow.
   - Status: Done (CI-Workflow prüft jetzt auch Push auf `main`;
     PR-Bypass via Label bleibt; VS Code Task "Append DONELOG entry" hinzugefügt.)
-
 - [x] Mypy-Enforcement für weitere Skripte ausweiten
   - Ziel: Schrittweises Reduzieren von `[mypy-scripts.*] ignore_errors = True`;
     per Datei auf `check_untyped_defs = True` heben.
@@ -440,7 +411,6 @@ Kurzfristige Ziele (Heute)
         - tests/test_audit_workspace_references.py (scan_text_references findet Referenzen)
         - tests/test_app_root_request_id.py (X-Request-ID Header auf /)
       - Messung: vollständige Suite mit --cov=scripts --cov-branch
-
 - [x] Pre-commit-Hook für DONELOG
   - Ziel: Commit verhindern, wenn Code unter `app/|scripts/|utils/` geändert wurde,
     aber kein aktueller DONELOG-Eintrag vorliegt (Jahres-/Datumscheck).
@@ -450,7 +420,6 @@ Kurzfristige Ziele (Heute)
     - Prüfen: Task "Git hooks: verify pre-commit"
     - Manuell ausführen: Task "Pre-commit: run check"
   - Status: Done (Hook aktiv; erweitert um markdownlint-Prüfung mit Auto-Fix für geänderte .md)
-
 - [x] VS Code Tasks normalisieren (Portabilität)
   - Ziel: Harte `F:/`-Pfade durch `${workspaceFolder}` & `${config:python.interpreterPath}` ersetzen; konsistente CWD-Optionen.
   - Bonus: Tasks für `mypy`, `pyright`, `pytest -q`, `scripts/dependency_check.py` hinzufügen.
@@ -460,7 +429,6 @@ Kurzfristige Ziele (Heute)
 
 Coverage-Ziele & Tasks
 -----------------------
-
 - Ziele (vereinbart):
   - App: ≥85% Zeilen, ≥75-80% Branches (inkrementell anziehen)
   - Scripts: ≥60% Zeilen (Basis, später anheben)
@@ -471,26 +439,20 @@ Coverage-Ziele & Tasks
   - "Tests: coverage (fail-under)" (kombiniert, 80)
 
 ### Zusätzliche kurzfristige Abschlüsse (2025-10-21)
-
 Hinweis: Abschnitt am 2025-11-02 08:38 in `novapolis-dev/archive/todo.root.archive.md` archiviert.
 
 ### Zusätzliche kurzfristige Abschlüsse (2025-10-22)
-
 Hinweis: Abschnitt am 2025-11-02 08:40 in `novapolis-dev/archive/todo.root.archive.md` archiviert.
 
 ### Kurz-Update (2025-10-25)
-
 Hinweis: Abschnitt am 2025-11-02 08:36 in `novapolis-dev/archive/todo.root.archive.md` archiviert.
-
 Hinweise:
-
 - Branch-Coverage ist in `.coveragerc` aktiviert; schwere/interactive Skripte sind ausgeschlossen.
 - Zielwerte werden sukzessive angehoben, sobald Teilbereiche stabil darüber liegen.
 
 ### 3-7 Tage
 
 #### Datensatzkurierung aus Logs (Train/Val-Pack)
-
 - [ ] Datensatzkurierung (gesamt)
 - [x] Skript `scripts/curate_dataset_from_latest.py` erstellt
 - [x] Export (openai_chat/alpaca) möglich
@@ -501,7 +463,6 @@ Hinweise:
 - [ ] Kurze Kuratierungs-Doku/Kochrezept ergänzen (Ablauf, Parameter, Outputs)
 
 #### Fine-Tuning/LoRA Mini-Pipeline
-
 - [x] Smoke-Run (Mini-LoRA) durchgeführt
   - 10 Schritte (TinyLlama), Artefakte unter `outputs/lora-chai-mini-0937/` dokumentiert.
 - [x] Trainings-Doku (Minimalablauf) vorhanden
@@ -512,19 +473,16 @@ Hinweise:
   - Ziel: Mindestmetrik(en) definieren (z. B. loss-Trend/val-score) und Ausgabe standardisieren.
 
 #### Caching/Memoization für Eval-Reruns
-
 - [x] Eval-Caching (Basis) per `--cache`
   - Hinweis: Antworten werden optional in `eval/results/cache_eval.jsonl` persistiert; Key = messages+options+model+eval_mode.
 - [ ] Memoization für Eval-Reruns (Wiederholungen überspringen)
   - Ziel: Wiederholte Ausführungen per persistentem Index/Map vermeiden (über Session/Run-Grenzen hinaus); CLI-Optionen + Tests.
 
 #### Rerun-Failed mit Profil/Meta-Rekonstruktion
-
 - [x] Rerun-Failed mit Profil/Meta-Rekonstruktion
   - `scripts/rerun_from_results.py` rekonstruiert Model/Host/Temperature/Checks aus Meta
   - ASGI/HTTP unterstützt
   - Smoke-Test vorhanden
-
 - [x] Mini-Eval → Export → Split → LoRA (Smoke)
   - Ziel: 10-20 Items evaluieren (quiet/ASGI), `openai_chat` exportieren, Split erzeugen,
     kurze LoRA-Trainingsprobe (max 10 Steps) mit `--only-free` oder lokalem Modell.
@@ -535,25 +493,20 @@ Hinweise:
     - Validation: `scripts/openai_finetune.py ... --validate-only` → VALIDATION_OK
     - LoRA Mini: 10 Schritte (TinyLlama), Output: `outputs/lora-chai-mini-0937/`
     - Begleitende Verbesserungen: Checks vereinfacht; Synonyms-Overlay erweitert; Test `tests/test_chai_checks.py` hinzugefügt.
-
 - [x] Eval-Caching (Basis)
   - Status: Done — Optional per `--cache`
     - Speichert Antworten in `eval/results/cache_eval.jsonl`
     - Key: messages+options+model+eval_mode
     - Reruns folgen separat
-
 - [x] Dedupe/Heuristiken für Trainingsdaten schärfen (Basis)
   - Status: Done — `prepare_finetune_pack.py` unterstützt `--near-dup-threshold` (Token-Jaccard) zusätzlich zur Instruktions-Dedupe.
-
 - [x] Dokumentation Training/Feinabstimmung
   - Status: Done — `docs/training.md` (Minimalablauf, Optionen, Hinweise).
 
 ### Kurzfristig (nächste Iterationen)
-
 Hinweis: Abschnitt am 2025-11-02 08:07 in `novapolis-dev/archive/todo.root.archive.md` archiviert.
 
 ### Neu (Backups & Releases)
-
 - [x] Backup-Repo (Release-Assets) erstellt und initial befüllt
   - Neues GitHub-Repo; Snapshot als Release-Assets (ZIPs, gesplittete .venv-Parts).
 - [x] Checksums & Restore-Doku ergänzt
@@ -561,32 +514,24 @@ Hinweis: Abschnitt am 2025-11-02 08:07 in `novapolis-dev/archive/todo.root.archi
 - [ ] Optional: Verschlüsselung (7-Zip AES-256) für sensible Artefakte vorbereiten
 
 ### Kurz-Update (2025-10-20)
-
 Hinweis: Abschnitt am 2025-11-02 08:34 in `novapolis-dev/archive/todo.root.archive.md` archiviert.
 
 ### Offene Punkte (Kurzfristig)
-
 Hinweis: Abschnitt am 2025-11-02 09:00 in `novapolis-dev/archive/todo.root.archive.md` archiviert.
 
 ### Neu: Reports-Standard
-
 Hinweis: Abschnitt am 2025-11-02 08:45 in `novapolis-dev/archive/todo.root.archive.md` archiviert.
-
 Später
-
 - Narrativspeicher (Session Memory)
 - Formale Stil-Guidelines + Tests
 - Tooling (pre-commit, ruff/black, pins)
-
 - CI/Qualitätstore
   - Ziel: Optionales Coverage-Minimum in CI (z. B. Zeilen/Branches), Linting (ruff/black)
     und Format-Checks per Pre-commit & CI.
-
 - Packaging & Deployability
   - Ziel: Healthchecks und Produktionshinweise.
 
 ### Mittelfristig
-
 - [~] Tool-Use/Function-Calling (Basis)
   - Ziel: 2-3 sichere Tools (Rechnen, lokale Datei-Sandbox, einfache Korpus-Suche) per ReAct-Prompting,
     Policy-basiert freischaltbar; Protokollierung.
@@ -599,68 +544,53 @@ Später
     - Logging/Protokollierung der Tool-Aufrufe (RID, Dauer, Args-Redaktion) ergänzen.
     - Optional: Weitere Tools (z. B. `safe_eval_math`, `sandbox_ls` mit strikten Pfaden) + Policy-Bindung.
     - Chat-Integration (ReAct-Stil) hinter Flag verdrahten.
-
 - [ ] RAG (lokal)
   - Ziel: FAISS oder Qdrant; Indexer für Markdown/Text; Query-Augmentation; konfigurierbar offline.
   - Akzeptanz: Indexer-Script + Retrieval-Hook; deterministische Tests (Treffer/Kein-Treffer).
-
 - [ ] Profile/Personas
   - Ziel: Profile/JSON (Prompts/Policies/Options), Auswahl via Header/Token/Session.
   - Akzeptanz: Validierung + Anwendungslogik; Tests: Profilwechsel wirkt.
-
 - [ ] Evaluierung & Telemetrie
   - Ziel: Policy-Coverage-Tests; Metriken (Latenz p50/p95, Länge, RAG-HitRate); strukturierte Logs.
   - Akzeptanz: Berichte in `eval/results/reports/metrics/` mit Zeitstempel (z. B. `YYYYMMDD_HHMM`); mind. 3 Kennzahlen.
 
 ### Langfristig
-
 - [ ] Admin-UI/Settings
   - Ziel: UI zur Steuerung von Policies/Profilen/Sessions; Live-Logs/Health; Schutz (AuthN/Z optional).
   - Akzeptanz: Minimal-UI mit 2-3 Screens; Read/Write Policies; Tests (smoke).
-
 - [ ] Persistenter Memory-Store & DSGVO-Löschung
   - Ziel: SQLite/Postgres Speicherung + „Right to be forgotten“-Routinen; Export/Pruning.
   - Akzeptanz: CRUD + Purge; Tests für Löschpfade.
-
 - [ ] Skalierung/Resilienz
   - Ziel: Worker/Queue, Retry/Timeout-Policies, Backpressure; Limits observabel.
   - Akzeptanz: Stresstest-Skript + Metriken.
 
 ### Kleine Auffälligkeiten / Verbesserungen
-
 - [x] Einheitliches Message-Schema
   - Ziel: `ChatRequest.messages` akzeptiert `ChatMessage` und dicts; Validator normalisiert Einträge.
   - Status: Done — Pydantic-Validator ergänzt; Tests hinzugefügt (`tests/test_messages_schema.py`); Flow bleibt rückwärtskompatibel.
-
 - [x] Streaming-Meta/Fehler-Modell
   - Ziel: Ersten SSE-Meta-Event (Params/Mode/RID) senden; Fehler zusätzlich protokollieren.
   - Status: Done — Erster `event: meta` mit `{params: {mode, request_id, model, options}}` wird zu Beginn des Streams gesendet; bestehendes Policy-Meta/Delta am Ende bleibt erhalten.
   - Akzeptanz: Tests prüfen Meta-Event + Error-Event (neu: `tests/test_streaming_initial_meta.py`; bestehende Error-/Policy-Tests grün).
-
 - [ ] Settings/Options erweitern
   - Ziel: Mehr Ollama-Optionen exponieren, klar dokumentieren; Defaults in Settings.
   - Akzeptanz: Doku + Validation-Tests.
-
 - [x] AGENT_BEHAVIOR.md: DONELOG Autoren-Definition präzisieren
   - Ziel: In `AGENT_BEHAVIOR.md` ergänzen, dass der Autor in `docs/DONELOG.txt` die Herkunft des Vorschlags widerspiegelt (z. B. „Panicgrinder“ für Benutzer-/Owner-Vorschläge; „Copilot“ für automatisch initiierte/umgesetzte Vorschläge).
   - Akzeptanz: Abschnitt „Regel: Abgeschlossene Arbeiten dokumentieren (DONELOG)“ erweitert; konkrete Beispiele hinzugefügt.
 
-</details>
-
-Metriken
-
+Details
+---
+### Metriken:
 - Eval-Erfolgsrate ↑ (gesamt/paketweise)
 - Latenz p95 ↓
 - 0 RPG-Erkennungen im Eval-Modus; konsistenter RP-Stil im UNRESTRICTED
 - Trainingspacks: dedupliziert, ausgewogene Längen
 - Logs strukturiert, korrelierbar, ohne sensible Leaks
 
-- Abdeckung: inkrementelle Erhöhung (z. B. +5-10 Prozentpunkte über mehrere Iterationen); Gate optional.
-
----
-
+#### Abdeckung: inkrementelle Erhöhung (z. B. +5-10 Prozentpunkte über mehrere Iterationen); Gate optional.
 Regel: Abgeschlossene Arbeiten dokumentieren (DONELOG)
-
 - Jede nicht-triviale, abgeschlossene Änderung bitte in `docs/DONELOG.txt` erfassen.
 - Format je Zeile: `YYYY-MM-DD HH:MM | Author | Kurzbeschreibung` (keine sensiblen Inhalte!).
 - Helferskript: `python scripts/append_done.py "Kurzbeschreibung..."` hängt automatisch Zeitstempel und Autor an.
@@ -672,7 +602,6 @@ Regel: Abgeschlossene Arbeiten dokumentieren (DONELOG)
 
 Roadmap Nächste Schritte (Agent-Funktionen)
 -------------------------------------------
-
 - [ ] Session-Memory (Kurz/Mittelfrist)
   - Ziel: Gesprächskontext je `session_id` persistieren (In-Memory + optional JSONL/SQLite),
     Fenster/Trunkierung (Token/Chars), konfigurierbar über Settings.
@@ -680,7 +609,6 @@ Roadmap Nächste Schritte (Agent-Funktionen)
     - `ChatRequest.options.session_id` wird akzeptiert.
     - Vorherige Turns werden geladen und in die Messages eingebettet (Budget-basiert).
     - Tests: Happy-Path + Trunkierung + „No Memory“ Fallback.
-
 - [ ] Policy/Rules-Engine („eigene Regeln statt externer“)
   - Ziel: Pre-/Post-Prompt-Hook mit Policies (ENV/policy.json), Umschaltung per Modus/Profil
     (eval/unrestricted/profile_id).
@@ -688,58 +616,45 @@ Roadmap Nächste Schritte (Agent-Funktionen)
     - Hook in `process_chat_request`/`stream_chat_request` aktiv.
     - Policies anwendbar (Allow-All/Rewrite/Verbote); Ereignisse werden geloggt.
     - Tests: Policy wirkt (Rewrite/Block), Protokollierung vorhanden.
-
 - [ ] Tool-Use/Function-Calling (Basis)
   - Ziel: 2-3 sichere Tools (z. B. Rechnen, lokale Datei-Lesen in Sandbox, einfache Suche im Korpus)
     mit ReAct-Prompting, per Policy freischaltbar.
   - Akzeptanzkriterien:
     - Tool-Katalog (registriert, Whitelist), Aufrufe werden protokolliert.
     - Tests: mindestens ein Tool End-to-End (Stub/Offline), Policy Off/On.
-
 - [ ] RAG (lokal, optional)
   - Ziel: Einfaches Retrieval (zunächst TF-IDF; perspektivisch FAISS/Qdrant), Indizierung für Markdown/Text, Query-Augmentation.
   - Akzeptanzkriterien:
     - Indexer-Script + Retrieval-Hook; deterministische Tests (Treffer/Kein-Treffer).
-
 - [ ] Profile/Personas
   - Ziel: Profile als JSON (Prompts/Policies/Options), Auswahl via Header/Token/Session.
   - Akzeptanzkriterien:
     - Profile werden geladen, validiert und angewandt.
     - Tests: Profilwechsel beeinflusst Prompt/Optionen/Policy.
-
 - [ ] Evaluierung & Telemetrie
   - Ziel: Policy-Coverage-Tests; Metriken (Latenz p50/p95, Länge, RAG-HitRate); strukturierte Logs.
   - Akzeptanzkriterien:
     - Berichte in `eval/results/reports/metrics/` mit Zeitstempel (z. B. `YYYYMMDD_HHMM`); mind. 3 Kennzahlen.
 
 ### Langfristig
-
 - [ ] Admin-UI/Settings
   - Ziel: UI zur Steuerung von Policies/Profilen/Sessions; Live-Logs/Health; Schutz (AuthN/Z optional).
   - Akzeptanz: Minimal-UI mit 2-3 Screens; Read/Write Policies; Tests (smoke).
-
 - [ ] Persistenter Memory-Store & DSGVO-Löschung
   - Ziel: SQLite/Postgres Speicherung + „Right to be forgotten“-Routinen; Export/Pruning.
   - Akzeptanz: CRUD + Purge; Tests für Löschpfade.
-
 - [ ] Skalierung/Resilienz
   - Ziel: Worker/Queue, Retry/Timeout-Policies, Backpressure; Limits observabel.
   - Akzeptanz: Stresstest-Skript + Metriken.
 
 ### Kleine Auffälligkeiten / Verbesserungen
-
 - [x] Einheitliches Message-Schema
   - Ziel: `ChatRequest.messages` akzeptiert `ChatMessage` und dicts; Validator normalisiert Einträge.
   - Status: Done — Pydantic-Validator ergänzt; Tests hinzugefügt (`tests/test_messages_schema.py`); Flow bleibt rückwärtskompatibel.
-
 - [x] Streaming-Meta/Fehler-Modell
   - Ziel: Ersten SSE-Meta-Event (Params/Mode/RID) senden; Fehler zusätzlich protokollieren.
   - Status: Done — Erster `event: meta` mit `{params: {mode, request_id, model, options}}` wird zu Beginn des Streams gesendet; bestehendes Policy-Meta/Delta am Ende bleibt erhalten.
   - Akzeptanz: Tests prüfen Meta-Event + Error-Event (neu: `tests/test_streaming_initial_meta.py`; bestehende Error-/Policy-Tests grün).
-
 - [ ] Settings/Options erweitern
   - Ziel: Mehr Ollama-Optionen exponieren, klar dokumentieren; Defaults in Settings.
   - Akzeptanz: Doku + Validation-Tests.
-
-
-
