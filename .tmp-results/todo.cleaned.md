@@ -16,7 +16,7 @@ Hoch priorisiert (0-2 Tage)
   - Schritte: pytest → pyright → mypy → `scripts/run_pytest_coverage.ps1` (Receipt in `DONELOG.md` + `WORKSPACE_STATUS.md`).
  - [x] Agent: Integration `PSScriptAnalyzer` in der damaligen PowerShell-Variante (jetzt durch `python scripts/run_checks_and_report.py` ersetzt) (2025-11-11 11:00)
   - [x] `*.code-workspace` suchen und entfernen/verschieben (report counts)
-  - [ ] `tasks.json` Inline-Ketten prüfen → Wrapper-Aufrufe
+  - [x] `tasks.json` Inline-Ketten geprüft → auf Python-Wrapper umgestellt
   - [x] Wrapper-Probelauf `scripts/run_pytest_coverage.ps1` + Receipt `.tmp-results/reports/checks_report_20251114_2112.md` (2025-11-14 21:12)
   - [x] Wrapper-Probelauf `python scripts/run_checks_and_report.py` + Receipt (`.tmp-results/reports/checks_report_20251114_203601.md`) (2025-11-14 20:36)
   - [x] Statusblock „Multi-Root abgeschlossen“ in `WORKSPACE_STATUS.md`

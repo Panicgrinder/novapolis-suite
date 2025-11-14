@@ -83,8 +83,8 @@
     {
       "label": "Checks: full",
       "type": "shell",
-      "command": "pwsh",
-      "args": ["-NoProfile", "-Command", "Write-Host 'Checks: full completed.'"],
+      "command": "python",
+      "args": ["${workspaceFolder}/scripts/task_wrappers/checks_full.py"],
       "options": { "cwd": "${workspaceFolder}" },
       "dependsOn": [
         "Checks: linters (all)",
@@ -108,8 +108,8 @@
     {
       "label": "Workspace tree: full",
       "type": "shell",
-      "command": "pwsh",
-      "args": ["-NoProfile", "-Command", "tree /A /F | Out-File -Encoding ascii workspace_tree_full.txt"],
+      "command": "python",
+      "args": ["${workspaceFolder}/scripts/task_wrappers/workspace_tree_full.py"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -118,8 +118,8 @@
     {
       "label": "Workspace tree: directories",
       "type": "shell",
-      "command": "pwsh",
-      "args": ["-NoProfile", "-Command", "tree /A | Out-File -Encoding ascii workspace_tree.txt"],
+      "command": "python",
+      "args": ["${workspaceFolder}/scripts/task_wrappers/workspace_tree_dirs.py"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -151,12 +151,8 @@
     {
       "label": "Docs: DONELOG append",
       "type": "shell",
-      "command": "pwsh",
-      "args": [
-        "-NoProfile",
-        "-Command",
-        "& { $ErrorActionPreference = \"Stop\"; $root = \"${workspaceFolder}\"; $path = Join-Path $root \"novapolis_agent\\docs\\DONELOG.txt\"; $ts = Get-Date -Format 'yyyy-MM-dd HH:mm'; $author = \"${input:doneAuthor}\"; if ([string]::IsNullOrWhiteSpace($author)) { $author = $env:USERNAME }; $msg = \"${input:doneMessage}\"; if ([string]::IsNullOrWhiteSpace($msg)) { Write-Error 'DONELOG message is required.'; exit 1 }; $line = \"$ts | $author | $msg\"; Add-Content -LiteralPath $path -Encoding UTF8 $line }"
-      ],
+      "command": "python",
+      "args": ["${workspaceFolder}/scripts/task_wrappers/donelog_append.py", "${input:doneMessage}", "${input:doneAuthor}"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -166,12 +162,8 @@
     {
       "label": "Tests: pytest (unit)",
       "type": "shell",
-      "command": "pwsh",
-      "args": [
-        "-NoProfile",
-        "-Command",
-        "& { $ErrorActionPreference = \"Stop\"; $root = \"${workspaceFolder}\"; $python = Join-Path $root \".venv\\Scripts\\python.exe\"; if (-not (Test-Path -LiteralPath $python)) { $python = \"python\"; }; & $python -m pytest -q -m 'unit'; exit $LASTEXITCODE }"
-      ],
+      "command": "python",
+      "args": ["${workspaceFolder}/scripts/task_wrappers/pytest_unit.py"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -182,12 +174,8 @@
     {
       "label": "Tests: pytest (api+streaming)",
       "type": "shell",
-      "command": "pwsh",
-      "args": [
-        "-NoProfile",
-        "-Command",
-        "& { $ErrorActionPreference = \"Stop\"; $root = \"${workspaceFolder}\"; $python = Join-Path $root \".venv\\Scripts\\python.exe\"; if (-not (Test-Path -LiteralPath $python)) { $python = \"python\"; }; & $python -m pytest -q -m 'api or streaming'; exit $LASTEXITCODE }"
-      ],
+      "command": "python",
+      "args": ["${workspaceFolder}/scripts/task_wrappers/pytest_api_streaming.py"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
