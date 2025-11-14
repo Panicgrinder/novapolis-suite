@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-14 20:51
-update: Docs sweep continued; Checks-Wrapper re-run → overall PASS; latest receipt: `.tmp-results/reports/checks_report_20251114_205007.md`. Frontmatter & markdownlint fixes applied; older checks runs archived to `novapolis-dev/archive/docs_archives_20251114_202548/old_tmp_reports/`.
+stand: 2025-11-14 21:12
+update: Docs sweep continued; Checks-Wrapper re-run → overall PASS; Wrapper-Probelauf executed via `pwsh -File scripts/run_pytest_coverage.ps1` (Receipt: `.tmp-results/reports/checks_report_20251114_2112.md`). Frontmatter & markdownlint fixes applied; older checks runs archived to `novapolis-dev/archive/docs_archives_20251114_202548/old_tmp_reports/`.
 checks: PASS
 ---
 
@@ -17,7 +17,7 @@ Hoch priorisiert (0-2 Tage)
  - [x] Agent: Integration `PSScriptAnalyzer` in der damaligen PowerShell-Variante (jetzt durch `python scripts/run_checks_and_report.py` ersetzt) (2025-11-11 11:00)
   - [x] `*.code-workspace` suchen und entfernen/verschieben (report counts)
   - [ ] `tasks.json` Inline-Ketten prüfen → Wrapper-Aufrufe
-  - [ ] Wrapper-Probelauf `scripts/run_pytest_coverage.ps1` + Receipt
+  - [x] Wrapper-Probelauf `scripts/run_pytest_coverage.ps1` + Receipt `.tmp-results/reports/checks_report_20251114_2112.md` (2025-11-14 21:12)
   - [x] Wrapper-Probelauf `python scripts/run_checks_and_report.py` + Receipt (`.tmp-results/reports/checks_report_20251114_203601.md`) (2025-11-14 20:36)
   - [x] Statusblock „Multi-Root abgeschlossen“ in `WORKSPACE_STATUS.md`
 - [x] Dev: Tree-Artefakte regenerieren (R-IDX)
