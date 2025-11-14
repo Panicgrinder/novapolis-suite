@@ -16,8 +16,8 @@ def test_append_done_writes_line(tmp_path: Path) -> None:
 
     # Patch: schreibe in temporäre Datei und stabiler Autor
     log_path = os.fspath(tmp_path / "DONELOG.txt")
-    setattr(mod, "LOG_PATH", log_path)
-    setattr(mod, "get_author", lambda: "tester")  # vermeidet git-Aufruf
+    mod.LOG_PATH = log_path
+    mod.get_author = lambda: "tester"  # vermeidet git-Aufruf
 
     rc = mod.main(["Kurzbeschreibung Testeintrag"])  # type: ignore[arg-type]
     assert rc == 0

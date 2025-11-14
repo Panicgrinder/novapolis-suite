@@ -7,7 +7,7 @@ checks: markdownlint-cli2 (single file) PASS
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/naming-policy.md` am 2025-10-29 -->
 
-Benennung – Regeln (Dateien/Ordner)
+Benennung - Regeln (Dateien/Ordner)
 ===================================
 
 Geltungsbereich: `database-rp/**` (Admin, Canon, Characters, Locations, Inventory, Projects, Scenes)
@@ -21,7 +21,7 @@ Ziele
 Regeln
 ------
 
-- Zeichensatz: A–Z, a–z, 0–9, Bindestrich `-`, Punkt `.` (für die Endung). Keine Leerzeichen/Unterstriche/Klammern.
+- Zeichensatz: A-Z, a-z, 0-9, Bindestrich `-`, Punkt `.` (für die Endung). Keine Leerzeichen/Unterstriche/Klammern.
 - Umlaute: `ä→ae`, `ö→oe`, `ü→ue`, `ß→ss`. Großbuchstaben `Ä→Ae`, `Ö→Oe`, `Ü→Ue`.
 - Trennung: Wörter mit `-` verbinden; mehrere Bindestriche vermeiden (`--` → `-`).
 - Endungen: Kleinbuchstaben (`.md`, `.txt`).
@@ -44,4 +44,5 @@ Vorgehen bei Altbestand
 
 - Erst Dry-Run ausführen und Liste prüfen.
 - Danach gezielt `--apply` verwenden (Commit in kleinem Batch), Review.
+
 

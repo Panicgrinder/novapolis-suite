@@ -89,7 +89,7 @@ def load_config(repo_root: Path) -> dict[str, int]:
             coverage_value = data["tool"]["novapolis"]["checks"]["coverage_fail_under"]
         except KeyError:
             coverage_value = None
-        if isinstance(coverage_value, (int, float)):
+        if isinstance(coverage_value, int | float):
             config["coverage_fail_under"] = int(coverage_value)
     return config
 
@@ -463,7 +463,7 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
     else:
         pytest_addopts_effective = existing_addopts
         pytest_env = None
-        pytest_note = "pytest-timeout nicht verfügbar – Timeout-Erhöhung übersprungen."
+        pytest_note = "pytest-timeout nicht verfügbar - Timeout-Erhöhung übersprungen."
 
     run_or_fail(
         "pytest",
@@ -706,3 +706,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

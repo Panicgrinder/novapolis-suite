@@ -29,7 +29,7 @@ Senn Daru
 ---------
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `SND1=E72-N64-L58-O46-S42-T38-C30-M22-P44-s` – verhandelt empathisch, bleibt neugierig-offen und stellt diplomatische Ausgleichsziele vor Eigeninteressen.
+- Verhaltenssignatur: `SND1=E72-N64-L58-O46-S42-T38-C30-M22-P44-s` - verhandelt empathisch, bleibt neugierig-offen und stellt diplomatische Ausgleichsziele vor Eigeninteressen.
 
 - Rolle: Händler/Vermittler (ex-Karawane)
 - Werte: tbd
@@ -43,7 +43,7 @@ Senn Daru
 
 Rollen & Verantwortlichkeiten (Pflichtfelder)
 ---------------------------------------------
-- Handel/Diplomatie – Schnittstelle zu Novapolis
+- Handel/Diplomatie - Schnittstelle zu Novapolis
 
 Zugehörigkeit & Standort
 ------------------------
@@ -60,7 +60,7 @@ Notizen
 - Aufgetaucht im Relationslog v1 als Händlerkontakt.
 - Abgrenzung: kein „Karawanenführer“ im Kanon (siehe Marven Kael/Kora Rollenbeschluss).
 
-Wissensstand (Matrix – Auszug)
+Wissensstand (Matrix - Auszug)
 ------------------------------
 - Intern/Extern: tbd (Kennt Novapolis als Fraktion nicht; nur persönliche Kontakte) [FR-KNOWLEDGE]
 
@@ -71,4 +71,5 @@ Ziele (kurz)
 Links
 -----
 - C6 → ../03-locations/C6.md
+
 

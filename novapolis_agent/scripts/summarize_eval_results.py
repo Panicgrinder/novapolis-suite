@@ -41,7 +41,7 @@ def _summarize(rows: list[dict[str, Any]]) -> dict[str, Any]:
     total = len(rows)
     success = sum(1 for r in rows if r.get("success") is True)
     durations = [
-        int(r.get("duration_ms", 0)) for r in rows if isinstance(r.get("duration_ms"), (int, float))
+        int(r.get("duration_ms", 0)) for r in rows if isinstance(r.get("duration_ms"), int | float)
     ]
     avg_ms = int(sum(durations) / len(durations)) if durations else 0
 

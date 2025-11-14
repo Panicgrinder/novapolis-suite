@@ -12,7 +12,7 @@ Diese Ordnerseite bündelt die TODO-Archive pro Modul. Ziel: Haupt-TODOs schlank
 - [todo.root.archive.md](./todo.root.archive.md)
 - [todo.agent.archive.md](./todo.agent.archive.md)
 - [todo.dev.archive.md](./todo.dev.archive.md)
-- [todo.rp.archive.md](./todo.rp.archive.md) – Kanon-only verbindlich
+- [todo.rp.archive.md](./todo.rp.archive.md) - Kanon-only verbindlich
 - [todo.sim.archive.md](./todo.sim.archive.md)
 
 Grundregeln
@@ -23,4 +23,5 @@ Grundregeln
 
 Hinweis
 - Optional kann später ein Skript die Migration automatisieren (Dry-Run/Apply). Bis dahin bitte manuell verschieben (Cut&Paste), Frontmatter `stand/update/checks` der betroffenen Dateien kurz aktualisieren.
+
 

@@ -282,7 +282,7 @@ def main(argv: list[str] | None = None) -> int:
         if not summaries:
             continue
         out_path = os.path.join(args.out_dir, f"summary_{timestamp}_{scope}.md")
-        write_md(out_path, f"Workspace Zusammenfassung – {scope}", [("Dateien", summaries)])
+        write_md(out_path, f"Workspace Zusammenfassung - {scope}", [("Dateien", summaries)])
         scope_files.append(out_path)
         # Für Merge bereitstellen (gekürzt pro Scope)
         merged_sections.append((scope, summaries[: min(50, len(summaries))]))
@@ -290,7 +290,7 @@ def main(argv: list[str] | None = None) -> int:
     # Merge-Datei
     if scope_files:
         merged_path = os.path.join(args.out_dir, f"summary_ALL_{timestamp}.md")
-        write_md(merged_path, "Workspace Zusammenfassung – Gesamt", merged_sections)
+        write_md(merged_path, "Workspace Zusammenfassung - Gesamt", merged_sections)
         print(
             json.dumps(
                 {
@@ -313,3 +313,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

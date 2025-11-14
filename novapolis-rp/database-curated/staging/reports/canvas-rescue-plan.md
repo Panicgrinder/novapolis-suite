@@ -4,7 +4,7 @@ update: Guard-Check ersetzt den alten Start-Schritt im Workflow
 checks: keine
 ---
 
-Canvas-Rettung – Plan (Stand 2025-11-01)
+Canvas-Rettung - Plan (Stand 2025-11-01)
 ========================================
 
 Ausgangslage
@@ -15,7 +15,7 @@ Ausgangslage
 - In `database-raw/99-exports/` liegen kuratierbare Canvas mit Flags (`vorsichtig_behandeln`, teils `korrupt`), die vor Promotion auf Drift geprüft werden müssen.
 - Ziel: Roh-Canvas iterativ nach `database-rp/` überführen, dabei FACT-/Policy-Beschlüsse aus `resolved.md` anwenden und Flag-Hinweise abarbeiten.
 
-Priorität A – Charaktere & Führung
+Priorität A - Charaktere & Führung
 ----------------------------------
 
 - `RAW-canvas-2025-10-16T03-25-00-000Z.txt` (`char_varek_solun_v1`) → neu `database-rp/02-characters/Varek-Solun.md/json`; Flags: Standortcode H12 vs. Alias `Sektor_H3` harmonisieren, Außenwissen über Novapolis ausblenden (vgl. `[FR-KNOWLEDGE]`).
@@ -25,10 +25,10 @@ Priorität A – Charaktere & Führung
 - `RAW-canvas-2025-10-16T14-56-20-000Z.txt` (`char_arlen_dross_v2`) → neu `Arlen-Dross.*`; Flag: Rolle auf Händler/Vermittler begrenzen, nicht erneut „Karawanenführer“.
 - `RAW-canvas-2025-10-16T14-41-00-000Z.txt` (`char_pahl_v2`) → neu `Pahl.*`; Flag: Gesundheitsstatus (Atembeschwerden) verifizieren, Beziehungen gegen Kanon abgleichen.
 - `RAW-canvas-2025-10-16T11-45-00-000Z.txt` (`char_ronja_v2`, `korrupt`) → bestehendes `Ronja-Kerschner`-Canvas revidieren: Nachname korrigieren, Wissensstand gegen `[FR-KNOWLEDGE]`, Stress-/Motivationsblöcke übernehmen, alles mit Review-Hinweis versehen.
-- `RAW-canvas-2025-10-16T13-45-00-000Z.txt` (`char_reflex_v2`) & `RAW-canvas-2025-10-16T03-25-20-000Z.txt` (`ent_d5_reflex_v1`) → `Reflex`-Canvas erweitern (Frequenzband 7.3–8.0 Hz, Symbiose-Stufe I, Abgleich mit `[REFLEX-*]` Mechaniken, Notfall-Detachment als Labor-Sonderfall dokumentieren).
+- `RAW-canvas-2025-10-16T13-45-00-000Z.txt` (`char_reflex_v2`) & `RAW-canvas-2025-10-16T03-25-20-000Z.txt` (`ent_d5_reflex_v1`) → `Reflex`-Canvas erweitern (Frequenzband 7.3-8.0 Hz, Symbiose-Stufe I, Abgleich mit `[REFLEX-*]` Mechaniken, Notfall-Detachment als Labor-Sonderfall dokumentieren).
 - `RAW-canvas-2025-10-16T14-12-00-000Z.txt` (`char_jonas_v2`, `korrupt`) → Jonas-Canvas auffüllen, Schwesterstatus auf „vermisst/unklar“ normalisieren, Makel in Kommentar festhalten.
 
-Priorität B – Logistik, Inventar, Ressourcen
+Priorität B - Logistik, Inventar, Ressourcen
 --------------------------------------------
 
 - `RAW-canvas-2025-10-16T12-30-00-000Z.txt` (`inventar_c6_v2`) & `RAW-canvas-2025-10-16T12-55-00-000Z.txt` (`logistik_c6_v2`) → `database-rp/04-inventory/C6-inventar.*` neu anlegen + `00-admin/Logistik.md` erweitern; Flag: Systemverknüpfungen auf v2 anheben oder Abweichung begründen.
@@ -36,7 +36,7 @@ Priorität B – Logistik, Inventar, Ressourcen
 - `RAW-canvas-2025-10-16T12-00-00-000Z.txt` (Legacy D5 Versorgung) + `RAW-canvas-2025-10-20T12-05-00-000Z.txt` (`station_d5_v2.1`) → `03-locations/D5` aktualisieren, Grundfläche/Lastenaufzug/Lager auflösen, Legacy als Historie kennzeichnen.
 - Inventar-Deltas in `Novapolis-inventar.md`, `D5-inventar.md` ergänzen (Frontmatter bleibt, „tbd“ ersetzen, Links zu Missionslog pflegen).
 
-Priorität C – Systeme, Indizes, Ereignisse
+Priorität C - Systeme, Indizes, Ereignisse
 ------------------------------------------
 
 - `RAW-canvas-2025-10-16T05-34-00-000Z.txt` (`ereignislog_weltgeschehen_v1`) → neues Admin-Canvas `00-admin/Ereignislog-Weltgeschehen.*`; Flag: Begriff „Allianz“ vs. `[SECRECY]` prüfen, H-47 als ehemalige Karawane kennzeichnen.
@@ -69,3 +69,4 @@ Abhängigkeiten & Prüfhinweise
 - Systemverknüpfungen (logistik_novapolis_v1/v2) konsistent halten; wenn Migrationspfad noch nicht existiert, `Placeholder` mit TODO notieren.
 - Bei neuen Canvas JSON-Sidecar nicht vergessen (Schema wie bei bestehenden Dateien); Einträge in `database-rp/index.json` erweitern.
 - Vor finaler Promotion prüfen, ob zusätzliche Redirects/Alias (z. B. `Sektor_H3`) in Admin-Docs dokumentiert werden müssen.
+

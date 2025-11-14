@@ -1,7 +1,7 @@
 ---
 stand: 2025-11-03 04:23
 update: Status-Notiz ergänzt: letztes Commit+Push vor VS Code Neustart; Case bleibt bis Mono-Workspace-Umstellung geschlossen (Hint).
-checks: keine (STOP – keine automatisierten Läufe)
+checks: keine (STOP - keine automatisierten Läufe)
 ---
 
 Open Case: VS Code Multi-Root & unzuverlässige Tasks/Terminal
@@ -56,7 +56,7 @@ Analyse
 Maßnahmen (sofort)
 -------------------
 
-- Policy bis zur Bereinigung: KEINE WRAPPER – Terminal ausschließlich manuell nutzen.
+- Policy bis zur Bereinigung: KEINE WRAPPER - Terminal ausschließlich manuell nutzen.
 - STOP-Gate: Automatisierte Tasks in die Queue, manuell verifizieren (Heuristik: <1s PASS = verdächtig).
 
 Maßnahmen (nächste Schritte)
@@ -66,7 +66,7 @@ Maßnahmen (nächste Schritte)
 - Optional kurzfristig für Stabilität:
   1) Snapshot-Task-Quoting auf doppelte Quotes vereinheitlichen (Dokumentation/Hinweis, kein Wrapper-Zwang).
   2) Coverage-Scope vorübergehend auf `app/**` beschränken (nur wenn notwendig, dokumentieren).
-  3) 3 Minimaltests für 0%-Module (Import/Smoke), zielgerichtete 1–2 Tests für `app/api/chat.py`.
+  3) 3 Minimaltests für 0%-Module (Import/Smoke), zielgerichtete 1-2 Tests für `app/api/chat.py`.
 
 Anhang A: Auszug Rohlog (TMP)
 -----------------------------
@@ -103,8 +103,8 @@ Operationen:
 - Screenshot-Ablagepfad vorbereitet (siehe unten).
 
 IST vs. SOLL:
-- Tests: PASS (Exit Code 0) – erfüllt.
-- Snapshot-Task: Ein Lauf FAIL (Quoting), manuell OK – dokumentiert; akzeptabel.
+- Tests: PASS (Exit Code 0) - erfüllt.
+- Snapshot-Task: Ein Lauf FAIL (Quoting), manuell OK - dokumentiert; akzeptabel.
 
 Driftbewertung:
 - Diff-Drift: grün (kleine Dokuänderungen).
@@ -134,7 +134,7 @@ Operationen:
 
 Ergebnis:
 - Pytest (manuell): PASS.
-- Coverage (manuell): FAIL – Total 66% < fail-under 80%.
+- Coverage (manuell): FAIL - Total 66% < fail-under 80%.
 
 Auswertung (Kurz):
 - Große Lücken in `app/api/api.py` (0%), `app/core/mode.py` (0%), `app/utils/convlog.py` (0%) und mehreren Scripts unter `scripts/`.
@@ -143,7 +143,7 @@ Auswertung (Kurz):
 Empfohlene 3 Sofort-Maßnahmen:
 1) Coverage-Scope vorübergehend eingrenzen (nur `app/**`) via `.coveragerc` `omit`/`include`, um Skript-lastige Lücken nicht gating-wirksam zu machen.
 2) Minimaltests für 0%-Module: Smoke/Import-Tests für `app/api/api.py`, `app/core/mode.py`, `app/utils/convlog.py` (heben Basis-Coverage schnell an).
-3) Zielgerichtete Tests für Hotspots in `app/api/chat.py` (je 1–2 Cases für häufige Pfade), Rest in Modul-TODO aufnehmen.
+3) Zielgerichtete Tests für Hotspots in `app/api/chat.py` (je 1-2 Cases für häufige Pfade), Rest in Modul-TODO aufnehmen.
 
 Rest in TODO (ausgelagert):
 - Langfristige Erhöhung der Coverage für `scripts/**` (separat tracken, nicht gating-relevant für App).
@@ -160,5 +160,6 @@ Rest in TODO (ausgelagert):
 - Coverage laufen lassen und dokumentieren.
 - Snapshot-Task robuster quoten (optional).
 ```
+
 
 

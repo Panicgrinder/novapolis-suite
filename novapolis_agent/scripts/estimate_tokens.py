@@ -98,10 +98,12 @@ def main() -> int:
     mb = (total_tokens * 4) / (1024 * 1024)
     print(f"\nApprox. Größe ~ {mb:.2f} MB Text, Tokens ~ {total_tokens:,}")
     print(
-        "Richtwert: <=100k Tokens: One‑Shot möglich; 100k–200k: grenzwertig; >200k: chunken/map‑reduce."
+        "Richtwert: <=100k Tokens: One-Shot möglich; 100k-200k: grenzwertig; >200k: chunken/map-reduce."
     )
     return 0
 
 
 if __name__ == "__main__":
     sys.exit(main())
+
+

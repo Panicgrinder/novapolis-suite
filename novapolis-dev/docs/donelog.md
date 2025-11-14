@@ -29,7 +29,7 @@ Archiv-TODOs & Issue-Template Setext (2025-11-07 04:56)
 - `.github/ISSUE_TEMPLATE/feature_request.md` auf Setext-Stil umgestellt; Markdownlint repo-weit (`**/*.md`, 132 Dateien) PASS dokumentiert.
 - Checks: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` PASS.
 
-Staging-Reports – Setext/Frontmatter konsolidiert (2025-11-07 02:29)
+Staging-Reports - Setext/Frontmatter konsolidiert (2025-11-07 02:29)
 --------------------------------------------------------------------
 
 - Reports unter `novapolis-rp/database-curated/staging/reports/*.md` auf YAML-Frontmatter und Setext-Überschriften gebracht; lokale Markdownlint-Overrides in `staging/.markdownlint.json` und `staging/reports/.markdownlint.json` entfernt.
@@ -65,7 +65,7 @@ Chat-Neustart-Prompt entfernt (2025-11-06 03:07)
 - Hinweis im Root-DONELOG/TODO aktualisiert (siehe entsprechende Einträge).
 - Checks: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "novapolis-dev/docs/index.md"` PASS.
 
-Workspace Tree – Refresh (2025-11-06 03:34)
+Workspace Tree - Refresh (2025-11-06 03:34)
 -----------------------------------------
 
 - Tasks ausgeführt: `Workspace tree: full`, `Workspace tree: directories`, `Workspace tree: summary (dirs)`.
@@ -79,37 +79,37 @@ Markdownlint-Stub entfernt (2025-11-06 03:18)
 - `.github/copilot-instructions.md` Abschnitt zu Markdownlint aktualisiert (keine Stub-Nennung mehr).
 - Checks: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "novapolis-rp/coding/tools/validators/README.md"` PASS.
 
-Frontmatter-Migration – Docs Sweep (2025-11-02T23:23:00+01:00)
-Docs-Snapshot – Lint-Regeln synchronisiert (2025-11-05 18:33)
+Frontmatter-Migration - Docs Sweep (2025-11-02T23:23:00+01:00)
+Docs-Snapshot - Lint-Regeln synchronisiert (2025-11-05 18:33)
 
 - Regeln präzisiert: markdownlint via pwsh und `npx --yes markdownlint-cli2` (keine Wrapper).
 - Task-Labels in `.vscode/tasks.json` auf „Lint: markdownlint-cli2 …“ vereinheitlicht.
-- Checks: markdownlint-cli2 (docs focused) FAIL – MD003/heading-style in `novapolis-dev/docs/donelog.md` und vielfach in `single-root-todo.md` (pro Datei konsistenter Stil erforderlich).
+- Checks: markdownlint-cli2 (docs focused) FAIL - MD003/heading-style in `novapolis-dev/docs/donelog.md` und vielfach in `single-root-todo.md` (pro Datei konsistenter Stil erforderlich).
 
 
 - `docs/donelog.md` und `docs/tests.md` um YAML-Frontmatter ergänzt; Status-Header inkl. Lint-Ergebnis aktualisiert.
 - Checks: markdownlint-cli2 (docs focused) PASS.
 
-Frontmatter-Migration – Agent Docs Sweep (2025-11-02T23:36:00+01:00)
+Frontmatter-Migration - Agent Docs Sweep (2025-11-02T23:36:00+01:00)
 
 - `novapolis_agent/docs/{AGENT_BEHAVIOR,ARCHIVE_PLAN,CONTEXT_ARCH,customization,REPORTS,training}.md` und `novapolis_agent/docs/reports/overnight-20251022.md` mit YAML-Frontmatter versehen.
 - Checks: markdownlint-cli2 (docs focused) PASS.
 
-Frontmatter-Migration – Abschluss (2025-11-02T23:44:00+01:00)
+Frontmatter-Migration - Abschluss (2025-11-02T23:44:00+01:00)
 
 - RP-Docs unter `novapolis-rp/**/docs/**` sind Redirect-/Mirror-Stubs (SSOT: `novapolis-dev/docs/**`), daher keine Migration erforderlich.
 - Checks: markdownlint-cli2 (all md) PASS.
 
-Workspace Tree – Aktualisierung (2025-11-03T00:18:00+01:00)
+Workspace Tree - Aktualisierung (2025-11-03T00:18:00+01:00)
 
 - Tasks ausgeführt: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - Aktualisierte Artefakte: `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`.
 - Checks: markdownlint-cli2 (all md) PASS.
 
-Frontmatter-Migration – TODO-SSOTs (2025-11-02T22:48:00+01:00)
+Frontmatter-Migration - TODO-SSOTs (2025-11-02T22:48:00+01:00)
 
 - `docs/todo.{index,dev,sim}.md` mit vollständiger YAML-Frontmatter versehen (`---`-Delimiter ergänzt); Inhalte unverändert.
-- Hinweis im Root-Single-Root-Plan bleibt gültig (Migration Etappe 1–3 wird fortgesetzt).
+- Hinweis im Root-Single-Root-Plan bleibt gültig (Migration Etappe 1-3 wird fortgesetzt).
 - Checks: markdownlint-cli2 (docs focused) PASS.
 
 Single Root TODO (Root) angelegt (2025-11-02 10:02)
@@ -117,7 +117,7 @@ Single Root TODO (Root) angelegt (2025-11-02 10:02)
 - Neue Datei `single-root-todo.md` im Repo-Root erstellt (Scaffold mit YAML-Frontmatter, Modul-Links, Root-Aufgaben).
 - Lint: markdownlint-cli2 PASS.
 
-Monorepo Single Root – Umstellungsplan ergänzt (2025-11-02 10:10)
+Monorepo Single Root - Umstellungsplan ergänzt (2025-11-02 10:10)
 Coverage-Gate erreicht (2025-11-09 17:51)
 ----------------------------------------
 
@@ -127,16 +127,16 @@ Coverage-Gate erreicht (2025-11-09 17:51)
 - Checks: pytest coverage PASS; markdownlint (repo-weit) zuvor PASS.
 
 
-- In `single-root-todo.md` Abschnitt „Monorepo Single Root – Umstellungsplan (Schritt für Schritt)“ hinzugefügt (Etappen 0–5, Akzeptanzkriterien, optionale PowerShell-Befehle).
+- In `single-root-todo.md` Abschnitt „Monorepo Single Root - Umstellungsplan (Schritt für Schritt)“ hinzugefügt (Etappen 0-5, Akzeptanzkriterien, optionale PowerShell-Befehle).
 - Lint: markdownlint-cli2 PASS.
 
-Canvas-Rettung Sprint 1 – C6/E3 Linienabgleich (2025-11-02T13:30:00+01:00)
+Canvas-Rettung Sprint 1 - C6/E3 Linienabgleich (2025-11-02T13:30:00+01:00)
 
 - Neue Location-Canvas `database-rp/03-locations/Verbindungstunnel-C6-E3.{md,json}` angelegt (Status, Nutzung als Evakuierungsroute für 20 E3-Flüchtlinge, Aufgabenliste); Index (`database-rp/index.json`) erweitert und Metadaten mit C6/E3 verknüpft.
 - `database-rp/03-locations/C6.md` um Bevölkerung/Verbindungen ergänzt (20 Evakuierte aus E3, 4 Karawanenmitglieder, aktive Tunnel); Sidecar `C6.json` Dependencies auf beide Tunnel gesetzt.
-- Lexikon `database-curated/reviewed/chat-export (1)/lexicon.json` aktualisiert (Slug/Aliasse für C6–E3-Tunnel, neue Bewohner-Kontexte beibehalten).
+- Lexikon `database-curated/reviewed/chat-export (1)/lexicon.json` aktualisiert (Slug/Aliasse für C6-E3-Tunnel, neue Bewohner-Kontexte beibehalten).
 
-Canvas-Rettung Sprint 1 – Behavior-Signaturen & Validator (2025-11-02T12:45:00+01:00)
+Canvas-Rettung Sprint 1 - Behavior-Signaturen & Validator (2025-11-02T12:45:00+01:00)
 
 - Anchor-Signaturen für Echo, Lumen, Liora, Lyra, Senn und Varek kuratiert (`AI-Behavior-Mapping.md` aktualisiert, Quelle auf Canvas verwiesen, Sidecar-Zeitstempel synchronisiert).
 - Charakter-Canvases (`02-characters/*.md` + JSON) um Verhaltenseinträge ergänzt; Skill-Listen auf Leerzeichen-Indents umgestellt, Markdownlint-Ausnahmen (MD025) lokalisiert.
@@ -149,55 +149,55 @@ Markdownlint zentralisiert (2025-11-01T15:30:00+01:00)
 - `.github/workflows/markdownlint.yml`: Windows-Job lintet ausschließlich via `npx`; `run_lint_markdown.ps1` wird nicht mehr aufgerufen.
 - `run_lint_markdown.ps1` zu einem Hinweisskript degradiert (Exit 1); Doku (`novapolis-dev/docs/index.md`, `novapolis-rp/coding/tools/validators/README.md`) verweist auf den direkten `npx`-Aufruf.
 
-- 2025-11-01 13:08 — Prompt für Chat-Neustart ergänzt (`docs/prompts/chat-restart.md`); Index-Link gesetzt; Curation-Writer für UTF‑8+LF+EOF gehärtet und Orchestrator `build_staging_reports.py`+PS1 hinzugefügt. Lint weiter grün.
+- 2025-11-01 13:08 — Prompt für Chat-Neustart ergänzt (`docs/prompts/chat-restart.md`); Index-Link gesetzt; Curation-Writer für UTF-8+LF+EOF gehärtet und Orchestrator `build_staging_reports.py`+PS1 hinzugefügt. Lint weiter grün.
 
-Canvas-Rettung Sprint 1 – Jonas Merek (2025-11-02T13:55:00+01:00)
+Canvas-Rettung Sprint 1 - Jonas Merek (2025-11-02T13:55:00+01:00)
 
 - Charakter-Canvas `database-rp/02-characters/Jonas-Merek.md` auf Version 1.0 gehoben; Werte/Skills aus RAW übernommen, Rollen (Werkstatt/Logistik/Terminal) konsolidiert, Sicherheits- & Proximity-Protokolle ergänzt.
-- Korruptes RAW-Makel („Schuld am Tod der Schwester“) aufgelöst – Schwesterstatus gemäß FACT `[JONAS-SIS]` als „vermisst/unklar“ dokumentiert, Schuldflag als subjektives Kommentar markiert.
+- Korruptes RAW-Makel („Schuld am Tod der Schwester“) aufgelöst - Schwesterstatus gemäß FACT `[JONAS-SIS]` als „vermisst/unklar“ dokumentiert, Schuldflag als subjektives Kommentar markiert.
 - JSON-Sidecar synchronisiert (Version, Tags, Dependencies `missionslog`, `ai_behavior_index_v2`); `char-block-nord-sources.md` und TODO aktualisiert.
 - Verweise auf FACTs `[PROXIMITY]`, `[COMMS-PROTO]`, `[C6-FIRST]`, `[FR-KNOWLEDGE]` eingepflegt; Validierungsintervall notiert.
 
-- 2025-11-01 13:08 — Prompt für Chat-Neustart ergänzt (`docs/prompts/chat-restart.md`); Index-Link gesetzt; Curation-Writer für UTF‑8+LF+EOF gehärtet und Orchestrator `build_staging_reports.py`+PS1 hinzugefügt. Lint weiter grün.
+- 2025-11-01 13:08 — Prompt für Chat-Neustart ergänzt (`docs/prompts/chat-restart.md`); Index-Link gesetzt; Curation-Writer für UTF-8+LF+EOF gehärtet und Orchestrator `build_staging_reports.py`+PS1 hinzugefügt. Lint weiter grün.
 
-Canvas-Rettung Sprint 1 – Marven Kael (2025-11-02T14:45:00+01:00)
+Canvas-Rettung Sprint 1 - Marven Kael (2025-11-02T14:45:00+01:00)
 
 - Neues Charakter-Canvas `database-rp/02-characters/Marven-Kael.md` erstellt; Konvoi-/Handelsrolle aus RAW übernommen, Sicherheits- und Verhandlungsprotokolle festgeschrieben, Zugehörigkeit zur Händlergilde betont.
 - FACT `[CARAVAN-LEADERSHIP]` umgesetzt: klare Trennung zwischen externem Konvoi (Marven), interner Logistik (Kora) und Vermittlung (Arlen); `[FR-KNOWLEDGE]` berücksichtigt (keine Novapolis-Koordinaten).
 - JSON-Sidecar ergänzt (Version 1.0, Tags `karawane`/`haendlerbund`, Dependencies `caravan_moves`, `ai_behavior_index_v2`, `missionslog`, `logistik`, `c6`); Quellenreport aktualisiert, dev TODO abgehakt.
 - Risiko- und Zielsetzungen dokumentiert (Entscheidungsstarre, Crewschutz, Handelsabkommen); Validierungsintervall notiert.
 
-Canvas-Rettung Sprint 1 – Arlen Dross (2025-11-02T15:05:00+01:00)
+Canvas-Rettung Sprint 1 - Arlen Dross (2025-11-02T15:05:00+01:00)
 
 - Charakter-Canvas `database-rp/02-characters/Arlen-Dross.md` auf Version 1.0 gehoben; Diplomatie-/Vermittlerrolle gegenüber Novapolis ausgearbeitet, Abgrenzung zu Kora (Logistik) und Marven (Konvoi) gemäß FACT `[CARAVAN-LEADERSHIP]` dokumentiert.
 - Wissensmatrix und Sicherheitslinien ergänzt: `[FR-KNOWLEDGE]` respektiert (keine Novapolis-Koordinaten), Reflex als unkalkulierbare Variable mit klaren Freigabesignalen beschrieben, Routine/Validierungszyklen aus RAW übernommen.
 - JSON-Sidecar erstellt (Tags `karawane`/`haendlerbund`/`diplomatie`, Dependencies `caravan_moves`, `ai_behavior_index_v2`, `missionslog`, `logistik`, `c6`, `handel_diplomatie_haendlergilde_v1`, `index_haendlergilde_v1`); Quellenreport `char-block-nord-sources.md`, TODO und Personenindex aktualisiert.
 - Risiko-/Zielkatalog ergänzt (Entscheidungsparalyse mitigieren, Handelsprotokoll standardisieren, Crew-Moderation sichern); Signals-Beispiele und Systemverknüpfungen dokumentiert.
 
-Canvas-Rettung Sprint 1 – Pahl (2025-11-02T15:25:00+01:00)
+Canvas-Rettung Sprint 1 - Pahl (2025-11-02T15:25:00+01:00)
 
 - Charakter-Canvas `database-rp/02-characters/Pahl.md` erstellt; Gesundheitsstatus (Reha, Atemprotokolle) aus RAW verifiziert, Rollen (Systemaufsicht, Wartungsplanung, Hausregeln) gemäß FACT `[HOUSE-RULES]`/`[LOGISTICS]` beschrieben.
 - Wissens- und Sicherheitsmatrix ergänzt (Atemlog, Belastungsgrenzen, Validierungsintervall, Eskalationspfade „Regel Blau/Rot“), Interaktionshinweise aus Chatpassagen zum Lagerzugang integriert.
 - JSON-Sidecar angelegt (Tags `technik`/`novapolis`/`gesundheit`, Dependencies `d5`, `logistik`, `missionslog`, `ai_behavior_index_v2`, `ronja-kerschner`, `jonas-merek`, `reflex`); Quellenreport aktualisiert, dev TODO abgehakt.
 - Ziele/Risiken erweitert (Reha abschließen, Systemhandbuch v1.0, Wartungsschnittstelle D5↔C6); Signals-Beispiele dokumentiert.
 
-Canvas-Rettung Sprint 1 – Pahl Herkunfts-Abgleich (2025-11-02T15:50:00+01:00)
+Canvas-Rettung Sprint 1 - Pahl Herkunfts-Abgleich (2025-11-02T15:50:00+01:00)
 
 - FACT `[PAHL-RESCUE]` in `database-curated/staging/reports/resolved.md` aufgenommen: C6-Reaktorunfall, Rettung durch Ronja/Reflex, Transfer & Reha unter Jonas.
 - Canvas `Pahl.md`/`Pahl.json` angepasst (Herkunft, Dependency `c6`, Quellenblock), Memory-Bundle und Personenindex synchronisiert, Quellenreport `char-block-nord-sources.md` erweitert.
 - RAW-Flag-Hinweis belassen, aber kanonische Herkunft auf `[PAHL-RESCUE]` gestellt.
 
-Canvas-Rettung Sprint 1 – Reflex (2025-11-02T16:05:00+01:00)
+Canvas-Rettung Sprint 1 - Reflex (2025-11-02T16:05:00+01:00)
 
-- Charakter-Canvas `database-rp/02-characters/Reflex.md` auf Version 1.0 gehoben; Symbiose-Stufe I (Frequenzband 7.3–8.0 Hz), Detachment-/Stop-Regeln, Instanzleitung und Signalsätze aus RAW/Entity synchronisiert.
+- Charakter-Canvas `database-rp/02-characters/Reflex.md` auf Version 1.0 gehoben; Symbiose-Stufe I (Frequenzband 7.3-8.0 Hz), Detachment-/Stop-Regeln, Instanzleitung und Signalsätze aus RAW/Entity synchronisiert.
 - JSON-Sidecar aktualisiert (Tags `instanz`/`sicherheit`/`symbiose`, Dependencies auf Ronja/Lumen/Echo + Missionslog/Logistik); Quellenreport und Memory-Bundle auf neuen Kanonstand gebracht.
 - TODO-Checkpoint für Reflex abgeschlossen; `[REFLEX-*]`-FACTs mit Canvas verknüpft, Instanz-Training in `Reflex-Wissensstand-Trainingsstand.md` referenziert.
 
-Copilot – Moduswechsel/Erinnerungen/STOP‑Gate (2025-11-02T16:55:00+01:00)
+Copilot - Moduswechsel/Erinnerungen/STOP-Gate (2025-11-02T16:55:00+01:00)
 
-- `.github/copilot-instructions.md`: Abschnitt „Modell‑Profile & Moduswechsel (GPT‑5 ↔ GPT‑5 Codex)“ ergänzt; Erinnerung/Prompting‑Policy ohne 1×/Session‑Limit (Opt‑out: „Bitte nicht erinnern“); STOP‑Gate vor Code‑Aktionen mit expliziter Moduswahl.
-- `novapolis-dev/docs/copilot-behavior.md`: Spiegel der Regeln aufgenommen (Moduswechsel, Reminder, STOP‑Gate).
-- `WORKSPACE_STATUS.md`: „Aktueller Arbeitsmodus“ dokumentiert (Modus: General, Stop‑Gate: an, Erinnerungen: aktiv).
+- `.github/copilot-instructions.md`: Abschnitt „Modell-Profile & Moduswechsel (GPT-5 ↔ GPT-5 Codex)“ ergänzt; Erinnerung/Prompting-Policy ohne 1×/Session-Limit (Opt-out: „Bitte nicht erinnern“); STOP-Gate vor Code-Aktionen mit expliziter Moduswahl.
+- `novapolis-dev/docs/copilot-behavior.md`: Spiegel der Regeln aufgenommen (Moduswechsel, Reminder, STOP-Gate).
+- `WORKSPACE_STATUS.md`: „Aktueller Arbeitsmodus“ dokumentiert (Modus: General, Stop-Gate: an, Erinnerungen: aktiv).
 
 Validator-Tooling Docker-Pfadfix (2025-11-02T16:30:00+01:00)
 
@@ -205,20 +205,20 @@ Validator-Tooling Docker-Pfadfix (2025-11-02T16:30:00+01:00)
 - `validate-all.js` Exitcode- und Status-Logging überarbeitet; Status-Datei-Schreibpfad repariert.
 - `run_validate_all.ps1` erfolgreich im Container (`node:22-alpine`) ausgeführt, temporäre Artefakte (`node_modules`, `.last-run`) entfernt.
 
-Canvas-Rettung Sprint 1 – Ronja Kerschner (2025-11-01T17:12:00+01:00)
+Canvas-Rettung Sprint 1 - Ronja Kerschner (2025-11-01T17:12:00+01:00)
 
 - Charakter-Canvas `database-rp/02-characters/Ronja-Kerschner.md` auf Version 1.0 aktualisiert; Status-/Systemabschnitte aus RAW `char_ronja_v2` übernommen und Drift („Vallin“) gemäß `resolved.md #[NAME-RONJA]` dokumentiert.
 - JSON-Sidecar (`Ronja-Kerschner.json`) synchronisiert; Routine- und Systemverknüpfungen mit Review-Hinweis auf logistik-/inventar-v1 markiert.
 - TODO-Boards (`novapolis-dev/docs/todo.md`, Root `TODO.md`) aktualisiert; Aufgabe „Ronja Kerschner“ auf erledigt gesetzt.
 - Quellenhinweise erweitert (Canvas-Quellenblock + `char-block-nord-sources.md` Ronja-Abschnitt aktualisiert); Metadaten-Zeitstempel angepasst.
 
-Canvas-Rettung Sprint 1 – Echo Metadatenabgleich (2025-11-01T16:35:00+01:00)
+Canvas-Rettung Sprint 1 - Echo Metadatenabgleich (2025-11-01T16:35:00+01:00)
 
 - Canvas `database-rp/02-characters/Echo.md` um Front-Matter ergänzt (Titel, Version, Zugehörigkeit, Standort, Dependencies) und Markdown-Formatierung mit Leerzeichen/Abständen an Vorlagen angepasst.
 - JSON-Sidecar `database-rp/02-characters/Echo.json` auf dieselben Metafelder synchronisiert (last_updated, tags, affiliations, primary_location, dependencies).
 - Keine Inhaltsänderungen; Fokus auf formale Angleichung für Lint/Validator-Kompatibilität.
 
-Canvas-Rettung Sprint 1 – Liora Navesh (2025-11-01T16:25:00+01:00)
+Canvas-Rettung Sprint 1 - Liora Navesh (2025-11-01T16:25:00+01:00)
 
 - Charakter-Canvas `database-rp/02-characters/Liora-Navesh.md` + JSON-Sidecar erstellt; Arkologie-A1-Taxonomie und Validierungsintervall übernommen, Novapolis/D5 weiterhin als unbekannt markiert, SÜDFRAGMENT-Signale und A9-Protokolle hervorgehoben.
 - Quellenreport `char-block-nord-sources.md` aktualisiert; Flag-Hinweise (Secrecy, Taxonomie) als abgearbeitet vermerkt und Curated-Verweis ergänzt.
@@ -226,7 +226,7 @@ Canvas-Rettung Sprint 1 – Liora Navesh (2025-11-01T16:25:00+01:00)
 - Personenindex `database-rp/00-admin/person_index_np.md` um Liora ergänzt (Rolle, Zugehörigkeit Arkologie A1, Fokus auf SÜDFRAGMENT, keine Novapolis-Kenntnisse).
 - JSON-Sidecar verweist auf Canvas und Abhängigkeiten (`ai_behavior_index_v2`, `relationslog_arkologie_v1`, `ereignislog_weltgeschehen_v1`, `cluster_index_v1`).
 
-Canvas-Rettung Sprint 1 – Varek Solun (2025-11-01T15:55:00+01:00)
+Canvas-Rettung Sprint 1 - Varek Solun (2025-11-01T15:55:00+01:00)
 
 - Charakter-Canvas `database-rp/02-characters/Varek-Solun.md` + JSON-Sidecar erstellt; Standortcode H12 (Alias „Sektor_H3“) harmonisiert, Wissensstand gemäß FACT SECRECY auf Gerüchte begrenzt.
 - Quellen/Drift-Notizen in `char-block-nord-sources.md` aktualisiert; Flag-Hinweise (Novapolis-Außenwissen, Standortcodierung) als erledigt markiert.
@@ -236,7 +236,7 @@ Canvas-Rettung Sprint 1 – Varek Solun (2025-11-01T15:55:00+01:00)
 
 Canvas-Rettung Vorbereitungsrunde (2025-11-01T14:30:00+01:00)
 
-- Canvas-Rettungsplan in `database-curated/staging/reports/canvas-rescue-plan.md` ausgearbeitet (Prioritäten A–C, Workflow, Sprint-Checkpoints, Prüfpfade).
+- Canvas-Rettungsplan in `database-curated/staging/reports/canvas-rescue-plan.md` ausgearbeitet (Prioritäten A-C, Workflow, Sprint-Checkpoints, Prüfpfade).
 - Quellenaggregation `char-block-nord-sources.md` erstellt (RAW-Referenzen, Drift-Overrides für Ronja/Jonas, Flag-Hinweise gebündelt).
 - TODO-Board `novapolis-dev/docs/todo.md` auf Canvas-Rettung Sprint 1 fokussiert, Altbacklog in Archiv-Section überführt.
 - Hinweis gesetzt: Jede Canvas-Migration → JSON-Sidecar + DONELOG-Eintrag obligatorisch.
@@ -249,7 +249,7 @@ Root-Dokumentation (2025-11-01T00:00:00Z)
 Dev-Hub QA (2025-11-01)
 
 - Modul `novapolis-dev` vollständig geprüft: Primärdokumente, Meta-Sidecars und Platzhalterverzeichnisse vorhanden; keine offenen Drift-Punkte.
-- Rolle des Dev-Hubs bestätigt – Dokumentations-/Planungsdrehscheibe, Datenströme verbleiben in `novapolis-rp` (`database-raw`, `database-curated`, `database-rp`).
+- Rolle des Dev-Hubs bestätigt - Dokumentations-/Planungsdrehscheibe, Datenströme verbleiben in `novapolis-rp` (`database-raw`, `database-curated`, `database-rp`).
 
 Agent-Runtime entkoppelt (2025-10-31)
 
@@ -291,18 +291,18 @@ VS Code Launch-Konfigurationen (2025-10-28)
 Dokumentation/Tasks aktualisiert (2025-10-27T20:06:30+01:00)
 
 - `novapolis-dev/docs/index.md` (vormals Coding-Index): Abschnitt "Validierung & Tasks" ergänzt (Validatoren, Lint, Systemcheck); Verweise auf `tools/validators/` und Devcontainer; `last-updated` angepasst.
-- `novapolis-dev/docs/copilot-behavior.md` (vormals Coding-Copilot-Policy): Prozessregeln präzisiert – vor Push lokale Tasks ausführen (validate/data, lint/markdown, optional lint/names); Szenen‑Front‑Matter und Co‑Occurrence beachten.
-- `novapolis-dev/docs/todo.md` (vormals Coding-TODO): Status synchronisiert – Rückwärts‑Review bis part‑001 abgehakt; Day‑Switch‑Canvas abgehakt; QA‑Punkt zu Szenen‑Front‑Matter in "etabliert" (✓) und "Backfill" (offen) aufgeteilt; `last-updated` angepasst.
+- `novapolis-dev/docs/copilot-behavior.md` (vormals Coding-Copilot-Policy): Prozessregeln präzisiert - vor Push lokale Tasks ausführen (validate/data, lint/markdown, optional lint/names); Szenen-Front-Matter und Co-Occurrence beachten.
+- `novapolis-dev/docs/todo.md` (vormals Coding-TODO): Status synchronisiert - Rückwärts-Review bis part-001 abgehakt; Day-Switch-Canvas abgehakt; QA-Punkt zu Szenen-Front-Matter in "etabliert" (✓) und "Backfill" (offen) aufgeteilt; `last-updated` angepasst.
 
 Canvas-Verbesserungen (2025-10-27)
 Linter-Wrapper (2025-10-27T20:12:30+01:00)
 
-- `coding/tools/validators/run_check_names.ps1` hinzugefügt: stabiler Aufruf des Name-Linters ohne PowerShell `-Command`‑Quoting; nutzt Docker (falls vorhanden) oder Node/npm, sonst Exit 1 mit klarer Meldung.
-- `coding/tools/validators/README.md` ergänzt (Wrapper‑Hinweis); `novapolis-dev/docs/index.md` mit Fallback‑Befehl verlinkt.
+- `coding/tools/validators/run_check_names.ps1` hinzugefügt: stabiler Aufruf des Name-Linters ohne PowerShell `-Command`-Quoting; nutzt Docker (falls vorhanden) oder Node/npm, sonst Exit 1 mit klarer Meldung.
+- `coding/tools/validators/README.md` ergänzt (Wrapper-Hinweis); `novapolis-dev/docs/index.md` mit Fallback-Befehl verlinkt.
 
 PS1-Tasks ergänzt (2025-10-27T20:18:30+01:00)
 
-- `.vscode/tasks.json`: zusätzliche Tasks ohne Inline‑`-Command` aufgenommen:
+- `.vscode/tasks.json`: zusätzliche Tasks ohne Inline-`-Command` aufgenommen:
   - `lint:names (ps1)` → `run_check_names.ps1`
   - `validate:data (ps1)` → `run_validate_all.ps1`
   - `lint:markdown (ps1)` → `run_lint_markdown.ps1` (veraltet seit 2025-11-01; bitte Root-Task bzw. `npx` verwenden).
@@ -312,12 +312,12 @@ CI erweitert (2025-10-27T22:40:00+01:00)
 
 - `.github/workflows/validate.yml` aufgeteilt:
   - Linux-Job (Node 20) mit npm cache; führt Validatoren, Name-Check, Markdown-Lint aus.
-  - Windows-Job (PS1-Wrapper) – führt `run_validate_all.ps1`, `run_check_names.ps1`, `run_lint_markdown.ps1` aus, um PowerShell-Skripte in CI mitzuprüfen (Wrapper seit 2025-11-01 ohne Markdownlint-Einsatz).
+  - Windows-Job (PS1-Wrapper) - führt `run_validate_all.ps1`, `run_check_names.ps1`, `run_lint_markdown.ps1` aus, um PowerShell-Skripte in CI mitzuprüfen (Wrapper seit 2025-11-01 ohne Markdownlint-Einsatz).
 - Validator-Fixes:
-  - Ajv 2020‑12 für kuratiertes Manifest (`validate-curated.js`).
-  - Front‑Matter‑Validator (`validate-rp.js`): `last-updated` tolerant (String/Date), H1‑Allowlist für `00-admin/system-prompt.md`.
+  - Ajv 2020-12 für kuratiertes Manifest (`validate-curated.js`).
+  - Front-Matter-Validator (`validate-rp.js`): `last-updated` tolerant (String/Date), H1-Allowlist für `00-admin/system-prompt.md`.
 
-Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) – veraltet seit 2025-11-01
+Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) - veraltet seit 2025-11-01
 
 - `coding/tools/validators/run_lint_markdown.ps1`: Fallbacks ergänzt (veraltet seit 2025-11-01)
   - absolute `node.exe` Erkennung; direkter Aufruf von `npx-cli.js` via `node.exe` (unabhängig von PATH)
@@ -327,28 +327,28 @@ Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) – veraltet seit 2025-
 - `00-admin/Canvas-T+0-Timeline.md`: Marker-Raster (Beginn/Ereignisse/Ende) und Delta-Log ergänzt.
 - `00-admin/canon-canvas.draft.md`: Front-Matter (last-updated, status) hinzugefügt; Tippfehler "Akologie"→"Arkologie" korrigiert; Revision vermerkt.
 - `06-scenes/scene-2025-10-27-a.md`: Erste Szenen-Kachel mit Front-Matter (characters/locations/inventoryRefs) und Cross-Links angelegt; Timeline T+0 verlinkt.
-- RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T03-25-20-000Z.txt` (Quelle: Canvas; Entität Reflex – Wurzelgewebe D5 v1; TIMESTAMP: 2025-10-16_03:25).
+- RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T03-25-20-000Z.txt` (Quelle: Canvas; Entität Reflex - Wurzelgewebe D5 v1; TIMESTAMP: 2025-10-16_03:25).
 - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T03-25-20-000Z.flags.txt` (vorsichtig_behandeln; Grund: Regeln [REFLEX-*] abgleichen; „Entfernen möglich“ vs [REFLEX-DETACH] klären; Frequenzband/Terminologie synchronisieren).
 - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T03-25-10-000Z.txt` (Quelle: Canvas; Charakter Dr. Liora Navesh v1; TIMESTAMP: 2025-10-16_03:25).
-- Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T03-25-10-000Z.flags.txt` (vorsichtig_behandeln; Grund: [FR-KNOWLEDGE] wahren; H‑47/SÜDFRAGMENT gegen [EVENT-TIMELINE] prüfen; Arkologie_A1 Taxonomie mit Cluster/Relations harmonisieren).
+- Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T03-25-10-000Z.flags.txt` (vorsichtig_behandeln; Grund: [FR-KNOWLEDGE] wahren; H-47/SÜDFRAGMENT gegen [EVENT-TIMELINE] prüfen; Arkologie_A1 Taxonomie mit Cluster/Relations harmonisieren).
 - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T03-25-00-000Z.txt` (Quelle: Canvas; Charakter Varek Solun v1; TIMESTAMP: 2025-10-16_03:25).
-- Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T03-25-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: [FR-KNOWLEDGE] wahren; H‑47‑Routenstatus prüfen; Standort‑Taxonomie H12 vs „Sektor_H3“ harmonisieren vor Promotion).
+- Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T03-25-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: [FR-KNOWLEDGE] wahren; H-47-Routenstatus prüfen; Standort-Taxonomie H12 vs „Sektor_H3“ harmonisieren vor Promotion).
  - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T08-07-00-000Z.txt` (Quelle: Canvas; Relationslog Novapolis v1; TIMESTAMP: 2025-10-16_08:07).
- - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T08-07-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: Namens-/ID-Drift – System „novapolis_logistik_v1“ vs. Schema `logistik_novapolis_v*`; Händlerkontakt „Senn Daru“ unbekannt; gegen Händlergilde-Kanon prüfen/normalisieren).
+ - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T08-07-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: Namens-/ID-Drift - System „novapolis_logistik_v1“ vs. Schema `logistik_novapolis_v*`; Händlerkontakt „Senn Daru“ unbekannt; gegen Händlergilde-Kanon prüfen/normalisieren).
  - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T11-05-00-000Z.txt` (Quelle: Canvas; AI Behavior Index v2; TIMESTAMP: 2025-10-16_11:05).
- - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T11-05-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: Globales Matrix‑Canvas – Versionsabgleich mit [BEHAVIOR-VERSION] und `ai_psymatrix_index_v1`; Modifikatoren-/Code‑Format vereinheitlichen, Mappings dokumentieren).
+ - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T11-05-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: Globales Matrix-Canvas - Versionsabgleich mit [BEHAVIOR-VERSION] und `ai_psymatrix_index_v1`; Modifikatoren-/Code-Format vereinheitlichen, Mappings dokumentieren).
  - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T05-34-00-000Z.txt` (Quelle: Canvas; Ereignislog Weltgeschehen v1; TIMESTAMP: 2025-10-16_05:34).
- - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T05-34-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: Timeline/Namensabgleich – H‑47 Identität offen; "Allianz" gegen [SECRECY]/[FR-KNOWLEDGE] prüfen; mit Missionslog/Sim‑Woche synchronisieren).
+ - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T05-34-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: Timeline/Namensabgleich - H-47 Identität offen; "Allianz" gegen [SECRECY]/[FR-KNOWLEDGE] prüfen; mit Missionslog/Sim-Woche synchronisieren).
  - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt` (Quelle: Canvas; Logistik Novapolis v2; TIMESTAMP: 2025-10-16_13:05).
  - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: Konsistenzprüfung Link-Graph v2; Curation vormerken).
  - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T12-55-00-000Z.txt` (Quelle: Canvas; Logistik C6 v2; TIMESTAMP: 2025-10-16_12:55).
  - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T12-55-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: Verknüpfungen referenzieren `logistik_novapolis_v1` trotz v2; vor Promotion angleichen/begründen).
  - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T12-30-00-000Z.txt` (Quelle: Canvas; Inventar C6 v2; TIMESTAMP: 2025-10-16_12:30).
  - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T12-30-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: Systemverknüpfungen referenzieren `logistik_novapolis_v1`; v2-Set angleichen oder begründen).
- - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T12-00-00-000Z.txt` (Quelle: Canvas; Station D5 – Basis (legacy)); TIMESTAMP: 2025-10-16_12:00).
- - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T12-00-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: Legacy‑Snapshot; mit D5 v2.1/Kanon abgleichen, erst danach promoten).
+ - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T12-00-00-000Z.txt` (Quelle: Canvas; Station D5 - Basis (legacy)); TIMESTAMP: 2025-10-16_12:00).
+ - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T12-00-00-000Z.flags.txt` (vorsichtig_behandeln; Grund: Legacy-Snapshot; mit D5 v2.1/Kanon abgleichen, erst danach promoten).
  - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T14-12-00-000Z.txt` (Quelle: Canvas; Charakter Jonas v2; TIMESTAMP: 2025-10-16_14:12).
- - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T14-12-00-000Z.flags.txt` (vorsichtig_behandeln, korrupt; Grund: Konflikt mit Kanon [JONAS-SIS] – Schwester gilt als vermisst/unklar, nicht tot; bei Ingest normalisieren und Review-Hinweis setzen).
+ - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T14-12-00-000Z.flags.txt` (vorsichtig_behandeln, korrupt; Grund: Konflikt mit Kanon [JONAS-SIS] - Schwester gilt als vermisst/unklar, nicht tot; bei Ingest normalisieren und Review-Hinweis setzen).
  - RAW-Canvas abgelegt: `database-raw/99-exports/RAW-canvas-2025-10-16T14-56-20-000Z.txt` (Quelle: Canvas; Charakter Arlen Dross v2; TIMESTAMP: 2025-10-16_14:56).
  - Sidecar-Flag erstellt: `database-raw/99-exports/RAW-canvas-2025-10-16T14-56-20-000Z.flags.txt` (vorsichtig_behandeln; Grund: Führungs-/Titel-Overlap mit Kora/Marven, vor Promotion klären).
 
@@ -381,21 +381,21 @@ Done Log (Novapolis-RP)
   - Kanon-Canvas (Draft) vorbereitet: `database-rp/00-admin/canon-canvas.draft.md` (vorläufig, kein Wiedereinstiegspunkt)
 
 - ToDo aktualisiert: JSONL als optional/pausiert markiert; TXT-Normalisierung + 500er-Chunks (Index/Views) vermerkt; Review-Aufgabe „part-021 annotieren“ ergänzt (`novapolis-dev/docs/todo.md`).
- - Review erweitert: Abschnitt für `Chunk part-021 (global 10001–10500)` mit [FACT?]/[OPEN] hinzugefügt in `database-curated/staging/chat-export (1).review.md`.
+ - Review erweitert: Abschnitt für `Chunk part-021 (global 10001-10500)` mit [FACT?]/[OPEN] hinzugefügt in `database-curated/staging/chat-export (1).review.md`.
  - Unklarheiten mit Evidenz angereichert (Fraktionen, Layout/2t-Aufzug, Tunnel-Länge, Energie/Logistik-Verknüpfungen, Day-Switch, A/T/S/D, Draisine): `database-curated/staging/reports/uncertainties.md` aktualisiert.
- - Review weiter ergänzt: `Chunk part-020 (global 9501–10000)` ergänzt (Weekly‑Sim/Canvas‑Audit, Reflex‑Regeln, Anomalien) mit [FACT?]/[OPEN].
+ - Review weiter ergänzt: `Chunk part-020 (global 9501-10000)` ergänzt (Weekly-Sim/Canvas-Audit, Reflex-Regeln, Anomalien) mit [FACT?]/[OPEN].
  - Unklarheiten erweitert: `database-curated/staging/reports/uncertainties.md` → [CARAVAN-LEADERSHIP].
  - Report hinzugefügt: `database-curated/staging/reports/overlap-arlen-dross.md` (Overlap-Check, Vorschlag Titel-Entzerrung: Arlen als Händler/Vermittler).
 
 2025-10-27 (später)
-- Admin‑Canvas angelegt: `database-rp/00-admin/Canvas-T+0-Timeline.md` (Tagesanker, Sequenz, Debug‑Hinweise, Links)
-- Admin‑Canvas angelegt: `database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md` (Tageswechsel‑Prozedur, ATSD+Canvas‑Zahl, Logs, Testfälle)
-- Cross‑Links ergänzt: `database-rp/03-locations/C6.md` ↔ `database-rp/00-admin/C6-Logistik-Policy.md`; Index‑Link in `00-admin/Logistik.md` ergänzt
-- Missionslog aktualisiert: Abschnitt „Prozess L.1 – Missionsfluss“ mit Verweis zur C6‑Logistik‑Policy hinzugefügt
- - AI‑Behavior‑Mapping angelegt: `database-rp/00-admin/AI-Behavior-Mapping.md` (Zustände/Trigger/Interaktionen: Reflex + Hooks Ronja/Jonas; Links zu Charakter‑Canvas)
- - last-updated ergänzt: `novapolis-dev/docs/index.md`, `novapolis-dev/docs/todo.md` (ISO‑8601 mit Zeitzone)
- - Karawanen‑Canvas angelegt: `database-rp/05-projects/caravan_moves.md` (Zeitplan, Routen, Risiken, Abhängigkeiten, Links)
- - Fraktionsinventar‑Gerüste erstellt (Policy Y.1):
+- Admin-Canvas angelegt: `database-rp/00-admin/Canvas-T+0-Timeline.md` (Tagesanker, Sequenz, Debug-Hinweise, Links)
+- Admin-Canvas angelegt: `database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md` (Tageswechsel-Prozedur, ATSD+Canvas-Zahl, Logs, Testfälle)
+- Cross-Links ergänzt: `database-rp/03-locations/C6.md` ↔ `database-rp/00-admin/C6-Logistik-Policy.md`; Index-Link in `00-admin/Logistik.md` ergänzt
+- Missionslog aktualisiert: Abschnitt „Prozess L.1 - Missionsfluss“ mit Verweis zur C6-Logistik-Policy hinzugefügt
+ - AI-Behavior-Mapping angelegt: `database-rp/00-admin/AI-Behavior-Mapping.md` (Zustände/Trigger/Interaktionen: Reflex + Hooks Ronja/Jonas; Links zu Charakter-Canvas)
+ - last-updated ergänzt: `novapolis-dev/docs/index.md`, `novapolis-dev/docs/todo.md` (ISO-8601 mit Zeitzone)
+ - Karawanen-Canvas angelegt: `database-rp/05-projects/caravan_moves.md` (Zeitplan, Routen, Risiken, Abhängigkeiten, Links)
+ - Fraktionsinventar-Gerüste erstellt (Policy Y.1):
   - `database-rp/04-inventory/Novapolis-inventar.md`
   - `database-rp/04-inventory/Arkologie-inventar.md`
   - `database-rp/04-inventory/Schienenbund-inventar.md`
@@ -403,24 +403,24 @@ Done Log (Novapolis-RP)
   - `database-rp/04-inventory/Haendlerbund-inventar.md`
   - `database-rp/04-inventory/Freie-Gruppen-inventar.md`
  - Personen aktualisiert (2025-10-27T16:58:26+01:00):
-  - `database-rp/00-admin/person_index_np.md` – Einträge für Lyra Hest (Stellv. Leitung Zivil/Logistik) und Senn Daru (Händler/Vermittler) ergänzt; last-updated gesetzt.
+  - `database-rp/00-admin/person_index_np.md` - Einträge für Lyra Hest (Stellv. Leitung Zivil/Logistik) und Senn Daru (Händler/Vermittler) ergänzt; last-updated gesetzt.
   - `database-rp/02-characters/Lyra-Hest.md` neu angelegt (Rolle, Zugehörigkeit, Stärken, Notizen, Verlinkungen).
  - Korrektur (2025-10-27T17:02:55+01:00):
-  - `database-rp/00-admin/person_index_np.md` – Jonas Merek Zugehörigkeit von C6 → D5 angepasst; Link auf D5 gesetzt; last-updated aktualisiert.
+  - `database-rp/00-admin/person_index_np.md` - Jonas Merek Zugehörigkeit von C6 → D5 angepasst; Link auf D5 gesetzt; last-updated aktualisiert.
 
 - Personen/Canvas aktualisiert (2025-10-27T17:11:18+01:00):
-  - `database-rp/02-characters/Ronja-Kerschner.md` – Canvas umfassend ergänzt (Rollen, Zugehörigkeit/Standort, Wissensstand, Safety, Ziele, Beziehungen, Links); last-updated gesetzt; Cross-Links zu AI-Behavior-Mapping/Missionslog hinzugefügt. Grundlage: `database-curated/staging/reports/uncertainties.md` ([REFLEX-*], [FR-KNOWLEDGE], [JEALOUSY-GLOVES], [REFLEX-DETACH], [ROLES]).
+  - `database-rp/02-characters/Ronja-Kerschner.md` - Canvas umfassend ergänzt (Rollen, Zugehörigkeit/Standort, Wissensstand, Safety, Ziele, Beziehungen, Links); last-updated gesetzt; Cross-Links zu AI-Behavior-Mapping/Missionslog hinzugefügt. Grundlage: `database-curated/staging/reports/uncertainties.md` ([REFLEX-*], [FR-KNOWLEDGE], [JEALOUSY-GLOVES], [REFLEX-DETACH], [ROLES]).
 
 - Behavior/Emotionen präzisiert (2025-10-27T17:32:08+01:00):
 
-- `database-rp/02-characters/Ronja-Kerschner.md` – Consent-Zeile geschärft (Angst→Schutz-Umhüllung möglich; „Stop“=sofort lösen; Rückfrage bei Unklarheit), last-updated aktualisiert.
-  - `database-rp/00-admin/AI-Behavior-Mapping.md` – Leitplanke „Affekt-Gewichtung“ ergänzt (Kind-/Gefühlslogik ohne Regelbruch: Stop priorisiert, Training→Rückfrage).
-  - `database-rp/02-characters/Reflex.md` – Abschnitt „Emotionale Dynamik (kanonisch)“ hinzugefügt (Beschützertrieb, Verlustangst/Eifersucht, Affekt-Gewichtung, Heuristik statt Regelwissen). Quellen: kuratierte Beschlüsse ([PROXIMITY], [JEALOUSY-GLOVES], [REFLEX-CONTROL]) + RAW-Chat-Passagen (Besitzergreifend/Schutz/Umhüllung, Exo-Idee, Instanz-Überwachung C6).
+- `database-rp/02-characters/Ronja-Kerschner.md` - Consent-Zeile geschärft (Angst→Schutz-Umhüllung möglich; „Stop“=sofort lösen; Rückfrage bei Unklarheit), last-updated aktualisiert.
+  - `database-rp/00-admin/AI-Behavior-Mapping.md` - Leitplanke „Affekt-Gewichtung“ ergänzt (Kind-/Gefühlslogik ohne Regelbruch: Stop priorisiert, Training→Rückfrage).
+  - `database-rp/02-characters/Reflex.md` - Abschnitt „Emotionale Dynamik (kanonisch)“ hinzugefügt (Beschützertrieb, Verlustangst/Eifersucht, Affekt-Gewichtung, Heuristik statt Regelwissen). Quellen: kuratierte Beschlüsse ([PROXIMITY], [JEALOUSY-GLOVES], [REFLEX-CONTROL]) + RAW-Chat-Passagen (Besitzergreifend/Schutz/Umhüllung, Exo-Idee, Instanz-Überwachung C6).
 
 Behavior/Safety Klarstellungen (2025-10-27T17:55:04+01:00)
-- `database-rp/02-characters/Ronja-Kerschner.md`: Consent-Gate erweitert um „Überreaktionen kurz/reversibel; danach Rückfrage/Regulation; Sprache priorisiert (außer unmittelbare Gefahr)“; kleiner „Signals“-Block (Request/Stop) ergänzt. RAW-Evidenz: Chat ~251 (Dämpfung testen), ~413 (Stufe I/Neopren), ~847 (gewünschte Kontrolle), ~3619–3624 (Coverage/Stop), ~3252 (Handschutz), ~2094/2428 (Instanz/Ort).
-- `database-rp/02-characters/Reflex.md`: Fähigkeit „temporäre sensorische Reduktion (kurz; revert-on-stop)“ ergänzt; Abschnitt „Risiken/Leitplanken (Stufe I)“ mit Overreach-Flag (Hände/Gesicht) + Mitigation/Duration. RAW-Evidenz: Chat ~346/351 (Verlustangst/Verweigerung Lösen), ~3619–3624 (Kontrollüberhang/Stop), ~3252 (Hand/Face), Canvas: ent_d5_reflex_v1 (Stufe I, keine Penetration), char_reflex_v2 (Impulsdämpfung, autonome Reaktion).
-- `database-rp/00-admin/AI-Behavior-Mapping.md`: Mikro-Protokolle ergänzt – EPP (Trigger/Aktion/Guardrails/Training-Hook) und „Jealousy-Gloves“ (Face-Coverage nur mit Consent, außer unmittelbare Gefahr). RAW-Evidenz wie oben; Canvas-Verweise: Reflex v2, ent_d5_reflex_v1.
+- `database-rp/02-characters/Ronja-Kerschner.md`: Consent-Gate erweitert um „Überreaktionen kurz/reversibel; danach Rückfrage/Regulation; Sprache priorisiert (außer unmittelbare Gefahr)“; kleiner „Signals“-Block (Request/Stop) ergänzt. RAW-Evidenz: Chat ~251 (Dämpfung testen), ~413 (Stufe I/Neopren), ~847 (gewünschte Kontrolle), ~3619-3624 (Coverage/Stop), ~3252 (Handschutz), ~2094/2428 (Instanz/Ort).
+- `database-rp/02-characters/Reflex.md`: Fähigkeit „temporäre sensorische Reduktion (kurz; revert-on-stop)“ ergänzt; Abschnitt „Risiken/Leitplanken (Stufe I)“ mit Overreach-Flag (Hände/Gesicht) + Mitigation/Duration. RAW-Evidenz: Chat ~346/351 (Verlustangst/Verweigerung Lösen), ~3619-3624 (Kontrollüberhang/Stop), ~3252 (Hand/Face), Canvas: ent_d5_reflex_v1 (Stufe I, keine Penetration), char_reflex_v2 (Impulsdämpfung, autonome Reaktion).
+- `database-rp/00-admin/AI-Behavior-Mapping.md`: Mikro-Protokolle ergänzt - EPP (Trigger/Aktion/Guardrails/Training-Hook) und „Jealousy-Gloves“ (Face-Coverage nur mit Consent, außer unmittelbare Gefahr). RAW-Evidenz wie oben; Canvas-Verweise: Reflex v2, ent_d5_reflex_v1.
 
 Repo-Sync (2025-10-27T18:10:05+01:00)
 - Commit `ffdbf61` gepusht: „chore: Admin/Location/Inventory-Updates + neue Canvases“.
@@ -447,15 +447,15 @@ Devcontainer & Lint-Task (2025-10-27)
  - VS Code Task hinzugefügt: `.vscode/tasks.json` → "lint:markdown (docker)" führt `markdownlint-cli2` in einem Node-Docker-Container aus (ohne lokale Node-Installation).
   Hinweis: `.vscode/tasks.json` ist per `.gitignore` (team-Policy) nicht versioniert; lokal nutzbar. Für geteilte Nutzung alternativ Devcontainer öffnen.
 
-VS Code Settings – automatische Freigaben (2025-10-27)
+VS Code Settings - automatische Freigaben (2025-10-27)
 - Workspace-Einstellungen ergänzt (`.vscode/settings.json`):
-  - `task.allowAutomaticTasks: "on"` – automatische Tasks erlauben
-  - `security.workspace.trust.untrustedFiles: "open"`, `security.workspace.trust.enabled: true` – weniger Blocker bei unbekannten Dateien (nur in vertrauenswürdigen Repos nutzen)
-  - `remote.autoForwardPorts: true`, `remote.autoForwardPortsSource: "hybrid"` – Auto-Portforwarding (Remote/Container)
-  - `extensions.autoCheckUpdates: true`, `extensions.autoUpdate: true` – Extension-Updates automatisch prüfen/installieren
+  - `task.allowAutomaticTasks: "on"` - automatische Tasks erlauben
+  - `security.workspace.trust.untrustedFiles: "open"`, `security.workspace.trust.enabled: true` - weniger Blocker bei unbekannten Dateien (nur in vertrauenswürdigen Repos nutzen)
+  - `remote.autoForwardPorts: true`, `remote.autoForwardPortsSource: "hybrid"` - Auto-Portforwarding (Remote/Container)
+  - `extensions.autoCheckUpdates: true`, `extensions.autoUpdate: true` - Extension-Updates automatisch prüfen/installieren
 
 Systemcheck-Task (2025-10-27)
-- Werkzeug ergänzt: `coding/tools/diagnostics/systemcheck.ps1` – prüft Firmware-Virtualisierung, Windows-Features (VirtualMachinePlatform, WSL), WSL-Default-Version/Status sowie Docker-CLI. Ausgabe mit PASS/WARN/FAIL-Hinweisen; nur Diagnose, Exitcode 0.
+- Werkzeug ergänzt: `coding/tools/diagnostics/systemcheck.ps1` - prüft Firmware-Virtualisierung, Windows-Features (VirtualMachinePlatform, WSL), WSL-Default-Version/Status sowie Docker-CLI. Ausgabe mit PASS/WARN/FAIL-Hinweisen; nur Diagnose, Exitcode 0.
 - VS Code Task hinzugefügt: `.vscode/tasks.json` → "system:check (windows)" (führt das Skript via PowerShell mit `-ExecutionPolicy Bypass` aus).
 - Follow-up notiert: Root-Artefakt `.devcontainer/devcontainer.json` ist wieder vorhanden; Entfernung in separatem Cleanup-Commit.
 
@@ -472,7 +472,7 @@ Benennung vereinheitlichen (2025-10-27)
 - Name-Linter hinzugefügt: `coding/tools/validators/src/check-names.js` (Scope: `database-rp/**`).
 - CI erweitert: Name-Check als zusätzlicher Step in `.github/workflows/validate.yml` (Dry-Run, bricht bei Verstößen ab).
 - VS Code Task: `lint:names (auto)` zum lokalen Dry-Run (Docker bevorzugt; alternativ Node/npm).
- - Dry-Run ausgeführt: 0 Verstöße in `database-rp/**` – keine Umbenennungen erforderlich.
+ - Dry-Run ausgeführt: 0 Verstöße in `database-rp/**` - keine Umbenennungen erforderlich.
 
 Co-Occurrence-Regel (2025-10-27)
 - Validator erweitert: `coding/tools/validators/src/check-crossrefs.js` prüft jetzt Bezugspaare in Szenen:
@@ -486,15 +486,15 @@ Co-Occurrence-Regel (2025-10-27)
 Charakter-Canvas vereinheitlicht (2025-10-27)
 - Vorlage: `database-rp/02-characters/Ronja-Kerschner.md` als Strukturvorbild (Meta/Rollen/Zugehörigkeit/Wissensstand/Safety/Ziele/Beziehungen/Links)
 - Überarbeitet:
-  - `database-rp/02-characters/Jonas-Merek.md` – Struktur nach Vorlage; Inhalte/Platzhalter ergänzt
-  - `database-rp/02-characters/Lumen.md` – Instanz-spezifische Struktur (Kopplung an Jonas)
-  - `database-rp/02-characters/Kora-Malenkov.md` – Leitung C6, Kopplung Echo
-  - `database-rp/02-characters/Echo.md` – Instanz-spezifische Struktur (Kopplung an Kora)
-  - `database-rp/02-characters/Reflex.md` – Zugehörigkeit/Ziele/Beziehungen/Links ergänzt
-  - `database-rp/02-characters/Lyra-Hest.md` – Sektionen/Platzhalter ergänzt
-  - `database-rp/02-characters/Senn-Daru.md` – Sektionen/Platzhalter ergänzt
+  - `database-rp/02-characters/Jonas-Merek.md` - Struktur nach Vorlage; Inhalte/Platzhalter ergänzt
+  - `database-rp/02-characters/Lumen.md` - Instanz-spezifische Struktur (Kopplung an Jonas)
+  - `database-rp/02-characters/Kora-Malenkov.md` - Leitung C6, Kopplung Echo
+  - `database-rp/02-characters/Echo.md` - Instanz-spezifische Struktur (Kopplung an Kora)
+  - `database-rp/02-characters/Reflex.md` - Zugehörigkeit/Ziele/Beziehungen/Links ergänzt
+  - `database-rp/02-characters/Lyra-Hest.md` - Sektionen/Platzhalter ergänzt
+  - `database-rp/02-characters/Senn-Daru.md` - Sektionen/Platzhalter ergänzt
 
-Reflex – Guards & Wissens-/Trainings-Canvases (2025-10-28)
+Reflex - Guards & Wissens-/Trainings-Canvases (2025-10-28)
   - `02-characters/Reflex.md`: Meta aktualisiert; Guards unter Kokon/Overreach ergänzt (Lebensgefahr + dynamisches Ausmaß/Dauer; weitere Aspekte werden erlernt).
   - Wissens-/Trainings-Status ausgelagert:
     - `02-characters/Reflex-Wissensstand-Trainingsstand.md`
@@ -510,26 +510,26 @@ YAML-Front-Matter Schema & Validator (2025-10-28T18:30:00+01:00)
 - Enricher erweitert: YAML-Front-Matter zwischen `---` wird gelesen; JSON-Schema vereinheitlicht (`title/category/slug/version/last_updated/last_change/tags/affiliations/locations/dependencies[/characters]/source`). Legacy-Felder (`chapter`, singulares `location`) werden migriert/entfernt.
 - Validator hinzugefügt: `coding/tools/metadata/validate_frontmatter.py` (Pflichtfelder, Kategorie-Spezifika, Slug-Format, ISO-Zeit, Referenzen per Slug). Task: `.vscode/tasks.json` → `gpt:validate:frontmatter`.
 
-Tagging-Pipeline (YAML-getrieben) – erster Lauf (2025-10-28T09:59:20Z)
+Tagging-Pipeline (YAML-getrieben) - erster Lauf (2025-10-28T09:59:20Z)
 
 - Neues Tool: `coding/tools/curation/tag_chunks_from_yaml.py` (lexicon aus Front-Matter; Aliase; line-level Tags [CHAR|LOC|PROJ|ENT], [TIME], [FACT?]; Streaming; Windows-Pfad-safe; optional PyYAML Fallback).
-- Ausführung (dry-run): Range 019–016 – Summaries geprüft; Aliase/Slugs validiert; Dateinamensschema `*.part-XYZ.txt` automatisch erkannt.
+- Ausführung (dry-run): Range 019-016 - Summaries geprüft; Aliase/Slugs validiert; Dateinamensschema `*.part-XYZ.txt` automatisch erkannt.
 - Ausführung (write): Ergebnisse unter `database-curated/reviewed/chat-export (1)/` erzeugt:
   - `part-019.tagged.txt`, `part-018.tagged.txt`, `part-017.tagged.txt`, `part-016.tagged.txt`
   - `index_review.json` (per-File Lines/Chars/Tag-Counts/Top-Slugs)
   - `unresolved.json` (Dependencies: echo, reflex-wissensstand-trainingsstand; alias collisions: none)
   - `lexicon.json` (by_slug + aliases Dump)
   - Warnings: `reports/tagging-20251028T095920Z.log` (LOC-only-Hinweise; non-blocking)
-- Nächste Schritte: ggf. Alias-Ergänzungen, dann Ranges 015–010 und 009–001 taggen.
+- Nächste Schritte: ggf. Alias-Ergänzungen, dann Ranges 015-010 und 009-001 taggen.
 
-Tagging-Pipeline – Heuristiken erweitert + Re-Run 019–016 (2025-10-28T11:10:05Z)
+Tagging-Pipeline - Heuristiken erweitert + Re-Run 019-016 (2025-10-28T11:10:05Z)
 
 - Ergänzt: N7→c6-nord Kanonisierung (metro-kontextsensitiv, ±3 Zeilen Fenster; Redirects/Deprecated im Lexikon).
 - Ergänzt: [NOTE] für Meta-Zeilen (Warnungen für LOC-only unterdrückt), [EVENT] konservativ, [MISSION] Kategorie (C6-Nord, versiegelt/gesperrt/Untersuchung im ±3-Zeilen-Fenster).
 - Ergänzt: Sektor-Codes (E3/F1/…) als Fallback-Orte, Titel-Alias-Erweiterung (Vor-/Nachname), Co-Occurrence-Vorschläge (Report-only).
 - Retag-Modus: `--retag-in`/`--retag-out` (nur a/b/c Regeln; idempotent).
-- Ausführung: 019–016 neu getaggt; `index_review.json`, `unresolved.json`, `lexicon.json` aktualisiert. Logs: `reports/tagging-20251028T111005Z.log` inkl. "Canonicalized N7→c6-nord total: 1".
-- Folgearbeiten: Alias-Kollision "C6" (c6 vs c6-nord) entscheiden; fehlende Entities (`Echo`, `Reflex-Wissensstand-Trainingsstand`) anlegen/umbiegen; nächste Ranges 015–010, 009–001.
+- Ausführung: 019-016 neu getaggt; `index_review.json`, `unresolved.json`, `lexicon.json` aktualisiert. Logs: `reports/tagging-20251028T111005Z.log` inkl. "Canonicalized N7→c6-nord total: 1".
+- Folgearbeiten: Alias-Kollision "C6" (c6 vs c6-nord) entscheiden; fehlende Entities (`Echo`, `Reflex-Wissensstand-Trainingsstand`) anlegen/umbiegen; nächste Ranges 015-010, 009-001.
 
 Sim-Visualisierung angebunden (2025-10-29T15:50:00Z)
 2025-11-12 01:38 | Copilot | DONELOG-Sync (Dev-Hub): Frontmatter aktualisiert; zentraler Vorbereitungseintrag vor Repo-weitem Prüfskript (damals PowerShell, inzwischen `python scripts/run_checks_and_report.py`).
@@ -544,4 +544,6 @@ Todos: offen=n/a, BeispielFix=Baseline dokumentiert, ReRun=nach Style/Type-Fixes
 - `novapolis_agent`: FastAPI-Miniserver `app/api/sim.py` ergänzt (`GET /world/state`, `POST /world/step`), Task/Launch für Uvicorn, pytest-Abdeckung (`tests/tests_sim_api.py`).
 - `novapolis-sim`: Godot-4-Mini-Client (Autoload `SimClient`, Szene `Main.tscn`) pollt die API und zeigt Tick/Zeit inkl. Status bei Offline-Agent.
 - `novapolis-rp`: README-Abschnitt „Visualisierung“ ergänzt; Donelog/TODO synchronisiert.
+
+
 

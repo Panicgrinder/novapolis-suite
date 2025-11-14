@@ -160,7 +160,7 @@ if __name__ == "__main__":
         "--near-dup-threshold",
         type=float,
         default=0.0,
-        help="Optional: [0.0–1.0] Token-Jaccard-Schwelle für Near-Dedupe (z. B. 0.8)",
+        help="Optional: [0.0-1.0] Token-Jaccard-Schwelle für Near-Dedupe (z. B. 0.8)",
     )
     args = p.parse_args()
 
@@ -177,3 +177,4 @@ if __name__ == "__main__":
         print("Train:", res["train"], "Val:", res["val"], "Counts:", res["counts"])
     else:
         print("Fehler:", res.get("error"))
+

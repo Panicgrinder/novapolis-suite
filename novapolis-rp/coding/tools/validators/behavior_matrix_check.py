@@ -7,14 +7,16 @@ import argparse
 import json
 import re
 import sys
+from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Tuple
 
 ANCHOR_LINE_RE = re.compile(r"^\|\s*([A-Z0-9]+)\s*\|")
 SEGMENT_RE = re.compile(r"^[A-Z][0-9]{2}$")
 MODIFIER_RE = re.compile(r"^[a-z]+$")
-SIGNATURE_CAPTURE_RE = re.compile(r"([A-Z0-9]+)\s*=\s*([A-Z][0-9]{2}(?:-[A-Z][0-9]{2})*(?:-[a-z]+)?)")
+SIGNATURE_CAPTURE_RE = re.compile(
+    r"([A-Z0-9]+)\s*=\s*([A-Z][0-9]{2}(?:-[A-Z][0-9]{2})*(?:-[a-z]+)?)"
+)
 ALLOWED_CLUSTERS = {"O", "E", "M", "N", "C", "S", "L", "T", "P"}
 DRIFT_THRESHOLD = 5
 
@@ -33,9 +35,9 @@ def find_repo_root() -> Path:
     return Path(__file__).resolve().parents[4]
 
 
-def extract_anchor_table(md_text: str) -> List[AnchorRecord]:
+def extract_anchor_table(md_text: str) -> list[AnchorRecord]:
     lines = md_text.splitlines()
-    entries: List[AnchorRecord] = []
+    entries: list[AnchorRecord] = []
     in_table = False
     for line in lines:
         if not in_table:
@@ -55,8 +57,8 @@ def extract_anchor_table(md_text: str) -> List[AnchorRecord]:
     return entries
 
 
-def validate_signature(record: AnchorRecord) -> List[str]:
-    errors: List[str] = []
+def validate_signature(record: AnchorRecord) -> list[str]:
+    errors: list[str] = []
     signature = record.signature
     anchor = record.anchor
     if not anchor:
@@ -65,19 +67,21 @@ def validate_signature(record: AnchorRecord) -> List[str]:
     if not ANCHOR_LINE_RE.match(f"| {anchor} |"):
         errors.append(f"Anchor '{anchor}' verwendet unerwartetes Format")
     if signature.lower() in {"n/a", "unbestimmt", "tbd", "pending"}:
-        errors.append(f"Anchor '{anchor}' hat keine kuratierte Signatur (gefunden: '{record.raw_signature}')")
+        errors.append(
+            f"Anchor '{anchor}' hat keine kuratierte Signatur (gefunden: '{record.raw_signature}')"
+        )
         return errors
     parts = signature.split("-")
     if not parts:
         errors.append(f"Anchor '{anchor}' besitzt eine leere Signatur")
         return errors
-    modifiers: Optional[str] = None
+    modifiers: str | None = None
     if parts and parts[-1].islower():
         modifiers = parts.pop()
         if not MODIFIER_RE.match(modifiers):
             errors.append(f"Anchor '{anchor}' nutzt unbekannte Modifikatoren '{modifiers}'")
     seen_clusters = set()
-    for idx, part in enumerate(parts):
+    for _idx, part in enumerate(parts):
         if not SEGMENT_RE.match(part):
             errors.append(f"Anchor '{anchor}' enthält ungültigen Segmentcode '{part}'")
             continue
@@ -95,11 +99,11 @@ def validate_signature(record: AnchorRecord) -> List[str]:
     return errors
 
 
-def parse_signature_map(signature: str) -> Dict[str, int]:
+def parse_signature_map(signature: str) -> dict[str, int]:
     parts = signature.split("-")
     if parts and parts[-1].islower():
         parts = parts[:-1]
-    cluster_map: Dict[str, int] = {}
+    cluster_map: dict[str, int] = {}
     for part in parts:
         if not SEGMENT_RE.match(part):
             continue
@@ -107,7 +111,7 @@ def parse_signature_map(signature: str) -> Dict[str, int]:
     return cluster_map
 
 
-def locate_source_path(repo_root: Path, source_cell: str) -> Optional[Path]:
+def locate_source_path(repo_root: Path, source_cell: str) -> Path | None:
     match = re.search(r"(database-[^\s)]+\.md)", source_cell)
     if not match:
         return None
@@ -118,12 +122,16 @@ def locate_source_path(repo_root: Path, source_cell: str) -> Optional[Path]:
     return candidate if candidate.exists() else None
 
 
-def extract_from_json(node) -> Dict[str, str]:
-    matches: Dict[str, str] = {}
+def extract_from_json(node) -> dict[str, str]:
+    matches: dict[str, str] = {}
     if isinstance(node, dict):
         anchor = node.get("anchor")
         signature = node.get("signature")
-        if isinstance(anchor, str) and isinstance(signature, str) and SIGNATURE_CAPTURE_RE.match(f"{anchor}={signature}"):
+        if (
+            isinstance(anchor, str)
+            and isinstance(signature, str)
+            and SIGNATURE_CAPTURE_RE.match(f"{anchor}={signature}")
+        ):
             matches[anchor] = signature
         for value in node.values():
             matches.update(extract_from_json(value))
@@ -133,15 +141,15 @@ def extract_from_json(node) -> Dict[str, str]:
     return matches
 
 
-def load_psymatrix_signatures(repo_root: Path) -> Tuple[Dict[str, str], List[str]]:
+def load_psymatrix_signatures(repo_root: Path) -> tuple[dict[str, str], list[str]]:
     exports_dir = repo_root / "novapolis-rp" / "database-raw" / "99-exports"
     if not exports_dir.exists():
         return {}, []
     candidates = sorted(exports_dir.glob("*ai_psymatrix_index_v1*"))
-    hints: List[str] = []
+    hints: list[str] = []
     if not candidates:
         return {}, []
-    signatures: Dict[str, str] = {}
+    signatures: dict[str, str] = {}
     for path in candidates:
         text = path.read_text(encoding="utf-8")
         parsed = False
@@ -159,13 +167,17 @@ def load_psymatrix_signatures(repo_root: Path) -> Tuple[Dict[str, str], List[str
                 signatures.update(matches)
                 parsed = True
         if not parsed:
-            hints.append(f"Psymatrix-Datei konnte nicht interpretiert werden: {path.relative_to(repo_root)}")
+            hints.append(
+                f"Psymatrix-Datei konnte nicht interpretiert werden: {path.relative_to(repo_root)}"
+            )
     return signatures, hints
 
 
-def compare_with_psymatrix(anchors: List[AnchorRecord], psymatrix: Dict[str, str]) -> Tuple[List[str], List[str]]:
-    errors: List[str] = []
-    warnings: List[str] = []
+def compare_with_psymatrix(
+    anchors: list[AnchorRecord], psymatrix: dict[str, str]
+) -> tuple[list[str], list[str]]:
+    errors: list[str] = []
+    warnings: list[str] = []
     if not psymatrix:
         return errors, warnings
 
@@ -187,7 +199,9 @@ def compare_with_psymatrix(anchors: List[AnchorRecord], psymatrix: Dict[str, str
             ref_value = anchor_map.get(cluster)
             ps_value = ps_map.get(cluster)
             if ref_value is None:
-                errors.append(f"Anchor '{anchor_code}': Cluster '{cluster}' fehlt im Register (Psymatrix {ps_value:02d})")
+                errors.append(
+                    f"Anchor '{anchor_code}': Cluster '{cluster}' fehlt im Register (Psymatrix {ps_value:02d})"
+                )
                 continue
             if ps_value is None:
                 errors.append(f"Anchor '{anchor_code}': Cluster '{cluster}' fehlt in der Psymatrix")
@@ -200,13 +214,21 @@ def compare_with_psymatrix(anchors: List[AnchorRecord], psymatrix: Dict[str, str
     return errors, warnings
 
 
-def main(argv: Optional[Iterable[str]] = None) -> int:
-    parser = argparse.ArgumentParser(description="Prüft das Anchor-Register der AI-Behavior-Mapping-Datei.")
-    parser.add_argument("--json", action="store_true", help="Reserviert für zukünftige JSON-Ausgabe (derzeit ohne Funktion).")
-    args = parser.parse_args(list(argv) if argv is not None else None)
+def main(argv: Iterable[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Prüft das Anchor-Register der AI-Behavior-Mapping-Datei."
+    )
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Reserviert für zukünftige JSON-Ausgabe (derzeit ohne Funktion).",
+    )
+    parser.parse_args(list(argv) if argv is not None else None)
 
     repo_root = find_repo_root()
-    mapping_file = repo_root / "novapolis-rp" / "database-rp" / "00-admin" / "AI-Behavior-Mapping.md"
+    mapping_file = (
+        repo_root / "novapolis-rp" / "database-rp" / "00-admin" / "AI-Behavior-Mapping.md"
+    )
     if not mapping_file.exists():
         print(f"behavior_matrix_check: Datei nicht gefunden: {mapping_file}", file=sys.stderr)
         return 1
@@ -217,8 +239,8 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
         print("behavior_matrix_check: Keine Anchor-Daten gefunden.", file=sys.stderr)
         return 1
 
-    errors: List[str] = []
-    warnings: List[str] = []
+    errors: list[str] = []
+    warnings: list[str] = []
 
     seen_codes = set()
     for record in anchors:
@@ -237,7 +259,9 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
         errors.extend(cmp_errors)
         warnings.extend(cmp_warnings)
     else:
-        print("Hinweis: ai_psymatrix_index_v1 nicht gefunden oder ohne erkennbare Signaturen – Abgleich übersprungen.")
+        print(
+            "Hinweis: ai_psymatrix_index_v1 nicht gefunden oder ohne erkennbare Signaturen - Abgleich übersprungen."
+        )
 
     if errors:
         print("behavior_matrix_check: FEHLER")
@@ -257,3 +281,4 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

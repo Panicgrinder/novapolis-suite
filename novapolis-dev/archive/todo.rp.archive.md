@@ -4,7 +4,7 @@ update: H1/H2 auf Setext umgestellt; Timestamp aktualisiert.
 checks: markdownlint-cli2 PASS
 ---
 
-TODO-Archiv – RP
+TODO-Archiv - RP
 ================
 
 Zweck: Kanonisierte, vollständig abgeschlossene TODO-Abschnitte aus RP-bezogenen TODOs (primär `novapolis-rp/**`) aufnehmen.
@@ -27,7 +27,7 @@ Ablage
 
 <!-- Hier unterhalb neue, vollständig erledigte und kanonisierte Blöcke einfügen (neu zuerst). -->
 
-Priorität A – Charaktere & Führung
+Priorität A - Charaktere & Führung
 ----------------------------------
 
 archived_at: 2025-11-01 19:10
@@ -39,6 +39,7 @@ archived_at: 2025-11-01 19:10
 - [x] Arlen Dross → neues Canvas; Rolle als Händler/Vermittler präzisieren; Reflex-Einschätzung aufnehmen. *(2025-11-02T15:05+01:00 erledigt)*
 - [x] Pahl → neues Canvas; Gesundheitsstatus (Atembeschwerden) verifizieren; Beziehungen/Risiken dokumentieren. *(2025-11-02T15:25+01:00 erledigt)*
 - [x] Ronja Kerschner → Canvas `database-rp/02-characters/Ronja-Kerschner.{md,json}` auf Version 1.0 gehoben (2025-11-01T17:10+01:00); RAW-Signatur/Status übernommen, Drift "Vallin" dokumentiert.
-- [x] Reflex (Primärinstanz) → Canvas + Wissensstand erweitern; Frequenzband 7.3–8.0 Hz und Detachment-Regeln aus RAW übernehmen; `[REFLEX-*]` prüfen. *(2025-11-02T16:05+01:00 erledigt)*
+- [x] Reflex (Primärinstanz) → Canvas + Wissensstand erweitern; Frequenzband 7.3-8.0 Hz und Detachment-Regeln aus RAW übernehmen; `[REFLEX-*]` prüfen. *(2025-11-02T16:05+01:00 erledigt)*
 - [x] Jonas Merek → Canvas anreichern; Schwester-Status auf "vermisst/unklar" normalisieren; Schuldflag als Kommentar kennzeichnen. *(2025-11-02T13:55+01:00 erledigt)*
+
 

@@ -18,36 +18,43 @@ Options:
   --root PATH  Root directory to scan (default: cwd)
 """
 from __future__ import annotations
+
 import argparse
 import json
 import os
 from pathlib import Path
 
 SKIP_DIRS = {
-    'node_modules', '.git', '.venv', '.vscode', '.idea', '.DS_Store',
-    'database-raw/99-exports'
+    "node_modules",
+    ".git",
+    ".venv",
+    ".vscode",
+    ".idea",
+    ".DS_Store",
+    "database-raw/99-exports",
 }
 
+
 def parse_args():
-    p = argparse.ArgumentParser(description='Generate JSON metadata next to Markdown files.')
-    p.add_argument('--dry-run', action='store_true')
-    p.add_argument('--overwrite', action='store_true')
-    p.add_argument('--root', type=str, default=os.getcwd())
+    p = argparse.ArgumentParser(description="Generate JSON metadata next to Markdown files.")
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--overwrite", action="store_true")
+    p.add_argument("--root", type=str, default=os.getcwd())
     return p.parse_args()
 
 
 def should_skip_dir(root: Path, d: Path) -> bool:
-    rel = d.relative_to(root).as_posix() if d != root else ''
+    rel = d.relative_to(root).as_posix() if d != root else ""
     if not rel:
         return False
     for skip in SKIP_DIRS:
-        if rel == skip or rel.startswith(skip + '/'):
+        if rel == skip or rel.startswith(skip + "/"):
             return True
     return False
 
 
 def md_to_json_path(md_path: Path) -> Path:
-    return md_path.with_suffix('.json')
+    return md_path.with_suffix(".json")
 
 
 def main():
@@ -67,7 +74,7 @@ def main():
         dirnames[:] = [d for d in dirnames if not should_skip_dir(root, dpath / d)]
 
         for fname in filenames:
-            if not fname.lower().endswith('.md'):
+            if not fname.lower().endswith(".md"):
                 continue
             md_path = dpath / fname
             json_path = md_to_json_path(md_path)
@@ -81,12 +88,12 @@ def main():
                     "characters": [],
                     "location": "",
                     "tags": [],
-                    "source": md_path.relative_to(root).as_posix()
+                    "source": md_path.relative_to(root).as_posix(),
                 }
                 if args.dry_run:
                     print(f"DRY: would write {json_path}")
                     continue
-                json_path.write_text(json.dumps(scaffold, indent=2) + "\n", encoding='utf-8')
+                json_path.write_text(json.dumps(scaffold, indent=2) + "\n", encoding="utf-8")
                 written += 1
             except Exception as e:
                 errors += 1
@@ -96,5 +103,5 @@ def main():
     return 1 if errors else 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     raise SystemExit(main())

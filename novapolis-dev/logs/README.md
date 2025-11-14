@@ -22,7 +22,7 @@ Inhalt
 
 1. YAML-Frontmatter mit `stand`, `aufgabe`, `modus`, `checks`, optional `drift`.
 2. Abschnitt "Expected State" gemäß Vorlage.
-3. Pakete à 3–5 Operationen mit Zeitstempel, Aktionen, IST/SOLL-Abgleich, Driftbewertung, Folgeschritte.
+3. Pakete à 3-5 Operationen mit Zeitstempel, Aktionen, IST/SOLL-Abgleich, Driftbewertung, Folgeschritte.
 4. Abschlussblock "Auswertung" mit Befund, getesteten Checks, offenen Risiken.
 
 Rotation (lokal)
@@ -36,4 +36,5 @@ Vorlage
 -------
 
 Siehe `log-template.md` in diesem Ordner. Kopiere die Datei und passe Inhalte an.
+
 

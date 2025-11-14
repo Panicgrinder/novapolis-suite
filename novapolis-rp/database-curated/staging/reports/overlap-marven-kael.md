@@ -16,7 +16,7 @@ Quellen
 
 Kurzbefund
 - Keine bestehenden Vorkommen von „Marven“ oder „Kael“ außerhalb des neuen RAW-Canvas gefunden.
-- Marven-CANVAS setzt Rolle „Karawanenführer/Handelskoordinator“ (Fraktion: Händlergilde), Ort: C6 (HQ Karawane) – deckt sich mit der C6-Politik (Händlerstützpunkt in C6) und Chat-Hinweisen.
+- Marven-CANVAS setzt Rolle „Karawanenführer/Handelskoordinator“ (Fraktion: Händlergilde), Ort: C6 (HQ Karawane) - deckt sich mit der C6-Politik (Händlerstützpunkt in C6) und Chat-Hinweisen.
 - Potenzielle Überschneidung mit Kora-CANVAS: Kora ist „Karawanenführerin/Logistikkoordinatorin“. Es entsteht eine Doppelspitze „Karawanenführer/in“ (Logistik vs Handel).
 
 Bewertung
@@ -36,3 +36,4 @@ Empfohlene Maßnahmen
 Offene Punkte
 - Bestätigung der Doppelspitze vs. eindeutige Primärleitung.
 - Abgleich mit „MERCHANT-HQ“-Policy (C6 öffentlich vs. Novapolis-Kernsektor).
+

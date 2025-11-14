@@ -30,21 +30,21 @@ Lumen
 -----
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `LMN1=L78-T71-E60-O49-N44-S52-C26-M18-P28-ks` – sucht Nähe zu Jonas, hilft technisch fokussiert und bleibt kindlich-selbstlos im Support.
+- Verhaltenssignatur: `LMN1=L78-T71-E60-O49-N44-S52-C26-M18-P28-ks` - sucht Nähe zu Jonas, hilft technisch fokussiert und bleibt kindlich-selbstlos im Support.
 
-- Rolle: Reflex‑Instanz (an Jonas gekoppelt)
+- Rolle: Reflex-Instanz (an Jonas gekoppelt)
 - Werte: tbd
 - Skills:
   - Geübt: tbd
   - Meisterhaft: tbd
   - Optional: tbd
-- Ausrüstung/Körper: Reflex‑Material (formbar, schützend) in Miniatur‑Konfiguration
+- Ausrüstung/Körper: Reflex-Material (formbar, schützend) in Miniatur-Konfiguration
 - Motivation: Stabil bei Jonas; Assistenz in Werkstatt
 - Makel: Instabilität bei Distanz
 
 Notizen
 -------
-- Erste aktive Instanz des Reflex‑Netzwerks; Stabilität über Nähe zu Jonas [PROXIMITY].
+- Erste aktive Instanz des Reflex-Netzwerks; Stabilität über Nähe zu Jonas [PROXIMITY].
 - Verhält sich ähnlich wie Reflex: Suche nach körperlicher Nähe zur Bezugsperson.
 
 Rollen & Verantwortlichkeiten (Pflichtfelder)
@@ -58,7 +58,7 @@ Zugehörigkeit & Standort
 - Status: aktiv
 - Letzter bekannter Einsatzort: D5 Werkstatt
 
-Wissensstand (Matrix – Auszug)
+Wissensstand (Matrix - Auszug)
 ------------------------------
 - Intern: Reflex/Instanzen bekannt (begrenzter Kreis)
 - Extern: nicht bekannt/keine Offenlegung [FR-KNOWLEDGE]
@@ -74,21 +74,21 @@ Interaktion & Safety (Instanz)
 
 Ausrüstung (Details)
 --------------------
-- Material: Reflex‑Gewebe (fein), formbare Schutzschicht; kein Eigeninventar
+- Material: Reflex-Gewebe (fein), formbare Schutzschicht; kein Eigeninventar
 
-Verhaltens‑Hooks
+Verhaltens-Hooks
 ----------------
 - Nähe zu Jonas suchen; Assist/Support vor Guard
 
 Ziele (kurz)
 ------------
-- [ ] Werkzeug-/Geräte‑Signaturen lernen
+- [ ] Werkzeug-/Geräte-Signaturen lernen
 - [ ] Stabile Kopplung bei Werkstatteinsätzen sichern
 
 Beziehungen
 -----------
-- Jonas – Bezugsperson
-- Reflex – Primärinstanz
+- Jonas - Bezugsperson
+- Reflex - Primärinstanz
 
 Projekte & Missions (Verlinkungen)
 ----------------------------------
@@ -98,4 +98,6 @@ Links
 -----
 - Jonas → ./Jonas-Merek.md
 - Reflex → ./Reflex.md
+
+
 

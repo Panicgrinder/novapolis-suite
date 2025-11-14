@@ -33,7 +33,7 @@ Liora Navesh
 ============
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `LNR1=O82-T76-N68-S58-L52-M47-E34-C21-P55-r` – analytisch-strukturiert, sucht abgesicherte Erkenntniswege und handelt streng rational.
+- Verhaltenssignatur: `LNR1=O82-T76-N68-S58-L52-M47-E34-C21-P55-r` - analytisch-strukturiert, sucht abgesicherte Erkenntniswege und handelt streng rational.
 - Rolle: Leiterin Forschungsrat / Chefärztin Biotechnologie der Arkologie A1 (Quelle: FACT ARKO-RESEARCH)
 - Werte: Kraft 2 · Geschick 3 · Geist 5 · Wille 4 · Charisma 4
 - Skills:
@@ -47,9 +47,9 @@ Liora Navesh
 Rollen & Verantwortlichkeiten (Pflichtfelder)
 ---------------------------------------------
 
-- Forschungsrat – steuert biotechnologische Programme der Arkologie A1
-- Medizinische Leitung – legt MedTech-Protokolle (A9) fest, überwacht Sicherheitsfreigaben
-- Anomalie-Analyse – bewertet SÜDFRAGMENT-Signale, koordiniert Gegenmaßnahmen bei biologischen Auffälligkeiten
+- Forschungsrat - steuert biotechnologische Programme der Arkologie A1
+- Medizinische Leitung - legt MedTech-Protokolle (A9) fest, überwacht Sicherheitsfreigaben
+- Anomalie-Analyse - bewertet SÜDFRAGMENT-Signale, koordiniert Gegenmaßnahmen bei biologischen Auffälligkeiten
 
 Zugehörigkeit & Standort
 ------------------------
@@ -58,12 +58,12 @@ Zugehörigkeit & Standort
 - Standort: Arkologie A1, Kuppel Nordost (Primärarbeitsplatz)
 - Status: aktiv; Validierungsintervall 7 In-Game-Tage (Systemstatus „gelb“)
 
-Wissensstand (Matrix – Auszug)
+Wissensstand (Matrix - Auszug)
 ------------------------------
 
 - Intern (Arkologie): Vollzugriff auf Forschungs- und MedTech-Protokolle, kennt H-47-Funkstillstand und anomale Süd-Signale (SÜDFRAGMENT) laut Ereignislog
 - Extern (Metro):
-  - Novapolis/D5: keine bestätigten Informationen – nur Funkstille der H-47-Karawane, keine Koordinaten oder Kontakte (Quelle: FACT SECRECY)
+  - Novapolis/D5: keine bestätigten Informationen - nur Funkstille der H-47-Karawane, keine Koordinaten oder Kontakte (Quelle: FACT SECRECY)
   - Händlergilde: beschränkter Austausch über geprüfte Lieferketten
   - Eisenkonklave: Konkurrenz um Ressourcen/Sicherheitszonen, diplomatisch angespannt
 
@@ -84,25 +84,25 @@ Fähigkeiten & Methodik
 Diplomatie & Beziehungen
 ------------------------
 
-- Arkologie A1 – volle Loyalität; wissenschaftliche Prioritäten dominieren Entscheidungen
-- Händlergilde – pragmatischer Austausch unter Sicherheitsauflagen
-- Eisenkonklave – Wettbewerb um anomale Ressourcen; Kooperation nur unter strenger Kontrolle
-- Novapolis – unbekannt; alle Meldungen verlangen externe Validierung
+- Arkologie A1 - volle Loyalität; wissenschaftliche Prioritäten dominieren Entscheidungen
+- Händlergilde - pragmatischer Austausch unter Sicherheitsauflagen
+- Eisenkonklave - Wettbewerb um anomale Ressourcen; Kooperation nur unter strenger Kontrolle
+- Novapolis - unbekannt; alle Meldungen verlangen externe Validierung
 
 Risiken & Schutzmaßnahmen
 -------------------------
 
 - Diplomatiewiderstand durch harte Sicherheitsauflagen
 - Potenzielle Fehleinschätzungen bei Anomalie-Signalen ohne Feldzugang
-- Ethische Spannungen bei utilitaristischen Entscheidungen – Gegenmaßnahme: Ethikboard konsultieren
+- Ethische Spannungen bei utilitaristischen Entscheidungen - Gegenmaßnahme: Ethikboard konsultieren
 
 Systemverknüpfungen & Referenzen
 --------------------------------
 
-- `ai_behavior_index_v2` – Cluster-/Modifikatorprofil für Arkologie-Akteure
-- `relationslog_arkologie_v1` – Kontakte, Spannungen und Handelskanäle
-- `ereignislog_weltgeschehen_v1` – Verknüpfung für SÜDFRAGMENT/TIMELINE-Abgleich
-- `cluster_index_v1` – Standortcodierung „Arkologie_A1“ (Alias gepflegt)
+- `ai_behavior_index_v2` - Cluster-/Modifikatorprofil für Arkologie-Akteure
+- `relationslog_arkologie_v1` - Kontakte, Spannungen und Handelskanäle
+- `ereignislog_weltgeschehen_v1` - Verknüpfung für SÜDFRAGMENT/TIMELINE-Abgleich
+- `cluster_index_v1` - Standortcodierung „Arkologie_A1“ (Alias gepflegt)
 
 Ziele (kurz)
 ------------
@@ -124,4 +124,5 @@ Quellen & Verweise
 - Flag: `RAW-canvas-2025-10-16T03-25-10-000Z.flags.txt`
 - Beschlüsse: FACT ARKO-RESEARCH, FACT ARKO-TAXONOMY, FACT SECRECY (`database-curated/staging/reports/resolved.md`)
 - Drift-Notizen konsolidiert in `database-curated/staging/reports/char-block-nord-sources.md`
+
 

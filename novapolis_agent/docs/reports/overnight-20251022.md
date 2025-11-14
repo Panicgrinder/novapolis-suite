@@ -4,13 +4,13 @@ update: Markdownlint geprüft (Setext-Stil bestätigt)
 checks: markdownlint-cli2 (single file) PASS
 ---
 
-Overnight Evaluation (Teilrun – 50 Einträge)
+Overnight Evaluation (Teilrun - 50 Einträge)
 ===========================================
 
 - Tag: overnight-20251022
 - Modus: ASGI (in-process)
 - Ergebnisse: eval/results/results_20251022_0042_overnight-20251022.jsonl
-- Zeit: 2025-10-22 00:42–00:48
+- Zeit: 2025-10-22 00:42-00:48
 
 Zusammenfassung
 --------------
@@ -37,4 +37,5 @@ Hinweise
 - Vollständiger Overnight-Run kann mit höherem Limit oder ohne `--limit` erfolgen.
 
 Letzte Aktualisierung: 2025-10-22
+
 

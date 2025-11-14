@@ -27,7 +27,7 @@ Was hättest du erwartet?
 Screenshots/Logs
 ----------------
 
-Optional Screenshots oder relevante Log‑Ausschnitte.
+Optional Screenshots oder relevante Log-Ausschnitte.
 
 Umfeld
 ------
@@ -39,4 +39,5 @@ Zusätzliche Infos
 -----------------
 
 Weitere Hinweise, Workarounds, Links.
+
 

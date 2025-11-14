@@ -8,7 +8,7 @@ Bereinigte Aufgabenliste (Root)
 
 Hinweis: Temporärer, kuratierter Auszug für operative Arbeit (Copilot/GPT). SSOT bleibt `todo.root.md`. Abweichungen → STOP.
 
-Hoch priorisiert (0–2 Tage)
+Hoch priorisiert (0-2 Tage)
 --------------------------
 
   - Ziel: `pytest -q` PASS, `pyright` PASS, `mypy` PASS, Coverage ≥80% mit Receipt.
@@ -31,7 +31,7 @@ Hoch priorisiert (0–2 Tage)
   - [x] Entscheidungsliste: Welche Kern-READMEs verschlankt werden (PR-Plan)
   - [x] Hub-README erweitert (TL;DR, Links, Beispiele, Governance-Querverweise)
 
-- [ ] Link-Scanner (`scripts/scan_links.ps1`) – Nacharbeiten
+- [ ] Link-Scanner (`scripts/scan_links.ps1`) - Nacharbeiten
   - [x] AutoFix + Backups implementiert; defekte Links 10 → 3 reduziert (Reports unter `.tmp-results/reports/scan_links_reports/`)
   - [x] Report-Verzeichnis umbenannt → `.tmp-results/reports/scan_links_reports`
   - [x] Backup-Pfad zentralisiert → `.tmp-datasets/lscan_links_backups`
@@ -41,16 +41,16 @@ Hoch priorisiert (0–2 Tage)
   - [x] Automatisches Schreiben der Kandidaten-JSON im Dry-Run (Implementierung)
   - [x] Report-Summary in Hub unter "Temporäre Bereiche" verlinken (nach Automation)
 
-- [ ] Checks-Wrapper (`python scripts/run_checks_and_report.py`) – Review/Nachzug
+- [ ] Checks-Wrapper (`python scripts/run_checks_and_report.py`) - Review/Nachzug
   - [ ] Kurzreview der neuen PSScriptAnalyzer-Phase (Installationspfad, Exit-Codes, Receipt-Felder)
   - [ ] Einbindung in „Checks: full“ Dokumentation (README/Status)
   - [ ] Einmaliger Gesamtlauf inkl. Receipt unter `.tmp-results/reports/checks_report_*.md`
 
-Kurzfristig (3–7 Tage)
+Kurzfristig (3-7 Tage)
 ----------------------
 
 - [ ] RP: Export `99-exports/chat-export-complete.txt` konsolidieren (Scope/Schema definieren)
-- [ ] RP: Tagging-Pipeline 015–010 von Dry-Run auf Write heben (STOP vor Write)
+- [ ] RP: Tagging-Pipeline 015-010 von Dry-Run auf Write heben (STOP vor Write)
 - [ ] Dev/RP: Staging-Reports migrieren oder Frontmatter/Setext nachziehen (einen Task führen; Doppelungen vermeiden)
 - [ ] Dev: `README.md.bak` behandeln (verschieben nach `Backups/` oder löschen)
 - [ ] Dev: Abschnitt „Editor-Setup“ im Root-`README.md`
@@ -65,12 +65,12 @@ Sofort-Themen (READMEs/Links/Index)
   - Nächster Schritt: Scanner erweitern (Auto-Ausgabe JSON bei Dry-Run)
 - [x] Doppelte/parallel existierende Index-Dateien entfernt (`novapolis_agent/WORKSPACE_INDEX.md`, Backup `.bak.linkscan`)
 
-Lokale AI – Startpfad (organisch)
+Lokale AI - Startpfad (organisch)
 ---------------------------------
 
 - [ ] Schattenmodus-Logging mit Redaction aktivieren (operativ)
-- [ ] 10–20 Kern-Dokumente indexieren (RAG-Minimum)
-- [ ] Wöchentlichen Review-Slot (30–45 min) einplanen
+- [ ] 10-20 Kern-Dokumente indexieren (RAG-Minimum)
+- [ ] Wöchentlichen Review-Slot (30-45 min) einplanen
 
 Hinweise
 --------
@@ -80,3 +80,4 @@ Hinweise
 - 2025-11-10 20:17: WORKSPACE_INDEX Header-Duplikate und SimClient Variable gefixt (Commit 5922521). `run_pytest_quick.ps1` PASS.
 - Wrapper-Aufgaben: `python scripts/run_checks_and_report.py` (Lint/Typen/Tests + Report) finalisieren; Link-Scanner `scripts/scan_links.ps1` implementieren und Reports unter `.tmp-results/scan/` ablegen.
   - Hub-README: Erweiterung abgeschlossen (01:12); nächste Phase Index/Redirect-Strategie.
+

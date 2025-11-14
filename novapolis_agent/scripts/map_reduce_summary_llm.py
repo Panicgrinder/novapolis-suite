@@ -128,7 +128,7 @@ def build_summary_prompt(rel_path: str, content: str) -> list[dict[str, str]]:
     user = (
         f"Erstelle eine kompakte Zusammenfassung dieser Datei: {rel_path}\n\n"
         "Formatvorgabe:\n"
-        "- Zweck & Kontext (1–2 Sätze)\n"
+        "- Zweck & Kontext (1-2 Sätze)\n"
         "- Wichtige Klassen/Funktionen oder Abschnitte\n"
         "- Konfiguration/Parameter\n"
         "- Risiken/Edge-Cases\n"
@@ -356,7 +356,7 @@ async def amain(argv: list[str] | None = None) -> int:
                 else f"summary_{timestamp}_{scope}_heuristic.md"
             ),
         )
-        title = f"Workspace Zusammenfassung – {scope} ({'LLM' if use_llm else 'Heuristik'})"
+        title = f"Workspace Zusammenfassung - {scope} ({'LLM' if use_llm else 'Heuristik'})"
         write_md(out_path, title, [("Dateien", summaries)])
         produced.append(out_path)
         merged_sections.append(
@@ -365,7 +365,7 @@ async def amain(argv: list[str] | None = None) -> int:
 
     if produced:
         merged_path = os.path.join(args.out_dir, f"summary_ALL_{timestamp}_MIXED.md")
-        write_md(merged_path, "Workspace Zusammenfassung – Gesamt (LLM+Heuristik)", merged_sections)
+        write_md(merged_path, "Workspace Zusammenfassung - Gesamt (LLM+Heuristik)", merged_sections)
         print(
             json.dumps(
                 {
@@ -392,3 +392,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

@@ -1,3 +1,3 @@
 """Kompatibilitätsschicht für app.api.models."""
 
-from app.api.models import *  # noqa: F401,F403
+from app.api.models import *  # noqa: F403

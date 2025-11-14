@@ -23,13 +23,13 @@ Charaktere
 ### Ronja Kerschner
 - Rolle: Technikerin (36)
 - Werte: K2 G4 Ge5 W5 Ch4
-- Skills: Geübt – Überzeugen, Botanik, Ingenieurwesen, Elektronik. Meisterhaft – IT/Programmierung, Organisation & Planung. Optionaler Ausgleich: Improvisieren.
+- Skills: Geübt - Überzeugen, Botanik, Ingenieurwesen, Elektronik. Meisterhaft - IT/Programmierung, Organisation & Planung. Optionaler Ausgleich: Improvisieren.
 - Ausrüstung: Gasmaske, Werkzeugkit, Reflex-Suit (wie Neopren unter Kleidung).
 - Motivation: geordneter, heller, lebendiger Ort. Makel: Sinnzweifel („wozu das?“).
 
 ### Reflex (Primär)
 - Herkunft: emergent aus Ronjas Stabilisierung des D5-Reaktors; kein Fremdkörper.
-- Natur: Wurzel-/Netzkollektiv, Symbiose-Stufe I (perlmuttfarbene Zweithaut, Resonanz 7.3–8.0 Hz), Instanzen/Fragmente möglich (Lumen, Echo).
+- Natur: Wurzel-/Netzkollektiv, Symbiose-Stufe I (perlmuttfarbene Zweithaut, Resonanz 7.3-8.0 Hz), Instanzen/Fragmente möglich (Lumen, Echo).
 - Grenzen: keine vollständige Trennung (FACT? [REFLEX-DETACH]); Entfernung >12 h erzeugt Stress. „Stop“ von Ronja soll Freigabe auslösen, Training läuft noch (FACT? [REFLEX-CONTROL]). Handschuhe/äußere Kontakte nur mit Freigabe, Regelwerk Prüfung offen (FACT? [JEALOUSY-GLOVES]).
 - Kommunikation: Tympanon-Andockung, Pausenpflicht (FACT? [REFLEX-SPEECH]); Support-Modus verliert Bonus bei Überlastung, Bedarf für Bestätigung offen (FACT? [REFLEX]).
 
@@ -47,11 +47,11 @@ Charaktere
 
 Orte
 ----
-- D5 – Hauptbasis; Kontrollraum restauriert; bewohnt.
-- C6 – Teilaktiv; Reaktor stabilisiert; Überwachungssplitter; 20 Evakuierte aus E3 + 4 Karawanenmitglieder integriert.
-- E3 – Station evakuiert, Energiezufuhr getrennt, Anomalie „E3-Gefahr“ (Monitoring passiv), Wiederinbetriebnahme offen.
-- Tunnel D5–C6 – beschädigt; Kartierung & Wiederaufbau als Projekt „Nordlinie 01“.
-- Verbindungstunnel C6–E3 – begehbar, C6-seitig gesichert; E3-Ende verriegelt.
+- D5 - Hauptbasis; Kontrollraum restauriert; bewohnt.
+- C6 - Teilaktiv; Reaktor stabilisiert; Überwachungssplitter; 20 Evakuierte aus E3 + 4 Karawanenmitglieder integriert.
+- E3 - Station evakuiert, Energiezufuhr getrennt, Anomalie „E3-Gefahr“ (Monitoring passiv), Wiederinbetriebnahme offen.
+- Tunnel D5-C6 - beschädigt; Kartierung & Wiederaufbau als Projekt „Nordlinie 01“.
+- Verbindungstunnel C6-E3 - begehbar, C6-seitig gesichert; E3-Ende verriegelt.
 
 Inventar / Ressourcen
 ---------------------
@@ -61,8 +61,8 @@ Inventar / Ressourcen
 
 Projekte
 --------
-- Nordlinie 01 – Verbindungstunnel instandsetzen; Materialliste, Abschnitte, Blocker.
-- E3-Restaurierungsplanung – Warnmeldungen analysieren, Sensorik/Anomalie klären, Reaktivierungsbedingungen definieren.
+- Nordlinie 01 - Verbindungstunnel instandsetzen; Materialliste, Abschnitte, Blocker.
+- E3-Restaurierungsplanung - Warnmeldungen analysieren, Sensorik/Anomalie klären, Reaktivierungsbedingungen definieren.
 
 Timeline (sehr knapp)
 ---------------------
@@ -87,3 +87,4 @@ Aktuelle Szene (Startzustand)
 - Ort: D5, Morgen nach C6-Operation. Pahl wird versorgt (Jonas), Ronja plant Vorräte + Exo-Arbeit.
 - Nächste Schritte: Status-Ping C6, Material-Run oder Laborphase.
 - Risiko: Fraktionsaufmerksamkeit, Tunnelgefahren, Ressourcenknappheit.
+

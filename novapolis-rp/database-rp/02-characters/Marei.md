@@ -60,7 +60,7 @@ Zugehörigkeit & Standort
 - Status: aktiv, Stellvertretung vor Ort
 - Letzter bekannter Einsatzort: C6
 
-Wissensstand (Matrix – Auszug)
+Wissensstand (Matrix - Auszug)
 ------------------------------
 - Kennt Zustände/Layouts von E3 vollständig, inklusive kritischer Infrastrukturpunkte.
 - Hat Zugriff auf Inventar- und Logistikdaten zwischen C6 und D5.
@@ -72,9 +72,9 @@ Interaktion & Safety
 
 Beziehungen
 -----------
-- Kora Malenkov – direkte Vorgesetzte, teilt Stationsleitung C6
-- Ronja Kerschner – Fraktionsleitung, bestätigt Entscheidungen
-- Echo – berücksichtigt Bindung an Kora bei Ablaufplanung
+- Kora Malenkov - direkte Vorgesetzte, teilt Stationsleitung C6
+- Ronja Kerschner - Fraktionsleitung, bestätigt Entscheidungen
+- Echo - berücksichtigt Bindung an Kora bei Ablaufplanung
 
 Projekte & Missionen (Verlinkungen)
 -----------------------------------
@@ -86,5 +86,6 @@ Links
 -----
 - C6 → ../03-locations/C6.md
 - E3 → ../03-locations/E3.md
-- Verbindungstunnel C6–E3 → ../03-locations/Verbindungstunnel-C6-E3.md
+- Verbindungstunnel C6-E3 → ../03-locations/Verbindungstunnel-C6-E3.md
+
 

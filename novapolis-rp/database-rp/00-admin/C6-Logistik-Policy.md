@@ -6,7 +6,7 @@ status: v0.1 (Entwurf, aktiv)
 category: Admin
 ---
 
-C6 – Logistik-Policy (Novapolis)
+C6 - Logistik-Policy (Novapolis)
 ================================
 
 Bezug: [MERCHANT-HQ] S.3 in `database-curated/staging/reports/uncertainties.md`
@@ -74,4 +74,6 @@ Verlinkungen
 
 Änderungen/Versionierung
 ------------------------
-- Änderungen per 3‑Schritt‑Prozess; kleine Commits; Verweise auf IDs (S.3, L.1, Y.1, U.2, H.1)
+- Änderungen per 3-Schritt-Prozess; kleine Commits; Verweise auf IDs (S.3, L.1, Y.1, U.2, H.1)
+
+

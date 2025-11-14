@@ -2,7 +2,7 @@ import json as _json
 import logging
 import time
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, Optional, cast
+from typing import TYPE_CHECKING, Any, cast
 
 import httpx
 from fastapi import HTTPException, status
@@ -93,7 +93,7 @@ async def stream_chat_request(
 
             rag_path = str(getattr(settings, "RAG_INDEX_PATH", "eval/results/rag/index.json"))
             try:
-                idx: Optional["_TfIdfIndex"] = load_index(rag_path)
+                idx: _TfIdfIndex | None = load_index(rag_path)
                 user_texts = [m.get("content", "") for m in messages if m.get("role") == "user"]
                 query = user_texts[-1] if user_texts else ""
                 if query and idx is not None:
@@ -124,9 +124,9 @@ async def stream_chat_request(
         opts0: dict[str, Any] = {}
         if isinstance(opts_any0, Mapping):
             opts0 = dict(cast(Mapping[str, Any], opts_any0))
-        elif hasattr(opts_any0, "model_dump") and callable(getattr(opts_any0, "model_dump")):
+        elif hasattr(opts_any0, "model_dump") and callable(opts_any0.model_dump):
             try:
-                opts0 = dict(getattr(opts_any0, "model_dump")())
+                opts0 = dict(opts_any0.model_dump())
             except Exception:
                 opts0 = {}
         sid_opt = opts0.get("session_id")
@@ -198,9 +198,9 @@ async def stream_chat_request(
     raw_opts: dict[str, Any]
     if isinstance(raw_any, Mapping):
         raw_opts = dict(cast(Mapping[str, Any], raw_any))
-    elif hasattr(raw_any, "model_dump") and callable(getattr(raw_any, "model_dump")):
+    elif hasattr(raw_any, "model_dump") and callable(raw_any.model_dump):
         try:
-            raw_opts = dict(getattr(raw_any, "model_dump")())
+            raw_opts = dict(raw_any.model_dump())
         except Exception:
             raw_opts = {}
     else:
@@ -405,7 +405,7 @@ async def stream_chat_request(
                 )
             else:
                 logger.exception("Streaming-Fehler: %s", exc)
-            yield f"event: error\ndata: {str(exc)}\n\n"
+            yield f"event: error\ndata: {exc!s}\n\n"
             try:
                 if session_id and getattr(settings, "MEMORY_ENABLED", True):
                     store = get_memory_store()
@@ -503,7 +503,7 @@ async def process_chat_request(
 
                 rag_path = str(getattr(settings, "RAG_INDEX_PATH", "eval/results/rag/index.json"))
                 try:
-                    idx: Optional["_TfIdfIndex"] = load_index(rag_path)
+                    idx: _TfIdfIndex | None = load_index(rag_path)
                     user_texts2 = [
                         m.get("content", "") for m in messages if m.get("role") == "user"
                     ]
@@ -541,9 +541,9 @@ async def process_chat_request(
                     opts0 = dict(cast(Mapping[str, Any], opts_any))
                 except Exception:
                     opts0 = {}
-            elif hasattr(opts_any, "model_dump") and callable(getattr(opts_any, "model_dump")):
+            elif hasattr(opts_any, "model_dump") and callable(opts_any.model_dump):
                 try:
-                    opts0 = dict(getattr(opts_any, "model_dump")())
+                    opts0 = dict(opts_any.model_dump())
                 except Exception:
                     opts0 = {}
             sid_opt = opts0.get("session_id")
@@ -604,9 +604,9 @@ async def process_chat_request(
         raw_opts2: dict[str, Any]
         if isinstance(raw_any2, Mapping):
             raw_opts2 = dict(cast(Mapping[str, Any], raw_any2))
-        elif hasattr(raw_any2, "model_dump") and callable(getattr(raw_any2, "model_dump")):
+        elif hasattr(raw_any2, "model_dump") and callable(raw_any2.model_dump):
             try:
-                raw_opts2 = dict(getattr(raw_any2, "model_dump")())
+                raw_opts2 = dict(raw_any2.model_dump())
             except Exception:
                 raw_opts2 = {}
         else:
@@ -674,7 +674,7 @@ async def process_chat_request(
                 )
             started = time.time()
             resp = await _client.post(ollama_url, json=ollama_payload, headers=headers)
-            setattr(resp, "_started", started)
+            resp._started = started
             return resp
 
         if client is not None:
@@ -800,6 +800,6 @@ async def process_chat_request(
         else:
             logger.exception("Fehler bei der Verarbeitung der Chat-Anfrage: %s", exc)
         return ChatResponse(
-            content=f"Entschuldigung, bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten: {str(exc)}",
+            content=f"Entschuldigung, bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten: {exc!s}",
             model=settings.MODEL_NAME,
         )

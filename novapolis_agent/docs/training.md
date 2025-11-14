@@ -4,10 +4,10 @@ update: Doku-Verweis auf konsolidiertes SSOT (.github/copilot-instructions.md) a
 checks: keine
 ---
 
-Training & Fine-Tuning – Kurzleitfaden
+Training & Fine-Tuning - Kurzleitfaden
 =====================================
 
-Dieser Leitfaden zeigt den minimalen End‑to‑End‑Ablauf mit vorhandenen Skripten.
+Dieser Leitfaden zeigt den minimalen End-to-End-Ablauf mit vorhandenen Skripten.
 
 1) Evaluieren
 -------------
@@ -31,9 +31,9 @@ Dieser Leitfaden zeigt den minimalen End‑to‑End‑Ablauf mit vorhandenen Skr
 - Optionen:
   - `--min-output-chars 20` (Default)
   - `--no-dedupe` (deaktiviert Instruktions-Dedupe)
-  - `--near-dup-threshold 0.8` (optional, Token‑Jaccard auf Instruction)
+  - `--near-dup-threshold 0.8` (optional, Token-Jaccard auf Instruction)
 
-4) Validieren (OpenAI‑Format)
+4) Validieren (OpenAI-Format)
 -----------------------------
 
 - `scripts/openai_finetune.py <train.jsonl> <val.jsonl> --validate-only`
@@ -46,10 +46,10 @@ Dieser Leitfaden zeigt den minimalen End‑to‑End‑Ablauf mit vorhandenen Skr
 Hinweise
 --------
 
-- Pfade/Konfiguration: `app/core/settings.py` (Eval‑Dirs, Patterns)
+- Pfade/Konfiguration: `app/core/settings.py` (Eval-Dirs, Patterns)
 - Synonyme/Checks: `eval/config/{synonyms.json,synonyms.local.json}`
 - Doku: `docs/CONTEXT_ARCH.md`, `../.github/copilot-instructions.md`, `docs/REPORTS.md`
-- Optional: VS‑Code‑Tasks für die Schritte vorhanden.
+- Optional: VS-Code-Tasks für die Schritte vorhanden.
 
 ### Reruns (Profile-aware)
 
@@ -59,4 +59,6 @@ Hinweise
   - `--ids eval-foo,eval-bar` (gezielt bestimmte IDs rerunnen)
 - Nutzt Meta/Overrides aus der Results-Datei (Profil, Modell, Host, Temperatur, Checks).
 - Tipp: Mit `--cache` in `scripts/run_eval.py` lassen sich identische Antworten cachen und teure Aufrufe sparen.
+
+
 

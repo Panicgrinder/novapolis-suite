@@ -19,28 +19,28 @@ Kategorien
 
 Entscheidungsmatrix
 -------------------
-- README.md (Root): KEEP – Einstiegs- und Projektübersicht.
-- novapolis_agent/README.md: KEEP – Backend-spezifische Laufzeit/Entwicklung.
-- novapolis_agent/scripts/README.md: TOOL – Skriptliste (konsolidieren auf aktuelle Skripte, später evtl. SLIM).
-- novapolis_agent/eval/README.md: TOOL – Eval-Prozess, bleibt bis vereinheitlichte Eval-Doku existiert.
-- novapolis_agent/eval/config/context.notes/README.md: SLIM – Redirect zu zentraler Kontext-/Prompt-Doku.
-- novapolis-dev/README.md: KEEP – Hub.
-- novapolis-dev/archive/README.md: SLIM – Kurzer Hinweis, Redirect ins Hub-Archiv-Verzeichnis.
-- novapolis-dev/logs/README.md: SLIM – Hinweis auf Log-Policy + Redirect.
-- novapolis-dev/integrations/mcp-openai-eval/README.md: TOOL – Spezifische Integration.
-- novapolis-rp/README.md: KEEP – RP-Domain, Canvas-Hinweise.
-- novapolis-rp/database-rp/06-scenes/README.md: TOOL – Szenenstruktur.
-- novapolis-rp/database-curated/README.md: SLIM – Redirect zu zentraler Kurations-Policy.
-- novapolis-rp/database-curated/staging/README.md: ARCHIVE – Nach Migration nur Staging-Hinweis.
-- novapolis-rp/database-raw/99-exports/README.md: TOOL – Export-Policy (RAW only).
-- novapolis-rp/coding/devcontainer/README.md: TOOL – Devcontainer Setup.
-- novapolis-rp/coding/tools/chat-exporter/README.md: TOOL – Nutzung Chat-Exporter.
-- novapolis-rp/coding/tools/metadata/README.md: TOOL – Metadata-/Validator-Hinweise.
-- novapolis-rp/coding/tools/validators/README.md: TOOL – Validatoren (Behalten bis zentrale Validator-Doku erstellt).
-- .tmp-results/README.md: SLIM – Temporärbereich, deutlicher Hinweis auf Flüchtigkeit.
-- .tmp-datasets/README.md: SLIM – Temporärdaten, Redirect zu Data-Policy.
-- novapolis-sim/README.md: KEEP – Simulationsprojekt (Godot, Verifikation).
-- packages/README.md: SLIM – Kernhinweis + Redirect zu Shared-Paket-Abschnitt im Hub.
+- README.md (Root): KEEP - Einstiegs- und Projektübersicht.
+- novapolis_agent/README.md: KEEP - Backend-spezifische Laufzeit/Entwicklung.
+- novapolis_agent/scripts/README.md: TOOL - Skriptliste (konsolidieren auf aktuelle Skripte, später evtl. SLIM).
+- novapolis_agent/eval/README.md: TOOL - Eval-Prozess, bleibt bis vereinheitlichte Eval-Doku existiert.
+- novapolis_agent/eval/config/context.notes/README.md: SLIM - Redirect zu zentraler Kontext-/Prompt-Doku.
+- novapolis-dev/README.md: KEEP - Hub.
+- novapolis-dev/archive/README.md: SLIM - Kurzer Hinweis, Redirect ins Hub-Archiv-Verzeichnis.
+- novapolis-dev/logs/README.md: SLIM - Hinweis auf Log-Policy + Redirect.
+- novapolis-dev/integrations/mcp-openai-eval/README.md: TOOL - Spezifische Integration.
+- novapolis-rp/README.md: KEEP - RP-Domain, Canvas-Hinweise.
+- novapolis-rp/database-rp/06-scenes/README.md: TOOL - Szenenstruktur.
+- novapolis-rp/database-curated/README.md: SLIM - Redirect zu zentraler Kurations-Policy.
+- novapolis-rp/database-curated/staging/README.md: ARCHIVE - Nach Migration nur Staging-Hinweis.
+- novapolis-rp/database-raw/99-exports/README.md: TOOL - Export-Policy (RAW only).
+- novapolis-rp/coding/devcontainer/README.md: TOOL - Devcontainer Setup.
+- novapolis-rp/coding/tools/chat-exporter/README.md: TOOL - Nutzung Chat-Exporter.
+- novapolis-rp/coding/tools/metadata/README.md: TOOL - Metadata-/Validator-Hinweise.
+- novapolis-rp/coding/tools/validators/README.md: TOOL - Validatoren (Behalten bis zentrale Validator-Doku erstellt).
+- .tmp-results/README.md: SLIM - Temporärbereich, deutlicher Hinweis auf Flüchtigkeit.
+- .tmp-datasets/README.md: SLIM - Temporärdaten, Redirect zu Data-Policy.
+- novapolis-sim/README.md: KEEP - Simulationsprojekt (Godot, Verifikation).
+- packages/README.md: SLIM - Kernhinweis + Redirect zu Shared-Paket-Abschnitt im Hub.
 
 Nächste Schritte
 ----------------
@@ -62,3 +62,4 @@ Checks (geplant)
 - Frontmatter-Validator gezielt pro geänderte README.
 
 Ende.
+

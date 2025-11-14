@@ -4,7 +4,7 @@ update: H1 auf Setext umgestellt; Timestamp aktualisiert.
 checks: markdownlint-cli2 PASS
 ---
 
-TODO-Archiv – Sim
+TODO-Archiv - Sim
 =================
 
 Zweck: Vollständig abgeschlossene TODO-Abschnitte aus `novapolis-sim/**` Aufgaben aufnehmen.
@@ -19,4 +19,5 @@ Ablage
 - Neueste Einträge oben einfügen.
 
 <!-- Hier unterhalb neue, vollständig erledigte Blöcke einfügen (neu zuerst). -->
+
 

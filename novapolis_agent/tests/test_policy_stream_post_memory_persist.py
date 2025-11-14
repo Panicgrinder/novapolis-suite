@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import asyncio
 import json
-from collections.abc import Callable
 from types import SimpleNamespace
 
 import app.api.chat as chat_module
@@ -49,7 +48,8 @@ def _make_fake_stream_client(chunks: list[str]):
 @pytest.mark.streaming
 def test_policy_stream_post_memory_persist(monkeypatch):
     # Fake LLM stream producing two chunks
-    fake_factory: Callable[..., object] = lambda *a, **k: _make_fake_stream_client(["foo", "bar"])
+    def fake_factory(*a, **k) -> object:
+        return _make_fake_stream_client(["foo", "bar"])
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", fake_factory)
 
     # Monkeypatch post-policy to force rewrite to uppercase

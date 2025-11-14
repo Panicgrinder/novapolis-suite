@@ -44,7 +44,7 @@ class ChatRequest(BaseModel):
     @classmethod
     def _coerce_messages(cls, value: Any) -> Any:
         try:
-            if isinstance(value, (list, tuple)):
+            if isinstance(value, list | tuple):
                 seq = list(cast(list[Any], value))
             else:
                 return cast(Any, value)

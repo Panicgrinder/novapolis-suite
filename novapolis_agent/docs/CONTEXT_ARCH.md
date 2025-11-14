@@ -7,7 +7,7 @@ checks: markdownlint-cli2 (single file) PASS
 Kontext-Architektur: Developer × Copilot × Prompt Assistant
 ===========================================================
 
-Dieses Dokument beschreibt, wie die Zusammenarbeit zwischen dir (Developer), GitHub Copilot (lokal im Editor) und dem GPT‑basierten Copilot Prompt Assistant (Chat) funktioniert. Ziel: effizienter Fluss von Idee → Code → Review → PR – mit klarem Scope und Datenschutz.
+Dieses Dokument beschreibt, wie die Zusammenarbeit zwischen dir (Developer), GitHub Copilot (lokal im Editor) und dem GPT-basierten Copilot Prompt Assistant (Chat) funktioniert. Ziel: effizienter Fluss von Idee → Code → Review → PR - mit klarem Scope und Datenschutz.
 
 Überblick (Kontextfluss)
 ------------------------
@@ -16,11 +16,11 @@ Dieses Dokument beschreibt, wie die Zusammenarbeit zwischen dir (Developer), Git
 [Developer]
    │  formuliert Aufgaben, priorisiert, bewertet
    ▼
-[Prompt Assistant (GPT)]  — ToDo/DONE, Vorschläge, Reviews, Doku‑Snippets
+[Prompt Assistant (GPT)]  — ToDo/DONE, Vorschläge, Reviews, Doku-Snippets
    │        ▲
    │        │ nutzt Kontext aus: @workspace, @terminal, @github (mit Zustimmung)
    ▼        │
-[GitHub Copilot (VS Code)] — Inline‑Completions, Edits, PR/Issues‑Integration
+[GitHub Copilot (VS Code)] — Inline-Completions, Edits, PR/Issues-Integration
    │        ▲
    │        │ lokale Dateien, Tests, Terminal, Git
    ▼        │
@@ -29,7 +29,7 @@ Dieses Dokument beschreibt, wie die Zusammenarbeit zwischen dir (Developer), Git
 
 - Der Developer bleibt Entscheider: startet Aktionen, nimmt Patches an, merged PRs.
 - Prompt Assistant orchestriert Aufgaben (kleine ToDos, Reviews, Docs, Befehle), ohne Secrets zu persistieren.
-- Copilot liefert schnelle Code‑Vorschläge und Editor‑Automatisierung.
+- Copilot liefert schnelle Code-Vorschläge und Editor-Automatisierung.
 
 Rollen & Fähigkeiten
 --------------------
@@ -40,37 +40,37 @@ Rollen & Fähigkeiten
   - Sensible Daten schützen (keine Tokens/Secrets in Chats)
 
 - GitHub Copilot (VS Code)
-  - Inline‑Completions, Multi‑Line Edits, Quick Fixes
-  - PR/Issues‑Workflows, Code‑Navigation (@workspace), Terminal‑Kontext (@terminal)
-  - Lokale Tests/Linting anstoßen; CI‑Checks im Editor einsehen
+  - Inline-Completions, Multi-Line Edits, Quick Fixes
+  - PR/Issues-Workflows, Code-Navigation (@workspace), Terminal-Kontext (@terminal)
+  - Lokale Tests/Linting anstoßen; CI-Checks im Editor einsehen
 
-- GPT‑basierter Prompt Assistant
+- GPT-basierter Prompt Assistant
   - Aufgaben gliedern, ToDo/DONE pflegen, Aktionsvorschläge machen
-  - Code‑/Test‑Reviews, Doku‑Bausteine, Migrations‑/Refactor‑Pläne
-  - Kontext‑Zusammenführung: @workspace (Dateien), @terminal (Ausgaben), @github (PRs), nur mit Zustimmung
+  - Code-/Test-Reviews, Doku-Bausteine, Migrations-/Refactor-Pläne
+  - Kontext-Zusammenführung: @workspace (Dateien), @terminal (Ausgaben), @github (PRs), nur mit Zustimmung
 
 Typischer Ablauf (Prompt → Code → Review → PR)
 ----------------------------------------------
 
 1) Prompt/Anforderung
-- Developer beschreibt Ziel (z. B. „Chai‑Checks vereinfachen“).
+- Developer beschreibt Ziel (z. B. „Chai-Checks vereinfachen“).
 - Assistant konkretisiert ToDos, schlägt Tests/Scope vor.
 
-1) Code‑Änderung
-- Copilot generiert/ergänzt Code (z. B. Tests, Skript‑Refactor), Assistant liefert Begleittexte/Begründungen.
+1) Code-Änderung
+- Copilot generiert/ergänzt Code (z. B. Tests, Skript-Refactor), Assistant liefert Begleittexte/Begründungen.
 
 1) Verifikation
 - Lokale Tests/Lint/Typecheck (Assistant kann Tasks/Kommandos vorschlagen; Developer führt aus oder autorisiert).
 
 1) Review & PR
-- Assistant erzeugt PR‑Beschreibung/CHANGELOG‑Hinweise.
+- Assistant erzeugt PR-Beschreibung/CHANGELOG-Hinweise.
 - Developer prüft/merged. CI läuft in GitHub Actions.
 
 Privacy & Scope
 ---------------
 
 - Keine Secrets/Tokens in Chats posten oder in Repo schreiben.
-- Der Assistant liest nur Dateien/Terminal/PR‑Daten, wenn du es erlaubst.
+- Der Assistant liest nur Dateien/Terminal/PR-Daten, wenn du es erlaubst.
 - Lokale Artefakte (.venv, logs, outputs) werden nicht geteilt; reiner Arbeitskontext genügt.
 - Minimale Offenlegung: nur benötigte Ausschnitte/Fehlermeldungen verwenden.
 
@@ -82,12 +82,12 @@ Kontext-Booster: @workspace, @terminal, @github
   - „Finde Dubletten in `eval/config/synonyms*.json` und schlage Merge vor.“
 
 - @terminal
-  - „Erkläre den letzten pytest‑Fehler und schlage Fix‑Patch vor.“
+  - „Erkläre den letzten pytest-Fehler und schlage Fix-Patch vor.“
   - „Fasse die Ausgaben von `openai_finetune.py --validate-only` kurz zusammen.“
 
 - @github
   - „Liste offene PRs, die `eval/` oder `scripts/*eval*` ändern.“
-  - „Erzeuge eine prägnante PR‑Beschreibung aus den letzten Commits.“
+  - „Erzeuge eine prägnante PR-Beschreibung aus den letzten Commits.“
 
 Quick Tips für neue Teammitglieder
 ---------------------------------
@@ -102,4 +102,6 @@ Reports & Artefakte
 
 - Standard für Berichte: siehe `docs/REPORTS.md`.
 - Automatisierte Reports (Dependencies/Coverage/Konsistenz) werden unter `eval/results/reports/<topic>/<timestamp>` abgelegt und per CI als Artefakte hochgeladen.
+
+
 

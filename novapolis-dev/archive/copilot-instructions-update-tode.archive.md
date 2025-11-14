@@ -47,7 +47,7 @@ Offene Punkte (geplant)
 
 Annahmen / Noch zu klären
 -------------------------
-- Zeitzonenentscheidung (lokal vs. UTC) – Entscheidung offen.
+- Zeitzonenentscheidung (lokal vs. UTC) - Entscheidung offen.
 - Ob `Z` Suffix in Validator integriert werden soll.
 - Aggregat-Task Namenskonvention (`Checks: full` vs. `Checks: all`).
 
@@ -69,3 +69,4 @@ Langfristig (optional)
 - Keine widersprüchliche Terminologie.
 
 (Ende)
+

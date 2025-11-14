@@ -53,7 +53,7 @@ tags: []
 
 ```yaml
 ---
-title: Inventar – <Fraktion/Ort>
+title: Inventar - <Fraktion/Ort>
 category: inventory
 slug: <slug>-inventar
 owner: <novapolis|d5|c6|...>
@@ -103,4 +103,5 @@ Hinweise zur Verwendung
 - Keine Wiederholung von Root-Regeln in den Dateien; Metadaten genügen für Navigation/Validierung.
 - Referenzen (characters/locations/dependencies) verwenden Slugs der Zielobjekte.
 - Falls ein Feld unbekannt ist, weglassen statt Dummy-Werte einzutragen (Validatoren erlauben optionale Felder).
+
 

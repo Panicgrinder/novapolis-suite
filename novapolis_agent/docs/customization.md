@@ -73,25 +73,25 @@ Beispiel für einen uneingeschränkten Prompt
 In der Datei `examples/unrestricted_prompt_example.txt` finden Sie ein Beispiel für
 einen uneingeschränkten Prompt, den Sie als Ausgangspunkt verwenden können.
 
-LLM‑Optionen (Sampling/Decoding) anpassen
+LLM-Optionen (Sampling/Decoding) anpassen
 ----------------------------------------
 
-Neben den Prompts können Sie auch die LLM‑Optionen (Sampling/Decoding) feinsteuern. Es gibt zwei Ebenen:
+Neben den Prompts können Sie auch die LLM-Optionen (Sampling/Decoding) feinsteuern. Es gibt zwei Ebenen:
 
-1) Globale Defaults per `.env` (Server‑Start lädt `app/core/settings.py` Werte aus ENV)
-2) Pro‑Request‑Overrides in `ChatRequest.options` (überschreiben Defaults punktuell)
+1) Globale Defaults per `.env` (Server-Start lädt `app/core/settings.py` Werte aus ENV)
+2) Pro-Request-Overrides in `ChatRequest.options` (überschreiben Defaults punktuell)
 
 Unterstützte Optionen (Auszug):
 
 - Temperatur/Sampling: `temperature`, `top_p`, `top_k`, `min_p`, `typical_p`, `tfs_z`
 - Länge/Kontext: `num_predict` (Alias: `max_tokens`), `num_ctx`
 - Penalties: `repeat_penalty`, `repeat_last_n`, `presence_penalty`, `frequency_penalty`, `penalize_newline`
-- Steuerung/Seed: `seed`, `stop` (String oder Liste), `host` (Ollama‑Base‑URL)
+- Steuerung/Seed: `seed`, `stop` (String oder Liste), `host` (Ollama-Base-URL)
 - Mirostat: `mirostat` (0/1/2), `mirostat_tau`, `mirostat_eta`
 
 ### Globale Defaults per .env
 
-Diese Werte setzen sinnvolle Standard‑Parameter, die bei fehlenden Request‑Overrides greifen.
+Diese Werte setzen sinnvolle Standard-Parameter, die bei fehlenden Request-Overrides greifen.
 
 ```ini
 # Sampling
@@ -111,7 +111,7 @@ MIROSTAT_ETA=0.1
 PENALIZE_NEWLINE=false
 REPEAT_PENALTY=1.1
 REPEAT_LAST_N=64
-# Optionaler Kontext‑Default (wenn gesetzt, wird übernommen)
+# Optionaler Kontext-Default (wenn gesetzt, wird übernommen)
 # NUM_CTX_DEFAULT=4096
 
 # Länge & Sicherheit
@@ -123,7 +123,7 @@ Hinweise:
 - `stop` darf ein einzelner String oder eine Liste von Strings sein (intern zu Liste normalisiert).
 - Werte werden konservativ geprüft/geklammert (z. B. `top_p|min_p|typical_p|tfs_z` in [0,1]; `mirostat` ∈ {0,1,2}).
 
-### Pro‑Request Overrides (HTTP Beispiele)
+### Pro-Request Overrides (HTTP Beispiele)
 
 curl (JSON):
 
@@ -144,7 +144,7 @@ curl -X POST http://127.0.0.1:8000/chat \
    }'
 ```
 
-PowerShell (Invoke‑RestMethod):
+PowerShell (Invoke-RestMethod):
 
 ```powershell
 $body = @{
@@ -156,5 +156,7 @@ Invoke-RestMethod -Uri "http://127.0.0.1:8000/chat" -Method Post -Body $body -Co
 ```
 
 Weitere Details und die vollständige Liste der Optionen finden Sie auch in der README unter
-„LLM‑Optionen (Ollama) – Defaults & Overrides“.
+„LLM-Optionen (Ollama) - Defaults & Overrides“.
+
+
 

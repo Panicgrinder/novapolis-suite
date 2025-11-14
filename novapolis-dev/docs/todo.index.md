@@ -12,10 +12,10 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas‑Arbeit, Logs
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra
 - Agent-Module: `docs/todo.agent.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API‑Polling, Exportprofile
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile
 
 Hinweise (Index)
 ----------------
@@ -27,4 +27,5 @@ Verweise
 --------
 
 - Root-Übersicht: `todo.root.md` (Kurzüberblick, Meta-Aufgaben, Links)
+
 

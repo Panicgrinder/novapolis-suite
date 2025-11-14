@@ -31,15 +31,15 @@ Echo
 ====
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `ECO1=L85-S74-T62-E58-N52-O44-C28-M16-P30-ks` – bindet sich eng an Kora, reagiert kindlich-selbstlos und priorisiert Schutzinstinkte.
+- Verhaltenssignatur: `ECO1=L85-S74-T62-E58-N52-O44-C28-M16-P30-ks` - bindet sich eng an Kora, reagiert kindlich-selbstlos und priorisiert Schutzinstinkte.
 
-- Rolle: Reflex‑Instanz (an Kora gekoppelt)
+- Rolle: Reflex-Instanz (an Kora gekoppelt)
 - Werte: tbd
 - Skills:
   - Geübt: tbd
   - Meisterhaft: tbd
   - Optional: tbd
-- Ausrüstung/Körper: Reflex‑Material (formbar, schützend)
+- Ausrüstung/Körper: Reflex-Material (formbar, schützend)
 - Motivation: Nähe und Schutz für Kora
 - Makel: Instabilität bei Distanz
 
@@ -61,7 +61,7 @@ Zugehörigkeit & Standort
 - Status: aktiv
 - Letzter bekannter Einsatzort: C6
 
-Wissensstand (Matrix – Auszug)
+Wissensstand (Matrix - Auszug)
 ------------------------------
 
 - Intern: Reflex/Instanzen bekannt
@@ -75,15 +75,15 @@ Interaktion & Safety (Instanz)
 
 ### Signals (Beispiele)
 
-- Request: „Echo, dicht bei mir – Sicht frei.“
+- Request: „Echo, dicht bei mir - Sicht frei.“
 - Stop: „Stopp.“ → sofort lösen
 
 Ausrüstung (Details)
 --------------------
 
-- Material: Reflex‑Gewebe (fein), formbare Schutzschicht
+- Material: Reflex-Gewebe (fein), formbare Schutzschicht
 
-Verhaltens‑Hooks
+Verhaltens-Hooks
 ----------------
 
 - Nähe zu Kora suchen; leise, beobachtend; Assist vor Guard
@@ -97,8 +97,8 @@ Ziele (kurz)
 Beziehungen
 -----------
 
-- Kora – Bezugsperson
-- Reflex – Primärinstanz; Lumen – Schwester‑Instanz
+- Kora - Bezugsperson
+- Reflex - Primärinstanz; Lumen - Schwester-Instanz
 
 Projekte & Missions (Verlinkungen)
 ----------------------------------
@@ -110,4 +110,6 @@ Links
 
 - Kora → ./Kora-Malenkov.md
 - Reflex → ./Reflex.md
+
+
 

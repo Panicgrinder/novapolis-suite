@@ -14,7 +14,7 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export.txt  <->  novapolis-
 - Jaccard-Ähnlichkeit (Zeilenmenge): 0.263
 - Diff: +2982  -6148
 
-Diff (A->B) – Auszug
+Diff (A->B) - Auszug
 --------------------
 
 ```diff
@@ -46,7 +46,7 @@ Diff (A->B) – Auszug
 +
 +Entitäten erkannt: Factions 5, Items 9, Actors 2, Missions 2, Events 2.
 +
-+Canvas „Novapolis – Status & Systembasis“ angelegt: Session-Info, leere Charakterliste, Environment, Fraktionen-Block und eine Kurzfassung der Regeln/Struktur.
++Canvas „Novapolis - Status & Systembasis“ angelegt: Session-Info, leere Charakterliste, Environment, Fraktionen-Block und eine Kurzfassung der Regeln/Struktur.
 +
 +Charaktererstellung startet jetzt
 +
@@ -63,7 +63,7 @@ Diff (A->B) – Auszug
 +
 +2) Herkunft (Sektor)
 +
-+Raster A1–J10, z. B. „B4 – Filterwerk“ oder „H7 – Schwarzer Markt“.
++Raster A1-J10, z. B. „B4 - Filterwerk“ oder „H7 - Schwarzer Markt“.
 +
 +3) Attribute (20 Punkte verteilen, Start 0, Maximum 6)
 +
@@ -221,3 +221,4 @@ optional geübt für den Nachteil bei Organisation & Planung: improvisieren.
 - #19 [assistant]
 ... (gekürzt) ...
 ```
+

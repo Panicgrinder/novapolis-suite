@@ -31,7 +31,7 @@ def test_curate_minimal_flow(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) ->
 
     async def _export(
         results_path: str, out_dir: str, format: str, include_failures: bool
-    ) -> dict[str, Any]:  # noqa: ANN001
+    ) -> dict[str, Any]:
         # write a tiny exported file for prepare step
         p = Path(exp_out)
         p.parent.mkdir(parents=True, exist_ok=True)
@@ -57,7 +57,7 @@ def test_curate_minimal_flow(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) ->
         seed: int,
         min_output_chars: int,
         dedupe_by_instruction: bool,
-    ) -> dict[str, Any]:  # noqa: ANN001
+    ) -> dict[str, Any]:
         # Create dummy train/val outputs
         out = Path(out_dir)
         (out / "train.jsonl").write_text("{}\n", encoding="utf-8")

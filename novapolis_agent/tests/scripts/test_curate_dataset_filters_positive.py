@@ -30,7 +30,7 @@ def test_curate_filters_keep_one(monkeypatch: pytest.MonkeyPatch, tmp_path: Path
     # Stub exporter: writes a single record that satisfies filters
     async def _export(
         results_path: str, out_dir: str, format: str, include_failures: bool
-    ) -> dict[str, Any]:  # noqa: ANN001
+    ) -> dict[str, Any]:
         rec = {
             "messages": [
                 {"role": "user", "content": "Bitte liste Punkte auf"},
@@ -41,7 +41,7 @@ def test_curate_filters_keep_one(monkeypatch: pytest.MonkeyPatch, tmp_path: Path
         return {"ok": True, "out": str(exported), "count": 1}
 
     # Stub prepare: return OK
-    def _prepare_pack(*_a: Any, **_k: Any) -> dict[str, Any]:  # noqa: ANN001
+    def _prepare_pack(*_a: Any, **_k: Any) -> dict[str, Any]:
         return {
             "ok": True,
             "train": str(fin_dir / "train.jsonl"),

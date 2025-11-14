@@ -2,7 +2,7 @@
 stand: 2025-11-07 03:32
 update: frontmatter INIT
 checks: pending
-title: Nordlinie 01 (Tunnel D5–C6)
+title: Nordlinie 01 (Tunnel D5-C6)
 category: project
 slug: nordlinie-01
 status: active
@@ -12,7 +12,7 @@ version: "1.0"
 last_updated: 2025-11-07T03:32:00+01:00
 tags: []
 ---
-title: Nordlinie 01 (Tunnel D5–C6)
+title: Nordlinie 01 (Tunnel D5-C6)
 category: project
 slug: nordlinie-01
 status: active
@@ -23,7 +23,7 @@ last_updated: 2025-11-07T03:32:00+01:00
 tags: []
 ---
 
-Projekt: Nordlinie 01 (Tunnel D5–C6)
+Projekt: Nordlinie 01 (Tunnel D5-C6)
 ------------------------------------
 
 Ziel
@@ -57,7 +57,7 @@ Notizen
 
 ---
 
-Mission Tunnel – Monitoring
+Mission Tunnel - Monitoring
 ---------------------------
 
 - Abschnitte: A/B/C/D (Definition und Länge je Abschnitt)
@@ -68,4 +68,5 @@ Mission Tunnel – Monitoring
 - Material: Stückliste, Verbrauch/Restbestände (Einheiten)
 - Events: Störungen/Unfälle/Entscheidungen (mit Zeitstempel)
 - Links: [Logistik](../../00-admin/Logistik.md), [Missionslog](../../00-admin/Missionslog.md)
+
 

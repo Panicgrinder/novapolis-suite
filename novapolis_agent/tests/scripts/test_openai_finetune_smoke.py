@@ -76,7 +76,7 @@ def test_openai_finetune_start_with_mock_client(
             return SimpleNamespace(id="job-123")
 
     class _Client:
-        def __init__(self, api_key: str) -> None:  # noqa: ARG002
+        def __init__(self, api_key: str) -> None:
             self.files = _Files()
             self.fine_tuning = SimpleNamespace(jobs=_Jobs())
 

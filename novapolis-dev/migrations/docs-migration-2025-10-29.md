@@ -18,11 +18,12 @@ Docs-Migration 2025-10-29
 | 2025-10-29  | legacy coding · INDEX.json              | novapolis-dev/docs/meta/index.json           | `source` aktualisiert, Feld `origin` ergänzt.               |
 | 2025-10-29  | legacy coding · naming-policy.md        | novapolis-dev/docs/naming-policy.md          | Format auf setext-Überschriften umgestellt.                 |
 | 2025-10-29  | legacy coding · naming-policy.json      | novapolis-dev/docs/meta/naming-policy.json   | `source` aktualisiert, Feld `origin` ergänzt.               |
-| 2025-10-29  | –                                       | novapolis-dev/docs/tests.md                  | Neu angelegt: Testübersicht + Mini-Prequel-Testplan.        |
+| 2025-10-29  | -                                       | novapolis-dev/docs/tests.md                  | Neu angelegt: Testübersicht + Mini-Prequel-Testplan.        |
 
 Hinweise
 --------
 
 - Originaldateien unter `coding/` bleiben bestehen, bis die Aufräumfreigabe erfolgt.
 - Weitere Datenmigrationen (Roh- und Kurationsdaten) folgen in separaten Protokollen.
+
 

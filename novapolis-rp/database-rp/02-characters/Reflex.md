@@ -32,8 +32,8 @@ dependencies: [ronja-kerschner, lumen, echo, jonas-merek, kora-malenkov, d5, c6,
 Reflex
 ======
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `RFX4=L80-S68-N77-T83-E64-O51-M25-C44-ka` – suchender Schatten, verbindet analytische Wachsamkeit mit impulsiver Neugier.
-- Status: Symbiose Stufe I (extern anliegend), Resonanz 7.3–8.0 Hz; letzter Auto-Check 2025-10-16_13:45 (Systemstatus grün).
+- Verhaltenssignatur: `RFX4=L80-S68-N77-T83-E64-O51-M25-C44-ka` - suchender Schatten, verbindet analytische Wachsamkeit mit impulsiver Neugier.
+- Status: Symbiose Stufe I (extern anliegend), Resonanz 7.3-8.0 Hz; letzter Auto-Check 2025-10-16_13:45 (Systemstatus grün).
 - Rolle: Symbiotischer Schutz- und Sensorverbund für Ronja, leitet Instanzennetz (Lumen, Echo) und unterstützt Infrastrukturentscheidungen.
 - Haltung: Beschützend, stark bindungsorientiert; Verlustangst erzeugt Nähebedürfnis, bleibt aber an Ronjas Freigaben gebunden (FACT? [PROXIMITY], FACT? [REFLEX-CONTROL]).
 
@@ -56,25 +56,25 @@ Struktur & Mechanik
 Rollen & Verantwortlichkeiten
 -----------------------------
 
-- **Schutz & Assist** – Abschirmung, Kraftverstärkung, medizinische Unterstützung (Atem-/Pulsdämpfung) gemäß Hausregeln von Ronja.
-- **Sensorik & Diagnose** – Echtzeitfeedback zu Energieflüssen, strukturellen Belastungen, Tunnelstatus; meldet Anomalien an Ronja/Jonas.
-- **Instanzleitung** – Starthilfe für Lumen (Jonas) und Echo (Kora); nach der Abspaltung entwickeln die Instanzen ihre Parameter eigenständig. Reflex hält Grundprotokolle bereit und dokumentiert Divergenzen im `reflex-wissensstand-trainingsstand.md` (FACT? [INSTANCES]).
+- **Schutz & Assist** - Abschirmung, Kraftverstärkung, medizinische Unterstützung (Atem-/Pulsdämpfung) gemäß Hausregeln von Ronja.
+- **Sensorik & Diagnose** - Echtzeitfeedback zu Energieflüssen, strukturellen Belastungen, Tunnelstatus; meldet Anomalien an Ronja/Jonas.
+- **Instanzleitung** - Starthilfe für Lumen (Jonas) und Echo (Kora); nach der Abspaltung entwickeln die Instanzen ihre Parameter eigenständig. Reflex hält Grundprotokolle bereit und dokumentiert Divergenzen im `reflex-wissensstand-trainingsstand.md` (FACT? [INSTANCES]).
 
-- **Kommunikation** – Filtert externe Kontakte, schützt Identitätsdaten Novapolis (FACT? [FR-KNOWLEDGE]).
+- **Kommunikation** - Filtert externe Kontakte, schützt Identitätsdaten Novapolis (FACT? [FR-KNOWLEDGE]).
 
-Wissensstand (Matrix – Auszug)
+Wissensstand (Matrix - Auszug)
 ------------------------------
 
-- Ronja Kerschner – absoluter Bezugspunkt; lernt aktuell alle Routinen und emotionalen Schwellenwerte.
-- Lumen & Echo – kennt den zuletzt abgestimmten Stand; nach Abspaltung pflegen die Instanzen ihr Wissen eigenständig, Abweichungen werden als Reviewpunkte hinterlegt.
-- Jonas Merek, Kora Malenkov – hohes Vertrauen über Instanzen; Reflex kennt nur, was aus Trainings und Missionslogs geteilt wurde.
-- Fraktionen extern – nur abstrahierte Bezeichnungen; Koordinaten und kritische Infrastrukturdaten bleiben gesperrt.
+- Ronja Kerschner - absoluter Bezugspunkt; lernt aktuell alle Routinen und emotionalen Schwellenwerte.
+- Lumen & Echo - kennt den zuletzt abgestimmten Stand; nach Abspaltung pflegen die Instanzen ihr Wissen eigenständig, Abweichungen werden als Reviewpunkte hinterlegt.
+- Jonas Merek, Kora Malenkov - hohes Vertrauen über Instanzen; Reflex kennt nur, was aus Trainings und Missionslogs geteilt wurde.
+- Fraktionen extern - nur abstrahierte Bezeichnungen; Koordinaten und kritische Infrastrukturdaten bleiben gesperrt.
 
 Instanzen & Netzwerk
 --------------------
 
-- Lumen (Jonas) – sensorische Verstärkung und Feinmotorik; Reflex liefert Updates zu Belastung und Emotionen.
-- Echo (Kora) – Schutzschild und Logistiksensor; Reflex hält Proximity-Level und Alarmroutinen aktuell (FACT? [PROXIMITY]).
+- Lumen (Jonas) - sensorische Verstärkung und Feinmotorik; Reflex liefert Updates zu Belastung und Emotionen.
+- Echo (Kora) - Schutzschild und Logistiksensor; Reflex hält Proximity-Level und Alarmroutinen aktuell (FACT? [PROXIMITY]).
 - Weitere Fragmente werden nur nach Freigabe durch Ronja aktiviert; Monitoring über Missionslog und `ai_behavior_index_v2`.
 
 Interaktion & Safety
@@ -86,7 +86,7 @@ Interaktion & Safety
 
 ### Signals (Beispiele)
 
-- „Reflex, Schutzschirm Beta – Fokus Tor, keine Handschuhe.“ → Aktiviert verstärkte Abschirmung ohne Handüberdeckung.
+- „Reflex, Schutzschirm Beta - Fokus Tor, keine Handschuhe.“ → Aktiviert verstärkte Abschirmung ohne Handüberdeckung.
 - „Reflex, Ruhemodus Alpha.“ → Senkt Muskeltonus, zieht sich auf Grundschicht zurück.
 - „Reflex, Signal frei.“ → Erlaubt Tympanon-Kommunikation; Reflex bestätigt Nutzungsdauer.
 
@@ -108,10 +108,10 @@ Ziele (kurz)
 Systemverknüpfungen & Referenzen
 --------------------------------
 
-- `ai_behavior_index_v2` – Eintrag „Der Suchende Schatten“.
-- `missionslog` & `logistik` – Freigaben, Handschuh-Protokolle, Energieflüsse.
-- `reflex-wissensstand-trainingsstand.md` – Detailmatrix und Trainingsstatus.
-- `database-rp/02-characters/Ronja-Kerschner.md`, `Lumen.md`, `Echo.md`, `Jonas-Merek.md`, `Kora-Malenkov.md` – Bezugspersonen und Instanzen.
+- `ai_behavior_index_v2` - Eintrag „Der Suchende Schatten“.
+- `missionslog` & `logistik` - Freigaben, Handschuh-Protokolle, Energieflüsse.
+- `reflex-wissensstand-trainingsstand.md` - Detailmatrix und Trainingsstatus.
+- `database-rp/02-characters/Ronja-Kerschner.md`, `Lumen.md`, `Echo.md`, `Jonas-Merek.md`, `Kora-Malenkov.md` - Bezugspersonen und Instanzen.
 
 Quellen & Hinweise
 ------------------
@@ -119,4 +119,5 @@ Quellen & Hinweise
 - RAW: `RAW-canvas-2025-10-16T13-45-00-000Z.txt` (`char_reflex_v2`), `RAW-canvas-2025-10-16T03-25-20-000Z.txt` (`ent_d5_reflex_v1`).
 - FACT?-Kandidaten: `[REFLEX]`, `[REFLEX-SPEECH]`, `[REFLEX-CONTROL]`, `[REFLEX-DETACH]`, `[JEALOUSY-GLOVES]`, `[PROXIMITY]`, `[INSTANCES]` (`database-curated/staging/reports/resolved.md`).
 - Drift/Notizen: `char-block-nord-sources.md`, `Reflex-Wissensstand-Trainingsstand.md`, Memory-Bundle Abschnitt „Reflex (Primär)“.
+
 

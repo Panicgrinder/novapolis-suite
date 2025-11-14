@@ -33,7 +33,7 @@ Ziel: Beim Client-Start einen kurzen "Prequel"-Ablauf testen, der den aktuellen 
    - Nach dem ersten erfolgreichen State-Poll erscheint der Intro-Text für ca. 5 Sekunden, danach ausblenden und zur regulären Visualisierung übergehen.
    - Während der Intro-Phase bereits Poll-Loop aktiv lassen (bestehender 0,2 s Step).
 4. **Statusanzeige**
-   - Ergänze ein kleines Statuspanel mit Feldern `Verbindung` (siehe Offline-Verhalten) und `Letztes Update` (timestamp aus Response, fallback "–").
+   - Ergänze ein kleines Statuspanel mit Feldern `Verbindung` (siehe Offline-Verhalten) und `Letztes Update` (timestamp aus Response, fallback "-").
 
 Offline-Verhalten
 -----------------
@@ -41,7 +41,7 @@ Offline-Verhalten
 - Wenn `POST /world/step` oder `GET /world/state` fehlschlägt (Timeout, ConnectionRefused, HTTP ≥500):
   - Setze Statusanzeige auf `Verbindung: Offline` in roter Schrift.
   - Stoppe Step-Requests temporär (z. B. Retry nach 3 Sekunden mit Backoff) und behalte letzten bekannten Tick/Zeit eingefroren.
-  - Zeige Hinweistext: "Agent nicht erreichbar – Anzeige pausiert".
+  - Zeige Hinweistext: "Agent nicht erreichbar - Anzeige pausiert".
 - Bei erfolgreichem Reconnect:
   - Status zurück auf `Verbindung: Verbunden` in neutraler/grüner Farbe.
   - Intro-Overlay bleibt deaktiviert; nur Statuspanel aktualisieren.
@@ -49,7 +49,7 @@ Offline-Verhalten
 Testprotokolle
 --------------
 
-- 2025-10-29: `python -m pytest tests\tests_sim_api.py` (ausgeführt im Verzeichnis `novapolis_agent`) – **Bestanden**.
+- 2025-10-29: `python -m pytest tests\tests_sim_api.py` (ausgeführt im Verzeichnis `novapolis_agent`) - **Bestanden**.
 
 Abstimmung & Folgearbeiten
 --------------------------
@@ -57,4 +57,5 @@ Abstimmung & Folgearbeiten
 - Intro-Text aus finalen Inhalten auswählen und im Dev-Board `novapolis-dev/docs/todo.dev.md` als Aufgabe notieren (z. B. unter "Visualisierung"), bevor Umsetzung startet.
 - Keine Änderungen an API-Endpunkten notwendig; bestehende Polling-Logik wird nur um UI-Ausgaben ergänzt.
 - Manuelle Tests künftig in `novapolis-dev/docs/donelog.md` dokumentieren (Datum, Kurzresultat).
+
 

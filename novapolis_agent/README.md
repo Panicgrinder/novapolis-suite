@@ -131,8 +131,8 @@ Quelle für Visualisierungen oder externe Clients.
 
 ### Endpunkte
 
-- `GET /world/state` – liefert `{tick, time, regions, actors, events}` als aktuellen Snapshot.
-- `POST /world/step` – erwartet `{dt: float}`, erhöht Tick sowie Zeit und gibt den aktualisierten Zustand zurück.
+- `GET /world/state` - liefert `{tick, time, regions, actors, events}` als aktuellen Snapshot.
+- `POST /world/step` - erwartet `{dt: float}`, erhöht Tick sowie Zeit und gibt den aktualisierten Zustand zurück.
 
 Der Server liest `AGENT_PORT` (Standard `8765`) aus der Umgebung.
 
@@ -166,7 +166,7 @@ Konfiguration per `.env` (siehe Beispiele in `app/core/settings.py`). Wichtige F
 
 Hinweis: Bei aktiviertem Rate Limiting wird pro IP innerhalb eines 60s-Fensters begrenzt (in-memory, best-effort).
 
-### LLM-Optionen (Ollama) – Defaults & Overrides
+### LLM-Optionen (Ollama) - Defaults & Overrides
 
 Der Agent unterstützt eine Reihe von Sampling-/Decoding-Optionen. Defaults sind zentral in `app/core/settings.py` hinterlegt und können via `.env` überschrieben werden. Pro Request lassen sich Optionen in `ChatRequest.options` setzen; diese überschreiben die Defaults.
 
@@ -206,18 +206,18 @@ Hinweise:
 
 ### Policies aktivieren (optional)
 
-Die Inhalts‑Policies sind standardmäßig aus. Zur Aktivierung in `.env` oder Umgebungsvariablen setzen:
+Die Inhalts-Policies sind standardmäßig aus. Zur Aktivierung in `.env` oder Umgebungsvariablen setzen:
 
 ```ini
 POLICIES_ENABLED=true
 POLICY_FILE="eval/config/policy.sample.json"
-# Im "unrestricted"‑Modus strikt alle Policies umgehen:
+# Im "unrestricted"-Modus strikt alle Policies umgehen:
 POLICY_STRICT_UNRESTRICTED_BYPASS=true
 ```
 
 Hinweise:
 
-- Policy‑Datei kann „default“ und „profiles“ enthalten. Merge‑Reihenfolge: `default` → `profiles[profile_id]`;
+- Policy-Datei kann „default“ und „profiles“ enthalten. Merge-Reihenfolge: `default` → `profiles[profile_id]`;
    `forbidden_terms` werden vereinigt, `rewrite_map` überlagert die Schlüssel.
 - `mode=eval` mappt implizit auf `profile_id="eval"`.
 - Details und Tests siehe `../.github/copilot-instructions.md` und `tests/test_content_policy_profiles.py`.
@@ -227,14 +227,14 @@ Optionale CLI-Tools
 
 Für erweiterte Workflows stehen optionale Skripte zur Verfügung (nicht Teil des API-Pflichtpfads):
 
-- `scripts/customize_prompts.py` – Prompts/Policies/Profiles zusammenstellen; Export in Dateien
-- `scripts/estimate_tokens.py` – Grobe Token-/Längenabschätzung für Eingaben
-- `scripts/open_context_notes.py` – Kontextnotizen aus `settings` öffnen (lokal)
-- `scripts/audit_workspace.py` – Konsistenz-/Altlasten-Scan; Hinweise und Pfadprüfungen
-- `scripts/openai_finetune.py` – OpenAI-kompatible Finetune-Packs validieren/Triggern
-- `scripts/openai_ft_status.py` – Finetune-Status abfragen
-- `scripts/train_lora.py` – LoRA-Miniläufe (TinyLlama etc.)
-- `scripts/fine_tune_pipeline.py` – End-to-End Pipeline (Export→Prepare→Train)
+- `scripts/customize_prompts.py` - Prompts/Policies/Profiles zusammenstellen; Export in Dateien
+- `scripts/estimate_tokens.py` - Grobe Token-/Längenabschätzung für Eingaben
+- `scripts/open_context_notes.py` - Kontextnotizen aus `settings` öffnen (lokal)
+- `scripts/audit_workspace.py` - Konsistenz-/Altlasten-Scan; Hinweise und Pfadprüfungen
+- `scripts/openai_finetune.py` - OpenAI-kompatible Finetune-Packs validieren/Triggern
+- `scripts/openai_ft_status.py` - Finetune-Status abfragen
+- `scripts/train_lora.py` - LoRA-Miniläufe (TinyLlama etc.)
+- `scripts/fine_tune_pipeline.py` - End-to-End Pipeline (Export→Prepare→Train)
 
 Tipps:
 
@@ -244,15 +244,15 @@ Tipps:
 Lokales RAG (optional)
 ----------------------
 
-Der Agent kann optional Kontext‑Snippets aus einem lokalen Text‑Korpus (Markdown/TXT) via leichtgewichtigem TF‑IDF‑Retriever injizieren.
+Der Agent kann optional Kontext-Snippets aus einem lokalen Text-Korpus (Markdown/TXT) via leichtgewichtigem TF-IDF-Retriever injizieren.
 
 - Flags (in `.env` oder als Umgebungsvariablen):
-   - `RAG_ENABLED=true` – RAG aktivieren
-   - `RAG_INDEX_PATH=eval/results/rag/index.json` – Pfad zur Index‑Datei
-   - `RAG_TOP_K=3` – Anzahl der Snippets
+   - `RAG_ENABLED=true` - RAG aktivieren
+   - `RAG_INDEX_PATH=eval/results/rag/index.json` - Pfad zur Index-Datei
+   - `RAG_TOP_K=3` - Anzahl der Snippets
 
-- Indexer‑CLI: `scripts/rag_indexer.py`
-   - Baut einen JSON‑Index über `.md`/`.txt` Dateien (nicht rekursiv für Ordner‑Top‑Level)
+- Indexer-CLI: `scripts/rag_indexer.py`
+   - Baut einen JSON-Index über `.md`/`.txt` Dateien (nicht rekursiv für Ordner-Top-Level)
    - Beispiel (PowerShell):
 
 ```powershell
@@ -260,10 +260,10 @@ Der Agent kann optional Kontext‑Snippets aus einem lokalen Text‑Korpus (Mark
       ```
 
 - Verwendung im Server:
-   - Server liest `RAG_INDEX_PATH` beim Request ein (best‑effort). Wenn der Index fehlt, läuft der Chat normal weiter (fail‑open).
-   - Snippets werden als zusätzliche System‑Nachricht `[RAG]` injiziert.
+   - Server liest `RAG_INDEX_PATH` beim Request ein (best-effort). Wenn der Index fehlt, läuft der Chat normal weiter (fail-open).
+   - Snippets werden als zusätzliche System-Nachricht `[RAG]` injiziert.
 
-- Task‑Hinweise:
+- Task-Hinweise:
    - Es gibt aktuell keinen dedizierten VS Code Task für den Indexer; der obige Aufruf funktioniert plattformneutral über den aktiven Interpreter.
    - Optional kann ein eigener Task ergänzt werden, der `scripts/rag_indexer.py` mit gewünschten `--input`/`--out` Werten ausführt.
 
@@ -279,7 +279,7 @@ Workspace-Zusammenfassung
 - Neueste Gesamt-Zusammenfassung (LLM+Heuristik):
    - eval/results/summaries/summary_ALL_20250824_0306_MIXED.md
 
-Datensatz-Kurierung (3–7 Tage)
+Datensatz-Kurierung (3-7 Tage)
 ------------------------------
 
 Aus Eval-Ergebnissen Trainingspakete erzeugen:
@@ -307,7 +307,7 @@ Evaluations-Ergebnisse (`eval/results/results_*.jsonl`). Zwei VS Code Tasks sind
 
 Akzeptanz: Das Ausführen beider Tasks erzeugt valide JSONL-Dateien für Train/Val ohne JSON-Fehler.
 
-Fine-Tuning / LoRA Mini-Pipeline (3–7 Tage)
+Fine-Tuning / LoRA Mini-Pipeline (3-7 Tage)
 ------------------------------------------
 
 - Skript: `scripts/fine_tune_pipeline.py`
@@ -390,7 +390,7 @@ Sitzungshistorie persistiert.
       --profile eval --checks rpg_style,term_inclusion --quiet
    ```
 
-- Combined 001–100 (ASGI, eval-Profil, fokussierte Checks):
+- Combined 001-100 (ASGI, eval-Profil, fokussierte Checks):
 
 ```bash
    python scripts/run_eval.py --asgi --packages "eval/datasets/combined_eval_001-100.jsonl" \
@@ -404,4 +404,6 @@ Copilot @workspace / #codebase (Code-Suche)
 - Push regelmäßig, damit der Remote-Index aktuell bleibt.
 - Nutzung in Prompts: `@workspace` oder `#codebase` hinzufügen, optional Code markieren/auswählen.
 - Status und Index-Build über die Copilot-Statusleiste; bei Bedarf "Build Remote Workspace Index" ausführen.
+
+
 

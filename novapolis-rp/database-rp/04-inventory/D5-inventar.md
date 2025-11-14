@@ -19,7 +19,7 @@ version: "0.1"
 tags: []
 ---
 
-D5 – Inventar
+D5 - Inventar
 ==============
 
 Bestände (verbucht)
@@ -30,7 +30,7 @@ Bestände (verbucht)
 
 Potenziale
 ----------
-- Hydrofilter-Behälter (C6) – Reserve, Aufbereitung offen
+- Hydrofilter-Behälter (C6) - Reserve, Aufbereitung offen
 
 Fehlend / Offen
 ---------------
@@ -41,3 +41,4 @@ Aktionen
 --------
 - [ ] Lagerplätze definieren und QR/Tagging überlegen
 - [ ] Verbrauchslog anlegen
+

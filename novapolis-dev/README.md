@@ -28,12 +28,12 @@ Der Dev Hub verknüpft die Arbeitsstände aus `novapolis_agent/`, `novapolis-sim
 Primary Docs
 ------------
 
-- `docs/donelog.md` – tägliche Fortschritte und Beschlüsse
-- `docs/todo.index.md` – TODO-Index (Navigation zu Modul-Boards)
+- `docs/donelog.md` - tägliche Fortschritte und Beschlüsse
+- `docs/todo.index.md` - TODO-Index (Navigation zu Modul-Boards)
   - Module: Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent.md`, Sim `docs/todo.sim.md`
-- `.github/copilot-instructions.md` – Arbeitsweise, Stil, Sicherheitsleitplanken (SSOT)
-- `docs/naming-policy.md` – verbindliche Dateibenennung im Verbund
-- `docs/tests.md` – Testabdeckung und Sim-/Client-Checkliste
+- `.github/copilot-instructions.md` - Arbeitsweise, Stil, Sicherheitsleitplanken (SSOT)
+- `docs/naming-policy.md` - verbindliche Dateibenennung im Verbund
+- `docs/tests.md` - Testabdeckung und Sim-/Client-Checkliste
 
 Contributor Workflow
 --------------------
@@ -45,12 +45,12 @@ Contributor Workflow
 Struktur
 --------
 
-- `docs/` – Arbeitsdokumente (ToDos, DoneLogs, Policies, Testpläne)
-- `docs/meta/` – Metadaten zu den Arbeitsdokumenten
-- `migrations/` – Änderungs- und Umzugshistorie
-- `roadmaps/` – Langfristige Planungen (Platzhalter)
-- `integrations/` – Schnittstellen- und Abstimmungsdokumente (Platzhalter)
-- `raw/`, `curated/` – optionale lokale Skizzen; produktive Datenpools liegen unter `../novapolis-rp/database-*`
+- `docs/` - Arbeitsdokumente (ToDos, DoneLogs, Policies, Testpläne)
+- `docs/meta/` - Metadaten zu den Arbeitsdokumenten
+- `migrations/` - Änderungs- und Umzugshistorie
+- `roadmaps/` - Langfristige Planungen (Platzhalter)
+- `integrations/` - Schnittstellen- und Abstimmungsdokumente (Platzhalter)
+- `raw/`, `curated/` - optionale lokale Skizzen; produktive Datenpools liegen unter `../novapolis-rp/database-*`
 
 Archiv
 ------
@@ -80,4 +80,5 @@ Checks: full
 - Sammellauf-Skript: `python scripts/run_checks_and_report.py` (Lint: ruff/black, Docs-Lint markdownlint, Frontmatter-Validator, Typen: pyright/mypy, Tests + Coverage ≥80%; optionale Zusatz-Lints werden als SKIP protokolliert, falls nicht installiert)
 - Report-Ausgabe: `.tmp-results/reports/checks_run_<timestamp>/` mit konsolidiertem Markdown- und JSON-Report pro Lauf
 - Nutzung: Direktaufruf `python scripts/run_checks_and_report.py` (Wrapper-Policy bleibt aktiv). Exitcode aggregiert den ersten Pflicht-Check, der fehlschlägt.
+
 

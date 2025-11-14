@@ -4,7 +4,7 @@ update: Guard-Extrakt synchronisiert, Postflight-Liste erweitert, veraltete Eint
 checks: markdownlint scoped PASS
 ---
 
-Hinweis: Diese Datei ist eine Extrakt‑Referenz. Sie enthält die aus
+Hinweis: Diese Datei ist eine Extrakt-Referenz. Sie enthält die aus
 `.github/copilot-instructions.md` extrahierten Überschriften und ist
 selbst unter dem Pfad `.github/copilot-instructions-headings.md` im
 Repository abzulegen.
@@ -21,9 +21,9 @@ Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-12 14:10` der Datei `.
 - Gemeinsamer Arbeitsstil
 - Onboarding & Setup
 - Kanonische Prüfabläufe (pwsh)
-- Workspace‑Tree‑Artefakte (Zuordnung)
+- Workspace-Tree-Artefakte (Zuordnung)
 - YAML-Frontmatter (kompakt & LLM-freundlich)
-- Frontmatter‑Schutz (true)(robust gegen Delimiter‑Verlust)
+- Frontmatter-Schutz (true)(robust gegen Delimiter-Verlust)
 - Dateiformat & EOL
 - Definition of Done (Code & Docs)
 - Security & Dependencies
@@ -40,9 +40,10 @@ Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-12 14:10` der Datei `.
 - Novapolis Agent (Backend)
 - Novapolis-RP
 - Workspace-Instructions (kompakt)
-- Diagnose‑Playbook bei Lint‑FAIL (pwsh, konservativ)
-- Mirrors/Redirect‑Stubs
+- Diagnose-Playbook bei Lint-FAIL (pwsh, konservativ)
+- Mirrors/Redirect-Stubs
 - Export/Importer
 - Ziele
 
 (Ende des Extrakts)
+

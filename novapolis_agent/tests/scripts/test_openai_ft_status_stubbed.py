@@ -9,7 +9,7 @@ import pytest
 
 
 class _Ev:
-    def __init__(self, id: str, created_at: int, level: str, message: str) -> None:  # noqa: A002
+    def __init__(self, id: str, created_at: int, level: str, message: str) -> None:
         self.id = id
         self.created_at = created_at
         self.level = level
@@ -27,9 +27,7 @@ class _Ev:
 
 
 class _Job:
-    def __init__(
-        self, id: str, status: str, model: str = "gpt-4o", ftm: str | None = None
-    ) -> None:  # noqa: A002
+    def __init__(self, id: str, status: str, model: str = "gpt-4o", ftm: str | None = None) -> None:
         self.id = id
         self.status = status
         self.model = model
@@ -58,10 +56,10 @@ class _Client:
             )
         )
 
-    def _retrieve(self, job_id: str):  # noqa: ANN001
+    def _retrieve(self, job_id: str):
         return self._jobs_seq[min(self._idx, len(self._jobs_seq) - 1)]
 
-    def _list_events(self, job_id: str, limit: int = 25):  # noqa: ANN001
+    def _list_events(self, job_id: str, limit: int = 25):
         evs = self._events_seq[min(self._idx, len(self._events_seq) - 1)]
         self._idx = min(self._idx + 1, len(self._jobs_seq) - 1)
         return types.SimpleNamespace(data=evs[:limit])
@@ -102,7 +100,7 @@ def test_openai_ft_status_follow_terminates(monkeypatch: pytest.MonkeyPatch) -> 
     monkeypatch.setenv("OPENAI_API_KEY", "x")
 
     # Simuliere running -> succeeded mit zwei Polls
-    jobs = [_Job("ftjob-2", "running"), _Job("ftjob-2", "succeeded", ftm="ft:gpt2")]  # noqa: PIE796
+    jobs = [_Job("ftjob-2", "running"), _Job("ftjob-2", "succeeded", ftm="ft:gpt2")]
     events = [
         [_Ev("e1", 1, "info", "start")],
         [_Ev("e2", 2, "info", "done")],

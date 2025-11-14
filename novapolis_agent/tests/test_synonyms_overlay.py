@@ -24,7 +24,7 @@ def _get_run_eval() -> Any:
 
 def test_synonyms_overlay_merged_and_deduped():
     run_eval = _get_run_eval()
-    old_cfg = getattr(run_eval, "DEFAULT_CONFIG_DIR")
+    old_cfg = run_eval.DEFAULT_CONFIG_DIR
     try:
         with tempfile.TemporaryDirectory() as tmp:
             cfg = os.path.join(tmp, "config")
@@ -68,7 +68,7 @@ def test_synonyms_overlay_merged_and_deduped():
 
 def test_synonyms_overlay_missing_is_silent():
     run_eval = _get_run_eval()
-    old_cfg = getattr(run_eval, "DEFAULT_CONFIG_DIR")
+    old_cfg = run_eval.DEFAULT_CONFIG_DIR
     try:
         with tempfile.TemporaryDirectory() as tmp:
             cfg = os.path.join(tmp, "config")

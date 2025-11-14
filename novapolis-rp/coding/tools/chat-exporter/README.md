@@ -11,6 +11,7 @@ Details nun im Hub: `novapolis-dev/docs/readme.hub.md` → "Export & Ingest".
 Kurz:
 - Browser Auto-Scroll Export, speicherschonend (Streaming/Chunks).
 - Ziel immer `database-raw/99-exports/`.
-- Curation/Ingest danach – siehe Hub.
+- Curation/Ingest danach - siehe Hub.
+
 
 

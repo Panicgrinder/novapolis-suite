@@ -23,7 +23,7 @@ def ensure_system_message(messages: list[ChatMessage]) -> list[ChatMessage]:
     if not has_system:
         system_content = get_system_prompt()
         system_message = ChatMessage(role="system", content=system_content)
-        return [system_message] + messages
+        return [system_message, *messages]
     return messages
 
 
@@ -58,7 +58,7 @@ def _coerce_str_list(val: Any) -> list[str] | None:
 def _coerce_bool(val: Any) -> bool | None:
     if isinstance(val, bool):
         return val
-    if isinstance(val, (int, float)):
+    if isinstance(val, int | float):
         return bool(val)
     if isinstance(val, str):
         lowered = val.strip().lower()

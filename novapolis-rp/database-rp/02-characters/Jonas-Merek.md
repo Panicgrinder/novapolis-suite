@@ -33,7 +33,7 @@ Jonas Merek
 ===========
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `JNS3=L55-T68-N40-E72-O50-C42-M78-P32-ab` – sicherheitsorientiert, hilfsbereit, driftet bei Überlast in Fluchtreflexe.
+- Verhaltenssignatur: `JNS3=L55-T68-N40-E72-O50-C42-M78-P32-ab` - sicherheitsorientiert, hilfsbereit, driftet bei Überlast in Fluchtreflexe.
 - Rolle: Technikerlehrling/Mechaniker; betreut Werkstatt & Materiallauf in D5 (Quelle: RAW char_jonas_v2)
 - Werte: Kraft 3, Geschick 5, Geist 3, Wille 4, Charisma 3
 - Skills:
@@ -54,9 +54,9 @@ Hintergrund & Herkunft
 Rollen & Verantwortlichkeiten (Pflichtfelder)
 ---------------------------------------------
 
-- Werkstatt & Fertigung – Reparaturen, Prototypen (Draisine/Transportmodul), Wartung D5-Infrastruktur.
-- Logistik – Materialläufe dokumentieren, Schnittstelle zum Missionslog (Freigaben über Ronja, Abgleich mit Missionslog Prozess L.1).
-- Kommunikation – Terminal/Funkbrücke D5↔C6 bedienen, Statusberichte an Marei/Kora koordinieren (Quelle: FACT [COMMS-PROTO]).
+- Werkstatt & Fertigung - Reparaturen, Prototypen (Draisine/Transportmodul), Wartung D5-Infrastruktur.
+- Logistik - Materialläufe dokumentieren, Schnittstelle zum Missionslog (Freigaben über Ronja, Abgleich mit Missionslog Prozess L.1).
+- Kommunikation - Terminal/Funkbrücke D5↔C6 bedienen, Statusberichte an Marei/Kora koordinieren (Quelle: FACT [COMMS-PROTO]).
 
 Zugehörigkeit & Standort
 ------------------------
@@ -65,7 +65,7 @@ Zugehörigkeit & Standort
 - Status: aktiv, unter Supervision; keine Außenmissionen ohne Begleitung.
 - Letzter bekannter Einsatz: D5 Werkstattbereich (Schichtplan rotierend, Abstecher C6 nur mit Freigabe).
 
-Wissensstand (Matrix – Auszug)
+Wissensstand (Matrix - Auszug)
 ------------------------------
 
 - Intern: Kennt D5-Systeme, Lumen-Kopplungsregeln, Grundzüge von Reflex’ Präsenz (Need-to-know). Zugang zu Wartungslog und Missionslog Einträgen der Werkstatt.
@@ -87,12 +87,12 @@ Sicherheit & Interaktion
 Beziehungen
 -----------
 
-- Lumen – gekoppelte Instanz, gegenseitige Stabilisierung (siehe Lumen-Canvas).
-- Ronja Kerschner – Mentorin/Supervisor für Werkstatt- und Logistikfreigaben.
-- Pahl – Reha-Partner, Austausch über Wartungsprotokolle, Jonas unterstützt bei Wiederaufnahme.
-- Marei & Kora – erhalten Material- und Statusmeldungen via Terminal für C6/E3 Evakuierte.
-- Echo – über Kora-Berichte bekannt; hält Distanz, respektiert Proximity-Protokolle bei Übergaben.
-- Reflex (Primär) – Faszination und vorsichtige Zusammenarbeit; Jonas respektiert Grenzen, meldet Unregelmäßigkeiten sofort.
+- Lumen - gekoppelte Instanz, gegenseitige Stabilisierung (siehe Lumen-Canvas).
+- Ronja Kerschner - Mentorin/Supervisor für Werkstatt- und Logistikfreigaben.
+- Pahl - Reha-Partner, Austausch über Wartungsprotokolle, Jonas unterstützt bei Wiederaufnahme.
+- Marei & Kora - erhalten Material- und Statusmeldungen via Terminal für C6/E3 Evakuierte.
+- Echo - über Kora-Berichte bekannt; hält Distanz, respektiert Proximity-Protokolle bei Übergaben.
+- Reflex (Primär) - Faszination und vorsichtige Zusammenarbeit; Jonas respektiert Grenzen, meldet Unregelmäßigkeiten sofort.
 
 Risiken & Schutzmaßnahmen
 -------------------------
@@ -111,10 +111,10 @@ Ziele (kurz)
 Systemverknüpfungen & Referenzen
 --------------------------------
 
-- `ai_behavior_index_v2` – Verhaltenscluster (Verbundene) gepflegt.
-- `missionslog` – Prozess L.1, Freigaben und Terminalmeldungen.
-- `database-rp/05-projects/caravan_moves.md` – Draisine-/Konvoi-Projekt, Jonas liefert Werkstadtstatus.
-- `database-rp/02-characters/Lumen.md` – Kopplungsdetails.
+- `ai_behavior_index_v2` - Verhaltenscluster (Verbundene) gepflegt.
+- `missionslog` - Prozess L.1, Freigaben und Terminalmeldungen.
+- `database-rp/05-projects/caravan_moves.md` - Draisine-/Konvoi-Projekt, Jonas liefert Werkstadtstatus.
+- `database-rp/02-characters/Lumen.md` - Kopplungsdetails.
 
 Quellen & Hinweise
 ------------------
@@ -123,4 +123,5 @@ Quellen & Hinweise
 - FACT: `[JONAS-SIS]`, `[PROXIMITY]`, `[COMMS-PROTO]`, `[FR-KNOWLEDGE]`, `[C6-FIRST]` (`database-curated/staging/reports/resolved.md`).
 - Drift/Quellen: `database-curated/staging/reports/char-block-nord-sources.md` (Hinweis Schuldflag nur als Kommentar).
 - Validierung: Automatischer Check alle 7 In-Game-Tage; letzter Lauf 2025-10-16_14:12 (Systemstatus grün).
+
 

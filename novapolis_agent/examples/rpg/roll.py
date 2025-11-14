@@ -40,4 +40,4 @@ async def roll_dice(request: RollRequest) -> RollResponse:
     except Exception as e:
         if isinstance(e, HTTPException):
             raise e
-        raise HTTPException(status_code=400, detail=f"Fehler beim Würfeln: {str(e)}")
+        raise HTTPException(status_code=400, detail=f"Fehler beim Würfeln: {e!s}")

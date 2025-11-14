@@ -4,7 +4,7 @@ from __future__ import annotations
 import asyncio
 import json
 import os
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 from utils.time_utils import now_compact
 
@@ -72,7 +72,7 @@ async def rerun_from_results(
     if not todo:
         return {"ok": False, "error": "Keine passenden Items zu den Ziel-IDs gefunden"}
 
-    enabled_checks = cast(Optional[list[str]], meta.get("enabled_checks"))
+    enabled_checks = cast(list[str] | None, meta.get("enabled_checks"))
     eval_mode = bool(meta.get("eval_mode", True))
     asgi = bool(meta.get("asgi", True))
     api_url = cast(

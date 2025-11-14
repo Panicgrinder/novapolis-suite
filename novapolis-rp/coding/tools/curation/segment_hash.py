@@ -1,8 +1,7 @@
-import sys
-import os
 import hashlib
+import os
+import sys
 from collections import defaultdict
-from typing import List, Dict, Tuple
 
 
 def normalize_line(s: str) -> str:
@@ -10,27 +9,27 @@ def normalize_line(s: str) -> str:
     return " ".join(s.strip().split())
 
 
-def window_hash(lines: List[str], start: int, win: int) -> str:
-    chunk = "\n".join(lines[start:start+win])
-    return hashlib.sha1(chunk.encode('utf-8', errors='replace')).hexdigest()
+def window_hash(lines: list[str], start: int, win: int) -> str:
+    chunk = "\n".join(lines[start : start + win])
+    return hashlib.sha1(chunk.encode("utf-8", errors="replace")).hexdigest()
 
 
-def index_file(path: str, win: int) -> Dict[str, List[int]]:
-    with open(path, 'r', encoding='utf-8', errors='replace') as f:
+def index_file(path: str, win: int) -> dict[str, list[int]]:
+    with open(path, encoding="utf-8", errors="replace") as f:
         raw_lines = f.read().splitlines()
     lines = [normalize_line(x) for x in raw_lines if normalize_line(x) != ""]
-    idx: Dict[str, List[int]] = defaultdict(list)
+    idx: dict[str, list[int]] = defaultdict(list)
     for i in range(0, max(0, len(lines) - win + 1)):
         h = window_hash(lines, i, win)
         idx[h].append(i)
     return idx
 
 
-def cross_duplicates(files: List[str], win: int) -> Dict[str, Dict[str, List[int]]]:
+def cross_duplicates(files: list[str], win: int) -> dict[str, dict[str, list[int]]]:
     # returns hash -> file -> positions
     per_file = {p: index_file(p, win) for p in files}
     all_hashes = set().union(*[set(m.keys()) for m in per_file.values()])
-    result: Dict[str, Dict[str, List[int]]] = {}
+    result: dict[str, dict[str, list[int]]] = {}
     for h in all_hashes:
         present = {p: per_file[p][h] for p in files if h in per_file[p]}
         if len(present) > 1:
@@ -38,9 +37,9 @@ def cross_duplicates(files: List[str], win: int) -> Dict[str, Dict[str, List[int
     return result
 
 
-def print_summary(files: List[str], win: int):
+def print_summary(files: list[str], win: int):
     print(f"# Segment-Hash Dedupe (window={win})\n")
-    per_file_dupes: List[Tuple[str, int]] = []
+    per_file_dupes: list[tuple[str, int]] = []
     for p in files:
         idx = index_file(p, win)
         internal_dup = sum(1 for positions in idx.values() if len(positions) > 1)
@@ -60,9 +59,11 @@ def print_summary(files: List[str], win: int):
         shown += 1
 
 
-def main(argv: List[str]):
+def main(argv: list[str]):
     if len(argv) < 2:
-        print("Usage: python segment_hash.py <window_lines:int> <file1> [file2 ...]", file=sys.stderr)
+        print(
+            "Usage: python segment_hash.py <window_lines:int> <file1> [file2 ...]", file=sys.stderr
+        )
         sys.exit(2)
     try:
         win = int(argv[0])
@@ -75,10 +76,11 @@ def main(argv: List[str]):
         print("No valid files given.", file=sys.stderr)
         sys.exit(2)
     try:
-        sys.stdout.reconfigure(encoding='utf-8', errors='replace')  # type: ignore[attr-defined]
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # type: ignore[attr-defined]
     except Exception:
         pass
     print_summary(files, win)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main(sys.argv[1:])

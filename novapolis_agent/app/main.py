@@ -7,7 +7,6 @@ import platform as _platform
 import time
 from collections.abc import Mapping as _Mapping
 from typing import Any
-from typing import Union as _Union
 from typing import cast as _cast
 
 import fastapi as _fastapi
@@ -34,7 +33,6 @@ app = FastAPI(
 if settings.RATE_LIMIT_ENABLED:
     import threading
     from collections import defaultdict, deque
-    from typing import Deque
 
     from starlette.middleware.base import BaseHTTPMiddleware
 
@@ -45,7 +43,7 @@ if settings.RATE_LIMIT_ENABLED:
             self.window = float(settings.RATE_LIMIT_WINDOW_SEC)
             self.capacity = max(1, int(settings.RATE_LIMIT_REQUESTS_PER_MINUTE))
             self.burst = max(0, int(settings.RATE_LIMIT_BURST))
-            self.buckets: dict[str, Deque[float]] = defaultdict(deque)
+            self.buckets: dict[str, deque[float]] = defaultdict(deque)
 
         async def dispatch(self, request: Request, call_next):
             if request.url.path in set(settings.RATE_LIMIT_EXEMPT_PATHS):
@@ -58,7 +56,7 @@ if settings.RATE_LIMIT_ENABLED:
             allow = True
 
             with self.lock:
-                q: Deque[float] = self.buckets[client_host]
+                q: deque[float] = self.buckets[client_host]
                 cutoff = now - self.window
                 while q and q[0] < cutoff:
                     q.popleft()
@@ -81,7 +79,7 @@ if settings.RATE_LIMIT_ENABLED:
                 )
             response = await call_next(request)
             try:
-                q2: Deque[float] = self.buckets[client_host]
+                q2: deque[float] = self.buckets[client_host]
                 remaining = max(0, (self.capacity + self.burst) - len(q2))
                 response.headers["X-RateLimit-Limit"] = str(self.capacity + self.burst)
                 response.headers["X-RateLimit-Remaining"] = str(remaining)
@@ -131,7 +129,7 @@ async def request_context_mw(request: Request, call_next):
     start = time.time()
     try:
         try:
-            setattr(request.state, "request_id", rid)
+            request.state.request_id = rid
         except Exception:
             pass
         response = _cast(Response, await call_next(request))
@@ -191,7 +189,7 @@ async def request_context_mw(request: Request, call_next):
         raise
 
 
-def _get_content_from_message(m: _Union[ChatMessage, _Mapping[str, str]]) -> str:
+def _get_content_from_message(m: ChatMessage | _Mapping[str, str]) -> str:
     """Extrahiert Nachrichteninhalte für ChatMessage- oder Mapping-Inputs."""
     if isinstance(m, ChatMessage):
         return m.content or ""
@@ -248,7 +246,7 @@ async def chat(request: ChatRequest, req: Request):
         logger.exception("Fehler bei der Verarbeitung der Chat-Anfrage: %s", exc)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Interner Serverfehler: {str(exc)}",
+            detail=f"Interner Serverfehler: {exc!s}",
         ) from exc
 
 
@@ -273,7 +271,7 @@ async def chat_stream(request: ChatRequest, req: Request):
         logger.exception("Fehler bei der Streaming-Chat-Anfrage: %s", exc)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Interner Serverfehler: {str(exc)}",
+            detail=f"Interner Serverfehler: {exc!s}",
         ) from exc
 
 

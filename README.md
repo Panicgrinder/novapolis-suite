@@ -12,15 +12,15 @@ Die Novapolis Suite fasst Agent-Backend, Rollenspiel-Datenbasis, Dev-Dokumentati
 Projekte im Repository
 ----------------------
 
-- **novapolis_agent** – FastAPI-Backend, Eval-Tooling und Trainingsskripte fuer den produktiven Novapolis Agent.
-- **novapolis-rp** – Weltbau-Daten, Rollenspiel-Workflows und begleitende Tools (ohne Agent-Laufzeit).
-- **novapolis-dev** – Kuratierte Datensaetze, Prozess- und Policy-Dokumentation als Arbeits-Hub.
-- **novapolis-sim** – Godot-Szene und Skripte fuer den Simulations-Prototypen.
+- **novapolis_agent** - FastAPI-Backend, Eval-Tooling und Trainingsskripte fuer den produktiven Novapolis Agent.
+- **novapolis-rp** - Weltbau-Daten, Rollenspiel-Workflows und begleitende Tools (ohne Agent-Laufzeit).
+- **novapolis-dev** - Kuratierte Datensaetze, Prozess- und Policy-Dokumentation als Arbeits-Hub.
+- **novapolis-sim** - Godot-Szene und Skripte fuer den Simulations-Prototypen.
 
 Gemeinsames Python-Paket
 -------------------------
 
-Geteilte Python-Helfer leben in `packages/novapolis_common`. Installiere das Shared‑Paket bei Bedarf als Editable (nicht mehr das gesamte Repo):
+Geteilte Python-Helfer leben in `packages/novapolis_common`. Installiere das Shared-Paket bei Bedarf als Editable (nicht mehr das gesamte Repo):
 
 ```powershell
 Set-Location "F:/VS Code Workspace/Main"
@@ -35,7 +35,7 @@ F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -r requirement
 F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -e packages/novapolis_common
 ```
 
-Module, die aktuell mehrfach in den Projekten vorkommen, sollten nach `packages/novapolis_common` wandern. Projektspezifische Verdrahtung (API, Policies, Szenenlogik) verbleibt in den jeweiligen Ordnern. Packaging/Build‑Konfigurationen verbleiben in den Modul-/Paketpfaden; das Root `pyproject.toml` ist tools‑only.
+Module, die aktuell mehrfach in den Projekten vorkommen, sollten nach `packages/novapolis_common` wandern. Projektspezifische Verdrahtung (API, Policies, Szenenlogik) verbleibt in den jeweiligen Ordnern. Packaging/Build-Konfigurationen verbleiben in den Modul-/Paketpfaden; das Root `pyproject.toml` ist tools-only.
 
 Abhaengigkeiten
 ---------------
@@ -59,9 +59,9 @@ Zentrale Arbeitsrichtlinien
 ### Lint/Format & EOL-Policy (Root)
 
 - Markdownlint: Konfiguration unter `.markdownlint-cli2.jsonc` (Root). Optionales Ignore-File `.markdownlintignore`.
-- Editorconfig: `.editorconfig` definiert Spaces (2), EOL und Markdown‑Listen‑Indent; `*.ps1` erzwingt CRLF.
-- Python: Black/Ruff über `pyproject.toml` (tools‑only im Root; Packaging bleibt in den Modulpfaden).
-- Git EOL: `.gitattributes` erzwingt LF für Text/Markdown, CRLF für Windows‑Scripts (`*.ps1`, `*.cmd`, `*.bat`, `*.psm1`), und markiert Binärdateien mit `-text` (keine Fake‑Diffs).
+- Editorconfig: `.editorconfig` definiert Spaces (2), EOL und Markdown-Listen-Indent; `*.ps1` erzwingt CRLF.
+- Python: Black/Ruff über `pyproject.toml` (tools-only im Root; Packaging bleibt in den Modulpfaden).
+- Git EOL: `.gitattributes` erzwingt LF für Text/Markdown, CRLF für Windows-Scripts (`*.ps1`, `*.cmd`, `*.bat`, `*.psm1`), und markiert Binärdateien mit `-text` (keine Fake-Diffs).
 
 Lint ausführen (optional, lokal):
 
@@ -73,50 +73,50 @@ npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'
 Workspace öffnen
 -----------------
 
-1. VS Code über den Root-Ordner `Main/` öffnen (Single‑Root). Die frühere Multi‑Root‑Workspace-Datei wird nicht mehr verwendet.
+1. VS Code über den Root-Ordner `Main/` öffnen (Single-Root). Die frühere Multi-Root-Workspace-Datei wird nicht mehr verwendet.
 2. Workflows laufen ausschließlich zentral aus dem Root (`/.github/workflows`). Modulverzeichnisse enthalten keine eigenen `.github/workflows` mehr.
-3. Automatisierte Läufe erfolgen über das Tasks-Panel (Shared‑Panel); spontane Shell‑Kommandos gehören ins User‑Terminal.
-4. CI‑Workflows sind pfad‑gefiltert: Sie laufen nur bei relevanten Änderungen (z. B. `ci.yml` für `novapolis_agent/**`, `enforce-donelog.yml` für Agent‑Code/DONELOG, `validate-rp.yml` für `novapolis-rp/**`; `markdownlint.yml` bereits mit `paths`).
+3. Automatisierte Läufe erfolgen über das Tasks-Panel (Shared-Panel); spontane Shell-Kommandos gehören ins User-Terminal.
+4. CI-Workflows sind pfad-gefiltert: Sie laufen nur bei relevanten Änderungen (z. B. `ci.yml` für `novapolis_agent/**`, `enforce-donelog.yml` für Agent-Code/DONELOG, `validate-rp.yml` für `novapolis-rp/**`; `markdownlint.yml` bereits mit `paths`).
 
 ### Godot (Simulation)
 
-- Kanonische Projektdatei: `novapolis-sim/project.godot` (Option A gewählt).
+- Kanonische Projektdatei: `novapolis-sim/project.godot` (Option A gewählt).
 - Das vormals verschachtelte Projekt unter `novapolis-sim/novapolis-sim/` wurde archiviert: `Backups/novapolis-sim-archived-20251104/`.
-- Editor‑Pfad ist in `.vscode/settings.json` hinterlegt; Tasks/Repo verweisen nur auf die kanonische Datei.
+- Editor-Pfad ist in `.vscode/settings.json` hinterlegt; Tasks/Repo verweisen nur auf die kanonische Datei.
 
 Verbindungsprüfung
 ------------------
 
-2025-11-10 12:12 — Verbindung zwischen der lokalen Godot‑Instanz und dem Agent‑API (`POST /world/step`) wurde erfolgreich verifiziert. Headless‑Verifier (`novapolis-sim/scripts/verify_sim.gd`) und PowerShell‑Smoke‑Test (`scripts/verify_sim.ps1`) liefen lokal durch. Siehe `novapolis-sim/README.md` für Ausführungsbefehle und Audit‑Hinweise.
+2025-11-10 12:12 — Verbindung zwischen der lokalen Godot-Instanz und dem Agent-API (`POST /world/step`) wurde erfolgreich verifiziert. Headless-Verifier (`novapolis-sim/scripts/verify_sim.gd`) und PowerShell-Smoke-Test (`scripts/verify_sim.ps1`) liefen lokal durch. Siehe `novapolis-sim/README.md` für Ausführungsbefehle und Audit-Hinweise.
 
 ### Archiv
 
 - Historisierte oder ältere Planungs-/Prozessdokumente werden zentral unter `novapolis-dev/archive/` abgelegt.
 - Bitte keine Archive in Unterprojekten anlegen; verlinke stattdessen nach `novapolis-dev/archive/`.
 
-### Hinweise für Mitarbeit (Moduswechsel & STOP‑Gate)
+### Hinweise für Mitarbeit (Moduswechsel & STOP-Gate)
 
-- Moduswahl: Redaktion/Kanon bitte im General‑Modus (GPT‑5) arbeiten; Code‑Aufgaben (Skripte/Validatoren, Tests/CI, API/Services) im Codex‑Modus.
-- Details & Regeln: siehe `.github/copilot-instructions.md` (Abschnitt „Modell‑Profile & Moduswechsel“ und „STOP‑Gate vor Code‑Aktionen“).
-- STOP‑Gate: Vor Code‑Aktionen wird ein hartes STOP‑Gate gesetzt (explizit „Wechsel: Modus Codex“ oder „Weiter: Modus General“).
-- Erinnerungen: Bei Code‑Triggern weise ich auf den Moduswechsel hin; „Bitte nicht erinnern“ deaktiviert Hinweise bis zur Reaktivierung.
-- Aktueller Status (Modus/STOP‑Gate): siehe `WORKSPACE_STATUS.md`.
- - Unklarheiten‑STOP: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten‑STOP (global, immer gültig)“.
+- Moduswahl: Redaktion/Kanon bitte im General-Modus (GPT-5) arbeiten; Code-Aufgaben (Skripte/Validatoren, Tests/CI, API/Services) im Codex-Modus.
+- Details & Regeln: siehe `.github/copilot-instructions.md` (Abschnitt „Modell-Profile & Moduswechsel“ und „STOP-Gate vor Code-Aktionen“).
+- STOP-Gate: Vor Code-Aktionen wird ein hartes STOP-Gate gesetzt (explizit „Wechsel: Modus Codex“ oder „Weiter: Modus General“).
+- Erinnerungen: Bei Code-Triggern weise ich auf den Moduswechsel hin; „Bitte nicht erinnern“ deaktiviert Hinweise bis zur Reaktivierung.
+- Aktueller Status (Modus/STOP-Gate): siehe `WORKSPACE_STATUS.md`.
+ - Unklarheiten-STOP: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit - dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten-STOP (global, immer gültig)“.
 
 Bekannte Einschränkungen (temporär)
 -----------------------------------
 
-- VS Code erkennt den Workspace aktuell als Multi‑Root. Wrapper‑Tasks/Automationen verhalten sich unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single‑Root gilt: KEINE WRAPPER, Terminal ausschließlich manuell nutzen.
+- VS Code erkennt den Workspace aktuell als Multi-Root. Wrapper-Tasks/Automationen verhalten sich unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single-Root gilt: KEINE WRAPPER, Terminal ausschließlich manuell nutzen.
   - Fallakte: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
 
 Aktuelle Statusdokumente
 ------------------------
 
-- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) – Stand 2025-11-02, fasst Health-Checks, Risiken und Artefakte zusammen.
-- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) – Stand 2025-11-10 07:51, fasst Health-Checks, Risiken und Artefakte zusammen.
-- [`todo.root.md`](todo.root.md) – Zentraler Aufgabenueberblick (Stand 2025-11-10 04:20) inklusive Folgeaufgaben fuer Tree-Snapshots.
-- [`workspace_tree_full.txt`](workspace_tree_full.txt) – Vollstaendiger Verzeichnisbaum (Stand 2025-11-10 07:50; regenerierbar via Tasks `Workspace tree: full/directories/summary (dirs)`).
- - Backups befinden sich zentral unter `Backups/` (keine tool‑lesbaren Backups neben aktiven Configs).
+- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) - Stand 2025-11-02, fasst Health-Checks, Risiken und Artefakte zusammen.
+- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) - Stand 2025-11-10 07:51, fasst Health-Checks, Risiken und Artefakte zusammen.
+- [`todo.root.md`](todo.root.md) - Zentraler Aufgabenueberblick (Stand 2025-11-10 04:20) inklusive Folgeaufgaben fuer Tree-Snapshots.
+- [`workspace_tree_full.txt`](workspace_tree_full.txt) - Vollstaendiger Verzeichnisbaum (Stand 2025-11-10 07:50; regenerierbar via Tasks `Workspace tree: full/directories/summary (dirs)`).
+ - Backups befinden sich zentral unter `Backups/` (keine tool-lesbaren Backups neben aktiven Configs).
 
 Naechste Schritte
 -----------------
@@ -124,4 +124,6 @@ Naechste Schritte
 1. Doppelte Module identifizieren und schrittweise in `packages/novapolis_common` verschieben.
 2. Tests und Typpruefungen nach jeder Migration laufen lassen (`pytest`, `pyright`, `mypy`).
 3. Nach jedem groesseren Schritt DONELOG aktualisieren und Root-Uebersichten synchron halten.
+
+
 

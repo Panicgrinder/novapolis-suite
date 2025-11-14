@@ -25,7 +25,7 @@ def test_open_context_notes_happy(monkeypatch: pytest.MonkeyPatch, tmp_path: Pat
     # Prevent actually opening a file
     called: dict[str, str] = {}
 
-    def _open_file(p: str) -> None:  # noqa: ANN001
+    def _open_file(p: str) -> None:
         called["path"] = p
 
     monkeypatch.setattr(mod, "open_file", _open_file)

@@ -30,7 +30,7 @@ Lyra Hest
 =========
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `LYH1=O74-L68-T62-E58-S54-N46-M32-C28-P48-r` – strukturiert, loyal gegenüber Novapolis und rational in Logistikentscheidungen.
+- Verhaltenssignatur: `LYH1=O74-L68-T62-E58-S54-N46-M32-C28-P48-r` - strukturiert, loyal gegenüber Novapolis und rational in Logistikentscheidungen.
 
 - Rolle: Stellvertretende Leitung (Zivil/Logistik)
 - Werte: tbd
@@ -44,7 +44,7 @@ Lyra Hest
 
 Rollen & Verantwortlichkeiten (Pflichtfelder)
 ---------------------------------------------
-- Zivil/Logistik – Koordination D5↔C6, Vertretung Leitung
+- Zivil/Logistik - Koordination D5↔C6, Vertretung Leitung
 
 Zugehörigkeit & Standort
 ------------------------
@@ -58,10 +58,10 @@ Stärken
 
 Notizen
 -------
-- Stellvertretung für Varek Solun im zivilen/organisatorischen Bereich; Logistik‑Schwerpunkt.
-- In Missions-/Logistik‑Canvas verlinken (Prozess L.1; C6↔D5 Abläufe).
+- Stellvertretung für Varek Solun im zivilen/organisatorischen Bereich; Logistik-Schwerpunkt.
+- In Missions-/Logistik-Canvas verlinken (Prozess L.1; C6↔D5 Abläufe).
 
-Wissensstand (Matrix – Auszug)
+Wissensstand (Matrix - Auszug)
 ------------------------------
 - Intern: tbd (Teilkentnisse Reflex/Instanzen?)
 - Extern: tbd
@@ -73,6 +73,8 @@ Ziele (kurz)
 Verlinkungen
 ------------
 - [D5](../03-locations/D5.md) · [C6](../03-locations/C6.md)
-- [Novapolis‑Inventar](../04-inventory/Novapolis-inventar.md)
+- [Novapolis-Inventar](../04-inventory/Novapolis-inventar.md)
 - [Admin: Logistik](../00-admin/Logistik.md) · [Missionslog](../00-admin/Missionslog.md) · [Personenindex](../00-admin/person_index_np.md)
+
+
 

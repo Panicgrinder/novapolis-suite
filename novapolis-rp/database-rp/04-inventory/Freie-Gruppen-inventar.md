@@ -19,7 +19,7 @@ scope: faction
 version: "0.1"
 ---
 
-Inventar – Freie Gruppen (Sammelgruppe)
+Inventar - Freie Gruppen (Sammelgruppe)
 =======================================
 
 Bestände (Auszug)
@@ -36,3 +36,4 @@ Links
 -----
 - Logistik (Admin) → ../00-admin/Logistik.md
 - Missionslog → ../00-admin/Missionslog.md
+

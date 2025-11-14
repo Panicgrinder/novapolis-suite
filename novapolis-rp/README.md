@@ -12,14 +12,14 @@ Ein schlanker Workspace für dein AI-geführtes RP „Chronist von Novapolis“.
 Ordnerstruktur
 --------------
 
-- 00-admin/ – Systemprompt, Memory-Bundle, Meta
-- 01-canon/ – Welt-Lore, Regeln, Fraktionen
-- 02-characters/ – Charaktere (Ronja, Reflex, Jonas …)
-- 03-locations/ – Orte (D5, C6, Tunnel …)
-- 04-inventory/ – Inventar & Ressourcen
-- 05-projects/ – Projekte (z. B. „Nordlinie 01“)
-- 06-scenes/ – Szenen-Notizen, Tagebuch
-- 99-exports/ – Exporte (PDF/TXT) aus Chat
+- 00-admin/ - Systemprompt, Memory-Bundle, Meta
+- 01-canon/ - Welt-Lore, Regeln, Fraktionen
+- 02-characters/ - Charaktere (Ronja, Reflex, Jonas …)
+- 03-locations/ - Orte (D5, C6, Tunnel …)
+- 04-inventory/ - Inventar & Ressourcen
+- 05-projects/ - Projekte (z. B. „Nordlinie 01“)
+- 06-scenes/ - Szenen-Notizen, Tagebuch
+- 99-exports/ - Exporte (PDF/TXT) aus Chat
 
 Quickstart
 ----------
@@ -38,7 +38,7 @@ Schreibstil
 -----------
 
 - Keine Zitatblöcke in Antworten (besser für Screenreader).
-- Cinematisch, fokussiert, 250–400 Wörter je Antwort.
+- Cinematisch, fokussiert, 250-400 Wörter je Antwort.
 - Vorschläge/Optionen nur auf Anfrage.
 
 Viel Spaß und gute Fahrt durch D5/C6!
@@ -57,7 +57,7 @@ Visualisierung
 Projektüberblick
 -----------------
 
-Dieses Repo enthält die Arbeitsbasis für das Novapolis‑RP: strukturierte Daten (Admin, Kanon, Charaktere, Orte, Inventar, Projekte, Szenen) und ein leichtgewichtiges Coding‑Verzeichnis mit Hilfsdokumenten.
+Dieses Repo enthält die Arbeitsbasis für das Novapolis-RP: strukturierte Daten (Admin, Kanon, Charaktere, Orte, Inventar, Projekte, Szenen) und ein leichtgewichtiges Coding-Verzeichnis mit Hilfsdokumenten.
 
 ### Agenten-Modul
 
@@ -65,15 +65,15 @@ Der Agent-Code wird inzwischen ausschließlich im Schwesterprojekt `../novapolis
 
 ### Ziele
 
-- Reibungsloser Szenenstart mit stabilem Gedächtnis (Memory‑Bundle)
+- Reibungsloser Szenenstart mit stabilem Gedächtnis (Memory-Bundle)
 - Klare, nachvollziehbare Dokumentation und Exporte
-- Einfache Automatisierung für Checks (Markdown‑Lint)
+- Einfache Automatisierung für Checks (Markdown-Lint)
 
 Status & Automatisierung
 ------------------------
 
 - Lizenz: MIT (siehe `LICENSE`)
-- CI: einfacher Markdown‑Lint‑Check via GitHub Actions
+- CI: einfacher Markdown-Lint-Check via GitHub Actions
 
 Wie beitragen (kurz)
 --------------------
@@ -89,5 +89,7 @@ Badges
 Lizenz
 ------
 
-MIT – siehe `LICENSE`.
+MIT - siehe `LICENSE`.
+
+
 

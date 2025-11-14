@@ -50,7 +50,7 @@ def parse_results(path: str) -> dict[str, Any]:
             if r.get("rpg_mode") is True:
                 rpg_mode += 1
             d = r.get("duration_ms")
-            if isinstance(d, (int, float)):
+            if isinstance(d, int | float):
                 durations.append(int(d))
             rid = r.get("id") or r.get("item_id")
             if r.get("success") is not True and rid:
@@ -60,7 +60,7 @@ def parse_results(path: str) -> dict[str, Any]:
             stats["total"] += 1
             if r.get("success") is True:
                 stats["success"] += 1
-            if isinstance(d, (int, float)):
+            if isinstance(d, int | float):
                 stats["durations"].append(int(d))
     avg_dur = (sum(durations) / len(durations)) if durations else 0.0
     return {
@@ -106,7 +106,7 @@ def feature_status() -> dict[str, Any]:
 
 def build_md(results: dict[str, Any] | None, features: dict[str, Any]) -> str:
     lines: list[str] = []
-    lines.append("# TODO-Status – Automatischer Überblick")
+    lines.append("# TODO-Status - Automatischer Überblick")
     lines.append("")
     lines.append("## Features (offene Punkte)")
     lines.append(
@@ -215,3 +215,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

@@ -34,15 +34,15 @@ Primary Docs
 Betriebsnotiz (temporär)
 ------------------------
 
-- VS Code markiert den Workspace aktuell als Multi‑Root. Wrapper‑Tasks/Automationen sind unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single‑Root gilt: KEINE WRAPPER, Terminal ausschließlich manuell nutzen.
+- VS Code markiert den Workspace aktuell als Multi-Root. Wrapper-Tasks/Automationen sind unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single-Root gilt: KEINE WRAPPER, Terminal ausschließlich manuell nutzen.
   - Fallakte: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
 
 Specs
 -----
 
-- `docs/specs/annotation-spec.md` — Knowledge/Actions/Skill‑Ableitung (YAML‑Snippets)
-- `docs/specs/scheduler-spec.md` — Tickloser Min‑Heap Scheduler (24×1h, Events/Locks/Interrupts)
-- `docs/specs/tts-exporter-coqui.md` — Build‑Time Export (Coqui→OGG), Task‑Skelett & Kontrakt
+- `docs/specs/annotation-spec.md` — Knowledge/Actions/Skill-Ableitung (YAML-Snippets)
+- `docs/specs/scheduler-spec.md` — Tickloser Min-Heap Scheduler (24×1h, Events/Locks/Interrupts)
+- `docs/specs/tts-exporter-coqui.md` — Build-Time Export (Coqui→OGG), Task-Skelett & Kontrakt
 
 > [!NOTE]
 > Legacy-Kopien im ehemaligen RP-Development-Verzeichnis bleiben nur temporaer als Verweis bestehen und werden nach Downstream-Sign-off entfernt.
@@ -90,9 +90,9 @@ Validierung & Tasks
 
 - CI fuehrt automatisch aus: Daten-Validierung (`coding/tools/validators`) und Markdown-Lint.
 - Lokale VS Code Tasks (Docker bevorzugt, sonst Node):
-  - "validate:data (auto)" – Validatoren (Schema, Cross-Refs, Co-Occurrence)
-  - "lint:names (auto)" – Benennung nach `novapolis-dev/docs/naming-policy.md`
-  - "system:check (windows)" – Umgebung pruefen
+  - "validate:data (auto)" - Validatoren (Schema, Cross-Refs, Co-Occurrence)
+  - "lint:names (auto)" - Benennung nach `novapolis-dev/docs/naming-policy.md`
+  - "system:check (windows)" - Umgebung pruefen
 
 Hinweise:
 
@@ -100,4 +100,6 @@ Hinweise:
 - Bei PowerShell-Quoting-Problemen (Unexpected token) statt des Tasks direkt ausfuehren:
   - `powershell -ExecutionPolicy Bypass -File coding/tools/validators/run_check_names.ps1`
 - Markdown-Lint lokal: ausschließlich direkt im Terminal via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (keine Wrapper/Tasks).
+
+
 

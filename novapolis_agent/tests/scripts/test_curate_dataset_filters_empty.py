@@ -30,7 +30,7 @@ def test_curate_filters_exclude_all(monkeypatch: pytest.MonkeyPatch, tmp_path: P
 
     async def _export(
         results_path: str, out_dir: str, format: str, include_failures: bool
-    ) -> dict[str, Any]:  # noqa: ANN001
+    ) -> dict[str, Any]:
         p = exported
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(
@@ -47,7 +47,7 @@ def test_curate_filters_exclude_all(monkeypatch: pytest.MonkeyPatch, tmp_path: P
         )
         return {"ok": True, "out": str(p), "count": 1}
 
-    def _prepare_pack(*_a: Any, **_k: Any) -> dict[str, Any]:  # noqa: ANN001
+    def _prepare_pack(*_a: Any, **_k: Any) -> dict[str, Any]:
         return {"ok": True, "train": "t", "val": "v", "counts": {}}
 
     monkeypatch.setattr(mod, "_export", types.SimpleNamespace(export_from_results=_export))

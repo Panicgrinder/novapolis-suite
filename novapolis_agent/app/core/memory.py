@@ -6,7 +6,6 @@ from collections import deque
 from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Deque
 
 from .settings import settings
 
@@ -35,7 +34,7 @@ class MemoryStore:
 
 class InMemoryStore(MemoryStore):
     def __init__(self) -> None:
-        self._by_id: dict[str, Deque[_Turn]] = {}
+        self._by_id: dict[str, deque[_Turn]] = {}
         self._locks: dict[str, asyncio.Lock] = {}
         self._global_lock = asyncio.Lock()
 
@@ -50,7 +49,7 @@ class InMemoryStore(MemoryStore):
     async def append(self, session_id: str, role: str, content: str) -> None:
         lock = await self._ensure_lock(session_id)
         async with lock:
-            queue: Deque[_Turn] | None = self._by_id.get(session_id)
+            queue: deque[_Turn] | None = self._by_id.get(session_id)
             if queue is None:
                 queue = deque[_Turn]()
                 self._by_id[session_id] = queue
@@ -69,7 +68,7 @@ class InMemoryStore(MemoryStore):
     ) -> list[dict[str, str]]:
         lock = await self._ensure_lock(session_id)
         async with lock:
-            queue: Deque[_Turn] | None = self._by_id.get(session_id)
+            queue: deque[_Turn] | None = self._by_id.get(session_id)
             if not queue:
                 return []
             items: list[_Turn] = list(queue)

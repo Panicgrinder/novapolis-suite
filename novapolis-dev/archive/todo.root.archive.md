@@ -45,14 +45,14 @@ API/Nahbereich:
 
 - [x] `app/schemas.py` — Legacy-Schema entfernt. Modelle liegen zentral unter `app/api/models.py`.
 - [x] `app/api/chat_helpers.py` — Geprüft: wird produktiv genutzt (z. B. `normalize_ollama_options` in `app/api/chat.py` und Tests). Behalten.
-- [x] `app/core/content_management.py` — Wird aktiv aus `app/api/chat.py` genutzt (optional via Flags, Pre/Post/Prompt‑Modifikationen). Behalten; später gezielt verdrahten/abdecken (Tests vorhanden, z. B. Post‑Hooks via Monkeypatch).
+- [x] `app/core/content_management.py` — Wird aktiv aus `app/api/chat.py` genutzt (optional via Flags, Pre/Post/Prompt-Modifikationen). Behalten; später gezielt verdrahten/abdecken (Tests vorhanden, z. B. Post-Hooks via Monkeypatch).
 - [x] `app/utils/convlog.py` — Aktuell nur in `app/utils/examples/*` referenziert. Als Beispiel/Utility belassen; ggf. später in `examples/` verschieben.
 - [x] `app/utils/summarize.py` — Wird von Tests und Beispielen genutzt; belassen.
-- [x] `app/utils/session_memory.py` — Wird in `app/api/chat.py` genutzt (optional via Settings). Belassen; Folgeaufgabe: Basis‑Tests/Trunkierung.
+- [x] `app/utils/session_memory.py` — Wird in `app/api/chat.py` genutzt (optional via Settings). Belassen; Folgeaufgabe: Basis-Tests/Trunkierung.
 - [x] `app/utils/examples/**` — Beispiele belassen; ggf. später konsolidieren.
-- [x] `examples/rpg/*` — Beispiel‑RPG belassen; später separat dokumentieren/archivieren.
+- [x] `examples/rpg/*` — Beispiel-RPG belassen; später separat dokumentieren/archivieren.
 
-Skripte (CLI/Tools – teils „potenziell ungenutzt“ aus App-Perspektive):
+Skripte (CLI/Tools - teils „potenziell ungenutzt“ aus App-Perspektive):
 
 - [x] `scripts/customize_prompts.py`, `scripts/estimate_tokens.py`, `scripts/open_context_notes.py` — behalten oder als „optional tools“ markieren; README-Hinweis ergänzen.
   - Status: Done — README-Abschnitt „Optionale CLI-Tools“ ergänzt; Tools aufgeführt; `--help` verfügbar.
@@ -63,7 +63,7 @@ Skripte (CLI/Tools – teils „potenziell ungenutzt“ aus App-Perspektive):
 - [x] `scripts/audit_workspace.py` — behalten (liefert diese Liste); README-Querverweis setzen.
   - Status: Done — In README „Optionale CLI-Tools“ erwähnt.
 
-Nicht‑Python‑Artefakte (Referenzen vorhanden, aber Pflege prüfen):
+Nicht-Python-Artefakte (Referenzen vorhanden, aber Pflege prüfen):
 
 - [x] `eval/config/profiles.json` — aktuell; Doku konsolidieren.
   - Status: Done — `eval/README.md` Abschnitt „Profile & Synonyme“ ergänzt.
@@ -77,22 +77,22 @@ Kurzfristig (nächste Iterationen)
 
 archived_at: 2025-11-02 08:07
 
-- [x] Policy‑Hook & Content‑Management verdrahten
-  - Ziel: `core/content_management.py` im Chat‑Flow aktivieren (Pre‑/Post‑Prompt),
-    Policies aus ENV/policy.json, Modus‑Schalter (eval/unrestricted/profile).
+- [x] Policy-Hook & Content-Management verdrahten
+  - Ziel: `core/content_management.py` im Chat-Flow aktivieren (Pre-/Post-Prompt),
+    Policies aus ENV/policy.json, Modus-Schalter (eval/unrestricted/profile).
   - Akzeptanz: Hook in `process_chat_request` und `stream_chat_request`; Log/Audit pro Eingriff;
-    Tests: Rewrite/Allow‑All/Block.
+    Tests: Rewrite/Allow-All/Block.
 
-- [x] Session‑Memory (Basis)
-  - Ziel: `session_id` unterstützen, In‑Memory Store + Trunkierungs‑Heuristik (Token/Chars).
-  - Akzeptanz: Einbettung relevanter Turns in Messages; Settings für Limits; Tests: Happy‑Path, Trunkierung, Fallback.
+- [x] Session-Memory (Basis)
+  - Ziel: `session_id` unterstützen, In-Memory Store + Trunkierungs-Heuristik (Token/Chars).
+  - Akzeptanz: Einbettung relevanter Turns in Messages; Settings für Limits; Tests: Happy-Path, Trunkierung, Fallback.
 
-- [x] Erweiterte LLM‑Options
-  - Schema/Validierung in `ChatRequest.options` ergänzt (`ChatOptions`), Pass‑Through bis zum Client; Smoke‑Tests hinzugefügt.
+- [x] Erweiterte LLM-Options
+  - Schema/Validierung in `ChatRequest.options` ergänzt (`ChatOptions`), Pass-Through bis zum Client; Smoke-Tests hinzugefügt.
   - Ziel: num_ctx, repeat_penalty, presence/frequency_penalty etc. via `ChatRequest.options` validiert durchreichen.
-  - Akzeptanz: Pydantic‑Schema/Validation, Payload‑Durchreichung, Smoke‑Tests.
+  - Akzeptanz: Pydantic-Schema/Validation, Payload-Durchreichung, Smoke-Tests.
 
-Rerun-Failed mit Profil/Meta-Rekonstruktion (3–7 Tage)
+Rerun-Failed mit Profil/Meta-Rekonstruktion (3-7 Tage)
 ------------------------------------------------------
 
 archived_at: 2025-11-02 08:21
@@ -122,12 +122,12 @@ Kurz-Update (2025-10-25)
 
 archived_at: 2025-11-02 08:36
 
-- [x] Kontext‑Notizen: lokale Dateien priorisiert
+- [x] Kontext-Notizen: lokale Dateien priorisiert
   - Änderung: `CONTEXT_NOTES_PATHS` so angepasst, dass `context.local.*` vor `context.notes/` eingelesen wird.
   - Ergebnis: Tests wieder grün; Injektion enthält lokale Notizen zuverlässig (vor Trunkierung).
-- [x] Pyright‑Konfiguration bereinigt
+- [x] Pyright-Konfiguration bereinigt
   - Änderung: Ungültige Keys entfernt; Analysebereich auf `app/` und `utils/` fokussiert.
-  - Ergebnis: 0 Fehler/0 Warnungen im App‑Scope; Nacharbeit: tests/ & scripts/ später wieder einbeziehen und Warnungen abbauen.
+  - Ergebnis: 0 Fehler/0 Warnungen im App-Scope; Nacharbeit: tests/ & scripts/ später wieder einbeziehen und Warnungen abbauen.
 
 Zusätzliche kurzfristige Abschlüsse (2025-10-21)
 ------------------------------------------------
@@ -149,17 +149,17 @@ Zusätzliche kurzfristige Abschlüsse (2025-10-22)
 archived_at: 2025-11-02 08:40
 
 - [x] Docs konsolidiert: `AGENT_PROMPT.md` + `BEHAVIOR.md` → `AGENT_BEHAVIOR.md`
-  - Inhalte zusammengeführt (System‑Prompt, Richtlinien, System‑Infos)
-  - Verweise aktualisiert (Index, Training, Copilot‑Instructions, VS Code Task)
-  - Hinweis aufgenommen, wie das Dokument via `CONTEXT_NOTES_*` in den Agent‑Kontext geladen wird
-  - Kontext‑Notizen Defaults unverändert belassen; Aktivierung/Erweiterung per ENV dokumentiert
+  - Inhalte zusammengeführt (System-Prompt, Richtlinien, System-Infos)
+  - Verweise aktualisiert (Index, Training, Copilot-Instructions, VS Code Task)
+  - Hinweis aufgenommen, wie das Dokument via `CONTEXT_NOTES_*` in den Agent-Kontext geladen wird
+  - Kontext-Notizen Defaults unverändert belassen; Aktivierung/Erweiterung per ENV dokumentiert
 
 - [x] Kontext-Setup & Logs (heute/gestern)
-  - `eval/config/context.local.md`: 2‑Tage‑Digest (heute+gestern) + klare Feststellung (Defaults unverändert; ENV nutzen)
+  - `eval/config/context.local.md`: 2-Tage-Digest (heute+gestern) + klare Feststellung (Defaults unverändert; ENV nutzen)
   - Platzhalter-Logs angelegt: `data/logs/2025-10-22.jsonl`, `data/logs/2025-10-21.jsonl` (gitignored)
   - Hinweis in `AGENT_BEHAVIOR.md` Historie präzisiert
 
-Neu: Reports‑Standard
+Neu: Reports-Standard
 ---------------------
 
 archived_at: 2025-11-02 08:45
@@ -173,7 +173,7 @@ archived_at: 2025-11-02 08:45
 
 Hinweise:
 
-- Die Heuristik meldet auch legitime CLI‑Skripte als „potenziell ungenutzt“, da sie nicht von `app/main.py` referenziert werden. Diese bitte nicht vorschnell löschen, sondern als Tools dokumentieren und ggf. mit leichten Smoke‑Tests abdecken.
+- Die Heuristik meldet auch legitime CLI-Skripte als „potenziell ungenutzt“, da sie nicht von `app/main.py` referenziert werden. Diese bitte nicht vorschnell löschen, sondern als Tools dokumentieren und ggf. mit leichten Smoke-Tests abdecken.
 - Vollständige Liste siehe Report unter obigem Pfad.
 
 Offene Punkte (Kurzfristig)
@@ -193,4 +193,6 @@ archived_at: 2025-11-02 09:00
   - Status: Done — `cleanup_recommendations.md` und `README.md` sind konsistent;
     zentrale Endpunkte in [`app/main.py`](../app/main.py): `/`, `/health`, `/version`,
     `POST /chat`, `POST /chat/stream`
+
+
 

@@ -24,7 +24,7 @@ def _mock_async_client_error() -> httpx.AsyncClient:
 @pytest.mark.api
 @pytest.mark.unit
 def test_chat_stream_backend_error(monkeypatch: pytest.MonkeyPatch) -> None:
-    def _factory(*args: Any, **kwargs: Any) -> httpx.AsyncClient:  # noqa: ARG001
+    def _factory(*args: Any, **kwargs: Any) -> httpx.AsyncClient:
         return _mock_async_client_error()
 
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", _factory)

@@ -33,7 +33,7 @@ Varek Solun
 ===========
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `VRS1=O88-M76-S68-T62-L55-N44-C28-E25-P60-pr` – kontrollorientiert, führt mit strenger Autorität und paranoid-rationaler Wachsamkeit.
+- Verhaltenssignatur: `VRS1=O88-M76-S68-T62-L55-N44-C28-E25-P60-pr` - kontrollorientiert, führt mit strenger Autorität und paranoid-rationaler Wachsamkeit.
 - Rolle: Kommandant der Eisenkonklave (Militär & Zivil) (Quelle: FACT EK-LEADERSHIP)
 - Werte: noch offen (Union-Bewertungen nicht veröffentlicht)
 - Skills:
@@ -47,9 +47,9 @@ Varek Solun
 Rollen & Verantwortlichkeiten (Pflichtfelder)
 ---------------------------------------------
 
-- Kommandant – führt militärische Einsätze der Eisenkonklave (Sektor H12, Außenmissionen)
-- Zivile Leitung – priorisiert Ressourcen und delegiert Verwaltung über Lyra Hest (Stellvertretung)
-- Strategische Sicherheit – setzt Protokolle, Überwachung und Tarnoperationen auf (Quelle: FACT EK-LEADERSHIP)
+- Kommandant - führt militärische Einsätze der Eisenkonklave (Sektor H12, Außenmissionen)
+- Zivile Leitung - priorisiert Ressourcen und delegiert Verwaltung über Lyra Hest (Stellvertretung)
+- Strategische Sicherheit - setzt Protokolle, Überwachung und Tarnoperationen auf (Quelle: FACT EK-LEADERSHIP)
 
 Zugehörigkeit & Standort
 ------------------------
@@ -59,7 +59,7 @@ Zugehörigkeit & Standort
 - Status: aktiv; Kommandobunker H12
 - Letzter bekannter Einsatz: Wochenzug-Vorbereitung, Validierungsintervall 7 In-Game-Tage
 
-Wissensstand (Matrix – Auszug)
+Wissensstand (Matrix - Auszug)
 ------------------------------
 
 - Intern (Eisenkonklave): Kennt alle operationellen Kader, H12-Infrastruktur und die Stellvertretung durch Lyra Hest; verfolgt Union-Archive als Primärziel.
@@ -84,39 +84,39 @@ Fähigkeiten & Taktik
 Diplomatie & Beziehungen
 ------------------------
 
-- Eisenkonklave – absolute Loyalität; Kader folgen ohne öffentliche Debatte.
-- Lyra Hest – Stellvertretung für zivile/logistische Fragen, bindende Weisungen.
-- Händlergilde – wechselhafte Kooperation; Verhandlungen über streng kontrollierte Kanäle.
-- Schattenbund – feindselig, keine diplomatischen Kontakte, Vorbereitung auf Infiltrationsversuche.
-- Novapolis – nur Beobachtung externer Gerüchte, keine bestätigten Begegnungen, Alarmstufe „wachsam“.
+- Eisenkonklave - absolute Loyalität; Kader folgen ohne öffentliche Debatte.
+- Lyra Hest - Stellvertretung für zivile/logistische Fragen, bindende Weisungen.
+- Händlergilde - wechselhafte Kooperation; Verhandlungen über streng kontrollierte Kanäle.
+- Schattenbund - feindselig, keine diplomatischen Kontakte, Vorbereitung auf Infiltrationsversuche.
+- Novapolis - nur Beobachtung externer Gerüchte, keine bestätigten Begegnungen, Alarmstufe „wachsam“.
 
 Risiken & Schutzmaßnahmen
 -------------------------
 
 - Risiko diplomatischer Spannungen durch verdeckte Operationen.
 - Vertrauensverlust bei Enttarnung geheimer Ziele.
-- Eskalationsgefahr bei Fehleinschätzungen – Gegenmaßnahme: redundante Aufklärung und Disziplinprotokolle.
+- Eskalationsgefahr bei Fehleinschätzungen - Gegenmaßnahme: redundante Aufklärung und Disziplinprotokolle.
 
 Systemverknüpfungen & Referenzen
 --------------------------------
 
-- `ai_behavior_index_v2` – führt Cluster-/Modifikatorprofil der Eisenkonklave (Pflege offen).
-- `relationslog_eisenkonklave_v1` – dokumentiert Kontakte/Spannungen, Abgleich mit Logistik erforderlich.
-- `handelslog_eisenkonklave_v1` – Handelskapazitäten und Konten (Lazy-Load, Health-Check empfehlenswert).
-- `cluster_index_v1` – Standortalias „Sektor_H3“ verweist auf H12.
+- `ai_behavior_index_v2` - führt Cluster-/Modifikatorprofil der Eisenkonklave (Pflege offen).
+- `relationslog_eisenkonklave_v1` - dokumentiert Kontakte/Spannungen, Abgleich mit Logistik erforderlich.
+- `handelslog_eisenkonklave_v1` - Handelskapazitäten und Konten (Lazy-Load, Health-Check empfehlenswert).
+- `cluster_index_v1` - Standortalias „Sektor_H3“ verweist auf H12.
 
 Ziele (kurz)
 ------------
 
 - [ ] Union-Hauptarchiv lokalisieren und sichern.
-- [ ] Stabilität der Eisenkonklave (H12) wahren – Disziplin, Versorgung, Geheimhaltung.
+- [ ] Stabilität der Eisenkonklave (H12) wahren - Disziplin, Versorgung, Geheimhaltung.
 - [ ] Diplomatiekanäle mit Händlergilde kontrolliert offen halten.
 
 Routine & Validierung
 ---------------------
 
 - Automatisierte Validierung alle 7 In-Game-Tage; letzter Lauf 2025-10-16_03:25, nächster nach Fraktionszug Woche 4.
-- Systemstatus aktuell „gelb“ – Monitoring aktiv halten.
+- Systemstatus aktuell „gelb“ - Monitoring aktiv halten.
 
 Quellen & Verweise
 ------------------
@@ -125,4 +125,5 @@ Quellen & Verweise
 - Flag: `RAW-canvas-2025-10-16T03-25-00-000Z.flags.txt`
 - Beschlüsse: FACT EK-LEADERSHIP, FACT EK-TAXONOMY, FACT SECRECY (`database-curated/staging/reports/resolved.md`)
 - Drift-Notizen konsolidiert in `database-curated/staging/reports/char-block-nord-sources.md`
+
 

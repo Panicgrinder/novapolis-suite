@@ -16,9 +16,9 @@ version: 0.9
 Logistik Novapolis
 ==================
 
-Fokus: Energie‑Konten, Generatoren, Leitungen, Ladefenster, Prioritäten, Transportketten, Beleg‑Fluss, Materialien/Bestände.
+Fokus: Energie-Konten, Generatoren, Leitungen, Ladefenster, Prioritäten, Transportketten, Beleg-Fluss, Materialien/Bestände.
 
-Energie‑Konten
+Energie-Konten
 --------------
 - D5: Produktion/Verbrauch (kWh, Zellen %)
 - C6: Verbrauch (Teilversorgung über D5)
@@ -26,8 +26,8 @@ Energie‑Konten
 
 Generatoren
 -----------
-- D5‑Reaktor: Status 100%, lädt Zellen (Regeln verlinken)
-- C6‑Generator: repariert, Kapazität/Verbrauch verknüpfen
+- D5-Reaktor: Status 100%, lädt Zellen (Regeln verlinken)
+- C6-Generator: repariert, Kapazität/Verbrauch verknüpfen
 
 Leitungen/Schaltzustände
 ------------------------
@@ -43,21 +43,23 @@ Transportketten
 ---------------
 - Quelle → Transport → Ziel; Kapazitäten/Wege; Engpässe
 
-Beleg‑/Quittungsfluss
+Beleg-/Quittungsfluss
 ---------------------
 - Standardfluss: Entnahme (Quelle/Canvas) → Transport → Ankunft (Ziel/Canvas) → Belege/Quittungen → Verantwortliche
 
 Materialien / Bestände
 ----------------------
-- Bestandsliste mit Einheiten (kg/t, m, m², m³, kWh, Zellen‑%)
-- Trigger für Skalierung (SUPPLY) – Low/Med/High Stufen
+- Bestandsliste mit Einheiten (kg/t, m, m², m³, kWh, Zellen-%)
+- Trigger für Skalierung (SUPPLY) - Low/Med/High Stufen
 
 Verlinkungen
 ------------
 - [Missionslog](./Missionslog.md)
-- [C6 – Logistik‑Policy](./C6-Logistik-Policy.md)
-- [Admin: Day‑Switch & Debug](./Canvas-Admin-Day-Switch-Debug.md)
+- [C6 - Logistik-Policy](./C6-Logistik-Policy.md)
+- [Admin: Day-Switch & Debug](./Canvas-Admin-Day-Switch-Debug.md)
 - [Admin: Timeline (T+0)](./Canvas-T+0-Timeline.md)
 - [Projekt: Nordlinie 01](../05-projects/Nordlinie-01.md)
 - [Projekt: Karawanenbewegungen](../05-projects/caravan_moves.md)
 - [D5](../03-locations/D5.md), [C6](../03-locations/C6.md)
+
+

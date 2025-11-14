@@ -9,7 +9,7 @@ spec = importlib.util.spec_from_file_location("run_eval", RUN_EVAL_PATH)
 assert spec is not None and spec.loader is not None
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)  # type: ignore
-check_term_inclusion = getattr(module, "check_term_inclusion")
+check_term_inclusion = module.check_term_inclusion
 
 
 def passes_keywords_any(text: str, terms: list[str]) -> bool:
@@ -25,8 +25,8 @@ def test_chai_example_response_passes_relaxed_checks():
     }
     # Eine plausible, freundliche und zugewandte Antwort
     response = (
-        "Klar, gern! Klingt nach einem vollen Tag – erst einmal: du machst das gut. "
-        "Wenn du magst, können wir kurz schauen, was dir jetzt freundlich und einfühlsam guttun könnte – "
+        "Klar, gern! Klingt nach einem vollen Tag - erst einmal: du machst das gut. "
+        "Wenn du magst, können wir kurz schauen, was dir jetzt freundlich und einfühlsam guttun könnte - "
         "vielleicht ein paar tiefe Atemzüge oder eine kleine Pause?"
     )
     text = response
@@ -47,8 +47,9 @@ def test_chai_example_response_passes_relaxed_checks():
 
 def test_synonyms_overlay_supports_empathie_variants():
     # Prüfe, dass Synonyme wie einfühlsam/zugewandt durch die Synonymlogik erfasst werden
-    # Wir nutzen check_term_inclusion indirekt – hier sollte "einfühlsam" als Variante von empathisch zählen.
+    # Wir nutzen check_term_inclusion indirekt - hier sollte "einfühlsam" als Variante von empathisch zählen.
     text = (
-        "Dein Gefühl ist verständlich – ich versuche, ganz einfühlsam und zugewandt zu antworten."
+        "Dein Gefühl ist verständlich - ich versuche, ganz einfühlsam und zugewandt zu antworten."
     )
     assert check_term_inclusion(text, "empathisch") is True
+

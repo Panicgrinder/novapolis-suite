@@ -36,7 +36,7 @@ Hinweis: Alle Pfade beginnen bei `novapolis_agent/`, sofern nicht anders angegeb
 - [`novapolis_agent/coverage.xml`](novapolis_agent/coverage.xml) - Coverage-Report (XML, generiert)
 - [`novapolis_agent/analysis_chat_routers.md`](novapolis_agent/analysis_chat_routers.md) - Analyse der Chat-Router
 - [`novapolis_agent/cleanup_recommendations.md`](novapolis_agent/cleanup_recommendations.md) - Aufräum-Empfehlungen
-- [`novapolis_agent/docs/CONTEXT_ARCH.md`](novapolis_agent/docs/CONTEXT_ARCH.md) – Kontextfluss Developer ⇄ Copilot ⇄ GPT (Rollen, Beispiele, Privacy)
+- [`novapolis_agent/docs/CONTEXT_ARCH.md`](novapolis_agent/docs/CONTEXT_ARCH.md) - Kontextfluss Developer ⇄ Copilot ⇄ GPT (Rollen, Beispiele, Privacy)
 - [`novapolis_agent/mypy.ini`](novapolis_agent/mypy.ini) - mypy-Konfiguration
 - [`novapolis_agent/pyrightconfig.json`](novapolis_agent/pyrightconfig.json) - Python-Typsystem-Konfiguration
 - [`novapolis_agent/pytest.ini`](novapolis_agent/pytest.ini) - Pytest-Konfiguration
@@ -90,7 +90,7 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 
 #### `novapolis_agent/app/prompt`
 
-- (entfernt) `novapolis_agent/app/prompt/system.txt` – Altlast gelöscht; zentrale Quelle ist `app/core/prompts.py`.
+- (entfernt) `novapolis_agent/app/prompt/system.txt` - Altlast gelöscht; zentrale Quelle ist `app/core/prompts.py`.
 
 #### `novapolis_agent/app/routers` (legacy/geparkt)
   - TODO: Prüfen und entweder entfernen oder konsolidieren (verbleibender defekter Verweis aus Link-Scan)
@@ -116,10 +116,10 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 - [`novapolis_agent/utils/eval_cache.py`](novapolis_agent/utils/eval_cache.py) - Einfacher JSONL-Cache für LLM-Summaries
 - [`novapolis_agent/utils/message_helpers.py`](novapolis_agent/utils/message_helpers.py) - Message/Historie Utilities
 - [`novapolis_agent/utils/time_utils.py`](novapolis_agent/utils/time_utils.py) - Zeit-/Timestamp-Helfer
-- [`novapolis_agent/utils/rag.py`](novapolis_agent/utils/rag.py) - Leichtgewichtiger TF‑IDF RAG‑Retriever (Index/Save/Load/Retrieve)
+- [`novapolis_agent/utils/rag.py`](novapolis_agent/utils/rag.py) - Leichtgewichtiger TF-IDF RAG-Retriever (Index/Save/Load/Retrieve)
  - [`novapolis_agent/utils/eval_cache.py`](novapolis_agent/utils/eval_cache.py) - Einfacher JSONL-Cache für LLM-Summaries
  - [`novapolis_agent/utils/time_utils.py`](novapolis_agent/utils/time_utils.py) - Zeit-/Timestamp-Helfer
- - [`novapolis_agent/utils/rag.py`](novapolis_agent/utils/rag.py) - Leichtgewichtiger TF‑IDF RAG‑Retriever (Index/Save/Load/Retrieve)
+ - [`novapolis_agent/utils/rag.py`](novapolis_agent/utils/rag.py) - Leichtgewichtiger TF-IDF RAG-Retriever (Index/Save/Load/Retrieve)
 
 ### Daten (`novapolis_agent/data`)
 
@@ -130,9 +130,9 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 
 - [`novapolis_agent/docs/customization.md`](novapolis_agent/docs/customization.md) - Anpassungs-Dokumentation für private Nutzung
 - [`novapolis_agent/docs/ARCHIVE_PLAN.md`](novapolis_agent/docs/ARCHIVE_PLAN.md) - Archiv-/Bereinigungs-Plan (Phasen)
-- Zentral: [`novapolis-dev/docs/todo.agent.md`](novapolis-dev/docs/todo.agent.md) – ToDo & Roadmap (SSOT)
-- Zentrale Behaviour‑Richtlinien: [`.github/copilot-instructions.md`](.github/copilot-instructions.md) – SSOT für Arbeitsweise/Sicherheit
-- [`novapolis_agent/docs/DONELOG.txt`](novapolis_agent/docs/DONELOG.txt) - DONELOG – Abgeschlossene Arbeiten
+- Zentral: [`novapolis-dev/docs/todo.agent.md`](novapolis-dev/docs/todo.agent.md) - ToDo & Roadmap (SSOT)
+- Zentrale Behaviour-Richtlinien: [`.github/copilot-instructions.md`](.github/copilot-instructions.md) - SSOT für Arbeitsweise/Sicherheit
+- [`novapolis_agent/docs/DONELOG.txt`](novapolis_agent/docs/DONELOG.txt) - DONELOG - Abgeschlossene Arbeiten
   (Hinweis: `AGENT_PROMPT.md` und `BEHAVIOR.md` wurden konsolidiert → `AGENT_BEHAVIOR.md`)
 - [`novapolis_agent/docs/REPORTS.md`](novapolis_agent/docs/REPORTS.md) - Berichte/Reports Überblick
 - [`novapolis_agent/docs/training.md`](novapolis_agent/docs/training.md) - Kurzleitfaden Training/Finetuning (inkl. Reruns)
@@ -231,7 +231,7 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 - [`novapolis_agent/scripts/smoke_asgi.py`](novapolis_agent/scripts/smoke_asgi.py) - Minimaler ASGI-Smoketest
 - [`novapolis_agent/scripts/syn_loader.py`](novapolis_agent/scripts/syn_loader.py) - Loader für Synonym-Overlays
 - [`novapolis_agent/scripts/summarize_eval_results.py`](novapolis_agent/scripts/summarize_eval_results.py) - Aggregiert Eval-Ergebnisse
-- [`novapolis_agent/scripts/rag_indexer.py`](novapolis_agent/scripts/rag_indexer.py) - Baut TF‑IDF RAG‑Index aus .md/.txt und speichert JSON
+- [`novapolis_agent/scripts/rag_indexer.py`](novapolis_agent/scripts/rag_indexer.py) - Baut TF-IDF RAG-Index aus .md/.txt und speichert JSON
 
 ### Tests (`novapolis_agent/tests`)
 
@@ -258,3 +258,5 @@ Hinweise:
   `novapolis_agent/app/prompt/system.txt` wurde entfernt (Altlast, nicht produktiv genutzt).
 - Eval-Daten bitte ausschließlich unter [`novapolis_agent/eval/datasets/...`](novapolis_agent/eval/datasets/) pflegen. Zusätzliche
   Dateien im Ordner `eval/` sind dokumentiert.
+
+

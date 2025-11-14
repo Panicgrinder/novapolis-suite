@@ -19,7 +19,7 @@ Kurz-Kontrakt
   - epoch: `{ index: int, start_at: ISO8601, end_at: ISO8601 }` (24×1h; PC-zentriert)
   - actions_submitted: Liste von Action-Instanzen mit minimalem Schema aus der Annotation-Spec: `{ id, actor, verb, params, submitted_at }`
   - action_defs: Lookup für `verb → { base_duration_min, effort, interruptible, locks, may_trigger_event, resources }`
-  - skills: `actor → skill_levels` (diskret 0–3 je Skill); Mapping beeinflusst Dauer via `f_skill`
+  - skills: `actor → skill_levels` (diskret 0-3 je Skill); Mapping beeinflusst Dauer via `f_skill`
   - world_state/resources: optionaler Kontext (Verfügbarkeit, Orte, Tag/Nacht-Modifikatoren)
 - Ausgaben
   - schedule_events: geordnete Liste von Events `{ type: start|end|interrupt|visibility_change, action_id, t, meta }`
@@ -235,4 +235,5 @@ locks:
     held_by: A2
     queue: [A4]
 ```
+
 

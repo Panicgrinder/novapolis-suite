@@ -3,12 +3,14 @@
 Dieses Paket reicht die Module aus ``novapolis_agent.utils`` weiter, damit
 bestehende Importpfade ohne Anpassungen funktionieren.
 """
+
+import sys
 from collections.abc import Iterable
 from importlib import import_module
-import sys
 
 _BASE_PACKAGE = "novapolis_agent.utils"
 _module = sys.modules[__name__]
+
 
 def _expose(submodules: Iterable[str]) -> None:
     """Registriert die genannten Untermodule unter dem Legacy-Namen."""
@@ -28,4 +30,3 @@ _expose(
         "time_utils",
     )
 )
-

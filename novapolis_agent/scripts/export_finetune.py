@@ -124,7 +124,7 @@ async def export_from_results(
         cand: list[str] = []
         # 1) Explizite Quell-Dateien aus den Results
         try:
-            ddir = str(getattr(run_eval, "DEFAULT_DATASET_DIR"))
+            ddir = str(run_eval.DEFAULT_DATASET_DIR)
         except Exception:
             ddir = None
         src_files: list[str] = []
@@ -139,14 +139,14 @@ async def export_from_results(
         # 2) Fallback-Globs
         if hasattr(run_eval, "DEFAULT_DATASET_DIR"):
             try:
-                ddir2 = str(getattr(run_eval, "DEFAULT_DATASET_DIR"))
-                pat = str(getattr(run_eval, "DEFAULT_FILE_PATTERN"))
+                ddir2 = str(run_eval.DEFAULT_DATASET_DIR)
+                pat = str(run_eval.DEFAULT_FILE_PATTERN)
                 cand.append(os.path.join(ddir2, pat))
             except Exception:
                 pass
         try:
-            edir = str(getattr(run_eval, "DEFAULT_EVAL_DIR"))
-            pat2 = str(getattr(run_eval, "DEFAULT_FILE_PATTERN"))
+            edir = str(run_eval.DEFAULT_EVAL_DIR)
+            pat2 = str(run_eval.DEFAULT_FILE_PATTERN)
             cand.append(os.path.join(edir, pat2))
         except Exception:
             pass

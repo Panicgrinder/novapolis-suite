@@ -25,7 +25,7 @@ def test_pipeline_keyboard_interrupt(monkeypatch: pytest.MonkeyPatch, tmp_path: 
     monkeypatch.setattr(mod, "env_check", lambda: None)
 
     # subprocess.call raises KeyboardInterrupt
-    def _call(args: list[str] | tuple[str, ...]):  # noqa: ANN001
+    def _call(args: list[str] | tuple[str, ...]):
         raise KeyboardInterrupt()
 
     monkeypatch.setattr(mod, "subprocess", types.SimpleNamespace(call=_call))
@@ -56,7 +56,7 @@ def test_pipeline_fp16_flag(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> 
 
     calls: list[list[str]] = []
 
-    def _call(args: list[str] | tuple[str, ...]):  # noqa: ANN001
+    def _call(args: list[str] | tuple[str, ...]):
         calls.append(list(args))
         return 0
 

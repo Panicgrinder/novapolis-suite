@@ -2,7 +2,7 @@
 stand: 2025-11-07 04:09
 update: frontmatter INIT
 checks: pending
-title: Verbindungstunnel D5–C6
+title: Verbindungstunnel D5-C6
 last_updated: 2025-11-07T04:09:00+01:00
 category: location
 slug: verbindungstunnel-d5-c6
@@ -12,7 +12,7 @@ status: beschädigt
 connections: ["d5", "c6"]
 tags: []
 ---
-title: Verbindungstunnel D5–C6
+title: Verbindungstunnel D5-C6
 last_updated: 2025-11-07T04:09:00+01:00
 category: location
 slug: verbindungstunnel-d5-c6
@@ -23,7 +23,7 @@ connections: ["d5", "c6"]
 tags: []
 ---
 
-Verbindungstunnel D5–C6
+Verbindungstunnel D5-C6
 -----------------------
 
 Status
@@ -41,3 +41,4 @@ Aufgaben
 - [ ] Abschnitte priorisieren
 - [ ] Materiallauf planen
 - [ ] Sicherheit (Belüftung/Fluchtwege)
+

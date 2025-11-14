@@ -31,7 +31,7 @@ def test_pipeline_happy_path(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) ->
 
     calls: list[list[str]] = []
 
-    def _run(args: list[str] | tuple[str, ...], check: bool = False):  # noqa: ANN001
+    def _run(args: list[str] | tuple[str, ...], check: bool = False):
         # capture args and emulate success
         arg_list = list(args)
         calls.append(arg_list)
@@ -47,7 +47,7 @@ def test_pipeline_happy_path(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) ->
             mod.sys,
             "argv",
             ["fine_tune_pipeline.py", "--model", "gpt2", "--epochs", "1", "--bf16", "--no-check"],
-        )  # noqa: E501
+        )
         rc = mod.main()  # bf16 branch
 
     assert rc == 0

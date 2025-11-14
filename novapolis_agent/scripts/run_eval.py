@@ -18,7 +18,7 @@ import time
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Optional, cast
+from typing import Any, cast
 
 import httpx
 
@@ -37,7 +37,7 @@ try:
 except Exception:
     # Fallbacks, falls 'rich' nicht installiert ist (z. B. in CI/Minimalumgebung)
     class _Console:
-        def print(self, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
+        def print(self, *args: Any, **kwargs: Any) -> None:
             print(*args)
 
     class _Table:
@@ -46,7 +46,7 @@ except Exception:
             self._rows: list[list[str]] = []
             self._cols: list[str] = []
 
-        def add_column(self, name: str, style: str | None = None) -> None:  # noqa: ARG002
+        def add_column(self, name: str, style: str | None = None) -> None:
             self._cols.append(name)
 
         def add_row(self, *cols: Any) -> None:
@@ -63,14 +63,14 @@ except Exception:
             return "\n".join(lines)
 
     class _Progress:
-        def __init__(self, transient: bool = False) -> None:  # noqa: ARG002
+        def __init__(self, transient: bool = False) -> None:
             self._total = 0
             self._current = 0
 
         def __enter__(self):
             return self
 
-        def __exit__(self, exc_type, exc, tb):  # noqa: ANN001, D401
+        def __exit__(self, exc_type, exc, tb):
             return False
 
         def add_task(self, *_args: Any, total: int = 0, **_kwargs: Any) -> int:
@@ -97,7 +97,6 @@ if project_root not in sys.path:
 # Importiere die Utility-Funktionen (nun mit korrekt gesetztem sys.path)
 from collections.abc import Callable
 from typing import Any as _Any
-from typing import Optional as _Optional
 
 from utils.eval_utils import coerce_json_to_jsonl, load_synonyms, truncate
 from utils.time_utils import now_compact
@@ -110,7 +109,7 @@ try:
         from utils.eval_cache import EvalCache as _EvalCache
 
         # Fabriktyp: nimmt Pfad (str) und gibt eine Instanz mit get/put zurück
-        EvalCacheType: _Optional[Callable[[str], _Any]] = _EvalCache
+        EvalCacheType: Callable[[str], _Any] | None = _EvalCache
     except Exception:
         EvalCacheType = None
 except Exception:
@@ -522,10 +521,10 @@ async def load_prompts(patterns: list[str] | None = None) -> list[dict[str, Any]
                 except Exception as e:
                     file_stat["errors"] += 1
                     stats["total_errors"] += 1
-                    logger.error(f"{basename}: Fehler beim Parsen: {str(e)}")
+                    logger.error(f"{basename}: Fehler beim Parsen: {e!s}")
 
         except Exception as e:
-            logger.error(f"{basename}: Fehler beim Laden: {str(e)}")
+            logger.error(f"{basename}: Fehler beim Laden: {e!s}")
             stats["total_errors"] += 1
 
     # Konvertiere das Registry-Dictionary in eine Liste von Prompts
@@ -632,7 +631,7 @@ async def load_evaluation_items(patterns: list[str] | None = None) -> list[Evalu
                     checks=checks_typed,
                     source_file=source_file,
                     source_package=source_package,
-                    category=cast(Optional[str], data.get("category")),
+                    category=cast(str | None, data.get("category")),
                     tags=list(cast(list[str], data.get("tags") or [])),
                 )
                 items.append(item)
@@ -644,7 +643,7 @@ async def load_evaluation_items(patterns: list[str] | None = None) -> list[Evalu
                     file_stats[source_file] = {"loaded": 0, "skipped": 0}
 
                 file_stats[source_file]["skipped"] += 1
-                logger.error(f"Fehler beim Verarbeiten eines Prompts: {str(e)}")
+                logger.error(f"Fehler beim Verarbeiten eines Prompts: {e!s}")
                 continue
 
         # Zusammenfassung der Dateien ausgeben
@@ -657,7 +656,7 @@ async def load_evaluation_items(patterns: list[str] | None = None) -> list[Evalu
         return items
 
     except Exception as e:
-        logger.error(f"Fehler beim Laden der Evaluierungseinträge: {str(e)}")
+        logger.error(f"Fehler beim Laden der Evaluierungseinträge: {e!s}")
         return []
 
 
@@ -792,7 +791,7 @@ async def evaluate_item(
                         hint_init_parts: list[str] = []
                         if is_scene:
                             hint_init_parts.append(
-                                "Schreibe eine kurze Szene (1–2 Absätze) mit klarer Handlung, ohne Überschriften."
+                                "Schreibe eine kurze Szene (1-2 Absätze) mit klarer Handlung, ohne Überschriften."
                             )
                         if is_dialog:
                             hint_init_parts.append(
@@ -1049,7 +1048,7 @@ async def evaluate_item(
                         )
                         if is_scene:
                             hint_parts.append(
-                                "Schreibe eine kurze Szene (1–2 Absätze) mit klarer Handlung."
+                                "Schreibe eine kurze Szene (1-2 Absätze) mit klarer Handlung."
                             )
                         if is_dialog:
                             hint_parts.append(
@@ -1357,9 +1356,9 @@ async def run_evaluation(
                 from app.core.settings import settings as _st
 
                 _st_any: Any = cast(Any, _st)
-                _model_name = cast(Optional[str], getattr(_st_any, "MODEL_NAME", None))
-                _temperature = cast(Optional[float], getattr(_st_any, "TEMPERATURE", None))
-                _host = cast(Optional[str], getattr(_st_any, "OLLAMA_HOST", None))
+                _model_name = cast(str | None, getattr(_st_any, "MODEL_NAME", None))
+                _temperature = cast(float | None, getattr(_st_any, "TEMPERATURE", None))
+                _host = cast(str | None, getattr(_st_any, "OLLAMA_HOST", None))
             except Exception:
                 pass
 
@@ -1861,7 +1860,7 @@ async def _run_evaluation_with_retry(
 
         return results
     except Exception as e:
-        print(f"Fehler bei der Evaluierung: {str(e)}")
+        print(f"Fehler bei der Evaluierung: {e!s}")
         return []
 
 
@@ -1958,7 +1957,7 @@ def create_example_eval_file(file_path: str, start_id: int = 21, count: int = 20
         return True
 
     except Exception as e:
-        print(f"Fehler beim Erstellen der Beispieldatei: {str(e)}")
+        print(f"Fehler beim Erstellen der Beispieldatei: {e!s}")
         return False
 
 
@@ -2349,3 +2348,4 @@ if __name__ == "__main__":
         console.print(
             "[bold red]Keine Ergebnisse. Die Evaluierung wurde abgebrochen oder keine Einträge gefunden.[/bold red]"
         )
+

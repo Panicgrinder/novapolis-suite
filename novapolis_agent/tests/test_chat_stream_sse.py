@@ -48,9 +48,9 @@ def _make_fake_stream_client(chunks: list[str]):
 @pytest.mark.streaming
 @pytest.mark.api
 def test_stream_chat_sends_sse_chunks_and_done(monkeypatch: MonkeyPatch) -> None:
-    from collections.abc import Callable
 
-    fake_factory: Callable[..., object] = lambda *a, **k: _make_fake_stream_client(["a", "b"])
+    def fake_factory(*a, **k) -> object:
+        return _make_fake_stream_client(["a", "b"])
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", fake_factory)
     req = ChatRequest(messages=[{"role": "user", "content": "hi"}])
     agen = asyncio.run(chat_module.stream_chat_request(req))
@@ -98,12 +98,12 @@ def test_stream_chat_emits_delta_on_rewrite(monkeypatch: MonkeyPatch) -> None:
         async def __aexit__(self, exc_type, exc, tb):
             return False
 
-        def stream(self, *args, **kwargs):  # noqa: ARG002
+        def stream(self, *args, **kwargs):
             return _CM()
 
     captured_meta: dict[str, str] = {}
 
-    def _fake_apply_post(text: str, *, mode: str, profile_id: str | None = None):  # noqa: ARG001
+    def _fake_apply_post(text: str, *, mode: str, profile_id: str | None = None):
         captured_meta["text"] = text
         return SimpleNamespace(action="rewrite", text=text.upper())
 
@@ -147,7 +147,7 @@ def test_stream_chat_yields_error_and_done(monkeypatch: MonkeyPatch) -> None:
         async def __aexit__(self, exc_type, exc, tb):
             return False
 
-        def stream(self, *args, **kwargs):  # noqa: ARG002
+        def stream(self, *args, **kwargs):
             return _CM()
 
     monkeypatch.setattr(
@@ -174,7 +174,7 @@ def test_stream_chat_yields_error_and_done(monkeypatch: MonkeyPatch) -> None:
 @pytest.mark.streaming
 @pytest.mark.unit
 def test_stream_chat_policy_block(monkeypatch: MonkeyPatch) -> None:
-    async def _noop_compose(messages, session_id, **_):  # noqa: ANN401
+    async def _noop_compose(messages, session_id, **_):
         return messages
 
     monkeypatch.setattr(chat_module, "compose_with_memory", _noop_compose)
@@ -225,10 +225,10 @@ def test_stream_chat_appends_memory(monkeypatch: MonkeyPatch) -> None:
         async def __aexit__(self, exc_type, exc, tb):
             return False
 
-        def stream(self, *args, **kwargs):  # noqa: ARG002
+        def stream(self, *args, **kwargs):
             return _CM()
 
-    async def _noop_compose(messages, session_id, **_):  # noqa: ANN401
+    async def _noop_compose(messages, session_id, **_):
         return messages
 
     class _Store:

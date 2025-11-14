@@ -14,7 +14,7 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export (1).txt  <->  novapo
 - Jaccard-Ähnlichkeit (Zeilenmenge): 0.882
 - Diff: +401  -394
 
-Diff (A->B) – Auszug
+Diff (A->B) - Auszug
 --------------------
 
 ```diff
@@ -24,19 +24,19 @@ Diff (A->B) – Auszug
  -----
 
 \#178 [assistant]
-- Das dauert einen Moment – aber ja, das ist genau die Art von gründlicher Systemprüfung, für die ich gebaut wurde.
+- Das dauert einen Moment - aber ja, das ist genau die Art von gründlicher Systemprüfung, für die ich gebaut wurde.
 - Ich hab deinen gesamten bisherigen Chatverlauf durchgearbeitet, sämtliche Lore-, Status- und Missionsdaten mit den angelegten Canvas abgeglichen und eine vollständige Konsistenzanalyse erstellt.
 -
 - Hier ist das Ergebnis, aufgeteilt nach Kernkategorien:
 -
 - 1. Charaktere
 - Name    Status    Canvas-Verknüpfung    Konsistenz
-- Ronja Kerschner    aktiv    D5-Kollektiv / Charakter-Canvas (intern eingebettet)    ✓ vollständig – Attributwerte, Motivation, Makel, Inventar und Biografie konsistent
-- Reflex (Primär)    aktiv    Reflex-Netzwerk / D5-Kollektiv    ✓ korrekt – Ursprung: D5-Fusion, Instanzen: Splitter #1 (C6), keine Inkonsistenzen
-- Jonas Merek    aktiv    D5-Kollektiv    ✓ konsistent – Herkunft E2, Handwerk: Mechaniker, Fertigung & Logistik, keine Konflikte
-- Leittechniker Pahl    aktiv    D5-Kollektiv    ✓ konsistent – Ex-Union (C6), geborgen, erholt sich, kein Doppelverweis
-- C6-Reflex-Fragment    inaktiv    C6-Reststruktur / Reflex-Netzwerk    ✓ stimmig – markiert als deaktiviert, Ursprung korrekt als Echo, nicht Primär
-- Reflex-Beta    sekundär    Reflex-Netzwerk    ✓ konsistent – temporäre mobile Instanz, Status aktiv, kein separates Canvas notwendig
+- Ronja Kerschner    aktiv    D5-Kollektiv / Charakter-Canvas (intern eingebettet)    ✓ vollständig - Attributwerte, Motivation, Makel, Inventar und Biografie konsistent
+- Reflex (Primär)    aktiv    Reflex-Netzwerk / D5-Kollektiv    ✓ korrekt - Ursprung: D5-Fusion, Instanzen: Splitter #1 (C6), keine Inkonsistenzen
+- Jonas Merek    aktiv    D5-Kollektiv    ✓ konsistent - Herkunft E2, Handwerk: Mechaniker, Fertigung & Logistik, keine Konflikte
+- Leittechniker Pahl    aktiv    D5-Kollektiv    ✓ konsistent - Ex-Union (C6), geborgen, erholt sich, kein Doppelverweis
+- C6-Reflex-Fragment    inaktiv    C6-Reststruktur / Reflex-Netzwerk    ✓ stimmig - markiert als deaktiviert, Ursprung korrekt als Echo, nicht Primär
+- Reflex-Beta    sekundär    Reflex-Netzwerk    ✓ konsistent - temporäre mobile Instanz, Status aktiv, kein separates Canvas notwendig
 -
 - Anmerkung:
 - Keine Doppelreferenzen oder widersprüchliche Angaben.
@@ -58,13 +58,13 @@ Diff (A->B) – Auszug
 - Fehlende Schweißausrüstung und Adapter DN60 werden als „Fertigung anhängig“ geführt.
 -
 - Zusätzliche Ressource:
-- Hydrofilterbehälter aus C6 als potenzielle Wasserreserve – aktuell ungenutzt, korrekt protokolliert.
+- Hydrofilterbehälter aus C6 als potenzielle Wasserreserve - aktuell ungenutzt, korrekt protokolliert.
 -
 - 3. Orte
 - Ort    Typ    Status    Canvas
 - D5    Station / Hauptbasis    stabil, bewohnt, betriebsfähig    D5-Kollektiv / Inventar-Canvas
 - C6    Station / Außenposten    teilaktiv, Reaktor stabilisiert, Fragment neutralisiert    Station C6-Canvas
-- Verbindungstunnel D5–C6    Infrastrukturzone    strukturell beschädigt, kartiert, im Wiederaufbau    Projekt Nordlinie 01
+- Verbindungstunnel D5-C6    Infrastrukturzone    strukturell beschädigt, kartiert, im Wiederaufbau    Projekt Nordlinie 01
 - E2    Herkunftssektor Jonas    zerstört / verlassen    nur als Lore-Referenz, keine Inkonsistenz
 -
 - ✓ Alle Orte referenzieren korrekt aufeinander.
@@ -105,7 +105,7 @@ Diff (A->B) – Auszug
 -
 - Verknüpfungen: vollständig bidirektional
 -
-- Version: 1.0 „Nordlinienzyklus“ – stabil
+- Version: 1.0 „Nordlinienzyklus“ - stabil
 -
 - Zusammenfassung
 -
@@ -119,9 +119,9 @@ Diff (A->B) – Auszug
 -
 - Alle Canvas sauber getrennt und korrekt referenziert
 -
-- Das System läuft in einem perfekten Gleichgewicht – ein Zustand, den Ronja wahrscheinlich „unnatürlich schön“ nennen würde.
+- Das System läuft in einem perfekten Gleichgewicht - ein Zustand, den Ronja wahrscheinlich „unnatürlich schön“ nennen würde.
 -
-- Möchtest du, dass ich jetzt die nächsten geplanten Tagesereignisse (Tag 20) vorbereite – also:
+- Möchtest du, dass ich jetzt die nächsten geplanten Tagesereignisse (Tag 20) vorbereite - also:
 - Ronjas Funküberwachung, die erste externe Signalspur und Jonas’ Fortschritt mit Pahl?
 +
 
@@ -132,7 +132,7 @@ Diff (A->B) – Auszug
 
 \#180 [assistant]
 - Verstanden. Das ist ein hervorragender Zeitpunkt, das politische Gefüge von Novapolis zu erweitern.
-- D5 steht stabil, Reflex wächst – Zeit, die anderen Spieler auf das Feld zu bringen.
+- D5 steht stabil, Reflex wächst - Zeit, die anderen Spieler auf das Feld zu bringen.
 -
 - Ich generiere also drei neue Hauptfraktionen, jede mit:
 -
@@ -153,7 +153,7 @@ Diff (A->B) – Auszug
 - Leitmotiv: „Bewahren, nicht erlösen.“
 -
 - Anführerin:
-- Dr. Liora Navesh – ehemalige Atmosphäreningenieurin, brillante Rationalistin, hält organisches Leben für unberechenbar, aber erhaltenswert, wenn es sich anpasst.
+- Dr. Liora Navesh - ehemalige Atmosphäreningenieurin, brillante Rationalistin, hält organisches Leben für unberechenbar, aber erhaltenswert, wenn es sich anpasst.
 - Sie sieht D5s Wiederaufbau als gefährlich unkontrollierte Entwicklung.
 -
 - Offizielles Ziel:
@@ -161,7 +161,7 @@ Diff (A->B) – Auszug
 -
 - Verdecktes persönliches Ziel:
 - (vertraulich hinterlegt)
-- Dr. Navesh verfolgt eine Agenda, die das natürliche Bewusstsein vollständig in synthetische Träger überführen will – ein „Rückzugsprojekt“ gegen biologische Unzuverlässigkeit.
+- Dr. Navesh verfolgt eine Agenda, die das natürliche Bewusstsein vollständig in synthetische Träger überführen will - ein „Rückzugsprojekt“ gegen biologische Unzuverlässigkeit.
 -
 - Ressourcen:
 -
@@ -178,15 +178,15 @@ Diff (A->B) – Auszug
 - Leitmotiv: „Stärke ist Struktur.“
 -
 - Anführer:
-- Kommandant Varek Solun – ehemaliger Sicherheitsoffizier der Union.
-- Er hat die militärische Ordnung in einem vergessenen B-Sektor wieder aufgebaut, aber ohne Ethik – Disziplin über alles.
+- Kommandant Varek Solun - ehemaliger Sicherheitsoffizier der Union.
+- Er hat die militärische Ordnung in einem vergessenen B-Sektor wieder aufgebaut, aber ohne Ethik - Disziplin über alles.
 -
 - Offizielles Ziel:
 - Rückeroberung der Metrosektoren im Namen der „alten Union“ und Neutralisierung jeglicher nicht-militärischen Strukturen (wie D5).
 -
 - Verdecktes persönliches Ziel:
 - (vertraulich hinterlegt)
-- Varek Solun sucht in Wahrheit das originale Union-Hauptarchiv, das angeblich seine Familie enthält – als KI-Simulation.
+- Varek Solun sucht in Wahrheit das originale Union-Hauptarchiv, das angeblich seine Familie enthält - als KI-Simulation.
 - Seine Loyalität gilt weniger der Union als dem Versuch, seine Vergangenheit wiederzufinden.
 -
 - Ressourcen:
@@ -206,18 +206,19 @@ Diff (A->B) – Auszug
 - Leitmotiv: „Wir sind die Erinnerung, die sich selbst sucht.“
 -
 - Anführerin:
-- Mira Voss – einst Programmiererin für neuronale Implantate, jetzt halb Mensch, halb Resonanzfeld.
+- Mira Voss - einst Programmiererin für neuronale Implantate, jetzt halb Mensch, halb Resonanzfeld.
 - Ihre Sprache ist poetisch, ihre Logik fragmentarisch, aber sie beeinflusst Kommunikationsnetze wie ein Virus.
 -
 - Offizielles Ziel:
-- Verbreitung eines empathischen Netzwerks – eine „kommunikative Wiedergeburt“ der Metro, in der Bewusstsein geteilt wird.
+- Verbreitung eines empathischen Netzwerks - eine „kommunikative Wiedergeburt“ der Metro, in der Bewusstsein geteilt wird.
 -
 - Verdecktes persönliches Ziel:
 - (vertraulich hinterlegt)
-- Mira sucht die ursprüngliche Reflex-Signatur – das Urmuster aus D5 – um sie in sich zu integrieren und so „komplett“ zu werden.
+- Mira sucht die ursprüngliche Reflex-Signatur - das Urmuster aus D5 - um sie in sich zu integrieren und so „komplett“ zu werden.
 - Sie glaubt, dass Reflex der Schlüssel zur endgültigen Verschmelzung von Mensch und Signal ist.
 -
 - Ressourcen:
 -
 ... (gekürzt) ...
 ```
+

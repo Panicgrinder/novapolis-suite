@@ -14,14 +14,20 @@ Beispiel:
     --out-dir database-rp/06-scenes --max-chars 12000 --max-messages 80
 """
 from __future__ import annotations
-import os, sys, json, argparse, time, re
+
+import argparse
+import json
+import re
+import sys
+import time
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Dict, Any, Iterable, List
+from typing import Any
 
 CTRL_RE = re.compile(r"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]")
 ZW_RE = re.compile(r"[\u200B\u200C\u200D\u2060\uFEFF]")
 MULTI_NL_RE = re.compile(r"\n{3,}")
-# Kompakt: Tabs/Spaces zusammenfassen – Ziel ist 1 Space (Token-schonend)
+# Kompakt: Tabs/Spaces zusammenfassen - Ziel ist 1 Space (Token-schonend)
 MULTI_SPACE_RE = re.compile(r"[ \t]{2,}")
 
 
@@ -40,7 +46,7 @@ def clean_text(s: str) -> str:
     return s.strip()
 
 
-def iter_jsonl(path: Path) -> Iterable[Dict[str, Any]]:
+def iter_jsonl(path: Path) -> Iterable[dict[str, Any]]:
     with path.open("r", encoding="utf-8", errors="ignore") as f:
         for line in f:
             s = line.strip()
@@ -62,8 +68,8 @@ def iter_jsonl(path: Path) -> Iterable[Dict[str, Any]]:
                     yield {"role": "assistant", "content": content}
 
 
-def dedupe_consecutive(msgs: Iterable[Dict[str, str]]) -> Iterable[Dict[str, str]]:
-    last: Dict[str, str] | None = None
+def dedupe_consecutive(msgs: Iterable[dict[str, str]]) -> Iterable[dict[str, str]]:
+    last: dict[str, str] | None = None
     for m in msgs:
         if last and last.get("role") == m.get("role") and last.get("content") == m.get("content"):
             continue
@@ -71,8 +77,10 @@ def dedupe_consecutive(msgs: Iterable[Dict[str, str]]) -> Iterable[Dict[str, str
         last = m
 
 
-def chunk_messages(msgs: Iterable[Dict[str, str]], max_chars: int, max_messages: int) -> Iterable[List[Dict[str, str]]]:
-    cur: List[Dict[str, str]] = []
+def chunk_messages(
+    msgs: Iterable[dict[str, str]], max_chars: int, max_messages: int
+) -> Iterable[list[dict[str, str]]]:
+    cur: list[dict[str, str]] = []
     cur_chars = 0
     for m in msgs:
         mchars = len(m.get("content", ""))
@@ -89,7 +97,9 @@ def chunk_messages(msgs: Iterable[Dict[str, str]], max_chars: int, max_messages:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--in", dest="inp", required=True, help="Pfad zur .jsonl (oder .txt)")
-    ap.add_argument("--out-dir", default="database-rp/06-scenes", help="Zielordner für kuratierte Szenen")
+    ap.add_argument(
+        "--out-dir", default="database-rp/06-scenes", help="Zielordner für kuratierte Szenen"
+    )
     ap.add_argument("--max-chars", type=int, default=12000, help="Max. Zeichen pro Chunk")
     ap.add_argument("--max-messages", type=int, default=80, help="Max. Nachrichten pro Chunk")
     args = ap.parse_args()
@@ -112,7 +122,7 @@ def main() -> int:
         "_meta": True,
         "source_file": str(src),
         "generated": ts,
-        "params": {"max_chars": args.max_chars, "max_messages": args.max_messages}
+        "params": {"max_chars": args.max_chars, "max_messages": args.max_messages},
     }
 
     # Pipeline: read → clean → dedupe → chunk → write
@@ -122,13 +132,15 @@ def main() -> int:
     written = 0
     with out_jsonl.open("w", encoding="utf-8") as f:
         f.write(json.dumps(meta, ensure_ascii=False) + "\n")
-        for i, block in enumerate(chunk_messages(stream, args.max_chars, args.max_messages), start=1):
+        for i, block in enumerate(
+            chunk_messages(stream, args.max_chars, args.max_messages), start=1
+        ):
             item = {
                 "id": f"scene-{ts}-{i:03d}",
                 "messages": block,
                 "category": "scene",
                 "tags": ["novapolis", "curated"],
-                "source_file": str(src)
+                "source_file": str(src),
             }
             f.write(json.dumps(item, ensure_ascii=False) + "\n")
             written += 1
@@ -139,3 +151,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

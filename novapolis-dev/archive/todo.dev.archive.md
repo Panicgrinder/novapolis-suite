@@ -4,7 +4,7 @@ update: H1 auf Setext umgestellt; Timestamp aktualisiert.
 checks: markdownlint-cli2 PASS
 ---
 
-TODO-Archiv – Dev
+TODO-Archiv - Dev
 =================
 
 Zweck: Vollständig abgeschlossene TODO-Abschnitte aus `novapolis-dev/docs/todo.md` aufnehmen.
@@ -19,4 +19,5 @@ Ablage
 - Neueste Einträge oben einfügen.
 
 <!-- Hier unterhalb neue, vollständig erledigte Blöcke einfügen (neu zuerst). -->
+
 

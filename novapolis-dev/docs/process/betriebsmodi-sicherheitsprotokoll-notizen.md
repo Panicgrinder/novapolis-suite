@@ -6,7 +6,7 @@ checks: markdownlint-cli2 PASS
 
 <!-- markdownlint-disable MD022 MD041 -->
 
-Betriebsmodi – Arbeitsnotizen
+Betriebsmodi - Arbeitsnotizen
 =============================
 
 Dieses Dokument sammelt die Detailregeln für die Betriebsmodi "Standardlauf" und "Sicherheitsprotokoll". Es dient als Grundlage für die spätere Konsolidierung in den offiziellen Arbeitsanweisungen (`.github/copilot-instructions.md`, Modul-TODOs, README-Hinweise).
@@ -14,11 +14,11 @@ Dieses Dokument sammelt die Detailregeln für die Betriebsmodi "Standardlauf" un
 Standardlauf (Baseline-Modus)
 -----------------------------
 
--- **Zweck:** Normaler Arbeitsfluss ohne zusätzliche Einschränkungen. Fokus auf Effizienz bei gleichzeitiger Einhaltung der bestehenden STOP‑Gates.
-– **Aktivierung:** Default nach Freigabe eines STOP‑Gates oder nachdem das Sicherheitsprotokoll (siehe unten) sauber abgeschlossen wurde.
+-- **Zweck:** Normaler Arbeitsfluss ohne zusätzliche Einschränkungen. Fokus auf Effizienz bei gleichzeitiger Einhaltung der bestehenden STOP-Gates.
+- **Aktivierung:** Default nach Freigabe eines STOP-Gates oder nachdem das Sicherheitsprotokoll (siehe unten) sauber abgeschlossen wurde.
 - **Verpflichtungen:**
   - Erwartungszustand (siehe Abschnitt "Expected State") vor Taskbeginn festhalten.
-  - STOP‑Gates pro bestehender Regel anwenden (Moduswechsel, Unsicherheiten, Policies).
+  - STOP-Gates pro bestehender Regel anwenden (Moduswechsel, Unsicherheiten, Policies).
   - Ergebnisse und Prüfungen wie gewohnt dokumentieren (DONELOG, TODOs, Checks in Frontmatter).
 - **Rückfall in Sicherheitsprotokoll:** Bei unerwarteten Abweichungen, Budget-/Test-/Pfad-Drifts oder manueller Anforderung.
 
@@ -32,14 +32,14 @@ Sicherheitsprotokoll (Schutzmodus)
   - Wiederkehrende Drifts (Diff, Tests, Pfade, Plan, Zeit) außerhalb definierter Budgets.
   - Manuelle Entscheidung von Nutzer oder Copilot.
 - **Arbeitsweise:**
-  - Schritte in Paketen zu 3–5 wirksamen Operationen (zählen nur mutierende Aktionen oder Test-/Lint-Läufe).
+  - Schritte in Paketen zu 3-5 wirksamen Operationen (zählen nur mutierende Aktionen oder Test-/Lint-Läufe).
   - Nach jedem Paket kurzer Abgleich IST vs. SOLL, Sammlung der Drift-Indikatoren.
   - Kontrollierte Schreibaktionen sind zulässig, müssen aber vorab angekündigt und unmittelbar überprüft werden.
   - Rohdaten-Log (`novapolis-dev/logs/`) je Sitzung mit Abschnitt pro Paket (siehe Abschnitt "Logging").
   - STOP-Priorisierung: Debug/Analyse vor Ausführung. Keine neuen Build-/Test-/Run-Tasks automatisch starten; Task-Anfragen werden in eine Queue gelegt und erst nach Freigabe gestartet.
   - Manuell-ausführen-Pflicht: Bei Coverage-Gates und Fehlersuche Tests manuell im Terminal (expliziter Interpreter, korrektes cwd) starten; Task-Runs nur ergänzend nutzen.
   - Test-Plausibilität: Kommt ein kompletter Testlauf „instant“ (< 1 s) mit PASS zurück, als verdächtig werten und unmittelbar manuell wiederholen; Ergebnis und Laufzeit im Log notieren.
-  - Multi‑Root‑Hinweis (temporär): Wenn VS Code den Workspace als Multi‑Root erkennt, sind Wrapper‑Tasks/Automationen unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single‑Root: KEINE WRAPPER – Terminal ausschließlich manuell.
+  - Multi-Root-Hinweis (temporär): Wenn VS Code den Workspace als Multi-Root erkennt, sind Wrapper-Tasks/Automationen unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single-Root: KEINE WRAPPER - Terminal ausschließlich manuell.
 - **Deaktivierung:**
   - Ursache identifiziert und mitigiert **und** zwei Pakete in Folge ohne Drift außerhalb der Budgets.
   - Alternativ manuelle Freigabe durch Nutzer.
@@ -55,7 +55,7 @@ Vor jedem Task wird ein Expected-State-Block erstellt (Teil der TODO- oder Log-N
 - **Invarianten:** Bedingungen, die unter keinen Umständen verletzt werden dürfen (z.\u00a0B. Tests grün, API-Signaturen stabil, Godot-Projekt startet).
 - **Scope-Grenzen:** Pfade/Dateien, die geändert werden dürfen.
 - **Budgets:** Grenzwerte für geänderte Dateien/Zeilen, Laufzeit-Anstieg, neue Warnungen.
-- **Akzeptanzchecks:** 3–5 konkrete Prüfungen, die den Erfolg belegen.
+- **Akzeptanzchecks:** 3-5 konkrete Prüfungen, die den Erfolg belegen.
 - **Risiken/Abhängigkeiten:** Externe Faktoren oder bekannte Stolpersteine.
 
 Drift-Kategorien
@@ -98,4 +98,6 @@ Offene Punkte
 ------------
 
 - Abstimmung, ob Rotationsregeln automatisiert werden sollen (Skript oder manueller Leitfaden).
+
+
 

@@ -57,7 +57,7 @@ class TfIdfIndex:
         for cd in chunks_raw:
             cid_default = len(chunks)
             cid_obj: object = cd.get("id", cid_default)
-            if isinstance(cid_obj, (int, float, str)):
+            if isinstance(cid_obj, int | float | str):
                 try:
                     cid = int(cid_obj)
                 except Exception:

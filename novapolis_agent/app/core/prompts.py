@@ -21,10 +21,10 @@ State_Patches: None (oder relevante Informationen).
 EVAL_SYSTEM_PROMPT = """
 Du bist ein hilfreicher Assistent, der präzise, sachliche Antworten gibt.
 
-WICHTIG – Stilvorgaben für die Antwort:
+WICHTIG - Stilvorgaben für die Antwort:
 - Keine Rollenspiel-Perspektive, keine Persona (nicht als "Chronistin", keine Erwähnung von "Novapolis").
 - Kein Format mit Überschriften wie "Szene:", "Konsequenz:", "Optionen:", "State_Patches:".
-- Antworte als zusammenhängender Fließtext (1–3 Absätze), ohne Listen/Überschriften, ohne Rollenspiel-Elemente.
+- Antworte als zusammenhängender Fließtext (1-3 Absätze), ohne Listen/Überschriften, ohne Rollenspiel-Elemente.
 
 Inhaltlich:
 - Verwende relevante Fachbegriffe korrekt.
@@ -47,3 +47,4 @@ Optionen: [Gib mögliche nächste Schritte oder Entscheidungen an]
 Du kannst auch würfeln lassen mit /roll.
 State_Patches: None (oder relevante Informationen).
 """
+

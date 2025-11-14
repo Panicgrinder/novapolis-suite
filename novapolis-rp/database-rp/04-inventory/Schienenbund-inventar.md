@@ -19,7 +19,7 @@ scope: faction
 version: "0.1"
 ---
 
-Inventar – Schienenbund (Fraktion)
+Inventar - Schienenbund (Fraktion)
 ==================================
 
 Bestände (Auszug)
@@ -36,3 +36,4 @@ Links
 -----
 - Logistik (Admin) → ../00-admin/Logistik.md
 - Missionslog → ../00-admin/Missionslog.md
+

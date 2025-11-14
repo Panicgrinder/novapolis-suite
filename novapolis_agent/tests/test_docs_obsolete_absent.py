@@ -11,7 +11,7 @@ def test_agent_prompt_is_deprecated_stub():
             text = f.read()
         assert "Obsolet" in text and "AGENT_BEHAVIOR.md" in text
     else:
-        # Datei ist bewusst entfernt – das ist OK
+        # Datei ist bewusst entfernt - das ist OK
         assert True
 
 
@@ -25,3 +25,4 @@ def test_no_nested_cvn_agent_dir_tracked():
     assert not os.path.exists(
         suspect
     ), "Verschachtelte Kopie von AGENT_PROMPT.md gefunden; bitte Ordner entfernen."
+

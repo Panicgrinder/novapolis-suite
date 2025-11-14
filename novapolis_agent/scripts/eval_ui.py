@@ -3,7 +3,7 @@
 Einfache Evaluierungs-UI (Konsolenmenü) für den CVN Agent.
 
 Funktionen:
-- Läufe starten (Pakete wählen, Limit setzen) – ASGI & Eval-Modus
+- Läufe starten (Pakete wählen, Limit setzen) - ASGI & Eval-Modus
 - Frühere Ergebnisse ansehen (results_*.jsonl)
 - Fehlgeschlagene Elemente aus einem Ergebnislauf erneut ausführen
 
@@ -163,7 +163,7 @@ def ensure_eval_files_exist() -> None:
     pattern: str = run_eval.DEFAULT_FILE_PATTERN
     if not any(glob.glob(os.path.join(eval_dir, pattern))):
         example_file = os.path.join(eval_dir, "eval-21-40_fantasy_v1.0.jsonl")
-        print("Keine Eval-Dateien gefunden – erstelle Demo-Paket …")
+        print("Keine Eval-Dateien gefunden - erstelle Demo-Paket …")
         run_eval.create_example_eval_file(example_file, 21, 20)
 
 
@@ -405,7 +405,7 @@ def action_start_run() -> None:
     if results:
         run_eval.print_results(results)
     else:
-        print("Keine Ergebnisse – möglicherweise abgebrochen oder keine Einträge gefunden.")
+        print("Keine Ergebnisse - möglicherweise abgebrochen oder keine Einträge gefunden.")
     input("Weiter mit Enter …")
 
 
@@ -546,7 +546,7 @@ def action_trends() -> None:
         )
         for s in sweep_summaries.get("all", [])[:12]:
             print(
-                f"{s['file']:<28}  {str(s['temp']):>6}  {str(s['top_p']):>6}  {s['success']:>6}/{s['total']:<4}  {s['rate']:>5.1f}%  {s['avg_ms']:>6}"
+                f"{s['file']:<28}  {s['temp']!s:>6}  {s['top_p']!s:>6}  {s['success']:>6}/{s['total']:<4}  {s['rate']:>5.1f}%  {s['avg_ms']:>6}"
             )
 
     # CSV-Export
@@ -783,7 +783,7 @@ def action_export_finetune() -> None:
         import importlib
 
         exporter = importlib.import_module("scripts.export_finetune")
-        export_fn = getattr(exporter, "export_from_results")
+        export_fn = exporter.export_from_results
     except Exception as e:
         print("Exporter nicht verfügbar:", e)
         input("Weiter mit Enter …")
@@ -828,7 +828,7 @@ def main() -> None:
         warnings.filterwarnings("ignore", category=ResourceWarning)
     while True:
         clear_screen()
-        print("CVN Agent – Evaluierungsmenü")
+        print("CVN Agent - Evaluierungsmenü")
         print("============================\n")
         print("1) Lauf starten (Pakete & Limit)")
         print("2) Ergebnisse ansehen")
@@ -856,3 +856,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

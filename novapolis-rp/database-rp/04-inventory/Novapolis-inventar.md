@@ -19,7 +19,7 @@ scope: faction
 version: "0.1"
 ---
 
-Inventar – Novapolis (Fraktion)
+Inventar - Novapolis (Fraktion)
 ================================
 
 Hinweis: Fraktionsinventare strikt getrennt (Policy Y.1). Abrechnung im Wochenzyklus.
@@ -36,6 +36,8 @@ Bewegungen (Log)
 
 Links
 -----
-- Logistik‑Policy C6 → ../00-admin/C6-Logistik-Policy.md
+- Logistik-Policy C6 → ../00-admin/C6-Logistik-Policy.md
 - Logistik (Admin) → ../00-admin/Logistik.md
 - Missionslog → ../00-admin/Missionslog.md
+
+

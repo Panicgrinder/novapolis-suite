@@ -16,9 +16,9 @@ Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufende
 - SSOT: Modul-TODOs bleiben maßgeblich. Diese Datei dient als komfortabler Root-Einstieg.
 - Archivierung: Fertige Blöcke (alle [x]) bitte in die jeweiligen Modul-Archive unter `novapolis-dev/archive/` verschieben.
 - Snapshot-Kopf: YAML-Frontmatter oben bei Änderungen aktualisieren (`stand`, `update`, `checks`).
-- Lint: Markdownlint läuft repo-weit ausschließlich manuell via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (keine VS Code Tasks oder Wrapper). Bei FAIL bitte minimalen Patch anwenden.
-- Terminal/Pwsh: Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks (ohne Markdownlint) sind entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`). Für komplexe/mehrachsige Abläufe sind Skript‑Wrapper via `pwsh -NoProfile -File <script.ps1>` Pflicht; Details siehe `.github/copilot-instructions.md`.
-- STOP-Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit – dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → Abschnitt „Unklarheiten‑STOP (global, immer gültig)“.
+- Lint: Markdownlint läuft repo-weit ausschließlich manuell via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (keine VS Code Tasks oder Wrapper). Bei FAIL bitte minimalen Patch anwenden.
+- Terminal/Pwsh: Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks (ohne Markdownlint) sind entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`). Für komplexe/mehrachsige Abläufe sind Skript-Wrapper via `pwsh -NoProfile -File <script.ps1>` Pflicht; Details siehe `.github/copilot-instructions.md`.
+- STOP-Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit - dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → Abschnitt „Unklarheiten-STOP (global, immer gültig)“.
 
 ### Kurzüberblick (Module & Quellen)
 
@@ -29,15 +29,15 @@ Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufende
 - Sim: `novapolis-dev/docs/todo.sim.md`
 - Root-Übersicht (ausführlich): `todo.root.md`
 
-### Offene Aufgaben (Root – quer durchs Repo)
+### Offene Aufgaben (Root - quer durchs Repo)
 
 - [x] Wrapper-Policy präzisiert & gespiegelt (Root/TODO)
   - 2025-11-07: `.github/copilot-instructions.md` vereinheitlicht (Wrapper via `pwsh -NoProfile -File` zwingend); Hinweis in diesem Dokument ergänzt.
   - Lint (focused) PASS.
-- [x] .vscode-Konsolidierung (Root-zentriert) weiterführen (Etappen 0–2)
-  - Referenz: Abschnitt "Editor‑Setup – .vscode‑Konsolidierung (Root‑zentriert)" in `todo.root.md`.
+- [x] .vscode-Konsolidierung (Root-zentriert) weiterführen (Etappen 0-2)
+  - Referenz: Abschnitt "Editor-Setup - .vscode-Konsolidierung (Root-zentriert)" in `todo.root.md`.
   - 2025-11-02: User- und Profil-Settings bereinigt; nur `/.vscode/settings.json` bleibt maßgeblich.
-- [x] Snapshot-Frontmatter-Migration vorantreiben (Etappen 1–3)
+- [x] Snapshot-Frontmatter-Migration vorantreiben (Etappen 1-3)
   - YAML-Frontmatter sukzessive ergänzen; bei Sweeps Diff klein halten.
   - Scope (Dateien/Pfade): Root-Dokumente (`README.md`, `todo.root.md`, `single-root-todo.md`, `WORKSPACE_STATUS.md`), `novapolis-dev/docs/**/*.md`, `novapolis_agent/docs/**/*.md`, ausgewählte `novapolis-rp/**/docs/**/*.md`. Ausnahmen beibehalten: `.github/copilot-instructions.md` ohne YAML-Frontmatter.
   - Root-Dokumente abgeschlossen am 2025-11-02 19:11; nächster Sweep: `novapolis-dev/docs/**/*.md`.
@@ -46,7 +46,7 @@ Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufende
     2. Migration: YAML-Frontmatter am Dokumentanfang einfügen (Schlüssel: `stand`, `update`, `checks`). Legacy-Kopfzeilen nach YAML überführen, bestehende MD-Lint-Disable-Kommentare unterhalb der Frontmatter belassen.
     3. Validierung: `markdownlint-cli2` laufen lassen; einheitlicher Heading-Stil je Datei (MD003=consistent) sichern.
     4. Sonderfälle: Dateien mit Parser-Einschränkungen im Fallback-Format belassen (Klartext-Kopfzeile), generierte/kuratierte Bereiche gemäß CLI2-Ignores ausnehmen.
-    5. Batch-Strategie: In kleinen Sweeps (10–20 Dateien) migrieren; Minimal-Delta, semantisch neutrale Änderungen, jeweils DONELOG-Notiz.
+    5. Batch-Strategie: In kleinen Sweeps (10-20 Dateien) migrieren; Minimal-Delta, semantisch neutrale Änderungen, jeweils DONELOG-Notiz.
   - Akzeptanzkriterien (Migration):
     - YAML-Frontmatter vorhanden und korrekt befüllt; keine doppelten Kopfzeilen.
     - Lint PASS (markdownlint-cli2), keine neuen Regelverstöße.
@@ -55,13 +55,13 @@ Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufende
   - 2025-11-02: README.md auf YAML-Frontmatter migriert (lint PASS).
   - 2025-11-02: WORKSPACE_STATUS.md aktualisiert (PowerShell 7.5.4 via VS Code Extension).
   - 2025-11-02: Tasks & Hooks auf `pwsh`-Standard umgestellt (Settings, Tasks, pre-commit, Snapshot-Gate).
-  - 2025-11-02: `.gitignore` erweitert – Godot-Editor-Binaries (`novapolis-sim/Godot_v*.exe`) bleiben lokal.
+  - 2025-11-02: `.gitignore` erweitert - Godot-Editor-Binaries (`novapolis-sim/Godot_v*.exe`) bleiben lokal.
   - 2025-11-02: `novapolis-dev/docs/todo.{index,dev,sim}.md` auf YAML-Frontmatter (mit `---`-Delimiter) gebracht; Lint docs focused PASS.
   - 2025-11-02: `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/tests.md` mit YAML-Frontmatter versehen; Lint docs focused PASS.
   - 2025-11-02: `novapolis_agent/docs/*` (7 Dateien) mit YAML-Frontmatter versehen; Lint docs focused PASS.
-  - 2025-11-02: RP‑Docs unter `novapolis-rp/**/docs/**` sind Redirect-/Mirror‑Stubs → keine Migration nötig.
-  - 2025-11-07 05:28: Quick‑Fix A umgesetzt (YAML‑Delimiter ergänzt) für `README.md` und `novapolis-dev/docs/index.md`; Validator‑Skip‑Pfade (B) erweitert um `.pytest_cache/` und `.github/ISSUE_TEMPLATE/`. Repo‑weiter Lauf zeigt v. a. `novapolis-rp/database-rp/**` ohne Frontmatter. Option C: breit ergänzen ODER vorübergehend ausschließen (Entscheidung ausstehend).
-  - 2025-11-07 05:59: Pre‑commit‑Hook um Frontmatter‑Check erweitert (nur geänderte `.md`‑Dateien). CI: In `markdownlint.yml` zusätzlicher Job „frontmatter (validator)“ für sichere Pfade (`novapolis-dev/docs`, `novapolis_agent/docs`, Root‑Docs). Option C bleibt offen.
+  - 2025-11-02: RP-Docs unter `novapolis-rp/**/docs/**` sind Redirect-/Mirror-Stubs → keine Migration nötig.
+  - 2025-11-07 05:28: Quick-Fix A umgesetzt (YAML-Delimiter ergänzt) für `README.md` und `novapolis-dev/docs/index.md`; Validator-Skip-Pfade (B) erweitert um `.pytest_cache/` und `.github/ISSUE_TEMPLATE/`. Repo-weiter Lauf zeigt v. a. `novapolis-rp/database-rp/**` ohne Frontmatter. Option C: breit ergänzen ODER vorübergehend ausschließen (Entscheidung ausstehend).
+  - 2025-11-07 05:59: Pre-commit-Hook um Frontmatter-Check erweitert (nur geänderte `.md`-Dateien). CI: In `markdownlint.yml` zusätzlicher Job „frontmatter (validator)“ für sichere Pfade (`novapolis-dev/docs`, `novapolis_agent/docs`, Root-Docs). Option C bleibt offen.
 - [x] Tree-Snapshots aktualisieren bei Strukturänderungen
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [x] Backups & Releases (Manifest/Checksums/Rotation) pflegen (obsolet)
@@ -75,12 +75,12 @@ Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufende
     - 2025-11-03 00:28: `novapolis_agent.bundle` → `novapolis-agent-backup-20251103-0028-rev1.bundle` (sha256 protokolliert)
 
 
-### Modul-Fokus (Auszüge – bitte in den SSOTs pflegen)
+### Modul-Fokus (Auszüge - bitte in den SSOTs pflegen)
 
 ### Agent (Backend)
 
 - Quelle: `novapolis-dev/docs/todo.agent.md`
-- [x] TTS/Coqui – Exporter & Mini-Service (Planung) (migriert zu novapolis-dev/docs/todo.agent.md)
+- [x] TTS/Coqui - Exporter & Mini-Service (Planung) (migriert zu novapolis-dev/docs/todo.agent.md)
   - Implementiere `novapolis_agent/scripts/tts_export_coqui.py` gemäß `novapolis-dev/docs/specs/tts-exporter-coqui.md` (CLI-Nutzung, ohne VS Code Task).
   - Akzeptanz: Referenzinput → OGG-Ausgabe; kurze Run-Notiz im DONELOG.
 - [x] CLI-Fluss/Script für TTS-Export definieren (Planung) (migriert zu novapolis-dev/docs/todo.agent.md)
@@ -94,13 +94,13 @@ Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufende
 - [x] Templates für `knowledge:` und `actions:` bereitstellen (migriert zu novapolis-dev/docs/todo.dev.md)
 - [x] Frontmatter-Validator in CI integrieren (migriert zu novapolis-dev/docs/todo.dev.md)
   - Akzeptanz: CI-Job failt bei fehlender/inkorrekter YAML-Frontmatter außerhalb der Skip-Pfade (Ausnahme `.github/copilot-instructions.md`).
-  - Stand 2025-11-07 05:28: A erledigt (Delimiter‑Quick‑Fix in Kern‑Docs), B erledigt (Skip‑Pfade verfeinert). Option C (RP‑Scope: ergänzen vs. temporär ausschließen) offen.
-  - Stand 2025-11-07 05:59: Pre‑commit‑Gate aktiv (staged `.md`), CI‑Frontmatter‑Check in `markdownlint.yml` (scoped). Keine Breaking‑Änderung für RP‑Daten.
+  - Stand 2025-11-07 05:28: A erledigt (Delimiter-Quick-Fix in Kern-Docs), B erledigt (Skip-Pfade verfeinert). Option C (RP-Scope: ergänzen vs. temporär ausschließen) offen.
+  - Stand 2025-11-07 05:59: Pre-commit-Gate aktiv (staged `.md`), CI-Frontmatter-Check in `markdownlint.yml` (scoped). Keine Breaking-Änderung für RP-Daten.
 
 ### RP (Kanon/Canvas)
 
 - Quelle: `novapolis-dev/docs/todo.rp.md`
-- [x] Canvas-Rettung Sprint 1 – nächste Charaktere/Blöcke (migriert zu novapolis-dev/docs/todo.rp.md)
+- [x] Canvas-Rettung Sprint 1 - nächste Charaktere/Blöcke (migriert zu novapolis-dev/docs/todo.rp.md)
 - [x] Logistik/Inventar konsolidieren (C6/D5) (migriert zu novapolis-dev/docs/todo.rp.md)
 - [x] Validatoren/Indexe nachziehen (Behavior/Psymatrix) (migriert zu novapolis-dev/docs/todo.rp.md)
 
@@ -116,11 +116,11 @@ Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufende
 - DONELOG-Pflege: Substanzielle Arbeiten bitte in den passenden DONELOG eintragen (`novapolis-dev/docs/donelog.md` bzw. `novapolis_agent/docs/DONELOG.txt`).
 - Minimal-Delta: Kleine, zielgerichtete Patches; Redirect-/Mirror-Stubs erst nach Link-Prüfung entfernen.
 
-### Monorepo Single Root – Umstellungsplan (Schritt für Schritt)
+### Monorepo Single Root - Umstellungsplan (Schritt für Schritt)
 
 Zielbild: Eine Wahrheit im Root (`/Main`), eine Python-Umgebung im Root (`.venv`), zentrale Tasks/Settings. Module sind „dumme“ Unterordner ohne eigene Interpreter/Tasks. Tests werden nur dort entdeckt/ausgeführt, wo sie hingehören.
 
-### Etappe 0 – Inventur & Freeze
+### Etappe 0 - Inventur & Freeze
 
 - [x] Liste aller abweichenden Interpreter-/Tasks-/Launch-Settings erfassen (migriert zu todo.root.md)
   - Orte: `**/.vscode/settings.json`, `**/.vscode/tasks.json`, `**/.vscode/launch.json`
@@ -131,12 +131,12 @@ Zielbild: Eine Wahrheit im Root (`/Main`), eine Python-Umgebung im Root (`.venv`
 Inventur-Status (2025-11-02 12:05):
 
 - Gefunden:
-  - `/.vscode/settings.json` → Interpreter zentral (`.venv`) und CWD/Env für Agent gesetzt – behalten
-  - `/.vscode/launch.json` → CWD=`novapolis_agent`, keine Modul-Interpreter – behalten
-  - `/novapolis-rp/.vscode/settings.json` → kein Interpreter-Override – behalten
+  - `/.vscode/settings.json` → Interpreter zentral (`.venv`) und CWD/Env für Agent gesetzt - behalten
+  - `/.vscode/launch.json` → CWD=`novapolis_agent`, keine Modul-Interpreter - behalten
+  - `/novapolis-rp/.vscode/settings.json` → kein Interpreter-Override - behalten
 - Nicht gefunden: modulare `tasks.json`-Overrides (Stand jetzt keine vorhanden)
 
-### Etappe 1 – Eine venv im Root, Interpreter zentral
+### Etappe 1 - Eine venv im Root, Interpreter zentral
 
 - [x] Root-Umgebung anlegen/vereinheitlichen: `.venv/` im Root; Dependencies aus `requirements*.txt` installieren
 - [x] VS Code: Interpreter im Root setzen (Workspace-Level); alle Ordner-Overrides entfernen
@@ -159,13 +159,13 @@ pwsh -NoProfile -File scripts/setup_root_venv.ps1
 ```
 
 
-### Etappe 2 – Tasks zentral, CWD gezielt
+### Etappe 2 - Tasks zentral, CWD gezielt
 
 - [x] Root `.vscode/tasks.json`: Alle Standard-Tasks zentral (Lint, Types, Full, Coverage, Pytest (-q), Marker-Tests (unit/api+streaming), DONELOG append). Fix-/Format-Tasks bewusst nicht dauerhaft.
   Abschluss (2025-11-07 11:09): Konsolidierung erfolgt; Policy: ruff/black Fix nur ad-hoc manuell.
   Optional (deferred): Marker-Tasks für eval/scripts bei Bedarf nachziehen.
 
-### Etappe 3 – Test-Discovery (Präzisierung)
+### Etappe 3 - Test-Discovery (Präzisierung)
 
 - [x] Testlauf standardisieren: Root-Task „Tests: pytest (-q)“ mit `cwd=novapolis_agent` (vorhanden)
 - [x] Root-Absicherung: `pytest.ini` im Root mit `testpaths = novapolis_agent/tests` ergänzt (migrationsfreundlich für spätere Root-Runs)
@@ -181,7 +181,7 @@ pwsh -NoProfile -File scripts/setup_root_venv.ps1
 - [x] ENV bleibt Root: Keine Modul-spezifischen `envFile`/Interpreter-Zuweisungen
   - Status 2025-11-07 12:30: Keine `/.vscode/settings.json` in Modulen gefunden; Root `settings.json` setzt `python.defaultInterpreterPath` und ein zentrales `python.envFile` (Agent-`.env`) → keine Modul-Overrides.
 
-### Etappe 3b – Test-Discovery steuern (nur dort, wo Tests sind)
+### Etappe 3b - Test-Discovery steuern (nur dort, wo Tests sind)
 
 - [x] Testlauf standardisieren: Root-Task „Tests: pytest (-q)“ mit `cwd=novapolis_agent`
 - [x] Exklusion anderer Ordner absichern
@@ -190,19 +190,19 @@ pwsh -NoProfile -File scripts/setup_root_venv.ps1
 - [x] Godot-/Datenordner von Testdiscovery ausschließen (falls Root-Discovery aktiv)
   - Akzeptanz: `pytest -q` findet ausschließlich Agent-Tests
 
-### Etappe 4 – Lint/Format global vereinheitlichen
+### Etappe 4 - Lint/Format global vereinheitlichen
 
-- [x] Markdownlint: eine zentrale Config (`.markdownlint-cli2.jsonc`) – vorhanden (Root)
+- [x] Markdownlint: eine zentrale Config (`.markdownlint-cli2.jsonc`) - vorhanden (Root)
 - [x] Python: `ruff` (Lint/Fix) und `black` (Format) zentral konfigurieren (Root `pyproject.toml`)
-  - Status 2025-11-07 13:05: `[tool.black]` und `[tool.ruff]` im Root; keine Modul‑Sonder‑Configs.
+  - Status 2025-11-07 13:05: `[tool.black]` und `[tool.ruff]` im Root; keine Modul-Sonder-Configs.
   - Tasks vorhanden: `lint:ruff`, `fix:ruff`, `format:black` in `/.vscode/tasks.json`.
   - Akzeptanz: Ein Satz Regeln, keine Modul-Sonderwege (erfüllt)
 - [x] Optional: Pre-commit-Hooks auf Root-venv umstellen
   - Status 2025-11-07 13:05: `githooks/pre-commit` nutzt `${workspaceFolder}/.venv/Scripts/python.exe` (Fallback `python`).
 
-### Etappe 5 – Aufräumen & CI-Angleichung
+### Etappe 5 - Aufräumen & CI-Angleichung
 
-- [x] Entfernte/neutralisierte Modul-Settings final löschen (nach 3–5 Tagen stabiler Nutzung) (migriert zu novapolis-dev/docs/todo.dev.md)
+- [x] Entfernte/neutralisierte Modul-Settings final löschen (nach 3-5 Tagen stabiler Nutzung) (migriert zu novapolis-dev/docs/todo.dev.md)
 - [x] CI-Workflows prüfen und auf Root-Tasks/Configs mappen
   - Lint → markdownlint-cli2, ruff/black
   - Tests → pytest (cwd=novapolis_agent)
@@ -231,21 +231,21 @@ Notiz (2025-11-02 11:35): CI im Root ergänzt:
 
 Notiz (2025-11-02 11:52): Modul-Workflows entfernt; Root-Workflows aktiv. Nächster Schritt: Trigger/Paths justieren und README-Hinweis ergänzen.
 Notiz (2025-11-02 12:08): Root `pyproject.toml` konsolidiert (tools-only: black/ruff); README „Editable“ auf `packages/novapolis_common` umgestellt.
-Notiz (2025-11-02 12:41): Prüf-/Release-Checks aktualisiert (Root-cwd, STOP‑Gate bei Unsicherheiten); Behaviour/Policy‑Änderungen erfordern Test `test_content_policy_profiles.py` + Changelogs.
+Notiz (2025-11-02 12:41): Prüf-/Release-Checks aktualisiert (Root-cwd, STOP-Gate bei Unsicherheiten); Behaviour/Policy-Änderungen erfordern Test `test_content_policy_profiles.py` + Changelogs.
 Notiz (2025-11-07 05:15): Modul-Workflows entfernt (siehe Liste oben); Root-Workflows bleiben die einzige Quelle unter `/.github/workflows/`.
 
 ### Prüf-/Release-Checks (konkret)
 
 - [x] Vor Commits: `novapolis_agent/scripts/run_tests.py` (cwd=`novapolis_agent`), Validatoren unter `novapolis-rp/coding/tools/validators/`. (migriert zu novapolis-dev/docs/todo.agent.md)
-- [x] Behaviour-/Policy‑Änderungen: `novapolis_agent/tests/test_content_policy_profiles.py` laufen lassen; Changelogs prüfen. (migriert zu novapolis-dev/docs/todo.agent.md)
+- [x] Behaviour-/Policy-Änderungen: `novapolis_agent/tests/test_content_policy_profiles.py` laufen lassen; Changelogs prüfen. (migriert zu novapolis-dev/docs/todo.agent.md)
 
 ### Akzeptanzkriterien (gesamt)
 
-- [x] Ein Interpreter (Root `.venv`), keine Modul-Interpreter (erfüllt – zentrale `.venv` aktiv, keine Modul-Overrides gefunden)
-- [x] Alle Dev-Tasks startbar aus Root; CWD pro Task korrekt gesetzt (erfüllt – Tasks unter `/.vscode/tasks.json`, keine Modul-`tasks.json` mehr)
-- [x] `pytest -q` läuft nur für Agent-Tests (erfüllt – Discovery via `cwd=novapolis_agent` / `testpaths` eingeschränkt)
-- [x] Lint/Format global konsistent (eine Config je Tool) (erfüllt – zentrale `pyproject.toml` für ruff/black, keine konkurrierenden Modul-Konfigurationen)
-- [x] Dokumentation aktualisiert (README/Index, dieser Plan abgehakt) (erfüllt – Hinweise und Migrationsstatus in README / Index reflektiert)
+- [x] Ein Interpreter (Root `.venv`), keine Modul-Interpreter (erfüllt - zentrale `.venv` aktiv, keine Modul-Overrides gefunden)
+- [x] Alle Dev-Tasks startbar aus Root; CWD pro Task korrekt gesetzt (erfüllt - Tasks unter `/.vscode/tasks.json`, keine Modul-`tasks.json` mehr)
+- [x] `pytest -q` läuft nur für Agent-Tests (erfüllt - Discovery via `cwd=novapolis_agent` / `testpaths` eingeschränkt)
+- [x] Lint/Format global konsistent (eine Config je Tool) (erfüllt - zentrale `pyproject.toml` für ruff/black, keine konkurrierenden Modul-Konfigurationen)
+- [x] Dokumentation aktualisiert (README/Index, dieser Plan abgehakt) (erfüllt - Hinweise und Migrationsstatus in README / Index reflektiert)
 
 ### VS Code Workspace (Multi-root → Single-root)
 
@@ -265,7 +265,7 @@ Notiz (2025-11-02 10:27): `.code-workspace` wurde auf Single-root reduziert (nur
   - `novapolis-rp/database-curated/staging/reports/.markdownlint.json`
   - Maßnahme: Root-CLI2-Ignores ergänzt, damit diese Bereiche nicht lint-blocken. Weitere Konsolidierung optional (Dateien später entfernen).
   
-  Notiz (2025-11-07 05:28): Lokale `.markdownlint.json`‑Overrides weiterhin vorhanden (staging/, reports/). Sie werden durch Root‑Ignores neutralisiert; optional später entfernen.
+  Notiz (2025-11-07 05:28): Lokale `.markdownlint.json`-Overrides weiterhin vorhanden (staging/, reports/). Sie werden durch Root-Ignores neutralisiert; optional später entfernen.
 - EditorConfig (potentielle Override-Gefahr):
   - `novapolis-sim/novapolis-sim/.editorconfig` hatte `root = true` → entfernt. Defer jetzt zur Root-.editorconfig.
 - Pyproject (Fragmentierung):
@@ -276,9 +276,9 @@ Notiz (2025-11-02 10:27): `.code-workspace` wurde auf Single-root reduziert (nur
 - [x] Markdownlint-Ignores in `.markdownlint-cli2.jsonc` ergänzt (staging/*, reports/*)
 - [x] `novapolis-sim/.editorconfig` „root = true“ entfernt
 - [x] Root `pyproject.toml` bereinigen (doppelte [project]/[build-system] entfernen, einheitliche Tools/Config)
-- [x] Modul-`pyproject.toml` konsolidieren oder isolieren (Tests/Lint steuern via CWD/paths) (entschieden: isolieren – Root `pyproject.toml` tools-only, Modul-Pakete behalten getrennte Packaging-Metadaten; obsolet)
+- [x] Modul-`pyproject.toml` konsolidieren oder isolieren (Tests/Lint steuern via CWD/paths) (entschieden: isolieren - Root `pyproject.toml` tools-only, Modul-Pakete behalten getrennte Packaging-Metadaten; obsolet)
 
-Notiz (2025-11-07 12:37): Devcontainer für Agent entfernt/deaktiviert (novapolis_agent/.devcontainer/* auf Stub gesetzt). Single‑Root nutzt lokale `.venv`; keine Container-Abhängigkeit.
+Notiz (2025-11-07 12:37): Devcontainer für Agent entfernt/deaktiviert (novapolis_agent/.devcontainer/* auf Stub gesetzt). Single-Root nutzt lokale `.venv`; keine Container-Abhängigkeit.
 Notiz (2025-11-07 12:56): Devcontainer-Ordner physisch gelöscht; keine aktive VS Code Devcontainer-Konfiguration mehr im Repo.
 
 Notiz (2025-11-02 11:35): Root `pyproject.toml` jetzt tools-only (black/ruff/pytest). Packaging verbleibt in Modulen/Paketen.
@@ -292,4 +292,6 @@ Lint: PASS, verbleibend=none
 Frontmatter: PASS
 Checklist: PASS (closed=ALL, open=0)
 Archiv-Move: OK → verschoben nach `novapolis-dev/archive/2025/2025-11-09-single-root-todo.md`
+
+
 

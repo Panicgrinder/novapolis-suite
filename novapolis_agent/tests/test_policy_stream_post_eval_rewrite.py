@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import asyncio
 import json
-from collections.abc import Callable
 
 import app.api.chat as chat_module
 import pytest
@@ -47,9 +46,8 @@ def _make_fake_stream_client(chunks: list[str]):
 @pytest.mark.streaming
 def test_policy_stream_post_eval_rewrite(monkeypatch: pytest.MonkeyPatch):
     # Fake LLM stream producing one overly expressive chunk (RPG-ish)
-    fake_factory: Callable[..., object] = lambda *a, **k: _make_fake_stream_client(
-        ["Ich: *nickt* Gerne helfe ich! :)"]
-    )
+    def fake_factory(*a, **k) -> object:
+        return _make_fake_stream_client(["Ich: *nickt* Gerne helfe ich! :)"])
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", fake_factory)
 
     # Force policies enabled and eval settings for the test

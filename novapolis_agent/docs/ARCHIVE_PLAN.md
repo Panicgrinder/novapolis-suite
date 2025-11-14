@@ -33,7 +33,7 @@ Test-Path "data/system.txt"
 Select-String -Path .gitignore -SimpleMatch "eval/eval-21-40_demo_v1.0.json","eval/eval-21-40_fantasy_v1.0.*","data/system.txt"
 ```
 
-Phase 4 – Ausführung
+Phase 4 - Ausführung
 --------------------
 
 - PowerShell (WhatIf/Dry-Run):
@@ -43,4 +43,5 @@ scripts\cleanup_phase4.ps1 -WhatIf:$true
 - Ausführen (löscht Dateien):
 
 scripts\cleanup_phase4.ps1 -WhatIf:$false -Confirm:$true
+
 
