@@ -339,13 +339,6 @@ Beispiel:
 
 2025-11-14 15:13 | Copilot | Docs sweep: Applied sorted DONELOG to `novapolis_agent/docs/DONELOG.txt`, added missing YAML frontmatter to `.tmp-results/todo.cleaned.md`, `eval/config/context.local.md`, and `novapolis_agent/eval/config/context.local.md`. Ran `npx --yes markdownlint-cli2` (PASS) and `pwsh -File .\scripts\run_frontmatter_validator.ps1` (initial FAIL → auto-fix → PASS). Committed & pushed (`chore(docs): add missing frontmatter for validator (auto-fix)`).
 
-Postflight
-----------
-Meta: Modus=Postflight, Modell=GPT-5 mini, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=git add -A; git commit -m "chore(docs): add missing frontmatter for validator (auto-fix)"; git push origin main, SHA256=NA, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=.github/copilot-instructions.md;WORKSPACE_INDEX.md;WORKSPACE_STATUS.md;.tmp-results/governance.suggestions.md;todo.root.md;.tmp-results/todo.cleaned.md, Aktion=Auto-Fix Frontmatter + DONELOG-Sort + Validator-Run + Commit/Push
-Prüfung: markdownlint=PASS, ExitcodeLint=0, behobenLint=ja, Frontmatter-Validator=PASS, ExitcodeFM=0, behobenFM=ja, Cleanup-WhatIf-Exit=NA, behobenWhatIf=nein, Cleanup-Real-Exit=NA, behobenReal=nein, WorkspaceScanRoot=0, WorkspaceScanRecurse=0
-Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-CTX,R-SEC,R-LOG,R-COV,R-TIME,R-SAFE
-Todos: offen=0, BeispielFix=Frontmatter auto-fix & DONELOG-Sort, ReRun=keiner, Fällig=2025-11-14 15:13
-
 </details>
 
 <details>
