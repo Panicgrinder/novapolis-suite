@@ -22,6 +22,34 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
+def _dict_from_model_dump(md_callable) -> dict[str, Any]:
+    """Safely call a Pydantic-style `model_dump` and coerce keys to str.
+
+    Converts bytes keys/values to strings where appropriate to avoid
+    `dict[bytes, bytes]` typing issues when assigning to `dict[str, Any]`.
+    """
+    try:
+        raw = md_callable()
+    except Exception:
+        return {}
+    try:
+        if isinstance(raw, Mapping):
+            out: dict[str, Any] = {}
+            for k, v in raw.items():
+                key = str(k)
+                if isinstance(v, (bytes, bytearray)):
+                    try:
+                        out[key] = v.decode()
+                    except Exception:
+                        out[key] = str(v)
+                else:
+                    out[key] = v
+            return out
+        return dict(raw)
+    except Exception:
+        return {}
+
+
 async def stream_chat_request(
     request: ChatRequest,
     eval_mode: bool = False,
@@ -127,7 +155,7 @@ async def stream_chat_request(
             md = getattr(opts_any0, "model_dump", None)
             if callable(md):
                 try:
-                    opts0 = dict(md())
+                    opts0 = _dict_from_model_dump(md)
                 except Exception:
                     opts0 = {}
         sid_opt = opts0.get("session_id")
@@ -203,7 +231,7 @@ async def stream_chat_request(
         md = getattr(raw_any, "model_dump", None)
         if callable(md):
             try:
-                raw_opts = dict(md())
+                raw_opts = _dict_from_model_dump(md)
             except Exception:
                 raw_opts = {}
     else:
@@ -551,7 +579,7 @@ async def process_chat_request(
                 md = getattr(opts_any, "model_dump", None)
                 if callable(md):
                     try:
-                        opts0 = dict(md())
+                        opts0 = _dict_from_model_dump(md)
                     except Exception:
                         opts0 = {}
             sid_opt = opts0.get("session_id")
@@ -616,7 +644,7 @@ async def process_chat_request(
             md = getattr(raw_any2, "model_dump", None)
             if callable(md):
                 try:
-                    raw_opts2 = dict(md())
+                    raw_opts2 = _dict_from_model_dump(md)
                 except Exception:
                     raw_opts2 = {}
         else:

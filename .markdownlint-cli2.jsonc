@@ -17,6 +17,7 @@
   },
   "ignores": [
     ".venv/**",
+    "node_modules/**",
     "novapolis_agent/eval/results/**",
     "novapolis_agent/outputs/**",
     "outputs/**",
