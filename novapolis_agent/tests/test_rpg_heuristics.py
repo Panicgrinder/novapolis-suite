@@ -117,7 +117,13 @@ class TestRPGHeuristics(unittest.IsolatedAsyncioTestCase):
         return await _run()
 
     async def test_rpg_style_check_behaves_by_package(self):
-        rpg_like = "Chronistin von Novapolis\nSzene: Marktplatz\nKonsequenz: ...\nOptionen: ...\nworld_state: {}\n"
+        rpg_like = (
+            "Chronistin von Novapolis\n"
+            "Szene: Marktplatz\n"
+            "Konsequenz: ...\n"
+            "Optionen: ...\n"
+            "world_state: {}\n"
+        )
         general_text = "Dies ist eine sachliche, technische Erklärung ohne RPG-Elemente."
 
         # In RPG-Paket sollte rpg_style bestehen

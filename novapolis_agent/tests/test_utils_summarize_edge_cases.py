@@ -18,7 +18,10 @@ def test_extract_key_points_empty_and_markers() -> None:
 
 
 def test_extract_key_points_fallback_uses_longest_sentences() -> None:
-    text = "Kurz. Dies ist ein deutlich längerer Satz ohne Marker, der aufgenommen werden soll. Noch einer."
+    text = (
+        "Kurz. Dies ist ein deutlich längerer Satz ohne Marker, "
+        "der aufgenommen werden soll. Noch einer."
+    )
     pts = extract_key_points(text, max_points=2)
     assert len(pts) == 2
     assert any("längerer Satz" in p for p in pts)

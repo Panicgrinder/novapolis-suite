@@ -45,7 +45,8 @@ def test_prepare_pack_dedupe_and_min_output(tmp_path: os.PathLike[str]) -> None:
     )
     assert res.get("ok")
     counts = res.get("counts", {})
-    # Dedupe entfernt doppelte Instruction "A", kurze Antwort "Kurz" wird gefiltert -> 1 verbleibender Eintrag
+    # Dedupe entfernt doppelte Instruction "A". Kurze Antwort "Kurz"
+    # wird gefiltert -> 1 verbleibender Eintrag
     assert counts.get("total") == 1
     assert os.path.exists(str(res.get("train")))
     assert os.path.exists(str(res.get("val")))

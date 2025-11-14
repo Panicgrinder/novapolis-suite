@@ -87,10 +87,24 @@ def test_curate_dataset_from_latest_smoke(tmp_path: Path, monkeypatch: pytest.Mo
         encoding="utf-8",
     )
 
-    async def fake_export(results_path: str, out_dir: str | None = None, format: str = "openai_chat", include_failures: bool = False, patterns: list[str] | None = None) -> dict[str, Any]:  # type: ignore[override]
+    async def fake_export(
+        results_path: str,
+        out_dir: str | None = None,
+        format: str = "openai_chat",
+        include_failures: bool = False,
+        patterns: list[str] | None = None,
+    ) -> dict[str, Any]:  # type: ignore[override]
         return {"ok": True, "out": str(exported), "count": 2}
 
-    def fake_prepare(src_path: str, out_dir: str | None = None, format: str = "openai_chat", train_ratio: float = 0.9, seed: int = 42, min_output_chars: int = 20, dedupe_by_instruction: bool = True) -> dict[str, Any]:  # type: ignore[override]
+    def fake_prepare(
+        src_path: str,
+        out_dir: str | None = None,
+        format: str = "openai_chat",
+        train_ratio: float = 0.9,
+        seed: int = 42,
+        min_output_chars: int = 20,
+        dedupe_by_instruction: bool = True,
+    ) -> dict[str, Any]:  # type: ignore[override]
         # create minimal train/val based on src_path
         assert os.path.exists(src_path)
         out_dir2 = out_dir or os.path.dirname(src_path)

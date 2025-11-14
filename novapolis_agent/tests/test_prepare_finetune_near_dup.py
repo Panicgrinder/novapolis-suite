@@ -37,7 +37,8 @@ def test_near_duplicate_threshold_filters(tmp_path: Any) -> None:
     ]
     src = os.path.join(str(tmp_path), "src.jsonl")
     _write_jsonl(src, rows)
-    # Hohe Schwelle 0.9: "Sag Hallo" vs "Sage Hallo" sind ähnlich, aber nicht zu 90% identisch → beide bleiben
+    # Hohe Schwelle 0.9: "Sag Hallo" vs "Sage Hallo" sind ähnlich, aber nicht
+    # zu 90% identisch -> beide bleiben
     res1 = prepare_pack(
         src,
         out_dir=str(tmp_path),
@@ -50,7 +51,8 @@ def test_near_duplicate_threshold_filters(tmp_path: Any) -> None:
     counts1 = res1["counts"]["total"]
     assert counts1 == 3
 
-    # Mittlere Schwelle 0.5: die beiden Hallo-Varianten sollten als Near-Dupe zusammenfallen → nur 2 unikate
+    # Mittlere Schwelle 0.5: die beiden Hallo-Varianten sollten als
+    # Near-Dupe zusammenfallen -> nur 2 Unikate
     res2 = prepare_pack(
         src,
         out_dir=str(tmp_path),

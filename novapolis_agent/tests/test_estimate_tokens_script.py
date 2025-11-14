@@ -34,9 +34,13 @@ def test_estimate_tokens_main_runs(tmp_path: os.PathLike[str]) -> None:
         f.write("print('hi')\n")
     with open(os.path.join(root, "b.md"), "w", encoding="utf-8") as f:
         f.write("# doc\n")
-    # Temporär root hijacken (os.path.dirname(os.path.dirname(__file__)) wird in main() verwendet)
-    # Wir patchen __file__ indirekt, indem wir das Modul neu laden und sys.modules tricksen könnte komplex werden.
-    # Stattdessen rufen wir count_tokens direkt - oder wir akzeptieren, dass main() auf das echte Repo zeigt.
-    # Hier: Nur smoke - main() darf laufen und JSON ausgeben; wichtigste ist: keine Exception.
+    # Temporär root hijacken (os.path.dirname(os.path.dirname(__file__))
+    # wird in main() verwendet)
+    # Wir patchen __file__ indirekt. Das Modul neu laden und sys.modules
+    # tricksen könnte komplex werden.
+    # Stattdessen rufen wir count_tokens direkt oder akzeptieren, dass
+    # main() auf das echte Repo zeigt.
+    # Hier: Nur smoke - main() darf laufen und JSON ausgeben; wichtigste
+    # ist: keine Exception.
     rc = mod.main()
     assert rc in (0, 1)

@@ -39,8 +39,8 @@ class TestEvalMode(unittest.IsolatedAsyncioTestCase):
             req = ChatRequest(messages=[{"role": "user", "content": "Erkläre DNS"}])
             await process_chat_request(req, eval_mode=True, unrestricted_mode=False)
 
-        # In process_chat_request senden wir direkt an Ollama; eval_mode wird nicht im Payload transportiert,
-        # aber die System-Nachricht muss überschrieben sein.
+        # In process_chat_request senden wir direkt an Ollama; eval_mode wird nicht
+        # im Payload transportiert, aber die System-Nachricht muss überschrieben sein.
         assert isinstance(sent_payload.get("messages"), list)
         assert sent_payload["messages"][0]["role"] == "system"
         assert sent_payload["messages"][0]["content"].strip() == EVAL_SYSTEM_PROMPT.strip()

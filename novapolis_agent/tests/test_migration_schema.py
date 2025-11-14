@@ -15,7 +15,10 @@ class TestMigrationSchema(unittest.TestCase):
             sys.path.insert(0, project_root)
 
     def test_migrate_old_to_new_schema(self):
-        """Test der Migration von altem (prompt, must_include) zu neuem Schema (messages, checks)."""
+        """
+        Test der Migration von altem Schema (prompt, must_include)
+        zu neuem Schema (messages, checks).
+        """
         from scripts.migrate_dataset_schemas import migrate_demo_dataset
 
         # Erstelle temporäres Dataset im alten Format
