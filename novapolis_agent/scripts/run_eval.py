@@ -2104,7 +2104,7 @@ if __name__ == "__main__":
         action="store_true",
         help=(
             "Eval-only: Injektiert vor erster User-Message einen Hinweis mit wörtlich "
-            "zu verwendenden Begriffen (aus must_include/keywords_*)",
+            "zu verwendenden Begriffen (aus must_include/keywords_*)"
         ),
     )
 

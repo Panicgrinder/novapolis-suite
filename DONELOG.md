@@ -12,6 +12,14 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-14 14:44: Copilot | Checks-Run: Ruff/Black/Mypy/Markdownlint/Tests
+  - Ruff: Fixes in `novapolis_agent/app/api/chat.py` (model_dump guards, B010) applied.
+  - Mypy: fixed argparse help-arg type in `novapolis_agent/scripts/run_eval.py`.
+  - Markdownlint: Fixed table style in `novapolis-rp/database-rp/00-admin/person_index_np.md` (compact table style).
+  - Tests: stabilized (replaced fragile runpy usages with direct `mod.main()` where tests expected monkeypatched modules); `pytest` PASS.
+  - Runner: full checks runner `python scripts/run_checks_and_report.py` completed — overall PASS; coverage 83.96%.
+
+
 - 2025-11-10 08:40: Skript-Cleanup (Root/Agent):
   - Entfernt: `scripts/run_linters.ps1`, `scripts/tests_pytest_root.ps1` (obsolet; ersetzt bzw. nicht mehr benötigt).
   - Archiviert: `scripts/snapshot_gate.ps1`, `scripts/snapshot_write_lock.ps1` → `novapolis-dev/archive/scripts/`.

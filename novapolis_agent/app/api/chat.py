@@ -123,11 +123,13 @@ async def stream_chat_request(
         opts0: dict[str, Any] = {}
         if isinstance(opts_any0, Mapping):
             opts0 = dict(cast(Mapping[str, Any], opts_any0))
-        elif hasattr(opts_any0, "model_dump") and callable(opts_any0.model_dump):
-            try:
-                opts0 = dict(opts_any0.model_dump())
-            except Exception:
-                opts0 = {}
+        elif opts_any0 is not None:
+            md = getattr(opts_any0, "model_dump", None)
+            if callable(md):
+                try:
+                    opts0 = dict(md())
+                except Exception:
+                    opts0 = {}
         sid_opt = opts0.get("session_id")
         sid_val = sid_top or sid_opt
         session_id = str(sid_val) if isinstance(sid_val, str) and sid_val else None
@@ -197,11 +199,13 @@ async def stream_chat_request(
     raw_opts: dict[str, Any]
     if isinstance(raw_any, Mapping):
         raw_opts = dict(cast(Mapping[str, Any], raw_any))
-    elif hasattr(raw_any, "model_dump") and callable(raw_any.model_dump):
-        try:
-            raw_opts = dict(raw_any.model_dump())
-        except Exception:
-            raw_opts = {}
+    elif raw_any is not None:
+        md = getattr(raw_any, "model_dump", None)
+        if callable(md):
+            try:
+                raw_opts = dict(md())
+            except Exception:
+                raw_opts = {}
     else:
         raw_opts = dict(raw_any or {})
     norm_opts, base_host = normalize_ollama_options(raw_opts, eval_mode=eval_mode)
@@ -543,11 +547,13 @@ async def process_chat_request(
                     opts0 = dict(cast(Mapping[str, Any], opts_any))
                 except Exception:
                     opts0 = {}
-            elif hasattr(opts_any, "model_dump") and callable(opts_any.model_dump):
-                try:
-                    opts0 = dict(opts_any.model_dump())
-                except Exception:
-                    opts0 = {}
+            elif opts_any is not None:
+                md = getattr(opts_any, "model_dump", None)
+                if callable(md):
+                    try:
+                        opts0 = dict(md())
+                    except Exception:
+                        opts0 = {}
             sid_opt = opts0.get("session_id")
             sid_val = sid_top or sid_opt
             session_id = str(sid_val) if isinstance(sid_val, str) and sid_val else None
@@ -606,11 +612,13 @@ async def process_chat_request(
         raw_opts2: dict[str, Any]
         if isinstance(raw_any2, Mapping):
             raw_opts2 = dict(cast(Mapping[str, Any], raw_any2))
-        elif hasattr(raw_any2, "model_dump") and callable(raw_any2.model_dump):
-            try:
-                raw_opts2 = dict(raw_any2.model_dump())
-            except Exception:
-                raw_opts2 = {}
+        elif raw_any2 is not None:
+            md = getattr(raw_any2, "model_dump", None)
+            if callable(md):
+                try:
+                    raw_opts2 = dict(md())
+                except Exception:
+                    raw_opts2 = {}
         else:
             raw_opts2 = dict(raw_any2 or {})
         norm_opts2, base_host = normalize_ollama_options(raw_opts2, eval_mode=eval_mode)
@@ -676,7 +684,11 @@ async def process_chat_request(
                 )
             started = time.time()
             resp = await _client.post(ollama_url, json=ollama_payload, headers=headers)
-            resp._started = started
+            # mypy: Response may not have custom attribute _started; use Any cast to set it
+            from typing import Any as _Any
+
+            resp_any = cast(_Any, resp)
+            resp_any._started = started
             return resp
 
         if client is not None:
