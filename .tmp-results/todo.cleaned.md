@@ -44,7 +44,7 @@ Hoch priorisiert (0-2 Tage)
 
 - [ ] Checks-Wrapper (`python scripts/run_checks_and_report.py`) - Review/Nachzug
   - [x] Kurzreview der neuen PSScriptAnalyzer-Phase (Installationspfad, Exit-Codes, Receipt-Felder)
-  - [ ] Einbindung in „Checks: full“ Dokumentation (README/Status)
+  - [x] Einbindung in „Checks: full“ Dokumentation (README/Status) (2025-11-14 16:55) — siehe `novapolis-dev/docs/checks_full.md`
   - [x] Einmaliger Gesamtlauf inkl. Receipt unter `.tmp-results/reports/checks_report_*.md`
 
 Kurzfristig (3-7 Tage)
