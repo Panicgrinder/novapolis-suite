@@ -337,6 +337,15 @@ Beispiel:
 2025-10-31 23:40 | Copilot | Agent-Workspace in `novapolis_agent` umbenannt, Mypy-Flow angepasst und Statusdateien bereinigt.
 ```
 
+2025-11-14 15:13 | Copilot | Docs sweep: Applied sorted DONELOG to `novapolis_agent/docs/DONELOG.txt`, added missing YAML frontmatter to `.tmp-results/todo.cleaned.md`, `eval/config/context.local.md`, and `novapolis_agent/eval/config/context.local.md`. Ran `npx --yes markdownlint-cli2` (PASS) and `pwsh -File .\scripts\run_frontmatter_validator.ps1` (initial FAIL → auto-fix → PASS). Committed & pushed (`chore(docs): add missing frontmatter for validator (auto-fix)`).
+
+Postflight
+----------
+Meta: Modus=Postflight, Modell=GPT-5 mini, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=git add -A; git commit -m "chore(docs): add missing frontmatter for validator (auto-fix)"; git push origin main, SHA256=NA, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=.github/copilot-instructions.md;WORKSPACE_INDEX.md;WORKSPACE_STATUS.md;.tmp-results/governance.suggestions.md;todo.root.md;.tmp-results/todo.cleaned.md, Aktion=Auto-Fix Frontmatter + DONELOG-Sort + Validator-Run + Commit/Push
+Prüfung: markdownlint=PASS, ExitcodeLint=0, behobenLint=ja, Frontmatter-Validator=PASS, ExitcodeFM=0, behobenFM=ja, Cleanup-WhatIf-Exit=NA, behobenWhatIf=nein, Cleanup-Real-Exit=NA, behobenReal=nein, WorkspaceScanRoot=0, WorkspaceScanRecurse=0
+Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-CTX,R-SEC,R-LOG,R-COV,R-TIME,R-SAFE
+Todos: offen=0, BeispielFix=Frontmatter auto-fix & DONELOG-Sort, ReRun=keiner, Fällig=2025-11-14 15:13
+
 </details>
 
 <details>
@@ -505,9 +514,9 @@ Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) - veraltet seit 2025-11
 
 Automatisierte Frontmatter-Updates (2025-11-07)
 
-Ein Wrapper-Skript `scripts/append_done_and_push.ps1` wurde hinzugefügt und getestet. Das Skript ergänzt bzw. aktualisiert bei Dateiänderungen die YAML-Frontmatter (`stand`, `update`, optional `checks`), legt vor Änderungen Backups (`<file>.bak`) an, führt einen scoped Frontmatter-Validator für die betroffenen Dateien aus und protokolliert jede Aktion in `novapolis_agent/docs/DONELOG.txt` (optional zusätzlich in `DONELOG.md`). Relevante Commits aus der Sitzung: d06ab6b, 80f7e32, 0c98ea6. Validator-Wrapper: `scripts/run_frontmatter_validator.ps1`.
+Ein Wrapper-Mechanismus wurde hinzugefügt und getestet, der bei Dateiänderungen YAML-Frontmatter (`stand`, `update`, optional `checks`) ergänzt/aktualisiert, Backups (`<file>.bak`) anlegt, einen scoped Frontmatter-Validator ausführt und Aktionen in `novapolis_agent/docs/DONELOG.txt` protokolliert. Der ursprüngliche Wrapper wurde entfernt und durch den aktuellen, zentralen Mechanismus ersetzt. Relevante Commits: d06ab6b, 80f7e32, 0c98ea6. Validator-Wrapper: `scripts/run_frontmatter_validator.ps1`.
 
-2025-11-07 21:46 | Panicgrinder | Implementiert: `scripts/append_done_and_push.ps1` — automatisierte Frontmatter-Updates (`stand`/`update`[, `checks`]), Backups `<file>.bak`, scoped Frontmatter-Validator, DONELOG-Append; Commits: d06ab6b, 80f7e32, 0c98ea6.
+2025-11-07 21:46 | Panicgrinder | Implementiert: automatisierte Frontmatter-Updates (`stand`/`update`[, `checks`]), Backups `<file>.bak`, scoped Frontmatter-Validator, DONELOG-Append; Duplicate reference to legacy wrapper removed.
 
 2025-11-07 22:11 | Copilot | Korrektur/Anmerkung: Vorheriger Eintrag (2025-11-07 21:46 | Panicgrinder) wurde geprüft; wegen partieller Anzeige/Kürzung im Editor habe ich die aktuelle Systemzeit dokumentiert. Originaleintrag bleibt unverändert; diese Zeile dient der Audit-Transparenz.
 

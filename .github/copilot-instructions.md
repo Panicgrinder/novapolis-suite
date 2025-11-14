@@ -10,7 +10,7 @@ LLM-Dokumentenheader (nicht löschen)
 - Precedence: Immer zuerst laden → alle Aktionen, Tests und Änderungen müssen den hier definierten Regeln folgen.
 - Compliance: Wrapper-Policy, STOP-Gate, Frontmatter-Policy, Lint-Policy, Security-Checks, Logging-Receipt, Meta-/Systeminfo-Protokollierung.
 - Audit: Jede Antwort oder Änderung endet mit einem Postflight-Block nach Abschnitt „Meta-/Systeminfo-Protokollierung“.
- - Timestamp: 2025-11-14 14:50
+- Timestamp: 2025-11-14 14:50
 - Änderung: Frühere Start-Checks abgeschafft; Postflight bleibt einzig verpflichtendes Gate, Wrapper-Guards übernehmen alle vorbereitenden Prüfungen.
 <!-- markdownlint-disable MD022 MD032 MD036 -->
 
