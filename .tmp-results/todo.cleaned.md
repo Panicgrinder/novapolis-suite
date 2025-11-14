@@ -1,4 +1,5 @@
-stand: 2025-11-14 14:50
+---
+stand: 2025-11-14 15:09
 update: Docs sweep: timestamps synchronized; link-scan receipts kept
 checks: pending (lint)
 ---
