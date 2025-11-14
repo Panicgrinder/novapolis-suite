@@ -11,7 +11,7 @@ import pytest
 def test_openai_ft_status_cli_parsing_and_key_check(monkeypatch: pytest.MonkeyPatch) -> None:
     # Stelle sicher, dass kein API-Key gesetzt ist
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
-    from scripts import openai_ft_status as s
+    from novapolis_agent.scripts import openai_ft_status as s
 
     # Setze Dummy-API-Key und stubbe Client/Funktionen, damit kein Netzaufruf erfolgt
     monkeypatch.setenv("OPENAI_API_KEY", "sk-test")

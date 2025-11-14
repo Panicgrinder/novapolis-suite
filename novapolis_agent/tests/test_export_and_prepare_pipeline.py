@@ -63,7 +63,7 @@ def test_export_openai_chat_and_prepare_pack(tmp_path: os.PathLike[str]) -> None
     # 2) Export (openai_chat) mit eigenen Patterns auf das temporäre Dataset
     dataset_path = os.path.join(tmp_path, "dataset.jsonl")
     _write_min_dataset_jsonl(dataset_path)
-    from scripts import export_finetune as exporter
+    from novapolis_agent.scripts import export_finetune as exporter
 
     out = asyncio.run(
         exporter.export_from_results(
@@ -79,7 +79,7 @@ def test_export_openai_chat_and_prepare_pack(tmp_path: os.PathLike[str]) -> None
     assert os.path.exists(exported)
 
     # 3) Prepare-Pack (Train/Val)
-    from scripts import prepare_finetune_pack as prep
+    from novapolis_agent.scripts import prepare_finetune_pack as prep
 
     res: dict[str, Any] = prep.prepare_pack(
         exported,

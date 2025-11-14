@@ -2,7 +2,7 @@ import glob
 import os
 import tempfile
 
-from scripts import todo_gather as tg
+from novapolis_agent.scripts import todo_gather as tg
 
 
 def test_todo_gather_write_md():

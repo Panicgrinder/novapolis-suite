@@ -22,7 +22,7 @@ def test_audit_workspace_runs_and_prints(tmp_path: os.PathLike[str]) -> None:
     with open(mdfile, "w", encoding="utf-8") as f:
         f.write("# Titel\nText\n")
 
-    from scripts import audit_workspace as aw
+    from novapolis_agent.scripts import audit_workspace as aw
 
     aw.PROJECT_ROOT = str(ws)
 

@@ -2,7 +2,7 @@ import os
 import sys
 import tempfile
 
-from scripts import open_latest_summary as ols
+from novapolis_agent.scripts import open_latest_summary as ols
 
 
 def test_open_latest_summary_print_only():

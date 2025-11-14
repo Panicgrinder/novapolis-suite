@@ -12,7 +12,7 @@ import pytest
 @pytest.mark.scripts
 @pytest.mark.unit
 def test_export_finetune_no_rows_returns_error(tmp_path: Path) -> None:
-    from scripts import export_finetune as exporter
+    from novapolis_agent.scripts import export_finetune as exporter
 
     res = tmp_path / "empty_results.jsonl"
     res.write_text("\n", encoding="utf-8")

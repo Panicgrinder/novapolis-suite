@@ -23,7 +23,7 @@ async def test_cli_like_asgi_smoke_with_hint(monkeypatch):
         return [item]
 
     # monkeypatch load_evaluation_items to return our single fixture
-    from scripts import run_eval as _runner
+    from novapolis_agent.scripts import run_eval as _runner
 
     monkeypatch.setattr(_runner, "load_evaluation_items", _fake_loader)
 

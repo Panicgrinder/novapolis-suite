@@ -39,7 +39,7 @@ def _write_results_with_meta(path: str, item_id: str, dataset_basename: str) -> 
 @pytest.mark.scripts
 def test_rerun_from_results_smoke(tmp_path: os.PathLike[str]) -> None:
     # Mini-Dataset im eval/datasets-Layout
-    from scripts import rerun_from_results as rfr
+    from novapolis_agent.scripts import rerun_from_results as rfr
 
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(rfr.__file__)))
     datasets_dir = os.path.join(project_root, "eval", "datasets")

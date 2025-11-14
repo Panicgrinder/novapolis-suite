@@ -2,7 +2,7 @@ import asyncio
 import os
 import tempfile
 
-from scripts import map_reduce_summary_llm as mrl
+from novapolis_agent.scripts import map_reduce_summary_llm as mrl
 
 
 def test_map_reduce_summary_llm_heuristic_only():

@@ -61,7 +61,7 @@ def test_export_alpaca_and_prepare_pack(tmp_path: os.PathLike[str]) -> None:
     # 2) Dataset und Export (alpaca)
     dataset_path = os.path.join(tmp_path, "dataset.jsonl")
     _write_min_dataset_jsonl(dataset_path)
-    from scripts import export_finetune as exporter
+    from novapolis_agent.scripts import export_finetune as exporter
 
     out = asyncio.run(
         exporter.export_from_results(
@@ -77,7 +77,7 @@ def test_export_alpaca_and_prepare_pack(tmp_path: os.PathLike[str]) -> None:
     assert os.path.exists(exported)
 
     # 3) Prepare-Pack (alpaca)
-    from scripts import prepare_finetune_pack as prep
+    from novapolis_agent.scripts import prepare_finetune_pack as prep
 
     res: dict[str, Any] = prep.prepare_pack(
         exported,

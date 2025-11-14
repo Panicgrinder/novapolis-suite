@@ -62,7 +62,7 @@ def test_export_alpaca_and_then_prepare_pack(tmp_path: os.PathLike[str]) -> None
     _write_results(results_path, item_id, os.path.basename(dataset_path))
 
     # Export alpaca
-    from scripts import export_finetune as exporter
+    from novapolis_agent.scripts import export_finetune as exporter
 
     out = asyncio.run(
         exporter.export_from_results(
@@ -78,7 +78,7 @@ def test_export_alpaca_and_then_prepare_pack(tmp_path: os.PathLike[str]) -> None
     assert os.path.exists(alpaca_path)
 
     # Prepare (alpaca)
-    from scripts import prepare_finetune_pack as prep
+    from novapolis_agent.scripts import prepare_finetune_pack as prep
 
     res: dict[str, Any] = prep.prepare_pack(
         alpaca_path,

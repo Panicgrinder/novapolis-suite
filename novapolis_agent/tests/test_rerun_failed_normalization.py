@@ -45,7 +45,7 @@ def test_rerun_failed_handles_eval_prefix_normalization(tmp_path: os.PathLike[st
     )
 
     # Monkeypatch Konstanten im rerun_failed-Modul auf tmp-Verzeichnisse
-    from scripts import rerun_failed as rf
+    from novapolis_agent.scripts import rerun_failed as rf
 
     rf.DATASETS_DIR = datasets_dir
     rf.RESULTS_DIR = results_dir

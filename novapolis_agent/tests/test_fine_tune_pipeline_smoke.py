@@ -16,7 +16,7 @@ def test_fine_tune_pipeline_minimal_flows(tmp_path: os.PathLike[str]) -> None:
     # Patch argv: kein train file vorhanden -> sollte mit Code 2 enden
     import sys
 
-    from scripts import fine_tune_pipeline as ftp
+    from novapolis_agent.scripts import fine_tune_pipeline as ftp
 
     old_argv = sys.argv[:]
     sys.argv = ["fine_tune_pipeline.py", "--finetune-dir", out_dir]

@@ -2,7 +2,7 @@ import os
 import sys
 import tempfile
 
-from scripts import fine_tune_pipeline as ftp
+from novapolis_agent.scripts import fine_tune_pipeline as ftp
 
 
 def test_fine_tune_pipeline_no_check_with_dummy_train():

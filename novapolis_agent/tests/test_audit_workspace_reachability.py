@@ -19,7 +19,7 @@ def test_audit_reachability_graph(tmp_path: os.PathLike[str]) -> None:
     with open(os.path.join(ws, "utils", "mod2.py"), "w", encoding="utf-8") as f:
         f.write("VALUE=2\n")
 
-    from scripts import audit_workspace as aw
+    from novapolis_agent.scripts import audit_workspace as aw
 
     aw.PROJECT_ROOT = str(ws)
 

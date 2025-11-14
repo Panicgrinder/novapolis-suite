@@ -43,7 +43,7 @@ def _write_dataset_messages(path: str, item_id: str, messages: list[dict[str, st
 @pytest.mark.scripts
 @pytest.mark.unit
 def test_export_alpaca_instruction_and_input_split(tmp_path: os.PathLike[str]) -> None:
-    from scripts import export_finetune as exporter
+    from novapolis_agent.scripts import export_finetune as exporter
 
     # Dataset mit mehreren Nachrichten: erste user = instruction, Rest wird input
     dataset = os.path.join(tmp_path, "ds.jsonl")
@@ -86,7 +86,7 @@ def test_export_out_dir_none_uses_settings_fallback(
     # Stelle settings so ein, dass EVAL_RESULTS_DIR auf einen temporären Unterpfad zeigt
     import app.core.settings as settings_mod
 
-    from scripts import export_finetune as exporter
+    from novapolis_agent.scripts import export_finetune as exporter
 
     monkeypatch.setattr(
         settings_mod.settings,
@@ -114,7 +114,7 @@ def test_export_out_dir_none_uses_settings_fallback(
 @pytest.mark.scripts
 @pytest.mark.unit
 def test_export_skips_unmapped_item(tmp_path: os.PathLike[str]) -> None:
-    from scripts import export_finetune as exporter
+    from novapolis_agent.scripts import export_finetune as exporter
 
     # Ergebnis referenziert nicht existierendes Item
     res = os.path.join(tmp_path, "r.jsonl")

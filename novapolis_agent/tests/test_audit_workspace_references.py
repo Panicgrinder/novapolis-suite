@@ -23,7 +23,7 @@ def test_audit_workspace_scan_text_references_positive(tmp_path: os.PathLike[str
     with open(pyfile, "w", encoding="utf-8") as f:
         f.write("# siehe ref_notes.md für Details\n")
 
-    from scripts import audit_workspace as aw
+    from novapolis_agent.scripts import audit_workspace as aw
 
     aw.PROJECT_ROOT = str(ws)
 

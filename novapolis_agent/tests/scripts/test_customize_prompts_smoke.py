@@ -3,7 +3,7 @@ import json
 import os
 import tempfile
 
-from scripts import customize_prompts as cp
+from novapolis_agent.scripts import customize_prompts as cp
 
 
 def test_customize_prompts_create_rules():

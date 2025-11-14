@@ -66,7 +66,7 @@ def _write_min_dataset(path: str, item_id: str) -> None:
 @pytest.mark.scripts
 @pytest.mark.unit
 def test_export_filters_failures_by_default(tmp_path: os.PathLike[str]) -> None:
-    from scripts import export_finetune as exporter
+    from novapolis_agent.scripts import export_finetune as exporter
 
     results = os.path.join(tmp_path, "results.jsonl")
     _write_mixed_results(results)
@@ -94,7 +94,7 @@ def test_export_filters_failures_by_default(tmp_path: os.PathLike[str]) -> None:
 @pytest.mark.scripts
 @pytest.mark.unit
 def test_export_includes_failures_when_requested(tmp_path: os.PathLike[str]) -> None:
-    from scripts import export_finetune as exporter
+    from novapolis_agent.scripts import export_finetune as exporter
 
     results = os.path.join(tmp_path, "results.jsonl")
     _write_mixed_results(results)

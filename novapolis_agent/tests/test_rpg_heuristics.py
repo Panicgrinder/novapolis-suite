@@ -19,7 +19,7 @@ def _get_run_eval():
         if project_root not in sys.path:
             sys.path.insert(0, project_root)
 
-        from scripts import run_eval as _run_eval
+        from novapolis_agent.scripts import run_eval as _run_eval
 
         _run_eval_module = _run_eval
     return _run_eval_module

@@ -23,7 +23,7 @@ def test_map_reduce_summary_generates_outputs(
         f.write("# H1\n- item\n")
 
     out_dir = os.path.join(tmp_path, "out")
-    from scripts import map_reduce_summary as m
+    from novapolis_agent.scripts import map_reduce_summary as m
 
     # Patch SCOPES auf einen temporären Eintrag
     m.SCOPES = {"myscope": scope_dir}
