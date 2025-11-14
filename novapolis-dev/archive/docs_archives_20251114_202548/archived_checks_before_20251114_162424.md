@@ -4,7 +4,8 @@ update: Archiv-Übersicht älterer Checks-Reports; nur die neueste `checks_repor
 checks: ARCHIVED
 ---
 
-# Archiv: Checks-Reports (bis 2025-11-14 16:24)
+Archiv: Checks-Reports (bis 2025-11-14 16:24)
+=============================================
 
 Diese Datei listet die überprüften `checks_report_*.md` Dateien auf, die aus dem Arbeitsverzeichnis `.tmp-results/reports/` entfernt wurden, da nur die aktuellste Datei (`checks_report_20251114_162424.md`) im Arbeitsbereich verbleiben soll.
 
@@ -12,7 +13,7 @@ Hinweis: Inhalte wurden nicht einzeln kopiert; die gelöschten Dateien bleiben i
 
 Entfernte Dateien (alphabetisch):
 
-```
+```text
 checks_report_20251114_082942.md
 checks_report_20251114_083051.md
 checks_report_20251114_083211.md

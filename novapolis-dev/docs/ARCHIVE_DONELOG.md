@@ -1,4 +1,8 @@
-Stand: 2025-11-14 16:55 - Archivierung abgeschlossen
+---
+stand: 2025-11-14 16:55
+update: Archivierung abgeschlossen
+checks: none
+---
 
 Aktion: Archivierung abgeschlossener Artefakte aus `.tmp-datasets` und `Backups`.
 
@@ -10,3 +14,6 @@ Einträge:
 - 2025-11-14 16:55 — Archivkopie der bereinigten Aufgabenliste: `.tmp-results/todo.cleaned.md` → `novapolis-dev/docs/archives/todo.cleaned.md`
 
 Hinweis: Originale in `Backups/archive-lscan_links_backups/` und `.tmp-datasets/lscan_links_backups/` wurden im Anschluss entfernt, da die Archivkopien nun im Modul `novapolis-dev` vorliegen. Falls Wiederherstellung nötig ist, bitte PR oder Revert anstoßen.
+
+
+

@@ -1,4 +1,4 @@
-﻿---
+---
 stand: 2025-11-14 15:54
 update: Link-Scan novapolis_agent
 checks: files=15366; broken=0
@@ -20,3 +20,7 @@ Defekte Verweise
 ----------------
 
 - keine
+
+
+
+
