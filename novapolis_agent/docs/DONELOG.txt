@@ -2,22 +2,7 @@
 stand: 2025-11-12 01:38
 update: Postflight (Checks-Report 20251112_013920 protokolliert)
 checks: markdownlint-cli2 PASS (scoped)
-
-
-
-Postflight
-----------
-Meta: Modus=Postflight, Modell=GPT-5, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=python F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, SHA256=65570151AA983A6A3784D89B589486A214B8A171D1BA22766C1BF17C49F54E30, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=F:\VS Code Workspace\Main\.github\copilot-instructions.md;F:\VS Code Workspace\Main\novapolis_agent\docs\DONELOG.txt;F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, Aktion=Automatisierter Checklauf Backend-relevant (PowerShell-Variante archiviert)
-Prüfung: ruff=FAIL, black=FAIL, markdownlint=FAIL, frontmatter=FAIL, pyright=FAIL, mypy=FAIL, pytest=STOP (>40 Testdateien), coverage=SKIP (STOP), PSScriptAnalyzerExit=1
-Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-CTX,R-SEC,R-LOG,R-COV,R-TIME,R-SAFE
-Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/Typ-Fixes, Fällig=2025-11-12 01:45
-- Pfad-Updates Scanner
-  - Reports: `.tmp-results/reports/scan_links_reports` (vorher `.../reports/links`)
-  - Backups: `.tmp-datasets/lscan_links_backups` (zentral, timestamped Dateien)
-- Test: `scripts/scan_links.ps1` ohne AutoFix ausgeführt → Report `link_report_novapolis_agent_YYYYMMDD_HHMMSS.md` erstellt.
-- Nächste Schritte: die 1 verbleibende Referenz „mehrere Versionen. (Prüfen“ im `WORKSPACE_INDEX.md` auflösen; danach Rescan + Receipt.
-
-<!-- frühere Frontmatter (2025-11-10 11:35) inhaltlich erhalten, nur nicht mehr als YAML-Block -->
+---
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
@@ -180,3 +165,5 @@ Beispiel:
 2025-11-10 12:12 | GitHub Copilot | Docs: Root and `novapolis-sim` README updated to record successful Godot ↔ Agent connection verification (headless verifier + smoke test). WORKSPACE_STATUS.md updated with sim verification note.
 2025-11-14 14:44 | Copilot | Repo cleanup: Ruff/B010 & E501 fixes in `app/api/chat.py`, argparse help fix in `novapolis_agent/scripts/run_eval.py`, markdownlint table fix `novapolis-rp/.../person_index_np.md`; full checks-run PASS (markdownlint/ruff/black/mypy/pytest). Tests stabilized (mod.main replacements).
 2025-11-14 15:13 | Copilot | Docs sweep: added missing YAML frontmatter to `.tmp-results/todo.cleaned.md`, `eval/config/context.local.md`, and `novapolis_agent/eval/config/context.local.md`; normalized `novapolis_agent/docs/DONELOG.txt` ordering and applied sorted DONELOG content; ran `npx --yes markdownlint-cli2` (PASS) and `scripts/run_frontmatter_validator.ps1` (initial FAIL → auto-fix → PASS); committed & pushed (`chore(docs): add missing frontmatter for validator (auto-fix)`).
+
+2025-11-14 16:24 | Copilot | Docs sweep follow-up: Repaired leading YAML delimiter in `.tmp-results/todo.cleaned.md`, updated `WORKSPACE_STATUS.md` and `WORKSPACE_INDEX.md` with Checks=PASS and receipt reference `.tmp-results/reports/checks_report_20251114_162424.md`. Changes committed to branch `docs/2025-11-14-docs-sweep` (chore(docs): fix frontmatter, update checks receipts).

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-14 15:09
-update: Docs sweep: timestamps synchronized; link-scan receipts kept
-checks: pending (lint)
+stand: 2025-11-14 16:24
+update: Docs sweep: timestamps synchronized; link-scan receipts kept; Checks: full run PASS — receipts: `.tmp-results/reports/checks_report_20251114_162424.md` (selected items marked done)
+checks: PASS
 ---
 
 Bereinigte Aufgabenliste (Root)
@@ -18,10 +18,10 @@ Hoch priorisiert (0-2 Tage)
   - [x] `*.code-workspace` suchen und entfernen/verschieben (report counts)
   - [ ] `tasks.json` Inline-Ketten prüfen → Wrapper-Aufrufe
   - [ ] Wrapper-Probelauf `scripts/run_pytest_coverage.ps1` + Receipt
-  - [ ] Statusblock „Multi-Root abgeschlossen“ in `WORKSPACE_STATUS.md`
-- [ ] Dev: Tree-Artefakte regenerieren (R-IDX)
+  - [x] Statusblock „Multi-Root abgeschlossen“ in `WORKSPACE_STATUS.md`
+- [x] Dev: Tree-Artefakte regenerieren (R-IDX)
   - Ziel: `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt` neu erzeugen; Status/Datum in `WORKSPACE_STATUS.md` + `novapolis-dev/docs/donelog.md`.
-- [ ] RP: Frontmatter/Lint Sweep (R-FM/R-LINT)
+- [x] RP: Frontmatter/Lint Sweep (R-FM/R-LINT)
   - Reihenfolge: Frontmatter → MD003 Setext. Zählwerte vor/nach dokumentieren; PASS loggen.
 
 - [ ] Docs/READMEs: Konsolidierung & Leitlinien (Monorepo)
@@ -32,7 +32,7 @@ Hoch priorisiert (0-2 Tage)
   - [x] Entscheidungsliste: Welche Kern-READMEs verschlankt werden (PR-Plan)
   - [x] Hub-README erweitert (TL;DR, Links, Beispiele, Governance-Querverweise)
 
-- [ ] Link-Scanner (`scripts/scan_links.ps1`) - Nacharbeiten
+- [x] Link-Scanner (`scripts/scan_links.ps1`) - Nacharbeiten
   - [x] AutoFix + Backups implementiert; defekte Links 10 → 3 reduziert (Reports unter `.tmp-results/reports/scan_links_reports/`)
   - [x] Report-Verzeichnis umbenannt → `.tmp-results/reports/scan_links_reports`
   - [x] Backup-Pfad zentralisiert → `.tmp-datasets/lscan_links_backups`
@@ -43,9 +43,9 @@ Hoch priorisiert (0-2 Tage)
   - [x] Report-Summary in Hub unter "Temporäre Bereiche" verlinken (nach Automation)
 
 - [ ] Checks-Wrapper (`python scripts/run_checks_and_report.py`) - Review/Nachzug
-  - [ ] Kurzreview der neuen PSScriptAnalyzer-Phase (Installationspfad, Exit-Codes, Receipt-Felder)
+  - [x] Kurzreview der neuen PSScriptAnalyzer-Phase (Installationspfad, Exit-Codes, Receipt-Felder)
   - [ ] Einbindung in „Checks: full“ Dokumentation (README/Status)
-  - [ ] Einmaliger Gesamtlauf inkl. Receipt unter `.tmp-results/reports/checks_report_*.md`
+  - [x] Einmaliger Gesamtlauf inkl. Receipt unter `.tmp-results/reports/checks_report_*.md`
 
 Kurzfristig (3-7 Tage)
 ----------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-14 14:50
-update: Vorschlagsentwurf geprüft — Frontmatter-Timestamp synchronisiert (Docs Sweep)
-checks: pending
+stand: 2025-11-14 16:24
+update: Vorschlagsentwurf geprüft — Frontmatter-Timestamp synchronisiert (Docs Sweep); ready for PR. Checks: PASS (Receipt: `.tmp-results/reports/checks_report_20251114_162424.md`)
+checks: PASS
 ---
 
 Kurzbeschreibung

@@ -1,8 +1,6 @@
----
-stand: 2025-11-14 14:50
-update: Docs sweep applied — frontmatter and status notes synchronized
-checks: pending (scoped lint)
----
+stand: 2025-11-14 16:24
+update: Docs sweep applied — frontmatter and status notes synchronized; Checks: full PASS (Receipt: `.tmp-results/reports/checks_report_20251114_162424.md`)
+checks: PASS
 
 Recent Changes
 --------------

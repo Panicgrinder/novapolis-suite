@@ -335,19 +335,7 @@ Beispiel:
 2025-10-31 14:05 | Copilot | Dokumentation auf Novapolis Agent umgestellt (AGENT_BEHAVIOR, README, TODO, customization, Index, Eval-Doku, Kontextsample aktualisiert).
 2025-10-31 15:10 | Copilot | Root-Dokumente (Copilot-Anleitung, README, TODO, DONELOG) an Novapolis Agent Branding angepasst.
 2025-10-31 23:40 | Copilot | Agent-Workspace in `novapolis_agent` umbenannt, Mypy-Flow angepasst und Statusdateien bereinigt.
-```
-
-2025-11-14 15:13 | Copilot | Docs sweep: Applied sorted DONELOG to `novapolis_agent/docs/DONELOG.txt`, added missing YAML frontmatter to `.tmp-results/todo.cleaned.md`, `eval/config/context.local.md`, and `novapolis_agent/eval/config/context.local.md`. Ran `npx --yes markdownlint-cli2` (PASS) and `pwsh -File .\scripts\run_frontmatter_validator.ps1` (initial FAIL → auto-fix → PASS). Committed & pushed (`chore(docs): add missing frontmatter for validator (auto-fix)`).
-
-</details>
-
-<details>
-<summary>novapolis-dev/docs/donelog.md</summary>
-
-```markdown
-<!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
-<!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
-<!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+2025-11-14 16:24 | Copilot | Docs sweep: Repaired YAML frontmatter in `.tmp-results/todo.cleaned.md` (added missing leading '---'), synchronized `checks: PASS` and timestamps in `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md` and `.tmp-results/governance.suggestions.md`; appended receipts and DONELOG entries. Receipt: `.tmp-results/reports/checks_report_20251114_162424.md`. Committed & pushed branch `docs/2025-11-14-docs-sweep` (chore(docs): fix frontmatter, update checks receipts).
 
 Canvas-Rettung Sprint 1 - AI Behavior Matrix (2025-11-01T17:55:00+01:00)
 
