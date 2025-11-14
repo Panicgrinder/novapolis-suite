@@ -7,6 +7,8 @@ checks: PASS
 Recent Changes
 --------------
 
+- 2025-11-14 21:39: Workspace tree regenerated via Python wrapper `scripts/task_wrappers/workspace_tree_full.py`; output written to `workspace_tree_full.txt` at repo root. Receipt: `.tmp-results/reports/workspace_tree_full_receipt_20251114_2139.md`. Changes committed to branch `docs/2025-11-14-docs-sweep`.
+
 - 2025-11-14 20:36: Checks-Wrapper ausgeführt (`python scripts/run_checks_and_report.py`); Markdown- und JSON-Reports erzeugt (`.tmp-results/reports/checks_report_20251114_203601.*`). Ergebnis als Receipt abgelegt: `.tmp-results/reports/checks_report_20251114_203601.md` / `.json`. Anschließend wurden alle vorhandenen `checks_run_*`-Ordner aus `.tmp-results/reports/` ins Archiv `novapolis-dev/archive/docs_archives_20251114_202548/old_tmp_reports/` verschoben. Änderungen committed & pushed auf Branch `docs/2025-11-14-docs-sweep`.
 - 2025-11-14 20:59: Dokumentation: `.tmp-results/todo.cleaned.md` aktualisiert (Docs/READMEs + Checks-Wrapper als erledigt) und auf Branch `docs/2025-11-14-docs-sweep` committed & gepusht (Commit-Message: "docs: mark Docs/READMEs and Checks-Wrapper done in .tmp-results/todo.cleaned.md"). Neuer konsolidierter Receipt: `.tmp-results/reports/checks_report_20251114_205007.md` (overall PASS, Coverage 83.49%).
  - 2025-11-14 21:12: Wrapper-Probelauf ausgeführt (`pwsh -File scripts/run_pytest_coverage.ps1`); Receipt: `.tmp-results/reports/checks_report_20251114_2112.md` (overall PASS, Coverage 80.96%). Coverage-XML: `outputs/test-artifacts/coverage.xml`.

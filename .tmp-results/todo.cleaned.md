@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-14 21:12
-update: Docs sweep continued; Checks-Wrapper re-run → overall PASS; Wrapper-Probelauf executed via `pwsh -File scripts/run_pytest_coverage.ps1` (Receipt: `.tmp-results/reports/checks_report_20251114_2112.md`). Frontmatter & markdownlint fixes applied; older checks runs archived to `novapolis-dev/archive/docs_archives_20251114_202548/old_tmp_reports/`.
+stand: 2025-11-14 21:39
+update: Workspace tree regenerated; Receipt: `.tmp-results/reports/workspace_tree_full_receipt_20251114_2139.md`. Docs sweep continued; Checks-Wrapper re-run → overall PASS; Wrapper-Probelauf executed via `pwsh -File scripts/run_pytest_coverage.ps1` (Receipt: `.tmp-results/reports/checks_report_20251114_2112.md`). Frontmatter & markdownlint fixes applied; older checks runs archived to `novapolis-dev/archive/docs_archives_20251114_202548/old_tmp_reports/`.
 checks: PASS
 ---
 
@@ -25,7 +25,7 @@ Hoch priorisiert (0-2 Tage)
 - [x] RP: Frontmatter/Lint Sweep (R-FM/R-LINT)
   - Reihenfolge: Frontmatter → MD003 Setext. Zählwerte vor/nach dokumentieren; PASS loggen.
 
-- [ ] Docs/READMEs: Konsolidierung & Leitlinien (Monorepo)
+- [x] Docs/READMEs: Konsolidierung & Leitlinien (Monorepo)
  - [x] Docs/READMEs: Konsolidierung & Leitlinien (Monorepo)
   - [x] Kandidatenliste erstellt: `.tmp-results/reports/links/candidates_app-routers-README.md_20251111_2340.md` (22 reale README.md-Dateien)
   - [x] Ein-Satz-Summaries für 22 README.md erzeugen (`.tmp-results/reports/links/readme_summaries.md`)
@@ -44,7 +44,7 @@ Hoch priorisiert (0-2 Tage)
   - [x] Automatisches Schreiben der Kandidaten-JSON im Dry-Run (Implementierung)
   - [x] Report-Summary in Hub unter "Temporäre Bereiche" verlinken (nach Automation)
 
-- [ ] Checks-Wrapper (`python scripts/run_checks_and_report.py`) - Review/Nachzug
+- [x] Checks-Wrapper (`python scripts/run_checks_and_report.py`) - Review/Nachzug
  - [x] Checks-Wrapper (`python scripts/run_checks_and_report.py`) - Review/Nachzug
   - [x] Kurzreview der neuen PSScriptAnalyzer-Phase (Installationspfad, Exit-Codes, Receipt-Felder)
   - [x] Einbindung in „Checks: full“ Dokumentation (README/Status) (2025-11-14 16:55) — siehe `novapolis-dev/docs/checks_full.md`
