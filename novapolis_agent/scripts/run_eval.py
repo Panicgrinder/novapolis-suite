@@ -2,7 +2,7 @@
 """
 Evaluierungsskript für den CVN Agent.
 
-Dieses Skript lädt Prompts aus einer oder mehreren JSON/JSONL-Dateien, sendet diese an den Chat-Endpunkt
+Lädt Prompts (JSON/JSONL), sendet sie an den Chat-Endpunkt
 und prüft, ob die Antworten bestimmte Bedingungen erfüllen.
 """
 
@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any, cast
 
 import httpx
+import warnings
 
 # Typannotation für dynamische Konsolen-/Tabellen-Typen (rich oder Fallback)
 Console: Any
@@ -86,7 +87,6 @@ except Exception:
     Console = _Console
     Table = _Table
     Progress = _Progress
-import warnings
 
 # Füge das Hauptverzeichnis zum Python-Pfad hinzu (vor internen Imports!)
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -95,11 +95,14 @@ if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 # Importiere die Utility-Funktionen (nun mit korrekt gesetztem sys.path)
-from collections.abc import Callable
-from typing import Any as _Any
+from collections.abc import Callable  # noqa: E402
+from typing import Any as _Any  # noqa: E402
 
-from utils.eval_utils import coerce_json_to_jsonl, load_synonyms, truncate
-from utils.time_utils import now_compact
+# Die folgenden Imports liegen nach sys.path-Manipulation weiter unten im Modul;
+# sie sind für die Laufzeit notwendig. Wir kennzeichnen sie gegen E402, da
+# die Einfüge-Logik (sys.path) zuvor ausgeführt werden muss.
+from utils.eval_utils import coerce_json_to_jsonl, load_synonyms, truncate  # noqa: E402
+from utils.time_utils import now_compact  # noqa: E402
 
 try:
     # Optionaler Cache für Antworten (lokal JSONL-basiert)
@@ -505,8 +508,11 @@ async def load_prompts(patterns: list[str] | None = None) -> list[dict[str, Any]
                             # Wenn die aktuelle Datei neuer ist, ersetze den alten Datensatz
                             if file_mtime > existing_mtime:
                                 prompt_registry[prompt_id] = (prompt, file_mtime)
+                                # Verwende %-Style-Logging, um sehr lange f-Strings zu vermeiden
                                 logger.debug(
-                                    f"Aktualisiere Datensatz {prompt_id} aus neuerer Datei: {basename}"
+                                    "Aktualisiere Datensatz %s aus neuerer Datei: %s",
+                                    prompt_id,
+                                    basename,
                                 )
                         else:
                             # Neuer Datensatz, füge ihn hinzu
@@ -925,8 +931,13 @@ async def evaluate_item(
                     break
             checks_passed["keywords_any"] = any_found
             if not any_found:
+                # Join separat berechnen, damit die Zeile kurz bleibt
+                try:
+                    joined_alts = ", ".join(item.checks.get("keywords_any", []))
+                except Exception:
+                    joined_alts = "<keine alternativen Begriffe>"
                 failed_checks.append(
-                    f"Keine der alternativen Begriffe gefunden: {', '.join(item.checks['keywords_any'])}"
+                    f"Keine der alternativen Begriffe gefunden: {joined_alts}"
                 )
 
         # 3. keywords_at_least: Mindestens N Begriffe müssen enthalten sein
@@ -1086,8 +1097,7 @@ async def evaluate_item(
                     attempts_used = 2
                     # Erneut prüfen
                     is_rpg_mode = check_rpg_mode(content2)
-                    checks_passed_retry: dict[str, bool] = {}
-                    failed_checks_retry: list[str] = []
+                        checks_passed_retry: dict[str, bool] = {}
 
                     if is_rpg_mode and not any(
                         rpg_term in (item.source_package or "").lower()
@@ -1112,8 +1122,12 @@ async def evaluate_item(
                         )
                         checks_passed_retry["keywords_any"] = any_found2
                         if not any_found2:
+                            try:
+                                joined_alts2 = ", ".join(item.checks.get("keywords_any", []))
+                            except Exception:
+                                joined_alts2 = "<keine alternativen Begriffe>"
                             failed_checks_retry.append(
-                                f"Keine der alternativen Begriffe gefunden: {', '.join(item.checks['keywords_any'])}"
+                                f"Keine der alternativen Begriffe gefunden: {joined_alts2}"
                             )
 
                     keywords_at_least2 = item.checks.get("keywords_at_least")

@@ -5,7 +5,6 @@ import os
 from typing import Any
 
 import pytest
-
 from scripts.prepare_finetune_pack import prepare_pack
 
 

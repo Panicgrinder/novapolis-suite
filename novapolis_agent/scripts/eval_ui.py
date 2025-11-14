@@ -250,9 +250,8 @@ def action_edit_profiles() -> None:
             prof["top_p"] = float(tp)
         except ValueError:
             pass
-    np = input(
-        f"num_predict/max_tokens [{prof.get('num_predict') if prof.get('num_predict') is not None else '-'}]: "
-    ).strip()
+    default_np = prof.get("num_predict") if prof.get("num_predict") is not None else "-"
+    np = input(f"num_predict/max_tokens [{default_np}]: ").strip()
     if np:
         try:
             prof["num_predict"] = int(np)
@@ -276,13 +275,10 @@ def action_edit_profiles() -> None:
         prof["asgi"] = True
     elif a in ("n", "no"):
         prof["asgi"] = False
-    e = (
-        input(
-            f"Eval-Modus aktivieren (RPG aus)? (y/n, leer = unverändert [{prof.get('eval_mode')}]): "
-        )
-        .strip()
-        .lower()
-    )
+    e_default = prof.get("eval_mode")
+    e = input(
+        f"Eval-Modus aktivieren (RPG aus)? (y/n, leer = unverändert [{e_default}]): "
+    ).strip().lower()
     if e in ("y", "yes"):
         prof["eval_mode"] = True
     elif e in ("n", "no"):
@@ -361,9 +357,10 @@ def action_start_run() -> None:
     prof_asgi = bool(profile.get("asgi", True))
     prof_eval = bool(profile.get("eval_mode", True))
 
-    print(
-        f"\nStarte Evaluierung (Profil: {profile_name}, Debug: {dbg}, Quiet: {quiet_mode}, ASGI: {prof_asgi}, Eval: {prof_eval}) …\n"
-    )
+    # Mehrere kürzere Zeilen, damit Line-Length-Regel (E501) eingehalten wird
+    print("\nStarte Evaluierung:")
+    print(f"  Profil: {profile_name}, Debug: {dbg}, Quiet: {quiet_mode}")
+    print(f"  ASGI: {prof_asgi}, Eval: {prof_eval}\n")
     if temperature_override is not None:
         print(f"  • temperature: {temperature_override}")
     if top_p_override is not None:
@@ -518,7 +515,8 @@ def action_trends() -> None:
 
     # Übersichts-Tabelle (letzte 10)
     print("Letzte Läufe:\n")
-    header = f"{'Zeit':<13}  {'Model':<18}  {'OK':>6}/{ 'Tot':<4}  {'Rate':>6}  {'Øms':>6}  {'RPG':>4}  Datei"
+    header = f"{'Zeit':<13}  {'Model':<18}  {'OK':>6}/{ 'Tot':<4}"
+    header += f"  {'Rate':>6}  {'Øms':>6}  {'RPG':>4}  Datei"
     print(header)
     print("-" * len(header))
     for s in summaries[:10]:
@@ -528,9 +526,9 @@ def action_trends() -> None:
             else s["timestamp"]
         )
         model = str(s["model"])[:18]
-        print(
-            f"{zeit:<13}  {model:<18}  {s['success']:>6}/{s['total']:<4}  {s['rate']:>5.1f}%  {s['avg_ms']:>6}  {s['rpg']:>4}  {s['file']}"
-        )
+        line = f"{zeit:<13}  {model:<18}  {s['success']:>6}/{s['total']:<4}"
+        line += f"  {s['rate']:>5.1f}%  {s['avg_ms']:>6}  {s['rpg']:>4}  {s['file']}"
+        print(line)
 
     # Gesamtübersicht
     grand_total = sum(s["total"] for s in summaries)
@@ -541,13 +539,16 @@ def action_trends() -> None:
     # Optional: Sweep-Aggregation anzeigen (letzte 12 Einträge mit temp/top_p/Øms/Rate)
     if sweep_summaries:
         print("\nSweep-Aggregation (letzte 12):\n")
-        print(
-            f"{'Datei':<28}  {'temp':>6}  {'top_p':>6}  {'OK':>6}/{ 'Tot':<4}  {'Rate':>6}  {'Øms':>6}"
-        )
+        left = f"{'Datei':<28}  {'temp':>6}  {'top_p':>6}  {'OK':>6}/{ 'Tot':<4}"
+        right = f"  {'Rate':>6}  {'Øms':>6}"
+        print(left + right)
         for s in sweep_summaries.get("all", [])[:12]:
-            print(
-                f"{s['file']:<28}  {s['temp']!s:>6}  {s['top_p']!s:>6}  {s['success']:>6}/{s['total']:<4}  {s['rate']:>5.1f}%  {s['avg_ms']:>6}"
-            )
+            part1 = f"{s['file']:<28}  {s['temp']!s:>6}  {s['top_p']!s:>6}"
+            part2 = f"  {s['success']:>6}/{s['total']:<4}"
+            line2 = part1 + part2
+            line2 += f"  {s['rate']:>5.1f}%"
+            line2 += f"  {s['avg_ms']:>6}"
+            print(line2)
 
     # CSV-Export
     if input("Runs als CSV exportieren? (y/N): ").strip().lower() == "y":
@@ -684,7 +685,10 @@ def action_view_results() -> None:
 
 
 async def _evaluate_specific_items(items: list[EvalItem]) -> list[EvalResult]:
-    """Evaluiert die übergebenen Items (ASGI, Eval-Modus) und schreibt eine neue results_*.jsonl-Datei."""
+    """Evaluiert die übergebenen Items (ASGI, Eval-Modus).
+
+    Schreibt eine neue results_*.jsonl-Datei mit den Ergebnissen.
+    """
     # Ergebnis-Dateiname (results-Verzeichnis)
     results_dir: str = getattr(run_eval, "DEFAULT_RESULTS_DIR", run_eval.DEFAULT_EVAL_DIR)
     from utils.time_utils import now_compact

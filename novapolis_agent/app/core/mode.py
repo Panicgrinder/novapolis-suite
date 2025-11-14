@@ -96,9 +96,9 @@ def resolve_mode(
 
 
 __all__ = [
-    "Mode",
-    "detect_requested_mode_from_messages",
-    "SessionModeStore",
     "SESSION_MODES",
+    "Mode",
+    "SessionModeStore",
+    "detect_requested_mode_from_messages",
     "resolve_mode",
 ]

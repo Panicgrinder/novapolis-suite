@@ -200,9 +200,9 @@ async def compose_with_memory(
 
 
 __all__ = [
-    "MemoryStore",
     "InMemoryStore",
     "JsonlStore",
-    "get_memory_store",
+    "MemoryStore",
     "compose_with_memory",
+    "get_memory_store",
 ]

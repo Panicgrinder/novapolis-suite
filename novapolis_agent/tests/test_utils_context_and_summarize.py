@@ -5,7 +5,6 @@ import os
 import tempfile
 
 from app.utils.summarize import create_simple_summary, extract_key_points, summarize_turn
-
 from utils.context_notes import load_context_notes
 
 

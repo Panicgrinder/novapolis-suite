@@ -164,7 +164,7 @@ def normalize_ollama_options(
 
 
 __all__ = [
-    "get_system_prompt",
     "ensure_system_message",
+    "get_system_prompt",
     "normalize_ollama_options",
 ]

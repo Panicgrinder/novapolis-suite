@@ -69,10 +69,10 @@ def _calc_add(args: dict[str, Any]) -> dict[str, Any]:
 register_tool("calc_add", _calc_add)
 
 __all__ = [
-    "register_tool",
-    "list_tools",
     "call_tool",
     "is_allowed",
+    "list_tools",
+    "register_tool",
     "settings",
 ]
 

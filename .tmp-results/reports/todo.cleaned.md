@@ -80,4 +80,4 @@ Hinweise
 - 2025-11-10 20:17: WORKSPACE_INDEX Header-Duplikate und SimClient Variable gefixt (Commit 5922521). `run_pytest_quick.ps1` PASS.
 - Wrapper-Aufgaben: `python scripts/run_checks_and_report.py` (Lint/Typen/Tests + Report) finalisieren; Link-Scanner `scripts/scan_links.ps1` implementieren und Reports unter `.tmp-results/scan/` ablegen.
   - Hub-README: Erweiterung abgeschlossen (01:12); nächste Phase Index/Redirect-Strategie.
-
+  
