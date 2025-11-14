@@ -7,31 +7,27 @@ checks: PASS
 Recent Changes
 --------------
 
+- 2025-11-14 21:48: Repository scanned for inline PowerShell `-Command` occurrences; candidate report written to `.tmp-results/reports/inline_command_candidates_20251114_2148.md`. Review recommended for `githooks/pre-commit`, any remaining `.vscode/tasks.json` entries, and archived backup `tasks.json` files. Changes committed to branch `docs/2025-11-14-docs-sweep`.
 - 2025-11-14 21:39: Workspace tree regenerated via Python wrapper `scripts/task_wrappers/workspace_tree_full.py`; output written to `workspace_tree_full.txt` at repo root. Receipt: `.tmp-results/reports/workspace_tree_full_receipt_20251114_2139.md`. Changes committed to branch `docs/2025-11-14-docs-sweep`.
-
 - 2025-11-14 20:36: Checks-Wrapper ausgeführt (`python scripts/run_checks_and_report.py`); Markdown- und JSON-Reports erzeugt (`.tmp-results/reports/checks_report_20251114_203601.*`). Ergebnis als Receipt abgelegt: `.tmp-results/reports/checks_report_20251114_203601.md` / `.json`. Anschließend wurden alle vorhandenen `checks_run_*`-Ordner aus `.tmp-results/reports/` ins Archiv `novapolis-dev/archive/docs_archives_20251114_202548/old_tmp_reports/` verschoben. Änderungen committed & pushed auf Branch `docs/2025-11-14-docs-sweep`.
 - 2025-11-14 20:59: Dokumentation: `.tmp-results/todo.cleaned.md` aktualisiert (Docs/READMEs + Checks-Wrapper als erledigt) und auf Branch `docs/2025-11-14-docs-sweep` committed & gepusht (Commit-Message: "docs: mark Docs/READMEs and Checks-Wrapper done in .tmp-results/todo.cleaned.md"). Neuer konsolidierter Receipt: `.tmp-results/reports/checks_report_20251114_205007.md` (overall PASS, Coverage 83.49%).
- - 2025-11-14 21:12: Wrapper-Probelauf ausgeführt (`pwsh -File scripts/run_pytest_coverage.ps1`); Receipt: `.tmp-results/reports/checks_report_20251114_2112.md` (overall PASS, Coverage 80.96%). Coverage-XML: `outputs/test-artifacts/coverage.xml`.
- - 2025-11-14 20:59: Dokumentation: `.tmp-results/todo.cleaned.md` aktualisiert (Docs/READMEs + Checks-Wrapper als erledigt) und auf Branch `docs/2025-11-14-docs-sweep` committed & gepusht (Commit-Message: "docs: mark Docs/READMEs and Checks-Wrapper done in .tmp-results/todo.cleaned.md"). Neuer konsolidierter Receipt: `.tmp-results/reports/checks_report_20251114_205007.md` (overall PASS, Coverage 83.49%).
+- 2025-11-14 21:12: Wrapper-Probelauf ausgeführt (`pwsh -File scripts/run_pytest_coverage.ps1`); Receipt: `.tmp-results/reports/checks_report_20251114_2112.md` (overall PASS, Coverage 80.96%). Coverage-XML: `outputs/test-artifacts/coverage.xml`.
+- 2025-11-14 20:59: Dokumentation: `.tmp-results/todo.cleaned.md` aktualisiert (Docs/READMEs + Checks-Wrapper als erledigt) und auf Branch `docs/2025-11-14-docs-sweep` committed & gepusht (Commit-Message: "docs: mark Docs/READMEs and Checks-Wrapper done in .tmp-results/todo.cleaned.md"). Neuer konsolidierter Receipt: `.tmp-results/reports/checks_report_20251114_205007.md` (overall PASS, Coverage 83.49%).
 - 2025-11-14 20:25: Archiv-Integration: `novapolis-dev/docs/archives/` wurde in `novapolis-dev/archive/docs_archives_20251114_202548/` integriert; das Verzeichnis `novapolis-dev/docs/archives/` wurde entfernt. Commit & Push auf `docs/2025-11-14-docs-sweep`.
 - 2025-11-14 16:55: Archivierung: Abgeschlossene Artefakte (Link-scan backups, bereinigte ToDo-Lists) wurden nach `novapolis-dev/docs/archives/` verschoben; Originale in `.tmp-datasets/lscan_links_backups/` und `Backups/archive-lscan_links_backups/` wurden entfernt. Details & Audit: `novapolis-dev/docs/ARCHIVE_DONELOG.md`. Änderungen committed & pushed auf `docs/2025-11-14-docs-sweep`.
 - 2025-11-12 03:37: Checks: full Review abgeschlossen (damals PowerShell-Runner, inzwischen durch `python scripts/run_checks_and_report.py` ersetzt; PSScriptAnalyzer-Phase verifiziert, Receipt-Struktur JSON + Postflight-Vorlage bestätigt). Link-Scanner Rescan nun 0 defekte Verweise.
 - 2025-11-12 02:46: Governance: Vorangestellte Start-Checks entfernt aus `.github/copilot-instructions.md`; Postflight-Formulierung präzisiert (finaler Block am Ende der Nachricht); Headings-Extrakt aktualisiert & veraltete Regel-ID-Vorschläge gestrichen; Lint PASS (`.github/copilot-instructions-headings.md`).
-
- - 2025-11-10 12:12: Sim-Verifizierung: Verbindung Godot ↔ Agent (`POST /world/step`) erfolgreich verifiziert; Headless-Verifier und PowerShell-Smoke-Test PASS. Screenshot/Audit-Beleg im Arbeitsverzeichnis erstellt.
- - 2025-11-11 00:09: Dokumentation: Review des damaligen PowerShell-Checks-Wrappers ergänzt; ToDo für Status-Fix (STOP -> FAIL) eingetragen; zugehörige Doku-Änderungen committet. Seit 2025-11-12 ist `python scripts/run_checks_and_report.py` der einzige Entry-Point.
- - 2025-11-11 00:23: Code: PowerShell-Wrapper angepasst (STOP-Fall jetzt als FAIL; STOP-Flag in Regel-Output; robustere Postflight/Exitcodes). Änderung inzwischen in die Python-Variante übernommen (Commit `abe6829`).
- - 2025-11-11 11:00: Code: PowerShell-Wrapper um `PSScriptAnalyzer`-Integration erweitert; Erkenntnisse in die Python-Dokumentation übernommen. Der Analyzer läuft bei Bedarf separat über `scripts/` neben `python scripts/run_checks_and_report.py`.
- - 2025-11-10 08:40: Skript-Cleanup: entfernt `scripts/run_linters.ps1`, `scripts/tests_pytest_root.ps1`; archiviert Snapshot-Skripte nach `novapolis-dev/archive/scripts/`; Agent-Legacy-PowerShell (`cleanup_phase3.ps1`, `cleanup_phase4.ps1`, `history_purge_plan.ps1`) gelöscht; .tmp Audit aktualisiert.
+- 2025-11-10 12:12: Sim-Verifizierung: Verbindung Godot ↔ Agent (`POST /world/step`) erfolgreich verifiziert; Headless-Verifier und PowerShell-Smoke-Test PASS. Screenshot/Audit-Beleg im Arbeitsverzeichnis erstellt.
+- 2025-11-11 00:09: Dokumentation: Review des damaligen PowerShell-Checks-Wrappers ergänzt; ToDo für Status-Fix (STOP -> FAIL) eingetragen; zugehörige Doku-Änderungen committet. Seit 2025-11-12 ist `python scripts/run_checks_and_report.py` der einzige Entry-Point.
+- 2025-11-11 00:23: Code: PowerShell-Wrapper angepasst (STOP-Fall jetzt als FAIL; STOP-Flag in Regel-Output; robustere Postflight/Exitcodes). Änderung inzwischen in die Python-Variante übernommen (Commit `abe6829`).
+- 2025-11-11 11:00: Code: PowerShell-Wrapper um `PSScriptAnalyzer`-Integration erweitert; Erkenntnisse in die Python-Dokumentation übernommen. Der Analyzer läuft bei Bedarf separat über `scripts/` neben `python scripts/run_checks_and_report.py`.
+- 2025-11-10 08:40: Skript-Cleanup: entfernt `scripts/run_linters.ps1`, `scripts/tests_pytest_root.ps1`; archiviert Snapshot-Skripte nach `novapolis-dev/archive/scripts/`; Agent-Legacy-PowerShell (`cleanup_phase3.ps1`, `cleanup_phase4.ps1`, `history_purge_plan.ps1`) gelöscht; .tmp Audit aktualisiert.
 - 2025-11-10 08:19: Tool-Registry `settings` Alias wiederhergestellt; targeted pytest `tests/test_tools_registry.py` PASS (AttributeError behoben, R-LINT/R-LOG).
 - 2025-11-10 08:08: Ruff-Fixes in `novapolis_agent/app/tools/registry.py`, `novapolis_agent/scripts/append_done.py`, `novapolis_agent/scripts/rerun_failed.py`; moderne Typannotationen, Import-Sortierung und redundante Open-Modi bereinigt; DONELOGs aktualisiert.
 - 2025-11-10 07:52: README-Link auf den erweiterten Copilot-Leitfaden ergänzt; `workspace_tree_dirs.txt`, `workspace_tree.txt`, `workspace_tree_full.txt` auf 2025-11-10 07:50 aktualisiert. Folgeanpassungen in `WORKSPACE_STATUS.md` vorgenommen.
 - 2025-11-09 22:38: Wrapper-Umstellung: Lange inline `pwsh -NoProfile -Command` Tasks in `/.vscode/tasks.json` wurden auf `-File` Wrapper-Skripte umgestellt. Hinzugefügt: `scripts/checks_linters.ps1`, `scripts/checks_types.ps1`, `scripts/tests_pytest_root.ps1`. Backup-Marker: `Backups/tasks.json.bak`.
 - 2025-11-09 22:42: Post-Run Summary: `scripts/checks_linters.ps1` (ruff/black) produced many style/format issues (see linter output summary). `scripts/checks_types.ps1` (pyright+mypy) reported 0 errors and 12 warnings. `scripts/tests_pytest_root.ps1` (`pytest -q`) aborted during collection with multiple ImportErrors (missing package paths / module imports). See `novapolis_agent/docs/DONELOG.txt` for details.
-
 - 2025-11-09 22:55: Tests executed: After installing `novapolis_agent` editable into root `.venv` and running pytest with CWD `novapolis_agent`, the test suite completed successfully (100% collected; run shown as completed). See `novapolis_agent/docs/DONELOG.txt` for the run receipt.
-
----
 
 Workspace-Status
 ================
@@ -40,7 +36,6 @@ Workspace-Status
 ---------
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit - dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten-STOP (global, immer gültig)“.
-
 - 2025-11-10 07:50: Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) regeneriert; README und Status auf den Copilot-Leitfaden verwiesen.
 - 2025-11-07 06:30: Alle Markdownlint VS-Code-Tasks & Wrapper-Doku entfernt; Ausführung jetzt ausschließlich manuell via `npx --yes markdownlint-cli2` (Policy npx-only).
 - 2025-11-07 02:10: markdownlint-cli2 repo-weit ausgeführt (367× MD003 offen); Skriptprüfung für Markdown-Ausgaben (Chat-Exporter, Reports, todo_gather) vorbereitet.
@@ -84,8 +79,8 @@ Wichtige Artefakte & Logs
 - VS-Code-Empfehlungen: `.vscode/extensions.json` bündelt Python-, Markdownlint-, Copilot-, GitLens- und PowerShell-Extensions
 - Gitignore: `Fehleranalyse und Auditplan.pdf` sowie Godot-Editor-Binaries (`novapolis-sim/Godot_v*.exe`) als lokale Artefakte ausgeschlossen
 
-- Struktur-Snapshot
--------------------
+Struktur-Snapshot
+-----------------
 
 - Vollständiger Verzeichnisbaum: `workspace_tree_full.txt` (Stand 2025-11-10 07:50; Terminal `tree /A /F`)
 - Arbeitsansicht: `workspace_tree.txt` (Stand 2025-11-10 07:50; Terminal `tree /A`) und kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt` (Stand 2025-11-10 07:50; Script `scripts/update_workspace_tree_dirs.ps1`)

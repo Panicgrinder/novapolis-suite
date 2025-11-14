@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-14 21:39
-update: Workspace tree regenerated; Receipt: `.tmp-results/reports/workspace_tree_full_receipt_20251114_2139.md`. Docs sweep continued; Checks-Wrapper re-run → overall PASS; Wrapper-Probelauf executed via `pwsh -File scripts/run_pytest_coverage.ps1` (Receipt: `.tmp-results/reports/checks_report_20251114_2112.md`). Frontmatter & markdownlint fixes applied; older checks runs archived to `novapolis-dev/archive/docs_archives_20251114_202548/old_tmp_reports/`.
+stand: 2025-11-14 21:48
+update: Inline `-Command` scan performed; Candidate report: `.tmp-results/reports/inline_command_candidates_20251114_2148.md`. Workspace tree regenerated earlier; Checks-Wrapper re-run → overall PASS. Frontmatter & markdownlint fixes applied; older checks runs archived to `novapolis-dev/archive/docs_archives_20251114_202548/old_tmp_reports/`.
 checks: PASS
 ---
 
@@ -12,21 +12,20 @@ Hinweis: Temporärer, kuratierter Auszug für operative Arbeit (Copilot/GPT). SS
 Hoch priorisiert (0-2 Tage)
 --------------------------
 
-  - Ziel: `pytest -q` PASS, `pyright` PASS, `mypy` PASS, Coverage ≥80% mit Receipt.
-  - Schritte: pytest → pyright → mypy → `scripts/run_pytest_coverage.ps1` (Receipt in `DONELOG.md` + `WORKSPACE_STATUS.md`).
- - [x] Agent: Integration `PSScriptAnalyzer` in der damaligen PowerShell-Variante (jetzt durch `python scripts/run_checks_and_report.py` ersetzt) (2025-11-11 11:00)
-  - [x] `*.code-workspace` suchen und entfernen/verschieben (report counts)
-  - [x] `tasks.json` Inline-Ketten geprüft → auf Python-Wrapper umgestellt
-  - [x] Wrapper-Probelauf `scripts/run_pytest_coverage.ps1` + Receipt `.tmp-results/reports/checks_report_20251114_2112.md` (2025-11-14 21:12)
-  - [x] Wrapper-Probelauf `python scripts/run_checks_and_report.py` + Receipt (`.tmp-results/reports/checks_report_20251114_203601.md`) (2025-11-14 20:36)
-  - [x] Statusblock „Multi-Root abgeschlossen“ in `WORKSPACE_STATUS.md`
+- Ziel: `pytest -q` PASS, `pyright` PASS, `mypy` PASS, Coverage ≥80% mit Receipt.
+- Schritte: pytest → pyright → mypy → `scripts/run_pytest_coverage.ps1` (Receipt in `DONELOG.md` + `WORKSPACE_STATUS.md`).
+- [x] Agent: Integration `PSScriptAnalyzer` in der damaligen PowerShell-Variante (jetzt durch `python scripts/run_checks_and_report.py` ersetzt) (2025-11-11 11:00)
+- [x] `*.code-workspace` suchen und entfernen/verschieben (report counts)
+- [x] `tasks.json` Inline-Ketten geprüft → auf Python-Wrapper umgestellt
+- [x] Wrapper-Probelauf `scripts/run_pytest_coverage.ps1` + Receipt `.tmp-results/reports/checks_report_20251114_2112.md` (2025-11-14 21:12)
+- [x] Wrapper-Probelauf `python scripts/run_checks_and_report.py` + Receipt (`.tmp-results/reports/checks_report_20251114_203601.md`) (2025-11-14 20:36)
+- [x] Statusblock „Multi-Root abgeschlossen“ in `WORKSPACE_STATUS.md`
 - [x] Dev: Tree-Artefakte regenerieren (R-IDX)
   - Ziel: `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt` neu erzeugen; Status/Datum in `WORKSPACE_STATUS.md` + `novapolis-dev/docs/donelog.md`.
 - [x] RP: Frontmatter/Lint Sweep (R-FM/R-LINT)
   - Reihenfolge: Frontmatter → MD003 Setext. Zählwerte vor/nach dokumentieren; PASS loggen.
 
 - [x] Docs/READMEs: Konsolidierung & Leitlinien (Monorepo)
- - [x] Docs/READMEs: Konsolidierung & Leitlinien (Monorepo)
   - [x] Kandidatenliste erstellt: `.tmp-results/reports/links/candidates_app-routers-README.md_20251111_2340.md` (22 reale README.md-Dateien)
   - [x] Ein-Satz-Summaries für 22 README.md erzeugen (`.tmp-results/reports/links/readme_summaries.md`)
   - [x] Stubs vs. zentrale Doku definieren (Hub erstellt, Stubs Phase 1 umgesetzt)
@@ -45,7 +44,6 @@ Hoch priorisiert (0-2 Tage)
   - [x] Report-Summary in Hub unter "Temporäre Bereiche" verlinken (nach Automation)
 
 - [x] Checks-Wrapper (`python scripts/run_checks_and_report.py`) - Review/Nachzug
- - [x] Checks-Wrapper (`python scripts/run_checks_and_report.py`) - Review/Nachzug
   - [x] Kurzreview der neuen PSScriptAnalyzer-Phase (Installationspfad, Exit-Codes, Receipt-Felder)
   - [x] Einbindung in „Checks: full“ Dokumentation (README/Status) (2025-11-14 16:55) — siehe `novapolis-dev/docs/checks_full.md`
   - [x] Einmaliger Gesamtlauf inkl. Receipt unter `.tmp-results/reports/checks_report_*.md`
