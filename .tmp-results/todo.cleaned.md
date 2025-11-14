@@ -26,6 +26,7 @@ Hoch priorisiert (0-2 Tage)
   - Reihenfolge: Frontmatter → MD003 Setext. Zählwerte vor/nach dokumentieren; PASS loggen.
 
 - [ ] Docs/READMEs: Konsolidierung & Leitlinien (Monorepo)
+ - [x] Docs/READMEs: Konsolidierung & Leitlinien (Monorepo)
   - [x] Kandidatenliste erstellt: `.tmp-results/reports/links/candidates_app-routers-README.md_20251111_2340.md` (22 reale README.md-Dateien)
   - [x] Ein-Satz-Summaries für 22 README.md erzeugen (`.tmp-results/reports/links/readme_summaries.md`)
   - [x] Stubs vs. zentrale Doku definieren (Hub erstellt, Stubs Phase 1 umgesetzt)
@@ -44,6 +45,7 @@ Hoch priorisiert (0-2 Tage)
   - [x] Report-Summary in Hub unter "Temporäre Bereiche" verlinken (nach Automation)
 
 - [ ] Checks-Wrapper (`python scripts/run_checks_and_report.py`) - Review/Nachzug
+ - [x] Checks-Wrapper (`python scripts/run_checks_and_report.py`) - Review/Nachzug
   - [x] Kurzreview der neuen PSScriptAnalyzer-Phase (Installationspfad, Exit-Codes, Receipt-Felder)
   - [x] Einbindung in „Checks: full“ Dokumentation (README/Status) (2025-11-14 16:55) — siehe `novapolis-dev/docs/checks_full.md`
   - [x] Einmaliger Gesamtlauf inkl. Receipt unter `.tmp-results/reports/checks_report_*.md`
