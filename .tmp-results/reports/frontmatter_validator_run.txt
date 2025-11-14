@@ -1,0 +1,7 @@
+.tmp-results\reports\scan_links_reports\link_report_novapolis_agent_20251114_155406.md: BOM vor Frontmatter (erste Zeile)
+node_modules\pyright\dist\typeshed-fallback\README.md: Erste Zeile ist nicht '---'
+node_modules\pyright\dist\typeshed-fallback\stdlib\_typeshed\README.md: Erste Zeile ist nicht '---'
+node_modules\pyright\README.md: Erste Zeile ist nicht '---'
+novapolis-dev\docs\ARCHIVE_DONELOG.md: Erste Zeile ist nicht '---'
+novapolis_agent\eval\config\context.local.md: Erste Zeile ist nicht '---'
+

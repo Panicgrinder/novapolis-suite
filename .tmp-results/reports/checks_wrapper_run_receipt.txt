@@ -1,0 +1,6 @@
+exit_code: 1
+stdout:
+Markdown report: F:\VS Code Workspace\Main\.tmp-results\reports\checks_report_20251114_203601.md
+JSON summary: F:\VS Code Workspace\Main\.tmp-results\reports\checks_report_20251114_203601.json
+
+stderr:
