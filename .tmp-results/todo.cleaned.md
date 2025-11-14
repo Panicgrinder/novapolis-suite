@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-14 16:24
-update: Docs sweep: timestamps synchronized; link-scan receipts kept; Checks: full run PASS — receipts: `.tmp-results/reports/checks_report_20251114_162424.md` (selected items marked done)
+stand: 2025-11-14 20:25
+update: Docs sweep: timestamps synchronized; link-scan receipts kept; Checks: full run PASS — receipts: `.tmp-results/reports/checks_report_20251114_162424.md`; Archiv-Integration: `novapolis-dev/docs/archives` → `novapolis-dev/archive/docs_archives_20251114_202548/` (selected items marked done)
 checks: PASS
 ---
 

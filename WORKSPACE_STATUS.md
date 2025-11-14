@@ -1,11 +1,14 @@
-stand: 2025-11-14 16:55
-update: Docs sweep applied — frontmatter and status notes synchronized; Archivierung: abgeschlossene Artefakte nach `novapolis-dev/docs/archives/` verschoben; Originals entfernt; Änderungen committed & pushed auf Branch `docs/2025-11-14-docs-sweep` (Receipt: `.tmp-results/reports/checks_report_20251114_162424.md`, Archiv-Log: `novapolis-dev/docs/ARCHIVE_DONELOG.md`)
+---
+stand: 2025-11-14 20:25
+update: Docs sweep applied — frontmatter and status notes synchronized; Archivierung integriert: Inhalte aus `novapolis-dev/docs/archives/` in `novapolis-dev/archive/docs_archives_20251114_202548/` verschoben; `novapolis-dev/docs/archives/` entfernt; älteren `.tmp-results`-Reports zuvor nach `novapolis-dev/docs/archives/old_tmp_reports/` verschoben. Änderungen committed & pushed auf Branch `docs/2025-11-14-docs-sweep` (Receipt: `.tmp-results/reports/checks_report_20251114_162424.md`, Archiv-Log: `novapolis-dev/archive/docs_archives_20251114_202548/archived_checks_before_20251114_162424.md`)
 checks: PASS
+---
 
 Recent Changes
 --------------
 
-- 2025-11-14 16:55: Archivierung: Abgeschlossene Artefakte (Link-scan backups, bereinigte ToDo-Lists) wurden nach `novapolis-dev/docs/archives/` verschoben; Originale in `.tmp-datasets/lscan_links_backups/` und `Backups/archive-lscan_links_backups/` wurden entfernt. Details & Audit: `novapolis-dev/docs/ARCHIVE_DONELOG.md`. Änderungen committed & pushed auf `docs/2025-11-14-docs-sweep`.
+- 2025-11-14 20:25: Archiv-Integration: `novapolis-dev/docs/archives/` wurde in `novapolis-dev/archive/docs_archives_20251114_202548/` integriert; das Verzeichnis `novapolis-dev/docs/archives/` wurde entfernt. Commit & Push auf `docs/2025-11-14-docs-sweep`.
+ - 2025-11-14 16:55: Archivierung: Abgeschlossene Artefakte (Link-scan backups, bereinigte ToDo-Lists) wurden nach `novapolis-dev/docs/archives/` verschoben; Originale in `.tmp-datasets/lscan_links_backups/` und `Backups/archive-lscan_links_backups/` wurden entfernt. Details & Audit: `novapolis-dev/docs/ARCHIVE_DONELOG.md`. Änderungen committed & pushed auf `docs/2025-11-14-docs-sweep`.
 - 2025-11-12 03:37: Checks: full Review abgeschlossen (damals PowerShell-Runner, inzwischen durch `python scripts/run_checks_and_report.py` ersetzt; PSScriptAnalyzer-Phase verifiziert, Receipt-Struktur JSON + Postflight-Vorlage bestätigt). Link-Scanner Rescan nun 0 defekte Verweise.
 - 2025-11-12 02:46: Governance: Vorangestellte Start-Checks entfernt aus `.github/copilot-instructions.md`; Postflight-Formulierung präzisiert (finaler Block am Ende der Nachricht); Headings-Extrakt aktualisiert & veraltete Regel-ID-Vorschläge gestrichen; Lint PASS (`.github/copilot-instructions-headings.md`).
 
