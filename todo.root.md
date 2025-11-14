@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-12 04:42
-update: Guard-Terminologie ergänzt; Hinweis zu Legacy-Start-Checks präzisiert
+stand: 2025-11-14 14:50
+update: Docs sweep: Frontmatter timestamps synchronized; minor editorial tidy
 checks: rein dokumentarisch
 ---
 

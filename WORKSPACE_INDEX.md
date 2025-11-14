@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-12 03:22
-update: TODO-Marker für verbleibenden defekten Link hinzugefügt (Phase-2 Konsolidierung)
-checks: pending (nach Lint)
+stand: 2025-11-14 14:50
+update: Docs‑Sweep: Frontmatter/Timestamps synchronisiert; Phase-2 Konsolidierung vorbereitet
+checks: pending (after scoped lint)
 ---
 
 <!-- markdownlint-disable MD013 -->

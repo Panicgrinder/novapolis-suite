@@ -32,8 +32,11 @@ def test_open_latest_summary_opened(monkeypatch: pytest.MonkeyPatch, tmp_path: P
     try:
         sys.argv = ["open_latest_summary.py", "--dir", str(sums_dir)]
         # Aufruf über __main__-Guard simulieren
-        with pytest.raises(SystemExit):
-            mod.__main__  # type: ignore[attr-defined]
+        # Konservativ: rufe direkt `mod.main()` auf und akzeptiere ein SystemExit
+        try:
+            rc = mod.main()
+        except SystemExit as se:
+            rc = se.code
     except AttributeError:
         # Fallback: direkter main()-Call ohne argv
         rc = mod.main()

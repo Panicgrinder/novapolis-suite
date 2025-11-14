@@ -4,6 +4,188 @@ update: Postflight (Checks-Report 20251112_013920 protokolliert)
 checks: markdownlint-cli2 PASS (scoped)
 
 
+
+Postflight
+----------
+Meta: Modus=Postflight, Modell=GPT-5, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=python F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, SHA256=65570151AA983A6A3784D89B589486A214B8A171D1BA22766C1BF17C49F54E30, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=F:\VS Code Workspace\Main\.github\copilot-instructions.md;F:\VS Code Workspace\Main\novapolis_agent\docs\DONELOG.txt;F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, Aktion=Automatisierter Checklauf Backend-relevant (PowerShell-Variante archiviert)
+Prüfung: ruff=FAIL, black=FAIL, markdownlint=FAIL, frontmatter=FAIL, pyright=FAIL, mypy=FAIL, pytest=STOP (>40 Testdateien), coverage=SKIP (STOP), PSScriptAnalyzerExit=1
+Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-CTX,R-SEC,R-LOG,R-COV,R-TIME,R-SAFE
+Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/Typ-Fixes, Fällig=2025-11-12 01:45
+- Pfad-Updates Scanner
+  - Reports: `.tmp-results/reports/scan_links_reports` (vorher `.../reports/links`)
+  - Backups: `.tmp-datasets/lscan_links_backups` (zentral, timestamped Dateien)
+- Test: `scripts/scan_links.ps1` ohne AutoFix ausgeführt → Report `link_report_novapolis_agent_YYYYMMDD_HHMMSS.md` erstellt.
+- Nächste Schritte: die 1 verbleibende Referenz „mehrere Versionen. (Prüfen“ im `WORKSPACE_INDEX.md` auflösen; danach Rescan + Receipt.
+
+<!-- frühere Frontmatter (2025-11-10 11:35) inhaltlich erhalten, nur nicht mehr als YAML-Block -->
+
+DONELOG – Abgeschlossene Arbeiten
+=================================
+
+Hinweis:
+- Bitte jede abgeschlossene, nicht-triviale Änderung hier kurz dokumentieren.
+- Format: YYYY-MM-DD HH:MM | Author | Kurzbeschreibung
+- Keine sensiblen Inhalte eintragen.
+
+Beispiel:
+2025-10-15 12:34 | username | Eval-Pipeline stabilisiert; map_reduce_summary_llm typisiert; Doku aktualisiert.
+2025-10-15 14:10 | Copilot | CI erweitert: DONELOG-Prüfung auch bei Push auf main; VS Code Task zum schnellen Eintrag hinzugefügt.
+2025-10-15 14:22 | Copilot | Optionale Absicherung: lokaler pre-commit Hook (.githooks) + VS Code Tasks zum Installieren/Prüfen; Tasks portabilisiert.
+2025-10-15 14:27 | Copilot | Neuer System-Prompt: docs/AGENT_PROMPT.md; VS Code Task zum Kopieren in die Zwischenablage.
+2025-10-15 16:05 | Copilot | Pyright auf 1.1.406 aktualisiert; 0 Fehler/0 Warnungen; mypy/pytest grün.
+2025-10-15 16:12 | Copilot | VS Code Tasks portabilisiert; ProblemMatcher für pyright/mypy hinzugefügt; schema warnings behoben.
+2025-10-15 16:18 | Copilot | Markdownlint eingeführt (.markdownlint.json); Lint/Fix Tasks; Pre-commit Hook um Markdownlint mit Auto-Fix erweitert.
+2025-10-15 16:26 | Copilot | README/TODO/Customization nach markdownlint (MD031/MD032/MD012/MD009/MD007) bereinigt.
+2025-10-15 16:41 | Copilot | VS Code Tasks: Git-Hook-Verify/Run auf PowerShell umgestellt; doppelte Ad-hoc-Tasks entfernt; JSON-Syntaxfehler behoben.
+2025-10-15 16:44 | Copilot | Markdownlint: npx-basierte Tasks ergänzt und PowerShell-Fallback-Task hinzugefügt (npx oder globales markdownlint).
+2025-10-15 16:58 | Copilot | mypy: `scripts/run_eval.py` auf check_untyped_defs=True gestellt; ungenutzte ignores entfernt; Typen/Casts ergänzt; Tests grün.
+2025-10-15 17:06 | Copilot | mypy: `scripts/eval_ui.py` auf check_untyped_defs=True gestellt; unused ignores entfernt; Variable umbenannt; Tests grün.
+2025-10-15 17:18 | Copilot | mypy-Enforcement bestätigt: `scripts/eval_ui.py` clean; pytest erneut grün; TODO/DONELOG aktualisiert.
+2025-10-15 17:34 | Copilot | mypy: Enforcement abgeschlossen für curate_dataset_from_latest.py, openai_finetune.py, train_lora.py; unnötige ignores entfernt; kleinere Typanpassungen; pytest grün.
+2025-10-15 17:48 | Copilot | Tests gruppiert: pytest-Marker (unit, api, streaming, eval, scripts) eingeführt; VS Code Tasks für gruppierte Läufe hinzugefügt; Marker auf repräsentative Tests angewendet.
+2025-10-15 17:55 | Copilot | Tests: Marker-Gruppierung (unit/api/streaming/eval/scripts) eingeführt; Streaming-Fehlerpfad, dependency_check und Export→Prepare-Pipeline als offline-Tests ergänzt; Tasks für Marker-Läufe.
+2025-10-15 18:05 | Copilot | Rate-Limit/Timeout-Tests ergänzt; Middleware wandelt HTTPException in JSONResponse um und setzt X-Request-ID auch bei Fehlern; Header dokumentiert.
+2025-10-15 18:22 | Copilot | Coverage erweitert: Prompt-/Options-Parsing, Context-Notes-Injektion, Settings-Validatoren, LLM-Service Success/Fail, Summary-Kantenfälle; .coveragerc mit Branch-Coverage; VS Code Coverage-Tasks; kombiniertes Fail-Under auf 80 angehoben.
+2025-10-15 18:47 | Copilot | ID-Normalisierung vereinheitlicht ("eval-" Präfix) in export_finetune/rerun_failed/eval_ui; Utils: strip_eval_prefix/ensure_eval_prefix; Test für gemischte IDs; Cross-Drive relpath-Fixes in audit_workspace/rerun_failed/map_reduce_summary.
+2025-10-15 19:02 | Copilot | Script-Smokes hinzugefügt (audit_workspace, smoke_asgi, fine_tune_pipeline, openai_ft_status, open_latest_summary, map_reduce_summary); OpenAI-Client im Test stubbed; minimale Script-Abdeckung >5% erreicht; Teil-Suites grün.
+2025-10-15 19:18 | Copilot | Datensatzkurierung aus Logs: VS Code Task "Curate dataset (latest)" ergänzt; Smoke-Test für `scripts/curate_dataset_from_latest.py` hinzugefügt (Export/Prepare gepatcht, stdout-Report geprüft).
+2025-10-16 09:40 | Copilot | Chai-Datensatz vereinfacht (must_include reduziert), Synonyms-Overlay erweitert (freundlich/empathisch/einfühlsam/zuwenden), Beispiel-Test `tests/test_chai_checks.py` hinzugefügt.
+2025-10-16 09:41 | Copilot | Export/Kuratierung robuster: `EVAL_FILE_PATTERN` auf `eval-*.json*` erweitert; `export_finetune` nutzt `source_file` aus Results für zuverlässige Zuordnung; Mini-LoRA-Lauf (10 Schritte) auf chai-Pack durchgeführt.
+2025-10-16 09:45 | Copilot | Docs aktualisiert: AGENT_PROMPT.md um Pipeline/PowerShell‑Shortcuts/Artefakte erweitert; ARCHIVE_PLAN.md mit Status & Prüfkommandos ergänzt; TODO.md Fortschritte/Robustheit dokumentiert.
+2025-10-17 10:10 | Copilot | Eval: optionaler Response-Cache in `scripts/run_eval.py` (`--cache`), Near-Dedupe in `prepare_finetune_pack.py` (`--near-dup-threshold`), neue Tests hinzugefügt; VS Code Test-Explorer konfiguriert (pytest), Run-&-Debug-Profile für Marker.
+2025-10-18 09:15 | Copilot | Reruns: `scripts/rerun_from_results.py` (profile-aware, liest Meta/Overrides/Patterns), Pattern-Normalisierung implementiert; Smoke-Test hinzugefügt.
+2025-10-19 12:12 | Copilot | Backup: Separates Backup-Repo finalisiert (origin auf neues Repo), orphan main mit README+MANIFEST; GitHub Release erstellt und alle Snapshot-Dateien als Assets hochgeladen (um LFS-Grenzen zu vermeiden).
+2025-10-19 12:14 | Copilot | VS Code: Task "Eval: rerun from results" hinzugefügt; docs/TODO.md und docs/DONELOG.txt aktualisiert.
+2025-10-19 12:28 | Copilot | Backup-Härtung: cvn-root-files ZIP sanitized (ohne .env) und im Release ersetzt; MANIFEST mit SHA-256 für alle Assets aktualisiert; README mit Restore-Anleitung ergänzt.
+2025-10-19 13:05 | Copilot | Tests: Neue Script-Smokes (todo_gather, customize_prompts, map_reduce_summary_llm, open_latest_summary, fine_tune_pipeline) hinzugefügt; Scripts-Abdeckung auf ~67% erhöht.
+2025-10-19 14:25 | Copilot | Tests: Integration "alpaca Export→Prepare" ergänzt; Edge-Tests für export_finetune, open_context_notes, rerun_failed, fine_tune_pipeline und App-Header auf 400; Suite grün, erneute Scripts-Coverage-Messung anstehend.
+2025-10-19 15:10 | Copilot | Tests: 3+1-Runde durchgeführt (customize_prompts EOF/KeyboardInterrupt, map_reduce_summary Markdown+Excludes, fine_tune_pipeline Happy-Path, /health Header). Suite grün, Scripts-Coverage ~75%.
+2025-10-19 15:30 | Copilot | Tests: 3+1-Runde II (map_reduce_summary Python/JSON-Zweige, rerun_failed JSON-Array, export_finetune Outdir-Fallback, /404 Header). Suite grün, Scripts-Coverage ~78%.
+2025-10-19 15:50 | Copilot | Tests: 3+1-Runde III (fine_tune_pipeline fp16 & KeyboardInterrupt, export_finetune openai_chat include_failures, /chat/stream Fehler als SSE). Suite grün, Scripts-Coverage ~78%.
+2025-10-19 16:10 | Copilot | Tests: 3+1-Runde IV (migrate_dataset_schemas Happy-Path, openai_ft_status Snapshot & Follow). Suite grün, Scripts-Coverage ~79%.
+2025-10-19 16:28 | Copilot | Tests: 3+1-Runde V (audit_workspace Fallback, curate_dataset_from_latest Minimal-Flow, open_context_notes Happy, /chat Fehlerpfad). Suite grün, Scripts-Coverage ~79%.
+2025-10-19 17:05 | Copilot | Tests: 3+1-Runde VI (curate_dataset_from_latest Filter-Exit-5; audit_workspace Referenzsuche; / Root Request-ID Header). Suite grün; Scripts-Coverage jetzt 80% (Branch-Coverage aktiv).
+2025-10-20 09:10 | Copilot | Tests: 3+1-Runde VII (curate positive Filterpfad, audit Reachability-Graph, open_latest_summary open-Path, App Rate-Limit-Header). Neue Pfade abgedeckt; Schnelllauf grün.
+2025-10-20 10:00 | Copilot | TODO/DONELOG aktualisiert; Konsistenzprüfung Runde 1 durchgeführt; Reports-Standard vorgeschlagen (eval/results/reports/<topic>/<ts> mit report.md und params.txt).
+2025-10-20 10:20 | Copilot | Re-Check Konsistenz nach Löschungen: cleanup_recommendations.md aktualisiert; cleanup_phase3.ps1 portabel gemacht; REPORTS.md erstellt; Report abgelegt unter eval/results/reports/consistency/20251020_1015/.
+2025-10-20 20:45 | Copilot | Demo→Fantasy-Umstellung konsolidiert (Code/Tests/Docs); Reporting-Skripte (Dependencies/Coverage/Consistency) ergänzt; CI-Workflow für Reports hinzugefügt; Legacy-Bereinigung: doppelten Re-Import in app/services/__init__.py entfernt, Rerun-Failed-Status in todo_gather vereinheitlicht, WORKSPACE_INDEX um Top-Level-Duplikat bereinigt.
+2025-10-20 21:10 | Copilot | Endpoints final bereinigt (`app/api/endpoints/*` entfernt), README/WORKSPACE_INDEX aktualisiert, TODO-Drift korrigiert; Reports-Skripte lokal erfolgreich ausgeführt (dependencies/coverage placeholder/consistency).
+2025-10-21 09:25 | Copilot | Pyright Linux-Fix: `scripts/open_context_notes.py` und `scripts/open_latest_summary.py` plattformneutral (webbrowser/open/xdg-open), `os.startfile` nur noch guarded; ungenutzte type: ignore entfernt.
+2025-10-21 09:28 | Copilot | `scripts/run_eval.py`: `rich` optional gemacht (Console/Table/Progress Fallbacks) und Typen für `progress.update` bereinigt; mypy/pyright grün.
+2025-10-21 09:31 | Copilot | `scripts/openai_ft_status.py`: Import von `openai` optional; Fehlerausgabe nur bei tatsächlicher Nutzung, Tests können `OpenAI` stubben.
+2025-10-21 09:34 | Copilot | Synonyme erweitert: Eintrag für „empathisch“ (einfühlsam, zugewandt, mitfühlend, verständnisvoll, empathie) ergänzt; `tests/test_chai_checks.py` besteht.
+2025-10-21 09:38 | Copilot | CI: `workflow_dispatch` zur CI hinzugefügt (manuelle Runs möglich); alle Checks grün (CI/build-test, Enforce DONELOG, Consistency & Reports).
+2025-10-21 12:00 | Copilot | Chat-Options zentral normalisiert (normalize_ollama_options) und in Stream/Non-Stream verdrahtet; Policy-Stream-Tests (Pyright) stabilisiert; Copilot-Anleitung (PR-Checkliste/Marker/Pitfalls) geschärft.
+2025-10-21 12:15 | Copilot | .gitignore: Kontext-Notizen konsolidiert (`eval/config/context.local.*` statt Einzellisten); keine weiteren Änderungen.
+2025-10-21 12:47 | Panicgrinder | Reports: Konsistenz/Dependencies/Coverage Generatoren repariert (sys.path + now_compact); Reports erzeugt.
+2025-10-21 12:54 | Panicgrinder | TODO: Cleanup-Kandidaten-Sektion basierend auf Konsistenz-Report ergänzt; CLI-Tools markiert.
+2025-10-21 13:29 | Copilot | Zeitstempel vereinheitlicht: utils/time_utils.py eingeführt; convlog nutzt now_iso(); append_done nutzt now_human(); schnelle Tests grün.
+2025-10-21 13:35 | Copilot | Kompakte Timestamps zentralisiert: Scripts auf now_compact() umgestellt (export_finetune, map_reduce_summary[_llm], run_eval, rerun_from_results, reports/*, eval_ui, fine_tune_pipeline, todo_gather); Scripts-Tests grün.
+2025-10-21 20:53 | Panicgrinder | Docs: removed remaining Compose mention in TODO (superproject and submodule). Also restored VS Code settings from backup to undo catch-all auto-approve.
+2025-10-21 20:57 | Panicgrinder | Tests: add pytest norecursedirs to ignore nested submodule; fix import mismatch and restore stable test runs (api, streaming, unit passing).
+2025-10-21 22:00 | Panicgrinder | Docs: add docs-only history purge plan and helper script; wording cleanup in DONELOG.
+2025-10-21 22:50 | Panicgrinder | Types: fix mypy errors in chat.py, content_management.py, and run_eval.py; no runtime behavior change.
+2025-10-21 23:36 | Panicgrinder | Docs: add BEHAVIOR.md (Projektverhalten) und WORKSPACE_INDEX.md aktualisiert.
+2025-10-22 00:41 | Panicgrinder | Eval: start overnight run (ASGI) tag=overnight-20251022; results will be summarized after completion.
+2025-10-22 00:53 | Panicgrinder | Eval: Teilrun 50/136 (ASGI) saved to results_20251022_0042_overnight-20251022.jsonl; report at docs/reports/overnight-20251022.md.
+2025-10-22 01:01 | Panicgrinder | Automation: add summarize_eval_results.py and VS Code task for overnight eval + auto report.
+2025-10-22 01:11 | Panicgrinder | Add generator script for new eval items and create dataset eval-101-300_generated_v1.0.jsonl (200 items)
+2025-10-22 13:54 | Panicgrinder | Docs konsolidiert: AGENT_BEHAVIOR.md erstellt (Merge aus AGENT_PROMPT.md + BEHAVIOR.md); Settings CONTEXT_NOTES_PATHS um AGENT_BEHAVIOR/TODO/DONELOG erweitert; Referenzen & VS Code Task aktualisiert.
+2025-10-22 14:17 | Panicgrinder | Kontext: Digest in eval/config/context.local.md; Platzhalter-Logs für heute/gestern (data/logs/YYYY-MM-DD.jsonl) erstellt; Historie in docs/AGENT_BEHAVIOR.md präzisiert; TODO aktualisiert.
+2025-10-22 16:50 | Panicgrinder | Docs/Tasks: Referenzen nach Entfernen der verschachtelten Kopie geprueft; keine verbleibenden  enter cvn-agent/-Hinweise; VS Code Task auf AGENT_BEHAVIOR.md umgestellt; Tests gruen; Typechecks: Pyright 1 Fehler (Test named arg), Mypy weist bestehende unused-ignore in Tests aus.
+2025-10-22 17:30 | Panicgrinder | Typechecks gruen: Pyright Warnungen nur; Mypy konfiguriert (warn_unused_ignores in tests deaktiviert); Test-Fix: eval_mode aus ChatRequest() entfernt; tzinfo-Typ fix in time_utils.
+2025-10-22 18:56 | Panicgrinder | docs/prompts: Sprache dauerhaft auf Deutsch gesetzt (AGENT_BEHAVIOR.md, DEFAULT_SYSTEM_PROMPT, context.local.md). Tests/Typen grün.
+2025-10-22 19:19 | Panicgrinder | lint: Pyright-Warnungen reduziert  unbenutzte Imports in Scripts entfernt (curate_dataset_from_latest, eval_ui, export_finetune, fine_tune_pipeline, generate_eval_dataset, map_reduce_summary(_llm), reports/*, rerun_from_results, todo_gather). Tests/Typen grün.
+2025-10-22 23:52 | Panicgrinder | Context notes: directory + .ref support; added eval/config/context.notes with 5 pinned refs; updated AGENT_BEHAVIOR.md
+2025-10-23 00:22 | Panicgrinder | Context notes: directory order via ORDER file; ignore README/ORDER meta; collapse excessive blank lines in loader; docs+tests updated
+2025-10-23 01:13 | Panicgrinder | Tests: docs obsolete absent  AGENT_PROMPT.md darf fehlen; Mypy: unused ignore in app/core/mode.py entfernt
+2025-10-23 10:00 | Copilot | Kontext-Notizen Defaults erweitert (eval/config/context.notes in CONTEXT_NOTES_PATHS); eval_loader Diagnostics um schema_issues ergänzt; Tests/Typen unverändert.
+2025-10-23 10:00 | Copilot | Kontext-Notizen Budget erhöht (CONTEXT_NOTES_MAX_CHARS=12000); Standard-Pfade für pinned Notes aktiv; schnelle Tests grün.
+2025-10-23 10:20 | Copilot | Cleanup: `app/schemas.py` als Deprecation-Weiterleitung auf `app/api/models.py` umgestellt (keine direkten Importe gefunden); sichere Migration ohne Bruch.
+2025-10-23 10:35 | Copilot | Cleanup: `app/schemas.py` endgültig entfernt; Modelle liegen zentral in `app/api/models.py`. Kurzer Testlauf grün.
+2025-10-23 10:42 | Copilot | Cleanup-Review: `content_management` aktiv genutzt (behalten), `convlog` nur Beispiele (belassen), `summarize` in Tests/Beispielen (belassen), `session_memory` genutzt (belassen); TODO entsprechend aktualisiert.
+2025-10-23 10:50 | Copilot | Lizenz hinzugefügt: MIT-Lizenz-Datei (`LICENSE`) und Hinweis in README.
+2025-10-23 11:05 | Copilot | Policy-Hooks: Datei-basierte Minimal-Tests für forbidden_terms/rewrite_map hinzugefügt; Nutzung über SETTINGS.POLICY_FILE verifiziert; schneller Teil-Lauf grün.
+2025-10-23 11:08 | Copilot | Doku: Abschnitt „Inhalts‑Policy & Hooks (optional)“ in AGENT_BEHAVIOR.md ergänzt (Aktivierung, POLICY_FILE, Struktur, Verweise auf Implementierung/Tests).
+2025-10-23 11:30 | Copilot | Policy-Profile: Merge von default + profiles.<id> in content_management implementiert; Tests für Allow/Rewrite/Block/Profile-Merge/Bypass hinzugefügt; policy.sample.json erweitert.
+2025-10-23 11:34 | Copilot | Memory: Tests für Fenster/Trunkierung (InMemory/JSONL) ergänzt; Append-Fehler schlagen Stream nicht mehr fehl (WARN statt Crash).
+2025-10-23 11:36 | Copilot | LLM-Options: Smoke-Tests für erweiterte Optionen (num_ctx/stop/penalties) hinzugefügt; Pass-Through verifiziert.
+2025-10-23 11:38 | Copilot | Doku: Profiles & Merge Order in AGENT_BEHAVIOR.md ergänzt; WORKSPACE_INDEX aktualisiert (LICENSE, policy.sample.json, Beschreibungen).
+2025-10-23 11:40 | Copilot | DONELOG: Autorenschafts-Hinweis in AGENT_BEHAVIOR.md ergänzt (Quelle kann Mensch oder Tool sein; Format dokumentiert).
+2025-10-23 11:46 | Copilot | ChatOptions: Pydantic-Optionschema eingeführt; ChatRequest.options akzeptiert Dict oder ChatOptions; chat.py passt Mapping/Dump an; Tests hinzugefügt.
+2025-10-24 11:20 | Panicgrinder | Cleanup: app/prompt/system.txt (Altlast) entfernt; WORKSPACE_INDEX und README geprüft.
+2025-10-24 11:28 | Copilot | Pyright-Warnungen im App-Code bereinigt (casts/Typen in chat_helpers, content_management, mode, main); Pyright-Config auf app+utils fokussiert.
+2025-10-25 09:10 | Copilot | Mittelfristig: Tool‑Use Basis angelegt (Settings: TOOLS_ENABLED/WHITELIST; Registry; calc_add Tool; Unit‑Tests). TODO.md aktualisiert.
+2025-10-25 14:02 | Panicgrinder | Kontext-Notizen: Priorität auf lokale Dateien (`context.local.*`) vor angehefteten Refs (`context.notes`) gesetzt; Pyright-Konfiguration bereinigt (ungueltige Keys entfernt, Tests/Scripts vorerst ausgeschlossen). Tests & Typen grün.
+2025-10-25 14:22 | Panicgrinder | Streaming: Initiales Meta-Event (params: mode, request_id, model, options) am Stream-Beginn hinzugefügt; Test ergänzt (tests/test_streaming_initial_meta.py); TODO.md aktualisiert. Suite & Typen grün.
+2025-10-25 18:51 | Panicgrinder | API: Einheitliches Message-Schema  ChatRequest.messages akzeptiert ChatMessage oder dict; Validator hinzugefügt; Tests ergänzt (tests/test_messages_schema.py). CI-Gates grün.
+2025-10-25 19:52 | Panicgrinder | Typfehler in app/main.py behoben: Messages-Längenprüfung für ChatMessage|dict; request.json typisiert; Pyright/Mypy grün; Tests unverändert grün.
+2025-10-25 20:12 | Panicgrinder | Refactor: `_get_content_from_message()` eingeführt; Union-Attributzugriff eliminiert; Pyright/Mypy/Tests grün.
+2025-10-25 21:10 | Copilot | RAG (leichtgewichtig) integriert: TF‑IDF‑Retriever injiziert Top‑K Snippets als System‑Nachricht (optional via `SETTINGS.RAG_*`); CLI `scripts/rag_indexer.py` hinzugefügt; bestehende Tests unverändert.
+2025-10-25 21:13 | Panicgrinder | Kleine Korrekturen
+2025-10-25 21:18 | Copilot | Bugfix: utils/rag.py save_index Einrückung korrigiert (payload/json.dump innerhalb des with‑Blocks); Tests/Typen erneut grün.
+2025-10-25 22:07 | Panicgrinder | Pyright-Warnungen in utils/rag.py entfernt: explizite Typisierungen in from_dict (Dict[str, object], Mapping-Casts); keine Verhaltensänderung.
+2025-10-25 22:16 | Panicgrinder | Tests ergänzt: RAG-Guards (stream/non-stream) sichern None-Index-Pfade ab; chat.py Typisierungen für RAG-Imports/idx präzisiert; Pyright jetzt 0 Warnungen; Verhalten unverändert.
+2025-10-25 22:20 | Panicgrinder | Outstanding Änderungen synchronisiert (Tasks, AGENT_BEHAVIOR, Settings, WORKSPACE_INDEX); rag_indexer Script hinzugefügt. Keine Verhaltensänderung.
+2025-10-25 22:31 | Panicgrinder | TODO um RAG-Sektion konsolidiert (Fortschritt+Next Steps an passender Stelle); Unit-Tests für TF-IDF (retrieve Ranking, save/load Roundtrip) ergänzt; Gates grün.
+2025-10-25 22:37 | Panicgrinder | README: kurzer Abschnitt 'Lokales RAG' ergänzt (Flags, Indexer-CLI, Beispiel, Task-Hinweise); keine Codeänderungen; Gates grün.
+2025-10-25 23:20 | Panicgrinder | chat.py: SSE streaming now emits 'event: delta' with JSON {text} per chunk; keeps meta/done and post-policy meta; tests+pyright+mypy PASS.
+2025-10-25 23:58 | Panicgrinder | eval_ui: profiles support top_p/num_predict; added sample profile policies; updated eval README; tests+types PASS
+2025-10-25 23:59 | Copilot | Streaming: SSE-Chunks als Plain "data: <chunk>" + Fallback bei invalid JSON; "event: delta" nur bei Post-Rewrite; Tests/Pyright/Mypy PASS.
+2025-10-25 23:59 | Copilot | LLM-Optionen erweitert: ChatOptions & Normalisierung (top_k, min_p, typical_p, tfs_z, mirostat*, penalize_newline); Settings-Defaults ergänzt; README dokumentiert; Validation-Tests hinzugefügt; Gates PASS.
+2025-10-26 00:05 | Copilot | Doku: customization.md um Abschnitt zu LLM-Optionen (Defaults via .env, Pro-Request-Overrides, Beispiele curl/PowerShell) erweitert; Gates PASS.
+2025-10-26 00:10 | Panicgrinder | eval_ui: robust multi-select (comma/space/semicolon, ranges); search datasets+eval for packages; gates PASS
+2025-10-31 13:22 | Panicgrinder | Markdownlint-Workflow geprüft; offene Funde aus novapolis-rp erfasst
+2025-10-31 14:05 | Copilot | Dokumentation auf Novapolis Agent umgestellt (AGENT_BEHAVIOR, README, TODO, customization, Index, Eval-Doku, Kontextsample aktualisiert).
+2025-10-31 15:10 | Copilot | Root-Dokumente (Copilot-Anleitung, README, TODO, DONELOG) an Novapolis Agent Branding angepasst.
+2025-10-31 23:12 | Copilot | Synonyme für "freundlich" ergänzt, pytest grün, Eval-Lauf (ASGI, Limit 50, Hint+Retry) protokolliert.
+2025-10-31 23:40 | Copilot | Projektordner in `novapolis_agent` umbenannt, Mypy-Lauf via `python -m mypy --config-file mypy.ini app scripts` etabliert, Tree-/Ignore-Dateien und Behaviour-Doku angepasst.
+2025-11-01 10:07 | Copilot | Markdownlint (Docs-only): Tabs→Spaces in `.github/copilot-instructions.md` und overnight-Report; fehlende Fenced-Language (`ini`) in `docs/customization.md` ergänzt. Keine Codeänderungen.
+2025-11-01 10:15 | Copilot | Markdownlint: `scripts/README.md` manuell bereinigt (Fenced-Language/Blank-Lines/Tabs/Newline); RP-Dokus (`novapolis-rp/NEW_REPO.md`, `database-rp/06-scenes/README.md`) korrigiert (Codefences/Final-Newline).
+2025-11-01 16:32 | Panicgrinder | Root DONELOG Heading-Stil (MD003) aktualisiert; TODO-Fronsync; markdownlint Drittanbieter offen.
+2025-11-02 00:19 | Panicgrinder | Top-Level Paketshim bereinigt; __init__.py re-exportiert app-Modul.
+2025-11-06 01:54 | Copilot | Tests/Typen manuell (Terminal): pytest -q, pyright, mypy PASS; Ergebnis protokolliert.
+2025-11-06 03:34 | Copilot | Workspace-Tree-Snapshots aktualisiert; Root-Status und Dev-DONELOG synchronisiert; keine neuen Checks erforderlich.
+2025-11-06 04:15 | Copilot | Absichtlichen Demo-Test `tests/test_intentional_failure.py` hinzugefügt (erzwingt pytest-FAIL) und YAML-Frontmatter-Validator mit Beispieldatei geprüft; Fehlermeldungen dokumentiert.
+2025-11-06 04:40 | Copilot | Demo-Test wieder entfernt, `pytest -q` manuell per pwsh ausgeführt (Suite PASS); Frontmatter-Demo abgeschlossen.
+2025-11-07 02:19 | Copilot | Root-Status-Docs synchronisiert (`todo.root.md`, `WORKSPACE_STATUS.md`, `single-root-todo.md`); Repo-weites markdownlint-Ergebnis dokumentiert; VS Code Lint-Task (Quoting '`**/*.md`') angeglichen.
+2025-11-07 06:31 | Copilot | Verhalten-SSOT konsolidiert (.github/copilot-instructions.md); alte Verhaltensdokus entfernt; Referenzen aktualisiert.
+2025-11-07 09:59 | Copilot | Doku-Sweep: Repo-weites markdownlint erneut ausgeführt (132 Dateien, 0 Fehler); korrekte Quoting-Policy ('`**/*.md`') bestätigt.
+2025-11-07 10:20 | Copilot | Skript-Smoke-Tests erweitert (`test_open_latest_summary_smoke.py`, `test_generate_consistency_report_smoke.py`, `test_todo_gather_script_smoke.py`, `test_export_finetune_script.py`) und Streaming-SSE-Tests geschärft (`test_chat_stream_sse.py` mit Delta/Error-Abdeckung); gezielte Pytests PASS.
+2025-11-07 10:53 | Copilot | Doku-Update: Modus General bestätigt; Coverage-Befehl mit Dateizähler + PASS/FAIL-Ausgabe in `.github/copilot-instructions.md` dokumentiert; keine Codeänderungen.
+2025-11-07 12:37 | Copilot | Devcontainer (novapolis_agent/.devcontainer) entfernt/deaktiviert: Dateien zu Stubs neutralisiert; Single-Root-Flow nutzt lokale .venv. Physische Löschung im nächsten Cleanup.
+2025-11-07 12:56 | Copilot | Devcontainer-Verzeichnis physisch gelöscht (Remove-Item -Recurse -Force); Bestätigung: Test-Path -> MISSING. Single-Root dokumentiert.
+2025-11-07 13:05 | Copilot | Etappe 4 abgeschlossen: ruff/black zentral (Root pyproject), Tasks vorhanden, pre-commit nutzt Root .venv; keine Modul-Tool-Konflikte.
+2025-11-07 18:10 | Copilot | Legacy-Stubs im Modulordner entfernt (.githooks, .github, .tmp-*); WORKSPACE_INDEX bereinigt.
+2025-11-07 18:25 | Panicgrinder | Pytest Voll-Lauf: 240 passed, 1 skipped; Coverage-Gate fehlgeschlagen, vorerst ignoriert (Single-Root).2025-11-07 21:26 | Panicgrinder | update Frontmatter und betroffene Dateien (commit d06ab6b)
+2025-11-07 21:29 | Panicgrinder | update Frontmatter und betroffene Dateien (commit d06ab6b)
+2025-11-07 21:45 | Panicgrinder | Test frontmatter update (dry)
+2025-11-07 21:46 | Panicgrinder | Implementiert: `scripts/append_done_and_push.ps1` — automatisierte Frontmatter-Updates (`stand`/`update`[, `checks`]), Backups `<file>.bak`, scoped Frontmatter-Validator, DONELOG-Append; Commits: d06ab6b, 80f7e32, 0c98ea6.
+2025-11-07 22:11 | Copilot | Korrektur/Anmerkung: Vorheriger Eintrag (2025-11-07 21:46 | Panicgrinder) wurde geprüft; die dort sichtbare Teilansicht/Zeichenkürzung war irreführend. Dieser Eintrag dokumentiert die aktuelle Systemzeit und dient der Audit-Transparenz — keine inhaltliche Löschung der Originalzeile.
+2025-11-09 17:51 | Copilot | Coverage-Gate erreicht: Gesamt 81.66% (Wrapper `run_pytest_coverage.ps1`), neue Tests für stream_chat_request/process_chat_request Zweige, Memory-Truncation Edge, scripts open_context_notes/open_latest_summary Fehlerpfade.
+2025-11-09 22:38 | Copilot | Converted inline `pwsh -NoProfile -Command` tasks into wrapper scripts and updated `/.vscode/tasks.json`; created wrapper scripts `scripts/checks_linters.ps1`, `scripts/checks_types.ps1`, `scripts/tests_pytest_root.ps1` and backup `Backups/tasks.json.bak`.
+2025-11-09 22:42 | Copilot | Post-run checks: `checks_linters.ps1` (ruff/black) reported many issues (automated report available in terminal); `checks_types.ps1` (pyright+mypy) ran: 0 errors, 12 warnings; `tests_pytest_root.ps1` (`pytest -q`) aborted during collection due to ImportError/ModuleNotFound (tests depend on package import paths / venv setup). Next: advise running inside project venv or fixing PYTHONPATH/import layout before full test run.
+2025-11-09 22:55 | Copilot | Installed `novapolis_agent` editable into Root `.venv` and executed `pytest -q` with CWD `novapolis_agent`. Test suite completed successfully (run completed, collection and execution finished). Wrapper scripts and tasks updated; recommend committing wrapper scripts and DONELOG entry.
+2025-11-10 00:01 | Copilot | Tests/Coverage: 298 passed, 1 skipped; Total coverage 81.66%; Artifacts: `outputs/test-artifacts/coverage.xml`, `outputs/test-artifacts/junit.xml`.
+2025-11-10 00:28 | Copilot | Tests/Coverage: 298 passed, 1 skipped; Total coverage 81.66%; Artifacts: outputs/test-artifacts/coverage.xml, outputs/test-artifacts/junit.xml
+2025-11-10 00:35 | Copilot | Aktion: `todo.root.md` follow-ups als erledigt markiert; DONELOG-Eintrag in Root und Agent-DONELOG ergänzt; Repo-Lint ergab 4 MD009 trailing-space Treffer in `todo.root.md` (noch offen).
+2025-11-10 01:13 | Copilot | Tests/Typen-Sequenz ausgeführt: `pytest` PASS (298 passed, 1 skipped); Coverage 81.66% (artifacts in `outputs/test-artifacts`). Pyright lokal ausgeführt (52 Typprüfungs-Funde; siehe Terminal). Mypy (CWD=`novapolis_agent`, `mypy.ini`) PASS: "Success: no issues found in 62 source files". Receipt in Root `DONELOG.md` ergänzt; Todo `Tests/Typen sequenziell laufen lassen` als erledigt markiert.
+2025-11-10 02:25 | Copilot | Generators: frontmatter order + Setext headings enforced; modified `novapolis_agent/scripts/todo_gather.py` and `novapolis_agent/scripts/map_reduce_summary_llm.py`; removed `scripts/tmp_fix_md.py`; dry-run receipts `.tmp-results/markdown/20251110_0219/` & `_0220/`; markdownlint + frontmatter validator PASS.
+2025-11-10 08:08 | GitHub Copilot | Ruff-Aufräumarbeiten: registry.py auf moderne Typen umgestellt, append_done/rerun_failed Importe sortiert, Generics & open-Modi bereinigt.
+2025-11-10 08:19 | GitHub Copilot | Tool-Registry: `settings` Alias wiederhergestellt; pytest tests/test_tools_registry.py PASS.
+2025-11-10 08:40 | GitHub Copilot | Cleanup (Agent): `scripts/cleanup_phase3.ps1`, `cleanup_phase4.ps1`, `history_purge_plan.ps1` entfernt.
+2025-11-11 00:09 | Copilot | Dokumentation: Review des Checks-Wrappers (damals PowerShell, inzwischen `python scripts/run_checks_and_report.py`) ergänzt; ToDo für Status-Fix (STOP -> FAIL) eingetragen und Änderungen committet.
+2025-11-12 01:05 | Copilot | `WORKSPACE_INDEX.md` und Backup `WORKSPACE_INDEX.md.bak.linkscan` entfernt (redundant/obsolet); Referenzen geprüft, TODO aktualisiert.
+
+2025-11-10 11:02 | GitHub Copilot | Sim module: added `novapolis-sim/scripts/verify_sim.gd` (headless verifier), `scripts/verify_sim.ps1` (PowerShell smoke test), updated `novapolis-sim/README.md` with start/stop/verify instructions, and patched `novapolis-sim/autoload/SimClient.gd` (exported `port`, increased default `step_interval`, exponential backoff and improved status messages). Ran smoke test and `novapolis_agent/tests/tests_sim_api.py` (both PASS).
+2025-11-10 12:12 | GitHub Copilot | Docs: Root and `novapolis-sim` README updated to record successful Godot ↔ Agent connection verification (headless verifier + smoke test). WORKSPACE_STATUS.md updated with sim verification note.
+2025-11-14 14:44 | Copilot | Repo cleanup: Ruff/B010 & E501 fixes in `app/api/chat.py`, argparse help fix in `novapolis_agent/scripts/run_eval.py`, markdownlint table fix `novapolis-rp/.../person_index_np.md`; full checks-run PASS (markdownlint/ruff/black/mypy/pytest). Tests stabilized (mod.main replacements).
+---
+stand: 2025-11-12 01:38
+update: Postflight (Checks-Report 20251112_013920 protokolliert)
+checks: markdownlint-cli2 PASS (scoped)
+
+
 Postflight
 ----------
 Meta: Modus=Postflight, Modell=GPT-5, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=python F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, SHA256=65570151AA983A6A3784D89B589486A214B8A171D1BA22766C1BF17C49F54E30, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=F:\VS Code Workspace\Main\.github\copilot-instructions.md;F:\VS Code Workspace\Main\novapolis_agent\docs\DONELOG.txt;F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, Aktion=Automatisierter Checklauf Backend-relevant (PowerShell-Variante archiviert)

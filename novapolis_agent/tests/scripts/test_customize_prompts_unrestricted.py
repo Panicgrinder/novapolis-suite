@@ -32,7 +32,7 @@ def test_customize_unrestricted_prompt_updates_file(
         try:
             return next(inputs)
         except StopIteration:
-            raise EOFError()
+            raise EOFError() from None
 
     monkeypatch.setattr("builtins.input", _input)
 

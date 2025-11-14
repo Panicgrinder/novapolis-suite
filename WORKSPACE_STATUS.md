@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-12 04:42
-update: Governance-Statusnote auf Guard-Check-Umstellung angepasst; Eintrag zu 2025-11-12 02:46 präzisiert
+stand: 2025-11-14 14:50
+update: Docs sweep applied — frontmatter and status notes synchronized
 checks: pending (scoped lint)
 ---
 

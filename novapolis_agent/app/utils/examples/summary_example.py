@@ -26,10 +26,7 @@ def beispiel_zusammenfassung() -> None:
             "Beachte, dass Python im Vergleich zu kompilierten "
             "Sprachen wie C++ etwas langsamer sein kann,"
         ),
-        (
-            "aber dies wird durch die Entwicklungsgeschwindigkeit "
-            "oft ausgeglichen."
-        ),
+        ("aber dies wird durch die Entwicklungsgeschwindigkeit " "oft ausgeglichen."),
     ]
     response = "".join(parts)
 

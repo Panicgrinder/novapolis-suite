@@ -21,7 +21,10 @@ def test_open_latest_summary_empty_dir(tmp_path: Path) -> None:
     try:
         sys.argv = ["open_latest_summary.py", "--print", "--dir", str(tmp_path)]
         with pytest.raises(SystemExit) as se:
-            mod.__main__  # type: ignore[attr-defined]
+            # Falls __main__ vorhanden ist, rufe es als Modul auf
+            import runpy
+
+            runpy.run_module(mod.__name__, run_name="__main__")
         assert se.value.code == 2
     except AttributeError:
         # Fallback: direkte Ausführung von main()

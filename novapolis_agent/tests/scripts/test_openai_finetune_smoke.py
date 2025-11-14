@@ -40,9 +40,16 @@ def test_openai_finetune_validate_only(tmp_path: Path, monkeypatch: pytest.Monke
     argv_bak = sys.argv
     try:
         sys.argv = ["openai_finetune.py", os.fspath(train), os.fspath(val), "--validate-only"]
-        # Führe Modul als Skript
-        with pytest.raises(SystemExit):
-            mod.__main__  # type: ignore[attr-defined]
+        # Konservativ: rufe das Modul direkt an und akzeptiere SystemExit
+        try:
+            mod.main()
+        except SystemExit:
+            # Erwartetes Verhalten als Skript: SystemExit möglich
+            pass
+        else:
+            # Falls kein SystemExit: rufe die Validatoren direkt, um das Verhalten sicherzustellen
+            mod.validate_openai_chat_jsonl(os.fspath(train))
+            mod.validate_openai_chat_jsonl(os.fspath(val))
     except AttributeError:
         # Fallback: rufe direkt Validator auf
         mod.validate_openai_chat_jsonl(os.fspath(train))

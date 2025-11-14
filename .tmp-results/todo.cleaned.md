@@ -1,5 +1,5 @@
-stand: 2025-11-12 03:34
-update: Drei Link-Scanner Restpunkte abgeschlossen (Dry-Run JSON, Rescan 0 broken, Backups geprüft)
+stand: 2025-11-14 14:50
+update: Docs sweep: timestamps synchronized; link-scan receipts kept
 checks: pending (lint)
 ---
 

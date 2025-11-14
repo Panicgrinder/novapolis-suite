@@ -19,7 +19,7 @@ try:
     from app.core.settings import settings  # type: ignore
     from app.main import app  # type: ignore
 except Exception as e:  # pragma: no cover
-    raise SystemExit(f"Importfehler: {e}")
+    raise SystemExit(f"Importfehler: {e}") from e
 
 
 async def main() -> int:

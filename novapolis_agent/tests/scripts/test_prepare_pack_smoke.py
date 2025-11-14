@@ -20,7 +20,7 @@ def _validate_jsonl(path: pathlib.Path) -> None:
             try:
                 json.loads(line)
             except Exception as e:
-                raise AssertionError(f"Invalid JSON at line {i} in {path}: {e}")
+                raise AssertionError(f"Invalid JSON at line {i} in {path}: {e}") from e
 
 
 @pytest.mark.scripts

@@ -15,7 +15,7 @@ class _Ev:
         self.level = level
         self.message = message
 
-    from typing import Any, Dict
+    from typing import Any
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -33,7 +33,7 @@ class _Job:
         self.model = model
         self.fine_tuned_model = ftm
 
-    from typing import Any, Dict
+    from typing import Any
 
     def to_dict(self) -> dict[str, Any]:
         return {

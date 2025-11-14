@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-12 04:42
-update: Hinweise auf veraltete Start-Prüfungen entfernt; Guard-Terminologie aktualisiert
-checks: noch keine
+stand: 2025-11-14 14:50
+update: Vorschlagsentwurf geprüft — Frontmatter-Timestamp synchronisiert (Docs Sweep)
+checks: pending
 ---
 
 Kurzbeschreibung

@@ -120,14 +120,14 @@ if __name__ == "__main__":
                     raise ValueError(
                         "Ungültiges Format der Allowlist (erwarte JSON-Array von Strings)"
                     )
-            except FileNotFoundError:
+            except FileNotFoundError as e:
                 print(
                     "Fehler: official-only aktiv, aber Allowlist fehlt:", args.official_models_file
                 )
-                raise SystemExit(2)
+                raise SystemExit(2) from e
             except Exception as e:
                 print("Fehler beim Laden der Allowlist:", str(e))
-                raise SystemExit(2)
+                raise SystemExit(2) from e
             if args.model not in allowed:
                 print("Fehler: Modell nicht in offizieller Allowlist:", args.model)
                 print("Datei:", args.official_models_file)
