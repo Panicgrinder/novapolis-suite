@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="54" failures="0" skipped="0" tests="54" time="2.053" timestamp="2025-11-14T08:44:18.589243+01:00" hostname="DESKTOP-K4QP85G"><testcase classname="" name="test_settings" time="0.000"><error message="collection failure">ImportError while importing test module 'F:\VS Code Workspace\Main\novapolis_agent\test_settings.py'.
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="54" failures="0" skipped="0" tests="54" time="2.329" timestamp="2025-11-14T10:55:02.231811+01:00" hostname="DESKTOP-K4QP85G"><testcase classname="" name="test_settings" time="0.000"><error message="collection failure">ImportError while importing test module 'F:\VS Code Workspace\Main\novapolis_agent\test_settings.py'.
 Hint: make sure your test modules/packages have valid Python names.
 Traceback:
 C:\Users\FloAu\AppData\Local\Programs\Python\Python313\Lib\importlib\__init__.py:88: in import_module
@@ -17,7 +17,8 @@ C:\Users\FloAu\AppData\Local\Programs\Python\Python313\Lib\importlib\__init__.py
 tests\scripts\test_map_reduce_summary_llm_smoke.py:5: in &lt;module&gt;
     from scripts import map_reduce_summary_llm as mrl
 scripts\map_reduce_summary_llm.py:88: in &lt;module&gt;
-    from app.core.settings import settings
+    from app.core.settings import settings  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 app\core\settings.py:8: in &lt;module&gt;
     from pydantic_settings import BaseSettings, SettingsConfigDict
 E   ModuleNotFoundError: No module named 'pydantic_settings'</error></testcase><testcase classname="" name="tests.test_api_chat_internal_branches" time="0.000"><error message="collection failure">ImportError while importing test module 'F:\VS Code Workspace\Main\novapolis_agent\tests\test_api_chat_internal_branches.py'.
@@ -305,7 +306,8 @@ C:\Users\FloAu\AppData\Local\Programs\Python\Python313\Lib\importlib\__init__.py
 tests\test_map_reduce_summary_llm.py:5: in &lt;module&gt;
     import scripts.map_reduce_summary_llm as mr
 scripts\map_reduce_summary_llm.py:88: in &lt;module&gt;
-    from app.core.settings import settings
+    from app.core.settings import settings  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 app\core\settings.py:8: in &lt;module&gt;
     from pydantic_settings import BaseSettings, SettingsConfigDict
 E   ModuleNotFoundError: No module named 'pydantic_settings'</error></testcase><testcase classname="" name="tests.test_memory_disabled" time="0.000"><error message="collection failure">ImportError while importing test module 'F:\VS Code Workspace\Main\novapolis_agent\tests\test_memory_disabled.py'.

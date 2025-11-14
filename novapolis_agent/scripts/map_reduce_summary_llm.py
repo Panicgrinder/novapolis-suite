@@ -85,7 +85,7 @@ EXCLUDE_DIR_NAMES = {
 TEXT_EXTS = {".py", ".md", ".txt", ".json", ".jsonl"}
 
 # Import Settings und Heuristik-Fallback
-from app.core.settings import settings
+from app.core.settings import settings  # noqa: E402
 
 try:
     from scripts.map_reduce_summary import summarize_file as heuristic_summarize_file

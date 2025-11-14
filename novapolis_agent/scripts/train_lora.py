@@ -12,17 +12,17 @@ Hinweise:
 
 # pyright: reportUnknownMemberType=false, reportUnknownArgumentType=false, reportUnknownVariableType=false, reportUnknownParameterType=false, reportUnknownLambdaType=false
 
-import argparse
-import json
-import os
-from typing import Any
+import argparse  # noqa: E402
+import json  # noqa: E402
+import os  # noqa: E402
+from typing import Any  # noqa: E402
 
-import torch
-from datasets import Dataset
-from peft import LoraConfig
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from trl import SFTTrainer
-from trl.trainer.sft_config import SFTConfig
+import torch  # noqa: E402
+from datasets import Dataset  # noqa: E402
+from peft import LoraConfig  # noqa: E402
+from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
+from trl import SFTTrainer  # noqa: E402
+from trl.trainer.sft_config import SFTConfig  # noqa: E402
 
 
 def _read_openai_chat_jsonl(path: str) -> list[dict[str, Any]]:

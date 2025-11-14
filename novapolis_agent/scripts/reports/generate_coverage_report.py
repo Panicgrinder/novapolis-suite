@@ -67,9 +67,11 @@ def write_files(out_dir: str, params: dict[str, Any], content: dict[str, Any]) -
         f.write(f"Zeitpunkt: {params['timestamp']}\n\n")
         cov_xml = params.get("coverage_xml")
         if not cov_xml or not os.path.exists(cov_xml):
-            f.write(
-                "Es liegt keine coverage.xml vor. Bitte mit pytest --cov --cov-report=xml erzeugen.\n"
+            hint = (
+                "Es liegt keine coverage.xml vor. "
+                "Bitte mit pytest --cov --cov-report=xml erzeugen.\n"
             )
+            f.write(hint)
             return
         if "error" in content:
             f.write(f"Fehler beim Parsen: {content['error']}\n")
@@ -82,9 +84,12 @@ def write_files(out_dir: str, params: dict[str, Any], content: dict[str, Any]) -
         if content.get("packages"):
             f.write("## Pakete\n\n")
             for pkg in content["packages"]:
-                f.write(
-                    f"- {pkg['name']}: line-rate={pkg['line_rate']} branch-rate={pkg['branch_rate']}\n"
-                )
+                name = pkg.get("name")
+                lr = pkg.get("line_rate")
+                br = pkg.get("branch_rate")
+                part1 = "- " + str(name) + ": line-rate=" + str(lr)
+                part2 = " branch-rate=" + str(br) + "\n"
+                f.write(part1 + part2)
 
 
 def main() -> int:

@@ -6,7 +6,8 @@ Mini-Pipeline für LoRA-Fine-Tuning:
 - Führt vorab Environment-Checks durch (optionale Abkürzung via --no-check)
 
 Hinweise:
-- Für GPU-Training werden zusätzliche Pakete benötigt (siehe requirements-train.txt) und eine passende Torch-Installation.
+- Für GPU-Training werden zusätzliche Pakete benötigt (siehe
+    requirements-train.txt) und eine passende Torch-Installation.
 - Unter Windows wird WSL2 oder Linux empfohlen.
 """
 from __future__ import annotations
@@ -106,12 +107,11 @@ def main() -> int:
             print({"env_warning": msg})
             # Bei harten fehlenden Abhängigkeiten abbrechen
             if ("nicht importierbar" in msg) or ("fehlen" in msg):
-                print(
-                    {
-                        "ok": False,
-                        "error": "Trainingsumgebung unvollständig. Siehe requirements-train.txt und PyTorch-Installationshinweise.",
-                    }
+                err_msg = (
+                    "Trainingsumgebung unvollständig. Siehe requirements-train.txt "
+                    "und PyTorch-Installationshinweise."
                 )
+                print({"ok": False, "error": err_msg})
                 return 3
 
     cmd: list[str] = [

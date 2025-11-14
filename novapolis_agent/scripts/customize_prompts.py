@@ -56,9 +56,12 @@ def customize_unrestricted_prompt():
         return
 
     print("Bitte geben Sie Ihren neuen uneingeschränkten Prompt ein.")
-    print(
-        "Drücken Sie Strg+D (Unix) oder Strg+Z (Windows), gefolgt von Enter, um die Eingabe abzuschließen."
+    end_hint = (
+        "Drücken Sie Strg+D (Unix) oder Strg+Z (Windows), "
+        "gefolgt von Enter, um die Eingabe abzuschließen."
     )
+    # join the tuple into a single string for output
+    print("".join(end_hint))
     print("--- EINGABE BEGINNEN ---")
 
     lines: list[str] = []

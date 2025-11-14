@@ -38,7 +38,7 @@ def _iter_jsonl(path: Path) -> Iterable[dict[str, Any]]:
                 if isinstance(obj, dict):
                     yield obj
             except Exception as e:
-                raise ValueError(f"jsonl parse error: {e}")
+                raise ValueError(f"jsonl parse error: {e}") from e
 
 
 def _load_json(path: Path) -> list[dict[str, Any]]:
@@ -100,7 +100,8 @@ def load_packages(
     Load and normalize dataset packages from .json/.jsonl files.
 
     Returns: (items, diagnostics)
-    diagnostics per file: file, loaded_count, skipped_count, generated_id_count, parse_errors (<=3), schema_issues
+    diagnostics per file: file, loaded_count, skipped_count, generated_id_count,
+    parse_errors (<=3), schema_issues
     """
     # resolve file list
     files: list[Path] = []
@@ -164,11 +165,22 @@ def load_packages(
             diag.schema_issues = diag.schema_issues[:20]
 
         if log_json:
-            logger.info(json.dumps({"event": "file_loaded", **diag.__dict__}, ensure_ascii=False))
+            payload = {"event": "file_loaded", **diag.__dict__}
+            logger.info(json.dumps(payload, ensure_ascii=False))
         else:
-            logger.info(
-                f"{Path(diag.file).name}: loaded={diag.loaded_count} gen_id={diag.generated_id_count} skipped={diag.skipped_count} errors={len(diag.parse_errors)}"
+            short_name = Path(diag.file).name
+            msg = (
+                short_name
+                + ": loaded="
+                + str(diag.loaded_count)
+                + " gen_id="
+                + str(diag.generated_id_count)
+                + " skipped="
+                + str(diag.skipped_count)
+                + " errors="
+                + str(len(diag.parse_errors))
             )
+            logger.info(msg)
         diags.append(diag.__dict__)
 
     # optional combined JSONL
@@ -191,27 +203,28 @@ def load_packages(
                 for it in sorted(items, key=_key):
                     f.write(json.dumps(it, ensure_ascii=False) + "\n")
             if log_json:
-                logger.info(
-                    json.dumps(
-                        {
-                            "event": "combined_written",
-                            "path": str(combine_out),
-                            "count": len(items),
-                        },
-                        ensure_ascii=False,
-                    )
-                )
+                payload = {
+                    "event": "combined_written",
+                    "path": str(combine_out),
+                    "count": len(items),
+                }
+                logger.info(json.dumps(payload, ensure_ascii=False))
             else:
-                logger.info(f"Combined JSONL geschrieben: {combine_out} ({len(items)} Einträge)")
+                path_str = str(combine_out)
+                count_str = str(len(items))
+                msg = (
+                    "Combined JSONL geschrieben: "
+                    + path_str
+                    + " ("
+                    + count_str
+                    + " Einträge)"
+                )
+                logger.info(msg)
         except Exception as e:
             if log_json:
-                logger.error(
-                    json.dumps(
-                        {"event": "combined_error", "path": str(combine_out), "error": str(e)},
-                        ensure_ascii=False,
-                    )
-                )
+                payload = {"event": "combined_error", "path": str(combine_out), "error": str(e)}
+                logger.error(json.dumps(payload, ensure_ascii=False))
             else:
-                logger.error(f"Fehler beim Schreiben der kombinierten JSONL: {e}")
+                logger.error("Fehler beim Schreiben der kombinierten JSONL: " + str(e))
 
     return items, diags

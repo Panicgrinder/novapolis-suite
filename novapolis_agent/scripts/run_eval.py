@@ -15,13 +15,13 @@ import os
 import re
 import sys
 import time
+import warnings
 from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Any, cast
 
 import httpx
-import warnings
 
 # Typannotation für dynamische Konsolen-/Tabellen-Typen (rich oder Fallback)
 Console: Any
@@ -599,7 +599,8 @@ async def load_evaluation_items(patterns: list[str] | None = None) -> list[Evalu
                         data["messages"] = data["conversation"]
                     else:
                         logger.warning(
-                            f"Überspringe Prompt {data['id']}: Kein 'messages' oder 'prompt' gefunden"
+                            "Überspringe Prompt %s: Kein 'messages' oder 'prompt' gefunden",
+                            data["id"],
                         )
                         file_stats[source_file]["skipped"] += 1
                         continue
@@ -656,7 +657,10 @@ async def load_evaluation_items(patterns: list[str] | None = None) -> list[Evalu
         logger.info("\nZusammenfassung der geladenen Dateien:")
         for file_name, stats in file_stats.items():
             logger.info(
-                f"  - {file_name}: {stats['loaded']} Prompts geladen, {stats['skipped']} übersprungen"
+                "  - %s: %d Prompts geladen, %d übersprungen",
+                file_name,
+                stats["loaded"],
+                stats["skipped"],
             )
 
         return items
@@ -797,11 +801,13 @@ async def evaluate_item(
                         hint_init_parts: list[str] = []
                         if is_scene:
                             hint_init_parts.append(
-                                "Schreibe eine kurze Szene (1-2 Absätze) mit klarer Handlung, ohne Überschriften."
+                                "Schreibe eine kurze Szene (1-2 Absätze) mit klarer Handlung, "
+                                "ohne Überschriften."
                             )
                         if is_dialog:
                             hint_init_parts.append(
-                                "Schreibe einen knappen Dialog (max. 8 Repliken) ohne Überschriften."
+                                "Schreibe einen knappen Dialog (max. 8 Repliken) "
+                                "ohne Überschriften."
                             )
                         hint_init_parts.append(
                             "Verwende diese Begriffe wörtlich im Text: "
@@ -840,7 +846,8 @@ async def evaluate_item(
         logger = logging.getLogger("eval")
         logger.debug(f"Evaluiere Item {item.id}")
 
-        # Entweder übergebenen Client verwenden (ASGI-Modus) oder einen temporären erstellen (HTTP-Modus)
+        # Entweder übergebenen Client verwenden (ASGI-Modus)
+        # oder einen temporären erstellen (HTTP-Modus)
         headers: dict[str, str] = {}
         if request_id:
             headers[REQUEST_ID_HEADER] = request_id
@@ -1063,7 +1070,8 @@ async def evaluate_item(
                             )
                         if is_dialog:
                             hint_parts.append(
-                                "Schreibe einen knappen Dialog (max. 8 Repliken) ohne Überschriften."
+                                "Schreibe einen knappen Dialog (max. 8 Repliken) "
+                                "ohne Überschriften."
                             )
                     else:
                         hint_parts.append(
@@ -1080,9 +1088,11 @@ async def evaluate_item(
                     )
                 if needs_regex:
                     hint_parts.append(
-                        "Formatiere die Antwort so, dass die Muster (Regex) erfüllt sind."
+                        "Formatiere die Antwort so, dass die Muster (Regex) "
+                        "erfüllt sind."
                     )
-                # Falls globaler Eval-Hint aktiv, denselben Hint erneut sicherstellen (keine Doppelung)
+                # Falls globaler Eval-Hint aktiv, denselben Hint erneut sicherstellen
+                # (keine Doppelung)
                 if eval_mode and hint_must_include and precomputed_hint_terms:
                     enhanced_messages = inject_eval_hint(enhanced_messages, precomputed_hint_terms)
                 # Immer einen klaren Retry-Hinweis hinzufügen
@@ -1097,7 +1107,8 @@ async def evaluate_item(
                     attempts_used = 2
                     # Erneut prüfen
                     is_rpg_mode = check_rpg_mode(content2)
-                        checks_passed_retry: dict[str, bool] = {}
+                    checks_passed_retry: dict[str, bool] = {}
+                    failed_checks_retry: list[str] = []
 
                     if is_rpg_mode and not any(
                         rpg_term in (item.source_package or "").lower()
@@ -1648,7 +1659,8 @@ def print_results(results: list[EvaluationResult]) -> None:
 def compute_failure_summary(results: list[EvaluationResult]) -> dict[str, Any]:
     """Aggregiert Fehlerinformationen für einen kompakten Bericht.
 
-    Ermittelt u. a. Top-Failure-Kategorien (rpg_style, term_inclusion) und häufige fehlende Begriffe.
+    Ermittelt u. a. Top-Failure-Kategorien (rpg_style, term_inclusion) und
+    häufige fehlende Begriffe.
     """
     total = len(results)
     successes = sum(1 for r in results if r.success)
@@ -1714,9 +1726,8 @@ def print_failure_report(results: list[EvaluationResult]) -> None:
     print(f"  - rpg_style: {fail_counts.get('rpg_style', 0)}")
     if top_missing:
         miss_preview = ", ".join([f"{t}({n})" for t, n in top_missing])
-        print(
-            f"  - term_inclusion: {fail_counts.get('term_inclusion', 0)} (top missing: {miss_preview})"
-        )
+        print(f"  - term_inclusion: {fail_counts.get('term_inclusion', 0)}")
+        print("    top missing: " + miss_preview)
     else:
         print(f"  - term_inclusion: {fail_counts.get('term_inclusion', 0)}")
 
@@ -1897,11 +1908,11 @@ def create_example_eval_file(file_path: str, start_id: int = 21, count: int = 20
         # Beispielprompts und must_include-Terms
         example_prompts: list[dict[str, Any]] = [
             {
-                "prompt": "Erkläre mir den Unterschied zwischen einem Array und einer verketteten Liste.",
+                "prompt": "Erkläre den Unterschied zwischen Array und verketteter Liste.",
                 "must_include": ["Speicher", "Zugriff", "Datenstruktur"],
             },
             {
-                "prompt": "Was sind die Hauptmerkmale von agiler Softwareentwicklung?",
+                "prompt": "Was sind die Hauptmerkmale agiler Softwareentwicklung?",
                 "must_include": ["iterativ", "flexibel", "Scrum"],
             },
             {
@@ -1909,31 +1920,31 @@ def create_example_eval_file(file_path: str, start_id: int = 21, count: int = 20
                 "must_include": ["Magnetfeld", "Rotation", "Strom"],
             },
             {
-                "prompt": "Erkläre mir den Aufbau einer eukaryotischen Zelle.",
+                "prompt": "Beschreibe den Aufbau einer eukaryotischen Zelle.",
                 "must_include": ["Zellkern", "Organellen", "Mitochondrien"],
             },
             {
-                "prompt": "Was sind die wichtigsten Bestandteile der Erdatmosphäre?",
+                "prompt": "Woraus besteht die Erdatmosphäre?",
                 "must_include": ["Stickstoff", "Sauerstoff", "Atmosphäre"],
             },
             {
-                "prompt": "Wie bereite ich mich am besten auf eine Präsentation vor?",
+                "prompt": "Wie bereite ich mich auf eine Präsentation vor?",
                 "must_include": ["üben", "vorbereiten", "Zeit"],
             },
             {
-                "prompt": "Erkläre mir, wie Verschlüsselung im Internet funktioniert.",
+                "prompt": "Wie funktioniert Verschlüsselung im Internet?",
                 "must_include": ["Kryptographie", "Sicherheit", "Verbindung"],
             },
             {
-                "prompt": "Was sind beliebte Programmiersprachen für Anfänger?",
+                "prompt": "Welche Programmiersprachen sind für Anfänger geeignet?",
                 "must_include": ["Python", "einfach", "beliebt"],
             },
             {
-                "prompt": "Erkläre mir, wie künstliche Intelligenz von menschlicher Intelligenz unterscheidet.",
+                "prompt": "Wie unterscheidet sich KI von menschlicher Intelligenz?",
                 "must_include": ["lernen", "menschlich", "Maschinen"],
             },
             {
-                "prompt": "Wie kann ich meine Zeitplanung verbessern?",
+                "prompt": "Wie verbessere ich meine Zeitplanung?",
                 "must_include": ["Prioritäten", "Planung", "Zeit"],
             },
         ]
@@ -1964,9 +1975,10 @@ def create_example_eval_file(file_path: str, start_id: int = 21, count: int = 20
                 # Schreibe als JSONL (eine JSON-Zeile pro Zeile)
                 f.write(json.dumps(eval_item, ensure_ascii=False) + "\n")
 
-        print(f"Beispiel-Evaluationsdatei erstellt: {file_path}")
+        print("Beispiel-Evaluationsdatei erstellt: " + str(file_path))
         print(
-            f"Enthält {count} Datensätze mit IDs von eval-{start_id:03d} bis eval-{start_id+count-1:03d}"
+            f"Enthält {count} Datensätze mit IDs von eval-{start_id:03d} "
+            f"bis eval-{start_id+count-1:03d}"
         )
         return True
 
@@ -2093,7 +2105,10 @@ if __name__ == "__main__":
         "--hint-must-include",
         dest="hint_must_include",
         action="store_true",
-        help="Eval-only: Injektiert vor erster User-Message einen Hinweis mit wörtlich zu verwendenden Begriffen (aus must_include/keywords_*)",
+        help=(
+            "Eval-only: Injektiert vor erster User-Message einen Hinweis mit wörtlich "
+            "zu verwendenden Begriffen (aus must_include/keywords_*)",
+        ),
     )
 
     # Kommandos
@@ -2277,11 +2292,13 @@ if __name__ == "__main__":
         console.print(f"Limit: {args.limit} Einträge")
     if args.eval_mode:
         console.print(
-            "[bold yellow]Eval-Modus aktiviert:[/bold yellow] RPG-Systemprompt wird temporär überschrieben"
+            "[bold yellow]Eval-Modus aktiviert:[/bold yellow] "
+            "RPG-Systemprompt wird temporär überschrieben"
         )
     if args.asgi:
         console.print(
-            "[bold green]ASGI-Modus:[/bold green] In-Process gegen FastAPI-App (kein HTTP-Port erforderlich)"
+            "[bold green]ASGI-Modus:[/bold green] In-Process gegen "
+            "FastAPI-App (kein HTTP-Port erforderlich)"
         )
     console.print("")
     if p_final is not None:
@@ -2298,7 +2315,12 @@ if __name__ == "__main__":
         console.print(f"Retries bei Fehlschlag: {args.retries}")
     if args.sweep_temp or args.sweep_top_p:
         console.print(
-            f"Sweep: temp={args.sweep_temp or '-'} top_p={args.sweep_top_p or '-'} max_tokens={args.sweep_max_tokens or '-'}"
+            "Sweep: temp="
+            f"{args.sweep_temp or '-'} "
+            "top_p="
+            f"{args.sweep_top_p or '-'} "
+            "max_tokens="
+            f"{args.sweep_max_tokens or '-'}"
         )
     if args.use_cache and not args.no_cache:
         console.print("[green]Eval-Cache: aktiviert (cache_eval.jsonl)[/green]")
@@ -2310,8 +2332,10 @@ if __name__ == "__main__":
             console.print(f"[bold]Geladene Prompts ({len(items)}):[/bold]")
             for item in items[: args.limit] if args.limit else items:
                 prompt_content = item.messages[0]["content"] if item.messages else "Kein Inhalt"
+                preview = prompt_content[:100] + ("..." if len(prompt_content) > 100 else "")
                 console.print(
-                    f"[cyan]{item.id}[/cyan] ({item.source_package}): [yellow]{prompt_content[:100]}{'...' if len(prompt_content) > 100 else ''}[/yellow]"
+                    "[cyan]" + item.id + "[/cyan] (" + str(item.source_package) + "): "
+                    + "[yellow]" + preview + "[/yellow]"
                 )
         else:
             console.print("[bold red]Keine Prompts gefunden.[/bold red]")
@@ -2360,6 +2384,7 @@ if __name__ == "__main__":
         print_failure_report(results)
     else:
         console.print(
-            "[bold red]Keine Ergebnisse. Die Evaluierung wurde abgebrochen oder keine Einträge gefunden.[/bold red]"
+            "[bold red]Keine Ergebnisse. Die Evaluierung wurde abgebrochen "
+            "oder keine Einträge gefunden.[/bold red]"
         )
 

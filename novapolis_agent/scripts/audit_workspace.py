@@ -151,9 +151,15 @@ def main() -> int:
             rel = p
         print(f" - {name}: {rel}")
 
-    print(
-        f"\nGesamt Python-Module: {len(pyfiles)} | Erreichbar: {len(used)} | Potenziell ungenutzt: {len(unused)}"
+    summary_msg = (
+        "\nGesamt Python-Module: "
+        + str(len(pyfiles))
+        + " | Erreichbar: "
+        + str(len(used))
+        + " | Potenziell ungenutzt: "
+        + str(len(unused))
     )
+    print(summary_msg)
     if unused:
         print("\nPotenziell ungenutzte Python-Dateien:")
         for m in unused:
@@ -177,17 +183,21 @@ def main() -> int:
     print("\nHinweise:")
     hp = os.path.join(PROJECT_ROOT, "app", "routers", "health.py")
     if os.path.exists(hp):
-        print(
-            " - app/routers/health.py: Separater Health-Router; in app/main.py existiert bereits /health. Prüfen ob eingebunden."
+        msg = (
+            " - app/routers/health.py: Separater Health-Router; "
+            + "in app/main.py existiert bereits /health. Prüfen ob eingebunden."
         )
+        print(msg)
     ap_prompt = os.path.join(PROJECT_ROOT, "app", "core", "prompts.py")
     if os.path.exists(ap_prompt):
         print(" - app/core/prompts.py: zentrale Prompt-Quelle (keine system.txt mehr).")
     cm = os.path.join(PROJECT_ROOT, "app", "core", "content_management.py")
     if os.path.exists(cm):
-        print(
-            " - app/core/content_management.py: Nur nötig, wenn Inhaltsfilter aktiv genutzt wird."
+        msg = (
+            " - app/core/content_management.py: Nur nötig, "
+            + "wenn Inhaltsfilter aktiv genutzt wird."
         )
+        print(msg)
 
     return 0
 

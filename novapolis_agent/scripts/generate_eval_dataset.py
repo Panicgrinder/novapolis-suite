@@ -3,10 +3,13 @@
 Generate a JSONL evaluation dataset with synthetic prompts.
 
 Usage:
-  python scripts/generate_eval_dataset.py --start 101 --count 200 --out eval/datasets/eval-101-300_generated_v1.0.jsonl
+    python scripts/generate_eval_dataset.py --start 101 --count 200 \
+        --out eval/datasets/eval-101-300_generated_v1.0.jsonl
 
 Each item has schema:
-  {"id": "eval-<n>", "messages": [{"role":"user","content": "..."}], "checks": {"must_include": ["..."]}}
+    {"id": "eval-<n>",
+     "messages": [{"role":"user","content": "..."}],
+     "checks": {"must_include": ["..."]}}
 """
 from __future__ import annotations
 

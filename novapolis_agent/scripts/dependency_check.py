@@ -191,14 +191,25 @@ def check_datasets_and_precedence():
             if pid in seen:
                 _, prev_mtime, prev = seen[pid]
                 if mtime > prev_mtime:
-                    ok(
-                        f"Prio: Neuere Datei überschreibt ältere ID {pid} ({os.path.basename(prev)} -> {os.path.basename(fp)})"
+                    msg = (
+                        "Prio: Neuere Datei überschreibt ältere ID "
+                        + pid
+                        + " ("
+                        + os.path.basename(prev)
+                        + " -> "
+                        + os.path.basename(fp)
+                        + ")"
                     )
+                    ok(msg)
                     seen[pid] = (obj, mtime, fp)
                 else:
-                    ok(
-                        f"Prio: Ältere Datei bleibt für ID {pid} (neueres wurde verworfen): {os.path.basename(prev)}"
+                    msg = (
+                        "Prio: Ältere Datei bleibt für ID "
+                        + pid
+                        + " (neueres wurde verworfen): "
+                        + os.path.basename(prev)
                     )
+                    ok(msg)
             else:
                 seen[pid] = (obj, mtime, fp)
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """
-Migriert eval-21-40_fantasy (ehem. demo) auf neues Schema (prompt -> messages, must_include -> checks.must_include)
+Migriert eval-21-40_fantasy (ehem. demo) auf neues Schema
+(prompt -> messages, must_include -> checks.must_include)
 """
 import json
 import os

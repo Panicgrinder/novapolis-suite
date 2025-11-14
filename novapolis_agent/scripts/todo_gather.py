@@ -109,29 +109,33 @@ def build_md(results: dict[str, Any] | None, features: dict[str, Any]) -> str:
     lines.append("# TODO-Status - Automatischer Überblick")
     lines.append("")
     lines.append("## Features (offene Punkte)")
-    lines.append(
-        f"- Caching/Memoization: {'✅ integriert' if features['caching_integrated'] else ('🟡 vorhanden (noch nicht integriert)' if features['caching_available'] else '❌ fehlt')}"
-    )
+    if features.get("caching_integrated"):
+        caching_status = "✅ integriert"
+    elif features.get("caching_available"):
+        caching_status = "🟡 vorhanden (noch nicht integriert)"
+    else:
+        caching_status = "❌ fehlt"
+    lines.append(f"- Caching/Memoization: {caching_status}")
     lines.append("- Rerun-Failed: ✅ via scripts/rerun_from_results.py")
-    lines.append(
-        f"- Fine-Tuning/LoRA Pipeline: {'✅ vorhanden' if features['fine_tune_pipeline_available'] else '❌ fehlt'}"
-    )
-    lines.append(
-        f"- Datensatzkurierung: {'✅ vorhanden' if features['curate_dataset_available'] else '❌ fehlt'}"
-    )
+    ft_status = "✅ vorhanden" if features.get("fine_tune_pipeline_available") else "❌ fehlt"
+    lines.append(f"- Fine-Tuning/LoRA Pipeline: {ft_status}")
+    curate_status = "✅ vorhanden" if features.get("curate_dataset_available") else "❌ fehlt"
+    lines.append(f"- Datensatzkurierung: {curate_status}")
     lines.append("")
     if results:
         lines.append("## Letzte Eval-Metriken")
         lines.append(f"- Datei: {os.path.relpath(results['path'], PROJECT_ROOT)}")
-        lines.append(
-            f"- Tests: {results['success']}/{results['total']} ({results['success_rate']:.1f}%)"
-        )
+        succ = results.get("success")
+        tot = results.get("total")
+        rate_str = f"{results.get('success_rate'):.1f}"
+        tests_summary = "- Tests: " + str(succ) + "/" + str(tot) + " (" + rate_str + "%)"
+        lines.append(tests_summary)
         lines.append(f"- RPG-Anteil: {results['rpg_percentage']:.1f}%")
         lines.append(f"- Ø Dauer: {results['avg_duration_ms']:.0f} ms")
         if results["failed_ids"]:
-            lines.append(
-                f"- Fehlgeschlagene IDs: {', '.join(results['failed_ids'][:25])}{' …' if len(results['failed_ids'])>25 else ''}"
-            )
+            failed_preview = ", ".join(results["failed_ids"][:25])
+            ell = " …" if len(results["failed_ids"]) > 25 else ""
+            lines.append(f"- Fehlgeschlagene IDs: {failed_preview}{ell}")
     return "\n".join(lines)
 
 
