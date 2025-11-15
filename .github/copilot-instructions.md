@@ -172,27 +172,34 @@ YAML-Frontmatter (kompakt & LLM-freundlich)
      - `Checks: pytest -q PASS`
  - Migrationsstatus & Historie: Siehe Archiv `novapolis-dev/archive/copilot-instructions-update-tode.archive.md`.
 
+Archivierung: Verweis auf zentrales README
+---
+Die detaillierten Archivierungsregeln, die verbindliche Pfadliste und die genauen Ablauf‑Anweisungen sind im zentralen Archiv‑Readme `novapolis-dev/archive/README.md` dokumentiert und dort verbindlich zu pflegen. Kopiere bitte nicht die vollständigen Archivregeln in dieses Governance‑Dokument; dieses Dokument verweist verbindlich auf das Archiv‑README, um Doppelpflege zu vermeiden und die Governance übersichtlich zu halten.
+
+Konkrete Pfad- und Ablauf-Vorgaben für Archivierungen sind im zentralen Archiv-Readme festgelegt: `novapolis-dev/archive/README.md`.
+Bei neuen Archivierungen ist dieses README verbindlich zu verwenden; kopiere die Pfadlisten oder das vollständige Ablaufverfahren nicht in dieses Governance-Dokument. Diese Datei verweist verbindlich auf die Archiv-Readme, um die Governance kompakt zu halten und Doppelpflege zu vermeiden.
+
 Frontmatter-Schutz (true)(robust gegen Delimiter-Verlust)
 ---
-   - Ziel: Verhindern, dass die erste/letzte Frontmatter-Zeile (`---`) versehentlich entfernt oder verändert wird.
-   - Editor-Policy (Markdown):
-     - Format On Save für Markdown deaktivieren; Auto-Fixer/Prettier für Markdown nicht einsetzen.
-     - Änderungen in der Frontmatter nur an Schlüsseln/Values (z. B. `stand`, `update`, `checks`) vornehmen - die Delimiter `---` oben/unten nie anfassen. Sollten diese fehlen und nichts im betrefenden Dokument spricht dagegen, füge die erste Zeile `---` wieder hinzu (yaml fix).
-   - Validator-Gates:
-     - Pre-commit: `scripts/check_frontmatter.py` verpflichtend ausführen; Commit bei Fehlern blocken.
-     - Zusätzliche Sofort-Checks: erste Zeile exakt `---`, schließender Delimiter vorhanden, kein BOM vor dem öffnenden Delimiter.
-     - CI: Frontmatter-Validator als Schritt im Root-Workflow (fail-fast außerhalb der Skip-Pfade).
-   - Skip-Pfade (siehe `scripts/check_frontmatter.py`): `.venv/`, `Backups/`, `outputs/`, `novapolis_agent/eval/results/`, `novapolis_agent/outputs/`, `novapolis-rp/database-raw/`, `.pytest_cache/` (inkl. Varianten), `.tmp-results/`, `eval/results/tmp_summaries/`, `novapolis_agent/.tmp-results/` sowie diese Datei selbst.
-   - Der Validator ist ein hartes Gate: Sowohl Pre-Commit als auch CI brechen bei Verstößen ab; ohne Fix gibt es keinen Push/kein Merge.
+  - Ziel: Verhindern, dass die erste/letzte Frontmatter-Zeile (`---`) versehentlich entfernt oder verändert wird.
+  - Editor-Policy (Markdown):
+    - Format On Save für Markdown deaktivieren; Auto-Fixer/Prettier für Markdown nicht einsetzen.
+    - Änderungen in der Frontmatter nur an Schlüsseln/Values (z. B. `stand`, `update`, `checks`) vornehmen - die Delimiter `---` oben/unten nie anfassen. Sollten diese fehlen und nichts im betrefenden Dokument spricht dagegen, füge die erste Zeile `---` wieder hinzu (yaml fix).
+  - Validator-Gates:
+    - Pre-commit: `scripts/check_frontmatter.py` verpflichtend ausführen; Commit bei Fehlern blocken.
+    - Zusätzliche Sofort-Checks: erste Zeile exakt `---`, schließender Delimiter vorhanden, kein BOM vor dem öffnenden Delimiter.
+    - CI: Frontmatter-Validator als Schritt im Root-Workflow (fail-fast außerhalb der Skip-Pfade).
+  - Skip-Pfade (siehe `scripts/check_frontmatter.py`): `.venv/`, `Backups/`, `outputs/`, `novapolis_agent/eval/results/`, `novapolis_agent/outputs/`, `novapolis-rp/database-raw/`, `.pytest_cache/` (inkl. Varianten), `.tmp-results/`, `eval/results/tmp_summaries/`, `novapolis_agent/.tmp-results/` sowie diese Datei selbst.
+  - Der Validator ist ein hartes Gate: Sowohl Pre-Commit als auch CI brechen bei Verstößen ab; ohne Fix gibt es keinen Push/kein Merge.
 
 Dateiformat & EOL
 ---
 Frontmatter-Policy (Konsolidiert)
 ---
 Standard: Alle Markdown-Dokumente (außer Ausnahme GOV-EX-FM-001 für diese Datei) führen YAML-Frontmatter mit Schlüsseln `stand`, `update`, `checks`. Schutz: Erste und letzte `---` niemals automatisch modifizieren; Validator (`scripts/check_frontmatter.py`) erzwingt Gültigkeit und Skip-Pfade. Ausnahme GOV-EX-FM-001: Diese Governance-Datei behält nur Kopfzeile + „Stand“-Zeile, keine Frontmatter. Frühere Einzelabschnitte bleiben bis vollständiger Merge zur Referenz bestehen.
-   - Markdown-Dateien stets als UTF-8 ohne BOM speichern; der Validator schlägt bei BOM im ersten Zeichen fehl.
-   - Genau eine abschließende Newline am Dateiende belassen (MD047), keine zusätzlichen Leerzeilen anhängen.
-   - Git kümmert sich um Zeilenendungen (LF) im Repo; lokale CRLF-Konvertierungen sind erlaubt, solange der Commit wieder LF enthält. Bei Unsicherheiten `.gitattributes` respektieren und keinen Auto-Formatter einsetzen, der Frontmatter anfasst.
+  - Markdown-Dateien stets als UTF-8 ohne BOM speichern; der Validator schlägt bei BOM im ersten Zeichen fehl.
+  - Genau eine abschließende Newline am Dateiende belassen (MD047), keine zusätzlichen Leerzeilen anhängen.
+  - Git kümmert sich um Zeilenendungen (LF) im Repo; lokale CRLF-Konvertierungen sind erlaubt, solange der Commit wieder LF enthält. Bei Unsicherheiten `.gitattributes` respektieren und keinen Auto-Formatter einsetzen, der Frontmatter anfasst.
 
 Definition of Done (Code & Docs)
 ---
