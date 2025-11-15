@@ -10,6 +10,7 @@ Hinweise:
     requirements-train.txt) und eine passende Torch-Installation.
 - Unter Windows wird WSL2 oder Linux empfohlen.
 """
+
 from __future__ import annotations
 
 import argparse

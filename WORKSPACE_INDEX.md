@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-14 14:50
-update: Docs‑Sweep: Frontmatter/Timestamps synchronisiert; Phase-2 Konsolidierung vorbereitet
-checks: pending (after scoped lint)
+stand: 2025-11-15 09:27
+update: Frontmatter-Autofix + --touch im Index vermerkt
+checks: python scripts/check_frontmatter.py PASS
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -15,6 +15,9 @@ Monorepo Redirect / Konsolidierung
 Dieser Datei-Index bleibt als detailreicher Agent-spezifischer Katalog bestehen, verweist aber nun zentral auf das Hub-README (`novapolis-dev/README.md`) für globale Navigations- und Governance-Hinweise.
 
 Geplante Vereinheitlichung (Phase 2):
+- 2025-11-15 09:27: Index-Verweis auf Frontmatter-Autofix + `--touch` ergänzt; Status-/TODO-Dokumente synchron.
+- 2025-11-15 09:00: Index-Abgleich mit context.local Frontmatter-Update; Status-/TODO-Dokumente synchron.
+- 2025-11-15 09:00: Index-Abgleich mit context.local Frontmatter-Update; Status-/TODO-Dokumente synchron.
 - Reduzierung redundanter Indexabschnitte auf einen kurzen Verweisblock.
 - Stubs anderer Teilmodule werden auf Hub-Abschnitt "Projektübersicht" verweisen.
 - Vollständige Entfernung historischer Duplikate nach Abschluss der README-Entscheidungsliste.

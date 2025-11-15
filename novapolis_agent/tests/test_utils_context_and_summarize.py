@@ -26,7 +26,7 @@ def test_load_context_notes_prefers_first_existing_and_truncates():
 def test_summarize_helpers_basic():
     messages = [{"role": "user", "content": "Bitte nenne die Vorteile von Python."}]
     response = (
-        "Wichtig ist, dass Python eine große Community hat. " "Zusammenfassend: leicht zu lesen."
+        "Wichtig ist, dass Python eine große Community hat. Zusammenfassend: leicht zu lesen."
     )
     points = extract_key_points(response, max_points=3)
     assert points and isinstance(points, list)

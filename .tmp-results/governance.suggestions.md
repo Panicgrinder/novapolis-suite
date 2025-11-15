@@ -1,12 +1,14 @@
 ---
-stand: 2025-11-14 14:50
-update: Vorschlagsentwurf geprüft — Frontmatter-Timestamp synchronisiert (Docs Sweep)
-checks: pending
+stand: 2025-11-15 09:27
+update: Frontmatter-Autofix + --touch dokumentiert; Vorschläge fortgeführt
+checks: python scripts/check_frontmatter.py PASS
 ---
 
 Kurzbeschreibung
 - Sammlung konkreter Verbesserungsvorschläge für `.github/copilot-instructions.md`.
 - Nicht-bindend; dient der Review und späteren gezielten Minimal-Patches.
+- Docs sweep 2025-11-15: Kontext- und Statusabgleich bestätigt (TODO/Index aktualisiert, Frontmatter-Validator grün).
+- Frontmatter-Autofix 2025-11-15: Validator ersetzt fehlende `---` automatisch; `--touch` aktualisiert `stand` auf aktuellen Timestamp; Hinweise in Governance ergänzt.
 
 TL;DR-Blöcke (Einfüge-Vorschlag)
 - Semantische Regeln: 5-Punkte TL;DR (Guard-Checks nur bei WRITE/RUN; STOP hat Vorrang; Timestamps immer frisch; Quellen nennen; Reihenfolge Lint→Typen→Tests).

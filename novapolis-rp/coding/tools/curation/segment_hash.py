@@ -55,7 +55,7 @@ def print_summary(files: list[str], win: int):
             break
         print(f"\n## Hash {h[:12]}…")
         for fp, pos in mapping.items():
-            print(f"- {fp}: Positionen {pos[:5]}{'…' if len(pos)>5 else ''}")
+            print(f"- {fp}: Positionen {pos[:5]}{'…' if len(pos) > 5 else ''}")
         shown += 1
 
 

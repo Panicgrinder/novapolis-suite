@@ -207,6 +207,18 @@ Dateiformat & EOL
 Frontmatter-Policy (Konsolidiert)
 ---
 Standard: Alle Markdown-Dokumente (außer Ausnahme GOV-EX-FM-001 für diese Datei) führen YAML-Frontmatter mit Schlüsseln `stand`, `update`, `checks`. Schutz: Erste und letzte `---` niemals automatisch modifizieren; Validator (`scripts/check_frontmatter.py`) erzwingt Gültigkeit und Skip-Pfade. Ausnahme GOV-EX-FM-001: Diese Governance-Datei behält nur Kopfzeile + „Stand“-Zeile, keine Frontmatter. Frühere Einzelabschnitte bleiben bis vollständiger Merge zur Referenz bestehen.
+   - Referenzblock (immer exakt so belassen, nur Werte aktualisieren):
+
+```
+---
+stand: YYYY-MM-DD HH:mm
+update: Kurznotiz
+checks: Kontext (z. B. pytest -q PASS)
+---
+```
+
+   - Automatischer Fix: `scripts/check_frontmatter.py` ergänzt fehlende Start-Delimiter (`---`) sofort, sobald eine Frontmatter erkannt wird. Beim Speichern (z. B. via VS Code `runOnSave`) wird dadurch jede Datei wieder in den korrekten Zustand gebracht, auch wenn Copilot/GPT die erste Zeile versehentlich entfernt hat.
+   - Stand-Aktualisierung: `python scripts/check_frontmatter.py --touch <datei.md>` setzt den `stand`-Wert auf die lokale Systemzeit (`Get-Date -Format 'yyyy-MM-dd HH:mm'`). Empfehlung: Als manuellen Schritt nach größeren Änderungen oder über eine lokale `runOnSave`-Regel ausführen.
    - Markdown-Dateien stets als UTF-8 ohne BOM speichern; der Validator schlägt bei BOM im ersten Zeichen fehl.
    - Genau eine abschließende Newline am Dateiende belassen (MD047), keine zusätzlichen Leerzeilen anhängen.
    - Git kümmert sich um Zeilenendungen (LF) im Repo; lokale CRLF-Konvertierungen sind erlaubt, solange der Commit wieder LF enthält. Bei Unsicherheiten `.gitattributes` respektieren und keinen Auto-Formatter einsetzen, der Frontmatter anfasst.

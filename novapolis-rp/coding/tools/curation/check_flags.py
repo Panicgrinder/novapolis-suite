@@ -6,6 +6,7 @@ Convention:
 - Recognized flags: 'vorsichtig_behandeln' (handle with caution)
 Exit code 0: ran successfully; prints summary lines
 """
+
 from __future__ import annotations
 
 import pathlib

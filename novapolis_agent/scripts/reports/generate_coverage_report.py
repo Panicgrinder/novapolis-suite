@@ -4,6 +4,7 @@ Liest Coverage-Daten (.coverage/coverage.xml) und schreibt einen Snapshot-Berich
   eval/results/reports/coverage/<YYYYMMDD_HHMM>/{report.md, params.txt}.
 Falls keine coverage.xml existiert, wird ein kurzer Hinweis geschrieben.
 """
+
 from __future__ import annotations
 
 import json

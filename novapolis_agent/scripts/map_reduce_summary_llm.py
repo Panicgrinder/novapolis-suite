@@ -10,6 +10,7 @@ Verwendung (empfohlen im ASGI-In-Process-Modus, kein laufender Server nötig):
 Standard: LLM für Code/Doku; Heuristik für große Datensätze. Ergebnisse als Markdown pro Scope
 plus eine gemergte Gesamtdatei. Request-IDs werden pro Datei gesetzt.
 """
+
 from __future__ import annotations
 
 import argparse

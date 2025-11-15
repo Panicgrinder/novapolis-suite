@@ -7,6 +7,7 @@ Voraussetzungen:
 - OPENAI_API_KEY als Umgebungsvariable
 - Datensätze: *_train.jsonl und *_val.jsonl (openai_chat-Format)
 """
+
 from __future__ import annotations
 
 import importlib
@@ -40,9 +41,8 @@ def validate_openai_chat_jsonl(path: str, limit: int = 5) -> None:
             assert "messages" in obj, f"Zeile {i}: 'messages' fehlt"
             assert isinstance(obj["messages"], list), f"Zeile {i}: 'messages' ist nicht Liste"
             for m in obj["messages"]:
-                assert (
-                    isinstance(m, dict) and "role" in m and "content" in m
-                ), f"Zeile {i}: ungültige message"
+                is_valid_message = isinstance(m, dict) and "role" in m and "content" in m
+                assert is_valid_message, f"Zeile {i}: ungültige message"
             if i >= limit:
                 break
 

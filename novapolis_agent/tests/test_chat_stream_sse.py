@@ -48,7 +48,6 @@ def _make_fake_stream_client(chunks: list[str]):
 @pytest.mark.streaming
 @pytest.mark.api
 def test_stream_chat_sends_sse_chunks_and_done(monkeypatch: MonkeyPatch) -> None:
-
     def fake_factory(*a, **k) -> object:
         return _make_fake_stream_client(["a", "b"])
 

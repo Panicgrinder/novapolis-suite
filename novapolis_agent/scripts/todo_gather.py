@@ -8,6 +8,7 @@ Sammelt Status-/Metrik-Daten für docs/TODO.md:
 Aufruf:
   python scripts/todo_gather.py --write-md
 """
+
 from __future__ import annotations
 
 import argparse

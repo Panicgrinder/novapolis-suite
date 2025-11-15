@@ -16,9 +16,11 @@ Assumptions:
 - manifest.artifacts.reports has keys: textStats, deltaA, deltaB, deltaC
 - manifest.source points to A (e.g., chat-export (1).txt)
 - B is usually the sibling chat-export.txt in the same folder
-- RAW file is discovered under database-raw/99-exports/ as RAW-chat-export-*.txt;
-  we prefer one whose timestamp includes the HH-MM hint embedded in the delta filename (e.g., RAW-02-54)
+- RAW file is discovered under database-raw/99-exports/ as RAW-chat-export-*.txt.
+    Prefer a filename whose timestamp includes the HH-MM hint embedded in the delta
+    filename (for example, RAW-02-54).
 """
+
 from __future__ import annotations
 
 import json

@@ -8,6 +8,7 @@ Verwendung:
 Respektiert optionale Zeitzone via CVN_TZ/TZ (z.B. Europe/Berlin). Fällt sonst
 auf System-Lokalzeit (aware, mit Offset) zurück.
 """
+
 from __future__ import annotations
 
 import os

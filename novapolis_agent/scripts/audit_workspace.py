@@ -6,6 +6,7 @@ Ergebnisse sind heuristisch und dienen als Startpunkt für Aufräumarbeiten.
 Ausführung:
   python scripts/audit_workspace.py
 """
+
 import ast
 import os
 import sys

@@ -7,6 +7,7 @@ Beispiel:
   python scripts/openai_ft_status.py <JOB_ID> --interval 15
   python scripts/openai_ft_status.py <JOB_ID> --no-follow --events-limit 50
 """
+
 from __future__ import annotations
 
 import argparse

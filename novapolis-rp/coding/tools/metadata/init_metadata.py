@@ -17,6 +17,7 @@ Options:
   --overwrite  Overwrite existing .json files (default: False)
   --root PATH  Root directory to scan (default: cwd)
 """
+
 from __future__ import annotations
 
 import argparse

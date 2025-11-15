@@ -3,6 +3,7 @@
 Führt das lokale Konsistenz-Audit aus (scripts/audit_workspace.py) und schreibt
   eval/results/reports/consistency/<YYYYMMDD_HHMM>/{report.md, params.txt}
 """
+
 from __future__ import annotations
 
 import io

@@ -517,7 +517,7 @@ def action_trends() -> None:
 
     # Übersichts-Tabelle (letzte 10)
     print("Letzte Läufe:\n")
-    header = f"{'Zeit':<13}  {'Model':<18}  {'OK':>6}/{ 'Tot':<4}"
+    header = f"{'Zeit':<13}  {'Model':<18}  {'OK':>6}/{'Tot':<4}"
     header += f"  {'Rate':>6}  {'Øms':>6}  {'RPG':>4}  Datei"
     print(header)
     print("-" * len(header))
@@ -541,7 +541,7 @@ def action_trends() -> None:
     # Optional: Sweep-Aggregation anzeigen (letzte 12 Einträge mit temp/top_p/Øms/Rate)
     if sweep_summaries:
         print("\nSweep-Aggregation (letzte 12):\n")
-        left = f"{'Datei':<28}  {'temp':>6}  {'top_p':>6}  {'OK':>6}/{ 'Tot':<4}"
+        left = f"{'Datei':<28}  {'temp':>6}  {'top_p':>6}  {'OK':>6}/{'Tot':<4}"
         right = f"  {'Rate':>6}  {'Øms':>6}"
         print(left + right)
         for s in sweep_summaries.get("all", [])[:12]:
@@ -616,7 +616,7 @@ def action_trends() -> None:
                     if r.success:
                         d["ok"] += 1
                 print("\nPaket-Statistik:\n")
-                ph = f"{'Paket':<30}  {'OK':>6}/{ 'Tot':<4}  {'Rate':>6}  {'Øms':>6}"
+                ph = f"{'Paket':<30}  {'OK':>6}/{'Tot':<4}  {'Rate':>6}  {'Øms':>6}"
                 print(ph)
                 print("-" * len(ph))
                 for pkg, d in sorted(stats.items()):
@@ -671,9 +671,8 @@ def action_view_results() -> None:
         with open(out_md, "w", encoding="utf-8") as f:
             f.write("# Evaluierungsreport\n\n")
             f.write(f"Quelle: {os.path.basename(chosen)}\n\n")
-            f.write(
-                f"Erfolg: {successful}/{total} ({(successful/total*100 if total else 0):.1f}%)\n\n"
-            )
+            success_rate = (successful / total * 100) if total else 0
+            f.write(f"Erfolg: {successful}/{total} ({success_rate:.1f}%)\n\n")
             f.write("## Fehlgeschlagene Tests\n\n")
             for r in results:
                 if not r.success:

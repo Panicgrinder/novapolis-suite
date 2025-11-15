@@ -1,12 +1,15 @@
 ---
-stand: 2025-11-14 14:50
-update: Docs sweep applied — frontmatter and status notes synchronized
-checks: pending (scoped lint)
+stand: 2025-11-15 09:27
+update: Frontmatter-Autofix + --touch dokumentiert
+checks: python scripts/check_frontmatter.py PASS
 ---
 
 Recent Changes
 --------------
 
+- 2025-11-15 09:27: Frontmatter-Autofix + `--touch` (Stand-Aktualisierung) in `scripts/check_frontmatter.py` ergänzt; Governance-Referenzblock erweitert; Validator PASS (`python scripts/check_frontmatter.py`).
+- 2025-11-15 09:20: Dokumentationssweep (context.local.md Frontmatter repariert, todo/Status/Index aktualisiert); Frontmatter-Validator PASS (`python scripts/check_frontmatter.py`).
+- 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert, todo/Status/Index aktualisiert); Frontmatter-Validator PASS (`python scripts/check_frontmatter.py`).
 - 2025-11-12 03:37: Checks: full Review abgeschlossen (damals PowerShell-Runner, inzwischen durch `python scripts/run_checks_and_report.py` ersetzt; PSScriptAnalyzer-Phase verifiziert, Receipt-Struktur JSON + Postflight-Vorlage bestätigt). Link-Scanner Rescan nun 0 defekte Verweise.
 - 2025-11-12 02:46: Governance: Vorangestellte Start-Checks entfernt aus `.github/copilot-instructions.md`; Postflight-Formulierung präzisiert (finaler Block am Ende der Nachricht); Headings-Extrakt aktualisiert & veraltete Regel-ID-Vorschläge gestrichen; Lint PASS (`.github/copilot-instructions-headings.md`).
 

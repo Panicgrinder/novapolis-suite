@@ -125,7 +125,7 @@ async def version_info() -> dict[str, Any]:
 async def request_context_mw(request: Request, call_next):
     rid = request.headers.get(settings.REQUEST_ID_HEADER) or request.headers.get("X-Request-Id")
     if not rid:
-        rid = f"req-{int(time.time()*1000)}"
+        rid = f"req-{int(time.time() * 1000)}"
     start = time.time()
     try:
         try:

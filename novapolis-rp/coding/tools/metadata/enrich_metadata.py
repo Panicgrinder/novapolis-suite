@@ -23,6 +23,7 @@ Enrich sidecar JSON metadata from Markdown (YAML Front Matter aware)
 - Does NOT touch Markdown
 - Skips database-raw/99-exports and common tool folders
 """
+
 from __future__ import annotations
 
 import json
@@ -346,7 +347,7 @@ def main() -> int:
             json_path = md_path.with_suffix(".json")
             if not json_path.exists():
                 continue
-            changed, jp = enrich_pair(md_path, json_path)
+            changed, _json_rel = enrich_pair(md_path, json_path)
             if changed:
                 touched += 1
     print(f"Enriched JSON files: {touched}")

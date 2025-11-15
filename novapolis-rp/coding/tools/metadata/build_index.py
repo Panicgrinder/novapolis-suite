@@ -20,6 +20,7 @@ Options:
   --root PATH Root directory (default: cwd)
   --rp PATH   RP base dir relative to root (default: database-rp)
 """
+
 from __future__ import annotations
 
 import argparse

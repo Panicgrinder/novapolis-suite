@@ -7,6 +7,7 @@ Nutzung:
 
 Optional: Autor wird aus git config user.name gelesen; sonst Nutzername der Umgebung.
 """
+
 from __future__ import annotations
 
 import datetime as dt

@@ -8,6 +8,7 @@ Exit codes:
   3 = Network or API connectivity issue
   4 = SDK not installed / other error
 """
+
 from __future__ import annotations
 
 import os

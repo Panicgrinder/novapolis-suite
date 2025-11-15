@@ -26,9 +26,7 @@ def test_curation_filters_reduce_records(tmp_path: Path, monkeypatch: pytest.Mon
                         "item_id": "eval-2",
                         "success": True,
                         "response": (
-                            "antwort mit vielen worten und listen-\n"
-                            "- punkt eins\n"
-                            "- punkt zwei"
+                            "antwort mit vielen worten und listen-\n- punkt eins\n- punkt zwei"
                         ),
                         "failed_checks": [],
                     }

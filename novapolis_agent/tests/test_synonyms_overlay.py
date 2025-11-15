@@ -56,9 +56,8 @@ def test_synonyms_overlay_merged_and_deduped():
 
             syns_unternehmen = mod.get_synonyms("unternehmen")
             for w in ("firma", "betrieb"):
-                assert (
-                    w in syns_unternehmen
-                ), f"'{w}' fehlt in gemergten Synonymen: {syns_unternehmen}"
+                failure_msg = f"'{w}' fehlt in gemergten Synonymen: {syns_unternehmen}"
+                assert w in syns_unternehmen, failure_msg
     finally:
         # Restore
         mod2 = cast(Any, run_eval)

@@ -2,19 +2,21 @@
 """
 Validate YAML Front Matter across Markdown canvases.
 Rules (agreed schema):
-- Required for all: title(str), category(enum), slug(str kebab-case ASCII), version(str), last_updated(ISO-8601 with TZ)
+- Required for all: title(str), category(enum), slug(str kebab-case ASCII),
+    version(str) und last_updated(ISO-8601 mit TZ)
 - Always present (may be empty arrays): tags[], affiliations[], locations[], dependencies[]
 - Optional: last_change(str)
 - Category specifics:
-  - scene: characters[] (non-empty), locations[] (non-empty)
-  - character: affiliations[] (non-empty; ["none"] allowed)
-  - location: affiliations[] (non-empty; ["none"] allowed)
+    - scene: characters[] (non-empty), locations[] (non-empty)
+    - character: affiliations[] (non-empty; ["none"] allowed)
+    - location: affiliations[] (non-empty; ["none"] allowed)
 - Reference checks:
-  - dependencies: each slug must exist in repo
-  - scene.characters: each slug must exist in repo
+    - dependencies: each slug must exist in repo
+    - scene.characters: each slug must exist in repo
 
 Exit code non-zero on errors. Prints concise summary and first N errors per file.
 """
+
 from __future__ import annotations
 
 import os
@@ -216,7 +218,8 @@ def validate_file(md_path: Path, slugs_index: dict[str, str]) -> list[str]:
         if dep not in slugs_index:
             errs.append(f"{ctx}: dependency slug not found: '{dep}'")
 
-    # Ensure always-present arrays are at least declared in FM (we can't mutate here; Enricher will normalize JSON)
+    # Ensure always-present arrays are at least declared in FM (no mutation here;
+    # the enricher normalizes JSON afterwards)
     for key, _val in (
         ("tags", tags),
         ("affiliations", affiliations),

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-14 15:09
-update: Docs sweep: timestamps synchronized; link-scan receipts kept
-checks: pending (lint)
+stand: 2025-11-15 09:27
+update: Frontmatter-Autofix + --touch dokumentiert; Statusdateien synchron
+checks: python scripts/check_frontmatter.py PASS
 ---
 
 Bereinigte Aufgabenliste (Root)
@@ -14,6 +14,7 @@ Hoch priorisiert (0-2 Tage)
 
   - Ziel: `pytest -q` PASS, `pyright` PASS, `mypy` PASS, Coverage ≥80% mit Receipt.
   - Schritte: pytest → pyright → mypy → `scripts/run_pytest_coverage.ps1` (Receipt in `DONELOG.md` + `WORKSPACE_STATUS.md`).
+ - [x] Docs: Statusdateien synchronisieren (todo.root.md, WORKSPACE_STATUS.md, WORKSPACE_INDEX.md, governance.suggestions.md) – Lauf 2025-11-15 09:00
  - [x] Agent: Integration `PSScriptAnalyzer` in der damaligen PowerShell-Variante (jetzt durch `python scripts/run_checks_and_report.py` ersetzt) (2025-11-11 11:00)
   - [x] `*.code-workspace` suchen und entfernen/verschieben (report counts)
   - [ ] `tasks.json` Inline-Ketten prüfen → Wrapper-Aufrufe

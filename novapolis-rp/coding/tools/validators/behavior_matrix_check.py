@@ -183,7 +183,7 @@ def compare_with_psymatrix(
 
     anchor_lookup = {record.anchor: record for record in anchors}
 
-    for anchor_code, ps_signature in psymatrix.items():
+    for anchor_code, _ps_signature in psymatrix.items():
         if anchor_code not in anchor_lookup:
             warnings.append(f"Psymatrix enthält unbekannten Anchor '{anchor_code}'")
 
@@ -200,7 +200,8 @@ def compare_with_psymatrix(
             ps_value = ps_map.get(cluster)
             if ref_value is None:
                 errors.append(
-                    f"Anchor '{anchor_code}': Cluster '{cluster}' fehlt im Register (Psymatrix {ps_value:02d})"
+                    f"Anchor '{anchor_code}': Cluster '{cluster}' fehlt im Register "
+                    f"(Psymatrix {ps_value:02d})"
                 )
                 continue
             if ps_value is None:
@@ -209,7 +210,8 @@ def compare_with_psymatrix(
             delta = abs(ref_value - ps_value)
             if delta > DRIFT_THRESHOLD:
                 errors.append(
-                    f"Anchor '{anchor_code}': Cluster '{cluster}' differiert um {delta} Punkte (Register {ref_value:02d} vs. Psymatrix {ps_value:02d})"
+                    f"Anchor '{anchor_code}': Cluster '{cluster}' differiert um {delta} Punkte "
+                    f"(Register {ref_value:02d} vs. Psymatrix {ps_value:02d})"
                 )
     return errors, warnings
 
@@ -260,7 +262,8 @@ def main(argv: Iterable[str] | None = None) -> int:
         warnings.extend(cmp_warnings)
     else:
         print(
-            "Hinweis: ai_psymatrix_index_v1 nicht gefunden oder ohne erkennbare Signaturen - Abgleich übersprungen."
+            "Hinweis: ai_psymatrix_index_v1 nicht gefunden oder ohne erkennbare "
+            "Signaturen - Abgleich übersprungen."
         )
 
     if errors:

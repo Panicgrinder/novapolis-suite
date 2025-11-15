@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-12 04:42
-update: Hinweis auf Guard-Check-Kontext ergänzt; keine neuen Läufe
-checks: markdownlint-cli2 PASS (scoped)
+stand: 2025-11-15 09:27
+update: Frontmatter-Autofix + --touch ergänzt, Governance aktualisiert
+checks: python scripts/check_frontmatter.py PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -11,6 +11,10 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 
 Kurzueberblick
 --------------
+
+- 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
+- 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+- 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
 
 - 2025-11-14 14:44: Copilot | Checks-Run: Ruff/Black/Mypy/Markdownlint/Tests
   - Ruff: Fixes in `novapolis_agent/app/api/chat.py` (model_dump guards, B010) applied.

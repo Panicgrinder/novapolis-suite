@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-14 14:50
-update: Docs sweep: Frontmatter timestamps synchronized; minor editorial tidy
-checks: rein dokumentarisch
+stand: 2025-11-15 09:27
+update: Frontmatter-Autofix + --touch-Option ergänzt, Doku aktualisiert
+checks: python scripts/check_frontmatter.py PASS
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -13,6 +13,9 @@ Kurzueberblick
 --------------
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit - dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten-STOP (global, immer gültig)“.
+
+- 2025-11-15 09:27: Frontmatter-Autofix + `--touch` (Stand-Update) in `scripts/check_frontmatter.py` ergänzt; Governance-Hinweis aktualisiert; Validator PASS.
+- 2025-11-15 09:00: Dokumentationsstatus aktualisiert (context.local.md Frontmatter repariert, Statusdateien im Abgleich); Frontmatter-Validator PASS.
 
 - 2025-11-10 08:08: Ruff-Backlog Etappe gestartet - targeted Fixes in `novapolis_agent/app/tools/registry.py`, `novapolis_agent/scripts/append_done.py`, `novapolis_agent/scripts/rerun_failed.py`; DONELOG & `WORKSPACE_STATUS.md` aktualisiert (R-LINT, R-LOG).
 - 2025-11-09 21:25: Workspace-Analyse durchgeführt (Root/Ordner-Ebene, stichprobenartig Dateien). Befunde ergänzt: Frontmatter-Backlog (R-FM), Multi-Root-Abschluss (R-STOP/R-WRAP), Artefakt-Bereinigung (R-SEC/R-SAFE), Tree-/Status-Snapshots (R-IDX).

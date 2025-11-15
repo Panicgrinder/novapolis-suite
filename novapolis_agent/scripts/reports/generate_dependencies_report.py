@@ -4,6 +4,7 @@ Generates a dependencies report and stores it under
   eval/results/reports/dependencies/<YYYYMMDD_HHMM>/{report.md, params.txt}
 It runs scripts/dependency_check.py and captures its output.
 """
+
 from __future__ import annotations
 
 import io

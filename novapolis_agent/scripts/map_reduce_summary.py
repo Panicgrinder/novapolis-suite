@@ -15,6 +15,7 @@ Aufruf:
 Hinweis: Dieses Skript nutzt reine statische Heuristiken (AST/Headings/JSON-Struktur),
          damit es ohne Modell/Netzwerk ausführbar ist.
 """
+
 from __future__ import annotations
 
 import argparse

@@ -19,6 +19,7 @@ Implementation details:
 
 Note: This script is designed to be Windows-friendly (paths with spaces/parentheses) via pathlib.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -205,7 +206,8 @@ def build_lexicon(yaml_root: Path, extra_aliases: dict[str, str] | None = None) 
             slug="mission-c6-nord", category="mission", title="Mission C6-Nord (Sealed room)"
         )
 
-    # 3) Build aliases: title-based; plus case variants for short location slugs; plus first/last from titles
+    # 3) Build aliases: title-basierte Zuordnungen, Case-Varianten für kurze
+    # Location-Slugs sowie erste/letzte Tokens aus Titeln
     aliases: dict[str, str] = {}
     alias_collisions: dict[str, set[str]] = defaultdict(set)
 

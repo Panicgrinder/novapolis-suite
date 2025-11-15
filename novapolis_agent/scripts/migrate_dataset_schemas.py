@@ -3,6 +3,7 @@
 Migriert eval-21-40_fantasy (ehem. demo) auf neues Schema
 (prompt -> messages, must_include -> checks.must_include)
 """
+
 import json
 import os
 import sys
@@ -69,24 +70,24 @@ def migrate_demo_dataset():
             if "prompt" in e and "messages" not in e:
                 e["messages"] = [{"role": "user", "content": e.pop("prompt")}]
                 changes_made = True
-                print(f"  Eintrag {i+1}: prompt -> messages migriert")
+                print(f"  Eintrag {i + 1}: prompt -> messages migriert")
 
             # Migration 2: must_include -> checks.must_include
             if "must_include" in e and "checks" not in e:
                 e["checks"] = {"must_include": e.pop("must_include")}
                 changes_made = True
-                print(f"  Eintrag {i+1}: must_include -> checks.must_include migriert")
+                print(f"  Eintrag {i + 1}: must_include -> checks.must_include migriert")
             elif "must_include" in e and "checks" in e:
                 # must_include ist noch außerhalb von checks
                 if "must_include" not in e["checks"]:
                     e["checks"]["must_include"] = e.pop("must_include")
                     changes_made = True
-                    print(f"  Eintrag {i+1}: must_include in checks verschoben")
+                    print(f"  Eintrag {i + 1}: must_include in checks verschoben")
                 else:
                     # Beide existieren, entferne das äußere
                     e.pop("must_include")
                     changes_made = True
-                    print(f"  Eintrag {i+1}: doppeltes must_include entfernt")
+                    print(f"  Eintrag {i + 1}: doppeltes must_include entfernt")
 
             migrated.append(e)
 

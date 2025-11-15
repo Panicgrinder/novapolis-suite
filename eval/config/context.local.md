@@ -1,10 +1,11 @@
 ---
-stand: 2025-11-14 15:09
-update: added minimal frontmatter for validator
-checks: pending
+stand: 2025-11-15 08:52
+update: Frontmatter wiederhergestellt
+checks: markdownlint PASS
 ---
 
 ```markdown
 Kontext-Testnotiz
 ```
+
 Kontext-Testnotiz

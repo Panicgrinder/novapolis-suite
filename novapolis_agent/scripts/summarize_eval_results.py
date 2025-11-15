@@ -6,6 +6,7 @@ Usage:
   python scripts/summarize_eval_results.py --tag TAG [--out docs/reports/TAG.md]
   python scripts/summarize_eval_results.py --file eval/results/results_*.jsonl [--out ...]
 """
+
 from __future__ import annotations
 
 import argparse
@@ -95,7 +96,9 @@ def _write_markdown(out_path: str, tag: str, results_path: str, summary: dict[st
         f.write("- Modus: ASGI (in-process)\n")
         f.write(f"- Ergebnisse: {results_path}\n\n")
         f.write("## Zusammenfassung\n\n")
-        f.write(f"- Erfolgreich: {success}/{total} ({(success/total*100) if total else 0:.1f}%)\n")
+        f.write(
+            f"- Erfolgreich: {success}/{total} ({(success / total * 100) if total else 0:.1f}%)\n"
+        )
         f.write(f"- Durchschnittliche Dauer: {avg_ms} ms\n\n")
         if top_fail:
             f.write("Top-Fehlschlagursachen\n\n")

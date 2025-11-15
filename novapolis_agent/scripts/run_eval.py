@@ -500,7 +500,7 @@ async def load_prompts(patterns: list[str] | None = None) -> list[dict[str, Any]
                         prompt["source_package"] = package_name
 
                         # Extrahiere die ID oder generiere eine, falls nicht vorhanden
-                        prompt_id: str = prompt.get("id", f"auto-{len(prompt_registry)+1}")
+                        prompt_id: str = prompt.get("id", f"auto-{len(prompt_registry) + 1}")
 
                         # Überprüfe, ob dieser Datensatz bereits registriert ist
                         if prompt_id in prompt_registry:
@@ -583,7 +583,7 @@ async def load_evaluation_items(patterns: list[str] | None = None) -> list[Evalu
                 # Überprüfe das Format der Daten
                 if "id" not in data:
                     logger.warning("'id' fehlt in einem Prompt, generiere ID")
-                    data["id"] = f"eval-{len(items)+1:03d}"
+                    data["id"] = f"eval-{len(items) + 1:03d}"
 
                 # Stelle sicher, dass die ID das richtige Format hat
                 if not str(data["id"]).startswith("eval-"):
@@ -1086,7 +1086,7 @@ async def evaluate_item(
                     )
                 if needs_regex:
                     hint_parts.append(
-                        "Formatiere die Antwort so, dass die Muster (Regex) " "erfüllt sind."
+                        "Formatiere die Antwort so, dass die Muster (Regex) erfüllt sind."
                     )
                 # Falls globaler Eval-Hint aktiv, denselben Hint erneut sicherstellen
                 # (keine Doppelung)
@@ -1975,7 +1975,7 @@ def create_example_eval_file(file_path: str, start_id: int = 21, count: int = 20
         print("Beispiel-Evaluationsdatei erstellt: " + str(file_path))
         print(
             f"Enthält {count} Datensätze mit IDs von eval-{start_id:03d} "
-            f"bis eval-{start_id+count-1:03d}"
+            f"bis eval-{start_id + count - 1:03d}"
         )
         return True
 

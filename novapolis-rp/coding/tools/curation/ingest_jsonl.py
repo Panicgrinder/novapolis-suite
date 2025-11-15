@@ -6,13 +6,15 @@ Stream-Ingest für RAW-Exporte (JSONL oder TXT) → kuratierte Szenenblöcke.
 - Schneidet in Blöcke nach max_chars und/oder max_messages
 - Schreibt nach database-rp/06-scenes/<YYYYmmdd_HHMM>/scenes_openai_chat.jsonl
 
-WICHTIG: Eingaben müssen aus database-raw/99-exports/ stammen. Keine Rohdaten direkt in database-rp/ ablegen.
+WICHTIG: Eingaben müssen aus database-raw/99-exports/ stammen.
+Keine Rohdaten direkt in database-rp/ ablegen.
 
 Beispiel:
   python coding/tools/curation/ingest_jsonl.py \
     --in database-raw/99-exports/chat-export-2025-10-23T12-34-56.jsonl \
     --out-dir database-rp/06-scenes --max-chars 12000 --max-messages 80
 """
+
 from __future__ import annotations
 
 import argparse
@@ -35,7 +37,8 @@ def clean_text(s: str) -> str:
     s = s.replace("\r\n", "\n").replace("\r", "\n")
     s = CTRL_RE.sub("", s)
     s = ZW_RE.sub("", s)
-    # Zeilenweise Whitespace-Kompaktion: Tabs→Space, mehrfach Spaces/Tabs→1 Space, trailing Spaces entfernen
+    # Zeilenweise Whitespace-Kompaktion: Tabs→Space, mehrfach Spaces/Tabs → ein Space,
+    # anschließend trailing Spaces löschen
     s = MULTI_NL_RE.sub("\n\n", s)
     # Erst grob: Tabs als Space
     s = s.replace("\t", " ")
