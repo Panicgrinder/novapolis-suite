@@ -547,7 +547,3 @@ Hinweis (Terminal/Pwsh)
  Direkte Eingaben erfolgen in der laufenden Session (kein erneutes `pwsh` nötig). Für komplexe oder mehrzeilige Abläufe (Coverage, Artefakt-Erzeugung, umfangreiche Prüf-Sequenzen) Skript-Wrapper nutzen: `pwsh -File <script.ps1>`. Inline `pwsh -Command "..."` ist ausschließlich für echte Einzeiler oder externe Launcher (CI/Task) zulässig. Kein zusammengesetztes Mehrzeilen-Here-String über `-Command`; stattdessen Skript anlegen. Achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`).
 #### Ausnahme (Systemzeit)
  Einfache Ausgabe direkt: `Get-Date -Format 'yyyy-MM-dd HH:mm'`.
-
-Postflight: STOP-Gate dedupliziert, Modell-Profile konsolidiert, Prüfabläufe und Module korrekt gerelevelt, Markdownlint-Sektion vereinheitlicht, Meta-Block harmonisiert, Heading-Interpunktion und -Einzug bereinigt, Whitespace normalisiert; Lint-Ziele MD001/MD003/MD007/MD009/MD012/MD023/MD025/MD031/MD032/MD047 erfüllt.
-
-

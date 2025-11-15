@@ -1,3 +1,8 @@
+---
+archived: "true"
+Timestamp: 2025-11-15 05:59
+---
+
 $ErrorActionPreference = "Stop"
 
 function Invoke-GitCommand {

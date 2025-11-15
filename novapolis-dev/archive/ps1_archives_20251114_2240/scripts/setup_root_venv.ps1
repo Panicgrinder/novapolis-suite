@@ -1,3 +1,8 @@
+---
+archived: "true"
+Timestamp: 2025-11-15 05:59
+---
+
 #!/usr/bin/env pwsh
 # Requires: PowerShell 7+
 # Purpose: Create/ensure root .venv and install dependencies (idempotent)

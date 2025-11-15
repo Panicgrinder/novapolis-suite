@@ -1,3 +1,8 @@
+---
+archived: "true"
+Timestamp: 2025-11-15 05:59
+---
+
 #!/usr/bin/env pwsh
 # Purpose: Quick wrapper to run pytest -q for Agent tests with cwd set, per wrapper policy.
 # Usage: pwsh -NoProfile -File scripts/run_pytest_quick.ps1

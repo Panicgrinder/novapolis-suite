@@ -1,3 +1,8 @@
+---
+archived: "true"
+Timestamp: 2025-11-15 05:59
+---
+
 <#
 Runs pytest with coverage using the workspace's root venv if available.
 #>

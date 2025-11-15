@@ -1,3 +1,8 @@
+---
+archived: "true"
+Timestamp: 2025-11-15 05:59
+---
+
 <#
 Scans a selected workspace directory for Markdown links and simple file references.
 Archived copy of original PowerShell script.

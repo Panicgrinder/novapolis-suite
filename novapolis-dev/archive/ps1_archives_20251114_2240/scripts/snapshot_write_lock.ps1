@@ -1,3 +1,8 @@
+---
+archived: "true"
+Timestamp: 2025-11-15 05:59
+---
+
 $ErrorActionPreference = 'Stop'
 $root = (git rev-parse --show-toplevel) 2>$null
 if (-not $root) { $root = (Get-Location).Path }
