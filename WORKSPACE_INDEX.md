@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-14 14:50
-update: Docs‑Sweep: Frontmatter/Timestamps synchronisiert; Phase-2 Konsolidierung vorbereitet
-checks: pending (after scoped lint)
+stand: 2025-11-15 04:07
+update: Finalized frontmatter timestamps as part of Docs sweep; Phase-2 consolidation prepared. Checks: PASS.
+checks: PASS
 ---
 
 <!-- markdownlint-disable MD013 -->

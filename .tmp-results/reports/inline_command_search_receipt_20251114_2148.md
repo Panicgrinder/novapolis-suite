@@ -1,0 +1,5 @@
+Meta: Modus=Postflight, Modell=GPT-5 mini, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.x (local), Aufruf=repo grep `-Command` (regex) via grep_search, SHA256=NA, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Wrapper-Guards=PfadCheck:PASS|StopGate:PASS, Quellen=.github/copilot-instructions.md;WORKSPACE_STATUS.md;.tmp-results/todo.cleaned.md;.tmp-results/reports/inline_command_candidates_20251114_2148.md, Aktion=Repository scan for inline PowerShell `-Command` occurrences
+Prüfung: grep_matches=179, ExitcodeSearch=0, behobenLint=nein, Frontmatter-Validator=PASS, ExitcodeFM=0, behobenFM=nein, WorkspaceScanRoot=1, WorkspaceScanRecurse=1
+Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG, Details=Search-only; no destructive changes; recommendations captured in report
+Todos: offen=1, BeispielFix=Extract pre-commit hook to `scripts/hooks/pre-commit.ps1`, ReRun=repo grep -Command after PR, Fällig=2025-11-21 21:48
+Ende: Timestamp=2025-11-14 21:48

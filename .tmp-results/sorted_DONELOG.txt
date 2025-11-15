@@ -159,7 +159,7 @@ Beispiel:
 2025-11-07 18:25 | Panicgrinder | Pytest Voll-Lauf: 240 passed, 1 skipped; Coverage-Gate fehlgeschlagen, vorerst ignoriert (Single-Root).2025-11-07 21:26 | Panicgrinder | update Frontmatter und betroffene Dateien (commit d06ab6b)
 2025-11-07 21:29 | Panicgrinder | update Frontmatter und betroffene Dateien (commit d06ab6b)
 2025-11-07 21:45 | Panicgrinder | Test frontmatter update (dry)
-2025-11-07 21:46 | Panicgrinder | Implementiert: `scripts/append_done_and_push.ps1` — automatisierte Frontmatter-Updates (`stand`/`update`[, `checks`]), Backups `<file>.bak`, scoped Frontmatter-Validator, DONELOG-Append; Commits: d06ab6b, 80f7e32, 0c98ea6.
+2025-11-07 21:46 | Panicgrinder | Implementiert: automatisierte Frontmatter-Updates (`stand`/`update`[, `checks`]), Backups `<file>.bak`, scoped Frontmatter-Validator, DONELOG-Append; Legacy-Wrapper entfernt.
 2025-11-07 22:11 | Copilot | Korrektur/Anmerkung: Vorheriger Eintrag (2025-11-07 21:46 | Panicgrinder) wurde geprüft; die dort sichtbare Teilansicht/Zeichenkürzung war irreführend. Dieser Eintrag dokumentiert die aktuelle Systemzeit und dient der Audit-Transparenz — keine inhaltliche Löschung der Originalzeile.
 2025-11-09 17:51 | Copilot | Coverage-Gate erreicht: Gesamt 81.66% (Wrapper `run_pytest_coverage.ps1`), neue Tests für stream_chat_request/process_chat_request Zweige, Memory-Truncation Edge, scripts open_context_notes/open_latest_summary Fehlerpfade.
 2025-11-09 22:38 | Copilot | Converted inline `pwsh -NoProfile -Command` tasks into wrapper scripts and updated `/.vscode/tasks.json`; created wrapper scripts `scripts/checks_linters.ps1`, `scripts/checks_types.ps1`, `scripts/tests_pytest_root.ps1` and backup `Backups/tasks.json.bak`.

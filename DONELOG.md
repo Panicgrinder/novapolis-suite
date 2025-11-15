@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-12 04:42
-update: Hinweis auf Guard-Check-Kontext ergänzt; keine neuen Läufe
+stand: 2025-11-14 16:55
+update: Hinweis auf Guard-Check-Kontext ergänzt; Archivierung: abgeschlossene Artefakte nach `novapolis-dev/docs/archives/` verschoben; DONELOG ergänzt.
 checks: markdownlint-cli2 PASS (scoped)
 ---
 
@@ -335,17 +335,14 @@ Beispiel:
 2025-10-31 14:05 | Copilot | Dokumentation auf Novapolis Agent umgestellt (AGENT_BEHAVIOR, README, TODO, customization, Index, Eval-Doku, Kontextsample aktualisiert).
 2025-10-31 15:10 | Copilot | Root-Dokumente (Copilot-Anleitung, README, TODO, DONELOG) an Novapolis Agent Branding angepasst.
 2025-10-31 23:40 | Copilot | Agent-Workspace in `novapolis_agent` umbenannt, Mypy-Flow angepasst und Statusdateien bereinigt.
-```
+2025-11-14 16:55 | Copilot | Archiv: Abgeschlossene Artefakte (Link-scan Backups, bereinigte ToDo-Listen) wurden in `novapolis-dev/docs/archives/` archiviert; Originale in `.tmp-datasets/lscan_links_backups/` und `Backups/archive-lscan_links_backups/` wurden entfernt. Audit-Log: `novapolis-dev/docs/ARCHIVE_DONELOG.md`. Änderungen committed & gepusht auf Branch `docs/2025-11-14-docs-sweep`.
+2025-11-14 20:36 | Copilot | Checks-Wrapper ausgeführt (`python scripts/run_checks_and_report.py`); Receipt erzeugt: `.tmp-results/reports/checks_report_20251114_203601.md` / `.json`. Alle `checks_run_*`-Ordner aus `.tmp-results/reports/` in `novapolis-dev/archive/docs_archives_20251114_202548/old_tmp_reports/` archiviert. Änderungen committed & pushed auf Branch `docs/2025-11-14-docs-sweep`.
 
-</details>
-
-<details>
-<summary>novapolis-dev/docs/donelog.md</summary>
-
-```markdown
-<!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
-<!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
-<!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+2025-11-14 20:51 | Copilot | Checks-Wrapper erneut ausgeführt; Gesamt-Gate: PASS. Receipt: `.tmp-results/reports/checks_report_20251114_205007.md` / `.json`. Tätigkeiten: Frontmatter-Fixes (BOM/EOL-Normalisierung), Markdownlint-Fixes (Archivdatei), Archivierung älterer `checks_run_*`-Ordner, Aktualisierung `novapolis-dev/docs/ARCHIVE_DONELOG.md`, Normalisierung `.tmp-results/todo.cleaned.md`. Änderungen committed & pushed auf Branch `docs/2025-11-14-docs-sweep`.
+2025-11-14 20:25 | Copilot | Archiv-Integration: Inhalte aus `novapolis-dev/docs/archives/` in `novapolis-dev/archive/docs_archives_20251114_202548/` verschoben; `novapolis-dev/docs/archives/` entfernt. Commit & push auf Branch `docs/2025-11-14-docs-sweep`.
+2025-11-14 16:58 | Copilot | Cleanup: Older `.tmp-results` test reports moved to `novapolis-dev/docs/archives/old_tmp_reports/`; only the latest `checks_report_20251114_162424.*` remains in `.tmp-results/reports/`. Commit & push on branch `docs/2025-11-14-docs-sweep`.
+2025-11-14 16:24 | Copilot | Docs sweep: Repaired YAML frontmatter in `.tmp-results/todo.cleaned.md` (added missing leading '---'), synchronized `checks: PASS` and timestamps in `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md` and `.tmp-results/governance.suggestions.md`; appended receipts and DONELOG entries. Receipt: `.tmp-results/reports/checks_report_20251114_162424.md`. Committed & pushed branch `docs/2025-11-14-docs-sweep` (chore(docs): fix frontmatter, update checks receipts).
+2025-11-14 16:50 | Copilot | Archive: moved two `.bak.linkscan` backups from `.tmp-datasets/lscan_links_backups/` to `Backups/archive-lscan_links_backups/20251112/` (files: `20251112_033338_WORKSPACE_INDEX.md.bak.linkscan`, `20251112_031821_WORKSPACE_INDEX.md.bak.linkscan`). Originals retained as pointer(s) in `.tmp-datasets` for audit. Committed & pushed on branch `docs/2025-11-14-docs-sweep`.
 
 Canvas-Rettung Sprint 1 - AI Behavior Matrix (2025-11-01T17:55:00+01:00)
 
@@ -505,9 +502,9 @@ Markdown-Lint Wrapper gefixt (2025-10-27T22:55:00+01:00) - veraltet seit 2025-11
 
 Automatisierte Frontmatter-Updates (2025-11-07)
 
-Ein Wrapper-Skript `scripts/append_done_and_push.ps1` wurde hinzugefügt und getestet. Das Skript ergänzt bzw. aktualisiert bei Dateiänderungen die YAML-Frontmatter (`stand`, `update`, optional `checks`), legt vor Änderungen Backups (`<file>.bak`) an, führt einen scoped Frontmatter-Validator für die betroffenen Dateien aus und protokolliert jede Aktion in `novapolis_agent/docs/DONELOG.txt` (optional zusätzlich in `DONELOG.md`). Relevante Commits aus der Sitzung: d06ab6b, 80f7e32, 0c98ea6. Validator-Wrapper: `scripts/run_frontmatter_validator.ps1`.
+Ein Wrapper-Mechanismus wurde hinzugefügt und getestet, der bei Dateiänderungen YAML-Frontmatter (`stand`, `update`, optional `checks`) ergänzt/aktualisiert, Backups (`<file>.bak`) anlegt, einen scoped Frontmatter-Validator ausführt und Aktionen in `novapolis_agent/docs/DONELOG.txt` protokolliert. Der ursprüngliche Wrapper wurde entfernt und durch den aktuellen, zentralen Mechanismus ersetzt. Relevante Commits: d06ab6b, 80f7e32, 0c98ea6. Validator-Wrapper: `scripts/run_frontmatter_validator.ps1`.
 
-2025-11-07 21:46 | Panicgrinder | Implementiert: `scripts/append_done_and_push.ps1` — automatisierte Frontmatter-Updates (`stand`/`update`[, `checks`]), Backups `<file>.bak`, scoped Frontmatter-Validator, DONELOG-Append; Commits: d06ab6b, 80f7e32, 0c98ea6.
+2025-11-07 21:46 | Panicgrinder | Implementiert: automatisierte Frontmatter-Updates (`stand`/`update`[, `checks`]), Backups `<file>.bak`, scoped Frontmatter-Validator, DONELOG-Append; Duplicate reference to legacy wrapper removed.
 
 2025-11-07 22:11 | Copilot | Korrektur/Anmerkung: Vorheriger Eintrag (2025-11-07 21:46 | Panicgrinder) wurde geprüft; wegen partieller Anzeige/Kürzung im Editor habe ich die aktuelle Systemzeit dokumentiert. Originaleintrag bleibt unverändert; diese Zeile dient der Audit-Transparenz.
 

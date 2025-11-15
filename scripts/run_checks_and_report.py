@@ -139,7 +139,23 @@ def run_command(
 
 def check_tool_available(executable: str) -> Path | None:
     path = shutil.which(executable)
-    return Path(path) if path else None
+    if path:
+        return Path(path)
+    # Fallback: check local node_modules/.bin (useful when pyright is installed via npm locally)
+    try:
+        script_path = Path(__file__).resolve()
+        repo_root = script_path.parent.parent
+        bin_dir = repo_root / "node_modules" / ".bin"
+        candidate = bin_dir / executable
+        candidate_cmd = bin_dir / f"{executable}.cmd"
+        # On Windows prefer the .cmd wrapper if present
+        if candidate_cmd.exists():
+            return candidate_cmd
+        if candidate.exists():
+            return candidate
+    except Exception:
+        pass
+    return None
 
 
 def count_findings(output: str) -> int:

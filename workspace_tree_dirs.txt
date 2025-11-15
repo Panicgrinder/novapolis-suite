@@ -1,4 +1,4 @@
-Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-10 07:50
+Filtered directories (excl. outputs, Backups, venv, caches)  2025-11-14 15:54
 Top-Level
   - .github
   - .ruff_cache
@@ -18,14 +18,14 @@ Top-Level
   - workflows
 
 .ruff_cache/
+  - 0.14.5
   - 0.6.9
 
 .tmp-datasets/
-  - (leer)
+  - lscan_links_backups
 
 .tmp-results/
-  - markdown
-  - quality
+  - reports
 
 eval/
   - config
@@ -65,7 +65,9 @@ novapolis-rp/
   - database-rp
 
 novapolis-sim/
+  - .godot
   - autoload
+  - novapolis-sim
   - scripts
 
 packages/

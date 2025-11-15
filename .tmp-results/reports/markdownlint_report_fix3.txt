@@ -1,0 +1,4 @@
+markdownlint-cli2 v0.19.0 (markdownlint v0.39.0)
+Finding: **/*.md !.venv/** !node_modules/** !novapolis_agent/eval/results/** !novapolis_agent/outputs/** !outputs/** !novapolis-rp/.pytest_cache/** !.pytest_cache/** !novapolis_agent/.pytest_cache/** !.tmp-results/** !Main/scripts !.github/copilot-instructions.md
+Linting: 178 file(s)
+Summary: 0 error(s)
