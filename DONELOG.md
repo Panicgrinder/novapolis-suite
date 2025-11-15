@@ -62,16 +62,8 @@ Kurzueberblick
 - 2025-11-07 01:39: TODO/WORKSPACE_STATUS aktualisiert (Single-Repo-Governance-Reminder, Aufgaben für Lint-Overrides, Staging-Report-Migration, Metadata-Konsolidierung, Archiv-Ablage) - reine Doku-Anpassung.
 - 2025-11-07 01:27: Workspace-Konfliktanalyse abgeschlossen (Markdownlint-Overrides in `novapolis-rp/database-curated/staging/**`, Staging-Reports ohne Frontmatter, doppelte Metadata-Skripte `.js/.py`, Alt-Notiz `novapolis_agent/analysis_chat_routers.md`). Ergebnisse in TODO/Status erfasst.
 2025-11-12 01:38 | Copilot | DONELOG-Sync (Root/Agent/Dev): Tab-Korrektur (MD010) in Agent-DONELOG, konsolidierte Frontmatter, vorbereitender Eintrag vor Sammellauf (damals PowerShell, inzwischen `python scripts/run_checks_and_report.py`).
-
-Postflight
-----------
-
-Meta: Modus=Postflight, Modell=GPT-5, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=python F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, SHA256=65570151AA983A6A3784D89B589486A214B8A171D1BA22766C1BF17C49F54E30, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=F:\VS Code Workspace\Main\.github\copilot-instructions.md;F:\VS Code Workspace\Main\WORKSPACE_STATUS.md;F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, Aktion=Automatisierter Checklauf (Ruff/Black/Markdownlint/Frontmatter/Pyright/Mypy/Pytest; PowerShell-Variante archiviert)
-Prüfung: markdownlint=FAIL, ExitcodeLint=1, behobenLint=nein, Frontmatter-Validator=FAIL, ExitcodeFM=1, behobenFM=nein, Cleanup-WhatIf-Exit=NA, behobenWhatIf=nein, Cleanup-Real-Exit=NA, behobenReal=nein, WorkspaceScanRoot=0, WorkspaceScanRecurse=0, PSScriptAnalyzerRan=True, PSScriptAnalyzerExit=1, PSScriptAnalyzerBehoben=False
-Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG,R-COV,R-IDX,R-COMM,R-RED,R-TODO,R-TIME,R-SAFE, Details=Automatisierter Checklauf; keine Mutationen.
-Todos: offen=n/a, BeispielFix=Automatisierter Checklauf, ReRun=keiner, Fällig=2025-11-12 01:40
- - 2025-11-12 00:15: Link-Scanner Pfade angepasst (Reports → `scan_links_reports`, Backups → `.tmp-datasets/lscan_links_backups`), erster Testlauf PASS (broken Links jetzt 1 verbleibend). TODO-Liste aktualisiert.
- - 2025-11-12 01:05: Agent WORKSPACE_INDEX.md und Backup (.bak.linkscan) entfernt (redundant zur zentralen Doku); TODO angepasst (Index-Aufgaben konsolidiert).
+- 2025-11-12 00:15: Link-Scanner Pfade angepasst (Reports → `scan_links_reports`, Backups → `.tmp-datasets/lscan_links_backups`), erster Testlauf PASS (broken Links jetzt 1 verbleibend). TODO-Liste aktualisiert.
+- 2025-11-12 01:05: Agent WORKSPACE_INDEX.md und Backup (.bak.linkscan) entfernt (redundant zur zentralen Doku); TODO angepasst (Index-Aufgaben konsolidiert).
 - 2025-11-06 15:58: MD003 Setext + YAML-Frontmatter in `novapolis_agent/cleanup_recommendations.md`, `Backups/novapolis-rp-development-archived-20251105/development/README.md`, `novapolis-dev/logs/betriebsmodi-20251103-0341.tmp.md`, `novapolis-rp/.github/ISSUE_TEMPLATE/bug_report.md`, `novapolis_agent/eval/config/context.local.sample.md`; targeted markdownlint PASS (5 Dateien); Logs aktualisiert.
 - 2025-11-06 15:22: MD003-Setext-Korrekturen in `novapolis-rp/coding/tools/chat-exporter/README.md`, `novapolis-rp/coding/tools/metadata/README.md`, `novapolis-rp/coding/devcontainer/README.md`; targeted markdownlint PASS (3 Dateien).
 - 2025-11-06 15:22: YAML-Frontmatter (stand/update/checks) in denselben 3 Dateien ergänzt; frontmatter-Validator PASS (targeted).
@@ -94,7 +86,6 @@ Todos: offen=n/a, BeispielFix=Automatisierter Checklauf, ReRun=keiner, Fällig=2
 - 2025-11-06 02:30: `novapolis_agent/docs/DONELOG.txt` mit YAML-Frontmatter versehen, Pfadangaben in Backticks und H1 auf Setext-Stil gebracht; Lint-Einzellauf (`markdownlint DONELOG.txt`) PASS.
 - 2025-11-06 02:23: README (Agent) komplett auf Setext-Stil gebracht, YAML-Frontmatter ergänzt; `docs/AGENT_BEHAVIOR.md` auf YAML-Frontmatter umgestellt. Lint-Einzelläufe (`markdownlint README.md`, `markdownlint AGENT_BEHAVIOR.md`) PASS.
 - 2025-11-06 01:54: Testsuite manuell (pytest -q, pyright, mypy) PASS; markdownlint-cli2 FAIL (MD003 - Setext-Konsistenz über Archiv-/README-Bestand prüfen).
-
 - 2025-11-01 23:45: Workspace-Bereinigung - alte `.code-workspace` Dateien entfernt; markdownlint-cli2 PASS (Root-Lauf, keine Fehler). `WORKSPACE_STATUS.md` aktualisiert.
 - 2025-11-02 19:11: YAML-Frontmatter auf allen Root-Dokumenten finalisiert; markdownlint-cli2 PASS (Repo-Lauf).
 - 2025-11-02 22:31: Shell-Hooks/Tasks auf PowerShell 7 (`pwsh`) umgestellt; `.gitignore` ignoriert lokale Godot-Editor-Binaries (novapolis-sim).
