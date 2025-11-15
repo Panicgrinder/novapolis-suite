@@ -1,4 +1,4 @@
-// VS Code tasks configuration. Markdownlint tasks removed per policy (use npx --yes manually).
+// Archived copy of workspace tasks.json before Python-wrapper conversion
 {
   "$schema": "vscode://schemas/tasks",
   "version": "2.0.0",
@@ -6,8 +6,8 @@
     {
       "label": "Checks: linters (all)",
       "type": "shell",
-      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
-      "args": ["${workspaceFolder}/scripts/task_wrappers/checks_linters.py"],
+      "command": "pwsh",
+      "args": ["-NoProfile","-File","${workspaceFolder}/scripts/checks_linters.ps1"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -17,8 +17,8 @@
     {
       "label": "lint:ruff",
       "type": "shell",
-      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
-      "args": ["${workspaceFolder}/scripts/task_wrappers/lint_ruff.py"],
+      "command": "pwsh",
+      "args": ["-NoProfile","-File","${workspaceFolder}/scripts/task_wrappers/lint_ruff.ps1"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -28,8 +28,8 @@
     {
       "label": "format:black",
       "type": "shell",
-      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
-      "args": ["${workspaceFolder}/scripts/task_wrappers/format_black.py"],
+      "command": "pwsh",
+      "args": ["-NoProfile","-File","${workspaceFolder}/scripts/task_wrappers/format_black.ps1"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -39,8 +39,8 @@
     {
       "label": "fix:ruff",
       "type": "shell",
-      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
-      "args": ["${workspaceFolder}/scripts/task_wrappers/fix_ruff.py"],
+      "command": "pwsh",
+      "args": ["-NoProfile","-File","${workspaceFolder}/scripts/task_wrappers/fix_ruff.ps1"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -72,8 +72,8 @@
     {
       "label": "Tests: coverage (fail-under)",
       "type": "shell",
-      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
-      "args": ["${workspaceFolder}/scripts/task_wrappers/run_pytest_coverage.py"],
+      "command": "pwsh",
+      "args": ["-NoProfile", "-File", "${workspaceFolder}/scripts/run_pytest_coverage.ps1"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -128,8 +128,8 @@
     {
       "label": "Workspace tree: summary (dirs)",
       "type": "shell",
-      "command": "${workspaceFolder}/.venv/Scripts/python.exe",
-      "args": ["${workspaceFolder}/scripts/task_wrappers/workspace_tree_dirs.py"],
+      "command": "pwsh",
+      "args": ["-NoProfile", "-File", "${workspaceFolder}/scripts/update_workspace_tree_dirs.ps1"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },

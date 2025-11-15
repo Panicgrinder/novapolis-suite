@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-14 20:25
-update: Docs sweep applied — frontmatter and status notes synchronized; Archivierung integriert: Inhalte aus `novapolis-dev/docs/archives/` in `novapolis-dev/archive/docs_archives_20251114_202548/` verschoben; `novapolis-dev/docs/archives/` entfernt; älteren `.tmp-results`-Reports zuvor nach `novapolis-dev/docs/archives/old_tmp_reports/` verschoben. Änderungen committed & pushed auf Branch `docs/2025-11-14-docs-sweep` (Receipt: `.tmp-results/reports/checks_report_20251114_162424.md`, Archiv-Log: `novapolis-dev/archive/docs_archives_20251114_202548/archived_checks_before_20251114_162424.md`)
+stand: 2025-11-15 04:07
+update: Finalized frontmatter timestamps for governance & index files; checks: PASS. Small metadata sync performed.
 checks: PASS
 ---
 

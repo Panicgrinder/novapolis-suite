@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-14 16:24
-update: Docs‑Sweep: Frontmatter/Timestamps synchronisiert; Phase-2 Konsolidierung vorbereitet; Checks: PASS (Receipt: `.tmp-results/reports/checks_report_20251114_162424.md`)
+stand: 2025-11-15 04:07
+update: Finalized frontmatter timestamps as part of Docs sweep; Phase-2 consolidation prepared. Checks: PASS.
 checks: PASS
 ---
 

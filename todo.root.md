@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-14 16:24
-update: Docs sweep applied — Frontmatter timestamps synchronized; editorial tidy; Checks: PASS (see `.tmp-results/reports/checks_report_20251114_162424.md`)
+stand: 2025-11-15 04:07
+update: Docs sweep finalized (frontmatter timestamps synchronized); checks: PASS.
 checks: PASS
 ---
 

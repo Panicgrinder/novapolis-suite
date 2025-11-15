@@ -1,5 +1,4 @@
 $ErrorActionPreference = 'Stop'
-# Writes a lock file with the current system timestamp (local) used by snapshot_gate.ps1
 $root = (git rev-parse --show-toplevel) 2>$null
 if (-not $root) { $root = (Get-Location).Path }
 $ts = (Get-Date).ToString('yyyy-MM-dd HH:mm')
