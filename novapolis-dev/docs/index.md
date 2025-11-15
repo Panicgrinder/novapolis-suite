@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-07 05:24
+stand: 2025-11-16 00:19
 update: Frontmatter-Delimiter ergänzt; Snapshot aktualisiert (keine inhaltlichen Änderungen)
 checks: markdownlint-cli2 PASS (single file)
 ---

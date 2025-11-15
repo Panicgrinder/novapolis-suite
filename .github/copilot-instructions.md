@@ -83,7 +83,7 @@ Kanonische Prüfabläufe (pwsh)
 ### Empfohlen (Wrapper, Copilot/GPT)
 
 ```powershell
-pwsh -File scripts\run_pytest_coverage.ps1
+python scripts/run_pytest_coverage.py
 ```
 
 - `$maxTestFiles` (Standard 40) stellt sicher, dass nicht versehentlich zu viele Testdateien im Lauf landen. Bei Überschreitung stoppt der Befehl mit einer roten STOP-Notiz.
@@ -98,7 +98,7 @@ Hinweis (2025-11-12 06:45): Das Python-Skript protokolliert alle Teilprüfungen 
 
 ### VS Code Tasks ausführen.(true)
 - Grundlage: Die gleichnamigen VS Code Tasks dienen nur als Referenz. Copilot/GPT erstellt keine neuen VS Code Tasks.
-- Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern bevorzugt über Skript-Wrapper via `pwsh -File <script.ps1>` (Profil erlaubt). Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
+- Copilot/GPT startet komplexe/mehrschrittige Abläufe nicht als Inline `-Command`, sondern bevorzugt über Skript-Wrapper (z. B. `python <script.py>`) (Profil erlaubt). Die nachfolgenden Inline-Beispiele sind dokumentarisch und für manuelle Human-Runs gedacht; Inline `-Command` bleibt nur für echte Einzeiler zulässig.
 
 ### Lint (Ruff + Black, keine Auto-Fixes)(true)
 Hinweis: Für agentische Ausführung NICHT die nachfolgenden Inline-Muster verwenden:
@@ -128,7 +128,7 @@ if ($LASTEXITCODE -eq 0) { Write-Host 'Pytest PASS' } else { Write-Host "Pytest 
 ### Zusatz (pwsh)
    - Für Python-Befehle den Interpreter aus `.venv` verwenden (Fallback `python`), wie in den Beispielen gezeigt.
    - Bei Pfaden mit Leerzeichen `${workspaceFolder}` und `Join-Path` einsetzen.
-   - Wrapper-Richtlinie: Wenn ein Befehl mehr als ~120 Zeichen umfasst, Artefakte schreibt (z. B. JUnit/Coverage/XML) oder mehrere logische Schritte enthält (Collect-Guard, Ausführung, Summary), als eigenes Skript unter `scripts/` ablegen und ausschließlich über `pwsh -File` starten. Keine mehrstufigen Inline-Blöcke mit verschachtelten `& { ... }` für solche Fälle.
+   - Wrapper-Richtlinie: Wenn ein Befehl mehr als ~120 Zeichen umfasst, Artefakte schreibt (z. B. JUnit/Coverage/XML) oder mehrere logische Schritte enthält (Collect-Guard, Ausführung, Summary), als eigenes Skript unter `scripts/` ablegen und ausschließlich über einen Skript-Wrapper (z. B. `python <script.py>`) starten. Keine mehrstufigen Inline-Blöcke mit verschachtelten `& { ... }` für solche Fälle.
 
 ### Update-Logistik
    - Zeitquelle: Bei jeder Angabe von Zeitstempeln muss die aktuelle lokale Systemzeit zum Zeitpunkt der Ausgabe frisch eingeholt werden (keine gecachten Werte, keine Vorausberechnung). Die Referenz ist der direkte Aufruf über PowerShell:
@@ -250,14 +250,14 @@ Meta- / Systeminfo-Protokollierung (Postflight & kompakter Meta-Block)
    - Keine Zwischen-Postflights für Teilaktionen; Ergebnisse gesammelt ausgeben.
    - Abort-Fall: Meta: Modus=Abort, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Grund=<Kurzbeschreibung>, Zeitpunkt=<yyyy-MM-dd HH:mm>.
 #### Format Postflight (erfolgreich)
-   - Meta: Modus=Postflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Arbeitsverzeichnis=<Pfad>, RepoRoot=<Pfad>, PSScriptRoot=<Pfad>, PSVersion=<x.y.z>, Aufruf=pwsh -File <Pfad.zum.Skript.ps1>, SHA256=<Hash.der.Skriptdatei>, STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Wrapper-Guards=<GuardA:PASS|GuardB:PASS>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
+   - Meta: Modus=Postflight, Modell=<GPT-5|GPT-5 Codex|GPT-5 mini>, Arbeitsverzeichnis=<Pfad>, RepoRoot=<Pfad>, PSScriptRoot=<Pfad>, PSVersion=<x.y.z>, Aufruf=python <Pfad.zum.Skript.py>, SHA256=<Hash.der.Skriptdatei>, STOP-Gate=<aktiv/deaktiv>, Wrapper-Policy=<erfüllt/verletzt>, Wrapper-Guards=<GuardA:PASS|GuardB:PASS>, Quellen=<.github/copilot-instructions.md;README.md;...>, Aktion=<Kurzbeschreibung>
      - Prüfung: markdownlint=<PASS/FAIL>, ExitcodeLint=<N>, behobenLint=<ja/nein>, Frontmatter-Validator=<PASS/FAIL>, ExitcodeFM=<N>, behobenFM=<ja/nein>, Cleanup-WhatIf-Exit=<N>, behobenWhatIf=<ja/nein>, Cleanup-Real-Exit=<N>, behobenReal=<ja/nein>, WorkspaceScanRoot=<Zahl>, WorkspaceScanRecurse=<Zahl>
      - Regeln: IDs=<R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG>, Details=R-WRAP über -File erzwungen; R-STOP aktiv vor Real; R-FM geprüft; R-LINT ausgeführt; R-SCAN Root-only; R-CTX Quellen geladen; R-SEC geprüft; R-LOG Receipt erstellt
      - Todos: offen=<Anzahl>, BeispielFix=<Kurzbeschreibung>, ReRun=<Testname>, Fällig=<Datum/Zeit>
        - Beispiel (Dummy):
 
           ```
-         Meta: Modus=Postflight, Modell=GPT-5 Codex, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.4.1, Aufruf=pwsh -File scripts\run_linters.ps1, SHA256=..., STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Wrapper-Guards=PfadCheck:PASS|StopGate:PASS, Quellen=.github/copilot-instructions.md;README.md, Aktion=Lint-Checks aktualisiert
+         Meta: Modus=Postflight, Modell=GPT-5 Codex, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.4.1, Aufruf=python scripts/run_checks_and_report.py, SHA256=..., STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Wrapper-Guards=PfadCheck:PASS|StopGate:PASS, Quellen=.github/copilot-instructions.md;README.md, Aktion=Lint-Checks aktualisiert
          Prüfung: markdownlint=PASS, ExitcodeLint=0, behobenLint=nein, Frontmatter-Validator=PASS, ExitcodeFM=0, behobenFM=nein, Cleanup-WhatIf-Exit=0, behobenWhatIf=nein, Cleanup-Real-Exit=0, behobenReal=nein, WorkspaceScanRoot=0, WorkspaceScanRecurse=0
           Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG, Details=R-WRAP über -File erzwungen; R-STOP aktiv bestätigt; R-FM geprüft; R-LINT ausgeführt; R-SCAN Root-only; R-CTX Quellen geladen; R-SEC geprüft; R-LOG Receipt erstellt
           Todos: offen=12, BeispielFix=Markdownlint-Report verlinkt, ReRun=pytest -q, Fällig=2025-11-12 17:00
@@ -319,7 +319,7 @@ Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
  - Abweichungen sind nur mit expliziter Freigabe im STOP-Gate zulässig.
 
 ### aktuell vergebene Regel-IDs
-   - ID R-WRAP: Wrapper-Policy - Skripte und Mehrschritt-Prozesse dürfen ausschließlich über „pwsh -File“ mit absolutem Pfad ausgeführt werden. Inline „-Command“ ist nur für echte Einzeiler erlaubt.
+   - ID R-WRAP: Wrapper-Policy - Skripte und Mehrschritt-Prozesse dürfen ausschließlich über einen Skript-Wrapper (z. B. `python <script.py>`) mit absolutem Pfad ausgeführt werden. Inline „-Command“ ist nur für echte Einzeiler erlaubt.
    - ID R-STOP: STOP-Gate - Jede modusrelevante oder sicherheitskritische Aktion muss vor Ausführung explizit bestätigt werden.
    - ID R-FM: Frontmatter-Policy - Dokumente müssen gültige YAML-Frontmatter-Blöcke mit definierten Schlüsseln (stand, update, checks) enthalten. Fehlende oder beschädigte Frontmatter werden durch den Validator erkannt und gemeldet.
    - ID R-LINT: Markdownlint-Policy - Dokumente müssen die Style-Regeln MD001-MD050 einhalten; insbesondere MD003 (Setext für H1/H2, ATX ab H3).
@@ -340,7 +340,7 @@ Ergänzende Präzisierungen (Determinismus & Prozessanker)
 - Determinismus: Bei Generator-Runs werden zwei Läufe verglichen; Zeitanteile (Frontmatter-Timestamps, datumsbasierte Dateinamen) werden ignoriert; Bodies müssen textgleich sein, sonst STOP.
 - R-IDX Pflege: Headings-Index wird derzeit manuell aktualisiert (`.github/copilot-instructions-headings.md`); Script kann später ergänzt werden.
 - R-TODO Quelle: SSOT für Zählung `Todos: offen` ist `todo.root.md`; modulare TODO-Dateien sind optional und nicht Teil der Kennzahl.
-- R-WRAP Schwelle: Ein Einzeiler umfasst max. einen Prozessaufruf und höchstens einen Pipe-Schritt; darüber Wrapper via `pwsh -File` zwingend.
+- R-WRAP Schwelle: Ein Einzeiler umfasst max. einen Prozessaufruf und höchstens einen Pipe-Schritt; darüber Wrapper via Skript-Wrapper (z. B. `python <script.py>`) zwingend.
 - R-SCAN: Live-Scans nur Root-Ebene (aktiv); Artefakt-Skripte dürfen rekursiv Snapshots erzeugen (aktiv). Terminologie vereinheitlicht auf „aktiv“ / „deaktiviert“.
 - Security-Takt: Monatlicher `pip-audit` Lauf; Ergebnis (PASS/Findings) wird als Kurzzeile in `WORKSPACE_STATUS.md` dokumentiert.
 
@@ -386,7 +386,7 @@ Essentials (konzentriert)
 ---
 ### Agent (Backend) - Essentials
    - Aktiver Codepfad: `novapolis_agent/app/**`, Hilfsskripte unter `novapolis_agent/scripts/`.
-   - Grüne Gates: `pytest -q`, `pyright -p pyrightconfig.json`, `python -m mypy --config-file mypy.ini app scripts`, Coverage ≥ 80 % (`scripts/run_pytest_coverage.ps1`).
+   - Grüne Gates: `pytest -q`, `pyright -p pyrightconfig.json`, `python -m mypy --config-file mypy.ini app scripts`, Coverage ≥ 80 % (`scripts/run_pytest_coverage.py`).
    - DONELOG-Pflicht: Änderungen in `app/`, `scripts/`, `utils/` im `novapolis_agent/docs/DONELOG.txt` protokollieren.
    - Streaming- und Rate-Limit-Checks berücksichtigen (`tests/test_app_*`, SSE-Events `meta`/`delta`/`done`).
 
@@ -573,7 +573,7 @@ Ziele
 Hinweis (Terminal/Pwsh)
 ---
 ### Standard ist PowerShell 7 (`pwsh`) mit aktivem Profil.
- Direkte Eingaben erfolgen in der laufenden Session (kein erneutes `pwsh` nötig). Für komplexe oder mehrzeilige Abläufe (Coverage, Artefakt-Erzeugung, umfangreiche Prüf-Sequenzen) Skript-Wrapper nutzen: `pwsh -File <script.ps1>`. Inline `pwsh -Command "..."` ist ausschließlich für echte Einzeiler oder externe Launcher (CI/Task) zulässig. Kein zusammengesetztes Mehrzeilen-Here-String über `-Command`; stattdessen Skript anlegen. Achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`).
+ Direkte Eingaben erfolgen in der laufenden Session (kein erneutes `pwsh` nötig). Für komplexe oder mehrzeilige Abläufe (Coverage, Artefakt-Erzeugung, umfangreiche Prüf-Sequenzen) Skript-Wrapper nutzen: `python <script.py>`. Inline `pwsh -Command "..."` ist ausschließlich für echte Einzeiler oder externe Launcher (CI/Task) zulässig. Kein zusammengesetztes Mehrzeilen-Here-String über `-Command`; stattdessen Skript anlegen. Achte auf sauberes Quoting (`${workspaceFolder}`, `Join-Path`).
 #### Ausnahme (Systemzeit)
  Einfache Ausgabe direkt: `Get-Date -Format 'yyyy-MM-dd HH:mm'`.
 

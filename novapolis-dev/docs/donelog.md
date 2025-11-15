@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-12 01:40
+stand: 2025-11-16 00:19
 update: Postflight ergänzt (Checks-Report 20251112_013920)
 checks: markdownlint-cli2 PASS (scoped)
 ---

@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-15 10:15
+stand: 2025-11-16 00:19
 update: Erstanlage Workspace-Scan-Policy.
 checks: keine
 state: active

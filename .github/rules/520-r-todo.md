@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-15 10:15
+stand: 2025-11-16 00:19
 update: Erstanlage TODO/DONELOG-Konsistenz (Propagation test).
 checks: keine
 state: experimental

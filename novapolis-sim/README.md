@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-10 11:35
+stand: 2025-11-16 00:19
 update: YAML Frontmatter ergänzt (MD003-konform)
 checks: markdownlint-cli2 PASS (single file)
 ---

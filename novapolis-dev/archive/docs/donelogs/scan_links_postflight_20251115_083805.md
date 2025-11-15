@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-15 08:47
+stand: 2025-11-16 00:19
 update: Markdownlint Heading-Stil vereinheitlicht
 checks: markdownlint PASS
 ---

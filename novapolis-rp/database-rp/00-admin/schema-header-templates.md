@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-07 03:32
+stand: 2025-11-16 00:19
 update: H1/H2 auf Setext umgestellt; Stand aktualisiert.
 checks: markdownlint-cli2 PASS (single file)
 ---

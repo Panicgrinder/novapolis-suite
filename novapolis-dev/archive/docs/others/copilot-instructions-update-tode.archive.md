@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-07 07:54
+stand: 2025-11-16 00:19
 update: Abgeschlossen; ins Archiv verschoben.
 checks: keine
 refs: .github/copilot-instructions.md, scripts/check_frontmatter.py

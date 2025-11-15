@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-12 01:12
+stand: 2025-11-16 00:19
 update: TL;DR, direkte Tool-Links, Beispiele (Scenes/Metadata), Governance-Querverweise, Rotations-Policy ergänzt
 checks: noch keine
 ---
@@ -58,9 +58,9 @@ Empfohlene Prüfläufe (manuell):
 # Vollcheck Runner (Lint/Typen/Tests/Coverage):
 python ../../scripts/run_checks_and_report.py
 # Nur Coverage (mit Fail-Under-Gate):
-pwsh -File ../../scripts/run_pytest_coverage.ps1
+python ../../scripts/run_pytest_coverage.py
 # Link-Scanner Dry-Run / Reports:
-pwsh -File ../../scripts/scan_links.ps1 -DryRun
+python ../../scripts/scan_links.py --dry-run
 ```
 
 Scenes Guidelines

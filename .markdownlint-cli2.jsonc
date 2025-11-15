@@ -26,6 +26,7 @@
     ".tmp-results/**",
     "Main/scripts",
     "node_modules/**",
-    ".github/copilot-instructions.md"
+    ".github/copilot-instructions.md",
+    ".github/archive/**"
   ]
 }

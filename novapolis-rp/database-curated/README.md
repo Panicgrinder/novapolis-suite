@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-12 01:03
+stand: 2025-11-16 00:19
 update: Stub → Inhalt zum Hub verlagert
 checks: pending
 ---

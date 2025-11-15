@@ -1,3 +1,7 @@
+---
+stand:
+---
+
 LLM-Dokumentenheader (nicht löschen)
 ====================================
 - Type: Copilot Instruction Set / Project Governance

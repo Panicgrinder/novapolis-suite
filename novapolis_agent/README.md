@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-07 06:28
+stand: 2025-11-16 00:19
 update: Verweis auf AGENT_BEHAVIOR.md durch SSOT (.github/copilot-instructions.md) ersetzt.
 checks: keine
 ---

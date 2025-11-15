@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-15 08:52
+stand: 2025-11-16 00:19
 update: Archiv-Metadaten Frontmatter ergänzt
 checks: keine
 archived_at: 2025-11-15 08:06

@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-10 07:21
+stand: 2025-11-16 00:19
 update: Tabs entfernt, Frontmatter korrigiert, Lint PASS
 checks: markdownlint PASS, frontmatter PASS (scoped)
 ---
@@ -137,7 +137,7 @@ Projekt-Regeln (wichtig)
 - Sprache: Deutsch. Kurze, präzise Antworten.
 - Preambles vor Tool-Aktionen: kurz ankündigen, was/warum.
 - Planung: Für mehrschrittige Aufgaben ToDo-Liste (manage_todo_list) nutzen und Schrittweise abhaken.
-- Wrapper-Policy (R-WRAP): Mehrschrittläufe nur via `pwsh -File <script.ps1>`, kein verschachteltes `-Command`.
+ - Wrapper-Policy (R-WRAP): Mehrschrittläufe nur via Skript-Wrapper (z. B. `python <script.py>`), kein verschachteltes `-Command`.
 - Chat Prompt-Beispiele: <https://code.visualstudio.com/docs/copilot/chat/prompt-examples>
 - Modelle in VS Code: <https://code.visualstudio.com/docs/copilot/customization/language-models>
 - Copilot Sicherheit: <https://copilot.github.trust.page/faq>
@@ -146,7 +146,7 @@ Projekt-Regeln (wichtig)
 - Kontexte & Tools im Chat: <https://code.visualstudio.com/docs/copilot/chat/chat-tools>
 - Kontext hinzufügen: <https://code.visualstudio.com/docs/copilot/chat/copilot-chat-context>
 - Content-Exclusion: <https://docs.github.com/en/copilot/how-tos/configure-content-exclusion>
-- Validierung: Frontmatter (stand/update/checks) pflegen; `markdownlint-cli2` + `scripts/run_frontmatter_validator.ps1` ausführen.
+- Validierung: Frontmatter (stand/update/checks) pflegen; `markdownlint-cli2` + `python scripts/check_frontmatter.py` ausführen.
 - Receipts: Nach abgeschlossenen Arbeitsvorgängen kompakter Postflight-Block; relevante DONELOGs ergänzen.
 - STOP-Gate: Bei Unklarheit/Sicherheitsfragen stoppen und Freigabe einholen.
 

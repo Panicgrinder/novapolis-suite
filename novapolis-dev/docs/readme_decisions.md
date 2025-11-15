@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-12 03:06
+stand: 2025-11-16 00:19
 update: Initial README-Konsolidierungsentscheidungsliste erstellt
 checks: n/a
 ---

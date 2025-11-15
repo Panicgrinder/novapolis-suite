@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-12 05:51
+stand: 2025-11-16 00:19
 update: Guard-Check ersetzt den alten Start-Schritt im Workflow
 checks: keine
 ---

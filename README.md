@@ -1,6 +1,6 @@
 ---
 
-stand: 2025-11-10 07:51
+stand: 2025-11-16 00:19
 update: Copilot-Guide verlinkt; Tree-Snapshot-Infos aktualisiert.
 checks: keine
 ---

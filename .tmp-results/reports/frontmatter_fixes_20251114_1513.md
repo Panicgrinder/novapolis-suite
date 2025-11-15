@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-14 15:13
+stand: 2025-11-16 00:19
 update: Report zu Frontmatter-Autofix & DONELOG-Sort erstellt
 checks: markdownlint-cli2 PASS; frontmatter-validator PASS
 ---

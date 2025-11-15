@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-01 09:51
+stand: 2025-11-16 00:19
 update: Frontmatter ergänzt (YAML); Inhalt unverändert.
 checks: keine
 category: Admin

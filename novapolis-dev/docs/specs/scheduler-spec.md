@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-06 02:55
+stand: 2025-11-16 00:19
 update: Frontmatter auf YAML migriert; markdownlint PASS
 checks: markdownlint-cli2 PASS
 ---

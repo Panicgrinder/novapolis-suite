@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-15 10:15
+stand: 2025-11-16 00:19
 update: Erstanlage Wrapper-Policy.
 checks: keine
 state: active
@@ -14,8 +14,8 @@ Sichere, reproduzierbare Ausführung komplexer Abläufe mittels Skript-Wrapper.
 
 Definition
 ---------
-- Mehrschritt-Prozesse ausschließlich über „pwsh -File <skript.ps1>“.
-- Inline „-Command“ nur für echte Einzeiler (max. ein Prozessaufruf, höchstens eine Pipe).
+- Mehrschritt-Prozesse ausschließlich über Skript-Wrapper (z. B. `python <skript.py>`).
+- Inline `-Command` nur für echte Einzeiler (max. ein Prozessaufruf, höchstens eine Pipe).
 
 Tat
 ---
@@ -28,7 +28,7 @@ Geltungsbereich
 Beispiele
 --------
 ### Korrekt
-- `pwsh -File scripts\\run_checks_and_report.ps1`
+- `python scripts/run_checks_and_report.py`
 
 ### Anti-Beispiel
 - Verschachtelte, mehrzeilige `-Command`-Blöcke mit mehreren Schritten.

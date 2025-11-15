@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-12 02:41
+stand: 2025-11-16 00:19
 update: Guard-Extrakt synchronisiert, Postflight-Liste erweitert, veraltete Einträge markiert
 checks: markdownlint scoped PASS
 ---

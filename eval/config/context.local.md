@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-15 08:52
+stand: 2025-11-16 00:19
 update: Frontmatter wiederhergestellt
 checks: markdownlint PASS
 ---

@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-02 09:00
+stand: 2025-11-16 00:19
 update: Archiv ergänzt: „Offene Punkte (Kurzfristig)“ aus todo.root.md verschoben.
 checks: keine
 ---

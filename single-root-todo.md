@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-09 04:05
+stand: 2025-11-16 00:19
 update: Restliche offene Checkboxen geschlossen und annotiert; Archiv-Move vorbereitet
 checks: markdownlint-cli2 PASS; frontmatter PASS; checklist PASS (open=0)
 archived: true

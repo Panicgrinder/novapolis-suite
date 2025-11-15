@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-15 08:47
+stand: 2025-11-16 00:19
 update: Markdownlint-Fehler bereinigt (Setext + Samples komprimiert)
 checks: markdownlint PASS
 ---

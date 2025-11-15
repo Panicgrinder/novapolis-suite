@@ -6,7 +6,7 @@ id: scene-2025-10-27-a
 characters: Jonas-Merek, Ronja-Kerschner
 locations: Verbindungstunnel-D5-C6
 inventoryRefs: Novapolis-inventar
-stand: 2025-11-12 08:59
+stand: 2025-11-16 00:19
 update: Frontmatter konsolidiert und auf Governance-Format erweitert.
 checks: keine
 ---

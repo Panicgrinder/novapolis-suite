@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-12 01:17
+stand: 2025-11-16 00:19
 update: Docs-Hub Ergänzungen vermerkt; Redirect-/Index-Aufgabe ergänzt
 checks: keine
 ---

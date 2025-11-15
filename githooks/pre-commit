@@ -3,7 +3,8 @@
 
 if command -v pwsh >/dev/null 2>&1; then
   pwsh -NoProfile -ExecutionPolicy Bypass -Command "& { $ErrorActionPreference='Stop';
-    & 'scripts/snapshot_gate.ps1'; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE };
+    $root = (Get-Location).Path; $py = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $py)) { $py = 'python' };
+    & $py 'scripts/snapshot_gate.py'; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE };
 
     $stagedAll = git diff --cached --name-only --diff-filter=ACMRT;
     if (-not $stagedAll) { exit 0 };
@@ -45,7 +46,8 @@ if command -v pwsh >/dev/null 2>&1; then
   exit $?
 elif command -v powershell.exe >/dev/null 2>&1; then
   powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "& { $ErrorActionPreference='Stop';
-    & 'scripts/snapshot_gate.ps1'; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE };
+    $root = (Get-Location).Path; $py = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $py)) { $py = 'python' };
+    & $py 'scripts/snapshot_gate.py'; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE };
 
     $stagedAll = git diff --cached --name-only --diff-filter=ACMRT;
     if (-not $stagedAll) { exit 0 };

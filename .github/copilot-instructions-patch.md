@@ -1,3 +1,9 @@
+---
+stand: 2025-11-16 00:19
+update: frontmatter touch
+checks: keine
+---
+
 LLM-Dokumentenheader (nicht löschen)
 ====================================
 - Type: Copilot Instruction Set / Project Governance
@@ -33,7 +39,7 @@ Hauptregel-Tabelle
 | active | 050 | R-TIME | Timestamp-Konvention | Fundament | Zeitformat YYYY-MM-DD HH:mm, pro Ereignis neu via Get-Date (lokal) | Frontmatter, Postflight, Status | .github/rules/050-r-time.md#tat |
 | active | 110 | R-SCAN | Workspace-Scan-Policy | Workspace | Root-only Live-Scan; rekursiv nur für Artefakte/Snapshots | Workspace-Scans | .github/rules/110-r-scan.md#tat |
 | active | 200 | R-COMM | Kommunikationsstil | Interaktion | Prägnant, deutsch, kurze Sätze, klare Next Steps; keine Fülltexte | Antworten/Protokolle | .github/rules/200-r-comm.md#tat |
-| active | 310 | R-WRAP | Wrapper-Policy | Qualität/Execution | Mehrschrittprozesse nur via "pwsh -File"; Inline "-Command" nur echte Einzeiler | Skript-/Taskausführung | .github/rules/310-r-wrap.md#tat |
+| active | 310 | R-WRAP | Wrapper-Policy | Qualität/Execution | Mehrschrittprozesse nur via Skript-Wrapper (z. B. `python <script.py>`); Inline `-Command` nur echte Einzeiler | Skript-/Taskausführung | .github/rules/310-r-wrap.md#tat |
 | active | 320 | R-LINT | Markdownlint-Policy | Lint | MD001–MD050 einhalten; MD003 Setext für H1/H2; Lints via npx markdownlint-cli2 | Dokumentation | .github/rules/320-r-lint.md#tat |
 | active | 330 | R-COV | Coverage-Gate | Tests | Coverage ≥ 80 % vor Merge (Pytest) | Tests/CI | .github/rules/330-r-cov.md#tat |
 | active | 340 | R-LOG | Receipt-Pflicht (Postflight) | Qualität/Logging | Nach jeder Mutation genau ein Postflight-Receipt inkl. Felder/Checks | Alle Mutationen | .github/rules/340-r-log.md#tat |
@@ -45,7 +51,7 @@ Hauptregel-Tabelle
 
 STOP-Gates
 ----------
- 
+
 | Status | Trigger | Hard/Soft | Tat | Geltungsbereich | Detail-Ref |
 | --- | --- | --- | --- | --- | --- |
 | active | Code-/Script-Änderungen, Validator-/Testläufe mit Seiteneffekten, Policy-/SSOT-Anpassungen | Hard | STOP vor Ausführung, explizite Bestätigung einholen; ohne Freigabe keine Aktion | Code & Dokumentation | .github/rules/001-r-stop.md#definition |
@@ -53,7 +59,7 @@ STOP-Gates
 
 Checkliste für Doku-Update-Prozess
 ----------------------------------
- 
+
 | Status | Tat | Detail-Ref |
 | --- | --- | --- |
 | active | TODOs aktualisieren (Root/Module), erledigte abhaken, neue Nacharbeiten erfassen | .github/rules/030-r-doku.md#tat |

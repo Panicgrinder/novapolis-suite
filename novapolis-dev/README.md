@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-12 03:37
+stand: 2025-11-16 00:19
 update: Abschnitt Checks: full (PSScriptAnalyzer + Sammellauf) ergänzt
 checks: pending (nach Lint/Validator)
 ---

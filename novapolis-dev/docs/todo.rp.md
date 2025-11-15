@@ -2,7 +2,7 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2025-11-12 08:59
+stand: 2025-11-16 00:19
 update: Frontmatter ergänzt und auf Governance-Format gebracht.
 checks: keine
 ---

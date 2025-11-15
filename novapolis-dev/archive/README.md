@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-01 18:38
+stand: 2025-11-16 00:19
 update: Root-Archiv ergänzt; Pfade vereinheitlicht (archive)
 checks: keine
 ---
