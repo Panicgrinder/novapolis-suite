@@ -20,8 +20,32 @@ Hoch priorisiert (0-2 Tage)
   - [ ] `tasks.json` Inline-Ketten prüfen → Wrapper-Aufrufe
   - [ ] Wrapper-Probelauf `scripts/run_pytest_coverage.ps1` + Receipt
   - [ ] Statusblock „Multi-Root abgeschlossen“ in `WORKSPACE_STATUS.md`
+- [ ] Governance/Status-Drift & Altlasten (Bündel 1)
+  - Ziel: Multi-Root-/Wrapper-Status klären, Tree-/Index-Drift sichtbar machen und Altlasten planbar machen (ohne sofortige Löschung).
+  - [ ] Multi-Root-/Wrapper-Status konsolidieren (R-STOP/R-WRAP)
+    - [x] `single-root-todo.md` und `todo.root.md` Abschnitt „Multi-Root-STOP auflösen“ gegenprüfen (Status: Single-Root, Archiv-Hinweis in `single-root-todo.md`).
+    - [x] Widerspruch „KEINE WRAPPER“ vs. Checks-Wrapper `python scripts/run_checks_and_report.py` auflösen (Soll-Zustand dokumentiert: Wrapper für Mehrschritt-Checks wieder erlaubt, STOP weiterhin für WRITE/RUN).
+    - [x] In `WORKSPACE_STATUS.md` einen klaren Statusblock ergänzen („Multi-Root & Wrapper-Status“, Stand 2025-11-16 12:00) inkl. Hinweis auf Single-Root/Wrapper-Policy (R-DOKU).
+  - [ ] WORKSPACE_STATUS.md – Tree-/Status-Drift bereinigen (R-IDX/R-DOKU)
+    - [x] Timestamps von `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt` prüfen (Bestätigung: Stand 2025-11-10 07:50 in `WORKSPACE_STATUS.md` referenziert).
+    - [x] Ältere Kommentare („Stand 2025-10-31“, „nächste Prüfung Mitte November“) auf aktuellen Zustand angepasst (nächster Lauf nach Strukturänderungen oder spätestens Ende November).
+    - [x] Health-Check-Abschnitt um Hinweis ergänzt („Tree-Snapshots aktuell Stand 2025-11-10 07:50“).
+  - [ ] WORKSPACE_INDEX.md – Redundanzen & Link-Altlasten korrigieren (R-IDX/R-RED)
+    - [x] Pfade der `novapolis_agent/requirements*.txt` geprüft und Links im Index auf `novapolis_agent/requirements*.txt` korrigiert.
+    - [x] Doppelte Utils-Einträge (`eval_cache.py`, `time_utils.py`, `rag.py`) im Index bereinigt (nur eine Zeile je Datei belassen).
+    - [x] Git-Hook-Pfade (`novapolis_agent/.githooks/pre-commit` vs. `githooks/pre-commit`) geprüft; Root-Hook als globaler Hook für das Repo beschrieben.
+    - [x] Nach Anpassung Link-Scanner im Scope `WORKSPACE_INDEX.md` laufen lassen; Receipt in `novapolis-dev/archive/docs/donelogs/scan_links_postflight_20251116_033738.md` + Hinweis in `WORKSPACE_STATUS.md` notiert.
+  - [ ] Alt-Analysen und Legacy-Pfade bewerten (R-SEC/R-SAFE/R-RED)
+    - [x] Inhalt von `novapolis_agent/analysis_chat_routers.md` gesichtet; Ergebnis: Alt-Analyse dokumentiert, aktueller Stand (Router entfernt, zentrale Verarbeitung in `app/api/chat.py`) ist bereits in der Datei vermerkt; keine inhaltliche Übernahme in Hub-Docs nötig.
+    - [x] Status von `novapolis_agent/app/routers` geprüft (nur leeres `__init__.py`, keine produktive Nutzung mehr; als geparkter Platzhalter belassen).
+    - [ ] Entscheidung dokumentieren: „archivieren“ vs. „weiter pflegen“; etwaige Lösch-/Move-Schritte nur nach expliziter Freigabe planen (separater Governance-/Cleanup-Schritt erforderlich).
+  - [ ] Governance-Deduplizierung vorbereiten (`.github/copilot-instructions.md`) (R-RED/R-DOKU)
+    - [x] Präzise festgehalten: Guard-Checks nur vor Aktionen mit Seiteneffekt (WRITE/RUN); reine Leseoperationen explizit ausgenommen (Semantik-TL;DR-Block in `.github/copilot-instructions.md` ergänzt).
+    - [ ] TL;DR „Doku-Update (true)“ mit Verweisen auf `todo.root.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/todo.cleaned.md` entwerfen.
+    - [ ] Redundante Ausführungen zu Markdownlint/Frontmatter identifizieren; Minimal-Patch-Plan skizzieren (noch keine Anwendung, R-RED beachten).
 - [ ] Dev: Tree-Artefakte regenerieren (R-IDX)
   - Ziel: `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt` neu erzeugen; Status/Datum in `WORKSPACE_STATUS.md` + `novapolis-dev/docs/donelog.md`.
+  - Hinweis: Tree-Artefakte wurden zuletzt am 2025-11-15 07:41 (`workspace_tree_full.txt`, `workspace_tree_dirs.txt`) bzw. 2025-11-10 07:50 (`workspace_tree.txt`) aktualisiert; vor einem weiteren Run prüfen, ob ein neuer Snapshot wirklich nötig ist oder nur Status-/Hinweistexte anzupassen sind.
 - [ ] RP: Frontmatter/Lint Sweep (R-FM/R-LINT)
   - Reihenfolge: Frontmatter → MD003 Setext. Zählwerte vor/nach dokumentieren; PASS loggen.
 

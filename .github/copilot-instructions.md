@@ -20,6 +20,14 @@ TL;DR Struktur
 - STOP-Gates: separate Tabelle der Trigger mit konkreter „Tat“ und Geltungsbereich.
 - Doku-Update=true: Checkliste konkreter Pflichten, jeweils mit Detail-Ref zur Regeldatei.
 
+Semantische Leitplanken (Kurzfassung)
+-------------------------------------
+- Guard-Checks sind verpflichtend vor allen Aktionen mit Seiteneffekt (WRITE/RUN), z. B. Skript-Wrapper, Formatter, Cleanup, Migrationen.
+- Reine Lese-Operationen (z. B. `read_file`, `grep_search`, `fetch_webpage`, `git status`, `tree`) benötigen keinen zusätzlichen Guard-Check, unterliegen aber weiterhin den allgemeinen STOP-Regeln bei Unklarheiten.
+- STOP hat Vorrang: Bei Unsicherheit, widersprüchlichen Quellen oder unklaren Pfaden wird nicht ausgeführt, bevor Rückfragen geklärt sind.
+- Timestamps werden bei jedem relevanten Ereignis frisch gesetzt (lokale Zeit, `YYYY-MM-DD HH:mm`), insbesondere in Frontmatter und Postflight-Blöcken.
+- Reihenfolge der Prüfläufe: zuerst Lint (inkl. Frontmatter/Markdown), dann Typen (pyright/mypy), danach Tests/Coverage (pytest + Gate), jeweils mit Receipt.
+
 Hauptregel-Tabelle
 ------------------
 

@@ -45,8 +45,8 @@ Hinweis: Alle Pfade beginnen bei `novapolis_agent/`, sofern nicht anders angegeb
 - [`novapolis_agent/pytest.ini`](novapolis_agent/pytest.ini) - Pytest-Konfiguration
 - [`novapolis_agent/README.md`](novapolis_agent/README.md) - Projekt-Dokumentation
 - [`novapolis_agent/LICENSE`](novapolis_agent/LICENSE) - MIT-Lizenz
- - [`novapolis_agent/requirements.txt`](requirements.txt) - Python-Abhängigkeiten (Laufzeit)
- - [`novapolis_agent/requirements-dev.txt`](requirements-dev.txt) - Dev-Abhängigkeiten (Lint/Tests)
+ - [`novapolis_agent/requirements.txt`](novapolis_agent/requirements.txt) - Python-Abhängigkeiten (Laufzeit)
+ - [`novapolis_agent/requirements-dev.txt`](novapolis_agent/requirements-dev.txt) - Dev-Abhängigkeiten (Lint/Tests)
 - [`novapolis_agent/run_server.py`](novapolis_agent/run_server.py) - Server-Startskript
 - [`novapolis_agent/test_settings.py`](novapolis_agent/test_settings.py) - Einstellungen-Test
 - [`novapolis_agent/__pycache__/`](novapolis_agent/__pycache__/) - Python-Bytecode-Cache (generiert)
@@ -120,9 +120,6 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 - [`novapolis_agent/utils/message_helpers.py`](novapolis_agent/utils/message_helpers.py) - Message/Historie Utilities
 - [`novapolis_agent/utils/time_utils.py`](novapolis_agent/utils/time_utils.py) - Zeit-/Timestamp-Helfer
 - [`novapolis_agent/utils/rag.py`](novapolis_agent/utils/rag.py) - Leichtgewichtiger TF-IDF RAG-Retriever (Index/Save/Load/Retrieve)
- - [`novapolis_agent/utils/eval_cache.py`](novapolis_agent/utils/eval_cache.py) - Einfacher JSONL-Cache für LLM-Summaries
- - [`novapolis_agent/utils/time_utils.py`](novapolis_agent/utils/time_utils.py) - Zeit-/Timestamp-Helfer
- - [`novapolis_agent/utils/rag.py`](novapolis_agent/utils/rag.py) - Leichtgewichtiger TF-IDF RAG-Retriever (Index/Save/Load/Retrieve)
 
 ### Daten (`novapolis_agent/data`)
 
@@ -251,7 +248,7 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 ### Git Hooks (optional)
 
 - [`novapolis_agent/.githooks/pre-commit`](novapolis_agent/.githooks/pre-commit) - Lokaler Pre-commit Hook (DONELOG/Lint)
- - [`githooks/pre-commit`](githooks/pre-commit) - Lokaler Pre-commit Hook (DONELOG/Lint)
+ - [`githooks/pre-commit`](githooks/pre-commit) - Root-Pre-commit Hook (DONELOG/Lint) für das Gesamt-Repo
 
 Repository-Hinweis: Standard-Branch ist `main`.
 

@@ -66,6 +66,20 @@ Kurzueberblick
 
 - Neu (2025-11-06): Modulstatus → Agent: Gelb-grün, Dev: Grün, RP: Gelb, Sim: Gelb. Konkrete 1-2-Tage-Schritte siehe Abschnitt „Nächstes Vorgehen (1-2 Tage)“.
 
+Wrapper-Migration (.ps1 → .py)
+------------------------------
+
+- Ziel: Alle noch relevanten Wrapper von PowerShell (`*.ps1`) schrittweise auf Python-Skripte (`*.py`) umstellen, konsistent mit R-WRAP/R-SEC/R-SAFE.
+- Hintergrund:
+  - Historische Wrapper: `scripts/run_pytest_coverage.ps1`, `scripts/checks_linters.ps1`, `scripts/checks_types.ps1`, `scripts/tests_pytest_root.ps1` (teilweise bereits entfernt/archiviert).
+  - Aktueller Stand: `python scripts/run_checks_and_report.py` ist der einzige Entry-Point für "Checks: full"; `scripts/run_pytest_coverage.ps1` existiert nicht mehr im aktiven Repo.
+- Aufgaben (geplant, keine Löschung ohne Freigabe):
+  - [ ] Bestandsaufnahme aller noch vorhandenen `scripts/*.ps1` Wrapper (inkl. Backups/Archiv-Hinweisen).
+  - [ ] Für jeden produktiven Wrapper einen gleichwertigen Python-Einstiegspunkt definieren (z. B. `scripts/run_pytest_coverage.py`), inklusive Args/Exitcodes/Receipts.
+  - [ ] VS-Code-Tasks und Dokumentation (`WORKSPACE_STATUS.md`, `todo.cleaned.md`, README/Docs) auf die Python-Varianten umstellen.
+  - [ ] PowerShell-Wrapper entweder als dünne Hülle (nur Aufruf von `python <script.py>`) belassen oder nach Freigabe in Archiv-/Backups-Pfade verschieben.
+  - [ ] Nach Abschluss: kurzen Statusblock zur Wrapper-Migration in `WORKSPACE_STATUS.md` und DONELOG-Eintrag ergänzen (R-DOKU/R-LOG).
+
 Modulstatus (2025-11-06)
 ------------------------
 

@@ -45,7 +45,7 @@ Workspace-Status
 - Produktiver Code liegt ausschließlich im Agent-Backend; RP-Workspace enthält weiterhin Daten, Workflows, Tools
 - Root-Dokumente (`README.md`, `todo.root.md`, `WORKSPACE_STATUS.md`) wurden am 2025-11-02 synchronisiert und liefern Einstieg ohne Projektwechsel
 - Kopilot-Anweisungen konsolidiert unter `.github/copilot-instructions.md`
-- Struktur-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) am 2025-11-06 via Tasks `Workspace tree:*` regeneriert; nächste Prüfung Mitte November.
+- Struktur-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) zuletzt am 2025-11-10 07:50 via Tasks `Workspace tree:*` regeneriert; nächste Prüfung nach größeren Strukturänderungen oder spätestens Ende November.
 - PowerShell-Standard: Terminal-Profile & VS-Code-Tasks laufen jetzt über `pwsh` 7.5.4; Windows PowerShell bleibt nur noch Fallback.
 
 Aktueller Arbeitsmodus
@@ -65,9 +65,24 @@ Health-Checks & Open Items
 - Risiken kurz:
   - Verzeichnis-Bulk unter `outputs/` (LoRA-Runs) wächst; mittelfristig archivieren oder auslagern
   - RP-Datenpflege erfordert regelmäßigen Sync mit Memory-Bundle (seit 2025-11-02 aktualisiert, siehe `novapolis-rp/database-rp/00-admin/memory-bundle.md`)
-  - Tree-Snapshots benötigen Refresh zur nächsten Inventur (letzter Stand 2025-10-31)
+  - Tree-Snapshots aktuell Stand 2025-11-10 07:50; Refresh fällig nach der nächsten Strukturinventur oder spätestens Ende November
   - VS-Code-Settings: Nutzer-/Profil-Overrides entfernt, nur Root-Workspace-Config aktiv
-  - VS Code Multi-Root (temporär): Wrapper-Tasks verhalten sich unzuverlässig (CWD/Quoting). Bis zur Bereinigung gilt: KEINE WRAPPER; Terminal ausschließlich manuell. Fallakte: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
+  - VS Code Multi-Root (historischer Fall, inzwischen bereinigt): Multi-Root-Workspace-Datei (`*.code-workspace`) entfernt/archiviert; Root wird als Single-Root genutzt. Wrapper-Tasks sind für standardisierte Prüf-/Testläufe wieder erlaubt (R-WRAP), Multi-Root-Fallakte bleibt als Historie (`novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`).
+
+Multi-Root & Wrapper-Status (Stand 2025-11-16 12:00)
+----------------------------------------------------
+
+- Workspace: Single-Root (VS Code öffnet den Ordner `Main` direkt; keine aktiven Multi-Root-Workspace-Dateien mehr).
+- Wrapper-Policy: Mehrschrittprozesse (Lint/Typen/Tests/Coverage) sollen bevorzugt über Skript-Wrapper laufen:
+  - Checks-Wrapper: `python scripts/run_checks_and_report.py` ist der einzige Entry-Point für „Checks: full“.
+  - Coverage-Wrapper: `scripts/run_pytest_coverage.ps1` für kombinierte Coverage-Läufe (R-COV), mit Receipt.
+- STOP-Gate (R-STOP/R-WRAP):
+  - Reine Lese-Operationen (z. B. `tree`, `git status`, `cat`/`Get-Content`) benötigen keinen zusätzlichen Guard.
+  - Aktionen mit Seiteneffekt (WRITE/RUN, z. B. Skript-Wrapper, Formatierer, Cleanup) bleiben STOP-pflichtig (kurzer Plan + Receipt).
+- Akzeptanzkriterien erfüllt:
+  - Keine `*.code-workspace` im Workspace aktiv.
+  - Wrapper-Skripte sind im Root verankert (`scripts/run_checks_and_report.py`, `scripts/run_pytest_coverage.ps1`).
+  - Dieser Statusblock dokumentiert den Abschluss des Multi-Root-Falls.
 
 Wichtige Artefakte & Logs
 -------------------------
@@ -100,6 +115,7 @@ Nächste Empfehlungen
 - Outputs/Checkpoints reviewen und aussortieren oder in Backups verschieben (LoRA-Zwischenstände)
 - Regelmäßige Aktualisierung: `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` gemeinsam mit `todo.root.md` pflegen (empfohlen bis Mitte November oder nach strukturellen Änderungen)
 - Promotion abgeschlossen: Index liegt als `WORKSPACE_INDEX.md` im Root; nächster Schritt: Tree-Snapshot aktualisieren.
+ - Link-Scanner: Nach Index-Anpassungen wurde `scripts/scan_links.py --files WORKSPACE_INDEX.md` am 2025-11-16 03:37 ausgeführt; Report unter `.tmp-results/reports/scan_links_20251116_033738.*`, Postflight in `novapolis-dev/archive/docs/donelogs/scan_links_postflight_20251116_033738.md` dokumentiert (0 kritische Broken-Links im Index).
 
 
 
