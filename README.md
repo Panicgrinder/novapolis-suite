@@ -125,5 +125,13 @@ Naechste Schritte
 2. Tests und Typpruefungen nach jeder Migration laufen lassen (`pytest`, `pyright`, `mypy`).
 3. Nach jedem groesseren Schritt DONELOG aktualisieren und Root-Uebersichten synchron halten.
 
+Editor-Setup (Single-Root)
+--------------------------
+
+- Workspace immer über den Root-Ordner `Main/` öffnen (Single-Root, keine `.code-workspace` mehr im Einsatz).
+- Zentrales VS-Code-Setup liegt unter `/.vscode/` (Interpreter `.venv`, Tasks für Lint/Tests/Coverage, Copilot-Workspace-Instructions).
+- Wrapper-Policy: Mehrschritt-Checks laufen über Skript-Wrapper (z. B. `python scripts/run_checks_and_report.py`, `scripts/run_pytest_coverage.ps1`); STOP-Gate bleibt für alle Aktionen mit Seiteneffekt aktiv.
+- Details zum aktuellen Status siehe `.github/copilot-instructions.md` und `WORKSPACE_STATUS.md` (Block „Single-Root & Wrapper-Status“).
+
 
 
