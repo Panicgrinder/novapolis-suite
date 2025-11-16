@@ -545,5 +545,11 @@ Todos: offen=n/a, BeispielFix=Baseline dokumentiert, ReRun=nach Style/Type-Fixes
 - `novapolis-sim`: Godot-4-Mini-Client (Autoload `SimClient`, Szene `Main.tscn`) pollt die API und zeigt Tick/Zeit inkl. Status bei Offline-Agent.
 - `novapolis-rp`: README-Abschnitt „Visualisierung“ ergänzt; Donelog/TODO synchronisiert.
 
+Godot Headless - Quick Verification (2025-11-16)
+--------------------------------------------
+
+- 2025-11-16 04:54: Headless Load: `novapolis-sim/project.godot` geladen headless mit Godot Engine `v4.5.1.stable.official.f62fdbde1` — Ladeprobe PASS. Log: `.tmp-results/logs/godot_headless_20251116_045407.log`. Kurzer Scan auf Schlüsselwörter (`ERROR|ERR|CRITICAL|WARNING|Traceback`) ergab keine Treffer. (Scan & Log im Repo: siehe Pfad oben.)
+
+
 
 

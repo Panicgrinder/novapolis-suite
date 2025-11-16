@@ -11,6 +11,7 @@ Recent Changes
 - 2025-11-15 09:20: Dokumentationssweep (context.local.md Frontmatter repariert, todo/Status/Index aktualisiert); Frontmatter-Validator PASS (`python scripts/check_frontmatter.py`).
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert, todo/Status/Index aktualisiert); Frontmatter-Validator PASS (`python scripts/check_frontmatter.py`).
 - 2025-11-12 03:37: Checks: full Review abgeschlossen (damals PowerShell-Runner, inzwischen durch `python scripts/run_checks_and_report.py` ersetzt; PSScriptAnalyzer-Phase verifiziert, Receipt-Struktur JSON + Postflight-Vorlage bestätigt). Link-Scanner Rescan nun 0 defekte Verweise.
+ - 2025-11-16 04:54: Sim headless verification: `novapolis-sim/project.godot` loaded headless with Godot Engine `v4.5.1.stable.official.f62fdbde1` — PASS. Log: `.tmp-results/logs/godot_headless_20251116_045407.log`. Postflight Donelog entry added to `novapolis-dev/docs/donelog.md`.
 - 2025-11-12 02:46: Governance: Vorangestellte Start-Checks entfernt aus `.github/copilot-instructions.md`; Postflight-Formulierung präzisiert (finaler Block am Ende der Nachricht); Headings-Extrakt aktualisiert & veraltete Regel-ID-Vorschläge gestrichen; Lint PASS (`.github/copilot-instructions-headings.md`).
 
  - 2025-11-10 12:12: Sim-Verifizierung: Verbindung Godot ↔ Agent (`POST /world/step`) erfolgreich verifiziert; Headless-Verifier und PowerShell-Smoke-Test PASS. Screenshot/Audit-Beleg im Arbeitsverzeichnis erstellt.
@@ -69,10 +70,10 @@ Health-Checks & Open Items
   - VS-Code-Settings: Nutzer-/Profil-Overrides entfernt, nur Root-Workspace-Config aktiv
   - VS Code Multi-Root (historischer Fall, inzwischen bereinigt): Multi-Root-Workspace-Datei (`*.code-workspace`) entfernt/archiviert; Root wird als Single-Root genutzt. Wrapper-Tasks sind für standardisierte Prüf-/Testläufe wieder erlaubt (R-WRAP), Multi-Root-Fallakte bleibt als Historie (`novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`).
 
-Multi-Root & Wrapper-Status (Stand 2025-11-16 12:00)
-----------------------------------------------------
+Single-Root & Wrapper-Status (ehemals Multi-Root, Stand 2025-11-16 12:00)
+-------------------------------------------------------------------------
 
-- Workspace: Single-Root (VS Code öffnet den Ordner `Main` direkt; keine aktiven Multi-Root-Workspace-Dateien mehr).
+- Workspace: Single-Root (VS Code öffnet den Ordner `Main` direkt; keine aktiven Multi-Root-Workspace-Dateien mehr; frühere Multi-Root-Konfiguration nur noch historisch relevant).
 - Wrapper-Policy: Mehrschrittprozesse (Lint/Typen/Tests/Coverage) sollen bevorzugt über Skript-Wrapper laufen:
   - Checks-Wrapper: `python scripts/run_checks_and_report.py` ist der einzige Entry-Point für „Checks: full“.
   - Coverage-Wrapper: `scripts/run_pytest_coverage.ps1` für kombinierte Coverage-Läufe (R-COV), mit Receipt.

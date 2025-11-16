@@ -85,6 +85,11 @@ Wenn du vermeiden willst, dass Godot das Editorfenster mit „(DEBUG)“ öffnet
 - Headless verifier (schnell, für CI / Smoke): `pwsh -File .\scripts\run_sim_headless.ps1` — startet lokal die `verify_sim.gd` im Headless-Modus, kein Editorfenster.
 - Release/Export (empfohlen für Produktion): Exportiere das Projekt (`Project -> Export`) als Windows Desktop und starte die erzeugte `.exe` — das läuft ohne Editor-Overlay und ohne Debug-Label.
 
+Verification Record
+-------------------
+
+- 2025-11-16 04:54 — Headless verification executed: Godot Engine `v4.5.1.stable.official.f62fdbde1` loaded `novapolis-sim/project.godot` in headless mode and exited cleanly. Log file: `.tmp-results/logs/godot_headless_20251116_045407.log`. Quick scan found no ERROR/WARNING/Traceback lines. See `novapolis-dev/docs/donelog.md` for the postflight entry.
+
 Hinweis: Wenn deine lokale Godot-Binary eine Debug-Build ist, zeigt das exportierte Editor-Playfenster weiterhin Debug-Markierungen. Lade im Zweifelsfall die offizielle Release-Binary von `https://godotengine.org` oder nutze einen Export (Release) für produktives Ausführen.
 
 
