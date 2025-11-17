@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-17 04:55
-update: Legacy-Verzeichnisse (app/routers, app/services) entfernt; DONELOG ergänzt
+stand: 2025-11-17 09:40
+update: Archiviert: `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Root-`app`-Shim hinzugefügt
 checks: python scripts/check_frontmatter.py PASS
 ---
 
@@ -13,6 +13,7 @@ Kurzueberblick
 --------------
 
 - 2025-11-17 04:55: `novapolis_agent/app/routers` und `app/services/llm.py` entfernt; abhängige Tests gelöscht; Index/Status/Cleanup-Notizen aktualisiert.
+ - 2025-11-17 09:40: Archivierung & Aufräumaktion: Geparkte `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Live-Stubs durch explizite Import-Fehlermarker ersetzt; Root-`app/__init__.py` Shim hinzugefügt um Root-Tests zu unterstützen; betroffene Tests angepasst. Commits: `1df7561`, `6191a5d`.
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
 

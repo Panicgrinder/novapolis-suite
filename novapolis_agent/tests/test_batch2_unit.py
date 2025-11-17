@@ -98,7 +98,6 @@ def test_shim_imports():
         "novapolis_agent",
         "novapolis_agent.app",
         "novapolis_agent.app.main",
-        "novapolis_agent.app.api.api",
     ]
     for n in names:
         m = importlib.import_module(n)

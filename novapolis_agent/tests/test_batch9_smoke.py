@@ -16,7 +16,6 @@ if MAIN_ROOT not in sys.path:
 def test_smoke_imports_batch9():
     """Smoke-imports für Batch 9 - app/api und app/core Module."""
     modules = [
-        "app.api.api",
         "app.api.chat_helpers",
         "app.api.models",
         "app.api.sim",

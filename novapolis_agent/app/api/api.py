@@ -1,13 +1,7 @@
+"""ARCHIVED: app/api/api.py
+
+This module has been archived and moved to `novapolis_agent/archive/app/api/api.py`.
+Importing this legacy module will raise ModuleNotFoundError to signal callers to
+use the canonical application entrypoints under `app.main` or new locations.
 """
-API-Router für die Anwendung
-"""
-
-from fastapi import APIRouter
-
-# Hinweis: Endpunkte werden derzeit in app.main direkt registriert.
-
-api_router = APIRouter()
-
-# Chat-Endpunkt einbinden
-# Hinweis: Endpunkte werden derzeit in app.main direkt registriert.
-# Dieser Router bleibt für mögliche künftige Modularisierung bestehen.
+raise ModuleNotFoundError("app.api.api is archived; see novapolis_agent/archive/app/api/api.py")

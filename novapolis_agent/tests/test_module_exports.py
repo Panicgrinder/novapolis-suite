@@ -5,16 +5,20 @@ import pytest
 
 @pytest.mark.unit
 def test_api_router_module_exists() -> None:
-    from app.api import api
+    import importlib
 
-    assert hasattr(api, "api_router")
+    # The legacy router module was archived; importing should raise ModuleNotFoundError
+    with pytest.raises(ModuleNotFoundError):
+        importlib.import_module("app.api.api")
 
 
 @pytest.mark.unit
 def test_prompt_package_exposes_all() -> None:
-    from app import prompt
+    import importlib
 
-    assert prompt.__all__ == []
+    # Prompts were moved to archive; importing the legacy package should fail
+    with pytest.raises(ModuleNotFoundError):
+        importlib.import_module("app.prompt")
 
 
 @pytest.mark.unit

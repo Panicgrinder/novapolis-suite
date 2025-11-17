@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-16 13:22
-update: Hinweis auf Single-Root + Root-Bezugsbasis ergänzt
+stand: 2025-11-17 09:40
+update: Single-Root + Hinweis auf Archivierung von App-Stubs ergänzt
 checks: python scripts/check_frontmatter.py PASS
 ---
 
@@ -72,6 +72,8 @@ Hinweis: Alle Pfade beziehen sich auf den Repo-Root `F:/VS Code Workspace/Main`.
 
 - [`novapolis_agent/app/__init__.py`](novapolis_agent/app/__init__.py) - App-Package-Initialisierung
 - [`novapolis_agent/app/main.py`](novapolis_agent/app/main.py) - FastAPI Hauptanwendung mit Chat-/Stream-/Health-Endpunkten
+
+Hinweis (2025-11-17): Teile des `app`-Pakets wurden archiviert und in `novapolis_agent/archive/app/` verschoben. Live-Stubs wurden durch explizite Archiv-/Import-Fehlermarker ersetzt; ein Root-`app/__init__.py`-Shim wurde hinzugefügt, damit Tests vom Repo-Root aus laufen. Commits: `1df7561`, `6191a5d`.
 
 Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis_agent/app/api/models.py).
 

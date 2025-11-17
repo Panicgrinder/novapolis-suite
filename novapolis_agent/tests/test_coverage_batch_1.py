@@ -7,13 +7,10 @@ MODULES = [
     # top-level package module
     "novapolis_agent.run_server",
     "novapolis_agent.agents.cvn_agent",
-    "novapolis_agent.app.utils.examples.logging_example",
-    "novapolis_agent.app.utils.examples.summary_example",
     "novapolis_agent",
     "novapolis_agent.app",
     "novapolis_agent.app.main",
     "novapolis_agent.app.api",
-    "novapolis_agent.app.api.api",
     "novapolis_agent.app.api.chat",
 ]
 
