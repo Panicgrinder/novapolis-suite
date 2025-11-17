@@ -4,10 +4,11 @@ import asyncio
 import json
 from types import SimpleNamespace
 
-import app.api.chat as chat_module
 import pytest
-from app.api.models import ChatRequest
 from pytest import MonkeyPatch
+
+import app.api.chat as chat_module
+from app.api.models import ChatRequest
 
 
 def _make_fake_stream_client(chunks: list[str]):

@@ -85,7 +85,6 @@ def test_export_out_dir_none_uses_settings_fallback(
 ) -> None:
     # Stelle settings so ein, dass EVAL_RESULTS_DIR auf einen temporären Unterpfad zeigt
     import app.core.settings as settings_mod
-
     from novapolis_agent.scripts import export_finetune as exporter
 
     monkeypatch.setattr(

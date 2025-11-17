@@ -1,7 +1,6 @@
 import sys
 from pathlib import Path
 
-
 # Ensure both workspace root and package root are on sys.path so imports like
 # `app.*` and `novapolis_agent.app.*` resolve regardless of test runner cwd.
 P = Path(__file__).resolve()

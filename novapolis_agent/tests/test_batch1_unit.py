@@ -1,19 +1,15 @@
 import importlib
-import sys
-import os
 import json
-import tempfile
 import types
 
 import pytest
 
+from app.utils.convlog import create_log_record, log_turn
 from app.utils.summarize import (
-    extract_key_points,
     create_simple_summary,
+    extract_key_points,
     summarize_turn,
 )
-
-from app.utils.convlog import create_log_record, log_turn
 
 
 def test_extract_key_points_basic():
@@ -46,7 +42,6 @@ def test_summarize_turn_default():
 
 def test_create_log_record_and_log_turn(tmp_path, monkeypatch):
     # Prevent writing to the real data/logs by redirecting cwd
-    tmp_data = tmp_path / "data"
     monkeypatch.chdir(tmp_path)
 
     messages = [{"role": "user", "content": "Hallo"}]
@@ -61,7 +56,7 @@ def test_create_log_record_and_log_turn(tmp_path, monkeypatch):
     files = list(log_dir.glob("*.jsonl"))
     assert files, "log file was not created"
     # quick sanity: the last line parses as json and matches
-    with open(files[-1], "r", encoding="utf-8") as fh:
+    with open(files[-1], encoding="utf-8") as fh:
         last = fh.read().strip().splitlines()[-1]
     j = json.loads(last)
     assert j.get("summary") == "sum"

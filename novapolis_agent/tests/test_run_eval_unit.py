@@ -1,5 +1,3 @@
-import pytest
-
 from novapolis_agent.scripts import run_eval as reval
 
 

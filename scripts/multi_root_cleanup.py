@@ -63,10 +63,42 @@ def update_file_checks(moved: list[Path]) -> None:
         return
     txt = todo.read_text(encoding="utf-8")
     replacements = {
-        "Multi-Root Fallakte schließen: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md` finalisieren; `WORKSPACE_STATUS.md` aktualisieren. (R-WRAP/R-STOP)": f"Multi-Root Fallakte schließen: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md` finalisieren; `WORKSPACE_STATUS.md` aktualisieren. (R-WRAP/R-STOP)  <!-- status updated {TS} -->",
-        "Prüfen/Entfernen: Backup-/Schatten-Datei `README.md.bak` (Root) → löschen oder nach `Backups/` verschieben. (R-SEC/R-SAFE)": f"Prüfen/Entfernen: Backup-/Schatten-Datei `README.md.bak` (Root) → gelöscht/verschoben nach `Backups/`. (R-SEC/R-SAFE)  <!-- moved {TS} -->",
-        "Prüfen/Entfernen: `lint.out` (Root, falls vorhanden) → archivieren oder löschen. (R-LINT/R-SAFE)": f"Prüfen/Entfernen: `lint.out` (Root, falls vorhanden) → archiviert/verschoben nach `Backups/`. (R-LINT/R-SAFE)  <!-- moved {TS} -->",
-        "Verifizieren: `novapolis-suite.code-workspace` laut älterem Tree gelistet - falls noch vorhanden, entfernen/archivieren. (R-CTX/R-SAFE)": f"Verifizieren: `novapolis-suite.code-workspace` laut älterem Tree gelistet - entfernt/archiviert (Backups/). (R-CTX/R-SAFE)  <!-- moved {TS} -->",
+        (
+            "Multi-Root Fallakte schließen: "
+            "`novapolis-dev/logs/open-case-terminal-"
+            "multi-root-20251103.md` finalisieren; "
+            "`WORKSPACE_STATUS.md` aktualisieren. (R-WRAP/R-STOP)"
+        ): (
+            "Multi-Root Fallakte schließen: "
+            "`novapolis-dev/logs/open-case-terminal-"
+            "multi-root-20251103.md` finalisieren; "
+            "`WORKSPACE_STATUS.md` aktualisiert. "
+            f"(R-WRAP/R-STOP)  <!-- status updated {TS} -->"
+        ),
+        (
+            "Prüfen/Entfernen: Backup-/Schatten-Datei `README.md.bak` (Root) → "
+            "löschen oder nach `Backups/` verschieben. (R-SEC/R-SAFE)"
+        ): (
+            "Prüfen/Entfernen: Backup-/Schatten-Datei `README.md.bak` (Root) → "
+            "gelöscht/verschoben nach `Backups/`. "
+            f"(R-SEC/R-SAFE)  <!-- moved {TS} -->"
+        ),
+        (
+            "Prüfen/Entfernen: `lint.out` (Root, falls vorhanden) → archivieren "
+            "oder löschen. (R-LINT/R-SAFE)"
+        ): (
+            "Prüfen/Entfernen: `lint.out` (Root, falls vorhanden) → archiviert/"
+            "verschoben nach `Backups/`. "
+            f"(R-LINT/R-SAFE)  <!-- moved {TS} -->"
+        ),
+        (
+            "Verifizieren: `novapolis-suite.code-workspace` laut älterem Tree gelistet - "
+            "falls noch vorhanden, entfernen/archivieren. (R-CTX/R-SAFE)"
+        ): (
+            "Verifizieren: `novapolis-suite.code-workspace` laut älterem Tree gelistet - "
+            "entfernt/archiviert (Backups/). "
+            f"(R-CTX/R-SAFE)  <!-- moved {TS} -->"
+        ),
     }
     for a, b in replacements.items():
         txt = txt.replace(f"- [ ] {a}", f"- [x] {b}")
@@ -93,7 +125,8 @@ def append_donelog(
     }
     entry_lines.append("Meta: " + json.dumps(meta, ensure_ascii=False))
     entry_lines.append(
-        "Kurz: `*.code-workspace` und Schatten-/Log-Dateien archiviert nach Backups/, Wrapper-WhatIf ausgeführt, Statusblöcke in WORKSPACE_STATUS.md + todo.root.md aktualisiert."
+        "Kurz: `*.code-workspace` und Schatten-/Log-Dateien archiviert nach Backups/. "
+        "Wrapper-WhatIf ausgeführt; Statusblöcke in WORKSPACE_STATUS.md + todo.root.md aktualisiert."
     )
     entry = "\n".join(entry_lines) + "\n\n"
     if dl.exists():
@@ -114,9 +147,12 @@ def update_workspace_status(
     insert_block = (
         "\nSingle-Root & Wrapper-Status (Multi-Root Abschluss)\n"
         "-------------------------------------------------------------------------\n\n"
-        f"- Multi-Root abgeschlossen: Zeitstempel: {TS}, Commit: <git-short-hash>, "
-        f"Gefundene `*.code-workspace`={sum(1 for p in moved if p.suffix=='.code-workspace')}, "
-        f"Verschoben nach `Backups/`={len(moved)}, Wrapper-Test:`{wrapper_cmd}` ExitCode={wrapper_result[0]}.\n\n"
+        + (
+            f"- Multi-Root abgeschlossen: Zeitstempel: {TS}, Commit: <git-short-hash>, "
+            f"Gefundene `*.code-workspace`={sum(1 for p in moved if p.suffix=='.code-workspace')}, "
+            f"Verschoben nach `Backups/`={len(moved)}, "
+            f"Wrapper-Test:`{wrapper_cmd}` ExitCode={wrapper_result[0]}.\n\n"
+        )
     )
     txt = txt + "\n" + insert_block
     ws.write_text(txt, encoding="utf-8")

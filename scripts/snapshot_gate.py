@@ -24,8 +24,7 @@ def run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess:
     return subprocess.run(
         cmd,
         cwd=str(cwd) if cwd else None,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         text=True,
     )
 
@@ -157,7 +156,8 @@ def main() -> int:
         print()
         print("Bitte VOR dem Edit/Commit die Systemzeit abrufen und Lock setzen:")
         print(
-            '  cd "F:/VS Code Workspace/Main"; python -c "from datetime import datetime; print(datetime.now().strftime("%Y-%m-%d %H:%M"))"'
+            '  cd "F:/VS Code Workspace/Main"; python -c "from datetime import datetime; '
+            'print(datetime.now().strftime("%Y-%m-%d %H:%M"))"'
         )
         print(
             '  cd "F:/VS Code Workspace/Main"; python scripts/snapshot_write_lock.py   # wenn verfügbar'

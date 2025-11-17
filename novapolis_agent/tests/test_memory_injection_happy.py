@@ -1,7 +1,8 @@
 import pytest
+from fastapi.testclient import TestClient
+
 from app.core.settings import settings
 from app.main import app
-from fastapi.testclient import TestClient
 
 
 @pytest.mark.asyncio

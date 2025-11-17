@@ -1,7 +1,6 @@
 import importlib
-import sys
 import os
-
+import sys
 
 MODULES = [
     # top-level package module
@@ -30,5 +29,6 @@ def test_import_batch_1():
         try:
             importlib.import_module(name)
         except Exception:
-            # Re-raise to let pytest report the failure (we only expect ImportError if module is missing)
+            # Re-raise to let pytest report the failure.
+            # We only expect ImportError if the module is missing.
             raise

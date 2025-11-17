@@ -11,6 +11,7 @@ je nach Umgebung/Policy.
 """
 
 from __future__ import annotations
+
 import os
 import sys
 from pathlib import Path
@@ -25,7 +26,8 @@ def main() -> int:
     if VENV.exists():
         print(".venv exists — no creation performed.")
         print(
-            "If you want to (re)create, run: python -m venv .venv && .venv\\Scripts\\pip install -r requirements.txt"
+            "If you want to (re)create, run: python -m venv .venv &&"
+            " .venv\\Scripts\\pip install -r requirements.txt"
         )
         return 0
 

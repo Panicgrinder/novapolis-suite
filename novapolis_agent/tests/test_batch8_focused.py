@@ -1,14 +1,12 @@
-from pathlib import Path
 import sys
-import asyncio
-
+from pathlib import Path
 
 # Ensure repository root on path
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from novapolis_agent.scripts import run_eval
+from novapolis_agent.scripts import run_eval  # noqa: E402
 
 
 def test_get_term_variants_basic():
