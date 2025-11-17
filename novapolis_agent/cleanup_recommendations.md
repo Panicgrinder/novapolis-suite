@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-16 06:52
-update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt
+stand: 2025-11-17 04:55
+update: App-Router- und LLM-Service-Verzeichnis entfernt, Hinweise aktualisiert
 checks: keine
 ---
 
@@ -27,7 +27,7 @@ Abgeschlossene Maßnahmen
 
 4. ✅ Konsolidieren der ChatMessage-Implementierungen
    - `utils/message_helpers.py` wurde als veraltet markiert (Hinweis im Datei-Header vorhanden)
-   - Aktive Nutzung: `app/schemas.py` (Modelle) und `app/services/llm.py` (System-Prompt/LLM-Interaktion)
+   - Aktive Nutzung: `app/schemas.py` (Modelle); der frühere LLM-Service (`app/services/llm.py`) wurde am 2025-11-17 entfernt.
 
 5. ✅ Bereinigen der virtuellen Umgebungen
    - Feststellung: `venv/` Verzeichnis existiert nicht oder wurde bereits entfernt
@@ -47,7 +47,7 @@ Langfristige Überlegungen
 
 1. Klare Trennung zwischen API-Endpunkten und Routers
    - Endpunkte sind konsolidiert unter `app/api/` und via `app/main.py` exponiert
-   - `app/routers/` ist aktuell nicht aktiv für Endpoints, enthält nur Hilfsmaterial/README
+   - Das bisherige Platzhalter-Verzeichnis `app/routers/` wurde am 2025-11-17 entfernt.
 
 2. Konsolidierung der eval-utils
    - Überprüfen, ob Funktionen aus `scripts/run_eval.py` in `utils/eval_utils.py` verschoben werden können

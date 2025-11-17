@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-12 01:38
-update: Postflight (Checks-Report 20251112_013920 protokolliert)
+stand: 2025-11-17 04:55
+update: Legacy-Router/LLM-Service entfernt; Agent-Doku synchronisiert
 checks: markdownlint-cli2 PASS (scoped)
 
 
@@ -180,3 +180,4 @@ Beispiel:
 2025-11-10 12:12 | GitHub Copilot | Docs: Root and `novapolis-sim` README updated to record successful Godot ↔ Agent connection verification (headless verifier + smoke test). WORKSPACE_STATUS.md updated with sim verification note.
 2025-11-14 14:44 | Copilot | Repo cleanup: Ruff/B010 & E501 fixes in `app/api/chat.py`, argparse help fix in `novapolis_agent/scripts/run_eval.py`, markdownlint table fix `novapolis-rp/.../person_index_np.md`; full checks-run PASS (markdownlint/ruff/black/mypy/pytest). Tests stabilized (mod.main replacements).
 2025-11-14 15:13 | Copilot | Docs sweep: added missing YAML frontmatter to `.tmp-results/todo.cleaned.md`, `eval/config/context.local.md`, and `novapolis_agent/eval/config/context.local.md`; normalized `novapolis_agent/docs/DONELOG.txt` ordering and applied sorted DONELOG content; ran `npx --yes markdownlint-cli2` (PASS) and `scripts/run_frontmatter_validator.ps1` (initial FAIL → auto-fix → PASS); committed & pushed (`chore(docs): add missing frontmatter for validator (auto-fix)`).
+2025-11-17 04:55 | Copilot | `novapolis_agent/app/routers` & `app/services/llm.py` entfernt (inkl. Mirror-Pakete + zugehörige Tests); `WORKSPACE_INDEX.md`, `cleanup_recommendations.md`, `WORKSPACE_STATUS.md` und DONELOGs aktualisiert.

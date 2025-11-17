@@ -95,14 +95,12 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 
 - (entfernt) `novapolis_agent/app/prompt/system.txt` - Altlast gelöscht; zentrale Quelle ist `app/core/prompts.py`.
 
-#### `novapolis_agent/app/routers` (legacy/geparkt)
-  - TODO: Prüfen und entweder entfernen oder konsolidieren (verbleibender defekter Verweis aus Link-Scan)
+#### `novapolis_agent/app/routers` (entfernt 2025-11-17)
+- Legacy-Router-Verzeichnis gelöscht; aktive Endpunkte liegen ausschließlich unter `app/api`.
 
 
-#### `novapolis_agent/app/services`
-
-- [`novapolis_agent/app/services/__init__.py`](novapolis_agent/app/services/__init__.py) - Services-Package
-- [`novapolis_agent/app/services/llm.py`](novapolis_agent/app/services/llm.py) - LLM-Service (geparkt)
+#### `novapolis_agent/app/services` (entfernt 2025-11-17)
+- Abgebautes Paket (`llm.py` + `__init__`); Chat-Flow nutzt direkt `app/api/chat.py` und Einstellungen unter `app/core`.
 
 #### `novapolis_agent/app/utils`
 

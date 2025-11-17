@@ -311,7 +311,7 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
   - Mitigation: Launch zunächst im Agent belassen; Migration optional/später.
 - Risiko: Regression auf Multi-Root-Konfiguration.
   - Mitigation: `scripts/multi_root_cleanup.py --whatif` regelmäßig ausführen; neue `.code-workspace`-Artefakte sofort in `Backups/` verschieben.
-- Backout: Sub-`.vscode` beibehalten bis Etappe2; jederzeit reaktivierbar.
+- Backout: Sub-`.vscode` beibehalten bis Etappe2; jederzeit reaktivierbar.
 
 ### Betroffene Dateien (geplant)
 
@@ -325,7 +325,7 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 
 - [ ] Root-Tasks laufen (lint, fix, pytest, coverage)
 - [ ] Keine Konflikte in Settings (Interpreter/ENV)
-- [ ] 3-5Tage Nutzung ohne Beschwerden → Go für Etappe2
+- [ ] 3-5Tage Nutzung ohne Beschwerden → Go für Etappe2
 
 Volltexte
 ---------

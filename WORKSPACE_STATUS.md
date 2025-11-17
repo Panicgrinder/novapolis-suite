@@ -1,12 +1,13 @@
 ---
-stand: 2025-11-16 13:22
-update: Single-Root/Python-Arbeitsmodus dokumentiert
+stand: 2025-11-17 04:55
+update: Legacy-Verzeichnisse (app/routers, app/services) entfernt; Index/Doku aktualisiert
 checks: python scripts/check_frontmatter.py PASS
 ---
 
 Recent Changes
 --------------
 
+- 2025-11-17 04:55: `novapolis_agent/app/routers` und `app/services/llm.py` endgültig entfernt (inkl. Mirror-Pakete + LLM-Tests); `WORKSPACE_INDEX.md`, `cleanup_recommendations.md` und DONELOGs aktualisiert.
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` (Stand-Aktualisierung) in `scripts/check_frontmatter.py` ergänzt; Governance-Referenzblock erweitert; Validator PASS (`python scripts/check_frontmatter.py`).
 - 2025-11-15 09:20: Dokumentationssweep (context.local.md Frontmatter repariert, todo/Status/Index aktualisiert); Frontmatter-Validator PASS (`python scripts/check_frontmatter.py`).
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert, todo/Status/Index aktualisiert); Frontmatter-Validator PASS (`python scripts/check_frontmatter.py`).

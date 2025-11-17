@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-16 06:52
-update: Frontmatter-Autofix + --touch ergänzt, Governance aktualisiert
+stand: 2025-11-17 04:55
+update: Legacy-Verzeichnisse (app/routers, app/services) entfernt; DONELOG ergänzt
 checks: python scripts/check_frontmatter.py PASS
 ---
 
@@ -12,8 +12,13 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-17 04:55: `novapolis_agent/app/routers` und `app/services/llm.py` entfernt; abhängige Tests gelöscht; Index/Status/Cleanup-Notizen aktualisiert.
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+
+2025-11-17 04:55 | Copilot | Legacy-App-Verzeichnisse entfernt (Routers, Services/LLM)
+Meta: {"Timestamp": "2025-11-17 04:55", "Scope": "novapolis_agent", "Removed": ["app/routers", "novapolis_agent/app/routers", "app/services", "novapolis_agent/app/services"], "Tests": ["tests/test_services_llm.py", "tests/test_llm_client_mock.py", "tests/test_llm_service_error_paths.py"], "Docs": ["WORKSPACE_INDEX.md", "novapolis_agent/cleanup_recommendations.md", "WORKSPACE_STATUS.md", "DONELOG.md"]}
+Kurz: Das geparkte Router-Paket und der unbenutzte LLM-Service wurden vollständig aus dem Agent entfernt (inkl. Mirror-Pakete und zugehöriger Tests). Dokumentation und Statusdateien spiegeln die Bereinigung wider; keine verbleibenden Referenzen auf `app.services.llm` oder `app.routers`.
 
 2025-11-16 07:50 | Copilot | Checks & Coverage Postflight (Root)
 Meta: {"Timestamp": "2025-11-16 07:50", "GitSHA": "c679a2e15636674f9d164c37cf16e0eb1e586481", "git_short": "c679a2e", "python": "3.13.2", "coverage_percent": 83.96, "coverage_fail_under": 80, "checks_json": ".tmp-results/reports/checks_report_20251116_074933.json", "checks_md": ".tmp-results/reports/checks_report_20251116_074933.md"}
