@@ -160,7 +160,8 @@ def main() -> int:
             'print(datetime.now().strftime("%Y-%m-%d %H:%M"))"'
         )
         print(
-            '  cd "F:/VS Code Workspace/Main"; python scripts/snapshot_write_lock.py   # wenn verfügbar'
+            '  cd "F:/VS Code Workspace/Main"; python scripts/snapshot_write_lock.py'
+            '   # wenn verfügbar'
         )
         print("Danach YAML-Frontmatter 'stand:' aktualisieren und erneut committen.")
         print("Bypass (nicht empfohlen): setx SNAPSHOT_GATE_BYPASS 1 (neues Terminal nötig)")

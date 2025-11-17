@@ -126,7 +126,8 @@ def append_donelog(
     entry_lines.append("Meta: " + json.dumps(meta, ensure_ascii=False))
     entry_lines.append(
         "Kurz: `*.code-workspace` und Schatten-/Log-Dateien archiviert nach Backups/. "
-        "Wrapper-WhatIf ausgeführt; Statusblöcke in WORKSPACE_STATUS.md + todo.root.md aktualisiert."
+        "Wrapper-WhatIf ausgeführt; Statusblöcke in "
+        "WORKSPACE_STATUS.md + todo.root.md aktualisiert."
     )
     entry = "\n".join(entry_lines) + "\n\n"
     if dl.exists():
