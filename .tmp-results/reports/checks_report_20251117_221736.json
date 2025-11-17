@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "timestamp": "2025-11-17 22:18",
+    "python": "3.13.2",
+    "runner_python": "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe",
+    "os": "Windows-11-10.0.26200-SP0",
+    "repo_root": "F:\\VS Code Workspace\\Main",
+    "git_sha": "37efa23",
+    "script_sha256": "8ae17b86c82e7097ff82de3506419fa448bc2b8f362e7a6827586263b006f724",
+    "coverage_fail_under": 80,
+    "coverage_percent": 83.85,
+    "wrapper_guards": "ScriptLocation:PASS|WorkingDir:PASS|RepoRoot:PASS",
+    "wrapper_guards_status": "PASS",
+    "pytest_addopts": "--timeout=200"
+  },
+  "checks": [
+    {
+      "tool": "markdownlint",
+      "status": "PASS",
+      "exitcode": 0,
+      "duration_ms": 1995,
+      "findings_count": 0,
+      "details_path": ".tmp-results\\reports\\checks_run_20251117_221736\\markdownlint.log",
+      "notes": null
+    },
+    {
+      "tool": "frontmatter",
+      "status": "PASS",
+      "exitcode": 0,
+      "duration_ms": 74,
+      "findings_count": 0,
+      "details_path": ".tmp-results\\reports\\checks_run_20251117_221736\\frontmatter.log",
+      "notes": null
+    },
+    {
+      "tool": "ruff",
+      "status": "FAIL",
+      "exitcode": 1,
+      "duration_ms": 87,
+      "findings_count": 21,
+      "details_path": ".tmp-results\\reports\\checks_run_20251117_221736\\ruff.log",
+      "notes": null
+    },
+    {
+      "tool": "black",
+      "status": "FAIL",
+      "exitcode": 1,
+      "duration_ms": 867,
+      "findings_count": 1,
+      "details_path": ".tmp-results\\reports\\checks_run_20251117_221736\\black.log",
+      "notes": null
+    },
+    {
+      "tool": "pyright",
+      "status": "SKIP",
+      "exitcode": null,
+      "duration_ms": 0,
+      "findings_count": 0,
+      "details_path": ".tmp-results\\reports\\checks_run_20251117_221736\\pyright.log",
+      "notes": "pyright skipped (executable not found)"
+    },
+    {
+      "tool": "mypy",
+      "status": "PASS",
+      "exitcode": 0,
+      "duration_ms": 7079,
+      "findings_count": 0,
+      "details_path": ".tmp-results\\reports\\checks_run_20251117_221736\\mypy.log",
+      "notes": null
+    },
+    {
+      "tool": "pytest",
+      "status": "PASS",
+      "exitcode": 0,
+      "duration_ms": 58002,
+      "findings_count": 0,
+      "details_path": ".tmp-results\\reports\\checks_run_20251117_221736\\pytest.log",
+      "notes": "PYTEST_ADDOPTS='--timeout=200' gesetzt (pytest-timeout aktiv)."
+    },
+    {
+      "tool": "yamllint",
+      "status": "SKIP",
+      "exitcode": null,
+      "duration_ms": 0,
+      "findings_count": 0,
+      "details_path": ".tmp-results\\reports\\checks_run_20251117_221736\\yamllint.log",
+      "notes": "yamllint skipped (tool or config missing)"
+    },
+    {
+      "tool": "jsonlint",
+      "status": "SKIP",
+      "exitcode": null,
+      "duration_ms": 0,
+      "findings_count": 0,
+      "details_path": ".tmp-results\\reports\\checks_run_20251117_221736\\jsonlint.log",
+      "notes": "jsonlint skipped (tool missing)"
+    },
+    {
+      "tool": "hadolint",
+      "status": "SKIP",
+      "exitcode": null,
+      "duration_ms": 0,
+      "findings_count": 0,
+      "details_path": ".tmp-results\\reports\\checks_run_20251117_221736\\hadolint.log",
+      "notes": "hadolint skipped (tool or Dockerfile missing)"
+    }
+  ],
+  "overall": {
+    "status": "FAIL",
+    "exitcode": 1
+  }
+}
