@@ -1,4 +1,5 @@
-# PR: Archivierung von App-Stubs, Root-`app`-Shim und Formatierungsfixes
+PR: Archivierung von App-Stubs, Root-`app`-Shim und Formatierungsfixes
+===
 
 Kurz (Deutsch):
 - Archiviert: Teile des `novapolis_agent/app`-Pakets in `novapolis_agent/archive/app/` verschoben; Live-Stubs durch klare Import-Fehlermarker ersetzt.
