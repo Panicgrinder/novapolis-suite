@@ -24,6 +24,7 @@
     ".pytest_cache/**",
     "novapolis_agent/.pytest_cache/**",
     ".tmp-results/**",
+    "novapolis-dev/archive/**",
     "Main/scripts",
     "node_modules/**",
     ".github/copilot-instructions.md",

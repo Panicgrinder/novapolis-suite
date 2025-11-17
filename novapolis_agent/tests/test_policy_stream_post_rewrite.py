@@ -4,9 +4,8 @@ import asyncio
 import json
 from types import SimpleNamespace
 
-import pytest
-
 import app.api.chat as chat_module
+import pytest
 from app.api.models import ChatRequest
 
 

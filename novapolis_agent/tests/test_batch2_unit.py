@@ -3,7 +3,6 @@ import os
 import types
 
 import pytest
-
 from app.tools import registry
 
 

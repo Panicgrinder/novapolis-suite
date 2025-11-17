@@ -161,7 +161,7 @@ def main() -> int:
         )
         print(
             '  cd "F:/VS Code Workspace/Main"; python scripts/snapshot_write_lock.py'
-            '   # wenn verfügbar'
+            "   # wenn verfügbar"
         )
         print("Danach YAML-Frontmatter 'stand:' aktualisieren und erneut committen.")
         print("Bypass (nicht empfohlen): setx SNAPSHOT_GATE_BYPASS 1 (neues Terminal nötig)")

@@ -3,7 +3,6 @@ import json
 import types
 
 import pytest
-
 from app.utils.convlog import create_log_record, log_turn
 from app.utils.summarize import (
     create_simple_summary,

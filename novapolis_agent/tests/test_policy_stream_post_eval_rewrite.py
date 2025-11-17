@@ -3,9 +3,8 @@ from __future__ import annotations
 import asyncio
 import json
 
-import pytest
-
 import app.api.chat as chat_module
+import pytest
 from app.api.models import ChatRequest
 
 

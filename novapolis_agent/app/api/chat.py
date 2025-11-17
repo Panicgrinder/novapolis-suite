@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING, Any, cast
 
 import httpx
 from fastapi import HTTPException, status
-
 from utils.context_notes import load_context_notes
 
 from ..core.content_management import apply_post, apply_pre, modify_prompt_for_freedom
