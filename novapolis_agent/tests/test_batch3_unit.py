@@ -59,6 +59,7 @@ def test_content_management_policy_apply(tmp_path, monkeypatch):
 @pytest.mark.asyncio
 async def test_memory_inmemory_and_jsonl(tmp_path, monkeypatch):
     mem = importlib.import_module("novapolis_agent.app.core.memory")
+
     # Ensure settings to enable memory
     class S:
         MEMORY_ENABLED = True
@@ -119,8 +120,18 @@ def test_eval_utils_and_prepare_pack(tmp_path):
     # create a minimal jsonl source
     src = tmp_path / "src.jsonl"
     rows = [
-        {"messages": [{"role": "user", "content": "instr1"}, {"role": "assistant", "content": "out1"}]},
-        {"messages": [{"role": "user", "content": "instr2"}, {"role": "assistant", "content": "out2"}]},
+        {
+            "messages": [
+                {"role": "user", "content": "instr1"},
+                {"role": "assistant", "content": "out1"},
+            ]
+        },
+        {
+            "messages": [
+                {"role": "user", "content": "instr2"},
+                {"role": "assistant", "content": "out2"},
+            ]
+        },
     ]
     src.write_text("\n".join(json.dumps(r, ensure_ascii=False) for r in rows))
     res = pf.prepare_pack(

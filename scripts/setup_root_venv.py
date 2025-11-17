@@ -9,6 +9,7 @@ Dieses Skript ist bewusst minimal — es prüft, ob `.venv` existiert und
 gibt handlungsanweisungen oder führt einfache creation/installation aus,
 je nach Umgebung/Policy.
 """
+
 from __future__ import annotations
 import os
 import sys
@@ -23,11 +24,14 @@ def main() -> int:
     print(f"Root: {ROOT}")
     if VENV.exists():
         print(".venv exists — no creation performed.")
-        print("If you want to (re)create, run: python -m venv .venv && .venv\\Scripts\\pip install -r requirements.txt")
+        print(
+            "If you want to (re)create, run: python -m venv .venv && .venv\\Scripts\\pip install -r requirements.txt"
+        )
         return 0
 
     try:
         import venv
+
         print("Creating virtual environment at .venv...")
         venv.create(VENV, with_pip=True)
         pip = VENV / "Scripts" / "pip.exe" if sys.platform == "win32" else VENV / "bin" / "pip"

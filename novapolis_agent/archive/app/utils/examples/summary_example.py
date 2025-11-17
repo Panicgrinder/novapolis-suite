@@ -2,6 +2,7 @@
 
 Archivkopie der Beispielimplementation.
 """
+
 from app.utils.convlog import create_log_record
 from app.utils.summarize import summarize_turn
 
@@ -13,7 +14,9 @@ def beispiel_zusammenfassung() -> None:
     ]
     response = "Python ist eine vielseitige Sprache."
     summary = summarize_turn(messages, response)
-    log_entry = create_log_record(messages=messages, response=response, summary=summary.get("summary"))
+    log_entry = create_log_record(
+        messages=messages, response=response, summary=summary.get("summary")
+    )
     _ = log_entry
 
 

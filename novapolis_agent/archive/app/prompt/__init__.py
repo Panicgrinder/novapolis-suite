@@ -2,4 +2,5 @@
 
 Archivkopie der Prompt-Stubs.
 """
+
 __all__ = []

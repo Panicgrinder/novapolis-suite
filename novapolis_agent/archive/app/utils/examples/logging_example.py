@@ -2,6 +2,7 @@
 
 Archivkopie der Beispielimplementation.
 """
+
 from app.utils.convlog import create_log_record, log_turn
 
 

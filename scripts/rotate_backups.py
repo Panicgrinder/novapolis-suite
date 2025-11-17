@@ -5,6 +5,7 @@ Ein sehr kleines Rotationstool: behalte N neueste Backups, verschiebe ältere in
 Usage:
     python -m scripts.rotate_backups
 """
+
 from __future__ import annotations
 from pathlib import Path
 import shutil
@@ -19,7 +20,9 @@ def main() -> int:
     if not BACKUPS.exists():
         print("No Backups/ directory found — nothing to rotate.")
         return 0
-    files = sorted([p for p in BACKUPS.iterdir() if p.is_file()], key=lambda p: p.stat().st_mtime, reverse=True)
+    files = sorted(
+        [p for p in BACKUPS.iterdir() if p.is_file()], key=lambda p: p.stat().st_mtime, reverse=True
+    )
     to_archive = files[KEEP:]
     if not to_archive:
         print(f"No files older than top {KEEP} to archive.")

@@ -58,7 +58,11 @@ def test_inject_eval_hint_idempotent():
     assert any(m.get("content", "").startswith("Hinweis (Eval):") for m in out)
     # second injection should not duplicate
     out2 = reval.inject_eval_hint(out, ["a", "b"])
-    hints = [m for m in out2 if m.get("role") == "user" and m.get("content", "").startswith("Hinweis (Eval):")]
+    hints = [
+        m
+        for m in out2
+        if m.get("role") == "user" and m.get("content", "").startswith("Hinweis (Eval):")
+    ]
     assert len(hints) == 1
 
 

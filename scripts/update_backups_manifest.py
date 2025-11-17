@@ -6,6 +6,7 @@ Manifest `Backups/manifest.v1.json` mit basic metadata (name, size, sha256 optio
 Usage:
     python -m scripts.update_backups_manifest
 """
+
 from __future__ import annotations
 import json
 import hashlib
@@ -30,14 +31,13 @@ def build_manifest() -> dict:
         BACKUPS.mkdir(parents=True, exist_ok=True)
     manifest = {"generated_at": None, "files": []}
     from datetime import datetime
+
     manifest["generated_at"] = datetime.now().isoformat()
     for p in sorted(BACKUPS.iterdir()):
         if p.is_file() and p.name != MANIFEST.name:
-            manifest["files"].append({
-                "name": p.name,
-                "size": p.stat().st_size,
-                "sha256": file_sha256(p)
-            })
+            manifest["files"].append(
+                {"name": p.name, "size": p.stat().st_size, "sha256": file_sha256(p)}
+            )
     return manifest
 
 

@@ -42,12 +42,12 @@ def test_models_coerce_messages():
     # dict messages
     req = mm.ChatRequest(messages=[{"role": "user", "content": "Hi"}])
     assert isinstance(req.messages, list)
+
     # object-like message
     class Obj:
         role = "user"
 
         content = "hello"
-
 
     req2 = mm.ChatRequest(messages=[Obj()])
     assert isinstance(req2.messages, list)
@@ -71,7 +71,6 @@ def test_open_latest_summary_find_and_open(tmp_path, monkeypatch):
     def fake_open(uri):
         called["ok"] = True
         return True
-
 
     monkeypatch.setattr("webbrowser.open", fake_open)
     mod.open_file(f2)

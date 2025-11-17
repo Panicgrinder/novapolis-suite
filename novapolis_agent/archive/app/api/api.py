@@ -2,6 +2,7 @@
 
 Archivkopie der ursprünglichen Router-Stub-Datei.
 """
+
 from fastapi import APIRouter
 
 # Originalinhalt (Archiv): Router stub für mögliche zukünftige Modularisierung.
