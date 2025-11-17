@@ -2,7 +2,7 @@
 title: "Novapolis Agent - ToDo & Roadmap (SSOT)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Frontmatter auf Governance-Format umgestellt.
 checks: keine
 ---

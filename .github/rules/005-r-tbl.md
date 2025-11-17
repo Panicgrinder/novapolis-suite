@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Neue Grundregel zur Tabellenstruktur angelegt.
 checks: keine
 state: active

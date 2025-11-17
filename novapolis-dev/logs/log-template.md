@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: MD003 Setext H1/H2 umgesetzt
 checks: keine
 ---

@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-16 00:19
-update: Frontmatter-Autofix + --touch dokumentiert
+stand: 2025-11-16 13:22
+update: Single-Root/Python-Arbeitsmodus dokumentiert
 checks: python scripts/check_frontmatter.py PASS
 ---
 
@@ -13,6 +13,13 @@ Recent Changes
 - 2025-11-12 03:37: Checks: full Review abgeschlossen (damals PowerShell-Runner, inzwischen durch `python scripts/run_checks_and_report.py` ersetzt; PSScriptAnalyzer-Phase verifiziert, Receipt-Struktur JSON + Postflight-Vorlage bestätigt). Link-Scanner Rescan nun 0 defekte Verweise.
  - 2025-11-16 04:54: Sim headless verification: `novapolis-sim/project.godot` loaded headless with Godot Engine `v4.5.1.stable.official.f62fdbde1` — PASS. Log: `.tmp-results/logs/godot_headless_20251116_045407.log`. Postflight Donelog entry added to `novapolis-dev/docs/donelog.md`.
 - 2025-11-12 02:46: Governance: Vorangestellte Start-Checks entfernt aus `.github/copilot-instructions.md`; Postflight-Formulierung präzisiert (finaler Block am Ende der Nachricht); Headings-Extrakt aktualisiert & veraltete Regel-ID-Vorschläge gestrichen; Lint PASS (`.github/copilot-instructions-headings.md`).
+
+ - 2025-11-16 07:50: Root-Postflight: `python scripts/run_checks_and_report.py` + `python scripts/run_pytest_coverage.py --fail-under 80` ausgeführt.
+   - Ergebnis: Checks-Wrapper JSON/MD: `.tmp-results/reports/checks_report_20251116_074933.{json,md}` — Gesamtstatus: **FAIL** (Lint/Format/Markdown-Checks)
+   - Coverage: **83.96%** (Fail-Under 80) — Gate: PASS
+   - Offene Befunde: `markdownlint` (28 Treffer), `ruff` (35 Treffer), `black` (2 Dateien würden formatiert)
+   - Logs/Details: `.tmp-results/reports/checks_run_20251116_074933/`
+   - Aktionsempfehlung: `npx markdownlint-cli2` → `ruff --fix` → `black .` → `pyright` installieren und erneut prüfen.
 
  - 2025-11-10 12:12: Sim-Verifizierung: Verbindung Godot ↔ Agent (`POST /world/step`) erfolgreich verifiziert; Headless-Verifier und PowerShell-Smoke-Test PASS. Screenshot/Audit-Beleg im Arbeitsverzeichnis erstellt.
  - 2025-11-11 00:09: Dokumentation: Review des damaligen PowerShell-Checks-Wrappers ergänzt; ToDo für Status-Fix (STOP -> FAIL) eingetragen; zugehörige Doku-Änderungen committet. Seit 2025-11-12 ist `python scripts/run_checks_and_report.py` der einzige Entry-Point.
@@ -56,6 +63,14 @@ Aktueller Arbeitsmodus
 - STOP-Gate: an (vor Code-/kanon-kritischen Aktionen explizite Bestätigung erforderlich)
 - Erinnerungen: Wechselhinweise bei Code-Triggern aktiv; „Bitte nicht erinnern“ schaltet Hinweise ab bis zur Reaktivierung
 
+Aktueller Arbeitsmodus (Single-Root, Python @ Root)
+--------------------------------------------------
+
+- Workspace & Interpreter: `F:/VS Code Workspace/Main` ist der einzige VS-Code-Root; `.venv` (Python 3.11/3.12+) und `.env` liegen im Root.
+- Standard-Wrappers: `python scripts/run_checks_and_report.py --scope full` (Lint/Typen/Tests) und `python scripts/run_pytest_coverage.py --fail-under 80` (Coverage) laufen aus dem Root; PowerShell-Wrapper dienen nur noch als Fallback.
+- Tasks setzen `options.cwd` gezielt (z. B. `novapolis_agent/` für pytest), bleiben aber über das Root-`.vscode/tasks.json` steuerbar.
+- Guard-Check: `python scripts/multi_root_cleanup.py --whatif` prüft regelmäßig auf neue `*.code-workspace`-/Schatten-Dateien; Auffälligkeiten sofort nach `Backups/` verschieben.
+
 Health-Checks & Open Items
 ---------------------------
 
@@ -76,7 +91,7 @@ Single-Root & Wrapper-Status (ehemals Multi-Root, Stand 2025-11-16 12:00)
 - Workspace: Single-Root (VS Code öffnet den Ordner `Main` direkt; keine aktiven Multi-Root-Workspace-Dateien mehr; frühere Multi-Root-Konfiguration nur noch historisch relevant).
 - Wrapper-Policy: Mehrschrittprozesse (Lint/Typen/Tests/Coverage) sollen bevorzugt über Skript-Wrapper laufen:
   - Checks-Wrapper: `python scripts/run_checks_and_report.py` ist der einzige Entry-Point für „Checks: full“.
-  - Coverage-Wrapper: `scripts/run_pytest_coverage.ps1` für kombinierte Coverage-Läufe (R-COV), mit Receipt.
+  - Coverage-Wrapper: `python scripts/run_pytest_coverage.py --fail-under <threshold>` für kombinierte Coverage-Läufe (R-COV); PowerShell-Fallback nur archiviert.
 - STOP-Gate (R-STOP/R-WRAP):
   - Reine Lese-Operationen (z. B. `tree`, `git status`, `cat`/`Get-Content`) benötigen keinen zusätzlichen Guard.
   - Aktionen mit Seiteneffekt (WRITE/RUN, z. B. Skript-Wrapper, Formatierer, Cleanup) bleiben STOP-pflichtig (kurzer Plan + Receipt).
@@ -84,6 +99,10 @@ Single-Root & Wrapper-Status (ehemals Multi-Root, Stand 2025-11-16 12:00)
   - Keine `*.code-workspace` im Workspace aktiv.
   - Wrapper-Skripte sind im Root verankert (`scripts/run_checks_and_report.py`, `scripts/run_pytest_coverage.ps1`).
   - Dieser Statusblock dokumentiert den Abschluss des Multi-Root-Falls.
+
+Status-Update (Multi-Root Abschluss)
+-----------------------------------
+- Multi-Root abgeschlossen: Zeitstempel: 2025-11-16 12:37, Commit: <git-short-hash>, Gefundene `*.code-workspace`=1, Verschoben nach `Backups/`=1, Weitere Artefakte (`README.md.bak`,`lint.out`)=2 verschoben. Wrapper-Test: `python scripts/run_checks_and_report.py --whatif` (ExitCode=0, Output="WhatIf: no changes made"). Receipt in `DONELOG.md`.
 
 Wichtige Artefakte & Logs
 -------------------------

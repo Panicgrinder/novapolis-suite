@@ -1,7 +1,6 @@
 ---
-
-stand: 2025-11-16 00:19
-update: Copilot-Guide verlinkt; Tree-Snapshot-Infos aktualisiert.
+stand: 2025-11-16 07:22
+update: Single-Root Hinweise & Statusdokumente nachgezogen
 checks: keine
 ---
 Novapolis Suite
@@ -106,17 +105,17 @@ Verbindungsprüfung
 Bekannte Einschränkungen (temporär)
 -----------------------------------
 
-- VS Code erkennt den Workspace aktuell als Multi-Root. Wrapper-Tasks/Automationen verhalten sich unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single-Root gilt: KEINE WRAPPER, Terminal ausschließlich manuell nutzen.
-  - Fallakte: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
+- Single-Root ist produktiv aktiv; Multi-Root-Verweise existieren nur noch als Historie. Guard: `python scripts/multi_root_cleanup.py --whatif` meldet neue `*.code-workspace`-/Schatten-Dateien. Fallakte bleibt dokumentiert (`novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`).
+- Wrapper-Tasks laufen wieder zuverlässig über das Root-`.vscode/tasks.json` (Interpreter `.venv`). Trotzdem gilt weiterhin R-WRAP/R-STOP: Bei Aktionen mit Seiteneffekt vorher kurz den Plan abstimmen und Receipt schreiben.
 
 Aktuelle Statusdokumente
 ------------------------
 
-- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) - Stand 2025-11-02, fasst Health-Checks, Risiken und Artefakte zusammen.
-- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) - Stand 2025-11-10 07:51, fasst Health-Checks, Risiken und Artefakte zusammen.
-- [`todo.root.md`](todo.root.md) - Zentraler Aufgabenueberblick (Stand 2025-11-10 04:20) inklusive Folgeaufgaben fuer Tree-Snapshots.
-- [`workspace_tree_full.txt`](workspace_tree_full.txt) - Vollstaendiger Verzeichnisbaum (Stand 2025-11-10 07:50; regenerierbar via Tasks `Workspace tree: full/directories/summary (dirs)`).
- - Backups befinden sich zentral unter `Backups/` (keine tool-lesbaren Backups neben aktiven Configs).
+- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) - Stand 2025-11-16 13:22; enthält den Block „Single-Root & Wrapper-Status“ und aktuelle Health-Checks.
+- [`todo.root.md`](todo.root.md) - Stand 2025-11-16 13:22; zentrale Aufgabenübersicht inkl. Wrapper-/Single-Root-Hinweisen.
+- [`WORKSPACE_INDEX.md`](WORKSPACE_INDEX.md) - Stand 2025-11-16 13:22; Agent-Dateiindex mit Root-Bezugsbasis.
+- [`workspace_tree_full.txt`](workspace_tree_full.txt) - Vollständiger Verzeichnisbaum (Stand 2025-11-10 07:50; regenerierbar via Tasks `Workspace tree:*`).
+- Backups befinden sich zentral unter `Backups/` (keine tool-lesbaren Backups neben aktiven Configs).
 
 Naechste Schritte
 -----------------
@@ -130,7 +129,7 @@ Editor-Setup (Single-Root)
 
 - Workspace immer über den Root-Ordner `Main/` öffnen (Single-Root, keine `.code-workspace` mehr im Einsatz).
 - Zentrales VS-Code-Setup liegt unter `/.vscode/` (Interpreter `.venv`, Tasks für Lint/Tests/Coverage, Copilot-Workspace-Instructions).
-- Wrapper-Policy: Mehrschritt-Checks laufen über Skript-Wrapper (z. B. `python scripts/run_checks_and_report.py`, `scripts/run_pytest_coverage.ps1`); STOP-Gate bleibt für alle Aktionen mit Seiteneffekt aktiv.
+- Wrapper-Policy: Mehrschritt-Checks laufen über Skript-Wrapper (z. B. `python scripts/run_checks_and_report.py`, `python scripts/run_pytest_coverage.py --fail-under 80`); STOP-Gate bleibt für alle Aktionen mit Seiteneffekt aktiv.
 - Details zum aktuellen Status siehe `.github/copilot-instructions.md` und `WORKSPACE_STATUS.md` (Block „Single-Root & Wrapper-Status“).
 
 

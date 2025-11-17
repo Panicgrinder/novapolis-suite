@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: TL;DR, direkte Tool-Links, Beispiele (Scenes/Metadata), Governance-Querverweise, Rotations-Policy ergänzt
 checks: noch keine
 ---

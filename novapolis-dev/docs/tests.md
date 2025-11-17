@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Markdownlint geprüft; Inhalte unverändert
 checks: markdownlint-cli2 (single file) PASS
 ---

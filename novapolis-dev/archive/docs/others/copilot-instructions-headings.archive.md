@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Archivkopie erstellt
 checks: markdownlint scoped PASS
 archived_at: 2025-11-16 00:19

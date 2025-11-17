@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt
 checks: keine
 ---

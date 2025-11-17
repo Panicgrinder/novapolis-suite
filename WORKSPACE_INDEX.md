@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-16 00:19
-update: Frontmatter-Autofix + --touch im Index vermerkt
+stand: 2025-11-16 13:22
+update: Hinweis auf Single-Root + Root-Bezugsbasis ergänzt
 checks: python scripts/check_frontmatter.py PASS
 ---
 
@@ -12,7 +12,7 @@ Novapolis Agent - Workspace Datei-Index
 Monorepo Redirect / Konsolidierung
 ----------------------------------
 
-Dieser Datei-Index bleibt als detailreicher Agent-spezifischer Katalog bestehen, verweist aber nun zentral auf das Hub-README (`novapolis-dev/README.md`) für globale Navigations- und Governance-Hinweise.
+Dieser Datei-Index bleibt als detailreicher Agent-spezifischer Katalog bestehen, verweist aber nun zentral auf das Hub-README (`novapolis-dev/README.md`) für globale Navigations- und Governance-Hinweise. Im Single-Root-Setup bildet er die Referenz für alle `novapolis_agent/`-Pfade unterhalb des Repo-Roots.
 
 Geplante Vereinheitlichung (Phase 2):
 - 2025-11-15 09:27: Index-Verweis auf Frontmatter-Autofix + `--touch` ergänzt; Status-/TODO-Dokumente synchron.
@@ -27,9 +27,9 @@ Status: Phase 1 (Redirect-Hinweis) aktiv; Entscheidungsliste erstellt (`novapoli
 Vollständiger Index aller Dateien im Agent-Verzeichnis
 ------------------------------------------------------
 
-Hinweis: Alle Pfade beginnen bei `novapolis_agent/`, sofern nicht anders angegeben.
+Hinweis: Alle Pfade beziehen sich auf den Repo-Root `F:/VS Code Workspace/Main`. Sofern nicht anders erwähnt, beginnen sie bei `novapolis_agent/`.
 
-### Agent-Verzeichnis (`novapolis_agent/`)
+### Paket `novapolis_agent/` (Unterordner im Single-Root)
 
 - [`novapolis_agent/.coverage`](novapolis_agent/.coverage) - Coverage-Report (generiert)
 - [`novapolis_agent/.coveragerc`](novapolis_agent/.coveragerc) - Coverage-Konfiguration

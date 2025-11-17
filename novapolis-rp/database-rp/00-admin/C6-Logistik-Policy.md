@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Frontmatter ergänzt (YAML); Fließtext unverändert.
 checks: keine
 status: v0.1 (Entwurf, aktiv)

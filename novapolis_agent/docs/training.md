@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Doku-Verweis auf konsolidiertes SSOT (.github/copilot-instructions.md) angepasst.
 checks: keine
 ---

@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Tabs entfernt, Frontmatter korrigiert, Lint PASS
 checks: markdownlint PASS, frontmatter PASS (scoped)
 ---

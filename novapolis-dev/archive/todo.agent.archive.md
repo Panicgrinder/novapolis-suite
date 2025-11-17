@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Archivtext auf Guard-Check-Terminologie angepasst
 checks: markdownlint-cli2 PASS
 ---

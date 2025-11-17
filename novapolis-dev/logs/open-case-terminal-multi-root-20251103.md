@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Status-Notiz ergänzt: letztes Commit+Push vor VS Code Neustart; Case bleibt bis Mono-Workspace-Umstellung geschlossen (Hint).
 checks: keine (STOP - keine automatisierten Läufe)
 ---

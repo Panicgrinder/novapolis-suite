@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Frontmatter-Autofix + --touch ergänzt, Governance aktualisiert
 checks: python scripts/check_frontmatter.py PASS
 ---
@@ -14,6 +14,29 @@ Kurzueberblick
 
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+
+2025-11-16 07:50 | Copilot | Checks & Coverage Postflight (Root)
+Meta: {"Timestamp": "2025-11-16 07:50", "GitSHA": "c679a2e15636674f9d164c37cf16e0eb1e586481", "git_short": "c679a2e", "python": "3.13.2", "coverage_percent": 83.96, "coverage_fail_under": 80, "checks_json": ".tmp-results/reports/checks_report_20251116_074933.json", "checks_md": ".tmp-results/reports/checks_report_20251116_074933.md"}
+Kurz: Root-Wrapper `python scripts/run_checks_and_report.py` ausgeführt; kombinierter Gate-Lauf liefert gemischtes Ergebnis: `pytest` und `mypy` PASS, Coverage 83.96% (Gate erfüllt), aber Gesamtstatus FAIL wegen Lint/Format/markdown-Anforderungen.
+
+Offene Befunde (Kurz):
+- `markdownlint`: 28 Findings — Log: `.tmp-results/reports/checks_run_20251116_074933/markdownlint.log`
+- `ruff`: 35 Findings — Log: `.tmp-results/reports/checks_run_20251116_074933/ruff.log`
+- `black`: 2 Dateien würden formatiert werden — Log: `.tmp-results/reports/checks_run_20251116_074933/black.log`
+- `pyright`: SKIP (Executable nicht gefunden) — Log: `.tmp-results/reports/checks_run_20251116_074933/pyright.log`
+
+Empfehlung: Erst `python -m pip install -r requirements-dev.txt` (falls Änderungen nötig), dann:
+1. `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` und gezielt die 28 Treffer aufräumen (MD003/MD0xx).
+2. `ruff --fix` gefolgt von gezielten manuellen Fixes für verbleibende 35 Findings.
+3. `black .` ausführen und die 2 geänderten Dateien committen.
+4. Optional `pyright` installieren (oder `pyright` via npm) und erneut laufen lassen.
+
+Receipt: siehe JSON/MD Reports unter `.tmp-results/reports/` (Timestamp 2025-11-16 07:50). Postflight-Log/Details in `/.tmp-results/reports/`.
+
+2025-11-16 12:37 | Copilot | Multi-Root Bereinigung (R-STOP/R-WRAP)
+Meta: {"Modus": "Agent", "Modell": "GPT-5 mini", "Timestamp": "2025-11-16 12:37", "FoundCodeWorkspaces": 1, "MovedFiles": ["novapolis-suite.code-workspace.backup.20251116_1237","README.md.bak.backup.20251116_1237","lint.out.backup.20251116_1237"], "WrapperTest": "python scripts/run_checks_and_report.py --whatif", "ExitCode": 0, "Output": "WhatIf: no changes made"}
+Kurz: `*.code-workspace` und Schatten-/Log-Dateien archiviert nach `Backups/`, Wrapper-WhatIf ausgeführt, Statusblöcke in `WORKSPACE_STATUS.md` + `todo.root.md` aktualisiert.
+
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
 
 - 2025-11-14 14:44: Copilot | Checks-Run: Ruff/Black/Mypy/Markdownlint/Tests

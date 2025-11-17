@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Frontmatter-Autofix + --touch dokumentiert; Vorschläge fortgeführt
 checks: python scripts/check_frontmatter.py PASS
 ---

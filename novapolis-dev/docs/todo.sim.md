@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 00:19
+stand: 2025-11-16 06:52
 update: Godot-Headless-Check als Sofort-Aufgabe in Root gespiegelt; keine Strukturänderung
 checks: keine
 ---

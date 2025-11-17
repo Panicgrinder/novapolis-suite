@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-16 00:19
-update: Frontmatter-Autofix + --touch-Option ergänzt, Doku aktualisiert
+stand: 2025-11-16 13:22
+update: Single-Root Hinweise nachgezogen; Tests/Wrapper-Abschnitte aktualisiert
 checks: python scripts/check_frontmatter.py PASS
 ---
 
@@ -49,8 +49,8 @@ Kurzueberblick
 - **novapolis_agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
 - **novapolis-dev / novapolis-rp**: Fokus auf Canvas-Rettung Sprint (Charaktere/Logistik/Systeme) sowie bestehende Datenkurierungs- und Sim-Aufgaben.
 - **YAML/Setext-Hinweis**: Bei allen Markdown-Anpassungen Frontmatter (stand/update/checks) synchronisieren und H1/H2 konsequent im Setext-Stil halten; laufender MD003-Backlog (122 Dateien laut letztem Markdownlint-Lauf).
-- **Terminal/Tasks (STOP)**: VS Code markiert den Workspace aktuell fälschlich als Multi-Root; Wrapper-Tasks/Automationen sind unzuverlässig. Bis zur Bereinigung: KEINE WRAPPER, TERMINAL NUR MANUELL NUTZEN. Lösung erst nach Aufräumen (Single-Root-Struktur).
-  - Open Case: Terminal/Tasks Multi-Root → `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
+- **Terminal/Tasks (Single-Root)**: VS Code läuft wieder als Single-Root; Wrapper-Tasks/Automationen sind ab Root erlaubt (R-WRAP). Standard-Läufe starten im Repo-Root `F:/VS Code Workspace/Main`, Interpreter `.venv` liegt im Root. Multi-Root-Hinweise bleiben lediglich historisch dokumentiert.
+  - Historische Fallakte: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
 - **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-02) + `workspace_tree*.txt` (Stand 2025-11-02) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
   - [x] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) am 2025-11-02 via Tasks `Workspace tree:*` regeneriert.
 - 2025-11-01: DONELOG-Heading-Stil auf Setext gemäß MD003 korrigiert; Markdownlint bleibt zentral via npx.
@@ -72,7 +72,7 @@ Wrapper-Migration (.ps1 → .py)
 - Ziel: Alle noch relevanten Wrapper von PowerShell (`*.ps1`) schrittweise auf Python-Skripte (`*.py`) umstellen, konsistent mit R-WRAP/R-SEC/R-SAFE.
 - Hintergrund:
   - Historische Wrapper: `scripts/run_pytest_coverage.ps1`, `scripts/checks_linters.ps1`, `scripts/checks_types.ps1`, `scripts/tests_pytest_root.ps1` (teilweise bereits entfernt/archiviert).
-  - Aktueller Stand: `python scripts/run_checks_and_report.py` ist der einzige Entry-Point für "Checks: full"; `scripts/run_pytest_coverage.ps1` existiert nicht mehr im aktiven Repo.
+  - Aktueller Stand: `python scripts/run_checks_and_report.py` ist der einzige Entry-Point für "Checks: full"; Coverage-Läufe erfolgen via `python scripts/run_pytest_coverage.py --fail-under <threshold>` (PowerShell-Varianten sind nur noch Archiv/Backup).
 - Aufgaben (geplant, keine Löschung ohne Freigabe):
   - [ ] Bestandsaufnahme aller noch vorhandenen `scripts/*.ps1` Wrapper (inkl. Backups/Archiv-Hinweisen).
   - [ ] Für jeden produktiven Wrapper einen gleichwertigen Python-Einstiegspunkt definieren (z. B. `scripts/run_pytest_coverage.py`), inklusive Args/Exitcodes/Receipts.
@@ -111,7 +111,7 @@ Nächstes Vorgehen (1-2 Tage)
    - Receipt mit Zeitstempel, Commit-SHA und getrennten Anteilen (App/Scripts) in `DONELOG.md`; Verweis/Kurzsummary in `WORKSPACE_STATUS.md`.
    - CI-Gate aktiv (nicht nur lokal).
  - Schritte (STOP beachten; Wrapper-Policy gilt):
-   - Läufe sequenziell ausführen (CWD `novapolis_agent`), anschließend Standard-Wrapper `scripts/run_pytest_coverage.ps1` verwenden.
+   - Läufe im Repo-Root (`F:/VS Code Workspace/Main`) starten: `python scripts/run_checks_and_report.py --scope full` für den Komplettlauf und `python scripts/run_pytest_coverage.py --fail-under 80` für Coverage. (Falls Spezialpfade nötig sind, `cwd` explizit auf `novapolis_agent/` setzen.)
    - Ergebnisse/Quoten protokollieren (getrennt App/Scripts, Branch-Coverage), Receipts schreiben, CI-Fail-Under prüfen.
  - Receipts/Belege:
    - `DONELOG.md`: „R-COV“ mit PASS/Quoten, Zeitstempel, Commit-SHA.
@@ -134,7 +134,7 @@ Nächstes Vorgehen (1-2 Tage)
    - „behoben=ja“ mit Zahlen in `DONELOG.md` und zusammengefasst in `WORKSPACE_STATUS.md`.
    - Generatoren, die Markdown erzeugen, schreiben Setext + Pflicht-Frontmatter per Default (kurze Generator-Quittung).
  - Schritte (Reihenfolge strikt: erst Frontmatter, dann MD003):
-   - Frontmatter: betroffene Dateien zählen, Pflichtfelder (`stand`, `update`, `checks`) ergänzen, Validator erneut laufen lassen, Zählwerte/PASS loggen.
+   - Frontmatter: betroffene Dateien zählen, Pflichtfelder (`---`,`stand`, `update`, `checks`,`---`) ergänzen, Validator erneut laufen lassen, Zählwerte/PASS loggen.
    - Markdown: MD003-Treffer im Scope beheben; Lint erneut laufen lassen; PASS loggen.
  - Receipts/Belege:
    - `DONELOG.md`: „R-FM/R-LINT“ mit Zahlenpaaren (vorher/nachher) und PASS.
@@ -151,35 +151,22 @@ Nächstes Vorgehen (1-2 Tage)
 - [ ] Übernahme/Staging-Integration: Inhalte aus `novapolis-rp/database-curated/staging/reports/` nach Review in `novapolis-dev/docs/` spiegeln und Altstände archivieren.
  - [x] Docs-Hub aktualisiert: TL;DR/Links/Beispiele ergänzt; Stubs Phase 1 konsolidiert (2025-11-12 01:12).
 
-#### Multi-Root-STOP auflösen (Priorität hoch, R-STOP/R-WRAP)
- - Akzeptanzkriterien:
-   - Keine `*.code-workspace` im gesamten Workspace (rekursive Prüfung dokumentiert; Zählwert gefunden/entfernt).
-   - Keine mehrschrittigen Inline „-Command“-Relikte in `tasks.json`; Mehrschritt via Wrapper-Skripte (`pwsh -NoProfile -File`).
-   - `WORKSPACE_STATUS.md` enthält Eintrag „Multi-Root abgeschlossen“ mit Zeitstempel und Commit-Referenz.
-   - Ein Wrapper-Task erfolgreich ausgeführt und in `DONELOG.md` vermerkt (Exitcode/kurzer Output).
- - Schritte (STOP beachten; WhatIf/Review vor Real):
-   - Rekursiv nach `*.code-workspace` suchen; Treffer entfernen/ins `Backups/` verschieben; Zählwerte protokollieren.
-   - `tasks.json` auf Inline-Ketten prüfen; auf Wrapper-Aufrufe umstellen.
-   - Wrapper-Task testweise ausführen (z. B. `scripts/run_pytest_coverage.ps1`) und Receipt erfassen.
-   - `WORKSPACE_STATUS.md` und `DONELOG.md` aktualisieren (Zeitstempel, Commit, Zählwerte „gefunden/entfernt“).
- - Receipts/Belege:
-   - `DONELOG.md`: „R-STOP/R-WRAP“ mit Zählwerten + Wrapper-Task-Output/Exitcode.
-   - `WORKSPACE_STATUS.md`: Block „Multi-Root abgeschlossen“ mit Datum/Commit.
- - [ ] Multi-Root Fallakte schließen: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md` finalisieren; `WORKSPACE_STATUS.md` aktualisieren. (R-WRAP/R-STOP)
- - [ ] Prüfen/Entfernen: Backup-/Schatten-Datei `README.md.bak` (Root) → löschen oder nach `Backups/` verschieben. (R-SEC/R-SAFE)
- - [ ] Prüfen/Entfernen: `lint.out` (Root, falls vorhanden) → archivieren oder löschen. (R-LINT/R-SAFE)
- - [ ] Verifizieren: `novapolis-suite.code-workspace` laut älterem Tree gelistet - falls noch vorhanden, entfernen/archivieren. (R-CTX/R-SAFE)
+#### Multi-Root-STOP (abgeschlossen 2025-11-16, R-STOP/R-WRAP)
+- Zusammenfassung: `scripts/multi_root_cleanup.py --apply` lief durch (Backups/Move, Wrapper-Test `python scripts/run_checks_and_report.py --whatif`, Receipt in `DONELOG.md`). Alle `*.code-workspace`/`README.md.bak`/`lint.out` Artefakte liegen nun unter `Backups/`.
+- Dokumentation: `WORKSPACE_STATUS.md` führt den Block „Single-Root & Wrapper-Status“ + Abschlussnotiz (Zeitstempel 2025-11-16 12:37, Commit-Ref folgt nach Merge). Fallakte bleibt historisch abrufbar (`novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`).
+- Nachpflege: `scripts/multi_root_cleanup.py --whatif` kann künftig als Guard laufen, um neue `.code-workspace`- oder Schatten-Dateien früh zu erkennen. Wrapper-Tasks dürfen wieder genutzt werden (R-WRAP); STOP-Gate bleibt für Write-Aktionen aktiv.
+- [x] Multi-Root Cleanup-Tasks (README.bak, lint.out, Workspace-Dateien) → verschoben nach `Backups/`. (R-SEC/R-SAFE)  <!-- moved 2025-11-16 12:37 -->
 
 ### novapolis-sim
 
-- [ ] Headless-Lade-Check des Godot-Projekts `novapolis-sim/project.godot` durchführen; Warnungen/Fehler als Kurznotiz festhalten.
+- [x] Headless-Lade-Check des Godot-Projekts `novapolis-sim/project.godot` durchführen; Warnungen/Fehler als Kurznotiz festhalten.
 
-Risiken (kurz)
+- Risiken (kurz)
 --------------
 
 - Tests/Typing nicht tagesaktuell (Agent) → mögliche stille Drift.
 - RP: Offene Tagging-/Export-Schritte; Deltas noch nicht vollständig in SSOT gespiegelt.
-- Multi-Root-Markierung stört Tasks → bis zur Bereinigung ausschließlich manuelle Läufe.
+- Single-Root-Governance: Neu auftauchende `.code-workspace`/`*.bak`-Dateien regelmäßig via `scripts/multi_root_cleanup.py --whatif` prüfen (R-STOP/R-WRAP).
 
 Lokale AI - Einbindung (organisch)
 ----------------------------------
@@ -264,7 +251,7 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 - Root verwendet `.venv` (Windows) und zentralen Interpreter (`.vscode/settings.json`).
 - `novapolis_agent` ist der einzige Code-Bereich mit Tests/Launch-Profilen; `novapolis-rp` ist primär Daten/Docs/Tools.
 - Markdownlint läuft via cli2 in CI; lokale Tasks existieren in Agent-Projekt (bereits erweitert um Root-`TODO.md`/`DONELOG.md`).
-- Aktueller Blocker: VS Code erkennt den Workspace als Multi-Root; Wrapper-Tasks laufen unzuverlässig. Vorgabe bis zur Bereinigung: KEINE WRAPPER - Terminal ausschließlich manuell nutzen.
+- Single-Root ist aktiv; Wrapper-Tasks laufen wieder stabil ab Root. Historische Multi-Root-Hinweise bleiben dokumentiert (siehe `scripts/multi_root_cleanup.py`).
 
 ### Akzeptanzkriterien
 
@@ -276,7 +263,7 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 ### Plan (Etappen)
 
 - Etappe0 - Inventur (dieser PR-Teil)
-  - [ ] Vorab: Multi-Root → Single-Root bereinigen (Workspace aufräumen, eindeutige Root). Erst danach Wrapper-Tasks reaktivieren.
+  - [x] Vorab: Multi-Root → Single-Root bereinigen (Workspace aufräumen, eindeutige Root). (Erledigt 2025-11-16 via `scripts/multi_root_cleanup.py --apply`)
   - [ ] Liste aller `.vscode`-Dateien erstellen (Root, Agent, RP)
   - [ ] Settings/Launch/Tasks diffen und Konflikte notieren
   - [ ] Mapping definieren: was zentralisiert wird, was projekt-spezifisch bleibt
@@ -297,7 +284,7 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 - Root-Tasks
   - [x] Markdownlint: lint/fix (cli2) repo-weit (Root-Tasks vorhanden)
   - [x] Tests: `pytest -q` (cwd=`novapolis_agent`)
-  - [x] Tests: Coverage (fail-under=80) (cwd=`novapolis_agent`)
+  - [x] Tests: Coverage (fail-under=80) (Root-Wrapper `python scripts/run_pytest_coverage.py`)
   - [x] Optional: „Append DONELOG entry“ als Root-Alias mit cwd `novapolis_agent` (2025-11-01 09:05)
     - Änderung: VS Code Task `DONELOG: append entry` in `/.vscode/tasks.json` ergänzt.
     - Prüfungen: keine (reine Task-Erweiterung).
@@ -322,8 +309,8 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
   - Mitigation: Jede Task im Root mit `options.cwd=novapolis_agent` + `envFile` testen.
 - Risiko: Launch-Profile brechen bei Migration.
   - Mitigation: Launch zunächst im Agent belassen; Migration optional/später.
-- Risiko: VS Code Multi-Root-Markierung verhindert stabile Task-Ausführung.
-  - Mitigation: Wrapper-Tasks deaktivieren; bis zur Single-Root-Bereinigung ausschließlich manuelle Terminal-Läufe.
+- Risiko: Regression auf Multi-Root-Konfiguration.
+  - Mitigation: `scripts/multi_root_cleanup.py --whatif` regelmäßig ausführen; neue `.code-workspace`-Artefakte sofort in `Backups/` verschieben.
 - Backout: Sub-`.vscode` beibehalten bis Etappe2; jederzeit reaktivierbar.
 
 ### Betroffene Dateien (geplant)

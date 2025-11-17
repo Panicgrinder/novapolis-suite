@@ -1,5 +1,7 @@
 ---
-stand:
+stand: 2025-11-16 06:52
+update: Archivkopie (Stand/Checks ergänzt)
+checks: geprüft (Frontmatter-Validator)
 ---
 
 LLM-Dokumentenheader (nicht löschen)

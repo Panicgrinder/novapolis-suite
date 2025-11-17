@@ -16,14 +16,18 @@ import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional
-
 
 TOLERANCE_MINUTES = 5
 
 
-def run(cmd: List[str], cwd: Optional[Path] = None) -> subprocess.CompletedProcess:
-    return subprocess.run(cmd, cwd=str(cwd) if cwd else None, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+def run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess:
+    return subprocess.run(
+        cmd,
+        cwd=str(cwd) if cwd else None,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
 
 
 def get_repo_root() -> Path:
@@ -40,7 +44,7 @@ def now_ts() -> str:
     return datetime.now().strftime("%Y-%m-%d %H:%M")
 
 
-def read_snapshot_lock(root: Path) -> Optional[str]:
+def read_snapshot_lock(root: Path) -> str | None:
     p = root / ".snapshot.now"
     if not p.exists():
         return None
@@ -50,21 +54,21 @@ def read_snapshot_lock(root: Path) -> Optional[str]:
         return None
 
 
-def get_staged_files() -> List[str]:
+def get_staged_files() -> list[str]:
     r = run(["git", "diff", "--cached", "--name-only", "--diff-filter=ACMRT"])
     if r.returncode != 0:
         return []
     return [ln.strip() for ln in r.stdout.splitlines() if ln.strip()]
 
 
-def get_staged_content(path: str) -> Optional[str]:
+def get_staged_content(path: str) -> str | None:
     r = run(["git", "show", f":{path}"])
     if r.returncode != 0:
         return None
     return r.stdout
 
 
-def find_stand_timestamp(content: str) -> Optional[str]:
+def find_stand_timestamp(content: str) -> str | None:
     lines = content.splitlines()
     limit = min(len(lines), 40)
     for i in range(limit):
@@ -84,7 +88,7 @@ def is_stand_changed_in_diff(path: str) -> bool:
     return False
 
 
-def minutes_diff(a: str, b: str) -> Optional[float]:
+def minutes_diff(a: str, b: str) -> float | None:
     fmt = "%Y-%m-%d %H:%M"
     try:
         da = datetime.strptime(a, fmt)
@@ -119,7 +123,7 @@ def main() -> int:
     lock = read_snapshot_lock(root)
 
     staged = get_staged_files()
-    md_files = [f for f in staged if f.lower().endswith('.md')]
+    md_files = [f for f in staged if f.lower().endswith(".md")]
     if not md_files:
         return 0
 
@@ -140,7 +144,7 @@ def main() -> int:
         if lock:
             ok_lock_now = test_timestamp_fresh(lock, current, TOLERANCE_MINUTES)
             ok_lock_stand = test_timestamp_fresh(lock, stand_ts, 2)
-            ok_lock = (ok_lock_now and ok_lock_stand)
+            ok_lock = ok_lock_now and ok_lock_stand
 
         if not (ok_now and ok_lock):
             failed.append({"file": f, "stand": stand_ts, "now": current, "lock": lock})
@@ -152,8 +156,12 @@ def main() -> int:
             print(f" - {x['file']}: stand={x['stand']} | now={x['now']} | lock={lock_val}")
         print()
         print("Bitte VOR dem Edit/Commit die Systemzeit abrufen und Lock setzen:")
-        print('  cd "F:/VS Code Workspace/Main"; python -c "from datetime import datetime; print(datetime.now().strftime(\"%Y-%m-%d %H:%M\"))"')
-        print('  cd "F:/VS Code Workspace/Main"; python scripts/snapshot_write_lock.py   # wenn verfügbar')
+        print(
+            '  cd "F:/VS Code Workspace/Main"; python -c "from datetime import datetime; print(datetime.now().strftime("%Y-%m-%d %H:%M"))"'
+        )
+        print(
+            '  cd "F:/VS Code Workspace/Main"; python scripts/snapshot_write_lock.py   # wenn verfügbar'
+        )
         print("Danach YAML-Frontmatter 'stand:' aktualisieren und erneut committen.")
         print("Bypass (nicht empfohlen): setx SNAPSHOT_GATE_BYPASS 1 (neues Terminal nötig)")
         return 1
