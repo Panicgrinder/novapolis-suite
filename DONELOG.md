@@ -1,6 +1,5 @@
----
-stand: 2025-11-17 09:40
-update: Archiviert: `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Root-`app`-Shim hinzugefügt
+stand: 2025-11-18 00:12
+update: CI wieder grün: markdownlint-Archiv-Ignore ergänzt; Ruff/Black Fixes angewendet
 checks: python scripts/check_frontmatter.py PASS
 ---
 
@@ -16,6 +15,10 @@ Kurzueberblick
  - 2025-11-17 09:40: Archivierung & Aufräumaktion: Geparkte `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Live-Stubs durch explizite Import-Fehlermarker ersetzt; Root-`app/__init__.py` Shim hinzugefügt um Root-Tests zu unterstützen; betroffene Tests angepasst. Commits: `1df7561`, `6191a5d`.
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+
+2025-11-18 00:10 | Copilot | Checks & CI grün (Postflight)
+Meta: {"Timestamp": "2025-11-18 00:10", "GitSHA": "16d8a7e", "markdownlint": "PASS (Archiv ignoriert: novapolis-dev/archive/**)", "ruff": "PASS (auto-fix ausgeführt)", "black": "PASS", "pytest": "PASS", "coverage_percent": 83.85}
+Kurz: `.markdownlint-cli2.jsonc` um `novapolis-dev/archive/**` ergänzt (Archiv-/Postflight-Logs vom Lint ausgenommen). `ruff check --fix` auf `novapolis_agent` und `scripts` sowie `black` auf `scripts/snapshot_gate.py` ausgeführt. Konsolidierter Wrapper `python scripts/run_checks_and_report.py` liefert PASS; Coverage über Gate (≥80%).
 
 2025-11-17 04:55 | Copilot | Legacy-App-Verzeichnisse entfernt (Routers, Services/LLM)
 Meta: {"Timestamp": "2025-11-17 04:55", "Scope": "novapolis_agent", "Removed": ["app/routers", "novapolis_agent/app/routers", "app/services", "novapolis_agent/app/services"], "Tests": ["tests/test_services_llm.py", "tests/test_llm_client_mock.py", "tests/test_llm_service_error_paths.py"], "Docs": ["WORKSPACE_INDEX.md", "novapolis_agent/cleanup_recommendations.md", "WORKSPACE_STATUS.md", "DONELOG.md"]}
