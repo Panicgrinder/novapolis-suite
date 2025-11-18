@@ -12,6 +12,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-18 09:37: Coverage-Wrapper ausgeführt (root). Ergebnis FAIL (rc=2). Ursache: fehlende Abhängigkeiten/Importpfade (`novapolis_agent`, `fastapi`, `uvicorn`). Receipt: `.tmp-results/reports/pytest_coverage_postflight_20251118_093732.md`.
 - 2025-11-18 03:55: Pyright dauerhaft via Wrapper (PATH) aktiv; `novapolis_agent/pyrightconfig.json` auf Root-venv (`venvPath=..`) und Python 3.13 gestellt; Typwarnungen in `app/api/chat.py`, `utils/rag.py`, `utils/eval_utils.py` entschärft. Full‑Checks PASS, Coverage 83.33%.
 - 2025-11-17 04:55: `novapolis_agent/app/routers` und `app/services/llm.py` entfernt; abhängige Tests gelöscht; Index/Status/Cleanup-Notizen aktualisiert.
  - 2025-11-17 09:40: Archivierung & Aufräumaktion: Geparkte `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Live-Stubs durch explizite Import-Fehlermarker ersetzt; Root-`app/__init__.py` Shim hinzugefügt um Root-Tests zu unterstützen; betroffene Tests angepasst. Commits: `1df7561`, `6191a5d`.
@@ -21,6 +22,18 @@ Kurzueberblick
 2025-11-18 00:10 | Copilot | Checks & CI grün (Postflight)
 Meta: {"Timestamp": "2025-11-18 00:10", "GitSHA": "16d8a7e", "markdownlint": "PASS (Archiv ignoriert: novapolis-dev/archive/**)", "ruff": "PASS (auto-fix ausgeführt)", "black": "PASS", "pytest": "PASS", "coverage_percent": 83.85}
 Kurz: `.markdownlint-cli2.jsonc` um `novapolis-dev/archive/**` ergänzt (Archiv-/Postflight-Logs vom Lint ausgenommen). `ruff check --fix` auf `novapolis_agent` und `scripts` sowie `black` auf `scripts/snapshot_gate.py` ausgeführt. Konsolidierter Wrapper `python scripts/run_checks_and_report.py` liefert PASS; Coverage über Gate (≥80%).
+
+2025-11-18 09:37 | Copilot | Coverage-Wrapper ausgeführt (Postflight)
+Meta: {"Timestamp": "2025-11-18 09:37", "Wrapper": "python scripts/run_pytest_coverage.py --fail-under 80", "Receipt": ".tmp-results/reports/pytest_coverage_postflight_20251118_093732.md", "ReturnCode": 2}
+Kurz: Pytest mit Coverage via Wrapper gestartet. Lauf scheiterte früh an fehlenden Paketen/Importpfaden (`novapolis_agent`, `fastapi`, `uvicorn`). Empfehlung: `pip install -r requirements-dev.txt` und/oder `pip install -e novapolis_agent`; alternativ CWD `novapolis_agent` für Agent-Teil-Suite.
+
+2025-11-18 10:05 | Copilot | Konsolidierung Temp-Pfade auf /.tmp
+Meta: {"Timestamp": "2025-11-18 10:05", "Scripts": ["run_pytest_coverage.py", "run_checks_and_report.py", "scan_links.py", "checks_linters.py", "checks_types.py", "coverage_tools/print_low_coverage.py"], "NewPaths": ".tmp/results/reports"}
+Kurz: Root-Skripte schreiben ab sofort nach `/.tmp/results/reports` (statt `/.tmp-results`). Entwurf einer konsolidierten ToDo: `/.tmp/cleanup-todo-v2.md`. Legacy-Verweise werden schrittweise gedreht; Symlinks/Junctions optional nach Freigabe.
+
+2025-11-18 10:12 | Copilot | Doku-Referenzen & Tests auf /.tmp gedreht
+Meta: {"Timestamp": "2025-11-18 10:12", "Docs": ["WORKSPACE_STATUS.md", "novapolis-dev/README.md", "novapolis-dev/docs/readme.hub.md", "novapolis-sim/README.md", "todo.root.md"], "Tests": ["novapolis_agent/tests/scripts/test_quick_eval_main_stubbed.py"], "Gitignore": true}
+Kurz: Verweise `.tmp-results`/`.tmp-datasets` in Kern-READMEs/Status auf `/.tmp/results`/`/.tmp/datasets` aktualisiert. Test-Stub auf neue Pfade angepasst. Root `.gitignore` um `/.tmp/` + Legacy `/.tmp-results/` ergänzt.
 
 2025-11-17 04:55 | Copilot | Legacy-App-Verzeichnisse entfernt (Routers, Services/LLM)
 Meta: {"Timestamp": "2025-11-17 04:55", "Scope": "novapolis_agent", "Removed": ["app/routers", "novapolis_agent/app/routers", "app/services", "novapolis_agent/app/services"], "Tests": ["tests/test_services_llm.py", "tests/test_llm_client_mock.py", "tests/test_llm_service_error_paths.py"], "Docs": ["WORKSPACE_INDEX.md", "novapolis_agent/cleanup_recommendations.md", "WORKSPACE_STATUS.md", "DONELOG.md"]}

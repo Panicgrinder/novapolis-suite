@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path.cwd()
 TS = datetime.now().strftime("%Y%m%d_%H%M%S")
-TMP = ROOT / ".tmp-results" / "reports"
+TMP = ROOT / ".tmp" / "results" / "reports"
 TMP.mkdir(parents=True, exist_ok=True)
 LOG = TMP / f"pytest_root_{TS}.log"
 RECEIPT = TMP / f"pytest_root_postflight_{TS}.md"

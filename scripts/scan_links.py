@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(".")
 TS = datetime.now().strftime("%Y%m%d_%H%M%S")
-OUT_DIR = ROOT / ".tmp-results" / "reports"
+OUT_DIR = ROOT / ".tmp" / "results" / "reports"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 LOG = OUT_DIR / f"scan_links_{TS}.log"
 CSV = OUT_DIR / f"scan_links_{TS}.csv"
@@ -22,7 +22,9 @@ CSV = OUT_DIR / f"scan_links_{TS}.csv"
 link_re = re.compile(r"\bhttps?://[^)\s]+", re.IGNORECASE)
 
 md_files = [
-    p for p in ROOT.rglob("*.md") if ".tmp-results" not in str(p) and "Backups" not in str(p)
+    p
+    for p in ROOT.rglob("*.md")
+    if ".tmp-results" not in str(p) and ".tmp" not in str(p) and "Backups" not in str(p)
 ]
 entries = []
 with LOG.open("w", encoding="utf8") as lh:

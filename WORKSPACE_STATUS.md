@@ -13,14 +13,14 @@ Recent Changes
 - 2025-11-15 09:20: Dokumentationssweep (context.local.md Frontmatter repariert, todo/Status/Index aktualisiert); Frontmatter-Validator PASS (`python scripts/check_frontmatter.py`).
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert, todo/Status/Index aktualisiert); Frontmatter-Validator PASS (`python scripts/check_frontmatter.py`).
 - 2025-11-12 03:37: Checks: full Review abgeschlossen (damals PowerShell-Runner, inzwischen durch `python scripts/run_checks_and_report.py` ersetzt; PSScriptAnalyzer-Phase verifiziert, Receipt-Struktur JSON + Postflight-Vorlage bestätigt). Link-Scanner Rescan nun 0 defekte Verweise.
- - 2025-11-16 04:54: Sim headless verification: `novapolis-sim/project.godot` loaded headless with Godot Engine `v4.5.1.stable.official.f62fdbde1` — PASS. Log: `.tmp-results/logs/godot_headless_20251116_045407.log`. Postflight Donelog entry added to `novapolis-dev/docs/donelog.md`.
+ - 2025-11-16 04:54: Sim headless verification: `novapolis-sim/project.godot` loaded headless with Godot Engine `v4.5.1.stable.official.f62fdbde1` — PASS. Log: `.tmp/results/logs/godot_headless_20251116_045407.log`. Postflight Donelog entry added to `novapolis-dev/docs/donelog.md`.
 - 2025-11-12 02:46: Governance: Vorangestellte Start-Checks entfernt aus `.github/copilot-instructions.md`; Postflight-Formulierung präzisiert (finaler Block am Ende der Nachricht); Headings-Extrakt aktualisiert & veraltete Regel-ID-Vorschläge gestrichen; Lint PASS (`.github/copilot-instructions-headings.md`).
 
  - 2025-11-16 07:50: Root-Postflight: `python scripts/run_checks_and_report.py` + `python scripts/run_pytest_coverage.py --fail-under 80` ausgeführt.
-   - Ergebnis: Checks-Wrapper JSON/MD: `.tmp-results/reports/checks_report_20251116_074933.{json,md}` — Gesamtstatus: **FAIL** (Lint/Format/Markdown-Checks)
+  - Ergebnis: Checks-Wrapper JSON/MD: `.tmp/results/reports/checks_report_20251116_074933.{json,md}` — Gesamtstatus: **FAIL** (Lint/Format/Markdown-Checks)
    - Coverage: **83.96%** (Fail-Under 80) — Gate: PASS
    - Offene Befunde: `markdownlint` (28 Treffer), `ruff` (35 Treffer), `black` (2 Dateien würden formatiert)
-   - Logs/Details: `.tmp-results/reports/checks_run_20251116_074933/`
+  - Logs/Details: `.tmp/results/reports/checks_run_20251116_074933/`
    - Aktionsempfehlung: `npx markdownlint-cli2` → `ruff --fix` → `black .` → `pyright` installieren und erneut prüfen.
 
  - 2025-11-10 12:12: Sim-Verifizierung: Verbindung Godot ↔ Agent (`POST /world/step`) erfolgreich verifiziert; Headless-Verifier und PowerShell-Smoke-Test PASS. Screenshot/Audit-Beleg im Arbeitsverzeichnis erstellt.
@@ -137,7 +137,7 @@ Nächste Empfehlungen
 - Outputs/Checkpoints reviewen und aussortieren oder in Backups verschieben (LoRA-Zwischenstände)
 - Regelmäßige Aktualisierung: `WORKSPACE_STATUS.md`, `workspace_tree_full.txt` und `workspace_tree_dirs.txt` gemeinsam mit `todo.root.md` pflegen (empfohlen bis Mitte November oder nach strukturellen Änderungen)
 - Promotion abgeschlossen: Index liegt als `WORKSPACE_INDEX.md` im Root; nächster Schritt: Tree-Snapshot aktualisieren.
- - Link-Scanner: Nach Index-Anpassungen wurde `scripts/scan_links.py --files WORKSPACE_INDEX.md` am 2025-11-16 03:37 ausgeführt; Report unter `.tmp-results/reports/scan_links_20251116_033738.*`, Postflight in `novapolis-dev/archive/docs/donelogs/scan_links_postflight_20251116_033738.md` dokumentiert (0 kritische Broken-Links im Index).
+ - Link-Scanner: Nach Index-Anpassungen wurde `scripts/scan_links.py --files WORKSPACE_INDEX.md` am 2025-11-16 03:37 ausgeführt; Report unter `.tmp/results/reports/scan_links_20251116_033738.*`, Postflight in `novapolis-dev/archive/docs/donelogs/scan_links_postflight_20251116_033738.md` dokumentiert (0 kritische Broken-Links im Index).
 
 
 

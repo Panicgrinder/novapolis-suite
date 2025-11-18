@@ -26,6 +26,8 @@ desktop.ini
 
 # Workspace folders that stay untracked here
 /Backups/
+/\.tmp/
+/\.tmp-results/
 
 # General cache / build artifacts across subprojects
 **/__pycache__/

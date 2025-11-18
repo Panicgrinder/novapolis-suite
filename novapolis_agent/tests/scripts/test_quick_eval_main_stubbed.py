@@ -13,8 +13,8 @@ def test_quick_eval_main_with_stub(monkeypatch: pytest.MonkeyPatch) -> None:
 
     # Stub _load_run_eval_module to return a fake module with expected attributes
     fake = types.SimpleNamespace()
-    fake.DEFAULT_DATASET_DIR = ".tmp-datasets"
-    fake.DEFAULT_RESULTS_DIR = ".tmp-results"
+    fake.DEFAULT_DATASET_DIR = ".tmp/datasets"
+    fake.DEFAULT_RESULTS_DIR = ".tmp/results"
     fake.DEFAULT_FILE_PATTERN = "eval-*.jsonl"
 
     from typing import Any

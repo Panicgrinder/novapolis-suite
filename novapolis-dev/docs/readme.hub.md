@@ -26,7 +26,7 @@ Inhalt & Navigationsmatrix
 - Export / Import (Browser Chat-Exporter, Ingest/Curation) - Abschnitt Export & Ingest.
 - Szenen & Referenzen (Frontmatter, Co-Occurrence) - Abschnitt Scenes Guidelines.
 - Metadata Companion JSON (Hybrid Metadata Tool) - Abschnitt Metadata Layer.
-- Temporäre Artefakte (`.tmp-results/`, `.tmp-datasets/`) - Abschnitt Temporäre Bereiche.
+- Temporäre Artefakte (`.tmp/results/`, `.tmp/datasets/`) - Abschnitt Temporäre Bereiche.
 - Stub-Policy & Migrationsstatus - Abschnitt Stubbing Policy.
 
 Curation Workflow
@@ -111,14 +111,14 @@ Metadata Layer
 
 Temporäre Bereiche
 ------------------
-- `.tmp-results/`: Nicht versionierte Zwischenstände (Reports, Scanner Ergebnisse).
-- `.tmp-datasets/`: Flüchtige Dataset-Zwischenartefakte. Beide Verzeichnisse werden regelmäßig bereinigt; zentraler Inhalt gehört nicht hinein.
+- `.tmp/results/`: Nicht versionierte Zwischenstände (Reports, Scanner Ergebnisse).
+- `.tmp/datasets/`: Flüchtige Dataset-Zwischenartefakte. Beide Verzeichnisse werden regelmäßig bereinigt; zentraler Inhalt gehört nicht hinein.
 
 Rotation/Policy (empfohlen):
 - Aufbewahrung: letzte 7 Tage oder die letzten 5 Artefakte je Serie (je nachdem, was größer ist).
 - Größenlimit: Zielbudget 500 MB für `.tmp-*` insgesamt; ältere Artefakte zuerst entfernen.
 - Werkzeuge: [`scripts/cleanup_workspace_files.ps1`](../../scripts/cleanup_workspace_files.ps1), [`scripts/rotate_backups.ps1`](../../scripts/rotate_backups.ps1).
-- Reports: Link-Scanner-Berichte unter [`/.tmp-results/reports/scan_links_reports/`](../../.tmp-results/reports/scan_links_reports/).
+- Reports: Link-Scanner-Berichte unter [`/.tmp/results/reports/scan_links_reports/`](../../.tmp/results/reports/scan_links_reports/).
 
 Stubbing Policy
 ---------------
@@ -140,8 +140,8 @@ Stub-Mapping (Phase 1)
 | novapolis_agent/eval/config/context.notes/README.md | Metadata Layer | stub |
 | novapolis-dev/integrations/mcp-openai-eval/README.md | Integrations (Future) | stub |
 
-| .tmp-results/README.md | Temporäre Bereiche | stub |
-| .tmp-datasets/README.md | Temporäre Bereiche | stub |
+| .tmp/results/README.md | Temporäre Bereiche | stub |
+| .tmp/datasets/README.md | Temporäre Bereiche | stub |
 
 Kern-READMEs (bleiben ausführlich)
 ----------------------------------
@@ -159,7 +159,7 @@ Governance & Tracking
 ----------------------
 - Governance (SSOT): [`.github/copilot-instructions.md`](../../.github/copilot-instructions.md)
 - DONELOGs: Root [`DONELOG.md`](../../DONELOG.md), Agent [`novapolis_agent/docs/DONELOG.txt`](../../novapolis_agent/docs/DONELOG.txt), Dev-Hub [`novapolis-dev/docs/donelog.md`](../../novapolis-dev/docs/donelog.md)
-- TODOs: [`todo.root.md`](../../todo.root.md) und kuratierter Auszug [`/.tmp-results/todo.cleaned.md`](../../.tmp-results/todo.cleaned.md)
+- TODOs: [`todo.root.md`](../../todo.root.md) und kuratierter Auszug [`/.tmp/results/todo.cleaned.md`](../../.tmp/results/todo.cleaned.md)
 - Status: [`WORKSPACE_STATUS.md`](../../WORKSPACE_STATUS.md)
 
 Änderungshistorie

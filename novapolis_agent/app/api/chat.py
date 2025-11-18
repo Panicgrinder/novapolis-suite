@@ -71,6 +71,39 @@ async def stream_chat_request(
                     pass
             messages.insert(0, {"role": "system", "content": sys_prompt})
 
+    # Optionaler Canvas-Zähler aus Request-Optionen
+    try:
+        cc_val: int | None = None
+        opts_any = getattr(request, "options", None)
+        if isinstance(opts_any, Mapping):
+            try:
+                v = cast(Mapping[object, Any], opts_any).get("canvas_count")
+            except Exception:
+                v = None
+        elif opts_any is not None:
+            md = getattr(opts_any, "model_dump", None)
+            v = None
+            if callable(md):
+                try:
+                    raw = md()
+                    if isinstance(raw, Mapping):
+                        v = cast(Mapping[object, Any], raw).get("canvas_count")
+                except Exception:
+                    v = None
+        else:
+            v = None
+        if isinstance(v, int):
+            cc_val = v
+        elif isinstance(v, str) and v.isdigit():
+            try:
+                cc_val = int(v)
+            except Exception:
+                cc_val = None
+        if cc_val is not None and cc_val >= 0:
+            messages.insert(1, {"role": "system", "content": f"Canvas geladen: {cc_val}"})
+    except Exception:
+        pass
+
     try:
         enabled = bool(getattr(settings, "CONTEXT_NOTES_ENABLED", False))
         notes: str | None = None
@@ -507,6 +540,39 @@ async def process_chat_request(
                     except Exception:
                         pass
                 messages.insert(0, {"role": "system", "content": sys_prompt})
+
+        # Optionaler Canvas-Zähler aus Request-Optionen
+        try:
+            cc_val2: int | None = None
+            opts_any2 = getattr(request, "options", None)
+            if isinstance(opts_any2, Mapping):
+                try:
+                    v2 = cast(Mapping[object, Any], opts_any2).get("canvas_count")
+                except Exception:
+                    v2 = None
+            elif opts_any2 is not None:
+                md2 = getattr(opts_any2, "model_dump", None)
+                v2 = None
+                if callable(md2):
+                    try:
+                        raw2 = md2()
+                        if isinstance(raw2, Mapping):
+                            v2 = cast(Mapping[object, Any], raw2).get("canvas_count")
+                    except Exception:
+                        v2 = None
+            else:
+                v2 = None
+            if isinstance(v2, int):
+                cc_val2 = v2
+            elif isinstance(v2, str) and v2.isdigit():
+                try:
+                    cc_val2 = int(v2)
+                except Exception:
+                    cc_val2 = None
+            if cc_val2 is not None and cc_val2 >= 0:
+                messages.insert(1, {"role": "system", "content": f"Canvas geladen: {cc_val2}"})
+        except Exception:
+            pass
 
         try:
             enabled = bool(getattr(settings, "CONTEXT_NOTES_ENABLED", False))

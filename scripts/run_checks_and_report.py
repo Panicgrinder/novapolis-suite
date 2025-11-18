@@ -264,7 +264,8 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
         # Non-fatal: if PATH adjustment fails, checks will fall back to existing environment
         pass
     agent_dir = repo_root / "novapolis_agent"
-    tmp_root = repo_root / ".tmp-results"
+    # Konsolidierte Temp-Pfade unter .tmp
+    tmp_root = repo_root / ".tmp" / "results"
     report_dir = tmp_root / "reports"
     ensure_directory(report_dir)
 
@@ -630,7 +631,7 @@ def write_reports(
 ) -> tuple[Path, Path]:
     repo_root: Path = ctx["repo_root"]  # type: ignore[assignment]
     stamp: str = ctx["stamp"]  # type: ignore[assignment]
-    report_dir: Path = repo_root / ".tmp-results" / "reports"
+    report_dir: Path = repo_root / ".tmp" / "results" / "reports"
     markdown_path = report_dir / f"checks_report_{stamp}.md"
     summary_path = report_dir / f"checks_report_{stamp}.json"
 

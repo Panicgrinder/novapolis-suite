@@ -13,7 +13,7 @@ def main(xml_path: str, top: int = 20) -> None:
 
 
 if __name__ == "__main__":
-    xml = Path(".tmp-results/reports/coverage_batch1.xml")
+    xml = Path(".tmp/results/reports/coverage_batch1.xml")
     if not xml.exists():
         print("Coverage XML not found:", xml)
     else:

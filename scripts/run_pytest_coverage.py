@@ -17,7 +17,8 @@ args = parser.parse_args()
 
 ROOT = Path.cwd()
 TS = datetime.now().strftime("%Y%m%d_%H%M%S")
-TMP = ROOT / ".tmp-results" / "reports"
+# Konsolidierte Temp-Pfade unter .tmp
+TMP = ROOT / ".tmp" / "results" / "reports"
 TMP.mkdir(parents=True, exist_ok=True)
 LOG = TMP / f"pytest_coverage_{TS}.log"
 RECEIPT = TMP / f"pytest_coverage_postflight_{TS}.md"
