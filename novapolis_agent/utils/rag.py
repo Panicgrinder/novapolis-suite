@@ -46,10 +46,10 @@ class TfIdfIndex:
         chunks_raw: list[dict[str, object]] = []
         cr: object = d.get("chunks", [])
         if isinstance(cr, list):
-            for item in cr:
+            for item in cast(list[object], cr):
                 if isinstance(item, dict):
                     item_typed: dict[str, object] = {}
-                    for kk, vv in item.items():
+                    for kk, vv in cast(dict[object, object], item).items():
                         item_typed[str(kk)] = vv
                     chunks_raw.append(item_typed)
 
@@ -82,7 +82,7 @@ class TfIdfIndex:
         df: dict[str, int] = {}
         df_any: object = d.get("df", {})
         if isinstance(df_any, Mapping):
-            for k_obj, v_obj in df_any.items():
+            for k_obj, v_obj in cast(Mapping[object, object], df_any).items():
                 try:
                     k_s = str(k_obj)
                     v_i = int(v_obj)  # type: ignore[arg-type]

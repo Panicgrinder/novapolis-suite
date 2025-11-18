@@ -122,14 +122,24 @@ async def stream_chat_request(
         opts_any0 = getattr(request, "options", None)
         opts0: dict[str, Any] = {}
         if isinstance(opts_any0, Mapping):
-            opts0 = dict(cast(Mapping[str, Any], opts_any0))
+            try:
+                opts_map0 = cast(Mapping[object, Any], opts_any0)
+                opts0 = {str(k): v for k, v in opts_map0.items()}
+            except Exception:
+                opts0 = {}
         elif opts_any0 is not None:
             md = getattr(opts_any0, "model_dump", None)
             if callable(md):
                 try:
-                    opts0 = dict(md())
+                    raw0 = md()
+                    if isinstance(raw0, Mapping):
+                        opts0 = {str(k): v for k, v in cast(Mapping[object, Any], raw0).items()}
+                    else:
+                        opts0 = {}
                 except Exception:
                     opts0 = {}
+            else:
+                opts0 = {}
         sid_opt = opts0.get("session_id")
         sid_val = sid_top or sid_opt
         session_id = str(sid_val) if isinstance(sid_val, str) and sid_val else None
@@ -196,18 +206,28 @@ async def stream_chat_request(
 
     req_model = getattr(request, "model", None)
     raw_any = getattr(request, "options", None)
-    raw_opts: dict[str, Any]
+    raw_opts: dict[str, Any] = {}
     if isinstance(raw_any, Mapping):
-        raw_opts = dict(cast(Mapping[str, Any], raw_any))
+        try:
+            raw_map = cast(Mapping[object, Any], raw_any)
+            raw_opts = {str(k): v for k, v in raw_map.items()}
+        except Exception:
+            raw_opts = {}
     elif raw_any is not None:
         md = getattr(raw_any, "model_dump", None)
         if callable(md):
             try:
-                raw_opts = dict(md())
+                raw0 = md()
+                if isinstance(raw0, Mapping):
+                    raw_opts = {str(k): v for k, v in cast(Mapping[object, Any], raw0).items()}
+                else:
+                    raw_opts = {}
             except Exception:
                 raw_opts = {}
+        else:
+            raw_opts = {}
     else:
-        raw_opts = dict(raw_any or {})
+        raw_opts = {}
     norm_opts, base_host = normalize_ollama_options(raw_opts, eval_mode=eval_mode)
 
     try:
@@ -544,16 +564,23 @@ async def process_chat_request(
             opts0: dict[str, Any] = {}
             if isinstance(opts_any, Mapping):
                 try:
-                    opts0 = dict(cast(Mapping[str, Any], opts_any))
+                    opts_map = cast(Mapping[object, Any], opts_any)
+                    opts0 = {str(k): v for k, v in opts_map.items()}
                 except Exception:
                     opts0 = {}
             elif opts_any is not None:
                 md = getattr(opts_any, "model_dump", None)
                 if callable(md):
                     try:
-                        opts0 = dict(md())
+                        raw = md()
+                        if isinstance(raw, Mapping):
+                            opts0 = {str(k): v for k, v in cast(Mapping[object, Any], raw).items()}
+                        else:
+                            opts0 = {}
                     except Exception:
                         opts0 = {}
+                else:
+                    opts0 = {}
             sid_opt = opts0.get("session_id")
             sid_val = sid_top or sid_opt
             session_id = str(sid_val) if isinstance(sid_val, str) and sid_val else None
@@ -609,18 +636,28 @@ async def process_chat_request(
 
         req_model = getattr(request, "model", None)
         raw_any2 = getattr(request, "options", None)
-        raw_opts2: dict[str, Any]
+        raw_opts2: dict[str, Any] = {}
         if isinstance(raw_any2, Mapping):
-            raw_opts2 = dict(cast(Mapping[str, Any], raw_any2))
+            try:
+                raw_map2 = cast(Mapping[object, Any], raw_any2)
+                raw_opts2 = {str(k): v for k, v in raw_map2.items()}
+            except Exception:
+                raw_opts2 = {}
         elif raw_any2 is not None:
             md = getattr(raw_any2, "model_dump", None)
             if callable(md):
                 try:
-                    raw_opts2 = dict(md())
+                    raw2 = md()
+                    if isinstance(raw2, Mapping):
+                        raw_opts2 = {str(k): v for k, v in cast(Mapping[object, Any], raw2).items()}
+                    else:
+                        raw_opts2 = {}
                 except Exception:
                     raw_opts2 = {}
+            else:
+                raw_opts2 = {}
         else:
-            raw_opts2 = dict(raw_any2 or {})
+            raw_opts2 = {}
         norm_opts2, base_host = normalize_ollama_options(raw_opts2, eval_mode=eval_mode)
 
         try:

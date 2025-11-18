@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 13:22
-update: Single-Root Hinweise nachgezogen; Tests/Wrapper-Abschnitte aktualisiert
-checks: python scripts/check_frontmatter.py PASS
+stand: 2025-11-18 03:58
+update: Pyright-Warnungen entschärft; DONELOGs aktualisiert; Checks PASS
+checks: python scripts/run_checks_and_report.py PASS (coverage 83.33%)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -12,6 +12,7 @@ Diese Datei dient als zentrale Sammelstelle fuer alle laufenden Aufgaben. Die vo
 Kurzueberblick
 --------------
 
+- 2025-11-18 03:55: Pyright dauerhaft via Wrapper aktiv; Typwarnungen in Agent (`chat.py`, `utils/rag.py`, `utils/eval_utils.py`) entschärft; Full‑Checks PASS (Coverage 83.33%).
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit - dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten-STOP (global, immer gültig)“.
 
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` (Stand-Update) in `scripts/check_frontmatter.py` ergänzt; Governance-Hinweis aktualisiert; Validator PASS.

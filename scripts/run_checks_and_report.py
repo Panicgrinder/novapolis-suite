@@ -248,6 +248,21 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
     script_path = Path(__file__).resolve()
     repo_root = resolve_repo_root(script_path)
     python_exec = resolve_python(repo_root)
+    # Ensure virtualenv executables (e.g., pyright.exe) are discoverable via PATH
+    try:
+        venv_bin = python_exec.parent
+        path_sep = ";" if os.name == "nt" else ":"
+        current_path = os.environ.get("PATH", "")
+        path_parts = current_path.split(path_sep) if current_path else []
+        if str(venv_bin) not in path_parts:
+            new_head = f"{venv_bin!s}"
+            if current_path:
+                os.environ["PATH"] = f"{new_head}{path_sep}{current_path}"
+            else:
+                os.environ["PATH"] = new_head
+    except Exception:
+        # Non-fatal: if PATH adjustment fails, checks will fall back to existing environment
+        pass
     agent_dir = repo_root / "novapolis_agent"
     tmp_root = repo_root / ".tmp-results"
     report_dir = tmp_root / "reports"

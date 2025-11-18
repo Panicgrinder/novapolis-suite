@@ -1,6 +1,7 @@
-stand: 2025-11-18 00:12
-update: CI wieder grün: markdownlint-Archiv-Ignore ergänzt; Ruff/Black Fixes angewendet
-checks: python scripts/check_frontmatter.py PASS
+---
+stand: 2025-11-18 03:58
+update: Pyright dauerhaft aktiviert (Wrapper PATH); Typwarnungen entschärft; Checks PASS
+checks: python scripts/run_checks_and_report.py PASS (coverage 83.33%)
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -11,6 +12,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-18 03:55: Pyright dauerhaft via Wrapper (PATH) aktiv; `novapolis_agent/pyrightconfig.json` auf Root-venv (`venvPath=..`) und Python 3.13 gestellt; Typwarnungen in `app/api/chat.py`, `utils/rag.py`, `utils/eval_utils.py` entschärft. Full‑Checks PASS, Coverage 83.33%.
 - 2025-11-17 04:55: `novapolis_agent/app/routers` und `app/services/llm.py` entfernt; abhängige Tests gelöscht; Index/Status/Cleanup-Notizen aktualisiert.
  - 2025-11-17 09:40: Archivierung & Aufräumaktion: Geparkte `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Live-Stubs durch explizite Import-Fehlermarker ersetzt; Root-`app/__init__.py` Shim hinzugefügt um Root-Tests zu unterstützen; betroffene Tests angepasst. Commits: `1df7561`, `6191a5d`.
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.

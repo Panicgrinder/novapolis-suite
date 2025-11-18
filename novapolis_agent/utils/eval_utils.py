@@ -126,7 +126,7 @@ def load_synonyms(path: str | list[str] = "eval/config/synonyms.json") -> dict[s
                 continue
 
             acc = merged.setdefault(key, [])
-            for value in values:
+            for value in cast(list[object], values):
                 if isinstance(value, str) and value not in acc:
                     acc.append(value)
 
