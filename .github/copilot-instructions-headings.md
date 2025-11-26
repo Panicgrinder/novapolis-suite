@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Guard-Extrakt synchronisiert, Postflight-Liste erweitert, veraltete Einträge markiert
-checks: markdownlint scoped PASS
+stand: 2025-11-26 04:00
+update: Extrakt auf wiederhergestellte SSOT-Version synchronisiert
+checks: keine
 ---
 
 Hinweis: Diese Datei ist eine Extrakt-Referenz. Sie enthält die aus
@@ -12,7 +12,7 @@ Repository abzulegen.
 Aktuelle Überschriften (Extrakt)
 ================================
 
-Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-12 14:10` der Datei `.github/copilot-instructions.md` (Postflight & Wrapper-Guards konsolidiert).
+Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-26 03:54` der Datei `.github/copilot-instructions.md` (SSOT vollständig wiederhergestellt).
 
 - LLM-Dokumentenheader (nicht löschen)
 - Kurzreferenz aller Überschriften dieser Anleitung

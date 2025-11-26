@@ -1,14 +1,31 @@
 {
   "unresolved_dependencies": [
-    "echo",
-    "reflex-wissensstand-trainingsstand"
+    "ai_behavior_index_v2",
+    "caravan_moves",
+    "cluster_index_v1",
+    "echo-wissensstand-trainingsstand",
+    "eisenkonklave",
+    "handel_diplomatie_haendlergilde_v1",
+    "index_haendlergilde_v1",
+    "logistik",
+    "missionslog",
+    "reflex-wissensstand-trainingsstand",
+    "relationslog_eisenkonklave_v1"
   ],
   "alias_collisions": {
-    "c6": [
+    "verbindungstunnel": [
+      "verbindungstunnel-c6-e3",
+      "verbindungstunnel-d5-c6"
+    ],
+    "Verbindungstunnel": [
+      "verbindungstunnel-c6-e3",
+      "verbindungstunnel-d5-c6"
+    ],
+    "C6": [
       "c6",
       "c6-nord"
     ],
-    "C6": [
+    "c6": [
       "c6",
       "c6-nord"
     ]

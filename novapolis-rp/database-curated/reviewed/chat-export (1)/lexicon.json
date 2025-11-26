@@ -1,5 +1,9 @@
 {
   "by_slug": {
+    "arlen-dross": {
+      "category": "character",
+      "title": "Arlen Dross"
+    },
     "echo": {
       "category": "character",
       "title": "Echo"
@@ -12,13 +16,13 @@
       "category": "character",
       "title": "Kora Malenkov"
     },
-    "lumen": {
-      "category": "character",
-      "title": "Lumen"
-    },
     "liora-navesh": {
       "category": "character",
       "title": "Liora Navesh"
+    },
+    "lumen": {
+      "category": "character",
+      "title": "Lumen"
     },
     "lyra-hest": {
       "category": "character",
@@ -28,9 +32,17 @@
       "category": "character",
       "title": "Marei"
     },
+    "marven-kael": {
+      "category": "character",
+      "title": "Marven Kael"
+    },
+    "pahl": {
+      "category": "character",
+      "title": "Pahl"
+    },
     "reflex": {
       "category": "character",
-      "title": "Reflex (Primärinstanz)"
+      "title": "Reflex"
     },
     "ronja-kerschner": {
       "category": "character",
@@ -46,11 +58,63 @@
     },
     "c6": {
       "category": "location",
-      "title": "C6 – Außenposten"
+      "title": "C6"
     },
     "d5": {
       "category": "location",
-      "title": "D5 – Hauptbasis"
+      "title": "D5"
+    },
+    "e3": {
+      "category": "location",
+      "title": "E3"
+    },
+    "verbindungstunnel-c6-e3": {
+      "category": "location",
+      "title": "Verbindungstunnel C6-E3"
+    },
+    "verbindungstunnel-d5-c6": {
+      "category": "location",
+      "title": "Verbindungstunnel D5-C6"
+    },
+    "arkologie-inventar": {
+      "category": "inventory",
+      "title": "arkologie-inventar"
+    },
+    "d5-inventar": {
+      "category": "inventory",
+      "title": "d5-inventar"
+    },
+    "eiserne-enklave-inventar": {
+      "category": "inventory",
+      "title": "eiserne-enklave-inventar"
+    },
+    "freie-gruppen-inventar": {
+      "category": "inventory",
+      "title": "freie-gruppen-inventar"
+    },
+    "haendlerbund-inventar": {
+      "category": "inventory",
+      "title": "haendlerbund-inventar"
+    },
+    "novapolis-inventar": {
+      "category": "inventory",
+      "title": "novapolis-inventar"
+    },
+    "schienenbund-inventar": {
+      "category": "inventory",
+      "title": "schienenbund-inventar"
+    },
+    "caravan-moves": {
+      "category": "project",
+      "title": "caravan-moves"
+    },
+    "nordlinie-01": {
+      "category": "project",
+      "title": "Nordlinie 01 (Tunnel D5-C6)"
+    },
+    "h12": {
+      "category": "location",
+      "title": "H12"
     },
     "c6-nord": {
       "category": "location",
@@ -60,102 +124,115 @@
       "category": "mission",
       "title": "Mission C6-Nord (Sealed room)"
     },
-    "n7": {
+    "e2": {
       "category": "location",
-      "title": "N7"
+      "title": "E2"
     },
-    "e3": {
+    "b5": {
       "category": "location",
-      "title": "E3"
+      "title": "B5"
     },
-    "f1": {
+    "v2": {
       "category": "location",
-      "title": "F1"
+      "title": "V2"
     },
-    "verbindungstunnel-d5-c6": {
+    "n3": {
       "category": "location",
-      "title": "Verbindungstunnel D5–C6"
-    },
-    "verbindungstunnel-c6-e3": {
-      "category": "location",
-      "title": "Verbindungstunnel C6–E3"
+      "title": "N3"
     }
   },
   "aliases": {
+    "Arlen Dross": "arlen-dross",
+    "arlen": "arlen-dross",
+    "dross": "arlen-dross",
+    "Dross": "arlen-dross",
+    "Arlen": "arlen-dross",
     "Echo": "echo",
-    "echo": "echo",
-    "Echo (Instanz)": "echo",
-    "Instanz Echo": "echo",
-    "instanz echo": "echo",
     "Jonas Merek": "jonas-merek",
+    "Jonas": "jonas-merek",
     "merek": "jonas-merek",
     "jonas": "jonas-merek",
-    "Jonas": "jonas-merek",
     "Merek": "jonas-merek",
     "Kora Malenkov": "kora-malenkov",
     "malenkov": "kora-malenkov",
     "kora": "kora-malenkov",
-    "Kora": "kora-malenkov",
     "Malenkov": "kora-malenkov",
-    "Lumen": "lumen",
+    "Kora": "kora-malenkov",
     "Liora Navesh": "liora-navesh",
-    "Liora": "liora-navesh",
     "liora": "liora-navesh",
     "Navesh": "liora-navesh",
     "navesh": "liora-navesh",
+    "Liora": "liora-navesh",
+    "Lumen": "lumen",
     "Lyra Hest": "lyra-hest",
+    "hest": "lyra-hest",
+    "Hest": "lyra-hest",
     "lyra": "lyra-hest",
     "Lyra": "lyra-hest",
-    "Hest": "lyra-hest",
-    "hest": "lyra-hest",
     "Marei": "marei",
-    "marei": "marei",
-    "Reflex (Primärinstanz)": "reflex",
-    "(primärinstanz)": "reflex",
+    "Marven Kael": "marven-kael",
+    "Kael": "marven-kael",
+    "kael": "marven-kael",
+    "marven": "marven-kael",
+    "Marven": "marven-kael",
+    "Pahl": "pahl",
     "Reflex": "reflex",
-    "(Primärinstanz)": "reflex",
-    "reflex": "reflex",
     "Ronja Kerschner": "ronja-kerschner",
-    "ronja": "ronja-kerschner",
     "kerschner": "ronja-kerschner",
-    "Kerschner": "ronja-kerschner",
     "Ronja": "ronja-kerschner",
+    "ronja": "ronja-kerschner",
+    "Kerschner": "ronja-kerschner",
     "Senn Daru": "senn-daru",
-    "Senn": "senn-daru",
     "Daru": "senn-daru",
+    "Senn": "senn-daru",
     "senn": "senn-daru",
     "daru": "senn-daru",
     "Varek Solun": "varek-solun",
-    "Varek": "varek-solun",
-    "varek": "varek-solun",
     "Solun": "varek-solun",
+    "Varek": "varek-solun",
     "solun": "varek-solun",
+    "varek": "varek-solun",
     "C6": "c6",
     "c6": "c6",
     "D5": "d5",
     "d5": "d5",
-    "Station E3": "e3",
     "E3": "e3",
     "e3": "e3",
+    "Verbindungstunnel C6-E3": "verbindungstunnel-c6-e3",
+    "c6-e3": "verbindungstunnel-c6-e3",
+    "verbindungstunnel": "verbindungstunnel-c6-e3",
+    "C6-E3": "verbindungstunnel-c6-e3",
+    "Verbindungstunnel": "verbindungstunnel-c6-e3",
+    "Verbindungstunnel D5-C6": "verbindungstunnel-d5-c6",
+    "D5-C6": "verbindungstunnel-d5-c6",
+    "d5-c6": "verbindungstunnel-d5-c6",
+    "arkologie-inventar": "arkologie-inventar",
+    "d5-inventar": "d5-inventar",
+    "eiserne-enklave-inventar": "eiserne-enklave-inventar",
+    "freie-gruppen-inventar": "freie-gruppen-inventar",
+    "haendlerbund-inventar": "haendlerbund-inventar",
+    "novapolis-inventar": "novapolis-inventar",
+    "schienenbund-inventar": "schienenbund-inventar",
+    "caravan-moves": "caravan-moves",
+    "Nordlinie 01 (Tunnel D5-C6)": "nordlinie-01",
+    "D5-C6)": "nordlinie-01",
+    "d5-c6)": "nordlinie-01",
+    "Nordlinie": "nordlinie-01",
+    "nordlinie": "nordlinie-01",
+    "H12": "h12",
+    "h12": "h12",
     "C6 Nord": "c6-nord",
     "nord": "c6-nord",
     "Nord": "c6-nord",
     "Mission C6-Nord (Sealed room)": "mission-c6-nord",
+    "mission": "mission-c6-nord",
+    "Mission": "mission-c6-nord",
+    "room)": "mission-c6-nord",
     "C6-Nord": "c6-nord",
     "N7": "c6-nord",
     "n7": "c6-nord",
     "Mission C6-Nord": "mission-c6-nord",
-    "C6-Nord Mission": "mission-c6-nord",
-    "Verbindungstunnel D5–C6": "verbindungstunnel-d5-c6",
-    "Verbindungstunnel D5-C6": "verbindungstunnel-d5-c6",
-    "Tunnel D5-C6": "verbindungstunnel-d5-c6",
-    "Tunnel C6-D5": "verbindungstunnel-d5-c6",
-    "Verbindungstunnel C6–E3": "verbindungstunnel-c6-e3",
-    "Verbindungstunnel C6-E3": "verbindungstunnel-c6-e3",
-    "Tunnel C6-E3": "verbindungstunnel-c6-e3",
-    "Tunnel E3-C6": "verbindungstunnel-c6-e3",
-    "C6–E3": "verbindungstunnel-c6-e3",
-    "C6-E3": "verbindungstunnel-c6-e3"
+    "C6-Nord Mission": "mission-c6-nord"
   },
   "redirects": {
     "n7": "c6-nord"

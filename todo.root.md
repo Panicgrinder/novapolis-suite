@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-18 03:58
-update: Pyright-Warnungen entschärft; DONELOGs aktualisiert; Checks PASS
-checks: python scripts/run_checks_and_report.py PASS (coverage 83.33%)
+stand: 2025-11-26 05:36
+update: Tagging-Pipeline 015-010 Dry→Write durchgeführt; TODO/Lint Sync
+checks: python coding/tools/curation/tag_chunks_from_yaml.py (dry+write) PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -123,7 +123,13 @@ Nächstes Vorgehen (1-2 Tage)
 ### novapolis-rp
 
 - [ ] Export konsolidieren: Offene Aufgabe „`99-exports/chat-export-complete.txt`“ abschließen; Delta-Befunde in SSOT-Canvases spiegeln.
-- [ ] Tagging-Pipeline 015-010 vom Dry-Run auf Write heben; anschließend kurzem Lint-Protokoll in `novapolis-dev/docs/donelog.md` vermerken.
+- [x] Tagging-Pipeline 015-010 vom Dry-Run auf Write gehoben; Lint-Protokoll in `novapolis-dev/docs/donelog.md` vermerkt (2025-11-26 05:35).
+  - Umsetzung lt. STOP-Plan (R-STOP/R-WRAP/R-LOG):
+    - Backups: `AI-Behavior-Mapping.{md,json}` → `Backups/tagging-pipeline/AI-Behavior-Mapping-20251126-0522.*`, Snapshot `Backups/tagging-015-010-prewrite.txt` für reviewed Outputs.
+    - Guard-Lauf: `python coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root "novapolis-rp/database-curated/staging/chunks/chat-export (1)" --out-root "novapolis-rp/database-curated/reviewed/chat-export (1)" --range 015-010 --dry-run` PASS (Summaries + Canonicalized N7 total 2 dokumentiert).
+    - Write-Run: gleiches Kommando ohne `--dry-run`; erzeugt `part-015.tagged.txt` … `part-010.tagged.txt`, aktualisiert `index_review.json`/`unresolved.json`/`lexicon.json`, Report `reports/tagging-20251126T043409Z.log` mit LOC-only-Hinweisen.
+    - Nachbereitung: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md'` PASS, `python scripts/check_frontmatter.py novapolis-dev/docs/donelog.md` PASS, Einträge in `novapolis-dev/docs/donelog.md` + `DONELOG.md` ergänzt.
+    - TODO/Status-Sync (dieser Eintrag + `/.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `workspace_tree*.txt`) läuft mit aktuellem Task; Tree-Snapshots neu auf 2025-11-26 05:36 gesetzt, Postflight folgt nach Abschluss.
 - [ ] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` prüfen; auf Minimal-Ausnahmen reduzieren oder entfernen.
 - [ ] Staging-Reports (`database-curated/staging/reports/*.md`) mit YAML-Frontmatter/Setext nachziehen oder in `novapolis-dev/docs/` migrieren; Altdateien nach Freigabe löschen.
 - [ ] Metadata-Initialisierungsskripte (`coding/tools/metadata/init-metadata.js` vs. `init_metadata.py`) konsolidieren und kanonische Variante dokumentieren.

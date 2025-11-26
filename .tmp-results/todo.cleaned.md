@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Frontmatter-Autofix + --touch dokumentiert; Statusdateien synchron
-checks: python scripts/check_frontmatter.py PASS
+stand: 2025-11-26 05:36
+update: Tagging 015-010 Write abgeschlossen; Root-Sync laeuft
+checks: python coding/tools/curation/tag_chunks_from_yaml.py (dry+write) PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS
 ---
 
 Bereinigte Aufgabenliste (Root)
@@ -16,6 +16,8 @@ Hoch priorisiert (0-2 Tage)
   - Schritte: pytest → pyright → mypy → `scripts/run_pytest_coverage.ps1` (Receipt in `DONELOG.md` + `WORKSPACE_STATUS.md`).
  - [x] Docs: Statusdateien synchronisieren (todo.root.md, WORKSPACE_STATUS.md, WORKSPACE_INDEX.md, governance.suggestions.md) – Lauf 2025-11-15 09:00
  - [x] Agent: Integration `PSScriptAnalyzer` in der damaligen PowerShell-Variante (jetzt durch `python scripts/run_checks_and_report.py` ersetzt) (2025-11-11 11:00)
+ - [x] RP: Tagging-Pipeline 015-010 Write (STOP-Plan 2025-11-26 04:11, R-STOP/R-WRAP/R-LOG)
+   - Dry-Run/Write via `python coding/tools/curation/tag_chunks_from_yaml.py --range 015-010` durchgeführt; neue `.tagged`-Dateien 015→010 + aktualisierte Index/Unresolved/Lexicon/Report `reports/tagging-20251126T043409Z.log` bestätigt. Backups (AI-Behavior-Mapping, Tree-Snapshot) und targeted Lint/Frontmatter PASS; Root-/Hub-Logs in Arbeit.
   - [x] `*.code-workspace` suchen und entfernen/verschieben (report counts)
   - [x] `tasks.json` Inline-Ketten prüfen → Wrapper-Aufrufe
   - [x] Wrapper-Probelauf `scripts/run_pytest_coverage.ps1` + Receipt
@@ -91,12 +93,9 @@ Kurzfristig (3-7 Tage)
     - [ ] Quelle A/B und Duplikat-Befunde aus `novapolis-rp/database-curated/staging/manifest.json` und den Delta-Reports übernehmen.
     - [ ] Kurzprotokoll in [`novapolis-dev/docs/donelog.md`](novapolis-dev/docs/donelog.md) + Hinweis in [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md).
 
-- [ ] RP: Tagging-Pipeline 015-010 von Dry-Run auf Write heben (STOP vor Write)
+- [x] RP: Tagging-Pipeline 015-010 von Dry-Run auf Write gehoben (STOP vor Write)
   - Kontext: [`todo.root.md`](todo.root.md) (novapolis-rp: Tagging-Pipeline 015-010).
-  - Schritte:
-    - [ ] Dry-Run-Befehle aus [`novapolis-dev/docs/index.md`](novapolis-dev/docs/index.md) („Nutzungshinweise (lokal)“) gegenprüfen.
-    - [ ] STOP-Plan formulieren (Scope, Anzahl Dateien, erwartete Writes) und in [`novapolis-dev/docs/donelog.md`](novapolis-dev/docs/donelog.md) notieren.
-    - [ ] Write-Run durchführen, danach Lint/Validator laufen lassen; Zahlen/Status in DONELOG + `WORKSPACE_STATUS.md` dokumentieren.
+  - Schritte: Dry-Run & Plan bestätigt, Write-Run + Nachbereitung erledigt; verbleibend: Status-/Tree-/TODO-Sync (dieses Dokument, Root, WORKSPACE_STATUS, workspace_tree*, `.tmp-results/` Artefakte).
 
 - [ ] Dev/RP: Staging-Reports migrieren oder Frontmatter/Setext nachziehen (einen Task führen; Doppelungen vermeiden)
   - Kontext: [`todo.root.md`](todo.root.md) (novapolis-rp Frontmatter/Markdown-Sweep) und [`novapolis-dev/docs/donelog.md`](novapolis-dev/docs/donelog.md) („Staging-Reports - Setext/Frontmatter konsolidiert“).

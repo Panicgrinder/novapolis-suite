@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-18 03:58
-update: Pyright dauerhaft aktiviert (Wrapper PATH); Typwarnungen entschärft; Checks PASS
-checks: python scripts/run_checks_and_report.py PASS (coverage 83.33%)
+stand: 2025-11-26 05:35
+update: Tagging-Pipeline 015-010 Write dokumentiert; Governance-Eintrag bleibt gültig
+checks: python tag_chunks_from_yaml.py (dry+write) PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' PASS; python scripts/check_frontmatter.py novapolis-dev/docs/donelog.md PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -12,12 +12,22 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-26 05:35: Tagging-Pipeline 015-010 geschrieben (015→010), neue `.tagged`-Dateien + Reports abgelegt; Backups/Snapshots & Lint/Validator protokolliert.
+- 2025-11-26 04:00: `.github/copilot-instructions.md` vollständige SSOT-Fassung aus Archiv eingespielt; Stand/Checks aktualisiert; markdownlint repo-weit PASS.
 - 2025-11-18 09:37: Coverage-Wrapper ausgeführt (root). Ergebnis FAIL (rc=2). Ursache: fehlende Abhängigkeiten/Importpfade (`novapolis_agent`, `fastapi`, `uvicorn`). Receipt: `.tmp-results/reports/pytest_coverage_postflight_20251118_093732.md`.
 - 2025-11-18 03:55: Pyright dauerhaft via Wrapper (PATH) aktiv; `novapolis_agent/pyrightconfig.json` auf Root-venv (`venvPath=..`) und Python 3.13 gestellt; Typwarnungen in `app/api/chat.py`, `utils/rag.py`, `utils/eval_utils.py` entschärft. Full‑Checks PASS, Coverage 83.33%.
 - 2025-11-17 04:55: `novapolis_agent/app/routers` und `app/services/llm.py` entfernt; abhängige Tests gelöscht; Index/Status/Cleanup-Notizen aktualisiert.
  - 2025-11-17 09:40: Archivierung & Aufräumaktion: Geparkte `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Live-Stubs durch explizite Import-Fehlermarker ersetzt; Root-`app/__init__.py` Shim hinzugefügt um Root-Tests zu unterstützen; betroffene Tests angepasst. Commits: `1df7561`, `6191a5d`.
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+
+2025-11-26 04:00 | Copilot | Governance-SSOT wiederhergestellt (Postflight)
+Meta: {"Timestamp": "2025-11-26 04:00", "Files": [".github/copilot-instructions.md"], "Command": "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'", "markdownlint": "PASS"}
+Kurz: Archivfassung (`novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md`) in `.github/copilot-instructions.md` zurückgespielt, Stand/Update/Checks und Header-Timestamp aktualisiert, `.tmp-results`-Hinweise auf `/.tmp/results` gedreht. Repo-weites markdownlint ohne Findings, Dokument dient wieder als SSOT für Copilot-Verhalten.
+
+2025-11-26 05:35 | Copilot | RP Tagging-Pipeline 015-010 (Dry→Write)
+Meta: {"Timestamp": "2025-11-26 05:35", "Backups": ["Backups/tagging-pipeline/AI-Behavior-Mapping-20251126-0522.md", "Backups/tagging-pipeline/AI-Behavior-Mapping-20251126-0522.json", "Backups/tagging-015-010-prewrite.txt"], "Commands": ["python coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root 'novapolis-rp/database-curated/staging/chunks/chat-export (1)' --out-root 'novapolis-rp/database-curated/reviewed/chat-export (1)' --range 015-010 --dry-run", "python coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root 'novapolis-rp/database-curated/staging/chunks/chat-export (1)' --out-root 'novapolis-rp/database-curated/reviewed/chat-export (1)' --range 015-010"], "Reports": ["reports/tagging-20251126T043409Z.log"], "Lint": "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' PASS", "Frontmatter": "python scripts/check_frontmatter.py novapolis-dev/docs/donelog.md PASS"}
+Kurz: STOP-Plan umgesetzt. Dry-Run bestätigte Scope (015→010, Canonicalized N7 total 2). Write-Run erzeugte `part-015.tagged.txt` … `part-010.tagged.txt` sowie aktualisierte `index_review.json`, `unresolved.json`, `lexicon.json`. Log `reports/tagging-20251126T043409Z.log` dokumentiert LOC-only Hinweise. Nachbereitung: targeted markdownlint/frontmatter PASS; Folgearbeiten: TODO/WSTATUS/workspace_tree aktualisieren, verbleibende Aliaskonflikte beobachten.
 
 2025-11-18 00:10 | Copilot | Checks & CI grün (Postflight)
 Meta: {"Timestamp": "2025-11-18 00:10", "GitSHA": "16d8a7e", "markdownlint": "PASS (Archiv ignoriert: novapolis-dev/archive/**)", "ruff": "PASS (auto-fix ausgeführt)", "black": "PASS", "pytest": "PASS", "coverage_percent": 83.85}

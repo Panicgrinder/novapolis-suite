@@ -1,12 +1,33 @@
 ---
-stand: 2025-11-16 06:52
-update: Postflight ergänzt (Checks-Report 20251112_013920)
-checks: markdownlint-cli2 PASS (scoped)
+stand: 2025-11-26 05:35
+update: Tagging-Pipeline 015-010 Write abgeschlossen; Backups/Receipts ergänzt
+checks: python tag_chunks_from_yaml.py (dry+write) PASS; npx markdownlint-cli2 PASS (donelog); python scripts/check_frontmatter.py PASS
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+Tagging-Pipeline 015-010 – Plan & Freigabe (2025-11-26 05:22)
+-------------------------------------------------------------
+
+- Scope: `coding/tools/curation/tag_chunks_from_yaml.py` mit Range `015-010` (descending). Inputs: `novapolis-rp/database-curated/staging/chunks/chat-export (1)/chat-export (1).part-015.txt` bis `...part-010.txt`. Outputs sollen als `part-015.tagged.txt` … `part-010.tagged.txt` unter `novapolis-rp/database-curated/reviewed/chat-export (1)/` landen.
+- Backups/Snapshots vor Write:
+  - Kopie von `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}` nach `Backups/tagging-pipeline/AI-Behavior-Mapping-20251126-0522.{md,json}`.
+  - `tree /A /F "novapolis-rp/database-curated/reviewed/chat-export (1)" > Backups/tagging-015-010-prewrite.txt` (ersetzt ältere `outputs/tagging/015-010`-Referenz).
+- Guard-Lauf (DryRun): `pwsh -File scripts/tagging_pipeline_run.ps1 -Pipeline 015-010 -Mode DryRun` lt. ursprünglichem Plan gibt es nicht mehr; Ersatz: `python coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root "novapolis-rp/database-curated/staging/chunks/chat-export (1)" --out-root "novapolis-rp/database-curated/reviewed/chat-export (1)" --range 015-010 --dry-run`. Protokoll im Terminal + Exitcode dokumentieren, Abbruch bei Abweichungen.
+- Write-Run (Wrapper-Äquivalent): derselbe Befehl ohne `--dry-run`, gestartet erst nach obiger Freigabe. Erwartet: neue `.tagged.txt`-Dateien (015→010), aktualisiertes `index_review.json`, `unresolved.json`, `lexicon.json`, frischer Report `reports/tagging-YYYYMMDDTHHMMSSZ.log`.
+- Nachbereitung laut STOP-Plan: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md'` + `python scripts/check_frontmatter.py novapolis-dev/docs/donelog.md` sowie Updates in `DONELOG.md`, `todo.root.md`, `/.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, ggf. `workspace_tree*.txt`. Postflight-Receipt nach Abschluss.
+- STOP bestätigt (2025-11-26 05:22) – keine Ausführung bevor Dry-Run und Backups dokumentiert sind.
+
+Ausführung & Nachbereitung (2025-11-26 05:35)
+-------------------------------------------
+
+- Backups/Snapshots erstellt: `AI-Behavior-Mapping.{md,json}` unter `Backups/tagging-pipeline/AI-Behavior-Mapping-20251126-0522.*`, Tree-Snapshot `Backups/tagging-015-010-prewrite.txt` für `novapolis-rp/database-curated/reviewed/chat-export (1)/`.
+- Guard-Lauf: `python coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root "novapolis-rp/database-curated/staging/chunks/chat-export (1)" --out-root "novapolis-rp/database-curated/reviewed/chat-export (1)" --range 015-010 --dry-run` → PASS. Summaries bestätigt (015→010, Canonicalized N7 total=2, Alias-Kollisionen wie erwartet).
+- Write-Run (gleiches Kommando ohne `--dry-run`): neue Dateien `part-015.tagged.txt` … `part-010.tagged.txt`, `index_review.json`/`unresolved.json`/`lexicon.json` aktualisiert, Report `reports/tagging-20251126T043409Z.log` erzeugt (LOC-only Hinweise, Canonicalized N7→c6-nord total 2).
+- Checks laut Plan: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md'` PASS, `python scripts/check_frontmatter.py novapolis-dev/docs/donelog.md` PASS.
+- Offene Folgearbeiten: Alias-Kollision „C6“ weiter beobachten; nächste Ranges 009-001 vorbereiten; Root- und Hub-Dokumente synchronisieren (DONELOG/TODO/WSTATUS/workspace_tree*).
 
 Doku-Sweep: markdownlint konsolidiert (2025-11-07 09:59)
 -----------------------------------------------------

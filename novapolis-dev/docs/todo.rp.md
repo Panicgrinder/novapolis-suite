@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2025-11-16 06:52
-update: Frontmatter ergänzt und auf Governance-Format gebracht.
-checks: keine
+stand: 2025-11-26 05:36
+update: Tagging Range 015-010 abgeschlossen; Referenzen aktualisiert
+checks: python coding/tools/curation/tag_chunks_from_yaml.py (dry+write) PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -145,7 +145,7 @@ Aktive Aufgaben
 
 - [ ] Tagging-Pipeline (YAML-getrieben)
     - [x] 019-016: Dry-Run → Write (Heuristiken: N7→c6-nord, NOTE/EVENT, MISSION C6-Nord, Sektor-Codes)
-    - [ ] 015-010: Dry-Run → Write
+    - [x] 015-010: Dry-Run → Write (2025-11-26 05:35, Report `reports/tagging-20251126T043409Z.log`, Outputs `part-015..010.tagged`)
     - [ ] 009-001: Dry-Run → Write
     - [ ] Alias-Kollisionen prüfen/entscheiden ("C6" → c6 vs c6-nord; Präferenz festlegen und ggf. Alias entfernen)
     - [ ] Unresolved klären: `Echo`, `Reflex-Wissensstand-Trainingsstand` (MD anlegen/Slug anpassen)

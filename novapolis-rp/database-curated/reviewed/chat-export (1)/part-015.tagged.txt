@@ -1,0 +1,499 @@
+#1209 [user] [NOTE]
+ich denke, da ist ja jetzt schon einiges an Zeit vergangen. also wäre es denke ich angebracht, dass wir auch einen Blick auf Cora und die anderen werfen und auch nach D5. aber beginnen wir doch erstmal einfach nur mit Kora und den anderen, die in der Station geblieben sind, also in C6. und wir können auch dann später noch kurz auf die karawane, die ja wieder auf dem Weg nach Hause ist. ein Blick werfen. oh Moment, wir haben Sie ja noch gar nicht wieder losgeschickt. das können wir ja dann machen, wenn wir D5 anschauen. dann kann Jonas ja eine Nachricht schicken und versuchen funkkontakt zu bekommen mit Kora. [CHAR:jonas-merek] [CHAR:kora-malenkov] [LOC:c6] [LOC:d5]
+Anmerkung: nicht vergessen oder besser. lade die dazugehörigen canvas das Reflex ja erschaffen wurde in der kleinen Werkstatt bzw. dem kleinen wartungsraum, damals. unter dem kontrollbereich von D5 und als Reaktion auf ronjas Verschmelzung damals bzw. das lösens dieser Verschmelzung, was das Ereignis war, was Reflex erschaffen hat und er somit irgendwie ihr ihr Kind ist oder Teil von ihr. [CHAR:reflex] [LOC:d5] [NOTE]
+
+----- [NOTE]
+
+#1210 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1211 [user] [NOTE]
+ja genau, lade dazu wieder alle nötigen canvas und fahre dann genau damit fort.
+
+----- [NOTE]
+
+#1212 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1213 [user] [NOTE]
+na ja, gut. ich meine da ist jetzt vielleicht ein kleiner flüchtigkeitsfehler passiert, weil wir ja schon lange nicht mehr da waren. aber die sind ja ursprünglich losgeschickt worden um Material für die Reparatur von C6 zu holen. und das können ja unmöglich nur ein paar energiezellen sein und wir haben gesagt so um die 50 Kilo dürften die schon tragen können... das genaue Gewicht was jeder von den beiden tragen kann, musst du natürlich dynamisch angeben. weil körpergröße wie gut jemand trainiert ist und so. aber das kannst du ja aus dem canvas ziehen. und dann halt Material für den Wiederaufbau. wir haben ja gesagt die beiden müssen selbst entscheiden was sie mitnehmen, weil das ja unser Fehler war und wie viel von jedem aber so doof, dass sie jetzt gar nichts zum instand setzen mitnehmen wahrlich zu bezweifeln, dass sie das sind... und dann können wir natürlich gerne den Aufbruch schon mal ausspielen. richtig mit in den Tunnel rein und so. [LOC:c6] [FACT?]
+
+----- [NOTE]
+
+#1214 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1215 [user] [NOTE]
+na ja, also etwas großes kann es ja nicht sein, weil der Tunnel relativ gut erschlossen ist und zwischen den beiden Stationen liegt und wir ja gesagt haben, dass bis auf den kleinen wartungsgang, wo auch noch die drei Leichen drin liegen. es keinen weiteren Anschluss gibt außer den verschütteten oder Pfeil verschütteten nach E3, wenn ich mich korrekt erinnere, wo der gasunfall war und Jonas her stammt. könntest du das einmal überprüfen? bitte, es könnte auch sein, dass es E2 war, aber das müsste für dich mit der mit dem koordinatensystem ja recht leicht rauszufinden sein. und dann gehen die beiden natürlich weiter vorsichtig vor, wo ich sagen würde, dass Mikk jetzt auch seine Aufgabe als Wächter in Angriff nimmt. [CHAR:jonas-merek] [LOC:e2] [LOC:e3] [EVENT]
+
+----- [NOTE]
+
+#1216 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1217 [user] [NOTE]
+lösche bitte deine letzte Antwort. ich finde es gut, wenn Reflex ein Unikat bleibt. mal abgesehen von seinen von ihm erstellten Instanzen wie sein kleiner Bruder... lasse dir hier bitte etwas anderes einfallen. ich denke, du stimmst mir zu, dass es schöner ist, wenn er ein Unikat bleibt [CHAR:reflex]
+
+----- [NOTE]
+
+#1218 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1219 [user] [NOTE]
+nein, sie gehen schon nach Protokoll vor und melden sich noch bei D5 ab. und eine Anmerkung: ich finde es lustig, wenn die Anomalie, die sie jetzt beide festgestellt haben. lediglich daher rührt das C6 jetzt so viel Energie von D5 zieht und die beiden das jetzt halt physisch festgestellt haben. weiß natürlich noch keiner außer Ronja und Reflex, die damit ja wahrscheinlich schon gerechnet haben. also jetzt wissen Sie es noch nicht, weil sie die Info noch nicht haben, aber sobald sie davon hören, können Sie es beantworten. ich würde dann sagen wir machen dann weiter mit der kurzen Abmeldung dem aktualisieren aller canvas. und dann dem Eintreffen in C6 und dem aufeinandertreffen mit Kora. wir können dann ja auch direkt die bestandsaufnahme mit der Aktualisierung des inventars von C6 machen. aber die weitere aufgabenverteilung die Kora dann durchführen wird, machen wir dann im Anschluss. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6] [LOC:d5]
+
+----- [NOTE]
+
+#1220 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1221 [user] [NOTE]
+genau das machst du so. kannst du auch gerne im Hintergrund machen, wie immer unsere drei Punkte. Regel analysieren Backups neue Version und archivieren der alten.
+dann kannst du direkt mit der Szene des ankunfts und der bestandsaufnahme machen. [EVENT]
+
+----- [NOTE]
+
+#1222 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1223 [user] [NOTE]
+damit wir jetzt zeitlich nicht davonrennen, würde ich sagen wir gehen erstmal komplett zurück zu Ronja und Reflex. denn mit dem Eintreffen der versorgungsgruppe dürfte auch Ronja und Reflex mit der Analyse und allem in n7 soweit fertig sein. oder etwa nicht also zeitlich gesehen. dauert das hin und zurück ja schon lange und die ganze Zeit war ja glaube ich wenn ich mich recht erinnere Ronja und Reflex im n7 jetzt beschäftigt. du kannst also die aktuell geladenen. canvas offen lassen und einfach nur die nötigen dazu laden, die du dann brauchst. so behältst du auch den gesamten Überblick. [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6-nord]
+
+----- [NOTE]
+
+#1224 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1225 [user] [NOTE]
+​ nein, ich denke Ronja war jetzt die ganze Zeit so hoch konzentriert, aber sie ist ja dennoch ein bisschen wie ich und ich würde um alleine selbst wieder ein wenig Leichtigkeit zu verspüren. nach der ganzen Schwere der Arbeit, mir einen spaß erlauben und einfach mal bei der Gruppe auftauchen und schauen, wie sie reagiert, dass ich weiß oder das Ronja weiß, dass sie wieder da sind. und natürlich würde Ronja dann kurz selbst eine bestandsaufnahme machen. das Materials und würde dann die Arbeit verteilen. natürlich an die Fähigkeiten der Personen angepasst. Anmerkung: hierbei bietet es sich perfekt an alle Charakter canvas zu laden. und an ronjas canvas, den wir ja als Vorlage jetzt festgelegt haben, anzupassen natürlich nach unserer drei Schritte Regel. [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1226 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1227 [user] [NOTE]
+​ Achtung, nicht alles von deiner letzten Nachricht speichern. bitte überprüfe kurz den chatverlauf und deine canvas Daten. danach das wir gesagt haben, dass die Charaktere ihre Rolle bekommen und wenn ich mich recht erinnere, ist Mikk Wächter... was hat ein Wächter mit so einer Aufgabe zu tun. das würde Ronja nicht tun... ich würde empfehlen, dass wir jetzt eine Runde durchgehen, wo Ronja frägt, wer welche Aufgabe eigentlich normalerweise hat und dass wir das direkt in den canvas aktualisieren. stimmst du mir dazu? [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1228 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1229 [user] [NOTE]
+​ ich würde sagen sie zieht sich zuerst mit Kora zurück und übergibt ihr die Leitung von C6?. Ronja wird sich ja nicht für alles immer verantwortlich fühlen können. müssen... natürlich bleibt sie die anführerin der Fraktion Novapolis. [CHAR:kora-malenkov] [CHAR:ronja-kerschner] [LOC:c6]
+aktualisiere, bitte auch dann den canvas der Charaktere.
+Anmerkung: Ronja wird die Instandsetzung natürlich weiter mit unterstützen. [CHAR:ronja-kerschner] [NOTE]
+
+----- [NOTE]
+
+#1230 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1231 [user] [NOTE]
+​ ich denke D5 können wir außen vor lassen, denn Jonas pahl und die reflexinstanz haben ja keinen Stress und keine aktiven Aufgaben. [CHAR:jonas-merek] [CHAR:pahl] [LOC:d5]
+Ronja und Reflex hingegen würden wieder zurück mit Kora zu den anderen gehen, und Kora bei der verkündung der Neuigkeiten zuhören. anschließend würden sie erst einmal helfen und den Rest des Tages bis zum Abend bei der Instandsetzung der luftfilteranlagen und Beleuchtung. die Einteilung der anderen Mitarbeiter übernimmt Kora. also du. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:ronja-kerschner]
+Anmerkung: lade hierzu wirklich jeden vorhandenen character canvas, auch die der nicht anwesenden Personen. fraktionsführer Gruppe in D5 und so weiter. und bringe alle auf den aktuellen Stand mit den für den jeweiligen Charakter passenden Details. das ist gerade jetzt aktuell ein guter Zeitpunkt. ich denke das stimmst du mir zu. wenn nicht, sag es mir bitte. [LOC:d5] [NOTE]
+
+----- [NOTE]
+
+#1232 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1233 [user] [NOTE]
+​ nein, ich denke, das Ronja und Reflex sich in ihren Teil der Station zurückziehen. dort ist sich noch ein wenig gemütlich machen. vielleicht noch ein wenig Ordnung schaffen, bevor sie sich dann zu Bett begeben. [CHAR:reflex] [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1234 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1235 [user] [NOTE]
+​ nein, ich denke wir haben wirklich sehr viel Zeit für die ersten drei Tage. nun jetzt gebraucht. also lass uns direkt zum morgen von Tag 4 Uhr übergehen. [TIME]
+
+----- [NOTE]
+
+#1236 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1237 [user] [NOTE]
+​ ja, ich halte das für einen guten Vorschlag, lass Kora das erstmal machen. [CHAR:kora-malenkov]
+
+----- [NOTE]
+
+#1238 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1239 [user] [NOTE]
+​ ich fände es auch mal lustig, zuerst die sichtweise von zwei so " in eher direkt" orientiert sind Menschen zu sehen, also eine Wache und naja... stelle ich mir lustig vor.
+
+----- [NOTE]
+
+#1240 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1241 [user] [NOTE]
+​ ich habe kurz eine Frage, bevor du auch die letzte Nachricht abspeicherst, ob du das nicht noch ändern möchtest. aber bin ich mir ja jetzt nicht ganz sicher. hatten wir nicht gesagt, dass Mikk als Wache niemals von ihnen für solche aufgabenlos geschickt werden würde? also als Begleitung klar, weil er ja Wache ist. aber. weißt du was ich meine?
+
+----- [NOTE]
+
+#1242 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1243 [user] [NOTE]
+​ ja genau, mach das bitte so. und Update dann auch den canvas für die Gespräche
+
+----- [NOTE]
+
+#1244 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1245 [user] [NOTE]
+​ ja, das können wir gerne tun.
+
+----- [NOTE]
+
+#1246 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1247 [user] [NOTE]
+​ ich möchte noch einen Augenblick bei Ronja und Reflex bleiben. du machst das immer so schnell und so kalt. Ronja würde doch in dem Moment sich darüber freuen, dass Reflex sich so um sie sorgt und würde ihn streicheln... sie hat ja überhaupt gar nichts dagegen... wenn es sie nicht gerade in dem Moment zu sehr einschränkt ist es für sie ja okay. [CHAR:reflex] [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1248 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1249 [user] [NOTE]
+​ ja, das fände ich schön.
+
+----- [NOTE]
+
+#1250 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1251 [user] [NOTE]
+​ nein, also so viel hat Reflex ja von Ronja abbekommen, dass er das direkt versuchen würde, einzuordnen und bisschen ins letzte zu analysieren. natürlich kann er da Ronja Fragen und um Hilfe bitten, warum auch nicht. [CHAR:reflex] [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1252 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1253 [user] [NOTE]
+​ an dieser Stelle würde ich dann auf sein kindliches Verhalten abzeichnen und sagen, dass er das selber machen will.
+
+----- [NOTE]
+
+#1254 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1255 [user] [NOTE]
+​ nein, er kann das natürlich einfach so weiterführen, ohne es ihr zu sagen. sie wird es ja ohnehin in den meisten Fällen merken. Anmerkung: ich finde es übrigens schön, wie du direkt erfasst hast, dass er ja dieses Gefühl niemals selbst in dem gleichen maß erzeugen kann. wie Ronja es bei ihm kann... denn Nähe kann ja nur von jemand anderem ausgelöst werden in dieser Intensität. [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1256 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1257 [user] [NOTE]
+​ na ja, also dieser schutzmechanismus hat ja für ihn generell Vorrang, weil das ist ja keine variable, das ist etwas was er in der Situation weiß. ich finde noch ein kleines Experiment schön und zwar, wenn Ronja ihn jetzt darauf hinweist, dass die Nähe, wenn es jemand anders tut, etwas anderes ist. und zwar würde sie das so machen, dass sie Reflex auffordert, eine Bewegung, die sie macht. nachzuahmen und ihr zu sagen, ob es sich für ihn gleich angefühlt hat. und zwar wird Ronja ihn streicheln und ihn dann auffordern ihren Körper sozusagen dafür zu benutzen sich zu streicheln und ob sich das dann gleich anfühlt... ich weiß nicht ob du verstehst, was ich meine. wenn nicht ganz, weil Sie mich bitte zuerst darauf hin. [CHAR:reflex] [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1258 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1259 [user] [NOTE]
+​ nein, wieso denn unbewusst? er hat doch diese Information jetzt und er hat sie sich ja auch erarbeitet zusammen mit Ronja. das finde ich völlig in Ordnung wenn er das auch nutzt. [CHAR:ronja-kerschner]
+und in der Story würde ich dann jetzt einmal zu Kora wechseln damit wir mit allen Personen zeitlich parallel bleiben. [CHAR:kora-malenkov]
+
+----- [NOTE]
+
+#1260 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1261 [user] [NOTE]
+​ ich würde hier an dieser Stelle einmal kurz die Story unterbrechen, weil wir ja jetzt wieder auf einem Stand sind. und würde ganz kurz mal die Züge der Fraktionen machen, weil wir einfach schon so viel Zeit gebraucht haben und so viele neue Details gegeben sind, dass ich zumindest einen abgeschwächten fraktionszug für angebracht halte. was meinst du dazu?
+
+----- [NOTE]
+
+#1262 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1263 [user] [NOTE]
+​ wichtig ist lediglich, dass du definitiv alle nötigen canvas lädst. dass du berücksichtigst das noch niemand wirklich weiß, dass novapolis existiert. es besteht keine Verbindung nach außen (noch nicht) die physische Verbindung nach außen wäre theoretisch C6 aber dort ist ja noch keiner angekommen. außer die erste karawane, welche sich ja aber komplett angeschlossen hat. [LOC:c6]
+wenn du dies alles berücksichtigst, kannst du direkt die Züge machen und mich danach informieren.
+
+----- [NOTE]
+
+#1264 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1265 [user] [NOTE]
+​ Anmerkung: das wäre Meta gaming und ich mag kein Meta gaming... da ich nicht selbst drauf gekommen bin, darauf hinzuweisen oder sie suchen zu lassen, kann ich deinen Tipp dahingehend leider nicht annehmen, aber ich denke das kannst du verstehen. lass uns also wieder zurück in die Geschichte gehen. und einmal kurz schauen was in D5 los ist. muss ja nichts schlimmes sein. einfach nur mal kurz ein slice of life... [LOC:d5]
+
+----- [NOTE]
+
+#1266 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1267 [user] [NOTE]
+​ nein, ich finde es doch jetzt schön, wenn wir nun nach dem Vorbild von Ronja und Reflex auch ein wenig tiefer in die Beziehung von Jonas und der Reflex Instanz wechseln. vielleicht möchte Jonas der Instanz ja einen Namen geben? und vielleicht möchte den Instanz sich ja auch ein wenig weiterentwickeln? [CHAR:jonas-merek] [CHAR:reflex] [CHAR:ronja-kerschner]
+
+wie findest du das? würde das jetzt gut passen?
+
+----- [NOTE]
+
+#1268 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1269 [user] [NOTE]
+​ nein, du kannst sie direkt als aktiven canvas führen. und zum sprechen? na ja, ein kleiner Lautsprecher lässt sich bestimmt irgendwo finden... weiter über den direkten Kontakt zum Trommelfell funktioniert zwar aber halt nur mit der bindungsperson.
+
+----- [NOTE]
+
+#1270 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1271 [user] [NOTE]
+​ nein, lass sie noch kurz testen und beziehe doch Pahl mit ein [CHAR:pahl]
+
+----- [NOTE]
+
+#1272 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1273 [user] [NOTE]
+​ da diese Charaktere ja von dir gesteuert werden und wenn du das für sinnvoll hältst, sehr gerne.
+
+----- [NOTE]
+
+#1274 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1275 [user] [NOTE]
+​ ja, das machen wir noch und dann ist das ja auch ein perfekter Zeitpunkt um wieder zurückzuwechseln nach C6 [LOC:c6]
+
+----- [NOTE]
+
+#1276 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1277 [user] [NOTE]
+​ die Verbindung wurde ja schon von Ronja repariert. also überprüfe mal bitte deinen Kontext, ob du diese Stelle findest. ansonsten kommt es natürlich darauf an, ob jemand in der Nähe des funkraums ist.. [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1278 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1279 [user] [NOTE]
+​ wenn alle canvas aktuell sind, können wir das so weitermachen. ja,
+
+----- [NOTE]
+
+#1280 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1281 [user] [NOTE]
+​ bitte lösche deine letzte Nachricht noch mal und überprüfe noch mal den zeitlichen Ablauf und den ortsbezogenen Ablauf. weil wenn ich mich recht erinnere, ist Ronja doch mit Reflex überhaupt nicht mehr in n7, zumindest aktuell nicht oder irre ich mich? [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6-nord]
+
+----- [NOTE]
+
+#1282 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1283 [user] [NOTE]
+​ Stelle noch mal sicher, dass alle Kern des aktualisiert wurden, nach unserer drei Schritte Regel, bevor du dann den tagesabschluss machst.
+
+----- [NOTE]
+
+#1284 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1285 [user] [NOTE]
+​ ich finde reflexes eigenaktivität jetzt schön wären Ronja schläft und auch wenn man erwähnt, dass Ronja viel ruhiger schläft jetzt wo sie weiß, dass Reflex für ihren Schutz sorgt. [CHAR:reflex] [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1286 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1287 [user] [NOTE]
+​ na, ich denke sie wird schon merken wie ruhig sie im Vergleich zu sonst geschlafen hat. und ich finde es schön, wenn wir das ausspülen ja doch gerne
+
+----- [NOTE]
+
+#1288 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1289 [user] [NOTE]
+​ lass uns reih um den morgen durchgehen, also zuerst mit Kora, dann den Mitgliedern der Station C6 und der karawane und zu guter Letzt D5. [CHAR:kora-malenkov] [LOC:c6] [LOC:d5]
+
+----- [NOTE]
+
+#1290 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1291 [user] [NOTE]
+​ lösche deinen letzten Eintrag noch mal. die karawane wurde doch gar nicht erneut losgeschickt... du musst aufpassen, dass du deinen eigenen Regeln besser folgst. und bei unsstimmigkeiten Fragen nicht. einfach erinnerungslücken füllen mit irgendwas hinzugedichteten.
+
+----- [NOTE]
+
+#1292 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1293 [user] [NOTE]
+​ lösche deine letzte Antwort noch mal. lade bitte alle canvas und den gesamten gesprächsverlauf und gleiche ihn mit deinem Kontext ab. die karawane ist doch schon abgeschlossen. diese Mission müsste doch schon längst als abgeschlossen archiviert sein. wieso ist sie das nicht? dieses Problem müssen wir jetzt lösen. das hat Priorität. [MISSION:mission-c6-nord]
+
+----- [NOTE]
+
+#1294 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1295 [user] [NOTE]
+​ überprüfe alles und führe es durch
+
+----- [NOTE]
+
+#1296 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1297 [user] [NOTE]
+​ ja und markiere dies wieder als temporär für das nächste Update über die Admin Oberfläche in mein gpt.
+als nächstes überprüfe, ob die Inventare bei der Stationen und aller Charaktere sowie von der karawane ordnungsgemäß abgewickelt wurden.
+
+----- [NOTE]
+
+#1298 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1299 [user] [NOTE]
+​ ja, mach das noch
+
+----- [NOTE]
+
+#1300 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1301 [user] [NOTE]
+​ das kann ja Ronja machen. die kann ja einen Bericht geschrieben haben. jetzt [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1302 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1303 [user] [NOTE]
+​ ja und leg doch direkt einen Logbuch canvas für Novapolis an
+
+----- [NOTE]
+
+#1304 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1305 [user] [NOTE]
+​ mit einer Bestätigung. ja, gerne können wir so machen.
+des weiteren hätte ich gerne in dem Bericht auch noch drinnen. wie die neue Leitung der Station C6 ist, und natürlich auch die aufgabenverteilung. dieses Gespräch hat jaron ja gestern extra mit den Leuten geführt. schaue hierzu noch mal in den gesprächsverlauf und dein Kontext [LOC:c6]
+
+----- [NOTE]
+
+#1306 [assistant] [NOTE]
+
