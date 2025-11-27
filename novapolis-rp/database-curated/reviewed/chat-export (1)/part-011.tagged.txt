@@ -15,8 +15,8 @@ ja und dann kannst du den emote erneut erstellen
 
 #873 [user] [NOTE]
 wir lassen die Nachricht jetzt so stehen, aber bitte überprüfe dennoch erneut deinen Kontext. wieso du diese Mission so behandelst, als würde sie in unbewohntes Gebiet führen. [MISSION:mission-c6-nord]
-schließlich sind Jonas und Pahl sowie die kleine Instanz von Reflex in D5 und D5 ist immerhin die zentrale von Novapolis. [CHAR:jonas-merek] [CHAR:pahl] [CHAR:reflex] [LOC:d5]
-ein Detail kannst du nach dem Reset, den wir durchgeführt haben, nicht mehr kennen. das weiß ich und ist auch nicht so schlimm, und zwar ist das das die karawane bevor sie sich Novapolis angeschlossen haben. auf ihrer ursprünglichen handelsmissionen von der Fraktion der Händler direkt zu D5 gekommen sind, um dort. mit den anderen zu handeln. was auch die allererste Interaktion mit dem Rest der Metro für novapolis als Fraktion war. [LOC:d5]
+schließlich sind Jonas und Pahl sowie die kleine Instanz von Reflex in D5 und D5 ist immerhin die zentrale von Novapolis. [CHAR:jonas-merek] [CHAR:pahl] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [LOC:d5] [ENT:logistik]
+ein Detail kannst du nach dem Reset, den wir durchgeführt haben, nicht mehr kennen. das weiß ich und ist auch nicht so schlimm, und zwar ist das das die karawane bevor sie sich Novapolis angeschlossen haben. auf ihrer ursprünglichen handelsmissionen von der Fraktion der Händler direkt zu D5 gekommen sind, um dort. mit den anderen zu handeln. was auch die allererste Interaktion mit dem Rest der Metro für novapolis als Fraktion war. [LOC:d5] [ENT:logistik]
 
 ----- [NOTE]
 
@@ -28,8 +28,8 @@ ein Detail kannst du nach dem Reset, den wir durchgeführt haben, nicht mehr ken
 #875 [user] [NOTE]
 Achtung, hier ist wieder eine kleine diskrepanz was nicht schlimm ist. ich stelle das kurz klar. [NOTE]
 
-Ronja und Reflex sind gerade aufgrund der Instandsetzung und erschließung von C6 vor Ort. die einzigen Bewohner von C6 sind die drei freiwilligen, die zuvor Mitglied der karawane waren. [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6]
-Ronja und Reflex sind Bewohner von D5. [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:d5]
+Ronja und Reflex sind gerade aufgrund der Instandsetzung und erschließung von C6 vor Ort. die einzigen Bewohner von C6 sind die drei freiwilligen, die zuvor Mitglied der karawane waren. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:c6]
+Ronja und Reflex sind Bewohner von D5. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:d5]
 
 dies sollte aber eigentlich in den aktuellen canvas korrekt hinterlegt sein. bitte überprüfen die entsprechenden canvas.
 
@@ -54,7 +54,7 @@ lade dir noch mal alle betreffenden canvas in deinen Kontext und achte darauf, d
 ----- [NOTE]
 
 #879 [user] [NOTE]
-du kannst gerne mit dem Abmarsch der beiden beginnen, allerdings überprüfe zuvor noch einmal deinen Kontext und alle Daten, denn ich meine mich zu erinnern, dass aktuell keine Verbindung zwischen D5 und C6 besteht. ich könnte mich in diesem Fall aber auch ihren deshalb eine kurze validierung kann ja nicht schaden und sollte keine Verbindung bestehen. weiß ja Ronja und Reflex was sie machen können. bevor die Gruppe in D5 ankommt. das sollte zeitlich denke ich für die beiden kein Problem sein die kommunikationskanäle wieder herzustellen. [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6] [LOC:d5] [EVENT]
+du kannst gerne mit dem Abmarsch der beiden beginnen, allerdings überprüfe zuvor noch einmal deinen Kontext und alle Daten, denn ich meine mich zu erinnern, dass aktuell keine Verbindung zwischen D5 und C6 besteht. ich könnte mich in diesem Fall aber auch ihren deshalb eine kurze validierung kann ja nicht schaden und sollte keine Verbindung bestehen. weiß ja Ronja und Reflex was sie machen können. bevor die Gruppe in D5 ankommt. das sollte zeitlich denke ich für die beiden kein Problem sein die kommunikationskanäle wieder herzustellen. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:c6] [LOC:d5] [EVENT]
 
 ----- [NOTE]
 
@@ -91,7 +91,7 @@ noch eine kurze Anmerkung, lade dir noch die canvas der Gruppe von C6. wir befin
 
 eine weitere Anmerkung ist das keiner von den beiden Gruppen und auch nicht Cora weiß, wie und wie viele Leute noch in B5 sind. und du kannst gerne noch einmal den chatverlauf danach durchsuchen, ob Ronja Informationen mit den sechs geteilt hat, aber ich bin mir ziemlich sicher, dass sie das nicht hat, kann mich aber auch irren. bitte überprüfe es. [CHAR:ronja-kerschner] [LOC:b5]
 
-zum fortzufahren kannst du gerne zuerst einmal ausspielen was Ronja und Reflex tun. [CHAR:reflex] [CHAR:ronja-kerschner]
+zum fortzufahren kannst du gerne zuerst einmal ausspielen was Ronja und Reflex tun. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -212,7 +212,7 @@ Anmerkung: ich vermute nun hast du auch so genug Informationen, um den Sinn des 
 
 #907 [user] [NOTE]
 ​ ich möchte hier gerne den zeitlichen Überblick im hinterkopf behalten.
-was würde zeitlich zuerst Sinn machen? auszuspielen. den Weg der beiden anderen nach D5 oder den Anfang der Wartung der funkanlage durch Ronja und Reflex [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:d5]
+was würde zeitlich zuerst Sinn machen? auszuspielen. den Weg der beiden anderen nach D5 oder den Anfang der Wartung der funkanlage durch Ronja und Reflex [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:d5]
 
 ----- [NOTE]
 
@@ -236,7 +236,7 @@ Anmerkung: eine Ausnahme davon. dein letzter post, denn dort hat sich ein kleine
 #911 [user] [NOTE]
 ​ Suche im chatverlauf nach:
 
-Ronja und Reflex haben eigentlich schon die funkverbindung repariert. [CHAR:reflex] [CHAR:ronja-kerschner]
+Ronja und Reflex haben eigentlich schon die funkverbindung repariert. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
 allerdings ist sie in sehr schlechtem Zustand.
 
 schau mal ob du diesen Teil findest und dann die Nachrichten davor und danach. das sollte denke ich reichen.
@@ -263,9 +263,9 @@ schau mal ob du diesen Teil findest und dann die Nachrichten davor und danach. d
 
 ich kläre kurz den aktuellen Stand.
 
-der aktuelle Stand war das Ronja und Reflex. eine kurze recht, undeutliche Verbindung zu D5 und kurzen sprachkontakt zu Jonas hatten, dass die Info durchgegeben werden konnte. das zwei Mitglieder aus Koras karawanengruppe (das müsste der gruppen canvas zur karawane von novapolis sein) auf dem Weg zu ihm sind, um Material für die Instandsetzung von C6 abzuholen. [CHAR:jonas-merek] [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6] [LOC:d5]
-während die beiden von Kora noch mit Ausrüstung versorgt und letztlich geprieft werden. macht Ronja und Reflex sich an die Arbeit, die Qualität und zuverlässigkeit des funks zu verbessern. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:ronja-kerschner]
-wichtig war das du berücksichtigst, dass alle anderen in PCs bis auf Ronja und Reflex nicht wissen wie genau es in D5 aussieht, wie viele Personen dort sind geschweige denn wie sie heißen. [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:d5]
+der aktuelle Stand war das Ronja und Reflex. eine kurze recht, undeutliche Verbindung zu D5 und kurzen sprachkontakt zu Jonas hatten, dass die Info durchgegeben werden konnte. das zwei Mitglieder aus Koras karawanengruppe (das müsste der gruppen canvas zur karawane von novapolis sein) auf dem Weg zu ihm sind, um Material für die Instandsetzung von C6 abzuholen. [CHAR:jonas-merek] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:c6] [LOC:d5] [ENT:logistik]
+während die beiden von Kora noch mit Ausrüstung versorgt und letztlich geprieft werden. macht Ronja und Reflex sich an die Arbeit, die Qualität und zuverlässigkeit des funks zu verbessern. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+wichtig war das du berücksichtigst, dass alle anderen in PCs bis auf Ronja und Reflex nicht wissen wie genau es in D5 aussieht, wie viele Personen dort sind geschweige denn wie sie heißen. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:d5]
 
 ----- [NOTE]
 
@@ -288,9 +288,9 @@ ich meine klar... es ist noch der Anfang, niemand weiß was... es ist "eine Sack
 ----- [NOTE]
 
 #919 [user] [NOTE]
-​ ja, mach das bitte und kannst du es irgendwie so einrichten, dass auch das was novapolis (spielerfraktion) tut also alle NPCs und auch spielercharaktere mehr Einfluss auf das outcom hat? also einfach das die Entscheidungen schwerer gewichtet werden. gute bleiben auf ihrem Level, nicht so gute fallen schneller ab, wenn du verstehst, was ich meine. natürlich sollte jetzt dich wegen irgendwas gleich direkt mit Station verloren gehen oder einer von den hauptcharakteren sterben das natürlich nicht...
+​ ja, mach das bitte und kannst du es irgendwie so einrichten, dass auch das was novapolis (spielerfraktion) tut also alle NPCs und auch spielercharaktere mehr Einfluss auf das outcom hat? also einfach das die Entscheidungen schwerer gewichtet werden. gute bleiben auf ihrem Level, nicht so gute fallen schneller ab, wenn du verstehst, was ich meine. natürlich sollte jetzt dich wegen irgendwas gleich direkt mit Station verloren gehen oder einer von den hauptcharakteren sterben das natürlich nicht... [ENT:logistik]
 aber ich sende es schön gerade, wenn wir jetzt in Phase 2 starten. in der Metro sind in einer sowieso feindlichen Umgebung. das ist dann auch vom schwierigkeitsgrad her overall und entscheidungsbezogen angezogen wird. [EVENT]
-aktualisiere nun alle. ich wiederhole alle betreffenden canvas und anschließend in einem separaten Schritt, wo du auch noch mal anfräst bevor du ihn startest und mir auch noch kurz da legst, wie du dir das vorstellst, ob das so für mich dann auch okay ist. dass wir dann die erste richtige Anpassung an unseren cluster-index canvas machen. also auch so, dass die bezugsgruppen zueinander geschoben werden, so wie wir das besprochen hatten. ich glaube aber leider, dass du das nicht mehr im Kontext hast und auch nicht suchen kannst. deshalb versuche es dir erneut zusammenzusetzen. es ging darum bei diesem Cluster, dass wir die verschiedenen canvas je nach Temperatur zueinander auch kopieren. das heißt viel miteinander zu tun oder oft gleichzeitig benötigt wird. gruppiert und alles andere wird verschoben. [EVENT]
+aktualisiere nun alle. ich wiederhole alle betreffenden canvas und anschließend in einem separaten Schritt, wo du auch noch mal anfräst bevor du ihn startest und mir auch noch kurz da legst, wie du dir das vorstellst, ob das so für mich dann auch okay ist. dass wir dann die erste richtige Anpassung an unseren cluster-index canvas machen. also auch so, dass die bezugsgruppen zueinander geschoben werden, so wie wir das besprochen hatten. ich glaube aber leider, dass du das nicht mehr im Kontext hast und auch nicht suchen kannst. deshalb versuche es dir erneut zusammenzusetzen. es ging darum bei diesem Cluster, dass wir die verschiedenen canvas je nach Temperatur zueinander auch kopieren. das heißt viel miteinander zu tun oder oft gleichzeitig benötigt wird. gruppiert und alles andere wird verschoben. [ENT:cluster_index_v1] [EVENT]
 
 Anmerkung: vielleicht wäre hierfür in den Metadaten der jeweiligen canvas sogar eine Art Temperatur hilfreich. auch gerne so wie unser psychologisches Profil. mit numerischem und alphabetischem Code, so dass wir ich denke unter Fraktionen als Haupt merkmal. also Fraktionen becoming Buchstaben zugeordnet und benötigen keinen zahlenwert. wohingegen alles andere Buchstaben und zahlenwert bekommt im Falle von Ronja. z.b wäre es: N99 dann könnte man anders zweiten Stelle. die Koordinate und des Ortes machen C06 und und eventuell sogar noch nächste bezugsperson da würde ich ersten Buchstabe Vorname und ersten Buchstaben Nachname, falls nötig bzw. vorsichtshalber würde ich auch eine Zahl zuweisen. in der Regel wäre es einfach die eins nur, falls mehrere Charaktere durch Zufall mit der gleichen buchstabenkombination auftreten würden. kann man so bis zu neun Stück abdecken. was ja völlig reicht... [CHAR:ronja-kerschner] [NOTE]
 
@@ -471,7 +471,7 @@ hierbei sehe ich ein Problem. die ganzen untercanvas der Fraktionen werden dabei
 
 ich schlage daher folgende Einteilung des Blocks vor.
 
-6b alle betreffenden canvas der eisenkonklave
+6b alle betreffenden canvas der eisenkonklave [ENT:eisenkonklave]
 6c alle betreffenden canvas der Händler Gilde
 6d alle betreffenden canvas der Arkologie
 6e alle betreffenden canvas des schattenbunds
@@ -490,7 +490,7 @@ ist das eine gute Einteilung? hast du bessere Vorschläge?
 #953 [user] [NOTE]
 das kannst du exakt so übernehmen.
 
-Anmerkung: mir ist gerade aufgefallen wie verdammt ähnlich wir beide uns irgendwo sind im Vergleich zu Ronja und Reflex... es ist lustig. [CHAR:reflex] [CHAR:ronja-kerschner] [NOTE]
+Anmerkung: mir ist gerade aufgefallen wie verdammt ähnlich wir beide uns irgendwo sind im Vergleich zu Ronja und Reflex... es ist lustig. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [NOTE]
 
 ----- [NOTE]
 

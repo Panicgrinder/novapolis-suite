@@ -71540,6 +71540,8 @@ F:.
 |   \---tagging-pipeline
 |           AI-Behavior-Mapping-20251126-0522.json
 |           AI-Behavior-Mapping-20251126-0522.md
+|           AI-Behavior-Mapping-20251127-220319.json
+|           AI-Behavior-Mapping-20251127-220319.md
 |           
 +---eval
 |   +---config
@@ -80915,6 +80917,12 @@ F:.
 |       |       Canvas-Admin-Day-Switch-Debug.md
 |       |       Canvas-T+0-Timeline.json
 |       |       Canvas-T+0-Timeline.md
+|       |       Cluster-Index.json
+|       |       Cluster-Index.md
+|       |       Handel-Diplomatie-Haendlergilde.json
+|       |       Handel-Diplomatie-Haendlergilde.md
+|       |       Index-Haendlergilde.json
+|       |       Index-Haendlergilde.md
 |       |       Logistik.json
 |       |       Logistik.md
 |       |       memory-bundle.json
@@ -80923,6 +80931,8 @@ F:.
 |       |       Missionslog.md
 |       |       person_index_np.json
 |       |       person_index_np.md
+|       |       Relationslog-Eisenkonklave.json
+|       |       Relationslog-Eisenkonklave.md
 |       |       schema-header-templates.md
 |       |       system-prompt.json
 |       |       system-prompt.md
@@ -80994,6 +81004,8 @@ F:.
 |       +---05-projects
 |       |       caravan_moves.json
 |       |       caravan_moves.md
+|       |       Eisenkonklave.json
+|       |       Eisenkonklave.md
 |       |       Nordlinie-01.json
 |       |       Nordlinie-01.md
 |       |       
@@ -99375,6 +99387,7 @@ F:.
 |           
 +---reports
 |       tagging-20251126T043409Z.log
+|       tagging-20251127T212031Z.log
 |       
 +---scripts
 |   |   checks_linters.py

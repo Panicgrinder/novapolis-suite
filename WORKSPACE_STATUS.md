@@ -1,13 +1,15 @@
 ---
-stand: 2025-11-27 03:25
-update: Lexikon-Slugs & Alias-Fix (C6), neue Admin/Faktions-Stubs, Tagging 009-001 Plan notiert
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; python scripts/check_frontmatter.py (11 Dateien) PASS; python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run PASS
+stand: 2025-11-27 22:50
+update: Tagging 015-010 re-run inkl. Backups/Log, targeted Lint/Frontmatter & Tree-Snapshots aktualisiert
+checks: python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run PASS; python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 PASS; tree /A /F PASS; tree /A PASS; python scripts/update_workspace_tree_dirs.py PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md PASS
 ---
+- 2025-11-27 22:10: Tagging-Pipeline (novapolis-rp) Range 015-010 erfolgreich erneut ausgeführt – Backups (`AI-Behavior-Mapping-20251127-220319.*`, `Backups/tagging-015-010-prewrite.txt`), Report `reports/tagging-20251127T212031Z.log`, Tree-Snapshots & Status-Doku synchronisiert, targeted markdownlint/frontmatter PASS.
 - 2025-11-27 03:25: RP-Lexikon bereinigt – fehlende Slugs (ai_behavior_index_v2, logistik, missionslog, Wissenstands-Canvas) ergänzt, neue Admin/Faktions-Stubs (`cluster_index_v1`, `relationslog_eisenkonklave_v1`, `handel_diplomatie_haendlergilde_v1`, `index_haendlergilde_v1`, `eisenkonklave`) angelegt, `caravan_moves`-Slug vereinheitlicht. `tag_chunks_from_yaml.py` aktualisiert (alias-Kollisionen C6 vs. C6-Nord beseitigt, Redirects erweitert). Dry-Run (015-010) bestätigt: `unresolved_dependencies` leer, verbleibende Alias-Kollisionen nur bei Mehrfach-Titeln (Echo/Reflex Wissenstands-Canvas). Plan für Range 009-001 im Dev-Hub notiert.
 
 Recent Changes
 --------------
 
+- 2025-11-27 22:10: novapolis-rp Tagging-Pipeline Range 015-010 (Dry→Write) erneut ausgeführt – Backups & Hash-Snapshot erstellt, Report `reports/tagging-20251127T212031Z.log`, Tree-Snapshots/DONELOG/TODO/Status synchronisiert, targeted markdownlint und `scripts/check_frontmatter.py` PASS.
 - 2025-11-17 04:55: `novapolis_agent/app/routers` und `app/services/llm.py` endgültig entfernt (inkl. Mirror-Pakete + LLM-Tests); `WORKSPACE_INDEX.md`, `cleanup_recommendations.md` und DONELOGs aktualisiert.
  - 2025-11-17 09:40: Archivierung abgeschlossen: `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Live-Stubs durch explizite Import-Marker ersetzt; `app/__init__.py` Shim im Repo-Root hinzugefügt; Tests und Index aktualisiert. Commits: `1df7561`, `6191a5d`.
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` (Stand-Aktualisierung) in `scripts/check_frontmatter.py` ergänzt; Governance-Referenzblock erweitert; Validator PASS (`python scripts/check_frontmatter.py`).
@@ -18,6 +20,7 @@ Recent Changes
 - 2025-11-12 02:46: Governance: Vorangestellte Start-Checks entfernt aus `.github/copilot-instructions.md`; Postflight-Formulierung präzisiert (finaler Block am Ende der Nachricht); Headings-Extrakt aktualisiert & veraltete Regel-ID-Vorschläge gestrichen; Lint PASS (`.github/copilot-instructions-headings.md`).
 - 2025-11-26 05:35: novapolis-rp Tagging-Pipeline Range 015-010 (Dry→Write) abgeschlossen – Backups (AI-Behavior-Mapping, Tree-Snapshot) erstellt, neue `part-015.tagged.txt` … `part-010.tagged.txt` + aktualisierte `index_review.json`/`unresolved.json`/`lexicon.json` unter `novapolis-rp/database-curated/reviewed/chat-export (1)/`, Report `reports/tagging-20251126T043409Z.log` abgelegt. Targeted markdownlint/frontmatter PASS, weitere Dokumentation (DONELOG/TODO/Status) in Arbeit.
 - 2025-11-26 05:36: Tree-Artefakte (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) neu generiert (`tree /A /F` + `python scripts/update_workspace_tree_dirs.py`). Snapshot-Stand jetzt 2025-11-26 05:36; Status-/Index-Dokumente werden gleichgezogen.
+
 
  - 2025-11-16 07:50: Root-Postflight: `python scripts/run_checks_and_report.py` + `python scripts/run_pytest_coverage.py --fail-under 80` ausgeführt.
   - Ergebnis: Checks-Wrapper JSON/MD: `.tmp/results/reports/checks_report_20251116_074933.{json,md}` — Gesamtstatus: **FAIL** (Lint/Format/Markdown-Checks)
@@ -49,7 +52,7 @@ Workspace-Status
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit - dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten-STOP (global, immer gültig)“.
 
-- 2025-11-26 05:36: Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) erneut generiert (Root `tree /A /F`, `tree /A`, `python scripts/update_workspace_tree_dirs.py`); nächste Prüfung nach relevanten Strukturänderungen oder spätestens Mid-Dezember.
+- 2025-11-27 22:12: Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) erneut generiert (Root `tree /A /F`, `tree /A`, `python scripts/update_workspace_tree_dirs.py`); nächste Prüfung nach der nächsten Strukturänderung oder spätestens Mitte Dezember.
 - 2025-11-07 06:30: Alle Markdownlint VS-Code-Tasks & Wrapper-Doku entfernt; Ausführung jetzt ausschließlich manuell via `npx --yes markdownlint-cli2` (Policy npx-only).
 - 2025-11-07 02:10: markdownlint-cli2 repo-weit ausgeführt (367× MD003 offen); Skriptprüfung für Markdown-Ausgaben (Chat-Exporter, Reports, todo_gather) vorbereitet.
 - 2025-11-07 01:39: TODO aktualisiert (Single-Repo-Reminder; Aufgaben zu Lint-Overrides, Staging-Reports, Metadata-Konsolidierung, Archiv-Ablage).
@@ -58,7 +61,7 @@ Workspace-Status
 - Produktiver Code liegt ausschließlich im Agent-Backend; RP-Workspace enthält weiterhin Daten, Workflows, Tools
 - Root-Dokumente (`README.md`, `todo.root.md`, `WORKSPACE_STATUS.md`) wurden am 2025-11-02 synchronisiert und liefern Einstieg ohne Projektwechsel
 - Kopilot-Anweisungen konsolidiert unter `.github/copilot-instructions.md`
-- Struktur-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) zuletzt am 2025-11-10 07:50 via Tasks `Workspace tree:*` regeneriert; nächste Prüfung nach größeren Strukturänderungen oder spätestens Ende November.
+- Struktur-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) zuletzt am 2025-11-27 22:12 via `tree /A /F`, `tree /A` und `python scripts/update_workspace_tree_dirs.py` regeneriert; nächste Prüfung nach größeren Strukturänderungen oder spätestens Mitte Dezember.
 - PowerShell-Standard: Terminal-Profile & VS-Code-Tasks laufen jetzt über `pwsh` 7.5.4; Windows PowerShell bleibt nur noch Fallback.
 
 Aktueller Arbeitsmodus
@@ -122,8 +125,8 @@ Wichtige Artefakte & Logs
 - Struktur-Snapshot
 -------------------
 
-- Vollständiger Verzeichnisbaum: `workspace_tree_full.txt` (Stand 2025-11-10 07:50; Terminal `tree /A /F`)
-- Arbeitsansicht: `workspace_tree.txt` (Stand 2025-11-10 07:50; Terminal `tree /A`) und kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt` (Stand 2025-11-10 07:50; Script `scripts/update_workspace_tree_dirs.ps1`)
+- Vollständiger Verzeichnisbaum: `workspace_tree_full.txt` (Stand 2025-11-27 22:12; Terminal `tree /A /F`)
+- Arbeitsansicht: `workspace_tree.txt` (Stand 2025-11-27 22:12; Terminal `tree /A`) und kompaktes Verzeichnis-Listing `workspace_tree_dirs.txt` (Stand 2025-11-27 22:12; `python scripts/update_workspace_tree_dirs.py`)
 - Historische Agent-Dateiinventur (jetzt Root): `WORKSPACE_INDEX.md`
 - Für gezielte Suchen weiterhin `scripts/audit_workspace.py` nutzen (prüft Referenzen & Altlasten)
 

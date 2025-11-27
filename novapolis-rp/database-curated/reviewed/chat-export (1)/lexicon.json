@@ -1,8 +1,40 @@
 {
   "by_slug": {
+    "ai_behavior_index_v2": {
+      "category": "admin",
+      "title": "AI Behavior Matrix & Mapping (v2)"
+    },
+    "cluster_index_v1": {
+      "category": "admin",
+      "title": "Cluster-Index v1"
+    },
+    "handel_diplomatie_haendlergilde_v1": {
+      "category": "admin",
+      "title": "Handel & Diplomatie – Händlergilde (v1)"
+    },
+    "index_haendlergilde_v1": {
+      "category": "admin",
+      "title": "Index Händlergilde (v1)"
+    },
+    "logistik": {
+      "category": "admin",
+      "title": "Logistik Novapolis"
+    },
+    "missionslog": {
+      "category": "admin",
+      "title": "Missionslog (Novapolis)"
+    },
+    "relationslog_eisenkonklave_v1": {
+      "category": "admin",
+      "title": "Relationslog Eisenkonklave (v1)"
+    },
     "arlen-dross": {
       "category": "character",
       "title": "Arlen Dross"
+    },
+    "echo-wissensstand-trainingsstand": {
+      "category": "character",
+      "title": "Echo – Wissensstand & Trainingsstand"
     },
     "echo": {
       "category": "character",
@@ -39,6 +71,10 @@
     "pahl": {
       "category": "character",
       "title": "Pahl"
+    },
+    "reflex-wissensstand-trainingsstand": {
+      "category": "character",
+      "title": "Reflex – Wissensstand & Trainingsstand"
     },
     "reflex": {
       "category": "character",
@@ -104,9 +140,13 @@
       "category": "inventory",
       "title": "schienenbund-inventar"
     },
-    "caravan-moves": {
+    "caravan_moves": {
       "category": "project",
-      "title": "caravan-moves"
+      "title": "Karawanenbewegungen (Übersicht)"
+    },
+    "eisenkonklave": {
+      "category": "faction",
+      "title": "Eisenkonklave (Fraktion)"
     },
     "nordlinie-01": {
       "category": "project",
@@ -142,56 +182,90 @@
     }
   },
   "aliases": {
+    "AI Behavior Matrix & Mapping (v2)": "ai_behavior_index_v2",
+    "ai": "ai_behavior_index_v2",
+    "(v2)": "ai_behavior_index_v2",
+    "AI": "ai_behavior_index_v2",
+    "Cluster-Index v1": "cluster_index_v1",
+    "v1": "cluster_index_v1",
+    "cluster-index": "cluster_index_v1",
+    "Cluster-Index": "cluster_index_v1",
+    "Handel & Diplomatie – Händlergilde (v1)": "handel_diplomatie_haendlergilde_v1",
+    "Handel": "handel_diplomatie_haendlergilde_v1",
+    "handel": "handel_diplomatie_haendlergilde_v1",
+    "(v1)": "handel_diplomatie_haendlergilde_v1",
+    "Index Händlergilde (v1)": "index_haendlergilde_v1",
+    "Index": "index_haendlergilde_v1",
+    "index": "index_haendlergilde_v1",
+    "Logistik Novapolis": "logistik",
+    "Novapolis": "logistik",
+    "Logistik": "logistik",
+    "novapolis": "logistik",
+    "logistik": "logistik",
+    "Missionslog (Novapolis)": "missionslog",
+    "missionslog": "missionslog",
+    "Missionslog": "missionslog",
+    "(novapolis)": "missionslog",
+    "(Novapolis)": "missionslog",
+    "Relationslog Eisenkonklave (v1)": "relationslog_eisenkonklave_v1",
+    "relationslog": "relationslog_eisenkonklave_v1",
+    "Relationslog": "relationslog_eisenkonklave_v1",
     "Arlen Dross": "arlen-dross",
-    "arlen": "arlen-dross",
+    "Arlen": "arlen-dross",
     "dross": "arlen-dross",
     "Dross": "arlen-dross",
-    "Arlen": "arlen-dross",
-    "Echo": "echo",
+    "arlen": "arlen-dross",
+    "Echo – Wissensstand & Trainingsstand": "echo-wissensstand-trainingsstand",
+    "echo": "echo-wissensstand-trainingsstand",
+    "Trainingsstand": "echo-wissensstand-trainingsstand",
+    "Echo": "echo-wissensstand-trainingsstand",
+    "trainingsstand": "echo-wissensstand-trainingsstand",
     "Jonas Merek": "jonas-merek",
-    "Jonas": "jonas-merek",
-    "merek": "jonas-merek",
-    "jonas": "jonas-merek",
     "Merek": "jonas-merek",
+    "Jonas": "jonas-merek",
+    "jonas": "jonas-merek",
+    "merek": "jonas-merek",
     "Kora Malenkov": "kora-malenkov",
+    "Kora": "kora-malenkov",
+    "Malenkov": "kora-malenkov",
     "malenkov": "kora-malenkov",
     "kora": "kora-malenkov",
-    "Malenkov": "kora-malenkov",
-    "Kora": "kora-malenkov",
     "Liora Navesh": "liora-navesh",
+    "Liora": "liora-navesh",
+    "navesh": "liora-navesh",
     "liora": "liora-navesh",
     "Navesh": "liora-navesh",
-    "navesh": "liora-navesh",
-    "Liora": "liora-navesh",
     "Lumen": "lumen",
     "Lyra Hest": "lyra-hest",
-    "hest": "lyra-hest",
-    "Hest": "lyra-hest",
     "lyra": "lyra-hest",
     "Lyra": "lyra-hest",
+    "Hest": "lyra-hest",
+    "hest": "lyra-hest",
     "Marei": "marei",
     "Marven Kael": "marven-kael",
     "Kael": "marven-kael",
-    "kael": "marven-kael",
     "marven": "marven-kael",
     "Marven": "marven-kael",
+    "kael": "marven-kael",
     "Pahl": "pahl",
-    "Reflex": "reflex",
+    "Reflex – Wissensstand & Trainingsstand": "reflex-wissensstand-trainingsstand",
+    "reflex": "reflex-wissensstand-trainingsstand",
+    "Reflex": "reflex-wissensstand-trainingsstand",
     "Ronja Kerschner": "ronja-kerschner",
-    "kerschner": "ronja-kerschner",
-    "Ronja": "ronja-kerschner",
     "ronja": "ronja-kerschner",
     "Kerschner": "ronja-kerschner",
+    "Ronja": "ronja-kerschner",
+    "kerschner": "ronja-kerschner",
     "Senn Daru": "senn-daru",
     "Daru": "senn-daru",
-    "Senn": "senn-daru",
     "senn": "senn-daru",
+    "Senn": "senn-daru",
     "daru": "senn-daru",
     "Varek Solun": "varek-solun",
     "Solun": "varek-solun",
-    "Varek": "varek-solun",
-    "solun": "varek-solun",
     "varek": "varek-solun",
+    "solun": "varek-solun",
+    "Varek": "varek-solun",
     "C6": "c6",
     "c6": "c6",
     "D5": "d5",
@@ -199,13 +273,13 @@
     "E3": "e3",
     "e3": "e3",
     "Verbindungstunnel C6-E3": "verbindungstunnel-c6-e3",
-    "c6-e3": "verbindungstunnel-c6-e3",
-    "verbindungstunnel": "verbindungstunnel-c6-e3",
     "C6-E3": "verbindungstunnel-c6-e3",
+    "c6-e3": "verbindungstunnel-c6-e3",
     "Verbindungstunnel": "verbindungstunnel-c6-e3",
+    "verbindungstunnel": "verbindungstunnel-c6-e3",
     "Verbindungstunnel D5-C6": "verbindungstunnel-d5-c6",
-    "D5-C6": "verbindungstunnel-d5-c6",
     "d5-c6": "verbindungstunnel-d5-c6",
+    "D5-C6": "verbindungstunnel-d5-c6",
     "arkologie-inventar": "arkologie-inventar",
     "d5-inventar": "d5-inventar",
     "eiserne-enklave-inventar": "eiserne-enklave-inventar",
@@ -213,21 +287,30 @@
     "haendlerbund-inventar": "haendlerbund-inventar",
     "novapolis-inventar": "novapolis-inventar",
     "schienenbund-inventar": "schienenbund-inventar",
-    "caravan-moves": "caravan-moves",
+    "Karawanenbewegungen (Übersicht)": "caravan_moves",
+    "(Übersicht)": "caravan_moves",
+    "(übersicht)": "caravan_moves",
+    "karawanenbewegungen": "caravan_moves",
+    "Karawanenbewegungen": "caravan_moves",
+    "Eisenkonklave (Fraktion)": "eisenkonklave",
+    "eisenkonklave": "eisenkonklave",
+    "Eisenkonklave": "eisenkonklave",
+    "(Fraktion)": "eisenkonklave",
+    "(fraktion)": "eisenkonklave",
     "Nordlinie 01 (Tunnel D5-C6)": "nordlinie-01",
     "D5-C6)": "nordlinie-01",
     "d5-c6)": "nordlinie-01",
-    "Nordlinie": "nordlinie-01",
     "nordlinie": "nordlinie-01",
+    "Nordlinie": "nordlinie-01",
     "H12": "h12",
     "h12": "h12",
     "C6 Nord": "c6-nord",
     "nord": "c6-nord",
     "Nord": "c6-nord",
     "Mission C6-Nord (Sealed room)": "mission-c6-nord",
+    "room)": "mission-c6-nord",
     "mission": "mission-c6-nord",
     "Mission": "mission-c6-nord",
-    "room)": "mission-c6-nord",
     "C6-Nord": "c6-nord",
     "N7": "c6-nord",
     "n7": "c6-nord",
@@ -235,9 +318,11 @@
     "C6-Nord Mission": "mission-c6-nord"
   },
   "redirects": {
-    "n7": "c6-nord"
+    "n7": "c6-nord",
+    "N7": "c6-nord"
   },
   "deprecated": [
+    "N7",
     "n7"
   ]
 }

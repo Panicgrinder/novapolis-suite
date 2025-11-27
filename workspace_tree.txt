@@ -1085,6 +1085,8 @@ Backups\tagging-015-010-prewrite.txt
 Backups\tagging-pipeline/
 Backups\tagging-pipeline\AI-Behavior-Mapping-20251126-0522.json
 Backups\tagging-pipeline\AI-Behavior-Mapping-20251126-0522.md
+Backups\tagging-pipeline\AI-Behavior-Mapping-20251127-220319.json
+Backups\tagging-pipeline\AI-Behavior-Mapping-20251127-220319.md
 Backups\tasks.json.backup-2025-11-01
 Backups\tasks.json.bak
 DONELOG.md
@@ -7297,10 +7299,18 @@ novapolis-rp\database-rp\00-admin\Canvas-Admin-Day-Switch-Debug.json
 novapolis-rp\database-rp\00-admin\Canvas-Admin-Day-Switch-Debug.md
 novapolis-rp\database-rp\00-admin\Canvas-T+0-Timeline.json
 novapolis-rp\database-rp\00-admin\Canvas-T+0-Timeline.md
+novapolis-rp\database-rp\00-admin\Cluster-Index.json
+novapolis-rp\database-rp\00-admin\Cluster-Index.md
+novapolis-rp\database-rp\00-admin\Handel-Diplomatie-Haendlergilde.json
+novapolis-rp\database-rp\00-admin\Handel-Diplomatie-Haendlergilde.md
+novapolis-rp\database-rp\00-admin\Index-Haendlergilde.json
+novapolis-rp\database-rp\00-admin\Index-Haendlergilde.md
 novapolis-rp\database-rp\00-admin\Logistik.json
 novapolis-rp\database-rp\00-admin\Logistik.md
 novapolis-rp\database-rp\00-admin\Missionslog.json
 novapolis-rp\database-rp\00-admin\Missionslog.md
+novapolis-rp\database-rp\00-admin\Relationslog-Eisenkonklave.json
+novapolis-rp\database-rp\00-admin\Relationslog-Eisenkonklave.md
 novapolis-rp\database-rp\00-admin\canon-canvas.draft.json
 novapolis-rp\database-rp\00-admin\canon-canvas.draft.md
 novapolis-rp\database-rp\00-admin\memory-bundle.json
@@ -7372,6 +7382,8 @@ novapolis-rp\database-rp\04-inventory\Novapolis-inventar.md
 novapolis-rp\database-rp\04-inventory\Schienenbund-inventar.json
 novapolis-rp\database-rp\04-inventory\Schienenbund-inventar.md
 novapolis-rp\database-rp\05-projects/
+novapolis-rp\database-rp\05-projects\Eisenkonklave.json
+novapolis-rp\database-rp\05-projects\Eisenkonklave.md
 novapolis-rp\database-rp\05-projects\Nordlinie-01.json
 novapolis-rp\database-rp\05-projects\Nordlinie-01.md
 novapolis-rp\database-rp\05-projects\caravan_moves.json
@@ -9700,6 +9712,7 @@ pyproject.toml
 pytest.ini
 reports/
 reports\tagging-20251126T043409Z.log
+reports\tagging-20251127T212031Z.log
 requirements-dev.txt
 requirements.txt
 scripts/

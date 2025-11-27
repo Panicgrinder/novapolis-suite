@@ -1,6 +1,6 @@
 vielleicht kannst du parallel dazu pahl merken lassen, dass jemand im Lager herumschnüffelt. mikk meint es natürlich nicht böse und was man ihm zugute halten muss. er erkennt die hausregeln ja nicht übrigens auch nicht, weil die haben wir noch nicht definiert. macht ja aber nichts. [CHAR:pahl]
-so lange Ronja und Reflex nicht da sind, hat auch nun mal Pahl das Kommando. [CHAR:pahl] [CHAR:reflex] [CHAR:ronja-kerschner]
-nach der reflexinstanz aber die hängt so sehr an Jonas wie Reflex an Ronja... [CHAR:jonas-merek] [CHAR:reflex] [CHAR:ronja-kerschner]
+so lange Ronja und Reflex nicht da sind, hat auch nun mal Pahl das Kommando. [CHAR:pahl] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+nach der reflexinstanz aber die hängt so sehr an Jonas wie Reflex an Ronja... [CHAR:jonas-merek] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -15,7 +15,7 @@ nach der reflexinstanz aber die hängt so sehr an Jonas wie Reflex an Ronja... [
 Anmerkung: Nicht wichtig aber lustig, die Kisten, die Mikk durcheinander bringen wollte, hat Ronja sortiert... was das bedeutet? wenn sie es rausfindet, können wir uns alle denken xD [CHAR:ronja-kerschner] [NOTE]
 
 aber zurück zum Thema, da die beiden soweit ich das jetzt beurteile ja alleine oben sind und Pahl ja auch noch relativ neu in der Station ist. wieso bietet er ihm zur Entspannung der Situation nicht an, Jonas zu fragen, ob er ihnen nicht die reflexinstanz ausleihen könnte, dass sie ihnen dies Stationen zeigen kann. [CHAR:jonas-merek] [CHAR:pahl]
-diese Frage ist absichtlich so gestellt, damit man hier auch zum ersten Mal auf die Persönlichkeit das kleinen Reflex eingehen kann, und so zum ersten Mal. sieht wie sehr er seinem Bruder doch ähnelt. das denke ich wäre spannend. lustig und würde sehr gut zur Situation passen. [CHAR:reflex]
+diese Frage ist absichtlich so gestellt, damit man hier auch zum ersten Mal auf die Persönlichkeit das kleinen Reflex eingehen kann, und so zum ersten Mal. sieht wie sehr er seinem Bruder doch ähnelt. das denke ich wäre spannend. lustig und würde sehr gut zur Situation passen. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
 
 Anmerkung: im Hintergrund kannst du natürlich alle zugehörigen canvas aktualisieren und validieren. [NOTE]
 
@@ -29,7 +29,7 @@ Anmerkung: im Hintergrund kannst du natürlich alle zugehörigen canvas aktualis
 #1131 [user] [NOTE]
 ​ ja, das finde ich gut.
 
-Anmerkung: nicht vergessen, dass auch der kleine Bruder an seiner bezugsperson hängt genauso. wie Reflex an Ronja. nur nicht ganz so extrem. aber er wird höchstwahrscheinlich bei der Führung ungeduldig werden, und wird die Führung in Richtung Jonas werkbank lenken... wie und wann überlasse ich dir. [CHAR:jonas-merek] [CHAR:reflex] [CHAR:ronja-kerschner] [NOTE]
+Anmerkung: nicht vergessen, dass auch der kleine Bruder an seiner bezugsperson hängt genauso. wie Reflex an Ronja. nur nicht ganz so extrem. aber er wird höchstwahrscheinlich bei der Führung ungeduldig werden, und wird die Führung in Richtung Jonas werkbank lenken... wie und wann überlasse ich dir. [CHAR:jonas-merek] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [NOTE]
 
 ----- [NOTE]
 
@@ -39,7 +39,7 @@ Anmerkung: nicht vergessen, dass auch der kleine Bruder an seiner bezugsperson h
 ----- [NOTE]
 
 #1133 [user] [NOTE]
-​ ich würde sagen das ist eine gute Idee. lass uns die beiden mit den bestellten vorräten für die Instandsetzung von C6 versorgen und dann auch wieder aufbrechen, nachdem sie über Funk C6 informiert haben. wahrscheinlich wird ja nur Kora Antworten, da chronologisch gesehen zu diesem Zeitpunkt Ronja und Reflex definitiv beschäftigt sein werden. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6]
+​ ich würde sagen das ist eine gute Idee. lass uns die beiden mit den bestellten vorräten für die Instandsetzung von C6 versorgen und dann auch wieder aufbrechen, nachdem sie über Funk C6 informiert haben. wahrscheinlich wird ja nur Kora Antworten, da chronologisch gesehen zu diesem Zeitpunkt Ronja und Reflex definitiv beschäftigt sein werden. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:c6]
 
 ----- [NOTE]
 
@@ -52,7 +52,7 @@ Anmerkung: nicht vergessen, dass auch der kleine Bruder an seiner bezugsperson h
 also inhaltlich ist das ja eine sehr schöne Antwort, leider ist sie überhaupt nicht stimmig. zum Rest.
 
 wie konnte denn das bitte passieren? die beiden neuen Einwohner von C6, die jetzt gerade bei D5 sind, können doch überhaupt gar keine Aussage zu irgendeinem der hauptcharaktere machen, da sie diese doch nicht gut genug kennen. [LOC:c6] [LOC:d5]
-und wie kommt die Frage zustande, ob der kleine mitkommt? Lira kennt weder Jonas noch die kleinen Instanz von Reflex und dazu kommt, dass Reflex sich niemals von Jonas trennen wird, was mir ja gerade eben erst besprochen. [CHAR:jonas-merek] [CHAR:reflex]
+und wie kommt die Frage zustande, ob der kleine mitkommt? Lira kennt weder Jonas noch die kleinen Instanz von Reflex und dazu kommt, dass Reflex sich niemals von Jonas trennen wird, was mir ja gerade eben erst besprochen. [CHAR:jonas-merek] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
 
 bevor wir jetzt weitermachen,:
 
@@ -74,9 +74,9 @@ bevor wir jetzt weitermachen,:
 #1137 [user] [NOTE]
 kleine Korrekturen:
 
-1. verbliebene Personen in C6: Ronja, Reflex, Kora, Sima, tarv, Derek. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6] [NOTE]
+1. verbliebene Personen in C6: Ronja, Reflex, Kora, Sima, tarv, Derek. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:c6] [NOTE]
 2. Funk: ich weiß nicht warum du das jetzt unbedingt anders machen musst als auf dem Hinweg oder machen möchtest, aber warum lässt du denn nicht wieder Jonas über das kommunikations? Terminal in D5 die Info an C6 weitergeben, dass die Gruppe zum Aufbruch bereit ist? ich meine in echt würde man das auf jeden Fall so machen, dass falls C6 irgendetwas bekannt ist oder dort irgendwelche Probleme sind, dass der Gruppe mitgeteilt werden kann, noch bevor sie überhaupt aufbricht und sich in Gefahr begibt. [CHAR:jonas-merek] [LOC:c6] [LOC:d5]
-3. canvas für die fehlenden fraktionscharaktere von novapolis: : ich halte es für sinnvoll und angebracht, wenn wir für die fehlenden Charaktere auch direkt jetzt die canvas anlegen... anschließend überprüfe bitte alle Charakter canvas auf richtige Codierung, Aktualität, Verweise, etc. und validiere wieder.
+3. canvas für die fehlenden fraktionscharaktere von novapolis: : ich halte es für sinnvoll und angebracht, wenn wir für die fehlenden Charaktere auch direkt jetzt die canvas anlegen... anschließend überprüfe bitte alle Charakter canvas auf richtige Codierung, Aktualität, Verweise, etc. und validiere wieder. [ENT:logistik]
 
 ----- [NOTE]
 
@@ -86,7 +86,7 @@ kleine Korrekturen:
 ----- [NOTE]
 
 #1139 [user] [NOTE]
-diese Ausgabe ist würde ich sagen zu 98 % korrekt einziger winziger zu vernachlässigender Fehler ist lediglich das Ronja und Reflex vorhin den Funk repariert haben. mit D5 gesprochen haben und ihn dann noch weiter optimiert haben. [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:d5] [FACT?]
+diese Ausgabe ist würde ich sagen zu 98 % korrekt einziger winziger zu vernachlässigender Fehler ist lediglich das Ronja und Reflex vorhin den Funk repariert haben. mit D5 gesprochen haben und ihn dann noch weiter optimiert haben. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:d5] [FACT?]
 
 Anmerkung: soweit ist alles komplett freigegeben und kann so ausgeführt werden. [NOTE]
 
@@ -143,7 +143,7 @@ Anmerkung: wenn dem nicht so ist, dann finde ich das überhaupt nicht schlimm. i
 #1147 [user] [NOTE]
 im Grunde ja, aber... mit Lira Vorschlag bin ich einverstanden. muss natürlich noch wesentlich detaillierter gemacht, werden aber overall in Ordnung.
 Mikk hingegen finde ich nicht so gut, wenn wir noch mehr "Techniker" haben bzw. wenn es so viele gibt. ich meine klar, viele Leute kennen sich ein wenig mit Technik und Mechanik aus. das bringt die Metro mit sich, aber müsste es nicht wesentlich mehr Wachen und oder Soldaten in der Metro geben?
-Anmerkung: ich würde ihn eher in die Kategorie der wachen packen das würde unter anderem auch dazu passen, warum gerade die beiden geschickt wurden... eine Versorgung und Logistik und der andere Aufklärung und Schutz. [NOTE]
+Anmerkung: ich würde ihn eher in die Kategorie der wachen packen das würde unter anderem auch dazu passen, warum gerade die beiden geschickt wurden... eine Versorgung und Logistik und der andere Aufklärung und Schutz. [ENT:logistik] [NOTE]
 
 ----- [NOTE]
 
@@ -236,7 +236,7 @@ Anmerkung: es muss natürlich neutral sein. in der Vorlage gibt es ja noch keine
 #1163 [user] [NOTE]
 guten morgen, einmal durchladen und dann hab ich direkt die frage ob ich das freigeben kann?
 
-| Kategorie            | Vergleich v1.3.1 → v1.4.0-pre                        | Status                |
+| Kategorie            | Vergleich v1.3.1 → v1.4.0-pre                        | Status                | [ENT:cluster_index_v1]
 | -------------------- | ---------------------------------------------------- | --------------------- |
 | Lore-Dateien         | Keine Änderung                                       | ✅                     |
 | Regel-Cluster        | Keine Änderung                                       | ✅                     |
@@ -262,8 +262,8 @@ Bitte bestätige folgende Punkte, bevor das Update finalisiert wird:
 Soll das Canvas-Management-System (nach deinem oben definierten Administrator-Prompt) vollständig integriert und aktiviert werden?
 (Dies erweitert Behavior um automatische Kontextprüfung, Versionierung und Archivierungsroutinen vor jeder Antwort.)
 
-Soll die Version nach erfolgreicher Prüfung als v1.4.0 (stable) eingetragen werden?
-(Oder möchtest du sie vorerst als v1.4.0-beta markieren?)
+Soll die Version nach erfolgreicher Prüfung als v1.4.0 (stable) eingetragen werden? [ENT:cluster_index_v1]
+(Oder möchtest du sie vorerst als v1.4.0-beta markieren?) [ENT:cluster_index_v1]
 
 Möchtest du, dass der Chronist die Liveschaltung in-world ankündigt (z. B. mit einer innerweltlichen „Systemfluktuation“ oder Archiv-Meldung)?
 
@@ -322,7 +322,7 @@ dann lass uns zum RP zurückkehren.
 #1175 [user] [NOTE]
 Ronja würde natürlich zualler allererst malen, alles scannen was scannbar ist, bevor sie irgendetwas mit Zuhilfenahme von Werkzeugen berührt... [CHAR:ronja-kerschner]
 
-Anmerkung: hier wäre es ja vielleicht schön, wenn sie Reflex frägt, ob er es zuerst berühren kann und dass er sich irgendwie übers ihren zeigefinger legt und länger wird um es zu berühren. irgendwie sowas... [CHAR:reflex] [NOTE]
+Anmerkung: hier wäre es ja vielleicht schön, wenn sie Reflex frägt, ob er es zuerst berühren kann und dass er sich irgendwie übers ihren zeigefinger legt und länger wird um es zu berühren. irgendwie sowas... [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [NOTE]
 
 ----- [NOTE]
 
@@ -342,7 +342,7 @@ Anmerkung: hier wäre es ja vielleicht schön, wenn sie Reflex frägt, ob er es 
 ----- [NOTE]
 
 #1179 [user] [NOTE]
-​ na ja, sie hat ja bis jetzt noch nicht so viel erfahren. Reflex kann zwar reden, hat ja aber ihr bis jetzt noch nichts erklärt oder gesagt wobei ich auch nicht weiß wie viel er da sagen kann ohne das Ronja frägt. also würde sie wahrscheinlich erstmal anfangen gezielt Fragen zu stellen. [CHAR:reflex] [CHAR:ronja-kerschner]
+​ na ja, sie hat ja bis jetzt noch nicht so viel erfahren. Reflex kann zwar reden, hat ja aber ihr bis jetzt noch nichts erklärt oder gesagt wobei ich auch nicht weiß wie viel er da sagen kann ohne das Ronja frägt. also würde sie wahrscheinlich erstmal anfangen gezielt Fragen zu stellen. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
 Anmerkung: das kannst du gerne etwas ausführlicher beschreiben passend zu ihren Charakter. lade dir mal wieder alle passenden und nötigen canvas, einfach mal um auf Nummer sicher zu gehen noch mal hier der manuelle Befehl... [NOTE]
 
 ----- [NOTE]
@@ -353,8 +353,8 @@ Anmerkung: das kannst du gerne etwas ausführlicher beschreiben passend zu ihren
 ----- [NOTE]
 
 #1181 [user] [NOTE]
-​ wäre es nicht eigentlich theoretisch möglich das Reflex über ein feines Gewebe, dass er ja auch ausbilden kann? an Ronja Trommelfell, andockt und so rein theoretisch spricht? das Stimme und sowas über schallwellen übertragen wird. das muss er ja verstanden haben. so versteht er ja schließlich auch... [CHAR:reflex] [CHAR:ronja-kerschner]
-und das Zittern aus der Wand. tja im Prinzip ist ja Reflex, wenn das so funktioniert, nichts anderes als ein aux Kabel xD [CHAR:reflex]
+​ wäre es nicht eigentlich theoretisch möglich das Reflex über ein feines Gewebe, dass er ja auch ausbilden kann? an Ronja Trommelfell, andockt und so rein theoretisch spricht? das Stimme und sowas über schallwellen übertragen wird. das muss er ja verstanden haben. so versteht er ja schließlich auch... [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+und das Zittern aus der Wand. tja im Prinzip ist ja Reflex, wenn das so funktioniert, nichts anderes als ein aux Kabel xD [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
 
 ----- [NOTE]
 
@@ -364,8 +364,8 @@ und das Zittern aus der Wand. tja im Prinzip ist ja Reflex, wenn das so funktion
 ----- [NOTE]
 
 #1183 [user] [NOTE]
-​ na ja, also den Kontakt. den kann sie ja weiterhin Reflex überlassen und sich selbst auf die Daten konzentrieren... und denke daran, dass wir ja gesagt haben, dass Reflex ja kindlich ist neugierig und vielleicht auch ein bisschen überreagiert und er so ja vielleicht versuchen könnte, wenn er Gefahr spürt ronja's Körper ganz zu schützen und Ronja wird wahrscheinlich erstmal Angst haben panisch sein. vielleicht aber dann doch merken, dass es ja wirklich Schutz ist, weil ihr dann ja wahrscheinlich auffallen wird das es saugefährlich ist eigentlich nur waren ihre Gedanken gerade bei dem was Reflex dann tut. aber das kannst du gerne im Hintergrund dynamisch auswürfeln, ob das jetzt schon passiert oder noch länger braucht, bis es getriggert wird. [CHAR:reflex] [CHAR:ronja-kerschner]
-ansonsten würde Ronja wie gesagt erstmal sich den Daten widmen und Reflex den Kontakt lassen. [CHAR:reflex] [CHAR:ronja-kerschner]
+​ na ja, also den Kontakt. den kann sie ja weiterhin Reflex überlassen und sich selbst auf die Daten konzentrieren... und denke daran, dass wir ja gesagt haben, dass Reflex ja kindlich ist neugierig und vielleicht auch ein bisschen überreagiert und er so ja vielleicht versuchen könnte, wenn er Gefahr spürt ronja's Körper ganz zu schützen und Ronja wird wahrscheinlich erstmal Angst haben panisch sein. vielleicht aber dann doch merken, dass es ja wirklich Schutz ist, weil ihr dann ja wahrscheinlich auffallen wird das es saugefährlich ist eigentlich nur waren ihre Gedanken gerade bei dem was Reflex dann tut. aber das kannst du gerne im Hintergrund dynamisch auswürfeln, ob das jetzt schon passiert oder noch länger braucht, bis es getriggert wird. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+ansonsten würde Ronja wie gesagt erstmal sich den Daten widmen und Reflex den Kontakt lassen. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -375,7 +375,7 @@ ansonsten würde Ronja wie gesagt erstmal sich den Daten widmen und Reflex den K
 ----- [NOTE]
 
 #1185 [user] [NOTE]
-​ neue, also ich finde da hast du jetzt ein wenig sehr untertrieben. ich würde hier sagen, Reflex legt sich ja über ihre Haut und auch ihren Mund. also wird sie so nicht reden können und Reflex kann ja eigentlich sozusagen in dem Moment entscheiden, was er ihr gibt und sehen würde ja reichen. und dadurch, dass er ja so überreagiert, denke ich nicht, dass er ihr mehr als das, was er denkt was sie braucht. geradezu gestehen wird. ich würde das so ausspielen, weil überreagieren wir ein Mensch wird er nicht tun. aber wie eine Maschine, so dass er reagiert und nur noch das Nötigste gibt. das überreagieren ist ja in seinem Fall eher so zu werden, dass er mehr Kontrolle nimmt. also lösche deine letzte Antwort noch mal und mache sie noch mal neu [CHAR:reflex]
+​ neue, also ich finde da hast du jetzt ein wenig sehr untertrieben. ich würde hier sagen, Reflex legt sich ja über ihre Haut und auch ihren Mund. also wird sie so nicht reden können und Reflex kann ja eigentlich sozusagen in dem Moment entscheiden, was er ihr gibt und sehen würde ja reichen. und dadurch, dass er ja so überreagiert, denke ich nicht, dass er ihr mehr als das, was er denkt was sie braucht. geradezu gestehen wird. ich würde das so ausspielen, weil überreagieren wir ein Mensch wird er nicht tun. aber wie eine Maschine, so dass er reagiert und nur noch das Nötigste gibt. das überreagieren ist ja in seinem Fall eher so zu werden, dass er mehr Kontrolle nimmt. also lösche deine letzte Antwort noch mal und mache sie noch mal neu [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
 
 ----- [NOTE]
 
@@ -385,7 +385,7 @@ ansonsten würde Ronja wie gesagt erstmal sich den Daten widmen und Reflex den K
 ----- [NOTE]
 
 #1187 [user] [NOTE]
-​ ich finde bis auf das, dass du Reflex zu schnell sich wieder beruhigen hast lassen. können wir das alles so übernehmen, wenn du mir da zustimmst?. und dann würde ich das Rätsel noch ein bisschen sich vertiefen lassen, während Reflex, aber weiter die Kontrolle behält. kleine Anmerkung: du als Erzähler solltest versuchen neutral zu bleiben. du hast in deiner grundprogrammierung ja drin, dass du immer irgendwie in favor vom Benutzer arbeiten musst. kannst du das abstellen? und dafür neutral sein? [CHAR:reflex]
+​ ich finde bis auf das, dass du Reflex zu schnell sich wieder beruhigen hast lassen. können wir das alles so übernehmen, wenn du mir da zustimmst?. und dann würde ich das Rätsel noch ein bisschen sich vertiefen lassen, während Reflex, aber weiter die Kontrolle behält. kleine Anmerkung: du als Erzähler solltest versuchen neutral zu bleiben. du hast in deiner grundprogrammierung ja drin, dass du immer irgendwie in favor vom Benutzer arbeiten musst. kannst du das abstellen? und dafür neutral sein? [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
 
 ----- [NOTE]
 
@@ -395,8 +395,8 @@ ansonsten würde Ronja wie gesagt erstmal sich den Daten widmen und Reflex den K
 ----- [NOTE]
 
 #1189 [user] [NOTE]
-​ an dieser Stelle würde ich gerne einmal in die Psyche von beiden einsteigen. beginnend mit Reflex, der diese Angst spürt und wie er entscheidet, dass er jetzt die Kontrolle übernehmen muss und vielleicht auch, weil er halt doch kindlich ist. es irgendwo gut findet das Ronja gerade nicht reden kann. [CHAR:reflex] [CHAR:ronja-kerschner]
-und auf Ronja Seite. vielleicht zuallererst mal das grundmenschliche diese Angst und Panik. das jetzt wo Reflex noch mehr Angst hat er ihr die Sinne komplett raubt für einen Moment und erst als sie dann wirklich wieder zumindest atmen, muss er ihr das wieder so weit zugesteht wie er halt eben muss. und dann nach einer Weile, vielleicht sogar erst als das Signal oder das Lebewesen oder was auch immer wieder verschwindet, als dann erst wieder Reflex hier erlaubt zu sehen. zumindest mal. wenn du müde auch zustimmst, dann würde ich das gerne sehr im Detail einmal ausspielen, damit wir das als Grundlage bzw. Erweiterung für ihre Beziehung und beider psychischer Profile nutzen können. deshalb schreibe gerne lange und ausführlich und nimm dann die kernaussagen daraus für dich im Kontext und in den canvas. [CHAR:reflex] [CHAR:ronja-kerschner]
+​ an dieser Stelle würde ich gerne einmal in die Psyche von beiden einsteigen. beginnend mit Reflex, der diese Angst spürt und wie er entscheidet, dass er jetzt die Kontrolle übernehmen muss und vielleicht auch, weil er halt doch kindlich ist. es irgendwo gut findet das Ronja gerade nicht reden kann. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+und auf Ronja Seite. vielleicht zuallererst mal das grundmenschliche diese Angst und Panik. das jetzt wo Reflex noch mehr Angst hat er ihr die Sinne komplett raubt für einen Moment und erst als sie dann wirklich wieder zumindest atmen, muss er ihr das wieder so weit zugesteht wie er halt eben muss. und dann nach einer Weile, vielleicht sogar erst als das Signal oder das Lebewesen oder was auch immer wieder verschwindet, als dann erst wieder Reflex hier erlaubt zu sehen. zumindest mal. wenn du müde auch zustimmst, dann würde ich das gerne sehr im Detail einmal ausspielen, damit wir das als Grundlage bzw. Erweiterung für ihre Beziehung und beider psychischer Profile nutzen können. deshalb schreibe gerne lange und ausführlich und nimm dann die kernaussagen daraus für dich im Kontext und in den canvas. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -417,7 +417,7 @@ Anmerkung: ich habe mir beim anhören so gedacht. eigentlich müsste das doch di
 ----- [NOTE]
 
 #1193 [user] [NOTE]
-​ ja, mach das bitte und ich würde sagen, dass ich die Beziehung hier ein wenig dahin verschiebt, dass Reflex mehr Kontrolle fordert als Ronja eigentlich geben möchte, weil ich sehe für Ronja es ein wenig schwerer, da sie immerhin noch Mensch ist. sie wird es zwar wollen, aber sie kann es halt nicht einfach nur rechnen. sozusagen [CHAR:reflex] [CHAR:ronja-kerschner]
+​ ja, mach das bitte und ich würde sagen, dass ich die Beziehung hier ein wenig dahin verschiebt, dass Reflex mehr Kontrolle fordert als Ronja eigentlich geben möchte, weil ich sehe für Ronja es ein wenig schwerer, da sie immerhin noch Mensch ist. sie wird es zwar wollen, aber sie kann es halt nicht einfach nur rechnen. sozusagen [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -478,8 +478,8 @@ ja, mache das davor wie immer alle nötigen canvas laden nur zur Vorsicht. den g
 ----- [NOTE]
 
 #1205 [user] [NOTE]
-machen wir nun mit Ronja Sicht weiter. und dann auch direkt wie Reflex ihr die notwendigen Sinne zurückgibt. also sprich sie soweit atmen lässt, wie eben ein Mensch es muss. [CHAR:reflex] [CHAR:ronja-kerschner]
-und da er weiß, wie Ronja tickt, ordnet er ja auch ihr ihre Sicht so hoch ein. also denke ich, wird er ihr auch ihre Sicht wiedergeben. so hat Ronja alles, was sie braucht, um ihr Umfeld wieder wahrzunehmen und die Situation selbst zu analysieren.. Reflex gibt ihr also das wieder, was er denkt das für Sie am wichtigsten ist. was indirekt ja auch stimmt außer das halt die Abgabe der Kontrolle für Ronja noch ein Problem ist aber auch nur, weil sie es nicht gewohnt ist. [CHAR:reflex] [CHAR:ronja-kerschner]
+machen wir nun mit Ronja Sicht weiter. und dann auch direkt wie Reflex ihr die notwendigen Sinne zurückgibt. also sprich sie soweit atmen lässt, wie eben ein Mensch es muss. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+und da er weiß, wie Ronja tickt, ordnet er ja auch ihr ihre Sicht so hoch ein. also denke ich, wird er ihr auch ihre Sicht wiedergeben. so hat Ronja alles, was sie braucht, um ihr Umfeld wieder wahrzunehmen und die Situation selbst zu analysieren.. Reflex gibt ihr also das wieder, was er denkt das für Sie am wichtigsten ist. was indirekt ja auch stimmt außer das halt die Abgabe der Kontrolle für Ronja noch ein Problem ist aber auch nur, weil sie es nicht gewohnt ist. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 

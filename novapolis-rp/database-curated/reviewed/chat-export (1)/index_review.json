@@ -213,9 +213,10 @@
       "tag_counts": {
         "NOTE": 198,
         "LOC": 19,
-        "CHAR": 43,
+        "CHAR": 55,
         "FACT?": 1,
         "EVENT": 2,
+        "ENT": 3,
         "TIME": 1,
         "MISSION": 1
       },
@@ -226,6 +227,10 @@
         },
         {
           "slug": "reflex",
+          "count": 12
+        },
+        {
+          "slug": "reflex-wissensstand-trainingsstand",
           "count": 12
         },
         {
@@ -245,20 +250,16 @@
           "count": 4
         },
         {
+          "slug": "logistik",
+          "count": 3
+        },
+        {
           "slug": "c6-nord",
           "count": 2
         },
         {
           "slug": "pahl",
           "count": 2
-        },
-        {
-          "slug": "e2",
-          "count": 1
-        },
-        {
-          "slug": "e3",
-          "count": 1
         }
       ]
     },
@@ -266,9 +267,10 @@
       "lines": 499,
       "chars": 20517,
       "tag_counts": {
-        "CHAR": 55,
+        "CHAR": 76,
         "NOTE": 177,
         "LOC": 9,
+        "ENT": 5,
         "FACT?": 1
       },
       "top_slugs": [
@@ -278,6 +280,10 @@
         },
         {
           "slug": "reflex",
+          "count": 21
+        },
+        {
+          "slug": "reflex-wissensstand-trainingsstand",
           "count": 21
         },
         {
@@ -297,7 +303,15 @@
           "count": 3
         },
         {
+          "slug": "cluster_index_v1",
+          "count": 3
+        },
+        {
           "slug": "kora-malenkov",
+          "count": 2
+        },
+        {
+          "slug": "logistik",
           "count": 2
         }
       ]
@@ -307,13 +321,18 @@
       "chars": 20883,
       "tag_counts": {
         "NOTE": 170,
-        "CHAR": 49,
+        "CHAR": 69,
         "LOC": 13,
-        "EVENT": 2
+        "EVENT": 2,
+        "ENT": 1
       },
       "top_slugs": [
         {
           "slug": "reflex",
+          "count": 20
+        },
+        {
+          "slug": "reflex-wissensstand-trainingsstand",
           "count": 20
         },
         {
@@ -339,6 +358,10 @@
         {
           "slug": "pahl",
           "count": 1
+        },
+        {
+          "slug": "logistik",
+          "count": 1
         }
       ]
     },
@@ -349,8 +372,9 @@
         "NOTE": 184,
         "EVENT": 1,
         "LOC": 3,
-        "CHAR": 7,
-        "FACT?": 1
+        "CHAR": 10,
+        "FACT?": 1,
+        "ENT": 1
       },
       "top_slugs": [
         {
@@ -362,11 +386,19 @@
           "count": 3
         },
         {
+          "slug": "reflex-wissensstand-trainingsstand",
+          "count": 3
+        },
+        {
           "slug": "c6",
           "count": 2
         },
         {
           "slug": "d5",
+          "count": 1
+        },
+        {
+          "slug": "logistik",
           "count": 1
         }
       ]
@@ -378,7 +410,8 @@
         "NOTE": 179,
         "MISSION": 3,
         "LOC": 14,
-        "CHAR": 30,
+        "CHAR": 41,
+        "ENT": 6,
         "EVENT": 5
       },
       "top_slugs": [
@@ -391,12 +424,20 @@
           "count": 11
         },
         {
+          "slug": "reflex-wissensstand-trainingsstand",
+          "count": 11
+        },
+        {
           "slug": "d5",
           "count": 8
         },
         {
           "slug": "c6",
           "count": 5
+        },
+        {
+          "slug": "logistik",
+          "count": 4
         },
         {
           "slug": "mission-c6-nord",
@@ -413,10 +454,6 @@
         {
           "slug": "pahl",
           "count": 1
-        },
-        {
-          "slug": "b5",
-          "count": 1
         }
       ]
     },
@@ -425,8 +462,9 @@
       "chars": 16940,
       "tag_counts": {
         "NOTE": 139,
-        "CHAR": 39,
+        "CHAR": 51,
         "LOC": 28,
+        "ENT": 3,
         "EVENT": 6,
         "MISSION": 2
       },
@@ -444,12 +482,20 @@
           "count": 12
         },
         {
+          "slug": "reflex-wissensstand-trainingsstand",
+          "count": 12
+        },
+        {
           "slug": "kora-malenkov",
           "count": 9
         },
         {
           "slug": "d5",
           "count": 5
+        },
+        {
+          "slug": "logistik",
+          "count": 3
         },
         {
           "slug": "n3",
@@ -462,17 +508,9 @@
         {
           "slug": "verbindungstunnel-c6-e3",
           "count": 1
-        },
-        {
-          "slug": "v2",
-          "count": 1
-        },
-        {
-          "slug": "jonas-merek",
-          "count": 1
         }
       ]
     }
   },
-  "updated_at": "20251126T043409Z"
+  "updated_at": "20251127T212031Z"
 }

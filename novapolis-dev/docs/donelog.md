@@ -1,12 +1,20 @@
 ---
-stand: 2025-11-27 03:29
-update: Lexikon/Dependency-Sweep + Alias-Fix dokumentiert; 009-001 Plan bleibt aktiv
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; python scripts/check_frontmatter.py (11 Dateien) PASS; python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run PASS
+stand: 2025-11-27 22:50
+update: Tagging 015-010 Write-Run aktualisiert; Backups, Report & Tree/Doku-Sync erledigt
+checks: python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run PASS; python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 PASS; tree /A /F PASS; tree /A PASS; python scripts/update_workspace_tree_dirs.py PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md PASS
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+Tagging-Pipeline 015-010 – Refresh & Dokumentation (2025-11-27 22:10)
+---------------------------------------------------------------------
+
+- Backups/Snapshot: `AI-Behavior-Mapping.{md,json}` erneut nach `Backups/tagging-pipeline/AI-Behavior-Mapping-20251127-220319.{md,json}` kopiert; `Backups/tagging-015-010-prewrite.txt` jetzt mit SHA256/Size pro reviewed Datei (index/lexicon/unresolved + part-019…010).
+- Guard-Lauf: `python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root "novapolis-rp/database-curated/staging/chunks/chat-export (1)" --out-root "novapolis-rp/database-curated/reviewed/chat-export (1)" --range 015-010 --dry-run` PASS (`unresolved_dependencies=[]`, alias_collisions unverändert, canonicalized N7 total 2).
+- Write-Run: gleicher Befehl ohne `--dry-run`; `.tagged` 015→010, `index_review.json`, `lexicon.json`, `unresolved.json` aktualisiert; Log `reports/tagging-20251127T212031Z.log` archiviert.
+- Nachbereitung: Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) regeneriert; targeted markdownlint + Frontmatter-Validator über `todo.root.md`, `.tmp-results/todo.cleaned.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md` PASS; Root-/Hub-Doku synchronisiert und Todo-ID-Liste aktualisiert.
 
 Tagging-Pipeline 009-001 – Plan & Freigabe (2025-11-27 03:20)
 -------------------------------------------------------------
