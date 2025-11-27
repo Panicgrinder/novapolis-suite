@@ -1,10 +1,12 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
+stand: 2025-11-27 03:25
+update: slug/title nachgetragen; Kategorie vereinheitlicht
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
 canvas: Logistik
 last-updated: 2025-11-07T04:09:00+01:00
-category: A
+category: admin
+slug: logistik
+title: Logistik Novapolis
 version: 0.9
 ---
 canvas: Logistik

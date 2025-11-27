@@ -1,0 +1,9 @@
+{
+  "title": "Cluster-Index v1",
+  "category": "admin",
+  "slug": "cluster_index_v1",
+  "version": "0.1",
+  "status": "draft",
+  "tags": ["cluster", "relations"],
+  "source": "database-rp/00-admin/Cluster-Index.md"
+}

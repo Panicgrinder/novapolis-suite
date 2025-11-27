@@ -1,0 +1,9 @@
+{
+  "title": "Handel & Diplomatie – Händlergilde (v1)",
+  "category": "admin",
+  "slug": "handel_diplomatie_haendlergilde_v1",
+  "version": "0.1",
+  "status": "draft",
+  "tags": ["haendlergilde", "diplomatie"],
+  "source": "database-rp/00-admin/Handel-Diplomatie-Haendlergilde.md"
+}

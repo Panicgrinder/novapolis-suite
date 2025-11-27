@@ -1,9 +1,11 @@
 ---
-stand: 2025-11-16 06:52
-update: Frontmatter ergänzt (YAML); Inhalt unverändert.
-checks: keine
-category: Admin
+stand: 2025-11-27 03:25
+update: slug ergänzt; Kategorie vereinheitlicht
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
+category: admin
 canvas: missionslog
+slug: missionslog
+title: Missionslog (Novapolis)
 ---
 
 Missionslog (Novapolis)

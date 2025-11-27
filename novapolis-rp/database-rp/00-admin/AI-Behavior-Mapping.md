@@ -1,10 +1,12 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
+stand: 2025-11-27 03:25
+update: slug/title ergänzt; Frontmatter auf ai_behavior_index_v2 abgestimmt
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
 canvas: AI-Behavior-Mapping
 last-updated: 2025-11-07T04:09:00+01:00
-category: Admin
+category: admin
+slug: ai_behavior_index_v2
+title: AI Behavior Matrix & Mapping (v2)
 version: 1.0
 ---
 canvas: AI-Behavior-Mapping

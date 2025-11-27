@@ -1,0 +1,9 @@
+{
+  "title": "Relationslog Eisenkonklave (v1)",
+  "category": "admin",
+  "slug": "relationslog_eisenkonklave_v1",
+  "version": "0.1",
+  "status": "draft",
+  "tags": ["relations", "eisenkonklave"],
+  "source": "database-rp/00-admin/Relationslog-Eisenkonklave.md"
+}

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-26 05:35
-update: Tagging-Pipeline 015-010 Write dokumentiert; Governance-Eintrag bleibt gültig
-checks: python tag_chunks_from_yaml.py (dry+write) PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' PASS; python scripts/check_frontmatter.py novapolis-dev/docs/donelog.md PASS
+stand: 2025-11-27 03:29
+update: Lexikon-/Dependency-Sweep plus Alias-Fix protokolliert, 009-001 Plan ergänzt
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; python scripts/check_frontmatter.py (11 Dateien) PASS; python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -12,6 +12,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-27 03:29: RP-Lexikon/Dependencies bereinigt (Slugs ergänzt, neue Admin-/Faktions-Stubs, alias-Fix für C6 vs. C6-Nord); Dry-Run (015-010) bestätigt keine offenen Dependencies.
 - 2025-11-26 05:35: Tagging-Pipeline 015-010 geschrieben (015→010), neue `.tagged`-Dateien + Reports abgelegt; Backups/Snapshots & Lint/Validator protokolliert.
 - 2025-11-26 04:00: `.github/copilot-instructions.md` vollständige SSOT-Fassung aus Archiv eingespielt; Stand/Checks aktualisiert; markdownlint repo-weit PASS.
 - 2025-11-18 09:37: Coverage-Wrapper ausgeführt (root). Ergebnis FAIL (rc=2). Ursache: fehlende Abhängigkeiten/Importpfade (`novapolis_agent`, `fastapi`, `uvicorn`). Receipt: `.tmp-results/reports/pytest_coverage_postflight_20251118_093732.md`.
@@ -20,6 +21,10 @@ Kurzueberblick
  - 2025-11-17 09:40: Archivierung & Aufräumaktion: Geparkte `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Live-Stubs durch explizite Import-Fehlermarker ersetzt; Root-`app/__init__.py` Shim hinzugefügt um Root-Tests zu unterstützen; betroffene Tests angepasst. Commits: `1df7561`, `6191a5d`.
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+
+2025-11-27 03:29 | Copilot | RP Lexikon-/Alias-Sweep (Postflight)
+Meta: {"Timestamp": "2025-11-27 03:29", "Commands": ["npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'", "python scripts/check_frontmatter.py <11 Dateien>", "python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root 'novapolis-rp/database-curated/staging/chunks/chat-export (1)' --out-root 'novapolis-rp/database-curated/reviewed/chat-export (1)' --range 015-010 --dry-run"], "Files": ["novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py", "novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md", "novapolis-rp/database-rp/00-admin/Logistik.md", "novapolis-rp/database-rp/00-admin/Missionslog.md", "novapolis-rp/database-rp/05-projects/caravan_moves.{md,json}", "novapolis-rp/database-rp/02-characters/Echo-Wissensstand-Trainingsstand.md", "novapolis-rp/database-rp/02-characters/Reflex-Wissensstand-Trainingsstand.md", "novapolis-rp/database-rp/00-admin/{Cluster-Index,Relationslog-Eisenkonklave,Handel-Diplomatie-Haendlergilde,Index-Haendlergilde}.{md,json}", "novapolis-rp/database-rp/05-projects/Eisenkonklave.{md,json}"]}
+Kurz: Tagging-Skript so angepasst, dass Kurz-Sektoren (z. B. C6) bei mehrteiligen Locations keine Aliaskollisionen mehr erzeugen; Redirects für `n7`/`N7` erweitert. Fehlende Slugs ergänzt (`ai_behavior_index_v2`, `logistik`, `missionslog`, Wissenstands-Canvas) bzw. neue Stubs für `cluster_index_v1`, `relationslog_eisenkonklave_v1`, `handel_diplomatie_haendlergilde_v1`, `index_haendlergilde_v1`, `eisenkonklave` erstellt. Dry-Run (015-010) zeigt `unresolved_dependencies = []`; verbleibende Alias-Kollisionen nur bei Mehrfach-Titeln (`Echo`, `Reflex`, `(v1)`, `Verbindungstunnel`). Folgeaufgabe: Wissensstands-Heuristik + `(v1)`-Tokens einschränken, bevor weitere Ranges getaggt werden.
 
 2025-11-26 04:00 | Copilot | Governance-SSOT wiederhergestellt (Postflight)
 Meta: {"Timestamp": "2025-11-26 04:00", "Files": [".github/copilot-instructions.md"], "Command": "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'", "markdownlint": "PASS"}

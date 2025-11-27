@@ -1,8 +1,9 @@
 ---
-stand: 2025-11-26 05:36
-update: RP Tagging 015-010 Dry→Write, Tree-Snapshots neu erzeugt, Statusdocs pending
-checks: python coding/tools/curation/tag_chunks_from_yaml.py (dry+write) PASS; python scripts/update_workspace_tree_dirs.py PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS
+stand: 2025-11-27 03:25
+update: Lexikon-Slugs & Alias-Fix (C6), neue Admin/Faktions-Stubs, Tagging 009-001 Plan notiert
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; python scripts/check_frontmatter.py (11 Dateien) PASS; python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run PASS
 ---
+- 2025-11-27 03:25: RP-Lexikon bereinigt – fehlende Slugs (ai_behavior_index_v2, logistik, missionslog, Wissenstands-Canvas) ergänzt, neue Admin/Faktions-Stubs (`cluster_index_v1`, `relationslog_eisenkonklave_v1`, `handel_diplomatie_haendlergilde_v1`, `index_haendlergilde_v1`, `eisenkonklave`) angelegt, `caravan_moves`-Slug vereinheitlicht. `tag_chunks_from_yaml.py` aktualisiert (alias-Kollisionen C6 vs. C6-Nord beseitigt, Redirects erweitert). Dry-Run (015-010) bestätigt: `unresolved_dependencies` leer, verbleibende Alias-Kollisionen nur bei Mehrfach-Titeln (Echo/Reflex Wissenstands-Canvas). Plan für Range 009-001 im Dev-Hub notiert.
 
 Recent Changes
 --------------

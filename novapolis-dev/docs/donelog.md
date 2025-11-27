@@ -1,12 +1,35 @@
 ---
-stand: 2025-11-26 05:35
-update: Tagging-Pipeline 015-010 Write abgeschlossen; Backups/Receipts ergänzt
-checks: python tag_chunks_from_yaml.py (dry+write) PASS; npx markdownlint-cli2 PASS (donelog); python scripts/check_frontmatter.py PASS
+stand: 2025-11-27 03:29
+update: Lexikon/Dependency-Sweep + Alias-Fix dokumentiert; 009-001 Plan bleibt aktiv
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; python scripts/check_frontmatter.py (11 Dateien) PASS; python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run PASS
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+Tagging-Pipeline 009-001 – Plan & Freigabe (2025-11-27 03:20)
+-------------------------------------------------------------
+
+- Scope: `coding/tools/curation/tag_chunks_from_yaml.py` mit Range `009-001` (descending). Inputs: `novapolis-rp/database-curated/staging/chunks/chat-export (1)/chat-export (1).part-009.txt` bis `...part-001.txt`. Erwartete Outputs: `part-009.tagged.txt` … `part-001.tagged.txt` + aktualisierte `index_review.json`, `unresolved.json`, `lexicon.json` sowie ein neuer Report unter `novapolis-rp/database-curated/reviewed/chat-export (1)/reports/`.
+- Backups/Snapshots vor Write erneut ausführen:
+  - `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}` nach `Backups/tagging-pipeline/AI-Behavior-Mapping-20251127-0320.{md,json}` kopieren.
+  - Struktur-Snapshot: `tree /A /F "novapolis-rp/database-curated/reviewed/chat-export (1)" > Backups/tagging-009-001-prewrite.txt` (separater Timestamp, keine Überschreibung des 015-010-Files).
+  - Optional: Hash-/Line-Count-Check der Eingabe-Chunks via `python coding/tools/curation/text_stats.py --chunks-root ... --range 009-001` um Drifts zwischen Staging/Reviewed früh zu erkennen.
+- Guard-Lauf (DryRun): `python coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root "novapolis-rp/database-curated/staging/chunks/chat-export (1)" --out-root "novapolis-rp/database-curated/reviewed/chat-export (1)" --range 009-001 --dry-run`.
+  - Abbruch wenn neue alias_collisions ≠ {"C6" ↔ "c6-nord"} oder wenn `unresolved_dependencies` weitere Slugs (Echo/Reflex-Wissensstand-Trainingsstand etc.) ausgibt.
+  - Dry-Run-Log sichern (`reports/tagging-DRY-20251127T*.log`), Review-Link im DONELOG/TODO referenzieren.
+- Write-Run nach Freigabe: gleicher Befehl ohne `--dry-run`. Erwartung: neue `.tagged`-Dateien, aktualisierte `index_review.json` + `lexicon.json`, Report `reports/tagging-20251127T*.log`.
+- Nachbereitung: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md'` + `python scripts/check_frontmatter.py novapolis-dev/docs/donelog.md`. Zusätzlich `DONELOG.md`, `todo.root.md`, `/.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `workspace_tree*.txt` synchronisieren; Postflight-Receipt anhängen.
+- STOP-Gate: Nur fortfahren, wenn Backups vorhanden, Dry-Run PASS meldet und Alias-/Dependency-Probleme dokumentiert bzw. behoben sind. Alias-Kollision `C6` vs. `c6-nord` + unresolved Slugs (Echo, Reflex-Wissensstand-Trainingsstand, Archivplatzhalter) separat adressieren, bevor weitere Ranges (<=000) geplant werden.
+
+Lexikon- & Dependency-Sweep (2025-11-27 03:29)
+-----------------------------------------------
+
+- Aliaskonflikt `C6` vs. `c6-nord` im Tagging-Skript behoben (Slug-Tokens für Multiword-Locations filtern); Redirects `n7`/`N7` ergänzt.
+- Fehlende Slugs ergänzt (`ai_behavior_index_v2`, `logistik`, `missionslog`, Wissenstands-Canvas von Echo/Reflex) und `caravan_moves` vereinheitlicht (`caravan_moves`).
+- Neue Admin/Faktions-Stubs erstellt: `Cluster-Index`, `Relationslog-Eisenkonklave`, `Handel-Diplomatie-Haendlergilde`, `Index-Haendlergilde`, `Eisenkonklave` (inkl. JSON-Sidecars) – decken bisher unresolved Dependencies ab.
+- Validierung: `python scripts/check_frontmatter.py` (11 Dateien) PASS, Dry-Run `python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run` zeigt `unresolved_dependencies = []`, verbleibende `alias_collisions` nur bei Doppel-Titeln (`Echo`, `Reflex`, `(v1)`, `Verbindungstunnel`). Folgeaufgabe: Heuristik für Wissensstands-Canvas & `(v1)`-Token planen.
 
 Tagging-Pipeline 015-010 – Plan & Freigabe (2025-11-26 05:22)
 -------------------------------------------------------------

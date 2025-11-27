@@ -225,8 +225,22 @@ def build_lexicon(yaml_root: Path, extra_aliases: dict[str, str] | None = None) 
             parts = [p for p in re.split(r"\s+", entry.title.strip()) if p]
             if len(parts) >= 2:
                 first, last = parts[0], parts[-1]
-                for token in {first, last, first.lower(), last.lower()}:
-                    add_alias(token, s)
+                tokens = {first, last, first.lower(), last.lower()}
+                for token in tokens:
+                    if not token:
+                        continue
+                    token_norm = token.strip()
+                    if not token_norm:
+                        continue
+                    token_lower = token_norm.lower()
+                    if (
+                        entry.category == "location"
+                        and is_short_location_slug(token_lower)
+                        and token_lower != entry.slug
+                    ):
+                        # Avoid alias collisions like C6 vs. C6 Nord
+                        continue
+                    add_alias(token_norm, s)
         if entry.category == "location" and is_short_location_slug(entry.slug):
             add_alias(entry.slug.upper(), entry.slug)
             add_alias(entry.slug.lower(), entry.slug)
@@ -248,8 +262,8 @@ def build_lexicon(yaml_root: Path, extra_aliases: dict[str, str] | None = None) 
     # 4) Unresolved dependencies
     unresolved = {d for d in deps_all if d not in by_slug}
 
-    redirects = {"n7": "c6-nord"}
-    deprecated = {"n7"}
+    redirects = {"n7": "c6-nord", "N7": "c6-nord"}
+    deprecated = {"n7", "N7"}
 
     return Lexicon(
         by_slug=by_slug,

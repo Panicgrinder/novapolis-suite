@@ -1,8 +1,11 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
+stand: 2025-11-27 03:25
+update: slug/title ergänzt; Kategorie gesetzt
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
 last-updated: 2025-11-07T03:32:00+01:00
+category: character
+slug: echo-wissensstand-trainingsstand
+title: Echo – Wissensstand & Trainingsstand
 ---
 last-updated: 2025-11-07T03:32:00+01:00
 ---
