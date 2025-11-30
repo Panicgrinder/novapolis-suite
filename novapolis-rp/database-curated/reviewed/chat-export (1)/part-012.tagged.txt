@@ -142,7 +142,7 @@ kannst du mir kurz die möglichen redundanzen die crossling Fehler? im Grunde ei
 #981 [user] [NOTE]
 in den crossling Fehlern habe ich zwei Korrekturen zu machen. Korrektur Nummer 1:
 der Eintrag, der in Cluster stammt, war der richtige. kurz für dich zur Klarstellung, der durchgang um den es geht, handelt sich um die ehemalige reguläre u-bahnverbindung zwischen den beiden Stationen, welche beschädigt ist und nicht? mit Zügen oder ähnlichem befahren werden kann. zu fuß hingegen ist mit Vorsicht möglich, deshalb ja auch die versorgungsmission machbar durch die NPCs der Station C6. [LOC:c6]
-Verbesserung Nummer 2: hierbei geht es um Reflex Fixierung. für das falsche Wort. das könnte eventuell in Zukunft für Verwirrung bei dir sorgen. Reflex hat schlicht und ergreifend Angst von Ronja getrennt zu sein, da es laut seinem charakterprofil. ja eine Variable ist, die er vermeiden möchte. da Ronja für ihn ruhen und Sicherheit, Ordnung und Planung bedeutet. eben genauso wie er für Ronja. das heißt, er könnte rein theoretisch sich von ihr jederzeit löst frei. in seiner wurzelstruktur möchte er aber nicht. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+Verbesserung Nummer 2: hierbei geht es um Reflex Fixierung. für das falsche Wort. das könnte eventuell in Zukunft für Verwirrung bei dir sorgen. Reflex hat schlicht und ergreifend Angst von Ronja getrennt zu sein, da es laut seinem charakterprofil. ja eine Variable ist, die er vermeiden möchte. da Ronja für ihn ruhen und Sicherheit, Ordnung und Planung bedeutet. eben genauso wie er für Ronja. das heißt, er könnte rein theoretisch sich von ihr jederzeit löst frei. in seiner wurzelstruktur möchte er aber nicht. [CHAR:reflex] [CHAR:ronja-kerschner]
 
 sind diese Änderungen dennoch stimmig mit deinem Kontext lediglich nur falsch eingetragen, so wie ich vermute?
 
@@ -324,7 +324,7 @@ anschließend können wir wieder zurück zu unseren Blöcken
 ----- [NOTE]
 
 #1015 [user] [NOTE]
-Ronja würde sich jetzt wundern, wie Reflex auf die Idee kommt überhaupt vorzuschlagen, etwas zu überspringen oder auszulassen. *laut lachen* nein, wir bleiben natürlich bei unserer Reihenfolge [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+Ronja würde sich jetzt wundern, wie Reflex auf die Idee kommt überhaupt vorzuschlagen, etwas zu überspringen oder auszulassen. *laut lachen* nein, wir bleiben natürlich bei unserer Reihenfolge [CHAR:reflex] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -334,7 +334,7 @@ Ronja würde sich jetzt wundern, wie Reflex auf die Idee kommt überhaupt vorzus
 ----- [NOTE]
 
 #1017 [user] [NOTE]
-genauso machen wir das Reflex. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
+genauso machen wir das Reflex. [CHAR:reflex]
 
 ----- [NOTE]
 
@@ -423,7 +423,7 @@ wir sind jetzt zwar mit dem generellen Update fertig, allerdings habe ich nun no
 beginnen wir direkt mit der ersten.
 
 lade hierzu die betreffenden canvas für die Fraktion der Händler.
-mir ist bei unserem Update aufgefallen, das wahrscheinlich von dir angenommen wurde, dass diese Fraktion Informationen über novapolis hat. da aber nur die karawane sich novapolis angeschlossen hat aber noch keine Zeit. hatte rücksprache mit ihrer ursprünglichen Fraktion der Händler zu halten, dürfte die Fraktion der Händler bis auf eine vermisste karawane? absolut keine direkte Information über novapolis haben. das einzige, was die händlerfraktion weiß dürfte so wie bei allen anderen Fraktionen sein, dass es im Bereich von D5 zu energieschwankungen kam und später auch bei C6 als Ronja dort den Reaktor repariert hat. [CHAR:ronja-kerschner] [LOC:c6] [LOC:d5] [ENT:logistik]
+mir ist bei unserem Update aufgefallen, das wahrscheinlich von dir angenommen wurde, dass diese Fraktion Informationen über novapolis hat. da aber nur die karawane sich novapolis angeschlossen hat aber noch keine Zeit. hatte rücksprache mit ihrer ursprünglichen Fraktion der Händler zu halten, dürfte die Fraktion der Händler bis auf eine vermisste karawane? absolut keine direkte Information über novapolis haben. das einzige, was die händlerfraktion weiß dürfte so wie bei allen anderen Fraktionen sein, dass es im Bereich von D5 zu energieschwankungen kam und später auch bei C6 als Ronja dort den Reaktor repariert hat. [CHAR:ronja-kerschner] [LOC:c6] [LOC:d5]
 
 ----- [NOTE]
 

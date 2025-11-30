@@ -3,7 +3,6 @@ stand: 2025-11-27 03:25
 update: Stub angelegt; cluster_index_v1 für Lexikon registriert
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
 slug: cluster_index_v1
-title: Cluster-Index v1
 category: admin
 status: draft
 version: "0.1"

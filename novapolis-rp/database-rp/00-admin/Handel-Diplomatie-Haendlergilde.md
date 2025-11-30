@@ -3,7 +3,6 @@ stand: 2025-11-27 03:25
 update: Stub angelegt; handel_diplomatie_haendlergilde_v1 beschrieben
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
 slug: handel_diplomatie_haendlergilde_v1
-title: Handel & Diplomatie – Händlergilde (v1)
 category: admin
 status: draft
 version: "0.1"

@@ -9713,6 +9713,7 @@ pytest.ini
 reports/
 reports\tagging-20251126T043409Z.log
 reports\tagging-20251127T212031Z.log
+reports\tagging-20251130T021709Z.log
 requirements-dev.txt
 requirements.txt
 scripts/

@@ -5,7 +5,6 @@ checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' 
 category: admin
 canvas: missionslog
 slug: missionslog
-title: Missionslog (Novapolis)
 ---
 
 Missionslog (Novapolis)

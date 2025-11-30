@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-27 22:50
-update: Tagging 015-010 Write-Run wiederholt; Backups, Tree-Snapshots & Docs synchronisiert
-checks: python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run PASS; python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 PASS; tree /A /F PASS; tree /A PASS; python scripts/update_workspace_tree_dirs.py PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md PASS
+stand: 2025-11-30 18:56
+update: Doku-/Statussync nach Tagging-Refresh erfasst; STOP-Plan 009-001 vorbereitet
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -12,6 +12,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-11-30 08:13: Doku-/Statussync nach Tagging-Refresh eingetragen (Root/Dev TODOs, DONELOGs, WORKSPACE_STATUS, Temp-TODO). STOP-Plan 009-001 ergänzt; keine neuen Skriptläufe.
 - 2025-11-27 03:29: RP-Lexikon/Dependencies bereinigt (Slugs ergänzt, neue Admin-/Faktions-Stubs, alias-Fix für C6 vs. C6-Nord); Dry-Run (015-010) bestätigt keine offenen Dependencies.
 - 2025-11-27 22:10: Tagging-Pipeline 015-010 erneut durchlaufen (Dry→Write) inkl. Backups/Hash-Snapshot; targeted markdownlint & Frontmatter PASS; Tree-Snapshots/Status-Docs aktualisiert.
 - 2025-11-26 05:35: Tagging-Pipeline 015-010 geschrieben (015→010), neue `.tagged`-Dateien + Reports abgelegt; Backups/Snapshots & Lint/Validator protokolliert.
@@ -22,6 +23,10 @@ Kurzueberblick
  - 2025-11-17 09:40: Archivierung & Aufräumaktion: Geparkte `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Live-Stubs durch explizite Import-Fehlermarker ersetzt; Root-`app/__init__.py` Shim hinzugefügt um Root-Tests zu unterstützen; betroffene Tests angepasst. Commits: `1df7561`, `6191a5d`.
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+
+2025-11-30 08:13 | Copilot | RP Tagging 015-010 Doc/Statussync & STOP-Plan 009-001 (Record)
+Meta: {"Timestamp": "2025-11-30 08:13", "Files": ["todo.root.md", ".tmp-results/todo.cleaned.md", "DONELOG.md", "novapolis-dev/docs/donelog.md", "WORKSPACE_STATUS.md"], "Notes": "Dokumentation/Tasks nach Tagging-Refresh synchronisiert; STOP-Plan 009-001 als Folgeaufgabe aufgenommen."}
+Kurz: Keine neuen Skriptläufe – Fokus auf das Nachziehen der Root-/Hub-Dokumente (TODO/DONELOG/Status) nach dem 015-010 Refresh. Neue Aufgabe für Range 009-001 dokumentiert (Backups/Guard/Write/Nachbereitung), damit der nächste STOP-Plan vorbereitet ist. Temp-TODO aktualisiert, sodass Copilot/GPT denselben Fokus widerspiegelt.
 
 2025-11-27 22:10 | Copilot | RP Tagging-Pipeline 015-010 Refresh & Doc-Sync (Postflight)
 Meta: {"Timestamp": "2025-11-27 22:10", "Backups": ["Backups/tagging-pipeline/AI-Behavior-Mapping-20251127-220319.md", "Backups/tagging-pipeline/AI-Behavior-Mapping-20251127-220319.json", "Backups/tagging-015-010-prewrite.txt"], "Commands": ["python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root 'novapolis-rp/database-curated/staging/chunks/chat-export (1)' --out-root 'novapolis-rp/database-curated/reviewed/chat-export (1)' --range 015-010 --dry-run", "python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root 'novapolis-rp/database-curated/staging/chunks/chat-export (1)' --out-root 'novapolis-rp/database-curated/reviewed/chat-export (1)' --range 015-010", "tree /A /F > workspace_tree_full.txt", "tree /A > workspace_tree.txt", "python scripts/update_workspace_tree_dirs.py", "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md'", "python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md"], "Reports": ["reports/tagging-20251127T212031Z.log"], "TreeSnapshots": ["workspace_tree_full.txt", "workspace_tree.txt", "workspace_tree_dirs.txt"]}

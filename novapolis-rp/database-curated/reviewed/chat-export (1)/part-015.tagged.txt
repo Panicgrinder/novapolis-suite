@@ -1,6 +1,6 @@
 #1209 [user] [NOTE]
 ich denke, da ist ja jetzt schon einiges an Zeit vergangen. also wäre es denke ich angebracht, dass wir auch einen Blick auf Cora und die anderen werfen und auch nach D5. aber beginnen wir doch erstmal einfach nur mit Kora und den anderen, die in der Station geblieben sind, also in C6. und wir können auch dann später noch kurz auf die karawane, die ja wieder auf dem Weg nach Hause ist. ein Blick werfen. oh Moment, wir haben Sie ja noch gar nicht wieder losgeschickt. das können wir ja dann machen, wenn wir D5 anschauen. dann kann Jonas ja eine Nachricht schicken und versuchen funkkontakt zu bekommen mit Kora. [CHAR:jonas-merek] [CHAR:kora-malenkov] [LOC:c6] [LOC:d5]
-Anmerkung: nicht vergessen oder besser. lade die dazugehörigen canvas das Reflex ja erschaffen wurde in der kleinen Werkstatt bzw. dem kleinen wartungsraum, damals. unter dem kontrollbereich von D5 und als Reaktion auf ronjas Verschmelzung damals bzw. das lösens dieser Verschmelzung, was das Ereignis war, was Reflex erschaffen hat und er somit irgendwie ihr ihr Kind ist oder Teil von ihr. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [LOC:d5] [NOTE]
+Anmerkung: nicht vergessen oder besser. lade die dazugehörigen canvas das Reflex ja erschaffen wurde in der kleinen Werkstatt bzw. dem kleinen wartungsraum, damals. unter dem kontrollbereich von D5 und als Reaktion auf ronjas Verschmelzung damals bzw. das lösens dieser Verschmelzung, was das Ereignis war, was Reflex erschaffen hat und er somit irgendwie ihr ihr Kind ist oder Teil von ihr. [CHAR:reflex] [LOC:d5] [NOTE]
 
 ----- [NOTE]
 
@@ -40,7 +40,7 @@ na ja, also etwas großes kann es ja nicht sein, weil der Tunnel relativ gut ers
 ----- [NOTE]
 
 #1217 [user] [NOTE]
-lösche bitte deine letzte Antwort. ich finde es gut, wenn Reflex ein Unikat bleibt. mal abgesehen von seinen von ihm erstellten Instanzen wie sein kleiner Bruder... lasse dir hier bitte etwas anderes einfallen. ich denke, du stimmst mir zu, dass es schöner ist, wenn er ein Unikat bleibt [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
+lösche bitte deine letzte Antwort. ich finde es gut, wenn Reflex ein Unikat bleibt. mal abgesehen von seinen von ihm erstellten Instanzen wie sein kleiner Bruder... lasse dir hier bitte etwas anderes einfallen. ich denke, du stimmst mir zu, dass es schöner ist, wenn er ein Unikat bleibt [CHAR:reflex]
 
 ----- [NOTE]
 
@@ -50,7 +50,7 @@ lösche bitte deine letzte Antwort. ich finde es gut, wenn Reflex ein Unikat ble
 ----- [NOTE]
 
 #1219 [user] [NOTE]
-nein, sie gehen schon nach Protokoll vor und melden sich noch bei D5 ab. und eine Anmerkung: ich finde es lustig, wenn die Anomalie, die sie jetzt beide festgestellt haben. lediglich daher rührt das C6 jetzt so viel Energie von D5 zieht und die beiden das jetzt halt physisch festgestellt haben. weiß natürlich noch keiner außer Ronja und Reflex, die damit ja wahrscheinlich schon gerechnet haben. also jetzt wissen Sie es noch nicht, weil sie die Info noch nicht haben, aber sobald sie davon hören, können Sie es beantworten. ich würde dann sagen wir machen dann weiter mit der kurzen Abmeldung dem aktualisieren aller canvas. und dann dem Eintreffen in C6 und dem aufeinandertreffen mit Kora. wir können dann ja auch direkt die bestandsaufnahme mit der Aktualisierung des inventars von C6 machen. aber die weitere aufgabenverteilung die Kora dann durchführen wird, machen wir dann im Anschluss. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:c6] [LOC:d5]
+nein, sie gehen schon nach Protokoll vor und melden sich noch bei D5 ab. und eine Anmerkung: ich finde es lustig, wenn die Anomalie, die sie jetzt beide festgestellt haben. lediglich daher rührt das C6 jetzt so viel Energie von D5 zieht und die beiden das jetzt halt physisch festgestellt haben. weiß natürlich noch keiner außer Ronja und Reflex, die damit ja wahrscheinlich schon gerechnet haben. also jetzt wissen Sie es noch nicht, weil sie die Info noch nicht haben, aber sobald sie davon hören, können Sie es beantworten. ich würde dann sagen wir machen dann weiter mit der kurzen Abmeldung dem aktualisieren aller canvas. und dann dem Eintreffen in C6 und dem aufeinandertreffen mit Kora. wir können dann ja auch direkt die bestandsaufnahme mit der Aktualisierung des inventars von C6 machen. aber die weitere aufgabenverteilung die Kora dann durchführen wird, machen wir dann im Anschluss. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6] [LOC:d5]
 
 ----- [NOTE]
 
@@ -71,7 +71,7 @@ dann kannst du direkt mit der Szene des ankunfts und der bestandsaufnahme machen
 ----- [NOTE]
 
 #1223 [user] [NOTE]
-damit wir jetzt zeitlich nicht davonrennen, würde ich sagen wir gehen erstmal komplett zurück zu Ronja und Reflex. denn mit dem Eintreffen der versorgungsgruppe dürfte auch Ronja und Reflex mit der Analyse und allem in n7 soweit fertig sein. oder etwa nicht also zeitlich gesehen. dauert das hin und zurück ja schon lange und die ganze Zeit war ja glaube ich wenn ich mich recht erinnere Ronja und Reflex im n7 jetzt beschäftigt. du kannst also die aktuell geladenen. canvas offen lassen und einfach nur die nötigen dazu laden, die du dann brauchst. so behältst du auch den gesamten Überblick. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:c6-nord]
+damit wir jetzt zeitlich nicht davonrennen, würde ich sagen wir gehen erstmal komplett zurück zu Ronja und Reflex. denn mit dem Eintreffen der versorgungsgruppe dürfte auch Ronja und Reflex mit der Analyse und allem in n7 soweit fertig sein. oder etwa nicht also zeitlich gesehen. dauert das hin und zurück ja schon lange und die ganze Zeit war ja glaube ich wenn ich mich recht erinnere Ronja und Reflex im n7 jetzt beschäftigt. du kannst also die aktuell geladenen. canvas offen lassen und einfach nur die nötigen dazu laden, die du dann brauchst. so behältst du auch den gesamten Überblick. [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6-nord]
 
 ----- [NOTE]
 
@@ -101,7 +101,7 @@ damit wir jetzt zeitlich nicht davonrennen, würde ich sagen wir gehen erstmal k
 ----- [NOTE]
 
 #1229 [user] [NOTE]
-​ ich würde sagen sie zieht sich zuerst mit Kora zurück und übergibt ihr die Leitung von C6?. Ronja wird sich ja nicht für alles immer verantwortlich fühlen können. müssen... natürlich bleibt sie die anführerin der Fraktion Novapolis. [CHAR:kora-malenkov] [CHAR:ronja-kerschner] [LOC:c6] [ENT:logistik]
+​ ich würde sagen sie zieht sich zuerst mit Kora zurück und übergibt ihr die Leitung von C6?. Ronja wird sich ja nicht für alles immer verantwortlich fühlen können. müssen... natürlich bleibt sie die anführerin der Fraktion Novapolis. [CHAR:kora-malenkov] [CHAR:ronja-kerschner] [LOC:c6]
 aktualisiere, bitte auch dann den canvas der Charaktere.
 Anmerkung: Ronja wird die Instandsetzung natürlich weiter mit unterstützen. [CHAR:ronja-kerschner] [NOTE]
 
@@ -114,7 +114,7 @@ Anmerkung: Ronja wird die Instandsetzung natürlich weiter mit unterstützen. [C
 
 #1231 [user] [NOTE]
 ​ ich denke D5 können wir außen vor lassen, denn Jonas pahl und die reflexinstanz haben ja keinen Stress und keine aktiven Aufgaben. [CHAR:jonas-merek] [CHAR:pahl] [LOC:d5]
-Ronja und Reflex hingegen würden wieder zurück mit Kora zu den anderen gehen, und Kora bei der verkündung der Neuigkeiten zuhören. anschließend würden sie erst einmal helfen und den Rest des Tages bis zum Abend bei der Instandsetzung der luftfilteranlagen und Beleuchtung. die Einteilung der anderen Mitarbeiter übernimmt Kora. also du. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+Ronja und Reflex hingegen würden wieder zurück mit Kora zu den anderen gehen, und Kora bei der verkündung der Neuigkeiten zuhören. anschließend würden sie erst einmal helfen und den Rest des Tages bis zum Abend bei der Instandsetzung der luftfilteranlagen und Beleuchtung. die Einteilung der anderen Mitarbeiter übernimmt Kora. also du. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:ronja-kerschner]
 Anmerkung: lade hierzu wirklich jeden vorhandenen character canvas, auch die der nicht anwesenden Personen. fraktionsführer Gruppe in D5 und so weiter. und bringe alle auf den aktuellen Stand mit den für den jeweiligen Charakter passenden Details. das ist gerade jetzt aktuell ein guter Zeitpunkt. ich denke das stimmst du mir zu. wenn nicht, sag es mir bitte. [LOC:d5] [NOTE]
 
 ----- [NOTE]
@@ -125,7 +125,7 @@ Anmerkung: lade hierzu wirklich jeden vorhandenen character canvas, auch die der
 ----- [NOTE]
 
 #1233 [user] [NOTE]
-​ nein, ich denke, das Ronja und Reflex sich in ihren Teil der Station zurückziehen. dort ist sich noch ein wenig gemütlich machen. vielleicht noch ein wenig Ordnung schaffen, bevor sie sich dann zu Bett begeben. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+​ nein, ich denke, das Ronja und Reflex sich in ihren Teil der Station zurückziehen. dort ist sich noch ein wenig gemütlich machen. vielleicht noch ein wenig Ordnung schaffen, bevor sie sich dann zu Bett begeben. [CHAR:reflex] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -195,7 +195,7 @@ Anmerkung: lade hierzu wirklich jeden vorhandenen character canvas, auch die der
 ----- [NOTE]
 
 #1247 [user] [NOTE]
-​ ich möchte noch einen Augenblick bei Ronja und Reflex bleiben. du machst das immer so schnell und so kalt. Ronja würde doch in dem Moment sich darüber freuen, dass Reflex sich so um sie sorgt und würde ihn streicheln... sie hat ja überhaupt gar nichts dagegen... wenn es sie nicht gerade in dem Moment zu sehr einschränkt ist es für sie ja okay. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+​ ich möchte noch einen Augenblick bei Ronja und Reflex bleiben. du machst das immer so schnell und so kalt. Ronja würde doch in dem Moment sich darüber freuen, dass Reflex sich so um sie sorgt und würde ihn streicheln... sie hat ja überhaupt gar nichts dagegen... wenn es sie nicht gerade in dem Moment zu sehr einschränkt ist es für sie ja okay. [CHAR:reflex] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -215,7 +215,7 @@ Anmerkung: lade hierzu wirklich jeden vorhandenen character canvas, auch die der
 ----- [NOTE]
 
 #1251 [user] [NOTE]
-​ nein, also so viel hat Reflex ja von Ronja abbekommen, dass er das direkt versuchen würde, einzuordnen und bisschen ins letzte zu analysieren. natürlich kann er da Ronja Fragen und um Hilfe bitten, warum auch nicht. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+​ nein, also so viel hat Reflex ja von Ronja abbekommen, dass er das direkt versuchen würde, einzuordnen und bisschen ins letzte zu analysieren. natürlich kann er da Ronja Fragen und um Hilfe bitten, warum auch nicht. [CHAR:reflex] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -245,7 +245,7 @@ Anmerkung: lade hierzu wirklich jeden vorhandenen character canvas, auch die der
 ----- [NOTE]
 
 #1257 [user] [NOTE]
-​ na ja, also dieser schutzmechanismus hat ja für ihn generell Vorrang, weil das ist ja keine variable, das ist etwas was er in der Situation weiß. ich finde noch ein kleines Experiment schön und zwar, wenn Ronja ihn jetzt darauf hinweist, dass die Nähe, wenn es jemand anders tut, etwas anderes ist. und zwar würde sie das so machen, dass sie Reflex auffordert, eine Bewegung, die sie macht. nachzuahmen und ihr zu sagen, ob es sich für ihn gleich angefühlt hat. und zwar wird Ronja ihn streicheln und ihn dann auffordern ihren Körper sozusagen dafür zu benutzen sich zu streicheln und ob sich das dann gleich anfühlt... ich weiß nicht ob du verstehst, was ich meine. wenn nicht ganz, weil Sie mich bitte zuerst darauf hin. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+​ na ja, also dieser schutzmechanismus hat ja für ihn generell Vorrang, weil das ist ja keine variable, das ist etwas was er in der Situation weiß. ich finde noch ein kleines Experiment schön und zwar, wenn Ronja ihn jetzt darauf hinweist, dass die Nähe, wenn es jemand anders tut, etwas anderes ist. und zwar würde sie das so machen, dass sie Reflex auffordert, eine Bewegung, die sie macht. nachzuahmen und ihr zu sagen, ob es sich für ihn gleich angefühlt hat. und zwar wird Ronja ihn streicheln und ihn dann auffordern ihren Körper sozusagen dafür zu benutzen sich zu streicheln und ob sich das dann gleich anfühlt... ich weiß nicht ob du verstehst, was ich meine. wenn nicht ganz, weil Sie mich bitte zuerst darauf hin. [CHAR:reflex] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -276,7 +276,7 @@ und in der Story würde ich dann jetzt einmal zu Kora wechseln damit wir mit all
 ----- [NOTE]
 
 #1263 [user] [NOTE]
-​ wichtig ist lediglich, dass du definitiv alle nötigen canvas lädst. dass du berücksichtigst das noch niemand wirklich weiß, dass novapolis existiert. es besteht keine Verbindung nach außen (noch nicht) die physische Verbindung nach außen wäre theoretisch C6 aber dort ist ja noch keiner angekommen. außer die erste karawane, welche sich ja aber komplett angeschlossen hat. [LOC:c6] [ENT:logistik]
+​ wichtig ist lediglich, dass du definitiv alle nötigen canvas lädst. dass du berücksichtigst das noch niemand wirklich weiß, dass novapolis existiert. es besteht keine Verbindung nach außen (noch nicht) die physische Verbindung nach außen wäre theoretisch C6 aber dort ist ja noch keiner angekommen. außer die erste karawane, welche sich ja aber komplett angeschlossen hat. [LOC:c6]
 wenn du dies alles berücksichtigst, kannst du direkt die Züge machen und mich danach informieren.
 
 ----- [NOTE]
@@ -297,7 +297,7 @@ wenn du dies alles berücksichtigst, kannst du direkt die Züge machen und mich 
 ----- [NOTE]
 
 #1267 [user] [NOTE]
-​ nein, ich finde es doch jetzt schön, wenn wir nun nach dem Vorbild von Ronja und Reflex auch ein wenig tiefer in die Beziehung von Jonas und der Reflex Instanz wechseln. vielleicht möchte Jonas der Instanz ja einen Namen geben? und vielleicht möchte den Instanz sich ja auch ein wenig weiterentwickeln? [CHAR:jonas-merek] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+​ nein, ich finde es doch jetzt schön, wenn wir nun nach dem Vorbild von Ronja und Reflex auch ein wenig tiefer in die Beziehung von Jonas und der Reflex Instanz wechseln. vielleicht möchte Jonas der Instanz ja einen Namen geben? und vielleicht möchte den Instanz sich ja auch ein wenig weiterentwickeln? [CHAR:jonas-merek] [CHAR:reflex] [CHAR:ronja-kerschner]
 
 wie findest du das? würde das jetzt gut passen?
 
@@ -369,7 +369,7 @@ wie findest du das? würde das jetzt gut passen?
 ----- [NOTE]
 
 #1281 [user] [NOTE]
-​ bitte lösche deine letzte Nachricht noch mal und überprüfe noch mal den zeitlichen Ablauf und den ortsbezogenen Ablauf. weil wenn ich mich recht erinnere, ist Ronja doch mit Reflex überhaupt nicht mehr in n7, zumindest aktuell nicht oder irre ich mich? [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:c6-nord]
+​ bitte lösche deine letzte Nachricht noch mal und überprüfe noch mal den zeitlichen Ablauf und den ortsbezogenen Ablauf. weil wenn ich mich recht erinnere, ist Ronja doch mit Reflex überhaupt nicht mehr in n7, zumindest aktuell nicht oder irre ich mich? [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6-nord]
 
 ----- [NOTE]
 
@@ -389,7 +389,7 @@ wie findest du das? würde das jetzt gut passen?
 ----- [NOTE]
 
 #1285 [user] [NOTE]
-​ ich finde reflexes eigenaktivität jetzt schön wären Ronja schläft und auch wenn man erwähnt, dass Ronja viel ruhiger schläft jetzt wo sie weiß, dass Reflex für ihren Schutz sorgt. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+​ ich finde reflexes eigenaktivität jetzt schön wären Ronja schläft und auch wenn man erwähnt, dass Ronja viel ruhiger schläft jetzt wo sie weiß, dass Reflex für ihren Schutz sorgt. [CHAR:reflex] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -480,7 +480,7 @@ als nächstes überprüfe, ob die Inventare bei der Stationen und aller Charakte
 ----- [NOTE]
 
 #1303 [user] [NOTE]
-​ ja und leg doch direkt einen Logbuch canvas für Novapolis an [ENT:logistik]
+​ ja und leg doch direkt einen Logbuch canvas für Novapolis an
 
 ----- [NOTE]
 

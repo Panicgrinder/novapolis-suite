@@ -1,8 +1,6 @@
----
-stand: 2025-11-26 03:54
-update: Volltext aus Archiv wiederhergestellt; Header aktualisiert
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS
----
+Stand: 2025-11-26 03:54 – Volltext aus Archiv wiederhergestellt; Header aktualisiert
+Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS
+
 
 LLM-Dokumentenheader (nicht löschen)
 ====================================

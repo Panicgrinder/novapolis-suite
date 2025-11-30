@@ -5,9 +5,7 @@ checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' 
 last-updated: 2025-11-07T03:32:00+01:00
 category: character
 slug: reflex-wissensstand-trainingsstand
-title: Reflex – Wissensstand & Trainingsstand
 ---
-last-updated: 2025-11-07T03:32:00+01:00
 ---
 
 Reflex - Wissensstand & Trainingsstand

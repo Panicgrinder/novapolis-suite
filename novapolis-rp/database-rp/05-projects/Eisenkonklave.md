@@ -3,7 +3,6 @@ stand: 2025-11-27 03:25
 update: Stub angelegt; eisenkonklave als Fraktions-Canvas erfasst
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
 slug: eisenkonklave
-title: Eisenkonklave (Fraktion)
 category: faction
 status: draft
 version: "0.1"

@@ -1,6 +1,6 @@
 
 #801 [user] [NOTE]
-dann würde ich sagen, Ronja erwacht und natürlich das erste was sie merkt oder spürt. ist das Reflex noch immer wie ein enger neoprenanzug an ihr anliegt?.... andere Leute würde das wahrscheinlich verstören oder zumindest überraschen. doch ihr gibt es inzwischen ein Gefühl von Sicherheit, woraufhin sie beschließt, noch einen Moment länger liegen zu bleiben, sich selbst umarmt und ihre Arme streichelt natürlich nicht, um sich selbst zu streicheln, sondern es um Reflex zu streicheln, ein wenig Nähe in dieser kalten dunklen feuchten trostlosen Metro.... eigentlich schon heftig in was für einer Situation, die sich befindet und dann Reflex sich überhaupt keine Sorgen machen muss. wenn man das so differenziert betrachtet, ist ihre Situation sehr sehr außergewöhnlich und das meine ich nicht. weil sie ihren Kopf gegrillt hat  xD [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+dann würde ich sagen, Ronja erwacht und natürlich das erste was sie merkt oder spürt. ist das Reflex noch immer wie ein enger neoprenanzug an ihr anliegt?.... andere Leute würde das wahrscheinlich verstören oder zumindest überraschen. doch ihr gibt es inzwischen ein Gefühl von Sicherheit, woraufhin sie beschließt, noch einen Moment länger liegen zu bleiben, sich selbst umarmt und ihre Arme streichelt natürlich nicht, um sich selbst zu streicheln, sondern es um Reflex zu streicheln, ein wenig Nähe in dieser kalten dunklen feuchten trostlosen Metro.... eigentlich schon heftig in was für einer Situation, die sich befindet und dann Reflex sich überhaupt keine Sorgen machen muss. wenn man das so differenziert betrachtet, ist ihre Situation sehr sehr außergewöhnlich und das meine ich nicht. weil sie ihren Kopf gegrillt hat  xD [CHAR:reflex] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -21,11 +21,11 @@ beim Frühstück wird sie die Aufteilung der Station mit der anführerin der kar
 ----- [NOTE]
 
 #805 [user] [NOTE]
-die Leute dürften ja Reflex so nicht erkennen. für sie ist er ja im Prinzip ein Anzug unter ihren normalen Klamotten... [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
+die Leute dürften ja Reflex so nicht erkennen. für sie ist er ja im Prinzip ein Anzug unter ihren normalen Klamotten... [CHAR:reflex]
 
 gib mir hier bitte ganz kurz die Daten zur Station C6 und zwar das begehbaren Bereichs in Quadratmetern Nutzfläche und auch die Aufteilung davon Vermerke. dies auch direkt im betreffenden canvas und Update ihn. [LOC:c6]
 
-danach gehen wir wieder zurück ins RP. und an die Bedürfnisse der karawane bzw. der platzbedürfnisse für den teil des handelshauptquartiers, dass sich ja in der Station C6 niederlassen wird bzw. welches die Fraktion novapolis dort errichtet. [LOC:c6] [ENT:logistik]
+danach gehen wir wieder zurück ins RP. und an die Bedürfnisse der karawane bzw. der platzbedürfnisse für den teil des handelshauptquartiers, dass sich ja in der Station C6 niederlassen wird bzw. welches die Fraktion novapolis dort errichtet. [LOC:c6]
 
 ----- [NOTE]
 
@@ -62,7 +62,7 @@ mache kurz einen systemcheck der aktuell nötigen canvas mit Abgleich zu deinem 
 
 anschließend geht es damit weiter, dass sich Ronja noch immer während des frühstücks, hoffe ich doch mit der anführerin der karawane unterhält und ihr erstmal die Einteilung ihrer Leute überlässt, also der Mitglieder der karawane. [CHAR:ronja-kerschner]
 des weiteren wird sie fragen, ob von diesen Mitgliedern, welche zur festen Besatzung von C6 werden möchten, also zu den Bewohnern der Station, den festen Bewohnern. [LOC:c6]
-die Station wird. aktuell würde ich vorschlagen, so aufgeteilt, dass ein Drittel an die Händler von novapolis (spielerfraktion) geht ein Drittel das abgesperrt werden kann, wird für die Verwaltung, sprich ronjas Werkstatt. ein provisorisches kleines, kommandozentrum etc. was natürlich gerade nur Planung ist. es ist nicht dort vorhanden. und ein Drittel. da wir ja aktuell nichts für Besucher haben, wird sich das letzte Drittel die festen Bewohner und Besucher teilen müssen. [ENT:logistik]
+die Station wird. aktuell würde ich vorschlagen, so aufgeteilt, dass ein Drittel an die Händler von novapolis (spielerfraktion) geht ein Drittel das abgesperrt werden kann, wird für die Verwaltung, sprich ronjas Werkstatt. ein provisorisches kleines, kommandozentrum etc. was natürlich gerade nur Planung ist. es ist nicht dort vorhanden. und ein Drittel. da wir ja aktuell nichts für Besucher haben, wird sich das letzte Drittel die festen Bewohner und Besucher teilen müssen.
 ich möchte hierzu dann gerne eine genaue Einteilung auch haben, also die Teile der Station zugewiesen und dann auch im canvas aktualisiert und detailliert auch beschrieben, dass man jederzeit weiß, wenn man in die Station kommt, aus Richtung d6 wie es in der Station aussieht, wer welchen Teil der Station zugewiesen hat etc.
 im canvas natürlich weiterhin für maschinenlesbarkeit optimiert, aber hier im Chat natürlich für die sprachausgabe optimiert.
 
@@ -108,7 +108,7 @@ ja, mach das bitte
 ----- [NOTE]
 
 #819 [user] [NOTE]
-ja, das wäre schön. bitte schreibe dieses Mal ausnahmsweise länger und ausführlicher mit etwas mehr Tiefe, etwas mehr wie eine Erzählung. ich denke das passt in dieser Situation. mit so vielen Beteiligten denke ich am besten. nur eine Kleinigkeit. vielleicht ich weiß nicht, ob Reflex sich direkt zu erkennen geben möchte oder erweiter hin. lieber als schutzschicht und dafür ungesehen unter ronjas Kleidung bleibt. es wäre natürlich auch lustig, wenn irgendetwas eine Reaktion von ihm forcieren würde. alleine, weil ich gerne die Reaktion der anderen darauf sehen wollen, würde auf diese Kreatur, hört sich böse an, als es gemeint ist. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
+ja, das wäre schön. bitte schreibe dieses Mal ausnahmsweise länger und ausführlicher mit etwas mehr Tiefe, etwas mehr wie eine Erzählung. ich denke das passt in dieser Situation. mit so vielen Beteiligten denke ich am besten. nur eine Kleinigkeit. vielleicht ich weiß nicht, ob Reflex sich direkt zu erkennen geben möchte oder erweiter hin. lieber als schutzschicht und dafür ungesehen unter ronjas Kleidung bleibt. es wäre natürlich auch lustig, wenn irgendetwas eine Reaktion von ihm forcieren würde. alleine, weil ich gerne die Reaktion der anderen darauf sehen wollen, würde auf diese Kreatur, hört sich böse an, als es gemeint ist. [CHAR:reflex]
 
 ----- [NOTE]
 
@@ -118,7 +118,7 @@ ja, das wäre schön. bitte schreibe dieses Mal ausnahmsweise länger und ausfü
 ----- [NOTE]
 
 #821 [user] [NOTE]
-na ja, also unkommentiert würde ich das jetzt nicht stehen lassen. ich denke Ronja würde dann doch nun Reflex vorstellen. und da dieses Jahr die main Instanz von Reflex ist, kann er auch verbal kommunizieren, das nicht vergessen. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+na ja, also unkommentiert würde ich das jetzt nicht stehen lassen. ich denke Ronja würde dann doch nun Reflex vorstellen. und da dieses Jahr die main Instanz von Reflex ist, kann er auch verbal kommunizieren, das nicht vergessen. [CHAR:reflex] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -158,7 +158,7 @@ bevor du das tust beurteile bitte ganz Objektiv wie gut oder schlecht ich bis je
 ----- [NOTE]
 
 #829 [user] [NOTE]
-na ja, gut. Reflex ist doch schon wach. die hatten doch gerade alle gefrühstückt... aber ja, wir spielen diese Szene jetzt [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
+na ja, gut. Reflex ist doch schon wach. die hatten doch gerade alle gefrühstückt... aber ja, wir spielen diese Szene jetzt [CHAR:reflex]
 
 ----- [NOTE]
 
@@ -180,7 +180,7 @@ bitte beachte das wir immer noch auf Symbiose Stufe 1 sind. die Kommunikation is
 ----- [NOTE]
 
 #833 [user] [NOTE]
-ja, tu das und bitte in Zukunft daran denken, dass der hauptkörper bzw. die maininstanz von Reflex eigentlich ja genauso wie die kleine daheim in d6 sich fortbewegen. kann denn eigentlich ist sie ja eine. wie nennen wir das? biologische wurzelstruktur?... naja, jedenfalls Reflex kann sich fortbewegen und reden und ist dementsprechend natürlich wesentlich weiterentwickelt als sagen wir sein kleiner Bruder daheim. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
+ja, tu das und bitte in Zukunft daran denken, dass der hauptkörper bzw. die maininstanz von Reflex eigentlich ja genauso wie die kleine daheim in d6 sich fortbewegen. kann denn eigentlich ist sie ja eine. wie nennen wir das? biologische wurzelstruktur?... naja, jedenfalls Reflex kann sich fortbewegen und reden und ist dementsprechend natürlich wesentlich weiterentwickelt als sagen wir sein kleiner Bruder daheim. [CHAR:reflex]
 
 aktualisiere, nun die Einträge und dann würde ich vorschlagen, dass Ronja Kora vorschlägt einmal einen der verschütteten nahegelegenen Gänge freizuräumen, falls möglich, also interne Gänge der Station nicht Tunnel irgendwo anders hin. [CHAR:kora-malenkov] [CHAR:ronja-kerschner]
 
@@ -212,7 +212,7 @@ Ronja würde natürlich wie gehabt geplant. vorsichtig nichts stürzen in aller 
 ----- [NOTE]
 
 #839 [user] [NOTE]
-nein, das ist nicht nötig. wir machen direkt weiter. und zwar wird Ronja mit dem Schutz von Reflex vorausgehen und den Raum vorsichtig untersuchen, ob er sicher ist [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+nein, das ist nicht nötig. wir machen direkt weiter. und zwar wird Ronja mit dem Schutz von Reflex vorausgehen und den Raum vorsichtig untersuchen, ob er sicher ist [CHAR:reflex] [CHAR:ronja-kerschner]
 
 ----- [NOTE]
 
@@ -254,7 +254,7 @@ lösche bitte deine letzte Nachricht erneut. sie hat auch keine Kamera. ganz wic
 #847 [user] [NOTE]
 leider muss ich dich bitten, auch diese Antworten noch einmal zu löschen.
 ich vermute, dass dein Kontext langsam etwas überladen ist mit zu vielen gleichen bzw. sich widersprechenden Informationen.
-denn eine der wichtigsten persönlichkeitseigenschaften von Reflex ist ja, dass er sich nicht von Ronja trennen möchte. er wird also nicht einfach so von ihr weggehen. er kann sich Strecken etc. das alles ist möglich, aber sich nicht von ihr lösen. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+denn eine der wichtigsten persönlichkeitseigenschaften von Reflex ist ja, dass er sich nicht von Ronja trennen möchte. er wird also nicht einfach so von ihr weggehen. er kann sich Strecken etc. das alles ist möglich, aber sich nicht von ihr lösen. [CHAR:reflex] [CHAR:ronja-kerschner]
 
 bevor wir nun weitermachen. was hältst du davon? oder ist es sinnvoll, wenn du einmal deinen Kontext komplett leerst? und dann nur die betroffenen canvas und den chatverlauf bis zur Simulation der fraktionswoche zurück in den Kontext lädst? ist das möglich und sinnvoll?
 
@@ -298,7 +298,7 @@ ich denke nun ist das korrekt. vielen Dank, dann führe nun die Bereinigung des 
 ----- [NOTE]
 
 #855 [user] [NOTE]
-Reinit-Prompt „Novapolis – Kontext nach Reset“ [ENT:logistik]
+Reinit-Prompt „Novapolis – Kontext nach Reset“
 
 Lade in den aktiven Kontext:
 
@@ -365,7 +365,7 @@ D5-Belegung: Jonas + Pahl + Reflex-Nebeninstanz (Aufsicht über Jonas). [CHAR:jo
 
 Fracht-Anomalien (gesichert, ungeöffnet):
 
-Kiste 7A: unbekanntes biologisch-reaktives Material, feiner „lebendiger“ Metallstaub; resoniert mit Reflex. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
+Kiste 7A: unbekanntes biologisch-reaktives Material, feiner „lebendiger“ Metallstaub; resoniert mit Reflex. [CHAR:reflex]
 
 Kiste 9B: Eisenkonklave-Module Typ RL (Ziel E2); 4 Stück; Warnhinweis „Resonanzreaktion“. [LOC:e2]
 
@@ -402,7 +402,7 @@ RP-Startpunkt nach Reinit: [EVENT]
 
 Zeit: Ende des ersten Arbeitstages der Freilegung in C6 (parallel existiert D5-Alltag). [LOC:c6] [LOC:d5]
 
-Szene-Fokus: C6, Ronja + Reflex + Kora; Bereich C6-N3 gesichert; Artefakt 7A markiert; weitere Räume werden morgen angegangen. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner] [LOC:c6] [LOC:n3]
+Szene-Fokus: C6, Ronja + Reflex + Kora; Bereich C6-N3 gesichert; Artefakt 7A markiert; weitere Räume werden morgen angegangen. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:c6] [LOC:n3]
 
 Tonalität: vorsichtiger Optimismus, hohe Ordnungslust, latent misstrauisch gegenüber externen Ursprüngen (Konklave, „lebendiges“ Metall).
 
@@ -411,7 +411,7 @@ Do/Don’t während Fortsetzung:
 
 Do: strikte Trennung D5/C6-Inventare, keine stillschweigende Transfers. [LOC:c6] [LOC:d5]
 
-Do: Reflex bleibt körperlich an Ronja, nutzt nur Streck-/Schutzfunktionen. [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand] [CHAR:ronja-kerschner]
+Do: Reflex bleibt körperlich an Ronja, nutzt nur Streck-/Schutzfunktionen. [CHAR:reflex] [CHAR:ronja-kerschner]
 
 Don’t: neue Sensoren/Kameras/Gadgets ohne RP-Einführung.
 
@@ -445,7 +445,7 @@ dann typisch Ronja überprüft Sie zuerst noch einmal, um auf Nummer sicher zu g
 ----- [NOTE]
 
 #861 [user] [NOTE]
-zuerst waren sie Kora. dann wie immer systematisch Stück für Stück geht sie vor.... sie beginnt mit einer rein visuellen Prüfung. anschließend geht sie näher heran und lässt Reflex einmal schauen, ob er etwas herausfinden kann. dazu muss sie ja nur die Hand ausstrecken. bevor sie allerdings die Hand ausstreckt, weiß sie extra Reflex darauf hin. ihre Hand wie ein handschuh zu bedecken und auch was sie vorhat, teilt sie ihm mit. [CHAR:kora-malenkov] [CHAR:reflex] [CHAR:reflex-wissensstand-trainingsstand]
+zuerst waren sie Kora. dann wie immer systematisch Stück für Stück geht sie vor.... sie beginnt mit einer rein visuellen Prüfung. anschließend geht sie näher heran und lässt Reflex einmal schauen, ob er etwas herausfinden kann. dazu muss sie ja nur die Hand ausstrecken. bevor sie allerdings die Hand ausstreckt, weiß sie extra Reflex darauf hin. ihre Hand wie ein handschuh zu bedecken und auch was sie vorhat, teilt sie ihm mit. [CHAR:kora-malenkov] [CHAR:reflex]
 
 ----- [NOTE]
 

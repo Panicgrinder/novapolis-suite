@@ -3,7 +3,6 @@ stand: 2025-11-27 03:25
 update: Stub angelegt; relationslog_eisenkonklave_v1 dokumentiert
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
 slug: relationslog_eisenkonklave_v1
-title: Relationslog Eisenkonklave (v1)
 category: admin
 status: draft
 version: "0.1"

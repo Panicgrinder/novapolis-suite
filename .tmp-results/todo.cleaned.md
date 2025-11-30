@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-27 22:50
-update: Tagging 015-010 Write-Run ausgeführt; Tree/Doku-Sync & Lint/Frontmatter PASS
-checks: python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run PASS; python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 PASS; tree /A /F PASS; tree /A PASS; python scripts/update_workspace_tree_dirs.py PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md PASS
+stand: 2025-11-30 18:56
+update: Tagging 015-010 Dokumentation aktualisiert; STOP-Plan 009-001 hinzugefügt
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md PASS
 ---
 
 Bereinigte Aufgabenliste (Root)
@@ -15,6 +15,12 @@ Hoch priorisiert (0-2 Tage)
  - [x] STOP-Plan 015-010 Write-Run (R-STOP/R-WRAP/R-LOG, abgeschlossen 2025-11-27 22:10)
    - Backups/Snapshot aktualisiert, Dry-Run & Write-Run PASS (alias collisions unverändert, canonicalized N7=2), Log `reports/tagging-20251127T212031Z.log` gesichert.
    - Targeted markdownlint (`todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md`) PASS; Frontmatter-Validator für dieselben Docs PASS; Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) regeneriert.
+
+   - [ ] STOP-Plan 009-001 Write-Run (R-STOP/R-WRAP/R-LOG)
+     - Backups erneut ziehen (`AI-Behavior-Mapping.{md,json}` → `Backups/tagging-pipeline/AI-Behavior-Mapping-20251130-*.{md,json}`) sowie Snapshot `Backups/tagging-009-001-prewrite.txt` mit SHA256/Size der reviewed Outputs erstellen.
+     - Guard: `python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root "novapolis-rp/database-curated/staging/chunks/chat-export (1)" --out-root "novapolis-rp/database-curated/reviewed/chat-export (1)" --range 009-001 --dry-run`; STOP falls neue alias_collisions oder `unresolved_dependencies` auftreten.
+     - Write: gleicher Befehl ohne `--dry-run`; erwartet `.tagged` 009→001, aktualisierte `index_review.json`/`lexicon.json`/`unresolved.json` und Report `reports/tagging-2025*.log`.
+     - Nachbereitung: targeted `markdownlint-cli2` + `python scripts/check_frontmatter.py` (Scope: Root/Dev TODO+DONELOG+Status), `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `.tmp-results/todo.cleaned.md`, `todo.root.md`, `WORKSPACE_STATUS.md`, Tree-Snapshots aktualisieren; Postflight dokumentieren.
 
   - Ziel: `pytest -q` PASS, `pyright` PASS, `mypy` PASS, Coverage ≥80% mit Receipt.
   - Schritte: pytest → pyright → mypy → `scripts/run_pytest_coverage.ps1` (Receipt in `DONELOG.md` + `WORKSPACE_STATUS.md`).

@@ -6,12 +6,6 @@ canvas: AI-Behavior-Mapping
 last-updated: 2025-11-07T04:09:00+01:00
 category: admin
 slug: ai_behavior_index_v2
-title: AI Behavior Matrix & Mapping (v2)
-version: 1.0
----
-canvas: AI-Behavior-Mapping
-last-updated: 2025-11-07T04:09:00+01:00
-category: Admin
 version: 1.0
 ---
 

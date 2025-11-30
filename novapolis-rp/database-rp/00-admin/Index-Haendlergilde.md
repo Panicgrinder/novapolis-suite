@@ -3,7 +3,6 @@ stand: 2025-11-27 03:25
 update: Stub angelegt; index_haendlergilde_v1 aufgenommen
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
 slug: index_haendlergilde_v1
-title: Index Händlergilde (v1)
 category: admin
 status: draft
 version: "0.1"
