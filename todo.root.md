@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-30 18:56
-update: Tagging 015-010 Dokumentation nachgezogen; STOP-Plan 009-001 vorbereitet
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md PASS
+stand: 2025-12-01 18:57
+update: Tagging 009-001 abgeschlossen; TODOs synchronisiert & Alias-Follow-up erfasst
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' (2025-12-01) PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md (2025-12-01) PASS
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -139,11 +139,12 @@ Nächstes Vorgehen (1-2 Tage)
   - Backups + Hash-Snapshot siehe STOP-Plan oben; Dry-Run + Write-Run PASS (alias collisions unverändert, canonicalized N7 total 2) mit Report `reports/tagging-20251127T212031Z.log`.
   - Workspace-Doku aktualisiert (`DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md`, `.tmp-results/todo.cleaned.md`, `todo.root.md`), Tree-Snapshots regeneriert (`tree /A /F`, `tree /A`, `python scripts/update_workspace_tree_dirs.py`).
   - Targeted markdownlint + Frontmatter-Validator PASS; Folgeaufgabe: Range 009-001 Plan (siehe Dev-Hub) um neue Guard-Checks ergänzen.
-- [ ] STOP-Plan 009-001 Write-Run (R-STOP/R-WRAP/R-LOG)
-  - Backups: `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.{md,json}` erneut sichern (`Backups/tagging-pipeline/AI-Behavior-Mapping-20251130-*.{md,json}`) und Snapshot `Backups/tagging-009-001-prewrite.txt` mit SHA256/Size der reviewed Outputs erzeugen.
-  - Guard: `python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root "novapolis-rp/database-curated/staging/chunks/chat-export (1)" --out-root "novapolis-rp/database-curated/reviewed/chat-export (1)" --range 009-001 --dry-run`; abbrechen bei neuen alias_collisions oder `unresolved_dependencies` ≠ ∅.
-  - Write: identisches Kommando ohne `--dry-run`; erwartet `.tagged` 009→001 + aktualisierte `index_review.json`/`lexicon.json`/`unresolved.json` und Report `reports/tagging-2025*.log`.
-  - Nachbereitung: targeted `markdownlint-cli2` + `python scripts/check_frontmatter.py` (Scope: Root/Dev TODO+DONELOG+Status), `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `.tmp-results/todo.cleaned.md`, `todo.root.md`, `WORKSPACE_STATUS.md` und Tree-Snapshots aktualisieren; Postflight dokumentieren.
+ - [x] STOP-Plan 009-001 Write-Run (R-STOP/R-WRAP/R-LOG)
+  - Backups: 2025-12-01 08:19 abgeschlossen (`Backups/tagging-pipeline/AI-Behavior-Mapping-20251201-081946.{md,json}` + Snapshot `Backups/tagging-009-001-prewrite.txt` via `git ls-tree -l HEAD -- "novapolis-rp/database-curated/reviewed/chat-export (1)"`).
+  - Guard (Dry-Run): `python ... --range 009-001 --dry-run` PASS (`unresolved_dependencies=[]`, Alias-Kollision unverändert `verbindungstunnel-c6-e3` ↔ `verbindungstunnel-d5-c6`), JSON-Summary im Terminal gesichert.
+  - Write: gleicher Befehl ohne `--dry-run`; `.tagged` 009→001 + `index_review.json`/`lexicon.json`/`unresolved.json` aktualisiert; Logs aktuell nur via STDOUT verfügbar (Skript erzeugt noch keine Dateien).
+  - Nachbereitung (laufend): targeted `markdownlint-cli2` + `python scripts/check_frontmatter.py`, Root/Dev TODO/DONELOG/Status aktualisieren, Tree-Snapshots regenerieren, Postflight protokollieren.
+ - [ ] Alias-Kollision „Verbindungstunnel" auflösen (Slug-Konvention vs. Doppel-Schreibweise), bevor nächste Range (≤000) geplant wird – Optionen: alias-map ergänzen oder Stage-Daten normalisieren.
 - [ ] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` prüfen; auf Minimal-Ausnahmen reduzieren oder entfernen.
 - [ ] Staging-Reports (`database-curated/staging/reports/*.md`) mit YAML-Frontmatter/Setext nachziehen oder in `novapolis-dev/docs/` migrieren; Altdateien nach Freigabe löschen.
 - [ ] Metadata-Initialisierungsskripte (`coding/tools/metadata/init-metadata.js` vs. `init_metadata.py`) konsolidieren und kanonische Variante dokumentieren.

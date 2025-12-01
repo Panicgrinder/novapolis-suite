@@ -1,11 +1,11 @@
 {
   "unresolved_dependencies": [],
   "alias_collisions": {
-    "verbindungstunnel": [
+    "Verbindungstunnel": [
       "verbindungstunnel-c6-e3",
       "verbindungstunnel-d5-c6"
     ],
-    "Verbindungstunnel": [
+    "verbindungstunnel": [
       "verbindungstunnel-c6-e3",
       "verbindungstunnel-d5-c6"
     ]

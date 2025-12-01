@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-30 18:56
-update: Doku-/Statussync nach Tagging-Refresh erfasst; STOP-Plan 009-001 vorbereitet
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md PASS
+stand: 2025-12-01 18:57
+update: Tagging 009-001 (Dry→Write) protokolliert; Lint/Validator rerun
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' (2025-12-01) PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md (2025-12-01) PASS
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -12,6 +12,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2025-12-01 08:47: RP Tagging-Pipeline Range 009-001 (Dry→Write) abgeschlossen – Backups `AI-Behavior-Mapping-20251201-081946.*`, Snapshot `Backups/tagging-009-001-prewrite.txt` (HEAD-Liste), Dry-Run bestätigte nur Alias-Kollision `verbindungstunnel`, Write-Run erzeugte `.tagged` 009→001 plus aktualisierte `index_review.json`/`lexicon.json`/`unresolved.json`.
 - 2025-11-30 08:13: Doku-/Statussync nach Tagging-Refresh eingetragen (Root/Dev TODOs, DONELOGs, WORKSPACE_STATUS, Temp-TODO). STOP-Plan 009-001 ergänzt; keine neuen Skriptläufe.
 - 2025-11-27 03:29: RP-Lexikon/Dependencies bereinigt (Slugs ergänzt, neue Admin-/Faktions-Stubs, alias-Fix für C6 vs. C6-Nord); Dry-Run (015-010) bestätigt keine offenen Dependencies.
 - 2025-11-27 22:10: Tagging-Pipeline 015-010 erneut durchlaufen (Dry→Write) inkl. Backups/Hash-Snapshot; targeted markdownlint & Frontmatter PASS; Tree-Snapshots/Status-Docs aktualisiert.
@@ -23,6 +24,10 @@ Kurzueberblick
  - 2025-11-17 09:40: Archivierung & Aufräumaktion: Geparkte `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Live-Stubs durch explizite Import-Fehlermarker ersetzt; Root-`app/__init__.py` Shim hinzugefügt um Root-Tests zu unterstützen; betroffene Tests angepasst. Commits: `1df7561`, `6191a5d`.
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+
+2025-12-01 08:47 | Copilot | RP Tagging-Pipeline 009-001 (Dry→Write)
+Meta: {"Timestamp": "2025-12-01 08:47", "Backups": ["Backups/tagging-pipeline/AI-Behavior-Mapping-20251201-081946.md", "Backups/tagging-pipeline/AI-Behavior-Mapping-20251201-081946.json"], "Snapshot": "Backups/tagging-009-001-prewrite.txt (git ls-tree HEAD)", "Commands": ["python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root 'novapolis-rp/database-curated/staging/chunks/chat-export (1)' --out-root 'novapolis-rp/database-curated/reviewed/chat-export (1)' --range 009-001 --dry-run", "python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root 'novapolis-rp/database-curated/staging/chunks/chat-export (1)' --out-root 'novapolis-rp/database-curated/reviewed/chat-export (1)' --range 009-001"], "DryRun": {"alias_collisions": {"verbindungstunnel": ["verbindungstunnel-c6-e3", "verbindungstunnel-d5-c6"]}, "unresolved_dependencies": []}, "Outputs": ["novapolis-rp/database-curated/reviewed/chat-export (1)/part-009.tagged.txt", "novapolis-rp/database-curated/reviewed/chat-export (1)/part-008.tagged.txt", "novapolis-rp/database-curated/reviewed/chat-export (1)/part-007.tagged.txt", "novapolis-rp/database-curated/reviewed/chat-export (1)/part-006.tagged.txt", "novapolis-rp/database-curated/reviewed/chat-export (1)/part-005.tagged.txt", "novapolis-rp/database-curated/reviewed/chat-export (1)/part-004.tagged.txt", "novapolis-rp/database-curated/reviewed/chat-export (1)/part-003.tagged.txt", "novapolis-rp/database-curated/reviewed/chat-export (1)/part-002.tagged.txt", "novapolis-rp/database-curated/reviewed/chat-export (1)/part-001.tagged.txt", "index_review.json", "lexicon.json", "unresolved.json"]}
+Kurz: STOP-Plan 009-001 ausgeführt. Fresh backups (`AI-Behavior-Mapping-20251201-081946.*`) lagen vor, zusätzlich Snapshot `Backups/tagging-009-001-prewrite.txt` mit HEAD-Dateiliste erstellt. Dry-Run bestätigte unveränderte Alias-Kollision (`verbindungstunnel-c6-e3` ↔ `verbindungstunnel-d5-c6`), keine `unresolved_dependencies` oder Unknown-Tokens. Write-Run produzierte `.tagged` 009→001 plus aktualisierte `index_review.json`/`lexicon.json`/`unresolved.json`. Nachbereitung: targeted markdownlint (`todo.root.md ... .tmp-results/todo.cleaned.md`) und `python scripts/check_frontmatter.py` (selber Scope) am 2025-12-01 PASS; weitere Dokument-/Tree-Syncs laufen in den jeweiligen Statusdateien. Folgeaufgaben: collisions-Review (Verbindungstunnel) und Vorbereitung nächster Range.
 
 2025-11-30 08:13 | Copilot | RP Tagging 015-010 Doc/Statussync & STOP-Plan 009-001 (Record)
 Meta: {"Timestamp": "2025-11-30 08:13", "Files": ["todo.root.md", ".tmp-results/todo.cleaned.md", "DONELOG.md", "novapolis-dev/docs/donelog.md", "WORKSPACE_STATUS.md"], "Notes": "Dokumentation/Tasks nach Tagging-Refresh synchronisiert; STOP-Plan 009-001 als Folgeaufgabe aufgenommen."}

@@ -1,15 +1,22 @@
 ---
-stand: 2025-11-30 18:56
-update: Tagging 015-010 Nachbereitung dokumentiert; STOP-Plan 009-001 detailliert
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md PASS
+stand: 2025-12-01 18:57
+update: Tagging 009-001 Write-Run dokumentiert; Folgeaufgaben markiert
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' (2025-12-01) PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md (2025-12-01) PASS
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
 
+Tagging-Pipeline 009-001 – Write-Run & Receipts (2025-12-01 08:47)
+------------------------------------------------------------------
+
+- Backups & Snapshot: `AI-Behavior-Mapping-20251201-081946.{md,json}` erneut abgelegt; zusätzlich `Backups/tagging-009-001-prewrite.txt` über `git ls-tree -l HEAD -- "novapolis-rp/database-curated/reviewed/chat-export (1)"` erstellt (Blob-IDs + Größen dokumentieren den Zustand vor dem Write-Run).
+- Guard-Lauf (`--dry-run`): `unresolved_dependencies = []`, Alias-Kollisionen ausschließlich `verbindungstunnel-c6-e3` ↔ `verbindungstunnel-d5-c6`, keine `unknown_tokens`. JSON-Output direkt aus dem Skript-Terminal übernommen (Skript schreibt aktuell kein separates Log).
+- Write-Lauf: identisches Kommando ohne `--dry-run`; neue `.tagged` 009→001 sowie aktualisierte `index_review.json`, `lexicon.json`, `unresolved.json` (Zeitstempel 2025-12-01 14:47). Nachbereitung: targeted markdownlint + `python scripts/check_frontmatter.py` (Scope: Root/Dev TODO/DONELOG/Status) am 2025-12-01 PASS; Tree-Snapshots auffrischen und Alias-Collision „Verbindungstunnel“ als separates Follow-up aufnehmen.
+
 Tagging-Doku Sync & STOP-Plan Update (2025-11-30 08:13)
--------------------------------------------------------
+--------------------------------------------------------
 
 - Root-/Hub-Dokumente nach dem 015-010 Refresh abgestimmt: `todo.root.md`, `/.tmp-results/todo.cleaned.md`, `DONELOG.md`, `WORKSPACE_STATUS.md` sowie dieser Donelog spiegeln nun dieselben Receipts, Standwerte und Tree-Notizen wider; keine neuen Skriptläufe erforderlich.
 - Folgeaufgabe vorbereitet: STOP-Plan für Range 009-001 inkl. Backups (`AI-Behavior-Mapping.{md,json}` → `Backups/tagging-pipeline/AI-Behavior-Mapping-20251130-*.{md,json}`), Snapshot `Backups/tagging-009-001-prewrite.txt` (Hash/Size der reviewed Outputs), Dry-Run/Write-Befehle und Nachbereitungs-Checks (targeted `markdownlint-cli2`, `python scripts/check_frontmatter.py`, Tree-Snapshots) dokumentiert.

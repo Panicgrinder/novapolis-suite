@@ -1,8 +1,9 @@
 ---
-stand: 2025-11-30 08:13
-update: Doku-/Statussync nach Tagging-Refresh; STOP-Plan 009-001 dokumentiert
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md PASS
+stand: 2025-12-01 18:57
+update: Tagging 009-001 + Docsync festgehalten; targeted Lint/Frontmatter PASS
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' (2025-12-01) PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md (2025-12-01) PASS
 ---
+- 2025-12-01 08:47: Tagging-Pipeline (novapolis-rp) Range 009-001 (Dry→Write) ausgeführt – Backups `AI-Behavior-Mapping-20251201-081946.{md,json}` vorab erstellt, Snapshot `Backups/tagging-009-001-prewrite.txt` aus HEAD-Liste abgelegt, Dry-Run meldete keine `unresolved_dependencies` (nur Alias-Kollision `verbindungstunnel`), Write-Run erzeugte `.tagged` 009→001 + aktualisierte `index_review.json`/`lexicon.json`/`unresolved.json`; targeted markdownlint + `python scripts/check_frontmatter.py` (Scope: Root/Dev TODO/DONELOG/Status) am 2025-12-01 PASS, Tree-Snapshots folgen separat.
 - 2025-11-30 08:13: Doku-/Statussync nach dem 015-010 Refresh (Root/Dev TODOs, DONELOGs, WORKSPACE_STATUS, Temp-TODO) abgeschlossen; STOP-Plan 009-001 mit Backups/Dry-Run/Write/Nachbereitung dokumentiert (keine neuen Skriptläufe).
 - 2025-11-27 22:10: Tagging-Pipeline (novapolis-rp) Range 015-010 erfolgreich erneut ausgeführt – Backups (`AI-Behavior-Mapping-20251127-220319.*`, `Backups/tagging-015-010-prewrite.txt`), Report `reports/tagging-20251127T212031Z.log`, Tree-Snapshots & Status-Doku synchronisiert, targeted markdownlint/frontmatter PASS.
 - 2025-11-27 03:25: RP-Lexikon bereinigt – fehlende Slugs (ai_behavior_index_v2, logistik, missionslog, Wissenstands-Canvas) ergänzt, neue Admin/Faktions-Stubs (`cluster_index_v1`, `relationslog_eisenkonklave_v1`, `handel_diplomatie_haendlergilde_v1`, `index_haendlergilde_v1`, `eisenkonklave`) angelegt, `caravan_moves`-Slug vereinheitlicht. `tag_chunks_from_yaml.py` aktualisiert (alias-Kollisionen C6 vs. C6-Nord beseitigt, Redirects erweitert). Dry-Run (015-010) bestätigt: `unresolved_dependencies` leer, verbleibende Alias-Kollisionen nur bei Mehrfach-Titeln (Echo/Reflex Wissenstands-Canvas). Plan für Range 009-001 im Dev-Hub notiert.
@@ -10,6 +11,7 @@ checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root
 Recent Changes
 --------------
 
+- 2025-12-01 08:47: novapolis-rp Tagging-Pipeline Range 009-001 (Dry→Write) durchgeführt – Backups/Snapshot dokumentiert, `.tagged` 009→001 + Index/Lexicon/Unresolved aktualisiert; targeted markdownlint + `python scripts/check_frontmatter.py` (Scope: Root/Dev TODO/DONELOG/Status) am 2025-12-01 PASS, Tree-Snapshots folgen separat.
 - 2025-11-30 08:13: Root-/Hub-Dokumente und Temp-TODO nach dem 015-010 Refresh synchronisiert; neue STOP-Plan-Details für Range 009-001 (Backups/Dry-Run/Write/Nachbereitung) hinzugefügt. Keine neuen Skriptläufe.
 - 2025-11-27 22:10: novapolis-rp Tagging-Pipeline Range 015-010 (Dry→Write) erneut ausgeführt – Backups & Hash-Snapshot erstellt, Report `reports/tagging-20251127T212031Z.log`, Tree-Snapshots/DONELOG/TODO/Status synchronisiert, targeted markdownlint und `scripts/check_frontmatter.py` PASS.
 - 2025-11-17 04:55: `novapolis_agent/app/routers` und `app/services/llm.py` endgültig entfernt (inkl. Mirror-Pakete + LLM-Tests); `WORKSPACE_INDEX.md`, `cleanup_recommendations.md` und DONELOGs aktualisiert.

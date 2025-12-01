@@ -164,21 +164,41 @@
       "category": "mission",
       "title": "Mission C6-Nord (Sealed room)"
     },
+    "h3": {
+      "category": "location",
+      "title": "H3"
+    },
+    "v1": {
+      "category": "location",
+      "title": "V1"
+    },
     "e2": {
       "category": "location",
       "title": "E2"
     },
-    "b5": {
+    "a1": {
       "category": "location",
-      "title": "B5"
+      "title": "A1"
     },
-    "v2": {
+    "f3": {
       "category": "location",
-      "title": "V2"
+      "title": "F3"
     },
-    "n3": {
+    "d4": {
       "category": "location",
-      "title": "N3"
+      "title": "D4"
+    },
+    "k2": {
+      "category": "location",
+      "title": "K2"
+    },
+    "g4": {
+      "category": "location",
+      "title": "G4"
+    },
+    "w5": {
+      "category": "location",
+      "title": "W5"
     }
   },
   "aliases": {
@@ -197,50 +217,50 @@
     "echo-wissensstand-trainingsstand": "echo-wissensstand-trainingsstand",
     "Echo": "echo",
     "Jonas Merek": "jonas-merek",
-    "Jonas": "jonas-merek",
     "Merek": "jonas-merek",
     "jonas": "jonas-merek",
+    "Jonas": "jonas-merek",
     "merek": "jonas-merek",
     "Kora Malenkov": "kora-malenkov",
-    "Kora": "kora-malenkov",
-    "malenkov": "kora-malenkov",
     "kora": "kora-malenkov",
+    "malenkov": "kora-malenkov",
     "Malenkov": "kora-malenkov",
+    "Kora": "kora-malenkov",
     "Liora Navesh": "liora-navesh",
-    "navesh": "liora-navesh",
     "liora": "liora-navesh",
-    "Liora": "liora-navesh",
     "Navesh": "liora-navesh",
+    "Liora": "liora-navesh",
+    "navesh": "liora-navesh",
     "Lumen": "lumen",
     "Lyra Hest": "lyra-hest",
-    "lyra": "lyra-hest",
     "Hest": "lyra-hest",
+    "lyra": "lyra-hest",
     "Lyra": "lyra-hest",
     "hest": "lyra-hest",
     "Marei": "marei",
     "Marven Kael": "marven-kael",
     "marven": "marven-kael",
+    "Marven": "marven-kael",
     "Kael": "marven-kael",
     "kael": "marven-kael",
-    "Marven": "marven-kael",
     "Pahl": "pahl",
     "reflex-wissensstand-trainingsstand": "reflex-wissensstand-trainingsstand",
     "Reflex": "reflex",
     "Ronja Kerschner": "ronja-kerschner",
-    "kerschner": "ronja-kerschner",
-    "Ronja": "ronja-kerschner",
-    "ronja": "ronja-kerschner",
     "Kerschner": "ronja-kerschner",
+    "ronja": "ronja-kerschner",
+    "Ronja": "ronja-kerschner",
+    "kerschner": "ronja-kerschner",
     "Senn Daru": "senn-daru",
+    "daru": "senn-daru",
     "Daru": "senn-daru",
     "senn": "senn-daru",
-    "daru": "senn-daru",
     "Senn": "senn-daru",
     "Varek Solun": "varek-solun",
+    "varek": "varek-solun",
+    "Solun": "varek-solun",
     "Varek": "varek-solun",
     "solun": "varek-solun",
-    "Solun": "varek-solun",
-    "varek": "varek-solun",
     "C6": "c6",
     "c6": "c6",
     "D5": "d5",
@@ -263,21 +283,21 @@
     "novapolis-inventar": "novapolis-inventar",
     "schienenbund-inventar": "schienenbund-inventar",
     "Karawanenbewegungen (Übersicht)": "caravan_moves",
-    "(Übersicht)": "caravan_moves",
     "(übersicht)": "caravan_moves",
     "Karawanenbewegungen": "caravan_moves",
+    "(Übersicht)": "caravan_moves",
     "karawanenbewegungen": "caravan_moves",
     "eisenkonklave": "eisenkonklave",
     "Nordlinie 01 (Tunnel D5-C6)": "nordlinie-01",
     "d5-c6)": "nordlinie-01",
-    "D5-C6)": "nordlinie-01",
-    "nordlinie": "nordlinie-01",
     "Nordlinie": "nordlinie-01",
+    "nordlinie": "nordlinie-01",
+    "D5-C6)": "nordlinie-01",
     "H12": "h12",
     "h12": "h12",
     "C6 Nord": "c6-nord",
-    "Nord": "c6-nord",
     "nord": "c6-nord",
+    "Nord": "c6-nord",
     "Mission C6-Nord (Sealed room)": "mission-c6-nord",
     "Mission": "mission-c6-nord",
     "mission": "mission-c6-nord",

@@ -1,0 +1,500 @@
+
+
+----- [NOTE]
+
+#611 [user] [NOTE]
+ich möchte gerne, dass du die Index von Nova polis der Händler und dann auch die meta-index des rests so updatest bzw. anlegst und die alte archivierst.
+
+----- [NOTE]
+
+#612 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#613 [user] [NOTE]
+so ist das sehr gut. ich denke für die archivierten Versionen wäre ein separater speicherpfad besser, damit Sie einfach aus dem Weg sind
+
+----- [NOTE]
+
+#614 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#615 [user] [NOTE]
+rein technisch gesehen müsstest du doch alle drei gleichzeitig erstellen können. lass uns das ganze jetzt noch einmal probieren, nach dem alle Regeln ordentlich implementiert wurden einfach nur als testballon.
+
+----- [NOTE]
+
+#616 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#617 [user] [NOTE]
+ja, bitte
+
+----- [NOTE]
+
+#618 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#619 [user] [NOTE]
+ist das wieder nur ein anzeigefehler, dass mir die alle in einem canvas angezeigt werden? Oder ist das Absicht
+
+----- [NOTE]
+
+#620 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#621 [user] [NOTE]
+mir geht es hier bei hauptsächlich darum. was spart dir Token und Zeit?
+
+----- [NOTE]
+
+#622 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#623 [user] [NOTE]
+es ist doch eigentlich ein super Kompromiss, wenn wir sagen. wir bleiben bei einzelnen canvas aber dafür geschrieben, maschinenoptimiert. wie viel spart uns das im Vergleich zu dem was wir aktuell haben? Spiele hierfür gerne auch einmal eine komplette Anfrage an Novapolis durch
+
+----- [NOTE]
+
+#624 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#625 [user] [NOTE]
+ja so machen wir das. das finde ich sehr gut und das ist ja ein mordsunterschied. das ist ja Wahnsinn......
+
+----- [NOTE]
+
+#626 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#627 [user] [NOTE]
+nein, du kannst sie gerne alle drei direkt anlegen.
+
+----- [NOTE]
+
+#628 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#629 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#630 [user] [NOTE]
+hast du alle drei kontrolliert? ob sie korrekt sind?
+
+----- [NOTE]
+
+#631 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#632 [user] [NOTE]
+können wir uns das leisten? also leistungstechnisch haha 😂
+
+----- [NOTE]
+
+#633 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#634 [user] [NOTE]
+ja, das habe ich für sinnvoll.
+
+----- [NOTE]
+
+#635 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#636 [user] [NOTE]
+ja, Update
+
+----- [NOTE]
+
+#637 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#638 [user] [NOTE]
+ich dachte, damit meinst du sieben Tage in game... also sprich mit jeder fraktionsrunde, wenn die Datei ja sowieso aufgerufen werden muss.
+
+----- [NOTE]
+
+#639 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#640 [user] [NOTE]
+ja passe bitte alle drei so an
+
+----- [NOTE]
+
+#641 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#642 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#643 [user] [NOTE]
+haben wir schon eine Index canvas, die dir einen gesamtüberblick über alles, was wir jetzt angelegt haben bietet? macht so etwas Sinn für dich in diesem Fall?
+
+----- [NOTE]
+
+#644 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#645 [user] [NOTE]
+wie wäre es, wenn wir in diesem Index die anderen canvas nach eben Zugehörigkeit sortieren? sprich wenn man im RP eine Anfrage stellt, dann stellt man diese Anfrage ja meistens an eine Person. diese Person ist Mitglied einer Fraktion. diese Fraktion hat Beziehungen zu anderen. das bedeutet, ich würde Personen und Fraktionen sowie Orte in diesem Index so anlegen. das für dich sofort klar ist eine Anfrage in diese Richtung gehört in diesem Cluster... ich hoffe das macht Sinn und du verstehst was ich meine...
+
+somit könnte man nämlich auch systeminformationen auch Clustern...
+
+----- [NOTE]
+
+#646 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#647 [user] [NOTE]
+ja, ich möchte, dass du das so erstellst. aber bitte mache einen Vermerk für dich. selbst, dass du eine Beurteilung einmal die Woche machst, in der du beurteilst, ob der Cluster die Wirklichkeit widerspiegelt, ist das machbar? denn so könnte man den Cluster feinjustieren sozusagen, wenn du verstehst, was ich meine
+
+----- [NOTE]
+
+#648 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#649 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#650 [user] [NOTE]
+fehlt uns denn jetzt noch etwas was recht? offensichtlich ist nur mir durch die ganzen Sachen die wir erstellt haben, inzwischen nicht mehr auffällt
+
+----- [NOTE]
+
+#651 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#652 [user] [NOTE]
+ich würde gerne Punkt 3 und 4 direkt implementieren, damit wir das von Anfang an ausbauen können und nicht später hinterher eilen müssen. lass uns das noch machen bevor wir weiter spielen.
+
+----- [NOTE]
+
+#653 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#654 [user] [NOTE]
+liebend gerne
+
+----- [NOTE]
+
+#655 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#656 [user] [NOTE]
+ja, das möchte ich bitte
+
+----- [NOTE]
+
+#657 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#658 [user] [NOTE]
+ist die ai behavior, eher als basiskonstrukt zu sehen oder hast du da schon jeden vorhandenen Charakter aufgeführt?
+
+----- [NOTE]
+
+#659 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#660 [user] [NOTE]
+Moment bitte.
+
+deshalb frage ich meine Frage, ist nämlich, ob dann in diesem canvas für verschiedene Personen, die eigentlich schon ein canvas haben, erneut ein Eintrag erstellt wird.
+
+ich hätte einen gegenvorschlag, allerdings brauche ich dafür wieder deine Hilfe. das so umzusetzen, dass es funktioniert hier...
+
+und zwar habe ich mir gerade überlegt wie man es machen kann, dass jeder Charakter weiterhin so wie du beschreibst. nicht Start bleibt sonst flexibel, aber wir dennoch diese verhaltensdatenbank, nennen wir es mal nutzen können. [EVENT]
+wie wäre es, wenn wir den verschiedenen verhaltensweisen einen zahlenwert zuweisen... von mir aus 1. bis 100 wobei 1 Verhalten entspricht, das man gemeinhin als asozial bezeichnen würde und 100 einem Engel entspricht...
+
+das würde erstmal nur als Basis dienen. die Charaktere, so wie du sie als Vorlage nehmen möchtest, können wir auch nutzen, um verschiedene zahlenwerte zu kombinieren und so die Persönlichkeit zusammenzustellen, so dass man im Endeffekt die Persönlichkeit am Ende durch einen Code definiert.
+
+man könnte auch, wie wir es bisher haben, einen Buchstaben und zahlencode nehmen sprich! H3 z.b wobei wir die Buchstaben einer Motivation zuweisen und den zahlenwert in dem Fall 01 bis 99 eine Eigenschaft einem verhalten einem Knacks, wie man es auch immer nennen möchte. wenn ihr keine 100 brauchen... verstehst du das Prinzip was ich mir vorgestellt habe? [LOC:h3]
+
+----- [NOTE]
+
+#661 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#662 [user] [NOTE]
+warte, wenn du sagst, es ist die geburtsstunde einer neuen verhaltensmatrix heißt das. normalerweise wird das nicht so gemacht? also in echt jetzt. oder hast du das nur gesagt, weil es halt jetzt gut passt? also ich frage das jetzt wirklich aus wissenschaftlicher Neugierde heraus. wie wird es dann normalerweise gemacht....
+
+und ja, natürlich. ich möchte, dass du die ai behavior Index V1. überarbeitest [LOC:v1]
+
+----- [NOTE]
+
+#663 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#664 [user] [NOTE]
+ich freue mich gerade so unglaublich darüber das etwas, was mir persönlich als die offensichtlich leichtere Darstellungsform, von etwas so komplexem, wie verhalten und dieses einfach ausgesprochene "eine Entscheidung treffen" und doch so unfassbar schwere, wenn man es nicht kann, wie in meinem Fall..... es mit einer gemischten Darstellung wo ich schlicht und ergreifend. für das, was ich in dem Moment dachte, ist die richtige darstellungsform für den Gemeinden Wert, sprich Intensität der zahlenwert und die Eigenschaft bzw. der beweggrund als alphabetisch darzustellen und wieso das nicht in Verbindung bringen wie bei einem koordinatensystem üblich?
+
+das war jetzt für mich einfacher als zu entscheiden. was für einen Charakter muss ein NPC haben? gut, dazu muss ich sagen. NPC oder Mensch ist für meinen Kopf egal, aber das ist noch ein anderes Thema... hat viel. mit wie wir Daten übertragen zu tun. Menschen organische Lebewesen, elektrische Ströme Maschinen, Computer ais, elektrische Ströme...
+
+okay, ja, es wäre wunderbar, wenn du dieses System einbauen könntest, weil ich glaube, auch im RP ist das nicht nur Token sparend, was der andere hauptgrund war, warum ich auf die Idee kam, sondern es passt. halt einfach besser....
+
+----- [NOTE]
+
+#665 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#666 [user] [NOTE]
+ja bitte, ich kann es wirklich kaum erwarten...
+
+----- [NOTE]
+
+#667 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#668 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#669 [user] [NOTE]
+ja Stück für Stück mit mir zusammen. bitte ich möchte gerne sehen welche verhaltensmuster welche Kombination ergeben
+
+----- [NOTE]
+
+#670 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#671 [user] [NOTE]
+lass uns das ein bisschen weiter ausarbeiten, das ist mir bei ihr doch sehr wichtig.
+
+also sie ist ja sehr loyal das auf jeden Fall. allerdings ist sie loyal zu allem und jedem, der es verdient. ihre hauptfähigkeiten können auf jeden Fall so bleiben, wie sie sind. bei a würde ich sagen oder einen Mix aus a und C. vielleicht. wir brauchen bei ihr aber auf jeden Fall etwas, dass ihren wankenden geisteszustand mit einbezieht. das hatten wir ja im RP. auch schon einige Male jetzt und ist ja auch ihr Makel und gleichzeitig ihre Motivation, und ich meine das um geschützt wie in einer Schale? wenn Reflex sich um sie legt und auch wo Reflex gezeigt hat, wie viel macht er hat oder sie ist Reflex ein er oder eine sie oder ein? es spielt doch keine Rolle, hat sie in dem Moment ja auch gemerkt? wie viel Kraft, reflex ja hat, um sie zu beschützen. theoretisch... damit ich mal gespannt, welche Kombinationen du hierfür vorschlägst... [CHAR:reflex]
+
+----- [NOTE]
+
+#672 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#673 [user] [NOTE]
+woher wusstest du...
+
+----- [NOTE]
+
+#674 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#675 [user] [NOTE]
+ja bitte
+
+----- [NOTE]
+
+#676 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#677 [user] [NOTE]
+bevor mit Reflex weitermachen. hast du ronjas? gesamten Charakter canvas auf maschinenlesbarkeit geupdatet? [CHAR:reflex]
+
+----- [NOTE]
+
+#678 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#679 [user] [NOTE]
+ja klar, natürlich und bitte sehr sehr sorgfältig. lege vorher am besten ein Backup an
+
+----- [NOTE]
+
+#680 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#681 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#682 [user] [NOTE]
+vergleiche, bitte die Backup Version mit der neuen Version und achte dabei, vor allem auf Details, wie zum Beispiel Anzahl der Items im Inventar und andere Dinge
+
+----- [NOTE]
+
+#683 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#684 [user] [NOTE]
+wenn Sie den datenkern nicht an sich genommen hat, gehört er ja dem stationsinventar richtig?
+
+----- [NOTE]
+
+#685 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#686 [user] [NOTE]
+dann lade nun den betreffenden canvas in dem nun der datenkern liegt
+
+----- [NOTE]
+
+#687 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#688 [user] [NOTE]
+was mit diesem Gegenstand ist, möchte ich überhaupt gar nicht wissen. das will ich im RP rausfinden. das darfst du gerne entscheiden.
+und wenn du den canvas lädst erstelle wieder ein Backup und schreibe ihn direkt um und Update ihnen so auf optimale maschinenlesbarkeit
+
+----- [NOTE]
+
+#689 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#690 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#691 [user] [NOTE]
+vergleiche wieder das Backup mit der neuen Version
+
+----- [NOTE]
+
+#692 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#693 [user] [NOTE]
+ja, bitte
+
+----- [NOTE]
+
+#694 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#695 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#696 [user] [NOTE]
+hast du wieder Backup mit neuer Version verglichen?
+
+----- [NOTE]
+
+#697 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#698 [user] [NOTE]
+lass uns zurück zur Persönlichkeit unserer npc gehen, weiter geht es mit Reflex oder? [CHAR:reflex]
+
+----- [NOTE]
+
+#699 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#700 [user] [NOTE]
+ich finde da fehlt irgendwie das was mir so in den Kopf kommen würde. wenn ich daran denke, dass er ja irgendwie von ihr erschaffen wurde, aber etwas ganz anderes ist, dass ich an seiner Stelle sehr neugierig wäre. er ist anders als alles was es gibt. nichts ist so außer Maschinen oder Maschinen sind auch nicht so wie er. ich weiß nicht. ich würde ihm einen forschungsdrang geben, so eine bisschen wie bei Ronja selbst ja auch [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#701 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#702 [user] [NOTE]
+das macht halt für mich auch diesen Punkt aus, dass er nicht von Ronja Weg möchte. es ist einfach das einzige, was er weiß, was sie wirklich ist. sie ist sie, sie sie ist der Grund warum er da ist. deshalb will er nicht von ihr Weg, was ich voll und ganz nachvollziehen kann und das würde ich schon als psychopathisch einordnen [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#703 [user] [NOTE]
+das macht halt für mich auch diesen Punkt aus, dass er nicht von Ronja Weg möchte. es ist einfach das einzige, was er weiß, was sie wirklich ist. sie ist sie, sie sie ist der Grund warum er da ist. deshalb will er nicht von ihr Weg, was ich voll und ganz nachvollziehen kann und das würde ich schon als psychopathisch einordnen [CHAR:ronja-kerschner]
+
+er macht halt diesen Zwiespalt aus. er will wissen, erkunden. erforschen, gerade wie kleines Kind halt da noch mehr hat seine eigene Kraft nicht unter Kontrolle. weiß nicht was er kann. weiß nicht was er will und hängt halt an Ronja und ihr gefällt das ja auch und das merkt er ja auch. und das denke ich könnte man in der Geschichte noch ganz schön lustig werden lassen. ich meine er hat hier schon herausgefunden, dass wenn er will er sie zum stoppen bringen kann. da wird er in seiner Neugierde vielleicht irgendwie auch denken. was kann er noch.... aber ich denke das geht schon wieder viel zu weit. ich bin schon wieder in der charakterentwicklung. tut mir leid. Bau aus dem mal bitte den Charakter. ich denke das dürfen mehr als genug Infos sein. tut mir leid.... [CHAR:ronja-kerschner] [EVENT]
+
+----- [NOTE]
+
+#704 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#705 [user] [NOTE]
+ja, bitte tu das
