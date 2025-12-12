@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-01 18:57
-update: Tagging 009-001 fertig; Alias-Follow-up hinzugefügt
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' (2025-12-01) PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md (2025-12-01) PASS
+stand: 2025-12-11 03:13
+update: Governance: Wrapper-Bestandsaufnahme & TODO-Sync gespiegelt
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' (2025-12-11) PASS; pwsh -NoProfile -Command "Set-Location .tmp-results; npx --yes markdownlint-cli2 --config ../.markdownlint-cli2.jsonc 'todo.cleaned.md'" (2025-12-11) PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md (2025-12-11) PASS
 ---
 
 Bereinigte Aufgabenliste (Root)
@@ -20,8 +20,8 @@ Hoch priorisiert (0-2 Tage)
      - Backups 2025-12-01 08:19 abgeschlossen (`AI-Behavior-Mapping-20251201-081946.{md,json}` + Snapshot `Backups/tagging-009-001-prewrite.txt` aus `git ls-tree -l HEAD`).
      - Guard: `python ... --range 009-001 --dry-run` PASS (`unresolved_dependencies=[]`, Alias-Kollision `verbindungstunnel-c6-e3` ↔ `verbindungstunnel-d5-c6`).
      - Write: identisches Kommando ohne `--dry-run`; `.tagged` 009→001, `index_review.json`, `lexicon.json`, `unresolved.json` aktualisiert (Reports weiterhin nur via STDOUT).
-     - Nachbereitung (laufend): targeted `markdownlint-cli2` + `python scripts/check_frontmatter.py`, Root/Dev TODO/DONELOG/Status aktualisieren, Tree-Snapshots auffrischen, Alias-Follow-up planen.
-   - [ ] Alias-Kollision „Verbindungstunnel" beheben (Slug-Mapping oder Stage-Daten normalisieren), bevor Range ≤000 startet.
+     - Nachbereitung (abgeschlossen 2025-12-08 17:55): targeted `markdownlint-cli2` + `python scripts/check_frontmatter.py` (Scope `todo.root.md`, `.tmp-results/todo.cleaned.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md`) erneut ausgeführt, Dokumente synchronisiert sowie Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) regeneriert; Postflight wird nach dem Alias-Fix hinterlegt.
+  - [x] Alias-Kollision „Verbindungstunnel" beheben (Slug-Mapping oder Stage-Daten normalisieren), bevor Range ≤000 startet – `tag_chunks_from_yaml.py` ignoriert jetzt Stopword-Aliase (u. a. „verbindungstunnel"), Range 009-001 (2025-12-10 17:49) Dry→Write erneuert `lexicon.json`/`unresolved.json` ohne Kollision und entfernt die doppelten `[LOC]`-Tags aus part-002.
 
   - Ziel: `pytest -q` PASS, `pyright` PASS, `mypy` PASS, Coverage ≥80% mit Receipt.
   - Schritte: pytest → pyright → mypy → `scripts/run_pytest_coverage.ps1` (Receipt in `DONELOG.md` + `WORKSPACE_STATUS.md`).
@@ -64,7 +64,8 @@ Hoch priorisiert (0-2 Tage)
     - [x] Redundante Ausführungen zu Markdownlint/Frontmatter identifizieren; Minimal-Patch-Plan skizzieren (noch keine Anwendung, R-RED beachten).
 - [x] Dev: Tree-Artefakte regenerieren (R-IDX)
   - Ziel: `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt` neu erzeugen; Status/Datum in `WORKSPACE_STATUS.md` + `novapolis-dev/docs/donelog.md`.
-  - Hinweis: Tree-Artefakte wurden zuletzt am 2025-11-10 07:50 für alle drei Dateien gemeinsam aktualisiert (Terminal-Tasks `Workspace tree:*`); vor einem weiteren Run prüfen, ob eine relevante Strukturänderung vorliegt. Falls nein, genügt es, den nächsten Turnus (spätestens Ende November) im Status zu notieren; ein sofortiger Neu-Run ist nicht zwingend.
+  - Lauf 2025-12-08 17:50: `tree /A /F > workspace_tree_full.txt`, `tree /A > workspace_tree.txt`, `python scripts/update_workspace_tree_dirs.py` PASS; Dateien auf aktuellen Stand gebracht, Statusnotiz folgt unmittelbar in `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md`.
+- [x] Wrapper-Migration: Bestandsaufnahme der verbleibenden `*.ps1`-Wrapper. (2025-12-11: 33 Dateien, ausschließlich im Archivpfad `novapolis-dev/archive/scripts/scripts.ps1-scripts/`; aktive Wrapper laufen als `.py` unter `scripts/`.)
 - [x] RP: Frontmatter/Lint Sweep (R-FM/R-LINT)
   - Reihenfolge: Frontmatter → MD003 Setext. Zählwerte vor/nach dokumentieren; PASS loggen (Umsetzung in DONELOG/WORKSPACE_STATUS/novapolis-dev/docs/donelog.md dokumentiert; aktueller Schwerpunkt jetzt auf `database-rp`-Backlog laut `todo.root.md`).
 

@@ -1,15 +1,25 @@
 ---
-stand: 2025-12-01 18:57
-update: Tagging 009-001 Write-Run dokumentiert; Folgeaufgaben markiert
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' (2025-12-01) PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md (2025-12-01) PASS
+stand: 2025-12-09 03:18
+update: Tree-Snapshots + STOP-Plan Nachbereitung ergänzt
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md" (2025-12-09) PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md (2025-12-09) PASS
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
 
-Tagging-Pipeline 009-001 – Write-Run & Receipts (2025-12-01 08:47)
-------------------------------------------------------------------
+Alias-Stopword Fix & Tagging 009-001 Refresh (2025-12-10 17:49)
+-------------------------------------------------------------------
+- `novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py` erweitert: neue Stopword-Liste verhindert, dass generische Tokens wie „verbindungstunnel" als Alias registriert werden (Slipstream für C6-E3 vs. D5-C6).
+- Guard-Lauf: `python ... --range 009-001 --dry-run` → `alias_collisions = {}`, `unresolved_dependencies = []`; anschließend Write-Run ohne `--dry-run`, wodurch `.tagged` 009→001, `lexicon.json` und `unresolved.json` aktualisiert wurden.
+- Auswirkungen: In `part-002.tagged.txt` entfallen die `[LOC:verbindungstunnel-c6-e3]`-Markierungen bei generischen Erwähnungen, während strukturierte Tabellen weiterhin via `[LOC:c6]`, `[LOC:d5]` und `[PROJ:nordlinie-01]` referenzieren.
+- Dokumentation & Checks: `todo.root.md`, `/.tmp-results/todo.cleaned.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md` aktualisiert; targeted `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' 'WORKSPACE_STATUS.md' '.tmp-results/todo.cleaned.md'` PASS sowie `python scripts/check_frontmatter.py` auf denselben Dateien PASS.
+
+Tree-Snapshots & STOP-Plan 009-001 Nachbereitung (2025-12-08 17:55)
+--------------------------------------------------------------------
+- `tree /A /F > workspace_tree_full.txt`, `tree /A > workspace_tree.txt` und `python scripts/update_workspace_tree_dirs.py` erneut ausgeführt; alle drei Artefakte spiegeln jetzt den Stand vom 2025-12-08 17:50 wider (Volume Games → Root `F:/VS Code Workspace/Main`).
+- Targeted `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md'` PASS sowie `python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md` PASS; Scope deckt sämtliche STOP-Plan-Dokumente ab.
+- Dokumentation synchronisiert: `todo.root.md`, `/.tmp-results/todo.cleaned.md`, `DONELOG.md`, `WORKSPACE_STATUS.md` und dieses Donelog führen dieselben Receipts; Alias-Follow-up „Verbindungstunnel“ bleibt als separates Item bestehen.
 
 - Backups & Snapshot: `AI-Behavior-Mapping-20251201-081946.{md,json}` erneut abgelegt; zusätzlich `Backups/tagging-009-001-prewrite.txt` über `git ls-tree -l HEAD -- "novapolis-rp/database-curated/reviewed/chat-export (1)"` erstellt (Blob-IDs + Größen dokumentieren den Zustand vor dem Write-Run).
 - Guard-Lauf (`--dry-run`): `unresolved_dependencies = []`, Alias-Kollisionen ausschließlich `verbindungstunnel-c6-e3` ↔ `verbindungstunnel-d5-c6`, keine `unknown_tokens`. JSON-Output direkt aus dem Skript-Terminal übernommen (Skript schreibt aktuell kein separates Log).

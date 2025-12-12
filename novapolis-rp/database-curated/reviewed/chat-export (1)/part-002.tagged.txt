@@ -65,7 +65,7 @@ das würde ich im RP dann ab jetzt einfach so handhaben, als hätte sie einfach 
 ----- [NOTE]
 
 #111 [user] [NOTE]
-sie wird ihn erstmal misstrauisch ausfragen, ich meine wie kommt er denn in den Verbindungstunnel wenn sie doch erst mit der Station Funkkontakt hatte und die dachten sie sei tot [LOC:verbindungstunnel-c6-e3]
+sie wird ihn erstmal misstrauisch ausfragen, ich meine wie kommt er denn in den Verbindungstunnel wenn sie doch erst mit der Station Funkkontakt hatte und die dachten sie sei tot
 
 ----- [NOTE]
 
@@ -444,7 +444,7 @@ Hydrofilterbehälter aus C6 als potenzielle Wasserreserve – aktuell ungenutzt,
 Ort	Typ	Status	Canvas
 D5	Station / Hauptbasis	stabil, bewohnt, betriebsfähig	D5-Kollektiv / Inventar-Canvas [LOC:d5]
 C6	Station / Außenposten	teilaktiv, Reaktor stabilisiert, Fragment neutralisiert	Station C6-Canvas [LOC:c6]
-Verbindungstunnel D5–C6	Infrastrukturzone	strukturell beschädigt, kartiert, im Wiederaufbau	Projekt Nordlinie 01 [LOC:c6] [LOC:d5] [LOC:verbindungstunnel-c6-e3] [PROJ:nordlinie-01]
+Verbindungstunnel D5–C6	Infrastrukturzone	strukturell beschädigt, kartiert, im Wiederaufbau	Projekt Nordlinie 01 [LOC:c6] [LOC:d5] [PROJ:nordlinie-01]
 E2	Herkunftssektor Jonas	zerstört / verlassen	nur als Lore-Referenz, keine Inkonsistenz [CHAR:jonas-merek] [LOC:e2]
 
 ✓ Alle Orte referenzieren korrekt aufeinander.

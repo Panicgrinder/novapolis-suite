@@ -210,6 +210,9 @@ def build_lexicon(yaml_root: Path, extra_aliases: dict[str, str] | None = None) 
     # Location-Slugs sowie erste/letzte Tokens aus Titeln
     aliases: dict[str, str] = {}
     alias_collisions: dict[str, set[str]] = defaultdict(set)
+    ALIAS_STOPWORDS = {
+        "verbindungstunnel",
+    }
 
     def add_alias(alias: str, slug: str) -> None:
         existing = aliases.get(alias)
@@ -233,6 +236,8 @@ def build_lexicon(yaml_root: Path, extra_aliases: dict[str, str] | None = None) 
                     if not token_norm:
                         continue
                     token_lower = token_norm.lower()
+                    if token_lower in ALIAS_STOPWORDS:
+                        continue
                     if (
                         entry.category == "location"
                         and is_short_location_slug(token_lower)

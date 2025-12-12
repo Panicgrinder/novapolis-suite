@@ -71364,6 +71364,7 @@ F:.
 |   |   novapolis-agent-backup-20251103-0028-rev1.bundle
 |   |   README.md
 |   |   rotation.log
+|   |   tagging-009-001-prewrite.txt
 |   |   tagging-015-010-prewrite.txt
 |   |   tasks.json.backup-2025-11-01
 |   |   tasks.json.bak
@@ -71542,6 +71543,8 @@ F:.
 |           AI-Behavior-Mapping-20251126-0522.md
 |           AI-Behavior-Mapping-20251127-220319.json
 |           AI-Behavior-Mapping-20251127-220319.md
+|           AI-Behavior-Mapping-20251201-081946.json
+|           AI-Behavior-Mapping-20251201-081946.md
 |           
 +---eval
 |   +---config
@@ -80768,6 +80771,15 @@ F:.
 |   |   |   \---chat-export (1)
 |   |   |           index_review.json
 |   |   |           lexicon.json
+|   |   |           part-001.tagged.txt
+|   |   |           part-002.tagged.txt
+|   |   |           part-003.tagged.txt
+|   |   |           part-004.tagged.txt
+|   |   |           part-005.tagged.txt
+|   |   |           part-006.tagged.txt
+|   |   |           part-007.tagged.txt
+|   |   |           part-008.tagged.txt
+|   |   |           part-009.tagged.txt
 |   |   |           part-010.tagged.txt
 |   |   |           part-011.tagged.txt
 |   |   |           part-012.tagged.txt
@@ -99389,6 +99401,8 @@ F:.
 |       tagging-20251126T043409Z.log
 |       tagging-20251127T212031Z.log
 |       tagging-20251130T021709Z.log
+|       tagging-20251201T134723Z.log
+|       tagging-20251208T165754Z.log
 |       
 +---scripts
 |   |   checks_linters.py

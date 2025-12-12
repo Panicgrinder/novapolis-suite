@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-01 18:57
-update: Tagging 009-001 abgeschlossen; TODOs synchronisiert & Alias-Follow-up erfasst
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md' (2025-12-01) PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md (2025-12-01) PASS
+stand: 2025-12-11 03:13
+update: Governance: Wrapper-Bestandsaufnahme & TODO-Sync gestartet
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' (2025-12-11) PASS; pwsh -NoProfile -Command "Set-Location .tmp-results; npx --yes markdownlint-cli2 --config ../.markdownlint-cli2.jsonc 'todo.cleaned.md'" (2025-12-11) PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md (2025-12-11) PASS
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -75,7 +75,7 @@ Wrapper-Migration (.ps1 → .py)
   - Historische Wrapper: `scripts/run_pytest_coverage.ps1`, `scripts/checks_linters.ps1`, `scripts/checks_types.ps1`, `scripts/tests_pytest_root.ps1` (teilweise bereits entfernt/archiviert).
   - Aktueller Stand: `python scripts/run_checks_and_report.py` ist der einzige Entry-Point für "Checks: full"; Coverage-Läufe erfolgen via `python scripts/run_pytest_coverage.py --fail-under <threshold>` (PowerShell-Varianten sind nur noch Archiv/Backup).
 - Aufgaben (geplant, keine Löschung ohne Freigabe):
-  - [ ] Bestandsaufnahme aller noch vorhandenen `scripts/*.ps1` Wrapper (inkl. Backups/Archiv-Hinweisen).
+  - [x] Bestandsaufnahme aller noch vorhandenen `scripts/*.ps1` Wrapper (inkl. Backups/Archiv-Hinweisen). (2025-12-11: keine aktiven Wrapper mehr im Root; alle 33 `*.ps1`-Dateien liegen ausschließlich unter `novapolis-dev/archive/scripts/scripts.ps1-scripts/`.)
   - [ ] Für jeden produktiven Wrapper einen gleichwertigen Python-Einstiegspunkt definieren (z. B. `scripts/run_pytest_coverage.py`), inklusive Args/Exitcodes/Receipts.
   - [ ] VS-Code-Tasks und Dokumentation (`WORKSPACE_STATUS.md`, `todo.cleaned.md`, README/Docs) auf die Python-Varianten umstellen.
   - [ ] PowerShell-Wrapper entweder als dünne Hülle (nur Aufruf von `python <script.py>`) belassen oder nach Freigabe in Archiv-/Backups-Pfade verschieben.
@@ -143,8 +143,8 @@ Nächstes Vorgehen (1-2 Tage)
   - Backups: 2025-12-01 08:19 abgeschlossen (`Backups/tagging-pipeline/AI-Behavior-Mapping-20251201-081946.{md,json}` + Snapshot `Backups/tagging-009-001-prewrite.txt` via `git ls-tree -l HEAD -- "novapolis-rp/database-curated/reviewed/chat-export (1)"`).
   - Guard (Dry-Run): `python ... --range 009-001 --dry-run` PASS (`unresolved_dependencies=[]`, Alias-Kollision unverändert `verbindungstunnel-c6-e3` ↔ `verbindungstunnel-d5-c6`), JSON-Summary im Terminal gesichert.
   - Write: gleicher Befehl ohne `--dry-run`; `.tagged` 009→001 + `index_review.json`/`lexicon.json`/`unresolved.json` aktualisiert; Logs aktuell nur via STDOUT verfügbar (Skript erzeugt noch keine Dateien).
-  - Nachbereitung (laufend): targeted `markdownlint-cli2` + `python scripts/check_frontmatter.py`, Root/Dev TODO/DONELOG/Status aktualisieren, Tree-Snapshots regenerieren, Postflight protokollieren.
- - [ ] Alias-Kollision „Verbindungstunnel" auflösen (Slug-Konvention vs. Doppel-Schreibweise), bevor nächste Range (≤000) geplant wird – Optionen: alias-map ergänzen oder Stage-Daten normalisieren.
+  - Nachbereitung (abgeschlossen 2025-12-08 17:55): targeted `markdownlint-cli2` + `python scripts/check_frontmatter.py` (Scope `todo.root.md`, `.tmp-results/todo.cleaned.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md`) erneut laufen lassen, alle genannten Docs synchronisiert und Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) frisch erzeugt; Postflight-Receipt folgt nach Alias-Fix.
+ - [x] Alias-Kollision „Verbindungstunnel" auflösen (Slug-Konvention vs. Doppel-Schreibweise), bevor nächste Range (≤000) geplant wird – `tag_chunks_from_yaml.py` filtert jetzt Stopword-Aliase wie „verbindungstunnel"; Range 009-001 (2025-12-10 17:49) erneut als Dry→Write gelaufen, `lexicon.json`/`unresolved.json` ohne Alias-Kollisionen, betroffene `[LOC]`-Tags (u. a. part-002) bereinigt.
 - [ ] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` prüfen; auf Minimal-Ausnahmen reduzieren oder entfernen.
 - [ ] Staging-Reports (`database-curated/staging/reports/*.md`) mit YAML-Frontmatter/Setext nachziehen oder in `novapolis-dev/docs/` migrieren; Altdateien nach Freigabe löschen.
 - [ ] Metadata-Initialisierungsskripte (`coding/tools/metadata/init-metadata.js` vs. `init_metadata.py`) konsolidieren und kanonische Variante dokumentieren.
@@ -165,8 +165,8 @@ Nächstes Vorgehen (1-2 Tage)
 
 ### novapolis-dev
 
-- [ ] Tree-Artefakte neu erzeugen (manuell): `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`; Zeitstempel/Status in `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` aktualisieren.
- - Kontext: Generations-Cadence dokumentieren (wann „full“ vs. „dirs“ vs. „summary“). (R-IDX)
+ - [x] Tree-Artefakte neu erzeugen (2025-12-08 17:50, manuell): `tree /A /F > workspace_tree_full.txt`, `tree /A > workspace_tree.txt`, `python scripts/update_workspace_tree_dirs.py`; Zeitstempel/Status wird in `WORKSPACE_STATUS.md` + `novapolis-dev/docs/donelog.md` dokumentiert.
+  - Kontext: Generations-Cadence dokumentieren (wann „full“ vs. „dirs“ vs. „summary“). (R-IDX)
 - [ ] Optional: Kurzer Abschnitt „Editor-Setup“ im Root-`README.md` ergänzen (Hinweis auf STOP/Multi-Root, manuelle Terminal-Läufe).
 - [ ] Markdownlint MD003 (aktive Docs): Scope auf essentielle Readmes/Dokus begrenzen, Stichproben-Lint (`markdownlint-cli2`), pro Datei Setext-Stil angleichen und Resttreffer außerhalb des Scopes katalogisieren.
 - [ ] YAML-Frontmatter-Backlog priorisieren: Offene Markdown-Dateien mit `stand/update/checks` nachrüsten (Ausnahme `.github/copilot-instructions.md`), Priorität gemäß zuletzt gemeldeten Lint-Treffern.

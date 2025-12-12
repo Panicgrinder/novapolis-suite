@@ -1081,12 +1081,15 @@ Backups\novapolis-sim-archived-20251104\icon.svg.import
 Backups\novapolis-sim-archived-20251104\project.godot
 Backups\novapolis-sim-archived-20251104\test.tscn
 Backups\rotation.log
+Backups\tagging-009-001-prewrite.txt
 Backups\tagging-015-010-prewrite.txt
 Backups\tagging-pipeline/
 Backups\tagging-pipeline\AI-Behavior-Mapping-20251126-0522.json
 Backups\tagging-pipeline\AI-Behavior-Mapping-20251126-0522.md
 Backups\tagging-pipeline\AI-Behavior-Mapping-20251127-220319.json
 Backups\tagging-pipeline\AI-Behavior-Mapping-20251127-220319.md
+Backups\tagging-pipeline\AI-Behavior-Mapping-20251201-081946.json
+Backups\tagging-pipeline\AI-Behavior-Mapping-20251201-081946.md
 Backups\tasks.json.backup-2025-11-01
 Backups\tasks.json.bak
 DONELOG.md
@@ -7160,6 +7163,15 @@ novapolis-rp\database-curated\reviewed/
 novapolis-rp\database-curated\reviewed\chat-export (1)/
 novapolis-rp\database-curated\reviewed\chat-export (1)\index_review.json
 novapolis-rp\database-curated\reviewed\chat-export (1)\lexicon.json
+novapolis-rp\database-curated\reviewed\chat-export (1)\part-001.tagged.txt
+novapolis-rp\database-curated\reviewed\chat-export (1)\part-002.tagged.txt
+novapolis-rp\database-curated\reviewed\chat-export (1)\part-003.tagged.txt
+novapolis-rp\database-curated\reviewed\chat-export (1)\part-004.tagged.txt
+novapolis-rp\database-curated\reviewed\chat-export (1)\part-005.tagged.txt
+novapolis-rp\database-curated\reviewed\chat-export (1)\part-006.tagged.txt
+novapolis-rp\database-curated\reviewed\chat-export (1)\part-007.tagged.txt
+novapolis-rp\database-curated\reviewed\chat-export (1)\part-008.tagged.txt
+novapolis-rp\database-curated\reviewed\chat-export (1)\part-009.tagged.txt
 novapolis-rp\database-curated\reviewed\chat-export (1)\part-010.tagged.txt
 novapolis-rp\database-curated\reviewed\chat-export (1)\part-011.tagged.txt
 novapolis-rp\database-curated\reviewed\chat-export (1)\part-012.tagged.txt
@@ -9714,6 +9726,8 @@ reports/
 reports\tagging-20251126T043409Z.log
 reports\tagging-20251127T212031Z.log
 reports\tagging-20251130T021709Z.log
+reports\tagging-20251201T134723Z.log
+reports\tagging-20251208T165754Z.log
 requirements-dev.txt
 requirements.txt
 scripts/
