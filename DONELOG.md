@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-30 06:17
-update: RP database-rp Konsistenzfixes + Wrapper/Ignores nachgezogen
-checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\checks_rp_consistency.py PASS; & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-12-30 06:17)
+stand: 2025-12-30 06:53
+update: RP database-rp: fehlende Slugs ergänzt (missing_slug=0).
+checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\checks_rp_consistency.py PASS; & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py <10 RP-Dateien> PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc <10 RP-Dateien> PASS (2025-12-30 06:53)
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -13,6 +13,7 @@ Kurzueberblick
 --------------
 
 - 2025-12-30 06:17: RP `database-rp` konsistent gemacht (Frontmatter-Duplikate/Metablock-Leichen entfernt, Scene-Crossref-Listen normalisiert); Python-Wrapper an MD025 angepasst; markdownlint ignores fuer `.tmp/**` und `.tmp-results/**` korrigiert; Checks: rp_consistency+frontmatter+markdownlint PASS.
+- 2025-12-30 06:53: RP `database-rp` Slugs nachgezogen (10 Dateien); `scripts/checks_rp_consistency.py` jetzt ohne missing_slug/warnings; targeted Frontmatter-Validator + markdownlint PASS.
 - 2025-12-30 05:32: RP-SSOT: Frontmatter-Duplikate entfernt (4 Dateien) und Linkdrift in `Nordlinie-01.md` korrigiert; targeted markdownlint/frontmatter PASS.
 - 2025-12-30 00:45: RP-Audit-Befunde als neue TODOs in `todo.root.md` festgehalten; targeted markdownlint + Frontmatter-Validator (Scope `todo.root.md`, `DONELOG.md`) PASS.
 - 2025-12-10 17:49: RP Alias-Stopword & Tagging 009-001 Refresh – Skript erweitert, damit Stopword-Aliase („verbindungstunnel") nicht mehr generiert werden; Range 009-001 erneut als Dry→Write gelaufen, `lexicon.json`/`unresolved.json` kollisionsfrei, betroffene `[LOC]`-Tags in `part-002.tagged.txt` bereinigt; targeted markdownlint + Frontmatter-Validator für TODO/DONELOG/Status/Temp-TODO PASS.
@@ -38,6 +39,10 @@ Kurz: Die wichtigsten Audit-Befunde zu `novapolis-rp` sind als eigener Block in 
 2025-12-30 06:17 | Copilot | RP database-rp Konsistenzfixes + Wrapper-Alignment
 Meta: {"Timestamp": "2025-12-30 06:17", "Scope": "novapolis-rp/database-rp", "Files": ["novapolis-rp/database-rp/02-characters/Echo-Wissensstand-Trainingsstand.md", "novapolis-rp/database-rp/02-characters/Reflex-Wissensstand-Trainingsstand.md", "novapolis-rp/database-rp/02-characters/Liora-Navesh.md", "novapolis-rp/database-rp/02-characters/Lumen.md", "novapolis-rp/database-rp/02-characters/Ronja-Kerschner.md", "novapolis-rp/database-rp/02-characters/Senn-Daru.md", "novapolis-rp/database-rp/03-locations/C6.md", "novapolis-rp/database-rp/03-locations/D5.md", "novapolis-rp/database-rp/03-locations/E3.md", "novapolis-rp/database-rp/03-locations/Verbindungstunnel-C6-E3.md", "novapolis-rp/database-rp/03-locations/Verbindungstunnel-D5-C6.md", "novapolis-rp/database-rp/05-projects/caravan_moves.md", "novapolis-rp/database-rp/05-projects/Nordlinie-01.md", "novapolis-rp/database-rp/06-scenes/README.md", "scripts/checks_rp_consistency.py", ".markdownlint-cli2.jsonc"], "Commands": ["python scripts/checks_rp_consistency.py (Exit 0)", "python scripts/check_frontmatter.py novapolis-rp/database-rp (Exit 0)", "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' (0 errors)"], "Result": "PASS"}
 Kurz: Die durch `scripts/checks_rp_consistency.py` gefundenen Fehler (doppelte Frontmatter-Delimiter, falsches Scene-Frontmatter-Listenformat, sowie Metadaten-Duplikate im Body) wurden bereinigt. Der Wrapper wurde so angepasst, dass ein `title:` im Frontmatter als Dokumenttitel (MD025) zaehlt, und die markdownlint-Ignore-Patterns wurden auf `.tmp/**` und `.tmp-results/**` erweitert.
+
+2025-12-30 06:53 | Copilot | RP database-rp: fehlende Slugs ergänzt
+Meta: {"Timestamp": "2025-12-30 06:53", "Scope": "novapolis-rp/database-rp", "Files": ["novapolis-rp/database-rp/00-admin/C6-Logistik-Policy.md", "novapolis-rp/database-rp/00-admin/canon-canvas.draft.md", "novapolis-rp/database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md", "novapolis-rp/database-rp/00-admin/Canvas-T+0-Timeline.md", "novapolis-rp/database-rp/00-admin/memory-bundle.md", "novapolis-rp/database-rp/00-admin/person_index_np.md", "novapolis-rp/database-rp/00-admin/system-prompt.md", "novapolis-rp/database-rp/02-characters/Lumen-Wissensstand-Trainingsstand.md", "novapolis-rp/database-rp/06-scenes/README.md", "novapolis-rp/database-rp/06-scenes/scene-2025-10-27-a.md"], "Commands": ["python scripts/checks_rp_consistency.py (Exit 0; report rp_consistency_report_20251230_065320.json)", "python scripts/check_frontmatter.py <10 files> (Exit 0)", "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc <10 files> (0 errors)"], "Result": "PASS"}
+Kurz: In den verbleibenden RP-SSOT-Dateien wurden `slug:`-Felder nachgezogen und anschließend Wrapper/Validator/Lint im betroffenen Scope erneut bestätigt (missing_slug=0, warnings=0).
 
 2025-12-30 05:32 | Copilot | RP-SSOT Frontmatter-Duplikate/Links bereinigt
 Meta: {"Timestamp": "2025-12-30 05:32", "Files": ["novapolis-rp/database-rp/00-admin/canon-canvas.draft.md", "novapolis-rp/database-rp/05-projects/Nordlinie-01.md", "novapolis-rp/database-rp/02-characters/Jonas-Merek.md", "novapolis-rp/database-rp/03-locations/C6.md"], "Commands": ["npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc <4 files>", "& <venv-python> scripts/check_frontmatter.py <4 files>"], "Result": "PASS"}

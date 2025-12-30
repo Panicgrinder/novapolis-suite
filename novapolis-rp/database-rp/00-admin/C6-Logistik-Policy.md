@@ -1,7 +1,8 @@
 ---
-stand: 2025-11-16 06:52
-update: Frontmatter ergänzt (YAML); Fließtext unverändert.
-checks: keine
+stand: 2025-12-30 06:51
+update: Frontmatter: slug ergänzt; Checks aktualisiert.
+checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2025-12-30 06:51)
+slug: c6-logistik-policy
 status: v0.1 (Entwurf, aktiv)
 category: Admin
 ---

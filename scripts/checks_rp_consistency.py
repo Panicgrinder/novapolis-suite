@@ -54,8 +54,11 @@ FRONTMATTER_START_RE = re.compile(r"\A---\s*\r?\n")
 # Very conservative link matcher (ignores images, captures inline links).
 MD_LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
 
-# `slug: foo-bar` (restrict to a safe subset)
-SLUG_RE = re.compile(r"^slug:\s*([a-z0-9]+(?:-[a-z0-9]+)*)\s*$", re.MULTILINE)
+# `slug: ...` (allow underscores and version suffixes; validate separately)
+SLUG_LINE_RE = re.compile(r"^slug:\s*(.+?)\s*$", re.MULTILINE)
+
+# Accept common repo patterns: kebab, snake, and mixed (minimal enforcement here).
+SLUG_VALUE_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]*$")
 
 # Some docs deliberately store the canonical title in frontmatter to satisfy
 # markdownlint MD025/single-title. In that case we must not require a Markdown H1.
@@ -261,6 +264,11 @@ def audit_rp(repo_root: Path, rp_root: Path, strict: bool, log_path: Path) -> tu
         (rp_root / "00-admin" / "system-prompt.md").resolve(),
     }
 
+    allow_no_slug = {
+        # Template file uses placeholder slugs intentionally.
+        (rp_root / "00-admin" / "schema-header-templates.md").resolve(),
+    }
+
     findings: list[Finding] = []
     md_files = iter_markdown_files(rp_root)
 
@@ -293,12 +301,25 @@ def audit_rp(repo_root: Path, rp_root: Path, strict: bool, log_path: Path) -> tu
                 if has_duplicate_frontmatter(rest):
                     findings.append(Finding("ERROR", "FM_DUPLICATE", rel, "Duplicate frontmatter block detected"))
 
-                m = SLUG_RE.search(fm)
-                if not m:
-                    missing_slug.append(rel)
-                else:
-                    slug = m.group(1)
-                    slugs.setdefault(slug, []).append(rel)
+                if file_path.resolve() not in allow_no_slug:
+                    m = SLUG_LINE_RE.search(fm)
+                    if not m:
+                        missing_slug.append(rel)
+                    else:
+                        raw_slug = m.group(1).strip().strip('"').strip("'")
+                        if not raw_slug:
+                            missing_slug.append(rel)
+                        elif "<" in raw_slug or ">" in raw_slug:
+                            # Placeholder in frontmatter (templates) or unfinished doc.
+                            findings.append(
+                                Finding("WARN", "SLUG_PLACEHOLDER", rel, f"slug looks like a placeholder: {raw_slug}")
+                            )
+                        elif not SLUG_VALUE_RE.match(raw_slug):
+                            findings.append(
+                                Finding("WARN", "SLUG_INVALID", rel, f"slug contains unexpected characters: {raw_slug}")
+                            )
+                        else:
+                            slugs.setdefault(raw_slug, []).append(rel)
 
                 # H1 requirement: only when the doc doesn't provide a title in frontmatter.
                 if file_path not in allow_no_h1 and not has_frontmatter_doc_title(fm) and not has_h1(text):

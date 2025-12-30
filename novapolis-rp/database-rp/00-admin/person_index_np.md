@@ -1,7 +1,8 @@
 ---
-stand: 2025-11-16 06:52
-update: H1/H2 auf Setext umgestellt; Stand aktualisiert.
-checks: markdownlint-cli2 PASS (single file)
+stand: 2025-12-30 06:51
+update: Frontmatter: slug ergänzt; Checks aktualisiert.
+checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2025-12-30 06:51)
+slug: person-index-np
 canvas: person_index_np
 last-updated: 2025-11-07T03:32:00+01:00
 category: A

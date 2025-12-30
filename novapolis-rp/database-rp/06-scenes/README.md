@@ -6,9 +6,10 @@ id: scene-2025-10-27-a
 characters: [Jonas-Merek, Ronja-Kerschner]
 locations: [Verbindungstunnel-D5-C6]
 inventoryRefs: [Novapolis-inventar]
-stand: 2025-12-30 06:17
-update: Konsistenzfix: Crossref-Listen normalisiert
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
+stand: 2025-12-30 06:51
+update: Frontmatter: slug ergänzt; Checks aktualisiert.
+checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2025-12-30 06:51)
+slug: scenes-konventionen-stub
 ---
 
 Scenes Konventionen (Stub)
