@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
+stand: 2025-12-30 06:17
+update: Konsistenzfix: doppeltes Frontmatter entfernt
+checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
 title: Liora Navesh
 category: character
 slug: liora-navesh
@@ -13,20 +13,6 @@ dependencies: ["d5", "c6"]
 primary_location: d5
 last_seen: d5
 ---
----
-title: Liora Navesh
-category: character
-slug: liora-navesh
-version: "0.9"
-last_updated: 2025-11-07T03:32:00+01:00
-last_change: "Import aus RAW (char_liora_navesh_v1)"
-tags: []
-affiliations: ["arkologie_a1"]
-dependencies: ["arkologie_a1", "ai_behavior_index_v2", "relationslog_arkologie_v1", "ereignislog_weltgeschehen_v1", "cluster_index_v1"]
-primary_location: arkologie_a1
-last_seen: arkologie_a1
----
-
 <!-- markdownlint-disable MD025 -->
 
 Liora Navesh

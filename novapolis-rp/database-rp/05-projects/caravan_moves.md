@@ -1,20 +1,12 @@
 ---
-stand: 2025-11-27 03:25
-update: slug korrigiert; Titel ergänzt
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
+stand: 2025-12-30 06:17
+update: Konsistenzfix: doppelten Metablock entfernt
+checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
 canvas: Karawanenbewegungen
 last-updated: 2025-11-07T04:09:00+01:00
 category: project
 slug: caravan_moves
 title: Karawanenbewegungen (Übersicht)
-status: planned
-version: "0.1"
-tags: []
----
-canvas: Karawanenbewegungen
-last-updated: 2025-11-07T04:09:00+01:00
-category: project
-slug: caravan_moves
 status: planned
 version: "0.1"
 tags: []

@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-11 03:13
-update: Governance: Wrapper-Bestandsaufnahme & TODO-Sync gestartet
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' (2025-12-11) PASS; pwsh -NoProfile -Command "Set-Location .tmp-results; npx --yes markdownlint-cli2 --config ../.markdownlint-cli2.jsonc 'todo.cleaned.md'" (2025-12-11) PASS; python scripts/check_frontmatter.py todo.root.md .tmp-results/todo.cleaned.md (2025-12-11) PASS
+stand: 2025-12-30 05:35
+update: RP-SSOT Fixes umgesetzt (Frontmatter-Duplikate/Links)
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-rp/database-rp/00-admin/canon-canvas.draft.md' 'novapolis-rp/database-rp/05-projects/Nordlinie-01.md' 'novapolis-rp/database-rp/02-characters/Jonas-Merek.md' 'novapolis-rp/database-rp/03-locations/C6.md' (2025-12-30) PASS; & "F:\VS Code Workspace\Main\.venv\Scripts\python.exe" scripts\check_frontmatter.py <same-scope> (2025-12-30) PASS
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -148,6 +148,13 @@ Nächstes Vorgehen (1-2 Tage)
 - [ ] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` prüfen; auf Minimal-Ausnahmen reduzieren oder entfernen.
 - [ ] Staging-Reports (`database-curated/staging/reports/*.md`) mit YAML-Frontmatter/Setext nachziehen oder in `novapolis-dev/docs/` migrieren; Altdateien nach Freigabe löschen.
 - [ ] Metadata-Initialisierungsskripte (`coding/tools/metadata/init-metadata.js` vs. `init_metadata.py`) konsolidieren und kanonische Variante dokumentieren.
+
+#### RP-Audit Befunde (2025-12-30)
+ - [ ] Prozesslücke klären: Workflow-SSOT erwähnt `database-curated/final/`, im Repo fehlt der Ordner → Entscheidung dokumentieren (anlegen vs. Doku anpassen).
+ - [x] Frontmatter-Duplikate in `novapolis-rp/database-rp/**` bereinigen (Startliste: `00-admin/canon-canvas.draft.md`, `05-projects/Nordlinie-01.md`, `02-characters/Jonas-Merek.md`, `03-locations/C6.md`). (erledigt 2025-12-30 05:32)
+ - [x] Linkdrift prüfen/fixen: `05-projects/Nordlinie-01.md` relative Links auf Admin-Dokus (z. B. Missionslog/Logistik). (erledigt 2025-12-30 05:32)
+ - [ ] README-Stub ergänzen: `novapolis-rp/coding/tools/curation/README.md` (kurzer Einstieg + Verweis auf ingest/tagging + RAW-Policy).
+ - [ ] Nach Fixes: targeted `scripts/check_frontmatter.py` + `markdownlint-cli2` im RP-SSOT-Scope laufen lassen, Receipt in `DONELOG.md` + Kurznotiz in `WORKSPACE_STATUS.md`.
 
 #### Frontmatter/Markdown-Sweep (Priorität hoch, R-FM/R-LINT)
  - Akzeptanzkriterien:

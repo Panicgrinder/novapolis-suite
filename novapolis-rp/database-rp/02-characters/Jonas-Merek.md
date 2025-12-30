@@ -1,19 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
-title: Jonas Merek
-category: character
-slug: jonas-merek
-version: "1.0"
-last_updated: 2025-11-07T03:32:00+01:00
-last_change: "Upgrade aus RAW char_jonas_v2 (korrupt) + resolved #[JONAS-SIS]"
-tags: ["werkstatt", "novapolis"]
-affiliations: ["novapolis"]
-dependencies: ["lumen", "d5", "missionslog", "ai_behavior_index_v2"]
-primary_location: d5
-last_seen: d5
----
+stand: 2025-12-30 05:32
+update: Frontmatter-Duplikat entfernt
+checks: targeted markdownlint-cli2 + scripts/check_frontmatter.py (2025-12-30) PASS
 title: Jonas Merek
 category: character
 slug: jonas-merek

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
+stand: 2025-12-30 06:17
+update: Konsistenzfix: doppelten Metablock entfernt
+checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
 title: Lumen
 category: character
 slug: lumen
@@ -14,18 +14,6 @@ dependencies: [ronja-kerschner, reflex, echo, d5, c6, ai_behavior_index_v2, refl
 primary_location: d5
 last_seen: d5
 ---
-title: Lumen
-category: character
-slug: lumen
-version: "0.9"
-last_updated: 2025-11-07T03:32:00+01:00
-tags: []
-affiliations: ["novapolis"]
-dependencies: ["jonas-merek", "reflex", "d5"]
-primary_location: d5
-last_seen: d5
----
-
 Lumen
 -----
 

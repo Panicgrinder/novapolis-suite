@@ -1,17 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
-title: Nordlinie 01 (Tunnel D5-C6)
-category: project
-slug: nordlinie-01
-status: active
-locations: ["d5", "c6", "verbindungstunnel-d5-c6"]
-dependencies: ["novapolis-inventar", "missionslog"]
-version: "1.0"
-last_updated: 2025-11-07T03:32:00+01:00
-tags: []
----
+stand: 2025-12-30 06:17
+update: Konsistenzfix: Struktur/Metadaten bereinigt
+checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
 title: Nordlinie 01 (Tunnel D5-C6)
 category: project
 slug: nordlinie-01
@@ -67,6 +57,6 @@ Mission Tunnel - Monitoring
 - Personal: Teamliste inkl. Rollen (Leitung/Technik/Logistik/Med)
 - Material: Stückliste, Verbrauch/Restbestände (Einheiten)
 - Events: Störungen/Unfälle/Entscheidungen (mit Zeitstempel)
-- Links: [Logistik](../../00-admin/Logistik.md), [Missionslog](../../00-admin/Missionslog.md)
+- Links: [Logistik](../00-admin/Logistik.md), [Missionslog](../00-admin/Missionslog.md)
 
 

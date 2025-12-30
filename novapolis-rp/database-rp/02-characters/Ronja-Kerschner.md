@@ -1,19 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
-title: Ronja Kerschner
-category: character
-slug: ronja-kerschner
-version: "1.0"
-last_updated: 2025-11-07T03:32:00+01:00
-last_change: "RAW-Insights (char_ronja_v2) integriert, Drift markiert"
-tags: []
-affiliations: [novapolis]
-primary_location: d5
-last_seen: c6
-dependencies: [reflex, lumen, echo, jonas-merek, kora-malenkov, d5, c6]
----
+stand: 2025-12-30 06:17
+update: Konsistenzfix: doppelten Metablock entfernt
+checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
 title: Ronja Kerschner
 category: character
 slug: ronja-kerschner

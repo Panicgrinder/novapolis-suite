@@ -1,18 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
-title: Senn Daru
-category: character
-slug: senn-daru
-version: "0.9"
-last_updated: 2025-11-07T03:32:00+01:00
-tags: []
-affiliations: ["haendlerbund"]
-dependencies: ["c6"]
-primary_location: c6
-last_seen: c6
----
+stand: 2025-12-30 06:17
+update: Konsistenzfix: doppelten Metablock entfernt
+checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
 title: Senn Daru
 category: character
 slug: senn-daru

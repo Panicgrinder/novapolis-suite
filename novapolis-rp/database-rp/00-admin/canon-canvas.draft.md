@@ -1,10 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
-last-updated: 2025-11-07T04:09:00+01:00
-status: draft
----
+stand: 2025-12-30 05:32
+update: Frontmatter-Duplikat entfernt
+checks: targeted markdownlint-cli2 + scripts/check_frontmatter.py (2025-12-30) PASS
 last-updated: 2025-11-07T04:09:00+01:00
 status: draft
 ---
