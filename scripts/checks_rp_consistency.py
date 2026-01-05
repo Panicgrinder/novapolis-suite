@@ -27,9 +27,7 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import re
-import sys
 import time
 from dataclasses import dataclass
 from datetime import datetime
@@ -140,7 +138,9 @@ def has_duplicate_frontmatter(rest_text: str) -> bool:
 
 
 def has_frontmatter_doc_title(frontmatter: str) -> bool:
-    return bool(FRONTMATTER_TITLE_RE.search(frontmatter) or FRONTMATTER_CANVAS_RE.search(frontmatter))
+    return bool(
+        FRONTMATTER_TITLE_RE.search(frontmatter) or FRONTMATTER_CANVAS_RE.search(frontmatter)
+    )
 
 
 def parse_bracket_list(value: str) -> list[str]:
@@ -232,7 +232,7 @@ def iter_local_links(text: str) -> list[str]:
 
 def is_remote_link(link: str) -> bool:
     lowered = link.lower()
-    return lowered.startswith("http://") or lowered.startswith("https://") or lowered.startswith("mailto:")
+    return lowered.startswith(("http://", "https://", "mailto:"))
 
 
 def resolve_link_target(file_path: Path, link: str) -> Path | None:
@@ -257,7 +257,12 @@ def resolve_link_target(file_path: Path, link: str) -> Path | None:
     return (file_path.parent / link).resolve()
 
 
-def audit_rp(repo_root: Path, rp_root: Path, strict: bool, log_path: Path) -> tuple[dict[str, Any], int]:
+def audit_rp(
+    repo_root: Path,
+    rp_root: Path,
+    strict: bool,
+    log_path: Path,
+) -> tuple[dict[str, Any], int]:
     start = time.perf_counter()
 
     allow_no_h1 = {
@@ -297,9 +302,23 @@ def audit_rp(repo_root: Path, rp_root: Path, strict: bool, log_path: Path) -> tu
                 missing_frontmatter.append(rel)
             else:
                 if fm == "" and text.startswith("---"):
-                    findings.append(Finding("ERROR", "FM_UNTERMINATED", rel, "Frontmatter starts but no closing '---' found"))
+                    findings.append(
+                        Finding(
+                            "ERROR",
+                            "FM_UNTERMINATED",
+                            rel,
+                            "Frontmatter starts but no closing '---' found",
+                        )
+                    )
                 if has_duplicate_frontmatter(rest):
-                    findings.append(Finding("ERROR", "FM_DUPLICATE", rel, "Duplicate frontmatter block detected"))
+                    findings.append(
+                        Finding(
+                            "ERROR",
+                            "FM_DUPLICATE",
+                            rel,
+                            "Duplicate frontmatter block detected",
+                        )
+                    )
 
                 if file_path.resolve() not in allow_no_slug:
                     m = SLUG_LINE_RE.search(fm)
@@ -312,19 +331,38 @@ def audit_rp(repo_root: Path, rp_root: Path, strict: bool, log_path: Path) -> tu
                         elif "<" in raw_slug or ">" in raw_slug:
                             # Placeholder in frontmatter (templates) or unfinished doc.
                             findings.append(
-                                Finding("WARN", "SLUG_PLACEHOLDER", rel, f"slug looks like a placeholder: {raw_slug}")
+                                Finding(
+                                    "WARN",
+                                    "SLUG_PLACEHOLDER",
+                                    rel,
+                                    f"slug looks like a placeholder: {raw_slug}",
+                                )
                             )
                         elif not SLUG_VALUE_RE.match(raw_slug):
                             findings.append(
-                                Finding("WARN", "SLUG_INVALID", rel, f"slug contains unexpected characters: {raw_slug}")
+                                Finding(
+                                    "WARN",
+                                    "SLUG_INVALID",
+                                    rel,
+                                    f"slug contains unexpected characters: {raw_slug}",
+                                )
                             )
                         else:
                             slugs.setdefault(raw_slug, []).append(rel)
 
                 # H1 requirement: only when the doc doesn't provide a title in frontmatter.
-                if file_path not in allow_no_h1 and not has_frontmatter_doc_title(fm) and not has_h1(text):
+                if (
+                    file_path not in allow_no_h1
+                    and not has_frontmatter_doc_title(fm)
+                    and not has_h1(text)
+                ):
                     findings.append(
-                        Finding("ERROR", "MD_H1_MISSING", rel, "Missing H1 heading (ATX '# ' or Setext '=')")
+                        Finding(
+                            "ERROR",
+                            "MD_H1_MISSING",
+                            rel,
+                            "Missing H1 heading (ATX '# ' or Setext '=')",
+                        )
                     )
 
                 # scene crossrefs
@@ -332,13 +370,34 @@ def audit_rp(repo_root: Path, rp_root: Path, strict: bool, log_path: Path) -> tu
                     lists = parse_frontmatter_lists(fm)
                     for c in lists.get("characters", []):
                         if c and c not in idx_char:
-                            findings.append(Finding("ERROR", "XREF_CHAR_MISSING", rel, f"character ref not found: {c}"))
-                    for l in lists.get("locations", []):
-                        if l and l not in idx_loc:
-                            findings.append(Finding("ERROR", "XREF_LOC_MISSING", rel, f"location ref not found: {l}"))
+                            findings.append(
+                                Finding(
+                                    "ERROR",
+                                    "XREF_CHAR_MISSING",
+                                    rel,
+                                    f"character ref not found: {c}",
+                                )
+                            )
+                    for loc in lists.get("locations", []):
+                        if loc and loc not in idx_loc:
+                            findings.append(
+                                Finding(
+                                    "ERROR",
+                                    "XREF_LOC_MISSING",
+                                    rel,
+                                    f"location ref not found: {loc}",
+                                )
+                            )
                     for iref in lists.get("inventoryRefs", []):
                         if iref and iref not in idx_inv:
-                            findings.append(Finding("ERROR", "XREF_INV_MISSING", rel, f"inventory ref not found: {iref}"))
+                            findings.append(
+                                Finding(
+                                    "ERROR",
+                                    "XREF_INV_MISSING",
+                                    rel,
+                                    f"inventory ref not found: {iref}",
+                                )
+                            )
 
             # broken local links (skip remote)
             for link in iter_local_links(text):
@@ -350,7 +409,14 @@ def audit_rp(repo_root: Path, rp_root: Path, strict: bool, log_path: Path) -> tu
                 # Only validate links that look like files or folders.
                 # Keep it simple: ignore non-existent anchors-only and empty.
                 if not target.exists():
-                    findings.append(Finding("ERROR", "LINK_BROKEN", rel, f"broken link target: {link}"))
+                    findings.append(
+                        Finding(
+                            "ERROR",
+                            "LINK_BROKEN",
+                            rel,
+                            f"broken link target: {link}",
+                        )
+                    )
 
         # derive slug duplicates as WARN (doesn't always mean wrong, but is risky)
         for slug, files in sorted(slugs.items()):
@@ -428,7 +494,11 @@ def audit_rp(repo_root: Path, rp_root: Path, strict: bool, log_path: Path) -> tu
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--strict", action="store_true", help="Fail (exit 1) when warnings exist")
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Fail (exit 1) when warnings exist",
+    )
     args = parser.parse_args()
 
     repo_root = resolve_repo_root()
@@ -444,7 +514,10 @@ def main() -> int:
 
     report, exit_code = audit_rp(repo_root, rp_root, args.strict, log_path)
 
-    json_path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding=LOG_ENCODING)
+    json_path.write_text(
+        json.dumps(report, indent=2, ensure_ascii=False) + "\n",
+        encoding=LOG_ENCODING,
+    )
 
     with receipt_path.open("w", encoding=LOG_ENCODING) as rf:
         rf.write("---\n")

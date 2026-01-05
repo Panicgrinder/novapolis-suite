@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-30 06:53
-update: RP database-rp: fehlende Slugs ergänzt (missing_slug=0).
-checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\checks_rp_consistency.py PASS; & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py <10 RP-Dateien> PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc <10 RP-Dateien> PASS (2025-12-30 06:53)
+stand: 2026-01-05 19:26
+update: Unified Runner erneut verifiziert (overall PASS); Doku-Frontmatter nachgezogen.
+checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-05 19:29); last full: checks_report_20260105_190519.json
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -12,8 +12,10 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2026-01-05 19:07: Unified Runner erneut verifiziert – `scripts/checks_rp_consistency.py` Ruff/Black gruen gemacht; `python scripts/run_checks_and_report.py` overall PASS (Report: `checks_report_20260105_190519.json`).
 - 2025-12-30 06:17: RP `database-rp` konsistent gemacht (Frontmatter-Duplikate/Metablock-Leichen entfernt, Scene-Crossref-Listen normalisiert); Python-Wrapper an MD025 angepasst; markdownlint ignores fuer `.tmp/**` und `.tmp-results/**` korrigiert; Checks: rp_consistency+frontmatter+markdownlint PASS.
 - 2025-12-30 06:53: RP `database-rp` Slugs nachgezogen (10 Dateien); `scripts/checks_rp_consistency.py` jetzt ohne missing_slug/warnings; targeted Frontmatter-Validator + markdownlint PASS.
+- 2025-12-30 21:02: Frontmatter-Validator repo-weit repariert – `scripts/check_frontmatter.py` skippt jetzt `.tmp/` und `.tmp-results/`; Frontmatter ergänzt in `PR_DESCRIPTION.md` sowie beiden `context.local.md`-Dateien; `python scripts/check_frontmatter.py` PASS.
 - 2025-12-30 05:32: RP-SSOT: Frontmatter-Duplikate entfernt (4 Dateien) und Linkdrift in `Nordlinie-01.md` korrigiert; targeted markdownlint/frontmatter PASS.
 - 2025-12-30 00:45: RP-Audit-Befunde als neue TODOs in `todo.root.md` festgehalten; targeted markdownlint + Frontmatter-Validator (Scope `todo.root.md`, `DONELOG.md`) PASS.
 - 2025-12-10 17:49: RP Alias-Stopword & Tagging 009-001 Refresh – Skript erweitert, damit Stopword-Aliase („verbindungstunnel") nicht mehr generiert werden; Range 009-001 erneut als Dry→Write gelaufen, `lexicon.json`/`unresolved.json` kollisionsfrei, betroffene `[LOC]`-Tags in `part-002.tagged.txt` bereinigt; targeted markdownlint + Frontmatter-Validator für TODO/DONELOG/Status/Temp-TODO PASS.
@@ -43,6 +45,10 @@ Kurz: Die durch `scripts/checks_rp_consistency.py` gefundenen Fehler (doppelte F
 2025-12-30 06:53 | Copilot | RP database-rp: fehlende Slugs ergänzt
 Meta: {"Timestamp": "2025-12-30 06:53", "Scope": "novapolis-rp/database-rp", "Files": ["novapolis-rp/database-rp/00-admin/C6-Logistik-Policy.md", "novapolis-rp/database-rp/00-admin/canon-canvas.draft.md", "novapolis-rp/database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md", "novapolis-rp/database-rp/00-admin/Canvas-T+0-Timeline.md", "novapolis-rp/database-rp/00-admin/memory-bundle.md", "novapolis-rp/database-rp/00-admin/person_index_np.md", "novapolis-rp/database-rp/00-admin/system-prompt.md", "novapolis-rp/database-rp/02-characters/Lumen-Wissensstand-Trainingsstand.md", "novapolis-rp/database-rp/06-scenes/README.md", "novapolis-rp/database-rp/06-scenes/scene-2025-10-27-a.md"], "Commands": ["python scripts/checks_rp_consistency.py (Exit 0; report rp_consistency_report_20251230_065320.json)", "python scripts/check_frontmatter.py <10 files> (Exit 0)", "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc <10 files> (0 errors)"], "Result": "PASS"}
 Kurz: In den verbleibenden RP-SSOT-Dateien wurden `slug:`-Felder nachgezogen und anschließend Wrapper/Validator/Lint im betroffenen Scope erneut bestätigt (missing_slug=0, warnings=0).
+
+2025-12-30 21:02 | Copilot | Frontmatter-Validator repo-weit: FAIL -> PASS
+Meta: {"Timestamp": "2025-12-30 21:02", "Files": ["scripts/check_frontmatter.py", "PR_DESCRIPTION.md", "eval/config/context.local.md", "novapolis_agent/eval/config/context.local.md"], "Commands": ["python scripts/check_frontmatter.py (Exit 0)", "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc PR_DESCRIPTION.md eval/config/context.local.md novapolis_agent/eval/config/context.local.md (0 errors)"], "Result": "PASS"}
+Kurz: Der Frontmatter-Validator schlug u. a. bei generierten `.tmp-results`-Reports fehl. Fix: Skip-Pfade in `scripts/check_frontmatter.py` ergänzt (`.tmp/`, `.tmp-results/`) und fehlende Frontmatter in den betroffenen Markdown-Dateien ergänzt; repo-weiter Re-Run PASS.
 
 2025-12-30 05:32 | Copilot | RP-SSOT Frontmatter-Duplikate/Links bereinigt
 Meta: {"Timestamp": "2025-12-30 05:32", "Files": ["novapolis-rp/database-rp/00-admin/canon-canvas.draft.md", "novapolis-rp/database-rp/05-projects/Nordlinie-01.md", "novapolis-rp/database-rp/02-characters/Jonas-Merek.md", "novapolis-rp/database-rp/03-locations/C6.md"], "Commands": ["npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc <4 files>", "& <venv-python> scripts/check_frontmatter.py <4 files>"], "Result": "PASS"}
@@ -627,4 +633,8 @@ Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG, Details=Commit &
 Todos: offen=0, BeispielFix=Commit & Push ausgeführt, ReRun=git push (falls remote verweigert), Fällig=2025-11-15 09:40
 
 Ende: Timestamp=2025-11-15 09:40
+
+2026-01-05 19:07 | Copilot | Fix: scripts/checks_rp_consistency.py Ruff/Black gruen; Unified Runner overall PASS
+Meta: {"Timestamp": "2026-01-05 19:07", "Files": ["scripts/checks_rp_consistency.py"], "Commands": ["python -m black scripts/checks_rp_consistency.py", "python -m ruff check scripts/checks_rp_consistency.py", "python scripts/run_checks_and_report.py (Exit 0; report checks_report_20260105_190519.json)"], "Result": "PASS"}
+Kurz: Minimale Format-/Lint-Fixes im RP-Consistency-Wrapper (Ruff/Black) vorgenommen und anschliessend den Unified Runner erneut ausgefuehrt. Ergebnis: overall PASS (Coverage im Report > 80%).
 

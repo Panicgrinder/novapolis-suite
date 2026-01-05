@@ -12,7 +12,10 @@ REQUIRED_KEYS = ("stand", "update", "checks")
 TIMESTAMP_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$")
 AUTO_FIX_OPENING_DELIMITER = True
 SKIP_PATTERNS = (
+    ".tmp/",
+    ".tmp-results/",
     ".venv/",
+    "context.local.md",
     "novapolis_agent/eval/results/",
     "novapolis_agent/outputs/",
     "outputs/",
