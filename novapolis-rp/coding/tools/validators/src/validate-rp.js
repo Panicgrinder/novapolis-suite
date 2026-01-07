@@ -11,9 +11,23 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..', '..', '..', '..');
 const rpRoot = path.join(repoRoot, 'database-rp');
 
-function ensureFileHasHeading(mdContent, file) {
+function ensureFileHasHeading(mdContent, file, meta) {
+  const fmTitle = meta && typeof meta.title === 'string' ? meta.title.trim() : '';
+  // markdownlint MD025 can treat frontmatter `title` as the top-level heading.
+  // If we have a frontmatter title, do not additionally require a body H1.
+  if (fmTitle) return;
+
   const lines = mdContent.split(/\r?\n/);
-  const hasH1 = lines.some(l => l.trim().startsWith('# '));
+  const hasAtxH1 = lines.some(l => l.trim().startsWith('# '));
+  const hasSetextH1 = lines.some((l, i) => {
+    if (i + 1 >= lines.length) return false;
+    const titleLine = l.trim();
+    if (!titleLine) return false;
+    // Setext H1: a non-empty line followed by === underline.
+    const underline = (lines[i + 1] ?? '').trim();
+    return /^=+$/.test(underline);
+  });
+  const hasH1 = hasAtxH1 || hasSetextH1;
   if (!hasH1) {
     throw new Error(`Missing H1 heading in ${file}`);
   }
@@ -47,11 +61,11 @@ async function main() {
       const content = fs.readFileSync(file, 'utf8');
       try {
         const rel = path.relative(repoRoot, file);
-        if (!allowNoH1.has(rel)) {
-          ensureFileHasHeading(content, rel);
-        }
         const parsed = matter(content);
         validateFrontmatter(parsed.data, rel);
+        if (!allowNoH1.has(rel)) {
+          ensureFileHasHeading(content, rel, parsed.data);
+        }
       } catch (e) {
         errors.push(e.message);
       }

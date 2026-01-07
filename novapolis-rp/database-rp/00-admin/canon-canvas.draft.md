@@ -1,6 +1,6 @@
 ---
 stand: 2025-12-30 06:51
-update: Frontmatter: slug ergänzt; Checks aktualisiert.
+update: "Frontmatter: slug ergänzt; Checks aktualisiert."
 checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2025-12-30 06:51)
 slug: canon-canvas-draft
 last-updated: 2025-11-07T04:09:00+01:00

@@ -1,14 +1,14 @@
 ---
-stand: 2026-01-07 04:05
-update: Schritt 3 finalisiert: WORKSPACE_STATUS + Dev-Hub Donelog auf /.tmp/results nachgezogen; Checks bestaetigt.
-checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py WORKSPACE_STATUS.md novapolis-dev\\docs\\donelog.md DONELOG.md todo.root.md novapolis-dev\\docs\\copilot-vscode-usage.md novapolis-dev\\docs\\readme_decisions.md PASS (2026-01-07 04:05); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc WORKSPACE_STATUS.md novapolis-dev/docs/donelog.md DONELOG.md todo.root.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/readme_decisions.md PASS (2026-01-07 04:05)
+stand: 2026-01-07 06:08
+update: RP Kanon: Sync MD-Frontmatter -> JSON-Mirror für characters/locations/inventory/projects/scenes; Doppel-Metablocks entfernt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-07 06:08); & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py novapolis-rp\\database-rp\\02-characters novapolis-rp\\database-rp\\03-locations novapolis-rp\\database-rp\\04-inventory novapolis-rp\\database-rp\\05-projects novapolis-rp\\database-rp\\06-scenes PASS (2026-01-07 06:08); & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\checks_rp_consistency.py --strict PASS (2026-01-07 06:08)
+---
 ---
 
-DONELOG-Uebersicht (Novapolis Suite)
-====================================
-
-Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher bleiben weiterhin die fuehrenden Quellen; diese Datei spiegelt ihren Inhalt fuer eine zentrale Sicht wider.
-
+stand: 2026-01-07 07:20
+update: RP-Validatoren: YAML-Frontmatter kompatibel gemacht; Node-RP-Validator an Frontmatter-Title/Setext ausgerichtet; Szene-Frontmatter finalisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-07 07:20); python scripts/check_frontmatter.py novapolis-rp/database-rp PASS (2026-01-07 07:20); python scripts/checks_rp_consistency.py --strict PASS (2026-01-07 07:20); npm run -s validate:curated PASS; npm run -s validate:rp PASS"
+---
 Kurzueberblick
 --------------
 
@@ -634,6 +634,10 @@ Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG, Details=Commit &
 Todos: offen=0, BeispielFix=Commit & Push ausgeführt, ReRun=git push (falls remote verweigert), Fällig=2025-11-15 09:40
 
 Ende: Timestamp=2025-11-15 09:40
+
+2026-01-07 05:44 | Copilot | RP Kanon (Blueprint Ronja): `last_updated` in `novapolis-rp/database-rp/02-characters/Ronja-Kerschner.json` an SSOT in `Ronja-Kerschner.md` angeglichen (Option A)
+
+2026-01-07 06:08 | Copilot | RP Kanon: JSON-Metadaten in `database-rp/{02-characters,03-locations,04-inventory,05-projects,06-scenes}` an MD-Frontmatter synchronisiert; Doppel-Metablocks entfernt; `last-updated` → `last_updated`; Checks: markdownlint PASS; Frontmatter-Validator PASS; rp_consistency --strict PASS
 
 2026-01-05 19:07 | Copilot | Fix: scripts/checks_rp_consistency.py Ruff/Black gruen; Unified Runner overall PASS
 Meta: {"Timestamp": "2026-01-05 19:07", "Files": ["scripts/checks_rp_consistency.py"], "Commands": ["python -m black scripts/checks_rp_consistency.py", "python -m ruff check scripts/checks_rp_consistency.py", "python scripts/run_checks_and_report.py (Exit 0; report checks_report_20260105_190519.json)"], "Result": "PASS"}

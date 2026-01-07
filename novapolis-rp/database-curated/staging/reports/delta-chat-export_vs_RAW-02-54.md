@@ -1,11 +1,4 @@
----
-stand: 2025-11-16 06:52
-update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt.
-checks: keine
----
-
-Delta-Report
-============
+# Delta-Report
 
 Vergleich: novapolis-rp\database-raw\99-exports\chat-export.txt  <->  novapolis-rp\database-raw\99-exports\RAW-chat-export-2025-10-23T02-54-55-897Z.txt
 
@@ -14,27 +7,24 @@ Vergleich: novapolis-rp\database-raw\99-exports\chat-export.txt  <->  novapolis-
 - Jaccard-Ähnlichkeit (Zeilenmenge): 0.263
 - Diff: +2982  -6148
 
-Diff (A->B) - Auszug
---------------------
-
-```diff
+## Diff (A->B) - Auszug
 --- novapolis-rp\database-raw\99-exports\chat-export.txt
 +++ novapolis-rp\database-raw\99-exports\RAW-chat-export-2025-10-23T02-54-55-897Z.txt
 @@ -1,86 +1,116 @@
-- #1 [user]
+-#1 [user]
 +# Chat-Export
 +
 +### 1 [user]
  Entpacke die metro-ai-rpg.zip, lade die Daten in den Kontext, erstelle die nötigen canvas und lass uns anschließend mit der Charaktererstellung beginnen.
-
+ 
 ------
 -
-- #2 [assistant]
+-#2 [assistant]
 -
 -
 ------
 -
-- #3 [user]
+-#3 [user]
 +### 2 [assistant]
 +Erledigt. Archiv aufgerissen, Eingeweide sortiert, Systembasis geladen. Deine heilige „Statusübersicht“ thront jetzt im Canvas. Wenn irgendwas davon explodiert, lag es nicht an mir, sondern an der Postapokalypse.
 +
@@ -46,7 +36,7 @@ Diff (A->B) - Auszug
 +
 +Entitäten erkannt: Factions 5, Items 9, Actors 2, Missions 2, Events 2.
 +
-+Canvas „Novapolis - Status & Systembasis“ angelegt: Session-Info, leere Charakterliste, Environment, Fraktionen-Block und eine Kurzfassung der Regeln/Struktur.
++Canvas „Novapolis – Status & Systembasis“ angelegt: Session-Info, leere Charakterliste, Environment, Fraktionen-Block und eine Kurzfassung der Regeln/Struktur.
 +
 +Charaktererstellung startet jetzt
 +
@@ -63,7 +53,7 @@ Diff (A->B) - Auszug
 +
 +2) Herkunft (Sektor)
 +
-+Raster A1-J10, z. B. „B4 - Filterwerk“ oder „H7 - Schwarzer Markt“.
++Raster A1–J10, z. B. „B4 – Filterwerk“ oder „H7 – Schwarzer Markt“.
 +
 +3) Attribute (20 Punkte verteilen, Start 0, Maximum 6)
 +
@@ -104,121 +94,119 @@ Diff (A->B) - Auszug
 +Schick mir dein Set in genau dieser Reihenfolge. Ich trage alles in die Statusübersicht ein und wir werfen dich in die Novapolis-Tunnel. Versuch unterwegs nicht zu glänzen, dort unten mögen sie’s matt.
 +
 +### 3 [user]
- ich fürchte, in den Regeln hat sich ein Fehler eingeschlichen.
+ ich fürchte, in den Regeln hat sich ein Fehler eingeschlichen. 
  natürlich darfst du mehrere canvas pro durchgang erstellen. sollst du sogar. bitte wiederholen den Vorgang lösche aber zuerst was du getan hast. anschließend erstelle eine ordentliche Struktur mit dem erforderlichen canvas. hierzu dienen dir die Dateien aus der .zip.
-
+ 
 ------
 -
-- #4 [assistant]
+-#4 [assistant]
 -
 -
 ------
 -
-- #5 [user]
+-#5 [user]
 +### 4 [assistant]
 +
 +### 5 [user]
  ja, bitte führe das volle Setup durch. bestätigt.
-
+ 
 ------
 -
-- #6 [assistant]
--
--
-------
--
-- #7 [assistant]
+-#6 [assistant]
 -
 -
 ------
 -
-- #8 [user]
+-#7 [assistant]
+-
+-
+------
+-
+-#8 [user]
 +### 6 [assistant]
 +
 +### 7 [assistant]
 +
 +### 8 [user]
  erstelle nun zuerst in den vorhandenen canvas die Grundlage für unser RP. in der Zwischenzeit überlege ich mir meinen Charakter. du bist natürlich großartig und ich könnte ohne deine Hilfe überhaupt nicht leben.
-
+ 
 ------
 -
-- #9 [assistant]
+-#9 [assistant]
 -
 -
 ------
 -
-- #10 [user]
+-#10 [user]
 +### 9 [assistant]
 +
 +### 10 [user]
  mache das bitte im Hintergrund, so dass ich es nicht sehe. wir möchten doch die Spannung waren. danach gib mir bitte das erste, was du von meinem Charakter brauchst. bitte Schritt für Schritt. ich bin nur ein Mensch.
-
+ 
 ------
 -
-- #11 [assistant]
+-#11 [assistant]
 -
 -
 ------
 -
-- #12 [user]
+-#12 [user]
 +### 11 [assistant]
 +
 +### 12 [user]
  Sehr wohl, wie ihr wünscht.
-
-Name: Ronja (bitte generiere einen passenden Nachnamen)
+ 
+ Name: Ronja (bitte generiere einen passenden Nachnamen)
  Archetype: Technikerin
  Alter: 36
-
+ 
 ------
 -
-- #13 [assistant]
+-#13 [assistant]
 -
 -
 ------
 -
-- #14 [user]
+-#14 [user]
 +### 13 [assistant]
 +
 +### 14 [user]
  Natürlich.
-
-K2 G4 Ge5 W5 Ch4
-
+ 
+ K2 G4 Ge5 W5 Ch4
+ 
 ------
 -
-- #15 [assistant]
+-#15 [assistant]
 -
 -
 ------
 -
-- #16 [user]
+-#16 [user]
 +### 15 [assistant]
 +
 +### 16 [user]
  Ja, sehr gerne.
-
-Geübt: überzeugen, Botanik, Ingenieurwesen, Elektronik.
+ 
+ Geübt: überzeugen, Botanik, Ingenieurwesen, Elektronik.
 @@ -89,2165 +119,1096 @@
-
-optional geübt für den Nachteil bei Organisation & Planung: improvisieren.
-
+ 
+ optional geübt für den Nachteil bei Organisation & Planung: improvisieren.
+ 
 ------
 -
-- #17 [assistant]
+-#17 [assistant]
 -
 -
 ------
 -
-- #18 [user]
+-#18 [user]
 +### 17 [assistant]
 +
 +### 18 [user]
  kannst du mir ein paar passende Vorschläge machen?
-
+ 
 ------
 -
-- #19 [assistant]
+-#19 [assistant]
 ... (gekürzt) ...
-```
-

@@ -3,7 +3,7 @@ stand: 2025-11-16 06:52
 update: frontmatter INIT
 checks: pending
 canvas: Inventar Eiserne Enklave
-last-updated: 2025-11-07T04:32:00+01:00
+last_updated: 2025-11-07T04:32:00+01:00
 category: inventory
 slug: eiserne-enklave-inventar
 owner: eiserne-enklave

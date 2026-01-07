@@ -13,17 +13,6 @@ dependencies: ["d5", "c6"]
 primary_location: d5
 last_seen: d5
 ---
-title: Lyra Hest
-category: character
-slug: lyra-hest
-version: "0.9"
-last_updated: 2025-11-07T03:32:00+01:00
-tags: []
-affiliations: ["novapolis"]
-dependencies: ["d5", "c6"]
-primary_location: d5
-last_seen: d5
----
 <!-- markdownlint-disable MD025 -->
 
 Lyra Hest

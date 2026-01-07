@@ -1,6 +1,6 @@
 ---
 stand: 2025-12-30 06:17
-update: Konsistenzfix: doppelten Metablock entfernt
+update: "Konsistenzfix: doppelten Metablock entfernt"
 checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
 title: Senn Daru
 category: character

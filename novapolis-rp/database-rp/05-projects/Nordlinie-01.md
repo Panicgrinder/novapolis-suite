@@ -1,6 +1,6 @@
 ---
 stand: 2025-12-30 06:17
-update: Konsistenzfix: Struktur/Metadaten bereinigt
+update: "Konsistenzfix: Struktur/Metadaten bereinigt"
 checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
 title: Nordlinie 01 (Tunnel D5-C6)
 category: project
@@ -14,7 +14,7 @@ tags: []
 ---
 
 Projekt: Nordlinie 01 (Tunnel D5-C6)
-------------------------------------
+-------------------------------------
 
 Ziel
 ----
