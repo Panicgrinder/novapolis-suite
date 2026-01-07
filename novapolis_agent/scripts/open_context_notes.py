@@ -3,7 +3,7 @@ import os
 import platform
 import webbrowser
 
-from app.core.settings import settings
+from novapolis_agent.app.core.settings import settings
 
 
 def ensure_file(path: str) -> str:

@@ -1,11 +1,12 @@
 ---
-stand: 2026-01-07 09:21
-update: Prioritaet 1: Root-DONELOG aktualisiert (Receipt); scripts.agent-Wrapper/Kompatibilitaet dokumentiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-07 09:21); python scripts/check_frontmatter.py todo.root.md DONELOG.md PASS (2026-01-07 09:21)
+stand: 2026-01-07 10:11
+update: Prioritaet 2 (inkrementell): Agent-Skripte reduzieren Abhaengigkeit vom Root app-Shim; mypy-Duplikatfix in Legacy-Reexports.
+checks: pwsh -NoProfile -File scripts\checks_types.ps1 PASS (2026-01-07 10:06); pwsh -NoProfile -File scripts\tests_pytest_root.ps1 PASS (2026-01-07 10:08); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-07 10:11); python scripts/check_frontmatter.py todo.root.md DONELOG.md PASS (2026-01-07 10:11)
 ---
 Kurzueberblick
 --------------
 
+- 2026-01-07 10:08: Prioritaet 2 (inkrementell): Erste Agent-Skripte importieren `novapolis_agent.app.*` (statt `app.*`); Legacy-Reexports ohne `app.<pkg>.__init__` (mypy-Duplikatfix).
 - 2026-01-07 09:13: Prioritaet 1: Tests nutzen `scripts.agent.*`; Wrapper in Root erweitert + Kompatibilitaetspaket in `novapolis_agent/scripts/agent`; Root-`pytest -q` und Typchecks (pyright+mypy) wieder lauffaehig.
 - 2026-01-07 08:53: Root-Dokus (TODO/DONELOG) referenzieren `/.tmp/results/todo.cleaned.md`; markdownlint ignoriert jetzt auch verschachtelte `node_modules/**` und RP-Staging-Reports.
 - 2026-01-07 08:32: `scripts/agent` Wrapper erweitert (Proxy auf `novapolis_agent.scripts.*` + CLI-Fallback via runpy); Test-Imports bleiben vorerst bei `novapolis_agent.scripts.*` wegen Namenskollision `scripts`.
@@ -194,6 +195,10 @@ Kurz: Root-Dokus referenzieren jetzt konsistent `/.tmp/results/todo.cleaned.md` 
 2026-01-07 09:13 | Copilot | Prioritaet 1: scripts.agent Imports stabilisiert (Tests+Wrappers)
 Meta: {"Timestamp": "2026-01-07 09:13", "Files": ["scripts/agent/*.py", "novapolis_agent/scripts/*.py", "novapolis_agent/scripts/agent/*.py", "novapolis_agent/tests/**/*.py", "scripts/tests_pytest_root.{py,ps1}", "scripts/checks_types.ps1"], "Commands": ["pwsh -NoProfile -File scripts/tests_pytest_root.ps1 (Exit 0)", "pwsh -NoProfile -File scripts/checks_types.ps1 (Exit 0)"]}
 Kurz: Um die Namenskollision `scripts` (Root vs. Agent) ohne Umbenennung zu entschärfen, nutzen Tests jetzt `scripts.agent.*`. Root-Wrapper wurden fuer weitere, testrelevante CLIs ergaenzt und zusaetzlich existiert ein kleines Kompatibilitaetspaket `novapolis_agent/scripts/agent`, falls `scripts` importseitig zuerst auf den Agent zeigt. Interne Agent-Skript-Imports wurden auf `novapolis_agent.scripts.*` umgestellt; Root-Wrapper fuer `pytest -q` und `pyright+mypy` liegen jetzt als `scripts/tests_pytest_root.ps1` und `scripts/checks_types.ps1` vor.
+
+2026-01-07 10:08 | Copilot | Prioritaet 2 (inkrementell): Agent-Skripte nutzen novapolis_agent.app (Shim-Abbau vorbereitet)
+Meta: {"Timestamp": "2026-01-07 10:08", "Files": ["novapolis_agent/scripts/*.py", "novapolis_agent/novapolis_agent/app/**/__init__.py"], "Commands": ["pwsh -NoProfile -File scripts/checks_types.ps1 (Exit 0)", "pwsh -NoProfile -File scripts/tests_pytest_root.ps1 (Exit 0)"]}
+Kurz: Um mittelfristig das Root-`app/` Shim entfernen zu koennen, wurden erste `novapolis_agent/scripts` Imports von `app` auf `novapolis_agent.app` umgestellt. Ein mypy-Duplikatfehler (durch `from app.<pkg>.__init__ import <star>`) wurde in den Legacy-Reexport-Packages unter `novapolis_agent/novapolis_agent/app/` behoben. Test-Fix: `export_finetune` liest Settings weiterhin kompatibel (erst `app.core.settings`, sonst `novapolis_agent.app.core.settings`).
 - 2025-11-06 04:40: Demo-Test entfernt (`tests/test_intentional_failure.py`) und `pytest -q` manuell via pwsh ausgeführt - Suite PASS.
 - 2025-11-06 04:15: Frontmatter-Validator mit Demo-Datei geübt; `check_frontmatter.py` PASS nach Korrektur; absichtlicher pytest-Fail dokumentiert.
 - 2025-11-06 03:34: Workspace-Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) via Tasks aktualisiert; Status-/Donelog-Docs nachgezogen.
@@ -210,8 +215,8 @@ Kurz: Um die Namenskollision `scripts` (Root vs. Agent) ohne Umbenennung zu ents
 - 2025-11-01 23:45: Workspace-Bereinigung - alte `.code-workspace` Dateien entfernt; markdownlint-cli2 PASS (Root-Lauf, keine Fehler). `WORKSPACE_STATUS.md` aktualisiert.
 - 2025-11-02 19:11: YAML-Frontmatter auf allen Root-Dokumenten finalisiert; markdownlint-cli2 PASS (Repo-Lauf).
 - 2025-11-02 22:31: Shell-Hooks/Tasks auf PowerShell 7 (`pwsh`) umgestellt; `.gitignore` ignoriert lokale Godot-Editor-Binaries (novapolis-sim).
-- **novapolis_agent/docs/DONELOG.txt** protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
-- **novapolis-dev/docs/donelog.md** haelt migrations-, daten- und policy-bezogene Arbeiten fest.
+- __novapolis_agent/docs/DONELOG.txt__ protokolliert jede nicht-triviale Codeaenderung im Agent-Backend (Pflicht fuer CI).
+- __novapolis-dev/docs/donelog.md__ haelt migrations-, daten- und policy-bezogene Arbeiten fest.
 - 2025-11-01: Markdownlint zentralisiert - Root-Task vereinheitlicht, Agent-Wrapper entfernt, `run_lint_markdown.ps1` als Hinweisstub belassen.
 - 2025-11-02: TODO-Übersichten konsolidiert - Root-`TODO.md` auf Link (driftfrei) mit Zeitstempel umgestellt; RP-Mirror `novapolis-rp/Main/novapolis-dev/docs/todo.md` durch Stub ersetzt; Legacy-Stub `novapolis-rp/development/docs/todo.md` entfernt.
 - 2025-11-02: Memory-Bundle und Root-Doku auf Evakuierungsstatus Marei/E3/C6 synchronisiert; offene Aufgabenliste angepasst.

@@ -87,7 +87,7 @@ EXCLUDE_DIR_NAMES = {
 TEXT_EXTS = {".py", ".md", ".txt", ".json", ".jsonl"}
 
 # Import Settings und Heuristik-Fallback
-from app.core.settings import settings  # noqa: E402
+from novapolis_agent.app.core.settings import settings  # noqa: E402
 
 heuristic_summarize_file: Callable[..., str] | None
 
@@ -233,7 +233,7 @@ async def process_scope(
     if use_llm:
         # Client vorbereiten (ASGI/HTTP)
         if asgi:
-            from app.main import app as fastapi_app
+            from novapolis_agent.app.main import app as fastapi_app
 
             transport = httpx.ASGITransport(app=fastapi_app)
             client = httpx.AsyncClient(transport=transport, base_url="http://asgi", timeout=60.0)

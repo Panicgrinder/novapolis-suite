@@ -49,7 +49,7 @@ def _latest_results(path: str) -> str | None:
 def main() -> int:
     # Dynamischer Default-Pfad über Settings
     try:
-        from app.core.settings import settings
+        from novapolis_agent.app.core.settings import settings
 
         default_results = os.path.join(
             os.path.dirname(os.path.dirname(__file__)),

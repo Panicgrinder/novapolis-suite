@@ -98,7 +98,7 @@ async def rerun_from_results(
 
     asgi_client: httpx.AsyncClient | None = None
     if asgi:
-        from app.main import app as fastapi_app
+        from novapolis_agent.app.main import app as fastapi_app
 
         transport = httpx.ASGITransport(app=fastapi_app)
         asgi_client = httpx.AsyncClient(transport=transport, base_url="http://asgi")

@@ -187,3 +187,5 @@ Beispiel:
 2025-11-17 09:40 | Copilot | Archiviert: `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Live-Stubs durch explizite Import-Fehlermarker ersetzt; Root-`app/__init__.py` Shim hinzugefügt, Tests aktualisiert. Commits: `1df7561`, `6191a5d`.
 
 2026-01-07 09:11 | Copilot | Root-Wrapper `scripts/agent` erweitert (weitere Test-CLIs), Agent-Skripte auf `novapolis_agent.scripts.*` Imports umgestellt, Tests auf `scripts.agent.*` migriert; Root-Pytest-Wrapper repariert; `pytest -q` (root) + `pyright+mypy` PASS.
+
+2026-01-07 10:08 | Copilot | Prioritaet 2 (inkrementell): Agent-Skripte bevorzugen `novapolis_agent.app.*` Imports; mypy-Duplikat durch Entfernen von `app.<pkg>.__init__` Reexports behoben; Root-Pytest wieder PASS.

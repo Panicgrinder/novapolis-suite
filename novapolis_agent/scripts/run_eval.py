@@ -125,7 +125,7 @@ except Exception:
 # Versuche, die Anwendungseinstellungen zu importieren
 try:
     # Importiere die Einstellungen
-    from app.core.settings import settings
+    from novapolis_agent.app.core.settings import settings
 
     # Verwende die Einstellungen für Standardwerte (neue Unterordner-Struktur)
     _st_any: Any = cast(Any, settings)
@@ -1331,7 +1331,7 @@ async def run_evaluation(
     asgi_client: httpx.AsyncClient | None = None
     if asgi:
         # FastAPI-App importieren und In-Process-Client erstellen
-        from app.main import app as fastapi_app
+        from novapolis_agent.app.main import app as fastapi_app
 
         transport = httpx.ASGITransport(app=cast(Any, fastapi_app))
         asgi_client = httpx.AsyncClient(transport=transport, base_url="http://asgi")
@@ -1341,8 +1341,12 @@ async def run_evaluation(
     # Optional: Logger temporär drosseln, um Progress sauber zu halten
     prev_levels: dict[str, int] = {}
     noisy_loggers = [
+        # legacy (Root-Shim)
         "app.main",
         "app.api.chat",
+        # direkt (ohne Shim)
+        "novapolis_agent.app.main",
+        "novapolis_agent.app.api.chat",
         "httpx",
         "eval_loader",
         "eval",
@@ -1375,7 +1379,7 @@ async def run_evaluation(
             _host = None
             try:
                 # Verwende das bereits importierte settings-Objekt, falls vorhanden
-                from app.core.settings import settings as _st
+                from novapolis_agent.app.core.settings import settings as _st
 
                 _st_any: Any = cast(Any, _st)
                 _model_name = cast(str | None, getattr(_st_any, "MODEL_NAME", None))

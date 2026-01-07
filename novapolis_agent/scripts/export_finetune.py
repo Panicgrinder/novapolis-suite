@@ -103,7 +103,10 @@ async def export_from_results(
     if out_dir is None:
         # Nutze Settings statt hardcoded fallback
         try:
-            from app.core.settings import settings
+            try:
+                from app.core.settings import settings
+            except Exception:
+                from novapolis_agent.app.core.settings import settings
 
             out_dir_str = os.path.join(
                 os.path.dirname(os.path.dirname(__file__)),

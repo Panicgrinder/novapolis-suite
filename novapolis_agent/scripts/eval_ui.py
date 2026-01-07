@@ -700,7 +700,7 @@ async def _evaluate_specific_items(items: list[EvalItem]) -> list[EvalResult]:
 
     # ASGI-Client vorbereiten
     import httpx
-    from app.main import app as fastapi_app
+    from novapolis_agent.app.main import app as fastapi_app
 
     transport = httpx.ASGITransport(app=fastapi_app)
     client = httpx.AsyncClient(transport=transport, base_url="http://asgi")
