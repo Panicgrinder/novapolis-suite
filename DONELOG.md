@@ -1,11 +1,12 @@
 ---
-stand: 2026-01-07 07:55
-update: DONELOG-Frontmatter dedupliziert; Root-Wrapper-Paket scripts/agent ergänzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md PASS (2026-01-07 07:55); python scripts/check_frontmatter.py DONELOG.md PASS (2026-01-07 07:55); python -m ruff check scripts/agent PASS (2026-01-07 07:55); pytest -q -m unit PASS (2026-01-07 07:55)
+stand: 2026-01-07 08:32
+update: scripts/agent Wrapper erweitert (Import-Proxy); Test-Migration auf scripts.agent zurückgestellt (Namenskollision mit novapolis_agent/scripts).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md PASS (2026-01-07 08:32); python scripts/check_frontmatter.py DONELOG.md PASS (2026-01-07 08:32); python -m ruff check scripts/agent PASS (2026-01-07 08:32); pytest -q -m unit PASS (2026-01-07 08:32)
 ---
 Kurzueberblick
 --------------
 
+- 2026-01-07 08:32: `scripts/agent` Wrapper erweitert (Proxy auf `novapolis_agent.scripts.*` + CLI-Fallback via runpy); Test-Imports bleiben vorerst bei `novapolis_agent.scripts.*` wegen Namenskollision `scripts`.
 - 2026-01-07 07:51: Root-Wrapper-Paket `scripts/agent` hinzugefügt (CLIs delegieren auf `novapolis_agent.scripts.*`); `ruff check scripts/agent` + `pytest -q -m unit` PASS.
 - 2026-01-07 04:05: Schritt 3: Temp-Pfade in lebenden Docs konsolidiert (`/.tmp-results/` -> `/.tmp/results/`); WORKSPACE_STATUS + Dev-Hub Donelog nachgezogen; Legacy-Ordner bleibt als Altbestand bestehen.
 - 2026-01-05 19:07: Unified Runner erneut verifiziert – `scripts/checks_rp_consistency.py` Ruff/Black gruen gemacht; `python scripts/run_checks_and_report.py` overall PASS (Report: `checks_report_20260105_190519.json`).
