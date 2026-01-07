@@ -1,17 +1,12 @@
 ---
-stand: 2026-01-07 06:08
-update: RP Kanon: Sync MD-Frontmatter -> JSON-Mirror für characters/locations/inventory/projects/scenes; Doppel-Metablocks entfernt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-07 06:08); & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py novapolis-rp\\database-rp\\02-characters novapolis-rp\\database-rp\\03-locations novapolis-rp\\database-rp\\04-inventory novapolis-rp\\database-rp\\05-projects novapolis-rp\\database-rp\\06-scenes PASS (2026-01-07 06:08); & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\checks_rp_consistency.py --strict PASS (2026-01-07 06:08)
----
----
-
-stand: 2026-01-07 07:20
-update: RP-Validatoren: YAML-Frontmatter kompatibel gemacht; Node-RP-Validator an Frontmatter-Title/Setext ausgerichtet; Szene-Frontmatter finalisiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-07 07:20); python scripts/check_frontmatter.py novapolis-rp/database-rp PASS (2026-01-07 07:20); python scripts/checks_rp_consistency.py --strict PASS (2026-01-07 07:20); npm run -s validate:curated PASS; npm run -s validate:rp PASS"
+stand: 2026-01-07 07:55
+update: DONELOG-Frontmatter dedupliziert; Root-Wrapper-Paket scripts/agent ergänzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md PASS (2026-01-07 07:55); python scripts/check_frontmatter.py DONELOG.md PASS (2026-01-07 07:55); python -m ruff check scripts/agent PASS (2026-01-07 07:55); pytest -q -m unit PASS (2026-01-07 07:55)
 ---
 Kurzueberblick
 --------------
 
+- 2026-01-07 07:51: Root-Wrapper-Paket `scripts/agent` hinzugefügt (CLIs delegieren auf `novapolis_agent.scripts.*`); `ruff check scripts/agent` + `pytest -q -m unit` PASS.
 - 2026-01-07 04:05: Schritt 3: Temp-Pfade in lebenden Docs konsolidiert (`/.tmp-results/` -> `/.tmp/results/`); WORKSPACE_STATUS + Dev-Hub Donelog nachgezogen; Legacy-Ordner bleibt als Altbestand bestehen.
 - 2026-01-05 19:07: Unified Runner erneut verifiziert – `scripts/checks_rp_consistency.py` Ruff/Black gruen gemacht; `python scripts/run_checks_and_report.py` overall PASS (Report: `checks_report_20260105_190519.json`).
 - 2025-12-30 06:17: RP `database-rp` konsistent gemacht (Frontmatter-Duplikate/Metablock-Leichen entfernt, Scene-Crossref-Listen normalisiert); Python-Wrapper an MD025 angepasst; markdownlint ignores fuer `.tmp/**` und `.tmp-results/**` korrigiert; Checks: rp_consistency+frontmatter+markdownlint PASS.
