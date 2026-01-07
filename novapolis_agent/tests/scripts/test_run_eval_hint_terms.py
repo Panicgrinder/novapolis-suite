@@ -1,7 +1,7 @@
 from typing import Any
 
 # Importiere die zu testenden Helfer direkt aus dem Runner
-from scripts.run_eval import EvaluationItem, compute_hint_terms
+from scripts.agent.run_eval import EvaluationItem, compute_hint_terms
 
 
 def _mk_item(

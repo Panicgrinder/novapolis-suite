@@ -8,7 +8,7 @@ import pytest
 @pytest.mark.scripts
 @pytest.mark.unit
 def test_estimate_tokens_is_text_and_count(tmp_path: os.PathLike[str]) -> None:
-    from scripts.estimate_tokens import count_tokens, is_text_file
+    from scripts.agent.estimate_tokens import count_tokens, is_text_file
 
     # is_text_file
     assert is_text_file("a.py")

@@ -1985,6 +1985,10 @@ def create_example_eval_file(file_path: str, start_id: int = 21, count: int = 20
 
 
 if __name__ == "__main__":
+    print(
+        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: python -m scripts.agent.run_eval (statt novapolis_agent/scripts/run_eval.py).",
+        file=sys.stderr,
+    )
     # Standardpfade (Datasets/Results/Config)
     base_eval = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "eval")
     eval_dir = DEFAULT_EVAL_DIR
@@ -2213,7 +2217,7 @@ if __name__ == "__main__":
 
     # Vor-Evaluierung: Synonyme und Datensätze laden (neuer Loader)
     try:
-        from scripts.syn_loader import load_synonyms as _syn_load
+        from novapolis_agent.scripts.syn_loader import load_synonyms as _syn_load
 
         syn, syn_count = _syn_load()
         # Notwendig? Der eigentliche Evaluator lädt Synonyme intern, daher hier nur Logging
@@ -2223,7 +2227,7 @@ if __name__ == "__main__":
 
     diags: list[dict[str, Any]] = []
     try:
-        from scripts.eval_loader import load_packages as _load_pkgs
+        from novapolis_agent.scripts.eval_loader import load_packages as _load_pkgs
 
         combine_path: Path | None = (
             Path(args.combine_out)

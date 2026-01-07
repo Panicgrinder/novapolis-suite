@@ -3,7 +3,7 @@ import types
 from importlib.machinery import ModuleSpec
 
 import pytest
-import scripts.quick_eval as qe
+import scripts.agent.quick_eval as qe
 
 
 @pytest.mark.scripts

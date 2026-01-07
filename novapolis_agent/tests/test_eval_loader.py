@@ -5,7 +5,7 @@ import time
 import unittest
 from typing import Any
 
-from scripts.run_eval import load_prompts
+from scripts.agent.run_eval import load_prompts
 
 
 class TestEvalLoader(unittest.IsolatedAsyncioTestCase):

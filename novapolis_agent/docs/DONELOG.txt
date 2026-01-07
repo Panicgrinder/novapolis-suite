@@ -185,3 +185,5 @@ Beispiel:
 2025-11-17 04:55 | Copilot | `novapolis_agent/app/routers` & `app/services/llm.py` entfernt (inkl. Mirror-Pakete + zugehörige Tests); `WORKSPACE_INDEX.md`, `cleanup_recommendations.md`, `WORKSPACE_STATUS.md` und DONELOGs aktualisiert.
 
 2025-11-17 09:40 | Copilot | Archiviert: `novapolis_agent/app`-Stubs nach `novapolis_agent/archive/app/` verschoben; Live-Stubs durch explizite Import-Fehlermarker ersetzt; Root-`app/__init__.py` Shim hinzugefügt, Tests aktualisiert. Commits: `1df7561`, `6191a5d`.
+
+2026-01-07 09:11 | Copilot | Root-Wrapper `scripts/agent` erweitert (weitere Test-CLIs), Agent-Skripte auf `novapolis_agent.scripts.*` Imports umgestellt, Tests auf `scripts.agent.*` migriert; Root-Pytest-Wrapper repariert; `pytest -q` (root) + `pyright+mypy` PASS.

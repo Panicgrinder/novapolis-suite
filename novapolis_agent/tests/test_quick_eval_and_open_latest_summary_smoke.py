@@ -9,7 +9,7 @@ import pytest
 @pytest.mark.unit
 def test_quick_eval_script_imports_and_runs_smoke(monkeypatch: pytest.MonkeyPatch) -> None:
     # Nur Import-/Smoke-Test (kein echtes Modell); das Skript sollte importierbar sein.
-    import scripts.quick_eval as mod
+    import scripts.agent.quick_eval as mod
 
     assert hasattr(mod, "main") or True
 

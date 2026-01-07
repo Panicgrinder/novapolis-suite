@@ -32,7 +32,7 @@ async def rerun_from_results(
 ) -> dict[str, Any]:
     import httpx
 
-    from scripts import run_eval  # [`scripts/run_eval.py`](scripts/run_eval.py)
+    from novapolis_agent.scripts import run_eval
 
     meta, rows = _load_results_with_meta(results_path)
     if not rows:

@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 import pytest
-import scripts.map_reduce_summary_llm as mr
+import scripts.agent.map_reduce_summary_llm as mr
 
 
 @pytest.mark.asyncio
@@ -28,9 +28,10 @@ async def test_process_scope_llm_uses_stub(tmp_path):
         # keep it simple to avoid cross-drive relpath issues
         return f"Datei: {os.path.basename(path)}\nZusammenfassung: OK"
 
-    # Patch llm function
-    orig = mr.llm_summarize_file
-    mr.llm_summarize_file = fake_llm
+    # Patch llm function (wrapper-sicher: direkt im Implementierungsmodul patchen)
+    impl = mr.impl() if hasattr(mr, "impl") else mr
+    orig = impl.llm_summarize_file
+    impl.llm_summarize_file = fake_llm
     try:
         # Act: use use_llm=True, but with stubbed function, no network used
         res = await mr.process_scope(
@@ -47,7 +48,7 @@ async def test_process_scope_llm_uses_stub(tmp_path):
             concurrency=1,
         )
     finally:
-        mr.llm_summarize_file = orig
+        impl.llm_summarize_file = orig
         try:
             import shutil
 

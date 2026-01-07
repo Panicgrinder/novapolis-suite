@@ -19,7 +19,7 @@ class TestMigrationSchema(unittest.TestCase):
         Test der Migration von altem Schema (prompt, must_include)
         zu neuem Schema (messages, checks).
         """
-        from scripts.migrate_dataset_schemas import migrate_demo_dataset
+        from scripts.agent.migrate_dataset_schemas import migrate_demo_dataset
 
         # Erstelle temporäres Dataset im alten Format
         old_data: list[dict[str, object]] = [
@@ -70,7 +70,7 @@ class TestMigrationSchema(unittest.TestCase):
 
     def test_migration_idempotent(self):
         """Test dass bereits migrierte Dateien nicht nochmals verändert werden."""
-        from scripts.migrate_dataset_schemas import migrate_demo_dataset
+        from scripts.agent.migrate_dataset_schemas import migrate_demo_dataset
 
         # Erstelle bereits migrierte Daten
         new_data: list[dict[str, object]] = [
@@ -110,7 +110,7 @@ class TestMigrationSchema(unittest.TestCase):
 
     def test_migration_empty_file_handling(self):
         """Test dass leere Dateien korrekt behandelt werden."""
-        from scripts.migrate_dataset_schemas import migrate_demo_dataset
+        from scripts.agent.migrate_dataset_schemas import migrate_demo_dataset
 
         with tempfile.TemporaryDirectory() as tmp_dir:
             datasets_dir = os.path.join(tmp_dir, "eval", "datasets")

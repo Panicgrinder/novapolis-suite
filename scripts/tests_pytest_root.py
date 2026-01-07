@@ -5,19 +5,19 @@ Runs `pytest -q` at repo root, writes log + receipt. Use for quick smoke tests.
 Usage: python scripts/tests_pytest_root.py
 """
 
-import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
+import subprocess
 
-ROOT = Path.cwd()
+ROOT = Path(__file__).resolve().parents[1]
 TS = datetime.now().strftime("%Y%m%d_%H%M%S")
 TMP = ROOT / ".tmp" / "results" / "reports"
 TMP.mkdir(parents=True, exist_ok=True)
 LOG = TMP / f"pytest_root_{TS}.log"
 RECEIPT = TMP / f"pytest_root_postflight_{TS}.md"
 
-cmd = ["pytest", "-q"]
+cmd = [sys.executable, "-m", "pytest", "-q", "-c", str(ROOT / "pytest.ini")]
 proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 with LOG.open("w", encoding="utf8") as lh:
     lh.write(proc.stdout)

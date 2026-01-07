@@ -29,7 +29,7 @@ def test_migrate_dataset_schemas_happy_path(tmp_path: os.PathLike[str]) -> None:
         json.dump(data, f, ensure_ascii=False)
 
     # Modul importieren und CWD auf Projektwurzel setzen
-    import scripts.migrate_dataset_schemas as mod
+    import scripts.agent.migrate_dataset_schemas as mod
 
     cwd_before = os.getcwd()
     os.chdir(project_root)

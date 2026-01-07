@@ -37,7 +37,7 @@ def run_audit_workspace() -> str:
         audit_main = None  # type: ignore[assignment]
         # Try to import as module first; fallback to spec from file
         try:
-            from scripts.audit_workspace import main as audit_main  # type: ignore
+            from novapolis_agent.scripts.audit_workspace import main as audit_main  # type: ignore
         except Exception:
             import importlib.util as _util
 

@@ -36,9 +36,9 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from scripts import export_finetune as _export  # noqa: E402
-from scripts import prepare_finetune_pack as _prepare  # noqa: E402
-from scripts import run_eval as _run_eval  # noqa: E402
+from novapolis_agent.scripts import export_finetune as _export  # noqa: E402
+from novapolis_agent.scripts import prepare_finetune_pack as _prepare  # noqa: E402
+from novapolis_agent.scripts import run_eval as _run_eval  # noqa: E402
 
 
 def _latest_results(path: str) -> str | None:

@@ -18,6 +18,7 @@ import asyncio
 import json
 import os
 import sys
+from collections.abc import Callable
 from typing import TYPE_CHECKING, Any, Protocol, cast
 
 from utils.time_utils import now_compact, now_human
@@ -88,10 +89,14 @@ TEXT_EXTS = {".py", ".md", ".txt", ".json", ".jsonl"}
 # Import Settings und Heuristik-Fallback
 from app.core.settings import settings  # noqa: E402
 
+heuristic_summarize_file: Callable[..., str] | None
+
 try:
-    from scripts.map_reduce_summary import summarize_file as heuristic_summarize_file
+    from novapolis_agent.scripts.map_reduce_summary import summarize_file as _heuristic_summarize_file
 except Exception:
-    heuristic_summarize_file = None  # type: ignore[assignment]
+    heuristic_summarize_file = None
+else:
+    heuristic_summarize_file = _heuristic_summarize_file
 
 
 def is_text_file(path: str) -> bool:
@@ -392,4 +397,8 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    print(
+        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: python -m scripts.agent.map_reduce_summary_llm (statt novapolis_agent/scripts/map_reduce_summary_llm.py).",
+        file=sys.stderr,
+    )
     sys.exit(main())

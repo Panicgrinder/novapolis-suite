@@ -1,11 +1,12 @@
 ---
-stand: 2026-01-07 08:54
-update: Temp-Pfad-Referenzen in Root-Dokus auf /.tmp/results normalisiert; Markdownlint-Ignore-Patterns fuer verschachtelte node_modules und RP-Staging-Reports erweitert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-07 08:54); python scripts/check_frontmatter.py todo.root.md DONELOG.md PASS (2026-01-07 08:54)
+stand: 2026-01-07 09:21
+update: Prioritaet 1: Root-DONELOG aktualisiert (Receipt); scripts.agent-Wrapper/Kompatibilitaet dokumentiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-07 09:21); python scripts/check_frontmatter.py todo.root.md DONELOG.md PASS (2026-01-07 09:21)
 ---
 Kurzueberblick
 --------------
 
+- 2026-01-07 09:13: Prioritaet 1: Tests nutzen `scripts.agent.*`; Wrapper in Root erweitert + Kompatibilitaetspaket in `novapolis_agent/scripts/agent`; Root-`pytest -q` und Typchecks (pyright+mypy) wieder lauffaehig.
 - 2026-01-07 08:53: Root-Dokus (TODO/DONELOG) referenzieren `/.tmp/results/todo.cleaned.md`; markdownlint ignoriert jetzt auch verschachtelte `node_modules/**` und RP-Staging-Reports.
 - 2026-01-07 08:32: `scripts/agent` Wrapper erweitert (Proxy auf `novapolis_agent.scripts.*` + CLI-Fallback via runpy); Test-Imports bleiben vorerst bei `novapolis_agent.scripts.*` wegen Namenskollision `scripts`.
 - 2026-01-07 07:51: Root-Wrapper-Paket `scripts/agent` hinzugefügt (CLIs delegieren auf `novapolis_agent.scripts.*`); `ruff check scripts/agent` + `pytest -q -m unit` PASS.
@@ -189,6 +190,10 @@ Kurz: `*.code-workspace` und Schatten-/Log-Dateien archiviert nach `Backups/`, W
 2026-01-07 08:53 | Copilot | Doku: Temp-TODO-Pfad normalisiert + markdownlint ignores (nested node_modules)
 Meta: {"Timestamp": "2026-01-07 08:53", "Files": ["todo.root.md", "DONELOG.md", ".markdownlint-cli2.jsonc"], "Commands": ["npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' (Exit 0)", "python scripts/check_frontmatter.py todo.root.md DONELOG.md (Exit 0)"]}
 Kurz: Root-Dokus referenzieren jetzt konsistent `/.tmp/results/todo.cleaned.md` (statt Legacy `/.tmp-results/todo.cleaned.md`). Markdownlint ignoriert zusaetzlich verschachtelte `**/node_modules/**` sowie `novapolis-rp/database-curated/staging/reports/**`, damit der repo-weite Lauf wieder stabil PASS liefert.
+
+2026-01-07 09:13 | Copilot | Prioritaet 1: scripts.agent Imports stabilisiert (Tests+Wrappers)
+Meta: {"Timestamp": "2026-01-07 09:13", "Files": ["scripts/agent/*.py", "novapolis_agent/scripts/*.py", "novapolis_agent/scripts/agent/*.py", "novapolis_agent/tests/**/*.py", "scripts/tests_pytest_root.{py,ps1}", "scripts/checks_types.ps1"], "Commands": ["pwsh -NoProfile -File scripts/tests_pytest_root.ps1 (Exit 0)", "pwsh -NoProfile -File scripts/checks_types.ps1 (Exit 0)"]}
+Kurz: Um die Namenskollision `scripts` (Root vs. Agent) ohne Umbenennung zu entschärfen, nutzen Tests jetzt `scripts.agent.*`. Root-Wrapper wurden fuer weitere, testrelevante CLIs ergaenzt und zusaetzlich existiert ein kleines Kompatibilitaetspaket `novapolis_agent/scripts/agent`, falls `scripts` importseitig zuerst auf den Agent zeigt. Interne Agent-Skript-Imports wurden auf `novapolis_agent.scripts.*` umgestellt; Root-Wrapper fuer `pytest -q` und `pyright+mypy` liegen jetzt als `scripts/tests_pytest_root.ps1` und `scripts/checks_types.ps1` vor.
 - 2025-11-06 04:40: Demo-Test entfernt (`tests/test_intentional_failure.py`) und `pytest -q` manuell via pwsh ausgeführt - Suite PASS.
 - 2025-11-06 04:15: Frontmatter-Validator mit Demo-Datei geübt; `check_frontmatter.py` PASS nach Korrektur; absichtlicher pytest-Fail dokumentiert.
 - 2025-11-06 03:34: Workspace-Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) via Tasks aktualisiert; Status-/Donelog-Docs nachgezogen.

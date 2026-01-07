@@ -1,4 +1,4 @@
-from scripts.run_eval import inject_eval_hint
+from scripts.agent.run_eval import inject_eval_hint
 
 
 def test_inject_eval_hint_inserts_before_first_user():

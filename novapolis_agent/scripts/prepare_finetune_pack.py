@@ -15,6 +15,7 @@ import json
 import os
 import random
 import re
+import sys
 from typing import Any, cast
 
 
@@ -148,6 +149,10 @@ def prepare_pack(
 
 
 if __name__ == "__main__":
+    print(
+        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: python -m scripts.agent.prepare_finetune_pack (statt novapolis_agent/scripts/prepare_finetune_pack.py).",
+        file=sys.stderr,
+    )
     import argparse
 
     p = argparse.ArgumentParser(description="Train/Val-Split für Finetune-Datensatz")
