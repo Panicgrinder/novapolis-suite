@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Tabs entfernt, Frontmatter korrigiert, Lint PASS
-checks: markdownlint PASS, frontmatter PASS (scoped)
+stand: 2026-01-07 03:51
+update: Temp-Pfad-Hinweis aktualisiert (.tmp-results -> /.tmp/results) und Checks verifiziert.
+checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py todo.root.md novapolis-dev\\docs\\copilot-vscode-usage.md novapolis-dev\\docs\\readme_decisions.md PASS (2026-01-07 03:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc todo.root.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/readme_decisions.md PASS (2026-01-07 03:51)
 ---
 
 VS Code + GitHub Copilot - Projektleitfaden
@@ -154,7 +154,7 @@ Customizing für dieses Repo
 ---------------------------
 - Custom Instructions: `.github/copilot-instructions.md` ist SSOT (Regeln/IDs/Flows). Änderungen dort sind bindend.
 - Prompt Files & Chat-Modes: Optionale Ablage unter `.github/prompt-files/` bzw. `.github/chatmodes/` für wiederkehrende Flows (z. B. „Code Reviewer“, „Docs TL;DR“). Nur minimal-invasiv einführen.
-- Wissensquellen: `.tmp-results/` für kuratierte, temporäre Arbeitsgrundlagen (keine SSOT). Nach Änderungen an `todo.root.md` synchron halten.
+- Wissensquellen: `/.tmp/results/` für kuratierte, temporäre Arbeitsgrundlagen (keine SSOT). Legacy `/.tmp-results/` existiert ggf. noch als Altbestand.
 
 Bewährte Praktiken
 ------------------

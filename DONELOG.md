@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-05 19:26
-update: Unified Runner erneut verifiziert (overall PASS); Doku-Frontmatter nachgezogen.
-checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-05 19:29); last full: checks_report_20260105_190519.json
+stand: 2026-01-07 04:05
+update: Schritt 3 finalisiert: WORKSPACE_STATUS + Dev-Hub Donelog auf /.tmp/results nachgezogen; Checks bestaetigt.
+checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py WORKSPACE_STATUS.md novapolis-dev\\docs\\donelog.md DONELOG.md todo.root.md novapolis-dev\\docs\\copilot-vscode-usage.md novapolis-dev\\docs\\readme_decisions.md PASS (2026-01-07 04:05); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc WORKSPACE_STATUS.md novapolis-dev/docs/donelog.md DONELOG.md todo.root.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/readme_decisions.md PASS (2026-01-07 04:05)
 ---
 
 DONELOG-Uebersicht (Novapolis Suite)
@@ -12,6 +12,7 @@ Schneller Blick auf alle dokumentierten Abschluesse. Die Projekt-Logbuecher blei
 Kurzueberblick
 --------------
 
+- 2026-01-07 04:05: Schritt 3: Temp-Pfade in lebenden Docs konsolidiert (`/.tmp-results/` -> `/.tmp/results/`); WORKSPACE_STATUS + Dev-Hub Donelog nachgezogen; Legacy-Ordner bleibt als Altbestand bestehen.
 - 2026-01-05 19:07: Unified Runner erneut verifiziert – `scripts/checks_rp_consistency.py` Ruff/Black gruen gemacht; `python scripts/run_checks_and_report.py` overall PASS (Report: `checks_report_20260105_190519.json`).
 - 2025-12-30 06:17: RP `database-rp` konsistent gemacht (Frontmatter-Duplikate/Metablock-Leichen entfernt, Scene-Crossref-Listen normalisiert); Python-Wrapper an MD025 angepasst; markdownlint ignores fuer `.tmp/**` und `.tmp-results/**` korrigiert; Checks: rp_consistency+frontmatter+markdownlint PASS.
 - 2025-12-30 06:53: RP `database-rp` Slugs nachgezogen (10 Dateien); `scripts/checks_rp_consistency.py` jetzt ohne missing_slug/warnings; targeted Frontmatter-Validator + markdownlint PASS.

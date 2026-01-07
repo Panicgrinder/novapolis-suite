@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Initial README-Konsolidierungsentscheidungsliste erstellt
-checks: n/a
+stand: 2026-01-07 03:51
+update: Temp-Pfad-Referenz aktualisiert (.tmp-results -> .tmp/results) und Checks verifiziert.
+checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py todo.root.md novapolis-dev\\docs\\copilot-vscode-usage.md novapolis-dev\\docs\\readme_decisions.md PASS (2026-01-07 03:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc todo.root.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/readme_decisions.md PASS (2026-01-07 03:51)
 ---
 README Konsolidierungs-Entscheidungsliste
 =========================================
@@ -37,7 +37,8 @@ Entscheidungsmatrix
 - novapolis-rp/coding/tools/chat-exporter/README.md: TOOL - Nutzung Chat-Exporter.
 - novapolis-rp/coding/tools/metadata/README.md: TOOL - Metadata-/Validator-Hinweise.
 - novapolis-rp/coding/tools/validators/README.md: TOOL - Validatoren (Behalten bis zentrale Validator-Doku erstellt).
-- .tmp-results/README.md: SLIM - Temporärbereich, deutlicher Hinweis auf Flüchtigkeit.
+- .tmp/results/README.md: SLIM - Temporärbereich, deutlicher Hinweis auf Flüchtigkeit.
+
 - .tmp-datasets/README.md: SLIM - Temporärdaten, Redirect zu Data-Policy.
 - novapolis-sim/README.md: KEEP - Simulationsprojekt (Godot, Verifikation).
 - packages/README.md: SLIM - Kernhinweis + Redirect zu Shared-Paket-Abschnitt im Hub.

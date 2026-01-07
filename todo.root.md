@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-30 06:53
-update: RP-Audit-Befunde: Prozesslücke (final/), Curation-README und Slugs nachgezogen.
-checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\checks_rp_consistency.py PASS; & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py todo.root.md PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc todo.root.md PASS (2025-12-30 06:53)
+stand: 2026-01-07 03:43
+update: Hinweis zu Legacy-Pfad .tmp-results ergänzt (neuer Standard: /.tmp/results).
+checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py todo.root.md novapolis-dev\\docs\\copilot-vscode-usage.md novapolis-dev\\docs\\readme_decisions.md PASS (2026-01-07 03:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc todo.root.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/readme_decisions.md PASS (2026-01-07 03:51)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -14,6 +14,10 @@ Kurzueberblick
 
 - 2025-11-18 03:55: Pyright dauerhaft via Wrapper aktiv; Typwarnungen in Agent (`chat.py`, `utils/rag.py`, `utils/eval_utils.py`) entschärft; Full‑Checks PASS (Coverage 83.33%).
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit - dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten-STOP (global, immer gültig)“.
+- Hinweis (Temp-Pfade): Legacy `/.tmp-results/` bleibt als Altbestand bestehen; neue Reports/Artefakte liegen unter `/.tmp/results/`.
+
+2026-01-07 03:51 | Copilot | Schritt 3: Temp-Pfade konsolidiert (.tmp-results -> /.tmp/results)
+
 
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` (Stand-Update) in `scripts/check_frontmatter.py` ergänzt; Governance-Hinweis aktualisiert; Validator PASS.
 - 2025-11-15 09:00: Dokumentationsstatus aktualisiert (context.local.md Frontmatter repariert, Statusdateien im Abgleich); Frontmatter-Validator PASS.
