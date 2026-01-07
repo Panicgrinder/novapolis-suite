@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-07 03:43
-update: Hinweis zu Legacy-Pfad .tmp-results ergänzt (neuer Standard: /.tmp/results).
-checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py todo.root.md novapolis-dev\\docs\\copilot-vscode-usage.md novapolis-dev\\docs\\readme_decisions.md PASS (2026-01-07 03:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc todo.root.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/readme_decisions.md PASS (2026-01-07 03:51)
+stand: 2026-01-07 08:54
+update: Legacy-Verweise auf /.tmp-results/todo.cleaned.md in Root-Dokus auf /.tmp/results/todo.cleaned.md gedreht.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-07 08:54); python scripts/check_frontmatter.py todo.root.md DONELOG.md PASS (2026-01-07 08:54)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -128,8 +128,8 @@ Nächstes Vorgehen (1-2 Tage)
   - Backups: `Backups/tagging-pipeline/AI-Behavior-Mapping-20251127-220319.{md,json}` erstellt, Snapshot `Backups/tagging-015-010-prewrite.txt` jetzt inkl. SHA256 jeder reviewed Datei.
   - Guard: `python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run` PASS (unresolved=[]; Alias-Kollisionen nur Echo/Reflex/Verbindungstunnel/(v1)).
   - Write-Run: identischer Befehl ohne `--dry-run`; `.tagged` 015→010 und `index_review.json`/`lexicon.json`/`unresolved.json` aktualisiert; Log `reports/tagging-20251127T212031Z.log` abgelegt.
-  - Validierung: targeted `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp-results/todo.cleaned.md'` PASS; `python scripts/check_frontmatter.py` (Dateien s. checks) PASS.
-  - Artefakte sync: `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `.tmp-results/todo.cleaned.md`, `todo.root.md`, `WORKSPACE_STATUS.md`, Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) und todo-list aktualisiert.
+  - Validierung: targeted `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp/results/todo.cleaned.md'` PASS; `python scripts/check_frontmatter.py` (Dateien s. checks) PASS.
+  - Artefakte sync: `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `.tmp/results/todo.cleaned.md`, `todo.root.md`, `WORKSPACE_STATUS.md`, Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) und todo-list aktualisiert.
 
 - [ ] Export konsolidieren: Offene Aufgabe „`99-exports/chat-export-complete.txt`“ abschließen; Delta-Befunde in SSOT-Canvases spiegeln.
 - [x] Tagging-Pipeline 015-010 vom Dry-Run auf Write gehoben; Lint-Protokoll in `novapolis-dev/docs/donelog.md` vermerkt (2025-11-26 05:35).
@@ -138,16 +138,16 @@ Nächstes Vorgehen (1-2 Tage)
     - Guard-Lauf: `python coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root "novapolis-rp/database-curated/staging/chunks/chat-export (1)" --out-root "novapolis-rp/database-curated/reviewed/chat-export (1)" --range 015-010 --dry-run` PASS (Summaries + Canonicalized N7 total 2 dokumentiert).
     - Write-Run: gleiches Kommando ohne `--dry-run`; erzeugt `part-015.tagged.txt` … `part-010.tagged.txt`, aktualisiert `index_review.json`/`unresolved.json`/`lexicon.json`, Report `reports/tagging-20251126T043409Z.log` mit LOC-only-Hinweisen.
     - Nachbereitung: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md'` PASS, `python scripts/check_frontmatter.py novapolis-dev/docs/donelog.md` PASS, Einträge in `novapolis-dev/docs/donelog.md` + `DONELOG.md` ergänzt.
-    - TODO/Status-Sync (dieser Eintrag + `/.tmp-results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `workspace_tree*.txt`) läuft mit aktuellem Task; Tree-Snapshots neu auf 2025-11-26 05:36 gesetzt, Postflight folgt nach Abschluss.
+    - TODO/Status-Sync (dieser Eintrag + `/.tmp/results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `workspace_tree*.txt`) läuft mit aktuellem Task; Tree-Snapshots neu auf 2025-11-26 05:36 gesetzt, Postflight folgt nach Abschluss.
 - [x] Tagging-Pipeline 015-010 Write-Run Refresh & Doc-Sync (2025-11-27 22:10)
   - Backups + Hash-Snapshot siehe STOP-Plan oben; Dry-Run + Write-Run PASS (alias collisions unverändert, canonicalized N7 total 2) mit Report `reports/tagging-20251127T212031Z.log`.
-  - Workspace-Doku aktualisiert (`DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md`, `.tmp-results/todo.cleaned.md`, `todo.root.md`), Tree-Snapshots regeneriert (`tree /A /F`, `tree /A`, `python scripts/update_workspace_tree_dirs.py`).
+  - Workspace-Doku aktualisiert (`DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md`, `.tmp/results/todo.cleaned.md`, `todo.root.md`), Tree-Snapshots regeneriert (`tree /A /F`, `tree /A`, `python scripts/update_workspace_tree_dirs.py`).
   - Targeted markdownlint + Frontmatter-Validator PASS; Folgeaufgabe: Range 009-001 Plan (siehe Dev-Hub) um neue Guard-Checks ergänzen.
  - [x] STOP-Plan 009-001 Write-Run (R-STOP/R-WRAP/R-LOG)
   - Backups: 2025-12-01 08:19 abgeschlossen (`Backups/tagging-pipeline/AI-Behavior-Mapping-20251201-081946.{md,json}` + Snapshot `Backups/tagging-009-001-prewrite.txt` via `git ls-tree -l HEAD -- "novapolis-rp/database-curated/reviewed/chat-export (1)"`).
   - Guard (Dry-Run): `python ... --range 009-001 --dry-run` PASS (`unresolved_dependencies=[]`, Alias-Kollision unverändert `verbindungstunnel-c6-e3` ↔ `verbindungstunnel-d5-c6`), JSON-Summary im Terminal gesichert.
   - Write: gleicher Befehl ohne `--dry-run`; `.tagged` 009→001 + `index_review.json`/`lexicon.json`/`unresolved.json` aktualisiert; Logs aktuell nur via STDOUT verfügbar (Skript erzeugt noch keine Dateien).
-  - Nachbereitung (abgeschlossen 2025-12-08 17:55): targeted `markdownlint-cli2` + `python scripts/check_frontmatter.py` (Scope `todo.root.md`, `.tmp-results/todo.cleaned.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md`) erneut laufen lassen, alle genannten Docs synchronisiert und Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) frisch erzeugt; Postflight-Receipt folgt nach Alias-Fix.
+  - Nachbereitung (abgeschlossen 2025-12-08 17:55): targeted `markdownlint-cli2` + `python scripts/check_frontmatter.py` (Scope `todo.root.md`, `.tmp/results/todo.cleaned.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md`) erneut laufen lassen, alle genannten Docs synchronisiert und Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) frisch erzeugt; Postflight-Receipt folgt nach Alias-Fix.
  - [x] Alias-Kollision „Verbindungstunnel" auflösen (Slug-Konvention vs. Doppel-Schreibweise), bevor nächste Range (≤000) geplant wird – `tag_chunks_from_yaml.py` filtert jetzt Stopword-Aliase wie „verbindungstunnel"; Range 009-001 (2025-12-10 17:49) erneut als Dry→Write gelaufen, `lexicon.json`/`unresolved.json` ohne Alias-Kollisionen, betroffene `[LOC]`-Tags (u. a. part-002) bereinigt.
 - [ ] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` prüfen; auf Minimal-Ausnahmen reduzieren oder entfernen.
 - [ ] Staging-Reports (`database-curated/staging/reports/*.md`) mit YAML-Frontmatter/Setext nachziehen oder in `novapolis-dev/docs/` migrieren; Altdateien nach Freigabe löschen.

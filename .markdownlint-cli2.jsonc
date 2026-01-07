@@ -28,6 +28,8 @@
     "novapolis-dev/archive/**",
     "Main/scripts",
     "node_modules/**",
+    "**/node_modules/**",
+    "novapolis-rp/database-curated/staging/reports/**",
     ".github/copilot-instructions.md",
     ".github/archive/**"
   ]
