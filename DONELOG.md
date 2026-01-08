@@ -1,11 +1,13 @@
 ---
-stand: 2026-01-08 09:39
-update: RP-Admin: AI-Behavior-Mapping Links klickbar gemacht; Frontmatter-Validator skippt RP-Staging-Reports; Checks PASS.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-08 09:39); python scripts/check_frontmatter.py PASS (2026-01-08 09:39); python scripts/checks_rp_consistency.py --strict PASS (2026-01-08 09:39); Checks: types (pyright+mypy) PASS (2026-01-08 09:39); pytest -q [root] PASS (2026-01-08 09:39)
+stand: 2026-01-08 14:18
+update: Policy-Refresh: `.ps1`-Wrapper-Verweise in Governance/Status/TODO auf Python-Wrapper umgestellt; Logs markieren `.ps1` als historisch.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev/docs/donelog.md PASS (2026-01-08 14:25); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev\docs\donelog.md PASS (2026-01-08 14:25)
 ---
 Kurzueberblick
 --------------
 
+- 2026-01-08 14:06: RP-Curation: chat-export-complete in Staging-Manifest aufgenommen, Tagging (001-022) nach reviewed geschrieben; Checks PASS.
+- 2026-01-08 14:18: Policy: `.ps1`-Wrapper-Verweise in Governance/Status/TODO auf Python-Wrapper (`*.py`) umgestellt; `.ps1`-Nennungen in älteren Logs sind historisch.
 - 2026-01-08 09:39: RP-Admin: AI-Behavior-Mapping Linkdrift bereinigt; Frontmatter-Validator skippt RP-Staging-Reports; Checks PASS.
 - 2026-01-08 09:24: RP-Admin: Canvas-T+0-Timeline Template operationalisiert (ohne neue Fakten).
 - 2026-01-08 09:14: RP-Admin: C6-Logistik-Policy Links/ATSD-Referenz nachgezogen.
@@ -43,6 +45,10 @@ Kurzueberblick
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp/results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+
+2026-01-08 14:06 | Copilot | RP-Curation: chat-export-complete manifest+tagging (001-022)
+Meta: {"Timestamp": "2026-01-08 14:06", "Files": ["novapolis-rp/database-curated/staging/manifest.json", "novapolis-rp/database-curated/staging/chat-export-complete.review.md", "scripts/rp_tag_chat_export_complete.py", "novapolis-rp/database-curated/reviewed/chat-export-complete/*"], "Commands": ["python scripts/rp_tag_chat_export_complete.py --dry-run (Exit 0)", "python scripts/rp_tag_chat_export_complete.py (Exit 0)", "python scripts/check_frontmatter.py (Exit 0)", "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' (0 errors)", "node novapolis-rp/coding/tools/validators/src/validate-curated.js <manifest> (Exit 0)"], "Result": "PASS"}
+Kurz: `novapolis-rp/database-curated/staging/manifest.json` war ungültiges JSON (Klammerung/Komma) und ist repariert. Zusätzlich ist `chat-export-complete.txt` als eigener Staging-Entry erfasst (Artefakte/Reports verlinkt) und das YAML-basierte Tagging wurde für 22 Chunks (001-022) nach `database-curated/reviewed/chat-export-complete/` geschrieben.
 
 2026-01-08 09:39 | Copilot | RP-Admin: AI-Behavior-Mapping Links + Frontmatter-Validator Skip erweitert
 Meta: {"Timestamp": "2026-01-08 09:39", "Files": ["novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md", "scripts/check_frontmatter.py", "DONELOG.md"], "Commands": ["npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' (0 errors)", "python scripts/check_frontmatter.py (Exit 0)", "python scripts/checks_rp_consistency.py --strict (Exit 0)", "Checks: types (pyright+mypy) (Exit 0; 3 warnings)", "pytest -q [root] (Exit 0)"], "Result": "PASS"}

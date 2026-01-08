@@ -1990,7 +1990,9 @@ def create_example_eval_file(file_path: str, start_id: int = 21, count: int = 20
 
 if __name__ == "__main__":
     print(
-        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: python -m scripts.agent.run_eval (statt novapolis_agent/scripts/run_eval.py).",
+        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: "
+        "python -m scripts.agent.run_eval "
+        "(statt novapolis_agent/scripts/run_eval.py).",
         file=sys.stderr,
     )
     # Standardpfade (Datasets/Results/Config)

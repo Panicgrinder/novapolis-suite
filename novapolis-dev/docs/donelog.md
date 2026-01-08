@@ -1,12 +1,17 @@
 ---
-stand: 2026-01-07 04:05
-update: Schritt 3: Temp-Pfad-Verweise (todo.cleaned) auf /.tmp/results nachgezogen.
-checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py WORKSPACE_STATUS.md novapolis-dev\\docs\\donelog.md DONELOG.md todo.root.md novapolis-dev\\docs\\copilot-vscode-usage.md novapolis-dev\\docs\\readme_decisions.md PASS (2026-01-07 04:05); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc WORKSPACE_STATUS.md novapolis-dev/docs/donelog.md DONELOG.md todo.root.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/readme_decisions.md PASS (2026-01-07 04:05)
+stand: 2026-01-08 14:18
+update: Policy-Refresh: Hinweis ergänzt, dass `.ps1`-Nennungen historisch sind; aktive Wrapper laufen über Python.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev/docs/donelog.md PASS (2026-01-08 14:25); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev\docs\donelog.md PASS (2026-01-08 14:25)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+Hinweis (2026-01-08)
+-------------------
+
+- Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
 
 Alias-Stopword Fix & Tagging 009-001 Refresh (2025-12-10 17:49)
 -------------------------------------------------------------------

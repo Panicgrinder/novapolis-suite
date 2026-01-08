@@ -265,7 +265,9 @@ def main():
 
 if __name__ == "__main__":
     print(
-        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: python -m scripts.agent.dependency_check (statt novapolis_agent/scripts/dependency_check.py).",
+        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: "
+        "python -m scripts.agent.dependency_check "
+        "(statt novapolis_agent/scripts/dependency_check.py).",
         file=sys.stderr,
     )
     main()

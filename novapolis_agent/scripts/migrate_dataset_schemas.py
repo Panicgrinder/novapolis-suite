@@ -140,7 +140,9 @@ def main():
 
 if __name__ == "__main__":
     print(
-        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: python -m scripts.agent.migrate_dataset_schemas (statt novapolis_agent/scripts/migrate_dataset_schemas.py).",
+        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: "
+        "python -m scripts.agent.migrate_dataset_schemas "
+        "(statt novapolis_agent/scripts/migrate_dataset_schemas.py).",
         file=sys.stderr,
     )
     main()

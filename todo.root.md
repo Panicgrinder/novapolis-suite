@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-07 11:39
-update: Abgeschlossene TODOs abgehakt; Editor-Setup Root-Tasks als erledigt markiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-07 11:50); python scripts/check_frontmatter.py todo.root.md DONELOG.md PASS (2026-01-07 11:50)
+stand: 2026-01-08 14:18
+update: Policy-Refresh: Wrapper-Migration Abschnitt auf Python-Wrapper konsolidiert; `.ps1`-Verweise entschärft.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev/docs/donelog.md PASS (2026-01-08 14:25); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev\docs\donelog.md PASS (2026-01-08 14:25)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -65,7 +65,7 @@ Kurzueberblick
   - [ ] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`).
   - [ ] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`).
   - [ ] README oder `Backups/`-Manifest um Rotationsplan ergänzen (Aufbewahrungsdauer, Löschkriterien).
-  - [ ] Automatisierte Aufgabe/Script prüfen (`scripts/cleanup_phase*.ps1`) für regelmäßiges Auslagern.
+  - [ ] Automatisierte Aufgabe/Script prüfen (Cleanup-Phasen, historisch im Archiv) für regelmäßiges Auslagern.
  - **Lokale AI Einbindung (organisch)**: Phasenplan/Go-Kriterien/Metriken in Abschnitt „Lokale AI - Einbindung (organisch)“ unten; Start mit Phase01 möglich (ohne Zeitdruck, mit harten Fallbacks).
  - **Editor-Setup**: Konsolidierung `.vscode` auf Root vorbereiten (siehe Abschnitt „Editor-Setup - .vscode-Konsolidierung (Root-zentriert)“).
 
@@ -76,13 +76,13 @@ Wrapper-Migration (.ps1 → .py)
 
 - Ziel: Alle noch relevanten Wrapper von PowerShell (`*.ps1`) schrittweise auf Python-Skripte (`*.py`) umstellen, konsistent mit R-WRAP/R-SEC/R-SAFE.
 - Hintergrund:
-  - Historische Wrapper: `scripts/run_pytest_coverage.ps1`, `scripts/checks_linters.ps1`, `scripts/checks_types.ps1`, `scripts/tests_pytest_root.ps1` (teilweise bereits entfernt/archiviert).
+  - Historische Wrapper (ehemals `*.ps1`, heute `*.py`): `scripts/run_pytest_coverage.py`, `scripts/checks_linters.py`, `scripts/checks_types.py`, `scripts/tests_pytest_root.py`.
   - Aktueller Stand: `python scripts/run_checks_and_report.py` ist der einzige Entry-Point für "Checks: full"; Coverage-Läufe erfolgen via `python scripts/run_pytest_coverage.py --fail-under <threshold>` (PowerShell-Varianten sind nur noch Archiv/Backup).
 - Aufgaben (geplant, keine Löschung ohne Freigabe):
   - [x] Bestandsaufnahme aller noch vorhandenen `scripts/*.ps1` Wrapper (inkl. Backups/Archiv-Hinweisen). (2025-12-11: keine aktiven Wrapper mehr im Root; alle 33 `*.ps1`-Dateien liegen ausschließlich unter `novapolis-dev/archive/scripts/scripts.ps1-scripts/`.)
   - [ ] Für jeden produktiven Wrapper einen gleichwertigen Python-Einstiegspunkt definieren (z. B. `scripts/run_pytest_coverage.py`), inklusive Args/Exitcodes/Receipts.
   - [ ] VS-Code-Tasks und Dokumentation (`WORKSPACE_STATUS.md`, `todo.cleaned.md`, README/Docs) auf die Python-Varianten umstellen.
-  - [ ] PowerShell-Wrapper entweder als dünne Hülle (nur Aufruf von `python <script.py>`) belassen oder nach Freigabe in Archiv-/Backups-Pfade verschieben.
+  - [ ] PowerShell-Wrapper sind nur noch Archiv/Backup; keine aktive Nutzung. Falls jemals reaktiviert, dann ausschließlich als dünne Hülle (nur Aufruf von `python <script.py>`) und klar als Fallback gekennzeichnet.
   - [ ] Nach Abschluss: kurzen Statusblock zur Wrapper-Migration in `WORKSPACE_STATUS.md` und DONELOG-Eintrag ergänzen (R-DOKU/R-LOG).
 
 Modulstatus (2025-11-06)
@@ -95,7 +95,7 @@ Modulstatus (2025-11-06)
 
 Nächstes Vorgehen (1-2 Tage)
  - [x] Korrektur: Checks-Wrapper (damals PowerShell, jetzt `python scripts/run_checks_and_report.py`) - STOP-Fall bei zu vielen Testdateien soll als Fehler/FAIL gemeldet werden (Statuszuordnung anpassen). (erledigt 2025-11-11 00:23, Commit abe6829)
- - [ ] Optional nach Review: Cleanup-Kandidaten (Phase 4) nur mit Freigabe angehen (`novapolis_agent/scripts/cleanup_phase4.ps1`).
+ - [ ] Optional nach Review: Cleanup-Kandidaten (Phase 4) nur mit Freigabe angehen (historisch: `cleanup_phase4` im Archiv).
  - [ ] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` auswerten; Inhalte in aktive Doku übernehmen oder Datei nach Freigabe entfernen.
 
 ### novapolis_agent
@@ -106,7 +106,7 @@ Nächstes Vorgehen (1-2 Tage)
 - [x] 2025-11-06 04:40: Demo-Test `novapolis_agent/tests/test_intentional_failure.py` entfernt; pytest -q PASS.
 - [x] Markdown-Ausgabe der Skripte (todo_gather, summarize_eval_results, map_reduce_summary_llm, Reports) sowie Chat-Exporter auf Setext/YAML-Konformität prüfen und ggf. anpassen. (2025-11-10 04:20)
 - [ ] Konsistenz-Audit/Report aktualisieren (Sichtprüfung): `novapolis_agent/scripts/reports/generate_consistency_report.py` und Kandidaten aus `novapolis_agent/scripts/audit_workspace.py` prüfen.
-- [ ] Optional nach Review: Cleanup-Kandidaten (Phase 4) nur mit Freigabe angehen (`novapolis_agent/scripts/cleanup_phase4.ps1`).
+- [ ] Optional nach Review: Cleanup-Kandidaten (Phase 4) nur mit Freigabe angehen (historisch: `cleanup_phase4` im Archiv).
 - [ ] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` auswerten; Inhalte in aktive Doku übernehmen oder Datei nach Freigabe entfernen.
 
 #### Tests/Typen/Coverage (Priorität mittel-hoch, R-COV)

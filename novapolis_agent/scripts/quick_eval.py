@@ -67,7 +67,9 @@ def main() -> int:
 
 if __name__ == "__main__":
     print(
-        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: python -m scripts.agent.quick_eval (statt novapolis_agent/scripts/quick_eval.py).",
+        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: "
+        "python -m scripts.agent.quick_eval "
+        "(statt novapolis_agent/scripts/quick_eval.py).",
         file=sys.stderr,
     )
     raise SystemExit(main())

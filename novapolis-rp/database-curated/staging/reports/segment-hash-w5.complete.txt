@@ -1,0 +1,56 @@
+# Segment-Hash Dedupe (window=5)
+
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt: interne Dupe-Hashes (>=2 Vorkommen): 5222
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export (1).txt: interne Dupe-Hashes (>=2 Vorkommen): 1
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export.txt: interne Dupe-Hashes (>=2 Vorkommen): 1
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/RAW-chat-export-2025-10-27T09-16-00-188Z.txt: interne Dupe-Hashes (>=2 Vorkommen): 1
+
+Gemeinsame Segmente ├╝ber Dateien: 5849
+
+## Hash 7b0b6eec6a2aÔÇª
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt: Positionen [6025]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export (1).txt: Positionen [488]
+
+## Hash d865368a031aÔÇª
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt: Positionen [5498, 11042]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export (1).txt: Positionen [5505]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export.txt: Positionen [5498]
+
+## Hash def6b22d91d9ÔÇª
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt: Positionen [5421, 10965]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export (1).txt: Positionen [5428]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export.txt: Positionen [5421]
+
+## Hash ecab55ddfcb4ÔÇª
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt: Positionen [1810, 7592]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export (1).txt: Positionen [2055]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export.txt: Positionen [1810]
+
+## Hash dd4305e34095ÔÇª
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt: Positionen [483, 6265]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export (1).txt: Positionen [728]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export.txt: Positionen [483]
+
+## Hash 2f06dd3dd6b2ÔÇª
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt: Positionen [3399, 9181]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export (1).txt: Positionen [3644]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export.txt: Positionen [3399]
+
+## Hash e2cbbc761b76ÔÇª
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt: Positionen [5316]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export.txt: Positionen [5316]
+
+## Hash f7a17ba835b2ÔÇª
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt: Positionen [1924, 7706]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export (1).txt: Positionen [2169]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export.txt: Positionen [1924]
+
+## Hash f66cb4895ee4ÔÇª
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt: Positionen [4249, 10031]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export (1).txt: Positionen [4494]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export.txt: Positionen [4249]
+
+## Hash 9140321f9f2eÔÇª
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt: Positionen [2900, 8682]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export (1).txt: Positionen [3145]
+- F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export.txt: Positionen [2900]

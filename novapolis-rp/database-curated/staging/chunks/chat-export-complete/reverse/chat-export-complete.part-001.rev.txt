@@ -1,0 +1,999 @@
+-----
+
+
+#196 [assistant]
+
+-----
+
+bitte lege einen kein was für diese handelsgruppe an
+#195 [user]
+
+-----
+
+
+#194 [assistant]
+
+-----
+
+ich denke, soweit müsste Ronja ihnen inzwischen dann doch glauben, dass sie wirklich nur zum Handel hier sind. also wird sie ihnen diese Möglichkeit natürlich eröffnen und wird ihnen vorerst geduldig zuhören.
+#193 [user]
+
+-----
+
+
+#192 [assistant]
+
+-----
+
+ich würde sagen wir gehen chronologisch vor der wo zuerst ankommt, wird auch zuerst bedient. hierbei wird natürlich Ronja ihren heimvorteil nutzen und sehr vorsichtig agieren mit verschlossenen Türen
+#191 [user]
+
+-----
+
+
+#190 [assistant]
+
+-----
+
+das finde ich sehr spannend. so machen wir weiter. ja speichere das so updater the canvas und dann rein ins Vergnügen
+#189 [user]
+
+-----
+
+
+#188 [assistant]
+
+-----
+
+ja, ich denke für dieses Mal machen wir es so. in Zukunft werden wir es wochenweise machen bzw. wenn wir direkt mit einer Fraktion interagieren. natürlich täglich.
+#187 [user]
+
+-----
+
+
+#186 [assistant]
+
+-----
+
+so, nur um jetzt für mich das noch mal klarzustellen. diese vier neuen Fraktionen wissen noch nicht genau, was bei unseren hauptcharakteren los ist. allerdings dürften sie ja das mit dem Reaktor mitbekommen haben. also müssten jetzt zuerst die Fraktionen ihren Zug machen bzw. du müsstest Züge für alle vier Fraktionen in den letzten zwei Wochen machen, ist das richtig?
+#185 [user]
+
+-----
+
+
+#184 [assistant]
+
+-----
+
+ich hätte nun gerne noch eine händlerfraktion. bitte erstelle dafür auch direkt einen canvas. diese Fraktion hat aber keinen direkten Anführer, sondern ist eher demokratisch orientiert
+#183 [user]
+
+-----
+
+
+#182 [assistant]
+
+-----
+
+erstelle die drei canvas für die Charaktere und die drei canvas für die Fraktionen
+#181 [user]
+
+-----
+
+
+#180 [assistant]
+
+-----
+
+bevor wir mit Tag 20 fortfahren, möchte ich, dass du noch drei hauptfraktionen generierst mit Anführer, dem jeweiligen Anführer/in auch ein canvas erstellst und jedem wie gehabt ein verdecktes persönliches Ziel, zuweist.
+#179 [user]
+
+-----
+
+
+#178 [assistant]
+
+-----
+
+bitte überprüfe den gesamten chatverlauf und gleiche ihn mit den vorhandenen canvas ab wichtig die Charaktere, das Inventar, die Orte, Missionen, Ereignisse etc.
+#177 [user]
+
+-----
+
+
+#176 [assistant]
+
+-----
+
+hiermit bestätige ich
+#175 [user]
+
+-----
+
+
+#174 [assistant]
+
+-----
+
+ja das möchte ich. und bitte überprüfe alle vorhandenen canvas darauf, ob sie nicht aus Versehen überschrieben bzw. mehrere Inhalte in ein canvas geschrieben wurden
+#173 [user]
+
+-----
+
+
+#172 [assistant]
+
+-----
+
+ich möchte diese Regel gerne streichen. du sollst so viele canvas anlegen und bearbeiten können, wie nötig. das ist ein Fehler, den ich ursprünglich gemacht habe, der muss behoben werden. tut mir leid.
+#171 [user]
+
+-----
+
+
+#170 [assistant]
+
+-----
+
+in deinen Regeln ist vorgesehen, dass du pro Anfrage nur ein canvas anlegen darfst. ist das korrekt?
+#169 [user]
+
+-----
+
+
+#168 [assistant]
+
+-----
+
+welche Fraktionen haben wir gerade angelegt für dieses RP?
+#167 [user]
+
+-----
+
+
+#166 [assistant]
+
+-----
+
+zuerst muss Pahl wieder auf die Beine kommen... dafür ist nun Jonas zuständig. Ronja macht sich langsam ein paar Gedanken darüber, ob nicht noch andere Fraktionen mitbekommen haben. was hier vor zwei Wochen passiert ist....
+
+könntest du bitte deine Schreibweise so anpassen, dass es ohne die ganzen quotes ist? denn ich benutze die sprachausgabe und das stört ein wenig..
+#165 [user]
+
+-----
+
+
+#164 [assistant]
+
+-----
+
+perfekt speichern und dann lass uns mit dem nächsten Tag fortfahren und lass uns den Kranken besuchen
+#163 [user]
+
+-----
+
+
+#162 [assistant]
+
+-----
+
+bitte lade das Kern was zum fraktionsinventar
+#161 [user]
+
+-----
+
+
+#160 [assistant]
+
+-----
+
+ich würde sagen so lassen wir den Tag zur Neige gehen. bitte lege ein canvas an für das Projekt nordlinie 01
+#159 [user]
+
+-----
+
+
+#158 [assistant]
+
+-----
+
+natürlich kann Ronja es auch dieses Mal nicht lassen und muss natürlich auf dem Rückweg direkt eine bestandsaufnahme des verbindungstunnels machen und der nötigen Materialien um ihn wieder instand zu setzen. denn sie ist natürlich schon längs zehn Schritte weiter und fährt eigentlich schon mit einer Bahn hin und her
+#157 [user]
+
+-----
+
+
+#156 [assistant]
+
+-----
+
+nun ja, ich würde das jetzt nur mit einbeziehen, wenn sie dort auch entweder missionsrelevante Sachen finden können oder auch nützliches fürs Inventar. ansonsten können wir das auch dieses Mal überspringen und einfach mit dem notieren aller Schäden und eventueller zukünftiger Exkursionen, um noch verschüttetes wieder freizulegen nach Hause gehen.
+#155 [user]
+
+-----
+
+
+#154 [assistant]
+
+-----
+
+lösche deine letzte Antwort und bitte überprüfe erneut den chatverlauf. wir hatten Leichen in dieser Station. ich weiß nur nicht mehr wo
+#153 [user]
+
+-----
+
+
+#152 [assistant]
+
+-----
+
+Reflex und Ronja durchsuchen doch die Station nach nützlichem bzw. eventuell verschütteten verletzten und gehen dann auch nach Hause. aber wichtig! Ronja frägt Reflex, ob er einen kleinen Teil zur Überwachung da lassen kann. ein winziger Teil würde ja schon reichen
+#151 [user]
+
+-----
+
+
+#150 [assistant]
+
+-----
+
+was passiert? zuerst ist zuerst Jonas an der Station oder die beiden bei dem Fragment
+#149 [user]
+
+-----
+
+
+#148 [assistant]
+
+-----
+
+Update durchführen
+#147 [user]
+
+-----
+
+
+#146 [assistant]
+
+-----
+
+bitte überprüfe noch einmal den gesamten chatverlauf lade ihnen den Kontext und passe auf, dass du die Herkunft von Reflex nicht falsch interpretierst, denn Reflex ist nach meinem aktuellen wissensstand. das Kind von Ronja bzw. ist Reflex ja durch die Verschmelzung von Ronja mit D5 entstanden. bitte überprüfe das, bevor du fortfährst
+#145 [user]
+
+-----
+
+
+#144 [assistant]
+
+-----
+
+na das sieht doch so aus, als hätte Jonas morgen einen Auftrag krankentransport... während Ronja und Reflex ihre Neugierde dann weiter stillen
+#143 [user]
+
+-----
+
+
+#142 [assistant]
+
+-----
+
+mit 99 %.... schon wieder ein Prozent.... sie schafft das noch irgendwann. schafft sie das noch beim ersten Versuch.... aber sie lacht darüber und ist froh. natürlich versucht sie zuerst Verbindung zur heimatbasis aufzunehmen und so mit der Hilfe von Reflex die Station nach Überlebenden zu scannen. falls möglich, ansonsten abzusuchen.
+#141 [user]
+
+-----
+
+
+#140 [assistant]
+
+-----
+
+Moment sie ist durch und durch technikerin und sie hat gerade von einem kritischen reaktorzustand und einer unvollständigen Evakuierung gehört. das ist erstens genau ihr fachgebiet und zweitens, die perfekte Gelegenheit. ihr exoskelett auszutesten findest du nicht?
+#139 [user]
+
+-----
+
+
+#138 [assistant]
+
+-----
+
+sie kann auch einfach C6 anfunken.... entschuldige, daran habe ich nicht gedacht...
+#137 [user]
+
+-----
+
+
+#136 [assistant]
+
+-----
+
+ja, bitte tue das
+#135 [user]
+
+-----
+
+
+#134 [assistant]
+
+-----
+
+bevor mir mit dem Weg zu C6 fortfahren, nur kurz für mein Verständnis. ich dachte C6 wäre die Station von der Ronja ursprünglich geschickt wurde und mit welcher sie funkkontakt hatte. also müssten dort ja eigentlich Leute leben. bitte überprüfen noch einmal den gesamten chatverlauf und lade ihn dir in den Kontext und überprüfe, welche Angaben korrekt sind. es kann natürlich auch sein, dass ich mich gerade irre.
+#133 [user]
+
+-----
+
+
+#132 [assistant]
+
+-----
+
+da diese Mission so erfolgreich war, wird sie sich nun bis zu c6 vorwagen Jonas kann wenn er möchte mitkommen. wenn nicht würde Ronja ihm anbieten in dem kleinen kämmerchen unten. das versteckt war sich eine kleintüftlerwerkstatt einzurichten, in der er gerne herum experimentieren kann unter Aufsicht. natürlich, ich denke das würde auch Reflex sehr gut gefallen. zumindest einer Instanz von ihm.
+#131 [user]
+
+-----
+
+
+#130 [assistant]
+
+-----
+
+Update den Inventar canvas
+#129 [user]
+
+-----
+
+
+#128 [assistant]
+
+-----
+
+speichern und fortfahren
+#127 [user]
+
+-----
+
+
+#126 [assistant]
+
+-----
+
+erstelle zuerst einen canvas für den neuen Charakter. Jonas
+#125 [user]
+
+-----
+
+
+#124 [assistant]
+
+-----
+
+erstelle und speichere die notwendigen canvas Update. die vorhandenen und dann lass uns mit dem nächsten Kapitel fortfahren.
+
+einmal kurz zur Klarstellung. wir haben nicht die Symbiose Stufe erreicht, dass die beiden miteinander verschmolzen sind. Reflex ist wie ein neoprenanzug eng. anliegend auf der Haut nicht in der Haut von Ronja. das kann später in fortgeschrittenen symbiosephasen. gerne passieren, jetzt aber noch nicht.
+#123 [user]
+
+-----
+
+
+#122 [assistant]
+
+-----
+
+ich denke, die Gruppe hat sich einen Abend Entspannung verdient, aber am nächsten Morgen sollten Sie wirklich, denke ich für Vorräte sorgen... so langsam. wie sieht es denn damit aus?....
+#121 [user]
+
+-----
+
+
+#120 [assistant]
+
+-----
+
+ich würde sagen es ist zu langsam mal Zeit. das Reflex sich Jonas vorstellt. das darf gerne ein bisschen makaber witzig düster. also ein Mix der Gefühle sein passend zu unserer Stimmung und Ronja. möchte natürlich auch gerne mal sehen, wie sich ihr kleiner in so einer Situation schlägt. greift deshalb nur im allergrößten Notfall ein.
+#119 [user]
+
+-----
+
+
+#118 [assistant]
+
+-----
+
+sie lässt den Abend so ausklingen und würde sich am nächsten Tag um ihren Besucher kümmern. ihn erst einmal fragen was er denn überhaupt will....
+#117 [user]
+
+-----
+
+
+#116 [assistant]
+
+-----
+
+sie erwidert mit einem sanften streicheln und würde sich dann nach langem beinahe zwei Wochen ist es nun her mal wieder ans Terminal setzen und schauen was seed macht
+#115 [user]
+
+-----
+
+
+#114 [assistant]
+
+-----
+
+sie wird ihm einen kleinen vertrauensvorschuss geben, aber sobald sie angekommen sind, noch einmal nachhaken, bevor sie ihm dann wirklich alles zeigt
+#113 [user]
+
+-----
+
+
+#112 [assistant]
+
+-----
+
+sie wird ihn erstmal misstrauisch ausfragen, ich meine wie kommt er denn in den Verbindungstunnel wenn sie doch erst mit der Station Funkkontakt hatte und die dachten sie sei tot
+#111 [user]
+
+-----
+
+
+#110 [assistant]
+
+-----
+
+das würde ich im RP dann ab jetzt einfach so handhaben, als hätte sie einfach nur einen neoprenanzug an unter ihrer normalen Kleidung. und ja, für den Fall, dass er halt benötigt wird oder sich selbst zu Wort melden möchte. in gewissen Situationen kann man das dann natürlich einfach ausspielen. Update bitte die betreffenden speichere und fahre dann fort, denn ich denke, es wird Zeit aufzubrechen und Vorräte aufzustocken. und vielleicht Mitbewohner finden. wer weiß....
+#109 [user]
+
+-----
+
+
+#108 [assistant]
+
+-----
+
+müsste aber nicht eigentlich Reflex das komplette Material für den Anzug sozusagen zur Verfügung stellen können? ich denke das würde Ronja genauso interessieren
+#107 [user]
+
+-----
+
+
+#106 [assistant]
+
+-----
+
+jetzt bin ich gespannt. genauso Ronja aus was für materialreflex besteht und inwieweit man einen exoskelett Anzug daraus machen kann
+#105 [user]
+
+-----
+
+
+#104 [assistant]
+
+-----
+
+dann wird Ronja jetzt doch mal die exoskelett Idee ansprechen. denn die Idee an sich findet sie ja auch super
+#103 [user]
+
+-----
+
+
+#102 [assistant]
+
+-----
+
+perfekt! dann Update alle betreffenden canvas speichere und fahre mit dem nächsten Tag. mit der ersten Interaktion der beiden Ford
+#101 [user]
+
+-----
+
+
+#100 [assistant]
+
+-----
+
+
+#99 [assistant]
+
+-----
+
+ja, das finde ich gut und nach einer eingreifenden Erfahrungen oder etwas? aufreibendem kann ja auch Reflex. einfach verweigern sich von ihr wieder zu lösen.
+#98 [user]
+
+-----
+
+
+#97 [assistant]
+
+-----
+
+hier finde ich es jetzt sehr spannend und auch wenn du das im Hintergrund dynamisch mit auswürfeln könntest. ein besitzergreifenden charakterzug so nach dem Motto verlustängste. das Ronja weggehen könnte sie überhaupt nicht loslassen wollen und sowas. und wie stark sich das dann eben auswirkt? das so ein bisschen dynamisch.
+#96 [user]
+
+-----
+
+
+#95 [assistant]
+
+-----
+
+
+#94 [assistant]
+
+-----
+
+ich würde dieses wurzelgewebe gerne als eigenständige Identität behandeln
+#93 [user]
+
+-----
+
+ich habe gerade das Bild von dem exoskelett vor Augen. und das hat garadiert auch Ronja vor Augen. wenn sie so eine verwurzelte Struktur wie eine Wirbelsäule oder sowas sieht.... ich denke, dass würde sehr gut passen. erstelle direkt auch einen canvas.
+#92 [user]
+
+-----
+
+
+#91 [assistant]
+
+-----
+
+na wenn die Wurzeln schon so reagieren wie Signale in Nerven, dann ist doch das das was Ronja als nächstes angehen wird
+#90 [user]
+
+-----
+
+
+#89 [assistant]
+
+-----
+
+dann haben wir doch schon was für den nächsten Tag nach einem ausgiebigen Frühstück, was Sie garantiert brauchen wird, nachdem sie gestern völlig vergessen hat zu essen wie so oft... wird sie sich wieder in die Tiefen Wagen? vielleicht findet sie ja noch etwas und ansonsten, wenn nicht, wird sie sich mit der Wurzel beschäftigen
+#88 [user]
+
+-----
+
+
+#87 [assistant]
+
+-----
+
+98%.... nur.... 98%.... das lässt ihr doch nach all der Arbeit keine Ruhe. : 😀
+#86 [user]
+
+-----
+
+
+#85 [assistant]
+
+-----
+
+dann lassen wir die Station nicht länger warten und Ronja schreitet zur Tat
+#84 [user]
+
+-----
+
+
+#83 [assistant]
+
+-----
+
+erstelle bitte ein separaten canvas zu D5, denn ich denke, dass dürfte ja die Basis werden. dann aktualisiere bitte alle inventars. und als nächstes werden wir mit der Instandhaltung des restlichen zugänglichen Bereichs von D5 fortfahren. Ronja wird diese Station ihre neue Heimat, ihre Basis nicht verlassen, solange noch irgendwo Unordnung herrscht oder eine Lampe defekt ist...
+#82 [user]
+
+-----
+
+
+#81 [assistant]
+
+-----
+
+dann würde Ronja diesen Tag nutzen, um den kontrollraum wieder zu altem Glanz zu verhelfen
+#80 [user]
+
+-----
+
+
+#79 [assistant]
+
+-----
+
+dann würde ich sagen sie schläft und wir machen am nächsten Tag weiter. und zwar steht sie auf und schaut sich in D5 jetzt sehr sehr gründlich um
+#78 [user]
+
+-----
+
+
+#77 [assistant]
+
+-----
+
+dann wird es Zeit, dass sich Ronja nun erstmal um sich selbst kümmert, nachdem sie sich noch einmal vorsichtshalber umgeschaut hat. nach einem sicheren Platz hier in D5, aber dann muss sie definitiv für sich selbst da sein, einen Moment zumindest
+#76 [user]
+
+-----
+
+
+#75 [assistant]
+
+-----
+
+führe ein Update aller canvas durch und speichere
+#74 [user]
+
+-----
+
+
+#73 [assistant]
+
+-----
+
+natürlich geht sie wieder zurück in ihren eigenen Körper mit ihrem eigenen Gehirn. aber lässt sich direkt ein hintertürchen offen so zu sagen. den Samen einer neuen Generation, an der sie arbeiten kann, oder besser gesagt, mit der sie arbeiten kann.
+#72 [user]
+
+-----
+
+
+#71 [assistant]
+
+-----
+
+so, ich würde sagen, sie ist noch eingesteckt, richtig? was sieht sie nun?......
+#70 [user]
+
+-----
+
+
+#69 [assistant]
+
+-----
+
+in diesem Fall überlegt man nicht so lange herum und wählt einfach die Nummer 1. natürlich ist die Entscheidung verdammt schwer gefallen aber puuuuu
+#68 [user]
+
+-----
+
+
+#67 [assistant]
+
+-----
+
+weiß sie denn in etwa was für folgen das für Sie selbst hat?
+#66 [user]
+
+-----
+
+
+#65 [assistant]
+
+-----
+
+ja natürlich, jetzt hatte ja die Station ihren Vorteil. nun werden wir unseren Vorteil aus der Sache ziehen. und zwar wird sie das gründlich tun.
+#64 [user]
+
+-----
+
+
+#63 [assistant]
+
+-----
+
+oder ein mit ruppiger war natürlich die Reaktion darauf gemeint, einfach militärisch zackig durchsetzungsvermögen hier an den Tag legen. so war das gemeint .
+#62 [user]
+
+-----
+
+
+#61 [assistant]
+
+-----
+
+ich an ihrer Stelle und ich bin an ihrer Stelle. würde immer weitergehen und am Ende es so kommunizieren das gerne alles gedämpft werden darf. dann kann man sich auch besser auf ja die Unterhaltung konzentrieren. im Endeffekt dann aber bis zu diesem Punkt darfst du gerne einen schönen lustige lange Geschichte schreiben, was sie so alles anstellt und wie darauf reagiert wird vor allen Dingen. gerne auch ein bisschen ruppiger
+#60 [user]
+
+-----
+
+
+#59 [assistant]
+
+-----
+
+aber sie ist immer noch neugierig und einen kleinen spaß lässt sie sich da nicht nehmen, auch weil es sich so seltsam anfühlt. sie wird mal testen, wie weit das System dämpft. ohne sich wirklich befreien zu wollen.
+#58 [user]
+
+-----
+
+
+#57 [assistant]
+
+-----
+
+oh ist es dann etwa so, dass gerade Ronja sich auch nicht bewegen kann, wenn das System das nicht zulässt?
+#56 [user]
+
+-----
+
+
+#55 [assistant]
+
+-----
+
+lass uns hier gerne auf die die Verbindung von Ronja mit dem System näher eingehen. ich finde das sehr interessant
+#54 [user]
+
+-----
+
+
+#53 [assistant]
+
+-----
+
+hier würde ich jetzt ihren Makel ausspielen...
+#52 [user]
+
+-----
+
+
+#51 [assistant]
+
+-----
+
+sie schaut sich noch mal um, ob sie irgendwo ein Terminal oder einen Port findet
+#50 [user]
+
+-----
+
+
+#49 [assistant]
+
+-----
+
+sie muss den Blick abwenden. sie überprüft noch einmal den Gang hinter sich, ob alles sicher ist. und falls das der Fall ist, lässt sie sich weiter Zeit und beobachtet erstmal den schemen an der anderen Seite des raums
+#48 [user]
+
+-----
+
+
+#47 [assistant]
+
+-----
+
+bevor Ronja die Halle betritt, bleibt sie am Rand stehen und schaut sich ganz genau um
+#46 [user]
+
+-----
+
+
+#45 [assistant]
+
+-----
+
+dann schaut sich Ronja noch einmal genau in dem Schacht um bevor sie ihn wieder verlässt und sich auf den Weg macht. natürlich sehr vorsichtig, um nicht jemandem in die Arme zu laufen, den sie nicht in die Arme laufen möchte.
+#44 [user]
+
+-----
+
+
+#43 [assistant]
+
+-----
+
+in welche Richtung liegt c6 v4
+#42 [user]
+
+-----
+
+
+#41 [assistant]
+
+-----
+
+kann Ronja jetzt die werkzeugtasche öffnen?
+#40 [user]
+
+-----
+
+
+#39 [assistant]
+
+-----
+
+sie behält ein Auge auf dem Mann und mit dem anderen Auge öffnet sie nun das wartungsprotokoll um herauszufinden, was genau sie denn jetzt tun soll?
+#38 [user]
+
+-----
+
+
+#37 [assistant]
+
+-----
+
+bevor sie überhaupt auch nur einen einzigen Muskel bewegt, durchforstet sie ihr Gedächtnis, ob sie etwas zu Personen mit so einem verhalten weiß. falls dem nicht der Fall ist, würde sie den Link annehmen
+#36 [user]
+
+-----
+
+
+#35 [assistant]
+
+-----
+
+in diesem Fall würde Ronja erstmal abwarten und beobachten.
+könntest du bitte in Zukunft die Vorschläge weglassen, insofern nicht anders gewünscht oder es sehr offensichtlich ist, dass eine Wahl getroffen werden muss.
+#34 [user]
+
+-----
+
+
+#33 [assistant]
+
+-----
+
+sie nimmt die Tasche mit in den Wartungsgang und wartet leise ab
+#32 [user]
+
+-----
+
+
+#31 [assistant]
+
+-----
+
+zuerst einmal überprüft sie jetzt die werkzeugtasche, die nicht ihr gehört und auch noch da steht. anschließend öffnet sie dann den wartungsauftrag.
+#30 [user]
+
+-----
+
+
+#29 [assistant]
+
+-----
+
+zuerst einmal schaut sie ob mit ihr selbst alles in Ordnung ist, bevor sie den ominösen Wartungsauftrag überprüft.
+#28 [user]
+
+-----
+
+
+#27 [assistant]
+
+-----
+
+erstelle den Charakter canvas oder Update ihn. speichere. und anschließend initiiere die erste Szene.
+#26 [user]
+
+-----
+
+
+#25 [assistant]
+
+-----
+
+Makel: wozu das alles?... ist es nicht am Ende doch sinnlos? verschwendete Energie...
+
+Motivation: wäre es nicht schön, einen Ort zu haben, an dem es hell ist? alles geordnet ist jeder einen Platz? hat es grünt es wie damals Tiere gibt? Flora Fauna wie auf den Bildern, das will ich schaffen... erschaffen...
+#24 [user]
+
+-----
+
+
+#23 [assistant]
+
+-----
+
+eine gasmaske, denn atemfilter ohne die Maske sind ziemlich sinnlos... und dann natürlich ein werkzeugkit.
+#22 [user]
+
+-----
+
+
+#21 [assistant]
+
+-----
+
+ich denke wir können Nummer drei so übernehmen
+#20 [user]
+
+-----
+
+
+#19 [assistant]
+
+-----
+
+kannst du mir ein paar passende Vorschläge machen?
+#18 [user]
+
+-----
+
+
+#17 [assistant]
+
+-----
+
+optional geübt für den Nachteil bei Organisation & Planung: improvisieren.
+
+Meisterhaft: IT (Programmierung), Organisation & Planung (sie liebt es Dinge zu organisieren und auch Abläufe. kann anderen auch auf die Nerven gehen.)
+
+Geübt: überzeugen, Botanik, Ingenieurwesen, Elektronik.
+
+Ja, sehr gerne.
+#16 [user]
+
+-----
+
+
+#15 [assistant]
+
+-----
+
+K2 G4 Ge5 W5 Ch4
+
+Natürlich.
+#14 [user]
+
+-----
+
+
+#13 [assistant]
+
+-----
+
+Alter: 36
+Archetype: Technikerin
+Name: Ronja (bitte generiere einen passenden Nachnamen)
+
+Sehr wohl, wie ihr wünscht.
+#12 [user]
+
+-----
+
+
+#11 [assistant]
+
+-----
+
+mache das bitte im Hintergrund, so dass ich es nicht sehe. wir möchten doch die Spannung waren. danach gib mir bitte das erste, was du von meinem Charakter brauchst. bitte Schritt für Schritt. ich bin nur ein Mensch.
+#10 [user]
+
+-----
+
+
+#9 [assistant]
+
+-----
+
+erstelle nun zuerst in den vorhandenen canvas die Grundlage für unser RP. in der Zwischenzeit überlege ich mir meinen Charakter. du bist natürlich großartig und ich könnte ohne deine Hilfe überhaupt nicht leben.
+#8 [user]
+
+-----
+
+
+#7 [assistant]
+
+-----
+
+
+#6 [assistant]
+
+-----
+
+ja, bitte führe das volle Setup durch. bestätigt.
+#5 [user]
+
+-----
+
+
+#4 [assistant]
+
+-----
+
+natürlich darfst du mehrere canvas pro durchgang erstellen. sollst du sogar. bitte wiederholen den Vorgang lösche aber zuerst was du getan hast. anschließend erstelle eine ordentliche Struktur mit dem erforderlichen canvas. hierzu dienen dir die Dateien aus der .zip.
+ich fürchte, in den Regeln hat sich ein Fehler eingeschlichen.
+#3 [user]
+
+-----
+
+
+#2 [assistant]
+
+-----
+
+Entpacke die metro-ai-rpg.zip, lade die Daten in den Kontext, erstelle die nötigen canvas und lass uns anschließend mit der Charaktererstellung beginnen.
+#1 [user]

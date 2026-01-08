@@ -107,7 +107,9 @@ def main() -> int:
 
 if __name__ == "__main__":
     print(
-        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: python -m scripts.agent.estimate_tokens (statt novapolis_agent/scripts/estimate_tokens.py).",
+        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: "
+        "python -m scripts.agent.estimate_tokens "
+        "(statt novapolis_agent/scripts/estimate_tokens.py).",
         file=sys.stderr,
     )
     sys.exit(main())

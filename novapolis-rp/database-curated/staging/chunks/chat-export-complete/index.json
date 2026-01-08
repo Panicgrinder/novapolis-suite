@@ -1,0 +1,163 @@
+{
+  "source": "F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/chat-export-complete.txt",
+  "normalized": "F:/VS Code Workspace/Main/novapolis-rp/database-curated/staging/chat-export-complete.normalized.txt",
+  "chunk_size_lines": 1000,
+  "total_lines": 21646,
+  "chunks_dir": "F:/VS Code Workspace/Main/novapolis-rp/database-curated/staging/chunks/chat-export-complete",
+  "chunks": [
+    {
+      "name": "chat-export-complete.part-001.txt",
+      "start_line": 1,
+      "end_line": 1000,
+      "line_count": 1000,
+      "sha1": "6898b7d5db784fcd8f3ea6e2c89156d4edc13c57"
+    },
+    {
+      "name": "chat-export-complete.part-002.txt",
+      "start_line": 1001,
+      "end_line": 2000,
+      "line_count": 1000,
+      "sha1": "35a9e4e3addf548d073f610bdbf28788ef7764d4"
+    },
+    {
+      "name": "chat-export-complete.part-003.txt",
+      "start_line": 2001,
+      "end_line": 3000,
+      "line_count": 1000,
+      "sha1": "69ab7e2931f002ebf9a94546df54d073a6acdab6"
+    },
+    {
+      "name": "chat-export-complete.part-004.txt",
+      "start_line": 3001,
+      "end_line": 4000,
+      "line_count": 1000,
+      "sha1": "0321c9bafa84e220deb67f966017cc300a07d51b"
+    },
+    {
+      "name": "chat-export-complete.part-005.txt",
+      "start_line": 4001,
+      "end_line": 5000,
+      "line_count": 1000,
+      "sha1": "fb22b7f712aaa70f810641a4bbf57cedc1c577c0"
+    },
+    {
+      "name": "chat-export-complete.part-006.txt",
+      "start_line": 5001,
+      "end_line": 6000,
+      "line_count": 1000,
+      "sha1": "14721155f80ad0c20c9511452f7680f90cf08e39"
+    },
+    {
+      "name": "chat-export-complete.part-007.txt",
+      "start_line": 6001,
+      "end_line": 7000,
+      "line_count": 1000,
+      "sha1": "a699e2c6b224b301baa492dccb09d7cdf8248907"
+    },
+    {
+      "name": "chat-export-complete.part-008.txt",
+      "start_line": 7001,
+      "end_line": 8000,
+      "line_count": 1000,
+      "sha1": "71af461880c0e0ef9bff3950939d1570d4327ee8"
+    },
+    {
+      "name": "chat-export-complete.part-009.txt",
+      "start_line": 8001,
+      "end_line": 9000,
+      "line_count": 1000,
+      "sha1": "64df73b210e5f39157621cc12631e59f4a1f70ff"
+    },
+    {
+      "name": "chat-export-complete.part-010.txt",
+      "start_line": 9001,
+      "end_line": 10000,
+      "line_count": 1000,
+      "sha1": "7e711970094c4a5d12fb8fa127d66728a730f5da"
+    },
+    {
+      "name": "chat-export-complete.part-011.txt",
+      "start_line": 10001,
+      "end_line": 11000,
+      "line_count": 1000,
+      "sha1": "ec7e20abb520221d990a3162c04b2bba77333b91"
+    },
+    {
+      "name": "chat-export-complete.part-012.txt",
+      "start_line": 11001,
+      "end_line": 12000,
+      "line_count": 1000,
+      "sha1": "aa87b52afa5117548613c5fedc9b5844ab839a85"
+    },
+    {
+      "name": "chat-export-complete.part-013.txt",
+      "start_line": 12001,
+      "end_line": 13000,
+      "line_count": 1000,
+      "sha1": "2cf20f72aa47e5165b8f5818c38e3006daa355ab"
+    },
+    {
+      "name": "chat-export-complete.part-014.txt",
+      "start_line": 13001,
+      "end_line": 14000,
+      "line_count": 1000,
+      "sha1": "2cf86d59a93f5c7f1670f7fca7bc5f481f151e5f"
+    },
+    {
+      "name": "chat-export-complete.part-015.txt",
+      "start_line": 14001,
+      "end_line": 15000,
+      "line_count": 1000,
+      "sha1": "59ab33757f4f6cfb409026ff1458f5ebac2a6868"
+    },
+    {
+      "name": "chat-export-complete.part-016.txt",
+      "start_line": 15001,
+      "end_line": 16000,
+      "line_count": 1000,
+      "sha1": "3f5de8f731dfc856da66e624ef9be6afb486d99b"
+    },
+    {
+      "name": "chat-export-complete.part-017.txt",
+      "start_line": 16001,
+      "end_line": 17000,
+      "line_count": 1000,
+      "sha1": "70e2a520196585ac11cfe4393da87b525566726a"
+    },
+    {
+      "name": "chat-export-complete.part-018.txt",
+      "start_line": 17001,
+      "end_line": 18000,
+      "line_count": 1000,
+      "sha1": "b1ad31bb7cfa5891ecf57d73e0da82652bea4c2e"
+    },
+    {
+      "name": "chat-export-complete.part-019.txt",
+      "start_line": 18001,
+      "end_line": 19000,
+      "line_count": 1000,
+      "sha1": "39c39614605f229796f23958ac7a7930127f8f75"
+    },
+    {
+      "name": "chat-export-complete.part-020.txt",
+      "start_line": 19001,
+      "end_line": 20000,
+      "line_count": 1000,
+      "sha1": "73c5eebb7bd23d04152e6c07538bc00d51c0f6f4"
+    },
+    {
+      "name": "chat-export-complete.part-021.txt",
+      "start_line": 20001,
+      "end_line": 21000,
+      "line_count": 1000,
+      "sha1": "27aa2d084dd41192702389e0c609ab10c9ebf1e5"
+    },
+    {
+      "name": "chat-export-complete.part-022.txt",
+      "start_line": 21001,
+      "end_line": 21646,
+      "line_count": 646,
+      "sha1": "39a869c619843dea5d74306234f8fa5ab5d80830"
+    }
+  ]
+}

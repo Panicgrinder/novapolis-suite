@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-07 04:05
-update: Schritt 3 finalisiert: Doku-Verweise auf /.tmp/results nachgezogen.
-checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py WORKSPACE_STATUS.md novapolis-dev\\docs\\donelog.md DONELOG.md todo.root.md novapolis-dev\\docs\\copilot-vscode-usage.md novapolis-dev\\docs\\readme_decisions.md PASS (2026-01-07 04:05); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc WORKSPACE_STATUS.md novapolis-dev/docs/donelog.md DONELOG.md todo.root.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/readme_decisions.md PASS (2026-01-07 04:05)
+stand: 2026-01-08 14:18
+update: Policy-Refresh: `.ps1`-Wrapper-Verweise in Governance/Status/TODO aktualisiert; Hinweis zu historischen `.ps1`-Logs ergänzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev/docs/donelog.md PASS (2026-01-08 14:25); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev\docs\donelog.md PASS (2026-01-08 14:25)
 ---
 - 2026-01-05 19:07: Unified Runner erneut verifiziert – `scripts/checks_rp_consistency.py` Ruff/Black gruen gemacht; `python scripts/run_checks_and_report.py` overall PASS (Report: `checks_report_20260105_190519.json`).
 - 2026-01-07 03:57: Schritt 3: Doku-Verweise fuer Temp-Artefakte konsolidiert (`/.tmp-results/` -> `/.tmp/results/`).
@@ -64,6 +64,7 @@ Workspace-Status
 ---------
 
 - Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit - dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten-STOP (global, immer gültig)“.
+- Hinweis (2026-01-08): Ältere Einträge können noch `.ps1` referenzieren (historisch). Aktive Wrapper/Entry-Points laufen über `scripts/*.py`; PowerShell-Wrapper liegen nur noch im Archiv.
 
 - 2025-12-08 17:50: Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) erneut generiert (`tree /A /F`, `tree /A`, `python scripts/update_workspace_tree_dirs.py`); nächster Pflichtlauf nach relevanter Strukturänderung oder spätestens Ende Dezember.
 - 2025-11-07 06:30: Alle Markdownlint VS-Code-Tasks & Wrapper-Doku entfernt; Ausführung jetzt ausschließlich manuell via `npx --yes markdownlint-cli2` (Policy npx-only).
@@ -88,7 +89,7 @@ Aktueller Arbeitsmodus (Single-Root, Python @ Root)
 --------------------------------------------------
 
 - Workspace & Interpreter: `F:/VS Code Workspace/Main` ist der einzige VS-Code-Root; `.venv` (Python 3.11/3.12+) und `.env` liegen im Root.
-- Standard-Wrappers: `python scripts/run_checks_and_report.py --scope full` (Lint/Typen/Tests) und `python scripts/run_pytest_coverage.py --fail-under 80` (Coverage) laufen aus dem Root; PowerShell-Wrapper dienen nur noch als Fallback.
+- Standard-Wrappers: `python scripts/run_checks_and_report.py --scope full` (Lint/Typen/Tests) und `python scripts/run_pytest_coverage.py --fail-under 80` (Coverage) laufen aus dem Root; PowerShell-Wrapper sind nur noch archiviert.
 - Tasks setzen `options.cwd` gezielt (z. B. `novapolis_agent/` für pytest), bleiben aber über das Root-`.vscode/tasks.json` steuerbar.
 - Guard-Check: `python scripts/multi_root_cleanup.py --whatif` prüft regelmäßig auf neue `*.code-workspace`-/Schatten-Dateien; Auffälligkeiten sofort nach `Backups/` verschieben.
 
@@ -118,7 +119,7 @@ Single-Root & Wrapper-Status (ehemals Multi-Root, Stand 2025-11-16 12:00)
   - Aktionen mit Seiteneffekt (WRITE/RUN, z. B. Skript-Wrapper, Formatierer, Cleanup) bleiben STOP-pflichtig (kurzer Plan + Receipt).
 - Akzeptanzkriterien erfüllt:
   - Keine `*.code-workspace` im Workspace aktiv.
-  - Wrapper-Skripte sind im Root verankert (`scripts/run_checks_and_report.py`, `scripts/run_pytest_coverage.ps1`).
+  - Wrapper-Skripte sind im Root verankert (`scripts/run_checks_and_report.py`, `scripts/run_pytest_coverage.py`).
   - Dieser Statusblock dokumentiert den Abschluss des Multi-Root-Falls.
 
 Status-Update (Multi-Root Abschluss)

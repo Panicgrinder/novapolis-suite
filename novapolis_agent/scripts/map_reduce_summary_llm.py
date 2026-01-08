@@ -23,12 +23,11 @@ from typing import TYPE_CHECKING, Any, Protocol, cast
 
 from utils.time_utils import now_compact, now_human
 
-"""Cache/Key Utilities (robust gegen fehlende utils.eval_cache)."""
+# Cache/Key Utilities (robust gegen fehlende utils.eval_cache).
 # Cache für LLM-Summaries (EvalCache dynamisch geladen in _get_llm_cache)
 try:
     from utils.eval_cache import make_key
 except Exception:
-
     def make_key(obj: Any) -> str:  # fallback
         import hashlib
         import json as _json
@@ -54,7 +53,9 @@ def _get_llm_cache() -> _EvalCacheProto | None:
 
             _LLM_CACHE = cast(
                 _EvalCacheProto,
-                _EvalCacheCls(os.path.join(PROJECT_ROOT, "eval", "results", "cache_llm.jsonl")),
+                _EvalCacheCls(
+                    os.path.join(PROJECT_ROOT, "eval", "results", "cache_llm.jsonl")
+                ),
             )
         except Exception:
             _LLM_CACHE = None
@@ -92,7 +93,9 @@ from novapolis_agent.app.core.settings import settings  # noqa: E402
 heuristic_summarize_file: Callable[..., str] | None
 
 try:
-    from novapolis_agent.scripts.map_reduce_summary import summarize_file as _heuristic_summarize_file
+    from novapolis_agent.scripts.map_reduce_summary import (
+        summarize_file as _heuristic_summarize_file,
+    )
 except Exception:
     heuristic_summarize_file = None
 else:
@@ -398,7 +401,9 @@ def main() -> int:
 
 if __name__ == "__main__":
     print(
-        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: python -m scripts.agent.map_reduce_summary_llm (statt novapolis_agent/scripts/map_reduce_summary_llm.py).",
+        "HINWEIS: Bitte bevorzugt den Root-Wrapper nutzen: "
+        "python -m scripts.agent.map_reduce_summary_llm "
+        "(statt novapolis_agent/scripts/map_reduce_summary_llm.py).",
         file=sys.stderr,
     )
     sys.exit(main())

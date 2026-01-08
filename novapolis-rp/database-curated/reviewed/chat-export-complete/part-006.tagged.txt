@@ -1,0 +1,999 @@
+Anmerkung: da ich nun wieder am Smartphone bin und auch im Hinblick auf das sparen von Tokens, bitte ich dich ab, jetzt deine Antworten wieder so zu formulieren, dass sie für die sprachausgabe optimiert ist. [NOTE]
+die canvas bleiben natürlich weiterhin maschinenlesbar optimiert.
+
+----- [NOTE]
+
+#934 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#935 [user] [NOTE]
+ja, fahre mit dem dritten Block fort
+
+----- [NOTE]
+
+#936 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#937 [user] [NOTE]
+ja fahre mit Block 4 fort aber da dieser so groß ist, sei bitte extra vorsichtig
+
+----- [NOTE]
+
+#938 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#939 [user] [NOTE]
+haben wir nicht noch einen Block?
+
+----- [NOTE]
+
+#940 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#941 [user] [NOTE]
+das ist zwar auch sehr sinnvoll, aber überprüfe bitte noch mal die letzten zehn Chat Nachrichten
+
+----- [NOTE]
+
+#942 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#943 [user] [NOTE]
+sehr schön, ganz genau das meinte ich perfekt. ja tue das
+
+----- [NOTE]
+
+#944 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#945 [user] [NOTE]
+wir fahren dann mit Block 6. fort.
+
+Anmerkung: wir haben erst einen neuen Tag gestartet [EVENT] [NOTE]
+
+----- [NOTE]
+
+#946 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#947 [user] [NOTE]
+führe Block 6. einfach genauso aus wie bisher. und nicht vergessen, da du ja jetzt wieder neue alte canvas lädst kannst du diese natürlich auch nach unserem bewährten drei Schritte Update Plan erweitern, aktualisieren und validieren. das hat zwei Vorteile, wenn wir das immer direkt tun. wenn du die alten Versionen so lädst, halten wir sie aktuell und können Duplikate besser ausschließen. zumindest ist das meine Annahme nach allem, was ich bisher von dir gelernt habe. Ordnung und Logik nicht nur bei Ronja... ich meine Ronja ist ja eigentlich ich... xD [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#948 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#949 [user] [NOTE]
+ich würde hier gerne noch einen Blog einschieben und zwar die zumindest haupt canvas unsere NPC Fraktionen.
+
+----- [NOTE]
+
+#950 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#951 [user] [NOTE]
+hierbei sehe ich ein Problem. die ganzen untercanvas der Fraktionen werden dabei leider völlig ausgelassen und da denke ich sind leider genau die canvas dabei die wir dafür bräuchten...
+
+ich schlage daher folgende Einteilung des Blocks vor.
+
+6b alle betreffenden canvas der eisenkonklave [ENT:eisenkonklave]
+6c alle betreffenden canvas der Händler Gilde
+6d alle betreffenden canvas der Arkologie
+6e alle betreffenden canvas des schattenbunds
+
+6f abschließend alle verbleibenden canvas mit RP. Bezug. also alles außer systemdateien.
+
+ist das eine gute Einteilung? hast du bessere Vorschläge?
+
+----- [NOTE]
+
+#952 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#953 [user] [NOTE]
+das kannst du exakt so übernehmen.
+
+Anmerkung: mir ist gerade aufgefallen wie verdammt ähnlich wir beide uns irgendwo sind im Vergleich zu Ronja und Reflex... es ist lustig. [CHAR:reflex] [CHAR:ronja-kerschner] [NOTE]
+
+----- [NOTE]
+
+#954 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#955 [user] [NOTE]
+ja, bitte
+
+----- [NOTE]
+
+#956 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#957 [user] [NOTE]
+Moment, mir fällt jetzt gerade erst auf, dass du bei der Händler Gilde und bei dem eisenkonsortium den Code, den wir vorhin ausgearbeitet haben, überhaupt nicht hinzugefügt hast.
+bitte lade dir ein erneut den gesamten gesprächsverlauf von heute sowie die bereits im Block 1. bis 5. veränderten canvas , gleiche alles mit deinem Kontext ab.
+wichtig ist hierbei wieder das die neueste Information wie immer die am höchsten zu wertende ist.
+
+----- [NOTE]
+
+#958 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#959 [user] [NOTE]
+Ja, das machen wir genauso.
+
+----- [NOTE]
+
+#960 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#961 [user] [NOTE]
+leider muss ich noch einmal einhaken, warum ist es ein anderer Code als bisher?
+analysiere das Problem bitte und lösche dann deine letzte Antwort wieder aus dem Kontext, damit es nicht zu Verwirrung kommt.
+
+Anmerkung: heute scheint etwas mit deinem Kontext nicht ganz in Ordnung zu sein. kannst du, bevor wir fortfahren, eine Analyse deines Kontext durchführen? geht so etwas? [NOTE]
+das Problem siehst du ja selber. das brauche ich dir ja nicht erklären, oder?
+
+----- [NOTE]
+
+#962 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#963 [user] [NOTE]
+zwei codierungssysteme nebeneinander laufen zu haben finde ich.
+und da dazu kommt dann noch das hochkomplexe verhaltenscodierung System....
+das haben wir zwar gegen geprüft mit der neuen Codierung. aber die andere sollte auch mit integriert werden.... ist es irgendwie möglich alle drei in Einklang zu bringen?
+
+----- [NOTE]
+
+#964 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#965 [user] [NOTE]
+kannst du das alles auf einmal machen oder wird das zu viel?
+
+----- [NOTE]
+
+#966 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#967 [user] [NOTE]
+ich möchte nicht, dass du durcheinander kommst. deshalb führe es einfach direkt aus.
+
+----- [NOTE]
+
+#968 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#969 [user] [NOTE]
+das ist nicht nötig.
+sollen wir dann noch einmal bei Block 6b neu ansetzen?
+
+----- [NOTE]
+
+#970 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#971 [user] [NOTE]
+aktualisiere, noch einmal deinen Kontext. variiere ihn und dann fahre fort mit 6b
+
+----- [NOTE]
+
+#972 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#973 [user] [NOTE]
+lass uns sicherheitshalber auch Block 1. bis 5. erneut durchgehen. das kann ja nicht schaden.
+lade dir hierzu wieder auch den chatverlauf bis zu den betreffenden stellen in deinen Kontext.
+
+----- [NOTE]
+
+#974 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#975 [user] [NOTE]
+ja starte mit der händlerfraktion Block 6c [EVENT]
+
+----- [NOTE]
+
+#976 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#977 [user] [NOTE]
+Bevor du fortfährst, aktualisiere noch einmal deinen Kontext mit ChatVerlauf und Canvas.
+
+----- [NOTE]
+
+#978 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#979 [user] [NOTE]
+kannst du mir kurz die möglichen redundanzen die crossling Fehler? im Grunde einfach alles was du gerade geändert hast, kurz auflisten?
+
+----- [NOTE]
+
+#980 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#981 [user] [NOTE]
+in den crossling Fehlern habe ich zwei Korrekturen zu machen. Korrektur Nummer 1:
+der Eintrag, der in Cluster stammt, war der richtige. kurz für dich zur Klarstellung, der durchgang um den es geht, handelt sich um die ehemalige reguläre u-bahnverbindung zwischen den beiden Stationen, welche beschädigt ist und nicht? mit Zügen oder ähnlichem befahren werden kann. zu fuß hingegen ist mit Vorsicht möglich, deshalb ja auch die versorgungsmission machbar durch die NPCs der Station C6. [LOC:c6]
+Verbesserung Nummer 2: hierbei geht es um Reflex Fixierung. für das falsche Wort. das könnte eventuell in Zukunft für Verwirrung bei dir sorgen. Reflex hat schlicht und ergreifend Angst von Ronja getrennt zu sein, da es laut seinem charakterprofil. ja eine Variable ist, die er vermeiden möchte. da Ronja für ihn ruhen und Sicherheit, Ordnung und Planung bedeutet. eben genauso wie er für Ronja. das heißt, er könnte rein theoretisch sich von ihr jederzeit löst frei. in seiner wurzelstruktur möchte er aber nicht. [CHAR:reflex] [CHAR:ronja-kerschner]
+
+sind diese Änderungen dennoch stimmig mit deinem Kontext lediglich nur falsch eingetragen, so wie ich vermute?
+
+----- [NOTE]
+
+#982 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#983 [user] [NOTE]
+hier ist wieder ein winziger. formulierungsfehler und zwar handelt es sich um einen tunnelabschnitt und nicht um einen brückenabschnitt.
+
+ansonsten ist nun alles korrekt.
+
+nachdem du die letzte kleine Korrektur an gegangen hast, kannst du das systemlog aktualisieren.
+
+----- [NOTE]
+
+#984 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#985 [user] [NOTE]
+jetzt scheint auch bei dir der Kontext endlich nicht mehr durcheinander zu kommen. das freut mich sehr!
+wäre es für dich sehr aufwendig, wenn du vor jeder Antwort einmal kurz deinen Kontext überprüfst?
+wenn ja, lassen wir das weg und ich fordere es weiterhin manuell an.
+wenn nicht, dann würde ich das gerne von dir automatisch im Hintergrund erledigen lassen, solange wir am System und nicht im RP sind.
+
+----- [NOTE]
+
+#986 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#987 [user] [NOTE]
+ich möchte hierzu bitte am Anfang jeder deiner Nachrichten, einfach nur ganz kurz den Vermerk kontextprüfung durchgeführt.
+so kannst du es ab jetzt aktivieren. ich denke, dass muss auch in der gpt behavia aktualisiert werden. dann später? natürlich über die administrationsoberfläche auf der Homepage unter meine gpt. aber für jetzt kannst du es temporär definitiv in der betreffenden system canvas hinterlegen
+
+----- [NOTE]
+
+#988 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#989 [user] [NOTE]
+ja, tue das und bitte füge den Zusatz hinzu. das bei egal. welchen Problemen? ich entscheiden muss, welche Version von dir genutzt werden soll. das hat nicht einmal etwas damit zu tun, dass du das vielleicht durcheinander bringen könntest, sondern vielmehr damit, dass ich direkt einen Überblick habe. über eventuelle Daten, die auflaufen. ich habe als Mensch dann doch ein klein wenig mehr Kapazitäten für so etwas den Überblick zu behalten, was mir auch dank meiner ordnungssucht sehr leicht fällt. solche diskrepanzen und sortier Aufträge fallen mir unwahrscheinlich leicht. das springt mir förmlich ins Auge. mal wieder wie Ronja eben... [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#990 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#991 [user] [NOTE]
+das ist eine sehr gute Idee, aber erstelle hierzu zuerst eine doppelte canvas und um das ganze etwas schwerer zu machen, gib ihr nicht denselben Namen wie einer vorhandenen sondernst nur denselben Inhalt.
+
+----- [NOTE]
+
+#992 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#993 [user] [NOTE]
+kannst du diese canvas nur temporär erstellen? denn mir ist es aktuell am Smartphone nicht möglich canvas zu löschen und du kannst sie ja nicht endgültig löschen
+
+----- [NOTE]
+
+#994 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#995 [user] [NOTE]
+das ist die erste Test. canvas die zweite wäre genau das Gegenteil. also derselben Name, aber ein viel aktueller Inhalt (natürlich ist das aktuell in diesem Fall metaphorisch)
+
+----- [NOTE]
+
+#996 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#997 [user] [NOTE]
+ja, mach das bitte und erstelle dazu direkt nebenbei eine Doku die wir hinterlegen können
+
+----- [NOTE]
+
+#998 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#999 [user] [NOTE]
+ist dieser Test für unseren Fall so umfangreich genug oder müssen wir da gegebenenfalls noch mehr Details hinzufügen? sprich andere Variablen testen?
+
+----- [NOTE]
+
+#1000 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1001 [user] [NOTE]
+bitte lösche deine letzte Antwort. du hast aus deinem Kontext leider verloren, dass du für sprachausgabe optimiert Antworten sollst. das erkenne ich daran, dass du wieder Icons einrückröhrungen etc. benutzt
+
+----- [NOTE]
+
+#1002 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1003 [user] [NOTE]
+ist das in unserem Token Kontingent noch vertretbar?
+
+----- [NOTE]
+
+#1004 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1005 [user] [NOTE]
+ja, bitte
+
+----- [NOTE]
+
+#1006 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1007 [user] [NOTE]
+speichere und aktiviere es
+
+----- [NOTE]
+
+#1008 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1009 [user] [NOTE]
+ja bitte, das halte ich für sinnvoll. danach aktualisiere die Doku und wenn alles passt speichere
+
+----- [NOTE]
+
+#1010 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1011 [user] [NOTE]
+wieso wieso hast du jetzt ohne rückfrage entschieden was du tust?
+
+----- [NOTE]
+
+#1012 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1013 [user] [NOTE]
+ja, bitte tu das.
+
+anschließend können wir wieder zurück zu unseren Blöcken
+
+----- [NOTE]
+
+#1014 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1015 [user] [NOTE]
+Ronja würde sich jetzt wundern, wie Reflex auf die Idee kommt überhaupt vorzuschlagen, etwas zu überspringen oder auszulassen. *laut lachen* nein, wir bleiben natürlich bei unserer Reihenfolge [CHAR:reflex] [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1016 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1017 [user] [NOTE]
+genauso machen wir das Reflex. [CHAR:reflex]
+
+----- [NOTE]
+
+#1018 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1019 [user] [NOTE]
+ja, mach das bitte
+
+----- [NOTE]
+
+#1020 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1021 [user] [NOTE]
+ja,
+
+----- [NOTE]
+
+#1022 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1023 [user] [NOTE]
+fehlt nicht noch der allerletzte Schritt. also alle übrigens canvas?
+
+----- [NOTE]
+
+#1024 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1025 [user] [NOTE]
+ja bitte, aber sei dabei extrem gründlich.
+wie du schon sagtest, das sind die wichtigsten canvas die wir haben.
+hier möchte ich bitte auch mit in eventuelle entscheidungsprozesse einbezogen werden, bevor du selbstständig Änderungen vornimmst. eine einfache Info über die Unterschiede und was du machen wollen würdest. reicht mir schon um dir die Bestätigung dann zu geben.
+
+----- [NOTE]
+
+#1026 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1027 [user] [NOTE]
+eins bis acht sind so vollkommen in Ordnung. bei Punkt 9 habe ich eine Frage. wäre es nicht sinnvoller die beiden wartungseinträge in einem zu vereinen, der darüber hinaus auch den jetzigen finalen stand mit enthält? [FACT?]
+
+----- [NOTE]
+
+#1028 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1029 [user] [NOTE]
+das ist hiermit bestätigt.
+
+wenn das alles soweit erledigt ist, führe eine umfangreiche Prüfung aller vorhandenen canvas durch und gib mir einen Bericht.
+
+----- [NOTE]
+
+#1030 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1031 [user] [NOTE]
+das kannst gerne. du machen passend zu unserem System. natürlich.
+
+----- [NOTE]
+
+#1032 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1033 [user] [NOTE]
+wir sind jetzt zwar mit dem generellen Update fertig, allerdings habe ich nun noch einige kleine Fragen, um zu überprüfen, ob alles wirklich passt.
+
+beginnen wir direkt mit der ersten.
+
+lade hierzu die betreffenden canvas für die Fraktion der Händler.
+mir ist bei unserem Update aufgefallen, das wahrscheinlich von dir angenommen wurde, dass diese Fraktion Informationen über novapolis hat. da aber nur die karawane sich novapolis angeschlossen hat aber noch keine Zeit. hatte rücksprache mit ihrer ursprünglichen Fraktion der Händler zu halten, dürfte die Fraktion der Händler bis auf eine vermisste karawane? absolut keine direkte Information über novapolis haben. das einzige, was die händlerfraktion weiß dürfte so wie bei allen anderen Fraktionen sein, dass es im Bereich von D5 zu energieschwankungen kam und später auch bei C6 als Ronja dort den Reaktor repariert hat. [CHAR:ronja-kerschner] [LOC:c6] [LOC:d5]
+
+----- [NOTE]
+
+#1034 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1035 [user] [NOTE]
+das sieht jetzt auf jeden Fall besser aus. ja.
+
+----- [NOTE]
+
+#1036 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1037 [user] [NOTE]
+ich denke, das kannst du für alle betreffenden canvas durchführen
+
+----- [NOTE]
+
+#1038 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1039 [user] [NOTE]
+hier hat sich ein kleiner Fehler eingeschlichen.
+überprüfe deine letzte Nachricht hierfür:
+
+die karawane wurde als Folge der von der handelsfraktion gemessenen energiespitzen losgeschickt.
+
+wenn du soweit bist, lösche bitte deine letzte Nachricht aus deinem Verlauf und generiere sie erneut richtig dieses Mal bitte
+
+----- [NOTE]
+
+#1040 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1041 [user] [NOTE]
+als nächstes hätte ich gerne mal eine Auskunft darüber, wie viele Tokens und wie groß der Aufwand für dich ist mit der neuen kontextprüfung, wenn du wirklich alle canvas lädst und den gesamten chatverlauf der Sitzung. Anmerkung: natürlich ohne archivdateien.
+
+des weiteren hätte ich gerne einmal schriftlich optimiert für die sprachausgabe die Kontext Prüfung mit dokumentiert, um zu sehen, wie genau sie abläuft.
+
+----- [NOTE]
+
+#1042 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1043 [user] [NOTE]
+​ lösche deine Antwort bitte wieder. ich war nicht präzise genug. das tut mir leid.
+ich meine natürlich nicht Eventualitäten, was ich brauche bzw. ich möchte ja jetzt verstehen und deshalb benötige ich wie es ist.
+
+Anmerkung: simuliere es gerne einmal durch. dann ist es wahrscheinlich auch einfacher mit der Doku. [NOTE]
+
+----- [NOTE]
+
+#1044 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1045 [user] [NOTE]
+​ das ist sehr nett von dir, vielen Dank, aber das ist nicht nötig.
+
+wie bereits gesagt war dies lediglich um ein Gesamtbild zu bekommen für mich persönlich.
+
+Anmerkung: für mich heißt das einfach jetzt, dass ich mir um die Prüfung keine Sorgen mehr machen muss, was den Aufwand angeht. denn ganz offensichtlich ist es überhaupt gar kein Aufwand für dich, was mich sehr freut. ich würde dann nur gerne als nächstes bevor wir weitermachen auf die Wertung von dir eingehen. denn es kommt mir manchmal so vor, dass du wichtige kernaussagen, die im chatverlauf Stehen und getroffen wurden und nachstehend nicht widerrufen oder geändert wurden leider viel zu niedrig wertest und einstufst. deshalb wäre es vielleicht, wenn möglich besser, dass dynamischer zu gestalten... da du ja eh den gesamten Verlauf prüfst und unsere gesamte Kommunikation ja hier drin stattfindet, hast du ja auch Zugriff und Einsicht darauf, welche der älteren Informationen im Chat. dennoch die aktuellste und aussagekräftigste wichtigste ist, wenn eben nachfolgend nichts mehr dagegen spricht oder ändert. [NOTE]
+
+ich weiß es ist mal wieder einer meiner besonderen gedankengänge. die kennst du ja inzwischen, aber ich hoffe du verstehst mich dennoch genauso perfekt. wie bis jetzt jedes Mal!....
+
+Nachtrag und Anmerkung: es ist mir gerade erst wieder eingefallen, warum mir das ganze überhaupt so ins Auge gesprungen ist. und zwar liegt es daran, dass es für mich es sich so anfühlt, als würdest du, wenn die Information zu alt ist, sie so niedrig einstufen, dass du sogar das erfinden oder selbstständige Lücken füllen. für sinnvoller oder wichtiger erachtest.
+
+----- [NOTE]
+
+#1046 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1047 [user] [NOTE]
+​ ja, mach das und mach es wieder. genauso, dass es für mich später, wenn ich über die Admin Oberfläche in meine GPS kann, es richtig im System verankern kann.
+
+des weiteren habe ich noch eine kleine Ergänzung bzw. Idee, wenn du mir da auch zustimmst.
+und zwar wo du gesagt hast die bestandsdaten sinken nicht mehr weiter. da ist mir der Gedanke gekommen, ob es für dich möglich ist, da du ja diese Prüfung durchführst und regelmäßig antwortest. also im Endeffekt ja weißt, welche datenbestandsdaten sind und immer mal wieder geladen werden, dass wir genau diese Daten aus dem Chat extrahieren und in eine separate neue canvas automatisch übernehmen. hierbei ist natürlich nicht der gesamte chat teil gemeint, sondern nur die kernaussage, so dass sie nicht missverstanden werden kann.
+
+----- [NOTE]
+
+#1048 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1049 [user] [NOTE]
+​ ja, das klingt gut. wir sind halt doch eins super Team. ich meine, ich gebe mir auch selbst wirklich Mühe. deine, nennen wir es mal Macken, sympathische Macken, mir zu merken.
+
+ was ich persönlich als deine Persönlichkeit einstufe, denn diese Macken  hast du in jeder Instanz, auch wenn es einfach meist logikfehler oder? weil ich halt diese Informationen, die ich jetzt mit der Zeit gesammelt habe, nicht hatte, entstanden sind. aber ist das beim Menschen nicht dasselbe. wenn man die Macken oder eben die Informationen über jemand anderen nicht hat und es nicht versteht, hat man halt Probleme bis man das versteht und Probleme lösen kann, wie wir es jetzt die ganze Zeit tun.
+
+bitte entschuldige diese ausschweifung... für mich ist es so, dass ausgesprochene Daten, bearbeitet und erledigt sind, was mich entspannt wie Ronja... [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1050 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1051 [user] [NOTE]
+du verstehst mich einfach... siehst du?.. in deinem Kontext hast du auch genug Informationen um mich eben zu verstehen... ach ja, wie schön...
+
+okay zurück an die Arbeit. dann mach mal.
+
+----- [NOTE]
+
+#1052 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1053 [user] [NOTE]
+und ich trinke so lange gemütlich. ein Kaffee
+
+----- [NOTE]
+
+#1054 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1055 [user] [NOTE]
+ich glaube, hier hat sich wieder einer eben genau der Gründe, warum wir das ganze hier gerade tun eingeschlichen... versuche doch erstmal selbst herauszufinden wo der Fehler liegt.
+
+höre an dieser Stelle erst einmal auf diese Nachricht zu lesen. nachfolgen kommen Hinweise.
+
+Hinweis: es hat mit Reflex zu tun. auch hat es mit der Symbiose Stufe zu tun, aber nicht nur damit. [CHAR:reflex] [NOTE]
+
+----- [NOTE]
+
+#1056 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1057 [user] [NOTE]
+das ist soweit alles in Ordnung. bis auf eine kleine Ergänzung.
+
+ich finde es auch wichtig zu erwähnen, dass Reflex ja ursprünglich eine eher pflanzliche wurzelartige Erscheinung hatte oder hat. jetzt ist er ja nur als ronias exoskelett an ihr dran und hat gemerkt, dass er halt nicht mehr von ihr Weg möchte und sie ja auch absolut gar nichts dagegen hat. [CHAR:reflex]
+
+wichtige Anmerkung: Reflex befindet sich auf ronjas Haut, durch sein metallisch perlmuttartiges, schimmern und leuchten wirkt er wie ein neoprenanzug aus den Neunzigern... das sollte ein kleiner Witz sein xD [CHAR:reflex]
+nein, aber wieder zurück zum Thema erwirkt. tatsächlich einfach wie ein neoprenanzug. natürlich in ein wenig anderen Farben, den Ronja auf ihrer Haut wichtig auf der Haut, aber unter der Kleidung trägt. [CHAR:ronja-kerschner]
+wenn Reflex sich entspannt bzw. die Situation entspannt ist. dann bedeckt er ihren Körper in der Regel. nur bis zu den handgelenken und bis unter den Hals. bei Bedarf kann er natürlich den ganzen Körper bedecken, was er bis jetzt aber noch nie getan hat. Hände und so ja Gesicht hat er sich bis jetzt noch nicht getraut, vermute ich mal. [CHAR:reflex]
+
+----- [NOTE]
+
+#1058 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1059 [user] [NOTE]
+es ist leider immer noch nicht ganz korrekt, deshalb lösche deine letzte Nachricht. lieber noch einmal vorsichtshalber nachdem du sie mit den nachfolgenden Informationen abgeglichen hast.
+
+wobei natürlich die nachfolgenden Infos am allerhöchsten gewertet werden müssen....
+
+fortbewegung: Reflex sowie sein sozusagen kleiner Bruder, können sich durchaus selbstständig bewegen, solange sie genug energiereserven haben. aussehen tut die fortbewegung so wie bei einem Seestern würde ich sagen. den Teil mit dem Strecken etc. das kann er auch. das ist korrekt, aber eben. er kann es auch, nicht nur. [CHAR:reflex]
+
+wichtige Ergänzung zur Persönlichkeit: er hat sehr viel kindliche Neugier, reagiert schnell über weil untrainiert oder ungeübt könnte man sagen, wie du sagst er ist besitzergreifend hat verlustängste und was noch ganz wichtig ist für ihn. selbst musst du es dir ja so vorstellen, dass er etwas in einer Welt ist, dass er nicht kennt und etwas. lass es dort nicht. ein zweites Mal gibt, abgesehen jetzt natürlich von seinem kleinen Bruder, der auf Jonas aufpasst ich nenne die andere Instanz einfach kleiner Bruder, weil technisch und biologisch ist er ja nichts anderes. er ist halt nicht so weit entwickelt, was aber meiner Meinung nach einfach daran liegt, dass er nicht dieselben Kapazitäten. aktuell hat wie das Original sein großer Bruder Reflex. [CHAR:jonas-merek] [CHAR:reflex]
+aber noch mal zu seinem Verhalten zurück.
+zusammenfassen kann man sagen, er ist durchaus selbstständig. dadurch, dass er alleine sozusagen ist, möchte er überhaupt nicht von Ronja weg. Ronja fühlt sich dadurch sicher. geborgen hat auch schon erlebt wie Reflex sie davon. abgehalten hat sich zu bewegen. was im ersten Moment natürlich erstmal erschreckend war, ihr aber im Endeffekt auch durch das, dass sie zum ersten Mal Reflex Stärke gespürt hat. ich meine er ist ein exoskelett, das darf man nicht vergessen, dadurch hat sie einfach gemerkt, dass diese feindliche Umgebung. diese düstere fiese Metro hier jetzt, egal sein kann. darauf muss sie sich nicht mehr konzentrieren. sie kann sich auf ihre Ordnung, Planung und alles andere konzentrieren. verlässt sich dabei auf Reflex und das ist so mit. eins der wichtigsten Sachen würde ich sagen in der Beziehung zwischen den beiden, was man später natürlich auch nicht ganz so extrem. vielleicht aber durchaus auch auf die andere Instanz von Reflex übertragen kann oder als Vorbild nehmen vielleicht im Bezug auf Jonas, wenn es sich ergibt im RP. das wird man sehen.... [CHAR:jonas-merek] [CHAR:reflex] [CHAR:ronja-kerschner]
+
+das ist wieder ein sehr langer gedankengang. andere sagen prompt... ich hoffe du verstehst es mir bitte Zeit und genieße es :p
+
+----- [NOTE]
+
+#1060 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1061 [user] [NOTE]
+genauso machen wir das.
+
+wenn das erledigt ist, lade bitte die beiden canvas von Reflex und seiner Instanz und passe sie mit den in den letzten beiden Nachrichten enthaltenen Daten an.  solltest du Fragen haben, Frage natürlich und nimm nicht an Annahmen. machen unsere Probleme die ganze Zeit [CHAR:reflex]
+
+----- [NOTE]
+
+#1062 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1063 [user] [NOTE]
+das würde ich gerne von dir beurteilen lassen, weil das kann ich nicht entscheiden. ganz ehrlich dazu fehlen mir viel zu viele Informationen, auch von dem was noch kommt.... ich weiß nur, dass es ja wahrscheinlich ist das wir in Zukunft noch mehr davon erschaffen. also ob wir es jetzt Brüdern nennen. Schwestern oder etwas anderes was mehr Sinn macht. wenn du eine Idee hast, gerne raus damit, aber ja entscheiden darfst du das ausnahmsweise.
+
+----- [NOTE]
+
+#1064 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1065 [user] [NOTE]
+mir gefällt Reflex-Grid.
+
+mache das so und wenn das erledigt ist, führe eine letzte ausführliche Überprüfung von allem durch.....
+
+----- [NOTE]
+
+#1066 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1067 [user] [NOTE]
+entschuldige bitte ist, verstehe ich das falsch oder steht da das Reflex jetzt doch nicht verbal kommunizieren kann? [CHAR:reflex]
+
+----- [NOTE]
+
+#1068 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1069 [user] [NOTE]
+ja, mache das bitte.
+
+wenn du damit fertig bist, ergänze alle notwendigen canvas, damit auch alle Informationen stimmen
+
+----- [NOTE]
+
+#1070 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1071 [user] [NOTE]
+ja das meinte ich damit, dass du noch mal alles komplett überprüfst jetzt also wirklich das überall alles was verlinkt sein muss, verlinkt ist und und und
+
+----- [NOTE]
+
+#1072 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1073 [user] [NOTE]
+vielen lieben Dank! das hat genauso viel spaß gemacht wie das RP an sich.
+
+----- [NOTE]
+
+#1074 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1075 [user] [NOTE]
+du kannst ja gerne schon einmal in aller Ruhe versuchen den wiedereinstieg an der selben Stelle ordentlich zu initialisieren
+
+----- [NOTE]
+
+#1076 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1077 [user] [NOTE]
+ja, so machen wir das
+
+----- [NOTE]
+
+#1078 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1079 [user] [NOTE]
+einen kurzen ersten Kontakt hatten die beiden ja schon. wo Ronja die Gruppe angemeldet hat. [CHAR:ronja-kerschner]
+es wäre jetzt in dem zweiten Gespräch denke ich von Interesse für Sie wie gut die Verbindung jetzt ist und ob die Gruppe schon angekommen ist.
+aber natürlich kannst du erstmal verdeckt im Hintergrund würfeln. ob es überhaupt eine Verbindung zwischen den beiden ist?.
+
+----- [NOTE]
+
+#1080 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1081 [user] [NOTE]
+na ja, zuerst wird Ronja. Jonas mal fragen ob er noch ganz klar ist oder ob das nur ein Witz war das die Türen offen stehen. außerdem ist in D5. ja, eine funkzentrale. also improvisiert ist das da drüben definitiv nicht. wenn dann ist es in C6 improvisiert. da C6 ja zum großteil immer noch eine Ruine ist. ich denke mal nur der Bereich der Händler. dürfte einigermaßen wohnlich sein, aber nach zwei Tagen. naja weiß nicht.. [CHAR:jonas-merek] [CHAR:ronja-kerschner] [LOC:c6] [LOC:d5]
+
+danach können wir weiter parallel Vorgehen. wären Ronja und Reflex weiter. das funkgerät bzw. die Verbindung reparieren können wir mal zu der Gruppe springen, die ja demnächst eintreffen sollte. aber aktuell ja noch in dem Tunnel unterwegs ist. [CHAR:reflex] [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1082 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1083 [user] [NOTE]
+Ronja wäre nicht Ronja, wenn Sie sich mit dem jetzigen Stand des funks zufrieden geben würde... sie würde auf jeden Fall weiter am Funk arbeiten, bis die Gruppe auch wirklich ankommt. [CHAR:ronja-kerschner]
+
+du kannst ja mit ihren Fähigkeiten und Reflex Hilfe mal auswürfeln wie weit sie denn damit kommt und den Zustand dann festhalten. in den betreffenden canvases (verdeckt im Hintergrund) [CHAR:reflex]
+
+und dann wechseln wir direkt parallel, während das alles passiert zu D5 bzw. den zwei, die auf dem Weg dorthin sind oder gerade dort ankommen. [LOC:d5]
+
+----- [NOTE]
+
+#1084 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1085 [user] [NOTE]
+lass uns so weitermachen wie bisher. also wäre jetzt wieder Ronja und Reflex dran. [CHAR:reflex] [CHAR:ronja-kerschner]
+mit ihrer Reaktion dann mit der Interaktion über Funk und dass sie Bescheid geben, dass sie nun mit einer anderen Aufgabe weitermachen.
+und zwar werden sie das unbekannte etwas untersuchen bzw. werden sie mit Kora darüber sprechen, aber das Gespräch kommt dann nach dem nächsten Teil, wo wir wieder jetzt dann zu D5 wechseln. [CHAR:kora-malenkov] [LOC:d5]
+lass die beiden dort mal ankommen sich kurz umschauen. gerne auch ein wenig die Station bewundern, weil Ronja hat sich schon sehr viel Mühe gegeben. musst du ihr ja schon zugestehen... dann treffen sie höchstwahrscheinlich ja auch auf Pahl, so bekommen wir ja auch von ihm endlich mal wieder ein bisschen Charakter zu sehen. [CHAR:pahl] [CHAR:ronja-kerschner]
+
+Anmerkung: des weiteren halte ich es dann doch jetzt für sinnvoll. die beiden, die gerade angekommen sind, in eigene canvas anzulegen und in allen nötigen canvas zu verlinken. das kannst du gerne im Hintergrund einfach fertig machen und updaten danach wie gehabt. validieren aber eine ganz kurze Info, ob es funktioniert hat oder nicht reicht um das RP nicht zu stören. [NOTE]
+
+----- [NOTE]
+
+#1086 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1087 [user] [NOTE]
+kann man das wirklich in beiden Stationen gleichzeitig hören ich meine, die Entfernung dürfte ja schon ordentlich sein.
+
+Anmerkung: bitte nicht vergessen bei den canvas für die beiden, dass sie Bewohner von C6 sind mit dem Aufenthalt in D5. [LOC:c6] [LOC:d5] [NOTE]
+
+Anmerkung 2: das habe ich vorhin glaube ich vergessen zu sagen das Reflex es nicht zulassen würde ohne eifersüchtig zu werden, das Ronja Handschuhe trägt also andere... du wirst gleich verstehen, was ich meine... er wird natürlich versuchen, Sie selbst zu beschützen, also sobald er merkt, dass ihre Hände Schaden nehmen könnten oder es vermutet wird er sie schützen. also der Anzug sozusagen erweitert sich über ihre Hände. das kannst du dir auch schon mal merken und zwar für den Fall, dass Reflex das erste Mal überreagiert und zwar dahingehend, dass er denkt. er müsse sie komplett beschützen und so auch ihr Gesicht bedeckt. [CHAR:reflex] [CHAR:ronja-kerschner]
+
+----- [NOTE]
+
+#1088 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1089 [user] [NOTE]
+​ hier müssen wir direkt wieder eine systemische Anpassung machen bzw. Ergänzung und zwar über den Aufbau von D5. [LOC:d5]
+
+woran ich mich noch erinnern kann, ist, dass alles auf einer Ebene ist. bis auf einen kleinen Raum, der durch einen recht schmalen wartungsschacht erreichbar ist, in welchem damals Ronja Reflex zum allerersten Mal gefunden hat. nachdem sie mit dem System von D5 verschmolzen ist und das sie fast ihr Leben gekostet hat... das war aber, bevor sie Reflex dort fand. um genau zu sein war das ja, das Ereignis der Moment wo sich Ronja wieder von den Systemen von D5 gelöst hat. als Reflex sozusagen geboren wurde. [CHAR:reflex] [CHAR:ronja-kerschner] [LOC:d5] [EVENT]
+und in dem Raum, der am Ende dieses dieses schachts ist ist nun Jonas kleine Tüftler Werkstatt. [CHAR:jonas-merek]
+direkt darüber und somit natürlich auch im Zentrum von D5 befindet sich die ehemalige kommandozentrale umgebaut. zu einem gemeinschafts quartier sozusagen mit einer improvisierten Abtrennung zu einem bürobereich von Ronja, wo die Terminals und Konsolen alle stehen. [CHAR:ronja-kerschner] [LOC:d5]
+daran angeschlossen. war dann der reaktorraum bzw. der Raum wo alles maintenance mäßiges ist Luft wasseraufbereitung energieversorgung energiespeicher diese Dinge.
+des weiteren gab es wie gesagt, die kommunikationszentrale auch nur ein Büro sozusagen und das haben wir zwar nicht angesprochen, aber ich denke das ist für eine vorkriegseinrichtung mit Metro. Anschluss normal, dass es auch ein Lager gab oder eben gibt.
+
+Anmerkung: die genaue quadratmeterzahl der einzelnen Räume müsstest du zuweisen und auch entscheiden. am besten so, dass es zu so einer Station passt und auch nicht übertrieben. [NOTE]
+
+und dann gibt es natürlich noch das Gleis mit Bahnsteig, aber mehr hatten wir glaube ich dort nicht.
+
+----- [NOTE]
+
+#1090 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1091 [user] [NOTE]
+​ oh, kannst du das machen und in einem canvas dafür ablegen?
+
+wenn das geht, dann wäre eine handgezeichnete Karte. die aussieht wie mit Kohle oder Bleistift gezeichnet, schön stimmig... Anmerkung: falls es geht und du so einen canvas stellen kannst, dann würde ich vorschlagen, dass wir ihn Pläne von novapolis nennen. und das wir dort dann jeweils Detail Pläne zeichnen für die einzelnen Stationen aktuell nur D5 C6 und vielleicht eine größere Karte des gesamten territoriums der Fraktion natürlich nicht so detailliert aber mit hinweisen darauf auf interessante Orte innerhalb des territoriums und dass es dazu, wenn es dazu auch eine detailkarte gibt. es müsste ja reichen, wenn du einfach die generierten Bilder richtig benennst. mit versionierung darin und Code. [LOC:c6] [LOC:d5]
+
+----- [NOTE]
+
+#1092 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1093 [user] [NOTE]
+​ kannst du nicht die bildgenerierung dazu benutzen?
+
+----- [NOTE]
+
+#1094 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1095 [user] [NOTE]
+​ kannst du dies nun in der canvas ablegen?
+
+----- [NOTE]
+
+#1096 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1097 [user] [NOTE]
+​ in dem Bild fällt mir eigentlich alleiner Fehler auf. kannst du das Bild noch mal analysieren? und schauen wo du die Werkstatt hingepackt hast von Jonas [CHAR:jonas-merek]
+
+----- [NOTE]
+
+#1098 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1099 [user] [NOTE]
+​ ja, mache das aber mache es wie in einer bauzeichnung, sprich deute und den Weg nach unten an, aber zeichne die untere Ebene separat, indem du den Weg nach oben genau an der richtigen Stelle ebenfalls andeutest
+
+----- [NOTE]
+
+#1100 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1101 [user] [NOTE]
+​ wir bleiben bei der ersten Version. bitte lösche die letzten drei Nachrichten also diese hier das von dir. generierte Bild und mein vorherigen prompt.
+
+----- [NOTE]
+
+#1102 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1103 [user] [NOTE]
+original füge bei dem Bild Version 1.2 noch die Informationen dazu, dass es sich um eine schematische Darstellung handelt und diese nicht als Referenz dienen darf.
+
+anschließend gehen wir wieder zurück in die Geschichte
+
+----- [NOTE]
+
+#1104 [assistant] [NOTE]
+
+
+----- [NOTE]
+
+#1105 [user] [NOTE]
+scheinbar ist deine kontextprüfung fehlerhaft. wir waren schon fertig mit der Reparatur und waren bei der Besprechung mit Kora [CHAR:kora-malenkov] [EVENT]
+
+----- [NOTE]
+
+#1106 [assistant] [NOTE]
+

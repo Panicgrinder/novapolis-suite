@@ -17,9 +17,10 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 
 RP_DIRS = [
@@ -89,7 +90,8 @@ def _parse_list_brackets(raw: str) -> list[str] | None:
 def parse_frontmatter(text: str) -> tuple[dict[str, Any], int, int]:
     """Return (frontmatter_map, start_index, end_index).
 
-    start_index/end_index are character offsets into text where the YAML block including delimiters lives:
+    start_index/end_index are character offsets into text where the YAML block including delimiters
+    lives:
     text[start_index:end_index].
     Returns ({}, -1, -1) if no frontmatter.
     """
@@ -156,7 +158,10 @@ def _detect_duplicate_meta_block(body_after_frontmatter: str) -> tuple[int, int]
     # We limit search window to avoid touching deeper content.
     window = tail[:4000]
     # Heuristic: metablock starts with one of these keys.
-    if not re.match(r"^(title|category|slug|version|last_updated|last-updated|tags|affiliations|dependencies|primary_location|last_seen):\s*", window):
+    if not re.match(
+        r"^(title|category|slug|version|last_updated|last-updated|tags|affiliations|dependencies|primary_location|last_seen):\s*",
+        window,
+    ):
         return None
 
     # Find a terminating line that is exactly '---'
@@ -302,7 +307,13 @@ def sync_one(md_path: Path, json_path: Path, *, repo_root: Path, write: bool) ->
             if write:
                 md_text = md_text[:fm_end] + new_body
                 md_path.write_text(md_text, encoding="utf-8", newline="\n")
-            changes.append(Change(md_path, "md", "Removed duplicate meta/frontmatter block after frontmatter"))
+            changes.append(
+                Change(
+                    md_path,
+                    "md",
+                    "Removed duplicate meta/frontmatter block after frontmatter",
+                )
+            )
             # Re-parse for correctness.
             fm, fm_start, fm_end = parse_frontmatter(md_text)
 
@@ -312,7 +323,9 @@ def sync_one(md_path: Path, json_path: Path, *, repo_root: Path, write: bool) ->
     rel_md = md_path.relative_to(repo_root / "novapolis-rp").as_posix()
     # Canon expects paths like database-rp/...
     if not rel_md.startswith("database-rp/"):
-        rel_md = "database-rp/" + md_path.relative_to(repo_root / "novapolis-rp" / "database-rp").as_posix()
+        rel_md = "database-rp/" + md_path.relative_to(
+            repo_root / "novapolis-rp" / "database-rp"
+        ).as_posix()
 
     desired_json = _canonical_json_from_frontmatter(
         fm=fm, rel_md_path=rel_md, existing=existing_json
@@ -325,7 +338,13 @@ def sync_one(md_path: Path, json_path: Path, *, repo_root: Path, write: bool) ->
                 encoding="utf-8",
                 newline="\n",
             )
-        changes.append(Change(json_path, "json", "Synced JSON metadata to MD frontmatter (canonical order, types)"))
+        changes.append(
+            Change(
+                json_path,
+                "json",
+                "Synced JSON metadata to MD frontmatter (canonical order, types)",
+            )
+        )
 
     return changes
 

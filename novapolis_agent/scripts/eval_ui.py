@@ -690,17 +690,15 @@ async def _evaluate_specific_items(items: list[EvalItem]) -> list[EvalResult]:
 
     Schreibt eine neue results_*.jsonl-Datei mit den Ergebnissen.
     """
-    # Ergebnis-Dateiname (results-Verzeichnis)
-    results_dir: str = getattr(run_eval, "DEFAULT_RESULTS_DIR", run_eval.DEFAULT_EVAL_DIR)
+    import httpx
+    from novapolis_agent.app.main import app as fastapi_app
     from utils.time_utils import now_compact
 
+    # Ergebnis-Dateiname (results-Verzeichnis)
+    results_dir: str = getattr(run_eval, "DEFAULT_RESULTS_DIR", run_eval.DEFAULT_EVAL_DIR)
     timestamp = now_compact()
     os.makedirs(results_dir, exist_ok=True)
     out_path = os.path.join(results_dir, f"results_{timestamp}.jsonl")
-
-    # ASGI-Client vorbereiten
-    import httpx
-    from novapolis_agent.app.main import app as fastapi_app
 
     transport = httpx.ASGITransport(app=fastapi_app)
     client = httpx.AsyncClient(transport=transport, base_url="http://asgi")

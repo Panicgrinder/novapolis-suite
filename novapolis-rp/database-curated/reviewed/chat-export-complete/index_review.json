@@ -1,0 +1,1169 @@
+{
+  "files": {
+    "chat-export-complete.part-001.txt": {
+      "lines": 999,
+      "chars": 19943,
+      "tag_counts": {
+        "NOTE": 392,
+        "CHAR": 44,
+        "LOC": 11,
+        "MISSION": 1,
+        "EVENT": 1,
+        "PROJ": 1,
+        "TIME": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 28
+        },
+        {
+          "slug": "reflex",
+          "count": 9
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 6
+        },
+        {
+          "slug": "c6",
+          "count": 4
+        },
+        {
+          "slug": "d5",
+          "count": 4
+        },
+        {
+          "slug": "g4",
+          "count": 1
+        },
+        {
+          "slug": "k2",
+          "count": 1
+        },
+        {
+          "slug": "w5",
+          "count": 1
+        },
+        {
+          "slug": "mission-c6-nord",
+          "count": 1
+        },
+        {
+          "slug": "nordlinie-01",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-002.txt": {
+      "lines": 999,
+      "chars": 22665,
+      "tag_counts": {
+        "NOTE": 393,
+        "LOC": 17,
+        "CHAR": 38,
+        "EVENT": 1,
+        "ENT": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 18
+        },
+        {
+          "slug": "reflex",
+          "count": 17
+        },
+        {
+          "slug": "c6",
+          "count": 13
+        },
+        {
+          "slug": "d5",
+          "count": 4
+        },
+        {
+          "slug": "varek-solun",
+          "count": 2
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 1
+        },
+        {
+          "slug": "eisenkonklave",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-003.txt": {
+      "lines": 1000,
+      "chars": 17009,
+      "tag_counts": {
+        "NOTE": 385,
+        "ENT": 3,
+        "LOC": 23,
+        "CHAR": 26,
+        "FACT?": 1,
+        "EVENT": 4,
+        "MISSION": 3,
+        "PROJ": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "c6",
+          "count": 14
+        },
+        {
+          "slug": "ronja-kerschner",
+          "count": 12
+        },
+        {
+          "slug": "reflex",
+          "count": 10
+        },
+        {
+          "slug": "d5",
+          "count": 5
+        },
+        {
+          "slug": "mission-c6-nord",
+          "count": 3
+        },
+        {
+          "slug": "v1",
+          "count": 2
+        },
+        {
+          "slug": "pahl",
+          "count": 2
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 2
+        },
+        {
+          "slug": "e2",
+          "count": 2
+        },
+        {
+          "slug": "eisenkonklave",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-004.txt": {
+      "lines": 1000,
+      "chars": 22359,
+      "tag_counts": {
+        "NOTE": 387,
+        "ENT": 1,
+        "CHAR": 17,
+        "EVENT": 7,
+        "LOC": 11,
+        "MISSION": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 9
+        },
+        {
+          "slug": "c6",
+          "count": 6
+        },
+        {
+          "slug": "reflex",
+          "count": 5
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 3
+        },
+        {
+          "slug": "d5",
+          "count": 3
+        },
+        {
+          "slug": "logistik",
+          "count": 1
+        },
+        {
+          "slug": "h3",
+          "count": 1
+        },
+        {
+          "slug": "v1",
+          "count": 1
+        },
+        {
+          "slug": "mission-c6-nord",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-005.txt": {
+      "lines": 999,
+      "chars": 35281,
+      "tag_counts": {
+        "NOTE": 318,
+        "LOC": 46,
+        "CHAR": 73,
+        "EVENT": 12,
+        "MISSION": 5
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 29
+        },
+        {
+          "slug": "reflex",
+          "count": 25
+        },
+        {
+          "slug": "c6",
+          "count": 23
+        },
+        {
+          "slug": "d5",
+          "count": 17
+        },
+        {
+          "slug": "kora-malenkov",
+          "count": 11
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 5
+        },
+        {
+          "slug": "mission-c6-nord",
+          "count": 5
+        },
+        {
+          "slug": "pahl",
+          "count": 3
+        },
+        {
+          "slug": "n3",
+          "count": 3
+        },
+        {
+          "slug": "v2",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-006.txt": {
+      "lines": 999,
+      "chars": 30467,
+      "tag_counts": {
+        "NOTE": 356,
+        "EVENT": 4,
+        "CHAR": 44,
+        "ENT": 1,
+        "LOC": 14,
+        "FACT?": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 18
+        },
+        {
+          "slug": "reflex",
+          "count": 18
+        },
+        {
+          "slug": "d5",
+          "count": 9
+        },
+        {
+          "slug": "c6",
+          "count": 5
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 5
+        },
+        {
+          "slug": "kora-malenkov",
+          "count": 2
+        },
+        {
+          "slug": "eisenkonklave",
+          "count": 1
+        },
+        {
+          "slug": "pahl",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-007.txt": {
+      "lines": 1000,
+      "chars": 39927,
+      "tag_counts": {
+        "NOTE": 371,
+        "CHAR": 109,
+        "LOC": 30,
+        "FACT?": 2,
+        "ENT": 1,
+        "EVENT": 2,
+        "TIME": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 46
+        },
+        {
+          "slug": "reflex",
+          "count": 38
+        },
+        {
+          "slug": "d5",
+          "count": 12
+        },
+        {
+          "slug": "kora-malenkov",
+          "count": 11
+        },
+        {
+          "slug": "c6",
+          "count": 11
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 9
+        },
+        {
+          "slug": "pahl",
+          "count": 5
+        },
+        {
+          "slug": "v1",
+          "count": 3
+        },
+        {
+          "slug": "c6-nord",
+          "count": 2
+        },
+        {
+          "slug": "logistik",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-008.txt": {
+      "lines": 1000,
+      "chars": 34604,
+      "tag_counts": {
+        "NOTE": 395,
+        "CHAR": 78,
+        "LOC": 50,
+        "MISSION": 3,
+        "EVENT": 11,
+        "ENT": 2,
+        "FACT?": 2,
+        "TIME": 4
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 25
+        },
+        {
+          "slug": "c6",
+          "count": 23
+        },
+        {
+          "slug": "d5",
+          "count": 19
+        },
+        {
+          "slug": "reflex",
+          "count": 16
+        },
+        {
+          "slug": "kora-malenkov",
+          "count": 13
+        },
+        {
+          "slug": "echo",
+          "count": 9
+        },
+        {
+          "slug": "marei",
+          "count": 6
+        },
+        {
+          "slug": "e3",
+          "count": 5
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 4
+        },
+        {
+          "slug": "lumen",
+          "count": 3
+        }
+      ]
+    },
+    "chat-export-complete.part-009.txt": {
+      "lines": 1000,
+      "chars": 40393,
+      "tag_counts": {
+        "NOTE": 369,
+        "LOC": 58,
+        "CHAR": 54,
+        "EVENT": 20,
+        "MISSION": 14,
+        "ENT": 2,
+        "FACT?": 5,
+        "TIME": 10
+      },
+      "top_slugs": [
+        {
+          "slug": "d5",
+          "count": 28
+        },
+        {
+          "slug": "c6",
+          "count": 26
+        },
+        {
+          "slug": "ronja-kerschner",
+          "count": 24
+        },
+        {
+          "slug": "mission-c6-nord",
+          "count": 14
+        },
+        {
+          "slug": "reflex",
+          "count": 13
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 5
+        },
+        {
+          "slug": "lumen",
+          "count": 4
+        },
+        {
+          "slug": "pahl",
+          "count": 3
+        },
+        {
+          "slug": "logistik",
+          "count": 2
+        },
+        {
+          "slug": "e3",
+          "count": 2
+        }
+      ]
+    },
+    "chat-export-complete.part-010.txt": {
+      "lines": 1000,
+      "chars": 36962,
+      "tag_counts": {
+        "NOTE": 363,
+        "LOC": 30,
+        "CHAR": 37,
+        "EVENT": 8,
+        "FACT?": 4,
+        "ENT": 1,
+        "TIME": 4
+      },
+      "top_slugs": [
+        {
+          "slug": "d5",
+          "count": 13
+        },
+        {
+          "slug": "c6",
+          "count": 13
+        },
+        {
+          "slug": "reflex",
+          "count": 11
+        },
+        {
+          "slug": "ronja-kerschner",
+          "count": 7
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 6
+        },
+        {
+          "slug": "lumen",
+          "count": 6
+        },
+        {
+          "slug": "pahl",
+          "count": 4
+        },
+        {
+          "slug": "echo",
+          "count": 3
+        },
+        {
+          "slug": "e3",
+          "count": 1
+        },
+        {
+          "slug": "f1",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-011.txt": {
+      "lines": 1000,
+      "chars": 24984,
+      "tag_counts": {
+        "LOC": 63,
+        "TIME": 8,
+        "NOTE": 229,
+        "CHAR": 49,
+        "EVENT": 6,
+        "FACT?": 2,
+        "ENT": 1,
+        "MISSION": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "d5",
+          "count": 22
+        },
+        {
+          "slug": "c6",
+          "count": 20
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 10
+        },
+        {
+          "slug": "ronja-kerschner",
+          "count": 9
+        },
+        {
+          "slug": "lumen",
+          "count": 8
+        },
+        {
+          "slug": "n7",
+          "count": 8
+        },
+        {
+          "slug": "reflex",
+          "count": 8
+        },
+        {
+          "slug": "echo",
+          "count": 4
+        },
+        {
+          "slug": "kora-malenkov",
+          "count": 4
+        },
+        {
+          "slug": "e3",
+          "count": 4
+        }
+      ]
+    },
+    "chat-export-complete.part-012.txt": {
+      "lines": 1000,
+      "chars": 26154,
+      "tag_counts": {
+        "NOTE": 310,
+        "CHAR": 58,
+        "LOC": 50,
+        "MISSION": 2,
+        "EVENT": 2,
+        "PROJ": 4,
+        "ENT": 3,
+        "TIME": 3
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 27
+        },
+        {
+          "slug": "d5",
+          "count": 24
+        },
+        {
+          "slug": "c6",
+          "count": 19
+        },
+        {
+          "slug": "reflex",
+          "count": 13
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 9
+        },
+        {
+          "slug": "nordlinie-01",
+          "count": 4
+        },
+        {
+          "slug": "pahl",
+          "count": 4
+        },
+        {
+          "slug": "a1",
+          "count": 4
+        },
+        {
+          "slug": "mission-c6-nord",
+          "count": 2
+        },
+        {
+          "slug": "e2",
+          "count": 2
+        }
+      ]
+    },
+    "chat-export-complete.part-013.txt": {
+      "lines": 1000,
+      "chars": 25690,
+      "tag_counts": {
+        "LOC": 33,
+        "CHAR": 56,
+        "TIME": 7,
+        "EVENT": 4,
+        "NOTE": 335,
+        "ENT": 2
+      },
+      "top_slugs": [
+        {
+          "slug": "reflex",
+          "count": 23
+        },
+        {
+          "slug": "ronja-kerschner",
+          "count": 23
+        },
+        {
+          "slug": "c6",
+          "count": 16
+        },
+        {
+          "slug": "d5",
+          "count": 13
+        },
+        {
+          "slug": "varek-solun",
+          "count": 5
+        },
+        {
+          "slug": "liora-navesh",
+          "count": 3
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 2
+        },
+        {
+          "slug": "eisenkonklave",
+          "count": 2
+        },
+        {
+          "slug": "d4",
+          "count": 2
+        },
+        {
+          "slug": "a1",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-014.txt": {
+      "lines": 1000,
+      "chars": 16870,
+      "tag_counts": {
+        "NOTE": 385,
+        "LOC": 29,
+        "CHAR": 28,
+        "ENT": 3,
+        "FACT?": 1,
+        "EVENT": 2,
+        "MISSION": 3,
+        "PROJ": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "c6",
+          "count": 19
+        },
+        {
+          "slug": "ronja-kerschner",
+          "count": 13
+        },
+        {
+          "slug": "reflex",
+          "count": 11
+        },
+        {
+          "slug": "d5",
+          "count": 6
+        },
+        {
+          "slug": "v1",
+          "count": 3
+        },
+        {
+          "slug": "mission-c6-nord",
+          "count": 3
+        },
+        {
+          "slug": "eisenkonklave",
+          "count": 2
+        },
+        {
+          "slug": "pahl",
+          "count": 2
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 2
+        },
+        {
+          "slug": "e2",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-015.txt": {
+      "lines": 999,
+      "chars": 19725,
+      "tag_counts": {
+        "NOTE": 390,
+        "LOC": 5,
+        "EVENT": 4,
+        "ENT": 2,
+        "CHAR": 10
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 5
+        },
+        {
+          "slug": "reflex",
+          "count": 3
+        },
+        {
+          "slug": "logistik",
+          "count": 2
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 2
+        },
+        {
+          "slug": "c6",
+          "count": 2
+        },
+        {
+          "slug": "e2",
+          "count": 1
+        },
+        {
+          "slug": "h3",
+          "count": 1
+        },
+        {
+          "slug": "v1",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-016.txt": {
+      "lines": 1000,
+      "chars": 33720,
+      "tag_counts": {
+        "NOTE": 324,
+        "EVENT": 15,
+        "LOC": 48,
+        "CHAR": 67,
+        "MISSION": 6
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 27
+        },
+        {
+          "slug": "c6",
+          "count": 26
+        },
+        {
+          "slug": "reflex",
+          "count": 22
+        },
+        {
+          "slug": "d5",
+          "count": 16
+        },
+        {
+          "slug": "kora-malenkov",
+          "count": 10
+        },
+        {
+          "slug": "mission-c6-nord",
+          "count": 6
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 5
+        },
+        {
+          "slug": "pahl",
+          "count": 3
+        },
+        {
+          "slug": "n3",
+          "count": 3
+        },
+        {
+          "slug": "v2",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-017.txt": {
+      "lines": 999,
+      "chars": 30659,
+      "tag_counts": {
+        "NOTE": 356,
+        "LOC": 8,
+        "CHAR": 37,
+        "EVENT": 4,
+        "ENT": 1,
+        "FACT?": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "reflex",
+          "count": 18
+        },
+        {
+          "slug": "ronja-kerschner",
+          "count": 15
+        },
+        {
+          "slug": "d5",
+          "count": 5
+        },
+        {
+          "slug": "c6",
+          "count": 3
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 3
+        },
+        {
+          "slug": "kora-malenkov",
+          "count": 1
+        },
+        {
+          "slug": "eisenkonklave",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-018.txt": {
+      "lines": 999,
+      "chars": 42064,
+      "tag_counts": {
+        "NOTE": 362,
+        "CHAR": 113,
+        "LOC": 38,
+        "EVENT": 4,
+        "FACT?": 2,
+        "ENT": 1,
+        "TIME": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 47
+        },
+        {
+          "slug": "reflex",
+          "count": 38
+        },
+        {
+          "slug": "d5",
+          "count": 19
+        },
+        {
+          "slug": "c6",
+          "count": 12
+        },
+        {
+          "slug": "kora-malenkov",
+          "count": 12
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 11
+        },
+        {
+          "slug": "pahl",
+          "count": 5
+        },
+        {
+          "slug": "v1",
+          "count": 3
+        },
+        {
+          "slug": "logistik",
+          "count": 1
+        },
+        {
+          "slug": "e2",
+          "count": 1
+        }
+      ]
+    },
+    "chat-export-complete.part-019.txt": {
+      "lines": 999,
+      "chars": 30408,
+      "tag_counts": {
+        "NOTE": 393,
+        "CHAR": 75,
+        "LOC": 39,
+        "MISSION": 2,
+        "EVENT": 5,
+        "ENT": 2,
+        "FACT?": 2,
+        "TIME": 4
+      },
+      "top_slugs": [
+        {
+          "slug": "ronja-kerschner",
+          "count": 29
+        },
+        {
+          "slug": "c6",
+          "count": 17
+        },
+        {
+          "slug": "reflex",
+          "count": 14
+        },
+        {
+          "slug": "kora-malenkov",
+          "count": 13
+        },
+        {
+          "slug": "d5",
+          "count": 12
+        },
+        {
+          "slug": "echo",
+          "count": 7
+        },
+        {
+          "slug": "marei",
+          "count": 6
+        },
+        {
+          "slug": "e3",
+          "count": 5
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 3
+        },
+        {
+          "slug": "n7",
+          "count": 2
+        }
+      ]
+    },
+    "chat-export-complete.part-020.txt": {
+      "lines": 999,
+      "chars": 42212,
+      "tag_counts": {
+        "LOC": 64,
+        "NOTE": 375,
+        "CHAR": 57,
+        "MISSION": 12,
+        "EVENT": 22,
+        "ENT": 2,
+        "FACT?": 4,
+        "TIME": 7
+      },
+      "top_slugs": [
+        {
+          "slug": "d5",
+          "count": 32
+        },
+        {
+          "slug": "c6",
+          "count": 29
+        },
+        {
+          "slug": "ronja-kerschner",
+          "count": 24
+        },
+        {
+          "slug": "reflex",
+          "count": 17
+        },
+        {
+          "slug": "mission-c6-nord",
+          "count": 11
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 4
+        },
+        {
+          "slug": "pahl",
+          "count": 4
+        },
+        {
+          "slug": "echo",
+          "count": 3
+        },
+        {
+          "slug": "kora-malenkov",
+          "count": 2
+        },
+        {
+          "slug": "lumen",
+          "count": 2
+        }
+      ]
+    },
+    "chat-export-complete.part-021.txt": {
+      "lines": 1000,
+      "chars": 35387,
+      "tag_counts": {
+        "NOTE": 371,
+        "EVENT": 12,
+        "TIME": 4,
+        "LOC": 36,
+        "CHAR": 47,
+        "MISSION": 3,
+        "FACT?": 2,
+        "ENT": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "c6",
+          "count": 16
+        },
+        {
+          "slug": "d5",
+          "count": 15
+        },
+        {
+          "slug": "reflex",
+          "count": 10
+        },
+        {
+          "slug": "ronja-kerschner",
+          "count": 9
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 9
+        },
+        {
+          "slug": "lumen",
+          "count": 9
+        },
+        {
+          "slug": "pahl",
+          "count": 5
+        },
+        {
+          "slug": "echo",
+          "count": 4
+        },
+        {
+          "slug": "mission-c6-nord",
+          "count": 3
+        },
+        {
+          "slug": "n7",
+          "count": 2
+        }
+      ]
+    },
+    "chat-export-complete.part-022.txt": {
+      "lines": 645,
+      "chars": 18008,
+      "tag_counts": {
+        "NOTE": 232,
+        "LOC": 18,
+        "TIME": 2,
+        "FACT?": 4,
+        "CHAR": 13,
+        "ENT": 1,
+        "MISSION": 1,
+        "EVENT": 1
+      },
+      "top_slugs": [
+        {
+          "slug": "d5",
+          "count": 6
+        },
+        {
+          "slug": "c6",
+          "count": 5
+        },
+        {
+          "slug": "reflex",
+          "count": 5
+        },
+        {
+          "slug": "ronja-kerschner",
+          "count": 4
+        },
+        {
+          "slug": "n7",
+          "count": 3
+        },
+        {
+          "slug": "c6-nord",
+          "count": 2
+        },
+        {
+          "slug": "jonas-merek",
+          "count": 2
+        },
+        {
+          "slug": "lumen",
+          "count": 1
+        },
+        {
+          "slug": "pahl",
+          "count": 1
+        },
+        {
+          "slug": "e3",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "updated_at": "20260108T125035Z"
+}

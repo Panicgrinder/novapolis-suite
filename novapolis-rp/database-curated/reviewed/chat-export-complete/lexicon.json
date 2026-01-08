@@ -1,0 +1,391 @@
+{
+  "by_slug": {
+    "ai_behavior_index_v2": {
+      "category": "admin",
+      "title": "ai_behavior_index_v2"
+    },
+    "c6-logistik-policy": {
+      "category": "admin",
+      "title": "c6-logistik-policy"
+    },
+    "canon-canvas-draft": {
+      "category": "unknown",
+      "title": "canon-canvas-draft"
+    },
+    "canvas-admin-day-switch-debug": {
+      "category": "admin",
+      "title": "canvas-admin-day-switch-debug"
+    },
+    "canvas-t-0-timeline": {
+      "category": "admin",
+      "title": "canvas-t-0-timeline"
+    },
+    "cluster_index_v1": {
+      "category": "admin",
+      "title": "cluster_index_v1"
+    },
+    "handel_diplomatie_haendlergilde_v1": {
+      "category": "admin",
+      "title": "handel_diplomatie_haendlergilde_v1"
+    },
+    "index_haendlergilde_v1": {
+      "category": "admin",
+      "title": "index_haendlergilde_v1"
+    },
+    "logistik": {
+      "category": "admin",
+      "title": "logistik"
+    },
+    "memory-bundle": {
+      "category": "admin",
+      "title": "memory-bundle"
+    },
+    "missionslog": {
+      "category": "admin",
+      "title": "missionslog"
+    },
+    "person-index-np": {
+      "category": "a",
+      "title": "person-index-np"
+    },
+    "relationslog_eisenkonklave_v1": {
+      "category": "admin",
+      "title": "relationslog_eisenkonklave_v1"
+    },
+    "system-prompt": {
+      "category": "admin",
+      "title": "system-prompt"
+    },
+    "arlen-dross": {
+      "category": "character",
+      "title": "Arlen Dross"
+    },
+    "echo-wissensstand-trainingsstand": {
+      "category": "character",
+      "title": "echo-wissensstand-trainingsstand"
+    },
+    "echo": {
+      "category": "character",
+      "title": "Echo"
+    },
+    "jonas-merek": {
+      "category": "character",
+      "title": "Jonas Merek"
+    },
+    "kora-malenkov": {
+      "category": "character",
+      "title": "Kora Malenkov"
+    },
+    "liora-navesh": {
+      "category": "character",
+      "title": "Liora Navesh"
+    },
+    "lumen-wissensstand-trainingsstand": {
+      "category": "unknown",
+      "title": "lumen-wissensstand-trainingsstand"
+    },
+    "lumen": {
+      "category": "character",
+      "title": "Lumen"
+    },
+    "lyra-hest": {
+      "category": "character",
+      "title": "Lyra Hest"
+    },
+    "marei": {
+      "category": "character",
+      "title": "Marei"
+    },
+    "marven-kael": {
+      "category": "character",
+      "title": "Marven Kael"
+    },
+    "pahl": {
+      "category": "character",
+      "title": "Pahl"
+    },
+    "reflex-wissensstand-trainingsstand": {
+      "category": "character",
+      "title": "reflex-wissensstand-trainingsstand"
+    },
+    "reflex": {
+      "category": "character",
+      "title": "Reflex"
+    },
+    "ronja-kerschner": {
+      "category": "character",
+      "title": "Ronja Kerschner"
+    },
+    "senn-daru": {
+      "category": "character",
+      "title": "Senn Daru"
+    },
+    "varek-solun": {
+      "category": "character",
+      "title": "Varek Solun"
+    },
+    "c6": {
+      "category": "location",
+      "title": "C6"
+    },
+    "d5": {
+      "category": "location",
+      "title": "D5"
+    },
+    "e3": {
+      "category": "location",
+      "title": "E3"
+    },
+    "verbindungstunnel-c6-e3": {
+      "category": "location",
+      "title": "Verbindungstunnel C6-E3"
+    },
+    "verbindungstunnel-d5-c6": {
+      "category": "location",
+      "title": "Verbindungstunnel D5-C6"
+    },
+    "arkologie-inventar": {
+      "category": "inventory",
+      "title": "arkologie-inventar"
+    },
+    "d5-inventar": {
+      "category": "inventory",
+      "title": "d5-inventar"
+    },
+    "eiserne-enklave-inventar": {
+      "category": "inventory",
+      "title": "eiserne-enklave-inventar"
+    },
+    "freie-gruppen-inventar": {
+      "category": "inventory",
+      "title": "freie-gruppen-inventar"
+    },
+    "haendlerbund-inventar": {
+      "category": "inventory",
+      "title": "haendlerbund-inventar"
+    },
+    "novapolis-inventar": {
+      "category": "inventory",
+      "title": "novapolis-inventar"
+    },
+    "schienenbund-inventar": {
+      "category": "inventory",
+      "title": "schienenbund-inventar"
+    },
+    "caravan_moves": {
+      "category": "project",
+      "title": "Karawanenbewegungen (Übersicht)"
+    },
+    "eisenkonklave": {
+      "category": "faction",
+      "title": "eisenkonklave"
+    },
+    "nordlinie-01": {
+      "category": "project",
+      "title": "Nordlinie 01 (Tunnel D5-C6)"
+    },
+    "scenes-konventionen-stub": {
+      "category": "unknown",
+      "title": "Scenes Konventionen (Stub)"
+    },
+    "scene-2025-10-27-a": {
+      "category": "scene",
+      "title": "scene-2025-10-27-a"
+    },
+    "h12": {
+      "category": "location",
+      "title": "H12"
+    },
+    "c6-nord": {
+      "category": "location",
+      "title": "C6 Nord"
+    },
+    "mission-c6-nord": {
+      "category": "mission",
+      "title": "Mission C6-Nord (Sealed room)"
+    },
+    "k2": {
+      "category": "location",
+      "title": "K2"
+    },
+    "g4": {
+      "category": "location",
+      "title": "G4"
+    },
+    "w5": {
+      "category": "location",
+      "title": "W5"
+    },
+    "v1": {
+      "category": "location",
+      "title": "V1"
+    },
+    "e2": {
+      "category": "location",
+      "title": "E2"
+    },
+    "h3": {
+      "category": "location",
+      "title": "H3"
+    },
+    "v2": {
+      "category": "location",
+      "title": "V2"
+    },
+    "n3": {
+      "category": "location",
+      "title": "N3"
+    },
+    "b5": {
+      "category": "location",
+      "title": "B5"
+    },
+    "f1": {
+      "category": "location",
+      "title": "F1"
+    },
+    "n7": {
+      "category": "location",
+      "title": "N7"
+    },
+    "a1": {
+      "category": "location",
+      "title": "A1"
+    },
+    "f3": {
+      "category": "location",
+      "title": "F3"
+    },
+    "d4": {
+      "category": "location",
+      "title": "D4"
+    }
+  },
+  "aliases": {
+    "ai_behavior_index_v2": "ai_behavior_index_v2",
+    "c6-logistik-policy": "c6-logistik-policy",
+    "canon-canvas-draft": "canon-canvas-draft",
+    "canvas-admin-day-switch-debug": "canvas-admin-day-switch-debug",
+    "canvas-t-0-timeline": "canvas-t-0-timeline",
+    "cluster_index_v1": "cluster_index_v1",
+    "handel_diplomatie_haendlergilde_v1": "handel_diplomatie_haendlergilde_v1",
+    "index_haendlergilde_v1": "index_haendlergilde_v1",
+    "logistik": "logistik",
+    "memory-bundle": "memory-bundle",
+    "missionslog": "missionslog",
+    "person-index-np": "person-index-np",
+    "relationslog_eisenkonklave_v1": "relationslog_eisenkonklave_v1",
+    "system-prompt": "system-prompt",
+    "Arlen Dross": "arlen-dross",
+    "Dross": "arlen-dross",
+    "dross": "arlen-dross",
+    "arlen": "arlen-dross",
+    "Arlen": "arlen-dross",
+    "echo-wissensstand-trainingsstand": "echo-wissensstand-trainingsstand",
+    "Echo": "echo",
+    "Jonas Merek": "jonas-merek",
+    "merek": "jonas-merek",
+    "Jonas": "jonas-merek",
+    "jonas": "jonas-merek",
+    "Merek": "jonas-merek",
+    "Kora Malenkov": "kora-malenkov",
+    "Kora": "kora-malenkov",
+    "kora": "kora-malenkov",
+    "malenkov": "kora-malenkov",
+    "Malenkov": "kora-malenkov",
+    "Liora Navesh": "liora-navesh",
+    "navesh": "liora-navesh",
+    "Liora": "liora-navesh",
+    "Navesh": "liora-navesh",
+    "liora": "liora-navesh",
+    "lumen-wissensstand-trainingsstand": "lumen-wissensstand-trainingsstand",
+    "Lumen": "lumen",
+    "Lyra Hest": "lyra-hest",
+    "Hest": "lyra-hest",
+    "lyra": "lyra-hest",
+    "Lyra": "lyra-hest",
+    "hest": "lyra-hest",
+    "Marei": "marei",
+    "Marven Kael": "marven-kael",
+    "Marven": "marven-kael",
+    "kael": "marven-kael",
+    "Kael": "marven-kael",
+    "marven": "marven-kael",
+    "Pahl": "pahl",
+    "reflex-wissensstand-trainingsstand": "reflex-wissensstand-trainingsstand",
+    "Reflex": "reflex",
+    "Ronja Kerschner": "ronja-kerschner",
+    "ronja": "ronja-kerschner",
+    "Ronja": "ronja-kerschner",
+    "kerschner": "ronja-kerschner",
+    "Kerschner": "ronja-kerschner",
+    "Senn Daru": "senn-daru",
+    "daru": "senn-daru",
+    "Senn": "senn-daru",
+    "Daru": "senn-daru",
+    "senn": "senn-daru",
+    "Varek Solun": "varek-solun",
+    "Varek": "varek-solun",
+    "varek": "varek-solun",
+    "solun": "varek-solun",
+    "Solun": "varek-solun",
+    "C6": "c6",
+    "c6": "c6",
+    "D5": "d5",
+    "d5": "d5",
+    "E3": "e3",
+    "e3": "e3",
+    "Verbindungstunnel C6-E3": "verbindungstunnel-c6-e3",
+    "C6-E3": "verbindungstunnel-c6-e3",
+    "c6-e3": "verbindungstunnel-c6-e3",
+    "Verbindungstunnel D5-C6": "verbindungstunnel-d5-c6",
+    "d5-c6": "verbindungstunnel-d5-c6",
+    "D5-C6": "verbindungstunnel-d5-c6",
+    "arkologie-inventar": "arkologie-inventar",
+    "d5-inventar": "d5-inventar",
+    "eiserne-enklave-inventar": "eiserne-enklave-inventar",
+    "freie-gruppen-inventar": "freie-gruppen-inventar",
+    "haendlerbund-inventar": "haendlerbund-inventar",
+    "novapolis-inventar": "novapolis-inventar",
+    "schienenbund-inventar": "schienenbund-inventar",
+    "Karawanenbewegungen (Übersicht)": "caravan_moves",
+    "(Übersicht)": "caravan_moves",
+    "Karawanenbewegungen": "caravan_moves",
+    "(übersicht)": "caravan_moves",
+    "karawanenbewegungen": "caravan_moves",
+    "eisenkonklave": "eisenkonklave",
+    "Nordlinie 01 (Tunnel D5-C6)": "nordlinie-01",
+    "d5-c6)": "nordlinie-01",
+    "nordlinie": "nordlinie-01",
+    "Nordlinie": "nordlinie-01",
+    "D5-C6)": "nordlinie-01",
+    "Scenes Konventionen (Stub)": "scenes-konventionen-stub",
+    "scenes": "scenes-konventionen-stub",
+    "(stub)": "scenes-konventionen-stub",
+    "Scenes": "scenes-konventionen-stub",
+    "(Stub)": "scenes-konventionen-stub",
+    "scene-2025-10-27-a": "scene-2025-10-27-a",
+    "H12": "h12",
+    "h12": "h12",
+    "C6 Nord": "c6-nord",
+    "nord": "c6-nord",
+    "Nord": "c6-nord",
+    "Mission C6-Nord (Sealed room)": "mission-c6-nord",
+    "mission": "mission-c6-nord",
+    "room)": "mission-c6-nord",
+    "Mission": "mission-c6-nord",
+    "C6-Nord": "c6-nord",
+    "N7": "c6-nord",
+    "n7": "c6-nord",
+    "Mission C6-Nord": "mission-c6-nord",
+    "C6-Nord Mission": "mission-c6-nord"
+  },
+  "redirects": {
+    "n7": "c6-nord",
+    "N7": "c6-nord"
+  },
+  "deprecated": [
+    "N7",
+    "n7"
+  ]
+}
