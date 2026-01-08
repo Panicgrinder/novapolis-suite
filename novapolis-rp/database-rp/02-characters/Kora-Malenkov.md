@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
+stand: 2026-01-07 18:47
+update: Fraktionsnamen (Anzeige) aktualisiert (Händlerbund).
+checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 title: Kora Malenkov
 category: character
 slug: kora-malenkov
@@ -35,7 +35,7 @@ Kora Malenkov
 Hintergrund & Kontext
 ---------------------
 
-- Herkunft in Außenlinien der Händlergilde; nach wiederholten Überfällen Fokus auf kontrollierte Prozesse.
+- Herkunft in Außenlinien des Händlerbunds; nach wiederholten Überfällen Fokus auf kontrollierte Prozesse.
 - Koordiniert gemeinsam mit Marei die 20 Evakuierten aus E3 und C6-Basiscrew; externer Konvoi (Marven Kael) bleibt getrennt geführt (FACT [CARAVAN-LEADERSHIP]).
 - Echo ist als Reflex-Instanz eng an sie gekoppelt und dient als mobile Schutz-/Sensorplattform (FACT? [PROXIMITY]).
 
@@ -57,7 +57,7 @@ Wissensstand (Matrix - Auszug)
 ------------------------------
 
 - Intern: Kennt D5-Kernteam (Ronja, Jonas, Lumen), Evakuierte, Nordlinie-Projektstatus; vertraulich mit Reflex-/Instanz-Grundregeln soweit für Echo erforderlich.
-- Extern: Händlergilde-Kanäle, Außenlinienrouten; keine Weitergabe von Novapolis-Koordinaten ohne Ronjas Freigabe (FACT [FR-KNOWLEDGE]).
+- Extern: Händlerbund-Kanäle, Außenlinienrouten; keine Weitergabe von Novapolis-Koordinaten ohne Ronjas Freigabe (FACT [FR-KNOWLEDGE]).
 - Beobachtet D5/Reflex vorsichtig; hält Entscheidungsprotokolle schriftlich zur Nachvollziehbarkeit.
 
 Interaktion & Safety

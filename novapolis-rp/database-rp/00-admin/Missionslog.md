@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-27 03:25
-update: slug ergänzt; Kategorie vereinheitlicht
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
+stand: 2026-01-07 18:47
+update: C6-Nord-Lore ergänzt (Versiegelung Ronja+Reflex).
+checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 category: admin
 canvas: missionslog
 slug: missionslog
@@ -38,6 +38,7 @@ Aktiv
 
 ### Anomalie: C6-Nord (vormals N7)
 - Ziel: Lokalisieren, Effekte erfassen, Risiken/Trigger katalogisieren
+- Hinweis: Bereich wurde damals von Ronja mit Reflex versiegelt; Zugang nur unter expliziter Freigabe.
 - Start: tbd
 - Ende: -
 - Status: aktiv

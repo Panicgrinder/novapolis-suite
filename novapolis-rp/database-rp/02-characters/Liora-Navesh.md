@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-30 06:17
-update: "Konsistenzfix: doppeltes Frontmatter entfernt"
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
+stand: 2026-01-07 18:47
+update: Fraktionsnamen (Anzeige) aktualisiert (Händlerbund).
+checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 title: Liora Navesh
 category: character
 slug: liora-navesh
@@ -50,7 +50,7 @@ Wissensstand (Matrix - Auszug)
 - Intern (Arkologie): Vollzugriff auf Forschungs- und MedTech-Protokolle, kennt H-47-Funkstillstand und anomale Süd-Signale (SÜDFRAGMENT) laut Ereignislog
 - Extern (Metro):
   - Novapolis/D5: keine bestätigten Informationen - nur Funkstille der H-47-Karawane, keine Koordinaten oder Kontakte (Quelle: FACT SECRECY)
-  - Händlergilde: beschränkter Austausch über geprüfte Lieferketten
+  - Händlerbund: beschränkter Austausch über geprüfte Lieferketten
   - Eisenkonklave: Konkurrenz um Ressourcen/Sicherheitszonen, diplomatisch angespannt
 
 Motivation & Makel
@@ -71,7 +71,7 @@ Diplomatie & Beziehungen
 ------------------------
 
 - Arkologie A1 - volle Loyalität; wissenschaftliche Prioritäten dominieren Entscheidungen
-- Händlergilde - pragmatischer Austausch unter Sicherheitsauflagen
+- Händlerbund - pragmatischer Austausch unter Sicherheitsauflagen
 - Eisenkonklave - Wettbewerb um anomale Ressourcen; Kooperation nur unter strenger Kontrolle
 - Novapolis - unbekannt; alle Meldungen verlangen externe Validierung
 
@@ -95,7 +95,7 @@ Ziele (kurz)
 
 - [ ] SÜDFRAGMENT-Signale katalogisieren und Kontrollpfade definieren
 - [ ] Biosicherheitsprotokolle für Arkologie A1 iterieren und auditieren
-- [ ] Stabilen Austauschkanal für verifizierte Daten mit der Händlergilde etablieren
+- [ ] Stabilen Austauschkanal für verifizierte Daten mit dem Händlerbund etablieren
 
 Routine & Validierung
 ---------------------

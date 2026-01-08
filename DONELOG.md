@@ -1,11 +1,21 @@
 ---
-stand: 2026-01-07 10:11
-update: Prioritaet 2 (inkrementell): Agent-Skripte reduzieren Abhaengigkeit vom Root app-Shim; mypy-Duplikatfix in Legacy-Reexports.
-checks: pwsh -NoProfile -File scripts\checks_types.ps1 PASS (2026-01-07 10:06); pwsh -NoProfile -File scripts\tests_pytest_root.ps1 PASS (2026-01-07 10:08); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-07 10:11); python scripts/check_frontmatter.py todo.root.md DONELOG.md PASS (2026-01-07 10:11)
+stand: 2026-01-08 09:39
+update: RP-Admin: AI-Behavior-Mapping Links klickbar gemacht; Frontmatter-Validator skippt RP-Staging-Reports; Checks PASS.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-08 09:39); python scripts/check_frontmatter.py PASS (2026-01-08 09:39); python scripts/checks_rp_consistency.py --strict PASS (2026-01-08 09:39); Checks: types (pyright+mypy) PASS (2026-01-08 09:39); pytest -q [root] PASS (2026-01-08 09:39)
 ---
 Kurzueberblick
 --------------
 
+- 2026-01-08 09:39: RP-Admin: AI-Behavior-Mapping Linkdrift bereinigt; Frontmatter-Validator skippt RP-Staging-Reports; Checks PASS.
+- 2026-01-08 09:24: RP-Admin: Canvas-T+0-Timeline Template operationalisiert (ohne neue Fakten).
+- 2026-01-08 09:14: RP-Admin: C6-Logistik-Policy Links/ATSD-Referenz nachgezogen.
+- 2026-01-08 06:03: RP-Admin: Canvas-T+0-Timeline Body bereinigt (Meta-Duplikat entfernt); Checks PASS.
+- 2026-01-07 18:53: RP-SSOT: Beschlüsse (Fraktionsnamen/ATSD/C6-Nord/Jonas) umgesetzt; Datenprüfung PASS.
+- 2026-01-07 12:11: Doku: rp-base-todo.md um Prompt-Staffel ergänzt.
+- 2026-01-07 12:05: Doku: RP-Basis-Plan als .tmp/rp-base-todo.md angelegt.
+- 2026-01-07 11:39: Doku: todo.root.md Editor-Setup Root-Tasks abgehakt; Re-Checks PASS.
+- 2026-01-07 11:19: Doku: eval/config/context.local.md Abschluss-Newline ergänzt; Re-Checks PASS.
+- 2026-01-07 10:47: Doku-Housekeeping: todo.root.md Checkboxen aktualisiert; eval/config/context.local.md Frontmatter repariert.
 - 2026-01-07 10:08: Prioritaet 2 (inkrementell): Erste Agent-Skripte importieren `novapolis_agent.app.*` (statt `app.*`); Legacy-Reexports ohne `app.<pkg>.__init__` (mypy-Duplikatfix).
 - 2026-01-07 09:13: Prioritaet 1: Tests nutzen `scripts.agent.*`; Wrapper in Root erweitert + Kompatibilitaetspaket in `novapolis_agent/scripts/agent`; Root-`pytest -q` und Typchecks (pyright+mypy) wieder lauffaehig.
 - 2026-01-07 08:53: Root-Dokus (TODO/DONELOG) referenzieren `/.tmp/results/todo.cleaned.md`; markdownlint ignoriert jetzt auch verschachtelte `node_modules/**` und RP-Staging-Reports.
@@ -33,6 +43,10 @@ Kurzueberblick
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp/results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+
+2026-01-08 09:39 | Copilot | RP-Admin: AI-Behavior-Mapping Links + Frontmatter-Validator Skip erweitert
+Meta: {"Timestamp": "2026-01-08 09:39", "Files": ["novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md", "scripts/check_frontmatter.py", "DONELOG.md"], "Commands": ["npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' (0 errors)", "python scripts/check_frontmatter.py (Exit 0)", "python scripts/checks_rp_consistency.py --strict (Exit 0)", "Checks: types (pyright+mypy) (Exit 0; 3 warnings)", "pytest -q [root] (Exit 0)"], "Result": "PASS"}
+Kurz: In `AI-Behavior-Mapping.md` sind die `database-rp/02-characters/...` Pfadtexte in relative Links umgestellt. Zusätzlich skippt der Frontmatter-Validator jetzt `novapolis-rp/database-curated/staging/reports/`, da dies generierte Reports ohne Frontmatter sind (aligned mit markdownlint ignores).
 
 2025-12-30 00:45 | Copilot | RP-Audit-Befunde als TODOs festgehalten
 Meta: {"Timestamp": "2025-12-30 00:45", "Files": ["todo.root.md", "DONELOG.md"], "Notes": "RP-Audit-Follow-ups als neue TODOs aufgenommen (Frontmatter-Duplikate, Linkdrift, final/ Prozesslücke, curation-README-Stub). Targeted markdownlint + Frontmatter-Validator im Scope `todo.root.md`/`DONELOG.md` PASS."}
@@ -199,6 +213,9 @@ Kurz: Um die Namenskollision `scripts` (Root vs. Agent) ohne Umbenennung zu ents
 2026-01-07 10:08 | Copilot | Prioritaet 2 (inkrementell): Agent-Skripte nutzen novapolis_agent.app (Shim-Abbau vorbereitet)
 Meta: {"Timestamp": "2026-01-07 10:08", "Files": ["novapolis_agent/scripts/*.py", "novapolis_agent/novapolis_agent/app/**/__init__.py"], "Commands": ["pwsh -NoProfile -File scripts/checks_types.ps1 (Exit 0)", "pwsh -NoProfile -File scripts/tests_pytest_root.ps1 (Exit 0)"]}
 Kurz: Um mittelfristig das Root-`app/` Shim entfernen zu koennen, wurden erste `novapolis_agent/scripts` Imports von `app` auf `novapolis_agent.app` umgestellt. Ein mypy-Duplikatfehler (durch `from app.<pkg>.__init__ import <star>`) wurde in den Legacy-Reexport-Packages unter `novapolis_agent/novapolis_agent/app/` behoben. Test-Fix: `export_finetune` liest Settings weiterhin kompatibel (erst `app.core.settings`, sonst `novapolis_agent.app.core.settings`).
+
+2026-01-07 10:47 | Copilot | Doku: todo.root.md Checkboxen aktualisiert; eval/config/context.local.md Frontmatter repariert.
+2026-01-07 11:19 | Copilot | Doku: eval/config/context.local.md Abschluss-Newline ergänzt (Re-Lint/Validator PASS).
 - 2025-11-06 04:40: Demo-Test entfernt (`tests/test_intentional_failure.py`) und `pytest -q` manuell via pwsh ausgeführt - Suite PASS.
 - 2025-11-06 04:15: Frontmatter-Validator mit Demo-Datei geübt; `check_frontmatter.py` PASS nach Korrektur; absichtlicher pytest-Fail dokumentiert.
 - 2025-11-06 03:34: Workspace-Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) via Tasks aktualisiert; Status-/Donelog-Docs nachgezogen.

@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-30 06:51
-update: "Frontmatter: slug ergänzt; Checks aktualisiert."
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2025-12-30 06:51)
+stand: 2026-01-08 09:15
+update: ATSD-Referenz als Link ergänzt; Verlinkungen auf relative Pfade vereinheitlicht.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' 'DONELOG.md' PASS (2026-01-08 09:15); python scripts/check_frontmatter.py novapolis-rp/database-rp DONELOG.md PASS (2026-01-08 09:15); python scripts/checks_rp_consistency.py --strict PASS (2026-01-08 09:15)
 slug: c6-logistik-policy
 status: v0.1 (Entwurf, aktiv)
 category: Admin
@@ -56,7 +56,7 @@ Betriebslogistik
 
 Kommunikation & Systemmeldungen
 -------------------------------
-- System-/Debug: Persistenz aktiv; ATSD-String + Canvas-Zahl
+- System-/Debug: Persistenz aktiv; ATSD-String + Canvas-Zahl (Definition: [Admin: Day-Switch & Debug](./Canvas-Admin-Day-Switch-Debug.md))
 - Debug-Mode: zuschaltbar für erweiterte Ausgaben
 - Funk: D5↔C6 schwach, boosterabhängig (linienbasiertes Modell)
 
@@ -67,11 +67,11 @@ Sicherheit
 
 Verlinkungen
 ------------
-- Locations: `database-rp/03-locations/C6.md`
-- Logistik-Canvas: (geplant) `database-rp/00-admin/Logistik.md`
-- Missionslog: `database-rp/00-admin/Missionslog.md`
+- Locations: [C6](../03-locations/C6.md)
+- Logistik-Canvas: [Logistik](./Logistik.md)
+- Missionslog: [Missionslog](./Missionslog.md)
 - Neutralgruppen: (geplant) `database-rp/00-admin/Neutralgruppen.md`
-- Karawanenbewegungen: (geplant) `database-rp/05-projects/caravan_moves.md`
+- Karawanenbewegungen: (geplant) [caravan_moves](../05-projects/caravan_moves.md)
 
 Änderungen/Versionierung
 ------------------------

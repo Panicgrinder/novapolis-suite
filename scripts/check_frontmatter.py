@@ -20,6 +20,7 @@ SKIP_PATTERNS = (
     "novapolis_agent/outputs/",
     "outputs/",
     "novapolis-rp/database-raw/",
+    "novapolis-rp/database-curated/staging/reports/",
     "novapolis-rp/.pytest_cache/",
     ".pytest_cache/",
     "novapolis_agent/.pytest_cache/",

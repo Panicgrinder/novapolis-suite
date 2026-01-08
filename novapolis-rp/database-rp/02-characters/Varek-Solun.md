@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
+stand: 2026-01-07 18:47
+update: Fraktionsnamen (Anzeige) aktualisiert (Händlerbund/Schienenbund).
+checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 title: Varek Solun
 category: character
 slug: varek-solun
@@ -53,8 +53,8 @@ Wissensstand (Matrix - Auszug)
 - Intern (Eisenkonklave): Kennt alle operationellen Kader, H12-Infrastruktur und die Stellvertretung durch Lyra Hest; verfolgt Union-Archive als Primärziel.
 - Extern (Metro):
   - Novapolis/D5: nur unbestätigte Handelsgerüchte, keine freigegebenen Koordinaten oder Kontakte (Quelle: FACT SECRECY)
-  - Händlergilde: etablierte Kontaktpunkte für begrenzten Tausch (Wert „wechselhaft“).
-  - Schattenbund: als feindselige Variable eingestuft, Beobachtung aktiv.
+  - Händlerbund: etablierte Kontaktpunkte für begrenzten Tausch (Wert „wechselhaft“).
+  - Schienenbund: als feindselige Variable eingestuft, Beobachtung aktiv.
 
 Motivation & Makel
 ------------------
@@ -74,8 +74,8 @@ Diplomatie & Beziehungen
 
 - Eisenkonklave - absolute Loyalität; Kader folgen ohne öffentliche Debatte.
 - Lyra Hest - Stellvertretung für zivile/logistische Fragen, bindende Weisungen.
-- Händlergilde - wechselhafte Kooperation; Verhandlungen über streng kontrollierte Kanäle.
-- Schattenbund - feindselig, keine diplomatischen Kontakte, Vorbereitung auf Infiltrationsversuche.
+- Händlerbund - wechselhafte Kooperation; Verhandlungen über streng kontrollierte Kanäle.
+- Schienenbund - feindselig, keine diplomatischen Kontakte, Vorbereitung auf Infiltrationsversuche.
 - Novapolis - nur Beobachtung externer Gerüchte, keine bestätigten Begegnungen, Alarmstufe „wachsam“.
 
 Risiken & Schutzmaßnahmen
@@ -98,7 +98,7 @@ Ziele (kurz)
 
 - [ ] Union-Hauptarchiv lokalisieren und sichern.
 - [ ] Stabilität der Eisenkonklave (H12) wahren - Disziplin, Versorgung, Geheimhaltung.
-- [ ] Diplomatiekanäle mit Händlergilde kontrolliert offen halten.
+- [ ] Diplomatiekanäle mit Händlerbund kontrolliert offen halten.
 
 Routine & Validierung
 ---------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-07 08:54
-update: Legacy-Verweise auf /.tmp-results/todo.cleaned.md in Root-Dokus auf /.tmp/results/todo.cleaned.md gedreht.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-07 08:54); python scripts/check_frontmatter.py todo.root.md DONELOG.md PASS (2026-01-07 08:54)
+stand: 2026-01-07 11:39
+update: Abgeschlossene TODOs abgehakt; Editor-Setup Root-Tasks als erledigt markiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-07 11:50); python scripts/check_frontmatter.py todo.root.md DONELOG.md PASS (2026-01-07 11:50)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -100,7 +100,7 @@ Nächstes Vorgehen (1-2 Tage)
 
 ### novapolis_agent
 
-- [ ] Tests/Typen sequenziell laufen lassen (manuell) und Ergebnis protokollieren: `DONELOG.md` (Root) und `novapolis_agent/docs/DONELOG.txt` (Agent).
+- [x] Tests/Typen sequenziell laufen lassen (manuell) und Ergebnis protokollieren: `DONELOG.md` (Root) und `novapolis_agent/docs/DONELOG.txt` (Agent). (erledigt 2026-01-07 10:47)
 - [x] 2025-11-10 08:08: Ruff-Fixes in `app/tools/registry.py`, `scripts/append_done.py`, `scripts/rerun_failed.py`; targeted Ruff-Checks PASS, DONELOG & `WORKSPACE_STATUS.md` aktualisiert (R-LINT/R-LOG).
 - [ ] Ruff-Backlog weiter triagieren (restliche Agent-Skripte/Tools; Volumen >3000 Ruff-Meldungen; R-LINT, R-SEC).
 - [x] 2025-11-06 04:40: Demo-Test `novapolis_agent/tests/test_intentional_failure.py` entfernt; pytest -q PASS.
@@ -301,7 +301,7 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
   - [ ] Settings/Launch/Tasks diffen und Konflikte notieren
   - [ ] Mapping definieren: was zentralisiert wird, was projekt-spezifisch bleibt
 - Etappe1 - Zentralisierung (additiv, ohne Löschen)
-  - [ ] Root-Tasks ergänzen: `pytest -q` (cwd Agent), `Tests: coverage (fail-under)`, `markdownlint (cli2)`, `markdownlint fix (cli2)` (erledigt)
+  - [x] Root-Tasks ergänzen: `pytest -q` (cwd Agent), `Tests: coverage (fail-under)`, `markdownlint (cli2)`, `markdownlint fix (cli2)` (erledigt 2026-01-07 11:39)
   - [x] Root-Settings um Copilot-Workspace-Instructions aus RP ergänzen (keine Python-Konflikte) - 2025-11-02: User-/Profil-Configs zurückgesetzt, nur Root-Settings aktiv
   - [ ] Agent-Tasks optional auf Root-Tasks verweisen (mittels eindeutiger Labels)
 - Etappe2 - Bereinigung (nach 3-5Tagen stabiler Nutzung)

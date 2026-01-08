@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-27 03:25
-update: Stub angelegt; eisenkonklave als Fraktions-Canvas erfasst
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
+stand: 2026-01-07 18:47
+update: Fraktionsnamen (Anzeige) aktualisiert (Händlerbund/Schienenbund).
+checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 slug: eisenkonklave
 category: faction
 status: draft
@@ -20,8 +20,8 @@ Eisenkonklave (Fraktion)
 Diplomatie & Beziehungen
 ------------------------
 - Novapolis: neutral_wachsam → laufende Gespräche über Zugang zu Ressourcen.
-- Händlergilde: wechselhaft → einzelne Handelsfenster via `caravan_moves`.
-- Schattenbund: feindselig → Konflikt um Tunnelkontrolle.
+- Händlerbund: wechselhaft → einzelne Handelsfenster via `caravan_moves`.
+- Schienenbund: feindselig → Konflikt um Tunnelkontrolle.
 
 Systemverknüpfungen
 -------------------
@@ -34,4 +34,4 @@ ToDo
 ----
 - Missions-/Inventarverknüpfungen ergänzen (z. B. benötigte Module, Sicherheitsauflagen).
 - Diplomatieereignisse in `Missionslog` spiegeln.
-- Rollenliste erweitern (Second-in-Command, Kontakte zur Händlergilde).
+- Rollenliste erweitern (Second-in-Command, Kontakte zum Händlerbund).

@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-30 05:32
-update: Frontmatter-Duplikat entfernt
-checks: targeted markdownlint-cli2 + scripts/check_frontmatter.py (2025-12-30) PASS
+stand: 2026-01-07 18:47
+update: Herkunft/Lore ergänzt (E2-Fluchtwege, Fund durch Ronja, Versorgung).
+checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 title: Jonas Merek
 category: character
 slug: jonas-merek
@@ -36,6 +36,7 @@ Hintergrund & Herkunft
 ----------------------
 
 - Herkunft: Station E2, Überlebender des Gasunfalls; Evakuierung über Tunnelknoten, Schwester seitdem vermisst (kein Todesnachweis).
+- Fluchtweg: Jonas entkam über Nebengänge/Schächte in einen Tunnelabschnitt; Ronja fand ihn beim ersten Verlassen der Station, brachte ihn zurück und versorgte ihn.
 - Aufgenommen nach Mission „C6-Aufnahme Jonas“ (siehe FACT [C6-FIRST]); arbeitet unter Aufsicht von Ronja und Reflex.
 - Lumen ist an Jonas gekoppelt (Nähe-Kopplung stabilisiert beide, Quelle: FACT? [PROXIMITY]).
 

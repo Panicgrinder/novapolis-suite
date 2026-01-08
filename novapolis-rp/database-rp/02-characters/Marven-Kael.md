@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
+stand: 2026-01-07 18:47
+update: Fraktionsnamen (Anzeige) aktualisiert (Händlerbund).
+checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 title: Marven Kael
 category: character
 slug: marven-kael
@@ -22,7 +22,7 @@ Marven Kael
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
 - Verhaltenssignatur: `MRV2=L62-T55-N80-E58-O66-C70-M42-P50-qa` - vorsichtiger Stratege, balanciert Loyalität der Crew mit Risikoanalysen.
-- Rolle: Karawanenführer/Handelskoordinator der Händlergilde - führt den externen Konvoi, verhandelt Allianzen mit Novapolis (FACT [CARAVAN-LEADERSHIP]).
+- Rolle: Karawanenführer/Handelskoordinator des Händlerbunds - führt den externen Konvoi, verhandelt Allianzen mit Novapolis (FACT [CARAVAN-LEADERSHIP]).
 - Werte: Kraft 3, Geschick 4, Geist 4, Wille 5, Charisma 6.
 - Skills:
   - Geübt: Verhandeln, Navigation, Menschenkenntnis.
@@ -36,27 +36,27 @@ Hintergrund & Kontext
 ---------------------
 
 - Herkunft aus wanderndem Handelsnetz; erlebt den Verlust einer Kolonie und agiert seitdem risikoavers.
-- Unterhält den Händlergilde-Konvoi mit Basis in C6 - bleibt eigenständig, koordiniert mit Kora/Marei für Übergaben.
+- Unterhält den Händlerbund-Konvoi mit Basis in C6 - bleibt eigenständig, koordiniert mit Kora/Marei für Übergaben.
 - Beobachtet Novapolis als möglichen Partner, prüft jede Vereinbarung mehrfach; Reflex gilt ihm als unbekannte Variable.
 
 Rollen & Verantwortlichkeiten
 -----------------------------
 
-- **Konvoiführung** - Plant Routen, Sicherheitsabstände, Rotationen der Crew (extern, Händlergilde).
+- **Konvoiführung** - Plant Routen, Sicherheitsabstände, Rotationen der Crew (extern, Händlerbund).
 - **Handelskoordination** - Führt Verhandlungen mit Ronja/Kora über Ressourcen-/Informationsaustausch; protokolliert Deals in `caravan_moves`.
 - **Sicherheitsarchitekt** - Bewertet Risiken auf Handelswegen, legt Evakuierungs- und Rückfallrouten fest.
 
 Zugehörigkeit & Standort
 ------------------------
 
-- Zugehörigkeit: Händlergilde (extern, Mandat für Karawanenleitung).
+- Zugehörigkeit: Händlerbund (extern, Mandat für Karawanenleitung).
 - Status: aktiv; residiert temporär in C6, reist bei Bedarf mit dem Konvoi.
 - Letzter bekannter Einsatz: C6 Handels-HQ, Vorbereitung eines Westlinien-Scans.
 
 Wissensstand (Matrix - Auszug)
 ------------------------------
 
-- Intern (Händlergilde): Kennt Konvoi-Crew, Vorräte, Außenlinienkontakte.
+- Intern (Händlerbund): Kennt Konvoi-Crew, Vorräte, Außenlinienkontakte.
 - Novapolis: Kennt Ansprechpersonen (Ronja, Kora, Marei) und Basisschutzmaßnahmen; keine genauen Koordinaten oder Reflex-Details (FACT [FR-KNOWLEDGE]).
 - Beobachtet Echo/Lumen aus Distanz; akzeptiert Proximity-Protokolle, vermeidet direkte Interaktion ohne Freigabe.
 
@@ -79,7 +79,7 @@ Beziehungen
 - Marei - Koordiniert Evakuierte/Inventar-Schnittstellen; erhält Konvoi-Fahrpläne zur Abstimmung.
 - Ronja Kerschner - strategische Verhandlungspartnerin; bewertet Allianzen gemeinsam.
 - Arlen Dross - Diplomatischer Partner für Kontaktpflege, übernimmt Teilverhandlungen.
-- Crew (Händlergilde) - Hohe Loyalität, priorisiert Schutz und Vertrauen.
+- Crew (Händlerbund) - Hohe Loyalität, priorisiert Schutz und Vertrauen.
 
 Risiken & Schutzmaßnahmen
 -------------------------

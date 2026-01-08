@@ -1,17 +1,13 @@
 ---
-stand: 2025-11-27 03:25
-update: slug/title ergänzt; Frontmatter auf ai_behavior_index_v2 abgestimmt
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
+stand: 2026-01-08 09:39
+update: Anchor-Register: SSOT-Pfade als relative Links klickbar gemacht (keine Inhaltsänderung).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-08 09:39); python scripts/check_frontmatter.py PASS (2026-01-08 09:39); python scripts/checks_rp_consistency.py --strict PASS (2026-01-08 09:39)
 canvas: AI-Behavior-Mapping
 last-updated: 2025-11-07T04:09:00+01:00
 category: admin
 slug: ai_behavior_index_v2
 version: 1.0
 ---
-
-AI Behavior Matrix & Mapping (v2)
-=================================
-
 Ziel: Das vollständige Verhaltens-Matrix-Canvas (`ai_behavior_index_v2`) retten, normalisieren und für die Interaktion mit Novapolis-Akteuren nutzbar machen. Fokus liegt auf der Kombination aus globalen Clustern, Intensitäten, Modifikatoren und den daraus abgeleiteten Hooks für Charaktere/KI-Schnittstellen.
 
 Zweck & Scope
@@ -80,17 +76,17 @@ Anchor-Register (Snapshot 2025-10-16)
 | KRM4 | Kora Malenkov | Human | L72-T74-N69-E61-O56-C63-M47-P35-fb | RAW-canvas-2025-10-16T14-56-00-000Z |
 | MRV2 | Marven Kael | Human | L62-T55-N80-E58-O66-C70-M42-P50-qa | RAW-canvas-2025-10-16T14-56-10-000Z |
 | ARD5 | Arlen Dross | Human | L67-T72-N74-E58-O66-C71-M48-P40-db | RAW-canvas-2025-10-16T14-56-20-000Z |
-| ECO1 | Echo | Instanz | L85-S74-T62-E58-N52-O44-C28-M16-P30-ks | database-rp/02-characters/Echo.md (kuratiert 2025-11-02) |
-| LMN1 | Lumen | Instanz | L78-T71-E60-O49-N44-S52-C26-M18-P28-ks | database-rp/02-characters/Lumen.md (kuratiert 2025-11-02) |
-| LNR1 | Liora Navesh | Human | O82-T76-N68-S58-L52-M47-E34-C21-P55-r | database-rp/02-characters/Liora-Navesh.md (kuratiert 2025-11-02) |
-| LYH1 | Lyra Hest | Human | O74-L68-T62-E58-S54-N46-M32-C28-P48-r | database-rp/02-characters/Lyra-Hest.md (kuratiert 2025-11-02) |
-| SND1 | Senn Daru | Human | E72-N64-L58-O46-S42-T38-C30-M22-P44-s | database-rp/02-characters/Senn-Daru.md (kuratiert 2025-11-02) |
-| VRS1 | Varek Solun | Human | O88-M76-S68-T62-L55-N44-C28-E25-P60-pr | database-rp/02-characters/Varek-Solun.md (kuratiert 2025-11-02) |
+| ECO1 | Echo | Instanz | L85-S74-T62-E58-N52-O44-C28-M16-P30-ks | [Echo](../02-characters/Echo.md) (kuratiert 2025-11-02) |
+| LMN1 | Lumen | Instanz | L78-T71-E60-O49-N44-S52-C26-M18-P28-ks | [Lumen](../02-characters/Lumen.md) (kuratiert 2025-11-02) |
+| LNR1 | Liora Navesh | Human | O82-T76-N68-S58-L52-M47-E34-C21-P55-r | [Liora-Navesh](../02-characters/Liora-Navesh.md) (kuratiert 2025-11-02) |
+| LYH1 | Lyra Hest | Human | O74-L68-T62-E58-S54-N46-M32-C28-P48-r | [Lyra-Hest](../02-characters/Lyra-Hest.md) (kuratiert 2025-11-02) |
+| SND1 | Senn Daru | Human | E72-N64-L58-O46-S42-T38-C30-M22-P44-s | [Senn-Daru](../02-characters/Senn-Daru.md) (kuratiert 2025-11-02) |
+| VRS1 | Varek Solun | Human | O88-M76-S68-T62-L55-N44-C28-E25-P60-pr | [Varek-Solun](../02-characters/Varek-Solun.md) (kuratiert 2025-11-02) |
 
 *Hinweis:* `n/a` markiert noch fehlende Behavior-Signaturen in den aktuellen Canvas-Versionen. Sobald valide Codes vorliegen, bitte in Tabelle und Quell-Canvas nachziehen (inkl. DONELOG/TODO-Vermerk).
 
 Hinweise:
-- Codes folgen dem RAW-Register; Promotion nach `database-rp/02-characters/` muss Anchor, Signatur und Bezeichnung übernehmen.
+- Codes folgen dem RAW-Register; Promotion nach `../02-characters/` muss Anchor, Signatur und Bezeichnung übernehmen.
 - Fehlende oder `unbestimmt`-Anchors (z. B. frühere v1-Canvases) erst nach Review eintragen.
 - Bei neuen Anchors `Anchor_Index.csv` (folgt) pflegen und Sidecar aktualisieren.
 

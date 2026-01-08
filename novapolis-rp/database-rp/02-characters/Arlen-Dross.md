@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
+stand: 2026-01-07 18:47
+update: Fraktionsnamen (Anzeige) aktualisiert (Händlerbund).
+checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 title: Arlen Dross
 category: character
 slug: arlen-dross
@@ -22,7 +22,7 @@ Arlen Dross
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
 - Verhaltenssignatur: `ARD5=L67-T72-N74-E58-O66-C71-M48-P40-db` - ausgleichender Vermittler, verknüpft Risikoanalysen mit Freiheitsdrang.
-- Rolle: Händler- und Diplomatiebeauftragter der Händlergilde - moderiert Kontakte zwischen Karawane und Novapolis, ohne Kora/Marven zu duplizieren (FACT [CARAVAN-LEADERSHIP]).
+- Rolle: Händler- und Diplomatiebeauftragter des Händlerbunds - moderiert Kontakte zwischen Karawane und Novapolis, ohne Kora/Marven zu duplizieren (FACT [CARAVAN-LEADERSHIP]).
 - Werte: Kraft 3, Geschick 4, Geist 4, Wille 5, Charisma 5.
 - Skills:
   - Geübt: Verhandeln, Navigation, Versorgung.
@@ -35,7 +35,7 @@ Arlen Dross
 Hintergrund & Kontext
 ---------------------
 
-- Ehemaliger Zwischenhändler aus den Transitsektoren rund um C6; wechselte nach H-47-Zwischenfall mit der Händlergilde zur Novapolis-Peripherie.
+- Ehemaliger Zwischenhändler aus den Transitsektoren rund um C6; wechselte nach H-47-Zwischenfall mit dem Händlerbund zur Novapolis-Peripherie.
 - Agiert als Gesichterklärer für Außenkontakte der Karawane; hält das Gleichgewicht zwischen Handelsfreiheit und Bündnisauflagen.
 - Beobachtet Reflex als unkalkulierbaren Faktor: respektiert Ronjas Bindung, aber fordert klare Sicherheitsgrenzen.
 
@@ -49,14 +49,14 @@ Rollen & Verantwortlichkeiten
 Zugehörigkeit & Standort
 ------------------------
 
-- Zugehörigkeit: Händlergilde (extern), mit diplomatischem Mandat für die Karawane.
+- Zugehörigkeit: Händlerbund (extern), mit diplomatischem Mandat für die Karawane.
 - Status: aktiv; pendelt zwischen C6-HQ und mobilen Konvoipunkten.
 - Letzter bekannter Einsatz: C6 - Vorbereitung eines Handelsgesprächs mit Ronja über Energiezellen-Kontingente.
 
 Wissensstand (Matrix - Auszug)
 ------------------------------
 
-- Händlergilde: Kennt Crewzusammensetzung, Depotstandorte, Kontaktkorridore.
+- Händlerbund: Kennt Crewzusammensetzung, Depotstandorte, Kontaktkorridore.
 - Novapolis: Kennt Ansprechpersonen (Ronja, Kora, Marei, Jonas als Funklink); keine Koordinaten, keine tieferen Anlagenpläne (FACT [FR-KNOWLEDGE]).
 - Reflex: Weiß um Existenz und Verbund zu Ronja, hält Distanz und fordert transparente Freigaben, bevor er Reflex-seitige Hilfe zulässt.
 
@@ -101,7 +101,7 @@ Systemverknüpfungen & Referenzen
 - `caravan_moves` - Dokumentation aller diplomatischen Übergaben.
 - `missionslog` - Einträge zu Verhandlungsmissionen und rückgekoppelten Maßnahmen.
 - `logistik` - Abgleich interner/externer Warenflüsse.
-- `handel_diplomatie_haendlergilde_v1` - Diplomatieprotokolle der Händlergilde.
+- `handel_diplomatie_haendlergilde_v1` - Diplomatieprotokolle des Händlerbunds (ID: haendlergilde).
 - `ai_behavior_index_v2` - Eintrag „Der Vermittler“.
 
 Quellen & Hinweise

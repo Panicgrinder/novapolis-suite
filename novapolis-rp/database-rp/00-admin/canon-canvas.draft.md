@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-30 06:51
-update: "Frontmatter: slug ergänzt; Checks aktualisiert."
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2025-12-30 06:51)
+stand: 2026-01-07 18:47
+update: Draft-Canon an Beschlüsse angepasst (C6-Nord/N7, Fraktionsnamen).
+checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 slug: canon-canvas-draft
 last-updated: 2025-11-07T04:09:00+01:00
 status: draft
@@ -29,7 +29,7 @@ Fraktionen [FACT?]
 - Weitere:
   - [FACT?] Novapolis - …
   - [FACT?] Freie Gruppen - …
-- Benennungsdrift: [OPEN] „Schatten/Lumen/…“ - Entscheidung ausstehend.
+- Benennungsdrift: Händlerbund/Schienenbund als Anzeige-Namen; interne IDs/Slugs bleiben vorerst unverändert. - [FACT?]
 
 Orte
 ----
@@ -42,7 +42,7 @@ Orte
 - Beschreibung: ehem. Händlerkarawane; Algen/Pilz; Strom von D5; Kreuzungsstation - [FACT?]
 - Bewohner/Organisation: … - [FACT?]
 - Verknüpfungen: Tunnel zu D5 - [FACT?]
-- Hinweis: „N7“ entfernen/ignorieren - [FACT?]
+- Hinweis: C6-Nord (vormals „N7“) ist als Anomalie aktiv; Bereich wurde von Ronja mit Reflex versiegelt. - [FACT?]
 
 Projekte
 --------

@@ -1,19 +1,19 @@
 ---
-stand: 2025-11-27 03:25
-update: Stub angelegt; index_haendlergilde_v1 aufgenommen
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
+stand: 2026-01-07 18:47
+update: Anzeige-Name: Händlerbund (IDs/Slugs unverändert).
+checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 slug: index_haendlergilde_v1
 category: admin
 status: draft
 version: "0.1"
 ---
 
-Index Händlergilde (v1)
-=======================
+Index Händlerbund (Händlergilde-ID, v1)
+======================================
 
 Beschreibung
 ------------
-- Akteurs- und Strukturverzeichnis der Händlergilde (Führung, Komitees, mobile Einheiten).
+- Akteurs- und Strukturverzeichnis des Händlerbunds (Führung, Komitees, mobile Einheiten).
 - Synchronisiert mit `caravan_moves.md`, `Handel-Diplomatie-Haendlergilde.md`, `person_index_np.md`.
 - Herkunft: RAW-Cluster `haendlergilde_extern` (16.10.2025 16:55Z).
 

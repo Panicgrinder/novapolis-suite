@@ -1,13 +1,8 @@
 ---
-stand: 2025-12-30 06:51
-update: "Frontmatter: slug ergänzt; Checks aktualisiert."
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2025-12-30 06:51)
+stand: 2026-01-07 18:47
+update: ATSD-Definition gemäß Beschluss aktualisiert.
+checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 slug: canvas-admin-day-switch-debug
-canvas: Admin Day-Switch & Debug
-last-updated: 2025-11-07T03:32:00+01:00
-category: Admin
-version: 0.1
----
 canvas: Admin Day-Switch & Debug
 last-updated: 2025-11-07T03:32:00+01:00
 category: Admin
@@ -29,10 +24,10 @@ Mechanik
 ATSD-String (Definition)
 ------------------------
 
-- A = Aktionen (Anzahl abgeschlossene Missions-/Arbeitsblöcke)
-- T = Timeline-Marker (z. B. T+0, T+1; inkl. Uhrzeitfenster)
-- S = Szenen (Anzahl neuer/abgeschlossener Szenen-Kacheln)
-- D = Delta (Änderungsgröße: kleine/mittlere/große Änderung oder Hash)
+- A = Aktiv (welcher Datenstand aktiv ist; laufende Persistenz / Snapshot)
+- T = Total (Gesamtkontext/Turn; z. B. T+0, T+1; inkl. Uhrzeitfenster)
+- S = System (Subsystem/Segment-Zähler, z. B. S0, S1)
+- D = Defekt (Defekt-/Degradationslevel, z. B. small/mid/large)
 
 Beispiel: ATSD "A3-T+1-20:15-S1-D:mid"
 
