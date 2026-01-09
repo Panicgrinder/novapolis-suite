@@ -1,11 +1,12 @@
 ---
-stand: 2026-01-08 14:18
-update: Policy-Refresh: `.ps1`-Wrapper-Verweise in Governance/Status/TODO auf Python-Wrapper umgestellt; Logs markieren `.ps1` als historisch.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev/docs/donelog.md PASS (2026-01-08 14:25); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev\docs\donelog.md PASS (2026-01-08 14:25)
+stand: 2026-01-09 03:45
+update: RP-SSOT: C6 Linien/Abzweige konkretisiert; Logistik Tagesabschluss ergänzt; Nordlinie Fortschritts-Methodik (E/S/B) ergänzt; memory-bundle Reporting synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 03:45); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 03:45); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 03:45)
 ---
 Kurzueberblick
 --------------
 
+- 2026-01-09 03:45: RP-SSOT: C6 Linien/Abzweige + Logistik Tagesabschluss + Nordlinie Fortschritt-Methodik (E/S/B) + memory-bundle Sync; Checks PASS.
 - 2026-01-08 14:06: RP-Curation: chat-export-complete in Staging-Manifest aufgenommen, Tagging (001-022) nach reviewed geschrieben; Checks PASS.
 - 2026-01-08 14:18: Policy: `.ps1`-Wrapper-Verweise in Governance/Status/TODO auf Python-Wrapper (`*.py`) umgestellt; `.ps1`-Nennungen in älteren Logs sind historisch.
 - 2026-01-08 09:39: RP-Admin: AI-Behavior-Mapping Linkdrift bereinigt; Frontmatter-Validator skippt RP-Staging-Reports; Checks PASS.
@@ -45,6 +46,10 @@ Kurzueberblick
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp/results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+
+2026-01-09 03:45 | Copilot | RP-SSOT: Linien/Logistik/Fortschritt konsolidiert
+Meta: {"Timestamp": "2026-01-09 03:45", "Files": ["novapolis-rp/database-rp/03-locations/C6.md", "novapolis-rp/database-rp/00-admin/Logistik.md", "novapolis-rp/database-rp/05-projects/Nordlinie-01.md", "novapolis-rp/database-rp/00-admin/memory-bundle.md"], "Commands": ["npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' (0 errors)", "python scripts/check_frontmatter.py novapolis-rp/database-rp (Exit 0)", "python scripts/checks_rp_consistency.py --strict (Exit 0)"], "Result": "PASS"}
+Kurz: C6 führt jetzt ein explizites Linien-/Abzweig-Modell (Nordlinie, E3, F1 Codename). Logistik enthält einen minimalen Tagesabschluss (Buchungen/Konten). Nordlinie 01 nutzt getrennte Kennzahlen (Erkundung/Sicherung/Betrieb), und das Reporting ist im memory-bundle kurz gespiegelt.
 
 2026-01-08 14:06 | Copilot | RP-Curation: chat-export-complete manifest+tagging (001-022)
 Meta: {"Timestamp": "2026-01-08 14:06", "Files": ["novapolis-rp/database-curated/staging/manifest.json", "novapolis-rp/database-curated/staging/chat-export-complete.review.md", "scripts/rp_tag_chat_export_complete.py", "novapolis-rp/database-curated/reviewed/chat-export-complete/*"], "Commands": ["python scripts/rp_tag_chat_export_complete.py --dry-run (Exit 0)", "python scripts/rp_tag_chat_export_complete.py (Exit 0)", "python scripts/check_frontmatter.py (Exit 0)", "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' (0 errors)", "node novapolis-rp/coding/tools/validators/src/validate-curated.js <manifest> (Exit 0)"], "Result": "PASS"}

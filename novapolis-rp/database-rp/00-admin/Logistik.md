@@ -1,9 +1,9 @@
 ---
-stand: 2025-11-27 03:25
-update: slug/title nachgetragen; Kategorie vereinheitlicht
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2025-11-27 03:20)
+stand: 2026-01-09 03:33
+update: Energie-/Verbrauchsmodell konkretisiert (Konten, Tagesabschluss, spielbar vs Hintergrund); last_updated Key vereinheitlicht.
+checks: markdownlint-cli2 PASS (targeted) (2026-01-09 03:33); scripts/check_frontmatter.py PASS (targeted) (2026-01-09 03:33)
 canvas: Logistik
-last-updated: 2025-11-07T04:09:00+01:00
+last_updated: 2025-11-07T04:09:00+01:00
 category: admin
 slug: logistik
 version: 0.9
@@ -16,9 +16,31 @@ Fokus: Energie-Konten, Generatoren, Leitungen, Ladefenster, Prioritäten, Transp
 
 Energie-Konten
 --------------
-- D5: Produktion/Verbrauch (kWh, Zellen %)
-- C6: Verbrauch (Teilversorgung über D5)
-- Darstellung: Tagesbilanz je Knoten (z. B. „D5 −8 / C6 −12 = −20; D5 +10 ⇒ Netto −10 Zellen“)
+
+- D5: Produktion/Verbrauch (kWh, Zellen-%)
+- C6: Verbrauch (Teilversorgung über D5 + lokaler Generator)
+
+Tagesabschluss (Buchungen, minimal)
+----------------------------------
+
+- Konten (spielbar)
+  - `ENERGY_D5_CELLS` (Zellen-%)
+  - `ENERGY_C6_CELLS` (Zellen-%)
+  - `ENERGY_PIPELINE_D5_C6` (Leitung aktiv/limitiert/aus)
+- Konten (Hintergrund/Meta)
+  - `ENERGY_D5_BASELOAD_KWH` (Lebenserhalt + Grundlast)
+  - `ENERGY_C6_BASELOAD_KWH` (Grundlast + Monitoring)
+
+- Tagesabschluss-Regel (einfach):
+  - 1) Grundlast buchen (D5/C6)
+  - 2) Projekt-/Mission-Lasten buchen (z. B. Nordlinie-Reparaturtag)
+  - 3) Transfer buchen (D5 → C6), wenn Leitung aktiv und Zellen vorhanden
+  - 4) Ergebnis als Kurzzeile protokollieren (Bilanz + 1 Satz Ursache)
+
+Beispielbuchung
+--------------
+
+- Tag X: D5 −8 (Grundlast), C6 −12 (Grundlast + Monitoring), Transfer D5→C6 +10 ⇒ Netto D5 −18, C6 −2
 
 Generatoren
 -----------

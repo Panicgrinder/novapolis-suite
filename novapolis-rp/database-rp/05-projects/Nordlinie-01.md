@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-30 06:17
-update: "Konsistenzfix: Struktur/Metadaten bereinigt"
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
+stand: 2026-01-09 03:33
+update: "Fortschritts-Methodik ergänzt (Erkundung/Sicherung/Betrieb), um 40% vs >60% konsistent zu berichten."
+checks: scripts/checks_rp_consistency.py PASS (targeted); scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2026-01-09 03:33)
 title: Nordlinie 01 (Tunnel D5-C6)
 category: project
 slug: nordlinie-01
@@ -51,7 +51,29 @@ Mission Tunnel - Monitoring
 ---------------------------
 
 - Abschnitte: A/B/C/D (Definition und Länge je Abschnitt)
-- %Fortschritt: 40% (Gesamt), je Abschnitt aktualisieren
+
+Fortschritt-Methodik (gegen Drift)
+---------------------------------
+
+Wir führen drei getrennte Kennzahlen (0-100%). Dadurch können alte Aussagen („>60%“) und aktuelle Betriebsfähigkeit („40%“) koexistieren, ohne Retcon.
+
+- Erkundungsgrad: Wie viel vom Tunnel ist kartiert/verstanden?
+- Sicherungsgrad: Wie viel ist statisch gesichert (Stützen, Gefahrstellen markiert)?
+- Betriebsgrad: Wie viel ist für regelmäßige Nutzung freigegeben (Begehbarkeit/Trasse/Tests)?
+
+Reporting-Regel
+--------------
+
+- Missionslog/Scenes dürfen verkürzt sprechen (z. B. „wir sind über 60%“), müssen aber klar machen, welche Kennzahl gemeint ist.
+- Projektstatus nutzt immer die 3er-Zeile (E/S/B).
+
+Aktueller Stand (Startwerte)
+---------------------------
+
+- Erkundung: 65%
+- Sicherung: 45%
+- Betrieb: 40%
+
 - Tagesleistung: m/Tag/Team; skaliert mit Teamgröße/Erschöpfung
 - Blocker: Instabilitäten, Materialmangel, Fraktionsaktivität
 - Personal: Teamliste inkl. Rollen (Leitung/Technik/Logistik/Med)

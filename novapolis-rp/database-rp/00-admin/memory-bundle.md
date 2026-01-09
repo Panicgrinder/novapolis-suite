@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-30 06:51
-update: "Frontmatter: slug ergänzt; Checks aktualisiert."
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2025-12-30 06:51)
+stand: 2026-01-09 03:33
+update: "RP P0: Linien-/Fortschrittsmodell für Nordlinie kurz synchronisiert."
+checks: scripts/checks_rp_consistency.py PASS (targeted); scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2026-01-09 03:33)
 slug: memory-bundle
 category: Admin
 canvas: memory-bundle
@@ -64,6 +64,11 @@ Projekte
 --------
 - Nordlinie 01 - Verbindungstunnel instandsetzen; Materialliste, Abschnitte, Blocker.
 - E3-Restaurierungsplanung - Warnmeldungen analysieren, Sensorik/Anomalie klären, Reaktivierungsbedingungen definieren.
+
+Fortschritt (Reporting)
+-----------------------
+
+- Nordlinie 01 berichtet künftig getrennt: Erkundung / Sicherung / Betrieb (0-100%).
 
 Timeline (sehr knapp)
 ---------------------
