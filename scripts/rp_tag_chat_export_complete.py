@@ -28,12 +28,7 @@ def main(argv: list[str] | None = None) -> int:
         python_exe = Path("python")
 
     tagger = (
-        repo_root
-        / "novapolis-rp"
-        / "coding"
-        / "tools"
-        / "curation"
-        / "tag_chunks_from_yaml.py"
+        repo_root / "novapolis-rp" / "coding" / "tools" / "curation" / "tag_chunks_from_yaml.py"
     )
     yaml_root = repo_root / "novapolis-rp" / "database-rp"
     chunks_root = (
@@ -44,13 +39,7 @@ def main(argv: list[str] | None = None) -> int:
         / "chunks"
         / "chat-export-complete"
     )
-    out_root = (
-        repo_root
-        / "novapolis-rp"
-        / "database-curated"
-        / "reviewed"
-        / "chat-export-complete"
-    )
+    out_root = repo_root / "novapolis-rp" / "database-curated" / "reviewed" / "chat-export-complete"
 
     cmd: list[str] = [
         str(python_exe),

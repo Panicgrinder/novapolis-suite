@@ -691,8 +691,9 @@ async def _evaluate_specific_items(items: list[EvalItem]) -> list[EvalResult]:
     Schreibt eine neue results_*.jsonl-Datei mit den Ergebnissen.
     """
     import httpx
-    from novapolis_agent.app.main import app as fastapi_app
     from utils.time_utils import now_compact
+
+    from novapolis_agent.app.main import app as fastapi_app
 
     # Ergebnis-Dateiname (results-Verzeichnis)
     results_dir: str = getattr(run_eval, "DEFAULT_RESULTS_DIR", run_eval.DEFAULT_EVAL_DIR)

@@ -22,7 +22,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-
 RP_DIRS = [
     "02-characters",
     "03-locations",
@@ -284,9 +283,7 @@ def sync_one(md_path: Path, json_path: Path, *, repo_root: Path, write: bool) ->
     if "last-updated" in fm and "last_updated" not in fm:
         # Do a conservative line-based replacement inside frontmatter block.
         frontmatter_text = md_text[fm_start:fm_end]
-        new_frontmatter_text = re.sub(
-            r"(?m)^last-updated:\s*", "last_updated: ", frontmatter_text
-        )
+        new_frontmatter_text = re.sub(r"(?m)^last-updated:\s*", "last_updated: ", frontmatter_text)
         if new_frontmatter_text != frontmatter_text:
             if write:
                 md_text = new_frontmatter_text + md_text[fm_end:]
@@ -323,9 +320,10 @@ def sync_one(md_path: Path, json_path: Path, *, repo_root: Path, write: bool) ->
     rel_md = md_path.relative_to(repo_root / "novapolis-rp").as_posix()
     # Canon expects paths like database-rp/...
     if not rel_md.startswith("database-rp/"):
-        rel_md = "database-rp/" + md_path.relative_to(
-            repo_root / "novapolis-rp" / "database-rp"
-        ).as_posix()
+        rel_md = (
+            "database-rp/"
+            + md_path.relative_to(repo_root / "novapolis-rp" / "database-rp").as_posix()
+        )
 
     desired_json = _canonical_json_from_frontmatter(
         fm=fm, rel_md_path=rel_md, existing=existing_json

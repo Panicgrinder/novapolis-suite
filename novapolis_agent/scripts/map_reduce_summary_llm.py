@@ -28,6 +28,7 @@ from utils.time_utils import now_compact, now_human
 try:
     from utils.eval_cache import make_key
 except Exception:
+
     def make_key(obj: Any) -> str:  # fallback
         import hashlib
         import json as _json
@@ -53,9 +54,7 @@ def _get_llm_cache() -> _EvalCacheProto | None:
 
             _LLM_CACHE = cast(
                 _EvalCacheProto,
-                _EvalCacheCls(
-                    os.path.join(PROJECT_ROOT, "eval", "results", "cache_llm.jsonl")
-                ),
+                _EvalCacheCls(os.path.join(PROJECT_ROOT, "eval", "results", "cache_llm.jsonl")),
             )
         except Exception:
             _LLM_CACHE = None
