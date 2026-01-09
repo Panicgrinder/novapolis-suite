@@ -1,11 +1,12 @@
 ---
-stand: 2026-01-09 03:45
-update: RP-SSOT: C6 Linien/Abzweige konkretisiert; Logistik Tagesabschluss ergänzt; Nordlinie Fortschritts-Methodik (E/S/B) ergänzt; memory-bundle Reporting synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 03:45); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 03:45); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 03:45)
+stand: 2026-01-09 03:58
+update: RP-SSOT: Fraktionen-Taxonomie + Wissensmatrix ergänzt (vier Hauptfraktionen + Default-Wissensstände + Schichtenregel).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 03:58); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 03:58); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 03:58)
 ---
 Kurzueberblick
 --------------
 
+- 2026-01-09 03:58: RP-SSOT: Fraktionen-Taxonomie + Wissensmatrix ergänzt; Checks PASS.
 - 2026-01-09 03:45: RP-SSOT: C6 Linien/Abzweige + Logistik Tagesabschluss + Nordlinie Fortschritt-Methodik (E/S/B) + memory-bundle Sync; Checks PASS.
 - 2026-01-08 14:06: RP-Curation: chat-export-complete in Staging-Manifest aufgenommen, Tagging (001-022) nach reviewed geschrieben; Checks PASS.
 - 2026-01-08 14:18: Policy: `.ps1`-Wrapper-Verweise in Governance/Status/TODO auf Python-Wrapper (`*.py`) umgestellt; `.ps1`-Nennungen in älteren Logs sind historisch.
@@ -46,6 +47,10 @@ Kurzueberblick
 - 2025-11-15 09:27: Frontmatter-Autofix + `--touch` in `scripts/check_frontmatter.py` hinterlegt, Governance-Abschnitt erweitert; Validator PASS, keine weiteren Checks.
 
 - 2025-11-15 09:00: Dokumentationssweep (context.local.md Frontmatter repariert; `todo.root.md`, `.tmp/results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `.tmp-results/governance.suggestions.md` und DONELOG frontmatter/Status aktualisiert); Frontmatter-Validator PASS, keine weiteren Checks.
+
+2026-01-09 03:58 | Copilot | RP-SSOT: Fraktionen Taxonomie + Wissensmatrix
+Meta: {"Timestamp": "2026-01-09 03:58", "Files": ["novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md"], "Commands": ["npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' (0 errors)", "python scripts/check_frontmatter.py novapolis-rp/database-rp (Exit 0)", "python scripts/checks_rp_consistency.py --strict (Exit 0)"], "Result": "PASS"}
+Kurz: Ein konsistenter Fraktionsrahmen (vier externe Hauptfraktionen + lokale Novapolis + weitere Gruppen) ist als Reference-Dokument festgehalten. Zusätzlich gibt es eine Default-Wissensmatrix (Nordlinie/E3/C6-Nord) und eine klare Core/Reference/Narrative-Abgrenzung.
 
 2026-01-09 03:45 | Copilot | RP-SSOT: Linien/Logistik/Fortschritt konsolidiert
 Meta: {"Timestamp": "2026-01-09 03:45", "Files": ["novapolis-rp/database-rp/03-locations/C6.md", "novapolis-rp/database-rp/00-admin/Logistik.md", "novapolis-rp/database-rp/05-projects/Nordlinie-01.md", "novapolis-rp/database-rp/00-admin/memory-bundle.md"], "Commands": ["npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' (0 errors)", "python scripts/check_frontmatter.py novapolis-rp/database-rp (Exit 0)", "python scripts/checks_rp_consistency.py --strict (Exit 0)"], "Result": "PASS"}
