@@ -1,0 +1,9 @@
+{
+  "title": "Handelslog – Novapolis",
+  "category": "canon",
+  "slug": "handelslog_novapolis_v1",
+  "version": "0.1",
+  "status": "draft",
+  "tags": ["handel", "novapolis"],
+  "source": "database-rp/01-factions/novapolis/06-handel-diplomatie/Handelslog-Novapolis.md"
+}

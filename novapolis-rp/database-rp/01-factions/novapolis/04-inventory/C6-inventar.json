@@ -1,0 +1,13 @@
+{
+  "title": "C6 – Inventar",
+  "category": "inventory",
+  "slug": "c6-inventar",
+  "version": "0.1",
+  "last_updated": "2026-01-11T07:14:00+01:00",
+  "tags": [],
+  "affiliations": [
+    "novapolis"
+  ],
+  "dependencies": [],
+  "source": "database-rp/01-factions/novapolis/04-inventory/C6-inventar.md"
+}

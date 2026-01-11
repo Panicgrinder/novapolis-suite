@@ -1,0 +1,17 @@
+{
+  "title": "Eisenkonklave (Fraktion)",
+  "category": "faction",
+  "slug": "eisenkonklave",
+  "version": "0.1",
+  "status": "draft",
+  "tags": [
+    "fraktion",
+    "h12"
+  ],
+  "dependencies": [
+    "relationslog_eisenkonklave_v1",
+    "ai_behavior_index_v2",
+    "cluster_index_v1"
+  ],
+  "source": "database-rp/01-factions/eisenkonklave/Eisenkonklave.md"
+}

@@ -1,0 +1,13 @@
+{
+  "title": "D5",
+  "category": "location",
+  "slug": "d5",
+  "version": "1.0",
+  "last_updated": "2025-11-07T04:32:00+01:00",
+  "tags": [],
+  "affiliations": [
+    "novapolis"
+  ],
+  "dependencies": [],
+  "source": "database-rp/01-factions/novapolis/03-locations/D5.md"
+}

@@ -17,11 +17,11 @@ Graph (Knoten und Kanten)
 
 Knoten (SSOT)
 
-- [D5](../03-locations/D5.md) (Hauptbasis)
-- [Verbindungstunnel D5–C6](../03-locations/Verbindungstunnel-D5-C6.md)
-- [C6](../03-locations/C6.md) (Außenposten)
-- [Verbindungstunnel C6–E3](../03-locations/Verbindungstunnel-C6-E3.md)
-- [E3](../03-locations/E3.md) (evakuiert)
+- [D5](../01-factions/novapolis/03-locations/D5.md) (Hauptbasis)
+- [Verbindungstunnel D5–C6](../01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md)
+- [C6](../01-factions/novapolis/03-locations/C6.md) (Außenposten)
+- [Verbindungstunnel C6–E3](../01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.md)
+- [E3](../01-factions/novapolis/03-locations/E3.md) (evakuiert)
 
 Kanten (vereinfachtes Modell)
 

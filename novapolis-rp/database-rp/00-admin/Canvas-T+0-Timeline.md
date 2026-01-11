@@ -40,9 +40,9 @@ Sequenz (Tagesablauf)
 Marker (T+0) - Raster
 ---------------------
 - Beginn: [2025-10-27 07:00] - ATSD: A0-T+0-07:00-S0-D:small
-- Ereignis 1: Status-Ping D5/C6/Nordlinie (Links: [scene-2025-10-27-a](../06-scenes/scene-2025-10-27-a.md), [Nordlinie-01](../05-projects/Nordlinie-01.md))
-- Ereignis 2: Logistik-Check (Material/Bedarf/Absprachen, ohne neue Fakten) (Links: [Logistik](./Logistik.md), [Nordlinie-01](../05-projects/Nordlinie-01.md))
-- Ereignis 3: Sicherheits-/Risiko-Check (Tunnel/E3-Status, ohne neue Fakten) (Links: [C6](../03-locations/C6.md), [E3](../03-locations/E3.md))
+- Ereignis 1: Status-Ping D5/C6/Nordlinie (Links: [scene-2025-10-27-a](../06-scenes/scene-2025-10-27-a.md), [Nordlinie-01](../01-factions/novapolis/05-projects/Nordlinie-01.md))
+- Ereignis 2: Logistik-Check (Material/Bedarf/Absprachen, ohne neue Fakten) (Links: [Logistik](./Logistik.md), [Nordlinie-01](../01-factions/novapolis/05-projects/Nordlinie-01.md))
+- Ereignis 3: Sicherheits-/Risiko-Check (Tunnel/E3-Status, ohne neue Fakten) (Links: [C6](../01-factions/novapolis/03-locations/C6.md), [E3](../01-factions/novapolis/03-locations/E3.md))
 - Ereignis 4: Fokus-Entscheidung (Material-Run vs Laborphase vs Status-Ping) (Links: [scene-2025-10-27-a](../06-scenes/scene-2025-10-27-a.md))
 - Ende: [2025-10-27 10:00] - ATSD: A0-T+0-10:00-S1-D:mid
 
@@ -62,7 +62,7 @@ Links
 - [Reference: Campaign State](./Reference-Campaign-State.md)
 - [Missionslog](./Missionslog.md)
 - [Logistik (Admin)](./Logistik.md)
-- [C6 (Ort)](../03-locations/C6.md)
+- [C6 (Ort)](../01-factions/novapolis/03-locations/C6.md)
 - [C6 - Logistik-Policy](./C6-Logistik-Policy.md)
 
 Offene Fragen

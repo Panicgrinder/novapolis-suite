@@ -67,11 +67,11 @@ Sicherheit
 
 Verlinkungen
 ------------
-- Locations: [C6](../03-locations/C6.md)
+- Locations: [C6](../01-factions/novapolis/03-locations/C6.md)
 - Logistik-Canvas: [Logistik](./Logistik.md)
 - Missionslog: [Missionslog](./Missionslog.md)
 - Neutralgruppen: (geplant) `database-rp/00-admin/Neutralgruppen.md`
-- Karawanenbewegungen: (geplant) [caravan_moves](../05-projects/caravan_moves.md)
+- Karawanenbewegungen: (geplant) [caravan_moves](../01-factions/haendlerbund/05-projects/caravan_moves.md)
 
 Änderungen/Versionierung
 ------------------------

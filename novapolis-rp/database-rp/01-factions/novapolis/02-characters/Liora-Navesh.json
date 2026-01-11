@@ -1,0 +1,19 @@
+{
+  "title": "Liora Navesh",
+  "category": "character",
+  "slug": "liora-navesh",
+  "version": "0.9",
+  "last_updated": "2025-11-07T03:32:00+01:00",
+  "last_change": "Import aus RAW (char_liora_navesh_v1)",
+  "tags": [],
+  "affiliations": [
+    "novapolis"
+  ],
+  "primary_location": "d5",
+  "last_seen": "d5",
+  "dependencies": [
+    "d5",
+    "c6"
+  ],
+  "source": "database-rp/01-factions/novapolis/02-characters/Liora-Navesh.md"
+}

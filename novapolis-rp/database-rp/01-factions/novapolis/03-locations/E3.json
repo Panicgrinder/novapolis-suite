@@ -1,0 +1,15 @@
+{
+  "title": "E3",
+  "category": "location",
+  "slug": "e3",
+  "version": "1.0",
+  "last_updated": "2025-11-07T04:09:00+01:00",
+  "tags": [],
+  "affiliations": [
+    "novapolis"
+  ],
+  "dependencies": [
+    "verbindungstunnel-c6-e3"
+  ],
+  "source": "database-rp/01-factions/novapolis/03-locations/E3.md"
+}

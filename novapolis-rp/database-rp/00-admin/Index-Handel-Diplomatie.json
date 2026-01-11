@@ -1,0 +1,9 @@
+{
+  "title": "Index Handel & Diplomatie (Hub, v1)",
+  "category": "admin",
+  "slug": "index_handel_diplomatie_v1",
+  "version": "0.1",
+  "status": "draft",
+  "tags": ["handel", "diplomatie", "index"],
+  "source": "database-rp/00-admin/Index-Handel-Diplomatie.md"
+}

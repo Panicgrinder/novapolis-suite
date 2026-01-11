@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt.
-checks: keine
+stand: 2026-01-11 03:23
+update: FR-KNOWLEDGE und CANVAS-INDEX-STABILITY als FACT ergänzt (Tag-Abdeckung für uncertainties-Cleanup).
+checks: & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-curated\\staging\\reports\\resolved.md PASS (2026-01-11 03:23); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 03:23; RP-Staging-Reports ignored)
 ---
 
 Prequel Resolution Log
@@ -13,6 +13,11 @@ Prequel Resolution Log
 - Erstellt aus: `uncertainties.md` (Chunks part-011, part-022, part-003..001)
 
 Neue bestätigte Tatsachen werden hier als `[FACT]` dokumentiert und parallel aus `uncertainties.md` entfernt. Künftige `[FACT?]`-Markierungen werden nach Klärung ebenfalls hier ergänzt.
+
+Korrekturen / Namen
+-------------------
+
+- **[FACT] [NAME-RONJA]** (Charakter/Name): Kanon ist „Ronja Kerschner“. Vorkommen „Ronja Vallin“ gelten als fehlerhafte Quelle und werden beim Ingest normalisiert („Vallin“ → „Kerschner“) mit Review-Hinweis. Quellen: RAW-canvas-2025-10-16T11-45-00-000Z; `database-rp/02-characters/Ronja-Kerschner.md`.
 
 Fraktionen & Benennungen
 ------------------------
@@ -67,17 +72,17 @@ Energie & Inventar
 Charaktere & Mechaniken
 -----------------------
 
-- **[FACT?] [REFLEX]** (Mechanik - Review 2025-11-01): Reflex-Support-Modus verliert Bonus bei Überlastung und erhöht Verbrauch; Aktualisierung mit Trainingsstand notwendig. Quellen: part-011.
-- **[FACT?] [INSTANCES]** (Mechanik - Review 2025-11-01): Reflex-Instanzen teilen Kapazitätslogik (Masse ≈ Speicher), Hauptfähigkeiten variieren - Eigenentwicklung nach Abspaltung prüfen. Quellen: part-011.
+- **[FACT] [REFLEX]** (Mechanik): Support-/Exo-Verbrauch läuft über Symbiose-Energie (SE) mit Kosten leicht/mittel/stark; unter 25% `SE_max` entfallen Bonus/Verstärkungen; bei 0 Schonmodus. Quellen: SSOT Reference-Mechanik (`database-rp/00-admin/Reference-Campaign-State.md`), Curated-Review part-011.
+- **[FACT] [INSTANCES]** (Mechanik): Instanzen übernehmen bei Entstehung den Wissensstand als Snapshot, Persönlichkeit ist eigenständig; kein automatischer Wissensabgleich. SE-Pools bleiben getrennt. Quellen: SSOT Reference-Mechanik (`database-rp/00-admin/Reference-Campaign-State.md`), Curated-Review part-011.
 - **[FACT] [KNOWLEDGE]** (Mechanik/Wissen): Nur Reflex kennt seine vollen Fähigkeiten; Dritte sehen nur Beobachtbares. Quellen: part-011.
 - **[FACT] [GROWTH]** (Mechanik): Wachstum/Materialaufnahme folgt flächen-/massenbasierter Skalierung mit Energiebedarf, Sicherheitsvoraussetzungen und missions-/ereignisbasierten Upgrades. Quellen: #1735.
 - **[FACT] [UNIQUE]** (Lore): Reflex ist einzigartig; keine weiteren gleichen Entitäten in der Metro, nur Instanzen. Quellen: #1591; #1625.
-- **[FACT?] [PROXIMITY]** (Mechanik - Review 2025-11-01): Nähe zu Bezugsperson stabilisiert Lumen↔Jonas, Echo↔Kora, Reflex↔Ronja; Schwellenwerte und aktuelle Trainingsstände validieren. Quellen: #1625.
-- **[FACT?] [REFLEX-SPEECH]** (Mechanik - Review 2025-11-01): Sprechmechanik nutzt Tympanon-Andockung, Schallübertragung, erfordert Einwilligung - Dauer/Erschöpfung erneut bestätigen. Quellen: #1181; #1185.
-- **[FACT?] [REFLEX-CONTROL]** (Mechanik - Review 2025-11-01): Schutz-Übernahme besitzt definierte Trigger/Schwellen; Rückgabeprozess und Reaktionszeiten im Training überprüfen. Quellen: #1183-#1207.
+- **[FACT] [PROXIMITY]** (Mechanik): Proximity ist reale Distanz (situativ CALM/ALERT/CRISIS); Distanzfenster + Distanzfolgen + Training sind als Heuristik festgelegt; in CRISIS ist kurzfristiges Schutz-Override erlaubt. Quellen: SSOT Reference-Mechanik (`database-rp/00-admin/Reference-Campaign-State.md`), #1625.
+- **[FACT] [REFLEX-SPEECH]** (Mechanik): Zwei Kanäle (Privatkanal Ronja-only via Tympanon, Broadcast über Geräte), Consent-first, Notfall-Ping in CRISIS als kurzer Override; Belastung/Schonmodus-Heuristik festgelegt. Quellen: SSOT Reference-Mechanik (`database-rp/00-admin/Reference-Campaign-State.md`), #1181; #1185.
+- **[FACT] [REFLEX-CONTROL]** (Mechanik): Rückgabe/Entkopplung erst bei „Sicher“; „Stop“ ist Deeskalation (Druck runter), keine sofortige volle Entkopplung. Quellen: SSOT Reference-Mechanik (`database-rp/00-admin/Reference-Campaign-State.md`), #1183-#1207.
 - **[FACT] [REFLEX-APPEARANCE]** (Mechanik/Ästhetik): Erscheinungsbild metallisch-perlmutt mit Standardabdeckung; Handschutzkriterien dokumentieren. Quellen: #1057; #1087.
-- **[FACT?] [REFLEX-DETACH]** (Mechanik - Review 2025-11-01): Keine vollständige Trennung von Ronja; Strecken/Seestern-Bewegung als Sonderfall - Grenzen erneut testen. Quellen: #1059; #847-#848.
-- **[FACT?] [JEALOUSY-GLOVES]** (Mechanik/Policy - Review 2025-11-01): Reflex-Handschutz hat Priorität; externe Handschuhe nur mit Freigabe - aktuelle Freigabelogik prüfen. Quellen: #1087.
+- **[FACT] [REFLEX-DETACH]** (Mechanik): Primärinstanz bleibt immer mit Ronjas Körper verbunden; Instanzen dürfen in sicheren Kontexten kurz lokal ohne Dauer-Körperkontakt agieren (mit erhöhtem SE-Verbrauch). Quellen: SSOT Reference-Mechanik (`database-rp/00-admin/Reference-Campaign-State.md`), #1059; #847-#848.
+- **[FACT] [JEALOUSY-GLOVES]** (Mechanik/Policy): Kontakt-Guard erlaubt (Schutzschicht auf betroffener Körperstelle), consent-first, „Stop“ beendet sofort; externe Handschuhe als Arbeits-/Witterungsschutz ok. Quellen: SSOT Reference-Mechanik (`database-rp/00-admin/Reference-Campaign-State.md`), #1087.
 - **[FACT] [CARAVAN-LEADERSHIP]** (Charakter/Rollen): Kora leitet Logistik (intern), Marven Kael führt Konvoi/Handel (extern), Arlen Dross bleibt Händler/Vermittler. Quellen: RAW-canvas-2025-10-16T14-56-00-000Z; RAW-canvas-2025-10-16T14-56-10-000Z; RAW-canvas-2025-10-16T14-56-20-000Z.
 - **[FACT] [JONAS-SIS]** (Charakter/Lore): Jonas' Schwester bleibt vermisst/unklar; kein Todesnachweis, non-canon Schuldflag normalisieren. Quellen: #717-#721; RAW-canvas-2025-10-16T14-12-00-000Z.
 - **[FACT] [PAHL-RESCUE]** (Charakter/Lore): Pahl überlebte als Einziger den Reaktorunfall in C6; Ronja und Reflex stabilisierten die Anlage und retteten ihn, Jonas brachte ihn anschließend nach D5 und überwacht die Rekonvaleszenz. Quellen: chat-export (1) part-018 (Abschnitt „einziger Überlebender… in C6“), part-009 („...noch verletzt ist von dem defekten Reaktor damals in C6“), Memory-Bundle.
@@ -101,6 +106,7 @@ Canvas & Verwaltung - Struktur & Inhalte
 Canvas & Verwaltung - Prozesse & Policies
 -----------------------------------------
 
+- **[FACT] [CANVAS-INDEX-STABILITY]** (Prozess): Canvas strikt per ID/Schlüssel adressieren (nicht per Index). Bei Änderungen versionierte Neu-Anlage statt Überschreiben, um Drift/False-Overwrite zu vermeiden. Quellen: #261-#266; #301-#306.
 - **[FACT] [DAYSWITCH]** (Prozess): Tageswechsel-Reihenfolge: alles laden → prüfen → wechseln → archivieren; Fehler-/Rollback-Regeln verbindlich. Quellen: #1751-#1755.
 - **[FACT] [ATSD]** (Prozess): ATSD-Format steht für Aktiv, Total, System, Defekt; einheitliche Strings verwenden. Quellen: #1704; #1751.
 - **[FACT] [COUNTS]** (Prozess): Nicht-archivierte Canvas aktiv geladen; Systemmeldungen geben letzten gültigen ATSD-String aus, Debug-Mode optional mit erweiterten Angaben. Quellen: #1609-#1613; #1660-#1662.
@@ -115,6 +121,7 @@ Canvas & Verwaltung - Prozesse & Policies
 - **[FACT] [COMMS-RANGE]** (Policy): Funkreichweite folgt Infrastruktur/Linien; D5↔C6 schwach aber vorhanden, Booster möglich; Querlinien stark gedämpft. Quellen: #1087-#1088; #911.
 - **[FACT] [PROC-3STEP]** (Policy): Dreistufiger Prozess vor Tagesabschluss: Analysieren → Backups → neue Version → Archiv mit definierten Prüfpunkten. Quellen: #1221; #1279-#1284.
 - **[FACT] [SECRECY]** (Policy): Außenfraktionen kennen Novapolis/D5 nicht; Wissensmatrix entsprechend pflegen. Quellen: #1261-#1264; #368-#376; #1033-#1035.
+- **[FACT] [FR-KNOWLEDGE]** (Policy/Wissen): Knowledge-Guard für Außenfraktionen: Novapolis/D5/Reflex bleiben unbekannt; Korrekturen folgen der Wissensmatrix und entsprechen der SECRECY-Policy. Quellen: #368-#376; #1033-#1035; #1039.
 - **[FACT] [ARCHIVE-MISSIONS]** (Prozess): Missionsabschluss: Status setzen → Inventarabschluss → Verlinkungen (Logistik/Missionen) → Archivierung. Quellen: #1291-#1306.
 - **[FACT] [NEUTRAL]** (Canvas/Policy): Canvas "Neutralgruppen" mit Untereinträgen zählt für Wochenzüge. Quellen: #1419.
 - **[FACT] [MEETING]** (Prozess): Sitzungsablauf: Intro → Wissensabgleich → Berichte → Entscheidungen; Systemausgaben vor RP bestätigen. Quellen: #1453-#1459.

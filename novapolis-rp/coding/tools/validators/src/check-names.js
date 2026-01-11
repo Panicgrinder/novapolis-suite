@@ -32,6 +32,7 @@ async function main() {
   const patterns = [
     '00-admin/**/*',
     '01-canon/**/*',
+    '01-factions/**/*',
     '02-characters/**/*',
     '03-locations/**/*',
     '04-inventory/**/*',

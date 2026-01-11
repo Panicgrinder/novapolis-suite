@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-08 12:29
-update: Review-Stub für chat-export-complete ergänzt.
-checks: pending
+stand: 2026-01-11 03:35
+update: Review-Stub: checks aktualisiert; Basis-Stabilisierung (verify-first) fortgesetzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 03:35); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-curated\staging\chat-export-complete.review.md PASS (2026-01-11 03:35)
 ---
 
 Review: chat-export-complete

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-19 11:00
-update: Start Priorität-0 Arbeit: Temp-Pfade konsolidieren (Scan + Plan)
-checks: TODO‑Liste angelegt; Repo‑Suche nach Legacy‑Pfaden ausgeführt; Core‑files verifiziert
+stand: 2026-01-11 04:06
+update: checks-Receipt nachgezogen (Archiv-Postflight konsistent zu Governance).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 04:06); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev\archive\docs\donelogs\postflight_cleanup_step1_20251119_1100.md PASS (2026-01-11 04:06)
 ---
 
 # Postflight: Cleanup TODO v2 — Schritt 1

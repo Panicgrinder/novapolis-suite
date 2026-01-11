@@ -13,74 +13,74 @@
   ],
   "characters": [
     {
-      "md": "database-rp/02-characters/Echo-Wissensstand-Trainingsstand.md",
-      "json": "database-rp/02-characters/Echo-Wissensstand-Trainingsstand.json"
+      "md": "database-rp/01-factions/novapolis/02-characters/Echo-Wissensstand-Trainingsstand.md",
+      "json": "database-rp/01-factions/novapolis/02-characters/Echo-Wissensstand-Trainingsstand.json"
     },
     {
-      "md": "database-rp/02-characters/Echo.md",
-      "json": "database-rp/02-characters/Echo.json"
+      "md": "database-rp/01-factions/novapolis/02-characters/Echo.md",
+      "json": "database-rp/01-factions/novapolis/02-characters/Echo.json"
     },
     {
-      "md": "database-rp/02-characters/Jonas-Merek.md",
-      "json": "database-rp/02-characters/Jonas-Merek.json"
+      "md": "database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md",
+      "json": "database-rp/01-factions/novapolis/02-characters/Jonas-Merek.json"
     },
     {
-      "md": "database-rp/02-characters/Kora-Malenkov.md",
-      "json": "database-rp/02-characters/Kora-Malenkov.json"
+      "md": "database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md",
+      "json": "database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.json"
     },
     {
-      "md": "database-rp/02-characters/Marei.md",
-      "json": "database-rp/02-characters/Marei.json"
+      "md": "database-rp/01-factions/novapolis/02-characters/Marei.md",
+      "json": "database-rp/01-factions/novapolis/02-characters/Marei.json"
     },
     {
-      "md": "database-rp/02-characters/Lumen-Wissensstand-Trainingsstand.md",
-      "json": "database-rp/02-characters/Lumen-Wissensstand-Trainingsstand.json"
+      "md": "database-rp/01-factions/novapolis/02-characters/Lumen-Wissensstand-Trainingsstand.md",
+      "json": "database-rp/01-factions/novapolis/02-characters/Lumen-Wissensstand-Trainingsstand.json"
     },
     {
-      "md": "database-rp/02-characters/Lumen.md",
-      "json": "database-rp/02-characters/Lumen.json"
+      "md": "database-rp/01-factions/novapolis/02-characters/Lumen.md",
+      "json": "database-rp/01-factions/novapolis/02-characters/Lumen.json"
     },
     {
-      "md": "database-rp/02-characters/Lyra-Hest.md",
-      "json": "database-rp/02-characters/Lyra-Hest.json"
+      "md": "database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md",
+      "json": "database-rp/01-factions/novapolis/02-characters/Lyra-Hest.json"
     },
     {
-      "md": "database-rp/02-characters/Reflex-Wissensstand-Trainingsstand.md",
-      "json": "database-rp/02-characters/Reflex-Wissensstand-Trainingsstand.json"
+      "md": "database-rp/01-factions/novapolis/02-characters/Reflex-Wissensstand-Trainingsstand.md",
+      "json": "database-rp/01-factions/novapolis/02-characters/Reflex-Wissensstand-Trainingsstand.json"
     },
     {
-      "md": "database-rp/02-characters/Reflex.md",
-      "json": "database-rp/02-characters/Reflex.json"
+      "md": "database-rp/01-factions/novapolis/02-characters/Reflex.md",
+      "json": "database-rp/01-factions/novapolis/02-characters/Reflex.json"
     },
     {
-      "md": "database-rp/02-characters/Ronja-Kerschner.md",
-      "json": "database-rp/02-characters/Ronja-Kerschner.json"
+      "md": "database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md",
+      "json": "database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.json"
     },
     {
-      "md": "database-rp/02-characters/Senn-Daru.md",
-      "json": "database-rp/02-characters/Senn-Daru.json"
+      "md": "database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md",
+      "json": "database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.json"
     }
   ],
   "locations": [
     {
-      "md": "database-rp/03-locations/C6.md",
-      "json": "database-rp/03-locations/C6.json"
+      "md": "database-rp/01-factions/novapolis/03-locations/C6.md",
+      "json": "database-rp/01-factions/novapolis/03-locations/C6.json"
     },
     {
-      "md": "database-rp/03-locations/D5.md",
-      "json": "database-rp/03-locations/D5.json"
+      "md": "database-rp/01-factions/novapolis/03-locations/D5.md",
+      "json": "database-rp/01-factions/novapolis/03-locations/D5.json"
     },
     {
-      "md": "database-rp/03-locations/E3.md",
-      "json": "database-rp/03-locations/E3.json"
+      "md": "database-rp/01-factions/novapolis/03-locations/E3.md",
+      "json": "database-rp/01-factions/novapolis/03-locations/E3.json"
     },
     {
-      "md": "database-rp/03-locations/Verbindungstunnel-D5-C6.md",
-      "json": "database-rp/03-locations/Verbindungstunnel-D5-C6.json"
+      "md": "database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md",
+      "json": "database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.json"
     },
     {
-      "md": "database-rp/03-locations/Verbindungstunnel-C6-E3.md",
-      "json": "database-rp/03-locations/Verbindungstunnel-C6-E3.json"
+      "md": "database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.md",
+      "json": "database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.json"
     }
   ],
   "other": [
@@ -125,40 +125,140 @@
       "json": "database-rp/00-admin/system-prompt.json"
     },
     {
-      "md": "database-rp/04-inventory/Arkologie-inventar.md",
-      "json": "database-rp/04-inventory/Arkologie-inventar.json"
+      "md": "database-rp/01-factions/arkologie-a1/04-inventory/Arkologie-inventar.md",
+      "json": "database-rp/01-factions/arkologie-a1/04-inventory/Arkologie-inventar.json"
     },
     {
-      "md": "database-rp/04-inventory/D5-inventar.md",
-      "json": "database-rp/04-inventory/D5-inventar.json"
+      "md": "database-rp/01-factions/novapolis/04-inventory/D5-inventar.md",
+      "json": "database-rp/01-factions/novapolis/04-inventory/D5-inventar.json"
     },
     {
-      "md": "database-rp/04-inventory/Eiserne-Enklave-inventar.md",
-      "json": "database-rp/04-inventory/Eiserne-Enklave-inventar.json"
+      "md": "database-rp/01-factions/novapolis/04-inventory/C6-inventar.md",
+      "json": "database-rp/01-factions/novapolis/04-inventory/C6-inventar.json"
+    },
+    {
+      "md": "database-rp/01-factions/eisenkonklave/04-inventory/Eiserne-Enklave-inventar.md",
+      "json": "database-rp/01-factions/eisenkonklave/04-inventory/Eiserne-Enklave-inventar.json"
     },
     {
       "md": "database-rp/04-inventory/Freie-Gruppen-inventar.md",
       "json": "database-rp/04-inventory/Freie-Gruppen-inventar.json"
     },
     {
-      "md": "database-rp/04-inventory/Haendlerbund-inventar.md",
-      "json": "database-rp/04-inventory/Haendlerbund-inventar.json"
+      "md": "database-rp/01-factions/haendlerbund/04-inventory/Haendlerbund-inventar.md",
+      "json": "database-rp/01-factions/haendlerbund/04-inventory/Haendlerbund-inventar.json"
     },
     {
-      "md": "database-rp/04-inventory/Novapolis-inventar.md",
-      "json": "database-rp/04-inventory/Novapolis-inventar.json"
+      "md": "database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md",
+      "json": "database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.json"
     },
     {
-      "md": "database-rp/04-inventory/Schienenbund-inventar.md",
-      "json": "database-rp/04-inventory/Schienenbund-inventar.json"
+      "md": "database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md",
+      "json": "database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.json"
     },
     {
-      "md": "database-rp/05-projects/caravan_moves.md",
-      "json": "database-rp/05-projects/caravan_moves.json"
+      "md": "database-rp/01-factions/haendlerbund/05-projects/caravan_moves.md",
+      "json": "database-rp/01-factions/haendlerbund/05-projects/caravan_moves.json"
     },
     {
-      "md": "database-rp/05-projects/Nordlinie-01.md",
-      "json": "database-rp/05-projects/Nordlinie-01.json"
+      "md": "database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md",
+      "json": "database-rp/01-factions/novapolis/05-projects/Nordlinie-01.json"
+    },
+    {
+      "md": "database-rp/00-admin/Index-Handel-Diplomatie.md",
+      "json": "database-rp/00-admin/Index-Handel-Diplomatie.json"
+    },
+    {
+      "md": "database-rp/00-admin/Index-Haendlergilde.md",
+      "json": "database-rp/00-admin/Index-Haendlergilde.json"
+    },
+    {
+      "md": "database-rp/01-factions/novapolis/06-handel-diplomatie/README.md",
+      "json": "database-rp/01-factions/novapolis/06-handel-diplomatie/README.json"
+    },
+    {
+      "md": "database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md",
+      "json": "database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.json"
+    },
+    {
+      "md": "database-rp/01-factions/novapolis/06-handel-diplomatie/Handelslog-Novapolis.md",
+      "json": "database-rp/01-factions/novapolis/06-handel-diplomatie/Handelslog-Novapolis.json"
+    },
+    {
+      "md": "database-rp/01-factions/eisenkonklave/06-handel-diplomatie/README.md",
+      "json": "database-rp/01-factions/eisenkonklave/06-handel-diplomatie/README.json"
+    },
+    {
+      "md": "database-rp/01-factions/eisenkonklave/06-handel-diplomatie/Relationslog-Eisenkonklave.md",
+      "json": "database-rp/01-factions/eisenkonklave/06-handel-diplomatie/Relationslog-Eisenkonklave.json"
+    },
+    {
+      "md": "database-rp/01-factions/eisenkonklave/06-handel-diplomatie/Handelslog-Eisenkonklave.md",
+      "json": "database-rp/01-factions/eisenkonklave/06-handel-diplomatie/Handelslog-Eisenkonklave.json"
+    },
+    {
+      "md": "database-rp/01-factions/haendlerbund/06-handel-diplomatie/README.md",
+      "json": "database-rp/01-factions/haendlerbund/06-handel-diplomatie/README.json"
+    },
+    {
+      "md": "database-rp/01-factions/haendlerbund/06-handel-diplomatie/Relationslog-Haendlerbund.md",
+      "json": "database-rp/01-factions/haendlerbund/06-handel-diplomatie/Relationslog-Haendlerbund.json"
+    },
+    {
+      "md": "database-rp/01-factions/haendlerbund/06-handel-diplomatie/Handelslog-Haendlerbund.md",
+      "json": "database-rp/01-factions/haendlerbund/06-handel-diplomatie/Handelslog-Haendlerbund.json"
+    },
+    {
+      "md": "database-rp/01-factions/haendlerbund/06-handel-diplomatie/Handel-Diplomatie-Haendlergilde.md",
+      "json": "database-rp/01-factions/haendlerbund/06-handel-diplomatie/Handel-Diplomatie-Haendlergilde.json"
+    },
+    {
+      "md": "database-rp/01-factions/arkologie-a1/06-handel-diplomatie/README.md",
+      "json": "database-rp/01-factions/arkologie-a1/06-handel-diplomatie/README.json"
+    },
+    {
+      "md": "database-rp/01-factions/arkologie-a1/06-handel-diplomatie/Relationslog-Arkologie-A1.md",
+      "json": "database-rp/01-factions/arkologie-a1/06-handel-diplomatie/Relationslog-Arkologie-A1.json"
+    },
+    {
+      "md": "database-rp/01-factions/arkologie-a1/06-handel-diplomatie/Handelslog-Arkologie-A1.md",
+      "json": "database-rp/01-factions/arkologie-a1/06-handel-diplomatie/Handelslog-Arkologie-A1.json"
+    },
+    {
+      "md": "database-rp/01-factions/schattenbund/06-handel-diplomatie/README.md",
+      "json": "database-rp/01-factions/schattenbund/06-handel-diplomatie/README.json"
+    },
+    {
+      "md": "database-rp/01-factions/schattenbund/06-handel-diplomatie/Relationslog-Schattenbund.md",
+      "json": "database-rp/01-factions/schattenbund/06-handel-diplomatie/Relationslog-Schattenbund.json"
+    },
+    {
+      "md": "database-rp/01-factions/schattenbund/06-handel-diplomatie/Handelslog-Schattenbund.md",
+      "json": "database-rp/01-factions/schattenbund/06-handel-diplomatie/Handelslog-Schattenbund.json"
+    },
+    {
+      "md": "database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/README.md",
+      "json": "database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/README.json"
+    },
+    {
+      "md": "database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Relationslog-Fluesterkollektiv.md",
+      "json": "database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Relationslog-Fluesterkollektiv.json"
+    },
+    {
+      "md": "database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.md",
+      "json": "database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.json"
+    },
+    {
+      "md": "database-rp/01-factions/schienenbund/06-handel-diplomatie/README.md",
+      "json": "database-rp/01-factions/schienenbund/06-handel-diplomatie/README.json"
+    },
+    {
+      "md": "database-rp/01-factions/schienenbund/06-handel-diplomatie/Relationslog-Schienenbund.md",
+      "json": "database-rp/01-factions/schienenbund/06-handel-diplomatie/Relationslog-Schienenbund.json"
+    },
+    {
+      "md": "database-rp/01-factions/schienenbund/06-handel-diplomatie/Handelslog-Schienenbund.md",
+      "json": "database-rp/01-factions/schienenbund/06-handel-diplomatie/Handelslog-Schienenbund.json"
     }
   ],
   "last_update": "2025-10-28T03:02:38.157877+00:00"

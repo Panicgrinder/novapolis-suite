@@ -24,9 +24,9 @@ function indexByBasename(files) {
 async function main() {
   try {
     const [characterFiles, locationFiles, inventoryFiles, sceneFiles] = await Promise.all([
-      fg(['02-characters/*.md'], { cwd: rpRoot, absolute: true }),
-      fg(['03-locations/*.md'], { cwd: rpRoot, absolute: true }),
-      fg(['04-inventory/*.md'], { cwd: rpRoot, absolute: true }),
+      fg(['02-characters/*.md', '01-factions/*/02-characters/*.md'], { cwd: rpRoot, absolute: true }),
+      fg(['03-locations/*.md', '01-factions/*/03-locations/*.md'], { cwd: rpRoot, absolute: true }),
+      fg(['04-inventory/*.md', '01-factions/*/04-inventory/*.md'], { cwd: rpRoot, absolute: true }),
       fg(['06-scenes/*.md'], { cwd: rpRoot, absolute: true })
     ]);
 

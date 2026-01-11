@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 07:22
-update: Single-Root Hinweise & Statusdokumente nachgezogen
-checks: keine
+stand: 2026-01-11 04:08
+update: checks-Receipt nachgezogen (Basis-Stabilisierung).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 04:08); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py README.md novapolis_agent\README.md PASS (2026-01-11 04:08)
 ---
 Novapolis Suite
 ===============

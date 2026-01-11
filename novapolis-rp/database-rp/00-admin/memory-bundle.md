@@ -30,25 +30,25 @@ Kanon
 
 Charaktere
 ----------
-- Ronja Kerschner: Technikerin, Kernfigur der D5-Stabilisierung. (Details: [Ronja-Kerschner](../02-characters/Ronja-Kerschner.md))
-- Reflex: emergentes Netz-/Symbiosewesen aus der D5-Reaktor-Stabilisierung; Instanzen/Fragmente möglich (Lumen, Echo). (Details: [Reflex](../02-characters/Reflex.md))
-- Jonas Merek: Mechaniker/Logistik; kam über Verbindungstunnel; grundsätzlich vertrauenswürdig, bleibt in Beobachtung. (Details: [Jonas-Merek](../02-characters/Jonas-Merek.md))
-- Pahl: Leittechniker; Überlebender des C6-Reaktorereignisses, in Pflege/Reha. (Details: [Pahl](../02-characters/Pahl.md))
-- Marei: ehem. Leitung E3; heute C6-Organisation/Logistik (Stellvertretung). (Details: [Marei](../02-characters/Marei.md))
+- Ronja Kerschner: Technikerin, Kernfigur der D5-Stabilisierung. (Details: [Ronja-Kerschner](../01-factions/novapolis/02-characters/Ronja-Kerschner.md))
+- Reflex: emergentes Netz-/Symbiosewesen aus der D5-Reaktor-Stabilisierung; Instanzen/Fragmente möglich (Lumen, Echo). (Details: [Reflex](../01-factions/novapolis/02-characters/Reflex.md))
+- Jonas Merek: Mechaniker/Logistik; kam über Verbindungstunnel; grundsätzlich vertrauenswürdig, bleibt in Beobachtung. (Details: [Jonas-Merek](../01-factions/novapolis/02-characters/Jonas-Merek.md))
+- Pahl: Leittechniker; Überlebender des C6-Reaktorereignisses, in Pflege/Reha. (Details: [Pahl](../01-factions/novapolis/02-characters/Pahl.md))
+- Marei: ehem. Leitung E3; heute C6-Organisation/Logistik (Stellvertretung). (Details: [Marei](../01-factions/novapolis/02-characters/Marei.md))
 
 Orte
 ----
-- D5: Hauptbasis. (Details: [D5](../03-locations/D5.md))
-- C6: Außenposten/Teilaktiv. (Details: [C6](../03-locations/C6.md))
-- E3: evakuiert; Risiko/Anomalie offen. (Details: [E3](../03-locations/E3.md))
-- Verbindung D5–C6: Projekt „Nordlinie 01“. (Details: [Verbindungstunnel-D5-C6](../03-locations/Verbindungstunnel-D5-C6.md), [Nordlinie-01](../05-projects/Nordlinie-01.md))
-- Verbindung C6–E3: C6-seitig gesichert; Status E3-Ende unklar/risikobehaftet. (Details: [Verbindungstunnel-C6-E3](../03-locations/Verbindungstunnel-C6-E3.md))
+- D5: Hauptbasis. (Details: [D5](../01-factions/novapolis/03-locations/D5.md))
+- C6: Außenposten/Teilaktiv. (Details: [C6](../01-factions/novapolis/03-locations/C6.md))
+- E3: evakuiert; Risiko/Anomalie offen. (Details: [E3](../01-factions/novapolis/03-locations/E3.md))
+- Verbindung D5–C6: Projekt „Nordlinie 01“. (Details: [Verbindungstunnel-D5-C6](../01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md), [Nordlinie-01](../01-factions/novapolis/05-projects/Nordlinie-01.md))
+- Verbindung C6–E3: C6-seitig gesichert; Status E3-Ende unklar/risikobehaftet. (Details: [Verbindungstunnel-C6-E3](../01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.md))
 
 Projekte
 --------
 
-- Nordlinie 01: Wiederinbetriebnahme des Verbindungstunnels D5–C6; Fortschritt wird getrennt berichtet (Erkundung/Sicherung/Betrieb). (Details: [Nordlinie-01](../05-projects/Nordlinie-01.md))
-- E3: Reaktivierung ist offen; Warnmeldungen/Anomalie müssen geklärt werden. (Details: [E3](../03-locations/E3.md))
+- Nordlinie 01: Wiederinbetriebnahme des Verbindungstunnels D5–C6; Fortschritt wird getrennt berichtet (Erkundung/Sicherung/Betrieb). (Details: [Nordlinie-01](../01-factions/novapolis/05-projects/Nordlinie-01.md))
+- E3: Reaktivierung ist offen; Warnmeldungen/Anomalie müssen geklärt werden. (Details: [E3](../01-factions/novapolis/03-locations/E3.md))
 
 Offene Fäden (Core-kurz)
 ------------------------

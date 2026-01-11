@@ -284,9 +284,27 @@ def audit_rp(
     scenes_dir = (rp_root / "06-scenes").resolve()
 
     # pre-index for crossrefs
-    idx_char = {p.stem for p in (rp_root / "02-characters").glob("*.md")}
-    idx_loc = {p.stem for p in (rp_root / "03-locations").glob("*.md")}
-    idx_inv = {p.stem for p in (rp_root / "04-inventory").glob("*.md")}
+    idx_char = {
+        p.stem
+        for p in (
+            list((rp_root / "02-characters").glob("*.md"))
+            + list((rp_root / "01-factions").glob("*/02-characters/*.md"))
+        )
+    }
+    idx_loc = {
+        p.stem
+        for p in (
+            list((rp_root / "03-locations").glob("*.md"))
+            + list((rp_root / "01-factions").glob("*/03-locations/*.md"))
+        )
+    }
+    idx_inv = {
+        p.stem
+        for p in (
+            list((rp_root / "04-inventory").glob("*.md"))
+            + list((rp_root / "01-factions").glob("*/04-inventory/*.md"))
+        )
+    }
 
     with log_path.open("w", encoding=LOG_ENCODING) as lh:
         lh.write(f"RepoRoot: {repo_root}\n")

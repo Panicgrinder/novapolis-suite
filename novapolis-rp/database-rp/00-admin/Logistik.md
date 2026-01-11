@@ -76,8 +76,8 @@ Verlinkungen
 - [C6 - Logistik-Policy](./C6-Logistik-Policy.md)
 - [Admin: Day-Switch & Debug](./Canvas-Admin-Day-Switch-Debug.md)
 - [Admin: Timeline (T+0)](./Canvas-T+0-Timeline.md)
-- [Projekt: Nordlinie 01](../05-projects/Nordlinie-01.md)
-- [Projekt: Karawanenbewegungen](../05-projects/caravan_moves.md)
-- [D5](../03-locations/D5.md), [C6](../03-locations/C6.md)
+- [Projekt: Nordlinie 01](../01-factions/novapolis/05-projects/Nordlinie-01.md)
+- [Projekt: Karawanenbewegungen](../01-factions/haendlerbund/05-projects/caravan_moves.md)
+- [D5](../01-factions/novapolis/03-locations/D5.md), [C6](../01-factions/novapolis/03-locations/C6.md)
 
 

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Stub → Inhalt zum Hub verlagert
-checks: pending
+stand: 2026-01-11 03:35
+update: Staging-Stub: checks aktualisiert; Basis-Stabilisierung (verify-first) fortgesetzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 03:35); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-curated\staging\README.md PASS (2026-01-11 03:35)
 ---
 
 Staging Leitfaden (Stub)

@@ -45,7 +45,7 @@ Aktiv
 - Belege/Quittungen: tbd
 - Verantwortliche: tbd
 - Inventar-Link: tbd
-- Orte/Projekte: [C6](../03-locations/C6.md)
+- Orte/Projekte: [C6](../01-factions/novapolis/03-locations/C6.md)
 
 ### Anomalie: Verbindungstunnel D5-C6
 - Ziel: Anomalie detektieren, Sicherung, Einfluss auf Bau/Verkehr
@@ -55,7 +55,7 @@ Aktiv
 - Belege/Quittungen: [scene-2025-10-27-a](../06-scenes/scene-2025-10-27-a.md)
 - Verantwortliche: tbd
 - Inventar-Link: tbd
-- Orte/Projekte: [Verbindungstunnel D5-C6](../03-locations/Verbindungstunnel-D5-C6.md)
+- Orte/Projekte: [Verbindungstunnel D5-C6](../01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md)
 
 ### Monitoring: C6-Überwachung (Auswertung)
 - Ziel: Monitoring-/Überwachungsdaten sichten, Signal/Rauschen trennen, Risiken priorisieren
@@ -65,7 +65,7 @@ Aktiv
 - Belege/Quittungen: [scene-2025-10-27-b](../06-scenes/scene-2025-10-27-b.md)
 - Verantwortliche: tbd
 - Inventar-Link: -
-- Orte/Projekte: [C6](../03-locations/C6.md)
+- Orte/Projekte: [C6](../01-factions/novapolis/03-locations/C6.md)
 
 ### Anomalie: E3-Gefahr?
 - Ziel: Quelle und Wirkung klären; Monitoring etablieren
@@ -86,7 +86,7 @@ Aktiv
 - Belege/Quittungen: [scene-2025-10-27-c](../06-scenes/scene-2025-10-27-c.md)
 - Verantwortliche: tbd
 - Inventar-Link: tbd
-- Orte/Projekte: [Nordlinie-01](../05-projects/Nordlinie-01.md)
+- Orte/Projekte: [Nordlinie-01](../01-factions/novapolis/05-projects/Nordlinie-01.md)
 
 ---
 
@@ -101,7 +101,7 @@ Abgeschlossen
 - Belege/Quittungen: tbd
 - Verantwortliche: tbd
 - Inventar-Link: tbd
-- Orte/Projekte: [C6](../03-locations/C6.md)
+- Orte/Projekte: [C6](../01-factions/novapolis/03-locations/C6.md)
 
 ### Aufnahme von Jonas
 - Ziel: Aufnahme/Integration
@@ -111,6 +111,6 @@ Abgeschlossen
 - Belege/Quittungen: tbd
 - Verantwortliche: tbd
 - Inventar-Link: tbd
-- Orte/Projekte: [C6](../03-locations/C6.md)
+- Orte/Projekte: [C6](../01-factions/novapolis/03-locations/C6.md)
 
 
