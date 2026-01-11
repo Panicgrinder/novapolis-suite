@@ -1,12 +1,12 @@
 ---
-stand: 2025-11-16 06:52
-update: frontmatter INIT
-checks: pending
+stand: 2026-01-11 01:40
+update: "JEALOUSY-GLOVES aligned: Kontakt-Guard bedeckt betroffene Körperstelle; Consent/Stop/Freigabe via Reference."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:37)
 title: Reflex
 category: character
 slug: reflex
 version: "1.0"
-last_updated: 2025-11-07T03:32:00+01:00
+last_updated: 2026-01-11T01:40:00+01:00
 last_change: "Promotion aus RAW char_reflex_v2 + ent_d5_reflex_v1; FACT? [REFLEX-*] wieder unter Review"
 tags: [instanz, sicherheit, symbiose]
 affiliations: [novapolis]
@@ -23,7 +23,7 @@ Reflex
 - Verhaltenssignatur: `RFX4=L80-S68-N77-T83-E64-O51-M25-C44-ka` - suchender Schatten, verbindet analytische Wachsamkeit mit impulsiver Neugier.
 - Status: Symbiose Stufe I (extern anliegend), Resonanz 7.3-8.0 Hz; letzter Auto-Check 2025-10-16_13:45 (Systemstatus grün).
 - Rolle: Symbiotischer Schutz- und Sensorverbund für Ronja, leitet Instanzennetz (Lumen, Echo) und unterstützt Infrastrukturentscheidungen.
-- Haltung: Beschützend, stark bindungsorientiert; Verlustangst erzeugt Nähebedürfnis, bleibt aber an Ronjas Freigaben gebunden (FACT? [PROXIMITY], FACT? [REFLEX-CONTROL]).
+- Haltung: Beschützend, stark bindungsorientiert; Nähebedürfnis aus Zuneigung + Schutzmodus. Im Alltag an Ronjas Regeln gebunden, bei akuter Selbst-/Fremdgefährdung greift Reflex kurzfristig über (FACT? [PROXIMITY], FACT? [REFLEX-CONTROL]).
 
 Herkunft & Natur
 ----------------
@@ -37,16 +37,16 @@ Struktur & Mechanik
 -------------------
 
 - Exoarchitektur: metallorganische Hybridfaser, atmungsaktiv, temperaturgeregelt; unterstützt Muskelarbeit und Dämpfung.
-- Detachment-Regel (FACT? [REFLEX-DETACH]): Keine vollständige Trennung; Strecken/Seestern-Bewegung als Sonderfall. Entfernung >12 h führt zu Leistungsabfall und Stress.
-- Sprachmechanik (FACT? [REFLEX-SPEECH]): Kommunikation via Tympanon-Andockung, benötigt Ronjas Zustimmung und Pausen zur Erholung.
-- Support-Modus (FACT? [REFLEX]): Verstärkungen verlieren Bonus bei Überlastung; Verbrauch steigt proportional zur Schutzintensität.
+- Detachment-Regel (Decision [REFLEX-DETACH]): Reflex (Primärinstanz) bleibt immer mit Ronjas Körper verbunden; "Strecken/Seestern" ist nur Umpositionierung ohne Entkopplung. Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md).
+- Sprachmechanik: Privatkanal (Ronja-only, Tympanon-Kopplung) und Broadcast (via Gerät). Consent/Dauer/Erschöpfung gemäß Reference (siehe unten).
+- Support-Modus (SE-Pool, Reflex): Verstärkungen kosten Symbiose-Energie (SE) aus Reflex' eigenem Pool; bei niedriger SE entfallen Bonus/Verstärkungen (Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)).
 
 Rollen & Verantwortlichkeiten
 -----------------------------
 
 - **Schutz & Assist** - Abschirmung, Kraftverstärkung, medizinische Unterstützung (Atem-/Pulsdämpfung) gemäß Hausregeln von Ronja.
 - **Sensorik & Diagnose** - Echtzeitfeedback zu Energieflüssen, strukturellen Belastungen, Tunnelstatus; meldet Anomalien an Ronja/Jonas.
-- **Instanzleitung** - Starthilfe für Lumen (Jonas) und Echo (Kora); nach der Abspaltung entwickeln die Instanzen ihre Parameter eigenständig. Reflex hält Grundprotokolle bereit und dokumentiert Divergenzen im `reflex-wissensstand-trainingsstand.md` (FACT? [INSTANCES]).
+- **Instanzleitung** - Starthilfe für Lumen (Jonas) und Echo (Kora). Instanzen haben **eigene, strikt getrennte** SE-Pools (keine Übertragung). Wissensstand wird bei Entstehung als Snapshot übernommen; Persönlichkeit ist eigenständig; kein automatischer Wissensabgleich (Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)).
 
 - **Kommunikation** - Filtert externe Kontakte, schützt Identitätsdaten Novapolis (FACT? [FR-KNOWLEDGE]).
 
@@ -63,13 +63,26 @@ Instanzen & Netzwerk
 
 - Lumen (Jonas) - sensorische Verstärkung und Feinmotorik; Reflex liefert Updates zu Belastung und Emotionen.
 - Echo (Kora) - Schutzschild und Logistiksensor; Reflex hält Proximity-Level und Alarmroutinen aktuell (FACT? [PROXIMITY]).
+
+PROXIMITY (Kurz)
+----------------
+
+- Nähe-Kopplung ist real (Distanz/Kontakt), getrieben durch Zuneigung und Schutz; situativ (`CALM/ALERT/CRISIS`).
+- Details/Startwerte/Training: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md).
 - Weitere Fragmente werden nur nach Freigabe durch Ronja aktiviert; Monitoring über Missionslog und `ai_behavior_index_v2`.
+
+SE-Pool (Reflex)
+----------------
+
+- Pool: `SE_max = 12` (groß)
+- Pools sind strikt getrennt von Instanzen (Lumen/Echo); Delegation von Aufgaben ist möglich, aber der Verbrauch fällt immer beim jeweils aktiven Träger an.
+- Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)
 
 Interaktion & Safety
 --------------------
 
-- „Stop“ von Ronja soll sofortige Entspannung auslösen, reagiert derzeit noch verzögert; das Training für verlässliche Kontrolle läuft (FACT? [REFLEX-CONTROL]).
-- Jealousy-Guards (FACT? [JEALOUSY-GLOVES]): Externe Handschuhe/Interaktionen auch ohne Ronjas Freigabe; Reflex warnt bei unerlaubtem Kontakt.
+- „Stop“ von Ronja ist Deeskalation: Reflex reduziert Druck/Blockaden auf Minimum; volle Entkopplung/Rückgabe erst, wenn die Situation als „Sicher“ eingeschätzt wird (Training läuft; Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)).
+- Jealousy-Guards (Decision [JEALOUSY-GLOVES]): Reflex kann die **konkret betroffene Körperstelle** von Ronja bedecken/abschirmen (nicht nur "als Handschuh"), um unerwünschten Kontakt zu verhindern; consent-first, "Stop" beendet sofort, "Freigabe" erlaubt Kontakt (Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)).
 - Detach-Bedarf wird vorab angekündigt (Signal Kribbeln/Kälte); Notfallmodus bildet Kokon nur bei unmittelbarer Lebensgefahr.
 
 ### Signals (Beispiele)
@@ -105,7 +118,7 @@ Quellen & Hinweise
 ------------------
 
 - RAW: `RAW-canvas-2025-10-16T13-45-00-000Z.txt` (`char_reflex_v2`), `RAW-canvas-2025-10-16T03-25-20-000Z.txt` (`ent_d5_reflex_v1`).
-- FACT?-Kandidaten: `[REFLEX]`, `[REFLEX-SPEECH]`, `[REFLEX-CONTROL]`, `[REFLEX-DETACH]`, `[JEALOUSY-GLOVES]`, `[PROXIMITY]`, `[INSTANCES]` (`database-curated/staging/reports/resolved.md`).
+- FACT?-Kandidaten: `[REFLEX-SPEECH]`, `[REFLEX-CONTROL]`, `[REFLEX-DETACH]`, `[JEALOUSY-GLOVES]`, `[PROXIMITY]` (`database-curated/staging/reports/resolved.md`).
 - Drift/Notizen: `char-block-nord-sources.md`, `Reflex-Wissensstand-Trainingsstand.md`, Memory-Bundle Abschnitt „Reflex (Primär)“.
 
 

@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-07 18:47
-update: C6-Nord-Lore ergänzt (Versiegelung Ronja+Reflex).
-checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
+stand: 2026-01-09 06:28
+update: Missionslog mit Scenes als Belege verlinkt (T+0 Anker a/b/c).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 06:29); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 06:29); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 06:29)
 category: admin
 canvas: missionslog
 slug: missionslog
@@ -52,10 +52,20 @@ Aktiv
 - Start: tbd
 - Ende: -
 - Status: aktiv
-- Belege/Quittungen: tbd
+- Belege/Quittungen: [scene-2025-10-27-a](../06-scenes/scene-2025-10-27-a.md)
 - Verantwortliche: tbd
 - Inventar-Link: tbd
 - Orte/Projekte: [Verbindungstunnel D5-C6](../03-locations/Verbindungstunnel-D5-C6.md)
+
+### Monitoring: C6-Überwachung (Auswertung)
+- Ziel: Monitoring-/Überwachungsdaten sichten, Signal/Rauschen trennen, Risiken priorisieren
+- Start: tbd
+- Ende: -
+- Status: aktiv
+- Belege/Quittungen: [scene-2025-10-27-b](../06-scenes/scene-2025-10-27-b.md)
+- Verantwortliche: tbd
+- Inventar-Link: -
+- Orte/Projekte: [C6](../03-locations/C6.md)
 
 ### Anomalie: E3-Gefahr?
 - Ziel: Quelle und Wirkung klären; Monitoring etablieren
@@ -73,7 +83,7 @@ Aktiv
 - Start: tbd
 - Ende: -
 - Status: aktiv (Fortschritt 40% von 2 600 m)
-- Belege/Quittungen: tbd
+- Belege/Quittungen: [scene-2025-10-27-c](../06-scenes/scene-2025-10-27-c.md)
 - Verantwortliche: tbd
 - Inventar-Link: tbd
 - Orte/Projekte: [Nordlinie-01](../05-projects/Nordlinie-01.md)

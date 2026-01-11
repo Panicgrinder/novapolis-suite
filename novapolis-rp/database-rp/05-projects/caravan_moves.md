@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-30 06:17
-update: "Konsistenzfix: doppelten Metablock entfernt"
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
+stand: 2026-01-11 02:04
+update: "Link ergänzt: Draisine-/Transportmodul ist eigenes D5-Projekt (Status/Scope dort), caravan_moves bleibt Konvoi/Routen-Übersicht."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 02:07); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 02:07); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 02:07)
 canvas: Karawanenbewegungen
 last_updated: 2025-11-07T04:09:00+01:00
 category: project
@@ -45,5 +45,6 @@ Links
 - C6 → ../03-locations/C6.md
 - D5 → ../03-locations/D5.md
 - Missionslog → ../00-admin/Missionslog.md
+- Draisine-/Transportmodul (D5 Prototyp) → ../05-projects/Draisine-Transportmodul.md
 
 

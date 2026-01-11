@@ -1,12 +1,12 @@
 ---
-stand: 2026-01-07 18:47
-update: Herkunft/Lore ergänzt (E2-Fluchtwege, Fund durch Ronja, Versorgung).
-checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
+stand: 2026-01-11 01:40
+update: "JEALOUSY-GLOVES aligned: Lumen kann betroffene Körperstelle bedecken (Kontakt-Guard), Consent/Stop/Freigabe via Reference."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:37)
 title: Jonas Merek
 category: character
 slug: jonas-merek
 version: "1.0"
-last_updated: 2025-11-07T03:32:00+01:00
+last_updated: 2026-01-11T01:40:00+01:00
 last_change: "Upgrade aus RAW char_jonas_v2 (korrupt) + resolved #[JONAS-SIS]"
 tags: ["werkstatt", "novapolis"]
 affiliations: ["novapolis"]
@@ -65,6 +65,10 @@ Sicherheit & Interaktion
 ------------------------
 
 - Näheprotokoll: Jonas bleibt im Sicht-/Funkkontakt mit Lumen; Distanzwarnung >20 m löst Schonmodus aus.
+- REFLEX-DETACH (Instanz-Usecase): In sicheren Kontexten (z. B. Werkstatt/Verwaltung) darf Lumen kurz lokal ohne Dauer-Körperkontakt agieren; ohne externe Energiequelle steigt der SE-Verbrauch deutlich, daher Rückkehr in Nähe/Kontakt priorisieren. Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md).
+- JEALOUSY-GLOVES (Kontakt-Guard): Wenn jemand Jonas berühren will, kann Lumen die **konkret betroffene Körperstelle** bedecken/abschirmen, um unerwünschten Kontakt zu verhindern; "Stop" beendet sofort, "Freigabe" erlaubt Kontakt (Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)).
+
+Hinweis: PROXIMITY-Mechanik (Zuneigung+Schutz, Zustände, Training) siehe [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md).
 - Gas/Filter-Schutz: Bei Arbeiten an Leitungen Pflicht zum Doppelcheck (Trigger Gasgeruch vermeiden, Not-Aus-Schalter definieren).
 - Werkstatt-Logs: Vor jeder Schicht Eintrag im Missionslog (Materialverbrauch, offene Risiken). Checklisten strikt einhalten.
 
@@ -102,7 +106,8 @@ Systemverknüpfungen & Referenzen
 
 - `ai_behavior_index_v2` - Verhaltenscluster (Verbundene) gepflegt.
 - `missionslog` - Prozess L.1, Freigaben und Terminalmeldungen.
-- `database-rp/05-projects/caravan_moves.md` - Draisine-/Konvoi-Projekt, Jonas liefert Werkstadtstatus.
+- `database-rp/05-projects/Draisine-Transportmodul.md` - D5-Prototyp (Draisine/Transportmodul), Jonas liefert Werkstattstatus.
+- `database-rp/05-projects/caravan_moves.md` - Konvoi-/Routen-Übersicht (Koordination externer Läufe).
 - `database-rp/02-characters/Lumen.md` - Kopplungsdetails.
 
 Quellen & Hinweise

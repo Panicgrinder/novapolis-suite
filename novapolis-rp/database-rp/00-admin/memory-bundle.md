@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-09 03:33
-update: "RP P0: Linien-/Fortschrittsmodell für Nordlinie kurz synchronisiert."
-checks: scripts/checks_rp_consistency.py PASS (targeted); scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2026-01-09 03:33)
+stand: 2026-01-09 06:23
+update: Narrative erweitert: zwei weitere Chronik-Anker-Scenes (T+0) verlinkt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 06:26); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 06:26); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 06:26)
 slug: memory-bundle
 category: Admin
 canvas: memory-bundle
@@ -12,6 +12,15 @@ Memory-Bundle (Kanon, kompakt)
 
 Diese Datei ist der „Wahrheitsspeicher“. Änderungen hier sind kanonisch.
 
+Core-Status (eingefroren)
+-------------------------
+
+- Load-Order: Diese Datei ist **immer zuerst zu laden**.
+- Scope (Core): Nur stabile, kurze Basisfakten + Regeln. Keine Tabellen/Tracker, keine Detail-Metriken.
+- Details gehören in Reference/Narrative:
+  - Reference: z. B. Inventare, Relationslogs, Wissensmatrix/Taxonomie.
+  - Narrative: Scenes/Chronik; Reveals über Missionslog/Scene, nicht als stiller Retcon.
+
 Kanon
 -----
 - Setting: Post-Collapse-Metro/Stationen; Novapolis-Sektoren (D5 Hauptbasis, C6 Außenposten).
@@ -21,76 +30,39 @@ Kanon
 
 Charaktere
 ----------
-### Ronja Kerschner
-- Rolle: Technikerin (36)
-- Werte: K2 G4 Ge5 W5 Ch4
-- Skills: Geübt - Überzeugen, Botanik, Ingenieurwesen, Elektronik. Meisterhaft - IT/Programmierung, Organisation & Planung. Optionaler Ausgleich: Improvisieren.
-- Ausrüstung: Gasmaske, Werkzeugkit, Reflex-Suit (wie Neopren unter Kleidung).
-- Motivation: geordneter, heller, lebendiger Ort. Makel: Sinnzweifel („wozu das?“).
-
-### Reflex (Primär)
-- Herkunft: emergent aus Ronjas Stabilisierung des D5-Reaktors; kein Fremdkörper.
-- Natur: Wurzel-/Netzkollektiv, Symbiose-Stufe I (perlmuttfarbene Zweithaut, Resonanz 7.3-8.0 Hz), Instanzen/Fragmente möglich (Lumen, Echo).
-- Grenzen: keine vollständige Trennung (FACT? [REFLEX-DETACH]); Entfernung >12 h erzeugt Stress. „Stop“ von Ronja soll Freigabe auslösen, Training läuft noch (FACT? [REFLEX-CONTROL]). Handschuhe/äußere Kontakte nur mit Freigabe, Regelwerk Prüfung offen (FACT? [JEALOUSY-GLOVES]).
-- Kommunikation: Tympanon-Andockung, Pausenpflicht (FACT? [REFLEX-SPEECH]); Support-Modus verliert Bonus bei Überlastung, Bedarf für Bestätigung offen (FACT? [REFLEX]).
-
-### Jonas Merek
-- Mechaniker/Logistik; kam über Verbindungstunnel; grundsätzlich vertrauenswürdig, beobachtet.
-- Werkstatt (Kämmerchen) unter Aufsicht.
-
-### Pahl (Leittechniker)
-- Einziger Überlebender des C6-Reaktorunfalls; Ronja & Reflex bargen ihn, Jonas brachte ihn nach D5 und betreut die Reha.
-
-### Marei
-- Leitung E3 bis Evakuierung; heute Stellvertretung C6 (Logistik/Organisation).
-- Koordiniert Inventarabgleiche D5↔C6 gemeinsam mit Kora; betreut die 20 Evakuierten aus E3.
-- Erwartet strukturierte Freigaben über Ronja; pflegt Logistik-Knoten protokolliert.
+- Ronja Kerschner: Technikerin, Kernfigur der D5-Stabilisierung. (Details: [Ronja-Kerschner](../02-characters/Ronja-Kerschner.md))
+- Reflex: emergentes Netz-/Symbiosewesen aus der D5-Reaktor-Stabilisierung; Instanzen/Fragmente möglich (Lumen, Echo). (Details: [Reflex](../02-characters/Reflex.md))
+- Jonas Merek: Mechaniker/Logistik; kam über Verbindungstunnel; grundsätzlich vertrauenswürdig, bleibt in Beobachtung. (Details: [Jonas-Merek](../02-characters/Jonas-Merek.md))
+- Pahl: Leittechniker; Überlebender des C6-Reaktorereignisses, in Pflege/Reha. (Details: [Pahl](../02-characters/Pahl.md))
+- Marei: ehem. Leitung E3; heute C6-Organisation/Logistik (Stellvertretung). (Details: [Marei](../02-characters/Marei.md))
 
 Orte
 ----
-- D5 - Hauptbasis; Kontrollraum restauriert; bewohnt.
-- C6 - Teilaktiv; Reaktor stabilisiert; Überwachungssplitter; 20 Evakuierte aus E3 + 4 Karawanenmitglieder integriert.
-- E3 - Station evakuiert, Energiezufuhr getrennt, Anomalie „E3-Gefahr“ (Monitoring passiv), Wiederinbetriebnahme offen.
-- Tunnel D5-C6 - beschädigt; Kartierung & Wiederaufbau als Projekt „Nordlinie 01“.
-- Verbindungstunnel C6-E3 - begehbar, C6-seitig gesichert; E3-Ende verriegelt.
-
-Inventar / Ressourcen
----------------------
-- D5-Inventar gepflegt.
-- C6-Funde verbucht (Filter, Energiezellen, Werkzeuge); Versorgungsschwerpunkte mit Marei abgestimmt.
-- Fehlend/Offen: Schweißausrüstung, Adapter DN60. Hydrofilter-Behälter als Reserve.
+- D5: Hauptbasis. (Details: [D5](../03-locations/D5.md))
+- C6: Außenposten/Teilaktiv. (Details: [C6](../03-locations/C6.md))
+- E3: evakuiert; Risiko/Anomalie offen. (Details: [E3](../03-locations/E3.md))
+- Verbindung D5–C6: Projekt „Nordlinie 01“. (Details: [Verbindungstunnel-D5-C6](../03-locations/Verbindungstunnel-D5-C6.md), [Nordlinie-01](../05-projects/Nordlinie-01.md))
+- Verbindung C6–E3: C6-seitig gesichert; Status E3-Ende unklar/risikobehaftet. (Details: [Verbindungstunnel-C6-E3](../03-locations/Verbindungstunnel-C6-E3.md))
 
 Projekte
 --------
-- Nordlinie 01 - Verbindungstunnel instandsetzen; Materialliste, Abschnitte, Blocker.
-- E3-Restaurierungsplanung - Warnmeldungen analysieren, Sensorik/Anomalie klären, Reaktivierungsbedingungen definieren.
 
-Fortschritt (Reporting)
------------------------
+- Nordlinie 01: Wiederinbetriebnahme des Verbindungstunnels D5–C6; Fortschritt wird getrennt berichtet (Erkundung/Sicherung/Betrieb). (Details: [Nordlinie-01](../05-projects/Nordlinie-01.md))
+- E3: Reaktivierung ist offen; Warnmeldungen/Anomalie müssen geklärt werden. (Details: [E3](../03-locations/E3.md))
 
-- Nordlinie 01 berichtet künftig getrennt: Erkundung / Sicherung / Betrieb (0-100%).
+Offene Fäden (Core-kurz)
+------------------------
 
-Timeline (sehr knapp)
----------------------
-1. Erwachen D5 → Selbstcheck → Wartungsauftrag.
-2. Erstkontakt Reflex, Dämpfungs-Test, Regeln.
-3. C6: Funk/Scan, Reaktorstabilisierung, Suche/Leichenfund; Evakuierungsaufnahme (20 Personen) gemeinsam mit Marei.
-4. D5: Wiederaufbau; Jonas eingebunden; Pahl in Pflege.
-5. Projektstart „Nordlinie 01“; Vorratsläufe; Überwachung an C6.
+- Nordlinie 01: Material/Tools für den nächsten Schritt fehlen.
+- C6: Monitoring/Überwachung auswerten.
+- E3: Risiko klären, bevor Reaktivierung diskutiert wird.
 
-Offene Fäden
-------------
-- Nordlinie 01: Schweißgerät, DN60-Adapter, Statikprüfung.
-- C6: Überwachungssplitter auswerten; eventuelle Überlebende.
-- E3: Anomalie „E3-Gefahr“ untersuchen; Reaktivierungsplan abstimmen.
-- Reflex-Forschung: Sensorik, Trägerarchitektur („Wirbelsäule“), Exo-Prototyp.
-- Fraktionen: Signale/Beobachtungen sammeln.
-- Jonas: Vertrauen festigen; Werkstatt einrichten.
-- Hydrofilter: Aufbereitung/Tests.
+Ausgelagerte Details
+--------------------
 
-Aktuelle Szene (Startzustand)
------------------------------
-- Ort: D5, Morgen nach C6-Operation. Pahl wird versorgt (Jonas), Ronja plant Vorräte + Exo-Arbeit.
-- Nächste Schritte: Status-Ping C6, Material-Run oder Laborphase.
-- Risiko: Fraktionsaufmerksamkeit, Tunnelgefahren, Ressourcenknappheit.
+- Reference (Inventar/Timeline-Skizze/Status): [Reference-Campaign-State](./Reference-Campaign-State.md)
+- Narrative (Chronik-Anker):
+  - [scene-2025-10-27-a](../06-scenes/scene-2025-10-27-a.md) (Status-Ping)
+  - [scene-2025-10-27-b](../06-scenes/scene-2025-10-27-b.md) (C6 Monitoring/Lagebild)
+  - [scene-2025-10-27-c](../06-scenes/scene-2025-10-27-c.md) (Nordlinie-01: nächster Schritt)
 

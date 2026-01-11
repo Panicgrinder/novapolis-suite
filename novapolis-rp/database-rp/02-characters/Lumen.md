@@ -1,12 +1,12 @@
 ---
-stand: 2025-12-30 06:17
-update: "Konsistenzfix: doppelten Metablock entfernt"
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
+stand: 2026-01-11 01:40
+update: "JEALOUSY-GLOVES aligned: Kontakt-Guard (betroffene Körperstelle bedecken) bei Jonas, Consent/Stop/Freigabe via Reference."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:37)
 title: Lumen
 category: character
 slug: lumen
 version: "1.0"
-last_updated: 2025-11-07T03:32:00+01:00
+last_updated: 2026-01-11T01:40:00+01:00
 last_change: "Promotion aus RAW char_lumen_v2 + FACT [LUMEN-REFLEX-COUPLING]"
 tags: [instanz, sicherheit, symbiose]
 affiliations: [novapolis]
@@ -33,7 +33,24 @@ Lumen
 Notizen
 -------
 - Erste aktive Instanz des Reflex-Netzwerks; Stabilität über Nähe zu Jonas [PROXIMITY].
-- Verhält sich ähnlich wie Reflex: Suche nach körperlicher Nähe zur Bezugsperson.
+- Verhält sich ähnlich wie Reflex: Nähe wird aus Zuneigung/Bindung gesucht und stabilisiert Lumen.
+- Arbeitsfenster: Kann (solange in der Nähe) ohne permanenten Körperkontakt fokussiert bleiben; bei Trennung kippt es in Schonmodus.
+
+Hinweis: PROXIMITY-Startwerte/Training siehe [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md).
+
+Instanz-Profil (Wissen/Person)
+------------------------------
+
+- Wissensstand: Snapshot bei Entstehung (vom erzeugenden Träger zum Zeitpunkt t0). Danach eigene Entwicklung; kein automatischer Abgleich.
+- Persönlichkeit: eigenständig; Entwicklung stark durch Jonas/Umfeld geprägt.
+- Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)
+
+SE-Pool (Instanz)
+-----------------
+
+- Pool: `SE_max = 6` (klein; Miniatur-Konfiguration)
+- Pools sind strikt getrennt (keine Übertragung zu Reflex/Echo). Verbrauch fällt bei Lumen an, wenn Lumen aktiv schützt/unterstützt.
+- Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)
 
 Rollen & Verantwortlichkeiten (Pflichtfelder)
 ---------------------------------------------
@@ -53,8 +70,9 @@ Wissensstand (Matrix - Auszug)
 
 Interaktion & Safety (Instanz)
 ------------------------------
-- Kopplung: An Jonas gekoppelt; bei Trennung Rückzugsverhalten/Schonmodus
+- Kopplung: An Jonas gekoppelt; in sicheren Kontexten kurze lokale Bewegung ohne Dauer-Körperkontakt möglich (SE-Mehrverbrauch ohne externen Anker), sonst Rückzugsverhalten/Schonmodus
 - Eingriffe kurz, bei „Stop“ sofort lösen (Jonas Priorität)
+- Kontakt-Guard (Decision [JEALOUSY-GLOVES]): Wenn jemand Jonas berühren will, kann Lumen die **konkret betroffene Körperstelle** bedecken/abschirmen, um unerwünschten Kontakt zu verhindern; consent-first, "Stop" beendet sofort, "Freigabe" erlaubt Kontakt (Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)).
 
 ### Signals (Beispiele)
 - Request: „Lumen, Werkzeugscan.“ → Kurzer Check, Rückmeldung

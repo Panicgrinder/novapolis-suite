@@ -1,23 +1,96 @@
 ---
-title: "Scenes Konventionen (Stub)"
+title: "Scenes: Definition & Template"
 date: 2025-11-12 08:59
 tags: [doc]
-id: scene-2025-10-27-a
-characters: [Jonas-Merek, Ronja-Kerschner]
-locations: [Verbindungstunnel-D5-C6]
-inventoryRefs: [Novapolis-inventar]
-stand: 2025-12-30 06:51
-update: "Frontmatter: slug ergänzt; Checks aktualisiert."
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2025-12-30 06:51)
+stand: 2026-01-09 06:15
+update: "Scenes-Definition operationalisiert: Pflichtabschnitte, Template, Retcon-Regeln und Link-Konventionen ergänzt."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 06:15); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 06:15); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 06:15)
 slug: scenes-konventionen-stub
 ---
 
-Scenes Konventionen (Stub)
---------------------------
-Guidelines & Co-Occurrence-Regeln jetzt im Hub: `novapolis-dev/docs/readme.hub.md` → "Scenes Guidelines".
+Scenes: Definition & Template
+-----------------------------
 
-Kurz:
-- Frontmatter (id, characters, locations, inventoryRefs) Pflicht.
-- Co-Occurrence-Paare enforced via Validator.
+Ziel: Szenen sind die **Narrative-Schicht**. Sie dokumentieren Entscheidungen und Konsequenzen nachvollziehbar, ohne den Canon-Core aufzublähen.
+
+Grundregeln
+-----------
+
+- Keine Retcons ohne Decision/Absprache.
+- Änderungen an Orten/Inventar/Projekten passieren als **Konsequenz** (und werden verlinkt).
+- Wenn eine Szene neue Fakten setzt, muss sie auf die betroffenen SSOT-Dateien verweisen.
+
+Frontmatter (Empfehlung)
+------------------------
+
+Pflichtfelder für `06-scenes/*.md`:
+
+- `id`, `slug`, `date`, `category: scene`
+- `characters`, `locations`, `inventoryRefs` (Listen; dürfen leer sein)
+- `stand`, `update`, `checks`, `last_updated`
+
+Hinweis: `scripts/checks_rp_consistency.py` prüft, dass `characters/locations/inventoryRefs` auf existierende SSOT-Dateien zeigen (Dateiname ohne `.md`).
+
+Pflichtabschnitte im Body
+-------------------------
+
+Jede Scene soll mindestens enthalten:
+
+- **Kurzbeschreibung** (2–4 Sätze)
+- **Kernentscheidungen** (Bulletliste)
+- **Konsequenzen / Statusänderungen** (Bulletliste; verlinkt auf Orte/Projekte/Inventar/Logistik/Missionslog)
+- **Offene Fäden** (Bulletliste)
+- **Links** (Querverweise; mindestens Timeline + relevante Orte/Projekte)
+
+Template
+--------
+
+```markdown
+---
+stand: YYYY-MM-DD HH:mm
+update: Kurznotiz
+checks: tbd
+last_updated: YYYY-MM-DDTHH:mm:ss+01:00
+slug: scene-YYYY-MM-DD-x
+id: scene-YYYY-MM-DD-x
+category: scene
+date: YYYY-MM-DD
+characters: []
+locations: []
+inventoryRefs: []
+version: "1.0"
+tags: []
+---
+
+Szene: <Titel>
+==============
+
+Kurzbeschreibung: <2-4 Sätze>
+
+Kernentscheidungen
+------------------
+- <Entscheidung>
+
+Konsequenzen / Statusänderungen
+-------------------------------
+- <Konsequenz> (Link: <SSOT-Datei>)
+
+Offene Fäden
+------------
+- <Faden>
+
+Links
+-----
+- Timeline (T+0) → ../00-admin/Canvas-T+0-Timeline.md
+- Missionslog → ../00-admin/Missionslog.md
+- Logistik → ../00-admin/Logistik.md
+```
+
+Validierung (Gates)
+-------------------
+
+- `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md'`
+- `python scripts/check_frontmatter.py novapolis-rp/database-rp`
+- `python scripts/checks_rp_consistency.py --strict`
 
 

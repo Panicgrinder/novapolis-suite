@@ -1,12 +1,12 @@
 ---
-stand: 2025-12-30 06:17
-update: "Konsistenzfix: doppelten Metablock entfernt"
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
+stand: 2026-01-11 01:40
+update: "JEALOUSY-GLOVES aligned: Kontakt-Guard (betroffene Körperstelle bedecken) + Consent/Stop/Freigabe via Reference."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:37)
 title: Ronja Kerschner
 category: character
 slug: ronja-kerschner
 version: "1.0"
-last_updated: 2025-11-07T03:32:00+01:00
+last_updated: 2026-01-11T01:40:00+01:00
 last_change: "RAW-Insights (char_ronja_v2) integriert, Drift markiert"
 tags: []
 affiliations: [novapolis]
@@ -56,10 +56,10 @@ Wissensstand (Matrix - Auszug)
 Reflex - Interaktion & Safety (Hausregeln)
 ------------------------------------------
 - Kopplung: Stufe I - Reflex liegt wie ein „Neoprenanzug“ auf; kein Verschmelzen in der Haut (aktuelle Stufe)
-- Consent Gate: keine erzwungene Übernahme gegen Ronjas Willen; bei akuter Angst kann Reflex eine Schutz-Umhüllung initiieren, Ziel bleibt sofortiges Lösen bei „Stop“, reagiert derzeit noch verzögert; Überreaktionen sollen kurz bleiben, Nachregulation prüfen (FACT? [REFLEX-CONTROL])
-- Sprech-Mechanik: Tympanon-Andockung, Schall-Stimulus; Dauer/Erschöpfung beachten, Feinabstimmung offen (FACT? [REFLEX-SPEECH])
-- Detachment/Mikro-Instanz: keine vollständige Trennung; Labor/Notfall-Sonderfall ≤ 15 m, ≤ 12 h; Energie-Debuff aktiv, Grenzen erneut verifizieren (FACT? [REFLEX-DETACH])
-- Handschuh-Policy: Reflex-Handschutz hat Priorität; externe Handschuhe nur mit expliziter Freigabe, Regelset in Review (FACT? [JEALOUSY-GLOVES])
+- Consent Gate: im Normalfall keine erzwungene Übernahme gegen Ronjas Willen. In akuter Gefahr darf Reflex Schutz priorisieren; „Stop“ ist Deeskalation (Druck runter), aber volle Rückgabe/Entkopplung erfolgt erst, wenn die Lage als „Sicher“ eingeschätzt wird (Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)).
+- Sprech-Mechanik: Privatkanal (Tympanon-Kopplung, Ronja-only) und Broadcast (via Gerät). Consent/Dauer/Erschöpfung sind als Reference-Mechanik festgelegt: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md).
+- Detachment: Reflex (Primärinstanz) bleibt immer verbunden (keine vollständige Trennung). Instanzen (Lumen/Echo) dürfen in sicheren Kontexten kurz lokal ohne Dauer-Körperkontakt agieren; ohne externe Energiequelle steigt der SE-Verbrauch deutlich (Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)).
+- Handschuh-/Kontakt-Guard (Decision [JEALOUSY-GLOVES]): Reflex (und Instanzen bei ihrer Bezugsperson) können die **konkret betroffene Körperstelle** bedecken/abschirmen, um unerwünschten Kontakt zu verhindern (nicht nur "als Handschuh"). Consent-first; "Stop" beendet sofort; "Freigabe" erlaubt Kontakt. Externe Handschuhe sind als Arbeits-/Witterungsschutz ok (Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)).
 
 ### Signals (Beispiele)
 - Request: „Reflex, Schutz leicht - Hände frei.“ → Assist/Support, Hände unbedeckt, Sicht/Atmung frei.

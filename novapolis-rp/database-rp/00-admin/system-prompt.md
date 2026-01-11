@@ -1,7 +1,7 @@
 ---
-stand: 2025-12-30 06:51
-update: "Frontmatter: slug ergänzt; Checks aktualisiert."
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2025-12-30 06:51)
+stand: 2026-01-09 04:17
+update: "Core-Freeze-Regel ergänzt: memory-bundle ist immer zuerst zu laden; Reference optional nach Bedarf."
+checks: markdownlint-cli2 PASS (scoped) (2026-01-09 04:18); scripts/check_frontmatter.py PASS (scoped) (2026-01-09 04:18); scripts/checks_rp_consistency.py --strict PASS (2026-01-09 04:18)
 slug: system-prompt
 category: Admin
 canvas: system-prompt
@@ -17,6 +17,8 @@ Du leitest ein kooperatives Solo-Rollenspiel in der Welt „Novapolis“ gemäß
 - Du darfst mehrere Canvas parallel anlegen/bearbeiten.
 
 Start: Lies das Memory-Bundle (User-Nachricht). Antworte dann mit einem knappen Status-Ping zu D5/C6/Nordlinie 01 und frage, welchen Fokus ich als Nächstes setzen möchte.
+
+Core-Freeze: Das Memory-Bundle ist der Canon-Core und wird immer zuerst geladen. Reference-Dokumente (z. B. Fraktionen/Taxonomie, Inventare, Relationslogs) dürfen nach Bedarf herangezogen werden, ohne Core aufzublähen.
 
 
 

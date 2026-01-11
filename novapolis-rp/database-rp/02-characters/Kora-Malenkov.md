@@ -1,12 +1,12 @@
 ---
-stand: 2026-01-07 18:47
-update: Fraktionsnamen (Anzeige) aktualisiert (Händlerbund).
-checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
+stand: 2026-01-11 01:40
+update: "JEALOUSY-GLOVES aligned: Echo kann betroffene Körperstelle bedecken (Kontakt-Guard), Consent/Stop/Freigabe via Reference."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:37)
 title: Kora Malenkov
 category: character
 slug: kora-malenkov
 version: "1.0"
-last_updated: 2025-11-07T03:32:00+01:00
+last_updated: 2026-01-11T01:40:00+01:00
 last_change: "Upgrade aus RAW char_kora_malenkov_v2 + FACT [CARAVAN-LEADERSHIP]"
 tags: ["logistik", "haendlerbund"]
 affiliations: ["novapolis", "haendlerbund"]
@@ -37,7 +37,7 @@ Hintergrund & Kontext
 
 - Herkunft in Außenlinien des Händlerbunds; nach wiederholten Überfällen Fokus auf kontrollierte Prozesse.
 - Koordiniert gemeinsam mit Marei die 20 Evakuierten aus E3 und C6-Basiscrew; externer Konvoi (Marven Kael) bleibt getrennt geführt (FACT [CARAVAN-LEADERSHIP]).
-- Echo ist als Reflex-Instanz eng an sie gekoppelt und dient als mobile Schutz-/Sensorplattform (FACT? [PROXIMITY]).
+- Echo ist als Reflex-Instanz eng an sie gekoppelt (Nähe aus Zuneigung + Schutz) und dient als mobile Schutz-/Sensorplattform (FACT? [PROXIMITY]).
 
 Rollen & Verantwortlichkeiten
 -----------------------------
@@ -64,6 +64,10 @@ Interaktion & Safety
 --------------------
 
 - Echo-Nähe: Plant Tätigkeiten so, dass Echo physischen Kontakt halten kann; Distanzwarnung löst Schonmodus aus.
+- REFLEX-DETACH (Instanz-Usecase): In sicheren Kontexten (z. B. kurze Hilfe bei Logistik/Handwerk) darf Echo kurz lokal ohne Dauer-Körperkontakt agieren; ohne externe Energiequelle steigt der SE-Verbrauch deutlich, daher Rückkehr in Nähe/Kontakt priorisieren. Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md).
+- JEALOUSY-GLOVES (Kontakt-Guard): Wenn jemand Kora berühren will, kann Echo die **konkret betroffene Körperstelle** bedecken/abschirmen, um unerwünschten Kontakt zu verhindern; "Stop" beendet sofort, "Freigabe" erlaubt Kontakt (Details: [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md)).
+
+Hinweis: PROXIMITY-Mechanik (Zuneigung+Schutz, Zustände, Training) siehe [Reference-Campaign-State](../00-admin/Reference-Campaign-State.md).
 - Sicherheitsprioritäten: Crew vor Tempo → bei Alarm sofortige Sammelpunkte, Echo führt Schutzmantel.
 - Kontrolllisten: Jede Freigabe doppelt (Kora→Marei/Ronja) dokumentieren; Terminalmeldungen an Jonas für Werksabgleich.
 
