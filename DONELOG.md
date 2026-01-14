@@ -1,11 +1,40 @@
 ---
-stand: 2026-01-11 09:05
-update: RP-SSOT: stale FACT-Referenz in Lumen bereinigt (nicht kuratiert).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' PASS (2026-01-11 09:05); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py DONELOG.md PASS (2026-01-11 09:05)
+stand: 2026-01-14 07:48
+update: "RP-SSOT: Scene-Stubs al/am/an ergänzt; Index+Timeline aktualisiert; Gates gelaufen. Checks PASS."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' PASS (2026-01-14 07:48); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'DONELOG.md' PASS (2026-01-14 07:48); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 07:48)"
 ---
 Kurzueberblick
 --------------
 
+- 2026-01-14 07:48: RP-SSOT: Neue Scene-Stubs (scene-2025-10-27-al/am/an) ergänzt (Update-Nachlauf: Kompatibilitätscheck/Liveschaltung/RP-Rückkehr; RP-Rückkehr: Scannen vor Berührung + TTS-Parameter + Canvas-Reload + Delete/Redo; RP-Intensivierung: Trauma-Trigger + Reflex-Überreaktion + Deeskalation). Checks PASS.
+- 2026-01-14 07:07: RP-SSOT: Neue Scene-Stubs (scene-2025-10-27-ai/aj/ak) ergänzt (D5-Pläne/Versionierung/Bildanalyse; Kontext-Reload+Delete/Redo+Tonalität/Rollen; D5-Versorgung+Inventar-Transparenz+Admin-Stop). Checks PASS.
+- 2026-01-14 04:26: RP-SSOT: Neue Scene-Stubs (scene-2025-10-27-af/ag/ah) ergänzt (Händler-Wissensstand-Korrektur; Kontextprüfung+Gewichtung+Bestandsdaten-Idee; Reflex-Details+"Reflex-Grid"+Parallel-RP+D5-Layout/Pläne-Idee). Checks PASS.
+- 2026-01-14 03:18: RP-SSOT: Neue Scene-Stubs (scene-2025-10-27-ac/ad/ae) ergänzt (Reinit-Prompt nach Reset; C6-N3/Messmission/Reset-Korrekturen; Versorgungsmission D5 + Funk-Stabilisierung + Kontextregeln). Checks PASS.
+- 2026-01-14 01:49: RP-SSOT: Receipts/Timestamps (scene-2025-10-27-z/aa/ab + Index/Timeline/DONELOG) nach Gate-Lauf konsolidiert. Checks PASS.
+- 2026-01-14 01:37: RP-SSOT: Neue Scene-Stubs (scene-2025-10-27-z/aa/ab) ergänzt (Charakter-Canvas-Workflow + Jonas-Kernfrage; Karawanen-Anführerin Konsistenzfix + Archivierungsregel; Guardrails inkl. Kontext-Reset). Checks PASS.
+- 2026-01-14 01:13: RP-SSOT: Neue Scene-Stubs (scene-2025-10-27-w/x/y) ergänzt (Verhaltensmuster+Backup/Diff; Inventar-Trennung D5/C6; Systemcheck/Canvas-Lücken inkl. Instanz+Dialog-Capture+Gruppen-Canvases). Checks PASS.
+- 2026-01-13 22:04: RP-SSOT: Neue Scene-Stubs (scene-2025-10-27-t/u/v) ergänzt (Fraktions-Reihenfolge+Archivierung; Index/Meta-Index+Maschinenoptimierung; AI-Behavior-Matrix/Index-V1). Checks PASS.
+- 2026-01-13 19:41: RP-SSOT: Neue Scene-Stubs (scene-2025-10-27-q/r/s) + Admin-Canvas Kernkonversationen ergänzt; Index+Timeline aktualisiert. Checks PASS.
+- 2026-01-13 19:26: RP-SSOT: 00-admin (Canvas-T+0-Timeline/Missionslog/Logistik) mit Scene-Ankern (a–p) ergänzt; Logistik-Status (C6/Tunnel) als tbd/Policy abgesichert. Checks PASS.
+- 2026-01-13 19:17: RP-SSOT: RAW-Anker in neue Scene-Stubs überführt und im Index registriert (scene-2025-10-27-n/o/p). Checks PASS.
+- 2026-01-13 19:01: RP-SSOT: RAW-Anker in neue Scene-Stubs überführt und im Index registriert (scene-2025-10-27-k/l/m). YAML-Fix: update-Feld quotiert (Crossref-Parser). Checks PASS.
+- 2026-01-13 04:05: RP-SSOT: RAW-Anker in neue Scene-Stubs überführt und im Index registriert (scene-2025-10-27-g/h/i/j). Co-Occurrence-Fix (jonas-merek → lumen). Checks PASS.
+- 2026-01-13 03:49: RP-SSOT: memory-bundle checks-Receipt nachgezogen (Frontmatter/checks). Lint+Frontmatter PASS.
+- 2026-01-13 03:42: RP-SSOT: RAW-Anker in neue Scene-Stubs überführt und im Index registriert (scene-2025-10-27-d/e/f). Checks PASS.
+- 2026-01-13 03:02: RP-SSOT: Liora Navesh `affiliations` auf Arkologie-A1 korrigiert; Wissensstand/Trainingsstand-Dateien (Echo/Reflex) sind keine eigenen Charaktere (category entfernt). Checks PASS.
+- 2026-01-13 02:37: RP-SSOT: Bevölkerungsstand konsolidiert: D5 bekommt Bevölkerung-Abschnitt (Kernteam + Zählstand), C6 Bevölkerung präzisiert (Zählstand C6-intern 25) und Current-State Snapshot ergänzt (humanoid ~29; Instanzen separat). Checks PASS.
+- 2026-01-13 02:18: RP-Validator: Legacy-Entry `novapolis-rp/coding/tools/validators/validate-rp.js` als ESM-Wrapper konsolidiert (delegiert auf `src/validate-rp.js`), um Doppel-Logik und `require`-Probleme unter `type: module` zu vermeiden; Dev-Hub-Doku `novapolis-dev/docs/readme.hub.md` auf `src/*` + `npm --prefix ... run validate:rp` aktualisiert.
+- 2026-01-13 02:06: RP-SSOT: N7 als Alias unter C6-Nordanomalie konsolidiert; E3-Energieschwankungen/Evakuierung/Monitoring-Sichtbarkeit präzisiert; Nordlinie-01 Team-/Arbeitsmodus + Reflex-Last-Frage ergänzt; Lumen Werkstatt-Mitüberwachung präzisiert; Broken-Link in Current-State gefixt; canon-canvas.draft Frontmatter-YAML (Quote) repariert; Postflight-Checks/Validatoren PASS.
+- 2026-01-12 12:13: RP-SSOT: Neuer Startpunkt [Current-State.md](novapolis-rp/database-rp/00-admin/Current-State.md) als Single Entry Point (Quicklinks auf Canon-Core, Reference-Ebene, Logs, Ortsgraph + Validator-Hinweise). Checks PASS.
+- 2026-01-12 21:25: RP-SSOT: Entry-Point-Links ergänzt: [memory-bundle.md](novapolis-rp/database-rp/00-admin/memory-bundle.md) und [Reference-Campaign-State.md](novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md) verweisen jetzt explizit auf [Current-State.md](novapolis-rp/database-rp/00-admin/Current-State.md). Checks PASS.
+- 2026-01-12 12:03: RP-Validator: `novapolis-rp/coding/tools/validators/src/validate-rp.js` haertet Kategorie-Schemas (u. a. `version`/`last_updated` Pflicht fuer character/location/inventory/project, Typchecks fuer Arrays, Project-Status-Enum inkl. `prototyping`, Scene-Date als Date/String). Bestand angepasst (u. a. title/canvas fuer Inventar, Character-Wissensstand-Metadaten). Checks PASS.
+- 2026-01-12 11:49: RP-Validator: `novapolis-rp/coding/tools/validators/src/check-crossrefs.js` indexiert Referenzen jetzt strikt über SSOT-`slug` (kein Fallback mehr auf Dateibasenamen/Ordnernamen) und validiert dependencies/owners/locations/connections damit slug-only. Checks PASS (siehe Frontmatter: letzter bekannter Lauf).
+- 2026-01-12 11:39: RP-Validator: `novapolis-rp/coding/tools/validators/src/validate-rp.js` erzwingt jetzt `frontmatter.slug` als Pflichtfeld für `category` in `character/location/inventory/project/scene` (zusätzlich zu Slug-Unique). Checks PASS.
+- 2026-01-12 11:26: RP-Validator: `novapolis-rp/coding/tools/validators/src/check-crossrefs.js` prüft jetzt zusätzlich `dependencies` (Characters), `connections` (Locations) sowie `owners/locations/dependencies` (Projects) und akzeptiert Fraktions-Slugs (01-factions/*) als Referenzen. Checks PASS.
+- 2026-01-12 10:40: RP-Validator: `novapolis-rp/coding/tools/validators/src/validate-rp.js` prüft `frontmatter.slug` (slug-like) und erzwingt Slug-Unique als Gate; Basis fuer slug-only Referenzen. Checks PASS.
+- 2026-01-11 19:24: RP-SSOT: Scenes a/b/c (Frontmatter + Sidecars) auf slug-only Referenzen umgestellt; `scripts/checks_rp_consistency.py` enforced jetzt slug-only für Scene-XREFs; `database-rp/06-scenes/README.md` Hinweis aktualisiert; Checks PASS.
+- 2026-01-11 19:14: RP-SSOT: `database-rp/06-scenes/scene-2025-10-27-b.json` und `scene-2025-10-27-c.json` ergänzt; `database-rp/index.json` um Scenes b/c erweitert; Checks PASS.
+- 2026-01-11 19:09: Doku: RP-Base-Befund (Index-/Sidecar-Drift, Slug-Standard, Curated-Provenienz, Final-Gates) als konkrete Tasks in `.tmp/rp-base-todo.md` nachgezogen; Checks PASS.
 - 2026-01-11 09:04: RP-SSOT: Stale FACT-Referenz in [Lumen](novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lumen.md) entfernt (Tag war nicht in curated `resolved.md`/`uncertainties.md`). Checks PASS.
 - 2026-01-11 07:40: RP-SSOT: Handel/Diplomatie-Basis (Option A) als fraktionslokale SSOT unter `database-rp/01-factions/<faction>/06-handel-diplomatie/` angelegt/ausgebaut; Admin-Hub/Registry verlinkt; Broken-Link in `00-admin/Fraktionen-Taxonomie.md` gefixt; Checks PASS.
 - 2026-01-11 07:14: RP-SSOT: Standort-Inventare konsolidiert: `database-rp/04-inventory/D5-inventar.*` nach `database-rp/01-factions/novapolis/04-inventory/` verschoben und `C6-inventar.*` ergänzt; `database-rp/index.json` aktualisiert; Checks PASS.
@@ -844,4 +873,13 @@ Ende: Timestamp=2025-11-15 09:40
 2026-01-05 19:07 | Copilot | Fix: scripts/checks_rp_consistency.py Ruff/Black gruen; Unified Runner overall PASS
 Meta: {"Timestamp": "2026-01-05 19:07", "Files": ["scripts/checks_rp_consistency.py"], "Commands": ["python -m black scripts/checks_rp_consistency.py", "python -m ruff check scripts/checks_rp_consistency.py", "python scripts/run_checks_and_report.py (Exit 0; report checks_report_20260105_190519.json)"], "Result": "PASS"}
 Kurz: Minimale Format-/Lint-Fixes im RP-Consistency-Wrapper (Ruff/Black) vorgenommen und anschliessend den Unified Runner erneut ausgefuehrt. Ergebnis: overall PASS (Coverage im Report > 80%).
+
+2026-01-12 04:46 | Copilot | RP Base: `checks_rp_consistency.py --strict` PASS; `.tmp/rp-base-todo.md` Drift-/Scene-Tasks auf Basis des Checks aktualisiert (Report: `.tmp/results/reports/checks_rp_consistency_postflight_20260112_044546.md`).
+
+2026-01-12 06:01 | Copilot | RP Validatoren: slug-only Crossrefs enforced (Fix in `novapolis-rp/coding/tools/validators/src/check-crossrefs.js`); YAML-Frontmatter-Parser-Fix (update quoted) + fehlendes H1 in `AI-Behavior-Mapping.md` ergänzt; Scenes b/c Co-Occurrence refs ergänzt; Checks: `npm run validate:rp` PASS; `npm run validate:crossrefs` PASS; `npm run validate:curated` PASS; `checks_rp_consistency.py --strict` PASS.
+
+2026-01-12 06:34 | Copilot | Follow-up: YAML-Fix in Scene-Frontmatter (`update` mit ':' quoted), danach `npm run validate:rp` PASS + `npm run validate:crossrefs` PASS; Frontmatter-Validator PASS; rp_consistency --strict PASS.
+
+2026-01-12 07:01 | Copilot | Curated: Konfliktliste (Top-10 aus `[OPEN]`) + FACT?-Liste aus `novapolis-rp/database-curated/staging/*.review.md` extrahiert (Report: `.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md`); `.tmp/rp-base-todo.md` P1-Workflow-Tasks aktualisiert.
+2026-01-12 07:16 | Copilot | Curated: `database-curated/staging/manifest.json` um reviewed-Artefakte (inkl. SHA256), Runs (Tool/Report-Link) und Final-Gate-Kriterien erweitert; Schema-Doku in `coding/tools/validators/schemas/curated-manifest.schema.json` ergänzt; Checks: `npm run validate:curated` PASS.
 

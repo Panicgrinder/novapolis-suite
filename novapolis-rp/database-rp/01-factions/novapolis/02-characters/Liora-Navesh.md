@@ -1,14 +1,14 @@
 ---
-stand: 2026-01-11 05:04
-update: SSOT-Link auf Ereignislog Weltgeschehen ergänzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 05:04); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py --touch novapolis-rp\database-rp\00-admin\Ereignislog-Weltgeschehen.md novapolis-rp\database-rp\00-admin\Relationslog-Novapolis.md novapolis-rp\database-rp\02-characters\Liora-Navesh.md novapolis-rp\database-rp\00-admin\Handel-Diplomatie-Haendlergilde.md PASS (2026-01-11 05:04); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 05:04)
+stand: 2026-01-13 03:02
+update: Fraktionszuordnung (affiliations) auf Arkologie-A1 korrigiert.
+checks: npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-13 03:05); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-13 03:05); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Liora-Navesh.md' PASS (2026-01-13 03:05); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-13 03:05); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-13 03:05)
 title: Liora Navesh
 category: character
 slug: liora-navesh
 version: "0.9"
 last_updated: 2025-11-07T03:32:00+01:00
 tags: []
-affiliations: ["novapolis"]
+affiliations: ["arkologie-a1"]
 dependencies: ["d5", "c6"]
 primary_location: d5
 last_seen: d5

@@ -1,0 +1,13 @@
+{
+  "title": "Szene: T+0 - Kontextprüfung, Gewichtung und \"Bestandsdaten\"-Extraktion (Prozessanker)",
+  "category": "scene",
+  "slug": "scene-2025-10-27-ag",
+  "version": "1.0",
+  "last_updated": "2026-01-14T04:26:47+01:00",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2025-10-27-ag.md",
+  "locations": ["d5", "c6"],
+  "characters": ["ronja-kerschner", "reflex", "jonas-merek", "lumen", "pahl", "kora-malenkov", "echo"]
+}

@@ -3,20 +3,20 @@
   "category": "scene",
   "slug": "scene-2025-10-27-a",
   "version": "1.0",
-  "last_updated": "2026-01-07T07:05:21+01:00",
+  "last_updated": "2026-01-11T19:20:50+01:00",
   "tags": [],
   "affiliations": [],
   "dependencies": [],
   "source": "database-rp/06-scenes/scene-2025-10-27-a.md",
   "locations": [
-    "Verbindungstunnel-D5-C6",
-    "D5",
-    "C6"
+    "verbindungstunnel-d5-c6",
+    "d5",
+    "c6"
   ],
   "characters": [
-    "Ronja-Kerschner",
-    "Jonas-Merek",
-    "Reflex",
-    "Lumen"
+    "ronja-kerschner",
+    "jonas-merek",
+    "reflex",
+    "lumen"
   ]
 }

@@ -1,11 +1,17 @@
 ---
-stand: 2025-12-30 06:17
-update: "Konsistenzfix: doppeltes Frontmatter entfernt"
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS; markdownlint-cli2 PASS (2025-12-30 06:17)
-last_updated: 2025-11-07T03:32:00+01:00
-category: character
+stand: 2026-01-13 03:02
+update: Wissensstand-/Trainingsstand-Datei ist kein eigener Charakter (category entfernt).
+checks: npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-13 03:05); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-13 03:05); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Echo-Wissensstand-Trainingsstand.md' PASS (2026-01-13 03:05); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-13 03:05); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-13 03:05)
+title: Echo - Wissensstand & Trainingsstand
 slug: echo-wissensstand-trainingsstand
+version: "0.1"
+last_updated: 2025-11-07T03:32:00+01:00
+tags: []
+affiliations: [novapolis]
+dependencies: []
 ---
+
+<!-- markdownlint-disable MD025 -->
 
 Echo - Wissensstand & Trainingsstand
 ====================================

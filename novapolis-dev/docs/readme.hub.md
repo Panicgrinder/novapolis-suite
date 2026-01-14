@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: TL;DR, direkte Tool-Links, Beispiele (Scenes/Metadata), Governance-Querverweise, Rotations-Policy ergänzt
-checks: noch keine
+stand: 2026-01-13 02:20
+update: Validator-Links auf src/* konsolidiert; validate:rp Beispiel auf npm --prefix umgestellt
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' PASS (2026-01-13 02:20); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\readme.hub.md PASS (2026-01-13 02:20)"
 ---
 
 Novapolis Dokumentations-Hub
@@ -40,11 +40,11 @@ Curation Workflow
 Validator Tools
 ---------------
 Pfad: `novapolis-rp/coding/tools/validators/`
-- Schema Validation ([`validate-curated.js`](../../novapolis-rp/coding/tools/validators/validate-curated.js)): `staging/manifest.json`.
-- RP Markdown Checks ([`validate-rp.js`](../../novapolis-rp/coding/tools/validators/validate-rp.js)): H1, optionale Frontmatter, Scenes-Referenzen.
-- Cross-Reference Check ([`check-crossrefs.js`](../../novapolis-rp/coding/tools/validators/check-crossrefs.js)): Characters/Locations/Inventory.
+- Schema Validation ([`src/validate-curated.js`](../../novapolis-rp/coding/tools/validators/src/validate-curated.js)): `staging/manifest.json`.
+- RP Markdown Checks ([`src/validate-rp.js`](../../novapolis-rp/coding/tools/validators/src/validate-rp.js)): Slug-Unique, Kategorie-Schema, H1 (ATX/Setext), Frontmatter-Typen.
+- Cross-Reference Check ([`src/check-crossrefs.js`](../../novapolis-rp/coding/tools/validators/src/check-crossrefs.js)): slug-only Referenzen (Characters/Locations/Inventory/Projects).
 - Behavior Matrix ([`behavior_matrix_check.py`](../../novapolis-rp/coding/tools/validators/behavior_matrix_check.py)): Signaturen & Intensitäten.
-- Aggregation ([`validate-all.js`](../../novapolis-rp/coding/tools/validators/validate-all.js)).
+- Aggregation ([`src/validate-all.js`](../../novapolis-rp/coding/tools/validators/src/validate-all.js)).
 
 Export & Ingest
 ---------------
@@ -85,7 +85,7 @@ Kurzer Einstiegsabsatz der Szene …
 Validierung (scoped Beispiel):
 
 ```powershell
-node ../../novapolis-rp/coding/tools/validators/validate-rp.js ../../novapolis-rp/database-rp/06-scenes/
+npm --prefix ../../novapolis-rp/coding/tools/validators run validate:rp
 ```
 
 Metadata Layer

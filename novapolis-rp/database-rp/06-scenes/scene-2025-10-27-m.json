@@ -1,0 +1,19 @@
+{
+  "title": "Szene: T+0 - C6 als Puffer & Händler-Anbahnung",
+  "category": "scene",
+  "slug": "scene-2025-10-27-m",
+  "version": "1.0",
+  "last_updated": "2026-01-13T18:59:55+01:00",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2025-10-27-m.md",
+  "locations": [
+    "c6",
+    "d5"
+  ],
+  "characters": [
+    "ronja-kerschner",
+    "reflex"
+  ]
+}

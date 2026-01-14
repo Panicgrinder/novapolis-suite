@@ -12,8 +12,8 @@ Key behaviors:
 - Updates database-rp/index.json to the new paths
 
 Usage:
-  & .\\.venv\\Scripts\\python.exe scripts\\migrate_rp_ssots_to_factions.py            # dry-run
-  & .\\.venv\\Scripts\\python.exe scripts\\migrate_rp_ssots_to_factions.py --apply    # apply changes
+    & .\\.venv\\Scripts\\python.exe scripts\\migrate_rp_ssots_to_factions.py
+    & .\\.venv\\Scripts\\python.exe scripts\\migrate_rp_ssots_to_factions.py --apply
 
 Exit codes:
 - 0 on success
@@ -27,10 +27,11 @@ import json
 import os
 import re
 import shutil
+from collections.abc import Iterable
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any
 
 LOG_ENCODING = "utf-8"
 
@@ -273,7 +274,9 @@ def build_move_plan(repo_root: Path) -> tuple[list[MoveItem], dict[Path, Path], 
         cat_dir = md_path.parent.name
         faction = pick_faction(cat_dir, md_path, meta)
         if not faction:
-            warnings.append(f"Unassigned faction (kept in place): {canonical_rel(md_path, repo_root)}")
+            warnings.append(
+                f"Unassigned faction (kept in place): {canonical_rel(md_path, repo_root)}"
+            )
             continue
 
         if cat_dir == "05-projects" and str(meta.get("category") or "").strip() == "faction":
@@ -316,7 +319,7 @@ def rewrite_json_sources(repo_root: Path, mapping: dict[Path, Path]) -> int:
 
     rp = rp_root(repo_root)
     changed = 0
-    for old_path, new_path in mapping.items():
+    for _old_path, new_path in mapping.items():
         if new_path.suffix.lower() != ".json":
             continue
         if not new_path.exists():
@@ -365,9 +368,15 @@ def rewrite_markdown_links(repo_root: Path, mapping: dict[Path, Path]) -> int:
     for md_file in iter_all_markdown_files(rp):
         content = read_text(md_file)
         old_file = moved_md_old_by_new.get(md_file)
-        base_dir_for_resolution = (old_file.parent if old_file else md_file.parent)
+        base_dir_for_resolution = old_file.parent if old_file else md_file.parent
+        md_parent = md_file.parent
 
-        def repl(match: re.Match[str]) -> str:
+        def repl(
+            match: re.Match[str],
+            *,
+            _base_dir_for_resolution: Path = base_dir_for_resolution,
+            _md_parent: Path = md_parent,
+        ) -> str:
             raw_link = match.group(1).strip()
             if not raw_link or is_remote_link(raw_link) or raw_link.startswith("#"):
                 return match.group(0)
@@ -379,12 +388,12 @@ def rewrite_markdown_links(repo_root: Path, mapping: dict[Path, Path]) -> int:
             if link_body.startswith("/"):
                 return match.group(0)
 
-            target_old_abs = (base_dir_for_resolution / link_body).resolve(strict=False)
+            target_old_abs = (_base_dir_for_resolution / link_body).resolve(strict=False)
             if target_old_abs not in old_to_new:
                 return match.group(0)
 
             target_new_abs = old_to_new[target_old_abs]
-            rel_new = os.path.relpath(target_new_abs, start=md_file.parent)
+            rel_new = os.path.relpath(target_new_abs, start=_md_parent)
             rel_new = rel_new.replace("\\", "/")
             return match.group(0).replace(raw_link, rel_new + anchor)
 
@@ -422,7 +431,9 @@ def rewrite_index_json(repo_root: Path, mapping: dict[Path, Path]) -> bool:
                 if isinstance(entry, dict):
                     rewrite_entry(entry)
 
-    index_path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding=LOG_ENCODING)
+    index_path.write_text(
+        json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding=LOG_ENCODING
+    )
     return True
 
 
@@ -448,7 +459,9 @@ def write_report(repo_root: Path, moves: list[MoveItem], warnings: list[str]) ->
         },
         "warnings": warnings,
     }
-    report_path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding=LOG_ENCODING)
+    report_path.write_text(
+        json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding=LOG_ENCODING
+    )
     return report_path
 
 
@@ -458,7 +471,6 @@ def main() -> int:
     args = parser.parse_args()
 
     repo_root = resolve_repo_root()
-    rp = rp_root(repo_root)
 
     moves, mapping, warnings = build_move_plan(repo_root)
     report_path = write_report(repo_root, moves, warnings)

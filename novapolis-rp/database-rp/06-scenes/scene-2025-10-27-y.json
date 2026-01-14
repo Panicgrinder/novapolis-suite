@@ -1,0 +1,13 @@
+{
+  "title": "Szene: T+0 - Systemcheck/Canvas-Lücken (Instanz-Canvas, Dialog-Capture, Gruppen-Canvases, C6-Aufteilung)",
+  "category": "scene",
+  "slug": "scene-2025-10-27-y",
+  "version": "1.0",
+  "last_updated": "2026-01-14T01:31:36+01:00",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2025-10-27-y.md",
+  "locations": ["d5", "c6"],
+  "characters": ["ronja-kerschner", "reflex", "jonas-merek", "lumen", "pahl", "kora-malenkov", "echo"]
+}

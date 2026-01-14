@@ -1,0 +1,13 @@
+{
+  "title": "Szene: T+0 - Inventar-Trennung (D5/C6) & Stationsinventar-Regel (nicht aufgehoben = bleibt vor Ort)",
+  "category": "scene",
+  "slug": "scene-2025-10-27-x",
+  "version": "1.0",
+  "last_updated": "2026-01-14T01:31:36+01:00",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2025-10-27-x.md",
+  "locations": ["d5", "c6", "verbindungstunnel-d5-c6"],
+  "characters": ["ronja-kerschner", "reflex"]
+}

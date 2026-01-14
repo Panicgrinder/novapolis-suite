@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 07:40
-update: Broken Link zur Eisenkonklave-Relationslog-SSOT aktualisiert.
-checks: markdownlint-cli2 PASS (2026-01-11 07:40); scripts/check_frontmatter.py PASS (2026-01-11 07:40); scripts/checks_rp_consistency.py --strict PASS (2026-01-11 07:40)
+stand: 2026-01-13 02:03
+update: N7-Benennung als Alias standardisiert (C6-Nordanomalie); Postflight-Receipt ergänzt.
+checks: "run_checks_and_report.py PASS (2026-01-13 02:01); npm validate:rp PASS (2026-01-13 02:03); npm validate:crossrefs PASS (2026-01-13 02:03); checks_rp_consistency.py --strict PASS (2026-01-13 02:03)"
 slug: fraktionen-taxonomie
 category: admin
 canvas: fraktionen-taxonomie
@@ -66,11 +66,11 @@ Hinweis: Diese Matrix ist ein Default-Startwert für Informationskontrolle. Anpa
 
 - **Nordlinie / Tunnel D5↔C6** (Projekt: [Nordlinie-01](../01-factions/novapolis/05-projects/Nordlinie-01.md))
 - **E3** (evakuiert; Monitoring/Anomalie offen)
-- **C6-Nord (vormals N7)** (Anomalie; versiegelt; siehe [Missionslog](./Missionslog.md))
+- **C6-Nordanomalie** (Anomalie; versiegelt; Alias: N7; siehe [Missionslog](./Missionslog.md))
 
 ### Matrix
 
-| Gruppe | Nordlinie (D5↔C6) | E3 | C6-Nord / N7 |
+| Gruppe | Nordlinie (D5↔C6) | E3 | C6-Nordanomalie (Alias: N7) |
 | --- | --- | --- | --- |
 | Novapolis | H | H | H |
 | Händlerbund | M | L | L |

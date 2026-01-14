@@ -1,12 +1,13 @@
 ---
-stand: 2026-01-11 02:04
-update: "Projekt-Canvas ergänzt: Draisine-/Transportmodul-Prototyp (Jonas + Pahl) mit Status/Scope und Testlauf-Gates."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 02:07); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 02:07); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 02:07)
+stand: 2026-01-12 12:02
+update: "Schema-Gate: last_updated ergaenzt (Project-Pflichtfeld)."
+checks: npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-12 12:01); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-12 12:01); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/05-projects/Draisine-Transportmodul.md' PASS (2026-01-12 12:02); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-12 12:02)
 title: Draisine-/Transportmodul (Prototyp)
 category: project
 slug: draisine-transportmodul
 status: prototyping
 version: "0.1"
+last_updated: 2026-01-11T02:04:00+01:00
 tags: [transport, nordlinie, werkstatt]
 owners: [jonas-merek, pahl]
 locations: [d5]

@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-09 06:23
-update: Narrative erweitert: zwei weitere Chronik-Anker-Scenes (T+0) verlinkt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 06:26); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 06:26); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 06:26)
+stand: 2026-01-13 03:49
+update: Referenzstandard (slug-only) präzisiert; Checks-Receipt nachgezogen.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/memory-bundle.md' PASS (2026-01-13 03:49); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp\\00-admin\\memory-bundle.md PASS (2026-01-13 03:49)"
 slug: memory-bundle
 category: Admin
 canvas: memory-bundle
@@ -12,6 +12,8 @@ Memory-Bundle (Kanon, kompakt)
 
 Diese Datei ist der „Wahrheitsspeicher“. Änderungen hier sind kanonisch.
 
+Start here: [Current-State.md](./Current-State.md)
+
 Core-Status (eingefroren)
 -------------------------
 
@@ -20,6 +22,13 @@ Core-Status (eingefroren)
 - Details gehören in Reference/Narrative:
   - Reference: z. B. Inventare, Relationslogs, Wissensmatrix/Taxonomie.
   - Narrative: Scenes/Chronik; Reveals über Missionslog/Scene, nicht als stiller Retcon.
+
+Referenzstandard (slug-only)
+----------------------------
+
+- **Semantische ID ist immer `slug`** (Frontmatter-Felder wie `characters`, `locations`, `dependencies` etc.).
+- Dateiname/Ordnername ist nur Ablageform.
+- Links im Text sind Navigation; Validierung läuft über `slug` (Gates: `validate:rp`, `validate:crossrefs`).
 
 Kanon
 -----

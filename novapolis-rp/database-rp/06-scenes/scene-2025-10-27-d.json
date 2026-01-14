@@ -1,0 +1,20 @@
+{
+  "title": "Szene: T+0 - C6-N3: Sicherung & Artefakt-Markierung",
+  "category": "scene",
+  "slug": "scene-2025-10-27-d",
+  "version": "1.0",
+  "last_updated": "2026-01-13T03:44:34+01:00",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2025-10-27-d.md",
+  "locations": [
+    "c6"
+  ],
+  "characters": [
+    "ronja-kerschner",
+    "reflex",
+    "kora-malenkov",
+    "echo"
+  ]
+}

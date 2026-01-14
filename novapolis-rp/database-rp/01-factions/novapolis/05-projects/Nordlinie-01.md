@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-09 03:33
-update: "Fortschritts-Methodik ergänzt (Erkundung/Sicherung/Betrieb), um 40% vs >60% konsistent zu berichten."
-checks: scripts/checks_rp_consistency.py PASS (targeted); scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2026-01-09 03:33)
+stand: 2026-01-13 02:03
+update: Team-/Arbeitsmodus ergänzt (40% Betrieb; Teamwechsel wegen Draisine; Reflex-Last als Frage); Postflight-Receipt ergänzt.
+checks: "run_checks_and_report.py PASS (2026-01-13 02:01); npm validate:rp PASS (2026-01-13 02:03); npm validate:crossrefs PASS (2026-01-13 02:03); checks_rp_consistency.py --strict PASS (2026-01-13 02:03)"
 title: Nordlinie 01 (Tunnel D5-C6)
 category: project
 slug: nordlinie-01
@@ -73,6 +73,17 @@ Aktueller Stand (Startwerte)
 - Erkundung: 65%
 - Sicherung: 45%
 - Betrieb: 40%
+
+Arbeitsmodus (Teams)
+--------------------
+
+- Grundsatz: Es arbeiten kleine Trupps von beiden Seiten (D5 und C6).
+- Aktuell (D5-Seite): Ronja und Reflex arbeiten weiter am Tunnel; Jonas und Pahl fokussieren die Werkstattarbeit am Projekt [Draisine-Transportmodul](./Draisine-Transportmodul.md).
+
+Offene Frage (Reflex-Last)
+--------------------------
+
+- Wenn D5-seitig primär Ronja+Reflex arbeiten, wird die Frage nach Reflex' Effektivität und Energieverbrauch relevant (Mechanik/Heuristik siehe [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
 
 - Tagesleistung: m/Tag/Team; skaliert mit Teamgröße/Erschöpfung
 - Blocker: Instabilitäten, Materialmangel, Fraktionsaktivität

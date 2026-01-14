@@ -23,6 +23,56 @@
       "recent1000": "database-curated/staging/recent-1000.txt",
       "reverseDir": "database-curated/staging/chunks/chat-export (1)/reverse"
     },
+    "reviewed": {
+      "dir": "database-curated/reviewed/chat-export (1)",
+      "indexReview": {
+        "path": "database-curated/reviewed/chat-export (1)/index_review.json",
+        "sha256": "908795E3FA32DC7DA77018E3652BAB36468217C77DCC7E3E1208F83821560F38"
+      },
+      "lexicon": {
+        "path": "database-curated/reviewed/chat-export (1)/lexicon.json",
+        "sha256": "CDDAA9A115AE5E40B7CAED39043BDB56EADE96C1545D1D3A26C4C0BB4F65D624"
+      },
+      "unresolved": {
+        "path": "database-curated/reviewed/chat-export (1)/unresolved.json",
+        "sha256": "3682FE4BA77FA0DA0040D409487B7E3907739FCAD9337D43C3DDF62E0524FB30"
+      },
+      "parts": {
+        "pattern": "database-curated/reviewed/chat-export (1)/part-*.tagged.txt",
+        "count": 19
+      }
+    },
+    "promotion": {
+      "status": "reviewed",
+      "finalGate": {
+        "criteria": [
+          "Curated-Validator (schema) grün",
+          "Konfliktliste vorhanden (Top-10 aus [OPEN])",
+          "FACT?-Liste vorhanden",
+          "Entscheidungen dokumentiert (Decision Records)",
+          "SSOT-Änderungen umgesetzt und verlinkt",
+          "Receipt im Root DONELOG.md"
+        ],
+        "blocked": true,
+        "blockedReasons": [
+          "Promotion in final/ noch nicht durchgeführt"
+        ]
+      }
+    },
+    "runs": [
+      {
+        "id": "run-2026-01-12-curated-review-extract",
+        "type": "review-extract",
+        "at": "2026-01-12 06:57",
+        "tool": {
+          "script": "scripts/extract_curated_conflicts.py",
+          "sha256": "48FD0623985C8B5B3E0BD455E962720D36FE53F651187FFD430B80E6BAD759FB"
+        },
+        "outputs": {
+          "conflictsReport": ".tmp/results/reports/curated_conflicts_postflight_20260112_0657.md"
+        }
+      }
+    ],
     "notes": "Testlauf; hohe Duplikatwahrscheinlichkeit; als erste zu kuratierende Datei. Normalisiert und gechunked."
   },
   {
@@ -48,6 +98,56 @@
       "recent1000": "database-curated/staging/recent-1000.txt",
       "reverseDir": "database-curated/staging/chunks/chat-export-complete/reverse"
     },
+    "reviewed": {
+      "dir": "database-curated/reviewed/chat-export-complete",
+      "indexReview": {
+        "path": "database-curated/reviewed/chat-export-complete/index_review.json",
+        "sha256": "C69A8E9B8AF788565AB5A05F4020C07CBE65C5CDA0F4BC1E5814BA88B7BC9B9E"
+      },
+      "lexicon": {
+        "path": "database-curated/reviewed/chat-export-complete/lexicon.json",
+        "sha256": "F97A2C796DB98B0BD5ACFE612494D6DAC75636A474A4FB69FEE4FA531898CAC6"
+      },
+      "unresolved": {
+        "path": "database-curated/reviewed/chat-export-complete/unresolved.json",
+        "sha256": "3682FE4BA77FA0DA0040D409487B7E3907739FCAD9337D43C3DDF62E0524FB30"
+      },
+      "parts": {
+        "pattern": "database-curated/reviewed/chat-export-complete/part-*.tagged.txt",
+        "count": 22
+      }
+    },
+    "promotion": {
+      "status": "reviewed",
+      "finalGate": {
+        "criteria": [
+          "Curated-Validator (schema) grün",
+          "Konfliktliste vorhanden (Top-10 aus [OPEN])",
+          "FACT?-Liste vorhanden",
+          "Entscheidungen dokumentiert (Decision Records)",
+          "SSOT-Änderungen umgesetzt und verlinkt",
+          "Receipt im Root DONELOG.md"
+        ],
+        "blocked": true,
+        "blockedReasons": [
+          "Promotion in final/ noch nicht durchgeführt"
+        ]
+      }
+    },
+    "runs": [
+      {
+        "id": "run-2026-01-12-curated-review-extract",
+        "type": "review-extract",
+        "at": "2026-01-12 06:57",
+        "tool": {
+          "script": "scripts/extract_curated_conflicts.py",
+          "sha256": "48FD0623985C8B5B3E0BD455E962720D36FE53F651187FFD430B80E6BAD759FB"
+        },
+        "outputs": {
+          "conflictsReport": ".tmp/results/reports/curated_conflicts_postflight_20260112_0657.md"
+        }
+      }
+    ],
     "notes": "Konsolidierter Export (chat-export.txt + chat-export (1).txt), LF-normalisiert, gechunked (22 Teile) inkl. Deltas/Stats/Dedupe."
   }
 ]

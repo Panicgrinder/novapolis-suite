@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 09:04
-update: "JEALOUSY-GLOVES aligned: Kontakt-Guard (betroffene Körperstelle bedecken) bei Jonas, Consent/Stop/Freigabe via Reference. | Stale FACT-Referenz entfernt (nicht kuratiert)."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 09:04); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-11 09:04)
+stand: 2026-01-13 02:03
+update: Werkstatt-Mitüberwachung (D5-Systeme) präzisiert; Postflight-Receipt ergänzt.
+checks: "run_checks_and_report.py PASS (2026-01-13 02:01); npm validate:rp PASS (2026-01-13 02:03); npm validate:crossrefs PASS (2026-01-13 02:03); checks_rp_consistency.py --strict PASS (2026-01-13 02:03)"
 title: Lumen
 category: character
 slug: lumen
@@ -35,6 +35,7 @@ Notizen
 - Erste aktive Instanz des Reflex-Netzwerks; Stabilität über Nähe zu Jonas [PROXIMITY].
 - Verhält sich ähnlich wie Reflex: Nähe wird aus Zuneigung/Bindung gesucht und stabilisiert Lumen.
 - Arbeitsfenster: Kann (solange in der Nähe) ohne permanenten Körperkontakt fokussiert bleiben; bei Trennung kippt es in Schonmodus.
+- Werkstatt (D5): Wenn Jonas in der Werkstatt arbeitet, kann Lumen zusammen mit Jonas über die Systeme von D5 bestimmte Bereiche mitüberwachen, ohne die Nähebindung zu Jonas zu brechen.
 
 Hinweis: PROXIMITY-Startwerte/Training siehe [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md).
 

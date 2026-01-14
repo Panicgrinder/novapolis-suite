@@ -1,0 +1,13 @@
+{
+  "title": "Szene: T+0 - Karawanen-Anführerin: Konsistenzfix + Archivierungsregel (keine fehlerhaften Backups)",
+  "category": "scene",
+  "slug": "scene-2025-10-27-aa",
+  "version": "1.0",
+  "last_updated": "2026-01-14T01:49:21+01:00",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2025-10-27-aa.md",
+  "locations": ["c6"],
+  "characters": ["ronja-kerschner", "reflex", "kora-malenkov", "echo"]
+}

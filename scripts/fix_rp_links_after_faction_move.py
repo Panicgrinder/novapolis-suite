@@ -2,7 +2,8 @@
 """fix_rp_links_after_faction_move.py
 
 Targeted post-migration fix:
-- Files moved to `database-rp/01-factions/<faction>/<category>/...` are one level deeper than before.
+- Files moved to `database-rp/01-factions/<faction>/<category>/...` are one level deeper
+    than before.
 - Links that previously used `../00-admin/...` now need `../../00-admin/...`.
 
 This script rewrites only Markdown link targets (inside `](...)`) for those paths.

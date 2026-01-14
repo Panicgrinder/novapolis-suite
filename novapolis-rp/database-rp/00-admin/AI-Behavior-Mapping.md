@@ -1,13 +1,17 @@
 ---
-stand: 2026-01-08 09:39
-update: Anchor-Register: SSOT-Pfade als relative Links klickbar gemacht (keine Inhaltsänderung).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-08 09:39); python scripts/check_frontmatter.py PASS (2026-01-08 09:39); python scripts/checks_rp_consistency.py --strict PASS (2026-01-08 09:39)
+stand: 2026-01-12 06:01
+update: "Validator-Fix: update quoted + H1 ergänzt (RP-Validator kompatibel)."
+checks: npm run validate:rp PASS (2026-01-12 06:01); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md' PASS (2026-01-12 06:01); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\00-admin\AI-Behavior-Mapping.md PASS (2026-01-12 06:01)
 canvas: AI-Behavior-Mapping
 last-updated: 2025-11-07T04:09:00+01:00
 category: admin
 slug: ai_behavior_index_v2
 version: 1.0
 ---
+
+AI-Behavior-Mapping
+===================
+
 Ziel: Das vollständige Verhaltens-Matrix-Canvas (`ai_behavior_index_v2`) retten, normalisieren und für die Interaktion mit Novapolis-Akteuren nutzbar machen. Fokus liegt auf der Kombination aus globalen Clustern, Intensitäten, Modifikatoren und den daraus abgeleiteten Hooks für Charaktere/KI-Schnittstellen.
 
 Zweck & Scope

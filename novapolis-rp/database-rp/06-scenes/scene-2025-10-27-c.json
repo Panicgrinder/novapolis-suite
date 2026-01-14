@@ -1,0 +1,19 @@
+{
+  "title": "Szene: T+0 - Nordlinie-01: Nächster Schritt festziehen",
+  "category": "scene",
+  "slug": "scene-2025-10-27-c",
+  "version": "1.0",
+  "last_updated": "2026-01-11T19:20:50+01:00",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2025-10-27-c.md",
+  "locations": [
+    "d5",
+    "verbindungstunnel-d5-c6"
+  ],
+  "characters": [
+    "ronja-kerschner",
+    "jonas-merek"
+  ]
+}

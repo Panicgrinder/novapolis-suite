@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-07 18:47
-update: Draft-Canon an Beschlüsse angepasst (C6-Nord/N7, Fraktionsnamen).
-checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
+stand: 2026-01-13 02:03
+update: "Draft-Canon: N7-Benennung als Alias (C6-Nordanomalie) präzisiert; Postflight-Receipt ergänzt."
+checks: "run_checks_and_report.py PASS (2026-01-13 02:01); npm validate:rp PASS (2026-01-13 02:03); npm validate:crossrefs PASS (2026-01-13 02:03); checks_rp_consistency.py --strict PASS (2026-01-13 02:03)"
 slug: canon-canvas-draft
 last-updated: 2025-11-07T04:09:00+01:00
 status: draft
@@ -42,7 +42,7 @@ Orte
 - Beschreibung: ehem. Händlerkarawane; Algen/Pilz; Strom von D5; Kreuzungsstation - [FACT?]
 - Bewohner/Organisation: … - [FACT?]
 - Verknüpfungen: Tunnel zu D5 - [FACT?]
-- Hinweis: C6-Nord (vormals „N7“) ist als Anomalie aktiv; Bereich wurde von Ronja mit Reflex versiegelt. - [FACT?]
+- Hinweis: C6-Nordanomalie (Alias: „N7“) ist als Anomalie aktiv; Bereich wurde von Ronja mit Reflex versiegelt. - [FACT?]
 
 Projekte
 --------

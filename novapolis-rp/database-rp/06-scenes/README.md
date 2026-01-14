@@ -2,9 +2,9 @@
 title: "Scenes: Definition & Template"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-01-09 06:15
-update: "Scenes-Definition operationalisiert: Pflichtabschnitte, Template, Retcon-Regeln und Link-Konventionen ergänzt."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 06:15); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 06:15); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 06:15)
+stand: 2026-01-11 19:23
+update: "Scene-XREFs: Klarstellung auf slug-only + Validierungstext aktualisiert."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 19:23); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 19:23); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 19:23)
 slug: scenes-konventionen-stub
 ---
 
@@ -29,7 +29,7 @@ Pflichtfelder für `06-scenes/*.md`:
 - `characters`, `locations`, `inventoryRefs` (Listen; dürfen leer sein)
 - `stand`, `update`, `checks`, `last_updated`
 
-Hinweis: `scripts/checks_rp_consistency.py` prüft, dass `characters/locations/inventoryRefs` auf existierende SSOT-Dateien zeigen (Dateiname ohne `.md`).
+Hinweis: `scripts/checks_rp_consistency.py` prüft, dass `characters/locations/inventoryRefs` auf existierende SSOT-**Slugs** zeigen (d. h. auf das `slug:`-Feld der Ziel-Datei).
 
 Pflichtabschnitte im Body
 -------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 02:16
-update: "Policy ergänzt: keine neuen/undefinierten Lebewesen außer Reflex ohne Adminfreigabe (Konflikt #10 = Artefakt/Noise)."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 02:16); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 02:16); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 02:16)
+stand: 2026-01-12 21:23
+update: "Entry-Point: Link auf Current-State ergänzt (Navigation)."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/memory-bundle.md' 'novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md' PASS (2026-01-12 21:25); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\00-admin\memory-bundle.md novapolis-rp\database-rp\00-admin\Reference-Campaign-State.md PASS (2026-01-12 21:25); npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-12 21:24); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-12 21:24); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-12 21:24)
 slug: reference-campaign-state
 category: Admin
 canvas: campaign-state
@@ -11,6 +11,8 @@ Reference: Campaign State (ausgelagert)
 =====================================
 
 Zweck: Sammelstelle für veränderliche Details (Inventar, Status, Timeline-Skizzen), die bewusst **nicht** im Canon-Core (`memory-bundle.md`) stehen.
+
+Start here: [Current-State.md](./Current-State.md)
 
 Mechanik (Reference): Symbiose-Energie (SE) - Pools (Reflex-System)
 ---------------------------------------------------------------

@@ -213,6 +213,44 @@ def parse_frontmatter_lists(frontmatter: str) -> dict[str, list[str]]:
     return out
 
 
+def clean_frontmatter_scalar(raw: str) -> str:
+    return raw.strip().strip('"').strip("'")
+
+
+def extract_frontmatter_slug(frontmatter: str) -> str | None:
+    m = SLUG_LINE_RE.search(frontmatter)
+    if not m:
+        return None
+    slug = clean_frontmatter_scalar(m.group(1))
+    return slug or None
+
+
+def build_slug_index(files: list[Path]) -> tuple[set[str], set[str], dict[str, str]]:
+    """Return (slug_set, stem_set, stem_to_slug).
+
+    - slug_set is derived from each file's frontmatter `slug:`.
+    - stem_set uses the filename stem as a fallback/diagnostic.
+    - stem_to_slug is best-effort and used for error messages.
+    """
+
+    slug_set: set[str] = set()
+    stem_set: set[str] = set()
+    stem_to_slug: dict[str, str] = {}
+
+    for p in files:
+        stem_set.add(p.stem)
+        text = read_text(p)
+        fm, _rest = split_frontmatter(text)
+        if fm is None:
+            continue
+        slug = extract_frontmatter_slug(fm)
+        if slug:
+            slug_set.add(slug)
+            stem_to_slug[p.stem] = slug
+
+    return slug_set, stem_set, stem_to_slug
+
+
 def iter_markdown_files(root: Path) -> list[Path]:
     return sorted(p for p in root.rglob("*.md") if p.is_file())
 
@@ -283,28 +321,20 @@ def audit_rp(
 
     scenes_dir = (rp_root / "06-scenes").resolve()
 
-    # pre-index for crossrefs
-    idx_char = {
-        p.stem
-        for p in (
-            list((rp_root / "02-characters").glob("*.md"))
-            + list((rp_root / "01-factions").glob("*/02-characters/*.md"))
-        )
-    }
-    idx_loc = {
-        p.stem
-        for p in (
-            list((rp_root / "03-locations").glob("*.md"))
-            + list((rp_root / "01-factions").glob("*/03-locations/*.md"))
-        )
-    }
-    idx_inv = {
-        p.stem
-        for p in (
-            list((rp_root / "04-inventory").glob("*.md"))
-            + list((rp_root / "01-factions").glob("*/04-inventory/*.md"))
-        )
-    }
+    # pre-index for scene crossrefs (slug-only)
+    char_files = list((rp_root / "02-characters").glob("*.md")) + list(
+        (rp_root / "01-factions").glob("*/02-characters/*.md")
+    )
+    loc_files = list((rp_root / "03-locations").glob("*.md")) + list(
+        (rp_root / "01-factions").glob("*/03-locations/*.md")
+    )
+    inv_files = list((rp_root / "04-inventory").glob("*.md")) + list(
+        (rp_root / "01-factions").glob("*/04-inventory/*.md")
+    )
+
+    idx_char, idx_char_stem, idx_char_stem_to_slug = build_slug_index(char_files)
+    idx_loc, idx_loc_stem, idx_loc_stem_to_slug = build_slug_index(loc_files)
+    idx_inv, idx_inv_stem, idx_inv_stem_to_slug = build_slug_index(inv_files)
 
     with log_path.open("w", encoding=LOG_ENCODING) as lh:
         lh.write(f"RepoRoot: {repo_root}\n")
@@ -387,7 +417,22 @@ def audit_rp(
                 if file_path.resolve().parent == scenes_dir:
                     lists = parse_frontmatter_lists(fm)
                     for c in lists.get("characters", []):
-                        if c and c not in idx_char:
+                        if not c:
+                            continue
+                        if c in idx_char:
+                            continue
+                        if c in idx_char_stem:
+                            expected = idx_char_stem_to_slug.get(c)
+                            hint = f" (expected slug: {expected})" if expected else ""
+                            findings.append(
+                                Finding(
+                                    "ERROR",
+                                    "XREF_CHAR_NON_SLUG",
+                                    rel,
+                                    f"character ref must be slug, not filename-stem: {c}{hint}",
+                                )
+                            )
+                        else:
                             findings.append(
                                 Finding(
                                     "ERROR",
@@ -397,7 +442,22 @@ def audit_rp(
                                 )
                             )
                     for loc in lists.get("locations", []):
-                        if loc and loc not in idx_loc:
+                        if not loc:
+                            continue
+                        if loc in idx_loc:
+                            continue
+                        if loc in idx_loc_stem:
+                            expected = idx_loc_stem_to_slug.get(loc)
+                            hint = f" (expected slug: {expected})" if expected else ""
+                            findings.append(
+                                Finding(
+                                    "ERROR",
+                                    "XREF_LOC_NON_SLUG",
+                                    rel,
+                                    f"location ref must be slug, not filename-stem: {loc}{hint}",
+                                )
+                            )
+                        else:
                             findings.append(
                                 Finding(
                                     "ERROR",
@@ -407,7 +467,22 @@ def audit_rp(
                                 )
                             )
                     for iref in lists.get("inventoryRefs", []):
-                        if iref and iref not in idx_inv:
+                        if not iref:
+                            continue
+                        if iref in idx_inv:
+                            continue
+                        if iref in idx_inv_stem:
+                            expected = idx_inv_stem_to_slug.get(iref)
+                            hint = f" (expected slug: {expected})" if expected else ""
+                            findings.append(
+                                Finding(
+                                    "ERROR",
+                                    "XREF_INV_NON_SLUG",
+                                    rel,
+                                    f"inventory ref must be slug, not filename-stem: {iref}{hint}",
+                                )
+                            )
+                        else:
                             findings.append(
                                 Finding(
                                     "ERROR",

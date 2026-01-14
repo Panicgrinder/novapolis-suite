@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-09 05:12
-update: P0: Ortsgraph als minimalen Index definiert (D5↔C6↔E3 via Tunnel-Knoten).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 05:12); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 05:12); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 05:12)
+stand: 2026-01-12 06:01
+update: "Validator-Fix: update-Wert YAML-sicher quoted (kein Inhalts-Change)."
+checks: npm run validate:rp PASS (2026-01-12 06:01); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\00-admin\Ortsgraph.md PASS (2026-01-12 06:01)
 slug: ortsgraph-index
 category: Admin
 canvas: ortsgraph

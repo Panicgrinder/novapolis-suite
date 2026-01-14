@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-09 06:28
-update: Missionslog mit Scenes als Belege verlinkt (T+0 Anker a/b/c).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 06:29); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 06:29); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 06:29)
+stand: 2026-01-13 19:26
+update: "T+0: Scene-Anker (a–p) als Missions-/Task-Evidenz ergänzt; neue Einträge bleiben tbd wo nötig. Checks PASS."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Missionslog.md' PASS (2026-01-13 19:26); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Missionslog.md' PASS (2026-01-13 19:26); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-13 19:26)"
 category: admin
 canvas: missionslog
 slug: missionslog
@@ -36,7 +36,82 @@ Prozess L.1 - Missionsfluss
 Aktiv
 -----
 
-### Anomalie: C6-Nord (vormals N7)
+T+0: Scene-Anker (Tasks/Belege, ohne neue Fakten)
+-----------------------------------------------
+
+Hinweis: Diese Liste ergänzt nur belegte Anker aus den Scenes. Start/Ende/Status bleiben tbd, solange keine belastbaren Daten vorliegen.
+
+### D5: Wartungsauftrag & Wartungsgang
+- Ziel: Wartungsauftrag/Beobachtung als Anker dokumentieren; Ownership/Contents der Werkzeugtasche offen lassen
+- Start: tbd
+- Ende: -
+- Status: tbd
+- Belege/Quittungen: [scene-2025-10-27-g](../06-scenes/scene-2025-10-27-g.md)
+- Verantwortliche: tbd
+- Inventar-Link: tbd
+- Orte/Projekte: [D5](../01-factions/novapolis/03-locations/D5.md)
+
+### D5: Terminal/Port & System-Link
+- Ziel: System-Link/Terminalzugriff als Anker dokumentieren; Outputs erst nach belegten Details übernehmen
+- Start: tbd
+- Ende: -
+- Status: tbd
+- Belege/Quittungen: [scene-2025-10-27-h](../06-scenes/scene-2025-10-27-h.md)
+- Verantwortliche: tbd
+- Inventar-Link: tbd
+- Orte/Projekte: [D5](../01-factions/novapolis/03-locations/D5.md)
+
+### D5: Basispflege & Exoskelett-Idee
+- Ziel: Basispflege/Ordnung als wiederkehrenden Faden dokumentieren; Exoskelett-Idee als Projektfaden markieren
+- Start: tbd
+- Ende: -
+- Status: tbd
+- Belege/Quittungen: [scene-2025-10-27-i](../06-scenes/scene-2025-10-27-i.md)
+- Verantwortliche: tbd
+- Inventar-Link: tbd
+- Orte/Projekte: [D5](../01-factions/novapolis/03-locations/D5.md)
+
+### C6: Sicherung/Markierung (C6-N3) & Artefakt „7A“
+- Ziel: Sicherung/Abschirmung vor Bergung; Artefakt-Markierung „7A“ als Arbeitsanker führen
+- Start: tbd
+- Ende: -
+- Status: tbd
+- Belege/Quittungen: [scene-2025-10-27-d](../06-scenes/scene-2025-10-27-d.md)
+- Verantwortliche: tbd
+- Inventar-Link: tbd
+- Orte/Projekte: [C6](../01-factions/novapolis/03-locations/C6.md)
+
+### C6: Abschluss/Übergabe & Echo-Moment
+- Ziel: Abschluss-/Übergabemoment dokumentieren; Echo-Status nur als Notiz führen
+- Start: tbd
+- Ende: -
+- Status: tbd
+- Belege/Quittungen: [scene-2025-10-27-e](../06-scenes/scene-2025-10-27-e.md), [scene-2025-10-27-f](../06-scenes/scene-2025-10-27-f.md)
+- Verantwortliche: tbd
+- Inventar-Link: tbd
+- Orte/Projekte: [C6](../01-factions/novapolis/03-locations/C6.md)
+
+### C6: Funk/Scan & Stationssuche
+- Ziel: Kontaktaufnahme/Scan/Suche als Arbeitsauftrag; Ergebnisse erst nach belegtem Output kanonisieren
+- Start: tbd
+- Ende: -
+- Status: tbd
+- Belege/Quittungen: [scene-2025-10-27-j](../06-scenes/scene-2025-10-27-j.md), [scene-2025-10-27-k](../06-scenes/scene-2025-10-27-k.md)
+- Verantwortliche: tbd
+- Inventar-Link: tbd
+- Orte/Projekte: [C6](../01-factions/novapolis/03-locations/C6.md)
+
+### Policy/Setup: C6 als Puffer & Händler-Anbahnung
+- Ziel: C6 als Puffer-Policy festhalten; Händler-Anbahnung via Reflex als Faden; keine Reparatur-/Zustandsbeschönigung
+- Start: tbd
+- Ende: -
+- Status: tbd
+- Belege/Quittungen: [scene-2025-10-27-m](../06-scenes/scene-2025-10-27-m.md)
+- Verantwortliche: tbd
+- Inventar-Link: tbd
+- Orte/Projekte: [C6](../01-factions/novapolis/03-locations/C6.md)
+
+### Anomalie: C6-Nordanomalie (Alias: N7)
 - Ziel: Lokalisieren, Effekte erfassen, Risiken/Trigger katalogisieren
 - Hinweis: Bereich wurde damals von Ronja mit Reflex versiegelt; Zugang nur unter expliziter Freigabe.
 - Start: tbd
@@ -69,6 +144,7 @@ Aktiv
 
 ### Anomalie: E3-Gefahr?
 - Ziel: Quelle und Wirkung klären; Monitoring etablieren
+- Kontext: Ronja und Reflex entdeckten akute Energieschwankungen; daraufhin wurde die Evakuierung nach C6 vorgeschlagen.
 - Start: tbd
 - Ende: -
 - Status: aktiv
@@ -76,7 +152,9 @@ Aktiv
 - Verantwortliche: tbd
 - Inventar-Link: tbd
 - Orte/Projekte: -  
-  Hinweis: Gasunfall-Station ist E2 (siehe Unklarheiten-Beschluss).
+  Hinweise:
+  - Gasunfall-Station ist E2 (siehe Unklarheiten-Beschluss).
+  - Wer die Netztrennung/Abschaltung von E3 bemerkt, hängt davon ab, wer E3 (bzw. die Energie-/Sensorstrecken) überwacht hat.
 
 ### Bauabschnitt: Nordlinie-01 (Projekt)
 - Ziel: Fortschritt gemäß Tagesleistung m/Tag/Team dokumentieren

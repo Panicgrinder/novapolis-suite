@@ -22,20 +22,10 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_UNCERTAINTIES = (
-    REPO_ROOT
-    / "novapolis-rp"
-    / "database-curated"
-    / "staging"
-    / "reports"
-    / "uncertainties.md"
+    REPO_ROOT / "novapolis-rp" / "database-curated" / "staging" / "reports" / "uncertainties.md"
 )
 DEFAULT_RESOLVED = (
-    REPO_ROOT
-    / "novapolis-rp"
-    / "database-curated"
-    / "staging"
-    / "reports"
-    / "resolved.md"
+    REPO_ROOT / "novapolis-rp" / "database-curated" / "staging" / "reports" / "resolved.md"
 )
 
 
@@ -104,7 +94,9 @@ def is_covered(token: str, fact_tags: set[str]) -> bool:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Check that tags referenced in uncertainties.md are covered as [FACT] in resolved.md.",
+        description=(
+            "Check that tags referenced in uncertainties.md are covered as [FACT] in resolved.md."
+        ),
     )
     parser.add_argument(
         "--uncertainties",

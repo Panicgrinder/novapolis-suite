@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 05:18
-update: Handel/Diplomatie: Hub-Index ergänzt (Übersicht + Linkziele).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 05:18); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py --touch novapolis-rp\database-rp\00-admin\Index-Handel-Diplomatie.md novapolis-rp\database-rp\00-admin\Handel-Diplomatie-Haendlergilde.md novapolis-rp\database-rp\00-admin\Relationslog-Novapolis.md novapolis-rp\database-rp\00-admin\Index-Haendlergilde.md DONELOG.md PASS (2026-01-11 05:18); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 05:18)
+stand: 2026-01-12 06:01
+update: "Validator-Fix: update-Wert YAML-sicher quoted (kein Inhalts-Change)."
+checks: npm run validate:rp PASS (2026-01-12 06:01); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\00-admin\Index-Handel-Diplomatie.md PASS (2026-01-12 06:01)
 slug: index_handel_diplomatie_v1
 category: admin
 status: draft

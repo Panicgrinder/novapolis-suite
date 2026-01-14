@@ -1,0 +1,22 @@
+{
+  "title": "Szene: T+0 - Jonas, Aufbruchplanung & Tunnel-Assessment",
+  "category": "scene",
+  "slug": "scene-2025-10-27-j",
+  "version": "1.0",
+  "last_updated": "2026-01-13T04:04:29+01:00",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2025-10-27-j.md",
+  "locations": [
+    "d5",
+    "c6",
+    "verbindungstunnel-d5-c6"
+  ],
+  "characters": [
+    "ronja-kerschner",
+    "reflex",
+    "jonas-merek",
+    "lumen"
+  ]
+}

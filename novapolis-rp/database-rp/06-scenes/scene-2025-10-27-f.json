@@ -1,0 +1,21 @@
+{
+  "title": "Szene: T+0 - C6→D5: Statusmeldung & ToDo-Übergabe",
+  "category": "scene",
+  "slug": "scene-2025-10-27-f",
+  "version": "1.0",
+  "last_updated": "2026-01-13T03:44:34+01:00",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2025-10-27-f.md",
+  "locations": [
+    "c6",
+    "d5"
+  ],
+  "characters": [
+    "ronja-kerschner",
+    "reflex",
+    "kora-malenkov",
+    "echo"
+  ]
+}

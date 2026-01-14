@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-09 03:33
-update: Energie-/Verbrauchsmodell konkretisiert (Konten, Tagesabschluss, spielbar vs Hintergrund); last_updated Key vereinheitlicht.
-checks: markdownlint-cli2 PASS (targeted) (2026-01-09 03:33); scripts/check_frontmatter.py PASS (targeted) (2026-01-09 03:33)
+stand: 2026-01-13 19:26
+update: "T+0: Scene-Anker ergänzt; potenziell unbelegte Statusaussagen (C6/Tunnel) als tbd/Policy entschärft. Checks PASS."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Logistik.md' PASS (2026-01-13 19:26); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Logistik.md' PASS (2026-01-13 19:26); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-13 19:26)"
 canvas: Logistik
 last_updated: 2025-11-07T04:09:00+01:00
 category: admin
@@ -45,12 +45,19 @@ Beispielbuchung
 Generatoren
 -----------
 - D5-Reaktor: Status 100%, lädt Zellen (Regeln verlinken)
-- C6-Generator: repariert, Kapazität/Verbrauch verknüpfen
+- C6-Generator: Status tbd (keine Instandsetzung/Zahlen ohne belegte Einträge)
 
 Leitungen/Schaltzustände
 ------------------------
-- D5↔C6: aktiv, in Reparatur
+- D5↔C6: Status tbd (keine Reparatur/Verfügbarkeit ohne belegte Einträge)
 - Einschränkungen definieren (Infrastruktur limitiert reale Versorgung)
+
+T+0: Harte Constraints aus Scenes (keine Retcons)
+-----------------------------------------------
+
+- Keine Tunnel-Instandsetzung behaupten, bis ein belegter Schritt vorliegt (u. a. [scene-2025-10-27-j](../06-scenes/scene-2025-10-27-j.md), [scene-2025-10-27-k](../06-scenes/scene-2025-10-27-k.md), [scene-2025-10-27-m](../06-scenes/scene-2025-10-27-m.md)).
+- C6-Zustand nicht beschönigen; C6 bleibt „leer/unrepariert“, solange nichts anderes belegt ist (siehe [scene-2025-10-27-m](../06-scenes/scene-2025-10-27-m.md)).
+- Inventar-Änderungen nur nach belegten Einträgen nachziehen (z. B. [scene-2025-10-27-l](../06-scenes/scene-2025-10-27-l.md)).
 
 Ladefenster / Prioritäten
 -------------------------
