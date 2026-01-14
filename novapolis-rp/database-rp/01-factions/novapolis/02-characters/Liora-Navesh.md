@@ -9,9 +9,9 @@ version: "0.9"
 last_updated: 2025-11-07T03:32:00+01:00
 tags: []
 affiliations: ["arkologie-a1"]
-dependencies: ["d5", "c6"]
-primary_location: d5
-last_seen: d5
+dependencies: ["a1"]
+primary_location: a1
+last_seen: a1
 ---
 <!-- markdownlint-disable MD025 -->
 

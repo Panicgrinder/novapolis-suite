@@ -1,0 +1,24 @@
+{
+  "title": "Szene: Diplomatie - Bedingungen für wiederkehrenden Handel",
+  "category": "scene",
+  "slug": "scene-2026-01-16-b",
+  "version": "1.0",
+  "last_updated": "2026-01-14T08:56:04+01:00",
+  "tags": [
+    "starter",
+    "diplomatie",
+    "handel"
+  ],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2026-01-16-b.md",
+  "locations": [
+    "d5"
+  ],
+  "characters": [
+    "ronja-kerschner",
+    "reflex",
+    "kora-malenkov",
+    "echo"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Szene: Route - Risiko im Verbindungstunnel",
+  "category": "scene",
+  "slug": "scene-2026-01-15-a",
+  "version": "1.0",
+  "last_updated": "2026-01-14T08:56:04+01:00",
+  "tags": [
+    "starter",
+    "route",
+    "risiko"
+  ],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2026-01-15-a.md",
+  "locations": [
+    "verbindungstunnel-d5-c6",
+    "d5",
+    "c6"
+  ],
+  "characters": [
+    "jonas-merek",
+    "lumen",
+    "ronja-kerschner",
+    "reflex"
+  ]
+}

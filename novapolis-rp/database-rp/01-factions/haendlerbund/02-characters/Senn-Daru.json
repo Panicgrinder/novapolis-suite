@@ -3,15 +3,19 @@
   "category": "character",
   "slug": "senn-daru",
   "version": "0.9",
-  "last_updated": "2025-11-07T03:32:00+01:00",
-  "tags": [],
+  "last_updated": "2026-01-14T17:31:10+01:00",
+  "tags": [
+    "karawane",
+    "novapolis"
+  ],
   "affiliations": [
-    "haendlerbund"
+    "novapolis"
   ],
   "primary_location": "c6",
   "last_seen": "c6",
   "dependencies": [
-    "c6"
+    "c6",
+    "g7"
   ],
   "source": "database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md"
 }

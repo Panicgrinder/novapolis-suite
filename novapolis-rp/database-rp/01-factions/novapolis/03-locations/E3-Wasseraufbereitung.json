@@ -1,0 +1,12 @@
+{
+  "title": "E3 Wasseraufbereitung",
+  "category": "location",
+  "slug": "e3-wasseraufbereitung",
+  "version": "0.1",
+  "last_updated": "2026-01-14T10:15:02+01:00",
+  "last_change": "Neu: POI ergänzt (Wasseraufbereitung)",
+  "tags": ["poi", "e3", "infrastruktur"],
+  "affiliations": ["novapolis"],
+  "dependencies": ["e3"],
+  "source": "database-rp/01-factions/novapolis/03-locations/E3-Wasseraufbereitung.md"
+}

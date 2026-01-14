@@ -1,0 +1,24 @@
+{
+  "title": "Szene: Deal - Filter/Energie gegen Adapter/Werkzeug",
+  "category": "scene",
+  "slug": "scene-2026-01-14-b",
+  "version": "1.0",
+  "last_updated": "2026-01-14T08:56:04+01:00",
+  "tags": [
+    "starter",
+    "handel",
+    "deal"
+  ],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2026-01-14-b.md",
+  "locations": [
+    "d5"
+  ],
+  "characters": [
+    "ronja-kerschner",
+    "reflex",
+    "kora-malenkov",
+    "echo"
+  ]
+}

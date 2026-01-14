@@ -1,0 +1,12 @@
+{
+  "title": "D5 Werkstatt",
+  "category": "location",
+  "slug": "d5-werkstatt",
+  "version": "0.1",
+  "last_updated": "2026-01-14T10:15:02+01:00",
+  "last_change": "Neu: POI ergänzt (Werkstatt)",
+  "tags": ["poi", "d5", "werkstatt"],
+  "affiliations": ["novapolis"],
+  "dependencies": ["d5"],
+  "source": "database-rp/01-factions/novapolis/03-locations/D5-Werkstatt.md"
+}

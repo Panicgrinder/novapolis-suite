@@ -1,0 +1,26 @@
+{
+  "title": "Bastian Ruehl",
+  "category": "character",
+  "slug": "bastian-ruehl",
+  "version": "0.1",
+  "last_updated": "2026-01-14T14:04:00+01:00",
+  "tags": [
+    "evakuierte",
+    "e3",
+    "c6"
+  ],
+  "affiliations": [
+    "novapolis",
+    "e3",
+    "c6"
+  ],
+  "primary_location": "c6",
+  "last_seen": "c6",
+  "dependencies": [
+    "c6-bewohner",
+    "marei",
+    "c6",
+    "e3"
+  ],
+  "source": "database-rp/01-factions/novapolis/02-characters/Bastian-Ruehl.md"
+}

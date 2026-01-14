@@ -7,13 +7,12 @@
   "last_change": "Import aus RAW (char_liora_navesh_v1)",
   "tags": [],
   "affiliations": [
-    "novapolis"
+    "arkologie-a1"
   ],
-  "primary_location": "d5",
-  "last_seen": "d5",
+  "primary_location": "a1",
+  "last_seen": "a1",
   "dependencies": [
-    "d5",
-    "c6"
+    "a1"
   ],
   "source": "database-rp/01-factions/novapolis/02-characters/Liora-Navesh.md"
 }

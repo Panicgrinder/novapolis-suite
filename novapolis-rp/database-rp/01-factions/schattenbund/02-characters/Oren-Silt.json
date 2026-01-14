@@ -1,0 +1,14 @@
+{
+  "title": "Oren Silt",
+  "category": "character",
+  "slug": "oren-silt",
+  "version": "0.1",
+  "last_updated": "2026-01-14T10:16:22+01:00",
+  "last_change": "Neu: NPC ergänzt (Runner Schattenbund)",
+  "tags": ["npc", "schattenbund", "bote"],
+  "affiliations": ["schattenbund"],
+  "primary_location": "f9",
+  "last_seen": "f9",
+  "dependencies": ["f9"],
+  "source": "database-rp/01-factions/schattenbund/02-characters/Oren-Silt.md"
+}

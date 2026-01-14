@@ -1,0 +1,12 @@
+{
+  "title": "C6 Schleuse",
+  "category": "location",
+  "slug": "c6-schleuse",
+  "version": "0.1",
+  "last_updated": "2026-01-14T10:15:02+01:00",
+  "last_change": "Neu: POI ergänzt (Schleuse)",
+  "tags": ["poi", "c6", "zugang"],
+  "affiliations": ["novapolis"],
+  "dependencies": ["c6", "verbindungstunnel-d5-c6"],
+  "source": "database-rp/01-factions/novapolis/03-locations/C6-Schleuse.md"
+}

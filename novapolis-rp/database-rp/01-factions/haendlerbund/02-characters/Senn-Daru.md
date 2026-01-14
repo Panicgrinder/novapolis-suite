@@ -1,15 +1,15 @@
 ---
-stand: 2026-01-11 05:27
-update: "Profil/Struktur überarbeitet (ohne Ronja-Layout); TBDs entfernt; SSOT-Referenzen ergänzt."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 05:26); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py --touch novapolis-rp\database-rp\02-characters\Senn-Daru.md novapolis-rp\database-rp\00-admin\Relationslog-Novapolis.md PASS (2026-01-11 05:27); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 05:27)
+stand: 2026-01-14 17:50
+update: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6.; Checks PASS."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc **/*.md PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 17:50)
 title: Senn Daru
 category: character
 slug: senn-daru
 version: "1.0"
-last_updated: 2025-11-07T03:32:00+01:00
-tags: []
-affiliations: ["haendlerbund"]
-dependencies: ["c6"]
+last_updated: 2026-01-14T17:31:10+01:00
+tags: ["karawane", "novapolis"]
+affiliations: ["novapolis"]
+dependencies: ["c6", "g7"]
 primary_location: c6
 last_seen: c6
 ---
@@ -19,19 +19,19 @@ Senn Daru
 
 Kurzprofil
 ----------
-- Rolle/Funktion: Händler/Vermittler (extern), Kontaktpunkt Händlerbund ↔ Novapolis (C6).
+- Rolle/Funktion: Händler/Vermittler, Karawane H-47; nach Anschluss an Novapolis Basis C6.
 - Auftreten: verhandelt empathisch, bleibt neugierig-offen, priorisiert Ausgleich vor Eigeninteresse.
 - Verhaltenssignatur: `SND1=E72-N64-L58-O46-S42-T38-C30-M22-P44-s`.
 
 Rollen & Verantwortlichkeiten (Pflichtfelder)
 ---------------------------------------------
-- Handel/Diplomatie: Schnittstelle Händlerbund ↔ Novapolis (C6), Erstkontakte/Protokolle.
+- Handel/Diplomatie: Schnittstelle nach außen (u. a. G7), Erstkontakte/Protokolle.
 
 Zugehörigkeit & Standort
 ------------------------
 
-- Zugehörigkeit: Händlerbund (extern).
-- Standort: C6 (Kontaktpunkt zu Novapolis).
+- Zugehörigkeit: Novapolis (C6; ehem. Karawane H-47).
+- Standort: C6 (Basis; G7 nur als Kontaktpunkt nach Bedarf).
 - Status: eigenständige Figur (nicht Marven/Arlen); im Personenindex/Relationslog geführt.
 
 Kanonischer Auftritt
@@ -69,7 +69,7 @@ Links
 - Relationslog Novapolis → ../00-admin/Relationslog-Novapolis.md
 - Handel & Diplomatie (Händlerbund) → ../00-admin/Handel-Diplomatie-Haendlergilde.md
 - Personenindex Novapolis → ../00-admin/person_index_np.md
-- C6 → ../03-locations/C6.md
+- G7 → ../03-locations/G7.md
 
 Quellen & Review
 ----------------

@@ -1,15 +1,15 @@
 ---
-stand: 2026-01-11 01:40
-update: "JEALOUSY-GLOVES aligned: Echo kann betroffene Körperstelle bedecken (Kontakt-Guard), Consent/Stop/Freigabe via Reference."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:37)
+stand: 2026-01-14 17:50
+update: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6.; Checks PASS."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc **/*.md PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 17:50)
 title: Kora Malenkov
 category: character
 slug: kora-malenkov
 version: "1.0"
-last_updated: 2026-01-11T01:40:00+01:00
-last_change: "Upgrade aus RAW char_kora_malenkov_v2 + FACT [CARAVAN-LEADERSHIP]"
-tags: ["logistik", "haendlerbund"]
-affiliations: ["novapolis", "haendlerbund"]
+last_updated: 2026-01-14T17:31:10+01:00
+last_change: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6."
+tags: ["logistik", "karawane", "novapolis"]
+affiliations: ["novapolis"]
 dependencies: ["echo", "c6", "logistik", "missionslog", "ai_behavior_index_v2", "caravan_moves"]
 primary_location: c6
 last_seen: c6
@@ -22,7 +22,7 @@ Kora Malenkov
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
 - Verhaltenssignatur: `KRM4=L72-T74-N69-E61-O56-C63-M47-P35-fb` - analytische Logistikerin mit wachsamer Paranoia, kontrolliert Abläufe mit feinem Sensor für Risiko.
-- Rolle: Karawanenführerin i. E. / Logistikkoordinatorin für C6 (intern) - verantwortet Versorgung, Schichtpläne und Sicherheit der Crew (FACT [CARAVAN-LEADERSHIP]).
+- Rolle: Karawanenführerin i. E. / Logistikkoordinatorin für C6 (Schnittstelle, G7-Basis) - verantwortet Versorgung, Schichtpläne und Sicherheit der Crew (FACT [CARAVAN-LEADERSHIP]).
 - Werte: Kraft 3, Geschick 4, Geist 5, Wille 4, Charisma 5.
 - Skills:
   - Geübt: Verhandlung, Navigation, Organisation.
@@ -49,9 +49,9 @@ Rollen & Verantwortlichkeiten
 Zugehörigkeit & Standort
 ------------------------
 
-- Zugehörigkeit: Händlerbund (Crew-Führung) mit mandatiertem Einsatz für Novapolis in C6.
+- Zugehörigkeit: Novapolis (C6; ehem. Karawane H-47).
 - Status: aktiv, beobachtend; keine externe Mission ohne Marven/Arlen.
-- Letzter bekannter Einsatz: C6 Logistikzentrum, täglicher Terminal-Ping nach D5.
+- Letzter bekannter Einsatz: C6, täglicher Terminal-Ping nach D5.
 
 Wissensstand (Matrix - Auszug)
 ------------------------------
@@ -107,7 +107,7 @@ Systemverknüpfungen & Referenzen
 - `missionslog` - Prozess L.1, Freigaben/Terminalmeldungen.
 - `caravan_moves` - Koordination externer Läufe mit Marven/Arlen.
 - `ai_behavior_index_v2` - Verhaltenseintrag „Die Verhandlerin“.
-- `database-rp/03-locations/C6.md` & `Verbindungstunnel-C6-E3.md` - Lage/Risiko.
+- `database-rp/01-factions/haendlerbund/03-locations/G7.md` & `database-rp/01-factions/novapolis/03-locations/C6.md` - Lage/Risiko.
 
 Quellen & Hinweise
 ------------------

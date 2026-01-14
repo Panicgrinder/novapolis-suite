@@ -1,0 +1,12 @@
+{
+  "title": "F9",
+  "category": "location",
+  "slug": "f9",
+  "version": "0.1",
+  "last_updated": "2026-01-14T11:44:29+01:00",
+  "last_change": "Neu: Station ergänzt (Metro-Grundstruktur)",
+  "tags": ["metro", "station"],
+  "affiliations": ["schattenbund"],
+  "dependencies": [],
+  "source": "database-rp/01-factions/schattenbund/03-locations/F9.md"
+}

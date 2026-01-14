@@ -1,0 +1,13 @@
+{
+  "title": "Inventar - Fluesterkollektiv (Fraktion)",
+  "category": "inventory",
+  "slug": "fluesterkollektiv-inventar",
+  "version": "0.1",
+  "last_updated": "2026-01-14T08:56:04+01:00",
+  "tags": [],
+  "affiliations": [
+    "fluesterkollektiv"
+  ],
+  "dependencies": [],
+  "source": "database-rp/01-factions/fluesterkollektiv/04-inventory/Fluesterkollektiv-inventar.md"
+}

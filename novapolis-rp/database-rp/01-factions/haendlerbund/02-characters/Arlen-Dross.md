@@ -1,16 +1,16 @@
 ---
-stand: 2026-01-07 18:47
-update: Fraktionsnamen (Anzeige) aktualisiert (Händlerbund).
-checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
+stand: 2026-01-14 17:50
+update: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6.; Checks PASS."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc **/*.md PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 17:50)
 title: Arlen Dross
 category: character
 slug: arlen-dross
 version: "1.0"
-last_updated: 2025-11-07T03:32:00+01:00
-last_change: "Promotion aus RAW char_arlen_dross_v2 + FACT [CARAVAN-LEADERSHIP]"
-tags: ["karawane", "haendlerbund", "diplomatie"]
-affiliations: ["haendlerbund"]
-dependencies: ["caravan_moves", "ai_behavior_index_v2", "missionslog", "logistik", "c6", "handel_diplomatie_haendlergilde_v1", "index_haendlergilde_v1"]
+last_updated: 2026-01-14T17:31:10+01:00
+last_change: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6."
+tags: ["karawane", "novapolis", "diplomatie"]
+affiliations: ["novapolis"]
+dependencies: ["caravan_moves", "ai_behavior_index_v2", "missionslog", "logistik", "g7", "handel_diplomatie_haendlergilde_v1", "index_haendlergilde_v1"]
 primary_location: c6
 last_seen: c6
 ---
@@ -44,13 +44,13 @@ Rollen & Verantwortlichkeiten
 
 - **Diplomatie & Moderation** - Führt Verhandlungen mit Ronja, Kora und Novapolis-Gremien; bereitet Vertragsentwürfe, legt Eskalationspfade fest.
 - **Versorgungsschnittstellen** - Koordiniert Übergaben zwischen externem Konvoi (Marven) und interner Logistik (Kora/Marei); dokumentiert Quittungen.
-- **Crew-Betreuung** - Hält die Karawanenmitglieder emotional stabil, moderiert Konflikte, plant Rotationen bei längeren Aufenthalten in C6.
+- **Crew-Betreuung** - Hält die Karawanenmitglieder emotional stabil, moderiert Konflikte, plant Rotationen bei längeren Aufenthalten in G7.
 
 Zugehörigkeit & Standort
 ------------------------
 
-- Zugehörigkeit: Händlerbund (extern), mit diplomatischem Mandat für die Karawane.
-- Status: aktiv; pendelt zwischen C6-HQ und mobilen Konvoipunkten.
+- Zugehörigkeit: Novapolis (C6; ehem. Karawane H-47).
+- Status: aktiv; Basis C6; Einsätze nach Diplomatie-/Handelslog.
 - Letzter bekannter Einsatz: C6 - Vorbereitung eines Handelsgesprächs mit Ronja über Energiezellen-Kontingente.
 
 Wissensstand (Matrix - Auszug)

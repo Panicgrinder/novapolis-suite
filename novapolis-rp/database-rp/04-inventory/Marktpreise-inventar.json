@@ -1,0 +1,17 @@
+{
+  "title": "Marktpreise - Baseline",
+  "category": "inventory",
+  "slug": "marktpreise-inventar",
+  "version": "0.1",
+  "last_updated": "2026-01-14T08:56:04+01:00",
+  "tags": [
+    "handel",
+    "baseline"
+  ],
+  "affiliations": [],
+  "dependencies": [
+    "reference-campaign-state",
+    "logistik"
+  ],
+  "source": "database-rp/04-inventory/Marktpreise-inventar.md"
+}

@@ -1,0 +1,12 @@
+{
+  "title": "K4",
+  "category": "location",
+  "slug": "k4",
+  "version": "0.1",
+  "last_updated": "2026-01-14T11:44:29+01:00",
+  "last_change": "Neu: Station ergänzt (Metro-Grundstruktur)",
+  "tags": ["metro", "station"],
+  "affiliations": ["fluesterkollektiv"],
+  "dependencies": [],
+  "source": "database-rp/01-factions/fluesterkollektiv/03-locations/K4.md"
+}

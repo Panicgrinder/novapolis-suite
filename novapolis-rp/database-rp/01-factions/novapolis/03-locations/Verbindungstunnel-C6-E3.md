@@ -1,6 +1,6 @@
 ---
-stand: 2026-01-09 05:15
-update: P0 Pflichtfelder ergänzt (Bevölkerung/Infrastruktur/Risiken) für Ortsgraph-Konsistenz.
+stand: 2026-01-14 13:52
+update: "Nutzung-Quelle präzisiert: C6-Bewohner-Roster verlinkt."
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 05:15); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 05:15); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 05:15)
 title: Verbindungstunnel C6-E3
 last_updated: 2026-01-09T05:14:03+01:00
@@ -38,6 +38,7 @@ Risiken
 Nutzung
 ------
 - Evakuierungsroute: 20 Evakuierte aus E3 wurden nach C6 verlegt (Quelle: chat-export.txt, Abschnitt C6-Bewohner)
+- Evakuierungsroute: 20 Evakuierte aus E3 wurden nach C6 verlegt (Quelle: [C6-Bewohner](../02-characters/C6-Bewohner.md))
 - Provisorische Sicherung durch C6-Teams; Betrieb vorerst nur zu Fuß
 
 Aufgaben

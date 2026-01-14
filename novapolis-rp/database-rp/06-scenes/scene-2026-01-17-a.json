@@ -1,0 +1,22 @@
+{
+  "title": "Szene: Nebenwirkung - Aufmerksamkeit im Umfeld",
+  "category": "scene",
+  "slug": "scene-2026-01-17-a",
+  "version": "1.0",
+  "last_updated": "2026-01-14T08:56:04+01:00",
+  "tags": [
+    "starter",
+    "risiko",
+    "attention"
+  ],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/06-scenes/scene-2026-01-17-a.md",
+  "locations": [
+    "d5"
+  ],
+  "characters": [
+    "ronja-kerschner",
+    "reflex"
+  ]
+}

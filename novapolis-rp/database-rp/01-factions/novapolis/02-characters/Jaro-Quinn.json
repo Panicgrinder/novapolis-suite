@@ -1,0 +1,14 @@
+{
+  "title": "Jaro Quinn",
+  "category": "character",
+  "slug": "jaro-quinn",
+  "version": "0.1",
+  "last_updated": "2026-01-14T10:16:22+01:00",
+  "last_change": "Neu: NPC ergänzt (Schleusenwart C6)",
+  "tags": ["npc", "zugang", "checkpoint"],
+  "affiliations": ["novapolis"],
+  "primary_location": "c6",
+  "last_seen": "c6",
+  "dependencies": ["c6", "c6-schleuse", "verbindungstunnel-d5-c6"],
+  "source": "database-rp/01-factions/novapolis/02-characters/Jaro-Quinn.md"
+}

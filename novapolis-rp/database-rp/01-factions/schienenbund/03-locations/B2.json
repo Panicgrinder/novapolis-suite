@@ -1,0 +1,12 @@
+{
+  "title": "B2",
+  "category": "location",
+  "slug": "b2",
+  "version": "0.1",
+  "last_updated": "2026-01-14T11:44:29+01:00",
+  "last_change": "Neu: Station ergänzt (Metro-Grundstruktur)",
+  "tags": ["metro", "station"],
+  "affiliations": ["schienenbund"],
+  "dependencies": [],
+  "source": "database-rp/01-factions/schienenbund/03-locations/B2.md"
+}

@@ -1,0 +1,23 @@
+{
+  "title": "Darian Voss",
+  "category": "character",
+  "slug": "darian-voss",
+  "version": "0.1",
+  "last_updated": "2026-01-14T17:31:10+01:00",
+  "tags": [
+    "karawane",
+    "novapolis"
+  ],
+  "affiliations": [
+    "novapolis"
+  ],
+  "primary_location": "c6",
+  "last_seen": "c6",
+  "dependencies": [
+    "caravan_moves",
+    "c6",
+    "missionslog",
+    "logistik"
+  ],
+  "source": "database-rp/01-factions/haendlerbund/02-characters/Darian-Voss.md"
+}

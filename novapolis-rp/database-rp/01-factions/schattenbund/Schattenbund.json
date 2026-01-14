@@ -1,0 +1,17 @@
+{
+  "title": "Schattenbund (Fraktion)",
+  "category": "faction",
+  "slug": "schattenbund",
+  "version": "0.1",
+  "status": "draft",
+  "tags": [
+    "fraktion"
+  ],
+  "dependencies": [
+    "relationslog_schattenbund_v1",
+    "index_handel_diplomatie_v1",
+    "ai_behavior_index_v2",
+    "cluster_index_v1"
+  ],
+  "source": "database-rp/01-factions/schattenbund/Schattenbund.md"
+}

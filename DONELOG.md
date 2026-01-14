@@ -1,10 +1,20 @@
 ---
-stand: 2026-01-14 07:48
-update: "RP-SSOT: Scene-Stubs al/am/an ergänzt; Index+Timeline aktualisiert; Gates gelaufen. Checks PASS."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' PASS (2026-01-14 07:48); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'DONELOG.md' PASS (2026-01-14 07:48); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 07:48)"
+stand: 2026-01-14 17:52
+update: "RP-SSOT: Karawane H-47 (6) Zugehörigkeit/Position auf Novapolis (C6) korrigiert; Referenzen (G7/C6/Personenindex) nachgezogen. Checks PASS."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 17:50); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md PASS (2026-01-14 17:52); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py DONELOG.md PASS (2026-01-14 17:52)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-01-14 17:50: RP-SSOT: Karawane H-47 (6) Zugehörigkeit/Position auf Novapolis (C6) korrigiert (Charakter-SSOTs + JSON-Sidecars); Referenzen in G7/C6/Händlerbund-Übersicht und Personenindex nachgezogen; Helper `scripts/rp_set_checks_pending.py` ergänzt; Checks PASS.
+
+- 2026-01-14 16:42: RP-SSOT: Händlerbund-G7 TBD reduziert (Status/Bevölkerung mit Karawane=6 verlinkt; Metrograph-Link gefixt) und [G7.json](novapolis-rp/database-rp/01-factions/haendlerbund/03-locations/G7.json) synchronisiert. Checks PASS.
+
+- 2026-01-14 14:17: RP-SSOT: E3-Evakuierte (20 inkl. Marei) sind jetzt als Roster + Einzel-SSOTs abbildbar (19 neue Charakterdateien erzeugt; Marei bestand bereits). Zusätzlich 6. Händlerbund-Karawanenmitglied als SSOT angelegt (Karawane=6 belegbar). Checks PASS.
+
+- 2026-01-14 13:58: RP-SSOT: C6-Bewohner-Roster (E3-Evakuierte 20, inkl. Marei) ergänzt und in C6 sowie Verbindungstunnel C6-E3 verlinkt. Checks PASS.
+
+- 2026-01-14 12:52: RP-SSOT: C6-Guard-Compliance nachgezogen (Händlerbund: Marven/Kora/Arlen/Senn auf G7 statt C6); Liora Navesh `primary_location` auf A1 synchronisiert; Personenindex angepasst. Checks PASS.
 
 - 2026-01-14 07:48: RP-SSOT: Neue Scene-Stubs (scene-2025-10-27-al/am/an) ergänzt (Update-Nachlauf: Kompatibilitätscheck/Liveschaltung/RP-Rückkehr; RP-Rückkehr: Scannen vor Berührung + TTS-Parameter + Canvas-Reload + Delete/Redo; RP-Intensivierung: Trauma-Trigger + Reflex-Überreaktion + Deeskalation). Checks PASS.
 - 2026-01-14 07:07: RP-SSOT: Neue Scene-Stubs (scene-2025-10-27-ai/aj/ak) ergänzt (D5-Pläne/Versionierung/Bildanalyse; Kontext-Reload+Delete/Redo+Tonalität/Rollen; D5-Versorgung+Inventar-Transparenz+Admin-Stop). Checks PASS.

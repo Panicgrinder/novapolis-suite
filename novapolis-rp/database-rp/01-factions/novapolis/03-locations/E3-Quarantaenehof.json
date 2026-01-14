@@ -1,0 +1,12 @@
+{
+  "title": "E3 Quarantaenehof",
+  "category": "location",
+  "slug": "e3-quarantaenehof",
+  "version": "0.1",
+  "last_updated": "2026-01-14T10:15:02+01:00",
+  "last_change": "Neu: POI ergänzt (Quarantänehof)",
+  "tags": ["poi", "e3", "quarantaene"],
+  "affiliations": ["novapolis"],
+  "dependencies": ["e3", "verbindungstunnel-c6-e3"],
+  "source": "database-rp/01-factions/novapolis/03-locations/E3-Quarantaenehof.md"
+}

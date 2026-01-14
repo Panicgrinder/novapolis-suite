@@ -1,0 +1,14 @@
+{
+  "title": "Miro Kell",
+  "category": "character",
+  "slug": "miro-kell",
+  "version": "0.1",
+  "last_updated": "2026-01-14T10:16:22+01:00",
+  "last_change": "Neu: NPC ergänzt (Funk D5)",
+  "tags": ["npc", "funk", "signal"],
+  "affiliations": ["novapolis"],
+  "primary_location": "d5",
+  "last_seen": "d5",
+  "dependencies": ["d5", "d5-funkraum"],
+  "source": "database-rp/01-factions/novapolis/02-characters/Miro-Kell.md"
+}

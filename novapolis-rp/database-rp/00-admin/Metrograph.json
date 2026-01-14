@@ -1,0 +1,10 @@
+{
+  "title": "Metro (Grundstruktur / Metrograph)",
+  "category": "admin",
+  "slug": "metrograph-index",
+  "version": "0.1",
+  "tags": ["metro", "graph"],
+  "affiliations": [],
+  "dependencies": ["ortsgraph-index"],
+  "source": "database-rp/00-admin/Metrograph.md"
+}

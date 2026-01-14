@@ -1,0 +1,28 @@
+{
+  "title": "C6 Bewohner (Gruppe)",
+  "category": "character",
+  "slug": "c6-bewohner",
+  "version": "0.1",
+  "last_updated": "2026-01-14T13:52:00+01:00",
+  "tags": [
+    "gruppe",
+    "c6",
+    "e3",
+    "evakuierte"
+  ],
+  "affiliations": [
+    "novapolis",
+    "e3",
+    "c6"
+  ],
+  "primary_location": "c6",
+  "last_seen": "c6",
+  "dependencies": [
+    "marei",
+    "verbindungstunnel-c6-e3",
+    "c6",
+    "e3",
+    "logistik"
+  ],
+  "source": "database-rp/01-factions/novapolis/02-characters/C6-Bewohner.md"
+}

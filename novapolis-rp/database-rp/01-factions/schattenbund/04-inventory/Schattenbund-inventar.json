@@ -1,0 +1,13 @@
+{
+  "title": "Inventar - Schattenbund (Fraktion)",
+  "category": "inventory",
+  "slug": "schattenbund-inventar",
+  "version": "0.1",
+  "last_updated": "2026-01-14T08:56:04+01:00",
+  "tags": [],
+  "affiliations": [
+    "schattenbund"
+  ],
+  "dependencies": [],
+  "source": "database-rp/01-factions/schattenbund/04-inventory/Schattenbund-inventar.md"
+}

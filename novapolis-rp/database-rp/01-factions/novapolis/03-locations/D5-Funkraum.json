@@ -1,0 +1,12 @@
+{
+  "title": "D5 Funkraum",
+  "category": "location",
+  "slug": "d5-funkraum",
+  "version": "0.1",
+  "last_updated": "2026-01-14T10:15:02+01:00",
+  "last_change": "Neu: POI ergänzt (Funkraum)",
+  "tags": ["poi", "d5", "funk"],
+  "affiliations": ["novapolis"],
+  "dependencies": ["d5"],
+  "source": "database-rp/01-factions/novapolis/03-locations/D5-Funkraum.md"
+}

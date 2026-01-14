@@ -1,15 +1,15 @@
 ---
-stand: 2026-01-07 18:47
-update: Fraktionsnamen (Anzeige) aktualisiert (Händlerbund).
-checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
+stand: 2026-01-14 17:50
+update: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6.; Checks PASS."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc **/*.md PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 17:50)
 title: Marven Kael
 category: character
 slug: marven-kael
 version: "1.0"
-last_updated: 2025-11-07T03:32:00+01:00
-last_change: "Promotion aus RAW char_marven_v2 + FACT [CARAVAN-LEADERSHIP]"
-tags: ["karawane", "haendlerbund"]
-affiliations: ["haendlerbund"]
+last_updated: 2026-01-14T17:31:10+01:00
+last_change: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6."
+tags: ["karawane", "novapolis"]
+affiliations: ["novapolis"]
 dependencies: ["caravan_moves", "ai_behavior_index_v2", "missionslog", "logistik", "c6"]
 primary_location: c6
 last_seen: c6
@@ -36,7 +36,7 @@ Hintergrund & Kontext
 ---------------------
 
 - Herkunft aus wanderndem Handelsnetz; erlebt den Verlust einer Kolonie und agiert seitdem risikoavers.
-- Unterhält den Händlerbund-Konvoi mit Basis in C6 - bleibt eigenständig, koordiniert mit Kora/Marei für Übergaben.
+- Unterhält den Konvoi nun mit Basis in C6; G7 bleibt externer Kontaktpunkt nach Bedarf, Übergaben koordiniert er mit Kora/Marei.
 - Beobachtet Novapolis als möglichen Partner, prüft jede Vereinbarung mehrfach; Reflex gilt ihm als unbekannte Variable.
 
 Rollen & Verantwortlichkeiten
@@ -49,9 +49,9 @@ Rollen & Verantwortlichkeiten
 Zugehörigkeit & Standort
 ------------------------
 
-- Zugehörigkeit: Händlerbund (extern, Mandat für Karawanenleitung).
-- Status: aktiv; residiert temporär in C6, reist bei Bedarf mit dem Konvoi.
-- Letzter bekannter Einsatz: C6 Handels-HQ, Vorbereitung eines Westlinien-Scans.
+- Zugehörigkeit: Novapolis (C6; ehem. Karawane H-47).
+- Status: aktiv; Basis C6, Einsätze nach Logistik-/Missionslog.
+- Letzter bekannter Einsatz: C6, Vorbereitung eines Westlinien-Scans.
 
 Wissensstand (Matrix - Auszug)
 ------------------------------
@@ -100,9 +100,9 @@ Systemverknüpfungen & Referenzen
 
 - `caravan_moves` - Laufende Routen-/Verhandlungsdokumentation.
 - `missionslog` - Eingehende/ausgehende Konvoiberichte.
-- `logistik` - Abgleich mit C6/D5-Beständen.
+- `logistik` - Abgleich mit G7/D5-Beständen.
 - `ai_behavior_index_v2` - Verhaltenseintrag „Der vorsichtige Stratege“.
-- `database-rp/03-locations/C6.md` - Stationskontext.
+- `database-rp/01-factions/haendlerbund/03-locations/G7.md` - Stationskontext.
 
 Quellen & Hinweise
 ------------------
