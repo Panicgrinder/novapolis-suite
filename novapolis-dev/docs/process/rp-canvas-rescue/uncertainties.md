@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 03:23
-update: Staging weiter konsolidiert: verbleibende entschiedene Blöcke (Namen/Mechaniken/Canvas/Backups/Timeline/Transport/Chunks) zu Stand-Hinweisen reduziert; offene Liste bleibt schlank.
-checks: & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-curated\\staging\\reports\\uncertainties.md PASS (2026-01-11 03:23); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 03:23; RP-Staging-Reports ignored)
+stand: 2026-01-15 06:52
+update: Nach dev-hub migriert (ehemals staging/reports); Inhalt unverändert. Checks PASS.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
 ---
 
 Korrekturen / Beschlüsse - Namen

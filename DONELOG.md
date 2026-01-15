@@ -1,10 +1,12 @@
 ---
-stand: 2026-01-14 17:52
-update: "RP-SSOT: Karawane H-47 (6) Zugehörigkeit/Position auf Novapolis (C6) korrigiert; Referenzen (G7/C6/Personenindex) nachgezogen. Checks PASS."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 17:50); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md PASS (2026-01-14 17:52); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py DONELOG.md PASS (2026-01-14 17:52)"
+stand: 2026-01-15 06:52
+update: "RP: Schwachstellen abgebaut (kanonische RAW-Quelle festgezogen; staging-Reports nach Dev-Hub migriert; Missionslog TBD-Rauschen reduziert). Checks PASS."
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
 ---
 Kurzueberblick
 --------------
+
+- 2026-01-15 06:52: RP: Schwachstellen abgebaut (kanonische RAW-Quelle festgezogen; staging-Reports nach Dev-Hub migriert; markdownlint-ignore für staging/reports auf generierte Artefakte verengt; Missionslog TBD-Rauschen reduziert; Scene-Template checks=PENDING). Checks PASS.
 
 - 2026-01-14 17:50: RP-SSOT: Karawane H-47 (6) Zugehörigkeit/Position auf Novapolis (C6) korrigiert (Charakter-SSOTs + JSON-Sidecars); Referenzen in G7/C6/Händlerbund-Übersicht und Personenindex nachgezogen; Helper `scripts/rp_set_checks_pending.py` ergänzt; Checks PASS.
 

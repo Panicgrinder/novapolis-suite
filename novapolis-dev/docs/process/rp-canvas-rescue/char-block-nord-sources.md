@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt.
-checks: keine
+stand: 2026-01-15 06:52
+update: YAML-Frontmatter ergänzt; H1/H2 auf Setext umgestellt. Checks PASS.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
 ---
 
 Charakter-Block Nord - Quellenstand (2025-11-01)

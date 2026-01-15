@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Guard-Check ersetzt den alten Start-Schritt im Workflow
-checks: keine
+stand: 2026-01-15 06:52
+update: Nach dev-hub migriert (ehemals staging/reports). Checks PASS.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
 ---
 
 Canvas-Rettung - Plan (Stand 2025-11-01)

@@ -29,7 +29,11 @@
     "Main/scripts",
     "node_modules/**",
     "**/node_modules/**",
-    "novapolis-rp/database-curated/staging/reports/**",
+    "novapolis-rp/database-curated/staging/reports/delta-*.md",
+    "novapolis-rp/database-curated/staging/reports/overlap-*.md",
+    "novapolis-rp/database-curated/staging/reports/segment-hash-*.txt",
+    "novapolis-rp/database-curated/staging/reports/tagging-*.log",
+    "novapolis-rp/database-curated/staging/reports/text-stats*.md",
     ".github/copilot-instructions.md",
     ".github/archive/**"
   ]

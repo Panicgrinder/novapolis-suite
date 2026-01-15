@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-08 14:18
-update: Policy-Refresh: Hinweis ergänzt, dass `.ps1`-Nennungen historisch sind; aktive Wrapper laufen über Python.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev/docs/donelog.md PASS (2026-01-08 14:25); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev\docs\donelog.md PASS (2026-01-08 14:25)
+stand: 2026-01-15 06:52
+update: RP: staging-Reports als stabile Prozessdocs in den Dev-Hub migriert (rp-canvas-rescue) und Receipts konsolidiert.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,12 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP Canvas Rescue - Reports migriert (2026-01-15 06:52)
+-----------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/reports/` aufgeraeumt: stabile Reports nach `novapolis-dev/docs/process/rp-canvas-rescue/` verschoben (resolved/uncertainties/plan/sources), damit sie nicht in einem "staging/ignore"-Bereich verborgen bleiben.
+- Receipts/Frontmatter fuer die migrierten Prozessdocs konsolidiert; Checks ueber `scripts/run_checks_and_report.py`.
 
 Alias-Stopword Fix & Tagging 009-001 Refresh (2025-12-10 17:49)
 -------------------------------------------------------------------

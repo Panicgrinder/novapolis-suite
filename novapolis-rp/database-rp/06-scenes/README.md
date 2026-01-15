@@ -2,9 +2,9 @@
 title: "Scenes: Definition & Template"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-01-11 19:23
-update: "Scene-XREFs: Klarstellung auf slug-only + Validierungstext aktualisiert."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 19:23); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 19:23); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 19:23)
+stand: 2026-01-15 06:52
+update: "Scene-XREFs: Klarstellung auf slug-only + Validierungstext aktualisiert. Checks PASS."
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
 slug: scenes-konventionen-stub
 ---
 
@@ -49,7 +49,7 @@ Template
 ---
 stand: YYYY-MM-DD HH:mm
 update: Kurznotiz
-checks: tbd
+checks: PENDING
 last_updated: YYYY-MM-DDTHH:mm:ss+01:00
 slug: scene-YYYY-MM-DD-x
 id: scene-YYYY-MM-DD-x
