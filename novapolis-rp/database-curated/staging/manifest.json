@@ -149,5 +149,22 @@
       }
     ],
     "notes": "Konsolidierter Export (chat-export.txt + chat-export (1).txt), LF-normalisiert, gechunked (22 Teile) inkl. Deltas/Stats/Dedupe."
+  },
+  {
+    "id": "export-3-chat-export-0",
+    "source": "database-raw/99-exports/chat-export.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2026-02-01",
+    "artifacts": {
+      "normalized": "database-curated/staging/chat-export.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/chat-export",
+      "index": "database-curated/staging/chunks/chat-export/index.json",
+      "reports": {
+        "deltaA": "database-curated/staging/reports/delta-chat-export-0_vs_chat-export-1.md"
+      },
+      "review": "database-curated/staging/chat-export.review.md"
+    },
+    "notes": "Basis-Export (Vorläufer). Getrackt für Vergleich/Dedupe gegen chat-export (1) und chat-export-complete; Artefakte/Review noch zu erzeugen."
   }
 ]

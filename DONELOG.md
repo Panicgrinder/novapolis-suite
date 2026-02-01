@@ -1,10 +1,12 @@
 ---
-stand: 2026-02-01 14:14
-update: "RP curated: FinalGate-Record Pattern/Links in curated READMEs verankert; Receipts aktualisiert."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-01 14:14); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-curated PASS (2026-02-01 14:14); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-01 14:14)"
+stand: 2026-02-01 14:22
+update: "RP curated: chat-export.txt als eigener Export im staging manifest getrackt (Basis-Export)."
+checks: "npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-01 14:22)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-01 14:22: RP curated: chat-export.txt als eigener Export im staging manifest getrackt (Basis-Export); validate:rp PASS.
 
 - 2026-02-01 14:14: RP curated: FinalGate-Record Pattern/Links in curated READMEs verankert; markdownlint/frontmatter/validator PASS.
 
