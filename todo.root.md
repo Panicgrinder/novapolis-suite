@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-08 14:18
-update: Policy-Refresh: Wrapper-Migration Abschnitt auf Python-Wrapper konsolidiert; `.ps1`-Verweise entschärft.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev/docs/donelog.md PASS (2026-01-08 14:25); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev\docs\donelog.md PASS (2026-01-08 14:25)
+stand: 2026-02-01 13:25
+update: RP-Baustellen gestartet: TODO-Sync (Staging-Reports Migration dokumentiert, Validator-Refs entdriftet), Doku-Pfade korrigiert.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -149,8 +149,9 @@ Nächstes Vorgehen (1-2 Tage)
   - Write: gleicher Befehl ohne `--dry-run`; `.tagged` 009→001 + `index_review.json`/`lexicon.json`/`unresolved.json` aktualisiert; Logs aktuell nur via STDOUT verfügbar (Skript erzeugt noch keine Dateien).
   - Nachbereitung (abgeschlossen 2025-12-08 17:55): targeted `markdownlint-cli2` + `python scripts/check_frontmatter.py` (Scope `todo.root.md`, `.tmp/results/todo.cleaned.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md`) erneut laufen lassen, alle genannten Docs synchronisiert und Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) frisch erzeugt; Postflight-Receipt folgt nach Alias-Fix.
  - [x] Alias-Kollision „Verbindungstunnel" auflösen (Slug-Konvention vs. Doppel-Schreibweise), bevor nächste Range (≤000) geplant wird – `tag_chunks_from_yaml.py` filtert jetzt Stopword-Aliase wie „verbindungstunnel"; Range 009-001 (2025-12-10 17:49) erneut als Dry→Write gelaufen, `lexicon.json`/`unresolved.json` ohne Alias-Kollisionen, betroffene `[LOC]`-Tags (u. a. part-002) bereinigt.
-- [ ] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` prüfen; auf Minimal-Ausnahmen reduzieren oder entfernen.
-- [ ] Staging-Reports (`database-curated/staging/reports/*.md`) mit YAML-Frontmatter/Setext nachziehen oder in `novapolis-dev/docs/` migrieren; Altdateien nach Freigabe löschen.
+- [x] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` geprüft: keine `.markdownlint.json` Dateien vorhanden (Overrides erfolgen zentral oder inline).
+- [x] Stabile Staging-Reports migriert nach `novapolis-dev/docs/process/rp-canvas-rescue/` (resolved/uncertainties/plan/sources).
+- [ ] Verbleibende Staging-Report-Artefakte (z. B. delta/overlap/segment-hash) aufräumen oder als generiert markieren; Altdateien nur nach Freigabe löschen.
 - [ ] Metadata-Initialisierungsskripte (`coding/tools/metadata/init-metadata.js` vs. `init_metadata.py`) konsolidieren und kanonische Variante dokumentieren.
 
 #### RP-Audit Befunde (2025-12-30)

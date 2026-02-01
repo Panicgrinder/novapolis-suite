@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-15 06:52
-update: RP: staging-Reports als stabile Prozessdocs in den Dev-Hub migriert (rp-canvas-rescue) und Receipts konsolidiert.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
+stand: 2026-02-01 13:25
+update: RP-Doku/TODO-Sync: README-Pfade aktualisiert, Validator-Refs entdriftet, Migration-Status in Root-TODO nachgezogen.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -13,11 +13,12 @@ Hinweis (2026-01-08)
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
 
-RP Canvas Rescue - Reports migriert (2026-01-15 06:52)
------------------------------------------------------
+RP: Doku/TODO-Sync (2026-02-01 13:25)
+-----------------------------------
 
-- `novapolis-rp/database-curated/staging/reports/` aufgeraeumt: stabile Reports nach `novapolis-dev/docs/process/rp-canvas-rescue/` verschoben (resolved/uncertainties/plan/sources), damit sie nicht in einem "staging/ignore"-Bereich verborgen bleiben.
-- Receipts/Frontmatter fuer die migrierten Prozessdocs konsolidiert; Checks ueber `scripts/run_checks_and_report.py`.
+- `novapolis-rp/README.md` auf aktuelle RP-Pfade (database-rp, database-raw/99-exports) korrigiert.
+- `novapolis-dev/docs/todo.rp.md` Validator-Hinweise von `run_validate_all.ps1` auf `npm --prefix novapolis-rp/coding/tools/validators run validate:*` umgestellt und Links auf migrierte Canvas-Rescue-Dokus nachgezogen.
+- Root `todo.root.md` auf Migration/Override-Status abgeglichen.
 
 Alias-Stopword Fix & Tagging 009-001 Refresh (2025-12-10 17:49)
 -------------------------------------------------------------------

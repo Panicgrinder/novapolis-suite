@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: YAML Frontmatter ergänzt (MD003-konform)
-checks: markdownlint-cli2 PASS (single file)
+stand: 2026-02-01 13:25
+update: README-Ordnerstruktur/Quickstart auf aktuelle RP-Pfade (database-rp/database-raw) aktualisiert.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
 ---
 
 Novapolis-RP Workspace (F:)
@@ -12,27 +12,27 @@ Ein schlanker Workspace für dein AI-geführtes RP „Chronist von Novapolis“.
 Ordnerstruktur
 --------------
 
-- 00-admin/ - Systemprompt, Memory-Bundle, Meta
-- 01-canon/ - Welt-Lore, Regeln, Fraktionen
-- 02-characters/ - Charaktere (Ronja, Reflex, Jonas …)
-- 03-locations/ - Orte (D5, C6, Tunnel …)
-- 04-inventory/ - Inventar & Ressourcen
-- 05-projects/ - Projekte (z. B. „Nordlinie 01“)
-- 06-scenes/ - Szenen-Notizen, Tagebuch
-- 99-exports/ - Exporte (PDF/TXT) aus Chat
+- database-rp/ - RP-SSOT (Admin, Fraktionen, Inventar, Szenen)
+  - 00-admin/ - Systemprompt, Memory-Bundle, Meta
+  - 01-factions/ - Kanon pro Fraktion (z. B. Novapolis, Händlerbund)
+  - 04-inventory/ - Inventar & Ressourcen
+  - 06-scenes/ - Szenen-Notizen, Tagebuch
+- database-raw/99-exports/ - RAW-Exporte (PDF/TXT) aus Chat
+- database-curated/ - Kurations-/Review-Artefakte (staging/reviewed/final)
+- coding/tools/ - Tools (Exporter, Curation, Validatoren)
 
 Quickstart
 ----------
 
-1) Lege deine Exporte in `99-exports/` (z. B. `chat-export-complete.txt`, PDF).
-2) Öffne `00-admin/memory-bundle.md` als Kanon. Bei Änderungen dort nachführen.
-3) Starte einen neuen Chat mit dem Inhalt aus `00-admin/system-prompt.md` als System-Prompt und poste dann das Memory-Bundle als User-Nachricht.
+1) Lege deine Exporte in `database-raw/99-exports/` (z. B. `chat-export-complete.txt`, PDF).
+2) Öffne `database-rp/00-admin/memory-bundle.md` als Kanon. Bei Änderungen dort nachführen.
+3) Starte einen neuen Chat mit dem Inhalt aus `database-rp/00-admin/system-prompt.md` als System-Prompt und poste dann das Memory-Bundle als User-Nachricht.
 4) Logge Fortschritt in `novapolis-dev/docs/donelog.md`. Offene Aufgaben im RP-Board `novapolis-dev/docs/todo.rp.md` pflegen (Index: `novapolis-dev/docs/todo.index.md`).
 
 Export-Hinweis
 --------------
 
-Bei sehr langen Threads: Auto-Exporter aus der Konsole verwenden (wurde dir im Chat geliefert). Speichere Zwischenstände in `99-exports/`.
+Bei sehr langen Threads: Auto-Exporter aus der Konsole verwenden (wurde dir im Chat geliefert). Speichere Zwischenstände in `database-raw/99-exports/`.
 
 Schreibstil
 -----------

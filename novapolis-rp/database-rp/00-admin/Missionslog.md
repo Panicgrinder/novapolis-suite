@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-15 06:52
-update: "TBD-Rauschen reduziert: '-' = unbekannt, 'tbd' nur für konkrete Nacharbeit. Checks PASS."
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
+stand: 2026-02-01 13:25
+update: "TBD-Rauschen reduziert: '-' = unbekannt, 'tbd' nur für konkrete Nacharbeit."
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
 category: admin
 canvas: missionslog
 slug: missionslog

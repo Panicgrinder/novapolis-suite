@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2025-11-26 05:36
-update: Tagging Range 015-010 abgeschlossen; Referenzen aktualisiert
-checks: python coding/tools/curation/tag_chunks_from_yaml.py (dry+write) PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS
+stand: 2026-02-01 13:25
+update: Validator-Entry-Points aktualisiert (npm targets statt ps1); Staging-Report-Links auf Dev-Hub-Migration umgestellt.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -46,7 +46,7 @@ Arbeitsschritte pro Charakter
 - Zugehörige Wissens-/Trainings-Canvases mitziehen (Instanzen).
 - Behavior-Signatur gegen Anchor-Register prüfen; Drift-Flags dokumentieren.
 - JSON-Sidecar, `char-block-nord-sources.md`, `person_index_np.md`, DONELOGs (`novapolis-dev/docs/donelog.md`, Root `DONELOG.md`) und TODO-Status aktualisieren.
-- Nach einem Bündel Updates Validator laufen lassen (`coding/tools/validators/run_validate_all.ps1`).
+- Nach einem Bündel Updates Validator laufen lassen (`npm --prefix novapolis-rp/coding/tools/validators run validate:rp` + optional `npm --prefix ... run validate:crossrefs`).
 
 Priorität B - Logistik & Inventar
 ---------------------------------
@@ -71,19 +71,19 @@ Priorität C - Systeme, Indizes, Ereignisse
 Arbeitsregeln & Referenzen
 --------------------------
 
-- Workflow siehe `database-curated/staging/reports/canvas-rescue-plan.md`.
-- Quellen + Drift-Notizen in `.../staging/reports/char-block-nord-sources.md` berücksichtigen.
-- FACT-Beschlüsse aus `database-curated/staging/reports/resolved.md` vor Promotion prüfen.
+- Workflow siehe `novapolis-dev/docs/process/rp-canvas-rescue/canvas-rescue-plan.md`.
+- Quellen + Drift-Notizen in `novapolis-dev/docs/process/rp-canvas-rescue/char-block-nord-sources.md` berücksichtigen.
+- FACT-Beschlüsse aus `novapolis-dev/docs/process/rp-canvas-rescue/resolved.md` vor Promotion prüfen.
 - Jede Migration mit JSON-Sidecar und DONELOG-Eintrag dokumentieren (`novapolis-dev/docs/donelog.md`).
 - Flags (`vorsichtig_behandeln`, `korrupt`) sichtbar übernehmen, bis Review abgeschlossen ist.
 
 Linkübersicht
 -------------
 
-- Plan: `database-curated/staging/reports/canvas-rescue-plan.md`
-- Quellen: `database-curated/staging/reports/char-block-nord-sources.md`
+- Plan: `novapolis-dev/docs/process/rp-canvas-rescue/canvas-rescue-plan.md`
+- Quellen: `novapolis-dev/docs/process/rp-canvas-rescue/char-block-nord-sources.md`
 - RAW: `database-raw/99-exports/`
-- Kanon/Policies: `database-curated/staging/reports/resolved.md`, `.github/copilot-instructions.md`
+- Kanon/Policies: `novapolis-dev/docs/process/rp-canvas-rescue/resolved.md`, `.github/copilot-instructions.md`
 
 <details>
 <summary>Archiviertes Backlog (Stand 2025-10-29)</summary>

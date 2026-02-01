@@ -1,12 +1,12 @@
 ---
-stand: 2026-01-15 06:52
-update: "RP: Schwachstellen abgebaut (kanonische RAW-Quelle festgezogen; staging-Reports nach Dev-Hub migriert; Missionslog TBD-Rauschen reduziert). Checks PASS."
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
+stand: 2026-02-01 13:25
+update: "RP-Doku/TODO-Sync: novapolis-rp README-Pfade aktualisiert; todo.rp Validator-Refs entdriftet; Root-TODO auf Migration/Overrides abgeglichen. Checks PASS."
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
 ---
 Kurzueberblick
 --------------
 
-- 2026-01-15 06:52: RP: Schwachstellen abgebaut (kanonische RAW-Quelle festgezogen; staging-Reports nach Dev-Hub migriert; markdownlint-ignore für staging/reports auf generierte Artefakte verengt; Missionslog TBD-Rauschen reduziert; Scene-Template checks=PENDING). Checks PASS.
+- 2026-02-01 13:25: RP-Doku/TODO-Sync: novapolis-rp README-Pfade aktualisiert; todo.rp Validator-Refs auf npm targets umgestellt; Root-TODO Migration/Overrides abgeglichen. Checks PASS.
 
 - 2026-01-14 17:50: RP-SSOT: Karawane H-47 (6) Zugehörigkeit/Position auf Novapolis (C6) korrigiert (Charakter-SSOTs + JSON-Sidecars); Referenzen in G7/C6/Händlerbund-Übersicht und Personenindex nachgezogen; Helper `scripts/rp_set_checks_pending.py` ergänzt; Checks PASS.
 

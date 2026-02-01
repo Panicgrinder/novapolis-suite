@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-15 06:52
-update: Kanonische Export-Quelle festgezogen (Quelle A) und Drift-Hinweise ergänzt. Checks PASS.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
+stand: 2026-02-01 13:25
+update: Kanonische Export-Quelle festgezogen (Quelle A) und Drift-Hinweise ergänzt.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
 ---
 
 RAW Exporte (Stub)

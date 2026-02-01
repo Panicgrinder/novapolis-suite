@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-15 06:52
-update: Nach dev-hub migriert (ehemals staging/reports). Checks PASS.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
+stand: 2026-02-01 13:25
+update: Nach dev-hub migriert (ehemals staging/reports); Checks-Receipt aktualisiert.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
 ---
 
 Canvas-Rettung - Plan (Stand 2025-11-01)

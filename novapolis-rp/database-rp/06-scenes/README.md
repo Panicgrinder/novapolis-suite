@@ -2,9 +2,9 @@
 title: "Scenes: Definition & Template"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-01-15 06:52
-update: "Scene-XREFs: Klarstellung auf slug-only + Validierungstext aktualisiert. Checks PASS."
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS"
+stand: 2026-02-01 13:25
+update: "Scene-XREFs: Klarstellung auf slug-only + Validierungstext aktualisiert."
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
 slug: scenes-konventionen-stub
 ---
 
