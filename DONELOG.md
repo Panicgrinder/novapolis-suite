@@ -1,10 +1,12 @@
 ---
-stand: 2026-02-01 13:25
-update: "RP-Doku/TODO-Sync: novapolis-rp README-Pfade aktualisiert; todo.rp Validator-Refs entdriftet; Root-TODO auf Migration/Overrides abgeglichen. Checks PASS."
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
+stand: 2026-02-01 14:08
+update: "RP curated: FinalGate-Record für chat-export-complete angelegt; Review-Stub aktualisiert; Receipts gesetzt."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-01 14:08); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-curated\\staging PASS (2026-02-01 14:08); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-01 14:08)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-01 14:08: RP curated: FinalGate-Record für chat-export-complete angelegt; Review-Stub aktualisiert; markdownlint/frontmatter/validator PASS.
 
 - 2026-02-01 13:25: RP-Doku/TODO-Sync: novapolis-rp README-Pfade aktualisiert; todo.rp Validator-Refs auf npm targets umgestellt; Root-TODO Migration/Overrides abgeglichen. Checks PASS.
 
