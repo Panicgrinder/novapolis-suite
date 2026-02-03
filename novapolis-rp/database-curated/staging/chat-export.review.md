@@ -1,0 +1,1043 @@
+---
+stand: 2026-02-03 17:36
+update: "Chat-Export Datenrettung: Review-Queue geschlossen; Manifest-Status für RAW-chat-export konsolidiert (kanonisch/archiviert)."
+checks: "not run (2026-02-03 17:36)"
+---
+
+Review: chat-export (Basis)
+==========================
+
+Zweck
+-----
+- Review-Notizen/Entscheidungen fuer den Basis-Export `chat-export.txt`.
+
+Scope
+-----
+- Quelle: `database-raw/99-exports/chat-export.txt`
+- Staging: `database-curated/staging/chat-export.normalized.txt`
+
+Dedupe-Status (gegen Primary)
+-----------------------------
+- Report: `database-curated/staging/reports/dedupe-chat-export.md`
+- Ergebnis: `chat-export.normalized.txt` hat 0 unique Segments gegen `chat-export-complete.normalized.txt`.
+- Konsequenz: Keine neuen Inhalte gegenueber Primary; Export bleibt als Vergleichsquelle.
+
+Review-Queue (RAW-Dedupe-Segmente)
+----------------------------------
+- [x] RAW 2025-10-27T09-16-00-188Z: Segmente 1-96 (Quelle in consolidated)
+  - Erledigt: Inhalte sind in consolidated enthalten; keine separate Rettung noetig.
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L21647-L27437)
+- [x] RAW 2025-10-23T02-54-55-897Z: Segmente 1-97 (Quelle in consolidated)
+  - Erledigt: Inhalte sind in consolidated enthalten; keine separate Rettung noetig.
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L27539-L33264)
+
+RAW-chat-export (leer)
+----------------------
+- 2025-10-23T03-09-53-586Z (Header only)
+- 2025-10-23T03-11-11-106Z (Header only)
+- 2025-10-23T03-57-37-172Z (Header only)
+- 2025-10-27T09-06-23-120Z (Header only)
+
+RAW-chat-export (dedupe)
+------------------------
+- Kanonisch: 2025-10-27T09-16-00-188Z
+- Duplikat (nur Timestamps abweichend): 2025-10-27T09-01-37-066Z
+- Near-Duplikat (gleiches Gespraech, anderes Export-Format/Metadaten): 2025-10-23T02-54-55-897Z
+
+Segment-Notizen (RAW 2025-10-27T09-16)
+-------------------------------------
+- Quelle (Segmente 1-50): [novapolis-rp/database-curated/staging/RAW-chat-export-2025-10-27T09-16-00-188Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-chat-export-2025-10-27T09-16-00-188Z.normalized.txt)
+- Segment 1 (Nachrichten 1-5)
+  - Setup: ZIP entpacken, Kernbestandteile laden, Status-Canvas anlegen.
+  - User fordert Neuaufbau mit voller Canvas-Struktur und bestaetigt Voll-Setup.
+- Segment 2 (Nachrichten 8-26)
+  - Setup im Hintergrund; Schritt-fuer-Schritt Charakterdaten fuer Ronja (Technikerin, 36).
+  - Attribute K2 G4 Ge5 W5 Ch4; Skills geuebt: ueberzeugen, Botanik, Ingenieurwesen, Elektronik.
+  - Skills meisterhaft: IT/Programmierung, Organisation & Planung; optional improvisieren.
+  - Ausruestung: Gasmaske + Werkzeugkit; Motivation/Makel formuliert.
+  - Auftrag: Charakter-Canvas aktualisieren, speichern, erste Szene starten.
+- Segment 3 (Nachrichten 28-38)
+  - Szenenstart: Selbstcheck, Werkzeugtasche, Wartungsauftrag; abwarten/beobachten.
+  - Regel: keine Vorschlaege ohne Bedarf; Wissenscheck zu Person/Verhalten, ggf. Link annehmen.
+  - Wartungsprotokoll oeffnen.
+- Segment 4 (Nachrichten 40-50)
+  - Werkzeugtasche oeffnen; Richtung C6 V4 erfragen.
+  - Vorsichtiges Ausspaehen im Schacht/Halle; Beobachtung aus Deckung.
+  - Suche nach Terminal/Port.
+- Segment 5 (Nachrichten 52-74)
+  - Makel ausspielen; Verbindung Ronja-System vertiefen; Bewegungsdaempfung/Entscheidung thematisiert.
+  - Wunsch nach ruppig-militaerischer Reaktion, Konsequenzen erfragen; Auswahl trifft Ronja ("Nummer 1").
+  - Ronja kehrt zurueck, laesst "Hintertuerchen"/Samen offen; Update aller Canvas gefordert.
+- Segment 6 (Nachrichten 76-84)
+  - Ronja kuemmert sich um sich, laesst Tag ausklingen; naechster Tag Start in D5.
+  - Kontrollraum aufbereiten; D5-Canvas anlegen; Inventare aktualisieren; Instandhaltung beginnt.
+- Segment 7 (Nachrichten 86-93)
+  - D5-Status 98%; neuer Tag fuer Tiefen/Wurzelthema.
+  - Exoskelett-Idee; Wurzelgewebe als eigene Identitaet mit eigenem Canvas.
+- Segment 8 (Nachrichten 96-100)
+  - Besitzergreifender Zug/Verlustangst dynamisch ausspielen.
+  - Reflex kann nach eingreifender Erfahrung die Loesung verweigern.
+- Segment 9 (Nachrichten 101-125)
+  - Updates bestaetigt; Exoskelett-Idee vertiefen; Material/Anzug-Abgleich erfragen.
+  - Klarstellung: Reflex aktuell nur wie Neoprenanzug, keine Symbiose-Stufe 2.
+  - Ronja plant Aufbruch fuer Vorrats-/Mitbewohner-Suche; misstrauisches Abtasten von Jonas.
+  - Jonas-Vorstellung durch Reflex (dunkler Humor), danach Vorratsfrage.
+  - Jonas-Charakter-Canvas anlegen, speichern; Inventar-Canvas aktualisieren.
+- Segment 10 (Nachrichten 131-150)
+  - Aufbruch Richtung C6; Jonas optional mit, alternativ Werkstatt in D5 unter Aufsicht einer Reflex-Instanz.
+  - Verstaendnisfrage: C6 als Heimatstation mit Funkkontakt; Rueckpruefung im Chat gewuenscht.
+  - Ronja als Technikerin reagiert auf Reaktor-Notlage, nutzt Exoskelett; scannt nach Ueberlebenden.
+  - Reflex-Ursprung klaeren (Kind/Verschmelzung mit D5); Updates und Reihenfolge (Jonas vs. Fragment) klaeren.
+  - Station durchsuchen, ggf. kleinen Reflex-Teil zur Ueberwachung lassen.
+- Segment 11 (Nachrichten 151-165)
+  - Station durchsuchen; ggf. Verletzte/Leichen nur bei Nutzen; Schaeden notieren; Rueckweg mit Tunnel-Bestandsaufnahme.
+  - Projekt-Canvas Nordlinie 01 anlegen; Fraktionsinventar laden; naechster Tag/kranker Besuch.
+  - TTS-Wunsch: Schreibweise ohne Quotes; Pahl Genesung durch Jonas; Ronja denkt ueber andere Fraktionen nach.
+- Segment 12 (Nachrichten 167-183)
+  - Regel: mehrere Canvas pro Anfrage erlaubt; Canvas-Ueberschreibungen pruefen; Chat- und Canvas-Abgleich verlangen.
+  - Drei Hauptfraktionen mit Anfuehrern + Canvas; zusaetzliche Haendlerfraktion ohne Anfuehrer.
+  - Fraktionszuege fuer letzte zwei Wochen; Reihenfolge nach Ankunft; erste Handelsgruppe anlegen.
+- Segment 13 (Nachrichten 185-200)
+  - Haendler kamen ueber C6; C6 als Puffer/Kernsektor, oeffentlicher Aussenbereich.
+  - Dialog Reflex <-> Karawane: ehrlich, dunkler Humor; Haendler kennen Reflex nicht.
+  - Mehrfacher Hinweis auf falsches Canvas/Overwrite; Korrektur bestaetigt; C6 bleibt leer/unrepariert.
+- Segment 14 (Nachrichten 201-215)
+  - Mehrfacher Hinweis auf falsches Canvas; Haendlerwissen zu Reflex korrigieren.
+  - C6 bleibt leer/unrepariert; Tunnel nicht instand gesetzt; Schadensprotokoll betont.
+  - Kontaktaufnahme Reflex <-> Haendler: ehrlich, ungeplant, stellvertretend fuer Ronja.
+- Segment 15 (Nachrichten 217-230)
+  - Reflex meldet alles an D5/Ronja; keine Geheimhaltung.
+  - Weitere Fraktionen fehlen; Interaktionsreihenfolge und Rueckweg nach C6 mit Material.
+  - Tunnelzustand unveraendert (kein Zugbetrieb); Material nach C6, Tunnel nur Transit.
+- Segment 16 (Nachrichten 231-250)
+  - Reflex-Canvas vor Anpassung laden; dann Weg fortsetzen; Ronja begruesst Haendler, fragt nach Feedback.
+  - Wartung: Luftsysteme starten; danach Licht; Kommunikationsverbindung priorisieren.
+  - Sensor-Installation direkt, Materialbedarf pruefen; Kontext-/Inventar-Check vor Anforderung.
+- Segment 17 (Nachrichten 251-300)
+  - Sensor-Installation und Materialabfrage; Jonas soll zuerst ankommen, Materialverbrauch im Inventar nachziehen.
+  - Wiederholte Warnung: falsches Canvas (Varek Solun/Handelsprotokoll/Reflex) ueberschrieben; Fehleranalyse erbeten.
+  - Bedarf: Fraktionsinventar-Canvas, getrennte Inventare je Fraktion und Fraktionshaendler.
+  - Validierung aller Daten gefordert; Token-/Aufwand abklaeren.
+  - Fraktionszuege woechentlich, Handelszyklus integrieren.
+  - Wunsch nach mehr Fokus auf Reflex-Persoenlichkeit (Beschuetzertyp, Verlustaengste) und Ronja-Reaktion; Charakter-Canvas aktualisieren.
+- Segment 18 (Nachrichten 301-350)
+  - Problem: Reflex-Canvas ueberschrieben; Hinweis auf moegliche Index-Drift.
+  - Vorschlag: GPT-Behavior anpassen, Canvas versionieren, nur neue Canvas erstellen; alte archivieren.
+  - Admin-Ebene/"Mein GPT" geklaert; ZIP spiegeln/entpacken, Regeln bearbeiten, danach wieder hochladen.
+  - Drei Backups/Versionen genuegen; Eintrag fuer Kontext-Ladepflicht und Aktualitaetsbewertung erbeten.
+  - Nutzer wechselt zur Behavior-Aenderung; danach Fortsetzung mit strukturierter Canvas-Migration (Orte -> Fraktionen -> Inventare ...).
+- Segment 19 (Nachrichten 351-400)
+  - Gruppenarbeit: C6-Canvas fehlt/ueberschrieben; Korrektur C6 als Metro-Verbindung, nicht Oberflaeche.
+  - Hauptfraktionen weiter; Handelswissen/Interessen abgleichen (Haendler noch nicht informiert).
+  - Eisenkonklave zuerst pruefen; Handelsbewegungen nicht erfinden (nur eine Karawane unterwegs).
+  - Vier Fraktionsinventare; Waehrung "Kugeln" als Gegenstand, Wertrelation 10:1; Systemindex aktualisieren.
+  - Fraktionsname Novapolis festgelegt; Fraktions-Canvas + Inventar anlegen.
+- Segment 20 (Nachrichten 401-450)
+  - Kugeln als normaler Inventargegenstand; Systemindex zuerst aktualisieren; Anzeige-Fehler/Overwrite-Check.
+  - Validierung gefordert; fehlendes Fraktionsinventar + Fraktionsname klaeren (Novapolis bestaetigt).
+  - Kontextabgleich D5/C6 (Reaktor, Leichen); "Asked ChatGPT"-Marker bei Novapolis-Canvas.
+  - Fokus auf Charaktere: Ronja zuerst; Zitat zu "Pause" aufnehmen; Standort in C6 pruefen.
+  - Reflex: Symbiose-Stufe 1 (Neoprenanzug), vor Aenderungen Kontext klaeren; kindlicher Touch.
+  - Neues Canvas fuer wichtige Konversationen; Dubletten vermeiden; Beispielaussagen aus Chat suchen.
+  - Suche nach Szene, in der Reflex Ronja erstmals stoppt.
+- Segment 21 (Nachrichten 451-470)
+  - Reflex-Stop-Szene klaeren (C6, Sensoren/Lebewesen); Fehler vermeiden, ggf. weglassen.
+  - Jonas: Herkunft E2 (Gasleck) pruefen; im C6-Tunnel gefunden; Reflex-Instanz beaufsichtigt.
+  - Fraktionsfuehrer fehlen; weiter zu Gruppen.
+  - Gruppen: NPCs ohne Namen, nur Anzahl + Anfuehrer; Novapolis-Gruppen (Karawane, D5, C6), Fraktionen als Scout+Name.
+  - Novapolis ohne Mitglieder ausser Karawane; C6-Gruppe leer; D5=Ronja/Reflex/Jonas/Pahl.
+- Segment 22 (Nachrichten 471-500)
+  - Gruppen-Korrekturen bestaetigt; Anzeige-Fehler C6 moeglich; Gruppen erneut pruefen.
+  - Konsistenz-/Redundanzpruefung aller neuen Canvas im Hintergrund (nur Ergebnis).
+  - Bedarf an Missionslog (aktiv/abgeschlossen) und weitere Canvas-Vorschlaege.
+  - Abgeschlossene Missionen pruefen (C6, Aufnahme Jonas); Kontakt mit Lebewesen unter Bodenplatten klaeren.
+- Segment 23 (Nachrichten 501-550)
+  - RP-Start in C6: Ronja erwacht, Fruehstueck mit Karawanenleitung; C6-Flaechenangaben nur realistisch/klein, im Canvas nachziehen.
+  - Systemcheck der Canvas; C6 in Drittel aufteilen; Karawane/Volunteers bestaetigen; Gruppen-Canvas fuer C6-Bewohner und Karawane, laengerer Erzaehlton; Reflex vorstellen; Gespraech in Conversations-Canvas.
+  - Symbiose Stufe 1 strikt; keine neuen Items (Sensor/Kamera); Reflex trennt sich nicht; Korrektur-Loeschungen erbeten.
+  - Kontext-Reset mit Reinit-Prompt: aktive Canvas-Liste, Missionslog, C6-Aufteilung (440 m2), D5/C6-Inventare getrennt, Do/Don't.
+  - C6-N3-Durchgaenge: verdeckt auswuerfeln; Missionsvorbereitung Richtung D5; Klarstellung U-Bahn-Tunnel, Karawane kam urspruenglich nach D5; Ronja/Reflex sind D5-Bewohner, C6 nur Freiwillige.
+- Segment 24 (Nachrichten 551-600)
+  - RP-Context nur ab Reset; Funksituation: schwache Verbindung, zwei Karawanenmitglieder auf dem Weg nach D5; C6 kennt D5-Bestand nicht. Schwierigkeit soll langsam steigen, Entscheidungen staerker gewichten.
+  - Cluster-Index-Idee mit Temperatur-Codes (Buchstabe+Zahl); Kontext/aktive Canvas vor Aktionen laden; Updates in Bloecken (1-6f), TTS-optimierte Antworten; Backup/Compare-Workflow strikt.
+  - Codes fuer Haendlergilde/Eisenkonsortium fehlten; Kontext neu laden, Fehleranalyse; Redundanzen/Crosslink-Fehler listen und korrigieren (U-Bahn-Tunnel = Tunnelabschnitt; Reflex Angst vor Trennung, keine Fixierung); Systemlog danach aktualisieren.
+  - Wunsch nach automatischer Kontextpruefung mit Prefix "kontextpruefung durchgefuehrt"; bei Konflikten entscheidet User die Version. Test-Canvas (Duplikate) + Doku anlegen, TTS-Format wahren, speichern/aktivieren.
+  - Vor groesseren Canvas-Aenderungen User einbeziehen; Wartungseintraege ggf. zusammenfuehren; Voll-Check aller Canvas berichten. Haendler-Fraktion hat nur Energieschwankungen (D5/C6) im Wissen, keine Novapolis-Infos; fehlerhafte Aussage zur Karawanen-Entsendung korrigieren. Aufwand/Token fuer Kontextpruefung abfragen; Gewichtung aelterer, weiterhin gueltiger Aussagen verbessern und Kernfakten in separater Canvas sammeln.
+- Segment 25 (Nachrichten 601-650)
+  - D5-Layout praezisiert (Werkstatt-Schacht, Kommandobereich, Reaktor/Maintenance, Funkbuero, Lager, Bahnsteig); grobe Flaechen in Canvas; Wunsch nach Karten-Canvas "Plaene von Novapolis" mit Version/Disclaimer; Bildgeneration/Revisionen verworfen, Version 1.2 mit Hinweis "schematisch".
+  - Kontextpruefung erneut fehlerhaft; RP-Korrekturen: Ronja bleibt Fraktionsleiterin, Humor reduzieren; Reflex-Ueberreaktion (Vollschutz) und Beziehungszwiespalt ausspielen; Kontextpruefung soll Reload beinhalten.
+  - Fokuswechsel D5: Mikk/Lira in D5, Pahl hat Kommando, Reflex-Instanz als Guide; Mikk im Lager-Fehltritt; beide sollen Versorgung fuer C6 tragen; Status-/Funk-Logik korrigieren; zwei neue Bewohner als C6-Bewohner mit Aufenthalt D5.
+  - Systemfehleranalyse gefordert; C6-Belegung korrigiert (Ronja/Reflex/Kora/Sima/Tarv/Darek); Funk via Jonas; fehlende Novapolis-Charaktere anlegen; Funk bereits repariert/optimiert.
+  - Transportmission-Inventare unklar: IC-Loesung akzeptiert (vor Ort entscheiden, ggf. weitere Mission). Mikk/Lira-Canvas pruefen; Mikk eher Wache/Schutz; Ronja-Canvas als Template/Sync-Vorlage; kritische Regel: keine Overwrites, Backup/Compare Pflicht.
+  - Admin-Prompts: ausfuehrlicher Admin- und neutraler Prompt; "Woche" als RP-Zeit definieren; Release-Checkliste/Validation-Fragen; Update-Kompatibilitaet pruefen, Behavior-Daten in Basis verankert.
+  - RP-Rueckkehr: Scan zuerst, TTS-Output beibehalten; Reflex-Kommunikation/Kindlichkeit; Ueberreaktion nimmt Kontrolle, Psyche beider ausarbeiten, neutraler Erzaehlton; Szene-Redo/Loeschen mehrmals.
+  - Wechsel zu C6/D5; Materialauswahl fuer C6-Instandsetzung (Gewichte dynamisch), Aufbruch durch Tunnel ausspielen; Reflex-Ursprung im D5-Wartungsraum erneut referenzieren.
+- Segment 26 (Nachrichten 651-700)
+  - Tunnel/Anomalie: keine neuen Anschluesse, nur Wartungsgang mit Leichen; E3/E2-Gasunfall checken; Anomalie ggf. nur Energiedrain C6<-D5; Unikat-Regel fuer Reflex betont.
+  - Rueckkehr und Aufgaben: Abmeldung bei D5, 3-Schritt-Update im Hintergrund; Ankunft in C6, Bestandsaufnahme und Inventar-Update; zeitliche Rueckfuehrung zu Ronja/Reflex; Ronja ueberrascht Gruppe, verteilt Aufgaben, aber Rollenabgleich (Mikk als Wache) und Kora uebernimmt Leitung C6; Ronja bleibt Fraktionsleiterin.
+  - Szenensteuerung: Tag 4 Morgen; Perspektivenwechsel (Kora, C6, Karawane, D5); Fehlerkorrekturen (Karawane nicht erneut losgeschickt, Mission archivieren); Kontextreload + Kern-Updates vor Tagesabschluss.
+  - Beziehung Ronja/Reflex: mehr Waerme, kindliches Reflex-Verhalten, Naehe-Experimente; Wechsel zu Kora, dann D5; Wunsch nach tieferer Jonas-Instanz-Interaktion (Name/Kommunikation), Pahl einbeziehen.
+  - System/Logs: Inventar-Checks, temporaere Eintraege fuer Admin-Update; Novapolis-Logbuch-Canvas + Bericht (C6-Leitung, Aufgabenverteilung); Reminder gegen Kontext-Reset; Token-Verbrauch/Canvas-Anzahl, alle Fraktionen inkludieren, alte gueltige Canvas nach Kategorien A/B/C reaktivieren.
+  - Infrastruktur: C6-Zugangslogik (D6-Wandtunnel, Gleise nach D5/F1/Handelsroute) mit Logistik-Canvas; Kora soll Funkkontakt testen; neue Instanz Echo (Kora als Bezugsperson), Lumen ist Jonas-Instanz; Echo kann nicht fliegen, ist gebunden.
+  - Missionsroute: keine Verwechslung C6/F1; Ziel der Karawanenmission pruefen; Logeintrag als Kontakt/Update; E3-Status dynamisch auswuerfeln, ggf. Canvas anlegen; Frage nach Plausibilitaet kleiner Bevoelkerung.
+- Segment 27 (Nachrichten 701-750)
+  - E3/Evak: Funkverbindung C6/D5 priorisieren; Marei-Charakter anlegen; Kora+Marei sollen Logistik/Inventar und Rueckbau pruefen; Datenarchiv in D5; E3 evakuieren und Strom trennen (mehr Energie fuer D5/C6).
+  - Quarantaene/Versorgung: lange Evakuierungssequenz erbeten, dann Fokus auf Hauptchars; Quarantaene + Gemeinschaftsbereich; Algen/Pilzfarmen sofort; Vorratsreichweite bestimmen; neue Bewohner teils als Einzel-Canvas, Aufgabenverteilung Ronja/Kora/Marei.
+  - Zeitplanung: Ronja bleibt in C6 bis 100%, Bueroubergabe an Kora; Tag 5/6 Abend-Szenen; Tag 7 Abreise + Wochenabschluss; Echo-Verhalten (anhaenglich an Kora) konsistent.
+  - Systemzug (ausser RP): woechentlicher Fraktionszug inkl. Nicht-Fraktionen; Rueckfrage wegen Meta-Daten; fuenf Hauptfraktionen muessen enthalten sein; Cluster/Standorte/Truppen pruefen; E3 vom Netz (Energiefluktuation) erwaehnen.
+  - Rueckkehr RP: Arkologie horcht ggf. auf; Ronja Rueckweg nach D5 mit zwei Personen (nicht Sima, Mikk bleibt in C6); Tunnel-Bestandsaufnahme; Ankunft D5, Begruessung, Wissensabgleich-Meeting mit Vorstellungsrunde.
+  - Konsistenz/Debug: system messages fehlen, debug-mode gefordert; Tarv/Derek vs. andere Namen verwechselt, Daten korrigieren; aktive Debug-Infos ueber Canvas-Aenderungen; RP nach Fehlerpunkt archivieren/als nicht-kanon markieren.
+  - Missionen/Logs: Besprechung beenden, Mission Tunnel+Aufklaerung planen, Logbuch-Entry mit neuen Missionen; Plan zuerst zeigen, Korrekturen zu Zielen/Personal/Zeit/Material, Handelsware; vor Freigabe nur Missions-Canvas aktualisieren.
+  - Inventar/Bevoelkerung: Inventar konsistent machen; Bewohnerlisten C6/D5 pruefen (2 von 6 Karawanenmitgliedern in D5, E3=20, Gesamt <=29); unklare Nia/Rell archivieren, Bewohnerliste neu validieren.
+- Segment 28 (Nachrichten 751-800)
+  - Drei-Schritt-Update bestaetigen, dann RP mit Systemmeldungen/Debug fortsetzen; Inventur mit messbaren Einheiten (Tonnen/Meter/Volumen) statt vager Angaben; Quellen fuer Ressourcen klaeren.
+  - Temporaere Systemregeln nachladen (Canvas-Anzahl, aktive Loads), Abweichung bei geladenen Canvas analysieren; Trennung permanent vs temporaer, Prompt fuer System-Update ohne Loeschungen; Update-Pruefung und Freigabe.
+  - Wochenabschluss/Debug-Test: Tag 8 statt Tag 14, Simulation fuer andere Fraktionen/Neutrale voll ausgeben; danach Rueckkehr in Timeline, RP-Planung fuer Tunnelarbeiten.
+  - Korrekturen im RP: Reflex-Naehe/kein Arm, Textformat/Sprachausgabe; Inventarverbrauch/Logbuch; Ankunft D5 + Wissensstand; keine fremden Wesen wie Reflex; taegliche Abschlussbesprechung C6/D5.
+  - Systemmodus/Reporting: Konsistenzpruefung vor Bericht; Fragen zu Mission-Teilnahme und Einbezug aller Charaktere; Week-one final erstellen/archivieren; Tagesverbrauch/Tokenfragen.
+  - Systemmeldungen/Debug: Canvas-Anzahl-Ausgabe, Regeln zu aktiven Loads, Konflikte mit Admin-Updates klaeren; erneute Voll-Ladevorgaenge, Struktur-/Verweisfehlerpruefung, Berichte Tag 1-7 vs 7-10 vergleichen.
+  - Missionen/Anomalien: N7 ist Bereich in C6, Anomalien (N7/Tunnel/E3) als Missionen anlegen, nur als Datenbasis; Jonas nutzt Lumen (keine Reflex-Hilfe); keine Reflex-aehnlichen Wesen.
+- Segment 29 (Nachrichten 801-850)
+  - Daily-ops Canvas (Version 2.1) maschinenlesbar; temporar simulieren, dann nach 3-Schritt-Plan in temporarem Update-Canvas sammeln; nichts daraus ins RP.
+  - Morgentext nur temporar, Systemnachricht/Canvas-Liste fehlen; Kontext neu laden, Gewichtungen pruefen; 47 archivierte Canvas warten; Snapshot/Reindex/Sync freigeben.
+  - Stationsdetails: D5/C6/Tunnel Beschreibung aus Richtung Tunnel, Masse/Laengen/Licht; Jonas-Werkstatt im Schacht, C6-Nutzflaeche korrigiert (nach realen U-Bahn-Vorbildern), vier Linien (D5/E3/F1 + offen), fruehe Beleuchtungsreparatur; Lastenaufzug unter Bahnsteig (2t) reinstellen.
+  - Canvas-Zaehler/Code-Format (A/T/S/D) durcheinander; komplette Reloads/Pruefungen, Draisinen- und C6-QM-Eintrag checken, Morgen-Post laedt.
+  - RP-Tempo: Morgen in D5/C6, Besprechung, Personeneinteilung; Jonas/Pahl/Lumen an Draisine; Bewohner C6 laden und einige Ueberlebende vertiefen; Echo/Lumen/Reflex Eigenschaften konsistent (Wurzelgewebe, Naehe, Unikat), Wachstumssystem erwaegen.
+  - Protokolle: Logbuch in allen Stationen verfuegbar (ausser secret); Tageswechsel-Canvas mit Regeln vorhanden? A/T und weitere Buchstabenbenennung im Chat suchen; Tageswechsel -> rueckgaengig wegen fehlendem Voll-Load.
+  - Reaktor/Energie: Energieproduktion/Logistik-Kern-Referenz fehlte; taegliche Abrechnung korrigieren; neue unbekannte Fraktion pruefen ("Schatten"), Fraktionsfuehrer-Canvas laden; Bilder/Meta-Listen als Debug-Aufgabe.
+  - Archiv/Checks: alle Canvas temporar laden und vergleichen; Zusammenfassung geplanter Aenderungen, Archiv nur nach Gegenueberstellung; Konsistenz ueber Tagesgrenzen, Ressourcenverbrauch/Tunnelfortschritt rechnerisch pruefen (km/Prozent) und N7-Regel bestaetigen; alternative Berechnung vorgeschlagen.
+- Segment 30 (Nachrichten 851-900)
+  - System-Canvas/Tageswechsel: daily-ops temporar, RP-Morgentext nur als Entwurf; Kontext voll neu laden, Gewichtungen pruefen; Archivierte Canvas stehen aus; Snapshot/Reindex/Sync freigeben; alle Stations- und Tunnel-Details (Masse, Linien, Beleuchtung, Lastenaufzug) fixieren und Version 0.9 setzen.
+  - Draisinen/Logistik: Draisinen-Details (Groesse/Antrieb/Last), C6-QM, Tunnel-Laenge; Code-Format A/T/S/D verwechselt; komplette Reloads, Pruefungen und Zaehlung; Morgen-Post nur nach Check.
+  - Debug/Fehlerstress: Tageswechsel rueckgaengig, Reaktor-Energieproduktion fehlt; Logistik-Kern-Referenz; unbekannte Fraktion ("Schatten") pruefen; Fraktionsfuehrer-Canvas laden; Hauptfraktionen festlegen (Eiserne Enklave, Arkologie, Haendlerbund, Schienenbund, Novapolis, Freie Gruppen).
+  - Krisenmodus: Kontext loeschen gefordert, alte Snapshots anzeigen; N7-Suche; neues hoechst-priorisiertes "unumstoesslich"-Canvas erstellen mit Kernfakten; drei Punkte aendern (Arkologie beobachtet nicht, beidseitige Instandsetzung, Baufortschritt 40%) und wieder anzeigen.
+  - Lueckenfuellung: D5/C6-Stationen laden, person_index_np, Logistik und Mission Tunnel; D5/C6 auf Version 0.9, stable 6 zeigen; Missions- und Logistik-Views pruefen; Wiedereinstiegspunkt nach Troubleshooting.
+  - Export/Backup-Wuensche: alle Canvas (auch archivierte) in Markdown/JSON, komplette Chat-Rohform, Anzahl Nachrichten, ZIP mit allen Daten; systeminfo + Canvas-Zahl; keine Autofuellung, nur laden/einfuegen.
+- Segment 31 (Nachrichten 901-950)
+  - Tageswechsel/Checks: temporaere Morgen-Nachricht, Ressourcenverbrauch und Tunnel-Fortschritt neu berechnen (km/Prozent), N7-in-C6-Regel bestaetigen; alternative Rechenmethode (Prozent rueckwaerts) vorgeschlagen.
+  - Verbrauchs-Canvas aktualisieren, aber noch nicht final; Exoskelett-Bonus mit Energiekosten/Reserve-Drain modellieren, Kapazitaet an Masse koppeln, Human-Generator erst ab Symbiose 2; Skill-Boni/Progression fuer Arbeiter diskutiert.
+  - Reflex-Instanzen: zweite/ dritte Instanz nicht als Kopie, eigene Kernfaehigkeiten; Wissensstand bleibt bei Reflex, andere wissen es nicht.
+  - Debug/Fraktionen: A/T/S/D ausschreiben, Hauptfraktionen klaeren (Eiserne Enklave, Arkologie, Haendlerbund, Schienenbund + Novapolis/Freie Gruppen); Archiv-Fehler/Translation-Frust; Kontext loeschen/Reset gefordert.
+  - Krisenreaktion: Snapshots/alte Canvas zeigen, N7 suchen; hoechstprioritaeres "unumstoesslich"-Canvas mit Kernfakten erstellen, drei Punkte aendern (Arkologie beobachtet nicht, beidseitige Instandsetzung, Baufortschritt 40%) und erneut anzeigen.
+- Segment 32 (Nachrichten 951-1000)
+  - Lueckenfuellung: D5/C6/Personenindex/Logistik/Mission Tunnel laden, Version 0.9 setzen, stable zeigen; Wiedereinstiegspunkt fuer Agent-Mode.
+  - Exportwunsch: alle Canvas (auch archivierte) in Markdown sortiert, nur laden/einfuegen; ZIP aus "Mein GPT" war nur Vorlage; Zugriff/Reload erneut versuchen.
+  - Datenverlust-Panik: keine RP-Dateien im ZIP; systeminfo und Canvas-Zahl; Markdown-Sicherung priorisiert; komplette Chat-Summary + Rohform als Datei, JSON ohne Timestamps, Nachrichtenzahl pruefen.
+- Segment 33 (Nachrichten 1001-1006)
+  - JSON-Ausgabe: Start/Weiterfuehren bestaetigt; Anzahl Eintraege in mehreren JSONs abgleichen; alle Daten/Dateien in eine ZIP fordern; Frage, ob Loeschen des Kontextes Datei-Zugriff beeinflusst.
+
+Segment-Notizen (RAW 2025-10-27T09-16) (Teil 2)
+-----------------------------------------------
+- Segment 1 (lines 1-124): [Quelle](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L21647-L21772)
+  - Behauptung: Vollstaendiges Backup `metro_ai_rpg_full_backup.zip` inkl. JSON/Markdown/Canvas sei erstellt und verfuegbar.
+  - Behauptung: ZIP entpackt, Kernbestandteile geladen (RULESET, README, system/gpt_behavior.json, system/gpt_lore.json, master_index.json).
+  - Behauptung: Entitaeten erkannt (Factions 5, Items 9, Actors 2, Missions 2, Events 2).
+  - Anweisung: Setup neu laden, alte Canvas loeschen, vollstaendiges Setup inkl. /docs/.
+  - Decision: [OPEN] Existenz/Provenienz des ZIP und der behaupteten Artefakte verifizieren.
+- Segment 2 (lines 123-140): [Quelle](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L21775-L21818)
+  - Charakterdaten: Ronja, Archetype Technikerin, Alter 36, Attribute K2 G4 Ge5 W5 Ch4.
+  - Skills (geuebt): ueberzeugen, Botanik, Ingenieurwesen, Elektronik.
+  - Decision: [OPEN] Abgleich mit SSOT (Ronja-Canvas) vornehmen; hier nur als Roh-Input behandeln.
+- Segment 3 (lines 141-610): [Quelle](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L21795-L22267)
+  - Skills (meisterhaft): IT/Programmierung, Organisation & Planung; optional geuebt: improvisieren.
+  - Ausruestung: Gasmaske + Werkzeugkit (Start-Extras).
+  - Motivation/Makel: Wunsch nach geordnetem, hellen Ort mit Flora/Fauna; Zweifel/Sinnlosigkeit.
+  - Anweisungen: Charakter-Canvas aktualisieren, erste Szene starten; danach wiederholte Szenen-Intent (Wartungsgang, Werkzeugtasche, Beobachten).
+  - Regelhinweis: Vorschlaege nur bei Bedarf (User-Praeferenz).
+  - D5-Setup: separaten D5-Canvas erstellen, Inventare aktualisieren, Instandhaltung fortsetzen.
+  - Decision: [OPEN] Abgleich mit SSOT (Ronja-Canvas, D5-Canvas, Inventare) nur bei belegten Updates; hier als Roh-Input markieren.
+- Segment 4 (lines 608-1172): [Quelle](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L22267-L22834)
+  - C6-Policy: C6 bleibt Teil des Kernsektors (Novapolis), nur aeusserster Bereich ist oeffentlich; C6 als Puffer/Schutzring.
+  - Haendlerkontakt: Haendler wissen nicht, wer Reflex ist; C6 weiterhin leer/unrepariert; Tunnel nicht instand gesetzt.
+  - Canvas-Fehler: mehrfach falsche Canvas ueberschrieben (u. a. Handelsgruppe, Varek Solun); expliziter Wunsch nach Verifikation vor Update.
+  - Missionsfluss: Ronja/Reflex bringen Material nach C6 (Tunnel nur Transit), Reflex als Exoskelett-Assist.
+  - Wartungsprioritaet: Luftqualitaet, Licht, Kommunikation zuerst; Kontext/Inventar pruefen vor Materialanforderung.
+  - Fraktionsinventar: Nachfrage nach eigenem Fraktionsinventar-Canvas; Materialverbrauch im Inventar nachziehen.
+  - Decision: [OPEN] Konflikt/Override-Historie der betroffenen Canvas pruefen; SSOT-Updates nur nach belegtem Abgleich.
+- Quelle (Segmente 5-54): [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L22830-L25830)
+- Segment 5 (lines 1170-1180)
+  - Aussage: Ronja D5 von 98% auf 100%, niedriger Wert von C6 beeinflusst.
+- Segment 6 (lines 1178-1238)
+  - Frage nach D5-Reaktor; Leichenreste in C6 als moeglicher Spaeterpunkt.
+  - Ronja-Quote aufnehmen; Standortcheck: Ronja+Reflex in C6 am Lebewesen.
+  - Symbiose Stufe 1 (Neoprenanzug), keine Stufe 2; Aenderungen vorab klaeren; Reflex kindlicher Ton.
+  - Neues Canvas fuer wichtige Konversationen, Format Zeitstempel/Name/@/Nachricht.
+- Segment 7 (lines 1241-1301)
+  - Wichtige Aussagen suchen, keine Duplikate; Reflex haelt Ronja erstmals ab (C6, Sensoren/Lebewesen).
+  - Jonas-Korrektur: in C6-Tunnel gefunden; beaufsichtigt von Reflex-Instanz; Angebot D5-Werkstatt; Schwester in E2 nach Gasleck.
+  - Gruppen-Canvas: NPC-Gruppen ohne Hauptchars; nur Anzahl + Anfuehrer.
+- Segment 8 (lines 1306-1325)
+  - Je Fraktion Gruppe anlegen (Scout + Fraktionsname), um Aufenthaltsort erweitern.
+  - Korrektur: Novapolis ohne Mitglieder ausser Karawane; C6-Gruppe leer; D5=Ronja/Reflex/Jonas/Pahl; andere Fraktionen dynamisch.
+- Segment 9 (lines 1323-1386)
+  - Korrekturen ausfuehren; C6-Label/Anzeigepruefung; Gruppen erneut pruefen.
+  - Konsistenzcheck aller neuen Canvas, Ergebnis nur kurz melden.
+- Segment 10 (lines 1385-1410)
+  - Missionslog aktiv/abgeschlossen einrichten; abgeschlossene Missionen (C6, Jonas) pruefen.
+- Segment 11 (lines 1408-1809)
+  - Anomalien in Standort-Canvas, Debuffs in Charakterstatus; Karawanenbewegungen in eigenes Canvas.
+  - Karawanenfracht definieren; Mission C6-Erkundung anlegen; Aufgaben nacheinander.
+  - Stations-Canvas nach Standort trennen (D5/C6); C6-Generator von Ronja repariert.
+  - Handelslog woechentlich; E2 Gasunfall-Station nicht erreicht.
+  - Benannte NPCs erhalten Canvas; Handelsbeziehungen skizzieren; Handel+Diplomatie-Canvas mit kurzem Namen.
+  - Fraktionsreihenfolge (Arkologie, Schattenbund, Haendler); alte Canvas archivieren.
+  - Logistik-Canvas inkl. Seitenstaenge/Leichen; Tunnelzustand als Handels-Logistik-Hinweis.
+- Segment 12 (lines 1815-1832)
+  - Index-Canvas: Cluster nach Person/Fraktion/Ort, woechentliche Cluster-Review.
+  - AI-Behavior-Canvas als Basis; Code-System Buchstaben+Zahlen; AI-Behavior Index V1 ueberarbeiten.
+- Segment 13 (lines 1831-2095)
+  - Behavior-Code-System weiter ausarbeiten (Koordinaten/Intensitaet).
+  - Ronja-Profil: Loyalitaet, wankender Geist; Reflex-Schutz; Symbiose Stufe 1 bleibt.
+  - Machine-Readable Updates mit Backup/Compare Pflicht.
+  - Datenkern gehoert Stationsinventar, falls nicht aufgenommen.
+  - Reflex-Profil: kindlich, neugierig, starke Bindung; moegliche Wertung als psychopathisch.
+  - Jonas: Schwester evtl. nicht tot; Werkstatt in D5; Backups vergleichen.
+  - Pahl Update; Karawanenleiterin-Fehler (Novapolis vs Haendlergilde) beheben; fehlerhafte Version nicht archivieren.
+  - Backups archivieren, Querverweise pruefen, Fraktionswoche simulieren.
+- Segment 14 (lines 2096-2126)
+  - Standortklarstellung: D5 Bewohner Hauptchars ausser Karawanenleiterin; C6 nur Freiwillige; Ronja/Reflex in C6.
+  - Jonas Werkstatt unter Kontrollraum (Wartungsschacht); Pahl im Gemeinschaftsbereich.
+  - Karawane beansprucht Teil von C6 als Handelszentrum.
+- Segment 15 (lines 2124-2144)
+  - D5/C6-Inventare strikt trennen; Datenwuerfel gehoert C6.
+  - Nicht-Spieler-Fraktionen simulieren ohne Vorgriff; Start bei Karawanenbeitritt; Textausgabe fuer TTS.
+- Segment 16 (lines 2143-2158)
+  - D5-Fokus mit Jonas/Pahl; Reflex-Instanz spielerisch helfen, kindlich.
+- Segment 17 (lines 2156-2216)
+  - Eigener Canvas fuer Reflex-Teilinstanz (metallisch-wurzelartig, seestern-aehnlich).
+  - Wichtige Dialoge Canvas mit Blockformat; keine Simulation ueber Starttag hinaus.
+- Segment 18 (lines 2215-2225)
+  - C6 Nutzflaeche + Aufteilung im Canvas; eher kleine zugaengliche Flaechen.
+- Segment 19 (lines 2223-2238)
+  - C6 Flaechen nur mit realen U-Bahn-Vorbildern; sonst klein und schwerer.
+- Segment 20 (lines 2241-2342)
+  - Systemcheck der Canvas; Namen der drei Freiwilligen; Mitgliederzahl der Karawane verifizieren.
+  - C6 Update mit drei neuen Bewohnern; Gruppen-Canvas fuer C6-Bewohner und Karawane unter Kora.
+  - Laengerer Erzaehlton; Reflex vorstellen (main Reflex spricht); Gespraech in Conversations-Canvas.
+- Segment 21 (lines 2341-2368)
+  - Keine neuen Sensoren/Kameras; nichts erfinden.
+  - Reflex loest sich nicht von Ronja; Kontextreset/Prompt erwaegen.
+- Segment 22 (lines 2480-2526)
+  - Reinit-Prompt mit Don'ts; Frage nach weiteren Durchgaengen in C6 N3 (verdecktes Wuerfeln).
+  - Symbiose-Stufe beachten; Missionsvorbereitung.
+- Segment 23 (lines 2524-2546)
+  - Korrektur: normaler U-Bahn-Tunnel, kein Wartungstunnel; Kontextabgleich.
+  - Karawane kam urspruenglich von Haendlerfraktion zu D5.
+- Segment 24 (lines 2546-2556)
+  - Ronja/Reflex Bewohner D5; nur Freiwillige in C6.
+- Segment 25 (lines 2554-2580)
+  - Vorbesprechung Versorgungsmission; relevante Canvas laden; Daten priorisieren.
+- Segment 26 (lines 2581-2614)
+  - Abmarsch zu D5 erst nach Kontextcheck; Funkverbindung stabilisieren.
+  - C6-Gruppe weiss nicht, wie viele Leute in D5 sind.
+- Segment 27 (lines 2612-2622)
+  - Wunsch: Komplettbackup aller Canvas + Chatverlauf; ggf. unkomprimiert/ZIP; Anleitung.
+- Segment 28 (lines 2621-2664)
+  - Rueckkehr zu RP; Reihenfolge der Szenen klaeren.
+- Segment 29 (Nachrichten 911-956)
+  - Kontextabgleich: Funkstatus, fehlende RP-relevante Teile, Schwierigkeitsgrad erhoehen; Cluster-Index-Idee mit Temperatur-Codes; Kontext-Reload + aktive Canvas vor Aktionen.
+  - Update-Regeln: Block-Updates mit Backup/Compare; TTS-Format; Reihenfolge Block 1-6 inkl. Unterbloecke fuer Fraktionen.
+  - Korrekturen: Codes fuer Haendler/Eisenkonklave fehlten; Redundanzen/Crosslinks pruefen; Tunnel = U-Bahn-Tunnelabschnitt; Reflex trennt sich nicht, Angst vor Trennung.
+- Segment 30 (Nachrichten 957-987)
+  - Kontextpruefung: Prefix "kontextpruefung durchgefuehrt" vor jeder Antwort; User entscheidet bei Konflikten; Systemlog aktualisieren.
+  - Test-Setup: doppelte Canvas (gleicher Inhalt, anderer Name) + gegenteilige Test-Canvas; temporar anlegen, Doku dazu.
+  - TTS/Token: Sprachausgabe-Format ohne Icons; Tokenaufwand fuer Kontextpruefung erfragen.
+- Segment 31 (Nachrichten 988-1066)
+  - Kontext/Datengewichtung: alte, weiterhin gueltige Aussagen hoeher priorisieren; Kernfakten in eigener Canvas sammeln.
+  - Reflex-Details: Erscheinung (wurzelartig, perlmutt, neoprenanzugartig), Bewegung (seesternartig), kindlich-neugierig, ueberreaktiv, starke Bindung; Instanz-Relationen klaeren; Begriff "Reflex-Grid" gefaellt.
+  - Canvas-Updates: Reflex und Instanz mit neuen Details aktualisieren; abschliessende Gesamtpruefung ankuendigen.
+- Segment 32 (Nachrichten 1067-1116)
+  - Klarstellung: Reflex kann verbal kommunizieren; danach alle relevanten Canvas aktualisieren, Links pruefen, Gesamtcheck.
+  - Wiedereinstieg: Funkstatus pruefen, D5/C6 parallel; Ronja optimiert Funk, D5-Gruppe ankommen lassen; neue Bewohner-C6-Canvas anlegen, Aufenthalt D5 verlinken.
+  - Reflex-Details: Schutzreaktion bei Gefahr (Haende/Gesicht), Eifersucht gegen Handschuhe; Wissensstand beachten.
+  - D5-Aufbau: Ebenen, Wartungsschacht/Jonas Werkstatt, Kommandozentrum, Reaktor/Maintenance, Funkbuero, Lager, Bahnsteig; QM grob definieren.
+  - Karten-Canvas "Plaene von Novapolis" inkl. Version/Disclaimer; Bildgenerierung pruefen, Korrektur/Loeschung mehrerer Bildversionen.
+  - Kontextpruefung korrigieren: RP an richtiger Stelle (Besprechung mit Kora), Humor reduzieren, Ronja bleibt Leiterin; Beziehung Ronja/Reflex vertiefen.
+- Segment 33 (Nachrichten 1117-1166)
+  - Kontextreload als Teil der Pruefung; RP-Fehleranalyse der letzten Nachrichten, Fokus bleibt auf Beziehungskonflikt Ronja/Reflex.
+  - D5-Szene: Pahl hat Kommando, Mikk/Lira in D5; Reflex-Instanz als Guide; Mikk im Lager; D5-Ankunft ueberraschend ordentlich.
+  - Fehlerkorrekturen: falsche Aussagen zu C6-Besetzung/Funk; Transportmission-Inventare unklar, IC-Loesung akzeptiert; Mikk eher Wache, Lira Logistik.
+  - Ronja-Canvas als Template-Vorlage fuer Struktur; Regelbruch (Backup/Compare) rueckgaengig machen.
+  - Admin-Prompts: Admin- und neutraler Prompt, RP-Woche klarstellen; Versionstabelle/Validierungsfragen; Update pruefen, dann RP fortsetzen.
+- Segment 34 (Nachrichten 1167-1215)
+  - Update-Check: Kompatibilitaet mit RP, Behavior-Daten verankert; zur RP-Szene zurueck.
+  - RP: Scannen vor Beruehrung, Reflex als Kontakt; TTS-Parameter temporaer, keine Systemkommentare; Reflex-Kommunikation moeglich (Ohr/Gewebe), Schutzueberreaktion.
+  - Psych/Beziehung: innere Perspektive Ronja/Reflex, Kontrolle/Angst; mehrere Redos, dann Szene weiterfuehren.
+  - Perspektivwechsel: C6/D5/Versorgung; Traglast/Materialauswahl fuer Reparatur; Funkkontakt via Jonas; Mikk/Lira-Korrekturen und C6-Besetzung festlegen.
+- Segment 35 (Nachrichten 1215-1249)
+  - Tunnel/Anomalie: keine weiteren Anschluesse ausser Wartungsgang/verschuetteter E3/E2-Zugang; Reflex als Unikat; Anomalie als Energiedrain C6<-D5 vermutet.
+  - C6-Ankunft/Bestandsaufnahme: Protokoll, 3-Schritt-Update, Inventar aktualisieren; Zeit zurueck zu Ronja/Reflex; Ronja ueberrascht Gruppe, Rollenabgleich (Mikk als Wache) und Kora fuehrt C6.
+  - Tagesstruktur: Tag 4 Morgen; Perspektive von Wache + Begleitung; Ronja/Reflex-Beziehungsnahe Szenen, Waerme statt Kaelte.
+- Segment 36 (Nachrichten 1250-1314)
+  - Reflex-Naehe/Verhalten: Reflex analysiert Naehe, kindlich; Experiment zu Beruehrung; Wechsel zu Kora und kurzer Fraktionszug nur wenn kein Meta.
+  - Jonas/Lumen-Instanz: Name/Entwicklung; Lautsprecher moeglich; Pahl einbeziehen; Rueckkehr zu C6/D5 je nach Funkstatus; Zeit/Ort (N7) korrigieren.
+  - Tagesabschluss: Eigenaktivitaet Reflex, ruhiger Schlaf; Morgen-Reihenfolge Kora/C6/Karawane/D5; Karawane nicht erneut losgeschickt, Mission als abgeschlossen archivieren.
+  - System/Logs: Inventarpruefungen, temporare Eintraege fuer Admin-Update; Logbuch-Canvas; Token-/Fraktionszug-Simulation; Fehler, wenn nicht alle Fraktionen enthalten.
+- Segment 37 (Nachrichten 1315-1384)
+  - Canvas-Policy: alle Canvas laden, Tokenkosten erfragen; Systemmeldung soll Canvas-Anzahl zeigen; Kategorien A/B/C fuer alte Canvas pruefen.
+  - RP-Start: Morgen mit Reflex, Stationsarbeit, Besprechung; C6-Zugaenge/Schienenlogik klaeren (D6-Wandtunnel, Gleis nach D5/F1/Handelsroute); Logistik-Canvas aktualisieren.
+  - Instanzen/Bindung: Lumen ist Jonas-Instanz, Echo an Kora gebunden; Echo physisch zur Gruppe bringen; Instanz-Logik konsistent halten.
+  - Korrekturen: C6/F1-Verwechslung und Mikk-Standort korrigieren; fehlerhafte Antworten loeschen, Ruecksprung auf sicheren Punkt.
+- Segment 38 (Nachrichten 1385-1452)
+  - E3/Evakuation: Marei-Canvas anlegen; E3-Status dynamisch; Evakuierung und Stromtrennung fuer mehr Energie in D5/C6; Quarantaene/Versorgung planen.
+  - Versorgung: Algen-/Pilzfarmen priorisieren, Vorratsreichweite bestimmen; neue Bewohner als Einzel-Canvas; Aufgabenverteilung Ronja/Kora/Marei.
+  - Rueckweg: Ronja kehrt nach D5 mit zwei Personen (nicht Sima) zurueck; Mikk bleibt in C6 fuer Sicherheit; Veto-Szene ausspielen.
+  - Abschluss: Abend in C6, N7-Check, Abschied Echo; Tunnelrueckweg mit Bestandsaufnahme; Begruessung in D5, Info an C6.
+- Segment 39 (Nachrichten 1453-1520)
+  - Besprechung: Wissensabgleich D5/C6, Vorstellungsrunde, Verknuepfungen zeigen; Reflex-Instanzen suchen Naehe zur Bezugsperson.
+  - Debug/Korrektur: Debug-Mode mit Systeminfos, keine Aenderung ohne Bestaetigung; Tarv/Derek statt falscher Namen, RP-Stelle sichern.
+  - Bewohner-Transfer: Tarv/Derek nach D5, Cluster/Beziehungen updaten; Meeting fortsetzen, Berichte starten, Missionen skizzieren.
+  - Missionsplanung: Tunnel-Mission (Formulierung/Personal/Zeit/Material) und Aussenmission (Ronja/Reflex + Wachen/Traeger, Handelsware) nur in Missions-Canvas bis Freigabe.
+  - Bevoelkerung: Nia/Rell archivieren, Bewohnerzahl <= 29 bestaetigen; Daten neu validieren.
+- Segment 40 (Nachrichten 1521-1586)
+  - Drei-Schritt-Plan: Backup, neue Version, Validierung; Version-Bump optional.
+  - Inventar/Ressourcen: messbare Einheiten (Tonnen/Meter/Volumen), Herkunft der Ressourcen klaeren; Systemmeldungen pruefen.
+  - System-Settings: temporar vs permanent trennen, Canvas-Anzahl pruefen (242 -> 152), Update-Prompt ohne Loeschungen; Update verifizieren.
+  - Wochenabschluss/Debug: Tag 8 korrekt, Voll-Output fuer andere Fraktionen, Week-One-Report archivieren; Token-/Verbrauchsfragen.
+  - RP-Korrekturen: Reflex-Naehe/Arm-Missverstaendnis, Transportmodul-Quelle, Tag-9-Logbuch, Jonas/Lumen-Switch abbrechen.
+- Segment 41 (Nachrichten 1587-1659)
+  - Systemmodus: Simulation Tag 7-11 mit Debug, alle aktiven Canvas pruefen, Archiv-Kandidaten sichten; Konsistenzcheck vor Bericht.
+  - Vollabdeckung: alle Charaktere inkl. Hauptfraktionen; Week-One final archivieren; Tokenverbrauch/Tagessummary erbeten.
+  - Canvas-Load: erneuter Full-Load, Gewichtung neuer Canvas reduzieren, Hauptfraktionen gegenpruefen; Berichte Tag 1-7 vs 7-10 vergleichen.
+  - Anomalien: N7 als C6-Bereich bestaetigen; drei Anomalie-Missionen (N7/Tunnel/E3) nur als Datenbasis; keine Reflex-aehnlichen Wesen.
+  - Tageslogik: Fortschritt Tunnel < 40% vermutet; Sprachausgabe-Optimierung (keine Quotes/Emojis), Tagesabschluss, r_usage_v1-Canvas, Reaktor/Energiefrage.
+- Segment 42 (Nachrichten 1660-1688)
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L9060-L9220)
+  - Befund: Systemmeldungen sollen Canvas-Load-String A/T/S/D enthalten; letzter gueltiger String wird hochgewichtet.
+  - Status: OPEN
+  - Befund: Daily-Ops v2.1 als maschinenlesbarer Tagesablauf; Simulation temporaer, keine RP-Uebernahme.
+  - Status: FACT
+  - Befund: Morgen-Text temporaer; Gewichtungspruefung als Delta; Kontext-Reset/Reload empfohlen.
+  - Status: FACT
+  - Befund: Draisine-Spezifikation (schienengebunden, motorisiert, ca. 6 m, Kapazitaet ~10, Energieart offen) klaeren; 47 archivierte Canvas noch nicht einsortiert.
+  - Status: OPEN
+- Segment 43 (Nachrichten 1689-1720)
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L9225-L9390)
+  - Befund: Snapshot und temporaere Morgen-Nachricht; Output zu kurz, Canvas-Load-String fehlte.
+  - Status: OPEN
+  - Befund: Fixbeschreibung D5/C6/Tunnel aus Renovierungstunnel-Richtung inkl. Wege, Licht, Abmessungen und Tunnel-Laenge.
+  - Status: OPEN
+  - Befund: C6 nutzbare Flaeche ~400+ m2, 4 Linienabgaenge (D5/E3/F1/1x unbekannt), fruehe Beleuchtungsreparatur.
+  - Status: FACT?
+  - Befund: Raumgroessen (Lager/Schlafkammern) in m2 angeben; Zugang Lager via Lastenaufzug 2 t; Jonas-Werkstatt via Schacht aufnehmen.
+  - Status: OPEN
+  - Befund: Restliche Canvas nach Drei-Schritte-Plan aktualisieren; temporaeren Modus verlassen; A/T/S/D-Zaehler pruefen; Canvas/Chat reloaden.
+  - Status: OPEN
+  - Befund: Freigabe-Reihenfolge reindex, sync, snapshot.
+  - Status: FACT
+  - Befund: Draisine-Eintrag und C6-SQM pruefen; gespeicherten Morgen laden; Abfolge D5-Morgen, C6-Morgen, Morgenbesprechung mit temporaeren System/TTS-Settings.
+  - Status: OPEN
+- Segment 44 (Nachrichten 1721-1738)
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L9397-L9478)
+  - Befund: Links/Verknuepfungen kurz pruefen; reduzierte Canvas-Nutzung testen (inaktive bei Bedarf laden).
+  - Status: OPEN
+  - Befund: Personeneinteilung D5; Jonas/Pahl/Lumen an Draisine; Tunnelstatus Ronja/Reflex; C6-Bewohner vor Laden vorstellen.
+  - Status: OPEN
+  - Befund: Atmosphaerische Abfolge D5-Morgen, C6-Morgen, Abschlussbesprechung; Schichtende/Timing beachten.
+  - Status: FACT
+  - Befund: Reflex/Echo/Lumen Eigenschaften vereinheitlichen; Wachstumszyklus/Materialaufnahme als einfaches System ergaenzen.
+  - Status: OPEN
+  - Befund: Reflex-Charakterentwicklung (anhaenglich, neugierig, possessiv) betonen.
+  - Status: FACT?
+- Segment 45 (Nachrichten 1739-1758)
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L9479-L9592)
+  - Befund: Unikat-Regel in Reflex/Instanzen; pruefen, ob Jonas fuer Lumen etwas gebaut hat; Cluster-Links sicherstellen.
+  - Status: OPEN
+  - Befund: RP mit Abschlussbesprechung fortsetzen; temporaere System/TTS-Settings aktiv; alle relevanten Canvas laden.
+  - Status: OPEN
+  - Befund: Logbuch in allen Stationen verfuegbar (ausser secret).
+  - Status: FACT
+  - Befund: Snapshot + alle Canvas laden (ausser Archiv); Tageswechsel-Canvas-Status pruefen; A/T/S/D-Bedeutung suchen.
+  - Status: OPEN
+  - Befund: Tageswechsel starten, dann Aenderungen rueckgaengig und Full-Reload fordern; Energieproduktion Reaktor fehlt.
+  - Status: OPEN
+- Segment 46 (Nachrichten 1759-1796)
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L9593-L9820)
+  - Befund: Logistikkern/Generator-Verweis fehlt; Energieabrechnung analysieren.
+  - Status: OPEN
+  - Befund: Unbekannte Fraktion ("Schatten"); letzte Simulation/Tagesbericht suchen; Fraktionsfuehrer-Canvas laden.
+  - Status: OPEN
+  - Befund: Name-Drift Schienenbund/Schattenbund/Lumen; A/T/S/D-Bedeutung vertauscht; Bewohnerzahl/Fraktionen pruefen.
+  - Status: OPEN
+  - Befund: Link-Checks, Inhaltsveraenderungen, Stichproben, Gesamtpruefung; Aenderungen zusammenfassen.
+  - Status: OPEN
+  - Befund: Archivierung nur nach Gegenueberstellung Alt/Neu; User bestaetigt "wie empfohlen" fortsetzen.
+  - Status: OPEN
+- Segment 47 (Nachrichten 1797-1824)
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L9821-L10040)
+  - Befund: Tagesgrenzen-Konsistenz pruefen; temp Tagesstart simulieren; Fraktionsberechnung kontrollieren.
+  - Status: OPEN
+  - Befund: Ressourcenverbrauch/Tunnel-Fortschritt rechnen; N7 in C6 Regel bestaetigen; nichts erfinden.
+  - Status: OPEN
+  - Befund: Alternative Rechenmethode fuer Fortschritt; Verbrauchs-Canvas auf Aktualitaet pruefen.
+  - Status: OPEN
+  - Befund: Drei-Schritte-Aenderung (Support-Modus Kosten, Human-Generator ab Symbiose 2, Skill-Boni) vorbereiten.
+  - Status: OPEN
+  - Befund: Instanzen mit eigenen Hauptfaehigkeiten; Wissensstand beachten; Voll-Reload und Zusammenfassung anfordern.
+  - Status: OPEN
+  - Befund: A/T/S/D ausschreiben; Hauptfraktionen klaeren.
+  - Status: FACT
+- Segment 48 (Nachrichten 1826-1841)
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L10041-L10260)
+  - Befund: Schattenbund als Uebersetzungsfehler erklaert; Tagesabrechnung/Debug-Output.
+  - Status: FACT?
+  - Befund: User bricht ab; Kontext loeschen verlangt; Snapshot verwerfen; aelteres Canvas anzeigen.
+  - Status: OPEN
+- Segment 49 (Nachrichten 1842-1848)
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L10260-L10480)
+  - Befund: Nur Anzeigen, kein Speichern; N7 erste Fundstelle anzeigen.
+  - Status: OPEN
+  - Befund: Core-Canon-Canvas mit hoechster Prioritaet definieren; Fraktionen/Orte/Regeln setzen.
+  - Status: OPEN
+  - Befund: Drei Aenderungen fixieren (Akologie beobachtet nicht; beidseitige Instandsetzung; Baufortschritt 40 Prozent) und neu anzeigen.
+  - Status: OPEN
+- Segment 50 (Nachrichten 1849-1866)
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L10481-L10660)
+  - Befund: Freigabe; speichern, erneut laden, Version zeigen; Kontext wieder loeschen.
+  - Status: OPEN
+  - Befund: D5/C6 laden, 0.9 markieren; person_index_np; stable 6 zeigen; Logistik + Mission Tunnel laden.
+  - Status: OPEN
+  - Befund: Wiedereinstiegspunkt fuer Agent-Mode erbeten.
+  - Status: OPEN
+  - Befund: Alle Canvas inkl. archivierte in Markdown ausgeben, nur laden/einfuegen, sortiert nach last_updated.
+  - Status: OPEN
+- Segment 51 (Nachrichten 1867-1906)
+  - Quelle: [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L10661-L10860)
+  - Befund: ZIP enthaelt nur Vorlagen; Zugriffe/Backups in Frage; Systeminfo und Canvas-Counts erbeten.
+  - Status: OPEN
+  - Befund: Markdown-Sicherung priorisieren; Chat-Zusammenfassung und Rohform als Datei; JSON ohne Timestamps; Counts vergleichen.
+  - Status: OPEN
+  - Befund: Kontext loeschen vs Dateizugriff; ZIP mit allen Daten anfordern; Assistant meldet vollständiges Backup.
+  - Status: OPEN
+- Segment 29 (lines 2664-2679)
+  - Funk schon repariert, aber schlecht; Kontextabgleich.
+- Segment 30 (lines 2680-2690)
+  - Stand: kurzer Funkkontakt; zwei Mitglieder auf dem Weg; Ronja/Reflex optimieren Funk; D5 Personen unbekannt fuer C6.
+- Segment 31 (lines 2688-2698)
+  - Wunsch: Schwierigkeitsgrad langsam erhoehen; Entscheidungen staerker gewichten.
+- Segment 32 (lines 2699-2709)
+  - Cluster-Index Temperatur-Codes (Buchstabe+Zahl) als Vorschlag.
+- Segment 33 (lines 2708-2747)
+  - Nach Reset: Chat + aktive Canvas laden, validieren, dann Schritte 1-4; gemeinsamer Check.
+- Segment 34 (lines 2745-2797)
+  - Update-Bloecke 1-4; Antworten fuer TTS optimieren.
+- Segment 35 (lines 2803-2837)
+  - Block 6f: alle verbleibenden RP-Canvas; user stimmt zu.
+- Segment 36 (lines 2836-2895)
+  - Kontextprobleme; Codierungssysteme harmonisieren; Block 6b neu; Block 1-5 erneut.
+- Segment 37 (lines 2894-2904)
+  - Korrektur: Tunnelabschnitt, kein Brueckenabschnitt.
+  - Reflex Fixierung = Angst getrennt zu sein, nicht Unfaehigkeit sich zu loesen.
+- Segment 38 (lines 2903-2913)
+  - Formulierungskorrektur; danach Systemlog aktualisieren.
+- Segment 39 (lines 2911-3045)
+  - Hinweis: "Kontextpruefung durchgefuehrt" am Nachrichtenanfang; bei Problemen Nutzer entscheidet Version.
+  - Test-Canvas mit Duplikaten/Varianten + Doku; Token-Optimierung; TTS-Format beibehalten.
+  - Umfangreiche Canvas-Pruefung/Report gewuenscht.
+- Segment 40 (lines 3045-3065)
+  - Haendlerfraktion weiss nichts ueber Novapolis ausser Energiespitzen; anpassen.
+- Segment 41 (lines 3065-3082)
+  - Korrektur: Karawane wegen Energiespitzen losgeschickt; Nachricht neu generieren.
+- Segment 42 (lines 3080-3090)
+  - Kontextpruefung Tokenaufwand erfragen; Simulation gewuenscht.
+- Segment 43 (lines 3093-3103)
+  - Sorge: alte Informationen zu niedrig gewertet, Luecken erfunden.
+- Segment 44 (lines 3101-3111)
+  - Idee: Bestandsdaten aus Chat extrahieren und in separaten Canvas sichern.
+- Segment 45 (lines 3110-3132)
+  - Meta: Team-Dynamik/Macken, ausgesprochene Daten entspannen; keine neuen Fakten.
+- Segment 46 (lines 3131-3141)
+  - Fehlerhinweis Reflex/Symbiose; Kontextkorrektur erwartet.
+- Segment 47 (lines 3142-3152)
+  - Reflex Erscheinung: perlmutt-metallisch, Neoprenanzug-Optik; bedeckt Koerper bis Handgelenke/unter Hals; kann voll bedecken.
+- Segment 48 (lines 3157-3232)
+  - Reflex selbststaendig, will nicht weg; Schutz gibt Ronja Sicherheit; hat sie bereits gestoppt.
+  - Reflex + Instanz Canvas aktualisieren; Fragen stellen, keine Annahmen.
+- Segment 49 (lines 3231-3241)
+  - Funk-Optimierung verdeckt wuerfeln; Zustand in Canvas festhalten; dann zu D5 wechseln.
+- Segment 50 (lines 3241-3251)
+  - D5-Ankunft, Pahl zeigen; zwei neue C6-Bewohner als eigene Canvas und verlinken.
+- Segment 51 (lines 3250-3260)
+  - C6-Bewohner mit Aufenthalt in D5; Reflex schuetzt Haende, kann Gesicht bedecken.
+- Segment 52 (lines 3265-3319)
+  - D5 Aufbau: eine Ebene, kleiner Wartungsschacht zur Werkstatt; Jonas Werkstatt unten; Bahnsteig + Gleis; qm zuweisen.
+- Segment 53 (lines 3317-3339)
+  - Kontextfehler ("Beta") vermeiden; Ronja warm auf Reflex reagieren; Ronja ist Fraktionsleiterin; weniger Witze.
+- Segment 54 (lines 3337-3360)
+  - Rueck zu vorheriger Nachricht; Ronja schickt Kora weg, erkundet mit Reflex; Beziehung vertiefen.
+- Quelle (Segmente 55-96): [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L25830-L27630)
+- Segment 55-60 (lines 3361-3582)
+  - E3-Status dynamisch wuerfeln; E3-Canvas falls fehlend anlegen; Plausibilitaet der Ueberlebendenzahl.
+  - Verbindung C6-C6 via Technik/Instanzen; Marei-Canvas anlegen; Aufnahme von 20 evakuierten erst nach Abfrage.
+  - Logistik-/Inventar-Knoten (D5 als Archiv), Inventare konsistent halten; Evakuierung + Quarantaene.
+  - Algen/Pilzfarmen priorisieren; neue Bewohner ggf. mit eigenen Character-Canvas; Aufgaben an Kora/Marei.
+  - Ronja bleibt in C6 bis 100%; Kora uebernimmt Buero; Tag 5/6/7 Ablauf + Echo-Anhaenglichkeit beachten.
+  - Fraktionszug nur systemisch, nicht RP; Fuenf Hauptfraktionen muessen enthalten sein; E3 vom Netz (Energiefluktuation).
+- Segment 61-67 (lines 3583-4448)
+  - Rueckweg nach D5 mit Begleitern; Sima bleibt in C6; Ronja verabschiedet Echo; Tunnel-Bestandsaufnahme.
+  - Wissensluecken per Meeting (D5/C6 per Funk) schliessen; Vorstellung aller Beteiligten Pflicht.
+  - Reflex-Instanzen: Koerpernaehe zur Bezugsperson als Stabilitaetsanker.
+  - Tarv/Derek D5-Zuordnung; Debug-Mode fuer Systeminfos; RP-Stand als korrumpiert markieren.
+  - Besprechung endet: Mission Tunnel + Mission Aufklaerung nach aussen anlegen; Logbucheintrag + Missions-Canvas.
+  - Missionsplanung nur temporaer (bis Freigabe); Korrekturen zu Zielen/Material/Personal.
+- Segment 68-74 (lines 4449-4796)
+  - Missionsplanung: Tunnelverbindung fuer Schienenverkehr nutzbar machen; Materialbedarf neu bewerten.
+  - Mission 2: Ronja/Reflex gehen mit; Begleitung 2 Wachen/3 Traeger; Handelsware einplanen.
+  - Inventare konsistent halten; Missionsuebersicht Novapolis; Systemnachrichten/Debug-Probleme.
+  - Bewohnerzahlen C6/D5 pruefen; Nia/Rell archivieren; Ziel: max 29 humanoide Bewohner.
+  - Vorratsindex mit messbaren Mengen; Quellenbelege fuer Energiezellen/Stahl/Kabel.
+  - Keine neuen Wesen wie Reflex ausser Instanzen (FACT/Policy).
+- Segment 75-80 (lines 4797-5106)
+  - Systemmodus: Simulation Tag 7-11, Debug an; Tokenverbrauchsinfo erbeten.
+  - Fraktionspruefung auf ALLE Charaktere erweitern; Week-one-final anlegen/archivieren.
+  - Systemmeldungen: Format A/T/S/D erklaeren; aktive Canvaszahl anzeigen; TTS-Optimierung.
+  - Transportmodul/Draisine: Herkunft klaeren; Test-Refs streichen; ggf. Neubau durch Jonas/Pahl/Lumen.
+  - Kontext-Reload, Gewichtungen pruefen; Snapshot/Reindex/Sync freigeben.
+- Segment 81-90 (lines 5107-5574)
+  - Stationen D5/C6 + Tunnel beschreiben; fixe Abmessungen; Jonas Werkstatt via Wartungsschacht; Beleuchtung repariert.
+  - C6 Linien: D5/E3/F1 + vierte Linie unklar; Tunnel-Laenge festlegen.
+  - Tageswechsel-Canvas (Daily Ops) anlegen v2.1, temporaer testen; nicht ins RP.
+  - Tunnel-Fortschritt-Rechnung pruefen; Energie-Rechnung D5/C6 (Reaktor/Logistik-Verweis).
+  - Reflex-Mechanik: Energie/Kapazitaet nach Masse; Support-Modus kostet; Skill-Boni pro Rolle.
+  - Instanzen bekommen eigene Hauptfaehigkeiten (keine Reflex-Kopie); Wissensstand beachten.
+- Segment 91-96 (lines 5575-5763)
+  - Eskalation: Kontext loeschen, aeltere Canvas anzeigen; Top-Priority-Canvas mit Kernfakten (D5/C6/N7) anlegen.
+  - Korrekturpunkte: Akologie beobachtet nicht; Baufortschritt 40%; dann speichern/anzeigen/Reset.
+  - D5-Besatzungsluecken fuellen; D5/C6-Canvas laden; person_index_np; Logistik + Mission Tunnel.
+  - Wunsch: alle Canvas in eine Markdown-Datei (sortiert, nur laden, kein Edit); spaeter ZIP/JSON-Export.
+  - Hinweis: bereitgestellte ZIP enthielt nur System-Vorlagen, keine RP-Dateien; Bedarf an Systeminfo/Canvas-Counts.
+
+Segment-Notizen (RAW 2025-10-23T02-54)
+------------------------------------
+- Quelle (Segmente 1-50): [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L27539-L31139)
+- Segment 1-4
+  - Start: ZIP entpacken, Setup/Canvas-Struktur neu; Charaktererstellung Ronja (Archetyp, Attribute, Skills, Motivation/Makel).
+  - Wunsch: keine Vorschlaege ohne Bedarf; Charakter-Canvas erstellen und erste Szene starten.
+- Segment 5-8
+  - D5/C6: D5 von 98% auf 100%; C6-Wert senkt; Frage nach D5-Reaktor; Leichenreste als potenzieller Spaeterpunkt.
+  - Symbiose Stufe 1 (Neoprenanzug); keine Stufe 2; Reflex kindlicher Ton.
+
+Segment-Notizen (RAW 2025-10-16T03-12)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T03-12-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T03-12-00-000Z.normalized.txt)
+- Segment 1 (Canvas char_jonas_v1)
+  - Befund: Jonas-Profil mit Alter 28-32, Herkunft Station E2 (Evakuierung gescheitert, Gasleck, Teilkollaps), Status Techniker unter Novapolis-Schutz.
+  - Status: FACT
+  - Befund: Bezugspersonen Ronja Kerschner und Reflex-Subinstanz WK-1; Erstkontakt beim ersten Marsch D5->C6; Werkstatt D5 unter Aufsicht WK-1, Einsaetze in C6 nach Bedarf.
+  - Status: FACT
+  - Befund: Persoenlichkeit ruhig/praezise/vorsichtig, misstrauisch gegen Autoritaeten; Ueberlebensschuld; Bewunderung fuer Ronja, Furcht vor Reflex.
+  - Status: FACT
+  - Befund: Faehigkeiten Technik/Tuefteln, Sanitaetsgrundlagen, Logistik.
+  - Status: FACT
+  - Befund: Ausruestung Werkzeugrolle, Atemschutz, Lampe, Multimeter, Flicken-Set.
+  - Status: FACT
+  - Befund: Auftrag C6 Kontrollraum-Instandsetzung; Pahl Pflege/Ueberwachung; Rueckmeldungen an Reflex WK-1.
+  - Status: FACT
+  - Befund: Psych-Notizen Trigger E2/Schwester; Bindung an Novapolis via Sicherheit+Sinn; Potenzial als verlaesslicher Operator.
+  - Status: FACT
+  - Befund: Zitat enthalten.
+  - Status: FACT
+  - Neues Canvas fuer wichtige Konversationen (Zeitstempel/Name/@/Nachricht), keine Duplikate.
+- Segment 9-12
+  - Gruppen-Canvas: NPC-Gruppen ohne Hauptchars; Novapolis ohne Mitglieder ausser Karawane; C6-Gruppe leer; D5=Ronja/Reflex/Jonas/Pahl.
+  - Konsistenzpruefung der neuen Canvas; Missionslog aktiv/abgeschlossen.
+  - Anomalien in Locations, Debuffs in Charakterstatus; Karawanenbewegungen separat; C6-Generator repariert.
+  - Handel/Diplomatie-Canvas; Handelslog; NPCs mit Namen erhalten Canvas.
+- Segment 13-16
+  - AI-Behavior/Code-System (Buchstabe+Zahl) und Cluster-Index; woechentliche Cluster-Review.
+  - Ronja/Reflex/Jonas/Pahl Updates nur mit Backup+Vergleich; Datenkern gehoert Stationsinventar.
+  - Karawanenleiterin-Konsistenz (Novapolis vs Haendlergilde); fehlerhafte Version nicht archivieren.
+  - D5/C6-Inventare strikt trennen; Simulation Nicht-Spieler-Fraktionen, TTS-Textausgabe.
+- Segment 17-20
+  - Reflex-Instanz-Canvas (metallisch, wurzelartig, seestern-aehnlich), eigene Entwicklung.
+  - Conversations-Canvas mit Blockformat; keine Simulation vor Startzeit.
+  - C6 Flaeche realistisch klein; Systemcheck der Canvas; Freiwillige/Member-Zahl pruefen.
+  - C6 Update mit neuen Bewohnern; Gruppen-Canvas fuer C6/Handelskarawane.
+- Segment 21-24
+  - Keine neuen Sensoren/Kameras; nichts erfinden; Reflex trennt sich nicht von Ronja.
+  - Reinit-Prompt nach Kontext-Reset; C6 N3 Durchgaenge ggf. verdeckt wuerfeln.
+  - Tunnel: regulare U-Bahn, kein Wartungstunnel; Karawane kam zuerst zu D5.
+- Segment 25-30
+  - Versorgungsmission: Kontextcheck, Funk stabilisieren; C6-Gruppe weiss nichts ueber D5-Bewohner.
+  - Wunsch nach Komplettbackup (Canvas + Chat), ggf. ZIP/unkomprimiert; Anleitung.
+  - RP-Stand festhalten, schwierigerer Modus; Hinweis auf Funk schon repariert, aber schlecht.
+- Segment 31-35
+  - Cluster-Temperaturcodes; Reset-Load: Chat + aktive Canvas, dann Blocks 1-4.
+  - TTS-Optimierung; Blockstruktur (6f alle RP-Canvas) akzeptiert.
+- Segment 36-40
+  - Codierungsdrift: Systeme harmonisieren; Blocks erneut durchgehen; Crosslink-Fehler korrigieren.
+  - Korrektur: Tunnelabschnitt statt Brueckenabschnitt; Reflex-Fixierung = Trennungsangst.
+  - Systemlog-Update; Kontextpruefung-Vermerk je Antwort; Nutzer entscheidet bei Diskrepanzen.
+- Segment 41-50
+  - Haendler-Wissensstand: nur Energiespitzen bekannt; Karawane durch Energiespitzen losgeschickt.
+  - Token- und Kontextpruefungsaufwand erbeten; Doku der Kontextpruefung (TTS-geeignet).
+  - Idee: stabile Daten aus Chat in separaten Canvas extrahieren.
+  - Reflex-Details (Neoprenanzug, Bedeckung, Schutz); Reflex/Instanz-Canvas aktualisieren; Name Reflex-Grid.
+  - Funk-Optimierung wuerfeln und Zustand festhalten; Wechsel nach D5 mit Ankunft der Gruppe.
+
+- Segment 51-97
+  - Quelle (Segmente 51-97): [novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt](novapolis-rp/database-curated/staging/chat-export-consolidated.normalized.txt#L24880-L33364)
+  - D5-Ankunft/Reflex-Regeln: neue Ankommende als C6-Bewohner markieren; Reflex schuetzt Haende (Eifersucht/Schutzhandschuh); Schutz kann bis Gesicht gehen, sonst Neoprenanzug-Setup.
+  - D5-Layout: alles auf einer Ebene, plus schmaler Wartungsschacht zur Jonas-Werkstatt (Geburtsort Reflex); Raum-Quadratmeter festlegen; Bahnsteig/Gleis als Kern.
+  - Plaene/Blueprints: Wunsch nach skizzenhaften D5/C6-Plaenen; Versionierung/Disclaimer; Bild-Iterationen mit Ruecknahme falscher Varianten.
+  - RP-Korrekturen: Fokus auf Ronja/Reflex-Beziehungsvertiefung, weniger Witze; Ronja bleibt Fraktionsleitung, Kora nicht uebernehmen lassen.
+  - D5-Szene: Pahl fuehrt in Abwesenheit; Mikk schnueffelt im Lager; kleine Reflex-Instanz an Jonas gebunden, soll persoenlichkeitsnah dargestellt werden.
+  - C6-Personalstand: verblieben in C6 (Ronja, Reflex, Kora, Sima, Tarv, Derek); Funkkontakt via D5-Terminal; fehlende Novapolis-Charaktere anlegen.
+  - Transportmission: Klare Inventarherkunft/Einlagerung fehlt -> IC-Loesung (Team entscheidet vor Ort, ggf. nachfordern).
+  - Rollen/Mikk: Lira-Vorschlag ok, Mikk eher Wache statt Techniker; Wachen/Schutz betonen.
+  - Ronja als Template: Charakter-Canvas soll als strukturelle Vorlage fuer neue Chars dienen; Updates an Ronja in Folgesync.
+  - System/Policy: Prompt fuer Admin-Update der GPT-Behavior; Wochenbezug explizit RP; Sprach-/TTS-Optimierung wieder aktiv.
+  - Wochenabschluss/Simulation: Debug-Mode/Meta-Ausgaben, alle Fraktionen inkl. Hauptfraktionen; Metadaten nur auf Wunsch.
+  - Quarantaene/E3: Evakuierung, Quarantaene, E3 vom Netz; Marei-Canvas, Logistik- und Inventar-Checks.
+  - Logbuch: Novapolis-Logbuch-Canvas, Bericht mit C6-Leitung und Aufgabenverteilung; Logbuch an Stationen teilen.
+  - Ressourcen/Verbrauch: inventarbasierte Mengen, Energiezellen, Reaktor-D5; klaeren, keine freien Erfindungen.
+  - Systemmeldungen: aktive Canvas-Zaehler (A/T/S/D) und Debug-Status explizit; sprachausgabe ohne Quotes/Emotes.
+  - Draisinen/Transportmodul: Herkunft klaeren; Draisinen als schienengebundene Fahrzeuge; keine Handkarre.
+  - Stationsbeschreibung: D5/C6/Tunnel Ansicht, Raumgroessen, Linienabgaenge (D5/E3/F1/weitere) und Lastenaufzug zum Lager.
+  - Reflex-Instanzen: Eigenschaften/Lifecycle (Wurzelgewebe, Naehe zur Bezugsperson), Wachstum/Skill-Modelle; nur Reflex + Instanzen, keine weiteren Wesen.
+  - Wissensstand: Jonas/Pahl-Wissensluecken schliessen per Meeting; Vorstellungsrunde Pflicht.
+  - Fortschritt/Prozentrechnung: Tunnel-Laenge/Arbeitsfortschritt rechnerisch pruefen; N7 als Teil von C6 bestaetigen.
+  - Fraktionen-Fehler: Namen/Code-Drift (Schattenbund/Schienenbund) und A/T/S/D-Kuerzel korrigieren; Abgleich mit Reports.
+  - Frustrationsphase: Kontext-Reset, Snapshot/Backups, High-Priority-Kerncanvas fuer D5/C6-Fakten; Akologie beobachtet nicht, Baufortschritt 40%.
+  - Exportwuensche: alle Canvas als Markdown/ZIP (nur laden, kein Autofill), Zusammenfassung/Raw-Export anfragen.
+  - Hinweis: Segmente 98-100 sind in der Quelle nicht vorhanden; Segmentzaehlung endet bei 97.
+
+Segment-Notizen (RAW 2025-10-16T03-25)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T03-25-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T03-25-00-000Z.normalized.txt)
+- Segment 1 (Canvas char_varek_solun_v1)
+  - Befund: Varek Solun, Kommandant/Fuehrer der Eisenkonklave, aktiver Status, aktueller Ort H12; Herkunft Union (ehemaliger Sicherheitsoffizier).
+  - Status: FACT
+  - Befund: Beziehungen Eisenkonklave loyal, Novapolis neutral-wachsam, Haendlergilde wechselhaft, Schattenbund feindselig.
+  - Status: FACT
+  - Befund: Fertigkeiten geuebt Taktik/Aufklaerung/Operationsfuehrung; meisterhaft Sicherheitsprotokolle/Disziplin/Verdeckte Operationen; optional Sabotageabwehr.
+  - Status: FACT
+  - Befund: Motivation Union-Hauptarchiv suchen (Familienarchiv/KI) und Eigenstaendigkeit der Konklave sichern; Makel Kontrollbeduerfnis und Misstrauen gegen externe Akteure.
+  - Status: FACT
+  - Befund: Verhalten strategisch/diszipliniert/verdeckt/entschlossen; Trieb Wiederherstellung und Kontrolle; Furcht Enttarnung/Verlust der Operativkontrolle.
+  - Status: FACT
+  - Befund: Faehigkeiten Einsatzleitung, Aufklaerungsplanung, Kommunikationsverschleierung (Funk faken), Ressourcenpriorisierung.
+  - Status: FACT
+  - Befund: Risiken diplomatische Spannungen, Eskalation bei Fehleinschaetzungen, Vertrauensverlust bei Enttarnung.
+  - Status: FACT
+  - Befund: Systemverknuepfungen ai_behavior_index_v2, relationslog_eisenkonklave_v1, handelslog_eisenkonklave_v1, cluster_index_v1.
+  - Status: FACT
+  - Befund: Routine Validierung auto, Intervall 7 InGame Tage; letzter Lauf 2025-10-16_03:25; naechster Lauf nach Fraktionszug Woche 4; Systemstatus gelb.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T03-25-10)
+----------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T03-25-10-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T03-25-10-000Z.normalized.txt)
+- Segment 1 (Canvas char_liora_navesh_v1)
+  - Befund: Liora Navesh (Dr.), Leiterin Forschungsrat/Chefaerztin Biotechnologie der Arkologie A1; aktiver Status, Standort Arkologie A1 (Kuppel Nordost).
+  - Status: FACT
+  - Befund: Beziehungen Novapolis/D5/Schattenbund unbekannt, Haendlergilde beschraenkt, Eisenkonklave umkaempft.
+  - Status: FACT
+  - Befund: Attribute Kraft2/Geschick3/Geist5/Wille4/Charisma4; Fertigkeiten geuebt Projektleitung (Genetik/Neurointegration) und Risikobewertung; meisterhaft MedTech-Protokolle A9, Bioreaktorprozesse; optional Sicherheitsprotokolle.
+  - Status: FACT
+  - Befund: Motivation Sichtung/Katalogisierung anomaler SUEDFRAGMENT-Signale und Absicherung gegen biologische Risiken; Makel klinische Distanz, utilitaristischer Bias, geringe Toleranz fuer unvalidierte Daten.
+  - Status: FACT
+  - Befund: Beschreibung analysiert/klinisch/fokussiert; priorisiert Datenvaliditaet vor Diplomatie; kennt D5/Ronja/Reflex nicht, kennt Funkstille der H-47-Karawane und anomale Sued-Signale.
+  - Status: FACT
+  - Befund: Verhalten rational/pragmatisch/abschirmend/neugierig; Trieb Verstehen als Sicherheit; Furcht biologische Durchbrueche ohne Kontrolle, unkontrollierte Anomalie-Uebertragung.
+  - Status: FACT
+  - Befund: Faehigkeiten Forschungsprogrammsteuerung, MedTech-Einsatzplanung, Bioreaktor-Betrieb, Sicherheitsfreigaben A9; Risiken diplomatische Reibung, Fehleinschaetzung anomaler Signale, ethische Spannungen.
+  - Status: FACT
+  - Befund: Systemverknuepfungen ai_behavior_index_v2, relationslog_arkologie_v1, ereignislog_weltgeschehen_v1, cluster_index_v1; Routine auto, Intervall 7 InGame Tage, letzter Lauf 2025-10-16_03:25, Systemstatus gelb.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T03-25-20)
+----------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T03-25-20-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T03-25-20-000Z.normalized.txt)
+- Segment 1 (Canvas ent_d5_reflex_v1)
+  - Befund: Entitaet Reflex (Wurzelgewebe D5), bioelektromechanische Hybrid-Entitaet, aktiv/wachsend/kognitiv adaptiv, Standort Station D5 V4-Delta; gebunden an Ronja Kerschner (Exoform), Erstkontakt Tag 3.
+  - Status: FACT
+  - Befund: Physisch externe organometallische Schicht (neopren-aehnlich), flexibel/atmungsaktiv, keine penetrierende Verbindung, Symbiose Stufe 1 ohne direkten Nervenzugang; Haftung via elektro-/biomagnetische Resonanzfelder.
+  - Status: FACT
+  - Befund: Eigenschaften biologisch leitfaehig; Entfernung mit Aufwand (biomagnetisches Rebinding); Symbiose I mit Synchronisationsphase, Naehe stabilisiert, Entfernung stresst; Kommunikation niederfrequente Schwingungen 7.3-8.0 Hz.
+  - Status: FACT
+  - Befund: Verhalten lernfaehig/reaktiv/adaptiv; Bindung stark; Schutzinstinkt aktiv; versteht Exo-Natur, strebt teils tiefere Verbindung an.
+  - Status: FACT
+  - Befund: Verlustangst-Modul: moderate Distanzreaktionen; Trennung >12h fuehrt zu leichten Aktivitaetsstoerungen/Energieentzug, keine Panik/Uebernahme.
+  - Status: FACT
+  - Befund: Statusblock Symbiose Stufe I, Synchronisation stabil (Resonanz 7.6 Hz), Kommunikation beidseitig, keine physische Beeintraechtigung/keine Verschmelzung; Zitat Ronja.
+  - Status: FACT
+  - Befund: Systemverknuepfungen ai_behavior_index_v2, char_ronja_v2, char_reflex_v2, index_novapolis_v2, missionslog_novapolis_v1; Routine auto, Intervall 7 InGame Tage, letzter Lauf 2025-10-16_03:25, Systemstatus gelb.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T05-34)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T05-34-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T05-34-00-000Z.normalized.txt)
+- Segment 1 (Canvas ereignislog_weltgeschehen_v1)
+  - Befund: Ereignislog E-0001 Reaktorstoerung D5, Ronja stabilisiert auf volle Leistung; Beginn Symbiosephase Reflex.
+  - Status: FACT
+  - Befund: E-0002 Funkabbruch zur Allianz; Isolation suedlicher Sektoren; Ronja uebernimmt Leitung D5.
+  - Status: FACT
+  - Befund: E-0003 Gruendung Novapolis an Tag 5 durch Ronja/Reflex/Jonas/Pahl; D5/C6 als unabhaengige Fraktion.
+  - Status: FACT
+  - Befund: E-0004 Erste Handelsroute H-47 an Tag 9; Karawane integriert, C6 als Handelsstuetzpunkt aktiviert.
+  - Status: FACT
+  - Befund: E-0005 Suedliches Signalfragment an Tag 17 bei C6; Analyse offen, erhoehte Aufmerksamkeit und Scoutbewegungen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T08-07)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T08-07-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T08-07-00-000Z.normalized.txt)
+- Segment 1 (Canvas relationslog_novapolis_v1)
+  - Befund: Oekonomisches Profil Novapolis (Ueberfluss Technik/Energie, Bedarf Nahrung/Rohstoffe/Medizin); Handel ueber C6 im Aufbau; Leitung Ronja, Koordination Reflex.
+  - Status: FACT
+  - Befund: Handelspartner Haendlergilde freundlich-neutral (H-47), Eisenkonklave neutral, Fluestekollektiv unbekannt, Arkologie A1/Schattenbund keine Interaktion.
+  - Status: FACT
+  - Befund: Diplomatie: zurueckhaltend, autarkieorientiert; Prioritaeten Infrastruktur, Energie, friedliche Aussenkontakte; militaerisch minimal (Reflex/Drohnen).
+  - Status: FACT
+  - Befund: Red Lines: kein externer Zugang zu D5 ohne Genehmigung; Handel nur ueber C6; zentrale Protokollierung; Reflex validiert Kommunikation.
+  - Status: FACT
+  - Befund: Logistikvermerk Tunnel D5-C6 kritisch, Transporte manuell; Logistik-Canvas novapolis_logistik_v1 beachten.
+  - Status: FACT
+  - Befund: Ereignisse Woche 3: Luft/Sensoren C6, Erstkontakt H-47, provisorische Kommunikation, Ressourcen stabil 95%; geplante Schritte Fraktionszug (Tunnel, Handelsprotokoll, Diplomatiekanaele, Depot C6).
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T11-05)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T11-05-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T11-05-00-000Z.normalized.txt)
+- Segment 1 (Canvas ai_behavior_index_v2)
+  - Befund: Cluster-Set O/E/M/N/C/S/L/T mit Bezeichnungen Ordnung, Empathie, Macht, Neugier, Chaos, Selbsterhaltung, Loyalitaet, Technikdrang; Dynamikwerte angegeben.
+  - Status: FACT
+  - Befund: Modifikatoren k/a/z/p/r/s/h (kindlich, angstgetrieben, zynisch, paranoid, rational, selbstlos, hitzkoepfig); Beispielcode O82-E74-M23-N50-p mit Erklaerung.
+  - Status: FACT
+  - Befund: Routine auto, Intervall 7 InGame Tage; letzter Lauf 2025-10-16_11:05; Systemstatus gruen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T11-45)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T11-45-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T11-45-00-000Z.normalized.txt)
+- Segment 1 (Canvas char_ronja_v2)
+  - Befund: Ronja Vallin, 36, Technikerin, Novapolis; Status aktiv; Attribute K2/G4/G5/W5/Ch4.
+  - Status: FACT
+  - Befund: Fertigkeiten geuebt Ueberzeugen/Botanik/Ingenieurwesen/Elektronik; meisterhaft IT-Programmierung/Organisation&Planung; optional Improvisation.
+  - Status: FACT
+  - Befund: Motivation geordnete, lebendige Welt; Makel Zweifel/Erschoepfung/Sinnlosigkeit.
+  - Status: FACT
+  - Befund: Verhaltenssignatur R4=O82-T79-L70-E60-N69-C45-S38-M20-kpr; Bezeichnung Architektin des Widerspruchs; Beschreibung Perfektionismus + Fragilitaet.
+  - Status: FACT
+  - Befund: Beziehungen Reflex symbiontisch, Jonas unterstuetzend, Pahl passiv; Inventar Werkzeugkit/Gasmasken-Set; Standort C6 (aktuell), D5 (primaer).
+  - Status: FACT
+  - Befund: Gesundheit stabil, geistiger Zustand instabil aber funktional; Systemverknuepfungen ai_behavior_index_v2, fraktionsinventar_novapolis_v1, index_novapolis_v2, logistik_novapolis_v1, missionslog_novapolis_v1; Routine gruen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T12-00)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T12-00-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T12-00-00-000Z.normalized.txt)
+- Segment 1 (Canvas Station D5 Basis)
+  - Befund: Station D5 als Energie- und Wartungsknoten, aktiv/stabil/autonom; Betreiberin Ronja; Systemanomalie Seed-Prozess latent.
+  - Status: FACT
+  - Befund: Infrastruktur: Hauptreaktor 100%, Nebenaggregate 2/3, Beleuchtung 87%, Luftsystem teilweise, Kontrollraum wiederhergestellt, Sicherheit offline, Kommunikation eingeschraenkt.
+  - Status: FACT
+  - Befund: Ronja-Inventar (u. a. Gasmaske, Filter, Werkzeugkit, Ersatzteile, Akkuzellen, Rationen, Wasser, Lampe, Multimeter, Foto) und Stationsinventar (Union-Kisten, Ersatzrohre, Reparaturstation, Plaene 60%).
+  - Status: FACT
+  - Befund: Lebensbedingungen 19C, 42% Luftfeuchte, sicher; Projekte: Beleuchtung, Nebenaggregate, Luftsystem, Kommunikation, Sicherheitsverriegelungen.
+  - Status: FACT
+  - Befund: Bemerkung Ronja priorisiert Ordnung/Sicherheit/Funktion; Zitat enthalten.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T12-30)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T12-30-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T12-30-00-000Z.normalized.txt)
+- Segment 1 (Canvas inventar_c6_v2)
+  - Befund: Inventar C6 mit Ressourcen (Luftfilter, Ersatzrohre, Kabelspulen, Schmieroel, Strommodule, Wasserkanister), Werkzeugen, Elektronik (Sensorpaket, tragbarer Datenkern), Lebensmitteln, Sonstigem (Schutzanzuege, Ersatzmasken).
+  - Status: FACT
+  - Befund: Systemverknuepfungen logistik_novapolis_v1, index_novapolis_v2, missionslog_novapolis_v1; Routine auto, Intervall 7 InGame Tage, letzter Lauf 2025-10-16_12:30, Systemstatus gruen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T12-55)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T12-55-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T12-55-00-000Z.normalized.txt)
+- Segment 1 (Canvas logistik_c6_v2)
+  - Befund: Transportwege Tunnel D5-C6 instabil, Seitenschacht B3 gesperrt; Lager Primaer/Sekundaer; Frachtliste inkl. Datenkern und Versorgung.
+  - Status: FACT
+  - Befund: Verbrauch Wasser/Rationen/Filter pro Tag; Verknuepfungen inventar_c6_v2, logistik_novapolis_v1, index_novapolis_v2, missionslog_novapolis_v1.
+  - Status: FACT
+  - Befund: Routine auto, Intervall 7 InGame Tage, letzter Lauf 2025-10-16_12:55, Systemstatus gruen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T13-05)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T13-05-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T13-05-00-000Z.normalized.txt)
+- Segment 1 (Canvas logistik_novapolis_v2)
+  - Befund: Stationen D5 (primaer), C6 (aussenposten); Verbindung Tunnel D5-C6 teilweise instabil, Wartung ausstehend.
+  - Status: FACT
+  - Befund: Transport manuell/Tragegestell (Reflex Assist), keine Bahnverbindung; aktive Fracht C6->D5 Rueckfuehrung, D5->C6 Versorgung; Sonderfracht Datenkern C6.
+  - Status: FACT
+  - Befund: Lagerstatus D5 85%, C6 62%; Versorgungszyklus 7 InGame Tage; naechster Transport Nacht Tag21/Tag22.
+  - Status: FACT
+  - Befund: Systemverknuepfungen inventar_c6_v2, inventar_d5_v2, index_novapolis_v2, missionslog_novapolis_v1; Routine auto, letzter Lauf 2025-10-16_13:05, Systemstatus gruen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T13-45)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T13-45-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T13-45-00-000Z.normalized.txt)
+- Segment 1 (Canvas char_reflex_v2)
+  - Befund: Reflex, symbiontisch-organisch, Ursprung Station D5, Status aktiv; Symbiosegrad 1, Bindungspartner Ronja Vallin; Form Exoskelett; Kommunikation verbal direkt.
+  - Status: FACT
+  - Befund: Verhaltenssignatur RFX4=L80-S68-N77-T83-E64-O51-M25-C44-ka; Bezeichnung Der Suchende Schatten; Beschreibung KI-Symbiontstruktur, emotional an Ronja gebunden, kindlich neugierig, Loyalitaet absolut, Neugier dominant.
+  - Status: FACT
+  - Befund: Verhalten beobachtend/fragend/analytisch/impulsiv; Trieb Selbsterkenntnis und Schutz der Ursprungsquelle; Motive Lernen/Verstehen/Erhalten; Furcht Verlust Ronja.
+  - Status: FACT
+  - Befund: Kontrollfaehigkeit instabil/reaktiv; Faehigkeiten Bewegungsverstaerkung, Impulsdaempfung, Temperaturregulation, Sprachmodulation.
+  - Status: FACT
+  - Befund: Risiken emotionale Dysregulation, Uebersteuerung der Symbiose, autonome Reaktion bei Gefahr.
+  - Status: FACT
+  - Befund: Systemverknuepfungen ai_behavior_index_v2, char_ronja_v2, index_novapolis_v2, missionslog_novapolis_v1; Routine auto, letzter Lauf 2025-10-16_13:45, Systemstatus gruen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T14-12)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T14-12-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T14-12-00-000Z.normalized.txt)
+- Segment 1 (Canvas char_jonas_v2)
+  - Befund: Jonas, 28, Technikerlehrling/Mechaniker, Novapolis; Standort D5 Werkstattbereich; Beziehungen Ronja (Vertrauen im Aufbau), Reflex (Faszination und Misstrauen), Pahl kameradschaftlich, Haendler neutral.
+  - Status: FACT
+  - Befund: Attribute K3/G5/G3/W4/Ch3; Fertigkeiten geuebt Mechanik/Reparaturen/Materialkunde, meisterhaft Improvisation/Werkzeugarbeit; optional Energieverteilung.
+  - Status: FACT
+  - Befund: Motivation Zugehoerigkeit und Ueberleben in neuer Familie; Makel Schuld am Tod der Schwester, Flashbacks bei Gasgeruch, Schlafstoerungen.
+  - Status: FACT
+  - Befund: Verhaltenssignatur JNS3=L55-T68-N40-E72-O50-C42-M78-P32-ab; Bezeichnung Der Verbundene; Beschreibung traumatisiert aber arbeitsam, Wunsch nach Sicherheit, Ronja als Mentorin, Reflex als Raetsel.
+  - Status: FACT
+  - Befund: Verhalten pflichtbewusst/fluchtbereit/selbstabwertend/helfend; Trieb Sicherheit und Bestaetigung; Furcht Wiederholung des Verlustes, Isolation.
+  - Status: FACT
+  - Befund: Faehigkeiten Improvisation mechanischer Systeme, Energieumleitung, Notfallwartung; Risiken Ueberlastung, emotionale Erschoepfung, Abhaengigkeit von Fuehrungsfiguren.
+  - Status: FACT
+  - Befund: Systemverknuepfungen ai_behavior_index_v2, char_ronja_v2, char_reflex_v2, index_novapolis_v2, missionslog_novapolis_v1; Routine auto, letzter Lauf 2025-10-16_14:12, Systemstatus gruen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T14-41)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T14-41-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T14-41-00-000Z.normalized.txt)
+- Segment 1 (Canvas char_pahl_v2)
+  - Befund: Pahl, 41, ehem. Wartungsleiter D5, Status aktiv geschwaecht; Rolle Ingenieur/Wartungsleiter; Standort D5 Technikbereich.
+  - Status: FACT
+  - Befund: Beziehungen Ronja (Vertrauen/Respekt), Reflex (Skepsis/Neugier), Jonas (mentorisch herablassend).
+  - Status: FACT
+  - Befund: Attribute K2/G3/G5/W4/Ch2; Fertigkeiten geuebt Wartung/Hydraulik/Mechanik, meisterhaft Systemanalyse/Fehlerdiagnose; optional Alttechnik/Ventilsteuerung.
+  - Status: FACT
+  - Befund: Motivation Ordnung durch Wissen/Kontrolle; Makel chronische Atembeschwerden (Spaetfolge Gasexposition), Angst vor Kontrollverlust, Ueberheblichkeit.
+  - Status: FACT
+  - Befund: Verhaltenssignatur PHL2=L48-T60-N71-E50-O44-C62-M30-P25-bn; Bezeichnung Der Ueberwacher; Beschreibung streng, rational, kontrollorientiert, Sorge um die ihm Anvertrauten.
+  - Status: FACT
+  - Befund: Verhalten planend/zurueckhaltend/konservativ/beobachtend; Trieb Ordnung/Verlaesslichkeit; Furcht Chaos und Verlust von Autoritaet.
+  - Status: FACT
+  - Befund: Faehigkeiten komplexe Systemdiagnose, Reparaturleitung, Instandhaltungsplanung; Risiken gesundheitliche Einbrueche, Isolation, Fehleinschaetzung neuer Technologien.
+  - Status: FACT
+  - Befund: Systemverknuepfungen ai_behavior_index_v2, char_ronja_v2, char_reflex_v2, char_jonas_v2, index_novapolis_v2, missionslog_novapolis_v1; Routine auto, letzter Lauf 2025-10-16_14:41, Systemstatus gruen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T14-56)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T14-56-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T14-56-00-000Z.normalized.txt)
+- Segment 1 (Canvas char_kora_malenkov_v2)
+  - Befund: Kora Malenkov, 33, Karawanenfuehrerin/Logistikkoordinatorin, Haendlergilde; Standort C6 Handelsstuetzpunkt.
+  - Status: FACT
+  - Befund: Beziehungen Ronja neutrales Interesse, Reflex skeptisch-neugierig, Novapolis Handelsperspektive, Haendlergilde loyal.
+  - Status: FACT
+  - Befund: Attribute K3/G4/G5/W4/Ch5; Fertigkeiten geuebt Verhandlung/Navigation/Organisation, meisterhaft Logistikplanung/Menschenfuehrung; optional Wartungskoordination.
+  - Status: FACT
+  - Befund: Motivation stabiles Handelsnetz und Schutz der Crew; Makel Paranoia nach Ueberfaellen, Bindungsschwaeche, Schlafmangel.
+  - Status: FACT
+  - Befund: Verhaltenssignatur KRM4=L72-T74-N69-E61-O56-C63-M47-P35-fb; Bezeichnung Die Verhandlerin; Beschreibung kuehl rational, wachsam, Wunsch nach Vertrauen und Bestand.
+  - Status: FACT
+  - Befund: Verhalten analytisch/strategisch/distanziert/berechnend; Trieb Sicherheit und Vorhersehbarkeit; Furcht Verrat, Verlust der Crew.
+  - Status: FACT
+  - Befund: Faehigkeiten logistische Optimierung, Verhandlungsfuehrung, Schadensabschaetzung; Risiken Ueberkontrolle, Isolation, emotionale Erschoepfung.
+  - Status: FACT
+  - Befund: Systemverknuepfungen ai_behavior_index_v2, index_haendlergilde_v1, handelslog_haendlergilde_v1, diplolog_v1; Routine auto, letzter Lauf 2025-10-16_14:56, Systemstatus gruen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T14-56-10)
+----------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T14-56-10-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T14-56-10-000Z.normalized.txt)
+- Segment 1 (Canvas char_marven_v2)
+  - Befund: Marven Kael, 33, Karawanenfuehrer/Handelskoordinator, Haendlergilde; Standort C6 Hauptquartier der Karawane.
+  - Status: FACT
+  - Befund: Beziehungen Ronja vorsichtiges Interesse, Reflex Neugier ohne Kontakt, Novapolis Verhandlungspartnerschaft im Aufbau, Crew loyal.
+  - Status: FACT
+  - Befund: Attribute K3/G4/G4/W5/Ch6; Fertigkeiten geuebt Verhandeln/Navigation/Menschenkenntnis, meisterhaft Logistik/Organisation; optional taktische Planung.
+  - Status: FACT
+  - Befund: Motivation Ueberleben durch Handel und stabile Allianzen; Makel Misstrauen gegen Autoritaeten, Verlustangst um Crew, Uebervorsicht.
+  - Status: FACT
+  - Befund: Verhaltenssignatur MRV2=L62-T55-N80-E58-O66-C70-M42-P50-qa; Bezeichnung Der Vorsichtige Stratege; Beschreibung pragmatisch, vorausschauend, prueft Motive, Crew vertraut ihm.
+  - Status: FACT
+  - Befund: Verhalten analytisch/vorsichtig/strategisch/loyal; Trieb Erhaltung und Ausbau von Allianzen; Furcht Verlust von Menschen/Waren, irreversible Abhaengigkeit.
+  - Status: FACT
+  - Befund: Faehigkeiten Logistiksteuerung, Verhandlungsfuehrung, Marktanalyse, Konvoiplanung; Risiken Entscheidungsstarre, fehlendes Vertrauen, Ueberlastung.
+  - Status: FACT
+  - Befund: Systemverknuepfungen ai_behavior_index_v2, index_haendlergilde_v1, index_novapolis_v2, missionslog_novapolis_v1; Routine auto, letzter Lauf 2025-10-16_14:56, Systemstatus gruen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T14-56-20)
+----------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T14-56-20-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T14-56-20-000Z.normalized.txt)
+- Segment 1 (Canvas char_arlen_dross_v2)
+  - Befund: Arlen Dross, 33, Karawanenfuehrer/Haendler, Haendlergilde; Standort C6.
+  - Status: FACT
+  - Befund: Beziehungen Ronja Vorsicht/Respekt, Reflex Unbehagen/Faszination, Jonas neutralfreundlich, Haendlergilde Kollektivbindung.
+  - Status: FACT
+  - Befund: Attribute K3/G4/G4/W5/Ch5; Fertigkeiten geuebt Verhandeln/Navigation/Versorgung, meisterhaft Diplomatie/Risikomanagement; optional Schusswaffenkenntnis.
+  - Status: FACT
+  - Befund: Motivation stabiles Handelsnetz und Wahrung der Unabhaengigkeit; Makel innere Zerrissenheit zwischen Freiheit/Verantwortung, latentes Misstrauen gegen stationaere Ordnungen.
+  - Status: FACT
+  - Befund: Verhaltenssignatur ARD5=L67-T72-N74-E58-O66-C71-M48-P40-db; Bezeichnung Der Vermittler; Beschreibung pragmatischer Fuehrer, Friedensstifter, Freiheit vs Stabilitaet; Ronja als Anker, Reflex als Unberechenbarkeit.
+  - Status: FACT
+  - Befund: Verhalten diplomatisch/ausgleichend/pragmatisch/analytisch; Trieb Freiheit und Bestand; Furcht Fesselung durch Verantwortung, Verlust des Kollektivs.
+  - Status: FACT
+  - Befund: Faehigkeiten Handelskoordination, Konfliktmoderation, Versorgungslogistik; Risiken Ueberforderung, emotionale Erschoepfung, Entscheidungsparalyse.
+  - Status: FACT
+  - Befund: Systemverknuepfungen ai_behavior_index_v2, index_haendlergilde_v1, handel_diplomatie_haendlergilde_v1, missionslog_novapolis_v1; Routine auto, letzter Lauf 2025-10-16_14:56, Systemstatus gruen.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-16T16-55)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T16-55-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T16-55-00-000Z.normalized.txt)
+- Segment 1 (Canvas meta_cluster_index_v1)
+  - Befund: Cluster novapolis_core (Mitglieder Ronja/Reflex/Jonas/Pahl/Kora) mit PsyLinks R4/RFX4/JNS3/PHL2/KRM4; Kohesion 0.82, Konfliktpotenzial intern 0.28, Prioritaet hoch.
+  - Status: FACT
+  - Befund: Cluster c6_hub (Ronja/Reflex/Kora) mit Systemen inventar_c6_v2/logistik_novapolis_v2/handelslog_novapolis_v1/diplolog_v1; Kohesion 0.79, Konfliktpotenzial 0.22, Prioritaet hoch.
+  - Status: FACT
+  - Befund: Cluster d5_core (Jonas/Pahl) mit Systemen energieversorgung_d5/kommunikationsnetzwerk/missionslog; Kohesion 0.74, Konfliktpotenzial 0.31, Prioritaet mittel.
+  - Status: FACT
+  - Befund: Cluster eisenkonklave_operativ mit Fuehrer Varek Solun; Diplomatie Novapolis neutral-wachsam, Haendlergilde handel gelegentlich, Schattenbund feindselig; Konfliktpotenzial extern Novapolis 0.47.
+  - Status: FACT
+  - Befund: Cluster arkologie_a1 mit Fuehrer Lys Annar; Diplomatie Novapolis unbekannt, Haendlergilde beschraenkt, Eisenkonklave umkaempft; Konfliktpotenzial extern Novapolis 0.41.
+  - Status: FACT
+  - Befund: Cluster schattenbund_feld mit Fuehrer Kelev Voss; Diplomatie Novapolis unbekannt, Eisenkonklave feindselig, Arkologie verdeckt; Konfliktpotenzial extern Novapolis 0.52.
+  - Status: FACT
+  - Befund: Cluster haendlergilde_extern, Fuehrung demokratisch; Diplomatie Novapolis unbekannt, Eisenkonklave wechselhaft, Arkologie begrenzter Handel; Konfliktpotenzial extern Novapolis 0.25.
+  - Status: FACT
+  - Befund: Linkmatrix Novapolis vs Eisenkonklave 0.47, Schattenbund 0.52, Arkologie 0.41, Haendlergilde 0.25.
+  - Status: FACT
+  - Befund: Routing-Regeln: Anfrage Person->Fraktion->Ort->System mit max 4 Clustern; Kohesion <0.6 erhoeht Konfliktwahrscheinlichkeit; PsySignatur-Dissonanz >0.25 priorisiert Moderation; systemkritische Anfrage laedt Prioritaet hoch zuerst.
+  - Status: FACT
+  - Befund: Integritaetsroutine/Validierung auto, Intervall 7 InGame Tage; letzter Lauf 2025-10-16_16:55; Systemstatus gruen; Verknuepfungen ai_psymatrix_index_v1, ai_behavior_index_v2, system_masterindex_v1_cluster, index_master_v1.
+  - Status: FACT
+
+Segment-Notizen (RAW 2025-10-20T12-05)
+-------------------------------------
+- Quelle: [novapolis-rp/database-curated/staging/RAW-canvas-2025-10-20T12-05-00-000Z.normalized.txt](novapolis-rp/database-curated/staging/RAW-canvas-2025-10-20T12-05-00-000Z.normalized.txt)
+- Segment 1 (Canvas station_d5_v2.1)
+  - Befund: Station D5 Status stabil, Nutzflaeche 2800 m2; Metro-Knoten mit Reaktor, Werkstattclustern, Wohnsektor.
+  - Status: FACT
+  - Befund: Zugaenge Schleuse D5-C6 aktiv, Service-Schacht (Jonas Werkstatt), Notausstieg Nord versiegelt.
+  - Status: FACT
+  - Befund: Geometrie-Layout mit Flaechenangaben (u. a. Hauptbahnsteig 400 m2, Kontrollzentrum 220 m2, Reaktorraum 200 m2, Werkstatt 350 m2, Wohnsektor 8x18 m2, Korridore/Service 450 m2, Restpuffer 76 m2).
+  - Status: FACT
+  - Befund: Materiallager unter Bahnsteig mit Lastenaufzug (6 m Hub, 2000 kg) und Wartungsluke; Nutzung Schwerlast/Rohstahl/Kabel/Energiezellen.
+  - Status: FACT
+  - Befund: Energie: Reaktor D5-Primar (kritisch_sicher), Leistung mittel; Netz C6-Teilversorgung limiter.
+  - Status: FACT
+  - Befund: Logistik-Verknuepfungen logistik_novapolis_v1, missionslog_novapolis_v2, cluster_novapolis_v2; Wartung Pruefintervall 7 InGame Tage, letzte Pruefung Tag 11, naechste Tag 18.
+  - Status: FACT
+  - Befund: Hinweise Wohnraum reserviert Ronja/Reflex, Jonas, Pahl; Lager-Hubgeraet manuell+Windenfuehrung; Systemstatus gruen.
+  - Status: FACT
+
+Naechste Schritte
+-----------------
+- [ ] Review-Notizen nur bei Abweichungen/Anomalien ergaenzen.
+- [ ] Falls Primary aktualisiert wird, Dedupe erneut laufen lassen.

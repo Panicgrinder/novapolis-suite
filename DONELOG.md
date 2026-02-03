@@ -1,10 +1,130 @@
 ---
-stand: 2026-02-01 14:22
-update: "RP curated: chat-export.txt als eigener Export im staging manifest getrackt (Basis-Export)."
-checks: "npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-01 14:22)"
+stand: 2026-02-03 20:16
+update: "Checks: konsolidierter Gate-Lauf PASS (markdownlint/frontmatter/ruff/black/pyright/mypy/pytest+coverage); Fixes: MD024 (duplicate heading) + Black-Formatierung fuer neue scripts/run_rp_* Skripte."
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-03 20:15)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-03 20:15: Checks: konsolidierter Gate-Lauf PASS via `scripts/run_checks_and_report.py` (Coverage 82.41% >= 80). Fixes: MD024 duplicate heading in `novapolis-rp/database-curated/staging/chat-export.review.md`; Black-Formatierung fuer `scripts/run_rp_canvas_staging.py`, `scripts/run_rp_chat_staging.py`, `scripts/run_rp_chat_dedupe.py`. Report: `.tmp/results/reports/checks_report_20260203_201441.md`.
+
+- 2026-02-03 17:36: RP curated: Chat-Export Datenrettung abgeschlossen: Review-Queue geschlossen und Manifest-Status konsolidiert (kanonisch=RAW 2025-10-27T09-16; Duplikat=09-01; Near=02-54; header-only=03-09/03-11/03-57/09-06). Files: `novapolis-rp/database-curated/staging/manifest.json`, `novapolis-rp/database-curated/staging/chat-export.review.md`. Checks: not run.
+
+- 2026-02-03 17:00: RP curated: RAW-chat-export Dedupe dokumentiert (kanonisch=2025-10-27T09-16; 09-01 Duplikat; 02-54 Near-Duplikat) in `novapolis-rp/database-curated/staging/chat-export.review.md`. Checks: not run.
+
+- 2026-02-03 16:38: RP curated: Leere RAW-chat-export-Dateien (2025-10-23T03-09, 03-11, 03-57) in `novapolis-rp/database-curated/staging/chat-export.review.md` vermerkt. Checks: not run.
+
+- 2026-02-03 16:37: RP curated: Canvas-Notiz station_d5_v2.1 (RAW 2025-10-20T12-05) in `novapolis-rp/database-curated/staging/chat-export.review.md` erfasst. Checks: not run.
+
+- 2026-02-03 16:33: RP curated: 7 Canvas-Notizen (RAW 2025-10-16T13-45 bis 16-55) in `novapolis-rp/database-curated/staging/chat-export.review.md` erfasst. Checks: not run.
+
+- 2026-02-03 16:30: RP curated: 10 Canvas-Notizen (RAW 2025-10-16T03-25-10 bis 13-05) in `novapolis-rp/database-curated/staging/chat-export.review.md` erfasst. Checks: not run.
+
+- 2026-02-03 16:24: RP curated: Canvas-Notiz Varek Solun (RAW 2025-10-16T03-25) in `novapolis-rp/database-curated/staging/chat-export.review.md` erfasst. Checks: not run.
+
+- 2026-02-03 16:12: RP curated: Canvas-Notiz Jonas (RAW 2025-10-16T03-12) in `novapolis-rp/database-curated/staging/chat-export.review.md` erfasst. Checks: not run.
+
+- 2026-02-03 15:14: RP curated: Segmente 44-51 in `novapolis-rp/database-curated/staging/chat-export.review.md` erfasst (RAW 2025-10-27T09-16, Nachrichten 1721-1906). Checks: not run.
+
+- 2026-02-03 14:59: RP curated: ASCII-Normalisierung in `novapolis-rp/database-curated/staging/chat-export.review.md` (Nicht-ASCII-Zeichen ersetzt). Checks: not run.
+
+- 2026-02-03 14:33: RP curated: Struktur-Normalisierung in `novapolis-rp/database-curated/staging/chat-export.review.md` (Segmente 42-43 in RAW-09-16-Bereich integriert, ToDo-Bloecke entfernt, Frontmatter-Delimiter repariert). Checks: not run.
+
+- 2026-02-03 11:22: RP curated: Review-Notizen Block #1689-#1720 in `novapolis-rp/database-curated/staging/chat-export.review.md` ergänzt. Schwerpunkte: Stationen-Fixbeschreibungen (D5/C6/Tunnel), C6 ~400+ m2, D5-Lastenaufzug 2 t, A/T/S/D-Canvas-String und Reindex->Sync->Snapshot-Folge. Checks: frontmatter PASS (manual), markdownlint not run.
+
+- 2026-02-03 11:05: RP curated: Review-Notizen ab #1660 (Block #1660-#1688) in `novapolis-rp/database-curated/staging/chat-export.review.md` erfasst. Checks: frontmatter PASS (manual), markdownlint not run.
+
+- 2026-02-03 10:33: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-16 (Segmente 37-41) erfasst. Checks: not run.
+
+- 2026-02-03 10:26: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-16 (Segmente 35-36) erfasst. Checks: not run.
+
+- 2026-02-03 10:22: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-16 (Segmente 32-34) erfasst. Checks: not run.
+
+- 2026-02-03 10:21: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-16 (Segmente 29-31) erfasst. Checks: not run.
+
+- 2026-02-03 10:18: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 901-1006) erfasst. Checks: not run.
+
+- 2026-02-03 09:31: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 851-900) erfasst. Checks: not run.
+
+- 2026-02-03 09:30: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 801-850) erfasst. Checks: not run.
+
+- 2026-02-03 09:26: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 751-800) erfasst. Checks: not run.
+
+- 2026-02-03 09:22: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 701-750) erfasst. Checks: not run.
+
+- 2026-02-03 09:21: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 651-700) erfasst. Checks: not run.
+
+- 2026-02-03 09:20: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 601-650) erfasst. Checks: not run.
+
+- 2026-02-03 09:18: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 551-600) erfasst. Checks: not run.
+
+- 2026-02-03 09:17: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 501-550) erfasst. Checks: not run.
+
+- 2026-02-03 09:07: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 451-500) erfasst. Checks: not run.
+
+- 2026-02-03 09:05: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 401-450) erfasst. Checks: not run.
+
+- 2026-02-03 09:04: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 351-400) erfasst. Checks: not run.
+
+- 2026-02-03 09:03: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 301-350) erfasst. Checks: not run.
+
+- 2026-02-03 09:02: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 251-300) erfasst. Checks: not run.
+
+- 2026-02-03 09:01: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 201-250) erfasst. Checks: not run.
+
+- 2026-02-03 08:58: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 151-200) erfasst. Checks: not run.
+
+- 2026-02-03 08:57: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 101-150) erfasst. Checks: not run.
+
+- 2026-02-03 08:54: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 51-100) erfasst. Checks: not run.
+
+- 2026-02-03 08:53: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-01 (Segmente 1-50) erfasst. Checks: not run.
+
+- 2026-02-03 02:15: RP curated: Segment-Notizen fuer RAW 2025-10-23T02-54 (Segmente 51-97) erfasst. Checks: not run.
+
+- 2026-02-03 02:06: RP curated: Segment-Notizen fuer RAW 2025-10-23T02-54 (Segmente 1-50) erfasst. Checks: not run.
+
+- 2026-02-03 02:04: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-16 (Segmente 55-96) erfasst. Checks: not run.
+
+- 2026-02-03 02:01: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-16 (Segmente 5-54) erfasst. Checks: not run.
+
+- 2026-02-03 01:53: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-16 (Segment 4) erfasst. Checks: markdownlint/frontmatter PASS.
+
+- 2026-02-03 01:36: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-16 (Segment 3) erfasst. Checks: markdownlint/frontmatter PASS.
+
+- 2026-02-03 01:34: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-16 (Segment 2) erfasst. Checks: markdownlint/frontmatter PASS.
+
+- 2026-02-03 01:33: RP curated: Segment-Notizen fuer RAW 2025-10-27T09-16 (Segment 1) erfasst. Checks: markdownlint/frontmatter PASS.
+
+- 2026-02-03 01:30: RP curated: RAW-Dedupe-Segmente in Review-Queue ueberfuehrt (Consolidated-Quelle verlinkt). Checks: markdownlint/frontmatter PASS.
+
+- 2026-02-02 20:58: RP curated: Review-Stub fuer chat-export Basis-Export erstellt, Dedupe-Ergebnis verlinkt. Checks: markdownlint/frontmatter PASS.
+
+- 2026-02-02 20:55: RP curated: Dedupe-Report und konsolidierte Chat-Quelle neu erzeugt (run_rp_chat_dedupe.py). Checks: markdownlint/frontmatter PASS.
+
+- 2026-02-02 20:47: RP curated: staging manifest repariert; chat-export.txt staging erzeugt (Normalized/Chunks/Stats); run_rp_chat_staging.py erweitert. Checks: markdownlint/frontmatter PASS.
+
+- 2026-02-02 19:01: RP: N7-Alias entfernt (C6-Nordanomalie), Token-Regel (Stationscodes) ergänzt; Frontmatter in Fraktionen-Taxonomie bereinigt. Checks: markdownlint/frontmatter PASS.
+
+- 2026-02-02 11:22: RP-SSOT: Rollen-Split (Kora/Marven/Arlen) in C6-Canvas und C6-Logistik-Policy präzisiert; C6.json `last_updated` synchronisiert. Checks: markdownlint/frontmatter/consistency PASS.
+
+- 2026-02-02 10:55: RP curated: Delta/Overlap-Reports geschlossen (resolved.md). Checks: manuell.
+
+ Kurzueberblick
+
+ - 2026-02-02 13:17 | RP: C6/D5 Logistik-Policies aus `novapolis-rp/database-rp/00-admin` nach `novapolis-rp/database-rp/01-factions/novapolis/03-locations/` migriert; Ops aus `00-admin/ops` nach `00-ops` verschoben; Crosslinks/Index aktualisiert.
+
+- 2026-02-02 14:57 | RP: Fraktionsbezogene Indizes aus `novapolis-rp/database-rp/00-admin` ausgelagert (`person_index_np.*` → `01-factions/novapolis/02-characters/`, `Index-Haendlergilde.*` → `01-factions/haendlerbund/06-handel-diplomatie/`); Referenzen/Index umgebogen.
+
+- 2026-02-02 10:47: RP curated: Delta-Review Batch 1 entschieden (alle C = zusammenführen/prüfen). Checks: manuell.
+
+- 2026-02-02 10:26: RP curated: PDF-Extrakte als unbrauchbar/archiviert markiert. Checks: manuell.
+
+- 2026-02-02 10:19: RP curated: PDF-Extraktion (normalized) nach staging/pdfs durchgeführt. Checks: extract_rp_pdfs.py.
+
+- 2026-02-02 10:08: RP curated: RAW-Chat-Staging (Normalisierung/Chunking/Stats) ergänzt. Checks: run_rp_chat_staging.py.
+
+- 2026-02-02 09:52: RP curated: fehlende RAW-Quellen im staging manifest als pending ergänzt. Checks: nicht ausgeführt.
 
 - 2026-02-01 14:22: RP curated: chat-export.txt als eigener Export im staging manifest getrackt (Basis-Export); validate:rp PASS.
 

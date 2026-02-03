@@ -115,7 +115,7 @@ Links
 - [Missionslog](./Missionslog.md)
 - [Logistik (Admin)](./Logistik.md)
 - [C6 (Ort)](../01-factions/novapolis/03-locations/C6.md)
-- [C6 - Logistik-Policy](./C6-Logistik-Policy.md)
+- [C6 - Logistik-Policy](../01-factions/novapolis/03-locations/C6-Logistik-Policy.md)
 
 Offene Fragen
 -------------

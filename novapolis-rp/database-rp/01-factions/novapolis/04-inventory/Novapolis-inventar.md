@@ -37,7 +37,7 @@ Bewegungen (Log)
 
 Links
 -----
-- Logistik-Policy C6 → ../00-admin/C6-Logistik-Policy.md
+- Logistik-Policy C6 → ../03-locations/C6-Logistik-Policy.md
 - Logistik (Admin) → ../00-admin/Logistik.md
 - Missionslog → ../00-admin/Missionslog.md
 - Währung "Kugeln" (Reference) → ../00-admin/Reference-Campaign-State.md

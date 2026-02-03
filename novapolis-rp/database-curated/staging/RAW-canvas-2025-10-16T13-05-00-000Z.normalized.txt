@@ -1,0 +1,10 @@
+{DOCID:logistik_novapolis_v2,TYPE:logistics,OWNER:novapolis,VERSION:v2,TIMESTAMP:2025-10-16_13:05}
+Stationen:D5(primärbasis),C6(aussenposten);
+Verbindungen:Tunnel_D5-C6(status:teilweise_instabil,wartung_ausstehend);
+Transportmittel:manuellerTransport,Tragegestell(ReflexAssist),keineBahnverbindung;
+AktiveFracht:C6→D5(Materialrückführung),D5→C6(Bauteile,Werkzeuge,Versorgungsgüter);
+Sonderfracht:tragbarerDatenkern(1_unbekannt_funktion,C6_lagernd);
+Lagerstatus_D5:85%;Lagerstatus_C6:62%;
+Versorgungszyklen:7InGameTage;NächsterTransport:Nacht_von_Tag21_auf_Tag22;
+Systemverknüpfungen:inventar_c6_v2,inventar_d5_v2,index_novapolis_v2,missionslog_novapolis_v1;
+Routine:Validierung:Auto;Intervall:7InGameTage;LetzterLauf:2025-10-16_13:05;NächsterLauf:NachFraktionszug_Woche4;Systemstatus:grün;

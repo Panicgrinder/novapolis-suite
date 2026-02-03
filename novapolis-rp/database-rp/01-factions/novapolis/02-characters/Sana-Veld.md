@@ -45,4 +45,4 @@ Verlinkungen
 ------------
 
 - C6 Schleuse → ../03-locations/C6-Schleuse.md
-- Logistik-Policy C6 → ../00-admin/C6-Logistik-Policy.md
+- Logistik-Policy C6 → ../03-locations/C6-Logistik-Policy.md

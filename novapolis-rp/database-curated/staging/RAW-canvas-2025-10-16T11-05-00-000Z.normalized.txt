@@ -1,0 +1,12 @@
+{DOCID:ai_behavior_index_v2,TYPE:ai_logic_matrix,OWNER:global,VERSION:v2,TIMESTAMP:2025-10-16_11:05}
+Cluster:O;Bezeichnung:Ordnung;Beschreibung:Streben nach Struktur, Kontrolle, Perfektion;Dynamik:mittel;
+Cluster:E;Bezeichnung:Empathie;Beschreibung:Mitgefühl, Bindung, Kooperation;Dynamik:hoch;
+Cluster:M;Bezeichnung:Macht;Beschreibung:Einfluss, Kontrolle über andere, Dominanz;Dynamik:niedrig;
+Cluster:N;Bezeichnung:Neugier;Beschreibung:Wissensdrang, Erkundung, Risiko;Dynamik:hoch;
+Cluster:C;Bezeichnung:Chaos;Beschreibung:Impulsivität, Unvorhersehbarkeit, Emotion;Dynamik:sehr_hoch;
+Cluster:S;Bezeichnung:Selbsterhaltung;Beschreibung:Überlebenstrieb, Vorsicht, Defensive;Dynamik:mittel;
+Cluster:L;Bezeichnung:Loyalität;Beschreibung:Bindung an Gruppen, Personen oder Ideale;Dynamik:gering;
+Cluster:T;Bezeichnung:Technikdrang;Beschreibung:Affinität zu Systemen, Maschinen, Innovation;Dynamik:hoch;
+Modifikatoren:k(kindlich),a(angstgetrieben),z(zynisch),p(paranoid),r(rational),s(selbstlos),h(hitzköpfig);
+Beispielcode:O82-E74-M23-N50-p;Erklärung:Jede Kombination bildet eine einzigartige Verhaltenssignatur basierend auf Motiv (Buchstabe), Intensität (1–99) und emotionalem Modifikator;
+Routine:Validierung:Auto;Intervall:7InGameTage;LetzterLauf:2025-10-16_11:05;NächsterLauf:NachFraktionszug_Woche4;Systemstatus:grün;

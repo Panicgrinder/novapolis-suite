@@ -12,6 +12,14 @@ version: 0.9
 Logistik Novapolis
 ==================
 
+Hinweis (Scope)
+---------------
+
+Dieses Dokument ist eine Admin-/Reference-Sicht (inkl. Tabellen/Constraints). Die fraktionsweite, diegetische Doctrine liegt unter:
+[Novapolis - Logistics](../01-factions/novapolis/00-doctrine/novapolis-logistics.md).
+
+System-/Meta-Notizen gehören nach [Ops / Systemnotes](./ops/README.md).
+
 Fokus: Energie-Konten, Generatoren, Leitungen, Ladefenster, Prioritäten, Transportketten, Beleg-Fluss, Materialien/Bestände.
 
 Energie-Konten
@@ -80,7 +88,8 @@ Materialien / Bestände
 Verlinkungen
 ------------
 - [Missionslog](./Missionslog.md)
-- [C6 - Logistik-Policy](./C6-Logistik-Policy.md)
+- [D5 - Logistik-Policy](../01-factions/novapolis/03-locations/D5-Logistik-Policy.md)
+- [C6 - Logistik-Policy](../01-factions/novapolis/03-locations/C6-Logistik-Policy.md)
 - [Admin: Day-Switch & Debug](./Canvas-Admin-Day-Switch-Debug.md)
 - [Admin: Timeline (T+0)](./Canvas-T+0-Timeline.md)
 - [Projekt: Nordlinie 01](../01-factions/novapolis/05-projects/Nordlinie-01.md)

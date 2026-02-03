@@ -28,7 +28,7 @@ Fraktionsbezogene Dokumente
 
 ### Händlerbund (Händlergilde-ID)
 
-- Index: `database-rp/00-admin/Index-Haendlergilde.md`
+- Index: `database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md`
 - Relationslog: `database-rp/01-factions/haendlerbund/06-handel-diplomatie/Relationslog-Haendlerbund.md`
 - Handelslog: `database-rp/01-factions/haendlerbund/06-handel-diplomatie/Handelslog-Haendlerbund.md`
 - Fraktionsakte (Handel/Diplomatie): `database-rp/01-factions/haendlerbund/06-handel-diplomatie/Handel-Diplomatie-Haendlergilde.md`

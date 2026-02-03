@@ -1,0 +1,51 @@
+{
+  "source": "F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/RAW-chat-export-2025-10-23T02-54-55-897Z.txt",
+  "normalized": "F:/VS Code Workspace/Main/novapolis-rp/database-curated/staging/RAW-chat-export-2025-10-23T02-54-55-897Z.normalized.txt",
+  "chunk_size_lines": 1000,
+  "total_lines": 5756,
+  "chunks_dir": "F:/VS Code Workspace/Main/novapolis-rp/database-curated/staging/chunks/RAW-chat-export-2025-10-23T02-54-55-897Z",
+  "chunks": [
+    {
+      "name": "RAW-chat-export-2025-10-23T02-54-55-897Z.part-001.txt",
+      "start_line": 1,
+      "end_line": 1000,
+      "line_count": 1000,
+      "sha1": "e4f21fe4575cabed7bfc6a30b78fd824dea2a698"
+    },
+    {
+      "name": "RAW-chat-export-2025-10-23T02-54-55-897Z.part-002.txt",
+      "start_line": 1001,
+      "end_line": 2000,
+      "line_count": 1000,
+      "sha1": "ac965d568c15b70685b44778bb0b9157274e8130"
+    },
+    {
+      "name": "RAW-chat-export-2025-10-23T02-54-55-897Z.part-003.txt",
+      "start_line": 2001,
+      "end_line": 3000,
+      "line_count": 1000,
+      "sha1": "698b690d840572e999de04d0712ac5462c775055"
+    },
+    {
+      "name": "RAW-chat-export-2025-10-23T02-54-55-897Z.part-004.txt",
+      "start_line": 3001,
+      "end_line": 4000,
+      "line_count": 1000,
+      "sha1": "b2b7c69239d5a9fb8b18f730d07d3412de2e6737"
+    },
+    {
+      "name": "RAW-chat-export-2025-10-23T02-54-55-897Z.part-005.txt",
+      "start_line": 4001,
+      "end_line": 5000,
+      "line_count": 1000,
+      "sha1": "2fb7ddef39c8ff2812fd3e33c7792bb4fc5712d8"
+    },
+    {
+      "name": "RAW-chat-export-2025-10-23T02-54-55-897Z.part-006.txt",
+      "start_line": 5001,
+      "end_line": 5756,
+      "line_count": 756,
+      "sha1": "f3bfaf1745db6531b1c96614a40e425dab320062"
+    }
+  ]
+}

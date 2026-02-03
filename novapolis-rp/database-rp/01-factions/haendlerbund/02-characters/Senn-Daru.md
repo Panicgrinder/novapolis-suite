@@ -68,13 +68,13 @@ Links
 
 - Relationslog Novapolis → ../00-admin/Relationslog-Novapolis.md
 - Handel & Diplomatie (Händlerbund) → ../00-admin/Handel-Diplomatie-Haendlergilde.md
-- Personenindex Novapolis → ../00-admin/person_index_np.md
+- Personenindex Novapolis → ../../novapolis/02-characters/person_index_np.md
 - G7 → ../03-locations/G7.md
 
 Quellen & Review
 ----------------
 
 - SSOT: ../00-admin/Relationslog-Novapolis.md
-- SSOT: ../00-admin/person_index_np.md
+- SSOT: ../../novapolis/02-characters/person_index_np.md
 
 

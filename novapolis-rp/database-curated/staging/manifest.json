@@ -154,17 +154,477 @@
     "id": "export-3-chat-export-0",
     "source": "database-raw/99-exports/chat-export.txt",
     "type": "raw-txt",
-    "status": "pending",
+    "status": "archived",
     "createdAt": "2026-02-01",
     "artifacts": {
       "normalized": "database-curated/staging/chat-export.normalized.txt",
       "chunksDir": "database-curated/staging/chunks/chat-export",
       "index": "database-curated/staging/chunks/chat-export/index.json",
       "reports": {
-        "deltaA": "database-curated/staging/reports/delta-chat-export-0_vs_chat-export-1.md"
+        "deltaA": "database-curated/staging/reports/delta-chat-export-0_vs_chat-export-1.md",
+        "textStats": "database-curated/staging/reports/text-stats.chat-export.md"
       },
       "review": "database-curated/staging/chat-export.review.md"
     },
-    "notes": "Basis-Export (Vorläufer). Getrackt für Vergleich/Dedupe gegen chat-export (1) und chat-export-complete; Artefakte/Review noch zu erzeugen."
+    "notes": "Basis-Export (Vorläufer). Getrackt für Vergleich/Dedupe gegen chat-export (1) und chat-export-complete; 0 unique Segments vs Primary, daher Archiv/Vergleich."
+  },
+  {
+    "id": "export-4-chat-export-consolidated",
+    "source": "database-curated/staging/chat-export-complete.normalized.txt",
+    "type": "curated-merge",
+    "status": "in-progress",
+    "createdAt": "2026-02-02",
+    "artifacts": {
+      "normalized": "database-curated/staging/chat-export-consolidated.normalized.txt",
+      "reports": {
+        "dedupe": "database-curated/staging/reports/dedupe-chat-export.md"
+      }
+    },
+    "notes": "Konsolidierter Export (dedupe, window=5) aus chat-export-complete + Sekundärquellen."
+  },
+  {
+    "id": "pending-chronist-von-novapolis-ronjas-novapolis-rp",
+    "source": "database-raw/99-exports/Chronist von Novapolis - Ronjas Novapolis RP.pdf",
+    "type": "raw-pdf",
+    "status": "archived",
+    "createdAt": "2025-10-31",
+    "notes": "Unbrauchbarer Extrakt (UI-Artefakte/Boilerplate). Nur Archiv/Provenienz."
+  },
+  {
+    "id": "pending-chronist-von-novapolis-ronjas-novapolis-rp1",
+    "source": "database-raw/99-exports/Chronist von Novapolis - Ronjas Novapolis RP1.pdf",
+    "type": "raw-pdf",
+    "status": "archived",
+    "createdAt": "2025-10-31",
+    "notes": "Unbrauchbarer Extrakt (UI-Artefakte/Boilerplate). Nur Archiv/Provenienz."
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t03-12-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T03-12-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T03-12-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T03-12-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T03-12-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T03-12-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t03-25-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T03-25-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T03-25-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T03-25-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T03-25-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T03-25-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t03-25-10-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T03-25-10-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T03-25-10-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T03-25-10-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T03-25-10-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T03-25-10-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t03-25-20-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T03-25-20-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T03-25-20-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T03-25-20-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T03-25-20-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T03-25-20-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t05-34-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T05-34-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T05-34-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T05-34-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T05-34-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T05-34-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t08-07-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T08-07-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T08-07-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T08-07-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T08-07-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T08-07-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t11-05-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T11-05-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T11-05-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T11-05-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T11-05-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T11-05-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t11-45-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T11-45-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T11-45-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T11-45-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T11-45-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T11-45-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t12-00-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T12-00-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T12-00-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T12-00-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T12-00-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T12-00-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t12-30-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T12-30-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T12-30-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T12-30-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T12-30-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T12-30-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t12-55-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T12-55-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T12-55-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T12-55-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T12-55-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T12-55-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t13-05-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T13-05-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T13-05-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T13-05-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T13-05-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t13-45-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T13-45-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T13-45-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T13-45-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T13-45-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T13-45-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t14-12-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T14-12-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T14-12-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T14-12-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T14-12-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T14-12-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t14-41-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T14-41-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T14-41-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T14-41-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T14-41-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T14-41-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t14-56-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T14-56-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T14-56-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T14-56-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T14-56-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T14-56-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t14-56-10-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T14-56-10-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T14-56-10-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T14-56-10-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T14-56-10-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T14-56-10-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t14-56-20-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T14-56-20-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T14-56-20-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T14-56-20-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T14-56-20-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T14-56-20-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-16t16-55-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-16T16-55-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-16",
+    "notes": "Flags-Datei vorhanden.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-16T16-55-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-16T16-55-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-16T16-55-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-16T16-55-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-canvas-2025-10-20t12-05-00-000z",
+    "source": "database-raw/99-exports/RAW-canvas-2025-10-20T12-05-00-000Z.txt",
+    "type": "raw-txt",
+    "status": "pending",
+    "createdAt": "2025-10-20",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-canvas-2025-10-20T12-05-00-000Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-canvas-2025-10-20T12-05-00-000Z",
+      "index": "database-curated/staging/chunks/RAW-canvas-2025-10-20T12-05-00-000Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-canvas-2025-10-20T12-05-00-000Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-chat-export-2025-10-23t02-54-55-897z",
+    "source": "database-raw/99-exports/RAW-chat-export-2025-10-23T02-54-55-897Z.txt",
+    "type": "raw-txt",
+    "status": "archived",
+    "createdAt": "2025-10-23",
+    "notes": "Near-Duplikat (gleiches Gespräch, anderes Export-Format/Metadaten). Archiv/Provenienz; kanonisch ist RAW 2025-10-27T09-16.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-chat-export-2025-10-23T02-54-55-897Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-chat-export-2025-10-23T02-54-55-897Z",
+      "index": "database-curated/staging/chunks/RAW-chat-export-2025-10-23T02-54-55-897Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-chat-export-2025-10-23T02-54-55-897Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-chat-export-2025-10-23t03-09-53-586z",
+    "source": "database-raw/99-exports/RAW-chat-export-2025-10-23T03-09-53-586Z.txt",
+    "type": "raw-txt",
+    "status": "archived",
+    "createdAt": "2025-10-23",
+    "notes": "Header-only/leer (Text-Stats: 2 Zeilen).",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-chat-export-2025-10-23T03-09-53-586Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-chat-export-2025-10-23T03-09-53-586Z",
+      "index": "database-curated/staging/chunks/RAW-chat-export-2025-10-23T03-09-53-586Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-chat-export-2025-10-23T03-09-53-586Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-chat-export-2025-10-23t03-11-11-106z",
+    "source": "database-raw/99-exports/RAW-chat-export-2025-10-23T03-11-11-106Z.txt",
+    "type": "raw-txt",
+    "status": "archived",
+    "createdAt": "2025-10-23",
+    "notes": "Header-only/leer (Text-Stats: 2 Zeilen).",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-chat-export-2025-10-23T03-11-11-106Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-chat-export-2025-10-23T03-11-11-106Z",
+      "index": "database-curated/staging/chunks/RAW-chat-export-2025-10-23T03-11-11-106Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-chat-export-2025-10-23T03-11-11-106Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-chat-export-2025-10-23t03-57-37-172z",
+    "source": "database-raw/99-exports/RAW-chat-export-2025-10-23T03-57-37-172Z.txt",
+    "type": "raw-txt",
+    "status": "archived",
+    "createdAt": "2025-10-23",
+    "notes": "Header-only/leer (Text-Stats: 2 Zeilen).",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-chat-export-2025-10-23T03-57-37-172Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-chat-export-2025-10-23T03-57-37-172Z",
+      "index": "database-curated/staging/chunks/RAW-chat-export-2025-10-23T03-57-37-172Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-chat-export-2025-10-23T03-57-37-172Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-chat-export-2025-10-27t09-01-37-066z",
+    "source": "database-raw/99-exports/RAW-chat-export-2025-10-27T09-01-37-066Z.txt",
+    "type": "raw-txt",
+    "status": "archived",
+    "createdAt": "2025-10-27",
+    "notes": "Duplikat (nur Timestamp abweichend) von RAW 2025-10-27T09-16. Archiv/Provenienz.",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-chat-export-2025-10-27T09-01-37-066Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-chat-export-2025-10-27T09-01-37-066Z",
+      "index": "database-curated/staging/chunks/RAW-chat-export-2025-10-27T09-01-37-066Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-chat-export-2025-10-27T09-01-37-066Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-chat-export-2025-10-27t09-06-23-120z",
+    "source": "database-raw/99-exports/RAW-chat-export-2025-10-27T09-06-23-120Z.txt",
+    "type": "raw-txt",
+    "status": "archived",
+    "createdAt": "2025-10-27",
+    "notes": "Header-only/leer (Text-Stats: 2 Zeilen).",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-chat-export-2025-10-27T09-06-23-120Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-chat-export-2025-10-27T09-06-23-120Z",
+      "index": "database-curated/staging/chunks/RAW-chat-export-2025-10-27T09-06-23-120Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-chat-export-2025-10-27T09-06-23-120Z.md"
+      }
+    }
+  },
+  {
+    "id": "pending-raw-chat-export-2025-10-27t09-16-00-188z",
+    "source": "database-raw/99-exports/RAW-chat-export-2025-10-27T09-16-00-188Z.txt",
+    "type": "raw-txt",
+    "status": "in-progress",
+    "createdAt": "2025-10-27",
+    "notes": "Kanonisch (neuste, verwertbare RAW-Quelle).",
+    "artifacts": {
+      "normalized": "database-curated/staging/RAW-chat-export-2025-10-27T09-16-00-188Z.normalized.txt",
+      "chunksDir": "database-curated/staging/chunks/RAW-chat-export-2025-10-27T09-16-00-188Z",
+      "index": "database-curated/staging/chunks/RAW-chat-export-2025-10-27T09-16-00-188Z/index.json",
+      "reports": {
+        "textStats": "database-curated/staging/reports/text-stats.RAW-chat-export-2025-10-27T09-16-00-188Z.md"
+      }
+    }
   }
 ]

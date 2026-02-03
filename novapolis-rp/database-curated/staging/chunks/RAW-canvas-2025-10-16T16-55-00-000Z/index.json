@@ -1,0 +1,16 @@
+{
+  "source": "F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/RAW-canvas-2025-10-16T16-55-00-000Z.txt",
+  "normalized": "F:/VS Code Workspace/Main/novapolis-rp/database-curated/staging/RAW-canvas-2025-10-16T16-55-00-000Z.normalized.txt",
+  "chunk_size_lines": 1000,
+  "total_lines": 26,
+  "chunks_dir": "F:/VS Code Workspace/Main/novapolis-rp/database-curated/staging/chunks/RAW-canvas-2025-10-16T16-55-00-000Z",
+  "chunks": [
+    {
+      "name": "RAW-canvas-2025-10-16T16-55-00-000Z.part-001.txt",
+      "start_line": 1,
+      "end_line": 26,
+      "line_count": 26,
+      "sha1": "058f4e0f35b2428f6f568f84933a676ee3fdefe4"
+    }
+  ]
+}

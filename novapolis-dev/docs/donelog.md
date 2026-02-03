@@ -480,7 +480,11 @@ Done Log (Novapolis-RP)
 2025-10-27 (später)
 - Admin-Canvas angelegt: `database-rp/00-admin/Canvas-T+0-Timeline.md` (Tagesanker, Sequenz, Debug-Hinweise, Links)
 - Admin-Canvas angelegt: `database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md` (Tageswechsel-Prozedur, ATSD+Canvas-Zahl, Logs, Testfälle)
-- Cross-Links ergänzt: `database-rp/03-locations/C6.md` ↔ `database-rp/00-admin/C6-Logistik-Policy.md`; Index-Link in `00-admin/Logistik.md` ergänzt
+- Cross-Links ergänzt: `database-rp/03-locations/C6.md` ↔ `database-rp/01-factions/novapolis/03-locations/C6-Logistik-Policy.md`; Index-Link in `00-admin/Logistik.md` ergänzt
+
+- 2026-02-02 13:17: RP-Refactor: C6/D5 Logistik-Policies aus `database-rp/00-admin` nach `database-rp/01-factions/novapolis/03-locations/` verschoben; Ops aus `00-admin/ops` nach `00-ops` verschoben; Referenzen und `database-rp/index.json` umgebogen.
+
+- 2026-02-02 14:57: RP-Refactor: Fraktionsbezogene Indizes aus `database-rp/00-admin` entfernt (`person_index_np.*`, `Index-Haendlergilde.*`) und in Fraktionspfade verschoben; Referenzen und `database-rp/index.json` aktualisiert.
 - Missionslog aktualisiert: Abschnitt „Prozess L.1 - Missionsfluss“ mit Verweis zur C6-Logistik-Policy hinzugefügt
  - AI-Behavior-Mapping angelegt: `database-rp/00-admin/AI-Behavior-Mapping.md` (Zustände/Trigger/Interaktionen: Reflex + Hooks Ronja/Jonas; Links zu Charakter-Canvas)
  - last-updated ergänzt: `novapolis-dev/docs/index.md`, `novapolis-dev/docs/todo.md` (ISO-8601 mit Zeitzone)

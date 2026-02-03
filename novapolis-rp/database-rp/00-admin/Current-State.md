@@ -59,7 +59,8 @@ Namensdrift (separat behandeln)
 ------------------------------
 
 - Keine stillen Umbenennungen in SSOT. Namens-/Alias-Entscheidungen werden separat dokumentiert und dann konsistent nachgezogen.
-- Wenn alte Token existieren (z. B. N7), wird ein eindeutiger Primary-Name gewählt und der alte Token höchstens als Alias geführt.
+- Token-Regel: Einfache Buchstaben-Zahlenkombinationen (z. B. D5, C6, E3, F1) sind **für Stations-/Liniencodes reserviert**.
+- Legacy-Token wie „N7“ werden **nicht** als Alias weitergeführt (Verwechslungsgefahr mit Stationen); stattdessen werden sprechende Namen verwendet (z. B. „C6-Nordanomalie“).
 
 Stationen D5/C6 (v1.0)
 ----------------------

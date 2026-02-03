@@ -1,0 +1,26 @@
+[DOCID: ereignislog_weltgeschehen_v1] [TYPE: event_log] [OWNER: system]
+[VERSION: v1] [TIMESTAMP: 2025-10-16_05:34]
+
+Ereignislog – Weltgeschehen
+
+Chronologische Übersicht zentraler Ereignisse, Entwicklungen und großräumiger Veränderungen in der Metro-Novapolis-Kampagne.
+
+E-0001: Reaktorstörung D5
+
+Datum: [vor Missionsbeginn]Ort: D5Beteiligte: Ronja Kerschner, ReflexBeschreibung: Reaktorleistung fiel abrupt auf 32 %, Systemüberhitzung drohte.Ergebnis: Stabilisierung durch Ronja; volle Leistung wiederhergestellt.Folgen: Beginn der Symbiosephase mit Reflex.
+
+E-0002: Funkabbruch zur Allianz
+
+Datum: [vor Missionsbeginn]Ort: D5 / OberflächenverbindungBeteiligte: Allianz-Relais, D5-KontrollzentrumBeschreibung: Totalausfall der Funkverbindung zur übergeordneten Allianzstruktur.Ergebnis: Isolation der südlichen Sektoren.Folgen: Ronja übernahm volle operative Leitung; Beginn der Unabhängigkeit von D5.
+
+E-0003: Gründung von Novapolis
+
+Datum: [Tag 5]Ort: D5Beteiligte: Ronja, Reflex, Jonas, PahlBeschreibung: Offizielle Benennung und organisatorische Strukturierung der Stationen D5 & C6 als unabhängige Fraktion „Novapolis“.Ergebnis: Selbstverwaltete Verwaltungseinheit, unabhängige Produktions- und Energieversorgung.Folgen: Entstehung einer neuen Fraktionsmacht in der südlichen Metro.
+
+E-0004: Erste Handelsroute (H-47)
+
+Datum: [Tag 9]Ort: D5 / C6Beteiligte: Ronja, Reflex, Händlergruppe H-47Beschreibung: Kontaktaufnahme mit überlebender Händlerkarawane; erfolgreiche Verhandlung über dauerhafte Kooperation.Ergebnis: Händlergruppe integriert, C6 als Handelsstützpunkt aktiviert.Folgen: Beginn geregelter Handelszyklen.
+
+E-0005: Südliches Signalfragment
+
+Datum: [Tag 17]Ort: Sensorstation C6Beteiligte: Reflex, RonjaBeschreibung: Anomales Signal aus südlichem Bereich jenseits bekannter Tunnel erfasst.Ergebnis: unklar – Analyse im Gang.Folgen: Erhöhte Aufmerksamkeit bei allen Fraktionen; erste Scoutbewegungen Richtung Süden registriert.

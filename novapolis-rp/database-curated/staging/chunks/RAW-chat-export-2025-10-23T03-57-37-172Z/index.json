@@ -1,0 +1,16 @@
+{
+  "source": "F:/VS Code Workspace/Main/novapolis-rp/database-raw/99-exports/RAW-chat-export-2025-10-23T03-57-37-172Z.txt",
+  "normalized": "F:/VS Code Workspace/Main/novapolis-rp/database-curated/staging/RAW-chat-export-2025-10-23T03-57-37-172Z.normalized.txt",
+  "chunk_size_lines": 1000,
+  "total_lines": 3,
+  "chunks_dir": "F:/VS Code Workspace/Main/novapolis-rp/database-curated/staging/chunks/RAW-chat-export-2025-10-23T03-57-37-172Z",
+  "chunks": [
+    {
+      "name": "RAW-chat-export-2025-10-23T03-57-37-172Z.part-001.txt",
+      "start_line": 1,
+      "end_line": 3,
+      "line_count": 3,
+      "sha1": "2d6723b3e0e77013fa19c92dcedea87b341ce5c0"
+    }
+  ]
+}

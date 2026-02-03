@@ -1,0 +1,10 @@
+{
+  "title": "D5 – Logistik-Policy (Novapolis)",
+  "category": "admin",
+  "slug": "d5-logistik-policy",
+  "version": "0.1",
+  "tags": [],
+  "affiliations": ["novapolis"],
+  "dependencies": [],
+  "source": "database-rp/01-factions/novapolis/03-locations/D5-Logistik-Policy.md"
+}

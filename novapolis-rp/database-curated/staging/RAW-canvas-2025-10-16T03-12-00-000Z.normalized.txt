@@ -1,0 +1,48 @@
+[DOCID: char_jonas_v1] [TYPE: character] [OWNER: novapolis]
+[VERSION: v1] [TIMESTAMP: 2025-10-16_03:12]
+
+## Charakterprofil – Jonas
+
+**Alter:** 28–32 (geschätzt)
+**Herkunft:** Station E2 (Evakuierung gescheitert; Gasleck, Teilkollaps)
+**Aktueller Status:** Techniker/Tüftler unter Novapolis-Schirm
+**Primäre Bezugspersonen:** Ronja Kerschner, Reflex (Subinstanz WK-1)
+
+### Kurzbio
+
+* Überlebte den Vorfall in **E2**; Schwester im Kollaps zurücklassen müssen (anhaltende Schuldgefühle).
+* **Erstkontakt:** von Ronja und Reflex **auf dem ersten Marsch von D5 nach C6** im Verbindungstunnel aufgegriffen.
+* Zunächst misstrauisch befragt; erhielt Wahl: **C6 begleiten** oder **Werkstatt** im Technikraum unter D5 einrichten.
+* Entscheidung: **Werkstatt D5 (Überwachung durch Reflex-Subinstanz WK-1)**; spätere Einsätze in C6 nach Bedarf.
+
+### Persönlichkeit
+
+Ruhig, präzise, vorsichtig. Misstrauisch gegenüber Autoritäten, zeigt aber Respekt vor Kompetenz. Bewundert Ronja, fürchtet Reflex ein wenig, nennt dessen Subinstanz halb im Spaß „Aufpasser“. Trägt latente Überlebensschuld, kompensiert durch Arbeit.
+
+### Fähigkeiten
+
+* **Technik/Tüfteln:** Reparaturen, Feinmechanik, ad-hoc-Lösungen
+* **Sanitätsgrundlagen:** Stabilisierung, Transport (z. B. Pahl)
+* **Logistik:** Materialaufnahme, einfache Bestandsführung
+
+### Ausrüstung (grundlegend)
+
+* Werkzeugrolle (gebraucht)
+* Atemschutz (funktionstüchtig)
+* Lampe, Multimeter, Flicken-Set
+
+### Aktueller Auftrag
+
+* Unterstützung in **C6** bei Kontrollraum-Instandsetzung;
+* Zwischenzeitlich Pflege/Überwachung von **Pahl**;
+* Rückmeldungen an **Reflex WK-1** zur Arbeitsqualität und Sicherheit.
+
+### Psychologische Notizen
+
+* Trigger: Erwähnung von E2/Schwester
+* Bindung an Novapolis über **Sicherheit + Sinn** (Arbeit)
+* Potenzial: verlässlicher Operateur, wenn Vertrauen wächst
+
+### Zitat
+
+„Wenn es läuft, rede ich nicht drüber. Wenn es nicht läuft, rede ich nur so lange, bis es wieder läuft.“

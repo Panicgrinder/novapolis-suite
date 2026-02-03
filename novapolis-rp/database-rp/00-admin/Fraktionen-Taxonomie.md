@@ -1,16 +1,13 @@
 ---
-stand: 2026-01-13 02:03
-update: N7-Benennung als Alias standardisiert (C6-Nordanomalie); Postflight-Receipt ergänzt.
-checks: "run_checks_and_report.py PASS (2026-01-13 02:01); npm validate:rp PASS (2026-01-13 02:03); npm validate:crossrefs PASS (2026-01-13 02:03); checks_rp_consistency.py --strict PASS (2026-01-13 02:03)"
+stand: 2026-02-02 19:01
+update: "Token-Regel ergänzt (Buchstaben-Zahlen nur Stationscodes); N7-Alias entfernt (C6-Nordanomalie); Frontmatter bereinigt."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-02 19:01); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-02-02 19:01)"
 slug: fraktionen-taxonomie
 category: admin
 canvas: fraktionen-taxonomie
 status: draft
 version: "0.1"
 ---
-
-Fraktionen (Taxonomie & Wissensmatrix)
-=====================================
 
 Zweck
 -----
@@ -28,6 +25,14 @@ Definitionen
   - **H** (high): verifiziert/operativ bekannt.
   - **M** (medium): teilbekannt, Gerüchte + einzelne Belege.
   - **L** (low): kaum/gar nicht bekannt.
+
+Token-Regel (Stationscodes)
+--------------------------
+
+- Einfache Buchstaben-Zahlenkombinationen (z. B. D5, C6, E3, F1) sind **für Stations-/Liniencodes reserviert** und treten nur als solche (historisch/technisch) auf.
+- Abgeleitete, lokale Bezeichner dürfen vorkommen, müssen aber **präfixiert** sein (z. B. `C6-N3`) und sind keine eigenständigen Stationen.
+- Für Anomalien, Projekte, Personen, Fraktionen und Artefakte werden **sprechende Namen** genutzt.
+- Der Legacy-Token „N7“ wird **nicht** als Alias weitergeführt, um Verwechslung mit einer Station auszuschließen.
 
 Taxonomie (aktuell)
 -------------------
@@ -66,11 +71,11 @@ Hinweis: Diese Matrix ist ein Default-Startwert für Informationskontrolle. Anpa
 
 - **Nordlinie / Tunnel D5↔C6** (Projekt: [Nordlinie-01](../01-factions/novapolis/05-projects/Nordlinie-01.md))
 - **E3** (evakuiert; Monitoring/Anomalie offen)
-- **C6-Nordanomalie** (Anomalie; versiegelt; Alias: N7; siehe [Missionslog](./Missionslog.md))
+- **C6-Nordanomalie** (Anomalie; versiegelt; siehe [Missionslog](./Missionslog.md))
 
 ### Matrix
 
-| Gruppe | Nordlinie (D5↔C6) | E3 | C6-Nordanomalie (Alias: N7) |
+| Gruppe | Nordlinie (D5↔C6) | E3 | C6-Nordanomalie |
 | --- | --- | --- | --- |
 | Novapolis | H | H | H |
 | Händlerbund | M | L | L |

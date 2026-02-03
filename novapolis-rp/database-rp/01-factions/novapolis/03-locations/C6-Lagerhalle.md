@@ -42,5 +42,5 @@ Hooks
 Verlinkungen
 ------------
 - C6 → ./C6.md
-- Logistik-Policy C6 → ../00-admin/C6-Logistik-Policy.md
+- Logistik-Policy C6 → ./C6-Logistik-Policy.md
 - Inventar C6 → ../04-inventory/C6-inventar.md

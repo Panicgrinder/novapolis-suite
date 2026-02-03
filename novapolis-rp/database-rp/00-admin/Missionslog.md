@@ -1,6 +1,6 @@
 ---
-stand: 2026-02-01 13:25
-update: "TBD-Rauschen reduziert: '-' = unbekannt, 'tbd' nur für konkrete Nacharbeit."
+stand: 2026-02-02 18:40
+update: "N7-Alias entfernt (C6-Nordanomalie); Nordlinie-Reporting auf skalierbares Modell ausgerichtet."
 checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
 category: admin
 canvas: missionslog
@@ -32,7 +32,7 @@ Hinweise:
 Prozess L.1 - Missionsfluss
 ---------------------------
 - Status → Inventarabschluss → Verlinkungen (Logistik/Missionen) → Archiv
-- Referenz: [C6 - Logistik-Policy](./C6-Logistik-Policy.md)
+- Referenz: [C6 - Logistik-Policy](../01-factions/novapolis/03-locations/C6-Logistik-Policy.md)
 
 Aktiv
 -----
@@ -112,7 +112,7 @@ Hinweis: Diese Liste ergänzt nur belegte Anker aus den Scenes. Start/Ende/Veran
 - Inventar-Link: -
 - Orte/Projekte: [C6](../01-factions/novapolis/03-locations/C6.md)
 
-### Anomalie: C6-Nordanomalie (Alias: N7)
+### Anomalie: C6-Nordanomalie
 - Ziel: Lokalisieren, Effekte erfassen, Risiken/Trigger katalogisieren
 - Hinweis: Bereich wurde damals von Ronja mit Reflex versiegelt; Zugang nur unter expliziter Freigabe.
 - Start: -
@@ -158,7 +158,7 @@ Hinweis: Diese Liste ergänzt nur belegte Anker aus den Scenes. Start/Ende/Veran
   - Wer die Netztrennung/Abschaltung von E3 bemerkt, hängt davon ab, wer E3 (bzw. die Energie-/Sensorstrecken) überwacht hat.
 
 ### Bauabschnitt: Nordlinie-01 (Projekt)
-- Ziel: Fortschritt gemäß Tagesleistung m/Tag/Team dokumentieren
+- Ziel: Fortschritt gemäß E/S/B + Arbeitsblöcken dokumentieren (skalierbar)
 - Start: -
 - Ende: -
 - Status: aktiv (Fortschritt 40% von 2 600 m)

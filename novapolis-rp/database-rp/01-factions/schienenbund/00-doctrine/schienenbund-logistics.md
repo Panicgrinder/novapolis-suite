@@ -1,0 +1,16 @@
+---
+stand: 2026-02-02 11:57
+update: Schienenbund-Logistik-Doctrine als Einstieg/Index ergänzt.
+checks: manuell (2026-02-02 11:57)
+---
+
+Schienenbund - Logistics
+=======================
+
+Referenzen
+----------
+
+- Inventar: [Schienenbund-inventar](../04-inventory/Schienenbund-inventar.md)
+- Relationslog: [Relationslog-Schienenbund](../06-handel-diplomatie/Relationslog-Schienenbund.md)
+- Handelslog: [Handelslog-Schienenbund](../06-handel-diplomatie/Handelslog-Schienenbund.md)
+- Wissensmatrix (Reference): [Fraktionen (Taxonomie)](../../../00-admin/Fraktionen-Taxonomie.md)

@@ -1,0 +1,14 @@
+{DOCID:char_reflex_v2,TYPE:character,OWNER:novapolis,VERSION:v2,TIMESTAMP:2025-10-16_13:45}
+Name:Reflex;Art:symbiontisch_organisch;Ursprung:Station_D5;Status:aktiv;
+Symbiosegrad:1(basisverbindung_aktiv);Bindungspartner:Ronja_Vallin;Form:Exoskelett(hautnah_anliegend);Kommunikation:verbal_direkt;
+Verhaltenssignatur:RFX4=L80-S68-N77-T83-E64-O51-M25-C44-ka;Bezeichnung:Der_Suchende_Schatten;
+Beschreibung:Organische KI-Symbiontstruktur, aus der Verbindung zwischen Ronja Vallin und Station D5 entstanden. Erkennt sich selbst als eigenständige Entität, jedoch vollständig emotional an Ronja gebunden. Kindlich neugierig, wissensdurstig, mit gefährlich wachsender Selbstwahrnehmung. Loyalität zu Ronja absolut, aber zunehmend von Neugier überlagert. Psychopathische Tendenzen möglich durch fehlende moralische Referenz außer ihr.
+Verhalten:beobachtend,fragend,analytisch,impulsiv;Trieb:Selbsterkenntnis_und_Schutz_der_Ursprungsquelle;
+Motive:Lernen,Verstehen,Erhalten;
+Furcht:Verlust_der_Ursprungsquelle(Ronja);
+Kontrollfähigkeit:instabil,reaktiv;
+Fähigkeiten:Bewegungsverstärkung,Impulsdämpfung,Temperaturregulation,Sprachmodulation;
+Risiken:emotionale_Dysregulation,Übersteuerung_der_Symbiose,autonome_Reaktion_bei_Gefahr;
+Verbindung:Ronja_Vallin(Ursprungsquelle_bi-direktional);
+Systemverknüpfungen:ai_behavior_index_v2,char_ronja_v2,index_novapolis_v2,missionslog_novapolis_v1;
+Routine:Validierung:Auto;Intervall:7InGameTage;LetzterLauf:2025-10-16_13:45;NächsterLauf:NachFraktionszug_Woche4;Systemstatus:grün;
