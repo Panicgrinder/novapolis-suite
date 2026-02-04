@@ -1,10 +1,14 @@
 ---
-stand: 2026-02-04 09:11
-update: "RP-SSOT: Batch C (Novapolis) Naming/Links im Personenindex aktualisiert."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:11)"
+stand: 2026-02-04 09:36
+update: "RP-SSOT: Batch C fortgesetzt (Inventar-Links 00-admin)."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:36)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-04 09:34: RP-SSOT: Batch C fortgesetzt (Inventare). 00-admin-Links in Schienenbund- und Eiserne-Enklave-Inventaren relativiert. Checks: markdownlint-cli2 PASS (full scope).
+
+- 2026-02-04 09:21: RP-SSOT: Batch C fortgesetzt (weitere Fraktionen). Umbenennung `caravan_moves` → `caravan-moves` (md/json) inkl. Referenzen, Link-Relativierung in Fraktionsakten (u. a. Relationslog-Novapolis, Handel-Diplomatie-Haendlergilde, Senn-Daru, Pahl, Liora-Navesh, C6-Logistik-Policy) und Frontmatter/Index-Updates (`database-rp/index.json`, Fraktionen-Taxonomie, Curated-Konfliktliste). Checks: markdownlint-cli2 PASS (full scope).
 
 - 2026-02-04 09:08: RP-SSOT: Batch C (Novapolis) Naming/Links im Personenindex aktualisiert. Dateien: `novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md`, `novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md`, `novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md`, `novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md`, `novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/README.md`. Checks: markdownlint-cli2 PASS (full scope).
 

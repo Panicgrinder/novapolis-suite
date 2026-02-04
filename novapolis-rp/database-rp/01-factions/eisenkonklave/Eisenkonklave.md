@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-07 18:47
-update: Fraktionsnamen (Anzeige) aktualisiert (Händlerbund/Schienenbund).
-checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
+stand: 2026-02-04 09:21
+update: Link auf caravan-moves ergänzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
 slug: eisenkonklave
 category: faction
 status: draft
@@ -20,7 +20,7 @@ Eisenkonklave (Fraktion)
 Diplomatie & Beziehungen
 ------------------------
 - Novapolis: neutral_wachsam → laufende Gespräche über Zugang zu Ressourcen.
-- Händlerbund: wechselhaft → einzelne Handelsfenster via `caravan_moves`.
+- Händlerbund: wechselhaft → einzelne Handelsfenster via [caravan-moves](../haendlerbund/05-projects/caravan-moves.md).
 - Schienenbund: feindselig → Konflikt um Tunnelkontrolle.
 
 Systemverknüpfungen

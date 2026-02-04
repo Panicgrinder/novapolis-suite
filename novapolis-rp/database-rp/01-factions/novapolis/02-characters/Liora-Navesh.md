@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-13 03:02
-update: Fraktionszuordnung (affiliations) auf Arkologie-A1 korrigiert.
-checks: npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-13 03:05); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-13 03:05); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Liora-Navesh.md' PASS (2026-01-13 03:05); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-13 03:05); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-13 03:05)
+stand: 2026-02-04 09:21
+update: Verweise auf Admin-SSOT relativisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
 title: Liora Navesh
 category: character
 slug: liora-navesh
@@ -87,7 +87,7 @@ Systemverknüpfungen & Referenzen
 
 - `ai_behavior_index_v2` - Cluster-/Modifikatorprofil für Arkologie-Akteure
 - `relationslog_arkologie_v1` - Kontakte, Spannungen und Handelskanäle
-- `database-rp/00-admin/Ereignislog-Weltgeschehen.md` - Verknüpfung für SÜDFRAGMENT/TIMELINE-Abgleich
+- [Ereignislog-Weltgeschehen](../../../00-admin/Ereignislog-Weltgeschehen.md) - Verknüpfung für SÜDFRAGMENT/TIMELINE-Abgleich
 - `cluster_index_v1` - Standortcodierung „Arkologie_A1“ (Alias gepflegt)
 
 Ziele (kurz)

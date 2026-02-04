@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 09:11
-update: Batch C gestartet: Novapolis-Hub Links und Personenindex korrigiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:11)"
+stand: 2026-02-04 09:36
+update: Batch C fortgesetzt: Inventar-Links zu 00-admin korrigiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:36)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,18 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: Batch C (weitere Fraktionen) - Links/Naming (2026-02-04 09:21)
+---------------------------------------------------------------
+
+- `caravan_moves` auf `caravan-moves` umbenannt (md/json) und Referenzen in Fraktionsdokumenten nachgezogen (u. a. Händlerbund-Index, G7, Eisenkonklave, Jonas/Draisine, C6-Logistik-Policy).
+- Fraktionsakten/SSOTs auf relative Links zu 00-admin und Novapolis normalisiert (Relationslog-Novapolis, Handel-Diplomatie-Haendlergilde, Senn-Daru, Pahl, Liora-Navesh).
+- Admin-Index/Registry-Referenzen aktualisiert in [novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md](novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md), [novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md](novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md) und [novapolis-rp/database-rp/index.json](novapolis-rp/database-rp/index.json).
+
+RP: Batch C (Inventare) - Links (2026-02-04 09:34)
+--------------------------------------------------
+
+- Schienenbund- und Eiserne-Enklave-Inventare: 00-admin-Links korrekt relativiert in [novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md](novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md) und [novapolis-rp/database-rp/01-factions/eisenkonklave/04-inventory/Eiserne-Enklave-inventar.md](novapolis-rp/database-rp/01-factions/eisenkonklave/04-inventory/Eiserne-Enklave-inventar.md).
 
 RP: Batch C (Novapolis) - Naming/Links (2026-02-04 09:08)
 --------------------------------------------------------

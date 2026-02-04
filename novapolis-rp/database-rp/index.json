@@ -317,8 +317,8 @@
       "json": "database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.json"
     },
     {
-      "md": "database-rp/01-factions/haendlerbund/05-projects/caravan_moves.md",
-      "json": "database-rp/01-factions/haendlerbund/05-projects/caravan_moves.json"
+      "md": "database-rp/01-factions/haendlerbund/05-projects/caravan-moves.md",
+      "json": "database-rp/01-factions/haendlerbund/05-projects/caravan-moves.json"
     },
     {
       "md": "database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md",

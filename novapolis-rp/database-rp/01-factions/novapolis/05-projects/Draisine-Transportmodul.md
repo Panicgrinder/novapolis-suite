@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-12 12:02
-update: "Schema-Gate: last_updated ergaenzt (Project-Pflichtfeld)."
-checks: npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-12 12:01); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-12 12:01); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/05-projects/Draisine-Transportmodul.md' PASS (2026-01-12 12:02); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-12 12:02)
+stand: 2026-02-04 09:21
+update: Link auf caravan-moves umgestellt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
 title: Draisine-/Transportmodul (Prototyp)
 category: project
 slug: draisine-transportmodul
@@ -32,7 +32,7 @@ Nicht-Scope (was es nicht ist)
 ------------------------------
 
 - Kein "schneller Zug" und kein verlässlicher Dauerdienst ohne Tunnel-Freigaben.
-- Kein Ersatz für Konvoi-Planung/Handelsrouten (siehe `caravan_moves`).
+- Kein Ersatz für Konvoi-Planung/Handelsrouten (siehe [caravan-moves](../../haendlerbund/05-projects/caravan-moves.md)).
 
 Status (aktueller Arbeitsstand)
 -------------------------------
@@ -65,8 +65,8 @@ Links
 -----
 
 - Projekt Nordlinie-01 → ../05-projects/Nordlinie-01.md
-- Logistik (Admin) → ../00-admin/Logistik.md
-- Missionslog → ../00-admin/Missionslog.md
+- Logistik (Admin) → ../../../00-admin/Logistik.md
+- Missionslog → ../../../00-admin/Missionslog.md
 - Jonas (Werkstatt) → ../02-characters/Jonas-Merek.md
 - Pahl (Abnahme/Hausregeln) → ../02-characters/Pahl.md
-- Karawanenbewegungen (Übersicht) → ../05-projects/caravan_moves.md
+- Karawanenbewegungen (Übersicht) → ../../haendlerbund/05-projects/caravan-moves.md

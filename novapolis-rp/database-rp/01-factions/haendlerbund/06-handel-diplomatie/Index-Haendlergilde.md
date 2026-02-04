@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 09:08
-update: Index-Links auf relative Pfade umgestellt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:08)"
+stand: 2026-02-04 09:21
+update: Index-Links konsolidiert (caravan-moves).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)"
 slug: index_haendlergilde_v1
 category: admin
 status: draft
@@ -14,7 +14,7 @@ Index Händlerbund (Händlergilde-ID, v1)
 Beschreibung
 ------------
 - Akteurs- und Strukturverzeichnis des Händlerbunds (Führung, Komitees, mobile Einheiten).
-- Synchronisiert mit [caravan_moves](../05-projects/caravan_moves.md), [Handel-Diplomatie-Haendlergilde](./Handel-Diplomatie-Haendlergilde.md), [Personenindex Novapolis](../../novapolis/02-characters/person-index-np.md).
+- Synchronisiert mit [caravan-moves](../05-projects/caravan-moves.md), [Handel-Diplomatie-Haendlergilde](./Handel-Diplomatie-Haendlergilde.md), [Personenindex Novapolis](../../novapolis/02-characters/person-index-np.md).
 - Hub/Übersicht (Handel/Diplomatie): [Index-Handel-Diplomatie](../../../00-admin/Index-Handel-Diplomatie.md)
 - Herkunft: RAW-Cluster `haendlergilde_extern` (16.10.2025 16:55Z).
 

@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-13 19:26
-update: "T+0: Scene-Anker ergänzt; potenziell unbelegte Statusaussagen (C6/Tunnel) als tbd/Policy entschärft. Checks PASS."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Logistik.md' PASS (2026-01-13 19:26); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Logistik.md' PASS (2026-01-13 19:26); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-13 19:26)"
+stand: 2026-02-04 09:21
+update: Verweis auf caravan-moves aktualisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)"
 canvas: Logistik
 last_updated: 2025-11-07T04:09:00+01:00
 category: admin
@@ -93,7 +93,7 @@ Verlinkungen
 - [Admin: Day-Switch & Debug](./Canvas-Admin-Day-Switch-Debug.md)
 - [Admin: Timeline (T+0)](./Canvas-T+0-Timeline.md)
 - [Projekt: Nordlinie 01](../01-factions/novapolis/05-projects/Nordlinie-01.md)
-- [Projekt: Karawanenbewegungen](../01-factions/haendlerbund/05-projects/caravan_moves.md)
+- [Projekt: Karawanenbewegungen](../01-factions/haendlerbund/05-projects/caravan-moves.md)
 - [D5](../01-factions/novapolis/03-locations/D5.md), [C6](../01-factions/novapolis/03-locations/C6.md)
 
 

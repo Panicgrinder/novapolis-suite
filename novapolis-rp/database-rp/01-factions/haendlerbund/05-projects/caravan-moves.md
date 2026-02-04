@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 02:04
-update: "Link ergänzt: Draisine-/Transportmodul ist eigenes D5-Projekt (Status/Scope dort), caravan_moves bleibt Konvoi/Routen-Übersicht."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 02:07); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 02:07); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 02:07)
+stand: 2026-02-04 09:21
+update: Dateiname umgestellt und Links korrigiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
 canvas: Karawanenbewegungen
 last_updated: 2025-11-07T04:09:00+01:00
 category: project
@@ -41,10 +41,10 @@ Abhängigkeiten
 
 Links
 -----
-- Logistik → ../00-admin/Logistik.md
-- C6 → ../03-locations/C6.md
-- D5 → ../03-locations/D5.md
-- Missionslog → ../00-admin/Missionslog.md
-- Draisine-/Transportmodul (D5 Prototyp) → ../05-projects/Draisine-Transportmodul.md
+- Logistik → ../../../00-admin/Logistik.md
+- C6 → ../../novapolis/03-locations/C6.md
+- D5 → ../../novapolis/03-locations/D5.md
+- Missionslog → ../../../00-admin/Missionslog.md
+- Draisine-/Transportmodul (D5 Prototyp) → ../../novapolis/05-projects/Draisine-Transportmodul.md
 
 

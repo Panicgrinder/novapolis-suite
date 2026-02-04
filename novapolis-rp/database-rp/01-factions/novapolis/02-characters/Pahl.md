@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 03:44
-update: checks aktualisiert (Basis-Stabilisierung)
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 03:44); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\02-characters\Lyra-Hest.md novapolis-rp\database-rp\02-characters\Pahl.md novapolis-rp\database-rp\02-characters\Marei.md novapolis-rp\database-rp\04-inventory\D5-inventar.md PASS (2026-01-11 03:44)
+stand: 2026-02-04 09:21
+update: Admin- und Standortverweise relativisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
 title: Pahl
 category: character
 slug: pahl
@@ -110,8 +110,8 @@ Systemverknüpfungen & Referenzen
 - `ai_behavior_index_v2` - Cluster-Eintrag „Der Überwacher“.
 - `missionslog` - Regelwerke für Freigaben/Belege (FACT [INV-LOG]).
 - `logistik` - Synchronisierung von Wartungsfenstern und Materialflüssen.
-- `database-rp/03-locations/D5.md` - Standort- und Infrastrukturkontext.
-- `database-rp/00-admin/Logistik.md` - Linien-/Energieaufzeichnungen.
+- [D5](../03-locations/D5.md) - Standort- und Infrastrukturkontext.
+- [Logistik](../../../00-admin/Logistik.md) - Linien-/Energieaufzeichnungen.
 
 Quellen & Hinweise
 ------------------

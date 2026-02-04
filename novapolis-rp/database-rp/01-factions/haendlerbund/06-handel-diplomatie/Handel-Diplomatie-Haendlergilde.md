@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 07:40
-update: Aus 00-admin nach Händlerbund/06-handel-diplomatie verschoben (Fraktionsakte); Checks aktualisiert.
-checks: markdownlint-cli2 PASS (2026-01-11 07:40); scripts/check_frontmatter.py PASS (2026-01-11 07:40); scripts/checks_rp_consistency.py --strict PASS (2026-01-11 07:40)
+stand: 2026-02-04 09:21
+update: Links auf relative Pfade umgestellt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
 slug: handel_diplomatie_haendlergilde_v1
 category: canon
 status: draft
@@ -15,9 +15,9 @@ Zweck
 -----
 - Dokumentiert handels- und diplomatierelevante Inhalte **mit Händlerbund-Bezug** (Fraktionsakte; kein globaler Sammelpunkt).
 - Ableitungen aus den RAW-CANVAS `relationslog_haendlergilde_v1` und `handelslog_haendlergilde_v1` (siehe Cluster-Index Quelle vom 2025-10-16).
-- Hub/Übersicht (Index): `database-rp/00-admin/Index-Handel-Diplomatie.md`
-- Novapolis-spezifischer SSOT-Anker: `database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md` (aus `relationslog_novapolis_v1`).
-- Dient als Abgleichsgrundlage für `Arlen-Dross.md`, `Marven-Kael.md`, `caravan_moves.md`.
+- Hub/Übersicht (Index): [Index-Handel-Diplomatie](../../../00-admin/Index-Handel-Diplomatie.md)
+- Novapolis-spezifischer SSOT-Anker: [Relationslog-Novapolis](../../novapolis/06-handel-diplomatie/Relationslog-Novapolis.md) (aus `relationslog_novapolis_v1`).
+- Dient als Abgleichsgrundlage für [Arlen-Dross](../02-characters/Arlen-Dross.md), [Marven-Kael](../02-characters/Marven-Kael.md), [caravan-moves](../05-projects/caravan-moves.md).
 
 Arbeitsstatus
 -------------

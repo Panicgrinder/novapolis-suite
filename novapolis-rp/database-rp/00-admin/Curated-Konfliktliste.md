@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 02:31
-update: "Top-10 rotiert: gelöste Punkte ins Archiv verschoben; Konflikt #1 Decision nachgezogen; Offen-Liste synchronisiert."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 02:31); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 02:31); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 02:31)
+stand: 2026-02-04 09:21
+update: Verweis auf caravan-moves aktualisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
 category: admin
 canvas: curated-konfliktliste
 slug: curated-konfliktliste
@@ -132,7 +132,7 @@ Archiv: Gelöste Top-10 (2026-01-11)
    - Betroffene SSOT-Dateien (vermutet):
      - `database-rp/02-characters/Jonas-Merek.md`
      - `database-rp/05-projects/Draisine-Transportmodul.md`
-     - `database-rp/05-projects/caravan_moves.md` (Koordination/Läufe)
+    - [caravan-moves](../01-factions/haendlerbund/05-projects/caravan-moves.md) (Koordination/Läufe)
    - Priorität: P2
 
 10) „Lebewesen unter dem Boden“ (C6): Einordnung als Lore/Anomalie vs Gerücht

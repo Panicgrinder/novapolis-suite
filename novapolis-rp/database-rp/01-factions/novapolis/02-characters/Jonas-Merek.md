@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 01:40
-update: "JEALOUSY-GLOVES aligned: Lumen kann betroffene Körperstelle bedecken (Kontakt-Guard), Consent/Stop/Freigabe via Reference."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:37)
+stand: 2026-02-04 09:21
+update: Systemverknüpfungen auf relative Pfade umgestellt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
 title: Jonas Merek
 category: character
 slug: jonas-merek
@@ -106,8 +106,8 @@ Systemverknüpfungen & Referenzen
 
 - `ai_behavior_index_v2` - Verhaltenscluster (Verbundene) gepflegt.
 - `missionslog` - Prozess L.1, Freigaben und Terminalmeldungen.
-- `database-rp/05-projects/Draisine-Transportmodul.md` - D5-Prototyp (Draisine/Transportmodul), Jonas liefert Werkstattstatus.
-- `database-rp/05-projects/caravan_moves.md` - Konvoi-/Routen-Übersicht (Koordination externer Läufe).
+- [Draisine-Transportmodul](../05-projects/Draisine-Transportmodul.md) - D5-Prototyp (Draisine/Transportmodul), Jonas liefert Werkstattstatus.
+- [caravan-moves](../../haendlerbund/05-projects/caravan-moves.md) - Konvoi-/Routen-Übersicht (Koordination externer Läufe).
 - `database-rp/02-characters/Lumen.md` - Kopplungsdetails.
 
 Quellen & Hinweise

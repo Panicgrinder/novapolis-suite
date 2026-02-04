@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 09:08
-update: Personenindex-Link aktualisiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:08)"
+stand: 2026-02-04 09:21
+update: Links auf relative Pfade korrigiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)"
 title: Senn Daru
 category: character
 slug: senn-daru
@@ -66,15 +66,15 @@ Offene Punkte
 Links
 -----
 
-- Relationslog Novapolis → ../00-admin/Relationslog-Novapolis.md
-- Handel & Diplomatie (Händlerbund) → ../00-admin/Handel-Diplomatie-Haendlergilde.md
+- Relationslog Novapolis → ../../novapolis/06-handel-diplomatie/Relationslog-Novapolis.md
+- Handel & Diplomatie (Händlerbund) → ../06-handel-diplomatie/Handel-Diplomatie-Haendlergilde.md
 - Personenindex Novapolis → ../../novapolis/02-characters/person-index-np.md
 - G7 → ../03-locations/G7.md
 
 Quellen & Review
 ----------------
 
-- SSOT: ../00-admin/Relationslog-Novapolis.md
+- SSOT: ../../novapolis/06-handel-diplomatie/Relationslog-Novapolis.md
 - SSOT: ../../novapolis/02-characters/person-index-np.md
 
 

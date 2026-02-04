@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 07:40
-update: Aus 00-admin nach Novapolis/06-handel-diplomatie verschoben (Fraktions-SSOT-Basis); Checks aktualisiert.
-checks: markdownlint-cli2 PASS (2026-01-11 07:40); scripts/check_frontmatter.py PASS (2026-01-11 07:40); scripts/checks_rp_consistency.py --strict PASS (2026-01-11 07:40)
+stand: 2026-02-04 09:21
+update: Links auf relative Pfade umgestellt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
 title: Relationslog – Novapolis (Handel & Diplomatie)
 category: canon
 slug: relationslog_novapolis_v1
@@ -45,7 +45,7 @@ Quellen
   - Export: Energie, technische Reparaturen, Kommunikationszugang
   - Import: Nahrungsmittel, Filter, Grundbedarfsgüter
 - Abhängigkeit: gering (autarkes Ziel)
-- Bemerkung: erste Handelskontakte über Karawane H-47 (Senn Daru) in C6; siehe Charaktereintrag: `database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md`.
+- Bemerkung: erste Handelskontakte über Karawane H-47 (Senn Daru) in C6; siehe Charaktereintrag: [Senn Daru](../../haendlerbund/02-characters/Senn-Daru.md).
 
 ### Eisenkonklave
 
@@ -98,7 +98,7 @@ Transporte erfordern derzeit manuelle Koordination und Unterstützung durch Refl
 
 Für alle zukünftigen Handels- oder Materialtransfers ist der Canvas „novapolis_logistik_v1“ zu berücksichtigen.
 
-SSOT-Referenz: Logistik (`database-rp/00-admin/Logistik.md`, slug: `logistik`).
+SSOT-Referenz: Logistik ([Logistik](../../../00-admin/Logistik.md), slug: `logistik`).
 Hinweis: RAW nennt hierfür „novapolis_logistik_v1“ (Legacy-Bezeichner).
 
 6) Ereignisse & Trigger (Woche 3)
@@ -119,7 +119,7 @@ Hinweis: RAW nennt hierfür „novapolis_logistik_v1“ (Legacy-Bezeichner).
 
 Verlinkungen
 ------------
-- Handel/Diplomatie (Hub/Index): `database-rp/00-admin/Index-Handel-Diplomatie.md`
-- Ereignislog Weltgeschehen: `database-rp/00-admin/Ereignislog-Weltgeschehen.md`
-- Handel/Diplomatie (Händlergilde, Fraktionsakte): `database-rp/01-factions/haendlerbund/06-handel-diplomatie/Handel-Diplomatie-Haendlergilde.md`
-- Logistik: `database-rp/00-admin/Logistik.md`
+- Handel/Diplomatie (Hub/Index): [Index-Handel-Diplomatie](../../../00-admin/Index-Handel-Diplomatie.md)
+- Ereignislog Weltgeschehen: [Ereignislog-Weltgeschehen](../../../00-admin/Ereignislog-Weltgeschehen.md)
+- Handel/Diplomatie (Händlergilde, Fraktionsakte): [Handel-Diplomatie-Haendlergilde](../../haendlerbund/06-handel-diplomatie/Handel-Diplomatie-Haendlergilde.md)
+- Logistik: [Logistik](../../../00-admin/Logistik.md)
