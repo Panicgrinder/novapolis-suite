@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 21:24
-update: Batch C fortgesetzt: 00-admin Restdrifts normalisiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-04 21:24); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py DONELOG.md novapolis-dev/docs/donelog.md PASS (2026-02-04 21:24)"
+stand: 2026-02-04 23:07
+update: readme.hub Pfad-Drift korrigiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-04 23:07); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\readme.hub.md DONELOG.md novapolis-dev\\docs\\donelog.md PASS (2026-02-04 23:07)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,11 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+Dev-Hub: readme.hub Pfad-Drift (2026-02-04 23:06)
+-------------------------------------------------
+
+- Schritt 4 in [novapolis-dev/docs/readme.hub.md](novapolis-dev/docs/readme.hub.md) korrigiert: `database-rp/database-rp/*` → `database-rp/*`.
 
 RP: Batch C (00-admin) - Restdrifts (2026-02-04 21:23)
 ------------------------------------------------------

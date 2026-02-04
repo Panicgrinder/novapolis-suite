@@ -1,10 +1,12 @@
 ---
-stand: 2026-02-04 21:24
-update: "RP-SSOT: 00-admin Restdrifts normalisiert."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-04 21:24); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py DONELOG.md novapolis-dev/docs/donelog.md PASS (2026-02-04 21:24)"
+stand: 2026-02-04 23:07
+update: "Dev-Hub: readme.hub Pfad-Drift korrigiert."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-04 23:07); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\readme.hub.md DONELOG.md novapolis-dev\\docs\\donelog.md PASS (2026-02-04 23:07)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-04 23:06: Dev-Hub: readme.hub.md Pfad-Duplikat `database-rp/database-rp/*` auf `database-rp/*` korrigiert. Checks: markdownlint-cli2 PASS (scoped), Frontmatter-Validator PASS (scoped).
 
 - 2026-02-04 21:23: RP-SSOT: 00-admin Restdrifts normalisiert (Index-Handel-Diplomatie, Ereignislog-Weltgeschehen, Current-State, Reference-Campaign-State, Curated-Konfliktliste). Checks: markdownlint-cli2 PASS (full scope), Frontmatter-Validator PASS (00-admin).
 

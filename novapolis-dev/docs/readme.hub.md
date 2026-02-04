@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-13 02:20
-update: Validator-Links auf src/* konsolidiert; validate:rp Beispiel auf npm --prefix umgestellt
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' PASS (2026-01-13 02:20); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\readme.hub.md PASS (2026-01-13 02:20)"
+stand: 2026-02-04 23:07
+update: Pfad-Duplikat in Curation-Schritt korrigiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-04 23:07); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\readme.hub.md DONELOG.md novapolis-dev\\docs\\donelog.md PASS (2026-02-04 23:07)"
 ---
 
 Novapolis Dokumentations-Hub
@@ -34,7 +34,7 @@ Curation Workflow
 1. Export (RAW) nach `novapolis-rp/database-raw/99-exports/` nur ungefiltert.
 2. Staging-Aufbereitung in `database-curated/staging/` (Normalize, Tagging, Review Tags `[SCENE|FACT|CHAR|LOC|PROJ|INV|OPEN]`).
 3. Review & Approval → Kopie nach `database-curated/final/` (geplant; derzeit `final/` Platzhalter).
-4. Übernahme relevanter Artefakte (Memory-Bundle Updates, Facts, Scenes) nach `database-rp/database-rp/*` Strukturen.
+4. Übernahme relevanter Artefakte (Memory-Bundle Updates, Facts, Scenes) nach `database-rp/*` Strukturen.
 5. Aktualisierung DONELOG / TODO (Dev Hub, RP Board) + optional Metadata JSON Refresh.
 
 Validator Tools
