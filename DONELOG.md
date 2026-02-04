@@ -1,10 +1,12 @@
 ---
-stand: 2026-02-03 21:13
-update: "Git Hook: pre-commit auf Python migriert (PowerShell-in-sh Quoting-Fehler beseitigt); scripts/pre_commit.py ergänzt; githooks/pre-commit delegiert an Python."
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-03 21:12)"
+stand: 2026-02-04 09:01
+update: "RP-SSOT: Batch B (00-admin/00-ops) Links und H1 korrigiert."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:01)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-04 09:01: RP-SSOT: Batch B (00-admin/00-ops) Links und H1 korrigiert. Dateien: `novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md`, `novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md`, `novapolis-rp/database-rp/00-admin/Logistik.md`, `novapolis-rp/database-rp/00-ops/C6-Logistik-Policy.ops.md`. Checks: markdownlint-cli2 PASS (full scope).
 
 - 2026-02-03 21:13: Git Hook: pre-commit auf Python migriert (PowerShell-in-sh Quoting-Fehler behoben, kein $-Expansion mehr). Neu: `scripts/pre_commit.py`; Update: `githooks/pre-commit` ruft Python-Skript (Snapshot-Gate, markdownlint staged MD, Frontmatter, DONELOG-Guard). Checks: `scripts/run_checks_and_report.py` PASS. Report: `.tmp/results/reports/checks_report_20260203_211218.md`.
 

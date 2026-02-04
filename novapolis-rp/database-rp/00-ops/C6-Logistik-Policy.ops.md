@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-02 12:02
-update: Platzhalter für C6-spezifische System-/Meta-Notizen angelegt (damit C6-Policy diegetisch bleiben kann).
-checks: manuell (2026-02-02 12:02)
+stand: 2026-02-04 09:01
+update: Admin-Links auf 00-admin korrigiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:01)"
 ---
 
 C6 - Logistik-Policy (Ops)
@@ -23,5 +23,5 @@ Verlinkungen
 ------------
 
 - Diegetische Policy: [C6 - Logistik-Policy](../01-factions/novapolis/03-locations/C6-Logistik-Policy.md)
-- Admin-Logistik (Reference): [Logistik Novapolis](../Logistik.md)
-- Wissensmatrix: [Fraktionen (Taxonomie)](../Fraktionen-Taxonomie.md)
+- Admin-Logistik (Reference): [Logistik Novapolis](../00-admin/Logistik.md)
+- Wissensmatrix: [Fraktionen (Taxonomie)](../00-admin/Fraktionen-Taxonomie.md)

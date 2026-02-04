@@ -1,13 +1,16 @@
 ---
-stand: 2026-02-02 19:01
-update: "Token-Regel ergänzt (Buchstaben-Zahlen nur Stationscodes); N7-Alias entfernt (C6-Nordanomalie); Frontmatter bereinigt."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-02 19:01); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-02-02 19:01)"
+stand: 2026-02-04 09:01
+update: "H1 ergänzt; Struktur/Links unverändert."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:01)"
 slug: fraktionen-taxonomie
 category: admin
 canvas: fraktionen-taxonomie
 status: draft
 version: "0.1"
 ---
+
+Fraktionen-Taxonomie
+====================
 
 Zweck
 -----

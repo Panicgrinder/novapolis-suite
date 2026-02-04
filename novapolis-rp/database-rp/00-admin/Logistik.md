@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-13 19:26
-update: "T+0: Scene-Anker ergänzt; potenziell unbelegte Statusaussagen (C6/Tunnel) als tbd/Policy entschärft. Checks PASS."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Logistik.md' PASS (2026-01-13 19:26); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Logistik.md' PASS (2026-01-13 19:26); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-13 19:26)"
+stand: 2026-02-04 09:01
+update: "Ops-Link auf 00-ops aktualisiert."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:01)"
 canvas: Logistik
 last_updated: 2025-11-07T04:09:00+01:00
 category: admin
@@ -18,7 +18,7 @@ Hinweis (Scope)
 Dieses Dokument ist eine Admin-/Reference-Sicht (inkl. Tabellen/Constraints). Die fraktionsweite, diegetische Doctrine liegt unter:
 [Novapolis - Logistics](../01-factions/novapolis/00-doctrine/novapolis-logistics.md).
 
-System-/Meta-Notizen gehören nach [Ops / Systemnotes](./ops/README.md).
+System-/Meta-Notizen gehören nach [Ops / Systemnotes](../00-ops/README.md).
 
 Fokus: Energie-Konten, Generatoren, Leitungen, Ladefenster, Prioritäten, Transportketten, Beleg-Fluss, Materialien/Bestände.
 
