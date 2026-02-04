@@ -1,11 +1,11 @@
 ---
-stand: 2026-02-04 09:21
-update: Dateiname umgestellt und Links korrigiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
+stand: 2026-02-04 10:22
+update: Slug und Referenzen auf caravan-moves konsolidiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 10:22)
 canvas: Karawanenbewegungen
 last_updated: 2025-11-07T04:09:00+01:00
 category: project
-slug: caravan_moves
+slug: caravan-moves
 title: Karawanenbewegungen (Übersicht)
 status: planned
 version: "0.1"

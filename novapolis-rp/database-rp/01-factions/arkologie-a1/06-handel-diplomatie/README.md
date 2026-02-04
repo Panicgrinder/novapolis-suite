@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 07:40
-update: Basisordner Handel/Diplomatie für Arkologie A1 angelegt; Checks aktualisiert.
-checks: markdownlint-cli2 PASS (2026-01-11 07:40); scripts/check_frontmatter.py PASS (2026-01-11 07:40); scripts/checks_rp_consistency.py --strict PASS (2026-01-11 07:40)
+stand: 2026-02-04 11:03
+update: Links auf relative Pfade normalisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 11:03)"
 category: canon
 slug: handel_diplomatie_arkologie_a1_index_v1
 version: "0.1"
@@ -17,5 +17,5 @@ Zweck
 
 Dokumente
 ---------
-- Relationslog: `database-rp/01-factions/arkologie-a1/06-handel-diplomatie/Relationslog-Arkologie-A1.md`
-- Handelslog: `database-rp/01-factions/arkologie-a1/06-handel-diplomatie/Handelslog-Arkologie-A1.md`
+- Relationslog: [Relationslog-Arkologie-A1](Relationslog-Arkologie-A1.md)
+- Handelslog: [Handelslog-Arkologie-A1](Handelslog-Arkologie-A1.md)

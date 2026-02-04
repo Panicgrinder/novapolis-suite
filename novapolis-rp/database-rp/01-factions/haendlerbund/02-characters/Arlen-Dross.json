@@ -16,7 +16,7 @@
   "primary_location": "c6",
   "last_seen": "c6",
   "dependencies": [
-    "caravan_moves",
+    "caravan-moves",
     "ai_behavior_index_v2",
     "missionslog",
     "logistik",

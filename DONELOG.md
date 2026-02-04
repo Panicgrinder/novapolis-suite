@@ -1,10 +1,14 @@
 ---
-stand: 2026-02-04 09:36
-update: "RP-SSOT: Batch C fortgesetzt (Inventar-Links 00-admin)."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:36)"
+stand: 2026-02-04 11:03
+update: "RP-SSOT: Batch C fortgesetzt (Handel/Diplomatie-README Links)."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 11:03)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-04 11:03: RP-SSOT: Batch C fortgesetzt (Handel/Diplomatie-READMEs). Links auf relative Pfade normalisiert in Arkologie A1, Eisenkonklave, Schattenbund, Fluesterkollektiv. Checks: markdownlint-cli2 PASS (full scope).
+
+- 2026-02-04 10:28: RP-SSOT: Batch C fortgesetzt (Haendlerbund/Schienenbund). `caravan_moves` → `caravan-moves` in Charakter-Dependencies (md/json), Slug konsolidiert, Diplomatie-READMEs auf relative Links umgestellt. Checks: markdownlint-cli2 PASS (full scope).
 
 - 2026-02-04 09:34: RP-SSOT: Batch C fortgesetzt (Inventare). 00-admin-Links in Schienenbund- und Eiserne-Enklave-Inventaren relativiert. Checks: markdownlint-cli2 PASS (full scope).
 

@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-14 17:50
-update: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6.; Checks PASS."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc **/*.md PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 17:50)
+stand: 2026-02-04 10:22
+update: Dependencies auf caravan-moves konsolidiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 10:22)
 title: Arlen Dross
 category: character
 slug: arlen-dross
@@ -10,7 +10,7 @@ last_updated: 2026-01-14T17:31:10+01:00
 last_change: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6."
 tags: ["karawane", "novapolis", "diplomatie"]
 affiliations: ["novapolis"]
-dependencies: ["caravan_moves", "ai_behavior_index_v2", "missionslog", "logistik", "g7", "handel_diplomatie_haendlergilde_v1", "index_haendlergilde_v1"]
+dependencies: ["caravan-moves", "ai_behavior_index_v2", "missionslog", "logistik", "g7", "handel_diplomatie_haendlergilde_v1", "index_haendlergilde_v1"]
 primary_location: c6
 last_seen: c6
 ---
@@ -98,7 +98,7 @@ Ziele (kurz)
 Systemverknüpfungen & Referenzen
 --------------------------------
 
-- `caravan_moves` - Dokumentation aller diplomatischen Übergaben.
+- `caravan-moves` - Dokumentation aller diplomatischen Übergaben.
 - `missionslog` - Einträge zu Verhandlungsmissionen und rückgekoppelten Maßnahmen.
 - `logistik` - Abgleich interner/externer Warenflüsse.
 - `handel_diplomatie_haendlergilde_v1` - Diplomatieprotokolle des Händlerbunds (ID: haendlergilde).

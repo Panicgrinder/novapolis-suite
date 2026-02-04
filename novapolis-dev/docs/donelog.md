@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 09:36
-update: Batch C fortgesetzt: Inventar-Links zu 00-admin korrigiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:36)"
+stand: 2026-02-04 11:03
+update: Batch C fortgesetzt: Handel/Diplomatie-README Links normalisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 11:03)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,17 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: Batch C (Handel/Diplomatie) - README Links (2026-02-04 11:03)
+-----------------------------------------------------------------
+
+- Relative Links in den Handel/Diplomatie-READMEs von Arkologie A1, Eisenkonklave, Schattenbund und Fluesterkollektiv normalisiert.
+
+RP: Batch C (Haendlerbund/Schienenbund) - Slug/Links (2026-02-04 10:28)
+---------------------------------------------------------------------
+
+- `caravan_moves` in Charakter-Dependencies (md/json) auf `caravan-moves` konsolidiert; Slug in [novapolis-rp/database-rp/01-factions/haendlerbund/05-projects/caravan-moves.md](novapolis-rp/database-rp/01-factions/haendlerbund/05-projects/caravan-moves.md) aktualisiert.
+- Diplomatie-READMEs auf relative Links umgestellt in [novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/README.md](novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/README.md) und [novapolis-rp/database-rp/01-factions/schienenbund/06-handel-diplomatie/README.md](novapolis-rp/database-rp/01-factions/schienenbund/06-handel-diplomatie/README.md).
 
 RP: Batch C (weitere Fraktionen) - Links/Naming (2026-02-04 09:21)
 ---------------------------------------------------------------

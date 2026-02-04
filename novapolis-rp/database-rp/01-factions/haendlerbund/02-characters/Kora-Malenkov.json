@@ -21,7 +21,7 @@
     "logistik",
     "missionslog",
     "ai_behavior_index_v2",
-    "caravan_moves"
+    "caravan-moves"
   ],
   "source": "database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md"
 }

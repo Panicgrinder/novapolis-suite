@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-14 17:50
-update: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6.; Checks PASS."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc **/*.md PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 17:50)
+stand: 2026-02-04 10:22
+update: Dependencies auf caravan-moves konsolidiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 10:22)
 title: Kora Malenkov
 category: character
 slug: kora-malenkov
@@ -10,7 +10,7 @@ last_updated: 2026-01-14T17:31:10+01:00
 last_change: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6."
 tags: ["logistik", "karawane", "novapolis"]
 affiliations: ["novapolis"]
-dependencies: ["echo", "c6", "logistik", "missionslog", "ai_behavior_index_v2", "caravan_moves"]
+dependencies: ["echo", "c6", "logistik", "missionslog", "ai_behavior_index_v2", "caravan-moves"]
 primary_location: c6
 last_seen: c6
 ---
@@ -105,7 +105,7 @@ Systemverknüpfungen & Referenzen
 
 - `logistik` - zentrale Arbeitsgrundlage, Kora als Hauptautorin.
 - `missionslog` - Prozess L.1, Freigaben/Terminalmeldungen.
-- `caravan_moves` - Koordination externer Läufe mit Marven/Arlen.
+- `caravan-moves` - Koordination externer Läufe mit Marven/Arlen.
 - `ai_behavior_index_v2` - Verhaltenseintrag „Die Verhandlerin“.
 - `database-rp/01-factions/haendlerbund/03-locations/G7.md` & `database-rp/01-factions/novapolis/03-locations/C6.md` - Lage/Risiko.
 
