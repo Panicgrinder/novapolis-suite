@@ -1,10 +1,12 @@
 ---
-stand: 2026-02-03 21:13
-update: "Git Hook: pre-commit auf Python migriert (PowerShell-in-sh Quoting-Fehler beseitigt); scripts/pre_commit.py ergänzt; githooks/pre-commit delegiert an Python."
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-03 21:12)"
+stand: 2026-02-04 08:24
+update: "RP-Docs: Kontextcanvas database-rp erstellt (Batch A Audit, read-only)."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 08:24)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-04 08:24: RP-Docs: Kontextcanvas database-rp erstellt (Batch A Audit, read-only). Datei: `novapolis-dev/docs/kontextcanvas-database-rp.md`. Batch A Dry-Run: Naming-Check FAIL (6 Issues), validate:rp FAIL (Missing H1 in Fraktionen-Taxonomie), validate:crossrefs OK, Frontmatter OK, checks_rp_consistency FAIL. Checks: markdownlint-cli2 PASS (full scope).
 
 - 2026-02-03 21:13: Git Hook: pre-commit auf Python migriert (PowerShell-in-sh Quoting-Fehler behoben, kein $-Expansion mehr). Neu: `scripts/pre_commit.py`; Update: `githooks/pre-commit` ruft Python-Skript (Snapshot-Gate, markdownlint staged MD, Frontmatter, DONELOG-Guard). Checks: `scripts/run_checks_and_report.py` PASS. Report: `.tmp/results/reports/checks_report_20260203_211218.md`.
 

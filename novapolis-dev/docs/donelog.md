@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-01 13:25
-update: RP-Doku/TODO-Sync: README-Pfade aktualisiert, Validator-Refs entdriftet, Migration-Status in Root-TODO nachgezogen.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
+stand: 2026-02-04 08:24
+update: Kontextcanvas database-rp erstellt (Batch A Audit, read-only).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 08:24)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,12 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: Kontextcanvas database-rp (2026-02-04 08:24)
+----------------------------------------------
+
+- Neu: [novapolis-dev/docs/kontextcanvas-database-rp.md](novapolis-dev/docs/kontextcanvas-database-rp.md) mit Scope-Inventar, Einstiegspunkten, Naming-Regeln, Validatoren, Link-Audit (A/B/C) und Batch-Plan.
+- Batch A Dry-Run dokumentiert (Naming/Validatoren/Link-Audit), keine Aenderungen durchgefuehrt.
 
 RP: Doku/TODO-Sync (2026-02-01 13:25)
 -----------------------------------
