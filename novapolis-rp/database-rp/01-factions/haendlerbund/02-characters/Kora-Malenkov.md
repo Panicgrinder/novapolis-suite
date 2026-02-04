@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 10:22
-update: Dependencies auf caravan-moves konsolidiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 10:22)
+stand: 2026-02-04 13:31
+update: Linkziele auf relative Pfade normalisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:31)"
 title: Kora Malenkov
 category: character
 slug: kora-malenkov
@@ -107,7 +107,7 @@ Systemverknüpfungen & Referenzen
 - `missionslog` - Prozess L.1, Freigaben/Terminalmeldungen.
 - `caravan-moves` - Koordination externer Läufe mit Marven/Arlen.
 - `ai_behavior_index_v2` - Verhaltenseintrag „Die Verhandlerin“.
-- `database-rp/01-factions/haendlerbund/03-locations/G7.md` & `database-rp/01-factions/novapolis/03-locations/C6.md` - Lage/Risiko.
+- [G7](../03-locations/G7.md) & [C6](../../novapolis/03-locations/C6.md) - Lage/Risiko.
 
 Quellen & Hinweise
 ------------------

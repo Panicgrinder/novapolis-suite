@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 09:21
-update: Systemverknüpfungen auf relative Pfade umgestellt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
+stand: 2026-02-04 13:31
+update: Verweis auf Lumen-Canvas relativiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:31)"
 title: Jonas Merek
 category: character
 slug: jonas-merek
@@ -108,7 +108,7 @@ Systemverknüpfungen & Referenzen
 - `missionslog` - Prozess L.1, Freigaben und Terminalmeldungen.
 - [Draisine-Transportmodul](../05-projects/Draisine-Transportmodul.md) - D5-Prototyp (Draisine/Transportmodul), Jonas liefert Werkstattstatus.
 - [caravan-moves](../../haendlerbund/05-projects/caravan-moves.md) - Konvoi-/Routen-Übersicht (Koordination externer Läufe).
-- `database-rp/02-characters/Lumen.md` - Kopplungsdetails.
+- [Lumen](Lumen.md) - Kopplungsdetails.
 
 Quellen & Hinweise
 ------------------

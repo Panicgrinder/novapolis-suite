@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 10:22
-update: Dependencies auf caravan-moves konsolidiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 10:22)
+stand: 2026-02-04 13:31
+update: Linkziel auf relativen Pfad normalisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:31)"
 title: Marven Kael
 category: character
 slug: marven-kael
@@ -102,7 +102,7 @@ Systemverknüpfungen & Referenzen
 - `missionslog` - Eingehende/ausgehende Konvoiberichte.
 - `logistik` - Abgleich mit G7/D5-Beständen.
 - `ai_behavior_index_v2` - Verhaltenseintrag „Der vorsichtige Stratege“.
-- `database-rp/01-factions/haendlerbund/03-locations/G7.md` - Stationskontext.
+- [G7](../03-locations/G7.md) - Stationskontext.
 
 Quellen & Hinweise
 ------------------

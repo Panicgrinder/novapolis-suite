@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 09:21
-update: Links auf relative Pfade umgestellt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
+stand: 2026-02-04 13:31
+update: RAW-Quelle auf relativen Pfad umgestellt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:31)"
 title: Relationslog – Novapolis (Handel & Diplomatie)
 category: canon
 slug: relationslog_novapolis_v1
@@ -24,7 +24,7 @@ Dieses Dokument konsolidiert die **Handels- und Diplomatie-Lage** von Novapolis 
 
 Quellen
 -------
-- RAW: `novapolis-rp/database-raw/99-exports/RAW-canvas-2025-10-16T08-07-00-000Z.txt`
+- RAW: [RAW-canvas-2025-10-16T08-07-00-000Z](../../database-raw/99-exports/RAW-canvas-2025-10-16T08-07-00-000Z.txt)
   - `[DOCID: relationslog_novapolis_v1]` (`TYPE: relations_log`, `VERSION: v1`)
 
 1) Ökonomisches Profil

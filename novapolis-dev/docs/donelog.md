@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 11:03
-update: Batch C fortgesetzt: Handel/Diplomatie-README Links normalisiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 11:03)"
+stand: 2026-02-04 21:01
+update: Batch C fortgesetzt: Rest-Links normalisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 21:01)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -13,6 +13,10 @@ Hinweis (2026-01-08)
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
 
+RP: Batch C (Rest-Links) - Normalisierung (2026-02-04 21:01)
+-----------------------------------------------------------
+
+- Links und RAW-Quellen in [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md), [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md](novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md), [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md](novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md), [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md](novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md) und [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Marven-Kael.md](novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Marven-Kael.md) auf relative Pfade normalisiert.
 RP: Batch C (Handel/Diplomatie) - README Links (2026-02-04 11:03)
 -----------------------------------------------------------------
 
