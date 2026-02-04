@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 05:04
-update: Ereignislog „Weltgeschehen“ (Weltchronik) aus RAW übernommen; SSOT-Linkanker ergänzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 05:04); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py --touch novapolis-rp\database-rp\00-admin\Ereignislog-Weltgeschehen.md novapolis-rp\database-rp\00-admin\Relationslog-Novapolis.md novapolis-rp\database-rp\02-characters\Liora-Navesh.md novapolis-rp\database-rp\00-admin\Handel-Diplomatie-Haendlergilde.md PASS (2026-01-11 05:04); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 05:04)
+stand: 2026-02-04 21:17
+update: Links auf relative Pfade normalisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 21:23); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp/database-rp/00-admin PASS (2026-02-04 21:23)
 title: Ereignislog – Weltgeschehen
 category: admin
 slug: ereignislog_weltgeschehen_v1
@@ -19,7 +19,7 @@ Dieses Dokument hält die **großen, kampagnenweiten Ereignisse** fest, die mehr
 
 Quellen
 -------
-- RAW: `novapolis-rp/database-raw/99-exports/RAW-canvas-2025-10-16T05-34-00-000Z.txt`
+- RAW: [RAW-canvas-2025-10-16T05-34-00-000Z](../database-raw/99-exports/RAW-canvas-2025-10-16T05-34-00-000Z.txt)
   - `[DOCID: ereignislog_weltgeschehen_v1]` (`TYPE: event_log`, `VERSION: v1`)
 
 Zeitanker & Lesart
@@ -77,5 +77,5 @@ Ereignisse (v1)
 
 Verlinkungen
 ------------
-- Admin-Timeline: `database-rp/00-admin/Canvas-T+0-Timeline.md`
-- Novapolis-Relationslog: `database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md`
+- Admin-Timeline: [Canvas-T+0-Timeline](Canvas-T+0-Timeline.md)
+- Novapolis-Relationslog: [Relationslog-Novapolis](../01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md)
