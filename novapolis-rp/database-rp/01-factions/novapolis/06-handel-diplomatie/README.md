@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 07:40
-update: Basisordner Handel/Diplomatie für Novapolis angelegt; Checks aktualisiert.
-checks: markdownlint-cli2 PASS (2026-01-11 07:40); scripts/check_frontmatter.py PASS (2026-01-11 07:40); scripts/checks_rp_consistency.py --strict PASS (2026-01-11 07:40)
+stand: 2026-02-04 09:08
+update: "Index-Links auf relative Pfade umgestellt."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:08)"
 category: canon
 slug: handel_diplomatie_novapolis_index_v1
 version: "0.1"
@@ -12,5 +12,5 @@ Handel & Diplomatie – Novapolis (Index)
 
 Dokumente
 ---------
-- Relationslog: `database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md`
-- Handelslog: `database-rp/01-factions/novapolis/06-handel-diplomatie/Handelslog-Novapolis.md`
+- Relationslog: [Relationslog-Novapolis](./Relationslog-Novapolis.md)
+- Handelslog: [Handelslog-Novapolis](./Handelslog-Novapolis.md)

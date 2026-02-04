@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-01 13:25
-update: RP-Doku/TODO-Sync: README-Pfade aktualisiert, Validator-Refs entdriftet, Migration-Status in Root-TODO nachgezogen.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
+stand: 2026-02-04 09:11
+update: Batch C gestartet: Novapolis-Hub Links und Personenindex korrigiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:11)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -13,6 +13,18 @@ Hinweis (2026-01-08)
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
 
+RP: Batch C (Novapolis) - Naming/Links (2026-02-04 09:08)
+--------------------------------------------------------
+
+- Novapolis Personenindex: Dateiname auf `person-index-np` umgestellt, Links relativisiert in [novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md](novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md) und Verweise in [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md](novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md) aktualisiert.
+- Händlerbund-Referenzen auf neuen Personenindex umgestellt in [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md](novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md) sowie Index-Links in [novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md](novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md).
+- Novapolis Handel/Diplomatie-Index auf relative Links umgestellt in [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/README.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/README.md).
+
+RP: Batch B (00-admin + 00-ops) - Links/H1 (2026-02-04 09:01)
+-------------------------------------------------------------
+
+- 00-admin: H1 in [novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md](novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md) ergänzt (Validator-Fix) und Index-Links in [novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md](novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md) auf relative Pfade umgestellt.
+- 00-admin/00-ops: Ops-Referenzen in [novapolis-rp/database-rp/00-admin/Logistik.md](novapolis-rp/database-rp/00-admin/Logistik.md) und [novapolis-rp/database-rp/00-ops/C6-Logistik-Policy.ops.md](novapolis-rp/database-rp/00-ops/C6-Logistik-Policy.ops.md) korrigiert (Links auf 00-ops/00-admin).
 RP: Doku/TODO-Sync (2026-02-01 13:25)
 -----------------------------------
 

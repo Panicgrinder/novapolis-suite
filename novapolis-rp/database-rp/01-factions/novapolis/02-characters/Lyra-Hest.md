@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 03:44
-update: checks aktualisiert (Basis-Stabilisierung)
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 03:44); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\02-characters\Lyra-Hest.md novapolis-rp\database-rp\02-characters\Pahl.md novapolis-rp\database-rp\02-characters\Marei.md novapolis-rp\database-rp\04-inventory\D5-inventar.md PASS (2026-01-11 03:44)
+stand: 2026-02-04 09:08
+update: Personenindex-Link aktualisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:08)"
 title: Lyra Hest
 category: character
 slug: lyra-hest
@@ -63,7 +63,7 @@ Verlinkungen
 ------------
 - [D5](../03-locations/D5.md) · [C6](../03-locations/C6.md)
 - [Novapolis-Inventar](../04-inventory/Novapolis-inventar.md)
-- [Admin: Logistik](../../../00-admin/Logistik.md) · [Missionslog](../../../00-admin/Missionslog.md) · [Personenindex](./person_index_np.md)
+- [Admin: Logistik](../../../00-admin/Logistik.md) · [Missionslog](../../../00-admin/Missionslog.md) · [Personenindex](./person-index-np.md)
 
 
 

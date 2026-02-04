@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-14 17:50
-update: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6.; Checks PASS."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc **/*.md PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 17:50)
+stand: 2026-02-04 09:08
+update: Personenindex-Link aktualisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:08)"
 title: Senn Daru
 category: character
 slug: senn-daru
@@ -68,13 +68,13 @@ Links
 
 - Relationslog Novapolis → ../00-admin/Relationslog-Novapolis.md
 - Handel & Diplomatie (Händlerbund) → ../00-admin/Handel-Diplomatie-Haendlergilde.md
-- Personenindex Novapolis → ../../novapolis/02-characters/person_index_np.md
+- Personenindex Novapolis → ../../novapolis/02-characters/person-index-np.md
 - G7 → ../03-locations/G7.md
 
 Quellen & Review
 ----------------
 
 - SSOT: ../00-admin/Relationslog-Novapolis.md
-- SSOT: ../../novapolis/02-characters/person_index_np.md
+- SSOT: ../../novapolis/02-characters/person-index-np.md
 
 
