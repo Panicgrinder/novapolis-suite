@@ -1,10 +1,12 @@
 ---
-stand: 2026-02-03 20:16
-update: "Checks: konsolidierter Gate-Lauf PASS (markdownlint/frontmatter/ruff/black/pyright/mypy/pytest+coverage); Fixes: MD024 (duplicate heading) + Black-Formatierung fuer neue scripts/run_rp_* Skripte."
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-03 20:15)"
+stand: 2026-02-03 21:13
+update: "Git Hook: pre-commit auf Python migriert (PowerShell-in-sh Quoting-Fehler beseitigt); scripts/pre_commit.py ergänzt; githooks/pre-commit delegiert an Python."
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-03 21:12)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-03 21:13: Git Hook: pre-commit auf Python migriert (PowerShell-in-sh Quoting-Fehler behoben, kein $-Expansion mehr). Neu: `scripts/pre_commit.py`; Update: `githooks/pre-commit` ruft Python-Skript (Snapshot-Gate, markdownlint staged MD, Frontmatter, DONELOG-Guard). Checks: `scripts/run_checks_and_report.py` PASS. Report: `.tmp/results/reports/checks_report_20260203_211218.md`.
 
 - 2026-02-03 20:15: Checks: konsolidierter Gate-Lauf PASS via `scripts/run_checks_and_report.py` (Coverage 82.41% >= 80). Fixes: MD024 duplicate heading in `novapolis-rp/database-curated/staging/chat-export.review.md`; Black-Formatierung fuer `scripts/run_rp_canvas_staging.py`, `scripts/run_rp_chat_staging.py`, `scripts/run_rp_chat_dedupe.py`. Report: `.tmp/results/reports/checks_report_20260203_201441.md`.
 
