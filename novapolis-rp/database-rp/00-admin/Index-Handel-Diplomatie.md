@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-12 06:01
-update: "Validator-Fix: update-Wert YAML-sicher quoted (kein Inhalts-Change)."
-checks: npm run validate:rp PASS (2026-01-12 06:01); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\00-admin\Index-Handel-Diplomatie.md PASS (2026-01-12 06:01)
+stand: 2026-02-04 13:10
+update: Links auf relative Pfade normalisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:10)"
 slug: index_handel_diplomatie_v1
 category: admin
 status: draft
@@ -18,24 +18,24 @@ Zweck
 
 Kanonische Anker
 ---------------
-- Novapolis (Kern-SSOT): `database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md`
-- Weltgeschehen / Zeitanker: `database-rp/00-admin/Ereignislog-Weltgeschehen.md`
-- Logistik (Transfers/Flows): `database-rp/00-admin/Logistik.md`
-- Missionen (Belege/Incidents): `database-rp/00-admin/Missionslog.md`
+- Novapolis (Kern-SSOT): [Relationslog-Novapolis](../01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md)
+- Weltgeschehen / Zeitanker: [Ereignislog-Weltgeschehen](Ereignislog-Weltgeschehen.md)
+- Logistik (Transfers/Flows): [Logistik](Logistik.md)
+- Missionen (Belege/Incidents): [Missionslog](Missionslog.md)
 
 Fraktionsbezogene Dokumente
 ---------------------------
 
 ### Händlerbund (Händlergilde-ID)
 
-- Index: `database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md`
-- Relationslog: `database-rp/01-factions/haendlerbund/06-handel-diplomatie/Relationslog-Haendlerbund.md`
-- Handelslog: `database-rp/01-factions/haendlerbund/06-handel-diplomatie/Handelslog-Haendlerbund.md`
-- Fraktionsakte (Handel/Diplomatie): `database-rp/01-factions/haendlerbund/06-handel-diplomatie/Handel-Diplomatie-Haendlergilde.md`
+- Index: [Index-Haendlergilde](../01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md)
+- Relationslog: [Relationslog-Haendlerbund](../01-factions/haendlerbund/06-handel-diplomatie/Relationslog-Haendlerbund.md)
+- Handelslog: [Handelslog-Haendlerbund](../01-factions/haendlerbund/06-handel-diplomatie/Handelslog-Haendlerbund.md)
+- Fraktionsakte (Handel/Diplomatie): [Handel-Diplomatie-Haendlergilde](../01-factions/haendlerbund/06-handel-diplomatie/Handel-Diplomatie-Haendlergilde.md)
 
 ### Eisenkonklave
 
-- Relationslog: `database-rp/01-factions/eisenkonklave/06-handel-diplomatie/Relationslog-Eisenkonklave.md`
+- Relationslog: [Relationslog-Eisenkonklave](../01-factions/eisenkonklave/06-handel-diplomatie/Relationslog-Eisenkonklave.md)
 
 Hinweis
 -------

@@ -1,10 +1,12 @@
 ---
-stand: 2026-02-04 11:03
-update: "RP-SSOT: Batch C fortgesetzt (Handel/Diplomatie-README Links)."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 11:03)"
+stand: 2026-02-04 13:10
+update: "RP-SSOT: Batch B Re-Audit (00-admin Links)."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:10)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-04 13:10: RP-SSOT: Batch B Re-Audit (00-admin). Links auf relative Pfade normalisiert in Current-State, Ereignislog-Weltgeschehen, Index-Handel-Diplomatie, Reference-Campaign-State. Checks: markdownlint-cli2 PASS (full scope).
 
 - 2026-02-04 11:03: RP-SSOT: Batch C fortgesetzt (Handel/Diplomatie-READMEs). Links auf relative Pfade normalisiert in Arkologie A1, Eisenkonklave, Schattenbund, Fluesterkollektiv. Checks: markdownlint-cli2 PASS (full scope).
 

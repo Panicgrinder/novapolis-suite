@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-12 21:23
-update: "Entry-Point: Link auf Current-State ergänzt (Navigation)."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/memory-bundle.md' 'novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md' PASS (2026-01-12 21:25); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\00-admin\memory-bundle.md novapolis-rp\database-rp\00-admin\Reference-Campaign-State.md PASS (2026-01-12 21:25); npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-12 21:24); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-12 21:24); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-12 21:24)
+stand: 2026-02-04 13:10
+update: Links auf relative Pfade normalisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:10)"
 slug: reference-campaign-state
 category: Admin
 canvas: campaign-state
@@ -349,7 +349,7 @@ Gates (erster Testlauf)
 Link
 ----
 
-- Projekt-Canvas: `database-rp/05-projects/Draisine-Transportmodul.md`
+- Projekt-Canvas: [Draisine-Transportmodul](../01-factions/novapolis/05-projects/Draisine-Transportmodul.md)
 
 
 Inventar / Ressourcen (Arbeitsstand)

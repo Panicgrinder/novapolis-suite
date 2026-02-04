@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 11:03
-update: Batch C fortgesetzt: Handel/Diplomatie-README Links normalisiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 11:03)"
+stand: 2026-02-04 13:10
+update: Batch B re-audit: 00-admin Links normalisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:10)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,11 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: Batch B (00-admin) - Link-Normalisierung (2026-02-04 13:10)
+----------------------------------------------------------------
+
+- Links in [novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md](novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md), [novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md](novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md), [novapolis-rp/database-rp/00-admin/Current-State.md](novapolis-rp/database-rp/00-admin/Current-State.md) und [novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md](novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md) auf relative Pfade normalisiert.
 
 RP: Batch C (Handel/Diplomatie) - README Links (2026-02-04 11:03)
 -----------------------------------------------------------------
