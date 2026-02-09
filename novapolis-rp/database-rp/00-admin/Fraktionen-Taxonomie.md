@@ -1,13 +1,16 @@
 ---
-stand: 2026-02-04 09:21
-update: Verweis auf caravan-moves aktualisiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)"
+stand: 2026-02-09 02:05
+update: H1 ergaenzt (Validator-Fix).
+checks: "npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-09 02:05)"
 slug: fraktionen-taxonomie
 category: admin
 canvas: fraktionen-taxonomie
 status: draft
 version: "0.1"
 ---
+
+Fraktionen-Taxonomie
+====================
 
 Zweck
 -----

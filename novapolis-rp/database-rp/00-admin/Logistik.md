@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 09:21
-update: Verweis auf caravan-moves aktualisiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)"
+stand: 2026-02-09 02:10
+update: Waehrungseintrag in Materialien/Bestande ergaenzt.
+checks: "not run (content update)"
 canvas: Logistik
 last_updated: 2025-11-07T04:09:00+01:00
 category: admin
@@ -18,7 +18,7 @@ Hinweis (Scope)
 Dieses Dokument ist eine Admin-/Reference-Sicht (inkl. Tabellen/Constraints). Die fraktionsweite, diegetische Doctrine liegt unter:
 [Novapolis - Logistics](../01-factions/novapolis/00-doctrine/novapolis-logistics.md).
 
-System-/Meta-Notizen gehören nach [Ops / Systemnotes](./ops/README.md).
+System-/Meta-Notizen gehören nach [Ops / Systemnotes](../00-ops/README.md).
 
 Fokus: Energie-Konten, Generatoren, Leitungen, Ladefenster, Prioritäten, Transportketten, Beleg-Fluss, Materialien/Bestände.
 
@@ -67,6 +67,13 @@ T+0: Harte Constraints aus Scenes (keine Retcons)
 - C6-Zustand nicht beschönigen; C6 bleibt „leer/unrepariert“, solange nichts anderes belegt ist (siehe [scene-2025-10-27-m](../06-scenes/scene-2025-10-27-m.md)).
 - Inventar-Änderungen nur nach belegten Einträgen nachziehen (z. B. [scene-2025-10-27-l](../06-scenes/scene-2025-10-27-l.md)).
 
+Inventar-Transfers (Policy)
+---------------------------
+
+- D5- und C6-Inventare bleiben strikt getrennt.
+- Transfers erfolgen nur über Mission/Logistik und werden mit Quelle/Ziel gebucht.
+- Stationen sind physisch getrennt → Inventare/Produktionen trennen.
+
 Ladefenster / Prioritäten
 -------------------------
 - Ladefenster pro Tag (Start/Ende)
@@ -84,6 +91,7 @@ Materialien / Bestände
 ----------------------
 - Bestandsliste mit Einheiten (kg/t, m, m², m³, kWh, Zellen-%)
 - Trigger für Skalierung (SUPPLY) - Low/Med/High Stufen
+- Waehrung "Kugeln" als Inventar-Item (neu/gebraucht)
 
 Verlinkungen
 ------------

@@ -1,10 +1,38 @@
 ---
-stand: 2026-02-04 23:07
-update: "Dev-Hub: readme.hub Pfad-Drift korrigiert."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-04 23:07); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\readme.hub.md DONELOG.md novapolis-dev\\docs\\donelog.md PASS (2026-02-04 23:07)"
+stand: 2026-02-09 02:59
+update: "Checks: full via run_checks_and_report.py PASS; FinalGate/Review aktualisiert."
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-09 02:59)"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-09 02:36: Curated-Konfliktliste/uncertainties um offene Punkte ergaenzt. Checks: markdownlint-cli2 FAIL (MD010 in chat-export-complete.finalgate.md).
+
+- 2026-02-09 02:46: Curated-Konflikt-Report neu erzeugt; markdownlint PASS. Checks: markdownlint-cli2 PASS; extract_curated_conflicts.py PASS.
+
+- 2026-02-09 02:54: FinalGate/Review um Konfliktliste/Report-Link ergaenzt. Checks: not run.
+
+- 2026-02-09 02:59: Checks (run_checks_and_report.py) PASS; FinalGate/Review Checks vermerkt. Checks: run_checks_and_report.py PASS.
+
+- 2026-02-09 02:20: Curated-Konflikt-Report neu erzeugt (Ueberschreiben). Checks: extract_curated_conflicts.py PASS.
+
+- 2026-02-09 02:10: Logistik: Waehrungseintrag in Materialien/Bestande ergaenzt. Checks: not run.
+
+- 2026-02-09 02:05: Curated-Validator PASS nach H1-Fix in `Fraktionen-Taxonomie.md`; FinalGate/Review-Checkliste aktualisiert. Checks: validate:rp PASS.
+
+- 2026-02-09 01:59: FinalGate chat-export-complete: Admin/Logistik/Inventar-Patches umgesetzt (Logistik-Policy, D5/C6/Novapolis-Inventare) und FinalGate-Record/Review verlinkt. Checks: not run.
+
+- 2026-02-09 01:46: Doku-Checks fuer RP-SSOT + Logs ausgefuehrt (Frontmatter + markdownlint PASS). Scope: `novapolis-rp/database-rp/**/*.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`.
+
+- 2026-02-09 01:44: RP-SSOT: Missing slugs in doctrine/ops behoben; Konsistenz-Audit erneut gelaufen (errors=0, warnings=0). Log: .tmp/results/reports/checks_rp_consistency_20260209_014430.log. Checks: checks_rp_consistency PASS.
+
+- 2026-02-08 22:54: RP-SSOT: Broken links in database-rp bereinigt; Konsistenz-Audit erneut gelaufen (errors=0, warnings=1, missing_slug=30). Log: .tmp/results/reports/checks_rp_consistency_20260208_225406.log. Checks: check_frontmatter PASS; checks_rp_consistency WARN; markdownlint PASS.
+
+- 2026-02-08 22:48: RP-SSOT: Konsistenz-Audit (database-rp) ausgefuehrt; Fehler/Warnungen siehe .tmp/results/reports/checks_rp_consistency_20260208_224814.log. Checks: check_frontmatter PASS; checks_rp_consistency FAIL; markdownlint PASS.
+
+- 2026-02-08 09:24: RP curated: run_rp_chat_staging.py ausgefuehrt (OK: Chat-RAW-Staging aktualisiert, entries=8). Keine weiteren Checks.
+
+- 2026-02-08 07:48: RP RAW-Exports: Kanonische Quelle in 99-exports/README.md auf RAW 2025-10-27T09-16 korrigiert; Legacy-Hinweis beibehalten. Checks: not run.
 
 - 2026-02-04 23:06: Dev-Hub: readme.hub.md Pfad-Duplikat `database-rp/database-rp/*` auf `database-rp/*` korrigiert. Checks: markdownlint-cli2 PASS (scoped), Frontmatter-Validator PASS (scoped).
 

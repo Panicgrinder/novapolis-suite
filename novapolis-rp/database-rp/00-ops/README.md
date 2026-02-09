@@ -1,7 +1,8 @@
 ---
-stand: 2026-02-02 12:02
-update: Ops-/Systemnotes-Kanal ergänzt (Trennung von diegetischer Lore vs. System-/Sim-Logik).
-checks: manuell (2026-02-02 12:02)
+stand: 2026-02-09 01:39
+update: slug ergaenzt.
+checks: "not run (slug add)"
+slug: ops-systemnotes
 ---
 
 Ops / Systemnotes (nicht-diegetisch)

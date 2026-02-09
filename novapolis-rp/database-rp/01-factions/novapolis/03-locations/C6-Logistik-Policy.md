@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 09:21
-update: Links auf relative Pfade korrigiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
+stand: 2026-02-08 22:51
+update: Neutralgruppen-Link entfernt (Platzhalter).
+checks: "not run (link fix)"
 slug: c6-logistik-policy
 status: v0.1 (Entwurf, aktiv)
 category: Location
@@ -73,7 +73,7 @@ Verlinkungen
 - Locations: [C6](./C6.md)
 - Logistik-Canvas: [Logistik](../../../00-admin/Logistik.md)
 - Missionslog: [Missionslog](../../../00-admin/Missionslog.md)
-- Neutralgruppen: (geplant) [Neutralgruppen](../../../00-admin/Neutralgruppen.md)
+- Neutralgruppen: (geplant) Neutralgruppen
 - Karawanenbewegungen: (geplant) [caravan-moves](../../haendlerbund/05-projects/caravan-moves.md)
 
 Änderungen/Versionierung

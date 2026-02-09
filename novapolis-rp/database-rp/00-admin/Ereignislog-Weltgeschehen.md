@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 21:17
-update: Links auf relative Pfade normalisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 21:23); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp/database-rp/00-admin PASS (2026-02-04 21:23)
+stand: 2026-02-08 22:51
+update: RAW-Linkpfad korrigiert.
+checks: "not run (link fix)"
 title: Ereignislog – Weltgeschehen
 category: admin
 slug: ereignislog_weltgeschehen_v1
@@ -19,7 +19,7 @@ Dieses Dokument hält die **großen, kampagnenweiten Ereignisse** fest, die mehr
 
 Quellen
 -------
-- RAW: [RAW-canvas-2025-10-16T05-34-00-000Z](../database-raw/99-exports/RAW-canvas-2025-10-16T05-34-00-000Z.txt)
+- RAW: [RAW-canvas-2025-10-16T05-34-00-000Z](../../database-raw/99-exports/RAW-canvas-2025-10-16T05-34-00-000Z.txt)
   - `[DOCID: ereignislog_weltgeschehen_v1]` (`TYPE: event_log`, `VERSION: v1`)
 
 Zeitanker & Lesart

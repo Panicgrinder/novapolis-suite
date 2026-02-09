@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 09:21
-update: "Frontmatter konsolidiert; caravan-moves Links aktualisiert."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)"
+stand: 2026-02-08 22:51
+update: Liora-Link auf Novapolis-SSOT korrigiert.
+checks: "not run (link fix)"
 slug: person-index-np
 canvas: person_index_np
 last_updated: 2026-01-14T17:31:10+01:00
@@ -27,7 +27,7 @@ Hinweis: Felder gemäß Beschluss - Name, Rolle(n), Zugehörigkeit, Status, Noti
 |Tess Avari|Vermittlerin (Deals, Lieferfenster)|Novapolis (C6)|aktiv|Moderiert Übergaben, besteht auf Log-Disziplin (Protokoll/Funk)|[Tess Avari](../../haendlerbund/02-characters/Tess-Avari.md), [C6](../03-locations/C6.md)|
 |Darian Voss|Konvoi-Sicherheit / Scouts|Novapolis (C6)|aktiv|Sichert Übergaben, erkennt Muster in Überfällen|[Darian Voss](../../haendlerbund/02-characters/Darian-Voss.md), [caravan-moves](../../haendlerbund/05-projects/caravan-moves.md), [C6](../03-locations/C6.md)|
 |Varek Solun|Kommandant Militär/Zivil|Eisenkonklave (H12/Sektor_H3)|aktiv|Führt Konklave, sucht Union-Hauptarchiv; Novapolis nur als Gerücht|[Varek Solun](../../eisenkonklave/02-characters/Varek-Solun.md)|
-|Liora Navesh|Leiterin Forschungsrat / Chefärztin Biotechnologie|Arkologie A1|aktiv|Fokussiert auf SÜDFRAGMENT-Signale; keine bestätigten Novapolis-Kenntnisse|[Liora Navesh](../../arkologie-a1/02-characters/Liora-Navesh.md)|
+|Liora Navesh|Leiterin Forschungsrat / Chefärztin Biotechnologie|Arkologie A1|aktiv|Fokussiert auf SÜDFRAGMENT-Signale; keine bestätigten Novapolis-Kenntnisse|[Liora Navesh](./Liora-Navesh.md)|
 |Marei|Stellvertretung C6, ehem. Stationsleitung E3|Novapolis (C6)|aktiv|Koordiniert Evakuierte, Inventar- und Logistikabgleich D5↔C6|[Marei](./Marei.md), [C6](../03-locations/C6.md), [E3](../03-locations/E3.md)|
 
 Legende Zugehörigkeit: Station/Fraktion. Bitte Links auf Charakter-/Lokations-Canvas ergänzen.

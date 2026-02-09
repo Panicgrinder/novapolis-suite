@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 21:17
-update: Links auf relative Pfade normalisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 21:23); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp/database-rp/00-admin PASS (2026-02-04 21:23)
+stand: 2026-02-08 22:51
+update: Platzhalter-Links bereinigt; curated Pfad korrigiert.
+checks: "not run (link fix)"
 slug: current-state
 category: Admin
 canvas: current-state
@@ -29,7 +29,7 @@ Snapshot (kurz, abgeleitet)
 
 Hinweis: Dieser Snapshot ist **nur eine Kurzliste** und verweist auf die SSOT-Quelle. Wenn etwas unklar/konfliktär ist: erst im Missionslog/Scenes verorten, dann als Decision festnageln.
 
-- Bevölkerung (humanoid, gesamt): ~29 (Quelle: [resolved.md](../database-curated/staging/reports/resolved.md), FACT [POP])
+- Bevölkerung (humanoid, gesamt): ~29 (Quelle: [resolved.md](../../database-curated/staging/reports/resolved.md), FACT [POP])
   - Breakdown (kurz): Evakuierte aus E3 = 20; Karawane = 6; Kernteam (Ronja/Jonas/Pahl) = 3
   - Reflex-Instanzen (Reflex/Echo/Lumen) sind zusätzlich und zählen nicht zur humanoiden Zahl
 
@@ -95,8 +95,8 @@ Referenzstandard (slug-only)
 Wenn du etwas suchst
 --------------------
 
-- Personen/Charaktere: [01-factions/<faction>/02-characters/](../01-factions/<faction>/02-characters/)
-- Orte: [01-factions/<faction>/03-locations/](../01-factions/<faction>/03-locations/)
-- Inventar: [01-factions/<faction>/04-inventory/](../01-factions/<faction>/04-inventory/)
-- Projekte: [01-factions/<faction>/05-projects/](../01-factions/<faction>/05-projects/)
+- Personen/Charaktere: 01-factions/<faction>/02-characters/
+- Orte: 01-factions/<faction>/03-locations/
+- Inventar: 01-factions/<faction>/04-inventory/
+- Projekte: 01-factions/<faction>/05-projects/
 - Szenen/Chronik: [06-scenes/](../06-scenes/)

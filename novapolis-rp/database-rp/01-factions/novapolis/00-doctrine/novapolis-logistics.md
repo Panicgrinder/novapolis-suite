@@ -1,19 +1,15 @@
 ---
-stand: 2026-02-02 11:57
-update: Fraktionsweite Logistik-Doctrine als Einstieg/Index ergänzt (keine station-spezifischen Duplikate).
-checks: manuell (2026-02-02 11:57)
+stand: 2026-02-09 01:39
+update: slug ergaenzt.
+checks: "not run (slug add)"
+slug: novapolis-logistics
 ---
 
 Novapolis - Logistics
 ====================
 
 Ziel
-----
-
-Fraktionsweite Logistik-Doktrin (Kernregeln, Prinzipien, Zuständigkeiten). Stationsdetails (z. B. Zonenpläne, lokale Ausnahmen) liegen in den jeweiligen Locations.
-
-Kernreferenzen
---------------
+---
 
 - Inventar (Fraktion): [Novapolis-inventar](../04-inventory/Novapolis-inventar.md)
 - Inventar (D5): [D5-inventar](../04-inventory/D5-inventar.md)

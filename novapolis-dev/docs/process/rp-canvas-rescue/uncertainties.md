@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-01 13:25
-update: Nach dev-hub migriert (ehemals staging/reports); Inhalt unverändert.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
+stand: 2026-02-09 02:46
+update: Offene Punkte für Konfliktliste ergänzt (Inventar, Draisine, C6-Gerücht).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-09 02:46)"
 ---
 
 Korrekturen / Beschlüsse - Namen
@@ -28,7 +28,8 @@ Projekte / Tunnel Nordlinie
 
 Energie / Inventar
 ------------------
-- (Stand Staging 2026-01-11): Dieser Block ist vollständig entschieden und in `resolved.md` als `[FACT]` dokumentiert (ENERGY/LOG-LINKS/RECHARGE/CARRY/UNITS/E3-DISCONNECT/SUPPLY/INV-LOG/ANOMALY-7A/MODULE-9B/INV-SPLIT).
+- (Stand Staging 2026-01-11): Dieser Block ist weitgehend entschieden und in `resolved.md` als `[FACT]` dokumentiert (ENERGY/LOG-LINKS/RECHARGE/CARRY/UNITS/E3-DISCONNECT/SUPPLY/INV-LOG/ANOMALY-7A/MODULE-9B/INV-SPLIT).
+- [OPEN] Währung "Kugeln": konkrete Bestandszahlen/Umrechnung in Inventaren noch tbd; SSOT-Patch in Inventaren nachziehen.
 
 Charaktere / Mechaniken
 -----------------------
@@ -48,10 +49,13 @@ Zeit / Tage
 
 Sonstiges
 ---------
-- (Stand Staging 2026-01-11): Dieser Block ist vollständig entschieden und in `resolved.md` als `[FACT]` dokumentiert (ANOMALIES/C6-HELPERS/WAGON).
+- (Stand Staging 2026-01-11): Dieser Block ist weitgehend entschieden und in `resolved.md` als `[FACT]` dokumentiert (ANOMALIES/C6-HELPERS/WAGON).
+- [OPEN] "Lebewesen unter dem Boden" (C6): Einordnung als Gerücht/Signalrauschen vs Anomalie in SSOT eindeutig verankern.
+
 Fahrzeuge / Transport
 ---------------------
-- (Stand Staging 2026-01-11): Dieser Block ist vollständig entschieden und in `resolved.md` als `[FACT]` dokumentiert (MISSIONS-LOG/C6-FIRST/ANOMALY-IN-LOC/CARAVAN-MOVE/INV-PER-FACTION/C6-LINES/CONTEXT-CHECK/CANVAS-INDEX-STABILITY/SIM-WEEK/FR-KNOWLEDGE).
+- (Stand Staging 2026-01-11): Dieser Block ist weitgehend entschieden und in `resolved.md` als `[FACT]` dokumentiert (MISSIONS-LOG/C6-FIRST/ANOMALY-IN-LOC/CARAVAN-MOVE/INV-PER-FACTION/C6-LINES/CONTEXT-CHECK/CANVAS-INDEX-STABILITY/SIM-WEEK/FR-KNOWLEDGE).
+- [OPEN] Draisine/Transportmodul: Status + Scope in SSOT (Projekt/Inventar) konsistent und ohne tbd verankern.
 
 ---
 

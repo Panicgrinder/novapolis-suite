@@ -1,11 +1,11 @@
 ---
-stand: 2026-02-04 21:17
-update: Quellen und Referenzen auf relative Pfade normalisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 21:23); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp/database-rp/00-admin PASS (2026-02-04 21:23)
+stand: 2026-02-09 02:46
+update: Offene Konflikte aus uncertainties.md ergänzt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-09 02:46)"
 category: admin
 canvas: curated-konfliktliste
 slug: curated-konfliktliste
-source: ../database-curated/staging/*.review.md
+source: ../../database-curated/staging/*.review.md
 ---
 
 Curated Konfliktliste (Staging → SSOT)
@@ -19,9 +19,9 @@ Diese Seite bündelt die wichtigsten **Konflikte** und **FACT?**-Punkte aus den 
 Quellen (Curated)
 -----------------
 
-- [chat-export-complete.review.md](../database-curated/staging/chat-export-complete.review.md)
-- [chat-export (1).review.md](../database-curated/staging/chat-export%20(1).review.md)
-- Ergänzende Auszüge: [uncertainties.md](../database-curated/staging/reports/uncertainties.md), [resolved.md](../database-curated/staging/reports/resolved.md)
+- [chat-export-complete.review.md](../../database-curated/staging/chat-export-complete.review.md)
+- chat-export (1).review.md
+- Ergänzende Auszüge: [uncertainties.md](../../../novapolis-dev/docs/process/rp-canvas-rescue/uncertainties.md), [resolved.md](../../database-curated/staging/reports/resolved.md)
 
 Arbeitsregel
 ------------
@@ -32,14 +32,18 @@ Arbeitsregel
 Offen (Quelle: uncertainties.md)
 -------------------------------
 
-Diese Punkte sind in `../database-curated/staging/reports/uncertainties.md` noch **unchecked** und damit aktiv zu klären:
+Diese Punkte sind in `../../../novapolis-dev/docs/process/rp-canvas-rescue/uncertainties.md` noch **unchecked** und damit aktiv zu klären:
 
-- Aktuell keine offenen Punkte aus `uncertainties.md`, die in SSOT noch ohne Decision sind. (Die früher offenen Mechanik-Punkte sind in Top-10 #1–#7 entschieden.)
+- [OPEN] Währung "Kugeln": konkrete Bestandszahlen/Umrechnung in Inventaren noch tbd; SSOT-Patch in Inventaren nachziehen.
+- [OPEN] Draisine/Transportmodul: Status + Scope in SSOT (Projekt/Inventar) konsistent und ohne tbd verankern.
+- [OPEN] "Lebewesen unter dem Boden" (C6): Einordnung als Gerücht/Signalrauschen vs Anomalie in SSOT eindeutig verankern.
 
 Top-10 Konflikte / FACT?-Punkte (Priorität)
 ------------------------------------------
 
-- Aktuell keine offenen Top-10 Konflikte/FACT?-Punkte aus `uncertainties.md` (alle bisherigen Punkte sind entschieden und im Archiv unten geführt).
+1) [OPEN] Währung "Kugeln": Bestandszahlen/Umrechnung in Inventaren tbd (Inventare/Reference).
+2) [OPEN] Draisine/Transportmodul: Status + Scope in SSOT (Projekt/Inventar) konsistent verankern.
+3) [OPEN] "Lebewesen unter dem Boden" (C6): Gerücht/Signalrauschen vs Anomalie in SSOT fixieren.
 
 Archiv: Gelöste Top-10 (2026-01-11)
 ----------------------------------

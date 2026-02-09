@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-12 12:02
-update: "Schema-Gate: title ergaenzt; MD025-Override (Frontmatter-title + H1)."
-checks: npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-12 12:01); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-12 12:01); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md' PASS (2026-01-12 12:02); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-12 12:02)
+stand: 2026-02-09 01:59
+update: Transfer-Policy ergaenzt.
+checks: "not run (content update)"
 title: Inventar - D5
 last_updated: 2025-11-07T04:32:00+01:00
 category: inventory
@@ -17,6 +17,11 @@ tags: []
 
 D5 - Inventar
 =============
+
+Policy
+------
+- Inventare bleiben getrennt; Transfers nur via Mission/Logistik.
+- Buchungen mit Quelle/Ziel in [Logistik](../../00-admin/Logistik.md) dokumentieren.
 
 Bestände (verbucht)
 -------------------
