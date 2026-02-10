@@ -1,10 +1,20 @@
 ---
-stand: 2026-02-09 02:59
-update: "Checks: full via run_checks_and_report.py PASS; FinalGate/Review aktualisiert."
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-09 02:59)"
+stand: 2026-02-10 22:50
+update: "Frontmatter/Markdownlint Fixes in database-rp."
+checks: "scripts/run_checks_and_report.py PASS"
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-10 22:50: Frontmatter normalisiert (Index/Readmes/Reference-Campaign-State), Markdownlint-Table-Fix in Marktpreise, Checks-Run erneut gruen. Checks: scripts/run_checks_and_report.py PASS.
+- 2026-02-10 17:24: RAW-Waren (handelbar/stationaer) in Waren-Index und Marktpreise-Tabelle aufgenommen; Datenkern in stationaer/tragbar gesplittet. Checks: not run.
+- 2026-02-10 17:09: D5/C6 Inventar-Logs um Sonderfunde ([FACT?]) ergaenzt. Checks: not run.
+- 2026-02-10 17:06: Waren-Index um Szenen-Items ergaenzt; Marktpreise-Baseline um Skalen + Item-Tabelle erweitert. Checks: not run.
+- 2026-02-10 16:51: Waren-Index Filter-Posten gesplittet (Luftfilter Gasmasken/Einrichtungen, Wasserfilter portabel, Filtermaterial stationaer). Checks: not run.
+
+- 2026-02-10 04:30: RP Base TODO (.tmp/rp-base-todo.md) Punkt "Abdeckung erhoehen" geschlossen (47 SSOT-Scenes, alle mit Kurzbeschreibung). Checks: markdownlint-cli2 SKIP (ignored by config: .tmp/**); check_frontmatter PASS.
+
+- 2026-02-09 22:56: RP Base TODO (.tmp/rp-base-todo.md) um Kompaktstatus + offene Luecken ergaenzt. Checks: markdownlint-cli2 SKIP (ignored by config: .tmp/**); check_frontmatter PASS.
 
 - 2026-02-09 02:36: Curated-Konfliktliste/uncertainties um offene Punkte ergaenzt. Checks: markdownlint-cli2 FAIL (MD010 in chat-export-complete.finalgate.md).
 
@@ -13,6 +23,20 @@ Kurzueberblick
 - 2026-02-09 02:54: FinalGate/Review um Konfliktliste/Report-Link ergaenzt. Checks: not run.
 
 - 2026-02-09 02:59: Checks (run_checks_and_report.py) PASS; FinalGate/Review Checks vermerkt. Checks: run_checks_and_report.py PASS.
+
+- 2026-02-09 04:53: Weltwirtschaftssystem-Entwurf in .tmp erstellt (Makro/Meso/Mikro). Checks: not run.
+- 2026-02-09 05:28: Preisanker/Index-Definitionen im Weltwirtschafts-Entwurf ergaenzt. Checks: not run.
+- 2026-02-09 07:18: Ebenentrennung im Weltwirtschafts-Entwurf klargestellt. Checks: not run.
+- 2026-02-09 07:49: Index-Skalen semantisch geschaerft (Begriffe, heuristische Zeiten, Qualitaet). Checks: not run.
+- 2026-02-09 13:40: Preisbildung/Update-Zyklus sprachlich geschaerft; Distanz vs Risiko klarer; Offene Entscheidungen scoper. Checks: not run.
+
+- 2026-02-09 03:15: run_checks_and_report.py Fortschritts-Logging ergaenzt. Checks: not run.
+
+- 2026-02-09 03:31: Staging-uncertainties.md aus Dev-Hub synchronisiert. Checks: not run.
+
+- 2026-02-09 04:12: resolved.md FACT-Tag-Liste fuer Coverage-Guard ergaenzt. Checks: not run.
+
+- 2026-02-09 04:23: Anomalie/Draisine entschieden; C6/Reference/Projekt und Konfliktlisten aktualisiert. Checks: not run.
 
 - 2026-02-09 02:20: Curated-Konflikt-Report neu erzeugt (Ueberschreiben). Checks: extract_curated_conflicts.py PASS.
 

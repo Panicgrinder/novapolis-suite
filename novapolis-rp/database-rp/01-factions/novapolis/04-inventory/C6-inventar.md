@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-09 01:59
-update: Transfer-Policy ergaenzt.
-checks: "not run (content update)"
+stand: 2026-02-10 17:24
+update: Sonderfund-Log auf Datakern (tragbar) ausgerichtet.
+checks: "not run (not requested)"
 title: Inventar - C6
 last_updated: 2026-01-11T07:14:00+01:00
 category: inventory
@@ -34,6 +34,11 @@ Potenziale
 Fehlend / Offen
 ---------------
 - tbd
+
+Bewegungen (Log)
+----------------
+- 2026-02-10 17:09 [FACT?] Artefakt 7A im C6-Kontext markiert; Details erst nach Inventarisierung. Quelle: scene-2025-10-27-d.
+- 2026-02-10 17:09 [FACT?] Datenkern (tragbar) am Fundort C6 belassen; nicht aufgenommen. Quelle: scene-2025-10-27-x.
 
 Aktionen
 --------

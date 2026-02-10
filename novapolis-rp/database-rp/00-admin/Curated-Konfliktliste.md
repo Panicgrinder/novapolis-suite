@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-09 02:46
-update: Offene Konflikte aus uncertainties.md ergänzt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-09 02:46)"
+stand: 2026-02-09 04:23
+update: Anomalie/Draisine abgeschlossen; Kugeln bleibt offen.
+checks: "not run (content update)"
 category: admin
 canvas: curated-konfliktliste
 slug: curated-konfliktliste
@@ -35,15 +35,17 @@ Offen (Quelle: uncertainties.md)
 Diese Punkte sind in `../../../novapolis-dev/docs/process/rp-canvas-rescue/uncertainties.md` noch **unchecked** und damit aktiv zu klären:
 
 - [OPEN] Währung "Kugeln": konkrete Bestandszahlen/Umrechnung in Inventaren noch tbd; SSOT-Patch in Inventaren nachziehen.
-- [OPEN] Draisine/Transportmodul: Status + Scope in SSOT (Projekt/Inventar) konsistent und ohne tbd verankern.
-- [OPEN] "Lebewesen unter dem Boden" (C6): Einordnung als Gerücht/Signalrauschen vs Anomalie in SSOT eindeutig verankern.
 
 Top-10 Konflikte / FACT?-Punkte (Priorität)
 ------------------------------------------
 
 1) [OPEN] Währung "Kugeln": Bestandszahlen/Umrechnung in Inventaren tbd (Inventare/Reference).
-2) [OPEN] Draisine/Transportmodul: Status + Scope in SSOT (Projekt/Inventar) konsistent verankern.
-3) [OPEN] "Lebewesen unter dem Boden" (C6): Gerücht/Signalrauschen vs Anomalie in SSOT fixieren.
+
+Neu geloest (2026-02-09)
+------------------------
+
+- Draisine/Transportmodul: D5-Prototyp, konservativer Materiallauf (kein Personentransport im Erstlauf), realistische Schaetzung 200-400 kg pro Lauf.
+- "Lebewesen unter dem Boden" (C6): als Geruecht/Signalrauschen gefuehrt, keine neue Entitaet ohne Adminfreigabe.
 
 Archiv: Gelöste Top-10 (2026-01-11)
 ----------------------------------

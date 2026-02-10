@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-09 02:46
-update: Offene Punkte für Konfliktliste ergänzt (Inventar, Draisine, C6-Gerücht).
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-09 02:46)"
+stand: 2026-02-09 04:23
+update: Anomalie/Draisine entschieden; Kugeln bleibt offen.
+checks: "not run (content update)"
 ---
 
 Korrekturen / Beschlüsse - Namen
@@ -50,12 +50,12 @@ Zeit / Tage
 Sonstiges
 ---------
 - (Stand Staging 2026-01-11): Dieser Block ist weitgehend entschieden und in `resolved.md` als `[FACT]` dokumentiert (ANOMALIES/C6-HELPERS/WAGON).
-- [OPEN] "Lebewesen unter dem Boden" (C6): Einordnung als Gerücht/Signalrauschen vs Anomalie in SSOT eindeutig verankern.
+- Decision (2026-02-09): "Lebewesen unter dem Boden" (C6) wird als Geruecht/Signalrauschen gefuehrt, keine neue Entitaet ohne Adminfreigabe.
 
 Fahrzeuge / Transport
 ---------------------
 - (Stand Staging 2026-01-11): Dieser Block ist weitgehend entschieden und in `resolved.md` als `[FACT]` dokumentiert (MISSIONS-LOG/C6-FIRST/ANOMALY-IN-LOC/CARAVAN-MOVE/INV-PER-FACTION/C6-LINES/CONTEXT-CHECK/CANVAS-INDEX-STABILITY/SIM-WEEK/FR-KNOWLEDGE).
-- [OPEN] Draisine/Transportmodul: Status + Scope in SSOT (Projekt/Inventar) konsistent und ohne tbd verankern.
+- Decision (2026-02-09): Draisine/Transportmodul = D5-Prototyp, konservativer Materiallauf (kein Personentransport im Erstlauf), realistische Schaetzung 200-400 kg pro Lauf.
 
 ---
 

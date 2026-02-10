@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-09 02:59
-update: Checks: full PASS; FinalGate/Review aktualisiert.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-09 02:59)"
+stand: 2026-02-10 22:50
+update: Frontmatter/Markdownlint Fixes in database-rp.
+checks: "scripts/run_checks_and_report.py PASS"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,39 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: Frontmatter/Markdownlint Fixes (2026-02-10 22:50)
+----------------------------------------------------
+
+- Frontmatter in Admin/Readmes normalisiert (inkl. Reference-Campaign-State inline-Keys).
+- Markdownlint-Fix: Leerzeilen um Tabelle in `Marktpreise-inventar.md`.
+- Checks: `scripts/run_checks_and_report.py` PASS.
+
+RP: Waren-Index Filter-Split (2026-02-10 16:51)
+----------------------------------------------
+
+- Filterposten in `Waren-Index.md` getrennt: Luftfilter (Gasmasken, Einrichtungen) und Wasserfilter (portabel, stationaeres Filtermaterial).
+- Checks: not run.
+
+RP: Waren-Index + Marktpreise Skalen (2026-02-10 17:06)
+-------------------------------------------------------
+
+- Neue Items aus Szenen im Waren-Index ergaenzt (u. a. Werkzeugtasche, Messausruestung, Sensoren, Artefakt/Datenkern).
+- Marktpreise-Baseline: Skalen fuer Verfuegbarkeit/Tauschwert + kompakte Item-Tabelle ergaenzt.
+- Checks: not run.
+
+RP: D5/C6 Inventar-Logs Sonderfunde (2026-02-10 17:09)
+-------------------------------------------------------
+
+- D5/C6 Inventar-Logs um Sonderfunde als [FACT?] ergaenzt (Werkzeugtasche, Artefakt 7A, Datenkern/Datenwuerfel).
+- Checks: not run.
+
+RP: RAW-Waren aufgenommen (2026-02-10 17:24)
+-------------------------------------------
+
+- Waren-Index um RAW-Items (handelbar/stationaer) ergaenzt; Datenkern in stationaer/tragbar gesplittet.
+- Marktpreise-Baseline: Item-Tabelle um RAW-Waren erweitert.
+- Checks: not run.
 
 RP: Curated-Konfliktliste/uncertainties (2026-02-09 02:36)
 ---------------------------------------------------------
@@ -36,6 +69,53 @@ Checks: full (2026-02-09 02:59)
 -------------------------------
 
 - `scripts/run_checks_and_report.py` PASS.
+
+RP: Weltwirtschaftssystem Entwurf (2026-02-09 04:53)
+----------------------------------------------------
+
+- Entwurf in `.tmp/results/world-economy-system.draft.md` angelegt (Makro/Meso/Mikro, postapokalyptische Leitplanken).
+
+RP: Weltwirtschaftssystem Preis-Index (2026-02-09 05:28)
+--------------------------------------------------------
+
+- Preisanker (Basispreis), Index-Skalen und Anti-Doppelzaehlung im Entwurf ergaenzt.
+
+RP: Weltwirtschaftssystem Ebenentrennung (2026-02-09 07:18)
+-----------------------------------------------------------
+
+- Klarstellung: allgemeine Regeln/Skalen hier, Bedarfe/Nachfrage in Fraktionsdokumenten.
+
+RP: Weltwirtschaftssystem Hygiene (2026-02-09 07:49)
+----------------------------------------------------
+
+- Index-Skalen sprachlich geschaerft; Zeitangaben als Heuristik markiert; Qualitaet als sekundaerer Faktor klargestellt.
+
+RP: Weltwirtschaftssystem Hygiene 2 (2026-02-09 13:40)
+------------------------------------------------------
+
+- Distanz vs Risiko in Preisbildung/Grundannahmen getrennt; Update-Zyklus als temporaerer Override formuliert; Offene Entscheidungen an Fraktionsdokumente gebunden.
+
+Skripte: Checks-Logging (2026-02-09 03:15)
+------------------------------------------
+
+- `scripts/run_checks_and_report.py` um Fortschrittsausgaben ergaenzt.
+
+RP: Staging-uncertainties Sync (2026-02-09 03:31)
+-------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/reports/uncertainties.md` aus Dev-Hub synchronisiert.
+
+RP: resolved.md FACT-Tags (2026-02-09 04:12)
+--------------------------------------------
+
+- FACT-Tag-Liste in `novapolis-rp/database-curated/staging/reports/resolved.md` ergaenzt.
+
+RP: Anomalie/Draisine Entscheidungen (2026-02-09 04:23)
+------------------------------------------------------
+
+- C6-Anomalie als Geruecht/Signalrauschen verankert.
+- Draisine/Transportmodul mit konservativer Schaetzung in Reference/Projekt ergaenzt.
+- Konfliktlisten/uncertainties aktualisiert (nur Kugeln offen).
 
 Doku-Checks (2026-02-09 01:46)
 ------------------------------

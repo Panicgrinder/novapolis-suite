@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 09:21
-update: Link auf caravan-moves umgestellt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
+stand: 2026-02-09 04:23
+update: Arbeitsannahmen fuer realistische Schaetzung ergaenzt.
+checks: "not run (content update)"
 title: Draisine-/Transportmodul (Prototyp)
 category: project
 slug: draisine-transportmodul
@@ -39,6 +39,13 @@ Status (aktueller Arbeitsstand)
 
 - Status: **prototyping** (angefangen vor RP-Abbruch; noch kein abgesicherter Feldtest).
 - Nächster Meilenstein: **sicherer Testlauf** unter konservativen Bedingungen.
+
+Arbeitsannahmen (konservativ)
+-----------------------------
+
+- Erstlauf ohne Personentransport (nur Material), bis Tunnel und Not-Aus getestet sind.
+- Realistische Schaetzung fuer Materiallast: ca. 200-400 kg pro Lauf (je nach Zustand/Steigung/Abschnitt).
+- Fahrweise: langsam/planbar, Fokus auf Sicherheit statt Tempo.
 
 Rollen
 ------

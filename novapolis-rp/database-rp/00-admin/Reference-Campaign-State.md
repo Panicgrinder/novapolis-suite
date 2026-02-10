@@ -1,12 +1,84 @@
 ---
-stand: 2026-02-04 21:17
-update: Projekt-Link auf Fraktionspfad normalisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 21:23); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp/database-rp/00-admin PASS (2026-02-04 21:23)
+stand: 2026-02-10 22:48
+update: Frontmatter-Keys normalisiert (Checks/Decisions inline).
 slug: reference-campaign-state
 category: Admin
 canvas: campaign-state
+schemaVersion: 1
+language: de
+owners: [admin-novapolis]
+tags: [rp, campaign, state, mechanics]
+status: active
+relatedSlugs: [current-state, memory-bundle, canvas-t-0-timeline]
+checks: rp=passed; crossrefs=passed; lastRun=2026-02-09T17:37:35.4887646+01:00
+validators:
+  - id: rp
+    cmd: 'npm --prefix novapolis-rp\coding\tools\validators run validate:rp'
+  - id: crossrefs
+    cmd: 'npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs'
+decisions: [DEC-2026-02-09-01, DEC-2026-02-09-02]
+terms:
+  REFLEX-CONTROL: { aliases: ['Reflex-Control', 'Reflex-CONTROL'], kind: rule }
+  REFLEX-SPEECH: { aliases: ['Reflex-Speech'], kind: rule }
+  PROXIMITY: { aliases: ['Nähe-Kopplung'], kind: rule }
+  JEALOUSY-GLOVES: { aliases: ['Kontakt-Guard', 'Eifersuchts-Guard'], kind: rule }
+  DETACH: { aliases: ['Reflex-Detach', 'Detachment', 'REFLEX-DETACH'], kind: rule }
+  SE-POOLS: { aliases: ['SE', 'Symbiose-Energie Pools'], kind: resource }
+fsm:
+  states:
+    - id: CALM
+      description: Normalbetrieb, geringe Bedrohung
+    - id: ALERT
+      description: Erhöhtes Risiko/Unbekanntes
+    - id: CRISIS
+      description: Akute Gefahr; Notfallprotokolle erlaubt
+    - id: AFTERMATH
+      description: Gefahr gebrochen; Deeskalation/Review
+    - id: MAINTENANCE
+      description: Geplante Ruhe-/Service-Fenster
+  overlays:
+    - id: SCHONMODUS
+      enter:
+        - se_lte: 0
+        - se_pct_lt: 25
+        - hard_proximity_violation: true
+      exit:
+        - se_pct_gte: 25
+        - proximity_restored: true
+      effect: 'Bonus/Feinsteuerung deaktiviert; Minimalfunktionen aktiv'
+  transitions:
+    - from: CALM
+      to: ALERT
+      triggers: [sensor_alarm, unknown_contact, proximity_breach, unsafe_env]
+      entry: [tighten_proximity, raise_guard, prep_comm_short]
+    - from: ALERT
+      to: CALM
+      guards: [debrief_ok, env_stable, caregiver_regulated]
+      exit: [log_essentials, restore_normal_window]
+    - from: ALERT
+      to: CRISIS
+      triggers: [acute_threat, medical_escalation, stop_ignored_by_third_party]
+      entry: [activate_emergency, allow_reflex_control, prioritize_warning_pings]
+    - from: CRISIS
+      to: ALERT
+      guards: [immediate_threat_broken, not_yet_secure]
+      exit: [reduce_block, vitals_check, stabilize_env]
+    - from: CRISIS
+      to: AFTERMATH
+      guards: [secure_confirmed, caregiver_capable]
+      entry: [deescalate, care_med_psych, brief_review, write_protocol]
+    - from: AFTERMATH
+      to: CALM
+      guards: [regen_reset_done, todos_assigned, lessons_logged]
+    - from: CALM
+      to: MAINTENANCE
+      triggers: [sleep, service_window, long_transfer]
+    - from: MAINTENANCE
+      to: CALM
+      exit: [self_test_short]
 ---
 
+<!-- id: doc-reference-campaign-state -->
 Reference: Campaign State (ausgelagert)
 =====================================
 
@@ -14,6 +86,117 @@ Zweck: Sammelstelle für veränderliche Details (Inventar, Status, Timeline-Skiz
 
 Start here: [Current-State.md](./Current-State.md)
 
+<!-- id: fsm-campaign -->
+Campaign-State (Definitionen, Transitions, Beispiele)
+-----------------------------------------------------
+
+Ziel: Gemeinsame Zustandsmaschine (Finite State Machine, FSM) für den Kampagnenfluss, kompatibel mit den unten definierten Mechaniken (`SE-POOLS`, `PROXIMITY`, `REFLEX-CONTROL`, `JEALOUSY-GLOVES`, `DETACH`).
+
+State-Übersicht (kanonische Namen)
+----------------------------------
+
+- CALM: Normalbetrieb, geringe Bedrohung, Fokus auf Arbeit/Alltag/Regeneration.
+- ALERT: Erhöhtes Risiko/Unbekanntes; Vorsicht, Distanzen enger, Schutzbereitschaft hoch.
+- CRISIS: Akute Gefahr (Selbst-/Fremdgefährdung); Notfallprotokolle und Übernahme erlaubt.
+- AFTERMATH: Unmittelbare Gefahr gebrochen; Deeskalation, Checks, Versorgung, Review.
+- MAINTENANCE: Geplante Ruhe-/Reset-Fenster (Schlaf, Technikservice), kein aktives Szenen-Spiel.
+- Schonmodus (Overlay): Ressourcen-/Stabilitätsüberlagerung bei sehr niedriger SE oder harter Distanzverletzung; reduziert Fähigkeiten unabhängig vom Haupt-State.
+
+Transitions (Trigger, Guards, Entry/Exit)
+-----------------------------------------
+
+Hinweis: „Sicher“ ist wie unten in `REFLEX-CONTROL` definiert. „SE“ verweist auf Symbiose-Energie der jeweiligen Entität.
+
+- CALM → ALERT
+  - Trigger: Unbekannter Kontakt, Sensor-/Funk-Alarm, Distanzfenster überschritten, Warnungen (Instanz/Reflex), unsichere Umgebung.
+  - Entry: Distanzfenster enger, Schutzprioritäten hochfahren, Kommunikationskanal vorbereiten (kurz/gezielt).
+  - Exit nach ALERT: Entwarnung, Risiko adressiert oder weggefallen.
+
+- ALERT → CALM
+  - Guard: Entwarnung bestätigt, Umgebung stabil, Bezugsperson(en) reguliert/handlungsfähig.
+  - Exit: Notizen/Log kurz halten (nur Essentials), Normalfenster wiederherstellen.
+
+- ALERT → CRISIS
+  - Trigger: Akute Gefahr (z. B. Angriff, Sturz, Erstickungsgefahr, Brand, Reaktorereignis), „Stop“-Ignoranz durch Dritte, medizinische Eskalation.
+  - Entry: Notfallprotokoll; `REFLEX-CONTROL` darf temporär übernehmen, harte Abschirmung/Kokon erlaubt; Kommunikation priorisiert auf Warn-/Steuer-Pings.
+
+- CRISIS → ALERT
+  - Guard: Unmittelbare Gefahr gebrochen, aber „Sicher“ noch nicht voll erfüllt.
+  - Exit: Blockaden abbauen, Druck reduzieren, Vital-/Lagecheck, Umfeld stabilisieren.
+
+- CRISIS → AFTERMATH
+  - Guard: „Sicher“ erfüllt (siehe Definition in `REFLEX-CONTROL`), Bezugsperson wieder handlungsfähig.
+  - Entry: Deeskalation, Versorgung (medizinisch/psychologisch), kurze Nachbesprechung, Protokolle anlegen.
+
+- AFTERMATH → CALM
+  - Guard: Regeneration/Reset durchgeführt, ToDos verteilt, Lessons Learned vermerkt.
+  - Exit: Rückkehr in Normalbetrieb.
+
+- CALM → MAINTENANCE (und zurück)
+  - Trigger: Geplante Ruhe-/Service-Fenster (Schlaf, Technikwartung, längere Transfers ohne Spielszene).
+  - Exit: Aufwachen/Service abgeschlossen; kurzer Selbsttest, dann zurück nach CALM.
+
+- Schonmodus (Overlay)
+  - Eintritt: SE <= 0 (hart) oder SE < 25% (Einschränkungszone) bzw. harte Distanzverletzung einer Instanz ohne Anker/Power.
+  - Wirkung: Bonus-/Feinsteuerung fällt weg; Grundschutz/Minimalfunktionen bleiben. Kommunikation und Bewegungen werden kürzer/selterner/grober.
+  - Austritt: SE-Regeneration über Schwelle und/oder Nähe/Kontakt wiederhergestellt; ggf. kurzer Reset.
+
+Mermaid: Kampagnen-Zustandsmaschine (vereinfachte Sicht)
+-------------------------------------------------------
+
+```mermaid
+stateDiagram-v2
+  [*] --> CALM
+  CALM --> ALERT: Risiko erkannt / Distanz > Fenster / Alarm
+  ALERT --> CALM: Entwarnung + Check
+  ALERT --> CRISIS: Akute Gefahr
+  CRISIS --> ALERT: Gefahr gebrochen
+  CRISIS --> AFTERMATH: "Sicher" erfüllt
+  AFTERMATH --> CALM: Regeneration + Review
+  CALM --> MAINTENANCE: Schlaf/Service
+  MAINTENANCE --> CALM: Reset abgeschlossen
+
+  note over CALM,ALERT,CRISIS,AFTERMATH: "Schonmodus" kann in jedem State wirken\nbei SE<=0 (hart) oder SE<25% (Einschränkung)\nund harter Distanzverletzung (Instanzen)
+```
+
+Beispiele / Use-Cases
+---------------------
+
+- Werkstatt-Alltag (D5, Lumen↔Jonas)
+  - Start: CALM. Lumen hilft bei Materiallogistik, kurze lokale Trennungen am Werktisch (erlaubt, sicherer Kontext).
+  - Sensor-Ping aus Tunnel: → ALERT. Distanzfenster enger, Jonas bleibt in Hör-/Sichtweite, kurzer Funk-Check. Keine weitere Anomalie: → CALM.
+  - SE-Verlauf: gering (leicht), kein Schonmodus.
+
+- Tunnel-Patrouille (D5↔C6, Reflex↔Ronja)
+  - Start: ALERT (Umfeld unsicher). Unerwartete Erschütterung, Geröll fällt: → CRISIS. `REFLEX-CONTROL` aktiviert kurzfristig Block/Abschirmung, Bewegung stoppen.
+  - Gefahr bricht, Lage stabilisiert: → ALERT. Vitalcheck, Trümmerlage prüfen, Funk.
+  - „Sicher“ erfüllt, Rückweg frei, kurze Versorgung: → AFTERMATH → CALM nach Regeneration.
+  - SE-Verlauf: mittel→stark; nahe 25%: Bonus fällt kurzfristig weg; Kommunikation auf Warn-/Essentials begrenzt.
+
+- Kontakt-Guard (Marktszene, Echo↔Kora)
+  - Start: CALM. Unerwünschter Schultergriff durch Fremde: → ALERT. Echo aktiviert JEALOUSY-GLOVES lokal (Bedecken Schulter), fordert Abstand/Freigabe.
+  - Kein weiterer Übergriff, Person tritt zurück: → CALM. Kein CRISIS, da Bedrohung nicht akut.
+  - SE-Verlauf: leicht; kein Schonmodus.
+
+- Distanz-Training (Instanz ohne Dauer-Kontakt)
+  - Start: CALM. Echo soll 10–20 m entfernt kurz ein Formular prüfen (sicherer Raum). Nach 40 m ohne Sichtkontakt kippt Stabilität: Schonmodus (Overlay) greift; Echo zieht sich in Nähe zurück.
+  - Nach Nähe/Kontakt + kurzer Pause: Overlay endet; weiter in CALM.
+
+- Medizinische Eskalation (Erstickungsgefahr)
+  - Start: ALERT (C6, Reizstoffe). Ronja zeigt akute Atemprobleme: → CRISIS. `REFLEX-CONTROL` übernimmt kurz, Kokon/Abschirmung, Notfall-Ping, Rückzug.
+  - Gefahr gebrochen, Atmung stabil: → AFTERMATH (Versorgung), danach → CALM.
+
+Hinweise zur Verzahnung mit Mechaniken
+--------------------------------------
+
+- `PROXIMITY`: Zustände CALM/ALERT/CRISIS verwenden die Distanzfenster als Regler. Bei Überschreitung werden erst Warnungen (Kribbeln/Kälte) gesendet, dann lokale Abschirmungen; harte Verletzung kann Schonmodus auslösen.
+- `SE-POOLS`: Kostenkategorien (leicht/mittel/stark) beeinflussen, wie lange Zustände ohne Overlay gehalten werden können. Bei SE < 25% fallen Boni/Feinsteuerung weg; bei SE = 0 greifen Minimalfunktionen.
+- `REFLEX-CONTROL`: Notfall-Übernahme ist an CRISIS gekoppelt; Rückgabe erst bei „Sicher“; „Stop“ ist ein Deeskalationssignal, ersetzt aber nicht die „Sicher“-Prüfung.
+- `REFLEX-SPEECH`: In ALERT/CRISIS werden Pings/kurze Sätze bevorzugt; Dauerkanäle vermeiden, besonders nahe Schonmodus.
+- `JEALOUSY-GLOVES`: In ALERT geeignet, Grenzen non-invasiv durchzusetzen; bei echter Bedrohung greift CRISIS/CONTROL statt Gloves.
+- `DETACH`: Primärinstanz bleibt verbunden; Instanzen können lokal kurz agieren, solange sicher (oder geankert), sonst steigt SE-Verbrauch/Overlay-Risiko.
+
+<!-- id: rule-se-pools -->
 Mechanik (Reference): Symbiose-Energie (SE) - Pools (Reflex-System)
 ---------------------------------------------------------------
 
@@ -64,6 +247,7 @@ Regeneration (einfach)
 - Ruhig/ohne Einsatz: +1 SE pro 30 Minuten.
 - „Reset“: nach einem echten Ruheblock (z. B. Schlaf-/Regenerationsfenster, SL-Entscheid) wieder auf `SE_max`.
 
+<!-- id: rule-instances -->
 Instanzen (Reference): Wissensstand & Persönlichkeit
 ---------------------------------------------------
 
@@ -87,12 +271,13 @@ Training/Achsen (langfristig kompatibel)
 - Mental/Verhalten: Kontrolle/Trigger/Consent werden pro Instanz trainiert (Einfluss der Bezugsperson ist zentral).
 - Spezialisierung: Jede Instanz hat eine Hauptfähigkeit/Scope, der nicht automatisch auf andere Träger übergeht.
 
+<!-- id: rule-proximity -->
 Mechanik (Reference): Nähe-Kopplung (PROXIMITY)
 ----------------------------------------------
 
-Ziel: Eine spielbare Proximity-Regel für die Bezugspaare **Reflex↔Ronja**, **Lumen↔Jonas**, **Echo↔Kora**.
+Ziel: Eine spielbare `PROXIMITY`-Regel für die Bezugspaare **Reflex↔Ronja**, **Lumen↔Jonas**, **Echo↔Kora**.
 
-Grundannahmen (REFLEX-SPEECH)
+Grundannahmen (PROXIMITY)
 -----------------------------
 
 - Proximity ist **tatsächliche Nähe** (Distanz, optional Kontakt). Sie wirkt als Stabilitätsanker.
@@ -106,6 +291,7 @@ Zustände (Heuristik)
 - `ALERT`: Unbekanntes/Risiko. Distanzfenster wird enger; Schutzpositionierung nimmt zu.
 - `CRISIS`: Akute Selbst-/Fremdgefährdung. Schutzhandlungen dürfen kurzfristig übergriffig werden, bis die unmittelbare Gefahr gebrochen ist; danach Deeskalation.
 
+<!-- id: dec-2026-02-09-02 -->
 Distanzfenster (Startwerte)
 ---------------------------
 
@@ -133,6 +319,7 @@ Scope-Unterschiede
 - Reflex (Primär): stärkster Affektions- und Schutztreiber; in `CRISIS` darf er kurzfristig blockieren/abschirmen (z. B. Bewegung unterbinden, Kokon/Abschirmung), um Leben zu sichern.
 - Instanzen (Lumen/Echo): Nähe wird gesucht (Affektion), Schutzhandlungen bleiben **lokal und kurz** (z. B. Hand stoppen, Sichtlinie schützen), um Arbeitsfähigkeit und Alltag zu ermöglichen.
 
+<!-- id: rule-reflex-speech -->
 Mechanik (Reference): Reflex Sprache/Audio (REFLEX-SPEECH)
 --------------------------------------------------------
 
@@ -178,6 +365,7 @@ Consent & Notfall-Override
 - In `CRISIS` (akute Selbst-/Fremdgefährdung) darf Reflex **kurz** ("Notfall-Ping") auch ohne vorherige Freigabe warnen, wenn dies unmittelbar lebensrettend ist.
 - Nach Ende der Akutlage gilt sofort wieder: Consent + Deeskalation + Pause.
 
+<!-- id: rule-reflex-control -->
 Mechanik (Reference): Schutz-Übernahme (REFLEX-CONTROL)
 ------------------------------------------------------
 
@@ -188,6 +376,7 @@ Grundsatz (Decision, REFLEX-CONTROL)
 
 - **Rückgabe/Entkopplung erfolgt erst, wenn die Situation als "Sicher" eingeschätzt wird (nicht früher).**
 
+<!-- id: dec-2026-02-09-01 -->
 Definition "Sicher" (Heuristik)
 -------------------------------
 
@@ -210,6 +399,7 @@ Scope & Kosten (kompatibel)
 - Bei niedriger SE (nahe Schonmodus) wird Kontrolle grober und kürzer; Rückgabe-Check bleibt Pflicht.
 
 
+<!-- id: rule-detach -->
 Mechanik (Reference): Detachment & Beweglichkeit (REFLEX-DETACH)
 ---------------------------------------------------------------
 
@@ -242,6 +432,7 @@ Kosten/Limitierung (SE-kompatibel, Heuristik)
 - Wenn die Instanz Unruhe/Stress zeigt oder "Stop" kommt: **sofort zurück in Nähe/Kontakt**; bei Überschreiten des eigenen Distanzfensters kippt sie in Schonmodus.
 
 
+<!-- id: rule-jealousy-gloves -->
 Mechanik (Reference): Kontakt-Guard / Eifersuchts-Guard (JEALOUSY-GLOVES)
 ------------------------------------------------------------------------
 
@@ -268,6 +459,7 @@ Eskalation (Heuristik)
 - Wenn es **keine Jealousy-Situation**, sondern eine **Bedrohung/Übergriff** ist, greifen die Schutzregeln aus `REFLEX-CONTROL` (CRISIS) statt JEALOUSY-GLOVES.
 
 
+<!-- id: policy-new-entities -->
 Admin/Canon-Policy (Reference): Neue Entitäten / "Lebewesen"
 ------------------------------------------------------------
 
@@ -290,6 +482,7 @@ Externe Handschuhe / Kleidung
 - Wenn Kontakt-Guard aktiv ist, hat die Schutzschicht Priorität: Reflex/Instanz legt sich an der **betroffenen Stelle** so, dass der unerwünschte Kontakt zuverlässig blockiert wird (auch über Stoff/Handschuh möglich).
 
 
+<!-- id: economy-kugeln -->
 Währung (Reference): "Kugeln" (neu vs gebraucht)
 -------------------------------------------
 
@@ -323,6 +516,7 @@ Praxis (SL/Spielbarkeit)
 - Größere Deals, kritische Ressourcen oder Vertrauenshandel laufen eher in **neu** (oder in gemischten Paketen).
 
 
+<!-- id: project-draisine -->
 Projekt (Reference): Draisine-/Transportmodul (D5 Prototyp)
 ----------------------------------------------------------
 
@@ -337,6 +531,12 @@ Status (Reference)
 
 - Status: **prototyping** (noch kein abgesicherter Feldtest).
 - Ziel: Ein **konservativer Material-/Transport-Usecase** für Nordlinie (D5↔C6), nicht "schnell" und nicht als Dauerdienst.
+
+Arbeitsannahmen (konservativ)
+-----------------------------
+
+- Erstlauf ohne Personentransport, bis Tunnel + Not-Aus validiert sind.
+- Realistische Schaetzung fuer Materiallast: ca. 200-400 kg pro Lauf (abhängig von Zustand/Abschnitt).
 
 Gates (erster Testlauf)
 -----------------------
@@ -388,8 +588,20 @@ Offene Fäden (Detail)
 
 Links
 -----
-- Canon-Core → ./memory-bundle.md
-- Timeline (T+0) → ./Canvas-T+0-Timeline.md
-- Szene (T+0 Status-Ping) → ../06-scenes/scene-2025-10-27-a.md
-- Nordlinie 01 → ../05-projects/Nordlinie-01.md
-- Inventar (Fraktion) → ../04-inventory/Novapolis-inventar.md
+- Canon-Core → [memory-bundle.md](./memory-bundle.md)
+- Timeline (T+0) → [Canvas-T+0-Timeline.md](./Canvas-T+0-Timeline.md)
+- Szene (T+0 Status-Ping) → [scene-2025-10-27-a.md](../06-scenes/scene-2025-10-27-a.md)
+- Nordlinie 01 → [Nordlinie-01.md](../01-factions/novapolis/05-projects/Nordlinie-01.md)
+- Inventar (Fraktion) → [Novapolis-inventar.md](../01-factions/novapolis/04-inventory/Novapolis-inventar.md)
+
+<!-- id: validation -->
+
+Validierung (How to)
+--------------------
+
+Führe die Validatoren aus, um RP-Dokumente und Crossrefs zu prüfen:
+
+```bash
+npm --prefix novapolis-rp\coding\tools\validators run validate:rp
+npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs
+```

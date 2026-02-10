@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-09 01:59
-update: Transfer-Policy ergaenzt.
-checks: "not run (content update)"
+stand: 2026-02-10 17:09
+update: Sonderfund aus Szene als [FACT?] im Log vermerkt.
+checks: "not run (not requested)"
 title: Inventar - D5
 last_updated: 2025-11-07T04:32:00+01:00
 category: inventory
@@ -37,6 +37,10 @@ Fehlend / Offen
 ---------------
 - Schweißausrüstung
 - Adapter DN60
+
+Bewegungen (Log)
+----------------
+- 2026-02-10 17:09 [FACT?] Werkzeugtasche (Fundstueck) in D5 beobachtet; Ownership/Inhalt offen. Quelle: scene-2025-10-27-g.
 
 Aktionen
 --------

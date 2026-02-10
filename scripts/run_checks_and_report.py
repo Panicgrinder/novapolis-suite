@@ -248,6 +248,9 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
     script_path = Path(__file__).resolve()
     repo_root = resolve_repo_root(script_path)
     python_exec = resolve_python(repo_root)
+    print("[checks] Start: Repository-Checks laufen an.")
+    print(f"[checks] Repo-Root: {repo_root}")
+    print(f"[checks] Python: {python_exec}")
     # Ensure virtualenv executables (e.g., pyright.exe) are discoverable via PATH
     try:
         venv_bin = python_exec.parent
@@ -283,6 +286,7 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
     }
 
     results: list[CheckResult] = []
+    print(f"[checks] Coverage fail-under: {coverage_fail_under}")
 
     def run_or_fail(
         tool: str,
@@ -297,6 +301,10 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
     ) -> None:
         log_path = logs_dir / f"{tool}.log"
         command_list = list(command)
+        command_preview = " ".join(command_list)
+        print(f"[checks] -> {tool}: start")
+        print(f"[checks]    cwd: {cwd}")
+        print(f"[checks]    cmd: {command_preview}")
         try:
             exit_code, output, duration = run_command(
                 command_list,
@@ -308,6 +316,7 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
         except FileNotFoundError:
             reason = f"Executable not found: {command_list[0]}"
             write_log(log_path, f"{'FAIL' if required else 'SKIP'}: {reason}\n")
+            print(f"[checks] <- {tool}: FAIL ({reason})")
             results.append(
                 CheckResult(
                     tool=tool,
@@ -342,6 +351,7 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
                 required=required,
             )
         )
+        print(f"[checks] <- {tool}: {status} (exit={exit_code}, findings={findings})")
 
     npx_executable = check_tool_available("npx")
     markdownlint_config = repo_root / ".markdownlint-cli2.jsonc"
