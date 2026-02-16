@@ -1,13 +1,29 @@
 ---
-stand: 2025-12-30 06:51
-update: "Frontmatter: slug ergänzt; Checks aktualisiert."
-checks: scripts/checks_rp_consistency.py PASS; scripts/check_frontmatter.py PASS (targeted); markdownlint-cli2 PASS (targeted) (2025-12-30 06:51)
+stand: 2026-02-16 08:50
+update: Als Character-Anhang normalisiert (parent_character, nicht eigenständig) und Standort auf C6 synchronisiert.
+checks: not run (targeted content update)
+title: Lumen - Wissensstand & Trainingsstand
+category: character-attachment
 slug: lumen-wissensstand-trainingsstand
+version: "1.0"
 last_updated: 2025-11-07T03:32:00+01:00
+parent_character: lumen
+is_standalone_character: false
+tags: [knowledge, training]
+affiliations: [novapolis]
+primary_location: c6
+last_seen: c6
+dependencies: [lumen, c6]
 ---
+
+<!-- markdownlint-disable MD025 -->
 
 Lumen - Wissensstand & Trainingsstand
 =====================================
+
+Hinweis
+-------
+- Dieses Dokument ist ein Anhang zu **Lumen** und kein eigenständiger Charakter.
 
 Wissensstand (Detailmatrix)
 ---------------------------

@@ -1,6 +1,6 @@
 ---
-stand: 2026-02-10 22:45
-update: Frontmatter normalisiert.
+stand: 2026-02-11 05:25
+update: Sim-State-Schema verlinkt.
 checks: "not run (not requested)"
 slug: index-rules
 category: Admin
@@ -9,7 +9,7 @@ language: de
 status: active
 owners: [admin-novapolis]
 tags: [rp, rules, index]
-relatedSlugs: [reference-campaign-state]
+relatedSlugs: [reference-campaign-state, process-workflow, sim-state-schema]
 ---
 
 Index: Regeln, Policies und FSM
@@ -20,9 +20,14 @@ Zweck: Zentrale Übersicht aller Regel-/Policy-Sektionen und Entscheidungsanker 
 Quelldatei (Aggregator)
 -----------------------
 - reference: `reference-campaign-state` → ./Reference-Campaign-State.md
+- reference: `process-workflow` → ./Process-Workflow.md
+- reference: `sim-state-schema` → ./Sim-State-Schema.md
+- reference: `tick-regeln-simulation` → ./Tick-Regeln-Simulation.md
 
 Abschnitts-IDs (interne Anker für KI)
 -------------------------------------
+- process-workflow → Prozess/Workflow (Curation, Validation, Export, Simulation)
+- sim-state-schema → Sim-State Schema (maschinenlesbar, RP-World-State)
 - fsm-campaign → Kampagnen-Zustandsmaschine
 - rule-se-pools → Symbiose-Energie (SE) – Pools
 - rule-instances → Instanzen: Wissensstand & Persönlichkeit

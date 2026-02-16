@@ -273,6 +273,14 @@
       "json": "database-rp/00-admin/Missionslog.json"
     },
     {
+      "md": "database-rp/00-admin/Process-Workflow.md",
+      "json": "database-rp/00-admin/Process-Workflow.json"
+    },
+    {
+      "md": "database-rp/00-admin/Sim-State-Schema.md",
+      "json": "database-rp/00-admin/Sim-State-Schema.json"
+    },
+    {
       "md": "database-rp/00-admin/Kernkonversationen.md",
       "json": "database-rp/00-admin/Kernkonversationen.json"
     },
@@ -421,5 +429,5 @@
       "json": "database-rp/01-factions/schienenbund/06-handel-diplomatie/Handelslog-Schienenbund.json"
     }
   ],
-  "last_update": "2026-01-14T07:48:54+01:00"
+  "last_update": "2026-02-11T05:25:00+01:00"
 }

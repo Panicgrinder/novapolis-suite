@@ -1,0 +1,10 @@
+{
+  "title": "Sim-State-Schema (RP)",
+  "category": "admin",
+  "slug": "sim-state-schema",
+  "version": "1.0",
+  "tags": ["simulation", "state", "schema"],
+  "affiliations": [],
+  "dependencies": ["current-state", "process-workflow", "logistik", "missionslog"],
+  "source": "database-rp/00-admin/Sim-State-Schema.md"
+}

@@ -1,11 +1,17 @@
 ---
-stand: 2026-02-10 22:50
-update: "Frontmatter/Markdownlint Fixes in database-rp."
-checks: "scripts/run_checks_and_report.py PASS"
+stand: 2026-02-13 09:54
+update: "Postflight-Nachtrag: Tick-Regeln-Simulation (RP) dokumentiert."
+checks: "markdownlint-cli2 PASS; check_frontmatter.py PASS"
 ---
 Kurzueberblick
 --------------
 
+- 2026-02-13 09:52: Postflight-Nachtrag: Tick-Regeln & Simulation (RP-SSOT) wurde unter `database-rp/00-admin/Tick-Regeln-Simulation.md` angelegt und in `database-rp/00-admin/index-rules.md` verlinkt; Receipt nachgezogen. Checks: markdownlint-cli2 PASS; check_frontmatter.py PASS.
+- 2026-02-11 05:26: JSON-Sidecars fuer Process-Workflow/Sim-State-Schema angelegt und `database-rp/index.json` aktualisiert. Checks: not run.
+- 2026-02-11 05:25: Sim-State-Schema (maschinenlesbar) in `database-rp/00-admin/Sim-State-Schema.md` angelegt und in `index-rules.md` verlinkt. Checks: not run.
+- 2026-02-11 03:29: Process-Workflow MD031-Fix (Leerzeile vor Codeblock) und Checks erneut PASS. Checks: scripts/run_checks_and_report.py PASS.
+- 2026-02-11 02:09: Process-Workflow um Scenes/Checks/Stub-Mapping/Governance/Canvas-Rescue/FinalGate ergaenzt. Checks: not run.
+- 2026-02-11 01:59: Prozess-/Workflow-Doku aus Dev/RP in `database-rp/00-admin/Process-Workflow.md` konsolidiert und in `index-rules.md` verlinkt. Checks: not run.
 - 2026-02-10 22:50: Frontmatter normalisiert (Index/Readmes/Reference-Campaign-State), Markdownlint-Table-Fix in Marktpreise, Checks-Run erneut gruen. Checks: scripts/run_checks_and_report.py PASS.
 - 2026-02-10 17:24: RAW-Waren (handelbar/stationaer) in Waren-Index und Marktpreise-Tabelle aufgenommen; Datenkern in stationaer/tragbar gesplittet. Checks: not run.
 - 2026-02-10 17:09: D5/C6 Inventar-Logs um Sonderfunde ([FACT?]) ergaenzt. Checks: not run.

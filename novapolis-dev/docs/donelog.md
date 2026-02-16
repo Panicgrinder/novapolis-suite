@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-10 22:50
-update: Frontmatter/Markdownlint Fixes in database-rp.
-checks: "scripts/run_checks_and_report.py PASS"
+stand: 2026-02-13 09:54
+update: Postflight-Nachtrag: Tick-Regeln-Simulation (RP) dokumentiert.
+checks: "markdownlint-cli2 PASS; check_frontmatter.py PASS"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,45 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: Tick-Regeln & Simulation (Postflight-Nachtrag) (2026-02-13 09:52)
+--------------------------------------------------------------------
+
+- `database-rp/00-admin/Tick-Regeln-Simulation.md` angelegt/standardisiert und in `database-rp/00-admin/index-rules.md` verlinkt.
+- Postflight/Receipt nachgezogen (Governance-Nachpflege).
+- Checks: markdownlint-cli2 PASS; check_frontmatter.py PASS.
+
+RP: Process-Workflow Konsolidierung (2026-02-11 01:59)
+-----------------------------------------------------
+
+- Prozess-/Workflow-Inhalte (Curation, Validatoren, Export/Ingest, Metadata, Simulation, Schreibstil, Naming-Policy) nach `database-rp/00-admin/Process-Workflow.md` uebertragen.
+- `index-rules.md` um Verweis und Abschnitts-ID ergaenzt.
+- Checks: not run.
+
+RP: Process-Workflow Erweiterung (2026-02-11 02:09)
+---------------------------------------------------
+
+- fehlende Abschnitte aus Dev/RP ergaenzt (Scenes, Checks, Stub-Mapping, Governance, FinalGate, Canvas-Rescue).
+- Checks: not run.
+
+RP: Process-Workflow MD031-Fix (2026-02-11 03:29)
+-------------------------------------------------
+
+- Leerzeile vor Codeblock (Beispiel-Frontmatter) ergaenzt.
+- Checks: `scripts/run_checks_and_report.py` PASS.
+
+RP: Sim-State-Schema (2026-02-11 05:25)
+---------------------------------------
+
+- Sim-State-Schema in `database-rp/00-admin/Sim-State-Schema.md` angelegt und in `index-rules.md` verlinkt.
+- Checks: not run.
+
+RP: Sim-State-Schema Sidecars/Index (2026-02-11 05:26)
+------------------------------------------------------
+
+- JSON-Sidecars fuer Process-Workflow und Sim-State-Schema angelegt.
+- `database-rp/index.json` aktualisiert.
+- Checks: not run.
 
 RP: Frontmatter/Markdownlint Fixes (2026-02-10 22:50)
 ----------------------------------------------------
