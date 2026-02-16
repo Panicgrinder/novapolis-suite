@@ -10,7 +10,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-ROOT = Path.cwd()
+ROOT = Path(__file__).resolve().parents[1]
 TS = datetime.now().strftime("%Y%m%d_%H%M%S")
 TMP = ROOT / ".tmp" / "results" / "reports"
 TMP.mkdir(parents=True, exist_ok=True)
@@ -18,8 +18,8 @@ LOG = TMP / f"checks_types_{TS}.log"
 RECEIPT = TMP / f"checks_types_postflight_{TS}.md"
 
 COMMANDS = [
-    (["pyright", "-p", "pyrightconfig.json"], "pyright"),
-    (["python", "-m", "mypy", "--config-file", "mypy.ini", "app", "scripts"], "mypy"),
+    ([sys.executable, "-m", "pyright", "-p", "pyrightconfig.json"], "pyright"),
+    ([sys.executable, "-m", "mypy", "--config-file", "mypy.ini", "app", "scripts"], "mypy"),
 ]
 
 results = []

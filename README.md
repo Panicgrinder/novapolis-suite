@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 04:08
-update: checks-Receipt nachgezogen (Basis-Stabilisierung).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 04:08); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py README.md novapolis_agent\README.md PASS (2026-01-11 04:08)
+stand: 2026-02-16 20:55
+update: Pfad-Token "VS Code Workspace" -> "VS-Code-Workspace" ersetzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55)
 ---
 Novapolis Suite
 ===============
@@ -22,16 +22,16 @@ Gemeinsames Python-Paket
 Geteilte Python-Helfer leben in `packages/novapolis_common`. Installiere das Shared-Paket bei Bedarf als Editable (nicht mehr das gesamte Repo):
 
 ```powershell
-Set-Location "F:/VS Code Workspace/Main"
+Set-Location "F:/VS-Code-Workspace/Main"
 # venv aktiv (falls noch nicht):
-F:/VS Code Workspace/Main/.venv/Scripts/Activate.ps1
+F:/VS-Code-Workspace/Main/.venv/Scripts/Activate.ps1
 
 # Dependencies (Root):
-F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -r requirements.txt
-F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+F:\VS-Code-Workspace\Main\.venv\Scripts\python.exe -m pip install -r requirements.txt
+F:\VS-Code-Workspace\Main\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 
 # Optional: Shared-Paket als Editable
-F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -e packages/novapolis_common
+F:\VS-Code-Workspace\Main\.venv\Scripts\python.exe -m pip install -e packages/novapolis_common
 ```
 
 Module, die aktuell mehrfach in den Projekten vorkommen, sollten nach `packages/novapolis_common` wandern. Projektspezifische Verdrahtung (API, Policies, Szenenlogik) verbleibt in den jeweiligen Ordnern. Packaging/Build-Konfigurationen verbleiben in den Modul-/Paketpfaden; das Root `pyproject.toml` ist tools-only.
@@ -65,7 +65,7 @@ Zentrale Arbeitsrichtlinien
 Lint ausführen (optional, lokal):
 
 ```powershell
-Set-Location "F:/VS Code Workspace/Main"
+Set-Location "F:/VS-Code-Workspace/Main"
 npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'
 ```
 

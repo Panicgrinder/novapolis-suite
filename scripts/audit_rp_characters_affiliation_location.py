@@ -127,10 +127,7 @@ def build_rows(files: list[Path], root: Path) -> list[CharacterAuditRow]:
 
         affiliation_ok = faction in affiliations if affiliations else False
 
-        leadership_candidate = bool(
-            LEADERSHIP_RE.search(text)
-            or LEADERSHIP_RE.search(body)
-        )
+        leadership_candidate = bool(LEADERSHIP_RE.search(text) or LEADERSHIP_RE.search(body))
 
         rows.append(
             CharacterAuditRow(
@@ -216,7 +213,8 @@ def write_markdown_report(
         "Fraktions-Summary",
         "-----------------",
         "",
-        "| Fraktion | Chars | Affiliation-Mismatch | Missing primary_location | Missing last_seen | Leadership-Kandidaten |",
+        "| Fraktion | Chars | Affiliation-Mismatch | Missing primary_location | ",
+        "| Missing last_seen | Leadership-Kandidaten |",
         "| --- | ---: | ---: | ---: | ---: | ---: |",
     ]
 
@@ -224,7 +222,8 @@ def write_markdown_report(
         s = summary[faction]
         lines.append(
             f"| {faction} | {s['total_characters']} | {s['affiliation_mismatches']} | "
-            f"{s['missing_primary_location']} | {s['missing_last_seen']} | {s['leadership_candidates']} |"
+            f"{s['missing_primary_location']} | {s['missing_last_seen']} | "
+            f"{s['leadership_candidates']} |"
         )
 
     lines += [
@@ -244,9 +243,8 @@ def write_markdown_report(
             lines.append(f"  - slug: {row.slug or '(leer)'}")
             lines.append(f"  - affiliations: {row.affiliations}")
             lines.append(f"  - affiliation_ok: {row.affiliation_ok}")
-            lines.append(
-                f"  - primary_location: {row.primary_location if row.primary_location else '(leer)'}"
-            )
+            primary_location = row.primary_location or "(leer)"
+            lines.append(f"  - primary_location: {primary_location}")
             lines.append(f"  - last_seen: {row.last_seen if row.last_seen else '(leer)'}")
             lines.append(f"  - missing_fields: {row.missing_fields}")
 

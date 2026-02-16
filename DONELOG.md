@@ -1,11 +1,15 @@
 ---
-stand: 2026-02-16 13:08
-update: "RP: Novapolis 02-characters Sidecars zu Frontmatter synchronisiert; Checks grün."
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-16 13:08)"
+stand: 2026-02-17 00:31
+update: "Checks repariert: Ruff/Black/Imports bereinigt; Pyright-Aufruf auf python -m umgestellt; Full-Checks wieder PASS."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md PASS (2026-02-17 00:32); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py DONELOG.md PASS (2026-02-17 00:32)"
 ---
 Kurzueberblick
 --------------
 
+- 2026-02-17 00:31: Checks repariert: Ruff/Black Findings in `scripts/` bereinigt (u. a. Zeilenlängen/Import-Order/unused imports). Pyright-Fail nach Workspace-Pfad-Umzug behoben, indem Pyright-Aufruf in `scripts/run_checks_and_report.py` und `scripts/checks_types.py` auf `python -m pyright` umgestellt wurde (statt defektem `pyright.exe` Launcher). Konsolidierter Lauf `scripts/run_checks_and_report.py` erneut PASS (Report: `.tmp/results/reports/checks_report_20260217_003018.md`). Checks: pending.
+- 2026-02-17 00:18: Wrapper-/Checks-Migration: In `.vscode/tasks.json` mehrere Check-/Test-Tasks von `pwsh -Command` Scriptblocks auf direkte Aufrufe von `.venv\\Scripts\\python.exe` umgestellt (ruff/black/pytest + Wrapper-Skripte). Zudem `scripts/checks_linters.py` und `scripts/checks_types.py` gehärtet (Repo-Root für `.tmp`, `sys.executable`, `python -m ruff/black/mypy`). Checks: pending.
+- 2026-02-16 21:19: Workspace-Tree: Task "Workspace tree: summary (dirs)" in `.vscode/tasks.json` auf direkten Python-Aufruf umgestellt (Quoting-Robustheit); Tasks "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)" ausgeführt und `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt` aktualisiert. Checks: markdownlint-cli2 PASS (DONELOG.md); check_frontmatter.py PASS (DONELOG.md).
+- 2026-02-16 20:55: Root-Dokus/Meta: "VS Code Workspace" -> "VS-Code-Workspace" in `README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, `todo.root.md`, `PR_DESCRIPTION.md`, `single-root-todo.md`, `extensions.status.txt`. Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
 - 2026-02-16 13:06: RP (Novapolis): `01-factions/novapolis/02-characters/` JSON-Sidecars per `scripts/rp_canon_sync.py` aus dem Markdown-Frontmatter synchronisiert (Drift-Fix: u. a. last_seen/primary_location/last_updated). Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_130706.md`).
 - 2026-02-16 12:51: RP (Novapolis): Doctrine unter `01-factions/novapolis/00-doctrine/` maschinenlesbarer gemacht (Frontmatter-Metadaten, Zuständigkeiten/Freigaben, Kernregeln/Transferregeln, Chronik-Regeln) und Sidecars synchronisiert. Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_125337.md`).
 - 2026-02-16 12:33: RP: README-Sidecar-Policy festgelegt (READMEs ohne Sidecar) und Legacy `README.json` Sidecars entfernt (Handel/Diplomatie-Ordner der Fraktionen + Scenes README). Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_123226.md`).

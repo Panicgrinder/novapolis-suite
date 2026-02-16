@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Restliche offene Checkboxen geschlossen und annotiert; Archiv-Move vorbereitet
-checks: markdownlint-cli2 PASS; frontmatter PASS; checklist PASS (open=0)
+stand: 2026-02-16 20:55
+update: Pfad-Token "VS Code Workspace" -> "VS-Code-Workspace" ersetzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55)
 archived: true
 ---
 <!-- markdownlint-disable MD001 MD022 MD041 -->
@@ -247,7 +247,7 @@ Notiz (2025-11-07 05:15): Modul-Workflows entfernt (siehe Liste oben); Root-Work
 - [x] Lint/Format global konsistent (eine Config je Tool) (erfüllt - zentrale `pyproject.toml` für ruff/black, keine konkurrierenden Modul-Konfigurationen)
 - [x] Dokumentation aktualisiert (README/Index, dieser Plan abgehakt) (erfüllt - Hinweise und Migrationsstatus in README / Index reflektiert)
 
-### VS Code Workspace (Multi-root → Single-root)
+### VS-Code-Workspace (Multi-root → Single-root)
 
 Aktueller Stand (geprüft): `novapolis-suite.code-workspace` entfernt/archiviert, siehe Archivhinweis.
 

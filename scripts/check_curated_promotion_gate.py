@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-import sys
 from pathlib import Path
 
 
@@ -93,7 +92,7 @@ def main() -> int:
             errors.append(f"{item_id}: reviewed.unresolved.path fehlt")
             continue
 
-        unresolved_path = root / "novapolis-rp" / str(unresolved["path"]).replace("database-curated/", "database-curated/")
+        unresolved_path = root / "novapolis-rp" / str(unresolved["path"])
         if not unresolved_path.exists():
             # fallback: path already repo-relative
             unresolved_path = root / str(unresolved["path"])
@@ -114,7 +113,8 @@ def main() -> int:
         return 1
 
     print(
-        "[curated-promotion-gate] PASS: Promotion-Einträge enthalten Decision/SSOT-Kriterien, review-extract Evidenz und leere unresolved-Listen."
+        "[curated-promotion-gate] PASS: Promotion-Einträge enthalten Decision/SSOT-Kriterien, "
+        "review-extract Evidenz und leere unresolved-Listen."
     )
     return 0
 

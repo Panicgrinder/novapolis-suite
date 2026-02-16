@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-08 14:18
-update: Policy-Refresh: `.ps1`-Wrapper-Verweise in Governance/Status/TODO aktualisiert; Hinweis zu historischen `.ps1`-Logs ergänzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev/docs/donelog.md PASS (2026-01-08 14:25); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-dev\docs\donelog.md PASS (2026-01-08 14:25)
+stand: 2026-02-16 20:55
+update: Pfad-Token "VS Code Workspace" -> "VS-Code-Workspace" ersetzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55)
 ---
 - 2026-01-05 19:07: Unified Runner erneut verifiziert – `scripts/checks_rp_consistency.py` Ruff/Black gruen gemacht; `python scripts/run_checks_and_report.py` overall PASS (Report: `checks_report_20260105_190519.json`).
 - 2026-01-07 03:57: Schritt 3: Doku-Verweise fuer Temp-Artefakte konsolidiert (`/.tmp-results/` -> `/.tmp/results/`).
@@ -88,7 +88,7 @@ Aktueller Arbeitsmodus
 Aktueller Arbeitsmodus (Single-Root, Python @ Root)
 --------------------------------------------------
 
-- Workspace & Interpreter: `F:/VS Code Workspace/Main` ist der einzige VS-Code-Root; `.venv` (Python 3.11/3.12+) und `.env` liegen im Root.
+- Workspace & Interpreter: `F:/VS-Code-Workspace/Main` ist der einzige VS-Code-Root; `.venv` (Python 3.11/3.12+) und `.env` liegen im Root.
 - Standard-Wrappers: `python scripts/run_checks_and_report.py --scope full` (Lint/Typen/Tests) und `python scripts/run_pytest_coverage.py --fail-under 80` (Coverage) laufen aus dem Root; PowerShell-Wrapper sind nur noch archiviert.
 - Tasks setzen `options.cwd` gezielt (z. B. `novapolis_agent/` für pytest), bleiben aber über das Root-`.vscode/tasks.json` steuerbar.
 - Guard-Check: `python scripts/multi_root_cleanup.py --whatif` prüft regelmäßig auf neue `*.code-workspace`-/Schatten-Dateien; Auffälligkeiten sofort nach `Backups/` verschieben.

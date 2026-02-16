@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import re
-import sys
 import os
+import re
 from pathlib import Path
-
 
 LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
 
@@ -101,7 +99,10 @@ def main() -> int:
                 print(f" - {broken}")
         return 1
 
-    print("[current-state-gate] PASS: Fraktions-Missionslogs und Fraktions-Inventare sind in Current-State referenziert.")
+    print(
+        "[current-state-gate] PASS: Fraktions-Missionslogs und Fraktions-Inventare sind in "
+        "Current-State referenziert."
+    )
     return 0
 
 

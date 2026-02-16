@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-01 13:25
-update: RP-Baustellen gestartet: TODO-Sync (Staging-Reports Migration dokumentiert, Validator-Refs entdriftet), Doku-Pfade korrigiert.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
+stand: 2026-02-16 20:55
+update: Pfad-Token "VS Code Workspace" -> "VS-Code-Workspace" ersetzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -54,7 +54,7 @@ Kurzueberblick
 - **novapolis_agent**: Fokus auf Eval-/Tooling-Pflege, RAG-Ausbau, Tool-Use, Policy-Hooks.
 - **novapolis-dev / novapolis-rp**: Fokus auf Canvas-Rettung Sprint (Charaktere/Logistik/Systeme) sowie bestehende Datenkurierungs- und Sim-Aufgaben.
 - **YAML/Setext-Hinweis**: Bei allen Markdown-Anpassungen Frontmatter (stand/update/checks) synchronisieren und H1/H2 konsequent im Setext-Stil halten; laufender MD003-Backlog (122 Dateien laut letztem Markdownlint-Lauf).
-- **Terminal/Tasks (Single-Root)**: VS Code läuft wieder als Single-Root; Wrapper-Tasks/Automationen sind ab Root erlaubt (R-WRAP). Standard-Läufe starten im Repo-Root `F:/VS Code Workspace/Main`, Interpreter `.venv` liegt im Root. Multi-Root-Hinweise bleiben lediglich historisch dokumentiert.
+- **Terminal/Tasks (Single-Root)**: VS Code läuft wieder als Single-Root; Wrapper-Tasks/Automationen sind ab Root erlaubt (R-WRAP). Standard-Läufe starten im Repo-Root `F:/VS-Code-Workspace/Main`, Interpreter `.venv` liegt im Root. Multi-Root-Hinweise bleiben lediglich historisch dokumentiert.
   - Historische Fallakte: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
 - **Root-Übersicht**: `WORKSPACE_STATUS.md` (Stand 2025-11-02) + `workspace_tree*.txt` (Stand 2025-11-02) liefern Gesamtinventar; nächste Aktualisierung idealerweise bis Mitte November oder nach größeren Umstrukturierungen.
   - [x] Tree-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) am 2025-11-02 via Tasks `Workspace tree:*` regeneriert.
@@ -116,7 +116,7 @@ Nächstes Vorgehen (1-2 Tage)
    - Receipt mit Zeitstempel, Commit-SHA und getrennten Anteilen (App/Scripts) in `DONELOG.md`; Verweis/Kurzsummary in `WORKSPACE_STATUS.md`.
    - CI-Gate aktiv (nicht nur lokal).
  - Schritte (STOP beachten; Wrapper-Policy gilt):
-   - Läufe im Repo-Root (`F:/VS Code Workspace/Main`) starten: `python scripts/run_checks_and_report.py --scope full` für den Komplettlauf und `python scripts/run_pytest_coverage.py --fail-under 80` für Coverage. (Falls Spezialpfade nötig sind, `cwd` explizit auf `novapolis_agent/` setzen.)
+   - Läufe im Repo-Root (`F:/VS-Code-Workspace/Main`) starten: `python scripts/run_checks_and_report.py --scope full` für den Komplettlauf und `python scripts/run_pytest_coverage.py --fail-under 80` für Coverage. (Falls Spezialpfade nötig sind, `cwd` explizit auf `novapolis_agent/` setzen.)
    - Ergebnisse/Quoten protokollieren (getrennt App/Scripts, Branch-Coverage), Receipts schreiben, CI-Fail-Under prüfen.
  - Receipts/Belege:
    - `DONELOG.md`: „R-COV“ mit PASS/Quoten, Zeitstempel, Commit-SHA.

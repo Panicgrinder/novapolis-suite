@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-17 09:40
-update: Single-Root + Hinweis auf Archivierung von App-Stubs ergänzt
-checks: python scripts/check_frontmatter.py PASS
+stand: 2026-02-16 20:55
+update: Pfad-Token "VS Code Workspace" -> "VS-Code-Workspace" ersetzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55)
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -27,7 +27,7 @@ Status: Phase 1 (Redirect-Hinweis) aktiv; Entscheidungsliste erstellt (`novapoli
 Vollständiger Index aller Dateien im Agent-Verzeichnis
 ------------------------------------------------------
 
-Hinweis: Alle Pfade beziehen sich auf den Repo-Root `F:/VS Code Workspace/Main`. Sofern nicht anders erwähnt, beginnen sie bei `novapolis_agent/`.
+Hinweis: Alle Pfade beziehen sich auf den Repo-Root `F:/VS-Code-Workspace/Main`. Sofern nicht anders erwähnt, beginnen sie bei `novapolis_agent/`.
 
 ### Paket `novapolis_agent/` (Unterordner im Single-Root)
 

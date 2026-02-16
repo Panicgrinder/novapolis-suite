@@ -422,12 +422,11 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
         findings_parser=parse_black_findings,
     )
 
-    pyright_exec = check_tool_available("pyright")
     pyright_config = agent_dir / "pyrightconfig.json"
-    if pyright_exec and pyright_config.exists():
+    if pyright_config.exists() and module_available(python_exec, "pyright"):
         run_or_fail(
             "pyright",
-            [str(pyright_exec), "-p", "pyrightconfig.json"],
+            [str(python_exec), "-m", "pyright", "-p", "pyrightconfig.json"],
             agent_dir,
             required=True,
             findings_parser=parse_pyright_findings,
@@ -436,7 +435,7 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
         if not pyright_config.exists():
             reason = "pyright skipped (pyrightconfig.json not found)"
         else:
-            reason = "pyright skipped (executable not found)"
+            reason = "pyright skipped (pyright module not available)"
         results.append(make_skip_result("pyright", reason, logs_dir / "pyright.log"))
 
     mypy_config = agent_dir / "mypy.ini"
