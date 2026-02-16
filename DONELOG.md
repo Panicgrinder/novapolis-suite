@@ -1,11 +1,12 @@
 ---
-stand: 2026-02-17 00:31
-update: "Checks repariert: Ruff/Black/Imports bereinigt; Pyright-Aufruf auf python -m umgestellt; Full-Checks wieder PASS."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md PASS (2026-02-17 00:32); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py DONELOG.md PASS (2026-02-17 00:32)"
+stand: 2026-02-17 00:57
+update: "Tasks: DONELOG-Append auf Python-Wrapper migriert; Checks: full Task auf checks-runner umgestellt."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-17 00:57); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py DONELOG.md PASS (2026-02-17 00:57)"
 ---
 Kurzueberblick
 --------------
 
+- 2026-02-17 00:45: Tasks: PowerShell-Block in Task "Docs: DONELOG append" durch Python-Wrapper ersetzt (neu: `scripts/append_agent_donelog_entry.py`). Task "Checks: full" ruft jetzt `scripts/run_checks_and_report.py` direkt auf (statt Dummy-Write-Host). Checks: markdownlint-cli2 PASS (DONELOG.md); check_frontmatter.py PASS (DONELOG.md).
 - 2026-02-17 00:31: Checks repariert: Ruff/Black Findings in `scripts/` bereinigt (u. a. Zeilenlängen/Import-Order/unused imports). Pyright-Fail nach Workspace-Pfad-Umzug behoben, indem Pyright-Aufruf in `scripts/run_checks_and_report.py` und `scripts/checks_types.py` auf `python -m pyright` umgestellt wurde (statt defektem `pyright.exe` Launcher). Konsolidierter Lauf `scripts/run_checks_and_report.py` erneut PASS (Report: `.tmp/results/reports/checks_report_20260217_003018.md`). Checks: pending.
 - 2026-02-17 00:18: Wrapper-/Checks-Migration: In `.vscode/tasks.json` mehrere Check-/Test-Tasks von `pwsh -Command` Scriptblocks auf direkte Aufrufe von `.venv\\Scripts\\python.exe` umgestellt (ruff/black/pytest + Wrapper-Skripte). Zudem `scripts/checks_linters.py` und `scripts/checks_types.py` gehärtet (Repo-Root für `.tmp`, `sys.executable`, `python -m ruff/black/mypy`). Checks: pending.
 - 2026-02-16 21:19: Workspace-Tree: Task "Workspace tree: summary (dirs)" in `.vscode/tasks.json` auf direkten Python-Aufruf umgestellt (Quoting-Robustheit); Tasks "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)" ausgeführt und `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt` aktualisiert. Checks: markdownlint-cli2 PASS (DONELOG.md); check_frontmatter.py PASS (DONELOG.md).

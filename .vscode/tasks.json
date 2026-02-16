@@ -83,15 +83,9 @@
     {
       "label": "Checks: full",
       "type": "shell",
-      "command": "pwsh",
-      "args": ["-NoProfile", "-Command", "Write-Host 'Checks: full completed.'"],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\run_checks_and_report.py"],
       "options": { "cwd": "${workspaceFolder}" },
-      "dependsOn": [
-        "Checks: linters (all)",
-        "Checks: types (pyright+mypy)",
-        "Tests: coverage (fail-under)"
-      ],
-      "dependsOrder": "sequence",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
       "runOptions": { "instanceLimit": 1 },
       "problemMatcher": []
@@ -151,11 +145,13 @@
     {
       "label": "Docs: DONELOG append",
       "type": "shell",
-      "command": "pwsh",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
-        "-NoProfile",
-        "-Command",
-        "& { $ErrorActionPreference = \"Stop\"; $root = \"${workspaceFolder}\"; $path = Join-Path $root \"novapolis_agent\\docs\\DONELOG.txt\"; $ts = Get-Date -Format 'yyyy-MM-dd HH:mm'; $author = \"${input:doneAuthor}\"; if ([string]::IsNullOrWhiteSpace($author)) { $author = $env:USERNAME }; $msg = \"${input:doneMessage}\"; if ([string]::IsNullOrWhiteSpace($msg)) { Write-Error 'DONELOG message is required.'; exit 1 }; $line = \"$ts | $author | $msg\"; Add-Content -LiteralPath $path -Encoding UTF8 $line }"
+        "${workspaceFolder}\\scripts\\append_agent_donelog_entry.py",
+        "--message",
+        "${input:doneMessage}",
+        "--author",
+        "${input:doneAuthor}"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",

@@ -29,6 +29,7 @@ desktop.ini
 /Backups/
 /\.tmp/
 /\.tmp-results/
+/.snapshot.now
 
 # General cache / build artifacts across subprojects
 **/__pycache__/
