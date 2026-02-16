@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-08 22:51
-update: Platzhalter-Links bereinigt; curated Pfad korrigiert.
-checks: "not run (link fix)"
+stand: 2026-02-16 18:32
+update: Fraktionsweite Snapshot-Referenzen (Missionslogs/Inventare) ergänzt; Current-State-Gate eingeführt.
+checks: pending
 slug: current-state
 category: Admin
 canvas: current-state
@@ -30,6 +30,19 @@ Snapshot (kurz, abgeleitet)
 Hinweis: Fraktionsspezifische Snapshots werden in den jeweiligen Fraktions-SSOTs gepflegt.
 
 - Novapolis-Snapshot: [Novapolis](../01-factions/novapolis/Novapolis.md)
+
+Snapshot-Quellen (Gate-Pflicht)
+------------------------------
+
+Jede Fraktion muss im Current-State über **Missionslog + Inventar** referenziert sein.
+
+- Arkologie-A1: [Missionslog](../01-factions/arkologie-a1/05-projects/Missionslog-Arkologie-A1.md), [Inventar](../01-factions/arkologie-a1/04-inventory/README.md)
+- Eisenkonklave: [Missionslog](../01-factions/eisenkonklave/05-projects/Missionslog-Eisenkonklave.md), [Inventar](../01-factions/eisenkonklave/04-inventory/README.md)
+- Flüsterkollektiv: [Missionslog](../01-factions/fluesterkollektiv/05-projects/Missionslog-Fluesterkollektiv.md), [Inventar](../01-factions/fluesterkollektiv/04-inventory/README.md)
+- Händlerbund: [Missionslog](../01-factions/haendlerbund/05-projects/Missionslog-Haendlerbund.md), [Inventar](../01-factions/haendlerbund/04-inventory/README.md)
+- Novapolis: [Missionslog](../01-factions/novapolis/05-projects/Missionslog-Novapolis.md), [Inventar](../01-factions/novapolis/04-inventory/README.md)
+- Schattenbund: [Missionslog](../01-factions/schattenbund/05-projects/Missionslog-Schattenbund.md), [Inventar](../01-factions/schattenbund/04-inventory/README.md)
+- Schienenbund: [Missionslog](../01-factions/schienenbund/05-projects/Missionslog-Schienenbund.md), [Inventar](../01-factions/schienenbund/04-inventory/README.md)
 
 Aktive Projekte (Kurzliste)
 ---------------------------
@@ -77,6 +90,7 @@ Validatoren (Gates)
 
 - Slug-Unique + Kategorie-Schema: `npm --prefix novapolis-rp\coding\tools\validators run validate:rp`
 - Crossrefs (slug-only): `npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs`
+- Current-State-Gate (Snapshot-Ableitung): `& .\.venv\Scripts\python.exe scripts\check_current_state_gate.py`
 
 Hinweis: Referenzen zwischen SSOT-Dokumenten laufen technisch über **`slug`** (nicht Dateinamen).
 

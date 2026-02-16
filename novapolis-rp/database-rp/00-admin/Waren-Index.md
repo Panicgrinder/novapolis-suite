@@ -346,7 +346,7 @@ Hinweise
 --------
 - ID ist der slug in `items[].id` (stabil, slug-only-Regel). Benennung: kleinschreibung, minus-getrennt.
 - `seenIn` referenziert Dokument-slugs (nicht Dateinamen).
-- Preise werden nicht hier gepflegt, sondern in `marktpreise-inventar` und fraktionsbezogen in 01-factions/*/07-economy/.
+- Preise werden nicht hier gepflegt, sondern in `marktpreise-inventar` und fraktionsbezogen in 01-factions/*/06-handel-diplomatie/.
 - Erweiterung nur um Items, die im RP/Logs/Szenen vorgekommen sind; neue Items zuerst im Missionslog/Scenes belegen.
 
 Kurzübersicht (menschlich lesbar)

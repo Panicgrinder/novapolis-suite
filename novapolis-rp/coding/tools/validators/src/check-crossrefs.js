@@ -66,6 +66,11 @@ async function main() {
     const idxLocs = indexBySlugOnly(locationFiles, 'location', errors);
     const idxInv = indexBySlugOnly(inventoryFiles, 'inventory', errors);
     const idxProj = indexBySlugOnly(projectFiles, 'project', errors);
+    const factionDirs = fs
+      .readdirSync(path.join(rpRoot, '01-factions'), { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name);
+    const idxFactions = new Set(factionDirs);
 
     for (const file of sceneFiles) {
       const rel = path.relative(repoRoot, file);
@@ -135,7 +140,7 @@ async function main() {
 
       for (const o of owners) {
         if (!isSlugLike(o)) errors.push(`${rel}: owner must be slug-like (lowercase, digits, '-' or '_'): ${o}`);
-        else if (!idxChars.has(o)) errors.push(`${rel}: owner not found (character slug expected): ${o}`);
+        else if (!idxChars.has(o) && !idxFactions.has(o)) errors.push(`${rel}: owner not found (character or faction slug expected): ${o}`);
       }
       for (const l of locs) {
         if (!isSlug(l)) errors.push(`${rel}: project location must be slug (lowercase-hyphen): ${l}`);

@@ -6,8 +6,17 @@ title: Missionslog (Schienenbund)
 category: project
 slug: missionslog-schienenbund
 version: "0.1"
+last_updated: 2026-02-16T18:35:00+01:00
 status: active
-owners: [admin-novapolis]
+owners: [schienenbund]
+authority_chain:
+  - "fraktion:schienenbund"
+  - "fraktions-leitung:helia-vorn"
+  - "stellv-fraktions-leitung:tbd"
+  - "leitung-sicherheit:tera-solm"
+  - "leitung-logistik:tbd"
+  - "rolle:rian-kord"
+  - "stationsleitung:tbd"
 tags: [rp, missionen, schienenbund]
 dependencies: [schienenbund]
 ---

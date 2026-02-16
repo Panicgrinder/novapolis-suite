@@ -20,7 +20,7 @@ Liora Navesh
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
 - Verhaltenssignatur: `LNR1=O82-T76-N68-S58-L52-M47-E34-C21-P55-r` - analytisch-strukturiert, sucht abgesicherte Erkenntniswege und handelt streng rational.
-- Rolle: Leiterin Forschungsrat / Chefärztin Biotechnologie der Arkologie A1 (Quelle: FACT ARKO-RESEARCH)
+- Rolle: Fraktionsleitung Arkologie A1; Leiterin Forschungsrat / Chefärztin Biotechnologie (Quelle: FACT ARKO-RESEARCH)
 - Werte: Kraft 2 · Geschick 3 · Geist 5 · Wille 4 · Charisma 4
 - Skills:
   - Geübt: Projektleitung (Genetik/Neurointegration), Risikobewertung biologischer Anomalien
@@ -34,6 +34,7 @@ Rollen & Verantwortlichkeiten (Pflichtfelder)
 ---------------------------------------------
 
 - Forschungsrat - steuert biotechnologische Programme der Arkologie A1
+- Fraktionsleitung - priorisiert strategische Entscheidungen und eskaliert fraktionsweite Konflikte
 - Medizinische Leitung - legt MedTech-Protokolle (A9) fest, überwacht Sicherheitsfreigaben
 - Anomalie-Analyse - bewertet SÜDFRAGMENT-Signale, koordiniert Gegenmaßnahmen bei biologischen Auffälligkeiten
 

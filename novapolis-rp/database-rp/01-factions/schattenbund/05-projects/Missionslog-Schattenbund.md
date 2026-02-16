@@ -1,13 +1,21 @@
 ---
-stand: 2026-02-16 15:05
-update: Fraktionsspezifisches Missionslog angelegt (zweite Welle Linkmigration).
-checks: not run (migration)
+stand: 2026-02-16 17:27
+update: authority_chain auf Führungsteam des Schattenbunds aktualisiert.
+checks: pending
 title: Missionslog (Schattenbund)
 category: project
 slug: missionslog-schattenbund
 version: "0.1"
+last_updated: 2026-02-16T18:35:00+01:00
 status: active
-owners: [admin-novapolis]
+owners: [schattenbund]
+authority_chain:
+  - "fraktion:schattenbund"
+  - "fraktions-leitung:nyra-vehl"
+  - "stellv-fraktions-leitung:tbd"
+  - "leitung-sicherheit:sera-nol"
+  - "leitung-logistik:jarek-voan"
+  - "stationsleitung:tbd"
 tags: [rp, missionen, schattenbund]
 dependencies: [schattenbund]
 ---

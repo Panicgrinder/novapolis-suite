@@ -21,7 +21,7 @@ D5 - Inventar
 Policy
 ------
 - Inventare bleiben getrennt; Transfers nur via Mission/Logistik.
-- Buchungen mit Quelle/Ziel in [Logistik](../../00-admin/Logistik.md) dokumentieren.
+- Buchungen mit Quelle/Ziel in [Logistik](../../../00-admin/Logistik.md) dokumentieren.
 
 Bestände (verbucht)
 -------------------

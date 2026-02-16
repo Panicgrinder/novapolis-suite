@@ -6,8 +6,17 @@ title: Missionslog (Arkologie A1)
 category: project
 slug: missionslog-arkologie-a1
 version: "0.1"
+last_updated: 2026-02-16T18:35:00+01:00
 status: active
-owners: [admin-novapolis]
+owners: [arkologie-a1]
+authority_chain:
+  - "fraktion:arkologie-a1"
+  - "fraktions-leitung:liora-navesh"
+  - "stellv-fraktions-leitung:tbd"
+  - "leitung-sicherheit:borin-khade"
+  - "leitung-logistik:tbd"
+  - "rolle:nera-vossen"
+  - "stationsleitung:tbd"
 tags: [rp, missionen, arkologie-a1]
 dependencies: [arkologie-a1]
 ---

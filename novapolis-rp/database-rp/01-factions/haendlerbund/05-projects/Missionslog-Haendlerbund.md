@@ -6,8 +6,17 @@ title: Missionslog (Händlerbund)
 category: project
 slug: missionslog-haendlerbund
 version: "0.1"
+last_updated: 2026-02-16T18:35:00+01:00
 status: active
-owners: [admin-novapolis]
+owners: [haendlerbund]
+authority_chain:
+  - "fraktion:haendlerbund"
+  - "fraktions-leitung:mara-quell"
+  - "stellv-fraktions-leitung:tbd"
+  - "leitung-sicherheit:runa-fehr"
+  - "leitung-logistik:tbd"
+  - "rolle:tovin-rek"
+  - "stationsleitung:tbd"
 tags: [rp, missionen, haendlerbund]
 dependencies: [haendlerbund]
 ---

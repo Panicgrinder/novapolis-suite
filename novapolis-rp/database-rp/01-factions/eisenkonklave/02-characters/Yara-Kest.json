@@ -1,0 +1,22 @@
+{
+  "title": "Yara Kest",
+  "category": "character",
+  "slug": "yara-kest",
+  "version": "0.1",
+  "last_updated": "2026-02-16T17:17:00+01:00",
+  "last_change": "Neu angelegt: Leitung Sicherheit Eisenkonklave",
+  "tags": [
+    "npc",
+    "eisenkonklave",
+    "sicherheit"
+  ],
+  "affiliations": [
+    "eisenkonklave"
+  ],
+  "primary_location": "h12",
+  "last_seen": "h12",
+  "dependencies": [
+    "h12"
+  ],
+  "source": "database-rp/01-factions/eisenkonklave/02-characters/Yara-Kest.md"
+}

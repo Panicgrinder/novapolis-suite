@@ -6,8 +6,16 @@ title: Missionslog (Novapolis)
 category: project
 slug: missionslog-novapolis
 version: "1.0"
+last_updated: 2026-02-16T18:35:00+01:00
 status: active
-owners: [admin-novapolis]
+owners: [novapolis]
+authority_chain:
+  - "fraktion:novapolis"
+  - "fraktions-leitung:ronja-kerschner"
+  - "stellv-fraktions-leitung:kora-malenkov"
+  - "leitung-sicherheit:pahl-brenner"
+  - "leitung-logistik:kora-malenkov"
+  - "stationsleitung:ronja-kerschner"
 tags: [rp, missionen, novapolis]
 dependencies: [novapolis, nordlinie-01, logistik]
 ---

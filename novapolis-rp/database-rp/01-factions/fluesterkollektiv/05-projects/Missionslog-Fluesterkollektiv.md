@@ -6,8 +6,17 @@ title: Missionslog (Flüsterkollektiv)
 category: project
 slug: missionslog-fluesterkollektiv
 version: "0.1"
+last_updated: 2026-02-16T18:35:00+01:00
 status: active
-owners: [admin-novapolis]
+owners: [fluesterkollektiv]
+authority_chain:
+  - "fraktion:fluesterkollektiv"
+  - "fraktions-leitung:iris-vey"
+  - "stellv-fraktions-leitung:tbd"
+  - "leitung-sicherheit:sera-kaal"
+  - "leitung-logistik:tbd"
+  - "rolle:corin-mael"
+  - "stationsleitung:tbd"
 tags: [rp, missionen, fluesterkollektiv]
 dependencies: [fluesterkollektiv]
 ---

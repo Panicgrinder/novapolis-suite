@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: H1/H2 auf Setext umgestellt; Stand aktualisiert.
-checks: markdownlint-cli2 PASS (single file)
+stand: 2026-02-16 16:40
+update: Projekt-Template auf Fraktions-Owner umgestellt; authority_chain fuer Rangfolge ergaenzt.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp\\00-admin\\schema-header-templates.md PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/schema-header-templates.md' PASS"
 ---
 
 RP Header-Templates (Frontmatter)
@@ -73,7 +73,15 @@ title: <Projektname>
 category: project
 slug: <slug>
 status: active   # planned|active|paused|done
-owners: ["<char-slug>", "<char-slug>"]
+owners: ["<faction-slug>"]  # Owner ist die zustaendige Fraktion
+authority_chain:
+  - "fraktion:<faction-slug>"
+  - "fraktions-leitung:<char-slug>"
+  - "stellv-fraktions-leitung:<char-slug>"
+  - "leitung-sicherheit:<char-slug>"
+  - "leitung-logistik:<char-slug>"
+  - "rolle:<char-slug>"          # optional mehrfach
+  - "stationsleitung:<char-slug>"
 locations: ["<loc-slug>", "<loc-slug>"]
 dependencies: ["<artefakt-slug>"]
 version: "1.0"
@@ -102,6 +110,7 @@ Hinweise zur Verwendung
 -----------------------
 - Keine Wiederholung von Root-Regeln in den Dateien; Metadaten genügen für Navigation/Validierung.
 - Referenzen (characters/locations/dependencies) verwenden Slugs der Zielobjekte.
+- Bei Projekten ist `owners` der Fraktions-Slug; operative Befehlsgewalt wird in `authority_chain` in der festen Reihenfolge dokumentiert.
 - Falls ein Feld unbekannt ist, weglassen statt Dummy-Werte einzutragen (Validatoren erlauben optionale Felder).
 
 

@@ -5,7 +5,15 @@
   "version": "1.0",
   "status": "active",
   "tags": ["rp", "missionen", "novapolis"],
-  "owners": ["admin-novapolis"],
+  "owners": ["novapolis"],
+  "authority_chain": [
+    "fraktion:novapolis",
+    "fraktions-leitung:ronja-kerschner",
+    "stellv-fraktions-leitung:kora-malenkov",
+    "leitung-sicherheit:pahl-brenner",
+    "leitung-logistik:kora-malenkov",
+    "stationsleitung:ronja-kerschner"
+  ],
   "dependencies": ["novapolis", "nordlinie-01", "logistik"],
   "source": "database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.md"
 }

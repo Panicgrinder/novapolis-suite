@@ -1,0 +1,22 @@
+{
+  "title": "Borin Khade",
+  "category": "character",
+  "slug": "borin-khade",
+  "version": "0.1",
+  "last_updated": "2026-02-16T17:11:00+01:00",
+  "last_change": "Neu angelegt: Leitung Sicherheit Arkologie A1",
+  "tags": [
+    "npc",
+    "arkologie-a1",
+    "sicherheit"
+  ],
+  "affiliations": [
+    "arkologie-a1"
+  ],
+  "primary_location": "a1",
+  "last_seen": "a1",
+  "dependencies": [
+    "a1"
+  ],
+  "source": "database-rp/01-factions/arkologie-a1/02-characters/Borin-Khade.md"
+}

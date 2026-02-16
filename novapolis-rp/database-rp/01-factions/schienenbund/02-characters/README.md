@@ -20,3 +20,10 @@ Nützliche Links
 
 - Fraktionsordner → ../README.md
 - Fraktionen-Taxonomie → ../../../00-admin/Fraktionen-Taxonomie.md
+
+Charaktere
+----------
+
+- [Helia Vorn](./Helia-Vorn.md) - Fraktionsleitung
+- [Rian Kord](./Rian-Kord.md) - Leitung Handel
+- [Tera Solm](./Tera-Solm.md) - Leitung Sicherheit

@@ -108,7 +108,7 @@ Systemverknüpfungen & Referenzen
 - `missionslog` - Prozess L.1, Freigaben/Terminalmeldungen.
 - `caravan-moves` - Koordination externer Läufe mit Marven/Arlen.
 - `ai_behavior_index_v2` - Verhaltenseintrag „Die Verhandlerin“.
-- [G7](../03-locations/G7.md) & [C6](../../novapolis/03-locations/C6.md) - Lage/Risiko.
+- [G7](../../haendlerbund/03-locations/G7.md) & [C6](../../novapolis/03-locations/C6.md) - Lage/Risiko.
 
 Quellen & Hinweise
 ------------------

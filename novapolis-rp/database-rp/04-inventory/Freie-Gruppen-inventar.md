@@ -7,7 +7,7 @@ last_updated: 2025-11-07T04:32:00+01:00
 category: inventory
 slug: freie-gruppen-inventar
 owner: freie-gruppen
-scope: fraktionslose-npc
+scope: global
 version: "0.1"
 ---
 

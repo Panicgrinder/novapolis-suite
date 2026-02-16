@@ -5,7 +5,16 @@
   "version": "0.1",
   "status": "active",
   "tags": ["rp", "missionen", "haendlerbund"],
-  "owners": ["admin-novapolis"],
+  "owners": ["haendlerbund"],
+  "authority_chain": [
+    "fraktion:haendlerbund",
+    "fraktions-leitung:mara-quell",
+    "stellv-fraktions-leitung:tbd",
+    "leitung-sicherheit:runa-fehr",
+    "leitung-logistik:tbd",
+    "rolle:tovin-rek",
+    "stationsleitung:tbd"
+  ],
   "dependencies": ["haendlerbund"],
   "source": "database-rp/01-factions/haendlerbund/05-projects/Missionslog-Haendlerbund.md"
 }

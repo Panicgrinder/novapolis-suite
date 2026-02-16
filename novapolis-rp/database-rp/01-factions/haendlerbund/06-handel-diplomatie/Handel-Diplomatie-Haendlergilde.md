@@ -17,7 +17,7 @@ Zweck
 - Ableitungen aus den RAW-CANVAS `relationslog_haendlergilde_v1` und `handelslog_haendlergilde_v1` (siehe Cluster-Index Quelle vom 2025-10-16).
 - Hub/Übersicht (Index): [Index-Handel-Diplomatie](../../../00-admin/Index-Handel-Diplomatie.md)
 - Novapolis-spezifischer SSOT-Anker: [Relationslog-Novapolis](../../novapolis/06-handel-diplomatie/Relationslog-Novapolis.md) (aus `relationslog_novapolis_v1`).
-- Dient als Abgleichsgrundlage für [Arlen-Dross](../02-characters/Arlen-Dross.md), [Marven-Kael](../02-characters/Marven-Kael.md), [caravan-moves](../05-projects/caravan-moves.md).
+- Dient als Abgleichsgrundlage für [Arlen-Dross](../../novapolis/02-characters/Arlen-Dross.md), [Marven-Kael](../../novapolis/02-characters/Marven-Kael.md), [caravan-moves](../05-projects/caravan-moves.md).
 
 Arbeitsstatus
 -------------

@@ -5,7 +5,15 @@
   "version": "0.1",
   "status": "active",
   "tags": ["rp", "missionen", "schattenbund"],
-  "owners": ["admin-novapolis"],
+  "owners": ["schattenbund"],
+  "authority_chain": [
+    "fraktion:schattenbund",
+    "fraktions-leitung:nyra-vehl",
+    "stellv-fraktions-leitung:tbd",
+    "leitung-sicherheit:sera-nol",
+    "leitung-logistik:jarek-voan",
+    "stationsleitung:tbd"
+  ],
   "dependencies": ["schattenbund"],
   "source": "database-rp/01-factions/schattenbund/05-projects/Missionslog-Schattenbund.md"
 }

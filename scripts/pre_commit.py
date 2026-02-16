@@ -167,6 +167,27 @@ def frontmatter_check(root: Path, staged_md: list[str]) -> None:
         raise SystemExit(code)
 
 
+def run_rp_hard_gates_if_needed(root: Path, staged_all: list[str]) -> None:
+    needs_rp_gate = any(
+        p.startswith("novapolis-rp/database-rp/")
+        or p.startswith("novapolis-rp/coding/tools/validators/")
+        or p == "scripts/checks_rp_consistency.py"
+        for p in staged_all
+    )
+    if not needs_rp_gate:
+        return
+
+    py = python_exe(root)
+    script = root / "scripts" / "check_rp_hard_gates.py"
+    if not script.exists():
+        print(f"[pre-commit] WARN: RP-Hard-Gate fehlt: {script}")
+        return
+
+    code = run([py, str(script)], cwd=root)
+    if code != 0:
+        raise SystemExit(code)
+
+
 def main() -> int:
     root = repo_root()
 
@@ -188,6 +209,9 @@ def main() -> int:
 
     # frontmatter validator (only if markdown files are present)
     frontmatter_check(root, staged_md)
+
+    # RP hard gates for database-rp / validator changes
+    run_rp_hard_gates_if_needed(root, staged_all)
 
     return 0
 

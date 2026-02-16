@@ -41,7 +41,7 @@ RP: Novapolis Leadership + Economy Subdocs (2026-02-16 12:27)
 
 - Leadership/Rollen in Novapolis konsolidiert (Ronja/Kora/Nika/Pahl) und Personenindex aktualisiert.
 - Nachnamen ergänzt (Pahl Brenner, Marei Falk) inkl. Sidecar-Sync.
-- Economy unter `01-factions/novapolis/07-economy/` ausgebaut (Märkte/Handelsplätze, Preisbänder).
+- Wirtschaftsunterlagen unter `01-factions/novapolis/06-handel-diplomatie/` konsolidiert (Märkte/Handelsplätze, Preisbänder).
 - Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_122544.md`).
 
 RP: README Sidecar-Policy (2026-02-16 12:33)

@@ -5,7 +5,16 @@
   "version": "0.1",
   "status": "active",
   "tags": ["rp", "missionen", "arkologie-a1"],
-  "owners": ["admin-novapolis"],
+  "owners": ["arkologie-a1"],
+  "authority_chain": [
+    "fraktion:arkologie-a1",
+    "fraktions-leitung:liora-navesh",
+    "stellv-fraktions-leitung:tbd",
+    "leitung-sicherheit:borin-khade",
+    "leitung-logistik:tbd",
+    "rolle:nera-vossen",
+    "stationsleitung:tbd"
+  ],
   "dependencies": ["arkologie-a1"],
   "source": "database-rp/01-factions/arkologie-a1/05-projects/Missionslog-Arkologie-A1.md"
 }

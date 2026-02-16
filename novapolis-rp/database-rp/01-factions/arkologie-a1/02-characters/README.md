@@ -20,3 +20,10 @@ Nützliche Links
 
 - Fraktionsordner → ../README.md
 - Fraktionen-Taxonomie → ../../../00-admin/Fraktionen-Taxonomie.md
+
+Charaktere
+----------
+
+- [Liora Navesh](./Liora-Navesh.md) - Fraktionsleitung / Forschungsrat
+- [Nera Vossen](./Nera-Vossen.md) - Leitung Handel
+- [Borin Khade](./Borin-Khade.md) - Leitung Sicherheit

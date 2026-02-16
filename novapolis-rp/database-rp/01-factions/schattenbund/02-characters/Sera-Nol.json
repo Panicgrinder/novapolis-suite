@@ -1,0 +1,14 @@
+{
+  "title": "Sera Nol",
+  "category": "character",
+  "slug": "sera-nol",
+  "version": "0.1",
+  "last_updated": "2026-02-16T17:27:00+01:00",
+  "last_change": "Neu: Leitung Sicherheit Schattenbund ergänzt",
+  "tags": ["npc", "schattenbund", "sicherheit"],
+  "affiliations": ["schattenbund"],
+  "primary_location": "f9",
+  "last_seen": "f9",
+  "dependencies": ["f9"],
+  "source": "database-rp/01-factions/schattenbund/02-characters/Sera-Nol.md"
+}

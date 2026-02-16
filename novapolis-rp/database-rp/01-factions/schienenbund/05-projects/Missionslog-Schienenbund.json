@@ -5,7 +5,16 @@
   "version": "0.1",
   "status": "active",
   "tags": ["rp", "missionen", "schienenbund"],
-  "owners": ["admin-novapolis"],
+  "owners": ["schienenbund"],
+  "authority_chain": [
+    "fraktion:schienenbund",
+    "fraktions-leitung:helia-vorn",
+    "stellv-fraktions-leitung:tbd",
+    "leitung-sicherheit:tera-solm",
+    "leitung-logistik:tbd",
+    "rolle:rian-kord",
+    "stationsleitung:tbd"
+  ],
   "dependencies": ["schienenbund"],
   "source": "database-rp/01-factions/schienenbund/05-projects/Missionslog-Schienenbund.md"
 }

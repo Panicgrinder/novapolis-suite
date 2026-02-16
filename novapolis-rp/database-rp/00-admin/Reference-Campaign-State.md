@@ -385,9 +385,9 @@ Externe Handschuhe / Kleidung
 Währung (Reference): Kugeln
 ---------------------------
 
-Fraktionsbezogene Ausprägung/Preisbänder liegen in den Economy-Dateien der Fraktionen.
+Fraktionsbezogene Ausprägung/Preisbänder liegen in den Handels-/Diplomatie-Unterlagen der Fraktionen.
 
-- Novapolis: [novapolis-pricebands](../01-factions/novapolis/07-economy/novapolis-pricebands.md)
+- Novapolis: [novapolis-pricebands](../01-factions/novapolis/06-handel-diplomatie/novapolis-pricebands.md)
 
 <!-- id: project-draisine -->
 Projekt-Reference: Draisine

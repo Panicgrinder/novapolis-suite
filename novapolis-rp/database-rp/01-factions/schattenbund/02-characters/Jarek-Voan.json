@@ -1,0 +1,14 @@
+{
+  "title": "Jarek Voan",
+  "category": "character",
+  "slug": "jarek-voan",
+  "version": "0.1",
+  "last_updated": "2026-02-16T17:27:00+01:00",
+  "last_change": "Neu: Leitung Handel Schattenbund ergänzt",
+  "tags": ["npc", "schattenbund", "handel"],
+  "affiliations": ["schattenbund"],
+  "primary_location": "f9",
+  "last_seen": "f9",
+  "dependencies": ["f9"],
+  "source": "database-rp/01-factions/schattenbund/02-characters/Jarek-Voan.md"
+}

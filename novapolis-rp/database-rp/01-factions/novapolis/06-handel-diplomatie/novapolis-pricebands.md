@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 12:01
-update: Preisbänder (Heuristik) als Economy-Subdoc ergänzt.
-checks: not run (not requested)
+stand: 2026-02-16 17:37
+update: In 06-handel-diplomatie konsolidiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/*.md' PASS (2026-02-16 17:40); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp\\01-factions\\novapolis\\06-handel-diplomatie\\novapolis-pricebands.md PASS (2026-02-16 17:40)"
 slug: novapolis-pricebands
 category: Economy
 schemaVersion: 1
@@ -59,6 +59,6 @@ Abgleich & Pflege
 
 Verweise
 --------
-- Baseline-Preise: ../../04-inventory/Marktpreise-inventar.md
-- Handelslog: ../06-handel-diplomatie/Handelslog-Novapolis.md
-- Referenz (Währung): ../../00-admin/Reference-Campaign-State.md
+- Baseline-Preise: ../../../04-inventory/Marktpreise-inventar.md
+- Handelslog: ./Handelslog-Novapolis.md
+- Referenz (Währung): ../../../00-admin/Reference-Campaign-State.md

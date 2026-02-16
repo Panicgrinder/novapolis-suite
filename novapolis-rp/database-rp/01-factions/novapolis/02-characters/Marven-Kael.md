@@ -102,7 +102,7 @@ Systemverknüpfungen & Referenzen
 - `missionslog` - Eingehende/ausgehende Konvoiberichte.
 - `logistik` - Abgleich mit G7/D5-Beständen.
 - `ai_behavior_index_v2` - Verhaltenseintrag „Der vorsichtige Stratege“.
-- [G7](../03-locations/G7.md) - Stationskontext.
+- [G7](../../haendlerbund/03-locations/G7.md) - Stationskontext.
 
 Quellen & Hinweise
 ------------------
