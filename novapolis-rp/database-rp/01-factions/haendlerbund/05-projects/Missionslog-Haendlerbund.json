@@ -1,0 +1,11 @@
+{
+  "title": "Missionslog (Händlerbund)",
+  "category": "project",
+  "slug": "missionslog-haendlerbund",
+  "version": "0.1",
+  "status": "active",
+  "tags": ["rp", "missionen", "haendlerbund"],
+  "owners": ["admin-novapolis"],
+  "dependencies": ["haendlerbund"],
+  "source": "database-rp/01-factions/haendlerbund/05-projects/Missionslog-Haendlerbund.md"
+}

@@ -27,26 +27,23 @@ Kurzstart (Start here)
 Snapshot (kurz, abgeleitet)
 ---------------------------
 
-Hinweis: Dieser Snapshot ist **nur eine Kurzliste** und verweist auf die SSOT-Quelle. Wenn etwas unklar/konfliktär ist: erst im Missionslog/Scenes verorten, dann als Decision festnageln.
+Hinweis: Fraktionsspezifische Snapshots werden in den jeweiligen Fraktions-SSOTs gepflegt.
 
-- Bevölkerung (humanoid, gesamt): ~29 (Quelle: [resolved.md](../../database-curated/staging/reports/resolved.md), FACT [POP])
-  - Breakdown (kurz): Evakuierte aus E3 = 20; Karawane = 6; Kernteam (Ronja/Jonas/Pahl) = 3
-  - Reflex-Instanzen (Reflex/Echo/Lumen) sind zusätzlich und zählen nicht zur humanoiden Zahl
+- Novapolis-Snapshot: [Novapolis](../01-factions/novapolis/Novapolis.md)
 
 Aktive Projekte (Kurzliste)
 ---------------------------
 
-- Nordlinie 01 (D5↔C6): [Nordlinie-01.md](../01-factions/novapolis/05-projects/Nordlinie-01.md)
-- Draisine-/Transportmodul (D5): [Draisine-Transportmodul.md](../01-factions/novapolis/05-projects/Draisine-Transportmodul.md)
+Fraktionsspezifische Projekte werden in den Fraktionsordnern geführt:
+
+- Novapolis-Projekte: [Ordner](../01-factions/novapolis/05-projects/)
 
 Hauptorte (Kurzstatus)
 ----------------------
 
-- D5 (Hauptbasis): [D5.md](../01-factions/novapolis/03-locations/D5.md)
-- C6 (Außenposten/teilaktiv): [C6.md](../01-factions/novapolis/03-locations/C6.md)
-- E3 (evakuiert; Risiko/Anomalie offen): [E3.md](../01-factions/novapolis/03-locations/E3.md)
-- Tunnel D5↔C6: [Verbindungstunnel-D5-C6.md](../01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md)
-- Tunnel C6↔E3: [Verbindungstunnel-C6-E3.md](../01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.md)
+Fraktionsspezifische Ortszustände werden in den Fraktionsordnern geführt:
+
+- Novapolis-Orte: [Orte (Novapolis)](../01-factions/novapolis/03-locations/README.md)
 
 Chronik-Anker (Startpunkte)
 ---------------------------
@@ -58,9 +55,7 @@ Chronik-Anker (Startpunkte)
 Namensdrift (separat behandeln)
 ------------------------------
 
-- Keine stillen Umbenennungen in SSOT. Namens-/Alias-Entscheidungen werden separat dokumentiert und dann konsistent nachgezogen.
-- Token-Regel: Einfache Buchstaben-Zahlenkombinationen (z. B. D5, C6, E3, F1) sind **für Stations-/Liniencodes reserviert**.
-- Legacy-Token wie „N7“ werden **nicht** als Alias weitergeführt (Verwechslungsgefahr mit Stationen); stattdessen werden sprechende Namen verwendet (z. B. „C6-Nordanomalie“).
+Namens-/Alias-Regeln sind global in `index-rules.md` dokumentiert.
 
 Stationen D5/C6 (v1.0)
 ----------------------
@@ -85,12 +80,7 @@ Validatoren (Gates)
 
 Hinweis: Referenzen zwischen SSOT-Dokumenten laufen technisch über **`slug`** (nicht Dateinamen).
 
-Referenzstandard (slug-only)
-----------------------------
-
-- **ID ist immer `slug`** (auch in Listen wie `characters`, `locations`, `dependencies`, `owners`).
-- Dateiname/Ordnername ist nur Ablageform und darf **nie** als Referenz-Token benutzt werden.
-- Markdown-Links dienen der Navigation; semantische Zuordnung/Validierung läuft über `slug`.
+Referenzstandard und Validator-Gates sind global im [index-rules.md](./index-rules.md) hinterlegt.
 
 Wenn du etwas suchst
 --------------------

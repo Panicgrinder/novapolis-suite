@@ -1,8 +1,8 @@
 ---
-stand: 2026-02-04 09:21
-update: Admin- und Standortverweise relativisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
-title: Pahl
+stand: 2026-02-16 12:01
+update: Nachname ergänzt; Rolle als Sicherheitsoffizier (Novapolis) explizit verankert.
+checks: not run (not requested)
+title: Pahl Brenner
 category: character
 slug: pahl
 version: "1.0"
@@ -17,13 +17,13 @@ last_seen: d5
 
 <!-- markdownlint-disable MD025 -->
 
-Pahl
+Pahl Brenner
 ====
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
 - Verhaltenssignatur: `PHL2=L48-T60-N71-E50-O44-C62-M30-P25-bn` - kontrollorientierter Beobachter, priorisiert Ordnung und Berechenbarkeit.
 - Status: aktiv (geschwächt); Rekonvaleszenz nach Gasexposition, weiterhin eingeschränkte Belastbarkeit.
-- Rolle: Leitender Ingenieur und Wartungskoordinator von D5; vertritt Hausregeln und sorgt für stabile Systeme (FACT [HOUSE-RULES]).
+- Rolle: Leitender Ingenieur und Wartungskoordinator von D5; Sicherheitsoffizier (Novapolis) für Hausregeln/Freigaben (FACT [HOUSE-RULES]).
 - Werte: Kraft 2, Geschick 3, Geist 5, Wille 4, Charisma 2.
 - Skills:
   - Geübt: Wartung, Hydraulik, Mechanik.
@@ -46,6 +46,7 @@ Rollen & Verantwortlichkeiten
 - **Systemaufsicht D5** - Überwacht Energie-/Hydraulikknoten, dokumentiert Abweichungen und gibt Freigaben für Eingriffe (FACT [LOGISTICS]).
 - **Wartungsplanung** - Erstellt Schicht- und Prüfpläne für Jonas / technische Helfer, koordiniert Ersatzteilbedarfe mit Marei/Kora über Logistik.
 - **Hausregeln & Sicherheit** - Setzt Zugangsregeln zu Lagern/Werkstätten durch (FACT [HOUSE-RULES]); meldet Verstöße an Ronja, initiiert Schulungen.
+- **Sicherheitsoffizier (Novapolis)** - Verantwortet Sicherheitsfreigaben (intern), Zugangslevel, Notfallcodes und Schulungen; arbeitet eng mit Ronja (Leitung) und Nika (Quartermaster) zusammen.
 
 Zugehörigkeit & Standort
 ------------------------

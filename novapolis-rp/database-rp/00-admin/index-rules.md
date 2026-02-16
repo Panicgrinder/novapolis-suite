@@ -45,6 +45,13 @@ Decision-IDs (kanonische Festlegungen)
 - DEC-2026-02-09-01 → `REFLEX-CONTROL`: Rückgabe/Entkopplung erst bei "Sicher"
 - DEC-2026-02-09-02 → `PROXIMITY`: Distanzfenster (Startwerte) als Default
 
+RP-Referenzstandard (slug-only)
+-------------------------------
+
+- Semantische ID ist immer `slug` (auch in `characters`, `locations`, `dependencies`, `owners`).
+- Dateiname/Ordnername ist nur Ablageform und darf nie als Referenz-Token verwendet werden.
+- Markdown-Links dienen der Navigation; semantische Validierung läuft über `slug`.
+
 Hinweis
 -------
 - Die obigen IDs sind als HTML-Kommentare in der Quelldatei markiert (z. B. `<!-- id: rule-proximity -->`).

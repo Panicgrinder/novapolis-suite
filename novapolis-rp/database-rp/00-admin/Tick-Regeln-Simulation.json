@@ -1,0 +1,17 @@
+{
+  "title": "Tick-Regeln & Simulation",
+  "category": "admin",
+  "slug": "tick-regeln-simulation",
+  "version": "0.1",
+  "status": "active",
+  "owners": [
+    "admin-novapolis"
+  ],
+  "tags": [
+    "rp",
+    "rules",
+    "simulation",
+    "tick"
+  ],
+  "source": "database-rp/00-admin/Tick-Regeln-Simulation.md"
+}

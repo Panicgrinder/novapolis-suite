@@ -1,8 +1,8 @@
 ---
-stand: 2026-01-11 03:44
-update: checks aktualisiert (Basis-Stabilisierung)
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 03:44); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\02-characters\Lyra-Hest.md novapolis-rp\database-rp\02-characters\Pahl.md novapolis-rp\database-rp\02-characters\Marei.md novapolis-rp\database-rp\04-inventory\D5-inventar.md PASS (2026-01-11 03:44)
-title: Marei
+stand: 2026-02-16 12:01
+update: Nachname ergänzt.
+checks: not run (not requested)
+title: Marei Falk
 category: character
 slug: marei
 version: "0.9"
@@ -16,7 +16,7 @@ last_seen: c6
 
 <!-- markdownlint-disable MD025 -->
 
-Marei
+Marei Falk
 =====
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
@@ -67,7 +67,7 @@ Beziehungen
 
 Projekte & Missionen (Verlinkungen)
 -----------------------------------
-- Missionslog → ../00-admin/Missionslog.md
+- Missionslog → ../05-projects/Missionslog-Novapolis.md
 - Nordlinie 01 (Tunnel-Instandsetzung) → ../05-projects/Nordlinie-01.md
 - Logistik-Policy → ../00-admin/Logistik.md
 

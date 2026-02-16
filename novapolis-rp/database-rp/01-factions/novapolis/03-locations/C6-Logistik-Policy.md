@@ -72,7 +72,7 @@ Verlinkungen
 ------------
 - Locations: [C6](./C6.md)
 - Logistik-Canvas: [Logistik](../../../00-admin/Logistik.md)
-- Missionslog: [Missionslog](../../../00-admin/Missionslog.md)
+- Missionslog: [Missionslog](../05-projects/Missionslog-Novapolis.md)
 - Neutralgruppen: (geplant) Neutralgruppen
 - Karawanenbewegungen: (geplant) [caravan-moves](../../haendlerbund/05-projects/caravan-moves.md)
 

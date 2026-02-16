@@ -12,21 +12,18 @@ Ortsgraph (Index, minimal)
 
 Ziel: Ein kleines, überprüfbares Ortsnetz als Basis für Konsistenz-Checks und Querverlinkungen.
 
+Hinweis: Fraktionsspezifische Ortsgraphen liegen bei den Fraktionen (z. B. Novapolis unter `01-factions/novapolis/03-locations/README.md`).
+
 Graph (Knoten und Kanten)
 -------------------------
 
 Knoten (SSOT)
 
-- [D5](../01-factions/novapolis/03-locations/D5.md) (Hauptbasis)
-- [Verbindungstunnel D5–C6](../01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md)
-- [C6](../01-factions/novapolis/03-locations/C6.md) (Außenposten)
-- [Verbindungstunnel C6–E3](../01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.md)
-- [E3](../01-factions/novapolis/03-locations/E3.md) (evakuiert)
+- Beispiel (Novapolis): [Orte (Novapolis)](../01-factions/novapolis/03-locations/README.md)
 
 Kanten (vereinfachtes Modell)
 
-- D5 ↔ Verbindungstunnel D5–C6 ↔ C6
-- C6 ↔ Verbindungstunnel C6–E3 ↔ E3
+- Fraktionslokal definieren (siehe Fraktions-Ortsgraphen).
 
 Pflichtfelder pro Ort (P0)
 --------------------------

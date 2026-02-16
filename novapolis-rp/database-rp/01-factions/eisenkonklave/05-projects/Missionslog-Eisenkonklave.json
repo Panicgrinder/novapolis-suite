@@ -1,0 +1,11 @@
+{
+  "title": "Missionslog (Eisenkonklave)",
+  "category": "project",
+  "slug": "missionslog-eisenkonklave",
+  "version": "0.1",
+  "status": "active",
+  "tags": ["rp", "missionen", "eisenkonklave"],
+  "owners": ["admin-novapolis"],
+  "dependencies": ["eisenkonklave"],
+  "source": "database-rp/01-factions/eisenkonklave/05-projects/Missionslog-Eisenkonklave.md"
+}

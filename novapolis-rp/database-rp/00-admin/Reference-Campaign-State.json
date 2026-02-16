@@ -1,0 +1,18 @@
+{
+  "title": "Reference: Campaign State (ausgelagert)",
+  "category": "admin",
+  "slug": "reference-campaign-state",
+  "version": "0.1",
+  "status": "active",
+  "canvas": "campaign-state",
+  "owners": [
+    "admin-novapolis"
+  ],
+  "tags": [
+    "rp",
+    "campaign",
+    "state",
+    "mechanics"
+  ],
+  "source": "database-rp/00-admin/Reference-Campaign-State.md"
+}

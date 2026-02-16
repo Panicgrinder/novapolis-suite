@@ -112,7 +112,7 @@ Systemverknüpfungen & Referenzen
 - `ai_behavior_index_v2` - Eintrag „Der Suchende Schatten“.
 - `missionslog` & `logistik` - Freigaben, Handschuh-Protokolle, Energieflüsse.
 - [Reflex-Wissensstand-Trainingsstand](Reflex-Wissensstand-Trainingsstand.md) - Detailmatrix und Trainingsstatus.
-- [Ronja-Kerschner](Ronja-Kerschner.md), [Lumen](Lumen.md), [Echo](Echo.md), [Jonas-Merek](Jonas-Merek.md), [Kora-Malenkov](../../haendlerbund/02-characters/Kora-Malenkov.md) - Bezugspersonen und Instanzen.
+- [Ronja-Kerschner](Ronja-Kerschner.md), [Lumen](Lumen.md), [Echo](Echo.md), [Jonas-Merek](Jonas-Merek.md), [Kora-Malenkov](Kora-Malenkov.md) - Bezugspersonen und Instanzen.
 
 Quellen & Hinweise
 ------------------

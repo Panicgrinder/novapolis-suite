@@ -40,6 +40,14 @@ Status (aktueller Arbeitsstand)
 - Status: **prototyping** (angefangen vor RP-Abbruch; noch kein abgesicherter Feldtest).
 - Nächster Meilenstein: **sicherer Testlauf** unter konservativen Bedingungen.
 
+Canonical Constraints (Reference)
+---------------------------------
+
+- Träger/Owner: Jonas (Bau/Integration), mit Sicherheits-/Systemreview durch Pahl.
+- Ziel bleibt ein konservativer Material-/Transport-Usecase für Nordlinie (D5↔C6), nicht „schnell“ und nicht als Dauerdienst.
+- Erstlauf ohne Personentransport, bis Tunnel + Not-Aus validiert sind.
+- Logpflicht: Missionslog + Logistik (Materialverbrauch, Schäden, Lessons Learned).
+
 Arbeitsannahmen (konservativ)
 -----------------------------
 
@@ -73,7 +81,7 @@ Links
 
 - Projekt Nordlinie-01 → ../05-projects/Nordlinie-01.md
 - Logistik (Admin) → ../../../00-admin/Logistik.md
-- Missionslog → ../../../00-admin/Missionslog.md
+- Missionslog → ./Missionslog-Novapolis.md
 - Jonas (Werkstatt) → ../02-characters/Jonas-Merek.md
-- Pahl (Abnahme/Hausregeln) → ../02-characters/Pahl.md
+- Pahl (Abnahme/Hausregeln) → ../02-characters/Pahl-Brenner.md
 - Karawanenbewegungen (Übersicht) → ../../haendlerbund/05-projects/caravan-moves.md

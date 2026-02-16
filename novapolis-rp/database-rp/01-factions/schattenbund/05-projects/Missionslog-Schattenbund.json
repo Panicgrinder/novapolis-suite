@@ -1,0 +1,11 @@
+{
+  "title": "Missionslog (Schattenbund)",
+  "category": "project",
+  "slug": "missionslog-schattenbund",
+  "version": "0.1",
+  "status": "active",
+  "tags": ["rp", "missionen", "schattenbund"],
+  "owners": ["admin-novapolis"],
+  "dependencies": ["schattenbund"],
+  "source": "database-rp/01-factions/schattenbund/05-projects/Missionslog-Schattenbund.md"
+}

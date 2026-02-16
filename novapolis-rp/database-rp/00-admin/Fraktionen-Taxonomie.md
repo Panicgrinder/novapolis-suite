@@ -60,7 +60,7 @@ Taxonomie (aktuell)
 
 ### Weitere Gruppen (nicht „Hauptfraktion“)
 
-- **Freie Gruppen** (Sammelkategorie)
+- **Freie Gruppen** (Sammelkategorie für fraktionslose NPC)
   - Referenzen: Inventar [Freie Gruppen](../04-inventory/Freie-Gruppen-inventar.md)
 - **Karawanen-/Splittergruppen**
   - Referenzen: [caravan-moves](../01-factions/haendlerbund/05-projects/caravan-moves.md)

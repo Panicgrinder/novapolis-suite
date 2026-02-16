@@ -79,122 +79,21 @@ fsm:
 ---
 
 <!-- id: doc-reference-campaign-state -->
-Reference: Campaign State (ausgelagert)
-=====================================
+Reference: Campaign State (global mechanics)
+============================================
 
-Zweck: Sammelstelle für veränderliche Details (Inventar, Status, Timeline-Skizzen), die bewusst **nicht** im Canon-Core (`memory-bundle.md`) stehen.
+Diese Datei ist die globale Mechanik-SSOT für RP-Regeln.
 
-Start here: [Current-State.md](./Current-State.md)
+Fraktionsspezifische State-Snapshots wurden ausgelagert:
+
+- Novapolis: [novapolis-campaign-state](../01-factions/novapolis/00-doctrine/novapolis-campaign-state.md)
 
 <!-- id: fsm-campaign -->
-Campaign-State (Definitionen, Transitions, Beispiele)
------------------------------------------------------
+FSM-Hinweis (global)
+--------------------
 
-Ziel: Gemeinsame Zustandsmaschine (Finite State Machine, FSM) für den Kampagnenfluss, kompatibel mit den unten definierten Mechaniken (`SE-POOLS`, `PROXIMITY`, `REFLEX-CONTROL`, `JEALOUSY-GLOVES`, `DETACH`).
-
-State-Übersicht (kanonische Namen)
-----------------------------------
-
-- CALM: Normalbetrieb, geringe Bedrohung, Fokus auf Arbeit/Alltag/Regeneration.
-- ALERT: Erhöhtes Risiko/Unbekanntes; Vorsicht, Distanzen enger, Schutzbereitschaft hoch.
-- CRISIS: Akute Gefahr (Selbst-/Fremdgefährdung); Notfallprotokolle und Übernahme erlaubt.
-- AFTERMATH: Unmittelbare Gefahr gebrochen; Deeskalation, Checks, Versorgung, Review.
-- MAINTENANCE: Geplante Ruhe-/Reset-Fenster (Schlaf, Technikservice), kein aktives Szenen-Spiel.
-- Schonmodus (Overlay): Ressourcen-/Stabilitätsüberlagerung bei sehr niedriger SE oder harter Distanzverletzung; reduziert Fähigkeiten unabhängig vom Haupt-State.
-
-Transitions (Trigger, Guards, Entry/Exit)
------------------------------------------
-
-Hinweis: „Sicher“ ist wie unten in `REFLEX-CONTROL` definiert. „SE“ verweist auf Symbiose-Energie der jeweiligen Entität.
-
-- CALM → ALERT
-  - Trigger: Unbekannter Kontakt, Sensor-/Funk-Alarm, Distanzfenster überschritten, Warnungen (Instanz/Reflex), unsichere Umgebung.
-  - Entry: Distanzfenster enger, Schutzprioritäten hochfahren, Kommunikationskanal vorbereiten (kurz/gezielt).
-  - Exit nach ALERT: Entwarnung, Risiko adressiert oder weggefallen.
-
-- ALERT → CALM
-  - Guard: Entwarnung bestätigt, Umgebung stabil, Bezugsperson(en) reguliert/handlungsfähig.
-  - Exit: Notizen/Log kurz halten (nur Essentials), Normalfenster wiederherstellen.
-
-- ALERT → CRISIS
-  - Trigger: Akute Gefahr (z. B. Angriff, Sturz, Erstickungsgefahr, Brand, Reaktorereignis), „Stop“-Ignoranz durch Dritte, medizinische Eskalation.
-  - Entry: Notfallprotokoll; `REFLEX-CONTROL` darf temporär übernehmen, harte Abschirmung/Kokon erlaubt; Kommunikation priorisiert auf Warn-/Steuer-Pings.
-
-- CRISIS → ALERT
-  - Guard: Unmittelbare Gefahr gebrochen, aber „Sicher“ noch nicht voll erfüllt.
-  - Exit: Blockaden abbauen, Druck reduzieren, Vital-/Lagecheck, Umfeld stabilisieren.
-
-- CRISIS → AFTERMATH
-  - Guard: „Sicher“ erfüllt (siehe Definition in `REFLEX-CONTROL`), Bezugsperson wieder handlungsfähig.
-  - Entry: Deeskalation, Versorgung (medizinisch/psychologisch), kurze Nachbesprechung, Protokolle anlegen.
-
-- AFTERMATH → CALM
-  - Guard: Regeneration/Reset durchgeführt, ToDos verteilt, Lessons Learned vermerkt.
-  - Exit: Rückkehr in Normalbetrieb.
-
-- CALM → MAINTENANCE (und zurück)
-  - Trigger: Geplante Ruhe-/Service-Fenster (Schlaf, Technikwartung, längere Transfers ohne Spielszene).
-  - Exit: Aufwachen/Service abgeschlossen; kurzer Selbsttest, dann zurück nach CALM.
-
-- Schonmodus (Overlay)
-  - Eintritt: SE <= 0 (hart) oder SE < 25% (Einschränkungszone) bzw. harte Distanzverletzung einer Instanz ohne Anker/Power.
-  - Wirkung: Bonus-/Feinsteuerung fällt weg; Grundschutz/Minimalfunktionen bleiben. Kommunikation und Bewegungen werden kürzer/selterner/grober.
-  - Austritt: SE-Regeneration über Schwelle und/oder Nähe/Kontakt wiederhergestellt; ggf. kurzer Reset.
-
-Mermaid: Kampagnen-Zustandsmaschine (vereinfachte Sicht)
--------------------------------------------------------
-
-```mermaid
-stateDiagram-v2
-  [*] --> CALM
-  CALM --> ALERT: Risiko erkannt / Distanz > Fenster / Alarm
-  ALERT --> CALM: Entwarnung + Check
-  ALERT --> CRISIS: Akute Gefahr
-  CRISIS --> ALERT: Gefahr gebrochen
-  CRISIS --> AFTERMATH: "Sicher" erfüllt
-  AFTERMATH --> CALM: Regeneration + Review
-  CALM --> MAINTENANCE: Schlaf/Service
-  MAINTENANCE --> CALM: Reset abgeschlossen
-
-  note over CALM,ALERT,CRISIS,AFTERMATH: "Schonmodus" kann in jedem State wirken\nbei SE<=0 (hart) oder SE<25% (Einschränkung)\nund harter Distanzverletzung (Instanzen)
-```
-
-Beispiele / Use-Cases
----------------------
-
-- Werkstatt-Alltag (D5, Lumen↔Jonas)
-  - Start: CALM. Lumen hilft bei Materiallogistik, kurze lokale Trennungen am Werktisch (erlaubt, sicherer Kontext).
-  - Sensor-Ping aus Tunnel: → ALERT. Distanzfenster enger, Jonas bleibt in Hör-/Sichtweite, kurzer Funk-Check. Keine weitere Anomalie: → CALM.
-  - SE-Verlauf: gering (leicht), kein Schonmodus.
-
-- Tunnel-Patrouille (D5↔C6, Reflex↔Ronja)
-  - Start: ALERT (Umfeld unsicher). Unerwartete Erschütterung, Geröll fällt: → CRISIS. `REFLEX-CONTROL` aktiviert kurzfristig Block/Abschirmung, Bewegung stoppen.
-  - Gefahr bricht, Lage stabilisiert: → ALERT. Vitalcheck, Trümmerlage prüfen, Funk.
-  - „Sicher“ erfüllt, Rückweg frei, kurze Versorgung: → AFTERMATH → CALM nach Regeneration.
-  - SE-Verlauf: mittel→stark; nahe 25%: Bonus fällt kurzfristig weg; Kommunikation auf Warn-/Essentials begrenzt.
-
-- Kontakt-Guard (Marktszene, Echo↔Kora)
-  - Start: CALM. Unerwünschter Schultergriff durch Fremde: → ALERT. Echo aktiviert JEALOUSY-GLOVES lokal (Bedecken Schulter), fordert Abstand/Freigabe.
-  - Kein weiterer Übergriff, Person tritt zurück: → CALM. Kein CRISIS, da Bedrohung nicht akut.
-  - SE-Verlauf: leicht; kein Schonmodus.
-
-- Distanz-Training (Instanz ohne Dauer-Kontakt)
-  - Start: CALM. Echo soll 10–20 m entfernt kurz ein Formular prüfen (sicherer Raum). Nach 40 m ohne Sichtkontakt kippt Stabilität: Schonmodus (Overlay) greift; Echo zieht sich in Nähe zurück.
-  - Nach Nähe/Kontakt + kurzer Pause: Overlay endet; weiter in CALM.
-
-- Medizinische Eskalation (Erstickungsgefahr)
-  - Start: ALERT (C6, Reizstoffe). Ronja zeigt akute Atemprobleme: → CRISIS. `REFLEX-CONTROL` übernimmt kurz, Kokon/Abschirmung, Notfall-Ping, Rückzug.
-  - Gefahr gebrochen, Atmung stabil: → AFTERMATH (Versorgung), danach → CALM.
-
-Hinweise zur Verzahnung mit Mechaniken
---------------------------------------
-
-- `PROXIMITY`: Zustände CALM/ALERT/CRISIS verwenden die Distanzfenster als Regler. Bei Überschreitung werden erst Warnungen (Kribbeln/Kälte) gesendet, dann lokale Abschirmungen; harte Verletzung kann Schonmodus auslösen.
-- `SE-POOLS`: Kostenkategorien (leicht/mittel/stark) beeinflussen, wie lange Zustände ohne Overlay gehalten werden können. Bei SE < 25% fallen Boni/Feinsteuerung weg; bei SE = 0 greifen Minimalfunktionen.
-- `REFLEX-CONTROL`: Notfall-Übernahme ist an CRISIS gekoppelt; Rückgabe erst bei „Sicher“; „Stop“ ist ein Deeskalationssignal, ersetzt aber nicht die „Sicher“-Prüfung.
-- `REFLEX-SPEECH`: In ALERT/CRISIS werden Pings/kurze Sätze bevorzugt; Dauerkanäle vermeiden, besonders nahe Schonmodus.
-- `JEALOUSY-GLOVES`: In ALERT geeignet, Grenzen non-invasiv durchzusetzen; bei echter Bedrohung greift CRISIS/CONTROL statt Gloves.
-- `DETACH`: Primärinstanz bleibt verbunden; Instanzen können lokal kurz agieren, solange sicher (oder geankert), sonst steigt SE-Verbrauch/Overlay-Risiko.
+- Die detaillierte Kampagnen-FSM pro Fraktion liegt in den jeweiligen Fraktions-Doctrines.
+- Diese Datei hält die global gültigen Mechanik-Regeln (`SE-POOLS`, `INSTANCES`, `PROXIMITY`, `REFLEX-*`, `DETACH`, `JEALOUSY-GLOVES`).
 
 <!-- id: rule-se-pools -->
 Mechanik (Reference): Symbiose-Energie (SE) - Pools (Reflex-System)
@@ -483,73 +382,20 @@ Externe Handschuhe / Kleidung
 
 
 <!-- id: economy-kugeln -->
-Währung (Reference): "Kugeln" (neu vs gebraucht)
--------------------------------------------
-
-Ziel: Eine klare, spielbare Regel für Munition als Währung, ohne harte Buchhaltung.
-
-Grundsatz (Decision, KUGELN)
+Währung (Reference): Kugeln
 ---------------------------
 
-- "Kugeln" ist die **Standard-Währungseinheit** im Feld, weil Munition universell gebraucht wird.
-- Es gibt zwei Wertstufen:
-  - **Kugeln (neu)**: neuwertig/zuverlässig (z. B. original verpackt, sauber gelagert, geprüft) → **hochwertige Währung**.
-  - **Kugeln (gebraucht)**: wiederaufbereitet/alt/uneinheitlich (z. B. nachgegossen, nachgeladen, gemischte Herkunft) → **Alltags-Währung**.
+Fraktionsbezogene Ausprägung/Preisbänder liegen in den Economy-Dateien der Fraktionen.
 
-Umrechnung (Faustregel)
------------------------
-
-- **1 Kugel (neu) äquivalent zu ~10 Kugeln (gebraucht)**.
-- Die Quote kann je nach Lage/Vertrauen/Charge schwanken (z. B. 1:8 bis 1:12), aber **1:10** ist der Default.
-
-Qualität & Risiko (gebraucht)
--------------------------------
-
-- Gebrauchte Kugeln sind **die häufigste Hauptmunition** im Alltag.
-- Qualität schwankt: Aussetzer/Misfire/ungleiches Pulver sind möglich. Im Zweifel wird bei wichtigen Einsätzen **neu** bevorzugt.
-- Bei Handel kann "gebraucht" je nach sichtbarer Qualität (sauberer Sitz, identische Hülsen, geprüft) auf- oder abgewertet werden.
-
-Praxis (SL/Spielbarkeit)
-------------------------
-
-- Kleine Einkäufe/Service laufen meist in **gebraucht**.
-- Größere Deals, kritische Ressourcen oder Vertrauenshandel laufen eher in **neu** (oder in gemischten Paketen).
-
+- Novapolis: [novapolis-pricebands](../01-factions/novapolis/07-economy/novapolis-pricebands.md)
 
 <!-- id: project-draisine -->
-Projekt (Reference): Draisine-/Transportmodul (D5 Prototyp)
-----------------------------------------------------------
+Projekt-Reference: Draisine
+---------------------------
 
-Kontext
--------
+Projekt-Details wurden in den Projekt-Canvas verschoben.
 
-- Vor RP-Abbruch wurde in D5 ein kleiner Draisine-/Transportmodul-Prototyp begonnen.
-- Träger/Owner: Jonas (Bau/Integration), mit Sicherheits-/Systemreview durch Pahl.
-
-Status (Reference)
-------------------
-
-- Status: **prototyping** (noch kein abgesicherter Feldtest).
-- Ziel: Ein **konservativer Material-/Transport-Usecase** für Nordlinie (D5↔C6), nicht "schnell" und nicht als Dauerdienst.
-
-Arbeitsannahmen (konservativ)
------------------------------
-
-- Erstlauf ohne Personentransport, bis Tunnel + Not-Aus validiert sind.
-- Realistische Schaetzung fuer Materiallast: ca. 200-400 kg pro Lauf (abhängig von Zustand/Abschnitt).
-
-Gates (erster Testlauf)
------------------------
-
-- Tunnel-Abschnitt ist freigegeben (Sicherung/Belüftung/Statik ok) → `Nordlinie-01`.
-- Not-Aus/Stop-Protokoll definiert (Stopp-Punkte, Rückzug, Rollen).
-- Lastgrenzen konservativ (Erstlauf ohne Personentransport, außer explizit freigegeben).
-- Logpflicht: Missionslog + Logistik (Materialverbrauch, Schäden, Lessons Learned).
-
-Link
-----
-
-- Projekt-Canvas: [Draisine-Transportmodul](../01-factions/novapolis/05-projects/Draisine-Transportmodul.md)
+- Novapolis-Projekt: [Draisine-Transportmodul](../01-factions/novapolis/05-projects/Draisine-Transportmodul.md)
 
 
 Inventar / Ressourcen (Arbeitsstand)

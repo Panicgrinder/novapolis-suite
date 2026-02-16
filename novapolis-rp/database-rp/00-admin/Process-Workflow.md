@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-11 02:22
-update: MD031 Fix (Leerzeile vor Codeblock).
-checks: "not run (not requested)"
+stand: 2026-02-16 12:32
+update: README-Sidecar-Policy festgelegt (READMEs ohne Sidecar).
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-16 12:33)"
 slug: process-workflow
 category: Admin
 schemaVersion: 1
@@ -60,6 +60,12 @@ Metadata Layer (Sidecar JSON)
 - Pro Markdown optionales Companion JSON (Struktur/Tags, kein Content-Eingriff).
 - Beispiel-Felder: chapter, characters, location, tags, source.
 - Flags: `--dry-run`, `--overwrite`, `--glob`.
+
+README-Sidecar-Policy
+---------------------
+- **README.md-Dateien benoetigen keine JSON-Sidecars.**
+- Bestehende `README.json`-Dateien gelten als Legacy und sollen entfernt werden.
+- Sidecars sind fuer kanonische Entities (z. B. character/location/project/inventory/scene) oder Indizes sinnvoll; READMEs sind Navigations-/Stub-Seiten.
 
 Temporare Bereiche
 ------------------

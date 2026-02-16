@@ -1,26 +1,24 @@
 ---
 stand: 2026-01-11 01:50
-update: "Kugeln-Währung präzisiert: neu vs gebraucht (Faustregel 1 neu ≈ 10 gebraucht)."
+update: "Scope präzisiert: Inventar für fraktionslose NPC; doppelte Frontmatter entfernt."
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:54); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:54); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:54)
 canvas: Inventar Freie Gruppen
 last_updated: 2025-11-07T04:32:00+01:00
 category: inventory
 slug: freie-gruppen-inventar
 owner: freie-gruppen
-scope: faction
-version: "0.1"
----
-canvas: Inventar Freie Gruppen
-last-updated: 2025-11-07T04:32:00+01:00
-category: inventory
-slug: freie-gruppen-inventar
-owner: freie-gruppen
-scope: faction
+scope: fraktionslose-npc
 version: "0.1"
 ---
 
 Inventar - Freie Gruppen (Sammelgruppe)
 =======================================
+
+Definition
+----------
+
+- Dieses Inventar gehört ausschließlich zu **fraktionslosen NPC** (Freie Gruppen).
+- Fraktionsgebundene NPC/Gruppen führen ihre Bestände in den jeweiligen Fraktionsinventaren unter `01-factions/*/04-inventory/`.
 
 Bestände (Auszug)
 -----------------

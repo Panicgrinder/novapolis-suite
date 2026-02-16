@@ -1,0 +1,11 @@
+{
+  "title": "Missionslog (Novapolis)",
+  "category": "project",
+  "slug": "missionslog-novapolis",
+  "version": "1.0",
+  "status": "active",
+  "tags": ["rp", "missionen", "novapolis"],
+  "owners": ["admin-novapolis"],
+  "dependencies": ["novapolis", "nordlinie-01", "logistik"],
+  "source": "database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.md"
+}

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-13 09:54
-update: Postflight-Nachtrag: Tick-Regeln-Simulation (RP) dokumentiert.
-checks: "markdownlint-cli2 PASS; check_frontmatter.py PASS"
+stand: 2026-02-16 13:08
+update: RP: Novapolis 02-characters Sidecars zu Frontmatter synchronisiert; Checks grün.
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-16 13:08)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -13,12 +13,43 @@ Hinweis (2026-01-08)
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
 
+RP: Novapolis Characters Sidecar Sync (2026-02-16 13:06)
+-------------------------------------------------------
+
+- JSON-Sidecars in `database-rp/01-factions/novapolis/02-characters/` gegen das Markdown-Frontmatter normalisiert (kanonische Key-Reihenfolge, Typen; Drift-Fix bei last_seen/primary_location/last_updated).
+- Ausfuehrung: `scripts/rp_canon_sync.py --write --json-only --only-dir 02-characters --only-faction novapolis`.
+- Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_130706.md`).
+
+RP: Novapolis Doctrine maschinenlesbar (2026-02-16 12:51)
+--------------------------------------------------------
+
+- Novapolis Doctrine unter `database-rp/01-factions/novapolis/00-doctrine/` um strukturierte, maschinenlesbare Metadaten erweitert.
+- Diplomatie: Zuständigkeiten/Freigaben (Ronja/Kora/Pahl) + Kernregeln (Außenhandel über C6, Protokollpflicht) ergänzt.
+- Logistik: Rollen/Schnittstellen (Nika/Jonas/Kora/Pahl) + Transferregeln D5↔C6 als Kurzregeln ergänzt.
+- History: Chronik-Regeln (Anker über Scenes/Missionslog, keine stillen Retcons) ergänzt.
+- Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_125337.md`).
+
 RP: Tick-Regeln & Simulation (Postflight-Nachtrag) (2026-02-13 09:52)
 --------------------------------------------------------------------
 
 - `database-rp/00-admin/Tick-Regeln-Simulation.md` angelegt/standardisiert und in `database-rp/00-admin/index-rules.md` verlinkt.
 - Postflight/Receipt nachgezogen (Governance-Nachpflege).
 - Checks: markdownlint-cli2 PASS; check_frontmatter.py PASS.
+
+RP: Novapolis Leadership + Economy Subdocs (2026-02-16 12:27)
+------------------------------------------------------------
+
+- Leadership/Rollen in Novapolis konsolidiert (Ronja/Kora/Nika/Pahl) und Personenindex aktualisiert.
+- Nachnamen ergänzt (Pahl Brenner, Marei Falk) inkl. Sidecar-Sync.
+- Economy unter `01-factions/novapolis/07-economy/` ausgebaut (Märkte/Handelsplätze, Preisbänder).
+- Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_122544.md`).
+
+RP: README Sidecar-Policy (2026-02-16 12:33)
+--------------------------------------------
+
+- Policy festgelegt: README-Dateien benoetigen keine JSON-Sidecars.
+- Legacy `README.json` Sidecars entfernt (Handel/Diplomatie-READMEs der Fraktionen sowie `database-rp/06-scenes/README.md`).
+- Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_123226.md`).
 
 RP: Process-Workflow Konsolidierung (2026-02-11 01:59)
 -----------------------------------------------------

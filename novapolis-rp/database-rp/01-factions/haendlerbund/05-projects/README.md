@@ -19,4 +19,4 @@ Nützliche Links
 ---------------
 
 - Fraktionsordner → ../README.md
-- Missionslog → ../../../00-admin/Missionslog.md
+- Missionslog → ./Missionslog-Haendlerbund.md

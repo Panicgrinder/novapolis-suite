@@ -1,0 +1,9 @@
+{
+  "title": "Current State",
+  "category": "admin",
+  "slug": "current-state",
+  "version": "0.1",
+  "canvas": "current-state",
+  "status": "draft",
+  "source": "database-rp/00-admin/Current-State.md"
+}

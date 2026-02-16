@@ -28,4 +28,4 @@ Links
 -----
 
 - Fraktionen-Taxonomie → ../../00-admin/Fraktionen-Taxonomie.md
-- Missionslog → ../../00-admin/Missionslog.md
+- Missionslog → ./05-projects/Missionslog-Novapolis.md

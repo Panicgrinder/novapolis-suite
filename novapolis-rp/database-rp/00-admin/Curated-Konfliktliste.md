@@ -81,7 +81,7 @@ Archiv: Gelöste Top-10 (2026-01-11)
     - [Jonas-Merek](../01-factions/novapolis/02-characters/Jonas-Merek.md)
     - [Lumen](../01-factions/novapolis/02-characters/Lumen.md)
     - [Echo](../01-factions/novapolis/02-characters/Echo.md)
-    - [Kora-Malenkov](../01-factions/haendlerbund/02-characters/Kora-Malenkov.md)
+   - [Kora-Malenkov](../01-factions/novapolis/02-characters/Kora-Malenkov.md)
    - Priorität: P1
 
 4) Reflex Sprech-Mechanik (Tympanon): Einwilligung/Dauer/Erschöpfung (Review 2025-11-01)

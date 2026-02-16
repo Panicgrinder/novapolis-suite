@@ -1,0 +1,11 @@
+{
+  "title": "Missionslog (Arkologie A1)",
+  "category": "project",
+  "slug": "missionslog-arkologie-a1",
+  "version": "0.1",
+  "status": "active",
+  "tags": ["rp", "missionen", "arkologie-a1"],
+  "owners": ["admin-novapolis"],
+  "dependencies": ["arkologie-a1"],
+  "source": "database-rp/01-factions/arkologie-a1/05-projects/Missionslog-Arkologie-A1.md"
+}

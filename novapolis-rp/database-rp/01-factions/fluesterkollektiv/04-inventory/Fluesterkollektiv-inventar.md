@@ -31,5 +31,5 @@ Bewegungen (Log)
 Links
 -----
 - Logistik (Admin) → ../../../00-admin/Logistik.md
-- Missionslog → ../../../00-admin/Missionslog.md
+- Missionslog → ../05-projects/Missionslog-Fluesterkollektiv.md
 - Währung "Kugeln" (Reference) → ../../../00-admin/Reference-Campaign-State.md

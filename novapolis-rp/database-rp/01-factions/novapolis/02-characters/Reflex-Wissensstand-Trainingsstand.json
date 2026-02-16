@@ -1,11 +1,9 @@
 {
-  "title": "Reflex – Wissensstand & Trainingsstand",
+  "title": "Reflex - Wissensstand & Trainingsstand",
   "category": "character-attachment",
   "slug": "reflex-wissensstand-trainingsstand",
   "version": "1.0",
   "last_updated": "2025-11-07T03:32:00+01:00",
-  "parent_character": "reflex",
-  "is_standalone_character": false,
   "tags": [
     "knowledge",
     "training"
@@ -19,5 +17,7 @@
     "reflex",
     "d5"
   ],
-  "source": "database-rp/01-factions/novapolis/02-characters/Reflex-Wissensstand-Trainingsstand.md"
+  "source": "database-rp/01-factions/novapolis/02-characters/Reflex-Wissensstand-Trainingsstand.md",
+  "parent_character": "reflex",
+  "is_standalone_character": false
 }

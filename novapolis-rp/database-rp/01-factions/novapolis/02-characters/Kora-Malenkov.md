@@ -1,12 +1,12 @@
 ---
-stand: 2026-02-04 13:31
-update: Linkziele auf relative Pfade normalisiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:31)"
+stand: 2026-02-16 12:01
+update: Stellvertretung (Novapolis) und Handel-Zuständigkeit ergänzt.
+checks: not run (not requested)
 title: Kora Malenkov
 category: character
 slug: kora-malenkov
 version: "1.0"
-last_updated: 2026-01-14T17:31:10+01:00
+last_updated: 2026-02-16T12:01:00+01:00
 last_change: "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6."
 tags: ["logistik", "karawane", "novapolis"]
 affiliations: ["novapolis"]
@@ -20,9 +20,9 @@ last_seen: c6
 Kora Malenkov
 =============
 
-- Meta: last-updated: 2025-11-07T03:32:00+01:00
+- Meta: last-updated: 2026-02-16T12:01:00+01:00
 - Verhaltenssignatur: `KRM4=L72-T74-N69-E61-O56-C63-M47-P35-fb` - analytische Logistikerin mit wachsamer Paranoia, kontrolliert Abläufe mit feinem Sensor für Risiko.
-- Rolle: Karawanenführerin i. E. / Logistikkoordinatorin für C6 (Schnittstelle, G7-Basis) - verantwortet Versorgung, Schichtpläne und Sicherheit der Crew (FACT [CARAVAN-LEADERSHIP]).
+- Rolle: Stellvertretung der Fraktionsleitung (Novapolis); Leitung C6; Logistik- und Handelskoordination (Außenhandel über C6) (FACT [CARAVAN-LEADERSHIP]).
 - Werte: Kraft 3, Geschick 4, Geist 5, Wille 4, Charisma 5.
 - Skills:
   - Geübt: Verhandlung, Navigation, Organisation.
@@ -45,6 +45,7 @@ Rollen & Verantwortlichkeiten
 - **Station C6 intern** - Aufgabenverteilung, Instandsetzung, Schichtpläne, Risikoabgleich mit Ronja/Marei.
 - **Logistikknoten** - Bestandsführung, Materialübergaben D5↔C6, Dokumentation im Missionslog (Prozess L.1) und `Logistik`-Canvas.
 - **Sicherheitskoordination** - Lagebild mit Echo, Ausgabe von Freigaben für Tunneltrupps, Abgleich mit Nordlinie-01-Projekten.
+- **Handel (C6)** - Koordiniert Außenhandel/Übergaben über C6 (Lieferfenster, Austauschlisten, Trust/Protokolle) in Abstimmung mit Ronja (Diplomatie).
 
 Zugehörigkeit & Standort
 ------------------------

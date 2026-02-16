@@ -45,7 +45,7 @@ Quellen
   - Export: Energie, technische Reparaturen, Kommunikationszugang
   - Import: Nahrungsmittel, Filter, Grundbedarfsgüter
 - Abhängigkeit: gering (autarkes Ziel)
-- Bemerkung: erste Handelskontakte über Karawane H-47 (Senn Daru) in C6; siehe Charaktereintrag: [Senn Daru](../../haendlerbund/02-characters/Senn-Daru.md).
+- Bemerkung: erste Handelskontakte über Karawane H-47 (Senn Daru) in C6; siehe Charaktereintrag: [Senn Daru](../02-characters/Senn-Daru.md).
 
 ### Eisenkonklave
 

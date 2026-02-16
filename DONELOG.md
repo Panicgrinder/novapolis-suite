@@ -1,11 +1,15 @@
 ---
-stand: 2026-02-13 09:54
-update: "Postflight-Nachtrag: Tick-Regeln-Simulation (RP) dokumentiert."
-checks: "markdownlint-cli2 PASS; check_frontmatter.py PASS"
+stand: 2026-02-16 13:08
+update: "RP: Novapolis 02-characters Sidecars zu Frontmatter synchronisiert; Checks grün."
+checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-16 13:08)"
 ---
 Kurzueberblick
 --------------
 
+- 2026-02-16 13:06: RP (Novapolis): `01-factions/novapolis/02-characters/` JSON-Sidecars per `scripts/rp_canon_sync.py` aus dem Markdown-Frontmatter synchronisiert (Drift-Fix: u. a. last_seen/primary_location/last_updated). Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_130706.md`).
+- 2026-02-16 12:51: RP (Novapolis): Doctrine unter `01-factions/novapolis/00-doctrine/` maschinenlesbarer gemacht (Frontmatter-Metadaten, Zuständigkeiten/Freigaben, Kernregeln/Transferregeln, Chronik-Regeln) und Sidecars synchronisiert. Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_125337.md`).
+- 2026-02-16 12:33: RP: README-Sidecar-Policy festgelegt (READMEs ohne Sidecar) und Legacy `README.json` Sidecars entfernt (Handel/Diplomatie-Ordner der Fraktionen + Scenes README). Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_123226.md`).
+- 2026-02-16 12:27: RP (Novapolis): Leadership/Rollen verankert (Ronja: Leitung+D5+Diplomatie; Kora: Stellvertretung+Leitung C6+Handel; Nika: Quartiermeisterin; Pahl: Sicherheitsoffizier), Nachnamen ergänzt (Pahl Brenner, Marei Falk), Economy-Subdocs angelegt (Märkte, Preisbänder). Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_122544.md`).
 - 2026-02-13 09:52: Postflight-Nachtrag: Tick-Regeln & Simulation (RP-SSOT) wurde unter `database-rp/00-admin/Tick-Regeln-Simulation.md` angelegt und in `database-rp/00-admin/index-rules.md` verlinkt; Receipt nachgezogen. Checks: markdownlint-cli2 PASS; check_frontmatter.py PASS.
 - 2026-02-11 05:26: JSON-Sidecars fuer Process-Workflow/Sim-State-Schema angelegt und `database-rp/index.json` aktualisiert. Checks: not run.
 - 2026-02-11 05:25: Sim-State-Schema (maschinenlesbar) in `database-rp/00-admin/Sim-State-Schema.md` angelegt und in `index-rules.md` verlinkt. Checks: not run.

@@ -44,7 +44,7 @@ Links
 - Logistik → ../../../00-admin/Logistik.md
 - C6 → ../../novapolis/03-locations/C6.md
 - D5 → ../../novapolis/03-locations/D5.md
-- Missionslog → ../../../00-admin/Missionslog.md
+- Missionslog → ./Missionslog-Haendlerbund.md
 - Draisine-/Transportmodul (D5 Prototyp) → ../../novapolis/05-projects/Draisine-Transportmodul.md
 
 

@@ -1,0 +1,11 @@
+{
+  "title": "Missionslog (Flüsterkollektiv)",
+  "category": "project",
+  "slug": "missionslog-fluesterkollektiv",
+  "version": "0.1",
+  "status": "active",
+  "tags": ["rp", "missionen", "fluesterkollektiv"],
+  "owners": ["admin-novapolis"],
+  "dependencies": ["fluesterkollektiv"],
+  "source": "database-rp/01-factions/fluesterkollektiv/05-projects/Missionslog-Fluesterkollektiv.md"
+}

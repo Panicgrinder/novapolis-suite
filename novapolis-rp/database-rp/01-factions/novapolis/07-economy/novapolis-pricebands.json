@@ -1,0 +1,12 @@
+{
+  "title": "Preisbänder (Novapolis, Heuristik)",
+  "category": "Economy",
+  "slug": "novapolis-pricebands",
+  "version": "1",
+  "last_updated": "2026-02-16T12:01:00+01:00",
+  "last_change": "Preisbänder (Heuristik) als Economy-Subdoc ergänzt.",
+  "tags": ["rp", "economy", "novapolis"],
+  "affiliations": ["novapolis"],
+  "dependencies": ["reference-campaign-state", "marktpreise-inventar"],
+  "source": "database-rp/01-factions/novapolis/07-economy/novapolis-pricebands.md"
+}

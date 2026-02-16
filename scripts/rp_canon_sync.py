@@ -257,21 +257,47 @@ def _json_equal(a: dict[str, Any], b: dict[str, Any]) -> bool:
     )
 
 
-def iter_targets(repo_root: Path) -> Iterable[tuple[Path, Path]]:
+def iter_targets(
+    repo_root: Path,
+    *,
+    only_dirs: set[str] | None = None,
+    only_faction: str | None = None,
+) -> Iterable[tuple[Path, Path]]:
     rp_root = repo_root / "novapolis-rp" / "database-rp"
+
     for d in RP_DIRS:
-        folder = rp_root / d
-        if not folder.exists():
+        if only_dirs is not None and d not in only_dirs:
             continue
-        for md_path in sorted(folder.glob("*.md")):
-            if md_path.name.lower() == "readme.md":
+        candidate_folders: list[Path] = []
+
+        # Top-level category folders: database-rp/02-characters, ...
+        candidate_folders.append(rp_root / d)
+
+        # Faction-scoped folders: database-rp/01-factions/<faction>/<category>
+        factions_root = rp_root / "01-factions"
+        if factions_root.exists():
+            if only_faction:
+                candidate_folders.append(factions_root / only_faction / d)
+            else:
+                candidate_folders.extend(sorted(factions_root.glob(f"*/{d}")))
+
+        for folder in candidate_folders:
+            if not folder.exists():
                 continue
-            json_path = md_path.with_suffix(".json")
-            if json_path.exists():
-                yield md_path, json_path
+            for md_path in sorted(folder.glob("*.md")):
+                json_path = md_path.with_suffix(".json")
+                if json_path.exists():
+                    yield md_path, json_path
 
 
-def sync_one(md_path: Path, json_path: Path, *, repo_root: Path, write: bool) -> list[Change]:
+def sync_one(
+    md_path: Path,
+    json_path: Path,
+    *,
+    repo_root: Path,
+    write: bool,
+    json_only: bool,
+) -> list[Change]:
     changes: list[Change] = []
 
     md_text = md_path.read_text(encoding="utf-8", errors="strict")
@@ -279,40 +305,44 @@ def sync_one(md_path: Path, json_path: Path, *, repo_root: Path, write: bool) ->
     if fm_start == -1:
         return changes
 
-    # MD: last-updated -> last_updated in frontmatter (rename key only).
-    if "last-updated" in fm and "last_updated" not in fm:
-        # Do a conservative line-based replacement inside frontmatter block.
-        frontmatter_text = md_text[fm_start:fm_end]
-        new_frontmatter_text = re.sub(r"(?m)^last-updated:\s*", "last_updated: ", frontmatter_text)
-        if new_frontmatter_text != frontmatter_text:
-            if write:
-                md_text = new_frontmatter_text + md_text[fm_end:]
-                md_path.write_text(md_text, encoding="utf-8", newline="\n")
-            changes.append(
-                Change(md_path, "md", "Frontmatter-Key rename: last-updated -> last_updated")
+    if not json_only:
+        # MD: last-updated -> last_updated in frontmatter (rename key only).
+        if "last-updated" in fm and "last_updated" not in fm:
+            # Do a conservative line-based replacement inside frontmatter block.
+            frontmatter_text = md_text[fm_start:fm_end]
+            new_frontmatter_text = re.sub(
+                r"(?m)^last-updated:\s*", "last_updated: ", frontmatter_text
             )
-            # Re-parse after change for downstream sync.
-            fm, fm_start, fm_end = parse_frontmatter(md_text)
-
-    # MD: remove duplicate metablock right after frontmatter.
-    body = md_text[fm_end:]
-    dup = _detect_duplicate_meta_block(body)
-    if dup is not None:
-        s, e = dup
-        new_body = body[:s] + body[e:]
-        if new_body != body:
-            if write:
-                md_text = md_text[:fm_end] + new_body
-                md_path.write_text(md_text, encoding="utf-8", newline="\n")
-            changes.append(
-                Change(
-                    md_path,
-                    "md",
-                    "Removed duplicate meta/frontmatter block after frontmatter",
+            if new_frontmatter_text != frontmatter_text:
+                if write:
+                    md_text = new_frontmatter_text + md_text[fm_end:]
+                    md_path.write_text(md_text, encoding="utf-8", newline="\n")
+                changes.append(
+                    Change(md_path, "md", "Frontmatter-Key rename: last-updated -> last_updated")
                 )
-            )
-            # Re-parse for correctness.
-            fm, fm_start, fm_end = parse_frontmatter(md_text)
+                # Re-parse after change for downstream sync.
+                fm, fm_start, fm_end = parse_frontmatter(md_text)
+
+    if not json_only:
+        # MD: remove duplicate metablock right after frontmatter.
+        body = md_text[fm_end:]
+        dup = _detect_duplicate_meta_block(body)
+        if dup is not None:
+            s, e = dup
+            new_body = body[:s] + body[e:]
+            if new_body != body:
+                if write:
+                    md_text = md_text[:fm_end] + new_body
+                    md_path.write_text(md_text, encoding="utf-8", newline="\n")
+                changes.append(
+                    Change(
+                        md_path,
+                        "md",
+                        "Removed duplicate meta/frontmatter block after frontmatter",
+                    )
+                )
+                # Re-parse for correctness.
+                fm, fm_start, fm_end = parse_frontmatter(md_text)
 
     # JSON sync
     existing_json = json.loads(json_path.read_text(encoding="utf-8"))
@@ -354,13 +384,42 @@ def main() -> int:
         action="store_true",
         help="Apply changes (default: WhatIf / no writes).",
     )
+    parser.add_argument(
+        "--json-only",
+        action="store_true",
+        help="Only sync JSON from Markdown frontmatter (skip any MD fixes).",
+    )
+    parser.add_argument(
+        "--only-dir",
+        action="append",
+        choices=RP_DIRS,
+        help="Restrict to one RP category directory (repeatable).",
+    )
+    parser.add_argument(
+        "--only-faction",
+        help="Restrict to database-rp/01-factions/<faction>/<category>.",
+    )
     args = parser.parse_args()
 
     repo_root = Path(__file__).resolve().parents[1]
 
+    only_dirs = set(args.only_dir) if args.only_dir else None
+
     all_changes: list[Change] = []
-    for md_path, json_path in iter_targets(repo_root):
-        all_changes.extend(sync_one(md_path, json_path, repo_root=repo_root, write=args.write))
+    for md_path, json_path in iter_targets(
+        repo_root,
+        only_dirs=only_dirs,
+        only_faction=args.only_faction,
+    ):
+        all_changes.extend(
+            sync_one(
+                md_path,
+                json_path,
+                repo_root=repo_root,
+                write=args.write,
+                json_only=args.json_only,
+            )
+        )
 
     if not all_changes:
         print("RP canon sync: no changes")

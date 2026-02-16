@@ -1,0 +1,27 @@
+{
+  "title": "Novapolis - Logistics",
+  "category": "canon",
+  "slug": "novapolis-logistics",
+  "version": "0.2",
+  "status": "active",
+  "last_updated": "2026-02-16T12:54:00+01:00",
+  "last_change": "Maschinenlesbare Metadaten + Rollen/Transferregeln aus Bestandsdaten ergänzt.",
+  "tags": ["rp", "doctrine", "logistik", "inventar", "novapolis"],
+  "affiliations": ["novapolis"],
+  "dependencies": [
+    "novapolis",
+    "novapolis-inventar",
+    "d5-inventar",
+    "c6-inventar",
+    "logistik",
+    "missionslog",
+    "c6-logistik-policy",
+    "c6",
+    "d5",
+    "nika-perez",
+    "pahl",
+    "kora-malenkov",
+    "jonas-merek"
+  ],
+  "source": "database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.md"
+}

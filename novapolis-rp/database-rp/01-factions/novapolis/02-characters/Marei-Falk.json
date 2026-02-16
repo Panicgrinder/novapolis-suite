@@ -1,5 +1,5 @@
 {
-  "title": "Marei",
+  "title": "Marei Falk",
   "category": "character",
   "slug": "marei",
   "version": "0.9",
@@ -18,5 +18,5 @@
     "c6",
     "e3"
   ],
-  "source": "database-rp/01-factions/novapolis/02-characters/Marei.md"
+  "source": "database-rp/01-factions/novapolis/02-characters/Marei-Falk.md"
 }

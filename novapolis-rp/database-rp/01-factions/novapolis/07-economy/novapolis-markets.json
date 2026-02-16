@@ -1,0 +1,19 @@
+{
+  "title": "Märkte & Handelsplätze (Novapolis)",
+  "category": "Economy",
+  "slug": "novapolis-markets",
+  "version": "1",
+  "last_updated": "2026-02-16T12:01:00+01:00",
+  "last_change": "Märkte/Handelsplätze (D5/C6) als Economy-Subdoc ergänzt.",
+  "tags": ["rp", "economy", "novapolis"],
+  "affiliations": ["novapolis"],
+  "dependencies": [
+    "reference-campaign-state",
+    "marktpreise-inventar",
+    "handelslog_novapolis_v1",
+    "relationslog_novapolis_v1",
+    "d5",
+    "c6"
+  ],
+  "source": "database-rp/01-factions/novapolis/07-economy/novapolis-markets.md"
+}

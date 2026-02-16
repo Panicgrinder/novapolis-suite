@@ -3,14 +3,14 @@
   "category": "character",
   "slug": "ronja-kerschner",
   "version": "1.0",
-  "last_updated": "2025-11-07T03:32:00+01:00",
+  "last_updated": "2026-02-16T12:01:00+01:00",
   "last_change": "RAW-Insights (char_ronja_v2) integriert, Drift markiert",
   "tags": [],
   "affiliations": [
     "novapolis"
   ],
   "primary_location": "d5",
-  "last_seen": "d5",
+  "last_seen": "c6",
   "dependencies": [
     "reflex",
     "lumen",

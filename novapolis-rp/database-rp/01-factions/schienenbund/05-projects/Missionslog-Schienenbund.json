@@ -1,0 +1,11 @@
+{
+  "title": "Missionslog (Schienenbund)",
+  "category": "project",
+  "slug": "missionslog-schienenbund",
+  "version": "0.1",
+  "status": "active",
+  "tags": ["rp", "missionen", "schienenbund"],
+  "owners": ["admin-novapolis"],
+  "dependencies": ["schienenbund"],
+  "source": "database-rp/01-factions/schienenbund/05-projects/Missionslog-Schienenbund.md"
+}
