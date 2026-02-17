@@ -1,8 +1,8 @@
 ---
-stand: 2026-01-14 07:48
-update: "T+0: Scene-Anker um al/am/an ergänzt (Update-Nachlauf; RP-Rückkehr; RP-Intensivierung). Keine neuen Fakten hinzugefügt. Checks PASS."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Canvas-T+0-Timeline.md' PASS (2026-01-14 07:48); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Canvas-T+0-Timeline.md' PASS (2026-01-14 07:48); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 07:48)"
-slug: canvas-t-0-timeline
+stand: 2026-02-17 09:12
+update: "Canvas: Dateiname auf Naming-Policy konsolidiert (T+0 -> T0); Inhalt unverändert."
+checks: "not run (metadata fix)"
+slug: canvas-t0-timeline
 canvas: Timeline T+0
 last-updated: 2025-11-07T04:09:00+01:00
 category: Admin

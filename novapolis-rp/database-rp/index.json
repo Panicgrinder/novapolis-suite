@@ -257,8 +257,8 @@
       "json": "database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.json"
     },
     {
-      "md": "database-rp/00-admin/Canvas-T+0-Timeline.md",
-      "json": "database-rp/00-admin/Canvas-T+0-Timeline.json"
+      "md": "database-rp/00-admin/Canvas-T0-Timeline.md",
+      "json": "database-rp/00-admin/Canvas-T0-Timeline.json"
     },
     {
       "md": "database-rp/00-admin/Logistik.md",

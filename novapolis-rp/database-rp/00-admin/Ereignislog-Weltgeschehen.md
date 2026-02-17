@@ -75,7 +75,7 @@ Ereignisse (v1)
 - Ergebnis: unklar – Analyse im Gang.
 - Folgen: Erhöhte Aufmerksamkeit bei allen Fraktionen; erste Scoutbewegungen Richtung Süden registriert.
 
-Verlinkungen
-------------
-- Admin-Timeline: [Canvas-T+0-Timeline](Canvas-T+0-Timeline.md)
+#### Verlinkungen
+
+- Admin-Timeline: [Canvas-T0-Timeline](Canvas-T0-Timeline.md)
 - Novapolis-Relationslog: [Relationslog-Novapolis](../01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md)

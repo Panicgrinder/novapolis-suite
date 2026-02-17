@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 23:07
-update: Pfad-Duplikat in Curation-Schritt korrigiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-04 23:07); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\readme.hub.md DONELOG.md novapolis-dev\\docs\\donelog.md PASS (2026-02-04 23:07)"
+stand: 2026-02-17 09:12
+update: .ps1-Tool-Links auf Python-Skripte umgestellt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' PASS (2026-02-17 03:26); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\readme.hub.md PASS (2026-02-17 03:26)"
 ---
 
 Novapolis Dokumentations-Hub
@@ -117,7 +117,7 @@ Temporäre Bereiche
 Rotation/Policy (empfohlen):
 - Aufbewahrung: letzte 7 Tage oder die letzten 5 Artefakte je Serie (je nachdem, was größer ist).
 - Größenlimit: Zielbudget 500 MB für `.tmp-*` insgesamt; ältere Artefakte zuerst entfernen.
-- Werkzeuge: [`scripts/cleanup_workspace_files.ps1`](../../scripts/cleanup_workspace_files.ps1), [`scripts/rotate_backups.ps1`](../../scripts/rotate_backups.ps1).
+- Werkzeuge: [`scripts/cleanup_workspace_files.py`](../../scripts/cleanup_workspace_files.py), [`scripts/rotate_backups.py`](../../scripts/rotate_backups.py).
 - Reports: Link-Scanner-Berichte unter [`/.tmp/results/reports/scan_links_reports/`](../../.tmp/results/reports/scan_links_reports/).
 
 Stubbing Policy

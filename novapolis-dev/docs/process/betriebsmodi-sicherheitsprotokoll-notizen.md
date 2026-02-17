@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Frontmatter auf YAML migriert; markdownlint PASS
-checks: markdownlint-cli2 PASS
+stand: 2026-02-17 09:12
+update: Multi-Root-Hinweis als Regression-Fallback formuliert (Single-Root ist Norm).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/process/betriebsmodi-sicherheitsprotokoll-notizen.md' PASS (2026-02-17 02:48); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\process\\betriebsmodi-sicherheitsprotokoll-notizen.md PASS (2026-02-17 02:48)"
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -39,7 +39,7 @@ Sicherheitsprotokoll (Schutzmodus)
   - STOP-Priorisierung: Debug/Analyse vor Ausführung. Keine neuen Build-/Test-/Run-Tasks automatisch starten; Task-Anfragen werden in eine Queue gelegt und erst nach Freigabe gestartet.
   - Manuell-ausführen-Pflicht: Bei Coverage-Gates und Fehlersuche Tests manuell im Terminal (expliziter Interpreter, korrektes cwd) starten; Task-Runs nur ergänzend nutzen.
   - Test-Plausibilität: Kommt ein kompletter Testlauf „instant“ (< 1 s) mit PASS zurück, als verdächtig werten und unmittelbar manuell wiederholen; Ergebnis und Laufzeit im Log notieren.
-  - Multi-Root-Hinweis (temporär): Wenn VS Code den Workspace als Multi-Root erkennt, sind Wrapper-Tasks/Automationen unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single-Root: KEINE WRAPPER - Terminal ausschließlich manuell.
+  - Multi-Root-Fallback (Regression): Wenn VS Code den Workspace als Multi-Root erkennt, sind Wrapper-Tasks/Automationen u. U. unzuverlässig (CWD/Quoting). Dann nur manuell im Terminal arbeiten, bis wieder Single-Root aktiv ist.
 - **Deaktivierung:**
   - Ursache identifiziert und mitigiert **und** zwei Pakete in Folge ohne Drift außerhalb der Budgets.
   - Alternativ manuelle Freigabe durch Nutzer.

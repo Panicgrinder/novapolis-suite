@@ -87,3 +87,9 @@ novapolis-sim/Godot_v*.exe
 
 # Local analysis exports
 Fehleranalyse\ und\ Auditplan.pdf
+
+# Volatile test artifacts
+/outputs/test-artifacts/junit.xml
+
+# RP validator scratch
+/novapolis-rp/coding/tools/validators/.last-run/

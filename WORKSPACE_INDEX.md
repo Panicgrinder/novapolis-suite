@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 20:55
-update: Pfad-Token "VS Code Workspace" -> "VS-Code-Workspace" ersetzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55)
+stand: 2026-02-17 09:12
+update: Veraltete Links auf archivierte Agent-PS1-Skripte im Index korrigiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'WORKSPACE_INDEX.md' PASS (2026-02-17 06:12); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py WORKSPACE_INDEX.md PASS (2026-02-17 06:12)"
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -224,9 +224,9 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 - [`novapolis_agent/scripts/open_context_notes.py`](novapolis_agent/scripts/open_context_notes.py) - Öffnet/legt lokale Kontextnotizen an
 - [`novapolis_agent/scripts/append_done.py`](novapolis_agent/scripts/append_done.py) - Hängt Eintrag an `docs/DONELOG.txt` an
 - [`novapolis_agent/scripts/fix_donelog_times.py`](novapolis_agent/scripts/fix_donelog_times.py) - Korrigiert Zeitstempel im DONELOG
-- [`novapolis_agent/scripts/cleanup_phase3.ps1`](novapolis_agent/scripts/cleanup_phase3.ps1) - Cleanup-Skript Phase 3
-- [`novapolis_agent/scripts/cleanup_phase4.ps1`](novapolis_agent/scripts/cleanup_phase4.ps1) - Cleanup-Skript Phase 4
-- [`novapolis_agent/scripts/history_purge_plan.ps1`](novapolis_agent/scripts/history_purge_plan.ps1) - Historienbereinigung (Plan)
+- (archiviert) [`novapolis-dev/archive/scripts/scripts.ps1-scripts/cleanup_phase3.ps1`](novapolis-dev/archive/scripts/scripts.ps1-scripts/cleanup_phase3.ps1) - Cleanup-Skript Phase 3 (ehemals `novapolis_agent/scripts/cleanup_phase3.ps1`)
+- (archiviert) [`novapolis-dev/archive/scripts/scripts.ps1-scripts/cleanup_phase4.ps1`](novapolis-dev/archive/scripts/scripts.ps1-scripts/cleanup_phase4.ps1) - Cleanup-Skript Phase 4 (ehemals `novapolis_agent/scripts/cleanup_phase4.ps1`)
+- (archiviert) [`novapolis-dev/archive/scripts/scripts.ps1-scripts/history_purge_plan.ps1`](novapolis-dev/archive/scripts/scripts.ps1-scripts/history_purge_plan.ps1) - Historienbereinigung (Plan; ehemals `novapolis_agent/scripts/history_purge_plan.ps1`)
 - [`novapolis_agent/scripts/run_tests.py`](novapolis_agent/scripts/run_tests.py) - Test-Launcher/Helper
 - [`novapolis_agent/scripts/smoke_asgi.py`](novapolis_agent/scripts/smoke_asgi.py) - Minimaler ASGI-Smoketest
 - [`novapolis_agent/scripts/syn_loader.py`](novapolis_agent/scripts/syn_loader.py) - Loader für Synonym-Overlays

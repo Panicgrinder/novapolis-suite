@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 20:55
-update: Pfad-Token "VS Code Workspace" -> "VS-Code-Workspace" ersetzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py README.md WORKSPACE_INDEX.md WORKSPACE_STATUS.md todo.root.md PR_DESCRIPTION.md single-root-todo.md PASS (2026-02-16 20:55)
+stand: 2026-02-17 09:12
+update: Archiv-Notiz: .ps1-Referenzen auf Python-Skripte umgestellt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'single-root-todo.md' PASS (2026-02-17 03:26); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py single-root-todo.md PASS (2026-02-17 03:26)"
 archived: true
 ---
 <!-- markdownlint-disable MD001 MD022 MD041 -->
@@ -17,7 +17,7 @@ Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufende
 - Archivierung: Fertige Blöcke (alle [x]) bitte in die jeweiligen Modul-Archive unter `novapolis-dev/archive/` verschieben.
 - Snapshot-Kopf: YAML-Frontmatter oben bei Änderungen aktualisieren (`stand`, `update`, `checks`).
 - Lint: Markdownlint läuft repo-weit ausschließlich manuell via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (keine VS Code Tasks oder Wrapper). Bei FAIL bitte minimalen Patch anwenden.
-- Terminal/Pwsh: Standard ist jetzt PowerShell 7 (`pwsh`). Bei allen manuellen Aufrufen `-NoProfile` verwenden, um Störungen durch Profilskripte zu vermeiden. Die VS Code Tasks (ohne Markdownlint) sind entsprechend konfiguriert (z. B. `pwsh -NoProfile -Command '…'`). Für komplexe/mehrachsige Abläufe sind Skript-Wrapper via `pwsh -NoProfile -File <script.ps1>` Pflicht; Details siehe `.github/copilot-instructions.md`.
+- Terminal/Pwsh: Standard ist PowerShell 7 (`pwsh`). Bei manuellen Aufrufen `-NoProfile` verwenden. Für komplexe/mehrachsige Abläufe bevorzugt Python-Wrapper nutzen (z. B. `& .\.venv\Scripts\python.exe scripts\<script>.py`); Details siehe `.github/copilot-instructions.md`.
 - STOP-Hinweis: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit - dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → Abschnitt „Unklarheiten-STOP (global, immer gültig)“.
 
 ### Kurzüberblick (Module & Quellen)
@@ -68,7 +68,7 @@ Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufende
   - Status 2025-11-08: Manifest generated_at 2025-11-08 (UTC), Einträge: 3
 - [x] Markdown-Ausgaben der Skripte (Chat-Exporter, todo_gather, summarize_eval_results, Reports) auf Setext-/Frontmatter-Konformität prüfen und anpassen. (migriert zu novapolis-dev/docs/todo.dev.md)
   - [x] Audit dokumentiert: `Backups/AUDIT.md`
-  - [x] Skripte ergänzt: `scripts/update_backups_manifest.ps1`, `scripts/rotate_backups.ps1`
+  - [x] Skripte ergänzt: `scripts/update_backups_manifest.py`, `scripts/rotate_backups.py`
   - [x] README + initiales Manifest: `Backups/README.md`, `Backups/manifest.v1.json`
   - [x] Bundles umbenennen (Schema) & Rotation-Läufe dokumentieren (`rotation.log`)
     - 2025-11-03 00:28: `cvn-agent-main.bundle` → `cvn-agent-main-20251103-0028-rev1.bundle` (sha256 protokolliert)

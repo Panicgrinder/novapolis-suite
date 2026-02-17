@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Frontmatter-Delimiter ergänzt; Snapshot aktualisiert (keine inhaltlichen Änderungen)
-checks: markdownlint-cli2 PASS (single file)
+stand: 2026-02-17 09:12
+update: Veralteten Multi-Root/"keine Wrapper"-Hinweis entfernt; Wrapper-Policy im Index aktualisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'novapolis-dev/docs/index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-17 01:09); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py DONELOG.md novapolis-dev\\docs\\index.md novapolis-dev\\docs\\donelog.md PASS (2026-02-17 01:09)"
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -34,8 +34,7 @@ Primary Docs
 Betriebsnotiz (temporär)
 ------------------------
 
-- VS Code markiert den Workspace aktuell als Multi-Root. Wrapper-Tasks/Automationen sind unzuverlässig (CWD/Quoting). Bis zur Bereinigung auf Single-Root gilt: KEINE WRAPPER, Terminal ausschließlich manuell nutzen.
-  - Fallakte: `novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`
+- Workspace ist Single-Root (Repo-Root). Mehrschrittige Abläufe laufen bevorzugt über Python-Wrapper (`scripts/*.py`) statt über komplexe Inline-Shell-Blöcke.
 
 Specs
 -----
@@ -97,8 +96,7 @@ Validierung & Tasks
 Hinweise:
 
 - Tasks sind im Workspace vorkonfiguriert; CI bleibt massgeblich.
-- Bei PowerShell-Quoting-Problemen (Unexpected token) statt des Tasks direkt ausfuehren:
-  - `powershell -ExecutionPolicy Bypass -File coding/tools/validators/run_check_names.ps1`
+- Bei Quoting-/Shell-Problemen die Validatoren direkt gemäß Hub-Doku ausfuehren (siehe `novapolis-dev/docs/readme.hub.md`, Abschnitt "Validator Tools").
 - Markdown-Lint lokal: ausschließlich direkt im Terminal via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'` (keine Wrapper/Tasks).
 
 

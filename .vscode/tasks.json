@@ -1,4 +1,3 @@
-// VS Code tasks configuration. Markdownlint tasks removed per policy (use npx --yes manually).
 {
   "$schema": "vscode://schemas/tasks",
   "version": "2.0.0",

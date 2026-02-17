@@ -1,7 +1,7 @@
 ---
 stand: 2026-02-09 02:10
-update: Waehrungseintrag in Materialien/Bestande ergaenzt.
-checks: "not run (content update)"
+update: Link auf Canvas-T0-Timeline repariert.
+checks: "not run (link fix)"
 canvas: Logistik
 last_updated: 2025-11-07T04:09:00+01:00
 category: admin
@@ -99,7 +99,7 @@ Verlinkungen
 - [D5 - Logistik-Policy](../01-factions/novapolis/03-locations/D5-Logistik-Policy.md)
 - [C6 - Logistik-Policy](../01-factions/novapolis/03-locations/C6-Logistik-Policy.md)
 - [Admin: Day-Switch & Debug](./Canvas-Admin-Day-Switch-Debug.md)
-- [Admin: Timeline (T+0)](./Canvas-T+0-Timeline.md)
+- [Admin: Timeline (T+0)](./Canvas-T0-Timeline.md)
 - [Projekt: Nordlinie 01](../01-factions/novapolis/05-projects/Nordlinie-01.md)
 - [Projekt: Karawanenbewegungen](../01-factions/haendlerbund/05-projects/caravan-moves.md)
 - [D5](../01-factions/novapolis/03-locations/D5.md), [C6](../01-factions/novapolis/03-locations/C6.md)

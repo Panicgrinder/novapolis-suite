@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 03:44
-update: checks aktualisiert (Basis-Stabilisierung)
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 03:44); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev\README.md novapolis-dev\migrations\docs-migration-2025-10-29.md novapolis-dev\integrations\mcp-openai-eval\README.md PASS (2026-01-11 03:44)
+stand: 2026-02-17 09:12
+update: Link-Scanner Hinweis auf Python-Tool umgestellt (scan_links.py) und Output-Pfade aktualisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/README.md' PASS (2026-02-17 02:48); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\README.md PASS (2026-02-17 02:48)"
 ---
 
 Novapolis Dev Hub
@@ -69,9 +69,8 @@ Bitte dokumentiert neue Arbeitsstände ausschließlich hier und verweist in den 
 Temporäre Bereiche
 ------------------
 
-- Link-Scanner: `scripts/scan_links.ps1`
-  - Reports: `.tmp/results/reports/scan_links_reports/`
-  - Kandidaten (Dry-Run JSON): `.tmp/results/reports/links/*.json`
+- Link-Scanner: `python scripts/scan_links.py`
+  - Reports: `.tmp/results/reports/scan_links_*.log` und `.tmp/results/reports/scan_links_*.csv`
   - Status: 0 defekte Verweise (Rescan abgeschlossen)
 
 Checks: full

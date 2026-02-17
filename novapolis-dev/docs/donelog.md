@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 13:08
-update: RP: Novapolis 02-characters Sidecars zu Frontmatter synchronisiert; Checks grün.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-16 13:08)"
+stand: 2026-02-17 09:12
+update: Dev-Hub Donelog: defekte Links auf Repo-Root relativiert; RP Name-Check (Canvas-T0) bereinigt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' PASS (2026-02-17 06:53); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py novapolis-dev/docs/donelog.md PASS (2026-02-17 06:53); npm --prefix novapolis-rp/coding/tools/validators run validate PASS (2026-02-17 06:53); npm --prefix novapolis-rp/coding/tools/validators run check:names PASS (2026-02-17 06:53)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,36 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+CI/RP: validate-rp Workflow + Sim-README ohne PS1 (2026-02-17 04:05)
+---------------------------------------------------------------
+
+- `.github/workflows/validate-rp.yml`: Windows-Job von PS1-Wrappern auf direkte `npm`-Validator-Aufrufe umgestellt.
+- `novapolis-sim/README.md`: PS1-Wrapper-Referenzen entfernt; Headless/Smoke als direkte Godot-CLI/PowerShell-Einzeiler dokumentiert.
+- Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+
+Dev-Hub: Index Single-Root/Wrapper-Policy (2026-02-17 01:04)
+------------------------------------------------------------
+
+- Veralteten Multi-Root/"keine Wrapper"-Hinweis in `novapolis-dev/docs/index.md` entfernt und an das aktuelle Single-Root-Setup angepasst.
+- PS1-spezifischen Workaround aus dem Index entfernt; Verweis auf Hub-Doku fuer Validator-Workflows gesetzt.
+- Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+
+Dev-Hub: Multi-Root/PS1 Navi-Sweep (2026-02-17 02:46)
+-----------------------------------------------------
+
+- `novapolis-dev/docs/process/betriebsmodi-sicherheitsprotokoll-notizen.md`: Multi-Root Hinweis als Regression-Fallback formuliert.
+- `novapolis-dev/README.md`: Link-Scanner Verweis auf `python scripts/scan_links.py` umgestellt und Output-Pfade korrigiert.
+- `single-root-todo.md` (archived): Wrapper-Hinweis auf Python-Wrapper aktualisiert.
+ - Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+
+Backups Tooling: Python-Ports + Doku-Links (2026-02-17 03:28)
+------------------------------------------------------------
+
+- `scripts/update_backups_manifest.py`: Manifest-Schema + `manifest.v1.sha256sum.txt` (SHA-256) wieder konsistent zum archivierten PS1-Original.
+- `scripts/rotate_backups.py`: Tiered Retention (Daily/Weekly/Monthly/Yearly) + Dry-Run/Apply + `rotation.log` konsistent zum archivierten PS1-Original.
+- Doku-Links von `.ps1` auf `.py` umgestellt: `Backups/README.md`, `Backups/AUDIT.md`, `novapolis-dev/docs/readme.hub.md`, `single-root-todo.md`.
+- Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped); checks_types.py PASS (pyright+mypy, CWD=novapolis_agent).
 
 RP: Novapolis Characters Sidecar Sync (2026-02-16 13:06)
 -------------------------------------------------------
@@ -127,7 +157,7 @@ RP: Curated-Konflikt-Report Refresh (2026-02-09 02:46)
 ------------------------------------------------------
 
 - Markdownlint erneut ausgefuehrt: PASS.
-- Report ueberschrieben: [.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md](.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md)
+- Report ueberschrieben: [.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md](../../.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md)
 - `scripts/extract_curated_conflicts.py --out .tmp/results/reports/curated_conflicts_postflight_20260112_0657.md` PASS.
 
 RP: FinalGate/Review Links (2026-02-09 02:54)
@@ -208,12 +238,12 @@ RP: Curated-Validator PASS (2026-02-09 02:05)
 RP: Logistik Waehrungseintrag (2026-02-09 02:10)
 -----------------------------------------------
 
-- [novapolis-rp/database-rp/00-admin/Logistik.md](novapolis-rp/database-rp/00-admin/Logistik.md) um Waehrungseintrag in Materialien/Bestande erweitert.
+- [novapolis-rp/database-rp/00-admin/Logistik.md](../../novapolis-rp/database-rp/00-admin/Logistik.md) um Waehrungseintrag in Materialien/Bestande erweitert.
 
 RP: Curated-Konflikt-Report Refresh (2026-02-09 02:20)
 ------------------------------------------------------
 
-- Report ueberschrieben: [.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md](.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md)
+- Report ueberschrieben: [.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md](../../.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md)
 - `scripts/extract_curated_conflicts.py --out .tmp/results/reports/curated_conflicts_postflight_20260112_0657.md` PASS.
 
 RP: Slugs ergaenzt + Audit gruen (2026-02-09 01:44)
@@ -242,22 +272,22 @@ RP: Chat-Staging-Lauf (2026-02-08 09:24)
 RP: RAW-Exports Quelle korrigiert (2026-02-08 07:48)
 ---------------------------------------------------
 
-- Kanonische RAW-Quelle in [novapolis-rp/database-raw/99-exports/README.md](novapolis-rp/database-raw/99-exports/README.md) auf RAW 2025-10-27T09-16 aktualisiert; Legacy-Hinweis zu `chat-export-complete.txt` beibehalten.
+- Kanonische RAW-Quelle in [novapolis-rp/database-raw/99-exports/README.md](../../novapolis-rp/database-raw/99-exports/README.md) auf RAW 2025-10-27T09-16 aktualisiert; Legacy-Hinweis zu `chat-export-complete.txt` beibehalten.
 
 Dev-Hub: readme.hub Pfad-Drift (2026-02-04 23:06)
 -------------------------------------------------
 
-- Schritt 4 in [novapolis-dev/docs/readme.hub.md](novapolis-dev/docs/readme.hub.md) korrigiert: `database-rp/database-rp/*` → `database-rp/*`.
+- Schritt 4 in [readme.hub.md](readme.hub.md) korrigiert: `database-rp/database-rp/*` → `database-rp/*`.
 
 RP: Batch C (00-admin) - Restdrifts (2026-02-04 21:23)
 ------------------------------------------------------
 
-- Links in [novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md](novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md), [novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md](novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md), [novapolis-rp/database-rp/00-admin/Current-State.md](novapolis-rp/database-rp/00-admin/Current-State.md), [novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md](novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md) und [novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md](novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md) auf relative Pfade normalisiert.
+- Links in [novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md](../../novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md), [novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md](../../novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md), [novapolis-rp/database-rp/00-admin/Current-State.md](../../novapolis-rp/database-rp/00-admin/Current-State.md), [novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md](../../novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md) und [novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md](../../novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md) auf relative Pfade normalisiert.
 
 RP: Batch C (Rest-Links) - Normalisierung (2026-02-04 21:01)
 ------------------------------------------------------------
 
-- Links und RAW-Quellen in [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md), [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md](novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md), [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md](novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md), [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md](novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md) und [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Marven-Kael.md](novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Marven-Kael.md) auf relative Pfade normalisiert.
+- Links und RAW-Quellen in [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md](../../novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md), [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md](../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md), [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md](../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md), [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md) und [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Marven-Kael.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Marven-Kael.md) auf relative Pfade normalisiert.
 RP: Batch C (Handel/Diplomatie) - README Links (2026-02-04 11:03)
 -----------------------------------------------------------------
 
@@ -266,33 +296,33 @@ RP: Batch C (Handel/Diplomatie) - README Links (2026-02-04 11:03)
 RP: Batch C (Haendlerbund/Schienenbund) - Slug/Links (2026-02-04 10:28)
 ---------------------------------------------------------------------
 
-- `caravan_moves` in Charakter-Dependencies (md/json) auf `caravan-moves` konsolidiert; Slug in [novapolis-rp/database-rp/01-factions/haendlerbund/05-projects/caravan-moves.md](novapolis-rp/database-rp/01-factions/haendlerbund/05-projects/caravan-moves.md) aktualisiert.
-- Diplomatie-READMEs auf relative Links umgestellt in [novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/README.md](novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/README.md) und [novapolis-rp/database-rp/01-factions/schienenbund/06-handel-diplomatie/README.md](novapolis-rp/database-rp/01-factions/schienenbund/06-handel-diplomatie/README.md).
+- `caravan_moves` in Charakter-Dependencies (md/json) auf `caravan-moves` konsolidiert; Slug in [novapolis-rp/database-rp/01-factions/haendlerbund/05-projects/caravan-moves.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/05-projects/caravan-moves.md) aktualisiert.
+- Diplomatie-READMEs auf relative Links umgestellt in [novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/README.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/README.md) und [novapolis-rp/database-rp/01-factions/schienenbund/06-handel-diplomatie/README.md](../../novapolis-rp/database-rp/01-factions/schienenbund/06-handel-diplomatie/README.md).
 
 RP: Batch C (weitere Fraktionen) - Links/Naming (2026-02-04 09:21)
 ---------------------------------------------------------------
 
 - `caravan_moves` auf `caravan-moves` umbenannt (md/json) und Referenzen in Fraktionsdokumenten nachgezogen (u. a. Händlerbund-Index, G7, Eisenkonklave, Jonas/Draisine, C6-Logistik-Policy).
 - Fraktionsakten/SSOTs auf relative Links zu 00-admin und Novapolis normalisiert (Relationslog-Novapolis, Handel-Diplomatie-Haendlergilde, Senn-Daru, Pahl, Liora-Navesh).
-- Admin-Index/Registry-Referenzen aktualisiert in [novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md](novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md), [novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md](novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md) und [novapolis-rp/database-rp/index.json](novapolis-rp/database-rp/index.json).
+- Admin-Index/Registry-Referenzen aktualisiert in [novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md](../../novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md), [novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md](../../novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md) und [novapolis-rp/database-rp/index.json](../../novapolis-rp/database-rp/index.json).
 
 RP: Batch C (Inventare) - Links (2026-02-04 09:34)
 --------------------------------------------------
 
-- Schienenbund- und Eiserne-Enklave-Inventare: 00-admin-Links korrekt relativiert in [novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md](novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md) und [novapolis-rp/database-rp/01-factions/eisenkonklave/04-inventory/Eiserne-Enklave-inventar.md](novapolis-rp/database-rp/01-factions/eisenkonklave/04-inventory/Eiserne-Enklave-inventar.md).
+- Schienenbund- und Eiserne-Enklave-Inventare: 00-admin-Links korrekt relativiert in [novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md](../../novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md) und [novapolis-rp/database-rp/01-factions/eisenkonklave/04-inventory/Eiserne-Enklave-inventar.md](../../novapolis-rp/database-rp/01-factions/eisenkonklave/04-inventory/Eiserne-Enklave-inventar.md).
 
 RP: Batch C (Novapolis) - Naming/Links (2026-02-04 09:08)
 --------------------------------------------------------
 
-- Novapolis Personenindex: Dateiname auf `person-index-np` umgestellt, Links relativisiert in [novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md](novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md) und Verweise in [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md](novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md) aktualisiert.
-- Händlerbund-Referenzen auf neuen Personenindex umgestellt in [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md](novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md) sowie Index-Links in [novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md](novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md).
-- Novapolis Handel/Diplomatie-Index auf relative Links umgestellt in [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/README.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/README.md).
+- Novapolis Personenindex: Dateiname auf `person-index-np` umgestellt, Links relativisiert in [novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md](../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md) und Verweise in [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md](../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md) aktualisiert.
+- Händlerbund-Referenzen auf neuen Personenindex umgestellt in [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md) sowie Index-Links in [novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md).
+- Novapolis Handel/Diplomatie-Index auf relative Links umgestellt in [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/README.md](../../novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/README.md).
 
 RP: Batch B (00-admin + 00-ops) - Links/H1 (2026-02-04 09:01)
 -------------------------------------------------------------
 
-- 00-admin: H1 in [novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md](novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md) ergänzt (Validator-Fix) und Index-Links in [novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md](novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md) auf relative Pfade umgestellt.
-- 00-admin/00-ops: Ops-Referenzen in [novapolis-rp/database-rp/00-admin/Logistik.md](novapolis-rp/database-rp/00-admin/Logistik.md) und [novapolis-rp/database-rp/00-ops/C6-Logistik-Policy.ops.md](novapolis-rp/database-rp/00-ops/C6-Logistik-Policy.ops.md) korrigiert (Links auf 00-ops/00-admin).
+- 00-admin: H1 in [novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md](../../novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md) ergänzt (Validator-Fix) und Index-Links in [novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md](../../novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md) auf relative Pfade umgestellt.
+- 00-admin/00-ops: Ops-Referenzen in [novapolis-rp/database-rp/00-admin/Logistik.md](../../novapolis-rp/database-rp/00-admin/Logistik.md) und [novapolis-rp/database-rp/00-ops/C6-Logistik-Policy.ops.md](../../novapolis-rp/database-rp/00-ops/C6-Logistik-Policy.ops.md) korrigiert (Links auf 00-ops/00-admin).
 RP: Doku/TODO-Sync (2026-02-01 13:25)
 -----------------------------------
 

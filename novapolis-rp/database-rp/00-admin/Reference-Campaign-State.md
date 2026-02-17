@@ -9,7 +9,7 @@ language: de
 owners: [admin-novapolis]
 tags: [rp, campaign, state, mechanics]
 status: active
-relatedSlugs: [current-state, memory-bundle, canvas-t-0-timeline]
+relatedSlugs: [current-state, memory-bundle, canvas-t0-timeline]
 checks: rp=passed; crossrefs=passed; lastRun=2026-02-09T17:37:35.4887646+01:00
 validators:
   - id: rp
@@ -413,7 +413,7 @@ Fortschritt (Reporting-Detail)
 Timeline-Skizze (aus ehem. Core-Block)
 --------------------------------------
 
-Hinweis: Diese Sequenz ist eine **Skizze** und muss an das finale T+0-Fenster in [Canvas-T+0-Timeline](./Canvas-T+0-Timeline.md) angepasst werden.
+Hinweis: Diese Sequenz ist eine **Skizze** und muss an das finale T+0-Fenster in [Canvas-T0-Timeline](./Canvas-T0-Timeline.md) angepasst werden.
 
 1. Erwachen D5 → Selbstcheck → Wartungsauftrag.
 2. Erstkontakt Reflex, Dämpfungs-Test, Regeln.
@@ -435,7 +435,7 @@ Offene Fäden (Detail)
 Links
 -----
 - Canon-Core → [memory-bundle.md](./memory-bundle.md)
-- Timeline (T+0) → [Canvas-T+0-Timeline.md](./Canvas-T+0-Timeline.md)
+- Timeline (T+0) → [Canvas-T0-Timeline.md](./Canvas-T0-Timeline.md)
 - Szene (T+0 Status-Ping) → [scene-2025-10-27-a.md](../06-scenes/scene-2025-10-27-a.md)
 - Nordlinie 01 → [Nordlinie-01.md](../01-factions/novapolis/05-projects/Nordlinie-01.md)
 - Inventar (Fraktion) → [Novapolis-inventar.md](../01-factions/novapolis/04-inventory/Novapolis-inventar.md)
