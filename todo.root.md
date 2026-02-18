@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-18 05:08
-update: Später-Block S1 Tag-1 operativ ausgeführt und dokumentiert (lint/pytest/coverage grün; Coverage 83.02%).
-checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 05:03); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 05:04); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/run_pytest_coverage.py PASS (2026-02-18 05:05, Coverage 83.02%)
+stand: 2026-02-18 05:13
+update: Später-Block S1 abgeschlossen (Tag 1+2): Root-Gates an zwei aufeinanderfolgenden Läufen grün, Coverage stabil bei 83.02%.
+checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 05:11); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 05:12); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/run_pytest_coverage.py PASS (2026-02-18 05:13, Coverage 83.02%)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -112,10 +112,10 @@ Priorisierung (Stand 2026-02-18, aktualisiert)
 
 ### Später
 
-- [ ] S1 - Stabilitätsfenster starten (Tag 1-2):
+- [x] S1 - Stabilitätsfenster abgeschlossen (Tag 1-2):
   - täglich `lint:ruff`, `Tests: pytest (-q) [root]`, `Tests: coverage (fail-under)` ausführen und PASS in `DONELOG.md`/`WORKSPACE_STATUS.md` nachziehen.
-  - Fortschritt: Tag 1 erledigt (2026-02-18 05:05) – `ruff` PASS, Root-Pytest PASS, Coverage PASS (83.02%, `354 passed, 1 skipped`).
-  - Gate S1: 2 aufeinanderfolgende Tage ohne rote Root-Gates.
+  - Fortschritt: Tag 1 (2026-02-18 05:05) und Tag 2 (2026-02-18 05:13) jeweils grün – `ruff` PASS, Root-Pytest PASS, Coverage PASS (83.02%, `354 passed, 1 skipped`).
+  - Gate S1: erfüllt (2 aufeinanderfolgende Läufe ohne rote Root-Gates).
 - [ ] S2 - Lokale-AI Mindestbasis herstellen:
   - Schattenmodus-Logging aktivieren, 10-20 Kern-Dokumente indexieren, Flags/Redaction im Stichprobenlauf prüfen.
   - Gate S2: RAG-Minimum + Redaction-Test dokumentiert (inkl. Beispielbefund/Artefaktpfad).
