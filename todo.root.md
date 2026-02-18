@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-18 06:35
-update: S3 und S4 abgeschlossen (Review-Rhythmus + Editor-Setup Etappe 1/2); S5 bleibt zeitlich offen bis Stabilitätsfenster 3-5 Tage erfüllt ist.
-checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -c "import json, pathlib; json.loads(pathlib.Path('.vscode/launch.json').read_text(encoding='utf-8')); print('launch.json: valid')" PASS (2026-02-18 06:32); file_search '**/.vscode/tasks.json' und '**/.vscode/launch.json' je 1 Root-Treffer (2026-02-18 06:32)
+stand: 2026-02-18 06:58
+update: Nächster Punkt weitergezogen: Cleanup-Kandidaten Phase 4 reviewt und als historisch erledigt geschlossen (keine verbleibenden Zielpfade, keine Löschaktion nötig).
+checks: pwsh Test-Path-Review für historische Phase-4-Ziele (`app/routers/chat_improved.py`, `chat.py`, `health.py`, `roll.py`, `state.py`) PASS (2026-02-18 06:58, alle `False`); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -137,7 +137,7 @@ Priorisierung (Stand 2026-02-18, aktualisiert)
 
 ### Optional
 
-- [ ] Cleanup-Kandidaten Phase 4 nur nach Review/Freigabe (historischer Archivkontext).
+- [x] Cleanup-Kandidaten Phase 4 reviewt (historischer Archivkontext): keine aktiven Zielpfade mehr vorhanden; keine destruktive Aktion ausgeführt. (erledigt 2026-02-18 06:58)
 - [ ] Archivierungs-Feinschliff (`outputs`/`Backups` Gruppierung, Manifest-Rotationsplan, automatisierte Auslagerung).
 - [ ] Etappe-3-Legacy-Ablösung der Snapshot-Frontmatter-Migration erst nach stabiler Laufpraxis (nur falls Etappe 2 abgeschlossen).
 
@@ -149,7 +149,7 @@ Priorisierung (Stand 2026-02-18, aktualisiert)
 - [x] 2025-11-06 04:40: Demo-Test `novapolis_agent/tests/test_intentional_failure.py` entfernt; pytest -q PASS.
 - [x] Markdown-Ausgabe der Skripte (todo_gather, summarize_eval_results, map_reduce_summary_llm, Reports) sowie Chat-Exporter auf Setext/YAML-Konformität prüfen und ggf. anpassen. (2025-11-10 04:20)
 - [x] Konsistenz-Audit/Report aktualisieren (Sichtprüfung): `novapolis_agent/scripts/reports/generate_consistency_report.py` und Kandidaten aus `novapolis_agent/scripts/audit_workspace.py` prüfen. (2026-02-17: Report neu erzeugt unter `novapolis_agent/eval/results/reports/consistency/20260217_2047`.)
-- [ ] Optional nach Review: Cleanup-Kandidaten (Phase 4) nur mit Freigabe angehen (historisch: `cleanup_phase4` im Archiv).
+- [x] Optional nach Review: Cleanup-Kandidaten (Phase 4) abgeschlossen; historisches `cleanup_phase4` bleibt archiviert, aktive Zielpfade sind bereits entfernt. (erledigt 2026-02-18 06:58)
 - [x] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` ausgewertet; Inhalte in aktiver Doku bestätigt (`novapolis_agent/cleanup_recommendations.md`) und Legacy-Datei nach Freigabe entfernt. (erledigt 2026-02-18 04:00)
 
 #### Tests/Typen/Coverage (Priorität mittel-hoch, R-COV)

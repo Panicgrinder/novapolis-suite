@@ -1,11 +1,12 @@
 ---
-stand: 2026-02-18 06:35
-update: "Verbleibende aktive TODOs weitergezogen: S3/S4 abgeschlossen, S5 mit Zeit-Gate offen dokumentiert."
-checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -c "import json, pathlib; json.loads(pathlib.Path('.vscode/launch.json').read_text(encoding='utf-8')); print('launch.json: valid')" PASS (2026-02-18 06:32); file_search '**/.vscode/tasks.json' und '**/.vscode/launch.json' je 1 Root-Treffer (2026-02-18 06:32)
+stand: 2026-02-18 06:58
+update: "Nächster Punkt durchgeführt: Phase-4-Cleanup-Kandidaten reviewt und ohne Löschung als historisch erledigt bestätigt."
+checks: pwsh Test-Path-Review für `app/routers/chat_improved.py`, `chat.py`, `health.py`, `roll.py`, `state.py` PASS (2026-02-18 06:58, alle `False`); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34)
 ---
 Kurzueberblick
 --------------
 
+- 2026-02-18 06:58: Nächster TODO-Punkt abgearbeitet: Cleanup-Kandidaten Phase 4 (historischer Archivkontext) reviewt. Alle historischen Zielpfade sind bereits nicht mehr vorhanden; Ergebnis daher bewusst ohne destruktive Aktion, Punkt als erledigt dokumentiert.
 - 2026-02-18 06:34: Aktive Rest-TODOs durchlaufen: S3 abgeschlossen (wöchentlicher Review-Slot Mittwoch 09:00-09:45, erste Durchführung protokolliert), S4 abgeschlossen (Root-Editor-Setup konsistent, keine Subfolder-`.vscode`, Root-Tasks/Launch valide), S5 aufgrund Zeit-Gate korrekt offen belassen (früheste Freigabe ab 2026-02-21).
 - 2026-02-18 05:27: S2 vollständig abgeschlossen: Shadow-Logging aktiv (hash-basiertes JSONL unter `.tmp/results/logs/shadow_mode.jsonl`), RAG-Basisindex (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`) verfügbar, Redaction/Flags-Stichprobe via `tests/test_api_chat_internal_branches.py` + `tests/test_rag_guards.py` PASS.
 - 2026-02-18 05:16: Nächster offener Punkt S2 gestartet: RAG-Basisindex `novapolis_agent/eval/results/rag/s2-core-index-20260218.json` erzeugt (11 Kern-Dokumente). Flags/Redaction-Stichprobe via `tests/test_rag_guards.py` + `tests/test_api_chat_internal_branches.py` PASS.

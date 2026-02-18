@@ -1,8 +1,9 @@
 ---
-stand: 2026-02-18 06:35
-update: S3/S4 abgeschlossen (Review-Rhythmus gesetzt, Editor-Setup Etappe 1/2 verifiziert); S5 bleibt bis zum 3-5-Tage-Stabilitätsfenster offen.
-checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -c "import json, pathlib; json.loads(pathlib.Path('.vscode/launch.json').read_text(encoding='utf-8')); print('launch.json: valid')" PASS (2026-02-18 06:32); file_search '**/.vscode/tasks.json' und '**/.vscode/launch.json' je 1 Root-Treffer (2026-02-18 06:32)
+stand: 2026-02-18 06:58
+update: Nächster TODO-Punkt bearbeitet: Cleanup-Kandidaten Phase 4 reviewt, historisch bereits erfüllt (keine verbleibenden Zielpfade).
+checks: pwsh Test-Path-Review für `app/routers/chat_improved.py`, `chat.py`, `health.py`, `roll.py`, `state.py` PASS (2026-02-18 06:58, alle `False`); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34)
 ---
+- 2026-02-18 06:58: Optionaler Cleanup-Block Phase 4 reviewt und geschlossen. Historisches Script (`novapolis-dev/archive/scripts/scripts.ps1-scripts/cleanup_phase4.ps1`) zeigt nur bereits entfernte Ziele; aktiver Workspace enthält keine dieser Pfade mehr, daher keine Löschaktion erforderlich.
 - 2026-02-18 06:34: S3 abgeschlossen: fester Betriebsreview-Slot gesetzt (Mittwoch 09:00-09:45, lokal), Checkliste für lokale AI verankert und erster Slot protokolliert.
 - 2026-02-18 06:34: S4 abgeschlossen: keine Subfolder-`.vscode`-Konflikte (nur Root `tasks.json`/`launch.json`), `launch.json` valide, Root-Tasks (`ruff`, Root-`pytest`) lauffähig.
 - 2026-02-18 06:34: S5 bleibt offen wegen Zeit-Gate; früheste Freigabe Etappe 2/3 bei weiter stabiler Laufpraxis ab 2026-02-21.
