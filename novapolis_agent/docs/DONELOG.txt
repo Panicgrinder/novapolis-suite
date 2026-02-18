@@ -190,3 +190,4 @@ Beispiel:
 
 2026-01-07 10:08 | Copilot | Prioritaet 2 (inkrementell): Agent-Skripte bevorzugen `novapolis_agent.app.*` Imports; mypy-Duplikat durch Entfernen von `app.<pkg>.__init__` Reexports behoben; Root-Pytest wieder PASS.
 2026-02-18 05:26 | Copilot | S2: shadow-mode logging enabled (hash-only JSONL), settings flags added, chat pipeline instrumented, targeted tests PASS (test_api_chat_internal_branches + test_rag_guards).
+2026-02-18 06:35 | Copilot | S4 gate run: root editor setup verified (single root .vscode tasks/launch), launch.json valid, root ruff/pytest tasks runnable; import order in app/api/chat.py aligned for ruff.

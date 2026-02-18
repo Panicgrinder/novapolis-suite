@@ -1,8 +1,11 @@
 ---
-stand: 2026-02-18 05:27
-update: S2 abgeschlossen: Shadow-Logging ist aktiv, RAG-Basisindex liegt vor und die RAG/Redaction-Stichprobe bleibt grün.
-checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m pytest -q tests/test_api_chat_internal_branches.py tests/test_rag_guards.py PASS (2026-02-18 05:23); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/checks_types.py PASS (2026-02-18 05:24); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -c "from app.api import chat; from app.api.models import ChatRequest; ... _append_shadow_mode_event(...)" PASS (2026-02-18 05:27, Artefakt .tmp/results/logs/shadow_mode.jsonl)
+stand: 2026-02-18 06:35
+update: S3/S4 abgeschlossen (Review-Rhythmus gesetzt, Editor-Setup Etappe 1/2 verifiziert); S5 bleibt bis zum 3-5-Tage-Stabilitätsfenster offen.
+checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -c "import json, pathlib; json.loads(pathlib.Path('.vscode/launch.json').read_text(encoding='utf-8')); print('launch.json: valid')" PASS (2026-02-18 06:32); file_search '**/.vscode/tasks.json' und '**/.vscode/launch.json' je 1 Root-Treffer (2026-02-18 06:32)
 ---
+- 2026-02-18 06:34: S3 abgeschlossen: fester Betriebsreview-Slot gesetzt (Mittwoch 09:00-09:45, lokal), Checkliste für lokale AI verankert und erster Slot protokolliert.
+- 2026-02-18 06:34: S4 abgeschlossen: keine Subfolder-`.vscode`-Konflikte (nur Root `tasks.json`/`launch.json`), `launch.json` valide, Root-Tasks (`ruff`, Root-`pytest`) lauffähig.
+- 2026-02-18 06:34: S5 bleibt offen wegen Zeit-Gate; früheste Freigabe Etappe 2/3 bei weiter stabiler Laufpraxis ab 2026-02-21.
 - 2026-02-18 05:27: Später-Block S2 abgeschlossen. Shadow-Logging aktiv über `SHADOW_MODE_LOGGING_ENABLED` (hash-basiertes JSONL), Artefaktpfad `.tmp/results/logs/shadow_mode.jsonl` bestätigt; RAG-Basisindex (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`) und Redaction/Flags-Stichprobe (`tests/test_api_chat_internal_branches.py`, `tests/test_rag_guards.py`) PASS.
 - 2026-02-18 05:16: Nächster offener Punkt S2 gestartet. RAG-Minimum-Stichprobe erzeugt (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`, 11 Kern-Dokumente) und gezielte Flags/Redaction-Stichprobe erfolgreich (`tests/test_rag_guards.py`, `tests/test_api_chat_internal_branches.py` PASS). S2 bleibt offen bis Schattenmodus-Logging aktiv dokumentiert ist.
 - 2026-02-18 05:13: Später-Block S1 abgeschlossen (Tag 2/2 erfolgreich). Root-Gates erneut grün: `lint:ruff` PASS, Root-Pytest PASS, Coverage PASS (`83.02%`, `354 passed, 1 skipped`). Damit ist das 2-Tage-Stabilitätsgate erfüllt.

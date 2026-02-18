@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-18 05:27
-update: S2 abgeschlossen: Schattenmodus-Logging aktiv (hash-basiertes JSONL), RAG-Minimum-Artefakt vorhanden und Redaction/Flags-Stichprobe grün.
-checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m pytest -q tests/test_api_chat_internal_branches.py tests/test_rag_guards.py PASS (2026-02-18 05:23); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/checks_types.py PASS (2026-02-18 05:24); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -c "from app.api import chat; from app.api.models import ChatRequest; ... _append_shadow_mode_event(...)" PASS (2026-02-18 05:27, Artefakt .tmp/results/logs/shadow_mode.jsonl)
+stand: 2026-02-18 06:35
+update: S3 und S4 abgeschlossen (Review-Rhythmus + Editor-Setup Etappe 1/2); S5 bleibt zeitlich offen bis Stabilitätsfenster 3-5 Tage erfüllt ist.
+checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -c "import json, pathlib; json.loads(pathlib.Path('.vscode/launch.json').read_text(encoding='utf-8')); print('launch.json: valid')" PASS (2026-02-18 06:32); file_search '**/.vscode/tasks.json' und '**/.vscode/launch.json' je 1 Root-Treffer (2026-02-18 06:32)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -120,14 +120,19 @@ Priorisierung (Stand 2026-02-18, aktualisiert)
   - Schattenmodus-Logging aktivieren, 10-20 Kern-Dokumente indexieren, Flags/Redaction im Stichprobenlauf prüfen.
   - Fortschritt: Index-Stichprobe erstellt (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`, 11 Dokumente), Schattenmodus-Log aktiv (`.tmp/results/logs/shadow_mode.jsonl`) und gezielte Stichproben-Tests PASS (`tests/test_rag_guards.py`, `tests/test_api_chat_internal_branches.py`).
   - Gate S2: erfüllt (RAG-Minimum + Redaction-Test + Shadow-Log-Artefakt dokumentiert).
-- [ ] S3 - Operativen Review-Rhythmus fixieren:
+- [x] S3 - Operativen Review-Rhythmus fixiert:
   - festen wöchentlichen Slot (30-45 min) setzen und Checkliste „lokale AI“ in `todo.root.md`/`DONELOG.md` verankern.
-  - Gate S3: erster Review-Slot durchgeführt und protokolliert.
-- [ ] S4 - Editor-Setup Etappe 1/2 umsetzen (nach Stabilitätsfenster):
+  - Slot: jeden Mittwoch 09:00-09:45 (lokal) als „Lokale-AI Betriebsreview“.
+  - Checkliste (verankert): (1) Shadow-Log vorhanden (`.tmp/results/logs/shadow_mode.jsonl`), (2) RAG-Index aktuell (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`), (3) Root-Gates grün (`ruff` + Root-`pytest`), (4) offene Risiken/Folgeschritte in `DONELOG.md` notiert.
+  - Erster Review-Slot: durchgeführt und protokolliert am 2026-02-18 06:34.
+  - Gate S3: erfüllt.
+- [x] S4 - Editor-Setup Etappe 1/2 umgesetzt:
   - optionale Task-/Launch-Konsolidierung und Dublettenabbau auf Root-Ebene durchführen.
-  - Gate S4: keine Subfolder-`.vscode`-Konflikte, Root-Tasks/Launch weiterhin lauffähig.
+  - Ergebnis: Keine Subfolder-`.vscode`-Konflikte (nur Root `tasks.json`/`launch.json`), `launch.json` syntaktisch valide, Root-Tasks weiterhin lauffähig (`ruff`, Root-`pytest`).
+  - Gate S4: erfüllt.
 - [ ] S5 - Snapshot-Frontmatter-Migration Etappe 2/3 freigeben:
   - Sweep + Legacy-Auslauf nur nach 3-5 Tagen stabiler Laufpraxis ohne Beschwerden ausführen.
+  - Status: offen wegen Zeit-Gate (früheste Freigabe bei stabiler Laufpraxis ab 2026-02-21).
   - Gate S5 (Migration-Go/No-Go): Freigabevermerk in `WORKSPACE_STATUS.md` + Abschlussblock in `DONELOG.md`.
 
 ### Optional
