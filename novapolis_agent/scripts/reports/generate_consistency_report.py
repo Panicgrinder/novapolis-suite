@@ -34,21 +34,7 @@ def run_audit_workspace() -> str:
     old_stdout = sys.stdout
     sys.stdout = buf
     try:
-        audit_main = None  # type: ignore[assignment]
-        # Try to import as module first; fallback to spec from file
-        try:
-            from novapolis_agent.scripts.audit_workspace import main as audit_main  # type: ignore
-        except Exception:
-            import importlib.util as _util
-
-            audit_path = os.path.join(ROOT, "scripts", "audit_workspace.py")
-            spec = _util.spec_from_file_location("audit_workspace", audit_path)
-            if spec is None or spec.loader is None:
-                print("[ERR] Could not load scripts/audit_workspace.py")
-            else:
-                mod = _util.module_from_spec(spec)
-                spec.loader.exec_module(mod)
-                audit_main = getattr(mod, "main", None)
+        from scripts.audit_workspace import main as audit_main
         if callable(audit_main):
             audit_main()
         else:

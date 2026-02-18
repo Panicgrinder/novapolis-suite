@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-17 09:12
-update: Veraltete Links auf archivierte Agent-PS1-Skripte im Index korrigiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'WORKSPACE_INDEX.md' PASS (2026-02-17 06:12); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py WORKSPACE_INDEX.md PASS (2026-02-17 06:12)"
+stand: 2026-02-18 04:02
+update: Veralteten Verweis auf analysis_chat_routers entfernt (Legacy-Datei gelöscht).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md WORKSPACE_INDEX.md todo.root.md PASS (2026-02-18 04:02); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md WORKSPACE_INDEX.md todo.root.md PASS (2026-02-18 04:02)"
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -37,7 +37,6 @@ Hinweis: Alle Pfade beziehen sich auf den Repo-Root `F:/VS-Code-Workspace/Main`.
 - [`novapolis_agent/.env.example`](novapolis_agent/.env.example) - Template für Umgebungsvariablen
 - [`novapolis_agent/.gitignore`](novapolis_agent/.gitignore) - Git-Ignorier-Regeln
 - [`novapolis_agent/coverage.xml`](novapolis_agent/coverage.xml) - Coverage-Report (XML, generiert)
-- [`novapolis_agent/analysis_chat_routers.md`](novapolis_agent/analysis_chat_routers.md) - Analyse der Chat-Router
 - [`novapolis_agent/cleanup_recommendations.md`](novapolis_agent/cleanup_recommendations.md) - Aufräum-Empfehlungen
 - [`novapolis_agent/docs/CONTEXT_ARCH.md`](novapolis_agent/docs/CONTEXT_ARCH.md) - Kontextfluss Developer ⇄ Copilot ⇄ GPT (Rollen, Beispiele, Privacy)
 - [`novapolis_agent/mypy.ini`](novapolis_agent/mypy.ini) - mypy-Konfiguration

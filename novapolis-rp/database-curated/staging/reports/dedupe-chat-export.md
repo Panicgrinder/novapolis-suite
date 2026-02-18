@@ -1,7 +1,7 @@
 Dedupe-Report (Chat-Exports)
 ============================
 
-Primary: F:/VS Code Workspace/Main/novapolis-rp/database-curated/staging/chat-export-complete.normalized.txt
+Primary: F:/VS-Code-Workspace/Main/novapolis-rp/database-curated/staging/chat-export-complete.normalized.txt
 Window size: 5
 
 - chat-export (1).normalized.txt: unique segments=0 (lines=10819)

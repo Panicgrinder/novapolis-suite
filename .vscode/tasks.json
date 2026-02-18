@@ -73,7 +73,7 @@
       "type": "shell",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\run_pytest_coverage.py"],
-      "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
+      "options": { "cwd": "${workspaceFolder}" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
       "runOptions": { "instanceLimit": 1 },

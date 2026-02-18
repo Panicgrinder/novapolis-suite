@@ -1,49 +1,89 @@
 ---
-stand: 2025-11-26 04:00
-update: Extrakt auf wiederhergestellte SSOT-Version synchronisiert
-checks: keine
+stand: 2026-02-17 11:10
+update: Kern-SSOT um Naming/Whitespace/Format/Quarantäne ergänzt; R-IDX als Mini-Gate verankert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py PASS
 ---
 
-Hinweis: Diese Datei ist eine Extrakt-Referenz. Sie enthält die aus
-`.github/copilot-instructions.md` extrahierten Überschriften und ist
-selbst unter dem Pfad `.github/copilot-instructions-headings.md` im
-Repository abzulegen.
+Hinweis
+=======
 
-Aktuelle Überschriften (Extrakt)
-================================
+Diese Datei ist der kompakte Navigationsindex für das aktuelle
+Instruction-System:
 
-Hinweis: Extraktion basiert auf Stand `Timestamp: 2025-11-26 03:54` der Datei `.github/copilot-instructions.md` (SSOT vollständig wiederhergestellt).
+- Kern-SSOT: `.github/copilot-instructions.md`
+- Scoped-Regeln: `.github/instructions/*.instructions.md`
+
+Aktuelle Überschriften (Kern + Scoped)
+--------------------------------------
+
+Quelle: Stand `2026-02-17 10:55` der Kern-Datei und der zugehörigen
+scoped Instruction-Files.
+
+1) Kern-SSOT
+------------
+
+Datei: `.github/copilot-instructions.md`
 
 - LLM-Dokumentenheader (nicht löschen)
-- Kurzreferenz aller Überschriften dieser Anleitung
 - Dateipfad & Geltungsbereich
-- Primäre Behaviour-Quellen
-- Gemeinsamer Arbeitsstil
-- Onboarding & Setup
-- Kanonische Prüfabläufe (pwsh)
-- Workspace-Tree-Artefakte (Zuordnung)
-- YAML-Frontmatter (kompakt & LLM-freundlich)
-- Frontmatter-Schutz (true)(robust gegen Delimiter-Verlust)
-- Dateiformat & EOL
-- Definition of Done (Code & Docs)
-- Security & Dependencies
-- Historisch (veraltet)
-- Meta- / Systeminfo-Protokollierung (Postflight & kompakter Meta-Block)
-- Semantische Regeln
+- Globale Kernregeln
+- Regelmatrix (Kern)
+- Scoped Instruction-Files
+- Postflight-Schema (5 Zeilen)
 - Kompakter Meta-Block (rein lesend)
-- Definition der Regel-IDs (zur Verwendung im Feld „Regeln: IDs=…“)
-- STOP-Gates & Modi
-- Essentials (konzentriert)
-- Repositoryweiter Rahmen
-- Prüf- und Release-Checks
-- Release & Versionierung
-- Novapolis Agent (Backend)
-- Novapolis-RP
-- Workspace-Instructions (kompakt)
-- Diagnose-Playbook bei Lint-FAIL (pwsh, konservativ)
-- Mirrors/Redirect-Stubs
-- Export/Importer
-- Ziele
 
-(Ende des Extrakts)
+Neue/geschärfte Kernabschnitte:
+
+- Namensgebungskonvention
+- Kanonisierung & Formatnorm (syntaktisch)
+- Quarantäne & Backup-Ort
+- R-IDX Mini-Gate
+
+2) Scoped Instructions
+----------------------
+
+Datei: `.github/instructions/python-runtime.instructions.md`
+
+- Python Runtime
+- Ziel
+- Regeln
+- Prüfsequenz
+- Regelmatrix
+
+Datei: `.github/instructions/agent-backend.instructions.md`
+
+- Agent Backend
+- Ziel
+- Gates
+- Konventionen
+- Regelmatrix
+
+Datei: `.github/instructions/rp-docs.instructions.md`
+
+- RP & Docs
+- Ziel
+- Regeln
+- Doku-Update-Pflicht
+- Regelmatrix
+
+Datei: `.github/instructions/docs-markdown.instructions.md`
+
+- Docs Markdown
+- Lint
+- Frontmatter
+- Diagnose-Playbook
+- Regelmatrix
+
+Datei: `.github/instructions/ci-release.instructions.md`
+
+- CI & Release
+- Ziel
+- Regeln
+- Regelmatrix
+
+3) Pflege-Regel
+---------------
+
+Bei strukturrelevanten Änderungen in Kern oder scoped Instruction-Files
+diesen Index im selben Änderungslauf mit aktualisieren.
 

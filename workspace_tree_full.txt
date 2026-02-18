@@ -37,24 +37,12 @@ F:.
 |   |   copilot-instructions-headings.md
 |   |   copilot-instructions.md
 |   |   
-|   +---rules
-|   |       001-r-stop.md
-|   |       005-r-tbl.md
-|   |       010-r-fm.md
-|   |       020-r-ctx.md
-|   |       030-r-doku.md
-|   |       050-r-time.md
-|   |       110-r-scan.md
-|   |       200-r-comm.md
-|   |       310-r-wrap.md
-|   |       320-r-lint.md
-|   |       330-r-cov.md
-|   |       340-r-log.md
-|   |       400-r-sec.md
-|   |       410-r-safe.md
-|   |       510-r-idx.md
-|   |       520-r-todo.md
-|   |       530-r-red.md
+|   +---instructions
+|   |       agent-backend.instructions.md
+|   |       ci-release.instructions.md
+|   |       docs-markdown.instructions.md
+|   |       python-runtime.instructions.md
+|   |       rp-docs.instructions.md
 |   |       
 |   \---workflows
 |           ci.yml
@@ -14653,15 +14641,19 @@ F:.
 |   |   CACHEDIR.TAG
 |   |   
 |   +---0.14.5
+|   |       11101469552034431138
 |   |       11133549079879624762
 |   |       11605638077998181786
 |   |       12067821374002228018
 |   |       12549476112748630362
 |   |       12793660448274210492
+|   |       12890249426272442202
 |   |       12970823034357972179
 |   |       13217816762780901127
 |   |       13477320709389420373
 |   |       1379036448140799813
+|   |       13816960264002616550
+|   |       14384474368259362885
 |   |       14425442044449240668
 |   |       14984069402004360938
 |   |       15841416947055538583
@@ -14673,22 +14665,29 @@ F:.
 |   |       1975708593885499854
 |   |       2009548899916388841
 |   |       2187586755959762737
+|   |       2410428245720761110
 |   |       2576364799969219739
+|   |       2862222228919583135
 |   |       3585550267057864062
+|   |       3905820129116633163
 |   |       4025220268732650941
 |   |       4719718072086868858
 |   |       486402334086973954
 |   |       5281156152574202466
 |   |       5375667984907580258
+|   |       5453175785010523521
 |   |       5704733225345887782
+|   |       5900489949918228803
 |   |       5972875727514507634
 |   |       6422834177710409264
+|   |       6472437666630481770
 |   |       752053226513135752
 |   |       7541694929844458632
 |   |       7552129952602295183
 |   |       7899945337790749088
 |   |       7900246397741351897
 |   |       7979638932955904260
+|   |       8365936846881195501
 |   |       8742438920712453856
 |   |       9048516474936949342
 |   |       9207132358878698845
@@ -14858,6 +14857,24 @@ F:.
 |   |       |   checks_report_20260216_152301.md
 |   |       |   checks_report_20260216_175853.json
 |   |       |   checks_report_20260216_175853.md
+|   |       |   checks_report_20260217_002435.json
+|   |       |   checks_report_20260217_002435.md
+|   |       |   checks_report_20260217_003018.json
+|   |       |   checks_report_20260217_003018.md
+|   |       |   checks_report_20260217_065453.json
+|   |       |   checks_report_20260217_065453.md
+|   |       |   checks_report_20260217_065902.json
+|   |       |   checks_report_20260217_065902.md
+|   |       |   checks_report_20260217_070106.json
+|   |       |   checks_report_20260217_070106.md
+|   |       |   checks_report_20260217_070239.json
+|   |       |   checks_report_20260217_070239.md
+|   |       |   checks_report_20260217_070438.json
+|   |       |   checks_report_20260217_070438.md
+|   |       |   checks_report_20260217_070557.json
+|   |       |   checks_report_20260217_070557.md
+|   |       |   checks_report_20260217_090937.json
+|   |       |   checks_report_20260217_090937.md
 |   |       |   checks_rp_consistency_20251230_055139.log
 |   |       |   checks_rp_consistency_20251230_061059.log
 |   |       |   checks_rp_consistency_20251230_061611.log
@@ -14999,6 +15016,7 @@ F:.
 |   |       |   checks_rp_consistency_20260216_183902.log
 |   |       |   checks_rp_consistency_20260216_184020.log
 |   |       |   checks_rp_consistency_20260216_184051.log
+|   |       |   checks_rp_consistency_20260217_091255.log
 |   |       |   checks_rp_consistency_postflight_20251230_055139.md
 |   |       |   checks_rp_consistency_postflight_20251230_061059.md
 |   |       |   checks_rp_consistency_postflight_20251230_061611.md
@@ -15140,7 +15158,17 @@ F:.
 |   |       |   checks_rp_consistency_postflight_20260216_183902.md
 |   |       |   checks_rp_consistency_postflight_20260216_184020.md
 |   |       |   checks_rp_consistency_postflight_20260216_184051.md
+|   |       |   checks_rp_consistency_postflight_20260217_091255.md
+|   |       |   checks_types_20260217_032636.log
+|   |       |   checks_types_20260217_032659.log
+|   |       |   checks_types_20260217_032734.log
+|   |       |   checks_types_20260217_032752.log
+|   |       |   checks_types_postflight_20260217_032636.md
+|   |       |   checks_types_postflight_20260217_032659.md
+|   |       |   checks_types_postflight_20260217_032734.md
+|   |       |   checks_types_postflight_20260217_032752.md
 |   |       |   curated_conflicts_postflight_20260112_0657.md
+|   |       |   frontmatter_backlog_scan_20260217_0920.txt
 |   |       |   migrate_rp_ssots_to_factions_20260111_060853.json
 |   |       |   pytest_root_20251213_042439.log
 |   |       |   pytest_root_20260107_090042.log
@@ -15309,6 +15337,7 @@ F:.
 |   |       |   rp_consistency_report_20260216_183902.json
 |   |       |   rp_consistency_report_20260216_184020.json
 |   |       |   rp_consistency_report_20260216_184051.json
+|   |       |   rp_consistency_report_20260217_091255.json
 |   |       |   
 |   |       +---checks_run_20251213_034906
 |   |       |       black.log
@@ -15866,7 +15895,122 @@ F:.
 |   |       |       ruff.log
 |   |       |       yamllint.log
 |   |       |       
-|   |       \---checks_run_20260216_175853
+|   |       +---checks_run_20260216_175853
+|   |       |       black.log
+|   |       |       frontmatter.log
+|   |       |       hadolint.log
+|   |       |       jsonlint.log
+|   |       |       markdownlint.log
+|   |       |       mypy.log
+|   |       |       pyright.log
+|   |       |       pytest.log
+|   |       |       ruff.log
+|   |       |       yamllint.log
+|   |       |       
+|   |       +---checks_run_20260217_002435
+|   |       |       black.log
+|   |       |       frontmatter.log
+|   |       |       hadolint.log
+|   |       |       jsonlint.log
+|   |       |       markdownlint.log
+|   |       |       mypy.log
+|   |       |       pyright.log
+|   |       |       pytest.log
+|   |       |       ruff.log
+|   |       |       yamllint.log
+|   |       |       
+|   |       +---checks_run_20260217_003018
+|   |       |       black.log
+|   |       |       frontmatter.log
+|   |       |       hadolint.log
+|   |       |       jsonlint.log
+|   |       |       markdownlint.log
+|   |       |       mypy.log
+|   |       |       pyright.log
+|   |       |       pytest.log
+|   |       |       ruff.log
+|   |       |       yamllint.log
+|   |       |       
+|   |       +---checks_run_20260217_065453
+|   |       |       black.log
+|   |       |       frontmatter.log
+|   |       |       hadolint.log
+|   |       |       jsonlint.log
+|   |       |       markdownlint.log
+|   |       |       mypy.log
+|   |       |       pyright.log
+|   |       |       pytest.log
+|   |       |       ruff.log
+|   |       |       yamllint.log
+|   |       |       
+|   |       +---checks_run_20260217_065902
+|   |       |       black.log
+|   |       |       frontmatter.log
+|   |       |       hadolint.log
+|   |       |       jsonlint.log
+|   |       |       markdownlint.log
+|   |       |       mypy.log
+|   |       |       pyright.log
+|   |       |       pytest.log
+|   |       |       ruff.log
+|   |       |       yamllint.log
+|   |       |       
+|   |       +---checks_run_20260217_070106
+|   |       |       black.log
+|   |       |       frontmatter.log
+|   |       |       hadolint.log
+|   |       |       jsonlint.log
+|   |       |       markdownlint.log
+|   |       |       mypy.log
+|   |       |       pyright.log
+|   |       |       pytest.log
+|   |       |       ruff.log
+|   |       |       yamllint.log
+|   |       |       
+|   |       +---checks_run_20260217_070239
+|   |       |       black.log
+|   |       |       frontmatter.log
+|   |       |       hadolint.log
+|   |       |       jsonlint.log
+|   |       |       markdownlint.log
+|   |       |       mypy.log
+|   |       |       pyright.log
+|   |       |       pytest.log
+|   |       |       ruff.log
+|   |       |       yamllint.log
+|   |       |       
+|   |       +---checks_run_20260217_070429
+|   |       |       black.log
+|   |       |       frontmatter.log
+|   |       |       markdownlint.log
+|   |       |       pyright.log
+|   |       |       ruff.log
+|   |       |       
+|   |       +---checks_run_20260217_070438
+|   |       |       black.log
+|   |       |       frontmatter.log
+|   |       |       hadolint.log
+|   |       |       jsonlint.log
+|   |       |       markdownlint.log
+|   |       |       mypy.log
+|   |       |       pyright.log
+|   |       |       pytest.log
+|   |       |       ruff.log
+|   |       |       yamllint.log
+|   |       |       
+|   |       +---checks_run_20260217_070557
+|   |       |       black.log
+|   |       |       frontmatter.log
+|   |       |       hadolint.log
+|   |       |       jsonlint.log
+|   |       |       markdownlint.log
+|   |       |       mypy.log
+|   |       |       pyright.log
+|   |       |       pytest.log
+|   |       |       ruff.log
+|   |       |       yamllint.log
+|   |       |       
+|   |       \---checks_run_20260217_090937
 |   |               black.log
 |   |               frontmatter.log
 |   |               hadolint.log
@@ -79602,6 +79746,7 @@ F:.
 |   |   |   \---rp-canvas-rescue
 |   |   |           canvas-rescue-plan.md
 |   |   |           char-block-nord-sources.md
+|   |   |           dedupe-chat-export.md
 |   |   |           resolved.md
 |   |   |           uncertainties.md
 |   |   |           
@@ -82030,6 +82175,9 @@ F:.
 |   |           |   validate-curated.js
 |   |           |   validate-rp.js
 |   |           |   
+|   |           +---.last-run
+|   |           |       validate-data.json
+|   |           |       
 |   |           +---node_modules
 |   |           |   |   .package-lock.json
 |   |           |   |   
@@ -83966,8 +84114,8 @@ F:.
 |       |       canon-canvas.draft.md
 |       |       Canvas-Admin-Day-Switch-Debug.json
 |       |       Canvas-Admin-Day-Switch-Debug.md
-|       |       Canvas-T+0-Timeline.json
-|       |       Canvas-T+0-Timeline.md
+|       |       Canvas-T0-Timeline.json
+|       |       Canvas-T0-Timeline.md
 |       |       Cluster-Index.json
 |       |       Cluster-Index.md
 |       |       Curated-Konfliktliste.json
@@ -100534,6 +100682,15 @@ F:.
 |   |       |   finetune_alpaca_results_20250101_0101_20260216_1307.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260216_1523.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260216_1759.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260217_0025.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260217_0030.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260217_0655.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260217_0659.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260217_0701.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260217_0702.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260217_0704.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260217_0706.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260217_0909.jsonl
 |   |       |   finetune_alpaca_r_20260107_1006.jsonl
 |   |       |   finetune_openai_chat_results_20250823_1110_20250823_1122.jsonl
 |   |       |   results_20250819_1322.jsonl
@@ -101134,6 +101291,24 @@ F:.
 |   |       |   results_20260216_1523_rerun.jsonl
 |   |       |   results_20260216_1759.jsonl
 |   |       |   results_20260216_1759_rerun.jsonl
+|   |       |   results_20260217_0025.jsonl
+|   |       |   results_20260217_0026_rerun.jsonl
+|   |       |   results_20260217_0030.jsonl
+|   |       |   results_20260217_0031_rerun.jsonl
+|   |       |   results_20260217_0655.jsonl
+|   |       |   results_20260217_0655_rerun.jsonl
+|   |       |   results_20260217_0659.jsonl
+|   |       |   results_20260217_0659_rerun.jsonl
+|   |       |   results_20260217_0701.jsonl
+|   |       |   results_20260217_0702_rerun.jsonl
+|   |       |   results_20260217_0703.jsonl
+|   |       |   results_20260217_0703_rerun.jsonl
+|   |       |   results_20260217_0705.jsonl
+|   |       |   results_20260217_0705_rerun.jsonl
+|   |       |   results_20260217_0706.jsonl
+|   |       |   results_20260217_0706_rerun.jsonl
+|   |       |   results_20260217_0910.jsonl
+|   |       |   results_20260217_0910_rerun.jsonl
 |   |       |   
 |   |       +---finetune
 |   |       |       finetune_openai_chat_results_20250824_0136_20250824_0322.jsonl
@@ -101568,6 +101743,15 @@ F:.
 |   |               finetune_alpaca_r_20260216_1307.jsonl
 |   |               finetune_alpaca_r_20260216_1523.jsonl
 |   |               finetune_alpaca_r_20260216_1759.jsonl
+|   |               finetune_alpaca_r_20260217_0025.jsonl
+|   |               finetune_alpaca_r_20260217_0030.jsonl
+|   |               finetune_alpaca_r_20260217_0655.jsonl
+|   |               finetune_alpaca_r_20260217_0659.jsonl
+|   |               finetune_alpaca_r_20260217_0701.jsonl
+|   |               finetune_alpaca_r_20260217_0702.jsonl
+|   |               finetune_alpaca_r_20260217_0704.jsonl
+|   |               finetune_alpaca_r_20260217_0706.jsonl
+|   |               finetune_alpaca_r_20260217_0909.jsonl
 |   |               
 |   +---examples
 |   |   |   unrestricted_prompt_example.txt
@@ -102115,6 +102299,20 @@ F:.
 |   |   +---lora-20260216_1307
 |   |   +---lora-20260216_1523
 |   |   +---lora-20260216_1759
+|   |   +---lora-20260217_0025
+|   |   +---lora-20260217_0026
+|   |   +---lora-20260217_0030
+|   |   +---lora-20260217_0031
+|   |   +---lora-20260217_0655
+|   |   +---lora-20260217_0659
+|   |   +---lora-20260217_0701
+|   |   +---lora-20260217_0702
+|   |   +---lora-20260217_0703
+|   |   +---lora-20260217_0704
+|   |   +---lora-20260217_0705
+|   |   +---lora-20260217_0706
+|   |   +---lora-20260217_0909
+|   |   +---lora-20260217_0910
 |   |   +---lora-chai-mini-0937
 |   |   |   |   adapter_config.json
 |   |   |   |   adapter_model.safetensors
@@ -103317,6 +103515,7 @@ F:.
 |       tagging-20251210T164818Z.log
 |       
 +---scripts
+|   |   append_agent_donelog_entry.py
 |   |   audit_rp_characters_affiliation_location.py
 |   |   checks_linters.py
 |   |   checks_rp_consistency.py

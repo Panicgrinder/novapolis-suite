@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-17 09:12
-update: Dev-Hub Donelog: defekte Links auf Repo-Root relativiert; RP Name-Check (Canvas-T0) bereinigt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' PASS (2026-02-17 06:53); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py novapolis-dev/docs/donelog.md PASS (2026-02-17 06:53); npm --prefix novapolis-rp/coding/tools/validators run validate PASS (2026-02-17 06:53); npm --prefix novapolis-rp/coding/tools/validators run check:names PASS (2026-02-17 06:53)"
+stand: 2026-02-18 04:05
+update: Metadata-Init-Konsolidierung vermerkt (Python kanonisch, JS entfernt).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-rp/coding/tools/metadata/README.md novapolis-dev/docs/donelog.md PASS (2026-02-18 04:05); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-rp/coding/tools/metadata/README.md novapolis-dev/docs/donelog.md PASS (2026-02-18 04:05)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -455,7 +455,7 @@ Workspace-Konfliktanalyse (2025-11-07 01:27)
 
 - Bestehende Markdownlint-Overrides unter `novapolis-rp/database-curated/staging/.markdownlint.json` und `.../reports/.markdownlint.json` identifiziert (deaktivieren zentrale Regeln MD003/MD012/MD047). Empfehlung: Overrides evaluieren, Konfiguration an globale Policy anpassen oder entfernen.
 - Staging-Reports (`novapolis-rp/database-curated/staging/reports/*.md`) ohne YAML-Frontmatter/Setext-Headings erfasst; Kandidaten für Migration in den Dev-Hub bzw. Konvertierung in Setext-Format.
-- Doppelte Metadata-Initialisierungsskripte (`novapolis-rp/coding/tools/metadata/init-metadata.js` & `init_metadata.py`) dokumentiert; Entscheidung über kanonische Implementierung offen.
+- Doppelte Metadata-Initialisierungsskripte konsolidiert (2026-02-18): `novapolis-rp/coding/tools/metadata/init_metadata.py` als kanonische Implementierung festgelegt und dokumentiert; `init-metadata.js` entfernt.
 - Legacy-Notiz `novapolis_agent/analysis_chat_routers.md` (Triple-Quote-Stub) als Alt-Dokument markiert.
 
 Chat-Neustart-Prompt entfernt (2025-11-06 03:07)
