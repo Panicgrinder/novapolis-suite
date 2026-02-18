@@ -1,8 +1,9 @@
 ---
 stand: 2026-02-18 06:58
-update: Nächster TODO-Punkt bearbeitet: Cleanup-Kandidaten Phase 4 reviewt, historisch bereits erfüllt (keine verbleibenden Zielpfade).
-checks: pwsh Test-Path-Review für `app/routers/chat_improved.py`, `chat.py`, `health.py`, `roll.py`, `state.py` PASS (2026-02-18 06:58, alle `False`); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34)
+update: Optionaler Archivierungs-Feinschliff abgeschlossen: Rotationsplan/Cadence konkretisiert, Outputs->Backups SOP dokumentiert und Manifest rekursiv aktualisiert.
+checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m scripts.rotate_backups --include-subdirectories DRY-RUN PASS (2026-02-18 06:58, Keep 7 / Delete 75); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m scripts.update_backups_manifest --include-subdirectories PASS (2026-02-18 06:58, Entries 82); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34)
 ---
+- 2026-02-18 06:58: Optionaler Archivierungs-Feinschliff abgeschlossen. `Backups/README.md` enthält jetzt sichere Apply-Regel (Top-Level only), Outputs->Backups Gruppierungsablauf (`Backups/model-runs/`) und Cadence. Rotations-Dry-Run rekursiv ergab `Keep 7 / Delete 75`; Manifest rekursiv aktualisiert (`82` Einträge).
 - 2026-02-18 06:58: Optionaler Cleanup-Block Phase 4 reviewt und geschlossen. Historisches Script (`novapolis-dev/archive/scripts/scripts.ps1-scripts/cleanup_phase4.ps1`) zeigt nur bereits entfernte Ziele; aktiver Workspace enthält keine dieser Pfade mehr, daher keine Löschaktion erforderlich.
 - 2026-02-18 06:34: S3 abgeschlossen: fester Betriebsreview-Slot gesetzt (Mittwoch 09:00-09:45, lokal), Checkliste für lokale AI verankert und erster Slot protokolliert.
 - 2026-02-18 06:34: S4 abgeschlossen: keine Subfolder-`.vscode`-Konflikte (nur Root `tasks.json`/`launch.json`), `launch.json` valide, Root-Tasks (`ruff`, Root-`pytest`) lauffähig.

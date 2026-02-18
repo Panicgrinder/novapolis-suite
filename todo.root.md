@@ -1,7 +1,7 @@
 ---
 stand: 2026-02-18 06:58
-update: Nächster Punkt weitergezogen: Cleanup-Kandidaten Phase 4 reviewt und als historisch erledigt geschlossen (keine verbleibenden Zielpfade, keine Löschaktion nötig).
-checks: pwsh Test-Path-Review für historische Phase-4-Ziele (`app/routers/chat_improved.py`, `chat.py`, `health.py`, `roll.py`, `state.py`) PASS (2026-02-18 06:58, alle `False`); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34)
+update: Optionalpunkt Archivierungs-Feinschliff umgesetzt: Rotations-Dry-Run bewertet, Manifest rekursiv aktualisiert und Outputs->Backups SOP in `Backups/README.md` verankert.
+checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m scripts.rotate_backups --include-subdirectories DRY-RUN PASS (2026-02-18 06:58, Keep 7 / Delete 75); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m scripts.update_backups_manifest --include-subdirectories PASS (2026-02-18 06:58, Entries 82); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -138,7 +138,7 @@ Priorisierung (Stand 2026-02-18, aktualisiert)
 ### Optional
 
 - [x] Cleanup-Kandidaten Phase 4 reviewt (historischer Archivkontext): keine aktiven Zielpfade mehr vorhanden; keine destruktive Aktion ausgeführt. (erledigt 2026-02-18 06:58)
-- [ ] Archivierungs-Feinschliff (`outputs`/`Backups` Gruppierung, Manifest-Rotationsplan, automatisierte Auslagerung).
+- [x] Archivierungs-Feinschliff umgesetzt (`outputs`/`Backups` Gruppierung, Manifest-Rotationsplan, automatisierte Auslagerung via SOP/Cadence). (erledigt 2026-02-18 06:58; Evidenz: Rotation Dry-Run Keep 7/Delete 75, Manifest 82 Einträge, Regeln in `Backups/README.md`)
 - [ ] Etappe-3-Legacy-Ablösung der Snapshot-Frontmatter-Migration erst nach stabiler Laufpraxis (nur falls Etappe 2 abgeschlossen).
 
 ### novapolis_agent
