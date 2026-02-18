@@ -1,11 +1,12 @@
 ---
-stand: 2026-02-18 04:50
-update: "Jetzt-Liste technisch weitergezogen: Root-Go/No-Go vollständig grün verifiziert (lint/fix/pytest/coverage 83.02%) und Editor-Setup-Etappe 0 abgeschlossen."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc todo.root.md DONELOG.md WORKSPACE_STATUS.md PASS (2026-02-18 04:50); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py todo.root.md DONELOG.md WORKSPACE_STATUS.md PASS (2026-02-18 04:50); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 04:48); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check --fix . PASS (2026-02-18 04:48); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 04:49); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/run_pytest_coverage.py PASS (2026-02-18 04:50, Coverage 83.02%)
+stand: 2026-02-18 05:08
+update: "Später-Block S1 gestartet: Tag-1-Lauf mit Root-Gates vollständig grün (lint/pytest/coverage 83.02%)."
+checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 05:03); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 05:04); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/run_pytest_coverage.py PASS (2026-02-18 05:05, Coverage 83.02%)
 ---
 Kurzueberblick
 --------------
 
+- 2026-02-18 05:05: Später-Sequenz S1 (Tag 1/2) ausgeführt: `lint:ruff` PASS, Root-Pytest PASS, Coverage PASS (`83.02%`, `354 passed, 1 skipped`). S1 bleibt offen bis Tag 2 ebenfalls grün läuft.
 - 2026-02-18 04:50: Root-Go/No-Go vollständig grün nachgezogen (`ruff` lint/fix, Root-Pytest, Coverage 83.02%; `354 passed, 1 skipped`). Zusätzlich Editor-Setup Etappe 0 bestätigt (nur Root-`.vscode` mit `settings.json`, `tasks.json`, `launch.json`; kein Subfolder-Konflikt gefunden).
 - 2026-02-18 04:15: Jetzt-Block 1→4 ausgeführt. `novapolis_agent/scripts/reports/generate_consistency_report.py` auf direkten Importpfad vereinheitlicht (ohne dynamischen Spec-Fallback), Artefaktreste geprüft (`*.pyc`/`*_event.meta.json` nur unter `.mypy_cache`, via `.gitignore` abgedeckt), Frontmatter-Backlog für `novapolis-rp/database-rp` per Validator-Rerun bestätigt. Root-Go/No-Go bleibt offen: Coverage-/pytest-Wrapper schlagen aktuell wegen fehlender Test-Dependencies (`fastapi`, `uvicorn`) fehl.
 - 2026-02-18 04:35: Root-Coverage erneut ausgeführt und stabil reproduziert (`scripts/run_pytest_coverage.py`): 354 passed, 1 skipped, keine Import-/Dependency-Fehler mehr; Gate weiterhin FAIL wegen Fail-Under (`76.07% < 80%`).

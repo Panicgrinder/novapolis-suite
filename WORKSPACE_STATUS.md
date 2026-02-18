@@ -1,8 +1,9 @@
 ---
-stand: 2026-02-18 04:50
-update: Jetzt-Liste weiter abgearbeitet; Root-Go/No-Go technisch grün verifiziert (lint/fix/pytest/coverage) und Editor-Setup-Etappe 0 abgeschlossen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc todo.root.md DONELOG.md WORKSPACE_STATUS.md PASS (2026-02-18 04:50); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py todo.root.md DONELOG.md WORKSPACE_STATUS.md PASS (2026-02-18 04:50); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 04:48); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check --fix . PASS (2026-02-18 04:48); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 04:49); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/run_pytest_coverage.py PASS (2026-02-18 04:50, Coverage 83.02%)
+stand: 2026-02-18 05:08
+update: Später-Sequenz gestartet: S1 Tag-1 ausgeführt, alle Root-Gates erneut grün (lint/pytest/coverage), Coverage stabil bei 83.02%.
+checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 05:03); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 05:04); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/run_pytest_coverage.py PASS (2026-02-18 05:05, Coverage 83.02%)
 ---
+- 2026-02-18 05:05: Später-Block S1 (Tag 1/2) operativ gelaufen. Root-Gates erneut grün: `lint:ruff` PASS, Root-Pytest PASS, Coverage PASS (`83.02%`, `354 passed, 1 skipped`). Für S1 verbleibt Tag 2 als Abschluss gegen das 2-Tage-Stabilitätsgate.
 - 2026-02-18 04:50: Root-Go/No-Go erneut komplett verifiziert: `lint:ruff`, `fix:ruff`, Root-Pytest und Coverage-Wrapper laufen grün; Coverage steht bei 83.02%. Zusätzlich Editor-Setup Etappe 0 abgeschlossen (nur Root-`.vscode` vorhanden: `settings.json`, `tasks.json`, `launch.json`; keine Subfolder-Konflikte).
 - 2026-02-18 04:35: Coverage-Gate neu verifiziert: `scripts/run_pytest_coverage.py` läuft ohne Import-/Dependency-Fehler, scheitert aber korrekt am Fail-Under (`76.07% < 80%`, 354 passed, 1 skipped). Root-Go/No-Go bleibt damit fachlich offen (kein Environment-Blocker mehr).
 - 2026-02-18 04:15: Jetzt-Block-Umsetzung: Import-Fallbacks in Consistency/Audit vereinheitlicht, Artefakt-/Gitignore-Prüfung erledigt, Frontmatter-Rerun für `novapolis-rp/database-rp` PASS. Root-Go/No-Go bleibt offen, da Coverage-/pytest-Läufe im aktuellen Environment auf fehlende Pakete (`fastapi`, `uvicorn`) laufen.

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-18 04:50
-update: Jetzt-Liste weiter abgearbeitet: Root-Go/No-Go technisch verifiziert (lint/fix/pytest/coverage grün), Editor-Setup Etappe-0-Inventur abgeschlossen und TODO-Checkboxen synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc todo.root.md DONELOG.md WORKSPACE_STATUS.md PASS (2026-02-18 04:50); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py todo.root.md DONELOG.md WORKSPACE_STATUS.md PASS (2026-02-18 04:50); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 04:48); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check --fix . PASS (2026-02-18 04:48); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 04:49); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/run_pytest_coverage.py PASS (2026-02-18 04:50, Coverage 83.02%)
+stand: 2026-02-18 05:08
+update: Später-Block S1 Tag-1 operativ ausgeführt und dokumentiert (lint/pytest/coverage grün; Coverage 83.02%).
+checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 05:03); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 05:04); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/run_pytest_coverage.py PASS (2026-02-18 05:05, Coverage 83.02%)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -112,11 +112,22 @@ Priorisierung (Stand 2026-02-18, aktualisiert)
 
 ### Später
 
-- [ ] Lokale-AI-Go-Kriterien: `Tests/Typen 2 Tage`, `RAG-Minimum`, `Redaction`, `Flags`, `Schattenmodus-Stichprobe`.
-- [ ] Lokale-AI-Operativ: Schattenmodus-Logging, 10-20 Kern-Dokumente indexieren, wöchentlichen Review-Slot setzen.
-- [ ] Editor-Setup Etappe 1/2: optionale Task-/Launch-Konsolidierung und Dublettenabbau nach stabiler Root-Nutzung.
-- [ ] Snapshot-Frontmatter-Migration Etappe 2/3: Sweep + Legacy-Auslauf erst nach stabiler Laufpraxis.
-- [ ] Migration-Go/No-Go: 3-5 Tage stabile Nutzung ohne Beschwerden als Freigabepunkt für Etappe 2.
+- [ ] S1 - Stabilitätsfenster starten (Tag 1-2):
+  - täglich `lint:ruff`, `Tests: pytest (-q) [root]`, `Tests: coverage (fail-under)` ausführen und PASS in `DONELOG.md`/`WORKSPACE_STATUS.md` nachziehen.
+  - Fortschritt: Tag 1 erledigt (2026-02-18 05:05) – `ruff` PASS, Root-Pytest PASS, Coverage PASS (83.02%, `354 passed, 1 skipped`).
+  - Gate S1: 2 aufeinanderfolgende Tage ohne rote Root-Gates.
+- [ ] S2 - Lokale-AI Mindestbasis herstellen:
+  - Schattenmodus-Logging aktivieren, 10-20 Kern-Dokumente indexieren, Flags/Redaction im Stichprobenlauf prüfen.
+  - Gate S2: RAG-Minimum + Redaction-Test dokumentiert (inkl. Beispielbefund/Artefaktpfad).
+- [ ] S3 - Operativen Review-Rhythmus fixieren:
+  - festen wöchentlichen Slot (30-45 min) setzen und Checkliste „lokale AI“ in `todo.root.md`/`DONELOG.md` verankern.
+  - Gate S3: erster Review-Slot durchgeführt und protokolliert.
+- [ ] S4 - Editor-Setup Etappe 1/2 umsetzen (nach Stabilitätsfenster):
+  - optionale Task-/Launch-Konsolidierung und Dublettenabbau auf Root-Ebene durchführen.
+  - Gate S4: keine Subfolder-`.vscode`-Konflikte, Root-Tasks/Launch weiterhin lauffähig.
+- [ ] S5 - Snapshot-Frontmatter-Migration Etappe 2/3 freigeben:
+  - Sweep + Legacy-Auslauf nur nach 3-5 Tagen stabiler Laufpraxis ohne Beschwerden ausführen.
+  - Gate S5 (Migration-Go/No-Go): Freigabevermerk in `WORKSPACE_STATUS.md` + Abschlussblock in `DONELOG.md`.
 
 ### Optional
 
