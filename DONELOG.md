@@ -1,11 +1,12 @@
 ---
-stand: 2026-02-18 05:13
-update: "Später-Block S1 abgeschlossen: Tag-2-Lauf ebenfalls grün, 2-Tage-Stabilitätsgate erfüllt."
-checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 05:11); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 05:12); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/run_pytest_coverage.py PASS (2026-02-18 05:13, Coverage 83.02%)
+stand: 2026-02-18 05:19
+update: "S2 gestartet: RAG-Basisindex erstellt (11 Kern-Dokumente) und gezielte RAG/Redaction-Stichprobe per pytest grün."
+checks: C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe -m scripts.rag_indexer --input ../README.md ../WORKSPACE_STATUS.md ../todo.root.md ../DONELOG.md ../WORKSPACE_INDEX.md ../PR_DESCRIPTION.md ../single-root-todo.md README.md ../novapolis-dev/README.md ../novapolis-rp/README.md ../novapolis-sim/README.md test_settings.py --out eval/results/rag/s2-core-index-20260218.json PASS (2026-02-18 05:15, Dokumente 11); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m pytest -q tests/test_rag_guards.py tests/test_api_chat_internal_branches.py PASS (2026-02-18 05:16)
 ---
 Kurzueberblick
 --------------
 
+- 2026-02-18 05:16: Nächster offener Punkt S2 gestartet: RAG-Basisindex `novapolis_agent/eval/results/rag/s2-core-index-20260218.json` erzeugt (11 Kern-Dokumente). Flags/Redaction-Stichprobe via `tests/test_rag_guards.py` + `tests/test_api_chat_internal_branches.py` PASS.
 - 2026-02-18 05:13: Später-Sequenz S1 (Tag 2/2) ausgeführt: `lint:ruff` PASS, Root-Pytest PASS, Coverage PASS (`83.02%`, `354 passed, 1 skipped`). S1-Gate erfüllt (2 aufeinanderfolgende grüne Läufe).
 - 2026-02-18 05:05: Später-Sequenz S1 (Tag 1/2) ausgeführt: `lint:ruff` PASS, Root-Pytest PASS, Coverage PASS (`83.02%`, `354 passed, 1 skipped`). S1 bleibt offen bis Tag 2 ebenfalls grün läuft.
 - 2026-02-18 04:50: Root-Go/No-Go vollständig grün nachgezogen (`ruff` lint/fix, Root-Pytest, Coverage 83.02%; `354 passed, 1 skipped`). Zusätzlich Editor-Setup Etappe 0 bestätigt (nur Root-`.vscode` mit `settings.json`, `tasks.json`, `launch.json`; kein Subfolder-Konflikt gefunden).

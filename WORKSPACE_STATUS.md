@@ -1,8 +1,9 @@
 ---
-stand: 2026-02-18 05:13
-update: Später-Sequenz S1 abgeschlossen: Tag 2 bestätigt, Root-Gates bleiben grün und Coverage stabil bei 83.02%.
-checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 05:11); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 05:12); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/run_pytest_coverage.py PASS (2026-02-18 05:13, Coverage 83.02%)
+stand: 2026-02-18 05:19
+update: S2 (Lokale-AI Mindestbasis) gestartet: RAG-Basisindex erstellt und RAG/Redaction-Stichprobe per targeted pytest bestätigt.
+checks: C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe -m scripts.rag_indexer --input ../README.md ../WORKSPACE_STATUS.md ../todo.root.md ../DONELOG.md ../WORKSPACE_INDEX.md ../PR_DESCRIPTION.md ../single-root-todo.md README.md ../novapolis-dev/README.md ../novapolis-rp/README.md ../novapolis-sim/README.md test_settings.py --out eval/results/rag/s2-core-index-20260218.json PASS (2026-02-18 05:15, Dokumente 11); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m pytest -q tests/test_rag_guards.py tests/test_api_chat_internal_branches.py PASS (2026-02-18 05:16)
 ---
+- 2026-02-18 05:16: Nächster offener Punkt S2 gestartet. RAG-Minimum-Stichprobe erzeugt (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`, 11 Kern-Dokumente) und gezielte Flags/Redaction-Stichprobe erfolgreich (`tests/test_rag_guards.py`, `tests/test_api_chat_internal_branches.py` PASS). S2 bleibt offen bis Schattenmodus-Logging aktiv dokumentiert ist.
 - 2026-02-18 05:13: Später-Block S1 abgeschlossen (Tag 2/2 erfolgreich). Root-Gates erneut grün: `lint:ruff` PASS, Root-Pytest PASS, Coverage PASS (`83.02%`, `354 passed, 1 skipped`). Damit ist das 2-Tage-Stabilitätsgate erfüllt.
 - 2026-02-18 05:05: Später-Block S1 (Tag 1/2) operativ gelaufen. Root-Gates erneut grün: `lint:ruff` PASS, Root-Pytest PASS, Coverage PASS (`83.02%`, `354 passed, 1 skipped`). Für S1 verbleibt Tag 2 als Abschluss gegen das 2-Tage-Stabilitätsgate.
 - 2026-02-18 04:50: Root-Go/No-Go erneut komplett verifiziert: `lint:ruff`, `fix:ruff`, Root-Pytest und Coverage-Wrapper laufen grün; Coverage steht bei 83.02%. Zusätzlich Editor-Setup Etappe 0 abgeschlossen (nur Root-`.vscode` vorhanden: `settings.json`, `tasks.json`, `launch.json`; keine Subfolder-Konflikte).

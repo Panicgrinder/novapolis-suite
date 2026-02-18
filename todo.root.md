@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-18 05:13
-update: Später-Block S1 abgeschlossen (Tag 1+2): Root-Gates an zwei aufeinanderfolgenden Läufen grün, Coverage stabil bei 83.02%.
-checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 05:11); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 05:12); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/run_pytest_coverage.py PASS (2026-02-18 05:13, Coverage 83.02%)
+stand: 2026-02-18 05:19
+update: S2 gestartet: RAG-Minimum-Stichprobe erstellt (11 Kern-Dokumente indexiert) und Flags/Redaction-Stichprobe via gezieltem pytest-Lauf verifiziert.
+checks: C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe -m scripts.rag_indexer --input ../README.md ../WORKSPACE_STATUS.md ../todo.root.md ../DONELOG.md ../WORKSPACE_INDEX.md ../PR_DESCRIPTION.md ../single-root-todo.md README.md ../novapolis-dev/README.md ../novapolis-rp/README.md ../novapolis-sim/README.md test_settings.py --out eval/results/rag/s2-core-index-20260218.json PASS (2026-02-18 05:15, Dokumente 11); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m pytest -q tests/test_rag_guards.py tests/test_api_chat_internal_branches.py PASS (2026-02-18 05:16)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -118,6 +118,7 @@ Priorisierung (Stand 2026-02-18, aktualisiert)
   - Gate S1: erfüllt (2 aufeinanderfolgende Läufe ohne rote Root-Gates).
 - [ ] S2 - Lokale-AI Mindestbasis herstellen:
   - Schattenmodus-Logging aktivieren, 10-20 Kern-Dokumente indexieren, Flags/Redaction im Stichprobenlauf prüfen.
+  - Fortschritt: Index-Stichprobe erstellt (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`, 11 Dokumente) und gezielte Stichproben-Tests PASS (`tests/test_rag_guards.py`, `tests/test_api_chat_internal_branches.py`).
   - Gate S2: RAG-Minimum + Redaction-Test dokumentiert (inkl. Beispielbefund/Artefaktpfad).
 - [ ] S3 - Operativen Review-Rhythmus fixieren:
   - festen wöchentlichen Slot (30-45 min) setzen und Checkliste „lokale AI“ in `todo.root.md`/`DONELOG.md` verankern.
