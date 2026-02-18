@@ -104,6 +104,9 @@ class Settings(BaseSettings):
     RAG_INDEX_PATH: str = str(Path("eval/results/rag/index.json"))
     RAG_TOP_K: int = 3
 
+    SHADOW_MODE_LOGGING_ENABLED: bool = True
+    SHADOW_MODE_LOG_PATH: str = str(Path(".tmp/results/logs/shadow_mode.jsonl"))
+
     AUTO_MODE_DEFAULT: str = "rpg"
     AUTO_MODE_MEMORY_TTL_MIN: int = 120
     AUTO_MODE_MEMORY_MAX: int = 1000

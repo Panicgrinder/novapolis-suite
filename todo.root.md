@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-18 05:19
-update: S2 gestartet: RAG-Minimum-Stichprobe erstellt (11 Kern-Dokumente indexiert) und Flags/Redaction-Stichprobe via gezieltem pytest-Lauf verifiziert.
-checks: C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe -m scripts.rag_indexer --input ../README.md ../WORKSPACE_STATUS.md ../todo.root.md ../DONELOG.md ../WORKSPACE_INDEX.md ../PR_DESCRIPTION.md ../single-root-todo.md README.md ../novapolis-dev/README.md ../novapolis-rp/README.md ../novapolis-sim/README.md test_settings.py --out eval/results/rag/s2-core-index-20260218.json PASS (2026-02-18 05:15, Dokumente 11); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m pytest -q tests/test_rag_guards.py tests/test_api_chat_internal_branches.py PASS (2026-02-18 05:16)
+stand: 2026-02-18 05:27
+update: S2 abgeschlossen: Schattenmodus-Logging aktiv (hash-basiertes JSONL), RAG-Minimum-Artefakt vorhanden und Redaction/Flags-Stichprobe grün.
+checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m pytest -q tests/test_api_chat_internal_branches.py tests/test_rag_guards.py PASS (2026-02-18 05:23); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/checks_types.py PASS (2026-02-18 05:24); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -c "from app.api import chat; from app.api.models import ChatRequest; ... _append_shadow_mode_event(...)" PASS (2026-02-18 05:27, Artefakt .tmp/results/logs/shadow_mode.jsonl)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -116,10 +116,10 @@ Priorisierung (Stand 2026-02-18, aktualisiert)
   - täglich `lint:ruff`, `Tests: pytest (-q) [root]`, `Tests: coverage (fail-under)` ausführen und PASS in `DONELOG.md`/`WORKSPACE_STATUS.md` nachziehen.
   - Fortschritt: Tag 1 (2026-02-18 05:05) und Tag 2 (2026-02-18 05:13) jeweils grün – `ruff` PASS, Root-Pytest PASS, Coverage PASS (83.02%, `354 passed, 1 skipped`).
   - Gate S1: erfüllt (2 aufeinanderfolgende Läufe ohne rote Root-Gates).
-- [ ] S2 - Lokale-AI Mindestbasis herstellen:
+- [x] S2 - Lokale-AI Mindestbasis hergestellt:
   - Schattenmodus-Logging aktivieren, 10-20 Kern-Dokumente indexieren, Flags/Redaction im Stichprobenlauf prüfen.
-  - Fortschritt: Index-Stichprobe erstellt (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`, 11 Dokumente) und gezielte Stichproben-Tests PASS (`tests/test_rag_guards.py`, `tests/test_api_chat_internal_branches.py`).
-  - Gate S2: RAG-Minimum + Redaction-Test dokumentiert (inkl. Beispielbefund/Artefaktpfad).
+  - Fortschritt: Index-Stichprobe erstellt (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`, 11 Dokumente), Schattenmodus-Log aktiv (`.tmp/results/logs/shadow_mode.jsonl`) und gezielte Stichproben-Tests PASS (`tests/test_rag_guards.py`, `tests/test_api_chat_internal_branches.py`).
+  - Gate S2: erfüllt (RAG-Minimum + Redaction-Test + Shadow-Log-Artefakt dokumentiert).
 - [ ] S3 - Operativen Review-Rhythmus fixieren:
   - festen wöchentlichen Slot (30-45 min) setzen und Checkliste „lokale AI“ in `todo.root.md`/`DONELOG.md` verankern.
   - Gate S3: erster Review-Slot durchgeführt und protokolliert.

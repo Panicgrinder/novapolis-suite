@@ -1,7 +1,9 @@
 import json as _json
+import hashlib
 import logging
 import time
 from collections.abc import Mapping
+from pathlib import Path
 from typing import TYPE_CHECKING, Any, cast
 
 import httpx
@@ -20,6 +22,95 @@ if TYPE_CHECKING:
     from utils.rag import TfIdfIndex as _TfIdfIndex
 
 logger = logging.getLogger(__name__)
+
+
+def _bool_from_unknown(value: Any, default: bool = False) -> bool:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, int):
+        return value != 0
+    if isinstance(value, str):
+        norm = value.strip().lower()
+        if norm in {"1", "true", "yes", "on"}:
+            return True
+        if norm in {"0", "false", "no", "off"}:
+            return False
+    return default
+
+
+def _shadow_mode_enabled(request: ChatRequest, eval_mode: bool) -> bool:
+    try:
+        if not bool(getattr(settings, "SHADOW_MODE_LOGGING_ENABLED", True)):
+            return False
+    except Exception:
+        return False
+
+    option_flag: Any = None
+    try:
+        opts_any = getattr(request, "options", None)
+        if isinstance(opts_any, Mapping):
+            option_flag = cast(Mapping[object, Any], opts_any).get("shadow_mode")
+        elif opts_any is not None:
+            md = getattr(opts_any, "model_dump", None)
+            if callable(md):
+                raw = md()
+                if isinstance(raw, Mapping):
+                    option_flag = cast(Mapping[object, Any], raw).get("shadow_mode")
+    except Exception:
+        option_flag = None
+
+    if option_flag is None:
+        return bool(eval_mode)
+    return _bool_from_unknown(option_flag, default=bool(eval_mode))
+
+
+def _safe_sha256(text: str) -> str:
+    try:
+        return hashlib.sha256(text.encode("utf-8", errors="ignore")).hexdigest()
+    except Exception:
+        return ""
+
+
+def _append_shadow_mode_event(
+    *,
+    request: ChatRequest,
+    eval_mode: bool,
+    unrestricted_mode: bool,
+    request_id: str | None,
+    stream: bool,
+    messages: list[dict[str, str]],
+    response_text: str,
+    policy_post: str,
+) -> None:
+    if not _shadow_mode_enabled(request, eval_mode):
+        return
+    if unrestricted_mode:
+        return
+
+    try:
+        user_texts = [m.get("content", "") for m in messages if m.get("role") == "user"]
+        last_user = user_texts[-1] if user_texts else ""
+        event: dict[str, Any] = {
+            "ts": int(time.time()),
+            "request_id": request_id,
+            "stream": stream,
+            "mode": "eval" if eval_mode else "default",
+            "policy_post": policy_post,
+            "rag_enabled": bool(getattr(settings, "RAG_ENABLED", False)),
+            "rag_index_path": str(getattr(settings, "RAG_INDEX_PATH", "")),
+            "user_chars": len(last_user),
+            "response_chars": len(response_text),
+            "user_hash": _safe_sha256(last_user),
+            "response_hash": _safe_sha256(response_text),
+        }
+        out_path = Path(
+            str(getattr(settings, "SHADOW_MODE_LOG_PATH", ".tmp/results/logs/shadow_mode.jsonl"))
+        )
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        with out_path.open("a", encoding="utf-8", newline="\n") as handle:
+            handle.write(_json.dumps(event, ensure_ascii=False) + "\n")
+    except Exception as shadow_err:
+        logger.warning("Schattenmodus-Logging fehlgeschlagen rid=%s: %s", request_id, shadow_err)
 
 
 async def stream_chat_request(
@@ -366,6 +457,7 @@ async def stream_chat_request(
                     profile_id = getattr(request, "profile_id", None)
                     action = "allow"
                     effective_text = final_text
+                    policy_post = "allow"
                     try:
                         post = apply_post(final_text, mode=mode, profile_id=profile_id)
                         action = getattr(post, "action", "allow")
@@ -409,7 +501,6 @@ async def stream_chat_request(
                         effective_text = final_text
 
                     try:
-                        policy_post = "allow"
                         if action == "block":
                             policy_post = "blocked"
                         elif effective_text != final_text and effective_text:
@@ -423,6 +514,20 @@ async def stream_chat_request(
                             meta["delta_len"] = delta_len
                         meta_json = _json.dumps(meta, ensure_ascii=False)
                         yield "event: meta\ndata: " + meta_json + "\n\n"
+                    except Exception:
+                        pass
+
+                    try:
+                        _append_shadow_mode_event(
+                            request=request,
+                            eval_mode=eval_mode,
+                            unrestricted_mode=unrestricted_mode,
+                            request_id=request_id,
+                            stream=True,
+                            messages=messages,
+                            response_text=effective_text,
+                            policy_post=policy_post,
+                        )
                     except Exception:
                         pass
 
@@ -842,10 +947,23 @@ async def process_chat_request(
             profile_id = getattr(request, "profile_id", None)
             post = apply_post(generated_content, mode=mode, profile_id=profile_id)
             action = getattr(post, "action", "allow")
+            policy_post = "allow"
             if action == "block":
+                policy_post = "blocked"
+                _append_shadow_mode_event(
+                    request=request,
+                    eval_mode=eval_mode,
+                    unrestricted_mode=unrestricted_mode,
+                    request_id=request_id,
+                    stream=False,
+                    messages=messages,
+                    response_text=generated_content,
+                    policy_post=policy_post,
+                )
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="policy_block")
             if action == "rewrite" and getattr(post, "text", None):
                 generated_content = str(post.text)
+                policy_post = "rewritten"
                 if getattr(settings, "LOG_JSON", False):
                     logger.info(
                         _json.dumps(
@@ -860,6 +978,16 @@ async def process_chat_request(
                     )
                 else:
                     logger.info("Policy-Post hat Antwort umgeschrieben. rid=%s", request_id)
+            _append_shadow_mode_event(
+                request=request,
+                eval_mode=eval_mode,
+                unrestricted_mode=unrestricted_mode,
+                request_id=request_id,
+                stream=False,
+                messages=messages,
+                response_text=generated_content,
+                policy_post=policy_post,
+            )
         except HTTPException:
             raise
         except Exception:

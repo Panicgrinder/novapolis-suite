@@ -1,11 +1,12 @@
 ---
-stand: 2026-02-18 05:19
-update: "S2 gestartet: RAG-Basisindex erstellt (11 Kern-Dokumente) und gezielte RAG/Redaction-Stichprobe per pytest grün."
-checks: C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe -m scripts.rag_indexer --input ../README.md ../WORKSPACE_STATUS.md ../todo.root.md ../DONELOG.md ../WORKSPACE_INDEX.md ../PR_DESCRIPTION.md ../single-root-todo.md README.md ../novapolis-dev/README.md ../novapolis-rp/README.md ../novapolis-sim/README.md test_settings.py --out eval/results/rag/s2-core-index-20260218.json PASS (2026-02-18 05:15, Dokumente 11); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m pytest -q tests/test_rag_guards.py tests/test_api_chat_internal_branches.py PASS (2026-02-18 05:16)
+stand: 2026-02-18 05:27
+update: "S2 abgeschlossen: Shadow-Logging aktiviert, RAG-Basisindex vorhanden, Redaction/Flags-Stichprobe grün."
+checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m pytest -q tests/test_api_chat_internal_branches.py tests/test_rag_guards.py PASS (2026-02-18 05:23); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/checks_types.py PASS (2026-02-18 05:24); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -c "from app.api import chat; from app.api.models import ChatRequest; ... _append_shadow_mode_event(...)" PASS (2026-02-18 05:27, Artefakt .tmp/results/logs/shadow_mode.jsonl)
 ---
 Kurzueberblick
 --------------
 
+- 2026-02-18 05:27: S2 vollständig abgeschlossen: Shadow-Logging aktiv (hash-basiertes JSONL unter `.tmp/results/logs/shadow_mode.jsonl`), RAG-Basisindex (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`) verfügbar, Redaction/Flags-Stichprobe via `tests/test_api_chat_internal_branches.py` + `tests/test_rag_guards.py` PASS.
 - 2026-02-18 05:16: Nächster offener Punkt S2 gestartet: RAG-Basisindex `novapolis_agent/eval/results/rag/s2-core-index-20260218.json` erzeugt (11 Kern-Dokumente). Flags/Redaction-Stichprobe via `tests/test_rag_guards.py` + `tests/test_api_chat_internal_branches.py` PASS.
 - 2026-02-18 05:13: Später-Sequenz S1 (Tag 2/2) ausgeführt: `lint:ruff` PASS, Root-Pytest PASS, Coverage PASS (`83.02%`, `354 passed, 1 skipped`). S1-Gate erfüllt (2 aufeinanderfolgende grüne Läufe).
 - 2026-02-18 05:05: Später-Sequenz S1 (Tag 1/2) ausgeführt: `lint:ruff` PASS, Root-Pytest PASS, Coverage PASS (`83.02%`, `354 passed, 1 skipped`). S1 bleibt offen bis Tag 2 ebenfalls grün läuft.
