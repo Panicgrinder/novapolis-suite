@@ -20,3 +20,10 @@ Nützliche Links
 
 - Fraktionsordner → ../README.md
 - Fraktionen-Taxonomie → ../../../00-admin/Fraktionen-Taxonomie.md
+
+Charaktere
+----------
+
+- [Iris Vey](./Iris-Vey.md) - Fraktionsleitung
+- [Corin Mael](./Corin-Mael.md) - Leitung Handel
+- [Sera Kaal](./Sera-Kaal.md) - Leitung Sicherheit

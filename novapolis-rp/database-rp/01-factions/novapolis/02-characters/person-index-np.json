@@ -1,0 +1,11 @@
+{
+  "title": "Personenindex Novapolis (person-index-np)",
+  "category": "admin",
+  "slug": "person-index-np",
+  "version": "0.9",
+  "last_updated": "2026-02-16T12:01:00+01:00",
+  "tags": [],
+  "affiliations": [],
+  "dependencies": [],
+  "source": "database-rp/01-factions/novapolis/02-characters/person-index-np.md"
+}

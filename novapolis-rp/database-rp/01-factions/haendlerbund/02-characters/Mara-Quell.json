@@ -1,0 +1,22 @@
+{
+  "title": "Mara Quell",
+  "category": "character",
+  "slug": "mara-quell",
+  "version": "0.1",
+  "last_updated": "2026-02-16T17:22:00+01:00",
+  "last_change": "Neu angelegt: Fraktionsleitung Händlerbund",
+  "tags": [
+    "npc",
+    "haendlerbund",
+    "leitung"
+  ],
+  "affiliations": [
+    "haendlerbund"
+  ],
+  "primary_location": "g7",
+  "last_seen": "g7",
+  "dependencies": [
+    "g7"
+  ],
+  "source": "database-rp/01-factions/haendlerbund/02-characters/Mara-Quell.md"
+}

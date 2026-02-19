@@ -1,20 +1,29 @@
 ---
-stand: 2026-01-13 03:02
-update: Wissensstand-/Trainingsstand-Datei ist kein eigener Charakter (category entfernt).
-checks: npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-13 03:05); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-13 03:05); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex-Wissensstand-Trainingsstand.md' PASS (2026-01-13 03:05); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-13 03:05); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-13 03:05)
+stand: 2026-02-16 08:50
+update: Als Character-Anhang normalisiert (parent_character, nicht eigenständig) und Standort auf D5 synchronisiert.
+checks: not run (targeted content update)
 title: Reflex - Wissensstand & Trainingsstand
+category: character-attachment
 slug: reflex-wissensstand-trainingsstand
-version: "0.1"
+version: "1.0"
 last_updated: 2025-11-07T03:32:00+01:00
-tags: []
+parent_character: reflex
+is_standalone_character: false
+tags: [knowledge, training]
 affiliations: [novapolis]
-dependencies: []
+primary_location: d5
+last_seen: d5
+dependencies: [reflex, d5]
 ---
 
 <!-- markdownlint-disable MD025 -->
 
 Reflex - Wissensstand & Trainingsstand
 ======================================
+
+Hinweis
+-------
+- Dieses Dokument ist ein Anhang zu **Reflex** und kein eigenständiger Charakter.
 
 Wissensstand (Detailmatrix)
 ---------------------------

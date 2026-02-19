@@ -1,0 +1,132 @@
+{
+  "tool": "checks_rp_consistency",
+  "ts": "2025-12-30T05:51:39",
+  "repo_root": "F:\\VS Code Workspace\\Main",
+  "rp_root": "F:\\VS Code Workspace\\Main\\novapolis-rp\\database-rp",
+  "files_scanned": 49,
+  "duration_ms": 48,
+  "counts": {
+    "errors": 15,
+    "warnings": 1,
+    "missing_frontmatter": 0,
+    "missing_slug": 17
+  },
+  "missing_frontmatter": [],
+  "missing_slug": [
+    "novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md",
+    "novapolis-rp/database-rp/00-admin/C6-Logistik-Policy.md",
+    "novapolis-rp/database-rp/00-admin/canon-canvas.draft.md",
+    "novapolis-rp/database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md",
+    "novapolis-rp/database-rp/00-admin/Canvas-T+0-Timeline.md",
+    "novapolis-rp/database-rp/00-admin/Cluster-Index.md",
+    "novapolis-rp/database-rp/00-admin/Handel-Diplomatie-Haendlergilde.md",
+    "novapolis-rp/database-rp/00-admin/Index-Haendlergilde.md",
+    "novapolis-rp/database-rp/00-admin/memory-bundle.md",
+    "novapolis-rp/database-rp/00-admin/person_index_np.md",
+    "novapolis-rp/database-rp/00-admin/Relationslog-Eisenkonklave.md",
+    "novapolis-rp/database-rp/00-admin/schema-header-templates.md",
+    "novapolis-rp/database-rp/00-admin/system-prompt.md",
+    "novapolis-rp/database-rp/02-characters/Lumen-Wissensstand-Trainingsstand.md",
+    "novapolis-rp/database-rp/05-projects/caravan_moves.md",
+    "novapolis-rp/database-rp/06-scenes/README.md",
+    "novapolis-rp/database-rp/06-scenes/scene-2025-10-27-a.md"
+  ],
+  "findings": [
+    {
+      "level": "ERROR",
+      "code": "FM_DUPLICATE",
+      "file": "novapolis-rp/database-rp/02-characters/Echo-Wissensstand-Trainingsstand.md",
+      "message": "Duplicate frontmatter block detected"
+    },
+    {
+      "level": "ERROR",
+      "code": "FM_DUPLICATE",
+      "file": "novapolis-rp/database-rp/02-characters/Liora-Navesh.md",
+      "message": "Duplicate frontmatter block detected"
+    },
+    {
+      "level": "ERROR",
+      "code": "MD_H1_MISSING",
+      "file": "novapolis-rp/database-rp/02-characters/Lumen.md",
+      "message": "Missing H1 heading (ATX '# ' or Setext '=')"
+    },
+    {
+      "level": "ERROR",
+      "code": "FM_DUPLICATE",
+      "file": "novapolis-rp/database-rp/02-characters/Reflex-Wissensstand-Trainingsstand.md",
+      "message": "Duplicate frontmatter block detected"
+    },
+    {
+      "level": "ERROR",
+      "code": "MD_H1_MISSING",
+      "file": "novapolis-rp/database-rp/02-characters/Ronja-Kerschner.md",
+      "message": "Missing H1 heading (ATX '# ' or Setext '=')"
+    },
+    {
+      "level": "ERROR",
+      "code": "MD_H1_MISSING",
+      "file": "novapolis-rp/database-rp/02-characters/Senn-Daru.md",
+      "message": "Missing H1 heading (ATX '# ' or Setext '=')"
+    },
+    {
+      "level": "ERROR",
+      "code": "MD_H1_MISSING",
+      "file": "novapolis-rp/database-rp/03-locations/C6.md",
+      "message": "Missing H1 heading (ATX '# ' or Setext '=')"
+    },
+    {
+      "level": "ERROR",
+      "code": "MD_H1_MISSING",
+      "file": "novapolis-rp/database-rp/03-locations/D5.md",
+      "message": "Missing H1 heading (ATX '# ' or Setext '=')"
+    },
+    {
+      "level": "ERROR",
+      "code": "MD_H1_MISSING",
+      "file": "novapolis-rp/database-rp/03-locations/E3.md",
+      "message": "Missing H1 heading (ATX '# ' or Setext '=')"
+    },
+    {
+      "level": "ERROR",
+      "code": "MD_H1_MISSING",
+      "file": "novapolis-rp/database-rp/03-locations/Verbindungstunnel-C6-E3.md",
+      "message": "Missing H1 heading (ATX '# ' or Setext '=')"
+    },
+    {
+      "level": "ERROR",
+      "code": "MD_H1_MISSING",
+      "file": "novapolis-rp/database-rp/03-locations/Verbindungstunnel-D5-C6.md",
+      "message": "Missing H1 heading (ATX '# ' or Setext '=')"
+    },
+    {
+      "level": "ERROR",
+      "code": "MD_H1_MISSING",
+      "file": "novapolis-rp/database-rp/05-projects/caravan_moves.md",
+      "message": "Missing H1 heading (ATX '# ' or Setext '=')"
+    },
+    {
+      "level": "ERROR",
+      "code": "MD_H1_MISSING",
+      "file": "novapolis-rp/database-rp/05-projects/Nordlinie-01.md",
+      "message": "Missing H1 heading (ATX '# ' or Setext '=')"
+    },
+    {
+      "level": "ERROR",
+      "code": "MD_H1_MISSING",
+      "file": "novapolis-rp/database-rp/06-scenes/README.md",
+      "message": "Missing H1 heading (ATX '# ' or Setext '=')"
+    },
+    {
+      "level": "ERROR",
+      "code": "XREF_CHAR_MISSING",
+      "file": "novapolis-rp/database-rp/06-scenes/README.md",
+      "message": "character ref not found: Jonas-Merek, Ronja-Kerschner"
+    },
+    {
+      "level": "WARN",
+      "code": "SLUG_MISSING",
+      "file": "novapolis-rp/database-rp",
+      "message": "17 files with frontmatter but missing 'slug:'"
+    }
+  ]
+}

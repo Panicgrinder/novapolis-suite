@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-02 12:45
-update: Aus 00-admin verschoben (stationsbezogene Policies liegen bei Locations); Links/Ops-Pfad angepasst.
-checks: manuell (2026-02-02 12:45)
+stand: 2026-02-08 22:51
+update: Neutralgruppen-Link entfernt (Platzhalter).
+checks: "not run (link fix)"
 slug: c6-logistik-policy
 status: v0.1 (Entwurf, aktiv)
 category: Location
@@ -72,9 +72,9 @@ Verlinkungen
 ------------
 - Locations: [C6](./C6.md)
 - Logistik-Canvas: [Logistik](../../../00-admin/Logistik.md)
-- Missionslog: [Missionslog](../../../00-admin/Missionslog.md)
-- Neutralgruppen: (geplant) `database-rp/00-admin/Neutralgruppen.md`
-- Karawanenbewegungen: (geplant) [caravan_moves](../01-factions/haendlerbund/05-projects/caravan_moves.md)
+- Missionslog: [Missionslog](../05-projects/Missionslog-Novapolis.md)
+- Neutralgruppen: (geplant) Neutralgruppen
+- Karawanenbewegungen: (geplant) [caravan-moves](../../haendlerbund/05-projects/caravan-moves.md)
 
 Änderungen/Versionierung
 ------------------------

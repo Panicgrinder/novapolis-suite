@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 from types import SimpleNamespace
 from typing import Any, cast
 
@@ -323,3 +324,66 @@ async def test_process_chat_request_error_path_records_abort(
     assert dummy_store.records == [
         ("sess-err", "user", "fail please\n<!-- aborted=true -->"),
     ]
+
+
+@pytest.mark.asyncio
+async def test_process_chat_request_writes_shadow_log(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    response = _DummyHTTPResponse({"message": {"content": "model answer"}})
+    client = _DummyClient(response)
+    shadow_log = tmp_path / "shadow_mode.jsonl"
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "unit-model", raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "REQUEST_ID_HEADER", "X-Request-ID", raising=False)
+    monkeypatch.setattr(settings, "LOG_TRUNCATE_CHARS", 50, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(settings, "RAG_ENABLED", True, raising=False)
+    monkeypatch.setattr(settings, "RAG_INDEX_PATH", "eval/results/rag/index.json", raising=False)
+    monkeypatch.setattr(settings, "SHADOW_MODE_LOGGING_ENABLED", True, raising=False)
+    monkeypatch.setattr(settings, "SHADOW_MODE_LOG_PATH", str(shadow_log), raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(
+        chat_module,
+        "apply_post",
+        lambda text, **k: SimpleNamespace(action="rewrite", text=text + " sanitized"),
+    )
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({"opt": True}, "http://ollama")
+    )
+    monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda _: []))
+
+    request = ChatRequest(
+        messages=[{"role": "user", "content": "sensitive input"}],
+        options={"session_id": "sess-shadow", "shadow_mode": True},
+        session_id="sess-shadow",
+    )
+
+    result = await chat_module.process_chat_request(
+        request,
+        eval_mode=False,
+        client=cast(httpx.AsyncClient, client),
+        request_id="shadow-1",
+    )
+
+    assert result.content == "model answer sanitized"
+    assert shadow_log.exists()
+    lines = shadow_log.read_text(encoding="utf-8").strip().splitlines()
+    assert len(lines) == 1
+    payload = json.loads(lines[0])
+    assert payload["request_id"] == "shadow-1"
+    assert payload["stream"] is False
+    assert payload["policy_post"] == "rewritten"
+    assert payload["rag_enabled"] is True
+    assert payload["response_chars"] == len("model answer sanitized")
+    assert payload["user_chars"] == len("sensitive input")
+    assert payload["user_hash"] and payload["response_hash"]

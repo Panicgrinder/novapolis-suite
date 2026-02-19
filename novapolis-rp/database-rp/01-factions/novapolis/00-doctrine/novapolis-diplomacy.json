@@ -1,0 +1,26 @@
+{
+  "title": "Novapolis - Diplomacy",
+  "category": "canon",
+  "slug": "novapolis-diplomacy",
+  "version": "0.2",
+  "status": "active",
+  "last_updated": "2026-02-16T12:54:00+01:00",
+  "last_change": "Maschinenlesbare Metadaten + Zuständigkeiten/Regeln ergänzt (Ronja/Kora/C6).",
+  "tags": ["rp", "doctrine", "diplomatie", "handel", "novapolis"],
+  "affiliations": ["novapolis"],
+  "dependencies": [
+    "novapolis",
+    "person-index-np",
+    "handelslog_novapolis_v1",
+    "relationslog_novapolis_v1",
+    "index-handel-diplomatie",
+    "fraktionen-taxonomie",
+    "reference-campaign-state",
+    "c6",
+    "d5",
+    "ronja-kerschner",
+    "kora-malenkov",
+    "pahl"
+  ],
+  "source": "database-rp/01-factions/novapolis/00-doctrine/novapolis-diplomacy.md"
+}

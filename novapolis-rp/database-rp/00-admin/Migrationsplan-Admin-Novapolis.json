@@ -1,0 +1,17 @@
+{
+  "title": "Migrationsplan 00-admin ↔ Novapolis",
+  "category": "admin",
+  "slug": "migrationsplan-admin-novapolis",
+  "version": "0.1",
+  "tags": ["migration", "rp", "admin", "novapolis"],
+  "affiliations": ["novapolis"],
+  "dependencies": [
+    "memory-bundle",
+    "current-state",
+    "missionslog",
+    "reference-campaign-state",
+    "logistik",
+    "fraktionen-taxonomie"
+  ],
+  "source": "database-rp/00-admin/Migrationsplan-Admin-Novapolis.md"
+}

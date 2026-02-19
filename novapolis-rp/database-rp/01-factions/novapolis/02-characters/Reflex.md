@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 01:40
-update: "JEALOUSY-GLOVES aligned: Kontakt-Guard bedeckt betroffene Körperstelle; Consent/Stop/Freigabe via Reference."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:37)
+stand: 2026-02-04 13:31
+update: Verknuepfungen auf relative Pfade umgestellt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:31)"
 title: Reflex
 category: character
 slug: reflex
@@ -111,8 +111,8 @@ Systemverknüpfungen & Referenzen
 
 - `ai_behavior_index_v2` - Eintrag „Der Suchende Schatten“.
 - `missionslog` & `logistik` - Freigaben, Handschuh-Protokolle, Energieflüsse.
-- `reflex-wissensstand-trainingsstand.md` - Detailmatrix und Trainingsstatus.
-- `database-rp/02-characters/Ronja-Kerschner.md`, `Lumen.md`, `Echo.md`, `Jonas-Merek.md`, `Kora-Malenkov.md` - Bezugspersonen und Instanzen.
+- [Reflex-Wissensstand-Trainingsstand](Reflex-Wissensstand-Trainingsstand.md) - Detailmatrix und Trainingsstatus.
+- [Ronja-Kerschner](Ronja-Kerschner.md), [Lumen](Lumen.md), [Echo](Echo.md), [Jonas-Merek](Jonas-Merek.md), [Kora-Malenkov](Kora-Malenkov.md) - Bezugspersonen und Instanzen.
 
 Quellen & Hinweise
 ------------------

@@ -20,3 +20,11 @@ Nützliche Links
 
 - Fraktionsordner → ../README.md
 - Fraktionen-Taxonomie → ../../../00-admin/Fraktionen-Taxonomie.md
+
+Charaktere
+----------
+
+- [Nyra Vehl](./Nyra-Vehl.md) - Fraktionsleitung
+- [Jarek Voan](./Jarek-Voan.md) - Leitung Handel
+- [Sera Nol](./Sera-Nol.md) - Leitung Sicherheit
+- [Oren Silt](./Oren-Silt.md) - Bote/Runner

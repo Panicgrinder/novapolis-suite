@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-14 17:50
-update: "Karawane H-47: Anschluss an Novapolis (C6) reflektiert; Händlerbund-Überblick präzisiert.; Checks PASS."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc **/*.md PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 17:50); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 17:50); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 17:50)
+stand: 2026-02-04 09:21
+update: Projektlink auf caravan-moves umgestellt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
 slug: haendlerbund
 category: faction
 status: draft
@@ -23,7 +23,7 @@ Assets in diesem Ordner
 - Charaktere → ./02-characters/
 - Orte → ./03-locations/
 - Inventar → ./04-inventory/Haendlerbund-inventar.md
-- Projekte → ./05-projects/caravan_moves.md
+- Projekte → ./05-projects/caravan-moves.md
 
 Offene Punkte
 -------------

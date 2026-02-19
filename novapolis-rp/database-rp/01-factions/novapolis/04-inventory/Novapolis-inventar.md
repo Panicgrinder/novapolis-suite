@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 01:50
-update: "Kugeln-Währung präzisiert: neu vs gebraucht (Faustregel 1 neu ≈ 10 gebraucht)."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:54); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:54); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:54)
+stand: 2026-02-09 01:59
+update: Transfer-Policy ergaenzt; doppelten Frontmatter-Block entfernt.
+checks: "not run (content update)"
 canvas: Inventar Novapolis
 last_updated: 2025-11-07T04:32:00+01:00
 category: inventory
@@ -10,19 +10,13 @@ owner: novapolis
 scope: faction
 version: "0.1"
 ---
-canvas: Inventar Novapolis
-last-updated: 2025-11-07T04:32:00+01:00
-category: inventory
-slug: novapolis-inventar
-owner: novapolis
-scope: faction
-version: "0.1"
----
-
 Inventar - Novapolis (Fraktion)
 ================================
 
 Hinweis: Fraktionsinventare strikt getrennt (Policy Y.1). Abrechnung im Wochenzyklus.
+
+- Transfers zwischen D5 und C6 nur via Mission/Logistik.
+- Waehrung "Kugeln" wird als Inventar-Item gefuehrt (neu/gebraucht).
 
 Bestände (Auszug)
 -----------------
@@ -39,7 +33,7 @@ Links
 -----
 - Logistik-Policy C6 → ../03-locations/C6-Logistik-Policy.md
 - Logistik (Admin) → ../00-admin/Logistik.md
-- Missionslog → ../00-admin/Missionslog.md
+- Missionslog → ../05-projects/Missionslog-Novapolis.md
 - Währung "Kugeln" (Reference) → ../00-admin/Reference-Campaign-State.md
 
 

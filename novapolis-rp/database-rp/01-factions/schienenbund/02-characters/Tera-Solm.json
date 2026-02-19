@@ -1,0 +1,22 @@
+{
+  "title": "Tera Solm",
+  "category": "character",
+  "slug": "tera-solm",
+  "version": "0.1",
+  "last_updated": "2026-02-16T17:24:00+01:00",
+  "last_change": "Neu angelegt: Leitung Sicherheit Schienenbund",
+  "tags": [
+    "npc",
+    "schienenbund",
+    "sicherheit"
+  ],
+  "affiliations": [
+    "schienenbund"
+  ],
+  "primary_location": "b2",
+  "last_seen": "b2",
+  "dependencies": [
+    "b2"
+  ],
+  "source": "database-rp/01-factions/schienenbund/02-characters/Tera-Solm.md"
+}

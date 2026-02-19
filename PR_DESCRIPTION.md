@@ -1,38 +1,45 @@
 ---
-stand: 2026-01-05 19:26
-update: Frontmatter aktualisiert (Stand/Checks).
-checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-05 19:29)
+stand: 2026-02-17 09:12
+update: PR-Beschreibung auf PR #4 (docs(rp) Batch C) aktualisiert; Scope-Hinweis zur pre-commit-Migration ergänzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc PR_DESCRIPTION.md PASS (2026-02-17 07:17); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py PR_DESCRIPTION.md PASS (2026-02-17 07:17)
 ---
 
-PR: Archivierung von App-Stubs, Root-`app`-Shim und Formatierungsfixes
-===
+PR: docs(rp) Batch C (Novapolis) – Naming, Links, Hook-Migration
+================================================================
 
-Kurz (Deutsch):
-- Archiviert: Teile des `novapolis_agent/app`-Pakets in `novapolis_agent/archive/app/` verschoben; Live-Stubs durch klare Import-Fehlermarker ersetzt.
-- Kompatibilität: Ein Root-`app/__init__.py`-Shim wurde hinzugefügt, damit Tests vom Repo-Root aus laufen (verhindert ImportError beim Root-CWD).
-- Tests: Betroffene Tests aktualisiert; fokussierter Import-Test (`novapolis_agent/tests/test_module_exports.py`) und gesamte Test-Suite wurden erfolgreich ausgeführt.
-- Formatierung: `ruff --fix` + `black` auf Repository angewendet; formattierte Dateien committed.
-- Prüfstand: Voller Testlauf + Coverage report: Coverage insgesamt 80.0% (siehe `coverage report` output). Keine Test-Fails.
+Kurz (Deutsch)
+-------------
 
-Details / Motivation (Kurz):
-- Ziel: Repo aufräumen (geparkte/legacy-Module archivieren) ohne stille Regressionen; Tests sollen weiterhin aus Root CWD laufen.
-- Vorgehen: Archiv statt löschen; ersetze live-Modul-Inhalte durch explizite Import-Fehler mit Hinweis auf das Archiv; passe Tests, die vorher still importiert hätten.
-- Ergebnis: Sauberere Trennung, reproduzierbare Importe, Root-Shim stellt Abwärtskompatibilität für Root-CWD-Tests her.
+- RP: Personenindex Novapolis umbenannt (`person_index_np` -> `person-index-np`, MD + JSON-Sidecar) und Referenzen in Novapolis/Händlerbund nachgezogen.
+- RP: Relative Links in den betroffenen Handel/Diplomatie-READMEs und Charakterdateien konsolidiert.
+- Dev-Hub: Links im neuen Abschnitt in `novapolis-dev/docs/donelog.md` repariert (korrekt relativ oder repo-root-relativ).
+- Hygiene: Volatiles Testartefakt `outputs/test-artifacts/junit.xml` aus Versionierung entfernt und via `.gitignore` ausgeschlossen.
 
-Änderungen (high-level):
-- Dateien/Ordner: `novapolis_agent/archive/app/...` (neue Archivkopien)
-- Neue Datei: `app/__init__.py` (Repo-Root Shim)
-- Tests aktualisiert: `novapolis_agent/tests/*` (mehrere)
-- Style: diverse Dateien formatiert (ruff/black)
+Scope-Hinweis (Review-Kommentar)
+-------------------------------
 
-Nächste empfohlene Schritte:
-1. (Optional) Kleine Unit-Tests hinzufügen für `scripts/run_eval.py` und `app/api/chat.py` um Coverage-Lücken zu schließen (ich kann das in 10er-Batches machen).
-2. Lint-Remediation: verbleibende Ruff-Findings prüfen (`ruff check .`) und gezielt fixen.
-3. Falls gewünscht: Erstelle den Pull Request auf GitHub (ich kann das Commit in einen Topic-Branch verschieben und PR-Text dort anlegen).
+Diese PR enthält zusätzlich eine Hook-/Wrapper-Migration:
 
-Commits in diesem PR:
-- `a0167eb` — docs: document archival of app stubs + add root app shim (entries for DONELOG/WORKSPACE_INDEX/WORKSPACE_STATUS)
-- `f25fcfc` — style: apply ruff/black formatting fixes
+- Pre-commit Hook: Entry-Point in `githooks/pre-commit` auf Python umgestellt (`scripts/pre_commit.py`).
 
----
-Bitte prüfen und sagen, ob ich den nächsten Schritt machen soll: (1) Branch & PR erstellen, (2) weitere Lint-Fixes, (3) Coverage-Targeting (10er-Batches), oder (4) nichts weiter.
+Grund: Repo-Governance entfernt schrittweise PowerShell-Wrapper/Scriptblocks und bevorzugt Python-Wrapper.
+
+Details
+-------
+
+### RP-Änderungen
+
+- Rename: `novapolis-rp/database-rp/01-factions/novapolis/02-characters/person_index_np.md` -> `person-index-np.md`.
+- Sidecar: `novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.json` ergänzt/angepasst.
+- Referenzen in betroffenen Dokumenten auf den neuen Pfad aktualisiert.
+
+### Tooling/Hooks
+
+- `githooks/pre-commit`: vereinheitlicht auf einen Python-Entry-Point.
+- `scripts/pre_commit.py`: Snapshot-Gate + Checks auf staged Markdown (markdownlint/frontmatter/DONELOG-Guard).
+
+Checks
+------
+
+- Lokal: `npm --prefix novapolis-rp/coding/tools/validators run validate` PASS.
+- Repo-Checks: `scripts/run_checks_and_report.py` (Lint/Typen/Tests/Coverage) PASS.

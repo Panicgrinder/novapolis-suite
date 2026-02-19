@@ -1,0 +1,9 @@
+{
+  "title": "Curated Konfliktliste (Staging → SSOT)",
+  "category": "admin",
+  "slug": "curated-konfliktliste",
+  "version": "0.1",
+  "canvas": "curated-konfliktliste",
+  "status": "draft",
+  "source": "database-rp/00-admin/Curated-Konfliktliste.md"
+}

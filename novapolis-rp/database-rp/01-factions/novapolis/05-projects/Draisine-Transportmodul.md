@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-12 12:02
-update: "Schema-Gate: last_updated ergaenzt (Project-Pflichtfeld)."
-checks: npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-12 12:01); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-12 12:01); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/05-projects/Draisine-Transportmodul.md' PASS (2026-01-12 12:02); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-12 12:02)
+stand: 2026-02-09 04:23
+update: Arbeitsannahmen fuer realistische Schaetzung ergaenzt.
+checks: "not run (content update)"
 title: Draisine-/Transportmodul (Prototyp)
 category: project
 slug: draisine-transportmodul
@@ -32,13 +32,28 @@ Nicht-Scope (was es nicht ist)
 ------------------------------
 
 - Kein "schneller Zug" und kein verlässlicher Dauerdienst ohne Tunnel-Freigaben.
-- Kein Ersatz für Konvoi-Planung/Handelsrouten (siehe `caravan_moves`).
+- Kein Ersatz für Konvoi-Planung/Handelsrouten (siehe [caravan-moves](../../haendlerbund/05-projects/caravan-moves.md)).
 
 Status (aktueller Arbeitsstand)
 -------------------------------
 
 - Status: **prototyping** (angefangen vor RP-Abbruch; noch kein abgesicherter Feldtest).
 - Nächster Meilenstein: **sicherer Testlauf** unter konservativen Bedingungen.
+
+Canonical Constraints (Reference)
+---------------------------------
+
+- Träger/Owner: Jonas (Bau/Integration), mit Sicherheits-/Systemreview durch Pahl.
+- Ziel bleibt ein konservativer Material-/Transport-Usecase für Nordlinie (D5↔C6), nicht „schnell“ und nicht als Dauerdienst.
+- Erstlauf ohne Personentransport, bis Tunnel + Not-Aus validiert sind.
+- Logpflicht: Missionslog + Logistik (Materialverbrauch, Schäden, Lessons Learned).
+
+Arbeitsannahmen (konservativ)
+-----------------------------
+
+- Erstlauf ohne Personentransport (nur Material), bis Tunnel und Not-Aus getestet sind.
+- Realistische Schaetzung fuer Materiallast: ca. 200-400 kg pro Lauf (je nach Zustand/Steigung/Abschnitt).
+- Fahrweise: langsam/planbar, Fokus auf Sicherheit statt Tempo.
 
 Rollen
 ------
@@ -65,8 +80,8 @@ Links
 -----
 
 - Projekt Nordlinie-01 → ../05-projects/Nordlinie-01.md
-- Logistik (Admin) → ../00-admin/Logistik.md
-- Missionslog → ../00-admin/Missionslog.md
+- Logistik (Admin) → ../../../00-admin/Logistik.md
+- Missionslog → ./Missionslog-Novapolis.md
 - Jonas (Werkstatt) → ../02-characters/Jonas-Merek.md
-- Pahl (Abnahme/Hausregeln) → ../02-characters/Pahl.md
-- Karawanenbewegungen (Übersicht) → ../05-projects/caravan_moves.md
+- Pahl (Abnahme/Hausregeln) → ../02-characters/Pahl-Brenner.md
+- Karawanenbewegungen (Übersicht) → ../../haendlerbund/05-projects/caravan-moves.md

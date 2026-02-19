@@ -1,7 +1,8 @@
 ---
-stand: 2026-02-02 11:57
-update: Flüsterkollektiv-History-Doctrine als Einstieg/Index ergänzt.
-checks: manuell (2026-02-02 11:57)
+stand: 2026-02-09 01:39
+update: slug ergaenzt.
+checks: "not run (slug add)"
+slug: fluesterkollektiv-history
 ---
 
 Flüsterkollektiv - History

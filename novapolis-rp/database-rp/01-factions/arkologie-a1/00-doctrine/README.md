@@ -1,7 +1,8 @@
 ---
-stand: 2026-02-02 11:57
-update: Doctrine-Ordner ergänzt (Logistik/Diplomatie/History als skalierbares Muster).
-checks: manuell (2026-02-02 11:57)
+stand: 2026-02-09 01:39
+update: slug ergaenzt.
+checks: "not run (slug add)"
+slug: arkologie-a1-doctrine
 ---
 
 Arkologie A1 - Doctrine (Kern)

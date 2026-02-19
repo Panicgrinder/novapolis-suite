@@ -99,7 +99,7 @@ Beziehungen
 
 Projekte & Missions (Verlinkungen)
 ----------------------------------
-- Missionslog (Prozess L.1) → ../00-admin/Missionslog.md
+- Missionslog (Prozess L.1) → ../05-projects/Missionslog-Novapolis.md
 
 Links
 -----

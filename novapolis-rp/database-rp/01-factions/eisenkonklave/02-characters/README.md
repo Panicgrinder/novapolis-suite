@@ -20,3 +20,10 @@ Nützliche Links
 
 - Fraktionsordner → ../README.md
 - Fraktionen-Taxonomie → ../../../00-admin/Fraktionen-Taxonomie.md
+
+Charaktere
+----------
+
+- [Varek Solun](./Varek-Solun.md) - Fraktionsleitung / Kommandant
+- [Kaspar Dorn](./Kaspar-Dorn.md) - Leitung Handel
+- [Yara Kest](./Yara-Kest.md) - Leitung Sicherheit

@@ -1,10 +1,128 @@
 ---
-stand: 2026-02-03 20:16
-update: "Checks: konsolidierter Gate-Lauf PASS (markdownlint/frontmatter/ruff/black/pyright/mypy/pytest+coverage); Fixes: MD024 (duplicate heading) + Black-Formatierung fuer neue scripts/run_rp_* Skripte."
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-03 20:15)"
+stand: 2026-02-18 06:58
+update: "Optionalen Archivierungs-Feinschliff umgesetzt: Rotations-Dry-Run ausgewertet, Manifest rekursiv erneuert und Outputs->Backups SOP dokumentiert."
+checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m scripts.rotate_backups --include-subdirectories DRY-RUN PASS (2026-02-18 06:58, Keep 7 / Delete 75); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m scripts.update_backups_manifest --include-subdirectories PASS (2026-02-18 06:58, Entries 82); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34)
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-18 06:58: Optionalpunkt „Archivierungs-Feinschliff“ abgeschlossen. Rotation rekursiv als Dry-Run ausgeführt (`Keep 7 / Delete 75`), Manifest rekursiv neu geschrieben (`Backups/manifest.v1.json`, `82` Einträge) und Runbook (`Backups/README.md`) um Outputs->Backups-Gruppierung (`Backups/model-runs/`), Cadence und sichere Apply-Regel ergänzt.
+- 2026-02-18 06:58: Nächster TODO-Punkt abgearbeitet: Cleanup-Kandidaten Phase 4 (historischer Archivkontext) reviewt. Alle historischen Zielpfade sind bereits nicht mehr vorhanden; Ergebnis daher bewusst ohne destruktive Aktion, Punkt als erledigt dokumentiert.
+- 2026-02-18 06:34: Aktive Rest-TODOs durchlaufen: S3 abgeschlossen (wöchentlicher Review-Slot Mittwoch 09:00-09:45, erste Durchführung protokolliert), S4 abgeschlossen (Root-Editor-Setup konsistent, keine Subfolder-`.vscode`, Root-Tasks/Launch valide), S5 aufgrund Zeit-Gate korrekt offen belassen (früheste Freigabe ab 2026-02-21).
+- 2026-02-18 05:27: S2 vollständig abgeschlossen: Shadow-Logging aktiv (hash-basiertes JSONL unter `.tmp/results/logs/shadow_mode.jsonl`), RAG-Basisindex (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`) verfügbar, Redaction/Flags-Stichprobe via `tests/test_api_chat_internal_branches.py` + `tests/test_rag_guards.py` PASS.
+- 2026-02-18 05:16: Nächster offener Punkt S2 gestartet: RAG-Basisindex `novapolis_agent/eval/results/rag/s2-core-index-20260218.json` erzeugt (11 Kern-Dokumente). Flags/Redaction-Stichprobe via `tests/test_rag_guards.py` + `tests/test_api_chat_internal_branches.py` PASS.
+- 2026-02-18 05:13: Später-Sequenz S1 (Tag 2/2) ausgeführt: `lint:ruff` PASS, Root-Pytest PASS, Coverage PASS (`83.02%`, `354 passed, 1 skipped`). S1-Gate erfüllt (2 aufeinanderfolgende grüne Läufe).
+- 2026-02-18 05:05: Später-Sequenz S1 (Tag 1/2) ausgeführt: `lint:ruff` PASS, Root-Pytest PASS, Coverage PASS (`83.02%`, `354 passed, 1 skipped`). S1 bleibt offen bis Tag 2 ebenfalls grün läuft.
+- 2026-02-18 04:50: Root-Go/No-Go vollständig grün nachgezogen (`ruff` lint/fix, Root-Pytest, Coverage 83.02%; `354 passed, 1 skipped`). Zusätzlich Editor-Setup Etappe 0 bestätigt (nur Root-`.vscode` mit `settings.json`, `tasks.json`, `launch.json`; kein Subfolder-Konflikt gefunden).
+- 2026-02-18 04:15: Jetzt-Block 1→4 ausgeführt. `novapolis_agent/scripts/reports/generate_consistency_report.py` auf direkten Importpfad vereinheitlicht (ohne dynamischen Spec-Fallback), Artefaktreste geprüft (`*.pyc`/`*_event.meta.json` nur unter `.mypy_cache`, via `.gitignore` abgedeckt), Frontmatter-Backlog für `novapolis-rp/database-rp` per Validator-Rerun bestätigt. Root-Go/No-Go bleibt offen: Coverage-/pytest-Wrapper schlagen aktuell wegen fehlender Test-Dependencies (`fastapi`, `uvicorn`) fehl.
+- 2026-02-18 04:35: Root-Coverage erneut ausgeführt und stabil reproduziert (`scripts/run_pytest_coverage.py`): 354 passed, 1 skipped, keine Import-/Dependency-Fehler mehr; Gate weiterhin FAIL wegen Fail-Under (`76.07% < 80%`).
+- 2026-02-18 04:12: Verbleibende aktive TODOs in `todo.root.md` priorisiert und als klare Triageliste eingefügt (`Jetzt`, `Später`, `Optional`) für die nächsten Arbeitsblöcke.
+- 2026-02-18 04:12: `todo.root.md` strukturell bereinigt. Historischer Volltextblock wurde auf Referenzen reduziert (`todo.agent.archive.md`, `todo.root.archive.md`, `novapolis-dev/docs/donelog.md`), sodass nur der aktive Bereich offene Checkboxen enthält.
+- 2026-02-18 04:00: TODO „Metadata-Initialisierungsskripte konsolidieren“ abgeschlossen. Kanonische Variante ist `novapolis-rp/coding/tools/metadata/init_metadata.py`; die frühere Parallelimplementierung `novapolis-rp/coding/tools/metadata/init-metadata.js` wurde entfernt. Tool-Doku unter `novapolis-rp/coding/tools/metadata/README.md` entsprechend aktualisiert.
+- 2026-02-18 04:00: TODO „Alt-Analyse chat_routers“ abgeschlossen. Befund aus `novapolis_agent/analysis_chat_routers.md` war bereits in aktiver Doku (`novapolis_agent/cleanup_recommendations.md`) enthalten; Verweis aus `WORKSPACE_INDEX.md` entfernt und Legacy-Datei `novapolis_agent/analysis_chat_routers.md` nach Freigabe gelöscht.
+- 2026-02-18 03:57: TODO „Übernahme/Staging-Integration“ abgeschlossen. `resolved.md`, `uncertainties.md`, `dedupe-chat-export.md` aus `novapolis-rp/database-curated/staging/reports/` nach `novapolis-dev/docs/process/rp-canvas-rescue/` gespiegelt; zusätzlich `delta-*.md` und `overlap-*.md` übernommen sowie `generated-artifacts.md` im Ziel abgelegt. Vorherige Zielstände (A-Dateien) revisionssicher nach `novapolis-dev/archive/quarantine/rp-canvas-rescue-presync-20260218_0357` archiviert.
+- 2026-02-17 23:38: Verifikation abgeschlossen: Alle 5 Schritte (5→3→1→2→4) sind korrekt umgesetzt. Nächste offene TODOs aus `todo.root.md` priorisiert: (1) `novapolis-dev` Übernahme/Staging-Integration finalisieren (A/B/C-Übernahme + Archivierung), (2) `novapolis_agent` Alt-Analyse `analysis_chat_routers.md` auswerten/überführen, (3) `novapolis-rp` Metadata-Initialisierung (`init-metadata.js` vs. `init_metadata.py`) konsolidieren und kanonisch dokumentieren, (4) `novapolis_agent` Fallback-Imports in Consistency/Audit-Skripten vereinheitlichen.
+- 2026-02-17 20:49: Reihenfolge umgesetzt (5→3→1→2→4): Wrapper-Migration in SSOT abgeschlossen und in `WORKSPACE_STATUS.md` ergänzt; `lint:ruff` erst mit 1 Treffer, nach `fix:ruff` PASS; RP-Dedupe-Lauf (`scripts/run_rp_chat_dedupe.py`) erneuert konsolidierten Export + Report; Staging-Artefaktmarker `novapolis-rp/database-curated/staging/reports/generated-artifacts.md` angelegt; Consistency-Report neu unter `novapolis_agent/eval/results/reports/consistency/20260217_2047` erzeugt.
+- 2026-02-17 09:26: Staging-Integration (A1): `dedupe-chat-export.md` aus `novapolis-rp/database-curated/staging/reports/` nach `novapolis-dev/docs/process/rp-canvas-rescue/` gespiegelt.
+- 2026-02-17 09:26: TODO-Fortschritt: Für den offenen Punkt „Übernahme/Staging-Integration“ einen priorisierten A/B/C-Plan ergänzt (A=`resolved.md`/`uncertainties.md`/`dedupe-chat-export.md`; B=`delta-*`/`overlap-*`; C=`segment-hash-*`/`text-stats*`/`tagging-*` als generierte Artefakte).
+- 2026-02-17 09:25: TODO-Sync: Meta-Punkt „Immediate next steps checklist“ in `todo.root.md` auf erledigt gesetzt (Checkliste im Abschnitt „Lokale AI - Einbindung (organisch)“ bereits vorhanden).
+- 2026-02-17 09:24: TODO-Sync: Frontmatter-Backlog priorisiert/abgeschlossen; `scripts/check_frontmatter.py novapolis-dev/docs novapolis-rp/database-rp` ausgeführt, Ergebnis PASS (kein offener Befund im aktiven Scope).
+- 2026-02-17 09:18: TODO-Sync: MD003-Scoped-Lint-Block in `todo.root.md` abgeschlossen; definierter Doku-Kernscope (`README.md`, `WORKSPACE_INDEX.md`, `novapolis-dev/README.md`, `novapolis-dev/docs/index.md`, `novapolis-dev/docs/readme.hub.md`, `novapolis_agent/README.md`, `novapolis-rp/README.md`) mit `markdownlint-cli2` geprüft, Ergebnis PASS (0 Fehler).
+- 2026-02-17 09:16: TODO-Sync: Offenen Punkt „Editor-Setup im Root-README“ in `todo.root.md` abgeschlossen, da der Abschnitt bereits in `README.md` vorhanden ist (`Editor-Setup (Single-Root)`). Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+- 2026-02-17 07:17: PR-Scope/Review: `PR_DESCRIPTION.md` auf PR #4 (docs(rp) Batch C: Naming + Links) aktualisiert und Scope-Hinweis zur pre-commit-Hook-Migration ergänzt (entspricht Reviewer-Kommentar zur PR-Beschreibung). Checks: markdownlint-cli2 PASS (PR_DESCRIPTION.md); check_frontmatter.py PASS (PR_DESCRIPTION.md); npm validate PASS.
+- 2026-02-17 07:06: Konsolidierte Checks wieder gruen: Markdownlint-Fix in `novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md` (Duplikate/Link auf `Canvas-T0-Timeline.md`), Ruff-Import-Order in `scripts/scan_json_parse_errors.py` und `scripts/update_backups_manifest.py` bereinigt, Black-Formatierung fuer `scripts/rotate_backups.py` angewendet. Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260217_070438.md`).
+- 2026-02-17 06:53: CI/RP validate-rp: `check:names` Fail behoben (Umbenennung `Canvas-T+0-Timeline.*` → `Canvas-T0-Timeline.*` + `novapolis-rp/database-rp/index.json` angepasst); `novapolis-dev/docs/donelog.md` defekte relative Links auf Repo-Root korrigiert; `outputs/test-artifacts/junit.xml` entfernt und via `.gitignore` ignoriert. Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped); npm validate PASS; npm check:names PASS.
+- 2026-02-17 06:15: Root-README: aktive PS1-Wrapper-Referenzen (Activate/verify_sim) entfernt; Beispiele auf direkte .venv-Python-Aufrufe und Smoke-Check umgestellt. Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+- 2026-02-17 04:05: CI/RP: `.github/workflows/validate-rp.yml` Windows-Job von PS1-Wrappern auf npm-Validatoren umgestellt; Sim: `novapolis-sim/README.md` PS1-Wrapper-Referenzen entfernt und Beispiele auf direkte Godot-CLI/PowerShell-Einzeiler aktualisiert. Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+- 2026-02-17 03:28: Backups Tooling: `scripts/update_backups_manifest.py` und `scripts/rotate_backups.py` auf Funktionsparität zu den archivierten PS1-Skripten gebracht; Doku-Verweise auf `.py` umgestellt (`Backups/README.md`, `Backups/AUDIT.md`, `novapolis-dev/docs/readme.hub.md`, `single-root-todo.md`). Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped); checks_types.py PASS (pyright+mypy, CWD=novapolis_agent).
+- 2026-02-17 01:04: Dev-Hub Doku: `novapolis-dev/docs/index.md` an Single-Root + Wrapper-Policy angepasst (veralteten Multi-Root/"keine Wrapper"-Hinweis entfernt; PS1-Workaround durch Hub-Verweis ersetzt). Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+- 2026-02-17 02:46: Doc sweep: Multi-Root/PS1-Navi-Hinweise weiter bereinigt (`novapolis-dev/docs/process/betriebsmodi-sicherheitsprotokoll-notizen.md`, `novapolis-dev/README.md`, `single-root-todo.md`). Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+- 2026-02-17 00:45: Tasks: PowerShell-Block in Task "Docs: DONELOG append" durch Python-Wrapper ersetzt (neu: `scripts/append_agent_donelog_entry.py`). Task "Checks: full" ruft jetzt `scripts/run_checks_and_report.py` direkt auf (statt Dummy-Write-Host). Checks: markdownlint-cli2 PASS (DONELOG.md); check_frontmatter.py PASS (DONELOG.md).
+- 2026-02-17 00:31: Checks repariert: Ruff/Black Findings in `scripts/` bereinigt (u. a. Zeilenlängen/Import-Order/unused imports). Pyright-Fail nach Workspace-Pfad-Umzug behoben, indem Pyright-Aufruf in `scripts/run_checks_and_report.py` und `scripts/checks_types.py` auf `python -m pyright` umgestellt wurde (statt defektem `pyright.exe` Launcher). Konsolidierter Lauf `scripts/run_checks_and_report.py` erneut PASS (Report: `.tmp/results/reports/checks_report_20260217_003018.md`). Checks: pending.
+- 2026-02-17 00:18: Wrapper-/Checks-Migration: In `.vscode/tasks.json` mehrere Check-/Test-Tasks von `pwsh -Command` Scriptblocks auf direkte Aufrufe von `.venv\\Scripts\\python.exe` umgestellt (ruff/black/pytest + Wrapper-Skripte). Zudem `scripts/checks_linters.py` und `scripts/checks_types.py` gehärtet (Repo-Root für `.tmp`, `sys.executable`, `python -m ruff/black/mypy`). Checks: pending.
+- 2026-02-16 21:19: Workspace-Tree: Task "Workspace tree: summary (dirs)" in `.vscode/tasks.json` auf direkten Python-Aufruf umgestellt (Quoting-Robustheit); Tasks "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)" ausgeführt und `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt` aktualisiert. Checks: markdownlint-cli2 PASS (DONELOG.md); check_frontmatter.py PASS (DONELOG.md).
+- 2026-02-16 20:55: Root-Dokus/Meta: "VS Code Workspace" -> "VS-Code-Workspace" in `README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, `todo.root.md`, `PR_DESCRIPTION.md`, `single-root-todo.md`, `extensions.status.txt`. Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+- 2026-02-16 13:06: RP (Novapolis): `01-factions/novapolis/02-characters/` JSON-Sidecars per `scripts/rp_canon_sync.py` aus dem Markdown-Frontmatter synchronisiert (Drift-Fix: u. a. last_seen/primary_location/last_updated). Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_130706.md`).
+- 2026-02-16 12:51: RP (Novapolis): Doctrine unter `01-factions/novapolis/00-doctrine/` maschinenlesbarer gemacht (Frontmatter-Metadaten, Zuständigkeiten/Freigaben, Kernregeln/Transferregeln, Chronik-Regeln) und Sidecars synchronisiert. Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_125337.md`).
+- 2026-02-16 12:33: RP: README-Sidecar-Policy festgelegt (READMEs ohne Sidecar) und Legacy `README.json` Sidecars entfernt (Handel/Diplomatie-Ordner der Fraktionen + Scenes README). Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_123226.md`).
+- 2026-02-16 12:27: RP (Novapolis): Leadership/Rollen verankert (Ronja: Leitung+D5+Diplomatie; Kora: Stellvertretung+Leitung C6+Handel; Nika: Quartiermeisterin; Pahl: Sicherheitsoffizier), Nachnamen ergänzt (Pahl Brenner, Marei Falk), Economy-Subdocs angelegt (Märkte, Preisbänder). Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_122544.md`).
+- 2026-02-13 09:52: Postflight-Nachtrag: Tick-Regeln & Simulation (RP-SSOT) wurde unter `database-rp/00-admin/Tick-Regeln-Simulation.md` angelegt und in `database-rp/00-admin/index-rules.md` verlinkt; Receipt nachgezogen. Checks: markdownlint-cli2 PASS; check_frontmatter.py PASS.
+- 2026-02-11 05:26: JSON-Sidecars fuer Process-Workflow/Sim-State-Schema angelegt und `database-rp/index.json` aktualisiert. Checks: not run.
+- 2026-02-11 05:25: Sim-State-Schema (maschinenlesbar) in `database-rp/00-admin/Sim-State-Schema.md` angelegt und in `index-rules.md` verlinkt. Checks: not run.
+- 2026-02-11 03:29: Process-Workflow MD031-Fix (Leerzeile vor Codeblock) und Checks erneut PASS. Checks: scripts/run_checks_and_report.py PASS.
+- 2026-02-11 02:09: Process-Workflow um Scenes/Checks/Stub-Mapping/Governance/Canvas-Rescue/FinalGate ergaenzt. Checks: not run.
+- 2026-02-11 01:59: Prozess-/Workflow-Doku aus Dev/RP in `database-rp/00-admin/Process-Workflow.md` konsolidiert und in `index-rules.md` verlinkt. Checks: not run.
+- 2026-02-10 22:50: Frontmatter normalisiert (Index/Readmes/Reference-Campaign-State), Markdownlint-Table-Fix in Marktpreise, Checks-Run erneut gruen. Checks: scripts/run_checks_and_report.py PASS.
+- 2026-02-10 17:24: RAW-Waren (handelbar/stationaer) in Waren-Index und Marktpreise-Tabelle aufgenommen; Datenkern in stationaer/tragbar gesplittet. Checks: not run.
+- 2026-02-10 17:09: D5/C6 Inventar-Logs um Sonderfunde ([FACT?]) ergaenzt. Checks: not run.
+- 2026-02-10 17:06: Waren-Index um Szenen-Items ergaenzt; Marktpreise-Baseline um Skalen + Item-Tabelle erweitert. Checks: not run.
+- 2026-02-10 16:51: Waren-Index Filter-Posten gesplittet (Luftfilter Gasmasken/Einrichtungen, Wasserfilter portabel, Filtermaterial stationaer). Checks: not run.
+
+- 2026-02-10 04:30: RP Base TODO (.tmp/rp-base-todo.md) Punkt "Abdeckung erhoehen" geschlossen (47 SSOT-Scenes, alle mit Kurzbeschreibung). Checks: markdownlint-cli2 SKIP (ignored by config: .tmp/**); check_frontmatter PASS.
+
+- 2026-02-09 22:56: RP Base TODO (.tmp/rp-base-todo.md) um Kompaktstatus + offene Luecken ergaenzt. Checks: markdownlint-cli2 SKIP (ignored by config: .tmp/**); check_frontmatter PASS.
+
+- 2026-02-09 02:36: Curated-Konfliktliste/uncertainties um offene Punkte ergaenzt. Checks: markdownlint-cli2 FAIL (MD010 in chat-export-complete.finalgate.md).
+
+- 2026-02-09 02:46: Curated-Konflikt-Report neu erzeugt; markdownlint PASS. Checks: markdownlint-cli2 PASS; extract_curated_conflicts.py PASS.
+
+- 2026-02-09 02:54: FinalGate/Review um Konfliktliste/Report-Link ergaenzt. Checks: not run.
+
+- 2026-02-09 02:59: Checks (run_checks_and_report.py) PASS; FinalGate/Review Checks vermerkt. Checks: run_checks_and_report.py PASS.
+
+- 2026-02-09 04:53: Weltwirtschaftssystem-Entwurf in .tmp erstellt (Makro/Meso/Mikro). Checks: not run.
+- 2026-02-09 05:28: Preisanker/Index-Definitionen im Weltwirtschafts-Entwurf ergaenzt. Checks: not run.
+- 2026-02-09 07:18: Ebenentrennung im Weltwirtschafts-Entwurf klargestellt. Checks: not run.
+- 2026-02-09 07:49: Index-Skalen semantisch geschaerft (Begriffe, heuristische Zeiten, Qualitaet). Checks: not run.
+- 2026-02-09 13:40: Preisbildung/Update-Zyklus sprachlich geschaerft; Distanz vs Risiko klarer; Offene Entscheidungen scoper. Checks: not run.
+
+- 2026-02-09 03:15: run_checks_and_report.py Fortschritts-Logging ergaenzt. Checks: not run.
+
+- 2026-02-09 03:31: Staging-uncertainties.md aus Dev-Hub synchronisiert. Checks: not run.
+
+- 2026-02-09 04:12: resolved.md FACT-Tag-Liste fuer Coverage-Guard ergaenzt. Checks: not run.
+
+- 2026-02-09 04:23: Anomalie/Draisine entschieden; C6/Reference/Projekt und Konfliktlisten aktualisiert. Checks: not run.
+
+- 2026-02-09 02:20: Curated-Konflikt-Report neu erzeugt (Ueberschreiben). Checks: extract_curated_conflicts.py PASS.
+
+- 2026-02-09 02:10: Logistik: Waehrungseintrag in Materialien/Bestande ergaenzt. Checks: not run.
+
+- 2026-02-09 02:05: Curated-Validator PASS nach H1-Fix in `Fraktionen-Taxonomie.md`; FinalGate/Review-Checkliste aktualisiert. Checks: validate:rp PASS.
+
+- 2026-02-09 01:59: FinalGate chat-export-complete: Admin/Logistik/Inventar-Patches umgesetzt (Logistik-Policy, D5/C6/Novapolis-Inventare) und FinalGate-Record/Review verlinkt. Checks: not run.
+
+- 2026-02-09 01:46: Doku-Checks fuer RP-SSOT + Logs ausgefuehrt (Frontmatter + markdownlint PASS). Scope: `novapolis-rp/database-rp/**/*.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`.
+
+- 2026-02-09 01:44: RP-SSOT: Missing slugs in doctrine/ops behoben; Konsistenz-Audit erneut gelaufen (errors=0, warnings=0). Log: .tmp/results/reports/checks_rp_consistency_20260209_014430.log. Checks: checks_rp_consistency PASS.
+
+- 2026-02-08 22:54: RP-SSOT: Broken links in database-rp bereinigt; Konsistenz-Audit erneut gelaufen (errors=0, warnings=1, missing_slug=30). Log: .tmp/results/reports/checks_rp_consistency_20260208_225406.log. Checks: check_frontmatter PASS; checks_rp_consistency WARN; markdownlint PASS.
+
+- 2026-02-08 22:48: RP-SSOT: Konsistenz-Audit (database-rp) ausgefuehrt; Fehler/Warnungen siehe .tmp/results/reports/checks_rp_consistency_20260208_224814.log. Checks: check_frontmatter PASS; checks_rp_consistency FAIL; markdownlint PASS.
+
+- 2026-02-08 09:24: RP curated: run_rp_chat_staging.py ausgefuehrt (OK: Chat-RAW-Staging aktualisiert, entries=8). Keine weiteren Checks.
+
+- 2026-02-08 07:48: RP RAW-Exports: Kanonische Quelle in 99-exports/README.md auf RAW 2025-10-27T09-16 korrigiert; Legacy-Hinweis beibehalten. Checks: not run.
+
+- 2026-02-04 23:06: Dev-Hub: readme.hub.md Pfad-Duplikat `database-rp/database-rp/*` auf `database-rp/*` korrigiert. Checks: markdownlint-cli2 PASS (scoped), Frontmatter-Validator PASS (scoped).
+
+- 2026-02-04 21:23: RP-SSOT: 00-admin Restdrifts normalisiert (Index-Handel-Diplomatie, Ereignislog-Weltgeschehen, Current-State, Reference-Campaign-State, Curated-Konfliktliste). Checks: markdownlint-cli2 PASS (full scope), Frontmatter-Validator PASS (00-admin).
+
+- 2026-02-04 21:01: RP-SSOT: Batch C fortgesetzt (Rest-Links). RAW-Quelle in Relationslog-Novapolis relativiert, Lumen/Reflex/Kora/Marven Verweise normalisiert. Checks: markdownlint-cli2 PASS (full scope).
+
+- 2026-02-04 11:03: RP-SSOT: Batch C fortgesetzt (Handel/Diplomatie-READMEs). Links auf relative Pfade normalisiert in Arkologie A1, Eisenkonklave, Schattenbund, Fluesterkollektiv. Checks: markdownlint-cli2 PASS (full scope).
+
+- 2026-02-04 10:28: RP-SSOT: Batch C fortgesetzt (Haendlerbund/Schienenbund). `caravan_moves` → `caravan-moves` in Charakter-Dependencies (md/json), Slug konsolidiert, Diplomatie-READMEs auf relative Links umgestellt. Checks: markdownlint-cli2 PASS (full scope).
+
+- 2026-02-04 09:34: RP-SSOT: Batch C fortgesetzt (Inventare). 00-admin-Links in Schienenbund- und Eiserne-Enklave-Inventaren relativiert. Checks: markdownlint-cli2 PASS (full scope).
+
+- 2026-02-04 09:21: RP-SSOT: Batch C fortgesetzt (weitere Fraktionen). Umbenennung `caravan_moves` → `caravan-moves` (md/json) inkl. Referenzen, Link-Relativierung in Fraktionsakten (u. a. Relationslog-Novapolis, Handel-Diplomatie-Haendlergilde, Senn-Daru, Pahl, Liora-Navesh, C6-Logistik-Policy) und Frontmatter/Index-Updates (`database-rp/index.json`, Fraktionen-Taxonomie, Curated-Konfliktliste). Checks: markdownlint-cli2 PASS (full scope).
+
+- 2026-02-04 09:08: RP-SSOT: Batch C (Novapolis) Naming/Links im Personenindex aktualisiert. Dateien: `novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md`, `novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md`, `novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md`, `novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md`, `novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/README.md`. Checks: markdownlint-cli2 PASS (full scope).
+
+- 2026-02-04 09:01: RP-SSOT: Batch B (00-admin/00-ops) Links und H1 korrigiert. Dateien: `novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md`, `novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md`, `novapolis-rp/database-rp/00-admin/Logistik.md`, `novapolis-rp/database-rp/00-ops/C6-Logistik-Policy.ops.md`. Checks: markdownlint-cli2 PASS (full scope).
+
+- 2026-02-03 21:13: Git Hook: pre-commit auf Python migriert (PowerShell-in-sh Quoting-Fehler behoben, kein $-Expansion mehr). Neu: `scripts/pre_commit.py`; Update: `githooks/pre-commit` ruft Python-Skript (Snapshot-Gate, markdownlint staged MD, Frontmatter, DONELOG-Guard). Checks: `scripts/run_checks_and_report.py` PASS. Report: `.tmp/results/reports/checks_report_20260203_211218.md`.
 
 - 2026-02-03 20:15: Checks: konsolidierter Gate-Lauf PASS via `scripts/run_checks_and_report.py` (Coverage 82.41% >= 80). Fixes: MD024 duplicate heading in `novapolis-rp/database-curated/staging/chat-export.review.md`; Black-Formatierung fuer `scripts/run_rp_canvas_staging.py`, `scripts/run_rp_chat_staging.py`, `scripts/run_rp_chat_dedupe.py`. Report: `.tmp/results/reports/checks_report_20260203_201441.md`.
 

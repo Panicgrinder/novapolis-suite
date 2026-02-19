@@ -15,7 +15,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--fail-under", type=int, default=80)
 args = parser.parse_args()
 
-ROOT = Path.cwd()
+ROOT = Path(__file__).resolve().parents[1]
+AGENT_DIR = ROOT / "novapolis_agent"
 TS = datetime.now().strftime("%Y%m%d_%H%M%S")
 # Konsolidierte Temp-Pfade unter .tmp
 TMP = ROOT / ".tmp" / "results" / "reports"
@@ -24,13 +25,25 @@ LOG = TMP / f"pytest_coverage_{TS}.log"
 RECEIPT = TMP / f"pytest_coverage_postflight_{TS}.md"
 
 cmd = [
+    sys.executable,
+    "-m",
     "pytest",
+    "-c",
+    str(AGENT_DIR / "pytest.ini"),
     "--cov",
     "--cov-report=term-missing",
     "--cov-branch",
+    "--cov-config",
+    str(AGENT_DIR / ".coveragerc"),
     f"--cov-fail-under={args.fail_under}",
 ]
-proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+proc = subprocess.run(
+    cmd,
+    cwd=str(AGENT_DIR),
+    stdout=subprocess.PIPE,
+    stderr=subprocess.STDOUT,
+    text=True,
+)
 with LOG.open("w", encoding="utf8") as lh:
     lh.write(proc.stdout)
 

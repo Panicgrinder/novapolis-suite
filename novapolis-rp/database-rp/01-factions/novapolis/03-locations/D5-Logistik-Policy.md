@@ -34,5 +34,5 @@ Stationsregeln (Entwurf)
 Verlinkungen
 ------------
 
-- Missionslog: [Missionslog](../../../00-admin/Missionslog.md)
+- Missionslog: [Missionslog](../05-projects/Missionslog-Novapolis.md)
 - Ops/Systemnotes: [Ops / Systemnotes](../../../00-ops/README.md)

@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-14 12:32
-update: Baseline-Preise (ohne Zahlen) präzisiert; tbd reduziert. Receipts aktualisiert (Gates PASS).
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-14 09:51); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 09:51); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 09:51); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 09:51); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 09:51)"
+stand: 2026-02-10 22:45
+update: Markdownlint-Fix (Leerzeilen um Tabelle).
+checks: "not run (not requested)"
 canvas: Marktpreise - Baseline
 last_updated: 2026-01-14T08:56:04+01:00
 category: inventory
@@ -29,10 +29,70 @@ Währung (Kurz)
 Baseline-Preise (Richtwerte)
 ----------------------------
 - Energiezelle (Standard): Richtwert ohne Zahl; Preis folgt Modifikatoren (Knappheit/Route/Trust)
-- Filter (Wasser/Luft): Richtwert ohne Zahl; Preis folgt Modifikatoren (Knappheit/Route/Trust)
+- Luftfilter (Gasmasken): Richtwert ohne Zahl; Preis folgt Modifikatoren (Knappheit/Route/Trust)
+- Luftfilter (Einrichtungen): Richtwert ohne Zahl; Preis folgt Modifikatoren (Knappheit/Route/Trust)
+- Wasserfilter (portabel): Richtwert ohne Zahl; Preis folgt Modifikatoren (Knappheit/Route/Trust)
+- Filtermaterial (stationaer): Richtwert ohne Zahl; Preis folgt Modifikatoren (Knappheit/Route/Trust)
 - Adapter / Fittings (DN60 / Sonder): Richtwert ohne Zahl; Preis folgt Modifikatoren (Knappheit/Route/Trust)
 - Schweißausrüstung (kompakt): Richtwert ohne Zahl; Preis folgt Modifikatoren (Knappheit/Route/Trust)
 - Werkzeugsatz (Mechanik): Richtwert ohne Zahl; Preis folgt Modifikatoren (Knappheit/Route/Trust)
+
+Skalen (maschinenlesbar)
+------------------------
+- Verfuegbarkeit: hoch | mittel | niedrig | selten | extrem
+- Tauschwert: niedrig | mittel | hoch | sehr-hoch | sonder
+
+Item-Skalen (kompakt)
+---------------------
+
+| item_id | name | verfuegbarkeit | tauschwert | notes |
+| --- | --- | --- | --- | --- |
+| kugeln-neu | Kugeln (neu) | mittel | hoch | waehrung, baseline |
+| kugeln-gebraucht | Kugeln (gebraucht) | hoch | niedrig | waehrung, baseline |
+| energiezelle-standard | Energiezelle (Standard) | mittel | hoch | baseline |
+| luftfilter-gasmasken | Luftfilter (Gasmasken) | mittel | hoch | baseline |
+| luftfilter-einrichtungen | Luftfilter (Einrichtungen) | niedrig | hoch | baseline |
+| wasserfilter-portabel | Wasserfilter (portabel) | mittel | hoch | baseline |
+| filtermaterial-stationaer | Filtermaterial (stationaer) | niedrig | hoch | baseline |
+| werkzeugtasche-fundstueck | Werkzeugtasche (Fundstueck) | selten | hoch | fundstueck |
+| messausruestung | Messausruestung (allgemein) | niedrig | sehr-hoch | spezialbedarf |
+| statikpruefset | Statikpruef-Set (Tunnel) | niedrig | sehr-hoch | tunnel-check |
+| funkausruestung | Funkausruestung (stabil) | niedrig | hoch | kommunikation |
+| sensoren-set | Sensoren-Set (Monitoring) | niedrig | hoch | monitoring |
+| gasmaske | Gasmaske | niedrig | hoch | schutz |
+| atemschutz | Atemschutz (funktionstuechtig) | mittel | hoch | schutz |
+| atemfilter | Atemfilter | mittel | hoch | filter |
+| werkzeugkit | Werkzeugkit | mittel | hoch | basis-set |
+| ersatzteile-set | Ersatzteile-Set | mittel | hoch | reparatur |
+| akkuzelle | Akkuzelle (geladen) | mittel | hoch | akku |
+| rationen | Rationen | hoch | niedrig | nahrung |
+| wasser-trink | Wasser (Trinkwasser) | hoch | niedrig | nahrung |
+| lampe | Lampe (betriebsbereit) | mittel | mittel | licht |
+| multimeter | Multimeter | niedrig | hoch | messung |
+| union-ersatzteilkiste | Union-Ersatzteilkiste | selten | hoch | ersatzteile |
+| filterkartusche-leer | Filterkartusche (leer) | niedrig | niedrig | leer |
+| ersatzrohr | Ersatzrohr | niedrig | mittel | ersatzteil |
+| ventilkomponente | Ventilkomponente | niedrig | mittel | ersatzteil |
+| kabelspule | Kabelspule | niedrig | mittel | kabel |
+| schmieroel | Schmieroel | mittel | mittel | wartung |
+| strommodul | Strommodul | niedrig | hoch | energie |
+| wasserkanister | Wasserkanister | mittel | mittel | wasser |
+| wasserflasche | Wasserflasche | hoch | niedrig | wasser |
+| wartungsschluessel | Wartungsschluessel | mittel | mittel | werkzeug |
+| druckmesser | Druckmesser | niedrig | hoch | messung |
+| schweissgeraet | Schweissgeraet | niedrig | sehr-hoch | schweisstechnik |
+| sensorpaket | Sensorpaket | niedrig | hoch | monitoring |
+| schutzanzug | Schutzanzug | niedrig | hoch | schutz |
+| ersatzmaske | Ersatzmaske | niedrig | hoch | schutz |
+| schaltplaene-technische-doku | Schaltplaene & technische Doku | selten | hoch | doku |
+| reparaturstation-defekt | Reparaturstation (defekt) | selten | hoch | stationaer |
+| artefakt-7a | Artefakt 7A | extrem | sonder | einzigartig |
+| datenkern-stationaer | Datenkern (stationaer) | extrem | sonder | einzigartig |
+| datenkern-tragbar | Datenkern (tragbar) | extrem | sonder | einzigartig |
+| adapter-dn60 | Adapter / Fitting (DN60) | niedrig | sehr-hoch | baseline |
+| schweissausruestung-kompakt | Schweissausruestung (kompakt) | niedrig | hoch | baseline |
+| werkzeugsatz-mechanik | Werkzeugsatz (Mechanik) | mittel | hoch | baseline |
+| hydrofilter-behaelter | Hydrofilter-Behaelter (Reserve) | niedrig | hoch | ersatzteil |
 
 Modifikatoren
 -------------

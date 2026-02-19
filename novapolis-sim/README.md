@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: YAML Frontmatter ergänzt (MD003-konform)
-checks: markdownlint-cli2 PASS (single file)
+stand: 2026-02-17 09:12
+update: PS1-Wrapper-Referenzen durch direkte Godot-CLI/PowerShell-Einzeiler ersetzt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-sim/README.md' PASS (2026-02-17 04:05); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-sim\\README.md PASS (2026-02-17 04:05)"
 ---
 
 Novapolis Sim
@@ -12,7 +12,7 @@ Ein minimales Godot-4-Projekt zur Visualisierung des Simulationszustands aus dem
 Verbindungstest
 ---------------
 
-2025-11-10 12:12 — Verbindung zwischen Godot und dem Agent-API (`POST /world/step`) erfolgreich verifiziert. Der Headless-Verifier `res://scripts/verify_sim.gd` sowie der PowerShell-Smoke-Test `scripts/verify_sim.ps1` liefen durch und lieferten erwartete Antworten (z. B. `tick` und `time`). Ein Screenshot der laufenden Szene wurde als Audit-Beleg erstellt.
+2025-11-10 12:12 — Verbindung zwischen Godot und dem Agent-API (`POST /world/step`) erfolgreich verifiziert. Der Headless-Verifier `res://scripts/verify_sim.gd` sowie ein lokaler Smoke-Check (`POST /world/step`) liefen durch und lieferten erwartete Antworten (z. B. `tick` und `time`). Ein Screenshot der laufenden Szene wurde als Audit-Beleg erstellt.
 
 
 Aufgaben & Planung
@@ -42,17 +42,17 @@ Kurze Anweisungen, um lokal die Sim und die Agent-API zu starten, kurz zu prüfe
 - Server starten (in der Workspace-Root):
 
 ```powershell
-Set-Location "F:\VS Code Workspace\Main\novapolis_agent"
-& "F:\VS Code Workspace\Main\.venv\Scripts\python.exe" -m uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload
+Set-Location "${workspaceFolder}/novapolis_agent"
+& "${workspaceFolder}/.venv/Scripts/python.exe" -m uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload
 ```
 
 - Godot starten (Editor) oder Headless verifier:
 
 ```powershell
 # optional: $env:AGENT_PORT = 8765
-& "F:\VS Code Workspace\Main\novapolis-sim\Godot_v4.5.1-stable_win64.exe" --path "F:\VS Code Workspace\Main\novapolis-sim"
+& "${workspaceFolder}/novapolis-sim/Godot_v4.5.1-stable_win64.exe" --path "${workspaceFolder}/novapolis-sim"
 # headless verifier (prints SIM_VERIFY: OK and exits):
-& "F:\VS Code Workspace\Main\novapolis-sim\Godot_v4.5.1-stable_win64.exe" --path "F:\VS Code Workspace\Main\novapolis-sim" -s res://scripts/verify_sim.gd --headless
+& "${workspaceFolder}/novapolis-sim/Godot_v4.5.1-stable_win64.exe" --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless
 ```
 
 - Quick POST check (PowerShell):
@@ -62,10 +62,11 @@ Invoke-WebRequest -Method POST "http://127.0.0.1:8765/world/step" -ContentType "
 # Erwartet: StatusCode 200
 ```
 
-- Lightweight smoke test (startet uvicorn aus .venv, testet POST, stoppt wieder):
+- Lightweight smoke test (ohne Wrapper):
 
 ```powershell
-pwsh -File .\scripts\verify_sim.ps1
+Invoke-WebRequest -Method POST "http://127.0.0.1:8765/world/step" -ContentType "application/json" -Body '{"dt":0.5}' | Select-Object StatusCode
+# Erwartet: StatusCode 200
 ```
 
 - Stop (falls nötig):
@@ -82,7 +83,7 @@ Avoiding the Editor / (DEBUG) window
 
 Wenn du vermeiden willst, dass Godot das Editorfenster mit „(DEBUG)“ öffnet, starte die Simulation headless oder führe eine exportierte Release-Build aus. Zwei einfache Optionen:
 
-- Headless verifier (schnell, für CI / Smoke): `pwsh -File .\scripts\run_sim_headless.ps1` — startet lokal die `verify_sim.gd` im Headless-Modus, kein Editorfenster.
+- Headless verifier (schnell, für CI / Smoke): `& "${workspaceFolder}/novapolis-sim/Godot_v4.5.1-stable_win64.exe" --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless` — startet lokal die `verify_sim.gd` im Headless-Modus, kein Editorfenster.
 - Release/Export (empfohlen für Produktion): Exportiere das Projekt (`Project -> Export`) als Windows Desktop und starte die erzeugte `.exe` — das läuft ohne Editor-Overlay und ohne Debug-Label.
 
 Verification Record

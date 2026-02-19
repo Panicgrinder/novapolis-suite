@@ -1,0 +1,17 @@
+{
+  "title": "Waren-Index (weltweit)",
+  "category": "admin",
+  "slug": "waren-index",
+  "version": "0.1",
+  "status": "active",
+  "owners": [
+    "admin-novapolis"
+  ],
+  "tags": [
+    "rp",
+    "economy",
+    "items",
+    "index"
+  ],
+  "source": "database-rp/00-admin/Waren-Index.md"
+}

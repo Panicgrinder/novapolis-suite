@@ -82,7 +82,7 @@ Offene Fäden
 Links
 -----
 - Timeline (T+0) → ../00-admin/Canvas-T+0-Timeline.md
-- Missionslog → ../00-admin/Missionslog.md
+- Missionslog → ../01-factions/novapolis/05-projects/Missionslog-Novapolis.md
 - Logistik → ../00-admin/Logistik.md
 ```
 

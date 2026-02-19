@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-01 13:25
-update: RP-Doku/TODO-Sync: README-Pfade aktualisiert, Validator-Refs entdriftet, Migration-Status in Root-TODO nachgezogen.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
+stand: 2026-02-18 04:05
+update: Metadata-Init-Konsolidierung vermerkt (Python kanonisch, JS entfernt).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-rp/coding/tools/metadata/README.md novapolis-dev/docs/donelog.md PASS (2026-02-18 04:05); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-rp/coding/tools/metadata/README.md novapolis-dev/docs/donelog.md PASS (2026-02-18 04:05)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -13,6 +13,316 @@ Hinweis (2026-01-08)
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
 
+CI/RP: validate-rp Workflow + Sim-README ohne PS1 (2026-02-17 04:05)
+---------------------------------------------------------------
+
+- `.github/workflows/validate-rp.yml`: Windows-Job von PS1-Wrappern auf direkte `npm`-Validator-Aufrufe umgestellt.
+- `novapolis-sim/README.md`: PS1-Wrapper-Referenzen entfernt; Headless/Smoke als direkte Godot-CLI/PowerShell-Einzeiler dokumentiert.
+- Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+
+Dev-Hub: Index Single-Root/Wrapper-Policy (2026-02-17 01:04)
+------------------------------------------------------------
+
+- Veralteten Multi-Root/"keine Wrapper"-Hinweis in `novapolis-dev/docs/index.md` entfernt und an das aktuelle Single-Root-Setup angepasst.
+- PS1-spezifischen Workaround aus dem Index entfernt; Verweis auf Hub-Doku fuer Validator-Workflows gesetzt.
+- Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+
+Dev-Hub: Multi-Root/PS1 Navi-Sweep (2026-02-17 02:46)
+-----------------------------------------------------
+
+- `novapolis-dev/docs/process/betriebsmodi-sicherheitsprotokoll-notizen.md`: Multi-Root Hinweis als Regression-Fallback formuliert.
+- `novapolis-dev/README.md`: Link-Scanner Verweis auf `python scripts/scan_links.py` umgestellt und Output-Pfade korrigiert.
+- `single-root-todo.md` (archived): Wrapper-Hinweis auf Python-Wrapper aktualisiert.
+ - Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped).
+
+Backups Tooling: Python-Ports + Doku-Links (2026-02-17 03:28)
+------------------------------------------------------------
+
+- `scripts/update_backups_manifest.py`: Manifest-Schema + `manifest.v1.sha256sum.txt` (SHA-256) wieder konsistent zum archivierten PS1-Original.
+- `scripts/rotate_backups.py`: Tiered Retention (Daily/Weekly/Monthly/Yearly) + Dry-Run/Apply + `rotation.log` konsistent zum archivierten PS1-Original.
+- Doku-Links von `.ps1` auf `.py` umgestellt: `Backups/README.md`, `Backups/AUDIT.md`, `novapolis-dev/docs/readme.hub.md`, `single-root-todo.md`.
+- Checks: markdownlint-cli2 PASS (scoped); check_frontmatter.py PASS (scoped); checks_types.py PASS (pyright+mypy, CWD=novapolis_agent).
+
+RP: Novapolis Characters Sidecar Sync (2026-02-16 13:06)
+-------------------------------------------------------
+
+- JSON-Sidecars in `database-rp/01-factions/novapolis/02-characters/` gegen das Markdown-Frontmatter normalisiert (kanonische Key-Reihenfolge, Typen; Drift-Fix bei last_seen/primary_location/last_updated).
+- Ausfuehrung: `scripts/rp_canon_sync.py --write --json-only --only-dir 02-characters --only-faction novapolis`.
+- Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_130706.md`).
+
+RP: Novapolis Doctrine maschinenlesbar (2026-02-16 12:51)
+--------------------------------------------------------
+
+- Novapolis Doctrine unter `database-rp/01-factions/novapolis/00-doctrine/` um strukturierte, maschinenlesbare Metadaten erweitert.
+- Diplomatie: Zuständigkeiten/Freigaben (Ronja/Kora/Pahl) + Kernregeln (Außenhandel über C6, Protokollpflicht) ergänzt.
+- Logistik: Rollen/Schnittstellen (Nika/Jonas/Kora/Pahl) + Transferregeln D5↔C6 als Kurzregeln ergänzt.
+- History: Chronik-Regeln (Anker über Scenes/Missionslog, keine stillen Retcons) ergänzt.
+- Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_125337.md`).
+
+RP: Tick-Regeln & Simulation (Postflight-Nachtrag) (2026-02-13 09:52)
+--------------------------------------------------------------------
+
+- `database-rp/00-admin/Tick-Regeln-Simulation.md` angelegt/standardisiert und in `database-rp/00-admin/index-rules.md` verlinkt.
+- Postflight/Receipt nachgezogen (Governance-Nachpflege).
+- Checks: markdownlint-cli2 PASS; check_frontmatter.py PASS.
+
+RP: Novapolis Leadership + Economy Subdocs (2026-02-16 12:27)
+------------------------------------------------------------
+
+- Leadership/Rollen in Novapolis konsolidiert (Ronja/Kora/Nika/Pahl) und Personenindex aktualisiert.
+- Nachnamen ergänzt (Pahl Brenner, Marei Falk) inkl. Sidecar-Sync.
+- Wirtschaftsunterlagen unter `01-factions/novapolis/06-handel-diplomatie/` konsolidiert (Märkte/Handelsplätze, Preisbänder).
+- Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_122544.md`).
+
+RP: README Sidecar-Policy (2026-02-16 12:33)
+--------------------------------------------
+
+- Policy festgelegt: README-Dateien benoetigen keine JSON-Sidecars.
+- Legacy `README.json` Sidecars entfernt (Handel/Diplomatie-READMEs der Fraktionen sowie `database-rp/06-scenes/README.md`).
+- Checks: `scripts/run_checks_and_report.py` PASS (Report: `.tmp/results/reports/checks_report_20260216_123226.md`).
+
+RP: Process-Workflow Konsolidierung (2026-02-11 01:59)
+-----------------------------------------------------
+
+- Prozess-/Workflow-Inhalte (Curation, Validatoren, Export/Ingest, Metadata, Simulation, Schreibstil, Naming-Policy) nach `database-rp/00-admin/Process-Workflow.md` uebertragen.
+- `index-rules.md` um Verweis und Abschnitts-ID ergaenzt.
+- Checks: not run.
+
+RP: Process-Workflow Erweiterung (2026-02-11 02:09)
+---------------------------------------------------
+
+- fehlende Abschnitte aus Dev/RP ergaenzt (Scenes, Checks, Stub-Mapping, Governance, FinalGate, Canvas-Rescue).
+- Checks: not run.
+
+RP: Process-Workflow MD031-Fix (2026-02-11 03:29)
+-------------------------------------------------
+
+- Leerzeile vor Codeblock (Beispiel-Frontmatter) ergaenzt.
+- Checks: `scripts/run_checks_and_report.py` PASS.
+
+RP: Sim-State-Schema (2026-02-11 05:25)
+---------------------------------------
+
+- Sim-State-Schema in `database-rp/00-admin/Sim-State-Schema.md` angelegt und in `index-rules.md` verlinkt.
+- Checks: not run.
+
+RP: Sim-State-Schema Sidecars/Index (2026-02-11 05:26)
+------------------------------------------------------
+
+- JSON-Sidecars fuer Process-Workflow und Sim-State-Schema angelegt.
+- `database-rp/index.json` aktualisiert.
+- Checks: not run.
+
+RP: Frontmatter/Markdownlint Fixes (2026-02-10 22:50)
+----------------------------------------------------
+
+- Frontmatter in Admin/Readmes normalisiert (inkl. Reference-Campaign-State inline-Keys).
+- Markdownlint-Fix: Leerzeilen um Tabelle in `Marktpreise-inventar.md`.
+- Checks: `scripts/run_checks_and_report.py` PASS.
+
+RP: Waren-Index Filter-Split (2026-02-10 16:51)
+----------------------------------------------
+
+- Filterposten in `Waren-Index.md` getrennt: Luftfilter (Gasmasken, Einrichtungen) und Wasserfilter (portabel, stationaeres Filtermaterial).
+- Checks: not run.
+
+RP: Waren-Index + Marktpreise Skalen (2026-02-10 17:06)
+-------------------------------------------------------
+
+- Neue Items aus Szenen im Waren-Index ergaenzt (u. a. Werkzeugtasche, Messausruestung, Sensoren, Artefakt/Datenkern).
+- Marktpreise-Baseline: Skalen fuer Verfuegbarkeit/Tauschwert + kompakte Item-Tabelle ergaenzt.
+- Checks: not run.
+
+RP: D5/C6 Inventar-Logs Sonderfunde (2026-02-10 17:09)
+-------------------------------------------------------
+
+- D5/C6 Inventar-Logs um Sonderfunde als [FACT?] ergaenzt (Werkzeugtasche, Artefakt 7A, Datenkern/Datenwuerfel).
+- Checks: not run.
+
+RP: RAW-Waren aufgenommen (2026-02-10 17:24)
+-------------------------------------------
+
+- Waren-Index um RAW-Items (handelbar/stationaer) ergaenzt; Datenkern in stationaer/tragbar gesplittet.
+- Marktpreise-Baseline: Item-Tabelle um RAW-Waren erweitert.
+- Checks: not run.
+
+RP: Curated-Konfliktliste/uncertainties (2026-02-09 02:36)
+---------------------------------------------------------
+
+- Offene Konfliktpunkte in `uncertainties.md` ergänzt (Inventar, Draisine, C6-Gerücht).
+- Curated-Konfliktliste aktualisiert (Top-10/Offen).
+- Markdownlint FAIL: MD010 in `novapolis-rp/database-curated/staging/chat-export-complete.finalgate.md`.
+
+RP: Curated-Konflikt-Report Refresh (2026-02-09 02:46)
+------------------------------------------------------
+
+- Markdownlint erneut ausgefuehrt: PASS.
+- Report ueberschrieben: [.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md](../../.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md)
+- `scripts/extract_curated_conflicts.py --out .tmp/results/reports/curated_conflicts_postflight_20260112_0657.md` PASS.
+
+RP: FinalGate/Review Links (2026-02-09 02:54)
+----------------------------------------------
+
+- FinalGate/Review um Konfliktliste und Report-Link ergaenzt.
+
+Checks: full (2026-02-09 02:59)
+-------------------------------
+
+- `scripts/run_checks_and_report.py` PASS.
+
+RP: Weltwirtschaftssystem Entwurf (2026-02-09 04:53)
+----------------------------------------------------
+
+- Entwurf in `.tmp/results/world-economy-system.draft.md` angelegt (Makro/Meso/Mikro, postapokalyptische Leitplanken).
+
+RP: Weltwirtschaftssystem Preis-Index (2026-02-09 05:28)
+--------------------------------------------------------
+
+- Preisanker (Basispreis), Index-Skalen und Anti-Doppelzaehlung im Entwurf ergaenzt.
+
+RP: Weltwirtschaftssystem Ebenentrennung (2026-02-09 07:18)
+-----------------------------------------------------------
+
+- Klarstellung: allgemeine Regeln/Skalen hier, Bedarfe/Nachfrage in Fraktionsdokumenten.
+
+RP: Weltwirtschaftssystem Hygiene (2026-02-09 07:49)
+----------------------------------------------------
+
+- Index-Skalen sprachlich geschaerft; Zeitangaben als Heuristik markiert; Qualitaet als sekundaerer Faktor klargestellt.
+
+RP: Weltwirtschaftssystem Hygiene 2 (2026-02-09 13:40)
+------------------------------------------------------
+
+- Distanz vs Risiko in Preisbildung/Grundannahmen getrennt; Update-Zyklus als temporaerer Override formuliert; Offene Entscheidungen an Fraktionsdokumente gebunden.
+
+Skripte: Checks-Logging (2026-02-09 03:15)
+------------------------------------------
+
+- `scripts/run_checks_and_report.py` um Fortschrittsausgaben ergaenzt.
+
+RP: Staging-uncertainties Sync (2026-02-09 03:31)
+-------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/reports/uncertainties.md` aus Dev-Hub synchronisiert.
+
+RP: resolved.md FACT-Tags (2026-02-09 04:12)
+--------------------------------------------
+
+- FACT-Tag-Liste in `novapolis-rp/database-curated/staging/reports/resolved.md` ergaenzt.
+
+RP: Anomalie/Draisine Entscheidungen (2026-02-09 04:23)
+------------------------------------------------------
+
+- C6-Anomalie als Geruecht/Signalrauschen verankert.
+- Draisine/Transportmodul mit konservativer Schaetzung in Reference/Projekt ergaenzt.
+- Konfliktlisten/uncertainties aktualisiert (nur Kugeln offen).
+
+Doku-Checks (2026-02-09 01:46)
+------------------------------
+
+- `check_frontmatter.py` + `markdownlint-cli2` fuer RP-SSOT + Logs ausgefuehrt (PASS, Scope siehe Frontmatter).
+
+RP: FinalGate Admin/Inventar-Patches (2026-02-09 01:59)
+-------------------------------------------------------
+
+- Logistik-Policy um Inventar-Transferregeln und Waehrungshinweis erweitert.
+- D5/C6/Novapolis-Inventare: Transfer-Policy verankert; doppelter Frontmatter-Block im Fraktionsinventar entfernt.
+- FinalGate-Record/Review fuer chat-export-complete auf SSOT-Patches aktualisiert.
+
+RP: Curated-Validator PASS (2026-02-09 02:05)
+---------------------------------------------
+
+- H1 in `novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md` ergaenzt (Validator-Fix).
+- `npm --prefix novapolis-rp/coding/tools/validators run validate:rp` PASS.
+
+RP: Logistik Waehrungseintrag (2026-02-09 02:10)
+-----------------------------------------------
+
+- [novapolis-rp/database-rp/00-admin/Logistik.md](../../novapolis-rp/database-rp/00-admin/Logistik.md) um Waehrungseintrag in Materialien/Bestande erweitert.
+
+RP: Curated-Konflikt-Report Refresh (2026-02-09 02:20)
+------------------------------------------------------
+
+- Report ueberschrieben: [.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md](../../.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md)
+- `scripts/extract_curated_conflicts.py --out .tmp/results/reports/curated_conflicts_postflight_20260112_0657.md` PASS.
+
+RP: Slugs ergaenzt + Audit gruen (2026-02-09 01:44)
+--------------------------------------------------
+
+- Fehlende `slug`-Felder in Doctrine/Ops ergaenzt; `checks_rp_consistency.py --strict` jetzt ohne Warnungen.
+- Log: `.tmp/results/reports/checks_rp_consistency_20260209_014430.log`.
+
+RP: Broken Links Fix + Audit (2026-02-08 22:54)
+-----------------------------------------------
+
+- Links in `database-rp` bereinigt (curated/ops/RAW/Neutralgruppen-Platzhalter). Konsistenz-Audit erneut gelaufen: errors=0, warnings=1 (missing_slug=30).
+- Log: `.tmp/results/reports/checks_rp_consistency_20260208_225406.log`.
+
+RP: Konsistenz-Audit (2026-02-08 22:48)
+--------------------------------------
+
+- Audit fuer `novapolis-rp/database-rp` gelaufen: `scripts/check_frontmatter.py` PASS, `scripts/checks_rp_consistency.py --strict` FAIL, markdownlint PASS.
+- Log: `.tmp/results/reports/checks_rp_consistency_20260208_224814.log` (16 Fehler, 1 Warnung, 30 missing slug).
+
+RP: Chat-Staging-Lauf (2026-02-08 09:24)
+----------------------------------------
+
+- `scripts/run_rp_chat_staging.py` ausgefuehrt (OK: Chat-RAW-Staging aktualisiert, entries=8). Keine weiteren Checks.
+
+RP: RAW-Exports Quelle korrigiert (2026-02-08 07:48)
+---------------------------------------------------
+
+- Kanonische RAW-Quelle in [novapolis-rp/database-raw/99-exports/README.md](../../novapolis-rp/database-raw/99-exports/README.md) auf RAW 2025-10-27T09-16 aktualisiert; Legacy-Hinweis zu `chat-export-complete.txt` beibehalten.
+
+Dev-Hub: readme.hub Pfad-Drift (2026-02-04 23:06)
+-------------------------------------------------
+
+- Schritt 4 in [readme.hub.md](readme.hub.md) korrigiert: `database-rp/database-rp/*` → `database-rp/*`.
+
+RP: Batch C (00-admin) - Restdrifts (2026-02-04 21:23)
+------------------------------------------------------
+
+- Links in [novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md](../../novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md), [novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md](../../novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md), [novapolis-rp/database-rp/00-admin/Current-State.md](../../novapolis-rp/database-rp/00-admin/Current-State.md), [novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md](../../novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md) und [novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md](../../novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md) auf relative Pfade normalisiert.
+
+RP: Batch C (Rest-Links) - Normalisierung (2026-02-04 21:01)
+------------------------------------------------------------
+
+- Links und RAW-Quellen in [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md](../../novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md), [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md](../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md), [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md](../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md), [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md) und [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Marven-Kael.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Marven-Kael.md) auf relative Pfade normalisiert.
+RP: Batch C (Handel/Diplomatie) - README Links (2026-02-04 11:03)
+-----------------------------------------------------------------
+
+- Relative Links in den Handel/Diplomatie-READMEs von Arkologie A1, Eisenkonklave, Schattenbund und Fluesterkollektiv normalisiert.
+
+RP: Batch C (Haendlerbund/Schienenbund) - Slug/Links (2026-02-04 10:28)
+---------------------------------------------------------------------
+
+- `caravan_moves` in Charakter-Dependencies (md/json) auf `caravan-moves` konsolidiert; Slug in [novapolis-rp/database-rp/01-factions/haendlerbund/05-projects/caravan-moves.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/05-projects/caravan-moves.md) aktualisiert.
+- Diplomatie-READMEs auf relative Links umgestellt in [novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/README.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/README.md) und [novapolis-rp/database-rp/01-factions/schienenbund/06-handel-diplomatie/README.md](../../novapolis-rp/database-rp/01-factions/schienenbund/06-handel-diplomatie/README.md).
+
+RP: Batch C (weitere Fraktionen) - Links/Naming (2026-02-04 09:21)
+---------------------------------------------------------------
+
+- `caravan_moves` auf `caravan-moves` umbenannt (md/json) und Referenzen in Fraktionsdokumenten nachgezogen (u. a. Händlerbund-Index, G7, Eisenkonklave, Jonas/Draisine, C6-Logistik-Policy).
+- Fraktionsakten/SSOTs auf relative Links zu 00-admin und Novapolis normalisiert (Relationslog-Novapolis, Handel-Diplomatie-Haendlergilde, Senn-Daru, Pahl, Liora-Navesh).
+- Admin-Index/Registry-Referenzen aktualisiert in [novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md](../../novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md), [novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md](../../novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md) und [novapolis-rp/database-rp/index.json](../../novapolis-rp/database-rp/index.json).
+
+RP: Batch C (Inventare) - Links (2026-02-04 09:34)
+--------------------------------------------------
+
+- Schienenbund- und Eiserne-Enklave-Inventare: 00-admin-Links korrekt relativiert in [novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md](../../novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md) und [novapolis-rp/database-rp/01-factions/eisenkonklave/04-inventory/Eiserne-Enklave-inventar.md](../../novapolis-rp/database-rp/01-factions/eisenkonklave/04-inventory/Eiserne-Enklave-inventar.md).
+
+RP: Batch C (Novapolis) - Naming/Links (2026-02-04 09:08)
+--------------------------------------------------------
+
+- Novapolis Personenindex: Dateiname auf `person-index-np` umgestellt, Links relativisiert in [novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md](../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md) und Verweise in [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md](../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md) aktualisiert.
+- Händlerbund-Referenzen auf neuen Personenindex umgestellt in [novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Senn-Daru.md) sowie Index-Links in [novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md](../../novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/Index-Haendlergilde.md).
+- Novapolis Handel/Diplomatie-Index auf relative Links umgestellt in [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/README.md](../../novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/README.md).
+
+RP: Batch B (00-admin + 00-ops) - Links/H1 (2026-02-04 09:01)
+-------------------------------------------------------------
+
+- 00-admin: H1 in [novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md](../../novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md) ergänzt (Validator-Fix) und Index-Links in [novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md](../../novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md) auf relative Pfade umgestellt.
+- 00-admin/00-ops: Ops-Referenzen in [novapolis-rp/database-rp/00-admin/Logistik.md](../../novapolis-rp/database-rp/00-admin/Logistik.md) und [novapolis-rp/database-rp/00-ops/C6-Logistik-Policy.ops.md](../../novapolis-rp/database-rp/00-ops/C6-Logistik-Policy.ops.md) korrigiert (Links auf 00-ops/00-admin).
 RP: Doku/TODO-Sync (2026-02-01 13:25)
 -----------------------------------
 
@@ -145,7 +455,7 @@ Workspace-Konfliktanalyse (2025-11-07 01:27)
 
 - Bestehende Markdownlint-Overrides unter `novapolis-rp/database-curated/staging/.markdownlint.json` und `.../reports/.markdownlint.json` identifiziert (deaktivieren zentrale Regeln MD003/MD012/MD047). Empfehlung: Overrides evaluieren, Konfiguration an globale Policy anpassen oder entfernen.
 - Staging-Reports (`novapolis-rp/database-curated/staging/reports/*.md`) ohne YAML-Frontmatter/Setext-Headings erfasst; Kandidaten für Migration in den Dev-Hub bzw. Konvertierung in Setext-Format.
-- Doppelte Metadata-Initialisierungsskripte (`novapolis-rp/coding/tools/metadata/init-metadata.js` & `init_metadata.py`) dokumentiert; Entscheidung über kanonische Implementierung offen.
+- Doppelte Metadata-Initialisierungsskripte konsolidiert (2026-02-18): `novapolis-rp/coding/tools/metadata/init_metadata.py` als kanonische Implementierung festgelegt und dokumentiert; `init-metadata.js` entfernt.
 - Legacy-Notiz `novapolis_agent/analysis_chat_routers.md` (Triple-Quote-Stub) als Alt-Dokument markiert.
 
 Chat-Neustart-Prompt entfernt (2025-11-06 03:07)

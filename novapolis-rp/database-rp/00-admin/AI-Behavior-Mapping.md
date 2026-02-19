@@ -82,9 +82,9 @@ Anchor-Register (Snapshot 2025-10-16)
 | ARD5 | Arlen Dross | Human | L67-T72-N74-E58-O66-C71-M48-P40-db | RAW-canvas-2025-10-16T14-56-20-000Z |
 | ECO1 | Echo | Instanz | L85-S74-T62-E58-N52-O44-C28-M16-P30-ks | [Echo](../01-factions/novapolis/02-characters/Echo.md) (kuratiert 2025-11-02) |
 | LMN1 | Lumen | Instanz | L78-T71-E60-O49-N44-S52-C26-M18-P28-ks | [Lumen](../01-factions/novapolis/02-characters/Lumen.md) (kuratiert 2025-11-02) |
-| LNR1 | Liora Navesh | Human | O82-T76-N68-S58-L52-M47-E34-C21-P55-r | [Liora-Navesh](../01-factions/novapolis/02-characters/Liora-Navesh.md) (kuratiert 2025-11-02) |
+| LNR1 | Liora Navesh | Human | O82-T76-N68-S58-L52-M47-E34-C21-P55-r | [Liora-Navesh](../01-factions/arkologie-a1/02-characters/Liora-Navesh.md) (kuratiert 2025-11-02) |
 | LYH1 | Lyra Hest | Human | O74-L68-T62-E58-S54-N46-M32-C28-P48-r | [Lyra-Hest](../01-factions/novapolis/02-characters/Lyra-Hest.md) (kuratiert 2025-11-02) |
-| SND1 | Senn Daru | Human | E72-N64-L58-O46-S42-T38-C30-M22-P44-s | [Senn-Daru](../01-factions/haendlerbund/02-characters/Senn-Daru.md) (kuratiert 2025-11-02) |
+| SND1 | Senn Daru | Human | E72-N64-L58-O46-S42-T38-C30-M22-P44-s | [Senn-Daru](../01-factions/novapolis/02-characters/Senn-Daru.md) (kuratiert 2025-11-02) |
 | VRS1 | Varek Solun | Human | O88-M76-S68-T62-L55-N44-C28-E25-P60-pr | [Varek-Solun](../01-factions/eisenkonklave/02-characters/Varek-Solun.md) (kuratiert 2025-11-02) |
 
 *Hinweis:* `n/a` markiert noch fehlende Behavior-Signaturen in den aktuellen Canvas-Versionen. Sobald valide Codes vorliegen, bitte in Tabelle und Quell-Canvas nachziehen (inkl. DONELOG/TODO-Vermerk).

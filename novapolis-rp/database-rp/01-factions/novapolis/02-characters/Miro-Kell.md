@@ -45,4 +45,4 @@ Verlinkungen
 ------------
 
 - D5 Funkraum → ../03-locations/D5-Funkraum.md
-- Missionslog → ../00-admin/Missionslog.md
+- Missionslog → ../05-projects/Missionslog-Novapolis.md

@@ -20,3 +20,10 @@ Nützliche Links
 
 - Fraktionsordner → ../README.md
 - Fraktionen-Taxonomie → ../../../00-admin/Fraktionen-Taxonomie.md
+
+Charaktere
+----------
+
+- [Mara Quell](./Mara-Quell.md) - Fraktionsleitung
+- [Tovin Rek](./Tovin-Rek.md) - Leitung Handel
+- [Runa Fehr](./Runa-Fehr.md) - Leitung Sicherheit

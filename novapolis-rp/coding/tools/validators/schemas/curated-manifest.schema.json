@@ -8,8 +8,8 @@
     "properties": {
       "id": { "type": "string", "minLength": 1 },
       "source": { "type": "string", "minLength": 1 },
-      "type": { "type": "string", "enum": ["raw-txt", "raw-jsonl"] },
-      "status": { "type": "string", "enum": ["pending", "in-progress", "reviewed", "approved"] },
+      "type": { "type": "string", "enum": ["raw-txt", "raw-jsonl", "raw-pdf", "curated-merge"] },
+      "status": { "type": "string", "enum": ["pending", "in-progress", "reviewed", "approved", "archived"] },
       "createdAt": { "type": "string" },
       "artifacts": {
         "type": "object",

@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-12 12:02
-update: "Schema-Gate: title ergaenzt; MD025-Override (Frontmatter-title + H1)."
-checks: npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-12 12:01); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-12 12:01); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md' PASS (2026-01-12 12:02); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-12 12:02)
+stand: 2026-02-10 17:24
+update: Sonderfund-Log auf Datakern (tragbar) ausgerichtet.
+checks: "not run (not requested)"
 title: Inventar - C6
 last_updated: 2026-01-11T07:14:00+01:00
 category: inventory
@@ -18,6 +18,11 @@ tags: []
 C6 - Inventar
 =============
 
+Policy
+------
+- Inventare bleiben getrennt; Transfers nur via Mission/Logistik.
+- Buchungen mit Quelle/Ziel in [Logistik](../../../00-admin/Logistik.md) dokumentieren.
+
 Bestände (verbucht)
 -------------------
 - tbd
@@ -29,6 +34,11 @@ Potenziale
 Fehlend / Offen
 ---------------
 - tbd
+
+Bewegungen (Log)
+----------------
+- 2026-02-10 17:09 [FACT?] Artefakt 7A im C6-Kontext markiert; Details erst nach Inventarisierung. Quelle: scene-2025-10-27-d.
+- 2026-02-10 17:09 [FACT?] Datenkern (tragbar) am Fundort C6 belassen; nicht aufgenommen. Quelle: scene-2025-10-27-x.
 
 Aktionen
 --------

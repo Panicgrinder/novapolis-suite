@@ -1,0 +1,16 @@
+{
+  "title": "Index: Regeln, Policies und FSM",
+  "category": "admin",
+  "slug": "index-rules",
+  "version": "0.1",
+  "status": "active",
+  "owners": [
+    "admin-novapolis"
+  ],
+  "tags": [
+    "rp",
+    "rules",
+    "index"
+  ],
+  "source": "database-rp/00-admin/index-rules.md"
+}

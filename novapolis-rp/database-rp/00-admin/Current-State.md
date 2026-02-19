@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-13 02:36
-update: Bevölkerungs-Snapshot ergänzt (humanoid ~29; Quelle curated FACT [POP]).
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-13 02:36); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py PASS (targeted, 2026-01-13 02:36); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-13 02:36); npm validate:rp PASS (2026-01-13 02:36); npm validate:crossrefs PASS (2026-01-13 02:36)"
+stand: 2026-02-16 18:32
+update: Fraktionsweite Snapshot-Referenzen (Missionslogs/Inventare) ergänzt; Current-State-Gate eingeführt.
+checks: pending
 slug: current-state
 category: Admin
 canvas: current-state
@@ -27,26 +27,36 @@ Kurzstart (Start here)
 Snapshot (kurz, abgeleitet)
 ---------------------------
 
-Hinweis: Dieser Snapshot ist **nur eine Kurzliste** und verweist auf die SSOT-Quelle. Wenn etwas unklar/konfliktär ist: erst im Missionslog/Scenes verorten, dann als Decision festnageln.
+Hinweis: Fraktionsspezifische Snapshots werden in den jeweiligen Fraktions-SSOTs gepflegt.
 
-- Bevölkerung (humanoid, gesamt): ~29 (Quelle: `database-curated/staging/reports/resolved.md`, FACT [POP])
-  - Breakdown (kurz): Evakuierte aus E3 = 20; Karawane = 6; Kernteam (Ronja/Jonas/Pahl) = 3
-  - Reflex-Instanzen (Reflex/Echo/Lumen) sind zusätzlich und zählen nicht zur humanoiden Zahl
+- Novapolis-Snapshot: [Novapolis](../01-factions/novapolis/Novapolis.md)
+
+Snapshot-Quellen (Gate-Pflicht)
+------------------------------
+
+Jede Fraktion muss im Current-State über **Missionslog + Inventar** referenziert sein.
+
+- Arkologie-A1: [Missionslog](../01-factions/arkologie-a1/05-projects/Missionslog-Arkologie-A1.md), [Inventar](../01-factions/arkologie-a1/04-inventory/README.md)
+- Eisenkonklave: [Missionslog](../01-factions/eisenkonklave/05-projects/Missionslog-Eisenkonklave.md), [Inventar](../01-factions/eisenkonklave/04-inventory/README.md)
+- Flüsterkollektiv: [Missionslog](../01-factions/fluesterkollektiv/05-projects/Missionslog-Fluesterkollektiv.md), [Inventar](../01-factions/fluesterkollektiv/04-inventory/README.md)
+- Händlerbund: [Missionslog](../01-factions/haendlerbund/05-projects/Missionslog-Haendlerbund.md), [Inventar](../01-factions/haendlerbund/04-inventory/README.md)
+- Novapolis: [Missionslog](../01-factions/novapolis/05-projects/Missionslog-Novapolis.md), [Inventar](../01-factions/novapolis/04-inventory/README.md)
+- Schattenbund: [Missionslog](../01-factions/schattenbund/05-projects/Missionslog-Schattenbund.md), [Inventar](../01-factions/schattenbund/04-inventory/README.md)
+- Schienenbund: [Missionslog](../01-factions/schienenbund/05-projects/Missionslog-Schienenbund.md), [Inventar](../01-factions/schienenbund/04-inventory/README.md)
 
 Aktive Projekte (Kurzliste)
 ---------------------------
 
-- Nordlinie 01 (D5↔C6): [Nordlinie-01.md](../01-factions/novapolis/05-projects/Nordlinie-01.md)
-- Draisine-/Transportmodul (D5): [Draisine-Transportmodul.md](../01-factions/novapolis/05-projects/Draisine-Transportmodul.md)
+Fraktionsspezifische Projekte werden in den Fraktionsordnern geführt:
+
+- Novapolis-Projekte: [Ordner](../01-factions/novapolis/05-projects/)
 
 Hauptorte (Kurzstatus)
 ----------------------
 
-- D5 (Hauptbasis): [D5.md](../01-factions/novapolis/03-locations/D5.md)
-- C6 (Außenposten/teilaktiv): [C6.md](../01-factions/novapolis/03-locations/C6.md)
-- E3 (evakuiert; Risiko/Anomalie offen): [E3.md](../01-factions/novapolis/03-locations/E3.md)
-- Tunnel D5↔C6: [Verbindungstunnel-D5-C6.md](../01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md)
-- Tunnel C6↔E3: [Verbindungstunnel-C6-E3.md](../01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.md)
+Fraktionsspezifische Ortszustände werden in den Fraktionsordnern geführt:
+
+- Novapolis-Orte: [Orte (Novapolis)](../01-factions/novapolis/03-locations/README.md)
 
 Chronik-Anker (Startpunkte)
 ---------------------------
@@ -58,9 +68,7 @@ Chronik-Anker (Startpunkte)
 Namensdrift (separat behandeln)
 ------------------------------
 
-- Keine stillen Umbenennungen in SSOT. Namens-/Alias-Entscheidungen werden separat dokumentiert und dann konsistent nachgezogen.
-- Token-Regel: Einfache Buchstaben-Zahlenkombinationen (z. B. D5, C6, E3, F1) sind **für Stations-/Liniencodes reserviert**.
-- Legacy-Token wie „N7“ werden **nicht** als Alias weitergeführt (Verwechslungsgefahr mit Stationen); stattdessen werden sprechende Namen verwendet (z. B. „C6-Nordanomalie“).
+Namens-/Alias-Regeln sind global in `index-rules.md` dokumentiert.
 
 Stationen D5/C6 (v1.0)
 ----------------------
@@ -71,7 +79,7 @@ Stationen D5/C6 (v1.0)
 Arbeitsfluss (SSOT/RAW/curated)
 -------------------------------
 
-- **SSOT (RP):** `novapolis-rp/database-rp/` (dieser Bereich)
+- **SSOT (RP):** [database-rp/](..) (dieser Bereich)
 - **RAW-Exporte:** [database-raw/99-exports](../../database-raw/99-exports/README.md) (ungefiltert, nur dort)
 - **Curated:** [database-curated](../../database-curated/README.md) (staging/reviewed/final)
 
@@ -82,21 +90,17 @@ Validatoren (Gates)
 
 - Slug-Unique + Kategorie-Schema: `npm --prefix novapolis-rp\coding\tools\validators run validate:rp`
 - Crossrefs (slug-only): `npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs`
+- Current-State-Gate (Snapshot-Ableitung): `& .\.venv\Scripts\python.exe scripts\check_current_state_gate.py`
 
 Hinweis: Referenzen zwischen SSOT-Dokumenten laufen technisch über **`slug`** (nicht Dateinamen).
 
-Referenzstandard (slug-only)
-----------------------------
-
-- **ID ist immer `slug`** (auch in Listen wie `characters`, `locations`, `dependencies`, `owners`).
-- Dateiname/Ordnername ist nur Ablageform und darf **nie** als Referenz-Token benutzt werden.
-- Markdown-Links dienen der Navigation; semantische Zuordnung/Validierung läuft über `slug`.
+Referenzstandard und Validator-Gates sind global im [index-rules.md](./index-rules.md) hinterlegt.
 
 Wenn du etwas suchst
 --------------------
 
-- Personen/Charaktere: `database-rp/01-factions/<faction>/02-characters/`
-- Orte: `database-rp/01-factions/<faction>/03-locations/`
-- Inventar: `database-rp/01-factions/<faction>/04-inventory/`
-- Projekte: `database-rp/01-factions/<faction>/05-projects/`
-- Szenen/Chronik: `database-rp/06-scenes/`
+- Personen/Charaktere: 01-factions/<faction>/02-characters/
+- Orte: 01-factions/<faction>/03-locations/
+- Inventar: 01-factions/<faction>/04-inventory/
+- Projekte: 01-factions/<faction>/05-projects/
+- Szenen/Chronik: [06-scenes/](../06-scenes/)

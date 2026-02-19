@@ -1,11 +1,11 @@
 ---
-stand: 2026-01-11 02:31
-update: "Top-10 rotiert: gelöste Punkte ins Archiv verschoben; Konflikt #1 Decision nachgezogen; Offen-Liste synchronisiert."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 02:31); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 02:31); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 02:31)
+stand: 2026-02-09 04:23
+update: Anomalie/Draisine abgeschlossen; Kugeln bleibt offen.
+checks: "not run (content update)"
 category: admin
 canvas: curated-konfliktliste
 slug: curated-konfliktliste
-source: novapolis-rp/database-curated/staging/*.review.md
+source: ../../database-curated/staging/*.review.md
 ---
 
 Curated Konfliktliste (Staging → SSOT)
@@ -19,9 +19,9 @@ Diese Seite bündelt die wichtigsten **Konflikte** und **FACT?**-Punkte aus den 
 Quellen (Curated)
 -----------------
 
-- `novapolis-rp/database-curated/staging/chat-export-complete.review.md`
-- `novapolis-rp/database-curated/staging/chat-export (1).review.md`
-- Ergänzende Auszüge: `novapolis-rp/database-curated/staging/reports/uncertainties.md`, `.../reports/resolved.md`
+- [chat-export-complete.review.md](../../database-curated/staging/chat-export-complete.review.md)
+- chat-export (1).review.md
+- Ergänzende Auszüge: [uncertainties.md](../../../novapolis-dev/docs/process/rp-canvas-rescue/uncertainties.md), [resolved.md](../../database-curated/staging/reports/resolved.md)
 
 Arbeitsregel
 ------------
@@ -32,14 +32,20 @@ Arbeitsregel
 Offen (Quelle: uncertainties.md)
 -------------------------------
 
-Diese Punkte sind in `novapolis-rp/database-curated/staging/reports/uncertainties.md` noch **unchecked** und damit aktiv zu klären:
+Diese Punkte sind in `../../../novapolis-dev/docs/process/rp-canvas-rescue/uncertainties.md` noch **unchecked** und damit aktiv zu klären:
 
-- Aktuell keine offenen Punkte aus `uncertainties.md`, die in SSOT noch ohne Decision sind. (Die früher offenen Mechanik-Punkte sind in Top-10 #1–#7 entschieden.)
+- [OPEN] Währung "Kugeln": konkrete Bestandszahlen/Umrechnung in Inventaren noch tbd; SSOT-Patch in Inventaren nachziehen.
 
 Top-10 Konflikte / FACT?-Punkte (Priorität)
 ------------------------------------------
 
-- Aktuell keine offenen Top-10 Konflikte/FACT?-Punkte aus `uncertainties.md` (alle bisherigen Punkte sind entschieden und im Archiv unten geführt).
+1) [OPEN] Währung "Kugeln": Bestandszahlen/Umrechnung in Inventaren tbd (Inventare/Reference).
+
+Neu geloest (2026-02-09)
+------------------------
+
+- Draisine/Transportmodul: D5-Prototyp, konservativer Materiallauf (kein Personentransport im Erstlauf), realistische Schaetzung 200-400 kg pro Lauf.
+- "Lebewesen unter dem Boden" (C6): als Geruecht/Signalrauschen gefuehrt, keine neue Entitaet ohne Adminfreigabe.
 
 Archiv: Gelöste Top-10 (2026-01-11)
 ----------------------------------
@@ -50,8 +56,8 @@ Archiv: Gelöste Top-10 (2026-01-11)
    - Problem: Mechanik ist als FACT? markiert; konkrete Schwellen/Verbrauch/„Bonus entfällt“ unklar.
    - Layer: Reference (Mechanik-Policy) + Narrative (Belege über Szenen/Tests)
    - Betroffene SSOT-Dateien (vermutet):
-     - `database-rp/02-characters/Reflex.md`
-     - `database-rp/00-admin/Reference-Campaign-State.md`
+    - [Reflex](../01-factions/novapolis/02-characters/Reflex.md)
+    - [Reference-Campaign-State](Reference-Campaign-State.md)
    - Priorität: P1
 
 2) Reflex-Instanzen: Kapazitätslogik + Differenzierung (Review 2025-11-01)
@@ -60,9 +66,9 @@ Archiv: Gelöste Top-10 (2026-01-11)
    - Problem: Instanzen teilen Basislogik, aber Hauptfähigkeiten/Trennung/Training müssen sauber definiert werden.
    - Layer: Reference
    - Betroffene SSOT-Dateien (vermutet):
-     - `database-rp/02-characters/Reflex.md`
-     - `database-rp/02-characters/Lumen.md`
-     - `database-rp/02-characters/Echo.md`
+    - [Reflex](../01-factions/novapolis/02-characters/Reflex.md)
+    - [Lumen](../01-factions/novapolis/02-characters/Lumen.md)
+    - [Echo](../01-factions/novapolis/02-characters/Echo.md)
    - Priorität: P1
 
 3) Nähe-Kopplung (Proximity): Lumen↔Jonas, Echo↔Kora, Reflex↔Ronja (Review 2025-11-01)
@@ -71,11 +77,11 @@ Archiv: Gelöste Top-10 (2026-01-11)
    - Problem: Schwellen/Distanzfolgen/Training offen; darf nicht als „Zwang“ wirken.
    - Layer: Reference
    - Betroffene SSOT-Dateien (vermutet):
-     - `database-rp/02-characters/Reflex.md`
-     - `database-rp/02-characters/Jonas-Merek.md`
-     - `database-rp/02-characters/Lumen.md`
-     - `database-rp/02-characters/Echo.md`
-     - `database-rp/02-characters/Kora-Malenkov.md`
+    - [Reflex](../01-factions/novapolis/02-characters/Reflex.md)
+    - [Jonas-Merek](../01-factions/novapolis/02-characters/Jonas-Merek.md)
+    - [Lumen](../01-factions/novapolis/02-characters/Lumen.md)
+    - [Echo](../01-factions/novapolis/02-characters/Echo.md)
+   - [Kora-Malenkov](../01-factions/novapolis/02-characters/Kora-Malenkov.md)
    - Priorität: P1
 
 4) Reflex Sprech-Mechanik (Tympanon): Einwilligung/Dauer/Erschöpfung (Review 2025-11-01)
@@ -84,8 +90,8 @@ Archiv: Gelöste Top-10 (2026-01-11)
    - Problem: Consent/Limitierungen müssen eindeutig und spielbar sein.
    - Layer: Reference
    - Betroffene SSOT-Dateien (vermutet):
-     - `database-rp/02-characters/Reflex.md`
-     - `database-rp/02-characters/Ronja-Kerschner.md`
+    - [Reflex](../01-factions/novapolis/02-characters/Reflex.md)
+    - [Ronja-Kerschner](../01-factions/novapolis/02-characters/Ronja-Kerschner.md)
    - Priorität: P1
 
 5) Reflex Schutz-Übernahme: Trigger/Sinne/Rückgabeprozess (Review 2025-11-01)
@@ -94,7 +100,7 @@ Archiv: Gelöste Top-10 (2026-01-11)
    - Problem: Wann darf Reflex dämpfen/übernehmen; wie wird zurückgegeben; welche Kosten.
    - Layer: Reference
    - Betroffene SSOT-Dateien (vermutet):
-     - `database-rp/02-characters/Reflex.md`
+    - [Reflex](../01-factions/novapolis/02-characters/Reflex.md)
    - Priorität: P1
 
 6) Detachment-Regel: keine vollständige Trennung; Sonderfälle (Review 2025-11-01)
@@ -103,7 +109,7 @@ Archiv: Gelöste Top-10 (2026-01-11)
    - Problem: „Strecken/Seestern“ vs. „nicht trennen“ braucht klare Grenzen (Reichweite/Zeit/Notfall).
    - Layer: Reference
    - Betroffene SSOT-Dateien (vermutet):
-     - `database-rp/02-characters/Reflex.md`
+    - [Reflex](../01-factions/novapolis/02-characters/Reflex.md)
    - Priorität: P1
 
 7) Handschuh-/Eifersuchts-Policy: Reflex-Handschutz vs externe Handschuhe
@@ -112,8 +118,8 @@ Archiv: Gelöste Top-10 (2026-01-11)
    - Problem: Policy ist sensibel; muss ohne unangenehme Dynamiken auskommen und als Sicherheitsregel funktionieren.
    - Layer: Reference
    - Betroffene SSOT-Dateien (vermutet):
-     - `database-rp/02-characters/Reflex.md`
-     - `database-rp/02-characters/Ronja-Kerschner.md`
+    - [Reflex](../01-factions/novapolis/02-characters/Reflex.md)
+    - [Ronja-Kerschner](../01-factions/novapolis/02-characters/Ronja-Kerschner.md)
    - Priorität: P1
 
 8) Währung „Kugeln“: Definition + Verteilung (Inventare haben tbd)
@@ -121,8 +127,8 @@ Archiv: Gelöste Top-10 (2026-01-11)
    - Problem: „Neu/alt“ ist als tbd in mehreren Inventaren; Regeln/Mengen/Umrechnung fehlen.
    - Layer: Reference
    - Betroffene SSOT-Dateien (vermutet):
-     - `database-rp/04-inventory/Novapolis-inventar.md`
-     - `database-rp/04-inventory/*-inventar.md`
+    - [Novapolis-inventar](../01-factions/novapolis/04-inventory/Novapolis-inventar.md)
+    - `01-factions/<faction>/04-inventory/`
    - Priorität: P2
 
 9) Draisine/Transportmodul: Status + Scope
@@ -130,9 +136,9 @@ Archiv: Gelöste Top-10 (2026-01-11)
    - Decision (2026-01-11): Das Draisine-/Transportmodul ist ein D5-Werkstatt-Prototyp von Jonas mit Sicherheits-/Abnahme-Support durch Pahl. Scope: konservativer Material-/Transport-Usecase für Nordlinie; kein "schneller Zug" und kein Dauerdienst ohne Tunnel-Freigaben. Erster Meilenstein ist ein sicherer Testlauf mit klaren Gates/Logpflicht (Details: `Reference-Campaign-State.md`, Projekt-Canvas `Draisine-Transportmodul.md`).
    - Layer: Reference (Projekt/Inventar) + Narrative (Testlauf)
    - Betroffene SSOT-Dateien (vermutet):
-     - `database-rp/02-characters/Jonas-Merek.md`
-     - `database-rp/05-projects/Draisine-Transportmodul.md`
-     - `database-rp/05-projects/caravan_moves.md` (Koordination/Läufe)
+   - [Jonas-Merek](../01-factions/novapolis/02-characters/Jonas-Merek.md)
+   - [Draisine-Transportmodul](../01-factions/novapolis/05-projects/Draisine-Transportmodul.md)
+    - [caravan-moves](../01-factions/haendlerbund/05-projects/caravan-moves.md) (Koordination/Läufe)
    - Priorität: P2
 
 10) „Lebewesen unter dem Boden“ (C6): Einordnung als Lore/Anomalie vs Gerücht
@@ -140,7 +146,7 @@ Archiv: Gelöste Top-10 (2026-01-11)
    - Decision (2026-01-11): Das ist ein Artefakt/Noise (keine neue Spezies/kein neues Lebewesen). Es gibt ohne Adminfreigabe **kein** weiteres neues/undefiniertes Lebewesen außer Reflex (inkl. Instanzen). Reports dieser Art werden bis zur Adminfreigabe als Gerücht/Signalrauschen geführt (wenn überhaupt), nicht als Canon.
    - Layer: Admin/Reference (Policy) → Narrative nur bei expliziter Adminfreigabe
    - Betroffene SSOT-Dateien (Reference):
-     - `database-rp/00-admin/Reference-Campaign-State.md` (Policy: keine neuen Entitäten)
+   - [Reference-Campaign-State](Reference-Campaign-State.md) (Policy: keine neuen Entitäten)
    - Priorität: P2
 
 Offene Punkte (nicht Top-10, aber zu tracken)

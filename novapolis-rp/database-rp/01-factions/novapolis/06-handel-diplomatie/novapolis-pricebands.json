@@ -1,0 +1,11 @@
+{
+  "slug": "novapolis-pricebands",
+  "category": "Economy",
+  "schemaVersion": 1,
+  "language": "de",
+  "tags": ["rp", "economy", "novapolis"],
+  "status": "active",
+  "owners": ["admin-novapolis"],
+  "relatedSlugs": ["reference-campaign-state", "marktpreise-inventar"],
+  "source": "database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-pricebands.md"
+}

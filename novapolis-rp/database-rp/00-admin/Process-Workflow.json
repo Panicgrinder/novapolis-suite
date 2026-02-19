@@ -1,0 +1,10 @@
+{
+  "title": "Process-Workflow (RP)",
+  "category": "admin",
+  "slug": "process-workflow",
+  "version": "1.0",
+  "tags": ["workflow", "curation", "validation", "simulation"],
+  "affiliations": [],
+  "dependencies": ["current-state", "logistik", "missionslog"],
+  "source": "database-rp/00-admin/Process-Workflow.md"
+}

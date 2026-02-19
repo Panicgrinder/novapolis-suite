@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-13 02:20
-update: Validator-Links auf src/* konsolidiert; validate:rp Beispiel auf npm --prefix umgestellt
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' PASS (2026-01-13 02:20); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\readme.hub.md PASS (2026-01-13 02:20)"
+stand: 2026-02-17 09:12
+update: .ps1-Tool-Links auf Python-Skripte umgestellt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' PASS (2026-02-17 03:26); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\readme.hub.md PASS (2026-02-17 03:26)"
 ---
 
 Novapolis Dokumentations-Hub
@@ -34,7 +34,7 @@ Curation Workflow
 1. Export (RAW) nach `novapolis-rp/database-raw/99-exports/` nur ungefiltert.
 2. Staging-Aufbereitung in `database-curated/staging/` (Normalize, Tagging, Review Tags `[SCENE|FACT|CHAR|LOC|PROJ|INV|OPEN]`).
 3. Review & Approval → Kopie nach `database-curated/final/` (geplant; derzeit `final/` Platzhalter).
-4. Übernahme relevanter Artefakte (Memory-Bundle Updates, Facts, Scenes) nach `database-rp/database-rp/*` Strukturen.
+4. Übernahme relevanter Artefakte (Memory-Bundle Updates, Facts, Scenes) nach `database-rp/*` Strukturen.
 5. Aktualisierung DONELOG / TODO (Dev Hub, RP Board) + optional Metadata JSON Refresh.
 
 Validator Tools
@@ -117,7 +117,7 @@ Temporäre Bereiche
 Rotation/Policy (empfohlen):
 - Aufbewahrung: letzte 7 Tage oder die letzten 5 Artefakte je Serie (je nachdem, was größer ist).
 - Größenlimit: Zielbudget 500 MB für `.tmp-*` insgesamt; ältere Artefakte zuerst entfernen.
-- Werkzeuge: [`scripts/cleanup_workspace_files.ps1`](../../scripts/cleanup_workspace_files.ps1), [`scripts/rotate_backups.ps1`](../../scripts/rotate_backups.ps1).
+- Werkzeuge: [`scripts/cleanup_workspace_files.py`](../../scripts/cleanup_workspace_files.py), [`scripts/rotate_backups.py`](../../scripts/rotate_backups.py).
 - Reports: Link-Scanner-Berichte unter [`/.tmp/results/reports/scan_links_reports/`](../../.tmp/results/reports/scan_links_reports/).
 
 Stubbing Policy

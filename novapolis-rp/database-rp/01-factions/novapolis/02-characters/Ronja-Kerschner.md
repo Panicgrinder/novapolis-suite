@@ -1,12 +1,12 @@
 ---
-stand: 2026-01-11 01:40
-update: "JEALOUSY-GLOVES aligned: Kontakt-Guard (betroffene Körperstelle bedecken) + Consent/Stop/Freigabe via Reference."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:37)
+stand: 2026-02-16 12:01
+update: Leitung (Novapolis/D5) und Diplomatie-Zuständigkeit explizit ergänzt.
+checks: not run (not requested)
 title: Ronja Kerschner
 category: character
 slug: ronja-kerschner
 version: "1.0"
-last_updated: 2026-01-11T01:40:00+01:00
+last_updated: 2026-02-16T12:01:00+01:00
 last_change: "RAW-Insights (char_ronja_v2) integriert, Drift markiert"
 tags: []
 affiliations: [novapolis]
@@ -18,7 +18,7 @@ dependencies: [reflex, lumen, echo, jonas-merek, kora-malenkov, d5, c6]
 Ronja Kerschner
 ---------------
 
-- Meta: last-updated: 2025-11-07T03:32:00+01:00
+- Meta: last-updated: 2026-02-16T12:01:00+01:00
 
 - Rolle: Technikerin (36)
 - Werte: K2 G4 Ge5 W5 Ch4
@@ -40,6 +40,7 @@ Notizen
 Rollen & Verantwortlichkeiten (Pflichtfelder)
 ---------------------------------------------
 - Leitung (Novapolis) - führt immer mind. 2 Rollen gemäß Führungsregel [ROLES]
+- Diplomatie (Novapolis) - Außenkontakte/Absprachen, Eskalations- und Freigabeinstanz
 - Technik - Planung, Instandsetzung, Standards/Validierung
 
 Zugehörigkeit & Standort
@@ -103,7 +104,7 @@ Beziehungen
 Projekte & Missions (Verlinkungen)
 ----------------------------------
 - Tunnel „Nordlinie 01“ → ../05-projects/Nordlinie-01.md
-- Missionslog (Prozess L.1) → ../00-admin/Missionslog.md
+- Missionslog (Prozess L.1) → ../05-projects/Missionslog-Novapolis.md
 
 Links
 -----

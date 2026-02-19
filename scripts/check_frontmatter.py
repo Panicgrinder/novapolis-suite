@@ -25,6 +25,7 @@ SKIP_PATTERNS = (
     ".pytest_cache/",
     "novapolis_agent/.pytest_cache/",
     "node_modules/",
+    ".github/instructions/",
     ".github/ISSUE_TEMPLATE/",
     "Backups/",
     # Canonical exception: this file intentionally has no YAML frontmatter

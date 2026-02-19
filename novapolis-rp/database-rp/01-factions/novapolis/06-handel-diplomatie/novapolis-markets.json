@@ -1,0 +1,16 @@
+{
+  "slug": "novapolis-markets",
+  "category": "Economy",
+  "schemaVersion": 1,
+  "language": "de",
+  "tags": ["rp", "economy", "novapolis"],
+  "status": "active",
+  "owners": ["admin-novapolis"],
+  "relatedSlugs": [
+    "reference-campaign-state",
+    "marktpreise-inventar",
+    "handelslog_novapolis_v1",
+    "relationslog_novapolis_v1"
+  ],
+  "source": "database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-markets.md"
+}

@@ -1,0 +1,20 @@
+{
+  "title": "Missionslog (Flüsterkollektiv)",
+  "category": "project",
+  "slug": "missionslog-fluesterkollektiv",
+  "version": "0.1",
+  "status": "active",
+  "tags": ["rp", "missionen", "fluesterkollektiv"],
+  "owners": ["fluesterkollektiv"],
+  "authority_chain": [
+    "fraktion:fluesterkollektiv",
+    "fraktions-leitung:iris-vey",
+    "stellv-fraktions-leitung:tbd",
+    "leitung-sicherheit:sera-kaal",
+    "leitung-logistik:tbd",
+    "rolle:corin-mael",
+    "stationsleitung:tbd"
+  ],
+  "dependencies": ["fluesterkollektiv"],
+  "source": "database-rp/01-factions/fluesterkollektiv/05-projects/Missionslog-Fluesterkollektiv.md"
+}

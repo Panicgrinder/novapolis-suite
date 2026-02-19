@@ -10,7 +10,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-ROOT = Path.cwd()
+ROOT = Path(__file__).resolve().parents[1]
 TS = datetime.now().strftime("%Y%m%d_%H%M%S")
 TMP = ROOT / ".tmp" / "results" / "reports"
 TMP.mkdir(parents=True, exist_ok=True)
@@ -18,8 +18,8 @@ LOG = TMP / f"checks_linters_{TS}.log"
 RECEIPT = TMP / f"checks_linters_postflight_{TS}.md"
 
 COMMANDS = [
-    (["ruff", "check", "."], "ruff"),
-    (["python", "-m", "black", "--check", "."], "black"),
+    ([sys.executable, "-m", "ruff", "check", "."], "ruff"),
+    ([sys.executable, "-m", "black", "--check", "."], "black"),
 ]
 
 results = []

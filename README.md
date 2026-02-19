@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 04:08
-update: checks-Receipt nachgezogen (Basis-Stabilisierung).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 04:08); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py README.md novapolis_agent\README.md PASS (2026-01-11 04:08)
+stand: 2026-02-17 09:12
+update: Root-README: aktive PS1-Wrapper-Referenzen (Activate/verify_sim) entfernt; Beispiele auf direkte .venv-Python-Aufrufe/Smoke-Check angepasst.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md PASS (2026-02-17 06:14); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py README.md PASS (2026-02-17 06:14)
 ---
 Novapolis Suite
 ===============
@@ -22,16 +22,13 @@ Gemeinsames Python-Paket
 Geteilte Python-Helfer leben in `packages/novapolis_common`. Installiere das Shared-Paket bei Bedarf als Editable (nicht mehr das gesamte Repo):
 
 ```powershell
-Set-Location "F:/VS Code Workspace/Main"
-# venv aktiv (falls noch nicht):
-F:/VS Code Workspace/Main/.venv/Scripts/Activate.ps1
-
+Set-Location "F:/VS-Code-Workspace/Main"
 # Dependencies (Root):
-F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -r requirements.txt
-F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+& "F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe" -m pip install -r requirements.txt
+& "F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe" -m pip install -r requirements-dev.txt
 
 # Optional: Shared-Paket als Editable
-F:\VS Code Workspace\Main\.venv\Scripts\python.exe -m pip install -e packages/novapolis_common
+& "F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe" -m pip install -e packages/novapolis_common
 ```
 
 Module, die aktuell mehrfach in den Projekten vorkommen, sollten nach `packages/novapolis_common` wandern. Projektspezifische Verdrahtung (API, Policies, Szenenlogik) verbleibt in den jeweiligen Ordnern. Packaging/Build-Konfigurationen verbleiben in den Modul-/Paketpfaden; das Root `pyproject.toml` ist tools-only.
@@ -65,7 +62,7 @@ Zentrale Arbeitsrichtlinien
 Lint ausführen (optional, lokal):
 
 ```powershell
-Set-Location "F:/VS Code Workspace/Main"
+Set-Location "F:/VS-Code-Workspace/Main"
 npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'
 ```
 
@@ -86,7 +83,7 @@ Workspace öffnen
 Verbindungsprüfung
 ------------------
 
-2025-11-10 12:12 — Verbindung zwischen der lokalen Godot-Instanz und dem Agent-API (`POST /world/step`) wurde erfolgreich verifiziert. Headless-Verifier (`novapolis-sim/scripts/verify_sim.gd`) und PowerShell-Smoke-Test (`scripts/verify_sim.ps1`) liefen lokal durch. Siehe `novapolis-sim/README.md` für Ausführungsbefehle und Audit-Hinweise.
+2025-11-10 12:12 — Verbindung zwischen der lokalen Godot-Instanz und dem Agent-API (`POST /world/step`) wurde erfolgreich verifiziert. Headless-Verifier (`novapolis-sim/scripts/verify_sim.gd`) und ein lokaler Smoke-Check (`POST /world/step`) liefen lokal durch. Siehe `novapolis-sim/README.md` für Ausführungsbefehle und Audit-Hinweise.
 
 ### Archiv
 

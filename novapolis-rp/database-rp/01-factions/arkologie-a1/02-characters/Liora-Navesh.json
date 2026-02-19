@@ -1,0 +1,18 @@
+{
+  "title": "Liora Navesh",
+  "category": "character",
+  "slug": "liora-navesh",
+  "version": "0.9",
+  "last_updated": "2025-11-07T03:32:00+01:00",
+  "last_change": "Import aus RAW (char_liora_navesh_v1)",
+  "tags": [],
+  "affiliations": [
+    "arkologie-a1"
+  ],
+  "primary_location": "a1",
+  "last_seen": "a1",
+  "dependencies": [
+    "a1"
+  ],
+  "source": "database-rp/01-factions/arkologie-a1/02-characters/Liora-Navesh.md"
+}

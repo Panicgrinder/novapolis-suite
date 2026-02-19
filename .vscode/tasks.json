@@ -1,4 +1,3 @@
-// VS Code tasks configuration. Markdownlint tasks removed per policy (use npx --yes manually).
 {
   "$schema": "vscode://schemas/tasks",
   "version": "2.0.0",
@@ -6,8 +5,8 @@
     {
       "label": "Checks: linters (all)",
       "type": "shell",
-      "command": "pwsh",
-      "args": ["-NoProfile","-Command","& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python' }; & $python (Join-Path $root 'scripts\\checks_linters.py'); exit $LASTEXITCODE }"],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\checks_linters.py"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -17,12 +16,8 @@
     {
       "label": "lint:ruff",
       "type": "shell",
-      "command": "pwsh",
-      "args": [
-        "-NoProfile",
-        "-Command",
-        "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check .; exit $LASTEXITCODE }"
-      ],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "ruff", "check", "."],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -32,12 +27,8 @@
     {
       "label": "format:black",
       "type": "shell",
-      "command": "pwsh",
-      "args": [
-        "-NoProfile",
-        "-Command",
-        "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m black .; exit $LASTEXITCODE }"
-      ],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "black", "."],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -47,12 +38,8 @@
     {
       "label": "fix:ruff",
       "type": "shell",
-      "command": "pwsh",
-      "args": [
-        "-NoProfile",
-        "-Command",
-        "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; Set-Location $root; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python'; }; & $python -m ruff check --fix .; exit $LASTEXITCODE }"
-      ],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "ruff", "check", "--fix", "."],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -62,8 +49,8 @@
     {
       "label": "Tests: pytest (-q) [root]",
       "type": "shell",
-      "command": "pwsh",
-      "args": ["-NoProfile","-Command","& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python' }; & $python (Join-Path $root 'scripts\\tests_pytest_root.py'); exit $LASTEXITCODE }"],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\tests_pytest_root.py"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -73,8 +60,8 @@
     {
       "label": "Checks: types (pyright+mypy)",
       "type": "shell",
-      "command": "pwsh",
-      "args": ["-NoProfile","-Command","& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python' }; & $python (Join-Path $root 'scripts\\checks_types.py'); exit $LASTEXITCODE }"],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\checks_types.py"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -84,9 +71,9 @@
     {
       "label": "Tests: coverage (fail-under)",
       "type": "shell",
-      "command": "pwsh",
-      "args": ["-NoProfile", "-Command", "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python' }; & $python (Join-Path $root 'scripts\\run_pytest_coverage.py'); exit $LASTEXITCODE }"],
-      "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\run_pytest_coverage.py"],
+      "options": { "cwd": "${workspaceFolder}" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
       "runOptions": { "instanceLimit": 1 },
@@ -95,15 +82,9 @@
     {
       "label": "Checks: full",
       "type": "shell",
-      "command": "pwsh",
-      "args": ["-NoProfile", "-Command", "Write-Host 'Checks: full completed.'"],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\run_checks_and_report.py"],
       "options": { "cwd": "${workspaceFolder}" },
-      "dependsOn": [
-        "Checks: linters (all)",
-        "Checks: types (pyright+mypy)",
-        "Tests: coverage (fail-under)"
-      ],
-      "dependsOrder": "sequence",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
       "runOptions": { "instanceLimit": 1 },
       "problemMatcher": []
@@ -111,8 +92,8 @@
     {
       "label": "Git: commit+push",
       "type": "shell",
-      "command": "pwsh",
-      "args": ["-NoProfile", "-Command", "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python' }; & $python (Join-Path $root 'scripts\\git_commit_push.py'); exit $LASTEXITCODE }"],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\git_commit_push.py"],
       "options": { "cwd": "${workspaceFolder}" },
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
       "runOptions": { "instanceLimit": 1 }
@@ -140,8 +121,8 @@
     {
       "label": "Workspace tree: summary (dirs)",
       "type": "shell",
-      "command": "pwsh",
-      "args": ["-NoProfile", "-Command", "& { $ErrorActionPreference = 'Stop'; $root = '${workspaceFolder}'; $python = Join-Path $root '.venv\\Scripts\\python.exe'; if (-not (Test-Path -LiteralPath $python)) { $python = 'python' }; & $python (Join-Path $root 'scripts\\update_workspace_tree_dirs.py'); exit $LASTEXITCODE }"],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["scripts\\update_workspace_tree_dirs.py"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -151,12 +132,8 @@
     {
       "label": "Tests: pytest (-q)",
       "type": "shell",
-      "command": "pwsh",
-      "args": [
-        "-NoProfile",
-        "-Command",
-        "& { $ErrorActionPreference = \"Stop\"; $root = \"${workspaceFolder}\"; $python = Join-Path $root \".venv\\Scripts\\python.exe\"; if (-not (Test-Path -LiteralPath $python)) { $python = \"python\"; }; & $python -m pytest -q; exit $LASTEXITCODE }"
-      ],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "pytest", "-q"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -167,11 +144,13 @@
     {
       "label": "Docs: DONELOG append",
       "type": "shell",
-      "command": "pwsh",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
-        "-NoProfile",
-        "-Command",
-        "& { $ErrorActionPreference = \"Stop\"; $root = \"${workspaceFolder}\"; $path = Join-Path $root \"novapolis_agent\\docs\\DONELOG.txt\"; $ts = Get-Date -Format 'yyyy-MM-dd HH:mm'; $author = \"${input:doneAuthor}\"; if ([string]::IsNullOrWhiteSpace($author)) { $author = $env:USERNAME }; $msg = \"${input:doneMessage}\"; if ([string]::IsNullOrWhiteSpace($msg)) { Write-Error 'DONELOG message is required.'; exit 1 }; $line = \"$ts | $author | $msg\"; Add-Content -LiteralPath $path -Encoding UTF8 $line }"
+        "${workspaceFolder}\\scripts\\append_agent_donelog_entry.py",
+        "--message",
+        "${input:doneMessage}",
+        "--author",
+        "${input:doneAuthor}"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
@@ -182,12 +161,8 @@
     {
       "label": "Tests: pytest (unit)",
       "type": "shell",
-      "command": "pwsh",
-      "args": [
-        "-NoProfile",
-        "-Command",
-        "& { $ErrorActionPreference = \"Stop\"; $root = \"${workspaceFolder}\"; $python = Join-Path $root \".venv\\Scripts\\python.exe\"; if (-not (Test-Path -LiteralPath $python)) { $python = \"python\"; }; & $python -m pytest -q -m 'unit'; exit $LASTEXITCODE }"
-      ],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "pytest", "-q", "-m", "unit"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -198,12 +173,8 @@
     {
       "label": "Tests: pytest (api+streaming)",
       "type": "shell",
-      "command": "pwsh",
-      "args": [
-        "-NoProfile",
-        "-Command",
-        "& { $ErrorActionPreference = \"Stop\"; $root = \"${workspaceFolder}\"; $python = Join-Path $root \".venv\\Scripts\\python.exe\"; if (-not (Test-Path -LiteralPath $python)) { $python = \"python\"; }; & $python -m pytest -q -m 'api or streaming'; exit $LASTEXITCODE }"
-      ],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["-m", "pytest", "-q", "-m", "api or streaming"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },

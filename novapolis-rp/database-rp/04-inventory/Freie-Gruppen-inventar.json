@@ -4,6 +4,7 @@
   "slug": "freie-gruppen-inventar",
   "version": "0.1",
   "last_updated": "2025-11-07T04:32:00+01:00",
+  "scope": "fraktionslose-npc",
   "tags": [],
   "affiliations": [],
   "dependencies": [],

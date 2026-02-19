@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-17 09:40
-update: Single-Root + Hinweis auf Archivierung von App-Stubs ergänzt
-checks: python scripts/check_frontmatter.py PASS
+stand: 2026-02-18 04:02
+update: Veralteten Verweis auf analysis_chat_routers entfernt (Legacy-Datei gelöscht).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md WORKSPACE_INDEX.md todo.root.md PASS (2026-02-18 04:02); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md WORKSPACE_INDEX.md todo.root.md PASS (2026-02-18 04:02)"
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -27,7 +27,7 @@ Status: Phase 1 (Redirect-Hinweis) aktiv; Entscheidungsliste erstellt (`novapoli
 Vollständiger Index aller Dateien im Agent-Verzeichnis
 ------------------------------------------------------
 
-Hinweis: Alle Pfade beziehen sich auf den Repo-Root `F:/VS Code Workspace/Main`. Sofern nicht anders erwähnt, beginnen sie bei `novapolis_agent/`.
+Hinweis: Alle Pfade beziehen sich auf den Repo-Root `F:/VS-Code-Workspace/Main`. Sofern nicht anders erwähnt, beginnen sie bei `novapolis_agent/`.
 
 ### Paket `novapolis_agent/` (Unterordner im Single-Root)
 
@@ -37,7 +37,6 @@ Hinweis: Alle Pfade beziehen sich auf den Repo-Root `F:/VS Code Workspace/Main`.
 - [`novapolis_agent/.env.example`](novapolis_agent/.env.example) - Template für Umgebungsvariablen
 - [`novapolis_agent/.gitignore`](novapolis_agent/.gitignore) - Git-Ignorier-Regeln
 - [`novapolis_agent/coverage.xml`](novapolis_agent/coverage.xml) - Coverage-Report (XML, generiert)
-- [`novapolis_agent/analysis_chat_routers.md`](novapolis_agent/analysis_chat_routers.md) - Analyse der Chat-Router
 - [`novapolis_agent/cleanup_recommendations.md`](novapolis_agent/cleanup_recommendations.md) - Aufräum-Empfehlungen
 - [`novapolis_agent/docs/CONTEXT_ARCH.md`](novapolis_agent/docs/CONTEXT_ARCH.md) - Kontextfluss Developer ⇄ Copilot ⇄ GPT (Rollen, Beispiele, Privacy)
 - [`novapolis_agent/mypy.ini`](novapolis_agent/mypy.ini) - mypy-Konfiguration
@@ -224,9 +223,9 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 - [`novapolis_agent/scripts/open_context_notes.py`](novapolis_agent/scripts/open_context_notes.py) - Öffnet/legt lokale Kontextnotizen an
 - [`novapolis_agent/scripts/append_done.py`](novapolis_agent/scripts/append_done.py) - Hängt Eintrag an `docs/DONELOG.txt` an
 - [`novapolis_agent/scripts/fix_donelog_times.py`](novapolis_agent/scripts/fix_donelog_times.py) - Korrigiert Zeitstempel im DONELOG
-- [`novapolis_agent/scripts/cleanup_phase3.ps1`](novapolis_agent/scripts/cleanup_phase3.ps1) - Cleanup-Skript Phase 3
-- [`novapolis_agent/scripts/cleanup_phase4.ps1`](novapolis_agent/scripts/cleanup_phase4.ps1) - Cleanup-Skript Phase 4
-- [`novapolis_agent/scripts/history_purge_plan.ps1`](novapolis_agent/scripts/history_purge_plan.ps1) - Historienbereinigung (Plan)
+- (archiviert) [`novapolis-dev/archive/scripts/scripts.ps1-scripts/cleanup_phase3.ps1`](novapolis-dev/archive/scripts/scripts.ps1-scripts/cleanup_phase3.ps1) - Cleanup-Skript Phase 3 (ehemals `novapolis_agent/scripts/cleanup_phase3.ps1`)
+- (archiviert) [`novapolis-dev/archive/scripts/scripts.ps1-scripts/cleanup_phase4.ps1`](novapolis-dev/archive/scripts/scripts.ps1-scripts/cleanup_phase4.ps1) - Cleanup-Skript Phase 4 (ehemals `novapolis_agent/scripts/cleanup_phase4.ps1`)
+- (archiviert) [`novapolis-dev/archive/scripts/scripts.ps1-scripts/history_purge_plan.ps1`](novapolis-dev/archive/scripts/scripts.ps1-scripts/history_purge_plan.ps1) - Historienbereinigung (Plan; ehemals `novapolis_agent/scripts/history_purge_plan.ps1`)
 - [`novapolis_agent/scripts/run_tests.py`](novapolis_agent/scripts/run_tests.py) - Test-Launcher/Helper
 - [`novapolis_agent/scripts/smoke_asgi.py`](novapolis_agent/scripts/smoke_asgi.py) - Minimaler ASGI-Smoketest
 - [`novapolis_agent/scripts/syn_loader.py`](novapolis_agent/scripts/syn_loader.py) - Loader für Synonym-Overlays

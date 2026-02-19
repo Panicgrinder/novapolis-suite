@@ -1,0 +1,11 @@
+{
+  "title": "Novapolis - Campaign State",
+  "category": "canon",
+  "slug": "novapolis-campaign-state",
+  "version": "0.1",
+  "status": "active",
+  "tags": ["rp", "campaign", "state", "novapolis"],
+  "owners": ["admin-novapolis"],
+  "dependencies": ["novapolis", "current-state", "reference-campaign-state"],
+  "source": "database-rp/01-factions/novapolis/00-doctrine/novapolis-campaign-state.md"
+}

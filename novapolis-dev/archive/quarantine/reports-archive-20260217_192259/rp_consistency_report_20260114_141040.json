@@ -1,0 +1,17 @@
+{
+  "tool": "checks_rp_consistency",
+  "ts": "2026-01-14T14:10:40",
+  "repo_root": "F:\\VS Code Workspace\\Main",
+  "rp_root": "F:\\VS Code Workspace\\Main\\novapolis-rp\\database-rp",
+  "files_scanned": 208,
+  "duration_ms": 267,
+  "counts": {
+    "errors": 0,
+    "warnings": 0,
+    "missing_frontmatter": 0,
+    "missing_slug": 0
+  },
+  "missing_frontmatter": [],
+  "missing_slug": [],
+  "findings": []
+}

@@ -1,0 +1,20 @@
+{
+  "title": "Missionslog (Eisenkonklave)",
+  "category": "project",
+  "slug": "missionslog-eisenkonklave",
+  "version": "0.1",
+  "status": "active",
+  "tags": ["rp", "missionen", "eisenkonklave"],
+  "owners": ["eisenkonklave"],
+  "authority_chain": [
+    "fraktion:eisenkonklave",
+    "fraktions-leitung:varek-solun",
+    "stellv-fraktions-leitung:tbd",
+    "leitung-sicherheit:yara-kest",
+    "leitung-logistik:tbd",
+    "rolle:kaspar-dorn",
+    "stationsleitung:tbd"
+  ],
+  "dependencies": ["eisenkonklave"],
+  "source": "database-rp/01-factions/eisenkonklave/05-projects/Missionslog-Eisenkonklave.md"
+}

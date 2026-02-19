@@ -1,0 +1,198 @@
+{
+  "tool": "checks_rp_consistency",
+  "ts": "2026-01-11T06:09:13",
+  "repo_root": "F:\\VS Code Workspace\\Main",
+  "rp_root": "F:\\VS Code Workspace\\Main\\novapolis-rp\\database-rp",
+  "files_scanned": 59,
+  "duration_ms": 77,
+  "counts": {
+    "errors": 30,
+    "warnings": 0,
+    "missing_frontmatter": 0,
+    "missing_slug": 0
+  },
+  "missing_frontmatter": [],
+  "missing_slug": [],
+  "findings": [
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/haendlerbund/02-characters/Kora-Malenkov.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Echo.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Echo.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Echo.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Echo.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lumen.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lumen.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lumen.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lumen.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md",
+      "message": "broken link target: ../00-admin/Logistik.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md",
+      "message": "broken link target: ../00-admin/Missionslog.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Lyra-Hest.md",
+      "message": "broken link target: ../00-admin/person_index_np.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md",
+      "message": "broken link target: ../00-admin/Reference-Campaign-State.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md",
+      "message": "broken link target: ../00-admin/Logistik.md"
+    },
+    {
+      "level": "ERROR",
+      "code": "LINK_BROKEN",
+      "file": "novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md",
+      "message": "broken link target: ../00-admin/Missionslog.md"
+    }
+  ]
+}

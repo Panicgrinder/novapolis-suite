@@ -1,0 +1,22 @@
+{
+  "title": "Kaspar Dorn",
+  "category": "character",
+  "slug": "kaspar-dorn",
+  "version": "0.1",
+  "last_updated": "2026-02-16T17:17:00+01:00",
+  "last_change": "Neu angelegt: Leitung Handel Eisenkonklave",
+  "tags": [
+    "npc",
+    "eisenkonklave",
+    "handel"
+  ],
+  "affiliations": [
+    "eisenkonklave"
+  ],
+  "primary_location": "h12",
+  "last_seen": "h12",
+  "dependencies": [
+    "h12"
+  ],
+  "source": "database-rp/01-factions/eisenkonklave/02-characters/Kaspar-Dorn.md"
+}

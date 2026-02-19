@@ -98,6 +98,6 @@ Offene Frage (Reflex-Last)
 - Personal: Teamliste inkl. Rollen (Leitung/Technik/Logistik/Med)
 - Material: Stückliste, Verbrauch/Restbestände (Einheiten)
 - Events: Störungen/Unfälle/Entscheidungen (mit Zeitstempel)
-- Links: [Logistik](../../../00-admin/Logistik.md), [Missionslog](../../../00-admin/Missionslog.md)
+- Links: [Logistik](../../../00-admin/Logistik.md), [Missionslog](./Missionslog-Novapolis.md)
 
 

@@ -43,4 +43,4 @@ Hooks
 Verlinkungen
 ------------
 - D5 → ./D5.md
-- Missionslog → ../00-admin/Missionslog.md
+- Missionslog → ../05-projects/Missionslog-Novapolis.md

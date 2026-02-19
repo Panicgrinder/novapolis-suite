@@ -39,32 +39,32 @@ Kanon
 
 Charaktere
 ----------
-- Ronja Kerschner: Technikerin, Kernfigur der D5-Stabilisierung. (Details: [Ronja-Kerschner](../01-factions/novapolis/02-characters/Ronja-Kerschner.md))
-- Reflex: emergentes Netz-/Symbiosewesen aus der D5-Reaktor-Stabilisierung; Instanzen/Fragmente möglich (Lumen, Echo). (Details: [Reflex](../01-factions/novapolis/02-characters/Reflex.md))
-- Jonas Merek: Mechaniker/Logistik; kam über Verbindungstunnel; grundsätzlich vertrauenswürdig, bleibt in Beobachtung. (Details: [Jonas-Merek](../01-factions/novapolis/02-characters/Jonas-Merek.md))
-- Pahl: Leittechniker; Überlebender des C6-Reaktorereignisses, in Pflege/Reha. (Details: [Pahl](../01-factions/novapolis/02-characters/Pahl.md))
-- Marei: ehem. Leitung E3; heute C6-Organisation/Logistik (Stellvertretung). (Details: [Marei](../01-factions/novapolis/02-characters/Marei.md))
+
+Fraktionsspezifische Charakterdetails liegen in den Fraktions-SSOTs:
+
+- Novapolis: [Novapolis](../01-factions/novapolis/Novapolis.md)
 
 Orte
 ----
-- D5: Hauptbasis. (Details: [D5](../01-factions/novapolis/03-locations/D5.md))
-- C6: Außenposten/Teilaktiv. (Details: [C6](../01-factions/novapolis/03-locations/C6.md))
-- E3: evakuiert; Risiko/Anomalie offen. (Details: [E3](../01-factions/novapolis/03-locations/E3.md))
-- Verbindung D5–C6: Projekt „Nordlinie 01“. (Details: [Verbindungstunnel-D5-C6](../01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md), [Nordlinie-01](../01-factions/novapolis/05-projects/Nordlinie-01.md))
-- Verbindung C6–E3: C6-seitig gesichert; Status E3-Ende unklar/risikobehaftet. (Details: [Verbindungstunnel-C6-E3](../01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.md))
+
+Fraktionsspezifische Ortsdetails liegen in den Fraktions-SSOTs:
+
+- Novapolis: [Orte (Novapolis)](../01-factions/novapolis/03-locations/README.md)
 
 Projekte
 --------
 
-- Nordlinie 01: Wiederinbetriebnahme des Verbindungstunnels D5–C6; Fortschritt wird getrennt berichtet (Erkundung/Sicherung/Betrieb). (Details: [Nordlinie-01](../01-factions/novapolis/05-projects/Nordlinie-01.md))
-- E3: Reaktivierung ist offen; Warnmeldungen/Anomalie müssen geklärt werden. (Details: [E3](../01-factions/novapolis/03-locations/E3.md))
+Fraktionsspezifische Projekte liegen in den Fraktions-SSOTs:
+
+- Novapolis: [Projekte (Ordner)](../01-factions/novapolis/05-projects/)
 
 Offene Fäden (Core-kurz)
 ------------------------
 
-- Nordlinie 01: Material/Tools für den nächsten Schritt fehlen.
-- C6: Monitoring/Überwachung auswerten.
-- E3: Risiko klären, bevor Reaktivierung diskutiert wird.
+Offene Fäden werden fraktionslokal geführt, z. B. in:
+
+- [Novapolis](../01-factions/novapolis/Novapolis.md)
+- [Missionslog-Novapolis](../01-factions/novapolis/05-projects/Missionslog-Novapolis.md)
 
 Ausgelagerte Details
 --------------------

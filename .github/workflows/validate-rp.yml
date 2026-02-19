@@ -36,7 +36,7 @@ jobs:
         run: npm --prefix novapolis-rp/coding/tools/validators run check:names
 
   validate-windows:
-    name: Windows / PS1 wrappers
+    name: Windows / Node 20
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -47,12 +47,11 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Run validators (PS1 wrapper)
-        shell: pwsh
-        run: |
-            pwsh -NoProfile -ExecutionPolicy Bypass -File "novapolis-rp/coding/tools/validators/run_validate_all.ps1"
+      - name: Install validator deps
+        run: npm ci --prefix novapolis-rp/coding/tools/validators
 
-      - name: Run name-lint (PS1 wrapper)
-        shell: pwsh
-        run: |
-            pwsh -NoProfile -ExecutionPolicy Bypass -File "novapolis-rp/coding/tools/validators/run_check_names.ps1"
+      - name: Validate curated + rp data
+        run: npm --prefix novapolis-rp/coding/tools/validators run validate
+
+      - name: Check naming (database-rp)
+        run: npm --prefix novapolis-rp/coding/tools/validators run check:names

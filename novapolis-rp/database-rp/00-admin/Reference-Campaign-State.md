@@ -1,19 +1,101 @@
 ---
-stand: 2026-01-12 21:23
-update: "Entry-Point: Link auf Current-State ergänzt (Navigation)."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/memory-bundle.md' 'novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md' PASS (2026-01-12 21:25); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\00-admin\memory-bundle.md novapolis-rp\database-rp\00-admin\Reference-Campaign-State.md PASS (2026-01-12 21:25); npm --prefix novapolis-rp\coding\tools\validators run validate:rp PASS (2026-01-12 21:24); npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs PASS (2026-01-12 21:24); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-12 21:24)
+stand: 2026-02-10 22:48
+update: Frontmatter-Keys normalisiert (Checks/Decisions inline).
 slug: reference-campaign-state
 category: Admin
 canvas: campaign-state
+schemaVersion: 1
+language: de
+owners: [admin-novapolis]
+tags: [rp, campaign, state, mechanics]
+status: active
+relatedSlugs: [current-state, memory-bundle, canvas-t0-timeline]
+checks: rp=passed; crossrefs=passed; lastRun=2026-02-09T17:37:35.4887646+01:00
+validators:
+  - id: rp
+    cmd: 'npm --prefix novapolis-rp\coding\tools\validators run validate:rp'
+  - id: crossrefs
+    cmd: 'npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs'
+decisions: [DEC-2026-02-09-01, DEC-2026-02-09-02]
+terms:
+  REFLEX-CONTROL: { aliases: ['Reflex-Control', 'Reflex-CONTROL'], kind: rule }
+  REFLEX-SPEECH: { aliases: ['Reflex-Speech'], kind: rule }
+  PROXIMITY: { aliases: ['Nähe-Kopplung'], kind: rule }
+  JEALOUSY-GLOVES: { aliases: ['Kontakt-Guard', 'Eifersuchts-Guard'], kind: rule }
+  DETACH: { aliases: ['Reflex-Detach', 'Detachment', 'REFLEX-DETACH'], kind: rule }
+  SE-POOLS: { aliases: ['SE', 'Symbiose-Energie Pools'], kind: resource }
+fsm:
+  states:
+    - id: CALM
+      description: Normalbetrieb, geringe Bedrohung
+    - id: ALERT
+      description: Erhöhtes Risiko/Unbekanntes
+    - id: CRISIS
+      description: Akute Gefahr; Notfallprotokolle erlaubt
+    - id: AFTERMATH
+      description: Gefahr gebrochen; Deeskalation/Review
+    - id: MAINTENANCE
+      description: Geplante Ruhe-/Service-Fenster
+  overlays:
+    - id: SCHONMODUS
+      enter:
+        - se_lte: 0
+        - se_pct_lt: 25
+        - hard_proximity_violation: true
+      exit:
+        - se_pct_gte: 25
+        - proximity_restored: true
+      effect: 'Bonus/Feinsteuerung deaktiviert; Minimalfunktionen aktiv'
+  transitions:
+    - from: CALM
+      to: ALERT
+      triggers: [sensor_alarm, unknown_contact, proximity_breach, unsafe_env]
+      entry: [tighten_proximity, raise_guard, prep_comm_short]
+    - from: ALERT
+      to: CALM
+      guards: [debrief_ok, env_stable, caregiver_regulated]
+      exit: [log_essentials, restore_normal_window]
+    - from: ALERT
+      to: CRISIS
+      triggers: [acute_threat, medical_escalation, stop_ignored_by_third_party]
+      entry: [activate_emergency, allow_reflex_control, prioritize_warning_pings]
+    - from: CRISIS
+      to: ALERT
+      guards: [immediate_threat_broken, not_yet_secure]
+      exit: [reduce_block, vitals_check, stabilize_env]
+    - from: CRISIS
+      to: AFTERMATH
+      guards: [secure_confirmed, caregiver_capable]
+      entry: [deescalate, care_med_psych, brief_review, write_protocol]
+    - from: AFTERMATH
+      to: CALM
+      guards: [regen_reset_done, todos_assigned, lessons_logged]
+    - from: CALM
+      to: MAINTENANCE
+      triggers: [sleep, service_window, long_transfer]
+    - from: MAINTENANCE
+      to: CALM
+      exit: [self_test_short]
 ---
 
-Reference: Campaign State (ausgelagert)
-=====================================
+<!-- id: doc-reference-campaign-state -->
+Reference: Campaign State (global mechanics)
+============================================
 
-Zweck: Sammelstelle für veränderliche Details (Inventar, Status, Timeline-Skizzen), die bewusst **nicht** im Canon-Core (`memory-bundle.md`) stehen.
+Diese Datei ist die globale Mechanik-SSOT für RP-Regeln.
 
-Start here: [Current-State.md](./Current-State.md)
+Fraktionsspezifische State-Snapshots wurden ausgelagert:
 
+- Novapolis: [novapolis-campaign-state](../01-factions/novapolis/00-doctrine/novapolis-campaign-state.md)
+
+<!-- id: fsm-campaign -->
+FSM-Hinweis (global)
+--------------------
+
+- Die detaillierte Kampagnen-FSM pro Fraktion liegt in den jeweiligen Fraktions-Doctrines.
+- Diese Datei hält die global gültigen Mechanik-Regeln (`SE-POOLS`, `INSTANCES`, `PROXIMITY`, `REFLEX-*`, `DETACH`, `JEALOUSY-GLOVES`).
+
+<!-- id: rule-se-pools -->
 Mechanik (Reference): Symbiose-Energie (SE) - Pools (Reflex-System)
 ---------------------------------------------------------------
 
@@ -64,6 +146,7 @@ Regeneration (einfach)
 - Ruhig/ohne Einsatz: +1 SE pro 30 Minuten.
 - „Reset“: nach einem echten Ruheblock (z. B. Schlaf-/Regenerationsfenster, SL-Entscheid) wieder auf `SE_max`.
 
+<!-- id: rule-instances -->
 Instanzen (Reference): Wissensstand & Persönlichkeit
 ---------------------------------------------------
 
@@ -87,12 +170,13 @@ Training/Achsen (langfristig kompatibel)
 - Mental/Verhalten: Kontrolle/Trigger/Consent werden pro Instanz trainiert (Einfluss der Bezugsperson ist zentral).
 - Spezialisierung: Jede Instanz hat eine Hauptfähigkeit/Scope, der nicht automatisch auf andere Träger übergeht.
 
+<!-- id: rule-proximity -->
 Mechanik (Reference): Nähe-Kopplung (PROXIMITY)
 ----------------------------------------------
 
-Ziel: Eine spielbare Proximity-Regel für die Bezugspaare **Reflex↔Ronja**, **Lumen↔Jonas**, **Echo↔Kora**.
+Ziel: Eine spielbare `PROXIMITY`-Regel für die Bezugspaare **Reflex↔Ronja**, **Lumen↔Jonas**, **Echo↔Kora**.
 
-Grundannahmen (REFLEX-SPEECH)
+Grundannahmen (PROXIMITY)
 -----------------------------
 
 - Proximity ist **tatsächliche Nähe** (Distanz, optional Kontakt). Sie wirkt als Stabilitätsanker.
@@ -106,6 +190,7 @@ Zustände (Heuristik)
 - `ALERT`: Unbekanntes/Risiko. Distanzfenster wird enger; Schutzpositionierung nimmt zu.
 - `CRISIS`: Akute Selbst-/Fremdgefährdung. Schutzhandlungen dürfen kurzfristig übergriffig werden, bis die unmittelbare Gefahr gebrochen ist; danach Deeskalation.
 
+<!-- id: dec-2026-02-09-02 -->
 Distanzfenster (Startwerte)
 ---------------------------
 
@@ -133,6 +218,7 @@ Scope-Unterschiede
 - Reflex (Primär): stärkster Affektions- und Schutztreiber; in `CRISIS` darf er kurzfristig blockieren/abschirmen (z. B. Bewegung unterbinden, Kokon/Abschirmung), um Leben zu sichern.
 - Instanzen (Lumen/Echo): Nähe wird gesucht (Affektion), Schutzhandlungen bleiben **lokal und kurz** (z. B. Hand stoppen, Sichtlinie schützen), um Arbeitsfähigkeit und Alltag zu ermöglichen.
 
+<!-- id: rule-reflex-speech -->
 Mechanik (Reference): Reflex Sprache/Audio (REFLEX-SPEECH)
 --------------------------------------------------------
 
@@ -178,6 +264,7 @@ Consent & Notfall-Override
 - In `CRISIS` (akute Selbst-/Fremdgefährdung) darf Reflex **kurz** ("Notfall-Ping") auch ohne vorherige Freigabe warnen, wenn dies unmittelbar lebensrettend ist.
 - Nach Ende der Akutlage gilt sofort wieder: Consent + Deeskalation + Pause.
 
+<!-- id: rule-reflex-control -->
 Mechanik (Reference): Schutz-Übernahme (REFLEX-CONTROL)
 ------------------------------------------------------
 
@@ -188,6 +275,7 @@ Grundsatz (Decision, REFLEX-CONTROL)
 
 - **Rückgabe/Entkopplung erfolgt erst, wenn die Situation als "Sicher" eingeschätzt wird (nicht früher).**
 
+<!-- id: dec-2026-02-09-01 -->
 Definition "Sicher" (Heuristik)
 -------------------------------
 
@@ -210,6 +298,7 @@ Scope & Kosten (kompatibel)
 - Bei niedriger SE (nahe Schonmodus) wird Kontrolle grober und kürzer; Rückgabe-Check bleibt Pflicht.
 
 
+<!-- id: rule-detach -->
 Mechanik (Reference): Detachment & Beweglichkeit (REFLEX-DETACH)
 ---------------------------------------------------------------
 
@@ -242,6 +331,7 @@ Kosten/Limitierung (SE-kompatibel, Heuristik)
 - Wenn die Instanz Unruhe/Stress zeigt oder "Stop" kommt: **sofort zurück in Nähe/Kontakt**; bei Überschreiten des eigenen Distanzfensters kippt sie in Schonmodus.
 
 
+<!-- id: rule-jealousy-gloves -->
 Mechanik (Reference): Kontakt-Guard / Eifersuchts-Guard (JEALOUSY-GLOVES)
 ------------------------------------------------------------------------
 
@@ -268,6 +358,7 @@ Eskalation (Heuristik)
 - Wenn es **keine Jealousy-Situation**, sondern eine **Bedrohung/Übergriff** ist, greifen die Schutzregeln aus `REFLEX-CONTROL` (CRISIS) statt JEALOUSY-GLOVES.
 
 
+<!-- id: policy-new-entities -->
 Admin/Canon-Policy (Reference): Neue Entitäten / "Lebewesen"
 ------------------------------------------------------------
 
@@ -290,66 +381,21 @@ Externe Handschuhe / Kleidung
 - Wenn Kontakt-Guard aktiv ist, hat die Schutzschicht Priorität: Reflex/Instanz legt sich an der **betroffenen Stelle** so, dass der unerwünschte Kontakt zuverlässig blockiert wird (auch über Stoff/Handschuh möglich).
 
 
-Währung (Reference): "Kugeln" (neu vs gebraucht)
--------------------------------------------
-
-Ziel: Eine klare, spielbare Regel für Munition als Währung, ohne harte Buchhaltung.
-
-Grundsatz (Decision, KUGELN)
+<!-- id: economy-kugeln -->
+Währung (Reference): Kugeln
 ---------------------------
 
-- "Kugeln" ist die **Standard-Währungseinheit** im Feld, weil Munition universell gebraucht wird.
-- Es gibt zwei Wertstufen:
-  - **Kugeln (neu)**: neuwertig/zuverlässig (z. B. original verpackt, sauber gelagert, geprüft) → **hochwertige Währung**.
-  - **Kugeln (gebraucht)**: wiederaufbereitet/alt/uneinheitlich (z. B. nachgegossen, nachgeladen, gemischte Herkunft) → **Alltags-Währung**.
+Fraktionsbezogene Ausprägung/Preisbänder liegen in den Handels-/Diplomatie-Unterlagen der Fraktionen.
 
-Umrechnung (Faustregel)
------------------------
+- Novapolis: [novapolis-pricebands](../01-factions/novapolis/06-handel-diplomatie/novapolis-pricebands.md)
 
-- **1 Kugel (neu) äquivalent zu ~10 Kugeln (gebraucht)**.
-- Die Quote kann je nach Lage/Vertrauen/Charge schwanken (z. B. 1:8 bis 1:12), aber **1:10** ist der Default.
+<!-- id: project-draisine -->
+Projekt-Reference: Draisine
+---------------------------
 
-Qualität & Risiko (gebraucht)
--------------------------------
+Projekt-Details wurden in den Projekt-Canvas verschoben.
 
-- Gebrauchte Kugeln sind **die häufigste Hauptmunition** im Alltag.
-- Qualität schwankt: Aussetzer/Misfire/ungleiches Pulver sind möglich. Im Zweifel wird bei wichtigen Einsätzen **neu** bevorzugt.
-- Bei Handel kann "gebraucht" je nach sichtbarer Qualität (sauberer Sitz, identische Hülsen, geprüft) auf- oder abgewertet werden.
-
-Praxis (SL/Spielbarkeit)
-------------------------
-
-- Kleine Einkäufe/Service laufen meist in **gebraucht**.
-- Größere Deals, kritische Ressourcen oder Vertrauenshandel laufen eher in **neu** (oder in gemischten Paketen).
-
-
-Projekt (Reference): Draisine-/Transportmodul (D5 Prototyp)
-----------------------------------------------------------
-
-Kontext
--------
-
-- Vor RP-Abbruch wurde in D5 ein kleiner Draisine-/Transportmodul-Prototyp begonnen.
-- Träger/Owner: Jonas (Bau/Integration), mit Sicherheits-/Systemreview durch Pahl.
-
-Status (Reference)
-------------------
-
-- Status: **prototyping** (noch kein abgesicherter Feldtest).
-- Ziel: Ein **konservativer Material-/Transport-Usecase** für Nordlinie (D5↔C6), nicht "schnell" und nicht als Dauerdienst.
-
-Gates (erster Testlauf)
------------------------
-
-- Tunnel-Abschnitt ist freigegeben (Sicherung/Belüftung/Statik ok) → `Nordlinie-01`.
-- Not-Aus/Stop-Protokoll definiert (Stopp-Punkte, Rückzug, Rollen).
-- Lastgrenzen konservativ (Erstlauf ohne Personentransport, außer explizit freigegeben).
-- Logpflicht: Missionslog + Logistik (Materialverbrauch, Schäden, Lessons Learned).
-
-Link
-----
-
-- Projekt-Canvas: `database-rp/05-projects/Draisine-Transportmodul.md`
+- Novapolis-Projekt: [Draisine-Transportmodul](../01-factions/novapolis/05-projects/Draisine-Transportmodul.md)
 
 
 Inventar / Ressourcen (Arbeitsstand)
@@ -367,7 +413,7 @@ Fortschritt (Reporting-Detail)
 Timeline-Skizze (aus ehem. Core-Block)
 --------------------------------------
 
-Hinweis: Diese Sequenz ist eine **Skizze** und muss an das finale T+0-Fenster in [Canvas-T+0-Timeline](./Canvas-T+0-Timeline.md) angepasst werden.
+Hinweis: Diese Sequenz ist eine **Skizze** und muss an das finale T+0-Fenster in [Canvas-T0-Timeline](./Canvas-T0-Timeline.md) angepasst werden.
 
 1. Erwachen D5 → Selbstcheck → Wartungsauftrag.
 2. Erstkontakt Reflex, Dämpfungs-Test, Regeln.
@@ -388,8 +434,20 @@ Offene Fäden (Detail)
 
 Links
 -----
-- Canon-Core → ./memory-bundle.md
-- Timeline (T+0) → ./Canvas-T+0-Timeline.md
-- Szene (T+0 Status-Ping) → ../06-scenes/scene-2025-10-27-a.md
-- Nordlinie 01 → ../05-projects/Nordlinie-01.md
-- Inventar (Fraktion) → ../04-inventory/Novapolis-inventar.md
+- Canon-Core → [memory-bundle.md](./memory-bundle.md)
+- Timeline (T+0) → [Canvas-T0-Timeline.md](./Canvas-T0-Timeline.md)
+- Szene (T+0 Status-Ping) → [scene-2025-10-27-a.md](../06-scenes/scene-2025-10-27-a.md)
+- Nordlinie 01 → [Nordlinie-01.md](../01-factions/novapolis/05-projects/Nordlinie-01.md)
+- Inventar (Fraktion) → [Novapolis-inventar.md](../01-factions/novapolis/04-inventory/Novapolis-inventar.md)
+
+<!-- id: validation -->
+
+Validierung (How to)
+--------------------
+
+Führe die Validatoren aus, um RP-Dokumente und Crossrefs zu prüfen:
+
+```bash
+npm --prefix novapolis-rp\coding\tools\validators run validate:rp
+npm --prefix novapolis-rp\coding\tools\validators run validate:crossrefs
+```

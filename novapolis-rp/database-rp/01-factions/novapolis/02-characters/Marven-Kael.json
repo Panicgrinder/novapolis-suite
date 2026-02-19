@@ -1,0 +1,25 @@
+{
+  "title": "Marven Kael",
+  "category": "character",
+  "slug": "marven-kael",
+  "version": "1.0",
+  "last_updated": "2026-01-14T17:31:10+01:00",
+  "last_change": "Zugehörigkeit/Position aktualisiert: Anschluss an Novapolis; Basis C6.",
+  "tags": [
+    "karawane",
+    "novapolis"
+  ],
+  "affiliations": [
+    "novapolis"
+  ],
+  "primary_location": "c6",
+  "last_seen": "c6",
+  "dependencies": [
+    "caravan-moves",
+    "ai_behavior_index_v2",
+    "missionslog",
+    "logistik",
+    "c6"
+  ],
+  "source": "database-rp/01-factions/novapolis/02-characters/Marven-Kael.md"
+}

@@ -1,0 +1,26 @@
+{
+  "title": "Draisine-/Transportmodul (Prototyp)",
+  "category": "project",
+  "slug": "draisine-transportmodul",
+  "version": "0.1",
+  "status": "prototyping",
+  "last_updated": "2026-01-11T02:04:00+01:00",
+  "owners": [
+    "jonas-merek",
+    "pahl"
+  ],
+  "locations": [
+    "d5"
+  ],
+  "tags": [
+    "transport",
+    "nordlinie",
+    "werkstatt"
+  ],
+  "dependencies": [
+    "logistik",
+    "missionslog",
+    "nordlinie-01"
+  ],
+  "source": "database-rp/01-factions/novapolis/05-projects/Draisine-Transportmodul.md"
+}

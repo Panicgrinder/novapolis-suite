@@ -1,0 +1,9 @@
+{
+  "title": "Ortsgraph (Index, minimal)",
+  "category": "admin",
+  "slug": "ortsgraph-index",
+  "version": "0.1",
+  "canvas": "ortsgraph",
+  "status": "draft",
+  "source": "database-rp/00-admin/Ortsgraph.md"
+}
