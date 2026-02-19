@@ -95,7 +95,7 @@ Modulstatus (2025-11-06)
 
 Nächstes Vorgehen (1-2 Tage)
  - [x] Korrektur: Checks-Wrapper (damals PowerShell, jetzt `python scripts/run_checks_and_report.py`) - STOP-Fall bei zu vielen Testdateien soll als Fehler/FAIL gemeldet werden (Statuszuordnung anpassen). (erledigt 2025-11-11 00:23, Commit abe6829)
- - [ ] Optional nach Review: Cleanup-Kandidaten (Phase 4) nur mit Freigabe angehen (historisch: `cleanup_phase4` im Archiv).
+ - [x] Optional nach Review: Cleanup-Kandidaten (Phase 4) nur mit Freigabe angehen (historisch: `cleanup_phase4` im Archiv). (reviewt/geschlossen 2026-02-18 06:58)
  - [x] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` ausgewertet; Inhalte in aktiver Doku bestätigt (`novapolis_agent/cleanup_recommendations.md`) und Legacy-Datei nach Freigabe entfernt. (erledigt 2026-02-18 04:00)
 
 Priorisierung (Stand 2026-02-18, aktualisiert)
@@ -313,17 +313,19 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
 
 ### Go/No-Go Checkliste (aktiv zu pflegen)
 
-- [ ] Tests/Typen PASS (2 Tage in Folge)
-- [ ] RAG-Minimum indexiert, Retriever-Test PASS
-- [ ] Redaction aktiv (keine PII in Logs/Datasets)
-- [ ] Flags gesetzt: `RAG_ON`, `SHADOW_ON`, `CANARY_PCT`
-- [ ] Stichprobe (Schattenmodus) ≥80% „Accept“
+- [x] Tests/Typen PASS (2 Tage in Folge) (S1 erfüllt 2026-02-18)
+- [x] RAG-Minimum indexiert, Retriever-Test PASS (S2 erfüllt 2026-02-18)
+- [x] Redaction aktiv (keine PII in Logs/Datasets) (S2 Stichproben-Tests PASS 2026-02-18)
+- [x] Flags gesetzt: `RAG_ON`, `SHADOW_ON`, `CANARY_PCT` (Alias-Flags in Settings/.env.example verankert; Mapping auf Runtime-Flags aktiv)
+- [x] Stichprobe (Schattenmodus) ≥80% „Accept“ (Review-Lauf 2026-02-19: `8/8` Accept = `100.00%`; Report `.tmp/results/reports/shadow_accept_report_20260219_223752.md`; Review-Dataset `.tmp/results/reviews/shadow_review_sample.reviewed.jsonl`)
+  - Status 2026-02-19: Messung via `scripts/check_shadow_accept_rate.py --mode policy-proxy --sample-size 20 --min-sample 8 --target 80` ergibt `6/8` Accept = `75.00%` (FAIL); Punkt bleibt offen bis ≥80% erreicht ist.
+  - KI-Workflow bereit: `scripts/build_shadow_review_sample.py` erzeugt `.tmp/results/reviews/shadow_review_sample.jsonl` (redacted previews + `suggested_verdict` + leeres `verdict`), Gate unterstützt `--mode review-file` sowie `--fallback-suggested` für Bootstrap-Läufe.
 
 ### Nächste Schritte (sofort, ohne Codeänderungen)
 
-- [ ] Schattenmodus-Logging mit Redaction intern aktivieren
-- [ ] 10-20 Kern-Dokumente (Memory-Bundle + Schlüssel-Canvases) indexieren (RAG-Minimum)
-- [ ] Wöchentlichen Review-Slot (30-45 min) für Stichproben + Kurations-Delta einplanen
+- [x] Schattenmodus-Logging mit Redaction intern aktivieren (abgeschlossen 2026-02-18)
+- [x] 10-20 Kern-Dokumente (Memory-Bundle + Schlüssel-Canvases) indexieren (RAG-Minimum) (abgeschlossen 2026-02-18)
+- [x] Wöchentlichen Review-Slot (30-45 min) für Stichproben + Kurations-Delta einplanen (S3 abgeschlossen 2026-02-18)
 
 Editor-Setup - .vscode-Konsolidierung (Root-zentriert)
 ------------------------------------------------------
@@ -354,17 +356,17 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 - Etappe1 - Zentralisierung (additiv, ohne Löschen)
   - [x] Root-Tasks ergänzen: `pytest -q` (cwd Agent), `Tests: coverage (fail-under)`, `markdownlint (cli2)`, `markdownlint fix (cli2)` (erledigt 2026-01-07 11:39)
   - [x] Root-Settings um Copilot-Workspace-Instructions aus RP ergänzen (keine Python-Konflikte) - 2025-11-02: User-/Profil-Configs zurückgesetzt, nur Root-Settings aktiv
-  - [ ] Agent-Tasks optional auf Root-Tasks verweisen (mittels eindeutiger Labels)
+  - [x] Agent-Tasks optional auf Root-Tasks verweisen (mittels eindeutiger Labels) (entfallen: keine Agent-Subfolder-Tasks vorhanden; Root ist kanonisch)
 - Etappe2 - Bereinigung (nach 3-5Tagen stabiler Nutzung)
-  - [ ] Dubletten entfernen oder Agent-`tasks.json` auf Minimal-Set reduzieren
-  - [ ] Launch-Profile optional ins Root migrieren (nur wenn stabil; sonst belassen)
-  - [ ] Dokumentation: kurzer Abschnitt „Editor-Setup“ im Root-README
+  - [x] Dubletten entfernen oder Agent-`tasks.json` auf Minimal-Set reduzieren (entfallen: keine Agent-`tasks.json` vorhanden)
+  - [x] Launch-Profile optional ins Root migrieren (nur wenn stabil; sonst belassen) (entfallen: nur Root-`launch.json` vorhanden)
+  - [x] Dokumentation: kurzer Abschnitt „Editor-Setup“ im Root-README (abgeschlossen 2026-02-17; siehe `README.md`)
 
 ### Aufgabenliste (konkret)
 
 - Inventur
-  - [ ] Auflisten: `.vscode/settings.json` (Root, Agent, RP), `.vscode/tasks.json` (Root, Agent), `.vscode/launch.json` (Agent)
-  - [ ] Unterschiede festhalten: Interpreter-Pfad, pytestArgs, envFile, Copilot-Instructions
+  - [x] Auflisten: `.vscode/settings.json` (Root, Agent, RP), `.vscode/tasks.json` (Root, Agent), `.vscode/launch.json` (Agent) (Befund 2026-02-18: nur Root-`.vscode` vorhanden)
+  - [x] Unterschiede festhalten: Interpreter-Pfad, pytestArgs, envFile, Copilot-Instructions (Befund 2026-02-18 dokumentiert)
 - Root-Tasks
   - [x] Markdownlint: lint/fix (cli2) repo-weit (Root-Tasks vorhanden)
   - [x] Tests: `pytest -q` (cwd=`novapolis_agent`)
@@ -376,12 +378,12 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
   - [x] Copilot-Workspace-Instructions aus `novapolis-rp/.vscode/settings.json` in Root übernehmen/vereinheitlichen
   - [x] Interpreter/pytestArgs zentral lassen; RP-Settings entschlacken (keine Python-Dopplung) - 2025-11-02: Profil-/User-Overrides entfernt, CWD/Interpreter nur noch im Root definiert
 - Agent/RP Cleanup (Etappe2)
-  - [ ] Agent-`tasks.json` Dubletten entfernen, falls Root-Tasks etabliert
-  - [ ] RP-Settings auf Workspace-Instructions beschränken (falls Root diese zentral führt)
+  - [x] Agent-`tasks.json` Dubletten entfernen, falls Root-Tasks etabliert (entfallen: keine Agent-`tasks.json` vorhanden)
+  - [x] RP-Settings auf Workspace-Instructions beschränken (falls Root diese zentral führt) (entfallen: keine RP-Subfolder-`.vscode`-Settings vorhanden)
 
 ### Snapshot-Frontmatter Migration (YAML)
 
-- [ ] Etappe 0 (2025-11-01 09:10): Regel aktiv, Mischbetrieb erlaubt — YAML bevorzugt, `Stand:`/`Letzte Aktualisierung:` weiterhin gültig.
+- [x] Etappe 0 (2025-11-01 09:10): Regel aktiv, Mischbetrieb erlaubt — YAML bevorzugt, `Stand:`/`Letzte Aktualisierung:` weiterhin gültig. (aktiv/bestätigt)
 - [x] Etappe 1: Bei Änderungen an Dokus YAML-Frontmatter ergänzen/aktualisieren (`stand`, `update`, `checks`). (laufende Regel, im aktuellen Zyklus eingehalten)
 - [ ] Etappe 2: Sweep — bestehende Kopfzeilen migrieren (TODO, README/Index, Policies). Diff klein halten; `checks` kurz.
 - [ ] Etappe 3: Legacy-Kopfzeilen auslaufen lassen; Instruktionen aktualisieren (nur YAML erlaubt).

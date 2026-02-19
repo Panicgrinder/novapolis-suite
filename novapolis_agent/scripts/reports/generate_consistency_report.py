@@ -35,6 +35,7 @@ def run_audit_workspace() -> str:
     sys.stdout = buf
     try:
         from scripts.audit_workspace import main as audit_main
+
         if callable(audit_main):
             audit_main()
         else:

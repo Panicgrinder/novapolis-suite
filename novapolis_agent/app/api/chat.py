@@ -1,6 +1,7 @@
 import hashlib
 import json as _json
 import logging
+import re
 import time
 from collections.abc import Mapping
 from pathlib import Path
@@ -22,6 +23,11 @@ if TYPE_CHECKING:
     from utils.rag import TfIdfIndex as _TfIdfIndex
 
 logger = logging.getLogger(__name__)
+
+_URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
+_EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
+_LONG_NUM_RE = re.compile(r"\b\d{4,}\b")
+_MULTISPACE_RE = re.compile(r"\s+")
 
 
 def _bool_from_unknown(value: Any, default: bool = False) -> bool:
@@ -71,6 +77,18 @@ def _safe_sha256(text: str) -> str:
         return ""
 
 
+def _redact_preview(text: str) -> str:
+    max_chars = int(getattr(settings, "SHADOW_MODE_PREVIEW_MAX_CHARS", 280) or 280)
+    if not bool(getattr(settings, "SHADOW_MODE_REDACT_PREVIEW_ENABLED", True)):
+        return (_MULTISPACE_RE.sub(" ", text).strip())[:max_chars]
+
+    out = _URL_RE.sub("<URL>", text)
+    out = _EMAIL_RE.sub("<EMAIL>", out)
+    out = _LONG_NUM_RE.sub("<NUM>", out)
+    out = _MULTISPACE_RE.sub(" ", out).strip()
+    return out[:max_chars]
+
+
 def _append_shadow_mode_event(
     *,
     request: ChatRequest,
@@ -102,6 +120,9 @@ def _append_shadow_mode_event(
             "response_chars": len(response_text),
             "user_hash": _safe_sha256(last_user),
             "response_hash": _safe_sha256(response_text),
+            # Redacted previews enable later AI/human review without storing raw PII.
+            "user_preview_redacted": _redact_preview(last_user),
+            "response_preview_redacted": _redact_preview(response_text),
         }
         out_path = Path(
             str(getattr(settings, "SHADOW_MODE_LOG_PATH", ".tmp/results/logs/shadow_mode.jsonl"))
