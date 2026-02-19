@@ -62,10 +62,10 @@ Kurzueberblick
 - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren.
  - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren; abgeschlossene Dokument-Blöcke nach Review unter `novapolis-dev/archive/` ablegen.
   - Root-Archiv (vollständig erledigte Root-Blöcke): `novapolis-dev/archive/todo.root.archive.md`.
-  - [ ] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`).
-  - [ ] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`).
-  - [ ] README oder `Backups/`-Manifest um Rotationsplan ergänzen (Aufbewahrungsdauer, Löschkriterien).
-  - [ ] Automatisierte Aufgabe/Script prüfen (Cleanup-Phasen, historisch im Archiv) für regelmäßiges Auslagern.
+  - [x] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`). (2026-02-19: `Backups/model-runs/lora-runs-batch-20260219.zip` erstellt)
+  - [x] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`). (2026-02-19 Audit: `jsonl_scanned=1346`, `files_with_path_hits=0`)
+  - [x] README oder `Backups/`-Manifest um Rotationsplan ergänzen (Aufbewahrungsdauer, Löschkriterien). (erledigt: `Backups/README.md`, Stand 2026-02-18)
+  - [x] Automatisierte Aufgabe/Script prüfen (Cleanup-Phasen, historisch im Archiv) für regelmäßiges Auslagern. (2026-02-19: `scripts.rotate_backups` Dry-Run PASS; `scripts.update_backups_manifest --include-subdirectories` ausgeführt)
  - **Lokale AI Einbindung (organisch)**: Phasenplan/Go-Kriterien/Metriken in Abschnitt „Lokale AI - Einbindung (organisch)“ unten; Start mit Phase01 möglich (ohne Zeitdruck, mit harten Fallbacks).
  - **Editor-Setup**: Konsolidierung `.vscode` auf Root vorbereiten (siehe Abschnitt „Editor-Setup - .vscode-Konsolidierung (Root-zentriert)“).
 
@@ -133,6 +133,7 @@ Priorisierung (Stand 2026-02-18, aktualisiert)
 - [ ] S5 - Snapshot-Frontmatter-Migration Etappe 2/3 freigeben:
   - Sweep + Legacy-Auslauf nur nach 3-5 Tagen stabiler Laufpraxis ohne Beschwerden ausführen.
   - Status: offen wegen Zeit-Gate (früheste Freigabe bei stabiler Laufpraxis ab 2026-02-21).
+  - Vorprüfung 2026-02-19: Legacy-Header-Scan (`^(Stand|Letzte Aktualisierung):`) ergab `360` Treffer bei `490` gescannten Markdown-Dateien (ohne Archiv/.venv/node_modules) - Etappe 2 bleibt ein geplanter Sweep nach Freigabe.
   - Gate S5 (Migration-Go/No-Go): Freigabevermerk in `WORKSPACE_STATUS.md` + Abschlussblock in `DONELOG.md`.
 
 ### Optional
@@ -318,7 +319,7 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
 - [x] Redaction aktiv (keine PII in Logs/Datasets) (S2 Stichproben-Tests PASS 2026-02-18)
 - [x] Flags gesetzt: `RAG_ON`, `SHADOW_ON`, `CANARY_PCT` (Alias-Flags in Settings/.env.example verankert; Mapping auf Runtime-Flags aktiv)
 - [x] Stichprobe (Schattenmodus) ≥80% „Accept“ (Review-Lauf 2026-02-19: `8/8` Accept = `100.00%`; Report `.tmp/results/reports/shadow_accept_report_20260219_223752.md`; Review-Dataset `.tmp/results/reviews/shadow_review_sample.reviewed.jsonl`)
-  - Status 2026-02-19: Messung via `scripts/check_shadow_accept_rate.py --mode policy-proxy --sample-size 20 --min-sample 8 --target 80` ergibt `6/8` Accept = `75.00%` (FAIL); Punkt bleibt offen bis ≥80% erreicht ist.
+  - Historie 2026-02-19: Frühere Proxy-Messung (`--mode policy-proxy`) ergab `6/8` Accept = `75.00%` (FAIL); anschließender Review-Lauf erreichte `8/8` = `100.00%` (PASS).
   - KI-Workflow bereit: `scripts/build_shadow_review_sample.py` erzeugt `.tmp/results/reviews/shadow_review_sample.jsonl` (redacted previews + `suggested_verdict` + leeres `verdict`), Gate unterstützt `--mode review-file` sowie `--fallback-suggested` für Bootstrap-Läufe.
 
 ### Nächste Schritte (sofort, ohne Codeänderungen)
