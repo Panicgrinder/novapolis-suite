@@ -134,6 +134,12 @@ Priorisierung (Stand 2026-02-18, aktualisiert)
   - Sweep + Legacy-Auslauf nur nach 3-5 Tagen stabiler Laufpraxis ohne Beschwerden ausführen.
   - Status: offen wegen Zeit-Gate (früheste Freigabe bei stabiler Laufpraxis ab 2026-02-21).
   - Vorprüfung 2026-02-19: Legacy-Header-Scan (`^(Stand|Letzte Aktualisierung):`) ergab `360` Treffer bei `490` gescannten Markdown-Dateien (ohne Archiv/.venv/node_modules) - Etappe 2 bleibt ein geplanter Sweep nach Freigabe.
+  - Prework 2026-02-19 (ausführungsreif): Etappe-2-Sweep in Wellen vorbereiten, Reihenfolge:
+    1) Root-Kerndokus (`README.md`, `todo.root.md`, `DONELOG.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `PR_DESCRIPTION.md`, `single-root-todo.md`)
+    2) `novapolis-dev/docs/**` und `novapolis_agent/docs/**`
+    3) `novapolis-rp/database-rp/**` + Rest-README-Dateien
+    4) Backups-/historische Referenzen nur nach separater Freigabe
+  - Baseline-Update 2026-02-19: `scripts/scan_legacy_markdown_headers.py` erzeugte `.tmp/results/reports/legacy_header_scan_20260219_230710.md` (`files_scanned=490`, `legacy_hits=3`; Wellen: `0/1/1/1`).
   - Gate S5 (Migration-Go/No-Go): Freigabevermerk in `WORKSPACE_STATUS.md` + Abschlussblock in `DONELOG.md`.
 
 ### Optional
