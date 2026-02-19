@@ -13,7 +13,7 @@ Novapolis Agent - ToDo & Roadmap (SSOT)
 Hinweis
 ------
 - Dies ist die zentrale ToDo-Datei (Single Source of Truth) für das Agent-Modul.
-- Bestehende Inhalte werden schrittweise aus `novapolis_agent/docs/TODO.md` hierher migriert.
+- Historische Inhalte aus frueheren Redirect-Dateien sind bereits in dieses Board/Archiv ueberfuehrt.
 - Bis zur vollständigen Migration verweist die alte Datei als Redirect-Stub auf diese Seite.
 
 Platzhalter

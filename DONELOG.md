@@ -6,6 +6,7 @@ checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m scripts.rotate_bac
 Kurzueberblick
 --------------
 
+- 2026-02-20 00:45: DONELOG-Konsolidierung umgesetzt: zentrale 5 Ziellogs unter `novapolis-dev/archive/docs/donelogs/` erzeugt (`donelog_root.md`, `donelog_agent.md`, `donelog_dev.md`, `donelog_rp.md`, `donelog_sim.md`), Inventur/Mapping/Dedupe via `scripts/consolidate_donelogs.py`, Sortierung "neuester oben" verifiziert (alle Ziellogs `sorted_desc=True`), Donelog-Index `novapolis-dev/archive/docs/donelogs/INDEX.md` ergänzt.
 - 2026-02-18 06:58: Optionalpunkt „Archivierungs-Feinschliff“ abgeschlossen. Rotation rekursiv als Dry-Run ausgeführt (`Keep 7 / Delete 75`), Manifest rekursiv neu geschrieben (`Backups/manifest.v1.json`, `82` Einträge) und Runbook (`Backups/README.md`) um Outputs->Backups-Gruppierung (`Backups/model-runs/`), Cadence und sichere Apply-Regel ergänzt.
 - 2026-02-18 06:58: Nächster TODO-Punkt abgearbeitet: Cleanup-Kandidaten Phase 4 (historischer Archivkontext) reviewt. Alle historischen Zielpfade sind bereits nicht mehr vorhanden; Ergebnis daher bewusst ohne destruktive Aktion, Punkt als erledigt dokumentiert.
 - 2026-02-18 06:34: Aktive Rest-TODOs durchlaufen: S3 abgeschlossen (wöchentlicher Review-Slot Mittwoch 09:00-09:45, erste Durchführung protokolliert), S4 abgeschlossen (Root-Editor-Setup konsistent, keine Subfolder-`.vscode`, Root-Tasks/Launch valide), S5 aufgrund Zeit-Gate korrekt offen belassen (früheste Freigabe ab 2026-02-21).

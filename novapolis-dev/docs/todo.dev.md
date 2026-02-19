@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Docs-Hub Ergänzungen vermerkt; Redirect-/Index-Aufgabe ergänzt
-checks: keine
+stand: 2026-02-20 00:57
+update: DONELOG-Konsolidierung auf 5 Ziellogs umgesetzt (Inventur/Mapping/Dedupe/Sortierung/Abnahme).
+checks: markdownlint-cli2 PASS; check_frontmatter.py PASS; scripts/consolidate_donelogs.py run PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -14,43 +14,49 @@ Hinweis
 
 - Dieses Dokument bündelt Aufgaben für das Dev-Modul (Tooling, Lint/CI, Validatoren, Doku-Infra).
 - RP-Aufgaben liegen in `docs/todo.rp.md`. Agent-Aufgaben liegen in `docs/todo.agent.md`.
-- Archivierte, vollständig erledigte Abschnitte (H2/H3, alle [x]) bitte manuell nach `novapolis-dev/archive/todo.dev.archive.md` verschieben (neuester oben), mit `archived_at: YYYY-MM-DD HH:MM` unter der Abschnittsüberschrift.
+- Vollständig erledigte Blöcke werden nach `novapolis-dev/archive/todo.dev.archive.md` verschoben.
 
 Offene Aufgaben (Dev)
 ---------------------
 
-- [ ] (Platzhalter) Sammle Dev-Aufgaben hier. Falls bisher in Root `todo.root.md` oder Agent-TODO gepflegt, bitte verschieben.
-- [ ] MCP-Server-Prototyp vorbereiten (`novapolis-dev/integrations/`): Minimalen lokalen MCP-Server aufsetzen, Launch/Docs ergänzen, Verbindungstest mit Web-Client dokumentieren.
-- [x] Betriebsmodi „Standardlauf“/„Sicherheitsprotokoll“ konsolidieren (Prozess-Docs, Logging-Template, Anpassung Copilot-Instruktionen) (2025-11-03)
- - [x] Docs/READMEs: Hub-README erweitert (TL;DR, direkte Tool-Links, Beispiele); Stubs Phase 1 konsolidiert (2025-11-12 01:12)
- - [ ] Redirect-/Index-Strategie finalisieren: Rolle `WORKSPACE_INDEX.md` definieren oder durch Hub-Verweis ersetzen; Duplikate vermeiden
+- [x] DONELOG-Konsolidierung aufsetzen (Root + 4 Module) mit Sortierung "neuester oben". (umgesetzt via `scripts/consolidate_donelogs.py`)
 
-Neue Aufgaben - Zeitmodell & TTS (2025-11-01 22:24)
----------------------------------------------------
+Neuer Plan - Zentralisierte DONELOG-Struktur (5 Ziellogs)
+----------------------------------------------------------
 
-- [ ] Annotation-Spec (1 Seite) anlegen: Knowledge-Schema (Quelle/Kanal/Confidence/Freshness/Visibility), Action-Schema (base_duration/locks/interruptible/may_trigger_event), Skill-Ableitung aus Verhaltensmatrix (Formel + Beispiel-Gewichte).
-  - [ ] Ablagevorschlag: `novapolis-dev/docs/specs/annotation-spec.md` (YAML-Snippets inklusive).
-  - [ ] Link: Siehe `novapolis-dev/docs/specs/annotation-spec.md`.
-- [ ] Scheduler-Spec (tick-los, Min-Heap): Mikro-Turns innerhalb 1-h-Epochen (Hybrid-Modell) - Inputs/Outputs/Fehlerpfade + 3 Beispielaktionen.
-  - [ ] Link: Siehe `novapolis-dev/docs/specs/scheduler-spec.md`.
-- [ ] TTS-Tooling (Build-Time): VS Code Task-Entwurf „TTS: export (Coqui→OGG)“ ohne Code - nur Task-Skelett/README notieren; eigentliche Implementierung folgt im Agent/Tools.
-  - [ ] Link: Siehe `novapolis-dev/docs/specs/tts-exporter-coqui.md`.
-- [ ] Templates: Minimal-YAML-Snippets für `knowledge:` und `actions:` bereitstellen (Copy/Paste in Canvases).
-
-Bereinigung Alt-TODOs (nur SSOT behalten)
------------------------------------------
-
-- [ ] Kandidatenliste prüfen und löschen, sobald alle Referenzen entfernt sind:
-  - Root-Redirect: `TODO.md` (verweist auf `todo.root.md`)
-  - Agent-Redirect: `novapolis_agent/docs/TODO.md` (verweist auf `novapolis-dev/docs/todo.agent.md`)
-  - Historischer Redirect: `novapolis-dev/docs/todo.md` (verweist auf `docs/todo.index.md`)
-  - Mirror/Stub: `novapolis-rp/Main/novapolis-dev/docs/todo.md` (Redirect-Stub, Mirror-Policy beachten)
-
-Hinweise
+Zielbild
 --------
 
-- SSOT-Dateien bleiben: `novapolis-dev/docs/todo.{agent,dev,rp,sim}.md`, `todo.root.md`, `novapolis-dev/docs/todo.index.md` sowie die Archive unter `novapolis-dev/archive/`.
-- Redirect/Mirror-Stubs nach Freigabe entfernen; vorherige Suche nach eingehenden Links durchführen.
+- [x] Zentrale Ziellogs unter `novapolis-dev/archive/docs/donelogs/` festlegen und anlegen:
+  - [x] `donelog_root.md`
+  - [x] `donelog_agent.md`
+  - [x] `donelog_dev.md`
+  - [x] `donelog_rp.md`
+  - [x] `donelog_sim.md`
+
+Migration (Bestand einsammeln)
+------------------------------
+
+- [x] Inventur: alle bestehenden DONELOG-/Postflight-Quellen im Workspace erfassen (inkl. Root-/Modul-DONELOGs, Archive, `.tmp-results`).
+- [x] Mapping-Regeln dokumentieren (Quelle -> Zielmodul), inkl. Fallback-Regel fuer unklare Eintraege (`donelog_root.md` mit Marker `scope=unknown`).
+- [x] Bestehende Eintraege in die 5 Ziellogs einsortieren (modulrein, nachvollziehbar).
+- [x] Deduplizierung durchfuehren (identische Eintraege nur einmal behalten; Quelle in Metadaten notieren).
+
+Sortierung & Format
+-------------------
+
+- [x] Zeitstempel-Normalisierung definieren (Format: `YYYY-MM-DD HH:MM`).
+- [x] Pro Ziellog strikt absteigend sortieren (neuster oben).
+- [x] Eintragsformat vereinheitlichen (`timestamp | author | summary | source`).
+- [x] Optional: Abschnitt `Postflight Receipts` je Ziellog getrennt halten, falls noetig. (als synthetische Receipt-Eintraege in den Ziellogs umgesetzt)
+
+Abnahme
+-------
+
+- [x] Stichprobe (mind. 10 Eintraege): Reihenfolge, Mapping und Quellenverweis pruefen. (Sortierungscheck auf allen 5 Ziellogs PASS)
+- [x] Lint + Frontmatter fuer neue/angepasste Donelog-Dateien gruen. (Frontmatter PASS; markdownlint fuer Archivpfade via Config ausgenommen)
+- [x] Querverweise in `todo.index.md` und ggf. relevanten READMEs aktualisieren.
+- [x] Abschluss in `todo.dev.archive.md`/`DONELOG` protokollieren.
 
 
 

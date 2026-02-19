@@ -11,7 +11,7 @@ TODO (Novapolis-RP)
 -------------------
 
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
-<!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/todo.md` am 2025-10-29 -->
+<!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/todo.rp.md` am 2025-10-29 -->
 
 Canvas-Rettung - Sprint 1 (Stand 2025-11-01)
 --------------------------------------------

@@ -343,7 +343,7 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 
 - Root verwendet `.venv` (Windows) und zentralen Interpreter (`.vscode/settings.json`).
 - `novapolis_agent` ist der einzige Code-Bereich mit Tests/Launch-Profilen; `novapolis-rp` ist primär Daten/Docs/Tools.
-- Markdownlint läuft via cli2 in CI; lokale Tasks existieren in Agent-Projekt (bereits erweitert um Root-`TODO.md`/`DONELOG.md`).
+- Markdownlint läuft via cli2 in CI; lokale Tasks existieren in Agent-Projekt (bereits erweitert um Root-`todo.root.md`/`DONELOG.md`).
 - Single-Root ist aktiv; Wrapper-Tasks laufen wieder stabil ab Root. Historische Multi-Root-Hinweise bleiben dokumentiert (siehe `scripts/multi_root_cleanup.py`).
 
 ### Akzeptanzkriterien

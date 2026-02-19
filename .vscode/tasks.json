@@ -181,6 +181,35 @@
       "runOptions": { "instanceLimit": 1 },
       "problemMatcher": []
     }
+    ,
+    {
+      "label": "TTS: export (Coqui->OGG)",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoProfile",
+        "-Command",
+        "Write-Host 'TODO: Platzhalter-Task. Implementierung folgt ueber novapolis_agent/scripts/tts_export_coqui.py'"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 }
+    }
+    ,
+    {
+      "label": "Integration: MCP OpenAI Eval (run)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\novapolis-dev\\integrations\\mcp-openai-eval\\src\\mcp_openai_eval\\server.py"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
   ]
   ,
   "inputs": [
