@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: H1 auf Setext umgestellt; Timestamp aktualisiert.
-checks: markdownlint-cli2 PASS
+stand: 2026-02-20 16:42
+update: Archiv enthält nur abgeschlossene Dev-Inhalte; aktives Board bleibt unter `docs/todo.dev.md`.
+checks: markdownlint-cli2 PASS; check_frontmatter.py PASS
 ---
 
 TODO-Archiv - Dev

@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-20 00:57
+stand: 2026-02-20 16:42
 update: DONELOG-Konsolidierung referenziert (5 Ziellogs) und Dev-Status aktualisiert.
 checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.index.md' PASS; & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\todo.index.md PASS"
 ---
@@ -13,7 +13,7 @@ TODO-Index (Novapolis-Dev)
 ---------
 
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 105)
-- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0; DONELOG-Konsolidierungsplan weitgehend umgesetzt)
+- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (aktiv)
 - Agent-Module: `docs/todo.agent.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 5)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 8)
 

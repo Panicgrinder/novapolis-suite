@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-20 00:57
+stand: 2026-02-20 16:42
 update: Zielbild fuer zentralisierte DONELOG-Struktur (5 Ziellogs) dokumentiert.
 checks: struktureller Index angelegt
 ---
@@ -44,4 +44,4 @@ Bestandsdateien (vor Konsolidierung)
 Hinweis
 -------
 
-- Diese Datei ist ein Ordnungsindex. Die eigentliche Migration/Sortierung wird ueber den Plan in `novapolis-dev/docs/todo.dev.md` gesteuert.
+- Diese Datei ist ein Ordnungsindex. Die eigentliche Migration/Sortierung wurde ueber den Plan in `novapolis-dev/docs/todo.dev.md` gesteuert.

@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-16 06:52
-update: Archiv ergänzt: „Offene Punkte (Kurzfristig)“ aus todo.root.md verschoben.
+stand: 2026-02-20 16:42
+update: Archiv ergänzt: verifizierte Single-Root-Abschlusspunkte + Drift-Korrekturen dokumentiert.
 checks: keine
 ---
 
@@ -15,7 +15,18 @@ Hinweis
 - Direkt unter der Abschnitts-Überschrift im Archiv eine Zeile ergänzen: `archived_at: YYYY-MM-DD HH:MM`.
 
 Archivierte Einträge
---------------------
+
+Single-Root Archivpflege & Verifikationsfix (2026-02-20)
+---------------------------------------------------------
+
+archived_at: 2026-02-20 16:26
+
+Quelle: `single-root-todo.md` (Archivkopie, verifiziert gegen aktuellen Workspace-Stand).
+
+- [x] Veralteten Archivpfad-Hinweis korrigiert (historischer Zielpfad `novapolis-dev/archive/2025/2025-11-09-single-root-todo.md` war nicht mehr auflösbar).
+- [x] Dev-SSOT-Verweis im Kurzüberblick korrigiert (`novapolis-dev/docs/todo.dev.md` statt Archivdatei).
+- [x] Root-Single-Root-Kernclaims erneut verifiziert: zentrale Root-Workflows aktiv, keine Modul-`.github/workflows`, nur Root-`.vscode`, keine aktive `*.code-workspace`.
+
 
 Snapshot-Gate v1 (Root)
 -----------------------

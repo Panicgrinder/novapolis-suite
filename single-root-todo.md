@@ -1,6 +1,6 @@
 ---
-stand: 2026-02-17 09:12
-update: Archiv-Notiz: .ps1-Referenzen auf Python-Skripte umgestellt.
+stand: 2026-02-20 16:42
+update: Drift-Fix: veralteten Archivpfad und Dev-SSOT-Verweis korrigiert.
 checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'single-root-todo.md' PASS (2026-02-17 03:26); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py single-root-todo.md PASS (2026-02-17 03:26)"
 archived: true
 ---
@@ -9,7 +9,7 @@ archived: true
 Single Root TODO (Novapolis Suite) — Archivkopie
 =================================
 
-Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufenden Arbeiten im Monorepo. Es wurde am 2025-11-09 in `novapolis-dev/archive/2025/2025-11-09-single-root-todo.md` archiviert. Die fachlichen Single Sources of Truth (SSOT) bleiben in den Modul-TODOs unter `novapolis-dev/docs/` erhalten.
+Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufenden Arbeiten im Monorepo. Es liegt heute als Archivkopie unter `single-root-todo.md` (`archived: true`) vor; der historische Verlauf ist in den Root-/Modul-Archiven dokumentiert. Die fachlichen Single Sources of Truth (SSOT) bleiben in den Modul-TODOs unter `novapolis-dev/docs/` erhalten.
 
 ### Hinweise
 
@@ -66,7 +66,7 @@ Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufende
   - Tasks: "Workspace tree: full", "Workspace tree: directories", "Workspace tree: summary (dirs)".
 - [x] Backups & Releases (Manifest/Checksums/Rotation) pflegen (obsolet)
   - Status 2025-11-08: Manifest generated_at 2025-11-08 (UTC), Einträge: 3
-- [x] Markdown-Ausgaben der Skripte (Chat-Exporter, todo_gather, summarize_eval_results, Reports) auf Setext-/Frontmatter-Konformität prüfen und anpassen. (migriert zu novapolis-dev/docs/todo.dev.md)
+- [x] Markdown-Ausgaben der Skripte (Chat-Exporter, todo_gather, summarize_eval_results, Reports) auf Setext-/Frontmatter-Konformität prüfen und anpassen. (migriert zu novapolis-dev/archive/todo.dev.archive.md)
   - [x] Audit dokumentiert: `Backups/AUDIT.md`
   - [x] Skripte ergänzt: `scripts/update_backups_manifest.py`, `scripts/rotate_backups.py`
   - [x] README + initiales Manifest: `Backups/README.md`, `Backups/manifest.v1.json`
@@ -88,11 +88,11 @@ Dieses Dokument war die zentrale, lesefreundliche Übersicht über alle laufende
 
 ### Dev (Tooling/Infra)
 
-- Quelle: `novapolis-dev/docs/todo.dev.md`
-- [x] MCP-Server-Prototyp (lokal, Minimal) (migriert zu novapolis-dev/docs/todo.dev.md)
-- [x] Annotation-/Scheduler-/TTS-Specs vervollständigen (migriert zu novapolis-dev/docs/todo.dev.md)
-- [x] Templates für `knowledge:` und `actions:` bereitstellen (migriert zu novapolis-dev/docs/todo.dev.md)
-- [x] Frontmatter-Validator in CI integrieren (migriert zu novapolis-dev/docs/todo.dev.md)
+- Quelle: `novapolis-dev/archive/todo.dev.archive.md`
+- [x] MCP-Server-Prototyp (lokal, Minimal) (migriert zu novapolis-dev/archive/todo.dev.archive.md)
+- [x] Annotation-/Scheduler-/TTS-Specs vervollständigen (migriert zu novapolis-dev/archive/todo.dev.archive.md)
+- [x] Templates für `knowledge:` und `actions:` bereitstellen (migriert zu novapolis-dev/archive/todo.dev.archive.md)
+- [x] Frontmatter-Validator in CI integrieren (migriert zu novapolis-dev/archive/todo.dev.archive.md)
   - Akzeptanz: CI-Job failt bei fehlender/inkorrekter YAML-Frontmatter außerhalb der Skip-Pfade (Ausnahme `.github/copilot-instructions.md`).
   - Stand 2025-11-07 05:28: A erledigt (Delimiter-Quick-Fix in Kern-Docs), B erledigt (Skip-Pfade verfeinert). Option C (RP-Scope: ergänzen vs. temporär ausschließen) offen.
   - Stand 2025-11-07 05:59: Pre-commit-Gate aktiv (staged `.md`), CI-Frontmatter-Check in `markdownlint.yml` (scoped). Keine Breaking-Änderung für RP-Daten.
@@ -202,7 +202,7 @@ pwsh -NoProfile -File scripts/setup_root_venv.ps1
 
 ### Etappe 5 - Aufräumen & CI-Angleichung
 
-- [x] Entfernte/neutralisierte Modul-Settings final löschen (nach 3-5 Tagen stabiler Nutzung) (migriert zu novapolis-dev/docs/todo.dev.md)
+- [x] Entfernte/neutralisierte Modul-Settings final löschen (nach 3-5 Tagen stabiler Nutzung) (migriert zu novapolis-dev/archive/todo.dev.archive.md)
 - [x] CI-Workflows prüfen und auf Root-Tasks/Configs mappen
   - Lint → markdownlint-cli2, ruff/black
   - Tests → pytest (cwd=novapolis_agent)
@@ -226,7 +226,7 @@ Notiz (2025-11-02 11:35): CI im Root ergänzt:
   - `markdownlint.yml` (global)
   - `enforce-donelog.yml` (global)
 - [x] Betriebsmodi „Standardlauf“/„Sicherheitsprotokoll“ beschreiben und in Anleitungen verankern (2025-11-03)
-- [x] Trigger/Paths prüfen: nur relevante Pfade bauen/testen (Performance) (migriert zu novapolis-dev/docs/todo.dev.md)
+- [x] Trigger/Paths prüfen: nur relevante Pfade bauen/testen (Performance) (migriert zu novapolis-dev/archive/todo.dev.archive.md)
 - [x] README Hinweis: Workflows liegen ausschließlich im Root (migriert zu README.md)
 
 Notiz (2025-11-02 11:52): Modul-Workflows entfernt; Root-Workflows aktiv. Nächster Schritt: Trigger/Paths justieren und README-Hinweis ergänzen.
@@ -291,7 +291,7 @@ Regeln: IDs=R-WRAP,R-STOP,R-FM,R-LINT,R-SCAN,R-CTX,R-SEC,R-LOG,R-COV,R-IDX,R-COM
 Lint: PASS, verbleibend=none
 Frontmatter: PASS
 Checklist: PASS (closed=ALL, open=0)
-Archiv-Move: OK → verschoben nach `novapolis-dev/archive/2025/2025-11-09-single-root-todo.md`
+Archiv-Move: OK → als Archivkopie in `single-root-todo.md` geführt; Root-Historie siehe `novapolis-dev/archive/todo.root.archive.md`
 
 
 
