@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 20:53
-update: RP-TODO-Hygiene dokumentiert (Archiv entkoppelt, Risiko-Markierung ergänzt).
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-21 20:38); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev/docs/todo.rp.md novapolis-dev/docs/donelog.md PASS (2026-02-21 20:38)"
+stand: 2026-02-21 21:41
+update: Doctrine-Template-Rollout fuer Fraktionen (Timeline/Ereignislog) abgeschlossen und geprueft.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Migrationsplan-Admin-Novapolis.md' 'novapolis-rp/database-rp/01-factions/*/00-doctrine/README.md' 'novapolis-rp/database-rp/01-factions/*/00-doctrine/*-t0-timeline.md' 'novapolis-rp/database-rp/01-factions/*/00-doctrine/*-ereignislog.md' PASS (2026-02-21 21:39); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py [scoped doctrine files] PASS (EXITCODE=0, 2026-02-21 21:39)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,30 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: Doctrine-Templates fuer Fraktionen (Timeline/Ereignislog) (2026-02-21 21:09)
+-------------------------------------------------------------------------------
+
+- Fuer alle Fraktionen wurden in `01-factions/*/00-doctrine/` die fehlenden Dateien `<faction>-t0-timeline.md` und `<faction>-ereignislog.md` neu angelegt.
+- Passende JSON-Sidecars wurden je Template mit Basis-Metadaten angelegt, damit die Dokumente index-/tooling-faehig bleiben.
+- Ergebnis: Die zuvor gesetzten README-Links auf Timeline/Ereignislog zeigen nun auf existierende Artefakte (kein Link-Drift mehr).
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: Logistik-Scope-Trennung Admin vs Fraktion (2026-02-21 20:57)
+----------------------------------------------------------------
+
+- `database-rp/00-admin/Logistik.md` auf global gültige Regeln umgestellt (fraktionsneutral, modell-/prozessfokussiert).
+- Novapolis-spezifische Operativinhalte aus `00-admin/Logistik.md` nach `01-factions/novapolis/00-doctrine/novapolis-logistics.md` verschoben, damit kein Inhalt verloren geht.
+- Ergebnis: `00-admin` enthält nur allgemein anwendbare Logistikregeln; Fraktions-/Stationsdetails liegen in der passenden Fraktionsstruktur.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: Sichere Punkte gestartet (C6-Inventar/Logistik) (2026-02-21 20:49)
+---------------------------------------------------------------------
+
+- `database-rp/01-factions/novapolis/04-inventory/C6-inventar.md` von tbd-Listen auf belegte SSOT-Einträge umgestellt (Filter, Energiezellen, Werkzeuge; offene kritische Bedarfe klar benannt).
+- `database-rp/00-admin/Logistik.md` um belastbaren C6-Faktenstand ergänzt (Inventar-/Leitungslage ohne unbelegte Kennzahlen; C6-Energieanlage vorsichtig präzisiert).
+- Ziel: Start der Abarbeitung aus `todo.rp.md` mit minimalem Risiko und ohne neue Canon-Behauptungen.
+- Checks: ausstehend (nach Mutation neu ausführen).
 
 RP: TODO-Board Hygiene (Archiv entkoppelt) (2026-02-21 20:35)
 --------------------------------------------------------------

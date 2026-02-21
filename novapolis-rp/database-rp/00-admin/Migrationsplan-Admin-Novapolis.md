@@ -1,16 +1,16 @@
 ---
-stand: 2026-02-16 14:49
-update: Konkreter Migrationsplan 00-admin ↔ 01-factions/novapolis mit Abschnitts-Matrix erstellt.
-checks: not run (plan creation)
-slug: migrationsplan-admin-novapolis
+stand: 2026-02-21 21:41
+update: Von Novapolis-spezifischem Plan auf globales Admin-Migrationstemplate umgestellt.
+checks: ausstehend (nach Mutation neu ausführen)
+slug: migrationsplan-admin-template
 category: admin
 canvas: migration-plan
-status: draft
-version: "0.1"
+status: active
+version: "0.2"
 ---
 
-Migrationsplan 00-admin ↔ Novapolis
-===================================
+Migrationsplan 00-admin ↔ Fraktionen (Template)
+================================================
 
 Ziel
 ----
@@ -18,66 +18,46 @@ Ziel
 Trennung nach Scope:
 
 - `00-admin`: nur allgemein gültige Regeln, Schemata, Prozesse, globale Indizes.
-- `01-factions/novapolis`: fraktionsspezifische Inhalte (Personen, Orte, Projekte, Missionsstatus, laufende Lage).
+- `01-factions/<fraktion>`: fraktionsspezifische Inhalte (Personen, Orte, Projekte, Missionsstatus, laufende Lage).
 
-Zielpfade (neu vs. bestehend)
------------------------------
+Template-Matrix (Dateiebene)
+----------------------------
 
-### Bestehende Zieldateien (weiterverwenden)
-
-- `novapolis-rp/database-rp/01-factions/novapolis/Novapolis.md`
-- `novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-history.md`
-- `novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.md`
-- `novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-diplomacy.md`
-- `novapolis-rp/database-rp/01-factions/novapolis/03-locations/README.md`
-
-### Neu anzulegen (Schema-konform)
-
-- `novapolis-rp/database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.md`
-- `novapolis-rp/database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.json`
-- `novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-campaign-state.md`
-- `novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-campaign-state.json`
-
-Abschnitts-Matrix (exakt: extrahieren vs. verschieben)
-------------------------------------------------------
-
-| Quelle | Exakter Abschnitt | Aktion | Zielpfad | Zielabschnitt |
+| Quelle (00-admin) | Ziel (Fraktion) | Scope-Klasse | Status | Hinweis |
 | --- | --- | --- | --- | --- |
-| `00-admin/memory-bundle.md` | `Charaktere`, `Orte`, `Projekte`, `Offene Fäden (Core-kurz)` | **extrahieren** | `01-factions/novapolis/Novapolis.md` | neue Blöcke `Kernfiguren`, `Kernorte`, `Offene Fäden` |
-| `00-admin/memory-bundle.md` | `Core-Status (eingefroren)`, `Referenzstandard (slug-only)` | **verschieben** | `00-admin/index-rules.md` (bestehend) | Abschnitt `RP-Referenzstandard` |
-| `00-admin/Current-State.md` | `Snapshot (kurz, abgeleitet)`, `Aktive Projekte (Kurzliste)`, `Hauptorte (Kurzstatus)` | **extrahieren** | `01-factions/novapolis/Novapolis.md` | Abschnitt `Aktueller Stand (Snapshot)` |
-| `00-admin/Current-State.md` | `Namensdrift (separat behandeln)` | **verschieben** | `00-admin/index-rules.md` | Abschnitt `Naming/Token-Regel` |
-| `00-admin/Current-State.md` | `Arbeitsfluss (SSOT/RAW/curated)`, `Validatoren (Gates)`, `Referenzstandard (slug-only)` | **verschieben** | `00-admin/Process-Workflow.md` | Abschnitt `SSOT-Flow & Gates` |
-| `00-admin/Missionslog.md` | kompletter Inhalt ab `Missionslog (Novapolis)` bis Dateiende | **verschieben (komplett)** | `01-factions/novapolis/05-projects/Missionslog-Novapolis.md` (neu) | Vollinhalt (1:1, Frontmatter angepasst) |
-| `00-admin/Reference-Campaign-State.md` | `<!-- id: doc-reference-campaign-state -->`, `<!-- id: fsm-campaign -->` | **extrahieren** | `01-factions/novapolis/00-doctrine/novapolis-campaign-state.md` (neu) | `Campaign-State` |
-| `00-admin/Reference-Campaign-State.md` | `<!-- id: project-draisine -->` | **extrahieren** | `01-factions/novapolis/05-projects/Draisine-Transportmodul.md` | Abschnitt `Canonical Constraints` |
-| `00-admin/Reference-Campaign-State.md` | `<!-- id: economy-kugeln -->` | **extrahieren** | `01-factions/novapolis/06-handel-diplomatie/novapolis-pricebands.md` | Abschnitt `Währung/KUGELN (Reference)` |
-| `00-admin/Reference-Campaign-State.md` | `<!-- id: rule-se-pools -->`, `<!-- id: rule-instances -->`, `<!-- id: rule-proximity -->`, `<!-- id: rule-reflex-speech -->`, `<!-- id: rule-reflex-control -->`, `<!-- id: rule-detach -->`, `<!-- id: rule-jealousy-gloves -->`, `<!-- id: policy-new-entities -->` | **belassen (global)** | `00-admin/Reference-Campaign-State.md` | bleibt zentrale Mechanik-SSOT |
-| `00-admin/Ortsgraph.md` | gesamte lokale D5/C6/E3-Liste | **verschieben (inhaltlich)** | `01-factions/novapolis/03-locations/README.md` | Abschnitt `Topologie / Ortsgraph` |
-| `00-admin/Curated-Konfliktliste.md` | Top-10-Blöcke mit Charakterbezug (Punkte 1–10) | **extrahieren** | `01-factions/novapolis/00-doctrine/novapolis-history.md` | Abschnitt `Offene Konfliktlinien` |
-| `00-admin/AI-Behavior-Mapping.md` | globale Cluster/Skala/Modifikatoren | **belassen (global)** | `00-admin/AI-Behavior-Mapping.md` | bleibt globaler Referenzrahmen |
-| `00-admin/AI-Behavior-Mapping.md` | Anchor-Register-Zeilen mit Novapolis-Charakteren | **extrahieren (optional Phase 2)** | jeweilige `01-factions/novapolis/02-characters/*.md` | Abschnitt `Behavior-Signatur` |
+| `Logistik.md` | `01-factions/<fraktion>/00-doctrine/<fraktion>-logistics.md` | `migrate_and_reduce` | in_progress | Admin-Datei bleibt global; operative Details pro Fraktion |
+| `Canvas-T0-Timeline.md` | `01-factions/<fraktion>/00-doctrine/<fraktion>-t0-timeline.md` | `migrate_and_reduce` | in_progress | Admin-Datei ist globaler Index; Timeline je Fraktion |
+| `Ereignislog-Weltgeschehen.md` | `01-factions/<fraktion>/00-doctrine/<fraktion>-ereignislog.md` | `migrate_and_reduce` | in_progress | Admin-Datei ist globaler Index; Ereignisse je Fraktion |
+| `Missionslog.md` | `01-factions/<fraktion>/00-doctrine/<fraktion>-missionslog.md` | `migrate_and_reduce` | in_progress | Admin-Datei ist globaler Rahmen; Missionen je Fraktion |
 
-Umkehrprüfung (aus Novapolis nach 00-admin)
--------------------------------------------
+Harte Regeln
+------------
 
-Diese Inhalte werden aus Fraktionsdateien **nicht** erneut als Volltext gehalten, sondern nur als Verweis auf globale SSOT:
+- `00-admin/*` enthält keine stations-/fraktionsspezifischen Fakten.
+- Fraktionsinhalte liegen ausschließlich unter `01-factions/<fraktion>/*`.
+- Keine Retcons beim Verschieben: Inhalt 1:1 migrieren, erst danach verdichten.
+- Nach jeder Mutation: Modul-DONELOG + Lint/FM-Gates.
 
-- Mechaniktext zu `PROXIMITY`/`DETACH`/`JEALOUSY-GLOVES` in Charakterdateien → nur Kurzform + Link auf `00-admin/Reference-Campaign-State.md`.
-- Globale Preisband-Definition (Band S/N/M/H/X) → einmal global definieren; in `novapolis-pricebands.md` nur Novapolis-Abweichungen.
+Migrationsablauf (pro Fraktion)
+-------------------------------
 
-Ablauf (Implementierungsreihenfolge)
-------------------------------------
-
-1. Neue Zieldateien anlegen (`Missionslog-Novapolis.*`, `novapolis-campaign-state.*`).
-2. Abschnittsweise Inhalte extrahieren/einfügen laut Matrix.
-3. Querverweise umstellen (`00-admin` → neue Novapolis-Pfade).
-4. Alte Admin-Dateien auf globalen Restinhalt reduzieren (kein Personen-/Fraktionsdetail).
-5. Validierung: markdownlint + Frontmatter-Validator + Crossrefs.
+1. Quelle in `00-admin` auf globale Regeln/Index reduzieren.
+2. Fraktionsdatei unter `01-factions/<fraktion>/00-doctrine/` anlegen oder ergänzen.
+3. Inhalte sauber verschieben (kein Duplikat-Drift).
+4. Querverweise und ggf. Sidecar-JSON prüfen.
+5. `index.json`-Einträge und README-Verweise konsistent halten.
 
 Abnahmekriterien
 ----------------
 
-- In `00-admin` keine rein Novapolis-spezifischen Inhaltsblöcke mehr (außer globale Referenzbeispiele).
-- In `01-factions/novapolis` liegen alle fraktionsspezifischen Zustands-/Missions-/Ortsdetails.
-- Alle umgestellten Links sind auflösbar, Frontmatter konsistent, Sidecars vorhanden.
+- In `00-admin` verbleiben nur globale Rahmeninhalte.
+- Fraktionsspezifische Inhalte sind je Fraktion vollständig auffindbar.
+- Verweise sind auflösbar, Frontmatter konsistent, Checks grün.
+
+Verlinkungen
+------------
+
+- Admin-Logistik: [Logistik](./Logistik.md)
+- Admin-Timeline: [Canvas-T0-Timeline](./Canvas-T0-Timeline.md)
+- Admin-Ereignislog: [Ereignislog-Weltgeschehen](./Ereignislog-Weltgeschehen.md)
+- Fraktions-Doctrine-Ordner: `../01-factions/<fraktion>/00-doctrine/`
