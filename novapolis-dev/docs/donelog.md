@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 00:17
-update: 24x1h-Globalstandard in 00-admin ergänzt und Fraktions-Template-Rollout gestartet.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 00:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects' 'novapolis-rp/database-rp/01-factions/haendlerbund/05-projects' 'novapolis-rp/database-rp/01-factions/eisenkonklave/05-projects' 'novapolis-rp/database-rp/01-factions/arkologie-a1/05-projects' 'novapolis-rp/database-rp/01-factions/schienenbund/05-projects' 'novapolis-rp/database-rp/01-factions/schattenbund/05-projects' 'novapolis-rp/database-rp/01-factions/fluesterkollektiv/05-projects' PASS (EXITCODE=0, 2026-02-22 00:09)"
+stand: 2026-02-22 00:24
+update: RP-Hard-Gate-Ursache dokumentiert; Präventionsregel in RP-Instructions ergänzt; PR_DESCRIPTION nachgezogen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/rp-docs.instructions.md' 'PR_DESCRIPTION.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 00:22); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py '.github/instructions/rp-docs.instructions.md' 'PR_DESCRIPTION.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 00:22)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,14 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+Governance: RP-Projekt-Frontmatter-Prävention + PR-Nachtrag (2026-02-22 00:17)
+----------------------------------------------------------------------
+
+- Ursache der Commit-Blocker verifiziert: RP-Hard-Gate (`validate:rp`) erzwingt bei `category: project` ein gültiges `status`-Enum und `last_updated`/`last-updated`.
+- Prävention ergänzt: `.github/instructions/rp-docs.instructions.md` um explizite Neuanlage-Regel für `database-rp`-Projektdateien erweitert (inkl. Regelmatrix `R-RP-PROJ-FM`).
+- `PR_DESCRIPTION.md` um transparenten Nachtrag ergänzt (Fehlerursache, Korrekturpfad, finaler Push-Status).
+- Ziel: Wiederholungsfehler bei neuen Projekt-Templates vor dem ersten Commit vermeiden.
 
 RP: 24x1h-Globalstandard + Fraktions-Templates (2026-02-22 00:02)
 -----------------------------------------------------------------
