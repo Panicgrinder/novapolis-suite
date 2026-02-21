@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-20 16:42
+stand: 2026-02-21 04:15
 update: Aktives Dev-Board wiederhergestellt; Inhalte bleiben im Archiv, neue Aufgaben laufen hier.
 checks: markdownlint-cli2 PASS; check_frontmatter.py PASS
 ---
@@ -13,7 +13,7 @@ Hinweis
 -------
 
 - Dieses Dokument buendelt Aufgaben fuer das Dev-Modul (Tooling, Lint/CI, Validatoren, Doku-Infra).
-- RP-Aufgaben liegen in `docs/todo.rp.md`. Agent-Aufgaben liegen in `docs/todo.agent.md`.
+- RP-Aufgaben liegen in `docs/todo.rp.md`. Agent-Aufgaben liegen in `docs/todo.agent-board.md`.
 - Vollstaendig erledigte Bloecke werden nach `novapolis-dev/archive/todo.dev.archive.md` verschoben.
 
 Offene Aufgaben (Dev)

@@ -1,6 +1,6 @@
 ---
-stand: 2026-02-20 16:42
-update: Archiv ergänzt: verifizierte Single-Root-Abschlusspunkte + Drift-Korrekturen dokumentiert.
+stand: 2026-02-21 04:15
+update: Vollstaendig abgehakten Root-Aufgabenblock aus single-root-todo inhaltlich archiviert.
 checks: keine
 ---
 
@@ -21,11 +21,50 @@ Single-Root Archivpflege & Verifikationsfix (2026-02-20)
 
 archived_at: 2026-02-20 16:26
 
-Quelle: `single-root-todo.md` (Archivkopie, verifiziert gegen aktuellen Workspace-Stand).
+Quelle: `novapolis-dev/archive/quarantine/single-root-todo.md` (Archivkopie, verifiziert gegen aktuellen Workspace-Stand).
 
 - [x] Veralteten Archivpfad-Hinweis korrigiert (historischer Zielpfad `novapolis-dev/archive/2025/2025-11-09-single-root-todo.md` war nicht mehr auflösbar).
 - [x] Dev-SSOT-Verweis im Kurzüberblick korrigiert (`novapolis-dev/docs/todo.dev.md` statt Archivdatei).
 - [x] Root-Single-Root-Kernclaims erneut verifiziert: zentrale Root-Workflows aktiv, keine Modul-`.github/workflows`, nur Root-`.vscode`, keine aktive `*.code-workspace`.
+
+Single-Root Umstellungsplan (validiert aus Archivkopie)
+------------------------------------------------------
+
+archived_at: 2026-02-21 04:01
+
+Quelle: `novapolis-dev/archive/quarantine/single-root-todo.md` (Abschnitt `Monorepo Single Root - Umstellungsplan`).
+
+- [x] Etappen 0-5 (Inventur, Root-venv, Task-Zentralisierung, Test-Discovery, Lint/Format, CI-Angleichung) als abgeschlossen verifiziert und archiviert.
+- [x] Workflows Root-only verifiziert: nur `/.github/workflows/*.yml`, keine Modul-Workflows.
+- [x] VS-Code-Workspace-Zielbild verifiziert: keine aktive `*.code-workspace`, nur Root-`.vscode`.
+- [x] Konfliktkonfigurations-Abschluss verifiziert: kein aktiver Agent-Devcontainer, Root-`pyproject.toml` tools-only, lokale Markdownlint-Overrides durch Root-Ignores neutralisiert.
+- [x] Prüf-/Release-Checks sowie Akzeptanzkriterien aus dem abgeschlossenen Block in dieses Archiv uebernommen.
+
+Modul-Fokus (Agent/Dev/RP/Sim) - validiert aus Archivkopie
+----------------------------------------------------------
+
+archived_at: 2026-02-21 04:05
+
+Quelle: `novapolis-dev/archive/quarantine/single-root-todo.md` (Abschnitt `Modul-Fokus (Auszuege - bitte in den SSOTs pflegen)`).
+
+- [x] Agent-Block (TTS/Tools-Planung) als abgeschlossen markiert und auf aktives Board `novapolis-dev/docs/todo.agent-board.md` referenziert.
+- [x] Dev-Block (Tooling/Infra) als abgeschlossen markiert und auf Archiv `novapolis-dev/archive/todo.dev.archive.md` referenziert.
+- [x] RP-Block (Kanon/Canvas) als abgeschlossen markiert und auf aktives Board `novapolis-dev/docs/todo.rp.md` referenziert.
+- [x] Sim-Block (Godot) als abgeschlossen markiert und auf aktives Board `novapolis-dev/docs/todo.sim.md` referenziert.
+
+Offene Aufgaben (Root - quer durchs Repo) - validiert aus Archivkopie
+---------------------------------------------------------------------
+
+archived_at: 2026-02-21 04:07
+
+Quelle: `novapolis-dev/archive/quarantine/single-root-todo.md` (Abschnitt `Offene Aufgaben (Root - quer durchs Repo)`).
+
+- [x] Wrapper-Policy/Root-Hinweise als abgeschlossen markiert und mit Root-Governance abgeglichen.
+- [x] `.vscode`-Konsolidierung im Root als abgeschlossen verifiziert (nur Root-Konfiguration aktiv).
+- [x] Snapshot-Frontmatter-Migrationsblock (historisch abgeschlossen) als abgeschlossen archiviert.
+- [x] Tree-Snapshot-Taskblock als abgeschlossen archiviert.
+- [x] Backups-/Manifest-Block als abgeschlossen archiviert; Artefakte (`Backups/AUDIT.md`, `Backups/README.md`, `Backups/manifest.v1.json`) vorhanden.
+- [x] Zugehoerige Skript-Referenzen (`scripts/update_backups_manifest.py`, `scripts/rotate_backups.py`) vorhanden.
 
 
 Snapshot-Gate v1 (Root)

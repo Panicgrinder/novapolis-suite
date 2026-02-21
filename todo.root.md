@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-18 06:58
+stand: 2026-02-21 04:15
 update: Optionalpunkt Archivierungs-Feinschliff umgesetzt: Rotations-Dry-Run bewertet, Manifest rekursiv aktualisiert und Outputs->Backups SOP in `Backups/README.md` verankert.
 checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m scripts.rotate_backups --include-subdirectories DRY-RUN PASS (2026-02-18 06:58, Keep 7 / Delete 75); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m scripts.update_backups_manifest --include-subdirectories PASS (2026-02-18 06:58, Entries 82); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34)
 ---
@@ -135,7 +135,7 @@ Priorisierung (Stand 2026-02-18, aktualisiert)
   - Status: offen wegen Zeit-Gate (früheste Freigabe bei stabiler Laufpraxis ab 2026-02-21).
   - Vorprüfung 2026-02-19: Legacy-Header-Scan (`^(Stand|Letzte Aktualisierung):`) ergab `360` Treffer bei `490` gescannten Markdown-Dateien (ohne Archiv/.venv/node_modules) - Etappe 2 bleibt ein geplanter Sweep nach Freigabe.
   - Prework 2026-02-19 (ausführungsreif): Etappe-2-Sweep in Wellen vorbereiten, Reihenfolge:
-    1) Root-Kerndokus (`README.md`, `todo.root.md`, `DONELOG.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `PR_DESCRIPTION.md`, `single-root-todo.md`)
+    1) Root-Kerndokus (`README.md`, `todo.root.md`, `DONELOG.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `PR_DESCRIPTION.md`) + Archivkopie `novapolis-dev/archive/quarantine/single-root-todo.md`
     2) `novapolis-dev/docs/**` und `novapolis_agent/docs/**`
     3) `novapolis-rp/database-rp/**` + Rest-README-Dateien
     4) Backups-/historische Referenzen nur nach separater Freigabe
@@ -394,7 +394,7 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 - [x] Etappe 1: Bei Änderungen an Dokus YAML-Frontmatter ergänzen/aktualisieren (`stand`, `update`, `checks`). (laufende Regel, im aktuellen Zyklus eingehalten)
 - [ ] Etappe 2: Sweep — bestehende Kopfzeilen migrieren (TODO, README/Index, Policies). Diff klein halten; `checks` kurz.
 - [ ] Etappe 3: Legacy-Kopfzeilen auslaufen lassen; Instruktionen aktualisieren (nur YAML erlaubt).
-- Fortschritt 2025-11-02 19:11: Root-Dokumente (`README.md`, `todo.root.md`, `single-root-todo.md`, `DONELOG.md`, `WORKSPACE_STATUS.md`) tragen konsolidierte YAML-Frontmatter; markdownlint-cli2 PASS.
+- Fortschritt 2025-11-02 19:11: Root-Dokumente (`README.md`, `todo.root.md`, `DONELOG.md`, `WORKSPACE_STATUS.md`) tragen konsolidierte YAML-Frontmatter; Archivkopie unter `novapolis-dev/archive/quarantine/single-root-todo.md`; markdownlint-cli2 PASS.
 
 ### Risiken & Backout
 

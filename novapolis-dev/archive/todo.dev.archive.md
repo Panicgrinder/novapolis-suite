@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-20 16:42
+stand: 2026-02-21 04:15
 update: Archiv enthält nur abgeschlossene Dev-Inhalte; aktives Board bleibt unter `docs/todo.dev.md`.
 checks: markdownlint-cli2 PASS; check_frontmatter.py PASS
 ---
@@ -63,7 +63,7 @@ Bereinigung Alt-TODOs (nur SSOT behalten)
 
 - [x] Kandidatenliste prüfen und löschen, sobald alle Referenzen entfernt sind: (erledigt 2026-02-19; alle 4 Kandidat-Dateien fehlen bereits, aktive TODO-Verweise bereinigt; verbleibende Erwähnungen nur in Historie/Migrations-/Eval-Artefakten)
 	- Root-Redirect: `TODO.md` (verweist auf `todo.root.md`)
-	- Agent-Redirect: `novapolis_agent/docs/TODO.md` (verweist auf `novapolis-dev/docs/todo.agent.md`)
+	- Agent-Redirect: `novapolis_agent/docs/TODO.md` (verweist auf `novapolis-dev/docs/todo.agent-board.md`)
 	- Historischer Redirect: `novapolis-dev/docs/todo.md` (verweist auf `docs/todo.index.md`)
 	- Mirror/Stub: `novapolis-rp/Main/novapolis-dev/docs/todo.md` (Redirect-Stub, Mirror-Policy beachten)
 

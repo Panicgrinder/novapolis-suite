@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-17 09:12
+stand: 2026-02-21 04:15
 update: Veralteten Multi-Root/"keine Wrapper"-Hinweis entfernt; Wrapper-Policy im Index aktualisiert.
 checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'novapolis-dev/docs/index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-17 01:09); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py DONELOG.md novapolis-dev\\docs\\index.md novapolis-dev\\docs\\donelog.md PASS (2026-02-17 01:09)"
 ---
@@ -25,7 +25,7 @@ Primary Docs
 - `docs/todo.index.md` — Index für Aufgaben (Module)
   - `docs/todo.rp.md` — RP-Aufgaben (Kanon/Canvas/Projekte)
   - `docs/todo.dev.md` — Dev-Aufgaben (Tooling, Lint/CI, Validatoren)
-  - `docs/todo.agent.md` — Agent-Aufgaben (Backend, Tests/Typing, Scripts)
+  - `docs/todo.agent-board.md` — Agent-Aufgaben (Backend, Tests/Typing, Scripts)
   - `.github/copilot-instructions.md` — verbindliche Arbeitsweise & Sicherheitsregeln (SSOT)
 - `docs/naming-policy.md` — Dateibenennung fuer alle Novapolis-Repos
 - `docs/tests.md` — Testabdeckung, Sim-/Client-Checks
@@ -49,7 +49,7 @@ Specs
 Kernprinzipien:
 
 - Aenderungen an Code oder signifikanten Dateien kurz in `novapolis-dev/docs/donelog.md` dokumentieren.
-- Aufgabenpflege und Priorisierung im Modul: `docs/todo.rp.md`, `docs/todo.dev.md`, `docs/todo.agent.md`; Index: `docs/todo.index.md`.
+- Aufgabenpflege und Priorisierung im Modul: `docs/todo.rp.md`, `docs/todo.dev.md`, `docs/todo.agent-board.md`; Index: `docs/todo.index.md`.
 - Tooling liegt weiterhin in `coding/tools/`; dieses Index liefert nur Verweise.
 
 Dokumentierte Datenpfade
