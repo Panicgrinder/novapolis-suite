@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 12:32
-update: README-Sidecar-Policy festgelegt (READMEs ohne Sidecar).
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-16 12:33)"
+stand: 2026-02-22 00:17
+update: Globalen 24x1h-Prozess (world_log/pc_log) als fraktionsneutralen Workflow ergänzt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 00:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects' 'novapolis-rp/database-rp/01-factions/haendlerbund/05-projects' 'novapolis-rp/database-rp/01-factions/eisenkonklave/05-projects' 'novapolis-rp/database-rp/01-factions/arkologie-a1/05-projects' 'novapolis-rp/database-rp/01-factions/schienenbund/05-projects' 'novapolis-rp/database-rp/01-factions/schattenbund/05-projects' 'novapolis-rp/database-rp/01-factions/fluesterkollektiv/05-projects' PASS (EXITCODE=0, 2026-02-22 00:09)"
 slug: process-workflow
 category: Admin
 schemaVersion: 1
@@ -34,6 +34,15 @@ Datenfluss (RAW -> Staging -> Final -> RP)
 3. Review/Approval -> `database-curated/final/` (geplant; derzeit Platzhalter).
 4. Relevante Fakten/Szenen/Canvas nach `database-rp/` uebernehmen.
 5. DONELOG/TODO aktualisieren (Root + Dev-Hub), optional Metadata-Sidecars refreshen.
+
+24x1h-Prozess (global, fraktionsneutral)
+----------------------------------------
+1. Tick erfassen (`tick_of_day`, `tick_global`, Zeitstempel).
+2. `world_log` schreiben (vollständige Ereigniswahrheit).
+3. Sichtbarkeitsfilter anwenden (`scope`, `channel`, `source`, `confidence`, `freshness`).
+4. `pc_log` aus sichtbaren Einträgen ableiten.
+5. Fraktionsspezifische Ausprägung ausschließlich in `01-factions/*/05-projects/` fortschreiben.
+6. Bei Rückblenden nur Sichtbarkeit anheben (`allies_only`/`hidden` -> `pc`), keine Retcons.
 
 Review-Tags (Staging)
 ---------------------

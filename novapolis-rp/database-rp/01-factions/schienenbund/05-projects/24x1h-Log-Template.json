@@ -1,0 +1,9 @@
+{
+  "title": "24x1h Log-Template (Schienenbund)",
+  "category": "project",
+  "slug": "24x1h-log-template-schienenbund",
+  "version": "0.1",
+  "status": "draft",
+  "tags": ["rp", "template", "24x1h", "logs"],
+  "source": "database-rp/01-factions/schienenbund/05-projects/24x1h-Log-Template.md"
+}

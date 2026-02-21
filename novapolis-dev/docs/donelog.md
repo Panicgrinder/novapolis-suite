@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 22:11
-update: Snapshot-Gate-Refresh fuer Commitlauf dokumentiert (frische stand-Zeitstempel + Lock-Recheck).
-checks: ausstehend (nach Mutation neu ausführen)
+stand: 2026-02-22 00:17
+update: 24x1h-Globalstandard in 00-admin ergänzt und Fraktions-Template-Rollout gestartet.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 00:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects' 'novapolis-rp/database-rp/01-factions/haendlerbund/05-projects' 'novapolis-rp/database-rp/01-factions/eisenkonklave/05-projects' 'novapolis-rp/database-rp/01-factions/arkologie-a1/05-projects' 'novapolis-rp/database-rp/01-factions/schienenbund/05-projects' 'novapolis-rp/database-rp/01-factions/schattenbund/05-projects' 'novapolis-rp/database-rp/01-factions/fluesterkollektiv/05-projects' PASS (EXITCODE=0, 2026-02-22 00:09)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,16 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: 24x1h-Globalstandard + Fraktions-Templates (2026-02-22 00:02)
+-----------------------------------------------------------------
+
+- 00-admin globalisiert: `Tick-Regeln-Simulation.md` um Dual-Log-Standard (`world_log`/`pc_log`) und Sichtbarkeitsregeln erweitert.
+- 00-admin globalisiert: `Sim-State-Schema.md` um stündliche Log-Struktur und Pflichtfelder (`scope/channel/source/confidence/freshness`) ergänzt.
+- 00-admin globalisiert: `Process-Workflow.md` um 24x1h-Prozessfluss ergänzt; `Missionslog.md` mit Verweis auf globales Regelwerk nachgezogen.
+- Fraktionsstruktur vorbereitet: In allen `01-factions/*/05-projects/README.md` den Link auf `24x1h-Log-Template.md` ergänzt.
+- `todo.rp.md`: die drei ersten Unterpunkte unter „24×1h-Runden“ auf erledigt gesetzt.
+- Checks: ausstehend (nach Mutation neu ausführen).
 
 RP: Technischer Refresh (Snapshot-Gate vor Commit) (2026-02-21 22:11)
 --------------------------------------------------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-02 18:40
-update: "N7-Alias entfernt (C6-Nordanomalie); Nordlinie-Reporting auf skalierbares Modell ausgerichtet."
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
+stand: 2026-02-22 00:17
+update: Globalen Verweis auf 24x1h-Regelwerk ergänzt; Detailführung bleibt fraktionslokal.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 00:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects' 'novapolis-rp/database-rp/01-factions/haendlerbund/05-projects' 'novapolis-rp/database-rp/01-factions/eisenkonklave/05-projects' 'novapolis-rp/database-rp/01-factions/arkologie-a1/05-projects' 'novapolis-rp/database-rp/01-factions/schienenbund/05-projects' 'novapolis-rp/database-rp/01-factions/schattenbund/05-projects' 'novapolis-rp/database-rp/01-factions/fluesterkollektiv/05-projects' PASS (EXITCODE=0, 2026-02-22 00:09)"
 category: admin
 canvas: missionslog
 slug: missionslog
@@ -21,5 +21,6 @@ Hinweis
 -------
 
 - Neue Missionsdetails werden nicht mehr in `00-admin` gepflegt, sondern direkt im zuständigen Fraktions-Log dokumentiert.
+- Globaler Zeit-/Logikstandard für 24x1h liegt in [Tick-Regeln-Simulation](./Tick-Regeln-Simulation.md) und [Sim-State-Schema](./Sim-State-Schema.md).
 
 

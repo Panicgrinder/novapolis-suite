@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-13 02:45
-update: Frontmatter nach 00-admin-Standard ergänzt.
-checks: "not run (not requested)"
+stand: 2026-02-22 00:17
+update: Dual-Log-Standard (world_log/pc_log), Sichtbarkeitsfelder und Übergaberegeln für 24x1h global ergänzt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 00:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects' 'novapolis-rp/database-rp/01-factions/haendlerbund/05-projects' 'novapolis-rp/database-rp/01-factions/eisenkonklave/05-projects' 'novapolis-rp/database-rp/01-factions/arkologie-a1/05-projects' 'novapolis-rp/database-rp/01-factions/schienenbund/05-projects' 'novapolis-rp/database-rp/01-factions/schattenbund/05-projects' 'novapolis-rp/database-rp/01-factions/fluesterkollektiv/05-projects' PASS (EXITCODE=0, 2026-02-22 00:09)"
 slug: tick-regeln-simulation
 category: Admin
 schemaVersion: 1
@@ -113,6 +113,17 @@ Informationsgrenzen (Anti-Spoiler)
   - Unbekannt bleibt unbekannt
 - Interne Simulation darf allwissend rechnen, die Ausgabe darf dieses Wissen nicht unzulässig offenlegen.
 - Bei Fast-Forward werden nur Ereignisse berichtet, die den SC erreichen/auffallen oder später als Spuren plausibel sichtbar sind.
+
+Dual-Log-Standard (24x1h, global)
+---------------------------------
+- Pro Tick werden zwei Log-Ebenen geführt:
+  - `world_log`: vollständige Weltwahrheit (intern, vollständig).
+  - `pc_log`: nur für den Spielercharakter sichtbare/zugängliche Informationen.
+- Pflichtfelder je Log-Eintrag: `scope`, `channel`, `source`, `confidence`, `freshness`.
+- Zulässige `scope`-Werte: `private`, `allies_only`, `pc`, `public`, optional `redacted`.
+- Sichtbarkeitsregel: Eintrag erscheint nur im `pc_log`, wenn Scope/Empfänger/Kanal plausibel sind.
+- Rückblenden sind erlaubt als Sichtbarkeitsänderung (`allies_only`/`hidden` -> `pc`), nicht als Retcon der Weltwahrheit.
+- Der globale Standard bleibt fraktionsneutral; konkrete Inhalte liegen in den Fraktions-Templates unter `01-factions/*/05-projects/`.
 
 Optionales Modul Wetter/Anomalien
 ---------------------------------
