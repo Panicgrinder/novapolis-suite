@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-02-01 13:25
-update: Validator-Entry-Points aktualisiert (npm targets statt ps1); Staging-Report-Links auf Dev-Hub-Migration umgestellt.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
+stand: 2026-02-21 20:53
+update: Hygiene-Überarbeitung + Aktiv-jetzt-Sektion ergänzt (nur sichere, SSOT-konforme Sofortaufgaben).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' PASS (2026-02-21 20:41); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev/docs/todo.rp.md PASS (2026-02-21 20:41)"
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -30,9 +30,9 @@ Reihenfolge
 
 - Ronja Kerschner → Abgleich `resolved.md`, RAW `char_ronja_v2` + Flag, Rollenmatrix, Ziele, Systemverknüpfungen, Drift-Notizen. *(erledigt 2025-11-01T17:10+01:00)*
 - Jonas Merek → RAW `RAW-canvas-2025-10-16T14-12-00-000Z.*`, Schwesterstatus gemäß `[FACT][JONAS-SIS]`, Werkstatt-/Tunnelinfos konsolidieren. *(erledigt 2025-11-02T13:55+01:00)*
-- Lumen → Jonas-Quellen + `[FACT][PROXIMITY]`, Fähigkeiten/Kopplung und Trainings-Canvas aktualisieren.
+- Lumen → Jonas-Quellen + `[FACT][PROXIMITY]`, Fähigkeiten/Kopplung und Trainings-Canvas aktualisieren. *(validiert erledigt 2026-02-21)*
 - Kora Malenkov → RAW `RAW-canvas-2025-10-16T14-56-00-000Z.txt`, paranoide Vorsicht, C6-Linienstatus (FACT `C6-LINES`), Echo-Interaktion. *(erledigt 2025-11-02T14:20+01:00)*
-- Senn Daru → Relationslog `RAW-canvas-2025-10-16T08-07-00-000Z.*`, Handels-/Diplomatie-Notizen, Wissensgrenzen.
+- Senn Daru → Relationslog `RAW-canvas-2025-10-16T08-07-00-000Z.*`, Handels-/Diplomatie-Notizen, Wissensgrenzen. *(validiert erledigt 2026-02-21)*
 - Marven Kael → RAW `RAW-canvas-2025-10-16T14-56-10-000Z.*`, Konvoi-/Handelsleitung (`[FACT][CARAVAN-LEADERSHIP]`), Beziehungen Händlergilde/Novapolis. *(erledigt 2025-11-02T14:45+01:00)*
 - Arlen Dross → RAW `RAW-canvas-2025-10-16T14-56-20-000Z.*`, Vermittlerrolle, Reflex-Einschätzung. *(erledigt 2025-11-02T15:05+01:00)*
 - Pahl → RAW `RAW-canvas-2025-10-16T14-41-00-000Z.*`, Gesundheitsstatus, Risiken, Energie-/Generatorwissen. *(erledigt 2025-11-02T15:25+01:00)*
@@ -45,13 +45,25 @@ Arbeitsschritte pro Charakter
 - Canvas aktualisieren (Werte, Skills, Motivation, Wissensmatrix, Beziehungen, Ziele, Risiken) und Systemverknüpfungen prüfen.
 - Zugehörige Wissens-/Trainings-Canvases mitziehen (Instanzen).
 - Behavior-Signatur gegen Anchor-Register prüfen; Drift-Flags dokumentieren.
-- JSON-Sidecar, `char-block-nord-sources.md`, `person_index_np.md`, DONELOGs (`novapolis-dev/docs/donelog.md`, Root `DONELOG.md`) und TODO-Status aktualisieren.
+- JSON-Sidecar, `char-block-nord-sources.md`, `person-index-np.md`, DONELOGs (`novapolis-dev/docs/donelog.md`, Root `DONELOG.md`) und TODO-Status aktualisieren.
 - Nach einem Bündel Updates Validator laufen lassen (`npm --prefix novapolis-rp/coding/tools/validators run validate:rp` + optional `npm --prefix ... run validate:crossrefs`).
+
+Aktiv jetzt (sicher)
+--------------------
+
+- [ ] `inventar_c6_v2`: `database-rp/01-factions/novapolis/04-inventory/C6-inventar.*` inhaltlich vervollständigen (nur belegte Daten, keine Strukturänderung).
+- [ ] `logistik_c6_v2`: bestehendes `00-admin/Logistik.md` um belegte C6-Logistikstände ergänzen; Mixed-Version-Referenzen bereinigen.
+- [ ] `logistik_novapolis_v2`: Lagerstände/Wochenzyklen in `00-admin/Logistik.md` ergänzen; Tagesreport konsistent nachziehen.
+- [ ] `station_d5_v2.1` + Legacy D5: bestehendes D5-Standortcanvas faktisch nachziehen (Lastenaufzug, Grundfläche, Historie) ohne neue Nebenstrukturen.
+- [ ] Inventar-Deltas (`Novapolis-inventar`, `D5-inventar`) mit Missionslog-Links abgleichen und synchronisieren.
+- [ ] Ereignislog Weltgeschehen im bestehenden Admin-Canvas nachschärfen (`[SECRECY]`, H-47-Status konsistent).
+- [ ] Relationslog Novapolis im bestehenden Canvas nachschärfen (Senn-Daru-Querverweise und ID-Schema `logistik_novapolis_v2`).
+- [ ] Meta-Cluster-Index im bestehenden Admin-Canvas ausbauen (Spannungen/PsyLinks gegen Kanon verifizieren).
 
 Priorität B - Logistik & Inventar
 ---------------------------------
 
-- [ ] `inventar_c6_v2` → neues Canvas `database-rp/04-inventory/C6-inventar.*`; Systemlinks auf v2 aktualisieren.
+- [ ] `inventar_c6_v2` → bestehendes SSOT `database-rp/01-factions/novapolis/04-inventory/C6-inventar.*` inhaltlich vervollständigen; Systemlinks auf v2 aktualisieren.
 - [ ] `logistik_c6_v2` → Inhalte nach `00-admin/Logistik.md` übernehmen; Mixed-Version-Referenzen bereinigen.
 - [ ] `logistik_novapolis_v2` → Lagerstände/Wochenzyklen in Logistik-Canvas einpflegen; Tagesreport ergänzen.
 - [ ] `station_d5_v2.1` + Legacy D5 → Standort-Canvas aktualisieren; Lastenaufzug, Grundfläche, Historie kennzeichnen.
@@ -60,13 +72,13 @@ Priorität B - Logistik & Inventar
 Priorität C - Systeme, Indizes, Ereignisse
 -----------------------------------------
 
-- [ ] Ereignislog Weltgeschehen → neues Admin-Canvas; Begriff "Allianz" gegen `[SECRECY]` prüfen; H-47 als Ex-Karawane markieren.
-- [ ] Relationslog Novapolis → neues Canvas/Project-Canvas; Händlerkontakt "Senn Daru" verlinken; ID-Schema `logistik_novapolis_v2` angleichen.
+- [ ] Ereignislog Weltgeschehen → bestehendes Admin-Canvas nachschärfen; Begriff "Allianz" gegen `[SECRECY]` prüfen; H-47-Status konsistent kennzeichnen.
+- [ ] Relationslog Novapolis → bestehendes Canvas nachschärfen; Händlerkontakt "Senn Daru"/Querverweise prüfen; ID-Schema `logistik_novapolis_v2` angleichen.
 - [x] AI-Behavior-Index → `AI-Behavior-Mapping.md` + JSON-Sidecar erweitert (2025-11-01T17:40+01:00); Cluster, Modifikatoren, Anchor-Register, Psymatrix-Abgleich dokumentiert.
 - [x] Validator „behavior_matrix_check.py“ → Anchor-Register + `ai_psymatrix_index_v1` Diff-Report erzeugen; Automation vorbereiten. *(2025-11-02T12:40+01:00 - Skript `coding/tools/validators/behavior_matrix_check.py` angelegt, Format-Checks aktiv; Psymatrix-Diff folgt sobald Quelle vorliegt.)*
- - [ ] Hub-README Querverweis prüfen: Behavior-Matrix Abschnitt ergänzen (Validator Tools) - konsistente Terminologie
-- [ ] Meta-Cluster-Index → neues Admin-Canvas; Spannungen/PsyLinks gegen Kanon verifizieren.
-- [ ] Missionslog Querverweise aktualisieren (nur falls Rohdaten relevante Ereignisse tragen).
+- [x] Hub-README Querverweis geprüft: Behavior-Matrix Abschnitt im Validator-Tools-Teil vorhanden; Terminologie konsistent (validiert 2026-02-21).
+- [ ] Meta-Cluster-Index → bestehendes Admin-Canvas weiter ausbauen; Spannungen/PsyLinks gegen Kanon verifizieren.
+- [ ] Missionslog Querverweise gezielt prüfen/ergänzen (nur falls Rohdaten neue relevante Ereignisse tragen).
 
 Arbeitsregeln & Referenzen
 --------------------------
@@ -88,8 +100,11 @@ Linkübersicht
 <details>
 <summary>Archiviertes Backlog (Stand 2025-10-29)</summary>
 
-Aktive Aufgaben
----------------
+Historisches Backlog (nicht aktiv abarbeiten)
+---------------------------------------------
+
+- Dieser Block dient nur der Nachvollziehbarkeit historischer Arbeitspakete.
+- Keine direkte Abarbeitung ohne explizite Re-Aktivierung und Soll-Ist-Abgleich gegen aktuelle SSOT-Dateien.
 
 - [ ] Relocation Follow-ups
   - [x] Zentrale `.github/copilot-instructions.md` im Monorepo verankert; Duplikate in agent/RP entfernt (2025-10-31)
@@ -158,7 +173,7 @@ Aktive Aufgaben
   - [ ] Systemmeldung erweitern: Anzahl geladener Canvas + ATSD-String; Persistenz sicherstellen
   - [ ] Canvas-Kategorien A/B/C: Regeln/Workflows und Risiken dokumentieren
   - [ ] Logbuch-Policy festschreiben (stationenweit verfügbar, außer „secret“)
-  - [ ] person_index_np - Struktur/Felder (Name, Rolle, Zugehörigkeit, Status, Notizen)
+  - [ ] person-index-np - Struktur/Felder (Name, Rolle, Zugehörigkeit, Status, Notizen)
   - [ ] Canvas „Logistik“ - Scope, robuste Verlinkungen (Generator/Energie-Konten), Lazy-Load-Strategie
   - [ ] Canvas „Mission Tunnel“ - Felder/Metriken (Abschnitte, %Fortschritt, Blocker)
   - [ ] Export „alle Canvas“ - Sortierung nach letztem Update (Quelle für Timestamps klären)

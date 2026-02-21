@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-18 04:05
-update: Metadata-Init-Konsolidierung vermerkt (Python kanonisch, JS entfernt).
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-rp/coding/tools/metadata/README.md novapolis-dev/docs/donelog.md PASS (2026-02-18 04:05); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-rp/coding/tools/metadata/README.md novapolis-dev/docs/donelog.md PASS (2026-02-18 04:05)"
+stand: 2026-02-21 20:53
+update: RP-TODO-Hygiene dokumentiert (Archiv entkoppelt, Risiko-Markierung ergänzt).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-21 20:38); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev/docs/todo.rp.md novapolis-dev/docs/donelog.md PASS (2026-02-21 20:38)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,22 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: TODO-Board Hygiene (Archiv entkoppelt) (2026-02-21 20:35)
+--------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.rp.md` vollstaendig auf aktuellen Risikostand nachgeschaerft (Legacy-Namen/Pfade, bestehende vs. neue Canvas-Aufgaben).
+- Archivblock im `<details>` explizit als historisch markiert (`nicht aktiv abarbeiten`) und mit Re-Aktivierungsregel versehen.
+- Ziel: Fehlsteuerung vermeiden (kein versehentliches Abarbeiten veralteter Backlog-Punkte ohne Soll-Ist-Abgleich).
+- Checks: markdownlint-cli2 PASS (scoped), check_frontmatter.py PASS (scoped).
+
+RP: Index Sidecar-Policy Nachzug (2026-02-21 20:09)
+---------------------------------------------------
+
+- `database-rp/index.json` an die README-Sidecar-Policy angeglichen: README-Eintraege erwarten keine JSON-Sidecars.
+- Senn-Daru im Index auf den kanonischen Novapolis-Charakterpfad inkl. Sidecar verankert (`01-factions/novapolis/02-characters/Senn-Daru.{md,json}`).
+- Legacy-Eintrag `person_index_np` auf `person-index-np` korrigiert (MD+JSON).
+- Verifikation: Index-Konsistenzcheck erfolgreich (`total=97`, `missing=0`).
 
 CI/RP: validate-rp Workflow + Sim-README ohne PS1 (2026-02-17 04:05)
 ---------------------------------------------------------------

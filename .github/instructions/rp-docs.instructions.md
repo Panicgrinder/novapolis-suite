@@ -21,6 +21,7 @@ Regeln
 
 Doku-Update-Pflicht
 ------------------
+- Bei jeder Dateiänderung im Scope ist ein Eintrag im passenden Modul-DONELOG verpflichtend (im selben Änderungslauf).
 - TODO/DONELOG/Index synchron halten.
 - Frontmatter (`stand`, `update`, `checks`) pflegen, sofern Datei nicht ausgenommen ist.
 - Bei Konflikt/Unklarheit STOP auslösen.
@@ -29,5 +30,5 @@ Regelmatrix
 -----------
 - `id: R-RP-SSOT, priority: 1, scope: rp_docs, trigger: rp_doc_change, action: write_to_devhub_live_sources, validation: no_content_in_redirect_stubs, exceptions: redirect_readme_metadata, notes: keep_single_source_of_truth`
 - `id: R-RAW, priority: 1, scope: data_exports, trigger: raw_export_operation, action: store_in_database_raw_exports, validation: no_unfiltered_data_in_database_rp, exceptions: none, notes: privacy_first`
-- `id: R-DOCSYNC, priority: 1, scope: documentation, trigger: structural_or_rule_change, action: sync_todo_donelog_index_status, validation: touched_docs_consistent, exceptions: micro_typo_batch, notes: log_checks_results`
+- `id: R-DOCSYNC, priority: 1, scope: documentation, trigger: any_doc_file_mutation_in_scope, action: sync_todo_donelog_index_status, validation: touched_docs_consistent_and_donelog_updated, exceptions: none, notes: log_checks_results`
 - `id: R-QUAR, priority: 1, scope: backups_and_copies, trigger: backup_or_copy_operation, action: route_to_quarantine_path, validation: no_loose_root_backups_and_traceable_source, exceptions: archival_migration_with_stop_approval, notes: target_novapolis_dev_archive_quarantine`
