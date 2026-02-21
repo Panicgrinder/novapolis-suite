@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 21:41
-update: Auf globalen Ereignislog-Index umgestellt; fraktionsspezifische Ereignisse in Fraktionslogs auslagern.
-checks: "ausstehend (nach Mutation neu ausführen)"
+stand: 2026-02-21 21:58
+update: Globalen Ereignislog um SECRECY/H-47-Guardrails ergänzt; Außenwissen und Fraktionsdetails klar getrennt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' PASS (2026-02-21 21:48); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' PASS (EXITCODE=0, 2026-02-21 21:48)"
 title: Ereignislog – Weltgeschehen
 category: admin
 slug: ereignislog_weltgeschehen_v1
@@ -30,6 +30,13 @@ Globale Lesart
 - Relative Marker (z. B. `[Tag X]`) bleiben relative Chronikanker.
 - Kanonischer Spielanker bleibt T0/T+X gemäß fraktionsspezifischer Timeline.
 - Keine Retcons ohne explizite Korrekturdokumentation.
+
+SECRECY-Guardrail (Außenwissen)
+-------------------------------
+
+- Externe Fraktionen erhalten keine bestätigten D5/Novapolis-Detaildaten ohne belegte Offenlegung.
+- Für H-47 gilt global: Außenperspektive kann Funkstille/unsicheren Status führen; interne Operativdetails bleiben im fraktionsspezifischen Log.
+- Legacy-Begriffe aus RAW (z. B. uneinheitliche Bündnislabels) werden nicht als neue Canon-Behauptung fortgeschrieben.
 
 Fraktions-Ereignislogs
 ----------------------

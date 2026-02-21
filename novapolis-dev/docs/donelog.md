@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 21:41
-update: Doctrine-Template-Rollout fuer Fraktionen (Timeline/Ereignislog) abgeschlossen und geprueft.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Migrationsplan-Admin-Novapolis.md' 'novapolis-rp/database-rp/01-factions/*/00-doctrine/README.md' 'novapolis-rp/database-rp/01-factions/*/00-doctrine/*-t0-timeline.md' 'novapolis-rp/database-rp/01-factions/*/00-doctrine/*-ereignislog.md' PASS (2026-02-21 21:39); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py [scoped doctrine files] PASS (EXITCODE=0, 2026-02-21 21:39)"
+stand: 2026-02-21 21:58
+update: TODO-Fortschritt D5/Inventar/Missionslog-Querverweise abgeschlossen und dokumentiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md' PASS (2026-02-21 21:55); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md' PASS (EXITCODE=0, 2026-02-21 21:55)"
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,24 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: TODO-Fortsetzung (D5 + Inventar-Deltas + Missionslog-Querverweise) (2026-02-21 21:54)
+-------------------------------------------------------------------------------------------
+
+- `database-rp/01-factions/novapolis/03-locations/D5.md` um faktischen Stand (belegt/offen) mit Evidenzankern ergänzt (inkl. Lastenaufzug/Grundfläche/Historie als evidenzgebundene Punkte).
+- `database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md` und `.../D5-inventar.md` um Abschnitt `Delta zum Missionslog` ergänzt; Fraktionsinventar-Systemlinks auf aktuelle Admin-Pfade korrigiert.
+- `database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md` um evidenzbasierte Missionslog-Querverweise ergänzt.
+- `novapolis-dev/docs/todo.rp.md` für `station_d5_v2.1`, Inventar-Deltas und Missionslog-Querverweise auf erledigt gesetzt.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: TODO-Fortsetzung (Ereignislog/Relationslog nachgeschaerft) (2026-02-21 21:47)
+---------------------------------------------------------------------------
+
+- `database-rp/00-admin/Ereignislog-Weltgeschehen.md` um globale SECRECY-/H-47-Guardrails ergänzt (Außenwissen vs. Fraktionsdetails sauber getrennt).
+- `database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md` konsolidiert: SECRECY-Hinweis ergänzt, Legacy-Logistikbezeichner auf aktuelle SSOT-Referenzen (`logistik`, `novapolis-logistics`) ausgerichtet.
+- Unbelegte Kennzahl im Relationslog entschärft (`stabil` ohne Prozentwert).
+- `novapolis-dev/docs/todo.rp.md` für diese beiden Punkte auf erledigt gesetzt.
+- Checks: ausstehend (nach Mutation neu ausführen).
 
 RP: Doctrine-Templates fuer Fraktionen (Timeline/Ereignislog) (2026-02-21 21:09)
 -------------------------------------------------------------------------------

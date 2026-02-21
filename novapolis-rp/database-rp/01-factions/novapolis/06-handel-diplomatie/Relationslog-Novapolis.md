@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-08 22:52
-update: RAW-Linkpfad korrigiert.
-checks: "not run (link fix)"
+stand: 2026-02-21 21:58
+update: Missionslog-Querverweise als Evidenzblock ergänzt; Handelsaussagen strikt auf belegte Anker ausgerichtet.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md' PASS (2026-02-21 21:55); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md' PASS (EXITCODE=0, 2026-02-21 21:55)"
 title: Relationslog – Novapolis (Handel & Diplomatie)
 category: canon
 slug: relationslog_novapolis_v1
@@ -82,6 +82,12 @@ Beziehungen (Skala: feindselig / misstrauisch / neutral / kooperativ)
 - Schattenbund: unbekannt
 - Arkologie A1: neutral (keine Interaktion)
 
+SECRECY-Hinweis (Außensicht)
+----------------------------
+
+- Außenkontakte ohne belegte Freigabe erhalten keine bestätigten Detaildaten zu D5/Novapolis.
+- H-47 wird extern ggf. nur als Funkstille/unklar geführt; interne Lage wird in Novapolis-SSOT-Dateien gepflegt.
+
 4) Handelsdoktrin & Red Lines
 -----------------------------
 
@@ -96,10 +102,10 @@ Beziehungen (Skala: feindselig / misstrauisch / neutral / kooperativ)
 Wichtiger Hinweis: Der Verbindungstunnel zwischen D5 und C6 befindet sich in kritischem Zustand.
 Transporte erfordern derzeit manuelle Koordination und Unterstützung durch Reflex-Einheiten.
 
-Für alle zukünftigen Handels- oder Materialtransfers ist der Canvas „novapolis_logistik_v1“ zu berücksichtigen.
+Für alle zukünftigen Handels- oder Materialtransfers ist die aktuelle Doctrine-Referenz `novapolis-logistics` zu berücksichtigen.
 
-SSOT-Referenz: Logistik ([Logistik](../../../00-admin/Logistik.md), slug: `logistik`).
-Hinweis: RAW nennt hierfür „novapolis_logistik_v1“ (Legacy-Bezeichner).
+SSOT-Referenz: Logistik global ([Logistik](../../../00-admin/Logistik.md), slug: `logistik`) und fraktionsspezifisch ([novapolis-logistics](../00-doctrine/novapolis-logistics.md), slug: `novapolis-logistics`).
+Hinweis: RAW nennt teilweise noch `novapolis_logistik_v1` (Legacy-Bezeichner).
 
 6) Ereignisse & Trigger (Woche 3)
 ---------------------------------
@@ -107,7 +113,7 @@ Hinweis: RAW nennt hierfür „novapolis_logistik_v1“ (Legacy-Bezeichner).
 - Installation der Luft- und Sensorsysteme in C6 abgeschlossen.
 - Erstkontakt mit Händlerkarawane H-47 erfolgreich.
 - Reflex hat provisorische Kommunikationsverbindung zwischen C6 und D5 eingerichtet.
-- Interner Ressourcenstatus: stabil (95%).
+- Interner Ressourcenstatus: stabil (ohne belastbare Prozentkennzahl).
 
 7) Geplante Schritte (nächster Fraktionszug)
 --------------------------------------------
@@ -117,9 +123,18 @@ Hinweis: RAW nennt hierfür „novapolis_logistik_v1“ (Legacy-Bezeichner).
 3. Ausbau der Kommunikationskanäle für passive Diplomatie.
 4. Einrichtung eines Handelsdepots in C6 (Phase I).
 
+8) Querverweise & Evidenz
+-------------------------
+
+- Händler-Anbahnung/H-47-Kontext: [Missionslog-Novapolis - Policy/Setup: C6 als Puffer & Händler-Anbahnung](../05-projects/Missionslog-Novapolis.md#policysetup-c6-als-puffer--händler-anbahnung)
+- Infrastruktur-/Tunnelrisiko (D5↔C6): [Missionslog-Novapolis - Anomalie: Verbindungstunnel D5-C6](../05-projects/Missionslog-Novapolis.md#anomalie-verbindungstunnel-d5-c6)
+- C6-Monitoring als Lagegrundlage: [Missionslog-Novapolis - Monitoring: C6-Überwachung](../05-projects/Missionslog-Novapolis.md#monitoring-c6-überwachung-auswertung)
+- Guardrail: Ohne belastbare Evidenz bleibt ein Zustand im Relationslog `unbestimmt` oder `offen`.
+
 Verlinkungen
 ------------
 - Handel/Diplomatie (Hub/Index): [Index-Handel-Diplomatie](../../../00-admin/Index-Handel-Diplomatie.md)
 - Ereignislog Weltgeschehen: [Ereignislog-Weltgeschehen](../../../00-admin/Ereignislog-Weltgeschehen.md)
+- Missionslog (Fraktion): [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md)
 - Handel/Diplomatie (Händlergilde, Fraktionsakte): [Handel-Diplomatie-Haendlergilde](../../haendlerbund/06-handel-diplomatie/Handel-Diplomatie-Haendlergilde.md)
 - Logistik: [Logistik](../../../00-admin/Logistik.md)
