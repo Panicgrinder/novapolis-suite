@@ -1,6 +1,6 @@
 ---
-stand: 2026-02-21 04:15
-update: Archiv enthält nur abgeschlossene Dev-Inhalte; aktives Board bleibt unter `docs/todo.dev.md`.
+stand: 2026-02-21 08:08
+update: Abgeschlossene Dev-Bloecke aus todo.root ueberfuehrt; Root-Backlog auf aktive Punkte reduziert.
 checks: markdownlint-cli2 PASS; check_frontmatter.py PASS
 ---
 
@@ -19,6 +19,17 @@ Ablage
 - Neueste Einträge oben einfügen.
 
 <!-- Hier unterhalb neue, vollständig erledigte Blöcke einfügen (neu zuerst). -->
+
+Root-Uebernahme: novapolis-dev Block aus todo.root
+-------------------------------------------------
+
+archived_at: 2026-02-21 04:52
+
+Quelle: `todo.root.md` (Abschnitte `novapolis-dev`, `Multi-Root-STOP`).
+
+- [x] Dev-Root-Aufgabenblock als abgeschlossen archiviert.
+- [x] Multi-Root-STOP-Abschlussblock als abgeschlossen archiviert.
+- [x] Aktiver Dev-Backlog bleibt unter `novapolis-dev/docs/todo.dev.md`.
 
 DONELOG-Konsolidierung (Root + 4 Module)
 ----------------------------------------

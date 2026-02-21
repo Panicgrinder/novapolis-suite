@@ -1,6 +1,6 @@
 ---
-stand: 2026-02-21 04:15
-update: Vollstaendig abgehakten Root-Aufgabenblock aus single-root-todo inhaltlich archiviert.
+stand: 2026-02-21 08:08
+update: Weitere abgeschlossene Root-Bloecke (Naechstes Vorgehen, Optional-Teilpunkte) aus todo.root inhaltlich archiviert.
 checks: keine
 ---
 
@@ -65,6 +65,77 @@ Quelle: `novapolis-dev/archive/quarantine/single-root-todo.md` (Abschnitt `Offen
 - [x] Tree-Snapshot-Taskblock als abgeschlossen archiviert.
 - [x] Backups-/Manifest-Block als abgeschlossen archiviert; Artefakte (`Backups/AUDIT.md`, `Backups/README.md`, `Backups/manifest.v1.json`) vorhanden.
 - [x] Zugehoerige Skript-Referenzen (`scripts/update_backups_manifest.py`, `scripts/rotate_backups.py`) vorhanden.
+
+Wrapper-Migration (.ps1 -> .py) - validiert aus Root-Backlog
+------------------------------------------------------------
+
+archived_at: 2026-02-21 04:18
+
+Quelle: `todo.root.md` (Abschnitt `Wrapper-Migration (.ps1 -> .py)`).
+
+- [x] Keine aktiven `scripts/*.ps1` Wrapper mehr im Root vorhanden.
+- [x] Produktive Python-Einstiegspunkte vorhanden und dokumentiert (`scripts/run_pytest_coverage.py`, `scripts/checks_linters.py`, `scripts/checks_types.py`, `scripts/tests_pytest_root.py`).
+- [x] Historische PowerShell-Wrapper liegen ausschließlich im Archivpfad `novapolis-dev/archive/scripts/scripts.ps1-scripts/`.
+- [x] Migrationsstatus in Doku/Status (DONELOG + WORKSPACE_STATUS) als abgeschlossen dokumentiert.
+
+Priorisierung (Stand 2026-02-18) - Block "Jetzt" validiert aus Root-Backlog
+----------------------------------------------------------------------------
+
+archived_at: 2026-02-21 04:21
+
+Quelle: `todo.root.md` (Abschnitt `Priorisierung -> Jetzt`).
+
+- [x] Skript-Ladefallbacks validiert: `novapolis_agent/scripts/reports/generate_consistency_report.py` und `novapolis_agent/scripts/audit_workspace.py` vorhanden.
+- [x] RP-Backlog-Marker validiert: `novapolis-rp/database-curated/staging/reports/generated-artifacts.md` vorhanden.
+- [x] Root-Task-Zentralisierung validiert: `.vscode/tasks.json` vorhanden.
+- [x] Block insgesamt als abgeschlossen verifiziert und in das Root-Archiv überführt.
+
+Lokale AI - Zusammenfassung (Checkliste) validiert aus Root-Backlog
+------------------------------------------------------------------
+
+archived_at: 2026-02-21 04:28
+
+Quelle: `todo.root.md` (Abschnitt `Lokale AI - Einbindung (organisch) -> Zusammenfassung (Checkliste)`).
+
+- [x] Inclusion-Ziele definiert (RAG/Schattenmodus/Canary/Lernschleife).
+- [x] Readiness-Gates je Modul dokumentiert.
+- [x] Phasenplan, Daten-/Telemetrieplan und Immediate-Checklist als abgeschlossen markiert.
+- [x] Evidenz-Verankerung bleibt aktiv im Root-Backlog über die Unterabschnitte `Go/No-Go Checkliste` und `Naechste Schritte (sofort)`.
+
+Priorisierung (Stand 2026-02-18) - Block "Spaeter: S1-S4" validiert aus Root-Backlog
+----------------------------------------------------------------------------------------
+
+archived_at: 2026-02-21 04:31
+
+Quelle: `todo.root.md` (Abschnitt `Priorisierung -> Spaeter`, Teilblock `S1-S4`).
+
+- [x] S1 Stabilitaetsfenster als abgeschlossen verifiziert (2 gruene Root-Gate-Laeufe dokumentiert).
+- [x] S2 Mindestbasis als abgeschlossen verifiziert (RAG-Index + Shadow-Log + Tests dokumentiert).
+- [x] S3 Review-Rhythmus als abgeschlossen verifiziert (Slot/Checkliste dokumentiert).
+- [x] S4 Editor-Setup Etappe 1/2 als abgeschlossen verifiziert (Root-`.vscode` konsistent).
+- [x] Offener Punkt S5 explizit im aktiven Root-Backlog belassen.
+
+Naechstes Vorgehen (1-2 Tage) - validiert aus Root-Backlog
+----------------------------------------------------------
+
+archived_at: 2026-02-21 04:52
+
+Quelle: `todo.root.md` (Abschnitt `Naechstes Vorgehen (1-2 Tage)`).
+
+- [x] Checks-Wrapper-Statuszuordnung auf FAIL bei STOP-Fall als erledigt dokumentiert.
+- [x] Cleanup-Kandidaten Phase 4 als reviewt/geschlossen dokumentiert.
+- [x] Alt-Analyse `analysis_chat_routers.md` in aktive Doku ueberfuehrt und Legacy entfernt.
+
+Priorisierung (Stand 2026-02-18) - Block "Optional" (abgeschlossene Teilpunkte)
+---------------------------------------------------------------------------------
+
+archived_at: 2026-02-21 04:52
+
+Quelle: `todo.root.md` (Abschnitt `Priorisierung -> Optional`, erledigte Teilpunkte).
+
+- [x] Cleanup-Kandidaten Phase 4 reviewt/geschlossen (historischer Kontext, keine destruktive Aktion).
+- [x] Archivierungs-Feinschliff umgesetzt (Rotation-Dry-Run/Manifest/SOP dokumentiert).
+- [x] Offener Optional-Punkt `Etappe-3-Legacy-Ablösung` bleibt aktiv im Root-Backlog.
 
 
 Snapshot-Gate v1 (Root)

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Archivtext auf Guard-Check-Terminologie angepasst
-checks: markdownlint-cli2 PASS
+stand: 2026-02-21 08:08
+update: Abgeschlossene Agent-Bloecke aus todo.root ueberfuehrt; aktiver Root-Backlog verschlankt.
+checks: markdownlint-cli2 PASS; check_frontmatter.py PASS
 ---
 
 TODO-Archiv - Agent
@@ -22,6 +22,19 @@ Ablage
 - Neueste Einträge oben einfügen.
 
 <!-- Hier unterhalb neue, vollständig erledigte Blöcke einfügen (neu zuerst). -->
+
+Root-Uebernahme: novapolis_agent Block aus todo.root
+---------------------------------------------------
+
+archived_at: 2026-02-21 04:52
+
+Quelle: `todo.root.md` (Abschnitte `novapolis_agent`, `Tests/Typen/Coverage`, `RP-Audit Befunde`, `Frontmatter/Markdown-Sweep`).
+
+- [x] Agent-Root-Aufgabenblock als abgeschlossen archiviert.
+- [x] Tests/Typen/Coverage-Teilblock als abgeschlossen archiviert.
+- [x] RP-Audit-Befunde-Teilblock als abgeschlossen archiviert.
+- [x] Frontmatter/Markdown-Sweep-Teilblock als abgeschlossen archiviert.
+- [x] Aktiver Root-Backlog enthaelt diese Detailhistorie nicht mehr; Verweise bleiben in den Archiven.
 
 Kurzfristige Ziele (Heute)
 --------------------------
