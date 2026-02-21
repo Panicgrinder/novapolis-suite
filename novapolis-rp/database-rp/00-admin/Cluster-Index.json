@@ -2,8 +2,8 @@
   "title": "Cluster-Index v1",
   "category": "admin",
   "slug": "cluster_index_v1",
-  "version": "0.1",
-  "status": "draft",
-  "tags": ["cluster", "relations"],
+  "version": "0.2",
+  "status": "review",
+  "tags": ["cluster", "relations", "psylink", "tensions"],
   "source": "database-rp/00-admin/Cluster-Index.md"
 }

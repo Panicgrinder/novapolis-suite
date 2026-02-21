@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 21:58
-update: TODO-Fortschritt D5/Inventar/Missionslog-Querverweise abgeschlossen und dokumentiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md' PASS (2026-02-21 21:55); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md' PASS (EXITCODE=0, 2026-02-21 21:55)"
+stand: 2026-02-21 22:11
+update: Snapshot-Gate-Refresh fuer Commitlauf dokumentiert (frische stand-Zeitstempel + Lock-Recheck).
+checks: ausstehend (nach Mutation neu ausführen)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,33 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: Technischer Refresh (Snapshot-Gate vor Commit) (2026-02-21 22:11)
+--------------------------------------------------------------------
+
+- In den aktuell geänderten RP-Markdowndateien wurden die `stand:`-Zeitstempel auf den frischen Commitlaufwert synchronisiert.
+- Ziel war die Erfüllung des Snapshot-Gates (frischer Lock + `stand` innerhalb Toleranzfenster) für `git_commit_push.py`.
+- Inhaltliche Aussagen/Kanonlogik unverändert; nur technischer Commit-Readiness-Refresh.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: TODO-Fortsetzung (Meta-Cluster-Index: Spannungen/PsyLinks) (2026-02-21 22:06)
+-------------------------------------------------------------------------------
+
+- `database-rp/00-admin/Cluster-Index.md` um Kanon-Verifikationsrahmen erweitert (SSOT-Priorität, Quellenanker, Guardrail-Logik).
+- Evidenzgebundene Spannungsmatrix ergänzt (Novapolis↔Händlerbund, Novapolis↔Eisenkonklave, Eisenkonklave↔Schienenbund, Arkologie-Bezüge als offen markiert).
+- Abschnitt `PsyLinks & Dissonanz-Gate` ergänzt und auf bestehende Schwellen aus `AI-Behavior-Mapping.md` ausgerichtet (ohne neue unbelegte Numerik).
+- `database-rp/00-admin/Cluster-Index.json` auf `version: 0.2`, `status: review` und erweiterte Tags synchronisiert.
+- `novapolis-dev/docs/todo.rp.md` Meta-Cluster-Punkt in „Aktiv jetzt“ und „Priorität C“ auf erledigt gesetzt.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: TODO-Fortsetzung (C6-Inventar + Logistik-Zyklen) (2026-02-21 22:00)
+-----------------------------------------------------------------------
+
+- `database-rp/01-factions/novapolis/04-inventory/C6-inventar.md` um `Delta zum Missionslog` ergänzt (belegte C6-Anker + offene Transferdetails klar getrennt).
+- `database-rp/00-admin/Logistik.md` um globales Wochenzyklus-/Lagerstands-Modell sowie Referenzschema (`slug` statt Legacy-`*_v1/*_v2`) ergänzt.
+- `database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.md` um Novapolis-Wochenzyklus und Tagesreport-Template ergänzt.
+- `novapolis-dev/docs/todo.rp.md` für `inventar_c6_v2`, `logistik_c6_v2` und `logistik_novapolis_v2` auf erledigt gesetzt.
+- Checks: ausstehend (nach Mutation neu ausführen).
 
 RP: TODO-Fortsetzung (D5 + Inventar-Deltas + Missionslog-Querverweise) (2026-02-21 21:54)
 -------------------------------------------------------------------------------------------

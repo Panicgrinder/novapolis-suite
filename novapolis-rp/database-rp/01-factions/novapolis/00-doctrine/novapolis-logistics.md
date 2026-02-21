@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 21:41
-update: Operativdetails aus 00-admin/Logistik übernommen (Generator-/Leitungslage, Constraints, C6-Faktenstand).
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-21 21:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-21 21:09)"
+stand: 2026-02-21 22:11
+update: Novapolis-Wochenzyklus, Lagerstands-Review und Tagesreport-Template ergänzt (ohne unbelegte Kennzahlen).
+checks: ausstehend (nach Mutation neu ausführen)
 category: canon
 schemaVersion: 1
 language: de
@@ -79,3 +79,22 @@ C6-Faktenstand (belegt, ohne Mengen)
 - Verbucht im C6-Kontext: Filter, Energiezellen, Werkzeuge.
 - Kritisch offen im C6-Kontext: Adapter/Fittings DN60, Schweißausrüstung.
 - Sonderfunde C6: Artefakt 7A markiert; Datenkern (tragbar) am Fundort belassen (nicht aufgenommen).
+
+Wochenzyklus (Novapolis)
+------------------------
+
+- Rhythmus: täglicher Kurzabschluss (D5/C6) und wöchentliche Konsolidierung durch Leitung Logistik + Sicherheit.
+- Wochenabschluss enthält mindestens:
+  - Lagerstand D5/C6 (ohne erfundene Mengen)
+  - offene kritische Bedarfe (z. B. Adapter/Fittings DN60, Schweißausrüstung)
+  - Transfer-/Missionsdelta mit Quellenverweisen
+
+Tagesreport (Template)
+----------------------
+
+- Datum/Marker:
+- D5-Status (kurz):
+- C6-Status (kurz):
+- Transfers (Quelle→Ziel, mit Beleg):
+- Offene Risiken/Blocker:
+- Folgeaktion bis nächster Zyklus:

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 21:41
-update: Auf globales, fraktionsneutrales Logistik-Regelwerk umgestellt; Novapolis-Operativstand in Fraktions-Doctrine verschoben.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-21 21:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-21 21:09)"
+stand: 2026-02-21 22:11
+update: Globales Wochenzyklus-/Lager-Modell ergänzt und Legacy-Versionstokens gegen aktuelle Slug-Referenzen abgegrenzt.
+checks: ausstehend (nach Mutation neu ausführen)
 canvas: Logistik
 last_updated: 2025-11-07T04:09:00+01:00
 category: admin
@@ -93,6 +93,26 @@ Materialien / Bestände
 - Bestandsliste mit Einheiten (kg/t, m, m², m³, kWh, Zellen-%)
 - Trigger für Skalierung (SUPPLY) - Low/Med/High Stufen
 - Waehrung "Kugeln" als Inventar-Item (neu/gebraucht)
+
+Wochenzyklus (globales Muster)
+------------------------------
+
+- Zyklus: täglicher Kurzabschluss + wöchentliche Konsolidierung.
+- Wöchentliche Pflichtpunkte: Delta-Liste (Bestände/Transfers), offene Bedarfe, Risiken/Blocker, Freigabe-/Prioritätsupdate.
+- Ergebnisformat: kompakter Wochenreport mit Verweisen auf Tagesabschlüsse und betroffene Inventar-/Missionslogeinträge.
+
+Lagerstände (globales Muster)
+-----------------------------
+
+- Lagerstände werden pro Standort geführt (Primärstation/Außenposten), nicht als gemischter Gesamtwert.
+- Mindestfelder je Eintrag: Item, Status (`verbucht/offen`), Quelle (Mission/Beleg), letzte Änderung.
+- Ohne belastbare Quelle bleiben Mengen/Kennzahlen `tbd`.
+
+Versionierung & Referenzschema
+------------------------------
+
+- Kanonische Referenzierung über Slugs/Pfade (z. B. `logistik`, `novapolis-logistics`) statt Legacy-Versionstokens (`*_v1`, `*_v2`).
+- Legacy-Bezeichner aus RAW dürfen als Hinweis bestehen, aber nicht als primäre SSOT-ID.
 
 Scoping-Regel (Admin vs. Fraktion)
 ----------------------------------

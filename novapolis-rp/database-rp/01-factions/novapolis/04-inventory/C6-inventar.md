@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 21:41
-update: Belegte C6-Bestände/Potenziale aus SSOT nachgezogen; tbd-Blöcke durch faktenbasierte Einträge ersetzt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md' 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-21 20:57); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md' 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-21 20:57)"
+stand: 2026-02-21 22:11
+update: Delta-zum-Missionslog ergänzt und C6-Inventarstände/Offenpunkte evidenzgebunden konsolidiert.
+checks: ausstehend (nach Mutation neu ausführen)
 title: Inventar - C6
 last_updated: 2026-01-11T07:14:00+01:00
 category: inventory
@@ -45,6 +45,14 @@ Bewegungen (Log)
 - 2026-01-16 [FACT?] Prioritätenliste für C6-Inventar benannt (Filter, Energiezellen, Adapter/Fittings DN60, Schweißausrüstung, Mechanik-Werkzeug; ohne Stückzahlen). Quelle: scene-2026-01-16-a.
 - 2026-02-10 17:09 [FACT?] Artefakt 7A im C6-Kontext markiert; Details erst nach Inventarisierung. Quelle: scene-2025-10-27-d.
 - 2026-02-10 17:09 [FACT?] Datenkern (tragbar) am Fundort C6 belassen; nicht aufgenommen. Quelle: scene-2025-10-27-x.
+
+Delta zum Missionslog
+---------------------
+
+- Delta 1 (belegt): C6-Fund-/Sicherungsanker (Artefakt 7A, Datenkern am Fundort belassen) sind im Missionslog referenziert und im Inventar als offen markiert.
+  - Quelle: [Missionslog-Novapolis - C6: Sicherung/Markierung (C6-N3) & Artefakt „7A“](../05-projects/Missionslog-Novapolis.md#c6-sicherungmarkierung-c6-n3--artefakt-7a), [scene-2025-10-27-d](../../../06-scenes/scene-2025-10-27-d.md), [scene-2025-10-27-x](../../../06-scenes/scene-2025-10-27-x.md)
+- Delta 2 (belegt/offen): C6-Monitoring/Funk-Abschnitte sind als aktive Missionen geführt; daraus resultierende Material-/Transferdetails bleiben bis Belegzeile offen.
+  - Quelle: [Missionslog-Novapolis - C6: Funk/Scan & Stationssuche](../05-projects/Missionslog-Novapolis.md#c6-funkscan--stationssuche), [Missionslog-Novapolis - Monitoring: C6-Überwachung](../05-projects/Missionslog-Novapolis.md#monitoring-c6-überwachung-auswertung)
 
 Aktionen
 --------
