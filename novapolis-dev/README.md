@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 04:15
-update: Link-Scanner Hinweis auf Python-Tool umgestellt (scan_links.py) und Output-Pfade aktualisiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/README.md' PASS (2026-02-17 02:48); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\README.md PASS (2026-02-17 02:48)"
+stand: 2026-02-22 14:21
+update: Strukturhinweise auf Ist-Zustand geschärft (keine impliziten Platzhalter-Verzeichnisse ohne Existenz).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/README.md' PASS (2026-02-22 11:24); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/README.md' PASS (2026-02-22 11:24)"
 ---
 
 Novapolis Dev Hub
@@ -48,9 +48,9 @@ Struktur
 - `docs/` - Arbeitsdokumente (ToDos, DoneLogs, Policies, Testpläne)
 - `docs/meta/` - Metadaten zu den Arbeitsdokumenten
 - `migrations/` - Änderungs- und Umzugshistorie
-- `roadmaps/` - Langfristige Planungen (Platzhalter)
+- `roadmaps/` - Langfristige Planungen (derzeit nicht als eigenes Verzeichnis angelegt)
 - `integrations/` - Schnittstellen- und Abstimmungsdokumente (Platzhalter)
-- `raw/`, `curated/` - optionale lokale Skizzen; produktive Datenpools liegen unter `../novapolis-rp/database-*`
+- Produktive Datenpools liegen unter `../novapolis-rp/database-raw/` und `../novapolis-rp/database-curated/`; im Dev-Hub existieren dafuer keine gleichnamigen Top-Level-Verzeichnisse.
 
 Archiv
 ------

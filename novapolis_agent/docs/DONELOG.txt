@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-17 09:40
-update: Archivierung von App-Stubs; Root-`app`-Shim ergänzt; Tests angepasst
-checks: markdownlint-cli2 PASS (scoped)
+stand: 2026-02-22 10:58
+update: Legacy-Rest in Agent-Report bereinigt (`Letzte Aktualisierung:` -> `Aktualisiert:`) im Rahmen der Snapshot-Frontmatter-Migration Etappe 2 / Welle 2.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 10:58); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis_agent/docs/reports/overnight-20251022.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-22 10:58)
 ---
 
 
@@ -26,6 +26,8 @@ Hinweis:
 - Bitte jede abgeschlossene, nicht-triviale Änderung hier kurz dokumentieren.
 - Format: YYYY-MM-DD HH:MM | Author | Kurzbeschreibung
 - Keine sensiblen Inhalte eintragen.
+
+2026-02-22 10:57 | Copilot | Snapshot-Frontmatter-Migration Welle 2: Legacy-Rest `Letzte Aktualisierung:` in `docs/reports/overnight-20251022.md` auf neutralen Text (`Aktualisiert:`) umgestellt.
 
 Beispiel:
 2025-10-15 12:34 | username | Eval-Pipeline stabilisiert; map_reduce_summary_llm typisiert; Doku aktualisiert.

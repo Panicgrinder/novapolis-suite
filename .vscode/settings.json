@@ -10,7 +10,7 @@
   "github.copilot.chat.codebase": {
     "enabled": true
   },
-  "task.allowAutomaticTasks": "on",
+  "task.allowAutomaticTasks": "off",
   "task.terminal.reuseOnRerun": true,
   "security.workspace.trust.untrustedFiles": "open",
   "security.workspace.trust.enabled": true,
@@ -22,16 +22,17 @@
   "terminal.integrated.profiles.windows": {
     "PowerShell 7": {
       "path": "C:/Program Files/PowerShell/7/pwsh.exe",
-      "args": ["-NoProfile"],
+      "args": ["-NoLogo"],
       "icon": "terminal-powershell"
     }
   },
   "terminal.integrated.defaultProfile.windows": "PowerShell 7",
   "terminal.integrated.automationProfile.windows": {
     "path": "C:/Program Files/PowerShell/7/pwsh.exe",
-    "args": ["-NoProfile"]
+    "args": ["-NoLogo"]
   },
   "terminal.integrated.shellIntegration.enabled": true,
+  "terminal.integrated.enablePersistentSessions": false,
   "godotTools.editorPath.godot4": "${workspaceFolder}/novapolis-sim/.godot/Godot_v4.5.1-stable_win64.exe/Godot_v4.5.1-stable_win64.exe",
   "python-envs.defaultEnvManager": "ms-python.python:venv"
 }

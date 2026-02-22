@@ -17,9 +17,7 @@ EXCLUDE_PARTS = {
     ".tmp",
     ".tmp-results",
 }
-EXCLUDE_PREFIXES = (
-    "novapolis-dev/archive/",
-)
+EXCLUDE_PREFIXES = ("novapolis-dev/archive/",)
 
 WAVE1_FILES = {
     "README.md",
@@ -34,9 +32,7 @@ WAVE2_PREFIXES = (
     "novapolis-dev/docs/",
     "novapolis_agent/docs/",
 )
-WAVE3_PREFIXES = (
-    "novapolis-rp/database-rp/",
-)
+WAVE3_PREFIXES = ("novapolis-rp/database-rp/",)
 
 
 @dataclass(frozen=True)

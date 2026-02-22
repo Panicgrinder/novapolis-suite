@@ -60,5 +60,4 @@ jobs:
             novapolis_agent/docs \
             README.md \
             todo.root.md \
-            single-root-todo.md \
             WORKSPACE_STATUS.md

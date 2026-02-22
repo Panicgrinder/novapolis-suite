@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-02 19:01
-update: "Draft-Canon: N7-Alias entfernt (C6-Nordanomalie); Token-Regel (Stationscodes) nachgezogen."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-02 19:01); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-02-02 19:01)"
+stand: 2026-02-22 14:21
+update: "Legacy-Metazeile im Inhaltsbereich harmonisiert (`Stand:` -> `Aktualisiert:`) im Rahmen der Snapshot-Frontmatter-Migration Welle 3."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 11:02); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/canon-canvas.draft.md' PASS (2026-02-22 11:02)"
 slug: canon-canvas-draft
 last-updated: 2025-11-07T04:09:00+01:00
 status: draft
@@ -11,7 +11,7 @@ Kanon-Canvas (Draft) - nicht final
 ==================================
 
 Status: draft (vorläufig) - kein Wiedereinstiegspunkt; keine Automatik. Alle Fakten als [FACT?] markieren, bis bestätigt.
-Stand: 2025-10-27
+Aktualisiert: 2025-10-27
 
 Meta
 ----

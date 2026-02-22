@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 08:08
-update: Weitere abgeschlossene Root-Bloecke (Naechstes Vorgehen, Optional-Teilpunkte) aus todo.root inhaltlich archiviert.
-checks: keine
+stand: 2026-02-22 14:21
+update: Vollsnapshot aus `todo.root.md` archiviert und Root-TODO auf neue Arbeitsvorlage umgestellt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/archive/todo.root.archive.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 12:35); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/archive/todo.root.archive.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 12:35)
 ---
 
 TODO-Archiv (Root)
@@ -15,6 +15,16 @@ Hinweis
 - Direkt unter der Abschnitts-Überschrift im Archiv eine Zeile ergänzen: `archived_at: YYYY-MM-DD HH:MM`.
 
 Archivierte Einträge
+
+Root-Backlog Vollsnapshot aus `todo.root.md` (2026-02-22)
+--------------------------------------------------------
+
+archived_at: 2026-02-22 12:35
+
+Quelle: `novapolis-dev/archive/quarantine/todo-root-snapshot-20260222_1234.md` (vollstaendiger Stand vor Neustart der Root-TODO-Datei).
+
+- [x] Vollinhalt von `todo.root.md` als Snapshot in den Quarantänepfad verschoben.
+- [x] `todo.root.md` danach auf schlanke neue Arbeitsvorlage fuer frische Punkte zurueckgesetzt.
 
 Single-Root Archivpflege & Verifikationsfix (2026-02-20)
 ---------------------------------------------------------

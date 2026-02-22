@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 07:08
-update: Metrokarte-T0 size_m2 von Klassen-Defaults auf realistische Stationsvarianz innerhalb der Klassenbaender umgestellt.
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 06:53); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 06:53); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 06:53)
+stand: 2026-02-22 14:21
+update: Voller Test-/Checks-Lauf abgeschlossen und Tree-Dokumente aktualisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (2026-02-22 14:17); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/donelog.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (2026-02-22 14:17)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,88 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+Root-Doku: Test-/Checks-Block und Tree-Refresh (2026-02-22 14:17)
+------------------------------------------------------------------
+
+- Alle angeforderten Testläufe durchgeführt: `scripts/tests_pytest_root.py`, `pytest -q`, `pytest -q -m unit`, `pytest -q -m "api or streaming"`, Coverage-Wrapper und `scripts/run_checks_and_report.py`.
+- Ein Black-Check-Fail im Vollchecks-Lauf wurde durch Formatierung von `scripts/scan_legacy_markdown_headers.py` behoben; Re-Run anschließend vollständig PASS.
+- Doku-Snapshots aktualisiert: `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`.
+
+Root-Doku: Neue Startpunkte im Root-Backlog (2026-02-22 14:01)
+--------------------------------------------------------------
+
+- `todo.root.md` wurde mit 5 konkreten Root-Aufgaben befüllt (statt Platzhaltern).
+- Punkt 2 wurde nach User-Wunsch als Quarantaene-Workflow formuliert: leere Dateien/Ordner zuerst inventarisieren (`WhatIf`), dann kontrolliert nach `novapolis-dev/archive/quarantine/` verschieben.
+
+Root-Doku: Vollsnapshot-Migration `todo.root.md` (2026-02-22 12:35)
+-------------------------------------------------------------------
+
+- Vollinhalt aus `todo.root.md` nach `novapolis-dev/archive/quarantine/todo-root-snapshot-20260222_1234.md` archiviert.
+- `novapolis-dev/archive/todo.root.archive.md` um Snapshot-Referenz ergänzt.
+- `todo.root.md` auf neue schlanke aktive Arbeitsvorlage zurückgesetzt.
+
+Root-Doku: Inhaltliche Konsistenzkorrektur in `todo.root.md` (2026-02-22 12:20)
+---------------------------------------------------------------------------
+
+- Widersprüchliche Resttexte nach Etappe-2/3-Abschluss bereinigt (z. B. S5-Open-Hinweis im Später-Block, Etappe-0-Hinweis historisch eingeordnet).
+- Historische Planungsmarker präzisiert (`Betroffene Dateien (historische Planung)`, Backout-Hinweis als historisch deklariert), Duplikatpunkt in "Archivierung" reduziert.
+- Steuerzeichen-Artefakte (`U+0011`) entfernt; betroffene Textstellen lesbar normalisiert (`Sprint 1`, `Phase 0/1`).
+
+Root-Doku: Snapshot-Frontmatter Etappe 3 abgeschlossen (2026-02-22 12:04)
+----------------------------------------------------------------------
+
+- Doku-Instruktion `.github/instructions/docs-markdown.instructions.md` ergänzt: `Stand:` und `Letzte Aktualisierung:` sind außerhalb YAML-Frontmatter nicht mehr zulässig.
+- Beide offenen Etappe-3-Punkte in `todo.root.md` auf erledigt gesetzt; Status/DONELOG synchronisiert.
+
+Dev-Hub: Pfadkonsistenz-Refactor (2026-02-22 11:22)
+---------------------------------------------------
+
+- `novapolis-dev/README.md`: Strukturhinweise auf Ist-Zustand geschaerft (keine impliziten `raw/`, `curated/`, `roadmaps/` als vorhandene Modulordner).
+- `novapolis-dev/docs/index.md`: alle operativen Tool-/Datenpfade auf kanonische `novapolis-rp/...`-Pfade vereinheitlicht; CWD-Mehrdeutigkeit in den Python-Beispielen reduziert.
+- `novapolis-dev/docs/readme.hub.md`: Curation-Workflow Schritt 2-4 auf vollqualifizierte RP-Pfade harmonisiert.
+
+Dev-Hub: Dokustruktur-Audit (2026-02-22 11:19)
+----------------------------------------------
+
+- Modulweite Strukturpruefung fuer `novapolis-dev` ausgefuehrt (README/Index/Hub/Archive). Fokus: Navigationskette, Pfadkonsistenz und Strukturdrift.
+- Beim technischen Link-Scan wurden artefaktseitig Postflight-Dateien erzeugt: `novapolis-dev/archive/docs/donelogs/scan_links_postflight_20260222_111909.md` und `novapolis-dev/archive/docs/donelogs/scan_links_postflight_20260222_111913.md` (nur Protokollausgaben).
+- Inhaltliche Befunde aus dem Audit werden im Arbeitslauf separat als Review-Findings reportet (kein automatischer Rewrite).
+
+Root-Doku: Snapshot-Frontmatter Welle 4 abgeschlossen (2026-02-22 11:14)
+--------------------------------------------------------------------------
+
+- Scope `Backups/**/*.md` und `novapolis-dev/archive/**/*.md` case-sensitive auf `Stand:`/`Letzte Aktualisierung:` gescannt.
+- Ergebnis: `0` Legacy-Treffer in historischen Markdown-Dateien; damit ist Etappe 2 insgesamt abgeschlossen.
+- Hinweis: ein einzelner Treffer in einer archivierten `.ps1`-Datei (`novapolis-dev/archive/scripts/scripts.ps1-scripts/verify_sim.ps1`) wurde bewusst nicht angepasst (außerhalb des Markdown-Sweeps).
+
+Root-Doku: Snapshot-Frontmatter Welle 3 abgeschlossen (2026-02-22 11:01)
+--------------------------------------------------------------------------
+
+- Scope `novapolis-rp/database-rp/**/*.md` und verbleibende `README.md`-Dateien case-sensitive auf `Stand:`/`Letzte Aktualisierung:` gescannt.
+- Ergebnis: kein README-Legacy-Treffer; genau ein RP-Treffer in `novapolis-rp/database-rp/00-admin/canon-canvas.draft.md` (`Stand:`), auf `Aktualisiert:` umgestellt.
+- TODO/Status/DONELOG synchronisiert; Etappe 2 bleibt offen, da Welle 4 weiterhin aussteht.
+
+Root-Doku: Snapshot-Frontmatter Welle 2 abgeschlossen (2026-02-22 10:57)
+--------------------------------------------------------------------------
+
+- Scope `novapolis-dev/docs/**` und `novapolis_agent/docs/**` im Rahmen von Etappe 2 / Welle 2 gescannt.
+- Ergebnis: nur ein Legacy-Rest (`Letzte Aktualisierung:`) in `novapolis_agent/docs/reports/overnight-20251022.md`; auf neutralen Text (`Aktualisiert:`) umgestellt.
+- TODO/Status/DONELOG synchronisiert; Etappe 2 bleibt als Gesamtaufgabe offen bis Wellen 3-4 bearbeitet sind.
+
+Root-Doku: Snapshot-Frontmatter Welle 1 abgeschlossen (2026-02-22 10:54)
+--------------------------------------------------------------------------
+
+- Root-Kerndokus (`README.md`, `todo.root.md`, `DONELOG.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `PR_DESCRIPTION.md`) im Rahmen von Etappe 2 / Welle 1 geprueft.
+- Ergebnis: keine migrierbaren Legacy-Kopfzeilen ausserhalb bereits vorhandener YAML-Frontmatter.
+- TODO/Status/DONELOG synchronisiert; Etappe 2 bleibt als Gesamtaufgabe offen bis Wellen 2-4 bearbeitet sind.
+
+Root-Doku: S5-Zeit-Gate freigegeben (2026-02-22 10:51)
+--------------------------------------------------------
+
+- `todo.root.md` wurde im aktiven Backlog auf `S5` von offen auf freigegeben gesetzt (`[x]`).
+- Das Zeit-Gate `3-5 Tage Nutzung ohne Beschwerden -> Go fuer Etappe2` wurde als erfuellt markiert.
+- `WORKSPACE_STATUS.md` dokumentiert den Freigabevermerk; Etappe 2 selbst bleibt inhaltlich weiter offen bis zur tatsaechlichen Sweep-Umsetzung.
 
 RP: size_m2-Varianz in Metrokarte T0 eingezogen (2026-02-22 06:52)
 ------------------------------------------------------------------

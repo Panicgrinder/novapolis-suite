@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-17 09:12
-update: .ps1-Tool-Links auf Python-Skripte umgestellt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' PASS (2026-02-17 03:26); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\readme.hub.md PASS (2026-02-17 03:26)"
+stand: 2026-02-22 14:21
+update: Curation-Workflow-Pfade auf einheitliche `novapolis-rp/...`-Notation harmonisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' PASS (2026-02-22 11:24); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/readme.hub.md' PASS (2026-02-22 11:24)"
 ---
 
 Novapolis Dokumentations-Hub
@@ -32,9 +32,9 @@ Inhalt & Navigationsmatrix
 Curation Workflow
 -----------------
 1. Export (RAW) nach `novapolis-rp/database-raw/99-exports/` nur ungefiltert.
-2. Staging-Aufbereitung in `database-curated/staging/` (Normalize, Tagging, Review Tags `[SCENE|FACT|CHAR|LOC|PROJ|INV|OPEN]`).
-3. Review & Approval → Kopie nach `database-curated/final/` (geplant; derzeit `final/` Platzhalter).
-4. Übernahme relevanter Artefakte (Memory-Bundle Updates, Facts, Scenes) nach `database-rp/*` Strukturen.
+2. Staging-Aufbereitung in `novapolis-rp/database-curated/staging/` (Normalize, Tagging, Review Tags `[SCENE|FACT|CHAR|LOC|PROJ|INV|OPEN]`).
+3. Review & Approval → Kopie nach `novapolis-rp/database-curated/final/` (geplant; derzeit `final/` Platzhalter).
+4. Übernahme relevanter Artefakte (Memory-Bundle Updates, Facts, Scenes) nach `novapolis-rp/database-rp/*` Strukturen.
 5. Aktualisierung DONELOG / TODO (Dev Hub, RP Board) + optional Metadata JSON Refresh.
 
 Validator Tools

@@ -102,7 +102,7 @@
       "label": "Workspace tree: full",
       "type": "shell",
       "command": "pwsh",
-      "args": ["-NoProfile", "-Command", "tree /A /F | Out-File -Encoding ascii workspace_tree_full.txt"],
+      "args": ["-NoLogo", "-Command", "tree /A /F | Out-File -Encoding ascii workspace_tree_full.txt"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -112,7 +112,7 @@
       "label": "Workspace tree: directories",
       "type": "shell",
       "command": "pwsh",
-      "args": ["-NoProfile", "-Command", "tree /A | Out-File -Encoding ascii workspace_tree.txt"],
+      "args": ["-NoLogo", "-Command", "tree /A | Out-File -Encoding ascii workspace_tree.txt"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -187,7 +187,7 @@
       "type": "shell",
       "command": "pwsh",
       "args": [
-        "-NoProfile",
+        "-NoLogo",
         "-Command",
         "Write-Host 'TODO: Platzhalter-Task. Implementierung folgt ueber novapolis_agent/scripts/tts_export_coqui.py'"
       ],

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Markdownlint geprüft (Setext-Stil bestätigt)
-checks: markdownlint-cli2 (single file) PASS
+stand: 2026-02-22 14:21
+update: Legacy-Metazeile im Inhaltsbereich bereinigt (`Letzte Aktualisierung:` -> `Aktualisiert:`).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 10:58); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis_agent/docs/reports/overnight-20251022.md' PASS (2026-02-22 10:58)
 ---
 
 Overnight Evaluation (Teilrun - 50 Einträge)
@@ -36,6 +36,6 @@ Hinweise
   oder Checks/Datensätze anpassen.
 - Vollständiger Overnight-Run kann mit höherem Limit oder ohne `--limit` erfolgen.
 
-Letzte Aktualisierung: 2025-10-22
+Aktualisiert: 2025-10-22
 
 

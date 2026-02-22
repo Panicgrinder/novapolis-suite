@@ -15,6 +15,7 @@ Lint
 Frontmatter
 -----------
 - Standard-Schlüssel: `stand`, `update`, `checks`.
+- Legacy-Kopfzeilen `Stand:` und `Letzte Aktualisierung:` sind außerhalb von YAML-Frontmatter nicht zulässig.
 - Delimiter `---` oben/unten niemals unbeabsichtigt entfernen.
 - Validator: `scripts/check_frontmatter.py`.
 - Ausnahme GOV-EX-FM-001: `.github/copilot-instructions.md` ohne YAML-Frontmatter.
