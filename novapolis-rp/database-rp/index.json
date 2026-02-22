@@ -261,6 +261,18 @@
       "json": "database-rp/00-admin/Logistik.json"
     },
     {
+      "md": "database-rp/00-admin/Metrokarte-T0.md",
+      "json": "database-rp/00-admin/Metrokarte-T0.json"
+    },
+    {
+      "md": "database-rp/00-admin/Stationskontroll-Matrix.md",
+      "json": "database-rp/00-admin/Stationskontroll-Matrix.json"
+    },
+    {
+      "md": "database-rp/00-admin/Warenueberblick-T0.md",
+      "json": "database-rp/00-admin/Warenueberblick-T0.json"
+    },
+    {
       "md": "database-rp/00-admin/memory-bundle.md",
       "json": "database-rp/00-admin/memory-bundle.json"
     },

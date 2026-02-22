@@ -1,0 +1,23 @@
+{
+  "title": "Stationskontroll-Matrix (T0)",
+  "category": "admin",
+  "slug": "stationskontroll-matrix",
+  "version": "0.1",
+  "canvas": "stationskontrolle-t0",
+  "status": "active",
+  "owners": [
+    "admin-novapolis"
+  ],
+  "tags": [
+    "rp",
+    "admin",
+    "stationskontrolle",
+    "t0"
+  ],
+  "dependencies": [
+    "metrokarte-t0",
+    "current-state",
+    "logistik"
+  ],
+  "source": "database-rp/00-admin/Stationskontroll-Matrix.md"
+}

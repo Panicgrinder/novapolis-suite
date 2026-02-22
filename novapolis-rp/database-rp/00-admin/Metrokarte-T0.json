@@ -1,0 +1,27 @@
+{
+  "title": "Metrokarte (T0)",
+  "category": "admin",
+  "slug": "metrokarte-t0",
+  "version": "0.3",
+  "canvas": "metrokarte-t0",
+  "status": "active",
+  "owners": [
+    "admin-novapolis"
+  ],
+  "tags": [
+    "rp",
+    "admin",
+    "metro",
+    "t0",
+    "operations",
+    "topology",
+    "text-map",
+    "id-schema"
+  ],
+  "dependencies": [
+    "metrograph-index",
+    "ortsgraph-index",
+    "stationskontroll-matrix"
+  ],
+  "source": "database-rp/00-admin/Metrokarte-T0.md"
+}

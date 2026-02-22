@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 01:49
-update: Relative Admin-Links in C6 und Ronja-Kerschner korrigiert und revalidiert.
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:46); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 01:46); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 01:46)
+stand: 2026-02-22 04:13
+update: T0-Startbelegung je Stationsgroessenklasse ergänzt; D5 auf station_m gemäß RP-Hinweis korrigiert.
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 04:13); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 04:13); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 04:13)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,87 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: T0-Startbelegung m2 + D5-Korrektur (2026-02-22 04:12)
+---------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden Default-Startwerte je Größenklasse ergänzt (`station_xs/s/m/l/xl` -> `750/2000/4250/6750/9000` m2).
+- Betriebsregel ergänzt: `size_m2=pending` verwendet bis zur Feinbelegung den jeweiligen Klassen-Default.
+- D5 gemäß RP-Hinweis von `station_xl` auf maximal `station_m` korrigiert und auf `size_m2=4250` gesetzt.
+
+RP: Stationsgroessenlabels vereinheitlicht (2026-02-22 04:05)
+------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` verbindliche Labels `station_xs`, `station_s`, `station_m`, `station_l`, `station_xl` ergänzt (mit klaren m²-Bandgrenzen).
+- Alle `ST-*`-Knoten erhielten `size_class`; exakte Flächenwerte bleiben vorerst `size_m2=pending` bis finale m²-Vorgaben vorliegen.
+- B2 bleibt als große Schienenbund-Basisstation konsistent markiert.
+
+RP: NPC-Fraktionszuordnung T0 konkretisiert (2026-02-22 04:04)
+-------------------------------------------------------------
+
+- Verteilung gemäß Freigabe in `database-rp/00-admin/Stationskontroll-Matrix.md` übernommen (inkl. reduzierter Schienenbund-/Schattenbund-Anteile und 4 Eisenkonklave-Stationen).
+- `database-rp/00-admin/Metrokarte-T0.md` synchronisiert: betroffene `ST-*`-Knoten auf bestätigte Fraktionszuordnung gesetzt.
+- `ST-B2` als große Schienenbund-Basisstation vorgemerkt (`size_class=large`, `size_m2=pending`) bis m²-Spezifikation nachgereicht wird.
+
+RP: Metrokarte v0.3 Restsegmente + Stichprobenlogik (2026-02-22 03:48)
+---------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` weitere Restsegmente angebunden (u. a. C2-C1-D1-D2-E1-E2, A3-A4-A6, E4-E5-E6-F6-G6, F1-F3-F4, G3-G4).
+- Zusätzliche Hazard-Zonen ergänzt (`debris_field`, `contamination`, `hard_collapse`) zur spielbaren Risiko-/Routingdifferenzierung.
+- Stichprobencheck durchgeführt: Referenzintegrität ohne Treffer (`MISSING_REFS=0`) sowie Beispielpfade `D5->C6`, `D5->A1`, `D5->B2`, `D5->G7`, `D5->K4` jeweils erfolgreich.
+
+RP: Metrokarte v0.2 Nebenarme + Alternativrouten (2026-02-22 03:44)
+-------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` zusätzliche Nebenarme und Alternativkorridore ergänzt (u. a. A1-A2-B1-B2, B2-C3-D3-D5, G7-G5-F5-F9, H12-H1-G1-G7, K4-F7-F9).
+- Ziel erfüllt: je Fraktionsanker ist mindestens ein zusätzlicher Alternativpfad modelliert.
+- Weitere Gefahrenstellen ergänzt (`HAZARD`), inkl. beschädigter Teilabschnitte für routing-relevante Risikopfade.
+
+RP: Metrokarte 54er-Backbone mit Risiken erweitert (2026-02-22 03:40)
+--------------------------------------------------------------------
+
+- `database-rp/00-admin/Metrokarte-T0.md` auf konkrete 54er-Textkarte erweitert (vollständige Stations-/Zugangs-ID-Verteilung im `ST/AC`-Schema).
+- Fraktionsanker explizit berücksichtigt: `D5`, `C6`, `E3`, `A1`, `B2`, `F9`, `G7`, `H12`, `K4`.
+- Erste operative Kanten ergänzt: Haupttransitachsen inkl. neutraler Zwischenstationen zwischen Fraktionsräumen.
+- Eingebaut: mehrere Sackgassen (`status=dead_end`) und Gefahrenobjekte (`HAZARD`) für beschädigte/gesperrte Abschnitte.
+
+RP: Metrokarte Textkarte + IDs vorbereitet (2026-02-22 02:48)
+-------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` verbindliches ID-Schema ergänzt: `ST-*`, `AC-*`, `TN-*`, `JB-*`.
+- KI-optimiertes Zeilenformat ergänzt: `TYP|key=value|...` für spätere automatisierte Verwaltung.
+- Startkern als Textkarte modelliert (D5-C6-E3) inklusive Zugänge, Tunnelsegmente und Abzweige mit eindeutigen IDs.
+- Sidecar synchronisiert: `database-rp/00-admin/Metrokarte-T0.json` auf `version: 0.3` und Tags `text-map`/`id-schema` erweitert.
+
+RP: Metrokarte-T0 auf 54 Kernstationen vorbereitet (2026-02-22 02:48)
+--------------------------------------------------------------------
+
+- `database-rp/00-admin/Metrokarte-T0.md` auf Zielgröße **54 Stationen** umgestellt (Verteilung 24 fraktionsnah / 18 neutral / 12 Peripherie).
+- Regel ergänzt: zwischen fraktionsgeprägten Kernräumen standardmäßig mindestens eine neutrale Station.
+- Bereichsfluss für spätere Karten-/Engine-Umsetzung ergänzt: `Station -> Zugang -> Tunnel -> Abzweig (Ereignis) -> Tunnel -> Zugang -> nächste Station`; bei Mehrfachzugängen analog pro Arm.
+- Sidecar synchronisiert: `database-rp/00-admin/Metrokarte-T0.json` auf `version: 0.2` und Tag `topology` erweitert.
+
+RP: JSON-Sidecars fuer T0-Admin-Dateien nachgezogen (2026-02-22 02:31)
+---------------------------------------------------------------------
+
+- Fehlende Sidecars angelegt: `database-rp/00-admin/Metrokarte-T0.json`, `database-rp/00-admin/Stationskontroll-Matrix.json`, `database-rp/00-admin/Warenueberblick-T0.json`.
+- Zentralen Index aktualisiert: `database-rp/index.json` um die drei neuen MD/JSON-Paare ergänzt.
+- RP-Validator bestätigt: `npm --prefix novapolis-rp/coding/tools/validators run validate:rp` PASS.
+
+RP: 00-admin T0-Gesamtbild integriert + Timeline-Linkdrift behoben (2026-02-22 02:23)
+-------------------------------------------------------------------------------
+
+- Neue separate Admin-Dateien angelegt: `database-rp/00-admin/Metrokarte-T0.md`, `database-rp/00-admin/Stationskontroll-Matrix.md`, `database-rp/00-admin/Warenueberblick-T0.md`.
+- Bestehende Integrationspunkte erweitert: `index-rules.md`, `Current-State.md`, `Logistik.md`, `Metrograph.md` um Verweise auf die neuen T0-Artefakte ergänzt.
+- Nebenbefund korrigiert: veraltete Links `Canvas-T+0-Timeline.md` in `Ortsgraph.md`, `Canvas-Admin-Day-Switch-Debug.md` und `Kernkonversationen.md` auf `Canvas-T0-Timeline.md` umgestellt.
+- Ansatz: minimalinvasiver SSOT-Ausbau ohne neue unbelegte Kanonbehauptungen; offene Bereiche explizit als `tbd` markiert.
+
+RP: TODO-Plan fuer Gesamtbild T0 priorisiert (2026-02-22 02:14)
+---------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.rp.md` um einen klaren Prioritaet-0-Plan erweitert: Metro-Topologie, Stationskontrolle, Warenueberblick, Herkunftslabels und Definition of Done.
+- Reihenfolge explizit festgelegt: erst Gesamtbild/SSOT-Basis, danach Mengen-Backfill in Inventaren.
+- Guardrail festgehalten: D5/C6 bleiben fruehe Aufbauphase ohne implizite Handelsnormalisierung.
 
 RP: Relative Admin-Links in Novapolis-Dateien korrigiert (2026-02-22 01:45)
 --------------------------------------------------------------------------

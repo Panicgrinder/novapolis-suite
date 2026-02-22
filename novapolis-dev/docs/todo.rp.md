@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-02-22 01:49
-update: Knowledge-Annotation-Basis umgesetzt (Charaktere + missionsbezogene Items + Promotionsprozess ohne Retcon).
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:17); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' PASS (2026-02-22 01:17); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' PASS (2026-02-22 01:17)
+stand: 2026-02-22 04:16
+update: Umsetzungsplan fuer Gesamtbild T0 ergaenzt (Metrokarte, Stationskontrolle, Warenueberblick) und als Prioritaet vor Detailmengen festgelegt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 02:15); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 02:15)
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -79,6 +79,47 @@ Linkübersicht
 </details>
 Neue Aufgaben - Zeitmodell, Annotation & Logs (2025-11-01 22:24)
 ----------------------------------------------------------------
+
+Prioritaet 0 - Gesamtbild T0 (vor Detailmengen)
+-----------------------------------------------
+
+Ziel
+----
+
+- Zuerst ein belastbares Gesamtbild aufbauen (Karte, Kontrolle, Warenlage), danach Detailmengen pro Station schrittweise nachziehen.
+- Keine neuen unbelegten Canon-Behauptungen; unbekannte Punkte bleiben explizit `tbd`/`unklar`.
+
+Umsetzungsreihenfolge (MVP)
+---------------------------
+
+- [ ] P0.1 Metro-Topologie als Arbeitskarte T0 anlegen (Stationen, Verbindungen, Status pro Knoten/Kante).
+- [ ] P0.2 Stationskontrolle je Fraktion erfassen (gesichert/umkaempft/verlassen/unklar + Confidence).
+- [ ] P0.3 Warenueberblick T0 je Fraktion/Station als Bandbreitenmodell erfassen (`none|low|medium|high` statt Scheingenauigkeit).
+- [ ] P0.4 Herkunftslabel pro Warenposten verpflichtend setzen (`legacy|evac_e3|scavenged|produced|unknown`).
+- [ ] P0.5 D5/C6 sauber als fruehe Aufbauphase markieren (kein etablierter Handel; Bestand nur aus Altbestand/Funden/E3-Mitnahme).
+
+Scope-Guardrails
+----------------
+
+- [ ] D5/C6: Keine Handelsnormalisierung simulieren, solange Handelsbeziehungen im RP noch nicht etabliert sind.
+- [ ] Etablierte Fraktionen: Grundvorräte zulassen, aber Stationenlage explizit als unvollstaendig kennzeichnen.
+- [ ] Mengenpraezision erst nach P0.1-P0.4 erhoehen; bis dahin nur Bandbreiten + Quellenanker.
+
+Konkrete Deliverables
+---------------------
+
+- [ ] Admin: Metrokarte-T0 (Knoten/Kanten + Statusmodell) unter `00-admin`.
+- [ ] Admin: Fraktionskontroll-Matrix Stationen (Fraktion x Station x Status x Confidence).
+- [ ] Admin: Warenueberblick-T0 (globales Raster + Herkunftssystem).
+- [ ] Fraktionen: Minimal-Abgleich je Basis/known stations mit Verweis auf Admin-SSOT.
+
+Definition of Done (P0)
+-----------------------
+
+- [ ] Jede bekannte Station ist in Karte + Kontrollmatrix mindestens einmal referenziert.
+- [ ] Jede Fraktion hat einen T0-Warenueberblick mit Herkunftslabeln.
+- [ ] D5/C6 sind konsistent als fruehe Aufbauphase modelliert; keine impliziten Handelsannahmen.
+- [ ] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten.
 
 - 24×1h-Runden (PC-zentriert) einführen
   - [x] Policy festhalten: Stunde spult leise weiter, bis ein PC-relevantes Ereignis eintritt (z. B. „Reflex weckt Ronja“). *(erledigt 2026-02-22)*

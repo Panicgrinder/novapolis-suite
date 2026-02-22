@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 22:11
-update: Globales Wochenzyklus-/Lager-Modell ergänzt und Legacy-Versionstokens gegen aktuelle Slug-Referenzen abgegrenzt.
-checks: ausstehend (nach Mutation neu ausführen)
+stand: 2026-02-22 04:16
+update: T0-Warenueberblick und Stationskontroll-Matrix als operative Referenzen für Logistikentscheidungen ergänzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 02:26); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/index-rules.md' 'novapolis-rp/database-rp/00-admin/Current-State.md' 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-rp/database-rp/00-admin/Metrograph.md' 'novapolis-rp/database-rp/00-admin/Ortsgraph.md' 'novapolis-rp/database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md' 'novapolis-rp/database-rp/00-admin/Kernkonversationen.md' 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' 'novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 02:27)
 canvas: Logistik
 last_updated: 2025-11-07T04:09:00+01:00
 category: admin
@@ -126,6 +126,8 @@ Verlinkungen
 - [Missionslog](./Missionslog.md)
 - [Admin: Day-Switch & Debug](./Canvas-Admin-Day-Switch-Debug.md)
 - [Admin: Timeline (T+0)](./Canvas-T0-Timeline.md)
+- [Admin: Warenueberblick (T0)](./Warenueberblick-T0.md)
+- [Admin: Stationskontroll-Matrix](./Stationskontroll-Matrix.md)
 - [Process-Workflow](./Process-Workflow.md)
 - [Index-Rules](./index-rules.md)
 - [Beispiel Fraktions-Doctrine: Novapolis-Logistics](../01-factions/novapolis/00-doctrine/novapolis-logistics.md)

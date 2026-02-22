@@ -1,5 +1,5 @@
-Stand: 2026-02-21 20:49 – Modul-DONELOG-Pflicht als harte Globalregel ergänzt; R-DONELOG in Kernmatrix aufgenommen.
-Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/instructions/rp-docs.instructions.md' '.github/copilot-instructions-headings.md' 'DONELOG.md' PASS (2026-02-21 20:49; .github/copilot-instructions.md durch Config ausgeschlossen); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/instructions/rp-docs.instructions.md' '.github/copilot-instructions-headings.md' 'DONELOG.md' PASS (2026-02-21 20:49)
+Stand: 2026-02-22 01:56 – Postflight-Semantik für `Todos.offen` verbindlich präzisiert (Agent-Laufstatus ≠ Projekt-Backlog).
+Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 01:55; .github/copilot-instructions.md durch Config ausgeschlossen); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions.md' 'DONELOG.md' PASS (2026-02-22 01:55)
 
 
 LLM-Dokumentenheader (nicht löschen)
@@ -131,6 +131,11 @@ Postflight-Schema (5 Zeilen)
 - Zeile 3 (`Regeln`): `IDs, Details`
 - Zeile 4 (`Todos`): `offen, BeispielFix, ReRun, Fällig`
 - Zeile 5 (`Ende`): `Timestamp`
+
+### Semantik `Todos` (verbindlich)
+- `Todos.offen` im Postflight-Receipt bezeichnet ausschließlich offene Agent-Arbeitsschritte des aktuellen Änderungslaufs.
+- `Todos.offen` ist kein Indikator für den fachlichen Projekt-Backlog-Stand in `todo.root.md`, `novapolis-dev/docs/todo.rp.md` oder anderen TODO-Dateien.
+- Bei Bedarf muss der Projekt-Backlog-Stand getrennt und explizit ausgewiesen werden.
 
 Kompakter Meta-Block (rein lesend)
 ----------------------------------

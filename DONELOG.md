@@ -1,11 +1,12 @@
 ---
-stand: 2026-02-21 20:53
-update: "Governance geschaerft: Modul-DONELOG-Pflicht als harte Regel (global + RP-scoped) plus Index-Nachzug dokumentiert."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/instructions/rp-docs.instructions.md' '.github/copilot-instructions-headings.md' 'DONELOG.md' PASS (2026-02-21 20:49); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py '.github/instructions/rp-docs.instructions.md' '.github/copilot-instructions-headings.md' 'DONELOG.md' PASS (2026-02-21 20:49)
+stand: 2026-02-22 04:16
+update: "Postflight-Semantik praezisiert: Todos.offen ist Agent-Laufstatus und kein Projekt-Backlog-Indikator."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 01:55; .github/copilot-instructions.md durch Config ausgeschlossen); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py '.github/copilot-instructions.md' 'DONELOG.md' PASS (2026-02-22 01:55)
 ---
 Kurzueberblick
 --------------
 
+- 2026-02-22 01:55: Governance-Präzisierung in `.github/copilot-instructions.md` ergänzt: Im Postflight-Schema ist `Todos.offen` nun explizit als Agent-Arbeitsschritte des aktuellen Laufs definiert und klar von fachlichen Projekt-TODOs (`todo.root.md`, `novapolis-dev/docs/todo.rp.md`) getrennt.
 - 2026-02-21 20:45: Governance geschaerft: In `.github/copilot-instructions.md` wurde die Modul-DONELOG-Pflicht als harte Globalregel ergänzt (`R-DONELOG`, Trigger `any_file_mutation`, keine Exceptions) und in `.github/instructions/rp-docs.instructions.md` die Scoped-Doku-Sync-Regel auf „jede Dateiänderung im Scope“ verschärft. Wegen R-IDX wurde `.github/copilot-instructions-headings.md` im selben Änderungslauf aktualisiert. Checks: ausstehend (nach Mutation neu ausführen).
 - 2026-02-21 04:52: Entscheidungsbatch aus `todo.root.md` umgesetzt. In `todo.root.md` wurden abgeschlossene Blöcke auf kompakte Archivverweise reduziert (`Naechstes Vorgehen`, `Priorisierung/Optional` Teilpunkte, komplette Modulsektionen Agent/Dev/Sim). Inhalte wurden in passende Archive ueberfuehrt: `novapolis-dev/archive/todo.root.archive.md` (Root-Abschluesse), `novapolis-dev/archive/todo.agent.archive.md`, `novapolis-dev/archive/todo.dev.archive.md`, `novapolis-dev/archive/todo.sim.archive.md`. Offene Punkte (`S5`, Optional-Etappe-3, Snapshot-Migration Etappe 2/3, Go/No-Go 3-5 Tage) bleiben aktiv in `todo.root.md`.
 - 2026-02-21 04:31: Root-TODO-Archivierung weitergefuehrt. Vollstaendig abgeschlossenen Teilblock `Priorisierung -> Spaeter (S1-S4)` aus `todo.root.md` in `novapolis-dev/archive/todo.root.archive.md` ueberfuehrt; S5 bewusst aktiv/offen im Root-Backlog belassen. Scoped Checks: markdownlint + frontmatter PASS.
