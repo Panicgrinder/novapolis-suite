@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 04:13
-update: T0-Startbelegung je Groessenklasse ergänzt; D5 gemäß RP-Hinweis auf maximal station_m korrigiert.
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 04:13); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 04:13); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 04:13)
+stand: 2026-02-22 07:08
+update: size_m2 in STATION-Zeilen auf glaubwuerdige Varianz innerhalb der Klassenbaender umgestellt.
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 06:53); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 06:53); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 06:53)
 slug: metrokarte-t0
 category: Admin
 canvas: metrokarte-t0
@@ -79,7 +79,49 @@ T0-Startbelegung m2 (Default je Klasse)
 
 Regel: Wenn bei einer Station `size_m2=pending` steht, gilt im T0-Betrieb der jeweilige Klassen-Default als Startwert.
 
-Textkarte T0 (KI-optimiert, Backbone 54 v0.3)
+Ist-Zustand-Modell (verbindlich)
+--------------------------------
+
+Erlaubte Zustandsbegriffe (`ist_zustand`)
+
+- `verbessert`
+- `stabil`
+- `gepflegt`
+- `stabilisiert`
+- `verschlissen`
+- `beschaedigt`
+- `kritisch`
+- `aufgegeben`
+- Alle anderen Begriffe sind im T0-Modell unzulaessig.
+
+Geordnete Zustands-Skala (niedrig -> hoch)
+
+- `aufgegeben` < `kritisch` < `beschaedigt` < `verschlissen` < `stabilisiert` < `verbessert` < `stabil` < `gepflegt`
+
+Erlaubte Begriffe (`ist_grund`)
+
+- Baseline-Gruende: `langzeitbetrieb`, `strukturermuedung`, `kontamination_oder_blockade`, `grossschaden_evakuierung`
+- Override-Gruende: `instandsetzung_weit_fortgeschritten`, `verbessert_teilweise_gepflegt`
+- Alle anderen Begriffe sind fuer `ist_grund` im T0-Modell unzulaessig.
+
+- Jede `STATION`-Zeile führt zusätzlich: `ist_zustand`, `ist_grund`, `nutzflaeche_faktor`.
+- Es gibt im T0-Modell keine Station im Zustand `perfekt`; bester zulaessiger Zustand ist `gepflegt`.
+- `size_m2` bleibt Bruttoflaeche; die operative Nutzflaeche ergibt sich aus `size_m2` (oder Klassen-Default) mal `nutzflaeche_faktor`.
+
+Status-Mapping (T0)
+
+- Das folgende Mapping definiert den **Baseline-Standard** je `status`.
+- Evidenzbasierte Stations-Overrides sind zulaessig (z. B. D5), sofern sie im Dokument begruendet sind.
+- Fuer Overrides gilt: `ist_quelle=override` und `ist_ref=<beleg-id>` sind in der jeweiligen `STATION`-Zeile verpflichtend.
+- Fuer Baseline-Eintraege gilt: `ist_quelle=baseline` (Bestandszeilen ohne `ist_quelle` werden in T0 v0.4 als implizit `baseline` gelesen).
+- Invariante: `status` bestimmt nur die Baseline; ein expliziter Override (`ist_quelle=override`) wird nicht durch Baseline-Logik ueberschrieben.
+
+- `status=active` -> `ist_zustand=verschlissen`, `ist_grund=langzeitbetrieb`, `nutzflaeche_faktor=0.90`
+- `status=partial` -> `ist_zustand=beschaedigt`, `ist_grund=strukturermuedung`, `nutzflaeche_faktor=0.78`
+- `status=restricted` -> `ist_zustand=kritisch`, `ist_grund=kontamination_oder_blockade`, `nutzflaeche_faktor=0.62`
+- `status=evacuated` -> `ist_zustand=aufgegeben`, `ist_grund=grossschaden_evakuierung`, `nutzflaeche_faktor=0.45`
+
+Textkarte T0 (KI-optimiert, Backbone 54 v0.4)
 ----------------------------------------------
 
 Formatregeln
@@ -90,60 +132,60 @@ Formatregeln
 - Zusätzliche Objekttypen sind erlaubt (`HAZARD`) und referenzieren vorhandene IDs.
 
 ```text
-STATION|id=ST-A1|code=A1|faction=arkologie-a1|status=active|tier=faction|size_class=station_l|size_m2=pending
-STATION|id=ST-A2|code=A2|faction=neutral|status=active|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-A3|code=A3|faction=arkologie-a1|status=partial|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-A4|code=A4|faction=neutral|status=partial|tier=periphery|size_class=station_s|size_m2=pending
-STATION|id=ST-A5|code=A5|faction=arkologie-a1|status=active|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-A6|code=A6|faction=neutral|status=restricted|tier=periphery|size_class=station_xs|size_m2=pending
-STATION|id=ST-B1|code=B1|faction=neutral|status=active|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-B2|code=B2|faction=schienenbund|status=active|tier=faction|size_class=station_l|size_m2=pending
-STATION|id=ST-B3|code=B3|faction=schienenbund|status=active|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-B4|code=B4|faction=neutral|status=active|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-B5|code=B5|faction=neutral|status=partial|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-B6|code=B6|faction=neutral|status=restricted|tier=periphery|size_class=station_xs|size_m2=pending
-STATION|id=ST-C1|code=C1|faction=neutral|status=active|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-C2|code=C2|faction=neutral|status=active|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-C3|code=C3|faction=neutral|status=partial|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-C4|code=C4|faction=neutral|status=active|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-C5|code=C5|faction=neutral|status=active|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-C6|code=C6|faction=novapolis|status=partial|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-C7|code=C7|faction=neutral|status=partial|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-D1|code=D1|faction=neutral|status=active|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-D2|code=D2|faction=neutral|status=partial|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-D3|code=D3|faction=neutral|status=active|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-D4|code=D4|faction=neutral|status=active|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-D5|code=D5|faction=novapolis|status=active|tier=faction|size_class=station_m|size_m2=4250
-STATION|id=ST-D6|code=D6|faction=neutral|status=partial|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-D7|code=D7|faction=neutral|status=active|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-E1|code=E1|faction=neutral|status=partial|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-E2|code=E2|faction=neutral|status=active|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-E3|code=E3|faction=novapolis|status=evacuated|tier=faction|size_class=station_l|size_m2=pending
-STATION|id=ST-E4|code=E4|faction=neutral|status=restricted|tier=periphery|size_class=station_xs|size_m2=pending
-STATION|id=ST-E5|code=E5|faction=neutral|status=active|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-E6|code=E6|faction=neutral|status=partial|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-E7|code=E7|faction=neutral|status=active|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-F1|code=F1|faction=neutral|status=active|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-F2|code=F2|faction=neutral|status=active|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-F3|code=F3|faction=neutral|status=partial|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-F4|code=F4|faction=neutral|status=restricted|tier=periphery|size_class=station_xs|size_m2=pending
-STATION|id=ST-F5|code=F5|faction=haendlerbund|status=active|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-F6|code=F6|faction=neutral|status=partial|tier=neutral|size_class=station_m|size_m2=pending
-STATION|id=ST-F7|code=F7|faction=schattenbund|status=active|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-F8|code=F8|faction=neutral|status=partial|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-F9|code=F9|faction=schattenbund|status=active|tier=faction|size_class=station_l|size_m2=pending
-STATION|id=ST-G1|code=G1|faction=eisenkonklave|status=active|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-G2|code=G2|faction=neutral|status=partial|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-G3|code=G3|faction=neutral|status=active|tier=neutral|size_class=station_s|size_m2=pending
-STATION|id=ST-G4|code=G4|faction=neutral|status=restricted|tier=periphery|size_class=station_xs|size_m2=pending
-STATION|id=ST-G5|code=G5|faction=haendlerbund|status=partial|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-G6|code=G6|faction=fluesterkollektiv|status=active|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-G7|code=G7|faction=haendlerbund|status=active|tier=faction|size_class=station_xl|size_m2=pending
-STATION|id=ST-H1|code=H1|faction=fluesterkollektiv|status=partial|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-H2|code=H2|faction=eisenkonklave|status=active|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-H3|code=H3|faction=eisenkonklave|status=partial|tier=faction|size_class=station_m|size_m2=pending
-STATION|id=ST-H12|code=H12|faction=eisenkonklave|status=active|tier=faction|size_class=station_xl|size_m2=pending
-STATION|id=ST-K4|code=K4|faction=fluesterkollektiv|status=active|tier=faction|size_class=station_l|size_m2=pending
+STATION|id=ST-A1|code=A1|faction=arkologie-a1|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_l|size_m2=7020
+STATION|id=ST-A2|code=A2|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_s|size_m2=1880
+STATION|id=ST-A3|code=A3|faction=arkologie-a1|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=faction|size_class=station_m|size_m2=4475
+STATION|id=ST-A4|code=A4|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=periphery|size_class=station_s|size_m2=1760
+STATION|id=ST-A5|code=A5|faction=arkologie-a1|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4090
+STATION|id=ST-A6|code=A6|faction=neutral|status=restricted|ist_zustand=kritisch|ist_grund=kontamination_oder_blockade|nutzflaeche_faktor=0.62|tier=periphery|size_class=station_xs|size_m2=820
+STATION|id=ST-B1|code=B1|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_s|size_m2=2140
+STATION|id=ST-B2|code=B2|faction=schienenbund|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_l|size_m2=6890
+STATION|id=ST-B3|code=B3|faction=schienenbund|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4380
+STATION|id=ST-B4|code=B4|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4010
+STATION|id=ST-B5|code=B5|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_s|size_m2=1930
+STATION|id=ST-B6|code=B6|faction=neutral|status=restricted|ist_zustand=kritisch|ist_grund=kontamination_oder_blockade|nutzflaeche_faktor=0.62|tier=periphery|size_class=station_xs|size_m2=710
+STATION|id=ST-C1|code=C1|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_s|size_m2=2050
+STATION|id=ST-C2|code=C2|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_s|size_m2=1820
+STATION|id=ST-C3|code=C3|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_m|size_m2=4620
+STATION|id=ST-C4|code=C4|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4170
+STATION|id=ST-C5|code=C5|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=3890
+STATION|id=ST-C6|code=C6|faction=novapolis|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=faction|size_class=station_m|size_m2=4540
+STATION|id=ST-C7|code=C7|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_s|size_m2=1710
+STATION|id=ST-D1|code=D1|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_s|size_m2=2160
+STATION|id=ST-D2|code=D2|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_s|size_m2=1860
+STATION|id=ST-D3|code=D3|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4330
+STATION|id=ST-D4|code=D4|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=3960
+STATION|id=ST-D5|code=D5|faction=novapolis|status=active|ist_zustand=stabil|ist_grund=verbessert_teilweise_gepflegt|ist_quelle=override|ist_ref=raw_d5_station|nutzflaeche_faktor=0.94|tier=faction|size_class=station_m|size_m2=4710
+STATION|id=ST-D6|code=D6|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_s|size_m2=1790
+STATION|id=ST-D7|code=D7|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4240
+STATION|id=ST-E1|code=E1|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_s|size_m2=1680
+STATION|id=ST-E2|code=E2|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4410
+STATION|id=ST-E3|code=E3|faction=novapolis|status=evacuated|ist_zustand=aufgegeben|ist_grund=grossschaden_evakuierung|nutzflaeche_faktor=0.45|tier=faction|size_class=station_l|size_m2=7320
+STATION|id=ST-E4|code=E4|faction=neutral|status=restricted|ist_zustand=kritisch|ist_grund=kontamination_oder_blockade|nutzflaeche_faktor=0.62|tier=periphery|size_class=station_xs|size_m2=690
+STATION|id=ST-E5|code=E5|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_s|size_m2=1990
+STATION|id=ST-E6|code=E6|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_m|size_m2=4080
+STATION|id=ST-E7|code=E7|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4520
+STATION|id=ST-F1|code=F1|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_s|size_m2=2070
+STATION|id=ST-F2|code=F2|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4130
+STATION|id=ST-F3|code=F3|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_m|size_m2=4460
+STATION|id=ST-F4|code=F4|faction=neutral|status=restricted|ist_zustand=kritisch|ist_grund=kontamination_oder_blockade|nutzflaeche_faktor=0.62|tier=periphery|size_class=station_xs|size_m2=780
+STATION|id=ST-F5|code=F5|faction=haendlerbund|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4290
+STATION|id=ST-F6|code=F6|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_m|size_m2=3970
+STATION|id=ST-F7|code=F7|faction=schattenbund|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4680
+STATION|id=ST-F8|code=F8|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_s|size_m2=1730
+STATION|id=ST-F9|code=F9|faction=schattenbund|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_l|size_m2=7590
+STATION|id=ST-G1|code=G1|faction=eisenkonklave|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4360
+STATION|id=ST-G2|code=G2|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_s|size_m2=1850
+STATION|id=ST-G3|code=G3|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_s|size_m2=2210
+STATION|id=ST-G4|code=G4|faction=neutral|status=restricted|ist_zustand=kritisch|ist_grund=kontamination_oder_blockade|nutzflaeche_faktor=0.62|tier=periphery|size_class=station_xs|size_m2=730
+STATION|id=ST-G5|code=G5|faction=haendlerbund|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=faction|size_class=station_m|size_m2=4150
+STATION|id=ST-G6|code=G6|faction=fluesterkollektiv|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4440
+STATION|id=ST-G7|code=G7|faction=haendlerbund|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_xl|size_m2=9480
+STATION|id=ST-H1|code=H1|faction=fluesterkollektiv|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=faction|size_class=station_m|size_m2=4020
+STATION|id=ST-H2|code=H2|faction=eisenkonklave|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4310
+STATION|id=ST-H3|code=H3|faction=eisenkonklave|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=faction|size_class=station_m|size_m2=4590
+STATION|id=ST-H12|code=H12|faction=eisenkonklave|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_xl|size_m2=9840
+STATION|id=ST-K4|code=K4|faction=fluesterkollektiv|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_l|size_m2=7080
 
 ACCESS|id=AC-A1-01|station=ST-A1|kind=main|status=active
 ACCESS|id=AC-A2-01|station=ST-A2|kind=main|status=active

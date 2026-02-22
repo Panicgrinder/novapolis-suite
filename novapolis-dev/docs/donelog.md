@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 04:13
-update: T0-Startbelegung je Stationsgroessenklasse ergänzt; D5 auf station_m gemäß RP-Hinweis korrigiert.
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 04:13); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 04:13); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 04:13)
+stand: 2026-02-22 07:08
+update: Metrokarte-T0 size_m2 von Klassen-Defaults auf realistische Stationsvarianz innerhalb der Klassenbaender umgestellt.
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 06:53); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 06:53); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 06:53)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,75 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: size_m2-Varianz in Metrokarte T0 eingezogen (2026-02-22 06:52)
+------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden alle `STATION`-`size_m2` von starren Klassen-Defaults auf stationsspezifische Werte mit moderater Varianz umgestellt.
+- Die Werte bleiben innerhalb der Klassenbaender (`station_xs/s/m/l/xl`) und erhalten damit Konsistenz zur bestehenden Flaechenlogik.
+- D5 wurde als positiver Override-Fall beibehalten und nur in `size_m2` plausibel nachgezogen (`4250` -> `4710`).
+
+RP: size_m2 in Metrokarte T0 befuellt (2026-02-22 06:38)
+--------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden alle `size_m2=pending`-Eintraege in `STATION`-Zeilen auf konkrete Klassen-Defaults gesetzt.
+- Verwendete Defaults: `station_xs=750`, `station_s=2000`, `station_m=4250`, `station_l=6750`, `station_xl=9000`.
+- Ergebnis: Im T0-Backbone stehen nun keine offenen `size_m2=pending`-Werte mehr.
+
+RP: Ist-Zustandssystem praezisiert (2026-02-22 06:14)
+-----------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden vier Leitplanken ergänzt: geordnete `ist_zustand`-Skala, erlaubte `ist_grund`-Token, klare Baseline/Override-Regel sowie eine explizite Invariante gegen implizites Ueberschreiben.
+- Fuer Override-Faelle ist nun `ist_quelle=override` plus `ist_ref=<beleg-id>` festgelegt; Bestandszeilen ohne Feld werden als implizit `baseline` gelesen.
+- D5 wurde als expliziter Override-Fall markiert (`ist_quelle=override`, `ist_ref=raw_d5_station`).
+
+RP: Ist-Zustandsbegriffe final vereinfacht (2026-02-22 06:07)
+------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden die kanonischen Tokens auf kurze, eindeutige Begriffe harmonisiert: `verbessert`, `beschaedigt`, `kritisch`.
+- Das Status-Mapping nutzt nun konsistent `partial -> beschaedigt` und `restricted -> kritisch`.
+- Alle betroffenen `STATION`-Zeilen wurden synchronisiert; D5-Grundtext nutzt jetzt `verbessert_teilweise_gepflegt`.
+
+RP: D5-Hinweis in Zustandsliste uebernommen (2026-02-22 06:04)
+--------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden `deutlich_verbessert` und `stabil` in die erlaubte `ist_zustand`-Liste aufgenommen.
+- Der separate Abschnitt `Stationshinweis D5 (evidenzgebunden)` wurde entfernt.
+- D5 wurde in der Textkarte konsistent auf `ist_zustand=stabil` mit Grund `deutlich_verbessert_teilweise_gepflegt` gesetzt.
+
+RP: Ist-Zustandsbegriff harmonisiert (2026-02-22 06:03)
+------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurde der positive erlaubte Begriff `sehr_sauber` in `gepflegt` umbenannt.
+- Die Regelzeile zum bestmoeglichen zulaessigen Zustand wurde konsistent auf `gepflegt` angepasst.
+
+RP: Positive Ist-Zustaende + D5-Override in Metrokarte (2026-02-22 06:00)
+-----------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden positive, erlaubte `ist_zustand`-Begriffe ergänzt (`sehr_sauber`, `stabilisiert`).
+- Das Status-Mapping wurde als Baseline klargestellt; evidenzbasierte Stations-Overrides sind explizit zulaessig.
+- D5 wurde evidenzbasiert von Baseline `verschlissen` auf `stabilisiert` mit angepasstem `ist_grund` und `nutzflaeche_faktor` umgestellt.
+
+RP: Erlaubte Zustandsbegriffe in Metrokarte festgeschrieben (2026-02-22 05:58)
+-------------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurde unter dem Ist-Zustandsmodell eine verbindliche Liste erlaubter Werte fuer `ist_zustand` ergänzt.
+- Erlaubte Begriffe: `verschlissen`, `teilbeschaedigt`, `kritisch_beschaedigt`, `aufgegeben`.
+- Alle anderen Zustandsbegriffe sind fuer T0 explizit als unzulaessig markiert.
+
+RP: D5-Stationsevidenz in Metrokarte geschärft (2026-02-22 05:57)
+-----------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurde ein stationsspezifischer Hinweis ergänzt: D5 ist **deutlich verbessert / stabil / teilweise sehr sauber**.
+- Der Hinweis ist als evidenzgebundene Stationssicht formuliert und vermeidet bewusst einen Perfekt-Claim.
+- Das globale T0-Statusmapping bleibt unverändert (`active` -> `verschlissen`) und wird nicht überschrieben.
+
+RP: Metrokarte T0 mit Ist-Zustand fuer alle Stationen (2026-02-22 04:18)
+-----------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurde ein verbindliches Ist-Zustandsmodell ergänzt (`ist_zustand`, `ist_grund`, `nutzflaeche_faktor`).
+- Alle 54 `STATION`-Zeilen wurden konsistent erweitert; damit ist keine Station mehr als „perfekt“ modelliert.
+- Das Mapping ist statusbasiert (`active/partial/restricted/evacuated`) und bildet abgestufte Nutzflaechen im Betrieb ab, ohne die Bruttoflaechenlogik (`size_m2`) zu ersetzen.
 
 RP: T0-Startbelegung m2 + D5-Korrektur (2026-02-22 04:12)
 ---------------------------------------------------------
