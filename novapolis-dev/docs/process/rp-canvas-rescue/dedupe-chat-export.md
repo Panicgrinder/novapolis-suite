@@ -1,13 +1,13 @@
 ---
-stand: 2026-02-18 05:00
-update: Setext-H1 für Markdownlint harmonisiert; Datei als kuratierter Dedupe-Report geführt.
-checks: markdownlint scoped PASS (2026-02-18 05:00); frontmatter-validator PASS (2026-02-18 05:00)
+stand: 2026-02-22 17:31
+update: Primary-Pfad von hostgebundenem Absolutpfad auf repo-relativen Pfad umgestellt.
+checks: ./.venv/Scripts/python.exe scripts/check_portable_paths.py --repo-root . PASS (2026-02-22 17:10)
 ---
 
 Dedupe-Report (Chat-Exports)
 ============================
 
-Primary: F:/VS-Code-Workspace/Main/novapolis-rp/database-curated/staging/chat-export-complete.normalized.txt
+Primary: novapolis-rp/database-curated/staging/chat-export-complete.normalized.txt
 Window size: 5
 
 - chat-export (1).normalized.txt: unique segments=0 (lines=10819)

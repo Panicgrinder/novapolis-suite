@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 16:51
-update: Governance fuer portable Pfade ergänzt und in aktiver Doku umgesetzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40)
+stand: 2026-02-22 17:31
+update: `train_lora`-Importfix und Typfehlerbehebung in `run_checks_and_report.py` durchgeführt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 17:24); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-22 17:24); .\\.venv\\Scripts\\python.exe -m pytest -q novapolis_agent/tests/test_batch5_unit.py novapolis_agent/tests/test_batch6_unit.py PASS (2026-02-22 17:24)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,21 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+Root/Agent: Import-Safety Fix fuer train_lora (2026-02-22 17:24)
+---------------------------------------------------------------
+
+- `novapolis_agent/scripts/train_lora.py`: schwere Abhängigkeiten auf lazy import umgestellt (`torch`, `peft`, `transformers`, `trl`), damit Smoke-Imports ohne GPU-Stack laufen.
+- `novapolis_agent/scripts/train_lora.py`: `SFTTrainer`-Import auf `trl.trainer.sft_trainer` korrigiert.
+- `scripts/run_checks_and_report.py`: gemeldete Typfehler aus `get_errors` bereinigt.
+- Verifikation: `pytest -q novapolis_agent/tests/test_batch5_unit.py novapolis_agent/tests/test_batch6_unit.py` PASS.
+
+Root-Doku: Portabilitätscheck eingerichtet (2026-02-22 17:10)
+------------------------------------------------------------
+
+- Neues Skript: `scripts/check_portable_paths.py`.
+- Integration: `scripts/run_checks_and_report.py` enthält Pflichtcheck `path-portability`; VS-Code-Task `Checks: path portability` ergänzt.
+- Initiale Scope-Bereinigung durchgeführt in `.vscode/settings.json`, `novapolis-dev/docs/architecture-summary-local-ai.md`, `novapolis-dev/docs/process/rp-canvas-rescue/dedupe-chat-export.md`, `novapolis-dev/docs/process/rp-canvas-rescue/generated-artifacts.md`, `scripts/snapshot_gate.py`.
 
 Root-Doku: Governance + Umsetzung portable Pfade (2026-02-22 16:40)
 -------------------------------------------------------------------

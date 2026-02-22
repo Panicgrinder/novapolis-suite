@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 16:51
-update: Governance fuer portable Pfade verbindlich ergänzt und aktive Kerndokus von hostgebundenen Absolutpfaden bereinigt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40)
+stand: 2026-02-22 17:31
+update: Portabilitätscheck eingerichtet (`scripts/check_portable_paths.py`) und initiale Findings im aktiven Scope bereinigt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/architecture-summary-local-ai.md' 'novapolis-dev/docs/process/rp-canvas-rescue/dedupe-chat-export.md' 'novapolis-dev/docs/process/rp-canvas-rescue/generated-artifacts.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 17:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/architecture-summary-local-ai.md' 'novapolis-dev/docs/process/rp-canvas-rescue/dedupe-chat-export.md' 'novapolis-dev/docs/process/rp-canvas-rescue/generated-artifacts.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 17:10); .\.venv\Scripts\python.exe scripts\check_portable_paths.py --repo-root . PASS (2026-02-22 17:10)
 ---
 
 TODO-Uebersicht (Novapolis Suite)

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 07:30
-update: Lokale-AI/Monorepo-Strategie zusammengefasst
-checks: noch keine
+stand: 2026-02-22 17:31
+update: Workspace-Root-Hinweis auf portable Pfadangabe (`Main/`) umgestellt.
+checks: ./.venv/Scripts/python.exe scripts/check_portable_paths.py --repo-root . PASS (2026-02-22 17:10)
 ---
 Architektur-Notiz: Monorepo & Single-Root (lokale AI)
 ====================================================
@@ -9,7 +9,7 @@ Architektur-Notiz: Monorepo & Single-Root (lokale AI)
 Kurzfassung
 -----------
 
-- Workspace: Monorepo mit Single-Root (`F:/VS Code Workspace/Main`), alle Teilmodule (Agent, RP, Dev, Sim) laufen unter diesem Root.
+- Workspace: Monorepo mit Single-Root (`Main/`), alle Teilmodule (Agent, RP, Dev, Sim) laufen unter diesem Root.
 - Steuerung: Root fungiert als "Control Plane" (Skripte, Checks, Policies); Module sind Domänen-Unterbäume statt isolierter Produkte.
 - Zielbild: Ein "biologisch" wachsender Workspace, der von einer lokalen AI möglichst einfach genutzt werden kann (Navigation, Refactoring, Audits, Tools).
 

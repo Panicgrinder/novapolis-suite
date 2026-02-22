@@ -1,10 +1,14 @@
 ---
-stand: 2026-02-22 16:51
-update: "Governance-Regel fuer portable Pfade festgeschrieben und aktive Doku auf portable Pfade umgestellt."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40)
+stand: 2026-02-22 17:31
+update: "Pytest-Importfehler behoben: train_lora import-safe gemacht und run_checks_and_report.py Typfehler bereinigt."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 17:24); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-22 17:24); .\\.venv\\Scripts\\python.exe -m pytest -q novapolis_agent/tests/test_batch5_unit.py novapolis_agent/tests/test_batch6_unit.py PASS (2026-02-22 17:24)
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-22 17:24: `novapolis_agent/scripts/train_lora.py` import-sicher gemacht (schwere ML-Imports nach `main()` verlagert), `SFTTrainer`-Importpfad korrigiert (`trl.trainer.sft_trainer`). Zusätzlich `scripts/run_checks_and_report.py`-Typfehler aus `get_errors` behoben. Ziel-Tests (`novapolis_agent/tests/test_batch5_unit.py`, `novapolis_agent/tests/test_batch6_unit.py`) grün.
+
+- 2026-02-22 17:10: Portabilitätscheck eingerichtet (`scripts/check_portable_paths.py`) und in `scripts/run_checks_and_report.py` als Pflichtcheck `path-portability` eingebunden. Zusatz-Task angelegt: `Checks: path portability`. Initiale aktive Befunde bereinigt (`.vscode/settings.json`, `novapolis-dev/docs/architecture-summary-local-ai.md`, `novapolis-dev/docs/process/rp-canvas-rescue/dedupe-chat-export.md`, `novapolis-dev/docs/process/rp-canvas-rescue/generated-artifacts.md`, `scripts/snapshot_gate.py`).
 
 - 2026-02-22 16:40: Governance ergänzt: hostgebundene absolute Pfade sind in aktiver SSOT-/Policy-/README-Doku untersagt (Ausnahme Audit/Forensik/Artefaktprotokolle). Umsetzung in aktiven Kerndokus: `README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, `novapolis-dev/docs/copilot-vscode-usage.md`, `novapolis-dev/docs/readme_decisions.md`.
 

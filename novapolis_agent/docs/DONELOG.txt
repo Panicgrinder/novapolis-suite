@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 10:58
-update: Legacy-Rest in Agent-Report bereinigt (`Letzte Aktualisierung:` -> `Aktualisiert:`) im Rahmen der Snapshot-Frontmatter-Migration Etappe 2 / Welle 2.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 10:58); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis_agent/docs/reports/overnight-20251022.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-22 10:58)
+stand: 2026-02-22 17:31
+update: Import-Safety fuer `novapolis_agent.scripts.train_lora` hergestellt (lazy heavy imports) und `SFTTrainer`-Importpfad korrigiert.
+checks: .\.venv\Scripts\python.exe -m pytest -q novapolis_agent/tests/test_batch5_unit.py novapolis_agent/tests/test_batch6_unit.py PASS (2026-02-22 17:24); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-22 17:24)
 ---
 
 
@@ -26,6 +26,8 @@ Hinweis:
 - Bitte jede abgeschlossene, nicht-triviale Änderung hier kurz dokumentieren.
 - Format: YYYY-MM-DD HH:MM | Author | Kurzbeschreibung
 - Keine sensiblen Inhalte eintragen.
+
+2026-02-22 17:24 | Copilot | CI-Smoke-Import fix: `novapolis_agent/scripts/train_lora.py` auf lazy Imports für `torch/peft/transformers/trl` umgestellt; `SFTTrainer` auf `trl.trainer.sft_trainer` korrigiert; gezielte Smoke-Tests (`test_batch5_unit.py`, `test_batch6_unit.py`) grün.
 
 2026-02-22 10:57 | Copilot | Snapshot-Frontmatter-Migration Welle 2: Legacy-Rest `Letzte Aktualisierung:` in `docs/reports/overnight-20251022.md` auf neutralen Text (`Aktualisiert:`) umgestellt.
 

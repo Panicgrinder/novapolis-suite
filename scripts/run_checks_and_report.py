@@ -16,6 +16,7 @@ import time
 from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, cast
 
 try:
     import tomllib  # type: ignore[attr-defined]
@@ -42,6 +43,7 @@ PYTEST_TIMEOUT_SECONDS = 900
 BASE_MANDATORY_CHECKS = {
     "markdownlint",
     "frontmatter",
+    "path-portability",
     "ruff",
     "black",
     "pytest",
@@ -244,7 +246,7 @@ def make_skip_result(tool: str, reason: str, log_path: Path, required: bool = Fa
     )
 
 
-def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, str]]:
+def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, object]]:
     script_path = Path(__file__).resolve()
     repo_root = resolve_repo_root(script_path)
     python_exec = resolve_python(repo_root)
@@ -371,6 +373,7 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
         )
     else:
         reason = "markdownlint fehlgeschlagen (npx oder Konfiguration fehlt)"
+        markdownlint_log = logs_dir / "markdownlint.log"
         results.append(
             CheckResult(
                 tool="markdownlint",
@@ -378,12 +381,12 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
                 exit_code=127,
                 duration_ms=0,
                 findings_count=1,
-                details_path=logs_dir / "markdownlint.log",
+                details_path=markdownlint_log,
                 notes=reason,
                 required=True,
             )
         )
-        write_log(results[-1].details_path, f"FAIL: {reason}\n")
+        write_log(markdownlint_log, f"FAIL: {reason}\n")
 
     frontmatter_script = repo_root / "scripts" / "check_frontmatter.py"
     frontmatter_targets = [
@@ -405,6 +408,31 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, s
                 required=True,
             )
         )
+
+    path_portability_script = repo_root / "scripts" / "check_portable_paths.py"
+    if path_portability_script.exists():
+        run_or_fail(
+            "path-portability",
+            [str(python_exec), str(path_portability_script), "--repo-root", str(repo_root)],
+            repo_root,
+            required=True,
+        )
+    else:
+        reason = "path-portability skipped (script missing)"
+        path_portability_log = logs_dir / "path-portability.log"
+        results.append(
+            CheckResult(
+                tool="path-portability",
+                status="FAIL",
+                exit_code=127,
+                duration_ms=0,
+                findings_count=1,
+                details_path=path_portability_log,
+                notes=reason,
+                required=True,
+            )
+        )
+        write_log(path_portability_log, f"FAIL: {reason}\n")
 
     run_or_fail(
         "ruff",
@@ -583,7 +611,8 @@ def build_summary(
     overall_status = "PASS" if mandatory_ok else "FAIL"
     exit_code = 0 if overall_status == "PASS" else 1
 
-    guard_status, guard_detail = format_guard_status(ctx["guards"])
+    guards = cast(dict[str, bool], ctx["guards"])
+    guard_status, guard_detail = format_guard_status(guards)
 
     metadata = {
         "timestamp": dt.datetime.now().strftime("%Y-%m-%d %H:%M"),
@@ -613,6 +642,7 @@ def build_summary(
     for tool in [
         "markdownlint",
         "frontmatter",
+        "path-portability",
         "ruff",
         "black",
         "pytest",
@@ -647,9 +677,9 @@ def write_reports(
     json_text = json.dumps(summary, indent=2, ensure_ascii=False)
     summary_path.write_text(json_text, encoding=LOG_ENCODING)
 
-    metadata = summary["metadata"]
-    overall = summary["overall"]["status"]
-    coverage_percent = summary["metadata"].get("coverage_percent")
+    metadata = cast(dict[str, Any], summary["metadata"])
+    overall = cast(dict[str, Any], summary["overall"])["status"]
+    coverage_percent = metadata.get("coverage_percent")
     coverage_line = (
         f"Coverage: {coverage_percent:.2f}%"
         if isinstance(coverage_percent, float)
@@ -685,7 +715,8 @@ def write_reports(
         "| --- | --- | ---: | ---: |",
     ]
 
-    for check in summary["checks"]:
+    checks = cast(list[dict[str, Any]], summary["checks"])
+    for check in checks:
         duration_sec = (check.get("duration_ms") or 0) / 1000
         findings = check.get("findings_count") or 0
         lines.append(f"| {check['tool']} | {check['status']} | {duration_sec:.2f} | {findings} |")
@@ -723,7 +754,7 @@ def main() -> int:
     markdown_path, json_path = write_reports(summary, headline, ctx)
     print(f"Markdown report: {markdown_path}")
     print(f"JSON summary: {json_path}")
-    exit_code = summary["overall"]["exitcode"]  # type: ignore[index]
+    exit_code = cast(dict[str, Any], summary["overall"])["exitcode"]
     if args.allow_non_zero:
         return 0
     return int(exit_code)

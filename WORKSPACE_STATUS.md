@@ -1,8 +1,10 @@
 ---
-stand: 2026-02-22 16:51
-update: Governance fuer portable Pfade ergänzt und in aktiver Kerndoku umgesetzt.
-checks: Aktive Kern-Dokumente auf hostunabhängige Pfadangaben umgestellt (kein `F:/`/`F:\` in den aktualisierten SSOT-/README-Dateien; Audit-/Artefaktprotokolle bleiben ausgenommen) (2026-02-22 16:40).
+stand: 2026-02-22 17:31
+update: CI-Importfehler in `train_lora` behoben und gezielte Smoke-Tests verifiziert.
+checks: `python -m pytest -q novapolis_agent/tests/test_batch5_unit.py novapolis_agent/tests/test_batch6_unit.py` PASS (2026-02-22 17:24); `get_errors` für `scripts/run_checks_and_report.py` ohne Befunde (2026-02-22 17:24).
 ---
+- 2026-02-22 17:24: `novapolis_agent.scripts.train_lora` ist wieder import-sicher in Umgebungen ohne `torch`; `run_checks_and_report.py` typisiert ohne offene Editor-Fehler.
+- 2026-02-22 17:10: Neuer Check aktiv: `path-portability` läuft in `Checks: full` mit. Aktive Scope-Funde wurden direkt bereinigt.
 - 2026-02-22 16:40: Pfadportabilität als verbindliche Governance-Regel eingeführt und in aktiver Doku umgesetzt.
 - 2026-02-22 16:27: Doppelcheck vor Archivierung abgeschlossen. README-Punkt ist nun sauber archiviert; keine offenen README-Befunde.
 - 2026-02-22 16:17: README-Review abgeschlossen. Alle `README*.md` im Workspace sind geprüft und dokumentiert; keine offenen README-Befunde mehr.

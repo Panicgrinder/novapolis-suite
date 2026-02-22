@@ -17,12 +17,7 @@ import json  # noqa: E402
 import os  # noqa: E402
 from typing import Any  # noqa: E402
 
-import torch  # noqa: E402
 from datasets import Dataset  # noqa: E402
-from peft import LoraConfig  # noqa: E402
-from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
-from trl import SFTTrainer  # noqa: E402
-from trl.trainer.sft_config import SFTConfig  # noqa: E402
 
 
 def _read_openai_chat_jsonl(path: str) -> list[dict[str, Any]]:
@@ -122,12 +117,16 @@ def guess_lora_target_modules(model: Any) -> list[str]:
 
 
 def build_lora_config(
-    model: Any, r: int = 16, alpha: int = 32, dropout: float = 0.05
-) -> LoraConfig:
+    model: Any,
+    lora_config_cls: Any,
+    r: int = 16,
+    alpha: int = 32,
+    dropout: float = 0.05,
+) -> Any:
     targets = guess_lora_target_modules(model)
     mt = str(getattr(getattr(model, "config", object()), "model_type", "")).lower()
     fan_in_fan_out: bool = True if mt == "gpt2" else False
-    return LoraConfig(
+    return lora_config_cls(
         r=r,
         lora_alpha=alpha,
         lora_dropout=dropout,
@@ -138,9 +137,9 @@ def build_lora_config(
     )
 
 
-def _has_cuda() -> bool:
+def _has_cuda(torch_mod: Any) -> bool:
     try:
-        cuda = getattr(torch, "cuda", None)
+        cuda = getattr(torch_mod, "cuda", None)
         return bool(cuda and getattr(cuda, "is_available", lambda: False)())
     except Exception:
         return False
@@ -175,6 +174,13 @@ def main() -> int:
     p.add_argument("--lora-dropout", type=float, default=float(os.getenv("LORA_DROPOUT", "0.05")))
     args = p.parse_args()
 
+    # Heavy ML deps are imported lazily so smoke-import tests can run without torch/trl.
+    import torch  # noqa: E402
+    from peft import LoraConfig  # noqa: E402
+    from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
+    from trl.trainer.sft_config import SFTConfig  # noqa: E402
+    from trl.trainer.sft_trainer import SFTTrainer  # noqa: E402
+
     os.makedirs(args.output, exist_ok=True)
 
     tokenizer: Any = AutoTokenizer.from_pretrained(args.model, use_fast=True)
@@ -186,7 +192,7 @@ def main() -> int:
     except Exception:
         pass
 
-    has_cuda = _has_cuda()
+    has_cuda = _has_cuda(torch)
     dtype: Any
     if has_cuda and args.fp16:
         dtype = torch.float16
@@ -250,7 +256,7 @@ def main() -> int:
     r = int(args.lora_r)
     alpha = int(args.lora_alpha)
     dropout = float(args.lora_dropout)
-    lora_cfg = build_lora_config(model, r=r, alpha=alpha, dropout=dropout)
+    lora_cfg = build_lora_config(model, LoraConfig, r=r, alpha=alpha, dropout=dropout)
 
     trainer = SFTTrainer(
         model=model,
