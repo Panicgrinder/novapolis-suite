@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-01 13:25
-update: README-Ordnerstruktur/Quickstart auf aktuelle RP-Pfade (database-rp/database-raw) aktualisiert.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-01 13:25)"
+stand: 2026-02-22 16:51
+update: Veralteten VS-Code-Task-Verweis in der Sim-Startfolge entfernt; direkter API-Startweg bleibt kanonisch.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/README.md' 'packages/README.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 15:47); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/README.md' 'packages/README.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 15:47)
 ---
 
 Novapolis-RP Workspace (F:)
@@ -50,7 +50,7 @@ Visualisierung
 
 - Das Backend `novapolis_agent` stellt eine Simulations-API bereit (`GET /world/state`, `POST /world/step`) auf Port `AGENT_PORT` (Standard 8765).
 - Das Godot-Projekt `novapolis-sim` fragt jeden 0,2 s einen Schritt `{dt:0.1}` ab und visualisiert Tick sowie Zeit.
-- Startfolge: Agent per `uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload` (oder VS-Code-Task) starten, anschließend `novapolis-sim` in Godot öffnen und **Play** drücken.
+- Startfolge: Agent per `uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload` starten, anschließend `novapolis-sim` in Godot öffnen und **Play** drücken.
 
 ---
 
@@ -80,11 +80,6 @@ Wie beitragen (kurz)
 
 - Nutze `novapolis-dev/docs/todo.rp.md` für RP-Aufgaben und `novapolis-dev/docs/donelog.md` für Abschlüsse (der Index `novapolis-dev/docs/todo.index.md` dient nur der Navigation).
 - PRs: kurze Beschreibung, was/warum geändert wurde; große Blöcke in überschaubare Schritte teilen.
-
-Badges
-------
-
-![Docs Lint](https://github.com/Panicgrinder/Novapolis-RP/actions/workflows/docs-lint.yml/badge.svg)
 
 Lizenz
 ------

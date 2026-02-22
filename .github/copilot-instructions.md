@@ -65,6 +65,8 @@ Globale Kernregeln
 - Minimalinvasive Diffs.
 - Keine destruktiven Änderungen ohne vorgeschaltete WhatIf-/Prüfphase.
 - Keine Secrets/PII in Logs/Receipts.
+- In langlebigen SSOT-/Policy-/README-Dokumenten keine hostgebundenen absoluten Pfade (`F:/`, `C:/`); stattdessen repo-relative Pfade oder `${workspaceFolder}` nutzen.
+- Ausnahme: reine Audit-/Forensik-/Artefaktprotokolle (z. B. Postflight-Logs, generierte Reports, Archiv-Metadaten) dürfen absolute Pfade enthalten, wenn dies für Nachvollziehbarkeit notwendig ist.
 
 ### Lint- und Frontmatter-Gates
 - Markdownlint verpflichtend: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'`.
@@ -106,6 +108,7 @@ Regelmatrix (Kern)
 - `id: R-LOG, priority: 1, scope: repo, trigger: file_mutation_or_script_run, action: emit_single_postflight_receipt, validation: receipt_has_5_lines, exceptions: readonly_general_mode, notes: receipt_is_last_block`
 - `id: R-DONELOG, priority: 1, scope: repo, trigger: any_file_mutation, action: append_module_donelog_entry_same_change_set, validation: donelog_entry_present_and_scoped, exceptions: none, notes: if_no_module_log_then_root_donelog`
 - `id: R-SEC, priority: 1, scope: repo, trigger: risky_or_destructive_change, action: apply_minimal_diff_and_precheck, validation: whatif_or_equivalent_done, exceptions: none, notes: no_secret_output`
+- `id: R-PATH, priority: 1, scope: docs, trigger: markdown_change_in_active_docs, action: enforce_portable_paths, validation: no_host_bound_absolute_paths_in_active_docs, exceptions: audit_forensics_artifacts_allowed, notes: prefer_repo_relative_or_workspaceFolder`
 - `id: R-LINT, priority: 1, scope: docs, trigger: markdown_change, action: run_markdownlint_cli2, validation: exitcode_0, exceptions: none, notes: use_npx_yes_only`
 - `id: R-FM, priority: 1, scope: docs, trigger: markdown_change, action: run_frontmatter_validator, validation: required_keys_present, exceptions: GOV_EX_FM_001, notes: stand_update_checks_required`
 - `id: R-NAME, priority: 1, scope: governance_docs, trigger: rule_or_instruction_change, action: enforce_naming_conventions, validation: ids_and_instruction_filenames_are_canonical, exceptions: none, notes: r_id_and_instruction_suffix_policy`

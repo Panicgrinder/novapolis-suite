@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 04:15
-update: Godot-Headless-Check als Sofort-Aufgabe in Root gespiegelt; keine Strukturänderung
-checks: keine
+stand: 2026-02-22 16:51
+update: Headless-Lade-Check als erledigt markiert (Evidenz in WORKSPACE_STATUS und Dev-DONELOG verankert).
+checks: Konsistenzabgleich gegen `WORKSPACE_STATUS.md` (Eintrag 2025-11-16 Headless PASS) und `novapolis-dev/docs/donelog.md` (Godot Headless Quick Verification) durchgeführt (2026-02-22 14:41).
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -20,7 +20,8 @@ Offene Aufgaben (Sim)
 ---------------------
 
 - [ ] (Platzhalter) Sammle Sim-Aufgaben hier (Godot, Visualisierung, API-Polling, Exportprofile).
- - [ ] Headless-Lade-Check `novapolis-sim/project.godot` durchführen; Kurzprotokoll in `novapolis-dev/docs/donelog.md`
+ - [x] Headless-Lade-Check `novapolis-sim/project.godot` durchführen; Kurzprotokoll in `novapolis-dev/docs/donelog.md`.
+   - Evidenz: `WORKSPACE_STATUS.md` (2025-11-16 04:54, Headless PASS) und `novapolis-dev/docs/donelog.md` (Abschnitt "Godot Headless - Quick Verification").
 
 Neue Aufgaben - Epochen & Audio (2025-11-01 22:24)
 --------------------------------------------------

@@ -1,8 +1,23 @@
 ---
-stand: 2026-02-22 14:21
-update: Voller Test-/Checks-Lauf erfolgreich; Tree-Dokumente aktualisiert.
-checks: `scripts/tests_pytest_root.py`, `pytest -q`, `pytest -q -m unit`, `pytest -q -m "api or streaming"`, `scripts/run_pytest_coverage.py` und `scripts/run_checks_and_report.py` PASS; Tree-Refresh via `tree /A /F`, `tree /A`, `scripts/update_workspace_tree_dirs.py` (2026-02-22 14:17).
+stand: 2026-02-22 16:51
+update: Governance fuer portable Pfade ergänzt und in aktiver Kerndoku umgesetzt.
+checks: Aktive Kern-Dokumente auf hostunabhängige Pfadangaben umgestellt (kein `F:/`/`F:\` in den aktualisierten SSOT-/README-Dateien; Audit-/Artefaktprotokolle bleiben ausgenommen) (2026-02-22 16:40).
 ---
+- 2026-02-22 16:40: Pfadportabilität als verbindliche Governance-Regel eingeführt und in aktiver Doku umgesetzt.
+- 2026-02-22 16:27: Doppelcheck vor Archivierung abgeschlossen. README-Punkt ist nun sauber archiviert; keine offenen README-Befunde.
+- 2026-02-22 16:17: README-Review abgeschlossen. Alle `README*.md` im Workspace sind geprüft und dokumentiert; keine offenen README-Befunde mehr.
+- 2026-02-22 16:06: README-Review im Batchmodus fortgesetzt (4 kompakte Fraktions-READMEs). Ergebnis vollständig konsistent, keine Nacharbeit aus diesem Batch.
+- 2026-02-22 16:00: README-Review im Batchmodus fortgesetzt (4 kompakte Dateien). Ergebnis vollständig konsistent, keine Nacharbeit aus diesem Batch.
+- 2026-02-22 15:47: README-Review-Batch nachgezogen. Die zwei im 4er-Batch identifizierten Driftpunkte wurden unmittelbar in den betroffenen Dateien behoben.
+- 2026-02-22 15:44: README-Review im Batchmodus fortgesetzt (4 kompakte Dateien). Zwei dokumentierte Nacharbeiten verbleiben: RP-Taskverweis und Packages-Installhinweis.
+- 2026-02-22 15:37: README-Review-Follow-up für Sim abgeschlossen. Der identifizierte Driftpunkt (Task-Referenz) wurde inhaltlich korrigiert.
+- 2026-02-22 15:31: README-Review fortgesetzt. `novapolis-sim/README.md` einzeln geprüft; ein Driftpunkt bei der Task-Referenz identifiziert, sonst Kernclaims konsistent.
+- 2026-02-22 15:26: README-Review-Follow-up abgeschlossen. Der identifizierte Driftpunkt im Root-README (veraltete Datumsangaben) wurde inhaltlich korrigiert.
+- 2026-02-22 15:23: README-Review fortgesetzt. Root-README einzeln geprüft; ein inhaltlicher Driftpunkt bei veralteten Stand-Daten identifiziert, sonst Kernclaims konsistent.
+- 2026-02-22 15:19: README-Review fortgesetzt. `Backups/README.md` einzeln geprüft; keine kritischen Sachabweichungen gefunden.
+- 2026-02-22 15:04: README-Review gestartet (Einzelprüfung umfangreicher Dateien). `novapolis_agent/README.md` geprüft; drei konkrete Driftpunkte identifiziert und im Root-Backlog dokumentiert.
+- 2026-02-22 14:53: Root-Backlog präzisiert. Die README-Aufgabe gilt jetzt für den gesamten Workspace; umfangreiche READMEs werden einzeln geprüft.
+- 2026-02-22 14:41: Aktualitäts-/Wahrheitsabgleich über aktive TODO-Dateien umgesetzt. Der Sim-Headless-Punkt wurde auf erledigt gesetzt; anschließend wurden die Indexzahlen passend nachgezogen.
 - 2026-02-22 14:17: Alle angeforderten Tests/Checks ausgeführt und grün. Doku-Snapshots `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt` neu erzeugt.
 - 2026-02-22 14:01: Nach dem Root-TODO-Neustart wurden die neuen Arbeitsfelder konkretisiert. Schwerpunkt: Root-Hygiene (README/Temp-Artefakte), feste Qualitätsroutine und klare Priorisierung der nächsten Querschnittspunkte.
 - 2026-02-22 12:35: Vollinhalt aus `todo.root.md` als Snapshot nach `novapolis-dev/archive/quarantine/todo-root-snapshot-20260222_1234.md` archiviert. `todo.root.md` auf neue schlanke Arbeitsvorlage für frische Punkte zurückgesetzt; Root-Archivdatei entsprechend ergänzt.
@@ -123,7 +138,7 @@ Aktueller Arbeitsmodus
 Aktueller Arbeitsmodus (Single-Root, Python @ Root)
 --------------------------------------------------
 
-- Workspace & Interpreter: `F:/VS-Code-Workspace/Main` ist der einzige VS-Code-Root; `.venv` (Python 3.11/3.12+) und `.env` liegen im Root.
+- Workspace & Interpreter: `Main/` ist der einzige VS-Code-Root; `.venv` (Python 3.11/3.12+) und `.env` liegen im Root.
 - Standard-Wrappers: `python scripts/run_checks_and_report.py --scope full` (Lint/Typen/Tests) und `python scripts/run_pytest_coverage.py --fail-under 80` (Coverage) laufen aus dem Root; PowerShell-Wrapper sind nur noch archiviert.
 - Tasks setzen `options.cwd` gezielt (z. B. `novapolis_agent/` für pytest), bleiben aber über das Root-`.vscode/tasks.json` steuerbar.
 - Guard-Check: `python scripts/multi_root_cleanup.py --whatif` prüft regelmäßig auf neue `*.code-workspace`-/Schatten-Dateien; Auffälligkeiten sofort nach `Backups/` verschieben.

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 04:15
-update: Veralteten Verweis auf analysis_chat_routers entfernt (Legacy-Datei gelöscht).
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md WORKSPACE_INDEX.md todo.root.md PASS (2026-02-18 04:02); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md WORKSPACE_INDEX.md todo.root.md PASS (2026-02-18 04:02)"
+stand: 2026-02-22 16:51
+update: Root- und Check-Pfadhinweise auf portable Form ohne hostgebundene Absolutpfade umgestellt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40); ./.venv/Scripts/python.exe scripts/check_frontmatter.py '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40)"
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -27,7 +27,7 @@ Status: Phase 1 (Redirect-Hinweis) aktiv; Entscheidungsliste erstellt (`novapoli
 Vollständiger Index aller Dateien im Agent-Verzeichnis
 ------------------------------------------------------
 
-Hinweis: Alle Pfade beziehen sich auf den Repo-Root `F:/VS-Code-Workspace/Main`. Sofern nicht anders erwähnt, beginnen sie bei `novapolis_agent/`.
+Hinweis: Alle Pfade beziehen sich auf den Repo-Root (`Main/`). Sofern nicht anders erwähnt, beginnen sie bei `novapolis_agent/`.
 
 ### Paket `novapolis_agent/` (Unterordner im Single-Root)
 

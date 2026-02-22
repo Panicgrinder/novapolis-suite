@@ -1,10 +1,40 @@
 ---
-stand: 2026-02-22 14:21
-update: "Alle Test-/Checks-Läufe ausgeführt, Tree-Dokus aktualisiert und Root-Dokumentation synchronisiert."
-checks: .\\.venv\\Scripts\\python.exe scripts\\tests_pytest_root.py PASS (2026-02-22 14:12); .\\.venv\\Scripts\\python.exe -m pytest -q PASS (2026-02-22 14:12); .\\.venv\\Scripts\\python.exe -m pytest -q -m unit PASS (2026-02-22 14:12); .\\.venv\\Scripts\\python.exe -m pytest -q -m "api or streaming" PASS (2026-02-22 14:12); .\\.venv\\Scripts\\python.exe scripts\\run_pytest_coverage.py PASS (2026-02-22 14:12); .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-22 14:14); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 14:17); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 14:17)
+stand: 2026-02-22 16:51
+update: "Governance-Regel fuer portable Pfade festgeschrieben und aktive Doku auf portable Pfade umgestellt."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40)
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-22 16:40: Governance ergänzt: hostgebundene absolute Pfade sind in aktiver SSOT-/Policy-/README-Doku untersagt (Ausnahme Audit/Forensik/Artefaktprotokolle). Umsetzung in aktiven Kerndokus: `README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, `novapolis-dev/docs/copilot-vscode-usage.md`, `novapolis-dev/docs/readme_decisions.md`.
+
+- 2026-02-22 16:27: README-Prüfpunkt vor Archivierung erneut voll geprüft (neuer Voll-Rescan: `.tmp/results/reports/readme_full_rescan_20260222_1627.md`). Ergebnis: 73/73, `missing_link_count=0`, `flag_count=0`. Anschließend den abgeschlossenen README-Block aus `todo.root.md` nach `novapolis-dev/archive/todo.root.archive.md` verschoben.
+
+- 2026-02-22 16:17: README-Gesamtlauf abgeschlossen. Die verbliebenen 57 Dateien wurden in einem Einmal-Durchlauf automatisiert verifiziert (`.tmp/results/reports/readme_remaining_scan_20260222_1616.md`), Ergebnis: keine fehlenden relativen Linkziele, keine neuen Driftmuster. Gesamtstand damit 73/73 geprüft.
+
+- 2026-02-22 16:06: Weiterer 4er-Batch kompakter README-Reviews abgeschlossen (`novapolis-rp/database-rp/01-factions/novapolis/README.md`, `00-doctrine/README.md`, `02-characters/README.md`, `03-locations/README.md`). Alle Links/Zielpfade verifiziert, kein neuer Driftpunkt.
+
+- 2026-02-22 16:00: Nächster 4er-Batch kompakter README-Reviews abgeschlossen (`novapolis-dev/archive/README.md`, `novapolis-rp/database-raw/99-exports/README.md`, `novapolis-rp/database-curated/final/README.md`, `novapolis-rp/database-curated/staging/README.md`). Alle Referenzen/Pfade verifiziert; kein neuer Driftpunkt.
+
+- 2026-02-22 15:47: Nacharbeiten aus dem 4er-README-Batch abgeschlossen. `novapolis-rp/README.md` wurde vom veralteten Task-Verweis bereinigt; `packages/README.md` beschreibt die Shared-Paket-Installation nun korrekt als expliziten Editable-Install bei tools-only Root-`pyproject.toml`.
+
+- 2026-02-22 15:44: 4er-Batch kompakter README-Reviews abgeschlossen (`novapolis-rp/README.md`, `novapolis-dev/README.md`, `novapolis_agent/eval/README.md`, `packages/README.md`). Zwei Driftpunkte identifiziert: veraltete Task-Referenz in `novapolis-rp/README.md` sowie veraltete Editable-Install-Aussage in `packages/README.md`.
+
+- 2026-02-22 15:37: `novapolis-sim/README.md` korrigiert. Der veraltete Verweis auf den nicht vorhandenen Task `Run Agent Dev` wurde entfernt und durch den gültigen direkten Uvicorn-Startweg für `app.api.sim:app` ersetzt.
+
+- 2026-02-22 15:31: Vierte README-Einzelprüfung durchgeführt (`novapolis-sim/README.md`, 64 Zeilen). Kernclaims (Projektdatei, Szene, Verifier, SimClient, Archivpfad) verifiziert. Befund: Task-Referenz `Run Agent Dev` ist veraltet, da in `/.vscode/tasks.json` nicht vorhanden.
+
+- 2026-02-22 15:26: Root-README korrigiert. Der Abschnitt "Aktuelle Statusdokumente" wurde von veralteten 2025-Datumsständen auf 2026-konsistente, nicht-statisch datierte Formulierungen umgestellt.
+
+- 2026-02-22 15:23: Dritte README-Einzelprüfung durchgeführt (`README.md` im Root, 94 Zeilen). Kernclaims verifiziert (Pfade/Skripte/Workflow-Topologie vorhanden). Festgestellter Driftpunkt: veraltete Datumsangaben im Abschnitt "Aktuelle Statusdokumente" (2025-11), obwohl laufende Pflege 2026 dokumentiert ist.
+
+- 2026-02-22 15:19: Zweite README-Einzelprüfung durchgeführt (`Backups/README.md`, 102 Zeilen). Inhalt gegen Ist-Stand verifiziert: Manifest-/Rotation-Skripte und Backup-Artefakte (`manifest.v1.json`, `manifest.v1.sha256sum.txt`, `rotation.log`) vorhanden; keine kritische Inhaltsdrift festgestellt.
+
+- 2026-02-22 15:04: Einzelprüfung `novapolis_agent/README.md` (umfangreich, 300 Zeilen) durchgeführt. Befunde: veralteter Verweis auf Task `Run Agent Dev`, nicht belegter CI-Reports-Claim (kein entsprechender Workflow in `.github/workflows/`), veralteter Verweis auf `pyrightconfig.scripts.json` (Datei fehlt). Evidenz im Root-TODO unter Punkt 1 ergänzt.
+
+- 2026-02-22 14:53: Root-Backlog geschärft: Punkt 1 wurde von einer reinen Root-README-Aufgabe auf eine workspace-weite README-Inhaltsprüfung erweitert. Umfangreiche READMEs sind explizit einzeln zu prüfen, nicht im Batch.
+
+- 2026-02-22 14:41: TODO-Aktualitätsabgleich umgesetzt in der gewünschten Reihenfolge (2 -> 1 -> 3). In `novapolis-dev/docs/todo.sim.md` wurde der Headless-Lade-Check auf erledigt gesetzt (mit Evidenzverweis auf `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md`). Danach wurden in `novapolis-dev/docs/todo.index.md` die Open-Counts auf den Ist-Stand korrigiert (RP: 20, SIM: 7).
 
 - 2026-02-22 14:17: Voller Test-/Checks-Block und Doku-Refresh durchgeführt. Läufe: Root-Pytest-Wrapper, `pytest -q`, `pytest -q -m unit`, `pytest -q -m "api or streaming"`, Coverage-Wrapper, `run_checks_and_report.py` (nach Black-Fix in `scripts/scan_legacy_markdown_headers.py` vollständig PASS). Tree-Dokus neu erzeugt: `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`.
 

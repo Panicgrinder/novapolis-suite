@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-17 09:12
-update: PS1-Wrapper-Referenzen durch direkte Godot-CLI/PowerShell-Einzeiler ersetzt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-sim/README.md' PASS (2026-02-17 04:05); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-sim\\README.md PASS (2026-02-17 04:05)"
+stand: 2026-02-22 16:51
+update: Veralteten Verweis auf nicht vorhandenen VS-Code-Task entfernt und Startweg auf direkten Uvicorn-Aufruf umgestellt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-sim/README.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 15:37); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-sim/README.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 15:37)
 ---
 
 Novapolis Sim
@@ -25,8 +25,8 @@ How to run
 
 1. Stelle sicher, dass die Python-Seite läuft:
    - In `novapolis_agent` `.env` anlegen (`AGENT_PORT=8765` Standard).
-   - VS Code Task `Run Agent Dev` starten **oder**
-     `uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload` ausführen.
+   - Root-Task `Integration: MCP OpenAI Eval (run)` ist **nicht** für die Sim-API gedacht; starte stattdessen direkt:
+     `uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload`.
 2. Starte Godot 4 und öffne dieses Verzeichnis (`novapolis-sim`). Die kanonische Projektdatei ist `project.godot` direkt unter `novapolis-sim/` (Option A). Das frühere, verschachtelte Projekt wurde nach `Backups/novapolis-sim-archived-20251104/` verschoben.
 3. Lade `Main.tscn` und drücke **Play**.
 

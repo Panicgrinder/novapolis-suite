@@ -16,6 +16,18 @@ Hinweis
 
 Archivierte Einträge
 
+README-Gesamtlauf (73/73) - abgeschlossen
+-----------------------------------------
+
+archived_at: 2026-02-22 16:27
+
+Quelle: `todo.root.md` (Punkt "Alle README*.md im Workspace inhaltlich auf Aktualitaet/Wahrheit pruefen").
+
+- [x] Umfangreiche READMEs einzeln geprüft; kompakte READMEs in 4er-Batches plus Restmenge per Einmal-Durchlauf verifiziert.
+- [x] Identifizierte Driftpunkte wurden in den betroffenen Dateien korrigiert (`README.md`, `novapolis-sim/README.md`, `novapolis-rp/README.md`, `packages/README.md`, `novapolis_agent/README.md`).
+- [x] Finaler Voll-Rescan über alle 73 README-Dateien durchgeführt: `.tmp/results/reports/readme_full_rescan_20260222_1627.md`.
+- [x] Abschlussbefund: `missing_link_count=0`, `flag_count=0`.
+
 Root-Backlog Vollsnapshot aus `todo.root.md` (2026-02-22)
 --------------------------------------------------------
 

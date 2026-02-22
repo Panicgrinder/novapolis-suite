@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-17 09:12
-update: Root-README: aktive PS1-Wrapper-Referenzen (Activate/verify_sim) entfernt; Beispiele auf direkte .venv-Python-Aufrufe/Smoke-Check angepasst.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md PASS (2026-02-17 06:14); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py README.md PASS (2026-02-17 06:14)
+stand: 2026-02-22 16:51
+update: Root-README-Befehlsbeispiele auf portable relative Pfade ohne hostgebundene Absolutpfade umgestellt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40)
 ---
 Novapolis Suite
 ===============
@@ -22,13 +22,13 @@ Gemeinsames Python-Paket
 Geteilte Python-Helfer leben in `packages/novapolis_common`. Installiere das Shared-Paket bei Bedarf als Editable (nicht mehr das gesamte Repo):
 
 ```powershell
-Set-Location "F:/VS-Code-Workspace/Main"
+Set-Location .
 # Dependencies (Root):
-& "F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe" -m pip install -r requirements.txt
-& "F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe" -m pip install -r requirements-dev.txt
+& .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+& .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 
 # Optional: Shared-Paket als Editable
-& "F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe" -m pip install -e packages/novapolis_common
+& .\.venv\Scripts\python.exe -m pip install -e packages/novapolis_common
 ```
 
 Module, die aktuell mehrfach in den Projekten vorkommen, sollten nach `packages/novapolis_common` wandern. Projektspezifische Verdrahtung (API, Policies, Szenenlogik) verbleibt in den jeweiligen Ordnern. Packaging/Build-Konfigurationen verbleiben in den Modul-/Paketpfaden; das Root `pyproject.toml` ist tools-only.
@@ -62,7 +62,7 @@ Zentrale Arbeitsrichtlinien
 Lint ausführen (optional, lokal):
 
 ```powershell
-Set-Location "F:/VS-Code-Workspace/Main"
+Set-Location .
 npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'
 ```
 
@@ -108,10 +108,10 @@ Bekannte Einschränkungen (temporär)
 Aktuelle Statusdokumente
 ------------------------
 
-- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) - Stand 2025-11-16 13:22; enthält den Block „Single-Root & Wrapper-Status“ und aktuelle Health-Checks.
-- [`todo.root.md`](todo.root.md) - Stand 2025-11-16 13:22; zentrale Aufgabenübersicht inkl. Wrapper-/Single-Root-Hinweisen.
-- [`WORKSPACE_INDEX.md`](WORKSPACE_INDEX.md) - Stand 2025-11-16 13:22; Agent-Dateiindex mit Root-Bezugsbasis.
-- [`workspace_tree_full.txt`](workspace_tree_full.txt) - Vollständiger Verzeichnisbaum (Stand 2025-11-10 07:50; regenerierbar via Tasks `Workspace tree:*`).
+- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) - laufender Betriebsstatus mit aktuellem Stand (Single-Root, Wrapper, Health-Checks).
+- [`todo.root.md`](todo.root.md) - aktive Root-Aufgabenübersicht und Querschnitts-Backlog.
+- [`WORKSPACE_INDEX.md`](WORKSPACE_INDEX.md) - Workspace-/Dateiindex zur schnellen Orientierung.
+- [`workspace_tree_full.txt`](workspace_tree_full.txt) - vollständiger Verzeichnisbaum; regenerierbar via Tasks `Workspace tree:*`.
 - Backups befinden sich zentral unter `Backups/` (keine tool-lesbaren Backups neben aktiven Configs).
 
 Naechste Schritte

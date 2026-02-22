@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-07 03:51
-update: Temp-Pfad-Hinweis aktualisiert (.tmp-results -> /.tmp/results) und Checks verifiziert.
-checks: & "F:\\VS Code Workspace\\Main\\.venv\\Scripts\\python.exe" scripts\\check_frontmatter.py todo.root.md novapolis-dev\\docs\\copilot-vscode-usage.md novapolis-dev\\docs\\readme_decisions.md PASS (2026-01-07 03:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc todo.root.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/readme_decisions.md PASS (2026-01-07 03:51)
+stand: 2026-02-22 16:51
+update: Frontmatter-Checks auf portable Pfadangaben ohne hostgebundene Absolutpfade umgestellt.
+checks: .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40)
 ---
 
 VS Code + GitHub Copilot - Projektleitfaden

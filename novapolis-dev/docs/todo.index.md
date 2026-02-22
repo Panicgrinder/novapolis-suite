@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 04:15
-update: Agent-R-COV-Abgleich abgeschlossen; Agent-Open-Count synchronisiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.index.md' PASS; & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\todo.index.md PASS"
+stand: 2026-02-22 16:51
+update: Open-Counts gegen aktive TODO-Dateien neu abgeglichen (RP und SIM korrigiert).
+checks: Checkbox-Scan über aktive TODO-Dateien durchgeführt (`todo.root.md`, `novapolis-dev/docs/todo.*.md`), Ergebnis in Index-Zahlen gespiegelt (2026-02-22 14:41).
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,10 +12,10 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 105)
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 20)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (aktiv)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 4)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 8)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 7)
 
 Hinweise (Index)
 ----------------

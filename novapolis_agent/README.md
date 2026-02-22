@@ -139,7 +139,7 @@ Der Server liest `AGENT_PORT` (Standard `8765`) aus der Umgebung.
 ### Start (Windows PowerShell)
 
 1. `.env.example` nach `.env` kopieren oder `AGENT_PORT` manuell setzen.
-2. VS Code Task `Run Agent Dev` ausführen **oder**
+2. Server direkt starten:
 
 ```powershell
    $port = $env:AGENT_PORT
@@ -157,7 +157,7 @@ Der Server liest `AGENT_PORT` (Standard `8765`) aus der Umgebung.
 
 1. Dev-Container öffnen (`Reopen in Container`).
 2. Post-Create installiert `requirements.txt` und `requirements-dev.txt` automatisch.
-3. Task `Run Agent Dev` startet den Uvicorn-Server im Container; der Port 8765 wird an den Host weitergeleitet.
+3. Im Dev-Container denselben Uvicorn-Aufruf nutzen; der Port 8765 wird an den Host weitergeleitet.
 
 Einstellungen/Umgebung
 ----------------------
