@@ -85,7 +85,10 @@ def main() -> int:
         print({"ok": False, "error": f"Keine Train-Datei gefunden in {args.finetune_dir}"})
         return 2
 
-    from utils.time_utils import now_compact
+    try:
+        from utils.time_utils import now_compact
+    except Exception:
+        from novapolis_agent.utils.time_utils import now_compact
 
     out_dir = args.output or os.path.join("outputs", f"lora-{now_compact()}")
     os.makedirs(out_dir, exist_ok=True)

@@ -101,15 +101,25 @@ from typing import Any as _Any  # noqa: E402
 # Die folgenden Imports liegen nach sys.path-Manipulation weiter unten im Modul;
 # sie sind für die Laufzeit notwendig. Wir kennzeichnen sie gegen E402, da
 # die Einfüge-Logik (sys.path) zuvor ausgeführt werden muss.
-from utils.eval_utils import coerce_json_to_jsonl, load_synonyms, truncate  # noqa: E402
-from utils.time_utils import now_compact  # noqa: E402
+try:  # noqa: E402
+    from utils.eval_utils import coerce_json_to_jsonl, load_synonyms, truncate
+    from utils.time_utils import now_compact
+except Exception:  # noqa: E402
+    from novapolis_agent.utils.eval_utils import coerce_json_to_jsonl, load_synonyms, truncate
+    from novapolis_agent.utils.time_utils import now_compact
 
 try:
     # Optionaler Cache für Antworten (lokal JSONL-basiert)
-    from utils.eval_cache import make_key  # Funktion direkt importieren
+    try:
+        from utils.eval_cache import make_key  # Funktion direkt importieren
+    except Exception:
+        from novapolis_agent.utils.eval_cache import make_key  # Funktion direkt importieren
 
     try:
-        from utils.eval_cache import EvalCache as _EvalCache
+        try:
+            from utils.eval_cache import EvalCache as _EvalCache
+        except Exception:
+            from novapolis_agent.utils.eval_cache import EvalCache as _EvalCache
 
         # Fabriktyp: nimmt Pfad (str) und gibt eine Instanz mit get/put zurück
         EvalCacheType: Callable[[str], _Any] | None = _EvalCache

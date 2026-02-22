@@ -1,32 +1,14 @@
-"""Kompatibilitätsschicht für Legacy-Imports ``from utils.*``.
+"""Compatibility bridge for legacy imports like ``utils.time_utils``.
 
-Dieses Paket reicht die Module aus ``novapolis_agent.utils`` weiter, damit
-bestehende Importpfade ohne Anpassungen funktionieren.
+Utility modules live in ``novapolis_agent/utils``. We expose that directory via
+this package path so imports resolve without eager side effects.
 """
 
-import sys
-from collections.abc import Iterable
-from importlib import import_module
+from __future__ import annotations
 
-_BASE_PACKAGE = "novapolis_agent.utils"
-_module = sys.modules[__name__]
+from pathlib import Path
 
-
-def _expose(submodules: Iterable[str]) -> None:
-    """Registriert die genannten Untermodule unter dem Legacy-Namen."""
-
-    for name in submodules:
-        target = import_module(f"{_BASE_PACKAGE}.{name}")
-        setattr(_module, name, target)
-        sys.modules[f"{__name__}.{name}"] = target
-
-
-_expose(
-    (
-        "context_notes",
-        "eval_cache",
-        "eval_utils",
-        "rag",
-        "time_utils",
-    )
-)
+_here = Path(__file__).resolve().parent
+_agent_utils = _here.parent / "novapolis_agent" / "utils"
+if _agent_utils.exists():
+    __path__.append(str(_agent_utils))

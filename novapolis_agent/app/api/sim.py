@@ -3,7 +3,6 @@
 from threading import Lock
 from typing import Any
 
-import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
@@ -74,6 +73,7 @@ def reset_state() -> None:
 
 if __name__ == "__main__":  # pragma: no cover
     import os
+    import uvicorn
 
     port = int(os.getenv("AGENT_PORT", "8765"))
     uvicorn.run("app.api.sim:app", host="127.0.0.1", port=port, reload=True)

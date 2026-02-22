@@ -17,7 +17,10 @@ import json
 import os
 from typing import Any
 
-from utils.time_utils import now_human
+try:
+    from utils.time_utils import now_human
+except Exception:
+    from novapolis_agent.utils.time_utils import now_human
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESULTS_DIR = os.path.join(PROJECT_ROOT, "eval", "results")
@@ -206,7 +209,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.write_md:
         out_dir = args.out_dir
         os.makedirs(out_dir, exist_ok=True)
-        from utils.time_utils import now_compact
+        try:
+            from utils.time_utils import now_compact
+        except Exception:
+            from novapolis_agent.utils.time_utils import now_compact
 
         ts = now_compact()
         out = os.path.join(out_dir, f"todo_status_{ts}.md")

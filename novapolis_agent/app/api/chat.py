@@ -9,7 +9,10 @@ from typing import TYPE_CHECKING, Any, cast
 
 import httpx
 from fastapi import HTTPException, status
-from utils.context_notes import load_context_notes
+try:
+    from utils.context_notes import load_context_notes
+except Exception:
+    from novapolis_agent.utils.context_notes import load_context_notes
 
 from ..core.content_management import apply_post, apply_pre, modify_prompt_for_freedom
 from ..core.memory import compose_with_memory, get_memory_store
@@ -20,7 +23,10 @@ from .chat_helpers import normalize_ollama_options
 from .models import ChatRequest, ChatResponse
 
 if TYPE_CHECKING:
-    from utils.rag import TfIdfIndex as _TfIdfIndex
+    try:
+        from utils.rag import TfIdfIndex as _TfIdfIndex
+    except Exception:
+        from novapolis_agent.utils.rag import TfIdfIndex as _TfIdfIndex
 
 logger = logging.getLogger(__name__)
 

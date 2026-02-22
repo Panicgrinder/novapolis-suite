@@ -21,12 +21,18 @@ import sys
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any, Protocol, cast
 
-from utils.time_utils import now_compact, now_human
+try:
+    from utils.time_utils import now_compact, now_human
+except Exception:
+    from novapolis_agent.utils.time_utils import now_compact, now_human
 
 # Cache/Key Utilities (robust gegen fehlende utils.eval_cache).
 # Cache für LLM-Summaries (EvalCache dynamisch geladen in _get_llm_cache)
 try:
-    from utils.eval_cache import make_key
+    try:
+        from utils.eval_cache import make_key
+    except Exception:
+        from novapolis_agent.utils.eval_cache import make_key
 except Exception:
 
     def make_key(obj: Any) -> str:  # fallback
@@ -50,7 +56,10 @@ def _get_llm_cache() -> _EvalCacheProto | None:
     global _LLM_CACHE
     if _LLM_CACHE is None:
         try:
-            from utils.eval_cache import EvalCache as _EvalCacheCls
+            try:
+                from utils.eval_cache import EvalCache as _EvalCacheCls
+            except Exception:
+                from novapolis_agent.utils.eval_cache import EvalCache as _EvalCacheCls
 
             _LLM_CACHE = cast(
                 _EvalCacheProto,
@@ -85,6 +94,15 @@ EXCLUDE_DIR_NAMES = {
     "results",
 }
 TEXT_EXTS = {".py", ".md", ".txt", ".json", ".jsonl"}
+
+
+def _safe_relpath(path: str, start: str) -> str:
+    """Return relative path when possible; fall back to absolute on cross-drive paths."""
+
+    try:
+        return os.path.relpath(path, start)
+    except ValueError:
+        return path
 
 # Import Settings und Heuristik-Fallback
 from novapolis_agent.app.core.settings import settings  # noqa: E402
@@ -162,7 +180,7 @@ async def llm_summarize_file(
     num_predict: int,
     temperature: float,
 ) -> str:
-    rel = os.path.relpath(path, PROJECT_ROOT)
+    rel = _safe_relpath(path, PROJECT_ROOT)
     # begrenze Inputgröße (große Dateien werden gekürzt)
     content = safe_read(path, max_bytes=256 * 1024)
     if len(content) > max_chars:
@@ -258,7 +276,7 @@ async def process_scope(
                     if heuristic_summarize_file is not None:
                         s = str(heuristic_summarize_file(p, max_chars=max_chars))
                     else:
-                        s = f"Datei: {os.path.relpath(p, PROJECT_ROOT)}\nFehler: {e}"
+                        s = f"Datei: {_safe_relpath(p, PROJECT_ROOT)}\nFehler: {e}"
                 summaries.append(s)
 
         try:
@@ -273,11 +291,11 @@ async def process_scope(
                     summaries.append(heuristic_summarize_file(p, max_chars=max_chars))
                 else:
                     # Minimaler Fallback
-                    rel = os.path.relpath(p, PROJECT_ROOT)
+                    rel = _safe_relpath(p, PROJECT_ROOT)
                     txt = safe_read(p, max_bytes=max_chars)
                     summaries.append(f"Datei: {rel}\n\n{txt}")
             except Exception as e:
-                summaries.append(f"Datei: {os.path.relpath(p, PROJECT_ROOT)}\nFehler: {e}")
+                summaries.append(f"Datei: {_safe_relpath(p, PROJECT_ROOT)}\nFehler: {e}")
 
     return summaries
 
