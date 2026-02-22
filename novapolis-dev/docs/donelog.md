@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 00:24
-update: RP-Hard-Gate-Ursache dokumentiert; Präventionsregel in RP-Instructions ergänzt; PR_DESCRIPTION nachgezogen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/rp-docs.instructions.md' 'PR_DESCRIPTION.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 00:22); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py '.github/instructions/rp-docs.instructions.md' 'PR_DESCRIPTION.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 00:22)
+stand: 2026-02-22 01:49
+update: Relative Admin-Links in C6 und Ronja-Kerschner korrigiert und revalidiert.
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:46); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 01:46); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 01:46)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,58 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: Relative Admin-Links in Novapolis-Dateien korrigiert (2026-02-22 01:45)
+--------------------------------------------------------------------------
+
+- `01-factions/novapolis/03-locations/C6.md`: Admin-Logistik-Link auf korrekten relativen Pfad `../../../00-admin/Logistik.md` korrigiert.
+- `01-factions/novapolis/02-characters/Ronja-Kerschner.md`: Link auf `AI-Behavior-Mapping.md` auf korrekten relativen Pfad `../../../00-admin/AI-Behavior-Mapping.md` korrigiert.
+- Ziel: klickbare Referenzen ohne Pfaddrift innerhalb der Fraktionsstruktur sicherstellen.
+
+RP: Tag-SSOT in 00-admin eingeführt (2026-02-22 01:36)
+------------------------------------------------------
+
+- Neue zentrale Datei angelegt: `database-rp/00-admin/Tags-Taxonomie.md` (gültige Kern-Tags, Regeln, Startersets, Erweiterungspfad).
+- Referenzen ergänzt in `index-rules.md` (Aggregator + Abschnitts-ID) und `schema-header-templates.md` (Nutzungshinweis auf zentrale Tag-Liste).
+- Ziel: konsistente Tag-Verwendung in RP-Canvas ohne verteilte/abweichende Tag-Definitionen.
+
+RP: Initiale Tags für D5/C6 gesetzt (2026-02-22 01:17)
+-------------------------------------------------------
+
+- `D5.md`: initiale Standorttags ergänzt (`location`, `novapolis`, `base`, `operations`, `maintenance`, `active`).
+- `C6.md`: initiale Standorttags ergänzt (`location`, `novapolis`, `outpost`, `monitoring`, `anomaly`, `restricted`, `active`, `partial`).
+- Entscheidung dokumentiert: `active` beschreibt aktuellen Spiel-/Szenenfokus; `partial` bleibt als Zustandsmarker für teilaktiven technischen Zustand bestehen.
+
+RP: Actions-Schema in Missions-/Orts-Canvases ergänzt (2026-02-22 01:13)
+-----------------------------------------------------------------------
+
+- `Missionslog-Novapolis.md` um Kernaktionen (8 Stück) ergänzt: Reinigen, Reparatur, Reise, Wache, Funk, Erste Hilfe, Erkundung, Bergen.
+- `D5.md` und `C6.md` um ortsbezogene `actions:`-Blöcke ergänzt (inkl. Dauer/Aufwand/Locks/Resources).
+- `todo.rp.md`: die zwei offenen Actions-Unterpunkte auf erledigt gesetzt.
+- Ziel: vorbereiteter „Zug-um-Zug“-Wechsel ohne separates Zweitsystem.
+
+RP: Knowledge-Annotation-Basis umgesetzt (2026-02-22 00:38)
+-----------------------------------------------------------
+
+- Charakter-Canvases ergänzt: `Ronja-Kerschner.md`, `Jonas-Merek.md`, `Reflex-Wissensstand-Trainingsstand.md` jeweils um `knowledge`-Startsets nach Annotation-Spec (`about/channel/source/scope/confidence/freshness/visibility_to/attachments`).
+- Missionsbezug ergänzt: `Missionslog-Novapolis.md` um Knowledge-Items für Kernereignisse (C6-Monitoring, Artefakt 7A, E3-Risikosignal).
+- Prozess ergänzt: Sichtbarkeits-Promotion ohne Retcon (`allies_only/private` → `pc`) als klarer Rückblendenpfad dokumentiert.
+- `todo.rp.md` Knowledge-Unterpunkte entsprechend auf erledigt gesetzt.
+
+RP: TODO-Archivierung + Rest-Backlog-Review (2026-02-22 00:31)
+--------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.rp.md`: vollständig abgehakte Blöcke (`Aktiv jetzt`, `Priorität B`, `Priorität C`) nach Read-Only-Validierung aus dem aktiven Board entfernt.
+- `novapolis-dev/archive/todo.rp.archive.md`: die drei Blöcke unverändert übernommen und mit `archived_at: 2026-02-22 00:31` dokumentiert (neueste Einträge oben).
+- Verbleibender Zeitmodell-Backlog auf Aktualität geprüft; Spec-Referenzen in TODO auf vorhanden/passend validiert.
+- Ziel: aktives TODO wieder fokussiert auf offene, aktuelle Arbeiten halten.
+
+RP: TODO-Historienblock ausgelagert (2026-02-22 00:33)
+------------------------------------------------------
+
+- `novapolis-dev/docs/todo.rp.md`: großer historischer `<details>`-Block auf kompakten Verweis reduziert.
+- Volltext des historischen Backlogs in neue Datei ausgelagert: `novapolis-dev/archive/todo.rp.historical-backlog.md`.
+- Ziel: aktives RP-TODO besser scanbar halten, ohne historische Inhalte zu verlieren.
 
 Governance: RP-Projekt-Frontmatter-Prävention + PR-Nachtrag (2026-02-22 00:17)
 ----------------------------------------------------------------------

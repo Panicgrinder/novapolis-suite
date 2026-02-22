@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-02-22 00:17
-update: 24x1h-Globalstandard (00-admin) und Fraktions-Template-Rollout vorbereitet; erste Zeitmodell-Unterpunkte erledigt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 00:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects' 'novapolis-rp/database-rp/01-factions/haendlerbund/05-projects' 'novapolis-rp/database-rp/01-factions/eisenkonklave/05-projects' 'novapolis-rp/database-rp/01-factions/arkologie-a1/05-projects' 'novapolis-rp/database-rp/01-factions/schienenbund/05-projects' 'novapolis-rp/database-rp/01-factions/schattenbund/05-projects' 'novapolis-rp/database-rp/01-factions/fluesterkollektiv/05-projects' PASS (EXITCODE=0, 2026-02-22 00:09)"
+stand: 2026-02-22 01:49
+update: Knowledge-Annotation-Basis umgesetzt (Charaktere + missionsbezogene Items + Promotionsprozess ohne Retcon).
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:17); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' PASS (2026-02-22 01:17); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' PASS (2026-02-22 01:17)
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -48,37 +48,10 @@ Arbeitsschritte pro Charakter
 - JSON-Sidecar, `char-block-nord-sources.md`, `person-index-np.md`, DONELOGs (`novapolis-dev/docs/donelog.md`, Root `DONELOG.md`) und TODO-Status aktualisieren.
 - Nach einem Bündel Updates Validator laufen lassen (`npm --prefix novapolis-rp/coding/tools/validators run validate:rp` + optional `npm --prefix ... run validate:crossrefs`).
 
-Aktiv jetzt (sicher)
---------------------
+Archivstatus (2026-02-22)
+-------------------------
 
-- [x] `inventar_c6_v2`: `database-rp/01-factions/novapolis/04-inventory/C6-inventar.*` inhaltlich vervollständigen (nur belegte Daten, keine Strukturänderung). *(erledigt 2026-02-21)*
-- [x] `logistik_c6_v2`: bestehendes `00-admin/Logistik.md` um belegte C6-Logistikstände ergänzen; Mixed-Version-Referenzen bereinigen. *(erledigt 2026-02-21)*
-- [x] `logistik_novapolis_v2`: Lagerstände/Wochenzyklen in `00-admin/Logistik.md` ergänzen; Tagesreport konsistent nachziehen. *(erledigt 2026-02-21)*
-- [x] `station_d5_v2.1` + Legacy D5: bestehendes D5-Standortcanvas faktisch nachziehen (Lastenaufzug, Grundfläche, Historie) ohne neue Nebenstrukturen. *(erledigt 2026-02-21)*
-- [x] Inventar-Deltas (`Novapolis-inventar`, `D5-inventar`) mit Missionslog-Links abgleichen und synchronisieren. *(erledigt 2026-02-21)*
-- [x] Ereignislog Weltgeschehen im bestehenden Admin-Canvas nachschärfen (`[SECRECY]`, H-47-Status konsistent). *(erledigt 2026-02-21)*
-- [x] Relationslog Novapolis im bestehenden Canvas nachschärfen (Senn-Daru-Querverweise und ID-Schema auf aktuelle SSOT-Logistikreferenz bereinigt). *(erledigt 2026-02-21)*
-- [x] Meta-Cluster-Index im bestehenden Admin-Canvas ausbauen (Spannungen/PsyLinks gegen Kanon verifizieren). *(erledigt 2026-02-21)*
-
-Priorität B - Logistik & Inventar
----------------------------------
-
-- [x] `inventar_c6_v2` → bestehendes SSOT `database-rp/01-factions/novapolis/04-inventory/C6-inventar.*` inhaltlich vervollständigen; Systemlinks auf v2 aktualisieren. *(erledigt 2026-02-21)*
-- [x] `logistik_c6_v2` → Inhalte nach `00-admin/Logistik.md` übernehmen; Mixed-Version-Referenzen bereinigen. *(erledigt 2026-02-21)*
-- [x] `logistik_novapolis_v2` → Lagerstände/Wochenzyklen in Logistik-Canvas einpflegen; Tagesreport ergänzen. *(erledigt 2026-02-21)*
-- [x] `station_d5_v2.1` + Legacy D5 → Standort-Canvas aktualisieren; Lastenaufzug, Grundfläche, Historie kennzeichnen. *(erledigt 2026-02-21)*
-- [x] Inventar-Deltas (`Novapolis-inventar`, `D5-inventar`) synchronisieren; Links zu Missionslog prüfen. *(erledigt 2026-02-21)*
-
-Priorität C - Systeme, Indizes, Ereignisse
------------------------------------------
-
-- [x] Ereignislog Weltgeschehen → bestehendes Admin-Canvas nachschärfen; Begriff "Allianz" gegen `[SECRECY]` prüfen; H-47-Status konsistent kennzeichnen. *(erledigt 2026-02-21)*
-- [x] Relationslog Novapolis → bestehendes Canvas nachschärfen; Händlerkontakt "Senn Daru"/Querverweise prüfen; ID-Schema auf aktuelle SSOT-Logistikreferenz angleichen. *(erledigt 2026-02-21)*
-- [x] AI-Behavior-Index → `AI-Behavior-Mapping.md` + JSON-Sidecar erweitert (2025-11-01T17:40+01:00); Cluster, Modifikatoren, Anchor-Register, Psymatrix-Abgleich dokumentiert.
-- [x] Validator „behavior_matrix_check.py“ → Anchor-Register + `ai_psymatrix_index_v1` Diff-Report erzeugen; Automation vorbereiten. *(2025-11-02T12:40+01:00 - Skript `coding/tools/validators/behavior_matrix_check.py` angelegt, Format-Checks aktiv; Psymatrix-Diff folgt sobald Quelle vorliegt.)*
-- [x] Hub-README Querverweis geprüft: Behavior-Matrix Abschnitt im Validator-Tools-Teil vorhanden; Terminologie konsistent (validiert 2026-02-21).
-- [x] Meta-Cluster-Index → bestehendes Admin-Canvas weiter ausbauen; Spannungen/PsyLinks gegen Kanon verifizieren. *(erledigt 2026-02-21)*
-- [x] Missionslog Querverweise gezielt prüfen/ergänzen (nur falls Rohdaten neue relevante Ereignisse tragen). *(erledigt 2026-02-21)*
+- Vollständig erledigte Blöcke `Aktiv jetzt (sicher)`, `Priorität B - Logistik & Inventar` und `Priorität C - Systeme, Indizes, Ereignisse` wurden nach `novapolis-dev/archive/todo.rp.archive.md` verschoben.
 
 Arbeitsregeln & Referenzen
 --------------------------
@@ -98,157 +71,10 @@ Linkübersicht
 - Kanon/Policies: `novapolis-dev/docs/process/rp-canvas-rescue/resolved.md`, `.github/copilot-instructions.md`
 
 <details>
-<summary>Archiviertes Backlog (Stand 2025-10-29)</summary>
+<summary>Archiviertes Backlog (ausgelagert)</summary>
 
-Historisches Backlog (nicht aktiv abarbeiten)
----------------------------------------------
-
-- Dieser Block dient nur der Nachvollziehbarkeit historischer Arbeitspakete.
-- Keine direkte Abarbeitung ohne explizite Re-Aktivierung und Soll-Ist-Abgleich gegen aktuelle SSOT-Dateien.
-
-- [ ] Relocation Follow-ups
-  - [x] Zentrale `.github/copilot-instructions.md` im Monorepo verankert; Duplikate in agent/RP entfernt (2025-10-31)
-  - [x] Datenverzeichnisse `database-curated`, `database-raw`, `database-rp` zurück nach `novapolis-rp/` verschoben (2025-10-31)
-  - [ ] novapolis-sim/README verweist explizit auf zentrale Copilot-Anweisungen
-  - [ ] Externe Skripte/Notizen erneut auf Altpfade prüfen
-  - [ ] Set removal date for legacy stubs after downstream confirmation
-  - [ ] Post-merge sweep for stragglers
-  - [ ] Optional: DevContainer- und CI-Hinweise auf neue Pfade umstellen
-
-- [ ] Sim-API auf WebSockets erweitern (Push-Updates statt Polling)
-- [ ] Region-Renderlogik im Godot-Client vorbereiten (Placeholder-Geometrien)
-- [ ] Darstellungs-Icons für Akteure entwerfen/ablegen
-- [ ] CI-Hooks für Sim/Visualisierung (pytest + Godot Linter) ergänzen
-
-- [ ] Exporte einsortieren
-  - [ ] `99-exports/chat-export-complete.txt` hinzufügen
-  - [ ] PDF `Chronist von Novapolis - Ronjas Novapolis RP.pdf` ablegen
-  - [ ] Kanonische Quelle festlegen: `RAW-chat-export-2025-10-23T03-57-37-172Z.txt` als Quelle A
-  - [ ] PDF als Quelle B zur Querprüfung nutzen
-  - [ ] Duplikate aus `chat-export.txt` und `chat-export (1).txt` prüfen/entfernen
-  - [ ] Normalisierung: `99-exports/chat-export-complete.txt` konsolidiert erzeugen
-
-- [ ] Parsing & Normalisierung
-  - [ ] Chat in strukturiertes Format (JSONL) konvertieren (optional - vorerst ausgesetzt)
-  - [ ] Extrahate erzeugen: Szenenanker, Kanon-Fakten, Charakter-Fakten, Projekt-/Aufgabenstatus
-  - [x] TXT-Normalisierung + Chunking (500 Zeilen) mit Index/Views (staging)
-
-- [ ] Curation-Review (chat-export (1).txt)
-  - [x] Chunk part-022 annotieren ([FACT?]/[OPEN], global 10501-10819)
-  - [x] Chunk part-021 annotieren ([FACT?]/[OPEN], global 10001-10500)
-  - [x] Chunk part-020 annotieren ([FACT?]/[OPEN], global 9501-10000)
-  - [x] Chunk part-019 annotieren ([FACT?]/[OPEN], global 9001-9500)
-  - [x] Chunk part-018 annotieren ([FACT?]/[OPEN], global 8501-9000)
-  - [x] Chunk part-017 annotieren ([FACT?]/[OPEN], global 8001-8500)
-  - [x] Chunk part-016 annotieren ([FACT?]/[OPEN], global 7501-8000)
-  - [x] Chunk part-015 annotieren ([FACT?]/[OPEN], global 7001-7500)
-  - [x] Chunk part-014 annotieren ([FACT?]/[OPEN], global 6501-7000)
-  - [x] Chunk part-013 annotieren ([FACT?]/[OPEN], global 6001-6500)
-  - [x] Chunk part-012 annotieren ([FACT?]/[OPEN], global 5501-6000)
-  - [x] Chunk part-011 annotieren ([FACT?]/[OPEN], global 5001-5500)
-  - [x] Chunk part-010 annotieren ([FACT?]/[OPEN], global 4501-5000)
-  - [x] Chunk part-009 annotieren ([FACT?]/[OPEN], global 4001-4500)
-  - [x] Chunk part-008 annotieren ([FACT?]/[OPEN], global 3501-4000)
-  - [x] Chunk part-007 annotieren ([FACT?]/[OPEN], global 3001-3500)
-  - [x] Chunk part-006 annotieren ([FACT?]/[OPEN], global 2501-3000)
-  - [x] Chunk part-005 annotieren ([FACT?]/[OPEN], global 2001-2500)
-  - [x] Chunk part-004 annotieren ([FACT?]/[OPEN], global 1501-2000)
-  - [x] Chunk part-003 annotieren ([FACT?]/[OPEN], global 1001-1500)
-  - [x] Chunk part-002 annotieren ([FACT?]/[OPEN], global 501-1000)
-  - [x] Chunk part-001 annotieren ([FACT?]/[OPEN], global 1-500)
-  - [x] Weiter rückwärts bis part-001 (stichprobenweise tiefer, Fokus auf strittige Stellen)
-
-- [ ] Tagging-Pipeline (YAML-getrieben)
-    - [x] 019-016: Dry-Run → Write (Heuristiken: N7→c6-nord, NOTE/EVENT, MISSION C6-Nord, Sektor-Codes)
-    - [x] 015-010: Dry-Run → Write (2025-11-26 05:35, Report `reports/tagging-20251126T043409Z.log`, Outputs `part-015..010.tagged`)
-    - [ ] 009-001: Dry-Run → Write
-    - [ ] Alias-Kollisionen prüfen/entscheiden ("C6" → c6 vs c6-nord; Präferenz festlegen und ggf. Alias entfernen)
-    - [ ] Unresolved klären: `Echo`, `Reflex-Wissensstand-Trainingsstand` (MD anlegen/Slug anpassen)
-    - [ ] Co-Occurrence-Vorschläge prüfen (falls vorhanden) und Alias-Liste gezielt ergänzen
-
-- [ ] Regeln & Verwaltung (Canvas)
-  - [ ] Unumstößlich-Canvas finalisieren (Fraktionen, D5/C6-Kernfakten, N7-Entfernung)
-  - [x] Day-Switch-Canvas erstellen (Checkliste: alles laden, Validierungen, Teil-Fraktionszug)
-  - [ ] A/T/S/D-Metriken definieren (Bedeutung, Anzeigeformat, Zählweise)
-  - [ ] Systemmeldung erweitern: Anzahl geladener Canvas + ATSD-String; Persistenz sicherstellen
-  - [ ] Canvas-Kategorien A/B/C: Regeln/Workflows und Risiken dokumentieren
-  - [ ] Logbuch-Policy festschreiben (stationenweit verfügbar, außer „secret“)
-  - [ ] person-index-np - Struktur/Felder (Name, Rolle, Zugehörigkeit, Status, Notizen)
-  - [ ] Canvas „Logistik“ - Scope, robuste Verlinkungen (Generator/Energie-Konten), Lazy-Load-Strategie
-  - [ ] Canvas „Mission Tunnel“ - Felder/Metriken (Abschnitte, %Fortschritt, Blocker)
-  - [ ] Export „alle Canvas“ - Sortierung nach letztem Update (Quelle für Timestamps klären)
-
-- [ ] Memory-Bundle gegen Export prüfen und ggf. verdichten
-  - [ ] Welt-/Kanon-Kernpunkte aktualisieren
-  - [ ] Charakter-Kompakteinträge (Ronja, Reflex, Jonas) aktualisieren
-  - [ ] Orte (D5, C6, Tunnel) und Projekt „Nordlinie 01“ einpflegen
-  - [ ] Offene Loops/Blocking-Issues ergänzen
-
-- [ ] Charakter-Canvas prüfen/ergänzen
-  - [ ] Gegen Extrahate aus dem Export abgleichen
-  - [ ] Ronja - Werte, Skills, Inventar, Ziele
-  - [ ] Reflex - Natur/Regeln, Instanzen/Überwachung
-  - [ ] Jonas - Herkunft, Rolle, Werkstatt
-
-- [ ] Orte
-  - [ ] Gegen Extrahate aus dem Export abgleichen
-  - [ ] D5 - Fix-Beschreibung (vom Tunnel aus), Maße je Raum, Lastenaufzug 2t unter Bahnsteig
-  - [ ] C6 - Fix-Beschreibung, Beleuchtung (historisch), nutzbare m² je Raum, Liniennetz (D5, F1, verschütteter Trakt, Karawanenlinie) + Wandtunnel; Konflikte zu 4-Linien-Angaben auflösen
-  - [ ] Tunnel D5-C6 - Gesamtlänge fixieren (ggf. aus Reisezeit), Schaden, Materialliste
-  - [ ] C6-Nord (N7) - Sealed Room: Status/Mission-Canvas, Abgrenzung Metro-Kontext dokumentieren
-
-- [ ] Projekte
-  - [ ] Gegen Extrahate aus dem Export abgleichen
-  - [ ] Nordlinie 01 - Abschnitte, Material, Blocker
-  - [ ] Draisine - Spezifikation (Breite≈U-Bahn, Länge ~6 m, ~10 Pers., Antrieb), Baufortschritt dokumentieren
-  - [ ] Tunnel-Fortschritt - Methode festlegen (Differenz vs. %/Tag/Person), 40%-Stand verifizieren
-  - [ ] Mission C6-Nord - Ereignisse/Status pflegen; Trigger/Guards verlinken (AI-Behavior-Mapping)
-
-- [ ] Inventar
-  - [ ] Gegen Extrahate aus dem Export abgleichen
-  - [ ] Fehlteile: Schweißgerät, Adapter DN60, Hydrofilter-Behälter-Plan
-
-- [ ] Energie & Logistik
-  - [ ] Energieformel/Saldo finalisieren (D5/C6), Generator-Verlinkung im Logistik-Canvas sicherstellen
-  - [ ] Lazy-Load vs. dauerhaft aktive Canvas: Policy definieren (damit Verlinkungen zuverlässig ziehen)
-  - [ ] Algen-/Pilz-Kapazitäten und Vorratsreichweiten modellieren; Skalierung mit Bevölkerungszahl
-  - [ ] D5↔C6 Datenaustausch-Prozess (Jonas) definieren und verlinken (Logistik/Inventar)
-
-- [ ] Szenen-Backfill & Timeline
-  - [ ] `06-scenes/` füllen: letzte 3-5 Szenen rückwärts aus Export
-  - [ ] Szenen-Kacheln: Datum, Kernentscheidungen, offene Fäden
-  - [ ] Optional: Timeline-Index anlegen
-  - [ ] Beispiel-Frontmatter aus Hub auf erste neue Szene anwenden (Format-Test)
-
-- [ ] Nächste Spielsitzung vorbereiten
-  - [ ] Szenen-Kachel 1: Status-Ping D5/C6/Nordlinie
-  - [ ] Szenen-Kachel 2: Pahl/Jonas Versorgung
-  - [ ] Szenen-Kachel 3: Exo-Prototyp erste Iteration
-
-- [ ] Qualitätssicherung
-  - [ ] Konsistenzcheck: Memory-Bundle vs. Einzeldateien
-  - [ ] Benennungskonventionen vereinheitlichen
-  - [x] Markdown-Lint/CI prüfen
-  - [x] Daten-Validierungen in CI verankern (Schema + Cross-Refs)
-  - [x] Szenen-Front-Matter etabliert (README + erste Szene aktualisiert)
-  - [ ] Szenen-Backfill mit Front-Matter (letzte 3-5 Szenen)
-  - [x] Benennung vereinheitlichen (database-rp)
-  - [x] Policy dokumentieren (`novapolis-dev/docs/naming-policy.md`)
-    - [x] Name-Linter hinzufügen (Dry-Run in CI)
-    - [x] Dry-Run lokal ausführen (Task: "lint:names (auto)") - 0 Verstöße
-    - [x] Renames: aktuell nicht erforderlich
-
-Abgeschlossene Basisaufgaben
-----------------------------
-
-- [x] Workspace auf F:\Novapolis-RP anlegen (Ordnerstruktur)
-- [x] Admin-Setup: README, Memory-Bundle, System-Prompt, Donelog
-
-Hintergrund & Notizen
----------------------
-
-- Vorschläge nur auf Anfrage; Kontinuität strikt wahren.
-- Nach jedem Post interne 200-Token-Zusammenfassung (vom SL) einfordern.
+- Volltext ausgelagert nach `novapolis-dev/archive/todo.rp.historical-backlog.md`.
+- Inhalt bleibt historisch/nicht aktiv; Reaktivierung nur per explizitem Soll-Ist-Abgleich gegen aktuelle SSOT-Dateien.
 
 </details>
 Neue Aufgaben - Zeitmodell, Annotation & Logs (2025-11-01 22:24)
@@ -258,19 +84,19 @@ Neue Aufgaben - Zeitmodell, Annotation & Logs (2025-11-01 22:24)
   - [x] Policy festhalten: Stunde spult leise weiter, bis ein PC-relevantes Ereignis eintritt (z. B. „Reflex weckt Ronja“). *(erledigt 2026-02-22)*
   - [x] Pro Stunde zwei Logs führen: `world_log` (Wahrheit) und `pc_log` (nur Sichtbares für den PC). *(erledigt 2026-02-22)*
   - [x] Sichtbarkeit umsetzen: scope `private|allies_only|pc|public`, plus `channel`, `source`, `confidence`, `freshness` (siehe Knowledge-Schema unten). *(erledigt 2026-02-22)*
-  - [ ] Referenz: `novapolis-dev/docs/specs/annotation-spec.md`.
+  - [x] Referenz: `novapolis-dev/docs/specs/annotation-spec.md` vorhanden und weiterhin passend zum 24×1h-Vorgehen. *(validiert 2026-02-22)*
 
 - Knowledge-Annotation schrittweise ergänzen (wichtige Charaktere/Missionen zuerst)
-  - [ ] Charaktere: Reflex, Ronja, Jonas - Knowledge-Einträge in dedizierten Dateien (z. B. `Reflex-Wissensstand-Trainingsstand.md`) und/oder Canvas-Frontmatter `knowledge:`.
-  - [ ] Missionen/Ereignisse: je Kernereignis mind. ein Knowledge-Item mit `about`, `channel`, `source`, `scope`, `confidence`, `freshness`, `visibility_to`, `attachments`.
-  - [ ] Rückblendenprozess: Items per Log/Funk von `allies_only/hidden` → `pc` heben (keine Retcons, nur Sichtbarkeit).
-  - [ ] Referenz: `novapolis-dev/docs/specs/annotation-spec.md`.
+  - [x] Charaktere: Reflex, Ronja, Jonas - Knowledge-Einträge in dedizierten Dateien (z. B. `Reflex-Wissensstand-Trainingsstand.md`) und/oder Canvas-Frontmatter `knowledge:`. *(umgesetzt 2026-02-22)*
+  - [x] Missionen/Ereignisse: je Kernereignis mind. ein Knowledge-Item mit `about`, `channel`, `source`, `scope`, `confidence`, `freshness`, `visibility_to`, `attachments`. *(umgesetzt 2026-02-22)*
+  - [x] Rückblendenprozess: Items per Log/Funk von `allies_only/hidden` → `pc` heben (keine Retcons, nur Sichtbarkeit). *(umgesetzt 2026-02-22)*
+  - [x] Referenz: `novapolis-dev/docs/specs/annotation-spec.md` vorhanden und weiterhin passend. *(validiert 2026-02-22)*
 
 - Actions-Schema (für möglichen „Zug-um-Zug“-Wechsel) jetzt leicht mitpflegen
-  - [ ] In Missions-/Orts-Canvases `actions:` notieren: `verb`, `base_duration_min`, `effort`, `interruptible`, `locks`, `may_trigger_event`, `resources`.
-  - [ ] Kernaktionen definieren (5-10): Reinigen, Reparatur, Reise, Wache, Funk, Erste Hilfe, Erkundung.
-  - [ ] Naming-Konvention und kurze Beispiele dokumentieren.
-  - [ ] Referenz: `novapolis-dev/docs/specs/annotation-spec.md`.
+  - [x] In Missions-/Orts-Canvases `actions:` notieren: `verb`, `base_duration_min`, `effort`, `interruptible`, `locks`, `may_trigger_event`, `resources`. *(umgesetzt 2026-02-22)*
+  - [x] Kernaktionen definieren (5-10): Reinigen, Reparatur, Reise, Wache, Funk, Erste Hilfe, Erkundung. *(umgesetzt 2026-02-22)*
+  - [x] Naming-Konvention und kurze Beispiele dokumentieren. *(durch Spec vorhanden; validiert 2026-02-22)*
+  - [x] Referenz: `novapolis-dev/docs/specs/annotation-spec.md` vorhanden und weiterhin passend. *(validiert 2026-02-22)*
 
 - Skills aus Verhaltensmatrix ableiten (ohne zweites System)
   - [ ] Mapping-Gewichte je Skill (0-3) vorschlagen (Matrix-Dimensionen → Skill), Ausgangswerte pro Rolle.

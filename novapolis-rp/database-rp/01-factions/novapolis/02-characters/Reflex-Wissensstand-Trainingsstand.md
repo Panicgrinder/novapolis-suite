@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 08:50
-update: Als Character-Anhang normalisiert (parent_character, nicht eigenständig) und Standort auf D5 synchronisiert.
-checks: not run (targeted content update)
+stand: 2026-02-22 01:49
+update: 24x1h-Knowledge-Startset ergänzt (Instanzwissen/Signalsicherheit).
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:13); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex-Wissensstand-Trainingsstand.md' PASS (2026-02-22 01:13)
 title: Reflex - Wissensstand & Trainingsstand
 category: character-attachment
 slug: reflex-wissensstand-trainingsstand
@@ -35,6 +35,31 @@ Wissensstand (Detailmatrix)
 - Eigenes System/Mechaniken - hoher Detailgrad (Dämpfung, Kopplung, Materialbildung)
 - Intern (Novapolis): Reflex/Instanzen bekannt (reguliert)
 - Extern: keine Offenlegung ohne Freigabe [FR-KNOWLEDGE]
+
+Knowledge (24x1h Starter)
+-------------------------
+
+```yaml
+knowledge:
+  - id: know-reflex-instance-sync-2026-02-22-01
+    about: instance_sync_window
+    channel: system
+    source: reflex
+    scope: allies_only
+    confidence: 0.9
+    freshness: 2026-02-22T00:00:00+01:00
+    visibility_to: [reflex, lumen, echo, ronja-kerschner]
+    attachments: [doc:./Reflex.md]
+  - id: know-reflex-stop-training-2026-02-22-01
+    about: stop_response_training
+    channel: log
+    source: reflex-wissensstand-trainingsstand
+    scope: pc
+    confidence: 0.8
+    freshness: 2026-02-22T00:00:00+01:00
+    visibility_to: [ronja-kerschner]
+    attachments: [doc:./Reflex-Wissensstand-Trainingsstand.md#trainingsstand]
+```
 
 Trainingsstand
 --------------

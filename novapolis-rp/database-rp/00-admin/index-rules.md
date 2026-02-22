@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-11 05:25
-update: Sim-State-Schema verlinkt.
-checks: "not run (not requested)"
+stand: 2026-02-22 01:49
+update: Tags-Taxonomie als Referenz und Abschnitts-ID ergänzt.
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:37); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/index-rules.md' PASS (2026-02-22 01:37); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/index-rules.md' PASS (2026-02-22 01:37)
 slug: index-rules
 category: Admin
 schemaVersion: 1
@@ -9,7 +9,7 @@ language: de
 status: active
 owners: [admin-novapolis]
 tags: [rp, rules, index]
-relatedSlugs: [reference-campaign-state, process-workflow, sim-state-schema]
+relatedSlugs: [reference-campaign-state, process-workflow, sim-state-schema, tags-taxonomie]
 ---
 
 Index: Regeln, Policies und FSM
@@ -23,11 +23,13 @@ Quelldatei (Aggregator)
 - reference: `process-workflow` → ./Process-Workflow.md
 - reference: `sim-state-schema` → ./Sim-State-Schema.md
 - reference: `tick-regeln-simulation` → ./Tick-Regeln-Simulation.md
+- reference: `tags-taxonomie` → ./Tags-Taxonomie.md
 
 Abschnitts-IDs (interne Anker für KI)
 -------------------------------------
 - process-workflow → Prozess/Workflow (Curation, Validation, Export, Simulation)
 - sim-state-schema → Sim-State Schema (maschinenlesbar, RP-World-State)
+- tags-taxonomie → zentrale gültige Tag-Liste und Startersets
 - fsm-campaign → Kampagnen-Zustandsmaschine
 - rule-se-pools → Symbiose-Energie (SE) – Pools
 - rule-instances → Instanzen: Wissensstand & Persönlichkeit

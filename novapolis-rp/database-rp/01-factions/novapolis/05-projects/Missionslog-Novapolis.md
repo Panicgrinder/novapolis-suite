@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 16:05
-update: Aus 00-admin migriert; Novapolis-spezifisches Missionslog als fraktionslokale SSOT angelegt.
-checks: not run (migration)
+stand: 2026-02-22 01:49
+update: Knowledge-Startset für Kernereignisse und Sichtbarkeits-Promotionsprozess (ohne Retcon) ergänzt.
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:17); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.md' PASS (2026-02-22 01:17)
 title: Missionslog (Novapolis)
 category: project
 slug: missionslog-novapolis
@@ -53,6 +53,118 @@ Prozess L.1 - Missionsfluss
 
 - Status → Inventarabschluss → Verlinkungen (Logistik/Missionen) → Archiv
 - Referenz: [C6 - Logistik-Policy](../03-locations/C6-Logistik-Policy.md)
+
+Knowledge-Items (Kernereignisse, Startset)
+------------------------------------------
+
+```yaml
+knowledge:
+  - id: know-mis-c6-monitoring-2026-02-22-01
+    about: c6_monitoring_status
+    channel: log
+    source: scene-2025-10-27-b
+    scope: allies_only
+    confidence: 0.8
+    freshness: 2026-02-22T00:00:00+01:00
+    visibility_to: [ronja-kerschner, jonas-merek, kora-malenkov]
+    attachments: [scene:scene-2025-10-27-b, log:missionslog-novapolis#monitoring-c6-ueberwachung-auswertung]
+  - id: know-mis-c6n3-artifact-7a-2026-02-22-01
+    about: c6_n3_artifact_7a
+    channel: direct
+    source: scene-2025-10-27-d
+    scope: allies_only
+    confidence: 0.75
+    freshness: 2026-02-22T00:00:00+01:00
+    visibility_to: [ronja-kerschner, reflex]
+    attachments: [scene:scene-2025-10-27-d, log:missionslog-novapolis#c6-sicherungmarkierung-c6-n3--artefakt-7a]
+  - id: know-mis-e3-risk-2026-02-22-01
+    about: e3_risk_signal
+    channel: system
+    source: reflex
+    scope: pc
+    confidence: 0.7
+    freshness: 2026-02-22T00:00:00+01:00
+    visibility_to: [ronja-kerschner]
+    attachments: [log:missionslog-novapolis#anomalie-e3-gefahr]
+```
+
+Rückblenden-/Promotion-Prozess (ohne Retcon)
+--------------------------------------------
+
+- Trigger: neue Evidenz (Funk, Log-Quittung, bestätigte Scene, Instanz-Report).
+- Operation: bestehendes Knowledge-Item nur in der Sichtbarkeit heben (`private`/`allies_only` → `pc`), Inhalt/Quelle nicht rückwirkend umschreiben.
+- Nachweis: im Missionslog bei betroffenem Eintrag mit Attachment referenzieren (`log:`/`scene:`/`doc:`).
+
+Actions-Schema (Kernaktionen 24x1h)
+-----------------------------------
+
+```yaml
+actions:
+  - id: reinigen_filter
+    verb: reinigen
+    base_duration_min: 15
+    effort: 2
+    interruptible: true
+    locks: [werkbank]
+    may_trigger_event: false
+    resources: [filter, reinigungsset]
+  - id: reparatur_leitung
+    verb: reparatur
+    base_duration_min: 45
+    effort: 4
+    interruptible: true
+    locks: [leitungsabschnitt]
+    may_trigger_event: true
+    resources: [werkzeugkit, ersatzteilset]
+  - id: reise_tunnel_d5_c6
+    verb: reise
+    base_duration_min: 60
+    effort: 3
+    interruptible: false
+    locks: [tunnelkorridor]
+    may_trigger_event: true
+    resources: [schutzmaske, lichtquelle]
+  - id: wache_c6_posten
+    verb: wache
+    base_duration_min: 60
+    effort: 2
+    interruptible: true
+    locks: [beobachtungsposten]
+    may_trigger_event: true
+    resources: [funkgeraet]
+  - id: funk_scan
+    verb: funk
+    base_duration_min: 20
+    effort: 2
+    interruptible: true
+    locks: [terminal]
+    may_trigger_event: true
+    resources: [funkterminal]
+  - id: erste_hilfe_basis
+    verb: erste_hilfe
+    base_duration_min: 25
+    effort: 3
+    interruptible: true
+    locks: [med_bereich]
+    may_trigger_event: false
+    resources: [medkit]
+  - id: erkundung_schacht
+    verb: erkundung
+    base_duration_min: 40
+    effort: 4
+    interruptible: true
+    locks: [schachtzugang]
+    may_trigger_event: true
+    resources: [karte, lichtquelle]
+  - id: bergen_artefakt_7a
+    verb: bergen
+    base_duration_min: 50
+    effort: 4
+    interruptible: false
+    locks: [fundstelle_c6_n3]
+    may_trigger_event: true
+    resources: [abschirmkit, transportbox]
+```
 
 Aktiv
 -----

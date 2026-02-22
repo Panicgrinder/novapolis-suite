@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 12:01
-update: Leitung (Novapolis/D5) und Diplomatie-Zuständigkeit explizit ergänzt.
-checks: not run (not requested)
+stand: 2026-02-22 01:49
+update: Relativen Link auf AI-Behavior-Mapping auf korrekten Admin-Pfad korrigiert.
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:46); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 01:46); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 01:46)
 title: Ronja Kerschner
 category: character
 slug: ronja-kerschner
@@ -53,6 +53,31 @@ Wissensstand (Matrix - Auszug)
 ------------------------------
 - Intern (Novapolis): Reflex/Instanzen bekannt; Regeln/Leitplanken gepflegt [KNOWLEDGE]
 - Extern (Außenfraktionen): kennen Novapolis/Reflex nicht, keine Offenlegung ohne Freigabe [FR-KNOWLEDGE]
+
+Knowledge (24x1h Starter)
+-------------------------
+
+```yaml
+knowledge:
+  - id: know-ronja-c6-alert-2026-02-22-01
+    about: c6_alert_signal
+    channel: reflex_link
+    source: reflex
+    scope: allies_only
+    confidence: 0.9
+    freshness: 2026-02-22T00:00:00+01:00
+    visibility_to: [ronja-kerschner, reflex]
+    attachments: [log:missionslog-novapolis#monitoring-c6]
+  - id: know-ronja-e3-risk-2026-02-22-01
+    about: e3_risk_marker
+    channel: log
+    source: missionslog-novapolis
+    scope: pc
+    confidence: 0.75
+    freshness: 2026-02-22T00:00:00+01:00
+    visibility_to: [ronja-kerschner]
+    attachments: [doc:../05-projects/Missionslog-Novapolis.md#anomalie-e3-gefahr]
+```
 
 Reflex - Interaktion & Safety (Hausregeln)
 ------------------------------------------
@@ -110,7 +135,7 @@ Links
 -----
 - Reflex → ./Reflex.md
 - C6 → ../03-locations/C6.md; D5 → ../03-locations/D5.md
-- AI-Behavior-Mapping → ../00-admin/AI-Behavior-Mapping.md
+- AI-Behavior-Mapping → ../../../00-admin/AI-Behavior-Mapping.md
 
 Quellen & Review
 ----------------
