@@ -16,6 +16,18 @@ Hinweis
 
 Archivierte Einträge
 
+Root-Backlog (2026-02-22) - vollständig abgeschlossen
+----------------------------------------------------
+
+archived_at: 2026-02-22 23:40
+
+Quelle: `todo.root.md` (Block `Neue Punkte (Backlog)`, Stand 2026-02-22 21:40).
+
+- [x] Leere Dateien/Ordner im Root-Bereich inventarisiert (Top-Level Ergebnis: `empty_files=0`, `empty_dirs=0`).
+- [x] Wöchentlicher Root-Qualitätslauf festgelegt (Mittwoch 09:00; `Checks: full` -> Coverage -> markdownlint -> frontmatter).
+- [x] Top-3-Querschnittsfokus konkretisiert (Agent/RP/Dev mit Abschlusskriterien).
+- [x] CI-Doku-Gate entschieden und wirksam umgesetzt (`.github/workflows/markdownlint.yml` Push-Branches `"**"`).
+
 README-Gesamtlauf (73/73) - abgeschlossen
 -----------------------------------------
 

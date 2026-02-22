@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 17:31
-update: Portabilitätscheck eingerichtet (`scripts/check_portable_paths.py`) und initiale Findings im aktiven Scope bereinigt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/architecture-summary-local-ai.md' 'novapolis-dev/docs/process/rp-canvas-rescue/dedupe-chat-export.md' 'novapolis-dev/docs/process/rp-canvas-rescue/generated-artifacts.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 17:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/architecture-summary-local-ai.md' 'novapolis-dev/docs/process/rp-canvas-rescue/dedupe-chat-export.md' 'novapolis-dev/docs/process/rp-canvas-rescue/generated-artifacts.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 17:10); .\.venv\Scripts\python.exe scripts\check_portable_paths.py --repo-root . PASS (2026-02-22 17:10)
+stand: 2026-02-23 00:04
+update: Vollständig erledigten Root-Block archiviert und aktive Root-TODO auf neue Folgeaufgaben vorbereitet.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 00:00); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 00:00)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -18,10 +18,9 @@ Kurzstatus
 Neue Punkte (Backlog)
 ---------------------
 
-- [ ] Leere Dateien/Ordner im Root-Bereich inventarisieren und nach Freigabe in `novapolis-dev/archive/quarantine/` archivieren (erst `--whatif`/Dry-Run, dann Apply).
-- [ ] Woechentlichen Root-Qualitaetslauf fest einplanen und dokumentieren (`Checks: full` + Coverage + Markdownlint + Frontmatter).
-- [ ] Root-Backlog auf Top-3 aktive Querschnittspunkte konkretisieren (je 1 Fokus fuer Agent/RP/Dev mit klarer Abschlussbedingung).
-- [ ] CI-Doku-Gates im Root pruefen und entscheiden, ob Markdownlint/Frontmatter auch fuer Branch-Pushes ohne PR laufen sollen.
+- [ ] Tunnel-Check als VS-Code-Task ergänzen (`Checks: sim epoch assets`) und im README kurz dokumentieren.
+- [ ] Aktive TODO-Boards (Agent/Sim/RP) auf Prioritätstags `Jetzt/Als naechstes/Später` harmonisieren.
+- [ ] Wochenabschluss-Routine standardisieren: Reihenfolge und Artefaktablage für Tests/Checks/Status-Update verbindlich notieren.
 
 Hinweise
 --------

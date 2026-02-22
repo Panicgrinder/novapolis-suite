@@ -1,8 +1,12 @@
 ---
-stand: 2026-02-22 17:31
-update: CI-Importfehler in `train_lora` behoben und gezielte Smoke-Tests verifiziert.
-checks: `python -m pytest -q novapolis_agent/tests/test_batch5_unit.py novapolis_agent/tests/test_batch6_unit.py` PASS (2026-02-22 17:24); `get_errors` für `scripts/run_checks_and_report.py` ohne Befunde (2026-02-22 17:24).
+stand: 2026-02-23 00:04
+update: TODO-Aktualitätsvalidierung abgeschlossen, erledigte Root/Dev-Blöcke archiviert und vollständiger Testlauf durchgeführt.
+checks: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md'` PASS (2026-02-23 00:00); `.\.venv\Scripts\python.exe scripts\check_frontmatter.py 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md'` PASS (2026-02-23 00:00); `.\.venv\Scripts\python.exe -m pytest -q` PASS (2026-02-22 23:52); `.\.venv\Scripts\python.exe .\scripts\run_pytest_coverage.py` PASS (EXIT=0, 2026-02-22 23:58)
 ---
+- 2026-02-22 23:58: Vor Archivierung wurden abgeschlossene TODO-Punkte per Ist-Checks validiert (Root-Leerinventur, CI-Trigger, RP-P0-Evidenz). Danach Root-/Dev-Archive aktualisiert, aktive TODOs neu vorbereitet und `novapolis-dev/docs/todo.index.md` auf aktuelle Open-Counts synchronisiert.
+- 2026-02-22 23:58: Vollständiger Testlauf durchgeführt: Root-Pytest-Wrapper, Gesamt-`pytest -q`, `-m unit`, `-m "api or streaming"` sowie Coverage-Wrapper (alle PASS).
+- 2026-02-22 21:48: `scripts/check_sim_epoch_assets.py` ergänzt. Das Skript validiert offline (tunnel-sicher) Epoch-Ordner, Log-Parsebarkeit und OGG-Namensschema; Bootstrap-Lauf mit `--allow-empty` erfolgreich (keine FAILs).
+- 2026-02-22 21:45: `novapolis-sim/scripts/Main.gd` um Epoch-Loader (world/pc-Logs), PC-zentrierte Anzeige und OGG-Playback erweitert; `novapolis-sim/Main.tscn` um passende UI-Knoten ergänzt. `novapolis-dev/docs/todo.sim.md` für die beiden MVP-Punkte aktualisiert.
 - 2026-02-22 17:24: `novapolis_agent.scripts.train_lora` ist wieder import-sicher in Umgebungen ohne `torch`; `run_checks_and_report.py` typisiert ohne offene Editor-Fehler.
 - 2026-02-22 17:10: Neuer Check aktiv: `path-portability` läuft in `Checks: full` mit. Aktive Scope-Funde wurden direkt bereinigt.
 - 2026-02-22 16:40: Pfadportabilität als verbindliche Governance-Regel eingeführt und in aktiver Doku umgesetzt.

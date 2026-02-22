@@ -27,3 +27,56 @@ offset_top = 80.0
 offset_right = 20.0
 offset_bottom = 80.0
 text = "Status: ---"
+
+[node name="EpochLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 114.0
+offset_right = 20.0
+offset_bottom = 114.0
+text = "Epoch: --"
+
+[node name="SlotLabel" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 142.0
+offset_right = 20.0
+offset_bottom = 142.0
+text = "Slot: --"
+
+[node name="EpochStatusLabel" type="Label" parent="."]
+modulate = Color(0.8, 0.9, 1, 1)
+offset_left = 20.0
+offset_top = 170.0
+offset_right = 20.0
+offset_bottom = 170.0
+text = "Epochen: --"
+
+[node name="PlayPcAudioButton" type="Button" parent="."]
+offset_left = 20.0
+offset_top = 202.0
+offset_right = 196.0
+offset_bottom = 236.0
+text = "Play PC OGG"
+
+[node name="PlayWorldAudioButton" type="Button" parent="."]
+offset_left = 212.0
+offset_top = 202.0
+offset_right = 388.0
+offset_bottom = 236.0
+text = "Play World OGG"
+
+[node name="AudioStatusLabel" type="Label" parent="."]
+modulate = Color(0.9, 0.95, 0.8, 1)
+offset_left = 20.0
+offset_top = 248.0
+offset_right = 20.0
+offset_bottom = 248.0
+text = "Audio: --"
+
+[node name="PcLogLabel" type="RichTextLabel" parent="."]
+offset_left = 20.0
+offset_top = 282.0
+offset_right = 920.0
+offset_bottom = 680.0
+bbcode_enabled = false
+scroll_active = true
+text = "PC-zentrierte Ansicht wird geladen..."

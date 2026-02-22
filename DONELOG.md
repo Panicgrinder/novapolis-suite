@@ -1,10 +1,19 @@
 ---
-stand: 2026-02-22 17:31
-update: "Pytest-Importfehler behoben: train_lora import-safe gemacht und run_checks_and_report.py Typfehler bereinigt."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 17:24); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-22 17:24); .\\.venv\\Scripts\\python.exe -m pytest -q novapolis_agent/tests/test_batch5_unit.py novapolis_agent/tests/test_batch6_unit.py PASS (2026-02-22 17:24)
+stand: 2026-02-23 00:04
+update: "Abgeschlossene TODO-Punkte validiert, Root/Dev-Blöcke archiviert, aktive TODOs vorbereitet und Testlauf vollständig ausgeführt."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 00:00); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 00:00); .\\.venv\\Scripts\\python.exe .\\scripts\\tests_pytest_root.py PASS (2026-02-22 23:50); .\\.venv\\Scripts\\python.exe -m pytest -q PASS (2026-02-22 23:52); .\\.venv\\Scripts\\python.exe -m pytest -q -m unit PASS (2026-02-22 23:55); .\\.venv\\Scripts\\python.exe -m pytest -q -m "api or streaming" PASS (2026-02-22 23:57); .\\.venv\\Scripts\\python.exe .\\scripts\\run_pytest_coverage.py PASS (EXIT=0, 2026-02-22 23:58)
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-22 23:58: Abschlusslauf gemäß Anforderung durchgeführt: abgeschlossene TODO-Punkte vor Archivierung validiert (Root-Leerinventur `empty_files=0`, `empty_dirs=0`; CI-Trigger `branches: ["**"]`; RP-P0-Evidenzdateien vorhanden). Danach Root-/Dev-Abschnitte archiviert (`novapolis-dev/archive/todo.root.archive.md`, `novapolis-dev/archive/todo.dev.archive.md`), aktive TODOs neu vorbereitet (`todo.root.md`, `novapolis-dev/docs/todo.dev.md`) und Indexzahlen aktualisiert (`novapolis-dev/docs/todo.index.md`).
+- 2026-02-22 23:58: Vollständiger Testdurchlauf grün: Root-Wrapper, Gesamt-`pytest -q`, Markerläufe (`unit`, `api or streaming`) sowie Coverage-Wrapper (Exit 0). Ein bekannter Runtime-Hinweis zu `scripts.open_latest_summary` blieb ohne Fail-Auswirkung.
+
+- 2026-02-22 21:48: Neuer Tunnel-Check ergänzt: `scripts/check_sim_epoch_assets.py` validiert offline `novapolis-sim/data/epochs/epochNN/{world_log.jsonl,pc_log.jsonl}` sowie OGG-Dateinamen (`epoch{dd}_slot{hh}_{pc|world}.ogg`) unter `novapolis-sim/assets/audio/`. Bootstrap-Run erfolgreich mit `--allow-empty` (0 FAIL, 2 WARN bei fehlenden lokalen Assets).
+
+- 2026-02-22 21:45: Sim-MVP umgesetzt. `novapolis-sim/scripts/Main.gd` um Epoch-Loader (`world_log.jsonl`/`pc_log.jsonl` unter `res://data/epochs`), PC-zentrierte Loganzeige und OGG-Playback erweitert (Namensschema `epoch{dd}_slot{hh}_{channel}.ogg` aus `res://assets/audio`). `novapolis-sim/Main.tscn` um zugehörige UI-Elemente (Epoch/Slot/Status, Play-Buttons, Log-Panel) ergänzt. `novapolis-dev/docs/todo.sim.md` entsprechend auf erledigt gesetzt.
+
+- 2026-02-22 21:40: Root-Backlogblock abgeschlossen. `todo.root.md` markiert: Root-Hygiene-Inventur erledigt (Top-Level leer: keine Treffer), Weekly-Qualitaetslauf mit Cadence dokumentiert, Top-3 Querschnittsfokus konkretisiert und CI-Doku-Gate entschieden. Umsetzung: `.github/workflows/markdownlint.yml` Push-Trigger auf alle Branches (`"**"`) erweitert. RP/Agent/Dev-Boards synchronisiert (`novapolis-dev/docs/todo.rp.md`, `todo.agent-board.md`, `todo.dev.md`).
 
 - 2026-02-22 17:24: `novapolis_agent/scripts/train_lora.py` import-sicher gemacht (schwere ML-Imports nach `main()` verlagert), `SFTTrainer`-Importpfad korrigiert (`trl.trainer.sft_trainer`). Zusätzlich `scripts/run_checks_and_report.py`-Typfehler aus `get_errors` behoben. Ziel-Tests (`novapolis_agent/tests/test_batch5_unit.py`, `novapolis_agent/tests/test_batch6_unit.py`) grün.
 

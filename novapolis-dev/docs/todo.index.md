@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 16:51
-update: Open-Counts gegen aktive TODO-Dateien neu abgeglichen (RP und SIM korrigiert).
-checks: Checkbox-Scan über aktive TODO-Dateien durchgeführt (`todo.root.md`, `novapolis-dev/docs/todo.*.md`), Ergebnis in Index-Zahlen gespiegelt (2026-02-22 14:41).
+stand: 2026-02-23 00:04
+update: Open-Counts nach Archivierung erledigter Root/Dev-Blöcke und neuer Dev-Folgepunkte aktualisiert.
+checks: Checkbox-Scan über aktive TODO-Dateien durchgeführt (`todo.root.md`, `novapolis-dev/docs/todo.*.md`), Ergebnis in Index-Zahlen gespiegelt (2026-02-22 23:40).
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,10 +12,10 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 20)
-- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (aktiv)
-- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 4)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 7)
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 9)
+- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 2)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 3)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 5)
 
 Hinweise (Index)
 ----------------

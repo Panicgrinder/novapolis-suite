@@ -20,6 +20,18 @@ Ablage
 
 <!-- Hier unterhalb neue, vollständig erledigte Blöcke einfügen (neu zuerst). -->
 
+Dev-Folgepunkt (2026-02-22) - abgeschlossen
+-------------------------------------------
+
+archived_at: 2026-02-22 23:40
+
+Quelle: `novapolis-dev/docs/todo.dev.md` (Block `Offene Aufgaben (Dev)`, Stand 2026-02-22 21:40).
+
+- [x] Naechste Dev-Aufgabe erfasst und abgeschlossen.
+	- Beschreibung: Doku-Gates fuer Markdownlint/Frontmatter auch auf Branch-Pushes ohne PR aktiv halten.
+	- Ziel: fruehe Rueckmeldung bei Doku-Drift vor PR-Erstellung.
+	- Pruefkriterium: `.github/workflows/markdownlint.yml` triggert auf `push` fuer alle Branches.
+
 Root-Uebernahme: novapolis-dev Block aus todo.root
 -------------------------------------------------
 

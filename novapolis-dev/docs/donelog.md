@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 17:31
-update: `train_lora`-Importfix und Typfehlerbehebung in `run_checks_and_report.py` durchgeführt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 17:24); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-22 17:24); .\\.venv\\Scripts\\python.exe -m pytest -q novapolis_agent/tests/test_batch5_unit.py novapolis_agent/tests/test_batch6_unit.py PASS (2026-02-22 17:24)
+stand: 2026-02-23 00:04
+update: TODO-Aktualitätsvalidierung, Root/Dev-Archivierung und kompletter Testdurchlauf dokumentiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 00:00); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 00:00); .\\.venv\\Scripts\\python.exe -m pytest -q PASS (2026-02-22 23:52)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,41 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+TODO-Sync: Validierung vor Archivierung + Testvollauf (2026-02-22 23:58)
+-----------------------------------------------------------------------
+
+- Abgeschlossene Root-/Dev-Punkte vor Archivierung verifiziert (Root-Leerinventur, CI-Trigger, RP-P0-Evidenzdateien).
+- Erledigte Blöcke archiviert: `novapolis-dev/archive/todo.root.archive.md`, `novapolis-dev/archive/todo.dev.archive.md`.
+- Aktive TODOs neu vorbereitet: `todo.root.md` (neue Root-Folgepunkte), `novapolis-dev/docs/todo.dev.md` (2 neue Dev-Folgepunkte).
+- TODO-Indexzahlen auf Ist-Stand aktualisiert (`novapolis-dev/docs/todo.index.md`: RP 9, Dev 2, Agent 3, Sim 5).
+- Testvollauf grün ausgeführt (Root-Pytest, Gesamt-Pytest, Unit, API/Streaming, Coverage-Wrapper).
+
+Sim/Tooling: Tunnel-Check fuer Epoch-Assets (2026-02-22 21:48)
+--------------------------------------------------------------
+
+- Neues Skript `scripts/check_sim_epoch_assets.py` hinzugefügt.
+- Prüft offline und GUI-unabhängig:
+  - Epoch-Ordner `epochNN` unter `novapolis-sim/data/epochs/`
+  - Logdateien `world_log.jsonl` und `pc_log.jsonl` (JSONL oder JSON-Array)
+  - OGG-Namensschema `epoch{dd}_slot{hh}_{pc|world}.ogg` unter `novapolis-sim/assets/audio/`
+- Bootstrap-Lauf über Tunnel verifiziert: `python scripts/check_sim_epoch_assets.py --repo-root . --allow-empty` (PASS mit Warnungen bei fehlenden lokalen Assets).
+
+Sim: MVP Epoch-Loader + OGG-Playback (2026-02-22 21:45)
+--------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd` erweitert: Laden von Epochenordnern (`res://data/epochs/<epoch>/world_log.jsonl` + `pc_log.jsonl`), PC-zentrierte Darstellung und Audio-Playback pro Slot/Channel.
+- `novapolis-sim/Main.tscn` erweitert: neue UI-Elemente fuer Epoch/Slot-Status, zwei Audio-Buttons (`pc`/`world`) und ein Log-Panel.
+- `novapolis-dev/docs/todo.sim.md` synchronisiert: Epoch-Loader und OGG-Playback auf erledigt gesetzt, Evidenzpfade ergänzt.
+
+Root/RP/Dev: Tagesblock Top-3 + CI-Gate + P0-Statussync (2026-02-22 21:40)
+--------------------------------------------------------------------------
+
+- `todo.root.md`: vier aktive Root-Punkte abgeschlossen und mit Evidenz ergänzt (Hygiene-Inventur, Weekly-Cadence, Top-3-Fokus, CI-Doku-Gate-Entscheid).
+- `.github/workflows/markdownlint.yml`: Push-Trigger von `main` auf alle Branches (`"**"`) erweitert; damit laufen Markdownlint/Frontmatter auch bei Branch-Push ohne PR.
+- `novapolis-dev/docs/todo.rp.md`: P0.1-P0.5, Scope-Guardrails sowie drei Admin-Deliverables auf erledigt gesetzt, mit Evidenzverweis auf die bestehenden T0-Artefakte.
+- `novapolis-dev/docs/todo.agent-board.md`: TTS-Basisentscheidung als verbindlicher Spezifikationsblock dokumentiert; Exporter-Planpunkt auf erledigt gesetzt.
+- `novapolis-dev/docs/todo.dev.md`: nächste Dev-Aufgabe konkretisiert und als erledigt dokumentiert.
 
 Root/Agent: Import-Safety Fix fuer train_lora (2026-02-22 17:24)
 ---------------------------------------------------------------

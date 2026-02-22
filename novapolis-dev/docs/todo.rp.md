@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-02-22 04:16
-update: Umsetzungsplan fuer Gesamtbild T0 ergaenzt (Metrokarte, Stationskontrolle, Warenueberblick) und als Prioritaet vor Detailmengen festgelegt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 02:15); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 02:15)
+stand: 2026-02-23 00:04
+update: P0.1-P0.4 als umgesetzt markiert (Evidenz: Metrokarte-T0, Stationskontroll-Matrix, Warenueberblick-T0).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 21:30); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 21:30)
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -92,25 +92,26 @@ Ziel
 Umsetzungsreihenfolge (MVP)
 ---------------------------
 
-- [ ] P0.1 Metro-Topologie als Arbeitskarte T0 anlegen (Stationen, Verbindungen, Status pro Knoten/Kante).
-- [ ] P0.2 Stationskontrolle je Fraktion erfassen (gesichert/umkaempft/verlassen/unklar + Confidence).
-- [ ] P0.3 Warenueberblick T0 je Fraktion/Station als Bandbreitenmodell erfassen (`none|low|medium|high` statt Scheingenauigkeit).
-- [ ] P0.4 Herkunftslabel pro Warenposten verpflichtend setzen (`legacy|evac_e3|scavenged|produced|unknown`).
-- [ ] P0.5 D5/C6 sauber als fruehe Aufbauphase markieren (kein etablierter Handel; Bestand nur aus Altbestand/Funden/E3-Mitnahme).
+- [x] P0.1 Metro-Topologie als Arbeitskarte T0 anlegen (Stationen, Verbindungen, Status pro Knoten/Kante).
+- [x] P0.2 Stationskontrolle je Fraktion erfassen (gesichert/umkaempft/verlassen/unklar + Confidence).
+- [x] P0.3 Warenueberblick T0 je Fraktion/Station als Bandbreitenmodell erfassen (`none|low|medium|high` statt Scheingenauigkeit).
+- [x] P0.4 Herkunftslabel pro Warenposten verpflichtend setzen (`legacy|evac_e3|scavenged|produced|unknown`).
+- [x] P0.5 D5/C6 sauber als fruehe Aufbauphase markieren (kein etablierter Handel; Bestand nur aus Altbestand/Funden/E3-Mitnahme).
+  - Evidenz: `novapolis-rp/database-rp/00-admin/Metrokarte-T0.md`, `novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md`, `novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md`.
 
 Scope-Guardrails
 ----------------
 
-- [ ] D5/C6: Keine Handelsnormalisierung simulieren, solange Handelsbeziehungen im RP noch nicht etabliert sind.
-- [ ] Etablierte Fraktionen: Grundvorräte zulassen, aber Stationenlage explizit als unvollstaendig kennzeichnen.
-- [ ] Mengenpraezision erst nach P0.1-P0.4 erhoehen; bis dahin nur Bandbreiten + Quellenanker.
+- [x] D5/C6: Keine Handelsnormalisierung simulieren, solange Handelsbeziehungen im RP noch nicht etabliert sind.
+- [x] Etablierte Fraktionen: Grundvorräte zulassen, aber Stationenlage explizit als unvollstaendig kennzeichnen.
+- [x] Mengenpraezision erst nach P0.1-P0.4 erhoehen; bis dahin nur Bandbreiten + Quellenanker.
 
 Konkrete Deliverables
 ---------------------
 
-- [ ] Admin: Metrokarte-T0 (Knoten/Kanten + Statusmodell) unter `00-admin`.
-- [ ] Admin: Fraktionskontroll-Matrix Stationen (Fraktion x Station x Status x Confidence).
-- [ ] Admin: Warenueberblick-T0 (globales Raster + Herkunftssystem).
+- [x] Admin: Metrokarte-T0 (Knoten/Kanten + Statusmodell) unter `00-admin`.
+- [x] Admin: Fraktionskontroll-Matrix Stationen (Fraktion x Station x Status x Confidence).
+- [x] Admin: Warenueberblick-T0 (globales Raster + Herkunftssystem).
 - [ ] Fraktionen: Minimal-Abgleich je Basis/known stations mit Verweis auf Admin-SSOT.
 
 Definition of Done (P0)

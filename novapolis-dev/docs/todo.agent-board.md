@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 04:15
-update: Agent-Board auf neue Dateibenennung umgestellt, um VS-Code-Agent-Fehlinterpretation zu vermeiden.
-checks: markdownlint-cli2 PASS; check_frontmatter.py PASS
+stand: 2026-02-23 00:04
+update: TTS-Basisentscheidung konkretisiert (Exporter-Schnittstelle, Zielpfad, offene Implementierungspunkte).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.agent-board.md' PASS (2026-02-22 21:30); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.agent-board.md' PASS (2026-02-22 21:30)
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -34,10 +34,19 @@ R-COV Abgleich (Agent)
 Neue Aufgaben - TTS & Tools (2025-11-01 22:24)
 ----------------------------------------------
 
-- [ ] Coqui-Exporter (Build-Time, Planung): Script `scripts/tts_coqui_export.py` (Text->WAV->OGG, Hash-Cache, Voice-Mapping), Zielordner `novapolis-sim/assets/voiceovers/de/`.
+- [x] Coqui-Exporter (Build-Time, Planung): Script `scripts/tts_coqui_export.py` (Text->WAV->OGG, Hash-Cache, Voice-Mapping), Zielordner `novapolis-sim/assets/voiceovers/de/`.
 - [ ] Mini-Service (Runtime, Planung): FastAPI-Wrapper (Text->WAV/OGG), simple Auth/Rate-Limit, lokaler Cache; nur Schnittstelle/Mappings definieren.
 - [ ] VS Code Tasks (Planung): "TTS: export (coqui)", "TTS: clean cache", "TTS: check voices". Umsetzung erst nach Spec-Freigabe.
 - [ ] Templates bereitstellen: Beispiel-YAML fuer `knowledge:`/`actions:` in Agent-README verlinken (Quelle: Dev-Annotation-Spec).
+
+TTS-Basisentscheidung (2026-02-22)
+----------------------------------
+
+- Exporter-Entrypoint bleibt `scripts/tts_coqui_export.py`.
+- I/O-Vertrag fuer Build-Time-MVP:
+  - Input: `--input <jsonl|yaml|txt>` + `--voice-map <yaml>` + `--lang de`.
+  - Output: OGG-Dateien nach `novapolis-sim/assets/voiceovers/de/` mit stabilem Dateinamensschema und Hash-Cache.
+- Scope heute: Spezifikation verbindlich; Implementierung/Tasks bleiben als offene Board-Punkte bestehen.
 
 Archivierte Bloecke (Agent)
 --------------------------

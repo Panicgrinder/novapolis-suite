@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 16:51
-update: Headless-Lade-Check als erledigt markiert (Evidenz in WORKSPACE_STATUS und Dev-DONELOG verankert).
-checks: Konsistenzabgleich gegen `WORKSPACE_STATUS.md` (Eintrag 2025-11-16 Headless PASS) und `novapolis-dev/docs/donelog.md` (Godot Headless Quick Verification) durchgeführt (2026-02-22 14:41).
+stand: 2026-02-23 00:04
+update: Sim-MVP umgesetzt: Epoch-Loader (world_log/pc_log) + OGG-Playback im Main-UI integriert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 21:46); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 21:46)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -26,8 +26,9 @@ Offene Aufgaben (Sim)
 Neue Aufgaben - Epochen & Audio (2025-11-01 22:24)
 --------------------------------------------------
 
-- [ ] Epoch-Loader: 24×1h-Runden laden (world_log + pc_log) und PC-zentriert anzeigen (nur Sichtbares abspielen/anzeigen).
-- [ ] Audio-Assets abspielen (OGG): Namensschema `epoch{dd}_slot{hh}_{channel}.ogg` (z. B. `epoch03_slot14_pc.ogg`).
+- [x] Epoch-Loader: 24×1h-Runden laden (world_log + pc_log) und PC-zentriert anzeigen (nur Sichtbares abspielen/anzeigen).
+- [x] Audio-Assets abspielen (OGG): Namensschema `epoch{dd}_slot{hh}_{channel}.ogg` (z. B. `epoch03_slot14_pc.ogg`).
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (Loader/Parser/PC-View/Playback) und `novapolis-sim/Main.tscn` (UI-Controls + Log-Ausgabe).
 - [ ] Event-Signals: `on_action_start/end`, `on_visibility_change`, `on_interrupt` (Hook für spätere Mikro-Turns).
 - [ ] Scheduler-Hook vorbereiten: Min-Heap-basierte Event-Queue (ohne Logik), nur Schnittstellen/Types.
   - [ ] Referenz: `novapolis-dev/docs/specs/scheduler-spec.md`.
