@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-18 04:02
+stand: 2026-02-21 04:15
 update: Veralteten Verweis auf analysis_chat_routers entfernt (Legacy-Datei gelöscht).
 checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md WORKSPACE_INDEX.md todo.root.md PASS (2026-02-18 04:02); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md WORKSPACE_INDEX.md todo.root.md PASS (2026-02-18 04:02)"
 ---
@@ -129,7 +129,7 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 
 - [`novapolis_agent/docs/customization.md`](novapolis_agent/docs/customization.md) - Anpassungs-Dokumentation für private Nutzung
 - [`novapolis_agent/docs/ARCHIVE_PLAN.md`](novapolis_agent/docs/ARCHIVE_PLAN.md) - Archiv-/Bereinigungs-Plan (Phasen)
-- Zentral: [`novapolis-dev/docs/todo.agent.md`](novapolis-dev/docs/todo.agent.md) - ToDo & Roadmap (SSOT)
+- Zentral: [`novapolis-dev/docs/todo.agent-board.md`](novapolis-dev/docs/todo.agent-board.md) - ToDo & Roadmap (SSOT)
 - Zentrale Behaviour-Richtlinien: [`.github/copilot-instructions.md`](.github/copilot-instructions.md) - SSOT für Arbeitsweise/Sicherheit
 - [`novapolis_agent/docs/DONELOG.txt`](novapolis_agent/docs/DONELOG.txt) - DONELOG - Abgeschlossene Arbeiten
   (Hinweis: `AGENT_PROMPT.md` und `BEHAVIOR.md` wurden konsolidiert → `AGENT_BEHAVIOR.md`)

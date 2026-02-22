@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-11 05:25
-update: Sim-State-Schema fuer maschinenlesbare Weltzustand-Modelle angelegt.
-checks: "not run (not requested)"
+stand: 2026-02-22 00:17
+update: 24x1h Dual-Log-Felder (world_log/pc_log inkl. Sichtbarkeitsmetadaten) im globalen Schema ergänzt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 00:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects' 'novapolis-rp/database-rp/01-factions/haendlerbund/05-projects' 'novapolis-rp/database-rp/01-factions/eisenkonklave/05-projects' 'novapolis-rp/database-rp/01-factions/arkologie-a1/05-projects' 'novapolis-rp/database-rp/01-factions/schienenbund/05-projects' 'novapolis-rp/database-rp/01-factions/schattenbund/05-projects' 'novapolis-rp/database-rp/01-factions/fluesterkollektiv/05-projects' PASS (EXITCODE=0, 2026-02-22 00:09)"
 slug: sim-state-schema
 category: Admin
 schemaVersion: 1
@@ -42,9 +42,35 @@ Schema (JSON, v1)
   },
   "time": {
     "tick": 0,
-    "tick_unit": "day",
+    "tick_unit": "hour",
     "t0": "YYYY-MM-DD",
     "now": "YYYY-MM-DD"
+  },
+  "hourly_logs": {
+    "world_log": [
+      {
+        "id": "w-0001",
+        "about": "event_key",
+        "scope": "allies_only",
+        "channel": "log",
+        "source": "system",
+        "confidence": 1.0,
+        "freshness": "YYYY-MM-DDTHH:mm:ss+01:00",
+        "notes": ""
+      }
+    ],
+    "pc_log": [
+      {
+        "id": "p-0001",
+        "about": "event_key",
+        "scope": "pc",
+        "channel": "direct",
+        "source": "ally",
+        "confidence": 0.8,
+        "freshness": "YYYY-MM-DDTHH:mm:ss+01:00",
+        "notes": ""
+      }
+    ]
   },
   "locations": [
     {
@@ -147,6 +173,8 @@ Schema (JSON, v1)
 Pflichtfelder (minimal)
 -----------------------
 - `time.tick`, `time.tick_unit`, `time.t0`, `time.now`
+- `hourly_logs.world_log[]`, `hourly_logs.pc_log[]`
+- je Logeintrag: `scope`, `channel`, `source`, `confidence`, `freshness`
 - `locations[].slug`, `locations[].status`, `locations[].connections`
 - `factions[].slug`, `factions[].type`, `factions[].relations`
 - `projects[].slug`, `projects[].status`

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-18 04:05
-update: Metadata-Init-Konsolidierung vermerkt (Python kanonisch, JS entfernt).
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-rp/coding/tools/metadata/README.md novapolis-dev/docs/donelog.md PASS (2026-02-18 04:05); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-rp/coding/tools/metadata/README.md novapolis-dev/docs/donelog.md PASS (2026-02-18 04:05)"
+stand: 2026-02-22 07:08
+update: Metrokarte-T0 size_m2 von Klassen-Defaults auf realistische Stationsvarianz innerhalb der Klassenbaender umgestellt.
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 06:53); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 06:53); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 06:53)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,311 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: size_m2-Varianz in Metrokarte T0 eingezogen (2026-02-22 06:52)
+------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden alle `STATION`-`size_m2` von starren Klassen-Defaults auf stationsspezifische Werte mit moderater Varianz umgestellt.
+- Die Werte bleiben innerhalb der Klassenbaender (`station_xs/s/m/l/xl`) und erhalten damit Konsistenz zur bestehenden Flaechenlogik.
+- D5 wurde als positiver Override-Fall beibehalten und nur in `size_m2` plausibel nachgezogen (`4250` -> `4710`).
+
+RP: size_m2 in Metrokarte T0 befuellt (2026-02-22 06:38)
+--------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden alle `size_m2=pending`-Eintraege in `STATION`-Zeilen auf konkrete Klassen-Defaults gesetzt.
+- Verwendete Defaults: `station_xs=750`, `station_s=2000`, `station_m=4250`, `station_l=6750`, `station_xl=9000`.
+- Ergebnis: Im T0-Backbone stehen nun keine offenen `size_m2=pending`-Werte mehr.
+
+RP: Ist-Zustandssystem praezisiert (2026-02-22 06:14)
+-----------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden vier Leitplanken ergänzt: geordnete `ist_zustand`-Skala, erlaubte `ist_grund`-Token, klare Baseline/Override-Regel sowie eine explizite Invariante gegen implizites Ueberschreiben.
+- Fuer Override-Faelle ist nun `ist_quelle=override` plus `ist_ref=<beleg-id>` festgelegt; Bestandszeilen ohne Feld werden als implizit `baseline` gelesen.
+- D5 wurde als expliziter Override-Fall markiert (`ist_quelle=override`, `ist_ref=raw_d5_station`).
+
+RP: Ist-Zustandsbegriffe final vereinfacht (2026-02-22 06:07)
+------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden die kanonischen Tokens auf kurze, eindeutige Begriffe harmonisiert: `verbessert`, `beschaedigt`, `kritisch`.
+- Das Status-Mapping nutzt nun konsistent `partial -> beschaedigt` und `restricted -> kritisch`.
+- Alle betroffenen `STATION`-Zeilen wurden synchronisiert; D5-Grundtext nutzt jetzt `verbessert_teilweise_gepflegt`.
+
+RP: D5-Hinweis in Zustandsliste uebernommen (2026-02-22 06:04)
+--------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden `deutlich_verbessert` und `stabil` in die erlaubte `ist_zustand`-Liste aufgenommen.
+- Der separate Abschnitt `Stationshinweis D5 (evidenzgebunden)` wurde entfernt.
+- D5 wurde in der Textkarte konsistent auf `ist_zustand=stabil` mit Grund `deutlich_verbessert_teilweise_gepflegt` gesetzt.
+
+RP: Ist-Zustandsbegriff harmonisiert (2026-02-22 06:03)
+------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurde der positive erlaubte Begriff `sehr_sauber` in `gepflegt` umbenannt.
+- Die Regelzeile zum bestmoeglichen zulaessigen Zustand wurde konsistent auf `gepflegt` angepasst.
+
+RP: Positive Ist-Zustaende + D5-Override in Metrokarte (2026-02-22 06:00)
+-----------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden positive, erlaubte `ist_zustand`-Begriffe ergänzt (`sehr_sauber`, `stabilisiert`).
+- Das Status-Mapping wurde als Baseline klargestellt; evidenzbasierte Stations-Overrides sind explizit zulaessig.
+- D5 wurde evidenzbasiert von Baseline `verschlissen` auf `stabilisiert` mit angepasstem `ist_grund` und `nutzflaeche_faktor` umgestellt.
+
+RP: Erlaubte Zustandsbegriffe in Metrokarte festgeschrieben (2026-02-22 05:58)
+-------------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurde unter dem Ist-Zustandsmodell eine verbindliche Liste erlaubter Werte fuer `ist_zustand` ergänzt.
+- Erlaubte Begriffe: `verschlissen`, `teilbeschaedigt`, `kritisch_beschaedigt`, `aufgegeben`.
+- Alle anderen Zustandsbegriffe sind fuer T0 explizit als unzulaessig markiert.
+
+RP: D5-Stationsevidenz in Metrokarte geschärft (2026-02-22 05:57)
+-----------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurde ein stationsspezifischer Hinweis ergänzt: D5 ist **deutlich verbessert / stabil / teilweise sehr sauber**.
+- Der Hinweis ist als evidenzgebundene Stationssicht formuliert und vermeidet bewusst einen Perfekt-Claim.
+- Das globale T0-Statusmapping bleibt unverändert (`active` -> `verschlissen`) und wird nicht überschrieben.
+
+RP: Metrokarte T0 mit Ist-Zustand fuer alle Stationen (2026-02-22 04:18)
+-----------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurde ein verbindliches Ist-Zustandsmodell ergänzt (`ist_zustand`, `ist_grund`, `nutzflaeche_faktor`).
+- Alle 54 `STATION`-Zeilen wurden konsistent erweitert; damit ist keine Station mehr als „perfekt“ modelliert.
+- Das Mapping ist statusbasiert (`active/partial/restricted/evacuated`) und bildet abgestufte Nutzflaechen im Betrieb ab, ohne die Bruttoflaechenlogik (`size_m2`) zu ersetzen.
+
+RP: T0-Startbelegung m2 + D5-Korrektur (2026-02-22 04:12)
+---------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` wurden Default-Startwerte je Größenklasse ergänzt (`station_xs/s/m/l/xl` -> `750/2000/4250/6750/9000` m2).
+- Betriebsregel ergänzt: `size_m2=pending` verwendet bis zur Feinbelegung den jeweiligen Klassen-Default.
+- D5 gemäß RP-Hinweis von `station_xl` auf maximal `station_m` korrigiert und auf `size_m2=4250` gesetzt.
+
+RP: Stationsgroessenlabels vereinheitlicht (2026-02-22 04:05)
+------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` verbindliche Labels `station_xs`, `station_s`, `station_m`, `station_l`, `station_xl` ergänzt (mit klaren m²-Bandgrenzen).
+- Alle `ST-*`-Knoten erhielten `size_class`; exakte Flächenwerte bleiben vorerst `size_m2=pending` bis finale m²-Vorgaben vorliegen.
+- B2 bleibt als große Schienenbund-Basisstation konsistent markiert.
+
+RP: NPC-Fraktionszuordnung T0 konkretisiert (2026-02-22 04:04)
+-------------------------------------------------------------
+
+- Verteilung gemäß Freigabe in `database-rp/00-admin/Stationskontroll-Matrix.md` übernommen (inkl. reduzierter Schienenbund-/Schattenbund-Anteile und 4 Eisenkonklave-Stationen).
+- `database-rp/00-admin/Metrokarte-T0.md` synchronisiert: betroffene `ST-*`-Knoten auf bestätigte Fraktionszuordnung gesetzt.
+- `ST-B2` als große Schienenbund-Basisstation vorgemerkt (`size_class=large`, `size_m2=pending`) bis m²-Spezifikation nachgereicht wird.
+
+RP: Metrokarte v0.3 Restsegmente + Stichprobenlogik (2026-02-22 03:48)
+---------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` weitere Restsegmente angebunden (u. a. C2-C1-D1-D2-E1-E2, A3-A4-A6, E4-E5-E6-F6-G6, F1-F3-F4, G3-G4).
+- Zusätzliche Hazard-Zonen ergänzt (`debris_field`, `contamination`, `hard_collapse`) zur spielbaren Risiko-/Routingdifferenzierung.
+- Stichprobencheck durchgeführt: Referenzintegrität ohne Treffer (`MISSING_REFS=0`) sowie Beispielpfade `D5->C6`, `D5->A1`, `D5->B2`, `D5->G7`, `D5->K4` jeweils erfolgreich.
+
+RP: Metrokarte v0.2 Nebenarme + Alternativrouten (2026-02-22 03:44)
+-------------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` zusätzliche Nebenarme und Alternativkorridore ergänzt (u. a. A1-A2-B1-B2, B2-C3-D3-D5, G7-G5-F5-F9, H12-H1-G1-G7, K4-F7-F9).
+- Ziel erfüllt: je Fraktionsanker ist mindestens ein zusätzlicher Alternativpfad modelliert.
+- Weitere Gefahrenstellen ergänzt (`HAZARD`), inkl. beschädigter Teilabschnitte für routing-relevante Risikopfade.
+
+RP: Metrokarte 54er-Backbone mit Risiken erweitert (2026-02-22 03:40)
+--------------------------------------------------------------------
+
+- `database-rp/00-admin/Metrokarte-T0.md` auf konkrete 54er-Textkarte erweitert (vollständige Stations-/Zugangs-ID-Verteilung im `ST/AC`-Schema).
+- Fraktionsanker explizit berücksichtigt: `D5`, `C6`, `E3`, `A1`, `B2`, `F9`, `G7`, `H12`, `K4`.
+- Erste operative Kanten ergänzt: Haupttransitachsen inkl. neutraler Zwischenstationen zwischen Fraktionsräumen.
+- Eingebaut: mehrere Sackgassen (`status=dead_end`) und Gefahrenobjekte (`HAZARD`) für beschädigte/gesperrte Abschnitte.
+
+RP: Metrokarte Textkarte + IDs vorbereitet (2026-02-22 02:48)
+-------------------------------------------------------------
+
+- In `database-rp/00-admin/Metrokarte-T0.md` verbindliches ID-Schema ergänzt: `ST-*`, `AC-*`, `TN-*`, `JB-*`.
+- KI-optimiertes Zeilenformat ergänzt: `TYP|key=value|...` für spätere automatisierte Verwaltung.
+- Startkern als Textkarte modelliert (D5-C6-E3) inklusive Zugänge, Tunnelsegmente und Abzweige mit eindeutigen IDs.
+- Sidecar synchronisiert: `database-rp/00-admin/Metrokarte-T0.json` auf `version: 0.3` und Tags `text-map`/`id-schema` erweitert.
+
+RP: Metrokarte-T0 auf 54 Kernstationen vorbereitet (2026-02-22 02:48)
+--------------------------------------------------------------------
+
+- `database-rp/00-admin/Metrokarte-T0.md` auf Zielgröße **54 Stationen** umgestellt (Verteilung 24 fraktionsnah / 18 neutral / 12 Peripherie).
+- Regel ergänzt: zwischen fraktionsgeprägten Kernräumen standardmäßig mindestens eine neutrale Station.
+- Bereichsfluss für spätere Karten-/Engine-Umsetzung ergänzt: `Station -> Zugang -> Tunnel -> Abzweig (Ereignis) -> Tunnel -> Zugang -> nächste Station`; bei Mehrfachzugängen analog pro Arm.
+- Sidecar synchronisiert: `database-rp/00-admin/Metrokarte-T0.json` auf `version: 0.2` und Tag `topology` erweitert.
+
+RP: JSON-Sidecars fuer T0-Admin-Dateien nachgezogen (2026-02-22 02:31)
+---------------------------------------------------------------------
+
+- Fehlende Sidecars angelegt: `database-rp/00-admin/Metrokarte-T0.json`, `database-rp/00-admin/Stationskontroll-Matrix.json`, `database-rp/00-admin/Warenueberblick-T0.json`.
+- Zentralen Index aktualisiert: `database-rp/index.json` um die drei neuen MD/JSON-Paare ergänzt.
+- RP-Validator bestätigt: `npm --prefix novapolis-rp/coding/tools/validators run validate:rp` PASS.
+
+RP: 00-admin T0-Gesamtbild integriert + Timeline-Linkdrift behoben (2026-02-22 02:23)
+-------------------------------------------------------------------------------
+
+- Neue separate Admin-Dateien angelegt: `database-rp/00-admin/Metrokarte-T0.md`, `database-rp/00-admin/Stationskontroll-Matrix.md`, `database-rp/00-admin/Warenueberblick-T0.md`.
+- Bestehende Integrationspunkte erweitert: `index-rules.md`, `Current-State.md`, `Logistik.md`, `Metrograph.md` um Verweise auf die neuen T0-Artefakte ergänzt.
+- Nebenbefund korrigiert: veraltete Links `Canvas-T+0-Timeline.md` in `Ortsgraph.md`, `Canvas-Admin-Day-Switch-Debug.md` und `Kernkonversationen.md` auf `Canvas-T0-Timeline.md` umgestellt.
+- Ansatz: minimalinvasiver SSOT-Ausbau ohne neue unbelegte Kanonbehauptungen; offene Bereiche explizit als `tbd` markiert.
+
+RP: TODO-Plan fuer Gesamtbild T0 priorisiert (2026-02-22 02:14)
+---------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.rp.md` um einen klaren Prioritaet-0-Plan erweitert: Metro-Topologie, Stationskontrolle, Warenueberblick, Herkunftslabels und Definition of Done.
+- Reihenfolge explizit festgelegt: erst Gesamtbild/SSOT-Basis, danach Mengen-Backfill in Inventaren.
+- Guardrail festgehalten: D5/C6 bleiben fruehe Aufbauphase ohne implizite Handelsnormalisierung.
+
+RP: Relative Admin-Links in Novapolis-Dateien korrigiert (2026-02-22 01:45)
+--------------------------------------------------------------------------
+
+- `01-factions/novapolis/03-locations/C6.md`: Admin-Logistik-Link auf korrekten relativen Pfad `../../../00-admin/Logistik.md` korrigiert.
+- `01-factions/novapolis/02-characters/Ronja-Kerschner.md`: Link auf `AI-Behavior-Mapping.md` auf korrekten relativen Pfad `../../../00-admin/AI-Behavior-Mapping.md` korrigiert.
+- Ziel: klickbare Referenzen ohne Pfaddrift innerhalb der Fraktionsstruktur sicherstellen.
+
+RP: Tag-SSOT in 00-admin eingeführt (2026-02-22 01:36)
+------------------------------------------------------
+
+- Neue zentrale Datei angelegt: `database-rp/00-admin/Tags-Taxonomie.md` (gültige Kern-Tags, Regeln, Startersets, Erweiterungspfad).
+- Referenzen ergänzt in `index-rules.md` (Aggregator + Abschnitts-ID) und `schema-header-templates.md` (Nutzungshinweis auf zentrale Tag-Liste).
+- Ziel: konsistente Tag-Verwendung in RP-Canvas ohne verteilte/abweichende Tag-Definitionen.
+
+RP: Initiale Tags für D5/C6 gesetzt (2026-02-22 01:17)
+-------------------------------------------------------
+
+- `D5.md`: initiale Standorttags ergänzt (`location`, `novapolis`, `base`, `operations`, `maintenance`, `active`).
+- `C6.md`: initiale Standorttags ergänzt (`location`, `novapolis`, `outpost`, `monitoring`, `anomaly`, `restricted`, `active`, `partial`).
+- Entscheidung dokumentiert: `active` beschreibt aktuellen Spiel-/Szenenfokus; `partial` bleibt als Zustandsmarker für teilaktiven technischen Zustand bestehen.
+
+RP: Actions-Schema in Missions-/Orts-Canvases ergänzt (2026-02-22 01:13)
+-----------------------------------------------------------------------
+
+- `Missionslog-Novapolis.md` um Kernaktionen (8 Stück) ergänzt: Reinigen, Reparatur, Reise, Wache, Funk, Erste Hilfe, Erkundung, Bergen.
+- `D5.md` und `C6.md` um ortsbezogene `actions:`-Blöcke ergänzt (inkl. Dauer/Aufwand/Locks/Resources).
+- `todo.rp.md`: die zwei offenen Actions-Unterpunkte auf erledigt gesetzt.
+- Ziel: vorbereiteter „Zug-um-Zug“-Wechsel ohne separates Zweitsystem.
+
+RP: Knowledge-Annotation-Basis umgesetzt (2026-02-22 00:38)
+-----------------------------------------------------------
+
+- Charakter-Canvases ergänzt: `Ronja-Kerschner.md`, `Jonas-Merek.md`, `Reflex-Wissensstand-Trainingsstand.md` jeweils um `knowledge`-Startsets nach Annotation-Spec (`about/channel/source/scope/confidence/freshness/visibility_to/attachments`).
+- Missionsbezug ergänzt: `Missionslog-Novapolis.md` um Knowledge-Items für Kernereignisse (C6-Monitoring, Artefakt 7A, E3-Risikosignal).
+- Prozess ergänzt: Sichtbarkeits-Promotion ohne Retcon (`allies_only/private` → `pc`) als klarer Rückblendenpfad dokumentiert.
+- `todo.rp.md` Knowledge-Unterpunkte entsprechend auf erledigt gesetzt.
+
+RP: TODO-Archivierung + Rest-Backlog-Review (2026-02-22 00:31)
+--------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.rp.md`: vollständig abgehakte Blöcke (`Aktiv jetzt`, `Priorität B`, `Priorität C`) nach Read-Only-Validierung aus dem aktiven Board entfernt.
+- `novapolis-dev/archive/todo.rp.archive.md`: die drei Blöcke unverändert übernommen und mit `archived_at: 2026-02-22 00:31` dokumentiert (neueste Einträge oben).
+- Verbleibender Zeitmodell-Backlog auf Aktualität geprüft; Spec-Referenzen in TODO auf vorhanden/passend validiert.
+- Ziel: aktives TODO wieder fokussiert auf offene, aktuelle Arbeiten halten.
+
+RP: TODO-Historienblock ausgelagert (2026-02-22 00:33)
+------------------------------------------------------
+
+- `novapolis-dev/docs/todo.rp.md`: großer historischer `<details>`-Block auf kompakten Verweis reduziert.
+- Volltext des historischen Backlogs in neue Datei ausgelagert: `novapolis-dev/archive/todo.rp.historical-backlog.md`.
+- Ziel: aktives RP-TODO besser scanbar halten, ohne historische Inhalte zu verlieren.
+
+Governance: RP-Projekt-Frontmatter-Prävention + PR-Nachtrag (2026-02-22 00:17)
+----------------------------------------------------------------------
+
+- Ursache der Commit-Blocker verifiziert: RP-Hard-Gate (`validate:rp`) erzwingt bei `category: project` ein gültiges `status`-Enum und `last_updated`/`last-updated`.
+- Prävention ergänzt: `.github/instructions/rp-docs.instructions.md` um explizite Neuanlage-Regel für `database-rp`-Projektdateien erweitert (inkl. Regelmatrix `R-RP-PROJ-FM`).
+- `PR_DESCRIPTION.md` um transparenten Nachtrag ergänzt (Fehlerursache, Korrekturpfad, finaler Push-Status).
+- Ziel: Wiederholungsfehler bei neuen Projekt-Templates vor dem ersten Commit vermeiden.
+
+RP: 24x1h-Globalstandard + Fraktions-Templates (2026-02-22 00:02)
+-----------------------------------------------------------------
+
+- 00-admin globalisiert: `Tick-Regeln-Simulation.md` um Dual-Log-Standard (`world_log`/`pc_log`) und Sichtbarkeitsregeln erweitert.
+- 00-admin globalisiert: `Sim-State-Schema.md` um stündliche Log-Struktur und Pflichtfelder (`scope/channel/source/confidence/freshness`) ergänzt.
+- 00-admin globalisiert: `Process-Workflow.md` um 24x1h-Prozessfluss ergänzt; `Missionslog.md` mit Verweis auf globales Regelwerk nachgezogen.
+- Fraktionsstruktur vorbereitet: In allen `01-factions/*/05-projects/README.md` den Link auf `24x1h-Log-Template.md` ergänzt.
+- `todo.rp.md`: die drei ersten Unterpunkte unter „24×1h-Runden“ auf erledigt gesetzt.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: Technischer Refresh (Snapshot-Gate vor Commit) (2026-02-21 22:11)
+--------------------------------------------------------------------
+
+- In den aktuell geänderten RP-Markdowndateien wurden die `stand:`-Zeitstempel auf den frischen Commitlaufwert synchronisiert.
+- Ziel war die Erfüllung des Snapshot-Gates (frischer Lock + `stand` innerhalb Toleranzfenster) für `git_commit_push.py`.
+- Inhaltliche Aussagen/Kanonlogik unverändert; nur technischer Commit-Readiness-Refresh.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: TODO-Fortsetzung (Meta-Cluster-Index: Spannungen/PsyLinks) (2026-02-21 22:06)
+-------------------------------------------------------------------------------
+
+- `database-rp/00-admin/Cluster-Index.md` um Kanon-Verifikationsrahmen erweitert (SSOT-Priorität, Quellenanker, Guardrail-Logik).
+- Evidenzgebundene Spannungsmatrix ergänzt (Novapolis↔Händlerbund, Novapolis↔Eisenkonklave, Eisenkonklave↔Schienenbund, Arkologie-Bezüge als offen markiert).
+- Abschnitt `PsyLinks & Dissonanz-Gate` ergänzt und auf bestehende Schwellen aus `AI-Behavior-Mapping.md` ausgerichtet (ohne neue unbelegte Numerik).
+- `database-rp/00-admin/Cluster-Index.json` auf `version: 0.2`, `status: review` und erweiterte Tags synchronisiert.
+- `novapolis-dev/docs/todo.rp.md` Meta-Cluster-Punkt in „Aktiv jetzt“ und „Priorität C“ auf erledigt gesetzt.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: TODO-Fortsetzung (C6-Inventar + Logistik-Zyklen) (2026-02-21 22:00)
+-----------------------------------------------------------------------
+
+- `database-rp/01-factions/novapolis/04-inventory/C6-inventar.md` um `Delta zum Missionslog` ergänzt (belegte C6-Anker + offene Transferdetails klar getrennt).
+- `database-rp/00-admin/Logistik.md` um globales Wochenzyklus-/Lagerstands-Modell sowie Referenzschema (`slug` statt Legacy-`*_v1/*_v2`) ergänzt.
+- `database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.md` um Novapolis-Wochenzyklus und Tagesreport-Template ergänzt.
+- `novapolis-dev/docs/todo.rp.md` für `inventar_c6_v2`, `logistik_c6_v2` und `logistik_novapolis_v2` auf erledigt gesetzt.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: TODO-Fortsetzung (D5 + Inventar-Deltas + Missionslog-Querverweise) (2026-02-21 21:54)
+-------------------------------------------------------------------------------------------
+
+- `database-rp/01-factions/novapolis/03-locations/D5.md` um faktischen Stand (belegt/offen) mit Evidenzankern ergänzt (inkl. Lastenaufzug/Grundfläche/Historie als evidenzgebundene Punkte).
+- `database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md` und `.../D5-inventar.md` um Abschnitt `Delta zum Missionslog` ergänzt; Fraktionsinventar-Systemlinks auf aktuelle Admin-Pfade korrigiert.
+- `database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md` um evidenzbasierte Missionslog-Querverweise ergänzt.
+- `novapolis-dev/docs/todo.rp.md` für `station_d5_v2.1`, Inventar-Deltas und Missionslog-Querverweise auf erledigt gesetzt.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: TODO-Fortsetzung (Ereignislog/Relationslog nachgeschaerft) (2026-02-21 21:47)
+---------------------------------------------------------------------------
+
+- `database-rp/00-admin/Ereignislog-Weltgeschehen.md` um globale SECRECY-/H-47-Guardrails ergänzt (Außenwissen vs. Fraktionsdetails sauber getrennt).
+- `database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md` konsolidiert: SECRECY-Hinweis ergänzt, Legacy-Logistikbezeichner auf aktuelle SSOT-Referenzen (`logistik`, `novapolis-logistics`) ausgerichtet.
+- Unbelegte Kennzahl im Relationslog entschärft (`stabil` ohne Prozentwert).
+- `novapolis-dev/docs/todo.rp.md` für diese beiden Punkte auf erledigt gesetzt.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: Doctrine-Templates fuer Fraktionen (Timeline/Ereignislog) (2026-02-21 21:09)
+-------------------------------------------------------------------------------
+
+- Fuer alle Fraktionen wurden in `01-factions/*/00-doctrine/` die fehlenden Dateien `<faction>-t0-timeline.md` und `<faction>-ereignislog.md` neu angelegt.
+- Passende JSON-Sidecars wurden je Template mit Basis-Metadaten angelegt, damit die Dokumente index-/tooling-faehig bleiben.
+- Ergebnis: Die zuvor gesetzten README-Links auf Timeline/Ereignislog zeigen nun auf existierende Artefakte (kein Link-Drift mehr).
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: Logistik-Scope-Trennung Admin vs Fraktion (2026-02-21 20:57)
+----------------------------------------------------------------
+
+- `database-rp/00-admin/Logistik.md` auf global gültige Regeln umgestellt (fraktionsneutral, modell-/prozessfokussiert).
+- Novapolis-spezifische Operativinhalte aus `00-admin/Logistik.md` nach `01-factions/novapolis/00-doctrine/novapolis-logistics.md` verschoben, damit kein Inhalt verloren geht.
+- Ergebnis: `00-admin` enthält nur allgemein anwendbare Logistikregeln; Fraktions-/Stationsdetails liegen in der passenden Fraktionsstruktur.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: Sichere Punkte gestartet (C6-Inventar/Logistik) (2026-02-21 20:49)
+---------------------------------------------------------------------
+
+- `database-rp/01-factions/novapolis/04-inventory/C6-inventar.md` von tbd-Listen auf belegte SSOT-Einträge umgestellt (Filter, Energiezellen, Werkzeuge; offene kritische Bedarfe klar benannt).
+- `database-rp/00-admin/Logistik.md` um belastbaren C6-Faktenstand ergänzt (Inventar-/Leitungslage ohne unbelegte Kennzahlen; C6-Energieanlage vorsichtig präzisiert).
+- Ziel: Start der Abarbeitung aus `todo.rp.md` mit minimalem Risiko und ohne neue Canon-Behauptungen.
+- Checks: ausstehend (nach Mutation neu ausführen).
+
+RP: TODO-Board Hygiene (Archiv entkoppelt) (2026-02-21 20:35)
+--------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.rp.md` vollstaendig auf aktuellen Risikostand nachgeschaerft (Legacy-Namen/Pfade, bestehende vs. neue Canvas-Aufgaben).
+- Archivblock im `<details>` explizit als historisch markiert (`nicht aktiv abarbeiten`) und mit Re-Aktivierungsregel versehen.
+- Ziel: Fehlsteuerung vermeiden (kein versehentliches Abarbeiten veralteter Backlog-Punkte ohne Soll-Ist-Abgleich).
+- Checks: markdownlint-cli2 PASS (scoped), check_frontmatter.py PASS (scoped).
+
+RP: Index Sidecar-Policy Nachzug (2026-02-21 20:09)
+---------------------------------------------------
+
+- `database-rp/index.json` an die README-Sidecar-Policy angeglichen: README-Eintraege erwarten keine JSON-Sidecars.
+- Senn-Daru im Index auf den kanonischen Novapolis-Charakterpfad inkl. Sidecar verankert (`01-factions/novapolis/02-characters/Senn-Daru.{md,json}`).
+- Legacy-Eintrag `person_index_np` auf `person-index-np` korrigiert (MD+JSON).
+- Verifikation: Index-Konsistenzcheck erfolgreich (`total=97`, `missing=0`).
 
 CI/RP: validate-rp Workflow + Sim-README ohne PS1 (2026-02-17 04:05)
 ---------------------------------------------------------------

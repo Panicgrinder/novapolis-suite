@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 from typing import Any, cast
 
-from pydantic import field_validator
+from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -104,8 +104,15 @@ class Settings(BaseSettings):
     RAG_INDEX_PATH: str = str(Path("eval/results/rag/index.json"))
     RAG_TOP_K: int = 3
 
+    # Backward-compatible aliases used in root TODO/checklists.
+    RAG_ON: bool | None = None
+    SHADOW_ON: bool | None = None
+    CANARY_PCT: int = 0
+
     SHADOW_MODE_LOGGING_ENABLED: bool = True
     SHADOW_MODE_LOG_PATH: str = str(Path(".tmp/results/logs/shadow_mode.jsonl"))
+    SHADOW_MODE_REDACT_PREVIEW_ENABLED: bool = True
+    SHADOW_MODE_PREVIEW_MAX_CHARS: int = 280
 
     AUTO_MODE_DEFAULT: str = "rpg"
     AUTO_MODE_MEMORY_TTL_MIN: int = 120
@@ -147,6 +154,18 @@ class Settings(BaseSettings):
                 pass
             return [item.strip() for item in value.split(",") if item.strip()]
         return []
+
+    @model_validator(mode="after")
+    def _apply_flag_aliases(self) -> Settings:
+        if self.RAG_ON is not None:
+            self.RAG_ENABLED = bool(self.RAG_ON)
+        if self.SHADOW_ON is not None:
+            self.SHADOW_MODE_LOGGING_ENABLED = bool(self.SHADOW_ON)
+        if self.CANARY_PCT < 0:
+            self.CANARY_PCT = 0
+        elif self.CANARY_PCT > 100:
+            self.CANARY_PCT = 100
+        return self
 
 
 settings = Settings()

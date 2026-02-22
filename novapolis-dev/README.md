@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-17 09:12
+stand: 2026-02-21 04:15
 update: Link-Scanner Hinweis auf Python-Tool umgestellt (scan_links.py) und Output-Pfade aktualisiert.
 checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/README.md' PASS (2026-02-17 02:48); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\README.md PASS (2026-02-17 02:48)"
 ---
@@ -30,7 +30,7 @@ Primary Docs
 
 - `docs/donelog.md` - tägliche Fortschritte und Beschlüsse
 - `docs/todo.index.md` - TODO-Index (Navigation zu Modul-Boards)
-  - Module: Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent.md`, Sim `docs/todo.sim.md`
+  - Module: Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent-board.md`, Sim `docs/todo.sim.md`
 - `.github/copilot-instructions.md` - Arbeitsweise, Stil, Sicherheitsleitplanken (SSOT)
 - `docs/naming-policy.md` - verbindliche Dateibenennung im Verbund
 - `docs/tests.md` - Testabdeckung und Sim-/Client-Checkliste
@@ -39,7 +39,7 @@ Contributor Workflow
 --------------------
 
 - Änderungen zuerst hier dokumentieren, anschließend in den Ziel-Repos umsetzen.
-- Fortschritt stets in `docs/donelog.md` loggen; Aufgaben in den jeweiligen Modul-Boards pflegen (Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent.md`, Sim `docs/todo.sim.md`).
+- Fortschritt stets in `docs/donelog.md` loggen; Aufgaben in den jeweiligen Modul-Boards pflegen (Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent-board.md`, Sim `docs/todo.sim.md`).
 - Vor Commits die Leitlinien aus `.github/copilot-instructions.md` gegenprüfen.
 
 Struktur

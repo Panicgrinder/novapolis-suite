@@ -1,5 +1,5 @@
-Stand: 2026-02-17 10:55 – SSOT-Kern reduziert; Scoped-Instructions aktiviert; Konfliktpriorität normiert
-Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS
+Stand: 2026-02-22 01:56 – Postflight-Semantik für `Todos.offen` verbindlich präzisiert (Agent-Laufstatus ≠ Projekt-Backlog).
+Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 01:55; .github/copilot-instructions.md durch Config ausgeschlossen); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions.md' 'DONELOG.md' PASS (2026-02-22 01:55)
 
 
 LLM-Dokumentenheader (nicht löschen)
@@ -56,6 +56,11 @@ Globale Kernregeln
 - Nach jeder Dateimutation oder Skript-/Testausführung genau ein Postflight-Receipt am Ende der Antwort.
 - Kein Zwischen-Receipt für Teilaktionen.
 
+### Modul-DONELOG-Pflicht
+- Bei jeder Dateimutation (Code, Doku, Config, Workflow, Skript) ist im selben Änderungslauf ein Eintrag im passenden Modul-DONELOG verpflichtend.
+- Zuordnung: bevorzugt Modul-DONELOG (z. B. `novapolis-dev/docs/donelog.md` für Dev/RP-Doku, `novapolis_agent/docs/DONELOG.txt` für Agent-Modul); falls kein Modul-DONELOG existiert, in `DONELOG.md` auf Root-Ebene dokumentieren.
+- Kein Interpretationsspielraum über „Relevanz“: Mutation erkannt ⇒ DONELOG-Eintrag verpflichtend.
+
 ### Sicherheitsprinzip
 - Minimalinvasive Diffs.
 - Keine destruktiven Änderungen ohne vorgeschaltete WhatIf-/Prüfphase.
@@ -99,6 +104,7 @@ Regelmatrix (Kern)
 - `id: R-WRAP, priority: 1, scope: repo, trigger: multistep_or_artifacts, action: use_python_wrapper, validation: wrapper_policy=erfüllt, exceptions: markdownlint_npx_yes, notes: inline_pwsh_only_oneliner`
 - `id: R-CTX, priority: 1, scope: repo, trigger: before_action, action: load_minimum_context_sources, validation: sources_listed_in_receipt, exceptions: trivial_readonly_smalltalk, notes: include_affected_files`
 - `id: R-LOG, priority: 1, scope: repo, trigger: file_mutation_or_script_run, action: emit_single_postflight_receipt, validation: receipt_has_5_lines, exceptions: readonly_general_mode, notes: receipt_is_last_block`
+- `id: R-DONELOG, priority: 1, scope: repo, trigger: any_file_mutation, action: append_module_donelog_entry_same_change_set, validation: donelog_entry_present_and_scoped, exceptions: none, notes: if_no_module_log_then_root_donelog`
 - `id: R-SEC, priority: 1, scope: repo, trigger: risky_or_destructive_change, action: apply_minimal_diff_and_precheck, validation: whatif_or_equivalent_done, exceptions: none, notes: no_secret_output`
 - `id: R-LINT, priority: 1, scope: docs, trigger: markdown_change, action: run_markdownlint_cli2, validation: exitcode_0, exceptions: none, notes: use_npx_yes_only`
 - `id: R-FM, priority: 1, scope: docs, trigger: markdown_change, action: run_frontmatter_validator, validation: required_keys_present, exceptions: GOV_EX_FM_001, notes: stand_update_checks_required`
@@ -125,6 +131,11 @@ Postflight-Schema (5 Zeilen)
 - Zeile 3 (`Regeln`): `IDs, Details`
 - Zeile 4 (`Todos`): `offen, BeispielFix, ReRun, Fällig`
 - Zeile 5 (`Ende`): `Timestamp`
+
+### Semantik `Todos` (verbindlich)
+- `Todos.offen` im Postflight-Receipt bezeichnet ausschließlich offene Agent-Arbeitsschritte des aktuellen Änderungslaufs.
+- `Todos.offen` ist kein Indikator für den fachlichen Projekt-Backlog-Stand in `todo.root.md`, `novapolis-dev/docs/todo.rp.md` oder anderen TODO-Dateien.
+- Bei Bedarf muss der Projekt-Backlog-Stand getrennt und explizit ausgewiesen werden.
 
 Kompakter Meta-Block (rein lesend)
 ----------------------------------

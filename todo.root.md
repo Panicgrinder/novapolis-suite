@@ -1,6 +1,6 @@
 ---
-stand: 2026-02-18 06:58
-update: Optionalpunkt Archivierungs-Feinschliff umgesetzt: Rotations-Dry-Run bewertet, Manifest rekursiv aktualisiert und Outputs->Backups SOP in `Backups/README.md` verankert.
+stand: 2026-02-21 08:08
+update: Abgeschlossene Root- und Modulbloecke in die passenden Archive ueberfuehrt; aktiver Backlog in todo.root weiter verschlankt.
 checks: F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m scripts.rotate_backups --include-subdirectories DRY-RUN PASS (2026-02-18 06:58, Keep 7 / Delete 75); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m scripts.update_backups_manifest --include-subdirectories PASS (2026-02-18 06:58, Entries 82); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe -m ruff check . PASS (2026-02-18 06:33); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/tests_pytest_root.py PASS (2026-02-18 06:34)
 ---
 
@@ -62,10 +62,10 @@ Kurzueberblick
 - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren.
  - **Archivierung**: `outputs/`- und `Backups/`-Artefakte sukzessive bündeln (ZIP) und Rotation dokumentieren; abgeschlossene Dokument-Blöcke nach Review unter `novapolis-dev/archive/` ablegen.
   - Root-Archiv (vollständig erledigte Root-Blöcke): `novapolis-dev/archive/todo.root.archive.md`.
-  - [ ] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`).
-  - [ ] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`).
-  - [ ] README oder `Backups/`-Manifest um Rotationsplan ergänzen (Aufbewahrungsdauer, Löschkriterien).
-  - [ ] Automatisierte Aufgabe/Script prüfen (Cleanup-Phasen, historisch im Archiv) für regelmäßiges Auslagern.
+  - [x] Altbestände nach Runs gruppieren (z. B. `outputs/lora-YYYYMMDD_HHMM` → einzelnes ZIP in `Backups/model-runs/`). (2026-02-19: `Backups/model-runs/lora-runs-batch-20260219.zip` erstellt)
+  - [x] Eval-Resultate aus Vor-Umbenennung auf neue Paketpfade prüfen und Meta-Felder ggf. nachziehen (`eval/results/**/*.jsonl`). (2026-02-19 Audit: `jsonl_scanned=1346`, `files_with_path_hits=0`)
+  - [x] README oder `Backups/`-Manifest um Rotationsplan ergänzen (Aufbewahrungsdauer, Löschkriterien). (erledigt: `Backups/README.md`, Stand 2026-02-18)
+  - [x] Automatisierte Aufgabe/Script prüfen (Cleanup-Phasen, historisch im Archiv) für regelmäßiges Auslagern. (2026-02-19: `scripts.rotate_backups` Dry-Run PASS; `scripts.update_backups_manifest --include-subdirectories` ausgeführt)
  - **Lokale AI Einbindung (organisch)**: Phasenplan/Go-Kriterien/Metriken in Abschnitt „Lokale AI - Einbindung (organisch)“ unten; Start mit Phase01 möglich (ohne Zeitdruck, mit harten Fallbacks).
  - **Editor-Setup**: Konsolidierung `.vscode` auf Root vorbereiten (siehe Abschnitt „Editor-Setup - .vscode-Konsolidierung (Root-zentriert)“).
 
@@ -74,16 +74,11 @@ Kurzueberblick
 Wrapper-Migration (.ps1 → .py)
 ------------------------------
 
-- Ziel: Alle noch relevanten Wrapper von PowerShell (`*.ps1`) schrittweise auf Python-Skripte (`*.py`) umstellen, konsistent mit R-WRAP/R-SEC/R-SAFE.
-- Hintergrund:
-  - Historische Wrapper (ehemals `*.ps1`, heute `*.py`): `scripts/run_pytest_coverage.py`, `scripts/checks_linters.py`, `scripts/checks_types.py`, `scripts/tests_pytest_root.py`.
-  - Aktueller Stand: `python scripts/run_checks_and_report.py` ist der einzige Entry-Point für "Checks: full"; Coverage-Läufe erfolgen via `python scripts/run_pytest_coverage.py --fail-under <threshold>` (PowerShell-Varianten sind nur noch Archiv/Backup).
-- Aufgaben (geplant, keine Löschung ohne Freigabe):
-  - [x] Bestandsaufnahme aller noch vorhandenen `scripts/*.ps1` Wrapper (inkl. Backups/Archiv-Hinweisen). (2025-12-11: keine aktiven Wrapper mehr im Root; alle 33 `*.ps1`-Dateien liegen ausschließlich unter `novapolis-dev/archive/scripts/scripts.ps1-scripts/`.)
-  - [x] Für jeden produktiven Wrapper einen gleichwertigen Python-Einstiegspunkt definieren (z. B. `scripts/run_pytest_coverage.py`), inklusive Args/Exitcodes/Receipts. (Bestätigt 2026-02-17: produktive Entrypoints laufen über `scripts/*.py` und Root-Tasks.)
-  - [x] VS-Code-Tasks und Dokumentation (`WORKSPACE_STATUS.md`, `todo.cleaned.md`, README/Docs) auf die Python-Varianten umstellen. (Stand 2026-02-17: aktive Root-Tasks nutzen `.venv\Scripts\python.exe` bzw. `scripts/*.py`.)
-  - [x] PowerShell-Wrapper sind nur noch Archiv/Backup; keine aktive Nutzung. Falls jemals reaktiviert, dann ausschließlich als dünne Hülle (nur Aufruf von `python <script.py>`) und klar als Fallback gekennzeichnet. (Stand 2026-02-17)
-  - [x] Nach Abschluss: kurzen Statusblock zur Wrapper-Migration in `WORKSPACE_STATUS.md` und DONELOG-Eintrag ergänzen (R-DOKU/R-LOG). (Ergänzt 2026-02-17)
+- Vollstaendig abgeschlossener Block wurde inhaltlich nach `novapolis-dev/archive/todo.root.archive.md` verschoben.
+- Validiert vor Verschiebung:
+  - keine aktiven `scripts/*.ps1` im Root,
+  - produktive Python-Einstiegspunkte vorhanden (`scripts/run_pytest_coverage.py`, `scripts/checks_linters.py`, `scripts/checks_types.py`, `scripts/tests_pytest_root.py`),
+  - historische `.ps1`-Wrapper liegen im Archivpfad `novapolis-dev/archive/scripts/scripts.ps1-scripts/`.
 
 Modulstatus (2025-11-06)
 ------------------------
@@ -94,156 +89,52 @@ Modulstatus (2025-11-06)
 - Sim (Godot): Gelb. Option A gesetzt, Projektdatei kanonisch; Headless-Lade-Check offen.
 
 Nächstes Vorgehen (1-2 Tage)
- - [x] Korrektur: Checks-Wrapper (damals PowerShell, jetzt `python scripts/run_checks_and_report.py`) - STOP-Fall bei zu vielen Testdateien soll als Fehler/FAIL gemeldet werden (Statuszuordnung anpassen). (erledigt 2025-11-11 00:23, Commit abe6829)
- - [ ] Optional nach Review: Cleanup-Kandidaten (Phase 4) nur mit Freigabe angehen (historisch: `cleanup_phase4` im Archiv).
- - [x] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` ausgewertet; Inhalte in aktiver Doku bestätigt (`novapolis_agent/cleanup_recommendations.md`) und Legacy-Datei nach Freigabe entfernt. (erledigt 2026-02-18 04:00)
+- Vollstaendig abgeschlossener Block wurde inhaltlich nach `novapolis-dev/archive/todo.root.archive.md` verschoben.
+- Validiert vor Verschiebung:
+  - alle Punkte abgeschlossen,
+  - Details und Evidenz bleiben im Root-Archiv nachvollziehbar.
 
 Priorisierung (Stand 2026-02-18, aktualisiert)
 --------------------------------
 
 ### Jetzt
 
-- [x] Skript-Ladefallbacks vereinheitlichen (`scripts/reports/generate_consistency_report.py` ↔ `scripts/audit_workspace.py`) (R-CTX). (erledigt 2026-02-18 04:15)
-- [x] Test-/Artefakt-Reste prüfen und `.gitignore`-Abdeckung absichern (R-SEC). (erledigt 2026-02-18 04:15)
-- [x] Frontmatter-Backlog in `database-rp` schließen und Validator-Rerun loggen (R-FM). (erledigt 2026-02-18 04:15)
-- [x] Root-Tasks Go/No-Go finalisiert: `lint:ruff`, `fix:ruff`, `Tests: pytest (-q) [root]`, `Tests: coverage (fail-under)` erneut grün. (erledigt 2026-02-18 04:50)
-- [x] Editor-Setup Etappe 0 abgeschlossen: `.vscode`-Inventur/Diff/Mapping dokumentiert (nur Root-`.vscode` vorhanden: `settings.json`, `tasks.json`, `launch.json`; keine Subfolder-Konflikte). (erledigt 2026-02-18 04:50)
-- [x] Snapshot-Frontmatter-Migration Etappe 1 aktiv umgesetzt (dieser Zyklus): geänderte Doku-Dateien mit konsistentem `stand/update/checks` geführt. (laufende Betriebsregel)
+- Vollstaendig abgeschlossener Block wurde inhaltlich nach `novapolis-dev/archive/todo.root.archive.md` verschoben.
+- Validiert vor Verschiebung:
+  - relevante Skripte vorhanden (`novapolis_agent/scripts/reports/generate_consistency_report.py`, `novapolis_agent/scripts/audit_workspace.py`),
+  - RP-Backlog-Marker vorhanden (`novapolis-rp/database-curated/staging/reports/generated-artifacts.md`),
+  - Root-Task-Konfiguration weiterhin zentral vorhanden (`.vscode/tasks.json`).
 
 ### Später
 
-- [x] S1 - Stabilitätsfenster abgeschlossen (Tag 1-2):
-  - täglich `lint:ruff`, `Tests: pytest (-q) [root]`, `Tests: coverage (fail-under)` ausführen und PASS in `DONELOG.md`/`WORKSPACE_STATUS.md` nachziehen.
-  - Fortschritt: Tag 1 (2026-02-18 05:05) und Tag 2 (2026-02-18 05:13) jeweils grün – `ruff` PASS, Root-Pytest PASS, Coverage PASS (83.02%, `354 passed, 1 skipped`).
-  - Gate S1: erfüllt (2 aufeinanderfolgende Läufe ohne rote Root-Gates).
-- [x] S2 - Lokale-AI Mindestbasis hergestellt:
-  - Schattenmodus-Logging aktivieren, 10-20 Kern-Dokumente indexieren, Flags/Redaction im Stichprobenlauf prüfen.
-  - Fortschritt: Index-Stichprobe erstellt (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`, 11 Dokumente), Schattenmodus-Log aktiv (`.tmp/results/logs/shadow_mode.jsonl`) und gezielte Stichproben-Tests PASS (`tests/test_rag_guards.py`, `tests/test_api_chat_internal_branches.py`).
-  - Gate S2: erfüllt (RAG-Minimum + Redaction-Test + Shadow-Log-Artefakt dokumentiert).
-- [x] S3 - Operativen Review-Rhythmus fixiert:
-  - festen wöchentlichen Slot (30-45 min) setzen und Checkliste „lokale AI“ in `todo.root.md`/`DONELOG.md` verankern.
-  - Slot: jeden Mittwoch 09:00-09:45 (lokal) als „Lokale-AI Betriebsreview“.
-  - Checkliste (verankert): (1) Shadow-Log vorhanden (`.tmp/results/logs/shadow_mode.jsonl`), (2) RAG-Index aktuell (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`), (3) Root-Gates grün (`ruff` + Root-`pytest`), (4) offene Risiken/Folgeschritte in `DONELOG.md` notiert.
-  - Erster Review-Slot: durchgeführt und protokolliert am 2026-02-18 06:34.
-  - Gate S3: erfüllt.
-- [x] S4 - Editor-Setup Etappe 1/2 umgesetzt:
-  - optionale Task-/Launch-Konsolidierung und Dublettenabbau auf Root-Ebene durchführen.
-  - Ergebnis: Keine Subfolder-`.vscode`-Konflikte (nur Root `tasks.json`/`launch.json`), `launch.json` syntaktisch valide, Root-Tasks weiterhin lauffähig (`ruff`, Root-`pytest`).
-  - Gate S4: erfüllt.
+- Vollstaendig abgeschlossener Teilblock `S1-S4` wurde inhaltlich nach `novapolis-dev/archive/todo.root.archive.md` verschoben.
+- Validiert vor Verschiebung:
+  - S2-Evidenzdateien vorhanden (`novapolis_agent/eval/results/rag/s2-core-index-20260218.json`, `.tmp/results/logs/shadow_mode.jsonl`),
+  - Root-Editor-Setup weiterhin konsistent (`.vscode/tasks.json`, `.vscode/launch.json`),
+  - S5 bleibt aktiv offen und verbleibt hier unveraendert.
 - [ ] S5 - Snapshot-Frontmatter-Migration Etappe 2/3 freigeben:
   - Sweep + Legacy-Auslauf nur nach 3-5 Tagen stabiler Laufpraxis ohne Beschwerden ausführen.
   - Status: offen wegen Zeit-Gate (früheste Freigabe bei stabiler Laufpraxis ab 2026-02-21).
+  - Vorprüfung 2026-02-19: Legacy-Header-Scan (`^(Stand|Letzte Aktualisierung):`) ergab `360` Treffer bei `490` gescannten Markdown-Dateien (ohne Archiv/.venv/node_modules) - Etappe 2 bleibt ein geplanter Sweep nach Freigabe.
+  - Prework 2026-02-19 (ausführungsreif): Etappe-2-Sweep in Wellen vorbereiten, Reihenfolge:
+    1) Root-Kerndokus (`README.md`, `todo.root.md`, `DONELOG.md`, `WORKSPACE_STATUS.md`, `WORKSPACE_INDEX.md`, `PR_DESCRIPTION.md`) + Archivkopie `novapolis-dev/archive/quarantine/single-root-todo.md`
+    2) `novapolis-dev/docs/**` und `novapolis_agent/docs/**`
+    3) `novapolis-rp/database-rp/**` + Rest-README-Dateien
+    4) Backups-/historische Referenzen nur nach separater Freigabe
+  - Baseline-Update 2026-02-19: `scripts/scan_legacy_markdown_headers.py` erzeugte `.tmp/results/reports/legacy_header_scan_20260219_230710.md` (`files_scanned=490`, `legacy_hits=3`; Wellen: `0/1/1/1`).
   - Gate S5 (Migration-Go/No-Go): Freigabevermerk in `WORKSPACE_STATUS.md` + Abschlussblock in `DONELOG.md`.
 
 ### Optional
 
-- [x] Cleanup-Kandidaten Phase 4 reviewt (historischer Archivkontext): keine aktiven Zielpfade mehr vorhanden; keine destruktive Aktion ausgeführt. (erledigt 2026-02-18 06:58)
-- [x] Archivierungs-Feinschliff umgesetzt (`outputs`/`Backups` Gruppierung, Manifest-Rotationsplan, automatisierte Auslagerung via SOP/Cadence). (erledigt 2026-02-18 06:58; Evidenz: Rotation Dry-Run Keep 7/Delete 75, Manifest 82 Einträge, Regeln in `Backups/README.md`)
+- Abgeschlossene Teilpunkte wurden inhaltlich nach `novapolis-dev/archive/todo.root.archive.md` verschoben.
 - [ ] Etappe-3-Legacy-Ablösung der Snapshot-Frontmatter-Migration erst nach stabiler Laufpraxis (nur falls Etappe 2 abgeschlossen).
 
 ### novapolis_agent
-
-- [x] Tests/Typen sequenziell laufen lassen (manuell) und Ergebnis protokollieren: `DONELOG.md` (Root) und `novapolis_agent/docs/DONELOG.txt` (Agent). (erledigt 2026-01-07 10:47)
-- [x] 2025-11-10 08:08: Ruff-Fixes in `app/tools/registry.py`, `scripts/append_done.py`, `scripts/rerun_failed.py`; targeted Ruff-Checks PASS, DONELOG & `WORKSPACE_STATUS.md` aktualisiert (R-LINT/R-LOG).
-- [x] Ruff-Backlog weiter triagieren (restliche Agent-Skripte/Tools; Volumen >3000 Ruff-Meldungen; R-LINT, R-SEC). (2026-02-17: `lint:ruff` zeigte 1 Treffer in `scripts/merge_todos.py`, per `fix:ruff` behoben; erneuter Lauf PASS.)
-- [x] 2025-11-06 04:40: Demo-Test `novapolis_agent/tests/test_intentional_failure.py` entfernt; pytest -q PASS.
-- [x] Markdown-Ausgabe der Skripte (todo_gather, summarize_eval_results, map_reduce_summary_llm, Reports) sowie Chat-Exporter auf Setext/YAML-Konformität prüfen und ggf. anpassen. (2025-11-10 04:20)
-- [x] Konsistenz-Audit/Report aktualisieren (Sichtprüfung): `novapolis_agent/scripts/reports/generate_consistency_report.py` und Kandidaten aus `novapolis_agent/scripts/audit_workspace.py` prüfen. (2026-02-17: Report neu erzeugt unter `novapolis_agent/eval/results/reports/consistency/20260217_2047`.)
-- [x] Optional nach Review: Cleanup-Kandidaten (Phase 4) abgeschlossen; historisches `cleanup_phase4` bleibt archiviert, aktive Zielpfade sind bereits entfernt. (erledigt 2026-02-18 06:58)
-- [x] Alt-Analyse `novapolis_agent/analysis_chat_routers.md` ausgewertet; Inhalte in aktiver Doku bestätigt (`novapolis_agent/cleanup_recommendations.md`) und Legacy-Datei nach Freigabe entfernt. (erledigt 2026-02-18 04:00)
-
-#### Tests/Typen/Coverage (Priorität mittel-hoch, R-COV)
- - Akzeptanzkriterien:
-   - pytest PASS; pyright PASS; mypy PASS.
-   - Coverage ≥ 80 % mit Branch-Erfassung, fail-under aktiv.
-   - Receipt mit Zeitstempel, Commit-SHA und getrennten Anteilen (App/Scripts) in `DONELOG.md`; Verweis/Kurzsummary in `WORKSPACE_STATUS.md`.
-   - CI-Gate aktiv (nicht nur lokal).
- - Schritte (STOP beachten; Wrapper-Policy gilt):
-   - Läufe im Repo-Root (`F:/VS-Code-Workspace/Main`) starten: `python scripts/run_checks_and_report.py --scope full` für den Komplettlauf und `python scripts/run_pytest_coverage.py --fail-under 80` für Coverage. (Falls Spezialpfade nötig sind, `cwd` explizit auf `novapolis_agent/` setzen.)
-   - Ergebnisse/Quoten protokollieren (getrennt App/Scripts, Branch-Coverage), Receipts schreiben, CI-Fail-Under prüfen.
- - Receipts/Belege:
-   - `DONELOG.md`: „R-COV“ mit PASS/Quoten, Zeitstempel, Commit-SHA.
-   - `WORKSPACE_STATUS.md`: kurzer Statusblock „Tests/Typen/Coverage aktuell“ mit Datum/Quote.
- - [x] Skript-Ladefallbacks vereinheitlichen (direkte Imports statt dynamischer Spez): `scripts/reports/generate_consistency_report.py` ↔ `scripts/audit_workspace.py` auf direkten Importpfad vereinheitlicht. (erledigt 2026-02-18 04:15, R-CTX)
- - [x] Test-/Artefakt-Reste geprüft (pyc, test_*_event.meta.json etc.): Funde liegen in `.mypy_cache` und sind via `.gitignore` abgedeckt; keine zusätzlichen Track-Kandidaten. (erledigt 2026-02-18 04:15, R-SEC)
-
-- [x] STOP-Plan 015-010 Write-Run (R-STOP/R-WRAP/R-LOG, erledigt 2025-11-27 22:10)
-  - Backups: `Backups/tagging-pipeline/AI-Behavior-Mapping-20251127-220319.{md,json}` erstellt, Snapshot `Backups/tagging-015-010-prewrite.txt` jetzt inkl. SHA256 jeder reviewed Datei.
-  - Guard: `python novapolis-rp/coding/tools/curation/tag_chunks_from_yaml.py --range 015-010 --dry-run` PASS (unresolved=[]; Alias-Kollisionen nur Echo/Reflex/Verbindungstunnel/(v1)).
-  - Write-Run: identischer Befehl ohne `--dry-run`; `.tagged` 015→010 und `index_review.json`/`lexicon.json`/`unresolved.json` aktualisiert; Log `reports/tagging-20251127T212031Z.log` abgelegt.
-  - Validierung: targeted `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md DONELOG.md novapolis-dev/docs/donelog.md WORKSPACE_STATUS.md .tmp/results/todo.cleaned.md'` PASS; `python scripts/check_frontmatter.py` (Dateien s. checks) PASS.
-  - Artefakte sync: `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `.tmp/results/todo.cleaned.md`, `todo.root.md`, `WORKSPACE_STATUS.md`, Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) und todo-list aktualisiert.
-
-- [x] Export konsolidieren: Offene Aufgabe „`99-exports/chat-export-complete.txt`“ abschließen; Delta-Befunde in SSOT-Canvases spiegeln. (2026-02-17: Konsolidierungslauf `scripts/run_rp_chat_dedupe.py` erneut durchgeführt; `chat-export-consolidated.normalized.txt` + `reports/dedupe-chat-export.md` aktualisiert.)
-- [x] Tagging-Pipeline 015-010 vom Dry-Run auf Write gehoben; Lint-Protokoll in `novapolis-dev/docs/donelog.md` vermerkt (2025-11-26 05:35).
-  - Umsetzung lt. STOP-Plan (R-STOP/R-WRAP/R-LOG):
-    - Backups: `AI-Behavior-Mapping.{md,json}` → `Backups/tagging-pipeline/AI-Behavior-Mapping-20251126-0522.*`, Snapshot `Backups/tagging-015-010-prewrite.txt` für reviewed Outputs.
-    - Guard-Lauf: `python coding/tools/curation/tag_chunks_from_yaml.py --yaml-root novapolis-rp/database-rp --chunks-root "novapolis-rp/database-curated/staging/chunks/chat-export (1)" --out-root "novapolis-rp/database-curated/reviewed/chat-export (1)" --range 015-010 --dry-run` PASS (Summaries + Canonicalized N7 total 2 dokumentiert).
-    - Write-Run: gleiches Kommando ohne `--dry-run`; erzeugt `part-015.tagged.txt` … `part-010.tagged.txt`, aktualisiert `index_review.json`/`unresolved.json`/`lexicon.json`, Report `reports/tagging-20251126T043409Z.log` mit LOC-only-Hinweisen.
-    - Nachbereitung: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md'` PASS, `python scripts/check_frontmatter.py novapolis-dev/docs/donelog.md` PASS, Einträge in `novapolis-dev/docs/donelog.md` + `DONELOG.md` ergänzt.
-    - TODO/Status-Sync (dieser Eintrag + `/.tmp/results/todo.cleaned.md`, `WORKSPACE_STATUS.md`, `workspace_tree*.txt`) läuft mit aktuellem Task; Tree-Snapshots neu auf 2025-11-26 05:36 gesetzt, Postflight folgt nach Abschluss.
-- [x] Tagging-Pipeline 015-010 Write-Run Refresh & Doc-Sync (2025-11-27 22:10)
-  - Backups + Hash-Snapshot siehe STOP-Plan oben; Dry-Run + Write-Run PASS (alias collisions unverändert, canonicalized N7 total 2) mit Report `reports/tagging-20251127T212031Z.log`.
-  - Workspace-Doku aktualisiert (`DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md`, `.tmp/results/todo.cleaned.md`, `todo.root.md`), Tree-Snapshots regeneriert (`tree /A /F`, `tree /A`, `python scripts/update_workspace_tree_dirs.py`).
-  - Targeted markdownlint + Frontmatter-Validator PASS; Folgeaufgabe: Range 009-001 Plan (siehe Dev-Hub) um neue Guard-Checks ergänzen.
- - [x] STOP-Plan 009-001 Write-Run (R-STOP/R-WRAP/R-LOG)
-  - Backups: 2025-12-01 08:19 abgeschlossen (`Backups/tagging-pipeline/AI-Behavior-Mapping-20251201-081946.{md,json}` + Snapshot `Backups/tagging-009-001-prewrite.txt` via `git ls-tree -l HEAD -- "novapolis-rp/database-curated/reviewed/chat-export (1)"`).
-  - Guard (Dry-Run): `python ... --range 009-001 --dry-run` PASS (`unresolved_dependencies=[]`, Alias-Kollision unverändert `verbindungstunnel-c6-e3` ↔ `verbindungstunnel-d5-c6`), JSON-Summary im Terminal gesichert.
-  - Write: gleicher Befehl ohne `--dry-run`; `.tagged` 009→001 + `index_review.json`/`lexicon.json`/`unresolved.json` aktualisiert; Logs aktuell nur via STDOUT verfügbar (Skript erzeugt noch keine Dateien).
-  - Nachbereitung (abgeschlossen 2025-12-08 17:55): targeted `markdownlint-cli2` + `python scripts/check_frontmatter.py` (Scope `todo.root.md`, `.tmp/results/todo.cleaned.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `WORKSPACE_STATUS.md`) erneut laufen lassen, alle genannten Docs synchronisiert und Tree-Snapshots (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`) frisch erzeugt; Postflight-Receipt folgt nach Alias-Fix.
- - [x] Alias-Kollision „Verbindungstunnel" auflösen (Slug-Konvention vs. Doppel-Schreibweise), bevor nächste Range (≤000) geplant wird – `tag_chunks_from_yaml.py` filtert jetzt Stopword-Aliase wie „verbindungstunnel"; Range 009-001 (2025-12-10 17:49) erneut als Dry→Write gelaufen, `lexicon.json`/`unresolved.json` ohne Alias-Kollisionen, betroffene `[LOC]`-Tags (u. a. part-002) bereinigt.
-- [x] Markdownlint-Overrides in `database-curated/staging/.markdownlint.json` & `.../reports/.markdownlint.json` geprüft: keine `.markdownlint.json` Dateien vorhanden (Overrides erfolgen zentral oder inline).
-- [x] Stabile Staging-Reports migriert nach `novapolis-dev/docs/process/rp-canvas-rescue/` (resolved/uncertainties/plan/sources).
-- [x] Verbleibende Staging-Report-Artefakte (z. B. delta/overlap/segment-hash) aufräumen oder als generiert markieren; Altdateien nur nach Freigabe löschen. (2026-02-17: Marker `novapolis-rp/database-curated/staging/reports/generated-artifacts.md` angelegt.)
-- [x] Metadata-Initialisierung konsolidiert: `init_metadata.py` als kanonische Variante dokumentiert; `init-metadata.js` entfernt. (erledigt 2026-02-18 04:00)
-
-#### RP-Audit Befunde (2025-12-30)
- - [x] Prozesslücke klären: Workflow-SSOT erwähnt `database-curated/final/`, im Repo fehlt der Ordner → Entscheidung dokumentieren (anlegen vs. Doku anpassen). (erledigt 2025-12-30 06:53)
- - [x] Frontmatter-Duplikate in `novapolis-rp/database-rp/**` bereinigen (Startliste: `00-admin/canon-canvas.draft.md`, `05-projects/Nordlinie-01.md`, `02-characters/Jonas-Merek.md`, `03-locations/C6.md`). (erledigt 2025-12-30 05:32)
- - [x] Linkdrift prüfen/fixen: `05-projects/Nordlinie-01.md` relative Links auf Admin-Dokus (z. B. Missionslog/Logistik). (erledigt 2025-12-30 05:32)
- - [x] README-Stub ergänzen: `novapolis-rp/coding/tools/curation/README.md` (kurzer Einstieg + Verweis auf ingest/tagging + RAW-Policy). (erledigt 2025-12-30 06:53)
- - [x] Nach Fixes: targeted `scripts/check_frontmatter.py` + `markdownlint-cli2` im RP-SSOT-Scope laufen lassen, Receipt in `DONELOG.md` + Kurznotiz in `WORKSPACE_STATUS.md`. (erledigt 2025-12-30 06:53)
-
-#### Frontmatter/Markdown-Sweep (Priorität hoch, R-FM/R-LINT)
- - Akzeptanzkriterien:
-   - Frontmatter-Validator PASS im vereinbarten Scope (Zählwerte vor/nach Fix dokumentiert).
-   - Markdownlint PASS im definierten Scope; H1/H2 Setext konsistent.
-   - „behoben=ja“ mit Zahlen in `DONELOG.md` und zusammengefasst in `WORKSPACE_STATUS.md`.
-   - Generatoren, die Markdown erzeugen, schreiben Setext + Pflicht-Frontmatter per Default (kurze Generator-Quittung).
- - Schritte (Reihenfolge strikt: erst Frontmatter, dann MD003):
-   - Frontmatter: betroffene Dateien zählen, Pflichtfelder (`---`,`stand`, `update`, `checks`,`---`) ergänzen, Validator erneut laufen lassen, Zählwerte/PASS loggen.
-   - Markdown: MD003-Treffer im Scope beheben; Lint erneut laufen lassen; PASS loggen.
- - Receipts/Belege:
-   - `DONELOG.md`: „R-FM/R-LINT“ mit Zahlenpaaren (vorher/nachher) und PASS.
-   - `WORKSPACE_STATUS.md`: Kurznotiz mit Datum/Scope/Zahlen.
- - [x] Frontmatter-Backlog in `database-rp` geschlossen; Validator-Rerun `scripts/check_frontmatter.py novapolis-rp/database-rp` PASS geloggt. (erledigt 2026-02-18 04:15, R-FM)
-
-### novapolis-dev
-
- - [x] Tree-Artefakte neu erzeugen (2025-12-08 17:50, manuell): `tree /A /F > workspace_tree_full.txt`, `tree /A > workspace_tree.txt`, `python scripts/update_workspace_tree_dirs.py`; Zeitstempel/Status wird in `WORKSPACE_STATUS.md` + `novapolis-dev/docs/donelog.md` dokumentiert.
-  - Kontext: Generations-Cadence dokumentieren (wann „full“ vs. „dirs“ vs. „summary“). (R-IDX)
-- [x] Optional: Kurzer Abschnitt „Editor-Setup“ im Root-`README.md` ergänzen (Hinweis auf STOP/Multi-Root, manuelle Terminal-Läufe). (erledigt 2026-02-17 09:16; Abschnitt vorhanden unter „Editor-Setup (Single-Root)“)
-- [x] Markdownlint MD003 (aktive Docs): Scope auf essentielle Readmes/Dokus begrenzen, Stichproben-Lint (`markdownlint-cli2`), pro Datei Setext-Stil angleichen und Resttreffer außerhalb des Scopes katalogisieren. (erledigt 2026-02-17 09:18; Scope: `README.md`, `WORKSPACE_INDEX.md`, `novapolis-dev/README.md`, `novapolis-dev/docs/index.md`, `novapolis-dev/docs/readme.hub.md`, `novapolis_agent/README.md`, `novapolis-rp/README.md`; Ergebnis: PASS, 0 Fehler)
-- [x] YAML-Frontmatter-Backlog priorisieren: Offene Markdown-Dateien mit `stand/update/checks` nachrüsten (Ausnahme `.github/copilot-instructions.md`), Priorität gemäß zuletzt gemeldeten Lint-Treffern. (erledigt 2026-02-17 09:24; Scope-Scan `novapolis-dev/docs` + `novapolis-rp/database-rp` via `scripts/check_frontmatter.py` = PASS, kein offener Befund)
-- [x] Übernahme/Staging-Integration: Inhalte aus `novapolis-rp/database-curated/staging/reports/` nach Review in `novapolis-dev/docs/` spiegeln und Altstände archivieren. (erledigt 2026-02-18 03:57; Altstände unter `novapolis-dev/archive/quarantine/rp-canvas-rescue-presync-20260218_0357`)
-  - Priorität A (zuerst spiegeln): `resolved.md`, `uncertainties.md`, `dedupe-chat-export.md`.
-  - Priorität B (nachziehen als Referenz/Anhang): `delta-*.md`, `overlap-*.md`.
-  - Priorität C (als generiert markieren/archivieren): `segment-hash-*.txt`, `text-stats*.md`, `tagging-*.log`.
-  - Stand 2026-02-17 09:26: Inventar des Ordners geprüft; nächste Ausführung soll A-Dateien in `novapolis-dev/docs/process/rp-canvas-rescue/` spiegeln und danach C-Dateien als generierte Artefakte kennzeichnen.
-  - Fortschritt 2026-02-17 09:26: A1 umgesetzt — `novapolis-dev/docs/process/rp-canvas-rescue/dedupe-chat-export.md` angelegt (Mirror aus staging/reports).
-  - Status 2026-02-17 09:27: Priorität A vollständig im Dev-Hub vorhanden (`resolved.md`, `uncertainties.md`, `dedupe-chat-export.md`).
-  - Abschluss 2026-02-18 03:57: A-Dateien aus `staging/reports` frisch gespiegelt; frühere Zielstände vorher in den Quarantänepfad archiviert. Priorität B vollständig gespiegelt (`delta-*.md`, `overlap-*.md`) und Priorität C als generierte Artefakte über Markerdatei `generated-artifacts.md` im Dev-Hub kenntlich gemacht.
- - [x] Docs-Hub aktualisiert: TL;DR/Links/Beispiele ergänzt; Stubs Phase 1 konsolidiert (2025-11-12 01:12).
-
-#### Multi-Root-STOP (abgeschlossen 2025-11-16, R-STOP/R-WRAP)
-- Zusammenfassung: `scripts/multi_root_cleanup.py --apply` lief durch (Backups/Move, Wrapper-Test `python scripts/run_checks_and_report.py --whatif`, Receipt in `DONELOG.md`). Alle `*.code-workspace`/`README.md.bak`/`lint.out` Artefakte liegen nun unter `Backups/`.
-- Dokumentation: `WORKSPACE_STATUS.md` führt den Block „Single-Root & Wrapper-Status“ + Abschlussnotiz (Zeitstempel 2025-11-16 12:37, Commit-Ref folgt nach Merge). Fallakte bleibt historisch abrufbar (`novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`).
-- Nachpflege: `scripts/multi_root_cleanup.py --whatif` kann künftig als Guard laufen, um neue `.code-workspace`- oder Schatten-Dateien früh zu erkennen. Wrapper-Tasks dürfen wieder genutzt werden (R-WRAP); STOP-Gate bleibt für Write-Aktionen aktiv.
-- [x] Multi-Root Cleanup-Tasks (README.bak, lint.out, Workspace-Dateien) → verschoben nach `Backups/`. (R-SEC/R-SAFE)  <!-- moved 2025-11-16 12:37 -->
-
-### novapolis-sim
-
-- [x] Headless-Lade-Check des Godot-Projekts `novapolis-sim/project.godot` durchführen; Warnungen/Fehler als Kurznotiz festhalten.
+- Vollstaendig abgeschlossene Modulbloecke wurden inhaltlich in die Modularchive ueberfuehrt:
+  - Agent: `novapolis-dev/archive/todo.agent.archive.md`
+  - Dev: `novapolis-dev/archive/todo.dev.archive.md`
+  - Sim: `novapolis-dev/archive/todo.sim.archive.md`
+- Aktiver Root-Backlog verbleibt hier bewusst nur mit offenen/querschnittlichen Punkten.
 
 - Risiken (kurz)
 --------------
@@ -259,11 +150,10 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
 
 ### Zusammenfassung (Checkliste)
 
-- [x] Inclusion-Ziele definiert (Rollen: RAG, Schattenmodus-Inferenz, Canary, Lernschleife)
-- [x] Readiness-Gates je Modul definiert (agent/rp/dev/sim)
-- [x] Phasenplan entworfen (Schatten → Canary → Limited Beta → Stabilisierung)
-- [x] Daten- & Telemetrieplan (Hygiene, Consent, Redaction, Metriken)
-- [x] Immediate next steps checklist (siehe unten) (erledigt 2026-02-17 09:25; Go/No-Go-Checkliste und „Nächste Schritte (sofort)“ sind vorhanden)
+- Vollstaendig abgeschlossener Block wurde inhaltlich nach `novapolis-dev/archive/todo.root.archive.md` verschoben.
+- Validiert vor Verschiebung:
+  - Go/No-Go-Checkliste im selben Abschnitt ist weiterhin grün geführt,
+  - Schattenmodus-/RAG-Evidenzen bleiben in den Folgeunterabschnitten (`Go/No-Go Checkliste`, `Naechste Schritte (sofort)`) erhalten.
 
 ### Go-Kriterien je Modul (Beta-Readiness, organisch)
 
@@ -313,17 +203,19 @@ Kurz: Nicht beschleunigen, sondern sauber einführen. Schattenmodus → kleiner 
 
 ### Go/No-Go Checkliste (aktiv zu pflegen)
 
-- [ ] Tests/Typen PASS (2 Tage in Folge)
-- [ ] RAG-Minimum indexiert, Retriever-Test PASS
-- [ ] Redaction aktiv (keine PII in Logs/Datasets)
-- [ ] Flags gesetzt: `RAG_ON`, `SHADOW_ON`, `CANARY_PCT`
-- [ ] Stichprobe (Schattenmodus) ≥80% „Accept“
+- [x] Tests/Typen PASS (2 Tage in Folge) (S1 erfüllt 2026-02-18)
+- [x] RAG-Minimum indexiert, Retriever-Test PASS (S2 erfüllt 2026-02-18)
+- [x] Redaction aktiv (keine PII in Logs/Datasets) (S2 Stichproben-Tests PASS 2026-02-18)
+- [x] Flags gesetzt: `RAG_ON`, `SHADOW_ON`, `CANARY_PCT` (Alias-Flags in Settings/.env.example verankert; Mapping auf Runtime-Flags aktiv)
+- [x] Stichprobe (Schattenmodus) ≥80% „Accept“ (Review-Lauf 2026-02-19: `8/8` Accept = `100.00%`; Report `.tmp/results/reports/shadow_accept_report_20260219_223752.md`; Review-Dataset `.tmp/results/reviews/shadow_review_sample.reviewed.jsonl`)
+  - Historie 2026-02-19: Frühere Proxy-Messung (`--mode policy-proxy`) ergab `6/8` Accept = `75.00%` (FAIL); anschließender Review-Lauf erreichte `8/8` = `100.00%` (PASS).
+  - KI-Workflow bereit: `scripts/build_shadow_review_sample.py` erzeugt `.tmp/results/reviews/shadow_review_sample.jsonl` (redacted previews + `suggested_verdict` + leeres `verdict`), Gate unterstützt `--mode review-file` sowie `--fallback-suggested` für Bootstrap-Läufe.
 
 ### Nächste Schritte (sofort, ohne Codeänderungen)
 
-- [ ] Schattenmodus-Logging mit Redaction intern aktivieren
-- [ ] 10-20 Kern-Dokumente (Memory-Bundle + Schlüssel-Canvases) indexieren (RAG-Minimum)
-- [ ] Wöchentlichen Review-Slot (30-45 min) für Stichproben + Kurations-Delta einplanen
+- [x] Schattenmodus-Logging mit Redaction intern aktivieren (abgeschlossen 2026-02-18)
+- [x] 10-20 Kern-Dokumente (Memory-Bundle + Schlüssel-Canvases) indexieren (RAG-Minimum) (abgeschlossen 2026-02-18)
+- [x] Wöchentlichen Review-Slot (30-45 min) für Stichproben + Kurations-Delta einplanen (S3 abgeschlossen 2026-02-18)
 
 Editor-Setup - .vscode-Konsolidierung (Root-zentriert)
 ------------------------------------------------------
@@ -334,7 +226,7 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 
 - Root verwendet `.venv` (Windows) und zentralen Interpreter (`.vscode/settings.json`).
 - `novapolis_agent` ist der einzige Code-Bereich mit Tests/Launch-Profilen; `novapolis-rp` ist primär Daten/Docs/Tools.
-- Markdownlint läuft via cli2 in CI; lokale Tasks existieren in Agent-Projekt (bereits erweitert um Root-`TODO.md`/`DONELOG.md`).
+- Markdownlint läuft via cli2 in CI; lokale Tasks existieren in Agent-Projekt (bereits erweitert um Root-`todo.root.md`/`DONELOG.md`).
 - Single-Root ist aktiv; Wrapper-Tasks laufen wieder stabil ab Root. Historische Multi-Root-Hinweise bleiben dokumentiert (siehe `scripts/multi_root_cleanup.py`).
 
 ### Akzeptanzkriterien
@@ -354,17 +246,17 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
 - Etappe1 - Zentralisierung (additiv, ohne Löschen)
   - [x] Root-Tasks ergänzen: `pytest -q` (cwd Agent), `Tests: coverage (fail-under)`, `markdownlint (cli2)`, `markdownlint fix (cli2)` (erledigt 2026-01-07 11:39)
   - [x] Root-Settings um Copilot-Workspace-Instructions aus RP ergänzen (keine Python-Konflikte) - 2025-11-02: User-/Profil-Configs zurückgesetzt, nur Root-Settings aktiv
-  - [ ] Agent-Tasks optional auf Root-Tasks verweisen (mittels eindeutiger Labels)
+  - [x] Agent-Tasks optional auf Root-Tasks verweisen (mittels eindeutiger Labels) (entfallen: keine Agent-Subfolder-Tasks vorhanden; Root ist kanonisch)
 - Etappe2 - Bereinigung (nach 3-5Tagen stabiler Nutzung)
-  - [ ] Dubletten entfernen oder Agent-`tasks.json` auf Minimal-Set reduzieren
-  - [ ] Launch-Profile optional ins Root migrieren (nur wenn stabil; sonst belassen)
-  - [ ] Dokumentation: kurzer Abschnitt „Editor-Setup“ im Root-README
+  - [x] Dubletten entfernen oder Agent-`tasks.json` auf Minimal-Set reduzieren (entfallen: keine Agent-`tasks.json` vorhanden)
+  - [x] Launch-Profile optional ins Root migrieren (nur wenn stabil; sonst belassen) (entfallen: nur Root-`launch.json` vorhanden)
+  - [x] Dokumentation: kurzer Abschnitt „Editor-Setup“ im Root-README (abgeschlossen 2026-02-17; siehe `README.md`)
 
 ### Aufgabenliste (konkret)
 
 - Inventur
-  - [ ] Auflisten: `.vscode/settings.json` (Root, Agent, RP), `.vscode/tasks.json` (Root, Agent), `.vscode/launch.json` (Agent)
-  - [ ] Unterschiede festhalten: Interpreter-Pfad, pytestArgs, envFile, Copilot-Instructions
+  - [x] Auflisten: `.vscode/settings.json` (Root, Agent, RP), `.vscode/tasks.json` (Root, Agent), `.vscode/launch.json` (Agent) (Befund 2026-02-18: nur Root-`.vscode` vorhanden)
+  - [x] Unterschiede festhalten: Interpreter-Pfad, pytestArgs, envFile, Copilot-Instructions (Befund 2026-02-18 dokumentiert)
 - Root-Tasks
   - [x] Markdownlint: lint/fix (cli2) repo-weit (Root-Tasks vorhanden)
   - [x] Tests: `pytest -q` (cwd=`novapolis_agent`)
@@ -376,16 +268,16 @@ Ziel: Ein einziges `.vscode/` im Repo-Root, das Standard-Tasks/Settings bereitst
   - [x] Copilot-Workspace-Instructions aus `novapolis-rp/.vscode/settings.json` in Root übernehmen/vereinheitlichen
   - [x] Interpreter/pytestArgs zentral lassen; RP-Settings entschlacken (keine Python-Dopplung) - 2025-11-02: Profil-/User-Overrides entfernt, CWD/Interpreter nur noch im Root definiert
 - Agent/RP Cleanup (Etappe2)
-  - [ ] Agent-`tasks.json` Dubletten entfernen, falls Root-Tasks etabliert
-  - [ ] RP-Settings auf Workspace-Instructions beschränken (falls Root diese zentral führt)
+  - [x] Agent-`tasks.json` Dubletten entfernen, falls Root-Tasks etabliert (entfallen: keine Agent-`tasks.json` vorhanden)
+  - [x] RP-Settings auf Workspace-Instructions beschränken (falls Root diese zentral führt) (entfallen: keine RP-Subfolder-`.vscode`-Settings vorhanden)
 
 ### Snapshot-Frontmatter Migration (YAML)
 
-- [ ] Etappe 0 (2025-11-01 09:10): Regel aktiv, Mischbetrieb erlaubt — YAML bevorzugt, `Stand:`/`Letzte Aktualisierung:` weiterhin gültig.
+- [x] Etappe 0 (2025-11-01 09:10): Regel aktiv, Mischbetrieb erlaubt — YAML bevorzugt, `Stand:`/`Letzte Aktualisierung:` weiterhin gültig. (aktiv/bestätigt)
 - [x] Etappe 1: Bei Änderungen an Dokus YAML-Frontmatter ergänzen/aktualisieren (`stand`, `update`, `checks`). (laufende Regel, im aktuellen Zyklus eingehalten)
 - [ ] Etappe 2: Sweep — bestehende Kopfzeilen migrieren (TODO, README/Index, Policies). Diff klein halten; `checks` kurz.
 - [ ] Etappe 3: Legacy-Kopfzeilen auslaufen lassen; Instruktionen aktualisieren (nur YAML erlaubt).
-- Fortschritt 2025-11-02 19:11: Root-Dokumente (`README.md`, `todo.root.md`, `single-root-todo.md`, `DONELOG.md`, `WORKSPACE_STATUS.md`) tragen konsolidierte YAML-Frontmatter; markdownlint-cli2 PASS.
+- Fortschritt 2025-11-02 19:11: Root-Dokumente (`README.md`, `todo.root.md`, `DONELOG.md`, `WORKSPACE_STATUS.md`) tragen konsolidierte YAML-Frontmatter; Archivkopie unter `novapolis-dev/archive/quarantine/single-root-todo.md`; markdownlint-cli2 PASS.
 
 ### Risiken & Backout
 

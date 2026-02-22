@@ -1,5 +1,5 @@
 ---
-stand: 2025-11-16 06:52
+stand: 2026-02-20 16:42
 update: Markdownlint geprüft; Inhalte unverändert
 checks: markdownlint-cli2 (single file) PASS
 ---
@@ -54,7 +54,7 @@ Testprotokolle
 Abstimmung & Folgearbeiten
 --------------------------
 
-- Intro-Text aus finalen Inhalten auswählen und im Dev-Board `novapolis-dev/docs/todo.dev.md` als Aufgabe notieren (z. B. unter "Visualisierung"), bevor Umsetzung startet.
+- Intro-Text aus finalen Inhalten auswählen und im Dev-Board `novapolis-dev/docs/todo.dev.md` als Aufgabe notieren (z. B. unter "Visualisierung"), bevor Umsetzung startet.
 - Keine Änderungen an API-Endpunkten notwendig; bestehende Polling-Logik wird nur um UI-Ausgaben ergänzt.
 - Manuelle Tests künftig in `novapolis-dev/docs/donelog.md` dokumentieren (Datum, Kurzresultat).
 

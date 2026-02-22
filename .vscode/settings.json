@@ -32,6 +32,6 @@
     "args": ["-NoProfile"]
   },
   "terminal.integrated.shellIntegration.enabled": true,
-  "godotTools.editorPath.godot4": "${workspaceFolder}/novapolis-sim/Godot_v4.5.1-stable_win64.exe",
-  "python-envs.defaultEnvManager": "ms-python.python:system"
+  "godotTools.editorPath.godot4": "${workspaceFolder}/novapolis-sim/.godot/Godot_v4.5.1-stable_win64.exe/Godot_v4.5.1-stable_win64.exe",
+  "python-envs.defaultEnvManager": "ms-python.python:venv"
 }

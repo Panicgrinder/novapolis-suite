@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-11 05:25
-update: Sim-State-Schema verlinkt.
-checks: "not run (not requested)"
+stand: 2026-02-22 04:16
+update: T0-Operativreferenzen (Metrokarte, Stationskontroll-Matrix, Warenueberblick) als globale Admin-Anker ergänzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 02:26); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/index-rules.md' 'novapolis-rp/database-rp/00-admin/Current-State.md' 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-rp/database-rp/00-admin/Metrograph.md' 'novapolis-rp/database-rp/00-admin/Ortsgraph.md' 'novapolis-rp/database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md' 'novapolis-rp/database-rp/00-admin/Kernkonversationen.md' 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' 'novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 02:27)
 slug: index-rules
 category: Admin
 schemaVersion: 1
@@ -9,7 +9,7 @@ language: de
 status: active
 owners: [admin-novapolis]
 tags: [rp, rules, index]
-relatedSlugs: [reference-campaign-state, process-workflow, sim-state-schema]
+relatedSlugs: [reference-campaign-state, process-workflow, sim-state-schema, tags-taxonomie, metrokarte-t0, stationskontroll-matrix, warenueberblick-t0]
 ---
 
 Index: Regeln, Policies und FSM
@@ -23,11 +23,19 @@ Quelldatei (Aggregator)
 - reference: `process-workflow` → ./Process-Workflow.md
 - reference: `sim-state-schema` → ./Sim-State-Schema.md
 - reference: `tick-regeln-simulation` → ./Tick-Regeln-Simulation.md
+- reference: `tags-taxonomie` → ./Tags-Taxonomie.md
+- reference: `metrokarte-t0` → ./Metrokarte-T0.md
+- reference: `stationskontroll-matrix` → ./Stationskontroll-Matrix.md
+- reference: `warenueberblick-t0` → ./Warenueberblick-T0.md
 
 Abschnitts-IDs (interne Anker für KI)
 -------------------------------------
 - process-workflow → Prozess/Workflow (Curation, Validation, Export, Simulation)
 - sim-state-schema → Sim-State Schema (maschinenlesbar, RP-World-State)
+- tags-taxonomie → zentrale gültige Tag-Liste und Startersets
+- metrokarte-t0 → operativer T0-Netzblick (Linien, Knoten, Engpasshinweise)
+- stationskontroll-matrix → Zuständigkeiten je Station (wer kontrolliert, wie sicher)
+- warenueberblick-t0 → standortgetrennter Güter-Überblick ohne Mengenretcon
 - fsm-campaign → Kampagnen-Zustandsmaschine
 - rule-se-pools → Symbiose-Energie (SE) – Pools
 - rule-instances → Instanzen: Wissensstand & Persönlichkeit

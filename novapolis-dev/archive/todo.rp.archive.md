@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: H1/H2 auf Setext umgestellt; Timestamp aktualisiert.
-checks: markdownlint-cli2 PASS
+stand: 2026-02-22 01:49
+update: Vollständig erledigte RP-Abschnitte aus todo.rp.md archiviert (Aktiv jetzt, Priorität B, Priorität C).
+checks: markdownlint-cli2 via Repo-Config auf Archive-Pfad ausgeschlossen (`novapolis-dev/archive/**`); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/archive/todo.rp.archive.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 00:33)
 ---
 
 TODO-Archiv - RP
@@ -26,6 +26,44 @@ Ablage
 - Neueste Einträge oben einfügen.
 
 <!-- Hier unterhalb neue, vollständig erledigte und kanonisierte Blöcke einfügen (neu zuerst). -->
+
+Aktiv jetzt (sicher)
+--------------------
+
+archived_at: 2026-02-22 00:31
+
+- [x] `inventar_c6_v2`: `database-rp/01-factions/novapolis/04-inventory/C6-inventar.*` inhaltlich vervollständigen (nur belegte Daten, keine Strukturänderung). *(erledigt 2026-02-21)*
+- [x] `logistik_c6_v2`: bestehendes `00-admin/Logistik.md` um belegte C6-Logistikstände ergänzen; Mixed-Version-Referenzen bereinigen. *(erledigt 2026-02-21)*
+- [x] `logistik_novapolis_v2`: Lagerstände/Wochenzyklen in `00-admin/Logistik.md` ergänzen; Tagesreport konsistent nachziehen. *(erledigt 2026-02-21)*
+- [x] `station_d5_v2.1` + Legacy D5: bestehendes D5-Standortcanvas faktisch nachziehen (Lastenaufzug, Grundfläche, Historie) ohne neue Nebenstrukturen. *(erledigt 2026-02-21)*
+- [x] Inventar-Deltas (`Novapolis-inventar`, `D5-inventar`) mit Missionslog-Links abgleichen und synchronisieren. *(erledigt 2026-02-21)*
+- [x] Ereignislog Weltgeschehen im bestehenden Admin-Canvas nachschärfen (`[SECRECY]`, H-47-Status konsistent). *(erledigt 2026-02-21)*
+- [x] Relationslog Novapolis im bestehenden Canvas nachschärfen (Senn-Daru-Querverweise und ID-Schema auf aktuelle SSOT-Logistikreferenz bereinigt). *(erledigt 2026-02-21)*
+- [x] Meta-Cluster-Index im bestehenden Admin-Canvas ausbauen (Spannungen/PsyLinks gegen Kanon verifizieren). *(erledigt 2026-02-21)*
+
+Priorität B - Logistik & Inventar
+---------------------------------
+
+archived_at: 2026-02-22 00:31
+
+- [x] `inventar_c6_v2` → bestehendes SSOT `database-rp/01-factions/novapolis/04-inventory/C6-inventar.*` inhaltlich vervollständigen; Systemlinks auf v2 aktualisieren. *(erledigt 2026-02-21)*
+- [x] `logistik_c6_v2` → Inhalte nach `00-admin/Logistik.md` übernehmen; Mixed-Version-Referenzen bereinigen. *(erledigt 2026-02-21)*
+- [x] `logistik_novapolis_v2` → Lagerstände/Wochenzyklen in Logistik-Canvas einpflegen; Tagesreport ergänzen. *(erledigt 2026-02-21)*
+- [x] `station_d5_v2.1` + Legacy D5 → Standort-Canvas aktualisieren; Lastenaufzug, Grundfläche, Historie kennzeichnen. *(erledigt 2026-02-21)*
+- [x] Inventar-Deltas (`Novapolis-inventar`, `D5-inventar`) synchronisieren; Links zu Missionslog prüfen. *(erledigt 2026-02-21)*
+
+Priorität C - Systeme, Indizes, Ereignisse
+-----------------------------------------
+
+archived_at: 2026-02-22 00:31
+
+- [x] Ereignislog Weltgeschehen → bestehendes Admin-Canvas nachschärfen; Begriff "Allianz" gegen `[SECRECY]` prüfen; H-47-Status konsistent kennzeichnen. *(erledigt 2026-02-21)*
+- [x] Relationslog Novapolis → bestehendes Canvas nachschärfen; Händlerkontakt "Senn Daru"/Querverweise prüfen; ID-Schema auf aktuelle SSOT-Logistikreferenz angleichen. *(erledigt 2026-02-21)*
+- [x] AI-Behavior-Index → `AI-Behavior-Mapping.md` + JSON-Sidecar erweitert (2025-11-01T17:40+01:00); Cluster, Modifikatoren, Anchor-Register, Psymatrix-Abgleich dokumentiert.
+- [x] Validator „behavior_matrix_check.py“ → Anchor-Register + `ai_psymatrix_index_v1` Diff-Report erzeugen; Automation vorbereiten. *(2025-11-02T12:40+01:00 - Skript `coding/tools/validators/behavior_matrix_check.py` angelegt, Format-Checks aktiv; Psymatrix-Diff folgt sobald Quelle vorliegt.)*
+- [x] Hub-README Querverweis geprüft: Behavior-Matrix Abschnitt im Validator-Tools-Teil vorhanden; Terminologie konsistent (validiert 2026-02-21).
+- [x] Meta-Cluster-Index → bestehendes Admin-Canvas weiter ausbauen; Spannungen/PsyLinks gegen Kanon verifizieren. *(erledigt 2026-02-21)*
+- [x] Missionslog Querverweise gezielt prüfen/ergänzen (nur falls Rohdaten neue relevante Ereignisse tragen). *(erledigt 2026-02-21)*
 
 Priorität A - Charaktere & Führung
 ----------------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 18:32
-update: Fraktionsweite Snapshot-Referenzen (Missionslogs/Inventare) ergänzt; Current-State-Gate eingeführt.
-checks: pending
+stand: 2026-02-22 04:16
+update: T0-Gesamtbild-Referenzen (Metrokarte, Stationskontroll-Matrix, Warenueberblick) ergänzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 02:26); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/index-rules.md' 'novapolis-rp/database-rp/00-admin/Current-State.md' 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-rp/database-rp/00-admin/Metrograph.md' 'novapolis-rp/database-rp/00-admin/Ortsgraph.md' 'novapolis-rp/database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md' 'novapolis-rp/database-rp/00-admin/Kernkonversationen.md' 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' 'novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 02:27)
 slug: current-state
 category: Admin
 canvas: current-state
@@ -75,6 +75,13 @@ Stationen D5/C6 (v1.0)
 
 - Ziel: Mit vorhandenen Daten D5 und C6 vollständig pflegen (Struktur/Abschnitte/Links), ohne neue Fakten zu erfinden.
 - Praxis: Fehlende Details als offene Aufgaben markieren (statt zu raten) und über Missionslog/Scenes belegen, bevor sie in Core wandern.
+
+T0-Gesamtbild (operativ)
+------------------------
+
+- Metrokarte (T0): [Metrokarte-T0.md](Metrokarte-T0.md)
+- Stationskontrolle (T0): [Stationskontroll-Matrix.md](Stationskontroll-Matrix.md)
+- Warenueberblick (T0): [Warenueberblick-T0.md](Warenueberblick-T0.md)
 
 Arbeitsfluss (SSOT/RAW/curated)
 -------------------------------

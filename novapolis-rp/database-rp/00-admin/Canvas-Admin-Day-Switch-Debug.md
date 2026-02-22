@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-07 18:47
-update: ATSD-Definition gemäß Beschluss aktualisiert.
-checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
+stand: 2026-02-22 04:16
+update: Veralteten Timeline-Link auf kanonisches Canvas-T0-Timeline-Ziel korrigiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 02:26); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/index-rules.md' 'novapolis-rp/database-rp/00-admin/Current-State.md' 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-rp/database-rp/00-admin/Metrograph.md' 'novapolis-rp/database-rp/00-admin/Ortsgraph.md' 'novapolis-rp/database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md' 'novapolis-rp/database-rp/00-admin/Kernkonversationen.md' 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' 'novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 02:27)
 slug: canvas-admin-day-switch-debug
 canvas: Admin Day-Switch & Debug
 last-updated: 2025-11-07T03:32:00+01:00
@@ -75,7 +75,7 @@ Testfälle
 Links
 -----
 
-- Timeline (T+0) → ./Canvas-T+0-Timeline.md
+- Timeline (T+0) → ./Canvas-T0-Timeline.md
 - Missionslog → ./Missionslog.md
 - Logistik (Admin) → ./Logistik.md
 - C6 (Ort) → ../03-locations/C6.md

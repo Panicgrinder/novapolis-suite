@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-17 11:10
-update: Kern-SSOT um Naming/Whitespace/Format/Quarantäne ergänzt; R-IDX als Mini-Gate verankert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py PASS
+stand: 2026-02-21 20:53
+update: Kern-SSOT um harte Modul-DONELOG-Pflicht ergänzt; Index für neue Kernsektion aktualisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/instructions/rp-docs.instructions.md' '.github/copilot-instructions-headings.md' 'DONELOG.md' PASS (2026-02-21 20:49); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/instructions/rp-docs.instructions.md' '.github/copilot-instructions-headings.md' 'DONELOG.md' PASS (2026-02-21 20:49)
 ---
 
 Hinweis
@@ -16,7 +16,7 @@ Instruction-System:
 Aktuelle Überschriften (Kern + Scoped)
 --------------------------------------
 
-Quelle: Stand `2026-02-17 10:55` der Kern-Datei und der zugehörigen
+Quelle: Stand `2026-02-21 20:45` der Kern-Datei und der zugehörigen
 scoped Instruction-Files.
 
 1) Kern-SSOT
@@ -38,6 +38,7 @@ Neue/geschärfte Kernabschnitte:
 - Kanonisierung & Formatnorm (syntaktisch)
 - Quarantäne & Backup-Ort
 - R-IDX Mini-Gate
+- Modul-DONELOG-Pflicht
 
 2) Scoped Instructions
 ----------------------

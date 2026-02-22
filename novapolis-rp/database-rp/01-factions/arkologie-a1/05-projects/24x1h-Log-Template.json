@@ -1,0 +1,9 @@
+{
+  "title": "24x1h Log-Template (Arkologie-A1)",
+  "category": "project",
+  "slug": "24x1h-log-template-arkologie-a1",
+  "version": "0.1",
+  "status": "draft",
+  "tags": ["rp", "template", "24x1h", "logs"],
+  "source": "database-rp/01-factions/arkologie-a1/05-projects/24x1h-Log-Template.md"
+}

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 13:31
-update: Verweis auf Lumen-Canvas relativiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:31)"
+stand: 2026-02-22 01:49
+update: 24x1h-Knowledge-Startset ergänzt (Werkstatt/Proximity/Funk).
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:13); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md' PASS (2026-02-22 01:13)
 title: Jonas Merek
 category: character
 slug: jonas-merek
@@ -60,6 +60,31 @@ Wissensstand (Matrix - Auszug)
 - Intern: Kennt D5-Systeme, Lumen-Kopplungsregeln, Grundzüge von Reflex’ Präsenz (Need-to-know). Zugang zu Wartungslog und Missionslog Einträgen der Werkstatt.
 - Extern: Kennt Karawanen-Schnittstelle C6 (Logistik), Evakuierte aus E3 und Echo als Reflex-Instanz an Koras Seite (über Terminalberichte). Keine externen Koordinaten weitergeben ohne Freigabe (FACT [FR-KNOWLEDGE]).
 - Sicherheit: Weiß um Nähe-Schwellwerte Lumen (<20 m bevorzugt) und Protokolle bei Trennung (Schonmodus auslösen).
+
+Knowledge (24x1h Starter)
+-------------------------
+
+```yaml
+knowledge:
+  - id: know-jonas-workshop-shift-2026-02-22-01
+    about: d5_workshop_shift
+    channel: log
+    source: missionslog-novapolis
+    scope: allies_only
+    confidence: 0.85
+    freshness: 2026-02-22T00:00:00+01:00
+    visibility_to: [jonas-merek, ronja-kerschner, lumen]
+    attachments: [log:missionslog-novapolis#d5-wartungsauftrag--wartungsgang]
+  - id: know-jonas-proximity-guard-2026-02-22-01
+    about: lumen_proximity_guard
+    channel: direct
+    source: lumen
+    scope: private
+    confidence: 0.95
+    freshness: 2026-02-22T00:00:00+01:00
+    visibility_to: [jonas-merek]
+    attachments: [doc:./Lumen.md]
+```
 
 Sicherheit & Interaktion
 ------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: H1 auf Setext umgestellt; Timestamp aktualisiert.
-checks: markdownlint-cli2 PASS
+stand: 2026-02-21 08:08
+update: Abgeschlossenen Sim-Block aus todo.root ueberfuehrt.
+checks: markdownlint-cli2 PASS; check_frontmatter.py PASS
 ---
 
 TODO-Archiv - Sim
@@ -19,5 +19,15 @@ Ablage
 - Neueste Einträge oben einfügen.
 
 <!-- Hier unterhalb neue, vollständig erledigte Blöcke einfügen (neu zuerst). -->
+
+Root-Uebernahme: novapolis-sim Block aus todo.root
+-------------------------------------------------
+
+archived_at: 2026-02-21 04:52
+
+Quelle: `todo.root.md` (Abschnitt `novapolis-sim`).
+
+- [x] Headless-Lade-Check als abgeschlossen archiviert.
+- [x] Sim-Detailhistorie aus Root entfernt; aktiver Sim-Backlog bleibt in Sim-/Dev-Boards.
 
 

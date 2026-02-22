@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-17 09:12
-update: PR-Beschreibung auf PR #4 (docs(rp) Batch C) aktualisiert; Scope-Hinweis zur pre-commit-Migration ergänzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc PR_DESCRIPTION.md PASS (2026-02-17 07:17); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py PR_DESCRIPTION.md PASS (2026-02-17 07:17)
+stand: 2026-02-22 00:24
+update: PR-Beschreibung um RP-Hard-Gate-Nachtrag ergänzt (Ursache + Frontmatter-Fix für neue 24x1h-Project-Templates).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/rp-docs.instructions.md' 'PR_DESCRIPTION.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 00:22); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py '.github/instructions/rp-docs.instructions.md' 'PR_DESCRIPTION.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 00:22)
 ---
 
 PR: docs(rp) Batch C (Novapolis) – Naming, Links, Hook-Migration
@@ -43,3 +43,10 @@ Checks
 
 - Lokal: `npm --prefix novapolis-rp/coding/tools/validators run validate` PASS.
 - Repo-Checks: `scripts/run_checks_and_report.py` (Lint/Typen/Tests/Coverage) PASS.
+
+Nachtrag (2026-02-22)
+---------------------
+
+- Beim ersten Commitlauf blockierte `validate:rp` aus dem RP-Hard-Gate wegen Frontmatter-Vertragsverletzungen in neu angelegten `24x1h-Log-Template.md`-Dateien (`category: project`).
+- Konkrete Ursachen: `status: draft` ist nicht im erlaubten Enum und `last_updated` fehlte.
+- Umgesetzter Fix: alle sieben Fraktions-Templates auf `status: planned` harmonisiert und `last_updated: "2026-02-22"` ergänzt; danach Commit+Push erfolgreich.

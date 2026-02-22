@@ -1,0 +1,24 @@
+{
+  "title": "Warenueberblick (T0)",
+  "category": "admin",
+  "slug": "warenueberblick-t0",
+  "version": "0.1",
+  "canvas": "warenueberblick-t0",
+  "status": "active",
+  "owners": [
+    "admin-novapolis"
+  ],
+  "tags": [
+    "rp",
+    "admin",
+    "waren",
+    "logistik",
+    "t0"
+  ],
+  "dependencies": [
+    "logistik",
+    "current-state",
+    "stationskontroll-matrix"
+  ],
+  "source": "database-rp/00-admin/Warenueberblick-T0.md"
+}

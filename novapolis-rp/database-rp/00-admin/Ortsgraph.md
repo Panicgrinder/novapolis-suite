@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-12 06:01
-update: "Validator-Fix: update-Wert YAML-sicher quoted (kein Inhalts-Change)."
-checks: npm run validate:rp PASS (2026-01-12 06:01); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\00-admin\Ortsgraph.md PASS (2026-01-12 06:01)
+stand: 2026-02-22 04:16
+update: Veralteten Timeline-Link auf kanonisches Canvas-T0-Timeline-Ziel korrigiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 02:26); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/index-rules.md' 'novapolis-rp/database-rp/00-admin/Current-State.md' 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-rp/database-rp/00-admin/Metrograph.md' 'novapolis-rp/database-rp/00-admin/Ortsgraph.md' 'novapolis-rp/database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md' 'novapolis-rp/database-rp/00-admin/Kernkonversationen.md' 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' 'novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 02:27)
 slug: ortsgraph-index
 category: Admin
 canvas: ortsgraph
@@ -46,4 +46,4 @@ Konsistenzregeln
 Links
 -----
 - Canon-Core → ../00-admin/memory-bundle.md
-- Timeline (T+0) → ../00-admin/Canvas-T+0-Timeline.md
+- Timeline (T+0) → ../00-admin/Canvas-T0-Timeline.md

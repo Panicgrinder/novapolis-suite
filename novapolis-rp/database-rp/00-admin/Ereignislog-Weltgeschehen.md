@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-08 22:51
-update: RAW-Linkpfad korrigiert.
-checks: "not run (link fix)"
+stand: 2026-02-21 21:58
+update: Globalen Ereignislog um SECRECY/H-47-Guardrails ergänzt; Außenwissen und Fraktionsdetails klar getrennt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' PASS (2026-02-21 21:48); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' PASS (EXITCODE=0, 2026-02-21 21:48)"
 title: Ereignislog – Weltgeschehen
 category: admin
 slug: ereignislog_weltgeschehen_v1
@@ -10,72 +10,47 @@ version: "0.1"
 
 <!-- markdownlint-disable MD025 -->
 
-Ereignislog – Weltgeschehen (Weltchronik)
-=======================================
+Ereignislog – Weltgeschehen (Globaler Index)
+============================================
 
 Zweck
 -----
-Dieses Dokument hält die **großen, kampagnenweiten Ereignisse** fest, die mehrere Knoten/Fraktionen beeinflussen oder als Zeitanker dienen.
+Dieses Dokument hält nur **globale Ereignisregeln und Verweisstruktur**.
+Fraktions-/Stationsspezifische Ereignisse werden in den jeweiligen
+Fraktions-Ereignislogs geführt.
 
 Quellen
 -------
-- RAW: [RAW-canvas-2025-10-16T05-34-00-000Z](../../database-raw/99-exports/RAW-canvas-2025-10-16T05-34-00-000Z.txt)
-  - `[DOCID: ereignislog_weltgeschehen_v1]` (`TYPE: event_log`, `VERSION: v1`)
+- RAW-Exporte: `database-raw/99-exports/`
+- Canon-Pflege: fraktionsspezifisch unter `01-factions/*/00-doctrine/*-ereignislog.md`
 
-Zeitanker & Lesart
-------------------
-- Die in RAW verwendeten Marker wie „[Tag 5]“ / „[Tag 9]“ / „[Tag 17]“ sind **relative** Marker innerhalb der Prequel-Phase.
-- Für Spiel-/Szenenführung bleibt der kanonische Startpunkt **T+0** (siehe Admin-Timeline).
+Globale Lesart
+--------------
 
-Ereignisse (v1)
----------------
+- Relative Marker (z. B. `[Tag X]`) bleiben relative Chronikanker.
+- Kanonischer Spielanker bleibt T0/T+X gemäß fraktionsspezifischer Timeline.
+- Keine Retcons ohne explizite Korrekturdokumentation.
 
-### E-0001: Reaktorstörung D5
+SECRECY-Guardrail (Außenwissen)
+-------------------------------
 
-- Datum: [vor Missionsbeginn]
-- Ort: D5
-- Beteiligte: Ronja Kerschner, Reflex
-- Beschreibung: Reaktorleistung fiel abrupt auf 32 %, Systemüberhitzung drohte.
-- Ergebnis: Stabilisierung durch Ronja; volle Leistung wiederhergestellt.
-- Folgen: Beginn der Symbiosephase mit Reflex.
+- Externe Fraktionen erhalten keine bestätigten D5/Novapolis-Detaildaten ohne belegte Offenlegung.
+- Für H-47 gilt global: Außenperspektive kann Funkstille/unsicheren Status führen; interne Operativdetails bleiben im fraktionsspezifischen Log.
+- Legacy-Begriffe aus RAW (z. B. uneinheitliche Bündnislabels) werden nicht als neue Canon-Behauptung fortgeschrieben.
 
-### E-0002: Funkabbruch zur Allianz
+Fraktions-Ereignislogs
+----------------------
 
-- Datum: [vor Missionsbeginn]
-- Ort: D5 / Oberflächenverbindung
-- Beteiligte: Allianz-Relais, D5-Kontrollzentrum
-- Beschreibung: Totalausfall der Funkverbindung zur übergeordneten Allianzstruktur.
-- Ergebnis: Isolation der südlichen Sektoren.
-- Folgen: Ronja übernahm volle operative Leitung; Beginn der Unabhängigkeit von D5.
+- Novapolis: [novapolis-ereignislog](../01-factions/novapolis/00-doctrine/novapolis-ereignislog.md)
+- Arkologie A1: [arkologie-a1-ereignislog](../01-factions/arkologie-a1/00-doctrine/arkologie-a1-ereignislog.md)
+- Eisenkonklave: [eisenkonklave-ereignislog](../01-factions/eisenkonklave/00-doctrine/eisenkonklave-ereignislog.md)
+- Flüsterkollektiv: [fluesterkollektiv-ereignislog](../01-factions/fluesterkollektiv/00-doctrine/fluesterkollektiv-ereignislog.md)
+- Händlerbund: [haendlerbund-ereignislog](../01-factions/haendlerbund/00-doctrine/haendlerbund-ereignislog.md)
+- Schattenbund: [schattenbund-ereignislog](../01-factions/schattenbund/00-doctrine/schattenbund-ereignislog.md)
+- Schienenbund: [schienenbund-ereignislog](../01-factions/schienenbund/00-doctrine/schienenbund-ereignislog.md)
 
-### E-0003: Gründung von Novapolis
-
-- Datum: [Tag 5]
-- Ort: D5
-- Beteiligte: Ronja, Reflex, Jonas, Pahl
-- Beschreibung: Offizielle Benennung und organisatorische Strukturierung der Stationen D5 & C6 als unabhängige Fraktion „Novapolis“.
-- Ergebnis: Selbstverwaltete Verwaltungseinheit, unabhängige Produktions- und Energieversorgung.
-- Folgen: Entstehung einer neuen Fraktionsmacht in der südlichen Metro.
-
-### E-0004: Erste Handelsroute (H-47)
-
-- Datum: [Tag 9]
-- Ort: D5 / C6
-- Beteiligte: Ronja, Reflex, Händlergruppe H-47
-- Beschreibung: Kontaktaufnahme mit überlebender Händlerkarawane; erfolgreiche Verhandlung über dauerhafte Kooperation.
-- Ergebnis: Händlergruppe integriert, C6 als Handelsstützpunkt aktiviert.
-- Folgen: Beginn geregelter Handelszyklen.
-
-### E-0005: Südliches Signalfragment
-
-- Datum: [Tag 17]
-- Ort: Sensorstation C6
-- Beteiligte: Reflex, Ronja
-- Beschreibung: Anomales Signal aus südlichem Bereich jenseits bekannter Tunnel erfasst.
-- Ergebnis: unklar – Analyse im Gang.
-- Folgen: Erhöhte Aufmerksamkeit bei allen Fraktionen; erste Scoutbewegungen Richtung Süden registriert.
-
-#### Verlinkungen
+Verlinkungen
+------------
 
 - Admin-Timeline: [Canvas-T0-Timeline](Canvas-T0-Timeline.md)
-- Novapolis-Relationslog: [Relationslog-Novapolis](../01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md)
+- Missionslog (global): [Missionslog](./Missionslog.md)

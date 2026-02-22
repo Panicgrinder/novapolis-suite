@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-16 12:54
+stand: 2026-02-21 21:41
 update: Doctrine-README maschinenlesbar erweitert (Metadaten + Verweise konsolidiert); Checks PASS.
 checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-16 12:54)"
 category: canon
@@ -23,3 +23,5 @@ Diese Dokumente sind fraktionsweite Kerntexte (Doctrines). Stations-/Orts-spezif
 - Logistik: [novapolis-logistics](./novapolis-logistics.md)
 - Diplomatie/Handel: [novapolis-diplomacy](./novapolis-diplomacy.md)
 - Geschichte: [novapolis-history](./novapolis-history.md)
+- Timeline (T0): [novapolis-t0-timeline](./novapolis-t0-timeline.md)
+- Ereignislog: [novapolis-ereignislog](./novapolis-ereignislog.md)

@@ -42,6 +42,25 @@
       "cwd": "${workspaceFolder}/novapolis_agent",
       "justMyCode": true,
   "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "name": "Integration: MCP OpenAI Eval (uvicorn)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": [
+        "mcp_openai_eval.server:app",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "4000"
+      ],
+      "cwd": "${workspaceFolder}/novapolis-dev/integrations/mcp-openai-eval",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/novapolis-dev/integrations/mcp-openai-eval/src"
+      },
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }

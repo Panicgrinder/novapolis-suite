@@ -1,6 +1,6 @@
 ---
-stand: 2025-11-16 06:52
-update: Archiv ergänzt: „Offene Punkte (Kurzfristig)“ aus todo.root.md verschoben.
+stand: 2026-02-21 08:08
+update: Weitere abgeschlossene Root-Bloecke (Naechstes Vorgehen, Optional-Teilpunkte) aus todo.root inhaltlich archiviert.
 checks: keine
 ---
 
@@ -15,7 +15,128 @@ Hinweis
 - Direkt unter der Abschnitts-Überschrift im Archiv eine Zeile ergänzen: `archived_at: YYYY-MM-DD HH:MM`.
 
 Archivierte Einträge
---------------------
+
+Single-Root Archivpflege & Verifikationsfix (2026-02-20)
+---------------------------------------------------------
+
+archived_at: 2026-02-20 16:26
+
+Quelle: `novapolis-dev/archive/quarantine/single-root-todo.md` (Archivkopie, verifiziert gegen aktuellen Workspace-Stand).
+
+- [x] Veralteten Archivpfad-Hinweis korrigiert (historischer Zielpfad `novapolis-dev/archive/2025/2025-11-09-single-root-todo.md` war nicht mehr auflösbar).
+- [x] Dev-SSOT-Verweis im Kurzüberblick korrigiert (`novapolis-dev/docs/todo.dev.md` statt Archivdatei).
+- [x] Root-Single-Root-Kernclaims erneut verifiziert: zentrale Root-Workflows aktiv, keine Modul-`.github/workflows`, nur Root-`.vscode`, keine aktive `*.code-workspace`.
+
+Single-Root Umstellungsplan (validiert aus Archivkopie)
+------------------------------------------------------
+
+archived_at: 2026-02-21 04:01
+
+Quelle: `novapolis-dev/archive/quarantine/single-root-todo.md` (Abschnitt `Monorepo Single Root - Umstellungsplan`).
+
+- [x] Etappen 0-5 (Inventur, Root-venv, Task-Zentralisierung, Test-Discovery, Lint/Format, CI-Angleichung) als abgeschlossen verifiziert und archiviert.
+- [x] Workflows Root-only verifiziert: nur `/.github/workflows/*.yml`, keine Modul-Workflows.
+- [x] VS-Code-Workspace-Zielbild verifiziert: keine aktive `*.code-workspace`, nur Root-`.vscode`.
+- [x] Konfliktkonfigurations-Abschluss verifiziert: kein aktiver Agent-Devcontainer, Root-`pyproject.toml` tools-only, lokale Markdownlint-Overrides durch Root-Ignores neutralisiert.
+- [x] Prüf-/Release-Checks sowie Akzeptanzkriterien aus dem abgeschlossenen Block in dieses Archiv uebernommen.
+
+Modul-Fokus (Agent/Dev/RP/Sim) - validiert aus Archivkopie
+----------------------------------------------------------
+
+archived_at: 2026-02-21 04:05
+
+Quelle: `novapolis-dev/archive/quarantine/single-root-todo.md` (Abschnitt `Modul-Fokus (Auszuege - bitte in den SSOTs pflegen)`).
+
+- [x] Agent-Block (TTS/Tools-Planung) als abgeschlossen markiert und auf aktives Board `novapolis-dev/docs/todo.agent-board.md` referenziert.
+- [x] Dev-Block (Tooling/Infra) als abgeschlossen markiert und auf Archiv `novapolis-dev/archive/todo.dev.archive.md` referenziert.
+- [x] RP-Block (Kanon/Canvas) als abgeschlossen markiert und auf aktives Board `novapolis-dev/docs/todo.rp.md` referenziert.
+- [x] Sim-Block (Godot) als abgeschlossen markiert und auf aktives Board `novapolis-dev/docs/todo.sim.md` referenziert.
+
+Offene Aufgaben (Root - quer durchs Repo) - validiert aus Archivkopie
+---------------------------------------------------------------------
+
+archived_at: 2026-02-21 04:07
+
+Quelle: `novapolis-dev/archive/quarantine/single-root-todo.md` (Abschnitt `Offene Aufgaben (Root - quer durchs Repo)`).
+
+- [x] Wrapper-Policy/Root-Hinweise als abgeschlossen markiert und mit Root-Governance abgeglichen.
+- [x] `.vscode`-Konsolidierung im Root als abgeschlossen verifiziert (nur Root-Konfiguration aktiv).
+- [x] Snapshot-Frontmatter-Migrationsblock (historisch abgeschlossen) als abgeschlossen archiviert.
+- [x] Tree-Snapshot-Taskblock als abgeschlossen archiviert.
+- [x] Backups-/Manifest-Block als abgeschlossen archiviert; Artefakte (`Backups/AUDIT.md`, `Backups/README.md`, `Backups/manifest.v1.json`) vorhanden.
+- [x] Zugehoerige Skript-Referenzen (`scripts/update_backups_manifest.py`, `scripts/rotate_backups.py`) vorhanden.
+
+Wrapper-Migration (.ps1 -> .py) - validiert aus Root-Backlog
+------------------------------------------------------------
+
+archived_at: 2026-02-21 04:18
+
+Quelle: `todo.root.md` (Abschnitt `Wrapper-Migration (.ps1 -> .py)`).
+
+- [x] Keine aktiven `scripts/*.ps1` Wrapper mehr im Root vorhanden.
+- [x] Produktive Python-Einstiegspunkte vorhanden und dokumentiert (`scripts/run_pytest_coverage.py`, `scripts/checks_linters.py`, `scripts/checks_types.py`, `scripts/tests_pytest_root.py`).
+- [x] Historische PowerShell-Wrapper liegen ausschließlich im Archivpfad `novapolis-dev/archive/scripts/scripts.ps1-scripts/`.
+- [x] Migrationsstatus in Doku/Status (DONELOG + WORKSPACE_STATUS) als abgeschlossen dokumentiert.
+
+Priorisierung (Stand 2026-02-18) - Block "Jetzt" validiert aus Root-Backlog
+----------------------------------------------------------------------------
+
+archived_at: 2026-02-21 04:21
+
+Quelle: `todo.root.md` (Abschnitt `Priorisierung -> Jetzt`).
+
+- [x] Skript-Ladefallbacks validiert: `novapolis_agent/scripts/reports/generate_consistency_report.py` und `novapolis_agent/scripts/audit_workspace.py` vorhanden.
+- [x] RP-Backlog-Marker validiert: `novapolis-rp/database-curated/staging/reports/generated-artifacts.md` vorhanden.
+- [x] Root-Task-Zentralisierung validiert: `.vscode/tasks.json` vorhanden.
+- [x] Block insgesamt als abgeschlossen verifiziert und in das Root-Archiv überführt.
+
+Lokale AI - Zusammenfassung (Checkliste) validiert aus Root-Backlog
+------------------------------------------------------------------
+
+archived_at: 2026-02-21 04:28
+
+Quelle: `todo.root.md` (Abschnitt `Lokale AI - Einbindung (organisch) -> Zusammenfassung (Checkliste)`).
+
+- [x] Inclusion-Ziele definiert (RAG/Schattenmodus/Canary/Lernschleife).
+- [x] Readiness-Gates je Modul dokumentiert.
+- [x] Phasenplan, Daten-/Telemetrieplan und Immediate-Checklist als abgeschlossen markiert.
+- [x] Evidenz-Verankerung bleibt aktiv im Root-Backlog über die Unterabschnitte `Go/No-Go Checkliste` und `Naechste Schritte (sofort)`.
+
+Priorisierung (Stand 2026-02-18) - Block "Spaeter: S1-S4" validiert aus Root-Backlog
+----------------------------------------------------------------------------------------
+
+archived_at: 2026-02-21 04:31
+
+Quelle: `todo.root.md` (Abschnitt `Priorisierung -> Spaeter`, Teilblock `S1-S4`).
+
+- [x] S1 Stabilitaetsfenster als abgeschlossen verifiziert (2 gruene Root-Gate-Laeufe dokumentiert).
+- [x] S2 Mindestbasis als abgeschlossen verifiziert (RAG-Index + Shadow-Log + Tests dokumentiert).
+- [x] S3 Review-Rhythmus als abgeschlossen verifiziert (Slot/Checkliste dokumentiert).
+- [x] S4 Editor-Setup Etappe 1/2 als abgeschlossen verifiziert (Root-`.vscode` konsistent).
+- [x] Offener Punkt S5 explizit im aktiven Root-Backlog belassen.
+
+Naechstes Vorgehen (1-2 Tage) - validiert aus Root-Backlog
+----------------------------------------------------------
+
+archived_at: 2026-02-21 04:52
+
+Quelle: `todo.root.md` (Abschnitt `Naechstes Vorgehen (1-2 Tage)`).
+
+- [x] Checks-Wrapper-Statuszuordnung auf FAIL bei STOP-Fall als erledigt dokumentiert.
+- [x] Cleanup-Kandidaten Phase 4 als reviewt/geschlossen dokumentiert.
+- [x] Alt-Analyse `analysis_chat_routers.md` in aktive Doku ueberfuehrt und Legacy entfernt.
+
+Priorisierung (Stand 2026-02-18) - Block "Optional" (abgeschlossene Teilpunkte)
+---------------------------------------------------------------------------------
+
+archived_at: 2026-02-21 04:52
+
+Quelle: `todo.root.md` (Abschnitt `Priorisierung -> Optional`, erledigte Teilpunkte).
+
+- [x] Cleanup-Kandidaten Phase 4 reviewt/geschlossen (historischer Kontext, keine destruktive Aktion).
+- [x] Archivierungs-Feinschliff umgesetzt (Rotation-Dry-Run/Manifest/SOP dokumentiert).
+- [x] Offener Optional-Punkt `Etappe-3-Legacy-Ablösung` bleibt aktiv im Root-Backlog.
+
 
 Snapshot-Gate v1 (Root)
 -----------------------

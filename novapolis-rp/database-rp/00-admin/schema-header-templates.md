@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 16:40
-update: Projekt-Template auf Fraktions-Owner umgestellt; authority_chain fuer Rangfolge ergaenzt.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp\\00-admin\\schema-header-templates.md PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/schema-header-templates.md' PASS"
+stand: 2026-02-22 01:49
+update: Verweis auf zentrale Tags-Taxonomie ergänzt.
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:37); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/schema-header-templates.md' PASS (2026-02-22 01:37); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/schema-header-templates.md' PASS (2026-02-22 01:37)
 ---
 
 RP Header-Templates (Frontmatter)
@@ -112,5 +112,6 @@ Hinweise zur Verwendung
 - Referenzen (characters/locations/dependencies) verwenden Slugs der Zielobjekte.
 - Bei Projekten ist `owners` der Fraktions-Slug; operative Befehlsgewalt wird in `authority_chain` in der festen Reihenfolge dokumentiert.
 - Falls ein Feld unbekannt ist, weglassen statt Dummy-Werte einzutragen (Validatoren erlauben optionale Felder).
+- Gültige Tag-Werte und Startersets werden zentral in `00-admin/Tags-Taxonomie.md` gepflegt.
 
 

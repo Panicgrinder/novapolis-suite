@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Markdownlint geprüft; keine weiteren Änderungen
-checks: markdownlint-cli2 (single file) PASS
+stand: 2026-02-21 04:15
+update: Agent-R-COV-Abgleich abgeschlossen; Agent-Open-Count synchronisiert.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.index.md' PASS; & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\todo.index.md PASS"
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,20 +12,21 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs
-- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra
-- Agent-Module: `docs/todo.agent.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 105)
+- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (aktiv)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 4)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 8)
 
 Hinweise (Index)
 ----------------
 
 - Vollständig erledigte Abschnitte (H2/H3, alle [x]) bitte manuell in `novapolis-dev/archive/todo.<modul>.archive.md` verschieben; unter der Abschnittsüberschrift `archived_at: YYYY-MM-DD HH:MM` ergänzen. Übersicht aller Archive: `novapolis-dev/archive/README.md`.
-- Automatisierung (Validator/Dry-Run) folgt nach Stabilisierung der Struktur.
+- Validierung bei Änderungen: markdownlint via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc` und Frontmatter-Check via `scripts/check_frontmatter.py`.
 
 Verweise
 --------
 
 - Root-Übersicht: `todo.root.md` (Kurzüberblick, Meta-Aufgaben, Links)
+- DONELOG-Zentralstruktur: `novapolis-dev/archive/docs/donelogs/INDEX.md`
 
 
