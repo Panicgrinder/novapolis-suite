@@ -101,6 +101,22 @@
       "problemMatcher": []
     },
     {
+      "label": "Checks: sim epoch assets",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\check_sim_epoch_assets.py",
+        "--repo-root",
+        "${workspaceFolder}",
+        "--allow-empty"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
       "label": "Git: commit+push",
       "type": "shell",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",

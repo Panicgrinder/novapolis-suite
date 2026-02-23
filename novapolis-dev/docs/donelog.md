@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 06:46
-update: P1-Lücken C6-SQM und C6-HELPERS kanonisch in SSOT/Index nachgezogen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-23 06:46); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/C6-Bewohner.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 06:46); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 06:46)
+stand: 2026-02-23 09:19
+update: Agent-Board um konkrete TTS-Mini-Service-Arbeitspakete aus der Modulanalyse erweitert; Agent-Index synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 09:09); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 09:09)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,21 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+Agent: Analysebefunde in TODO-Punkte ueberfuehrt (2026-02-23 09:08)
+---------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md` um konkrete `[Jetzt]`-Pakete erweitert: Driftfix fehlender Exporter-Datei, API-Vertrag (`/tts/synthesize`, `/tts/health`), Provider-Interface, Auth-Regel, Cache-Vertrag und Testpaket.
+- Vorheriger Sammelpunkt „Mini-Service (Runtime, Planung)“ in klar abgegrenzte, nacheinander umsetzbare Arbeitsschritte aufgelöst.
+- `novapolis-dev/docs/todo.index.md` Agent-Open-Count von `3` auf `8` nachgezogen.
+
+Root/Dev: Punkte 1-3 umgesetzt (2026-02-23 08:37)
+--------------------------------------------------
+
+- Neuer VS-Code-Task `Checks: sim epoch assets` in `/.vscode/tasks.json` ergänzt (ruft `scripts/check_sim_epoch_assets.py --repo-root ${workspaceFolder} --allow-empty` auf).
+- Root-Doku ergänzt: `README.md` enthält jetzt den kurzen Task-Hinweis sowie einen verbindlichen Abschnitt „Wochenabschluss-Routine“ (Checks -> Tree -> Statussync).
+- Prioritaetstags harmonisiert: `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.rp.md` nutzen jetzt durchgehend `Jetzt/Als naechstes/Spaeter` für aktive offene Punkte.
+- Root/Dev-Sync nachgezogen: `todo.root.md` Punkte 1-3 auf erledigt gesetzt, `novapolis-dev/docs/todo.dev.md` Sim-Task-Punkt auf erledigt gesetzt, `novapolis-dev/docs/todo.index.md` Dev-Open-Count auf `1` aktualisiert.
 
 RP: C6-SQM + C6-HELPERS kanonisch geschlossen (2026-02-23 06:28)
 -----------------------------------------------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 16:51
-update: Root-README-Befehlsbeispiele auf portable relative Pfade ohne hostgebundene Absolutpfade umgestellt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40)
+stand: 2026-02-23 09:19
+update: Sim-Epoch-Asset-Task und verbindliche Wochenabschluss-Routine ergänzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (2026-02-23 08:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (EXITCODE=0, 2026-02-23 08:40)
 ---
 Novapolis Suite
 ===============
@@ -127,7 +127,15 @@ Editor-Setup (Single-Root)
 - Workspace immer über den Root-Ordner `Main/` öffnen (Single-Root, keine `.code-workspace` mehr im Einsatz).
 - Zentrales VS-Code-Setup liegt unter `/.vscode/` (Interpreter `.venv`, Tasks für Lint/Tests/Coverage, Copilot-Workspace-Instructions).
 - Wrapper-Policy: Mehrschritt-Checks laufen über Skript-Wrapper (z. B. `python scripts/run_checks_and_report.py`, `python scripts/run_pytest_coverage.py --fail-under 80`); STOP-Gate bleibt für alle Aktionen mit Seiteneffekt aktiv.
+- Sim-Offlinetest: Task `Checks: sim epoch assets` prüft tunnel-sicher die Epoch-Logs und OGG-Namenskonvention via `scripts/check_sim_epoch_assets.py`.
 - Details zum aktuellen Status siehe `.github/copilot-instructions.md` und `WORKSPACE_STATUS.md` (Block „Single-Root & Wrapper-Status“).
+
+Wochenabschluss-Routine
+-----------------------
+
+1. Lint/Typen/Tests/Coverage in dieser Reihenfolge laufen lassen (`Checks: full`, optional `Checks: sim epoch assets`, dann `Tests: coverage (fail-under)`).
+2. Bei Strukturänderungen Tree-Artefakte aktualisieren (`Workspace tree:*`).
+3. Danach `todo.root.md`, `WORKSPACE_STATUS.md`, `DONELOG.md` und `novapolis-dev/docs/donelog.md` im selben Lauf synchronisieren.
 
 
 

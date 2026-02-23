@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-02-23 00:48
-update: DoD-Punkt Stationsreferenzen (Karte+Kontrollmatrix) auf 54/54 geschlossen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' PASS (2026-02-23 00:48); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' PASS (2026-02-23 00:48)
+stand: 2026-02-23 09:19
+update: Prioritaetstags (Jetzt/Als naechstes/Spaeter) fuer aktive RP-Punkte harmonisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (2026-02-23 08:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (EXITCODE=0, 2026-02-23 08:40)
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -12,6 +12,13 @@ TODO (Novapolis-RP)
 
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/todo.rp.md` am 2025-10-29 -->
+
+Prioritaetstags (aktiv)
+-----------------------
+
+- `Jetzt`: T0-Warenueberblick je Fraktion mit Herkunftslabeln abschliessen; D5/C6-Modell konsistent auf fruehe Aufbauphase finalisieren.
+- `Als naechstes`: Mengen-Backfill fuer Inventare starten; Skill-Mapping aus Verhaltensmatrix als Ableitung dokumentieren.
+- `Spaeter`: TTS-Block (OGG-Kandidaten + Live-Dialog-Cache) ausrollen.
 
 Canvas-Rettung - Sprint 1 (Stand 2025-11-01)
 --------------------------------------------
@@ -120,9 +127,9 @@ Definition of Done (P0)
 
 - [x] Jede bekannte Station ist in Karte + Kontrollmatrix mindestens einmal referenziert. *(erledigt 2026-02-23)*
   - Evidenz: `novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md` enthält jetzt alle in `novapolis-rp/database-rp/00-admin/Metrokarte-T0.md` geführten Stationscodes (Abdeckung 54/54).
-- [ ] Jede Fraktion hat einen T0-Warenueberblick mit Herkunftslabeln.
-- [ ] D5/C6 sind konsistent als fruehe Aufbauphase modelliert; keine impliziten Handelsannahmen.
-- [ ] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten.
+- [ ] [Jetzt] Jede Fraktion hat einen T0-Warenueberblick mit Herkunftslabeln.
+- [ ] [Jetzt] D5/C6 sind konsistent als fruehe Aufbauphase modelliert; keine impliziten Handelsannahmen.
+- [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten.
 
 - 24×1h-Runden (PC-zentriert) einführen
   - [x] Policy festhalten: Stunde spult leise weiter, bis ein PC-relevantes Ereignis eintritt (z. B. „Reflex weckt Ronja“). *(erledigt 2026-02-22)*
@@ -143,12 +150,12 @@ Definition of Done (P0)
   - [x] Referenz: `novapolis-dev/docs/specs/annotation-spec.md` vorhanden und weiterhin passend. *(validiert 2026-02-22)*
 
 - Skills aus Verhaltensmatrix ableiten (ohne zweites System)
-  - [ ] Mapping-Gewichte je Skill (0-3) vorschlagen (Matrix-Dimensionen → Skill), Ausgangswerte pro Rolle.
-  - [ ] Formel/Beispiele im Spec verlinken; Ableitung on-demand, keine Duplikat-Wahrheit.
+  - [ ] [Als naechstes] Mapping-Gewichte je Skill (0-3) vorschlagen (Matrix-Dimensionen → Skill), Ausgangswerte pro Rolle.
+  - [ ] [Als naechstes] Formel/Beispiele im Spec verlinken; Ableitung on-demand, keine Duplikat-Wahrheit.
 
 - TTS (gemischt)
-  - [ ] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren.
-  - [ ] Live-Dialoge via Coqui XTTS v2 mit Cache (Hash(Text+Stimme)); Fallback Windows/Azure nur bei Bedarf.
+  - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren.
+  - [ ] [Spaeter] Live-Dialoge via Coqui XTTS v2 mit Cache (Hash(Text+Stimme)); Fallback Windows/Azure nur bei Bedarf.
 
 
 
