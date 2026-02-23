@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 20:53
-update: Kern-SSOT um harte Modul-DONELOG-Pflicht ergänzt; Index für neue Kernsektion aktualisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/instructions/rp-docs.instructions.md' '.github/copilot-instructions-headings.md' 'DONELOG.md' PASS (2026-02-21 20:49); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/instructions/rp-docs.instructions.md' '.github/copilot-instructions-headings.md' 'DONELOG.md' PASS (2026-02-21 20:49)
+stand: 2026-02-23 15:52
+update: Kern-SSOT um Snapshot-Gates (Write-Lock/Freshness) erweitert und Regelmatrix um R-SNAP ergänzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39)
 ---
 
 Hinweis
@@ -16,7 +16,7 @@ Instruction-System:
 Aktuelle Überschriften (Kern + Scoped)
 --------------------------------------
 
-Quelle: Stand `2026-02-21 20:45` der Kern-Datei und der zugehörigen
+Quelle: Stand `2026-02-23 12:39` der Kern-Datei und der zugehörigen
 scoped Instruction-Files.
 
 1) Kern-SSOT
@@ -39,6 +39,7 @@ Neue/geschärfte Kernabschnitte:
 - Quarantäne & Backup-Ort
 - R-IDX Mini-Gate
 - Modul-DONELOG-Pflicht
+- Snapshot-Gates (Write-Lock & Freshness)
 
 2) Scoped Instructions
 ----------------------

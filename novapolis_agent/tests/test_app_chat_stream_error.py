@@ -8,7 +8,10 @@ from fastapi.testclient import TestClient
 
 @pytest.mark.streaming
 def test_chat_stream_internal_error_headers(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("RATE_LIMIT_ENABLED", "false")
+    importlib.reload(importlib.import_module("app.core.settings"))
     app_mod = importlib.import_module("app.main")
+    app_mod = importlib.reload(app_mod)
     app = app_mod.app
 
     # Patch the imported symbol in app.main to return an SSE error generator

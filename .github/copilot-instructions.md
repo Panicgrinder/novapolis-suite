@@ -1,5 +1,5 @@
-Stand: 2026-02-22 01:56 – Postflight-Semantik für `Todos.offen` verbindlich präzisiert (Agent-Laufstatus ≠ Projekt-Backlog).
-Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 01:55; .github/copilot-instructions.md durch Config ausgeschlossen); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions.md' 'DONELOG.md' PASS (2026-02-22 01:55)
+Stand: 2026-02-23 12:39 – Snapshot-/Markdown-/Frontmatter-Gates als verbindlicher Ablauf fuer mutationale Runs praezisiert.
+Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39)
 
 
 LLM-Dokumentenheader (nicht löschen)
@@ -74,6 +74,12 @@ Globale Kernregeln
 - Ausnahme GOV-EX-FM-001: Diese Datei bleibt ohne YAML-Frontmatter.
 - Ausnahme GOV-EX-INS-001: `.github/instructions/*.instructions.md` nutzen nur instruction-spezifische Frontmatter-Felder (`description`, `name`, `applyTo`).
 
+### Snapshot-Gates (Write-Lock & Freshness)
+- Vor mutationalen Läufen Write-Lock frisch setzen: `& .\.venv\Scripts\python.exe scripts/snapshot_write_lock.py`.
+- Für alle betroffenen Markdown-Dateien muss `stand` auf den frischen Lock-Zeitwert (oder innerhalb des zulässigen Fensters) synchronisiert sein.
+- Reihenfolge verpflichtend: Snapshot-Lock -> `stand`-Sync -> markdownlint (betroffene Dateien) -> Frontmatter-Validator (betroffene Dateien) -> Commit/Push.
+- Wenn Snapshot-Gate blockiert, kein Bypass als Standardpfad; zuerst Lock/`stand` korrekt nachziehen.
+
 ### Namensgebungskonvention
 - Regel-IDs im Format `R-<BEREICH>-<THEMA>` (Großbuchstaben, Bindestrich-separiert).
 - Instruction-Dateien unter `.github/instructions/` enden auf `.instructions.md`.
@@ -111,6 +117,7 @@ Regelmatrix (Kern)
 - `id: R-PATH, priority: 1, scope: docs, trigger: markdown_change_in_active_docs, action: enforce_portable_paths, validation: no_host_bound_absolute_paths_in_active_docs, exceptions: audit_forensics_artifacts_allowed, notes: prefer_repo_relative_or_workspaceFolder`
 - `id: R-LINT, priority: 1, scope: docs, trigger: markdown_change, action: run_markdownlint_cli2, validation: exitcode_0, exceptions: none, notes: use_npx_yes_only`
 - `id: R-FM, priority: 1, scope: docs, trigger: markdown_change, action: run_frontmatter_validator, validation: required_keys_present, exceptions: GOV_EX_FM_001, notes: stand_update_checks_required`
+- `id: R-SNAP, priority: 1, scope: docs_and_commits, trigger: markdown_or_commit_intent, action: refresh_snapshot_lock_and_sync_stand, validation: snapshot_gate_pass, exceptions: explicit_stop_approved_override, notes: sequence_lock_sync_lint_fm_commit`
 - `id: R-NAME, priority: 1, scope: governance_docs, trigger: rule_or_instruction_change, action: enforce_naming_conventions, validation: ids_and_instruction_filenames_are_canonical, exceptions: none, notes: r_id_and_instruction_suffix_policy`
 - `id: R-WS, priority: 1, scope: markdown_docs, trigger: markdown_change, action: enforce_whitespace_canonization, validation: utf8_no_bom_unix_eol_single_trailing_newline_no_trailing_spaces, exceptions: none, notes: syntax_only_rule`
 - `id: R-FMT, priority: 1, scope: markdown_docs, trigger: markdown_change, action: enforce_markdown_format_norm, validation: heading_hierarchy_and_frontmatter_delimiters_stable, exceptions: GOV_EX_FM_001, notes: syntax_only_no_content_policy`

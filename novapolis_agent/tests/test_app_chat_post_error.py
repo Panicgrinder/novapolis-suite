@@ -8,7 +8,10 @@ from fastapi.testclient import TestClient
 
 @pytest.mark.api
 def test_chat_post_internal_error_sets_header(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("RATE_LIMIT_ENABLED", "false")
+    importlib.reload(importlib.import_module("app.core.settings"))
     app_mod = importlib.import_module("app.main")
+    app_mod = importlib.reload(app_mod)
     app = app_mod.app
     # Patch process_chat_request in the module where it's imported
     from typing import Any, NoReturn

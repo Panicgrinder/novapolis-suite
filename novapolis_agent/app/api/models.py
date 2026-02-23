@@ -69,3 +69,7 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     content: str
     model: str | None = None
+
+
+class ApiErrorResponse(BaseModel):
+    detail: str

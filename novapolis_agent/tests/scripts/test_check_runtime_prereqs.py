@@ -32,7 +32,9 @@ def test_collect_prereqs_missing_files_fails(tmp_path: Path) -> None:
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_collect_prereqs_strict_venv_enforced(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_collect_prereqs_strict_venv_enforced(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from scripts import check_runtime_prereqs as mod
 
     (tmp_path / "novapolis_agent" / "app").mkdir(parents=True)

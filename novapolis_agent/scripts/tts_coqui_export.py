@@ -6,7 +6,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-
 DEFAULT_ALLOWLIST_PATH = Path("novapolis_agent/config/tts_model_allowlist.json")
 
 
@@ -63,9 +62,19 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="Build-time TTS exporter skeleton with strict compliance gating."
     )
-    parser.add_argument("--input", required=True, help="Path to jsonl|yaml|txt source input")
-    parser.add_argument("--voice-map", required=True, help="Path to YAML voice mapping")
-    parser.add_argument("--model-id", required=True, help="Model identifier to be validated against allowlist")
+    parser.add_argument(
+        "--input",
+        required=True,
+        help="Path to jsonl|yaml|txt source input",
+    )
+    parser.add_argument(
+        "--voice-map",
+        required=True,
+        help="Path to YAML voice mapping",
+    )
+    parser.add_argument(
+        "--model-id", required=True, help="Model identifier to be validated against allowlist"
+    )
     parser.add_argument(
         "--allowlist",
         default=str(DEFAULT_ALLOWLIST_PATH),

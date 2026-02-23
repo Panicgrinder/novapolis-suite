@@ -15,24 +15,35 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import importlib
 import json
 import os
 import sys
 from collections.abc import Callable
 from typing import TYPE_CHECKING, Any, Protocol, cast
 
-try:
-    from utils.time_utils import now_compact, now_human
-except Exception:
-    from novapolis_agent.utils.time_utils import now_compact, now_human
+
+def _import_any(modules: list[str]) -> Any:
+    last_error: Exception | None = None
+    for module_name in modules:
+        try:
+            return importlib.import_module(module_name)
+        except Exception as exc:
+            last_error = exc
+    if last_error is not None:
+        raise last_error
+    raise ImportError("No module candidates provided")
+
+
+_time_utils_mod = _import_any(["utils.time_utils", "novapolis_agent.utils.time_utils"])
+now_compact = _time_utils_mod.now_compact
+now_human = _time_utils_mod.now_human
 
 # Cache/Key Utilities (robust gegen fehlende utils.eval_cache).
 # Cache für LLM-Summaries (EvalCache dynamisch geladen in _get_llm_cache)
 try:
-    try:
-        from utils.eval_cache import make_key
-    except Exception:
-        from novapolis_agent.utils.eval_cache import make_key
+    _eval_cache_mod = _import_any(["utils.eval_cache", "novapolis_agent.utils.eval_cache"])
+    make_key = _eval_cache_mod.make_key
 except Exception:
 
     def make_key(obj: Any) -> str:  # fallback
@@ -56,10 +67,8 @@ def _get_llm_cache() -> _EvalCacheProto | None:
     global _LLM_CACHE
     if _LLM_CACHE is None:
         try:
-            try:
-                from utils.eval_cache import EvalCache as _EvalCacheCls
-            except Exception:
-                from novapolis_agent.utils.eval_cache import EvalCache as _EvalCacheCls
+            _eval_cache_mod = _import_any(["utils.eval_cache", "novapolis_agent.utils.eval_cache"])
+            _EvalCacheCls = _eval_cache_mod.EvalCache
 
             _LLM_CACHE = cast(
                 _EvalCacheProto,
@@ -103,6 +112,7 @@ def _safe_relpath(path: str, start: str) -> str:
         return os.path.relpath(path, start)
     except ValueError:
         return path
+
 
 # Import Settings und Heuristik-Fallback
 from novapolis_agent.app.core.settings import settings  # noqa: E402

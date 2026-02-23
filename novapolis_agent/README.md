@@ -1,13 +1,21 @@
 ---
-stand: 2026-01-11 04:08
-update: checks-Receipt nachgezogen (Basis-Stabilisierung).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 04:08); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py README.md novapolis_agent\README.md PASS (2026-01-11 04:08)
+stand: 2026-02-23 15:53
+update: Eval-Datasets in Unterordner `neutral/` und `rpg/` migriert, Suites/Tasks auf neue Pakete umgestellt, Altpakete in Quarantäne verschoben.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 15:23); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-23 15:23)
 ---
 
 Novapolis Agent
 ===============
 
 Ein FastAPI-Backend für einen Conversational Agent innerhalb der Novapolis Suite, der Ollama als LLM verwendet.
+
+Ist-Stand (Betriebsfaehigkeit)
+------------------------------
+
+- Runtime-Betrieb erfolgt stabil über `.venv` und `app.main` (FastAPI).
+- Qualitaetsgates sind in Reihenfolge `Lint -> Typen -> Tests -> Coverage` dokumentiert und lauffaehig.
+- TTS-Runtime ist aktuell `contract-first`: API, Auth, Rate-Limit, Cache und Provider-Abstraktion sind aktiv; echte Audio-Synthese-Backends (`coqui`/`ollama`/`openai`) sind derzeit Adapter-Scaffolds.
+- Operatives Runbook: `novapolis_agent/docs/runbook.md`.
 
 Lizenz
 ------
@@ -165,6 +173,15 @@ Einstellungen/Umgebung
 Konfiguration per `.env` (siehe Beispiele in `app/core/settings.py`). Wichtige Felder:
 
 Hinweis: Bei aktiviertem Rate Limiting wird pro IP innerhalb eines 60s-Fensters begrenzt (in-memory, best-effort).
+
+### Konfigurationsvertrag (Masterplan Schritt 2)
+
+- Vertragsversion: `CONFIG_CONTRACT_VERSION=2026-02-23`
+- Pflichtwerte fuer Runtime: `OLLAMA_HOST`, `MODEL_NAME`
+- Optionale Runtime-Werte: `BACKEND_CORS_ORIGINS`, `REQUEST_TIMEOUT`, `REQUEST_MAX_INPUT_CHARS`, `REQUEST_MAX_TOKENS`, `RATE_LIMIT_*`
+- Safe-Fallbacks bei ungueltigen numerischen Werten (z. B. `REQUEST_TIMEOUT<=0`) greifen automatisch auf konservative Defaults zurueck.
+- Keine stillen Ausfaelle: Korrekturen werden in `SETTINGS_CONTRACT_ISSUES` gesammelt.
+- Strikter Modus: `STRICT_CONFIG=true` erzwingt Fehler statt Fallback, wenn der Vertrag verletzt wird.
 
 ### LLM-Optionen (Ollama) - Defaults & Overrides
 
@@ -328,6 +345,48 @@ Zusätzlich können lokale, private Ergänzungen in
 Diese Datei ist git-ignoriert und wird automatisch mit der Basisdatei gemerged.
 
 - Beispiel: `eval/config/synonyms.local.sample.json` kopieren zu `synonyms.local.json` und anpassen.
+
+Eval-Suites (neutral vs rpg)
+----------------------------
+
+Zur sauberen Trennung der Zielverhalten sind zwei Suiten definiert:
+
+- `neutral`: neutral-assistive Evaluierung (kein RPG-Fokus), Profil `eval`.
+- `rpg`: szenisch/rollenspielorientierte Evaluierung, Profil `unrestricted`.
+
+Suite-Quelle:
+
+- `novapolis_agent/eval/config/suites.json`
+
+VS-Code-Tasks:
+
+- `Eval: suite neutral (20, asgi)`
+- `Eval: suite rpg (20, asgi)`
+
+Check-Matrix:
+
+- `neutral` nutzt den `rpg_style`-Check, um RPG-Drift sichtbar zu machen.
+- `rpg` läuft ohne `rpg_style`, damit rollenspielnahe Antworten nicht am neutralen Stilkriterium scheitern.
+
+Dataset-Metadaten:
+
+- Eval-Datasets unterstuetzen `tags` und `slug`.
+- Wenn `id` fehlt, wird sie aus `slug` abgeleitet (`eval-<slug>`).
+- Neben JSON/JSONL sind auch YAML-Dateien (`.yaml`/`.yml`) fuer Eval-Datasets moeglich.
+
+Validierung:
+
+- Task: `Eval: validate datasets (slug+tags)`
+- Task: `Eval: validate suite datasets (strict)`
+- CLI: `.\.venv\Scripts\python.exe novapolis_agent\scripts\validate_eval_datasets.py`
+- Strict nur fuer Suiten: `.\.venv\Scripts\python.exe novapolis_agent\scripts\validate_eval_datasets.py --strict --suite-config novapolis_agent/eval/config/suites.json --suite neutral --suite rpg`
+- `combined_*`-Dateien gelten als aggregierte Artefakte und sind bei Duplicate-Pruefungen erlaubt.
+
+Manuell (Beispiel neutral):
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --profile eval --limit 20 --quiet --packages novapolis_agent/eval/datasets/neutral/neutral_01_20_core.v1.jsonl --packages novapolis_agent/eval/datasets/neutral/neutral_81_100_tech.v1.jsonl --packages novapolis_agent/eval/datasets/neutral/neutral_gpt_samples.de.v1.jsonl --packages novapolis_agent/eval/datasets/neutral/neutral_smoke.v1.jsonl
+```
 
 Lokale Kontext-Notizen (optional)
 ----------------------------------

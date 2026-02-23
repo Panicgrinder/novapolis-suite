@@ -4,6 +4,7 @@ pydantic>=2
 pydantic-settings>=2
 httpx
 python-dotenv
+PyYAML
 sqlalchemy
 sqlmodel
 

@@ -9,6 +9,7 @@ und prüft, ob die Antworten bestimmte Bedingungen erfüllen.
 import argparse
 import asyncio
 import glob
+import importlib
 import json
 import logging
 import os
@@ -98,33 +99,34 @@ if project_root not in sys.path:
 from collections.abc import Callable  # noqa: E402
 from typing import Any as _Any  # noqa: E402
 
-# Die folgenden Imports liegen nach sys.path-Manipulation weiter unten im Modul;
-# sie sind für die Laufzeit notwendig. Wir kennzeichnen sie gegen E402, da
-# die Einfüge-Logik (sys.path) zuvor ausgeführt werden muss.
-try:  # noqa: E402
-    from utils.eval_utils import coerce_json_to_jsonl, load_synonyms, truncate
-    from utils.time_utils import now_compact
-except Exception:  # noqa: E402
-    from novapolis_agent.utils.eval_utils import coerce_json_to_jsonl, load_synonyms, truncate
-    from novapolis_agent.utils.time_utils import now_compact
+
+def _import_any(modules: list[str]) -> Any:
+    last_error: Exception | None = None
+    for module_name in modules:
+        try:
+            return importlib.import_module(module_name)
+        except Exception as exc:
+            last_error = exc
+    if last_error is not None:
+        raise last_error
+    raise ImportError("No module candidates provided")
+
+
+_eval_utils_mod = _import_any(["utils.eval_utils", "novapolis_agent.utils.eval_utils"])
+_time_utils_mod = _import_any(["utils.time_utils", "novapolis_agent.utils.time_utils"])
+
+coerce_json_to_jsonl = _eval_utils_mod.coerce_json_to_jsonl
+coerce_eval_records = getattr(_eval_utils_mod, "coerce_eval_records", coerce_json_to_jsonl)
+load_synonyms = _eval_utils_mod.load_synonyms
+truncate = _eval_utils_mod.truncate
+now_compact = _time_utils_mod.now_compact
 
 try:
-    # Optionaler Cache für Antworten (lokal JSONL-basiert)
-    try:
-        from utils.eval_cache import make_key  # Funktion direkt importieren
-    except Exception:
-        from novapolis_agent.utils.eval_cache import make_key  # Funktion direkt importieren
-
-    try:
-        try:
-            from utils.eval_cache import EvalCache as _EvalCache
-        except Exception:
-            from novapolis_agent.utils.eval_cache import EvalCache as _EvalCache
-
-        # Fabriktyp: nimmt Pfad (str) und gibt eine Instanz mit get/put zurück
-        EvalCacheType: Callable[[str], _Any] | None = _EvalCache
-    except Exception:
-        EvalCacheType = None
+    _eval_cache_mod = _import_any(["utils.eval_cache", "novapolis_agent.utils.eval_cache"])
+    make_key = _eval_cache_mod.make_key
+    _EvalCache = _eval_cache_mod.EvalCache
+    # Fabriktyp: nimmt Pfad (str) und gibt eine Instanz mit get/put zurück
+    EvalCacheType: Callable[[str], _Any] | None = _EvalCache
 except Exception:
     EvalCacheType = None
 
@@ -191,6 +193,8 @@ class EvaluationItem:
     category: str | None = None
     # Tags aus Dataset (z. B. ["szenen", "fantasy"])
     tags: list[str] = field(default_factory=_empty_str_list)
+    # Optionaler fachlicher Identifikator (stabil über Dateiumbenennungen)
+    slug: str | None = None
 
 
 @dataclass
@@ -205,8 +209,16 @@ class EvaluationResult:
     error: str | None = None
     source_file: str | None = None
     source_package: str | None = None
+    slug: str | None = None
     duration_ms: int = 0
     attempts: int = 1
+
+
+def _slug_to_eval_id(slug: str) -> str:
+    normalized = re.sub(r"[^a-zA-Z0-9._-]+", "-", slug.strip().lower()).strip("-")
+    if not normalized:
+        return ""
+    return normalized if normalized.startswith("eval-") else f"eval-{normalized}"
 
 
 def check_term_inclusion(text: str, term: str) -> bool:
@@ -495,9 +507,12 @@ async def load_prompts(patterns: list[str] | None = None) -> list[dict[str, Any]
 
                 # Konvertiere den Inhalt zu einer Liste von Dictionaries
                 try:
-                    data_array: list[dict[str, Any]] = cast(
-                        list[dict[str, Any]], coerce_json_to_jsonl(file_content)
-                    )
+                    try:
+                        data_array = cast(
+                            list[dict[str, Any]], coerce_eval_records(file_content, file_path)
+                        )
+                    except TypeError:
+                        data_array = cast(list[dict[str, Any]], coerce_eval_records(file_content))
 
                     if not data_array:
                         logger.warning(f"{basename}: Keine gültigen JSON-Objekte gefunden")
@@ -592,12 +607,23 @@ async def load_evaluation_items(patterns: list[str] | None = None) -> list[Evalu
 
                 # Überprüfe das Format der Daten
                 if "id" not in data:
-                    logger.warning("'id' fehlt in einem Prompt, generiere ID")
-                    data["id"] = f"eval-{len(items) + 1:03d}"
+                    slug = str(data.get("slug") or "").strip()
+                    if slug:
+                        data["id"] = _slug_to_eval_id(slug)
+                    if not data.get("id"):
+                        logger.warning("'id' fehlt in einem Prompt, generiere ID")
+                        data["id"] = f"eval-{len(items) + 1:03d}"
 
                 # Stelle sicher, dass die ID das richtige Format hat
                 if not str(data["id"]).startswith("eval-"):
                     data["id"] = f"eval-{data['id']}"
+
+                if not data.get("slug"):
+                    data["slug"] = (
+                        str(data["id"])[5:]
+                        if str(data["id"]).startswith("eval-")
+                        else str(data["id"])
+                    )
 
                 # Prüfe und konvertiere messages/prompt-Felder
                 if "messages" not in data:
@@ -650,6 +676,7 @@ async def load_evaluation_items(patterns: list[str] | None = None) -> list[Evalu
                     source_package=source_package,
                     category=cast(str | None, data.get("category")),
                     tags=list(cast(list[str], data.get("tags") or [])),
+                    slug=cast(str | None, data.get("slug")),
                 )
                 items.append(item)
                 file_stats[source_file]["loaded"] += 1
@@ -914,7 +941,7 @@ async def evaluate_item(
         # Wenn im RPG-Modus und es sich nicht um einen RPG-spezifischen Test handelt, Hinweis
         if is_rpg_mode and not any(
             rpg_term in (item.source_package or "").lower()
-            for rpg_term in ["rpg", "novapolis", "szene"]
+            for rpg_term in ["rpg", "novapolis", "szene", "fantasy", "dialog"]
         ):
             failed_checks.append("Antwort im RPG-Modus, aber Test erwartet allgemeine Antwort")
 
@@ -1224,6 +1251,7 @@ async def evaluate_item(
                             failed_checks=failed_checks_retry,
                             source_file=item.source_file,
                             source_package=item.source_package,
+                            slug=item.slug,
                             duration_ms=duration_ms,
                             attempts=attempts_used,
                         )
@@ -1237,6 +1265,7 @@ async def evaluate_item(
                             failed_checks=failed_checks_retry,
                             source_file=item.source_file,
                             source_package=item.source_package,
+                            slug=item.slug,
                             duration_ms=duration_ms,
                             attempts=attempts_used,
                         )
@@ -1255,6 +1284,7 @@ async def evaluate_item(
             failed_checks=failed_checks,
             source_file=item.source_file,
             source_package=item.source_package,
+            slug=item.slug,
             duration_ms=duration_ms,
             attempts=attempts_used,
         )
@@ -1272,6 +1302,7 @@ async def evaluate_item(
             error=str(e),
             source_file=item.source_file,
             source_package=item.source_package,
+            slug=item.slug,
             duration_ms=duration_ms,
         )
 

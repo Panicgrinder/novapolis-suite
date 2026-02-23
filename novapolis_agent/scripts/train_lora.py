@@ -175,11 +175,11 @@ def main() -> int:
     args = p.parse_args()
 
     # Heavy ML deps are imported lazily so smoke-import tests can run without torch/trl.
-    import torch  # noqa: E402
-    from peft import LoraConfig  # noqa: E402
-    from transformers import AutoModelForCausalLM, AutoTokenizer  # noqa: E402
-    from trl.trainer.sft_config import SFTConfig  # noqa: E402
-    from trl.trainer.sft_trainer import SFTTrainer  # noqa: E402
+    import torch
+    from peft import LoraConfig
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    from trl.trainer.sft_config import SFTConfig
+    from trl.trainer.sft_trainer import SFTTrainer
 
     os.makedirs(args.output, exist_ok=True)
 

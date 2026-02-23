@@ -1,16 +1,25 @@
 from __future__ import annotations
 
+import importlib
 from typing import Any
 
 import pytest
-from app.main import app
 from fastapi.testclient import TestClient
+
+
+def _client_without_tts_auth(monkeypatch: pytest.MonkeyPatch) -> TestClient:
+    monkeypatch.setenv("TTS_AUTH_ENABLED", "false")
+    monkeypatch.setenv("TTS_PROVIDER", "dummy")
+    importlib.reload(importlib.import_module("app.core.settings"))
+    app_mod = importlib.reload(importlib.import_module("app.main"))
+    return TestClient(app_mod.app)
 
 
 @pytest.mark.api
 @pytest.mark.unit
 def test_tts_health_contract() -> None:
-    client = TestClient(app)
+    app_mod = importlib.import_module("app.main")
+    client = TestClient(app_mod.app)
     resp = client.get("/tts/health")
     assert resp.status_code == 200
     data: dict[str, Any] = resp.json()
@@ -21,8 +30,8 @@ def test_tts_health_contract() -> None:
 
 @pytest.mark.api
 @pytest.mark.unit
-def test_tts_voices_contract() -> None:
-    client = TestClient(app)
+def test_tts_voices_contract(monkeypatch: pytest.MonkeyPatch) -> None:
+    client = _client_without_tts_auth(monkeypatch)
     resp = client.get("/tts/voices")
     assert resp.status_code == 200
     data: dict[str, Any] = resp.json()
@@ -33,8 +42,8 @@ def test_tts_voices_contract() -> None:
 
 @pytest.mark.api
 @pytest.mark.unit
-def test_tts_synthesize_contract() -> None:
-    client = TestClient(app)
+def test_tts_synthesize_contract(monkeypatch: pytest.MonkeyPatch) -> None:
+    client = _client_without_tts_auth(monkeypatch)
     payload = {
         "text": "Hallo Welt",
         "voice": "dummy-de",

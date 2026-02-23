@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from importlib import reload
 
+import pytest
 from app.core import settings as settings_module
 from pytest import MonkeyPatch
 
@@ -30,3 +31,30 @@ def test_settings_parsing_from_env(monkeypatch: MonkeyPatch) -> None:
     ]
     assert s.OLLAMA_HOST == "http://host:11434"
     assert s.MODEL_NAME == "m:1"
+
+
+def test_settings_contract_fallbacks(monkeypatch: MonkeyPatch) -> None:
+    monkeypatch.delenv("STRICT_CONFIG", raising=False)
+    monkeypatch.setenv("REQUEST_TIMEOUT", "0")
+    monkeypatch.setenv("REQUEST_MAX_INPUT_CHARS", "0")
+    monkeypatch.setenv("RATE_LIMIT_WINDOW_SEC", "0")
+    monkeypatch.setenv("OLLAMA_HOST", "localhost:11434/")
+    monkeypatch.setenv("MODEL_NAME", "")
+
+    reload(settings_module)
+    s = settings_module.settings
+
+    assert s.REQUEST_TIMEOUT == 60.0
+    assert s.REQUEST_MAX_INPUT_CHARS == 16000
+    assert s.RATE_LIMIT_WINDOW_SEC == 60.0
+    assert s.OLLAMA_HOST == "http://localhost:11434"
+    assert s.MODEL_NAME == "llama3.1:8b"
+    assert len(s.SETTINGS_CONTRACT_ISSUES) >= 3
+
+
+def test_settings_contract_strict_mode_raises(monkeypatch: MonkeyPatch) -> None:
+    monkeypatch.setenv("STRICT_CONFIG", "true")
+    monkeypatch.setenv("REQUEST_TIMEOUT", "0")
+
+    with pytest.raises(ValueError):
+        reload(settings_module)

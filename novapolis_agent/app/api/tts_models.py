@@ -54,5 +54,27 @@ class TtsSynthesizeResponse(BaseModel):
     mime_type: str
     is_placeholder: bool
     request_hash: str
+    cache_key: str | None = None
     cache_hit: bool
     detail: str
+
+
+class TtsCacheStatsResponse(BaseModel):
+    enabled: bool
+    entries: int
+    size_bytes: int
+    ttl_sec: int
+    max_entries: int
+    max_bytes: int
+    hits: int
+    misses: int
+    evictions_ttl: int
+    evictions_size: int
+
+
+class TtsCacheCleanupResponse(BaseModel):
+    status: str
+    removed_expired: int
+    removed_size: int
+    entries: int
+    size_bytes: int

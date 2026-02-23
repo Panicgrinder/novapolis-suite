@@ -1,10 +1,12 @@
 ---
-stand: 2026-02-23 12:35
-update: "TTS-Vormerkung verschaerft: nur benoetigte Teile nach `novapolis_agent` uebernehmen und `TTS/` danach wieder entfernen (README + Root-TODO synchronisiert)."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'DONELOG.md' PASS (2026-02-23 12:08); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-23 12:08)
+stand: 2026-02-23 15:53
+update: "Governance-SSOT um Snapshot-/Markdown-/Frontmatter-Gates als verbindlichen Mutationsablauf ergänzt; Headings-Index synchronisiert."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39)
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-23 12:39: Governance-SSOT aktualisiert: In `.github/copilot-instructions.md` wurde der verbindliche Snapshot-/Markdown-/Frontmatter-Ablauf als eigener Kernabschnitt verankert (inkl. Regel `R-SNAP` in der Matrix); der Pflichtindex `.github/copilot-instructions-headings.md` wurde im selben Lauf nachgezogen.
 
 - 2026-02-23 12:06: Verbindliche TTS-Vormerkung eingetragen: `TTS/` bleibt nur als temporaere Entnahmequelle im Root; benoetigte Teile wandern nach `novapolis_agent/`, danach wird `TTS/` entfernt. Umsetzung in `README.md` verankert und als offener `[Jetzt]`-Punkt in `todo.root.md` aufgenommen.
 

@@ -42,7 +42,9 @@ def test_validate_model_policy_requires_local_license_file(tmp_path: Path) -> No
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_main_blocks_with_empty_default_allowlist(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_main_blocks_with_empty_default_allowlist(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     mod = importlib.import_module("scripts.tts_coqui_export")
 
     input_file = tmp_path / "in.txt"

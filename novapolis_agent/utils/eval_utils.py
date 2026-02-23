@@ -101,6 +101,59 @@ def coerce_json_to_jsonl(text: str) -> list[dict[str, Any]]:
         return repaired
 
 
+def coerce_eval_records(text: str, source_path: str | None = None) -> list[dict[str, Any]]:
+    """Coerced Eval-Datensaetze aus JSON/JSONL/YAML zu einer Liste von Dicts.
+
+    - JSON/JSONL nutzt die bestehende `coerce_json_to_jsonl`-Logik.
+    - YAML (`.yaml`/`.yml`) akzeptiert:
+      - Liste von Records
+      - Multi-Document YAML
+      - Dict mit `items: [...]`
+    """
+
+    suffix = ""
+    if source_path:
+        suffix = os.path.splitext(source_path)[1].lower()
+
+    if suffix not in {".yaml", ".yml"}:
+        return coerce_json_to_jsonl(text)
+
+    try:
+        import yaml  # type: ignore[import-untyped]
+    except Exception:
+        # Fallback, wenn YAML-Library nicht verfügbar ist.
+        return coerce_json_to_jsonl(text)
+
+    try:
+        docs = [d for d in yaml.safe_load_all(text) if d is not None]
+    except Exception:
+        return []
+
+    if not docs:
+        return []
+
+    # Single-document YAML
+    if len(docs) == 1:
+        single = docs[0]
+        if isinstance(single, list):
+            return [cast(dict[str, Any], r) for r in single if isinstance(r, dict)]
+        if isinstance(single, dict):
+            items = cast(dict[str, Any], single).get("items")
+            if isinstance(items, list):
+                return [cast(dict[str, Any], r) for r in items if isinstance(r, dict)]
+            return [cast(dict[str, Any], single)]
+        return []
+
+    # Multi-document YAML
+    out: list[dict[str, Any]] = []
+    for doc in docs:
+        if isinstance(doc, dict):
+            out.append(cast(dict[str, Any], doc))
+        elif isinstance(doc, list):
+            out.extend([cast(dict[str, Any], r) for r in doc if isinstance(r, dict)])
+    return out
+
+
 def load_synonyms(path: str | list[str] = "eval/config/synonyms.json") -> dict[str, list[str]]:
     """Lädt eine oder mehrere Synonymdateien und führt deren Inhalte zusammen."""
 

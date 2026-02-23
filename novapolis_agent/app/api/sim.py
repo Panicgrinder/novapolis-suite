@@ -73,6 +73,7 @@ def reset_state() -> None:
 
 if __name__ == "__main__":  # pragma: no cover
     import os
+
     import uvicorn
 
     port = int(os.getenv("AGENT_PORT", "8765"))

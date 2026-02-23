@@ -210,13 +210,107 @@
     }
     ,
     {
+      "label": "Eval: suite neutral (20, asgi)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "scripts.agent.run_eval",
+        "--asgi",
+        "--profile",
+        "eval",
+        "--limit",
+        "20",
+        "--quiet",
+        "--checks",
+        "must_include,keywords_any,keywords_at_least,not_include,regex,rpg_style",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\neutral\\neutral_01_20_core.v1.jsonl",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\neutral\\neutral_81_100_tech.v1.jsonl",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\neutral\\neutral_gpt_samples.de.v1.jsonl",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\neutral\\neutral_smoke.v1.jsonl"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Eval: suite rpg (20, asgi)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "scripts.agent.run_eval",
+        "--asgi",
+        "--profile",
+        "unrestricted",
+        "--limit",
+        "20",
+        "--quiet",
+        "--checks",
+        "must_include,keywords_any,keywords_at_least,not_include,regex",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\rpg\\rpg_21_40_fantasy.v1.jsonl",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\rpg\\rpg_41_60_dialog.v1.jsonl",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\rpg\\rpg_61_80_szenen.v1.jsonl"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Eval: validate datasets (slug+tags)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\novapolis_agent\\scripts\\validate_eval_datasets.py"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Eval: validate suite datasets (strict)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\novapolis_agent\\scripts\\validate_eval_datasets.py",
+        "--strict",
+        "--suite-config",
+        "${workspaceFolder}\\novapolis_agent\\eval\\config\\suites.json",
+        "--suite",
+        "neutral",
+        "--suite",
+        "rpg"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
       "label": "TTS: export (Coqui->OGG)",
       "type": "shell",
-      "command": "pwsh",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
-        "-NoLogo",
-        "-Command",
-        "Write-Host 'TODO: Platzhalter-Task. Implementierung folgt ueber novapolis_agent/scripts/tts_export_coqui.py'"
+        "${workspaceFolder}\\novapolis_agent\\scripts\\tts_export_coqui.py",
+        "--help"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",

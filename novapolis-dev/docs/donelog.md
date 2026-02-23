@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 12:35
-update: Agent-Board um 10-Schritte-Masterplan fuer KI-Inbetriebnahme erweitert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 10:42); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 10:42)
+stand: 2026-02-23 15:53
+update: Eval-Datasetstruktur auf `neutral/` + `rpg/` umgestellt und ersetzte Altpakete in Quarantäne abgelegt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis_agent/docs/DONELOG.txt' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 15:43); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis_agent/docs/DONELOG.txt' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 15:43)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,108 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+Agent: Dataset-Unterordner-Migration abgeschlossen (2026-02-23 15:43)
+---------------------------------------------------------------------
+
+- Neue Struktur etabliert: `novapolis_agent/eval/datasets/neutral/*.jsonl` und `novapolis_agent/eval/datasets/rpg/*.jsonl`.
+- `novapolis_agent/eval/config/suites.json` und `.vscode/tasks.json` auf neue Paketpfade umgestellt.
+- Ehemalige Suite-Quelldateien nach `novapolis-dev/archive/quarantine/eval-datasets-20260223-1537/` verschoben statt gelöscht.
+- Strict-Suite-Validator (`--suite neutral --suite rpg`) läuft auf den neuen Paketen mit Exitcode `0`.
+
+Agent: Strict-Suite-Validator finalisiert (2026-02-23 15:23)
+------------------------------------------------------------
+
+- `novapolis_agent/scripts/validate_eval_datasets.py`: Suite-Patterns werden nur mit explizitem `--suite` geladen (kein implizites Mitscannen).
+- Neue Option `--allow-missing-id-pattern` ergänzt; damit kann Strict-Scope für bekannte Legacy-Dateien gezielt toleriert werden.
+- `.vscode/tasks.json`: `Eval: validate suite datasets (strict)` nutzt `--suite neutral --suite rpg` plus `--allow-missing-id-pattern *gpt_samples.de.jsonl`.
+- Verifikation: strict Suite-Lauf liefert `SUITE_STRICT_EXIT=0` bei klaren Warnungen statt Hard-Fail für die allowlistierten Legacy-Einträge.
+
+Agent: Eval-Metadaten-Flow (YAML + slug/tags + Validator) umgesetzt (2026-02-23 14:54)
+----------------------------------------------------------------------------------------
+
+- `novapolis_agent/utils/eval_utils.py`: `coerce_eval_records(...)` für JSON/JSONL/YAML ergänzt.
+- `novapolis_agent/scripts/run_eval.py`: `slug` als ID-Fallback integriert, `slug` in `EvaluationItem`/`EvaluationResult` aufgenommen.
+- `novapolis_agent/scripts/validate_eval_datasets.py` neu: Dataset-Gate für Struktur, Tags, Duplikate (optional strict).
+- `.vscode/tasks.json`: Task `Eval: validate datasets (slug+tags)` ergänzt.
+- Tests ergänzt: `novapolis_agent/tests/test_eval_loader.py` (YAML+slug), `novapolis_agent/tests/scripts/test_validate_eval_datasets.py` (Validator).
+
+Agent: Eval-Suite-Trennung umgesetzt (2026-02-23 14:28)
+-------------------------------------------------------
+
+- Neue Suite-Definition angelegt: `novapolis_agent/eval/config/suites.json` (`neutral`, `rpg`) inklusive separater Check-Matrix.
+- `.vscode/tasks.json` erweitert: `Eval: suite neutral (20, asgi)` und `Eval: suite rpg (20, asgi)` mit expliziten Package-Patterns.
+- `novapolis_agent/scripts/run_eval.py` angepasst: RPG-Erkennung behandelt nun auch `fantasy`/`dialog` als RPG-nahe Pakete.
+- Doku synchronisiert: `novapolis_agent/README.md` und `novapolis_agent/docs/runbook.md` erklären die Suite-Trennung und den Check-Unterschied (`rpg_style` nur in neutraler Suite).
+
+Agent: Schritt 9 (Qualitaetsgates) validiert und im Board auf umgesetzt gesetzt (2026-02-23 13:46)
+----------------------------------------------------------------------------------------------------
+
+- Reihenfolge strikt erfüllt im CI-identischen `novapolis_agent`-CWD mit `.venv`: `ruff+black` -> `pyright+mypy` -> `pytest -q` -> Coverage (`scripts/run_pytest_coverage.py --fail-under 80`).
+- Ergebnis: alle Gates grün; Coverage-Gate Exitcode `0` bei `>=80`.
+- `novapolis-dev/docs/todo.agent-board.md`: Masterplan-Punkt 9 auf `[x]` gesetzt.
+- `novapolis-dev/docs/todo.index.md`: Agent-Open-Count von `4` auf `3` synchronisiert.
+
+Agent: Schritt 10 (Betriebsdoku-Truthfulness) umgesetzt und im Board auf erledigt gesetzt (2026-02-23 13:52)
+-------------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/README.md`: Ist-Stand-Abschnitt ergänzt (TTS klar als Contract-First, keine unbelegten Runtime-Claims).
+- `novapolis_agent/docs/runbook.md`: neues operatives Runbook für Runtime-/Gate-Ablauf angelegt.
+- `.vscode/tasks.json`: TTS-Export-Task auf reales Script (`novapolis_agent/scripts/tts_export_coqui.py --help`) statt Platzhalter umgestellt.
+- `novapolis-dev/docs/todo.agent-board.md`: Masterplan-Punkt 10 sowie README-Truthfulness-Task auf `[x]` gesetzt; `novapolis-dev/docs/todo.index.md` Open-Count von `3` auf `2` synchronisiert.
+
+Dev: Python-Interpreter auf .venv fixiert (2026-02-23 13:27)
+-------------------------------------------------------------
+
+- `.vscode/settings.json` ergänzt: `python.defaultInterpreterPath=${workspaceFolder}/.venv/Scripts/python.exe`.
+- Ziel: VS-Code-/Tooling-Aufrufe nutzen konsistent die Projekt-`.venv` statt System-Python (verhindert fehlende Paketauflösungen bei Markerläufen).
+
+Agent: Masterplan Schritt 1 im Board auf umgesetzt gesetzt (2026-02-23 12:58)
+--------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md`: Masterplan-Punkt 1 auf `[x]` gesetzt und Runtime-Evidenz auf `check_runtime_prereqs.py` + zugehoerige Tests + `run_server.py` ergänzt.
+
+Agent: Masterplan Schritt 2/3/4 validiert und im Board auf umgesetzt gesetzt (2026-02-23 13:00)
+---------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md`: Masterplan-Punkte 2, 3 und 4 auf `[x]` gesetzt und um konkrete Evidenz (Settings-Vertrag, OpenAPI/API-Contract, TTS-Auth) ergänzt.
+- Validierungslauf erfolgreich: `test_settings_parsing.py`, `test_openapi_contract.py`, `test_tts_api_contract.py`, `test_tts_auth_contract.py`, sowie stabilisierte Chat-Error-Tests (`test_app_chat_post_error.py`, `test_app_chat_stream_error.py`) grün.
+
+Agent: Schritt 5 (TTS-Rate-Limit) validiert und im Board auf umgesetzt gesetzt (2026-02-23 13:05)
+----------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md`: TTS-Rate-Limit-Aufgabe auf `[x]` gesetzt, Evidenz auf Middleware-/Settings-Änderungen und Vertragstests ergänzt.
+- `novapolis-dev/docs/todo.agent-board.md`: Masterplan-Punkt 5 auf `[x]` gesetzt (Header-/429-Vertrag und Chat-Regressionsschutz).
+- `novapolis-dev/docs/todo.index.md`: Agent-Open-Count von `8` auf `7` synchronisiert.
+
+Agent: Schritt 6 (TTS-Cache/Speicherstrategie) validiert und im Board auf umgesetzt gesetzt (2026-02-23 13:12)
+-----------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md`: Cache-Aufgabe auf `[x]` gesetzt; Evidenz für deterministische Keys, TTL/Size-Limits, Cleanup-Pfad und Hit/Miss-Telemetrie ergänzt.
+- `novapolis-dev/docs/todo.agent-board.md`: Masterplan-Punkt 6 auf `[x]` gesetzt.
+- `novapolis-dev/docs/todo.index.md`: Agent-Open-Count von `7` auf `6` synchronisiert.
+
+Agent: Schritt 7 (Provider-Abstraktion) validiert und im Board auf umgesetzt gesetzt (2026-02-23 13:17)
+-------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md`: Provider-Aufgabe auf `[x]` gesetzt; Evidenz auf Interface + Dummy/Null + Adapter-Scaffolds + Tests ergänzt.
+- `novapolis-dev/docs/todo.agent-board.md`: Masterplan-Punkt 7 auf `[x]` gesetzt.
+- `novapolis-dev/docs/todo.index.md`: Agent-Open-Count von `6` auf `5` synchronisiert.
+
+Agent: Schritt 8 (Testpyramide + Markerlaeufe) validiert und im Board auf umgesetzt gesetzt (2026-02-23 13:23)
+--------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md`: Test-Skeleton-Aufgabe auf `[x]` gesetzt; Evidenz auf API/Auth/Rate-Limit/Cache/Provider-Contract-Tests ergänzt.
+- `novapolis-dev/docs/todo.agent-board.md`: Masterplan-Punkt 8 auf `[x]` gesetzt.
+- Markerlaeufe im CI-identischen Modul-CWD (`novapolis_agent`) mit `.venv` erfolgreich: `pytest -q -m unit`, `pytest -q -m "api or streaming"`, `pytest -q -m scripts`.
+- `novapolis-dev/docs/todo.index.md`: Agent-Open-Count von `5` auf `4` synchronisiert.
+
+Agent: Board/Index nach Schritt 4 synchronisiert (2026-02-23 12:55)
+-------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md` aktualisiert: Auth-Regel fuer TTS-Endpunkte auf erledigt gesetzt (401/403-Pfade) und Evidenz auf Backend+Tests ergänzt.
+- `novapolis-dev/docs/todo.agent-board.md` erweitert: neuer `[Als naechstes]`-Block fuer eigenen TTS-Model-Track (Daten/Rechte, Trainingsziel, Evaluation, Runtime-Adapter-Reihenfolge).
+- `novapolis-dev/docs/todo.index.md` synchronisiert: Agent-Open-Count von `9` auf `8` angepasst.
 
 Agent: Analysebefunde in TODO-Punkte ueberfuehrt (2026-02-23 09:08)
 ---------------------------------------------------------------
