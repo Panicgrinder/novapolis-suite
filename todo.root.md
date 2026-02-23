@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 09:19
-update: Root-Punkte 1-3 umgesetzt (Sim-Task + Board-Prioritaetstags + Wochenabschluss-Routine).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (2026-02-23 08:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (EXITCODE=0, 2026-02-23 08:40)
+stand: 2026-02-23 12:35
+update: TTS-Entnahmeplan als verbindlicher Root-Punkt ergänzt (nur benötigte Teile nach `novapolis_agent`, danach Entfernung von `TTS/`).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'DONELOG.md' PASS (2026-02-23 12:08); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-23 12:08)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -24,6 +24,9 @@ Neue Punkte (Backlog)
   - Evidenz: `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.rp.md`.
 - [x] Wochenabschluss-Routine standardisieren: Reihenfolge und Artefaktablage für Tests/Checks/Status-Update verbindlich notieren.
   - Evidenz: `README.md` (Abschnitt „Wochenabschluss-Routine“).
+- [ ] [Jetzt] `TTS/` nur als temporaere Entnahmequelle behandeln: benoetigte Teile nach `novapolis_agent/` ueberfuehren und das Root-Verzeichnis `TTS/` danach entfernen.
+  - Akzeptanzkriterien: (1) Entnommene Dateien/Pfade in `novapolis_agent/` dokumentiert, (2) `TTS/` aus Root entfernt, (3) README/Status/DONELOG synchronisiert.
+  - Evidenz: `README.md` (TTS-Vormerkung), Root-`.gitignore` (`/TTS/`).
 
 Hinweise
 --------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 16:51
-update: Root- und Check-Pfadhinweise auf portable Form ohne hostgebundene Absolutpfade umgestellt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40); ./.venv/Scripts/python.exe scripts/check_frontmatter.py '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40)"
+stand: 2026-02-23 12:35
+update: Root-Bestand um externes Coqui-TTS-Verzeichnis (`TTS/`) als getrenntes Upstream-Mirror ergaenzt.
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' PASS (2026-02-23 11:57); ./.venv/Scripts/python.exe scripts/check_frontmatter.py 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-23 11:57)"
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -23,6 +23,13 @@ Geplante Vereinheitlichung (Phase 2):
 - Vollständige Entfernung historischer Duplikate nach Abschluss der README-Entscheidungsliste.
 
 Status: Phase 1 (Redirect-Hinweis) aktiv; Entscheidungsliste erstellt (`novapolis-dev/docs/readme_decisions.md`).
+
+Root-Zusatzbestand (extern)
+---------------------------
+
+- `TTS/` liegt als externes Coqui-TTS-Upstream-Mirror im Repo-Root vor (eigene `.git`-Metadaten, eigene CI/Tests/Docs).
+- Einordnung: Referenz-/Vendor-Bestand, nicht Teil der kanonischen Novapolis-SSOT.
+- Pflegeprinzip: nur bei explizitem Auftrag mutieren; Upstream-Synchronisation getrennt vom Novapolis-Root-Workflow behandeln.
 
 Vollständiger Index aller Dateien im Agent-Verzeichnis
 ------------------------------------------------------

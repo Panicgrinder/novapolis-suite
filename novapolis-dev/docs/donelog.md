@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 09:19
-update: Agent-Board um konkrete TTS-Mini-Service-Arbeitspakete aus der Modulanalyse erweitert; Agent-Index synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 09:09); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 09:09)
+stand: 2026-02-23 12:35
+update: Agent-Board um 10-Schritte-Masterplan fuer KI-Inbetriebnahme erweitert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 10:42); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 10:42)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -19,6 +19,26 @@ Agent: Analysebefunde in TODO-Punkte ueberfuehrt (2026-02-23 09:08)
 - `novapolis-dev/docs/todo.agent-board.md` um konkrete `[Jetzt]`-Pakete erweitert: Driftfix fehlender Exporter-Datei, API-Vertrag (`/tts/synthesize`, `/tts/health`), Provider-Interface, Auth-Regel, Cache-Vertrag und Testpaket.
 - Vorheriger Sammelpunkt „Mini-Service (Runtime, Planung)“ in klar abgegrenzte, nacheinander umsetzbare Arbeitsschritte aufgelöst.
 - `novapolis-dev/docs/todo.index.md` Agent-Open-Count von `3` auf `8` nachgezogen.
+
+Agent: TTS-Board praezisiert (Rate-Limit, Endpunkte, README-Truthfulness) (2026-02-23 09:47)
+--------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md` erweitert: explizite Endpunktliste (`/tts/health`, `/tts/voices`, `/tts/synthesize`), TTS-Rate-Limit-Vertrag, Coqui-Teilaufgaben und README-Truthfulness ergänzt.
+- `novapolis-dev/docs/todo.index.md` Agent-Open-Count entsprechend auf `11` aktualisiert.
+
+Agent: TTS Schritt 1+2 umgesetzt (2026-02-23 10:25)
+---------------------------------------------------
+
+- `novapolis_agent/scripts/tts_coqui_export.py` als reales Exporter-Skeleton angelegt (CLI-Vertrag, Pfadpruefung, `--dry-run`).
+- TTS-API-Vertrag im Backend implementiert: `novapolis_agent/app/api/tts_models.py` und neue Endpunkte in `novapolis_agent/app/main.py` (`/tts/health`, `/tts/voices`, `/tts/synthesize`).
+- Vertragstests ergänzt: `novapolis_agent/tests/test_tts_api_contract.py`.
+- `novapolis-dev/docs/todo.agent-board.md` zwei `[Jetzt]`-Punkte auf erledigt gesetzt; `novapolis-dev/docs/todo.index.md` Agent-Open-Count auf `9` nachgezogen.
+
+Agent: 10-Schritte-Masterplan im Board ergänzt (2026-02-23 10:38)
+-----------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md` um einen klaren End-to-End-Masterplan mit 10 großen Schritten ergänzt (Runtime, Config, API-Vertrag, Auth, Rate-Limit, Cache, Provider-Abstraktion, Tests, Gates, Betriebsdoku).
+- Ziel: die verbleibenden TTS/Agent-Punkte in eine belastbare Inbetriebnahme-Sequenz mit eindeutiger Reihenfolge zu bringen.
 
 Root/Dev: Punkte 1-3 umgesetzt (2026-02-23 08:37)
 --------------------------------------------------

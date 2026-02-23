@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 09:19
-update: Root-Punkte 1-3 umgesetzt (Sim-Task, Prioritaetstags-Harmonisierung, Wochenabschluss-Routine) und TODO-Sync aktualisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (2026-02-23 08:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (EXITCODE=0, 2026-02-23 08:40)
+stand: 2026-02-23 12:35
+update: Externes Coqui-TTS-Verzeichnis (`TTS/`) als Root-Bestand dokumentiert und als separates Upstream-Mirror eingeordnet.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' PASS (2026-02-23 11:57); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-23 11:57)
 ---
 - 2026-02-22 23:58: Vor Archivierung wurden abgeschlossene TODO-Punkte per Ist-Checks validiert (Root-Leerinventur, CI-Trigger, RP-P0-Evidenz). Danach Root-/Dev-Archive aktualisiert, aktive TODOs neu vorbereitet und `novapolis-dev/docs/todo.index.md` auf aktuelle Open-Counts synchronisiert.
 - 2026-02-22 23:58: Vollständiger Testlauf durchgeführt: Root-Pytest-Wrapper, Gesamt-`pytest -q`, `-m unit`, `-m "api or streaming"` sowie Coverage-Wrapper (alle PASS).
@@ -129,7 +129,9 @@ Workspace-Status
 - 2025-11-07 01:39: TODO aktualisiert (Single-Repo-Reminder; Aufgaben zu Lint-Overrides, Staging-Reports, Metadata-Konsolidierung, Archiv-Ablage).
 - 2025-11-07 01:27: Konfliktanalyse durchgeführt (Markdownlint-Overrides, Staging-Reports ohne Frontmatter, doppelte Metadata-Skripte, Chat-Router-Notiz). Maßnahmen in TODO/DONELOG erfasst.
 - Mono-Repo bündelt `novapolis_agent`, `novapolis-rp`, `novapolis-dev`, `novapolis-sim`, gemeinsame Pakete unter `packages/`
+- Zusaetzlicher Root-Bestand: `TTS/` (Coqui-TTS-Upstream-Mirror mit eigener Git-Historie, eigenen CI-Workflows und Tests)
 - Produktiver Code liegt ausschließlich im Agent-Backend; RP-Workspace enthält weiterhin Daten, Workflows, Tools
+- `TTS/` wird im Root-Repo standardmaessig ignoriert und ist nicht Teil der kanonischen Novapolis-SSOT.
 - Root-Dokumente (`README.md`, `todo.root.md`, `WORKSPACE_STATUS.md`) wurden am 2025-11-02 synchronisiert und liefern Einstieg ohne Projektwechsel
 - Kopilot-Anweisungen konsolidiert unter `.github/copilot-instructions.md`
 - Struktur-Snapshots (`workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt`) zuletzt am 2025-11-27 22:12 via `tree /A /F`, `tree /A` und `python scripts/update_workspace_tree_dirs.py` regeneriert; nächste Prüfung nach größeren Strukturänderungen oder spätestens Mitte Dezember.

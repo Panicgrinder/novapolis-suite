@@ -1,12 +1,22 @@
 ---
-stand: 2026-02-23 09:19
-update: "Root-Punkte 1-3 umgesetzt (Sim-Task, Prioritaetstags-Harmonisierung, Wochenabschluss-Routine) und TODO/Status synchronisiert."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (2026-02-23 08:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (EXITCODE=0, 2026-02-23 08:40)
+stand: 2026-02-23 12:35
+update: "TTS-Vormerkung verschaerft: nur benoetigte Teile nach `novapolis_agent` uebernehmen und `TTS/` danach wieder entfernen (README + Root-TODO synchronisiert)."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'DONELOG.md' PASS (2026-02-23 12:08); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-23 12:08)
 ---
 Kurzueberblick
 --------------
 
+- 2026-02-23 12:06: Verbindliche TTS-Vormerkung eingetragen: `TTS/` bleibt nur als temporaere Entnahmequelle im Root; benoetigte Teile wandern nach `novapolis_agent/`, danach wird `TTS/` entfernt. Umsetzung in `README.md` verankert und als offener `[Jetzt]`-Punkt in `todo.root.md` aufgenommen.
+
+- 2026-02-23 11:54: Externes Coqui-TTS-Verzeichnis (`TTS/`) als geordneter Root-Bestand in `README.md`, `WORKSPACE_STATUS.md` und `WORKSPACE_INDEX.md` dokumentiert; Root-`.gitignore` um `/TTS/` ergaenzt, damit das Upstream-Mirror nicht versehentlich ins Novapolis-Hauptrepo eingecheckt wird.
+
 - 2026-02-23 08:37: Root-Punkte 1-3 umgesetzt. Neuer Task `Checks: sim epoch assets` in `/.vscode/tasks.json`; kurze Doku + verbindliche Reihenfolge in `README.md` (Abschnitt „Wochenabschluss-Routine“); Prioritaetstags `Jetzt/Als naechstes/Spaeter` in den aktiven Boards `todo.agent-board.md`, `todo.sim.md`, `todo.rp.md` harmonisiert; `todo.root.md`/`todo.dev.md`/`todo.index.md` synchronisiert.
+
+- 2026-02-23 11:53: Agent-Datei auf `.github/agents/novapolis-workspace-navigator.agent.md` vereinheitlicht; saemtliche aktiven Verweise (Frontmatter-Checks, Historieneintraege) auf den neuen Dateinamen nachgezogen.
+
+- 2026-02-23 11:49: `.github/agents/novapolis-workspace-navigator.agent.md` von TTS-Spezialprofil auf "Novapolis Workspace Navigator und Logging-Waechter" umgestellt. Neu: harte Startsequenz (`copilot-instructions.md` zuerst), Workspace-Atlas mit Pflichtorten, geschaerfte Protokollpflicht (Mutation = DONELOG-Eintrag), Ausgabeformat "Befunde -> Board -> Aenderungen -> Checks".
+
+- 2026-02-23 10:59: Workspace-Custom-Agent fuer Novapolis angelegt (`.github/agents/novapolis-workspace-navigator.agent.md`). Fokus: strict scope auf `novapolis_agent/**`, evidenzbasierter Workflow mit "Board-Update vor Code", STOP-Gate bei fehlender Evidenz, minimal testbare TTS-Implementierungsschritte.
 
 - 2026-02-22 23:58: Abschlusslauf gemäß Anforderung durchgeführt: abgeschlossene TODO-Punkte vor Archivierung validiert (Root-Leerinventur `empty_files=0`, `empty_dirs=0`; CI-Trigger `branches: ["**"]`; RP-P0-Evidenzdateien vorhanden). Danach Root-/Dev-Abschnitte archiviert (`novapolis-dev/archive/todo.root.archive.md`, `novapolis-dev/archive/todo.dev.archive.md`), aktive TODOs neu vorbereitet (`todo.root.md`, `novapolis-dev/docs/todo.dev.md`) und Indexzahlen aktualisiert (`novapolis-dev/docs/todo.index.md`).
 - 2026-02-22 23:58: Vollständiger Testdurchlauf grün: Root-Wrapper, Gesamt-`pytest -q`, Markerläufe (`unit`, `api or streaming`) sowie Coverage-Wrapper (Exit 0). Ein bekannter Runtime-Hinweis zu `scripts.open_latest_summary` blieb ohne Fail-Auswirkung.

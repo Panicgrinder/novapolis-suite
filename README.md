@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 09:19
-update: Sim-Epoch-Asset-Task und verbindliche Wochenabschluss-Routine ergänzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (2026-02-23 08:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (EXITCODE=0, 2026-02-23 08:40)
+stand: 2026-02-23 12:35
+update: TTS-Vormerkung verschaerft: nur benoetigte Teile nach `novapolis_agent` uebernehmen und `TTS/` danach wieder entfernen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'DONELOG.md' PASS (2026-02-23 12:08); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-23 12:08)
 ---
 Novapolis Suite
 ===============
@@ -15,6 +15,8 @@ Projekte im Repository
 - **novapolis-rp** - Weltbau-Daten, Rollenspiel-Workflows und begleitende Tools (ohne Agent-Laufzeit).
 - **novapolis-dev** - Kuratierte Datensaetze, Prozess- und Policy-Dokumentation als Arbeits-Hub.
 - **novapolis-sim** - Godot-Szene und Skripte fuer den Simulations-Prototypen.
+- **TTS** - Externes Coqui-TTS-Upstream-Repository als lokales Vendor-/Referenz-Mirror (`TTS/`, eigenes `.git`, eigene Workflows/Tests).
+  - Vormerkung: `TTS/` ist nur temporaer im Root, damit nichts vergessen wird. Es werden ausschließlich benoetigte Teile entnommen und ins Modul `novapolis_agent/` ueberfuehrt; danach wird `TTS/` wieder entfernt.
 
 Gemeinsames Python-Paket
 -------------------------
@@ -45,6 +47,8 @@ Zentrale Arbeitsrichtlinien
 - Ausfuehrliche Copilot-/VS-Code-Nutzung: [`novapolis-dev/docs/copilot-vscode-usage.md`](novapolis-dev/docs/copilot-vscode-usage.md).
 - Root `todo.root.md` und `DONELOG.md` liefern einen Gesamtueberblick ueber offene Aufgaben und erledigte Arbeiten ohne die Projekt-spezifischen Dateien oeffnen zu muessen.
 - Nicht-triviale Aenderungen werden weiterhin im jeweiligen DONELOG des Projekts dokumentiert (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
+- `TTS/` ist kein kanonisches SSOT-Modul der Novapolis-Suite; Anpassungen dort nur bei explizitem Auftrag und mit separatem Upstream-Abgleich.
+- Verbindliche Entnahmeregel fuer `TTS/`: nur notwendige Artefakte/Codepfade uebernehmen, in `novapolis_agent/` integrieren, `TTS/` anschließend aus dem Root entfernen.
 - Der Agent-Workspace nutzt jetzt den Paketnamen `novapolis_agent`; aeltere Referenzen mit Bindestrich bitte bei Gelegenheit bereinigen (siehe Aufgaben in `todo.root.md`).
 
 ### Copilot Instructions (kanonisch)
