@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 19:03
-update: Import-Safety fuer `novapolis_agent.scripts.train_lora` hergestellt (lazy heavy imports) und `SFTTrainer`-Importpfad korrigiert.
-checks: .\.venv\Scripts\python.exe -m pytest -q novapolis_agent/tests/test_batch5_unit.py novapolis_agent/tests/test_batch6_unit.py PASS (2026-02-22 17:24); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-22 17:24)
+stand: 2026-02-23 10:30
+update: TTS Driftfix + API-Vertrag umgesetzt (Exporter-Skeleton, Endpunkte, Vertragsmodelle, Tests).
+checks: .\.venv\Scripts\python.exe -m pytest -q novapolis_agent/tests/test_tts_api_contract.py PASS (2026-02-23 10:27); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-23 10:29)
 ---
 
 
@@ -28,6 +28,8 @@ Hinweis:
 - Keine sensiblen Inhalte eintragen.
 
 2026-02-22 17:24 | Copilot | CI-Smoke-Import fix: `novapolis_agent/scripts/train_lora.py` auf lazy Imports für `torch/peft/transformers/trl` umgestellt; `SFTTrainer` auf `trl.trainer.sft_trainer` korrigiert; gezielte Smoke-Tests (`test_batch5_unit.py`, `test_batch6_unit.py`) grün.
+2026-02-23 12:16 | Copilot | Strikte TTS-Compliance umgesetzt: deny-by-default-Allowlist (`config/tts_model_allowlist.json`) eingefuehrt, Exporter (`scripts/tts_coqui_export.py`) mit harter Policy-Validierung erweitert, Kompatibilitaets-Wrapper (`scripts/tts_export_coqui.py`) angelegt, Coqui-Lizenz lokal nach `docs/vendor_licenses/coqui/LICENSE-coqui-TTS.txt` gespiegelt, Policy-Doku (`docs/tts-compliance-policy.md`) und Unit-Tests (`tests/scripts/test_tts_coqui_export_policy.py`) ergaenzt.
+2026-02-23 10:25 | Copilot | TTS Schritt 1+2 umgesetzt: `app/api/tts_models.py` ergänzt, `app/main.py` um `/tts/health`, `/tts/voices`, `/tts/synthesize` erweitert (Contract-Only Placeholder mit deterministischem Request-Hash), `scripts/tts_coqui_export.py` als CLI-Skeleton hinzugefügt, `tests/test_tts_api_contract.py` neu angelegt.
 2026-02-22 18:47 | Copilot | Einzeldatei-Regressionen runtergearbeitet: Import-Bridges für `scripts`/`novapolis_agent.scripts`/`novapolis_agent.tests`/`novapolis_agent.utils` ergänzt, `sim.py` auf lazy `uvicorn`-Import umgestellt, robuste Utility-Importe in mehreren Scripts vereinheitlicht, Cross-Drive-`relpath` in `map_reduce_summary_llm.py` abgesichert, Fallback-Import in `app/api/chat.py` ergänzt; finaler Einzeldatei-Lauf: 171/171 PASS.
 
 2026-02-22 10:57 | Copilot | Snapshot-Frontmatter-Migration Welle 2: Legacy-Rest `Letzte Aktualisierung:` in `docs/reports/overnight-20251022.md` auf neutralen Text (`Aktualisiert:`) umgestellt.

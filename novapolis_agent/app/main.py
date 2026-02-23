@@ -4,6 +4,7 @@ import json as _json
 import logging
 import os as _os
 import platform as _platform
+import hashlib as _hashlib
 import time
 from collections.abc import Mapping as _Mapping
 from typing import Any
@@ -16,6 +17,13 @@ from fastapi.responses import JSONResponse, StreamingResponse
 
 from .api.chat import process_chat_request, stream_chat_request
 from .api.models import ChatMessage, ChatRequest, ChatResponse
+from .api.tts_models import (
+    TtsHealthResponse,
+    TtsSynthesizeRequest,
+    TtsSynthesizeResponse,
+    TtsVoice,
+    TtsVoicesResponse,
+)
 from .core.settings import settings
 
 # Logger-Konfiguration
@@ -118,6 +126,71 @@ async def version_info() -> dict[str, Any]:
         "python_version": _platform.python_version(),
         "fastapi_version": getattr(_fastapi, "__version__", None),
     }
+
+
+def _tts_provider() -> str:
+    return "dummy"
+
+
+@app.get("/tts/health", response_model=TtsHealthResponse, status_code=status.HTTP_200_OK)
+async def tts_health() -> TtsHealthResponse:
+    """TTS-Mini-Service-Vertrag: Health-Status und Readiness-Flags."""
+    return TtsHealthResponse(
+        status="ok",
+        provider=_tts_provider(),
+        synthesize_ready=True,
+        cache_ready=False,
+    )
+
+
+@app.get("/tts/voices", response_model=TtsVoicesResponse, status_code=status.HTTP_200_OK)
+async def tts_voices() -> TtsVoicesResponse:
+    """TTS-Mini-Service-Vertrag: verfügbare Stimmen (Dummy-Provider)."""
+    provider = _tts_provider()
+    voices = [
+        TtsVoice(voice_id="dummy-de", label="Dummy German", language="de", provider=provider),
+        TtsVoice(voice_id="dummy-en", label="Dummy English", language="en", provider=provider),
+    ]
+    return TtsVoicesResponse(provider=provider, voices=voices)
+
+
+@app.post("/tts/synthesize", response_model=TtsSynthesizeResponse, status_code=status.HTTP_200_OK)
+async def tts_synthesize(request: TtsSynthesizeRequest) -> TtsSynthesizeResponse:
+    """TTS-Mini-Service-Vertrag: deterministische Placeholder-Antwort für stabile Tests."""
+    if len(request.text) > settings.REQUEST_MAX_INPUT_CHARS:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=(
+                "Input zu lang: "
+                + str(len(request.text))
+                + " Zeichen (Limit "
+                + str(settings.REQUEST_MAX_INPUT_CHARS)
+                + ")."
+            ),
+        )
+
+    digest_source = {
+        "text": request.text,
+        "voice": request.voice,
+        "language": request.language,
+        "output_format": request.output_format.value,
+        "sample_rate_hz": request.sample_rate_hz,
+        "settings": request.settings,
+    }
+    payload = _json.dumps(digest_source, ensure_ascii=False, sort_keys=True)
+    request_hash = _hashlib.sha256(payload.encode("utf-8")).hexdigest()
+    mime = "audio/ogg" if request.output_format.value == "ogg" else "audio/wav"
+
+    return TtsSynthesizeResponse(
+        status="placeholder",
+        provider=_tts_provider(),
+        output_format=request.output_format,
+        mime_type=mime,
+        is_placeholder=True,
+        request_hash=request_hash,
+        cache_hit=False,
+        detail="Contract-only endpoint. Real synthesis provider integration follows.",
+    )
 
 
 # Einfache Middleware für Request-ID und JSON-Logs

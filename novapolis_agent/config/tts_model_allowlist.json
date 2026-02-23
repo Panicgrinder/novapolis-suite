@@ -1,0 +1,7 @@
+{
+  "policy_version": "2026-02-23",
+  "default_action": "deny",
+  "require_local_license_copy": true,
+  "notes": "Strict policy: only explicitly approved models with local license copies are permitted.",
+  "allowlisted_models": []
+}
