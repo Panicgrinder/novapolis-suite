@@ -1,8 +1,9 @@
 ---
-stand: 2026-02-23 00:04
-update: TODO-Aktualitätsvalidierung abgeschlossen, erledigte Root/Dev-Blöcke archiviert und vollständiger Testlauf durchgeführt.
-checks: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md'` PASS (2026-02-23 00:00); `.\.venv\Scripts\python.exe scripts\check_frontmatter.py 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md'` PASS (2026-02-23 00:00); `.\.venv\Scripts\python.exe -m pytest -q` PASS (2026-02-22 23:52); `.\.venv\Scripts\python.exe .\scripts\run_pytest_coverage.py` PASS (EXIT=0, 2026-02-22 23:58)
+stand: 2026-02-23 07:11
+update: Standort-Abfrage durchgeführt; aktueller Projektstand dokumentiert (letzte Änderung: RP P1-Lücken C6-SQM/C6-HELPERS kanonisch geschlossen, 2026-02-23 06:46).
+checks: ausstehend (kein Codeänderungslauf)
 ---
+- 2026-02-23 07:11: Standort-Abfrage. Letzter dokumentierter Arbeitsschritt: RP P1-Lücken C6-SQM und C6-HELPERS kanonisch in SSOT/Index nachgezogen (commit `8c0f61e`, 2026-02-23 06:46). Offene Boards: Root 3, Dev 2, Agent 3, Sim 5, RP 7 (gesamt 20). Nächste empfohlene Schritte: (1) RP P0-DoD: T0-Warenüberblick je Fraktion + D5/C6-Aufbauphase konsistent modellieren; (2) Dev: VS-Code-Task für `scripts/check_sim_epoch_assets.py` ergänzen; (3) Agent: TTS-Spec vorantreiben. Tests/Coverage zuletzt PASS (2026-02-22 23:58).
 - 2026-02-22 23:58: Vor Archivierung wurden abgeschlossene TODO-Punkte per Ist-Checks validiert (Root-Leerinventur, CI-Trigger, RP-P0-Evidenz). Danach Root-/Dev-Archive aktualisiert, aktive TODOs neu vorbereitet und `novapolis-dev/docs/todo.index.md` auf aktuelle Open-Counts synchronisiert.
 - 2026-02-22 23:58: Vollständiger Testlauf durchgeführt: Root-Pytest-Wrapper, Gesamt-`pytest -q`, `-m unit`, `-m "api or streaming"` sowie Coverage-Wrapper (alle PASS).
 - 2026-02-22 21:48: `scripts/check_sim_epoch_assets.py` ergänzt. Das Skript validiert offline (tunnel-sicher) Epoch-Ordner, Log-Parsebarkeit und OGG-Namensschema; Bootstrap-Lauf mit `--allow-empty` erfolgreich (keine FAILs).

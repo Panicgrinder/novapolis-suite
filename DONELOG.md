@@ -1,10 +1,12 @@
 ---
-stand: 2026-02-23 00:04
-update: "Abgeschlossene TODO-Punkte validiert, Root/Dev-Blöcke archiviert, aktive TODOs vorbereitet und Testlauf vollständig ausgeführt."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 00:00); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 00:00); .\\.venv\\Scripts\\python.exe .\\scripts\\tests_pytest_root.py PASS (2026-02-22 23:50); .\\.venv\\Scripts\\python.exe -m pytest -q PASS (2026-02-22 23:52); .\\.venv\\Scripts\\python.exe -m pytest -q -m unit PASS (2026-02-22 23:55); .\\.venv\\Scripts\\python.exe -m pytest -q -m "api or streaming" PASS (2026-02-22 23:57); .\\.venv\\Scripts\\python.exe .\\scripts\\run_pytest_coverage.py PASS (EXIT=0, 2026-02-22 23:58)
+stand: 2026-02-23 07:11
+update: "Standort-Abfrage durchgeführt; WORKSPACE_STATUS.md mit aktuellem Projektstand aktualisiert."
+checks: ausstehend (kein Codeänderungslauf)
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-23 07:11: Standort-Abfrage. Aktuellen Projektstand in `WORKSPACE_STATUS.md` dokumentiert. Letzte tatsächliche Codeänderung: RP P1-Lücken C6-SQM/C6-HELPERS (`novapolis-dev/docs/donelog.md`, commit `8c0f61e`). Offene Boards: Root 3, Dev 2, Agent 3, Sim 5, RP 7.
 
 - 2026-02-22 23:58: Abschlusslauf gemäß Anforderung durchgeführt: abgeschlossene TODO-Punkte vor Archivierung validiert (Root-Leerinventur `empty_files=0`, `empty_dirs=0`; CI-Trigger `branches: ["**"]`; RP-P0-Evidenzdateien vorhanden). Danach Root-/Dev-Abschnitte archiviert (`novapolis-dev/archive/todo.root.archive.md`, `novapolis-dev/archive/todo.dev.archive.md`), aktive TODOs neu vorbereitet (`todo.root.md`, `novapolis-dev/docs/todo.dev.md`) und Indexzahlen aktualisiert (`novapolis-dev/docs/todo.index.md`).
 - 2026-02-22 23:58: Vollständiger Testdurchlauf grün: Root-Wrapper, Gesamt-`pytest -q`, Markerläufe (`unit`, `api or streaming`) sowie Coverage-Wrapper (Exit 0). Ein bekannter Runtime-Hinweis zu `scripts.open_latest_summary` blieb ohne Fail-Auswirkung.

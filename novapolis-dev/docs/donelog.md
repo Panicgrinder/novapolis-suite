@@ -1,12 +1,14 @@
 ---
-stand: 2026-02-23 06:46
-update: P1-Lücken C6-SQM und C6-HELPERS kanonisch in SSOT/Index nachgezogen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-23 06:46); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/C6-Bewohner.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 06:46); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 06:46)
+stand: 2026-02-23 07:11
+update: Standort-Abfrage; WORKSPACE_STATUS.md + Root-DONELOG.md mit aktuellem Projektstand aktualisiert.
+checks: ausstehend (kein Codeänderungslauf)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
 <!-- Migration: Quelle aus dem frueheren coding-Hub, uebernommen am 2025-10-29 -->
 <!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/donelog.md` am 2025-10-29 -->
+
+- 2026-02-23 07:11: Standort-Abfrage (R-DONELOG). `WORKSPACE_STATUS.md` und Root-`DONELOG.md` auf aktuellen Projektstand gebracht. Letzter Arbeitsschritt war RP P1-Lücken C6-SQM/C6-HELPERS (2026-02-23 06:46, commit `8c0f61e`). Offene Boards: Root 3, Dev 2, Agent 3, Sim 5, RP 7.
 
 Hinweis (2026-01-08)
 -------------------
