@@ -5,6 +5,8 @@
   "version": "0.1",
   "canvas": "stationskontrolle-t0",
   "status": "active",
+  "last_updated": "2026-02-23T04:21:43+01:00",
+  "last_change": "Frische-Review: Kontrollmatrix und 54/54-Referenzabdeckung geprüft, weiterhin gültig",
   "owners": [
     "admin-novapolis"
   ],

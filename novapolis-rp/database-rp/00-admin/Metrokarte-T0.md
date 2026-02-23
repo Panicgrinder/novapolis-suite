@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 07:08
-update: size_m2 in STATION-Zeilen auf glaubwuerdige Varianz innerhalb der Klassenbaender umgestellt.
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 06:53); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 06:53); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 06:53)
+stand: 2026-02-23 04:21
+update: Frische-Review durchgeführt; T0-Topologie, ID-Schema und Zustandsmodell weiterhin gültig (kein Kanon-Delta).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' PASS (2026-02-23 04:22); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' PASS (2026-02-23 04:22); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 04:22)
 slug: metrokarte-t0
 category: Admin
 canvas: metrokarte-t0

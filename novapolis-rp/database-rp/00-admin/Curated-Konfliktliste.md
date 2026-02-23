@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-09 04:23
-update: Anomalie/Draisine abgeschlossen; Kugeln bleibt offen.
-checks: "not run (content update)"
+stand: 2026-02-23 02:35
+update: Frische-Review durchgeführt; Konfliktstatus/Referenzen geprüft und als weiterhin konsistent bestätigt (kein Inhaltsdelta).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md' 'novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md' 'novapolis-rp/database-rp/00-admin/Waren-Index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:36); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md' 'novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md' 'novapolis-rp/database-rp/00-admin/Waren-Index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:36); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 02:36)"
 category: admin
 canvas: curated-konfliktliste
 slug: curated-konfliktliste

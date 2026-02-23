@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-13 03:49
-update: Referenzstandard (slug-only) präzisiert; Checks-Receipt nachgezogen.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/memory-bundle.md' PASS (2026-01-13 03:49); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp\\00-admin\\memory-bundle.md PASS (2026-01-13 03:49)"
+stand: 2026-02-23 02:31
+update: Frische-Review durchgeführt; Core-Regeln und Verlinkungen gegen aktuelle Admin-/Fraktions-SSOT geprüft (kein Kanon-Delta).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md' 'novapolis-rp/database-rp/00-admin/memory-bundle.md' 'novapolis-rp/database-rp/00-admin/system-prompt.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:33); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md' 'novapolis-rp/database-rp/00-admin/memory-bundle.md' 'novapolis-rp/database-rp/00-admin/system-prompt.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:33); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 02:33)"
 slug: memory-bundle
 category: Admin
 canvas: memory-bundle

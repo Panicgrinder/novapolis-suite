@@ -3,6 +3,8 @@
   "category": "admin",
   "slug": "sim-state-schema",
   "version": "1.0",
+  "last_updated": "2026-02-23T03:27:00+01:00",
+  "last_change": "Frische-Review: Schemafelder/Enums/Verweise geprüft, weiterhin gültig",
   "tags": ["simulation", "state", "schema"],
   "affiliations": [],
   "dependencies": ["current-state", "process-workflow", "logistik", "missionslog"],

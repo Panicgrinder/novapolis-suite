@@ -1,6 +1,6 @@
 ---
-stand: 2026-02-10 22:48
-update: Frontmatter-Keys normalisiert (Checks/Decisions inline).
+stand: 2026-02-23 03:01
+update: Frische-Review durchgeführt; globale Mechanik-Regeln und Verweise geprüft (kein Kanon-Delta).
 slug: reference-campaign-state
 category: Admin
 canvas: campaign-state
@@ -10,7 +10,7 @@ owners: [admin-novapolis]
 tags: [rp, campaign, state, mechanics]
 status: active
 relatedSlugs: [current-state, memory-bundle, canvas-t0-timeline]
-checks: rp=passed; crossrefs=passed; lastRun=2026-02-09T17:37:35.4887646+01:00
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md' 'novapolis-rp/database-rp/00-admin/Canvas-T0-Timeline.md' 'novapolis-rp/database-rp/00-admin/Migrationsplan-Admin-Novapolis.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:02); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md' 'novapolis-rp/database-rp/00-admin/Canvas-T0-Timeline.md' 'novapolis-rp/database-rp/00-admin/Migrationsplan-Admin-Novapolis.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:02); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 03:02)
 validators:
   - id: rp
     cmd: 'npm --prefix novapolis-rp\coding\tools\validators run validate:rp'

@@ -1,10 +1,10 @@
 ---
-stand: 2026-02-16 12:01
-update: Leadership/Rollen aktualisiert; Nachnamen Pahl/Marei ergänzt; Linkziele konsolidiert.
-checks: not run (not requested)
+stand: 2026-02-23 06:46
+update: C6-Helper-Namen Mikk/Lira/Darek mit Rollenankern im Personenindex ergänzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-23 06:46); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/C6-Bewohner.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 06:46); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 06:46)
 slug: person-index-np
 canvas: person_index_np
-last_updated: 2026-02-16T12:01:00+01:00
+last_updated: 2026-02-23T06:46:18+01:00
 category: admin
 version: 0.9
 ---
@@ -25,6 +25,9 @@ Hinweis: Felder gemäß Beschluss - Name, Rolle(n), Zugehörigkeit, Status, Noti
 |Lyra Hest|Stellv. Leitung Zivil/Logistik|Novapolis (D5/C6)|aktiv|Stellvertretung gemäß Beschluss A.2 (Zivil/Logistik)|[Lyra Hest](./Lyra-Hest.md), [D5](../03-locations/D5.md), [C6](../03-locations/C6.md)|
 |Senn Daru|Händler/Vermittler|Novapolis (C6)|aktiv|Kontakt/Protokolle (u. a. Richtung G7) nach Anschluss der Karawane H-47|[Senn Daru](./Senn-Daru.md), [C6](../03-locations/C6.md)|
 |Arlen Dross|Händler/Vermittler|Novapolis (C6)|aktiv|Moderiert Karawane↔Außenkontakte, reflektiert Freiheits-/Verantwortungsbalance (FACT [CARAVAN-LEADERSHIP])|[Arlen](./Arlen-Dross.md), [caravan-moves](../../haendlerbund/05-projects/caravan-moves.md), [C6](../03-locations/C6.md)|
+|Mikk Renn|C6-Helper (Absicherung/Wache)|Novapolis (C6)|aktiv|Fester C6-Bewohner aus H-47; sichert Randposten und Zugänge A/B/C|[C6-Bewohner](./C6-Bewohner.md), [C6](../03-locations/C6.md)|
+|Lira Vas|C6-Helper (Transport/Lagerlauf)|Novapolis (C6)|aktiv|Feste C6-Bewohnerin aus H-47; koordiniert Umlagerung und interne Laufwege|[C6-Bewohner](./C6-Bewohner.md), [C6](../03-locations/C6.md)|
+|Darek Holv|C6-Helper (Tunnelinstandsetzung)|Novapolis (C6)|aktiv|Fester C6-Bewohner aus H-47; unterstützt schwere Reparaturarbeiten im Nordlinien-Umfeld|[C6-Bewohner](./C6-Bewohner.md), [C6](../03-locations/C6.md)|
 |Tess Avari|Vermittlerin (Deals, Lieferfenster)|Novapolis (C6)|aktiv|Moderiert Übergaben, besteht auf Log-Disziplin (Protokoll/Funk)|[Tess Avari](./Tess-Avari.md), [C6](../03-locations/C6.md)|
 |Darian Voss|Konvoi-Sicherheit / Scouts|Novapolis (C6)|aktiv|Sichert Übergaben, erkennt Muster in Überfällen|[Darian Voss](./Darian-Voss.md), [caravan-moves](../../haendlerbund/05-projects/caravan-moves.md), [C6](../03-locations/C6.md)|
 |Varek Solun|Kommandant Militär/Zivil|Eisenkonklave (H12/Sektor_H3)|aktiv|Führt Konklave, sucht Union-Hauptarchiv; Novapolis nur als Gerücht|[Varek Solun](../../eisenkonklave/02-characters/Varek-Solun.md)|

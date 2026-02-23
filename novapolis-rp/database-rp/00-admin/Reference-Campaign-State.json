@@ -4,6 +4,8 @@
   "slug": "reference-campaign-state",
   "version": "0.1",
   "status": "active",
+  "last_updated": "2026-02-23T03:01:00+01:00",
+  "last_change": "Frische-Review: globale Mechanik-Regeln/Verweise geprüft, weiterhin gültig",
   "canvas": "campaign-state",
   "owners": [
     "admin-novapolis"

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 00:17
-update: Globalen Verweis auf 24x1h-Regelwerk ergänzt; Detailführung bleibt fraktionslokal.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 00:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects' 'novapolis-rp/database-rp/01-factions/haendlerbund/05-projects' 'novapolis-rp/database-rp/01-factions/eisenkonklave/05-projects' 'novapolis-rp/database-rp/01-factions/arkologie-a1/05-projects' 'novapolis-rp/database-rp/01-factions/schienenbund/05-projects' 'novapolis-rp/database-rp/01-factions/schattenbund/05-projects' 'novapolis-rp/database-rp/01-factions/fluesterkollektiv/05-projects' PASS (EXITCODE=0, 2026-02-22 00:09)"
+stand: 2026-02-23 03:24
+update: Frische-Review durchgeführt; globaler Missionslog-Index und Verweise geprüft (kein Kanon-Delta).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/00-admin/Cluster-Index.md' 'novapolis-rp/database-rp/00-admin/Missionslog.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:25); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/00-admin/Cluster-Index.md' 'novapolis-rp/database-rp/00-admin/Missionslog.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:25); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 03:25)"
 category: admin
 canvas: missionslog
 slug: missionslog

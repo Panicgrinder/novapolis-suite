@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-02-23 00:04
-update: P0.1-P0.4 als umgesetzt markiert (Evidenz: Metrokarte-T0, Stationskontroll-Matrix, Warenueberblick-T0).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 21:30); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 21:30)
+stand: 2026-02-23 00:48
+update: DoD-Punkt Stationsreferenzen (Karte+Kontrollmatrix) auf 54/54 geschlossen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' PASS (2026-02-23 00:48); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' PASS (2026-02-23 00:48)
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -112,12 +112,14 @@ Konkrete Deliverables
 - [x] Admin: Metrokarte-T0 (Knoten/Kanten + Statusmodell) unter `00-admin`.
 - [x] Admin: Fraktionskontroll-Matrix Stationen (Fraktion x Station x Status x Confidence).
 - [x] Admin: Warenueberblick-T0 (globales Raster + Herkunftssystem).
-- [ ] Fraktionen: Minimal-Abgleich je Basis/known stations mit Verweis auf Admin-SSOT.
+- [x] Fraktionen: Minimal-Abgleich je Basis/known stations mit Verweis auf Admin-SSOT. *(erledigt 2026-02-23)*
+  - Evidenz: `novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md` (Abschnitt „Minimal-Abgleich Basis-/Known-Stationen (T0)“) mit Referenzen auf `Metrokarte-T0`, `Stationskontroll-Matrix`, `Warenueberblick-T0`.
 
 Definition of Done (P0)
 -----------------------
 
-- [ ] Jede bekannte Station ist in Karte + Kontrollmatrix mindestens einmal referenziert.
+- [x] Jede bekannte Station ist in Karte + Kontrollmatrix mindestens einmal referenziert. *(erledigt 2026-02-23)*
+  - Evidenz: `novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md` enthält jetzt alle in `novapolis-rp/database-rp/00-admin/Metrokarte-T0.md` geführten Stationscodes (Abdeckung 54/54).
 - [ ] Jede Fraktion hat einen T0-Warenueberblick mit Herkunftslabeln.
 - [ ] D5/C6 sind konsistent als fruehe Aufbauphase modelliert; keine impliziten Handelsannahmen.
 - [ ] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten.

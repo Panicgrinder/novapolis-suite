@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 04:16
-update: Veralteten Timeline-Link auf kanonisches Canvas-T0-Timeline-Ziel korrigiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 02:26); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/index-rules.md' 'novapolis-rp/database-rp/00-admin/Current-State.md' 'novapolis-rp/database-rp/00-admin/Logistik.md' 'novapolis-rp/database-rp/00-admin/Metrograph.md' 'novapolis-rp/database-rp/00-admin/Ortsgraph.md' 'novapolis-rp/database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md' 'novapolis-rp/database-rp/00-admin/Kernkonversationen.md' 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' 'novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 02:27)
+stand: 2026-02-23 04:15
+update: Frische-Review durchgeführt; Ortsgraph-Regeln, Pflichtfelder und Verweise weiterhin gültig (kein Kanon-Delta).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Ortsgraph.md' PASS (2026-02-23 04:15); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Ortsgraph.md' PASS (2026-02-23 04:15); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 04:15)
 slug: ortsgraph-index
 category: Admin
 canvas: ortsgraph

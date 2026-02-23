@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 00:17
-update: Globalen 24x1h-Prozess (world_log/pc_log) als fraktionsneutralen Workflow ergänzt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 00:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects' 'novapolis-rp/database-rp/01-factions/haendlerbund/05-projects' 'novapolis-rp/database-rp/01-factions/eisenkonklave/05-projects' 'novapolis-rp/database-rp/01-factions/arkologie-a1/05-projects' 'novapolis-rp/database-rp/01-factions/schienenbund/05-projects' 'novapolis-rp/database-rp/01-factions/schattenbund/05-projects' 'novapolis-rp/database-rp/01-factions/fluesterkollektiv/05-projects' PASS (EXITCODE=0, 2026-02-22 00:09)"
+stand: 2026-02-23 03:27
+update: Frische-Review durchgeführt; Workflow-Regeln/Verweise geprüft und als weiterhin gültig bestätigt (kein Inhaltsdelta).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Process-Workflow.md' 'novapolis-rp/database-rp/00-admin/Sim-State-Schema.md' 'novapolis-rp/database-rp/00-admin/Tick-Regeln-Simulation.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:28); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Process-Workflow.md' 'novapolis-rp/database-rp/00-admin/Sim-State-Schema.md' 'novapolis-rp/database-rp/00-admin/Tick-Regeln-Simulation.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:28); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 03:28)
 slug: process-workflow
 category: Admin
 schemaVersion: 1

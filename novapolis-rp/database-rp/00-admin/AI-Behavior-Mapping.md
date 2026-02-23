@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-12 06:01
-update: "Validator-Fix: update quoted + H1 ergänzt (RP-Validator kompatibel)."
-checks: npm run validate:rp PASS (2026-01-12 06:01); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md' PASS (2026-01-12 06:01); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp\00-admin\AI-Behavior-Mapping.md PASS (2026-01-12 06:01)
+stand: 2026-02-23 02:31
+update: "Frische-Review durchgeführt; Inhalte/Verweise geprüft und als weiterhin gültig bestätigt (kein Kanon-Delta)."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md' 'novapolis-rp/database-rp/00-admin/memory-bundle.md' 'novapolis-rp/database-rp/00-admin/system-prompt.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:33); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md' 'novapolis-rp/database-rp/00-admin/memory-bundle.md' 'novapolis-rp/database-rp/00-admin/system-prompt.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:33); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 02:33)
 canvas: AI-Behavior-Mapping
 last-updated: 2025-11-07T04:09:00+01:00
 category: admin

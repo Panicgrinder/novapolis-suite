@@ -3,6 +3,8 @@
   "category": "admin",
   "slug": "process-workflow",
   "version": "1.0",
+  "last_updated": "2026-02-23T03:27:00+01:00",
+  "last_change": "Frische-Review: Workflow-Regeln/Verweise geprüft, weiterhin gültig",
   "tags": ["workflow", "curation", "validation", "simulation"],
   "affiliations": [],
   "dependencies": ["current-state", "logistik", "missionslog"],

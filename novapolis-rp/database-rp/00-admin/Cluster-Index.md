@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 22:11
-update: Meta-Cluster-Index um evidenzgebundene Spannungs-/PsyLink-Verifikation gegen aktuellen Kanon erweitert.
-checks: ausstehend (nach Mutation neu ausführen)
+stand: 2026-02-23 03:24
+update: Frische-Review durchgeführt; Spannungs-/PsyLink-Referenzen gegen SSOT geprüft (kein Kanon-Delta).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/00-admin/Cluster-Index.md' 'novapolis-rp/database-rp/00-admin/Missionslog.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:25); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/00-admin/Cluster-Index.md' 'novapolis-rp/database-rp/00-admin/Missionslog.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:25); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 03:25)
 slug: cluster_index_v1
 category: admin
 status: review

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 21:58
-update: Globalen Ereignislog um SECRECY/H-47-Guardrails ergänzt; Außenwissen und Fraktionsdetails klar getrennt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' PASS (2026-02-21 21:48); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' PASS (EXITCODE=0, 2026-02-21 21:48)"
+stand: 2026-02-23 03:24
+update: Frische-Review durchgeführt; globale Ereignisregeln und Fraktionsverweise geprüft (kein Kanon-Delta).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/00-admin/Cluster-Index.md' 'novapolis-rp/database-rp/00-admin/Missionslog.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:25); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md' 'novapolis-rp/database-rp/00-admin/Cluster-Index.md' 'novapolis-rp/database-rp/00-admin/Missionslog.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:25); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 03:25)"
 title: Ereignislog – Weltgeschehen
 category: admin
 slug: ereignislog_weltgeschehen_v1

@@ -4,6 +4,8 @@
   "slug": "waren-index",
   "version": "0.1",
   "status": "active",
+  "last_updated": "2026-02-23T04:39:11+01:00",
+  "last_change": "Inhaltlich erweitert: wahrscheinliche Kernbedarfs-Items ergänzt und Unique-Handling präzisiert",
   "owners": [
     "admin-novapolis"
   ],

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 01:49
-update: Zentrale Tag-SSOT für RP-Canvas angelegt (gültige Tags, Regeln, Startersets).
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:37); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Tags-Taxonomie.md' PASS (2026-02-22 01:37); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Tags-Taxonomie.md' PASS (2026-02-22 01:37)
+stand: 2026-02-23 03:55
+update: Frische-Review durchgeführt; Tag-SSOT und Startersets weiterhin gültig (kein Kanon-Delta).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Tags-Taxonomie.md' PASS (2026-02-23 03:56); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Tags-Taxonomie.md' PASS (2026-02-23 03:56); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 03:56)
 slug: tags-taxonomie
 category: Admin
 schemaVersion: 1

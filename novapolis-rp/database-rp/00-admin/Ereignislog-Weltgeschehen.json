@@ -4,5 +4,7 @@
   "slug": "ereignislog_weltgeschehen_v1",
   "version": "0.1",
   "status": "draft",
+  "last_updated": "2026-02-23T03:24:00+01:00",
+  "last_change": "Frische-Review: globale Ereignisregeln/Verweise geprüft, weiterhin gültig",
   "source": "database-rp/00-admin/Ereignislog-Weltgeschehen.md"
 }

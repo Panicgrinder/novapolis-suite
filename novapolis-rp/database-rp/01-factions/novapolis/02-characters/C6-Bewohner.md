@@ -1,13 +1,13 @@
 ---
-stand: 2026-01-14 14:08
-update: "E3-Evakuierte: Einzel-SSOTs verlinkt (inkl. neuer Dateien); Checks werden neu receipted."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-14 14:08); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 14:08); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 14:08); npm validate:rp PASS (2026-01-14 14:08); npm validate:crossrefs PASS (2026-01-14 14:08)
+stand: 2026-02-23 06:46
+update: "C6-HELPERS kanonisch ergänzt: feste Karawanenbewohner Mikk/Lira/Darek mit Rollenankern aufgenommen."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-23 06:46); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/C6-Bewohner.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 06:46); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 06:46)
 
 title: C6 Bewohner (Gruppe)
 category: character
 slug: c6-bewohner
-version: "0.1"
-last_updated: 2026-01-14T14:06:00+01:00
+version: "0.2"
+last_updated: 2026-02-23T06:46:18+01:00
 tags: ["gruppe", "c6", "e3", "evakuierte"]
 affiliations: ["novapolis", "e3", "c6"]
 dependencies: ["marei", "verbindungstunnel-c6-e3", "c6", "e3", "logistik"]
@@ -50,11 +50,21 @@ E3-Evakuierte (20, inkl. Marei)
 | E3-19 | [Amira Halden](Amira-Halden.md) | Betreuung/Versorgung | empathisch, erschöpft, mutig | setzt sich für Schwache ein; braucht Pausen |
 | E3-20 | [Kian Rohde](Kian-Rohde.md) | Materialkunde | offen, lernbegierig, respektvoll | will von Kora/Ronja „wie es läuft“ lernen |
 
+Karawane H-47 (C6-Helpers, feste Bewohner)
+-------------------------------------------
+
+| ID | Name | Rolle/Fokus | Persönlichkeit (kurz) | Notiz/Hook |
+| --- | --- | --- | --- | --- |
+| H47-01 | Mikk Renn | Absicherung/Wache | ruhig, aufmerksam, standfest | übernimmt Randposten A/B/C und meldet Bewegungsmuster vor Eskalation |
+| H47-02 | Lira Vas | Transport/Lagerlauf | schnell, organisiert, belastbar | koordiniert Umlagerungen zwischen Schleuse, Lager und Werkbank |
+| H47-03 | Darek Holv | Tunnelinstandsetzung/Schwerarbeit | pragmatisch, zäh, wortkarg | führt schwere Reparaturschritte im Nordlinien-Umfeld unter Freigabe aus |
+
 Rollen & Verantwortlichkeiten (Pflichtfelder)
 --------------------------------------------
 
 - C6: Evakuierte sind in Schichten (Versorgung, Instandhaltung, Hygiene) eingebunden.
 - E3-Nachlauf: Wissen über E3 bleibt bei Bedarf abrufbar (Marei koordiniert).
+- C6-Helpers (H47): Mikk/Lira/Darek sind als feste Bewohner in C6 verankert und arbeiten in Absicherung, Transport und Tunnelinstandsetzung.
 
 Zugehörigkeit & Standort
 ------------------------

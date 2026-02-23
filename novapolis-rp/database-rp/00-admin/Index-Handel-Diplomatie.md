@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 21:17
-update: Links auf relative Pfade normalisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 21:23); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp/database-rp/00-admin PASS (2026-02-04 21:23)
+stand: 2026-02-23 02:35
+update: Frische-Review durchgeführt; Verweise/Scope geprüft und weiterhin gültig bestätigt (kein Inhaltsdelta).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md' 'novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md' 'novapolis-rp/database-rp/00-admin/Waren-Index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:36); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md' 'novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md' 'novapolis-rp/database-rp/00-admin/Waren-Index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:36); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 02:36)
 slug: index_handel_diplomatie_v1
 category: admin
 status: draft

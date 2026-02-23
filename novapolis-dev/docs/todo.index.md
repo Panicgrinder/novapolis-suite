@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 00:04
-update: Open-Counts nach Archivierung erledigter Root/Dev-Blöcke und neuer Dev-Folgepunkte aktualisiert.
-checks: Checkbox-Scan über aktive TODO-Dateien durchgeführt (`todo.root.md`, `novapolis-dev/docs/todo.*.md`), Ergebnis in Index-Zahlen gespiegelt (2026-02-22 23:40).
+stand: 2026-02-23 00:48
+update: RP-Open-Count nach Abschluss des Stationsreferenz-DoD-Punkts aktualisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' PASS (2026-02-23 00:48); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md' 'novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md' PASS (2026-02-23 00:48)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,7 +12,7 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 9)
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 7)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 2)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 3)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 5)

@@ -3,6 +3,8 @@
   "category": "admin",
   "slug": "schema-header-templates",
   "version": "0.1",
+  "last_updated": "2026-02-23T03:55:34+01:00",
+  "last_change": "Frische-Review: Template-Frontmatter und Tag-Verweis geprüft, weiterhin gültig",
   "status": "draft",
   "source": "database-rp/00-admin/schema-header-templates.md"
 }

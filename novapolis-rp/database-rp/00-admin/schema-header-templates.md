@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 01:49
-update: Verweis auf zentrale Tags-Taxonomie ergänzt.
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:37); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/schema-header-templates.md' PASS (2026-02-22 01:37); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/schema-header-templates.md' PASS (2026-02-22 01:37)
+stand: 2026-02-23 03:55
+update: Frische-Review durchgeführt; Header-Templates und Tag-Referenz weiterhin gültig (kein Kanon-Delta).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/schema-header-templates.md' PASS (2026-02-23 03:56); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/schema-header-templates.md' PASS (2026-02-23 03:56); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 03:56)
 ---
 
 RP Header-Templates (Frontmatter)

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 21:41
-update: Auf globalen Timeline-Index umgestellt; fraktionsspezifische T0-Timelines werden in 01-factions/*/00-doctrine geführt.
-checks: "ausstehend (nach Mutation neu ausführen)"
+stand: 2026-02-23 03:01
+update: Frische-Review durchgeführt; globaler Timeline-Index und Fraktionsverweise geprüft (kein Inhaltsdelta).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md' 'novapolis-rp/database-rp/00-admin/Canvas-T0-Timeline.md' 'novapolis-rp/database-rp/00-admin/Migrationsplan-Admin-Novapolis.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:02); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md' 'novapolis-rp/database-rp/00-admin/Canvas-T0-Timeline.md' 'novapolis-rp/database-rp/00-admin/Migrationsplan-Admin-Novapolis.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:02); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 03:02)"
 slug: canvas-t0-timeline
 canvas: Timeline T+0
 last-updated: 2025-11-07T04:09:00+01:00

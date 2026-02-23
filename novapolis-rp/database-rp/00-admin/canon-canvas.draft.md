@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 14:21
-update: "Legacy-Metazeile im Inhaltsbereich harmonisiert (`Stand:` -> `Aktualisiert:`) im Rahmen der Snapshot-Frontmatter-Migration Welle 3."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 11:02); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/canon-canvas.draft.md' PASS (2026-02-22 11:02)"
+stand: 2026-02-23 04:21
+update: "Frische-Review durchgeführt; Draft-Status, [FACT?]-Markierung und Quellenhinweise weiterhin konsistent."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/canon-canvas.draft.md' PASS (2026-02-23 04:22); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/canon-canvas.draft.md' PASS (2026-02-23 04:22); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 04:22)"
 slug: canon-canvas-draft
 last-updated: 2025-11-07T04:09:00+01:00
 status: draft

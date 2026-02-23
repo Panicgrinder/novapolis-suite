@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-09 04:17
-update: "Core-Freeze-Regel ergänzt: memory-bundle ist immer zuerst zu laden; Reference optional nach Bedarf."
-checks: markdownlint-cli2 PASS (scoped) (2026-01-09 04:18); scripts/check_frontmatter.py PASS (scoped) (2026-01-09 04:18); scripts/checks_rp_consistency.py --strict PASS (2026-01-09 04:18)
+stand: 2026-02-23 02:31
+update: "Frische-Review durchgeführt; Prompt-Regeln gegen aktuellen Core-Freeze/SSOT geprüft und als gültig bestätigt."
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md' 'novapolis-rp/database-rp/00-admin/memory-bundle.md' 'novapolis-rp/database-rp/00-admin/system-prompt.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:33); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md' 'novapolis-rp/database-rp/00-admin/memory-bundle.md' 'novapolis-rp/database-rp/00-admin/system-prompt.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:33); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 02:33)
 slug: system-prompt
 category: Admin
 canvas: system-prompt

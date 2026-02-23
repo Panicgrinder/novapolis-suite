@@ -5,5 +5,7 @@
   "version": "0.1",
   "canvas": "ortsgraph",
   "status": "draft",
+  "last_updated": "2026-02-23T04:15:07+01:00",
+  "last_change": "Frische-Review: Ortsgraph-Regeln, Pflichtfelder und Verweise geprüft, weiterhin gültig",
   "source": "database-rp/00-admin/Ortsgraph.md"
 }

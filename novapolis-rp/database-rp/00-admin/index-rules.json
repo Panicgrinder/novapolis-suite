@@ -4,6 +4,8 @@
   "slug": "index-rules",
   "version": "0.1",
   "status": "active",
+  "last_updated": "2026-02-23T04:21:43+01:00",
+  "last_change": "Frische-Review: Regelindex, Referenzanker und Decision-IDs geprüft, weiterhin gültig",
   "owners": [
     "admin-novapolis"
   ],

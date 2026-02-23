@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 21:41
-update: Von Novapolis-spezifischem Plan auf globales Admin-Migrationstemplate umgestellt.
-checks: ausstehend (nach Mutation neu ausführen)
+stand: 2026-02-23 03:01
+update: Frische-Review durchgeführt; Template-Scopes/Regeln/Verweise geprüft (kein Inhaltsdelta).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md' 'novapolis-rp/database-rp/00-admin/Canvas-T0-Timeline.md' 'novapolis-rp/database-rp/00-admin/Migrationsplan-Admin-Novapolis.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:02); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md' 'novapolis-rp/database-rp/00-admin/Canvas-T0-Timeline.md' 'novapolis-rp/database-rp/00-admin/Migrationsplan-Admin-Novapolis.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:02); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 03:02)
 slug: migrationsplan-admin-template
 category: admin
 canvas: migration-plan

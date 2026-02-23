@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-10 22:45
-update: "Frontmatter checks ergaenzt."
-checks: "not run (not requested)"
+stand: 2026-02-23 04:39
+update: "Inhaltlich erweitert: wahrscheinliche Kernbedarfs-Items ergänzt (Medizin/Versorgung/Wartung) und Unique-Handling präzisiert."
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Waren-Index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 04:40); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Waren-Index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 04:40); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 04:40)"
 slug: waren-index
 category: Admin
 schemaVersion: 1
@@ -333,6 +333,76 @@ items:
     tags: [wasser, filter, behaelter]
     seenIn: [reference-campaign-state]
     notes: "Reservebauteil; in D5 inventarisiert."
+  - id: medkit-standard
+    name: Medkit (Standard)
+    kind: consumable
+    unit: set
+    tags: [medizin, erste-hilfe, feld]
+    seenIn: [missionslog, reference-campaign-state]
+    notes: "Basis-Set fuer Erstversorgung im Feldeinsatz."
+  - id: verbandmaterial-set
+    name: Verbandmaterial (Set)
+    kind: consumable
+    unit: set
+    tags: [medizin, verband, erste-hilfe]
+    seenIn: [missionslog, reference-campaign-state]
+    notes: "Wundversorgung; Verbrauch lageabhaengig."
+  - id: desinfektionsmittel
+    name: Desinfektionsmittel
+    kind: consumable
+    unit: stk
+    tags: [medizin, hygiene, versorgung]
+    seenIn: [reference-campaign-state]
+    notes: "Hygiene-/Wundbehandlung; stationaer und mobil nutzbar."
+  - id: antibiotika-basis
+    name: Antibiotika (Basis)
+    kind: consumable
+    unit: stk
+    tags: [medizin, medikament]
+    seenIn: [reference-campaign-state]
+    notes: "Grundstock fuer bakterielle Infektionen; Verfügbarkeit variabel."
+  - id: schmerzmittel-basis
+    name: Schmerzmittel (Basis)
+    kind: consumable
+    unit: stk
+    tags: [medizin, medikament]
+    seenIn: [reference-campaign-state]
+    notes: "Basisanalgetika; Verbrauch bei Einsaetzen erhoeht."
+  - id: sicherungssatz
+    name: Sicherungssatz
+    kind: component
+    unit: set
+    tags: [energie, elektrik, ersatzteile]
+    seenIn: [marktpreise-inventar, reference-campaign-state]
+    notes: "Ersatzsicherungen fuer Verteilung/Module."
+  - id: dichtungsmanschette
+    name: Dichtungsmanschette
+    kind: component
+    unit: stk
+    tags: [wartung, dichtung, ersatzteile]
+    seenIn: [marktpreise-inventar, missionslog]
+    notes: "Abdichtung von Leitungen/Anschluessen; kritisch bei Leckagen."
+  - id: kuhlmittel-industrie
+    name: Kühlmittel (Industrie)
+    kind: consumable
+    unit: stk
+    tags: [wartung, kuehlung, energie]
+    seenIn: [reference-campaign-state]
+    notes: "Fuer Aggregate/Leistungseinheiten; Qualitätsstreuung möglich."
+  - id: lagerfett-technik
+    name: Lagerfett (Technik)
+    kind: consumable
+    unit: stk
+    tags: [wartung, mechanik]
+    seenIn: [marktpreise-inventar]
+    notes: "Grundmaterial fuer mechanische Instandhaltung."
+  - id: druckluftkartusche
+    name: Druckluftkartusche
+    kind: consumable
+    unit: stk
+    tags: [technik, druck, wartung]
+    seenIn: [missionslog, reference-campaign-state]
+    notes: "Nutzbar fuer Pneumatik/Werkzeuge; Logistikbedarf schwankend."
 ---
 
 Waren-Index (weltweit)
@@ -348,6 +418,12 @@ Hinweise
 - `seenIn` referenziert Dokument-slugs (nicht Dateinamen).
 - Preise werden nicht hier gepflegt, sondern in `marktpreise-inventar` und fraktionsbezogen in 01-factions/*/06-handel-diplomatie/.
 - Erweiterung nur um Items, die im RP/Logs/Szenen vorgekommen sind; neue Items zuerst im Missionslog/Scenes belegen.
+
+Unique-Items (Empfehlung)
+-------------------------
+- Einzigartige Items bleiben im `Waren-Index` sichtbar, sollen aber konsequent mit Tag `einzigartig` geführt werden.
+- Für KI-Runtime und Suche ist ein dedizierter Ableger `Unique-Waren-Index.md` sinnvoll, sobald mindestens 8-10 eindeutige Unikate mit eigener Historie vorliegen.
+- Bis dahin: eine Quelle (`Waren-Index`) beibehalten und den Unique-Ableger erst als gefilterte Sicht ergänzen, um Drift zu vermeiden.
 
 Kurzübersicht (menschlich lesbar)
 ---------------------------------
@@ -397,6 +473,16 @@ Kurzübersicht (menschlich lesbar)
 - Schweißausrüstung (kompakt) [schweissausruestung-kompakt]
 - Werkzeugsatz (Mechanik) [werkzeugsatz-mechanik]
 - Hydrofilter-Behälter [hydrofilter-behaelter]
+- Medkit (Standard) [medkit-standard]
+- Verbandmaterial (Set) [verbandmaterial-set]
+- Desinfektionsmittel [desinfektionsmittel]
+- Antibiotika (Basis) [antibiotika-basis]
+- Schmerzmittel (Basis) [schmerzmittel-basis]
+- Sicherungssatz [sicherungssatz]
+- Dichtungsmanschette [dichtungsmanschette]
+- Kühlmittel (Industrie) [kuehlmittel-industrie]
+- Lagerfett (Technik) [lagerfett-technik]
+- Druckluftkartusche [druckluftkartusche]
 
 Links
 -----

@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "source": "novapolis-rp/database-rp/00-admin/Tags-Taxonomie.md",
+    "slug": "tags-taxonomie",
+    "category": "Admin",
+    "schemaVersion": 1,
+    "last_updated": "2026-02-23T03:55:34+01:00",
+    "last_change": "Frische-Review: Tag-SSOT geprüft, weiterhin gültig",
+    "language": "de",
+    "status": "active",
+    "owners": [
+      "admin-novapolis"
+    ],
+    "tags": [
+      "rp",
+      "taxonomy",
+      "tags",
+      "metadata"
+    ],
+    "relatedSlugs": [
+      "schema-header-templates",
+      "index-rules",
+      "process-workflow"
+    ],
+    "mirrorType": "json-derivative"
+  },
+  "rules": {
+    "format": "lowercase-slug-like",
+    "allowedChars": "a-z,0-9,-",
+    "noParallelSynonyms": true,
+    "statusFieldPriority": "frontmatter_status_over_status_tags",
+    "combinationGuideline": "combine_type_and_context_tags"
+  },
+  "validTags": {
+    "type": [
+      "location",
+      "project",
+      "character",
+      "inventory",
+      "scene"
+    ],
+    "faction": [
+      "novapolis",
+      "haendlerbund",
+      "eisenkonklave",
+      "arkologie-a1",
+      "schienenbund",
+      "schattenbund",
+      "fluesterkollektiv"
+    ],
+    "functionContext": [
+      "base",
+      "outpost",
+      "hub",
+      "anomaly",
+      "monitoring",
+      "logistics",
+      "mission",
+      "operations",
+      "maintenance",
+      "exploration"
+    ],
+    "statusPerspective": [
+      "active",
+      "partial",
+      "sealed",
+      "restricted"
+    ]
+  },
+  "starterSets": {
+    "location": {
+      "minimum": [
+        "location",
+        "<fraktion>"
+      ],
+      "optionalContext": [
+        "base",
+        "outpost",
+        "hub",
+        "monitoring",
+        "operations",
+        "maintenance",
+        "exploration"
+      ],
+      "optionalStatusPerspective": [
+        "active",
+        "partial",
+        "sealed",
+        "restricted"
+      ]
+    },
+    "project": {
+      "minimum": [
+        "project",
+        "<fraktion>",
+        "mission",
+        "logistics",
+        "operations"
+      ]
+    },
+    "character": {
+      "minimum": [
+        "character",
+        "<fraktion>"
+      ]
+    }
+  },
+  "examples": {
+    "D5": [
+      "location",
+      "novapolis",
+      "base",
+      "operations",
+      "maintenance",
+      "active"
+    ],
+    "C6": [
+      "location",
+      "novapolis",
+      "outpost",
+      "monitoring",
+      "anomaly",
+      "restricted",
+      "active",
+      "partial"
+    ]
+  },
+  "extensionPolicy": {
+    "minimumAffectedFiles": 2,
+    "workflow": [
+      "add_new_tag_in_markdown_ssot_first",
+      "use_new_tag_in_canvas_files_afterwards"
+    ]
+  }
+}

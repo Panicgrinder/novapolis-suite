@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 22:11
-update: Novapolis-Wochenzyklus, Lagerstands-Review und Tagesreport-Template ergänzt (ohne unbelegte Kennzahlen).
-checks: ausstehend (nach Mutation neu ausführen)
+stand: 2026-02-23 05:27
+update: Belegnotiz zur D5/C6-Energieversorgung ergänzt (Kanon + RAW-Hinweise, ohne neue Kennzahlen).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.md" "novapolis-dev/docs/donelog.md" PASS (2026-02-23 05:29); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py "novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.md" "novapolis-dev/docs/donelog.md" PASS (2026-02-23 05:29); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 05:29)
 category: canon
 schemaVersion: 1
 language: de
@@ -11,8 +11,8 @@ tags: [rp, doctrine, logistik, inventar, novapolis]
 relatedSlugs: [novapolis, novapolis-inventar, d5-inventar, c6-inventar, logistik, missionslog, c6-logistik-policy, c6, d5, pahl, nika-perez, kora-malenkov, jonas-merek]
 slug: novapolis-logistics
 version: "0.2"
-last_updated: 2026-02-16T12:54:00+01:00
-last_change: Rollen/Schnittstellen und Transferregeln (D5↔C6) konsolidiert.
+last_updated: 2026-02-23T05:27:00+01:00
+last_change: Belegnotiz zur D5/C6-Energieversorgung ergänzt (Kanon + RAW-Hinweise, ohne neue Kennzahlen).
 ---
 
 Novapolis - Logistics
@@ -59,6 +59,14 @@ Generatoren (Stationskontext)
 
 - D5-Reaktor: Status 100%, lädt Zellen.
 - C6-Energieanlage: Standortstatus „Reaktor stabilisiert“ belegt; keine belastbaren Leistungs-/Instandsetzungskennzahlen dokumentiert.
+
+Belegnotiz Energieversorgung D5/C6 (Kanon + RAW)
+------------------------------------------------
+
+- Kanonisch belegt: D5-Reaktor steht auf 100 % und lädt Zellen (siehe oben).
+- Kanonisch belegt: C6 wird nur teilversorgt; Leitungs-/Schaltzustände sind limitierend (siehe [C6 - Logistik-Policy](../03-locations/C6-Logistik-Policy.md)).
+- RAW-Hinweise vorhanden: D5 wurde im Verlauf von 98 % auf 100 % gebracht; im Tagesabrechnungskontext wird ein Energiezellen-Plus durch Generatorverweis erwähnt.
+- Nicht kanonisiert: Keine belastbare, numerische Tagesrate zu „Energiekernen pro Tag“ im SSOT; bis zu belegter Quelle keine Zahl behaupten.
 
 Leitungen/Schaltzustände (Stationskontext)
 ------------------------------------------

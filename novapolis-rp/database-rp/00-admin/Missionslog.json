@@ -1,8 +1,10 @@
 {
-  "title": "Missionslog (Novapolis)",
+  "title": "Missionslog (Globaler Index)",
   "category": "admin",
   "slug": "missionslog",
   "version": "0.9",
+  "last_updated": "2026-02-23T03:24:00+01:00",
+  "last_change": "Frische-Review: globaler Missionslog-Index/Verweise geprüft, weiterhin gültig",
   "tags": [],
   "affiliations": [],
   "dependencies": [],

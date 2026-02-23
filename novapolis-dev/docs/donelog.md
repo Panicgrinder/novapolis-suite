@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 00:04
-update: TODO-Aktualitätsvalidierung, Root/Dev-Archivierung und kompletter Testdurchlauf dokumentiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 00:00); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'todo.root.md' 'novapolis-dev/archive/todo.root.archive.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/archive/todo.dev.archive.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 00:00); .\\.venv\\Scripts\\python.exe -m pytest -q PASS (2026-02-22 23:52)
+stand: 2026-02-23 06:46
+update: P1-Lücken C6-SQM und C6-HELPERS kanonisch in SSOT/Index nachgezogen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-23 06:46); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/C6-Bewohner.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 06:46); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 06:46)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,141 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP: C6-SQM + C6-HELPERS kanonisch geschlossen (2026-02-23 06:28)
+-----------------------------------------------------------------
+
+- `novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md`: C6-SQM als Flächenmodell verankert (Bruttofläche 4540 m², operative Nutzfläche bei `partial` ca. 3541 m², operative Kernzone A/B/C mit 440 m²).
+- `novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md`: C6-Helper als feste Bewohner aus Karawane H-47 explizit benannt (`Mikk Renn`, `Lira Vas`, `Darek Holv`) und Rollenanker ergänzt.
+- `novapolis-rp/database-rp/01-factions/novapolis/02-characters/C6-Bewohner.md`: eigener Abschnitt „Karawane H-47 (C6-Helpers, feste Bewohner)" mit Rollen-/Hook-Tabelle ergänzt.
+- `novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.md`: drei Helper im Novapolis-Personenindex ergänzt (kanonische Namensverankerung).
+- JSON-Sidecars synchronisiert: `C6.json`, `C6-Bewohner.json`, `person-index-np.json` (`last_updated`; bei C6-Bewohner zusätzlich `version` auf `0.2`).
+
+RP: Auditkommentare eingearbeitet (2026-02-23 06:22)
+----------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-canvas-rescue/delta-audit-2026-02-23.md` um strukturierten Umsetzungsvermerk ergänzt (statt Inline-Kommentarzeilen).
+- `C6-SQM`: Entscheidung präzisiert (projektkonforme m²-Neufestlegung, A/B/C nur bei operativer Sinnhaftigkeit beibehalten).
+- `C6-HELPERS`: Arbeitsdefinition ergänzt (Tunnelinstandsetzung/Transport/Absicherung im Nordlinien-Umfeld).
+- Priorisierung angepasst: vor Transferlog-Feingranularität zuerst Basisvorräte + interne Logistik der Nicht-Spieler-Fraktionen konsolidieren.
+
+RP: Gründlicher Delta-Audit RAW/Curated↔SSOT (2026-02-23 05:51)
+----------------------------------------------------------------
+
+- Neuer Auditbericht angelegt: `novapolis-dev/docs/process/rp-canvas-rescue/delta-audit-2026-02-23.md`.
+- Quervergleich über RAW (`database-raw/99-exports`), Curated-Staging (`database-curated/staging/reports`) und Novapolis-SSOT durchgeführt.
+- Ergebnis: zwei priorisierte Kanon-Lücken bestätigt (`C6-SQM` fehlt in Fach-SSOT; `C6-HELPERS` nicht kanonisch ausgerollt), plus zwei bewusst offene Betriebslücken (`Inventar-Transfermengen`, `Kugeln-Bestände`).
+- Patch-Reihenfolge zur Schließung der Lücken im Auditbericht dokumentiert.
+
+RP: Belegnotiz D5/C6-Energieversorgung (2026-02-23 05:27)
+---------------------------------------------------------
+
+- `novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.md` um einen expliziten Belegblock ergänzt: D5-Reaktor 100 %/Zellenladung, C6-Teilversorgung, Leitungslimitierungen, sowie klare Abgrenzung zu nicht-kanonisierten Tageskennzahlen.
+- RAW-Hinweise als Indiz markiert (u. a. 98 %→100 % D5, Generator-/Energiezellen-Plus), ohne daraus neue harte Kennzahlen abzuleiten.
+- JSON-Sidecar synchronisiert: `novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-logistics.json` (`last_updated`, `last_change`).
+
+RP: Waren-Index inhaltlich erweitert (2026-02-23 04:39)
+------------------------------------------------------
+
+- `novapolis-rp/database-rp/00-admin/Waren-Index.md` inhaltlich geprüft und um voraussichtlich häufig benötigte Kernitems ergänzt (Medizin/Versorgung/Wartung).
+- Ergänzt wurden u. a.: `medkit-standard`, `verbandmaterial-set`, `desinfektionsmittel`, `antibiotika-basis`, `schmerzmittel-basis`, `sicherungssatz`, `dichtungsmanschette`, `kuehlmittel-industrie`, `lagerfett-technik`, `druckluftkartusche`.
+- Abschnitt `Unique-Items (Empfehlung)` ergänzt: klare Trennlogik für späteren dedizierten `Unique-Waren-Index.md` ohne sofortige SSOT-Duplizierung.
+- JSON-Sidecar synchronisiert: `novapolis-rp/database-rp/00-admin/Waren-Index.json` (`last_updated`, `last_change`).
+
+RP: Frische-Review 00-admin (Sammelabschluss Restbestand) (2026-02-23 04:21)
+-------------------------------------------------------------------------
+
+- Geprüft und aktualisiert: `novapolis-rp/database-rp/00-admin/index-rules.md`, `novapolis-rp/database-rp/00-admin/Metrokarte-T0.md`, `novapolis-rp/database-rp/00-admin/canon-canvas.draft.md`, `novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md`, `novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md`.
+- Frontmatter-`stand`/`update` aktualisiert; Inhalte/Verweise weiterhin gültig bestätigt (kein Kanon-Delta).
+- JSON-Metadaten synchronisiert: `index-rules.json`, `Metrokarte-T0.json`, `Fraktionen-Taxonomie.json`, `Stationskontroll-Matrix.json` (`last_updated`/`last_change`).
+- Folgeprüfung via markdownlint/frontmatter/`validate:rp` im selben Lauf ausgeführt.
+
+RP: Frische-Review 00-admin (3er-Batch 8) (2026-02-23 04:15)
+------------------------------------------------------------
+
+- Geprüft und aktualisiert: `novapolis-rp/database-rp/00-admin/Metrograph.md`, `novapolis-rp/database-rp/00-admin/Ortsgraph.md`, `novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md`.
+- Frontmatter-`stand`/`update` aktualisiert; Inhalte/Verweise weiterhin gültig bestätigt (kein Kanon-Delta).
+- JSON-Metadaten synchronisiert: `Metrograph.json`, `Ortsgraph.json`, `Warenueberblick-T0.json` (`last_updated`/`last_change`).
+- Folgeprüfung via markdownlint/frontmatter/`validate:rp` im selben Lauf ausgeführt.
+
+RP: Frische-Review 00-admin (3er-Batch 7) (2026-02-23 03:59)
+------------------------------------------------------------
+
+- Geprüft und aktualisiert: `novapolis-rp/database-rp/00-admin/Current-State.md`, `novapolis-rp/database-rp/00-admin/Kernkonversationen.md`, `novapolis-rp/database-rp/00-admin/Logistik.md`.
+- Frontmatter-`stand`/`update` aktualisiert; Inhalte/Verweise weiterhin gültig bestätigt (kein Kanon-Delta).
+- JSON-Metadaten synchronisiert: `Current-State.json`, `Kernkonversationen.json`, `Logistik.json` (`last_updated`/`last_change`).
+- Folgeprüfung via markdownlint/frontmatter/`validate:rp` im selben Lauf ausgeführt.
+
+RP: Frische-Review 00-admin (3er-Batch 6) (2026-02-23 03:55)
+------------------------------------------------------------
+
+- Geprüft und aktualisiert: `novapolis-rp/database-rp/00-admin/Tags-Taxonomie.md`, `novapolis-rp/database-rp/00-admin/schema-header-templates.md`, `novapolis-rp/database-rp/00-admin/Canvas-Admin-Day-Switch-Debug.md`.
+- Frontmatter-`stand`/`update` aktualisiert; Inhalte/Verweise weiterhin gültig bestätigt (kein Kanon-Delta).
+- JSON-Metadaten synchronisiert: `Tags-Taxonomie.json` (`meta.last_updated`, `meta.last_change`), `schema-header-templates.json`, `Canvas-Admin-Day-Switch-Debug.json` (`last_updated`, `last_change`).
+- Folgeprüfung via markdownlint/frontmatter/`validate:rp` im selben Lauf ausgeführt.
+
+RP: Frische-Review 00-admin (3er-Batch 5) (2026-02-23 03:27)
+------------------------------------------------------------
+
+- Geprüft und aktualisiert: `novapolis-rp/database-rp/00-admin/Process-Workflow.md`, `novapolis-rp/database-rp/00-admin/Sim-State-Schema.md`, `novapolis-rp/database-rp/00-admin/Tick-Regeln-Simulation.md`.
+- Frontmatter-`stand`/`update` aktualisiert; Inhalte/Verweise weiterhin gültig bestätigt (kein Kanon-Delta).
+- JSON-Metadaten synchronisiert: `Process-Workflow.json`, `Sim-State-Schema.json`, `Tick-Regeln-Simulation.json` (`last_updated`, `last_change`).
+- Folgeprüfung via markdownlint/frontmatter/`validate:rp` im selben Lauf ausgeführt.
+
+RP: Frische-Review 00-admin (3er-Batch 4) (2026-02-23 03:24)
+------------------------------------------------------------
+
+- Geprüft und aktualisiert: `novapolis-rp/database-rp/00-admin/Ereignislog-Weltgeschehen.md`, `novapolis-rp/database-rp/00-admin/Cluster-Index.md`, `novapolis-rp/database-rp/00-admin/Missionslog.md`.
+- Frontmatter-`stand`/`update` aktualisiert; Inhalte/Verweise weiterhin gültig bestätigt (kein Kanon-Delta).
+- JSON-Metadaten synchronisiert: `Ereignislog-Weltgeschehen.json`, `Cluster-Index.json`, `Missionslog.json` (`last_updated`, `last_change`).
+- Missionslog-JSON-Titel auf globalen Index harmonisiert.
+
+RP: Frische-Review 00-admin (3er-Batch 3) (2026-02-23 03:01)
+------------------------------------------------------------
+
+- Geprüft und aktualisiert: `novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md`, `novapolis-rp/database-rp/00-admin/Canvas-T0-Timeline.md`, `novapolis-rp/database-rp/00-admin/Migrationsplan-Admin-Novapolis.md`.
+- Frontmatter-`stand`/`update` aktualisiert; inhaltlich weiterhin gültig bestätigt (kein Kanon-Delta).
+- JSON-Metadaten synchronisiert: `Reference-Campaign-State.json`, `Canvas-T0-Timeline.json`, `Migrationsplan-Admin-Novapolis.json` (`last_updated`, `last_change`).
+- Migrationsplan-JSON auf Template-SSOT harmonisiert (`slug/title/version/tags/affiliations`).
+
+RP: Frische-Review 00-admin (3er-Batch 2) (2026-02-23 02:35)
+------------------------------------------------------------
+
+- Geprüft und aktualisiert: `novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md`, `novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md`, `novapolis-rp/database-rp/00-admin/Waren-Index.md`.
+- Frontmatter-`stand`/`update` aktualisiert; inhaltlich als weiterhin gültig bestätigt (kein Kanon-Delta).
+- JSON-Metadaten synchronisiert: `Index-Handel-Diplomatie.json`, `Curated-Konfliktliste.json`, `Waren-Index.json` (`last_updated`, `last_change`).
+- Folgeprüfung via markdownlint/frontmatter/`validate:rp` im selben Lauf ausgeführt.
+
+RP: Frische-Review 00-admin (ältere SSOTs) (2026-02-23 02:31)
+-------------------------------------------------------------
+
+- Geprüft und aktualisiert: `novapolis-rp/database-rp/00-admin/AI-Behavior-Mapping.md`, `novapolis-rp/database-rp/00-admin/memory-bundle.md`, `novapolis-rp/database-rp/00-admin/system-prompt.md`.
+- Frontmatter-`stand`/`update` auf Frische-Review gesetzt; inhaltlich als weiterhin gültig bestätigt (kein Kanon-Delta).
+- JSON-Metadaten synchronisiert: `AI-Behavior-Mapping.json`, `memory-bundle.json`, `system-prompt.json` (`last_updated`, `last_change`).
+- Gesamtordner-Status aus Audit bleibt gültig: MD/JSON-Paare vollständig, Lint/Frontmatter/`validate:rp` grün.
+
+RP: Tags-Taxonomie als JSON-Spiegel (2026-02-23 01:53)
+------------------------------------------------------
+
+- Neue Datei `novapolis-rp/database-rp/00-admin/Tags-Taxonomie.json` angelegt.
+- Inhalt aus `novapolis-rp/database-rp/00-admin/Tags-Taxonomie.md` strukturiert gespiegelt (validTags, starterSets, Regeln, Beispiele, Erweiterungspfad).
+- Ziel: maschinenlesbare Nutzung ohne Änderung der Markdown-SSOT.
+
+RP: Minimal-Abgleich Basis-/Known-Stationen (2026-02-23 00:21)
+----------------------------------------------------------------
+
+- `novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md` um Abschnitt „Minimal-Abgleich Basis-/Known-Stationen (T0)“ ergänzt.
+- Je Fraktion (Novapolis, Arkologie-A1, Schienenbund, Schattenbund, Haendlerbund, Eisenkonklave, Fluesterkollektiv) Basis/known station mit Fraktionsanker und Admin-SSOT verknüpft.
+- `novapolis-dev/docs/todo.rp.md`: Deliverable „Fraktionen: Minimal-Abgleich …“ auf erledigt gesetzt.
+- `novapolis-dev/docs/todo.index.md`: RP-Open-Count von 9 auf 8 nachgezogen.
+
+RP: DoD Stationsreferenzen Karte+Matrix (2026-02-23 00:22)
+----------------------------------------------------------
+
+- `novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md` um 34 fehlende Stationseinträge erweitert (Neutral/Transit), Referenzabdeckung zur Metrokarte hergestellt.
+- Abgleich gegen `novapolis-rp/database-rp/00-admin/Metrokarte-T0.md`: `metro=54`, `matrix=54`, `missing_in_matrix=none`.
+- `novapolis-dev/docs/todo.rp.md`: DoD-Punkt „Jede bekannte Station ist in Karte + Kontrollmatrix …“ auf erledigt gesetzt.
+- `novapolis-dev/docs/todo.index.md`: RP-Open-Count von 8 auf 7 nachgezogen.
 
 TODO-Sync: Validierung vor Archivierung + Testvollauf (2026-02-22 23:58)
 -----------------------------------------------------------------------

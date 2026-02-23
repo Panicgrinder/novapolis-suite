@@ -1,10 +1,12 @@
 {
-  "title": "Migrationsplan 00-admin ↔ Novapolis",
+  "title": "Migrationsplan 00-admin ↔ Fraktionen (Template)",
   "category": "admin",
-  "slug": "migrationsplan-admin-novapolis",
-  "version": "0.1",
-  "tags": ["migration", "rp", "admin", "novapolis"],
-  "affiliations": ["novapolis"],
+  "slug": "migrationsplan-admin-template",
+  "version": "0.2",
+  "last_updated": "2026-02-23T03:01:00+01:00",
+  "last_change": "Frische-Review: Template-Scope bestätigt und JSON an Markdown-Template angepasst",
+  "tags": ["migration", "rp", "admin", "template"],
+  "affiliations": [],
   "dependencies": [
     "memory-bundle",
     "current-state",

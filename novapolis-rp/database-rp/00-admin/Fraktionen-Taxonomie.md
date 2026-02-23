@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-09 02:05
-update: H1 ergaenzt (Validator-Fix).
-checks: "npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-09 02:05)"
+stand: 2026-02-23 04:21
+update: Frische-Review durchgeführt; Fraktionsrahmen, Wissensmatrix und T0-Abgleich weiterhin gültig (kein Kanon-Delta).
+checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md' PASS (2026-02-23 04:22); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Fraktionen-Taxonomie.md' PASS (2026-02-23 04:22); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 04:22)"
 slug: fraktionen-taxonomie
 category: admin
 canvas: fraktionen-taxonomie
@@ -64,6 +64,21 @@ Taxonomie (aktuell)
   - Referenzen: Inventar [Freie Gruppen](../04-inventory/Freie-Gruppen-inventar.md)
 - **Karawanen-/Splittergruppen**
   - Referenzen: [caravan-moves](../01-factions/haendlerbund/05-projects/caravan-moves.md)
+
+Minimal-Abgleich Basis-/Known-Stationen (T0)
+--------------------------------------------
+
+Der folgende Abgleich verbindet Fraktions-Basis/known stations mit der Admin-SSOT fuer Karte/Kontrolle.
+
+| Fraktion | Basis/known stations (T0) | Fraktionsanker | Admin-SSOT |
+| --- | --- | --- | --- |
+| Novapolis | D5, C6, E3 | [Novapolis](../01-factions/novapolis/Novapolis.md), [D5](../01-factions/novapolis/03-locations/D5.md), [C6](../01-factions/novapolis/03-locations/C6.md), [E3](../01-factions/novapolis/03-locations/E3.md) | [Metrokarte-T0](./Metrokarte-T0.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md), [Warenueberblick-T0](./Warenueberblick-T0.md) |
+| Arkologie-A1 | A1 | [Arkologie-A1](../01-factions/arkologie-a1/Arkologie-A1.md), [A1](../01-factions/arkologie-a1/03-locations/A1.md) | [Metrokarte-T0](./Metrokarte-T0.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md), [Warenueberblick-T0](./Warenueberblick-T0.md) |
+| Schienenbund | B2 | [Schienenbund](../01-factions/schienenbund/Schienenbund.md), [B2](../01-factions/schienenbund/03-locations/B2.md) | [Metrokarte-T0](./Metrokarte-T0.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md), [Warenueberblick-T0](./Warenueberblick-T0.md) |
+| Schattenbund | F9 | [Schattenbund](../01-factions/schattenbund/Schattenbund.md), [F9](../01-factions/schattenbund/03-locations/F9.md) | [Metrokarte-T0](./Metrokarte-T0.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md), [Warenueberblick-T0](./Warenueberblick-T0.md) |
+| Haendlerbund | G7 | [Haendlerbund](../01-factions/haendlerbund/Haendlerbund.md), [G7](../01-factions/haendlerbund/03-locations/G7.md) | [Metrokarte-T0](./Metrokarte-T0.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md), [Warenueberblick-T0](./Warenueberblick-T0.md) |
+| Eisenkonklave | H12 | [Eisenkonklave](../01-factions/eisenkonklave/Eisenkonklave.md), [H12](../01-factions/eisenkonklave/03-locations/H12.md) | [Metrokarte-T0](./Metrokarte-T0.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md), [Warenueberblick-T0](./Warenueberblick-T0.md) |
+| Fluesterkollektiv | K4 | [Fluesterkollektiv](../01-factions/fluesterkollektiv/Fluesterkollektiv.md), [K4](../01-factions/fluesterkollektiv/03-locations/K4.md) | [Metrokarte-T0](./Metrokarte-T0.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md), [Warenueberblick-T0](./Warenueberblick-T0.md) |
 
 Wissensmatrix (Default)
 -----------------------

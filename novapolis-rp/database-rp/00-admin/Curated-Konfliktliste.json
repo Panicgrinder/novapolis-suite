@@ -5,5 +5,7 @@
   "version": "0.1",
   "canvas": "curated-konfliktliste",
   "status": "draft",
+  "last_updated": "2026-02-23T02:35:00+01:00",
+  "last_change": "Frische-Review: Konfliktstatus/Referenzen geprüft, weiterhin konsistent",
   "source": "database-rp/00-admin/Curated-Konfliktliste.md"
 }

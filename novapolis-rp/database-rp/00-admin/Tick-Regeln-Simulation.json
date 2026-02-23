@@ -4,6 +4,8 @@
   "slug": "tick-regeln-simulation",
   "version": "0.1",
   "status": "active",
+  "last_updated": "2026-02-23T03:27:00+01:00",
+  "last_change": "Frische-Review: Tick-/Phasenregeln und Dual-Log-Standard geprüft, weiterhin gültig",
   "owners": [
     "admin-novapolis"
   ],

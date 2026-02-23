@@ -4,6 +4,8 @@
   "slug": "index_handel_diplomatie_v1",
   "version": "0.1",
   "status": "draft",
+  "last_updated": "2026-02-23T02:35:00+01:00",
+  "last_change": "Frische-Review: Verweise/Scope geprüft, weiterhin gültig",
   "tags": ["handel", "diplomatie", "index"],
   "source": "database-rp/00-admin/Index-Handel-Diplomatie.md"
 }

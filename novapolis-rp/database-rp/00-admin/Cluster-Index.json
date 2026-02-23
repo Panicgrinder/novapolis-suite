@@ -4,6 +4,8 @@
   "slug": "cluster_index_v1",
   "version": "0.2",
   "status": "review",
+  "last_updated": "2026-02-23T03:24:00+01:00",
+  "last_change": "Frische-Review: Spannungs-/PsyLink-Referenzen geprüft, weiterhin gültig",
   "tags": ["cluster", "relations", "psylink", "tensions"],
   "source": "database-rp/00-admin/Cluster-Index.md"
 }
