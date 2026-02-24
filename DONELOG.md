@@ -1,10 +1,16 @@
 ---
-stand: 2026-02-23 15:53
-update: "Governance-SSOT um Snapshot-/Markdown-/Frontmatter-Gates als verbindlichen Mutationsablauf ergänzt; Headings-Index synchronisiert."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39)
+stand: 2026-02-24 15:35
+update: Mind-Cluster-Namensstandard eingefuehrt (relations- -> mind-) und Ronja-Migration auf Entitaets-SSOT umgesetzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/mind-cluster.instructions.md' 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-24 15:10)
 ---
 Kurzueberblick
 --------------
+
+- 2026-02-24 15:00: Benennungsumstellung verankert: `relations-` wurde in aktiven Artefakten auf `mind-` umgestellt (`.github/instructions/mind-cluster.instructions.md`, `novapolis-rp/database-rp/00-admin/mind-cluster-template.md`, Referenzen/Indexe nachgezogen). Parallel wurde `ronja-kerschner-mind-cluster.md` als Entitaets-SSOT angelegt und die entsprechenden Doppelungen (Verhaltenssignatur, Beziehungen, geistnaher Zustand) aus `Ronja-Kerschner.md` entfernt.
+
+- 2026-02-24 12:03: Neue Scoped Governance-Datei `.github/instructions/mind-cluster.instructions.md` eingefuehrt (Sphaerenbegriff, Brainstorming-Modus, Pflichtdaten, Pipeline, Validierung/Gates). Parallel dazu `novapolis-rp/database-rp/00-admin/mind-cluster-template.md` als konsolidiertes Fach-Template erstellt; R-IDX-Mini-Gate durch Update von `.github/copilot-instructions-headings.md` erfuellt.
+
+- 2026-02-23 22:27: In `.github/instructions/rp-docs.instructions.md` die TODO-Governance verschaerft: neue Pflichtregel `R-TODO-IDX` erfordert bei jeder Aenderung an einer TODO-Datei im Scope die Aktualisierung von `novapolis-dev/docs/todo.index.md` im selben Aenderungslauf.
 
 - 2026-02-23 12:39: Governance-SSOT aktualisiert: In `.github/copilot-instructions.md` wurde der verbindliche Snapshot-/Markdown-/Frontmatter-Ablauf als eigener Kernabschnitt verankert (inkl. Regel `R-SNAP` in der Matrix); der Pflichtindex `.github/copilot-instructions-headings.md` wurde im selben Lauf nachgezogen.
 

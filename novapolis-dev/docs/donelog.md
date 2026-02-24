@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 15:53
-update: Eval-Datasetstruktur auf `neutral/` + `rpg/` umgestellt und ersetzte Altpakete in Quarantäne abgelegt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis_agent/docs/DONELOG.txt' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 15:43); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis_agent/docs/DONELOG.txt' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 15:43)
+stand: 2026-02-24 15:35
+update: Brainstorming-Datei auf verbindlichen Modus-Start (Ideenspeicher), Kurzindex und leere Projektflaechen umgestellt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-24 15:23); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-24 15:23)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,112 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+RP/Dev: Brainstorming-Modus-Startstruktur gesetzt (2026-02-24 15:21)
+----------------------------------------------------------------------
+
+- `novapolis-dev/docs/brainstorming.rp.md` auf einen verbindlichen Brainstorming-Modus-Block reduziert (Ideenspeicher, keine Spezifikation ohne explizite Prompt-Freigabe).
+- Danach bewusst schlank aufgebaut: Kurzbeschreibung, kurzer Index und drei leere Projektflaechen als Startpunkte.
+- Ziel: weniger Interpretationsspielraum, schneller Einstieg in neue komplexe Themen.
+
+RP/Dev: Mind-Cluster-Umstellung und Ronja-SSOT-Migration (2026-02-24 15:00)
+-----------------------------------------------------------------------------
+
+- `relations-` in den aktiven Artefakten auf `mind-` umgestellt (Dateinamen + Referenzen + Headings-Index).
+- Neue Entitaetsdatei angelegt: `novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md`.
+- Aus `Ronja-Kerschner.md` die Doppelungen entfernt: Verhaltenssignatur, Beziehungen und geistnaher Zustandsblock; stattdessen klarer SSOT-Referenzpfad auf den Mind-Cluster.
+- Mind-Template/Instruction erweitert um `einfluss` und `bedrohung` als Pflichtdimensionen.
+
+RP/Dev: Mind-Template verschlankt, Governance zentralisiert (2026-02-24 14:10)
+---------------------------------------------------------------------------
+
+- `novapolis-rp/database-rp/00-admin/mind-cluster-template.md` vom umfangreichen Governance-Block auf einen kompakten `Governance-Referenz`-Abschnitt umgestellt.
+- Verbindliche Regelquelle bleibt `.github/instructions/mind-cluster.instructions.md`; das Template fokussiert jetzt den fachlichen Modul-Part.
+- Ziel: doppelte Regelpflege vermeiden, Widerspruchsrisiko senken, SSOT fuer Governance klar zentral halten.
+
+RP/Dev: Mind-Cluster-Dateipaare angelegt (Governance + 00-admin) (2026-02-24 12:03)
+-------------------------------------------------------------------------------------------
+
+- Neue Scoped Instruction erstellt: `.github/instructions/mind-cluster.instructions.md` (Sphaerenbegriff, Brainstorming-Modus, Pflichtdaten, deterministische Pipeline, Gates).
+- Neues RP-Admin-Template erstellt: `novapolis-rp/database-rp/00-admin/mind-cluster-template.md` mit klarer Trennung `Governance-Teil` vs. `Modul-Part` und konsolidierten Defaults.
+- Pflichtnachzug gemaess R-IDX erfolgt: `.github/copilot-instructions-headings.md` um die neue Scoped Instruction erweitert.
+
+RP/Dev: Mind-Cluster als vollstaendige Zielstruktur spezifiziert (2026-02-24 12:03)
+------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/brainstorming.rp.md` um eine umfassende Spezifikation fuer `mind-cluster-instructions` erweitert.
+- Enthalten: Doppelartefakt-Architektur (Governance + SSOT), vollstaendiger Scope, Pflichtdimensionen, Event-Taxonomie, deterministische Pipeline, Hard-Rules, Bias-Modell, Validator-Kontrakt, Mapping-Adapter zu AI-Behavior, KPI-/Testpflicht, Migrations- und Runbook-Regeln.
+- Zielbild im Dokument jetzt explizit auf lueckenfreie Planungsreife ausgerichtet (Definition of Ready/Done ohne offene Kern-TBDs).
+
+RP/Dev: v0.2 Baseline verbindlich gemacht (Achsen + Regeln) (2026-02-24 06:34)
+-------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/brainstorming.rp.md` semantisch konsolidiert: `x/y` bleiben exklusiv Aequator-Dimensionen; `z` wurde auf `prosozial <-> egoistisch` festgelegt.
+- "Moralischer Kompass" als Hauptachse entfernt und stattdessen als separater Skalar `normtreue` (`-100..+100`) eingefuehrt.
+- Verbindliche `v0.2 Baseline` ergaenzt: feste Update-Reihenfolge, Kernformel, verpflichtende Startparameter und klare Trennung der Rollen von `x/y/z/normtreue`.
+
+RP/Dev: v0.2 Konsolidierung nach Review umgesetzt (2026-02-24 07:22)
+---------------------------------------------------------------------
+
+- `novapolis-dev/docs/brainstorming.rp.md` inhaltlich geschaerft: alte Hemisphaeren-Lesart entfernt; Dimensionen jetzt explizit getrennt (`z` sozial/egoistisch, `normtreue` separat).
+- Verbindliche Formelteile auf achsweise Updates praezisiert (`delta_base_xy`, `delta_base_z`, `delta_base_normtreue`) und Distanzmetrik als gewichtete 4D-Variante festgeschrieben.
+- MVP-Schema um `policy_version` sowie Auditfelder (`event_id`, `reason_codes`, `applied_rules`) erweitert; Simulationsschritt einheitlich auf `20` Events mit KPI-Zielkorridoren umgestellt und Failure-Case-Testkatalog ergaenzt.
+
+RP/Dev: Dynamikmodell geprueft und v0.2-Optimierungspaket fuer KI-Verwaltung eingearbeitet (2026-02-24 04:21)
+-------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/brainstorming.rp.md` um den Abschnitt `Pruefung und Optimierungsvorschlaege (v0.2)` erweitert.
+- Schwerpunkt: robustere Dynamik (`x/y`-Kreisprojektion, Hysterese, Streak-Halbwertszeit, Confidence-Gating) und bessere KI-Auditierbarkeit (`reason_codes`, `policy_version`).
+- Konservative Startdefaults und ein messbarer Simulationsplan (`20` Events, KPI-Set) fuer die naechste Iterationsstufe dokumentiert.
+
+RP/Dev: Aequator-x/y und KI-Verwaltungsleitplanken ins Brainstorming integriert (2026-02-24 02:09)
+-----------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/brainstorming.rp.md` auf ein einheitliches Aequator-Bezugssystem mit `x/y` (`-100..+100`) umgestellt; neutraler Einstiegspunkt `(0,0,0)` explizit verankert.
+- Dynamische Umlauf-Logik ergaenzt: positive Drift ueber links/vorne, negative Drift ueber rechts/hinten inkl. verstaerkter Bewegung bei Negativ-Streak.
+- Neuer Abschnitt `v0.1 Leitplanken fuer KI-Verwaltung` aufgenommen (state/evidence/policy-Trennung, deterministische Update-Reihenfolge, Mindestfelder, Stabilitaetsregeln, MVP-JSON-Schema).
+
+RP/Dev: Kugel-Cluster-Konzept fuer dynamisches Verhalten als Erstmodell ausgearbeitet (2026-02-24 00:38)
+---------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/brainstorming.rp.md` um `Idee A` erweitert (Moralachse `z`, Wahrnehmung ueber `x/y`, Fraktionssegmente am Aequator).
+- Intentions-/Interpretationslogik als Vektormodell beschrieben (`v_intent`, `v_interp`) inklusive erster Arbeitsformel fuer Missverstaendnisse.
+- Offene MVP-Entscheidungen und ein konkreter naechster Schritt (Mini-Simulation mit 3 Figuren, 1 Fraktion, 5 Ereignissen) festgehalten.
+
+RP/Dev: Brainstorming-Arbeitsflaeche fuer komplexe RP-Ideen angelegt (2026-02-23 23:17)
+-------------------------------------------------------------------------------------------
+
+- Neue Datei `novapolis-dev/docs/brainstorming.rp.md` erstellt.
+- Enthalten: kompakter Architekturueberblick ueber `novapolis-rp` (SSOT-Schichten, Kernbereiche, Steuerdokumente, Tooling/Validatoren).
+- Zusaetzlich ein strukturiertes Diskussionsgeruest (Problemraum, Zielbild, Scope, Risiken, Phasen, Done-Kriterien) fuer die naechste Konzeptphase vorbereitet.
+
+Dev: Detaillierten Hygiene-Sprint aus Analyse in Board ueberfuehrt (2026-02-23 22:56)
+---------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.dev.md` um einen priorisierten Dev-Hygiene-Plan erweitert (`[Jetzt]`, `[Als naechstes]`, `[Spaeter]`) inklusive Akzeptanzkriterien und Cadence/KPI-Definition.
+- `novapolis-dev/docs/todo.index.md` im selben Lauf synchronisiert (`Dev offen: 8`) gemaess TODO->Index-Governance.
+- Planfokus: Truthfulness-Drift, Donelog-Scanbarkeit, Log-Policy fuer `*.tmp.md`, Stand-Freshness-SLA und technischer Guard gegen TODO/Index-Drift.
+
+Dev: Zwei erledigte Dev-TODO-Punkte validiert, archiviert und Board geleert (2026-02-23 22:27)
+----------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.dev.md`: Der erledigte Block `Offene Aufgaben (Dev)` wurde aus dem aktiven Board entfernt; das Board ist nun explizit fuer neue Aufgaben vorbereitet.
+- `novapolis-dev/archive/todo.dev.archive.md`: Der komplette erledigte Dev-Block wurde mit `archived_at` uebernommen (inkl. Validierungshinweisen fuer Task- und Wrapper-Umsetzung).
+- `novapolis-dev/docs/todo.index.md`: Index nachgezogen und Dev-Status als leeres Startboard (`offen: 0`) explizit gekennzeichnet.
+
+Dev: Optionalen Sim-Offline-Assetcheck in Checks-Wrapper integriert (2026-02-23 20:17)
+--------------------------------------------------------------------------------------
+
+- `scripts/run_checks_and_report.py` um `--with-sim-assets` erweitert.
+- Bei gesetzter Option wird `scripts/check_sim_epoch_assets.py --repo-root <root> --allow-empty` als zusaetzlicher Pflichtcheck (`sim-assets`) ausgefuehrt.
+- `novapolis-dev/docs/todo.dev.md`: letzter offener Dev-Punkt auf erledigt gesetzt; `novapolis-dev/docs/todo.index.md` Dev-Open-Count auf `0` synchronisiert.
+
+Dev: TODO-Open-Counts validiert und Index synchronisiert (2026-02-23 20:11)
+------------------------------------------------------------------------
+
+- Aktive Boards gegen Checkbox-Iststand geprueft: `todo.rp.md` (7 offen), `todo.dev.md` (1 offen), `todo.sim.md` (5 offen), `todo.agent-board.md` (4 offen).
+- Befund: `novapolis-dev/docs/todo.index.md` war fuer Agent veraltet (`offen: 2`), wurde auf `offen: 4` korrigiert.
+- Keine inhaltliche Neupriorisierung; nur Konsistenz-/Synchronisationsupdate zwischen Board und Index.
 
 Agent: Dataset-Unterordner-Migration abgeschlossen (2026-02-23 15:43)
 ---------------------------------------------------------------------

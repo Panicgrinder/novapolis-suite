@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 08:08
-update: Abgeschlossene Dev-Bloecke aus todo.root ueberfuehrt; Root-Backlog auf aktive Punkte reduziert.
-checks: markdownlint-cli2 PASS; check_frontmatter.py PASS
+stand: 2026-02-24 15:35
+update: Erledigten Dev-Block aus todo.dev validiert uebernommen und mit archived_at dokumentiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.dev.archive.md' '.github/instructions/rp-docs.instructions.md' 'DONELOG.md' PASS (2026-02-23 22:29); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.dev.archive.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-23 22:29)
 ---
 
 TODO-Archiv - Dev
@@ -19,6 +19,18 @@ Ablage
 - Neueste Einträge oben einfügen.
 
 <!-- Hier unterhalb neue, vollständig erledigte Blöcke einfügen (neu zuerst). -->
+
+Offene Aufgaben (Dev) - Snapshot 2026-02-23 abgeschlossen
+----------------------------------------------------------
+
+archived_at: 2026-02-23 22:27
+
+Quelle: `novapolis-dev/docs/todo.dev.md` (Block `Offene Aufgaben (Dev)`, Stand 2026-02-23 20:17).
+
+- [x] VS-Code-Task fuer `scripts/check_sim_epoch_assets.py` hinzugefuegt und kurz in Doku verlinkt.
+	- Validierung: Task `Checks: sim epoch assets` in `.vscode/tasks.json` vorhanden (Script-Aufruf inklusive).
+- [x] `scripts/run_checks_and_report.py` um optionalen Sim-Offline-Assetcheck (`--with-sim-assets`) erweitert.
+	- Validierung: Flag `--with-sim-assets` vorhanden; optionaler Lauf `check_sim_epoch_assets.py --allow-empty` als Check `sim-assets` verdrahtet.
 
 Dev-Folgepunkt (2026-02-22) - abgeschlossen
 -------------------------------------------

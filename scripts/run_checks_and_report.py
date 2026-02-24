@@ -434,6 +434,38 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, o
         )
         write_log(path_portability_log, f"FAIL: {reason}\n")
 
+    if args.with_sim_assets:
+        sim_assets_script = repo_root / "scripts" / "check_sim_epoch_assets.py"
+        if sim_assets_script.exists():
+            run_or_fail(
+                "sim-assets",
+                [
+                    str(python_exec),
+                    str(sim_assets_script),
+                    "--repo-root",
+                    str(repo_root),
+                    "--allow-empty",
+                ],
+                repo_root,
+                required=True,
+            )
+        else:
+            reason = "sim-assets check requested but script missing"
+            sim_assets_log = logs_dir / "sim-assets.log"
+            results.append(
+                CheckResult(
+                    tool="sim-assets",
+                    status="FAIL",
+                    exit_code=127,
+                    duration_ms=0,
+                    findings_count=1,
+                    details_path=sim_assets_log,
+                    notes=reason,
+                    required=True,
+                )
+            )
+            write_log(sim_assets_log, f"FAIL: {reason}\n")
+
     run_or_fail(
         "ruff",
         [str(python_exec), "-m", "ruff", "check", "novapolis_agent", "scripts"],
@@ -643,6 +675,7 @@ def build_summary(
         "markdownlint",
         "frontmatter",
         "path-portability",
+        "sim-assets",
         "ruff",
         "black",
         "pytest",
@@ -742,6 +775,14 @@ def build_argparser() -> argparse.ArgumentParser:
         "--allow-non-zero",
         action="store_true",
         help="Return exit code 0 even if checks fail (useful for local dry runs).",
+    )
+    parser.add_argument(
+        "--with-sim-assets",
+        action="store_true",
+        help=(
+            "Run optional offline Sim asset validation "
+            "(scripts/check_sim_epoch_assets.py --allow-empty)."
+        ),
     )
     return parser
 

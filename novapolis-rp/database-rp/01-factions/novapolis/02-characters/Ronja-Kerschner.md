@@ -1,13 +1,13 @@
 ---
-stand: 2026-02-22 01:49
-update: Relativen Link auf AI-Behavior-Mapping auf korrekten Admin-Pfad korrigiert.
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:46); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 01:46); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 01:46)
+stand: 2026-02-24 15:35
+update: Verhaltenssignatur, Beziehungen und geistnahen Zustandsblock in den Mind-Cluster ausgelagert; Charakterdatei als Referenz bereinigt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/mind-cluster.instructions.md' 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-24 15:10)
 title: Ronja Kerschner
 category: character
 slug: ronja-kerschner
 version: "1.0"
 last_updated: 2026-02-16T12:01:00+01:00
-last_change: "RAW-Insights (char_ronja_v2) integriert, Drift markiert"
+last_change: "Mind-Cluster-SSOT angebunden; beziehungsnahe Doppelungen aus Charakterdatei entfernt"
 tags: []
 affiliations: [novapolis]
 primary_location: d5
@@ -35,7 +35,6 @@ Notizen
 - Exo-Idee: Reflex als Träger/Wirbelsäule, kein Verschmelzen (aktuelle Stufe).
 - Stimmen/Sprachausgabe: Kein Zitat-Formatting in Antworten wünschen.
 - Drift (RAW `char_ronja_v2`, Flag `korrupt`): Nachname "Vallin" ignorieren - Kanon bestätigt "Kerschner" (`resolved.md #[NAME-RONJA]`).
-- Verhaltenssignatur: `R4=O82-T79-L70-E60-N69-C45-S38-M20-kpr` - beschreibt kontrollierte, aber erschöpfte Technikerin (RAW `char_ronja_v2`).
 
 Rollen & Verantwortlichkeiten (Pflichtfelder)
 ---------------------------------------------
@@ -91,11 +90,10 @@ Reflex - Interaktion & Safety (Hausregeln)
 - Request: „Reflex, Schutz leicht - Hände frei.“ → Assist/Support, Hände unbedeckt, Sicht/Atmung frei.
 - Stop: „Stopp.“ → Soll unmittelbare Lösung auslösen, reagiert aktuell verzögert; Nachregulation/Feedback zwingend dokumentieren.
 
-Status & Kondition
-------------------
-- Gesundheit: stabil; geistiger Zustand „instabil, aber funktional“ - Erholungsbedarf hoch (RAW `char_ronja_v2`).
-- Belastungsmanagement: Priorität auf planbare Ruhephasen, sonst steigt Risiko für Sinnzweifel/Überreaktionen.
-- Motivation: „hell/geordnet/lebendig machen“ bleibt Kernleitbild, auch wenn Erschöpfungsspitzen auftreten.
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/ronja-kerschner-mind-cluster.md`
 
 Systemverknüpfungen & Routine
 -----------------------------
@@ -120,12 +118,6 @@ Ziele (kurz)
 - [ ] Exo-Prototyp Version 1 testen
 - [ ] Hydrofilter nutzbar machen
 
-Beziehungen
------------
-- Reflex - symbiotisch, behutsame Grenzen, gelegentlich besitzergreifend
-- Jonas - vorsichtiger Vertrauensvorschuss
-- Pahl - in Pflege, wertvolle Erfahrung
-
 Projekte & Missions (Verlinkungen)
 ----------------------------------
 - Tunnel „Nordlinie 01“ → ../05-projects/Nordlinie-01.md
@@ -136,6 +128,7 @@ Links
 - Reflex → ./Reflex.md
 - C6 → ../03-locations/C6.md; D5 → ../03-locations/D5.md
 - AI-Behavior-Mapping → ../../../00-admin/AI-Behavior-Mapping.md
+- Mind-Cluster (Ronja) → ../07-mind-clusters/ronja-kerschner-mind-cluster.md
 
 Quellen & Review
 ----------------

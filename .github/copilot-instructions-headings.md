@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 15:52
-update: Kern-SSOT um Snapshot-Gates (Write-Lock/Freshness) erweitert und Regelmatrix um R-SNAP ergänzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39)
+stand: 2026-02-24 15:35
+update: Scoped Instruction und Template von mind-cluster auf den verbindlichen Namensstandard harmonisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/mind-cluster.instructions.md' 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10)
 ---
 
 Hinweis
@@ -81,6 +81,19 @@ Datei: `.github/instructions/ci-release.instructions.md`
 - CI & Release
 - Ziel
 - Regeln
+- Regelmatrix
+
+Datei: `.github/instructions/mind-cluster.instructions.md`
+
+- Mind Cluster Governance
+- Ziel
+- Begriffsregeln
+- Brainstorming-Modus
+- Sphaerenmodell-Regeln
+- Pflichtdaten
+- Update-Disziplin
+- Validierung
+- Aenderungspflichten
 - Regelmatrix
 
 3) Pflege-Regel
