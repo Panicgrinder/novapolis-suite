@@ -58,7 +58,17 @@ def load_synonyms() -> tuple[dict[str, list[str]], int]:
                 with p.open("r", encoding="utf-8") as f:
                     data = json.load(f)
                 if isinstance(data, dict):
-                    return {str(k): list(v) for k, v in data.items() if isinstance(v, list)}
+                    out: dict[str, list[str]] = {}
+                    for k, v in data.items():
+                        key = str(k)
+                        if isinstance(v, list):
+                            out[key] = [x for x in v if isinstance(x, str)]
+                            continue
+                        if isinstance(v, dict):
+                            syns = v.get("synonyms", [])
+                            if isinstance(syns, list):
+                                out[key] = [x for x in syns if isinstance(x, str)]
+                    return out
         except Exception as e:
             logger.warning(f"Fehler beim Laden von {p}: {e}")
         return {}

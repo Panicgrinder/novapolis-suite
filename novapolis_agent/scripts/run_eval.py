@@ -118,8 +118,33 @@ _time_utils_mod = _import_any(["utils.time_utils", "novapolis_agent.utils.time_u
 coerce_json_to_jsonl = _eval_utils_mod.coerce_json_to_jsonl
 coerce_eval_records = getattr(_eval_utils_mod, "coerce_eval_records", coerce_json_to_jsonl)
 load_synonyms = _eval_utils_mod.load_synonyms
+load_term_relations = getattr(_eval_utils_mod, "load_term_relations", None)
 truncate = _eval_utils_mod.truncate
 now_compact = _time_utils_mod.now_compact
+
+try:
+    _tpq_mod = _import_any(["utils.third_party_quality", "novapolis_agent.utils.third_party_quality"])
+    lookup_openthesaurus_synonyms = _tpq_mod.lookup_openthesaurus_synonyms
+    expand_tokens_for_term_search = _tpq_mod.expand_tokens_for_term_search
+    validate_german_terms = _tpq_mod.validate_german_terms
+    sts_relevance_score = _tpq_mod.sts_relevance_score
+    languagetool_quality_issues = _tpq_mod.languagetool_quality_issues
+except Exception:
+    # Fallback, falls optionale Drittanbieter-Ressourcen nicht verfuegbar sind.
+    def lookup_openthesaurus_synonyms(_term: str, cap: int = 12) -> list[str]:
+        return []
+
+    def expand_tokens_for_term_search(text: str) -> set[str]:
+        return set(re.split(r"\s+", str(text).lower()))
+
+    def validate_german_terms(terms: list[str]) -> dict[str, Any]:
+        return {"unknown_terms": [], "unknown_count": 0, "details": {}}
+
+    def sts_relevance_score(_prompt: str, _response: str) -> float:
+        return 0.0
+
+    def languagetool_quality_issues(_text: str) -> dict[str, Any]:
+        return {"score": 1.0, "issue_count": 0, "confusion_hits": [], "spacing_issues": 0}
 
 try:
     _eval_cache_mod = _import_any(["utils.eval_cache", "novapolis_agent.utils.eval_cache"])
@@ -173,6 +198,7 @@ except ImportError:
 
 # Globale Variablen
 _synonyms_cache: dict[str, list[str]] | None = None  # Cache für Synonyme, wird lazy geladen
+_term_relations_cache: dict[str, dict[str, list[str]]] | None = None
 
 
 # Typisierte Factory für Listen von Strings (vermeidet list[Unknown]-Warnungen bei Pyright)
@@ -232,12 +258,23 @@ def check_term_inclusion(text: str, term: str) -> bool:
     Returns:
         True, wenn der Begriff oder seine Varianten gefunden wurden
     """
-    # Normalisiere Text und Begriff (Kleinschreibung, Entfernung von Sonderzeichen)
+    # Normalisiere Text und Begriff (Kleinschreibung) + erweiterte Tokenbasis
     text_normalized = text.lower()
     term_normalized = term.lower()
+    text_tokens = expand_tokens_for_term_search(text_normalized)
+
+    def _contains_term(needle: str) -> bool:
+        n = str(needle).strip().lower()
+        if not n:
+            return False
+        if n in text_normalized:
+            return True
+        if " " not in n and n in text_tokens:
+            return True
+        return False
 
     # Direkte Übereinstimmung
-    if term_normalized in text_normalized:
+    if _contains_term(term_normalized):
         return True
 
     # Flexionsformen und einfache Varianten prüfen
@@ -246,13 +283,13 @@ def check_term_inclusion(text: str, term: str) -> bool:
 
     # Prüfe, ob eine der Varianten im Text vorkommt
     for variant in term_stems:
-        if variant in text_normalized:
+        if _contains_term(variant):
             return True
 
     # Synonyme und verwandte Begriffe
     synonyms = get_synonyms(term_normalized)
     for synonym in synonyms:
-        if synonym in text_normalized:
+        if _contains_term(synonym):
             return True
 
     # Zusätzliche Prüfung für zusammengesetzte Begriffe
@@ -278,12 +315,12 @@ def check_term_inclusion(text: str, term: str) -> bool:
                 continue
 
             # Prüfe, ob das Wort oder seine Synonyme vorkommen
-            word_found = word in text_normalized
+            word_found = _contains_term(word)
             if not word_found:
                 # Prüfe Synonyme für das einzelne Wort
                 word_synonyms = get_synonyms(word)
                 for synonym in word_synonyms:
-                    if synonym in text_normalized:
+                    if _contains_term(synonym):
                         word_found = True
                         break
 
@@ -353,6 +390,7 @@ def get_synonyms(term: str) -> list[str]:
         Liste von Synonymen
     """
     global _synonyms_cache
+    global _term_relations_cache
 
     # Lazy-Loading der Synonyme
     if _synonyms_cache is None:
@@ -362,6 +400,15 @@ def get_synonyms(term: str) -> list[str]:
         paths = [base_path, local_overlay]
         logging.info(f"Lade Synonyme aus: {', '.join([p for p in paths if os.path.exists(p)])}")
         _synonyms_cache = cast(dict[str, list[str]], load_synonyms(paths))
+        if callable(load_term_relations):
+            try:
+                _term_relations_cache = cast(
+                    dict[str, dict[str, list[str]]], load_term_relations(paths)
+                )
+            except Exception:
+                _term_relations_cache = {}
+        else:
+            _term_relations_cache = {}
         assert _synonyms_cache is not None
         logging.info(f"Anzahl der Synonym-Einträge (gemerged): {len(_synonyms_cache)}")
 
@@ -377,7 +424,31 @@ def get_synonyms(term: str) -> list[str]:
                 if term in value or value in term:
                     synonyms.extend([key] + [v for v in values if v != value])
 
-    return list(set(synonyms))  # Entferne Duplikate
+    # Externe Erweiterung aus OpenThesaurus (optional, local .tmp datasets)
+    try:
+        synonyms.extend(lookup_openthesaurus_synonyms(term, cap=16))
+    except Exception:
+        pass
+
+    # Bei strukturierter Terminologie Oberbegriffe explizit vom Synonym-Matching ausschließen.
+    def _norm_rel(x: str) -> str:
+        y = str(x).strip().lower()
+        y = y.replace("ä", "a").replace("ö", "o").replace("ü", "u").replace("ß", "ss")
+        y = y.replace("ae", "a").replace("oe", "o").replace("ue", "u")
+        y = re.sub(r"\s+", " ", y)
+        return y
+
+    key_exact = str(term).strip().lower()
+    broader_block: set[str] = set()
+    if _term_relations_cache and key_exact in _term_relations_cache:
+        rel = _term_relations_cache.get(key_exact) or {}
+        for bt in cast(list[str], rel.get("broader_terms", []) or []):
+            broader_block.add(_norm_rel(bt))
+
+    deduped = list(set(synonyms))
+    if not broader_block:
+        return deduped
+    return [s for s in deduped if _norm_rel(s) not in broader_block]
 
 
 # --- Neu: Checks-Normalisierung und Profil-Presets ---------------------------------
@@ -404,6 +475,8 @@ def normalize_checks(checks: list[str] | None) -> list[str] | None:
     for t in items:
         if t == "term_inclusion":
             expanded.extend(["must_include", "keywords_any", "keywords_at_least"])
+        elif t == "quality_de":
+            expanded.extend(["languagetool_quality", "sts_relevance"])
         else:
             expanded.append(t)
     # Dedupe stabil
@@ -680,6 +753,34 @@ async def load_evaluation_items(patterns: list[str] | None = None) -> list[Evalu
                 )
                 items.append(item)
                 file_stats[source_file]["loaded"] += 1
+
+                # Validiere deutschsprachige Zielbegriffe gegen lokale POS/Splitter-Ressourcen
+                # (nur Diagnose, kein Hard-Fail)
+                try:
+                    term_pool: list[str] = []
+                    checks_local = data.get("checks", {})
+                    for t in checks_local.get("must_include", []) or []:
+                        if isinstance(t, str):
+                            term_pool.append(t)
+                    for t in checks_local.get("keywords_any", []) or []:
+                        if isinstance(t, str):
+                            term_pool.append(t)
+                    kal = checks_local.get("keywords_at_least")
+                    if isinstance(kal, dict):
+                        for t in kal.get("items", []) or []:
+                            if isinstance(t, str):
+                                term_pool.append(t)
+                    if term_pool:
+                        val = validate_german_terms(term_pool)
+                        if int(val.get("unknown_count", 0)) > 0:
+                            logger.warning(
+                                "Term-Validator %s: %d unbekannte Begriffe (%s)",
+                                data.get("id"),
+                                val.get("unknown_count", 0),
+                                ", ".join(cast(list[str], val.get("unknown_terms", []))[:5]),
+                            )
+                except Exception:
+                    pass
 
             except Exception as e:
                 source_file = data.get("source_file", "unbekannt")
@@ -1045,6 +1146,29 @@ async def evaluate_item(
                     checks_passed["rpg_style"] = False
                     failed_checks.append(f"RPG-Stil zu präsent (Score {score:.2f})")
 
+        # 7. languagetool_quality: leichte LT-basierte Qualitaetsheuristik
+        if "languagetool_quality" in enabled:
+            lt = languagetool_quality_issues(content)
+            issue_count = int(lt.get("issue_count", 0))
+            lt_score = float(lt.get("score", 1.0))
+            lt_ok = issue_count <= 2 and lt_score >= 0.65
+            checks_passed["languagetool_quality"] = lt_ok
+            if not lt_ok:
+                failed_checks.append(
+                    f"LanguageTool-Qualitaet zu schwach (issues={issue_count}, score={lt_score:.2f})"
+                )
+
+        # 8. sts_relevance: Prompt/Response-Relevanz via STS-IDF-Overlap
+        if "sts_relevance" in enabled:
+            prompt_text = " ".join(
+                [m.get("content", "") for m in item.messages if m.get("role") == "user"]
+            )
+            rel = sts_relevance_score(prompt_text, content)
+            rel_ok = rel >= 0.12
+            checks_passed["sts_relevance"] = rel_ok
+            if not rel_ok:
+                failed_checks.append(f"STS-Relevanz zu niedrig (score={rel:.2f})")
+
         # Prüfe, ob alle Bedingungen erfüllt sind
         success = all(checks_passed.values())
 
@@ -1240,6 +1364,28 @@ async def evaluate_item(
                                 failed_checks_retry.append(
                                     f"RPG-Stil zu präsent (Score {score2:.2f})"
                                 )
+
+                    if "languagetool_quality" in enabled:
+                        lt2 = languagetool_quality_issues(content2)
+                        issue_count2 = int(lt2.get("issue_count", 0))
+                        lt_score2 = float(lt2.get("score", 1.0))
+                        lt_ok2 = issue_count2 <= 2 and lt_score2 >= 0.65
+                        checks_passed_retry["languagetool_quality"] = lt_ok2
+                        if not lt_ok2:
+                            failed_checks_retry.append(
+                                "LanguageTool-Qualitaet zu schwach "
+                                f"(issues={issue_count2}, score={lt_score2:.2f})"
+                            )
+
+                    if "sts_relevance" in enabled:
+                        prompt_text2 = " ".join(
+                            [m.get("content", "") for m in item.messages if m.get("role") == "user"]
+                        )
+                        rel2 = sts_relevance_score(prompt_text2, content2)
+                        rel_ok2 = rel2 >= 0.12
+                        checks_passed_retry["sts_relevance"] = rel_ok2
+                        if not rel_ok2:
+                            failed_checks_retry.append(f"STS-Relevanz zu niedrig (score={rel2:.2f})")
 
                     if all(checks_passed_retry.values()):
                         duration_ms = int((time.time() - start_time) * 1000)

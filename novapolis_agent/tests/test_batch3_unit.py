@@ -112,6 +112,20 @@ def test_eval_utils_and_prepare_pack(tmp_path):
     ld = eu.load_synonyms(str(p))
     assert ld.get("a") == ["x", "y"]
 
+    rel = {
+        "parmesan": {
+            "synonyms": ["parmigiano"],
+            "broader_terms": ["käse"],
+            "narrower_terms": [],
+        }
+    }
+    p_rel = tmp_path / "syn_rel.json"
+    p_rel.write_text(json.dumps(rel, ensure_ascii=False))
+    rel_loaded = eu.load_term_relations(str(p_rel))
+    assert rel_loaded["parmesan"]["synonyms"] == ["parmigiano"]
+    assert rel_loaded["parmesan"]["broader_terms"] == ["käse"]
+    assert eu.load_synonyms(str(p_rel))["parmesan"] == ["parmigiano"]
+
     # prepare_finetune_pack helpers
     pf = importlib.import_module("novapolis_agent.scripts.prepare_finetune_pack")
     # create a minimal jsonl source

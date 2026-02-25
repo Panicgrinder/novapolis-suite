@@ -22,6 +22,26 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 DONELOG – Abgeschlossene Arbeiten
 =================================
 
+2026-02-25 00:34 | Copilot | `scripts/run_eval.py` um semantischen Guard erweitert: Bei strukturierten Terminologieeintraegen werden `broader_terms` aus der Synonymliste fuer Matching herausgefiltert (auch bei externen OpenThesaurus-Ergaenzungen). Testfall `test_synonyms_exclude_broader_terms_even_from_external_lookup` ergänzt.
+
+2026-02-25 00:26 | Copilot | Synonym-Loader-Logik verfeinert: strukturierte Overlay-Eintraege (`synonyms/broader_terms/narrower_terms`) ueberschreiben nun feldweise Basiseintraege je Key, sodass zu breite Legacy-Synonyme aus `synonyms.json` nicht in `get_synonyms()` durchschlagen. Zusätzlicher Testfall in `tests/test_synonyms_overlay.py` abgesichert.
+
+2026-02-25 00:20 | Copilot | Terminologieformat fuer Synonyme erweitert: Loader unterstuetzt jetzt strukturierte Eintraege mit `synonyms`, `broader_terms`, `narrower_terms` (Rueckwaertskompatibel zu Legacy-Listen). `parmesan` in `eval/config/synonyms.local.json` auf Strukturformat migriert; Matching nutzt weiterhin nur `synonyms`. Tests ergänzt in `tests/test_synonyms_overlay.py` und `tests/test_batch3_unit.py`.
+
+2026-02-25 00:11 | Copilot | `eval/datasets/neutral/neutral_01_20_core.v1.jsonl` angepasst: bei `eval-006` `Parmesan` aus `must_include` entfernt und stattdessen `keywords_any` auf `[Parmesan, Pecorino, Hartkäse]` gesetzt.
+
+2026-02-24 22:18 | Copilot | `eval/config/synonyms.local.json` gruendlich ueber Altbestand bereinigt: uebergenerische Alias-Zuordnungen reduziert (`assistent` ohne `hilfe/support`, `rettung` ohne generisches `hilfe`, `loesung/aufloesung` praezisiert), Selbstreferenz-Eintraege entfernt (`vene*`, `transaktion*`) und durch spezifischere Formen ersetzt.
+
+2026-02-24 22:12 | Copilot | Synonym-Feinschliff nach Re-Test: `helfen` in `eval/config/synonyms.local.json` um praezise Nominalformen (`hilfe`, `hilfestellung`) ergaenzt, damit Term-Inclusion fuer Hilfsformulierungen nicht unnoetig regressiert.
+
+2026-02-24 22:02 | Copilot | `eval/config/synonyms.local.json` qualitativ nachgeschärft: schwache Zuordnungen präzisiert (`neu`, `parmesan`, `helfen`) und fehlende Kernbegriffe aus Eval-Vokabular ergänzt (`hauptstadt`, `algorithmen`, `neuronale`, `netzwerke`, `rechtwinklig`, `magnetfeld`, `organellen`, `zukünftige`) zur Reduktion von False-Positives bei term inclusion.
+
+2026-02-24 21:46 | Copilot | `eval/config/synonyms.local.json` um fehlende Eintraege aus Kurz-Eval erweitert (`helfen`, `neu`, `parmesan`) fuer robustere Term-Inclusion-Treffer bei `eval-001`, `eval-005`, `eval-006`.
+
+2026-02-24 20:13 | Copilot | Drittanbieter-Qualitaetsintegration umgesetzt: `utils/third_party_quality.py` neu (LanguageTool-Confusion, STS-IDF-Relevanz, OpenThesaurus-Synonyme, jWordSplitter+POS-Erweiterung), `scripts/run_eval.py` erweitert (Checks `languagetool_quality`, `sts_relevance`, OpenThesaurus-Merge, Term-Validator-Warnungen), lueckenlose Audit-Doku erstellt (`docs/third_party_quality_integration_audit.txt`), Tests ergänzt (`tests/scripts/test_third_party_quality.py`).
+
+2026-02-24 16:02 | Copilot | Zwei gelb markierte Eval-Datensaetze auf User-Anweisung entfernt (`eval/datasets/chai-ai_small_v1.jsonl`, `eval/datasets/neutral/neutral_gpt_samples.de.v1.jsonl`) und Referenzen in `eval/config/suites.json`, `.vscode/tasks.json` sowie `scripts/migrate_eval_suite_layout.py` bereinigt.
+
 Hinweis:
 - Bitte jede abgeschlossene, nicht-triviale Änderung hier kurz dokumentieren.
 - Format: YYYY-MM-DD HH:MM | Author | Kurzbeschreibung
