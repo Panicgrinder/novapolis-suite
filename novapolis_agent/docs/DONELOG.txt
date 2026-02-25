@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 15:23
-update: Dataset-Unterordner-Migration abgeschlossen (`neutral/`, `rpg/`), Suites/Tasks umgestellt, Altpakete in Quarantäne verschoben.
-checks: .\.venv\Scripts\python.exe -m pytest -q novapolis_agent/tests/test_eval_loader.py novapolis_agent/tests/scripts/test_validate_eval_datasets.py PASS (2026-02-23 15:23); .\.venv\Scripts\python.exe novapolis_agent/scripts/validate_eval_datasets.py --strict --suite-config novapolis_agent/eval/config/suites.json --suite neutral --suite rpg PASS (EXITCODE=0, 2026-02-23 15:23)
+stand: 2026-02-25 06:11
+update: Agent-README auf Betriebsnamen "Chronistin von Novapolis" aktualisiert.
+checks: .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-25 06:13)
 ---
 
 
@@ -21,6 +21,8 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+2026-02-25 06:11 | Copilot | README aktualisiert: Betriebsname "Chronistin von Novapolis" verankert und Beispielaufrufe angepasst.
 
 2026-02-25 00:34 | Copilot | `scripts/run_eval.py` um semantischen Guard erweitert: Bei strukturierten Terminologieeintraegen werden `broader_terms` aus der Synonymliste fuer Matching herausgefiltert (auch bei externen OpenThesaurus-Ergaenzungen). Testfall `test_synonyms_exclude_broader_terms_even_from_external_lookup` ergänzt.
 

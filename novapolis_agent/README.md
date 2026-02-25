@@ -1,18 +1,20 @@
 ---
-stand: 2026-02-23 15:53
-update: Eval-Datasets in Unterordner `neutral/` und `rpg/` migriert, Suites/Tasks auf neue Pakete umgestellt, Altpakete in Quarantäne verschoben.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 15:23); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-23 15:23)
+stand: 2026-02-25 18:33
+update: Betriebsname des Agents verankert (Chronistin von Novapolis) und Beispiele angepasst.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-25 06:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-25 06:13)
 ---
 
 Novapolis Agent
 ===============
 
 Ein FastAPI-Backend für einen Conversational Agent innerhalb der Novapolis Suite, der Ollama als LLM verwendet.
+Der Agent tritt unter dem Namen "Chronistin von Novapolis" auf.
 
 Ist-Stand (Betriebsfaehigkeit)
 ------------------------------
 
 - Runtime-Betrieb erfolgt stabil über `.venv` und `app.main` (FastAPI).
+- Betriebsname: "Chronistin von Novapolis".
 - Qualitaetsgates sind in Reihenfolge `Lint -> Typen -> Tests -> Coverage` dokumentiert und lauffaehig.
 - TTS-Runtime ist aktuell `contract-first`: API, Auth, Rate-Limit, Cache und Provider-Abstraktion sind aktiv; echte Audio-Synthese-Backends (`coqui`/`ollama`/`openai`) sind derzeit Adapter-Scaffolds.
 - Operatives Runbook: `novapolis_agent/docs/runbook.md`.
@@ -112,13 +114,13 @@ API-Endpunkte
 ```bash
 curl -X POST http://127.0.0.1:8000/chat \
   -H "Content-Type: application/json" \
-  -d "{\"messages\":[{\"role\":\"user\",\"content\":\"Du bist die Chronistin. Stell dich kurz vor.\"}]}"
+   -d "{\"messages\":[{\"role\":\"user\",\"content\":\"Du bist die Chronistin von Novapolis. Stell dich kurz vor.\"}]}"
 ```
 
 Oder mit PowerShell:
 
 ```powershell
-Invoke-RestMethod -Uri "http://127.0.0.1:8000/chat" -Method Post -Body '{"messages":[{"role":"user","content":"Du bist die Chronistin. Stell dich kurz vor."}]}' -ContentType "application/json"
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/chat" -Method Post -Body '{"messages":[{"role":"user","content":"Du bist die Chronistin von Novapolis. Stell dich kurz vor."}]}' -ContentType "application/json"
 ```
 
 Swagger-Dokumentation

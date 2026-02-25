@@ -32,12 +32,6 @@ MAPPING = {
             "neutral-81-100",
         ),
         (
-            "gpt_samples.de.jsonl",
-            "neutral/neutral_gpt_samples.de.v1.jsonl",
-            ["neutral", "chat"],
-            "neutral-gpt-sample",
-        ),
-        (
             "eval-smoke.jsonl",
             "neutral/neutral_smoke.v1.jsonl",
             ["neutral", "smoke"],

@@ -18,7 +18,6 @@
       "packages": [
         "novapolis_agent/eval/datasets/neutral/neutral_01_20_core.v1.jsonl",
         "novapolis_agent/eval/datasets/neutral/neutral_81_100_tech.v1.jsonl",
-        "novapolis_agent/eval/datasets/neutral/neutral_gpt_samples.de.v1.jsonl",
         "novapolis_agent/eval/datasets/neutral/neutral_smoke.v1.jsonl",
         "novapolis_agent/eval/datasets/neutral/generated/neutral_101_300_generated.v1.jsonl"
       ]

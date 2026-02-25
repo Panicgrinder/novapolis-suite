@@ -1,17 +1,17 @@
 ---
-stand: 2026-02-23 12:35
-update: TTS-Vormerkung verschaerft: nur benoetigte Teile nach `novapolis_agent` uebernehmen und `TTS/` danach wieder entfernen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'DONELOG.md' PASS (2026-02-23 12:08); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-23 12:08)
+stand: 2026-02-25 18:33
+update: Agentenname "Chronistin von Novapolis" im Root-README verankert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-25 06:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-25 06:13)
 ---
 Novapolis Suite
 ===============
 
-Die Novapolis Suite fasst Agent-Backend, Rollenspiel-Datenbasis, Dev-Dokumentation und Simulation unter einem gemeinsamen Repository zusammen. Ziel ist, doppelte Module zu konsolidieren, Arbeitsablaeufe zu vereinheitlichen und einen schnellen Ueberblick ueber alle laufenden Aufgaben zu behalten.
+Die Novapolis Suite fasst Agent-Backend, Rollenspiel-Datenbasis, Dev-Dokumentation und Simulation unter einem gemeinsamen Repository zusammen. Ziel ist, doppelte Module zu konsolidieren, Arbeitsablaeufe zu vereinheitlichen und einen schnellen Ueberblick ueber alle laufenden Aufgaben zu behalten. Der zentrale Conversational Agent heisst "Chronistin von Novapolis".
 
 Projekte im Repository
 ----------------------
 
-- **novapolis_agent** - FastAPI-Backend, Eval-Tooling und Trainingsskripte fuer den produktiven Novapolis Agent.
+- **novapolis_agent** - FastAPI-Backend, Eval-Tooling und Trainingsskripte fuer den produktiven Novapolis Agent ("Chronistin von Novapolis").
 - **novapolis-rp** - Weltbau-Daten, Rollenspiel-Workflows und begleitende Tools (ohne Agent-Laufzeit).
 - **novapolis-dev** - Kuratierte Datensaetze, Prozess- und Policy-Dokumentation als Arbeits-Hub.
 - **novapolis-sim** - Godot-Szene und Skripte fuer den Simulations-Prototypen.

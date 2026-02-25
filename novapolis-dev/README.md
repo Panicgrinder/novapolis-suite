@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 14:21
-update: Strukturhinweise auf Ist-Zustand geschärft (keine impliziten Platzhalter-Verzeichnisse ohne Existenz).
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/README.md' PASS (2026-02-22 11:24); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/README.md' PASS (2026-02-22 11:24)"
+stand: 2026-02-25 18:33
+update: Agentenname "Chronistin von Novapolis" im Dev-Hub-README verankert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-25 06:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-25 06:13)
 ---
 
 Novapolis Dev Hub
@@ -15,6 +15,7 @@ Zweck
 
 - Zentraler Anlaufpunkt für Entwicklungsunterlagen (Agent, Sim, RP)
 - Gemeinsame Policies, Roadmaps, Integrationen
+- Namenskonvention: Der Agent wird als "Chronistin von Novapolis" gefuehrt.
 - Verweise auf produktive Repositories:
   - `novapolis_agent/`
   - `novapolis-sim/`

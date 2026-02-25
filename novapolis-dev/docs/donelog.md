@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-24 15:35
-update: Brainstorming-Datei auf verbindlichen Modus-Start (Ideenspeicher), Kurzindex und leere Projektflaechen umgestellt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-24 15:23); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-24 15:23)
+stand: 2026-02-25 18:33
+update: Agentenname "Chronistin von Novapolis" im Dev-Hub-README verankert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-25 06:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-25 06:13)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,49 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+Dev: Agentenname im Dev-Hub-README verankert (2026-02-25 06:11)
+-----------------------------------------------------------------
+
+- `novapolis-dev/README.md` ergaenzt: Betriebsname "Chronistin von Novapolis" dokumentiert.
+- Ziel: konsistente Benennung in den zentralen Dev-Hub-Dokumenten.
+
+Dev: Eval-Marathon-Task fuer ~1h ohne Quiet ergänzt (2026-02-24 17:41)
+-----------------------------------------------------------------------
+
+- Neuer Task in `.vscode/tasks.json`: `Eval: suite marathon (~60m, asgi, loud)`.
+- Laufprofil: `--asgi`, `--profile eval`, `--limit 320`, `--no-quiet`.
+- Paketmix fuer lange Laufzeit: neutral (core/tech/smoke/generated) + rpg (fantasy/dialog/szenen).
+
+Dev: TODO-Index Open-Counts mit aktiven Boards abgeglichen (2026-02-25 05:57)
+-----------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.index.md` auf Iststand korrigiert: RP `offen: 7 -> 3`, Sim `offen: 5 -> 4`.
+- Dev (`8`) und Agent (`4`) unveraendert belassen, da bereits konsistent mit den Modulboards.
+- Ziel: konsistente Sicht zwischen `todo.index.md` und den aktiven Plan-Dateien ohne inhaltliche Neupriorisierung.
+
+RP/Dev: Per-Relation strict in Ronja-Mind-Cluster umgesetzt (2026-02-24 16:17)
+-------------------------------------------------------------------------------
+
+- `known_entities` in `novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md` auf vollstaendige gerichtete Datensaetze erweitert.
+- Pro Relation ergänzt: `observer_id`, `policy_version`, `confidence`, `volatility`, `pos_streak`, `neg_streak`, `last_updated`, `event_id`, `reason_codes`, `applied_rules`, `top_contributors`.
+- Ziel-IDs auf `char:`-Namespace normalisiert (`char:reflex`, `char:jonas-merek`, `char:pahl-brenner`).
+
+Dev: Gelbe Datensaetze entfernt (2026-02-24 16:02)
+--------------------------------------------------
+
+- Auf User-Anweisung beide gelb markierten Datensaetze geloescht:
+  - `novapolis_agent/eval/datasets/chai-ai_small_v1.jsonl`
+  - `novapolis_agent/eval/datasets/neutral/neutral_gpt_samples.de.v1.jsonl`
+- Operative Referenzen nachgezogen (`novapolis_agent/eval/config/suites.json`, `.vscode/tasks.json`, `novapolis_agent/scripts/migrate_eval_suite_layout.py`).
+- `novapolis-dev/docs/dataset-provenance.md` entsprechend bereinigt.
+
+Dev: Dataset-Provenance-SSOT im Dev-Modul angelegt (2026-02-24 15:51)
+----------------------------------------------------------------------
+
+- Neue Steuerdatei `novapolis-dev/docs/dataset-provenance.md` erstellt.
+- Statusmatrix fuer Agent-Eval-Datasets erfasst (Herkunft, Lizenzstatus, Freigabeampel, Nachweisstellen).
+- Kritische Datensaetze `chai-ai_small_v1.jsonl` und `neutral_gpt_samples.de.v1.jsonl` als `gelb` markiert, bis Quellen-/Lizenznachweis explizit dokumentiert ist.
 
 RP/Dev: Brainstorming-Modus-Startstruktur gesetzt (2026-02-24 15:21)
 ----------------------------------------------------------------------

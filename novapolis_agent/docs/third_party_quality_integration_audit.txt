@@ -1,0 +1,131 @@
+Third-Party Quality Integration Audit
+=====================================
+
+Stand
+-----
+2026-02-24 20:13
+
+Zweck
+-----
+Diese Datei dokumentiert lueckenlos:
+1) welche externen Quellen aus `.tmp/datasets` verwendet werden,
+2) in welcher Funktion sie genutzt werden,
+3) welche Monitoring-/Governance-Pflichten daraus folgen.
+
+Umsetzungsumfang
+----------------
+Code-Integration in `novapolis_agent/scripts/run_eval.py` und
+`novapolis_agent/utils/third_party_quality.py`.
+
+A) LanguageTool (Empfehlung 1)
+-------------------------------
+Quelle:
+- `.tmp/datasets/LanguageTool-stable/LanguageTool-6.6/org/languagetool/resource/de/confusion_sets.txt`
+
+Nutzung:
+- Modul: `novapolis_agent/utils/third_party_quality.py`
+- Funktion: `load_languagetool_confusion_pairs()`
+- Funktion: `languagetool_quality_issues(text)`
+- Eval-Check in `run_eval.py`: `languagetool_quality`
+
+Wofuer:
+- Leichte LT-basierte Qualitaetspruefung auf Verwechslungsfehler und einfache
+  Zeichensetzungs-/Spacing-Auffaelligkeiten.
+- Ergebnis als Score + Issue-Count.
+
+Aktive Schwellwerte:
+- Pass wenn `issue_count <= 2` und `score >= 0.65`.
+
+Monitoringbedarf:
+- JA (externe Regelbasis, nicht eigener Code).
+- Bei LT-Update zwingend Regressionstest auf False-Positive-Rate.
+- Lizenzhinweis erhalten (LGPL/Third-party licenses in LanguageTool).
+
+B) German STSbenchmark (Empfehlung 2)
+-------------------------------------
+Quellen:
+- `.tmp/datasets/german-STSbenchmark-master/german-STSbenchmark-master/data/deepl/stsb_de_train.csv`
+- `.tmp/datasets/german-STSbenchmark-master/german-STSbenchmark-master/data/aws/stsb_de_train.csv`
+
+Nutzung:
+- Modul: `novapolis_agent/utils/third_party_quality.py`
+- Funktion: `load_sts_idf()`
+- Funktion: `sts_relevance_score(prompt, response)`
+- Eval-Check in `run_eval.py`: `sts_relevance`
+
+Wofuer:
+- Prompt-Response-Relevanz per IDF-gewichteter Token-Ueberdeckung.
+- Ziel: semantische Drift in Antworten sichtbar machen.
+
+Aktive Schwellwerte:
+- Pass wenn `score >= 0.12`.
+
+Monitoringbedarf:
+- JA (externe Datenqualitaet/Domain-Bias).
+- Bei Datensatzwechsel Schwellwerte neu kalibrieren.
+- Drift-Monitoring fuer deutsche Fachdomainen empfohlen.
+
+C) OpenThesaurus (Empfehlung 3)
+--------------------------------
+Quelle:
+- `.tmp/datasets/OpenThesaurus-Textversion/openthesaurus.txt`
+
+Nutzung:
+- Modul: `novapolis_agent/utils/third_party_quality.py`
+- Funktion: `load_openthesaurus_index()`
+- Funktion: `lookup_openthesaurus_synonyms(term)`
+- Integration in `run_eval.py` innerhalb `get_synonyms(...)`
+
+Wofuer:
+- Erweiterung der Synonymerkennung fuer `must_include`/`keywords_*`.
+- Verbessert Treffer bei paraphrasierten Begriffen.
+
+Monitoringbedarf:
+- JA (lexikalische Quelle extern).
+- Bei neuen Dump-Staenden Regressionscheck auf unerwuenschte Bedeutungsdrift.
+- Lizenz beachten (OpenThesaurus-Lizenzdatei im Quellenordner).
+
+D) jWordSplitter + german-pos-dict (Empfehlung 4)
+--------------------------------------------------
+Quellen:
+- `.tmp/datasets/jwordsplitter-master/jwordsplitter-master/src/main/resources/de/danielnaber/jwordsplitter/languagetool-dict.txt`
+- `.tmp/datasets/jwordsplitter-master/jwordsplitter-master/src/main/resources/de/danielnaber/jwordsplitter/germanPrefixes.txt`
+- `.tmp/datasets/jwordsplitter-master/jwordsplitter-master/src/main/resources/de/danielnaber/jwordsplitter/exceptionsGerman.txt`
+- `.tmp/datasets/german-pos-dict-master/german-pos-dict-master/src/main/resources/org/languagetool/resource/de/sonstige.txt`
+- `.tmp/datasets/german-pos-dict-master/german-pos-dict-master/src/main/resources/org/languagetool/resource/de/EIG.txt`
+
+Nutzung:
+- Modul: `novapolis_agent/utils/third_party_quality.py`
+- Funktionen: `load_compound_resources()`, `split_compound_token(...)`,
+  `load_pos_lemma_map()`, `expand_tokens_for_term_search(text)`,
+  `validate_german_terms(terms)`
+- Integration in `run_eval.py`:
+  - `check_term_inclusion(...)` nutzt erweiterte Tokenbasis
+    (Komposita-Splitting + POS-Lemmata)
+  - `load_evaluation_items(...)` fuehrt term-basierte Diagnostik aus
+    (Warnung bei unbekannten Zielbegriffen)
+
+Wofuer:
+- Bessere Erkennung deutscher Komposita/Flexionsformen.
+- Fruehe Warnung bei potentiell ungeeigneten Eval-Zielbegriffen.
+
+Monitoringbedarf:
+- JA (mehrere externe Quellen und Heuristiken).
+- Bei Lexikon-/Prefix-Updates Regressionstest fuer term inclusion.
+- Speicher-/Performance-Monitoring bei POS-Lexikon-Laden.
+
+Betriebsparameter (optional)
+----------------------------
+Umfang der externen Daten kann via Umgebungsvariablen gesteuert werden:
+- `EVAL_THIRD_PARTY_DATASETS_ROOT`
+- `EVAL_OPENTHESAURUS_MAX_LINES`
+- `EVAL_POS_MAX_LINES`
+- `EVAL_LT_CONFUSION_MAX_LINES`
+
+Governance-Status
+-----------------
+- Herkunft dokumentiert: JA
+- Einsatzzweck dokumentiert: JA
+- Monitoringpflicht benoetigt: JA (alle 4 Integrationen)
+- Eigener Codeanteil: Integrationslogik ist eigener Code,
+  Wissensbasis/Regeln sind extern.

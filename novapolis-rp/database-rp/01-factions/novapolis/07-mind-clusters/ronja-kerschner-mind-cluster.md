@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-24 15:35
-update: Mind-Cluster fuer Ronja als SSOT fuer Beziehungen, Verhaltenssignatur und geistnahen Zustand angelegt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/mind-cluster.instructions.md' 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-24 15:10)
+stand: 2026-02-25 18:33
+update: Known-Entities auf strikte Per-Relation-Pflichtfelder und char:-ID-Namespace umgestellt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-24 16:17); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-24 16:17); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-24 16:17)
 title: Ronja Kerschner Mind Cluster
 category: admin
 slug: ronja-kerschner-mind-cluster
@@ -43,8 +43,10 @@ Bekannte Entitaeten (aequatoriale Verortung)
 
 ```yaml
 known_entities:
-  - target_id: reflex
+  - observer_id: char:ronja-kerschner
+    target_id: char:reflex
     target_type: character
+    policy_version: v0.1.0
     known: true
     relation_status: kooperativ
     relation_note: symbiotisch, behutsame Grenzen, gelegentlich besitzergreifend
@@ -61,8 +63,19 @@ known_entities:
     konfliktneigung: 19
     einfluss: 69
     bedrohung: 27
-  - target_id: jonas-merek
+    pos_streak: 0
+    neg_streak: 0
+    confidence: 0.68
+    volatility: 0.36
+    last_updated: 2026-02-24T15:00:00+01:00
+    event_id: evt:bootstrap-ronja-mind-reflex-0001
+    reason_codes: [bootstrap, migration_from_character_canvas]
+    applied_rules: [R-MCL-SSOT, R-MCL-DATA]
+    top_contributors: [ai_behavior_signature, campaign_state]
+  - observer_id: char:ronja-kerschner
+    target_id: char:jonas-merek
     target_type: character
+    policy_version: v0.1.0
     known: true
     relation_status: kooperativ
     relation_note: vorsichtiger Vertrauensvorschuss
@@ -79,8 +92,19 @@ known_entities:
     konfliktneigung: 12
     einfluss: 24
     bedrohung: -8
-  - target_id: pahl-brenner
+    pos_streak: 0
+    neg_streak: 0
+    confidence: 0.68
+    volatility: 0.36
+    last_updated: 2026-02-24T15:00:00+01:00
+    event_id: evt:bootstrap-ronja-mind-jonas-0001
+    reason_codes: [bootstrap, migration_from_character_canvas]
+    applied_rules: [R-MCL-SSOT, R-MCL-DATA]
+    top_contributors: [ai_behavior_signature, campaign_state]
+  - observer_id: char:ronja-kerschner
+    target_id: char:pahl-brenner
     target_type: character
+    policy_version: v0.1.0
     known: true
     relation_status: angespannt
     relation_note: in Pflege, wertvolle Erfahrung
@@ -97,6 +121,15 @@ known_entities:
     konfliktneigung: 41
     einfluss: 37
     bedrohung: 11
+    pos_streak: 0
+    neg_streak: 0
+    confidence: 0.68
+    volatility: 0.36
+    last_updated: 2026-02-24T15:00:00+01:00
+    event_id: evt:bootstrap-ronja-mind-pahl-0001
+    reason_codes: [bootstrap, migration_from_character_canvas]
+    applied_rules: [R-MCL-SSOT, R-MCL-DATA]
+    top_contributors: [ai_behavior_signature, campaign_state]
 ```
 
 Audit-Felder (Template)
