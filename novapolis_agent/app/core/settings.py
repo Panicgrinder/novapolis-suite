@@ -35,6 +35,10 @@ class Settings(BaseSettings):
         "TTS_AUTH_HEADER",
         "TTS_AUTH_TOKEN",
         "TTS_PROVIDER",
+        "TTS_COQUI_BASE_URL",
+        "TTS_COQUI_SYNTH_PATH",
+        "TTS_COQUI_VOICES_PATH",
+        "TTS_RUNTIME_OUTPUT_DIR",
         "RATE_LIMIT_ENABLED",
         "RATE_LIMIT_REQUESTS_PER_MINUTE",
         "RATE_LIMIT_BURST",
@@ -82,6 +86,10 @@ class Settings(BaseSettings):
     TTS_AUTH_HEADER: str = "X-TTS-Token"
     TTS_AUTH_TOKEN: str | None = None
     TTS_PROVIDER: str = "dummy"
+    TTS_COQUI_BASE_URL: str = "http://127.0.0.1:5002"
+    TTS_COQUI_SYNTH_PATH: str = "/api/tts"
+    TTS_COQUI_VOICES_PATH: str = "/api/voices"
+    TTS_RUNTIME_OUTPUT_DIR: str = os.path.join("novapolis_agent", "outputs", "tts", "runtime")
 
     RATE_LIMIT_ENABLED: bool = False
     RATE_LIMIT_REQUESTS_PER_MINUTE: int = 60

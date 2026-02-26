@@ -13,13 +13,34 @@
         "keywords_at_least",
         "not_include",
         "regex",
-        "rpg_style"
+        "rpg_style",
+        "quality_de"
       ],
       "packages": [
         "novapolis_agent/eval/datasets/neutral/neutral_01_20_core.v1.jsonl",
         "novapolis_agent/eval/datasets/neutral/neutral_81_100_tech.v1.jsonl",
         "novapolis_agent/eval/datasets/neutral/neutral_smoke.v1.jsonl",
         "novapolis_agent/eval/datasets/neutral/generated/neutral_101_300_generated.v1.jsonl"
+      ]
+    },
+    "quality_de": {
+      "description": "Neutral-assistive Evaluierung mit verpflichtendem quality_de-Track",
+      "profile": "eval",
+      "eval_mode": true,
+      "asgi": true,
+      "default_limit": 20,
+      "checks": [
+        "must_include",
+        "keywords_any",
+        "keywords_at_least",
+        "not_include",
+        "regex",
+        "quality_de"
+      ],
+      "packages": [
+        "novapolis_agent/eval/datasets/neutral/quality_de_core.v1.jsonl",
+        "novapolis_agent/eval/datasets/neutral/quality_de_drift.v1.jsonl",
+        "novapolis_agent/eval/datasets/neutral/quality_de_canary.v1.jsonl"
       ]
     },
     "rpg": {

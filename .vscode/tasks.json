@@ -223,13 +223,44 @@
         "20",
         "--quiet",
         "--checks",
-        "must_include,keywords_any,keywords_at_least,not_include,regex,rpg_style",
+        "must_include,keywords_any,keywords_at_least,not_include,regex,rpg_style,quality_de",
         "--packages",
         "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\neutral\\neutral_01_20_core.v1.jsonl",
         "--packages",
         "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\neutral\\neutral_81_100_tech.v1.jsonl",
         "--packages",
         "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\neutral\\neutral_smoke.v1.jsonl"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Eval: suite quality_de (20, asgi)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "scripts.agent.run_eval",
+        "--asgi",
+        "--profile",
+        "eval",
+        "--limit",
+        "20",
+        "--quiet",
+        "--tag",
+        "quality_de",
+        "--checks",
+        "must_include,keywords_any,keywords_at_least,not_include,regex,quality_de",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\neutral\\quality_de_core.v1.jsonl",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\neutral\\quality_de_drift.v1.jsonl",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\neutral\\quality_de_canary.v1.jsonl"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "test",
@@ -330,7 +361,9 @@
         "--suite",
         "neutral",
         "--suite",
-        "rpg"
+        "rpg",
+        "--suite",
+        "quality_de"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "test",
@@ -351,6 +384,53 @@
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
       "runOptions": { "instanceLimit": 1 }
+    }
+    ,
+    {
+      "label": "TTS: export (coqui)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\novapolis_agent\\scripts\\tts_export_coqui.py",
+        "--help"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "TTS: clean cache",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoLogo",
+        "-Command",
+        "Invoke-RestMethod -Method Post -Uri 'http://127.0.0.1:8000/tts/cache/cleanup' -ErrorAction Stop | ConvertTo-Json -Depth 6"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "TTS: check voices",
+      "type": "shell",
+      "command": "pwsh",
+      "args": [
+        "-NoLogo",
+        "-Command",
+        "Invoke-RestMethod -Method Get -Uri 'http://127.0.0.1:8000/tts/voices' -ErrorAction Stop | ConvertTo-Json -Depth 6"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
     }
     ,
     {

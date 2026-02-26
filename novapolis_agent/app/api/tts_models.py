@@ -56,6 +56,7 @@ class TtsSynthesizeResponse(BaseModel):
     request_hash: str
     cache_key: str | None = None
     cache_hit: bool
+    artifact_path: str | None = None
     detail: str
 
 

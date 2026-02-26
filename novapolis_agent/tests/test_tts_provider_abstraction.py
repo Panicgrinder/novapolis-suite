@@ -38,11 +38,19 @@ def test_tts_provider_health_switch(
 
 @pytest.mark.api
 @pytest.mark.unit
-def test_tts_provider_coqui_scaffold_uses_same_contract(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_tts_provider_coqui_runtime_uses_same_contract(monkeypatch: pytest.MonkeyPatch, tmp_path) -> None:
     monkeypatch.setenv("TTS_PROVIDER", "coqui")
     monkeypatch.setenv("TTS_AUTH_ENABLED", "false")
     monkeypatch.setenv("RATE_LIMIT_ENABLED", "false")
     monkeypatch.setenv("TTS_RATE_LIMIT_ENABLED", "false")
+    monkeypatch.setenv("TTS_RUNTIME_OUTPUT_DIR", str(tmp_path))
+
+    providers_mod = importlib.reload(importlib.import_module("app.tts.providers"))
+
+    def _fake_synthesis(**_kwargs):
+        return b"OggS\x00\x01", "audio/ogg"
+
+    monkeypatch.setattr(providers_mod, "_coqui_request_synthesis", _fake_synthesis)
 
     importlib.reload(importlib.import_module("app.core.settings"))
     app_mod = importlib.reload(importlib.import_module("app.main"))
@@ -61,5 +69,39 @@ def test_tts_provider_coqui_scaffold_uses_same_contract(monkeypatch: pytest.Monk
     assert resp.status_code == 200
     data = resp.json()
     assert data["provider"] == "coqui"
-    assert data["is_placeholder"] is True
-    assert "scaffold" in data["detail"].lower()
+    assert data["status"] == "ok"
+    assert data["is_placeholder"] is False
+    assert data["artifact_path"]
+
+
+@pytest.mark.api
+@pytest.mark.unit
+def test_tts_provider_coqui_unavailable_returns_503(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("TTS_PROVIDER", "coqui")
+    monkeypatch.setenv("TTS_AUTH_ENABLED", "false")
+    monkeypatch.setenv("RATE_LIMIT_ENABLED", "false")
+    monkeypatch.setenv("TTS_RATE_LIMIT_ENABLED", "false")
+
+    providers_mod = importlib.reload(importlib.import_module("app.tts.providers"))
+
+    def _raise_unavailable(**_kwargs):
+        raise providers_mod.TtsProviderUnavailableError("service down")
+
+    monkeypatch.setattr(providers_mod, "_coqui_request_synthesis", _raise_unavailable)
+
+    importlib.reload(importlib.import_module("app.core.settings"))
+    app_mod = importlib.reload(importlib.import_module("app.main"))
+
+    client = TestClient(app_mod.app)
+    payload = {
+        "text": "Provider-Test",
+        "voice": "coqui-default",
+        "language": "de",
+        "output_format": "ogg",
+        "sample_rate_hz": 22050,
+        "settings": {},
+    }
+    resp = client.post("/tts/synthesize", json=payload)
+
+    assert resp.status_code == 503
+    assert "provider unavailable" in resp.json().get("detail", "").lower()

@@ -1,0 +1,37 @@
+version: 1
+profile: chronistin-default
+knowledge:
+  sources:
+    - id: core-rules
+      type: markdown
+      path: novapolis_agent/docs/runbook.md
+      priority: high
+    - id: eval-policy
+      type: markdown
+      path: novapolis_agent/docs/tts-model-track.md
+      priority: medium
+  constraints:
+    language: de
+    style: sachlich
+    max_context_chars: 12000
+actions:
+  - id: run-neutral-eval
+    type: task
+    label: Eval: suite neutral (20, asgi)
+    trigger: manual
+  - id: run-rpg-eval
+    type: task
+    label: Eval: suite rpg (20, asgi)
+    trigger: manual
+  - id: tts-export-plan
+    type: task
+    label: TTS: export (coqui)
+    trigger: manual
+  - id: tts-clean-cache
+    type: task
+    label: TTS: clean cache
+    trigger: manual
+  - id: tts-check-voices
+    type: task
+    label: TTS: check voices
+    trigger: manual

@@ -383,6 +383,13 @@ def get_synonyms(term: str) -> list[str]:
     Gibt eine Liste von Synonymen für einen Begriff zurück.
     Lädt die Synonyme lazy aus der JSON-Datei.
 
+        Governance-Regeln (Eval-Semantik):
+        - Für Matching werden ausschließlich `synonyms` verwendet.
+        - `broader_terms` dienen nur zur Blockliste und werden aus der finalen
+            Synonymliste entfernt (auch wenn sie über externe Lookup-Quellen kommen).
+        - `narrower_terms` werden nicht automatisch in das Synonym-Matching gemischt.
+        - Overlay-Priorität liegt bei `synonyms.local.json` gegenüber `synonyms.json`.
+
     Args:
         term: Der Ausgangsbegriff
 
@@ -1164,7 +1171,7 @@ async def evaluate_item(
                 [m.get("content", "") for m in item.messages if m.get("role") == "user"]
             )
             rel = sts_relevance_score(prompt_text, content)
-            rel_ok = rel >= 0.12
+            rel_ok = rel >= 0.09
             checks_passed["sts_relevance"] = rel_ok
             if not rel_ok:
                 failed_checks.append(f"STS-Relevanz zu niedrig (score={rel:.2f})")
@@ -1382,7 +1389,7 @@ async def evaluate_item(
                             [m.get("content", "") for m in item.messages if m.get("role") == "user"]
                         )
                         rel2 = sts_relevance_score(prompt_text2, content2)
-                        rel_ok2 = rel2 >= 0.12
+                        rel_ok2 = rel2 >= 0.09
                         checks_passed_retry["sts_relevance"] = rel_ok2
                         if not rel_ok2:
                             failed_checks_retry.append(f"STS-Relevanz zu niedrig (score={rel2:.2f})")

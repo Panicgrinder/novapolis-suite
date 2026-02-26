@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-25 18:33
-update: Agentenname "Chronistin von Novapolis" im Dev-Hub-README verankert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-25 06:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-25 06:13)
+stand: 2026-02-26 05:17
+update: README/Runbook-Truthfulness-Drift abgeschlossen und Board/Index/Donelog konsistent nachgezogen.
+checks: Snapshot-Lock gesetzt (2026-02-26 04:27); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-26 04:28); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-26 04:28)
 ---
 
 <!-- markdownlint-disable MD005 MD007 MD032 MD041 -->
@@ -12,6 +12,102 @@ Hinweis (2026-01-08)
 -------------------
 
 - Aeltere Eintraege koennen noch `.ps1`-Aufrufe nennen (historisch). Aktuelle Wrapper/Entry-Points laufen ueber Python (`scripts/*.py`).
+
+Dev/Agent: Snapshot-Resync vor Commit (2026-02-26 05:17)
+---------------------------------------------------------
+
+- Commit-Hook (`snapshot_gate`) blockierte aufgrund veralteter `stand`-Werte in gestagten Markdown-Dateien.
+- Frischer Lock gesetzt (`scripts/snapshot_write_lock.py`) und `stand` in den betroffenen Dateien auf `2026-02-26 05:17` synchronisiert.
+- Root-/Agent-README erneut validiert (`markdownlint` + `check_frontmatter` PASS) und für Commit-Freigabe vorbereitet.
+
+Dev/Agent: Terminologie-/Synonym-Governance regressionssicher abgeschlossen (2026-02-26 04:07)
+-----------------------------------------------------------------------------------------------
+
+Dev/Agent: README/Runbook-Truthfulness-Drift erneut bereinigt (2026-02-26 04:27)
+-------------------------------------------------------------------------------
+
+- `novapolis_agent/README.md`: Ist-Stand auf verifizierte Realität nachgezogen (TTS-Coqui-Runtime produktiv, `quality_de` als operativer Track mit dokumentierter Reproduzierbarkeit).
+- `novapolis_agent/docs/runbook.md`: Qualitäts-Grenzwert auf aktuellen Code-Stand präzisiert (`sts_relevance = 0.09`) und Paketbeispiele auf gültige Suite-Dateien bereinigt (ohne Legacy-Referenz `neutral_gpt_samples...`).
+- Board/Index-Sync im selben Lauf: `novapolis-dev/docs/todo.agent-board.md` Punkt abgeschlossen, `novapolis-dev/docs/todo.index.md` Agent-Open-Count `7 -> 6` aktualisiert.
+
+- `novapolis_agent/scripts/run_eval.py`: Governance-Regeln direkt an `get_synonyms` dokumentiert (`synonyms` für Matching, `broader_terms` als Blockliste, `narrower_terms` ohne Auto-Merge, Overlay-Prio local>base).
+- `novapolis_agent/tests/test_batch3_unit.py`: zusätzlicher Negativtest ergänzt, damit `parmesan` nicht fälschlich über Oberbegriff (`käse`) matched, aber korrekt über `parmigiano`.
+- `novapolis_agent/tests/test_batch3_unit.py`: bestehender Windows-Encoding-Drift bereinigt (`write_text(..., encoding='utf-8')`) für strukturierte Synonymtests.
+- Zieltestlauf grün: `pytest -q novapolis_agent/tests/test_synonyms_overlay.py novapolis_agent/tests/test_batch3_unit.py`.
+- `novapolis-dev/docs/todo.agent-board.md` Punkt abgeschlossen; `novapolis-dev/docs/todo.index.md` Open-Count synchronisiert (`8 -> 7`).
+
+Dev/Agent: Quality-DE-Paketband Core/Drift/Canary umgesetzt (2026-02-26 02:10)
+--------------------------------------------------------------------------
+
+- `novapolis_agent/eval/datasets/neutral/quality_de_core.v1.jsonl`, `quality_de_drift.v1.jsonl`, `quality_de_canary.v1.jsonl` neu angelegt (Pflichtmetadaten `id`, `slug`, `tags`, `category` pro Record vorhanden).
+- `novapolis_agent/eval/config/suites.json`: Suite `quality_de` auf das neue Paketband (Core/Drift/Canary) umgestellt.
+- `.vscode/tasks.json`: Task `Eval: suite quality_de (20, asgi)` auf dieselben drei Paketdateien nachgezogen.
+- Validierung/Lauf: strict Validator grün (`files=10, records=312, ids=312, slugs=312`); dokumentierter Lauf `novapolis_agent/eval/results/results_20260226_0209_quality_de.jsonl` erzeugt.
+- `novapolis-dev/docs/todo.agent-board.md` Punkt abgeschlossen und `novapolis-dev/docs/todo.index.md` Agent-Open-Count synchronisiert (`9 -> 8`).
+
+Dev/Agent: Board-Iststand korrigiert, Datensatz-Track erweitert (2026-02-26 00:57)
+-------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md`: Iststand nachgezogen und im Block `Neue Aufgaben - Datensaetze & Training` zwei neue Punkte ergänzt (Quality-DE-Paketband, Monats-Driftkontrolle).
+- `novapolis-dev/docs/todo.index.md`: Open-Count fuer Agent synchronisiert (`7 -> 9`) gemaess erweitertem Board.
+- Zweck: Datensatzarbeit fuer die Chronistin von allgemeinen TODOs auf reproduzierbare, qualitaets- und driftorientierte Arbeitspakete scharfstellen.
+
+Dev/Agent: Chronistin-Ausbau Punkt 3 umgesetzt (2026-02-26 00:25)
+-----------------------------------------------------------------
+
+- `novapolis_agent/eval/config/suites.json`: `quality_de` verpflichtend in `neutral` ergänzt und dedizierte Suite `quality_de` hinzugefügt.
+- `.vscode/tasks.json`: neutraler Eval-Task um `quality_de` erweitert; zusätzlicher Fokus-Task `Eval: suite quality_de (20, asgi)` angelegt.
+- `.vscode/tasks.json`: strict Validator-Task auf neue Suite erweitert (`--suite quality_de`) und Validierung erfolgreich ausgeführt.
+- `novapolis_agent/docs/runbook.md`: Schwellwerte (`languagetool_quality`, `sts_relevance`) inkl. Begründung und operative CLI/Task-Dokumentation ergänzt.
+- Dokumentierter Lauf: `novapolis_agent/eval/results/results_20260226_0025_quality_de.jsonl` (ASGI, limit=20, Ergebnis 15/20, `_meta.enabled_checks` enthält `languagetool_quality` + `sts_relevance`).
+
+Dev/Agent: Chronistin-Ausbau Punkt 2 umgesetzt (2026-02-26 00:07)
+-----------------------------------------------------------------
+
+- `novapolis_agent/app/tts/providers.py`: `CoquiRuntimeProvider` als produktiver Runtime-Provider verdrahtet (HTTP-Call zum Coqui-Endpunkt, lokaler Artefaktwrite, kein Scaffold fuer `coqui`).
+- `novapolis_agent/app/main.py`: `/tts/synthesize` liefert bei Real-Provider `status=ok`, `is_placeholder=false`, `artifact_path`; bei Provider-Ausfall kontrollierter `503` statt Silent-Fail.
+- Settings/Contract erweitert (`TTS_COQUI_BASE_URL`, `TTS_COQUI_SYNTH_PATH`, `TTS_COQUI_VOICES_PATH`, `TTS_RUNTIME_OUTPUT_DIR`) und Response-Model um `artifact_path` ergänzt.
+- Tests erweitert: `novapolis_agent/tests/test_tts_provider_abstraction.py` (Coqui-Runtime-Erfolg + 503-Fallback), Stabilitaetsfix in `novapolis_agent/tests/test_tts_api_contract.py`; gezielter pytest-Lauf gruen (`EXITCODE=0`).
+
+Dev/Agent: Chronistin-Ausbau Punkt 1 umgesetzt (2026-02-25 23:02)
+-----------------------------------------------------------------
+
+- `novapolis_agent/scripts/tts_coqui_export.py` vom Skeleton auf Build-Time-MVP erweitert (Input-Parsing fuer `json/jsonl/yaml/txt`, deterministische Cache-Key-Bildung, OGG-Dateischreibpfad, Manifest-Export).
+- Compliance-Gates bleiben hart aktiv (deny-by-default Allowlist + Lizenzkopie-Pflicht).
+- Tests erweitert in `novapolis_agent/tests/scripts/test_tts_coqui_export_policy.py` (Export/Manifest + deterministischer Cache-Hit beim Zweitlauf), gezielter pytest-Lauf grün.
+- `novapolis-dev/docs/todo.agent-board.md` Punkt als erledigt markiert und `novapolis-dev/docs/todo.index.md` im selben Lauf auf Agent offen `10 -> 9` synchronisiert.
+
+Dev/Agent: Letzte drei TTS-&-Tools-Punkte abgeschlossen (2026-02-25 20:18)
+--------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md`: drei zuvor offene Punkte abgeschlossen (VS-Code-Tasks-Planung, TTS-Model-Track-Konkretisierung, knowledge/actions-Templates).
+- Neue Evidenz-Artefakte ergänzt: `novapolis_agent/docs/tts-model-track.md` und `novapolis_agent/docs/templates/knowledge-actions.example.yaml`.
+- `.vscode/tasks.json` um die geforderten Label-Tasks erweitert (`TTS: export (coqui)`, `TTS: clean cache`, `TTS: check voices`).
+- `novapolis_agent/README.md` um Template-/Track-Verweise ergänzt; TODO-Index im selben Lauf synchronisiert (Agent offen `13 -> 10`).
+
+Dev/Agent: Godot-UI Machbarkeitsnotiz als Board-Doku ergaenzt (2026-02-25 20:10)
+-------------------------------------------------------------------------------
+
+- In `novapolis-dev/docs/todo.agent-board.md` eine explizit nicht-implementierende Architektur-Notiz ergänzt: optionale Godot-UI als Huelle, Training bleibt verbindlich CLI-first.
+- Integrationspunkte dokumentiert (Subprozess-Entrypoints, Artefakt-/Statuslesewege, API-SSOT, Task-/CLI-Spiegelung).
+- Risiken/Guardrails dokumentiert (UI-CLI-Drift, Plattform-/Prozessrisiken, lange Laufzeiten, Datenschutzgrenze, Ressourcenlast).
+- TODO-Index im selben Lauf synchronisiert; Open-Count unverändert.
+
+Dev/Agent: Ist-Stand aktualisiert und Datensaetze-/Training-Track ergänzt (2026-02-25 19:33)
+----------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md` zuerst auf Ist-Stand nachgezogen: Prioritaetstags aktualisiert und der alte Sammelpunkt zur Coqui-Teilaufspaltung als umgesetzt markiert (konkretisiert durch den Chronistin-Ausbaublock).
+- Danach neuer Detailblock `Neue Aufgaben - Datensaetze & Training (2026-02-25)` ergänzt: individuelle Profilpakete, reproduzierbarer Erzeugungspfad, Trainings-Gates/Baseline-Metriken und Task-Vervollstaendigung.
+- Evidenzbasis fuer neue Punkte explizit an vorhandene Pipeline-Skripte geknuepft (`generate_eval_dataset.py`, `curate_dataset_from_latest.py`, `export_finetune.py`, `prepare_finetune_pack.py`, `fine_tune_pipeline.py`, `train_lora.py`).
+- `novapolis-dev/docs/todo.index.md` im selben Lauf auf neuen Open-Count synchronisiert (Agent `10 -> 13`).
+
+Dev/Agent: Chronistin-Entwicklungsstand analysiert, Agent-Board detailliert erweitert (2026-02-25 19:17)
+--------------------------------------------------------------------------------------------------------
+
+- Entwicklungsstand der internen KI anhand SSOT-/Board-/Runtime-Evidenz ausgewertet (`todo.agent-board.md`, `todo.index.md`, `novapolis_agent/README.md`, `novapolis_agent/docs/DONELOG.txt`, `.vscode/tasks.json`).
+- `novapolis-dev/docs/todo.agent-board.md` um einen neuen, detaillierten Ausbau-Block ergänzt (TTS-Build-Time-MVP, produktiver Runtime-Provider, `quality_de`-Eval-Operationalisierung, Synonym-Governance, Truthfulness-Refresh, Eval-Marathon-KPI/Triage).
+- `novapolis-dev/docs/todo.index.md` im selben Lauf gemäß TODO-Index-Governance synchronisiert (Agent offen: `4 -> 10`).
+- Ziel: nächste Iteration der „Chronistin von Novapolis" von dokumentierter Basisarbeit in reproduzierbare Ausbaupakete mit klaren Akzeptanzkriterien überführen.
 
 Dev: Agentenname im Dev-Hub-README verankert (2026-02-25 06:11)
 -----------------------------------------------------------------

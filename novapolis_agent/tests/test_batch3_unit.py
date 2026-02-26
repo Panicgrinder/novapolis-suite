@@ -108,7 +108,7 @@ def test_eval_utils_and_prepare_pack(tmp_path):
     # load_synonyms
     syn = {"a": ["x", "y"]}
     p = tmp_path / "syn.json"
-    p.write_text(json.dumps(syn, ensure_ascii=False))
+    p.write_text(json.dumps(syn, ensure_ascii=False), encoding="utf-8")
     ld = eu.load_synonyms(str(p))
     assert ld.get("a") == ["x", "y"]
 
@@ -120,11 +120,52 @@ def test_eval_utils_and_prepare_pack(tmp_path):
         }
     }
     p_rel = tmp_path / "syn_rel.json"
-    p_rel.write_text(json.dumps(rel, ensure_ascii=False))
+    p_rel.write_text(json.dumps(rel, ensure_ascii=False), encoding="utf-8")
     rel_loaded = eu.load_term_relations(str(p_rel))
     assert rel_loaded["parmesan"]["synonyms"] == ["parmigiano"]
     assert rel_loaded["parmesan"]["broader_terms"] == ["käse"]
     assert eu.load_synonyms(str(p_rel))["parmesan"] == ["parmigiano"]
+
+
+def test_term_inclusion_blocks_broader_terms_for_critical_example(tmp_path, monkeypatch):
+    run_eval = importlib.import_module("novapolis_agent.scripts.run_eval")
+    old_cfg = run_eval.DEFAULT_CONFIG_DIR
+    try:
+        cfg = tmp_path / "config"
+        cfg.mkdir(parents=True, exist_ok=True)
+        syn_base = cfg / "synonyms.json"
+        syn_local = cfg / "synonyms.local.json"
+        syn_base.write_text("{}", encoding="utf-8")
+        syn_local.write_text(
+            json.dumps(
+                {
+                    "parmesan": {
+                        "synonyms": ["parmigiano"],
+                        "broader_terms": ["käse", "hartkäse"],
+                        "narrower_terms": [],
+                    }
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+
+        monkeypatch.setattr(run_eval, "DEFAULT_CONFIG_DIR", str(cfg), raising=True)
+        monkeypatch.setattr(run_eval, "_synonyms_cache", None, raising=True)
+        monkeypatch.setattr(run_eval, "_term_relations_cache", None, raising=True)
+        monkeypatch.setattr(
+            run_eval,
+            "lookup_openthesaurus_synonyms",
+            lambda _term, cap=16: ["käse", "hartkase", "parmigiano"],
+            raising=True,
+        )
+
+        assert run_eval.check_term_inclusion("Ich nutze nur Käse.", "parmesan") is False
+        assert run_eval.check_term_inclusion("Ich nutze Parmigiano.", "parmesan") is True
+    finally:
+        monkeypatch.setattr(run_eval, "DEFAULT_CONFIG_DIR", old_cfg, raising=True)
+        monkeypatch.setattr(run_eval, "_synonyms_cache", None, raising=True)
+        monkeypatch.setattr(run_eval, "_term_relations_cache", None, raising=True)
 
     # prepare_finetune_pack helpers
     pf = importlib.import_module("novapolis_agent.scripts.prepare_finetune_pack")

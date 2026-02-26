@@ -28,7 +28,7 @@ from .api.tts_models import (
     TtsVoicesResponse,
 )
 from .core.settings import settings
-from .tts.providers import build_tts_provider
+from .tts.providers import TtsProviderUnavailableError, build_tts_provider
 
 # Logger-Konfiguration
 logging.basicConfig(level=logging.INFO)
@@ -379,7 +379,7 @@ async def tts_voices(req: Request) -> TtsVoicesResponse:
     responses=COMMON_ERROR_RESPONSES,
 )
 async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynthesizeResponse:
-    """TTS-Mini-Service-Vertrag: deterministische Placeholder-Antwort für stabile Tests."""
+    """TTS-Mini-Service-Vertrag mit Cache, reproduzierbarer Metadatenbasis und Provider-Fallbacks."""
     _require_tts_auth(req)
     if len(request.text) > settings.REQUEST_MAX_INPUT_CHARS:
         raise HTTPException(
@@ -408,42 +408,62 @@ async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynt
     now = time.time()
     cached, cleanup_get = _tts_cache_get(cache_key, now)
     if cached is not None:
+        cached_placeholder = bool(cached.get("is_placeholder", True))
+        cached_status = "placeholder" if cached_placeholder else "ok"
+        cached_detail = str(cached.get("detail") or "cached-response")
         return TtsSynthesizeResponse(
-            status="placeholder",
+            status=cached_status,
             provider=_tts_provider(),
             output_format=request.output_format,
             mime_type=str(cached.get("mime_type", "audio/ogg")),
-            is_placeholder=True,
+            is_placeholder=cached_placeholder,
             request_hash=request_hash,
             cache_key=cache_key,
             cache_hit=True,
+            artifact_path=(
+                str(cached.get("artifact_path")) if cached.get("artifact_path") is not None else None
+            ),
             detail=(
                 "Cache hit (removed_expired="
                 + str(cleanup_get.get("removed_expired", 0))
                 + ", removed_size="
                 + str(cleanup_get.get("removed_size", 0))
-                + ")."
+                + "). "
+                + cached_detail
             ),
         )
 
-    provider_result = _tts_provider_instance.synthesize(request)
+    try:
+        provider_result = _tts_provider_instance.synthesize(request)
+    except TtsProviderUnavailableError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="TTS provider unavailable (" + _tts_provider() + "): " + str(exc),
+        ) from exc
+
     mime = provider_result.mime_type
 
     payload_to_cache = {
         "mime_type": mime,
         "request_hash": request_hash,
+        "is_placeholder": bool(provider_result.is_placeholder),
+        "artifact_path": provider_result.artifact_path,
+        "detail": provider_result.detail,
     }
     cleanup_put = _tts_cache_put(cache_key, payload_to_cache, now)
 
+    response_status = "placeholder" if provider_result.is_placeholder else "ok"
+
     return TtsSynthesizeResponse(
-        status="placeholder",
+        status=response_status,
         provider=_tts_provider(),
         output_format=request.output_format,
         mime_type=mime,
-        is_placeholder=True,
+        is_placeholder=bool(provider_result.is_placeholder),
         request_hash=request_hash,
         cache_key=cache_key,
         cache_hit=False,
+        artifact_path=provider_result.artifact_path,
         detail=(
             "Cache miss (removed_expired="
             + str(cleanup_put.get("removed_expired", 0))

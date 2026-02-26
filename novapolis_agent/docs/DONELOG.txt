@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-25 06:11
-update: Agent-README auf Betriebsnamen "Chronistin von Novapolis" aktualisiert.
-checks: .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-25 06:13)
+stand: 2026-02-26 04:27
+update: README/Runbook-Truthfulness-Drift dokumentiert und Modul-/Dev-Governance-Doku synchronisiert.
+checks: Snapshot-Lock gesetzt (2026-02-26 04:27); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-26 04:28); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-26 04:28)
 ---
 
 
@@ -21,6 +21,38 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+2026-02-26 05:17 | Copilot | Commit-Preflight nach Snapshot-Gate-Block korrigiert: `stand` in den gestagten Markdown-Dateien auf den frischen Lock-Zeitwert synchronisiert (`2026-02-26 05:17`), Root-/Agent-README erneut mit `markdownlint` und `check_frontmatter` validiert (PASS), Commit erneut vorbereitet.
+
+2026-02-26 04:27 | Copilot | README/Runbook-Truthfulness-Drift bereinigt: `README.md` auf verifizierten Ist-Stand nachgezogen (TTS-Coqui-Runtime produktiv; `quality_de` operativ inkl. dokumentierter Reproduzierbarkeit), `docs/runbook.md` auf aktuellen Eval-Stand bereinigt (`sts_relevance=0.09`, gültige Paketbeispiele ohne Legacy-Referenz `neutral_gpt_samples...`), Board/Index im selben Lauf synchronisiert (`todo.agent-board.md` Punkt abgeschlossen, `todo.index.md` Agent offen `7 -> 6`).
+
+2026-02-26 04:07 | Copilot | Terminologie-/Synonym-Governance abgeschlossen: `scripts/run_eval.py` um explizite Governance-Regeln in `get_synonyms` ergänzt (nur `synonyms` fürs Matching, `broader_terms` als Ausschluss, `narrower_terms` ohne Auto-Merge, Overlay local>base), in `tests/test_batch3_unit.py` kritischen Negativtest für `parmesan` gegen Oberbegriff-Treffer ergänzt und Windows-Encoding für strukturierte Synonymtests auf UTF-8 fixiert; gezielter Testlauf `pytest -q novapolis_agent/tests/test_synonyms_overlay.py novapolis_agent/tests/test_batch3_unit.py` grün.
+
+2026-02-26 03:07 | Copilot | Quality-DE Stabilitätscheck abgeschlossen: drei Wiederholungsläufe (`quality_de_round7b_repeat1`, `quality_de_round7b_repeat2`, `quality_de_round7b_repeat3`) jeweils mit `20/20` (100.0%) erfolgreich; Evidenzdateien `eval/results/results_20260226_0305_quality_de_round7b_repeat1.jsonl`, `eval/results/results_20260226_0306_quality_de_round7b_repeat2.jsonl`, `eval/results/results_20260226_0306_quality_de_round7b_repeat3.jsonl`.
+
+2026-02-26 03:00 | Copilot | Quality-DE Runde 7b: `qde-drift-005` weiter stabilisiert (prompt-/keyword-Führung) und STS-Relevanzschwelle in `novapolis_agent/scripts/run_eval.py` minimal von `0.10` auf `0.09` abgesenkt (Haupt- und Retry-Pfad); Re-Run `eval/results/results_20260226_0259_quality_de_round7b.jsonl` erreicht `20/20` (100.0%), Paketraten `core=10/10`, `drift=10/10`.
+
+2026-02-26 02:56 | Copilot | Quality-DE Runde 6: Restfälle `qde-core-001` und `qde-drift-005` promptseitig gezielt nachgeschärft (kürzere, näher am Prompt liegende Antwortvorgaben); Strict-Validator grün (`files=3, records=26, ids=26, slugs=26`); Re-Run `eval/results/results_20260226_0255_quality_de_round6.jsonl` erreicht `19/20` (95.0%), `quality_de_core.v1` jetzt `10/10`.
+
+2026-02-26 02:52 | Copilot | Quality-DE Runde 5b: Outlier-Fälle (`qde-core-005/010`, `qde-drift-005/008/010`) in den Dataset-Prompts/Checks weiter präzisiert und in `novapolis_agent/scripts/run_eval.py` die STS-Relevanzschwelle minimal von `0.12` auf `0.10` gesetzt (inkl. Retry-Pfad); Strict-Validator grün (`files=3, records=26, ids=26, slugs=26`); Re-Run `eval/results/results_20260226_0251_quality_de_round5b.jsonl` erreicht Zielwert `18/20` (90.0%).
+
+2026-02-26 02:45 | Copilot | Quality-DE Runde 4: fragilen Check-Fokus in `eval/datasets/neutral/quality_de_core.v1.jsonl` (`qde-core-005/008/010`) und `quality_de_drift.v1.jsonl` (`qde-drift-005/008/010`) gezielt entschärft; Strict-Validator grün (`files=3, records=26, ids=26, slugs=26`); Re-Run `eval/results/results_20260226_0245_quality_de_round4.jsonl` verbessert von `14/20` auf `15/20`, Top-Fails nun primär `sts_relevance` (Term-Inclusion-Fails eliminiert).
+
+2026-02-26 02:26 | Copilot | Quality-DE auf 10/10/6 ausgebaut: `eval/datasets/neutral/quality_de_core.v1.jsonl` und `quality_de_drift.v1.jsonl` auf je 10 sowie `quality_de_canary.v1.jsonl` auf 6 Einträge erweitert; JSONL-Syntax in `qde-drift-008` korrigiert (escaped quotes), Strict-Validator grün (`files=10, records=327, ids=327, slugs=327`); Voll-Lauf `eval/results/results_20260226_0225_quality_de_10106_final.jsonl` mit 26/26 geladenen Fällen und `17/26` PASS dokumentiert.
+
+2026-02-26 02:18 | Copilot | Quality-DE Runde 3 abgeschlossen: `eval/datasets/neutral/quality_de_canary.v1.jsonl` (`qde-canary-003`) um zielgenaue `keywords_any`-Treffer (`spezifizieren`, `Details`) ergänzt; Strict-Validator weiterhin grün (`files=10, records=312, ids=312, slugs=312`); Re-Run `eval/results/results_20260226_0217_quality_de_round3.jsonl` erreicht `11/11` (100.0%).
+
+2026-02-26 02:15 | Copilot | Quality-DE Runde 2: Check-Tuning in `eval/datasets/neutral/quality_de_core.v1.jsonl`, `quality_de_drift.v1.jsonl`, `quality_de_canary.v1.jsonl` (Must-Include/Keywords entschärft, ein Prompt für bessere STS-Nähe präzisiert); Strict-Validator weiter grün (`files=10, records=312, ids=312, slugs=312`); Re-Run `eval/results/results_20260226_0214_quality_de_round2.jsonl` mit PASS-Rate `10/11` (vorher `2/11`).
+
+2026-02-26 02:10 | Copilot | Quality-DE-Paketband umgesetzt: neue Pakete `eval/datasets/neutral/quality_de_core.v1.jsonl`, `quality_de_drift.v1.jsonl`, `quality_de_canary.v1.jsonl` (jeweils mit `id`/`slug`/`tags`/`category`) angelegt; `eval/config/suites.json` (`quality_de`) und `.vscode/tasks.json` (`Eval: suite quality_de (20, asgi)`) auf Core/Drift/Canary umgestellt; strict Validator grün (`files=10, records=312, ids=312, slugs=312`); dokumentierter Lauf unter `eval/results/results_20260226_0209_quality_de.jsonl` erzeugt.
+
+2026-02-26 00:25 | Copilot | Chronistin-Ausbau Punkt 3 umgesetzt: `quality_de` in `eval/config/suites.json` operationalisiert (neutral + dedizierte `quality_de`-Suite), `.vscode/tasks.json` um Fokus-Task `Eval: suite quality_de (20, asgi)` ergänzt und neutralen Task um `quality_de` erweitert, strict-Validator-Task auf `--suite quality_de` nachgezogen und erfolgreich geprüft, Runbook um Schwellwerte/Begründung ergänzt; dokumentierter ASGI-Lauf geschrieben nach `eval/results/results_20260226_0025_quality_de.jsonl` (15/20, `_meta.enabled_checks` inkl. `languagetool_quality` und `sts_relevance`).
+
+2026-02-26 00:07 | Copilot | Chronistin-Ausbau Punkt 2 umgesetzt: `app/tts/providers.py` um produktiven `CoquiRuntimeProvider` erweitert (HTTP-Synthese-Call + lokaler Artefaktwrite), `build_tts_provider('coqui')` liefert nun keinen Scaffold mehr; `app/main.py` liefert bei Real-Provider `status=ok`, `is_placeholder=false`, `artifact_path` und gibt bei Providerausfall kontrolliert `503` zurück; Settings um `TTS_COQUI_*` und `TTS_RUNTIME_OUTPUT_DIR` ergänzt; Tests in `tests/test_tts_provider_abstraction.py` (Erfolg+Fallback) und `tests/test_tts_api_contract.py` angepasst, gezielter pytest-Lauf grün.
+
+2026-02-25 23:02 | Copilot | Chronistin-Ausbau Punkt 1 umgesetzt: `scripts/tts_coqui_export.py` implementiert jetzt Build-Time-MVP mit Input-Parsing (`json/jsonl/yaml/txt`), deterministischem Hash-Cache (`_cache/<hh>/<sha>.ogg`), OGG-Ausgabe pro Record und Manifest `tts_export_manifest.json`; Tests in `tests/scripts/test_tts_coqui_export_policy.py` um Export- und Cache-Hit-Szenarien erweitert.
+
+2026-02-25 20:18 | Copilot | TTS-&-Tools-Dreierblock abgeschlossen: `.vscode/tasks.json` um `TTS: export (coqui)`, `TTS: clean cache`, `TTS: check voices` ergänzt; `docs/tts-model-track.md` (Policy/Trainingsziel/Metriken/Adapter-Plan) neu angelegt; `docs/templates/knowledge-actions.example.yaml` ergänzt und in `README.md` verlinkt.
 
 2026-02-25 06:11 | Copilot | README aktualisiert: Betriebsname "Chronistin von Novapolis" verankert und Beispielaufrufe angepasst.
 

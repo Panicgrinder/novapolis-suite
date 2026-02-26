@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-25 18:33
-update: Agentenname "Chronistin von Novapolis" im Root-README verankert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-25 06:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-25 06:13)
+stand: 2026-02-26 05:17
+update: Root-README auf aktuellen Agent-Iststand revalidiert (Chronistin-Name, Modul-/Workflow-Hinweise weiterhin konsistent).
+checks: Snapshot-Lock gesetzt (2026-02-26 05:17); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis_agent/README.md' PASS (2026-02-26 05:16); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'README.md' 'novapolis_agent/README.md' PASS (EXITCODE=0, 2026-02-26 05:16)
 ---
 Novapolis Suite
 ===============
