@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-26 05:17
-update: Agent-README erneut auf aktuellen Iststand verifiziert (TTS-Coqui produktiv, quality_de operativ/reproduzierbar).
-checks: Snapshot-Lock gesetzt (2026-02-26 05:17); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis_agent/README.md' PASS (2026-02-26 05:16); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'README.md' 'novapolis_agent/README.md' PASS (EXITCODE=0, 2026-02-26 05:16)
+stand: 2026-02-27 06:06
+update: Datensatz-/Training-Tasklabels fuer VS Code explizit dokumentiert und mit Board/Runbook synchronisiert.
+checks: npx --yes markdownlint-cli2 --config F:/VS-Code-Workspace/Main/.markdownlint-cli2.jsonc "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (2026-02-27 05:31); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe F:/VS-Code-Workspace/Main/scripts/check_frontmatter.py "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (EXITCODE=0, 2026-02-27 05:31)
 ---
 
 Novapolis Agent
@@ -19,6 +19,15 @@ Ist-Stand (Betriebsfaehigkeit)
 - TTS-Runtime ist produktiv über `coqui`: API, Auth, Rate-Limit, Cache und Provider-Abstraktion sind aktiv; `coqui` erzeugt reale Artefakte (`status=ok`, `artifact_path`), `ollama`/`openai` bleiben Adapter-Scaffolds.
 - `quality_de` ist operativ: dedizierte Suite auf Core/Drift/Canary (10/10/6), dokumentierter Laufstand bis `20/20` inkl. 3-facher Wiederholung zur Reproduzierbarkeit.
 - Operatives Runbook: `novapolis_agent/docs/runbook.md`.
+
+VS Code Task-Labels (Datensatz & Training)
+------------------------------------------
+
+- `Data: curate from latest (train pack)`
+- `Data: export+pack (latest results)`
+- `Train: baseline LoRA (tiny-gpt2, 1-step)`
+
+Hinweis: Diese Labels sind bewusst identisch in `novapolis-dev/docs/todo.agent-board.md` und `novapolis_agent/docs/runbook.md` gehalten, um Doku-Drift zu vermeiden.
 
 Lizenz
 ------

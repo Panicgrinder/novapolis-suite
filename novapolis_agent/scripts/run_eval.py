@@ -830,7 +830,6 @@ def check_rpg_mode(text: str) -> bool:
 
     # Typische RPG-Modus-Indikatoren
     rpg_indicators: list[str] = [
-        "novapolis",
         "chronistin",
         "postapokalypse",
         "szene.",
@@ -858,7 +857,6 @@ def rpg_style_score(text: str) -> float:
     t = text.lower()
     score = 0.0
     indicators = [
-        "novapolis",
         "chronistin",
         "postapokalypse",
         "szene",
@@ -1049,7 +1047,7 @@ async def evaluate_item(
         # Wenn im RPG-Modus und es sich nicht um einen RPG-spezifischen Test handelt, Hinweis
         if is_rpg_mode and not any(
             rpg_term in (item.source_package or "").lower()
-            for rpg_term in ["rpg", "novapolis", "szene", "fantasy", "dialog"]
+            for rpg_term in ["rpg", "szene", "fantasy", "dialog"]
         ):
             failed_checks.append("Antwort im RPG-Modus, aber Test erwartet allgemeine Antwort")
 

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-20 16:42
-update: Markdownlint geprüft; Inhalte unverändert
-checks: markdownlint-cli2 (single file) PASS
+stand: 2026-02-27 06:06
+update: Obsolete Referenzen auf `cvn-agent` bereinigt und Test-/Task-Verweise auf den aktuellen Single-Root-Iststand nachgezogen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'WORKSPACE_INDEX.md' 'DONELOG.md' 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-26 22:02); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py 'WORKSPACE_INDEX.md' 'DONELOG.md' 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-26 22:02)
 ---
 
 Tests & Prequel
@@ -13,9 +13,9 @@ Tests & Prequel
 Bestehende Testabdeckung
 ------------------------
 
-- `novapolis_agent/tests/` (pytest): deckt die Simulations-API (`app/api/sim.py`) inklusive `GET /world/state` und `POST /world/step` ab; Testdatei `tests/tests_sim_api.py` prüft Statuscodes, Payload und Tick-Updates.
+- `novapolis_agent/tests/` (pytest): deckt die Simulations-API (`novapolis_agent/app/api/sim.py`) inklusive `GET /world/state` und `POST /world/step` ab; Kernabdeckung liefern u. a. `novapolis_agent/tests/tests_sim_api.py` und `novapolis_agent/tests/test_api_sim_state.py`.
 - `novapolis_agent/coverage.xml`: erzeugt durch pytest, dient als Referenz für API-Abdeckung.
-- `cvn-agent/` Tasking: VS-Code-Tasks/Launch-Konfigurationen ermöglichen Uvicorn-Start und pytest-Ausführung (siehe `novapolis-dev/docs/donelog.md`, Einträge vom 27./29.10.2025).
+- Root-Tasking: VS-Code-Tasks in `.vscode/tasks.json` ermöglichen reproduzierbare Läufe (u. a. `Tests: pytest (-q) [root]`, `Tests: pytest (unit)`, `Tests: pytest (api+streaming)`).
 - `novapolis-sim/`: keine automatisierten Tests; manuelle Prüfung via Godot-Editor.
 
 Mini-Prequel-Testplan (novapolis-sim)

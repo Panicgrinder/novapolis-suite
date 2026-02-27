@@ -30,11 +30,11 @@ import os
 import sys
 from typing import Any, cast
 
-from utils.time_utils import now_compact
-
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
+
+from utils.time_utils import now_compact
 
 from scripts import export_finetune as _export  # noqa: E402
 from scripts import prepare_finetune_pack as _prepare  # noqa: E402

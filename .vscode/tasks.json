@@ -373,6 +373,77 @@
     }
     ,
     {
+      "label": "Data: curate from latest (train pack)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\novapolis_agent\\scripts\\curate_dataset_from_latest.py",
+        "--format",
+        "openai_chat",
+        "--train-ratio",
+        "0.9",
+        "--min-output-chars",
+        "20"
+      ],
+      "options": { "cwd": "${workspaceFolder}\\novapolis_agent" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Data: export+pack (latest results)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\novapolis_agent\\scripts\\curate_dataset_from_latest.py",
+        "--format",
+        "openai_chat",
+        "--train-ratio",
+        "0.9",
+        "--min-output-chars",
+        "20",
+        "--include-failures"
+      ],
+      "options": { "cwd": "${workspaceFolder}\\novapolis_agent" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Train: baseline LoRA (tiny-gpt2, 1-step)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "scripts.agent.fine_tune_pipeline",
+        "--train-file",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\training\\chronistin_operativ_kurz.v1.jsonl",
+        "--model",
+        "sshleifer/tiny-gpt2",
+        "--output",
+        "${workspaceFolder}\\outputs\\lora-baseline-vscode",
+        "--per-device-train-batch-size",
+        "1",
+        "--epochs",
+        "1",
+        "--max-steps",
+        "1",
+        "--lr",
+        "0.0002",
+        "--no-check"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
       "label": "TTS: export (Coqui->OGG)",
       "type": "shell",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",

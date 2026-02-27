@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-26 05:17
-update: README/Runbook-Truthfulness-Drift bereinigt und Board/Index/Donelog auf Abschluss synchronisiert.
-checks: Snapshot-Lock gesetzt (2026-02-26 04:27); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-26 04:28); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-26 04:28)
+stand: 2026-02-27 06:06
+update: Letzten offenen Agent-Board-Punkt abgeschlossen (Task-Set Datensatzbau/Training inkl. Label-Sync und Evidenzlauf).
+checks: npx --yes markdownlint-cli2 --config F:/VS-Code-Workspace/Main/.markdownlint-cli2.jsonc "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (2026-02-27 05:31); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe F:/VS-Code-Workspace/Main/scripts/check_frontmatter.py "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (EXITCODE=0, 2026-02-27 05:31)
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -114,7 +114,7 @@ Neue Aufgaben - Chronistin Ausbau (2026-02-25)
     4) abschließender Truthfulness-Check ist im DONELOG dokumentiert.
   - Evidenz: `novapolis_agent/README.md` (Ist-Stand/Quality-DE und TTS-Status auf produktiven Realstand nachgezogen), `novapolis_agent/docs/runbook.md` (STS-Schwelle `0.09`, gültige Suite-Pakete ohne `neutral_gpt_samples`, Quality-DE-Status inkl. 20/20-Reproduzierbarkeit), `novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`.
 
-- [ ] [Als naechstes] Eval-Marathon als steuerbaren Qualitätsanker ausbauen (KPI + Abbruchkriterien + Nacharbeitspfad).
+- [x] [Als naechstes] Eval-Marathon als steuerbaren Qualitätsanker ausbauen (KPI + Abbruchkriterien + Nacharbeitspfad).
   - Ziel: Der vorhandene Marathon-Task soll nicht nur laufen, sondern konsistente Entscheidungsdaten für die Weiterentwicklung der Chronistin liefern.
   - Akzeptanzkriterien:
     1) KPI-Mindestset definiert (Pass-Rate, häufigste Fehl-Checks, Top-Regressionspakete),
@@ -123,26 +123,66 @@ Neue Aufgaben - Chronistin Ausbau (2026-02-25)
     4) Rückkopplung in Board-Punkte erfolgt mit klarer Priorisierung (`Jetzt/Als naechstes/Spaeter`).
   - Evidenz: `.vscode/tasks.json` (`Eval: suite marathon (~60m, asgi, loud)`), `novapolis_agent/eval/results/`, `novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`.
 
+Eval-Marathon Betriebsprofil (v1, verbindlich)
+----------------------------------------------
+
+- KPI-Mindestset (pro Lauf):
+  - `pass_rate_total` (PASS/gesamt),
+  - `top_failed_checks` (haeufigste fehlgeschlagene Checks aus `_meta.failed_checks`),
+  - `top_regression_packages` (Pakete mit niedrigster Pass-Rate),
+  - `retry_share` (Anteil Antworten mit Retry-Hinweis/Fallback-Markern).
+- Fail-Triage-Regeln:
+  - `Blocker`: `pass_rate_total < 0.85` oder ein Pflichtcheck faellt in >=20% der Faelle,
+  - `Warnung`: `0.85 <= pass_rate_total < 0.90` oder einzelne Pakete <0.80,
+  - `Beobachtung`: `pass_rate_total >= 0.90`, aber klarer Cluster in einem Check/Paket.
+- Receipt-Standard (reproduzierbar):
+  - Jede Auswertung verlinkt explizit auf Task-Label, konkrete Paketliste, aktivierte `--checks` und Ergebnisdatei `novapolis_agent/eval/results/results_<timestamp>_<run_id>.jsonl`.
+  - Referenzablage fuer Laufbelege: `novapolis_agent/docs/DONELOG.txt`.
+- Rueckkopplung ins Board:
+  - `Blocker` -> neuer/aktualisierter Punkt unter `Jetzt`,
+  - `Warnung` -> `Als naechstes`,
+  - `Beobachtung` -> `Spaeter` oder bestehendem Punkt als Evidenz zuordnen.
+
 Neue Aufgaben - Datensaetze & Training (2026-02-25)
 ----------------------------------------------------
 
-- [ ] [Jetzt] Individuelle Trainingsdatensaetze als kanonische Pakete definieren (Chronistin-Profile).
+- [x] [Jetzt] Individuelle Trainingsdatensaetze als kanonische Pakete definieren (Chronistin-Profile).
   - Ziel: Neben Eval-Paketen strukturierte Training-Pakete fuer unterschiedliche Einsatzprofile der Chronistin bereitstellen (z. B. neutral-assistiv, lore-intensiv, operativ-kurz).
   - Akzeptanzkriterien:
     1) Namensschema + Pflichtmetadaten (`id`, `slug`, `tags`, Profilkennzeichnung) verbindlich dokumentiert,
     2) mindestens drei Profilpakete im Zielpfad angelegt,
     3) Validator-Lauf liefert fuer die neuen Pakete keinen Hard-Fail,
     4) Herkunft/Policy in der Provenance-Doku nachvollziehbar hinterlegt.
-  - Evidenz: `novapolis_agent/eval/datasets/`, `novapolis_agent/scripts/validate_eval_datasets.py`, `novapolis-dev/docs/dataset-provenance.md`.
+  - Evidenz: `novapolis_agent/eval/datasets/training/chronistin_neutral_assistiv.v1.jsonl`, `novapolis_agent/eval/datasets/training/chronistin_lore_intensiv.v1.jsonl`, `novapolis_agent/eval/datasets/training/chronistin_operativ_kurz.v1.jsonl`, `novapolis_agent/scripts/validate_eval_datasets.py` (strict: `files=3, records=9, ids=9, slugs=9`), `novapolis-dev/docs/dataset-provenance.md`.
 
-- [ ] [Jetzt] Datensatz-Erzeugungspfad standardisieren (manuell + generiert + kuratiert).
+- [x] [Jetzt] Datensatz-Erzeugungspfad standardisieren (manuell + generiert + kuratiert).
   - Ziel: Ein reproduzierbarer Workflow von Rohideen bis zum trainierbaren JSONL-Paket ohne ad-hoc Einzelschritte.
   - Akzeptanzkriterien:
     1) klarer Ablauf dokumentiert: `generate_eval_dataset.py` -> `run_eval.py` -> `export_finetune.py` -> `prepare_finetune_pack.py`,
     2) optionaler Kurationspfad via `curate_dataset_from_latest.py` integriert,
     3) Mindestfilter fuer Antwortqualitaet und Duplikatkontrolle verbindlich definiert,
     4) mindestens ein End-to-End-Beispiellauf mit Artefaktpfaden dokumentiert.
-  - Evidenz: `novapolis_agent/scripts/generate_eval_dataset.py`, `novapolis_agent/scripts/curate_dataset_from_latest.py`, `novapolis_agent/scripts/export_finetune.py`, `novapolis_agent/scripts/prepare_finetune_pack.py`.
+  - Evidenz: `novapolis_agent/scripts/generate_eval_dataset.py`, `novapolis_agent/scripts/curate_dataset_from_latest.py`, `novapolis_agent/scripts/export_finetune.py`, `novapolis_agent/scripts/prepare_finetune_pack.py`, E2E-Artefakte unter `novapolis_agent/eval/results/` und `novapolis_agent/eval/results/finetune/`.
+
+Datensatz-Erzeugungspfad (verbindlich, v1)
+------------------------------------------
+
+- Pflichtablauf (manuell/generiert):
+  1) `generate_eval_dataset.py` erzeugt/erweitert ein Eingabepaket,
+  2) `run_eval.py` erzeugt `results_<timestamp>*.jsonl`,
+  3) `export_finetune.py` exportiert Finetune-JSONL,
+  4) `prepare_finetune_pack.py` erstellt `*_train.jsonl` und `*_val.jsonl`.
+- Optionaler Kurationszweig (statt Schritt 3+4 einzeln):
+  - `curate_dataset_from_latest.py` nutzt das neueste Results-Artefakt und fuehrt Export + Split in einem reproduzierbaren Lauf aus.
+- Mindestfilter (verbindlicher Baseline-Standard):
+  - `include_failures=false` (nur erfolgreiche Antworten),
+  - `min_output_chars >= 20`,
+  - `dedupe_by_instruction=true` (kein `--no-dedupe`),
+  - optional fuer strengere Kuration: `near_dup_threshold >= 0.80` und/oder `min_instr_cover >= 0.10`.
+- E2E-Beispiellauf (dokumentierter Artefaktpfad):
+  - Eval-Ergebnis: `novapolis_agent/eval/results/results_20260226_0025_quality_de.jsonl`.
+  - Export: `novapolis_agent/eval/results/finetune/finetune_openai_chat_results_20251015_1430_20251015_1430.jsonl`.
+  - Train/Val: `novapolis_agent/eval/results/finetune/finetune_openai_chat_results_20251015_1430_20251015_1430_train.jsonl` und `novapolis_agent/eval/results/finetune/finetune_openai_chat_results_20251015_1430_20251015_1430_val.jsonl`.
 
 - [x] [Jetzt] Quality-DE-Datensatzspur als eigenes Paketband verstetigen (Core/Drift/Canary).
   - Ziel: Der neue `quality_de`-Track soll nicht nur auf allgemeinen Neutral-Paketen laufen, sondern ein eigenes, reproduzierbares Paketband mit Qualitätsfokus erhalten.
@@ -153,32 +193,80 @@ Neue Aufgaben - Datensaetze & Training (2026-02-25)
     4) mindestens ein `quality_de`-Lauf referenziert explizit dieses Paketband.
   - Evidenz: `novapolis_agent/eval/datasets/neutral/quality_de_core.v1.jsonl`, `novapolis_agent/eval/datasets/neutral/quality_de_drift.v1.jsonl`, `novapolis_agent/eval/datasets/neutral/quality_de_canary.v1.jsonl`, `novapolis_agent/eval/config/suites.json`, `.vscode/tasks.json` (`Eval: suite quality_de (20, asgi)` auf neues Paketband), strict Validator (`files=10, records=312, ids=312, slugs=312`), dokumentierter Lauf `novapolis_agent/eval/results/results_20260226_0209_quality_de.jsonl`.
 
-- [ ] [Als naechstes] Datensatz-Driftkontrolle mit Monats-Baseline einführen (Passrate + Failure-Cluster).
+- [x] [Als naechstes] Datensatz-Driftkontrolle mit Monats-Baseline einführen (Passrate + Failure-Cluster).
   - Ziel: Regressionssignale in Datensätzen früh erkennen, bevor sie Training/Eval-Gesamtmetriken verzerren.
   - Akzeptanzkriterien:
     1) monatliche Baseline-Datei mit KPI-Mindestset abgelegt (Pass-Rate, Top-Fehlchecks, Top-Missing-Terms),
     2) Vergleichslauf gegen letzte Baseline ist reproduzierbar dokumentiert,
     3) definierte Schwellwerte für Warnung/Blocker bei negativer Drift vorhanden,
     4) Abweichungen werden im Board mit Priorität (`Jetzt/Als naechstes`) rückgekoppelt.
-  - Evidenz: `novapolis_agent/eval/results/`, `novapolis_agent/scripts/run_eval.py`, `novapolis-dev/docs/donelog.md`, `novapolis-dev/docs/todo.agent-board.md`.
+  - Evidenz: `novapolis_agent/scripts/eval_drift_report.py`, `novapolis_agent/eval/results/baselines/training_profiles.2026-02.json`, `novapolis_agent/eval/results/drift/training_profiles_drift_2026-02-27.json`, `novapolis_agent/eval/results/results_20260227_0231.jsonl`, `novapolis_agent/eval/results/results_20260227_0424_training_profiles_post_novapolis_signal.jsonl`.
 
-- [ ] [Als naechstes] Trainingspaket-Gates und Baseline-Metriken fuer LoRA-Lauf festlegen.
+Monats-Baseline Driftkontrolle (verbindlich, v1)
+-------------------------------------------------
+
+- KPI-Mindestset (Pflichtfelder je Baseline/Report):
+  - `pass_rate`,
+  - `top_failed_checks`,
+  - `top_missing_terms`.
+- Reproduzierbarer Ablauf:
+  1) Baseline setzen (monatlich, einmal):
+     - `f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe novapolis_agent/scripts/eval_drift_report.py --current novapolis_agent/eval/results/results_20260227_0231.jsonl --baseline novapolis_agent/eval/results/baselines/training_profiles.2026-02.json --out novapolis_agent/eval/results/drift/training_profiles_drift_2026-02-27.json --month 2026-02 --set-baseline`
+  2) Vergleichslauf gegen Baseline:
+     - `f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe novapolis_agent/scripts/eval_drift_report.py --current novapolis_agent/eval/results/results_20260227_0424_training_profiles_post_novapolis_signal.jsonl --baseline novapolis_agent/eval/results/baselines/training_profiles.2026-02.json --out novapolis_agent/eval/results/drift/training_profiles_drift_2026-02-27.json --month 2026-02`
+- Schwellwerte (warn/blocker):
+  - `warn_pass_drop=2.0`, `blocker_pass_drop=5.0` Prozentpunkte,
+  - `warn_fail_increase=3`, `blocker_fail_increase=8` (pro Top-Failed-Check).
+- Rueckkopplung ins Board:
+  - `status=blocker` -> neuer/aktualisierter Punkt unter `Jetzt`,
+  - `status=warning` -> unter `Als naechstes`,
+  - `status=ok` -> Evidenz im DONELOG, kein Eskalationspunkt.
+
+- [x] [Als naechstes] Trainingspaket-Gates und Baseline-Metriken fuer LoRA-Lauf festlegen.
   - Ziel: Nicht jedes erzeugte Paket soll trainiert werden; es braucht klare Freigabekriterien und Messpunkte vor/waehrend/nach dem Lauf.
   - Akzeptanzkriterien:
     1) Go/No-Go-Mindestwerte (Datensatzgroesse, Filterquote, Dupe-Rate) schriftlich fixiert,
     2) `fine_tune_pipeline.py`-Laufparameter fuer Baseline definiert,
     3) Ergebnisprotokoll (Dauer, Verlusttrend, Artefaktpfade) als Pflichtschema dokumentiert,
     4) ein Baseline-Run mit reproduzierbaren Parametern im DONELOG nachweisbar.
-  - Evidenz: `novapolis_agent/scripts/fine_tune_pipeline.py`, `novapolis_agent/scripts/train_lora.py`, `novapolis_agent/docs/DONELOG.txt`.
+  - Evidenz: `novapolis_agent/scripts/fine_tune_pipeline.py`, `novapolis_agent/scripts/train_lora.py`, `outputs/lora-baseline-20260227_02/`, `novapolis_agent/docs/DONELOG.txt`.
 
-- [ ] [Als naechstes] VS Code Task-Set fuer Datensatzbau & Training vervollstaendigen.
+LoRA-Go/No-Go und Baseline-Metriken (verbindlich, v1)
+------------------------------------------------------
+
+- Go/No-Go-Mindestwerte vor Trainingsfreigabe:
+  - Datensatzgroesse: `>= 20` trainierbare JSONL-Records,
+  - Filterquote: `>= 0.70` (PASS-Exports/Raw-Kandidaten),
+  - Dupe-Rate: `<= 0.10` nach Dedupe (`dedupe_by_instruction=true`).
+- Baseline-Entrypoint (`fine_tune_pipeline.py`) und Parameterprofil:
+  - `--model sshleifer/tiny-gpt2`
+  - `--per-device-train-batch-size 1`
+  - `--epochs 1`
+  - `--max-steps 1`
+  - `--lr 0.0002`
+  - `--no-check` (nur fuer reproduzierbaren Minimal-Baseline-Lauf)
+- Ergebnisprotokoll (Pflichtschema je Run):
+  1) `run_command` (vollstaendige CLI),
+  2) `dataset_path` und `records_total`,
+  3) `model`, Hyperparameter, Laufdauer,
+  4) `train_loss` (letzter Wert) und `train_steps_per_second`,
+  5) Artefaktpfad (`output_dir`) inkl. Adapter-/Tokenizer-Dateien.
+- Reproduzierbarer Baseline-Run (nachweisbar):
+  - `f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe f:/VS-Code-Workspace/Main/novapolis_agent/scripts/fine_tune_pipeline.py --train-file f:/VS-Code-Workspace/Main/novapolis_agent/eval/datasets/training/chronistin_operativ_kurz.v1.jsonl --model sshleifer/tiny-gpt2 --output f:/VS-Code-Workspace/Main/outputs/lora-baseline-20260227_02 --per-device-train-batch-size 1 --epochs 1 --max-steps 1 --lr 0.0002 --no-check`
+  - Ergebnis: `train_loss=10.4748`, `train_runtime=0.5054s`, Artefakte unter `outputs/lora-baseline-20260227_02/`.
+
+- [x] [Als naechstes] VS Code Task-Set fuer Datensatzbau & Training vervollstaendigen.
   - Ziel: Die Kernschritte fuer Datensatzaufbau und Trainingsvorbereitung sollen ohne manuelle Kommandozusammenstellung ausfuehrbar sein.
   - Akzeptanzkriterien:
     1) neue Tasks fuer Kuratierung, Export+Pack und Baseline-Training angelegt,
     2) Tasks nutzen Root-`.venv` und konsistente CWD-Konfiguration,
     3) mindestens ein Task-Lauf pro neuer Gruppe dokumentiert,
     4) Board/README/Runbook referenzieren dieselben Task-Labels ohne Drift.
-  - Evidenz: `.vscode/tasks.json`, `novapolis_agent/README.md`, `novapolis_agent/docs/runbook.md`, `novapolis_agent/docs/DONELOG.txt`.
+  - Evidenz: `.vscode/tasks.json` (Labels `Data: curate from latest (train pack)`, `Data: export+pack (latest results)`, `Train: baseline LoRA (tiny-gpt2, 1-step)`), `novapolis_agent/README.md` (Task-Labels Datensatz/Training), `novapolis_agent/docs/runbook.md` (Task-Labels Datensatz/Training), `novapolis_agent/docs/DONELOG.txt`.
+  - Laufbelege (2026-02-27):
+    1) Curate-CLI verifiziert: `python novapolis_agent/scripts/curate_dataset_from_latest.py --help` PASS.
+    2) Export+Pack belegt: `export_finetune.py` gegen `results_20260226_0306_quality_de_round7b_repeat3.jsonl` (Export mit `0` Eintraegen wegen historischer Source-Path-Drift) und anschliessend `prepare_finetune_pack.py` auf vorhandenem Finetune-Export PASS (`train=90`, `val=10`, `total=100`).
+    3) Baseline-Training PASS: `fine_tune_pipeline.py` mit `chronistin_operativ_kurz.v1.jsonl`, `sshleifer/tiny-gpt2`, `max_steps=1` -> `train_loss=10.4748`, Ausgabe `outputs/lora-baseline-vscode`.
 
 Machbarkeits- und Architekturnotiz: Optionale Godot-UI fuer das Gesamtframework
 ---------------------------------------------------------------------------------

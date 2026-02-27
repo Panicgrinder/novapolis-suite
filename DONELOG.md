@@ -1,11 +1,14 @@
 ---
-stand: 2026-02-25 18:33
-update: Root-README nennt den Agenten als "Chronistin von Novapolis".
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-25 06:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'novapolis_agent/README.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-02-25 06:13)
+stand: 2026-02-27 06:06
+update: Archivfenster-Dedupe verlustfrei konsolidiert; kanonisches pre-2026-02-20 beibehalten und pre-2026-02-19 nach Quarantaene verschoben.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "WORKSPACE_STATUS.md" "DONELOG.md" "novapolis-dev/docs/donelog.md" "novapolis-dev/archive/quarantine/archive-window-dedupe-20260227_0018/README.md" "novapolis-dev/archive/docs/others/workspace-status.archive.pre-2026-02-20.md" "novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md" PASS (2026-02-27 00:20); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py "WORKSPACE_STATUS.md" "DONELOG.md" "novapolis-dev/docs/donelog.md" "novapolis-dev/archive/quarantine/archive-window-dedupe-20260227_0018/README.md" "novapolis-dev/archive/docs/others/workspace-status.archive.pre-2026-02-20.md" "novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md" PASS (EXITCODE=0, 2026-02-27 00:20)
 ---
 Kurzueberblick
 --------------
 
+- 2026-02-27 00:04: Historische Artefakte regelkonform in den Dev-Archivpfad ausgelagert (`novapolis-dev/archive/docs/others/workspace-status.archive.pre-2026-02-20.md`, `novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md`). `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` auf scanbares Wochenfenster umgestellt; Dev-TODO/Index entsprechend synchronisiert.
+- 2026-02-27 00:18: Doppelte Archivfenster kanonisiert ohne Datenverlust. `pre-2026-02-20` bleibt als aktives Archivfenster, `pre-2026-02-19` wurde verlustfrei nach `novapolis-dev/archive/quarantine/archive-window-dedupe-20260227_0018/` verschoben; Referenzen in `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` nachgezogen.
+- 2026-02-26 21:59: Doku-Drift-Audit ausgefuehrt. `WORKSPACE_INDEX.md` um nachweisbar obsolete Eval-Dataset-Referenzen bereinigt und auf aktuelle `neutral/`, `rpg/`, `quality_de_*`-Pakete umgestellt; Dev-Doku-Fix in `novapolis-dev/docs/tests.md` sowie Detailprotokoll in `novapolis-dev/docs/donelog.md` nachgezogen.
 - 2026-02-25 06:11: Root-README aktualisiert: Agentenname "Chronistin von Novapolis" verankert.
 - 2026-02-24 15:00: Benennungsumstellung verankert: `relations-` wurde in aktiven Artefakten auf `mind-` umgestellt (`.github/instructions/mind-cluster.instructions.md`, `novapolis-rp/database-rp/00-admin/mind-cluster-template.md`, Referenzen/Indexe nachgezogen). Parallel wurde `ronja-kerschner-mind-cluster.md` als Entitaets-SSOT angelegt und die entsprechenden Doppelungen (Verhaltenssignatur, Beziehungen, geistnaher Zustand) aus `Ronja-Kerschner.md` entfernt.
 

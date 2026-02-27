@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 12:35
-update: Root-Bestand um externes Coqui-TTS-Verzeichnis (`TTS/`) als getrenntes Upstream-Mirror ergaenzt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' PASS (2026-02-23 11:57); ./.venv/Scripts/python.exe scripts/check_frontmatter.py 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-23 11:57)"
+stand: 2026-02-27 06:06
+update: Eval-Dataset-Abschnitt auf den aktuellen Dateibestand (neutral/rpg + quality_de-Band) korrigiert; obsolete Dateiverweise entfernt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'WORKSPACE_INDEX.md' 'DONELOG.md' 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-26 22:02); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py 'WORKSPACE_INDEX.md' 'DONELOG.md' 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-26 22:02)
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -35,6 +35,7 @@ Vollständiger Index aller Dateien im Agent-Verzeichnis
 ------------------------------------------------------
 
 Hinweis: Alle Pfade beziehen sich auf den Repo-Root (`Main/`). Sofern nicht anders erwähnt, beginnen sie bei `novapolis_agent/`.
+Hinweis (Aktualisierung 2026-02-26): Der Eval-Dataset-Bestand ist kanonisch in `novapolis-dev/docs/dataset-provenance.md` nachzuverfolgen.
 
 ### Paket `novapolis_agent/` (Unterordner im Single-Root)
 
@@ -155,23 +156,19 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 
 #### `novapolis_agent/eval/datasets`
 
-- [`novapolis_agent/eval/datasets/eval-01-20_prompts_v1.0.json`](novapolis_agent/eval/datasets/eval-01-20_prompts_v1.0.json) -
-  Sachliche Prompts (eval-001 bis eval-020)
-- [`novapolis_agent/eval/datasets/eval-21-40_fantasy_v1.0.json`](novapolis_agent/eval/datasets/eval-21-40_fantasy_v1.0.json) -
-  Fantasy-Prompts (eval-021 bis eval-040)
-- [`novapolis_agent/eval/datasets/eval-41-60_dialog_prompts_v1.0.json`](novapolis_agent/eval/datasets/eval-41-60_dialog_prompts_v1.0.json)
-  - Dialog-Prompts (eval-041 bis eval-060)
-- [`novapolis_agent/eval/datasets/eval-61-80_szenen_prompts_v1.0.json`](novapolis_agent/eval/datasets/eval-61-80_szenen_prompts_v1.0.json)
-  - Szenen-Prompts (eval-061 bis eval-080)
-- [`novapolis_agent/eval/datasets/eval-81-100_technik_erklaerungen_v1.0.json`](novapolis_agent/eval/datasets/eval-81-100_technik_erklaerungen_v1.0.json)
-  - Technische Erklärungen (eval-081 bis eval-100)
-- [`novapolis_agent/eval/datasets/chai-ai_small_v1.jsonl`](novapolis_agent/eval/datasets/chai-ai_small_v1.jsonl) - Chai-Smalltalk/Empathie-Dataset (aktuell)
+- [`novapolis_agent/eval/datasets/eval-smoke.jsonl`](novapolis_agent/eval/datasets/eval-smoke.jsonl) - Repo-weites Smoke-Dataset
 - [`novapolis_agent/eval/datasets/eval-001-100_technik_erklaerungen_v1.0.zip`](novapolis_agent/eval/datasets/eval-001-100_technik_erklaerungen_v1.0.zip)
-  - Archiv (optional)
-- [`novapolis_agent/eval/datasets/combined_eval_001-100.jsonl`](novapolis_agent/eval/datasets/combined_eval_001-100.jsonl) - Kombiniertes 001-100 JSONL
-- [`novapolis_agent/eval/datasets/eval-101-300_generated_v1.0.jsonl`](novapolis_agent/eval/datasets/eval-101-300_generated_v1.0.jsonl) - Generierte Zusatzdaten
-- [`novapolis_agent/eval/datasets/eval-smoke.jsonl`](novapolis_agent/eval/datasets/eval-smoke.jsonl) - Smoke-Test Dataset
-- [`novapolis_agent/eval/datasets/gpt_samples.de.jsonl`](novapolis_agent/eval/datasets/gpt_samples.de.jsonl) - Beispielantworten (Deutsch)
+  - Historisches Archivpaket
+- [`novapolis_agent/eval/datasets/neutral/neutral_01_20_core.v1.jsonl`](novapolis_agent/eval/datasets/neutral/neutral_01_20_core.v1.jsonl) - Neutral Core 01-20
+- [`novapolis_agent/eval/datasets/neutral/neutral_81_100_tech.v1.jsonl`](novapolis_agent/eval/datasets/neutral/neutral_81_100_tech.v1.jsonl) - Neutral Tech 81-100
+- [`novapolis_agent/eval/datasets/neutral/neutral_smoke.v1.jsonl`](novapolis_agent/eval/datasets/neutral/neutral_smoke.v1.jsonl) - Neutral Smoke
+- [`novapolis_agent/eval/datasets/neutral/generated/neutral_101_300_generated.v1.jsonl`](novapolis_agent/eval/datasets/neutral/generated/neutral_101_300_generated.v1.jsonl) - Neutral Generated 101-300
+- [`novapolis_agent/eval/datasets/neutral/quality_de_core.v1.jsonl`](novapolis_agent/eval/datasets/neutral/quality_de_core.v1.jsonl) - Quality-DE Core
+- [`novapolis_agent/eval/datasets/neutral/quality_de_drift.v1.jsonl`](novapolis_agent/eval/datasets/neutral/quality_de_drift.v1.jsonl) - Quality-DE Drift
+- [`novapolis_agent/eval/datasets/neutral/quality_de_canary.v1.jsonl`](novapolis_agent/eval/datasets/neutral/quality_de_canary.v1.jsonl) - Quality-DE Canary
+- [`novapolis_agent/eval/datasets/rpg/rpg_21_40_fantasy.v1.jsonl`](novapolis_agent/eval/datasets/rpg/rpg_21_40_fantasy.v1.jsonl) - RPG Fantasy 21-40
+- [`novapolis_agent/eval/datasets/rpg/rpg_41_60_dialog.v1.jsonl`](novapolis_agent/eval/datasets/rpg/rpg_41_60_dialog.v1.jsonl) - RPG Dialog 41-60
+- [`novapolis_agent/eval/datasets/rpg/rpg_61_80_szenen.v1.jsonl`](novapolis_agent/eval/datasets/rpg/rpg_61_80_szenen.v1.jsonl) - RPG Szenen 61-80
 
 #### `novapolis_agent/eval/config`
 

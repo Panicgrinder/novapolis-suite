@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-24 15:35
-update: Detaillierten Hygiene-Plan fuer das Dev-Modul als umsetzbare Aufgaben mit Prioritaeten, Akzeptanzkriterien und Cadence aufgenommen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 22:58); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-23 22:58)
+stand: 2026-02-27 06:06
+update: Donelog-Hygiene auf Wochenfenster umgesetzt (Current-Window aktiv, Historik ins Dev-Archiv ausgelagert).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "WORKSPACE_STATUS.md" "DONELOG.md" "novapolis-dev/docs/donelog.md" "novapolis-dev/docs/todo.dev.md" "novapolis-dev/docs/todo.index.md" "novapolis-dev/archive/docs/others/workspace-status.archive.pre-2026-02-20.md" "novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md" PASS (2026-02-27 00:06); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py "WORKSPACE_STATUS.md" "DONELOG.md" "novapolis-dev/docs/donelog.md" "novapolis-dev/docs/todo.dev.md" "novapolis-dev/docs/todo.index.md" "novapolis-dev/archive/docs/others/workspace-status.archive.pre-2026-02-20.md" "novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md" PASS (EXITCODE=0, 2026-02-27 00:06)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -25,8 +25,9 @@ Offene Aufgaben (Dev)
   - Akzeptanzkriterium: Strukturabschnitt beschreibt ausschliesslich den Iststand.
 - [ ] [Jetzt] `novapolis-dev/docs/specs/tts-exporter-coqui.md` auf Iststand nachziehen (Platzhalter-Narrativ entfernen, Implementierungsgrad explizit markieren).
   - Akzeptanzkriterium: Keine Widersprueche mehr zwischen Spec, Tasking und Modul-Iststand.
-- [ ] [Als naechstes] Donelog-Hygiene einfuehren: aktives Fenster definieren (Current-Window) und aeltere Bloecke sauber ins Historik-Archiv auslagern.
+- [x] [Als naechstes] Donelog-Hygiene einfuehren: aktives Fenster definieren (Current-Window) und aeltere Bloecke sauber ins Historik-Archiv auslagern.
   - Akzeptanzkriterium: `novapolis-dev/docs/donelog.md` bleibt fuer operative Arbeit kurz und scanbar; Historie bleibt erhalten.
+  - Evidenz: `novapolis-dev/docs/donelog.md` (Current-Window), `novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md` (Archivfenster).
 - [ ] [Als naechstes] Logs-Policy fuer `novapolis-dev/logs/` durchsetzen (Umgang mit `*.tmp.md` festlegen und konsistent umsetzen).
   - Akzeptanzkriterium: Keine policy-widrigen Rohlogs im aktiven Log-Pfad oder Policy explizit angepasst und dokumentiert.
 - [ ] [Als naechstes] Stand-Freshness-SLA festlegen (`ACTIVE <= 14 Tage`, `REFERENCE <= 60 Tage`) und als wiederkehrenden Check im Dev-Modul verankern.

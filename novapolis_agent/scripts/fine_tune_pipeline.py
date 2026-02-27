@@ -14,6 +14,7 @@ Hinweise:
 from __future__ import annotations
 
 import argparse
+from datetime import datetime
 import glob
 import os
 import subprocess
@@ -85,12 +86,8 @@ def main() -> int:
         print({"ok": False, "error": f"Keine Train-Datei gefunden in {args.finetune_dir}"})
         return 2
 
-    try:
-        from utils.time_utils import now_compact
-    except Exception:
-        from novapolis_agent.utils.time_utils import now_compact
-
-    out_dir = args.output or os.path.join("outputs", f"lora-{now_compact()}")
+    ts = datetime.now().strftime("%Y%m%d_%H%M")
+    out_dir = args.output or os.path.join("outputs", f"lora-{ts}")
     os.makedirs(out_dir, exist_ok=True)
 
     # Optionaler Free-Model-Guard

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-26 05:17
-update: Runbook-Truthfulness bereinigt (aktuelle quality_de-Schwellwerte, gültige Paketpfade, reproduzierbarer 20/20-Stand).
-checks: Snapshot-Lock gesetzt (2026-02-26 04:24)
+stand: 2026-02-27 06:06
+update: Datensatz-/Training-Tasklabels mit Board/README synchronisiert.
+checks: npx --yes markdownlint-cli2 --config F:/VS-Code-Workspace/Main/.markdownlint-cli2.jsonc "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (2026-02-27 05:31); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe F:/VS-Code-Workspace/Main/scripts/check_frontmatter.py "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (EXITCODE=0, 2026-02-27 05:31)
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -67,6 +67,13 @@ Im CWD `novapolis_agent`:
 Set-Location ..
 .\.venv\Scripts\python.exe scripts/run_pytest_coverage.py --fail-under 80
 ```
+
+VS Code Task-Labels (Datensatz & Training)
+------------------------------------------
+
+- `Data: curate from latest (train pack)`
+- `Data: export+pack (latest results)`
+- `Train: baseline LoRA (tiny-gpt2, 1-step)`
 
 TTS Runtime-Status (wahrheitsgetreu)
 ------------------------------------
