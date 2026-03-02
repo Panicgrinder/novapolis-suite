@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-02 22:24
-update: Lizenzschutz fuer RP-Content und Eval-Datasets getrennt eingefuehrt; README-/Policy-Hinweise dazu synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' PASS (2026-03-02 22:18); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-02 22:18)
+stand: 2026-03-02 23:30
+update: Sim-Runbook/README auf festen Verifikationsablauf synchronisiert und als Dev/Sim-Eintrag dokumentiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-02 23:06); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-02 23:06)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -17,6 +17,46 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Ops: Abschlusslauf-Task stabilisiert und erneut ausgefuehrt (2026-03-02 23:29)
+-------------------------------------------------------------------------------
+
+- `.vscode/tasks.json`: Task `Checks: full` von `type: shell` auf `type: process` umgestellt, da der Shell-Launcher lokal mit `pwsh ... /d /c ...` fehlschlug.
+- Re-Run: `scripts/run_checks_and_report.py` laeuft wieder sauber an, Gesamtstatus bleibt aktuell nicht gruen (`markdownlint`, `path-portability`, `ruff`, `black`, `pytest/coverage` FAIL).
+- Sim-Offline-Check erneut ausgefuehrt: `scripts/check_sim_epoch_assets.py --allow-empty --check-slot-consistency` mit `summary=fail:0,warn:2`.
+
+Dev/Ops: SSOT fuer Wochen-/Monatsabschluss eingefuehrt + Maerz-Zyklus gestartet (2026-03-02 23:29)
+-----------------------------------------------------------------------------------------------
+
+- Neue SSOT-Datei: `novapolis-dev/docs/process/abschluss-routine.ssot.md` (Wochenabschluss + Monatsabschluss, Regel: erster Montag im Monat).
+- Root-Referenz nachgezogen: `README.md` verweist jetzt auf die SSOT statt nur auf einen lokalen Wochenblock.
+- Dev-Index nachgezogen: `novapolis-dev/docs/index.md` enthaelt nun den SSOT-Verweis unter `Primary Docs`.
+- Laufnachweis Abschlusszyklus (1. Montag im Maerz): `scripts/run_checks_and_report.py` ausgefuehrt; nicht-gruener Iststand dokumentiert (`markdownlint`, `path-portability`, `ruff`, `black`, `pytest/coverage` FAIL).
+- Zusatznachweis: `scripts/check_sim_epoch_assets.py --allow-empty --check-slot-consistency` mit `summary=fail:0,warn:2`.
+
+Dev/Sim: Offline-Asset-Check um Slot-Konsistenz gehaertet (2026-03-02 23:07)
+--------------------------------------------------------------------------
+
+- `scripts/check_sim_epoch_assets.py`: optionalen Modus `--check-slot-consistency` ergänzt.
+- Harte FAIL-Kriterien bei aktivem Modus dokumentiert und umgesetzt: Slot-Mismatch zwischen `world_log`/`pc_log`, Slotwerte ausserhalb `0..23`, sowie Eintraege ohne detektierbaren Slot.
+- `novapolis_agent/tests/scripts/test_check_sim_epoch_assets.py` neu: Unit-Tests fuer OK/Mismatch/No-Slot/Out-of-Range.
+- TODO-Sync: `novapolis-dev/docs/todo.sim.md` (Offline-Check-Punkte erledigt) und `novapolis-dev/docs/todo.index.md` (`Sim v3.4`) nachgezogen.
+- Verifikation: `pytest -q novapolis_agent/tests/scripts/test_check_sim_epoch_assets.py` PASS (4/4); Checker-Lauf `--allow-empty --check-slot-consistency` mit `summary=fail:0,warn:2`.
+
+Dev/Sim: Kanonischen Verifikationsablauf in Runbook/README verankert (2026-03-02 22:49)
+------------------------------------------------------------------------------------------
+
+- `novapolis_agent/docs/runbook.md`: neuen Abschnitt `Kanonischer Sim-Pruefablauf (kurz, in Reihenfolge)` eingefuegt (`API-smoke -> Godot-headless -> Offline-Asset-Check -> optional Eval`).
+- `novapolis-sim/README.md`: Abschnitt `Kanonischer Testablauf (lokal)` mit identischer Reihenfolge und Kommandobeispielen nachgezogen.
+- `novapolis-dev/docs/todo.sim.md`: offene Punkte `Sim-Runbook aktualisieren` und `Runbook/README nachziehen` auf erledigt gesetzt.
+- `novapolis-dev/docs/todo.index.md`: Statushinweis `Sim v3.3` zur Doku-Synchronisierung ergaenzt.
+
+Dev/Sim: API-Testabdeckung fuer Sim-State verstaerkt (2026-03-02 22:47)
+-----------------------------------------------------------------------
+
+- `novapolis_agent/tests/test_api_sim_state.py`: neue Unit-Checks fuer Event-Cap-Truncation, Invalid-`dt`-ValidationError ohne State-Mutation und Reset-Invarianten nach manueller State-Mutation.
+- `novapolis_agent/tests/tests_sim_api.py`: API-Vertrag erweitert um `422`-Fehlerpfade fuer `dt<=0`/fehlendes `dt` sowie Event-Cap-Verhalten ueber den REST-Endpunkt.
+- Validierung: `pytest -q novapolis_agent/tests/test_api_sim_state.py novapolis_agent/tests/tests_sim_api.py` PASS (5/5), `pyright` PASS, `mypy` PASS auf den geaenderten Dateien.
 
 Dev/Legal: Hybrid-Lizenzschutz fuer Framework-Inhalte eingefuehrt (2026-03-02 22:18)
 -------------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-27 06:06
+stand: 2026-03-02 23:30
 update: Archivfenster auf kanonisches pre-2026-02-20 konsolidiert; pre-2026-02-19 verlustfrei nach Quarantaene verschoben.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "WORKSPACE_STATUS.md" "DONELOG.md" "novapolis-dev/docs/donelog.md" "novapolis-dev/archive/quarantine/archive-window-dedupe-20260227_0018/README.md" "novapolis-dev/archive/docs/others/workspace-status.archive.pre-2026-02-20.md" "novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md" PASS (2026-02-27 00:20); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py "WORKSPACE_STATUS.md" "DONELOG.md" "novapolis-dev/docs/donelog.md" "novapolis-dev/archive/quarantine/archive-window-dedupe-20260227_0018/README.md" "novapolis-dev/archive/docs/others/workspace-status.archive.pre-2026-02-20.md" "novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md" PASS (EXITCODE=0, 2026-02-27 00:20)
 ---
@@ -10,6 +10,8 @@ Workspace-Status
 Aktuelles Wochenfenster
 -----------------------
 
+- 2026-03-02 23:29: SSOT fuer Wochen-/Monatsabschluss eingefuehrt (`novapolis-dev/docs/process/abschluss-routine.ssot.md`) und Root-README darauf umgestellt.
+- 2026-03-02 23:23: Abschlusslauf fuer den 1. Montag im Maerz gestartet (`scripts/run_checks_and_report.py`): aktuell nicht gruen (`markdownlint`, `path-portability`, `ruff`, `black`, `pytest/coverage` FAIL); Sim-Offline-Check lief ohne harte Fehler (`fail:0,warn:2`).
 - 2026-02-26 21:59: Doku-Drift-Audit abgeschlossen; obsolete Referenzen in `WORKSPACE_INDEX.md` und `novapolis-dev/docs/tests.md` korrigiert.
 - 2026-02-23 08:37: Root-Folgepunkte 1-3 abgeschlossen (`Checks: sim epoch assets`, Prioritaetstags harmonisiert, Wochenabschluss-Routine dokumentiert).
 - 2026-02-22 23:58: Root-/Dev-Archivierung und TODO-Index-Sync abgeschlossen; kompletter Testblock (`pytest` + Marker + Coverage) gruen.

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-02 22:24
-update: Dropdown-Standard in Godot ausgeweitet: Single-Select-Felder im Agent-Modul/Hub konsistent auf OptionButton umgestellt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "novapolis-dev/docs/todo.sim.md" "novapolis-dev/docs/todo.index.md" "novapolis-dev/docs/donelog.md" PASS (2026-03-02 22:09); .\.venv\Scripts\python.exe scripts\check_frontmatter.py "novapolis-dev/docs/todo.sim.md" "novapolis-dev/docs/todo.index.md" "novapolis-dev/docs/donelog.md" PASS (EXITCODE=0, 2026-03-02 22:09)
+stand: 2026-03-02 23:30
+update: Sim-Runbook und Sim-README auf kanonischen Verifikationsablauf synchronisiert und entsprechende TODO-Punkte abgeschlossen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-02 23:06); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-02 23:06)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -175,19 +175,26 @@ C) Agent-Modul im Hub (neu)
 
 D) Qualitaet, Governance, Nachweis
 
-- [ ] API-Tests erweitern (ungueltiges `dt`, Event-Cap, Reset-Invarianten, Fehlerpfad-Resilienz).
-- [ ] Offline-Asset-Check vertiefen (Slot-Konsistenz world_log vs. pc_log, klare Abbruchkriterien).
-- [ ] Sim-Runbook aktualisieren (kanonischer Ablauf: API-smoke -> Godot-headless -> Asset-check -> optionale Eval-Checks).
+- [x] API-Tests erweitern (ungueltiges `dt`, Event-Cap, Reset-Invarianten, Fehlerpfad-Resilienz).
+  - Evidenz: `novapolis_agent/tests/test_api_sim_state.py` und `novapolis_agent/tests/tests_sim_api.py` decken jetzt Invalid-`dt`-Faelle (`422`/ValidationError), Event-Cap-Truncation und Reset-Invarianten explizit ab.
+- [x] Offline-Asset-Check vertiefen (Slot-Konsistenz world_log vs. pc_log, klare Abbruchkriterien).
+  - Evidenz: `scripts/check_sim_epoch_assets.py` um `--check-slot-consistency` erweitert (FAIL bei Slot-Mismatch, Slotwerten ausserhalb `0..23`, oder nicht detektierbaren Slots bei vorhandenen Eintraegen).
+- [x] Sim-Runbook aktualisieren (kanonischer Ablauf: API-smoke -> Godot-headless -> Asset-check -> optionale Eval-Checks).
+  - Evidenz: `novapolis_agent/docs/runbook.md` enthaelt jetzt den Abschnitt `Kanonischer Sim-Pruefablauf (kurz, in Reihenfolge)` mit festen Kommandos.
 
 Phase 3 - Qualitaet und Nachweisfuehrung (Als naechstes)
 
-- [ ] API-Tests ausbauen (`novapolis_agent/tests/test_api_sim_state.py`, `novapolis_agent/tests/tests_sim_api.py`): Fehlerpfade fuer ungueltiges `dt`, Event-Cap und Reset-Invarianten absichern.
-- [ ] Sim-Offline-Check staerken (`scripts/check_sim_epoch_assets.py`): optional Slot-Konsistenz zwischen `world_log` und `pc_log` validieren.
-- [ ] Runbook/README nachziehen (`novapolis-sim/README.md`): neuer Testablauf (headless + API-smoke + epoch-assets-check) als kanonischer Kurzablauf.
+- [x] API-Tests ausbauen (`novapolis_agent/tests/test_api_sim_state.py`, `novapolis_agent/tests/tests_sim_api.py`): Fehlerpfade fuer ungueltiges `dt`, Event-Cap und Reset-Invarianten absichern.
+  - Verifikation: `pytest -q novapolis_agent/tests/test_api_sim_state.py novapolis_agent/tests/tests_sim_api.py` PASS (5/5), `pyright` PASS, `mypy` PASS.
+- [x] Sim-Offline-Check staerken (`scripts/check_sim_epoch_assets.py`): optional Slot-Konsistenz zwischen `world_log` und `pc_log` validieren.
+  - Verifikation: `pytest -q novapolis_agent/tests/scripts/test_check_sim_epoch_assets.py` PASS (4/4), Checker-Lauf `--allow-empty --check-slot-consistency` mit `fail:0`.
+- [x] Runbook/README nachziehen (`novapolis-sim/README.md`): neuer Testablauf (headless + API-smoke + epoch-assets-check) als kanonischer Kurzablauf.
+  - Evidenz: `novapolis-sim/README.md` Abschnitt `Kanonischer Testablauf (lokal)` hinzugefuegt und mit identischer Reihenfolge dokumentiert.
 
 Abschlusskriterien (Definition of Done)
 
-- [ ] Ein lokaler Durchlauf deckt API-smoke, Godot-headless und Offline-Asset-Check in fester Reihenfolge ab.
+- [x] Ein lokaler Durchlauf deckt API-smoke, Godot-headless und Offline-Asset-Check in fester Reihenfolge ab.
+  - Nachweis: API-smoke (`pytest ...::test_get_world_state_initial_values`) PASS, Godot-headless-Load ausgefuehrt, `check_sim_epoch_assets.py --allow-empty --check-slot-consistency` mit `fail:0`.
 - [ ] Die offenen Sim-Todo-Punkte sind mit Evidenzpfaden im Dev-DONELOG nachweisbar abgeschlossen.
 
 

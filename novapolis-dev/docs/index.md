@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-22 14:21
+stand: 2026-03-02 23:30
 update: Pfadnotation auf kanonische RP-Zielpfade vereinheitlicht (`novapolis-rp/...`) und CWD-Mehrdeutigkeit reduziert.
 checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/index.md' PASS (2026-02-22 11:24); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/index.md' PASS (2026-02-22 11:24)"
 ---
@@ -29,6 +29,7 @@ Primary Docs
   - `.github/copilot-instructions.md` — verbindliche Arbeitsweise & Sicherheitsregeln (SSOT)
 - `docs/naming-policy.md` — Dateibenennung fuer alle Novapolis-Repos
 - `docs/tests.md` — Testabdeckung, Sim-/Client-Checks
+- `docs/process/abschluss-routine.ssot.md` — SSOT fuer Wochen- und Monatsabschluss (Betriebsrhythmus)
 - Meta-Sidecars: `novapolis-dev/docs/meta/*.json` (Quelle, Ursprung, Migrationsstempel)
 
 Betriebsnotiz (temporär)

@@ -81,7 +81,7 @@
     },
     {
       "label": "Checks: full",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\run_checks_and_report.py"],
       "options": { "cwd": "${workspaceFolder}" },

@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-02 22:24
+stand: 2026-03-02 23:30
 update: Hybrid-Lizenzmodell eingefuehrt: Code bleibt MIT, RP-Content/Eval-Daten sind separat restriktiv geregelt; Contributing- und Markenhinweise verlinkt.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-02 22:18); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-02 22:18)
 ---
@@ -43,10 +43,19 @@ Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins 
 Lizenzmodell (Hybrid-Schutz)
 ----------------------------
 
-- Code bleibt im Kern unter MIT (`LICENSE`).
-- RP-Content in `novapolis-rp/` ist ab sofort separat als Inhalts-/Datenmaterial lizenziert (`novapolis-rp/LICENSE`) und nicht mehr unter MIT freigegeben.
-- Eval-Datasets unter `novapolis_agent/eval/datasets/` sind separat restriktiv geregelt (`novapolis_agent/eval/datasets/LICENSE.txt`).
-- Uebergreifende Zuordnung (Pfad -> Lizenz) steht in `LICENSES.md`.
+Kurzfassung (human-readable):
+
+- Code im Repo steht unter MIT, sofern kein Unterpfad explizit abweichend geregelt ist (`LICENSE`, optional untergeordnete Lizenzdateien).
+- RP-Content in `novapolis-rp/` steht unter der restriktiven Inhalts-/Datenlizenz `NCDL v1.0` (`novapolis-rp/LICENSE`).
+- Eval-/Trainingsdaten unter `novapolis_agent/eval/datasets/` sind separat restriktiv geregelt (`novapolis_agent/eval/datasets/LICENSE.txt`).
+
+Technische Zuordnung (machine-readable):
+
+- Die verbindliche Pfad-zu-Lizenz-Matrix liegt in `LICENSES.md`.
+- Bei Konflikten gilt: spezifischere, untergeordnete Lizenzdateien haben Vorrang vor allgemeineren Regeln.
+
+Ergaenzende Governance:
+
 - Marken-/Namensnutzung ist separat geregelt in `TRADEMARKS.md`.
 - Beitragspfad und Sign-off-Regeln stehen in `CONTRIBUTING.md`.
 
@@ -144,12 +153,12 @@ Editor-Setup (Single-Root)
 - Sim-Offlinetest: Task `Checks: sim epoch assets` prüft tunnel-sicher die Epoch-Logs und OGG-Namenskonvention via `scripts/check_sim_epoch_assets.py`.
 - Details zum aktuellen Status siehe `.github/copilot-instructions.md` und `WORKSPACE_STATUS.md` (Block „Single-Root & Wrapper-Status“).
 
-Wochenabschluss-Routine
------------------------
+Wochen- und Monatsabschluss
+---------------------------
 
-1. Lint/Typen/Tests/Coverage in dieser Reihenfolge laufen lassen (`Checks: full`, optional `Checks: sim epoch assets`, dann `Tests: coverage (fail-under)`).
-2. Bei Strukturänderungen Tree-Artefakte aktualisieren (`Workspace tree:*`).
-3. Danach `todo.root.md`, `WORKSPACE_STATUS.md`, `DONELOG.md` und `novapolis-dev/docs/donelog.md` im selben Lauf synchronisieren.
+- Verbindlicher SSOT: `novapolis-dev/docs/process/abschluss-routine.ssot.md`.
+- Wochenabschluss: Abschlusslauf in der dort definierten Reihenfolge (Checks -> Tree bei Strukturdelta -> Doku-Sync).
+- Monatsabschluss: am ersten Montag des Monats zusaetzlich zum Wochenabschluss, inklusive Monats-Drift-/Hygienepruefung.
 
 
 

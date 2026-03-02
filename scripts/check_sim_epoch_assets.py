@@ -15,6 +15,7 @@ from pathlib import Path
 
 EPOCH_DIR_RE = re.compile(r"^epoch\d+$", re.IGNORECASE)
 AUDIO_FILE_RE = re.compile(r"^epoch(\d{2})_slot(\d{2})_(pc|world)\.ogg$", re.IGNORECASE)
+SLOT_KEYS = ("slot", "time_slot", "slot_index", "slot_id", "hour", "h")
 
 
 @dataclass(frozen=True)
@@ -45,7 +46,114 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Pass when no epoch folders are present (useful for initial setup).",
     )
+    parser.add_argument(
+        "--check-slot-consistency",
+        action="store_true",
+        help=(
+            "Enable optional slot consistency checks between world_log and pc_log "
+            "(expected slot range 0..23)."
+        ),
+    )
     return parser.parse_args()
+
+
+def _coerce_slot(value: object) -> int | None:
+    if isinstance(value, int):
+        return value
+    if isinstance(value, float) and value.is_integer():
+        return int(value)
+    if isinstance(value, str):
+        clean = value.strip()
+        if clean.isdigit():
+            return int(clean)
+    return None
+
+
+def _extract_slot(entry: dict) -> int | None:
+    for key in SLOT_KEYS:
+        if key in entry:
+            slot = _coerce_slot(entry[key])
+            if slot is not None:
+                return slot
+
+    for nested_key in ("meta", "payload", "data", "context"):
+        nested = entry.get(nested_key)
+        if isinstance(nested, dict):
+            for key in SLOT_KEYS:
+                if key in nested:
+                    slot = _coerce_slot(nested[key])
+                    if slot is not None:
+                        return slot
+    return None
+
+
+def _collect_slots(entries: list[dict]) -> tuple[set[int], int]:
+    slots: set[int] = set()
+    missing = 0
+    for entry in entries:
+        slot = _extract_slot(entry)
+        if slot is None:
+            missing += 1
+            continue
+        slots.add(slot)
+    return slots, missing
+
+
+def _validate_slot_consistency(epoch_name: str, world_entries: list[dict], pc_entries: list[dict]) -> list[CheckMessage]:
+    messages: list[CheckMessage] = []
+
+    world_slots, world_missing = _collect_slots(world_entries)
+    pc_slots, pc_missing = _collect_slots(pc_entries)
+
+    invalid_world = sorted(slot for slot in world_slots if slot < 0 or slot > 23)
+    invalid_pc = sorted(slot for slot in pc_slots if slot < 0 or slot > 23)
+
+    if invalid_world:
+        messages.append(
+            CheckMessage(
+                "FAIL",
+                f"{epoch_name}: world_log has invalid slot values outside 0..23: {invalid_world}",
+            )
+        )
+    if invalid_pc:
+        messages.append(
+            CheckMessage(
+                "FAIL",
+                f"{epoch_name}: pc_log has invalid slot values outside 0..23: {invalid_pc}",
+            )
+        )
+
+    if world_entries and not world_slots:
+        messages.append(CheckMessage("FAIL", f"{epoch_name}: world_log has entries but no detectable slot values"))
+    if pc_entries and not pc_slots:
+        messages.append(CheckMessage("FAIL", f"{epoch_name}: pc_log has entries but no detectable slot values"))
+
+    only_world = sorted(world_slots - pc_slots)
+    only_pc = sorted(pc_slots - world_slots)
+    if only_world or only_pc:
+        messages.append(
+            CheckMessage(
+                "FAIL",
+                (
+                    f"{epoch_name}: slot mismatch world_vs_pc "
+                    f"(only_world={only_world}, only_pc={only_pc})"
+                ),
+            )
+        )
+    else:
+        messages.append(
+            CheckMessage(
+                "INFO",
+                f"{epoch_name}: slot consistency OK (slots={sorted(world_slots)})",
+            )
+        )
+
+    if world_missing > 0:
+        messages.append(CheckMessage("WARN", f"{epoch_name}: world_log entries without slot key: {world_missing}"))
+    if pc_missing > 0:
+        messages.append(CheckMessage("WARN", f"{epoch_name}: pc_log entries without slot key: {pc_missing}"))
+
+    return messages
 
 
 def load_json_lines(path: Path) -> list[dict]:
@@ -85,7 +193,7 @@ def collect_epoch_dirs(epochs_root: Path) -> list[Path]:
     return sorted(epoch_dirs, key=lambda path: path.name.lower())
 
 
-def validate_epoch_folder(epoch_dir: Path) -> list[CheckMessage]:
+def validate_epoch_folder(epoch_dir: Path, *, check_slot_consistency: bool = False) -> list[CheckMessage]:
     messages: list[CheckMessage] = []
     world_log = epoch_dir / "world_log.jsonl"
     pc_log = epoch_dir / "pc_log.jsonl"
@@ -109,6 +217,10 @@ def validate_epoch_folder(epoch_dir: Path) -> list[CheckMessage]:
                 f"{epoch_dir.name}: world={len(world_entries)} entries, pc={len(pc_entries)} entries",
             )
         )
+
+    if check_slot_consistency:
+        messages.extend(_validate_slot_consistency(epoch_dir.name, world_entries, pc_entries))
+
     return messages
 
 
@@ -162,7 +274,7 @@ def main() -> int:
             )
 
     for epoch_dir in epoch_dirs:
-        all_messages.extend(validate_epoch_folder(epoch_dir))
+        all_messages.extend(validate_epoch_folder(epoch_dir, check_slot_consistency=args.check_slot_consistency))
 
     all_messages.extend(validate_audio_dir(audio_root))
 

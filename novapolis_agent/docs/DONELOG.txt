@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-02 11:11
-update: Sim-API um vorbereiteten sim_meta-Block erweitert und Sim-Tests entsprechend nachgezogen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "novapolis_agent/docs/DONELOG.txt" PASS (2026-02-27 06:02); .venv/Scripts/python.exe scripts/check_frontmatter.py "novapolis_agent/docs/DONELOG.txt" PASS (EXITCODE=0, 2026-02-27 06:02)
+stand: 2026-03-02 23:30
+update: Runbook um kanonischen Sim-Verifikationsablauf erweitert und mit Sim-README/TODO synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-02 23:06); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-02 23:06)
 ---
 
 
@@ -23,6 +23,9 @@ DONELOG – Abgeschlossene Arbeiten
 =================================
 
 
+2026-03-02 23:07 | Copilot | Offline-Sim-Checker gehaertet: `scripts/check_sim_epoch_assets.py` um optionales `--check-slot-consistency` erweitert (FAIL bei Slot-Mismatch world/pc, Slotwerten ausserhalb `0..23`, fehlender Slotdetektion bei vorhandenen Eintraegen). Neue Unit-Tests `tests/scripts/test_check_sim_epoch_assets.py` decken OK/Mismatch/No-Slot/Out-of-Range ab. Verifikation: `pytest -q tests/scripts/test_check_sim_epoch_assets.py` PASS (4/4), Checker-Lauf mit `--allow-empty --check-slot-consistency` -> `summary=fail:0,warn:2`.
+2026-03-02 22:49 | Copilot | Sim-Verifikationsablauf dokumentarisch vereinheitlicht: `docs/runbook.md` um festen Kurzablauf `API-smoke -> Godot-headless -> Offline-Asset-Check -> optional Eval` erweitert und mit konkreten Root-Kommandos hinterlegt; begleitend `novapolis-sim/README.md` auf denselben Ablauf synchronisiert. TODO-Sync: `novapolis-dev/docs/todo.sim.md` Runbook-Punkte abgeschlossen und `novapolis-dev/docs/todo.index.md` um `Sim v3.3` ergänzt.
+2026-03-02 22:47 | Copilot | Sim-State-Testabdeckung erweitert: `tests/test_api_sim_state.py` um Event-Cap-Truncation, Invalid-`dt`-ValidationError ohne State-Mutation und Reset-Invarianten nach manueller Mutation ergänzt; `tests/tests_sim_api.py` um 422-Fehlerpfade (`dt<=0`, fehlendes `dt`) plus API-seitigen Event-Cap-Test erweitert. Verifikation: `pytest -q tests/test_api_sim_state.py tests/tests_sim_api.py` PASS (5/5), `pyright app/api/sim.py tests/test_api_sim_state.py tests/tests_sim_api.py` PASS, `mypy --config-file mypy.ini app/api/sim.py tests/test_api_sim_state.py tests/tests_sim_api.py` PASS.
 2026-03-02 11:11 | Copilot | Sim-API erweitert: `app/api/sim.py` liefert jetzt einen vorbereiteten `sim_meta`-Block im `WorldState` (`mode=baseline`, `seed=null`) und setzt diesen in `reset_state()` konsistent zurueck; Tests in `tests/test_api_sim_state.py` und `tests/tests_sim_api.py` um Vertrags-Assertions fuer `sim_meta` ergaenzt. Verifikation: gezielte Sim-Tests PASS (2/2), mypy auf den drei geaenderten Dateien PASS.
 2026-02-27 06:00 | Copilot | DONELOG-Liste strikt absteigend nach Zeitstempel sortiert (neueste zuerst) und fehlerhafte Doppelzeile mit zwei zusammengezogenen Eintraegen getrennt.
 2026-02-27 05:14 | Copilot | DONELOG-Kopfbereich zeitlich sortiert (neueste Eintraege oben) und letztes offenes Agent-Board-Taskset abgeschlossen: `.vscode/tasks.json` um `Data: curate from latest (train pack)`, `Data: export+pack (latest results)`, `Train: baseline LoRA (tiny-gpt2, 1-step)` erweitert; `novapolis_agent/README.md` und `novapolis_agent/docs/runbook.md` auf dieselben Labels synchronisiert. Laufbelege: Curate-CLI `--help` PASS, Export auf historischem `quality_de`-Resultset ausgefuehrt (0 Eintraege wegen Source-Path-Drift), Pack-Lauf PASS (`train=90`, `val=10`), Baseline-LoRA-Pipeline PASS (`train_loss=10.4748`).

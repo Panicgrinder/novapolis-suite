@@ -51,3 +51,37 @@ async def test_step_world_advances_state():
     assert second_state["events"][-1]["dt"] == 0.75
     assert second_state["sim_meta"]["mode"] == "baseline"
     assert second_state["sim_meta"]["seed"] is None
+
+
+@pytest.mark.asyncio
+async def test_step_world_rejects_invalid_dt_and_keeps_state():
+    transport = ASGITransport(app=sim.app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        invalid_zero = await client.post("/world/step", json={"dt": 0.0})
+        invalid_negative = await client.post("/world/step", json={"dt": -0.1})
+        invalid_missing = await client.post("/world/step", json={})
+        state = await client.get("/world/state")
+
+    assert invalid_zero.status_code == 422
+    assert invalid_negative.status_code == 422
+    assert invalid_missing.status_code == 422
+
+    stable = state.json()
+    assert stable["tick"] == 0
+    assert stable["time"] == 0.0
+    assert stable["events"] == []
+
+
+@pytest.mark.asyncio
+async def test_step_world_event_cap_enforced(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr(sim, "_MAX_EVENTS", 4, raising=False)
+    transport = ASGITransport(app=sim.app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        for _ in range(7):
+            response = await client.post("/world/step", json={"dt": 0.1})
+            assert response.status_code == 200
+        final_state = (await client.get("/world/state")).json()
+
+    assert final_state["tick"] == 7
+    assert len(final_state["events"]) == 4
+    assert [event["tick"] for event in final_state["events"]] == [4, 5, 6, 7]

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-02 22:24
-update: Sim v3.1: Dropdown-Standard im Godot-Hub ausgeweitet (Agent- und Hub-Single-Selects konsistent als OptionButton).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "novapolis-dev/docs/todo.sim.md" "novapolis-dev/docs/todo.index.md" "novapolis-dev/docs/donelog.md" PASS (2026-03-02 22:09); .\.venv\Scripts\python.exe scripts\check_frontmatter.py "novapolis-dev/docs/todo.sim.md" "novapolis-dev/docs/todo.index.md" "novapolis-dev/docs/donelog.md" PASS (EXITCODE=0, 2026-03-02 22:09)
+stand: 2026-03-02 23:30
+update: Sim v3.3 aufgenommen: Runbook/README auf festen Verifikationsablauf (API-smoke, headless, Asset-check) synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-02 23:06); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-02 23:06)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -40,6 +40,9 @@ TODO-Index (Novapolis-Dev)
 - Statushinweis Sim v2.9: Advanced Settings Schritt 1 umgesetzt - `AI Status` oeffnet im Author-Bereich eine Form und persistiert Leitplanken/Systemverhalten in `user://agent_user_data/settings/advanced.json`.
 - Statushinweis Sim v3.0: Jobs Schritt 1 umgesetzt - `Eval Run` oeffnet im Author-Bereich eine Jobs-Form und persistiert Queue-Eintraege in `user://agent_user_data/jobs/queue.json`.
 - Statushinweis Sim v3.1: Dropdown-Standard umgesetzt - `Eval-Suite`, `Dataset-Quelle`, Form-`Modus`/`Ziel` und Hub-Config `Default/Refresh` sind jetzt konsistent als `OptionButton` ausgefuehrt.
+- Statushinweis Sim v3.2: Sim-API-Testabdeckung erweitert - Invalid-`dt`, Event-Cap und Reset-Invarianten sind jetzt als Unit- und API-Tests abgesichert (`pytest`, `pyright`, `mypy` gruen auf den geaenderten Dateien).
+- Statushinweis Sim v3.3: Sim-Runbook/README auf kanonischen Verifikationsablauf synchronisiert (`API-smoke -> Godot-headless -> Asset-check -> optional Eval`).
+- Statushinweis Sim v3.4: Offline-Asset-Check gehaertet - `check_sim_epoch_assets.py` validiert optional Slot-Konsistenz (`--check-slot-consistency`) mit klaren FAIL-Kriterien und Unit-Tests.
 
 Hinweise (Index)
 ----------------

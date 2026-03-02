@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-27 06:06
-update: Datensatz-/Training-Tasklabels mit Board/README synchronisiert.
-checks: npx --yes markdownlint-cli2 --config F:/VS-Code-Workspace/Main/.markdownlint-cli2.jsonc "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (2026-02-27 05:31); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe F:/VS-Code-Workspace/Main/scripts/check_frontmatter.py "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (EXITCODE=0, 2026-02-27 05:31)
+stand: 2026-03-02 23:30
+update: Kanonischen Sim-Pruefablauf ergaenzt (API-smoke -> Godot-headless -> Offline-Asset-Check -> optional Eval) und Abbruchkriterium dokumentiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-02 23:06); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-02 23:06)
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -67,6 +67,41 @@ Im CWD `novapolis_agent`:
 Set-Location ..
 .\.venv\Scripts\python.exe scripts/run_pytest_coverage.py --fail-under 80
 ```
+
+Kanonischer Sim-Pruefablauf (kurz, in Reihenfolge)
+--------------------------------------------------
+
+Ziel: ein reproduzierbarer Local-Loop fuer Sim-Integritaet.
+
+1. API-smoke (schneller Vertragscheck):
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe -m pytest -q novapolis_agent/tests/tests_sim_api.py::test_get_world_state_initial_values
+```
+
+2. Godot-headless Scene-Load:
+
+```powershell
+& 'f:\Downloads\Godot\Godot_v4.6.1-stable_win64.exe' --headless --path '.\novapolis-sim' --quit --scene res://Main.tscn
+```
+
+3. Offline-Asset-Check (Epoch/Audio + Slot-Konsistenz):
+
+```powershell
+.\.venv\Scripts\python.exe scripts/check_sim_epoch_assets.py --allow-empty --check-slot-consistency
+```
+
+4. Optional: Eval-Fokuslauf (nur bei Bedarf):
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --profile eval --limit 20 --quiet --tag quality_de --checks must_include,keywords_any,keywords_at_least,not_include,regex,quality_de --packages novapolis_agent/eval/datasets/neutral/quality_de_core.v1.jsonl --packages novapolis_agent/eval/datasets/neutral/quality_de_drift.v1.jsonl --packages novapolis_agent/eval/datasets/neutral/quality_de_canary.v1.jsonl
+```
+
+Abbruchkriterium:
+
+- Stufe 1 bis 3 muessen gruen sein, bevor weitergehende Sim-/Hub-Changes als verifiziert gelten.
+- Bei aktivem `--check-slot-consistency` ist der Lauf ein HARTES FAIL bei Slot-Mismatch zwischen `world_log`/`pc_log`, bei ungueltigen Slotwerten ausserhalb `0..23` oder wenn Eintraege ohne detektierbaren Slot vorliegen.
 
 VS Code Task-Labels (Datensatz & Training)
 ------------------------------------------

@@ -1,10 +1,18 @@
 ---
-stand: 2026-03-02 22:24
+stand: 2026-03-02 23:30
 update: Hybrid-Lizenzschutz eingefuehrt (Code MIT, RP-Content und Eval-Datasets restriktiv getrennt) inkl. Contributing- und Trademark-Leitplanken.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-02 22:18); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-02 22:18)
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-02 23:29: Task-Fix fuer Abschlusslauf umgesetzt: `.vscode/tasks.json` Task `Checks: full` von `type: shell` auf `type: process` umgestellt, um den fehlerhaften Launcher-Aufruf (`pwsh ... /d /c ...`, Exit 64) zu umgehen.
+- 2026-03-02 23:28: Abschlusslauf erneut ausgefuehrt (`scripts/run_checks_and_report.py`): Launcher-Problem behoben, Qualitaetsstatus aber weiterhin nicht gruen (`markdownlint=419`, `path-portability=60`, `ruff=42`, `black=12`, `pytest/coverage` FAIL). Sim-Offline-Check erneut ohne harte Fehler (`fail:0,warn:2`).
+
+- 2026-03-02 23:29: SSOT fuer Wochen-/Monatsabschluss angelegt unter `novapolis-dev/docs/process/abschluss-routine.ssot.md` und Root-README auf diesen Referenzpfad umgestellt. Monatsregel explizit verankert: Monatsabschluss am ersten Montag des Monats.
+- 2026-03-02 23:23: Operativer Abschlusslauf gestartet (1. Montag im Maerz): `scripts/run_checks_and_report.py` ausgefuehrt; Ergebnis aktuell nicht gruen (`markdownlint`, `path-portability`, `ruff`, `black`, `pytest/coverage` FAIL). Optionaler Sim-Offline-Check (`scripts/check_sim_epoch_assets.py --allow-empty --check-slot-consistency`) lief ohne harte Fehler (`fail:0,warn:2`).
+
+- 2026-03-02 23:13: Root-README Lizenzabschnitt praezisiert (ohne SPDX-Header): klare Trennung in `Kurzfassung (human-readable)` und `Technische Zuordnung (machine-readable)`. Die machine-readable Referenz zeigt jetzt explizit auf `LICENSES.md` inklusive Vorrangregel (spezifische Unterpfad-Lizenzen vor allgemeinen Regeln).
 
 - 2026-03-02 22:18: Lizenzschutz geschaerft. Root-README um einen klaren Hybrid-Lizenzabschnitt erweitert (`Code=MIT`, `Content/Data=separat restriktiv`). Neue Steuerdateien angelegt: `LICENSES.md` (Pfad-zu-Lizenz-Matrix), `CONTRIBUTING.md` (DCO-Sign-off + Rechtezusicherung) und `TRADEMARKS.md` (keine Markenfreigabe). `novapolis-rp/LICENSE` wurde auf eine restriktive Inhalts-/Datenlizenz (`NCDL v1.0`) umgestellt, und fuer `novapolis_agent/eval/datasets/` wurde ein separater restriktiver Lizenzhinweis (`LICENSE.txt`) hinterlegt.
 
