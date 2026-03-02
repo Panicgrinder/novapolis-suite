@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-26 05:17
-update: Root-README auf aktuellen Agent-Iststand revalidiert (Chronistin-Name, Modul-/Workflow-Hinweise weiterhin konsistent).
-checks: Snapshot-Lock gesetzt (2026-02-26 05:17); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis_agent/README.md' PASS (2026-02-26 05:16); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'README.md' 'novapolis_agent/README.md' PASS (EXITCODE=0, 2026-02-26 05:16)
+stand: 2026-03-02 22:24
+update: Hybrid-Lizenzmodell eingefuehrt: Code bleibt MIT, RP-Content/Eval-Daten sind separat restriktiv geregelt; Contributing- und Markenhinweise verlinkt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-02 22:18); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-02 22:18)
 ---
 Novapolis Suite
 ===============
@@ -39,6 +39,16 @@ Abhaengigkeiten
 ---------------
 
 Die Root-Dateien `requirements.txt` und `requirements-dev.txt` sammeln die Pins aller Teilprojekte. Fuer einzelne Bereiche koennen weiterhin die lokalen Requirements-Dateien genutzt werden.
+
+Lizenzmodell (Hybrid-Schutz)
+----------------------------
+
+- Code bleibt im Kern unter MIT (`LICENSE`).
+- RP-Content in `novapolis-rp/` ist ab sofort separat als Inhalts-/Datenmaterial lizenziert (`novapolis-rp/LICENSE`) und nicht mehr unter MIT freigegeben.
+- Eval-Datasets unter `novapolis_agent/eval/datasets/` sind separat restriktiv geregelt (`novapolis_agent/eval/datasets/LICENSE.txt`).
+- Uebergreifende Zuordnung (Pfad -> Lizenz) steht in `LICENSES.md`.
+- Marken-/Namensnutzung ist separat geregelt in `TRADEMARKS.md`.
+- Beitragspfad und Sign-off-Regeln stehen in `CONTRIBUTING.md`.
 
 Zentrale Arbeitsrichtlinien
 ---------------------------

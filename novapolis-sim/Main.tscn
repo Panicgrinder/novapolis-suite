@@ -1,82 +1,803 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnq0bhxfhix7d"]
+[gd_scene format=3 uid="uid://bnq0bhxfhix7d"]
 
 [ext_resource type="Script" uid="uid://xmqqvtqmknid" path="res://scripts/Main.gd" id="1"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" unique_id=1219424738]
 script = ExtResource("1")
 
-[node name="TickLabel" type="Label" parent="."]
+[node name="HubTitleLabel" type="Label" parent="." unique_id=213000001]
+modulate = Color(0.85, 0.95, 1, 1)
 offset_left = 20.0
-offset_top = 20.0
+offset_top = 4.0
 offset_right = 20.0
-offset_bottom = 20.0
+offset_bottom = 4.0
+text = "Hub v1 | Novapolis Framework"
+
+[node name="HubApiLabel" type="Label" parent="." unique_id=213000002]
+modulate = Color(0.9, 0.95, 0.9, 1)
+offset_left = 340.0
+offset_top = 4.0
+offset_right = 930.0
+offset_bottom = 4.0
+text = "API: --"
+clip_text = true
+
+[node name="HubPollingLabel" type="Label" parent="." unique_id=213000003]
+modulate = Color(0.95, 0.95, 0.8, 1)
+offset_left = 940.0
+offset_top = 4.0
+offset_right = 1290.0
+offset_bottom = 4.0
+text = "Polling: --"
+clip_text = true
+
+[node name="HubQueueLabel" type="Label" parent="." unique_id=213000004]
+modulate = Color(0.9, 0.9, 1, 1)
+offset_left = 1300.0
+offset_top = 4.0
+offset_right = 1430.0
+offset_bottom = 4.0
+text = "Queue: --"
+clip_text = true
+
+[node name="HubErrorsLabel" type="Label" parent="." unique_id=213000005]
+modulate = Color(1, 0.75, 0.75, 1)
+offset_left = 1440.0
+offset_top = 4.0
+offset_right = 1900.0
+offset_bottom = 4.0
+text = "Errors: --"
+clip_text = true
+
+[node name="SimCardPanel" type="Panel" parent="." unique_id=213000101]
+offset_left = 20.0
+offset_top = 760.0
+offset_right = 600.0
+offset_bottom = 934.0
+
+[node name="SimCardTitleLabel" type="Label" parent="SimCardPanel" unique_id=213000102]
+modulate = Color(0.85, 0.95, 1, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 10.0
+offset_bottom = 8.0
+text = "Sim"
+
+[node name="SimCardStateLabel" type="Label" parent="SimCardPanel" unique_id=213000103]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 32.0
+offset_right = 10.0
+offset_bottom = 32.0
+text = "State: --"
+
+[node name="SimCardTickLabel" type="Label" parent="SimCardPanel" unique_id=213000104]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 52.0
+offset_right = 10.0
+offset_bottom = 52.0
+text = "Tick/Time: --"
+
+[node name="SimCardQueueLabel" type="Label" parent="SimCardPanel" unique_id=213000105]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 72.0
+offset_right = 10.0
+offset_bottom = 72.0
+text = "Queue: --"
+
+[node name="SimCardDataLabel" type="Label" parent="SimCardPanel" unique_id=213000106]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 92.0
+offset_right = 10.0
+offset_bottom = 92.0
+text = "Data: --"
+
+[node name="ApiCardPanel" type="Panel" parent="." unique_id=213000111]
+offset_left = 670.0
+offset_top = 760.0
+offset_right = 1250.0
+offset_bottom = 934.0
+
+[node name="ApiCardTitleLabel" type="Label" parent="ApiCardPanel" unique_id=213000112]
+modulate = Color(0.9, 0.95, 0.9, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 10.0
+offset_bottom = 8.0
+text = "Agent/API"
+
+[node name="ApiCardHealthLabel" type="Label" parent="ApiCardPanel" unique_id=213000113]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 32.0
+offset_right = 10.0
+offset_bottom = 32.0
+text = "Health: --"
+
+[node name="ApiCardRuntimeLabel" type="Label" parent="ApiCardPanel" unique_id=213000114]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 52.0
+offset_right = 10.0
+offset_bottom = 52.0
+text = "Runtime: --"
+
+[node name="ApiCardBackoffLabel" type="Label" parent="ApiCardPanel" unique_id=213000115]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 72.0
+offset_right = 10.0
+offset_bottom = 72.0
+text = "Backoff: --"
+
+[node name="ApiCardEndpointLabel" type="Label" parent="ApiCardPanel" unique_id=213000116]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 92.0
+offset_right = 10.0
+offset_bottom = 92.0
+text = "Endpoint: --"
+
+[node name="EvalCardPanel" type="Panel" parent="." unique_id=213000121]
+offset_left = 1320.0
+offset_top = 760.0
+offset_right = 1900.0
+offset_bottom = 934.0
+
+[node name="EvalCardTitleLabel" type="Label" parent="EvalCardPanel" unique_id=213000122]
+modulate = Color(0.95, 0.9, 1, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 10.0
+offset_bottom = 8.0
+text = "Eval/Training"
+
+[node name="EvalCardProfileLabel" type="Label" parent="EvalCardPanel" unique_id=213000123]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 32.0
+offset_right = 10.0
+offset_bottom = 32.0
+text = "Profile: --"
+
+[node name="EvalCardArtifactsLabel" type="Label" parent="EvalCardPanel" unique_id=213000124]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 52.0
+offset_right = 10.0
+offset_bottom = 52.0
+text = "Artifacts: --"
+
+[node name="EvalCardEventsLabel" type="Label" parent="EvalCardPanel" unique_id=213000125]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 72.0
+offset_right = 10.0
+offset_bottom = 72.0
+text = "Events: --"
+
+[node name="EvalCardNotesLabel" type="Label" parent="EvalCardPanel" unique_id=213000126]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 92.0
+offset_right = 10.0
+offset_bottom = 92.0
+text = "Notes: --"
+
+[node name="AgentStudioPanel" type="Panel" parent="." unique_id=213000131]
+offset_left = 1320.0
+offset_top = 620.0
+offset_right = 1900.0
+offset_bottom = 1028.0
+
+[node name="AgentStudioTitleLabel" type="Label" parent="AgentStudioPanel" unique_id=213000132]
+modulate = Color(1, 0.93, 0.82, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 10.0
+offset_bottom = 8.0
+text = "Agent-Modul"
+
+[node name="AgentBackButton" type="Button" parent="AgentStudioPanel" unique_id=213000145]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 6.0
+offset_right = 564.0
+offset_bottom = 34.0
+text = "Zurück zum Hub"
+
+[node name="AgentStudioModeLabel" type="Label" parent="AgentStudioPanel" unique_id=213000133]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 30.0
+offset_right = 10.0
+offset_bottom = 30.0
+text = "Mode: Operate"
+
+[node name="AgentOperateButton" type="Button" parent="AgentStudioPanel" unique_id=213000134]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 54.0
+offset_right = 184.0
+offset_bottom = 88.0
+text = "Operate"
+
+[node name="AgentAuthorButton" type="Button" parent="AgentStudioPanel" unique_id=213000135]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 54.0
+offset_right = 370.0
+offset_bottom = 88.0
+text = "Author"
+
+[node name="AgentEvalRunButton" type="Button" parent="AgentStudioPanel" unique_id=213000136]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 104.0
+offset_right = 280.0
+offset_bottom = 138.0
+text = "Eval Run (quick)"
+
+[node name="AgentEvalSuiteButton" type="OptionButton" parent="AgentStudioPanel" unique_id=213000147]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 38.0
+offset_right = 564.0
+offset_bottom = 68.0
+
+[node name="AgentDatasetSourceButton" type="OptionButton" parent="AgentStudioPanel" unique_id=213000148]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 38.0
+offset_right = 420.0
+offset_bottom = 68.0
+
+[node name="AgentDatasetsButton" type="Button" parent="AgentStudioPanel" unique_id=213000137]
+layout_mode = 0
+offset_left = 294.0
+offset_top = 104.0
+offset_right = 564.0
+offset_bottom = 138.0
+text = "Datasets"
+
+[node name="AgentSynonymsButton" type="Button" parent="AgentStudioPanel" unique_id=213000138]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 148.0
+offset_right = 280.0
+offset_bottom = 182.0
+text = "Synonyms"
+
+[node name="AgentFinetuneButton" type="Button" parent="AgentStudioPanel" unique_id=213000139]
+layout_mode = 0
+offset_left = 294.0
+offset_top = 148.0
+offset_right = 564.0
+offset_bottom = 182.0
+text = "Finetune"
+
+[node name="AgentProfilesButton" type="Button" parent="AgentStudioPanel" unique_id=213000140]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 192.0
+offset_right = 280.0
+offset_bottom = 226.0
+text = "Profiles"
+
+[node name="AgentAiStatusButton" type="Button" parent="AgentStudioPanel" unique_id=213000141]
+layout_mode = 0
+offset_left = 294.0
+offset_top = 192.0
+offset_right = 564.0
+offset_bottom = 226.0
+text = "AI Status"
+
+[node name="AgentEvalStatusLabel" type="Label" parent="AgentStudioPanel" unique_id=213000143]
+modulate = Color(0.9, 1, 0.9, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 242.0
+offset_right = 10.0
+offset_bottom = 242.0
+text = "Eval: idle"
+
+[node name="AgentSystemMetricsLabel" type="Label" parent="AgentStudioPanel" unique_id=213000144]
+modulate = Color(0.88, 0.96, 1, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 266.0
+offset_right = 10.0
+offset_bottom = 266.0
+text = "System: CPU -- | RAM -- | GPU -- | Temp --"
+
+[node name="AgentLatestRunsLabel" type="Label" parent="AgentStudioPanel" unique_id=213000146]
+modulate = Color(0.95, 0.95, 0.9, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 292.0
+offset_right = 10.0
+offset_bottom = 292.0
+text = "Letzte Eval-Runs: --"
+
+[node name="AgentStudioHintLabel" type="Label" parent="AgentStudioPanel" unique_id=213000142]
+modulate = Color(0.86, 0.9, 1, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 362.0
+offset_right = 10.0
+offset_bottom = 362.0
+text = "Hinweis: Jobs, Artifacts, Experiments, Policy, Release, Audit folgen als nächste Menüebene."
+
+[node name="AgentFormPanel" type="Panel" parent="AgentStudioPanel" unique_id=213000149]
+visible = false
+layout_mode = 0
+offset_left = 10.0
+offset_top = 392.0
+offset_right = 564.0
+offset_bottom = 402.0
+
+[node name="AgentFormTitleLabel" type="Label" parent="AgentStudioPanel/AgentFormPanel" unique_id=213000150]
+modulate = Color(0.9, 0.95, 1, 1)
+layout_mode = 0
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 12.0
+offset_bottom = 10.0
+text = "Form: --"
+
+[node name="AgentFormModeButton" type="OptionButton" parent="AgentStudioPanel/AgentFormPanel" unique_id=213000151]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 38.0
+offset_right = 220.0
+offset_bottom = 72.0
+
+[node name="AgentFormTargetButton" type="OptionButton" parent="AgentStudioPanel/AgentFormPanel" unique_id=213000152]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 38.0
+offset_right = 440.0
+offset_bottom = 72.0
+
+[node name="AgentFormNameEdit" type="LineEdit" parent="AgentStudioPanel/AgentFormPanel" unique_id=213000153]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 84.0
+offset_right = 440.0
+offset_bottom = 114.0
+placeholder_text = "Name / Slug"
+
+[node name="AgentFormApplyButton" type="Button" parent="AgentStudioPanel/AgentFormPanel" unique_id=213000154]
+layout_mode = 0
+offset_left = 452.0
+offset_top = 84.0
+offset_right = 542.0
+offset_bottom = 114.0
+text = "Apply"
+
+[node name="AgentFormPayloadEdit" type="TextEdit" parent="AgentStudioPanel/AgentFormPanel" unique_id=213000155]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 126.0
+offset_right = 542.0
+offset_bottom = 294.0
+placeholder_text = "Vorlage wird hier automatisch erzeugt..."
+
+[node name="AgentFormStatusLabel" type="Label" parent="AgentStudioPanel/AgentFormPanel" unique_id=213000156]
+modulate = Color(0.9, 1, 0.9, 1)
+layout_mode = 0
+offset_left = 12.0
+offset_top = 306.0
+offset_right = 12.0
+offset_bottom = 306.0
+text = "Form: bereit"
+
+[node name="ChecksStudioPanel" type="Panel" parent="." unique_id=213000201]
+visible = false
+offset_left = 20.0
+offset_top = 44.0
+offset_right = 1900.0
+offset_bottom = 1028.0
+
+[node name="ChecksStudioTitleLabel" type="Label" parent="ChecksStudioPanel" unique_id=213000202]
+modulate = Color(0.95, 0.93, 1, 1)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 20.0
+offset_bottom = 10.0
+text = "Checks-Modul"
+
+[node name="ChecksBackButton" type="Button" parent="ChecksStudioPanel" unique_id=213000203]
+layout_mode = 0
+offset_left = 1700.0
+offset_top = 8.0
+offset_right = 1850.0
+offset_bottom = 38.0
+text = "Zurück zum Hub"
+
+[node name="ChecksTargetLabel" type="Label" parent="ChecksStudioPanel" unique_id=213000204]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 20.0
+offset_bottom = 50.0
+text = "1) Modul wählen"
+
+[node name="ChecksTypeLabel" type="Label" parent="ChecksStudioPanel" unique_id=213000205]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 50.0
+offset_right = 390.0
+offset_bottom = 50.0
+text = "2) Check-Typ wählen"
+
+[node name="ChecksTargetSimButton" type="Button" parent="ChecksStudioPanel" unique_id=213000206]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 82.0
+offset_right = 350.0
+offset_bottom = 118.0
+text = "[x] Sim"
+
+[node name="ChecksTargetAgentButton" type="Button" parent="ChecksStudioPanel" unique_id=213000207]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 128.0
+offset_right = 350.0
+offset_bottom = 164.0
+text = "[ ] Agent/API"
+
+[node name="ChecksTargetEvalButton" type="Button" parent="ChecksStudioPanel" unique_id=213000208]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 174.0
+offset_right = 350.0
+offset_bottom = 210.0
+text = "[ ] Eval/Training"
+
+[node name="ChecksTargetWorkspaceButton" type="Button" parent="ChecksStudioPanel" unique_id=213000209]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 220.0
+offset_right = 350.0
+offset_bottom = 256.0
+text = "[ ] Workspace"
+
+[node name="ChecksTypeSmokeButton" type="Button" parent="ChecksStudioPanel" unique_id=213000210]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 82.0
+offset_right = 720.0
+offset_bottom = 118.0
+text = "[x] Smoke"
+
+[node name="ChecksTypeUnitButton" type="Button" parent="ChecksStudioPanel" unique_id=213000211]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 128.0
+offset_right = 720.0
+offset_bottom = 164.0
+text = "[ ] Unit"
+
+[node name="ChecksTypeApiButton" type="Button" parent="ChecksStudioPanel" unique_id=213000212]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 174.0
+offset_right = 720.0
+offset_bottom = 210.0
+text = "[ ] API/Integration"
+
+[node name="ChecksTypeLintButton" type="Button" parent="ChecksStudioPanel" unique_id=213000213]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 220.0
+offset_right = 720.0
+offset_bottom = 256.0
+text = "[ ] Lint/Type"
+
+[node name="ChecksTypeFullButton" type="Button" parent="ChecksStudioPanel" unique_id=213000214]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 266.0
+offset_right = 720.0
+offset_bottom = 302.0
+text = "[ ] Full"
+
+[node name="ChecksRunSelectedButton" type="Button" parent="ChecksStudioPanel" unique_id=213000215]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 320.0
+offset_right = 350.0
+offset_bottom = 360.0
+text = "Run Selected"
+
+[node name="ChecksRunModulePackButton" type="Button" parent="ChecksStudioPanel" unique_id=213000216]
+layout_mode = 0
+offset_left = 390.0
+offset_top = 320.0
+offset_right = 720.0
+offset_bottom = 360.0
+text = "Run Module Pack"
+
+[node name="ChecksStatusLabel" type="Label" parent="ChecksStudioPanel" unique_id=213000217]
+modulate = Color(0.9, 1, 0.9, 1)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 376.0
+offset_right = 20.0
+offset_bottom = 376.0
+text = "Checks: target=sim | type=smoke"
+
+[node name="ChecksOutputLabel" type="RichTextLabel" parent="ChecksStudioPanel" unique_id=213000218]
+layout_mode = 0
+offset_left = 760.0
+offset_top = 50.0
+offset_right = 1850.0
+offset_bottom = 950.0
+text = "Read-only Output:
+Wähle links ein Modul und daneben den Check-Typ."
+
+[node name="RpStudioPanel" type="Panel" parent="." unique_id=213000401]
+visible = false
+offset_left = 20.0
+offset_top = 44.0
+offset_right = 1900.0
+offset_bottom = 1028.0
+
+[node name="RpStudioTitleLabel" type="Label" parent="RpStudioPanel" unique_id=213000402]
+modulate = Color(0.92, 0.9, 1, 1)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = 20.0
+offset_bottom = 10.0
+text = "RP-Modul"
+
+[node name="RpBackButton" type="Button" parent="RpStudioPanel" unique_id=213000403]
+layout_mode = 0
+offset_left = 1700.0
+offset_top = 8.0
+offset_right = 1850.0
+offset_bottom = 38.0
+text = "Zurueck zum Hub"
+
+[node name="RpHourPlusButton" type="Button" parent="RpStudioPanel" unique_id=213000404]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 62.0
+offset_right = 290.0
+offset_bottom = 102.0
+text = "Hour +1"
+
+[node name="RpAutoAdvanceButton" type="Button" parent="RpStudioPanel" unique_id=213000405]
+layout_mode = 0
+offset_left = 308.0
+offset_top = 62.0
+offset_right = 578.0
+offset_bottom = 102.0
+text = "[ ] Auto-Advance"
+
+[node name="RpReplaySeedLabel" type="Label" parent="RpStudioPanel" unique_id=213000406]
+modulate = Color(0.9, 1, 0.9, 1)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 124.0
+offset_right = 20.0
+offset_bottom = 124.0
+text = "Replay-Seed: n/a"
+
+[node name="RpStatusLabel" type="Label" parent="RpStudioPanel" unique_id=213000407]
+modulate = Color(0.9, 0.95, 1, 1)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 150.0
+offset_right = 20.0
+offset_bottom = 150.0
+text = "RP: idle"
+
+[node name="RpHintLabel" type="Label" parent="RpStudioPanel" unique_id=213000408]
+modulate = Color(0.86, 0.9, 1, 1)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 184.0
+offset_right = 20.0
+offset_bottom = 184.0
+text = "Hinweis: Stundensprung und Auto-Advance gelten nur im RP-Modul und nicht im allgemeinen Hub."
+
+[node name="TickLabel" type="Label" parent="." unique_id=215597988]
+offset_left = 20.0
+offset_top = 24.0
+offset_right = 20.0
+offset_bottom = 24.0
 text = "Tick: 0"
 
-[node name="TimeLabel" type="Label" parent="."]
+[node name="TimeLabel" type="Label" parent="." unique_id=958567939]
 offset_left = 20.0
-offset_top = 48.0
+offset_top = 56.0
 offset_right = 20.0
-offset_bottom = 48.0
+offset_bottom = 56.0
 text = "Zeit: 0.00 s"
 
-[node name="StatusLabel" type="Label" parent="."]
+[node name="StatusLabel" type="Label" parent="." unique_id=2044984208]
 visible = false
 modulate = Color(1, 0.4, 0.4, 1)
 offset_left = 20.0
-offset_top = 80.0
+offset_top = 92.0
 offset_right = 20.0
-offset_bottom = 80.0
+offset_bottom = 92.0
 text = "Status: ---"
 
-[node name="EpochLabel" type="Label" parent="."]
+[node name="EpochLabel" type="Label" parent="." unique_id=976511883]
 offset_left = 20.0
-offset_top = 114.0
+offset_top = 128.0
 offset_right = 20.0
-offset_bottom = 114.0
+offset_bottom = 128.0
 text = "Epoch: --"
 
-[node name="SlotLabel" type="Label" parent="."]
+[node name="SlotLabel" type="Label" parent="." unique_id=2021422226]
 offset_left = 20.0
-offset_top = 142.0
+offset_top = 160.0
 offset_right = 20.0
-offset_bottom = 142.0
+offset_bottom = 160.0
 text = "Slot: --"
 
-[node name="EpochStatusLabel" type="Label" parent="."]
+[node name="EpochStatusLabel" type="Label" parent="." unique_id=1340043265]
 modulate = Color(0.8, 0.9, 1, 1)
 offset_left = 20.0
-offset_top = 170.0
+offset_top = 192.0
 offset_right = 20.0
-offset_bottom = 170.0
+offset_bottom = 192.0
 text = "Epochen: --"
 
-[node name="PlayPcAudioButton" type="Button" parent="."]
+[node name="PlayPcAudioButton" type="Button" parent="." unique_id=687920983]
 offset_left = 20.0
-offset_top = 202.0
-offset_right = 196.0
-offset_bottom = 236.0
-text = "Play PC OGG"
+offset_top = 228.0
+offset_right = 212.0
+offset_bottom = 266.0
+text = "Agent-Modul"
 
-[node name="PlayWorldAudioButton" type="Button" parent="."]
-offset_left = 212.0
-offset_top = 202.0
-offset_right = 388.0
-offset_bottom = 236.0
-text = "Play World OGG"
+[node name="PlayWorldAudioButton" type="Button" parent="." unique_id=1367597119]
+offset_left = 228.0
+offset_top = 228.0
+offset_right = 420.0
+offset_bottom = 266.0
+text = "RP Modul"
 
-[node name="AudioStatusLabel" type="Label" parent="."]
+[node name="ServerToggleButton" type="Button" parent="." unique_id=1367597120]
+offset_left = 436.0
+offset_top = 228.0
+offset_right = 628.0
+offset_bottom = 266.0
+text = "Start Server"
+
+[node name="HubReloadButton" type="Button" parent="." unique_id=1367597121]
+offset_left = 644.0
+offset_top = 228.0
+offset_right = 836.0
+offset_bottom = 266.0
+text = "Reload Hub"
+
+[node name="HubChecksButton" type="Button" parent="." unique_id=1367597122]
+offset_left = 852.0
+offset_top = 228.0
+offset_right = 1044.0
+offset_bottom = 266.0
+text = "Run Checks"
+
+[node name="HubConfigPanel" type="Panel" parent="." unique_id=213000301]
+offset_left = 1620.0
+offset_top = 44.0
+offset_right = 1900.0
+offset_bottom = 264.0
+
+[node name="HubConfigTitleLabel" type="Label" parent="HubConfigPanel" unique_id=213000302]
+modulate = Color(0.9, 0.96, 1, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 140.0
+offset_bottom = 8.0
+text = "Hub Config"
+
+[node name="HubConfigCloseButton" type="Button" parent="HubConfigPanel" unique_id=213000310]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 126.0
+offset_right = 112.0
+offset_bottom = 152.0
+text = "Minimieren"
+
+[node name="HubConfigQuitButton" type="Button" parent="HubConfigPanel" unique_id=213000311]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 126.0
+offset_right = 230.0
+offset_bottom = 152.0
+text = "Beenden"
+
+[node name="HubConfigSimCardButton" type="Button" parent="HubConfigPanel" unique_id=213000303]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 36.0
+offset_right = 112.0
+offset_bottom = 62.0
+text = "[x] Sim"
+
+[node name="HubConfigApiCardButton" type="Button" parent="HubConfigPanel" unique_id=213000304]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 66.0
+offset_right = 112.0
+offset_bottom = 92.0
+text = "[x] API"
+
+[node name="HubConfigEvalCardButton" type="Button" parent="HubConfigPanel" unique_id=213000305]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 96.0
+offset_right = 112.0
+offset_bottom = 122.0
+text = "[x] Eval"
+
+[node name="HubConfigDefaultPanelButton" type="OptionButton" parent="HubConfigPanel" unique_id=213000306]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 36.0
+offset_right = 230.0
+offset_bottom = 62.0
+
+[node name="HubConfigRefreshButton" type="OptionButton" parent="HubConfigPanel" unique_id=213000307]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 66.0
+offset_right = 230.0
+offset_bottom = 92.0
+
+[node name="HubConfigSaveButton" type="Button" parent="HubConfigPanel" unique_id=213000308]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 96.0
+offset_right = 230.0
+offset_bottom = 122.0
+text = "Save Config"
+
+[node name="HubConfigStatusLabel" type="Label" parent="HubConfigPanel" unique_id=213000309]
+modulate = Color(0.85, 1, 0.9, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 160.0
+offset_right = 230.0
+offset_bottom = 160.0
+text = "Refresh=normal | default=hub"
+clip_text = true
+
+[node name="AudioStatusLabel" type="Label" parent="." unique_id=1698300604]
 modulate = Color(0.9, 0.95, 0.8, 1)
 offset_left = 20.0
-offset_top = 248.0
+offset_top = 284.0
 offset_right = 20.0
-offset_bottom = 248.0
+offset_bottom = 284.0
 text = "Audio: --"
 
-[node name="PcLogLabel" type="RichTextLabel" parent="."]
+[node name="ServerStatusLabel" type="Label" parent="." unique_id=1698300605]
+modulate = Color(0.85, 0.9, 1, 1)
+offset_left = 436.0
+offset_top = 284.0
+offset_right = 436.0
+offset_bottom = 284.0
+text = "Server: stopped"
+
+[node name="PcLogLabel" type="RichTextLabel" parent="." unique_id=1623751295]
 offset_left = 20.0
-offset_top = 282.0
-offset_right = 920.0
-offset_bottom = 680.0
-bbcode_enabled = false
-scroll_active = true
+offset_top = 318.0
+offset_right = 1296.0
+offset_bottom = 1028.0
 text = "PC-zentrierte Ansicht wird geladen..."

@@ -27,6 +27,8 @@ async def test_get_world_state_initial_values():
     assert data["regions"] == {}
     assert data["actors"] == {}
     assert data["events"] == []
+    assert data["sim_meta"]["mode"] == "baseline"
+    assert data["sim_meta"]["seed"] is None
 
 
 @pytest.mark.asyncio
@@ -47,3 +49,5 @@ async def test_step_world_advances_state():
     assert pytest.approx(second_state["time"], rel=1e-6) == 1.0
     assert second_state["events"][-1]["tick"] == 2
     assert second_state["events"][-1]["dt"] == 0.75
+    assert second_state["sim_meta"]["mode"] == "baseline"
+    assert second_state["sim_meta"]["seed"] is None

@@ -13,6 +13,8 @@ def test_sim_world_state_reset_and_step(monkeypatch: pytest.MonkeyPatch) -> None
     assert initial.tick == 0
     assert initial.time == 0.0
     assert initial.events == []
+    assert initial.sim_meta["mode"] == "baseline"
+    assert initial.sim_meta["seed"] is None
 
     sim.step_world(sim.StepRequest(dt=0.5))
     sim.step_world(sim.StepRequest(dt=0.25))
@@ -38,3 +40,5 @@ def test_sim_reset_clears_state() -> None:
     assert cleared.events == []
     assert cleared.regions == {}
     assert cleared.actors == {}
+    assert cleared.sim_meta["mode"] == "baseline"
+    assert cleared.sim_meta["seed"] is None

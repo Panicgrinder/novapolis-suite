@@ -1,0 +1,31 @@
+Novapolis Content and Data License (NCDL) v1.0
+
+Copyright (c) 2025 Panicgrinder
+
+This license applies to dataset artifacts in this directory and all
+subdirectories, unless a file explicitly states another license.
+
+1) All rights reserved
+No permission is granted to redistribute, sublicense, publish, sell, or
+commercially exploit these datasets without prior written permission.
+
+2) No derivative/public reuse without permission
+No derivative dataset publication, repackaging, or external redistribution is
+allowed without prior written permission.
+
+3) AI/training restriction
+No model training, fine-tuning, embedding, synthetic data generation, or
+similar ML reuse of these datasets is allowed without prior written
+permission.
+
+4) Internal workflow exception
+Private/internal use inside authorized project workflows is allowed. Public
+release remains prohibited without prior written permission.
+
+5) No trademark grant
+No right to use project or product names, logos, or marks is granted.
+
+6) Warranty disclaimer
+THE DATASETS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+
+Contact for permissions: repository owner / rights holder.

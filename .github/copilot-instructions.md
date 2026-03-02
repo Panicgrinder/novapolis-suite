@@ -1,5 +1,5 @@
-Stand: 2026-02-23 12:39 – Snapshot-/Markdown-/Frontmatter-Gates als verbindlicher Ablauf fuer mutationale Runs praezisiert.
-Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions-headings.md' 'DONELOG.md' 'novapolis_agent/README.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-02-23 12:39)
+Stand: 2026-02-27 10:57 – Quellenklarheit verschaerft: aktive vs. sekundaere Instruction-Quellen explizit geregelt; Agent-/Guidance-/Archiv-Hinweise synchronisiert.
+Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' '.github/agents/novapolis-workspace-navigator.agent.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (2026-02-27 10:57); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/agents/novapolis-workspace-navigator.agent.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-27 10:57)
 
 
 LLM-Dokumentenheader (nicht löschen)
@@ -11,6 +11,17 @@ LLM-Dokumentenheader (nicht löschen)
 - Purpose: Verbindlicher Kern für globale Regeln; Details leben in scoped Instruction-Files.
 - Priority: Diese Datei bleibt SSOT für globale Governance.
 - Audit: Jede mutationale Aktion endet mit genau einem Postflight-Block.
+
+TL;DR / Runtime Essentials
+==========================
+- Vor mutationalen Runs: Snapshot-Lock frisch setzen (`scripts/snapshot_write_lock.py`) und `stand` synchron halten.
+- Hard-STOP hat Vorrang: Bei Hard-Triggern keine Mutation ohne explizite Freigabe im aktuellen Chat.
+- Mehrschritt-/Artefaktbefehle über Python-Wrapper (`.venv` bevorzugt), `pwsh -Command` nur für echte Einzeiler.
+- Markdown-Gates sind verbindlich: markdownlint via `npx --yes markdownlint-cli2 ...` und Frontmatter-Validator (`scripts/check_frontmatter.py`).
+- Jede Dateimutation erzwingt DONELOG-Eintrag im selben Lauf (Modul-DONELOG, sonst Root-`DONELOG.md`).
+- Nach Mutation oder Skriptlauf genau ein Postflight-Receipt mit 5 Zeilen als letzter Block der Antwort.
+- Keine hostgebundenen absoluten Pfade in aktiven SSOT-/Policy-/README-Dokumenten.
+- Strukturänderungen an Instruction-Files erzwingen Update von `.github/copilot-instructions-headings.md`.
 
 Dateipfad & Geltungsbereich
 ---------------------------
@@ -30,77 +41,115 @@ Dateipfad & Geltungsbereich
 - 4. Bei Konflikt soll das Modell spezifischere Regeln bevorzugen; widersprüchliche Regeln sind zu vermeiden.
 - 5. Bei unklarer Lage: STOP-Gate auslösen, keine Mutation vor Klärung.
 
+### Aktive vs. sekundäre Quellen
+- Aktiv bindend sind nur `.github/copilot-instructions.md` und `.github/instructions/*.instructions.md`.
+- Ergänzend, aber nicht bindend für Runtime-Governance, sind Leitfäden wie `novapolis-dev/docs/copilot-vscode-usage.md`.
+- Archivpfade unter `novapolis-dev/archive/**` sind historische Evidenz und nie als aktive Regelbasis zu behandeln.
+- Bei Suchtreffern mit Mischlage (aktiv + archiviert) muss aktiv bindende Quelle explizit priorisiert und genannt werden.
+
 Globale Kernregeln
 ------------------
-### Kommunikationsmodus
-- Standard-Antwortsprache: Deutsch.
-- Prägnant, skimmbar, minimalinvasiv.
+### Regel-ID-Index (Kern)
 
-### STOP-Gate (aktiv, scharf)
+| ID | Kurzname | Abschnittsueberschrift |
+| --- | --- | --- |
+| `R-STOP` | STOP-Gate | `#### R-STOP STOP-Gate (aktiv, scharf)` |
+| `R-WRAP` | Wrapper-Policy | `#### R-WRAP Wrapper-Policy und Guards` |
+| `R-CTX` | Kontextquellen | `#### R-CTX Kontextquellen (Mindestset)` |
+| `R-LOG` | Receipt-Pflicht | `#### R-LOG Logging- und Receipt-Pflicht` |
+| `R-DONELOG` | Modul-DONELOG | `#### R-DONELOG Modul-DONELOG-Pflicht` |
+| `R-SEC` | Sicherheitsprinzip | `#### R-SEC Sicherheitsprinzip` |
+| `R-PATH` | Pfadportabilitaet | `#### R-PATH Pfadportabilitaet in aktiven Dokus` |
+| `R-LINT` | Markdownlint-Gate | `#### R-LINT Markdownlint-Gate` |
+| `R-FM` | Frontmatter-Gate | `#### R-FM Frontmatter-Gate` |
+| `R-SNAP` | Snapshot-Gate | `#### R-SNAP Snapshot-Gates (Write-Lock und Freshness)` |
+| `R-NAME` | Namenskonvention | `#### R-NAME Namensgebungskonvention` |
+| `R-WS` | Whitespace-Norm | `#### R-WS Kanonisierung und Whitespace-Norm` |
+| `R-FMT` | Markdown-Formatnorm | `#### R-FMT Markdown-Formatnorm (syntaktisch)` |
+| `R-QUAR` | Quarantaene-Ort | `#### R-QUAR Quarantaene- und Backup-Ort` |
+| `R-IDX` | Headings-Index-Gate | `#### R-IDX Mini-Gate fuer Headings-Index` |
+| `R-TIME` | Zeitkonvention | `#### R-TIME Zeitkonvention` |
+
+### Regel-ID-Landepunkte (Kern)
+#### R-STOP STOP-Gate (aktiv, scharf)
 - Hard-Trigger: Code-/Doc-Mutationen, skriptgestützte Änderungen, Policy-Änderungen.
 - Soft-Trigger: Mehrdeutigkeit, Konflikt, fehlender Kontext.
 - Ohne Freigabe bei Hard-Trigger keine Ausführung.
 
-### Wrapper-Policy & Guards
+#### R-WRAP Wrapper-Policy und Guards
 - Mehrschritt-/Artefaktbefehle über Python-Wrapper (`.venv` bevorzugt, Fallback `python`).
 - Inline `pwsh -Command` nur echte Einzeiler.
 - Ausnahme: Markdownlint ausschließlich via `npx --yes markdownlint-cli2 ...`.
 - Vor Ausführung Guards prüfen: Pfad, Kontextquellen, STOP-Status.
 
-### Kontextquellen (Mindestset)
+#### R-CTX Kontextquellen (Mindestset)
 - `.github/copilot-instructions.md`
 - betroffene Arbeitsdateien
 - bei Doku-/Planungsthemen zusätzlich `todo.root.md`, `DONELOG.md`, `WORKSPACE_STATUS.md`
 
-### Logging/Receipt-Pflicht
+#### R-LOG Logging- und Receipt-Pflicht
 - Nach jeder Dateimutation oder Skript-/Testausführung genau ein Postflight-Receipt am Ende der Antwort.
 - Kein Zwischen-Receipt für Teilaktionen.
 
-### Modul-DONELOG-Pflicht
+#### R-DONELOG Modul-DONELOG-Pflicht
 - Bei jeder Dateimutation (Code, Doku, Config, Workflow, Skript) ist im selben Änderungslauf ein Eintrag im passenden Modul-DONELOG verpflichtend.
 - Zuordnung: bevorzugt Modul-DONELOG (z. B. `novapolis-dev/docs/donelog.md` für Dev/RP-Doku, `novapolis_agent/docs/DONELOG.txt` für Agent-Modul); falls kein Modul-DONELOG existiert, in `DONELOG.md` auf Root-Ebene dokumentieren.
-- Kein Interpretationsspielraum über „Relevanz“: Mutation erkannt ⇒ DONELOG-Eintrag verpflichtend.
+- Kein Interpretationsspielraum über „Relevanz“: Mutation erkannt => DONELOG-Eintrag verpflichtend.
 
-### Sicherheitsprinzip
+#### R-SEC Sicherheitsprinzip
 - Minimalinvasive Diffs.
 - Keine destruktiven Änderungen ohne vorgeschaltete WhatIf-/Prüfphase.
 - Keine Secrets/PII in Logs/Receipts.
 - In langlebigen SSOT-/Policy-/README-Dokumenten keine hostgebundenen absoluten Pfade (`F:/`, `C:/`); stattdessen repo-relative Pfade oder `${workspaceFolder}` nutzen.
 - Ausnahme: reine Audit-/Forensik-/Artefaktprotokolle (z. B. Postflight-Logs, generierte Reports, Archiv-Metadaten) dürfen absolute Pfade enthalten, wenn dies für Nachvollziehbarkeit notwendig ist.
 
-### Lint- und Frontmatter-Gates
+#### R-PATH Pfadportabilitaet in aktiven Dokus
+- In aktiven SSOT-/Policy-/README-Dokumenten sind hostgebundene absolute Pfade untersagt.
+- Erlaubt sind repo-relative Pfade oder `${workspaceFolder}`.
+- Ausnahme nur fuer reine Audit-/Forensik-/Artefaktprotokolle.
+
+#### R-LINT Markdownlint-Gate
 - Markdownlint verpflichtend: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'`.
+
+#### R-FM Frontmatter-Gate
 - Frontmatter-Validator verpflichtend: `scripts/check_frontmatter.py`.
 - Ausnahme GOV-EX-FM-001: Diese Datei bleibt ohne YAML-Frontmatter.
 - Ausnahme GOV-EX-INS-001: `.github/instructions/*.instructions.md` nutzen nur instruction-spezifische Frontmatter-Felder (`description`, `name`, `applyTo`).
 
-### Snapshot-Gates (Write-Lock & Freshness)
+#### R-SNAP Snapshot-Gates (Write-Lock und Freshness)
 - Vor mutationalen Läufen Write-Lock frisch setzen: `& .\.venv\Scripts\python.exe scripts/snapshot_write_lock.py`.
 - Für alle betroffenen Markdown-Dateien muss `stand` auf den frischen Lock-Zeitwert (oder innerhalb des zulässigen Fensters) synchronisiert sein.
 - Reihenfolge verpflichtend: Snapshot-Lock -> `stand`-Sync -> markdownlint (betroffene Dateien) -> Frontmatter-Validator (betroffene Dateien) -> Commit/Push.
 - Wenn Snapshot-Gate blockiert, kein Bypass als Standardpfad; zuerst Lock/`stand` korrekt nachziehen.
 
-### Namensgebungskonvention
+#### R-NAME Namensgebungskonvention
 - Regel-IDs im Format `R-<BEREICH>-<THEMA>` (Großbuchstaben, Bindestrich-separiert).
 - Instruction-Dateien unter `.github/instructions/` enden auf `.instructions.md`.
 - Bezeichner in Frontmatter-Feldern (`name`, `description`) bleiben stabil und eindeutig.
 
-### Kanonisierung & Formatnorm (syntaktisch)
+#### R-WS Kanonisierung und Whitespace-Norm
 - Markdown-Dateien in UTF-8 ohne BOM, Unix-EOL, genau eine abschließende Newline.
 - Kein Trailing-Whitespace; Leerzeilen konsistent und minimal.
-- Überschriften-Hierarchie strikt einhalten; Delimiter `---` nicht unbeabsichtigt verändern.
 
-### Quarantäne & Backup-Ort
+#### R-FMT Markdown-Formatnorm (syntaktisch)
+- Überschriften-Hierarchie strikt einhalten.
+- Delimiter `---` nicht unbeabsichtigt verändern.
+
+#### R-QUAR Quarantaene- und Backup-Ort
 - Arbeitskopien/Backups nicht lose im Repo-Root ablegen.
 - Quarantänepfad für temporäre Kopien: `novapolis-dev/archive/quarantine/`.
 - Backups nur mit nachvollziehbarer Quelle und alternativesicherer Zielablage erstellen.
 
-### R-IDX Mini-Gate
+#### R-IDX Mini-Gate fuer Headings-Index
 - Bei strukturrelevanten Änderungen an Kern- oder Scoped-Instructions ist `.github/copilot-instructions-headings.md` im selben Änderungslauf zu aktualisieren.
 
-### Zeitkonvention
+#### R-TIME Zeitkonvention
 - Zeitquelle immer frisch via `Get-Date`.
 - Format: `YYYY-MM-DD HH:mm` (lokal).
+
+### Kommunikationsmodus
+- Standard-Antwortsprache: Deutsch.
+- Prägnant, skimmbar, minimalinvasiv.
 
 Regelmatrix (Kern)
 ------------------
@@ -132,6 +181,7 @@ Scoped Instruction-Files
 - `.github/instructions/rp-docs.instructions.md`
 - `.github/instructions/docs-markdown.instructions.md`
 - `.github/instructions/ci-release.instructions.md`
+- `.github/instructions/mind-cluster.instructions.md`
 
 Postflight-Schema (5 Zeilen)
 ----------------------------

@@ -3,11 +3,12 @@
 Quick-Start Evaluierung für den CVN Agent.
 - ASGI-In-Process
 - Eval-Modus (RPG deaktiviert)
-- Limit via QUICK_EVAL_LIMIT (default 10)
+- Limit via QUICK_EVAL_LIMIT (default 30)
 Ergebnisse: eval/results/results_YYYYMMDD_HHMM.jsonl
 """
 
 import asyncio
+import argparse
 import importlib.util
 import os
 import sys
@@ -26,7 +27,18 @@ def _load_run_eval_module():
     return module
 
 
-async def _main_async() -> int:
+def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Quick-Start Evaluierung")
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Maximale Anzahl Eval-Items (default: QUICK_EVAL_LIMIT oder 30)",
+    )
+    return parser.parse_args(argv)
+
+
+async def _main_async(limit_override: int | None = None) -> int:
     run_eval = _load_run_eval_module()
     # Verzeichnisse sicherstellen
     os.makedirs(
@@ -42,11 +54,14 @@ async def _main_async() -> int:
         getattr(run_eval, "DEFAULT_DATASET_DIR", os.path.join("eval", "datasets")),
         getattr(run_eval, "DEFAULT_FILE_PATTERN", "eval-*.json"),
     )
-    limit_env = os.getenv("QUICK_EVAL_LIMIT", "10")
-    try:
-        limit = int(limit_env)
-    except Exception:
-        limit = 10
+    limit_env = os.getenv("QUICK_EVAL_LIMIT", "30")
+    if limit_override is not None:
+        limit = max(1, int(limit_override))
+    else:
+        try:
+            limit = max(1, int(limit_env))
+        except Exception:
+            limit = 30
     # ASGI-Client wird intern gebaut
     results = await run_eval.run_evaluation(
         patterns=[patt],
@@ -61,8 +76,9 @@ async def _main_async() -> int:
     return 0
 
 
-def main() -> int:
-    return asyncio.run(_main_async())
+def main(argv: list[str] | None = None) -> int:
+    args = _parse_args(argv)
+    return asyncio.run(_main_async(limit_override=args.limit))
 
 
 if __name__ == "__main__":
@@ -72,4 +88,4 @@ if __name__ == "__main__":
         "(statt novapolis_agent/scripts/quick_eval.py).",
         file=sys.stderr,
     )
-    raise SystemExit(main())
+    raise SystemExit(main(sys.argv[1:]))

@@ -57,7 +57,12 @@ jobs:
       - name: Run frontmatter validator (scoped)
         run: |
           python scripts/check_frontmatter.py \
+            .github/instructions \
+            .github/copilot-instructions-headings.md \
+            novapolis-dev/docs \
             novapolis_agent/docs \
             README.md \
+            DONELOG.md \
             todo.root.md \
-            WORKSPACE_STATUS.md
+            WORKSPACE_STATUS.md \
+            WORKSPACE_INDEX.md

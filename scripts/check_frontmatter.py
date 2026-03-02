@@ -26,6 +26,8 @@ SKIP_PATTERNS = (
     "novapolis_agent/.pytest_cache/",
     "node_modules/",
     ".github/instructions/",
+    # VS Code agent metadata uses its own frontmatter schema (no stand/update/checks)
+    ".github/agents/",
     ".github/ISSUE_TEMPLATE/",
     "Backups/",
     # Canonical exception: this file intentionally has no YAML frontmatter

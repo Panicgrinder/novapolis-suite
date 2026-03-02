@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 16:51
-update: Veralteten VS-Code-Task-Verweis in der Sim-Startfolge entfernt; direkter API-Startweg bleibt kanonisch.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/README.md' 'packages/README.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 15:47); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/README.md' 'packages/README.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 15:47)
+stand: 2026-03-02 22:24
+update: Lizenzhinweise auf restriktive RP-Content-Lizenz umgestellt und von MIT-Code-Lizenz getrennt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' PASS (2026-03-02 22:18); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-02 22:18)
 ---
 
 Novapolis-RP Workspace (F:)
@@ -72,7 +72,7 @@ Der Agent-Code wird inzwischen ausschließlich im Schwesterprojekt `../novapolis
 Status & Automatisierung
 ------------------------
 
-- Lizenz: MIT (siehe `LICENSE`)
+- Lizenz: NCDL v1.0 fuer RP-Content (siehe `LICENSE`)
 - CI: einfacher Markdown-Lint-Check via GitHub Actions
 
 Wie beitragen (kurz)
@@ -84,7 +84,11 @@ Wie beitragen (kurz)
 Lizenz
 ------
 
-MIT - siehe `LICENSE`.
+Dieses Modul enthaelt RP-Content und Datenmaterial unter einer separaten
+restriktiven Lizenz (`NCDL v1.0`, siehe `LICENSE`).
+
+Hinweis: Der MIT-Lizenztext im Root-Repo gilt weiterhin fuer Code-Pfade, aber
+nicht fuer diesen RP-Content-Unterbaum.
 
 
 

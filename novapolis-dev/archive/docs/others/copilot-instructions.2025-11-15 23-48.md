@@ -1,8 +1,13 @@
 ---
-stand: 2025-11-16 06:52
-update: Archivkopie (Stand/Checks ergänzt)
-checks: geprüft (Frontmatter-Validator)
+stand: 2026-03-02 22:24
+update: Archivhinweis zur Nicht-Bindung ergänzt; aktive Regelquellen explizit referenziert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' '.github/agents/novapolis-workspace-navigator.agent.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (2026-02-27 10:57); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/agents/novapolis-workspace-navigator.agent.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-27 10:57)
 ---
+
+Archivhinweis (nicht bindend)
+-----------------------------
+- Diese Datei ist ein historischer Snapshot und keine aktive Regelquelle.
+- Fuer verbindliche Regeln gilt ausschließlich `.github/copilot-instructions.md` zusammen mit `.github/instructions/*.instructions.md`.
 
 LLM-Dokumentenheader (nicht löschen)
 ====================================

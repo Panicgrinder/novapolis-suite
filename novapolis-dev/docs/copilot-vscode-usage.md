@@ -1,13 +1,18 @@
 ---
-stand: 2026-02-22 16:51
-update: Frontmatter-Checks auf portable Pfadangaben ohne hostgebundene Absolutpfade umgestellt.
-checks: .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40)
+stand: 2026-03-02 22:24
+update: Quellenstatus klargestellt: Guidance-Doku, keine bindende Runtime-Policy; applyTo-Beispiel als Illustration markiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' '.github/agents/novapolis-workspace-navigator.agent.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (2026-02-27 10:57); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/agents/novapolis-workspace-navigator.agent.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-27 10:57)
 ---
 
 VS Code + GitHub Copilot - Projektleitfaden
 ===========================================
 
 Zweck: So kommunizierst du effektiv mit Copilot/GPT in VS Code und bindest die KI projektkonform ein, bis unsere eigene AI live ist.
+
+Verbindlichkeit
+---------------
+- Diese Datei ist ein Leitfaden und keine bindende Runtime-Policy.
+- Bindende Regeln stehen in `.github/copilot-instructions.md` und `.github/instructions/*.instructions.md`.
 
 TL;DR
 -----
@@ -82,7 +87,7 @@ Chat-Modi (Auswahl)
 Custom Instructions (VS Code)
 -----------------------------
 - Definiere projektweite Leitplanken (Stil, Frameworks, Muster) als persistente Hinweise.
-- Beispiel:
+- Beispiel (nur Illustrations-Snippet, nicht als aktive Repo-Instruction zu interpretieren):
 
 ```markdown
 ---

@@ -1,6 +1,6 @@
 ---
-stand: 2026-02-27 06:00
-update: DONELOG-Eintraege strikt zeitlich sortiert (neueste zuerst), inklusive Korrektur einer zusammengezogenen Doppelzeile.
+stand: 2026-03-02 11:11
+update: Sim-API um vorbereiteten sim_meta-Block erweitert und Sim-Tests entsprechend nachgezogen.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "novapolis_agent/docs/DONELOG.txt" PASS (2026-02-27 06:02); .venv/Scripts/python.exe scripts/check_frontmatter.py "novapolis_agent/docs/DONELOG.txt" PASS (EXITCODE=0, 2026-02-27 06:02)
 ---
 
@@ -23,6 +23,7 @@ DONELOG – Abgeschlossene Arbeiten
 =================================
 
 
+2026-03-02 11:11 | Copilot | Sim-API erweitert: `app/api/sim.py` liefert jetzt einen vorbereiteten `sim_meta`-Block im `WorldState` (`mode=baseline`, `seed=null`) und setzt diesen in `reset_state()` konsistent zurueck; Tests in `tests/test_api_sim_state.py` und `tests/tests_sim_api.py` um Vertrags-Assertions fuer `sim_meta` ergaenzt. Verifikation: gezielte Sim-Tests PASS (2/2), mypy auf den drei geaenderten Dateien PASS.
 2026-02-27 06:00 | Copilot | DONELOG-Liste strikt absteigend nach Zeitstempel sortiert (neueste zuerst) und fehlerhafte Doppelzeile mit zwei zusammengezogenen Eintraegen getrennt.
 2026-02-27 05:14 | Copilot | DONELOG-Kopfbereich zeitlich sortiert (neueste Eintraege oben) und letztes offenes Agent-Board-Taskset abgeschlossen: `.vscode/tasks.json` um `Data: curate from latest (train pack)`, `Data: export+pack (latest results)`, `Train: baseline LoRA (tiny-gpt2, 1-step)` erweitert; `novapolis_agent/README.md` und `novapolis_agent/docs/runbook.md` auf dieselben Labels synchronisiert. Laufbelege: Curate-CLI `--help` PASS, Export auf historischem `quality_de`-Resultset ausgefuehrt (0 Eintraege wegen Source-Path-Drift), Pack-Lauf PASS (`train=90`, `val=10`), Baseline-LoRA-Pipeline PASS (`train_loss=10.4748`).
 2026-02-27 05:08 | Copilot | Lokale HF-Lizenztexte fuer `sshleifer/tiny-gpt2`, `TinyLlama/TinyLlama-1.1B-Chat-v1.0`, `Qwen/Qwen2.5-0.5B-Instruct` und `Qwen/Qwen2.5-1.5B-Instruct` unter `docs/vendor_licenses/huggingface/` abgelegt; Status in `docs/vendor_licenses/huggingface/README.md` auf `vorhanden` und im `docs/provenance-register.md` von `gelb` auf `gruen` gesetzt.

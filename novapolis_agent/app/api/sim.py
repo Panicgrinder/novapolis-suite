@@ -11,6 +11,14 @@ def _empty_events() -> list[dict[str, Any]]:
     return []
 
 
+def _default_sim_meta() -> dict[str, Any]:
+    # Prepared metadata block for future scheduler/replay integration.
+    return {
+        "mode": "baseline",
+        "seed": None,
+    }
+
+
 app = FastAPI(
     title="Novapolis Simulation API",
     description="Leichtgewichtige API für Weltzustand und Zeitschrittsteuerung.",
@@ -24,6 +32,7 @@ class WorldState(BaseModel):
     regions: dict[str, Any] = Field(default_factory=dict)
     actors: dict[str, Any] = Field(default_factory=dict)
     events: list[dict[str, Any]] = Field(default_factory=_empty_events)
+    sim_meta: dict[str, Any] = Field(default_factory=_default_sim_meta)
 
 
 class StepRequest(BaseModel):
@@ -69,6 +78,7 @@ def reset_state() -> None:
         _world_state.regions.clear()
         _world_state.actors.clear()
         _world_state.events.clear()
+        _world_state.sim_meta = _default_sim_meta()
 
 
 if __name__ == "__main__":  # pragma: no cover
