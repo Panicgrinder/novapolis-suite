@@ -77,7 +77,8 @@ async def _main_async(limit_override: int | None = None) -> int:
 
 
 def main(argv: list[str] | None = None) -> int:
-    args = _parse_args(argv)
+    # Keep unit tests deterministic: do not consume ambient process argv.
+    args = _parse_args(argv if argv is not None else [])
     return asyncio.run(_main_async(limit_override=args.limit))
 
 

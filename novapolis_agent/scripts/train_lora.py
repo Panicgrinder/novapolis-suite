@@ -15,9 +15,10 @@ Hinweise:
 import argparse  # noqa: E402
 import json  # noqa: E402
 import os  # noqa: E402
-from typing import Any  # noqa: E402
+from typing import TYPE_CHECKING, Any  # noqa: E402
 
-from datasets import Dataset  # noqa: E402
+if TYPE_CHECKING:
+    from datasets import Dataset
 
 
 def _read_openai_chat_jsonl(path: str) -> list[dict[str, Any]]:
@@ -36,7 +37,9 @@ def _read_openai_chat_jsonl(path: str) -> list[dict[str, Any]]:
     return rows
 
 
-def load_openai_chat_jsonl(path: str) -> Dataset:
+def load_openai_chat_jsonl(path: str) -> "Dataset":
+    from datasets import Dataset
+
     rows = _read_openai_chat_jsonl(path)
     if not rows:
         raise RuntimeError(f"Keine gültigen Einträge in {path} gefunden")

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-02 23:30
-update: Sim v3.3 aufgenommen: Runbook/README auf festen Verifikationsablauf (API-smoke, headless, Asset-check) synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-02 23:06); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-02 23:06)
+stand: 2026-03-03 00:56
+update: Sim v3.5 aufgenommen: erledigte Sim-Bloecke archiviert und Open-Count synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-03 00:56); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-03 00:56)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -15,7 +15,7 @@ TODO-Index (Novapolis-Dev)
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 3)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 7)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 3)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 26)
 
 - Statushinweis Dev: `docs/todo.dev.md` enthaelt jetzt einen priorisierten Hygiene-Sprint (Truthfulness, Donelog-/Log-Hygiene, Freshness-SLA, Guardrails).
 - Statushinweis Sim: `docs/todo.sim.md` fuehrt offene Punkte jetzt kanonisch nach Zugehoerigkeit (Hub-Core, RP-Panel, Agent Studio, Qualitaet/Nachweis).
@@ -43,6 +43,7 @@ TODO-Index (Novapolis-Dev)
 - Statushinweis Sim v3.2: Sim-API-Testabdeckung erweitert - Invalid-`dt`, Event-Cap und Reset-Invarianten sind jetzt als Unit- und API-Tests abgesichert (`pytest`, `pyright`, `mypy` gruen auf den geaenderten Dateien).
 - Statushinweis Sim v3.3: Sim-Runbook/README auf kanonischen Verifikationsablauf synchronisiert (`API-smoke -> Godot-headless -> Asset-check -> optional Eval`).
 - Statushinweis Sim v3.4: Offline-Asset-Check gehaertet - `check_sim_epoch_assets.py` validiert optional Slot-Konsistenz (`--check-slot-consistency`) mit klaren FAIL-Kriterien und Unit-Tests.
+- Statushinweis Sim v3.5: Vollstaendig erledigte Sim-Bloecke (Arbeitsplan-Phasen, Hub-Priorisierung, Neuordnung A/B/D, Phase 3) aus `docs/todo.sim.md` in `novapolis-dev/archive/todo.sim.archive.md` ueberfuehrt.
 
 Hinweise (Index)
 ----------------

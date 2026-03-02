@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 00:04
-update: Sim-Runbook/README auf festen Verifikationsablauf synchronisiert und als Dev/Sim-Eintrag dokumentiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-02 23:06); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-02 23:06)
+stand: 2026-03-03 00:56
+update: Erledigte Sim-TODO-Bloecke nach Sim-Archiv verschoben und Index synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-03 00:56); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-03 00:56)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -17,6 +17,13 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Sim: Vollstaendig erledigte Sim-TODO-Bloecke ins Archiv ueberfuehrt (2026-03-03 00:38)
+---------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.sim.md`: vollstaendig erledigte Bereiche aus dem aktiven Board entfernt und durch direkte Archivverweise ersetzt (Arbeitsplan Phase 1/2, Hub-v1 Priorisierung, Neuordnung A/B/D, Phase 3).
+- `novapolis-dev/archive/todo.sim.archive.md`: verschobene Bloecke unveraendert mit `archived_at: 2026-03-03 00:38` oben einsortiert (neuester zuerst).
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count auf den aktuellen Stand (`offen: 26`) synchronisiert und Statushinweis `Sim v3.5` ergaenzt.
 
 Dev/Sim: Agent-Statusblock mit Spacing + Form-Trennung + optionalem Collapse verfeinert (2026-03-02 23:44)
 -----------------------------------------------------------------------------------------------------------
