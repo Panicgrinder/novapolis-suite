@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-02 23:30
+stand: 2026-03-03 00:04
 update: Sim-Runbook/README auf festen Verifikationsablauf synchronisiert und als Dev/Sim-Eintrag dokumentiert.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-02 23:06); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-02 23:06)
 ---
@@ -17,6 +17,22 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Sim: Agent-Statusblock mit Spacing + Form-Trennung + optionalem Collapse verfeinert (2026-03-02 23:44)
+-----------------------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: vertikale Anker im Agent-Statusbereich (Eval/System/Latest/Hint/Form) neu abgestuft, damit zwischen Statuszeilen und Formbereich mehr Luft entsteht.
+- Laufende Statusanzeige wurde in gruppierte Bullet-Abschnitte umgestellt (mit Zwischenabstaenden), um Lesbarkeit/Zeilenrhythmus zu verbessern.
+- Visuelle Trennung Form vs. Laufstatus: `AgentFormPanel` erhaelt bei geoeffneter Form eine leichte Tönung, der Laufstatus wird gleichzeitig dezent abgedimmt.
+- Optionales Einklappen bei geoeffneter Form: neuer Export-Schalter `collapse_agent_status_when_form_open` (Default `true`), der Eval/System-Zeilen im Form-Modus einklappt und Platz fuer das Formular freigibt.
+
+Dev/Sim: Agent-UI Feinschliff gegen Form-Overlay im Author-Modus (2026-03-02 23:38)
+-------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: `_refresh_agent_studio_ui()` nachgeschaerft.
+- Im Author-Form-Modus nutzt `AgentLatestRunsLabel` jetzt eine kompaktere Statusansicht statt des vollen 10-Zeilen-Blocks, um visuelle Ueberladung zu reduzieren.
+- `AgentFormPanel` wird bei geoeffneter Form dynamisch unterhalb des Status-/Hint-Bereichs positioniert und auf die verfuegbare Panelhoehe begrenzt, damit keine Ueberlagerung mit den Statuszeilen entsteht.
+- Ziel: bessere Lesbarkeit und stabileres Layout bei kleineren Aufloesungen bzw. langen Runtime-Statuslisten.
 
 Dev/Ops: Abschlusslauf-Task stabilisiert und erneut ausgefuehrt (2026-03-02 23:29)
 -------------------------------------------------------------------------------

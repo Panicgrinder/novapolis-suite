@@ -108,6 +108,7 @@ signal on_interrupt(reason: String, context: Dictionary)
 @export var eval_summary_script_path: String = "res://../novapolis_agent/scripts/latest_eval_summary.py"
 @export var agent_actions_script_path: String = "res://../novapolis_agent/scripts/agent_module_actions.py"
 @export var enable_system_resource_monitoring: bool = false
+@export var collapse_agent_status_when_form_open: bool = true
 @export var metrics_refresh_interval_seconds: float = 4.0
 @export var eval_summary_refresh_interval_seconds: float = 8.0
 @export var eval_expected_duration_seconds: float = 25.0
@@ -214,6 +215,10 @@ const _CHECKS_PANEL_EXCLUSIVE_LEFT: float = 20.0
 const _CHECKS_PANEL_EXCLUSIVE_TOP: float = 44.0
 const _CHECKS_PANEL_EXCLUSIVE_RIGHT: float = 1900.0
 const _CHECKS_PANEL_EXCLUSIVE_BOTTOM: float = 1028.0
+const _AGENT_FORM_PANEL_NORMAL_TINT: Color = Color(1.0, 1.0, 1.0, 1.0)
+const _AGENT_FORM_PANEL_ACTIVE_TINT: Color = Color(0.93, 0.97, 1.0, 1.0)
+const _AGENT_STATUS_NORMAL_TINT: Color = Color(0.95, 0.95, 0.9, 1.0)
+const _AGENT_STATUS_DIM_TINT: Color = Color(0.78, 0.82, 0.88, 1.0)
 
 func _ready() -> void:
 	add_to_group("world_listeners")
@@ -915,27 +920,27 @@ func _apply_agent_module_layout(exclusive_open: bool) -> void:
 		agent_ai_status_button.offset_bottom = 256.0
 
 		agent_eval_status_label.offset_left = 24.0
-		agent_eval_status_label.offset_top = 282.0
+		agent_eval_status_label.offset_top = 286.0
 		agent_eval_status_label.offset_right = 24.0
-		agent_eval_status_label.offset_bottom = 282.0
+		agent_eval_status_label.offset_bottom = 286.0
 
 		agent_system_metrics_label.offset_left = 24.0
-		agent_system_metrics_label.offset_top = 308.0
+		agent_system_metrics_label.offset_top = 320.0
 		agent_system_metrics_label.offset_right = 24.0
-		agent_system_metrics_label.offset_bottom = 308.0
+		agent_system_metrics_label.offset_bottom = 320.0
 
 		agent_latest_runs_label.offset_left = 24.0
-		agent_latest_runs_label.offset_top = 336.0
+		agent_latest_runs_label.offset_top = 356.0
 		agent_latest_runs_label.offset_right = 24.0
-		agent_latest_runs_label.offset_bottom = 336.0
+		agent_latest_runs_label.offset_bottom = 356.0
 
 		agent_studio_hint_label.offset_left = 24.0
-		agent_studio_hint_label.offset_top = 430.0
+		agent_studio_hint_label.offset_top = 452.0
 		agent_studio_hint_label.offset_right = 24.0
-		agent_studio_hint_label.offset_bottom = 430.0
+		agent_studio_hint_label.offset_bottom = 452.0
 
 		agent_form_panel.offset_left = 24.0
-		agent_form_panel.offset_top = 470.0
+		agent_form_panel.offset_top = 492.0
 		agent_form_panel.offset_right = 1830.0
 		agent_form_panel.offset_bottom = 980.0
 		return
@@ -991,27 +996,27 @@ func _apply_agent_module_layout(exclusive_open: bool) -> void:
 	agent_ai_status_button.offset_bottom = 226.0
 
 	agent_eval_status_label.offset_left = 10.0
-	agent_eval_status_label.offset_top = 242.0
+	agent_eval_status_label.offset_top = 246.0
 	agent_eval_status_label.offset_right = 10.0
-	agent_eval_status_label.offset_bottom = 242.0
+	agent_eval_status_label.offset_bottom = 246.0
 
 	agent_system_metrics_label.offset_left = 10.0
-	agent_system_metrics_label.offset_top = 266.0
+	agent_system_metrics_label.offset_top = 278.0
 	agent_system_metrics_label.offset_right = 10.0
-	agent_system_metrics_label.offset_bottom = 266.0
+	agent_system_metrics_label.offset_bottom = 278.0
 
 	agent_latest_runs_label.offset_left = 10.0
-	agent_latest_runs_label.offset_top = 292.0
+	agent_latest_runs_label.offset_top = 316.0
 	agent_latest_runs_label.offset_right = 10.0
-	agent_latest_runs_label.offset_bottom = 292.0
+	agent_latest_runs_label.offset_bottom = 316.0
 
 	agent_studio_hint_label.offset_left = 10.0
-	agent_studio_hint_label.offset_top = 362.0
+	agent_studio_hint_label.offset_top = 390.0
 	agent_studio_hint_label.offset_right = 10.0
-	agent_studio_hint_label.offset_bottom = 362.0
+	agent_studio_hint_label.offset_bottom = 390.0
 
 	agent_form_panel.offset_left = 10.0
-	agent_form_panel.offset_top = 392.0
+	agent_form_panel.offset_top = 422.0
 	agent_form_panel.offset_right = 564.0
 	agent_form_panel.offset_bottom = 402.0
 
@@ -2823,19 +2828,55 @@ func _refresh_agent_studio_ui() -> void:
 		]
 	else:
 		agent_system_metrics_label.text = "System: Monitoring deaktiviert (testweise)"
-	agent_latest_runs_label.text = "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s" % [_dataset_status_text, _active_dataset_label(), _synonym_status_text, _active_synonym_label(), _profile_status_text, _active_profile_label(), _advanced_settings_status_text, _jobs_status_text, _finetune_status_text, _latest_eval_summary_text]
+	var full_status_text := "• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s" % [_dataset_status_text, _active_dataset_label(), _synonym_status_text, _active_synonym_label(), _profile_status_text, _active_profile_label(), _advanced_settings_status_text, _jobs_status_text, _finetune_status_text, _latest_eval_summary_text]
+	var compact_status_text := "• %s\n• %s\n\n• %s\n• %s\n\n• %s" % [_dataset_status_text, _active_dataset_label(), _jobs_status_text, _synonym_status_text, _latest_eval_summary_text]
 	_select_option_value(agent_eval_suite_button, _EVAL_SUITE_OPTIONS, _agent_eval_suite)
 	_select_option_value(agent_dataset_source_button, _DATASET_SOURCE_OPTIONS, _dataset_source_mode)
 
 	var hint_base_top := 362.0
 	if _agent_submenu_open:
 		hint_base_top = 430.0
-	var latest_runs_lines: int = maxi(1, agent_latest_runs_label.get_line_count())
-	var hint_top := maxf(hint_base_top, agent_latest_runs_label.offset_top + (float(latest_runs_lines) * 20.0) + 10.0)
 	var form_should_show := _agent_submenu_open and _agent_studio_mode == "author" and (_agent_form_kind == "datasets" or _agent_form_kind == "synonyms" or _agent_form_kind == "finetune" or _agent_form_kind == "profiles" or _agent_form_kind == "advanced" or _agent_form_kind == "jobs")
+	var collapse_status_block := form_should_show and collapse_agent_status_when_form_open
+	agent_latest_runs_label.text = compact_status_text if collapse_status_block else full_status_text
+
+	if collapse_status_block:
+		agent_eval_status_label.visible = false
+		agent_system_metrics_label.visible = false
+		agent_latest_runs_label.modulate = _AGENT_STATUS_DIM_TINT
+		agent_form_panel.self_modulate = _AGENT_FORM_PANEL_ACTIVE_TINT
+		if _agent_submenu_open:
+			agent_latest_runs_label.offset_top = 282.0
+			agent_latest_runs_label.offset_bottom = 282.0
+		else:
+			agent_latest_runs_label.offset_top = 242.0
+			agent_latest_runs_label.offset_bottom = 242.0
+	else:
+		agent_eval_status_label.visible = true
+		agent_system_metrics_label.visible = true
+		agent_latest_runs_label.modulate = _AGENT_STATUS_NORMAL_TINT
+		agent_form_panel.self_modulate = _AGENT_FORM_PANEL_NORMAL_TINT
+		if _agent_submenu_open:
+			agent_latest_runs_label.offset_top = 356.0
+			agent_latest_runs_label.offset_bottom = 356.0
+		else:
+			agent_latest_runs_label.offset_top = 316.0
+			agent_latest_runs_label.offset_bottom = 316.0
+
+	var latest_runs_lines: int = maxi(1, agent_latest_runs_label.get_line_count())
+	var line_step := 22.0 if collapse_status_block else 24.0
+	var hint_top := maxf(hint_base_top, agent_latest_runs_label.offset_top + (float(latest_runs_lines) * line_step) + 14.0)
 	agent_studio_hint_label.visible = not form_should_show
 	agent_studio_hint_label.offset_top = hint_top
 	agent_studio_hint_label.offset_bottom = hint_top
+	if form_should_show:
+		var form_bottom := agent_studio_panel.offset_bottom - 22.0
+		var min_form_height := 300.0
+		var desired_top := hint_top + 28.0
+		if desired_top + min_form_height > form_bottom:
+			desired_top = maxf(96.0, form_bottom - min_form_height)
+		agent_form_panel.offset_top = desired_top
+		agent_form_panel.offset_bottom = form_bottom
 
 	if _agent_studio_mode == "operate":
 		if _eval_pid > 0:
