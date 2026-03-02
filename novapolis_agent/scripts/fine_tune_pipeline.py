@@ -14,11 +14,11 @@ Hinweise:
 from __future__ import annotations
 
 import argparse
-from datetime import datetime
 import glob
 import os
 import subprocess
 import sys
+from datetime import datetime
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

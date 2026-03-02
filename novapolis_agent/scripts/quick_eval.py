@@ -7,8 +7,8 @@ Quick-Start Evaluierung für den CVN Agent.
 Ergebnisse: eval/results/results_YYYYMMDD_HHMM.jsonl
 """
 
-import asyncio
 import argparse
+import asyncio
 import importlib.util
 import os
 import sys

@@ -38,7 +38,8 @@ def _run_powershell_json(ps_code: str) -> dict[str, Any]:
 
 def _collect_windows_cpu_ram() -> tuple[float | None, float | None]:
     ps = (
-        "$cpu=(Get-CimInstance Win32_Processor | Measure-Object -Property LoadPercentage -Average).Average;"
+        "$cpu=(Get-CimInstance Win32_Processor | "
+        "Measure-Object -Property LoadPercentage -Average).Average;"
         "$os=Get-CimInstance Win32_OperatingSystem;"
         "$total=[double]$os.TotalVisibleMemorySize;"
         "$free=[double]$os.FreePhysicalMemory;"

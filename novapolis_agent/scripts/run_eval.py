@@ -123,7 +123,9 @@ truncate = _eval_utils_mod.truncate
 now_compact = _time_utils_mod.now_compact
 
 try:
-    _tpq_mod = _import_any(["utils.third_party_quality", "novapolis_agent.utils.third_party_quality"])
+    _tpq_mod = _import_any(
+        ["utils.third_party_quality", "novapolis_agent.utils.third_party_quality"]
+    )
     lookup_openthesaurus_synonyms = _tpq_mod.lookup_openthesaurus_synonyms
     expand_tokens_for_term_search = _tpq_mod.expand_tokens_for_term_search
     validate_german_terms = _tpq_mod.validate_german_terms
@@ -145,6 +147,7 @@ except Exception:
 
     def languagetool_quality_issues(_text: str) -> dict[str, Any]:
         return {"score": 1.0, "issue_count": 0, "confusion_hits": [], "spacing_issues": 0}
+
 
 try:
     _eval_cache_mod = _import_any(["utils.eval_cache", "novapolis_agent.utils.eval_cache"])
@@ -1159,9 +1162,11 @@ async def evaluate_item(
             lt_ok = issue_count <= 2 and lt_score >= 0.65
             checks_passed["languagetool_quality"] = lt_ok
             if not lt_ok:
-                failed_checks.append(
-                    f"LanguageTool-Qualitaet zu schwach (issues={issue_count}, score={lt_score:.2f})"
+                lt_msg = (
+                    "LanguageTool-Qualitaet zu schwach "
+                    f"(issues={issue_count}, score={lt_score:.2f})"
                 )
+                failed_checks.append(lt_msg)
 
         # 8. sts_relevance: Prompt/Response-Relevanz via STS-IDF-Overlap
         if "sts_relevance" in enabled:
@@ -1390,7 +1395,9 @@ async def evaluate_item(
                         rel_ok2 = rel2 >= 0.09
                         checks_passed_retry["sts_relevance"] = rel_ok2
                         if not rel_ok2:
-                            failed_checks_retry.append(f"STS-Relevanz zu niedrig (score={rel2:.2f})")
+                            failed_checks_retry.append(
+                                f"STS-Relevanz zu niedrig (score={rel2:.2f})"
+                            )
 
                     if all(checks_passed_retry.values()):
                         duration_ms = int((time.time() - start_time) * 1000)

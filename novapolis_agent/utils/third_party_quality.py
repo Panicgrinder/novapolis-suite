@@ -150,7 +150,17 @@ def sts_relevance_score(prompt: str, response: str) -> float:
 
 @lru_cache(maxsize=1)
 def load_compound_resources() -> dict[str, Any]:
-    root = _datasets_root() / "jwordsplitter-master" / "jwordsplitter-master" / "src" / "main" / "resources" / "de" / "danielnaber" / "jwordsplitter"
+    root = (
+        _datasets_root()
+        / "jwordsplitter-master"
+        / "jwordsplitter-master"
+        / "src"
+        / "main"
+        / "resources"
+        / "de"
+        / "danielnaber"
+        / "jwordsplitter"
+    )
 
     lexicon_path = root / "languagetool-dict.txt"
     prefixes_path = root / "germanPrefixes.txt"
@@ -194,7 +204,18 @@ def load_compound_resources() -> dict[str, Any]:
 
 @lru_cache(maxsize=1)
 def load_pos_lemma_map() -> dict[str, set[str]]:
-    base = _datasets_root() / "german-pos-dict-master" / "german-pos-dict-master" / "src" / "main" / "resources" / "org" / "languagetool" / "resource" / "de"
+    base = (
+        _datasets_root()
+        / "german-pos-dict-master"
+        / "german-pos-dict-master"
+        / "src"
+        / "main"
+        / "resources"
+        / "org"
+        / "languagetool"
+        / "resource"
+        / "de"
+    )
     paths = [base / "sonstige.txt", base / "EIG.txt"]
 
     mapping: dict[str, set[str]] = {}
@@ -315,7 +336,16 @@ def validate_german_terms(terms: list[str]) -> dict[str, Any]:
 
 @lru_cache(maxsize=1)
 def load_languagetool_confusion_pairs() -> list[tuple[str, str]]:
-    path = _datasets_root() / "LanguageTool-stable" / "LanguageTool-6.6" / "org" / "languagetool" / "resource" / "de" / "confusion_sets.txt"
+    path = (
+        _datasets_root()
+        / "LanguageTool-stable"
+        / "LanguageTool-6.6"
+        / "org"
+        / "languagetool"
+        / "resource"
+        / "de"
+        / "confusion_sets.txt"
+    )
     if not path.exists():
         return []
 

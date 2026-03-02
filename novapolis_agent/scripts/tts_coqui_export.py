@@ -333,7 +333,9 @@ def main() -> int:
             "cache_misses": exported - cache_hits,
             "items": manifest_rows,
         }
-        manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+        manifest_path.write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
         print(f"EXPORT OK: exported={exported}, cache_hits={cache_hits}, manifest={manifest_path}")
         return 0
     except Exception as exc:  # pragma: no cover

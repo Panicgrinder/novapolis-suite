@@ -4,8 +4,8 @@
 from __future__ import annotations
 
 import argparse
-from datetime import datetime
 import json
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -57,9 +57,15 @@ def _synonyms(project_root: Path) -> dict[str, Any]:
 
 def _finetune(project_root: Path) -> dict[str, Any]:
     outputs_dir = project_root.parent / "outputs"
-    lora_dirs = [p for p in outputs_dir.glob("lora-*") if p.is_dir()] if outputs_dir.exists() else []
+    lora_dirs = (
+        [p for p in outputs_dir.glob("lora-*") if p.is_dir()] if outputs_dir.exists() else []
+    )
     results_dir = project_root / "eval" / "results"
-    result_files = [p for p in results_dir.glob("finetune*.jsonl") if p.is_file()] if results_dir.exists() else []
+    result_files = (
+        [p for p in results_dir.glob("finetune*.jsonl") if p.is_file()]
+        if results_dir.exists()
+        else []
+    )
     latest_lora = _latest(lora_dirs)
     latest_result = _latest(result_files)
     lines = [

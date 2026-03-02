@@ -38,7 +38,9 @@ def test_tts_provider_health_switch(
 
 @pytest.mark.api
 @pytest.mark.unit
-def test_tts_provider_coqui_runtime_uses_same_contract(monkeypatch: pytest.MonkeyPatch, tmp_path) -> None:
+def test_tts_provider_coqui_runtime_uses_same_contract(
+    monkeypatch: pytest.MonkeyPatch, tmp_path
+) -> None:
     monkeypatch.setenv("TTS_PROVIDER", "coqui")
     monkeypatch.setenv("TTS_AUTH_ENABLED", "false")
     monkeypatch.setenv("RATE_LIMIT_ENABLED", "false")

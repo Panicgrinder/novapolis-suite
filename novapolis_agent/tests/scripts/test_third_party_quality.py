@@ -31,20 +31,8 @@ def test_openthesaurus_lookup(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -
 @pytest.mark.unit
 def test_sts_relevance_score(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     root = tmp_path / "datasets"
-    deepl = (
-        root
-        / "german-STSbenchmark-master"
-        / "german-STSbenchmark-master"
-        / "data"
-        / "deepl"
-    )
-    aws = (
-        root
-        / "german-STSbenchmark-master"
-        / "german-STSbenchmark-master"
-        / "data"
-        / "aws"
-    )
+    deepl = root / "german-STSbenchmark-master" / "german-STSbenchmark-master" / "data" / "deepl"
+    aws = root / "german-STSbenchmark-master" / "german-STSbenchmark-master" / "data" / "aws"
     deepl.mkdir(parents=True)
     aws.mkdir(parents=True)
 

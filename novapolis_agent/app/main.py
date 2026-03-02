@@ -379,7 +379,10 @@ async def tts_voices(req: Request) -> TtsVoicesResponse:
     responses=COMMON_ERROR_RESPONSES,
 )
 async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynthesizeResponse:
-    """TTS-Mini-Service-Vertrag mit Cache, reproduzierbarer Metadatenbasis und Provider-Fallbacks."""
+    """TTS-Mini-Service-Vertrag mit Cache.
+
+    Reproduzierbare Metadatenbasis und klare Provider-Fallbacks inklusive.
+    """
     _require_tts_auth(req)
     if len(request.text) > settings.REQUEST_MAX_INPUT_CHARS:
         raise HTTPException(
@@ -421,7 +424,9 @@ async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynt
             cache_key=cache_key,
             cache_hit=True,
             artifact_path=(
-                str(cached.get("artifact_path")) if cached.get("artifact_path") is not None else None
+                str(cached.get("artifact_path"))
+                if cached.get("artifact_path") is not None
+                else None
             ),
             detail=(
                 "Cache hit (removed_expired="

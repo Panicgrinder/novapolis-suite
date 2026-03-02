@@ -107,23 +107,17 @@ def compare_to_baseline(
 
     if pass_rate_delta <= -blocker_pass_drop:
         status = "blocker"
-        reasons.append(
-            f"pass_rate_delta={pass_rate_delta} <= -{blocker_pass_drop}"
-        )
+        reasons.append(f"pass_rate_delta={pass_rate_delta} <= -{blocker_pass_drop}")
     elif pass_rate_delta <= -warn_pass_drop:
         status = "warning"
         reasons.append(f"pass_rate_delta={pass_rate_delta} <= -{warn_pass_drop}")
 
     if max_fail_increase >= blocker_fail_increase:
         status = "blocker"
-        reasons.append(
-            f"max_failed_check_increase={max_fail_increase} >= {blocker_fail_increase}"
-        )
+        reasons.append(f"max_failed_check_increase={max_fail_increase} >= {blocker_fail_increase}")
     elif max_fail_increase >= warn_fail_increase and status != "blocker":
         status = "warning"
-        reasons.append(
-            f"max_failed_check_increase={max_fail_increase} >= {warn_fail_increase}"
-        )
+        reasons.append(f"max_failed_check_increase={max_fail_increase} >= {warn_fail_increase}")
 
     return {
         "status": status,
@@ -144,7 +138,9 @@ def main() -> int:
     parser.add_argument("--baseline", required=True, help="Monthly baseline JSON path")
     parser.add_argument("--out", required=True, help="Drift report output JSON path")
     parser.add_argument("--month", required=True, help="Baseline month label, e.g. 2026-02")
-    parser.add_argument("--set-baseline", action="store_true", help="Write/overwrite baseline from current")
+    parser.add_argument(
+        "--set-baseline", action="store_true", help="Write/overwrite baseline from current"
+    )
     parser.add_argument("--warn-pass-drop", type=float, default=2.0)
     parser.add_argument("--blocker-pass-drop", type=float, default=5.0)
     parser.add_argument("--warn-fail-increase", type=int, default=3)

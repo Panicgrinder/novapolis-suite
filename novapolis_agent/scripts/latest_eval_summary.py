@@ -98,7 +98,9 @@ def main() -> int:
         print(json.dumps({"ok": True, "runs": []}, ensure_ascii=True, separators=(",", ":")))
         return 0
 
-    files = sorted(results_dir.glob("results_*.jsonl"), key=lambda p: p.stat().st_mtime, reverse=True)
+    files = sorted(
+        results_dir.glob("results_*.jsonl"), key=lambda p: p.stat().st_mtime, reverse=True
+    )
     runs = [_summarize_result_file(path) for path in files[:count]]
 
     print(json.dumps({"ok": True, "runs": runs}, ensure_ascii=True, separators=(",", ":")))

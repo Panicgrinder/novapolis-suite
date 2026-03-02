@@ -115,8 +115,12 @@ def test_main_exports_ogg_and_manifest_with_approved_model(
     output_dir = tmp_path / "voiceovers"
     license_file = tmp_path / "LICENSE.txt"
 
-    input_file.write_text('{"id":"item-001","text":"Hallo Chronistin","voice":"narrator"}\n', encoding="utf-8")
-    voice_map.write_text("default_voice: narrator\nvoices:\n  narrator: de_narrator\n", encoding="utf-8")
+    input_file.write_text(
+        '{"id":"item-001","text":"Hallo Chronistin","voice":"narrator"}\n', encoding="utf-8"
+    )
+    voice_map.write_text(
+        "default_voice: narrator\nvoices:\n  narrator: de_narrator\n", encoding="utf-8"
+    )
     license_file.write_text("license", encoding="utf-8")
     allowlist_file.write_text(
         json.dumps(
