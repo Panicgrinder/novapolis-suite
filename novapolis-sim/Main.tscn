@@ -1,16 +1,31 @@
 [gd_scene format=3 uid="uid://bnq0bhxfhix7d"]
 
 [ext_resource type="Script" uid="uid://xmqqvtqmknid" path="res://scripts/Main.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://h102etn2xuom" path="res://assets/mainmenu-page1-background.png" id="2"]
 
 [node name="Main" type="Node2D" unique_id=1219424738]
 script = ExtResource("1")
 
+[node name="MainMenuPage1Background" type="TextureRect" parent="." unique_id=565633425]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = 1918.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2")
+
 [node name="HubTitleLabel" type="Label" parent="." unique_id=213000001]
 modulate = Color(0.85, 0.95, 1, 1)
-offset_left = 20.0
-offset_top = 4.0
-offset_right = 20.0
-offset_bottom = 4.0
+offset_left = 188.0
+offset_top = 157.0
+offset_right = 428.0
+offset_bottom = 180.0
 text = "Hub v1 | Novapolis Framework"
 
 [node name="HubApiLabel" type="Label" parent="." unique_id=213000002]
@@ -383,12 +398,25 @@ offset_bottom = 114.0
 text = "Apply"
 
 [node name="AgentFormPayloadEdit" type="TextEdit" parent="AgentStudioPanel/AgentFormPanel" unique_id=213000155]
+visible = false
 layout_mode = 0
 offset_left = 12.0
 offset_top = 126.0
 offset_right = 542.0
 offset_bottom = 294.0
 placeholder_text = "Vorlage wird hier automatisch erzeugt..."
+
+[node name="AgentFormFieldsScroll" type="ScrollContainer" parent="AgentStudioPanel/AgentFormPanel" unique_id=213000157]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 126.0
+offset_right = 542.0
+offset_bottom = 294.0
+
+[node name="AgentFormFieldsBox" type="VBoxContainer" parent="AgentStudioPanel/AgentFormPanel/AgentFormFieldsScroll" unique_id=213000158]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
 
 [node name="AgentFormStatusLabel" type="Label" parent="AgentStudioPanel/AgentFormPanel" unique_id=213000156]
 modulate = Color(0.9, 1, 0.9, 1)
@@ -613,17 +641,18 @@ offset_bottom = 184.0
 text = "Hinweis: Stundensprung und Auto-Advance gelten nur im RP-Modul und nicht im allgemeinen Hub."
 
 [node name="TickLabel" type="Label" parent="." unique_id=215597988]
-offset_left = 20.0
-offset_top = 24.0
-offset_right = 20.0
-offset_bottom = 24.0
+offset_left = 986.0
+offset_top = 198.0
+offset_right = 1035.0
+offset_bottom = 221.0
+size_flags_horizontal = 4
 text = "Tick: 0"
 
 [node name="TimeLabel" type="Label" parent="." unique_id=958567939]
-offset_left = 20.0
-offset_top = 56.0
-offset_right = 20.0
-offset_bottom = 56.0
+offset_left = 1057.0
+offset_top = 200.0
+offset_right = 1139.0
+offset_bottom = 223.0
 text = "Zeit: 0.00 s"
 
 [node name="StatusLabel" type="Label" parent="." unique_id=2044984208]
@@ -658,124 +687,126 @@ offset_bottom = 192.0
 text = "Epochen: --"
 
 [node name="PlayPcAudioButton" type="Button" parent="." unique_id=687920983]
-offset_left = 20.0
-offset_top = 228.0
-offset_right = 212.0
-offset_bottom = 266.0
+offset_left = 554.0
+offset_top = 160.0
+offset_right = 746.0
+offset_bottom = 198.0
 text = "Agent-Modul"
 
 [node name="PlayWorldAudioButton" type="Button" parent="." unique_id=1367597119]
-offset_left = 228.0
-offset_top = 228.0
-offset_right = 420.0
-offset_bottom = 266.0
+offset_left = 747.0
+offset_top = 158.0
+offset_right = 939.0
+offset_bottom = 196.0
 text = "RP Modul"
 
 [node name="ServerToggleButton" type="Button" parent="." unique_id=1367597120]
-offset_left = 436.0
-offset_top = 228.0
-offset_right = 628.0
-offset_bottom = 266.0
+offset_left = 971.0
+offset_top = 156.0
+offset_right = 1163.0
+offset_bottom = 194.0
 text = "Start Server"
 
 [node name="HubReloadButton" type="Button" parent="." unique_id=1367597121]
-offset_left = 644.0
-offset_top = 228.0
-offset_right = 836.0
-offset_bottom = 266.0
+offset_left = 745.0
+offset_top = 224.0
+offset_right = 937.0
+offset_bottom = 262.0
 text = "Reload Hub"
 
 [node name="HubChecksButton" type="Button" parent="." unique_id=1367597122]
-offset_left = 852.0
-offset_top = 228.0
-offset_right = 1044.0
-offset_bottom = 266.0
+offset_left = 558.0
+offset_top = 225.0
+offset_right = 750.0
+offset_bottom = 263.0
 text = "Run Checks"
 
 [node name="HubConfigPanel" type="Panel" parent="." unique_id=213000301]
-offset_left = 1620.0
-offset_top = 44.0
-offset_right = 1900.0
-offset_bottom = 264.0
+offset_left = 1390.0
+offset_top = 150.0
+offset_right = 1805.0
+offset_bottom = 274.0
 
 [node name="HubConfigTitleLabel" type="Label" parent="HubConfigPanel" unique_id=213000302]
 modulate = Color(0.9, 0.96, 1, 1)
 layout_mode = 0
-offset_left = 10.0
-offset_top = 8.0
-offset_right = 140.0
-offset_bottom = 8.0
+offset_left = 147.0
+offset_top = 4.0
+offset_right = 277.0
+offset_bottom = 27.0
 text = "Hub Config"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HubConfigCloseButton" type="Button" parent="HubConfigPanel" unique_id=213000310]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 126.0
-offset_right = 112.0
-offset_bottom = 152.0
+offset_left = 305.0
+offset_top = 83.0
+offset_right = 407.0
+offset_bottom = 114.0
 text = "Minimieren"
 
 [node name="HubConfigQuitButton" type="Button" parent="HubConfigPanel" unique_id=213000311]
 layout_mode = 0
-offset_left = 118.0
-offset_top = 126.0
-offset_right = 230.0
-offset_bottom = 152.0
+offset_left = 302.0
+offset_top = 6.0
+offset_right = 414.0
+offset_bottom = 37.0
 text = "Beenden"
 
 [node name="HubConfigSimCardButton" type="Button" parent="HubConfigPanel" unique_id=213000303]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 36.0
-offset_right = 112.0
-offset_bottom = 62.0
+offset_top = 5.0
+offset_right = 102.0
+offset_bottom = 36.0
 text = "[x] Sim"
+alignment = 0
 
 [node name="HubConfigApiCardButton" type="Button" parent="HubConfigPanel" unique_id=213000304]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 66.0
-offset_right = 112.0
-offset_bottom = 92.0
+offset_top = 35.0
+offset_right = 102.0
+offset_bottom = 66.0
 text = "[x] API"
+alignment = 0
 
 [node name="HubConfigEvalCardButton" type="Button" parent="HubConfigPanel" unique_id=213000305]
 layout_mode = 0
-offset_left = 10.0
-offset_top = 96.0
-offset_right = 112.0
-offset_bottom = 122.0
+offset_top = 65.0
+offset_right = 102.0
+offset_bottom = 96.0
 text = "[x] Eval"
+alignment = 0
 
 [node name="HubConfigDefaultPanelButton" type="OptionButton" parent="HubConfigPanel" unique_id=213000306]
 layout_mode = 0
-offset_left = 118.0
-offset_top = 36.0
-offset_right = 230.0
-offset_bottom = 62.0
+offset_left = 154.0
+offset_top = 32.0
+offset_right = 266.0
+offset_bottom = 58.0
 
 [node name="HubConfigRefreshButton" type="OptionButton" parent="HubConfigPanel" unique_id=213000307]
 layout_mode = 0
-offset_left = 118.0
-offset_top = 66.0
-offset_right = 230.0
-offset_bottom = 92.0
+offset_left = 154.0
+offset_top = 62.0
+offset_right = 266.0
+offset_bottom = 88.0
 
 [node name="HubConfigSaveButton" type="Button" parent="HubConfigPanel" unique_id=213000308]
 layout_mode = 0
-offset_left = 118.0
-offset_top = 96.0
-offset_right = 230.0
-offset_bottom = 122.0
+offset_left = 302.0
+offset_top = 45.0
+offset_right = 414.0
+offset_bottom = 76.0
 text = "Save Config"
 
 [node name="HubConfigStatusLabel" type="Label" parent="HubConfigPanel" unique_id=213000309]
 modulate = Color(0.85, 1, 0.9, 1)
 layout_mode = 0
-offset_left = 10.0
-offset_top = 160.0
-offset_right = 230.0
-offset_bottom = 160.0
+offset_left = 4.0
+offset_top = 96.0
+offset_right = 299.0
+offset_bottom = 119.0
 text = "Refresh=normal | default=hub"
 clip_text = true
 
@@ -789,15 +820,15 @@ text = "Audio: --"
 
 [node name="ServerStatusLabel" type="Label" parent="." unique_id=1698300605]
 modulate = Color(0.85, 0.9, 1, 1)
-offset_left = 436.0
-offset_top = 284.0
-offset_right = 436.0
-offset_bottom = 284.0
+offset_left = 978.0
+offset_top = 238.0
+offset_right = 1100.0
+offset_bottom = 261.0
 text = "Server: stopped"
 
 [node name="PcLogLabel" type="RichTextLabel" parent="." unique_id=1623751295]
 offset_left = 20.0
 offset_top = 318.0
 offset_right = 1296.0
-offset_bottom = 1028.0
+offset_bottom = 712.0
 text = "PC-zentrierte Ansicht wird geladen..."

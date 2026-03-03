@@ -54,6 +54,8 @@ signal on_interrupt(reason: String, context: Dictionary)
 @onready var agent_form_name_edit: LineEdit = $AgentStudioPanel/AgentFormPanel/AgentFormNameEdit
 @onready var agent_form_apply_button: Button = $AgentStudioPanel/AgentFormPanel/AgentFormApplyButton
 @onready var agent_form_payload_edit: TextEdit = $AgentStudioPanel/AgentFormPanel/AgentFormPayloadEdit
+@onready var agent_form_fields_scroll: ScrollContainer = $AgentStudioPanel/AgentFormPanel/AgentFormFieldsScroll
+@onready var agent_form_fields_box: VBoxContainer = $AgentStudioPanel/AgentFormPanel/AgentFormFieldsScroll/AgentFormFieldsBox
 @onready var agent_form_status_label: Label = $AgentStudioPanel/AgentFormPanel/AgentFormStatusLabel
 @onready var checks_studio_panel: Panel = $ChecksStudioPanel
 @onready var checks_back_button: Button = $ChecksStudioPanel/ChecksBackButton
@@ -161,6 +163,7 @@ var _agent_form_kind: String = ""
 var _agent_form_mode_value: String = "clean"
 var _agent_form_target_value: String = "new"
 var _agent_form_template_signature: String = ""
+var _agent_form_controls: Dictionary = {}
 var _form_dropdowns_syncing: bool = false
 var _last_metrics_refresh_ms: int = -1
 var _system_cpu_percent: float = -1.0
@@ -219,9 +222,16 @@ const _AGENT_FORM_PANEL_NORMAL_TINT: Color = Color(1.0, 1.0, 1.0, 1.0)
 const _AGENT_FORM_PANEL_ACTIVE_TINT: Color = Color(0.93, 0.97, 1.0, 1.0)
 const _AGENT_STATUS_NORMAL_TINT: Color = Color(0.95, 0.95, 0.9, 1.0)
 const _AGENT_STATUS_DIM_TINT: Color = Color(0.78, 0.82, 0.88, 1.0)
+const _UI_BASE_WIDTH: float = 1920.0
+const _UI_BASE_HEIGHT: float = 1080.0
+const _UI_MIN_WIDTH: float = 1100.0
+const _UI_MIN_HEIGHT: float = 700.0
+const _UI_MARGIN: float = 16.0
+const _UI_GAP: float = 12.0
 
 func _ready() -> void:
 	add_to_group("world_listeners")
+	get_viewport().size_changed.connect(_on_viewport_size_changed)
 	play_pc_button.pressed.connect(_on_play_pc_audio_pressed)
 	play_world_button.pressed.connect(_on_play_world_audio_pressed)
 	server_toggle_button.pressed.connect(_on_server_toggle_pressed)
@@ -298,11 +308,193 @@ func _ready() -> void:
 	_set_hub_config_collapsed(false)
 	_refresh_agent_studio_ui()
 	_refresh_agent_form_ui()
+	agent_studio_hint_label.visible = false
+	agent_studio_hint_label.text = ""
 	_refresh_checks_studio_ui()
 	_refresh_rp_studio_ui()
 	_update_server_control_ui()
 	_open_default_panel_if_configured()
+	_apply_responsive_layout()
 	_render_pc_centric_view()
+
+
+func _on_viewport_size_changed() -> void:
+	_apply_responsive_layout()
+
+
+func _get_safe_viewport_size() -> Vector2:
+	var size := get_viewport_rect().size
+	return Vector2(maxf(size.x, _UI_MIN_WIDTH), maxf(size.y, _UI_MIN_HEIGHT))
+
+
+func _apply_responsive_layout() -> void:
+	var size := _get_safe_viewport_size()
+	var width := size.x
+	var height := size.y
+	_layout_hub_config_panel(width)
+	_layout_hub_topbar(width)
+	_layout_hub_actions(width)
+	_layout_hub_log_and_cards(width, height)
+	_layout_module_panels(width, height)
+
+
+func _layout_hub_topbar(width: float) -> void:
+	var top := 4.0
+	var left := _UI_MARGIN
+	var title_w := clampf(width * 0.18, 240.0, 360.0)
+	hub_title_label.offset_left = left
+	hub_title_label.offset_top = top
+	hub_title_label.offset_right = left + title_w
+	hub_title_label.offset_bottom = top + 20.0
+
+	var x := left + title_w + _UI_GAP
+	var right := width - _UI_MARGIN
+	var remaining := maxf(420.0, right - x)
+	var api_w := remaining * 0.44
+	var polling_w := remaining * 0.23
+	var queue_w := remaining * 0.13
+	var errors_w := maxf(130.0, remaining - api_w - polling_w - queue_w - _UI_GAP * 3.0)
+
+	hub_api_label.offset_left = x
+	hub_api_label.offset_top = top
+	hub_api_label.offset_right = x + api_w
+	hub_api_label.offset_bottom = top + 20.0
+	x = hub_api_label.offset_right + _UI_GAP
+
+	hub_polling_label.offset_left = x
+	hub_polling_label.offset_top = top
+	hub_polling_label.offset_right = x + polling_w
+	hub_polling_label.offset_bottom = top + 20.0
+	x = hub_polling_label.offset_right + _UI_GAP
+
+	hub_queue_label.offset_left = x
+	hub_queue_label.offset_top = top
+	hub_queue_label.offset_right = x + queue_w
+	hub_queue_label.offset_bottom = top + 20.0
+	x = hub_queue_label.offset_right + _UI_GAP
+
+	hub_errors_label.offset_left = x
+	hub_errors_label.offset_top = top
+	hub_errors_label.offset_right = minf(right, x + errors_w)
+	hub_errors_label.offset_bottom = top + 20.0
+
+
+func _layout_hub_actions(width: float) -> void:
+	var y := 228.0
+	var h := 38.0
+	var left := _UI_MARGIN
+	var right := minf(width - _UI_MARGIN, hub_config_panel.offset_left - _UI_GAP)
+	if right <= left + 620.0:
+		right = width - _UI_MARGIN
+	var count := 5.0
+	var available := maxf(680.0, right - left)
+	var button_w := maxf(120.0, (available - _UI_GAP * (count - 1.0)) / count)
+
+	play_pc_button.offset_left = left
+	play_pc_button.offset_top = y
+	play_pc_button.offset_right = left + button_w
+	play_pc_button.offset_bottom = y + h
+
+	play_world_button.offset_left = play_pc_button.offset_right + _UI_GAP
+	play_world_button.offset_top = y
+	play_world_button.offset_right = play_world_button.offset_left + button_w
+	play_world_button.offset_bottom = y + h
+
+	server_toggle_button.offset_left = play_world_button.offset_right + _UI_GAP
+	server_toggle_button.offset_top = y
+	server_toggle_button.offset_right = server_toggle_button.offset_left + button_w
+	server_toggle_button.offset_bottom = y + h
+
+	hub_reload_button.offset_left = server_toggle_button.offset_right + _UI_GAP
+	hub_reload_button.offset_top = y
+	hub_reload_button.offset_right = hub_reload_button.offset_left + button_w
+	hub_reload_button.offset_bottom = y + h
+
+	hub_checks_button.offset_left = hub_reload_button.offset_right + _UI_GAP
+	hub_checks_button.offset_top = y
+	hub_checks_button.offset_right = hub_checks_button.offset_left + button_w
+	hub_checks_button.offset_bottom = y + h
+
+	audio_status_label.offset_left = _UI_MARGIN
+	audio_status_label.offset_top = 284.0
+	audio_status_label.offset_right = _UI_MARGIN + 380.0
+	audio_status_label.offset_bottom = 304.0
+
+	server_status_label.offset_left = server_toggle_button.offset_left
+	server_status_label.offset_top = 284.0
+	server_status_label.offset_right = server_status_label.offset_left + 560.0
+	server_status_label.offset_bottom = 304.0
+
+
+func _layout_hub_log_and_cards(width: float, height: float) -> void:
+	var cards_h := clampf(height * 0.19, 140.0, 190.0)
+	var cards_top := height - _UI_MARGIN - cards_h
+	var cards_bottom := height - _UI_MARGIN
+	var card_w := (width - _UI_MARGIN * 2.0 - _UI_GAP * 2.0) / 3.0
+
+	sim_card_panel.offset_left = _UI_MARGIN
+	sim_card_panel.offset_top = cards_top
+	sim_card_panel.offset_right = sim_card_panel.offset_left + card_w
+	sim_card_panel.offset_bottom = cards_bottom
+
+	api_card_panel.offset_left = sim_card_panel.offset_right + _UI_GAP
+	api_card_panel.offset_top = cards_top
+	api_card_panel.offset_right = api_card_panel.offset_left + card_w
+	api_card_panel.offset_bottom = cards_bottom
+
+	eval_card_panel.offset_left = api_card_panel.offset_right + _UI_GAP
+	eval_card_panel.offset_top = cards_top
+	eval_card_panel.offset_right = eval_card_panel.offset_left + card_w
+	eval_card_panel.offset_bottom = cards_bottom
+
+	log_label.offset_left = _UI_MARGIN
+	log_label.offset_top = 318.0
+	log_label.offset_right = width - _UI_MARGIN
+	log_label.offset_bottom = maxf(log_label.offset_top + 140.0, cards_top - _UI_GAP)
+
+
+func _layout_hub_config_panel(width: float) -> void:
+	var panel_w := clampf(width * 0.16, 240.0, 300.0)
+	hub_config_panel.offset_left = width - _UI_MARGIN - panel_w
+	hub_config_panel.offset_top = 44.0
+	hub_config_panel.offset_right = width - _UI_MARGIN
+	if _hub_config_collapsed:
+		hub_config_panel.offset_bottom = hub_config_panel.offset_top + _HUB_CONFIG_COLLAPSED_HEIGHT
+	else:
+		hub_config_panel.offset_bottom = hub_config_panel.offset_top + (_HUB_CONFIG_EXPANDED_BOTTOM - 44.0)
+
+
+func _layout_module_panels(width: float, height: float) -> void:
+	var left := _UI_MARGIN
+	var top := 44.0
+	var right := width - _UI_MARGIN
+	var bottom := height - _UI_MARGIN
+
+	checks_studio_panel.offset_left = left
+	checks_studio_panel.offset_top = top
+	checks_studio_panel.offset_right = right
+	checks_studio_panel.offset_bottom = bottom
+
+	rp_studio_panel.offset_left = left
+	rp_studio_panel.offset_top = top
+	rp_studio_panel.offset_right = right
+	rp_studio_panel.offset_bottom = bottom
+
+	if _agent_submenu_open:
+		agent_studio_panel.offset_left = left
+		agent_studio_panel.offset_top = top
+		agent_studio_panel.offset_right = right
+		agent_studio_panel.offset_bottom = bottom
+		_apply_agent_module_layout(true)
+		return
+
+	var dock_w := clampf(width * 0.31, 520.0, 680.0)
+	var dock_h := clampf(height * 0.40, 380.0, 480.0)
+	agent_studio_panel.offset_left = right - dock_w
+	agent_studio_panel.offset_top = bottom - dock_h
+	agent_studio_panel.offset_right = right
+	agent_studio_panel.offset_bottom = bottom
+	_apply_agent_module_layout(false)
 
 
 func receive_world_state(state: Dictionary) -> void:
@@ -783,19 +975,8 @@ func _set_agent_module_exclusive(open: bool) -> void:
 	agent_ai_status_button.disabled = not open
 	_agent_submenu_open = open
 
-	if open:
-		agent_studio_panel.offset_left = _AGENT_PANEL_EXCLUSIVE_LEFT
-		agent_studio_panel.offset_top = _AGENT_PANEL_EXCLUSIVE_TOP
-		agent_studio_panel.offset_right = _AGENT_PANEL_EXCLUSIVE_RIGHT
-		agent_studio_panel.offset_bottom = _AGENT_PANEL_EXCLUSIVE_BOTTOM
-	else:
-		agent_studio_panel.offset_left = _AGENT_PANEL_DOCK_LEFT
-		agent_studio_panel.offset_top = _AGENT_PANEL_DOCK_TOP
-		agent_studio_panel.offset_right = _AGENT_PANEL_DOCK_RIGHT
-		agent_studio_panel.offset_bottom = _AGENT_PANEL_DOCK_BOTTOM
-
 	_set_hub_content_visible(not open)
-	_apply_agent_module_layout(open)
+	_apply_responsive_layout()
 
 
 func _set_checks_module_exclusive(open: bool) -> void:
@@ -819,13 +1000,8 @@ func _set_checks_module_exclusive(open: bool) -> void:
 	checks_run_module_pack_button.disabled = _checks_running or not open
 	_checks_submenu_open = open
 
-	if open:
-		checks_studio_panel.offset_left = _CHECKS_PANEL_EXCLUSIVE_LEFT
-		checks_studio_panel.offset_top = _CHECKS_PANEL_EXCLUSIVE_TOP
-		checks_studio_panel.offset_right = _CHECKS_PANEL_EXCLUSIVE_RIGHT
-		checks_studio_panel.offset_bottom = _CHECKS_PANEL_EXCLUSIVE_BOTTOM
-
 	_set_hub_content_visible(not open)
+	_apply_responsive_layout()
 	_refresh_checks_studio_ui()
 
 
@@ -842,6 +1018,7 @@ func _set_rp_module_exclusive(open: bool) -> void:
 	_rp_submenu_open = open
 
 	_set_hub_content_visible(not open)
+	_apply_responsive_layout()
 	_refresh_rp_studio_ui()
 
 
@@ -869,80 +1046,104 @@ func _set_hub_content_visible(visible_state: bool) -> void:
 
 func _apply_agent_module_layout(exclusive_open: bool) -> void:
 	if exclusive_open:
-		agent_studio_mode_label.offset_left = 24.0
-		agent_studio_mode_label.offset_top = 56.0
-		agent_studio_mode_label.offset_right = 24.0
-		agent_studio_mode_label.offset_bottom = 56.0
+		var panel_width := agent_studio_panel.offset_right - agent_studio_panel.offset_left
+		var panel_height := agent_studio_panel.offset_bottom - agent_studio_panel.offset_top
+		var left := 24.0
+		var right := panel_width - 24.0
+		var col_gap := 18.0
+		var col_width := maxf(240.0, (right - left - col_gap * 2.0) / 3.0)
+		var col1_left := left
+		var col2_left := col1_left + col_width + col_gap
+		var col3_left := col2_left + col_width + col_gap
+		var col1_right := col1_left + col_width
+		var col2_right := col2_left + col_width
+		var col3_right := minf(right, col3_left + col_width)
 
-		agent_operate_button.offset_left = 24.0
+		agent_back_button.offset_left = right - 210.0
+		agent_back_button.offset_top = 10.0
+		agent_back_button.offset_right = right
+		agent_back_button.offset_bottom = 42.0
+
+		agent_studio_mode_label.offset_left = left
+		agent_studio_mode_label.offset_top = 56.0
+		agent_studio_mode_label.offset_right = right
+		agent_studio_mode_label.offset_bottom = 76.0
+
+		agent_operate_button.offset_left = col1_left
 		agent_operate_button.offset_top = 88.0
-		agent_operate_button.offset_right = 314.0
+		agent_operate_button.offset_right = col1_right
 		agent_operate_button.offset_bottom = 132.0
 
-		agent_author_button.offset_left = 332.0
+		agent_author_button.offset_left = col2_left
 		agent_author_button.offset_top = 88.0
-		agent_author_button.offset_right = 622.0
+		agent_author_button.offset_right = col2_right
 		agent_author_button.offset_bottom = 132.0
 
-		agent_dataset_source_button.offset_left = 940.0
+		agent_dataset_source_button.offset_left = col3_left
 		agent_dataset_source_button.offset_top = 88.0
-		agent_dataset_source_button.offset_right = 1222.0
+		agent_dataset_source_button.offset_right = col3_right
 		agent_dataset_source_button.offset_bottom = 132.0
 
-		agent_eval_run_button.offset_left = 24.0
+		agent_eval_suite_button.offset_left = col3_left
+		agent_eval_suite_button.offset_top = 46.0
+		agent_eval_suite_button.offset_right = col3_right
+		agent_eval_suite_button.offset_bottom = 80.0
+
+		agent_eval_run_button.offset_left = col1_left
 		agent_eval_run_button.offset_top = 152.0
-		agent_eval_run_button.offset_right = 614.0
+		agent_eval_run_button.offset_right = col1_right
 		agent_eval_run_button.offset_bottom = 196.0
 
-		agent_datasets_button.offset_left = 632.0
+		agent_datasets_button.offset_left = col2_left
 		agent_datasets_button.offset_top = 152.0
-		agent_datasets_button.offset_right = 1222.0
+		agent_datasets_button.offset_right = col2_right
 		agent_datasets_button.offset_bottom = 196.0
 
-		agent_synonyms_button.offset_left = 1240.0
+		agent_synonyms_button.offset_left = col3_left
 		agent_synonyms_button.offset_top = 152.0
-		agent_synonyms_button.offset_right = 1830.0
+		agent_synonyms_button.offset_right = col3_right
 		agent_synonyms_button.offset_bottom = 196.0
 
-		agent_finetune_button.offset_left = 24.0
+		agent_finetune_button.offset_left = col1_left
 		agent_finetune_button.offset_top = 212.0
-		agent_finetune_button.offset_right = 614.0
+		agent_finetune_button.offset_right = col1_right
 		agent_finetune_button.offset_bottom = 256.0
 
-		agent_profiles_button.offset_left = 632.0
+		agent_profiles_button.offset_left = col2_left
 		agent_profiles_button.offset_top = 212.0
-		agent_profiles_button.offset_right = 1222.0
+		agent_profiles_button.offset_right = col2_right
 		agent_profiles_button.offset_bottom = 256.0
 
-		agent_ai_status_button.offset_left = 1240.0
+		agent_ai_status_button.offset_left = col3_left
 		agent_ai_status_button.offset_top = 212.0
-		agent_ai_status_button.offset_right = 1830.0
+		agent_ai_status_button.offset_right = col3_right
 		agent_ai_status_button.offset_bottom = 256.0
 
-		agent_eval_status_label.offset_left = 24.0
+		agent_eval_status_label.offset_left = left
 		agent_eval_status_label.offset_top = 286.0
-		agent_eval_status_label.offset_right = 24.0
-		agent_eval_status_label.offset_bottom = 286.0
+		agent_eval_status_label.offset_right = right
+		agent_eval_status_label.offset_bottom = 306.0
 
-		agent_system_metrics_label.offset_left = 24.0
+		agent_system_metrics_label.offset_left = left
 		agent_system_metrics_label.offset_top = 320.0
-		agent_system_metrics_label.offset_right = 24.0
-		agent_system_metrics_label.offset_bottom = 320.0
+		agent_system_metrics_label.offset_right = right
+		agent_system_metrics_label.offset_bottom = 340.0
 
-		agent_latest_runs_label.offset_left = 24.0
+		agent_latest_runs_label.offset_left = left
 		agent_latest_runs_label.offset_top = 356.0
-		agent_latest_runs_label.offset_right = 24.0
-		agent_latest_runs_label.offset_bottom = 356.0
+		agent_latest_runs_label.offset_right = right
+		agent_latest_runs_label.offset_bottom = 376.0
 
-		agent_studio_hint_label.offset_left = 24.0
-		agent_studio_hint_label.offset_top = 452.0
-		agent_studio_hint_label.offset_right = 24.0
-		agent_studio_hint_label.offset_bottom = 452.0
+		var form_top := clampf(panel_height * 0.49, 430.0, 560.0)
+		agent_studio_hint_label.offset_left = left
+		agent_studio_hint_label.offset_top = form_top - 40.0
+		agent_studio_hint_label.offset_right = right
+		agent_studio_hint_label.offset_bottom = form_top - 20.0
 
-		agent_form_panel.offset_left = 24.0
-		agent_form_panel.offset_top = 492.0
-		agent_form_panel.offset_right = 1830.0
-		agent_form_panel.offset_bottom = 980.0
+		agent_form_panel.offset_left = left
+		agent_form_panel.offset_top = form_top
+		agent_form_panel.offset_right = right
+		agent_form_panel.offset_bottom = panel_height - 18.0
 		return
 
 	agent_studio_mode_label.offset_left = 10.0
@@ -964,6 +1165,17 @@ func _apply_agent_module_layout(exclusive_open: bool) -> void:
 	agent_dataset_source_button.offset_top = 54.0
 	agent_dataset_source_button.offset_right = 564.0
 	agent_dataset_source_button.offset_bottom = 88.0
+
+	var compact_right := agent_studio_panel.offset_right - agent_studio_panel.offset_left - 10.0
+	agent_back_button.offset_left = compact_right - 170.0
+	agent_back_button.offset_top = 6.0
+	agent_back_button.offset_right = compact_right
+	agent_back_button.offset_bottom = 34.0
+
+	agent_eval_suite_button.offset_left = compact_right - 184.0
+	agent_eval_suite_button.offset_top = 38.0
+	agent_eval_suite_button.offset_right = compact_right
+	agent_eval_suite_button.offset_bottom = 68.0
 
 	agent_eval_run_button.offset_left = 10.0
 	agent_eval_run_button.offset_top = 104.0
@@ -1123,9 +1335,10 @@ func _set_hub_config_collapsed(collapsed: bool) -> void:
 	if collapsed:
 		hub_config_panel.offset_bottom = hub_config_panel.offset_top + _HUB_CONFIG_COLLAPSED_HEIGHT
 	else:
-		hub_config_panel.offset_bottom = _HUB_CONFIG_EXPANDED_BOTTOM
+		hub_config_panel.offset_bottom = hub_config_panel.offset_top + (_HUB_CONFIG_EXPANDED_BOTTOM - 44.0)
 
 	hub_config_close_button.text = "Öffnen" if collapsed else "Minimieren"
+	_apply_responsive_layout()
 
 
 func _load_hub_preferences() -> void:
@@ -1826,12 +2039,9 @@ func _refresh_agent_form_dropdowns() -> void:
 func _on_agent_form_apply_pressed() -> void:
 	if _agent_form_kind == "":
 		return
-	var parsed = JSON.parse_string(agent_form_payload_edit.text)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		agent_form_status_label.text = "Form: JSON ungueltig"
+	var payload := _build_agent_form_payload_from_controls()
+	if payload.is_empty():
 		return
-
-	var payload: Dictionary = parsed
 	if _agent_form_kind == "datasets":
 		_apply_dataset_form_payload(payload)
 		return
@@ -1857,6 +2067,164 @@ func _on_agent_form_apply_pressed() -> void:
 		return
 
 	agent_form_status_label.text = "Form: Unbekannter Form-Typ"
+
+
+func _build_agent_form_payload_from_controls() -> Dictionary:
+	var payload: Dictionary = {}
+	if _agent_form_kind == "datasets":
+		var dataset_name := agent_form_name_edit.text.strip_edges()
+		if dataset_name == "":
+			agent_form_status_label.text = "Form: Name fehlt"
+			return {}
+		var sys_prompt := _form_control_text("dataset_system_prompt").strip_edges()
+		var user_prompt := _form_control_text("dataset_user_prompt").strip_edges()
+		var assistant_prompt := _form_control_text("dataset_assistant_prompt").strip_edges()
+		if user_prompt == "" or assistant_prompt == "":
+			agent_form_status_label.text = "Form: User/Assistant-Beispiel fehlt"
+			return {}
+		payload = {
+			"dataset_name": dataset_name,
+			"dataset_tag": _form_control_text("dataset_tag", "v1"),
+			"target": _agent_form_target_value,
+			"set_active": _form_control_bool("dataset_set_active", true),
+			"source_mode": _agent_form_mode_value,
+			"records": [
+				{
+					"messages": [
+						{"role": "system", "content": sys_prompt if sys_prompt != "" else "Du bist Novapolis Agent."},
+						{"role": "user", "content": user_prompt},
+						{"role": "assistant", "content": assistant_prompt},
+					],
+				}
+			],
+			"train_ratio": _form_control_float("dataset_train_ratio", 0.9),
+			"min_output_chars": _form_control_int("dataset_min_output_chars", 20),
+			"notes": _form_control_text("dataset_notes", ""),
+		}
+		return payload
+
+	if _agent_form_kind == "synonyms":
+		var synonym_set := agent_form_name_edit.text.strip_edges()
+		if synonym_set == "":
+			agent_form_status_label.text = "Form: Name fehlt"
+			return {}
+		var term := _form_control_text("syn_term").strip_edges()
+		var syn_csv := _form_control_text("syn_values_csv").strip_edges()
+		if term == "" or syn_csv == "":
+			agent_form_status_label.text = "Form: term/synonyms fehlt"
+			return {}
+		var synonyms: Array[String] = []
+		for part in syn_csv.split(","):
+			var clean := str(part).strip_edges()
+			if clean != "":
+				synonyms.append(clean)
+		if synonyms.is_empty():
+			agent_form_status_label.text = "Form: mind. ein Synonym erforderlich"
+			return {}
+		payload = {
+			"synonym_set": synonym_set,
+			"synonym_tag": _form_control_text("syn_tag", "v1"),
+			"target": _agent_form_target_value,
+			"set_active": _form_control_bool("syn_set_active", true),
+			"mode": _agent_form_mode_value,
+			"entries": [{"term": term, "synonyms": synonyms}],
+			"notes": _form_control_text("syn_notes", ""),
+		}
+		return payload
+
+	if _agent_form_kind == "finetune":
+		payload = {
+			"profile": _agent_form_mode_value,
+			"base_model": _form_control_text("ft_base_model", _finetune_base_model),
+			"output_name": agent_form_name_edit.text.strip_edges(),
+			"train_file": _form_control_text("ft_train_file", ""),
+			"epochs": _form_control_int("ft_epochs", 1),
+			"max_steps": _form_control_int("ft_max_steps", 10),
+			"batch_size": _form_control_int("ft_batch_size", 1),
+			"lr": _form_control_float("ft_lr", 0.0002),
+			"no_check": _form_control_bool("ft_no_check", true),
+			"notes": _form_control_text("ft_notes", ""),
+		}
+		return payload
+
+	if _agent_form_kind == "profiles":
+		payload = {
+			"profile_name": agent_form_name_edit.text.strip_edges(),
+			"target": _agent_form_target_value,
+			"mode": _agent_form_mode_value,
+			"prompt_system": _form_control_text("profile_prompt_system", ""),
+			"behavior_notes": _form_control_text("profile_behavior_notes", ""),
+			"assign_to": _form_control_csv_array("profile_assign_to_csv"),
+			"set_active": _form_control_bool("profile_set_active", true),
+			"archive": _form_control_bool("profile_archive", false),
+			"notes": _form_control_text("profile_notes", ""),
+		}
+		return payload
+
+	if _agent_form_kind == "advanced":
+		payload = {
+			"mode": _agent_form_mode_value,
+			"policy_profile": _form_control_text("adv_policy_profile", "default"),
+			"strictness_level": _form_control_text("adv_strictness_level", "normal"),
+			"safety_profile": _form_control_text("adv_safety_profile", "standard"),
+			"debug_level": _form_control_text("adv_debug_level", "minimal"),
+			"system_behavior": _form_control_text("adv_system_behavior", ""),
+			"notes": _form_control_text("adv_notes", ""),
+		}
+		return payload
+
+	if _agent_form_kind == "jobs":
+		payload = {
+			"job_name": agent_form_name_edit.text.strip_edges(),
+			"job_type": _agent_form_mode_value,
+			"enqueue": _form_control_bool("job_enqueue", true),
+			"priority": _form_control_int("job_priority", 10),
+			"payload": {"notes": _form_control_text("job_payload_notes", "")},
+			"notes": _form_control_text("job_notes", ""),
+		}
+		return payload
+
+	return {}
+
+
+func _form_control_text(key: String, fallback: String = "") -> String:
+	var ctrl: Variant = _agent_form_controls.get(key, null)
+	if ctrl is LineEdit:
+		return (ctrl as LineEdit).text
+	if ctrl is TextEdit:
+		return (ctrl as TextEdit).text
+	return fallback
+
+
+func _form_control_int(key: String, fallback: int) -> int:
+	var ctrl: Variant = _agent_form_controls.get(key, null)
+	if ctrl is SpinBox:
+		return int((ctrl as SpinBox).value)
+	return fallback
+
+
+func _form_control_float(key: String, fallback: float) -> float:
+	var ctrl: Variant = _agent_form_controls.get(key, null)
+	if ctrl is SpinBox:
+		return float((ctrl as SpinBox).value)
+	return fallback
+
+
+func _form_control_bool(key: String, fallback: bool) -> bool:
+	var ctrl: Variant = _agent_form_controls.get(key, null)
+	if ctrl is CheckBox:
+		return (ctrl as CheckBox).button_pressed
+	return fallback
+
+
+func _form_control_csv_array(key: String) -> Array[String]:
+	var values: Array[String] = []
+	var raw := _form_control_text(key, "")
+	for part in raw.split(","):
+		var clean := str(part).strip_edges()
+		if clean != "":
+			values.append(clean)
+	return values
 
 
 func _apply_dataset_form_payload(payload: Dictionary) -> void:
@@ -2272,42 +2640,251 @@ func _refresh_agent_form_ui() -> void:
 	agent_form_panel.visible = show_form
 	if not show_form:
 		return
+	agent_form_payload_edit.visible = false
+	agent_form_fields_scroll.visible = true
 	_refresh_agent_form_dropdowns()
+	agent_form_name_edit.placeholder_text = _agent_form_name_placeholder_for_kind(_agent_form_kind)
+	agent_form_payload_edit.placeholder_text = _agent_form_payload_placeholder_for_kind(_agent_form_kind)
 
 	var signature := "%s|%s|%s" % [_agent_form_kind, _agent_form_mode_value, _agent_form_target_value]
 	var template_changed := signature != _agent_form_template_signature
 	_agent_form_template_signature = signature
+	if template_changed:
+		_rebuild_agent_form_fields()
+
+	_layout_agent_form_controls()
 
 	if _agent_form_kind == "datasets":
 		agent_form_title_label.text = "Form: Datasets"
 		if template_changed:
-			agent_form_payload_edit.text = _build_dataset_form_template()
 			agent_form_status_label.text = "Form: Datasets-Konfiguration bereit"
 	elif _agent_form_kind == "finetune":
 		agent_form_title_label.text = "Form: Finetune"
 		if template_changed:
-			agent_form_payload_edit.text = _build_finetune_form_template()
 			agent_form_status_label.text = "Form: Finetune-Konfiguration bereit"
 	elif _agent_form_kind == "profiles":
 		agent_form_title_label.text = "Form: Profiles"
 		if template_changed:
-			agent_form_payload_edit.text = _build_profile_form_template()
 			agent_form_status_label.text = "Form: Profile-Konfiguration bereit"
 	elif _agent_form_kind == "advanced":
 		agent_form_title_label.text = "Form: Advanced Settings"
 		if template_changed:
-			agent_form_payload_edit.text = _build_advanced_settings_form_template()
 			agent_form_status_label.text = "Form: Advanced-Settings-Konfiguration bereit"
 	elif _agent_form_kind == "jobs":
 		agent_form_title_label.text = "Form: Jobs"
 		if template_changed:
-			agent_form_payload_edit.text = _build_jobs_form_template()
 			agent_form_status_label.text = "Form: Jobs-Konfiguration bereit"
 	else:
 		agent_form_title_label.text = "Form: Synonyms"
 		if template_changed:
-			agent_form_payload_edit.text = _build_synonym_form_template()
 			agent_form_status_label.text = "Form: Synonym-Konfiguration bereit"
+
+
+func _layout_agent_form_controls() -> void:
+	var panel_w := agent_form_panel.offset_right - agent_form_panel.offset_left
+	var panel_h := agent_form_panel.offset_bottom - agent_form_panel.offset_top
+	var left := 12.0
+	var right := maxf(left + 24.0, panel_w - 12.0)
+
+	agent_form_title_label.offset_left = left
+	agent_form_title_label.offset_top = 10.0
+	agent_form_title_label.offset_right = right
+	agent_form_title_label.offset_bottom = 28.0
+
+	var row_top := 38.0
+	var row_bottom := 72.0
+	var field_gap := 12.0
+	var field_w := maxf(140.0, (right - left - field_gap) / 2.0)
+
+	agent_form_mode_button.offset_left = left
+	agent_form_mode_button.offset_top = row_top
+	agent_form_mode_button.offset_right = left + field_w
+	agent_form_mode_button.offset_bottom = row_bottom
+
+	agent_form_target_button.offset_left = agent_form_mode_button.offset_right + field_gap
+	agent_form_target_button.offset_top = row_top
+	agent_form_target_button.offset_right = right
+	agent_form_target_button.offset_bottom = row_bottom
+
+	agent_form_name_edit.offset_left = left
+	agent_form_name_edit.offset_top = 84.0
+	agent_form_name_edit.offset_right = right - 98.0
+	agent_form_name_edit.offset_bottom = 114.0
+
+	agent_form_apply_button.offset_left = right - 90.0
+	agent_form_apply_button.offset_top = 84.0
+	agent_form_apply_button.offset_right = right
+	agent_form_apply_button.offset_bottom = 114.0
+
+	var fields_bottom := maxf(164.0, panel_h - 44.0)
+	agent_form_fields_scroll.offset_left = left
+	agent_form_fields_scroll.offset_top = 126.0
+	agent_form_fields_scroll.offset_right = right
+	agent_form_fields_scroll.offset_bottom = fields_bottom
+
+	agent_form_payload_edit.offset_left = left
+	agent_form_payload_edit.offset_top = 126.0
+	agent_form_payload_edit.offset_right = right
+	agent_form_payload_edit.offset_bottom = fields_bottom
+
+	agent_form_status_label.offset_left = left
+	agent_form_status_label.offset_top = fields_bottom + 12.0
+	agent_form_status_label.offset_right = right
+	agent_form_status_label.offset_bottom = fields_bottom + 30.0
+
+
+func _rebuild_agent_form_fields() -> void:
+	for child in agent_form_fields_box.get_children():
+		child.queue_free()
+	_agent_form_controls.clear()
+
+	if _agent_form_kind == "datasets":
+		_add_form_line_field("dataset_tag", "Dataset-Tag", _active_dataset_tag if _active_dataset_tag != "" else "v1", "z. B. v1")
+		_add_form_int_field("dataset_min_output_chars", "Min. Output Chars", 20, 1, 2000)
+		_add_form_float_field("dataset_train_ratio", "Train-Ratio", 0.9, 0.1, 0.99, 0.01)
+		_add_form_bool_field("dataset_set_active", "Als aktives Dataset setzen", true)
+		_add_form_text_field("dataset_system_prompt", "System-Prompt", "Du bist Novapolis Agent.", "Optionaler System-Kontext", 66.0)
+		_add_form_text_field("dataset_user_prompt", "User-Beispiel", "", "z. B. Erstelle eine kurze RP-Szene mit Konflikt und Hook.", 66.0)
+		_add_form_text_field("dataset_assistant_prompt", "Assistant-Beispiel", "", "z. B. Hier ist eine kurze RP-Szene...", 66.0)
+		_add_form_text_field("dataset_notes", "Notizen", "", "Optional", 56.0)
+		return
+
+	if _agent_form_kind == "synonyms":
+		_add_form_line_field("syn_tag", "Synonym-Tag", _active_synonym_tag if _active_synonym_tag != "" else "v1", "z. B. v1")
+		_add_form_bool_field("syn_set_active", "Als aktives Synonym-Set setzen", true)
+		_add_form_line_field("syn_term", "Begriff", "", "z. B. Aufstand")
+		_add_form_line_field("syn_values_csv", "Synonyme (CSV)", "", "z. B. rebell, revolt, uprising")
+		_add_form_text_field("syn_notes", "Notizen", "", "Optional", 56.0)
+		return
+
+	if _agent_form_kind == "finetune":
+		_add_form_line_field("ft_base_model", "Base Model", _finetune_base_model, "z. B. sshleifer/tiny-gpt2")
+		_add_form_line_field("ft_train_file", "Train-Datei (optional)", "", "Leer = automatische Aufloesung")
+		_add_form_int_field("ft_epochs", "Epochs", 1, 1, 20)
+		_add_form_int_field("ft_max_steps", "Max Steps", 10, 1, 100000)
+		_add_form_int_field("ft_batch_size", "Batch Size", 1, 1, 128)
+		_add_form_float_field("ft_lr", "Learning Rate", 0.0002, 0.000001, 0.01, 0.0001)
+		_add_form_bool_field("ft_no_check", "Pre-Checks ueberspringen", true)
+		_add_form_text_field("ft_notes", "Notizen", "", "Optional", 56.0)
+		return
+
+	if _agent_form_kind == "profiles":
+		_add_form_text_field("profile_prompt_system", "System-Prompt", "Du bist ein hilfreicher Novapolis-Agent mit klaren, kurzen Antworten.", "Pflichtfeld", 90.0)
+		_add_form_text_field("profile_behavior_notes", "Behavior Notes", "Priorisiert Klarheit, Korrektheit und kurze Struktur.", "Optional", 72.0)
+		_add_form_line_field("profile_assign_to_csv", "Assign To (CSV)", "eval,finetune", "z. B. eval,finetune")
+		_add_form_bool_field("profile_set_active", "Als aktives Profil setzen", true)
+		_add_form_bool_field("profile_archive", "Profil archivieren", false)
+		_add_form_text_field("profile_notes", "Notizen", "", "Optional", 56.0)
+		return
+
+	if _agent_form_kind == "advanced":
+		_add_form_line_field("adv_policy_profile", "Policy Profile", "default", "z. B. default")
+		_add_form_line_field("adv_strictness_level", "Strictness", "normal", "z. B. normal")
+		_add_form_line_field("adv_safety_profile", "Safety Profile", "standard", "z. B. standard")
+		_add_form_line_field("adv_debug_level", "Debug Level", "minimal", "z. B. minimal")
+		_add_form_text_field("adv_system_behavior", "System Behavior", "", "Pflichtfeld", 90.0)
+		_add_form_text_field("adv_notes", "Notizen", "", "Optional", 56.0)
+		return
+
+	if _agent_form_kind == "jobs":
+		_add_form_bool_field("job_enqueue", "Job sofort einreihen", true)
+		_add_form_int_field("job_priority", "Prioritaet", 10, 0, 100)
+		_add_form_text_field("job_payload_notes", "Payload Notes", "", "z. B. limit=20, suite=neutral", 72.0)
+		_add_form_text_field("job_notes", "Notizen", "", "Optional", 56.0)
+
+
+func _add_form_line_field(key: String, label_text: String, value: String, placeholder: String) -> void:
+	var label := Label.new()
+	label.text = label_text
+	agent_form_fields_box.add_child(label)
+
+	var edit := LineEdit.new()
+	edit.text = value
+	edit.placeholder_text = placeholder
+	agent_form_fields_box.add_child(edit)
+	_agent_form_controls[key] = edit
+
+
+func _add_form_text_field(key: String, label_text: String, value: String, placeholder: String, height: float) -> void:
+	var label := Label.new()
+	label.text = label_text
+	agent_form_fields_box.add_child(label)
+
+	var edit := TextEdit.new()
+	edit.text = value
+	edit.placeholder_text = placeholder
+	edit.custom_minimum_size = Vector2(0.0, height)
+	agent_form_fields_box.add_child(edit)
+	_agent_form_controls[key] = edit
+
+
+func _add_form_int_field(key: String, label_text: String, value: int, min_value: int, max_value: int) -> void:
+	var label := Label.new()
+	label.text = label_text
+	agent_form_fields_box.add_child(label)
+
+	var spin := SpinBox.new()
+	spin.min_value = min_value
+	spin.max_value = max_value
+	spin.step = 1.0
+	spin.rounded = true
+	spin.value = value
+	agent_form_fields_box.add_child(spin)
+	_agent_form_controls[key] = spin
+
+
+func _add_form_float_field(key: String, label_text: String, value: float, min_value: float, max_value: float, step_value: float) -> void:
+	var label := Label.new()
+	label.text = label_text
+	agent_form_fields_box.add_child(label)
+
+	var spin := SpinBox.new()
+	spin.min_value = min_value
+	spin.max_value = max_value
+	spin.step = step_value
+	spin.value = value
+	agent_form_fields_box.add_child(spin)
+	_agent_form_controls[key] = spin
+
+
+func _add_form_bool_field(key: String, label_text: String, value: bool) -> void:
+	var check := CheckBox.new()
+	check.text = label_text
+	check.button_pressed = value
+	agent_form_fields_box.add_child(check)
+	_agent_form_controls[key] = check
+
+
+func _agent_form_name_placeholder_for_kind(kind: String) -> String:
+	if kind == "datasets":
+		return "z. B. user_dataset_support_faq"
+	if kind == "synonyms":
+		return "z. B. user_synonyms_novapolis"
+	if kind == "finetune":
+		return "z. B. lora-novapolis-v1"
+	if kind == "profiles":
+		return "z. B. profile_strict_short"
+	if kind == "advanced":
+		return "z. B. advanced_settings"
+	if kind == "jobs":
+		return "z. B. job_eval_neutral"
+	return "Name eingeben"
+
+
+func _agent_form_payload_placeholder_for_kind(kind: String) -> String:
+	if kind == "datasets":
+		return "JSON-Beispiel: dataset_name, dataset_tag, records[] ..."
+	if kind == "synonyms":
+		return "JSON-Beispiel: synonym_set, entries[] ..."
+	if kind == "finetune":
+		return "JSON-Beispiel: base_model, train_file, epochs ..."
+	if kind == "profiles":
+		return "JSON-Beispiel: profile_name, mode, prompt_system ..."
+	if kind == "advanced":
+		return "JSON-Beispiel: mode, policy_profile, strictness_level ..."
+	if kind == "jobs":
+		return "JSON-Beispiel: job_name, job_type, priority, payload ..."
+	return "JSON eingeben"
 
 
 func _dataset_mode_label(mode_value: String) -> String:
@@ -2865,10 +3442,13 @@ func _refresh_agent_studio_ui() -> void:
 
 	var latest_runs_lines: int = maxi(1, agent_latest_runs_label.get_line_count())
 	var line_step := 22.0 if collapse_status_block else 24.0
+	var hint_height := 26.0
 	var hint_top := maxf(hint_base_top, agent_latest_runs_label.offset_top + (float(latest_runs_lines) * line_step) + 14.0)
-	agent_studio_hint_label.visible = not form_should_show
+	var hint_max_top := agent_studio_panel.offset_bottom - 30.0 - hint_height
+	hint_top = minf(hint_top, hint_max_top)
+	agent_studio_hint_label.visible = false
 	agent_studio_hint_label.offset_top = hint_top
-	agent_studio_hint_label.offset_bottom = hint_top
+	agent_studio_hint_label.offset_bottom = hint_top + hint_height
 	if form_should_show:
 		var form_bottom := agent_studio_panel.offset_bottom - 22.0
 		var min_form_height := 300.0
@@ -2877,6 +3457,7 @@ func _refresh_agent_studio_ui() -> void:
 			desired_top = maxf(96.0, form_bottom - min_form_height)
 		agent_form_panel.offset_top = desired_top
 		agent_form_panel.offset_bottom = form_bottom
+		_layout_agent_form_controls()
 
 	if _agent_studio_mode == "operate":
 		if _eval_pid > 0:
