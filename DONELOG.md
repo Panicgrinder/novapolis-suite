@@ -1,10 +1,12 @@
 ---
-stand: 2026-03-03 14:36
-update: Asset-Provenienz klargezogen: Im aktuellen Sim-Lauf verwendete Assets sind GPT-generiert; PR-Hinweis nachgezogen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (2026-03-03 14:36); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:36)
+stand: 2026-03-03 14:44
+update: Root-Asset-Quelle (`assets/`) auf User-Freigabe jetzt mit Versionshistorie erfasst; Provenienz bleibt GPT-generiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' PASS (2026-03-03 14:44); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:44)
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-03 14:44: User-Freigabe umgesetzt: Root-Ordner `assets/` wird nicht mehr nur lokal gehalten, sondern in die Versionshistorie uebernommen. Provenienz bleibt explizit dokumentiert: Asset ist GPT-generiert.
 
 - 2026-03-03 14:36: Nachtrag auf User-Hinweis: Asset-Provenienz explizit dokumentiert. In `PR_DESCRIPTION.md` unter `Notes / Follow-up` wurde festgehalten, dass die Assets dieses Aenderungslaufs GPT-generiert sind.
 
