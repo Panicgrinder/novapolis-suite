@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-04 00:20
-update: Vollstaendig erledigten Sim-Abschnitt C) Agent-Modul in das Sim-Archiv verschoben; aktives Board auf Restpunkte fokussiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-04 00:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-04 00:22)
+stand: 2026-03-04 00:28
+update: Root-Board um priorisierte Standalone-Beta-Exit-Checkliste erweitert und Index-Hinweis synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-04 00:30); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-04 00:30)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -57,6 +57,7 @@ TODO-Index (Novapolis-Dev)
 - Statushinweis Sim v4.5: Agent-Studio vervollstaendigt - `Artifacts`, `Experiments`, `Policy Sandbox`, `Release Gate`, `Audit Trail` sowie ein explizites Destructive-Sicherheitsmodell sind im Status-/Event-Flow implementiert.
 - Statushinweis Sim v4.6: RP-Panel-Restpunkt abgeschlossen - RP-Submenu steuert `Hour +1`, `Auto-Advance`, `Replay-Seed` inkl. eigener `RP_*`-Runtime-Events.
 - Statushinweis Sim v4.7: Vollstaendig erledigter Block `Neuordnung: C) Agent-Modul im Hub (neu)` aus `docs/todo.sim.md` nach `novapolis-dev/archive/todo.sim.archive.md` ueberfuehrt (`archived_at: 2026-03-04 00:20`).
+- Statushinweis Root/Beta v0: `todo.root.md` enthaelt jetzt eine geordnete Standalone-Beta-Exit-Checkliste mit Blockern [1]-[7] und Optionalpunkten [8]-[12].
 
 Hinweise (Index)
 ----------------

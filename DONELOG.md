@@ -1,10 +1,12 @@
 ---
-stand: 2026-03-04 00:20
-update: Sim-TODO-Archivierung durchgefuehrt: vollstaendig erledigten Agent-Modul-Block aus aktivem Board nach Archive ueberfuehrt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-04 00:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-04 00:22)
+stand: 2026-03-04 00:28
+update: Root-Plan um priorisierte Standalone-Beta-Exit-Checkliste erweitert (Blocker/Optional, geordnete Reihenfolge).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-04 00:30); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-04 00:30)
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-04 00:28: Planungsnachzug fuer den Beta-Cut umgesetzt. `todo.root.md` enthaelt jetzt eine konkrete Standalone-Beta-Exit-Checkliste (12 Punkte, geordnet, mit Blocker `[1]-[7]` und Optional `[8]-[12]`) plus `Definition of Ready` fuer den Beta-Status. `novapolis-dev/docs/todo.index.md` wurde im selben Lauf mit `Statushinweis Root/Beta v0` synchronisiert.
 
 - 2026-03-04 00:20: Sim-Board bereinigt und Archivregel angewandt. Der vollstaendig erledigte Abschnitt `C) Agent-Modul im Hub (neu)` wurde aus `novapolis-dev/docs/todo.sim.md` nach `novapolis-dev/archive/todo.sim.archive.md` verschoben (neuester oben, `archived_at: 2026-03-04 00:20`). `novapolis-dev/docs/todo.index.md` wurde im selben Lauf mit Statushinweis `Sim v4.7` synchronisiert; Open-Count bleibt `2`.
 

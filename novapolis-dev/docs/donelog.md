@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-04 00:20
-update: Sim-TODO-Archivierungslauf: vollstaendig erledigten Agent-Modul-Block nach Archive verschoben und Board/Index synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-04 00:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-04 00:22)
+stand: 2026-03-04 00:28
+update: Root-Board um Standalone-Beta-Exit-Checkliste erweitert und TODO-Index im selben Lauf synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-04 00:30); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-04 00:30)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -17,6 +17,13 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Planning: Standalone-Beta Exit-Checkliste v0 verankert (2026-03-04 00:28)
+---------------------------------------------------------------------------
+
+- `todo.root.md`: geordnete Exit-Checkliste fuer Standalone-Beta angelegt (12 Punkte, davon Blocker `[1]-[7]`, Optional `[8]-[12]`).
+- `todo.root.md`: `Definition of Ready fuer "Standalone Beta"` als Abschlusskriterium ergänzt.
+- `novapolis-dev/docs/todo.index.md`: Index im selben Lauf synchronisiert (`Statushinweis Root/Beta v0`) gemaess R-TODO-IDX.
 
 Dev/Sim: Vollstaendig erledigten C)-Block aus aktivem Board archiviert (2026-03-04 00:20)
 -----------------------------------------------------------------------------------------
