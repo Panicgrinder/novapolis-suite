@@ -361,9 +361,9 @@ func _apply_editor_hub_layout(width: float, height: float) -> void:
 	# Preserve the dashboard arrangement authored in Main.tscn as hub source of truth.
 	_set_control_rect(
 		hub_title_label,
-		_scale_hub_x(188.0, width),
+		_scale_hub_x(108.0, width),
 		_scale_hub_y(157.0, height),
-		_scale_hub_x(428.0, width),
+		_scale_hub_x(522.0, width),
 		_scale_hub_y(180.0, height)
 	)
 	_set_control_rect(
@@ -391,7 +391,7 @@ func _apply_editor_hub_layout(width: float, height: float) -> void:
 		hub_errors_label,
 		_scale_hub_x(971.0, width),
 		_scale_hub_y(213.0, height),
-		_scale_hub_x(1176.0, width),
+		_scale_hub_x(1361.0, width),
 		_scale_hub_y(237.0, height)
 	)
 
@@ -449,15 +449,15 @@ func _apply_editor_hub_layout(width: float, height: float) -> void:
 		server_status_label,
 		_scale_hub_x(972.0, width),
 		_scale_hub_y(195.0, height),
-		_scale_hub_x(1355.0, width),
+		_scale_hub_x(1361.0, width),
 		_scale_hub_y(218.0, height)
 	)
 	_set_control_rect(
 		log_label,
 		_scale_hub_x(106.0, width),
 		_scale_hub_y(342.0, height),
-		_scale_hub_x(1383.0, width),
-		_scale_hub_y(715.0, height)
+		_scale_hub_x(1815.0, width),
+		_scale_hub_y(784.0, height)
 	)
 
 	_set_control_rect(

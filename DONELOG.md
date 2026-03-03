@@ -1,10 +1,14 @@
 ---
-stand: 2026-03-03 16:16
-update: Sim-Hub-Feinheiten uebernommen: nachgezogene Main.tscn-Offsets in den editorbasierten Runtime-Layoutpfad von Main.gd synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' PASS (2026-03-03 16:16); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 16:16)
+stand: 2026-03-03 23:16
+update: Sim-Interaktion repariert: Markierungsflaechen `bereich-01..04` blockieren keine Hub-Buttons mehr.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' PASS (2026-03-03 23:16); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 23:16)
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-03 18:15: Hotfix fuer nicht klickbare Schaltflaechen umgesetzt. Ursache war ein Input-Overlay durch die Markierungs-Panels `bereich-01..04` in `novapolis-sim/Main.tscn` (Panel-Default: Maus-Events werden konsumiert). Fix: allen vier Panels `mouse_filter = 2` gesetzt, damit die Flaechen sichtbar bleiben, aber keine Klicks mehr abfangen.
+
+- 2026-03-03 17:51: Feinschliff auf User-Wunsch umgesetzt. In `novapolis-sim/scripts/Main.gd` (`_apply_editor_hub_layout`) wurde der Top-Titel auf die Breite von Bereich-01 erweitert, Bereich-03-Statuszeilen konsistenter ausgerichtet (`HubErrorsLabel`, `ServerStatusLabel`) und das Runtime-Logfenster auf die aktuellen Szenewerte nachgezogen (`PcLogLabel`: rechts `1815`, unten `784`). Ergebnis: gleichmaessigere Top-Einteilung bei unveraenderten unteren Statuskarten sowie ein mit der Szene deckungsgleiches mittleres Log-Fenster im Run.
 
 - 2026-03-03 16:08: User-Feinheiten aus `novapolis-sim/Main.tscn` in den Runtime-Fix uebernommen. `novapolis-sim/scripts/Main.gd` (`_apply_editor_hub_layout`) wurde auf die neuesten Szene-Offsets nachgezogen, u. a. fuer `HubApiLabel`, `HubPollingLabel`, `HubQueueLabel`, `HubErrorsLabel`, `PlayPcAudioButton`, `PlayWorldAudioButton`, `ServerToggleButton`, `HubReloadButton`, `HubChecksButton`, `AudioStatusLabel`, `ServerStatusLabel` und `PcLogLabel`. Damit folgt der Hub-Laufzeitstand wieder exakt den zuletzt im Editor nachjustierten Positionen.
 

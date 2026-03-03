@@ -830,6 +830,34 @@ text = "Server: stopped"
 [node name="PcLogLabel" type="RichTextLabel" parent="." unique_id=1623751295]
 offset_left = 106.0
 offset_top = 342.0
-offset_right = 1383.0
-offset_bottom = 715.0
+offset_right = 1815.0
+offset_bottom = 784.0
 text = "PC-zentrierte Ansicht wird geladen..."
+
+[node name="bereich-02" type="Panel" parent="." unique_id=1443418518]
+offset_left = 549.0
+offset_top = 157.0
+offset_right = 945.0
+offset_bottom = 275.0
+mouse_filter = 2
+
+[node name="bereich-03" type="Panel" parent="." unique_id=1166660721]
+offset_left = 969.0
+offset_top = 157.0
+offset_right = 1364.0
+offset_bottom = 275.0
+mouse_filter = 2
+
+[node name="bereich-04" type="Panel" parent="." unique_id=1300309723]
+offset_left = 1389.0
+offset_top = 157.0
+offset_right = 1809.0
+offset_bottom = 275.0
+mouse_filter = 2
+
+[node name="bereich-01" type="Panel" parent="." unique_id=1378554575]
+offset_left = 101.0
+offset_top = 157.0
+offset_right = 525.0
+offset_bottom = 275.0
+mouse_filter = 2
