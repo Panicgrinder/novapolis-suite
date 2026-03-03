@@ -1,10 +1,12 @@
 ---
-stand: 2026-03-03 14:32
-update: Batch-Commit-Teilung gestartet (RP-Mind-Cluster-Batch committed) und PR-Beschreibung auf finalen Stabilisierungstext aktualisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (2026-03-03 14:28); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:28)
+stand: 2026-03-03 14:36
+update: Asset-Provenienz klargezogen: Im aktuellen Sim-Lauf verwendete Assets sind GPT-generiert; PR-Hinweis nachgezogen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (2026-03-03 14:36); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:36)
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-03 14:36: Nachtrag auf User-Hinweis: Asset-Provenienz explizit dokumentiert. In `PR_DESCRIPTION.md` unter `Notes / Follow-up` wurde festgehalten, dass die Assets dieses Aenderungslaufs GPT-generiert sind.
 
 - 2026-03-03 14:27: Folge auf User-Anweisung `1-3` umgesetzt. Batch 1 (`feat(rp): enforce mind-cluster taxonomy and validator gates`, Commit `9b03d52`) nach Snapshot-Gate-Sync committed; Batch 2 (Checks/Tooling + Agent-Lintfixes) staged vorbereitet; `PR_DESCRIPTION.md` auf den finalen Stabilisierungstext aktualisiert.
 

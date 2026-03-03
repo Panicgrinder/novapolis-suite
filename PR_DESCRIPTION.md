@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 14:32
-update: PR-Beschreibung auf den aktuellen Stabilisierungslauf (RP-Governance, Checks-Haertung, Sim-UI, Doku-Sync) finalisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (2026-03-03 14:28); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:28)
+stand: 2026-03-03 14:36
+update: Provenienz-Hinweis ergaenzt: Sim-Assets im aktuellen Lauf sind GPT-generiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (2026-03-03 14:36); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:36)
 ---
 
 PR: Stabilization And Governance Hardening (2026-03-03)
@@ -58,4 +58,5 @@ Notes / Follow-up
 
 - A root `assets/` source folder is still present/untracked and may remain while file locks are active.
 - Large workspace tree artifacts were refreshed as part of status synchronization.
+- Asset provenance note: assets in this change run were generated with GPT.
 
