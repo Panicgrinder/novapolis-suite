@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 14:32
-update: Dev-Doku auf portable Pfade und TODO-Index-Sync nach 1-5-Qualitaetslauf aktualisiert.
-checks: .\.venv\Scripts\python.exe scripts\check_portable_paths.py --repo-root . PASS (2026-03-03 14:06); .\.venv\Scripts\python.exe scripts\run_checks_and_report.py PASS (2026-03-03 14:12); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-sim/README.md' PASS (2026-03-03 14:14); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-sim/README.md' PASS (EXITCODE=0, 2026-03-03 14:14)
+stand: 2026-03-03 23:13
+update: Sim-TODO-Weiterlauf dokumentiert (Dashboard-Bereichsfeinschliff und Klick-Hotfix) und TODO-Index-Sync im selben Lauf nachgezogen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-03 23:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-03 23:13)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -17,6 +17,14 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Sim: Dashboard-Bereichsfeinschliff + Klick-Hotfix (2026-03-03 23:09)
+--------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.sim.md`: Beim offenen Hub-Punkt `Dashboard` den aktuellen Fortschritt dokumentiert (Bereichsmarker `bereich-01..04`, Runtime-Sync, Klick-Hotfix).
+- `novapolis-sim/scripts/Main.gd`: editorbasierter Hub-Layoutpfad auf die aktuellen Zuschnitte nachgeschaerft (inkl. Logfenster-Bounds).
+- `novapolis-sim/Main.tscn`: Bereichsmarker bleiben sichtbar, blockieren aber keine Schaltflaechen mehr (`mouse_filter=2` auf `bereich-01..04`).
+- `novapolis-dev/docs/todo.index.md`: Statushinweis `Sim v3.6` fuer den Dashboard-Feinschliff im selben Lauf ergaenzt (R-TODO-IDX eingehalten).
 
 Dev/Ops: 1-5-Qualitaetslauf stabilisiert und auf gruen gezogen (2026-03-03 14:12)
 ----------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 14:32
-update: Ops-Status fuer den abgeschlossenen 1-5-Qualitaetslauf ergaenzt und TODO-Index im selben Aenderungslauf synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-sim/README.md' PASS (2026-03-03 14:14); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-sim/README.md' PASS (EXITCODE=0, 2026-03-03 14:14)
+stand: 2026-03-03 23:13
+update: Sim-Status um Dashboard-Bereichsfeinschliff (Bereichsmarker, Runtime-Sync, Klick-Hotfix) erweitert; TODO-Sync mit Sim-Board und Dev-DONELOG erfolgt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-03 23:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-03 23:13)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -45,6 +45,7 @@ TODO-Index (Novapolis-Dev)
 - Statushinweis Sim v3.4: Offline-Asset-Check gehaertet - `check_sim_epoch_assets.py` validiert optional Slot-Konsistenz (`--check-slot-consistency`) mit klaren FAIL-Kriterien und Unit-Tests.
 - Statushinweis Sim v3.5: Vollstaendig erledigte Sim-Bloecke (Arbeitsplan-Phasen, Hub-Priorisierung, Neuordnung A/B/D, Phase 3) aus `docs/todo.sim.md` in `novapolis-dev/archive/todo.sim.archive.md` ueberfuehrt.
 - Statushinweis Ops 2026-03-03: Qualitaetsstabilisierung 1-5 abgeschlossen (`checks_report_20260303_141251.md`): `path-portability`, `ruff`, `black`, `pytest/coverage` und `markdownlint` im Full-Check gruen.
+- Statushinweis Sim v3.6: Dashboard-Bereichsfeinschliff umgesetzt - visuelle Marken `bereich-01..04`, Runtime-Layout auf aktuellen Zuschnitt synchronisiert und Klick-Blockade durch Marker via `mouse_filter=2` behoben.
 
 Hinweise (Index)
 ----------------

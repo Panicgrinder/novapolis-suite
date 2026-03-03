@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 00:56
-update: Vollstaendig erledigte Sim-Bloecke in das Sim-Archiv ueberfuehrt und aktive TODO auf offene Punkte reduziert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-03 00:56); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-03 00:56)
+stand: 2026-03-03 23:13
+update: Hub-Dashboard-Bereiche nachgeschaerft (Bereichsmarken, Runtime-Sync, Klick-Hotfix) und TODO-Index/Dev-DONELOG im selben Lauf synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-03 23:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-03 23:13)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -66,6 +66,7 @@ Zielbild: Das Sim-UI dient als Hub fuer das gesamte Framework (Sim/Agent/Eval/RP
 Menuepunkte (Hub-Navigation)
 
 - [ ] Dashboard: Gesamtstatus, letzte Events, Schnellaktionen (Start/Stop/Reload/Checks).
+  - Fortschritt 2026-03-03: Bereiche `bereich-01..04` in `novapolis-sim/Main.tscn` zur visuellen Slot-Abgrenzung angelegt; Runtime-Layout in `novapolis-sim/scripts/Main.gd` auf die aktuellen Bereichszuschnitte nachgezogen; Input-Hotfix gesetzt (`mouse_filter=2`), damit die Markierungsflaechen keine Schaltflaechen blockieren.
 - [ ] Sim: Tick/Zeit, Scheduler-Queue, Runtime-Events, Slot-/Epoch-Navigation.
 - [ ] Agent/API: Health, Port/Host, Response-Latenz, letzte Fehler, Retry-Status.
 - [ ] Eval/Training: letzter Lauf, pass_rate, Datensatzquelle, Artefaktstatus.
