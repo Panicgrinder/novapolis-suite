@@ -126,7 +126,9 @@ var _error_started_ms: int = -1
 var _last_error_visible: bool = false
 var _last_world_state: Dictionary = {}
 var _runtime_events: Array[String] = []
+var _runtime_event_timestamps_ms: Array[int] = []
 const _MAX_RUNTIME_EVENTS: int = 80
+const _EVENT_RATE_WINDOW_SECONDS: float = 30.0
 var _scheduler_hook: SchedulerHook
 var _audio_assets_present: bool = false
 var _server_pid: int = -1
@@ -153,6 +155,10 @@ var _last_finetune_exit_code: int = -1
 var _finetune_profile: String = "baseline"
 var _finetune_base_model: String = "sshleifer/tiny-gpt2"
 var _finetune_output_name: String = "lora-agent-hub"
+var _finetune_epochs: int = 1
+var _finetune_max_steps: int = 10
+var _finetune_batch_size: int = 1
+var _finetune_lr: float = 0.0002
 var _finetune_status_text: String = "Finetune: idle"
 var _profile_status_text: String = "Profiles: idle"
 var _advanced_settings_status_text: String = "Advanced: idle"
@@ -183,10 +189,28 @@ var _rp_auto_advance: bool = false
 var _rp_last_auto_advance_ms: int = -1
 var _last_eval_summary_refresh_ms: int = -1
 var _latest_eval_summary_text: String = "Letzte Eval-Runs: n/a"
+var _ai_trend_summary_text: String = "Trendkarte: n/a"
+var _latest_eval_runs: Array = []
+var _artifacts_summary_text: String = "Artifacts: n/a"
+var _experiments_summary_text: String = "Experiments: n/a"
+var _policy_sandbox_summary_text: String = "Policy Sandbox: n/a"
+var _release_gate_summary_text: String = "Release Gate: n/a"
+var _audit_trail_summary_text: String = "Audit Trail: n/a"
+var _security_model_summary_text: String = "Security: guarded"
+var _destructive_guard_enabled: bool = true
+var _destructive_guard_window_ms: int = 8000
+var _destructive_guard_token: String = "confirm"
+var _destructive_armed_action: String = ""
+var _destructive_armed_until_ms: int = -1
 var _agent_refresh_turn: int = 0
 var _agent_action_busy: bool = false
 var _agent_summary_refresh_pending: bool = false
 var _agent_summary_refresh_due_ms: int = -1
+var _last_error_code: String = "none"
+var _last_quality_refresh_ms: int = -1
+var _quality_tests_last: String = "n/a"
+var _quality_types_last: String = "n/a"
+var _quality_coverage_last: String = "n/a"
 var _hub_show_sim_card: bool = true
 var _hub_show_api_card: bool = true
 var _hub_show_eval_card: bool = true
@@ -199,6 +223,8 @@ const _SYNONYM_REGISTRY_PATH: String = "user://agent_user_data/synonyms/_registr
 const _PROFILE_REGISTRY_PATH: String = "user://agent_user_data/profiles/_registry.json"
 const _ADVANCED_SETTINGS_PATH: String = "user://agent_user_data/settings/advanced.json"
 const _JOBS_QUEUE_PATH: String = "user://agent_user_data/jobs/queue.json"
+const _AUDIT_TRAIL_PATH: String = "user://agent_user_data/audit/trail.jsonl"
+const _SECURITY_MODEL_PATH: String = "user://agent_user_data/security/model.json"
 const _HUB_CONFIG_EXPANDED_BOTTOM: float = 264.0
 const _HUB_CONFIG_COLLAPSED_HEIGHT: float = 42.0
 const _EVAL_SUITE_OPTIONS: Array[String] = ["neutral", "rpg", "quality_de"]
@@ -228,6 +254,7 @@ const _UI_MIN_WIDTH: float = 1100.0
 const _UI_MIN_HEIGHT: float = 700.0
 const _UI_MARGIN: float = 16.0
 const _UI_GAP: float = 12.0
+const _QUALITY_REFRESH_INTERVAL_SECONDS: float = 15.0
 @export var preserve_editor_hub_layout: bool = true
 
 func _ready() -> void:
@@ -295,6 +322,8 @@ func _ready() -> void:
 	_load_profile_registry_state()
 	_load_advanced_settings_state()
 	_load_jobs_state()
+	_load_security_model_state()
+	_refresh_agent_restpoint_summaries()
 	_load_hub_preferences()
 	_init_agent_dropdown_options()
 	_init_hub_config_dropdown_options()
@@ -665,6 +694,7 @@ func _on_state_updated(state: Dictionary) -> void:
 func _on_status_updated(message: String) -> void:
 	var had_error := _last_status_message != ""
 	_last_status_message = message
+	_last_error_code = _extract_error_code(message)
 	if message == "":
 		_error_started_ms = -1
 	else:
@@ -707,6 +737,7 @@ func _process(_delta: float) -> void:
 	_refresh_agent_form_ui()
 	_refresh_checks_studio_ui()
 	_refresh_rp_studio_ui()
+	_refresh_agent_restpoint_summaries()
 
 
 func _apply_state(state: Dictionary) -> void:
@@ -788,15 +819,16 @@ func _refresh_hub_topbar() -> void:
 	var queue_size := 0
 	if _scheduler_hook:
 		queue_size = _scheduler_hook.size()
-	hub_queue_label.text = "Queue: %d" % queue_size
+	var event_rate := _runtime_event_rate_per_second()
+	hub_queue_label.text = "Queue: %d | rate=%.2f/s" % [queue_size, event_rate]
 	_apply_card_visibility_now()
 
 	if _last_status_message == "":
-		hub_errors_label.text = "Errors: none"
+		hub_errors_label.text = "Errors: none | code=%s" % _last_error_code
 	else:
 		var error_for := maxf(0.0, float(Time.get_ticks_msec() - _error_started_ms) / 1000.0)
 		var base_error := _last_status_message.split("|")[0].strip_edges()
-		hub_errors_label.text = "Errors: %s (%.1fs)" % [base_error, error_for]
+		hub_errors_label.text = "Errors: %s (%.1fs) | code=%s" % [base_error, error_for, _last_error_code]
 
 
 func _refresh_module_cards() -> void:
@@ -813,10 +845,11 @@ func _refresh_module_cards() -> void:
 	var queue_size := 0
 	if _scheduler_hook:
 		queue_size = _scheduler_hook.size()
+	var event_rate := _runtime_event_rate_per_second()
 
 	sim_card_state_label.text = "State: %s" % sim_state
 	sim_card_tick_label.text = "Tick/Time: %d / %.2fs" % [tick_value, time_value]
-	sim_card_queue_label.text = "Queue: %d | slot=%02d" % [queue_size, _current_slot]
+	sim_card_queue_label.text = "Queue: %d | rate=%.2f/s | slot=%02d" % [queue_size, event_rate, _current_slot]
 	sim_card_data_label.text = "Data: epochs=%d | audio=%s" % [_loaded_epochs.size(), str(_audio_assets_present)]
 
 	var api_state := str(health.get("state", "offline"))
@@ -844,11 +877,119 @@ func _refresh_module_cards() -> void:
 		sim_meta = _last_world_state.get("sim_meta", {})
 	var mode := str(sim_meta.get("mode", "baseline"))
 	var seed_text := str(sim_meta.get("seed", "n/a"))
+	_refresh_quality_status(false)
 
 	eval_card_profile_label.text = "Profile: mode=%s | seed=%s" % [mode, seed_text]
-	eval_card_artifacts_label.text = "Artifacts: epochs=%d | audio=%s" % [_loaded_epochs.size(), str(_audio_assets_present)]
-	eval_card_events_label.text = "Events: runtime=%d/%d" % [_runtime_events.size(), _MAX_RUNTIME_EVENTS]
-	eval_card_notes_label.text = "Notes: read-only v1"
+	var dataset_ref := "n/a"
+	if _active_dataset_name != "":
+		dataset_ref = _active_dataset_name
+		if _active_dataset_tag != "":
+			dataset_ref = "%s@%s" % [_active_dataset_name, _active_dataset_tag]
+	eval_card_artifacts_label.text = "Artifacts: epochs=%d | audio=%s | dataset=%s" % [_loaded_epochs.size(), str(_audio_assets_present), dataset_ref]
+	eval_card_events_label.text = "Events: runtime=%d/%d | %s" % [_runtime_events.size(), _MAX_RUNTIME_EVENTS, _rp_content_summary()]
+	eval_card_notes_label.text = "Quality: tests=%s | types=%s | cov=%s" % [_quality_tests_last, _quality_types_last, _quality_coverage_last]
+
+
+func _rp_content_summary() -> String:
+	var visibility := "hidden"
+	if _rp_submenu_open:
+		visibility = "visible"
+
+	var source := "n/a"
+	if not _loaded_epochs.is_empty() and _current_epoch_index >= 0 and _current_epoch_index < _loaded_epochs.size():
+		var epoch := _loaded_epochs[_current_epoch_index]
+		source = "%s/pc_log@%02d" % [str(epoch.get("name", "epoch")), _current_slot]
+
+	var last_event := "none"
+	for i in range(_runtime_events.size() - 1, -1, -1):
+		var line := str(_runtime_events[i])
+		if line.find("RP_") >= 0 or line.find("RP_MODULE") >= 0:
+			if line.begins_with("- "):
+				line = line.substr(2)
+			last_event = line
+			break
+
+	return "module=rp | vis=%s | src=%s | last=%s" % [visibility, source, _compact_reason_text(last_event, 36)]
+
+
+func _refresh_quality_status(force: bool) -> void:
+	var now_ms := Time.get_ticks_msec()
+	if not force and _last_quality_refresh_ms >= 0:
+		var delta_s := float(now_ms - _last_quality_refresh_ms) / 1000.0
+		if delta_s < _QUALITY_REFRESH_INTERVAL_SECONDS:
+			return
+	_last_quality_refresh_ms = now_ms
+
+	var reports_dir := ProjectSettings.globalize_path("res://../.tmp/results/reports")
+	var dir := DirAccess.open(reports_dir)
+	if dir == null:
+		_quality_tests_last = "n/a"
+		_quality_types_last = "n/a"
+		_quality_coverage_last = "n/a"
+		return
+
+	var json_reports: Array[String] = []
+	dir.list_dir_begin()
+	while true:
+		var entry := dir.get_next()
+		if entry == "":
+			break
+		if dir.current_is_dir():
+			continue
+		if not entry.begins_with("checks_report_") or not entry.ends_with(".json"):
+			continue
+		json_reports.append(entry)
+	dir.list_dir_end()
+
+	if json_reports.is_empty():
+		_quality_tests_last = "n/a"
+		_quality_types_last = "n/a"
+		_quality_coverage_last = "n/a"
+		return
+
+	json_reports.sort()
+	var latest_path := "%s/%s" % [reports_dir, json_reports[json_reports.size() - 1]]
+	if not FileAccess.file_exists(latest_path):
+		return
+	var file := FileAccess.open(latest_path, FileAccess.READ)
+	if file == null:
+		return
+	var parsed = JSON.parse_string(file.get_as_text())
+	if typeof(parsed) != TYPE_DICTIONARY:
+		return
+	var report := parsed as Dictionary
+
+	var tests_status := "n/a"
+	var pyright_status := "SKIP"
+	var mypy_status := "SKIP"
+	if report.has("checks") and typeof(report.get("checks")) == TYPE_ARRAY:
+		for check_item in report.get("checks", []):
+			if typeof(check_item) != TYPE_DICTIONARY:
+				continue
+			var check_dict := check_item as Dictionary
+			var tool := str(check_dict.get("tool", ""))
+			var status := str(check_dict.get("status", "n/a"))
+			if tool == "pytest":
+				tests_status = status
+			elif tool == "pyright":
+				pyright_status = status
+			elif tool == "mypy":
+				mypy_status = status
+
+	_quality_tests_last = tests_status
+	if pyright_status == "PASS" and mypy_status == "PASS":
+		_quality_types_last = "PASS"
+	elif pyright_status == "n/a" and mypy_status == "n/a":
+		_quality_types_last = "n/a"
+	else:
+		_quality_types_last = "%s/%s" % [pyright_status, mypy_status]
+
+	if report.has("metadata") and typeof(report.get("metadata")) == TYPE_DICTIONARY:
+		var metadata := report.get("metadata", {}) as Dictionary
+		if metadata.has("coverage_percent") and typeof(metadata.get("coverage_percent")) in [TYPE_FLOAT, TYPE_INT]:
+			_quality_coverage_last = "%.2f%%" % float(metadata.get("coverage_percent", 0.0))
+		else:
+			_quality_coverage_last = "n/a"
 
 
 func _sim_runtime_status() -> Dictionary:
@@ -2134,7 +2275,7 @@ func _agent_form_target_options_for_kind(kind: String) -> Array[String]:
 	if kind == "profiles":
 		return ["new", "update"]
 	if kind == "jobs":
-		return ["new"]
+		return ["new", "retry_latest", "cancel_latest"]
 	return []
 
 
@@ -2274,6 +2415,8 @@ func _build_agent_form_payload_from_controls() -> Dictionary:
 			"target": _agent_form_target_value,
 			"set_active": _form_control_bool("syn_set_active", true),
 			"mode": _agent_form_mode_value,
+			"import_path": _form_control_text("syn_import_path", ""),
+			"export_path": _form_control_text("syn_export_path", ""),
 			"entries": [{"term": term, "synonyms": synonyms}],
 			"notes": _form_control_text("syn_notes", ""),
 		}
@@ -2324,6 +2467,7 @@ func _build_agent_form_payload_from_controls() -> Dictionary:
 		payload = {
 			"job_name": agent_form_name_edit.text.strip_edges(),
 			"job_type": _agent_form_mode_value,
+			"target": _agent_form_target_value,
 			"enqueue": _form_control_bool("job_enqueue", true),
 			"priority": _form_control_int("job_priority", 10),
 			"payload": {"notes": _form_control_text("job_payload_notes", "")},
@@ -2463,6 +2607,17 @@ func _apply_synonym_form_payload(payload: Dictionary) -> void:
 	if entries.is_empty():
 		agent_form_status_label.text = "Form: entries ist leer"
 		return
+	var import_path := str(payload.get("import_path", "")).strip_edges()
+	var export_path := str(payload.get("export_path", "")).strip_edges()
+	if import_path != "":
+		var imported_result := _load_synonym_entries_from_path(import_path)
+		if not bool(imported_result.get("ok", false)):
+			agent_form_status_label.text = "Form: Import fehlgeschlagen (%s)" % str(imported_result.get("reason", "parse"))
+			return
+		var imported_any = imported_result.get("entries", [])
+		if typeof(imported_any) == TYPE_ARRAY:
+			for imported_entry_any in imported_any:
+				entries.append(imported_entry_any)
 
 	for e_any in entries:
 		if typeof(e_any) != TYPE_DICTIONARY:
@@ -2486,6 +2641,7 @@ func _apply_synonym_form_payload(payload: Dictionary) -> void:
 		return
 
 	var merged_entries: Array = []
+	var existing_entries_snapshot: Array = []
 	if exists:
 		var rf := FileAccess.open(file_path, FileAccess.READ)
 		if rf != null:
@@ -2497,15 +2653,26 @@ func _apply_synonym_form_payload(payload: Dictionary) -> void:
 				var ex = existing_dict.get("entries", [])
 				if typeof(ex) == TYPE_ARRAY:
 					merged_entries = ex
+					existing_entries_snapshot = ex.duplicate(true)
 
 	for add_item in entries:
 		merged_entries.append(add_item)
+
+	var delta := _build_synonym_delta(existing_entries_snapshot, merged_entries)
+	var validator := _validate_synonym_entries(merged_entries)
+	var validator_status := str(validator.get("status", "warn"))
+	if validator_status == "error":
+		agent_form_status_label.text = "Form: Synonyms ungueltig (%s)" % str(validator.get("reason", "validation"))
+		return
 
 	var out_payload: Dictionary = {
 		"synonym_set": synonym_set,
 		"synonym_tag": synonym_tag,
 		"mode": str(payload.get("mode", _agent_form_mode_value)),
 		"entries": merged_entries,
+		"validator_status": validator_status,
+		"validator_warnings": validator.get("warnings", []),
+		"updated_at": Time.get_datetime_string_from_system(false, true),
 	}
 	var wf := FileAccess.open(file_path, FileAccess.WRITE)
 	if wf == null:
@@ -2513,10 +2680,136 @@ func _apply_synonym_form_payload(payload: Dictionary) -> void:
 		return
 	wf.store_string(JSON.stringify(out_payload, "  "))
 	wf.close()
+	if export_path != "":
+		var export_ok := _write_json_to_path(export_path, out_payload)
+		if not export_ok:
+			agent_form_status_label.text = "Form: Exportpfad konnte nicht geschrieben werden"
+			return
 	_update_synonym_registry(synonym_set, synonym_tag, set_active)
 
+	_synonym_status_text = "Synonyms: active %s | delta=+%d terms/+%d syns | validator=%s" % [_active_synonym_label().replace("Active Synonyms: ", ""), int(delta.get("terms_added", 0)), int(delta.get("synonyms_added", 0)), validator_status]
 	agent_form_status_label.text = "Form: Synonyms gespeichert (%s@%s, +%d)" % [synonym_set, synonym_tag, entries.size()]
-	_append_runtime_event("AGENT_FORM", {"kind": "synonyms", "target": target, "name": synonym_set, "tag": synonym_tag, "set_active": set_active, "entries_added": entries.size(), "path": file_path})
+	_append_runtime_event("AGENT_FORM", {
+		"kind": "synonyms",
+		"target": target,
+		"name": synonym_set,
+		"tag": synonym_tag,
+		"set_active": set_active,
+		"entries_added": entries.size(),
+		"delta_terms": int(delta.get("terms_added", 0)),
+		"delta_synonyms": int(delta.get("synonyms_added", 0)),
+		"validator_status": validator_status,
+		"path": file_path,
+	})
+
+
+func _load_synonym_entries_from_path(path_text: String) -> Dictionary:
+	var normalized := path_text.strip_edges()
+	if normalized == "":
+		return {"ok": false, "reason": "empty_path", "entries": []}
+	var exists_path := normalized
+	if normalized.begins_with("user://") or normalized.begins_with("res://"):
+		exists_path = ProjectSettings.globalize_path(normalized)
+	if not FileAccess.file_exists(exists_path):
+		return {"ok": false, "reason": "file_missing", "entries": []}
+
+	var rf := FileAccess.open(normalized, FileAccess.READ)
+	if rf == null:
+		rf = FileAccess.open(exists_path, FileAccess.READ)
+	if rf == null:
+		return {"ok": false, "reason": "open_failed", "entries": []}
+	var raw := rf.get_as_text()
+	rf.close()
+	var parsed = JSON.parse_string(raw)
+	if typeof(parsed) != TYPE_DICTIONARY:
+		return {"ok": false, "reason": "parse_failed", "entries": []}
+	var doc: Dictionary = parsed
+	var entries_any = doc.get("entries", [])
+	if typeof(entries_any) != TYPE_ARRAY:
+		return {"ok": false, "reason": "entries_not_array", "entries": []}
+	return {"ok": true, "reason": "ok", "entries": entries_any}
+
+
+func _build_synonym_delta(before_entries: Array, after_entries: Array) -> Dictionary:
+	var before_terms := {}
+	var before_pair_count := 0
+	for item_any in before_entries:
+		if typeof(item_any) != TYPE_DICTIONARY:
+			continue
+		var item: Dictionary = item_any
+		var term := str(item.get("term", "")).strip_edges().to_lower()
+		if term == "":
+			continue
+		before_terms[term] = true
+		var syn_any = item.get("synonyms", [])
+		if typeof(syn_any) == TYPE_ARRAY:
+			before_pair_count += (syn_any as Array).size()
+
+	var after_terms := {}
+	var after_pair_count := 0
+	for item2_any in after_entries:
+		if typeof(item2_any) != TYPE_DICTIONARY:
+			continue
+		var item2: Dictionary = item2_any
+		var term2 := str(item2.get("term", "")).strip_edges().to_lower()
+		if term2 == "":
+			continue
+		after_terms[term2] = true
+		var syn2_any = item2.get("synonyms", [])
+		if typeof(syn2_any) == TYPE_ARRAY:
+			after_pair_count += (syn2_any as Array).size()
+
+	return {
+		"terms_added": maxi(0, after_terms.size() - before_terms.size()),
+		"synonyms_added": maxi(0, after_pair_count - before_pair_count),
+	}
+
+
+func _validate_synonym_entries(entries: Array) -> Dictionary:
+	var warnings: Array[String] = []
+	var seen_terms := {}
+	for idx in range(entries.size()):
+		var item_any = entries[idx]
+		if typeof(item_any) != TYPE_DICTIONARY:
+			return {"status": "error", "reason": "entry_not_object_%d" % idx, "warnings": warnings}
+		var item: Dictionary = item_any
+		var term := str(item.get("term", "")).strip_edges().to_lower()
+		if term == "":
+			return {"status": "error", "reason": "term_missing_%d" % idx, "warnings": warnings}
+		if seen_terms.has(term):
+			warnings.append("duplicate_term:%s" % term)
+		seen_terms[term] = true
+		var syn_any = item.get("synonyms", [])
+		if typeof(syn_any) != TYPE_ARRAY:
+			return {"status": "error", "reason": "synonyms_not_array_%s" % term, "warnings": warnings}
+		var syn_arr: Array = syn_any
+		if syn_arr.is_empty():
+			warnings.append("empty_synonyms:%s" % term)
+	return {
+		"status": "ok" if warnings.is_empty() else "warn",
+		"reason": "ok",
+		"warnings": warnings,
+	}
+
+
+func _write_json_to_path(path_text: String, payload: Dictionary) -> bool:
+	var normalized := path_text.strip_edges()
+	if normalized == "":
+		return false
+	var abs := normalized
+	if normalized.begins_with("user://") or normalized.begins_with("res://"):
+		abs = ProjectSettings.globalize_path(normalized)
+	var parent_dir := abs.get_base_dir()
+	if parent_dir != "":
+		DirAccess.make_dir_recursive_absolute(parent_dir)
+	var wf := FileAccess.open(normalized, FileAccess.WRITE)
+	if wf == null:
+		wf = FileAccess.open(abs, FileAccess.WRITE)
+	if wf == null:
+		return false
+	wf.store_string(JSON.stringify(payload, "  "))
+	wf.close()
+	return true
 
 
 func _apply_finetune_form_payload(payload: Dictionary) -> void:
@@ -2701,6 +2994,75 @@ func _apply_advanced_settings_form_payload(payload: Dictionary) -> void:
 
 
 func _apply_jobs_form_payload(payload: Dictionary) -> void:
+	var target := str(payload.get("target", _agent_form_target_value))
+	if target != "new" and target != "retry_latest" and target != "cancel_latest":
+		agent_form_status_label.text = "Form: target muss new/retry_latest/cancel_latest sein"
+		return
+
+	var queue_payload := _load_jobs_queue_payload()
+	var jobs := _jobs_array_from_payload(queue_payload)
+
+	if target == "retry_latest":
+		var retry_index := _find_latest_job_index_by_status(jobs, ["failed", "cancelled"])
+		if retry_index < 0:
+			agent_form_status_label.text = "Form: kein fehlgeschlagener/abgebrochener Job fuer Retry"
+			return
+		var base_any = jobs[retry_index]
+		if typeof(base_any) != TYPE_DICTIONARY:
+			agent_form_status_label.text = "Form: Retry-Quelle ist ungueltig"
+			return
+		var base_job: Dictionary = base_any
+		var base_name := _sanitize_agent_form_name(str(base_job.get("name", "job")))
+		if base_name == "":
+			base_name = "job"
+		var retry_name := "%s_retry" % base_name
+		var attempt := int(base_job.get("attempt", 1)) + 1
+		var retry_entry: Dictionary = {
+			"id": "job_%d" % Time.get_ticks_msec(),
+			"name": retry_name,
+			"type": str(base_job.get("type", "eval")),
+			"status": "queued",
+			"priority": int(base_job.get("priority", 10)),
+			"created_at": Time.get_datetime_string_from_system(false, true),
+			"retry_of": str(base_job.get("id", "")),
+			"attempt": attempt,
+			"payload": base_job.get("payload", {}),
+		}
+		jobs.append(retry_entry)
+		queue_payload["jobs"] = jobs
+		queue_payload["updated_at"] = Time.get_datetime_string_from_system(false, true)
+		if not _write_jobs_queue_payload(queue_payload):
+			agent_form_status_label.text = "Form: Jobs-Queue konnte nicht gespeichert werden"
+			return
+		_refresh_jobs_status_text(jobs)
+		agent_form_status_label.text = "Form: Retry eingereiht (%s)" % retry_name
+		_append_runtime_event("AGENT_FORM", {"kind": "jobs", "action": "retry_latest", "retry_of": str(base_job.get("id", "")), "name": retry_name, "queue_size": jobs.size(), "path": _JOBS_QUEUE_PATH})
+		return
+
+	if target == "cancel_latest":
+		var cancel_index := _find_latest_job_index_by_status(jobs, ["queued", "running"])
+		if cancel_index < 0:
+			agent_form_status_label.text = "Form: kein aktiver Job fuer Cancel"
+			return
+		var cancel_any = jobs[cancel_index]
+		if typeof(cancel_any) != TYPE_DICTIONARY:
+			agent_form_status_label.text = "Form: Cancel-Ziel ist ungueltig"
+			return
+		var cancel_job: Dictionary = cancel_any
+		cancel_job["status"] = "cancelled"
+		cancel_job["cancelled_at"] = Time.get_datetime_string_from_system(false, true)
+		cancel_job["cancel_reason"] = str(payload.get("notes", "manual_cancel"))
+		jobs[cancel_index] = cancel_job
+		queue_payload["jobs"] = jobs
+		queue_payload["updated_at"] = Time.get_datetime_string_from_system(false, true)
+		if not _write_jobs_queue_payload(queue_payload):
+			agent_form_status_label.text = "Form: Jobs-Queue konnte nicht gespeichert werden"
+			return
+		_refresh_jobs_status_text(jobs)
+		agent_form_status_label.text = "Form: Job abgebrochen (%s)" % str(cancel_job.get("name", "job"))
+		_append_runtime_event("AGENT_FORM", {"kind": "jobs", "action": "cancel_latest", "id": str(cancel_job.get("id", "")), "name": str(cancel_job.get("name", "job")), "queue_size": jobs.size(), "path": _JOBS_QUEUE_PATH})
+		return
+
 	var job_name := _sanitize_agent_form_name(str(payload.get("job_name", agent_form_name_edit.text)))
 	if job_name == "":
 		agent_form_status_label.text = "Form: job_name fehlt"
@@ -2721,25 +3083,6 @@ func _apply_jobs_form_payload(payload: Dictionary) -> void:
 		agent_form_status_label.text = "Form: enqueue=false, kein Job angelegt"
 		return
 
-	DirAccess.make_dir_recursive_absolute("user://agent_user_data/jobs")
-	var queue_payload: Dictionary = {
-		"jobs": [],
-		"updated_at": Time.get_datetime_string_from_system(false, true),
-	}
-	if FileAccess.file_exists(_JOBS_QUEUE_PATH):
-		var rf := FileAccess.open(_JOBS_QUEUE_PATH, FileAccess.READ)
-		if rf != null:
-			var raw := rf.get_as_text()
-			rf.close()
-			var parsed = JSON.parse_string(raw)
-			if typeof(parsed) == TYPE_DICTIONARY:
-				queue_payload = parsed
-
-	var jobs_any = queue_payload.get("jobs", [])
-	if typeof(jobs_any) != TYPE_ARRAY:
-		jobs_any = []
-	var jobs: Array = jobs_any
-
 	var job_payload_any = payload.get("payload", {})
 	if typeof(job_payload_any) != TYPE_DICTIONARY:
 		job_payload_any = {}
@@ -2751,6 +3094,7 @@ func _apply_jobs_form_payload(payload: Dictionary) -> void:
 		"type": job_type,
 		"status": "queued",
 		"priority": priority,
+		"attempt": 1,
 		"created_at": Time.get_datetime_string_from_system(false, true),
 		"payload": job_payload,
 	}
@@ -2758,16 +3102,100 @@ func _apply_jobs_form_payload(payload: Dictionary) -> void:
 	queue_payload["jobs"] = jobs
 	queue_payload["updated_at"] = Time.get_datetime_string_from_system(false, true)
 
-	var wf := FileAccess.open(_JOBS_QUEUE_PATH, FileAccess.WRITE)
-	if wf == null:
+	if not _write_jobs_queue_payload(queue_payload):
 		agent_form_status_label.text = "Form: Jobs-Queue konnte nicht gespeichert werden"
 		return
+
+	_refresh_jobs_status_text(jobs)
+	agent_form_status_label.text = "Form: Job eingereiht (%s, prio=%d)" % [job_type, priority]
+	_append_runtime_event("AGENT_FORM", {"kind": "jobs", "action": "enqueue", "name": job_name, "job_type": job_type, "priority": priority, "queue_size": jobs.size(), "path": _JOBS_QUEUE_PATH})
+
+
+func _load_jobs_queue_payload() -> Dictionary:
+	DirAccess.make_dir_recursive_absolute("user://agent_user_data/jobs")
+	var queue_payload: Dictionary = {
+		"jobs": [],
+		"updated_at": Time.get_datetime_string_from_system(false, true),
+	}
+	if not FileAccess.file_exists(_JOBS_QUEUE_PATH):
+		return queue_payload
+	var rf := FileAccess.open(_JOBS_QUEUE_PATH, FileAccess.READ)
+	if rf == null:
+		return queue_payload
+	var raw := rf.get_as_text()
+	rf.close()
+	var parsed = JSON.parse_string(raw)
+	if typeof(parsed) == TYPE_DICTIONARY:
+		queue_payload = parsed
+	if typeof(queue_payload.get("jobs", [])) != TYPE_ARRAY:
+		queue_payload["jobs"] = []
+	return queue_payload
+
+
+func _jobs_array_from_payload(queue_payload: Dictionary) -> Array:
+	var jobs_any = queue_payload.get("jobs", [])
+	if typeof(jobs_any) != TYPE_ARRAY:
+		return []
+	return jobs_any
+
+
+func _write_jobs_queue_payload(queue_payload: Dictionary) -> bool:
+	var wf := FileAccess.open(_JOBS_QUEUE_PATH, FileAccess.WRITE)
+	if wf == null:
+		return false
 	wf.store_string(JSON.stringify(queue_payload, "  "))
 	wf.close()
+	return true
 
-	_jobs_status_text = "Jobs: queued=%d | latest=%s (%s)" % [jobs.size(), job_name, job_type]
-	agent_form_status_label.text = "Form: Job eingereiht (%s, prio=%d)" % [job_type, priority]
-	_append_runtime_event("AGENT_FORM", {"kind": "jobs", "name": job_name, "job_type": job_type, "priority": priority, "queue_size": jobs.size(), "path": _JOBS_QUEUE_PATH})
+
+func _find_latest_job_index_by_status(jobs: Array, statuses: Array[String]) -> int:
+	for i in range(jobs.size() - 1, -1, -1):
+		var item_any = jobs[i]
+		if typeof(item_any) != TYPE_DICTIONARY:
+			continue
+		var item: Dictionary = item_any
+		var status := str(item.get("status", ""))
+		if statuses.has(status):
+			return i
+	return -1
+
+
+func _refresh_jobs_status_text(jobs: Array) -> void:
+	if jobs.is_empty():
+		_jobs_status_text = "Jobs: queued=0"
+		return
+	var queued := 0
+	var running := 0
+	var failed := 0
+	var cancelled := 0
+	for item_any in jobs:
+		if typeof(item_any) != TYPE_DICTIONARY:
+			continue
+		var item: Dictionary = item_any
+		var status := str(item.get("status", "queued"))
+		if status == "queued":
+			queued += 1
+		elif status == "running":
+			running += 1
+		elif status == "failed":
+			failed += 1
+		elif status == "cancelled":
+			cancelled += 1
+
+	var latest_name := "job"
+	var latest_type := "n/a"
+	var latest_status := "n/a"
+	for i in range(jobs.size() - 1, -1, -1):
+		var latest_any = jobs[i]
+		if typeof(latest_any) != TYPE_DICTIONARY:
+			continue
+		var latest: Dictionary = latest_any
+		latest_name = str(latest.get("name", "job"))
+		latest_type = str(latest.get("type", "n/a"))
+		latest_status = str(latest.get("status", "n/a"))
+		break
+
+	_jobs_status_text = "Jobs: queued=%d | running=%d | failed=%d | cancelled=%d | latest=%s (%s/%s)" % [queued, running, failed, cancelled, latest_name, latest_type, latest_status]
 
 
 func _sanitize_agent_form_name(value: String) -> String:
@@ -3057,6 +3485,12 @@ func _finetune_profile_label(profile_value: String) -> String:
 func _form_target_label(target_value: String) -> String:
 	if target_value == "append_user":
 		return "Bestehende User-Datei erweitern"
+	if target_value == "update":
+		return "Bestehende Datei aktualisieren"
+	if target_value == "retry_latest":
+		return "Retry: letzten failed/cancelled Job einreihen"
+	if target_value == "cancel_latest":
+		return "Cancel: letzten queued/running Job abbrechen"
 	return "Neue Datei erstellen"
 
 
@@ -3276,6 +3710,9 @@ func _on_agent_eval_run_pressed() -> void:
 		_append_runtime_event("AGENT_ACTION", {"action": "eval_run", "mode": _agent_studio_mode, "status": "blocked", "reason": "author_mode"})
 		return
 	if _eval_pid > 0:
+		if not _confirm_destructive_action("eval_stop", "Eval Stop: zweite Betaetigung zur Bestaetigung"):
+			_refresh_agent_studio_ui()
+			return
 		var stop_rc := int(OS.kill(_eval_pid))
 		_append_runtime_event("AGENT_ACTION", {"action": "eval_run", "mode": _agent_studio_mode, "status": "stop_requested", "pid": _eval_pid, "rc": stop_rc})
 		_eval_pid = -1
@@ -3360,6 +3797,9 @@ func _build_eval_suite_args(eval_script_abs: String) -> Array[String]:
 
 func _on_agent_datasets_pressed() -> void:
 	if _dataset_pid > 0:
+		if not _confirm_destructive_action("datasets_stop", "Datasets Stop: zweite Betaetigung zur Bestaetigung"):
+			_refresh_agent_studio_ui()
+			return
 		var stop_rc := int(OS.kill(_dataset_pid))
 		_append_runtime_event("AGENT_DATASETS", {"action": "stop_requested", "pid": _dataset_pid, "rc": stop_rc})
 		_dataset_pid = -1
@@ -3432,6 +3872,9 @@ func _on_agent_synonyms_pressed() -> void:
 
 func _on_agent_finetune_pressed() -> void:
 	if _finetune_pid > 0:
+		if not _confirm_destructive_action("finetune_stop", "Finetune Stop: zweite Betaetigung zur Bestaetigung"):
+			_refresh_agent_studio_ui()
+			return
 		var stop_rc := int(OS.kill(_finetune_pid))
 		_append_runtime_event("AGENT_FINETUNE", {"action": "stop_requested", "pid": _finetune_pid, "rc": stop_rc})
 		_finetune_pid = -1
@@ -3552,8 +3995,8 @@ func _refresh_agent_studio_ui() -> void:
 		]
 	else:
 		agent_system_metrics_label.text = "System: Monitoring deaktiviert (testweise)"
-	var full_status_text := "• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s" % [_dataset_status_text, _active_dataset_label(), _synonym_status_text, _active_synonym_label(), _profile_status_text, _active_profile_label(), _advanced_settings_status_text, _jobs_status_text, _finetune_status_text, _latest_eval_summary_text]
-	var compact_status_text := "• %s\n• %s\n\n• %s\n• %s\n\n• %s" % [_dataset_status_text, _active_dataset_label(), _jobs_status_text, _synonym_status_text, _latest_eval_summary_text]
+	var full_status_text := "• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n• %s\n• %s" % [_dataset_status_text, _active_dataset_label(), _synonym_status_text, _active_synonym_label(), _profile_status_text, _active_profile_label(), _advanced_settings_status_text, _jobs_status_text, _finetune_status_text, _latest_eval_summary_text, _ai_trend_summary_text, _artifacts_summary_text, _experiments_summary_text, _policy_sandbox_summary_text, _release_gate_summary_text, _audit_trail_summary_text, _security_model_summary_text]
+	var compact_status_text := "• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n• %s" % [_dataset_status_text, _active_dataset_label(), _jobs_status_text, _synonym_status_text, _latest_eval_summary_text, _release_gate_summary_text, _security_model_summary_text]
 	_select_option_value(agent_eval_suite_button, _EVAL_SUITE_OPTIONS, _agent_eval_suite)
 	_select_option_value(agent_dataset_source_button, _DATASET_SOURCE_OPTIONS, _dataset_source_mode)
 
@@ -3632,7 +4075,13 @@ func _refresh_agent_studio_ui() -> void:
 		else:
 			agent_finetune_button.text = "Finetune Config"
 		agent_profiles_button.text = "Profiles Config"
-		agent_ai_status_button.text = "Advanced Settings"
+		agent_ai_status_button.text = "Advanced + Gate"
+
+	if _destructive_armed_action != "" and Time.get_ticks_msec() <= _destructive_armed_until_ms:
+		agent_studio_hint_label.visible = true
+		agent_studio_hint_label.text = "Sicherheits-Gate aktiv: Aktion '%s' innerhalb 8s erneut bestaetigen" % _destructive_armed_action
+	else:
+		agent_studio_hint_label.text = ""
 
 	agent_datasets_button.disabled = _agent_action_busy or not _agent_submenu_open
 	agent_synonyms_button.disabled = _agent_action_busy or not _agent_submenu_open
@@ -3758,37 +4207,171 @@ func _load_advanced_settings_state() -> void:
 	var policy_profile := str(payload.get("policy_profile", "default"))
 	var strictness_level := str(payload.get("strictness_level", "normal"))
 	_advanced_settings_status_text = "Advanced: %s | policy=%s | strict=%s" % [mode, policy_profile, strictness_level]
+	_policy_sandbox_summary_text = "Policy Sandbox: mode=%s | policy=%s | strict=%s" % [mode, policy_profile, strictness_level]
 
 
 func _load_jobs_state() -> void:
 	_jobs_status_text = "Jobs: idle"
-	if not FileAccess.file_exists(_JOBS_QUEUE_PATH):
-		return
+	var queue_payload := _load_jobs_queue_payload()
+	var jobs := _jobs_array_from_payload(queue_payload)
+	_refresh_jobs_status_text(jobs)
 
-	var f := FileAccess.open(_JOBS_QUEUE_PATH, FileAccess.READ)
-	if f == null:
+
+func _load_security_model_state() -> void:
+	if not FileAccess.file_exists(_SECURITY_MODEL_PATH):
+		_persist_security_model_state()
 		return
-	var raw := f.get_as_text()
-	f.close()
+	var rf := FileAccess.open(_SECURITY_MODEL_PATH, FileAccess.READ)
+	if rf == null:
+		return
+	var raw := rf.get_as_text()
+	rf.close()
 	var parsed = JSON.parse_string(raw)
 	if typeof(parsed) != TYPE_DICTIONARY:
 		return
-
 	var payload: Dictionary = parsed
-	var jobs_any = payload.get("jobs", [])
-	if typeof(jobs_any) != TYPE_ARRAY:
-		return
-	var jobs: Array = jobs_any
-	if jobs.is_empty():
-		_jobs_status_text = "Jobs: queued=0"
-		return
+	_destructive_guard_enabled = bool(payload.get("destructive_guard_enabled", true))
+	_destructive_guard_window_ms = int(payload.get("destructive_guard_window_ms", 8000))
+	_destructive_guard_token = str(payload.get("destructive_guard_token", "confirm"))
+	_security_model_summary_text = "Security: destructive_guard=%s | token=%s" % [str(_destructive_guard_enabled), _destructive_guard_token]
 
-	var last_any = jobs[jobs.size() - 1]
-	if typeof(last_any) != TYPE_DICTIONARY:
-		_jobs_status_text = "Jobs: queued=%d" % jobs.size()
+
+func _persist_security_model_state() -> void:
+	DirAccess.make_dir_recursive_absolute("user://agent_user_data/security")
+	var payload: Dictionary = {
+		"destructive_guard_enabled": _destructive_guard_enabled,
+		"destructive_guard_window_ms": _destructive_guard_window_ms,
+		"destructive_guard_token": _destructive_guard_token,
+		"updated_at": Time.get_datetime_string_from_system(false, true),
+	}
+	var wf := FileAccess.open(_SECURITY_MODEL_PATH, FileAccess.WRITE)
+	if wf == null:
 		return
-	var last_job: Dictionary = last_any
-	_jobs_status_text = "Jobs: queued=%d | latest=%s (%s)" % [jobs.size(), str(last_job.get("name", "job")), str(last_job.get("type", "n/a"))]
+	wf.store_string(JSON.stringify(payload, "  "))
+	wf.close()
+
+
+func _confirm_destructive_action(action_key: String, hint_text: String) -> bool:
+	if not _destructive_guard_enabled:
+		return true
+	var now_ms := Time.get_ticks_msec()
+	if _destructive_armed_action == action_key and now_ms <= _destructive_armed_until_ms:
+		_destructive_armed_action = ""
+		_destructive_armed_until_ms = -1
+		return true
+	_destructive_armed_action = action_key
+	_destructive_armed_until_ms = now_ms + _destructive_guard_window_ms
+	agent_form_status_label.text = hint_text
+	_append_runtime_event("SECURITY_GUARD", {"action": action_key, "status": "armed", "valid_for_ms": _destructive_guard_window_ms})
+	return false
+
+
+func _refresh_agent_restpoint_summaries() -> void:
+	_artifacts_summary_text = _build_artifacts_summary()
+	_experiments_summary_text = _build_experiments_summary()
+	_policy_sandbox_summary_text = _build_policy_sandbox_summary()
+	_release_gate_summary_text = _build_release_gate_summary()
+	_audit_trail_summary_text = _build_audit_trail_summary()
+	_security_model_summary_text = "Security: destructive_guard=%s | token=%s" % [str(_destructive_guard_enabled), _destructive_guard_token]
+
+
+func _build_artifacts_summary() -> String:
+	var dataset_ref := _active_dataset_name
+	if dataset_ref == "":
+		dataset_ref = "n/a"
+	elif _active_dataset_tag != "":
+		dataset_ref = "%s@%s" % [_active_dataset_name, _active_dataset_tag]
+
+	var synonym_ref := _active_synonym_set
+	if synonym_ref == "":
+		synonym_ref = "n/a"
+	elif _active_synonym_tag != "":
+		synonym_ref = "%s@%s" % [_active_synonym_set, _active_synonym_tag]
+
+	var model_ref := _finetune_output_name
+	if _last_finetune_exit_code != 0:
+		model_ref = "n/a"
+
+	var reports_ref := "tests=%s types=%s cov=%s" % [_quality_tests_last, _quality_types_last, _quality_coverage_last]
+	return "Artifacts: dataset=%s | synonyms=%s | model=%s | %s" % [dataset_ref, synonym_ref, model_ref, reports_ref]
+
+
+func _build_experiments_summary() -> String:
+	if _latest_eval_runs.size() < 2:
+		return "Experiments: n/a (mind. 2 Runs erforderlich)"
+	var latest_any = _latest_eval_runs[0]
+	var prev_any = _latest_eval_runs[1]
+	if typeof(latest_any) != TYPE_DICTIONARY or typeof(prev_any) != TYPE_DICTIONARY:
+		return "Experiments: n/a"
+	var latest: Dictionary = latest_any
+	var previous: Dictionary = prev_any
+	var latest_pct := _to_float_or_default(latest.get("success_rate_percent", null), -1.0)
+	var prev_pct := _to_float_or_default(previous.get("success_rate_percent", null), -1.0)
+	if latest_pct < 0.0 or prev_pct < 0.0:
+		return "Experiments: n/a"
+	var delta := latest_pct - prev_pct
+	var tag := "stable"
+	if delta >= 2.0:
+		tag = "A>B"
+	elif delta <= -2.0:
+		tag = "A<B"
+	return "Experiments: A/B delta=%+.1fpp | tag=%s" % [delta, tag]
+
+
+func _build_policy_sandbox_summary() -> String:
+	var mode := "balanced"
+	var policy := "default"
+	var strict := "normal"
+	if FileAccess.file_exists(_ADVANCED_SETTINGS_PATH):
+		var rf := FileAccess.open(_ADVANCED_SETTINGS_PATH, FileAccess.READ)
+		if rf != null:
+			var parsed = JSON.parse_string(rf.get_as_text())
+			rf.close()
+			if typeof(parsed) == TYPE_DICTIONARY:
+				var p: Dictionary = parsed
+				mode = str(p.get("mode", mode))
+				policy = str(p.get("policy_profile", policy))
+				strict = str(p.get("strictness_level", strict))
+	var quality_ok := (_quality_tests_last == "PASS") and (_quality_types_last == "PASS")
+	var gate := "ready" if quality_ok else "hold"
+	return "Policy Sandbox: mode=%s | policy=%s | strict=%s | gate=%s" % [mode, policy, strict, gate]
+
+
+func _build_release_gate_summary() -> String:
+	var coverage_value := _to_float_or_default(_quality_coverage_last.replace("%", ""), -1.0)
+	var tests_ok := _quality_tests_last == "PASS"
+	var types_ok := _quality_types_last == "PASS"
+	var cov_ok := coverage_value >= 80.0
+	var regression := _ai_trend_summary_text.find("regress=regression") >= 0
+	var safety_ok := _destructive_guard_enabled
+	var go := tests_ok and types_ok and cov_ok and (not regression) and safety_ok
+	return "Release Gate: %s | tests=%s | types=%s | cov=%s | regression=%s | safety=%s" % ["GO" if go else "NO-GO", str(tests_ok), str(types_ok), str(cov_ok), str(regression), str(safety_ok)]
+
+
+func _build_audit_trail_summary() -> String:
+	var abs := ProjectSettings.globalize_path(_AUDIT_TRAIL_PATH)
+	if not FileAccess.file_exists(abs):
+		return "Audit Trail: entries=0"
+	var rf := FileAccess.open(abs, FileAccess.READ)
+	if rf == null:
+		return "Audit Trail: unreadable"
+	var count := 0
+	var last_line := ""
+	while not rf.eof_reached():
+		var line := rf.get_line().strip_edges()
+		if line == "":
+			continue
+		count += 1
+		last_line = line
+	rf.close()
+	if count == 0:
+		return "Audit Trail: entries=0"
+	var tag := "n/a"
+	var parsed = JSON.parse_string(last_line)
+	if typeof(parsed) == TYPE_DICTIONARY:
+		var p: Dictionary = parsed
+		tag = str(p.get("tag", "n/a"))
+	return "Audit Trail: entries=%d | last=%s" % [count, tag]
 
 
 func _update_dataset_registry(dataset_name: String, dataset_tag: String, set_active: bool) -> void:
@@ -3971,7 +4554,11 @@ func _start_finetune_run(options: Dictionary) -> bool:
 	_finetune_profile = str(options.get("profile", "baseline"))
 	_finetune_base_model = str(options.get("base_model", "sshleifer/tiny-gpt2"))
 	_finetune_output_name = output_name
-	_finetune_status_text = "Finetune: running (%s, %s)" % [_finetune_profile, _finetune_base_model]
+	_finetune_epochs = int(options.get("epochs", 1))
+	_finetune_max_steps = int(options.get("max_steps", 10))
+	_finetune_batch_size = int(options.get("batch_size", 1))
+	_finetune_lr = _to_float_or_default(options.get("lr", 0.0002), 0.0002)
+	_finetune_status_text = "Finetune: running (%s, e=%d, s=%d, b=%d, lr=%.5f)" % [_finetune_profile, _finetune_epochs, _finetune_max_steps, _finetune_batch_size, _finetune_lr]
 	_append_runtime_event("AGENT_FINETUNE", {
 		"action": "started",
 		"pid": _finetune_pid,
@@ -3988,7 +4575,7 @@ func _refresh_finetune_runtime_state() -> void:
 
 	if OS.is_process_running(_finetune_pid):
 		var elapsed_s := maxf(0.0, float(Time.get_ticks_msec() - _finetune_started_ms) / 1000.0)
-		_finetune_status_text = "Finetune: running (%s, %.1fs)" % [_finetune_profile, elapsed_s]
+		_finetune_status_text = "Finetune: running (%s, %.1fs, e=%d, s=%d, b=%d, lr=%.5f)" % [_finetune_profile, elapsed_s, _finetune_epochs, _finetune_max_steps, _finetune_batch_size, _finetune_lr]
 		return
 
 	var exit_code := int(OS.get_process_exit_code(_finetune_pid))
@@ -4001,12 +4588,13 @@ func _refresh_finetune_runtime_state() -> void:
 		"model": _finetune_base_model,
 	})
 	_finetune_pid = -1
+	var total_runtime_s := maxf(0.0, float(Time.get_ticks_msec() - _finetune_started_ms) / 1000.0)
 	if exit_code == 0:
-		_finetune_status_text = "Finetune: done (%s)" % _finetune_output_name
+		_finetune_status_text = "Finetune: done (%s, %.1fs, e=%d, s=%d, b=%d, lr=%.5f)" % [_finetune_output_name, total_runtime_s, _finetune_epochs, _finetune_max_steps, _finetune_batch_size, _finetune_lr]
 		_agent_summary_refresh_pending = true
 		_agent_summary_refresh_due_ms = Time.get_ticks_msec() + 400
 	else:
-		_finetune_status_text = "Finetune: failed (exit=%d)" % exit_code
+		_finetune_status_text = "Finetune: failed (exit=%d, %.1fs, e=%d, s=%d)" % [exit_code, total_runtime_s, _finetune_epochs, _finetune_max_steps]
 
 
 func _refresh_eval_runtime_state() -> void:
@@ -4069,9 +4657,13 @@ func _refresh_latest_eval_summary(force: bool) -> void:
 	var runs: Array = runs_any
 	if runs.is_empty():
 		_latest_eval_summary_text = "Letzte Eval-Runs: keine Runs gefunden"
+		_latest_eval_runs = []
+		_ai_trend_summary_text = "Trendkarte: keine Daten"
 		return
 
 	var lines: Array[String] = ["Letzte Eval-Runs (Success Rate):"]
+	var pcts: Array[float] = []
+	var avg_duration_values: Array[float] = []
 	for run_any in runs:
 		if typeof(run_any) != TYPE_DICTIONARY:
 			continue
@@ -4082,8 +4674,53 @@ func _refresh_latest_eval_summary(force: bool) -> void:
 		var total_count := int(run.get("items", 0))
 		var avg_ms := _to_float_or_default(run.get("avg_duration_ms", null), -1.0)
 		lines.append("- %s: %.1f%% (%d/%d), avg %.0fms" % [stamp, pct, ok_count, total_count, maxf(0.0, avg_ms)])
+		if pct >= 0.0:
+			pcts.append(pct)
+		if avg_ms >= 0.0:
+			avg_duration_values.append(avg_ms)
+
+	_latest_eval_runs = runs
+
+	var trend_line := _build_ai_trend_summary(pcts, avg_duration_values)
+	lines.append(trend_line)
+	_ai_trend_summary_text = trend_line
 
 	_latest_eval_summary_text = "\n".join(lines)
+
+
+func _build_ai_trend_summary(pcts: Array[float], avg_duration_values: Array[float]) -> String:
+	if pcts.is_empty():
+		return "Trendkarte: n/a"
+	var newest := pcts[0]
+	var oldest := pcts[pcts.size() - 1]
+	var delta := newest - oldest
+	var min_pct := pcts[0]
+	var max_pct := pcts[0]
+	var sum_pct := 0.0
+	for value in pcts:
+		sum_pct += value
+		min_pct = minf(min_pct, value)
+		max_pct = maxf(max_pct, value)
+	var avg_pct := sum_pct / float(pcts.size())
+
+	var regression_status := "stabil"
+	if delta <= -3.0:
+		regression_status = "regression"
+	elif delta >= 3.0:
+		regression_status = "verbessert"
+
+	var drift_status := "stable"
+	if (max_pct - min_pct) >= 12.0:
+		drift_status = "watch"
+
+	var avg_ms_text := "n/a"
+	if not avg_duration_values.is_empty():
+		var sum_ms := 0.0
+		for ms in avg_duration_values:
+			sum_ms += ms
+		avg_ms_text = "%.0f" % (sum_ms / float(avg_duration_values.size()))
+
+	return "Trendkarte: pass=%.1f%% (delta=%+.1f) | regress=%s | drift=%s | avg_ms=%s" % [avg_pct, delta, regression_status, drift_status, avg_ms_text]
 
 
 func _refresh_system_metrics(force: bool) -> void:
@@ -4274,9 +4911,65 @@ func _is_external_server_reachable() -> bool:
 func _append_runtime_event(tag: String, payload: Dictionary) -> void:
 	var line := "- %s %s" % [tag, JSON.stringify(payload)]
 	_runtime_events.append(line)
+	_runtime_event_timestamps_ms.append(Time.get_ticks_msec())
+	_append_audit_event(tag, payload)
+	_trim_runtime_event_rate_window()
 	if _runtime_events.size() > _MAX_RUNTIME_EVENTS:
 		_runtime_events = _runtime_events.slice(_runtime_events.size() - _MAX_RUNTIME_EVENTS, _runtime_events.size())
 	_render_pc_centric_view()
+
+
+func _append_audit_event(tag: String, payload: Dictionary) -> void:
+	DirAccess.make_dir_recursive_absolute("user://agent_user_data/audit")
+	var wf := FileAccess.open(_AUDIT_TRAIL_PATH, FileAccess.READ_WRITE)
+	if wf == null:
+		wf = FileAccess.open(_AUDIT_TRAIL_PATH, FileAccess.WRITE)
+	if wf == null:
+		return
+	wf.seek_end()
+	var entry := {
+		"ts": Time.get_datetime_string_from_system(false, true),
+		"tag": tag,
+		"payload": payload,
+	}
+	wf.store_string(JSON.stringify(entry, "") + "\n")
+	wf.close()
+
+
+func _runtime_event_rate_per_second() -> float:
+	_trim_runtime_event_rate_window()
+	if _runtime_event_timestamps_ms.is_empty():
+		return 0.0
+	return float(_runtime_event_timestamps_ms.size()) / _EVENT_RATE_WINDOW_SECONDS
+
+
+func _trim_runtime_event_rate_window() -> void:
+	if _runtime_event_timestamps_ms.is_empty():
+		return
+	var now_ms := Time.get_ticks_msec()
+	var min_ms := int(_EVENT_RATE_WINDOW_SECONDS * 1000.0)
+	while not _runtime_event_timestamps_ms.is_empty() and now_ms - _runtime_event_timestamps_ms[0] > min_ms:
+		_runtime_event_timestamps_ms.remove_at(0)
+
+
+func _extract_error_code(message: String) -> String:
+	if message == "":
+		return "none"
+	var marker := "code="
+	var idx := message.find(marker)
+	if idx < 0:
+		return "n/a"
+	var start := idx + marker.length()
+	var end := start
+	while end < message.length():
+		var ch := message[end]
+		if ch == '|' or ch == ' ' or ch == ')' or ch == ',':
+			break
+		end += 1
+	var value := message.substr(start, end - start).strip_edges()
+	if value == "":
+		return "n/a"
+	return value
 
 
 func _on_action_start_event(action_name: String, context: Dictionary) -> void:

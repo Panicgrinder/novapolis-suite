@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 23:13
-update: Sim-TODO-Weiterlauf dokumentiert (Dashboard-Bereichsfeinschliff und Klick-Hotfix) und TODO-Index-Sync im selben Lauf nachgezogen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-03 23:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-03 23:13)
+stand: 2026-03-04 00:20
+update: Sim-TODO-Archivierungslauf: vollstaendig erledigten Agent-Modul-Block nach Archive verschoben und Board/Index synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-04 00:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-04 00:22)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -17,6 +17,92 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Sim: Vollstaendig erledigten C)-Block aus aktivem Board archiviert (2026-03-04 00:20)
+-----------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.sim.md`: Abschnitt `C) Agent-Modul im Hub (neu)` aus dem aktiven Board entfernt und durch einen Archivverweis ersetzt.
+- `novapolis-dev/archive/todo.sim.archive.md`: Neuer oberster Block `Neuordnung: C) Agent-Modul im Hub (neu)` mit `archived_at: 2026-03-04 00:20` eingefuegt (Inhalt unveraendert uebernommen).
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count bleibt `2`; Statushinweis `Sim v4.7` fuer die Archivuebernahme ergaenzt (R-TODO-IDX eingehalten).
+
+Dev/Sim: RP-Panel-Restpunkt abgeschlossen (2026-03-04 00:14)
+------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.sim.md`: Offener Punkt `RP-Panel-Controls` auf erledigt gesetzt und mit direkten Funktionspfaden belegt.
+- Evidenz im Code bereits vorhanden: `novapolis-sim/scripts/Main.gd` (`_set_rp_module_exclusive`, `_on_rp_hour_plus_pressed`, `_on_rp_auto_advance_pressed`, `_run_rp_auto_advance`, `_refresh_rp_studio_ui`) inkl. `RP_HOUR_JUMP`/`RP_AUTO_ADVANCE` Events und Replay-Seed-Anzeige.
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count auf `2` reduziert und Hinweis `Sim v4.6` ergaenzt (R-TODO-IDX eingehalten).
+
+Dev/Sim: Agent-Studio-Menuepunkte Artifacts->Security abgeschlossen (2026-03-04 00:14)
+-------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: neue Restpunkt-Summaries im Agent-Statusfluss (`Artifacts`, `Experiments`, `Policy Sandbox`, `Release Gate`, `Audit Trail`, `Security`) via `_refresh_agent_restpoint_summaries`.
+- `novapolis-sim/scripts/Main.gd`: Audit-Trail-Persistenz eingefuehrt (`user://agent_user_data/audit/trail.jsonl`) und an `_append_runtime_event` gekoppelt.
+- `novapolis-sim/scripts/Main.gd`: Destructive-Sicherheitsmodell eingefuehrt (Zwei-Schritt-Bestaetigung fuer Stop-Aktionen) inkl. Persistenz unter `user://agent_user_data/security/model.json`.
+- `novapolis-dev/docs/todo.sim.md`: Menuepunkte `Artifacts`, `Experiments`, `Policy Sandbox`, `Release Gate`, `Audit Trail` und `Rechte-/Sicherheitsmodell` auf erledigt gesetzt.
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count auf `3` reduziert und Statushinweis `Sim v4.5` ergaenzt (R-TODO-IDX eingehalten).
+
+Dev/Sim: Synonyms + Finetuning-Metriken + KI-Trendkarte umgesetzt (2026-03-04 00:09)
+-----------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: `Synonyms`-Flow um Import/Export-Pfade erweitert; `Apply` berechnet jetzt Delta (`terms/synonyms`) und ermittelt Validatorstatus (`ok|warn`) mit Runtime-Event-Ausgabe.
+- `novapolis-sim/scripts/Main.gd`: Finetune-Laufstatus um Trainingsmetriken erweitert (`epochs`, `max_steps`, `batch_size`, `lr`) und in Running/Done/Failed sichtbar gemacht.
+- `novapolis-sim/scripts/Main.gd`: KI-Trendkarte aus den letzten Eval-Runs integriert (`pass`, `delta`, `regress`, `drift`, `avg_ms`) via `_build_ai_trend_summary`.
+- `novapolis-dev/docs/todo.sim.md`: offene Punkte `Synonyms`, `Finetuning` und `Entwicklungsstand der KI` auf erledigt gesetzt.
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count auf `9` reduziert und Statushinweis `Sim v4.4` ergaenzt (R-TODO-IDX eingehalten).
+
+Dev/Sim: Jobs-Retry/Cancel im Agent-Studio umgesetzt (2026-03-04 00:04)
+-----------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: Jobs-Formflow um zwei neue Targets erweitert (`retry_latest`, `cancel_latest`) und in `_apply_jobs_form_payload` als Queue-Aktionen umgesetzt.
+- `novapolis-sim/scripts/Main.gd`: neue Queue-Helfer eingefuehrt (`_load_jobs_queue_payload`, `_write_jobs_queue_payload`, `_find_latest_job_index_by_status`, `_refresh_jobs_status_text`) fuer robuste Persistenz/Statusaggregation.
+- `novapolis-dev/docs/todo.sim.md`: Menuepunkt `Jobs` auf erledigt gesetzt; Evidenzpfade fuer Retry/Cancel ergänzt.
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count auf `12` reduziert und Statushinweis `Sim v4.3` ergaenzt (R-TODO-IDX eingehalten).
+
+Dev/Sim: Agent-Studio-Basisblock vervollstaendigt (2026-03-03 23:43)
+---------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.sim.md`: Die offenen Punkte `Datasets`, `Profiles` und `Advanced Settings` auf erledigt gesetzt, inklusive direkter Evidenzpfade auf Runtime-/Persistenzfunktionen.
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count auf `13` reduziert und Statushinweis `Sim v4.2` ergaenzt (R-TODO-IDX eingehalten).
+- Verbleibende Agent-Studio-Punkte bleiben bewusst offen (`Synonyms` Delta/Validator, `Finetuning` Trainingsmetriken, `Jobs` Retry/Cancel, neue Menueebenen), um Overclaiming zu vermeiden.
+
+Dev/Sim: RP/Content-Hub-Summary umgesetzt (2026-03-03 23:39)
+------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: neue Funktion `_rp_content_summary` liefert `module`, `visibility`, `source` und `last RP event` aus Laufzeitdaten.
+- `novapolis-sim/scripts/Main.gd`: `eval_card_events_label` zeigt jetzt die RP/Content-Summary direkt im Hub (`module=rp | vis=... | src=... | last=...`).
+- `novapolis-dev/docs/todo.sim.md`: Menuepunkt `RP/Content` auf erledigt gesetzt und mit Evidenz verankert.
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count auf `16` reduziert und Hinweis `Sim v4.1` ergaenzt (R-TODO-IDX eingehalten).
+
+Dev/Sim: Navigationsblock im Sim-TODO nachgezogen (2026-03-03 23:36)
+---------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.sim.md`: Menuepunkte `Dashboard`, `Sim`, `Agent/API`, `Eval/Training` auf erledigt gesetzt und mit konkreten Evidenzpfaden in `novapolis-sim/scripts/Main.gd` unterlegt.
+- `novapolis-dev/docs/todo.sim.md`: `RP/Content` bewusst offen gehalten; Teilfortschritt dokumentiert (RP-Panel + `RP_*` Runtime-Events vorhanden), offene Restarbeit bleibt die explizite Content-Quellenanzeige im Hub.
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count auf `17` gesenkt und Statushinweis `Sim v4.0` ergaenzt (R-TODO-IDX eingehalten).
+
+Dev/Sim: Hub-Qualitaetsanzeige aus Checks-Reports umgesetzt (2026-03-03 23:34)
+-------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: Qualitaets-Refresh eingefuehrt (`_refresh_quality_status`) mit Caching (15s), liest den neuesten `.tmp/results/reports/checks_report_*.json`.
+- Anzeige in der Eval-Karte ergaenzt: `eval_card_notes_label` zeigt jetzt `tests_last`, `types_last` (kombiniert aus `pyright/mypy`) und `coverage_last`.
+- `novapolis-dev/docs/todo.sim.md`: Statuspunkt `Qualitaet` auf erledigt gesetzt und mit Evidenzpfad dokumentiert.
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count auf `21` aktualisiert und Hinweis `Sim v3.9` ergaenzt.
+
+Dev/Sim: Restpunkte im Hub-Statusblock umgesetzt (2026-03-03 23:22)
+--------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: `event_rate` integriert (`_runtime_event_rate_per_second`, `_trim_runtime_event_rate_window`) und in `hub_queue_label`/`sim_card_queue_label` sichtbar gemacht.
+- `novapolis-sim/scripts/Main.gd`: `dataset_tag` im Hub-Status nachgezogen (`eval_card_artifacts_label` zeigt jetzt `dataset=<name@tag|n/a>`).
+- `novapolis-sim/scripts/Main.gd`: `last_error_code` ergänzt (`_extract_error_code` + Anzeige in `hub_errors_label` mit `code=...`).
+- `novapolis-dev/docs/todo.sim.md`: Statuspunkte `Laufzeit`, `Daten`, `Fehlerbild` auf erledigt gesetzt; `Qualitaet` bleibt offen.
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count auf `22` synchronisiert und Hinweis `Sim v3.8` ergaenzt (R-TODO-IDX eingehalten).
+
+Dev/Sim: TODO-Fortschritt im Hub-Statusblock nachgezogen (2026-03-03 23:22)
+-------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.sim.md`: In `Statusinformationen (Hub-Topbar + Modul-Karten)` wurde `Verbindung` auf erledigt gesetzt und mit Evidenz hinterlegt (`_refresh_hub_topbar`, `_derive_health_state`).
+- Offene Punkte wurden praezisiert statt pauschal offen gelassen: `Laufzeit` (offen: `event_rate`), `Daten` (offen: `dataset_tag` im Hub-Status), `Fehlerbild` (offen: `last_error_code`).
+- `novapolis-dev/docs/todo.index.md`: Open-Count fuer Sim auf `25` synchronisiert und Statushinweis `Sim v3.7` ergaenzt (R-TODO-IDX eingehalten).
 
 Dev/Sim: Dashboard-Bereichsfeinschliff + Klick-Hotfix (2026-03-03 23:09)
 --------------------------------------------------------------------------

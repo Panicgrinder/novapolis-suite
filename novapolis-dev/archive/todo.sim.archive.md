@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 00:56
-update: Vollstaendig erledigte Sim-Bloecke aus dem aktiven Board archiviert (neueste oben).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-03 00:56); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-03 00:56)
+stand: 2026-03-04 00:20
+update: Vollstaendig erledigten Abschnitt Neuordnung C) Agent-Modul im Hub aus dem aktiven Sim-Board archiviert (neuester oben).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-04 00:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-04 00:22)
 ---
 
 TODO-Archiv - Sim
@@ -19,6 +19,83 @@ Ablage
 - Neueste Einträge oben einfügen.
 
 <!-- Hier unterhalb neue, vollständig erledigte Blöcke einfügen (neu zuerst). -->
+
+Neuordnung: C) Agent-Modul im Hub (neu)
+---------------------------------------
+
+archived_at: 2026-03-04 00:20
+
+Quelle: `novapolis-dev/docs/todo.sim.md` (Abschnitt `Neuordnung offener Punkte nach Zugehoerigkeit (Stand 2026-03-02)`).
+
+- [x] Agent-Menuepunkt im Hub anlegen (`Agent Studio`) als eigener Bereich neben Sim/API/Eval.
+  - Evidenz: `novapolis-sim/Main.tscn` (`AgentStudioPanel`) und `novapolis-sim/scripts/Main.gd` (UI-Bindings + Refresh).
+- [x] Agent Studio in zwei Subbereiche teilen: `Operate` (Runs/Monitoring) und `Author` (Daten/Leitplanken/Profile), um Ueberladung zu vermeiden.
+  - Evidenz: `novapolis-sim/Main.tscn` (`AgentOperateButton`, `AgentAuthorButton`), `novapolis-sim/scripts/Main.gd` (`_on_agent_operate_pressed`, `_on_agent_author_pressed`, `_refresh_agent_studio_ui`).
+- [x] Agent-Bereich als Untermenue schaltbar gemacht (statt separatem Dauerpanel): Trigger auf dem ehemaligen `Play PC OGG`-Slot.
+  - Evidenz: `novapolis-sim/Main.tscn` (`PlayPcAudioButton` Text -> `Agent Menu`), `novapolis-sim/scripts/Main.gd` (`_on_play_pc_audio_pressed` toggelt `AgentStudioPanel.visible`).
+- [x] Agent-Modul als exklusiver Submenu-View umgesetzt (nicht nur kleines Panel): eigener Vollbereich mit Rueckweg zum Hub.
+  - Evidenz: `novapolis-sim/Main.tscn` (`AgentBackButton`), `novapolis-sim/scripts/Main.gd` (`_set_agent_module_exclusive`, dynamische Panel-Groesse + Hub-Content-Visibility).
+- [x] Eval-Runs starten: Suite-Auswahl (`neutral`, `rpg`, `quality_de`), Start/Stop, Laufstatus, letzte KPIs.
+  - Vorstufe erweitert: `Eval Run (quick)` startet jetzt real `novapolis_agent/scripts/quick_eval.py` als Hintergrundprozess, inklusive Laufstatus und Prozentanzeige (zeitbasiert/approximativ).
+  - Nachschaerfung: `quick_eval.py` akzeptiert nun `--limit`; Hub startet standardmaessig mit hoeherem Quick-Limit (`eval_quick_limit=30`) fuer belastbarere Kurzlaeufe.
+  - Nachschaerfung: letzte Runs werden als Success-Rate-Prozent live eingeblendet (`latest_eval_summary.py` -> `AgentLatestRunsLabel`).
+  - Umsetzung v2: Suite-Button im Agent-Modul (`neutral/rpg/quality_de`) + `Eval Start`/`Eval Stop`; Starts laufen jetzt ueber `scripts/agent/run_eval.py` mit suite-spezifischen Paketlisten analog Workspace-Tasks.
+- [x] Datasets erstellen/verwalten: Quelle waehlen, Kurationslauf starten, Version/Tag setzen, Active Dataset markieren.
+  - Vorstufe erweitert: Source-Auswahl ist jetzt separater Control (`Source: clean/with_failures`), waehrend `Datasets` in `Operate` und `Author` wieder konsistent `Run/Stop` fuer reale Kurationslaeufe (`curate_dataset_from_latest.py`) anbietet.
+  - Vorstufe erweitert: Im unteren Agent-Bereich oeffnet `Datasets` (Author) jetzt eine gefuehrte Maske mit Modus/Target/Name und JSON-Vorlage; Entwuerfe werden als Datei unter `user://agent_forms/` gespeichert.
+  - Schritt 2: `Apply` schreibt jetzt direkt in User-Assets (`user://agent_user_data/datasets/*.jsonl`) mit Validierung und `new`/`append_user`-Semantik.
+  - Schritt 3: `Apply` verarbeitet jetzt `dataset_tag` + `set_active` und pflegt eine Registry (`user://agent_user_data/datasets/_registry.json`) mit aktivem Dataset (`name@tag`).
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_start_dataset_curation`, `_apply_dataset_form_payload`, `_update_dataset_registry`, `_load_dataset_registry_state`) plus Source-Dropdown/Controls in `novapolis-sim/Main.tscn` (`AgentDatasetSourceButton`, `AgentDatasetsButton`).
+- [x] Synonyms erstellen/verwalten: Begriffspaare pflegen, Import/Export, Delta-Ansicht, letzter Validator-Status.
+  - Vorstufe erweitert: Im unteren Agent-Bereich oeffnet `Synonyms` (Author) jetzt eine gefuehrte Maske mit Modus/Target/Name und editierbarer JSON-Vorlage.
+  - Schritt 2: `Apply` schreibt jetzt direkt in User-Assets (`user://agent_user_data/synonyms/*.json`) mit Validierung und `new`/`append_user`-Semantik.
+  - Schritt 3: `Apply` verarbeitet jetzt `synonym_tag` + `set_active` und pflegt eine Registry (`user://agent_user_data/synonyms/_registry.json`) mit aktivem Set (`name@tag`).
+  - Schritt 4: Import/Export-Pfade sind im Formpayload verfuegbar; Delta (`+terms/+syns`) und Validatorstatus (`ok|warn`) werden nach `Apply` in Status und Runtime-Event ausgewiesen.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_apply_synonym_form_payload`, `_load_synonym_entries_from_path`, `_write_json_to_path`, `_build_synonym_delta`, `_validate_synonym_entries`).
+- [x] Finetuning starten: Profil waehlen, Basismodel/Artefaktpfad setzen, Lauf starten/abbrechen, Trainingsmetriken anzeigen.
+  - Schritt 1: `Finetune` oeffnet jetzt im `Author`-Modus eine Form mit Profil/Basismodell/Train-File/Output/Hyperparametern; `Apply` startet reale Runs via `scripts/agent/fine_tune_pipeline.py`.
+  - Schritt 1: Lauf kann ueber denselben Button gestoppt werden (`Finetune Stop`); Statuszeile zeigt Running/Done/Failed inkl. Profil und Output.
+  - Schritt 2: Statuszeile enthaelt jetzt Laufzeit- und Trainingsmetriken (`epochs`, `max_steps`, `batch_size`, `lr`) in Running/Done/Failed.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_start_finetune_run`, `_refresh_finetune_runtime_state`, `_finetune_epochs/_finetune_max_steps/_finetune_batch_size/_finetune_lr`).
+- [x] Entwicklungsstand der KI auswerten: kompakte Trendkarte (Pass-Rate, Fehlerschwerpunkte, letzte Regression, Drift-Status).
+  - Vorstufe erweitert: `AI Status` triggert jetzt sofortige Metrik-Aktualisierung (CPU/RAM/GPU/Temp) mit laufender Anzeige im Agent-Studio.
+  - Nachschaerfung: Anzeige nutzt jetzt GPU-VRAM (`gpu_vram_percent`, `used/total`) statt GPU-Load-Prozent.
+  - Schritt 2: Trendkarte aus den letzten Eval-Runs wird aus `success_rate_percent`/`avg_duration_ms` berechnet (`pass`, `delta`, `regress`, `drift`, `avg_ms`) und in der Zusammenfassung angezeigt.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_refresh_latest_eval_summary`, `_build_ai_trend_summary`).
+- [x] [Jetzt] Runtime-Log im Hub fuer Bedienung nachgeschaerft: Ping-Noise (`state_update`) unterdrueckt, Historie vergroessert und Scrollbarkeit explizit aktiviert.
+- [x] Profile anlegen/verwalten: Prompt-/Verhaltensprofile, Zuweisung zu Eval/Finetune-Laeufen, Aktiv/Archiv-Status.
+  - Schritt 1: `Profiles` oeffnet jetzt im `Author`-Modus eine Form mit Profilname, Modus, Prompt/Notes und Assignment (`eval`/`finetune`).
+  - Schritt 1: `Apply` persistiert Profile unter `user://agent_user_data/profiles/*.json` und pflegt Active/Archive-Status in `user://agent_user_data/profiles/_registry.json`.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_open_agent_form("profiles")`, `_apply_profile_form_payload`, `_update_profile_registry`, `_load_profile_registry_state`) und `AgentProfilesButton` in `novapolis-sim/Main.tscn`.
+- [x] `Advanced Settings` einfuehren: Leitplanken, Systemverhalten, Safety-/Policy-Profile, Debug-/Strictness-Level.
+  - Schritt 1: `AI Status` oeffnet im `Author`-Modus jetzt eine `Advanced Settings`-Form; `Apply` persistiert die Konfiguration unter `user://agent_user_data/settings/advanced.json`.
+  - Schritt 1: Agent-Statusblock zeigt den aktuellen Advanced-Status (`Advanced: <mode> | policy=<...> | strict=<...>`) in den Latest-Runs-Infos.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_open_agent_form("advanced")`, `_apply_advanced_settings_form_payload`, `_load_advanced_settings_state`, `_refresh_agent_studio_ui`) und `AgentAiStatusButton` in `novapolis-sim/Main.tscn`.
+- [x] Menuepunkt `Jobs`: zentrale Queue/Laufverwaltung fuer Eval, Finetune und Datenjobs inklusive Retry/Cancel.
+  - Schritt 1: `Eval Run` oeffnet im `Author`-Modus jetzt eine `Jobs`-Form; `Apply` reiht Jobs (`eval`/`finetune`/`datasets`) in `user://agent_user_data/jobs/queue.json` ein.
+  - Schritt 1: Agent-Statusblock zeigt Queue-Status in den Latest-Runs-Infos.
+  - Schritt 2: Jobs-Target unterstuetzt jetzt `retry_latest` (letzten `failed/cancelled` Job neu einreihen) und `cancel_latest` (letzten `queued/running` Job abbrechen) inklusive Runtime-Events.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_apply_jobs_form_payload`, `_agent_form_target_options_for_kind`, `_load_jobs_queue_payload`, `_write_jobs_queue_payload`, `_find_latest_job_index_by_status`, `_refresh_jobs_status_text`) mit Queue unter `user://agent_user_data/jobs/queue.json`.
+- [x] UI-Standard: Single-Select-Steuerungen im Agent-/Hub-Bereich auf Dropdowns (`OptionButton`) vereinheitlicht.
+  - Umsetzung: `Eval-Suite`, `Dataset-Quelle`, Form-`Modus`/`Ziel` sowie Hub-Config `Default-Panel`/`Refresh` nutzen jetzt konsistent Dropdowns statt Klick-Zyklen.
+- [x] Menuepunkt `Artifacts`: Versionen fuer Datasets, Synonym-Sets, Modelle, Reports (Tagging, Aktivstand, Herkunft).
+  - Umsetzung: Aggregierte Artefakt-Summary zeigt aktives Dataset/Synonym-Set, Modellreferenz und Reportstatus im Agent-Studio.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_build_artifacts_summary`, `_refresh_agent_restpoint_summaries`).
+- [x] Menuepunkt `Experiments`: Vergleichsansichten zwischen Laeufen (A/B, Regression, Drift, KPI-Diff).
+  - Umsetzung: A/B-Delta aus den letzten zwei Eval-Runs inkl. Tag (`A>B`, `A<B`, `stable`) im Agent-Studio-Status.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_latest_eval_runs`, `_build_experiments_summary`, `_refresh_latest_eval_summary`).
+- [x] Menuepunkt `Policy Sandbox`: Leitplanken-/Prompt-Profile testweise gegen Checks fahren, bevor Aktivschaltung erfolgt.
+  - Umsetzung: Policy-Sandbox-Status wird aus Advanced-Settings + Quality-Gate (`tests/types`) als `ready|hold` abgeleitet.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_build_policy_sandbox_summary`, `_load_advanced_settings_state`).
+- [x] Menuepunkt `Release Gate`: Go/No-Go Uebersicht mit Mindestkriterien (z. B. pass_rate, drift, safety).
+  - Umsetzung: Gate-Entscheid als `GO|NO-GO` aus `tests`, `types`, `coverage>=80`, Regression und Security-Guard.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_build_release_gate_summary`).
+- [x] Menuepunkt `Audit Trail`: nachvollziehbare Historie fuer Starts, Aenderungen, Profile-Switches und Policy-Edits.
+  - Umsetzung: Runtime-Events werden persistent nach `user://agent_user_data/audit/trail.jsonl` geschrieben und als Summary angezeigt.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_append_audit_event`, `_build_audit_trail_summary`, `_append_runtime_event`).
+- [x] Rechte-/Sicherheitsmodell fuer Agent-Aktionen definieren (z. B. destructive actions nur mit Explizitfreigabe).
+  - Umsetzung: Destructive-Guard mit Zwei-Schritt-Bestaetigung fuer `Eval Stop`, `Datasets Stop`, `Finetune Stop`; Security-State wird unter `user://agent_user_data/security/model.json` persistiert.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_confirm_destructive_action`, `_load_security_model_state`, `_persist_security_model_state`).
 
 Arbeitsplan Sim-Modul: Phase 1 - Stabilisierung der Laufzeitkopplung (Jetzt)
 --------------------------------------------------------------------------

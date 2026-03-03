@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 23:13
-update: Hub-Dashboard-Bereiche nachgeschaerft (Bereichsmarken, Runtime-Sync, Klick-Hotfix) und TODO-Index/Dev-DONELOG im selben Lauf synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-03 23:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-03 23:13)
+stand: 2026-03-04 00:20
+update: Vollstaendig erledigten Abschnitt C) Agent-Modul im Hub nach Sim-Archiv verschoben; aktives Sim-Board auf offene Restpunkte fokussiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-04 00:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-04 00:22)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -42,8 +42,8 @@ Neue Aufgaben - Epochen & Audio (2025-11-01 22:24)
 - [x] [Jetzt] Scheduler-Hook vorbereiten: Min-Heap-basierte Event-Queue (ohne Logik), nur Schnittstellen/Types.
   - Evidenz: `novapolis-sim/scripts/scheduler_hook.gd` (Min-Heap API: `enqueue/peek_next/pop_next/pop_due`), `novapolis-sim/scripts/Main.gd` (`SCHEDULER_READY` Runtime-Event).
   - [ ] Referenz: `novapolis-dev/docs/specs/scheduler-spec.md`.
-- [ ] [Als naechstes] RP-Panel-Controls: Stundensprung, Auto-Advance (wenn kein PC-Event), Replay-Seed sichtbar machen (nicht im allgemeinen Hub).
-  - Hinweis: Im allgemeinen Hub bewusst entfernt; Umsetzung folgt in einem separaten RP-spezifischen Panel/Flow.
+- [x] [Als naechstes] RP-Panel-Controls: Stundensprung, Auto-Advance (wenn kein PC-Event), Replay-Seed sichtbar machen (nicht im allgemeinen Hub).
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_set_rp_module_exclusive`, `_on_rp_hour_plus_pressed`, `_on_rp_auto_advance_pressed`, `_run_rp_auto_advance`, `_refresh_rp_studio_ui`) mit `RP_HOUR_JUMP`/`RP_AUTO_ADVANCE`-Events und `rp_replay_seed_label`.
 
 Arbeitsplan Sim-Modul (Analyse 2026-03-02)
 ------------------------------------------
@@ -65,20 +65,30 @@ Zielbild: Das Sim-UI dient als Hub fuer das gesamte Framework (Sim/Agent/Eval/RP
 
 Menuepunkte (Hub-Navigation)
 
-- [ ] Dashboard: Gesamtstatus, letzte Events, Schnellaktionen (Start/Stop/Reload/Checks).
+- [x] Dashboard: Gesamtstatus, letzte Events, Schnellaktionen (Start/Stop/Reload/Checks).
   - Fortschritt 2026-03-03: Bereiche `bereich-01..04` in `novapolis-sim/Main.tscn` zur visuellen Slot-Abgrenzung angelegt; Runtime-Layout in `novapolis-sim/scripts/Main.gd` auf die aktuellen Bereichszuschnitte nachgezogen; Input-Hotfix gesetzt (`mouse_filter=2`), damit die Markierungsflaechen keine Schaltflaechen blockieren.
-- [ ] Sim: Tick/Zeit, Scheduler-Queue, Runtime-Events, Slot-/Epoch-Navigation.
-- [ ] Agent/API: Health, Port/Host, Response-Latenz, letzte Fehler, Retry-Status.
-- [ ] Eval/Training: letzter Lauf, pass_rate, Datensatzquelle, Artefaktstatus.
-- [ ] RP/Content: aktive Quelle/Modul, Sichtbarkeitsstatus, letzte Content-Events.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_refresh_hub_topbar`, `_refresh_module_cards`, `_on_server_toggle_pressed`, `_on_hub_reload_pressed`, `_on_hub_checks_pressed`) sowie Runtime-Events in `PcLogLabel`.
+- [x] Sim: Tick/Zeit, Scheduler-Queue, Runtime-Events, Slot-/Epoch-Navigation.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`sim_card_tick_label`, `sim_card_queue_label`, `_render_pc_centric_view`, `_on_rp_hour_plus_pressed`) und Scheduler-Hook-Anbindung (`_scheduler_hook.size()`).
+- [x] Agent/API: Health, Port/Host, Response-Latenz, letzte Fehler, Retry-Status.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`api_card_health_label`, `api_card_runtime_label`, `api_card_backoff_label`, `api_card_endpoint_label`, `_derive_health_state`).
+- [x] Eval/Training: letzter Lauf, pass_rate, Datensatzquelle, Artefaktstatus.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_refresh_latest_eval_summary`, `eval_card_profile_label`, `eval_card_artifacts_label`, `eval_card_notes_label`).
+- [x] RP/Content: aktive Quelle/Modul, Sichtbarkeitsstatus, letzte Content-Events.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_rp_content_summary`) zeigt im Hub `module=rp`, `vis=...`, `src=<epoch/pc_log@slot>` und `last=<RP_*>` in `eval_card_events_label`.
 
 Statusinformationen (Hub-Topbar + Modul-Karten)
 
-- [ ] Verbindung: `API reachable`, `polling active/paused`, `last_ok_age_s`.
-- [ ] Laufzeit: `tick`, `sim_time_s`, `event_rate`, `queue_size` (Scheduler-Hook).
-- [ ] Qualitaet: `tests_last`, `types_last`, `coverage_last` (wenn verfuegbar).
-- [ ] Daten: `epoch_data_present`, `audio_assets_present`, `dataset_tag`.
-- [ ] Fehlerbild: `last_error_code`, `error_duration_s`, `consecutive_failures`.
+- [x] Verbindung: `API reachable`, `polling active/paused`, `last_ok_age_s`.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_refresh_hub_topbar`, `_derive_health_state`) setzt `hub_api_label` mit API-State/Reason/`last_ok` und `hub_polling_label` mit `active|paused`, `fail`, `backoff`.
+- [x] Laufzeit: `tick`, `sim_time_s`, `event_rate`, `queue_size` (Scheduler-Hook).
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_refresh_module_cards`, `_runtime_event_rate_per_second`) setzt `sim_card_tick_label` (`tick/time`) sowie `sim_card_queue_label`/`hub_queue_label` inkl. `rate=.../s` und Queue-Groesse.
+- [x] Qualitaet: `tests_last`, `types_last`, `coverage_last` (wenn verfuegbar).
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_refresh_quality_status`) liest den neuesten `.tmp/results/reports/checks_report_*.json` und setzt `eval_card_notes_label` auf `Quality: tests=... | types=... | cov=...`.
+- [x] Daten: `epoch_data_present`, `audio_assets_present`, `dataset_tag`.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_refresh_module_cards`) setzt `sim_card_data_label` (`epochs/audio`) und `eval_card_artifacts_label` inkl. aktivem `dataset=<name@tag|n/a>`.
+- [x] Fehlerbild: `last_error_code`, `error_duration_s`, `consecutive_failures`.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` (`_refresh_hub_topbar`, `_extract_error_code`) zeigt `Errors ... | code=...` in `hub_errors_label`; `consecutive_failures` bleibt in `hub_polling_label` sichtbar.
 
 Priorisierung fuer Umsetzung
 
@@ -102,53 +112,7 @@ B) RP-spezifische Bedienebene (nicht allgemeiner Hub)
 
 C) Agent-Modul im Hub (neu)
 
-- [x] Agent-Menuepunkt im Hub anlegen (`Agent Studio`) als eigener Bereich neben Sim/API/Eval.
-  - Evidenz: `novapolis-sim/Main.tscn` (`AgentStudioPanel`) und `novapolis-sim/scripts/Main.gd` (UI-Bindings + Refresh).
-- [x] Agent Studio in zwei Subbereiche teilen: `Operate` (Runs/Monitoring) und `Author` (Daten/Leitplanken/Profile), um Ueberladung zu vermeiden.
-  - Evidenz: `novapolis-sim/Main.tscn` (`AgentOperateButton`, `AgentAuthorButton`), `novapolis-sim/scripts/Main.gd` (`_on_agent_operate_pressed`, `_on_agent_author_pressed`, `_refresh_agent_studio_ui`).
-- [x] Agent-Bereich als Untermenue schaltbar gemacht (statt separatem Dauerpanel): Trigger auf dem ehemaligen `Play PC OGG`-Slot.
-  - Evidenz: `novapolis-sim/Main.tscn` (`PlayPcAudioButton` Text -> `Agent Menu`), `novapolis-sim/scripts/Main.gd` (`_on_play_pc_audio_pressed` toggelt `AgentStudioPanel.visible`).
-- [x] Agent-Modul als exklusiver Submenu-View umgesetzt (nicht nur kleines Panel): eigener Vollbereich mit Rueckweg zum Hub.
-  - Evidenz: `novapolis-sim/Main.tscn` (`AgentBackButton`), `novapolis-sim/scripts/Main.gd` (`_set_agent_module_exclusive`, dynamische Panel-Groesse + Hub-Content-Visibility).
-- [x] Eval-Runs starten: Suite-Auswahl (`neutral`, `rpg`, `quality_de`), Start/Stop, Laufstatus, letzte KPIs.
-  - Vorstufe erweitert: `Eval Run (quick)` startet jetzt real `novapolis_agent/scripts/quick_eval.py` als Hintergrundprozess, inklusive Laufstatus und Prozentanzeige (zeitbasiert/approximativ).
-  - Nachschaerfung: `quick_eval.py` akzeptiert nun `--limit`; Hub startet standardmaessig mit hoeherem Quick-Limit (`eval_quick_limit=30`) fuer belastbarere Kurzlaeufe.
-  - Nachschaerfung: letzte Runs werden als Success-Rate-Prozent live eingeblendet (`latest_eval_summary.py` -> `AgentLatestRunsLabel`).
-  - Umsetzung v2: Suite-Button im Agent-Modul (`neutral/rpg/quality_de`) + `Eval Start`/`Eval Stop`; Starts laufen jetzt ueber `scripts/agent/run_eval.py` mit suite-spezifischen Paketlisten analog Workspace-Tasks.
-- [ ] Datasets erstellen/verwalten: Quelle waehlen, Kurationslauf starten, Version/Tag setzen, Active Dataset markieren.
-  - Vorstufe erweitert: Source-Auswahl ist jetzt separater Control (`Source: clean/with_failures`), waehrend `Datasets` in `Operate` und `Author` wieder konsistent `Run/Stop` fuer reale Kurationslaeufe (`curate_dataset_from_latest.py`) anbietet.
-  - Vorstufe erweitert: Im unteren Agent-Bereich oeffnet `Datasets` (Author) jetzt eine gefuehrte Maske mit Modus/Target/Name und JSON-Vorlage; Entwuerfe werden als Datei unter `user://agent_forms/` gespeichert.
-  - Schritt 2: `Apply` schreibt jetzt direkt in User-Assets (`user://agent_user_data/datasets/*.jsonl`) mit Validierung und `new`/`append_user`-Semantik.
-  - Schritt 3: `Apply` verarbeitet jetzt `dataset_tag` + `set_active` und pflegt eine Registry (`user://agent_user_data/datasets/_registry.json`) mit aktivem Dataset (`name@tag`).
-- [ ] Synonyms erstellen/verwalten: Begriffspaare pflegen, Import/Export, Delta-Ansicht, letzter Validator-Status.
-  - Vorstufe erweitert: Im unteren Agent-Bereich oeffnet `Synonyms` (Author) jetzt eine gefuehrte Maske mit Modus/Target/Name und editierbarer JSON-Vorlage.
-  - Schritt 2: `Apply` schreibt jetzt direkt in User-Assets (`user://agent_user_data/synonyms/*.json`) mit Validierung und `new`/`append_user`-Semantik.
-  - Schritt 3: `Apply` verarbeitet jetzt `synonym_tag` + `set_active` und pflegt eine Registry (`user://agent_user_data/synonyms/_registry.json`) mit aktivem Set (`name@tag`).
-- [ ] Finetuning starten: Profil waehlen, Basismodel/Artefaktpfad setzen, Lauf starten/abbrechen, Trainingsmetriken anzeigen.
-  - Schritt 1: `Finetune` oeffnet jetzt im `Author`-Modus eine Form mit Profil/Basismodell/Train-File/Output/Hyperparametern; `Apply` startet reale Runs via `scripts/agent/fine_tune_pipeline.py`.
-  - Schritt 1: Lauf kann ueber denselben Button gestoppt werden (`Finetune Stop`); Statuszeile zeigt Running/Done/Failed inkl. Profil und Output.
-- [ ] Entwicklungsstand der KI auswerten: kompakte Trendkarte (Pass-Rate, Fehlerschwerpunkte, letzte Regression, Drift-Status).
-  - Vorstufe erweitert: `AI Status` triggert jetzt sofortige Metrik-Aktualisierung (CPU/RAM/GPU/Temp) mit laufender Anzeige im Agent-Studio.
-  - Nachschaerfung: Anzeige nutzt jetzt GPU-VRAM (`gpu_vram_percent`, `used/total`) statt GPU-Load-Prozent.
-
-- [x] [Jetzt] Runtime-Log im Hub fuer Bedienung nachgeschaerft: Ping-Noise (`state_update`) unterdrueckt, Historie vergroessert und Scrollbarkeit explizit aktiviert.
-- [ ] Profile anlegen/verwalten: Prompt-/Verhaltensprofile, Zuweisung zu Eval/Finetune-Laeufen, Aktiv/Archiv-Status.
-  - Schritt 1: `Profiles` oeffnet jetzt im `Author`-Modus eine Form mit Profilname, Modus, Prompt/Notes und Assignment (`eval`/`finetune`).
-  - Schritt 1: `Apply` persistiert Profile unter `user://agent_user_data/profiles/*.json` und pflegt Active/Archive-Status in `user://agent_user_data/profiles/_registry.json`.
-- [ ] `Advanced Settings` einfuehren: Leitplanken, Systemverhalten, Safety-/Policy-Profile, Debug-/Strictness-Level.
-  - Schritt 1: `AI Status` oeffnet im `Author`-Modus jetzt eine `Advanced Settings`-Form; `Apply` persistiert die Konfiguration unter `user://agent_user_data/settings/advanced.json`.
-  - Schritt 1: Agent-Statusblock zeigt den aktuellen Advanced-Status (`Advanced: <mode> | policy=<...> | strict=<...>`) in den Latest-Runs-Infos.
-- [ ] Menuepunkt `Jobs`: zentrale Queue/Laufverwaltung fuer Eval, Finetune und Datenjobs inklusive Retry/Cancel.
-  - Schritt 1: `Eval Run` oeffnet im `Author`-Modus jetzt eine `Jobs`-Form; `Apply` reiht Jobs (`eval`/`finetune`/`datasets`) in `user://agent_user_data/jobs/queue.json` ein.
-  - Schritt 1: Agent-Statusblock zeigt Queue-Status (`Jobs: queued=<n> | latest=<name> (<type>)`) in den Latest-Runs-Infos.
-- [x] UI-Standard: Single-Select-Steuerungen im Agent-/Hub-Bereich auf Dropdowns (`OptionButton`) vereinheitlicht.
-  - Umsetzung: `Eval-Suite`, `Dataset-Quelle`, Form-`Modus`/`Ziel` sowie Hub-Config `Default-Panel`/`Refresh` nutzen jetzt konsistent Dropdowns statt Klick-Zyklen.
-- [ ] Menuepunkt `Artifacts`: Versionen fuer Datasets, Synonym-Sets, Modelle, Reports (Tagging, Aktivstand, Herkunft).
-- [ ] Menuepunkt `Experiments`: Vergleichsansichten zwischen Laeufen (A/B, Regression, Drift, KPI-Diff).
-- [ ] Menuepunkt `Policy Sandbox`: Leitplanken-/Prompt-Profile testweise gegen Checks fahren, bevor Aktivschaltung erfolgt.
-- [ ] Menuepunkt `Release Gate`: Go/No-Go Uebersicht mit Mindestkriterien (z. B. pass_rate, drift, safety).
-- [ ] Menuepunkt `Audit Trail`: nachvollziehbare Historie fuer Starts, Aenderungen, Profile-Switches und Policy-Edits.
-- [ ] Rechte-/Sicherheitsmodell fuer Agent-Aktionen definieren (z. B. destructive actions nur mit Explizitfreigabe).
+- Archiviert: `novapolis-dev/archive/todo.sim.archive.md` (Block `Neuordnung: C) Agent-Modul im Hub (neu)`, `archived_at: 2026-03-04 00:20`).
 
 D) Qualitaet, Governance, Nachweis
 
