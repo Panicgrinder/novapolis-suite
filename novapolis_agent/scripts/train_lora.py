@@ -37,7 +37,7 @@ def _read_openai_chat_jsonl(path: str) -> list[dict[str, Any]]:
     return rows
 
 
-def load_openai_chat_jsonl(path: str) -> "Dataset":
+def load_openai_chat_jsonl(path: str) -> Dataset:
     from datasets import Dataset
 
     rows = _read_openai_chat_jsonl(path)

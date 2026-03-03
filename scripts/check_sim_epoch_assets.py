@@ -4,6 +4,8 @@ This script is designed for tunnel/remote workflows where GUI-driven Godot check
 are impractical. It validates file structure and basic parseability only.
 """
 
+# ruff: noqa: E501
+
 from __future__ import annotations
 
 import argparse
@@ -11,7 +13,6 @@ import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
-
 
 EPOCH_DIR_RE = re.compile(r"^epoch\d+$", re.IGNORECASE)
 AUDIO_FILE_RE = re.compile(r"^epoch(\d{2})_slot(\d{2})_(pc|world)\.ogg$", re.IGNORECASE)
@@ -99,7 +100,9 @@ def _collect_slots(entries: list[dict]) -> tuple[set[int], int]:
     return slots, missing
 
 
-def _validate_slot_consistency(epoch_name: str, world_entries: list[dict], pc_entries: list[dict]) -> list[CheckMessage]:
+def _validate_slot_consistency(
+    epoch_name: str, world_entries: list[dict], pc_entries: list[dict]
+) -> list[CheckMessage]:
     messages: list[CheckMessage] = []
 
     world_slots, world_missing = _collect_slots(world_entries)
@@ -124,9 +127,15 @@ def _validate_slot_consistency(epoch_name: str, world_entries: list[dict], pc_en
         )
 
     if world_entries and not world_slots:
-        messages.append(CheckMessage("FAIL", f"{epoch_name}: world_log has entries but no detectable slot values"))
+        messages.append(
+            CheckMessage(
+                "FAIL", f"{epoch_name}: world_log has entries but no detectable slot values"
+            )
+        )
     if pc_entries and not pc_slots:
-        messages.append(CheckMessage("FAIL", f"{epoch_name}: pc_log has entries but no detectable slot values"))
+        messages.append(
+            CheckMessage("FAIL", f"{epoch_name}: pc_log has entries but no detectable slot values")
+        )
 
     only_world = sorted(world_slots - pc_slots)
     only_pc = sorted(pc_slots - world_slots)
@@ -149,9 +158,15 @@ def _validate_slot_consistency(epoch_name: str, world_entries: list[dict], pc_en
         )
 
     if world_missing > 0:
-        messages.append(CheckMessage("WARN", f"{epoch_name}: world_log entries without slot key: {world_missing}"))
+        messages.append(
+            CheckMessage(
+                "WARN", f"{epoch_name}: world_log entries without slot key: {world_missing}"
+            )
+        )
     if pc_missing > 0:
-        messages.append(CheckMessage("WARN", f"{epoch_name}: pc_log entries without slot key: {pc_missing}"))
+        messages.append(
+            CheckMessage("WARN", f"{epoch_name}: pc_log entries without slot key: {pc_missing}")
+        )
 
     return messages
 
@@ -189,11 +204,15 @@ def load_json_lines(path: Path) -> list[dict]:
 def collect_epoch_dirs(epochs_root: Path) -> list[Path]:
     if not epochs_root.exists() or not epochs_root.is_dir():
         return []
-    epoch_dirs = [item for item in epochs_root.iterdir() if item.is_dir() and EPOCH_DIR_RE.match(item.name)]
+    epoch_dirs = [
+        item for item in epochs_root.iterdir() if item.is_dir() and EPOCH_DIR_RE.match(item.name)
+    ]
     return sorted(epoch_dirs, key=lambda path: path.name.lower())
 
 
-def validate_epoch_folder(epoch_dir: Path, *, check_slot_consistency: bool = False) -> list[CheckMessage]:
+def validate_epoch_folder(
+    epoch_dir: Path, *, check_slot_consistency: bool = False
+) -> list[CheckMessage]:
     messages: list[CheckMessage] = []
     world_log = epoch_dir / "world_log.jsonl"
     pc_log = epoch_dir / "pc_log.jsonl"
@@ -201,13 +220,17 @@ def validate_epoch_folder(epoch_dir: Path, *, check_slot_consistency: bool = Fal
     try:
         world_entries = load_json_lines(world_log)
     except (FileNotFoundError, ValueError, json.JSONDecodeError) as exc:
-        messages.append(CheckMessage("FAIL", f"{epoch_dir.name}: world_log.jsonl invalid/missing ({exc})"))
+        messages.append(
+            CheckMessage("FAIL", f"{epoch_dir.name}: world_log.jsonl invalid/missing ({exc})")
+        )
         world_entries = []
 
     try:
         pc_entries = load_json_lines(pc_log)
     except (FileNotFoundError, ValueError, json.JSONDecodeError) as exc:
-        messages.append(CheckMessage("FAIL", f"{epoch_dir.name}: pc_log.jsonl invalid/missing ({exc})"))
+        messages.append(
+            CheckMessage("FAIL", f"{epoch_dir.name}: pc_log.jsonl invalid/missing ({exc})")
+        )
         pc_entries = []
 
     if world_entries or pc_entries:
@@ -231,15 +254,21 @@ def validate_audio_dir(audio_root: Path) -> list[CheckMessage]:
         messages.append(CheckMessage("WARN", f"audio directory missing: {audio_root.as_posix()}"))
         return messages
     if not audio_root.is_dir():
-        messages.append(CheckMessage("FAIL", f"audio path is not a directory: {audio_root.as_posix()}"))
+        messages.append(
+            CheckMessage("FAIL", f"audio path is not a directory: {audio_root.as_posix()}")
+        )
         return messages
 
-    ogg_files = sorted([item for item in audio_root.iterdir() if item.is_file() and item.suffix.lower() == ".ogg"])
+    ogg_files = sorted(
+        [item for item in audio_root.iterdir() if item.is_file() and item.suffix.lower() == ".ogg"]
+    )
     if not ogg_files:
         messages.append(CheckMessage("WARN", "no .ogg files found (naming check skipped)"))
         return messages
 
-    invalid_names = [file_path.name for file_path in ogg_files if not AUDIO_FILE_RE.match(file_path.name)]
+    invalid_names = [
+        file_path.name for file_path in ogg_files if not AUDIO_FILE_RE.match(file_path.name)
+    ]
     if invalid_names:
         for invalid_name in invalid_names:
             messages.append(
@@ -249,7 +278,9 @@ def validate_audio_dir(audio_root: Path) -> list[CheckMessage]:
                 )
             )
     else:
-        messages.append(CheckMessage("INFO", f"audio naming valid for {len(ogg_files)} ogg file(s)"))
+        messages.append(
+            CheckMessage("INFO", f"audio naming valid for {len(ogg_files)} ogg file(s)")
+        )
     return messages
 
 
@@ -264,7 +295,9 @@ def main() -> int:
     epoch_dirs = collect_epoch_dirs(epochs_root)
     if not epoch_dirs:
         if args.allow_empty:
-            all_messages.append(CheckMessage("WARN", "no epochNN folders found (allow-empty active)"))
+            all_messages.append(
+                CheckMessage("WARN", "no epochNN folders found (allow-empty active)")
+            )
         else:
             all_messages.append(
                 CheckMessage(
@@ -274,7 +307,9 @@ def main() -> int:
             )
 
     for epoch_dir in epoch_dirs:
-        all_messages.extend(validate_epoch_folder(epoch_dir, check_slot_consistency=args.check_slot_consistency))
+        all_messages.extend(
+            validate_epoch_folder(epoch_dir, check_slot_consistency=args.check_slot_consistency)
+        )
 
     all_messages.extend(validate_audio_dir(audio_root))
 

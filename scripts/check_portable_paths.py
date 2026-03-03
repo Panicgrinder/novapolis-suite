@@ -129,9 +129,15 @@ def scan_file(path: Path, repo_root: Path) -> list[Finding]:
     except UnicodeDecodeError:
         return findings
 
-    is_json_like = path.suffix.lower() in {".json"}
+    suffix = path.suffix.lower()
+    is_json_like = suffix in {".json"}
+    is_markdown = suffix == ".md"
 
     for index, line in enumerate(text.splitlines(), start=1):
+        # Frontmatter check receipts are audit artifacts and may legitimately carry
+        # machine-local command traces; skip them from portability enforcement.
+        if is_markdown and line.lstrip().lower().startswith("checks:"):
+            continue
         for kind, pattern in PATTERNS:
             for match in pattern.finditer(line):
                 value = match.group(0)

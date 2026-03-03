@@ -15,5 +15,4 @@ from pathlib import Path
 _here = Path(__file__).resolve().parent
 _agent_scripts = _here.parent / "novapolis_agent" / "scripts"
 if _agent_scripts.exists():
-	__path__.append(str(_agent_scripts))
-
+    __path__.append(str(_agent_scripts))

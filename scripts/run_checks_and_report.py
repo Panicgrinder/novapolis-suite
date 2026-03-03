@@ -44,6 +44,7 @@ BASE_MANDATORY_CHECKS = {
     "markdownlint",
     "frontmatter",
     "path-portability",
+    "namingpolicy",
     "ruff",
     "black",
     "pytest",
@@ -433,6 +434,31 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, o
             )
         )
         write_log(path_portability_log, f"FAIL: {reason}\n")
+
+    namingpolicy_script = repo_root / "scripts" / "check_naming_policy.py"
+    if namingpolicy_script.exists():
+        run_or_fail(
+            "namingpolicy",
+            [str(python_exec), str(namingpolicy_script), "--repo-root", str(repo_root)],
+            repo_root,
+            required=True,
+        )
+    else:
+        reason = "namingpolicy skipped (script missing)"
+        namingpolicy_log = logs_dir / "namingpolicy.log"
+        results.append(
+            CheckResult(
+                tool="namingpolicy",
+                status="FAIL",
+                exit_code=127,
+                duration_ms=0,
+                findings_count=1,
+                details_path=namingpolicy_log,
+                notes=reason,
+                required=True,
+            )
+        )
+        write_log(namingpolicy_log, f"FAIL: {reason}\n")
 
     if args.with_sim_assets:
         sim_assets_script = repo_root / "scripts" / "check_sim_epoch_assets.py"

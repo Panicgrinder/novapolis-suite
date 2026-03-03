@@ -16,6 +16,7 @@
     "MD047": false
   },
   "ignores": [
+    "TTS/**",
     ".venv/**",
     "novapolis_agent/eval/results/**",
     "novapolis_agent/outputs/**",
