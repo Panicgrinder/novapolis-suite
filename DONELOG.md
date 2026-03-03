@@ -1,10 +1,12 @@
 ---
-stand: 2026-03-03 14:44
-update: Root-Asset-Quelle (`assets/`) auf User-Freigabe jetzt mit Versionshistorie erfasst; Provenienz bleibt GPT-generiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' PASS (2026-03-03 14:44); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:44)
+stand: 2026-03-03 14:48
+update: Follow-up umgesetzt: Root-Ordner `assets/` nach Verschiebung nach `novapolis-sim/assets/` wieder entfernt; Doku auf Ist-Zustand nachgezogen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (2026-03-03 14:48); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:48)
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-03 14:48: User-Follow-up umgesetzt: Der temporaere Root-Ordner `assets/` wurde nach der Uebernahme ins Sim-Modul wieder entfernt. `PR_DESCRIPTION.md` wurde auf den neuen Ist-Zustand aktualisiert (kein verbleibender Root-Asset-Hinweis mehr), Provenienzhinweis bleibt bestehen (`GPT-generated`).
 
 - 2026-03-03 14:44: User-Freigabe umgesetzt: Root-Ordner `assets/` wird nicht mehr nur lokal gehalten, sondern in die Versionshistorie uebernommen. Provenienz bleibt explizit dokumentiert: Asset ist GPT-generiert.
 
