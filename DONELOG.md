@@ -1,10 +1,14 @@
 ---
-stand: 2026-03-03 14:48
-update: Follow-up umgesetzt: Root-Ordner `assets/` nach Verschiebung nach `novapolis-sim/assets/` wieder entfernt; Doku auf Ist-Zustand nachgezogen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (2026-03-03 14:48); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:48)
+stand: 2026-03-03 16:16
+update: Sim-Hub-Feinheiten uebernommen: nachgezogene Main.tscn-Offsets in den editorbasierten Runtime-Layoutpfad von Main.gd synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' PASS (2026-03-03 16:16); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 16:16)
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-03 16:08: User-Feinheiten aus `novapolis-sim/Main.tscn` in den Runtime-Fix uebernommen. `novapolis-sim/scripts/Main.gd` (`_apply_editor_hub_layout`) wurde auf die neuesten Szene-Offsets nachgezogen, u. a. fuer `HubApiLabel`, `HubPollingLabel`, `HubQueueLabel`, `HubErrorsLabel`, `PlayPcAudioButton`, `PlayWorldAudioButton`, `ServerToggleButton`, `HubReloadButton`, `HubChecksButton`, `AudioStatusLabel`, `ServerStatusLabel` und `PcLogLabel`. Damit folgt der Hub-Laufzeitstand wieder exakt den zuletzt im Editor nachjustierten Positionen.
+
+- 2026-03-03 15:50: Layout-Fix fuer Dashboard-Seite umgesetzt. In `novapolis-sim/scripts/Main.gd` wurde `preserve_editor_hub_layout` eingefuehrt (Default `true`), inklusive skalierter Anwendung der aktuellen `Main.tscn`-Offsets fuer Hub-Topbar, Action-Buttons, Statuslabels, Logbereich und Karten. Ergebnis: Im normalen Hub-Zustand wird die editorseitig platzierte Seite 1 nicht mehr durch `_apply_responsive_layout()` ueberschrieben; responsive Modul-Layouts bleiben bei geoeffneten Agent/Checks/RP-Panels aktiv.
 
 - 2026-03-03 14:48: User-Follow-up umgesetzt: Der temporaere Root-Ordner `assets/` wurde nach der Uebernahme ins Sim-Modul wieder entfernt. `PR_DESCRIPTION.md` wurde auf den neuen Ist-Zustand aktualisiert (kein verbleibender Root-Asset-Hinweis mehr), Provenienzhinweis bleibt bestehen (`GPT-generated`).
 

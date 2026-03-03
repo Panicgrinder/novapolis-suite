@@ -228,6 +228,7 @@ const _UI_MIN_WIDTH: float = 1100.0
 const _UI_MIN_HEIGHT: float = 700.0
 const _UI_MARGIN: float = 16.0
 const _UI_GAP: float = 12.0
+@export var preserve_editor_hub_layout: bool = true
 
 func _ready() -> void:
 	add_to_group("world_listeners")
@@ -331,10 +332,156 @@ func _apply_responsive_layout() -> void:
 	var size := _get_safe_viewport_size()
 	var width := size.x
 	var height := size.y
+	if preserve_editor_hub_layout and not _agent_submenu_open and not _checks_submenu_open and not _rp_submenu_open:
+		_apply_editor_hub_layout(width, height)
+		return
 	_layout_hub_config_panel(width)
 	_layout_hub_topbar(width)
 	_layout_hub_actions(width)
 	_layout_hub_log_and_cards(width, height)
+	_layout_module_panels(width, height)
+
+
+func _set_control_rect(control: Control, left: float, top: float, right: float, bottom: float) -> void:
+	control.offset_left = left
+	control.offset_top = top
+	control.offset_right = right
+	control.offset_bottom = bottom
+
+
+func _scale_hub_x(value: float, width: float) -> float:
+	return value * (width / _UI_BASE_WIDTH)
+
+
+func _scale_hub_y(value: float, height: float) -> float:
+	return value * (height / _UI_BASE_HEIGHT)
+
+
+func _apply_editor_hub_layout(width: float, height: float) -> void:
+	# Preserve the dashboard arrangement authored in Main.tscn as hub source of truth.
+	_set_control_rect(
+		hub_title_label,
+		_scale_hub_x(188.0, width),
+		_scale_hub_y(157.0, height),
+		_scale_hub_x(428.0, width),
+		_scale_hub_y(180.0, height)
+	)
+	_set_control_rect(
+		hub_api_label,
+		_scale_hub_x(108.0, width),
+		_scale_hub_y(178.0, height),
+		_scale_hub_x(521.0, width),
+		_scale_hub_y(201.0, height)
+	)
+	_set_control_rect(
+		hub_polling_label,
+		_scale_hub_x(1178.0, width),
+		_scale_hub_y(250.0, height),
+		_scale_hub_x(1361.0, width),
+		_scale_hub_y(273.0, height)
+	)
+	_set_control_rect(
+		hub_queue_label,
+		_scale_hub_x(1178.0, width),
+		_scale_hub_y(232.0, height),
+		_scale_hub_x(1361.0, width),
+		_scale_hub_y(256.0, height)
+	)
+	_set_control_rect(
+		hub_errors_label,
+		_scale_hub_x(971.0, width),
+		_scale_hub_y(213.0, height),
+		_scale_hub_x(1176.0, width),
+		_scale_hub_y(237.0, height)
+	)
+
+	_set_control_rect(
+		play_pc_button,
+		_scale_hub_x(554.0, width),
+		_scale_hub_y(174.0, height),
+		_scale_hub_x(748.0, width),
+		_scale_hub_y(205.0, height)
+	)
+	_set_control_rect(
+		play_world_button,
+		_scale_hub_x(747.0, width),
+		_scale_hub_y(173.0, height),
+		_scale_hub_x(939.0, width),
+		_scale_hub_y(204.0, height)
+	)
+	_set_control_rect(
+		server_toggle_button,
+		_scale_hub_x(1104.0, width),
+		_scale_hub_y(156.0, height),
+		_scale_hub_x(1249.0, width),
+		_scale_hub_y(187.0, height)
+	)
+	_set_control_rect(
+		hub_reload_button,
+		_scale_hub_x(745.0, width),
+		_scale_hub_y(224.0, height),
+		_scale_hub_x(937.0, width),
+		_scale_hub_y(255.0, height)
+	)
+	_set_control_rect(
+		hub_checks_button,
+		_scale_hub_x(558.0, width),
+		_scale_hub_y(225.0, height),
+		_scale_hub_x(750.0, width),
+		_scale_hub_y(256.0, height)
+	)
+
+	_set_control_rect(
+		hub_config_panel,
+		_scale_hub_x(1388.0, width),
+		_scale_hub_y(156.0, height),
+		_scale_hub_x(1810.0, width),
+		_scale_hub_y(278.0, height)
+	)
+	_set_control_rect(
+		audio_status_label,
+		_scale_hub_x(108.0, width),
+		_scale_hub_y(212.0, height),
+		_scale_hub_x(522.0, width),
+		_scale_hub_y(235.0, height)
+	)
+	_set_control_rect(
+		server_status_label,
+		_scale_hub_x(972.0, width),
+		_scale_hub_y(195.0, height),
+		_scale_hub_x(1355.0, width),
+		_scale_hub_y(218.0, height)
+	)
+	_set_control_rect(
+		log_label,
+		_scale_hub_x(106.0, width),
+		_scale_hub_y(342.0, height),
+		_scale_hub_x(1383.0, width),
+		_scale_hub_y(715.0, height)
+	)
+
+	_set_control_rect(
+		sim_card_panel,
+		_scale_hub_x(96.0, width),
+		_scale_hub_y(872.0, height),
+		_scale_hub_x(612.0, width),
+		_scale_hub_y(1006.0, height)
+	)
+	_set_control_rect(
+		api_card_panel,
+		_scale_hub_x(640.0, width),
+		_scale_hub_y(872.0, height),
+		_scale_hub_x(1271.0, width),
+		_scale_hub_y(1007.0, height)
+	)
+	_set_control_rect(
+		eval_card_panel,
+		_scale_hub_x(1296.0, width),
+		_scale_hub_y(872.0, height),
+		_scale_hub_x(1817.0, width),
+		_scale_hub_y(1007.0, height)
+	)
+
 	_layout_module_panels(width, height)
 
 
