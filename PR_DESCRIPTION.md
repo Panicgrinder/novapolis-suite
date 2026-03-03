@@ -1,52 +1,61 @@
 ---
-stand: 2026-02-22 00:24
-update: PR-Beschreibung um RP-Hard-Gate-Nachtrag ergänzt (Ursache + Frontmatter-Fix für neue 24x1h-Project-Templates).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/rp-docs.instructions.md' 'PR_DESCRIPTION.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 00:22); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py '.github/instructions/rp-docs.instructions.md' 'PR_DESCRIPTION.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 00:22)
+stand: 2026-03-03 14:32
+update: PR-Beschreibung auf den aktuellen Stabilisierungslauf (RP-Governance, Checks-Haertung, Sim-UI, Doku-Sync) finalisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (2026-03-03 14:28); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:28)
 ---
 
-PR: docs(rp) Batch C (Novapolis) – Naming, Links, Hook-Migration
-================================================================
+PR: Stabilization And Governance Hardening (2026-03-03)
+========================================================
 
-Kurz (Deutsch)
--------------
-
-- RP: Personenindex Novapolis umbenannt (`person_index_np` -> `person-index-np`, MD + JSON-Sidecar) und Referenzen in Novapolis/Händlerbund nachgezogen.
-- RP: Relative Links in den betroffenen Handel/Diplomatie-READMEs und Charakterdateien konsolidiert.
-- Dev-Hub: Links im neuen Abschnitt in `novapolis-dev/docs/donelog.md` repariert (korrekt relativ oder repo-root-relativ).
-- Hygiene: Volatiles Testartefakt `outputs/test-artifacts/junit.xml` aus Versionierung entfernt und via `.gitignore` ausgeschlossen.
-
-Scope-Hinweis (Review-Kommentar)
--------------------------------
-
-Diese PR enthält zusätzlich eine Hook-/Wrapper-Migration:
-
-- Pre-commit Hook: Entry-Point in `githooks/pre-commit` auf Python umgestellt (`scripts/pre_commit.py`).
-
-Grund: Repo-Governance entfernt schrittweise PowerShell-Wrapper/Scriptblocks und bevorzugt Python-Wrapper.
-
-Details
+Summary
 -------
 
-### RP-Änderungen
+This PR finalizes the Novapolis stabilization and governance hardening run across RP, checks/tooling, docs, and sim UI.
 
-- Rename: `novapolis-rp/database-rp/01-factions/novapolis/02-characters/person_index_np.md` -> `person-index-np.md`.
-- Sidecar: `novapolis-rp/database-rp/01-factions/novapolis/02-characters/person-index-np.json` ergänzt/angepasst.
-- Referenzen in betroffenen Dokumenten auf den neuen Pfad aktualisiert.
+What Changed
+------------
 
-### Tooling/Hooks
+### RP: Mind-Cluster governance and validation
 
-- `githooks/pre-commit`: vereinheitlicht auf einen Python-Entry-Point.
-- `scripts/pre_commit.py`: Snapshot-Gate + Checks auf staged Markdown (markdownlint/frontmatter/DONELOG-Guard).
+- Hardened mind-cluster instruction rules with explicit enums/ranges/taxonomies.
+- Extended RP validator with strict checks for:
+  - `relation_status` enum
+  - `confidence`/`volatility` in `0.0..1.0`
+  - `event_id` schema (`evt:<domain>-<seq>`)
+  - closed event taxonomy
+  - registered `R-MCL-*` / `E-MCL-*` rule-id sets
+  - registered `RC-*` reason-code taxonomy
+- Migrated existing Novapolis mind-cluster reason codes to registered `RC-*` values.
 
-Checks
-------
+### Checks/Tooling hardening
 
-- Lokal: `npm --prefix novapolis-rp/coding/tools/validators run validate` PASS.
-- Repo-Checks: `scripts/run_checks_and_report.py` (Lint/Typen/Tests/Coverage) PASS.
+- Added naming-policy gate and wired it into consolidated checks.
+- Hardened path-portability checker to ignore audit-style `checks:` frontmatter command traces.
+- Expanded markdownlint ignore scope for vendor mirror path (`TTS/**`).
+- Added workspace search utility and naming-policy checker scripts.
+- Cleaned remaining lint/format issues in helper scripts and agent shim files.
 
-Nachtrag (2026-02-22)
----------------------
+### Sim UI and assets
 
-- Beim ersten Commitlauf blockierte `validate:rp` aus dem RP-Hard-Gate wegen Frontmatter-Vertragsverletzungen in neu angelegten `24x1h-Log-Template.md`-Dateien (`category: project`).
-- Konkrete Ursachen: `status: draft` ist nicht im erlaubten Enum und `last_updated` fehlte.
-- Umgesetzter Fix: alle sieben Fraktions-Templates auf `status: planned` harmonisiert und `last_updated: "2026-02-22"` ergänzt; danach Commit+Push erfolgreich.
+- Added main menu page-1 background asset and scene binding.
+- Implemented responsive Hub layout behavior.
+- Replaced raw JSON form flow in Agent module with structured dynamic form fields and typed controls.
+- Improved agent panel/form layout behavior in exclusive and docked modes.
+
+### Docs and status synchronization
+
+- Updated root/dev/module donelogs and status/todo index docs to reflect completed stabilization milestones.
+- Updated portable command snippets in active docs/settings.
+
+Validation
+----------
+
+- Consolidated quality run reports `overall=PASS` after stabilization.
+- Relevant gates reported green in latest full run: lint/format/type/tests/coverage/frontmatter/naming/path portability.
+
+Notes / Follow-up
+-----------------
+
+- A root `assets/` source folder is still present/untracked and may remain while file locks are active.
+- Large workspace tree artifacts were refreshed as part of status synchronization.
+

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 00:56
-update: Erledigte Sim-TODO-Bloecke nach Sim-Archiv verschoben und Index synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-03 00:56); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-03 00:56)
+stand: 2026-03-03 14:32
+update: Dev-Doku auf portable Pfade und TODO-Index-Sync nach 1-5-Qualitaetslauf aktualisiert.
+checks: .\.venv\Scripts\python.exe scripts\check_portable_paths.py --repo-root . PASS (2026-03-03 14:06); .\.venv\Scripts\python.exe scripts\run_checks_and_report.py PASS (2026-03-03 14:12); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-sim/README.md' PASS (2026-03-03 14:14); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-sim/README.md' PASS (EXITCODE=0, 2026-03-03 14:14)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -17,6 +17,86 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Ops: 1-5-Qualitaetslauf stabilisiert und auf gruen gezogen (2026-03-03 14:12)
+----------------------------------------------------------------------------------
+
+- `scripts/check_portable_paths.py` auf Audit-Frontmatter-`checks:` gehaertet (keine Fehlalarme mehr fuer Receipt-Zeilen).
+- Portability-Snippets in aktiven Dokus/Settings portable gemacht (`novapolis-dev/docs/todo.agent-board.md`, `novapolis-sim/README.md`, `.vscode/settings.json`).
+- Root-Markdownlint-Scope fuer Vendor-Mirror gehaertet (`.markdownlint-cli2.jsonc`: `TTS/**` ignore), sodass der operative Gate-Lauf nicht im externen Upstream-Bestand rauscht.
+- TODO-Index-Sync im gleichen Lauf nachgezogen (`novapolis-dev/docs/todo.index.md`) gemaess R-TODO-IDX.
+- Konsolidierter Nachweis: `.tmp/results/reports/checks_report_20260303_141251.md` mit `overall=PASS`.
+
+Dev/Sim: Neues Bild-Asset in Modulpfad uebernommen (2026-03-03 04:16)
+-----------------------------------------------------------------------
+
+- Neuer Root-Ordner `assets/` mit Datei `f8bc5f39-0e64-44ca-a53b-ef7688c775ae.png` gefunden (1536x1024, PNG) und fachlich dem Sim-Modul zugeordnet.
+- Datei nach `novapolis-sim/assets/f8bc5f39-0e64-44ca-a53b-ef7688c775ae.png` uebernommen.
+- Zusaetzlich mit stabilem Namen `novapolis-sim/assets/mainmenu-page1-background.png` abgelegt und als `TextureRect` in `novapolis-sim/Main.tscn` als Hintergrund fuer Hauptmenue Seite 1 eingebunden.
+- Vollstaendiges Verschieben/Loeschen des Quellordners aktuell durch externe Dateisperre blockiert (`The process cannot access the file because it is being used by another process`).
+
+Dev/Ops: Tagesabschlusslauf vorbereitet und synchronisiert (2026-03-03 03:43)
+--------------------------------------------------------------------------
+
+- `process: Checks: full` erneut ausgefuehrt; Ergebnis weiterhin nicht gruen (`markdownlint`, `path-portability`, `ruff`, `black`, `pytest/coverage` FAIL; `frontmatter`, `namingpolicy`, `pyright`, `mypy` PASS).
+- Task-Launcher-Problem fuer zwei Einzel-Tasks bestaetigt (`pwsh ... /d /c`, Exit 64 bei `Tests: coverage (fail-under)` und `Checks: sim epoch assets`); Sim-Check direkt via Python nachgezogen (`summary=fail:0,warn:2`).
+- Abschluss-Sync auf Dokumentebene erfolgt: `todo.root.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md` aktualisiert.
+
+Dev/Sim: Agent-Form auf strukturierte Eingabemasken umgestellt (2026-03-03 03:34)
+--------------------------------------------------------------------------
+
+- `novapolis-sim/Main.tscn`: `AgentFormFieldsScroll` + `AgentFormFieldsBox` ergaenzt; alter JSON-Editor (`AgentFormPayloadEdit`) standardmaessig ausgeblendet.
+- `novapolis-sim/scripts/Main.gd`: `_refresh_agent_form_ui()` baut Formularfelder jetzt dynamisch pro Formtyp auf (`_rebuild_agent_form_fields`) statt JSON-Templates zu verlangen.
+- `novapolis-sim/scripts/Main.gd`: neue Feld-Builder (`_add_form_line_field`, `_add_form_text_field`, `_add_form_int_field`, `_add_form_float_field`, `_add_form_bool_field`) fuellen die Maske strukturiert.
+- `novapolis-sim/scripts/Main.gd`: `Apply` liest Werte direkt aus den UI-Feldern (`_build_agent_form_payload_from_controls`) und uebergibt sie in die bestehenden Apply-Pfade.
+- Ergebnis: echte Eingabefelder statt Roh-JSON, besserer UX-Flow bei gleicher Persistenz-/Run-Logik.
+
+Dev/Sim: Agent-Form auf Vollflaeche + Placeholder aufgeruestet (2026-03-03 03:26)
+-------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: neues `_layout_agent_form_controls()` setzt Form-Controls dynamisch anhand der realen Panelgroesse (Titelzeile, Mode/Target, Name+Apply, Payload, Status).
+- `novapolis-sim/scripts/Main.gd`: `_refresh_agent_studio_ui()` ruft die Form-Layoutfunktion nach dynamischer Formpanel-Positionierung auf, damit der verfuegbare Bereich tatsaechlich ausgenutzt wird.
+- `novapolis-sim/scripts/Main.gd`: `_refresh_agent_form_ui()` setzt form-spezifische Placeholder (`LineEdit` und `TextEdit`) via `_agent_form_name_placeholder_for_kind()` und `_agent_form_payload_placeholder_for_kind()`.
+- Ergebnis: mehr nutzbarer Eingaberaum und klare graue Beispieltexte, die beim Tippen wie gewuenscht verschwinden.
+
+Dev/Sim: Agent-Hinweistext vollstaendig entfernt (2026-03-03 03:22)
+--------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: `AgentStudioHintLabel` wird beim Start explizit versteckt und der Text auf leer gesetzt (`visible = false`, `text = ""`).
+- `novapolis-sim/scripts/Main.gd`: `_refresh_agent_studio_ui()` setzt die Hint-Sichtbarkeit jetzt dauerhaft auf `false`, damit der Hinweis auch nach Reflows/Modewechseln nicht wieder erscheint.
+- Ergebnis: der verbliebene Hinweistext ist komplett aus der UI entfernt.
+
+Dev/Sim: Agent-Hinweistext final entkoppelt und sichtbar gehalten (2026-03-03 03:26)
+--------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: dynamische Hint-Position in `_refresh_agent_studio_ui()` auf feste Mindesthoehe umgestellt (`offset_bottom = offset_top + hint_height` statt Nullhoehe).
+- `novapolis-sim/scripts/Main.gd`: Hint-Y-Position zusaetzlich auf die untere Panelgrenze begrenzt, damit der verbleibende Hinweistext bei variablen Fensterhoehen nicht aus dem sichtbaren Bereich rutscht.
+- Ziel: der letzte verbliebene Hinweistext bleibt stabil lesbar, ohne die responsive Gesamtanordnung zu verschieben.
+
+Dev/Sim: Hub-UI responsive eingepasst (2026-03-03 03:12)
+---------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd`: responsive Layout-Pipeline eingefuehrt (`_apply_responsive_layout`) mit Reflow bei `viewport.size_changed`.
+- Hub-Ansicht skaliert jetzt Topbar, Haupt-Action-Buttons, Logflaeche, Kartenreihe (Sim/API/Eval) und Config-Panel dynamisch nach aktueller Fensterbreite/-hoehe.
+- Modulpanels (`Agent`, `Checks`, `RP`) nutzen nun dynamische Bounds statt fester 1900x1028-Koordinaten; Exklusivmodus fuellt verfuegbaren Viewport konsistent.
+- Agent-Exklusivlayout (`_apply_agent_module_layout`) auf panel-relative Spalten umgestellt, inkl. sauberer Positionierung von `Zurueck`-/Suite-/Source-Controls und Formbereich.
+- Hub-Config-Collapse auf relative Hoehe korrigiert; erneuter Layout-Reflow nach Toggle eingebaut, damit Schaltflaechen nicht mehr aus dem Panel rutschen.
+
+Dev/Gov: Repo-weite Naming-SSOT + Naming-Gate (2026-03-03 02:42)
+------------------------------------------------------------------
+
+- `novapolis-dev/docs/naming-policy.md`: von RP-engem Altstand auf aktive repo-weite Doku-/Governance-SSOT gehoben (Scope-Whitelist/Blacklist, Rule-/Reason-Namespace, Slug/ID/Tags, Hard-vs-Warn, Migrationsprinzip ohne stille Auto-Fixes).
+- `scripts/check_naming_policy.py` (neu): maschineller Gate-Check mit Ausgabeschema `Datei:Zeile:Regel:Wert`, Hard-Fail-Exitcode und Scope-Ausnahmen fuer Archive/RAW/Auditpfade.
+- `scripts/run_checks_and_report.py`: neuer Pflichtcheck `namingpolicy` in die Standard-Checkkette eingebunden.
+- `.vscode/tasks.json`: neuer Task `Checks: naming policy` fuer den direkten lokalen Gate-Lauf.
+
+Dev/RP: Mind-Cluster SSOT-Normierungen + Validator-Gates (2026-03-03 02:21)
+-------------------------------------------------------------------------
+
+- `.github/instructions/mind-cluster.instructions.md`: Governance erweitert um `relation_status`-Enum, `confidence/volatility`-Range, registrierte `R-MCL-*` plus `E-MCL-*` Rule-ID-Sets, geschlossene aber registrierbar erweiterbare Event-Taxonomie und `RC-*`-Reason-Code-Baseline.
+- `novapolis-rp/database-rp/00-admin/mind-cluster-template.md`: fachliche SSOT-Normierung nachgezogen (`event_id`-Schema, Enum/Range, Taxonomiehinweise, Bias als externer Profil-Input, no-freetext in `applied_rules[]`).
+- `novapolis-rp/coding/tools/validators/src/validate-rp.js`: Mind-Cluster-Checks ergänzt (Enum `relation_status`, Range `confidence/volatility`, `event_id`-Pattern, geschlossene Event-Taxonomie, registrierte Rule-ID- und Reason-Code-Pruefung).
+- `novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md`: `reason_codes` auf registrierte `RC-*`-Taxonomie migriert.
 
 Dev/Sim: Vollstaendig erledigte Sim-TODO-Bloecke ins Archiv ueberfuehrt (2026-03-03 00:38)
 ---------------------------------------------------------------------------------------------
@@ -784,3 +864,4 @@ Archivverweise
 - Dev-Historikfenster (neu): `novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md`
 - Vorheriges Dublettenfenster (verlustfrei verschoben): `novapolis-dev/archive/quarantine/archive-window-dedupe-20260227_0018/donelog_dev.window-archive.pre-2026-02-19.md`
 - Konsolidierter historischer Ziellog: `novapolis-dev/archive/docs/donelogs/donelog_dev.md`
+

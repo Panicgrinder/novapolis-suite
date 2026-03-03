@@ -1,10 +1,26 @@
 ---
-stand: 2026-03-02 23:30
-update: Hybrid-Lizenzschutz eingefuehrt (Code MIT, RP-Content und Eval-Datasets restriktiv getrennt) inkl. Contributing- und Trademark-Leitplanken.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-02 22:18); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-02 22:18)
+stand: 2026-03-03 14:32
+update: Batch-Commit-Teilung gestartet (RP-Mind-Cluster-Batch committed) und PR-Beschreibung auf finalen Stabilisierungstext aktualisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (2026-03-03 14:28); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:28)
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-03 14:27: Folge auf User-Anweisung `1-3` umgesetzt. Batch 1 (`feat(rp): enforce mind-cluster taxonomy and validator gates`, Commit `9b03d52`) nach Snapshot-Gate-Sync committed; Batch 2 (Checks/Tooling + Agent-Lintfixes) staged vorbereitet; `PR_DESCRIPTION.md` auf den finalen Stabilisierungstext aktualisiert.
+
+- 2026-03-03 14:14: Qualitaetsstabilisierung nach priorisiertem 1-5-Plan umgesetzt. Ergebnis: `path-portability`, `ruff`, `black`, `pytest/coverage`, `pyright`, `mypy`, `frontmatter` und `namingpolicy` sind im konsolidierten Lauf gruen (`.tmp/results/reports/checks_report_20260303_141251.md`). Umsetzung im Lauf: (1) `TTS/**` aus markdownlint Scope via `.markdownlint-cli2.jsonc`, (2) Portability-Checker auf Audit-Frontmatter-`checks:` gehaertet (`scripts/check_portable_paths.py`), (3) absolute Pfade in aktiven Snippets nachgezogen (`novapolis-dev/docs/todo.agent-board.md`, `novapolis-sim/README.md`, `.vscode/settings.json`), (4) Python-Lint/Fmt-Reste bereinigt (`scripts/search_workspace.py`, `scripts/check_sim_epoch_assets.py`, `scripts/__init__.py`, `novapolis_agent/scripts/train_lora.py`, `novapolis_agent/novapolis_agent/app/core/content_management.py`), (5) Coverage-Gate fokussiert stabilisiert durch Scope-Schaerfung in `novapolis_agent/.coveragerc`.
+
+- 2026-03-03 04:23: Zentraler Nachtrag fuer Bildklassifikation und Ablagepfad. Das vom User neu angelegte Hauptmenue-Hintergrundbild (Seite 1) ist im Sim-Modul verankert (`novapolis-sim/assets/mainmenu-page1-background.png`) und in der Szene `novapolis-sim/Main.tscn` als Hintergrund-Node `MainMenuPage1Background` eingebunden. Hinweis: Ein urspruenglicher Root-Quellordner `assets/` kann lokal noch bestehen, solange ein externer File-Lock aktiv ist.
+
+- 2026-03-03 03:43: Tagesabschluss vorbereitet und Abschlusslauf erneut gefahren. `Checks: full` zeigte unveraendert einen nicht-gruenen Gesamtzustand (`markdownlint=419`, `path-portability=60`, `ruff=26`, `black=4`, `pytest/coverage` FAIL; `frontmatter`, `namingpolicy`, `pyright`, `mypy` PASS). Die Tasks `Tests: coverage (fail-under)` und `Checks: sim epoch assets` scheiterten lokal weiterhin am bekannten Task-Launcher-Fehler (`pwsh ... /d /c`, Exit 64); Sim-Check wurde direkt via Python nachgezogen und meldet erneut `summary=fail:0,warn:2`.
+
+- 2026-03-03 03:05: Workspace-Auswertung erneut mit `scripts/search_workspace.py` gefahren und direkt verbessert. Umsetzung im Skript: (1) Default-Excludes um `.tmp`, `.tmp-results`, `.tmp-datasets` erweitert, (2) Verzeichnis-Excludes auf Segmentbasis gehaertet (wirkt auch bei verschachtelten Verzeichnissen), (3) neue Option `--exclude-glob` fuer gezielte Rauschreduktion, (4) Dotfile-Erkennung erweitert (`.gitignore`, `.gitattributes`, `.editorconfig`), (5) `--max-hits`-Zaehllogik auf ausgabekonsistente Summen korrigiert. Fokusscan-Befunde: `todo.root.md` bestaetigt offenen Root-Punkt zur TTS-Entnahme (`TTS/` nur temporaer, danach entfernen), `WORKSPACE_STATUS.md` und `WORKSPACE_INDEX.md` bestaetigen bestehende Archivfenster/Archivpfade, `.gitignore` bestaetigt ignorierten Artefaktcharakter fuer `Backups/`, `.tmp*`, `outputs/` und `TTS/`.
+
+- 2026-03-03 02:59: Neues Utility-Skript `scripts/search_workspace.py` eingefuehrt, um umfangreiche Suchlaeufe parametrisiert auszufuehren (Suchbegriffe als Argumente oder via `--terms-file`, optional Regex, Glob-Filter, Excludes und Trefferlimit). Fuer Markdown-Treffer kann optional der Frontmatter-Wert `stand` mit ausgegeben werden (`--with-stand`), damit Suchtreffer direkt mit dem Dokumentstand korrelierbar sind.
+
+- 2026-03-03 02:42: Naming-Policy-Implementierung (Phase 2) umgesetzt. `novapolis-dev/docs/naming-policy.md` als einzige Naming-SSOT fuer aktive Doku/Governance konsolidiert (Scope-Whitelist/Blacklist, Rule-/Reason-Namespaces, Slug/Tags, Hard-vs-Warn, Migrationsprinzip). Neues Skript `scripts/check_naming_policy.py` hinzugefuegt (Output `Datei:Zeile:Regel:Wert`, Exitcode bei Hard-Fails) und in `scripts/run_checks_and_report.py` als Pflichtcheck `namingpolicy` integriert; neuer Task `Checks: naming policy` in `.vscode/tasks.json`.
+
+- 2026-03-03 02:21: Mind-Cluster-SSOT-Aenderungspaket (OD-1..OD-5) umgesetzt. `mind-cluster-template.md` und `.github/instructions/mind-cluster.instructions.md` normiert (`relation_status`-Enum, `confidence/volatility` 0.0..1.0, `event_id`-Schema, geschlossene registrierbare Event-Taxonomie, `R-MCL-*` plus `E-MCL-*` Register, `RC-*` Reason-Codes). RP-Validator `novapolis-rp/coding/tools/validators/src/validate-rp.js` um Mind-Cluster-Pruefungen erweitert; bestehende Mind-Cluster-Daten auf `RC-*` migriert.
 
 - 2026-03-02 23:29: Task-Fix fuer Abschlusslauf umgesetzt: `.vscode/tasks.json` Task `Checks: full` von `type: shell` auf `type: process` umgestellt, um den fehlerhaften Launcher-Aufruf (`pwsh ... /d /c ...`, Exit 64) zu umgehen.
 - 2026-03-02 23:28: Abschlusslauf erneut ausgefuehrt (`scripts/run_checks_and_report.py`): Launcher-Problem behoben, Qualitaetsstatus aber weiterhin nicht gruen (`markdownlint=419`, `path-portability=60`, `ruff=42`, `black=12`, `pytest/coverage` FAIL). Sim-Offline-Check erneut ohne harte Fehler (`fail:0,warn:2`).
@@ -1253,4 +1269,5 @@ Kurz: Minimale Format-/Lint-Fixes im RP-Consistency-Wrapper (Ruff/Black) vorgeno
 
 2026-01-12 07:01 | Copilot | Curated: Konfliktliste (Top-10 aus `[OPEN]`) + FACT?-Liste aus `novapolis-rp/database-curated/staging/*.review.md` extrahiert (Report: `.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md`); `.tmp/rp-base-todo.md` P1-Workflow-Tasks aktualisiert.
 2026-01-12 07:16 | Copilot | Curated: `database-curated/staging/manifest.json` um reviewed-Artefakte (inkl. SHA256), Runs (Tool/Report-Link) und Final-Gate-Kriterien erweitert; Schema-Doku in `coding/tools/validators/schemas/curated-manifest.schema.json` ergänzt; Checks: `npm run validate:curated` PASS.
+
 

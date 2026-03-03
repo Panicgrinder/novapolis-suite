@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 12:35
-update: TTS-Entnahmeplan als verbindlicher Root-Punkt ergänzt (nur benötigte Teile nach `novapolis_agent`, danach Entfernung von `TTS/`).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'DONELOG.md' PASS (2026-02-23 12:08); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-23 12:08)
+stand: 2026-03-03 14:32
+update: Tagesabschluss vorbereitet; heutiger Abschlusslauf dokumentiert und Root-Backlog auf offenen Kernpunkt fokussiert belassen.
+checks: .\.venv\Scripts\python.exe scripts\snapshot_write_lock.py PASS (2026-03-03 03:43); process: Checks: full FAIL (2026-03-03 03:39); .\.venv\Scripts\python.exe scripts\run_pytest_coverage.py FAIL (EXITCODE=1, 2026-03-03 03:40); .\.venv\Scripts\python.exe scripts\check_sim_epoch_assets.py --repo-root . --allow-empty PASS (summary=fail:0,warn:2, 2026-03-03 03:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-03 03:45); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-03 03:45)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -27,12 +27,14 @@ Neue Punkte (Backlog)
 - [ ] [Jetzt] `TTS/` nur als temporaere Entnahmequelle behandeln: benoetigte Teile nach `novapolis_agent/` ueberfuehren und das Root-Verzeichnis `TTS/` danach entfernen.
   - Akzeptanzkriterien: (1) Entnommene Dateien/Pfade in `novapolis_agent/` dokumentiert, (2) `TTS/` aus Root entfernt, (3) README/Status/DONELOG synchronisiert.
   - Evidenz: `README.md` (TTS-Vormerkung), Root-`.gitignore` (`/TTS/`).
+  - Status 2026-03-03 03:43: Abschlusslauf erneut bestaetigt, Punkt bleibt offen und priorisiert bis zur tatsaechlichen Entnahme/Entfernung.
 
 Hinweise
 --------
 
 - Abgeschlossene oder historisierte Bloecke in `novapolis-dev/archive/todo.root.archive.md` verschieben.
 - Bei jeder Mutation TODO/DONELOG/WORKSPACE_STATUS synchron halten.
+
 
 
 

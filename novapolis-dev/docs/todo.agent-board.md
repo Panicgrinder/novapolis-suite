@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-27 06:06
-update: Letzten offenen Agent-Board-Punkt abgeschlossen (Task-Set Datensatzbau/Training inkl. Label-Sync und Evidenzlauf).
-checks: npx --yes markdownlint-cli2 --config F:/VS-Code-Workspace/Main/.markdownlint-cli2.jsonc "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (2026-02-27 05:31); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe F:/VS-Code-Workspace/Main/scripts/check_frontmatter.py "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (EXITCODE=0, 2026-02-27 05:31)
+stand: 2026-03-03 14:32
+update: Portable Ausfuehrungssnippets fuer Drift-/LoRA-Baseline-Laeufe auf `${workspaceFolder}` und relative Zielpfade umgestellt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' PASS (2026-03-03 14:14); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' PASS (EXITCODE=0, 2026-03-03 14:14)
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -210,10 +210,10 @@ Monats-Baseline Driftkontrolle (verbindlich, v1)
   - `top_failed_checks`,
   - `top_missing_terms`.
 - Reproduzierbarer Ablauf:
-  1) Baseline setzen (monatlich, einmal):
-     - `f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe novapolis_agent/scripts/eval_drift_report.py --current novapolis_agent/eval/results/results_20260227_0231.jsonl --baseline novapolis_agent/eval/results/baselines/training_profiles.2026-02.json --out novapolis_agent/eval/results/drift/training_profiles_drift_2026-02-27.json --month 2026-02 --set-baseline`
-  2) Vergleichslauf gegen Baseline:
-     - `f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe novapolis_agent/scripts/eval_drift_report.py --current novapolis_agent/eval/results/results_20260227_0424_training_profiles_post_novapolis_signal.jsonl --baseline novapolis_agent/eval/results/baselines/training_profiles.2026-02.json --out novapolis_agent/eval/results/drift/training_profiles_drift_2026-02-27.json --month 2026-02`
+    1) Baseline setzen (monatlich, einmal):
+      - `${workspaceFolder}/.venv/Scripts/python.exe novapolis_agent/scripts/eval_drift_report.py --current novapolis_agent/eval/results/results_20260227_0231.jsonl --baseline novapolis_agent/eval/results/baselines/training_profiles.2026-02.json --out novapolis_agent/eval/results/drift/training_profiles_drift_2026-02-27.json --month 2026-02 --set-baseline`
+    2) Vergleichslauf gegen Baseline:
+      - `${workspaceFolder}/.venv/Scripts/python.exe novapolis_agent/scripts/eval_drift_report.py --current novapolis_agent/eval/results/results_20260227_0424_training_profiles_post_novapolis_signal.jsonl --baseline novapolis_agent/eval/results/baselines/training_profiles.2026-02.json --out novapolis_agent/eval/results/drift/training_profiles_drift_2026-02-27.json --month 2026-02`
 - Schwellwerte (warn/blocker):
   - `warn_pass_drop=2.0`, `blocker_pass_drop=5.0` Prozentpunkte,
   - `warn_fail_increase=3`, `blocker_fail_increase=8` (pro Top-Failed-Check).
@@ -252,7 +252,7 @@ LoRA-Go/No-Go und Baseline-Metriken (verbindlich, v1)
   4) `train_loss` (letzter Wert) und `train_steps_per_second`,
   5) Artefaktpfad (`output_dir`) inkl. Adapter-/Tokenizer-Dateien.
 - Reproduzierbarer Baseline-Run (nachweisbar):
-  - `f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe f:/VS-Code-Workspace/Main/novapolis_agent/scripts/fine_tune_pipeline.py --train-file f:/VS-Code-Workspace/Main/novapolis_agent/eval/datasets/training/chronistin_operativ_kurz.v1.jsonl --model sshleifer/tiny-gpt2 --output f:/VS-Code-Workspace/Main/outputs/lora-baseline-20260227_02 --per-device-train-batch-size 1 --epochs 1 --max-steps 1 --lr 0.0002 --no-check`
+  - `${workspaceFolder}/.venv/Scripts/python.exe novapolis_agent/scripts/fine_tune_pipeline.py --train-file novapolis_agent/eval/datasets/training/chronistin_operativ_kurz.v1.jsonl --model sshleifer/tiny-gpt2 --output outputs/lora-baseline-20260227_02 --per-device-train-batch-size 1 --epochs 1 --max-steps 1 --lr 0.0002 --no-check`
   - Ergebnis: `train_loss=10.4748`, `train_runtime=0.5054s`, Artefakte unter `outputs/lora-baseline-20260227_02/`.
 
 - [x] [Als naechstes] VS Code Task-Set fuer Datensatzbau & Training vervollstaendigen.
@@ -343,3 +343,4 @@ Masterplan: KI-End-to-End in 10 grossen Schritten
   Evidenz: `ruff check .` + `black --check .` grün, `pyright -p pyrightconfig.json` + `mypy --config-file mypy.ini app scripts` grün, `pytest -q` grün, `scripts/run_pytest_coverage.py --fail-under 80` Exitcode 0 (alles in CI-identischem `novapolis_agent`-CWD mit `.venv`).
 10. [x] Betriebsfaehigkeit dokumentieren: README/Runbook/Tasks auf wahrheitsgetreuen Ist-Stand bringen (kein Claim ohne Evidenz), Postflight-Receipts und DONELOG sauber pflegen.
   Evidenz: `novapolis_agent/README.md` (Ist-Stand + Gate-Reihenfolge), `novapolis_agent/docs/runbook.md` (Betriebs-/Gate-Runbook), `.vscode/tasks.json` (`TTS: export (Coqui->OGG)` nutzt `tts_export_coqui.py --help`), `novapolis_agent/docs/DONELOG.txt` + `novapolis-dev/docs/donelog.md` (laufende Receipts/Logs).
+
