@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-25 18:33
-update: Known-Entities auf strikte Per-Relation-Pflichtfelder und char:-ID-Namespace umgestellt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-24 16:17); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-24 16:17); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-24 16:17)
+stand: 2026-03-03 14:26
+update: reason_codes auf registrierte RC-Taxonomie migriert (kein Freitext mehr) fuer neue Mind-Cluster-Validatorregeln.
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-03-03 02:23); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/mind-cluster.instructions.md' 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-03 02:23); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/instructions/mind-cluster.instructions.md' 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-03 02:24)
 title: Ronja Kerschner Mind Cluster
 category: admin
 slug: ronja-kerschner-mind-cluster
@@ -69,7 +69,7 @@ known_entities:
     volatility: 0.36
     last_updated: 2026-02-24T15:00:00+01:00
     event_id: evt:bootstrap-ronja-mind-reflex-0001
-    reason_codes: [bootstrap, migration_from_character_canvas]
+    reason_codes: [RC-bootstrap, RC-migration_from_character_canvas]
     applied_rules: [R-MCL-SSOT, R-MCL-DATA]
     top_contributors: [ai_behavior_signature, campaign_state]
   - observer_id: char:ronja-kerschner
@@ -98,7 +98,7 @@ known_entities:
     volatility: 0.36
     last_updated: 2026-02-24T15:00:00+01:00
     event_id: evt:bootstrap-ronja-mind-jonas-0001
-    reason_codes: [bootstrap, migration_from_character_canvas]
+    reason_codes: [RC-bootstrap, RC-migration_from_character_canvas]
     applied_rules: [R-MCL-SSOT, R-MCL-DATA]
     top_contributors: [ai_behavior_signature, campaign_state]
   - observer_id: char:ronja-kerschner
@@ -127,7 +127,7 @@ known_entities:
     volatility: 0.36
     last_updated: 2026-02-24T15:00:00+01:00
     event_id: evt:bootstrap-ronja-mind-pahl-0001
-    reason_codes: [bootstrap, migration_from_character_canvas]
+    reason_codes: [RC-bootstrap, RC-migration_from_character_canvas]
     applied_rules: [R-MCL-SSOT, R-MCL-DATA]
     top_contributors: [ai_behavior_signature, campaign_state]
 ```
@@ -144,7 +144,7 @@ audit:
   volatility: 0.36
   last_updated: 2026-02-24T15:00:00+01:00
   event_id: evt:bootstrap-ronja-mind-0001
-  reason_codes: [bootstrap, migration_from_character_canvas]
+  reason_codes: [RC-bootstrap, RC-migration_from_character_canvas]
   applied_rules: [R-MCL-SSOT, R-MCL-DATA]
   top_contributors: [ai_behavior_signature, campaign_state]
 ```

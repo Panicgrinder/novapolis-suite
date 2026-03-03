@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-24 15:35
-update: Template auf mind-cluster umgestellt; Einfluss/Bedrohung und Entitaetsdatei-Prinzip explizit ergaenzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/mind-cluster.instructions.md' 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-24 15:10)
+stand: 2026-03-03 14:26
+update: OD-1..OD-5 normiert (relation_status-Enum, confidence/volatility-Range, event_id-Schema, RC-/Rule-ID-Taxonomie) und Bias explizit als externes Profil-Input geklart.
+checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-03-03 02:23); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/mind-cluster.instructions.md' 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-03 02:23); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/instructions/mind-cluster.instructions.md' 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-03 02:24)
 slug: mind-cluster-template
 category: admin
 status: active
@@ -64,6 +64,7 @@ Tick- und Zeitmodell
 - Referenz: `24` Ticks pro Tag.
 - Jede Bewegung protokolliert `day`, `tick`, `event_id`.
 - Ist-Stand wird aus letzter Mutation plus Tick-Ruecklauf rekonstruiert.
+- `event_id` folgt dem Format `evt:<domain>-<seq>` (Beispiel: `evt:tunnel-shift-0007`).
 
 Bias-Profile (Observer)
 -----------------------
@@ -71,11 +72,13 @@ Bias-Profile (Observer)
 - `fraktionsloyalitaet`
 - `trauma_sensitivitaet`
 - `autoritaetsakzeptanz`
-- Bias wirkt nur ueber dokumentierte Faktoren in `applied_rules[]`.
+- Bias ist Profil-Input der Engine und kein impliziter Formelteil dieses Templates.
+- Bias-Wirkung muss im Auditpfad ueber dokumentierte Faktoren in `applied_rules[]` nachvollziehbar sein.
 
 Event-Taxonomie
 ---------------
 - `support`, `betrayal`, `promise_kept`, `promise_broken`, `resource_share`, `resource_denial`, `rescue`, `harm`, `coerce`, `deescalate`, `escalate`, `intel_share`, `intel_hide`
+- Die Taxonomie ist geschlossen; Erweiterungen sind nur ueber registrierte Eintraege in `.github/instructions/mind-cluster.instructions.md` zulaessig und muessen im selben Lauf durch den RP-Validator abgedeckt werden.
 
 Skalen fuer Event-Scores
 ------------------------
@@ -129,6 +132,11 @@ KPI-Zielkorridore
 Audit- und Runbook-Pflicht
 --------------------------
 - Jede Mutation schreibt `reason_codes[]` und `applied_rules[]`.
+- `relation_status` ist verpflichtend auf `neutral|kooperativ|angespannt|feindlich` normiert.
+- `confidence` und `volatility` sind als `float` auf `0.0 .. 1.0` (inklusive) normiert.
+- `reason_codes[]` nutzt baseline-maessig `RC-<event_type>`.
+- `applied_rules[]` darf nur registrierte IDs enthalten (`R-MCL-*` oder `E-MCL-*`), kein Freitext.
+- Legacywerte ausserhalb von Enum/Range/ID-Register sind migrationspflichtig und werden nicht stillschweigend umgeschrieben.
 - Incident-Playbook fuer Drift-Ausreisser vorhanden.
 - Rollback auf letzte stabile `policy_version` dokumentiert.
 
@@ -161,8 +169,8 @@ Kurzbeispiel (Instanz)
   "volatility": 0.33,
   "last_updated": "2026-02-24T12:03:00+01:00",
   "event_id": "evt:tunnel-shift-0007",
-  "reason_codes": ["support", "promise_kept"],
-  "applied_rules": ["R-PIPE-BASE", "R-CLAMP", "R-STATUS-MAP"],
+  "reason_codes": ["RC-support", "RC-promise_kept"],
+  "applied_rules": ["R-MCL-PIPE", "E-MCL-CLAMP", "E-MCL-STATUS-MAP"],
   "top_contributors": ["resource_share", "safe_return"]
 }
 ```

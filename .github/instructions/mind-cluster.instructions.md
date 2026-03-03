@@ -49,9 +49,18 @@ Pflichtdaten
 - `observer_id`, `target_id`, `target_type`, `policy_version`
 - `x`, `y`, `z`, `normtreue`
 - `vertrauen`, `loyalitaet`, `ansehen`, `ruf`, `machtprojektion`, `kooperationsneigung`, `konfliktneigung`, `einfluss`, `bedrohung`
-- `relation_status`, `confidence`, `volatility`
+- `relation_status` mit Enum `neutral|kooperativ|angespannt|feindlich`
+- `confidence` und `volatility` als `float` im Bereich `0.0 .. 1.0` (inklusive)
 - `pos_streak`, `neg_streak`, `last_updated`, `event_id`
 - `reason_codes[]`, `applied_rules[]`, `top_contributors[]`
+- `event_id` folgt dem Format `evt:<domain>-<seq>` (Beispiel: `evt:tunnel-shift-0007`)
+- `applied_rules[]` darf nur registrierte Rule-IDs enthalten:
+- Governance-IDs `R-MCL-*` (aus Regelmatrix)
+- Engine-IDs `E-MCL-*` (registriertes Engine-Set)
+- Freitext in `applied_rules[]` ist unzulaessig.
+- `reason_codes[]` ist taxonomiebasiert:
+- Baseline-Form `RC-<event_type>` (z. B. `RC-support`)
+- Erweiterungen nur als registrierte Taxonomieeintraege.
 
 Update-Disziplin
 ----------------
@@ -59,6 +68,25 @@ Update-Disziplin
 - Event normalisieren -> Basisdelta -> Streak/Bias -> Confidence -> Limits -> Hard-Rules -> Clamp/Status -> Persist.
 - Harte Regeln (Consent/Safety/Authority) duerfen nicht weich ueberstimmt werden.
 - Jede Aenderung muss auditierbar sein (Reason Codes + angewandte Regel-IDs).
+- Event-Taxonomie ist geschlossen, aber erweiterbar nur mit Registrierungspflicht in dieser Datei; neue Event-Typen sind ohne gleichzeitige Validator-Abdeckung unzulaessig.
+- Registrierte Event-Taxonomie (Baseline):
+- `support`, `betrayal`, `promise_kept`, `promise_broken`, `resource_share`, `resource_denial`, `rescue`, `harm`, `coerce`, `deescalate`, `escalate`, `intel_share`, `intel_hide`
+- Registrierte Reason-Code-Baseline:
+- `RC-<event_type>` fuer alle registrierten Event-Typen
+- zusaetzlich registrierte Legacy-Migrationscodes: `RC-bootstrap`, `RC-migration_from_character_canvas`
+- Bias-/Profilfaktoren sind als externes Profil erlaubt, aber nicht als impliziter Rechenkern dieser Governance zu interpretieren.
+- Registriertes Engine-ID-Set (Baseline):
+- `E-MCL-PIPE`
+- `E-MCL-DRIFT`
+- `E-MCL-CONFIDENCE-WEIGHT`
+- `E-MCL-LIMITS`
+- `E-MCL-CLAMP`
+- `E-MCL-STATUS-MAP`
+- `E-MCL-HARD-GATE`
+- Migrations-/Kompatibilitaetsregel (deterministisch):
+- Legacy-Werte ausserhalb von Enum/Range/Taxonomie werden nicht still korrigiert.
+- Validator meldet harte Fehler mit Feldpfad und erwartetem Register/Range.
+- Migration erfolgt als explizite Datenaenderung mit dokumentierter Rule-/Reason-Trace.
 
 Validierung
 -----------
@@ -85,3 +113,7 @@ Regelmatrix
 - `id: R-MCL-HARD, priority: 1, scope: safety_authority, trigger: consent_or_authority_event, action: apply_hard_rules_before_soft_weights, validation: applied_rules_contains_hard_rule, exceptions: none, notes: non_overridable`
 - `id: R-MCL-AUDIT, priority: 1, scope: traceability, trigger: state_mutation, action: persist_reason_and_rule_trace, validation: reason_codes_and_applied_rules_present, exceptions: none, notes: explainability`
 - `id: R-MCL-VAL, priority: 1, scope: docs_and_rp, trigger: markdown_change, action: run_lint_frontmatter_and_rp_validator, validation: all_required_gates_pass, exceptions: none, notes: gate_discipline`
+- `id: R-MCL-IDSET, priority: 1, scope: traceability, trigger: state_mutation, action: enforce_registered_rule_id_sets, validation: applied_rules_only_contains_registered_R_MCL_or_E_MCL_ids, exceptions: none, notes: no_freetext_rule_ids`
+- `id: R-MCL-REASON, priority: 1, scope: traceability, trigger: state_mutation, action: enforce_reason_code_taxonomy, validation: reason_codes_follow_registered_taxonomy_with_rc_event_baseline, exceptions: none, notes: no_freetext_reason_codes`
+- `id: R-MCL-EVENTREG, priority: 1, scope: event_taxonomy, trigger: event_type_usage_or_extension, action: enforce_closed_but_registerable_taxonomy, validation: event_type_in_registered_set_and_validator_updated_same_change_set, exceptions: none, notes: controlled_extensibility`
+- `id: R-MCL-MIG, priority: 1, scope: migration, trigger: legacy_value_detected, action: fail_with_explicit_migration_required, validation: no_silent_autofix_and_auditable_remediation, exceptions: none, notes: deterministic_compatibility`

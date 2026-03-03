@@ -5,11 +5,59 @@ import { fileURLToPath } from 'node:url';
 import fg from 'fast-glob';
 import matter from 'gray-matter';
 import chalk from 'chalk';
+import YAML from 'yaml';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..', '..', '..', '..');
 const rpRoot = path.join(repoRoot, 'database-rp');
+
+const MIND_CLUSTER_RELATION_STATUS = new Set(['neutral', 'kooperativ', 'angespannt', 'feindlich']);
+const MIND_CLUSTER_EVENT_TYPES = new Set([
+  'support',
+  'betrayal',
+  'promise_kept',
+  'promise_broken',
+  'resource_share',
+  'resource_denial',
+  'rescue',
+  'harm',
+  'coerce',
+  'deescalate',
+  'escalate',
+  'intel_share',
+  'intel_hide'
+]);
+const MIND_CLUSTER_REGISTERED_REASON_CODES = new Set([
+  ...Array.from(MIND_CLUSTER_EVENT_TYPES).map(eventType => `RC-${eventType}`),
+  'RC-bootstrap',
+  'RC-migration_from_character_canvas'
+]);
+const MIND_CLUSTER_REGISTERED_R_RULE_IDS = new Set([
+  'R-MCL-NAME',
+  'R-MCL-TERM',
+  'R-MCL-MODE',
+  'R-MCL-SSOT',
+  'R-MCL-DATA',
+  'R-MCL-PIPE',
+  'R-MCL-HARD',
+  'R-MCL-AUDIT',
+  'R-MCL-VAL',
+  'R-MCL-IDSET',
+  'R-MCL-REASON',
+  'R-MCL-EVENTREG',
+  'R-MCL-MIG'
+]);
+const MIND_CLUSTER_REGISTERED_E_RULE_IDS = new Set([
+  'E-MCL-PIPE',
+  'E-MCL-DRIFT',
+  'E-MCL-CONFIDENCE-WEIGHT',
+  'E-MCL-LIMITS',
+  'E-MCL-CLAMP',
+  'E-MCL-STATUS-MAP',
+  'E-MCL-HARD-GATE'
+]);
+const MIND_CLUSTER_EVENT_ID_REGEX = /^evt:[a-z0-9]+(?:-[a-z0-9]+)*-\d+$/;
 
 function isSlugLike(value) {
   // Allow both '-' and '_' for backwards compatibility.
@@ -114,6 +162,124 @@ function assertOptionalEnum(meta, key, allowed, file) {
   }
 }
 
+function isFloatInRange(value, min, max) {
+  return typeof value === 'number' && Number.isFinite(value) && value >= min && value <= max;
+}
+
+function extractYamlFences(content) {
+  const blocks = [];
+  const regex = /```yaml\n([\s\S]*?)```/g;
+  let match = regex.exec(content);
+  while (match) {
+    blocks.push(match[1]);
+    match = regex.exec(content);
+  }
+  return blocks;
+}
+
+function validateAppliedRules(value, pointer, file) {
+  if (!Array.isArray(value) || value.length === 0) {
+    throw new Error(`${pointer} must be non-empty array in ${file}`);
+  }
+  for (const id of value) {
+    if (typeof id !== 'string' || !id.trim()) {
+      throw new Error(`${pointer} must contain non-empty strings in ${file}`);
+    }
+    const clean = id.trim();
+    if (MIND_CLUSTER_REGISTERED_R_RULE_IDS.has(clean)) continue;
+    if (MIND_CLUSTER_REGISTERED_E_RULE_IDS.has(clean)) continue;
+    throw new Error(`${pointer} contains unregistered rule id '${clean}' in ${file}`);
+  }
+}
+
+function validateReasonCodes(value, pointer, file) {
+  if (!Array.isArray(value) || value.length === 0) {
+    throw new Error(`${pointer} must be non-empty array in ${file}`);
+  }
+  for (const code of value) {
+    if (typeof code !== 'string' || !code.trim()) {
+      throw new Error(`${pointer} must contain non-empty strings in ${file}`);
+    }
+    const clean = code.trim();
+    if (!clean.startsWith('RC-')) {
+      throw new Error(`${pointer} contains legacy/non-taxonomy reason code '${clean}' in ${file}`);
+    }
+    if (!MIND_CLUSTER_REGISTERED_REASON_CODES.has(clean)) {
+      throw new Error(`${pointer} contains unregistered reason code '${clean}' in ${file}`);
+    }
+  }
+}
+
+function validateMindClusterRecord(record, pointer, file) {
+  if (!record || typeof record !== 'object' || Array.isArray(record)) {
+    throw new Error(`${pointer} must be an object in ${file}`);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(record, 'relation_status')) {
+    const relationStatus = record.relation_status;
+    if (typeof relationStatus !== 'string' || !MIND_CLUSTER_RELATION_STATUS.has(relationStatus)) {
+      throw new Error(`${pointer}.relation_status must be one of [${Array.from(MIND_CLUSTER_RELATION_STATUS).join(', ')}] in ${file}`);
+    }
+  }
+
+  if (Object.prototype.hasOwnProperty.call(record, 'confidence')) {
+    if (!isFloatInRange(record.confidence, 0.0, 1.0)) {
+      throw new Error(`${pointer}.confidence must be float in range 0.0..1.0 in ${file}`);
+    }
+  }
+
+  if (Object.prototype.hasOwnProperty.call(record, 'volatility')) {
+    if (!isFloatInRange(record.volatility, 0.0, 1.0)) {
+      throw new Error(`${pointer}.volatility must be float in range 0.0..1.0 in ${file}`);
+    }
+  }
+
+  if (Object.prototype.hasOwnProperty.call(record, 'event_id')) {
+    const eventId = record.event_id;
+    if (typeof eventId !== 'string' || !MIND_CLUSTER_EVENT_ID_REGEX.test(eventId)) {
+      throw new Error(`${pointer}.event_id must match evt:<domain>-<seq> in ${file}`);
+    }
+  }
+
+  if (Object.prototype.hasOwnProperty.call(record, 'event_type')) {
+    const eventType = record.event_type;
+    if (typeof eventType !== 'string' || !MIND_CLUSTER_EVENT_TYPES.has(eventType)) {
+      throw new Error(`${pointer}.event_type must be registered in closed taxonomy in ${file}`);
+    }
+  }
+
+  if (Object.prototype.hasOwnProperty.call(record, 'applied_rules')) {
+    validateAppliedRules(record.applied_rules, `${pointer}.applied_rules`, file);
+  }
+
+  if (Object.prototype.hasOwnProperty.call(record, 'reason_codes')) {
+    validateReasonCodes(record.reason_codes, `${pointer}.reason_codes`, file);
+  }
+}
+
+function validateMindClusterMarkdown(content, file) {
+  const yamlBlocks = extractYamlFences(content);
+  for (const raw of yamlBlocks) {
+    let parsed;
+    try {
+      parsed = YAML.parse(raw);
+    } catch (e) {
+      throw new Error(`Invalid YAML code fence in ${file}: ${e.message}`);
+    }
+    if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) continue;
+
+    if (Array.isArray(parsed.known_entities)) {
+      parsed.known_entities.forEach((entry, index) => {
+        validateMindClusterRecord(entry, `known_entities[${index}]`, file);
+      });
+    }
+
+    if (parsed.audit && typeof parsed.audit === 'object' && !Array.isArray(parsed.audit)) {
+      validateMindClusterRecord(parsed.audit, 'audit', file);
+    }
+  }
+}
+
 function validateByCategory(meta, file) {
   const category = meta?.category;
   if (!category) return;
@@ -214,6 +380,10 @@ async function main() {
         const parsed = matter(content);
         validateFrontmatter(parsed.data, rel);
         validateByCategory(parsed.data, rel);
+
+        if (/mind-cluster\.md$/i.test(rel)) {
+          validateMindClusterMarkdown(content, rel);
+        }
 
         const category = parsed?.data?.category;
         if (requireSlugCategories.has(category)) {
