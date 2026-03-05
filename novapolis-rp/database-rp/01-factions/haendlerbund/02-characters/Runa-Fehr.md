@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 17:22
+stand: 2026-03-05 01:00
 update: Neuer SSOT-Charakter angelegt (Leitung Sicherheit Händlerbund).
-checks: pending
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 title: Runa Fehr
 category: character
 slug: runa-fehr
@@ -43,3 +43,4 @@ Verlinkungen
 - Fraktionsübersicht → ../README.md
 - Location G7 → ../03-locations/G7.md
 - Tick-Regeln (global) → ../../../00-admin/Tick-Regeln-Simulation.md
+

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-04 00:28
-update: Root-Board um Standalone-Beta-Exit-Checkliste erweitert und TODO-Index im selben Lauf synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-04 00:30); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-04 00:30)
+stand: 2026-03-05 01:00
+update: Optionalpaket O8/O9/O10/O12 umgesetzt (TODO-Index-Guard, Freshness-SLA, Logs-Policy, Beta-Tagging).
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -17,6 +17,34 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Docs: Batch-1 Cleanup `checks: pending` abgeschlossen (2026-03-04 22:57)
+-----------------------------------------------------------------------------
+
+- In 19 aktiven Markdown-Dateien wurden Frontmatter-Schulden `checks: pending|PENDING` entfernt (RP-Faction-Docs, RP-Scenes-README, Dev-Prozess-SSOT).
+- Validierung nach Mutation: Regex-Suche auf `^checks:\s*(pending|PENDING)\s*$` liefert 0 Treffer.
+- Konsolidierungslauf ausgefuehrt: `scripts/run_checks_and_report.py` mit Frontmatter-Sync; Ergebnis `overall=FAIL` ausschliesslich wegen bekanntem Gate `path-portability` (3 Findings), sonst Checks PASS.
+- Report-Nachweis: `.tmp/results/reports/checks_report_20260304_225421.md`.
+
+Dev/Gov: Optionalpaket O8/O9/O10/O12 umgesetzt (2026-03-04 21:29)
+-------------------------------------------------------------------
+
+- Neue Pflichtchecks eingefuehrt und in den Standardlauf verdrahtet: `scripts/check_todo_index_sync.py`, `scripts/check_doc_freshness.py`, `scripts/check_logs_policy.py` sowie Integration in `scripts/run_checks_and_report.py`.
+- VS-Code-Tasks ergaenzt: `Checks: todo index sync`, `Checks: doc freshness`, `Checks: logs policy` in `/.vscode/tasks.json`.
+- Logs-Policy gehaertet: `novapolis-dev/logs/README.md` schreibt `*.tmp.md` im aktiven Logpfad explizit aus; bestehender Rohlog nach `novapolis-dev/archive/quarantine/logs/betriebsmodi-20251103-0341.tmp.md` verschoben.
+- Freshness-SLA verankert: ACTIVE `<=14` Tage, REFERENCE `<=60` Tage (Scope aus `novapolis-dev/docs/active-surface-index.md`, konkrete Pfade).
+- Beta-Tagging standardisiert: `novapolis-dev/docs/process/standalone-beta-gates.ssot.md` enthaelt jetzt das verbindliche Schema `beta-v<MAJOR>.<MINOR>.<PATCH>-r<YYYYMMDD-HHMM>` plus DONELOG-Report-Aliasformat.
+- Board/Index-Sync im selben Lauf: `todo.root.md` O8/O9/O10/O12 auf erledigt, `novapolis-dev/docs/todo.dev.md` drei Hygiene-Punkte erledigt, `novapolis-dev/docs/todo.index.md` Open-Count Dev `4 -> 1`.
+
+Dev/Beta: Standalone-Beta Blocker B1-B7 abgeschlossen (2026-03-04 00:43)
+--------------------------------------------------------------------------
+
+- `todo.root.md`: Blocker B1-B7 auf erledigt gesetzt; `Definition of Ready fuer "Standalone Beta"` auf erreicht gesetzt.
+- B1: Root-`TTS/` entfernt; TTS-Kanon bleibt im Agent-Modul (`novapolis_agent/scripts/tts_coqui_export.py`, TTS-Runtime unter `novapolis_agent/app/main.py`).
+- B2/B3/B4: Boards nachgezogen (`todo.sim.md` auf `offen:0`, `todo.rp.md` P0-Jetzt geschlossen, `todo.dev.md` Jetzt-Block geschlossen).
+- B6/B7: Startpfad + Go/No-Go dokumentiert in `README.md` und `novapolis-dev/docs/process/standalone-beta-gates.ssot.md`.
+- B5 Referenzlauf: `scripts/run_checks_and_report.py` PASS, Report `F:\VS-Code-Workspace\Main\.tmp\results\reports\checks_report_20260304_004318.md`.
+- Zusatznachweis: `npm --prefix novapolis-rp/coding/tools/validators run validate:rp` PASS; Sim-Offline-Check `summary=fail:0,warn:2`.
 
 Dev/Planning: Standalone-Beta Exit-Checkliste v0 verankert (2026-03-04 00:28)
 ---------------------------------------------------------------------------
@@ -965,4 +993,6 @@ Archivverweise
 - Dev-Historikfenster (neu): `novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md`
 - Vorheriges Dublettenfenster (verlustfrei verschoben): `novapolis-dev/archive/quarantine/archive-window-dedupe-20260227_0018/donelog_dev.window-archive.pre-2026-02-19.md`
 - Konsolidierter historischer Ziellog: `novapolis-dev/archive/docs/donelogs/donelog_dev.md`
+
+
 

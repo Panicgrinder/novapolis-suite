@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-02 23:30
+stand: 2026-03-05 01:00
 update: SSOT fuer Wochen- und Monatsabschluss eingefuehrt (Monatsabschluss am 1. Montag).
-checks: pending
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 Wochen- und Monatsabschluss (SSOT)
 =================================
@@ -70,3 +70,4 @@ Referenzen
 - Root-Backlog: `todo.root.md`
 - Dev-Logs: `novapolis-dev/docs/donelog.md`
 - Root-Log: `DONELOG.md`
+

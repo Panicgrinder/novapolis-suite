@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-02-23 09:19
-update: Prioritaetstags (Jetzt/Als naechstes/Spaeter) fuer aktive RP-Punkte harmonisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (2026-02-23 08:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'README.md' 'todo.root.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' PASS (EXITCODE=0, 2026-02-23 08:40)
+stand: 2026-03-05 01:00
+update: RP-P0-DoD nachgezogen: Fraktionsweiter T0-Warenueberblick mit Herkunftslabeln und D5/C6-Aufbauphasenregel evidenzbasiert abgeschlossen.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -16,7 +16,7 @@ TODO (Novapolis-RP)
 Prioritaetstags (aktiv)
 -----------------------
 
-- `Jetzt`: T0-Warenueberblick je Fraktion mit Herkunftslabeln abschliessen; D5/C6-Modell konsistent auf fruehe Aufbauphase finalisieren.
+- `Jetzt`: P0-Jetzt-Block abgeschlossen; Fokus auf nachvollziehbare Nachweisfuehrung und Start des Mengen-Backfills.
 - `Als naechstes`: Mengen-Backfill fuer Inventare starten; Skill-Mapping aus Verhaltensmatrix als Ableitung dokumentieren.
 - `Spaeter`: TTS-Block (OGG-Kandidaten + Live-Dialog-Cache) ausrollen.
 
@@ -127,8 +127,10 @@ Definition of Done (P0)
 
 - [x] Jede bekannte Station ist in Karte + Kontrollmatrix mindestens einmal referenziert. *(erledigt 2026-02-23)*
   - Evidenz: `novapolis-rp/database-rp/00-admin/Stationskontroll-Matrix.md` enthält jetzt alle in `novapolis-rp/database-rp/00-admin/Metrokarte-T0.md` geführten Stationscodes (Abdeckung 54/54).
-- [ ] [Jetzt] Jede Fraktion hat einen T0-Warenueberblick mit Herkunftslabeln.
-- [ ] [Jetzt] D5/C6 sind konsistent als fruehe Aufbauphase modelliert; keine impliziten Handelsannahmen.
+- [x] [Jetzt] Jede Fraktion hat einen T0-Warenueberblick mit Herkunftslabeln.
+  - Evidenz: `novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md` (Abschnitt `Fraktionsueberblick T0 (Herkunftslabel)`).
+- [x] [Jetzt] D5/C6 sind konsistent als fruehe Aufbauphase modelliert; keine impliziten Handelsannahmen.
+  - Evidenz: `novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md` (Abschnitt `D5/C6-Modell (fruehe Aufbauphase)`).
 - [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten.
 
 - 24×1h-Runden (PC-zentriert) einführen
@@ -156,6 +158,8 @@ Definition of Done (P0)
 - TTS (gemischt)
   - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren.
   - [ ] [Spaeter] Live-Dialoge via Coqui XTTS v2 mit Cache (Hash(Text+Stimme)); Fallback Windows/Azure nur bei Bedarf.
+
+
 
 
 

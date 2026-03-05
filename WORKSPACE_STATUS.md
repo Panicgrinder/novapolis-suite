@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 14:32
-update: Tagesabschlusslauf ausgefuehrt; Qualitaetsstatus aktualisiert und Launcher-Fehler der zwei Einzel-Tasks als known issue dokumentiert.
-checks: .\.venv\Scripts\python.exe scripts\snapshot_write_lock.py PASS (2026-03-03 03:43); process: Checks: full FAIL (2026-03-03 03:39); .\.venv\Scripts\python.exe scripts\run_pytest_coverage.py FAIL (EXITCODE=1, 2026-03-03 03:40); .\.venv\Scripts\python.exe scripts\check_sim_epoch_assets.py --repo-root . --allow-empty PASS (summary=fail:0,warn:2, 2026-03-03 03:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-03 03:45); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-03 03:45)
+stand: 2026-03-05 01:00
+update: Hygiene-Guardrails erweitert: TODO-Index-Sync, Stand-Freshness-SLA und Logs-Policy als Pflichtchecks im Standardlauf aktiv.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 
 Workspace-Status
@@ -9,6 +9,12 @@ Workspace-Status
 
 Aktuelles Wochenfenster
 -----------------------
+
+- 2026-03-04 21:29: Optionalpaket O8/O9/O10/O12 nachgezogen. In `scripts/run_checks_and_report.py` sind neue Pflichtchecks aktiv: `todo-index-sync`, `doc-freshness` und `logs-policy`. Zusaetzlich gilt im Beta-SSOT jetzt ein verbindliches Tagging-Schema (`beta-v<MAJOR>.<MINOR>.<PATCH>-r<YYYYMMDD-HHMM>`). Der aktive Dev-Logpfad wurde policy-konform bereinigt (`novapolis-dev/logs/*.tmp.md` verboten; vorhandener Rohlog nach `novapolis-dev/archive/quarantine/logs/` verschoben).
+
+- 2026-03-04 00:43: Standalone-Beta-Referenzlauf erfolgreich abgeschlossen. `scripts/run_checks_and_report.py` liefert `overall=PASS` mit Report `F:\VS-Code-Workspace\Main\.tmp\results\reports\checks_report_20260304_004318.md`; Sim-Offline-Check (`--allow-empty --check-slot-consistency`) bleibt ohne harte Fehler (`summary=fail:0,warn:2`).
+
+- 2026-03-04 00:37: Root-Verzeichnis `TTS/` gemaess Root-Backlog entfernt (B1). Der kanonische TTS-Stand bleibt im Agent-Modul (`novapolis_agent/scripts/tts_coqui_export.py`, Runtime-Endpoints unter `novapolis_agent/app/main.py`). Root-README und WORKSPACE-Index wurden auf den Iststand ohne Root-TTS synchronisiert.
 
 - 2026-03-03 03:43: Tagesabschlusslauf vorbereitet und ausgefuehrt. `Checks: full` erneut gelaufen mit aktuellem Status: `markdownlint FAIL (419)`, `path-portability FAIL (60)`, `ruff FAIL (26)`, `black FAIL (4)`, `pytest/coverage FAIL`, waehrend `frontmatter`, `namingpolicy`, `pyright` und `mypy` PASS blieben. Zusatzlaeufe `Tests: coverage (fail-under)` und `Checks: sim epoch assets` schlugen im VS-Code-Task-Launcher technisch fehl (`pwsh ... /d /c`, Exit 64), daher direkt per Python ausgefuehrt; Sim-Check meldet weiterhin `fail:0,warn:2`.
 
@@ -38,4 +44,6 @@ Archivhinweise
 - Historischer Root-Status bis vor dem Wochenfenster: `novapolis-dev/archive/docs/others/workspace-status.archive.pre-2026-02-20.md`.
 - Vorheriges Dublettenfenster (verlustfrei verschoben): `novapolis-dev/archive/quarantine/archive-window-dedupe-20260227_0018/workspace-status.archive.pre-2026-02-19.md`.
 - Historische Postflight-/DoneLog-Artefakte: `novapolis-dev/archive/docs/donelogs/`.
+
+
 

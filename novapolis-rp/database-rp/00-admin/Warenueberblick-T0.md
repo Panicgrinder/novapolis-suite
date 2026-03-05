@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 04:15
-update: Frische-Review durchgeführt; T0-Lagebild, Statuslegende und Guardrails weiterhin gültig (kein Kanon-Delta).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md' PASS (2026-02-23 04:15); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md' PASS (2026-02-23 04:15); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 04:15)
+stand: 2026-03-05 01:00
+update: T0-Ergaenzung fuer Fraktionsueberblick mit Herkunftslabeln sowie explizite D5/C6-Aufbauphasenregel ohne implizite Handelsannahmen.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 slug: warenueberblick-t0
 category: Admin
 canvas: warenueberblick-t0
@@ -37,6 +37,28 @@ Lagebild nach Warengruppen (MVP)
 | Medizin / Erste Hilfe | tbd | tbd | tbd | global noch nicht belastbar zusammengeführt |
 | Nahrung / Verbrauchsgueter | tbd | tbd | tbd | fraktionsseitig nachziehen |
 
+Fraktionsueberblick T0 (Herkunftslabel)
+---------------------------------------
+
+Hinweis: Die Label folgen dem P0-Schema `legacy|evac_e3|scavenged|produced|unknown`.
+
+| Fraktion | T0-Warenbild (Bandbreite) | Herkunftslabel (dominant) | Verweis |
+| --- | --- | --- | --- |
+| Novapolis (D5/C6/E3) | Energie/Wasser/Werkzeuge verfuegbar, Medizin/Nahrung teils knapp | legacy, evac_e3, scavenged | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md) |
+| Arkologie-A1 | Grundversorgung stabil, Austausch gueter selektiv | produced, legacy | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
+| Schienenbund | Logistik-/Reparaturfokus, Verbrauchsgueter variabel | produced, scavenged | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
+| Schattenbund | Versorgung uneinheitlich, Schwerpunkt opportunistische Beschaffung | scavenged, unknown | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
+| Haendlerbund | Umlaufgueter verfuegbar, stationaere Reserven variabel | legacy, scavenged, produced | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
+| Eisenkonklave | Werkstoff-/Instandsetzungsgueter verfuegbar, Verbrauchsgueter variabel | produced, legacy | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
+| Fluesterkollektiv | Lagerbild nur teilweise belastbar | unknown, scavenged | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
+
+D5/C6-Modell (fruehe Aufbauphase)
+---------------------------------
+
+- D5/C6 bleiben in T0 explizit als fruehe Aufbauphase modelliert.
+- Keine impliziten Handelsnormalisierungen: Verfuegbarkeit wird aus Altbestand (`legacy`), Mitnahme (`evac_e3`) und Fund-/Rueckgewinnung (`scavenged`) abgeleitet.
+- Mengenretcons bleiben untersagt, bis belastbare Inventar-/Transferbelege vorliegen.
+
 Statuslegende
 -------------
 
@@ -58,3 +80,5 @@ Verlinkungen
 - [Logistik](./Logistik.md)
 - [Current-State](./Current-State.md)
 - [Stationskontroll-Matrix](./Stationskontroll-Matrix.md)
+
+

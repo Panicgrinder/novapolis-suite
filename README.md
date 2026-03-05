@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-02 23:30
-update: Hybrid-Lizenzmodell eingefuehrt: Code bleibt MIT, RP-Content/Eval-Daten sind separat restriktiv geregelt; Contributing- und Markenhinweise verlinkt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-02 22:18); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-02 22:18)
+stand: 2026-03-05 01:00
+update: Root-TTS-Temporarpaad entfernt; Standalone-Beta Startpfad und Go/No-Go-Gates fuer reproduzierbare Beta-Laeufe dokumentiert.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 Novapolis Suite
 ===============
@@ -15,8 +15,6 @@ Projekte im Repository
 - **novapolis-rp** - Weltbau-Daten, Rollenspiel-Workflows und begleitende Tools (ohne Agent-Laufzeit).
 - **novapolis-dev** - Kuratierte Datensaetze, Prozess- und Policy-Dokumentation als Arbeits-Hub.
 - **novapolis-sim** - Godot-Szene und Skripte fuer den Simulations-Prototypen.
-- **TTS** - Externes Coqui-TTS-Upstream-Repository als lokales Vendor-/Referenz-Mirror (`TTS/`, eigenes `.git`, eigene Workflows/Tests).
-  - Vormerkung: `TTS/` ist nur temporaer im Root, damit nichts vergessen wird. Es werden ausschließlich benoetigte Teile entnommen und ins Modul `novapolis_agent/` ueberfuehrt; danach wird `TTS/` wieder entfernt.
 
 Gemeinsames Python-Paket
 -------------------------
@@ -66,8 +64,7 @@ Zentrale Arbeitsrichtlinien
 - Ausfuehrliche Copilot-/VS-Code-Nutzung: [`novapolis-dev/docs/copilot-vscode-usage.md`](novapolis-dev/docs/copilot-vscode-usage.md).
 - Root `todo.root.md` und `DONELOG.md` liefern einen Gesamtueberblick ueber offene Aufgaben und erledigte Arbeiten ohne die Projekt-spezifischen Dateien oeffnen zu muessen.
 - Nicht-triviale Aenderungen werden weiterhin im jeweiligen DONELOG des Projekts dokumentiert (`novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`).
-- `TTS/` ist kein kanonisches SSOT-Modul der Novapolis-Suite; Anpassungen dort nur bei explizitem Auftrag und mit separatem Upstream-Abgleich.
-- Verbindliche Entnahmeregel fuer `TTS/`: nur notwendige Artefakte/Codepfade uebernehmen, in `novapolis_agent/` integrieren, `TTS/` anschließend aus dem Root entfernen.
+- Build-Time-/Runtime-TTS liegen kanonisch unter `novapolis_agent/` (Scripts, API, Konfiguration).
 - Der Agent-Workspace nutzt jetzt den Paketnamen `novapolis_agent`; aeltere Referenzen mit Bindestrich bitte bei Gelegenheit bereinigen (siehe Aufgaben in `todo.root.md`).
 
 ### Copilot Instructions (kanonisch)
@@ -159,6 +156,33 @@ Wochen- und Monatsabschluss
 - Verbindlicher SSOT: `novapolis-dev/docs/process/abschluss-routine.ssot.md`.
 - Wochenabschluss: Abschlusslauf in der dort definierten Reihenfolge (Checks -> Tree bei Strukturdelta -> Doku-Sync).
 - Monatsabschluss: am ersten Montag des Monats zusaetzlich zum Wochenabschluss, inklusive Monats-Drift-/Hygienepruefung.
+
+Standalone-Beta Startpfad (kanonisch)
+-------------------------------------
+
+1. API starten:
+
+```powershell
+& .\.venv\Scripts\python.exe novapolis_agent\run_server.py
+```
+
+2. Sim-Hub starten (Godot): `novapolis-sim/project.godot` im Editor oeffnen und `Main.tscn` ausfuehren.
+
+3. Verifikationslauf in fester Reihenfolge:
+
+```powershell
+& .\.venv\Scripts\python.exe scripts\run_checks_and_report.py
+& .\.venv\Scripts\python.exe scripts\check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency
+```
+
+Release Go/No-Go (Standalone Beta)
+----------------------------------
+
+- `GO`: `Checks: full` ist gruen und Sim-Offline-Check meldet `fail:0`.
+- `NO-GO`: ein Pflichtcheck faellt oder Sim-Check meldet harte Fehler.
+- Jeder Entscheid muss mit Reportpfad in `novapolis-dev/docs/donelog.md` und `DONELOG.md` protokolliert sein.
+
+
 
 
 

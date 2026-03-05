@@ -1,10 +1,18 @@
 ---
-stand: 2026-03-04 00:28
-update: Root-Plan um priorisierte Standalone-Beta-Exit-Checkliste erweitert (Blocker/Optional, geordnete Reihenfolge).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-04 00:30); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-04 00:30)
+stand: 2026-03-05 01:00
+update: Optionalpaket O8/O9/O10/O12 umgesetzt: neue Governance-Checks aktiv, Logs-Policy gehaertet und Beta-Tagging standardisiert.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-04 22:57: Batch-1-Cleanup fuer aktive Frontmatter-Pendenzen abgeschlossen. In 19 aktiven Markdown-Dateien wurden `checks: pending|PENDING`-Marker entfernt (u. a. RP-Factions, `novapolis-rp/database-rp/06-scenes/README.md`, `novapolis-dev/docs/process/abschluss-routine.ssot.md`). Regex-Nachweis nach der Mutation: 0 Treffer auf `^checks:\s*(pending|PENDING)\s*$`. Konsolidierung ueber `scripts/run_checks_and_report.py` lief mit Frontmatter-Sync; Gesamtstatus blieb wegen bekanntem `path-portability`-Gate non-green (3 Findings), alle uebrigen Gates PASS. Report: `.tmp/results/reports/checks_report_20260304_225421.md`.
+
+- 2026-03-04 21:29: Root-Optionalpunkte O8/O9/O10/O12 umgesetzt. Neue Checks `todo-index-sync`, `doc-freshness` und `logs-policy` wurden als Pflichtgates in `scripts/run_checks_and_report.py` integriert und als Einzel-Tasks in `/.vscode/tasks.json` angelegt. `novapolis-dev/logs/README.md` verbietet jetzt `*.tmp.md` im aktiven Logpfad; der vorhandene Rohlog wurde nach `novapolis-dev/archive/quarantine/logs/` verschoben. Zusaetzlich wurde in `novapolis-dev/docs/process/standalone-beta-gates.ssot.md` ein verbindliches Beta-Tagging-Schema (`beta-v<MAJOR>.<MINOR>.<PATCH>-r<YYYYMMDD-HHMM>`) aufgenommen.
+
+- 2026-03-04 12:59: Godot-Startfix fuer VS Code umgesetzt. In `.vscode/settings.json` wurde `godotTools.editorPath.godot4` von `${env:GODOT4_PATH}` auf den bestaetigten lokalen Installationspfad `F:\Downloads\Godot\Godot_v4.6.1-stable_win64.exe` umgestellt, damit das Plugin den Editor auch ohne gesetzte Umgebungsvariable starten kann.
+
+- 2026-03-04 00:43: Standalone-Beta-Blocker abgeschlossen. Root-`TTS/` wurde entfernt (B1), Dev/RP/Sim-Boards wurden auf Evidenzstand nachgezogen (B2-B4), Startpfad/Gates sind dokumentiert (`README.md`, `novapolis-dev/docs/process/standalone-beta-gates.ssot.md`; B6/B7) und der Vollcheck ist gruen (`.tmp/results/reports/checks_report_20260304_004318.md`; B5). `todo.root.md` markiert B1-B7 sowie die `Definition of Ready` als erledigt.
 
 - 2026-03-04 00:28: Planungsnachzug fuer den Beta-Cut umgesetzt. `todo.root.md` enthaelt jetzt eine konkrete Standalone-Beta-Exit-Checkliste (12 Punkte, geordnet, mit Blocker `[1]-[7]` und Optional `[8]-[12]`) plus `Definition of Ready` fuer den Beta-Status. `novapolis-dev/docs/todo.index.md` wurde im selben Lauf mit `Statushinweis Root/Beta v0` synchronisiert.
 
@@ -1303,5 +1311,7 @@ Kurz: Minimale Format-/Lint-Fixes im RP-Consistency-Wrapper (Ruff/Black) vorgeno
 
 2026-01-12 07:01 | Copilot | Curated: Konfliktliste (Top-10 aus `[OPEN]`) + FACT?-Liste aus `novapolis-rp/database-curated/staging/*.review.md` extrahiert (Report: `.tmp/results/reports/curated_conflicts_postflight_20260112_0657.md`); `.tmp/rp-base-todo.md` P1-Workflow-Tasks aktualisiert.
 2026-01-12 07:16 | Copilot | Curated: `database-curated/staging/manifest.json` um reviewed-Artefakte (inkl. SHA256), Runs (Tool/Report-Link) und Final-Gate-Kriterien erweitert; Schema-Doku in `coding/tools/validators/schemas/curated-manifest.schema.json` ergänzt; Checks: `npm run validate:curated` PASS.
+
+
 
 

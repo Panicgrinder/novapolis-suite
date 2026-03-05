@@ -73,6 +73,7 @@ desktop.ini
 # Novapolis Dev / Sim temp
 /novapolis-dev/.DS_Store
 /novapolis-dev/**/__pycache__/
+/novapolis-dev/logs/*.tmp.md
 /novapolis-sim/.godot/
 /novapolis-sim/.import/
 novapolis-sim/Godot_v*.exe

@@ -112,6 +112,39 @@
       "problemMatcher": []
     },
     {
+      "label": "Checks: todo index sync",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\check_todo_index_sync.py", "--repo-root", "${workspaceFolder}"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Checks: doc freshness",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\check_doc_freshness.py", "--repo-root", "${workspaceFolder}"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Checks: logs policy",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\check_logs_policy.py", "--repo-root", "${workspaceFolder}"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
       "label": "Checks: sim epoch assets",
       "type": "shell",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",

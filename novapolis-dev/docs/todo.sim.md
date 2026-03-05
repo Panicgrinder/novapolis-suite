@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-04 00:20
-update: Vollstaendig erledigten Abschnitt C) Agent-Modul im Hub nach Sim-Archiv verschoben; aktives Sim-Board auf offene Restpunkte fokussiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (2026-03-04 00:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'DONELOG.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.sim.archive.md' PASS (EXITCODE=0, 2026-03-04 00:22)
+stand: 2026-03-05 01:00
+update: Sim-Restpunkte geschlossen: Platzhalter in konkrete Aussage ueberfuehrt und DoD-Nachweispunkt auf erledigt gesetzt.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -20,14 +20,14 @@ Hinweis
 Prioritaetstags (aktiv)
 -----------------------
 
-- `Jetzt`: Hub-Kern stabil halten und offene Punkte nach Modulgrenzen umsetzen.
-- `Als naechstes`: Agent-Modul im Hub integrieren (Eval, Datasets, Synonyms, Finetuning, Profile, KI-Stand).
-- `Spaeter`: Platzhalterblock durch konkrete Sim-Backlogpunkte ersetzen.
+- `Jetzt`: Keine offenen Sim-Blockerpunkte; Stabilitaet ueber Checks/Runbook halten.
+- `Als naechstes`: Neue Sim-Pakete nur evidenzbasiert als konkrete Backlogpunkte aufnehmen.
+- `Spaeter`: Erweiterungen in separaten, klar begrenzten Sim-Epics planen.
 
 Offene Aufgaben (Sim)
 ---------------------
 
-- [ ] [Spaeter] (Platzhalter) Sammle Sim-Aufgaben hier (Godot, Visualisierung, API-Polling, Exportprofile).
+- [x] [Spaeter] Platzhalterblock aufgeloest: aktuell keine offenen Sim-Backlogpunkte ausserhalb des Archivs.
  - [x] Headless-Lade-Check `novapolis-sim/project.godot` durchführen; Kurzprotokoll in `novapolis-dev/docs/donelog.md`.
    - Evidenz: `WORKSPACE_STATUS.md` (2025-11-16 04:54, Headless PASS) und `novapolis-dev/docs/donelog.md` (Abschnitt "Godot Headless - Quick Verification").
 
@@ -126,7 +126,10 @@ Abschlusskriterien (Definition of Done)
 
 - [x] Ein lokaler Durchlauf deckt API-smoke, Godot-headless und Offline-Asset-Check in fester Reihenfolge ab.
   - Nachweis: API-smoke (`pytest ...::test_get_world_state_initial_values`) PASS, Godot-headless-Load ausgefuehrt, `check_sim_epoch_assets.py --allow-empty --check-slot-consistency` mit `fail:0`.
-- [ ] Die offenen Sim-Todo-Punkte sind mit Evidenzpfaden im Dev-DONELOG nachweisbar abgeschlossen.
+- [x] Die offenen Sim-Todo-Punkte sind mit Evidenzpfaden im Dev-DONELOG nachweisbar abgeschlossen.
+  - Nachweis: `novapolis-dev/docs/donelog.md` (Current-Window Eintraege `Dev/Sim:*` inkl. Archivlauf, RP-Panel-Abschluss und Agent-Studio-Restpunktpakete).
+
+
 
 
 

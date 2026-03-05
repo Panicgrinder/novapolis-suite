@@ -1,15 +1,15 @@
 ---
-stand: 2025-11-16 06:52
-update: Frontmatter auf YAML migriert; markdownlint PASS
-checks: markdownlint-cli2 PASS
+stand: 2026-03-05 01:00
+update: Spec auf Iststand der implementierten Coqui-Exporter-CLI im Agent-Modul nachgezogen (kein Platzhalter-Narrativ).
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 
 TTS-Exporter (Build-Time) - Coqui → OGG
 ======================================
 
-Ziel: Vorproduzierte Audio-Summaries pro Epoche/Slot (world_log/pc_log) offline erzeugen. Diese Seite definiert den Kontrakt und die Aufrufe - die eigentliche Implementierung folgt im Agent/Tools.
+Ziel: Vorproduzierte Audio-Summaries pro Epoche/Slot (world_log/pc_log) offline erzeugen. Diese Seite dokumentiert den aktuellen CLI-Vertrag der implementierten Exporter-Entry im Agent-Modul.
 
-- Scope: Build-Time Batch (kein Live-TTS). Live-Dialoge laufen separat (Runtime-Service) und sind hier nicht Bestandteil.
+- Scope: Build-Time Batch (kein Live-TTS). Live-Dialoge laufen separat ueber Runtime-Endpunkte und sind hier nicht Bestandteil.
 - Referenzen: `novapolis-dev/docs/specs/annotation-spec.md` (Audio-Namensschema), `novapolis-dev/docs/specs/scheduler-spec.md` (Epochen/Slots).
 
 Kontrakt (Kurz)
@@ -28,57 +28,63 @@ Kontrakt (Kurz)
   - Idempotent: Wiederholter Lauf ohne Textänderung erzeugt keine neuen Dateien
   - Robust gegen leere/zu kurze Texte (skip/0-Byte verhindern)
 
-CLI-Skizze (geplant)
---------------------
+CLI (Iststand)
+--------------
 
 ```powershell
-# Noch nicht implementiert - Platzhalter-Signatur
-python novapolis_agent/scripts/tts_export_coqui.py `
+& .\.venv\Scripts\python.exe novapolis_agent\scripts\tts_coqui_export.py `
   --input "novapolis-rp/database-rp/02-epoch/epoch03/slot14_pc.txt" `
-  --voice de-female-01 `
-  --sr 24000 `
-  --out "outputs/audio/epoch03/epoch03_slot14_pc.ogg"
+  --voice-map "novapolis_agent/config/tts_voice_map.sample.yaml" `
+  --model-id "coqui/xtts-v2" `
+  --allowlist "novapolis_agent/config/tts_model_allowlist.json" `
+  --lang de `
+  --output-dir "novapolis-sim/assets/voiceovers/de" `
+  --dry-run
 ```
 
-Parameter (geplant):
-- --input: Pfad zu Textdatei oder Ordner (batch)
-- --voice: Voice-Preset/Config
-- --sr: Sample-Rate (Hz)
-- --out/--out-dir: Zieldatei oder Zielordner (bei Batch)
-- --cache: Pfad für Cache (Default: `.cache/tts/`)
-- --normalize: einfache Normalisierung (Trim, Unicode NFC, Whitespace)
+Verfuegbare Parameter (Iststand):
 
-Umgebung/Prereqs (geplant)
---------------------------
+- `--input`: Pfad zu `jsonl|yaml|txt` Quelle.
+- `--voice-map`: YAML-Mapping fuer Sprecherzuordnung.
+- `--model-id`: Modellkennung, wird gegen Allowlist validiert.
+- `--allowlist`: JSON-Allowlist fuer freigegebene Modelle.
+- `--lang`: Sprachcode (Default `de`).
+- `--output-dir`: Zielordner fuer OGG-Exports.
+- `--dry-run`: validiert Vertrag/Policies ohne Synthese.
+- `--manifest`: Dateiname fuer Laufmanifest im Zielordner.
 
-- Python Env: `novapolis_agent/requirements.txt` wird um Coqui-Pakete ergänzt (später)
-- Lokaler Cache: `.cache/tts/` (Hash(Text+Voice) → OGG)
+Umgebung/Prereqs (Iststand)
+---------------------------
+
+- Python Env: Root-`.venv` mit Agent-Abhaengigkeiten.
+- Compliance-Gate: Modell muss in `novapolis_agent/config/tts_model_allowlist.json` enthalten sein.
+- Lokaler Cache/Manifest wird durch Exporter-Vertrag gesteuert.
 - Windows/PowerShell kompatible Pfade/Beispiele
 
-VS Code Task (Skeleton)
------------------------
+VS Code Task
+------------
 
-Diese Task dient als Platzhalter, bis das Skript existiert. Sie schreibt nur eine TODO-Meldung ins Terminal.
-
-- Label: `TTS: export (Coqui→OGG)`
-- Gruppe: build
-- Aufruf: PowerShell `Write-Host` Hinweis
+- Label: `TTS: export (coqui)`.
+- Aufruf: `novapolis_agent/scripts/tts_coqui_export.py --help` (operativer Entrypoint vorhanden).
 
 Notes
 -----
 
-- Live-Service Schnittstelle (separat): Text→Audio-Stream, Voice-Preset, OGG Output
-- Audio-Lautheit/Limiter erst in der Implementierung definieren (RMS/LUFS Zielwerte)
-- OGG vs. WAV: OGG bevorzugt (Dateigröße); WAV optional für Mastering
+- Live-Service Schnittstelle (separat): `/tts/health`, `/tts/voices`, `/tts/synthesize`.
+- OGG bleibt Build-Time-Ziel fuer Sim-Assets; WAV ist nicht Teil des aktuellen Exporter-Vertrags.
 
-Try it (Task)
--------------
+Try it
+------
 
-So startest du den Platzhalter in VS Code:
+1. Menü: Terminal -> Run Task...
+2. Waehle: `TTS: export (coqui)`.
+3. Fuer einen realen Dry-Run im Terminal:
 
-1) Menü: Terminal → Run Task…
-2) Wähle: `TTS: export (Coqui→OGG)`
-3) Ergebnis: Eine Hinweiszeile im gemeinsamen Tasks-Terminal; keine Dateien werden erzeugt.
+```powershell
+& .\.venv\Scripts\python.exe novapolis_agent\scripts\tts_coqui_export.py --help
+```
+
+
 
 
 

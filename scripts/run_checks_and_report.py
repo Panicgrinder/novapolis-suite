@@ -45,6 +45,9 @@ BASE_MANDATORY_CHECKS = {
     "frontmatter",
     "path-portability",
     "namingpolicy",
+    "todo-index-sync",
+    "doc-freshness",
+    "logs-policy",
     "ruff",
     "black",
     "pytest",
@@ -69,6 +72,91 @@ RUFF_SUMMARY_RE = re.compile(r"Found (\d+) error(?:s)?", re.IGNORECASE)
 BLACK_SUMMARY_RE = re.compile(r"(\d+)\s+file(?:s)?\s+would be reformatted", re.IGNORECASE)
 PYRIGHT_SUMMARY_RE = re.compile(r"Found (\d+) error(?:s)?", re.IGNORECASE)
 PYTEST_FAIL_RE = re.compile(r"(\d+)\s+failed", re.IGNORECASE)
+
+
+def git_changed_files(repo_root: Path) -> list[str]:
+    try:
+        completed = subprocess.run(
+            ["git", "status", "--porcelain", "--untracked-files=all"],
+            cwd=str(repo_root),
+            capture_output=True,
+            text=True,
+            encoding=LOG_ENCODING,
+            errors="replace",
+            check=False,
+        )
+    except FileNotFoundError:
+        return []
+    if completed.returncode != 0:
+        return []
+
+    changed: list[str] = []
+    for raw in completed.stdout.splitlines():
+        payload = raw[3:] if len(raw) >= 4 else ""
+        if not payload:
+            continue
+        if " -> " in payload:
+            payload = payload.split(" -> ", 1)[1]
+        changed.append(payload.strip().replace("\\", "/"))
+    return changed
+
+
+def split_frontmatter(text: str) -> tuple[list[str], list[str], list[str]]:
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return [], [], lines
+    for idx in range(1, len(lines)):
+        if lines[idx].strip() == "---":
+            return lines[: idx + 1], lines[idx + 1 :], lines
+    return [], [], lines
+
+
+def sync_markdown_frontmatter(
+    repo_root: Path,
+    *,
+    stand_value: str,
+    checks_value: str,
+) -> list[Path]:
+    changed = git_changed_files(repo_root)
+    md_candidates = [path for path in changed if path.lower().endswith(".md")]
+    updated: list[Path] = []
+
+    for rel in md_candidates:
+        file_path = (repo_root / rel).resolve()
+        if not file_path.exists() or not file_path.is_file():
+            continue
+        try:
+            raw_text = file_path.read_text(encoding=LOG_ENCODING)
+        except UnicodeDecodeError:
+            continue
+
+        fm_lines, body_lines, original_lines = split_frontmatter(raw_text)
+        if not fm_lines:
+            continue
+
+        has_stand = any(line.strip().lower().startswith("stand:") for line in fm_lines[1:-1])
+        has_checks = any(line.strip().lower().startswith("checks:") for line in fm_lines[1:-1])
+        if not (has_stand and has_checks):
+            continue
+
+        new_fm: list[str] = []
+        for line in fm_lines:
+            stripped = line.strip().lower()
+            if stripped.startswith("stand:"):
+                new_fm.append(f"stand: {stand_value}")
+                continue
+            if stripped.startswith("checks:"):
+                new_fm.append(f"checks: {checks_value}")
+                continue
+            new_fm.append(line)
+
+        new_lines = new_fm + body_lines
+        if new_lines == original_lines:
+            continue
+        file_path.write_text("\n".join(new_lines) + "\n", encoding=LOG_ENCODING)
+        updated.append(file_path)
+
+    return updated
 
 
 def resolve_repo_root(script_path: Path) -> Path:
@@ -460,6 +548,81 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, o
         )
         write_log(namingpolicy_log, f"FAIL: {reason}\n")
 
+    todo_index_sync_script = repo_root / "scripts" / "check_todo_index_sync.py"
+    if todo_index_sync_script.exists():
+        run_or_fail(
+            "todo-index-sync",
+            [str(python_exec), str(todo_index_sync_script), "--repo-root", str(repo_root)],
+            repo_root,
+            required=True,
+        )
+    else:
+        reason = "todo-index-sync skipped (script missing)"
+        todo_index_sync_log = logs_dir / "todo-index-sync.log"
+        results.append(
+            CheckResult(
+                tool="todo-index-sync",
+                status="FAIL",
+                exit_code=127,
+                duration_ms=0,
+                findings_count=1,
+                details_path=todo_index_sync_log,
+                notes=reason,
+                required=True,
+            )
+        )
+        write_log(todo_index_sync_log, f"FAIL: {reason}\n")
+
+    doc_freshness_script = repo_root / "scripts" / "check_doc_freshness.py"
+    if doc_freshness_script.exists():
+        run_or_fail(
+            "doc-freshness",
+            [str(python_exec), str(doc_freshness_script), "--repo-root", str(repo_root)],
+            repo_root,
+            required=True,
+        )
+    else:
+        reason = "doc-freshness skipped (script missing)"
+        doc_freshness_log = logs_dir / "doc-freshness.log"
+        results.append(
+            CheckResult(
+                tool="doc-freshness",
+                status="FAIL",
+                exit_code=127,
+                duration_ms=0,
+                findings_count=1,
+                details_path=doc_freshness_log,
+                notes=reason,
+                required=True,
+            )
+        )
+        write_log(doc_freshness_log, f"FAIL: {reason}\n")
+
+    logs_policy_script = repo_root / "scripts" / "check_logs_policy.py"
+    if logs_policy_script.exists():
+        run_or_fail(
+            "logs-policy",
+            [str(python_exec), str(logs_policy_script), "--repo-root", str(repo_root)],
+            repo_root,
+            required=True,
+        )
+    else:
+        reason = "logs-policy skipped (script missing)"
+        logs_policy_log = logs_dir / "logs-policy.log"
+        results.append(
+            CheckResult(
+                tool="logs-policy",
+                status="FAIL",
+                exit_code=127,
+                duration_ms=0,
+                findings_count=1,
+                details_path=logs_policy_log,
+                notes=reason,
+                required=True,
+            )
+        )
+        write_log(logs_policy_log, f"FAIL: {reason}\n")
+
     if args.with_sim_assets:
         sim_assets_script = repo_root / "scripts" / "check_sim_epoch_assets.py"
         if sim_assets_script.exists():
@@ -701,6 +864,10 @@ def build_summary(
         "markdownlint",
         "frontmatter",
         "path-portability",
+        "namingpolicy",
+        "todo-index-sync",
+        "doc-freshness",
+        "logs-policy",
         "sim-assets",
         "ruff",
         "black",
@@ -810,6 +977,15 @@ def build_argparser() -> argparse.ArgumentParser:
             "(scripts/check_sim_epoch_assets.py --allow-empty)."
         ),
     )
+    parser.add_argument(
+        "--sync-frontmatter",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help=(
+            "Synchronize frontmatter `stand` and `checks` for changed markdown files "
+            "that already contain both keys (default: enabled)."
+        ),
+    )
     return parser
 
 
@@ -819,6 +995,18 @@ def main() -> int:
     results, ctx = run_checks(args)
     summary, headline = build_summary(results, ctx)
     markdown_path, json_path = write_reports(summary, headline, ctx)
+    if args.sync_frontmatter:
+        timestamp = cast(dict[str, Any], summary["metadata"])["timestamp"]
+        checks_line = (
+            f"scripts/run_checks_and_report.py {headline}; "
+            f"report={markdown_path.relative_to(ctx['repo_root'])}"
+        )
+        updated_files = sync_markdown_frontmatter(
+            cast(Path, ctx["repo_root"]),
+            stand_value=str(timestamp),
+            checks_value=checks_line,
+        )
+        print(f"Frontmatter sync: updated_files={len(updated_files)}")
     print(f"Markdown report: {markdown_path}")
     print(f"JSON summary: {json_path}")
     exit_code = cast(dict[str, Any], summary["overall"])["exitcode"]

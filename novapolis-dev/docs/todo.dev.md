@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-27 06:06
-update: Donelog-Hygiene auf Wochenfenster umgesetzt (Current-Window aktiv, Historik ins Dev-Archiv ausgelagert).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "WORKSPACE_STATUS.md" "DONELOG.md" "novapolis-dev/docs/donelog.md" "novapolis-dev/docs/todo.dev.md" "novapolis-dev/docs/todo.index.md" "novapolis-dev/archive/docs/others/workspace-status.archive.pre-2026-02-20.md" "novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md" PASS (2026-02-27 00:06); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py "WORKSPACE_STATUS.md" "DONELOG.md" "novapolis-dev/docs/donelog.md" "novapolis-dev/docs/todo.dev.md" "novapolis-dev/docs/todo.index.md" "novapolis-dev/archive/docs/others/workspace-status.archive.pre-2026-02-20.md" "novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md" PASS (EXITCODE=0, 2026-02-27 00:06)
+stand: 2026-03-05 01:00
+update: Hygiene-Guardrails umgesetzt: TODO-Index-Sync-Check, Stand-Freshness-SLA-Check und Logs-Policy-Check in den Standardlauf integriert.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -19,20 +19,28 @@ Hinweis
 Offene Aufgaben (Dev)
 ---------------------
 
-- [ ] [Jetzt] Active-Surface-Index fuer `novapolis-dev/docs/**` erstellen (ACTIVE/REFERENCE/HISTORICAL + Owner + last_check).
+- [x] [Jetzt] Active-Surface-Index fuer `novapolis-dev/docs/**` erstellen (ACTIVE/REFERENCE/HISTORICAL + Owner + last_check).
   - Akzeptanzkriterium: Eine scanbare Uebersicht mit klarer Klassifikation aller aktiven Dev-Dokumente liegt vor.
-- [ ] [Jetzt] Truthfulness-Drift in `novapolis-dev/README.md` korrigieren (u. a. `integrations/` nicht mehr als Platzhalter; `roadmaps/` nur bei realem Verzeichnis).
+  - Evidenz: `novapolis-dev/docs/active-surface-index.md`.
+- [x] [Jetzt] Truthfulness-Drift in `novapolis-dev/README.md` korrigieren (u. a. `integrations/` nicht mehr als Platzhalter; `roadmaps/` nur bei realem Verzeichnis).
   - Akzeptanzkriterium: Strukturabschnitt beschreibt ausschliesslich den Iststand.
-- [ ] [Jetzt] `novapolis-dev/docs/specs/tts-exporter-coqui.md` auf Iststand nachziehen (Platzhalter-Narrativ entfernen, Implementierungsgrad explizit markieren).
+  - Evidenz: `novapolis-dev/README.md` (Struktur/Primary-Docs-Abschnitt).
+- [x] [Jetzt] `novapolis-dev/docs/specs/tts-exporter-coqui.md` auf Iststand nachziehen (Platzhalter-Narrativ entfernen, Implementierungsgrad explizit markieren).
   - Akzeptanzkriterium: Keine Widersprueche mehr zwischen Spec, Tasking und Modul-Iststand.
+  - Evidenz: `novapolis-dev/docs/specs/tts-exporter-coqui.md` (CLI Iststand + Task-Status).
 - [x] [Als naechstes] Donelog-Hygiene einfuehren: aktives Fenster definieren (Current-Window) und aeltere Bloecke sauber ins Historik-Archiv auslagern.
   - Akzeptanzkriterium: `novapolis-dev/docs/donelog.md` bleibt fuer operative Arbeit kurz und scanbar; Historie bleibt erhalten.
   - Evidenz: `novapolis-dev/docs/donelog.md` (Current-Window), `novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md` (Archivfenster).
-- [ ] [Als naechstes] Logs-Policy fuer `novapolis-dev/logs/` durchsetzen (Umgang mit `*.tmp.md` festlegen und konsistent umsetzen).
+- [x] [Als naechstes] Logs-Policy fuer `novapolis-dev/logs/` durchsetzen (Umgang mit `*.tmp.md` festlegen und konsistent umsetzen).
   - Akzeptanzkriterium: Keine policy-widrigen Rohlogs im aktiven Log-Pfad oder Policy explizit angepasst und dokumentiert.
-- [ ] [Als naechstes] Stand-Freshness-SLA festlegen (`ACTIVE <= 14 Tage`, `REFERENCE <= 60 Tage`) und als wiederkehrenden Check im Dev-Modul verankern.
+  - Evidenz: `scripts/check_logs_policy.py`, `novapolis-dev/logs/README.md`, Verschiebung nach `novapolis-dev/archive/quarantine/logs/`.
+- [x] [Als naechstes] Stand-Freshness-SLA festlegen (`ACTIVE <= 14 Tage`, `REFERENCE <= 60 Tage`) und als wiederkehrenden Check im Dev-Modul verankern.
   - Akzeptanzkriterium: Alle aktiven Dev-Dokumente haben frische `stand`-Werte oder dokumentierte Ausnahmen.
-- [ ] [Spaeter] TODO-Index-Sync automatisiert absichern (Check/Guard: bei Aenderung von `todo.*.md` muss `todo.index.md` im selben Lauf geaendert sein).
+  - Evidenz: `scripts/check_doc_freshness.py`, `novapolis-dev/docs/active-surface-index.md`, Integration in `scripts/run_checks_and_report.py`.
+- [x] [Spaeter] TODO-Index-Sync automatisiert absichern (Check/Guard: bei Aenderung von `todo.*.md` muss `todo.index.md` im selben Lauf geaendert sein).
   - Akzeptanzkriterium: Drift zwischen Modul-Boards und `todo.index.md` wird technisch verhindert statt nur manuell entdeckt.
+  - Evidenz: `scripts/check_todo_index_sync.py`, Integration in `scripts/run_checks_and_report.py`.
 - [ ] [Spaeter] Woechentliche Hygiene-Cadence etablieren (Drift-Scan, Donelog-Cleanup, TODO/Index-Abgleich) inkl. KPI-Tracking.
   - Akzeptanzkriterium: Fester 60-Minuten-Wochenslot mit dokumentierten KPIs (`todo_index_drift`, `active_docs_stale`, `placeholder_conflicts`, `logs_policy_violations`).
+
+

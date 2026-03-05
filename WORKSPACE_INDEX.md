@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-27 06:06
-update: Eval-Dataset-Abschnitt auf den aktuellen Dateibestand (neutral/rpg + quality_de-Band) korrigiert; obsolete Dateiverweise entfernt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'WORKSPACE_INDEX.md' 'DONELOG.md' 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-26 22:02); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py 'WORKSPACE_INDEX.md' 'DONELOG.md' 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-26 22:02)
+stand: 2026-03-05 01:00
+update: Root-Zusatzbestand TTS entfernt; Index auf aktuellen Root-Iststand synchronisiert.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -23,13 +23,6 @@ Geplante Vereinheitlichung (Phase 2):
 - Vollständige Entfernung historischer Duplikate nach Abschluss der README-Entscheidungsliste.
 
 Status: Phase 1 (Redirect-Hinweis) aktiv; Entscheidungsliste erstellt (`novapolis-dev/docs/readme_decisions.md`).
-
-Root-Zusatzbestand (extern)
----------------------------
-
-- `TTS/` liegt als externes Coqui-TTS-Upstream-Mirror im Repo-Root vor (eigene `.git`-Metadaten, eigene CI/Tests/Docs).
-- Einordnung: Referenz-/Vendor-Bestand, nicht Teil der kanonischen Novapolis-SSOT.
-- Pflegeprinzip: nur bei explizitem Auftrag mutieren; Upstream-Synchronisation getrennt vom Novapolis-Root-Workflow behandeln.
 
 Vollständiger Index aller Dateien im Agent-Verzeichnis
 ------------------------------------------------------
@@ -261,5 +254,7 @@ Hinweise:
   `novapolis_agent/app/prompt/system.txt` wurde entfernt (Altlast, nicht produktiv genutzt).
 - Eval-Daten bitte ausschließlich unter [`novapolis_agent/eval/datasets/...`](novapolis_agent/eval/datasets/) pflegen. Zusätzliche
   Dateien im Ordner `eval/` sind dokumentiert.
+
+
 
 

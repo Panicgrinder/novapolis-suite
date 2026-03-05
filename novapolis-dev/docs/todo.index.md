@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-04 00:28
-update: Root-Board um priorisierte Standalone-Beta-Exit-Checkliste erweitert und Index-Hinweis synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-04 00:30); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'todo.root.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-04 00:30)
+stand: 2026-03-05 01:00
+update: Dev-Hygiene-Guards (TODO-Index, Freshness, Logs-Policy) aktiviert und Open-Counts synchronisiert.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,10 +12,10 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 3)
-- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 7)
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 1)
+- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 1)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 2)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
 
 - Statushinweis Dev: `docs/todo.dev.md` enthaelt jetzt einen priorisierten Hygiene-Sprint (Truthfulness, Donelog-/Log-Hygiene, Freshness-SLA, Guardrails).
 - Statushinweis Sim: `docs/todo.sim.md` fuehrt offene Punkte jetzt kanonisch nach Zugehoerigkeit (Hub-Core, RP-Panel, Agent Studio, Qualitaet/Nachweis).
@@ -58,6 +58,9 @@ TODO-Index (Novapolis-Dev)
 - Statushinweis Sim v4.6: RP-Panel-Restpunkt abgeschlossen - RP-Submenu steuert `Hour +1`, `Auto-Advance`, `Replay-Seed` inkl. eigener `RP_*`-Runtime-Events.
 - Statushinweis Sim v4.7: Vollstaendig erledigter Block `Neuordnung: C) Agent-Modul im Hub (neu)` aus `docs/todo.sim.md` nach `novapolis-dev/archive/todo.sim.archive.md` ueberfuehrt (`archived_at: 2026-03-04 00:20`).
 - Statushinweis Root/Beta v0: `todo.root.md` enthaelt jetzt eine geordnete Standalone-Beta-Exit-Checkliste mit Blockern [1]-[7] und Optionalpunkten [8]-[12].
+- Statushinweis Beta v0.1: Blockerpakete Dev/RP/Sim strukturell nachgezogen (`todo.dev` Jetzt-Block abgeschlossen, `todo.rp` P0-Jetzt abgeschlossen, `todo.sim` auf `offen:0`).
+- Statushinweis Beta v1.0: Root-Blocker B1-B7 und `Definition of Ready` in `todo.root.md` auf erledigt gesetzt; Referenzlauf `checks_report_20260304_004318.md` ist gruen.
+- Statushinweis Beta v1.1: Optional-Guardrails O8/O9/O10/O12 umgesetzt (`todo-index-sync`, `doc-freshness`, `logs-policy`, Beta-Tagging-Konvention) und in `Checks: full` verdrahtet.
 
 Hinweise (Index)
 ----------------
@@ -70,6 +73,8 @@ Verweise
 
 - Root-Übersicht: `todo.root.md` (Kurzüberblick, Meta-Aufgaben, Links)
 - DONELOG-Zentralstruktur: `novapolis-dev/archive/docs/donelogs/INDEX.md`
+
+
 
 
 
