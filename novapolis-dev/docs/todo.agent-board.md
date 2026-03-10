@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 14:32
-update: Portable Ausfuehrungssnippets fuer Drift-/LoRA-Baseline-Laeufe auf `${workspaceFolder}` und relative Zielpfade umgestellt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' PASS (2026-03-03 14:14); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' PASS (EXITCODE=0, 2026-03-03 14:14)
+stand: 2026-03-10 13:14
+update: Dritten Analysepunkt umgesetzt: Legacy-Shim-Inventar/Guard eingefuehrt und ein Shim-Paket technisch auf kanonischen Shim entkoppelt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 12:59); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 12:59)
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -343,4 +343,55 @@ Masterplan: KI-End-to-End in 10 grossen Schritten
   Evidenz: `ruff check .` + `black --check .` grün, `pyright -p pyrightconfig.json` + `mypy --config-file mypy.ini app scripts` grün, `pytest -q` grün, `scripts/run_pytest_coverage.py --fail-under 80` Exitcode 0 (alles in CI-identischem `novapolis_agent`-CWD mit `.venv`).
 10. [x] Betriebsfaehigkeit dokumentieren: README/Runbook/Tasks auf wahrheitsgetreuen Ist-Stand bringen (kein Claim ohne Evidenz), Postflight-Receipts und DONELOG sauber pflegen.
   Evidenz: `novapolis_agent/README.md` (Ist-Stand + Gate-Reihenfolge), `novapolis_agent/docs/runbook.md` (Betriebs-/Gate-Runbook), `.vscode/tasks.json` (`TTS: export (Coqui->OGG)` nutzt `tts_export_coqui.py --help`), `novapolis_agent/docs/DONELOG.txt` + `novapolis-dev/docs/donelog.md` (laufende Receipts/Logs).
+
+Neue Aufgaben - Agent-Modul Analyse (2026-03-10)
+-------------------------------------------------
+
+- [x] [Jetzt] Runbook-Portabilitaet fuer Sim-Headless-Aufruf herstellen (kein hostgebundener Godot-Pfad im aktiven Runbook).
+  - Ziel: Der Sim-Pruefschritt im Agent-Runbook muss auf unterschiedlichen Dev-Maschinen ohne lokale Pfadannahmen nutzbar sein.
+  - Akzeptanzkriterien:
+    1) `novapolis_agent/docs/runbook.md` verwendet nur portable Aufrufmuster (repo-relativ oder `${workspaceFolder}`),
+    2) die vorhandene absolute Godot-Binärpfad-Referenz ist entfernt,
+    3) ein Windows-Beispiel bleibt direkt ausfuehrbar und klar dokumentiert.
+  - Evidenz: `novapolis_agent/docs/runbook.md` (portable `GODOT_BIN`/`godot4`-Variante ohne hostgebundene Pfade), `scripts/check_portable_paths.py`.
+
+- [x] [Jetzt] Abhaengigkeitsprofil fuer optionale Agent-Tools formalisieren (Base/Dev/Train/Optional-CLI).
+  - Ziel: Paketdrift vermeiden und reproduzierbare Installprofile fuer Betrieb, QA und Spezialskripte bereitstellen.
+  - Akzeptanzkriterien:
+    1) dokumentierte Profilmatrix (`runtime`, `dev`, `train`, `optional-tools`) mit klaren Paketzuordnungen,
+    2) optional benoetigte Pakete (`openai`, `rich`, `pypdf`) sind explizit als optional markiert,
+    3) ein leichter Validierungscheck warnt bei Importen ohne passende Deklaration.
+  - Evidenz: `novapolis_agent/requirements/optional-tools.txt`, `novapolis_agent/scripts/check_dependency_profiles.py`, `novapolis_agent/tests/scripts/test_check_dependency_profiles.py`, `novapolis_agent/README.md`, `novapolis_agent/docs/runbook.md`.
+
+- [x] [Als naechstes] Legacy-/Kompatibilitaetsschicht im Agent-Modul systematisch abbauen.
+  - Ziel: Wartungskosten durch doppelte Legacy-Importpfade und Archiv-Shims kontrolliert reduzieren.
+  - Akzeptanzkriterien:
+    1) Inventarliste aller aktiven Legacy-Shims inkl. verbleibender Call-Sites,
+    2) Migrationsplan in Etappen (Warnphase -> Umstellung -> Entfernung) mit Testabdeckung,
+    3) mindestens ein Shim-Paket technisch entkoppelt, ohne Bestandsimporte ungeprueft zu brechen.
+  - Evidenz: `novapolis_agent/docs/legacy-shim-inventory.md`, `novapolis_agent/scripts/check_legacy_shim_imports.py`, `novapolis_agent/tests/scripts/test_check_legacy_shim_imports.py`, `novapolis_agent/novapolis_agent/app/utils/examples/__init__.py`, `novapolis_agent/novapolis_agent/app/utils/examples/logging_example.py`, `novapolis_agent/novapolis_agent/app/utils/examples/summary_example.py`, `novapolis_agent/tests/test_module_exports.py`.
+
+- [ ] [Als naechstes] Test-Determinismus bei datenabhaengigen Smokes staerken.
+  - Ziel: Smokes sollen in frischer Umgebung nicht wegen fehlender Vorartefakte skippen.
+  - Akzeptanzkriterien:
+    1) datenabhaengige Smokes erhalten reproduzierbare Testfixturen oder Testdaten-Builder,
+    2) `pytest.skip` wegen fehlender Exportdateien wird durch deterministische Vorbereitung ersetzt,
+    3) betroffene Skript-Smokes laufen im CI-aehnlichen Kontext ohne manuellen Vorlauf.
+  - Evidenz: `novapolis_agent/tests/scripts/test_prepare_pack_smoke.py` (aktueller Skip bei fehlender Exportdatei), `novapolis_agent/tests/test_batch1_unit.py`.
+
+- [ ] [Spaeter] Artefakt-Lifecycle fuer Eval/Training automatisieren (Retention + Dry-Run + Report).
+  - Ziel: Laufende Eval-/Trainingsartefakte planbar bereinigen, ohne wichtige Referenzlaeufe zu verlieren.
+  - Akzeptanzkriterien:
+    1) ein Cleanup-Skript mit `--dry-run` und klaren Keep-Regeln (`latest N`, `named baselines`),
+    2) Ausgabe als maschinenlesbarer Report (entfernt/behalten/gespart),
+    3) VS-Code-Task fuer regelmaessige Ausfuehrung vorhanden.
+  - Evidenz: `novapolis_agent/eval/results/`, `novapolis_agent/outputs/`, `.vscode/tasks.json`.
+
+- [ ] [Spaeter] Eval-Marathon KPI-Rueckkopplung automatisieren (Board-/DONELOG-ready).
+  - Ziel: Marathon-Laeufe sollen automatisch priorisierbare Follow-ups erzeugen statt rein manueller Sichtung.
+  - Akzeptanzkriterien:
+    1) Parser fuer `_meta.failed_checks`/Pass-Rate erstellt strukturierte KPI-Zusammenfassung,
+    2) Schwellenmapping erzeugt Einstufung (`Blocker`/`Warnung`/`Beobachtung`),
+    3) generierter Kurzreport ist direkt fuer Board-Update und DONELOG nutzbar.
+  - Evidenz: `novapolis_agent/eval/results/results_*_marathon*.jsonl`, `novapolis_agent/docs/runbook.md` (Marathon/KPI-Regeln), `.vscode/tasks.json` (`Eval: suite marathon (~60m, asgi, loud)`).
 

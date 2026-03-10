@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-02 23:30
-update: Kanonischen Sim-Pruefablauf ergaenzt (API-smoke -> Godot-headless -> Offline-Asset-Check -> optional Eval) und Abbruchkriterium dokumentiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-02 23:06); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-02 23:06)
+stand: 2026-03-10 13:14
+update: Legacy-Shim-Guard als optionalen Betriebscheck ergänzt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 12:59); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 12:59)
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -68,6 +68,26 @@ Set-Location ..
 .\.venv\Scripts\python.exe scripts/run_pytest_coverage.py --fail-under 80
 ```
 
+Optional-Dependency-Profil (Spezial-CLIs)
+-----------------------------------------
+
+Leichter Konsistenzcheck fuer optionale Tool-Abhaengigkeiten (`openai`, `rich`, `pypdf`):
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe novapolis_agent/scripts/check_dependency_profiles.py
+```
+
+Legacy-Shim-Guard (optional)
+----------------------------
+
+Prueft, ob archivierte Legacy-Module ungewollt in produktiven Pfaden importiert werden:
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe novapolis_agent/scripts/check_legacy_shim_imports.py --strict
+```
+
 Kanonischer Sim-Pruefablauf (kurz, in Reihenfolge)
 --------------------------------------------------
 
@@ -83,7 +103,16 @@ Set-Location ..
 2. Godot-headless Scene-Load:
 
 ```powershell
-& 'f:\Downloads\Godot\Godot_v4.6.1-stable_win64.exe' --headless --path '.\novapolis-sim' --quit --scene res://Main.tscn
+$godot = if ($env:GODOT_BIN) { $env:GODOT_BIN } else { 'godot4' }
+& $godot --headless --path '.\novapolis-sim' --quit --scene res://Main.tscn
+```
+
+Hinweis (Windows):
+
+- Wenn `godot4` nicht im PATH liegt, vor dem Aufruf einmalig setzen:
+
+```powershell
+$env:GODOT_BIN = 'C:/Tools/Godot/Godot_v4.6.1-stable_win64.exe'
 ```
 
 3. Offline-Asset-Check (Epoch/Audio + Slot-Konsistenz):

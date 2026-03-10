@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-27 06:06
-update: Datensatz-/Training-Tasklabels fuer VS Code explizit dokumentiert und mit Board/Runbook synchronisiert.
-checks: npx --yes markdownlint-cli2 --config F:/VS-Code-Workspace/Main/.markdownlint-cli2.jsonc "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (2026-02-27 05:31); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe F:/VS-Code-Workspace/Main/scripts/check_frontmatter.py "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.agent-board.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/todo.index.md" "F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" "F:/VS-Code-Workspace/Main/novapolis_agent/README.md" "F:/VS-Code-Workspace/Main/novapolis_agent/docs/runbook.md" PASS (EXITCODE=0, 2026-02-27 05:31)
+stand: 2026-03-10 13:14
+update: Abhaengigkeitsprofile fuer Runtime/Dev/Train/Optional-Tools explizit dokumentiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 12:49); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 12:49)
 ---
 
 Novapolis Agent
@@ -84,6 +84,22 @@ Einrichtung
    pip install -r requirements/dev.txt
    # Optional: Trainings-Extras
    pip install -r requirements/train.txt
+   # Optional: CLI-Tools (OpenAI/Rich/PDF)
+   pip install -r requirements/optional-tools.txt
+```
+
+Abhaengigkeitsprofile (kanonisch)
+---------------------------------
+
+- `runtime`: `requirements/base.txt` (API-Betrieb)
+- `dev`: `requirements/dev.txt` (Tests/Typen/Lint)
+- `train`: `requirements/train.txt` (LoRA/Training)
+- `optional-tools`: `requirements/optional-tools.txt` (nur Spezial-CLIs, z. B. OpenAI-FT-Status, Rich-CLI-Output, PDF-Extraction)
+
+Profil-Check (leichtgewichtig):
+
+```powershell
+..\.venv\Scripts\python.exe scripts\check_dependency_profiles.py
 ```
 
 Oder manuell:

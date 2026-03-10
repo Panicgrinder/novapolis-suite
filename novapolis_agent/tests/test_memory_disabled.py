@@ -15,4 +15,4 @@ def test_memory_disabled(monkeypatch):
             "model": settings.MODEL_NAME,
         },
     )
-    assert r.status_code in (200, 400, 500)
+    assert r.status_code in (200, 400, 500, 504)

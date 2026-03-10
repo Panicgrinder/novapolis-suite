@@ -1,10 +1,12 @@
 ---
-stand: 2026-03-05 01:00
+stand: 2026-03-10 13:14
 update: Optionalpaket O8/O9/O10/O12 umgesetzt: neue Governance-Checks aktiv, Logs-Policy gehaertet und Beta-Tagging standardisiert.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_045225.md
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-07 09:24: Fortsetzung vom letzten Stand abgeschlossen: Der verbleibende `path-portability`-Blocker in `.vscode/settings.json` wurde beseitigt, indem `godotTools.editorPath.godot4` von einem hostgebundenen absoluten Pfad auf `${env:GODOT4_PATH}` umgestellt wurde. Ziel ist ein portabler Workspace-Standard ohne Laufwerksbindung in aktiven Settings.
 
 - 2026-03-04 22:57: Batch-1-Cleanup fuer aktive Frontmatter-Pendenzen abgeschlossen. In 19 aktiven Markdown-Dateien wurden `checks: pending|PENDING`-Marker entfernt (u. a. RP-Factions, `novapolis-rp/database-rp/06-scenes/README.md`, `novapolis-dev/docs/process/abschluss-routine.ssot.md`). Regex-Nachweis nach der Mutation: 0 Treffer auf `^checks:\s*(pending|PENDING)\s*$`. Konsolidierung ueber `scripts/run_checks_and_report.py` lief mit Frontmatter-Sync; Gesamtstatus blieb wegen bekanntem `path-portability`-Gate non-green (3 Findings), alle uebrigen Gates PASS. Report: `.tmp/results/reports/checks_report_20260304_225421.md`.
 

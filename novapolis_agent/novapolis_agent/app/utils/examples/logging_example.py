@@ -1,7 +1,6 @@
-"""ARCHIVED COMPAT-SHIM: novapolis_agent/app/utils/examples/logging_example
+"""Kompatibilitaetsschicht fuer `novapolis_agent.app.utils.examples.logging_example`.
 
-Compatibility shim archived — legacy example moved to archive.
-Importing this shim will raise ModuleNotFoundError.
+Delegiert auf den kanonischen Top-Level-Shim.
 """
 
-raise ModuleNotFoundError("compat shim archived; see novapolis_agent/archive/app/utils/examples")
+from app.utils.examples.logging_example import *  # noqa: F403

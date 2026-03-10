@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-05 01:00
-update: Optionalpaket O8/O9/O10/O12 umgesetzt (TODO-Index-Guard, Freshness-SLA, Logs-Policy, Beta-Tagging).
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-10 13:14
+update: Dritten Agent-Analysepunkts umgesetzt (Legacy-Shim-Governance) und Board/Index synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 12:59); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 12:59)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -17,6 +17,43 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Agent: Analysepunkt 3 umgesetzt (Legacy-Shim-Governance) (2026-03-10 12:54)
+------------------------------------------------------------------------------
+
+- Inventar eingefuehrt: `novapolis_agent/docs/legacy-shim-inventory.md` dokumentiert aktive archivierte Shim-Pfade und erlaubte Importstellen.
+- Guard umgesetzt: `novapolis_agent/scripts/check_legacy_shim_imports.py` + Unit-Test `novapolis_agent/tests/scripts/test_check_legacy_shim_imports.py` fuer fruehe Drift-Erkennung.
+- Technische Entkopplung: `novapolis_agent.app.utils.examples` delegiert nun auf den kanonischen Top-Level-Shim (`app.utils.examples`) statt eigener duplizierter Archivlogik.
+- Board/Index-Sync: `novapolis-dev/docs/todo.agent-board.md` Punkt Legacy/Kompatibilitaet auf erledigt, `novapolis-dev/docs/todo.index.md` Agent `4 -> 3` (`Index v1.6`).
+
+Dev/Agent: Analysepunkt 2 umgesetzt (Dependency-Profil) (2026-03-10 12:47)
+-------------------------------------------------------------------------
+
+- `novapolis_agent/requirements/optional-tools.txt` als kanonisches Optional-CLI-Profil eingefuehrt (`openai`, `rich`, `pypdf`).
+- `novapolis_agent/scripts/check_dependency_profiles.py` + Test `novapolis_agent/tests/scripts/test_check_dependency_profiles.py` ergaenzt (leichter Warn-Check fuer Profildrift).
+- Doku nachgezogen in `novapolis_agent/README.md` und `novapolis_agent/docs/runbook.md` (Profilmatrix + Check-Aufruf).
+- `novapolis-dev/docs/todo.agent-board.md` Punkt `Abhaengigkeitsprofil` auf erledigt gesetzt; `novapolis-dev/docs/todo.index.md` Agent-Open-Count `5 -> 4`.
+
+Dev/Agent: Analysepunkt 1 umgesetzt (Runbook-Portabilitaet) (2026-03-10 12:41)
+-----------------------------------------------------------------------------
+
+- `novapolis_agent/docs/runbook.md`: hostgebundenen Godot-Aufruf entfernt und auf portable Variante mit `GODOT_BIN`/`godot4` umgestellt.
+- `novapolis-dev/docs/todo.agent-board.md`: Punkt `Runbook-Portabilitaet` auf erledigt gesetzt.
+- `novapolis-dev/docs/todo.index.md`: Agent-Open-Count auf `5` reduziert und Statushinweis `Index v1.4` ergänzt.
+
+Dev/Agent: Tiefenanalyse in umsetzbaren Backlog ueberfuehrt (2026-03-10 12:38)
+-------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md`: Neuer Analyse-Block mit sechs offenen, priorisierten Agent-Aufgaben eingefuegt (`Jetzt/Als naechstes/Spaeter`) inklusive Akzeptanzkriterien und Evidenzpfaden.
+- Schwerpunktfelder: Runbook-Portabilitaet, Abhaengigkeitsprofilierung (inkl. optionaler Tool-Pakete), Legacy-Shim-Abbau, Testdeterminismus, Artefakt-Retention, Marathon-KPI-Automation.
+- `novapolis-dev/docs/todo.index.md`: Open-Count fuer Agent auf `6` nachgezogen und Statushinweis `Index v1.3` ergaenzt.
+
+Dev/Docs: TODO-Index Open-Counts mit Boards synchronisiert (2026-03-10 12:30)
+-------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.index.md`: Open-Counts korrigiert auf RP `5` und Sim `1` (vorher RP `1`, Sim `0`).
+- Evidenzbasis: offene Checkboxen in `novapolis-dev/docs/todo.rp.md` und `novapolis-dev/docs/todo.sim.md` gegen den aktiven Index abgeglichen.
+- Statushinweis `Index v1.2` im TODO-Index ergänzt, damit die Korrektur nachvollziehbar dokumentiert ist.
 
 Dev/Docs: Batch-1 Cleanup `checks: pending` abgeschlossen (2026-03-04 22:57)
 -----------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-05 01:00
-update: Dev-Hygiene-Guards (TODO-Index, Freshness, Logs-Policy) aktiviert und Open-Counts synchronisiert.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-10 13:14
+update: Agent-Open-Count nach Umsetzung des dritten Analysepunkts synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 12:59); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 12:59)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,10 +12,16 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 1)
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 5)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 1)
-- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 3)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 1)
+
+- Statushinweis Index v1.2: Open-Count-Drift bereinigt - RP `1 -> 5` und Sim `0 -> 1` anhand aktiver Checkboxen in den Modul-Boards synchronisiert.
+- Statushinweis Index v1.3: Agent-Backlog nach Tiefenanalyse ergänzt - Open-Count Agent `0 -> 6` (Portabilitaet, Abhaengigkeiten, Legacy, Testdeterminismus, Artefakt-Lifecycle, Marathon-KPI-Automation).
+- Statushinweis Index v1.4: Erster Agent-Analysepunkt abgeschlossen - Runbook-Portabilitaet umgesetzt, Open-Count Agent `6 -> 5`.
+- Statushinweis Index v1.5: Zweiter Agent-Analysepunkt abgeschlossen - Dependency-Profil formalisiert, Open-Count Agent `5 -> 4`.
+- Statushinweis Index v1.6: Dritter Agent-Analysepunkt abgeschlossen - Legacy-Shim-Inventar/Guard plus technische Entkopplung von `novapolis_agent.app.utils.examples`, Open-Count Agent `4 -> 3`.
 
 - Statushinweis Dev: `docs/todo.dev.md` enthaelt jetzt einen priorisierten Hygiene-Sprint (Truthfulness, Donelog-/Log-Hygiene, Freshness-SLA, Guardrails).
 - Statushinweis Sim: `docs/todo.sim.md` fuehrt offene Punkte jetzt kanonisch nach Zugehoerigkeit (Hub-Core, RP-Panel, Agent Studio, Qualitaet/Nachweis).

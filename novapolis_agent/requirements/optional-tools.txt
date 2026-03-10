@@ -1,0 +1,7 @@
+# Optionale CLI-/Tool-Abhaengigkeiten (nicht fuer Runtime/Dev/Train erforderlich)
+# Installation bei Bedarf:
+#   pip install -r novapolis_agent/requirements/optional-tools.txt
+
+openai>=1.0.0
+rich>=13.0.0
+pypdf>=5.0.0

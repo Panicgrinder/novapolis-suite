@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 00:54
-update: Restliche Import-/Monkeypatch-Kompatibilitaet nachgezogen; Full-Suite fuer novapolis_agent/tests wieder gruen.
-checks: pytest -q novapolis_agent/tests PASS (407/407, 2026-03-03 00:53)
+stand: 2026-03-10 12:54
+update: Legacy-Shim-Governance erweitert (Inventar+Guard) und `novapolis_agent.app.utils.examples` auf kanonischen Shim entkoppelt.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 12:59); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 12:59)
 ---
 
 
@@ -23,6 +23,10 @@ DONELOG – Abgeschlossene Arbeiten
 =================================
 
 
+2026-03-10 12:54 | Copilot | Legacy-Shim-Governance umgesetzt: Inventar `docs/legacy-shim-inventory.md` erstellt, Guard `scripts/check_legacy_shim_imports.py` + Unit-Test hinzugefuegt und das Shim-Paket `novapolis_agent.app.utils.examples` technisch auf den kanonischen Top-Level-Shim (`app.utils.examples`) entkoppelt.
+2026-03-10 12:47 | Copilot | Optionales Dependency-Profil formalisiert: `requirements/optional-tools.txt` eingefuehrt (`openai`, `rich`, `pypdf`), leichter Konsistenzcheck `scripts/check_dependency_profiles.py` plus Unit-Test hinzugefuegt und Doku in `README.md`/`docs/runbook.md` mit Profilmatrix und Check-Aufruf nachgezogen.
+2026-03-10 12:41 | Copilot | Runbook-Portabilitaet verbessert: im kanonischen Sim-Pruefablauf wurde der hostgebundene Godot-Pfad durch eine portable Variante ersetzt (`GODOT_BIN` oder Fallback `godot4`), inklusive klarer Windows-Hinweis fuer lokale Binaerpfadsetzung.
+2026-03-10 04:51 | Copilot | Stabilisierung nach Timeout-Contract: `tests/test_memory_disabled.py` akzeptiert jetzt zusaetzlich HTTP `504` fuer den legitimen `/chat`-Timeout-Pfad; damit ist die Statuscode-Whitelist wieder konsistent zur API-Implementierung in `app/main.py`.
 2026-03-03 14:14 | Copilot | Qualitaetsstabilisierung fuer den 1-5-Lauf abgeschlossen: `novapolis_agent/.coveragerc` um nicht-unit-testbare Orchestrierungs-/Wrapper-Skripte im Coverage-Omit erweitert (u. a. `eval_drift_report.py`, `latest_eval_summary.py`, `run_sim_server.py`, `system_snapshot.py`, `tts_export_coqui.py`), dazu Lint/Fmt-Nachzug in `novapolis_agent/scripts/train_lora.py` und `novapolis_agent/novapolis_agent/app/core/content_management.py`; Ergebnis im konsolidierten Full-Check: Coverage/Pytest PASS.
 2026-03-03 01:01 | Copilot | Pylance-Warnung `reportUnsupportedDunderAll` im Shim `novapolis_agent/novapolis_agent/app/core/content_management.py` behoben: dynamisches `__all__` durch statische Literal-Liste ersetzt; Exportverhalten bleibt konsistent und IDE-Symbolauflistung stabil.
 2026-03-03 00:58 | Copilot | Pylance-Typdiagnose im Shim `novapolis_agent/novapolis_agent/app/core/content_management.py` behoben: Stern-Import entfernt, Exporte explizit aus `_impl.__all__` aufgebaut und `settings` als `Any`-Alias gesetzt; verhindert Selbstreferenz-Fehler (`Type alias \"settings\" cannot use itself in its definition`) bei unveraenderter Laufzeitwirkung.
