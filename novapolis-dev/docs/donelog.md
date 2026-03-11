@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-11 04:45
+stand: 2026-03-11 04:46
 update: Active-Surface im Dev-Hub auf operativen Current-Window-Modus reduziert; Logrollen und Archivpfad konsolidiert.
 checks: pending (laufender Umbau)
 ---
@@ -34,6 +34,13 @@ Dev/Docs: Informationsarchitektur-Runde v2 (2026-03-11 04:27)
 - `scripts/check_todo_index_sync.py` erweitert: Open-Count-Konsistenz, Widerspruchserkennung (`keine offenen` bei offenen Checkboxen) und Diagnoseausgaben.
 - Archiv-/Log-Matrix in Root-`README.md` und `novapolis-dev/README.md` vereinheitlicht.
 - Repo-Standards ergaenzt: `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS`, `CHANGELOG.md`, `docs/adr/README.md`.
+
+Dev/Docs: Root-DONELOG auf Summary-Ebene normalisiert (2026-03-11 04:46)
+-------------------------------------------------------------------------
+
+- `DONELOG.md` wurde auf einen bewusst kurzen Root-Summary-/Release-Log umgestellt.
+- Detailhistorie bleibt im Archivpfad `novapolis-dev/archive/docs/donelogs/donelog_root.md` erhalten.
+- Ziel: niedrigere kognitive Last auf Root-Ebene bei unveraenderter Nachvollziehbarkeit.
 
 Archivhinweis
 -------------
