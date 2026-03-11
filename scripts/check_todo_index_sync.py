@@ -41,6 +41,11 @@ INDEX_KEYWORDS = {
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Check TODO index sync policy")
     parser.add_argument("--repo-root", default=".", help="Repository root path")
+    parser.add_argument(
+        "--write-index-meta",
+        action="store_true",
+        help="Aktualisiert Open-Counts und Board-Metadaten in todo.index.md automatisch.",
+    )
     return parser.parse_args()
 
 
@@ -128,6 +133,90 @@ def latest_change_timestamp(repo_root: Path, rel_path: str) -> str:
     return value or "unknown"
 
 
+def latest_change_date(ts_value: str) -> str:
+    if ts_value == "unknown":
+        return "unknown"
+    return ts_value.split(" ", 1)[0]
+
+
+def _replace_open_count_line(text: str, marker: str, count: int) -> str:
+    pattern = re.compile(rf"({re.escape(marker)}.*?\(offen:\s*)\d+(\))")
+    return pattern.sub(rf"\g<1>{count}\g<2>", text, count=1)
+
+
+def _replace_section(text: str, section_title: str, next_title: str, new_block: str) -> str:
+    start_marker = f"{section_title}\n"
+    end_marker = f"\n{next_title}\n"
+    start_idx = text.find(start_marker)
+    end_idx = text.find(end_marker)
+    if start_idx == -1 or end_idx == -1 or end_idx <= start_idx:
+        return text
+    return text[:start_idx] + new_block + text[end_idx:]
+
+
+def _sanitize_table_cell(value: str) -> str:
+    return value.replace("|", "/").replace("\n", " ").strip()
+
+
+def write_index_metadata(
+    index_path: Path,
+    board_stats: dict[str, dict[str, str | int | bool]],
+) -> bool:
+    text = read_text(index_path)
+
+    text = _replace_open_count_line(text, "- RP-Module:", int(board_stats["rp"]["open_count"]))
+    text = _replace_open_count_line(
+        text, "- Dev-Module:", int(board_stats["dev"]["open_count"])
+    )
+    text = _replace_open_count_line(
+        text, "- Agent-Module:", int(board_stats["agent"]["open_count"])
+    )
+    text = _replace_open_count_line(
+        text, "- Sim-Module:", int(board_stats["sim"]["open_count"])
+    )
+
+    table_lines = [
+        "Board-Metadaten (automationsrelevant)",
+        "-------------------------------------",
+        "",
+        "| Board | letzte Aenderung | aeltester offener Punkt | Widerspruch \"keine offenen\" |",
+        "| --- | --- | --- | --- |",
+    ]
+
+    ordered = [
+        ("dev", "Dev (`docs/todo.dev.md`)"),
+        ("rp", "RP (`docs/todo.rp.md`)"),
+        ("agent", "Agent (`docs/todo.agent-board.md`)"),
+        ("sim", "Sim (`docs/todo.sim.md`)"),
+    ]
+    for key, label in ordered:
+        stats = board_stats[key]
+        latest_date = _sanitize_table_cell(str(stats["latest_change_date"]))
+        open_count = int(stats["open_count"])
+        if open_count == 0:
+            oldest_open = "keiner (offen: 0)"
+        else:
+            oldest_open = _sanitize_table_cell(str(stats["oldest_open"]))
+        contradiction = "ja" if bool(stats["contradiction"]) else "nein"
+        table_lines.append(
+            f"| {label} | {latest_date} | {oldest_open} | {contradiction} |"
+        )
+
+    new_block = "\n".join(table_lines) + "\n\n"
+    updated = _replace_section(
+        text,
+        "Board-Metadaten (automationsrelevant)",
+        "Hinweise (Index)",
+        new_block,
+    )
+
+    if updated == text:
+        return False
+
+    index_path.write_text(updated, encoding="utf-8")
+    return True
+
+
 def main() -> int:
     args = parse_args()
     repo_root = Path(args.repo_root).resolve()
@@ -157,6 +246,7 @@ def main() -> int:
     index_counts = parse_index_counts(index_text)
 
     diagnostics_fail = False
+    board_stats: dict[str, dict[str, str | int | bool]] = {}
     for board_path, key in BOARD_LABELS.items():
         board_file = repo_root / board_path
         if not board_file.exists():
@@ -169,9 +259,18 @@ def main() -> int:
         contradiction = has_contradiction(board_text, open_count)
         oldest_open = oldest_open_item(board_text)
         latest_change = latest_change_timestamp(repo_root, board_path)
+        latest_date = latest_change_date(latest_change)
 
         print(f"BOARD|{key}|open={open_count}|index={index_count}")
         print(f"BOARD_META|{key}|latest_change={latest_change}|oldest_open={oldest_open}")
+
+        board_stats[key] = {
+            "open_count": open_count,
+            "index_count": index_count if index_count is not None else -1,
+            "contradiction": contradiction,
+            "oldest_open": oldest_open,
+            "latest_change_date": latest_date,
+        }
 
         if contradiction:
             diagnostics_fail = True
@@ -189,6 +288,19 @@ def main() -> int:
             print(
                 f"FAIL: count mismatch for {board_path}: index={index_count} actual_open={open_count}"
             )
+
+    if args.write_index_meta and board_stats:
+        wrote = write_index_metadata(index_path, board_stats)
+        if wrote:
+            print("INFO: todo.index.md Open-Counts und Board-Metadaten aktualisiert")
+            index_changed = True
+            # Re-parse counts after write for final consistency check.
+            index_text = read_text(index_path)
+            index_counts = parse_index_counts(index_text)
+            for key, stats in board_stats.items():
+                stats["index_count"] = index_counts.get(key, -1)
+                if int(stats["index_count"]) != int(stats["open_count"]):
+                    diagnostics_fail = True
 
     if not todo_changed:
         if diagnostics_fail:

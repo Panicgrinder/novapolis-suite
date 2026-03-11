@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-11 04:49
+stand: 2026-03-11 05:16
 update: Root-TTS-Temporarpaad entfernt; Standalone-Beta Startpfad und Go/No-Go-Gates fuer reproduzierbare Beta-Laeufe dokumentiert.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
@@ -92,7 +92,7 @@ npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md'
 ```
 
 Workspace öffnen
------------------
+----------------
 
 1. VS Code über den Root-Ordner `Main/` öffnen (Single-Root). Die frühere Multi-Root-Workspace-Datei wird nicht mehr verwendet.
 2. Workflows laufen ausschließlich zentral aus dem Root (`/.github/workflows`). Modulverzeichnisse enthalten keine eigenen `.github/workflows` mehr.
@@ -143,13 +143,14 @@ DONELOG-Ebenen (normalisiert)
 - STOP-Gate: Vor Code-Aktionen wird ein hartes STOP-Gate gesetzt (explizit „Wechsel: Modus Codex“ oder „Weiter: Modus General“).
 - Erinnerungen: Bei Code-Triggern weise ich auf den Moduswechsel hin; „Bitte nicht erinnern“ deaktiviert Hinweise bis zur Reaktivierung.
 - Aktueller Status (Modus/STOP-Gate): siehe `WORKSPACE_STATUS.md`.
- - Unklarheiten-STOP: „Grün“ gilt nur bis zur nächsten Abweichung/Unsicherheit - dann STOP, Rückfrage, weiter nach Freigabe. Details: `.github/copilot-instructions.md` → „Unklarheiten-STOP (global, immer gültig)“.
+- Unklarheiten-STOP: "Gruen" gilt nur bis zur naechsten Abweichung/Unsicherheit. Dann STOP, Rueckfrage, weiter nach Freigabe.
 
-Bekannte Einschränkungen (temporär)
------------------------------------
+Aktive Oberflaeche (kurz)
+-------------------------
 
-- Single-Root ist produktiv aktiv; Multi-Root-Verweise existieren nur noch als Historie. Guard: `python scripts/multi_root_cleanup.py --whatif` meldet neue `*.code-workspace`-/Schatten-Dateien. Fallakte bleibt dokumentiert (`novapolis-dev/logs/open-case-terminal-multi-root-20251103.md`).
-- Wrapper-Tasks laufen wieder zuverlässig über das Root-`.vscode/tasks.json` (Interpreter `.venv`). Trotzdem gilt weiterhin R-WRAP/R-STOP: Bei Aktionen mit Seiteneffekt vorher kurz den Plan abstimmen und Receipt schreiben.
+- Historische/temporäre Betriebsdetails sind aus der Root-Oberflaeche ausgelagert.
+- Detailhistorie liegt in `novapolis-dev/archive/docs/donelogs/donelog_root.md` und den Modularchiven.
+- Fuer den laufenden Systemzustand sind `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` fuehrend.
 
 Aktuelle Statusdokumente
 ------------------------
@@ -163,9 +164,8 @@ Aktuelle Statusdokumente
 Naechste Schritte
 -----------------
 
-1. Doppelte Module identifizieren und schrittweise in `packages/novapolis_common` verschieben.
-2. Tests und Typpruefungen nach jeder Migration laufen lassen (`pytest`, `pyright`, `mypy`).
-3. Nach jedem groesseren Schritt DONELOG aktualisieren und Root-Uebersichten synchron halten.
+1. Modulmigrationen und technische Backlogs nur noch ueber aktive Boards (`todo.root.md` plus Modul-TODOs) steuern.
+2. Nach jedem groesseren Schritt Quality-Run, DONELOG-Summary und Board-Sync im selben Lauf pflegen.
 
 Editor-Setup (Single-Root)
 --------------------------

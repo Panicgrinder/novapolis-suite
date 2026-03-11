@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-11 04:49
+stand: 2026-03-11 05:16
 update: Strukturabschnitt auf Iststand korrigiert und Active-Surface-Index als Primärdokument verankert.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
@@ -43,6 +43,7 @@ Contributor Workflow
 - Änderungen zuerst hier dokumentieren, anschließend in den Ziel-Repos umsetzen.
 - Fortschritt stets in `docs/donelog.md` loggen; Aufgaben in den jeweiligen Modul-Boards pflegen (Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent-board.md`, Sim `docs/todo.sim.md`).
 - Vor Commits die Leitlinien aus `.github/copilot-instructions.md` gegenprüfen.
+- Aktive Oberflaeche bewusst kurz halten: nur operative Doku, keine langen historischen Laufprotokolle.
 
 Struktur
 --------
@@ -85,13 +86,12 @@ Copilot Instructions
 
 Bitte dokumentiert neue Arbeitsstände ausschließlich hier und verweist in den Produktiv-Repositories auf dieses Hub.
 
+Historie & Detailprotokolle
+---------------------------
 
-Temporäre Bereiche
-------------------
-
-- Link-Scanner: `python scripts/scan_links.py`
-  - Reports: `.tmp/results/reports/scan_links_*.log` und `.tmp/results/reports/scan_links_*.csv`
-  - Status: 0 defekte Verweise (Rescan abgeschlossen)
+- Historisierte Dev-Doku liegt unter `novapolis-dev/archive/`.
+- Root-Detailhistorie liegt unter `novapolis-dev/archive/docs/donelogs/donelog_root.md`.
+- Maschinenlesbare Laufdetails liegen unter `.tmp/results/reports/`.
 
 Checks & Reports
 ----------------

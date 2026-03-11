@@ -115,7 +115,7 @@
       "label": "Checks: todo index sync",
       "type": "shell",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["${workspaceFolder}\\scripts\\check_todo_index_sync.py", "--repo-root", "${workspaceFolder}"],
+      "args": ["${workspaceFolder}\\scripts\\check_todo_index_sync.py", "--repo-root", "${workspaceFolder}", "--write-index-meta"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },

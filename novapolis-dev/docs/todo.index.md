@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-11 04:45
+stand: 2026-03-11 05:16
 update: Sim-Index fuer Hub-Chatfenster-Aufnahme und Abschlussstatus synchronisiert.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 17:19); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 17:19)
 ---
@@ -28,10 +28,11 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-03-05 | Woechentliche Hygiene-Cadence etablieren | nein |
-| RP (`docs/todo.rp.md`) | 2026-03-05 | Canvas-Rettung - Sprint 1 (offene Checklisten) | nein |
+| Dev (`docs/todo.dev.md`) | 2026-03-05 | - [ ] [Spaeter] Woechentliche Hygiene-Cadence etablieren (Drift-Scan, Donelog-Cleanup, TODO/Index-Abgleich) inkl. KPI-Tracking. | nein |
+| RP (`docs/todo.rp.md`) | 2026-03-05 | - [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten. | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-03-11 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-03-11 | keiner (offen: 0) | nein |
+
 
 Hinweise (Index)
 ----------------

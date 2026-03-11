@@ -552,7 +552,13 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, o
     if todo_index_sync_script.exists():
         run_or_fail(
             "todo-index-sync",
-            [str(python_exec), str(todo_index_sync_script), "--repo-root", str(repo_root)],
+            [
+                str(python_exec),
+                str(todo_index_sync_script),
+                "--repo-root",
+                str(repo_root),
+                "--write-index-meta",
+            ],
             repo_root,
             required=True,
         )
