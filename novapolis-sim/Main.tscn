@@ -10,14 +10,14 @@ script = ExtResource("1")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 1919.0
+offset_bottom = 1078.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("2")
-expand_mode = 1
-stretch_mode = 6
 
 [node name="HubTitleLabel" type="Label" parent="." unique_id=213000001]
 modulate = Color(0.85, 0.95, 1, 1)
@@ -64,10 +64,10 @@ text = "Errors: --"
 clip_text = true
 
 [node name="SimCardPanel" type="Panel" parent="." unique_id=213000101]
-offset_left = 96.0
-offset_top = 872.0
-offset_right = 612.0
-offset_bottom = 1006.0
+offset_left = 104.0
+offset_top = 824.0
+offset_right = 898.0
+offset_bottom = 1002.0
 
 [node name="SimCardTitleLabel" type="Label" parent="SimCardPanel" unique_id=213000102]
 modulate = Color(0.85, 0.95, 1, 1)
@@ -111,10 +111,10 @@ offset_bottom = 92.0
 text = "Data: --"
 
 [node name="ApiCardPanel" type="Panel" parent="." unique_id=213000111]
-offset_left = 640.0
-offset_top = 872.0
-offset_right = 1271.0
-offset_bottom = 1007.0
+offset_left = 552.0
+offset_top = 630.0
+offset_right = 1358.0
+offset_bottom = 801.0
 
 [node name="ApiCardTitleLabel" type="Label" parent="ApiCardPanel" unique_id=213000112]
 modulate = Color(0.9, 0.95, 0.9, 1)
@@ -158,10 +158,10 @@ offset_bottom = 92.0
 text = "Endpoint: --"
 
 [node name="EvalCardPanel" type="Panel" parent="." unique_id=213000121]
-offset_left = 1296.0
-offset_top = 872.0
-offset_right = 1817.0
-offset_bottom = 1007.0
+offset_left = 1016.0
+offset_top = 826.0
+offset_right = 1822.0
+offset_bottom = 998.0
 
 [node name="EvalCardTitleLabel" type="Label" parent="EvalCardPanel" unique_id=213000122]
 modulate = Color(0.95, 0.9, 1, 1)
@@ -662,6 +662,7 @@ offset_top = 92.0
 offset_right = 20.0
 offset_bottom = 92.0
 text = "Status: ---"
+clip_text = true
 
 [node name="EpochLabel" type="Label" parent="." unique_id=976511883]
 offset_left = 107.0
@@ -804,9 +805,9 @@ text = "Save Config"
 modulate = Color(0.85, 1, 0.9, 1)
 layout_mode = 0
 offset_left = 4.0
-offset_top = 96.0
+offset_top = 92.0
 offset_right = 299.0
-offset_bottom = 119.0
+offset_bottom = 113.0
 text = "Refresh=normal | default=hub"
 clip_text = true
 
@@ -825,12 +826,13 @@ offset_top = 195.0
 offset_right = 1355.0
 offset_bottom = 218.0
 text = "Server: stopped"
+clip_text = true
 
 [node name="HubChatPanel" type="Panel" parent="." unique_id=213000501]
-offset_left = 1389.0
-offset_top = 286.0
-offset_right = 1809.0
-offset_bottom = 524.0
+offset_left = 1020.0
+offset_top = 255.0
+offset_right = 1820.0
+offset_bottom = 558.0
 
 [node name="HubChatTitleLabel" type="Label" parent="HubChatPanel" unique_id=213000502]
 modulate = Color(0.92, 0.96, 1, 1)
@@ -875,38 +877,42 @@ offset_bottom = 234.0
 text = "Chat: bereit"
 
 [node name="PcLogLabel" type="RichTextLabel" parent="." unique_id=1623751295]
-offset_left = 106.0
-offset_top = 342.0
-offset_right = 1364.0
-offset_bottom = 784.0
+offset_left = 99.0
+offset_top = 256.0
+offset_right = 897.0
+offset_bottom = 565.0
 text = "PC-zentrierte Ansicht wird geladen..."
 
 [node name="HubChatRequest" type="HTTPRequest" parent="." unique_id=213000507]
 
 [node name="bereich-02" type="Panel" parent="." unique_id=1443418518]
-offset_left = 549.0
-offset_top = 157.0
-offset_right = 945.0
-offset_bottom = 275.0
+modulate = Color(1, 1, 1, 0)
+offset_left = 520.0
+offset_top = 116.0
+offset_right = 902.0
+offset_bottom = 229.0
 mouse_filter = 2
 
 [node name="bereich-03" type="Panel" parent="." unique_id=1166660721]
-offset_left = 969.0
-offset_top = 157.0
-offset_right = 1364.0
-offset_bottom = 275.0
+modulate = Color(1, 1, 1, 0)
+offset_left = 1018.0
+offset_top = 117.0
+offset_right = 1399.0
+offset_bottom = 230.0
 mouse_filter = 2
 
 [node name="bereich-04" type="Panel" parent="." unique_id=1300309723]
-offset_left = 1389.0
-offset_top = 157.0
-offset_right = 1809.0
-offset_bottom = 275.0
+modulate = Color(1, 1, 1, 0)
+offset_left = 1424.0
+offset_top = 116.0
+offset_right = 1821.0
+offset_bottom = 228.0
 mouse_filter = 2
 
 [node name="bereich-01" type="Panel" parent="." unique_id=1378554575]
-offset_left = 101.0
-offset_top = 157.0
-offset_right = 525.0
-offset_bottom = 275.0
+modulate = Color(1, 1, 1, 0)
+offset_left = 98.0
+offset_top = 117.0
+offset_right = 497.0
+offset_bottom = 231.0
 mouse_filter = 2

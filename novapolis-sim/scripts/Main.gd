@@ -226,6 +226,8 @@ var _hub_refresh_profile: String = "normal"
 var _hub_config_collapsed: bool = false
 var _hub_chat_in_flight: bool = false
 var _hub_chat_lines: Array[String] = []
+var _marquee_state: Dictionary = {}
+var _lower_shared_topic: String = "agent_api"
 const _HUB_PREFS_PATH: String = "user://hub_prefs.cfg"
 const _DATASET_REGISTRY_PATH: String = "user://agent_user_data/datasets/_registry.json"
 const _SYNONYM_REGISTRY_PATH: String = "user://agent_user_data/synonyms/_registry.json"
@@ -241,6 +243,7 @@ const _DATASET_SOURCE_OPTIONS: Array[String] = ["clean", "with_failures"]
 const _HUB_DEFAULT_PANEL_OPTIONS: Array[String] = ["hub", "agent", "checks"]
 const _HUB_REFRESH_PROFILE_OPTIONS: Array[String] = ["normal", "fast", "slow"]
 const _HUB_CHAT_MAX_LINES: int = 18
+const _LOWER_SHARED_TOPIC_OPTIONS: Array[String] = ["agent_api", "runtime_ops", "eval_quality"]
 
 const _AGENT_PANEL_DOCK_LEFT: float = 1320.0
 const _AGENT_PANEL_DOCK_TOP: float = 620.0
@@ -265,6 +268,8 @@ const _UI_MIN_HEIGHT: float = 700.0
 const _UI_MARGIN: float = 16.0
 const _UI_GAP: float = 12.0
 const _QUALITY_REFRESH_INTERVAL_SECONDS: float = 15.0
+const _MARQUEE_STEP_MS: int = 180
+const _MARQUEE_SEPARATOR: String = "     "
 @export var preserve_editor_hub_layout: bool = true
 
 func _ready() -> void:
@@ -315,6 +320,7 @@ func _ready() -> void:
 	hub_chat_send_button.pressed.connect(_on_hub_chat_send_pressed)
 	hub_chat_input_edit.text_submitted.connect(_on_hub_chat_input_submitted)
 	hub_chat_request.request_completed.connect(_on_hub_chat_request_completed)
+	api_card_panel.gui_input.connect(Callable(self, "_on_api_card_panel_gui_input"))
 	_audio_player = AudioStreamPlayer.new()
 	add_child(_audio_player)
 	_apply_state({"tick": 0, "time": 0.0})
@@ -404,67 +410,74 @@ func _scale_hub_y(value: float, height: float) -> float:
 
 func _apply_editor_hub_layout(width: float, height: float) -> void:
 	# Preserve the dashboard arrangement authored in Main.tscn as hub source of truth.
-	var area_01_left := _scale_hub_x(101.0, width)
-	var area_01_top := _scale_hub_y(157.0, height)
-	var area_01_right := _scale_hub_x(525.0, width)
-	var area_01_bottom := _scale_hub_y(275.0, height)
-	var area_02_left := _scale_hub_x(549.0, width)
-	var area_02_top := _scale_hub_y(157.0, height)
-	var area_02_right := _scale_hub_x(945.0, width)
-	var area_02_bottom := _scale_hub_y(275.0, height)
-	var area_03_left := _scale_hub_x(969.0, width)
-	var area_03_top := _scale_hub_y(157.0, height)
-	var area_03_right := _scale_hub_x(1364.0, width)
-	var area_03_bottom := _scale_hub_y(275.0, height)
-	var area_04_left := _scale_hub_x(1389.0, width)
-	var area_04_top := _scale_hub_y(157.0, height)
-	var area_04_right := _scale_hub_x(1809.0, width)
-	var area_04_bottom := _scale_hub_y(275.0, height)
+	var area_01_left := _scale_hub_x(98.0, width)
+	var area_01_top := _scale_hub_y(117.0, height)
+	var area_01_right := _scale_hub_x(497.0, width)
+	var area_01_bottom := _scale_hub_y(231.0, height)
+	var area_02_left := _scale_hub_x(520.0, width)
+	var area_02_top := _scale_hub_y(116.0, height)
+	var area_02_right := _scale_hub_x(902.0, width)
+	var area_02_bottom := _scale_hub_y(229.0, height)
+	var area_03_left := _scale_hub_x(1018.0, width)
+	var area_03_top := _scale_hub_y(117.0, height)
+	var area_03_right := _scale_hub_x(1399.0, width)
+	var _area_03_bottom := _scale_hub_y(230.0, height)
+	var area_04_left := _scale_hub_x(1424.0, width)
+	var area_04_top := _scale_hub_y(116.0, height)
+	var area_04_right := _scale_hub_x(1821.0, width)
+	var area_04_bottom := _scale_hub_y(228.0, height)
 
 	var inner_pad_x := _scale_hub_x(8.0, width)
 	var inner_pad_y := _scale_hub_y(8.0, height)
+	var area_01_line_h := _scale_hub_y(17.0, height)
+	var area_01_line_gap := _scale_hub_y(2.0, height)
+	var area_01_line_y := area_01_top + inner_pad_y
 
 	_set_control_rect(
 		hub_title_label,
 		area_01_left + inner_pad_x,
-		area_01_top + inner_pad_y,
+		area_01_line_y,
 		area_01_right - inner_pad_x,
-		area_01_top + _scale_hub_y(30.0, height)
+		area_01_line_y + area_01_line_h
 	)
+	area_01_line_y += area_01_line_h + area_01_line_gap
 	_set_control_rect(
 		hub_api_label,
 		area_01_left + inner_pad_x,
-		area_01_top + _scale_hub_y(30.0, height),
+		area_01_line_y,
 		area_01_right - inner_pad_x,
-		area_01_top + _scale_hub_y(52.0, height)
+		area_01_line_y + area_01_line_h
 	)
+	area_01_line_y += area_01_line_h + area_01_line_gap
 	_set_control_rect(
 		slot_label,
 		area_01_left + inner_pad_x,
-		area_01_top + _scale_hub_y(52.0, height),
+		area_01_line_y,
 		area_01_right - inner_pad_x,
-		area_01_top + _scale_hub_y(74.0, height)
+		area_01_line_y + area_01_line_h
 	)
+	area_01_line_y += area_01_line_h + area_01_line_gap
 	_set_control_rect(
 		audio_status_label,
 		area_01_left + inner_pad_x,
-		area_01_top + _scale_hub_y(74.0, height),
+		area_01_line_y,
 		area_01_right - inner_pad_x,
-		area_01_top + _scale_hub_y(96.0, height)
+		area_01_line_y + area_01_line_h
 	)
+	area_01_line_y += area_01_line_h + area_01_line_gap
 	_set_control_rect(
 		epoch_label,
 		area_01_left + inner_pad_x,
-		area_01_top + _scale_hub_y(96.0, height),
-		area_01_left + _scale_hub_x(220.0, width),
-		area_01_bottom - inner_pad_y
+		area_01_line_y,
+		area_01_left + _scale_hub_x(110.0, width),
+		area_01_line_y + area_01_line_h
 	)
 	_set_control_rect(
 		epoch_status_label,
-		area_01_left + _scale_hub_x(224.0, width),
-		area_01_top + _scale_hub_y(96.0, height),
+		area_01_left + _scale_hub_x(114.0, width),
+		area_01_line_y,
 		area_01_right - inner_pad_x,
-		area_01_bottom - inner_pad_y
+		area_01_line_y + area_01_line_h
 	)
 
 	var action_pad := _scale_hub_x(10.0, width)
@@ -512,8 +525,8 @@ func _apply_editor_hub_layout(width: float, height: float) -> void:
 	var status_pad := _scale_hub_x(8.0, width)
 	var status_left := area_03_left + status_pad
 	var status_right := area_03_right - status_pad
-	var status_line_h := _scale_hub_y(18.0, height)
-	var status_gap := _scale_hub_y(3.0, height)
+	var status_line_h := _scale_hub_y(16.0, height)
+	var status_gap := _scale_hub_y(2.0, height)
 	var status_y := area_03_top + inner_pad_y
 
 	_set_control_rect(
@@ -530,7 +543,7 @@ func _apply_editor_hub_layout(width: float, height: float) -> void:
 		status_right,
 		status_y + _scale_hub_y(30.0, height)
 	)
-	status_y += _scale_hub_y(34.0, height)
+	status_y += _scale_hub_y(32.0, height)
 	_set_control_rect(
 		hub_errors_label,
 		status_left,
@@ -578,41 +591,48 @@ func _apply_editor_hub_layout(width: float, height: float) -> void:
 		area_04_bottom
 	)
 	_set_control_rect(
+		status_label,
+		_scale_hub_x(20.0, width),
+		_scale_hub_y(92.0, height),
+		_scale_hub_x(1825.0, width),
+		_scale_hub_y(114.0, height)
+	)
+	_set_control_rect(
 		log_label,
-		_scale_hub_x(106.0, width),
-		_scale_hub_y(342.0, height),
-		_scale_hub_x(1364.0, width),
-		_scale_hub_y(784.0, height)
+		_scale_hub_x(99.0, width),
+		_scale_hub_y(256.0, height),
+		_scale_hub_x(897.0, width),
+		_scale_hub_y(565.0, height)
 	)
 	_set_control_rect(
 		hub_chat_panel,
-		_scale_hub_x(1389.0, width),
-		_scale_hub_y(286.0, height),
-		_scale_hub_x(1809.0, width),
-		_scale_hub_y(524.0, height)
+		_scale_hub_x(1020.0, width),
+		_scale_hub_y(255.0, height),
+		_scale_hub_x(1820.0, width),
+		_scale_hub_y(558.0, height)
 	)
 	_layout_hub_chat_contents()
 
 	_set_control_rect(
 		sim_card_panel,
-		_scale_hub_x(96.0, width),
-		_scale_hub_y(872.0, height),
-		_scale_hub_x(612.0, width),
-		_scale_hub_y(1006.0, height)
+		_scale_hub_x(104.0, width),
+		_scale_hub_y(824.0, height),
+		_scale_hub_x(898.0, width),
+		_scale_hub_y(1002.0, height)
 	)
 	_set_control_rect(
 		api_card_panel,
-		_scale_hub_x(640.0, width),
-		_scale_hub_y(872.0, height),
-		_scale_hub_x(1271.0, width),
-		_scale_hub_y(1007.0, height)
+		_scale_hub_x(552.0, width),
+		_scale_hub_y(630.0, height),
+		_scale_hub_x(1358.0, width),
+		_scale_hub_y(801.0, height)
 	)
 	_set_control_rect(
 		eval_card_panel,
-		_scale_hub_x(1296.0, width),
-		_scale_hub_y(872.0, height),
-		_scale_hub_x(1817.0, width),
-		_scale_hub_y(1007.0, height)
+		_scale_hub_x(1016.0, width),
+		_scale_hub_y(826.0, height),
+		_scale_hub_x(1822.0, width),
+		_scale_hub_y(998.0, height)
 	)
 
 	_layout_module_panels(width, height)
@@ -621,6 +641,11 @@ func _apply_editor_hub_layout(width: float, height: float) -> void:
 func _layout_hub_topbar(width: float) -> void:
 	var top := 4.0
 	var left := _UI_MARGIN
+	status_label.offset_left = _UI_MARGIN
+	status_label.offset_top = 92.0
+	status_label.offset_right = width - _UI_MARGIN
+	status_label.offset_bottom = 114.0
+
 	var title_w := clampf(width * 0.18, 240.0, 360.0)
 	hub_title_label.offset_left = left
 	hub_title_label.offset_top = top
@@ -941,12 +966,76 @@ func _compact_reason_text(reason: String, max_len: int = 28) -> String:
 		return cleaned
 	if max_len <= 3:
 		return cleaned.left(max_len)
-	return "%s..." % cleaned.left(max_len - 3)
+	var shortened := cleaned.left(max_len - 3)
+	while shortened.length() > 0 and (
+		shortened.ends_with("(")
+		or shortened.ends_with("[")
+		or shortened.ends_with("{")
+		or shortened.ends_with("|")
+		or shortened.ends_with("-")
+		or shortened.ends_with(",")
+		or shortened.ends_with(";")
+		or shortened.ends_with(":")
+	):
+		shortened = shortened.left(shortened.length() - 1).strip_edges()
+	if shortened == "":
+		shortened = cleaned.left(max_len - 3)
+	return "%s..." % shortened
+
+
+func _label_text_width(label: Label, text: String) -> float:
+	if text == "":
+		return 0.0
+	var font := label.get_theme_font("font")
+	if font == null:
+		return float(text.length()) * 8.0
+	var font_size := label.get_theme_font_size("font_size")
+	return font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size).x
+
+
+func _build_marquee_slice(label: Label, loop_text: String, start_idx: int, max_width: float) -> String:
+	var loop_len := loop_text.length()
+	if loop_len <= 0:
+		return ""
+	var out := ""
+	var max_chars: int = mini(256, loop_len * 2)
+	for i in range(max_chars):
+		var ch := loop_text.substr((start_idx + i) % loop_len, 1)
+		var candidate := out + ch
+		if _label_text_width(label, candidate) > max_width and out != "":
+			break
+		out = candidate
+	return out.strip_edges()
+
+
+func _set_marquee_text(label: Label, full_text: String) -> void:
+	if label == null:
+		return
+	var max_width := maxf(24.0, label.offset_right - label.offset_left)
+	if _label_text_width(label, full_text) <= max_width:
+		label.text = full_text
+		_marquee_state.erase(str(label.get_path()))
+		return
+
+	var key := str(label.get_path())
+	var now_ms := Time.get_ticks_msec()
+	var entry: Dictionary = _marquee_state.get(key, {"offset": 0, "last_ms": now_ms}) as Dictionary
+	var offset := int(entry.get("offset", 0))
+	var last_ms := int(entry.get("last_ms", now_ms))
+	if now_ms - last_ms >= _MARQUEE_STEP_MS:
+		offset += 1
+		last_ms = now_ms
+
+	var loop_text := full_text + _MARQUEE_SEPARATOR
+	if loop_text.length() > 0:
+		offset = offset % loop_text.length()
+	_marquee_state[key] = {"offset": offset, "last_ms": last_ms}
+	label.text = _build_marquee_slice(label, loop_text, offset, max_width)
 
 
 func _refresh_hub_topbar() -> void:
 	hub_title_label.text = "Hub v1 | Novapolis Framework"
-	hub_config_status_label.text = "Refresh=%s | default=%s" % [_hub_refresh_profile, _hub_default_panel]
+	_set_marquee_text(hub_config_status_label, "Refresh=%s | default=%s" % [_hub_refresh_profile, _hub_default_panel])
 
 	var runtime_status := _sim_runtime_status()
 	var health := _derive_health_state(runtime_status)
@@ -957,7 +1046,7 @@ func _refresh_hub_topbar() -> void:
 	if _last_success_ms >= 0:
 		var age := maxf(0.0, float(Time.get_ticks_msec() - _last_success_ms) / 1000.0)
 		last_ok_text = "%.1fs" % age
-	hub_api_label.text = "API: %s | reason=%s | last_ok=%s" % [api_state, reason, last_ok_text]
+	_set_marquee_text(hub_api_label, "API: %s | reason=%s | last_ok=%s" % [api_state, reason, last_ok_text])
 
 	var paused := bool(runtime_status.get("paused_due_to_failures", false))
 	var polling_state := "active"
@@ -965,21 +1054,21 @@ func _refresh_hub_topbar() -> void:
 		polling_state = "paused"
 	var failures := int(runtime_status.get("consecutive_failures", 0))
 	var backoff := float(runtime_status.get("backoff", 0.0))
-	hub_polling_label.text = "Polling: %s | fail=%d | backoff=%.1fs" % [polling_state, failures, backoff]
+	_set_marquee_text(hub_polling_label, "Polling: %s | fail=%d | backoff=%.1fs" % [polling_state, failures, backoff])
 
 	var queue_size := 0
 	if _scheduler_hook:
 		queue_size = _scheduler_hook.size()
 	var event_rate := _runtime_event_rate_per_second()
-	hub_queue_label.text = "Queue: %d | rate=%.2f/s" % [queue_size, event_rate]
+	_set_marquee_text(hub_queue_label, "Queue: %d | rate=%.2f/s" % [queue_size, event_rate])
 	_apply_card_visibility_now()
 
 	if _last_status_message == "":
-		hub_errors_label.text = "Errors: none | code=%s" % _last_error_code
+		_set_marquee_text(hub_errors_label, "Errors: none | code=%s" % _last_error_code)
 	else:
 		var error_for := maxf(0.0, float(Time.get_ticks_msec() - _error_started_ms) / 1000.0)
 		var base_error := _last_status_message.split("|")[0].strip_edges()
-		hub_errors_label.text = "Errors: %s (%.1fs) | code=%s" % [base_error, error_for, _last_error_code]
+		_set_marquee_text(hub_errors_label, "Errors: %s (%.1fs) | code=%s" % [base_error, error_for, _last_error_code])
 
 
 func _refresh_module_cards() -> void:
@@ -1015,27 +1104,38 @@ func _refresh_module_cards() -> void:
 		host = str(_sim_client.get("host"))
 		port = int(_sim_client.get("port"))
 
-	api_card_health_label.text = "Health: %s | reason=%s | paused=%s" % [api_state, reason, str(paused)]
-	api_card_runtime_label.text = "Runtime: fail=%d | timeout=%.1fs" % [failures, timeout]
-	api_card_backoff_label.text = "Backoff: %.1fs | interval=%.1fs" % [backoff, float(runtime_status.get("step_interval", 0.0))]
-	if port > 0:
-		api_card_endpoint_label.text = "Endpoint: http://%s:%d/world/step" % [host, port]
-	else:
-		api_card_endpoint_label.text = "Endpoint: n/a"
-
 	var sim_meta: Dictionary = {}
 	if _last_world_state.has("sim_meta") and typeof(_last_world_state.get("sim_meta")) == TYPE_DICTIONARY:
 		sim_meta = _last_world_state.get("sim_meta", {})
 	var mode := str(sim_meta.get("mode", "baseline"))
 	var seed_text := str(sim_meta.get("seed", "n/a"))
 	_refresh_quality_status(false)
-
-	eval_card_profile_label.text = "Profile: mode=%s | seed=%s" % [mode, seed_text]
 	var dataset_ref := "n/a"
 	if _active_dataset_name != "":
 		dataset_ref = _active_dataset_name
 		if _active_dataset_tag != "":
 			dataset_ref = "%s@%s" % [_active_dataset_name, _active_dataset_tag]
+
+	if _lower_shared_topic == "runtime_ops":
+		api_card_health_label.text = "Thema: Runtime/Ops (Klick: wechseln)"
+		api_card_runtime_label.text = "Queue: %d | rate=%.2f/s | tick=%d" % [queue_size, event_rate, tick_value]
+		api_card_backoff_label.text = "Events: runtime=%d/%d | slot=%02d" % [_runtime_events.size(), _MAX_RUNTIME_EVENTS, _current_slot]
+		api_card_endpoint_label.text = "RP: %s" % _rp_content_summary()
+	elif _lower_shared_topic == "eval_quality":
+		api_card_health_label.text = "Thema: Eval/Quality (Klick: wechseln)"
+		api_card_runtime_label.text = "Profile: mode=%s | seed=%s" % [mode, seed_text]
+		api_card_backoff_label.text = "Artifacts: epochs=%d | audio=%s | dataset=%s" % [_loaded_epochs.size(), str(_audio_assets_present), dataset_ref]
+		api_card_endpoint_label.text = "Quality: tests=%s | types=%s | cov=%s" % [_quality_tests_last, _quality_types_last, _quality_coverage_last]
+	else:
+		api_card_health_label.text = "Thema: Agent/API (Klick: wechseln)"
+		api_card_runtime_label.text = "Health: %s | reason=%s | paused=%s" % [api_state, reason, str(paused)]
+		api_card_backoff_label.text = "Runtime: fail=%d | timeout=%.1fs | backoff=%.1fs" % [failures, timeout, backoff]
+		if port > 0:
+			api_card_endpoint_label.text = "Endpoint: http://%s:%d/world/step" % [host, port]
+		else:
+			api_card_endpoint_label.text = "Endpoint: n/a"
+
+	eval_card_profile_label.text = "Profile: mode=%s | seed=%s" % [mode, seed_text]
 	eval_card_artifacts_label.text = "Artifacts: epochs=%d | audio=%s | dataset=%s" % [_loaded_epochs.size(), str(_audio_assets_present), dataset_ref]
 	eval_card_events_label.text = "Events: runtime=%d/%d | %s" % [_runtime_events.size(), _MAX_RUNTIME_EVENTS, _rp_content_summary()]
 	eval_card_notes_label.text = "Quality: tests=%s | types=%s | cov=%s" % [_quality_tests_last, _quality_types_last, _quality_coverage_last]
@@ -1061,6 +1161,18 @@ func _rp_content_summary() -> String:
 			break
 
 	return "module=rp | vis=%s | src=%s | last=%s" % [visibility, source, _compact_reason_text(last_event, 36)]
+
+
+func _on_api_card_panel_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		var mb := event as InputEventMouseButton
+		if mb.button_index == MOUSE_BUTTON_LEFT and mb.pressed:
+			var idx := _LOWER_SHARED_TOPIC_OPTIONS.find(_lower_shared_topic)
+			if idx < 0:
+				idx = 0
+			idx = (idx + 1) % _LOWER_SHARED_TOPIC_OPTIONS.size()
+			_lower_shared_topic = _LOWER_SHARED_TOPIC_OPTIONS[idx]
+			_refresh_module_cards()
 
 
 func _refresh_quality_status(force: bool) -> void:
@@ -1194,7 +1306,7 @@ func _load_epochs() -> void:
 	_loaded_epochs.clear()
 	var base_dir := DirAccess.open(epochs_dir)
 	if base_dir == null:
-		epoch_status_label.text = "Epochen: keine Daten unter %s" % epochs_dir
+		_set_marquee_text(epoch_status_label, "Epochen: keine Daten unter %s" % epochs_dir)
 		return
 
 	var epoch_dirs: Array[String] = []
@@ -1221,12 +1333,12 @@ func _load_epochs() -> void:
 		})
 
 	if _loaded_epochs.is_empty():
-		epoch_status_label.text = "Epochen: keine verwertbaren world_log/pc_log Dateien gefunden"
+		_set_marquee_text(epoch_status_label, "Epochen: keine verwertbaren world_log/pc_log Dateien gefunden")
 		return
 
 	_current_epoch_index = 0
 	_current_slot = _derive_initial_slot(_loaded_epochs[_current_epoch_index].get("pc_log", []))
-	epoch_status_label.text = "Epochen geladen: %d" % _loaded_epochs.size()
+	_set_marquee_text(epoch_status_label, "Epochen geladen: %d" % _loaded_epochs.size())
 	_scan_audio_assets()
 
 
@@ -1757,7 +1869,7 @@ func _refresh_hub_config_ui() -> void:
 	hub_config_eval_card_button.text = _select_label("Eval", _hub_show_eval_card)
 	_select_option_value(hub_config_default_panel_button, _HUB_DEFAULT_PANEL_OPTIONS, _hub_default_panel)
 	_select_option_value(hub_config_refresh_button, _HUB_REFRESH_PROFILE_OPTIONS, _hub_refresh_profile)
-	hub_config_status_label.text = "Refresh=%s | default=%s" % [_hub_refresh_profile, _hub_default_panel]
+	_set_marquee_text(hub_config_status_label, "Refresh=%s | default=%s" % [_hub_refresh_profile, _hub_default_panel])
 	hub_config_close_button.text = "Öffnen" if _hub_config_collapsed else "Minimieren"
 
 
@@ -3039,15 +3151,15 @@ func _write_json_to_path(path_text: String, payload: Dictionary) -> bool:
 	var normalized := path_text.strip_edges()
 	if normalized == "":
 		return false
-	var abs := normalized
+	var abs_path := normalized
 	if normalized.begins_with("user://") or normalized.begins_with("res://"):
-		abs = ProjectSettings.globalize_path(normalized)
-	var parent_dir := abs.get_base_dir()
+		abs_path = ProjectSettings.globalize_path(normalized)
+	var parent_dir := abs_path.get_base_dir()
 	if parent_dir != "":
 		DirAccess.make_dir_recursive_absolute(parent_dir)
 	var wf := FileAccess.open(normalized, FileAccess.WRITE)
 	if wf == null:
-		wf = FileAccess.open(abs, FileAccess.WRITE)
+		wf = FileAccess.open(abs_path, FileAccess.WRITE)
 	if wf == null:
 		return false
 	wf.store_string(JSON.stringify(payload, "  "))
@@ -4238,7 +4350,7 @@ func _refresh_agent_studio_ui() -> void:
 		]
 	else:
 		agent_system_metrics_label.text = "System: Monitoring deaktiviert (testweise)"
-	var full_status_text := "• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n• %s\n• %s" % [_dataset_status_text, _active_dataset_label(), _synonym_status_text, _active_synonym_label(), _profile_status_text, _active_profile_label(), _advanced_settings_status_text, _jobs_status_text, _finetune_status_text, _latest_eval_summary_text, _ai_trend_summary_text, _artifacts_summary_text, _experiments_summary_text, _policy_sandbox_summary_text, _release_gate_summary_text, _audit_trail_summary_text, _security_model_summary_text]
+	var full_status_text := "• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n• %s\n• %s\n• %s" % [_dataset_status_text, _active_dataset_label(), _synonym_status_text, _active_synonym_label(), _profile_status_text, _active_profile_label(), _advanced_settings_status_text, _jobs_status_text, _finetune_status_text, _latest_eval_summary_text, _ai_trend_summary_text, _artifacts_summary_text, _experiments_summary_text, _policy_sandbox_summary_text, _release_gate_summary_text, _audit_trail_summary_text, _security_model_summary_text]
 	var compact_status_text := "• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n• %s" % [_dataset_status_text, _active_dataset_label(), _jobs_status_text, _synonym_status_text, _latest_eval_summary_text, _release_gate_summary_text, _security_model_summary_text]
 	_select_option_value(agent_eval_suite_button, _EVAL_SUITE_OPTIONS, _agent_eval_suite)
 	_select_option_value(agent_dataset_source_button, _DATASET_SOURCE_OPTIONS, _dataset_source_mode)
@@ -4592,10 +4704,10 @@ func _build_release_gate_summary() -> String:
 
 
 func _build_audit_trail_summary() -> String:
-	var abs := ProjectSettings.globalize_path(_AUDIT_TRAIL_PATH)
-	if not FileAccess.file_exists(abs):
+	var abs_path := ProjectSettings.globalize_path(_AUDIT_TRAIL_PATH)
+	if not FileAccess.file_exists(abs_path):
 		return "Audit Trail: entries=0"
-	var rf := FileAccess.open(abs, FileAccess.READ)
+	var rf := FileAccess.open(abs_path, FileAccess.READ)
 	if rf == null:
 		return "Audit Trail: unreadable"
 	var count := 0
@@ -5092,7 +5204,7 @@ func _stop_local_server() -> void:
 func _update_server_control_ui() -> void:
 	var health := _derive_health_state(_sim_runtime_status())
 	var state := str(health.get("state", "offline"))
-	var reason := str(health.get("reason", "n/a"))
+	var _reason := str(health.get("reason", "n/a"))
 
 	if _server_pid > 0:
 		server_toggle_button.text = "Stop Server"
@@ -5105,7 +5217,7 @@ func _update_server_control_ui() -> void:
 			server_toggle_button.text = "Start Server"
 		else:
 			server_toggle_button.text = "Start Server"
-	server_status_label.text = "Server: %s | reason=%s" % [state, reason]
+	server_status_label.text = "Server: %s" % state
 
 
 func _resolve_python_executable() -> String:
