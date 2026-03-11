@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 04:49
-update: Active-Surface im Dev-Hub auf operativen Current-Window-Modus reduziert; Logrollen und Archivpfad konsolidiert.
-checks: pending (laufender Umbau)
+stand: 2026-03-11 04:52
+update: Active-Surface konsolidiert und Frontmatter-Receipts fuer neue Governance-Dokumente finalisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md novapolis-dev/README.md DONELOG.md novapolis-dev/docs/donelog.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (2026-03-11 04:49); .\.venv\Scripts\python.exe scripts/check_frontmatter.py README.md novapolis-dev/README.md DONELOG.md novapolis-dev/docs/donelog.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (EXITCODE=0, 2026-03-11 04:49)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,13 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Docs: Receipt-Hygiene fuer Governance-Dokus finalisiert (2026-03-11 04:49)
+------------------------------------------------------------------------
+
+- `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, `docs/adr/README.md` von temporaeren `checks: pending`-Markern auf echte Receipt-Zeilen umgestellt.
+- `novapolis-dev/docs/donelog.md` Frontmatter auf denselben Lauf synchronisiert.
+- Ergebnis: aktive Governance-Dokumente sind jetzt konsistent mit den laufenden Markdown-/Frontmatter-Gates.
 
 Dev/Docs: Optimierungsbatch Aktiv-vs-Archiv + TODO-Konsistenz (2026-03-11 03:58)
 -------------------------------------------------------------------------------

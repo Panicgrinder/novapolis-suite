@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 04:45
+stand: 2026-03-11 04:52
 update: SECURITY-Policy fuer Responsible Disclosure und Supportfenster angelegt.
-checks: pending (laufender Umbau)
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (2026-03-11 04:49); .\.venv\Scripts\python.exe scripts/check_frontmatter.py SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (EXITCODE=0, 2026-03-11 04:49)
 ---
 
 Security Policy

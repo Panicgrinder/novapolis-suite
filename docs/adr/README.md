@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 04:45
+stand: 2026-03-11 04:52
 update: ADR-Einstieg fuer Architekturentscheidungen angelegt.
-checks: pending (laufender Umbau)
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc docs/adr/README.md CHANGELOG.md SECURITY.md CODE_OF_CONDUCT.md PASS (2026-03-11 04:49); .\.venv\Scripts\python.exe scripts/check_frontmatter.py docs/adr/README.md CHANGELOG.md SECURITY.md CODE_OF_CONDUCT.md PASS (EXITCODE=0, 2026-03-11 04:49)
 ---
 
 Architecture Decision Records (ADR)
