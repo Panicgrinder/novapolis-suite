@@ -1,6 +1,6 @@
 ---
-stand: 2026-03-11 06:49
-update: Woechentliche Hygiene-Cadence (60 Minuten) mit KPI-Protokoll verbindlich ergaenzt.
+stand: 2026-03-11 07:07
+update: Coverage-Governance erweitert: 90%-Qualitaetsziel im Abschlussprozess verbindlich verankert.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 Wochen- und Monatsabschluss (SSOT)
@@ -32,6 +32,9 @@ Ablauf Wochenabschluss (verbindlich)
    - `Checks: full`
    - optional `Checks: sim epoch assets`
    - `Tests: coverage (fail-under)`
+   - Coverage-Bewertung verbindlich in zwei Stufen:
+     - Hard Gate: `>=80%` (blockierend)
+     - Qualitaetsziel: `>=90%` (verbindlicher Restpunkt bei Unterschreitung)
 2. Bei Strukturänderungen Tree-Artefakte aktualisieren (`Workspace tree:*`).
 3. Abschluss-Sync im selben Lauf:
    - `todo.root.md`
@@ -67,6 +70,8 @@ Ablauf Monatsabschluss (zusaetzlich zum Wochenabschluss)
 4. Monatsnotiz in den Logs dokumentieren:
    - Root: `DONELOG.md`
    - Dev-Hub: `novapolis-dev/docs/donelog.md`
+5. Coverage-Qualitaetsstatus explizit festhalten:
+   - Bei `<90%` muss ein offener Restpunkt im Dev-Board bestehen (`novapolis-dev/docs/todo.dev.md`) und ein kurzer Nachholplan im Dev-DONELOG notiert sein.
 
 Nachweisformat
 --------------

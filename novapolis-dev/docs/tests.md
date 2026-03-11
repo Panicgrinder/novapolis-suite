@@ -1,61 +1,58 @@
 ---
-stand: 2026-02-27 06:06
-update: Obsolete Referenzen auf `cvn-agent` bereinigt und Test-/Task-Verweise auf den aktuellen Single-Root-Iststand nachgezogen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'WORKSPACE_INDEX.md' 'DONELOG.md' 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-26 22:02); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py 'WORKSPACE_INDEX.md' 'DONELOG.md' 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-02-26 22:02)
+stand: 2026-03-11 07:07
+update: Coverage-Policy modernisiert und Punkt-3-Strategie mit verbindlichem 90%-Qualitaetsziel verankert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/process/abschluss-routine.ssot.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-11 07:07); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/process/abschluss-routine.ssot.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-11 07:07)
 ---
 
-Tests & Prequel
-===============
+Tests, Gates und Coverage-Policy
+================================
 
-<!-- Dokument angelegt am 2025-10-29, basierend auf Anforderungen zur Konsolidierung -->
-<!-- Relocated aus dem ehemaligen Novapolis-RP Development-Hub nach `novapolis-dev/docs/tests.md` am 2025-10-29 -->
+Zweck
+-----
 
-Bestehende Testabdeckung
+Dieses Dokument definiert den verbindlichen Test- und Coverage-Rahmen fuer den Workspace.
+Fokus ist reproduzierbare Qualitaet mit klaren Schwellwerten statt kurzfristiger "100%-Kosmetik".
+
+Gate-Logik (verbindlich)
 ------------------------
 
-- `novapolis_agent/tests/` (pytest): deckt die Simulations-API (`novapolis_agent/app/api/sim.py`) inklusive `GET /world/state` und `POST /world/step` ab; Kernabdeckung liefern u. a. `novapolis_agent/tests/tests_sim_api.py` und `novapolis_agent/tests/test_api_sim_state.py`.
-- `novapolis_agent/coverage.xml`: erzeugt durch pytest, dient als Referenz für API-Abdeckung.
-- Root-Tasking: VS-Code-Tasks in `.vscode/tasks.json` ermöglichen reproduzierbare Läufe (u. a. `Tests: pytest (-q) [root]`, `Tests: pytest (unit)`, `Tests: pytest (api+streaming)`).
-- `novapolis-sim/`: keine automatisierten Tests; manuelle Prüfung via Godot-Editor.
+- Hard Gate (blockierend): Gesamt-Coverage muss `>= 80%` sein.
+- Qualitaetsziel (verbindlich fuer Steuerung): Gesamt-Coverage soll nachhaltig `>= 90%` erreichen und halten.
+- Release-/Monatsabschluss-Regel: Ist die Coverage `< 90%`, gilt der Lauf als Qualitaets-Restpunkt und muss in TODO/DONELOG explizit nachverfolgt werden.
+- 100%-Ziel nur fuer kleine, kritische Module mit klarer Logik und stabiler Testbarkeit (z. B. Parser/Validatoren/Normalizer), nicht als pauschale Repo-Vorgabe.
 
-Mini-Prequel-Testplan (novapolis-sim)
--------------------------------------
+Coverage-Strategie (Punkt 3)
+----------------------------
 
-Ziel: Beim Client-Start einen kurzen "Prequel"-Ablauf testen, der den aktuellen Weltzustand visualisiert und einen deutschen Intro-Text abspielt, ohne neue Funktionen zu implementieren.
+- Grosse Orchestrierungsdateien erhalten realistische Zielkorridore (`85-90%`) mit Schwerpunkt auf risikoreichen Branches.
+- Kleine Kernmodule werden selektiv auf `100%` gebracht, wenn der Wartungsaufwand niedrig bleibt.
+- Verboten: Coverage kuenstlich durch breite `omit`-Ausnahmen oder reine "Line-Hit"-Tests ohne Assertions schoenrechnen.
 
-1. **Startzustand abrufen**
-   - Godot-Client lädt Szene `Main.tscn` und nutzt den bestehenden Autoload `SimClient`.
-   - Sofortiger `GET /world/state`-Request: Erwartet Payload mit `tick`, `time`/`timestamp` und optionalen Statusfeldern.
-2. **Intro-Overlay rendern**
-   - Neuen UI-Knoten (z. B. `CanvasLayer`) vorbereiten, der den Tick (`Tick: <n>`) und die aktuelle Sim-Zeit (`Zeit: <hh:mm:ss>`) als Text anzeigt.
-   - Intro-Text (Deutsch, aus finalem RP-Inhalt) als mehrzeiligen Label/TextBox anzeigen; Inhalte aus freigegebenem Kanon (z. B. Kurzfassung Memory-Bundle) wählen.
-3. **Sequenz abspielen**
-   - Nach dem ersten erfolgreichen State-Poll erscheint der Intro-Text für ca. 5 Sekunden, danach ausblenden und zur regulären Visualisierung übergehen.
-   - Während der Intro-Phase bereits Poll-Loop aktiv lassen (bestehender 0,2 s Step).
-4. **Statusanzeige**
-   - Ergänze ein kleines Statuspanel mit Feldern `Verbindung` (siehe Offline-Verhalten) und `Letztes Update` (timestamp aus Response, fallback "-").
+Messung und Nachweis
+--------------------
 
-Offline-Verhalten
------------------
+- Standardlauf: `python scripts/run_checks_and_report.py`.
+- Modullauf (Agent): `Set-Location novapolis_agent; ..\\.venv\\Scripts\\python.exe -m pytest --cov --cov-branch --cov-report=term-missing --cov-config .coveragerc --cov-fail-under=80`.
+- Nachweisartefakte:
+   - `.tmp/results/reports/checks_report_<timestamp>.md`
+   - `outputs/test-artifacts/coverage.xml`
+- Jeder Lauf mit Coverage `< 90%` wird als offener Qualitaetsrestpunkt in `novapolis-dev/docs/todo.dev.md` gefuehrt und in `novapolis-dev/docs/donelog.md` dokumentiert.
 
-- Wenn `POST /world/step` oder `GET /world/state` fehlschlägt (Timeout, ConnectionRefused, HTTP ≥500):
-  - Setze Statusanzeige auf `Verbindung: Offline` in roter Schrift.
-  - Stoppe Step-Requests temporär (z. B. Retry nach 3 Sekunden mit Backoff) und behalte letzten bekannten Tick/Zeit eingefroren.
-  - Zeige Hinweistext: "Agent nicht erreichbar - Anzeige pausiert".
-- Bei erfolgreichem Reconnect:
-  - Status zurück auf `Verbindung: Verbunden` in neutraler/grüner Farbe.
-  - Intro-Overlay bleibt deaktiviert; nur Statuspanel aktualisieren.
+Priorisierte Hebel fuer den 90%-Pfad
+------------------------------------
 
-Testprotokolle
---------------
+- Branch-Coverage in grossen Kernpfaden gezielt erhoehen, insbesondere:
+   - `novapolis_agent/app/api/chat.py`
+   - `novapolis_agent/app/tts/providers.py`
+   - skriptnahe Kernpfade mit hoher Wirkung auf Eval/Runtime.
+- Testdesign priorisiert Fehlermodi, Timeouts, Guardrails und Fallbacks (nicht nur Happy Path).
 
-- 2025-10-29: `python -m pytest tests\tests_sim_api.py` (ausgeführt im Verzeichnis `novapolis_agent`) - **Bestanden**.
+Verweise
+--------
 
-Abstimmung & Folgearbeiten
---------------------------
-
-- Intro-Text aus finalen Inhalten auswählen und im Dev-Board `novapolis-dev/docs/todo.dev.md` als Aufgabe notieren (z. B. unter "Visualisierung"), bevor Umsetzung startet.
-- Keine Änderungen an API-Endpunkten notwendig; bestehende Polling-Logik wird nur um UI-Ausgaben ergänzt.
-- Manuelle Tests künftig in `novapolis-dev/docs/donelog.md` dokumentieren (Datum, Kurzresultat).
+- Wochen-/Monatsrhythmus: `novapolis-dev/docs/process/abschluss-routine.ssot.md`
+- Dev-Board: `novapolis-dev/docs/todo.dev.md`
+- Dev-Index: `novapolis-dev/docs/todo.index.md`
+- Dev-Log: `novapolis-dev/docs/donelog.md`
 
 

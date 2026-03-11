@@ -1,6 +1,6 @@
 ---
-stand: 2026-03-11 07:02
-update: Neuer Optimierungszyklus gestartet; technische Gate-Stabilisierung und modernes Doku-Basispaket wieder als offene Dev-Punkte aufgenommen.
+stand: 2026-03-11 07:07
+update: Punkt-3-Start umgesetzt: 90%-Coverage-Ziel verbindlich in der Dev-Teststrategie verankert.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 
@@ -29,6 +29,9 @@ Offene Aufgaben (Dev)
 - [ ] [Als naechstes] ADR-Ordner von "bereit" auf "aktiv genutzt" heben (mind. `ADR-0001`, `ADR-0002`).
   - Akzeptanzkriterium: zentrale Entscheidungen (z. B. DONELOG-Ebenen, Quality-Gate-Sequenz) sind als akzeptierte ADRs dokumentiert.
   - Evidenz: `docs/adr/0001-*.md`, `docs/adr/0002-*.md`.
+- [x] [Jetzt] Punkt-3-Strategie aktivieren: Coverage-Steuerung auf realistische Zielkorridore (`85-90%`) fuer grosse Pfade umstellen und `90%` als verbindliches Qualitaetsziel fest verankern.
+  - Akzeptanzkriterium: dokumentierte Gate-Logik mit Hard-Gate (`>=80%`) plus verbindlichem Qualitaetsziel (`>=90%`) inkl. Nachweispflicht bei Unterschreitung.
+  - Evidenz: `novapolis-dev/docs/tests.md` (Abschnitte `Gate-Logik` und `Coverage-Strategie`).
 - [ ] [Spaeter] Root-Backlog O11 schliessen: externes Beta-Installblatt fuer Dritte erstellen und mit Dev-Hub synchronisieren.
   - Akzeptanzkriterium: ein Dritter kann Setup/Run/Troubleshooting fuer die Standalone-Beta ohne Insiderwissen ausfuehren.
   - Evidenz: neues Installblatt + Referenz in `todo.root.md`.

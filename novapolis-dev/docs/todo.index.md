@@ -1,6 +1,6 @@
 ---
-stand: 2026-03-11 07:02
-update: Neuer Dev-Optimierungszyklus gestartet; Open-Counts/Board-Metadaten nach Reopening synchronisiert.
+stand: 2026-03-11 07:07
+update: Punkt-3-Coverage-Strategie im Dev-Board verankert; Index-Status synchronisiert.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260311_065156.md
 ---
 
@@ -20,6 +20,7 @@ TODO-Index (Novapolis-Dev)
 Statushinweise (aktuell)
 ------------------------
 
+- Dev v5.3: Coverage-Punkt 3 gestartet; 90%-Qualitaetsziel jetzt verbindlich in Dev-Tests/Abschlussprozess verankert.
 - Dev v5.2: Folgezyklus fuer Gate-Stabilisierung und modernes Doku-Basispaket gestartet (`offen: 0 -> 5`).
 - Dev v5.1: Woechentliche Hygiene-Cadence mit KPI-Tracking verbindlich dokumentiert (`offen: 1 -> 0`).
 - Sim v5.0: Sim-Board konsolidiert, verbleibende Mikrodrift geschlossen (`offen: 1 -> 0`).

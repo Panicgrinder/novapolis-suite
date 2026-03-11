@@ -1,6 +1,6 @@
 ---
-stand: 2026-03-11 07:02
-update: Neuer Dev-Optimierungszyklus gestartet; Gate-Stabilisierung (Punkt 1) in Arbeit.
+stand: 2026-03-11 07:07
+update: Punkt-3-Strategie gestartet; 90%-Coverage-Ziel im Dev-Prozess verbindlich verankert.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md novapolis-dev/README.md DONELOG.md novapolis-dev/docs/donelog.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (2026-03-11 04:49); .\.venv\Scripts\python.exe scripts/check_frontmatter.py README.md novapolis-dev/README.md DONELOG.md novapolis-dev/docs/donelog.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (EXITCODE=0, 2026-03-11 04:49)
 ---
 
@@ -17,6 +17,7 @@ Hinweis
 Aktuelle Eintraege (Summary)
 ----------------------------
 
+- 2026-03-11 07:07: Auf User-Freigabe mit Punkt 3 gestartet. Dev-Teststrategie auf moderne Coverage-Governance umgestellt und 90%-Qualitaetsziel verbindlich verankert (`novapolis-dev/docs/tests.md`, `novapolis-dev/docs/process/abschluss-routine.ssot.md`).
 - 2026-03-11 06:57: Neuer Dev-Optimierungszyklus gestartet und in `novapolis-dev/docs/todo.dev.md` aufgenommen. Punkt 1 (`ruff`/`black`/`pytest+coverage`) wurde begonnen; Ruff/Black-Befunde bereinigt, verbleibender Blocker ist Coverage (`76.24%` vs. Ziel `>=80%`).
 - 2026-03-11 06:49: Letzter offener Dev-Optimierungspunkt geschlossen. Woechentliche 60-Minuten-Hygiene-Cadence mit KPI-Protokoll in `novapolis-dev/docs/process/abschluss-routine.ssot.md` verankert; Dev-Board und TODO-Index auf `offen: 0` synchronisiert.
 - 2026-03-11 06:43: Rueckwaertskompatibilitaet fuer TODO-Index-CLI wiederhergestellt. `scripts/check_todo_index_sync.py` akzeptiert erneut `--root` als Alias zu `--repo-root` und toleriert `--strict` als Deprecated-Noop, damit bestehende Aufrufe nicht fehlschlagen.

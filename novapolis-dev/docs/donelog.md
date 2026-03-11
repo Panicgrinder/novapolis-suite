@@ -1,6 +1,6 @@
 ---
-stand: 2026-03-11 07:02
-update: Neuer Dev-Optimierungszyklus gestartet; Punkt 1 (Gate-Stabilisierung) begonnen.
+stand: 2026-03-11 07:07
+update: Punkt 3 gestartet und 90%-Coverage-Ziel verbindlich in der Dev-Governance verankert.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md novapolis-dev/README.md DONELOG.md novapolis-dev/docs/donelog.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (2026-03-11 04:49); .\.venv\Scripts\python.exe scripts/check_frontmatter.py README.md novapolis-dev/README.md DONELOG.md novapolis-dev/docs/donelog.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (EXITCODE=0, 2026-03-11 04:49)
 ---
 
@@ -18,6 +18,13 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Tests: Punkt 3 aktiviert, 90%-Ziel verankert (2026-03-11 07:07)
+--------------------------------------------------------------------
+
+- `novapolis-dev/docs/tests.md` von Alt-Prequel-Notizen auf aktuelle Test-/Coverage-Governance umgestellt (Hard Gate `>=80%`, verbindliches Qualitaetsziel `>=90%`, selektive `100%` nur fuer kleine kritische Module).
+- `novapolis-dev/docs/process/abschluss-routine.ssot.md` um verbindliche Coverage-Zweistufenlogik erweitert und Nachweispflicht bei `<90%` fixiert.
+- `novapolis-dev/docs/todo.dev.md` um einen abgeschlossenen Punkt-3-Eintrag ergaenzt; `novapolis-dev/docs/todo.index.md` auf den neuen Statushinweis synchronisiert.
 
 Dev/Qualitaet: Folgezyklus gestartet, Punkt 1 begonnen (2026-03-11 06:57)
 --------------------------------------------------------------------------
