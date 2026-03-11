@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-11 04:46
+stand: 2026-03-11 04:49
 update: Active-Surface im Dev-Hub auf operativen Current-Window-Modus reduziert; Logrollen und Archivpfad konsolidiert.
 checks: pending (laufender Umbau)
 ---
@@ -41,6 +41,13 @@ Dev/Docs: Root-DONELOG auf Summary-Ebene normalisiert (2026-03-11 04:46)
 - `DONELOG.md` wurde auf einen bewusst kurzen Root-Summary-/Release-Log umgestellt.
 - Detailhistorie bleibt im Archivpfad `novapolis-dev/archive/docs/donelogs/donelog_root.md` erhalten.
 - Ziel: niedrigere kognitive Last auf Root-Ebene bei unveraenderter Nachvollziehbarkeit.
+
+Dev/Docs: README-Finish fuer aktive Lesbarkeit (2026-03-11 04:46)
+------------------------------------------------------------------
+
+- Root-`README.md` um explizite Verweise auf `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS`, `CHANGELOG.md` und `docs/adr/` ergaenzt.
+- `novapolis-dev/README.md` von einem veralteten, ausserhalb des Frontmatters stehenden Checks-Receipt bereinigt und den Abschnitt `Checks & Reports` auf einen stabilen Dauertext umgestellt.
+- Ergebnis: weniger Betriebsrauschen in aktiven READMEs und klarere Onboarding-Fuehrung fuer Maintainer/Contributors.
 
 Archivhinweis
 -------------

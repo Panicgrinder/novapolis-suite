@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-11 04:45
+stand: 2026-03-11 04:49
 update: Strukturabschnitt auf Iststand korrigiert und Active-Surface-Index als Primärdokument verankert.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
@@ -93,12 +93,12 @@ Temporäre Bereiche
   - Reports: `.tmp/results/reports/scan_links_*.log` und `.tmp/results/reports/scan_links_*.csv`
   - Status: 0 defekte Verweise (Rescan abgeschlossen)
 
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'DONELOG.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/active-surface-index.md' 'novapolis-dev/docs/process/standalone-beta-gates.ssot.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/specs/tts-exporter-coqui.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md' 'todo.root.md' PASS (2026-03-04 00:47); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'DONELOG.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/README.md' 'novapolis-dev/docs/active-surface-index.md' 'novapolis-dev/docs/process/standalone-beta-gates.ssot.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/specs/tts-exporter-coqui.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md' 'todo.root.md' PASS (EXITCODE=0, 2026-03-04 00:47)
-------------
+Checks & Reports
+----------------
 
-- Sammellauf-Skript: `python scripts/run_checks_and_report.py` (Lint: ruff/black, Docs-Lint markdownlint, Frontmatter-Validator, Typen: pyright/mypy, Tests + Coverage ≥80%; optionale Zusatz-Lints werden als SKIP protokolliert, falls nicht installiert)
-- Report-Ausgabe: `.tmp/results/reports/checks_run_<timestamp>/` mit konsolidiertem Markdown- und JSON-Report pro Lauf
-- Nutzung: Direktaufruf `python scripts/run_checks_and_report.py` (Wrapper-Policy bleibt aktiv). Exitcode aggregiert den ersten Pflicht-Check, der fehlschlägt.
+- Sammellauf-Skript: `python scripts/run_checks_and_report.py` (Lint: ruff/black, Docs-Lint markdownlint, Frontmatter-Validator, Typen: pyright/mypy, Tests + Coverage >=80%; optionale Zusatz-Lints werden als SKIP protokolliert, falls nicht installiert).
+- Report-Ausgabe: `.tmp/results/reports/checks_run_<timestamp>/` mit konsolidiertem Markdown- und JSON-Report pro Lauf.
+- Nutzung: Direktaufruf `python scripts/run_checks_and_report.py` (Wrapper-Policy bleibt aktiv). Exitcode aggregiert den ersten Pflicht-Check, der fehlschlaegt.
 
 
 

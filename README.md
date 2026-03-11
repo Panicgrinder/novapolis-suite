@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-11 04:45
+stand: 2026-03-11 04:49
 update: Root-TTS-Temporarpaad entfernt; Standalone-Beta Startpfad und Go/No-Go-Gates fuer reproduzierbare Beta-Laeufe dokumentiert.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
@@ -56,6 +56,11 @@ Ergaenzende Governance:
 
 - Marken-/Namensnutzung ist separat geregelt in `TRADEMARKS.md`.
 - Beitragspfad und Sign-off-Regeln stehen in `CONTRIBUTING.md`.
+- Security-Prozess und Responsible Disclosure stehen in `SECURITY.md`.
+- Verhaltensleitlinien fuer Collaboration stehen in `CODE_OF_CONDUCT.md`.
+- Ownership-Reviewpfade sind in `.github/CODEOWNERS` dokumentiert.
+- Release-notable Aenderungen werden in `CHANGELOG.md` zusammengefasst.
+- Architekturentscheidungen werden in `docs/adr/` gefuehrt.
 
 Zentrale Arbeitsrichtlinien
 ---------------------------
