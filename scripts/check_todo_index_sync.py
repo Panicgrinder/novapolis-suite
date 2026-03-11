@@ -176,21 +176,17 @@ def write_index_metadata(
     text = read_text(index_path)
 
     text = _replace_open_count_line(text, "- RP-Module:", int(board_stats["rp"]["open_count"]))
-    text = _replace_open_count_line(
-        text, "- Dev-Module:", int(board_stats["dev"]["open_count"])
-    )
+    text = _replace_open_count_line(text, "- Dev-Module:", int(board_stats["dev"]["open_count"]))
     text = _replace_open_count_line(
         text, "- Agent-Module:", int(board_stats["agent"]["open_count"])
     )
-    text = _replace_open_count_line(
-        text, "- Sim-Module:", int(board_stats["sim"]["open_count"])
-    )
+    text = _replace_open_count_line(text, "- Sim-Module:", int(board_stats["sim"]["open_count"]))
 
     table_lines = [
         "Board-Metadaten (automationsrelevant)",
         "-------------------------------------",
         "",
-        "| Board | letzte Aenderung | aeltester offener Punkt | Widerspruch \"keine offenen\" |",
+        '| Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |',
         "| --- | --- | --- | --- |",
     ]
 
@@ -209,9 +205,7 @@ def write_index_metadata(
         else:
             oldest_open = _sanitize_table_cell(str(stats["oldest_open"]))
         contradiction = "ja" if bool(stats["contradiction"]) else "nein"
-        table_lines.append(
-            f"| {label} | {latest_date} | {oldest_open} | {contradiction} |"
-        )
+        table_lines.append(f"| {label} | {latest_date} | {oldest_open} | {contradiction} |")
 
     new_block = "\n".join(table_lines) + "\n\n"
     updated = _replace_section(
@@ -288,9 +282,11 @@ def main() -> int:
 
         if contradiction:
             diagnostics_fail = True
-            print(
-                f"FAIL: contradiction in {board_path} (contains 'keine offen*' but has open checkboxes)"
+            contradiction_msg = (
+                "FAIL: contradiction in "
+                f"{board_path} (contains 'keine offen*' but has open checkboxes)"
             )
+            print(contradiction_msg)
 
         if index_count is None:
             diagnostics_fail = True
@@ -299,9 +295,11 @@ def main() -> int:
 
         if index_count != open_count:
             diagnostics_fail = True
-            print(
-                f"FAIL: count mismatch for {board_path}: index={index_count} actual_open={open_count}"
+            mismatch_msg = (
+                "FAIL: count mismatch for "
+                f"{board_path}: index={index_count} actual_open={open_count}"
             )
+            print(mismatch_msg)
 
     if args.write_index_meta and board_stats:
         wrote = write_index_metadata(index_path, board_stats)

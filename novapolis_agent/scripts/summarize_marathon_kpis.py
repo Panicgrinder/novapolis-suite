@@ -115,10 +115,7 @@ def summarize_files(files: list[Path]) -> dict[str, Any]:
             }
         )
 
-    top_failed = [
-        {"check": name, "count": count}
-        for name, count in fail_counter.most_common(8)
-    ]
+    top_failed = [{"check": name, "count": count} for name, count in fail_counter.most_common(8)]
 
     avg_duration = int(sum(durations) / len(durations)) if durations else 0
 
@@ -165,9 +162,7 @@ def _build_markdown(report: dict[str, Any]) -> str:
                 f"- {row['package']}: total={row['total']}, "
                 + f"failed={row['failed']}, pass_rate={row['pass_rate']}"
             )
-            lines.append(
-                pkg_line
-            )
+            lines.append(pkg_line)
     else:
         lines.append("- none")
     lines.append("")

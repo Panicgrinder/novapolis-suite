@@ -1,6 +1,6 @@
 ---
-stand: 2026-03-10 17:02
-update: Projektkontext-Bruecke dokumentiert und Phase 1 gestartet (Manifest + Index-Build + Runbook-Betriebsweg).
+stand: 2026-03-11 07:02
+update: Lint-/Format-Stabilisierung fuer gestarteten Dev-Punkt-1-Lauf nachgezogen.
 checks: .\.venv\Scripts\python.exe novapolis_agent\scripts\build_project_context_index.py PASS (indexed_sources=10, n_docs=10, vocab=2807, 2026-03-10 17:05); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/process/project-context-bridge.ssot.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 17:05); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/process/project-context-bridge.ssot.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 17:05)
 ---
 
@@ -23,6 +23,7 @@ DONELOG – Abgeschlossene Arbeiten
 =================================
 
 
+2026-03-11 06:57 | Copilot | Punkt-1-Stabilisierung gestartet: Black-Formatdrift in `scripts/check_todo_index_sync.py`, `scripts/build_eval_from_rp.py`, `scripts/summarize_marathon_kpis.py` bereinigt sowie Ruff-E501-Restfall in `tests/scripts/test_prepare_pack_smoke.py` auf mehrzeiligen String umgestellt; Stand nach Re-Check: `ruff`/`black` gruen, Coverage-Gate weiterhin offen (`76.24% < 80%`).
 2026-03-10 17:02 | Copilot | Projektkontext-Bruecke Phase 1 gestartet: neues Quellenmanifest `eval/config/context.bridge.sources.json`, neues Build-Skript `scripts/build_project_context_index.py` (kanonische Quellen -> RAG-Index), Runbook um operativen Bridge-Betriebsweg erweitert (`docs/runbook.md`, /chat mit aktiviertem RAG-On).
 2026-03-10 16:33 | Copilot | Synonym-Optimierung fuer RP-Eval: `eval/config/synonyms.additional.json` um gezielte Missing-Term-Bridge erweitert (`readme`, `signals (beispiele)`, `24x1h log template`, `ai behavior mapping`, `d5 (station) [fact?]`, `systemmeldung (beispiel)`, `canvas t0 timeline`, `cluster index`); Stabilitaetstest `test_run_eval_term_helpers.py` PASS; RP-Voll-Re-Run (`results_20260310_1617_rp_all_full_synopt.jsonl`) verbessert Success von `98` auf `101` und reduziert `term_inclusion`-Fails von `92` auf `89`.
 2026-03-10 15:24 | Copilot | RP-Content-Eval nahtlos integriert: neue Suite `rp_content` in `eval/config/suites.json`, neuer Task `Eval: suite rp_content (20, asgi)`, strict-Validator-Task um `--suite rp_content` erweitert, Runbook+Provenance nachgezogen; strict-Validierung PASS (`files=3, records=124, ids=124, slugs=124`) und kurzer ASGI-Smoke-Lauf ausgefuehrt.

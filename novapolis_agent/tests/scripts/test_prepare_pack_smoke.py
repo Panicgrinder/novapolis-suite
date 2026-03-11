@@ -41,7 +41,9 @@ def test_prepare_pack_smoke(tmp_path: pathlib.Path) -> None:
                             {"role": "user", "content": "Was ist dein Auftrag?"},
                             {
                                 "role": "assistant",
-                                "content": "Ich dokumentiere Ereignisse und helfe bei klaren Antworten.",
+                                "content": (
+                                    "Ich dokumentiere Ereignisse und helfe bei klaren " "Antworten."
+                                ),
                             },
                         ]
                     },

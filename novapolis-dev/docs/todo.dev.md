@@ -1,6 +1,6 @@
 ---
-stand: 2026-03-11 06:49
-update: Woechentliche Hygiene-Cadence mit KPI-Tracking verbindlich verankert; offener Dev-Restpunkt geschlossen.
+stand: 2026-03-11 07:02
+update: Neuer Optimierungszyklus gestartet; technische Gate-Stabilisierung und modernes Doku-Basispaket wieder als offene Dev-Punkte aufgenommen.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 
@@ -18,6 +18,23 @@ Hinweis
 
 Offene Aufgaben (Dev)
 ---------------------
+
+- [ ] [Jetzt] Full-Gate wieder gruen machen (`ruff`, `black`, `pytest/coverage >= 80`) und den aktuell roten Sammellauf stabilisieren.
+  - Akzeptanzkriterium: `scripts/run_checks_and_report.py` liefert `overall=PASS` mit Reportpfad und ohne rote Pflichtchecks.
+  - Evidenz: `.tmp/results/reports/checks_report_<timestamp>.md`.
+  - Zwischenstand 2026-03-11: Ruff- und Black-Restbefunde aus dem letzten Lauf (E501/Format) in `scripts/check_todo_index_sync.py` sowie betroffenen Agent-Skripten/Testdateien bereits behoben; offener Rest ist primär Coverage (`76.24%`).
+- [ ] [Als naechstes] Modernes Community-/Maintainer-Doku-Paket ergaenzen (`SUPPORT.md`, Issue-/PR-Templates, `RELEASE.md`, `GOVERNANCE.md` oder `MAINTAINERS.md`).
+  - Akzeptanzkriterium: Einstieg, Meldewege und Release-/Maintainer-Prozess sind fuer externe Contributors ohne implizites Wissen auffindbar.
+  - Evidenz: neue Dateien unter Root bzw. `.github/` + Verweise in `README.md`.
+- [ ] [Als naechstes] ADR-Ordner von "bereit" auf "aktiv genutzt" heben (mind. `ADR-0001`, `ADR-0002`).
+  - Akzeptanzkriterium: zentrale Entscheidungen (z. B. DONELOG-Ebenen, Quality-Gate-Sequenz) sind als akzeptierte ADRs dokumentiert.
+  - Evidenz: `docs/adr/0001-*.md`, `docs/adr/0002-*.md`.
+- [ ] [Spaeter] Root-Backlog O11 schliessen: externes Beta-Installblatt fuer Dritte erstellen und mit Dev-Hub synchronisieren.
+  - Akzeptanzkriterium: ein Dritter kann Setup/Run/Troubleshooting fuer die Standalone-Beta ohne Insiderwissen ausfuehren.
+  - Evidenz: neues Installblatt + Referenz in `todo.root.md`.
+- [ ] [Spaeter] Cadence-KPI-Review als Trendansicht verankern (nicht nur Einzelwerte je Slot).
+  - Akzeptanzkriterium: KPI-Verlauf (4 Kernmetriken) ist fuer mindestens 4 aufeinanderfolgende Slots vergleichbar dokumentiert.
+  - Evidenz: KPI-Abschnitt in `novapolis-dev/docs/donelog.md` oder dedizierte Dev-KPI-Uebersicht.
 
 - [x] [Jetzt] Active-Surface-Index fuer `novapolis-dev/docs/**` erstellen (ACTIVE/REFERENCE/HISTORICAL + Owner + last_check).
   - Akzeptanzkriterium: Eine scanbare Uebersicht mit klarer Klassifikation aller aktiven Dev-Dokumente liegt vor.

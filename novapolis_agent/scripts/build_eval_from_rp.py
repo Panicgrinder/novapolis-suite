@@ -36,12 +36,7 @@ class RPEvalItem:
 
 def _slugify(value: str) -> str:
     text = value.lower().strip()
-    text = (
-        text.replace("ä", "ae")
-        .replace("ö", "oe")
-        .replace("ü", "ue")
-        .replace("ß", "ss")
-    )
+    text = text.replace("ä", "ae").replace("ö", "oe").replace("ü", "ue").replace("ß", "ss")
     text = re.sub(r"[^a-z0-9]+", "-", text)
     return text.strip("-")
 
@@ -74,11 +69,11 @@ def _build_prompt(title: str, lead: str) -> str:
     if lead:
         return (
             "Erstelle eine kurze, sachliche Inworld-Einordnung auf Basis des RP-SSOT-Eintrags "
-            f"\"{title}\". Beruecksichtige den Kontext: {lead}"
+            f'"{title}". Beruecksichtige den Kontext: {lead}'
         )
     return (
         "Erstelle eine kurze, sachliche Inworld-Einordnung auf Basis des RP-SSOT-Eintrags "
-        f"\"{title}\"."
+        f'"{title}".'
     )
 
 
