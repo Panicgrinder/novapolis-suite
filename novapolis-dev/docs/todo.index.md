@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-11 03:57
+stand: 2026-03-11 04:17
 update: Sim-Index fuer Hub-Chatfenster-Aufnahme und Abschlussstatus synchronisiert.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 17:19); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 17:19)
 ---
@@ -15,7 +15,7 @@ TODO-Index (Novapolis-Dev)
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 5)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 1)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 1)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
 
 - Statushinweis Index v1.2: Open-Count-Drift bereinigt - RP `1 -> 5` und Sim `0 -> 1` anhand aktiver Checkboxen in den Modul-Boards synchronisiert.
 - Statushinweis Index v1.3: Agent-Backlog nach Tiefenanalyse ergänzt - Open-Count Agent `0 -> 6` (Portabilitaet, Abhaengigkeiten, Legacy, Testdeterminismus, Artefakt-Lifecycle, Marathon-KPI-Automation).
@@ -70,6 +70,7 @@ TODO-Index (Novapolis-Dev)
 - Statushinweis Sim v4.7: Vollstaendig erledigter Block `Neuordnung: C) Agent-Modul im Hub (neu)` aus `docs/todo.sim.md` nach `novapolis-dev/archive/todo.sim.archive.md` ueberfuehrt (`archived_at: 2026-03-04 00:20`).
 - Statushinweis Sim v4.8: Neuer Hub-Punkt aufgenommen: kleines Chatfenster im Hauptmenue mit `/chat`-Roundtrip als lokaler Gespraechsmodus.
 - Statushinweis Sim v4.9: Hub-Chatfenster abgeschlossen - kleines Chatpanel im Hauptmenue sendet an `/chat` und zeigt Antworten/Fehler robust im UI an.
+- Statushinweis Sim v5.0: Sim-Board konsolidiert - verbleibende offene Referenz-Checkbox geschlossen; aktueller Open-Count damit `1 -> 0`.
 - Statushinweis Root/Beta v0: `todo.root.md` enthaelt jetzt eine geordnete Standalone-Beta-Exit-Checkliste mit Blockern [1]-[7] und Optionalpunkten [8]-[12].
 - Statushinweis Beta v0.1: Blockerpakete Dev/RP/Sim strukturell nachgezogen (`todo.dev` Jetzt-Block abgeschlossen, `todo.rp` P0-Jetzt abgeschlossen, `todo.sim` auf `offen:0`).
 - Statushinweis Beta v1.0: Root-Blocker B1-B7 und `Definition of Ready` in `todo.root.md` auf erledigt gesetzt; Referenzlauf `checks_report_20260304_004318.md` ist gruen.

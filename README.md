@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-05 01:00
+stand: 2026-03-11 04:17
 update: Root-TTS-Temporarpaad entfernt; Standalone-Beta Startpfad und Go/No-Go-Gates fuer reproduzierbare Beta-Laeufe dokumentiert.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
@@ -108,7 +108,11 @@ Verbindungsprüfung
 ### Archiv
 
 - Historisierte oder ältere Planungs-/Prozessdokumente werden zentral unter `novapolis-dev/archive/` abgelegt.
-- Bitte keine Archive in Unterprojekten anlegen; verlinke stattdessen nach `novapolis-dev/archive/`.
+- Aktive Regelquelle fuer historische Doku bleibt das Dev-Archiv; Archivpfade in Modulen sind nur zulaessig fuer technische/operative Artefakte im jeweiligen Modul.
+- Zulässige operative Modularchive (nicht SSOT fuer Governance-Doku):
+  - `novapolis_agent/archive/` (Agent-interne technische Artefakte)
+  - `Backups/` (forensische Backup-/Restore-Artefakte auf Root-Ebene)
+- Bei Dokument-Archivierung immer zuerst pruefen, ob der Inhalt in `novapolis-dev/archive/` gehoert; nur falls klar modulintern technisch, in den jeweiligen Modularchivpfad ablegen.
 
 ### Hinweise für Mitarbeit (Moduswechsel & STOP-Gate)
 

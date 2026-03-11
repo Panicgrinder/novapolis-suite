@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-11 03:57
+stand: 2026-03-11 04:17
 update: Hub-Hauptmenue-Chatfenster aufgenommen und im selben Lauf als erledigt dokumentiert.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 17:19); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 17:19)
 ---
@@ -43,7 +43,7 @@ Neue Aufgaben - Epochen & Audio (2025-11-01 22:24)
   - Evidenz: `novapolis-sim/scripts/Main.gd` (Signal-Definitionen + Emission + Runtime-Event-Log in `PcLogLabel`), Headless-Start `res://Main.tscn` ohne Fehler.
 - [x] [Jetzt] Scheduler-Hook vorbereiten: Min-Heap-basierte Event-Queue (ohne Logik), nur Schnittstellen/Types.
   - Evidenz: `novapolis-sim/scripts/scheduler_hook.gd` (Min-Heap API: `enqueue/peek_next/pop_next/pop_due`), `novapolis-sim/scripts/Main.gd` (`SCHEDULER_READY` Runtime-Event).
-  - [ ] Referenz: `novapolis-dev/docs/specs/scheduler-spec.md`.
+  - [x] Referenz: `novapolis-dev/docs/specs/scheduler-spec.md`.
 - [x] [Als naechstes] RP-Panel-Controls: Stundensprung, Auto-Advance (wenn kein PC-Event), Replay-Seed sichtbar machen (nicht im allgemeinen Hub).
   - Evidenz: `novapolis-sim/scripts/Main.gd` (`_set_rp_module_exclusive`, `_on_rp_hour_plus_pressed`, `_on_rp_auto_advance_pressed`, `_run_rp_auto_advance`, `_refresh_rp_studio_ui`) mit `RP_HOUR_JUMP`/`RP_AUTO_ADVANCE`-Events und `rp_replay_seed_label`.
 

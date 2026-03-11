@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-11 03:57
+stand: 2026-03-11 04:17
 update: Sim-Hub um kleines Chatfenster im Hauptmenue erweitert (UI + /chat Roundtrip + robustes Fehlerhandling).
 checks: get_errors novapolis-sim/Main.tscn + novapolis-sim/scripts/Main.gd PASS (0 diagnostics, 2026-03-10 17:17); godot4 --headless --path .\novapolis-sim --quit --scene res://Main.tscn FAIL (godot4 not found, 2026-03-10 17:17); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 17:19); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 17:19)
 ---
@@ -17,6 +17,14 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Docs: Optimierungsbatch Aktiv-vs-Archiv + TODO-Konsistenz (2026-03-11 03:58)
+-------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.sim.md`: verbleibende offene Referenz-Checkbox (`scheduler-spec`) auf erledigt gesetzt, damit der Sim-Board-Status konsistent zu "keine offenen Punkte" ist.
+- `novapolis-dev/docs/todo.index.md`: Sim-Open-Count von `1` auf `0` synchronisiert und Statushinweis `Sim v5.0` ergänzt.
+- `README.md`: Archivregeln präzisiert (zentrales Dev-Archiv als Doku-SSOT; modulinterne Archive nur für technische/operative Artefakte).
+- Ergebnis: geringere kognitive Last bei Navigation und klarere Trennung aktiv vs. historisch ohne Strukturbruch.
 
 Dev/Sim: Hub-Hauptmenue Chatfenster eingebaut (2026-03-10 17:12)
 -----------------------------------------------------------------
