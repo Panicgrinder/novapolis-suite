@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 07:07
-update: Punkt-3-Start umgesetzt: 90%-Coverage-Ziel verbindlich in der Dev-Teststrategie verankert.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-11 07:26
+update: Punkt 1 geschlossen (Full-Gate gruen) und 91%-Coverage-Sprint als naechster Lauf gestartet.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260311_072546.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -19,10 +19,13 @@ Hinweis
 Offene Aufgaben (Dev)
 ---------------------
 
-- [ ] [Jetzt] Full-Gate wieder gruen machen (`ruff`, `black`, `pytest/coverage >= 80`) und den aktuell roten Sammellauf stabilisieren.
+- [x] [Jetzt] Full-Gate wieder gruen machen (`ruff`, `black`, `pytest/coverage >= 80`) und den aktuell roten Sammellauf stabilisieren.
   - Akzeptanzkriterium: `scripts/run_checks_and_report.py` liefert `overall=PASS` mit Reportpfad und ohne rote Pflichtchecks.
-  - Evidenz: `.tmp/results/reports/checks_report_<timestamp>.md`.
-  - Zwischenstand 2026-03-11: Ruff- und Black-Restbefunde aus dem letzten Lauf (E501/Format) in `scripts/check_todo_index_sync.py` sowie betroffenen Agent-Skripten/Testdateien bereits behoben; offener Rest ist primär Coverage (`76.24%`).
+  - Evidenz: `.tmp/results/reports/checks_report_20260311_072150.md`.
+  - Abschluss 2026-03-11: Full-Gate wieder gruen; Coverage-Gate `>=80%` wieder erreicht (aktueller Lauf: `80.45%`).
+- [ ] [Jetzt] Coverage-Sprint Richtung `91%` starten (Welle 1: skriptnahe Low-Coverage-Module).
+  - Akzeptanzkriterium: Nettoanstieg der Gesamt-Coverage gegen Baseline (`76.24%`) ist messbar dokumentiert und die Wellenplanung fuer die naechsten Hauptluecken steht.
+  - Evidenz: neue/erweiterte Tests in `novapolis_agent/tests/scripts/` plus Coverage-Report (`80.45%` nach Welle 1).
 - [ ] [Als naechstes] Modernes Community-/Maintainer-Doku-Paket ergaenzen (`SUPPORT.md`, Issue-/PR-Templates, `RELEASE.md`, `GOVERNANCE.md` oder `MAINTAINERS.md`).
   - Akzeptanzkriterium: Einstieg, Meldewege und Release-/Maintainer-Prozess sind fuer externe Contributors ohne implizites Wissen auffindbar.
   - Evidenz: neue Dateien unter Root bzw. `.github/` + Verweise in `README.md`.

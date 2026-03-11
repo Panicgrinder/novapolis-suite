@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 07:07
-update: Punkt-3-Coverage-Strategie im Dev-Board verankert; Index-Status synchronisiert.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260311_065156.md
+stand: 2026-03-11 07:26
+update: Dev-Punkt 1 abgeschlossen (Full-Gate gruen), 91%-Coverage-Sprint als neuer offener Schwerpunkt im Board synchronisiert.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260311_072546.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -21,6 +21,7 @@ Statushinweise (aktuell)
 ------------------------
 
 - Dev v5.3: Coverage-Punkt 3 gestartet; 90%-Qualitaetsziel jetzt verbindlich in Dev-Tests/Abschlussprozess verankert.
+- Dev v5.4: Punkt 1 (Full-Gate) geschlossen; Coverage-Welle 1 Richtung `91%` gestartet (`76.24% -> 80.45%`).
 - Dev v5.2: Folgezyklus fuer Gate-Stabilisierung und modernes Doku-Basispaket gestartet (`offen: 0 -> 5`).
 - Dev v5.1: Woechentliche Hygiene-Cadence mit KPI-Tracking verbindlich dokumentiert (`offen: 1 -> 0`).
 - Sim v5.0: Sim-Board konsolidiert, verbleibende Mikrodrift geschlossen (`offen: 1 -> 0`).
@@ -31,7 +32,7 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-03-11 | - [ ] [Jetzt] Full-Gate wieder gruen machen (`ruff`, `black`, `pytest/coverage >= 80`) und den aktuell roten Sammellauf stabilisieren. | nein |
+| Dev (`docs/todo.dev.md`) | 2026-03-11 | - [ ] [Jetzt] Coverage-Sprint Richtung `91%` starten (Welle 1: skriptnahe Low-Coverage-Module). | nein |
 | RP (`docs/todo.rp.md`) | 2026-03-05 | - [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten. | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-03-11 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-03-11 | keiner (offen: 0) | nein |
