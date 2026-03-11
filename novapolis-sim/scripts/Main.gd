@@ -99,6 +99,12 @@ signal on_interrupt(reason: String, context: Dictionary)
 @onready var hub_config_default_panel_button: OptionButton = $HubConfigPanel/HubConfigDefaultPanelButton
 @onready var hub_config_refresh_button: OptionButton = $HubConfigPanel/HubConfigRefreshButton
 @onready var hub_config_status_label: Label = $HubConfigPanel/HubConfigStatusLabel
+@onready var hub_chat_panel: Panel = $HubChatPanel
+@onready var hub_chat_history_label: RichTextLabel = $HubChatPanel/HubChatHistoryLabel
+@onready var hub_chat_input_edit: LineEdit = $HubChatPanel/HubChatInputEdit
+@onready var hub_chat_send_button: Button = $HubChatPanel/HubChatSendButton
+@onready var hub_chat_status_label: Label = $HubChatPanel/HubChatStatusLabel
+@onready var hub_chat_request: HTTPRequest = $HubChatRequest
 @onready var _sim_client: Node = get_node_or_null("/root/SimClient")
 
 @export var epochs_dir: String = "res://data/epochs"
@@ -115,6 +121,7 @@ signal on_interrupt(reason: String, context: Dictionary)
 @export var eval_summary_refresh_interval_seconds: float = 8.0
 @export var eval_expected_duration_seconds: float = 25.0
 @export var eval_quick_limit: int = 30
+@export var hub_chat_profile_id: String = "context_bridge"
 
 var _loaded_epochs: Array[Dictionary] = []
 var _current_epoch_index: int = 0
@@ -217,6 +224,8 @@ var _hub_show_eval_card: bool = true
 var _hub_default_panel: String = "hub"
 var _hub_refresh_profile: String = "normal"
 var _hub_config_collapsed: bool = false
+var _hub_chat_in_flight: bool = false
+var _hub_chat_lines: Array[String] = []
 const _HUB_PREFS_PATH: String = "user://hub_prefs.cfg"
 const _DATASET_REGISTRY_PATH: String = "user://agent_user_data/datasets/_registry.json"
 const _SYNONYM_REGISTRY_PATH: String = "user://agent_user_data/synonyms/_registry.json"
@@ -231,6 +240,7 @@ const _EVAL_SUITE_OPTIONS: Array[String] = ["neutral", "rpg", "quality_de"]
 const _DATASET_SOURCE_OPTIONS: Array[String] = ["clean", "with_failures"]
 const _HUB_DEFAULT_PANEL_OPTIONS: Array[String] = ["hub", "agent", "checks"]
 const _HUB_REFRESH_PROFILE_OPTIONS: Array[String] = ["normal", "fast", "slow"]
+const _HUB_CHAT_MAX_LINES: int = 18
 
 const _AGENT_PANEL_DOCK_LEFT: float = 1320.0
 const _AGENT_PANEL_DOCK_TOP: float = 620.0
@@ -302,6 +312,9 @@ func _ready() -> void:
 	hub_config_eval_card_button.pressed.connect(_on_hub_config_eval_card_pressed)
 	hub_config_default_panel_button.item_selected.connect(_on_hub_config_default_panel_selected)
 	hub_config_refresh_button.item_selected.connect(_on_hub_config_refresh_selected)
+	hub_chat_send_button.pressed.connect(_on_hub_chat_send_pressed)
+	hub_chat_input_edit.text_submitted.connect(_on_hub_chat_input_submitted)
+	hub_chat_request.request_completed.connect(_on_hub_chat_request_completed)
 	_audio_player = AudioStreamPlayer.new()
 	add_child(_audio_player)
 	_apply_state({"tick": 0, "time": 0.0})
@@ -336,6 +349,9 @@ func _ready() -> void:
 	_update_rp_menu_ui()
 	_refresh_hub_config_ui()
 	_set_hub_config_collapsed(false)
+	hub_chat_history_label.bbcode_enabled = false
+	hub_chat_history_label.text = "System: Chat bereit."
+	hub_chat_status_label.text = "Chat: bereit"
 	_refresh_agent_studio_ui()
 	_refresh_agent_form_ui()
 	agent_studio_hint_label.visible = false
@@ -388,106 +404,194 @@ func _scale_hub_y(value: float, height: float) -> float:
 
 func _apply_editor_hub_layout(width: float, height: float) -> void:
 	# Preserve the dashboard arrangement authored in Main.tscn as hub source of truth.
+	var area_01_left := _scale_hub_x(101.0, width)
+	var area_01_top := _scale_hub_y(157.0, height)
+	var area_01_right := _scale_hub_x(525.0, width)
+	var area_01_bottom := _scale_hub_y(275.0, height)
+	var area_02_left := _scale_hub_x(549.0, width)
+	var area_02_top := _scale_hub_y(157.0, height)
+	var area_02_right := _scale_hub_x(945.0, width)
+	var area_02_bottom := _scale_hub_y(275.0, height)
+	var area_03_left := _scale_hub_x(969.0, width)
+	var area_03_top := _scale_hub_y(157.0, height)
+	var area_03_right := _scale_hub_x(1364.0, width)
+	var area_03_bottom := _scale_hub_y(275.0, height)
+	var area_04_left := _scale_hub_x(1389.0, width)
+	var area_04_top := _scale_hub_y(157.0, height)
+	var area_04_right := _scale_hub_x(1809.0, width)
+	var area_04_bottom := _scale_hub_y(275.0, height)
+
+	var inner_pad_x := _scale_hub_x(8.0, width)
+	var inner_pad_y := _scale_hub_y(8.0, height)
+
 	_set_control_rect(
 		hub_title_label,
-		_scale_hub_x(108.0, width),
-		_scale_hub_y(157.0, height),
-		_scale_hub_x(522.0, width),
-		_scale_hub_y(180.0, height)
+		area_01_left + inner_pad_x,
+		area_01_top + inner_pad_y,
+		area_01_right - inner_pad_x,
+		area_01_top + _scale_hub_y(30.0, height)
 	)
 	_set_control_rect(
 		hub_api_label,
-		_scale_hub_x(108.0, width),
-		_scale_hub_y(178.0, height),
-		_scale_hub_x(521.0, width),
-		_scale_hub_y(201.0, height)
+		area_01_left + inner_pad_x,
+		area_01_top + _scale_hub_y(30.0, height),
+		area_01_right - inner_pad_x,
+		area_01_top + _scale_hub_y(52.0, height)
 	)
 	_set_control_rect(
-		hub_polling_label,
-		_scale_hub_x(1178.0, width),
-		_scale_hub_y(250.0, height),
-		_scale_hub_x(1361.0, width),
-		_scale_hub_y(273.0, height)
+		slot_label,
+		area_01_left + inner_pad_x,
+		area_01_top + _scale_hub_y(52.0, height),
+		area_01_right - inner_pad_x,
+		area_01_top + _scale_hub_y(74.0, height)
 	)
 	_set_control_rect(
-		hub_queue_label,
-		_scale_hub_x(1178.0, width),
-		_scale_hub_y(232.0, height),
-		_scale_hub_x(1361.0, width),
-		_scale_hub_y(256.0, height)
+		audio_status_label,
+		area_01_left + inner_pad_x,
+		area_01_top + _scale_hub_y(74.0, height),
+		area_01_right - inner_pad_x,
+		area_01_top + _scale_hub_y(96.0, height)
 	)
 	_set_control_rect(
-		hub_errors_label,
-		_scale_hub_x(971.0, width),
-		_scale_hub_y(213.0, height),
-		_scale_hub_x(1361.0, width),
-		_scale_hub_y(237.0, height)
+		epoch_label,
+		area_01_left + inner_pad_x,
+		area_01_top + _scale_hub_y(96.0, height),
+		area_01_left + _scale_hub_x(220.0, width),
+		area_01_bottom - inner_pad_y
 	)
+	_set_control_rect(
+		epoch_status_label,
+		area_01_left + _scale_hub_x(224.0, width),
+		area_01_top + _scale_hub_y(96.0, height),
+		area_01_right - inner_pad_x,
+		area_01_bottom - inner_pad_y
+	)
+
+	var action_pad := _scale_hub_x(10.0, width)
+	var action_gap := _scale_hub_x(10.0, width)
+	var action_inner_left := area_02_left + action_pad
+	var action_inner_right := area_02_right - action_pad
+	var action_width := maxf(
+		_scale_hub_x(140.0, width),
+		(action_inner_right - action_inner_left - action_gap) / 2.0
+	)
+	var action_top_row_top := area_02_top + inner_pad_y
+	var action_top_row_bottom := action_top_row_top + _scale_hub_y(46.0, height)
+	var action_bottom_row_top := action_top_row_bottom + _scale_hub_y(10.0, height)
+	var action_bottom_row_bottom := area_02_bottom - inner_pad_y
 
 	_set_control_rect(
 		play_pc_button,
-		_scale_hub_x(554.0, width),
-		_scale_hub_y(174.0, height),
-		_scale_hub_x(748.0, width),
-		_scale_hub_y(205.0, height)
+		action_inner_left,
+		action_top_row_top,
+		action_inner_left + action_width,
+		action_top_row_bottom
 	)
 	_set_control_rect(
 		play_world_button,
-		_scale_hub_x(747.0, width),
-		_scale_hub_y(173.0, height),
-		_scale_hub_x(939.0, width),
-		_scale_hub_y(204.0, height)
-	)
-	_set_control_rect(
-		server_toggle_button,
-		_scale_hub_x(1104.0, width),
-		_scale_hub_y(156.0, height),
-		_scale_hub_x(1249.0, width),
-		_scale_hub_y(187.0, height)
-	)
-	_set_control_rect(
-		hub_reload_button,
-		_scale_hub_x(745.0, width),
-		_scale_hub_y(224.0, height),
-		_scale_hub_x(937.0, width),
-		_scale_hub_y(255.0, height)
+		action_inner_left + action_width + action_gap,
+		action_top_row_top,
+		action_inner_right,
+		action_top_row_bottom
 	)
 	_set_control_rect(
 		hub_checks_button,
-		_scale_hub_x(558.0, width),
-		_scale_hub_y(225.0, height),
-		_scale_hub_x(750.0, width),
-		_scale_hub_y(256.0, height)
+		action_inner_left,
+		action_bottom_row_top,
+		action_inner_left + action_width,
+		action_bottom_row_bottom
+	)
+	_set_control_rect(
+		hub_reload_button,
+		action_inner_left + action_width + action_gap,
+		action_bottom_row_top,
+		action_inner_right,
+		action_bottom_row_bottom
+	)
+
+	var status_pad := _scale_hub_x(8.0, width)
+	var status_left := area_03_left + status_pad
+	var status_right := area_03_right - status_pad
+	var status_line_h := _scale_hub_y(18.0, height)
+	var status_gap := _scale_hub_y(3.0, height)
+	var status_y := area_03_top + inner_pad_y
+
+	_set_control_rect(
+		server_toggle_button,
+		status_left,
+		status_y,
+		status_left + _scale_hub_x(148.0, width),
+		status_y + _scale_hub_y(30.0, height)
+	)
+	_set_control_rect(
+		server_status_label,
+		status_left + _scale_hub_x(154.0, width),
+		status_y,
+		status_right,
+		status_y + _scale_hub_y(30.0, height)
+	)
+	status_y += _scale_hub_y(34.0, height)
+	_set_control_rect(
+		hub_errors_label,
+		status_left,
+		status_y,
+		status_right,
+		status_y + status_line_h
+	)
+	status_y += status_line_h + status_gap
+	_set_control_rect(
+		hub_queue_label,
+		status_left,
+		status_y,
+		status_right,
+		status_y + status_line_h
+	)
+	status_y += status_line_h + status_gap
+	_set_control_rect(
+		hub_polling_label,
+		status_left,
+		status_y,
+		status_right,
+		status_y + status_line_h
+	)
+	status_y += status_line_h + status_gap
+	_set_control_rect(
+		tick_label,
+		status_left,
+		status_y,
+		status_left + _scale_hub_x(188.0, width),
+		status_y + status_line_h
+	)
+	_set_control_rect(
+		time_label,
+		status_left + _scale_hub_x(194.0, width),
+		status_y,
+		status_right,
+		status_y + status_line_h
 	)
 
 	_set_control_rect(
 		hub_config_panel,
-		_scale_hub_x(1388.0, width),
-		_scale_hub_y(156.0, height),
-		_scale_hub_x(1810.0, width),
-		_scale_hub_y(278.0, height)
-	)
-	_set_control_rect(
-		audio_status_label,
-		_scale_hub_x(108.0, width),
-		_scale_hub_y(212.0, height),
-		_scale_hub_x(522.0, width),
-		_scale_hub_y(235.0, height)
-	)
-	_set_control_rect(
-		server_status_label,
-		_scale_hub_x(972.0, width),
-		_scale_hub_y(195.0, height),
-		_scale_hub_x(1361.0, width),
-		_scale_hub_y(218.0, height)
+		area_04_left,
+		area_04_top,
+		area_04_right,
+		area_04_bottom
 	)
 	_set_control_rect(
 		log_label,
 		_scale_hub_x(106.0, width),
 		_scale_hub_y(342.0, height),
-		_scale_hub_x(1815.0, width),
+		_scale_hub_x(1364.0, width),
 		_scale_hub_y(784.0, height)
 	)
+	_set_control_rect(
+		hub_chat_panel,
+		_scale_hub_x(1389.0, width),
+		_scale_hub_y(286.0, height),
+		_scale_hub_x(1809.0, width),
+		_scale_hub_y(524.0, height)
+	)
+	_layout_hub_chat_contents()
 
 	_set_control_rect(
 		sim_card_panel,
@@ -625,8 +729,55 @@ func _layout_hub_log_and_cards(width: float, height: float) -> void:
 
 	log_label.offset_left = _UI_MARGIN
 	log_label.offset_top = 318.0
-	log_label.offset_right = width - _UI_MARGIN
+	var chat_panel_w := clampf(width * 0.26, 300.0, 420.0)
+	hub_chat_panel.offset_left = width - _UI_MARGIN - chat_panel_w
+	hub_chat_panel.offset_top = 318.0
+	hub_chat_panel.offset_right = width - _UI_MARGIN
+	hub_chat_panel.offset_bottom = minf(height - _UI_MARGIN - cards_h - _UI_GAP, 620.0)
+	_layout_hub_chat_contents()
+
+	log_label.offset_right = hub_chat_panel.offset_left - _UI_GAP
 	log_label.offset_bottom = maxf(log_label.offset_top + 140.0, cards_top - _UI_GAP)
+
+
+func _layout_hub_chat_contents() -> void:
+	var panel_w := maxf(220.0, hub_chat_panel.offset_right - hub_chat_panel.offset_left)
+	var panel_h := maxf(140.0, hub_chat_panel.offset_bottom - hub_chat_panel.offset_top)
+	var pad := 10.0
+	var send_w := clampf(panel_w * 0.22, 84.0, 108.0)
+	var input_h := 30.0
+	var status_h := 20.0
+	var title_top := 8.0
+	var title_bottom := 26.0
+	var input_top := panel_h - pad - status_h - 4.0 - input_h
+	var history_bottom := input_top - 8.0
+
+	hub_chat_history_label.offset_left = pad
+	hub_chat_history_label.offset_top = 30.0
+	hub_chat_history_label.offset_right = panel_w - pad
+	hub_chat_history_label.offset_bottom = maxf(64.0, history_bottom)
+
+	hub_chat_input_edit.offset_left = pad
+	hub_chat_input_edit.offset_top = input_top
+	hub_chat_input_edit.offset_right = panel_w - pad - send_w - 8.0
+	hub_chat_input_edit.offset_bottom = input_top + input_h
+
+	hub_chat_send_button.offset_left = hub_chat_input_edit.offset_right + 8.0
+	hub_chat_send_button.offset_top = input_top
+	hub_chat_send_button.offset_right = panel_w - pad
+	hub_chat_send_button.offset_bottom = input_top + input_h
+
+	hub_chat_status_label.offset_left = pad
+	hub_chat_status_label.offset_top = hub_chat_input_edit.offset_bottom + 4.0
+	hub_chat_status_label.offset_right = panel_w - pad
+	hub_chat_status_label.offset_bottom = hub_chat_status_label.offset_top + status_h
+
+	var chat_title := get_node_or_null("HubChatPanel/HubChatTitleLabel") as Label
+	if chat_title:
+		chat_title.offset_left = pad
+		chat_title.offset_top = title_top
+		chat_title.offset_right = panel_w - pad
+		chat_title.offset_bottom = title_bottom
 
 
 func _layout_hub_config_panel(width: float) -> void:
@@ -1325,6 +1476,7 @@ func _set_hub_content_visible(visible_state: bool) -> void:
 	audio_status_label.visible = visible_state
 	server_status_label.visible = visible_state
 	hub_config_panel.visible = visible_state
+	hub_chat_panel.visible = visible_state
 	log_label.visible = visible_state
 	rp_studio_panel.visible = _rp_submenu_open
 	sim_card_panel.visible = visible_state and _hub_show_sim_card
@@ -2114,6 +2266,97 @@ func _on_hub_reload_pressed() -> void:
 	_refresh_module_cards()
 	_update_server_control_ui()
 	on_action_end.emit("hub_reload", {"status": "ok"})
+
+
+func _on_hub_chat_send_pressed() -> void:
+	_send_hub_chat_message()
+
+
+func _on_hub_chat_input_submitted(_text: String) -> void:
+	_send_hub_chat_message()
+
+
+func _send_hub_chat_message() -> void:
+	if _hub_chat_in_flight:
+		hub_chat_status_label.text = "Chat: Anfrage laeuft bereits"
+		return
+
+	var prompt := hub_chat_input_edit.text.strip_edges()
+	if prompt == "":
+		hub_chat_status_label.text = "Chat: Bitte Nachricht eingeben"
+		return
+
+	var endpoint := _hub_chat_endpoint()
+	var payload := {
+		"messages": [{"role": "user", "content": prompt}],
+		"profile_id": hub_chat_profile_id,
+	}
+	var body := JSON.stringify(payload, "")
+	var headers := PackedStringArray(["Content-Type: application/json"])
+	var err := hub_chat_request.request(endpoint, headers, HTTPClient.METHOD_POST, body)
+	if err != OK:
+		hub_chat_status_label.text = "Chat: Request-Fehler (%d)" % err
+		_append_hub_chat_line("System", "Request konnte nicht gestartet werden.")
+		return
+
+	_hub_chat_in_flight = true
+	hub_chat_send_button.disabled = true
+	hub_chat_input_edit.editable = false
+	hub_chat_status_label.text = "Chat: sende an %s" % endpoint
+	_append_hub_chat_line("Du", prompt)
+	hub_chat_input_edit.clear()
+	_append_runtime_event("HUB_CHAT", {"action": "send", "endpoint": endpoint})
+
+
+func _hub_chat_endpoint() -> String:
+	var host := "127.0.0.1"
+	var port := 8765
+	if _sim_client:
+		host = str(_sim_client.get("host"))
+		port = int(_sim_client.get("port"))
+	return "http://%s:%d/chat" % [host, port]
+
+
+func _on_hub_chat_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	_hub_chat_in_flight = false
+	hub_chat_send_button.disabled = false
+	hub_chat_input_edit.editable = true
+
+	var text := body.get_string_from_utf8().strip_edges()
+	var parsed: Variant = JSON.parse_string(text)
+	if response_code >= 200 and response_code < 300:
+		if typeof(parsed) == TYPE_DICTIONARY:
+			var obj := parsed as Dictionary
+			var answer := str(obj.get("content", ""))
+			if answer == "":
+				answer = str(obj.get("detail", "(leere Antwort)"))
+			_append_hub_chat_line("KI", answer)
+			hub_chat_status_label.text = "Chat: Antwort ok (%d)" % response_code
+		else:
+			_append_hub_chat_line("KI", text)
+			hub_chat_status_label.text = "Chat: Antwort ok (%d)" % response_code
+	else:
+		var detail := "HTTP %d | result=%d" % [response_code, result]
+		if typeof(parsed) == TYPE_DICTIONARY:
+			var err_obj := parsed as Dictionary
+			detail = "%s | %s" % [detail, str(err_obj.get("detail", "Fehler ohne Detail"))]
+		elif text != "":
+			detail = "%s | %s" % [detail, text]
+		_append_hub_chat_line("System", detail)
+		hub_chat_status_label.text = "Chat: Fehler (%d)" % response_code
+
+	_append_runtime_event("HUB_CHAT", {"action": "response", "http": response_code, "result": result})
+
+
+func _append_hub_chat_line(role: String, content: String) -> void:
+	var clean := content.strip_edges().replace("\n", " ")
+	if clean.length() > 220:
+		clean = "%s..." % clean.left(217)
+	var line := "%s %s: %s" % [Time.get_time_string_from_system(), role, clean]
+	_hub_chat_lines.append(line)
+	while _hub_chat_lines.size() > _HUB_CHAT_MAX_LINES:
+		_hub_chat_lines.remove_at(0)
+	hub_chat_history_label.text = "\n".join(_hub_chat_lines)
 
 
 func _on_hub_checks_pressed() -> void:

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bnq0bhxfhix7d"]
 
 [ext_resource type="Script" uid="uid://xmqqvtqmknid" path="res://scripts/Main.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://h102etn2xuom" path="res://assets/mainmenu-page1-background.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dlq4cjsivaxn3" path="res://assets/mainmenu-page1-background-v2.png" id="2"]
 
 [node name="Main" type="Node2D" unique_id=1219424738]
 script = ExtResource("1")
@@ -10,15 +10,14 @@ script = ExtResource("1")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_right = 1918.0
-offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="HubTitleLabel" type="Label" parent="." unique_id=213000001]
 modulate = Color(0.85, 0.95, 1, 1)
@@ -827,12 +826,62 @@ offset_right = 1355.0
 offset_bottom = 218.0
 text = "Server: stopped"
 
+[node name="HubChatPanel" type="Panel" parent="." unique_id=213000501]
+offset_left = 1389.0
+offset_top = 286.0
+offset_right = 1809.0
+offset_bottom = 524.0
+
+[node name="HubChatTitleLabel" type="Label" parent="HubChatPanel" unique_id=213000502]
+modulate = Color(0.92, 0.96, 1, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 10.0
+offset_bottom = 8.0
+text = "Chat mit Projektkontext"
+
+[node name="HubChatHistoryLabel" type="RichTextLabel" parent="HubChatPanel" unique_id=213000503]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 30.0
+offset_right = 410.0
+offset_bottom = 170.0
+text = "System: Chat bereit."
+
+[node name="HubChatInputEdit" type="LineEdit" parent="HubChatPanel" unique_id=213000504]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 178.0
+offset_right = 312.0
+offset_bottom = 208.0
+placeholder_text = "Nachricht an lokale KI..."
+
+[node name="HubChatSendButton" type="Button" parent="HubChatPanel" unique_id=213000505]
+layout_mode = 0
+offset_left = 320.0
+offset_top = 178.0
+offset_right = 410.0
+offset_bottom = 208.0
+text = "Senden"
+
+[node name="HubChatStatusLabel" type="Label" parent="HubChatPanel" unique_id=213000506]
+modulate = Color(0.9, 1, 0.9, 1)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 214.0
+offset_right = 410.0
+offset_bottom = 234.0
+text = "Chat: bereit"
+
 [node name="PcLogLabel" type="RichTextLabel" parent="." unique_id=1623751295]
 offset_left = 106.0
 offset_top = 342.0
-offset_right = 1815.0
+offset_right = 1364.0
 offset_bottom = 784.0
 text = "PC-zentrierte Ansicht wird geladen..."
+
+[node name="HubChatRequest" type="HTTPRequest" parent="." unique_id=213000507]
 
 [node name="bereich-02" type="Panel" parent="." unique_id=1443418518]
 offset_left = 549.0

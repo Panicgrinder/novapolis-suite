@@ -343,6 +343,35 @@
     }
     ,
     {
+      "label": "Eval: suite rp_content (20, asgi)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "scripts.agent.run_eval",
+        "--asgi",
+        "--profile",
+        "unrestricted",
+        "--limit",
+        "20",
+        "--quiet",
+        "--checks",
+        "must_include,keywords_any,keywords_at_least,not_include,regex",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\rp\\rp_characters_core.v1.jsonl",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\rp\\rp_locations_core.v1.jsonl",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\rp\\rp_admin_core.v1.jsonl"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
       "label": "Eval: suite marathon (~60m, asgi, loud)",
       "type": "shell",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
@@ -380,6 +409,26 @@
     }
     ,
     {
+      "label": "Eval: summarize marathon KPIs",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\novapolis_agent\\scripts\\summarize_marathon_kpis.py",
+        "--pattern",
+        "novapolis_agent/eval/results/results_*_marathon*.jsonl",
+        "--report-json",
+        ".tmp/results/reports/marathon_kpi_summary.json",
+        "--report-md",
+        ".tmp/results/reports/marathon_kpi_summary.md"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
       "label": "Eval: validate datasets (slug+tags)",
       "type": "shell",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
@@ -407,7 +456,9 @@
         "--suite",
         "rpg",
         "--suite",
-        "quality_de"
+        "quality_de",
+        "--suite",
+        "rp_content"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "test",
@@ -540,6 +591,45 @@
         "-NoLogo",
         "-Command",
         "Invoke-RestMethod -Method Get -Uri 'http://127.0.0.1:8000/tts/voices' -ErrorAction Stop | ConvertTo-Json -Depth 6"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Data: artifacts cleanup (dry-run)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\novapolis_agent\\scripts\\cleanup_artifacts.py",
+        "--dry-run",
+        "--keep-latest",
+        "15",
+        "--report",
+        ".tmp/results/reports/artifact_lifecycle_report.json"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Data: build eval from RP (core)",
+      "type": "shell",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\novapolis_agent\\scripts\\build_eval_from_rp.py",
+        "--rp-root",
+        "novapolis-rp/database-rp",
+        "--out",
+        "novapolis_agent/eval/datasets/rp/rp_ssot_core.v1.jsonl",
+        "--limit",
+        "120"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",

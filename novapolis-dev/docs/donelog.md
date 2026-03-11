@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-10 13:14
-update: Dritten Agent-Analysepunkts umgesetzt (Legacy-Shim-Governance) und Board/Index synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 12:59); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 12:59)
+stand: 2026-03-11 03:57
+update: Sim-Hub um kleines Chatfenster im Hauptmenue erweitert (UI + /chat Roundtrip + robustes Fehlerhandling).
+checks: get_errors novapolis-sim/Main.tscn + novapolis-sim/scripts/Main.gd PASS (0 diagnostics, 2026-03-10 17:17); godot4 --headless --path .\novapolis-sim --quit --scene res://Main.tscn FAIL (godot4 not found, 2026-03-10 17:17); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 17:19); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 17:19)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -17,6 +17,104 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Sim: Hub-Hauptmenue Chatfenster eingebaut (2026-03-10 17:12)
+-----------------------------------------------------------------
+
+- `novapolis-sim/Main.tscn` um `HubChatPanel` (Titel, Verlauf, Eingabe, Sendebutton, Status) und `HubChatRequest` erweitert.
+- `novapolis-sim/scripts/Main.gd` um Hub-Chat-Flow erweitert: Eingabe senden, Endpoint-Aufbau (`/chat`), Response-Parsing, Fehlerbehandlung, Verlaufspuffer und Runtime-Event-Log.
+- Hub-Layout aktualisiert: Chatpanel im Hub sichtbar, Logbereich links davon reduziert; in Submenus bleibt Hub-Inhalt ausgeblendet.
+- Sim-Board nachgezogen: `novapolis-dev/docs/todo.sim.md` Punkt aufgenommen und im selben Lauf auf erledigt gesetzt; `novapolis-dev/docs/todo.index.md` synchronisiert.
+
+Dev/Agent: Projektkontext-Bruecke SSOT + Phase 1 Start (2026-03-10 17:02)
+-------------------------------------------------------------------------
+
+- Neue SSOT-Datei angelegt: `novapolis-dev/docs/process/project-context-bridge.ssot.md` (Ist-Stand, Zielbild, Phasen 1-4, Out-of-Scope).
+- Phase-1-Artefakte im Agent-Modul angelegt:
+  - `novapolis_agent/eval/config/context.bridge.sources.json` (kanonische Quellenliste)
+  - `novapolis_agent/scripts/build_project_context_index.py` (reproduzierbarer Index-Build aus Manifest)
+  - `novapolis_agent/docs/runbook.md` um Betriebsweg `Project Context Bridge (Phase 1 / MVP-Start)` erweitert.
+- Architekturentscheidung fuer den MVP: kein neuer Endpoint, Nutzung des bestehenden `/chat` mit aktiviertem RAG-Kontextpfad.
+
+Dev/Agent: Synonyms fuer RP-Eval gezielt optimiert (2026-03-10 16:33)
+---------------------------------------------------------------------
+
+- `novapolis_agent/eval/config/synonyms.additional.json` um eine gezielte RP-Eval-Bridge erweitert (`readme`, `signals (beispiele)`, `24x1h log template`, `ai behavior mapping`, `d5 (station) [fact?]`, `systemmeldung (beispiel)`, `canvas t0 timeline`, `cluster index`).
+- Stabilitaetscheck: `pytest -q novapolis_agent/tests/scripts/test_run_eval_term_helpers.py` PASS.
+- Voller RP-Re-Run ausgefuehrt (`--tag rp_all_full_synopt`), Ergebnisdatei `novapolis_agent/eval/results/results_20260310_1617_rp_all_full_synopt.jsonl`.
+- KPI-Vergleich gegen den Vorlauf (`results_20260310_1559_rp_all_full.jsonl`): Success `98 -> 101`, Pass-Rate `51.6% -> 53.2%`, `term_inclusion`-Fails `92 -> 89`, Top-Missing `readme` `21 -> 20`, `signals (beispiele)` `7 -> 5`, `24x1h log template` `4 -> 3`.
+- Einordnung: Verbesserung vorhanden, aber weiter `blocker`-Niveau; Hauptlast verbleibt bei `term_inclusion` in RP-SSOT-Paketen.
+
+Dev/Ops: Wochenabschluss ausgefuehrt (2026-03-10 15:40)
+--------------------------------------------------------
+
+- Wochenabschluss nach `novapolis-dev/docs/process/abschluss-routine.ssot.md` in Soll-Reihenfolge ausgefuehrt.
+- Qualitaetslauf: `scripts/run_checks_and_report.py` -> `overall=FAIL`; PASS bei Governance-Gates (`markdownlint`, `frontmatter`, `path-portability`, `namingpolicy`, `todo-index-sync`, `doc-freshness`, `logs-policy`), offene Restpunkte bei `ruff` (1 Finding), `black` (2 Files) und `pytest` im Full-Check.
+- Optionalcheck: `scripts/check_sim_epoch_assets.py --allow-empty` mit `summary=fail:0,warn:2`.
+- Coverage-Wrapper: `scripts/run_pytest_coverage.py --fail-under 80` exit=1.
+- Strukturartefakte aktualisiert: `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`.
+- Abschluss-Sync umgesetzt: `todo.root.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`.
+- Hinweis: mehrere VS-Code-Tasks liefen lokal in einen Launcher-Fehler (`pwsh ... /d /c`, Exit 64); Ausfuehrung daher direkt ueber Wrapper/PowerShell-Kommandos nachgezogen.
+
+Dev/Agent: RP-Content-Eval nahtlos in Bestand integriert (2026-03-10 15:24)
+-------------------------------------------------------------------------
+
+- Neue Suite `rp_content` in `novapolis_agent/eval/config/suites.json` eingefuehrt und auf nicht-ueberlappende RP-Pakete gesetzt (`rp_characters_core`, `rp_locations_core`, `rp_admin_core`), damit strict-Validator ohne Duplicate-ID/Slug-Konflikte laeuft.
+- `.vscode/tasks.json` erweitert: neuer Task `Eval: suite rp_content (20, asgi)` sowie strict-Validator-Task um `--suite rp_content` ergaenzt.
+- `novapolis_agent/docs/runbook.md` um Task/CLI fuer `rp_content` plus aktualisiertes strict-Validator-Beispiel erweitert.
+- `novapolis-dev/docs/dataset-provenance.md` um RP-Datasets (`rp_ssot_core`, `rp_characters_core`, `rp_locations_core`, `rp_admin_core`) ergaenzt.
+- Verifikation: `validate_eval_datasets.py --strict --suite rp_content` PASS (`files=3, records=124, ids=124, slugs=124`) und ASGI-Smoke `run_eval` mit RP-Paketliste ausgefuehrt.
+
+Dev/Agent: Synonyms passend zu RP-Datasets erweitert (2026-03-10 15:17)
+-----------------------------------------------------------------------
+
+- `novapolis_agent/eval/config/synonyms.additional.json` um RP-nahe Begriffe erweitert (`charakter`, `fraktion`, `siedlung`, `sektor`, `chronik`, `lagebericht`, `diplomatie`, `versorgung`, `konflikt`, `untergrund`, `beziehung`).
+- Verifikation 1: `pytest -q novapolis_agent/tests/scripts/test_run_eval_term_helpers.py` PASS.
+- Verifikation 2: `python -m scripts.agent.dependency_check` Lauf gruen fuer Synonympfad, Overlay-Ladebeleg `synonyms.additional.json vorhanden und wird gemerged`.
+
+Dev/Agent: RP-Datasets direkt erstellt und geprueft (2026-03-10 15:15)
+-----------------------------------------------------------------------
+
+- Drei neue RP-Datasets erzeugt: `novapolis_agent/eval/datasets/rp/rp_characters_core.v1.jsonl` (`68`), `novapolis_agent/eval/datasets/rp/rp_locations_core.v1.jsonl` (`26`), `novapolis_agent/eval/datasets/rp/rp_admin_core.v1.jsonl` (`30`).
+- Erzeugung via bestehendem Builder `novapolis_agent/scripts/build_eval_from_rp.py` mit zielgerichteten Include-Globs (`02-characters`, `03-locations`, `00-admin`).
+- Strict-Validierung erfolgreich: `novapolis_agent/scripts/validate_eval_datasets.py --strict` ueber alle drei Dateien (`files=3, records=124, ids=124, slugs=124`).
+
+Dev/Agent: Marathon-KPI-Rueckkopplung automatisiert (2026-03-10 15:08)
+---------------------------------------------------------------------
+
+- Neues Skript `novapolis_agent/scripts/summarize_marathon_kpis.py` eingefuehrt: parser fuer Eval-Result-JSONL (`_meta`, `success`, `failed_checks`, Paketverteilung), Severity-Einstufung (`blocker`/`warnung`/`beobachtung`) und board-ready Report-Ausgabe (JSON+Markdown).
+- Neuer Task `.vscode/tasks.json`: `Eval: summarize marathon KPIs`.
+- Neue Tests `novapolis_agent/tests/scripts/test_summarize_marathon_kpis.py` hinzugefuegt.
+- Verifizierter Lauf: `summarize_marathon_kpis.py --results-file novapolis_agent/eval/results/results_20260226_0209_quality_de.jsonl` erzeugt `.tmp/results/reports/marathon_kpi_summary.json` und `.tmp/results/reports/marathon_kpi_summary.md`.
+- Sammeltestlauf ueber alle neuen Skriptbereiche gruen: `test_build_eval_from_rp.py`, `test_cleanup_artifacts.py`, `test_summarize_marathon_kpis.py`, `test_check_dependency_profiles.py`, `test_check_legacy_shim_imports.py`, `test_prepare_pack_smoke.py`, `test_run_eval_term_helpers.py`.
+- Board/Index-Sync: `novapolis-dev/docs/todo.agent-board.md` Marathon-Punkt erledigt, `novapolis-dev/docs/todo.index.md` Agent `1 -> 0` (`Index v1.10`).
+
+Dev/Agent: RP->Eval + Synonym-Overlay ausgebaut (2026-03-10 14:54)
+-------------------------------------------------------------------
+
+- Neues Skript `novapolis_agent/scripts/build_eval_from_rp.py` erstellt RP-basierte Eval-Datensaetze aus `novapolis-rp/database-rp/**` mit stabilen IDs/Slugs/Tags.
+- Neues Paket erzeugt: `novapolis_agent/eval/datasets/rp/rp_ssot_core.v1.jsonl` (`records=120`), strict Dataset-Validator gruen (`ids=120`, `slugs=120`).
+- Synonym-Ladepfad in `novapolis_agent/scripts/run_eval.py` auf Base+Additional+Local erweitert; neues Overlay `novapolis_agent/eval/config/synonyms.additional.json` eingefuehrt.
+- Task ergaenzt: `.vscode/tasks.json` -> `Data: build eval from RP (core)`.
+- Tests ergaenzt/erweitert: `novapolis_agent/tests/scripts/test_build_eval_from_rp.py`, `novapolis_agent/tests/scripts/test_run_eval_term_helpers.py` (additional-overlay Pfad).
+- Board/Index-Sync: `novapolis-dev/docs/todo.agent-board.md` Punkt auf erledigt, `novapolis-dev/docs/todo.index.md` Statushinweis `v1.9` (Open-Count Agent bleibt `1`).
+
+Dev/Agent: Artefakt-Lifecycle automatisiert (2026-03-10 13:35)
+--------------------------------------------------------------
+
+- Neues Cleanup-Skript `novapolis_agent/scripts/cleanup_artifacts.py` implementiert (`--dry-run`, Retention via `--keep-latest`, Name-Pinning via `--keep-name`, maschinenlesbarer JSON-Report via `--report`).
+- Unit-Tests `novapolis_agent/tests/scripts/test_cleanup_artifacts.py` hinzugefuegt (Dry-Run-Planung und Real-Delete-Verhalten), Lauf gruen.
+- VS-Code-Task `Data: artifacts cleanup (dry-run)` in `.vscode/tasks.json` ergaenzt.
+- Dry-Run-Report erzeugt: `.tmp/results/reports/artifact_lifecycle_report.json` (`keep_count=49`, `remove_count=1695`, `removed_count=0`).
+- Board/Index-Sync: `novapolis-dev/docs/todo.agent-board.md` Punkt Artefakt-Lifecycle auf erledigt, `novapolis-dev/docs/todo.index.md` Agent `2 -> 1` (`Index v1.8`).
+
+Dev/Agent: Analysepunkt 4 umgesetzt (Test-Determinismus) (2026-03-10 13:21)
+--------------------------------------------------------------------------
+
+- `novapolis_agent/tests/scripts/test_prepare_pack_smoke.py` auf reproduzierbare Temp-Fixture umgestellt; der Test erzeugt seine Exportdaten jetzt selbst und ruft `prepare_pack` direkt auf.
+- Der bisherige Skip-Pfad bei fehlender Exportdatei (`pytest.skip`) wurde entfernt.
+- Verifikation: `pytest -q novapolis_agent/tests/scripts/test_prepare_pack_smoke.py` PASS.
+- Board/Index-Sync: `novapolis-dev/docs/todo.agent-board.md` Punkt Test-Determinismus auf erledigt, `novapolis-dev/docs/todo.index.md` Agent `3 -> 2` (`Index v1.7`).
 
 Dev/Agent: Analysepunkt 3 umgesetzt (Legacy-Shim-Governance) (2026-03-10 12:54)
 ------------------------------------------------------------------------------

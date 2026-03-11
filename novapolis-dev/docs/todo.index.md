@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-10 13:14
-update: Agent-Open-Count nach Umsetzung des dritten Analysepunkts synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 12:59); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 12:59)
+stand: 2026-03-11 03:57
+update: Sim-Index fuer Hub-Chatfenster-Aufnahme und Abschlussstatus synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 17:19); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 17:19)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -14,7 +14,7 @@ TODO-Index (Novapolis-Dev)
 
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 5)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 1)
-- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 3)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 1)
 
 - Statushinweis Index v1.2: Open-Count-Drift bereinigt - RP `1 -> 5` und Sim `0 -> 1` anhand aktiver Checkboxen in den Modul-Boards synchronisiert.
@@ -22,6 +22,11 @@ TODO-Index (Novapolis-Dev)
 - Statushinweis Index v1.4: Erster Agent-Analysepunkt abgeschlossen - Runbook-Portabilitaet umgesetzt, Open-Count Agent `6 -> 5`.
 - Statushinweis Index v1.5: Zweiter Agent-Analysepunkt abgeschlossen - Dependency-Profil formalisiert, Open-Count Agent `5 -> 4`.
 - Statushinweis Index v1.6: Dritter Agent-Analysepunkt abgeschlossen - Legacy-Shim-Inventar/Guard plus technische Entkopplung von `novapolis_agent.app.utils.examples`, Open-Count Agent `4 -> 3`.
+- Statushinweis Index v1.7: Vierter Agent-Analysepunkt abgeschlossen - test_prepare_pack-SMoke deterministisch ohne Vorartefakte, Open-Count Agent `3 -> 2`.
+- Statushinweis Index v1.8: Artefakt-Lifecycle automatisiert - Cleanup-Skript+Task+Dry-Run-Report eingefuehrt, Open-Count Agent `2 -> 1`.
+- Statushinweis Index v1.9: RP->Eval-Builder und Synonym-Overlay-Ausbau umgesetzt (Script+Task+Tests+RP-Set), Open-Count Agent bleibt `1`.
+- Statushinweis Index v1.10: Marathon-KPI-Rueckkopplung automatisiert (Parser+Severity+board-ready Report), Open-Count Agent `1 -> 0`.
+- Statushinweis Index v1.11: RP-Content-Eval nahtlos integriert (Suite `rp_content`, Task, strict-Validator, Runbook, Provenance), Open-Count Agent bleibt `0`.
 
 - Statushinweis Dev: `docs/todo.dev.md` enthaelt jetzt einen priorisierten Hygiene-Sprint (Truthfulness, Donelog-/Log-Hygiene, Freshness-SLA, Guardrails).
 - Statushinweis Sim: `docs/todo.sim.md` fuehrt offene Punkte jetzt kanonisch nach Zugehoerigkeit (Hub-Core, RP-Panel, Agent Studio, Qualitaet/Nachweis).
@@ -63,6 +68,8 @@ TODO-Index (Novapolis-Dev)
 - Statushinweis Sim v4.5: Agent-Studio vervollstaendigt - `Artifacts`, `Experiments`, `Policy Sandbox`, `Release Gate`, `Audit Trail` sowie ein explizites Destructive-Sicherheitsmodell sind im Status-/Event-Flow implementiert.
 - Statushinweis Sim v4.6: RP-Panel-Restpunkt abgeschlossen - RP-Submenu steuert `Hour +1`, `Auto-Advance`, `Replay-Seed` inkl. eigener `RP_*`-Runtime-Events.
 - Statushinweis Sim v4.7: Vollstaendig erledigter Block `Neuordnung: C) Agent-Modul im Hub (neu)` aus `docs/todo.sim.md` nach `novapolis-dev/archive/todo.sim.archive.md` ueberfuehrt (`archived_at: 2026-03-04 00:20`).
+- Statushinweis Sim v4.8: Neuer Hub-Punkt aufgenommen: kleines Chatfenster im Hauptmenue mit `/chat`-Roundtrip als lokaler Gespraechsmodus.
+- Statushinweis Sim v4.9: Hub-Chatfenster abgeschlossen - kleines Chatpanel im Hauptmenue sendet an `/chat` und zeigt Antworten/Fehler robust im UI an.
 - Statushinweis Root/Beta v0: `todo.root.md` enthaelt jetzt eine geordnete Standalone-Beta-Exit-Checkliste mit Blockern [1]-[7] und Optionalpunkten [8]-[12].
 - Statushinweis Beta v0.1: Blockerpakete Dev/RP/Sim strukturell nachgezogen (`todo.dev` Jetzt-Block abgeschlossen, `todo.rp` P0-Jetzt abgeschlossen, `todo.sim` auf `offen:0`).
 - Statushinweis Beta v1.0: Root-Blocker B1-B7 und `Definition of Ready` in `todo.root.md` auf erledigt gesetzt; Referenzlauf `checks_report_20260304_004318.md` ist gruen.

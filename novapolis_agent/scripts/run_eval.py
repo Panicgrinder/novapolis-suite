@@ -391,7 +391,7 @@ def get_synonyms(term: str) -> list[str]:
         - `broader_terms` dienen nur zur Blockliste und werden aus der finalen
             Synonymliste entfernt (auch wenn sie über externe Lookup-Quellen kommen).
         - `narrower_terms` werden nicht automatisch in das Synonym-Matching gemischt.
-        - Overlay-Priorität liegt bei `synonyms.local.json` gegenüber `synonyms.json`.
+        - Overlay-Priorität: `synonyms.local.json` > `synonyms.additional.json` > `synonyms.json`.
 
     Args:
         term: Der Ausgangsbegriff
@@ -404,10 +404,11 @@ def get_synonyms(term: str) -> list[str]:
 
     # Lazy-Loading der Synonyme
     if _synonyms_cache is None:
-        # Synonyme liegen nun in config/; optionales Overlay aus synonyms.local.json wird gemerged
+        # Synonyme liegen in config/; additional/local Overlay werden gemerged.
         base_path = os.path.join(DEFAULT_CONFIG_DIR, "synonyms.json")
+        additional_overlay = os.path.join(DEFAULT_CONFIG_DIR, "synonyms.additional.json")
         local_overlay = os.path.join(DEFAULT_CONFIG_DIR, "synonyms.local.json")
-        paths = [base_path, local_overlay]
+        paths = [base_path, additional_overlay, local_overlay]
         logging.info(f"Lade Synonyme aus: {', '.join([p for p in paths if os.path.exists(p)])}")
         _synonyms_cache = cast(dict[str, list[str]], load_synonyms(paths))
         if callable(load_term_relations):

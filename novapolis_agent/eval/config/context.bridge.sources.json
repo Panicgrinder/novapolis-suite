@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "name": "project_context_bridge_sources",
+  "description": "Canonical context sources for phase-1 project-aware chat mode.",
+  "sources": [
+    {"path": "README.md", "required": true, "kind": "file", "tag": "root"},
+    {"path": ".github/copilot-instructions.md", "required": true, "kind": "file", "tag": "governance"},
+    {"path": "WORKSPACE_STATUS.md", "required": true, "kind": "file", "tag": "root"},
+    {"path": "WORKSPACE_INDEX.md", "required": true, "kind": "file", "tag": "root"},
+    {"path": "novapolis_agent/README.md", "required": true, "kind": "file", "tag": "agent"},
+    {"path": "novapolis-rp/README.md", "required": true, "kind": "file", "tag": "rp"},
+    {"path": "novapolis-dev/README.md", "required": true, "kind": "file", "tag": "dev"},
+    {"path": "novapolis_agent/docs/runbook.md", "required": true, "kind": "file", "tag": "runbook"},
+    {"path": "novapolis-dev/docs/process/abschluss-routine.ssot.md", "required": false, "kind": "file", "tag": "ops"},
+    {"path": "novapolis-dev/docs/todo.index.md", "required": false, "kind": "file", "tag": "ops"}
+  ]
+}

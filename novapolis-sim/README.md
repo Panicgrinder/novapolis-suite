@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 14:32
-update: Godot-Headless-Beispiel auf portablen Aufruf (`godot --headless`) statt hostgebundenem Binary-Pfad umgestellt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-03 14:14); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis_agent/docs/runbook.md' 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-03 14:14)
+stand: 2026-03-11 03:57
+update: Hub-Hauptmenue-Chatfenster dokumentiert (lokaler /chat-Flow im Sim-Hub).
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 17:19); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 17:19)
 ---
 
 Novapolis Sim
@@ -33,6 +33,19 @@ How to run
 Während der Agent nicht erreichbar ist, bleibt die Oberfläche responsiv und zeigt unten eine Statusmeldung an. Läuft die API, aktualisieren sich Tick und Zeit etwa fünfmal pro Sekunde.
 
 Weitere Assets oder Artefakte werden nicht benötigt; das Projekt arbeitet ausschließlich mit Bordmitteln von Godot 4.
+
+Hub-Chatfenster (Hauptmenue)
+---------------------------
+
+Im Hub-Hauptmenue ist ein kleines Chatfenster integriert (`Chat mit Projektkontext`).
+
+- Eingabe in das Feld schreiben und `Senden` klicken (oder Enter).
+- Der Hub sendet an denselben Agent-Host/Port wie `SimClient` mit Endpoint `POST /chat`.
+- Antworten und Fehler werden direkt im Panelverlauf angezeigt.
+
+Hinweis:
+
+- Ohne erreichbare Agent-API bleibt die Sim stabil; das Chatpanel zeigt den HTTP-/Request-Fehler nur als Status/Verlaufseintrag an.
 
 Local Start / Stop / Verify (Developer)
 -------------------------------------

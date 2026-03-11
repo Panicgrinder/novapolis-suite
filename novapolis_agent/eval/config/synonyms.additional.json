@@ -1,0 +1,112 @@
+{
+  "assistenz": {
+    "synonyms": ["begleitung", "unterstuetzung", "hilfe"],
+    "broader_terms": ["service"],
+    "narrower_terms": ["support-assistenz"]
+  },
+  "analyse": {
+    "synonyms": ["auswertung", "untersuchung", "beurteilung"],
+    "broader_terms": ["forschung"],
+    "narrower_terms": ["fehleranalyse"]
+  },
+  "kommunikation": {
+    "synonyms": ["austausch", "dialog", "abstimmung"],
+    "broader_terms": [],
+    "narrower_terms": ["teamkommunikation"]
+  },
+  "charakter": {
+    "synonyms": ["figur", "person", "rolle"],
+    "broader_terms": ["profil"],
+    "narrower_terms": ["hauptfigur", "nebenfigur"]
+  },
+  "fraktion": {
+    "synonyms": ["allianz", "gruppe", "buendnis"],
+    "broader_terms": ["organisation"],
+    "narrower_terms": ["unterfraktion"]
+  },
+  "siedlung": {
+    "synonyms": ["lager", "basis", "aussenposten"],
+    "broader_terms": ["ort"],
+    "narrower_terms": ["hauptquartier", "station"]
+  },
+  "sektor": {
+    "synonyms": ["zone", "areal", "bereich"],
+    "broader_terms": ["gebiet"],
+    "narrower_terms": ["teilsektor"]
+  },
+  "chronik": {
+    "synonyms": ["logbuch", "protokoll", "aufzeichnung"],
+    "broader_terms": ["dokumentation"],
+    "narrower_terms": ["ereignislog", "lageprotokoll"]
+  },
+  "lagebericht": {
+    "synonyms": ["statusbericht", "situationsbericht", "ueberblick"],
+    "broader_terms": ["bericht"],
+    "narrower_terms": ["taeglicher-lagebericht"]
+  },
+  "diplomatie": {
+    "synonyms": ["verhandlung", "vermittlung", "ausgleich"],
+    "broader_terms": ["politik"],
+    "narrower_terms": ["konfliktmoderation"]
+  },
+  "versorgung": {
+    "synonyms": ["nachschub", "versorgungslage", "belieferung"],
+    "broader_terms": ["logistik"],
+    "narrower_terms": ["notversorgung"]
+  },
+  "konflikt": {
+    "synonyms": ["spannung", "streit", "auseinandersetzung"],
+    "broader_terms": ["krise"],
+    "narrower_terms": ["ressourcenkonflikt", "grenzkonflikt"]
+  },
+  "untergrund": {
+    "synonyms": ["tunnelsystem", "metrobereich", "subniveau"],
+    "broader_terms": ["infrastruktur"],
+    "narrower_terms": ["metrostation", "knotenpunkt"]
+  },
+  "beziehung": {
+    "synonyms": ["verhaeltnis", "bindung", "allianzband"],
+    "broader_terms": ["interaktion"],
+    "narrower_terms": ["rivalitaet", "partnerschaft"]
+  },
+  "readme": {
+    "synonyms": ["dokumentation", "leitfaden", "uebersicht"],
+    "broader_terms": ["dokument"],
+    "narrower_terms": ["projekt-readme"]
+  },
+  "signals (beispiele)": {
+    "synonyms": ["signalbeispiele", "beispielsignale", "signals"],
+    "broader_terms": ["signal"],
+    "narrower_terms": ["warnsignal", "metasignal"]
+  },
+  "24x1h log template": {
+    "synonyms": ["24x1h protokollvorlage", "logvorlage", "protokolltemplate"],
+    "broader_terms": ["template"],
+    "narrower_terms": ["schichtprotokoll-vorlage"]
+  },
+  "ai behavior mapping": {
+    "synonyms": ["ki-verhaltensmapping", "verhaltensmapping", "verhaltensprofil"],
+    "broader_terms": ["mapping"],
+    "narrower_terms": ["agentenverhalten"]
+  },
+  "d5 (station) [fact?]": {
+    "synonyms": ["d5 station", "station d5", "d5"],
+    "broader_terms": ["station"],
+    "narrower_terms": ["d5-funkraum", "d5-werkstatt"]
+  },
+  "systemmeldung (beispiel)": {
+    "synonyms": ["systemmeldung", "statusmeldung", "beispielmeldung"],
+    "broader_terms": ["meldung"],
+    "narrower_terms": ["warnmeldung", "lagehinweis"]
+  },
+  "canvas t0 timeline": {
+    "synonyms": ["t0 zeitlinie", "t0 timeline", "canvas zeitlinie"],
+    "broader_terms": ["timeline"],
+    "narrower_terms": ["ereigniszeitlinie", "wochenzeitlinie"]
+  },
+  "cluster index": {
+    "synonyms": ["cluster-index", "clusteruebersicht", "cluster register"],
+    "broader_terms": ["index"],
+    "narrower_terms": ["mind-cluster-index"]
+  }
+}

@@ -120,12 +120,17 @@ def check_synonyms():
     spec.loader.exec_module(mod)
     cfg = getattr(mod, "DEFAULT_CONFIG_DIR", os.path.join(ROOT, "eval", "config"))
     base = os.path.join(cfg, "synonyms.json")
+    additional = os.path.join(cfg, "synonyms.additional.json")
     overlay = os.path.join(cfg, "synonyms.local.json")
-    merged = load_synonyms([base, overlay])
+    merged = load_synonyms([base, additional, overlay])
     if isinstance(merged, dict) and merged:
         ok(f"Synonyme geladen ({len(merged)} Einträge) aus config/")
     else:
         warn("Synonyme leer oder nicht geladen")
+    if os.path.exists(additional):
+        ok("synonyms.additional.json vorhanden und wird gemerged")
+    else:
+        ok("synonyms.additional.json nicht vorhanden (optional)")
     if os.path.exists(overlay):
         ok("synonyms.local.json vorhanden und wird gemerged")
     else:

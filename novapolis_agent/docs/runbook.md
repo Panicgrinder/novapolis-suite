@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-10 13:14
-update: Legacy-Shim-Guard als optionalen Betriebscheck ergänzt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 12:59); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 12:59)
+stand: 2026-03-11 03:57
+update: Projektkontext-Bruecke (Phase 1) als operativer Build-/Betriebsweg ergaenzt.
+checks: .\.venv\Scripts\python.exe novapolis_agent\scripts\build_project_context_index.py PASS (indexed_sources=10, n_docs=10, vocab=2807, 2026-03-10 17:05); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/process/project-context-bridge.ssot.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 17:05); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/process/project-context-bridge.ssot.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 17:05)
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -35,6 +35,42 @@ Set-Location .\novapolis_agent
 http://127.0.0.1:8000/health
 http://127.0.0.1:8000/docs
 ```
+
+Project Context Bridge (Phase 1 / MVP-Start)
+--------------------------------------------
+
+Ziel:
+
+- Bestehenden Chat-Flow um einen reproduzierbaren, kanonischen Projektkontext erweitern.
+- Keine neue Parallelarchitektur; Nutzung der vorhandenen RAG-/Kontextpfade.
+
+1. Kontextindex aus kanonischer Quellenliste bauen (Repo-Root):
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe novapolis_agent\scripts\build_project_context_index.py
+```
+
+2. API mit aktiviertem Kontextmodus starten:
+
+```powershell
+Set-Location .\novapolis_agent
+$env:RAG_ON = "true"
+$env:RAG_INDEX_PATH = "novapolis_agent/eval/results/rag/context_bridge.index.json"
+..\.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+```
+
+3. Chat-Aufruf bleibt unveraendert ueber `/chat` (optional mit `profile_id=context_bridge`):
+
+```powershell
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/chat" -Method Post -ContentType "application/json" -Body '{"messages":[{"role":"user","content":"Gib mir einen kompakten Projektstatus fuer Novapolis mit Quellenbezug."}],"profile_id":"context_bridge"}'
+```
+
+Hinweise:
+
+- Quellenmanifest: `novapolis_agent/eval/config/context.bridge.sources.json`
+- Build-Skript: `novapolis_agent/scripts/build_project_context_index.py`
+- SSOT zur Planung/Phasen: `novapolis-dev/docs/process/project-context-bridge.ssot.md`
 
 Qualitaetsgates (verbindliche Reihenfolge)
 ------------------------------------------
@@ -86,6 +122,36 @@ Prueft, ob archivierte Legacy-Module ungewollt in produktiven Pfaden importiert 
 ```powershell
 Set-Location ..
 .\.venv\Scripts\python.exe novapolis_agent/scripts/check_legacy_shim_imports.py --strict
+```
+
+Artefakt-Lifecycle-Cleanup (optional)
+-------------------------------------
+
+Dry-Run fuer Eval-/Training-Artefakte mit maschinenlesbarem Report:
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe novapolis_agent/scripts/cleanup_artifacts.py --dry-run --keep-latest 15 --report .tmp/results/reports/artifact_lifecycle_report.json
+```
+
+RP->Eval-Datensatz bauen (optional)
+-----------------------------------
+
+Erzeugt ein RP-basiertes Eval-Paket aus `novapolis-rp/database-rp/**`:
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe novapolis_agent/scripts/build_eval_from_rp.py --rp-root novapolis-rp/database-rp --out novapolis_agent/eval/datasets/rp/rp_ssot_core.v1.jsonl --limit 120
+```
+
+Marathon-KPI zusammenfassen (optional)
+--------------------------------------
+
+Erzeugt board-ready KPI-Reports aus Marathon-Result-JSONL (Severity + Top-Fails + Paketverteilung):
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe novapolis_agent/scripts/summarize_marathon_kpis.py --pattern novapolis_agent/eval/results/results_*_marathon*.jsonl --report-json .tmp/results/reports/marathon_kpi_summary.json --report-md .tmp/results/reports/marathon_kpi_summary.md
 ```
 
 Kanonischer Sim-Pruefablauf (kurz, in Reihenfolge)
@@ -173,6 +239,7 @@ Tasks:
 
 - `Eval: suite neutral (20, asgi)`
 - `Eval: suite rpg (20, asgi)`
+- `Eval: suite rp_content (20, asgi)`
 
 Direkte CLI-Variante (neutral):
 
@@ -186,10 +253,17 @@ Direkte CLI-Variante (rpg):
 .\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --profile unrestricted --limit 20 --quiet --packages novapolis_agent/eval/datasets/rpg/rpg_21_40_fantasy.v1.jsonl --packages novapolis_agent/eval/datasets/rpg/rpg_41_60_dialog.v1.jsonl --packages novapolis_agent/eval/datasets/rpg/rpg_61_80_szenen.v1.jsonl
 ```
 
+Direkte CLI-Variante (rp_content):
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --profile unrestricted --limit 20 --quiet --packages novapolis_agent/eval/datasets/rp/rp_characters_core.v1.jsonl --packages novapolis_agent/eval/datasets/rp/rp_locations_core.v1.jsonl --packages novapolis_agent/eval/datasets/rp/rp_admin_core.v1.jsonl
+```
+
 Interpretation:
 
 - `neutral` bewertet primär neutrale Hilfsantworten (rpg_style sollte niedrig sein).
 - `rpg` bewertet rollenspielnahe/szenische Antworten; der Lauf ist nicht direkt mit neutralen Keyword-Anforderungen vergleichbar.
+- `rp_content` bewertet RP-SSOT-nahe Inhalte (Charaktere, Orte, Admin-/Lagekontexte) auf den RP-Datasetpaketen.
 - Fuer die RPG-Suite ist `rpg_style` bewusst aus den Checks entfernt, damit kein neutraler Stil-Malus den RPG-Lauf verfälscht.
 
 Quality-Track `quality_de` (operativ)
@@ -249,7 +323,7 @@ Validator-Gate:
 Strict nur auf Suiten:
 
 ```powershell
-.\.venv\Scripts\python.exe novapolis_agent\scripts\validate_eval_datasets.py --strict --suite-config novapolis_agent/eval/config/suites.json --suite neutral --suite rpg
+.\.venv\Scripts\python.exe novapolis_agent\scripts\validate_eval_datasets.py --strict --suite-config novapolis_agent/eval/config/suites.json --suite neutral --suite rpg --suite quality_de --suite rp_content
 ```
 
 Hinweis:

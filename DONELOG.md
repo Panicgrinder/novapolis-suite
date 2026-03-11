@@ -1,10 +1,20 @@
 ---
-stand: 2026-03-10 13:14
-update: Optionalpaket O8/O9/O10/O12 umgesetzt: neue Governance-Checks aktiv, Logs-Policy gehaertet und Beta-Tagging standardisiert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_045225.md
+stand: 2026-03-11 03:57
+update: Wochenabschlusslauf gemaess SSOT ausgefuehrt; Sync-Zieldateien und Tree-Artefakte aktualisiert.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_153947.md; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 15:47)
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-10 15:40: Wochenabschluss gemaess `novapolis-dev/docs/process/abschluss-routine.ssot.md` ausgefuehrt. Reihenfolge umgesetzt: (1) `scripts/run_checks_and_report.py`, (2) optional `scripts/check_sim_epoch_assets.py --allow-empty`, (3) `scripts/run_pytest_coverage.py --fail-under 80`, (4) Strukturartefakte aktualisiert (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`), (5) Abschluss-Sync in `todo.root.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`. Ergebnis: Governance-Gates PASS, Restpunkte bei `ruff`/`black`/`pytest` im Full-Check; Coverage-Wrapper exit=1. Hinweis: mehrere VS-Code-Tasks liefen lokal in einen Launcher-Fehler (`pwsh ... /d /c`, Exit 64), daher direkte Wrapper-Ausfuehrung als Fallback.
+
+- 2026-03-11 01:25: Hintergrund-Renderfix fuer Sim-Hub umgesetzt. In `novapolis-sim/Main.tscn` wurde die Texturreferenz auf einen ASCII-sicheren Pfad umgestellt (`res://assets/mainmenu-page1-background-v2.png`, Kopie der neuen Grafik), um Import-/Pfadkanten durch Sonderzeichen im Dateinamen auszuschliessen. Zusaetzlich wurde `MainMenuPage1Background` gehaertet (`visible=true`, explizite Offsets `0,0,0,0`, `expand_mode=1`, `stretch_mode=6`) fuer robuste Vollflaechen-Darstellung.
+
+- 2026-03-11 01:21: Nachkorrektur der Hintergrund-Ausrichtung in `novapolis-sim/Main.tscn` umgesetzt. Der Node `MainMenuPage1Background` nutzt nun explizite Vollflaechen-Offets (`0,0,0,0`) sowie `expand_mode=1` und `stretch_mode=6` (zentriert, seitenverhaeltnis-erhaltendes Cover), damit das neue Hintergrundbild bei unterschiedlichen Fensterformaten sauber ausgerichtet bleibt.
+
+- 2026-03-11 01:17: Sim-Hub-Layout nach Screenshot-Befund nachgezogen. In `novapolis-sim/Main.tscn` wurde das aktive Hintergrundbild auf die neueste Asset-Datei umgestellt (`res://assets/ChatGPT Image 11. März 2026, 01_12_53.png`) und der Hintergrund auf volle Viewport-Flaeche gesetzt (Offsets auf `0`). In `novapolis-sim/scripts/Main.gd` wurde `_apply_editor_hub_layout` auf die vorbereiteten Felder `bereich-01..04` ausgerichtet (Top-Infos, Aktionsbuttons, Server-/Fehlerblock, Config-Panel), inklusive sauberem Innenlayout des Chat-Panels (`History`, `Input`, `Senden`, Status), damit Texte/Schaltflaechen/Textfelder innerhalb der vorgesehenen Bereiche konsistent sitzen.
+
+- 2026-03-11 00:26: Hotfix fuer Godot-Parsefehler in `novapolis-sim/scripts/Main.gd` umgesetzt. Ursache war ein Tippfehler bei der Identifier-Referenz (`_hub_chat_history_label` statt deklarierter `hub_chat_history_label`) im Initialisierungsblock; die Referenz wurde auf den vorhandenen `@onready`-Bezeichner korrigiert, wodurch der LSP-Parsefehler in `Main.gd` behoben ist.
 
 - 2026-03-07 09:24: Fortsetzung vom letzten Stand abgeschlossen: Der verbleibende `path-portability`-Blocker in `.vscode/settings.json` wurde beseitigt, indem `godotTools.editorPath.godot4` von einem hostgebundenen absoluten Pfad auf `${env:GODOT4_PATH}` umgestellt wurde. Ziel ist ein portabler Workspace-Standard ohne Laufwerksbindung in aktiven Settings.
 

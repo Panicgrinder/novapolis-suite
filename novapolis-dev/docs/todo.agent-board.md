@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-10 13:14
-update: Dritten Analysepunkt umgesetzt: Legacy-Shim-Inventar/Guard eingefuehrt und ein Shim-Paket technisch auf kanonischen Shim entkoppelt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 12:59); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/docs/legacy-shim-inventory.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 12:59)
+stand: 2026-03-11 03:57
+update: RP-Content-Eval-Pfad nahtlos integriert (Suite, Task, strict-Validator, Runbook, Provenance).
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_153947.md
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -371,27 +371,43 @@ Neue Aufgaben - Agent-Modul Analyse (2026-03-10)
     3) mindestens ein Shim-Paket technisch entkoppelt, ohne Bestandsimporte ungeprueft zu brechen.
   - Evidenz: `novapolis_agent/docs/legacy-shim-inventory.md`, `novapolis_agent/scripts/check_legacy_shim_imports.py`, `novapolis_agent/tests/scripts/test_check_legacy_shim_imports.py`, `novapolis_agent/novapolis_agent/app/utils/examples/__init__.py`, `novapolis_agent/novapolis_agent/app/utils/examples/logging_example.py`, `novapolis_agent/novapolis_agent/app/utils/examples/summary_example.py`, `novapolis_agent/tests/test_module_exports.py`.
 
-- [ ] [Als naechstes] Test-Determinismus bei datenabhaengigen Smokes staerken.
+- [x] [Als naechstes] Test-Determinismus bei datenabhaengigen Smokes staerken.
   - Ziel: Smokes sollen in frischer Umgebung nicht wegen fehlender Vorartefakte skippen.
   - Akzeptanzkriterien:
     1) datenabhaengige Smokes erhalten reproduzierbare Testfixturen oder Testdaten-Builder,
     2) `pytest.skip` wegen fehlender Exportdateien wird durch deterministische Vorbereitung ersetzt,
     3) betroffene Skript-Smokes laufen im CI-aehnlichen Kontext ohne manuellen Vorlauf.
-  - Evidenz: `novapolis_agent/tests/scripts/test_prepare_pack_smoke.py` (aktueller Skip bei fehlender Exportdatei), `novapolis_agent/tests/test_batch1_unit.py`.
+  - Evidenz: `novapolis_agent/tests/scripts/test_prepare_pack_smoke.py` (Temp-Fixture + direkter `prepare_pack`-Aufruf ohne `pytest.skip`), verifizierter Lauf `pytest -q novapolis_agent/tests/scripts/test_prepare_pack_smoke.py` PASS.
 
-- [ ] [Spaeter] Artefakt-Lifecycle fuer Eval/Training automatisieren (Retention + Dry-Run + Report).
+- [x] [Spaeter] Artefakt-Lifecycle fuer Eval/Training automatisieren (Retention + Dry-Run + Report).
   - Ziel: Laufende Eval-/Trainingsartefakte planbar bereinigen, ohne wichtige Referenzlaeufe zu verlieren.
   - Akzeptanzkriterien:
     1) ein Cleanup-Skript mit `--dry-run` und klaren Keep-Regeln (`latest N`, `named baselines`),
     2) Ausgabe als maschinenlesbarer Report (entfernt/behalten/gespart),
     3) VS-Code-Task fuer regelmaessige Ausfuehrung vorhanden.
-  - Evidenz: `novapolis_agent/eval/results/`, `novapolis_agent/outputs/`, `.vscode/tasks.json`.
+  - Evidenz: `novapolis_agent/scripts/cleanup_artifacts.py`, `novapolis_agent/tests/scripts/test_cleanup_artifacts.py`, `.vscode/tasks.json` (Task `Data: artifacts cleanup (dry-run)`), Dry-Run-Report `.tmp/results/reports/artifact_lifecycle_report.json`.
 
-- [ ] [Spaeter] Eval-Marathon KPI-Rueckkopplung automatisieren (Board-/DONELOG-ready).
+- [x] [Spaeter] Eval-Marathon KPI-Rueckkopplung automatisieren (Board-/DONELOG-ready).
   - Ziel: Marathon-Laeufe sollen automatisch priorisierbare Follow-ups erzeugen statt rein manueller Sichtung.
   - Akzeptanzkriterien:
     1) Parser fuer `_meta.failed_checks`/Pass-Rate erstellt strukturierte KPI-Zusammenfassung,
     2) Schwellenmapping erzeugt Einstufung (`Blocker`/`Warnung`/`Beobachtung`),
     3) generierter Kurzreport ist direkt fuer Board-Update und DONELOG nutzbar.
-  - Evidenz: `novapolis_agent/eval/results/results_*_marathon*.jsonl`, `novapolis_agent/docs/runbook.md` (Marathon/KPI-Regeln), `.vscode/tasks.json` (`Eval: suite marathon (~60m, asgi, loud)`).
+  - Evidenz: `novapolis_agent/scripts/summarize_marathon_kpis.py`, `novapolis_agent/tests/scripts/test_summarize_marathon_kpis.py`, `.vscode/tasks.json` (Task `Eval: summarize marathon KPIs`), Reports `.tmp/results/reports/marathon_kpi_summary.json` und `.tmp/results/reports/marathon_kpi_summary.md`.
+
+- [x] [Jetzt] RP->Eval-Builder und Synonym-Overlay-Ausbau implementieren.
+  - Ziel: Aus RP-SSOT reproduzierbar Eval-Datensaetze erzeugen und Synonymerweiterungen domaeinenuebergreifend schichtbar machen (nicht nur RP).
+  - Akzeptanzkriterien:
+    1) neues Skript erzeugt Eval-JSONL aus `novapolis-rp/database-rp/**` mit stabilen IDs/Slugs/Tags,
+    2) Synonym-Ladepfad beruecksichtigt zusaetzliches Overlay (`synonyms.additional.json`) neben Base/Local,
+    3) VS-Code-Task und Unit-Tests decken Builder und Overlay-Verhalten ab.
+  - Evidenz: `novapolis_agent/scripts/build_eval_from_rp.py`, `novapolis_agent/tests/scripts/test_build_eval_from_rp.py`, `novapolis_agent/eval/config/synonyms.additional.json`, `novapolis_agent/scripts/run_eval.py`, `novapolis_agent/tests/scripts/test_run_eval_term_helpers.py`, `.vscode/tasks.json` (Task `Data: build eval from RP (core)`), erzeugtes Paket `novapolis_agent/eval/datasets/rp/rp_ssot_core.v1.jsonl` (strict validator: `records=120, ids=120, slugs=120`).
+
+- [x] [Jetzt] RP-Content-Eval-Profil nahtlos in Bestand integrieren.
+  - Ziel: RP-Content soll als eigener operativer Eval-Pfad in Suite, Tasks, Validator und Runbook verankert sein.
+  - Akzeptanzkriterien:
+    1) neue Suite `rp_content` in `suites.json` mit RP-Datasetpaketen vorhanden,
+    2) VS-Code-Task fuer `rp_content`-Lauf plus strict-Validator-Suite-Liste aktualisiert,
+    3) Runbook- und Provenance-Doku enthalten den RP-Content-Pfad nachvollziehbar.
+  - Evidenz: `novapolis_agent/eval/config/suites.json` (neue Suite `rp_content`), `.vscode/tasks.json` (Task `Eval: suite rp_content (20, asgi)` + strict-Validator inkl. `--suite rp_content`), `novapolis_agent/docs/runbook.md` (Task+CLI `rp_content`), `novapolis-dev/docs/dataset-provenance.md` (RP-Datasets ergaenzt), strict-Validator `--suite rp_content` PASS (`files=3, records=124, ids=124, slugs=124`).
 

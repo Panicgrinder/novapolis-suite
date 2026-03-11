@@ -3,12 +3,7 @@ from __future__ import annotations
 import json
 import pathlib
 
-import pytest
-
-BASE = pathlib.Path(__file__).resolve().parents[2]
-EXPORT_FILE = BASE / "eval" / "results" / "finetune" / "exports" / "openai_chat.jsonl"
-TRAIN_FILE = BASE / "eval" / "results" / "finetune" / "train.jsonl"
-VAL_FILE = BASE / "eval" / "results" / "finetune" / "val.jsonl"
+from scripts import prepare_finetune_pack as pack
 
 
 def _validate_jsonl(path: pathlib.Path) -> None:
@@ -23,17 +18,56 @@ def _validate_jsonl(path: pathlib.Path) -> None:
                 raise AssertionError(f"Invalid JSON at line {i} in {path}: {e}") from e
 
 
-@pytest.mark.scripts
-def test_prepare_pack_smoke():
-    # Skip if export file missing (no prior export run)
-    if not EXPORT_FILE.exists():
-        pytest.skip(f"Missing export file: {EXPORT_FILE}")
+def test_prepare_pack_smoke(tmp_path: pathlib.Path) -> None:
+    src = tmp_path / "openai_chat.jsonl"
+    src.write_text(
+        "\n".join(
+            [
+                json.dumps(
+                    {
+                        "messages": [
+                            {"role": "user", "content": "Wie geht es dir heute in Novapolis?"},
+                            {
+                                "role": "assistant",
+                                "content": "Mir geht es gut. Danke der Nachfrage aus Novapolis.",
+                            },
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+                json.dumps(
+                    {
+                        "messages": [
+                            {"role": "user", "content": "Was ist dein Auftrag?"},
+                            {
+                                "role": "assistant",
+                                "content": "Ich dokumentiere Ereignisse und helfe bei klaren Antworten.",
+                            },
+                        ]
+                    },
+                    ensure_ascii=False,
+                ),
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
 
-    # If train/val exist, validate their JSONL integrity
-    if TRAIN_FILE.exists():
-        _validate_jsonl(TRAIN_FILE)
-    if VAL_FILE.exists():
-        _validate_jsonl(VAL_FILE)
+    result = pack.prepare_pack(
+        src_path=str(src),
+        out_dir=str(tmp_path),
+        format="openai_chat",
+        train_ratio=0.5,
+        seed=42,
+        min_output_chars=20,
+        dedupe_by_instruction=True,
+    )
 
-    # If neither train nor val exists, that's okay for smoke: nothing to validate
-    assert True
+    assert result.get("ok") is True
+    train_file = pathlib.Path(str(result["train"]))
+    val_file = pathlib.Path(str(result["val"]))
+    assert train_file.exists()
+    assert val_file.exists()
+
+    _validate_jsonl(train_file)
+    _validate_jsonl(val_file)

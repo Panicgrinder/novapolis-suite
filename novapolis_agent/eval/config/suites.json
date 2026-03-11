@@ -61,6 +61,25 @@
         "novapolis_agent/eval/datasets/rpg/rpg_41_60_dialog.v1.jsonl",
         "novapolis_agent/eval/datasets/rpg/rpg_61_80_szenen.v1.jsonl"
       ]
+    },
+    "rp_content": {
+      "description": "RP-Content-Evaluierung auf SSOT-basierten RP-Datasets",
+      "profile": "unrestricted",
+      "eval_mode": false,
+      "asgi": true,
+      "default_limit": 20,
+      "checks": [
+        "must_include",
+        "keywords_any",
+        "keywords_at_least",
+        "not_include",
+        "regex"
+      ],
+      "packages": [
+        "novapolis_agent/eval/datasets/rp/rp_characters_core.v1.jsonl",
+        "novapolis_agent/eval/datasets/rp/rp_locations_core.v1.jsonl",
+        "novapolis_agent/eval/datasets/rp/rp_admin_core.v1.jsonl"
+      ]
     }
   }
 }

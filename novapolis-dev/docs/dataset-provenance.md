@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-27 06:06
-update: Provenance-Matrix auf den vollstaendigen aktiven Dataset-Bestand erweitert (inkl. quality_de und eval-smoke) und Vollstaendigkeitscheck dokumentiert.
-checks: npx --yes markdownlint-cli2 --config f:/VS-Code-Workspace/Main/.markdownlint-cli2.jsonc "f:/VS-Code-Workspace/Main/novapolis_agent/docs/provenance-register.md" "f:/VS-Code-Workspace/Main/novapolis_agent/docs/vendor_licenses/huggingface/README.md" "f:/VS-Code-Workspace/Main/novapolis_agent/docs/tts-voice-provenance-log.md" "f:/VS-Code-Workspace/Main/novapolis-dev/docs/dataset-provenance.md" "f:/VS-Code-Workspace/Main/novapolis_agent/docs/tts-compliance-policy.md" "f:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "f:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" PASS (2026-02-27 05:00); f:/VS-Code-Workspace/Main/.venv/Scripts/python.exe f:/VS-Code-Workspace/Main/scripts/check_frontmatter.py "f:/VS-Code-Workspace/Main/novapolis_agent/docs/provenance-register.md" "f:/VS-Code-Workspace/Main/novapolis_agent/docs/vendor_licenses/huggingface/README.md" "f:/VS-Code-Workspace/Main/novapolis_agent/docs/tts-voice-provenance-log.md" "f:/VS-Code-Workspace/Main/novapolis-dev/docs/dataset-provenance.md" "f:/VS-Code-Workspace/Main/novapolis_agent/docs/tts-compliance-policy.md" "f:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md" "f:/VS-Code-Workspace/Main/novapolis_agent/docs/DONELOG.txt" PASS (EXITCODE=0, 2026-02-27 05:00)
+stand: 2026-03-11 03:57
+update: RP-Datasetpakete (ssot/characters/locations/admin) in die Provenance-Matrix aufgenommen.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_153947.md
 ---
 
 Dataset Provenance (SSOT)
@@ -29,6 +29,10 @@ Statusmatrix
 | RPG Fantasy 21-40 | `novapolis_agent/eval/datasets/rpg/rpg_21_40_fantasy.v1.jsonl` | intern migriert/normalisiert | intern | gruen | `novapolis_agent/docs/DONELOG.txt:31` |
 | RPG Dialog 41-60 | `novapolis_agent/eval/datasets/rpg/rpg_41_60_dialog.v1.jsonl` | intern migriert/normalisiert | intern | gruen | `novapolis_agent/docs/DONELOG.txt:31` |
 | RPG Szenen 61-80 | `novapolis_agent/eval/datasets/rpg/rpg_61_80_szenen.v1.jsonl` | intern migriert/normalisiert | intern | gruen | `novapolis_agent/docs/DONELOG.txt:31` |
+| RP SSOT Core | `novapolis_agent/eval/datasets/rp/rp_ssot_core.v1.jsonl` | intern script-generiert aus RP-SSOT | intern | gruen | `novapolis_agent/docs/DONELOG.txt` |
+| RP Characters Core | `novapolis_agent/eval/datasets/rp/rp_characters_core.v1.jsonl` | intern script-generiert aus RP-SSOT | intern | gruen | `novapolis_agent/docs/DONELOG.txt` |
+| RP Locations Core | `novapolis_agent/eval/datasets/rp/rp_locations_core.v1.jsonl` | intern script-generiert aus RP-SSOT | intern | gruen | `novapolis_agent/docs/DONELOG.txt` |
+| RP Admin Core | `novapolis_agent/eval/datasets/rp/rp_admin_core.v1.jsonl` | intern script-generiert aus RP-SSOT | intern | gruen | `novapolis_agent/docs/DONELOG.txt` |
 | Training Profil: neutral-assistiv | `novapolis_agent/eval/datasets/training/chronistin_neutral_assistiv.v1.jsonl` | intern erstellt (Profilpaket) | intern | gruen | `novapolis-dev/docs/donelog.md` |
 | Training Profil: lore-intensiv | `novapolis_agent/eval/datasets/training/chronistin_lore_intensiv.v1.jsonl` | intern erstellt (Profilpaket) | intern | gruen | `novapolis-dev/docs/donelog.md` |
 | Training Profil: operativ-kurz | `novapolis_agent/eval/datasets/training/chronistin_operativ_kurz.v1.jsonl` | intern erstellt (Profilpaket) | intern | gruen | `novapolis-dev/docs/donelog.md` |

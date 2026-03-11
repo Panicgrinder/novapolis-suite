@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-05 01:00
-update: Hygiene-Guardrails erweitert: TODO-Index-Sync, Stand-Freshness-SLA und Logs-Policy als Pflichtchecks im Standardlauf aktiv.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-11 03:57
+update: Wochenabschlusslauf gemaess SSOT ausgefuehrt (Checks, Tree-Artefakte, Abschluss-Sync).
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_153947.md; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 15:47)
 ---
 
 Workspace-Status
@@ -9,6 +9,8 @@ Workspace-Status
 
 Aktuelles Wochenfenster
 -----------------------
+
+- 2026-03-10 15:40: Wochenabschlusslauf nach `novapolis-dev/docs/process/abschluss-routine.ssot.md` durchgefuehrt. Ergebnis `overall=FAIL` wegen `ruff` (1 Finding), `black` (2 Files) und `pytest`-Gate im Full-Check; alle Governance-Gates (`markdownlint`, `frontmatter`, `path-portability`, `namingpolicy`, `todo-index-sync`, `doc-freshness`, `logs-policy`) PASS. Strukturartefakte wurden aktualisiert (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`). Hinweis: VS-Code-Tasks mit `pwsh ... /d /c` waren lokal fehlerhaft (Exit 64), daher wurden die Wochenabschluss-Kommandos direkt per Python/PowerShell ausgefuehrt.
 
 - 2026-03-04 21:29: Optionalpaket O8/O9/O10/O12 nachgezogen. In `scripts/run_checks_and_report.py` sind neue Pflichtchecks aktiv: `todo-index-sync`, `doc-freshness` und `logs-policy`. Zusaetzlich gilt im Beta-SSOT jetzt ein verbindliches Tagging-Schema (`beta-v<MAJOR>.<MINOR>.<PATCH>-r<YYYYMMDD-HHMM>`). Der aktive Dev-Logpfad wurde policy-konform bereinigt (`novapolis-dev/logs/*.tmp.md` verboten; vorhandener Rohlog nach `novapolis-dev/archive/quarantine/logs/` verschoben).
 

@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import pytest
 
 
@@ -50,3 +53,40 @@ def test_check_term_inclusion_with_variants_and_synonyms(monkeypatch: pytest.Mon
     assert run_eval.check_term_inclusion(text, "Sicherheit") is True
     # Zusammengesetzter Begriff: beide Wörter (oder Synonyme) im Text
     assert run_eval.check_term_inclusion(text, "sichere gefahr") is True
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_get_synonyms_uses_additional_overlay(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import importlib
+
+    run_eval = importlib.import_module("scripts.run_eval")
+
+    cfg = tmp_path / "eval" / "config"
+    cfg.mkdir(parents=True, exist_ok=True)
+    (cfg / "synonyms.json").write_text(
+        json.dumps({"signal": ["zeichen"]}, ensure_ascii=False), encoding="utf-8"
+    )
+    (cfg / "synonyms.additional.json").write_text(
+        json.dumps({"signal": ["indikator"]}, ensure_ascii=False), encoding="utf-8"
+    )
+    (cfg / "synonyms.local.json").write_text(
+        json.dumps({"signal": ["hinweis"]}, ensure_ascii=False), encoding="utf-8"
+    )
+
+    monkeypatch.setattr(run_eval, "DEFAULT_CONFIG_DIR", str(cfg), raising=True)
+    monkeypatch.setattr(run_eval, "_synonyms_cache", None, raising=True)
+    monkeypatch.setattr(run_eval, "_term_relations_cache", None, raising=True)
+    monkeypatch.setattr(
+        run_eval,
+        "lookup_openthesaurus_synonyms",
+        lambda _term, cap=16: [],
+        raising=True,
+    )
+
+    syns = run_eval.get_synonyms("signal")
+    sset = set(syns)
+    assert "hinweis" in sset
+    assert "indikator" in sset
