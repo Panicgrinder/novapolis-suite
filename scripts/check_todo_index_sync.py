@@ -40,7 +40,18 @@ INDEX_KEYWORDS = {
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Check TODO index sync policy")
-    parser.add_argument("--repo-root", default=".", help="Repository root path")
+    parser.add_argument(
+        "--repo-root",
+        "--root",
+        dest="repo_root",
+        default=".",
+        help="Repository root path",
+    )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Deprecated no-op flag for backwards compatibility.",
+    )
     parser.add_argument(
         "--write-index-meta",
         action="store_true",
@@ -220,6 +231,9 @@ def write_index_metadata(
 def main() -> int:
     args = parse_args()
     repo_root = Path(args.repo_root).resolve()
+
+    if args.strict:
+        print("INFO: --strict ist veraltet und hat keine Wirkung mehr")
 
     try:
         changed = changed_files(repo_root)

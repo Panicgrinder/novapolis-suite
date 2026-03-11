@@ -1,6 +1,6 @@
 ---
-stand: 2026-03-11 05:16
-update: Active-Surface konsolidiert und Frontmatter-Receipts fuer neue Governance-Dokumente finalisiert.
+stand: 2026-03-11 06:43
+update: TODO-Index-CLI Rueckwaertskompatibel gemacht und Current-Window synchronisiert.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md novapolis-dev/README.md DONELOG.md novapolis-dev/docs/donelog.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (2026-03-11 04:49); .\.venv\Scripts\python.exe scripts/check_frontmatter.py README.md novapolis-dev/README.md DONELOG.md novapolis-dev/docs/donelog.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (EXITCODE=0, 2026-03-11 04:49)
 ---
 
@@ -18,6 +18,12 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Tooling: TODO-Index-CLI Rueckwaertskompatibel (2026-03-11 06:43)
+---------------------------------------------------------------------
+
+- `scripts/check_todo_index_sync.py` unterstuetzt wieder legacy Aufrufe mit `--root` (Alias auf `--repo-root`) und akzeptiert `--strict` als Deprecated-Noop.
+- Ziel: Bestehende Wrapper-/Task-Aufrufe bleiben lauffaehig, waehrend die neue CLI (`--repo-root`, `--write-index-meta`) aktiv bleibt.
 
 Dev/Docs: Receipt-Hygiene fuer Governance-Dokus finalisiert (2026-03-11 04:49)
 ------------------------------------------------------------------------
