@@ -46,11 +46,11 @@ jobs:
           fi
           echo "changed=$CHANGED" >> $GITHUB_OUTPUT
 
-      - name: Require DONELOG update for code changes
+      - name: Require DONELOG file change for agent code changes
         if: contains(steps.changes.outputs.changed, 'novapolis_agent/app/') || contains(steps.changes.outputs.changed, 'novapolis_agent/scripts/') || contains(steps.changes.outputs.changed, 'novapolis_agent/utils/')
         run: |
-          if ! grep -q "$(date +%Y)" novapolis_agent/docs/DONELOG.txt; then
-            echo "Fehlender Eintrag in novapolis_agent/docs/DONELOG.txt für diese Änderungen." >&2
+          if [[ "${{ steps.changes.outputs.changed }}" != *"novapolis_agent/docs/DONELOG.txt"* ]]; then
+            echo "Fehlender DONELOG-Sync: Agent-Code geaendert, aber novapolis_agent/docs/DONELOG.txt nicht angepasst." >&2
             exit 1
           fi
 

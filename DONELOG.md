@@ -1,10 +1,12 @@
 ---
-stand: 2026-03-11 04:17
+stand: 2026-03-11 04:45
 update: Wochenabschlusslauf gemaess SSOT ausgefuehrt; Sync-Zieldateien und Tree-Artefakte aktualisiert.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_153947.md; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 15:47)
 ---
 Kurzueberblick
 --------------
+
+- 2026-03-11 04:27: Doku-Informationsarchitektur weiter geschaerft. `novapolis-dev/docs/todo.sim.md` und `novapolis-dev/docs/todo.index.md` wurden auf operative Active-Surface-Inhalte reduziert; `novapolis-dev/docs/donelog.md` auf ein kompaktes Current-Window-Modell umgestellt. Archiv-/Log-Rollen sind jetzt als Matrix in `README.md` und `novapolis-dev/README.md` explizit dokumentiert. Governance ergaenzt: neue Standarddateien `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS`, `CHANGELOG.md`, `docs/adr/README.md`. Gate-Haertung: `.github/workflows/enforce-donelog.yml` verlangt bei Agent-Codeaenderungen nun eine echte Aenderung in `novapolis_agent/docs/DONELOG.txt`; `scripts/check_todo_index_sync.py` prueft zusaetzlich Open-Count-Konsistenz und Widerspruchsmuster (`keine offenen` trotz offener Checkboxen).
 
 - 2026-03-10 15:40: Wochenabschluss gemaess `novapolis-dev/docs/process/abschluss-routine.ssot.md` ausgefuehrt. Reihenfolge umgesetzt: (1) `scripts/run_checks_and_report.py`, (2) optional `scripts/check_sim_epoch_assets.py --allow-empty`, (3) `scripts/run_pytest_coverage.py --fail-under 80`, (4) Strukturartefakte aktualisiert (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`), (5) Abschluss-Sync in `todo.root.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`. Ergebnis: Governance-Gates PASS, Restpunkte bei `ruff`/`black`/`pytest` im Full-Check; Coverage-Wrapper exit=1. Hinweis: mehrere VS-Code-Tasks liefen lokal in einen Launcher-Fehler (`pwsh ... /d /c`, Exit 64), daher direkte Wrapper-Ausfuehrung als Fallback.
 

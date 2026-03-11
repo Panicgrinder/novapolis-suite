@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-05 01:00
+stand: 2026-03-11 04:45
 update: Strukturabschnitt auf Iststand korrigiert und Active-Surface-Index als Primärdokument verankert.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
@@ -57,7 +57,26 @@ Archiv
 ------
 
 - Zentrales Archiv für historisierte Dokumente: `archive/`
-- Bitte keine separaten Archive in Unterprojekten anlegen; verlinkt stattdessen nach `novapolis-dev/archive/`.
+- Modulinterne Archive bleiben fuer technische/operative Artefakte zulaessig (`novapolis_agent/archive/`, `Backups/`), sind aber keine aktive Governance-Quelle.
+
+Archiv-Matrix (verbindlich)
+---------------------------
+
+| Ablageort | Zweck | Zaehlt als aktive Regelquelle |
+| --- | --- | --- |
+| `novapolis-dev/docs/**` | Aktive Dev-Hub-Dokumentation | ja |
+| `novapolis-dev/archive/**` | Historisierte Dev-Dokumentation | nein |
+| `../novapolis_agent/archive/**` | Modulintern technische/operative Artefakte | nein |
+| `../Backups/**` | Forensische Backup-/Restore-Artefakte | nein |
+
+DONELOG-Ebenen
+--------------
+
+| Ebene | Datei/Pfad | Zweck |
+| --- | --- | --- |
+| A | `docs/donelog.md` | Operativer Kurzlog (entscheidungsrelevante Zusammenfassung) |
+| B | `../.tmp/results/reports/**` | Laufbelege/Diagnosedetails |
+| C | `../DONELOG.md` | Root-Summary fuer globale Releases/Governance |
 
 Copilot Instructions
 --------------------

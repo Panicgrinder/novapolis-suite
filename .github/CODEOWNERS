@@ -1,0 +1,19 @@
+# Default owners
+* @Panicgrinder
+
+# Core governance and workflows
+/.github/ @Panicgrinder
+/README.md @Panicgrinder
+/DONELOG.md @Panicgrinder
+
+# Dev hub
+/novapolis-dev/ @Panicgrinder
+
+# Agent backend
+/novapolis_agent/ @Panicgrinder
+
+# RP module
+/novapolis-rp/ @Panicgrinder
+
+# Sim module
+/novapolis-sim/ @Panicgrinder

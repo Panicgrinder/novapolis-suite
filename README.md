@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-11 04:17
+stand: 2026-03-11 04:45
 update: Root-TTS-Temporarpaad entfernt; Standalone-Beta Startpfad und Go/No-Go-Gates fuer reproduzierbare Beta-Laeufe dokumentiert.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
@@ -113,6 +113,23 @@ Verbindungsprüfung
   - `novapolis_agent/archive/` (Agent-interne technische Artefakte)
   - `Backups/` (forensische Backup-/Restore-Artefakte auf Root-Ebene)
 - Bei Dokument-Archivierung immer zuerst pruefen, ob der Inhalt in `novapolis-dev/archive/` gehoert; nur falls klar modulintern technisch, in den jeweiligen Modularchivpfad ablegen.
+
+Archiv-Matrix (verbindlich)
+
+| Ablageort | Zweck | Zaehlt als aktive Regelquelle |
+| --- | --- | --- |
+| `novapolis-dev/docs/**` | Aktive Arbeits- und Governance-Dokumente | ja |
+| `novapolis-dev/archive/**` | Historisierte Doku-/Governance-Historie | nein |
+| `novapolis_agent/archive/**` | Modulintern technische/operative Artefakte | nein |
+| `Backups/**` | Forensische Backup-/Restore-Artefakte | nein |
+
+DONELOG-Ebenen (normalisiert)
+
+| Ebene | Datei | Zweck |
+| --- | --- | --- |
+| A | `novapolis-dev/docs/donelog.md` | Kurzform fuer operative Entscheidungen/Fortschritt (menschenlesbar) |
+| B | `.tmp/results/reports/**` | Technische Laufbelege und Detailreports (maschinenlesbar) |
+| C | `DONELOG.md` | Root-Summary und Release-/Governance-Zusammenfassung |
 
 ### Hinweise für Mitarbeit (Moduswechsel & STOP-Gate)
 
