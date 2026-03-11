@@ -1,6 +1,6 @@
 ---
-stand: 2026-03-05 01:00
-update: SSOT fuer Wochen- und Monatsabschluss eingefuehrt (Monatsabschluss am 1. Montag).
+stand: 2026-03-11 06:49
+update: Woechentliche Hygiene-Cadence (60 Minuten) mit KPI-Protokoll verbindlich ergaenzt.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 ---
 Wochen- und Monatsabschluss (SSOT)
@@ -38,6 +38,21 @@ Ablauf Wochenabschluss (verbindlich)
    - `WORKSPACE_STATUS.md`
    - `DONELOG.md`
    - `novapolis-dev/docs/donelog.md`
+
+Woechentliche Hygiene-Cadence (60 Minuten)
+------------------------------------------
+
+- Termin: jede Woche ein fester 60-Minuten-Slot direkt nach dem Wochenabschluss.
+- Reihenfolge (verbindlich):
+   1. Drift-Scan: `scripts/check_todo_index_sync.py --repo-root . --write-index-meta`, `scripts/check_doc_freshness.py`, `scripts/check_logs_policy.py`.
+   2. Donelog-Cleanup: aktive Eintraege auf operative Relevanz kuerzen, Historik in `novapolis-dev/archive/docs/donelogs/` belassen.
+   3. TODO/Index-Abgleich: offene Punkte in Modul-Boards gegen `novapolis-dev/docs/todo.index.md` verifizieren.
+- KPI-Protokoll (Pflichtfelder je Slot):
+   - `todo_index_drift`: Anzahl erkannter Count-/Board-Widersprueche.
+   - `active_docs_stale`: Anzahl aktiver Dokumente mit SLA-Ueberschreitung.
+   - `placeholder_conflicts`: Anzahl erkannter Platzhalter-/Iststand-Widersprueche.
+   - `logs_policy_violations`: Anzahl policy-widriger Logdateien im aktiven Pfad.
+- Nachweis: KPI-Werte und Kurzfazit in `novapolis-dev/docs/donelog.md` dokumentieren; bei Abweichungen zusaetzlich Root-Summary in `DONELOG.md` aktualisieren.
 
 Ablauf Monatsabschluss (zusaetzlich zum Wochenabschluss)
 --------------------------------------------------------

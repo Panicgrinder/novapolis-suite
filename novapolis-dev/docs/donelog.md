@@ -1,6 +1,6 @@
 ---
-stand: 2026-03-11 06:43
-update: TODO-Index-CLI Rueckwaertskompatibel gemacht und Current-Window synchronisiert.
+stand: 2026-03-11 06:49
+update: Woechentliche Dev-Hygiene-Cadence verbindlich verankert und Board geschlossen.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md novapolis-dev/README.md DONELOG.md novapolis-dev/docs/donelog.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (2026-03-11 04:49); .\.venv\Scripts\python.exe scripts/check_frontmatter.py README.md novapolis-dev/README.md DONELOG.md novapolis-dev/docs/donelog.md SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (EXITCODE=0, 2026-03-11 04:49)
 ---
 
@@ -18,6 +18,13 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Process: Woechentliche Hygiene-Cadence verankert (2026-03-11 06:49)
+-----------------------------------------------------------------------
+
+- Offener Dev-Board-Punkt abgeschlossen: 60-Minuten-Wochenslot fuer Drift-Scan, Donelog-Cleanup und TODO/Index-Abgleich verbindlich in `novapolis-dev/docs/process/abschluss-routine.ssot.md` dokumentiert.
+- KPI-Protokollschema fixiert (`todo_index_drift`, `active_docs_stale`, `placeholder_conflicts`, `logs_policy_violations`) und Nachweisziel auf `novapolis-dev/docs/donelog.md` plus Root-Summary bei Abweichungen festgelegt.
+- `novapolis-dev/docs/todo.index.md` auf `Dev offen: 0` und Metadaten (`keiner (offen: 0)`) synchronisiert.
 
 Dev/Tooling: TODO-Index-CLI Rueckwaertskompatibel (2026-03-11 06:43)
 ---------------------------------------------------------------------
