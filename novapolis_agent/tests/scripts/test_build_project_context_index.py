@@ -186,7 +186,7 @@ def test_main_success_writes_summary_and_index(
 
     assert rc == 0
     assert captured["paths"] == [str(src.resolve())]
-    assert str(captured["out"]).endswith("out\\index.json")
+    assert str(captured["out"]).replace("\\", "/").endswith("out/index.json")
     assert summary["indexed_sources"] == 1
     assert summary["n_docs"] == 1
     assert summary["vocab"] == 2
