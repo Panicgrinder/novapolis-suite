@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 12:13
-update: Parse-Hotfix fuer Signalbindung des manuellen Themenumschalters umgesetzt.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260311_072546.md
+stand: 2026-03-17 16:58
+update: Wochenabschluss-Nachholung gemaess SSOT dokumentiert.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260317_064114.md; .\.venv\Scripts\python.exe scripts\check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency summary=fail:0,warn:2; .\.venv\Scripts\python.exe scripts\run_pytest_coverage.py --fail-under 80 PASS (coverage=91.23%; log=.tmp\results\reports\pytest_coverage_20260317_064421.log)
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,24 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-03-17 06:45: Wochenabschluss nachgeholt. `scripts/run_checks_and_report.py` bleibt `overall=FAIL` wegen `doc-freshness` (`novapolis-dev/docs/brainstorming.rp.md` stale), `ruff` und `black`; der separate Coverage-Lauf PASS (`91.23%` bei Hard Gate `>=80%`), der Sim-Check endet ohne harte Fehler (`fail:0,warn:2`). Abschluss-Sync in `todo.root.md`, `WORKSPACE_STATUS.md`, `DONELOG.md` und `novapolis-dev/docs/donelog.md`; kein Tree-Delta im Nachhol-Lauf.
+
+- 2026-03-13 06:48: C4 (Release-/PR-Steuerung) geprueft und einen neuen Root-Folgepunkt aufgenommen. `PR_DESCRIPTION.md` ist aktuell keine brauchbare laufende Vorlage, sondern beschreibt noch die abgeschlossene Stabilization-/Governance-PR vom 2026-03-03; die Datei soll auf den heutigen aktiven Zweck umgestellt oder klar historisiert werden.
+
+- 2026-03-13 06:44: R6 (aktive Top-Level-Daten-/Hilfsflaechen) erneut geprueft und einen neuen Root-Folgepunkt aufgenommen. `combined.json` zeigt weiter ein altes Multi-Root-Workspace-Setup mit `cvn-agent`, und die `workspace_tree*`-Artefakte listen weiterhin ausgeschlossene Cache-/Tmp-/Backup-Pfade mit, sodass die Root-Hilfsoberflaeche nicht sauber auf den aktiven Single-Root-Schnitt begrenzt ist.
+
+- 2026-03-13 06:42: R5 (Root-Skripte/Automationskern) erneut geprueft und einen neuen Root-Folgepunkt aufgenommen. Der Sammelcheck `scripts/run_checks_and_report.py` referenziert mit `single-root-todo.md` noch einen nur archiviert vorhandenen Root-Pfad, und `scripts/multi_root_cleanup.py` haelt weiter einen direkten Multi-Root-Cleanup-Workflow mit Dokumentmutationen aus einem veralteten Umstellungskontext bereit.
+
+- 2026-03-13 06:40: R4 (Root-Shared-Code/-Bridges) erneut geprueft und einen neuen Root-Folgepunkt aufgenommen. Der Root-Layer besteht aktuell wesentlich aus Kompatibilitaetsbruecken (`app/__init__.py`, `utils/__init__.py`), waehrend `packages/novapolis_common` noch kein echtes Shared-Logikpaket enthaelt; diese Lage soll explizit eingeordnet oder weiter migriert werden.
+
+- 2026-03-13 06:38: R3 (Root-Konfiguration/Toolchain) erneut geprueft und einen neuen Root-Folgepunkt aufgenommen: Root-README und zentrale `.env.example` muessen auf den realen Single-Root-Scope nachgezogen werden, weil die Requirements im Root aktuell nur Agent-Abhaengigkeiten aggregieren, das README aber eine Sammelung aller Teilprojekte behauptet und `.env.example` weiter `PROJECT_NAME=CVN Agent` fuehrt.
+
+- 2026-03-13 06:31: Rueckfrage des Users aufgegriffen und die Root-TODO von einer groben aktiven Abdeckung auf eine vollstaendige Workspace-Zerlegung nachgeschaerft. Erfasst sind nun explizite Analysebereiche fuer Root-/Suite-Steuerung, Repo-Steuerung/CI/VS Code, Dev-Hub, Agent, RP und Sim sowie klar getrennte On-demand-/Historik-/Cache-Pfade.
+
+- 2026-03-13 06:18: In `todo.root.md` eine explizite Analyseabdeckung fuer den aktiven Projektscope angelegt. Erfasst sind jetzt als Checkliste: Root-/Globaloberflaeche, Dev-Hub, Agent-, RP- und Sim-Modul sowie noch offene Querbereiche fuer Root-Tooling, VS-Code/CI-Steuerung und aktive Top-Level-Daten-/Reportflaechen; Archive, Caches und Forensikpfade sind explizit als nicht Teil des aktiven Erstscans markiert.
+
+- 2026-03-13 06:05: Root-/Globaloberflaechen erneut geprueft und zwei neue Folgepunkte im Root-Backlog aufgenommen: (1) `todo.root.md`/Root-Summary muessen gegen den inzwischen wieder geoeffneten Modulbacklog re-baselined werden, damit Exit-Checkliste und Definition-of-Ready keinen zu sauberen Zustand vortaeuschen, (2) `WORKSPACE_INDEX.md` muss von einem agent-zentrierten Altindex auf echte Suite-Navigation umgestellt werden.
 
 - 2026-03-11 11:53: Gemeldeten Parse-Error `Identifier "_on_api_card_panel_gui_input" not declared` behoben. In `novapolis-sim/scripts/Main.gd` wurde die Signalbindung auf explizites `Callable(self, "_on_api_card_panel_gui_input")` umgestellt, wodurch der Callback parser-sicher aufgeloest wird.
 - 2026-03-11 11:50: Freigegebene Umstellung fuer Punkt 3 umgesetzt: ein unteres Feld zeigt drei Themenbloecke manuell durchschaltbar statt parallel. In `novapolis-sim/scripts/Main.gd` wurde `api_card_panel` als Shared-Detailfeld mit Klick-Zyklus implementiert (`Agent/API` -> `Runtime/Ops` -> `Eval/Quality` -> ...). Headertext zeigt aktiv: `Thema: ... (Klick: wechseln)`.

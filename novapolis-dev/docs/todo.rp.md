@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-03-05 01:00
-update: RP-P0-DoD nachgezogen: Fraktionsweiter T0-Warenueberblick mit Herkunftslabeln und D5/C6-Aufbauphasenregel evidenzbasiert abgeschlossen.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-17 16:58
+update: Modulscan hat README-Portabilitaet als neuen RP-Folgepunkt identifiziert.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260317_064114.md
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -132,6 +132,14 @@ Definition of Done (P0)
 - [x] [Jetzt] D5/C6 sind konsistent als fruehe Aufbauphase modelliert; keine impliziten Handelsannahmen.
   - Evidenz: `novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md` (Abschnitt `D5/C6-Modell (fruehe Aufbauphase)`).
 - [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten.
+
+- [ ] [Als naechstes] Aktive RP-Einstiegsdoku auf portable README-/Visualisierungsangaben nachziehen.
+  - Ziel: `novapolis-rp/README.md` soll als aktive Einstiegslage keine hostgebundenen Pfadspuren oder lokal-harten Startannahmen mehr transportieren.
+  - Akzeptanzkriterien:
+    1) README-Titel und Einstiegsabschnitte verzichten auf hostgebundene Kennzeichnungen wie `Workspace (F:)`,
+    2) Visualisierungs-/Sim-Verweise folgen dem heute portablen Workspace- und `.venv`-Pfad statt unqualifizierter Direktaufrufe,
+    3) RP-README bleibt konsistent zur aktuellen Modultrennung (`novapolis_agent`/`novapolis-sim` als Schwesterprojekte, aktive Boards in `novapolis-dev/docs/`).
+  - Evidenz: `novapolis-rp/README.md` traegt weiterhin den Titel `Novapolis-RP Workspace (F:)` und dokumentiert in `Visualisierung` noch einen lokalen Direktstart `uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload` statt eines portablen, am aktuellen Workspace-Flow ausgerichteten Startpfads.
 
 - 24×1h-Runden (PC-zentriert) einführen
   - [x] Policy festhalten: Stunde spult leise weiter, bis ein PC-relevantes Ereignis eintritt (z. B. „Reflex weckt Ronja“). *(erledigt 2026-02-22)*

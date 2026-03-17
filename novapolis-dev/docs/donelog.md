@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 07:26
-update: Full-Gate-Stabilisierung abgeschlossen (overall PASS) und Coverage-Welle 1 Richtung 91% mit messbarer Steigerung gestartet.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260311_072546.md
+stand: 2026-03-17 16:58
+update: Wochenabschluss-Nachholung dokumentiert; KPI-Protokoll der Hygiene-Cadence nachgezogen.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260317_064114.md; .\.venv\Scripts\python.exe scripts\check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency summary=fail:0,warn:2; .\.venv\Scripts\python.exe scripts\run_pytest_coverage.py --fail-under 80 PASS (coverage=91.23%; log=.tmp\results\reports\pytest_coverage_20260317_064421.log)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,75 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Process: Wochenabschluss-Nachholung dokumentiert (2026-03-17 06:45)
+----------------------------------------------------------------------
+
+- Nachhol-Lauf fuer den ausgefallenen Wochenabschluss gemaess `novapolis-dev/docs/process/abschluss-routine.ssot.md` ausgefuehrt und in Root-/Dev-Doku synchronisiert.
+- `scripts/run_checks_and_report.py` liefert `overall=FAIL` wegen `doc-freshness`, `ruff` und `black`; `pytest`, `pyright`, `mypy` sowie alle Governance-Gates ausser Freshness PASS. Frisches Report-Artefakt: `.tmp/results/reports/checks_report_20260317_064114.md`.
+- Separater Coverage-Lauf PASS (`91.23%` bei Hard Gate `>=80%`), separater Sim-Check ohne harte Fehler (`fail:0,warn:2`).
+- KPI-Protokoll: `todo_index_drift=0`, `active_docs_stale=1` (`novapolis-dev/docs/brainstorming.rp.md`), `placeholder_conflicts=1` (offener Placeholder-Punkt bei `novapolis_agent/scripts/reports/generate_coverage_report.py`), `logs_policy_violations=0`.
+
+Sim/Docs: Restverzeichnis des alten Nested-Aufbaus als Folgepunkt aufgenommen (2026-03-13 07:02)
+-------------------------------------------------------------------------------------------
+
+- Der Sim-Modulscan hat einen dritten offenen Punkt in `novapolis-dev/docs/todo.sim.md` angelegt.
+- Das leere Restverzeichnis `novapolis-sim/novapolis-sim/` soll entfernt, klar markiert oder technisch begruendet werden, weil die aktive README den alten verschachtelten Aufbau bereits als nach `Backups/novapolis-sim-archived-20251104/` archiviert beschreibt.
+- `novapolis-dev/docs/todo.index.md` wurde im selben Lauf fuer Sim auf `offen: 3` nachgezogen.
+
+Dev/Docs: Historische Migrationsdoku als neuer Folgepunkt aufgenommen (2026-03-13 06:58)
+-------------------------------------------------------------------------------
+
+- Der D5-Scan des Dev-Hub hat einen weiteren bislang nicht erfassten Folgepunkt in `novapolis-dev/docs/todo.dev.md` angelegt.
+- `novapolis-dev/migrations/docs-migration-2025-10-29.md` soll gegen die aktuelle Board-SSOT abgegrenzt oder nachgezogen werden, weil die Datei weiter `novapolis-dev/docs/todo.md` als Migrationsziel fuehrt, obwohl die aktive TODO-Struktur inzwischen ueber `todo.dev.md`, `todo.rp.md`, `todo.agent-board.md` und `todo.sim.md` laeuft.
+- `novapolis-dev/docs/todo.index.md` wurde im selben Lauf fuer Dev auf `offen: 10` nachgezogen.
+
+RP/Docs: README-Portabilitaet als neuer Folgepunkt aufgenommen (2026-03-13 04:04)
+------------------------------------------------------------------------
+
+- Der modulweise RP-Scan hat einen neuen Folgepunkt in `novapolis-dev/docs/todo.rp.md` angelegt.
+- `novapolis-rp/README.md` soll auf portable aktive Einstiegsdoku nachgezogen werden, weil der Titel noch `Workspace (F:)` traegt und der Visualisierungsabschnitt einen lokalen Direktstart `uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload` dokumentiert.
+- `novapolis-dev/docs/todo.index.md` wurde im selben Lauf fuer RP auf `offen: 6` nachgezogen.
+
+Dev/Docs: Governance-Metadaten-Drift als neue Folgepunkte aufgenommen (2026-03-13 04:04)
+-----------------------------------------------------------------------------
+
+- Der Dev-Hub-Scan hat zwei weitere bislang ungetrackte Governance-Baustellen in `novapolis-dev/docs/todo.dev.md` aufgenommen.
+- Neuer Folgepunkt 1: `novapolis-dev/docs/active-surface-index.md` auf reale `last_check`-Stande nachziehen, weil die aktiven Boards/Logs dort weiter auf `2026-03-04` stehen, obwohl sie im aktuellen Arbeitsfenster mehrfach geaendert wurden.
+- Neuer Folgepunkt 2: `novapolis-dev/docs/meta/todo.json` auf aktive TODO-SSOT umstellen oder ausmustern, weil die Datei weiter auf das alte Sammelboard `novapolis-dev/docs/todo.md` und eine RP-Altzuordnung verweist.
+- `novapolis-dev/docs/todo.index.md` wurde im selben Lauf fuer Dev auf `offen: 9` nachgezogen.
+
+Sim/Docs: Modulscan oeffnet README- und Check-Drift im Sim-Modul (2026-03-13 04:04)
+------------------------------------------------------------------------
+
+- Der Sim-Scan hat zwei bislang nicht erfasste Folgepunkte in `novapolis-dev/docs/todo.sim.md` angelegt.
+- Neuer Folgepunkt 1: `novapolis-sim/README.md` auf einen portablen Start-/Verify-Pfad umstellen, weil die Datei weiter eine lokal eingebettete Godot-Binary (`Godot_v4.5.1-stable_win64.exe`) und separate manuelle Startpfade dokumentiert.
+- Neuer Folgepunkt 2: die von `novapolis-sim/scripts/Main.gd` erzeugten Sim-Checks auf den kanonischen Asset-Check mit `--allow-empty --check-slot-consistency` angleichen.
+- `novapolis-dev/docs/todo.index.md` wurde im selben Lauf fuer Sim auf `offen: 2` nachgezogen.
+
+Agent/Docs: Feinscan deckt Script-Doku- und Report-Drift auf (2026-03-13 04:02)
+------------------------------------------------------------------------
+
+- Zweite Tiefenwelle im Modul `novapolis_agent` hat zwei weitere bisher ungetrackte Folgepunkte belegt und in `novapolis-dev/docs/todo.agent-board.md` aufgenommen.
+- Neuer Folgepunkt 1: `novapolis_agent/scripts/README.md` auf den realen Script-Bestand und den aktiven Root-`.venv`-/Wrapper-Flow nachziehen, weil die Datei weiter auf einem alten Minimalstand mit `run_eval.py` und freier `pip install`-Anleitung steht.
+- Neuer Folgepunkt 2: historisches Placeholder-Verhalten der Report-Skripte explizit aufloesen oder stilllegen; belastbare Evidenz ist `novapolis_agent/scripts/reports/generate_coverage_report.py`, das bei fehlender `coverage.xml` weiterhin nur `Coverage-Report (placeholder)` erzeugt.
+- `novapolis-dev/docs/todo.index.md` wurde fuer das Agent-Modul im selben Lauf auf `offen: 6` nachgezogen.
+
+Agent/Docs: Modultiefenscan auf weitere Folgepunkte verdichtet (2026-03-13 03:53)
+-------------------------------------------------------------------------
+
+- Vertiefter Scan des Agent-Moduls hat drei weitere bislang ungetrackte Baustellen belegt und in `novapolis-dev/docs/todo.agent-board.md` aufgenommen.
+- Neuer `Jetzt`-Punkt: `novapolis_agent/README.md` auf den aktuellen `.venv`-/Runbook-Betriebsweg synchronisieren, weil README noch `venv` und direkten `uvicorn app.main:app --reload` dokumentiert.
+- Neue Folgepunkte: (1) `novapolis_agent/docs/DONELOG.txt` von einem widerspruechlichen alten FAIL-Postflight am Dokumentanfang bereinigen, (2) Legacy-Shim-Abbau nach abgeschlossener Inventarphase in eine explizite Exit-Stufe ueberfuehren.
+- `novapolis-dev/docs/todo.index.md` wurde im selben Lauf fuer Agent auf `offen: 4` vorbereitet.
+
+Dev/Docs: Workspace-Scan in neue offene Backlogpunkte ueberfuehrt (2026-03-13 03:45)
+---------------------------------------------------------------------------
+
+- Evidenzbasierter Drift-Scan ueber aktive Boards, Root-/Statusdokus und Agent-Skripte hat drei bisher nicht erfasste Baustellen sichtbar gemacht.
+- `novapolis-dev/docs/todo.dev.md` enthaelt jetzt zwei neue offene Punkte: (1) aktive Root-/Dev-Dokuoberflaechen auf den letzten grünen Sammellauf synchronisieren, (2) VS-Code-Task-Launcher-Drift (`pwsh ... /d /c`, Exit 64) reproduzierbar pruefen und absichern.
+- `novapolis-dev/docs/todo.agent-board.md` enthaelt jetzt einen neuen offenen Punkt fuer `novapolis_agent/scripts/todo_gather.py`, weil das Skript weiterhin auf das nicht mehr aktive Ziel `docs/TODO.md` verweist.
+- `novapolis-dev/docs/todo.index.md` wurde im selben Lauf auf Dev `offen: 7` und Agent `offen: 1` synchronisiert.
 
 Dev/Quality: Full-Gate wieder gruen + Coverage-Welle 1 gestartet (2026-03-11 07:24)
 -------------------------------------------------------------------------------

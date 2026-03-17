@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 03:57
-update: RP-Content-Eval-Pfad nahtlos integriert (Suite, Task, strict-Validator, Runbook, Provenance).
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_153947.md
+stand: 2026-03-17 16:58
+update: Agent-Modul-Feinscan um Script-Doku- und Report-Drift erweitert.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260317_064114.md
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -25,6 +25,60 @@ Prioritaetstags (aktiv)
 Platzhalter
 
 - [x] Abgleich mit Root Coverage-Gate (R-COV) und Aufnahme fehlender Pruefsteps (Receipt-Formate) in diesen Plan
+
+Neue offene Punkte - Workspace-Scan (2026-03-13)
+-----------------------------------------------
+
+- [ ] [Als naechstes] Legacy-TODO-Automation auf aktuelle SSOT-Pfade und Nutzbarkeit bereinigen oder geordnet stilllegen.
+  - Ziel: Veraltete TODO-Helfer sollen keine nicht mehr existierenden Boards/Formate mehr adressieren und keine falsche operative Sicherheit erzeugen.
+  - Akzeptanzkriterien:
+    1) `novapolis_agent/scripts/todo_gather.py` verweist nicht mehr auf `docs/TODO.md` bzw. ist explizit als historisch/deaktiviert markiert,
+    2) Zielartefakt und Nutzen des Skripts sind gegen die aktuelle TODO-SSOT (`todo.root.md`, `novapolis-dev/docs/todo.*.md`, `novapolis-dev/docs/todo.index.md`) eindeutig beschrieben,
+    3) vorhandene Smoke-Tests spiegeln den realen Sollzustand statt Altpfade.
+  - Evidenz: `novapolis_agent/scripts/todo_gather.py` beschreibt in der Moduldocstring weiterhin `docs/TODO.md`, `**/TODO.md` existiert im aktiven Workspace nicht mehr, und die Ausgabe `TODO-Status - Automatischer Ueberblick` spiegelt die heutige Board-Struktur nicht erkennbar wider.
+
+Neue offene Punkte - Agent-Modul Tiefenscan (2026-03-13)
+--------------------------------------------------------
+
+- [ ] [Jetzt] README-Onboarding auf den aktuellen `.venv`-/Runbook-Standard synchronisieren.
+  - Ziel: Setup- und Startanleitung fuer das Agent-Modul sollen ohne Widerspruch zum kanonischen Betriebsweg funktionieren.
+  - Akzeptanzkriterien:
+    1) `novapolis_agent/README.md` verwendet fuer Einrichtung und Start denselben `.venv`-/CWD-Flow wie `novapolis_agent/docs/runbook.md`,
+    2) keine veralteten `venv`-/Direktaufruf-Beispiele mehr, die den dokumentierten Repo-Standard umgehen,
+    3) README und Runbook verweisen fuer Start/Gates sichtbar auf denselben operativen Pfad.
+  - Evidenz: `novapolis_agent/README.md` dokumentiert weiterhin `python -m venv venv`, `.\venv\Scripts\activate` und `uvicorn app.main:app --reload`, waehrend `novapolis_agent/docs/runbook.md` den aktiven Weg ueber Root-`.venv`, `Set-Location .\novapolis_agent` und `..\.venv\Scripts\python.exe -m uvicorn app.main:app --reload` fuehrt.
+
+- [ ] [Als naechstes] `novapolis_agent/docs/DONELOG.txt` als aktive Oberflaeche von historischem Postflight-Rest bereinigen.
+  - Ziel: Das Agent-DONELOG soll vorne keinen widerspruechlichen Alt-Receipt mehr mischen, sondern den aktuellen Arbeitsstand scanbar zeigen.
+  - Akzeptanzkriterien:
+    1) der vordere Alt-Postflightblock wird archiviert, entfernt oder klar als historisch ausserhalb des aktiven Fensters markiert,
+    2) aktive Eintraege widersprechen nicht dem Frontmatter-Status des Dokuments,
+    3) die aktive Oberflaeche bleibt fuer aktuelle Agent-Arbeit schnell lesbar.
+  - Evidenz: `novapolis_agent/docs/DONELOG.txt` traegt im Frontmatter `overall=PASS` vom 2026-03-11, zeigt direkt darunter aber einen alten `Postflight`-Block mit `ruff/black/markdownlint/frontmatter/pyright/mypy=FAIL`, `pytest=STOP` und `Faellig=2025-11-12 01:45`.
+
+- [ ] [Spaeter] Legacy-Shim-Abbau nach Inventarphase in eine explizite Exit-Stufe ueberfuehren.
+  - Ziel: Die noch vorhandenen Kompatibilitaetslayer sollen nicht dauerhaft als stilles Parallelpaket bestehen bleiben.
+  - Akzeptanzkriterien:
+    1) verbleibende Bridges unter `novapolis_agent/novapolis_agent/**` sind als `behalten`, `nur testbedingt` oder `abbauen` klassifiziert,
+    2) mindestens ein skip-basierter Import-Smoketest wird in eine deterministische Vertragspruefung ohne generisches `pytest.skip` ueberfuehrt,
+    3) Exit-Kriterien fuer die Entfernung weiterer Shims sind im Board oder Shim-Inventar nachvollziehbar dokumentiert.
+  - Evidenz: trotz abgeschlossenem Inventarpunkt existieren weiterhin mehrere Bridges unter `novapolis_agent/novapolis_agent/**` (z. B. `novapolis_agent/novapolis_agent/app/core/content_management.py`, `novapolis_agent/novapolis_agent/scripts/__init__.py`, `novapolis_agent/novapolis_agent/tests/__init__.py`), und `novapolis_agent/tests/test_batch1_unit.py` bricht den Kompatibilitaetsimport bei Fehlern pauschal mit `pytest.skip(...)` ab.
+
+- [ ] [Als naechstes] `novapolis_agent/scripts/README.md` auf das aktuelle Script-Set und die Root-`.venv`-Policy nachziehen.
+  - Ziel: Die Skript-Doku soll die heute relevanten Entrypoints, Aufrufmuster und Abhaengigkeitsprofile widerspruchsfrei abbilden.
+  - Akzeptanzkriterien:
+    1) `scripts/README.md` beschreibt nicht mehr nur den historischen Minimalbestand rund um `run_eval.py`,
+    2) dokumentierte Aufrufe folgen dem aktiven Root-`.venv`-/Wrapper-Muster statt freier Ad-hoc-Kommandos,
+    3) neu operative Skripte/Flows wie `build_eval_from_rp.py`, `cleanup_artifacts.py`, `check_legacy_shim_imports.py` oder Trainings-/Kurationspfade sind mindestens referenziert oder bewusst ausgegrenzt.
+  - Evidenz: `novapolis_agent/scripts/README.md` steht auf `stand: 2026-01-11`, dokumentiert fast nur `run_eval.py`, manuelle `pip install httpx rich`-Installation und einen OpenAI-FT-Aufruf, waehrend das aktuelle Runbook deutlich mehr operative Skripte und den Root-`.venv`-Pfad nutzt.
+
+- [ ] [Spaeter] Report-Skripte von historischem Placeholder-Verhalten auf klaren Ist-Stand heben.
+  - Ziel: Generierte Reports sollen entweder echten operativen Nutzen liefern oder explizit als historische Hilfsskripte gekennzeichnet sein.
+  - Akzeptanzkriterien:
+    1) `generate_coverage_report.py` erzeugt keinen irrefuehrenden Placeholder-Report mehr ohne klare Einordnung,
+    2) README/Board/Script-Doku beschreiben den realen Status der Report-Skripte konsistent,
+    3) mindestens fuer den Coverage-Report existiert ein reproduzierbarer Vertragsnachweis oder eine klare Deaktivierungsentscheidung.
+  - Evidenz: `novapolis_agent/scripts/reports/generate_coverage_report.py` meldet bei fehlender `coverage.xml` weiterhin `Coverage-Report (placeholder) erzeugt`, waehrend `novapolis_agent/README.md` unter `Neuigkeiten (2025-10-20)` die drei Report-Skripte weiterhin pauschal als reproduzierbare Berichtsquelle beschreibt.
 
 R-COV Abgleich (Agent)
 ----------------------
