@@ -49,9 +49,12 @@ def test_scan_legacy_imports_deduplicates_files_across_globs(tmp_path: Path) -> 
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_main_strict_returns_one_with_disallowed(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
-    from scripts import check_legacy_shim_imports as mod
+def test_main_strict_returns_one_with_disallowed(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     from types import SimpleNamespace
+
+    from scripts import check_legacy_shim_imports as mod
 
     p = tmp_path / "novapolis_agent" / "x.py"
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -78,8 +81,9 @@ def test_main_strict_returns_one_with_disallowed(monkeypatch: pytest.MonkeyPatch
 @pytest.mark.scripts
 @pytest.mark.unit
 def test_main_non_strict_returns_zero(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
-    from scripts import check_legacy_shim_imports as mod
     from types import SimpleNamespace
+
+    from scripts import check_legacy_shim_imports as mod
 
     monkeypatch.setattr(mod, "scan_legacy_imports", lambda _root: (["a"], ["b"]))
     monkeypatch.setattr(

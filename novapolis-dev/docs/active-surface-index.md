@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-05 01:00
-update: Active-Surface-Index fuer novapolis-dev/docs mit ACTIVE/REFERENCE/HISTORICAL, Owner und last_check eingefuehrt.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-19 11:09
+update: RP-Brainstorming aus der aktiven Dev-Oberflaeche ins Archiv ueberfuehrt; Klassifikation synchronisiert.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
 ---
 
 Active Surface Index (Dev Docs)
@@ -38,12 +38,11 @@ Index (novapolis-dev/docs)
 | `novapolis-dev/docs/copilot-vscode-usage.md` | REFERENCE | tooling-governance | 2026-03-04 |
 | `novapolis-dev/docs/readme_decisions.md` | REFERENCE | dev-governance | 2026-03-04 |
 | `novapolis-dev/docs/readme.hub.md` | REFERENCE | dev-governance | 2026-03-04 |
-| `novapolis-dev/docs/brainstorming.rp.md` | ACTIVE | rp-governance | 2026-03-04 |
 | `novapolis-dev/docs/architecture-summary-local-ai.md` | REFERENCE | architecture | 2026-03-04 |
 | `novapolis-dev/docs/specs/**` | REFERENCE | domain-maintainers | 2026-03-04 |
 | `novapolis-dev/docs/process/**` | REFERENCE | process-governance | 2026-03-04 |
 | `novapolis-dev/docs/meta/**` | REFERENCE | dev-governance | 2026-03-04 |
-| `novapolis-dev/archive/docs/**` | HISTORICAL | archive-maintainers | 2026-03-04 |
+| `novapolis-dev/archive/docs/**` | HISTORICAL | archive-maintainers | 2026-03-18 |
 
 Pflege
 ------

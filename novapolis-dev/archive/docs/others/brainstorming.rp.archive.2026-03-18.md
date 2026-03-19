@@ -1,11 +1,21 @@
 ---
-stand: 2026-02-24 15:35
-update: Datei auf Brainstorming-Modus-Startstruktur reduziert (verbindlicher Modusblock, Kurzindex, leere Projektflaechen).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-24 15:23); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-24 15:23)
+stand: 2026-03-19 11:09
+update: Aus dem aktiven Dev-Bestand archiviert; RP-Brainstorming bleibt als historische Evidenz erhalten.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
 ---
 
-Brainstorming: RP-Modul
-=======================
+Brainstorming: RP-Modul (Archiv)
+================================
+
+Archivstatus
+------------
+
+- Herkunft: `novapolis-dev/docs/brainstorming.rp.md`
+- Archiviert am: `2026-03-18 05:20`
+- Grund: Aus der aktiven Dev-Oberflaeche entfernt, damit RP-Brainstorming nicht mehr als laufend gepflegte ACTIVE-Datei gefuehrt wird.
+
+Historischer Inhalt
+-------------------
 
 PRIORITAET UND MODUS (VERBINDLICH)
 ----------------------------------

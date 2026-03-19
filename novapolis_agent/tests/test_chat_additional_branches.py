@@ -5,7 +5,6 @@ from types import SimpleNamespace
 from typing import Any
 
 import pytest
-
 from app.api.models import ChatOptions, ChatRequest
 
 
@@ -52,7 +51,13 @@ class _FakeAsyncClient:
     def stream(self, method: str, url: str, json: dict[str, Any], headers: dict[str, Any]):
         self.last_payload = json
         # Include one raw line to trigger parser fallback branch.
-        return _FakeStreamResponse(["not-json-line", json_dumps({"message": {"content": "ok"}}), json_dumps({"done": True})])
+        return _FakeStreamResponse(
+            [
+                "not-json-line",
+                json_dumps({"message": {"content": "ok"}}),
+                json_dumps({"done": True}),
+            ]
+        )
 
     async def post(self, url: str, json: dict[str, Any], headers: dict[str, Any]):
         self.last_payload = json
@@ -64,14 +69,22 @@ def json_dumps(obj: Any) -> str:
 
 
 @pytest.mark.asyncio
-async def test_stream_chat_client_none_and_raw_line_fallback(monkeypatch: pytest.MonkeyPatch) -> None:
+async def test_stream_chat_client_none_and_raw_line_fallback(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from app.api import chat as chat_module
 
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", _FakeAsyncClient)
-    monkeypatch.setattr(chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages))
+    monkeypatch.setattr(
+        chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages)
+    )
     monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama"))
+    monkeypatch.setattr(
+        chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow")
+    )
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama")
+    )
     monkeypatch.setattr(chat_module.settings, "MEMORY_ENABLED", False, raising=False)
     monkeypatch.setattr(chat_module.settings, "LOG_JSON", False, raising=False)
 
@@ -88,14 +101,21 @@ async def test_stream_chat_apply_post_nameerror_fallback(monkeypatch: pytest.Mon
     from app.api import chat as chat_module
 
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", _FakeAsyncClient)
-    monkeypatch.setattr(chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages))
+    monkeypatch.setattr(
+        chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages)
+    )
     monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama"))
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama")
+    )
     monkeypatch.setattr(chat_module.settings, "MEMORY_ENABLED", False, raising=False)
 
     # First call raises NameError (text unresolved), fallback injects globals()["text"].
     def _nameerror_apply_post(*args: Any, **kwargs: Any):
-        return SimpleNamespace(action="rewrite", text=text + "::rw")  # type: ignore[name-defined]
+        globals_dict = _nameerror_apply_post.__globals__
+        if "text" not in globals_dict:
+            raise NameError("text")
+        return SimpleNamespace(action="rewrite", text=str(globals_dict["text"]) + "::rw")
 
     monkeypatch.setattr(chat_module, "apply_post", _nameerror_apply_post)
 
@@ -112,10 +132,16 @@ async def test_process_chat_client_none_path(monkeypatch: pytest.MonkeyPatch) ->
     from app.api import chat as chat_module
 
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", _FakeAsyncClient)
-    monkeypatch.setattr(chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages))
+    monkeypatch.setattr(
+        chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages)
+    )
     monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama"))
+    monkeypatch.setattr(
+        chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow")
+    )
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama")
+    )
     monkeypatch.setattr(chat_module.settings, "MEMORY_ENABLED", False, raising=False)
     monkeypatch.setattr(chat_module.settings, "LOG_JSON", True, raising=False)
 
@@ -139,22 +165,40 @@ class _CaptureStreamClient:
 
 
 @pytest.mark.asyncio
-async def test_stream_context_rag_and_prompt_freedom_exceptions(monkeypatch: pytest.MonkeyPatch) -> None:
+async def test_stream_context_rag_and_prompt_freedom_exceptions(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from app.api import chat as chat_module
 
-    client = _CaptureStreamClient([json_dumps({"message": {"content": "x"}}), json_dumps({"done": True})])
-    monkeypatch.setattr(chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages))
+    client = _CaptureStreamClient(
+        [json_dumps({"message": {"content": "x"}}), json_dumps({"done": True})]
+    )
+    monkeypatch.setattr(
+        chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages)
+    )
     monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama"))
-    monkeypatch.setattr(chat_module, "modify_prompt_for_freedom", lambda *_: (_ for _ in ()).throw(RuntimeError("x")))
-    monkeypatch.setattr(chat_module, "load_context_notes", lambda *_: (_ for _ in ()).throw(RuntimeError("n")))
+    monkeypatch.setattr(
+        chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow")
+    )
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama")
+    )
+    monkeypatch.setattr(
+        chat_module,
+        "modify_prompt_for_freedom",
+        lambda *_: (_ for _ in ()).throw(RuntimeError("x")),
+    )
+    monkeypatch.setattr(
+        chat_module, "load_context_notes", lambda *_: (_ for _ in ()).throw(RuntimeError("n"))
+    )
     monkeypatch.setattr(chat_module.settings, "CONTENT_POLICY_ENABLED", True, raising=False)
     monkeypatch.setattr(chat_module.settings, "CONTEXT_NOTES_ENABLED", True, raising=False)
     monkeypatch.setattr(chat_module.settings, "RAG_ENABLED", True, raising=False)
     monkeypatch.setattr(chat_module.settings, "MEMORY_ENABLED", False, raising=False)
     monkeypatch.setattr(chat_module.settings, "LOG_JSON", False, raising=False)
-    monkeypatch.setattr("utils.rag.load_index", lambda *_: (_ for _ in ()).throw(FileNotFoundError("no")))
+    monkeypatch.setattr(
+        "utils.rag.load_index", lambda *_: (_ for _ in ()).throw(FileNotFoundError("no"))
+    )
 
     req = ChatRequest(messages=[{"role": "user", "content": "q"}], options={"canvas_count": 3})
     agen = await chat_module.stream_chat_request(req, client=client, request_id="ctx-rag")
@@ -167,17 +211,31 @@ async def test_stream_context_rag_and_prompt_freedom_exceptions(monkeypatch: pyt
 
 
 @pytest.mark.asyncio
-async def test_stream_session_memory_injection_from_dict_options(monkeypatch: pytest.MonkeyPatch) -> None:
+async def test_stream_session_memory_injection_from_dict_options(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from app.api import chat as chat_module
 
-    client = _CaptureStreamClient(["", json_dumps({"message": {"content": "ok"}}), json_dumps({"done": True})])
-    monkeypatch.setattr(chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages))
+    client = _CaptureStreamClient(
+        ["", json_dumps({"message": {"content": "ok"}}), json_dumps({"done": True})]
+    )
+    monkeypatch.setattr(
+        chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages)
+    )
     monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama"))
+    monkeypatch.setattr(
+        chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow")
+    )
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama")
+    )
     monkeypatch.setattr(chat_module.settings, "SESSION_MEMORY_ENABLED", True, raising=False)
     monkeypatch.setattr(chat_module.settings, "MEMORY_ENABLED", False, raising=False)
-    monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda sid: [{"role": "assistant", "content": "mem"}]))
+    monkeypatch.setattr(
+        chat_module,
+        "session_memory",
+        SimpleNamespace(get=lambda sid: [{"role": "assistant", "content": "mem"}]),
+    )
 
     req = ChatRequest(messages=[{"role": "user", "content": "q"}], options={"session_id": "s1"})
     agen = await chat_module.stream_chat_request(req, client=client, request_id="mem-stream")
@@ -189,14 +247,22 @@ async def test_stream_session_memory_injection_from_dict_options(monkeypatch: py
 
 
 @pytest.mark.asyncio
-async def test_process_policy_pre_block_soft_fails_and_continues(monkeypatch: pytest.MonkeyPatch) -> None:
+async def test_process_policy_pre_block_soft_fails_and_continues(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from app.api import chat as chat_module
 
     monkeypatch.setattr(chat_module.httpx, "AsyncClient", _FakeAsyncClient)
-    monkeypatch.setattr(chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages))
+    monkeypatch.setattr(
+        chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages)
+    )
     monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="block"))
-    monkeypatch.setattr(chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama"))
+    monkeypatch.setattr(
+        chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow")
+    )
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama")
+    )
     monkeypatch.setattr(chat_module.settings, "MEMORY_ENABLED", False, raising=False)
 
     req = ChatRequest(messages=[{"role": "user", "content": "frage"}], options=ChatOptions())
@@ -205,19 +271,33 @@ async def test_process_policy_pre_block_soft_fails_and_continues(monkeypatch: py
 
 
 @pytest.mark.asyncio
-async def test_process_session_memory_injection_from_dict_options(monkeypatch: pytest.MonkeyPatch) -> None:
+async def test_process_session_memory_injection_from_dict_options(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     from app.api import chat as chat_module
 
     client = _FakeAsyncClient()
-    monkeypatch.setattr(chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages))
+    monkeypatch.setattr(
+        chat_module, "compose_with_memory", lambda messages, session_id: _id_async(messages)
+    )
     monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow"))
-    monkeypatch.setattr(chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama"))
+    monkeypatch.setattr(
+        chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow")
+    )
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({}, "http://ollama")
+    )
     monkeypatch.setattr(chat_module.settings, "SESSION_MEMORY_ENABLED", True, raising=False)
     monkeypatch.setattr(chat_module.settings, "MEMORY_ENABLED", False, raising=False)
-    monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda sid: [{"role": "assistant", "content": "hist"}]))
+    monkeypatch.setattr(
+        chat_module,
+        "session_memory",
+        SimpleNamespace(get=lambda sid: [{"role": "assistant", "content": "hist"}]),
+    )
 
-    req = ChatRequest(messages=[{"role": "user", "content": "frage"}], options={"session_id": "sid-2"})
+    req = ChatRequest(
+        messages=[{"role": "user", "content": "frage"}], options={"session_id": "sid-2"}
+    )
     resp = await chat_module.process_chat_request(req, client=client, request_id="mem-post")
 
     assert resp.content == "post-answer"

@@ -23,6 +23,9 @@ DONELOG – Abgeschlossene Arbeiten
 =================================
 
 
+2026-03-18 05:20 | Copilot | Test-Hygiene fuer die letzte Chat-/Script-Branchwelle nachgezogen: echten Ruff-Blocker in `tests/test_chat_additional_branches.py` lint-sicher auf expliziten `NameError`-Fallback umgestellt und Format-/Importdrift in acht Testdateien mit gezieltem Ruff/Black-Lauf bereinigt.
+
+
 2026-03-11 10:34 | Copilot | Weitere Chat-Welle umgesetzt: neue Datei `tests/test_chat_more_branches.py` hinzugefuegt (Stream-Exception mit aborted memory, Shadow-Log-IO-Failure, non-mapping `model_dump`-Pfad via `ChatRequest.model_construct`). Zusaetzlich Testisolations-Fix angewandt (fragilen Import-Reload-Fall aus der Welle entfernt). Ergebnis: Chat-Fokusabdeckung auf `78%` erhoeht; Full-Gate wieder PASS mit `91.23%` (`500 passed`).
 
 

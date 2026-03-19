@@ -1,7 +1,7 @@
 ---
 description: Regeln fuer Mind-Cluster-Governance, Sphaerenbegriff, Entitaetsdatei-Prinzip, Datenpflichten und Validierung.
 name: Mind Cluster Instructions
-applyTo: novapolis-rp/database-rp/00-admin/mind-cluster-template.md,novapolis-rp/database-rp/01-factions/**/*.md,novapolis-dev/docs/brainstorming.rp.md
+applyTo: novapolis-rp/database-rp/00-admin/mind-cluster-template.md,novapolis-rp/database-rp/01-factions/**/*.md
 ---
 
 Mind Cluster Governance
@@ -22,7 +22,7 @@ Begriffsregeln
 
 Brainstorming-Modus
 -------------------
-- `novapolis-dev/docs/brainstorming.rp.md` ist Ideenspeicher.
+- Aktive RP-Brainstorming-Dokumente sind Ideenspeicher.
 - Inhalte aus dem Brainstorming gelten nicht als Baseline/Spec ohne explizite User-Freigabe im aktuellen Prompt.
 - Bei Uebernahme in SSOT muss die Uebernahme als neue verbindliche Regel markiert werden.
 

@@ -61,7 +61,7 @@ def test_main_json_output(monkeypatch: pytest.MonkeyPatch) -> None:
     with contextlib.redirect_stdout(buf):
         rc = mod.main()
     assert rc == 0
-    assert "\"ok\": true" in buf.getvalue().lower()
+    assert '"ok": true' in buf.getvalue().lower()
 
 
 @pytest.mark.scripts

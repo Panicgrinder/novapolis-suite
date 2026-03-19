@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 03:57
-update: Wochenabschlusslauf gemaess SSOT ausgefuehrt (Checks, Tree-Artefakte, Abschluss-Sync).
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_153947.md; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 15:47)
+stand: 2026-03-19 11:09
+update: Workspace-Status auf den dokumentierten PASS-Lauf vom 2026-03-18 und den aktuellen Board-Stand synchronisiert.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
 ---
 
 Workspace-Status
@@ -9,6 +9,8 @@ Workspace-Status
 
 Aktuelles Wochenfenster
 -----------------------
+
+- 2026-03-18 05:24: Konsolidierter Full-Check erneut dokumentiert und als aktueller Betriebsstand gesetzt. `scripts/run_checks_and_report.py` liefert `overall=PASS`; alle Pflichtchecks sind gruen, Coverage liegt bei `93.69%`. Der Dev-/Root-Status wurde auf diesen Lauf synchronisiert; offener Root-Folgepunkt bleibt nur noch das externe Beta-Installblatt (O11).
 
 - 2026-03-10 15:40: Wochenabschlusslauf nach `novapolis-dev/docs/process/abschluss-routine.ssot.md` durchgefuehrt. Ergebnis `overall=FAIL` wegen `ruff` (1 Finding), `black` (2 Files) und `pytest`-Gate im Full-Check; alle Governance-Gates (`markdownlint`, `frontmatter`, `path-portability`, `namingpolicy`, `todo-index-sync`, `doc-freshness`, `logs-policy`) PASS. Strukturartefakte wurden aktualisiert (`workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`). Hinweis: VS-Code-Tasks mit `pwsh ... /d /c` waren lokal fehlerhaft (Exit 64), daher wurden die Wochenabschluss-Kommandos direkt per Python/PowerShell ausgefuehrt.
 

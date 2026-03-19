@@ -84,7 +84,11 @@ def test_main_env_warning_soft_path(monkeypatch: pytest.MonkeyPatch, tmp_path: P
     train.write_text("{}\n", encoding="utf-8")
 
     monkeypatch.setattr(mod, "latest_train_file", lambda *_a, **_k: os.fspath(train))
-    monkeypatch.setattr(mod, "env_check", lambda: "CUDA nicht verfügbar; Training läuft vermutlich sehr langsam auf CPU.")
+    monkeypatch.setattr(
+        mod,
+        "env_check",
+        lambda: "CUDA nicht verfügbar; Training läuft vermutlich sehr langsam auf CPU.",
+    )
 
     calls: list[list[str]] = []
 
@@ -96,7 +100,13 @@ def test_main_env_warning_soft_path(monkeypatch: pytest.MonkeyPatch, tmp_path: P
 
     argv_backup = mod.sys.argv[:]
     try:
-        mod.sys.argv = ["fine_tune_pipeline.py", "--model", "gpt2", "--finetune-dir", os.fspath(tmp_path)]
+        mod.sys.argv = [
+            "fine_tune_pipeline.py",
+            "--model",
+            "gpt2",
+            "--finetune-dir",
+            os.fspath(tmp_path),
+        ]
         rc = mod.main()
     finally:
         mod.sys.argv = argv_backup

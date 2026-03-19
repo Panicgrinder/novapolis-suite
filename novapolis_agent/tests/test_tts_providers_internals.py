@@ -3,11 +3,9 @@ from __future__ import annotations
 import base64
 import json
 from pathlib import Path
-from types import SimpleNamespace
 from urllib import error as _urlerror
 
 import pytest
-
 from app.api.tts_models import TtsSynthesizeRequest
 from app.tts import providers as mod
 
@@ -50,7 +48,9 @@ def test_coqui_request_synthesis_audio_response(monkeypatch: pytest.MonkeyPatch)
 
 def test_coqui_request_synthesis_json_base64_nested(monkeypatch: pytest.MonkeyPatch) -> None:
     audio = b"RIFFdata"
-    payload = {"data": {"audio_base64": base64.b64encode(audio).decode("ascii"), "mime_type": "audio/wav"}}
+    payload = {
+        "data": {"audio_base64": base64.b64encode(audio).decode("ascii"), "mime_type": "audio/wav"}
+    }
     monkeypatch.setattr(
         mod._urlrequest,
         "urlopen",
@@ -74,7 +74,9 @@ def test_coqui_request_synthesis_json_base64_nested(monkeypatch: pytest.MonkeyPa
         json.dumps({"audio_base64": "%%%"}).encode("utf-8"),
     ],
 )
-def test_coqui_request_synthesis_invalid_payloads(monkeypatch: pytest.MonkeyPatch, payload: bytes) -> None:
+def test_coqui_request_synthesis_invalid_payloads(
+    monkeypatch: pytest.MonkeyPatch, payload: bytes
+) -> None:
     monkeypatch.setattr(
         mod._urlrequest,
         "urlopen",
@@ -95,14 +97,18 @@ def test_coqui_request_synthesis_http_and_url_errors(monkeypatch: pytest.MonkeyP
 
     monkeypatch.setattr(mod._urlrequest, "urlopen", _http)
     with pytest.raises(mod.TtsProviderUnavailableError):
-        mod._coqui_request_synthesis(base_url="http://x", synth_path="/api/tts", timeout_sec=2.0, payload={})
+        mod._coqui_request_synthesis(
+            base_url="http://x", synth_path="/api/tts", timeout_sec=2.0, payload={}
+        )
 
     def _url(*args, **kwargs):
         raise _urlerror.URLError("down")
 
     monkeypatch.setattr(mod._urlrequest, "urlopen", _url)
     with pytest.raises(mod.TtsProviderUnavailableError):
-        mod._coqui_request_synthesis(base_url="http://x", synth_path="/api/tts", timeout_sec=2.0, payload={})
+        mod._coqui_request_synthesis(
+            base_url="http://x", synth_path="/api/tts", timeout_sec=2.0, payload={}
+        )
 
 
 def test_coqui_request_voices_parsing(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -126,7 +132,9 @@ def test_coqui_request_voices_error_returns_empty(monkeypatch: pytest.MonkeyPatc
         raise RuntimeError("boom")
 
     monkeypatch.setattr(mod._urlrequest, "urlopen", _boom)
-    assert mod._coqui_request_voices(base_url="http://x", voices_path="/voices", timeout_sec=2.0) == []
+    assert (
+        mod._coqui_request_voices(base_url="http://x", voices_path="/voices", timeout_sec=2.0) == []
+    )
 
 
 def test_coqui_provider_voices_fallback(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -136,11 +144,15 @@ def test_coqui_provider_voices_fallback(monkeypatch: pytest.MonkeyPatch) -> None
     assert voices[0].voice_id == "coqui-default"
 
 
-def test_coqui_provider_synthesize_writes_artifact(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_coqui_provider_synthesize_writes_artifact(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     monkeypatch.setattr(mod, "_coqui_request_synthesis", lambda **kwargs: (b"OggS", "audio/ogg"))
     p = mod.CoquiRuntimeProvider()
     p.runtime_output_dir = tmp_path
-    req = TtsSynthesizeRequest(text="hallo", voice="v", language="de", output_format="ogg", sample_rate_hz=22050)
+    req = TtsSynthesizeRequest(
+        text="hallo", voice="v", language="de", output_format="ogg", sample_rate_hz=22050
+    )
     res = p.synthesize(req)
     assert res.is_placeholder is False
     assert res.artifact_path is not None

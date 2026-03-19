@@ -29,6 +29,7 @@ SKIP_PATTERNS = (
     # VS Code agent metadata uses its own frontmatter schema (no stand/update/checks)
     ".github/agents/",
     ".github/ISSUE_TEMPLATE/",
+    ".github/pull_request_template.md",
     "Backups/",
     # Canonical exception: this file intentionally has no YAML frontmatter
     ".github/copilot-instructions.md",

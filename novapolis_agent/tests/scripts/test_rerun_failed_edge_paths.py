@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import json
 import importlib
+import json
 from pathlib import Path
 
 import pytest
@@ -30,7 +30,9 @@ def test_load_failed_ids_handles_invalid_records(tmp_path: Path) -> None:
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_load_registry_skips_invalid_json_array_entries(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_load_registry_skips_invalid_json_array_entries(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     mod = importlib.import_module("scripts.rerun_failed")
     ds_dir = tmp_path / "eval" / "datasets"
     ds_dir.mkdir(parents=True)

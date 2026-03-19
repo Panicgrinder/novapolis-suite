@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 12:13
-update: Parse-Hotfix fuer Signalbindung des manuellen Themenumschalters umgesetzt.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260311_072546.md
+stand: 2026-03-19 11:09
+update: Externes Installblatt fuer die Standalone-Beta im Dev-Hub verankert.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,16 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-03-18 22:47: O11 geschlossen. Das neue Installblatt `novapolis-dev/docs/process/standalone-beta-installblatt.md` beschreibt den externen Setup-/Run-/Verify-Pfad fuer die Standalone-Beta; `README.md`, `todo.root.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` sind auf diesen Stand synchronisiert.
+
+- 2026-03-18 22:40: Community-/Maintainer-Paket abgeschlossen. `SUPPORT.md`, `RELEASE.md`, `MAINTAINERS.md`, Root-Issue-Templates und ein PR-Template wurden angelegt; `README.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` sind darauf synchronisiert, der Dev-Open-Count liegt nun bei `2`.
+
+- 2026-03-18 22:36: ADR-Aktivierung abgeschlossen. Unter `docs/adr/` liegen jetzt `0001-donelog-ebenen.md` und `0002-quality-gate-sequenz.md` als akzeptierte Grundsatzentscheidungen; parallel wurden `docs/adr/README.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` auf den neuen Iststand synchronisiert.
+
+- 2026-03-18 22:20: Dokumentations-Sync fuer den aktuellen Arbeitsstand eingezogen. `WORKSPACE_STATUS.md`, `todo.root.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` spiegeln jetzt den dokumentierten PASS-Lauf `checks_report_20260318_052318.md`; der Dev-Coverage-Sprint wurde evidenzbasiert mit `93.69%` als erreicht abgeschlossen und der Dev-Open-Count auf `4` reduziert.
+
+- 2026-03-18 05:20: Integritaets-Hygiene nachgezogen. Das veraltete RP-Brainstorming wurde aus `novapolis-dev/docs/` sauber nach `novapolis-dev/archive/docs/others/brainstorming.rp.archive.2026-03-18.md` ueberfuehrt, der Active-Surface-Index bereinigt und die zugehoerige Mind-Cluster-Instruction vom toten Aktivpfad geloest. Parallel wurde ein echter Ruff-Blocker im Agent-Test `novapolis_agent/tests/test_chat_additional_branches.py` korrigiert und die gemeldete Formatdrift in den acht betroffenen Testdateien per gezieltem Ruff/Black-Lauf bereinigt.
 
 - 2026-03-11 11:53: Gemeldeten Parse-Error `Identifier "_on_api_card_panel_gui_input" not declared` behoben. In `novapolis-sim/scripts/Main.gd` wurde die Signalbindung auf explizites `Callable(self, "_on_api_card_panel_gui_input")` umgestellt, wodurch der Callback parser-sicher aufgeloest wird.
 - 2026-03-11 11:50: Freigegebene Umstellung fuer Punkt 3 umgesetzt: ein unteres Feld zeigt drei Themenbloecke manuell durchschaltbar statt parallel. In `novapolis-sim/scripts/Main.gd` wurde `api_card_panel` als Shared-Detailfeld mit Klick-Zyklus implementiert (`Agent/API` -> `Runtime/Ops` -> `Eval/Quality` -> ...). Headertext zeigt aktiv: `Thema: ... (Klick: wechseln)`.

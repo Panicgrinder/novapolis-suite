@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Meldung
+    url: mailto:security@novapolis.local
+    about: Fuer Sicherheitsluecken bitte nicht den oeffentlichen Issue-Tracker verwenden.
+  - name: Verhaltensbezogene Meldung
+    url: mailto:conduct@novapolis.local
+    about: Meldungen zu Verstoessen gegen den Code of Conduct.

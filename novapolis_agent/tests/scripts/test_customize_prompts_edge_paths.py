@@ -11,7 +11,9 @@ import pytest
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_customize_unrestricted_prompt_missing_block(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_customize_unrestricted_prompt_missing_block(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     mod = importlib.import_module("scripts.customize_prompts")
     prompts_file = tmp_path / "prompts.py"
     prompts_file.write_text('DEFAULT_SYSTEM_PROMPT = "x"\n', encoding="utf-8")
@@ -57,12 +59,14 @@ def test_create_content_rules_invalid_load_and_inputs(
 
     monkeypatch.setattr(mod, "project_root", os.fspath(project_root), raising=False)
 
-    inputs = iter([
-        "ohne-doppelpunkt",
-        "Kategorie: vielleicht",
-        "Kategorie: erlaubt",
-        "fertig",
-    ])
+    inputs = iter(
+        [
+            "ohne-doppelpunkt",
+            "Kategorie: vielleicht",
+            "Kategorie: erlaubt",
+            "fertig",
+        ]
+    )
     monkeypatch.setattr("builtins.input", lambda prompt="": next(inputs))
 
     buf = io.StringIO()

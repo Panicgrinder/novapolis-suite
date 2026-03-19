@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 03:57
-update: Wochenabschlusslauf ausgefuehrt (Checks -> Tree-Artefakte -> Statussync); Restpunkte bei ruff/black/pytest offen.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_153947.md; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'todo.root.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 15:47)
+stand: 2026-03-19 11:09
+update: Root-Backlog nach O11-Abschluss erneut synchronisiert; die Standalone-Beta-Doku ist jetzt fuer Dritte komplett.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -10,6 +10,7 @@ TODO-Uebersicht (Novapolis Suite)
 Kurzstatus
 ----------
 
+- Der aktuelle Referenzlauf vom 2026-03-18 ist gruen (`overall=PASS`, Coverage `93.69%`); die Standalone-Beta-Doku ist jetzt inklusive externem Installblatt komplett.
 - Vorheriger Vollinhalt wurde archiviert unter `novapolis-dev/archive/quarantine/todo-root-snapshot-20260222_1234.md`.
 - Historische Sammelbasis: `novapolis-dev/archive/todo.root.archive.md`.
 - Diese Datei ist jetzt die aktive Arbeitsliste fuer neue Punkte.
@@ -59,8 +60,9 @@ Ziel: Eine lokal reproduzierbare Standalone-Beta mit stabilen Gates, dokumentier
 - [x] [Optional O10] Logs-Policy haerten: klare Regeln fuer `novapolis-dev/logs/` inkl. `*.tmp.md` konsistent umsetzen.
   - Akzeptanz: keine policy-widrigen Artefakte im aktiven Logpfad.
   - Evidenz: `scripts/check_logs_policy.py`, `novapolis-dev/logs/README.md`, verschobener Rohlog nach `novapolis-dev/archive/quarantine/logs/betriebsmodi-20251103-0341.tmp.md`.
-- [ ] [Optional O11] Beta-Installblatt fuer Dritte erstellen: minimale Voraussetzungen, Setup, Troubleshooting.
+- [x] [Optional O11] Beta-Installblatt fuer Dritte erstellen: minimale Voraussetzungen, Setup, Troubleshooting.
   - Akzeptanz: eine externe Person kann lokal ohne implizites Vorwissen starten.
+  - Evidenz: `novapolis-dev/docs/process/standalone-beta-installblatt.md`, Root-README-Verweis im Abschnitt `Standalone-Beta Startpfad (kanonisch)`.
 - [x] [Optional O12] Beta-Tagging vorbereiten: einheitliches Namensschema fuer Beta-Builds und Ergebnisreports.
   - Akzeptanz: run-/artefaktnahe Labels sind in Doku und DONELOG konsistent.
   - Evidenz: `novapolis-dev/docs/process/standalone-beta-gates.ssot.md` (Abschnitt `Beta-Tagging-Konvention`), Eintragsformat in `novapolis-dev/docs/donelog.md` und `DONELOG.md`.
