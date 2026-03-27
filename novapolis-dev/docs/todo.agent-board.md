@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 03:57
-update: RP-Content-Eval-Pfad nahtlos integriert (Suite, Task, strict-Validator, Runbook, Provenance).
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_153947.md
+stand: 2026-03-27 09:54
+update: Wochenabschluss-Refresh fuer das Agent-Board eingezogen; aktueller Betriebsstand bleibt ohne offene Agent-Blocker.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -40,6 +40,8 @@ R-COV Abgleich (Agent)
 
 Neue Aufgaben - TTS & Tools (2025-11-01 22:24)
 ----------------------------------------------
+
+- 2026-03-27: Wochenabschluss-Refresh. Der aktuelle Full-Check ist im Agent-Scope gruen; der einzige Gesamtblocker des ersten Abschlusslaufs lag im dokumentweiten Freshness-Gate ausserhalb des Agent-Moduls.
 
 - [x] [Jetzt] Driftfix: Coqui-Exporter-Iststand gegen Board abgleichen (`scripts/tts_coqui_export.py` fehlt aktuell im Modul) und Boardstatus danach sauber aktualisieren.
   - Evidenz: `novapolis_agent/scripts/tts_coqui_export.py` (Skeleton mit CLI-Vertrag + `--dry-run`).

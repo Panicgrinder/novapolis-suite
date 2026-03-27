@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-19 11:09
-update: Dev-KPI-Trendansicht fuer die vier Hygiene-Kernmetriken ueber vier dokumentierte Slots angelegt.
-checks: scripts/check_todo_index_sync.py --repo-root . PASS; scripts/check_doc_freshness.py --repo-root . PASS; scripts/check_logs_policy.py --repo-root . PASS; grep open placeholder/truthfulness conflicts in active dev docs PASS
+stand: 2026-03-27 09:54
+update: Dev-KPI-Trendansicht um den Wochenabschluss-Slot vom 2026-03-27 erweitert; die vier Hygiene-Kernmetriken stehen wieder auf Null.
+checks: scripts/run_checks_and_report.py overall=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; grep open placeholder/truthfulness conflicts in active dev docs PASS
 ---
 
 Dev KPI Trends
@@ -36,11 +36,12 @@ Trend-Slots
 | S2 | 2026-03-18 05:24 | 0 | 0 | 0 | 0 | `.tmp/results/reports/checks_report_20260318_052318.md`: PASS fuer `todo-index-sync`, `doc-freshness`, `logs-policy`; aktive Driftpunkte bereits geschlossen |
 | S3 | 2026-03-18 22:47 | 0 | 0 | 0 | 0 | O11-Sync auf gruenem Referenzlauf; aktiver Dev-Bestand zeigt keinen offenen Placeholder-/Truthfulness-Konflikt und keinen offenen Hygiene-Blocker mehr |
 | S4 | 2026-03-19 11:01 | 0 | 0 | 0 | 0 | Direktlauf `scripts/check_todo_index_sync.py`, `scripts/check_doc_freshness.py`, `scripts/check_logs_policy.py`; Grep auf offene Placeholder-/Truthfulness-Konflikte im aktiven Dev-Bestand ohne Treffer |
+| S5 | 2026-03-27 01:16 | 0 | 0 | 0 | 0 | `.tmp/results/reports/checks_report_20260327_011507.md`: PASS fuer `todo-index-sync`, `doc-freshness`, `logs-policy`; Grep auf offene Placeholder-/Truthfulness-Konflikte im aktiven Dev-Bestand ohne Treffer |
 
 Kurzfazit
 ---------
 
-- Die vier Kernmetriken liegen ueber alle vier dokumentierten Slots stabil bei `0`.
+- Die vier Kernmetriken liegen ueber alle fuenf dokumentierten Slots stabil bei `0`.
 - Der verbleibende Dev-Backlog ist damit kein Hygiene- oder Governance-Blocker mehr, sondern nur noch normale Ausbauarbeit ausserhalb der Cadence-KPIs.
 
 Quellen
@@ -49,5 +50,6 @@ Quellen
 - `novapolis-dev/docs/process/abschluss-routine.ssot.md`
 - `WORKSPACE_STATUS.md`
 - `.tmp/results/reports/checks_report_20260318_052318.md`
+- `.tmp/results/reports/checks_report_20260327_011507.md`
 - `novapolis-dev/docs/todo.dev.md`
 - `novapolis-dev/docs/donelog.md`

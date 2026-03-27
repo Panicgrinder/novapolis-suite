@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-19 11:09
-update: Externes Installblatt fuer die Standalone-Beta im Dev-Hub verankert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
+stand: 2026-03-27 09:54
+update: Folgebacklog nach dem Wochenabschluss auf Root-/Dev-Ebene konkretisiert; offene Restarbeit ist wieder explizit benannt.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,10 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-03-27 04:34: Offene Folgearbeit nach dem Wochenabschluss konkretisiert. Das Root-/Dev-Backlog fuehrt jetzt drei klare Restspuren: RP-Transferkette plus Delta-Struktur fuer den Inventar-Backfill, die bekannten Sim-Asset-Warnungen als echten Board-Punkt und den sichtbaren Metadaten-Drift in `novapolis-dev/docs/todo.index.md`.
+
+- 2026-03-27 01:16: Wochenabschluss gemaess SSOT komplett abgeschlossen. `scripts/run_checks_and_report.py` ist wieder voll gruen (`overall=PASS`, Coverage `93.69%`), der separate Coverage-Lauf endet mit Exit `0`, und die Hygiene-KPIs liegen nach Refresh der beiden stale Boards (`novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.sim.md`) wieder bei `0`. Der Sim-Asset-Check bleibt ohne harte Fehler (`summary=fail:0,warn:2`).
 
 - 2026-03-18 22:47: O11 geschlossen. Das neue Installblatt `novapolis-dev/docs/process/standalone-beta-installblatt.md` beschreibt den externen Setup-/Run-/Verify-Pfad fuer die Standalone-Beta; `README.md`, `todo.root.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` sind auf diesen Stand synchronisiert.
 

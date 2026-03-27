@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-03-05 01:00
-update: RP-P0-DoD nachgezogen: Fraktionsweiter T0-Warenueberblick mit Herkunftslabeln und D5/C6-Aufbauphasenregel evidenzbasiert abgeschlossen.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-27 09:54
+update: RAW-Rettungsstand vor manueller Fraktionsverteilung und Verbrauchsrechnung im offiziellen RP-Board festgezogen; Sicherheits-Recheck erneut gestartet.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . PASS (2026-03-27 09:46)
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -16,9 +16,54 @@ TODO (Novapolis-RP)
 Prioritaetstags (aktiv)
 -----------------------
 
-- `Jetzt`: P0-Jetzt-Block abgeschlossen; Fokus auf nachvollziehbare Nachweisfuehrung und Start des Mengen-Backfills.
-- `Als naechstes`: Mengen-Backfill fuer Inventare starten; Skill-Mapping aus Verhaltensmatrix als Ableitung dokumentieren.
+- `Jetzt`: RP-Folgearbeit sitzt auf Transferkette, Zielbuchung und Fraktionsaggregation fuer den Inventar-Backfill.
+- `Als naechstes`: Mengen-Backfill fuer Inventare konkret fortsetzen; Skill-Mapping ist dokumentiert und bleibt nur noch Referenzrahmen.
 - `Spaeter`: TTS-Block (OGG-Kandidaten + Live-Dialog-Cache) ausrollen.
+
+Aktiver Vorbereitungspunkt (2026-03-20)
+---------------------------------------
+
+- [x] [Jetzt] Heutiges Pilotpaket fuer Mengen-Backfill und Skill-Mapping vorbereitet.
+  - Ziel: den offenen RP-Folgepunkt ohne Scope-Drift in einen konkreten Arbeitsslot fuer heute ueberfuehren.
+  - Evidenz: `novapolis-dev/docs/process/rp-inventory-backfill-pilot-2026-03-20.md`.
+  - Pilot-Scope: `D5-inventar`, `C6-inventar`, `Novapolis-inventar`.
+  - Korrektur 2026-03-20 06:21: RAW und Staging fuer Inventar-/Item-Belege sind jetzt explizit mit durchsucht und im Pilotblatt verankert.
+  - Abgleichstart 2026-03-20 06:28: D5/C6/Novapolis werden jetzt gegen RAW, Staging, Szenen und Missionslog gegengeprueft; erster harter Driftpunkt ist `D5-inventar` mit dort gefuehrten C6-Bestaenden trotz Trennungsregel.
+  - Ergebnis 2026-03-20 06:36: erster konservativer Abgleich ist abgeschlossen; D5 fuehrt keine C6-Posten mehr lokal, C6 ist als lokaler Belegkontext ohne freie Mengen geschaerft, Novapolis bleibt aggregiert-konservativ.
+  - Ergebnis 2026-03-20 06:45: belegter Energie-Tagesabschluss fuer Tag 12 -> 13 ist in D5/C6/Novapolis nachgezogen; nur Bilanz- und Transferlogik, keine neuen absoluten Zellmengen.
+  - Ergebnis 2026-03-20 06:52: belegter Materialverbrauch fuer Tag 12 -> 13 ist als Delta eingetragen (`1,3 t Baustoffe`, `120 m Schienenprofil`, `18 m² Betonplatten`, `2` beschaedigte Werkzeuge); Rest- und Standortmengen bleiben offen.
+  - Ergebnis 2026-03-20 07:14: `inventar_c6_v2` und `logistik_c6_v2` liefern einen harten C6-Startsnapshot mit Stueckzahlen (`Luftfilter(3)`, `Ersatzrohre(12)`, `Kabelspulen(6)`, `Schmieroel(5)`, `Strommodule(2)`, `Wasserkanister(4)`, `Werkzeugsets(2)`, `Sensorpaket(1)`, `Rationen(9)`, `Wasserflaschen(10)`, `Schutzanzuege(2)`, `Ersatzmasken(3)`).
+  - Ergebnis 2026-03-20 07:22: `RAW-canvas-2025-10-16T12-00-00-000Z` liefert fuer D5 einen fruehen Stationsanker mit `Union-Kisten (3)`, Ersatzrohren/Ventilkomponenten, defekter Reparaturstation und `60 %` lesbaren Schaltplaenen; fuer Fraktionssummen fehlt weiter die spaetere Transfer- und Verbrauchskette.
+  - Ergebnis 2026-03-20 11:33: Die fehlende Transferkette ist jetzt konkret eingegrenzt. Belegt sind allgemeine Frachtarten (`D5 -> C6: Bauteile/Werkzeuge/Versorgungsgueter`, `C6 -> D5: Materialrueckfuehrung`) und die Tagesbilanz Tag 12 -> 13, aber nicht die Item-Kette `Entnahme -> Transport -> Ankunft -> Quittung`.
+  - Folge fuer den offenen Punkt: Solange keine standortscharfen Abbuchungen und keine belegten Zielbuchungen vorliegen, bleibt `Novapolis-inventar` bewusst ohne harte Fraktionssumme.
+  - Ergebnis 2026-03-20 11:40: Die Guetermission `D5 -> C6` ist jetzt als eigener Missionsanker im aktiven SSOT verankert. Sie taugt fuer Richtungs- und Kontextbeleg, aber weiterhin nicht fuer Mengenpromotion, weil Item-Entnahme und Quittung fehlen.
+  - Ergebnis 2026-03-20 11:49: D5- und C6-Teilinventar fuehren den Materiallauf jetzt ebenfalls als lokale Review-Anker. Damit ist der Gap standortscharf dokumentiert, ohne neue Mengen oder stillschweigende Buchungen zu erfinden.
+  - Ergebnis 2026-03-27 08:33: Die C6-Zielseite ist jetzt auch auf Systemebene enger gerahmt. `logistik_novapolis_v2` fuehrt `D5 -> C6 (Bauteile, Werkzeuge, Versorgungsgueter)` als aktive Fracht, `logistik_c6_v2` benennt fuer C6 `Primaerlager (Bereich 3)` und `Sekundaerlager (Kontrollraum)`. Das taugt als semiformeller Zielanker fuer einen missionierten Versorgungslauf, aber nicht als konkrete Zielbuchung oder Charge.
+  - Folge fuer den offenen Punkt 2026-03-27 08:33: Konservativ definierbar ist derzeit hoechstens `missionierter Versorgungslauf D5 -> C6 mit bestaetigtem Empfang, Bestandsaufnahme und nachgelagerter Baustellenverteilung`. Nicht definierbar bleiben Item-Mengen, exakte Lagerzuordnung des konkreten Laufs und Inventarlog-Quittung.
+  - Ergebnis 2026-03-27 09:46: Vor manueller Verteilung ist der RAW-Rettungsstand jetzt klar abgegrenzt. Hart rettbar sind ein quantifizierter C6-Startsnapshot, ein teilquantifizierter D5-Startanker, der generische Transferpfad `D5 -> C6`, der semiformelle C6-Empfangs-/Zielanker sowie einzelne Tagesdeltas fuer Energie und Materialverbrauch.
+  - Folge fuer den offenen Punkt 2026-03-27 09:46: Weich rettbar sind Rollen-, Freigabe- und Prozesslogik fuer D5/C6/Novapolis. Manuell gesetzt werden muessen weiterhin aktuelle Fraktionssummen, standortscharfe Restbestaende, mehrtaegige Verbrauchsreihen sowie konkrete Transfermengen pro Lauf.
+
+- [x] [Jetzt] Ebenenmodell, Pflichtartefakte und Delta-Formate fuer den metro-weiten Warenbestand aus dem vorhandenen RP-Modul abgeleitet.
+  - Ziel: den offenen Backfill von einer losen Inventarsammlung auf eine feste Promotionskette `Charakter -> Team/POI -> Station -> Fraktion -> Metro` umstellen.
+  - Evidenzbasis: `00-admin/Logistik.md`, `00-admin/Waren-Index.md`, `00-admin/Warenueberblick-T0.md`, `00-admin/Metrokarte-T0.md`, `00-admin/Stationskontroll-Matrix.md`, `00-admin/Fraktionen-Taxonomie.md`, die vorhandenen Fraktionsinventare unter `01-factions/*/04-inventory/`, die Novapolis-Orte/POIs unter `01-factions/novapolis/03-locations/`, `Missionslog-Novapolis.md`, `person-index-np.md`, `novapolis-markets.md`, `novapolis-pricebands.md` sowie die szenischen `inventoryRefs` unter `06-scenes/`.
+  - Verbindliches Ebenenmodell:
+    - Charakter: personengebundene Ausruestung, mitgetragene Verbrauchsgueter und explizite Ausgabe-/Rueckgabevorgaenge; keine stillen privaten Lagerbestaende ohne Rollen- oder Szenenanker.
+    - Team/POI: operative Zwischenebene fuer Werkstatt, Lagerhalle, Schleuse, Konvoi oder feste Arbeitsgruppe; fuehrt Ausgabe, Annahme, Quarantaene, Puffer und lokale Arbeitsverbraeuche.
+    - Station: kanonisches Standortinventar aggregiert die POI-/Teamlage je Station und fuehrt standortscharfe Delta- und Restlogik.
+    - Fraktion: aggregiert nur bestaetigte Stationsstaende, fraktionsweite Bilanzen und belegte Handels-/Transferstroeme.
+    - Metro: fuehrt nur vergleichende T0-/Wochenlage je Fraktion, Station und Warengruppe; keine implizite Welt-Gesamtsumme ohne belastbare Fraktionspfade.
+  - Pflichtartefakte je Ebene:
+    - Charakter: Charakter-Canvas plus Missions-/Szenenbezug; eigene Inventarseite nur bei wiederkehrendem Besitz, Ausgabehoheit oder dauerhafter Rollenlast.
+    - Team/POI: Orts-/POI-Canvas plus zugehoeriges Inventar- oder Logistikziel fuer Ausgabe, Eingang, Quarantaene und Lagerlauf.
+    - Station: Lokations-Canvas plus Stationsinventar und Missions-/Logistikverweise.
+    - Fraktion: Fraktionsinventar plus Missionslog; bei Aussenfluss zusaetzlich Handelslog oder Relationslog.
+    - Metro: Admin-Artefakte `Metrokarte-T0`, `Stationskontroll-Matrix`, `Warenueberblick-T0` und `Fraktionen-Taxonomie` als Vergleichs- und Guardrail-Ebene.
+  - Delta-Formate (Minimalset, aus vorhandenem RP-Bestand abgeleitet):
+    - `Transfer`: Datum, Status, Item/Warengruppe, Menge/Einheit oder `tbd`, `von`, `nach`, Anlass, Beleg, Verantwortliche/Quittung.
+    - `Verbrauch`: Datum, Status, Item/Warengruppe, Menge/Einheit oder `tbd`, Entnahmeort, Zweck/Projekt, Beleg.
+    - `Handel`: Datum, Status, Item/Warengruppe, Menge/Einheit oder `tbd`, Gegenpartei, Abrechnung/Band, Uebergabepunkt, Beleg.
+    - `Bilanz`: Zeitraum, Ebene, Delta je Warengruppe oder Energiekonto, bekannte Vor-/Nachher-Staende oder `tbd`, Belegkette.
+  - Promotionsregel: `Scene/RAW -> Missionslog oder Logistik -> Teilinventar/POI -> Stationsinventar -> Fraktionsinventar -> Metro-Ueberblick`; ohne sauberen Uebergabeschritt wird nicht nach oben promoted.
 
 Canvas-Rettung - Sprint 1 (Stand 2025-11-01)
 --------------------------------------------
@@ -132,6 +177,32 @@ Definition of Done (P0)
 - [x] [Jetzt] D5/C6 sind konsistent als fruehe Aufbauphase modelliert; keine impliziten Handelsannahmen.
   - Evidenz: `novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md` (Abschnitt `D5/C6-Modell (fruehe Aufbauphase)`).
 - [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten.
+  - Startreihenfolge fuer den heutigen Pilot: `C6-inventar` -> `D5-inventar` -> `Novapolis-inventar`.
+  - Arbeitsgrundlage: `novapolis-dev/docs/process/rp-inventory-backfill-pilot-2026-03-20.md`.
+  - Verbindliche Gesamt-Reihenfolge fuer den naechsten Ausbau: `Metro-Rahmen` -> `Fraktionsbasis/known stations` -> `Stationsinventare` -> `Team/POI` -> `Charakter-/Rollenanker` -> `Fraktionsaggregation`.
+  - Vor jeder Mengenpromotion muessen mindestens die betroffene Missions-/Logistikspur und die Ziel-Inventarebene existieren; fuer Aussenfluss zusaetzlich Handels- oder Relationslog.
+  - Die vier Minimal-Deltas `Transfer`, `Verbrauch`, `Handel`, `Bilanz` sind ab jetzt der Pflichtwortschatz fuer neue Bestandsfortschreibung; ohne Quelle, Ziel oder Beleg bleibt der Eintrag `tbd`/`offen`.
+
+- [ ] [Jetzt] Fehlende Transferkette `Entnahme -> Transport -> Ankunft -> Quittung` fuer `D5 -> C6` mit belastbaren RP-Belegzeilen schliessen.
+  - Ziel: den aktuell nur generisch belegten Materiallauf so absichern, dass er fuer echte Bestandsfortschreibung taugt.
+  - Akzeptanzkriterien:
+    1) mindestens eine explizite Entnahmezeile im Quellkontext D5 ist belegt,
+    2) mindestens eine Ankunfts- oder Zielbuchungszeile fuer C6 ist belegt,
+    3) Verantwortliche oder Quittung sind im Missions-/Logistikpfad genannt,
+    4) `Missionslog-Novapolis.md`, `D5-inventar.md`, `C6-inventar.md` und `Novapolis-inventar.md` fuehren dieselbe Transferkette ohne Widerspruch.
+  - Evidenz: `novapolis-dev/docs/process/rp-inventory-backfill-pilot-2026-03-20.md`, `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md`, `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md`, `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md`, `novapolis-rp/database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.md`.
+  - Recheck 2026-03-27 08:14: Umfeld und RAW erneut geprueft. Hart belegt sind aktuell nur `AktiveFracht:D5->C6(Bauteile,Werkzeuge,Versorgungsgueter)` im RAW-Logistikcanvas `RAW-canvas-2025-10-16T13-05-00-000Z`, die Abmeldung `melden sich noch bei D5 ab` sowie die anschliessende `Ankunft` und `Bestandsaufnahme` in C6 im Chat-RAW. Nicht belegt bleiben explizite Entnahmezeilen, konkrete C6-Zielbuchungen in Schleuse/Lagerhalle und Quittungen/Verantwortliche; der Punkt bleibt daher bewusst offen.
+  - Recheck 2026-03-27 08:25: D5-seitig ist der Quellkontext jetzt enger. `RAW-canvas-2025-10-20T12-05-00-000Z` belegt ein Materiallager unter dem Bahnsteig mit Lastenaufzug und Nutzung `Schwerlast, Rohstahl, Kabeltrommeln, Energiezellenpaletten`; `Draisine-Transportmodul.md` und Chat-RAW belegen parallel Werkstattbestand, Materiallauf-Unterstuetzung und die Freigabe/Fokussierung von Jonas, Pahl und Lumen auf das Transportmodul. Das reicht fuer eine belastbare Herkunftsannahme `D5-Materiallager und/oder Werkstattbestand`, aber weiter nicht fuer eine harte Inventarbuchung ohne explizite Entnahme- und Quittungszeile.
+  - Recheck 2026-03-27 08:29: C6-seitig ist der Empfangspfad jetzt enger. Chat-RAW belegt nach der Abmeldung in D5 nicht nur `Ankunft` und `Bestandsaufnahme`, sondern auch den expliziten Satz `der Empfang der Ware muss bestaetigt werden`; anschliessend soll die Ware `zusammen mit der aus D5 an die Baustellen gebracht` werden. Das reicht fuer eine belastbare Zielannahme `Empfang in C6 mit nachgelagerter Baustellenverteilung`, aber weiter nicht fuer eine harte Inventarbuchung in `C6-Schleuse` oder `C6-Lagerhalle`, weil Einlagerungs-/Inventarlog-Zeilen fehlen.
+
+- [ ] [Jetzt] `Novapolis-inventar.md` von der generischen Fraktionslage auf ein belegtes Delta-/Bilanzformat umstellen.
+  - Ziel: Das Fraktionsinventar soll nicht nur offene Hinweise sammeln, sondern die belegten Deltas `Transfer`, `Verbrauch`, `Handel`, `Bilanz` direkt in einer auswertbaren Struktur fuehren.
+  - Akzeptanzkriterien:
+    1) jeder aktuelle Fraktionsposten ist einem Delta-Typ zugeordnet,
+    2) unbelegte Restmengen bleiben sichtbar `tbd`, aber ohne Mischformat aus Freitext und Halb-Buchung,
+    3) die Struktur referenziert sauber auf D5/C6-Teilinventare und Missionslog,
+    4) RP-Validator bleibt gruen.
+  - Evidenz: Das Board fuehrt seit 2026-03-20 die vier Pflicht-Deltas; `Novapolis-inventar.md` enthaelt bislang zwar belegt/offen-Anker, aber noch keine eigenstaendige Delta-Struktur.
 
 - 24×1h-Runden (PC-zentriert) einführen
   - [x] Policy festhalten: Stunde spult leise weiter, bis ein PC-relevantes Ereignis eintritt (z. B. „Reflex weckt Ronja“). *(erledigt 2026-02-22)*
@@ -152,8 +223,19 @@ Definition of Done (P0)
   - [x] Referenz: `novapolis-dev/docs/specs/annotation-spec.md` vorhanden und weiterhin passend. *(validiert 2026-02-22)*
 
 - Skills aus Verhaltensmatrix ableiten (ohne zweites System)
-  - [ ] [Als naechstes] Mapping-Gewichte je Skill (0-3) vorschlagen (Matrix-Dimensionen → Skill), Ausgangswerte pro Rolle.
-  - [ ] [Als naechstes] Formel/Beispiele im Spec verlinken; Ableitung on-demand, keine Duplikat-Wahrheit.
+  - Vorbereitung 2026-03-20: Start-Scope fuer `reparieren`, `wache` und `funk|wahrnehmung` auf Basis von `annotation-spec.md` und `AI-Behavior-Mapping.md` festgelegt.
+  - [x] [Jetzt] Mapping-Gewichte je Skill (0-3) vorgeschlagen (Matrix-Dimensionen -> Skill), Ausgangswerte pro Rolle festgelegt. *(umgesetzt 2026-03-20; Referenz: `novapolis-dev/docs/specs/annotation-spec.md`, Abschnitt `Novapolis V1 (konservative Arbeitsfassung)`)*
+  - [x] [Jetzt] Formel/Beispiele im Spec verlinkt; Ableitung bleibt on-demand, keine Duplikat-Wahrheit. *(umgesetzt 2026-03-20; Beispiele fuer Ronja, Jonas und Kora im Spec ergänzt)*
+  - Ausbau 2026-03-20 07:08: zweite Referenzreihe fuer `Pahl`, `Reflex`, `Lumen` und `Echo` im Spec nachgezogen; Rollenfit bleibt konservativ auf `wartung_technik` bzw. `sicherung_monitoring` begrenzt.
+
+- [ ] [Als naechstes] Skill-Mapping-V1 an mindestens zwei aktiven Missions- oder Rollenpfaden gegen reale Szenen pruefen.
+  - Ziel: Die dokumentierte V1 soll nicht nur als Spec existieren, sondern an echten RP-Faellen auf Plausibilitaet und Grenzfaelle gegengeprueft werden.
+  - Akzeptanzkriterien:
+    1) mindestens zwei konkrete Szenen/Missionen sind mit der V1 nachvollziehbar gegengelesen,
+    2) auffaellige Ueber- oder Unterbewertungen sind als Guardrail oder Anpassung dokumentiert,
+    3) keine zweite Wahrheit in Charakterdateien entsteht,
+    4) Ergebnis landet im RP-Prozesslog oder Spec-Nachtrag.
+  - Evidenz: `novapolis-dev/docs/specs/annotation-spec.md` enthaelt inzwischen V1-Beispiele fuer sieben Kernfiguren, aber noch keinen dokumentierten Realabgleich gegen aktive Missionsablaeufe.
 
 - TTS (gemischt)
   - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren.

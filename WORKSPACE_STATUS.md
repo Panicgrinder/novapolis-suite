@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-19 11:09
-update: Workspace-Status auf den dokumentierten PASS-Lauf vom 2026-03-18 und den aktuellen Board-Stand synchronisiert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
+stand: 2026-03-27 09:54
+update: Wochenabschlusslauf vom 2026-03-27 auf den finalen PASS-Stand synchronisiert.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
 ---
 
 Workspace-Status
@@ -9,6 +9,8 @@ Workspace-Status
 
 Aktuelles Wochenfenster
 -----------------------
+
+- 2026-03-27 01:16: Wochenabschlusslauf nach `novapolis-dev/docs/process/abschluss-routine.ssot.md` komplett abgeschlossen. Der erste Lauf zeigte nur zwei stale aktive Boards (`novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.sim.md`) im Freshness-Gate; nach dem Refresh liefert `scripts/run_checks_and_report.py` wieder `overall=PASS`, Coverage bleibt bei `93.69%`, und die Governance-Gates (`todo-index-sync`, `doc-freshness`, `logs-policy`) sind gruen. Der Sim-Offline-/Asset-Check bleibt ohne harte Fehler (`summary=fail:0,warn:2`).
 
 - 2026-03-18 05:24: Konsolidierter Full-Check erneut dokumentiert und als aktueller Betriebsstand gesetzt. `scripts/run_checks_and_report.py` liefert `overall=PASS`; alle Pflichtchecks sind gruen, Coverage liegt bei `93.69%`. Der Dev-/Root-Status wurde auf diesen Lauf synchronisiert; offener Root-Folgepunkt bleibt nur noch das externe Beta-Installblatt (O11).
 

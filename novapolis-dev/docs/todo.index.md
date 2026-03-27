@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-19 11:09
-update: Dev-Board nach KPI-Trendansicht erneut synchronisiert; es sind keine offenen Dev-Punkte mehr vorhanden.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
+stand: 2026-03-27 09:54
+update: RP-Board um dokumentierten RAW-Rettungsstand vor manueller Fraktionsverteilung ergaenzt; Sicherheits-Recheck erneut angestossen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . PASS (2026-03-27 09:46)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,14 +12,39 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 5)
-- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 6)
+- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 1)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 1)
 
 Statushinweise (aktuell)
 ------------------------
 
+- Index v2.1: Neue Folgepunkte sind jetzt explizit verankert: RP wurde vom Sammelpunkt auf Transferkette/Delta-Struktur/Realabgleich aufgefaechert, Sim fuehrt die bekannten Asset-Warnungen erstmals als aktiven Punkt, Dev den sichtbaren Metadaten-Drift im Index selbst.
+
+- RP v5.18: Der RAW-Rettungsstand vor manueller Verteilung ist jetzt explizit dokumentiert. Hart rettbar bleiben C6-Startsnapshot, D5-Teilanker, generische Transferpfade und einzelne Tagesdeltas; weich rettbar sind Rollen- und Prozesslogik. Aktuelle Fraktionssummen, Restbestaende und konkrete Verbrauchsreihen bleiben weiter Handarbeit.
+
+- RP v5.17: Die C6-Zielseite hat jetzt einen semiformellen Logistikanker: `logistik_novapolis_v2` fuehrt `D5 -> C6 (Bauteile, Werkzeuge, Versorgungsgueter)` als aktive Fracht, `logistik_c6_v2` benennt Primaer-/Sekundaerlager in C6. Definierbar ist damit ein missionierter Versorgungslauf mit bestaetigtem Empfang und Weiterverteilung, nicht aber eine harte Lagerbuchung oder Inventarmenge.
+
+- RP v5.16: C6-Zielseite fuer die Transferkette gegen RAW nachgeschaerft. Bestaetigt sind jetzt nicht nur `Ankunft/Bestandsaufnahme`, sondern auch ein expliziter Empfangsanker plus anschliessende Verteilung an die Baustellen; unbelegt bleiben aber weiter Schleusen-/Lagerbuchung, Charge und Quittungszeile im Inventarlog.
+
+- RP v5.15: D5-Quellorte fuer die Transferkette gegen RAW nachgeschaerft. Bestaetigt sind jetzt ein physischer Quellort `Materiallager unter Bahnsteig` sowie Werkstatt-/Transportmodul-Kontext in D5; unbelegt bleiben aber weiter Entnahmezeile, Zielbuchung in Schleuse/Lagerhalle und Quittung.
+
+- RP v5.14: Transferkette `D5 -> C6` erneut gegen Umfeld und RAW gegengeprueft. Bestaetigt sind jetzt der generische Frachtanker in `logistik_novapolis_v2` sowie der Prozessrahmen `Abmeldung in D5 -> Ankunft/Bestandsaufnahme in C6`; unbelegt bleiben aber weiter Entnahmezeile, Zielbuchung in Schleuse/Lagerhalle und Quittung.
+
+- RP v5.13: Das RP-Board fuehrt jetzt die feste Promotionskette `Charakter -> Team/POI -> Station -> Fraktion -> Metro` sowie die Pflicht-Deltas `Transfer`, `Verbrauch`, `Handel`, `Bilanz`; der offene Backfill ist damit als Gesamtprozess statt als lose Inventarsammlung beschrieben.
+- RP v5.10: Transfer- und Verbrauchskette fuer Novapolis gegen RAW, Staging, Logistik und Missionslog geprueft; belastbar sind Bilanz- und Frachtanker, aber nicht die Item-Kette `Entnahme -> Transport -> Ankunft -> Quittung`.
+- RP v5.11: Die Guetermission `D5 -> C6` ist jetzt im aktiven Missionslog als Transferanker verankert; fuer harte Fraktionssummen fehlen aber weiter Mengen-, Zielbuchungs- und Quittungszeilen.
+- RP v5.12: D5- und C6-Teilinventare fuehren denselben Materiallauf jetzt als lokale Review-Anker; der Gap ist standortscharf dokumentiert, aber weiter nicht quantifiziert.
+- RP v5.9: D5-Startsnapshot aus `RAW-canvas-2025-10-16T12-00-00-000Z` nachgezogen; mit C6 liegen jetzt zwei lokale Fruehanker vor, aber noch keine harte Fraktionssumme.
+- RP v5.8: C6-Startsnapshot mit exakten Stueckzahlen aus `inventar_c6_v2` und `logistik_c6_v2` nachgezogen; D5 und Fraktionssummen bleiben ohne Gegenbeleg bewusst offen.
+- RP v5.7: Skill-Mapping-V1 im Spec um eine zweite Referenzreihe fuer `Pahl`, `Reflex`, `Lumen` und `Echo` erweitert; RP offen bleibt `3`.
+- RP v5.6: Skill-Mapping-V1 fuer `reparieren`, `wache`, `funk` und `wahrnehmung` im Spec verankert; RP offen `5 -> 3`.
+- RP v5.5: Material-Delta Tag 12->13 fuer Tunnelarbeiten nachgezogen; Verbrauch ist belegt, aber Rest- und Standortmengen bleiben bewusst offen.
+- RP v5.4: Energie-Tagesabschluss Tag 12->13 fuer D5/C6/Novapolis aus Staging plus Logistik nachgezogen; absolute Zellstaende bleiben bewusst `tbd`.
+- RP v5.3: Erster konservativer Inventar-Abgleich fuer D5/C6/Novapolis abgeschlossen; D5 fuehrt keine C6-Bestaende mehr als lokalen Bestand.
+- RP v5.2: Eigentlicher Inventar-Abgleich fuer D5/C6/Novapolis gestartet; erster harter Driftpunkt ist die fruehere Vermischung von C6-Bestaenden im D5-Inventar.
+- RP v5.1: Pilotpaket fuer D5/C6/Novapolis-Backfill vorbereitet; RP offen bleibt `5`, aber der Start-Scope ist jetzt konkret dokumentiert.
 - Dev v5.9: KPI-Trendansicht fuer die Hygiene-Cadence angelegt; Dev offen `1 -> 0`.
 - Dev v5.8: O11 geschlossen; externes Standalone-Beta-Installblatt fuer Dritte dokumentiert (`offen: 2 -> 1`).
 - Dev v5.7: Community-/Maintainer-Paket umgesetzt (`SUPPORT.md`, `RELEASE.md`, `MAINTAINERS.md`, Root-Issue-/PR-Templates); Dev offen `3 -> 2`.
@@ -37,10 +62,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-03-19 | keiner (offen: 0) | nein |
+| Dev (`docs/todo.dev.md`) | 2026-03-19 | - [ ] [Jetzt] Board-Metadaten im `novapolis-dev/docs/todo.index.md` gegen die aktuellen Board-Staende haerten. | nein |
 | RP (`docs/todo.rp.md`) | 2026-03-05 | - [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten. | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-03-11 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-03-11 | keiner (offen: 0) | nein |
+| Sim (`docs/todo.sim.md`) | 2026-03-11 | - [ ] [Als naechstes] Sim-Asset-Warnungen aus `scripts/check_sim_epoch_assets.py` aufloesen oder bewusst kanonisch ausnehmen. | nein |
 
 
 Hinweise (Index)

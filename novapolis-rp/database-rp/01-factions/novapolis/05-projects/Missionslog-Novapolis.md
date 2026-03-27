@@ -1,12 +1,12 @@
 ---
-stand: 2026-02-22 01:49
+stand: 2026-03-27 09:54
 update: Knowledge-Startset für Kernereignisse und Sichtbarkeits-Promotionsprozess (ohne Retcon) ergänzt.
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:17); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.md' PASS (2026-02-22 01:17)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
 title: Missionslog (Novapolis)
 category: project
 slug: missionslog-novapolis
 version: "1.0"
-last_updated: 2026-02-16T18:35:00+01:00
+last_updated: 2026-03-20T11:40:00+01:00
 status: active
 owners: [novapolis]
 authority_chain:
@@ -250,6 +250,21 @@ Hinweis: Diese Liste ergänzt nur belegte Anker aus den Scenes. Start/Ende/Veran
 - Verantwortliche: -
 - Inventar-Link: -
 - Orte/Projekte: [C6](../03-locations/C6.md)
+
+### D5 -> C6: Materiallauf / Guetertransport
+
+- Ziel: Material fuer C6-Reparaturen und Betriebsaufnahme aus D5 nach C6 bringen, ohne den Tunnelzustand zu beschoenigen.
+- Start: -
+- Ende: -
+- Status: -
+- Belege/Quittungen: [Nordlinie-01](./Nordlinie-01.md), `../../../../database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt`, `../../../../database-raw/99-exports/chat-export.txt`
+- Verantwortliche: -
+- Inventar-Link: [Novapolis-inventar](../04-inventory/Novapolis-inventar.md)
+- Orte/Projekte: [D5](../03-locations/D5.md), [C6](../03-locations/C6.md), [Nordlinie-01](./Nordlinie-01.md)
+  Hinweise:
+  - RAW belegt die generische Fracht `D5 -> C6 (Bauteile, Werkzeuge, Versorgungsgueter)` sowie `C6 -> D5 (Materialrueckfuehrung)`.
+  - Der Chatverlauf belegt bewusst keine feste Stueckliste vor dem Lauf; die Auswahl sollte situativ bzw. nach Funkabgleich erfolgen.
+  - Fuer Entnahme, Ankunft, Zielbuchung und Quittung fehlen weiterhin belastbare Item-Zeilen; der Missionsanker taugt daher nur als Transferkontext, nicht als Mengenabschluss.
 
 ### Anomalie: C6-Nordanomalie
 

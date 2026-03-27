@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-19 11:09
-update: KPI-Trendansicht fuer die Hygiene-Cadence angelegt und das Dev-Board damit geschlossen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
+stand: 2026-03-27 09:54
+update: RP-Board um dokumentierten RAW-Rettungsstand vor manueller Fraktionsverteilung ergaenzt; Sicherheits-Recheck erneut angestossen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . PASS (2026-03-27 09:46)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,153 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+RP/Inventory: RAW-Rettungsstand vor Handverteilung und Verbrauchsrechnung festgezogen (2026-03-27 09:46)
+------------------------------------------------------------------------------------------------------
+
+- Der offizielle RP-Backlog haelt jetzt explizit fest, was aus RAW vor manueller Fraktionsverteilung noch belastbar gerettet werden kann: quantifizierter C6-Startsnapshot, teilquantifizierter D5-Startanker, generischer Transferpfad `D5 -> C6`, semiformeller C6-Zielanker sowie einzelne Energie- und Materialdeltas.
+- Ebenso ist jetzt getrennt dokumentiert, was nur weich rettbar bleibt: Rollen-, Freigabe- und Prozesslogik fuer D5/C6/Novapolis.
+- Weiterhin manuell zu setzen bleiben aktuelle Fraktionssummen, standortscharfe Restbestaende, mehrtaegige Verbrauchsreihen und konkrete Transfermengen pro Lauf; genau dafuer wurde ein erneuter Sicherheits-Recheck ueber die RAW-Daten gestartet.
+
+RP/Inventory: C6-Zielanker fuer den D5-Materiallauf auf Logistiksystem-Ebene geschaerft (2026-03-27 08:33)
+-------------------------------------------------------------------------------------------------------
+
+- `logistik_novapolis_v2` fuehrt den Lauf `D5 -> C6 (Bauteile, Werkzeuge, Versorgungsgueter)` jetzt als explizite aktive Fracht; zusammen mit Chat-RAW ist der Materiallauf damit nicht nur erzählerisch, sondern auch systemisch gerahmt.
+- `logistik_c6_v2` liefert fuer C6 mit `Primaerlager (Bereich 3)` und `Sekundaerlager (Kontrollraum)` den vorhandenen Lagerrahmen, ohne aber den konkreten Lauf dort als Charge oder Inventarlog-Zeile einzubuchen.
+- Als konservative Definition bleibt deshalb nur ein `missionierter Versorgungslauf D5 -> C6 mit bestaetigtem Empfang, Bestandsaufnahme und anschliessender Baustellenverteilung`; Mengen, konkrete Lagerzuordnung und Quittung wurden bewusst nicht promoted.
+
+RP/Inventory: C6-Zielseite fuer den D5-Materiallauf gegen RAW nachgeschaerft (2026-03-27 08:29)
+---------------------------------------------------------------------------------------------
+
+- Chat-RAW belegt jetzt auf der C6-Seite nicht nur `Ankunft` und `Bestandsaufnahme`, sondern auch den expliziten Schritt, dass `der Empfang der Ware bestaetigt werden` muss; anschliessend soll die Ware zusammen mit weiterer D5-Fracht an die Baustellen gebracht werden.
+- Damit ist die Zielseite des Laufs enger auf `bestaetigter Empfang in C6 mit operativer Weiterverteilung` rahmbar; `C6-Schleuse` und `C6-Lagerhalle` liefern dafuer den passenden Prozessrahmen, aber weiterhin keinen konkreten Logeintrag.
+- Weil weiter keine explizite Schleusen-/Lagerbuchung, keine Charge und keine saubere Quittungszeile im Inventarlog vorliegen, wurde bewusst keine neue Inventarmenge promoted.
+
+RP/Inventory: D5-Quellorte fuer den C6-Materiallauf gegen RAW nachgeschaerft (2026-03-27 08:25)
+---------------------------------------------------------------------------------------------
+
+- `RAW-canvas-2025-10-20T12-05-00-000Z` belegt in D5 ein Materiallager unter dem Bahnsteig mit Lastenaufzug und Nutzung fuer Schwerlast, Rohstahl, Kabeltrommeln und Energiezellenpaletten; damit ist erstmals ein konkreter physischer Quellort fuer den Materiallauf greifbar.
+- `Draisine-Transportmodul.md` plus Chat-RAW belegen parallel Werkstattbestand, Materiallauf-Unterstuetzung und den Fokus von Jonas, Pahl und Lumen auf den Transportpfad; dadurch ist der Ursprung des Laufs enger auf `Materiallager und/oder Werkstattbestand D5` rahmbar.
+- Weil weiterhin keine explizite Entnahmebuchung, keine standortscharfe C6-Zielbuchung und keine Quittung/Verantwortlichenzeile vorliegen, wurde bewusst keine neue Inventarmenge promoted.
+
+RP/Inventory: D5->C6-Transferkette erneut gegen Umfeld und RAW geprueft (2026-03-27 08:14)
+----------------------------------------------------------------------------------------
+
+- Der Recheck bestaetigt den generischen Transportanker im RAW-Logistikcanvas `RAW-canvas-2025-10-16T13-05-00-000Z`: `D5 -> C6 (Bauteile, Werkzeuge, Versorgungsgueter)` bei manuellem Transport ohne Bahnverbindung.
+- Im Chat-RAW sind fuer denselben Ablauf lediglich `Abmeldung in D5` sowie anschliessend `Ankunft` und `Bestandsaufnahme` in C6 hart sichtbar; das reicht fuer Prozessrahmen, aber nicht fuer Bestandsbuchung.
+- Weil weiterhin keine explizite Entnahme, keine Zielbuchung in `C6-Schleuse` oder `C6-Lagerhalle` und keine Quittung/Verantwortlichen belegt sind, bleibt der RP-Punkt offen und es wurde bewusst keine Fraktionssumme oder Item-Menge promoted.
+
+Dev/Backlog: Folgepunkte nach Wochenabschluss konkretisiert (2026-03-27 04:34)
+-------------------------------------------------------------------------
+
+- `todo.rp.md` fuehrt den verbleibenden Inventar-Backfill jetzt nicht mehr nur als Sammelpunkt, sondern getrennt nach Transferkette `D5 -> C6`, Delta-Struktur fuer `Novapolis-inventar.md` und Realabgleich fuer das Skill-Mapping-V1.
+- `todo.sim.md` enthaelt erstmals einen aktiven Punkt fuer die beiden bekannten Sim-Asset-Warnungen aus dem Wochenabschluss (`summary=fail:0,warn:2`), statt sie nur im Kontexttext zu nennen.
+- `todo.dev.md` fuehrt den sichtbaren Drift in den Board-Metadaten von `todo.index.md` als eigenen Hygiene-Punkt; `todo.root.md` und `todo.index.md` sind auf denselben Folgebacklog synchronisiert.
+
+Dev/Process: Wochenabschluss 2026-03-27 komplett abgeschlossen (2026-03-27 01:16)
+-------------------------------------------------------------------------------
+
+- `scripts/run_checks_and_report.py` liefert nach dem Doku-Refresh wieder `overall=PASS`; Coverage bleibt bei `93.69%`, alle Governance-Gates sind gruen, und der Reportpfad ist `.tmp/results/reports/checks_report_20260327_011507.md`.
+- Die beiden stale ACTIVE-Boards `todo.agent-board.md` und `todo.sim.md` wurden im selben Slot aufgefrischt; damit stehen `todo_index_drift=0`, `active_docs_stale=0`, `placeholder_conflicts=0` und `logs_policy_violations=0` wieder konsistent im KPI-Block.
+- Der separate Coverage-Lauf endet mit Exit `0`; `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency` bleibt ohne harte Fehler (`summary=fail:0,warn:2`).
+
+RP/Inventory Governance: Ebenenmodell und Pflicht-Deltas fuer Metro-Warenbestand festgezogen (2026-03-20 13:51)
+---------------------------------------------------------------------------------------------------------------
+
+- `todo.rp.md` fuehrt jetzt die feste Promotionskette `Charakter -> Team/POI -> Station -> Fraktion -> Metro`, abgeleitet aus den bereits vorhandenen RP-Artefakten statt aus einem neuen Parallelsystem.
+- Die Pflichtartefakte je Ebene sind explizit benannt: Charakter-Canvas, POI-/Lokations-Canvas, Stationsinventar, Fraktionsinventar sowie die Admin-Ebene fuer Metro/T0.
+- Neue Bestandsfortschreibung soll ab jetzt nur noch ueber die vier Minimal-Deltas `Transfer`, `Verbrauch`, `Handel` und `Bilanz` nach oben promoted werden.
+
+RP/Inventory: Materiallauf in D5 und C6 standortscharf nachgezogen (2026-03-20 11:49)
+-------------------------------------------------------------------------------
+
+- D5 und C6 fuehren den missionierten Materiallauf jetzt beide als lokalen Review-Anker, damit die Luecke nicht nur im Fraktionsinventar haengt.
+- D5 dokumentiert den fehlenden Quellabgang, C6 die fehlende Zielbuchung in Lagerhalle/Schleuse.
+- Mengen, Charges und Quittungen bleiben weiterhin offen; es wurde nichts neu quantifiziert.
+
+RP/Inventory: Guetermission D5 -> C6 als Transferanker verankert (2026-03-20 11:40)
+-------------------------------------------------------------------------------
+
+- Das aktive Missionslog fuehrt jetzt einen eigenen Anker fuer den Materiallauf `D5 -> C6`; belegt sind Richtung, Zweck und der fehlende Stuecklistenentscheid vor dem Lauf.
+- Im Fraktionsinventar ist damit die Transportrichtung nicht mehr nur implizit aus RAW ableitbar, sondern im aktiven SSOT benannt.
+- Offen bleibt weiterhin die Item-Kette `Entnahme -> Transport -> Ankunft -> Quittung`; deshalb wurde keine harte Fraktionssumme promoted.
+
+RP/Inventory: Transfer- und Verbrauchskette fuer Novapolis geprueft (2026-03-20 11:33)
+--------------------------------------------------------------------------------------
+
+- Belegt sind jetzt drei harte Anker fuer den Backfill: D5-Startsnapshot, quantifizierter C6-Startsnapshot und der Tagesabschluss Tag 12 -> 13 mit Energie- und Materialdelta.
+- Ebenfalls belegt ist eine generische Logistikrichtung aus `logistik_novapolis_v2`: `D5 -> C6 (Bauteile, Werkzeuge, Versorgungsgueter)` sowie `C6 -> D5 (Materialrueckfuehrung)`.
+- Nicht belegt ist weiter die vollstaendige Item-Kette `Entnahme -> Transport -> Ankunft -> Quittung`; genau diese Luecke verhindert weiterhin eine harte Fraktionssumme in `Novapolis-inventar`.
+
+RP/Inventory: D5-Startsnapshot aus RAW als Stationsanker nachgezogen (2026-03-20 07:22)
+-------------------------------------------------------------------------------------
+
+- `RAW-canvas-2025-10-16T12-00-00-000Z` belegt fuer D5 ein fruehes Stationsinventar mit `Union-Kisten (3)`, Ersatzrohren/Ventilkomponenten, defekter Reparaturstation und zu `60 %` lesbaren Schaltplaenen.
+- Der Befund ist stark genug fuer einen lokalen D5-Startanker und einen vorsichtigen Hinweis im Fraktionsinventar, aber nicht fuer aktuelle Summen ohne spaetere Transfer-/Verbrauchskette.
+- Der bisherige PoD-Mangel bleibt bestehen; missionierte Zustellungen oder spaetere Umbuchungen wurden weiterhin nicht frei erfunden.
+
+RP/Inventory: C6-Startsnapshot mit Stückzahlen aus RAW/Staging nachgezogen (2026-03-20 07:14)
+-------------------------------------------------------------------------------------------
+
+- `inventar_c6_v2` und `logistik_c6_v2` liefern fuer C6 erstmals einen harten Bestandssnapshot mit konkreten Stueckzahlen statt nur Bedarfskategorien.
+- Nachgezogen wurden nur datierte C6-Startwerte; D5 und `Novapolis-inventar` bleiben unveraendert, weil kein gleich starker D5-/Aggregatbeleg vorliegt.
+- Der Deal-Anker `scene-2026-01-14-b` bleibt fuer Inventarbewegungen weiterhin zu weich, solange PoD, Lieferkette und Abholpunkt nicht belegt sind.
+
+RP/Skills: Skill-Mapping-V1 um zweite Referenzreihe erweitert (2026-03-20 07:08)
+-----------------------------------------------------------------------------
+
+- `annotation-spec.md` fuehrt jetzt zusaetzliche V1-Beispiele fuer `Pahl`, `Reflex`, `Lumen` und `Echo`, gestuetzt auf Personenindex, Charakterblaetter und Behavior-Register.
+- `Pahl` bleibt trotz Sicherheitsfreigaben konservativ im Rollenfit `wartung_technik`; `Reflex` und `Echo` werden als `sicherung_monitoring`, `Lumen` als `wartung_technik` gelesen.
+- Der Ausbau verbreitert die Referenzbasis, ohne neue Rollen-Baselines, Modifier-Logik oder persistente Charakter-Skillwerte einzufuehren.
+
+RP/Skills: Skill-Mapping-V1 aus Verhaltensmatrix verankert (2026-03-20 06:59)
+--------------------------------------------------------------------------
+
+- `annotation-spec.md` enthaelt jetzt eine konservative Novapolis-V1 fuer `reparieren`, `wache`, `funk` und `wahrnehmung` mit Rollen-Baselines fuer `wartung_technik`, `stationsleitung` und `sicherung_monitoring`.
+- Die V1 bleibt absichtlich klein: keine zweite Wahrheit in Charakterdateien, keine direkte Modifier-Verrechnung, keine versteckten Progressionsboni.
+- Beispielableitungen fuer Ronja, Jonas und Kora sind im Spec ergänzt und schliessen den offenen RP-TODO-Block zu Skill-Gewichten/Formelbeispielen.
+
+RP/Inventory: Material-Backfill Tag 12->13 fuer Tunnelarbeiten eingetragen (2026-03-20 06:52)
+--------------------------------------------------------------------------------------------
+
+- Aus Staging wurde nur der belegte Verbrauch uebernommen: `1,3 t Baustoffe`, `120 m Schienenprofil`, `18 m² Betonplatten` sowie `2` beschaedigte Werkzeuge.
+- Die Tagesabrechnung liefert keine belastbare D5/C6-Aufteilung dieser Entnahmen; deshalb bleibt die Standortzuordnung offen und wird nur als gemeinsames Delta gefuehrt.
+- Es wurden keine Restbestände retconnt; Material- und Werkzeugrestmengen bleiben bis zu belegten Vor-/Nachher-Staenden `tbd`.
+
+RP/Inventory: Energie-Backfill Tag 12->13 fuer D5/C6/Novapolis eingetragen (2026-03-20 06:45)
+--------------------------------------------------------------------------------------------
+
+- Aus RAW/Staging plus Logistik-Modell wurde nur die belegte Energiebilanz uebernommen: D5 `+10 Produktion / -8 Grundlast / -12 Export`, C6 `+12 Verbrauch / +10 Zufuhr`, Fraktion gesamt `-12 Netto`.
+- Absolute Speicher- oder Startmengen wurden bewusst nicht retconnt; diese bleiben bis zu belastbaren Vor-/Nachher-Staenden offen.
+- Materialverbrauch und Werkzeugschaden aus demselben Lauf bleiben vorerst im Log-/Backfill-Kontext und werden nicht als absolute Inventarmenge promoted.
+
+RP/Inventory: Erster konservativer D5/C6/Novapolis-Abgleich abgeschlossen (2026-03-20 06:36)
+----------------------------------------------------------------------------------------------
+
+- `D5-inventar` fuehrt keine C6-Bestaende mehr als lokale Bestandszeilen; die fruehere Vermischung wurde auf Standortdrift zurueckgebaut.
+- `C6-inventar` fuehrt Filter, Energiezellen und Werkzeuge jetzt explizit als lokal belegten Kontext ohne freie Stueckzahlen; `Adapter DN60` und `Schweissausruestung` bleiben Bedarf.
+- `Novapolis-inventar` bleibt als konservatives Aggregat offen fuer spaetere Mengen-/Transferzeilen statt unbelegte Summen zu behaupten.
+
+RP/Inventory: Erster echter Abgleichslauf fuer D5/C6/Novapolis gestartet (2026-03-20 06:28)
+-------------------------------------------------------------------------------
+
+- Der vorbereitete Pilot wurde in den eigentlichen SSOT-Abgleich ueberfuehrt.
+- Erster harter Driftpunkt: `D5-inventar` fuehrte C6-Bestaende, obwohl RAW/Staging und die Szenenanker die strikte Standorttrennung verlangen.
+- Die drei Zielinventare `D5-inventar`, `C6-inventar` und `Novapolis-inventar` werden jetzt konservativ auf lokale bzw. aggregierte Beleglage zurueckgefuehrt.
+
+RP/Prep: RAW- und Staging-Lage fuer Inventare/Items nachgezogen (2026-03-20 06:21)
+-------------------------------------------------------------------------------
+
+- Die erste Pilotfassung war zu stark SSOT-zentriert; der fehlende Schritt "RAW gezielt durchsuchen" wurde explizit nachgezogen.
+- Belegte Suchpfade fuer den heutigen Pilot sind jetzt im Arbeitsblatt verankert, insbesondere `database-raw/99-exports/chat-export*.txt` sowie die kuratierten Staging-Artefakte `chat-export-complete.finalgate.md` und `chat-export (1).review.md`.
+- Ergebnis: Der Mengen-Backfill ist jetzt als RAW-abgestuetzter Abgleichslauf dokumentiert, nicht nur als Fortschreibung aus bestehender SSOT.
+
+RP/Prep: Pilotpaket fuer D5/C6/Novapolis-Backfill vorbereitet (2026-03-20 06:12)
+-------------------------------------------------------------------------------
+
+- Neues Arbeitsblatt `novapolis-dev/docs/process/rp-inventory-backfill-pilot-2026-03-20.md` angelegt.
+- Der heutige Start-Scope ist damit explizit auf `D5-inventar`, `C6-inventar` und `Novapolis-inventar` begrenzt; Guardrails und Belegquellen sind vorab benannt.
+- `novapolis-dev/docs/todo.rp.md` und `novapolis-dev/docs/todo.index.md` wurden auf diesen vorbereiteten Pilot-Scope synchronisiert.
 
 Dev/KPI: Trendansicht fuer Hygiene-Cadence verankert (2026-03-19 11:01)
 -----------------------------------------------------------------------

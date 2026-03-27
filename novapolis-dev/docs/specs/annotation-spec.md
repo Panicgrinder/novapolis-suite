@@ -1,7 +1,7 @@
 ---
-stand: 2025-11-16 06:52
-update: Frontmatter auf YAML migriert; markdownlint PASS
-checks: markdownlint-cli2 PASS
+stand: 2026-03-27 01:16
+update: Skill-Mapping-V1 fuer Novapolis um eine zweite Referenzreihe fuer Pahl, Reflex, Lumen und Echo erweitert.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
 ---
 
 Annotation-Spec (Knowledge · Actions · Skill-Ableitung)
@@ -143,6 +143,72 @@ skill_mapping:
       dominanz: 0.3
       impulsiv: -0.5
 ```
+
+Novapolis V1 (konservative Arbeitsfassung)
+------------------------------------------
+
+Ziel dieser V1 ist nicht ein zweites Progressionssystem, sondern eine stabile Startabbildung fuer die bereits geplanten RP-Kernskills `reparieren`, `wache`, `funk` und `wahrnehmung`.
+
+Normalisierung
+- Clusterwerte aus dem Behavior-Canvas werden fuer die Ableitung auf $0.00 .. 0.99$ normiert: $n(c) = c / 100$.
+- Verwendet werden nur die im Register belegten Cluster `O, E, M, N, C, S, L, T`.
+
+Rollen-Baselines (V1)
+- `wartung_technik`: `reparieren=1.2`, `funk=0.7`, `wahrnehmung=0.6`, `wache=0.4`
+- `stationsleitung`: `reparieren=0.8`, `funk=0.8`, `wahrnehmung=0.8`, `wache=1.1`
+- `sicherung_monitoring`: `reparieren=0.6`, `funk=0.8`, `wahrnehmung=1.0`, `wache=1.2`
+
+Gewichtsmatrix (V1)
+- `reparieren` <- `T +1.0`, `O +0.7`, `N +0.2`, `S +0.1`, `C -0.4`
+- `funk` <- `T +0.5`, `O +0.4`, `E +0.3`, `L +0.2`, `C -0.3`
+- `wahrnehmung` <- `S +0.7`, `N +0.6`, `O +0.2`, `C -0.4`
+- `wache` <- `S +0.7`, `L +0.4`, `O +0.3`, `M +0.2`, `C -0.5`
+
+YAML-Snippet (Novapolis V1)
+
+```yaml
+skill_mapping:
+  version: 2
+  normalize: intensity_div_100
+  role_base:
+    wartung_technik: { reparieren: 1.2, funk: 0.7, wahrnehmung: 0.6, wache: 0.4 }
+    stationsleitung: { reparieren: 0.8, funk: 0.8, wahrnehmung: 0.8, wache: 1.1 }
+    sicherung_monitoring: { reparieren: 0.6, funk: 0.8, wahrnehmung: 1.0, wache: 1.2 }
+  weights:
+    reparieren: { T: 1.0, O: 0.7, N: 0.2, S: 0.1, C: -0.4 }
+    funk: { T: 0.5, O: 0.4, E: 0.3, L: 0.2, C: -0.3 }
+    wahrnehmung: { S: 0.7, N: 0.6, O: 0.2, C: -0.4 }
+    wache: { S: 0.7, L: 0.4, O: 0.3, M: 0.2, C: -0.5 }
+```
+
+Beispielableitungen (V1)
+- Ronja (`R4`, Rolle `wartung_technik`, Signatur `O82-T79-L70-E60-N69-C45-S38-M20`) -> `reparieren=3`, `funk=2`, `wahrnehmung=1`, `wache=1`
+- Jonas (`JNS3`, Rolle `wartung_technik`, Signatur `L55-T68-N40-E72-O50-C42-M78`; nur belegte Cluster genutzt) -> `reparieren=2`, `funk=1`, `wahrnehmung=1`, `wache=1`
+- Kora (`KRM4`, Rolle `stationsleitung`, Signatur `L72-T74-N69-E61-O56-C63-M47`) -> `reparieren=2`, `funk=2`, `wahrnehmung=1`, `wache=2`
+
+Rollenfit fuer weitere Kernfiguren (V1)
+- `Pahl` bleibt trotz Sicherheitsfreigaben primaer `wartung_technik`, weil die belegte Grundrolle auf Leittechnik, Wartungsplanung und Systemaufsicht liegt.
+- `Reflex` und `Echo` werden als `sicherung_monitoring` gelesen, weil Schutz, Sensorik, Alarmroutinen und lokale Signalisierung ihr belegter Primarscope sind.
+- `Lumen` bleibt `wartung_technik`, weil Werkstattassistenz und Diagnose der belegte Schwerpunkt sind; Schutz bleibt eng am Werkstatt-/Jonas-Kontext.
+
+Weitere Referenzableitungen (V1)
+- Pahl (`PHL2`, Rollenfit `wartung_technik`, Signatur `L48-T60-N71-E50-O44-C62-M30`) -> `reparieren=2`, `funk=1`, `wahrnehmung=1`, `wache=1`
+- Reflex (`RFX4`, Rollenfit `sicherung_monitoring`, Signatur `L80-S68-N77-T83-E64-O51-M25-C44`) -> `reparieren=2`, `funk=2`, `wahrnehmung=2`, `wache=2`
+- Lumen (`LMN1`, Rollenfit `wartung_technik`, Signatur `L78-T71-E60-O49-N44-S52-C26-M18`) -> `reparieren=2`, `funk=2`, `wahrnehmung=1`, `wache=1`
+- Echo (`ECO1`, Rollenfit `sicherung_monitoring`, Signatur `L85-S74-T62-E58-N52-O44-C28-M16`) -> `reparieren=2`, `funk=2`, `wahrnehmung=2`, `wache=2`
+
+Lesart der Beispiele
+- Ronja bleibt die staerkste V1-Referenz fuer `reparieren`, weil `O` und `T` sehr hoch sind und `C` nur moderat stoert.
+- Jonas ist solide in `reparieren`, aber in `funk` und `wahrnehmung` bewusst nur mittlere V1-Basis, solange kein staerkerer Monitoring-Kontext belegt ist.
+- Kora bekommt ueber `stationsleitung` den klarsten `wache`-Wert in Novapolis V1, ohne dass sie zu einer reinen Sicherheitsrolle umgedeutet wird.
+- Pahl zeigt, dass V1 technische Leitungsfiguren mit Sicherheitsanteil konservativ lesen kann, ohne sofort eine eigene Hybrid-Baseline einzufuehren.
+- Reflex und Echo bestaetigen die `sicherung_monitoring`-Baseline als Schutz-/Sensorprofil; beide bleiben breit stabil, aber ohne ueberzogenes 3er-Niveau.
+- Lumen ist die passende Bruecke zwischen Werkstattassistenz und leichtem Schutzkontext: gutes `funk`/`reparieren`, aber bewusst nur mittlere `wache`-Tiefe.
+
+Guardrails fuer V1
+- V1 ist absichtlich konservativ: nur 4 Skills, nur 3 Rollen-Baselines, keine versteckten Synergieboni.
+- Modifikatoren (`k`, `p`, `r` usw.) bleiben qualitative Driftmarker und werden in V1 nicht direkt verrechnet.
+- Ableitungen bleiben on-demand; die Tierwerte werden nicht dauerhaft als zweite Wahrheit in Charakterdateien gespeichert.
 
 Leitlinien
 - Keine Speicherung der abgeleiteten Skills als „zweite Wahrheit“; bei Bedarf berechnen.

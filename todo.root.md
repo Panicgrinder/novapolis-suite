@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-19 11:09
-update: Root-Backlog nach O11-Abschluss erneut synchronisiert; die Standalone-Beta-Doku ist jetzt fuer Dritte komplett.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
+stand: 2026-03-27 09:54
+update: Offene Folgearbeit nach dem Wochenabschluss aus den Boards abgeleitet; Root-Backlog fuehrt jetzt RP-, Sim- und Dev-Hygiene-Fortsetzung explizit.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -10,7 +10,7 @@ TODO-Uebersicht (Novapolis Suite)
 Kurzstatus
 ----------
 
-- Der aktuelle Referenzlauf vom 2026-03-18 ist gruen (`overall=PASS`, Coverage `93.69%`); die Standalone-Beta-Doku ist jetzt inklusive externem Installblatt komplett.
+- Der aktuelle Referenzlauf vom 2026-03-27 ist gruen (`overall=PASS`, Coverage `93.69%`); der Wochenabschluss ist komplett nach SSOT dokumentiert, inklusive Coverage-Gate, Hygiene-KPIs und Sim-Asset-Check ohne harte Fehler.
 - Vorheriger Vollinhalt wurde archiviert unter `novapolis-dev/archive/quarantine/todo-root-snapshot-20260222_1234.md`.
 - Historische Sammelbasis: `novapolis-dev/archive/todo.root.archive.md`.
 - Diese Datei ist jetzt die aktive Arbeitsliste fuer neue Punkte.
@@ -18,6 +18,18 @@ Kurzstatus
 
 Neue Punkte (Backlog)
 ---------------------
+
+- [ ] RP-Inventar-Backfill in die belegte Transferkette ueberfuehren (`D5 -> C6` mit Entnahme, Zielbuchung, Quittung) und `Novapolis-inventar.md` auf Delta-Format umstellen.
+  - Evidenz: `novapolis-dev/docs/todo.rp.md`, `novapolis-dev/docs/process/rp-inventory-backfill-pilot-2026-03-20.md`, `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md`.
+
+- [ ] Sim-Asset-Warnungen aus dem Wochenabschluss entscheiden: entweder beheben oder als bewusste Ausnahme dokumentieren.
+  - Evidenz: `novapolis-dev/docs/todo.sim.md`, `WORKSPACE_STATUS.md` (Wochenabschluss 2026-03-27, `summary=fail:0,warn:2`).
+
+- [ ] TODO-Index-Metadaten gegen die aktuellen Boards haerten, damit `letzte Aenderung` und Open-Counts nicht sichtbar hinterherlaufen.
+  - Evidenz: `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md`.
+
+- [x] Wochenabschluss 2026-03-27 nach SSOT komplett ausgefuehrt (Full-Gate, Coverage-Gate, Hygiene-KPIs, Abschluss-Sync).
+  - Evidenz: `.tmp/results/reports/checks_report_20260327_011507.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `novapolis-dev/docs/meta/dev-kpi-trends.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.sim.md`.
 
 - [x] Wochenabschluss 2026-03-10 nach SSOT ausgefuehrt (Checks, Tree-Artefakte, Abschluss-Sync).
   - Evidenz: `.tmp/results/reports/checks_report_20260310_153947.md`, `workspace_tree_full.txt`, `workspace_tree.txt`, `workspace_tree_dirs.txt`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`.
