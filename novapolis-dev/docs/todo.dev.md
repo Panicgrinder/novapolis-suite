@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 09:54
-update: Neue Hygiene-Folgeaufgabe fuer die Board-Metadaten im TODO-Index aus dem aktuellen Iststand abgeleitet; Dev offen 0 -> 1.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
+stand: 2026-03-27 14:22
+update: Governance fuer Snapshot-/Retry-Pfad und Python-Tasks final fuer den Commitlauf synchronisiert; der lokale pwsh-Taskbruch bleibt als geschlossener Dev-Fix dokumentiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 14:22)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -19,9 +19,15 @@ Hinweis
 Offene Aufgaben (Dev)
 ---------------------
 
-- [ ] [Jetzt] Board-Metadaten im `novapolis-dev/docs/todo.index.md` gegen die aktuellen Board-Staende haerten.
+- [x] [Jetzt] Board-Metadaten im `novapolis-dev/docs/todo.index.md` gegen die aktuellen Board-Staende haerten.
   - Akzeptanzkriterium: `letzte Aenderung`, Open-Counts und `aeltester offener Punkt` spiegeln `todo.dev.md`, `todo.rp.md`, `todo.agent-board.md` und `todo.sim.md` ohne manuelle Nachpflege oder sichtbare Datumsdrift.
   - Evidenz: `novapolis-dev/docs/todo.index.md` zeigt aktuell fuer Agent/Sim/RP noch aeltere `letzte Aenderung`-Werte (`2026-03-11` bzw. `2026-03-05`), obwohl die Boards bereits auf `stand: 2026-03-27 01:16` stehen.
+  - Abschluss 2026-03-27: `scripts/check_todo_index_sync.py --write-index-meta` zieht die automationsrelevanten Board-Metadaten jetzt wieder konsistent nach; der offene Driftpunkt ist geschlossen.
+
+- [x] [Jetzt] Governance- und Task-Pfad fuer Snapshot-Retrys sowie Python-Checks gegen den realen Lauf haerten.
+  - Akzeptanzkriterium: Snapshot-Regeln benennen die effektive Frischelogik fuer Retry-Faelle explizit und die betroffenen Python-Tasks laufen nicht mehr ueber den fehlerhaften lokalen `pwsh /d /c`-Shellpfad.
+  - Evidenz: `.github/copilot-instructions.md` (R-SNAP), `.github/instructions/docs-markdown.instructions.md` (Ausnahme GOV-EX-FM-001), `.vscode/tasks.json` (`process` statt `shell` fuer Python-Checks).
+  - Abschluss 2026-03-27: Snapshot-/Retry-Regeln und Task-Definitionspfad sind auf den beobachteten Iststand synchronisiert; Coverage-, TODO-Index- und Logs-Checks koennen lokal wieder ueber die Workspace-Tasks ohne Shell-Wrapping laufen.
 
 - [x] [Jetzt] Full-Gate wieder gruen machen (`ruff`, `black`, `pytest/coverage >= 80`) und den aktuell roten Sammellauf stabilisieren.
   - Akzeptanzkriterium: `scripts/run_checks_and_report.py` liefert `overall=PASS` mit Reportpfad und ohne rote Pflichtchecks.

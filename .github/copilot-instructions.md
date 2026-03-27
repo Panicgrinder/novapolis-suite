@@ -119,7 +119,9 @@ Globale Kernregeln
 #### R-SNAP Snapshot-Gates (Write-Lock und Freshness)
 - Vor mutationalen Läufen Write-Lock frisch setzen: `& .\.venv\Scripts\python.exe scripts/snapshot_write_lock.py`.
 - Für alle betroffenen Markdown-Dateien muss `stand` auf den frischen Lock-Zeitwert (oder innerhalb des zulässigen Fensters) synchronisiert sein.
+- Praktisch bindend ist dabei das aktuelle Gate-Verhalten: `stand` muss innerhalb von `±5 min` zur aktuellen Zeit liegen; der Lock selbst muss ebenfalls frisch sein und `stand` im Commit-Pfad eng folgen (derzeit `<= 2 min` Abstand im Gate).
 - Reihenfolge verpflichtend: Snapshot-Lock -> `stand`-Sync -> markdownlint (betroffene Dateien) -> Frontmatter-Validator (betroffene Dateien) -> Commit/Push.
+- Wenn ein Hook- oder Lint-Fix den Commit abbricht oder gestagte Markdown-Dateien veraendert, beginnt die Reihenfolge erneut bei Snapshot-Lock -> `stand`-Sync; ein Retry ohne frischen Lock gilt nicht als sauberer Standardpfad.
 - Wenn Snapshot-Gate blockiert, kein Bypass als Standardpfad; zuerst Lock/`stand` korrekt nachziehen.
 
 #### R-NAME Namensgebungskonvention

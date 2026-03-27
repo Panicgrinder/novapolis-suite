@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 09:54
-update: RP-Board um dokumentierten RAW-Rettungsstand vor manueller Fraktionsverteilung ergaenzt; Sicherheits-Recheck erneut angestossen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . PASS (2026-03-27 09:46)
+stand: 2026-03-27 14:22
+update: Dev-Governance fuer Snapshot-Retrys und Python-Task-Ausfuehrung final fuer den Commitlauf synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 14:22)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,19 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Governance: Finaler Snapshot-Sync fuer den Commitlauf gezogen (2026-03-27 14:22)
+------------------------------------------------------------------------------------
+
+- Vor dem Commit wurde der Snapshot-Lock erneut frisch gesetzt und die aktiven `stand`-Felder auf denselben Zeitanker synchronisiert, damit der zuvor dokumentierte Governance-Fix nicht selbst wieder am Freshness-Gate scheitert.
+- Der Lauf ist inhaltlich unveraendert gegenueber 10:33; es handelt sich um den technischen Commit-/Push-Sync fuer denselben Governance-Fixblock.
+
+Dev/Governance: Snapshot-Retry-Pfad und Python-Tasks gegen Hook-/Workspace-Iststand gehaertet (2026-03-27 10:33)
+--------------------------------------------------------------------------------------------------------------
+
+- `R-SNAP` nennt jetzt explizit das praktische Gate-Verhalten fuer Retry-Faelle: `stand` muss frisch zu `now` bleiben, der Lock ebenfalls, und ein nach Hook-Abbruch wiederholter Commit beginnt wieder bei Snapshot-Lock plus `stand`-Sync statt mit altem Lock weiterzulaufen.
+- Die Markdown-Instructions dokumentieren die kanonische Einzelausnahme fuer `.github/copilot-instructions.md` jetzt konsistent, damit die historische Kopfzeilenform `Stand:`/`Checks:` nicht mehr im Konflikt mit der allgemeinen Legacy-Kopfzeilenregel steht.
+- Die betroffenen Python-Workspace-Tasks (`coverage`, `todo index sync`, `logs policy` und verwandte Checks) laufen jetzt als `process` statt `shell`; damit faellt der lokale `pwsh /d /c`-Fehlpfad weg, der die eigentlichen Python-Checks zuvor faelschlich rot machte.
 
 RP/Inventory: RAW-Rettungsstand vor Handverteilung und Verbrauchsrechnung festgezogen (2026-03-27 09:46)
 ------------------------------------------------------------------------------------------------------

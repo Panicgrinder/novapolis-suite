@@ -59,7 +59,7 @@
     },
     {
       "label": "Checks: types (pyright+mypy)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\checks_types.py"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
@@ -70,7 +70,7 @@
     },
     {
       "label": "Tests: coverage (fail-under)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\run_pytest_coverage.py"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -91,7 +91,7 @@
     },
     {
       "label": "Checks: path portability",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\check_portable_paths.py", "--repo-root", "${workspaceFolder}"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -102,7 +102,7 @@
     },
     {
       "label": "Checks: naming policy",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\check_naming_policy.py", "--repo-root", "${workspaceFolder}"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -113,7 +113,7 @@
     },
     {
       "label": "Checks: todo index sync",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\check_todo_index_sync.py", "--repo-root", "${workspaceFolder}", "--write-index-meta"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -124,7 +124,7 @@
     },
     {
       "label": "Checks: doc freshness",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\check_doc_freshness.py", "--repo-root", "${workspaceFolder}"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -135,7 +135,7 @@
     },
     {
       "label": "Checks: logs policy",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\check_logs_policy.py", "--repo-root", "${workspaceFolder}"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -146,7 +146,7 @@
     },
     {
       "label": "Checks: sim epoch assets",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\scripts\\check_sim_epoch_assets.py",
@@ -162,7 +162,7 @@
     },
     {
       "label": "Git: commit+push",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\git_commit_push.py"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -202,7 +202,7 @@
     ,
     {
       "label": "Tests: pytest (-q)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["-m", "pytest", "-q"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
@@ -214,7 +214,7 @@
     ,
     {
       "label": "Docs: DONELOG append",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\scripts\\append_agent_donelog_entry.py",
@@ -231,7 +231,7 @@
     ,
     {
       "label": "Tests: pytest (unit)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["-m", "pytest", "-q", "-m", "unit"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
@@ -243,7 +243,7 @@
     ,
     {
       "label": "Tests: pytest (api+streaming)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["-m", "pytest", "-q", "-m", "api or streaming"],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },

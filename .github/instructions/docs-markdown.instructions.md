@@ -18,7 +18,7 @@ Frontmatter
 - Legacy-Kopfzeilen `Stand:` und `Letzte Aktualisierung:` sind außerhalb von YAML-Frontmatter nicht zulässig.
 - Delimiter `---` oben/unten niemals unbeabsichtigt entfernen.
 - Validator: `scripts/check_frontmatter.py`.
-- Ausnahme GOV-EX-FM-001: `.github/copilot-instructions.md` ohne YAML-Frontmatter.
+- Ausnahme GOV-EX-FM-001: `.github/copilot-instructions.md` ohne YAML-Frontmatter; die dort historisch gefuehrten Kopfzeilen `Stand:`/`Checks:` sind als kanonische Einzelausnahme zulaessig und nicht auf andere Dateien uebertragbar.
 - Ausnahme GOV-EX-INS-001: `.github/instructions/*.instructions.md` folgen dem Instruction-Frontmatter-Schema (`description`, `name`, `applyTo`).
 
 Kanonisierung & Format

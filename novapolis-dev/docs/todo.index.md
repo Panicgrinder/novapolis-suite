@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 09:54
-update: RP-Board um dokumentierten RAW-Rettungsstand vor manueller Fraktionsverteilung ergaenzt; Sicherheits-Recheck erneut angestossen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . PASS (2026-03-27 09:46)
+stand: 2026-03-27 14:22
+update: Dev-Governance fuer Snapshot-Retrys und Python-Tasks final fuer den Commitlauf synchronisiert; Board-Metadaten bleiben frisch aus den Boards nachgezogen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' '.github/instructions/docs-markdown.instructions.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 14:22)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -13,7 +13,7 @@ TODO-Index (Novapolis-Dev)
 ---------
 
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 6)
-- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 1)
+- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 1)
 
@@ -46,6 +46,7 @@ Statushinweise (aktuell)
 - RP v5.2: Eigentlicher Inventar-Abgleich fuer D5/C6/Novapolis gestartet; erster harter Driftpunkt ist die fruehere Vermischung von C6-Bestaenden im D5-Inventar.
 - RP v5.1: Pilotpaket fuer D5/C6/Novapolis-Backfill vorbereitet; RP offen bleibt `5`, aber der Start-Scope ist jetzt konkret dokumentiert.
 - Dev v5.9: KPI-Trendansicht fuer die Hygiene-Cadence angelegt; Dev offen `1 -> 0`.
+- Dev v5.10: Snapshot-/Retry-Governance gegen den realen Hook-Iststand geschaerft und die betroffenen Python-Tasks von `shell` auf `process` umgestellt; der lokale `pwsh /d /c`-Fehlpfad ist fuer Coverage-, TODO-Index- und Logs-Checks entfernt.
 - Dev v5.8: O11 geschlossen; externes Standalone-Beta-Installblatt fuer Dritte dokumentiert (`offen: 2 -> 1`).
 - Dev v5.7: Community-/Maintainer-Paket umgesetzt (`SUPPORT.md`, `RELEASE.md`, `MAINTAINERS.md`, Root-Issue-/PR-Templates); Dev offen `3 -> 2`.
 - Dev v5.6: ADR-Ordner aktiv genutzt; `ADR-0001` und `ADR-0002` als akzeptierte Governance-Entscheidungen aufgenommen (`offen: 4 -> 3`).
@@ -62,10 +63,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-03-19 | - [ ] [Jetzt] Board-Metadaten im `novapolis-dev/docs/todo.index.md` gegen die aktuellen Board-Staende haerten. | nein |
-| RP (`docs/todo.rp.md`) | 2026-03-05 | - [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten. | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-03-11 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-03-11 | - [ ] [Als naechstes] Sim-Asset-Warnungen aus `scripts/check_sim_epoch_assets.py` aufloesen oder bewusst kanonisch ausnehmen. | nein |
+| Dev (`docs/todo.dev.md`) | 2026-03-27 | keiner (offen: 0) | nein |
+| RP (`docs/todo.rp.md`) | 2026-03-27 | - [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten. | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-03-27 | keiner (offen: 0) | nein |
+| Sim (`docs/todo.sim.md`) | 2026-03-27 | - [ ] [Als naechstes] Sim-Asset-Warnungen aus `scripts/check_sim_epoch_assets.py` aufloesen oder bewusst kanonisch ausnehmen. | nein |
 
 
 Hinweise (Index)

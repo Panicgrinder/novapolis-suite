@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 09:54
-update: Folgebacklog nach dem Wochenabschluss auf Root-/Dev-Ebene konkretisiert; offene Restarbeit ist wieder explizit benannt.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
+stand: 2026-03-27 14:22
+update: Governance- und Task-Haertung fuer Snapshot-Retrys sowie Python-Checks final fuer den Commitlauf synchronisiert.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 14:22)
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,10 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-03-27 14:22: Finaler Commitlauf fuer die Governance-Haertung vorbereitet. Snapshot-Lock und `stand`-Felder wurden erneut auf den aktuellen Zeitanker gezogen, damit der dokumentierte Fix ohne erneuten Freshness-Fehler durch das Snapshot-Gate commitbar bleibt.
+
+- 2026-03-27 10:33: Governance- und Task-Haertung fuer den lokalen Dokumentationspfad umgesetzt. `R-SNAP` dokumentiert jetzt den tatsaechlichen Retry-Pfad des Snapshot-Gates explizit, `.github/copilot-instructions.md` ist in den Markdown-Instructions als kanonische Legacy-Kopfzeilen-Ausnahme sauber benannt, und die betroffenen Python-Checks in `.vscode/tasks.json` laufen jetzt als `process` statt ueber den fehlerhaften lokalen `pwsh /d /c`-Shellpfad.
 
 - 2026-03-27 04:34: Offene Folgearbeit nach dem Wochenabschluss konkretisiert. Das Root-/Dev-Backlog fuehrt jetzt drei klare Restspuren: RP-Transferkette plus Delta-Struktur fuer den Inventar-Backfill, die bekannten Sim-Asset-Warnungen als echten Board-Punkt und den sichtbaren Metadaten-Drift in `novapolis-dev/docs/todo.index.md`.
 
