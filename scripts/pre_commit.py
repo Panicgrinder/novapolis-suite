@@ -3,13 +3,15 @@
 
 Replaces the PowerShell-in-sh implementation in githooks/pre-commit.
 
-Behavior (matches legacy intent):
-- Run snapshot gate (scripts/snapshot_gate.py)
+Behavior:
 - If changes touch novapolis_agent/{app,scripts,utils}/..., enforce DONELOG yearly entry
 - For staged Markdown files:
-  - Run markdownlint-cli2 (npx) with repo config
-  - If lint fails: attempt markdownlint-cli2-fix, stage fixed files, then abort
-  - Run frontmatter validator (scripts/check_frontmatter.py)
+    - Run markdownlint-cli2 (npx) with repo config
+    - If lint fails: attempt markdownlint-cli2-fix, stage fixed files, then abort
+    - Run frontmatter validator (scripts/check_frontmatter.py)
+- Run RP hard gates if needed
+- Run snapshot gate (scripts/snapshot_gate.py) last, so downstream aborts do not
+    consume snapshot freshness unnecessarily
 
 Exit codes:
 - 0: allow commit
@@ -191,8 +193,6 @@ def run_rp_hard_gates_if_needed(root: Path, staged_all: list[str]) -> None:
 def main() -> int:
     root = repo_root()
 
-    run_snapshot_gate(root)
-
     staged_all = capture_lines(
         ["git", "diff", "--cached", "--name-only", "--diff-filter=ACMRT"],
         cwd=root,
@@ -212,6 +212,9 @@ def main() -> int:
 
     # RP hard gates for database-rp / validator changes
     run_rp_hard_gates_if_needed(root, staged_all)
+
+    # Snapshot gate last, to avoid freshness churn after downstream aborts/fixes.
+    run_snapshot_gate(root)
 
     return 0
 

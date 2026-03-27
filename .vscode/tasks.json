@@ -4,7 +4,7 @@
   "tasks": [
     {
       "label": "Checks: linters (all)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\checks_linters.py"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -15,7 +15,7 @@
     },
     {
       "label": "lint:ruff",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["-m", "ruff", "check", "."],
       "options": { "cwd": "${workspaceFolder}" },
@@ -26,7 +26,7 @@
     },
     {
       "label": "format:black",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["-m", "black", "."],
       "options": { "cwd": "${workspaceFolder}" },
@@ -37,7 +37,7 @@
     },
     {
       "label": "fix:ruff",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["-m", "ruff", "check", "--fix", "."],
       "options": { "cwd": "${workspaceFolder}" },
@@ -48,7 +48,7 @@
     },
     {
       "label": "Tests: pytest (-q) [root]",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["${workspaceFolder}\\scripts\\tests_pytest_root.py"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -191,7 +191,7 @@
     },
     {
       "label": "Workspace tree: summary (dirs)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": ["scripts\\update_workspace_tree_dirs.py"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -255,7 +255,7 @@
     ,
     {
       "label": "Eval: suite neutral (20, asgi)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "-m",
@@ -284,7 +284,7 @@
     ,
     {
       "label": "Eval: suite quality_de (20, asgi)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "-m",
@@ -315,7 +315,7 @@
     ,
     {
       "label": "Eval: suite rpg (20, asgi)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "-m",
@@ -344,7 +344,7 @@
     ,
     {
       "label": "Eval: suite rp_content (20, asgi)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "-m",
@@ -373,7 +373,7 @@
     ,
     {
       "label": "Eval: suite marathon (~60m, asgi, loud)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "-m",
@@ -410,7 +410,7 @@
     ,
     {
       "label": "Eval: summarize marathon KPIs",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\novapolis_agent\\scripts\\summarize_marathon_kpis.py",
@@ -430,7 +430,7 @@
     ,
     {
       "label": "Eval: validate datasets (slug+tags)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\novapolis_agent\\scripts\\validate_eval_datasets.py"
@@ -444,7 +444,7 @@
     ,
     {
       "label": "Eval: validate suite datasets (strict)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\novapolis_agent\\scripts\\validate_eval_datasets.py",
@@ -469,7 +469,7 @@
     ,
     {
       "label": "Data: curate from latest (train pack)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\novapolis_agent\\scripts\\curate_dataset_from_latest.py",
@@ -489,7 +489,7 @@
     ,
     {
       "label": "Data: export+pack (latest results)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\novapolis_agent\\scripts\\curate_dataset_from_latest.py",
@@ -510,7 +510,7 @@
     ,
     {
       "label": "Train: baseline LoRA (tiny-gpt2, 1-step)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "-m",
@@ -540,7 +540,7 @@
     ,
     {
       "label": "TTS: export (Coqui->OGG)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\novapolis_agent\\scripts\\tts_export_coqui.py",
@@ -554,7 +554,7 @@
     ,
     {
       "label": "TTS: export (coqui)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\novapolis_agent\\scripts\\tts_export_coqui.py",
@@ -601,7 +601,7 @@
     ,
     {
       "label": "Data: artifacts cleanup (dry-run)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\novapolis_agent\\scripts\\cleanup_artifacts.py",
@@ -620,7 +620,7 @@
     ,
     {
       "label": "Data: build eval from RP (core)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\novapolis_agent\\scripts\\build_eval_from_rp.py",
@@ -640,7 +640,7 @@
     ,
     {
       "label": "Integration: MCP OpenAI Eval (run)",
-      "type": "shell",
+      "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
         "${workspaceFolder}\\novapolis-dev\\integrations\\mcp-openai-eval\\src\\mcp_openai_eval\\server.py"

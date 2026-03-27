@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 14:22
-update: Governance fuer Snapshot-/Retry-Pfad und Python-Tasks final fuer den Commitlauf synchronisiert; der lokale pwsh-Taskbruch bleibt als geschlossener Dev-Fix dokumentiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 14:22)
+stand: 2026-03-27 15:47
+update: Snapshot-/Pre-Commit-Retry-Pfad operativ gehaertet; der letzte offene Governance-Punkt ist geschlossen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 15:47)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -18,6 +18,26 @@ Hinweis
 
 Offene Aufgaben (Dev)
 ---------------------
+
+- [x] [Jetzt] Kern-SSOT `.github/copilot-instructions.md` und Headings-Index auf denselben aktuellen Quellenstand ziehen.
+  - Akzeptanzkriterium: `stand`/Quellenangaben in `.github/copilot-instructions.md` und `.github/copilot-instructions-headings.md` verweisen auf denselben aktuellen Governance-Stand; der Headings-Index ist im selben Lauf nachgezogen und nicht mehr historisch hinterher.
+  - Evidenz: Die Kern-SSOT fuehrt weiterhin `Stand: 2026-02-27 10:57`, waehrend seitdem u. a. `R-SNAP` materiell geschaerft wurde; der Headings-Index referenziert noch einen aelteren Quellenstand.
+  - Abschluss 2026-03-27: Kopfstand der Kern-SSOT und Quellenstand des Headings-Index zeigen jetzt denselben aktuellen Governance-Zeitanker; die strukturelle Abschnittsliste blieb dabei unveraendert korrekt.
+
+- [x] [Jetzt] Redundanz in der Kern-Governance reduzieren und eine einzige normative Ebene fuer Regeln klar festziehen.
+  - Akzeptanzkriterium: TL;DR, Landepunkte und Matrix widersprechen sich nicht mehr und doppeln keine Normtexte unnötig; klar benannt ist, welche Ebene fuer Runtime-Entscheidungen bindend ist.
+  - Evidenz: Regeln wie `R-SNAP`, `R-LINT` und `R-LOG` liegen derzeit gleichzeitig in TL;DR, Regelindex, Landepunkten und Matrix vor; genau diese Mehrfachpflege hat schon zu Aktualitaetsdrift gefuehrt.
+  - Abschluss 2026-03-27: TL;DR verweist nur noch auf Regel-IDs, die Kerndatei benennt die `Regel-ID-Landepunkte (Kern)` explizit als einzige normative Ebene, und die Matrix ist als abgeleitete Kurzreferenz gekennzeichnet.
+
+- [x] [Als naechstes] Verbleibende Python-Workspace-Tasks systematisch von `shell` auf `process` pruefen und vereinheitlichen.
+  - Akzeptanzkriterium: Python-basierte Tasks laufen konsistent ohne den lokalen `pwsh /d /c`-Shellpfad; Ausnahmen sind bewusst dokumentiert und technisch begruendet.
+  - Evidenz: Zwar sind die kritischen Checks bereits auf `process` umgestellt, aber mehrere Python-Tasks wie `Checks: linters (all)`, `Tests: pytest (-q) [root]`, `Workspace tree: summary (dirs)` und die Eval-Suites laufen weiter als `shell`.
+  - Abschluss 2026-03-27: Alle verbleibenden Python-basierten Workspace-Tasks in `.vscode/tasks.json` laufen jetzt als `process`; reine `pwsh`-Tasks fuer Tree-/HTTP-Aufrufe blieben bewusst als Shell-Tasks bestehen.
+
+- [x] [Als naechstes] Snapshot-/Pre-Commit-Retry-Pfad operativ robust machen, nicht nur dokumentarisch.
+  - Akzeptanzkriterium: Ein durch nachgelagerte Gates oder Auto-Fixes abgebrochener Commit fuehrt nicht mehr zu vermeidbarem Freshness-Churn; entweder wird der Retry-Pfad technisch abgefedert oder der Hook-Ablauf entsprechend umgestellt.
+  - Evidenz: `scripts/pre_commit.py` startet mit dem Snapshot-Gate vor Markdownlint/Frontmatter/RP-Gates, waehrend `scripts/snapshot_gate.py` weiter auf `±5 min` plus engen Lock-Stand-Abstand prueft; dadurch bleibt Retry-Faelligkeit systemisch moeglich.
+  - Abschluss 2026-03-27: `scripts/pre_commit.py` fuehrt das Snapshot-Gate jetzt erst nach markdownlint, Frontmatter-Validator und optionalen RP-Hard-Gates aus; spaete Abbrueche oder Auto-Fixes verbrauchen damit die Freshness nicht mehr vorzeitig.
 
 - [x] [Jetzt] Board-Metadaten im `novapolis-dev/docs/todo.index.md` gegen die aktuellen Board-Staende haerten.
   - Akzeptanzkriterium: `letzte Aenderung`, Open-Counts und `aeltester offener Punkt` spiegeln `todo.dev.md`, `todo.rp.md`, `todo.agent-board.md` und `todo.sim.md` ohne manuelle Nachpflege oder sichtbare Datumsdrift.

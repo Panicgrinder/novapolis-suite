@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 14:22
-update: Governance- und Task-Haertung fuer Snapshot-Retrys sowie Python-Checks final fuer den Commitlauf synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 14:22)
+stand: 2026-03-27 15:47
+update: Letzter Governance-Folgepunkt umgesetzt: Snapshot-/Pre-Commit-Retry-Pfad ist jetzt operativ gehaertet.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 15:47)
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,14 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-03-27 15:05: Letzter Governance-Folgepunkt geschlossen. Der Pre-Commit-Hook zieht das Snapshot-Gate jetzt erst nach markdownlint, Frontmatter und optionalen RP-Hard-Gates; vermeidbarer Freshness-Churn durch spaete Hook-Abbrueche oder Auto-Fixes ist damit operativ reduziert.
+
+- 2026-03-27 14:51: Dritter Governance-Folgepunkt geschlossen. Die verbliebenen Python-Workspace-Tasks in `.vscode/tasks.json` laufen jetzt konsistent als `process`; als Shell-Ausnahmen bleiben nur echte `pwsh`-Aufrufe fuer Tree-/HTTP-Helfer bestehen.
+
+- 2026-03-27 14:51: Zweiter Governance-Folgepunkt geschlossen. Die Kern-Governance fuehrt jetzt nur noch eine explizit bindende Normschicht ueber die `Regel-ID-Landepunkte (Kern)`; TL;DR und Matrix sind als abgeleitete Orientierung markiert und doppeln keine vollwertigen Normtexte mehr.
+
+- 2026-03-27 14:41: Erster Governance-Folgepunkt geschlossen. Die Kern-SSOT `.github/copilot-instructions.md` und der Navigationsindex `.github/copilot-instructions-headings.md` teilen wieder denselben aktuellen Quellenstand; der Drift lag nur in den Meta-/Quellenangaben und wurde ohne Strukturumbau behoben.
 
 - 2026-03-27 14:22: Finaler Commitlauf fuer die Governance-Haertung vorbereitet. Snapshot-Lock und `stand`-Felder wurden erneut auf den aktuellen Zeitanker gezogen, damit der dokumentierte Fix ohne erneuten Freshness-Fehler durch das Snapshot-Gate commitbar bleibt.
 

@@ -1,5 +1,5 @@
-Stand: 2026-02-27 10:57 – Quellenklarheit verschaerft: aktive vs. sekundaere Instruction-Quellen explizit geregelt; Agent-/Guidance-/Archiv-Hinweise synchronisiert.
-Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' '.github/agents/novapolis-workspace-navigator.agent.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (2026-02-27 10:57); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/agents/novapolis-workspace-navigator.agent.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-27 10:57)
+Stand: 2026-03-27 15:47 – Snapshot-Retry-Pfad operativ gehaertet; der Pre-Commit-Hook zieht die Freshness-Pruefung jetzt erst nach den nachgelagerten Markdown-/RP-Gates.
+Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions-headings.md' '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-27 15:47); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts\check_logs_policy.py --repo-root . PASS (2026-03-27 15:47)
 
 
 LLM-Dokumentenheader (nicht löschen)
@@ -14,14 +14,14 @@ LLM-Dokumentenheader (nicht löschen)
 
 TL;DR / Runtime Essentials
 ==========================
-- Vor mutationalen Runs: Snapshot-Lock frisch setzen (`scripts/snapshot_write_lock.py`) und `stand` synchron halten.
-- Hard-STOP hat Vorrang: Bei Hard-Triggern keine Mutation ohne explizite Freigabe im aktuellen Chat.
-- Mehrschritt-/Artefaktbefehle über Python-Wrapper (`.venv` bevorzugt), `pwsh -Command` nur für echte Einzeiler.
-- Markdown-Gates sind verbindlich: markdownlint via `npx --yes markdownlint-cli2 ...` und Frontmatter-Validator (`scripts/check_frontmatter.py`).
-- Jede Dateimutation erzwingt DONELOG-Eintrag im selben Lauf (Modul-DONELOG, sonst Root-`DONELOG.md`).
-- Nach Mutation oder Skriptlauf genau ein Postflight-Receipt mit 5 Zeilen als letzter Block der Antwort.
-- Keine hostgebundenen absoluten Pfade in aktiven SSOT-/Policy-/README-Dokumenten.
-- Strukturänderungen an Instruction-Files erzwingen Update von `.github/copilot-instructions-headings.md`.
+- Dieser Block ist nur Schnellorientierung; bindend fuer Runtime-Entscheidungen sind die `Regel-ID-Landepunkte (Kern)` plus passende scoped Instruction-Files.
+- Snapshot-/Freshness-Pfad: siehe `R-SNAP`.
+- STOP-/Freigabelogik: siehe `R-STOP`.
+- Wrapper-Policy: siehe `R-WRAP`.
+- Markdown-/Frontmatter-Gates: siehe `R-LINT` und `R-FM`.
+- DONELOG- und Receipt-Pflicht: siehe `R-DONELOG` und `R-LOG`.
+- Portabilitaet aktiver Dokus: siehe `R-PATH`.
+- Headings-Index-Nachzug: siehe `R-IDX`.
 
 Dateipfad & Geltungsbereich
 ---------------------------
@@ -49,6 +49,12 @@ Dateipfad & Geltungsbereich
 
 Globale Kernregeln
 ------------------
+### Normative Schichtung (Kern)
+- Bindend fuer Runtime-Entscheidungen sind in dieser Datei nur die `Regel-ID-Landepunkte (Kern)`.
+- Der `Regel-ID-Index (Kern)` ist reine Navigation.
+- Die `Regelmatrix (Kern)` ist eine abgeleitete Kurzreferenz fuer Scanbarkeit und darf keine zusaetzlichen Normen gegenueber den Landepunkten einfuehren.
+- Bei Abweichungen oder Pflegekonflikten gewinnen die `Regel-ID-Landepunkte (Kern)`; danach folgen scoped Instruction-Files gemaess `applyTo`.
+
 ### Regel-ID-Index (Kern)
 
 | ID | Kurzname | Abschnittsueberschrift |
@@ -121,6 +127,7 @@ Globale Kernregeln
 - Für alle betroffenen Markdown-Dateien muss `stand` auf den frischen Lock-Zeitwert (oder innerhalb des zulässigen Fensters) synchronisiert sein.
 - Praktisch bindend ist dabei das aktuelle Gate-Verhalten: `stand` muss innerhalb von `±5 min` zur aktuellen Zeit liegen; der Lock selbst muss ebenfalls frisch sein und `stand` im Commit-Pfad eng folgen (derzeit `<= 2 min` Abstand im Gate).
 - Reihenfolge verpflichtend: Snapshot-Lock -> `stand`-Sync -> markdownlint (betroffene Dateien) -> Frontmatter-Validator (betroffene Dateien) -> Commit/Push.
+- Operativer Hook-Pfad: Im Pre-Commit-Hook laeuft die Snapshot-Pruefung erst nach markdownlint, Frontmatter-Validator und eventuellen RP-Hard-Gates, damit spaete Abbrueche oder Auto-Fixes keinen unnoetigen Freshness-Verbrauch ausloesen.
 - Wenn ein Hook- oder Lint-Fix den Commit abbricht oder gestagte Markdown-Dateien veraendert, beginnt die Reihenfolge erneut bei Snapshot-Lock -> `stand`-Sync; ein Retry ohne frischen Lock gilt nicht als sauberer Standardpfad.
 - Wenn Snapshot-Gate blockiert, kein Bypass als Standardpfad; zuerst Lock/`stand` korrekt nachziehen.
 
@@ -159,6 +166,8 @@ Regelmatrix (Kern)
 - `id, priority, scope, trigger, action, validation, exceptions, notes`
 
 ### Matrix
+Ableitungsstatus: Diese Matrix fasst die bindenden `Regel-ID-Landepunkte (Kern)` kompakt zusammen und ersetzt keine Normtexte.
+
 - `id: R-STOP, priority: 1, scope: repo, trigger: hard_or_soft_conflict, action: stop_and_request_confirmation, validation: no_mutation_before_confirm, exceptions: none, notes: hard_has_precedence`
 - `id: R-WRAP, priority: 1, scope: repo, trigger: multistep_or_artifacts, action: use_python_wrapper, validation: wrapper_policy=erfüllt, exceptions: markdownlint_npx_yes, notes: inline_pwsh_only_oneliner`
 - `id: R-CTX, priority: 1, scope: repo, trigger: before_action, action: load_minimum_context_sources, validation: sources_listed_in_receipt, exceptions: trivial_readonly_smalltalk, notes: include_affected_files`
@@ -168,7 +177,7 @@ Regelmatrix (Kern)
 - `id: R-PATH, priority: 1, scope: docs, trigger: markdown_change_in_active_docs, action: enforce_portable_paths, validation: no_host_bound_absolute_paths_in_active_docs, exceptions: audit_forensics_artifacts_allowed, notes: prefer_repo_relative_or_workspaceFolder`
 - `id: R-LINT, priority: 1, scope: docs, trigger: markdown_change, action: run_markdownlint_cli2, validation: exitcode_0, exceptions: none, notes: use_npx_yes_only`
 - `id: R-FM, priority: 1, scope: docs, trigger: markdown_change, action: run_frontmatter_validator, validation: required_keys_present, exceptions: GOV_EX_FM_001, notes: stand_update_checks_required`
-- `id: R-SNAP, priority: 1, scope: docs_and_commits, trigger: markdown_or_commit_intent, action: refresh_snapshot_lock_and_sync_stand, validation: snapshot_gate_pass, exceptions: explicit_stop_approved_override, notes: sequence_lock_sync_lint_fm_commit`
+- `id: R-SNAP, priority: 1, scope: docs_and_commits, trigger: markdown_or_commit_intent, action: refresh_snapshot_lock_and_sync_stand, validation: snapshot_gate_pass, exceptions: explicit_stop_approved_override, notes: commit_hook_runs_snapshot_after_doc_and_rp_gates`
 - `id: R-NAME, priority: 1, scope: governance_docs, trigger: rule_or_instruction_change, action: enforce_naming_conventions, validation: ids_and_instruction_filenames_are_canonical, exceptions: none, notes: r_id_and_instruction_suffix_policy`
 - `id: R-WS, priority: 1, scope: markdown_docs, trigger: markdown_change, action: enforce_whitespace_canonization, validation: utf8_no_bom_unix_eol_single_trailing_newline_no_trailing_spaces, exceptions: none, notes: syntax_only_rule`
 - `id: R-FMT, priority: 1, scope: markdown_docs, trigger: markdown_change, action: enforce_markdown_format_norm, validation: heading_hierarchy_and_frontmatter_delimiters_stable, exceptions: GOV_EX_FM_001, notes: syntax_only_no_content_policy`

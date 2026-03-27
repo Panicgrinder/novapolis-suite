@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 14:22
-update: Dev-Governance fuer Snapshot-Retrys und Python-Task-Ausfuehrung final fuer den Commitlauf synchronisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 14:22)
+stand: 2026-03-27 15:47
+update: Letzter Governance-Folgepunkt umgesetzt: Snapshot-/Pre-Commit-Retry-Pfad ist jetzt operativ gehaertet.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 15:47)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,41 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Governance: Snapshot-/Pre-Commit-Retry-Pfad operativ gehaertet (2026-03-27 15:05)
+---------------------------------------------------------------------------------------
+
+- `scripts/pre_commit.py` fuehrt das Snapshot-Gate jetzt erst nach markdownlint, Frontmatter-Validator und optionalen RP-Hard-Gates aus. Damit verbrauchen spaete Hook-Abbrueche oder automatische Markdown-Fixes die Snapshot-Freshness nicht mehr vorzeitig.
+- Die dokumentierte Regel `R-SNAP` spiegelt die operative Hook-Reihenfolge jetzt explizit; Governance-Text und Hook-Iststand liegen damit wieder auf derselben technischen Achse.
+- Mit diesem Schritt ist der letzte offene Governance-Folgepunkt aus `todo.dev.md` geschlossen. Das Dev-Board steht damit wieder bei `offen: 0`.
+
+Dev/Governance: Python-Workspace-Tasks auf `process` vereinheitlicht (2026-03-27 14:51)
+--------------------------------------------------------------------------------------
+
+- In `.vscode/tasks.json` laufen die verbliebenen Python-basierten Tasks jetzt durchgaengig als `process` statt als `shell`; damit faellt der lokale `pwsh /d /c`-Fehlpfad auch fuer Eval-, Daten-, Trainings- und Utility-Tasks weg.
+- Bewusst unveraendert blieben nur echte Shell-Aufrufe ueber `pwsh`, etwa fuer `tree`-Erzeugung oder HTTP-basierte TTS-Hilfstasks. Die Ausnahme ist damit technisch begruendet statt historisch gewachsen.
+- Der dritte offene Governance-Punkt aus `todo.dev.md` ist damit geschlossen; als letzter offener Dev-Punkt bleibt der operative Snapshot-/Pre-Commit-Retry-Pfad.
+
+Dev/Governance: Kern-Governance auf eine eindeutige Normschicht reduziert (2026-03-27 14:51)
+---------------------------------------------------------------------------------------------
+
+- Die Kerndatei `.github/copilot-instructions.md` benennt jetzt die `Regel-ID-Landepunkte (Kern)` explizit als einzige bindende Ebene fuer Runtime-Entscheidungen; der `Regel-ID-Index (Kern)` bleibt Navigation und die `Regelmatrix (Kern)` ist nur noch Kurzreferenz.
+- Der bisherige TL;DR-Block wurde von parallel gepflegten Regeltexten auf knappe Verweise pro Regel-ID umgestellt. Damit sinkt die Driftflaeche, ohne dass operative Orientierung verloren geht.
+- Der Headings-Index spiegelt die neue Normschichtung mit; damit ist der zweite offene Governance-Punkt aus `todo.dev.md` geschlossen und als naechster Dev-Punkt bleibt die systematische Task-Umstellung von `shell` auf `process` offen.
+
+Dev/Governance: Quellenstand von Kern-SSOT und Headings-Index wieder zusammengezogen (2026-03-27 14:41)
+-------------------------------------------------------------------------------------------------------
+
+- `.github/copilot-instructions.md` und `.github/copilot-instructions-headings.md` verweisen jetzt wieder auf denselben aktuellen Governance-Zeitanker; der Drift lag nur noch in Kopf-/Quellenmetadaten, nicht in der eigentlichen Abschnittsstruktur.
+- Die Abschnittsliste des Headings-Index blieb inhaltlich tragfaehig; nachgezogen wurden daher bewusst nur Quellenstand, Update-/Check-Hinweise und der zugehoerige Dev-Board-/Index-Sync.
+- Damit ist der erste offene Governance-Punkt aus `todo.dev.md` geschlossen; der naechste offene Dev-Punkt bleibt die Redundanzreduktion in der Kern-Governance.
+
+Dev/Governance: Review auf Aktualitaet, Redundanz und Verbesserungspotential in Board-Folgearbeit ueberfuehrt (2026-03-27 14:32)
+------------------------------------------------------------------------------------------------------------------------
+
+- Der Review bestaetigt keinen akuten Governance-Bruch mehr, aber vier klare Folgeachsen: Die Kern-SSOT und ihr Headings-Index sind metadatenmaessig hinter dem echten Regelstand, zentrale Regeln liegen redundant auf mehreren Ebenen, ein Teil der Python-Workspace-Tasks laeuft weiter als `shell`, und der Snapshot-Retry-Pfad ist zwar jetzt sauber dokumentiert, operativ aber noch nicht robust genug.
+- Diese Befunde sind jetzt als konkrete Dev-Punkte im offiziellen Board verankert: Quellenstand/Headings-Index angleichen, Kern-Governance auf eine normative Hauptebene reduzieren, verbleibende Python-Tasks auf `process` pruefen und den Snapshot-/Pre-Commit-Retry-Pfad technisch haerten.
+- Der Index wurde im selben Lauf auf den neuen Dev-Open-Count und den aeltesten offenen Governance-Punkt synchronisiert.
 
 Dev/Governance: Finaler Snapshot-Sync fuer den Commitlauf gezogen (2026-03-27 14:22)
 ------------------------------------------------------------------------------------

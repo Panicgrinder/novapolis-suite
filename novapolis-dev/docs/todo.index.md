@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 14:22
-update: Dev-Governance fuer Snapshot-Retrys und Python-Tasks final fuer den Commitlauf synchronisiert; Board-Metadaten bleiben frisch aus den Boards nachgezogen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' '.github/instructions/docs-markdown.instructions.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 14:22); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 14:22)
+stand: 2026-03-27 15:47
+update: Letzter Governance-Folgepunkt geschlossen: Snapshot-/Pre-Commit-Retry-Pfad ist jetzt operativ gehaertet; Index-Metadaten nachgezogen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 15:47)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -47,6 +47,11 @@ Statushinweise (aktuell)
 - RP v5.1: Pilotpaket fuer D5/C6/Novapolis-Backfill vorbereitet; RP offen bleibt `5`, aber der Start-Scope ist jetzt konkret dokumentiert.
 - Dev v5.9: KPI-Trendansicht fuer die Hygiene-Cadence angelegt; Dev offen `1 -> 0`.
 - Dev v5.10: Snapshot-/Retry-Governance gegen den realen Hook-Iststand geschaerft und die betroffenen Python-Tasks von `shell` auf `process` umgestellt; der lokale `pwsh /d /c`-Fehlpfad ist fuer Coverage-, TODO-Index- und Logs-Checks entfernt.
+- Dev v5.11: Governance erneut gegen Aktualitaet, Redundanz und operatives Verhalten geprueft. Neu im Board stehen jetzt: Headings-/Quellenstand der Kern-SSOT nachziehen, Regelduplikate in der Kern-Governance reduzieren, verbleibende Python-Tasks auf `process` pruefen und den Snapshot-Retry-Pfad operativ haerten.
+- Dev v5.12: Kern-SSOT `.github/copilot-instructions.md` und `.github/copilot-instructions-headings.md` wieder auf denselben aktuellen Quellenstand gezogen; der erste Governance-Folgepunkt ist damit geschlossen (`offen: 4 -> 3`).
+- Dev v5.13: Kern-Governance normativ gestrafft. TL;DR verweist nur noch auf Regel-IDs, die `Regel-ID-Landepunkte (Kern)` sind explizit als bindende Ebene markiert, und die Matrix ist jetzt nur noch Kurzreferenz (`offen: 3 -> 2`).
+- Dev v5.14: Verbleibende Python-Workspace-Tasks in `.vscode/tasks.json` von `shell` auf `process` vereinheitlicht; bewusste Shell-Ausnahmen bleiben nur fuer `pwsh`-Aufrufe (`offen: 2 -> 1`).
+- Dev v5.15: Snapshot-/Pre-Commit-Retry-Pfad operativ gehaertet. Das Snapshot-Gate laeuft in `scripts/pre_commit.py` jetzt erst nach markdownlint, Frontmatter und RP-Hard-Gates; der Dev-Governance-Block ist damit komplett geschlossen (`offen: 1 -> 0`).
 - Dev v5.8: O11 geschlossen; externes Standalone-Beta-Installblatt fuer Dritte dokumentiert (`offen: 2 -> 1`).
 - Dev v5.7: Community-/Maintainer-Paket umgesetzt (`SUPPORT.md`, `RELEASE.md`, `MAINTAINERS.md`, Root-Issue-/PR-Templates); Dev offen `3 -> 2`.
 - Dev v5.6: ADR-Ordner aktiv genutzt; `ADR-0001` und `ADR-0002` als akzeptierte Governance-Entscheidungen aufgenommen (`offen: 4 -> 3`).

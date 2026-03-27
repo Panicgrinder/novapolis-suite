@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-02 22:24
-update: Quellenklarheit ergaenzt: aktive vs. sekundaere Instruction-Quellen in Kern-SSOT verankert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' '.github/agents/novapolis-workspace-navigator.agent.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (2026-02-27 10:57); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/agents/novapolis-workspace-navigator.agent.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-27 10:57)
+stand: 2026-03-27 15:47
+update: Snapshot-Retry-Pfad operativ gehaertet; der Headings-Index spiegelt die aktualisierte Hook-Reihenfolge mit.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/copilot-instructions-headings.md' '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 15:47)
 ---
 
 Hinweis
@@ -16,7 +16,7 @@ Instruction-System:
 Aktuelle Überschriften (Kern + Scoped)
 --------------------------------------
 
-Quelle: Stand `2026-02-27 10:57` der Kern-Datei und der zugehörigen
+Quelle: Stand `2026-03-27 15:47` der Kern-Datei und der zugehörigen
 scoped Instruction-Files.
 
 1) Kern-SSOT
@@ -37,6 +37,7 @@ Neue/geschärfte Kernabschnitte:
 
 - Aktive vs. sekundäre Quellen
 - Regel-ID-Index (Kern)
+- Normative Schichtung (Kern)
 - Regel-ID-Landepunkte (Kern)
 - Namensgebungskonvention
 - Kanonisierung & Formatnorm (syntaktisch)
