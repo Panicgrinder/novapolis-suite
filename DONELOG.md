@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 15:47
-update: Letzter Governance-Folgepunkt umgesetzt: Snapshot-/Pre-Commit-Retry-Pfad ist jetzt operativ gehaertet.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 15:47)
+stand: 2026-03-28 06:51
+update: Root-Summary um den finalen post-check Cleanup des erneut entstandenen Root-eval-Stubs erweitert.
+checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,36 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-03-28 06:32: Der Root-Cleanup ist final nachgezogen. `novapolis_agent/app/core/settings.py`, `novapolis_agent/app/api/chat.py`, `novapolis_agent/scripts/open_context_notes.py` und die betroffenen Eval-Helfer nutzen jetzt durchgaengig `novapolis_agent/eval/...`; der urspruengliche Root-Ordner `eval/` liegt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval`, ein nach den Abschluss-Checks erneut entstandener lokaler Stub `eval/config/context.local.md` wurde zusaetzlich unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0632-root-eval-rest-postchecks/eval` abgelegt, und `workspace_tree.txt`, `workspace_tree_dirs.txt` sowie `workspace_tree_full.txt` wurden danach erneut neu erzeugt.
+
+- 2026-03-28 03:30: Der verbliebene lokale Root-Maschinenstand ist bereinigt. `extensions.installed.txt`, `extensions.status.txt` und `desktop.ini` liegen jetzt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0330-local-snapshots/`; die Root-Tree-Artefakte wurden direkt per Terminal regeneriert, weil die vorhandenen `Workspace tree:*`-Shell-Tasks lokal weiter am bekannten `pwsh /d /c`-Fehlpfad scheitern.
+
+- 2026-03-28 03:12: Der sichere Root-Cleanup ist jetzt nachgezogen und dokumentiert. `combined.json`, `lint.out`, `md003_scan.out`, `.tmp-datasets/` und `reports/` liegen gesammelt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0238/`; aktive Root-Shims und der noch referenzierte Hinweis `eval/config/context.local.md` blieben bewusst unveraendert.
+
+- 2026-03-28 02:02: Der Postflight-Receipt nutzt fuer `Todos.offen` jetzt den offenen Modulstand aus `novapolis-dev/docs/todo.index.md` statt offener Agent-Laufschritte. `todo.root.md` bleibt dabei bewusst ausserhalb dieser Zahl, weil der aktive Index den Root-Backlog nicht in die Modul-Open-Counts einrechnet.
+
+- 2026-03-28 01:39: Der dokumentierte Stil- und Konsistenzlauf ist geschlossen. `todo.root.md` und `novapolis-dev/docs/todo.dev.md` markieren ihn jetzt als erledigt, `novapolis-dev/docs/todo.index.md` fuehrt Dev wieder mit `offen: 0`, und im aktiven Scope blieb beim Restscan nur ignorierte Drittanbieter-Doku unter `node_modules` ausserhalb des Arbeitsbereichs uebrig.
+
+- 2026-03-28 01:31: Der Doku-Konsistenzlauf hat die zweite Schicht aktiver Dev-Doku nachgezogen. Architektur-, Test-, Provenance-, Prozess- und Log-SSOTs fuehren jetzt keinen alten FAIL-Kontext mehr; dazu laufen `novapolis_agent/scripts/README.md` und `novapolis-rp/database-rp/06-scenes/README.md` auf denselben Root-Wrapper- und PowerShell-Stil.
+
+- 2026-03-28 01:27: Der erste Hochfrequenz-Block des Doku-Konsistenzlaufs ist geschlossen. Das Root-README fuehrt bei der Wrapper-Policy jetzt denselben Root-Interpreter-Stil wie Status- und Modultexte; damit bleibt im aktiven Einstiegsset keine harte Wrapper- oder Portabilitaetsdrift mehr offen.
+
+- 2026-03-28 01:23: Der laufende Doku-Konsistenzlauf hat den ersten Hochfrequenz-Satz bereinigt. `WORKSPACE_STATUS.md` nutzt portable Reportpfade und Root-Wrapper, `WORKSPACE_INDEX.md` fuehrt den aktiven Phase-2-Sweep statt alter Redirect-Notizen, und Dev-/Agent-/Sim-README ziehen verbleibende Pfad- und Shell-Drift nach.
+
+- 2026-03-28 00:43: Der naechste Stil- und Konsistenzlauf fuer aktive Doku ist vor dem Start dokumentiert. `todo.root.md` und `todo.dev.md` fuehren ihn jetzt offen, der Phasenplan liegt in `novapolis-dev/docs/process/doku-konsistenzlauf-aktive-surface-2026-03-28.md`, und `todo.index.md` zieht Dev dafuer auf `offen: 1` nach.
+
+- 2026-03-28 00:36: `todo.index.md` fuehrt `todo.root.md` jetzt explizit in der Uebersicht. Weitere `todo*.md` unter `novapolis-dev/archive/**` und `novapolis-dev/archive/quarantine/**` sind dort zugleich als historische oder quarantänisierte Nebenpfade markiert und nicht als aktive Boards.
+
+- 2026-03-28 00:28: Die aktive Reader-Surface ist nachgezogen. Root-/Dev-/Modul-READMEs und `WORKSPACE_INDEX.md` fuehren jetzt den aktuellen PASS-Kontext ohne alte FAIL-Header, lokale `venv`-Altpfade oder repo-fremde Sibling-Verweise; der Dev-Open-Count steht wieder bei `0`.
+
+- 2026-03-28 00:22: Die aktiven Boards sind nach einem Repo- und Modulreview neu aufgefaechert. Root fuehrt jetzt Reader-Surface, Agent-Exportpfad, RP-Zuteilungsledger und Sim-Bootstrap explizit; `todo.index.md` spiegelt dazu den neuen Open-Stand `Dev 1`, `Agent 1`, `RP 7`, `Sim 2`.
+
+- 2026-03-27 16:19: Die RP-Zuteilungsmatrix ist im Recheck auf alle aktiven Fraktionen ausdifferenziert. Novapolis bleibt darin ausdruecklich getrennt, weil die aktive SSOT nur eine lokale Kernfraktion in frueher Aufbauphase belegt; die externen Fraktionen werden einzeln ueber T0-Warenbild und Inventarrahmen gerahmt.
+
+- 2026-03-27 16:12: Die RP-Vorarbeit fuer die finale Metro-Warenverteilung ist als eigenes Arbeitsblatt verdichtet. Die neue Zuteilungsmatrix trennt harte Setzungen, konservative Schaetzraender und echte Handentscheidungen fuer Metro-Rahmen, Novapolis-Anker und externe Fraktionslagen.
+
+- 2026-03-27 15:52: Review-Nachlauf geschlossen. Das Snapshot-Gate laeuft jetzt ohne `stand:`-Diff-Bypass fuer alle geaenderten Markdown-Dateien mit Frontmatter, der Hook-Kommentar in `scripts/pre_commit.py` ist an den Pflicht-Gate-Status angepasst, und ein gezielter Regressionstest deckt beide Punkte ab.
 
 - 2026-03-27 15:05: Letzter Governance-Folgepunkt geschlossen. Der Pre-Commit-Hook zieht das Snapshot-Gate jetzt erst nach markdownlint, Frontmatter und optionalen RP-Hard-Gates; vermeidbarer Freshness-Churn durch spaete Hook-Abbrueche oder Auto-Fixes ist damit operativ reduziert.
 

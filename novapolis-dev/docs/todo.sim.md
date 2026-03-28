@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 09:54
-update: Die bekannten Sim-Asset-Warnungen sind jetzt als eigener Folgepunkt im aktiven Board verankert; Sim fuehrt wieder genau einen aktiven Hygiene-Punkt.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
+stand: 2026-03-28 06:51
+update: Modulreview trennt den Sim-Restpunkt jetzt in Warnungsentscheidung und Clean-Checkout-Bootstrap fuer Asset-Checks.
+checks: markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS (2026-03-28 00:22)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -31,6 +31,10 @@ Offene Aufgaben (Sim)
 - [ ] [Als naechstes] Sim-Asset-Warnungen aus `scripts/check_sim_epoch_assets.py` aufloesen oder bewusst kanonisch ausnehmen.
   - Akzeptanzkriterium: Der Check liefert entweder `warn:0` oder die verbleibenden Warnungen sind als absichtliche Ausnahme im Sim-Runbook/Board mit Ursache, Scope und Wiedervorlage dokumentiert.
   - Evidenz: Wochenabschluss 2026-03-27 meldet weiter `summary=fail:0,warn:2`; der aktive Kontext nennt fehlende Epoch-Ordner und Audio-Assets als bekannte Restwarnungen.
+
+- [ ] [Als naechstes] Minimalen Offline-Bootstrap fuer Epoch- und Audio-Assets definieren, damit der Asset-Check auf Clean-Checkout nicht zwischen Pflicht- und Optionaldaten verschwimmt.
+  - Akzeptanzkriterium: Es gibt entweder ein kleines kanonisches Fixture-Set fuer `warn:0` oder eine explizite Profiltrennung `Clean-Checkout` vs. `Vollstand` mit unterschiedlicher Check-Erwartung und dokumentiertem Bootstrap-Pfad.
+  - Evidenz: `novapolis-sim/README.md` sagt weiter, dass keine weiteren Assets oder Artefakte benoetigt werden, waehrend `WORKSPACE_STATUS.md` und dieses Board im Wochenabschluss weiter `summary=fail:0,warn:2` wegen fehlender Epoch-Ordner und Audio-Assets fuehren.
 
 - [x] [Spaeter] Platzhalterblock aufgeloest: das Sim-Board nutzt keine pauschale Sammelrubrik mehr; Restarbeit wird nur noch als konkrete Einzelpunkte gefuehrt.
   - [x] Headless-Lade-Check `novapolis-sim/project.godot` durchführen; Kurzprotokoll in `novapolis-dev/docs/donelog.md`.

@@ -132,7 +132,9 @@ def prompt_int(prompt: str, default: int) -> int:
 
 def list_result_files() -> list[str]:
     results_dir: str = getattr(
-        run_eval, "DEFAULT_RESULTS_DIR", getattr(run_eval, "DEFAULT_EVAL_DIR", "eval/results")
+        run_eval,
+        "DEFAULT_RESULTS_DIR",
+        getattr(run_eval, "DEFAULT_EVAL_DIR", os.path.join("novapolis_agent", "eval", "results")),
     )
     files = sorted(glob.glob(os.path.join(results_dir, "results_*.jsonl")), reverse=True)
     return files
@@ -157,7 +159,9 @@ def choose_from_list(options: list[str], title: str) -> str | None:
 
 def ensure_eval_files_exist() -> None:
     eval_dir: str = getattr(
-        run_eval, "DEFAULT_EVAL_DIR", getattr(run_eval, "DEFAULT_DATASET_DIR", "eval/datasets")
+        run_eval,
+        "DEFAULT_EVAL_DIR",
+        getattr(run_eval, "DEFAULT_DATASET_DIR", os.path.join("novapolis_agent", "eval", "datasets")),
     )
     os.makedirs(eval_dir, exist_ok=True)
     pattern: str = run_eval.DEFAULT_FILE_PATTERN
@@ -169,7 +173,9 @@ def ensure_eval_files_exist() -> None:
 
 def profiles_path() -> str:
     cfg_dir: str = getattr(
-        run_eval, "DEFAULT_CONFIG_DIR", getattr(run_eval, "DEFAULT_EVAL_DIR", "eval/config")
+        run_eval,
+        "DEFAULT_CONFIG_DIR",
+        getattr(run_eval, "DEFAULT_EVAL_DIR", os.path.join("novapolis_agent", "eval", "config")),
     )
     return os.path.join(cfg_dir, "profiles.json")
 

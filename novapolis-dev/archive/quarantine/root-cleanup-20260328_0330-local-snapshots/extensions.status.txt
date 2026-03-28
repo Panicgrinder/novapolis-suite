@@ -1,0 +1,81 @@
+
+Version:          Code 1.105.1 (7d842fb85a0275a4a8e4d7e040d2625abbf7f084, 2025-10-14T22:33:36.618Z)
+OS Version:       Windows_NT x64 10.0.26200
+CPUs:             AMD Ryzen 5 3600X 6-Core Processor              (12 x 3800)
+Memory (System):  31.93GB (18.88GB free)
+VM:               0%
+Screen Reader:    no
+Process Argv:     --crash-reporter-id 232e3cc7-108f-428f-bfa3-c3bea896aa7d
+GPU Status:       2d_canvas:                              enabled
+                  direct_rendering_display_compositor:    disabled_off_ok
+                  gpu_compositing:                        enabled
+                  multiple_raster_threads:                enabled_on
+                  opengl:                                 enabled_on
+                  rasterization:                          enabled
+                  raw_draw:                               disabled_off_ok
+                  skia_graphite:                          disabled_off
+                  trees_in_viz:                           disabled_off
+                  video_decode:                           enabled
+                  video_encode:                           enabled
+                  vulkan:                                 disabled_off
+                  webgl:                                  enabled
+                  webgl2:                                 enabled
+                  webgpu:                                 enabled
+                  webnn:                                  disabled_off
+
+CPU %	Mem MB	   PID	Process
+    0	   161	 22748	code
+    0	   120	  2068	file-watcher [1]
+    0	    52	  2348	   utility-network-service
+    0	   140	 12020	pty-host
+    0	     8	  3220	     conpty-agent
+    0	     8	  9168	     conpty-agent
+    0	   106	  9376	     "C:\Program Files\PowerShell\7\pwsh.exe" -noexit -command "try { . \"c:\Users\FloAu\AppData\Local\Programs\Microsoft VS Code\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1\" } catch {}"
+    0	   114	 10012	     "C:\Program Files\PowerShell\7\pwsh.exe" -noexit -command "try { . \"c:\Users\FloAu\AppData\Local\Programs\Microsoft VS Code\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1\" } catch {}"
+    0	     8	 11524	     conpty-agent
+    0	   106	 12348	     "C:\Program Files\PowerShell\7\pwsh.exe" -noexit -command "try { . \"c:\Users\FloAu\AppData\Local\Programs\Microsoft VS Code\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1\" } catch {}"
+    0	    81	 26512	       "C:\Program Files\PowerShell\7\pwsh.exe" -NoProfile -Command "Set-Location -Path 'f:\VS-Code-Workspace\Main'; code --status | Out-File -Encoding utf8 'extensions.status.txt'"
+    0	     7	 19980	         C:\WINDOWS\system32\cmd.exe /c ""C:\Users\FloAu\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd" --status"
+    0	   119	 24648	           electron-nodejs (cli.js )
+    1	   148	 21404	             "C:\Users\FloAu\AppData\Local\Programs\Microsoft VS Code\Code.exe" --status
+    1	   110	 23104	               gpu-process
+    0	    97	 23284	               crashpad-handler
+    0	   103	 24488	               utility-network-service
+    0	     8	 20096	     conpty-agent
+    0	    95	 23700	     "C:\Program Files\PowerShell\7\pwsh.exe" -NoProfile -ExecutionPolicy Bypass -Command "Import-Module 'c:\Users\FloAu\.vscode\extensions\ms-vscode.powershell-2025.4.0\modules\PowerShellEditorServices\PowerShellEditorServices.psd1'; Start-EditorServices -HostName 'Visual Studio Code Host' -HostProfileId 'Microsoft.VSCode' -HostVersion '2025.4.0' -BundledModulesPath 'c:\Users\FloAu\.vscode\extensions\ms-vscode.powershell-2025.4.0\modules' -EnableConsoleRepl -StartupBanner \"PowerShell Extension v2025.4.0
+Copyright (c) Microsoft Corporation.
+
+https://aka.ms/vscode-powershell
+Type 'help' to get help.
+\" -LogLevel 'Warning' -LogPath 'c:\Users\FloAu\AppData\Roaming\Code\logs\20251103T044456\window1\exthost\ms-vscode.powershell' -SessionDetailsPath 'c:\Users\FloAu\AppData\Roaming\Code\User\globalStorage\ms-vscode.powershell\sessions\PSES-VSCode-22748-226010.json' -FeatureFlags @() "
+    1	   608	 15212	window [1] (Settings - novapolis-suite (Workspace) - Visual Studio Code)
+    0	   801	 20308	extension-host [1]
+    0	    20	  2608	     "C:\Program Files\Docker\Docker\resources\bin\docker.exe" context ls --format "{{json .}}"
+    0	     7	  3480	       C:\WINDOWS\system32\conhost.exe 0x4
+    0	   142	  9156	     "C:\Users\FloAu\AppData\Local\Programs\Microsoft VS Code\Code.exe" "c:\Users\FloAu\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions\json-language-features\server\dist\node\jsonServerMain" --node-ipc --clientProcessId=20308
+    0	   110	 12372	     "C:\Users\FloAu\AppData\Local\Programs\Microsoft VS Code\Code.exe" "c:\Users\FloAu\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions\markdown-language-features\dist\serverWorkerMain" --node-ipc --clientProcessId=20308
+    0	   209	 12636	     c:\Users\FloAu\.vscode\extensions\ms-dotnettools.csharp-2.93.22-win32-x64\.roslyn\Microsoft.CodeAnalysis.LanguageServer.exe --logLevel Information --razorSourceGenerator c:\Users\FloAu\.vscode\extensions\ms-dotnettools.csharp-2.93.22-win32-x64\.razorExtension\Microsoft.CodeAnalysis.Razor.Compiler.dll --razorDesignTimePath c:\Users\FloAu\.vscode\extensions\ms-dotnettools.csharp-2.93.22-win32-x64\.razorExtension\Targets\Microsoft.NET.Sdk.Razor.DesignTime.targets --devKitDependencyPath c:\Users\FloAu\.vscode\extensions\ms-dotnettools.csharp-2.93.22-win32-x64\.roslynDevKit\Microsoft.VisualStudio.LanguageServices.DevKit.dll --sessionId 8fa5b430-5e4d-47df-beec-194503b494531762141497183 --extension c:\Users\FloAu\.vscode\extensions\ms-dotnettools.csharp-2.93.22-win32-x64\.razorExtension\Microsoft.VisualStudioCode.RazorExtension.dll --extension c:\Users\FloAu\.vscode\extensions\ms-dotnettools.csharp-2.93.22-win32-x64\.xamlTools\Microsoft.VisualStudio.DesignTools.CodeAnalysis.dll --extension c:\Users\FloAu\.vscode\extensions\ms-dotnettools.csharp-2.93.22-win32-x64\.xamlTools\Microsoft.VisualStudio.DesignTools.CodeAnalysis.Diagnostics.dll --extension c:\Users\FloAu\.vscode\extensions\ms-dotnettools.csharp-2.93.22-win32-x64\.roslynCopilot\Microsoft.VisualStudio.Copilot.Roslyn.LanguageServer.dll --telemetryLevel all --extensionLogDirectory c:\Users\FloAu\AppData\Roaming\Code\logs\20251103T044456\window1\exthost\ms-dotnettools.csharp
+    0	   314	 17652	     electron-nodejs (bundle.js )
+    0	     9	 20756	     c:\Users\FloAu\.vscode\extensions\ms-python.python-2025.16.0-win32-x64\python-env-tools\bin\pet.exe server
+    0	     7	  7860	       C:\WINDOWS\system32\conhost.exe 0x4
+    0	     4	 23080	     electron-nodejs (config.js )
+    0	     7	  2192	       C:\WINDOWS\system32\conhost.exe 0x4
+    0	   119	 19632	       electron-nodejs (config.js )
+    0	    79	 14672	         "c:\Users\FloAu\.vscode\extensions\ms-dotnettools.csdevkit-1.70.3-win32-x64\components\vs-green-server\platforms\win32-x64\node_modules\@microsoft\visualstudio-controller.win32-x64/Microsoft.VisualStudio.Code.ServiceController" c88b436dcd1614f7f02f5079193a59a91ee92bcc39935f9ceb3dbda3f7bf3e5b /ControllerCooldownTimeout:30000 "/TelemetrySession:{\"TelemetryLevel\":\"all\",\"IsOptedIn\":false,\"HostName\":\"Default\",\"AppInsightsInstrumentationKey\":null,\"AsimovInstrumentationKey\":null,\"CollectorApiKey\":\"0c6ae279ed8443289764825290e4f9e2-1a736e7c-1324-4338-be46-fc2a58ae4d14-7255\",\"AppId\":1010,\"UserId\":\"8ba1cca6-9ffb-4bc8-85cf-d4d1cfe8fe8a\",\"Id\":\"8fa5b430-5e4d-47df-beec-194503b494531762141497183\",\"ProcessStartTime\":134066151080501431,\"SkuName\":null,\"VSExeVersion\":null,\"BucketFiltersToEnableWatsonForFaults\":[],\"BucketFiltersToAddDumpsToFaults\":[]}"
+    0	    96	  2204	           "c:\Users\FloAu\.vscode\extensions\ms-dotnettools.csdevkit-1.70.3-win32-x64\components\vs-green-server\platforms\win32-x64\node_modules\@microsoft\visualstudio-code-servicehost.win32-x64\Microsoft.VisualStudio.Code.ServiceHost.exe" dotnet.projectSystem$C94B8CFE-E3FD-4BAF-A941-2866DBB566FE net.pipe://14672657815941537C709BBDE6CDB451E5E13 "/TelemetrySession:{\"TelemetryLevel\":\"all\",\"IsOptedIn\":false,\"HostName\":\"Default\",\"AppInsightsInstrumentationKey\":null,\"AsimovInstrumentationKey\":null,\"CollectorApiKey\":\"0c6ae279ed8443289764825290e4f9e2-1a736e7c-1324-4338-be46-fc2a58ae4d14-7255\",\"AppId\":1010,\"UserId\":\"8ba1cca6-9ffb-4bc8-85cf-d4d1cfe8fe8a\",\"Id\":\"8fa5b430-5e4d-47df-beec-194503b494531762141497183\",\"ProcessStartTime\":134066151080501431,\"SkuName\":null,\"VSExeVersion\":null,\"BucketFiltersToEnableWatsonForFaults\":[],\"BucketFiltersToAddDumpsToFaults\":[]}"
+    0	     7	  1640	             C:\WINDOWS\system32\conhost.exe 0x4
+    0	     7	 15120	           C:\WINDOWS\system32\conhost.exe 0x4
+    0	   105	 25260	           "c:\Users\FloAu\.vscode\extensions\ms-dotnettools.csdevkit-1.70.3-win32-x64\components\vs-green-server\platforms\win32-x64\node_modules\@microsoft\visualstudio-code-servicehost.win32-x64/Microsoft.VisualStudio.Code.ServiceHost.exe" dotnet$C94B8CFE-E3FD-4BAF-A941-2866DBB566FE net.pipe://14672657815941537C709BBDE6CDB451E5E13 "/TelemetrySession:{\"TelemetryLevel\":\"all\",\"IsOptedIn\":false,\"HostName\":\"Default\",\"AppInsightsInstrumentationKey\":null,\"AsimovInstrumentationKey\":null,\"CollectorApiKey\":\"0c6ae279ed8443289764825290e4f9e2-1a736e7c-1324-4338-be46-fc2a58ae4d14-7255\",\"AppId\":1010,\"UserId\":\"8ba1cca6-9ffb-4bc8-85cf-d4d1cfe8fe8a\",\"Id\":\"8fa5b430-5e4d-47df-beec-194503b494531762141497183\",\"ProcessStartTime\":134066151080501431,\"SkuName\":null,\"VSExeVersion\":null,\"BucketFiltersToEnableWatsonForFaults\":[],\"BucketFiltersToAddDumpsToFaults\":[]}"
+    0	     7	 26060	             C:\WINDOWS\system32\conhost.exe 0x4
+    0	   123	 25444	     electron-nodejs (server-node.js )
+    0	   168	 22316	   gpu-process
+    0	    33	 22852	   crashpad-handler
+    0	   171	 26372	shared-process
+
+Workspace Stats: 
+|  Window (Settings - novapolis-suite (Workspace) - Visual Studio Code)
+|    Folder (Main): more than 22552 files
+|      File types: json(12651) pyc(2672) py(1498) pyi(692) pyd(291) txt(72)
+|                  typed(31) h(28) md(16) cpp(15)
+|      Conf files: github-actions(4) copilot-instructions.md(1)
+|      Launch Configs: debugpy(3)

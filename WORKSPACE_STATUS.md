@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 09:54
-update: Wochenabschlusslauf vom 2026-03-27 auf den finalen PASS-Stand synchronisiert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
+stand: 2026-03-28 06:51
+update: Workspace-Status um die post-check Bereinigung des erneut entstandenen Root-eval-Stubs und den finalen Root-Surface erweitert.
+checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
 ---
 
 Workspace-Status
@@ -9,6 +9,12 @@ Workspace-Status
 
 Aktuelles Wochenfenster
 -----------------------
+
+- 2026-03-28 06:32: Der letzte aktive Root-eval-Rest ist final geschlossen. Lokale Kontext-Notizen, Eval-Standardpfade und RAG-Fallbacks laufen jetzt ueber `novapolis_agent/eval/...`; der fruehere Root-Ordner `eval/` wurde nach `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval` ueberfuehrt, ein nach den Abschluss-Checks erneut entstandener lokaler Stub `eval/config/context.local.md` zusaetzlich nach `novapolis-dev/archive/quarantine/root-cleanup-20260328_0632-root-eval-rest-postchecks/eval`, und die drei Root-Tree-Artefakte wurden danach erneut neu erzeugt.
+
+- 2026-03-28 03:30: Lokale Editor-/Host-Snapshots aus dem Root entfernt und nach `novapolis-dev/archive/quarantine/root-cleanup-20260328_0330-local-snapshots/` ueberfuehrt. Betroffen waren nur `extensions.installed.txt`, `extensions.status.txt` und `desktop.ini`; die Tree-Artefakte wurden anschliessend direkt per Terminal neu erzeugt, weil die vorhandenen Shell-Tasks `Workspace tree:*` lokal weiter mit dem bekannten `pwsh /d /c`-Fehlpfad (Exit `64`) abbrechen.
+
+- 2026-03-28 03:12: Sichere Root-Altartefakte aus dem aktiven Surface entfernt und nach `novapolis-dev/archive/quarantine/root-cleanup-20260328_0238/` ueberfuehrt. Betroffen waren nur `combined.json`, `lint.out`, `md003_scan.out`, `.tmp-datasets/` und `reports/`; die aktiven Root-Shims `app/__init__.py` und `utils/__init__.py` sowie der noch referenzierte Hinweis `eval/config/context.local.md` blieben absichtlich stehen.
 
 - 2026-03-27 01:16: Wochenabschlusslauf nach `novapolis-dev/docs/process/abschluss-routine.ssot.md` komplett abgeschlossen. Der erste Lauf zeigte nur zwei stale aktive Boards (`novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.sim.md`) im Freshness-Gate; nach dem Refresh liefert `scripts/run_checks_and_report.py` wieder `overall=PASS`, Coverage bleibt bei `93.69%`, und die Governance-Gates (`todo-index-sync`, `doc-freshness`, `logs-policy`) sind gruen. Der Sim-Offline-/Asset-Check bleibt ohne harte Fehler (`summary=fail:0,warn:2`).
 
@@ -18,7 +24,7 @@ Aktuelles Wochenfenster
 
 - 2026-03-04 21:29: Optionalpaket O8/O9/O10/O12 nachgezogen. In `scripts/run_checks_and_report.py` sind neue Pflichtchecks aktiv: `todo-index-sync`, `doc-freshness` und `logs-policy`. Zusaetzlich gilt im Beta-SSOT jetzt ein verbindliches Tagging-Schema (`beta-v<MAJOR>.<MINOR>.<PATCH>-r<YYYYMMDD-HHMM>`). Der aktive Dev-Logpfad wurde policy-konform bereinigt (`novapolis-dev/logs/*.tmp.md` verboten; vorhandener Rohlog nach `novapolis-dev/archive/quarantine/logs/` verschoben).
 
-- 2026-03-04 00:43: Standalone-Beta-Referenzlauf erfolgreich abgeschlossen. `scripts/run_checks_and_report.py` liefert `overall=PASS` mit Report `F:\VS-Code-Workspace\Main\.tmp\results\reports\checks_report_20260304_004318.md`; Sim-Offline-Check (`--allow-empty --check-slot-consistency`) bleibt ohne harte Fehler (`summary=fail:0,warn:2`).
+- 2026-03-04 00:43: Standalone-Beta-Referenzlauf erfolgreich abgeschlossen. `scripts/run_checks_and_report.py` liefert `overall=PASS` mit Report `.tmp/results/reports/checks_report_20260304_004318.md`; Sim-Offline-Check (`--allow-empty --check-slot-consistency`) bleibt ohne harte Fehler (`summary=fail:0,warn:2`).
 
 - 2026-03-04 00:37: Root-Verzeichnis `TTS/` gemaess Root-Backlog entfernt (B1). Der kanonische TTS-Stand bleibt im Agent-Modul (`novapolis_agent/scripts/tts_coqui_export.py`, Runtime-Endpoints unter `novapolis_agent/app/main.py`). Root-README und WORKSPACE-Index wurden auf den Iststand ohne Root-TTS synchronisiert.
 
@@ -41,7 +47,7 @@ Betriebsstatus (aktiv)
 
 - Workspace-Modell: Single-Root (`Main/`).
 - Qualitaetsablauf: Lint -> Typen -> Tests -> Coverage.
-- Bevorzugte Wrapper: `python scripts/run_checks_and_report.py` und `python scripts/run_pytest_coverage.py --fail-under 80`.
+- Bevorzugte Wrapper: `& .\.venv\Scripts\python.exe scripts/run_checks_and_report.py` und `& .\.venv\Scripts\python.exe scripts/run_pytest_coverage.py --fail-under 80`.
 - Governance-SSOT: `.github/copilot-instructions.md`.
 
 Archivhinweise

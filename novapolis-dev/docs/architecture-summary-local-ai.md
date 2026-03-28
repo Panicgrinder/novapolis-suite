@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 17:31
-update: Workspace-Root-Hinweis auf portable Pfadangabe (`Main/`) umgestellt.
-checks: ./.venv/Scripts/python.exe scripts/check_portable_paths.py --repo-root . PASS (2026-02-22 17:10)
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf harmonisiert die Architektur-Notiz auf aktuelle Root-Wrapper und den aktiven Single-Root-Betriebsrahmen.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
 ---
 Architektur-Notiz: Monorepo & Single-Root (lokale AI)
 ====================================================
@@ -31,9 +31,9 @@ Vergleich zu "klassischen" Setups
 Standard-Workflows (Root-basiert)
 ---------------------------------
 
-- Checks/Lint/Typen/Tests: `python scripts/run_checks_and_report.py`
-- Coverage-Gate (R-COV): `python scripts/run_pytest_coverage.py --fail-under 80`
-- Multi-Root-Guard: `python scripts/multi_root_cleanup.py --whatif`
+- Checks/Lint/Typen/Tests: `& .\.venv\Scripts\python.exe scripts/run_checks_and_report.py`
+- Coverage-Gate (R-COV): `& .\.venv\Scripts\python.exe scripts/run_pytest_coverage.py --fail-under 80`
+- Multi-Root-Guard: `& .\.venv\Scripts\python.exe scripts/multi_root_cleanup.py --whatif`
 
 Diese Kommandos sind die bevorzugte Oberfläche für Menschen und für die lokale AI.
 

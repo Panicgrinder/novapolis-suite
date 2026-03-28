@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-05 01:00
-update: Logs-Policy geschaerft: `*.tmp.md` im aktiven Logpfad verboten; Rohlogs in Quarantaene archivieren.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf zieht das Log-README auf den aktuellen PASS-Kontext und die aktive Logs-Policy ohne Alt-Receipt nach.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->

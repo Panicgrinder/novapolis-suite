@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 15:47
-update: Snapshot-/Pre-Commit-Retry-Pfad operativ gehaertet; der letzte offene Governance-Punkt ist geschlossen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 15:47)
+stand: 2026-03-28 06:51
+update: Der dokumentierte Stil- und Konsistenzlauf fuer aktive Surface und erste Modul-Runbooks ist abgeschlossen; das Dev-Board steht wieder bei offen 0.
+checks: markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS (2026-03-28 01:39)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -18,6 +18,31 @@ Hinweis
 
 Offene Aufgaben (Dev)
 ---------------------
+
+- [x] [Als naechstes] Stil- und Konsistenzlauf fuer Hochfrequenz-Dateien und die aktive Doku nach dokumentiertem Phasenplan ausfuehren.
+  - Ziel: Vor einem breiten Sweep soll die aktive Dokumentoberflaeche mit einem festen Stilrahmen und einer festen Reihenfolge vereinheitlicht werden, statt wieder nur punktuell Drift zu reparieren.
+  - Akzeptanzkriterien:
+    1) die Hochfrequenz-Dateien werden als eigener Erst-Scope vor der restlichen Doku behandelt,
+    2) aktive Doku und modulnahe Runbooks verwenden denselben Stilrahmen fuer Frontmatter, Pfade, Kommandos und Statusbegriffe,
+    3) Archive und Quarantaene-Dateien bleiben bewusst ausserhalb des aktiven Sweep-Scope,
+    4) der Abschlusslauf zieht TODO, DONELOG und Index im selben Lauf nach.
+  - Evidenz: Die letzte Reader-Surface-Welle musste bereits sichtbare Inkonsistenzen in `README.md`, `WORKSPACE_INDEX.md`, `novapolis-dev/README.md`, den Modul-READMEs und `docs/todo.index.md` bereinigen; fuer den naechsten Schritt liegt der Arbeitsplan jetzt in `novapolis-dev/docs/process/doku-konsistenzlauf-aktive-surface-2026-03-28.md`.
+  - Abschluss 2026-03-28: Hochfrequenz-Dateien, die zweite Schicht aktiver Dev-Doku sowie die ersten Modul-Runbooks (`novapolis_agent/scripts/README.md`, `novapolis-rp/database-rp/06-scenes/README.md`) fuehren jetzt denselben PASS-/PowerShell-/Root-Wrapper-Stil; beim Restscan blieben nur ignorierte Drittanbieter-READMEs unter `node_modules` ausserhalb des aktiven Scopes uebrig.
+
+- [x] [Jetzt] Aktive Reader-Surface fuer Root/Dev und die vier Hauptmodule auf den aktuellen Single-Root-/PASS-Iststand ziehen.
+  - Ziel: Die aktive Dokuoberflaeche soll nach den Maerz-Governance- und Modulfortschritten keine alten FAIL-Receipts, Alt-Kommandos oder Vor-Single-Root-Pfade mehr als aktuellen Stand fuehren.
+  - Akzeptanzkriterien:
+    1) `novapolis-dev/README.md`, `WORKSPACE_INDEX.md` und die vier Modul-READMEs referenzieren denselben aktiven Single-Root-/`.venv`-Pfad,
+    2) aktive Lesedokumente zeigen keinen veralteten Gesamtstatus wie `overall=FAIL` mehr als aktuellen Iststand,
+    3) veraltete `venv`-, Sibling- oder Bash-Pfade werden korrigiert oder klar als historische Beispiele markiert,
+    4) Root-/Dev-/Modul-Backlogs bleiben danach ohne Truthfulness-Drift.
+  - Evidenz: `novapolis-dev/README.md` und `WORKSPACE_INDEX.md` fuehren im Frontmatter noch FAIL-Receipts vom 2026-03-05 bzw. 2026-03-11; `novapolis_agent/README.md` nutzt weiter lokales `venv`, `novapolis-rp/README.md` spricht von `../novapolis_agent/`, und `novapolis-sim/README.md` fuehrt lokale Startpfade, die nicht sauber auf den aktuellen Root-Single-Root-Kontext einzahlen.
+  - Abschluss 2026-03-28: Root-/Dev-/Modul-READMEs und `WORKSPACE_INDEX.md` fuehren jetzt durchgaengig den PASS-Kontext ohne alte FAIL-Receipts, nutzen den Root-`.venv`-Pfad konsistent und rahmen die bekannten Sim-Asset-Warnungen nicht mehr als unsichtbaren Widerspruch.
+
+- [x] [Jetzt] Snapshot-Gate fuer alle betroffenen Markdown-Dateien erzwingen und Hook-Kommentar an den Gate-Iststand angleichen.
+  - Akzeptanzkriterium: Geaenderte Markdown-Dateien koennen den Snapshot-Check nicht mehr dadurch umgehen, dass nur `stand` unveraendert bleibt; der Pre-Commit-Hook bezeichnet markdownlint nicht mehr als optional.
+  - Evidenz: `scripts/snapshot_gate.py` uebersprang bisher Markdown-Dateien ohne `stand:`-Diff, obwohl der Inhalt geaendert wurde; `scripts/pre_commit.py` fuehrte markdownlint bereits als Pflicht-Gate, kommentierte es aber weiter als optional.
+  - Abschluss 2026-03-27: Der `stand:`-Diff-Bypass ist entfernt, die Lock-Stand-Toleranz ist als benannte Konstante gefuehrt, der Hook-Kommentar ist bereinigt und ein Regressionstest deckt Gate-Verhalten sowie Hook-Reihenfolge gezielt ab.
 
 - [x] [Jetzt] Kern-SSOT `.github/copilot-instructions.md` und Headings-Index auf denselben aktuellen Quellenstand ziehen.
   - Akzeptanzkriterium: `stand`/Quellenangaben in `.github/copilot-instructions.md` und `.github/copilot-instructions-headings.md` verweisen auf denselben aktuellen Governance-Stand; der Headings-Index ist im selben Lauf nachgezogen und nicht mehr historisch hinterher.

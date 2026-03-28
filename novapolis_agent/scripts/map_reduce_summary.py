@@ -5,8 +5,8 @@ Map-Reduce Summarizer für den gesamten Workspace.
 Erzeugt pro Datei kompakte Zusammenfassungen (heuristisch, ohne LLM), fasst diese
 pro Ordner zusammen und generiert eine finale Gesamtübersicht als Markdown.
 
-Zielordner: app/, scripts/, utils/, tests/, docs/, eval/datasets/
-Ausgabe: eval/results/summaries/summary_<timestamp>_<scope>.md
+Zielordner: app/, scripts/, utils/, tests/, docs/, novapolis_agent/eval/datasets/
+Ausgabe: novapolis_agent/eval/results/summaries/summary_<timestamp>_<scope>.md
 
 Aufruf:
   python scripts/map_reduce_summary.py [--scopes app,scripts,utils,tests,docs,eval-datasets]

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 03:57
-update: RP-Datasetpakete (ssot/characters/locations/admin) in die Provenance-Matrix aufgenommen.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260310_153947.md
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf aktualisiert den Provenance-Header auf den aktuellen PASS-Kontext, ohne die Matrixinhalte zu aendern.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
 ---
 
 Dataset Provenance (SSOT)

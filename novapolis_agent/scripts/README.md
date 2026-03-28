@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 03:44
-update: checks aktualisiert (Basis-Stabilisierung)
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 03:44); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis_agent\analysis_chat_routers.md novapolis_agent\scripts\README.md novapolis_agent\eval\README.md novapolis_agent\eval\DEPRECATIONS.md novapolis_agent\eval\config\context.notes\README.md PASS (2026-01-11 03:44)
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf zieht das Scripts-README auf aktuellen PASS-Kontext, PowerShell-Beispiele und Root-Wrapper.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
 ---
 Novapolis Agent Evaluierungsskripte
 ===================================
@@ -15,8 +15,8 @@ Skripte
 
 Ein Skript zur automatisierten Evaluierung des Chat-Endpunkts:
 
-```bash
-python run_eval.py [prompts_datei] [api_url]
+```powershell
+& .\.venv\Scripts\python.exe novapolis_agent\scripts\run_eval.py [prompts_datei] [api_url]
 ```
 
 Parameter:
@@ -29,12 +29,12 @@ Hinweis: Für OpenAI-Finetuning steht `openai_finetune.py` bereit.
 Beispiel:
 
 - OpenAI FT: `openai_finetune.py`
-  - Voraussetzungen: `pip install openai`; `OPENAI_API_KEY` gesetzt
+  - Voraussetzungen: `& .\.venv\Scripts\python.exe -m pip install openai`; `OPENAI_API_KEY` gesetzt
   - Datensätze: openai_chat `*_train.jsonl` und `*_val.jsonl`
-  - Aufruf: `python scripts/openai_finetune.py eval/datasets/xxx_train.jsonl eval/datasets/xxx_val.jsonl --model gpt-4o-mini`
+  - Aufruf: `& .\.venv\Scripts\python.exe novapolis_agent\scripts\openai_finetune.py novapolis_agent\eval\datasets\xxx_train.jsonl novapolis_agent\eval\datasets\xxx_val.jsonl --model gpt-4o-mini`
 
-```bash
-python scripts/run_eval.py --packages eval/datasets/eval-*.json http://localhost:8000/chat
+```powershell
+& .\.venv\Scripts\python.exe novapolis_agent\scripts\run_eval.py --packages novapolis_agent\eval\datasets\eval-*.json http://127.0.0.1:8000/chat
 ```
 
 ### Abhängigkeiten
@@ -46,7 +46,7 @@ Das Skript benötigt die folgenden Python-Pakete:
 
 Installation:
 
-```bash
-pip install httpx rich
+```powershell
+& .\.venv\Scripts\python.exe -m pip install httpx rich
 ```
 

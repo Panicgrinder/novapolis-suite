@@ -6,6 +6,11 @@ import webbrowser
 from novapolis_agent.app.core.settings import settings
 
 
+DEFAULT_CONTEXT_NOTES_PATH = os.path.join(
+    "novapolis_agent", "eval", "config", "context.local.md"
+)
+
+
 def ensure_file(path: str) -> str:
     os.makedirs(os.path.dirname(path), exist_ok=True)
     if not os.path.exists(path):
@@ -32,7 +37,7 @@ def pick_target(paths: list[str]) -> str:
     for p in paths:
         if os.path.exists(p):
             return p
-    return paths[0] if paths else os.path.join("eval", "config", "context.local.md")
+    return paths[0] if paths else DEFAULT_CONTEXT_NOTES_PATH
 
 
 def open_file(path: str) -> None:
@@ -68,7 +73,9 @@ def open_file(path: str) -> None:
 
 def main() -> int:
     paths = getattr(
-        settings, "CONTEXT_NOTES_PATHS", [os.path.join("eval", "config", "context.local.md")]
+        settings,
+        "CONTEXT_NOTES_PATHS",
+        [DEFAULT_CONTEXT_NOTES_PATH],
     )
     target = pick_target(paths)
     target = ensure_file(target)

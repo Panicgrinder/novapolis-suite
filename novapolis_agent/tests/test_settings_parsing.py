@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from importlib import reload
 
 import pytest
@@ -58,3 +59,25 @@ def test_settings_contract_strict_mode_raises(monkeypatch: MonkeyPatch) -> None:
 
     with pytest.raises(ValueError):
         reload(settings_module)
+
+
+def test_settings_default_eval_paths_are_module_local(monkeypatch: MonkeyPatch) -> None:
+    for name in (
+        "EVAL_DIRECTORY",
+        "EVAL_DATASET_DIR",
+        "EVAL_RESULTS_DIR",
+        "EVAL_CONFIG_DIR",
+        "RAG_INDEX_PATH",
+    ):
+        monkeypatch.delenv(name, raising=False)
+
+    reload(settings_module)
+    s = settings_module.settings
+
+    assert s.EVAL_DIRECTORY == os.path.join("novapolis_agent", "eval")
+    assert s.EVAL_DATASET_DIR == os.path.join("novapolis_agent", "eval", "datasets")
+    assert s.EVAL_RESULTS_DIR == os.path.join("novapolis_agent", "eval", "results")
+    assert s.EVAL_CONFIG_DIR == os.path.join("novapolis_agent", "eval", "config")
+    assert s.RAG_INDEX_PATH == str(
+        os.path.join("novapolis_agent", "eval", "results", "rag", "index.json")
+    )

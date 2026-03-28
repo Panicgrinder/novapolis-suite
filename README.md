@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-19 11:09
-update: Community-/Maintainer-Oberflaeche im Root um Support-, Release-, Maintainer- und Template-Verweise erweitert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf harmonisiert im Root-README auch die Wrapper-Beispiele auf den aktuellen Root-Interpreter-Stil.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:27)
 ---
 Novapolis Suite
 ===============
@@ -175,7 +175,7 @@ Editor-Setup (Single-Root)
 
 - Workspace immer über den Root-Ordner `Main/` öffnen (Single-Root, keine `.code-workspace` mehr im Einsatz).
 - Zentrales VS-Code-Setup liegt unter `/.vscode/` (Interpreter `.venv`, Tasks für Lint/Tests/Coverage, Copilot-Workspace-Instructions).
-- Wrapper-Policy: Mehrschritt-Checks laufen über Skript-Wrapper (z. B. `python scripts/run_checks_and_report.py`, `python scripts/run_pytest_coverage.py --fail-under 80`); STOP-Gate bleibt für alle Aktionen mit Seiteneffekt aktiv.
+- Wrapper-Policy: Mehrschritt-Checks laufen über Skript-Wrapper (z. B. `& .\.venv\Scripts\python.exe scripts/run_checks_and_report.py`, `& .\.venv\Scripts\python.exe scripts/run_pytest_coverage.py --fail-under 80`); STOP-Gate bleibt fuer alle Aktionen mit Seiteneffekt aktiv.
 - Sim-Offlinetest: Task `Checks: sim epoch assets` prüft tunnel-sicher die Epoch-Logs und OGG-Namenskonvention via `scripts/check_sim_epoch_assets.py`.
 - Details zum aktuellen Status siehe `.github/copilot-instructions.md` und `WORKSPACE_STATUS.md` (Block „Single-Root & Wrapper-Status“).
 

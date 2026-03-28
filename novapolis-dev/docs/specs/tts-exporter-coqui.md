@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-05 01:00
-update: Spec auf Iststand der implementierten Coqui-Exporter-CLI im Agent-Modul nachgezogen (kein Platzhalter-Narrativ).
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf aktualisiert die aktive TTS-Spec auf den aktuellen PASS-Kontext ohne Inhaltsretcon der CLI-Beschreibung.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
 ---
 
 TTS-Exporter (Build-Time) - Coqui → OGG

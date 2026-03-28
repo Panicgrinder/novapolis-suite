@@ -18,6 +18,7 @@ from datetime import datetime
 from pathlib import Path
 
 TOLERANCE_MINUTES = 5
+LOCK_STAND_TOLERANCE_MINUTES = 2
 
 
 def run(cmd: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess:
@@ -77,16 +78,6 @@ def find_stand_timestamp(content: str) -> str | None:
     return None
 
 
-def is_stand_changed_in_diff(path: str) -> bool:
-    r = run(["git", "diff", "--cached", "-U0", "--", path])
-    if r.returncode != 0:
-        return False
-    for ln in r.stdout.splitlines():
-        if ln.startswith("+") and re.search(r"\bstand:\s*\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}", ln):
-            return True
-    return False
-
-
 def minutes_diff(a: str, b: str) -> float | None:
     fmt = "%Y-%m-%d %H:%M"
     try:
@@ -135,14 +126,15 @@ def main() -> int:
         if not stand_ts:
             continue
 
-        if not is_stand_changed_in_diff(f):
-            continue
-
         ok_now = test_timestamp_fresh(stand_ts, current, TOLERANCE_MINUTES)
         ok_lock = False
         if lock:
             ok_lock_now = test_timestamp_fresh(lock, current, TOLERANCE_MINUTES)
-            ok_lock_stand = test_timestamp_fresh(lock, stand_ts, 2)
+            ok_lock_stand = test_timestamp_fresh(
+                lock,
+                stand_ts,
+                LOCK_STAND_TOLERANCE_MINUTES,
+            )
             ok_lock = ok_lock_now and ok_lock_stand
 
         if not (ok_now and ok_lock):

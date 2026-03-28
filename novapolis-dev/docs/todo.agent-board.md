@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 09:54
-update: Wochenabschluss-Refresh fuer das Agent-Board eingezogen; aktueller Betriebsstand bleibt ohne offene Agent-Blocker.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
+stand: 2026-03-28 06:51
+update: Kontext-Notizen-Defaults und Eval-Standardpfade auf den Agent-Modulpfad vereinheitlicht.
+checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -147,6 +147,25 @@ Eval-Marathon Betriebsprofil (v1, verbindlich)
 
 Neue Aufgaben - Datensaetze & Training (2026-02-25)
 ----------------------------------------------------
+
+- [x] [Jetzt] Lokale Kontext-Notizen Defaults vom Root-eval auf den Agent-Modulpfad migrieren.
+  - Ziel: `CONTEXT_NOTES_PATHS` und der Oeffner fuer lokale Kontext-Notizen sollen den kanonischen Modulpfad `novapolis_agent/eval/config/` nutzen, damit der verbliebene Root-eval-Rest technisch und dokumentarisch entkoppelt werden kann.
+  - Akzeptanzkriterien:
+    1) `app/core/settings.py` fuehrt fuer Markdown/JSON/JSONL/context.notes nur noch Modulpfade,
+    2) `scripts/open_context_notes.py` nutzt denselben Modulpfad auch im Fallback,
+    3) `README.md` dokumentiert Beispiel- und Defaultpfade nur noch unter `novapolis_agent/eval/config/`,
+    4) bestehende Script- und Kontext-Tests bleiben gruen.
+  - Evidenz: `novapolis_agent/app/core/settings.py`, `novapolis_agent/scripts/open_context_notes.py`, `novapolis_agent/README.md`, `eval/config/context.local.md` und `novapolis_agent/eval/config/context.local.md`.
+  - Abschluss 2026-03-28: `EVAL_*`, `CONTEXT_NOTES_PATHS` und `RAG_INDEX_PATH` zeigen jetzt auf `novapolis_agent/eval/...`; `scripts/open_context_notes.py` nutzt denselben Default, die README ist nachgezogen, und die verbleibende Root-Kopie wurde anschliessend quarantanisiert.
+
+- [ ] [Als naechstes] Export-/Kurationspfad gegen Null-Exports durch historische Results-Drift haerten.
+  - Ziel: Die Task-Kette `Data: export+pack (latest results)` soll fuer reale aktuelle Ergebnisse trainierbare Artefakte liefern oder bei unbrauchbaren Quellen hart und klar abbrechen.
+  - Akzeptanzkriterien:
+    1) der Export erkennt historische oder inkonsistente `source_path`-Verweise und faellt kontrolliert auf validen Input oder expliziten Fehler zurueck,
+    2) ein Null-Export (`0 Eintraege`) wird nicht mehr als still brauchbarer Tasklauf durchgereicht,
+    3) Runbook und README nennen den kanonischen Weg fuer kuratierbare Results ohne manuelle Pfadforensik,
+    4) mindestens ein dokumentierter Lauf erzeugt wieder ein nichtleeres Export- oder Pack-Artefakt aus einem aktuellen Results-Set.
+  - Evidenz: Die vorhandenen Laufbelege fuehren fuer 2026-02-27 einen `export_finetune.py`-Run mit `0` Eintraegen wegen Source-Path-Drift an, waehrend der nachgelagerte Pack-Schritt nur auf bereits vorhandenem Exportmaterial erfolgreich war; die Tasklabels bleiben dennoch der dokumentierte Standardpfad.
 
 - [x] [Jetzt] Individuelle Trainingsdatensaetze als kanonische Pakete definieren (Chronistin-Profile).
   - Ziel: Neben Eval-Paketen strukturierte Training-Pakete fuer unterschiedliche Einsatzprofile der Chronistin bereitstellen (z. B. neutral-assistiv, lore-intensiv, operativ-kurz).

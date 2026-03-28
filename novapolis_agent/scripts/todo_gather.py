@@ -192,7 +192,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument(
         "--write-md",
         action="store_true",
-        help="Schreibt Markdown-Report unter eval/results/summaries/",
+        help="Schreibt Markdown-Report unter novapolis_agent/eval/results/summaries/",
     )
     ap.add_argument(
         "--out-dir",

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 07:07
-update: Coverage-Governance erweitert: 90%-Qualitaetsziel im Abschlussprozess verbindlich verankert.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf zieht die Abschluss-SSOT auf den aktuellen PASS-Kontext und explizite Root-Wrapper fuer die Hygiene-Cadence.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
 ---
 Wochen- und Monatsabschluss (SSOT)
 =================================
@@ -47,7 +47,7 @@ Woechentliche Hygiene-Cadence (60 Minuten)
 
 - Termin: jede Woche ein fester 60-Minuten-Slot direkt nach dem Wochenabschluss.
 - Reihenfolge (verbindlich):
-   1. Drift-Scan: `scripts/check_todo_index_sync.py --repo-root . --write-index-meta`, `scripts/check_doc_freshness.py`, `scripts/check_logs_policy.py`.
+   1. Drift-Scan: `& .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta`, `& .\.venv\Scripts\python.exe scripts/check_doc_freshness.py`, `& .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root .`.
    2. Donelog-Cleanup: aktive Eintraege auf operative Relevanz kuerzen, Historik in `novapolis-dev/archive/docs/donelogs/` belassen.
    3. TODO/Index-Abgleich: offene Punkte in Modul-Boards gegen `novapolis-dev/docs/todo.index.md` verifizieren.
 - KPI-Protokoll (Pflichtfelder je Slot):

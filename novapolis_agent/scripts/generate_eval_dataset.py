@@ -4,7 +4,7 @@ Generate a JSONL evaluation dataset with synthetic prompts.
 
 Usage:
     python scripts/generate_eval_dataset.py --start 101 --count 200 \
-        --out eval/datasets/eval-101-300_generated_v1.0.jsonl
+        --out novapolis_agent/eval/datasets/eval-101-300_generated_v1.0.jsonl
 
 Each item has schema:
     {"id": "eval-<n>",

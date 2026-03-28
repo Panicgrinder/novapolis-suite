@@ -58,7 +58,9 @@ def test_pick_target_prefers_existing(tmp_path: Path) -> None:
 def test_pick_target_returns_default_for_empty_list() -> None:
     mod = _load_module()
     result = mod.pick_target([])
-    assert result.endswith(os.path.join("eval", "config", "context.local.md"))
+    assert result.endswith(
+        os.path.join("novapolis_agent", "eval", "config", "context.local.md")
+    )
 
 
 @pytest.mark.scripts

@@ -1,11 +1,9 @@
----
-stand: 2026-03-11 10:34
-update: Weitere Chat-Branchwelle inkl. Stabilitaetsfix abgeschlossen.
-checks: python scripts/run_checks_and_report.py overall=PASS; report=.tmp/results/reports/checks_report_20260311_072150.md
----
+stand: 2026-03-28 06:11
+update: Eval-/Kontext-Defaults vom Root auf den Agent-Modulpfad umgezogen und Root-eval-Rest geschlossen.
+checks: snapshot-lock PASS; Abschluss-Checks laufen (2026-03-28 06:11)
 
 
-Postflight
+checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:11)
 ----------
 Meta: Modus=Postflight, Modell=GPT-5, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=python F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, SHA256=65570151AA983A6A3784D89B589486A214B8A171D1BA22766C1BF17C49F54E30, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=F:\VS Code Workspace\Main\.github\copilot-instructions.md;F:\VS Code Workspace\Main\novapolis_agent\docs\DONELOG.txt;F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, Aktion=Automatisierter Checklauf Backend-relevant (PowerShell-Variante archiviert)
 Prüfung: ruff=FAIL, black=FAIL, markdownlint=FAIL, frontmatter=FAIL, pyright=FAIL, mypy=FAIL, pytest=STOP (>40 Testdateien), coverage=SKIP (STOP), PSScriptAnalyzerExit=1
@@ -21,6 +19,18 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+
+2026-03-28 06:11 | Copilot | Root-eval-Migration fuer das Agent-Modul abgeschlossen: `app/core/settings.py` fuehrt `EVAL_*`, `CONTEXT_NOTES_PATHS` und `RAG_INDEX_PATH` jetzt ueber `novapolis_agent/eval/...`, `app/api/chat.py`, `scripts/open_context_notes.py` sowie die betroffenen Eval-Helfer und README-Pfade nutzen denselben Modulpfad, die betroffenen Tests sind nachgezogen, und der fruehere Root-Ordner `eval/` liegt jetzt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval`.
+
+
+2026-03-28 01:31 | Copilot | Phase-2-Konsistenzlauf fuer Agent-Runbooks erweitert: `scripts/README.md` fuehrt jetzt aktuellen PASS-Kontext sowie Root-`.venv`-PowerShell-Beispiele fuer Eval- und OpenAI-FT-Aufrufe statt alter Bash-/lokaler Python-Kurzformen.
+
+
+2026-03-28 01:23 | Copilot | Phase-2-Konsistenzlauf fuer das Agent-Modul gestartet: `README.md` nutzt in Setup-, Uvicorn-, RAG- und Eval-Beispielen jetzt durchgaengig Root-`.venv`-Kommandos, PowerShell-Blocks und repo-relative Skriptpfade statt gemischter Modul-/Bash-Aufrufe.
+
+
+2026-03-28 00:28 | Copilot | Reader-Surface-Sync fuer das Agent-Modul abgeschlossen: `README.md` auf den Root-`.venv`-Pfad und aktuelle Single-Root-Kommandos gezogen, lokale `venv`-/Bash-Altpfade bereinigt und Sim-API-Start im Modul-README auf den aktuellen Repo-Root-Kontext nachgezogen.
 
 
 2026-03-18 05:20 | Copilot | Test-Hygiene fuer die letzte Chat-/Script-Branchwelle nachgezogen: echten Ruff-Blocker in `tests/test_chat_additional_branches.py` lint-sicher auf expliziten `NameError`-Fallback umgestellt und Format-/Importdrift in acht Testdateien mit gezieltem Ruff/Black-Lauf bereinigt.

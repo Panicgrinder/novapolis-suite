@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 15:47
-update: Letzter Governance-Folgepunkt umgesetzt: Snapshot-/Pre-Commit-Retry-Pfad ist jetzt operativ gehaertet.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 15:47)
+stand: 2026-03-28 06:51
+update: Dev-Current-Window um die post-check Bereinigung des erneut entstandenen Root-eval-Stubs erweitert.
+checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,102 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Root-Cleanup: Root-eval-Rest final bereinigt und post-check Stub erneut quarantanisiert (2026-03-28 06:32)
+-------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/core/settings.py`, `novapolis_agent/app/api/chat.py`, `novapolis_agent/scripts/open_context_notes.py` und die betroffenen Eval-Helfer fuehren Eval-, RAG- und lokale Kontext-Defaults jetzt konsistent ueber `novapolis_agent/eval/...`; `novapolis_agent/README.md` und die betroffenen Tests wurden im selben Lauf nachgezogen.
+- Der urspruengliche Root-Ordner `eval/` liegt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval`; ein nach den Abschluss-Checks erneut entstandener lokaler Stub `eval/config/context.local.md` wurde zusaetzlich unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0632-root-eval-rest-postchecks/eval` abgelegt. Danach wurden `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` fuer den final bereinigten Root-Surface erneut neu erzeugt.
+
+Root-Cleanup: lokale Editor-/Host-Snapshots aus dem Main-Root entfernt (2026-03-28 03:30)
+----------------------------------------------------------------------------------------
+
+- `extensions.installed.txt`, `extensions.status.txt` und `desktop.ini` liegen jetzt gesammelt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0330-local-snapshots/`; im aktiven Root bleiben damit nur noch die bewusst gehaltenen Governance-, Shim- und Strukturpfade.
+- Die Root-Tree-Artefakte wurden nach dem Move direkt per Terminal neu erzeugt, weil die vorhandenen Tasks `Workspace tree:*` lokal weiterhin am bekannten `pwsh /d /c`-Fehlpfad mit Exit `64` scheitern.
+
+Root-Cleanup: sichere Altartefakte aus dem Main-Root in Quarantaene ueberfuehrt (2026-03-28 03:12)
+-----------------------------------------------------------------------------------------------
+
+- `combined.json`, `lint.out`, `md003_scan.out`, `.tmp-datasets/` und `reports/` liegen jetzt gesammelt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0238/`; die gleichnamigen Root-Pfade sind aus dem aktiven Single-Root-Surface entfernt.
+- Bewusst unangetastet blieben die aktiven Kompatibilitaetspfade `app/__init__.py` und `utils/__init__.py` sowie der noch referenzierte Hinweis `eval/config/context.local.md`, damit der Cleanup nur belegte Altartefakte und keine aktiven Einstiegspfade verschiebt.
+
+Governance/Postflight: `Todos.offen` auf TODO-Index umgestellt (2026-03-28 02:02)
+--------------------------------------------------------------------------
+
+- `.github/copilot-instructions.md` definiert `Todos.offen` im Postflight-Receipt jetzt als Summe der Modul-Open-Counts aus `novapolis-dev/docs/todo.index.md` statt als offene Agent-Arbeitsschritte des aktuellen Laufs.
+- `todo.root.md` bleibt dabei bewusst ausserhalb der Zahl, weil der aktive Index den Root-Backlog nicht in die Modul-Open-Counts einrechnet.
+
+Docs/Consistency Sweep: Board- und Index-Abschluss nachgezogen (2026-03-28 01:39)
+-------------------------------------------------------------------------
+
+- `todo.root.md` und `todo.dev.md` markieren den dokumentierten Stil- und Konsistenzlauf jetzt als erledigt; `todo.index.md` fuehrt Dev dazu wieder mit `offen: 0` und aktualisierter Statusnote.
+- Der Sweep deckte Hochfrequenz-Dateien, aktive Dev-SSOTs und erste Modul-Runbooks ab; beim Restscan blieben nur ignorierte Drittanbieter-READMEs unter `node_modules` ausserhalb des aktiven Arbeitsbereichs uebrig.
+
+Docs/Consistency Sweep: aktive Dev-Doku und erste Runbooks nachgezogen (2026-03-28 01:31)
+-------------------------------------------------------------------------------
+
+- Im aktiven Dev-Scope fuehren `architecture-summary-local-ai.md`, `tests.md`, `dataset-provenance.md`, `readme.hub.md`, `novapolis-dev/logs/README.md`, `process/abschluss-routine.ssot.md`, `process/standalone-beta-gates.ssot.md` und `specs/tts-exporter-coqui.md` jetzt keinen alten FAIL-Kontext mehr; Root-Wrapper und manuelle Pruefbeispiele sind vereinheitlicht.
+- Als erste modulnahe Runbooks sind `novapolis_agent/scripts/README.md` und `novapolis-rp/database-rp/06-scenes/README.md` auf denselben PASS-/PowerShell-/Root-Wrapper-Rahmen gezogen.
+
+Docs/Consistency Sweep: Root-README-Wrapperstil nachgezogen (2026-03-28 01:27)
+-------------------------------------------------------------------------
+
+- `README.md` nennt bei der Wrapper-Policy jetzt dieselben Root-`.venv`-Kommandos wie `WORKSPACE_STATUS.md` und die Modul-READMEs statt der alten Kurzform `python ...`.
+- Damit ist der erste Hochfrequenz-Block des laufenden Phase-2-Sweeps im aktiven Reader-Surface ohne verbleibende harte Wrapper- oder Portabilitaetsdrift geschlossen.
+
+Docs/Consistency Sweep: erste Hochfrequenz-Dateien nachgezogen (2026-03-28 01:23)
+-------------------------------------------------------------------------
+
+- `WORKSPACE_STATUS.md` nutzt jetzt portable Reportpfade und nennt die Root-Wrapper explizit statt alter `python ...`-Kurzformen.
+- `WORKSPACE_INDEX.md` fuehrt den aktiven Phase-2-Sweep statt der alten Redirect-Phase; `novapolis-dev/README.md` verwendet in Archiv-/DONELOG-Matrix und Datenpfaden jetzt repo-relative Referenzen.
+- `novapolis_agent/README.md` und `novapolis-sim/README.md` ziehen verbleibende Root-Kommandos, PowerShell-Beispiele und portable Godot-Aufrufe nach.
+
+Docs/Plan: Stil- und Konsistenzlauf fuer aktive Doku vorab dokumentiert (2026-03-28 00:43)
+----------------------------------------------------------------------------------------
+
+- `todo.root.md` und `todo.dev.md` fuehren den naechsten Doku-Hygienelauf jetzt als expliziten offenen Punkt statt nur als Chat-Abrede.
+- `novapolis-dev/docs/process/doku-konsistenzlauf-aktive-surface-2026-03-28.md` haelt Scope, Stilrahmen, Reihenfolge, Nicht-Ziele und DoD fest; `todo.index.md` spiegelt dazu Dev wieder mit `offen: 1`.
+
+Docs/TODO-Index: Root und historische Nebenpfade klar getrennt (2026-03-28 00:36)
+-------------------------------------------------------------------------------
+
+- `todo.index.md` fuehrt `todo.root.md` jetzt explizit in der Uebersicht als Root-Backlog statt nur unten bei den Verweisen.
+- Gleichzeitig markiert der Index die weiteren `todo*.md` unter `novapolis-dev/archive/**` und `novapolis-dev/archive/quarantine/**` ausdruecklich als historische, quarantänisierte oder Snapshot-Dateien und nicht als aktive Boards.
+
+Docs/Reader-Surface: aktive Lesedokumente auf PASS-/Single-Root-Kontext gezogen (2026-03-28 00:28)
+-----------------------------------------------------------------------------------------------
+
+- `README.md`, `WORKSPACE_INDEX.md`, `novapolis-dev/README.md`, `novapolis_agent/README.md`, `novapolis-rp/README.md` und `novapolis-sim/README.md` fuehren jetzt keine veralteten FAIL-Header mehr, sondern den aktuellen PASS-Kontext des Wochenabschlusses vom 2026-03-27.
+- Im Agent-README sind lokale `venv`- und Bash-Altpfade auf den Root-`.venv`-Pfad umgestellt; das RP-README nutzt keinen Sibling-Verweis `../novapolis_agent/` mehr, und das Sim-README trennt UI-Start sauber von optionalen Asset-Warnungen auf Clean-Checkout.
+- `todo.dev.md` ist damit wieder geschlossen, `todo.root.md` markiert den Reader-Surface-Punkt als erledigt, und `todo.index.md` fuehrt Dev wieder mit `offen: 0`.
+
+Docs/Boards: Folgepfade aus dem Modulreview explizit verankert (2026-03-28 00:22)
+-------------------------------------------------------------------------------
+
+- `todo.root.md` fuehrt den Suite-Backlog jetzt explizit fuer Dev-Reader-Surface, Agent-Exportpfad, RP-Zuteilungsledger und Sim-Bootstrap; der veraltete Root-Punkt zum TODO-Index-Drift wurde dadurch auf den aktuellen Iststand ersetzt.
+- `todo.dev.md` fuehrt als neuen offenen Punkt die Reader-Surface-Synchronisation fuer Root/Dev und die vier Hauptmodule, weil mehrere aktive Oberflaechen noch Vor-Maerz-Receipts oder Altpfade zeigen.
+- `todo.agent-board.md`, `todo.rp.md` und `todo.sim.md` fuehren jetzt je einen direkten Folgepfad aus der Analyse: Export-/Kurationsrobustheit, operatives RP-Zuteilungsledger und Clean-Checkout-Bootstrap fuer Sim-Assets; `todo.index.md` spiegelt die Open-Counts `Dev 1`, `Agent 1`, `RP 7`, `Sim 2`.
+
+RP/Inventory: Fraktionscheck fuer die Zuteilungsmatrix nachgezogen (2026-03-27 16:19)
+-------------------------------------------------------------------------------
+
+- Das Arbeitsblatt `novapolis-dev/docs/process/rp-metro-warenzuteilung-matrix-2026-03-27.md` fuehrt jetzt nicht mehr nur `Novapolis` plus Sammelblock, sondern jede aktive Fraktion einzeln ueber ihr T0-Warenbild und den vorhandenen Inventarrahmen.
+- Novapolis bleibt darin bewusst gesondert: Die aktive SSOT fuehrt `Novapolis` als lokale Kernfraktion in frueher Aufbauphase, nicht als etablierte Metro-Hauptfraktion mit normalisiertem Handels- oder Lagernetz.
+- Fuer Arkologie-A1, Schienenbund, Haendlerbund, Eiserne Enklave/Eisenkonklave, Schattenbund und Fluesterkollektiv markiert die Matrix jetzt einzeln, was nur als Rollen-/Bandbreitenraum lesbar ist und was weiter echte Handentscheidung bleibt.
+
+RP/Inventory: Operative Zuteilungsmatrix fuer die finale Metro-Warenverteilung verankert (2026-03-27 16:12)
+-----------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-metro-warenzuteilung-matrix-2026-03-27.md` fuehrt die relevante RP-Datenbasis jetzt als Arbeitsmatrix `hart gesetzt | konservativ geschaetzt | manuell zu entscheiden`; damit ist die Vorarbeit fuer die finale Handverteilung nicht mehr ueber mehrere Inventar-, Admin- und RAW-Dateien verstreut.
+- Die Matrix zieht Metro-Rahmen, Novapolis-T0-Lage, D5-/C6-Startanker, Tagesdeltas und den Versorgungslauf `D5 -> C6` zusammen und markiert explizit, welche Punkte weiterhin manuelle Entscheidungen bleiben muessen.
+- `todo.rp.md` fuehrt das neue Arbeitsblatt als abgeschlossenen Vorbereitungspunkt, `todo.index.md` spiegelt den neuen RP-Statushinweis ohne Veraenderung des Open-Counts.
+
+Dev/Governance: Snapshot-Gate-Bypass und Hook-Kommentar nach Review bereinigt (2026-03-27 15:52)
+-------------------------------------------------------------------------------------------------
+
+- `scripts/snapshot_gate.py` prueft Snapshot-Freshness jetzt fuer alle geaenderten Markdown-Dateien mit `stand:`-Feld und nicht mehr nur dann, wenn `stand:` selbst im Diff auftaucht. Damit stimmt das technische Gate wieder mit der dokumentierten Governance ueberein.
+- Die enge Lock-Stand-Toleranz ist im selben Schritt als benannte Konstante gefasst; das reduziert kuenftige Pflege-Drift zwischen Code und Governance-Beschreibung.
+- `scripts/pre_commit.py` kommentiert markdownlint nicht mehr als optional, und der neue Regressionstest deckt sowohl den entfernten Bypass als auch die Gate-Reihenfolge des Hooks ab.
 
 Dev/Governance: Snapshot-/Pre-Commit-Retry-Pfad operativ gehaertet (2026-03-27 15:05)
 ---------------------------------------------------------------------------------------

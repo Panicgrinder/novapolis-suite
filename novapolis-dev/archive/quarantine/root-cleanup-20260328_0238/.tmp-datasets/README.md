@@ -1,5 +1,5 @@
 ---
-stand: 2026-01-11 03:44
+stand: 2026-03-28 06:53
 update: checks aktualisiert (Basis-Stabilisierung)
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 03:44); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py .tmp-datasets\README.md PASS (2026-01-11 03:44)
 ---

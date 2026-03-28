@@ -242,7 +242,9 @@ async def stream_chat_request(
         if bool(getattr(settings, "RAG_ENABLED", False)):
             from utils.rag import load_index, retrieve
 
-            rag_path = str(getattr(settings, "RAG_INDEX_PATH", "eval/results/rag/index.json"))
+            rag_path = str(
+                getattr(settings, "RAG_INDEX_PATH", "novapolis_agent/eval/results/rag/index.json")
+            )
             try:
                 idx: _TfIdfIndex | None = load_index(rag_path)
                 user_texts = [m.get("content", "") for m in messages if m.get("role") == "user"]
@@ -726,7 +728,13 @@ async def process_chat_request(
             if bool(getattr(settings, "RAG_ENABLED", False)):
                 from utils.rag import load_index, retrieve
 
-                rag_path = str(getattr(settings, "RAG_INDEX_PATH", "eval/results/rag/index.json"))
+                rag_path = str(
+                    getattr(
+                        settings,
+                        "RAG_INDEX_PATH",
+                        "novapolis_agent/eval/results/rag/index.json",
+                    )
+                )
                 try:
                     idx: _TfIdfIndex | None = load_index(rag_path)
                     user_texts2 = [

@@ -6,18 +6,21 @@ from pathlib import Path
 from utils.rag import build_index, save_index
 
 
+DEFAULT_RAG_INDEX_PATH = Path("novapolis_agent") / "eval" / "results" / "rag" / "index.json"
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(
         description="Baue einen einfachen TF-IDF RAG-Index über .md/.txt Dateien"
     )
     p.add_argument("--input", nargs="+", help="Dateien oder Verzeichnisse (.md/.txt)")
     p.add_argument(
-        "--out", default=str(Path("eval/results/rag/index.json")), help="Pfad zur Indexdatei (JSON)"
+        "--out", default=str(DEFAULT_RAG_INDEX_PATH), help="Pfad zur Indexdatei (JSON)"
     )
     args = p.parse_args(argv)
 
     if not args.input:
-        print("Keine Eingabe angegeben. Beispiel: --input docs eval/config")
+        print("Keine Eingabe angegeben. Beispiel: --input docs novapolis_agent/eval/config")
         return 2
 
     idx = build_index(args.input)

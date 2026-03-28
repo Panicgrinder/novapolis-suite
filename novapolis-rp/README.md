@@ -1,11 +1,11 @@
 ---
-stand: 2026-03-02 22:24
-update: Lizenzhinweise auf restriktive RP-Content-Lizenz umgestellt und von MIT-Code-Lizenz getrennt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' PASS (2026-03-02 22:18); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/README.md' 'novapolis-dev/docs/donelog.md' 'README.md' 'LICENSES.md' 'CONTRIBUTING.md' 'TRADEMARKS.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-02 22:18)
+stand: 2026-03-28 06:51
+update: Reader-Surface des RP-Moduls auf den aktuellen Single-Root-Kontext gezogen; Titel, Agent-Verweis und Sim-Startpfad sind jetzt repo-relativ und portable.
+checks: markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS (2026-03-28 00:28)
 ---
 
-Novapolis-RP Workspace (F:)
-===========================
+Novapolis-RP Workspace
+======================
 
 Ein schlanker Workspace für dein AI-geführtes RP „Chronist von Novapolis“. Fokus: belastbares Gedächtnis, saubere Struktur, schneller Szenenstart.
 
@@ -50,7 +50,7 @@ Visualisierung
 
 - Das Backend `novapolis_agent` stellt eine Simulations-API bereit (`GET /world/state`, `POST /world/step`) auf Port `AGENT_PORT` (Standard 8765).
 - Das Godot-Projekt `novapolis-sim` fragt jeden 0,2 s einen Schritt `{dt:0.1}` ab und visualisiert Tick sowie Zeit.
-- Startfolge: Agent per `uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload` starten, anschließend `novapolis-sim` in Godot öffnen und **Play** drücken.
+- Startfolge: Agent im Repo-Root per `& .\.venv\Scripts\python.exe -m uvicorn novapolis_agent.app.api.sim:app --host 127.0.0.1 --port 8765 --reload` starten, anschließend `novapolis-sim/project.godot` in Godot öffnen und **Play** drücken.
 
 ---
 
@@ -61,7 +61,7 @@ Dieses Repo enthält die Arbeitsbasis für das Novapolis-RP: strukturierte Daten
 
 ### Agenten-Modul
 
-Der Agent-Code wird inzwischen ausschließlich im Schwesterprojekt `../novapolis_agent/` gepflegt. Dieses Repository bündelt nur noch die RP-Daten, Workflows und begleitenden Tools.
+Der Agent-Code wird inzwischen ausschließlich im Modul `novapolis_agent/` desselben Repos gepflegt. Dieses Verzeichnis bündelt nur noch die RP-Daten, Workflows und begleitenden Tools.
 
 ### Ziele
 

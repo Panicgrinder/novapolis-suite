@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 07:07
-update: Coverage-Policy modernisiert und Punkt-3-Strategie mit verbindlichem 90%-Qualitaetsziel verankert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/process/abschluss-routine.ssot.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-11 07:07); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/tests.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/process/abschluss-routine.ssot.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-11 07:07)
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf zieht die Test- und Coverage-Policy auf aktuelle Root-Wrapper und einen einheitlichen PASS-Kontext.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
 ---
 
 Tests, Gates und Coverage-Policy
@@ -31,8 +31,8 @@ Coverage-Strategie (Punkt 3)
 Messung und Nachweis
 --------------------
 
-- Standardlauf: `python scripts/run_checks_and_report.py`.
-- Modullauf (Agent): `Set-Location novapolis_agent; ..\\.venv\\Scripts\\python.exe -m pytest --cov --cov-branch --cov-report=term-missing --cov-config .coveragerc --cov-fail-under=80`.
+- Standardlauf: `& .\.venv\Scripts\python.exe scripts/run_checks_and_report.py`.
+- Modullauf (Agent): `& .\.venv\Scripts\python.exe -m pytest -q novapolis_agent/tests --cov --cov-branch --cov-report=term-missing --cov-config novapolis_agent/.coveragerc --cov-fail-under=80`.
 - Nachweisartefakte:
    - `.tmp/results/reports/checks_report_<timestamp>.md`
    - `outputs/test-artifacts/coverage.xml`

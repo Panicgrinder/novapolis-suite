@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 05:16
-update: Strukturabschnitt auf Iststand korrigiert und Active-Surface-Index als Primärdokument verankert.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf zieht den Dev-Hub auf repo-relative Referenzen und einen einheitlichen Root-Wrapper-Rahmen nach.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:23)
 ---
 
 Novapolis Dev Hub
@@ -52,7 +52,7 @@ Struktur
 - `docs/meta/` - Metadaten zu den Arbeitsdokumenten
 - `migrations/` - Änderungs- und Umzugshistorie
 - `integrations/` - Schnittstellen- und Abstimmungsartefakte
-- Produktive Datenpools liegen unter `../novapolis-rp/database-raw/` und `../novapolis-rp/database-curated/`; im Dev-Hub existieren dafuer keine gleichnamigen Top-Level-Verzeichnisse.
+- Produktive Datenpools liegen unter `novapolis-rp/database-raw/` und `novapolis-rp/database-curated/`; im Dev-Hub existieren dafuer keine gleichnamigen Top-Level-Verzeichnisse.
 
 Archiv
 ------
@@ -67,8 +67,8 @@ Archiv-Matrix (verbindlich)
 | --- | --- | --- |
 | `novapolis-dev/docs/**` | Aktive Dev-Hub-Dokumentation | ja |
 | `novapolis-dev/archive/**` | Historisierte Dev-Dokumentation | nein |
-| `../novapolis_agent/archive/**` | Modulintern technische/operative Artefakte | nein |
-| `../Backups/**` | Forensische Backup-/Restore-Artefakte | nein |
+| `novapolis_agent/archive/**` | Modulintern technische/operative Artefakte | nein |
+| `Backups/**` | Forensische Backup-/Restore-Artefakte | nein |
 
 DONELOG-Ebenen
 --------------
@@ -76,8 +76,8 @@ DONELOG-Ebenen
 | Ebene | Datei/Pfad | Zweck |
 | --- | --- | --- |
 | A | `docs/donelog.md` | Operativer Kurzlog (entscheidungsrelevante Zusammenfassung) |
-| B | `../.tmp/results/reports/**` | Laufbelege/Diagnosedetails |
-| C | `../DONELOG.md` | Root-Summary fuer globale Releases/Governance |
+| B | `.tmp/results/reports/**` | Laufbelege/Diagnosedetails |
+| C | `DONELOG.md` | Root-Summary fuer globale Releases/Governance |
 
 Copilot Instructions
 --------------------
@@ -96,9 +96,9 @@ Historie & Detailprotokolle
 Checks & Reports
 ----------------
 
-- Sammellauf-Skript: `python scripts/run_checks_and_report.py` (Lint: ruff/black, Docs-Lint markdownlint, Frontmatter-Validator, Typen: pyright/mypy, Tests + Coverage >=80%; optionale Zusatz-Lints werden als SKIP protokolliert, falls nicht installiert).
+- Sammellauf-Skript: `& .\.venv\Scripts\python.exe scripts/run_checks_and_report.py` (Lint: ruff/black, Docs-Lint markdownlint, Frontmatter-Validator, Typen: pyright/mypy, Tests + Coverage >=80%; optionale Zusatz-Lints werden als SKIP protokolliert, falls nicht installiert).
 - Report-Ausgabe: `.tmp/results/reports/checks_run_<timestamp>/` mit konsolidiertem Markdown- und JSON-Report pro Lauf.
-- Nutzung: Direktaufruf `python scripts/run_checks_and_report.py` (Wrapper-Policy bleibt aktiv). Exitcode aggregiert den ersten Pflicht-Check, der fehlschlaegt.
+- Nutzung: Direktaufruf aus dem Repo-Root; der aktuelle Referenzstand ist `overall=PASS` aus `WORKSPACE_STATUS.md` (Wochenabschluss 2026-03-27). Exitcode aggregiert den ersten Pflicht-Check, der fehlschlaegt.
 
 
 

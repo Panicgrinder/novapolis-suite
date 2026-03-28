@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-03-27 09:54
-update: RAW-Rettungsstand vor manueller Fraktionsverteilung und Verbrauchsrechnung im offiziellen RP-Board festgezogen; Sicherheits-Recheck erneut gestartet.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-27 09:46); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . PASS (2026-03-27 09:46)
+stand: 2026-03-28 06:51
+update: Nach dem Matrix-Recheck ist jetzt auch das operative Zuteilungsledger als direkter RP-Folgepfad verankert.
+checks: markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS (2026-03-28 00:22)
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -64,6 +64,22 @@ Aktiver Vorbereitungspunkt (2026-03-20)
     - `Handel`: Datum, Status, Item/Warengruppe, Menge/Einheit oder `tbd`, Gegenpartei, Abrechnung/Band, Uebergabepunkt, Beleg.
     - `Bilanz`: Zeitraum, Ebene, Delta je Warengruppe oder Energiekonto, bekannte Vor-/Nachher-Staende oder `tbd`, Belegkette.
   - Promotionsregel: `Scene/RAW -> Missionslog oder Logistik -> Teilinventar/POI -> Stationsinventar -> Fraktionsinventar -> Metro-Ueberblick`; ohne sauberen Uebergabeschritt wird nicht nach oben promoted.
+
+- [x] [Jetzt] Operative Zuteilungsmatrix fuer die finale Metro-Warenverteilung aus aktiver SSOT und RAW-Rettungsstand abgeleitet.
+  - Ziel: vor der finalen Handverteilung alle belastbaren RP-Daten in eine Arbeitsmatrix `hart gesetzt | konservativ geschaetzt | manuell zu entscheiden` ueberfuehren.
+  - Evidenz: `novapolis-dev/docs/process/rp-metro-warenzuteilung-matrix-2026-03-27.md`.
+  - Ergebnis 2026-03-27 16:12: Die Matrix fuehrt Metro-Rahmen, Novapolis-T0-Lage, D5-/C6-Startanker, Tagesdeltas und den Versorgungslauf `D5 -> C6` in genau dieser Dreiteilung zusammen.
+  - Folge fuer die finale Handverteilung 2026-03-27 16:12: Direkt gesetzt werden koennen die belegten D5-/C6-Anker und Tagesdeltas; offen fuer Handentscheid bleiben aktuelle Fraktionssummen, konkrete Transfermengen, Restbestaende je Station und exakte Mengen der uebrigen Hauptfraktionen.
+  - Recheck 2026-03-27 16:19: Die Matrix ist jetzt fraktionsscharf fuer Arkologie-A1, Schienenbund, Haendlerbund, Eiserne Enklave/Eisenkonklave, Schattenbund und Fluesterkollektiv nachgezogen. Novapolis bleibt darin ausdruecklich gesondert, weil die aktive SSOT nur eine lokale Kernfraktion in frueher Aufbauphase belegt, nicht aber eine etablierte Metro-Hauptfraktion mit normalisiertem Handelsnetz.
+
+- [ ] [Als naechstes] Finale Metro-Warenzuteilung aus der Matrix in ein operatives Arbeitsledger ueberfuehren.
+  - Ziel: Die Dreiteilung `hart gesetzt | konservativ geschaetzt | manuell zu entscheiden` soll in ein belastbares Zuteilungsblatt fuer Stationen und Fraktionen ueberfuehrt werden.
+  - Akzeptanzkriterien:
+    1) jeder verteilte Posten ist als `fix`, `rahmenwert` oder `handentscheidung` markiert,
+    2) Station, Fraktion und Zielpfad pro Posten sind sichtbar,
+    3) offene Handentscheidungen bleiben explizit als `tbd` statt implizit gesetzt,
+    4) das Ergebnis verweist sauber auf Matrix, Inventarebene und den spaeteren Updatepfad fuer D5/C6/Fraktionsinventare.
+  - Evidenz: `novapolis-dev/docs/process/rp-metro-warenzuteilung-matrix-2026-03-27.md` fuehrt die benoetigte Dreiteilung bereits vollstaendig; im Board selbst fehlt aber noch der direkte Uebergang in ein operatives Verteilungsledger fuer die finale Handarbeit.
 
 Canvas-Rettung - Sprint 1 (Stand 2025-11-01)
 --------------------------------------------

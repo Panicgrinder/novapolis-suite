@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 15:47
-update: Letzter Governance-Folgepunkt geschlossen: Snapshot-/Pre-Commit-Retry-Pfad ist jetzt operativ gehaertet; Index-Metadaten nachgezogen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 15:47)
+stand: 2026-03-28 06:51
+update: Root-eval-Migration inklusive post-check Stub-Bereinigung abgeschlossen; Board- und Modulzaehlung bleiben synchron.
+checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,17 +12,34 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 6)
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 7)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
-- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 1)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 1)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 2)
+- Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
 Statushinweise (aktuell)
 ------------------------
 
+- Root v1.2: Der letzte aktive Root-eval-Rest ist final geschlossen. Lokale Kontext-Notizen-Defaults, Eval-Standardpfade und die RAG-Fallbacks laufen jetzt ueber `novapolis_agent/eval/...`; der ehemalige Root-Ordner `eval/` liegt nachvollziehbar unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval`, ein nach den Abschluss-Checks erneut erzeugter lokaler Stub wurde zusaetzlich unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0632-root-eval-rest-postchecks/eval` abgelegt, und die Tree-Artefakte wurden danach erneut neu erzeugt (`offen: unveraendert`).
+
+- Agent v5.1: Die Kontext-Notizen-Migration ist abgeschlossen. `CONTEXT_NOTES_PATHS`, `open_context_notes.py`, `README.md` und die Eval-/RAG-Defaults fuehren jetzt konsistent auf `novapolis_agent/eval/...`, womit das Agent-Board wieder nur den historischen Export-/Kurationspfad offen fuehrt (`offen: 2 -> 1`).
+
+- Root v1.1: Der zweite kleine Root-Cleanup ist abgeschlossen. `extensions.installed.txt`, `extensions.status.txt` und `desktop.ini` liegen jetzt gesammelt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0330-local-snapshots/`; die Root-Tree-Artefakte wurden direkt per Terminal regeneriert, weil die vorhandenen Shell-Tasks lokal weiter am bekannten `pwsh /d /c`-Fehlpfad scheitern (`offen: unveraendert`).
+
+- Root v1.0: Der sichere Root-Cleanup ist vollzogen. `combined.json`, `lint.out`, `md003_scan.out`, `.tmp-datasets/` und `reports/` liegen jetzt gesammelt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0238/`; aktive Shims und der noch referenzierte Hinweis `eval/config/context.local.md` blieben bewusst im Root-Scope (`offen: unveraendert`).
+
+- Dev v5.20: Der dokumentierte Stil- und Konsistenzlauf ist abgeschlossen. Hochfrequenz-Dateien, aktive Dev-SSOTs und die ersten Modul-Runbooks fuehren jetzt denselben PASS-/PowerShell-/Root-Wrapper-Stil; im aktiven Scope blieben beim Restscan nur ignorierte Drittanbieter-READMEs unter `node_modules` ausserhalb des Arbeitsbereichs uebrig (`offen: 1 -> 0`).
+
+- Dev v5.19: Der naechste Doku-Hygienelauf ist vor seinem Start als eigener Phasenplan dokumentiert. Hochfrequenz-Dateien gehen zuerst, danach aktive Dev- und Modul-Doku; Archive und Quarantaene bleiben bewusst ausserhalb des Sweep-Scope (`offen: 0 -> 1`).
+
+- Index v2.2: `todo.root.md` steht jetzt explizit in der Uebersicht; weitere `todo*.md` unter `novapolis-dev/archive/**` und `novapolis-dev/archive/quarantine/**` bleiben historische bzw. quarantänisierte Nebenpfade und zaehlen nicht zum aktiven Backlog.
+
 - Index v2.1: Neue Folgepunkte sind jetzt explizit verankert: RP wurde vom Sammelpunkt auf Transferkette/Delta-Struktur/Realabgleich aufgefaechert, Sim fuehrt die bekannten Asset-Warnungen erstmals als aktiven Punkt, Dev den sichtbaren Metadaten-Drift im Index selbst.
 
 - RP v5.18: Der RAW-Rettungsstand vor manueller Verteilung ist jetzt explizit dokumentiert. Hart rettbar bleiben C6-Startsnapshot, D5-Teilanker, generische Transferpfade und einzelne Tagesdeltas; weich rettbar sind Rollen- und Prozesslogik. Aktuelle Fraktionssummen, Restbestaende und konkrete Verbrauchsreihen bleiben weiter Handarbeit.
+- RP v5.19: Die operative Zuteilungsmatrix fuer die finale Metro-Warenverteilung liegt jetzt als eigenes Arbeitsblatt vor und ist im Recheck auf alle aktiven Fraktionen ausdifferenziert. Novapolis bleibt darin ausdruecklich getrennt, weil die aktive SSOT nur eine lokale Kernfraktion in frueher Aufbauphase belegt; die externen Fraktionen werden einzeln ueber ihre T0-Warenbilder und Inventarklassen gerahmt (`offen: 6 -> 6`).
+- RP v5.20: Nach der fraktionsscharfen Matrix ist jetzt auch der direkte Folgepfad verankert: Die finale Handverteilung soll erst ueber ein explizites Arbeitsledger laufen, bevor D5/C6/Fraktionsinventare weitergezogen werden (`offen: 6 -> 7`).
 
 - RP v5.17: Die C6-Zielseite hat jetzt einen semiformellen Logistikanker: `logistik_novapolis_v2` fuehrt `D5 -> C6 (Bauteile, Werkzeuge, Versorgungsgueter)` als aktive Fracht, `logistik_c6_v2` benennt Primaer-/Sekundaerlager in C6. Definierbar ist damit ein missionierter Versorgungslauf mit bestaetigtem Empfang und Weiterverteilung, nicht aber eine harte Lagerbuchung oder Inventarmenge.
 
@@ -52,6 +69,10 @@ Statushinweise (aktuell)
 - Dev v5.13: Kern-Governance normativ gestrafft. TL;DR verweist nur noch auf Regel-IDs, die `Regel-ID-Landepunkte (Kern)` sind explizit als bindende Ebene markiert, und die Matrix ist jetzt nur noch Kurzreferenz (`offen: 3 -> 2`).
 - Dev v5.14: Verbleibende Python-Workspace-Tasks in `.vscode/tasks.json` von `shell` auf `process` vereinheitlicht; bewusste Shell-Ausnahmen bleiben nur fuer `pwsh`-Aufrufe (`offen: 2 -> 1`).
 - Dev v5.15: Snapshot-/Pre-Commit-Retry-Pfad operativ gehaertet. Das Snapshot-Gate laeuft in `scripts/pre_commit.py` jetzt erst nach markdownlint, Frontmatter und RP-Hard-Gates; der Dev-Governance-Block ist damit komplett geschlossen (`offen: 1 -> 0`).
+- Dev v5.16: Review-Nachlauf behoben. `scripts/snapshot_gate.py` prueft Freshness jetzt fuer alle betroffenen Markdown-Dateien statt nur bei `stand:`-Diff, und `scripts/pre_commit.py` kommentiert markdownlint nicht mehr irrefuehrend als optional (`offen: 0 -> 0`).
+- Dev v5.17: Die aktive Reader-Surface ist wieder als Folgepunkt offen. Root-/Dev-/Modul-READMEs fuehren teils noch Vor-Maerz-Receipts, Altpfade oder Vor-Single-Root-Onboarding und sollen auf den aktuellen PASS-/`.venv`-Stand gezogen werden (`offen: 0 -> 1`).
+- Dev v5.18: Reader-Surface-Sync abgeschlossen. Root-/Dev-/Modul-READMEs und `WORKSPACE_INDEX.md` fuehren jetzt den aktuellen Single-Root-/PASS-Kontext ohne alte FAIL-Header, lokale `venv`-Altpfade oder Sibling-Verweise (`offen: 1 -> 0`).
+- Agent v5.0: Der dokumentierte Export-/Pack-Standardpfad fuehrt noch einen historischen Null-Export-Fall mit Source-Path-Drift; als neuer Folgepunkt ist jetzt ein lauter Fail oder ein nichtleerer aktueller Export statt stiller `0`-Records verankert (`offen: 0 -> 1`).
 - Dev v5.8: O11 geschlossen; externes Standalone-Beta-Installblatt fuer Dritte dokumentiert (`offen: 2 -> 1`).
 - Dev v5.7: Community-/Maintainer-Paket umgesetzt (`SUPPORT.md`, `RELEASE.md`, `MAINTAINERS.md`, Root-Issue-/PR-Templates); Dev offen `3 -> 2`.
 - Dev v5.6: ADR-Ordner aktiv genutzt; `ADR-0001` und `ADR-0002` als akzeptierte Governance-Entscheidungen aufgenommen (`offen: 4 -> 3`).
@@ -61,6 +82,7 @@ Statushinweise (aktuell)
 - Dev v5.2: Folgezyklus fuer Gate-Stabilisierung und modernes Doku-Basispaket gestartet (`offen: 0 -> 5`).
 - Dev v5.1: Woechentliche Hygiene-Cadence mit KPI-Tracking verbindlich dokumentiert (`offen: 1 -> 0`).
 - Sim v5.0: Sim-Board konsolidiert, verbleibende Mikrodrift geschlossen (`offen: 1 -> 0`).
+- Sim v5.1: Der verbleibende Sim-Restpunkt ist jetzt in Problem und Folgepfad getrennt: neben der Warnungsentscheidung liegt ein eigener Bootstrap-Punkt fuer Clean-Checkout vs. Vollstand auf dem Board (`offen: 1 -> 2`).
 - Index v2.0: Operative Anzeige erweitert um Board-Metadaten (letzte Aenderung, aeltester offener Punkt, Widerspruchscheck).
 
 Board-Metadaten (automationsrelevant)
@@ -69,14 +91,15 @@ Board-Metadaten (automationsrelevant)
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
 | Dev (`docs/todo.dev.md`) | 2026-03-27 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-03-27 | - [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten. | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-03-27 | keiner (offen: 0) | nein |
+| RP (`docs/todo.rp.md`) | 2026-03-27 | - [ ] [Als naechstes] Finale Metro-Warenzuteilung aus der Matrix in ein operatives Arbeitsledger ueberfuehren. | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-03-28 | - [ ] [Als naechstes] Export-/Kurationspfad gegen Null-Exports durch historische Results-Drift haerten. | nein |
 | Sim (`docs/todo.sim.md`) | 2026-03-27 | - [ ] [Als naechstes] Sim-Asset-Warnungen aus `scripts/check_sim_epoch_assets.py` aufloesen oder bewusst kanonisch ausnehmen. | nein |
 
 
 Hinweise (Index)
 ----------------
 
+- Aktive TODO-Quellen sind `todo.root.md` plus die vier Modul-Boards in `novapolis-dev/docs/`; gleichnamige Dateien unter `novapolis-dev/archive/**` oder `novapolis-dev/archive/quarantine/**` sind Historie, Snapshots oder Arbeitsquarantäne.
 - Vollständig erledigte Abschnitte (H2/H3, alle [x]) bitte manuell in `novapolis-dev/archive/todo.<modul>.archive.md` verschieben; unter der Abschnittsüberschrift `archived_at: YYYY-MM-DD HH:MM` ergänzen. Übersicht aller Archive: `novapolis-dev/archive/README.md`.
 - Validierung bei Änderungen: markdownlint via `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc` und Frontmatter-Check via `scripts/check_frontmatter.py`.
 - Automationscheck: `scripts/check_todo_index_sync.py` liefert zusaetzlich Metadaten zu letzter Board-Aenderung, aeltestem offenen Punkt und Widerspruchen.

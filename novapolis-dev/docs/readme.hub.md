@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 14:21
-update: Curation-Workflow-Pfade auf einheitliche `novapolis-rp/...`-Notation harmonisiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/readme.hub.md' PASS (2026-02-22 11:24); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/readme.hub.md' PASS (2026-02-22 11:24)"
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf aktualisiert den Hub-Header und die manuellen Pruefbeispiele auf den aktuellen Root-Wrapper-Stil.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
 ---
 
 Novapolis Dokumentations-Hub
@@ -56,11 +56,11 @@ Empfohlene Prüfläufe (manuell):
 ```powershell
 # Validierungen (Wrapper bevorzugen; Beispiele)
 # Vollcheck Runner (Lint/Typen/Tests/Coverage):
-python ../../scripts/run_checks_and_report.py
+& .\.venv\Scripts\python.exe scripts/run_checks_and_report.py
 # Nur Coverage (mit Fail-Under-Gate):
-python ../../scripts/run_pytest_coverage.py
+& .\.venv\Scripts\python.exe scripts/run_pytest_coverage.py --fail-under 80
 # Link-Scanner Dry-Run / Reports:
-python ../../scripts/scan_links.py --dry-run
+& .\.venv\Scripts\python.exe scripts/scan_links.py --dry-run
 ```
 
 Scenes Guidelines
@@ -85,7 +85,7 @@ Kurzer Einstiegsabsatz der Szene …
 Validierung (scoped Beispiel):
 
 ```powershell
-npm --prefix ../../novapolis-rp/coding/tools/validators run validate:rp
+npm --prefix novapolis-rp/coding/tools/validators run validate:rp
 ```
 
 Metadata Layer

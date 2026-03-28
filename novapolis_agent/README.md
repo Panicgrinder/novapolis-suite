@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-10 13:14
-update: Abhaengigkeitsprofile fuer Runtime/Dev/Train/Optional-Tools explizit dokumentiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 12:49); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis_agent/README.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/todo.agent-board.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 12:49)
+stand: 2026-03-28 06:51
+update: Lokale Kontext-Notizen, Eval-Defaults und README-Beispiele auf den kanonischen Modulpfad `novapolis_agent/eval/` umgestellt.
+checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
 ---
 
 Novapolis Agent
@@ -38,9 +38,9 @@ Neuigkeiten (2025-10-20)
 ------------------------
 
 - Demo→Fantasy: Datensatz-Bezeichnungen vereinheitlicht (`eval-21-40_fantasy_v1.0.*`).
-   Maßgeblich sind die Dateien unter `eval/datasets/`.
+   Maßgeblich sind die Dateien unter `novapolis_agent/eval/datasets/`.
 - Reports: Drei Skripte erzeugen reproduzierbare Berichte unter
-   `eval/results/reports/<topic>/<timestamp>/`:
+   `novapolis_agent/eval/results/reports/<topic>/<timestamp>/`:
    - `scripts/reports/generate_dependencies_report.py`
    - `scripts/reports/generate_coverage_report.py`
    - `scripts/reports/generate_consistency_report.py`
@@ -58,34 +58,32 @@ Repository-Info
 Einrichtung
 ----------
 
-1. Python 3.12 installieren
-2. Virtuelle Umgebung erstellen und aktivieren:
+1. Python 3.13 im Root-Workspace verwenden.
+2. Im Repo-Root die Root-`.venv` aktivieren:
 
 ```powershell
-   python -m venv venv
-   .\venv\Scripts\activate  # Windows
-   source venv/bin/activate  # Linux/Mac
-   ```
+& .\.venv\Scripts\activate
+```
 
 3. Abhängigkeiten installieren (eine der beiden Varianten):
 
 - Aus dem Repo-Root (empfohlen, bündelt alles):
 
 ```powershell
-   pip install -r requirements.txt
+& .\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
 - Direkt im Modul `novapolis_agent` (granular):
 
 ```powershell
-   # Basis-Laufzeit
-   pip install -r requirements/base.txt
-   # Dev-Extras (Tests, Lint)
-   pip install -r requirements/dev.txt
-   # Optional: Trainings-Extras
-   pip install -r requirements/train.txt
-   # Optional: CLI-Tools (OpenAI/Rich/PDF)
-   pip install -r requirements/optional-tools.txt
+# Basis-Laufzeit
+& .\.venv\Scripts\python.exe -m pip install -r novapolis_agent\requirements\base.txt
+# Dev-Extras (Tests, Lint)
+& .\.venv\Scripts\python.exe -m pip install -r novapolis_agent\requirements\dev.txt
+# Optional: Trainings-Extras
+& .\.venv\Scripts\python.exe -m pip install -r novapolis_agent\requirements\train.txt
+# Optional: CLI-Tools (OpenAI/Rich/PDF)
+& .\.venv\Scripts\python.exe -m pip install -r novapolis_agent\requirements\optional-tools.txt
 ```
 
 Abhaengigkeitsprofile (kanonisch)
@@ -99,22 +97,21 @@ Abhaengigkeitsprofile (kanonisch)
 Profil-Check (leichtgewichtig):
 
 ```powershell
-..\.venv\Scripts\python.exe scripts\check_dependency_profiles.py
+& .\.venv\Scripts\python.exe novapolis_agent\scripts\check_dependency_profiles.py
 ```
 
-Oder manuell:
+Oder manuell im Repo-Root:
 
-```bash
-   pip install fastapi uvicorn httpx python-dotenv
-   ```
+```powershell
+& .\.venv\Scripts\python.exe -m pip install fastapi uvicorn httpx python-dotenv
+```
 
 4. Ollama installieren und starten:
 
-```bash
-   # Windows-Installer von https://ollama.com/download/windows
-   # Nach der Installation:
-   ollama serve
-   ```
+```text
+Windows-Installer: https://ollama.com/download/windows
+Nach der Installation: ollama serve
+```
 
 5. LLM-Modell herunterladen:
 
@@ -125,8 +122,8 @@ Oder manuell:
 Anwendung starten
 -----------------
 
-```bash
-uvicorn app.main:app --reload
+```powershell
+& .\.venv\Scripts\python.exe -m uvicorn novapolis_agent.app.main:app --reload
 ```
 
 API-Endpunkte
@@ -137,10 +134,8 @@ API-Endpunkte
 
 ### Chat-Endpunkt verwenden
 
-```bash
-curl -X POST http://127.0.0.1:8000/chat \
-  -H "Content-Type: application/json" \
-   -d "{\"messages\":[{\"role\":\"user\",\"content\":\"Du bist die Chronistin von Novapolis. Stell dich kurz vor.\"}]}"
+```text
+curl -X POST http://127.0.0.1:8000/chat -H "Content-Type: application/json" -d "{\"messages\":[{\"role\":\"user\",\"content\":\"Du bist die Chronistin von Novapolis. Stell dich kurz vor.\"}]}"
 ```
 
 Oder mit PowerShell:
@@ -178,16 +173,16 @@ Der Server liest `AGENT_PORT` (Standard `8765`) aus der Umgebung.
 2. Server direkt starten:
 
 ```powershell
-   $port = $env:AGENT_PORT
-   if (-not $port) { $port = 8765 }
-   uvicorn app.api.sim:app --host 127.0.0.1 --port $port --reload
-   ```
+$port = $env:AGENT_PORT
+if (-not $port) { $port = 8765 }
+& .\.venv\Scripts\python.exe -m uvicorn novapolis_agent.app.api.sim:app --host 127.0.0.1 --port $port --reload
+```
 
 3. Probeaufruf:
 
 ```powershell
-   Invoke-RestMethod -Uri "http://127.0.0.1:$port/world/state" -Method Get
-   ```
+Invoke-RestMethod -Uri "http://127.0.0.1:$port/world/state" -Method Get
+```
 
 ### Start (Dev Container)
 
@@ -255,7 +250,7 @@ Die Inhalts-Policies sind standardmäßig aus. Zur Aktivierung in `.env` oder Um
 
 ```ini
 POLICIES_ENABLED=true
-POLICY_FILE="eval/config/policy.sample.json"
+POLICY_FILE="novapolis_agent/eval/config/policy.sample.json"
 # Im "unrestricted"-Modus strikt alle Policies umgehen:
 POLICY_STRICT_UNRESTRICTED_BYPASS=true
 ```
@@ -299,7 +294,7 @@ Der Agent kann optional Kontext-Snippets aus einem lokalen Text-Korpus (Markdown
 
 - Flags (in `.env` oder als Umgebungsvariablen):
    - `RAG_ENABLED=true` - RAG aktivieren
-   - `RAG_INDEX_PATH=eval/results/rag/index.json` - Pfad zur Index-Datei
+   - `RAG_INDEX_PATH=novapolis_agent/eval/results/rag/index.json` - Pfad zur Index-Datei
    - `RAG_TOP_K=3` - Anzahl der Snippets
 
 - Indexer-CLI: `scripts/rag_indexer.py`
@@ -307,8 +302,8 @@ Der Agent kann optional Kontext-Snippets aus einem lokalen Text-Korpus (Markdown
    - Beispiel (PowerShell):
 
 ```powershell
-      .\.venv\Scripts\python.exe scripts\rag_indexer.py --input docs eval\config --out eval\results\rag\index.json
-      ```
+& .\.venv\Scripts\python.exe novapolis_agent\scripts\rag_indexer.py --input novapolis_agent\docs novapolis_agent\eval\config --out novapolis_agent\eval\results\rag\index.json
+```
 
 - Verwendung im Server:
    - Server liest `RAG_INDEX_PATH` beim Request ein (best-effort). Wenn der Index fehlt, läuft der Chat normal weiter (fail-open).
@@ -328,7 +323,7 @@ Workspace-Zusammenfassung
 --------------------------
 
 - Neueste Gesamt-Zusammenfassung (LLM+Heuristik):
-   - eval/results/summaries/summary_ALL_20250824_0306_MIXED.md
+   - novapolis_agent/eval/results/summaries/summary_ALL_20250824_0306_MIXED.md
 
 Datensatz-Kurierung (3-7 Tage)
 ------------------------------
@@ -337,23 +332,23 @@ Aus Eval-Ergebnissen Trainingspakete erzeugen:
 
 - Skript: `scripts/curate_dataset_from_latest.py`
 - Ablauf: nimmt die neueste `results_*.jsonl`, exportiert in `openai_chat` oder `alpaca`, erzeugt deduplizierte Train/Val-Dateien.
-- Ausgabe liegt unter `eval/results/finetune/`.
+- Ausgabe liegt unter `novapolis_agent/eval/results/finetune/`.
 
 Finetune workflow
 -----------------
 
 Schneller Export und Vorbereitung von Trainingspaketen auf Basis der neuesten
-Evaluations-Ergebnisse (`eval/results/results_*.jsonl`). Zwei VS Code Tasks sind vorhanden:
+Evaluations-Ergebnisse (`novapolis_agent/eval/results/results_*.jsonl`). Zwei VS Code Tasks sind vorhanden:
 
 - Finetune: export (latest)
    - Ermittelt die neueste `results_*.jsonl` und exportiert nach OpenAI-Chat-Format.
-   - Ausgabe: `${workspaceFolder}/eval/results/finetune/exports/openai_chat.jsonl`
+   - Ausgabe: `${workspaceFolder}/novapolis_agent/eval/results/finetune/exports/openai_chat.jsonl`
    - OS-spezifisch (Windows PowerShell vs. Linux/macOS Bash) hinterlegt.
 
 - Finetune: prepare (split)
    - Erzeugt deduplizierte Splits:
-      - Train: `${workspaceFolder}/eval/results/finetune/train.jsonl`
-      - Val: `${workspaceFolder}/eval/results/finetune/val.jsonl`
+   - Train: `${workspaceFolder}/novapolis_agent/eval/results/finetune/train.jsonl`
+   - Val: `${workspaceFolder}/novapolis_agent/eval/results/finetune/val.jsonl`
    - Schwellwert für Near-Duplicates: `0.92`
 
 Akzeptanz: Das Ausführen beider Tasks erzeugt valide JSONL-Dateien für Train/Val ohne JSON-Fehler.
@@ -365,7 +360,7 @@ Fine-Tuning / LoRA Mini-Pipeline (3-7 Tage)
 - Voraussetzungen: passende PyTorch-Installation und optionale Pakete aus `requirements-train.txt`.
 - Beispiel (CPU/GPU abhängig):
    - python scripts/fine_tune_pipeline.py \
-      --finetune-dir eval/results/finetune \
+   --finetune-dir novapolis_agent/eval/results/finetune \
       --epochs 1 \
       --per-device-train-batch-size 1 \
       --bf16
@@ -373,12 +368,12 @@ Fine-Tuning / LoRA Mini-Pipeline (3-7 Tage)
 Eval: Synonyme mit privatem Overlay
 ----------------------------------
 
-Für die Keyword-Checks in der Evaluierung können Synonyme aus `eval/config/synonyms.json` geladen werden.
+Für die Keyword-Checks in der Evaluierung können Synonyme aus `novapolis_agent/eval/config/synonyms.json` geladen werden.
 Zusätzlich können lokale, private Ergänzungen in
-`eval/config/synonyms.local.json` abgelegt werden.
+`novapolis_agent/eval/config/synonyms.local.json` abgelegt werden.
 Diese Datei ist git-ignoriert und wird automatisch mit der Basisdatei gemerged.
 
-- Beispiel: `eval/config/synonyms.local.sample.json` kopieren zu `synonyms.local.json` und anpassen.
+- Beispiel: `novapolis_agent/eval/config/synonyms.local.sample.json` kopieren zu `synonyms.local.json` und anpassen.
 
 Eval-Suites (neutral vs rpg)
 ----------------------------
@@ -429,11 +424,11 @@ Der Server kann optionale, lokale Kontext-Notizen als zusätzliche
 System-Nachricht injizieren. Das ist nützlich für projektspezifisches Wissen
 oder interne Begriffe.
 
-- Beispieldatei: `eval/config/context.local.sample.md` → kopieren zu `context.local.md` und Inhalte ergänzen.
+- Beispieldatei: `novapolis_agent/eval/config/context.local.sample.md` → kopieren zu `context.local.md` und Inhalte ergänzen.
 - Aktivierung via Settings/ENV:
    - `CONTEXT_NOTES_ENABLED=true`
    - Optional Pfade anpassen:
-      `CONTEXT_NOTES_PATHS=["eval/config/context.local.md", "eval/config/context.local.jsonl", ...]`
+      `CONTEXT_NOTES_PATHS=["novapolis_agent/eval/config/context.local.md", "novapolis_agent/eval/config/context.local.jsonl", ...]`
    - Optional Größe begrenzen: `CONTEXT_NOTES_MAX_CHARS=4000`
 - Die Notizen werden als zweite System-Nachricht eingefügt (nach dem gewählten
    System-Prompt), sowohl im normalen als auch im Streaming-Endpunkt.
@@ -478,17 +473,15 @@ Sitzungshistorie persistiert.
 
 - CHAI (ASGI, eval-Profil, fokussierte Checks):
 
-```bash
-   python scripts/run_eval.py --asgi --packages "eval/datasets/chai-ai_small_v1.jsonl" \
-      --profile eval --checks rpg_style,term_inclusion --quiet
-   ```
+```powershell
+& .\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --packages novapolis_agent/eval/datasets/chai-ai_small_v1.jsonl --profile eval --checks rpg_style,term_inclusion --quiet
+```
 
 - Combined 001-100 (ASGI, eval-Profil, fokussierte Checks):
 
-```bash
-   python scripts/run_eval.py --asgi --packages "eval/datasets/combined_eval_001-100.jsonl" \
-      --profile eval --checks rpg_style,term_inclusion --quiet
-   ```
+```powershell
+& .\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --packages novapolis_agent/eval/datasets/combined_eval_001-100.jsonl --profile eval --checks rpg_style,term_inclusion --quiet
+```
 
 Copilot @workspace / #codebase (Code-Suche)
 -------------------------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 03:57
-update: Hub-Hauptmenue-Chatfenster dokumentiert (lokaler /chat-Flow im Sim-Hub).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-10 17:19); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-sim/README.md' 'novapolis-dev/docs/todo.sim.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-10 17:19)
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf vereinheitlicht die Sim-README weiter auf portable Godot-Aufrufe und denselben Root-Wrapper-Rahmen wie die anderen Einstiegstexte.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:23)
 ---
 
 Novapolis Sim
@@ -24,15 +24,15 @@ How to run
 ----------
 
 1. Stelle sicher, dass die Python-Seite läuft:
-   - In `novapolis_agent` `.env` anlegen (`AGENT_PORT=8765` Standard).
+   - In `novapolis_agent/.env` den Port setzen (`AGENT_PORT=8765` Standard).
    - Root-Task `Integration: MCP OpenAI Eval (run)` ist **nicht** für die Sim-API gedacht; starte stattdessen direkt:
-     `uvicorn app.api.sim:app --host 127.0.0.1 --port 8765 --reload`.
+     `& .\.venv\Scripts\python.exe -m uvicorn novapolis_agent.app.api.sim:app --host 127.0.0.1 --port 8765 --reload`.
 2. Starte Godot 4 und öffne dieses Verzeichnis (`novapolis-sim`). Die kanonische Projektdatei ist `project.godot` direkt unter `novapolis-sim/` (Option A). Das frühere, verschachtelte Projekt wurde nach `Backups/novapolis-sim-archived-20251104/` verschoben.
 3. Lade `Main.tscn` und drücke **Play**.
 
 Während der Agent nicht erreichbar ist, bleibt die Oberfläche responsiv und zeigt unten eine Statusmeldung an. Läuft die API, aktualisieren sich Tick und Zeit etwa fünfmal pro Sekunde.
 
-Weitere Assets oder Artefakte werden nicht benötigt; das Projekt arbeitet ausschließlich mit Bordmitteln von Godot 4.
+Für den UI-Start werden keine zusätzlichen Pflicht-Assets benötigt; der separate Offline-Asset-Check kann auf Clean-Checkout aber weiter Warnungen zu optionalen Epoch- und Audio-Artefakten melden, bis der Bootstrap-Pfad aus `todo.sim.md` umgesetzt ist.
 
 Hub-Chatfenster (Hauptmenue)
 ---------------------------
@@ -62,10 +62,11 @@ Set-Location "${workspaceFolder}/novapolis_agent"
 - Godot starten (Editor) oder Headless verifier:
 
 ```powershell
+$godot = if ($env:GODOT_BIN) { $env:GODOT_BIN } else { 'godot4' }
 # optional: $env:AGENT_PORT = 8765
-& "${workspaceFolder}/novapolis-sim/Godot_v4.5.1-stable_win64.exe" --path "${workspaceFolder}/novapolis-sim"
+& $godot --path "${workspaceFolder}/novapolis-sim"
 # headless verifier (prints SIM_VERIFY: OK and exits):
-& "${workspaceFolder}/novapolis-sim/Godot_v4.5.1-stable_win64.exe" --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless
+& $godot --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless
 ```
 
 - Quick POST check (PowerShell):
@@ -96,7 +97,8 @@ Avoiding the Editor / (DEBUG) window
 
 Wenn du vermeiden willst, dass Godot das Editorfenster mit „(DEBUG)“ öffnet, starte die Simulation headless oder führe eine exportierte Release-Build aus. Zwei einfache Optionen:
 
-- Headless verifier (schnell, für CI / Smoke): `& "${workspaceFolder}/novapolis-sim/Godot_v4.5.1-stable_win64.exe" --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless` — startet lokal die `verify_sim.gd` im Headless-Modus, kein Editorfenster.
+- Vorher bei Bedarf einmalig setzen: `$env:GODOT_BIN = '<Pfad-zur-Godot-Binary>'`.
+- Headless verifier (schnell, für CI / Smoke): `& $env:GODOT_BIN --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless` oder ohne gesetzte Variable mit `godot4 --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless` starten.
 - Release/Export (empfohlen für Produktion): Exportiere das Projekt (`Project -> Export`) als Windows Desktop und starte die erzeugte `.exe` — das läuft ohne Editor-Overlay und ohne Debug-Label.
 
 Verification Record

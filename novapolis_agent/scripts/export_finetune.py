@@ -110,7 +110,7 @@ async def export_from_results(
 
             out_dir_str = os.path.join(
                 os.path.dirname(os.path.dirname(__file__)),
-                getattr(settings, "EVAL_RESULTS_DIR", "eval/results"),
+                getattr(settings, "EVAL_RESULTS_DIR", os.path.join("novapolis_agent", "eval", "results")),
             )
         except Exception:
             out_dir_str = str(getattr(run_eval, "DEFAULT_RESULTS_DIR", run_eval.DEFAULT_EVAL_DIR))

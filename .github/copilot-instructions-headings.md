@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-27 15:47
+stand: 2026-03-28 06:51
 update: Snapshot-Retry-Pfad operativ gehaertet; der Headings-Index spiegelt die aktualisierte Hook-Reihenfolge mit.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/copilot-instructions-headings.md' '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-27 15:47); .\.venv\Scripts\python.exe scripts/check_logs_policy.py --repo-root . PASS (2026-03-27 15:47)
 ---
@@ -16,7 +16,7 @@ Instruction-System:
 Aktuelle Überschriften (Kern + Scoped)
 --------------------------------------
 
-Quelle: Stand `2026-03-27 15:47` der Kern-Datei und der zugehörigen
+Quelle: Stand `2026-03-28 02:02` der Kern-Datei und der zugehörigen
 scoped Instruction-Files.
 
 1) Kern-SSOT

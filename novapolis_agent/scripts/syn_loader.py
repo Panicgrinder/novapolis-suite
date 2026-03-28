@@ -8,6 +8,7 @@ from pathlib import Path
 logger = logging.getLogger("syn_loader")
 
 ALLOWED_CHARS = set("abcdefghijklmnopqrstuvwxyz0123456789 äöüß./-_")
+DEFAULT_SYNONYMS_DIR = Path("novapolis_agent") / "eval" / "config"
 
 
 def _merge_dicts(base: dict[str, list[str]], overlay: dict[str, list[str]]) -> dict[str, list[str]]:
@@ -45,12 +46,12 @@ def _sanitize_dict(d: dict[str, list[str]]) -> tuple[dict[str, list[str]], int]:
 
 
 def load_synonyms() -> tuple[dict[str, list[str]], int]:
-    """Load and merge synonyms from eval/config/, with additional and local overlays.
+    """Load and merge synonyms from novapolis_agent/eval/config/, with additional and local overlays.
     Returns (merged_dict, count_total).
     """
-    base = Path("eval/config/synonyms.json")
-    add = Path("eval/config/synonyms.additional.json")
-    local = Path("eval/config/synonyms.local.json")
+    base = DEFAULT_SYNONYMS_DIR / "synonyms.json"
+    add = DEFAULT_SYNONYMS_DIR / "synonyms.additional.json"
+    local = DEFAULT_SYNONYMS_DIR / "synonyms.local.json"
 
     def _read(p: Path) -> dict[str, list[str]]:
         try:

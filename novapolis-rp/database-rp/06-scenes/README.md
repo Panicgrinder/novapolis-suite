@@ -2,9 +2,9 @@
 title: "Scenes: Definition & Template"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-03-05 01:00
-update: "Scene-XREFs: Klarstellung auf slug-only + Validierungstext aktualisiert."
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-28 06:51
+update: "Phase-2-Konsistenzlauf zieht das Scenes-Runbook auf den aktuellen PASS-Kontext und Root-Wrapper fuer die Gates."
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
 slug: scenes-konventionen-stub
 ---
 
@@ -47,7 +47,7 @@ Template
 
 ```markdown
 ---
-stand: YYYY-MM-DD HH:mm
+stand: 2026-03-28 06:51
 update: Kurznotiz
 checks: scripts/run_checks_and_report.py pending-sync
 last_updated: YYYY-MM-DDTHH:mm:ss+01:00
@@ -90,8 +90,8 @@ Validierung (Gates)
 -------------------
 
 - `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md'`
-- `python scripts/check_frontmatter.py novapolis-rp/database-rp`
-- `python scripts/checks_rp_consistency.py --strict`
+- `& .\.venv\Scripts\python.exe scripts/check_frontmatter.py novapolis-rp/database-rp`
+- `& .\.venv\Scripts\python.exe scripts/checks_rp_consistency.py --strict`
 
 
 

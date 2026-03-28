@@ -1,21 +1,21 @@
 #!/usr/bin/env python
 """
 Kuratiert Trainingsdaten aus dem neuesten Eval-Run (results_*.jsonl):
-- Wählt die neueste results_*.jsonl unter eval/results
+- Wählt die neueste results_*.jsonl unter novapolis_agent/eval/results
 - Exportiert in openai_chat-Format (nur erfolgreiche Antworten per Default)
 - Erzeugt Train/Val-Pack (dedupliziert, minimaler Output, deterministischer Split)
 
 Nutzung:
     python scripts/curate_dataset_from_latest.py \
-    --results-dir eval/results \
+        --results-dir novapolis_agent/eval/results \
     --format openai_chat \
     --train-ratio 0.9 \
     --min-output-chars 20 \
         [--include-failures] [--min-rpg-style 0.0] [--exclude-regex "pattern"] [--results-file path]
 
 Ausgabe:
-  - Exportierte JSONL unter eval/results/finetune
-  - Train/Val unter eval/results/finetune
+    - Exportierte JSONL unter novapolis_agent/eval/results/finetune
+    - Train/Val unter novapolis_agent/eval/results/finetune
   - Kurzer JSON-Report auf stdout
 """
 
@@ -53,10 +53,10 @@ def main() -> int:
 
         default_results = os.path.join(
             os.path.dirname(os.path.dirname(__file__)),
-            getattr(settings, "EVAL_RESULTS_DIR", "eval/results"),
+            getattr(settings, "EVAL_RESULTS_DIR", os.path.join("novapolis_agent", "eval", "results")),
         )
     except Exception:
-        default_results = os.path.join("eval", "results")
+        default_results = os.path.join("novapolis_agent", "eval", "results")
 
     p = argparse.ArgumentParser(
         description="Kuratiert Trainingspakete aus dem neuesten results_*.jsonl"

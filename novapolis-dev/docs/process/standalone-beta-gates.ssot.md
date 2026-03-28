@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-05 01:00
-update: Beta-Tagging-Konvention fuer Build-/Report-Artefakte als verbindlicher Namensstandard ergaenzt.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf zieht die Beta-Gates auf den aktuellen PASS-Kontext und explizite Root-Wrapper nach.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
 ---
 
 Standalone Beta Gates (SSOT)
@@ -17,8 +17,8 @@ Gate-Kriterien
 --------------
 
 - `GO` nur wenn alle Pflichtpunkte erfuellt sind:
-  - `scripts/run_checks_and_report.py` ohne Pflicht-FAIL.
-  - `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency` mit `fail:0`.
+  - `& .\.venv\Scripts\python.exe scripts/run_checks_and_report.py` ohne Pflicht-FAIL.
+  - `& .\.venv\Scripts\python.exe scripts/check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency` mit `fail:0`.
   - Aktueller Reportpfad ist in `novapolis-dev/docs/donelog.md` und `DONELOG.md` protokolliert.
 - `NO-GO` sobald ein Pflichtkriterium fehlschlaegt.
 
@@ -62,8 +62,8 @@ Reihenfolge (kanonisch)
 
 1. API starten (`novapolis_agent/run_server.py`).
 2. Sim-Hub starten (`novapolis-sim/project.godot`, `Main.tscn`).
-3. Vollcheck starten (`scripts/run_checks_and_report.py`).
-4. Sim-Offline-Check ausfuehren (`scripts/check_sim_epoch_assets.py ... --check-slot-consistency`).
+3. Vollcheck starten (`& .\.venv\Scripts\python.exe scripts/run_checks_and_report.py`).
+4. Sim-Offline-Check ausfuehren (`& .\.venv\Scripts\python.exe scripts/check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency`).
 5. Go/No-Go entscheiden und protokollieren.
 
 

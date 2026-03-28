@@ -204,7 +204,7 @@ def main() -> int:
 
     staged_md = [p for p in staged_all if p.lower().endswith(".md")]
 
-    # markdownlint on staged markdown (optional)
+    # markdownlint gate on staged markdown
     markdownlint(root, staged_md)
 
     # frontmatter validator (only if markdown files are present)

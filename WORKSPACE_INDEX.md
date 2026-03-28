@@ -1,28 +1,26 @@
 ---
-stand: 2026-03-05 01:00
-update: Root-Zusatzbestand TTS entfernt; Index auf aktuellen Root-Iststand synchronisiert.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
+stand: 2026-03-28 06:51
+update: Phase-2-Konsistenzlauf spiegelt jetzt den aktiven Stil- und Sweep-Status im Workspace-Index statt der alten Redirect-Phase.
+checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:23)
 ---
 
 <!-- markdownlint-disable MD013 -->
 
-Novapolis Agent - Workspace Datei-Index
+Novapolis Suite - Workspace Datei-Index
 =======================================
 
 Monorepo Redirect / Konsolidierung
 ----------------------------------
 
-Dieser Datei-Index bleibt als detailreicher Agent-spezifischer Katalog bestehen, verweist aber nun zentral auf das Hub-README (`novapolis-dev/README.md`) für globale Navigations- und Governance-Hinweise. Im Single-Root-Setup bildet er die Referenz für alle `novapolis_agent/`-Pfade unterhalb des Repo-Roots.
+Dieser Datei-Index bleibt als detailreicher, agent-lastiger Referenzkatalog bestehen, verweist aber nun zentral auf das Hub-README (`novapolis-dev/README.md`) für globale Navigations- und Governance-Hinweise. Der aktuelle Betriebszustand liegt in `WORKSPACE_STATUS.md`; dieser Index dient im Single-Root-Setup als nachgezogene Referenz für die Arbeitsoberflaeche und die wichtigsten Pfade unterhalb des Repo-Roots.
 
 Geplante Vereinheitlichung (Phase 2):
-- 2025-11-15 09:27: Index-Verweis auf Frontmatter-Autofix + `--touch` ergänzt; Status-/TODO-Dokumente synchron.
-- 2025-11-15 09:00: Index-Abgleich mit context.local Frontmatter-Update; Status-/TODO-Dokumente synchron.
-- 2025-11-15 09:00: Index-Abgleich mit context.local Frontmatter-Update; Status-/TODO-Dokumente synchron.
-- Reduzierung redundanter Indexabschnitte auf einen kurzen Verweisblock.
-- Stubs anderer Teilmodule werden auf Hub-Abschnitt "Projektübersicht" verweisen.
-- Vollständige Entfernung historischer Duplikate nach Abschluss der README-Entscheidungsliste.
+- 2026-03-28 00:43: Der Stil- und Konsistenzlauf ist vor Start als Prozessanker dokumentiert (`novapolis-dev/docs/process/doku-konsistenzlauf-aktive-surface-2026-03-28.md`).
+- Erst-Scope sind die Hochfrequenz-Dateien (`README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, Root-/Modul-READMEs, aktive TODO-Oberflaeche).
+- Danach folgt die restliche aktive Dev- und Modul-Doku; Archive und Quarantaene bleiben ausserhalb des Sweep-Scope.
+- Ziel ist kein Strukturumbau, sondern ein einheitlicher Stilrahmen fuer Frontmatter, Pfade, Kommandos und Statusbegriffe.
 
-Status: Phase 1 (Redirect-Hinweis) aktiv; Entscheidungsliste erstellt (`novapolis-dev/docs/readme_decisions.md`).
+Status: Phase 2 aktiv; der laufende Sweep arbeitet den dokumentierten Erst-Scope aus dem Prozessanker ab.
 
 Vollständiger Index aller Dateien im Agent-Verzeichnis
 ------------------------------------------------------

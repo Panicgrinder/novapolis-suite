@@ -54,7 +54,7 @@ def main() -> int:
         "--dir",
         dest="dir",
         default=str(SUMMARY_DIR),
-        help="Directory to search (default: eval/results/summaries)",
+        help="Directory to search (default: novapolis_agent/eval/results/summaries)",
     )
     args = parser.parse_args()
 

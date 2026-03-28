@@ -8,6 +8,9 @@ from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+AGENT_EVAL_ROOT = os.path.join("novapolis_agent", "eval")
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -70,10 +73,10 @@ class Settings(BaseSettings):
     REPEAT_LAST_N: int = 64
     NUM_CTX_DEFAULT: int | None = None
 
-    EVAL_DIRECTORY: str = "eval"
-    EVAL_DATASET_DIR: str = os.path.join("eval", "datasets")
-    EVAL_RESULTS_DIR: str = os.path.join("eval", "results")
-    EVAL_CONFIG_DIR: str = os.path.join("eval", "config")
+    EVAL_DIRECTORY: str = AGENT_EVAL_ROOT
+    EVAL_DATASET_DIR: str = os.path.join(AGENT_EVAL_ROOT, "datasets")
+    EVAL_RESULTS_DIR: str = os.path.join(AGENT_EVAL_ROOT, "results")
+    EVAL_CONFIG_DIR: str = os.path.join(AGENT_EVAL_ROOT, "config")
     EVAL_FILE_PATTERN: str = "eval-*.json*"
 
     BACKEND_CORS_ORIGINS: list[str] = []
@@ -115,10 +118,10 @@ class Settings(BaseSettings):
 
     CONTEXT_NOTES_ENABLED: bool = False
     CONTEXT_NOTES_PATHS: list[str] = [
-        os.path.join("eval", "config", "context.local.md"),
-        os.path.join("eval", "config", "context.local.jsonl"),
-        os.path.join("eval", "config", "context.local.json"),
-        os.path.join("eval", "config", "context.notes"),
+        os.path.join(AGENT_EVAL_ROOT, "config", "context.local.md"),
+        os.path.join(AGENT_EVAL_ROOT, "config", "context.local.jsonl"),
+        os.path.join(AGENT_EVAL_ROOT, "config", "context.local.json"),
+        os.path.join(AGENT_EVAL_ROOT, "config", "context.notes"),
         os.path.join("data", "context.local.md"),
     ]
     CONTEXT_NOTES_MAX_CHARS: int = 12000
@@ -154,7 +157,7 @@ class Settings(BaseSettings):
     TOOLS_WHITELIST: list[str] = []
 
     RAG_ENABLED: bool = False
-    RAG_INDEX_PATH: str = str(Path("eval/results/rag/index.json"))
+    RAG_INDEX_PATH: str = str(Path(AGENT_EVAL_ROOT) / "results" / "rag" / "index.json")
     RAG_TOP_K: int = 3
 
     # Backward-compatible aliases used in root TODO/checklists.

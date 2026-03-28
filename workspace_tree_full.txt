@@ -1,6 +1,7 @@
 Folder PATH listing for volume Games
 Volume serial number is 6EE6-7436
 F:.
+|   .coverage
 |   .editorconfig
 |   .env
 |   .env.example
@@ -9,21 +10,22 @@ F:.
 |   .markdownlint-cli2.jsonc
 |   .markdownlintignore
 |   .snapshot.now
-|   combined.json
+|   CHANGELOG.md
+|   CODE_OF_CONDUCT.md
 |   CONTRIBUTING.md
 |   DONELOG.md
-|   extensions.installed.txt
-|   extensions.status.txt
 |   LICENSE
 |   LICENSES.md
-|   lint.out
-|   md003_scan.out
+|   MAINTAINERS.md
 |   PR_DESCRIPTION.md
 |   pyproject.toml
 |   pytest.ini
 |   README.md
+|   RELEASE.md
 |   requirements-dev.txt
 |   requirements.txt
+|   SECURITY.md
+|   SUPPORT.md
 |   todo.root.md
 |   TRADEMARKS.md
 |   WORKSPACE_INDEX.md
@@ -36,8 +38,10 @@ F:.
 |       pick_low.py
 |       
 +---.github
+|   |   CODEOWNERS
 |   |   copilot-instructions-headings.md
 |   |   copilot-instructions.md
+|   |   pull_request_template.md
 |   |   
 |   +---agents
 |   |       novapolis-workspace-navigator.agent.md
@@ -49,6 +53,11 @@ F:.
 |   |       mind-cluster.instructions.md
 |   |       python-runtime.instructions.md
 |   |       rp-docs.instructions.md
+|   |       
+|   +---ISSUE_TEMPLATE
+|   |       bug_report.md
+|   |       config.yml
+|   |       feature_request.md
 |   |       
 |   \---workflows
 |           ci.yml
@@ -74,17 +83,108 @@ F:.
 |           8365936846881195501
 |           
 +---.tmp
+|   +---datasets
 |   \---results
+|       +---logs
+|       |       shadow_mode.jsonl
+|       |       
 |       \---reports
 |           |   artifact_lifecycle_report.json
 |           |   checks_report_20260310_153620.json
 |           |   checks_report_20260310_153620.md
 |           |   checks_report_20260310_153947.json
 |           |   checks_report_20260310_153947.md
+|           |   checks_report_20260311_065156.json
+|           |   checks_report_20260311_065156.md
+|           |   checks_report_20260311_071951.json
+|           |   checks_report_20260311_071951.md
+|           |   checks_report_20260311_072150.json
+|           |   checks_report_20260311_072150.md
+|           |   checks_report_20260311_072546.json
+|           |   checks_report_20260311_072546.md
+|           |   checks_report_20260317_064114.json
+|           |   checks_report_20260317_064114.md
+|           |   checks_report_20260318_051209.json
+|           |   checks_report_20260318_051209.md
+|           |   checks_report_20260318_052318.json
+|           |   checks_report_20260318_052318.md
+|           |   checks_report_20260327_010903.json
+|           |   checks_report_20260327_010903.md
+|           |   checks_report_20260327_011507.json
+|           |   checks_report_20260327_011507.md
+|           |   checks_rp_consistency_20260327_095748.log
+|           |   checks_rp_consistency_postflight_20260327_095748.md
 |           |   marathon_kpi_summary.json
 |           |   marathon_kpi_summary.md
 |           |   pytest_coverage_20260310_154111.log
+|           |   pytest_coverage_20260310_154316.log
+|           |   pytest_coverage_20260311_075004.log
+|           |   pytest_coverage_20260311_075104.log
+|           |   pytest_coverage_20260311_075334.log
+|           |   pytest_coverage_20260311_075506.log
+|           |   pytest_coverage_20260311_075637.log
+|           |   pytest_coverage_20260311_093419.log
+|           |   pytest_coverage_20260311_093831.log
+|           |   pytest_coverage_20260311_094158.log
+|           |   pytest_coverage_20260311_094411.log
+|           |   pytest_coverage_20260311_094729.log
+|           |   pytest_coverage_20260311_095159.log
+|           |   pytest_coverage_20260311_095323.log
+|           |   pytest_coverage_20260311_095430.log
+|           |   pytest_coverage_20260311_095602.log
+|           |   pytest_coverage_20260311_095717.log
+|           |   pytest_coverage_20260311_095849.log
+|           |   pytest_coverage_20260311_100004.log
+|           |   pytest_coverage_20260311_100144.log
+|           |   pytest_coverage_20260311_100600.log
+|           |   pytest_coverage_20260311_101604.log
+|           |   pytest_coverage_20260311_102154.log
+|           |   pytest_coverage_20260311_102834.log
+|           |   pytest_coverage_20260311_103034.log
+|           |   pytest_coverage_20260311_103241.log
+|           |   pytest_coverage_20260317_064326.log
+|           |   pytest_coverage_20260317_064421.log
+|           |   pytest_coverage_20260327_011149.log
+|           |   pytest_coverage_20260327_011642.log
+|           |   pytest_coverage_20260327_100204.log
+|           |   pytest_coverage_20260327_103532.log
 |           |   pytest_coverage_postflight_20260310_154111.md
+|           |   pytest_coverage_postflight_20260310_154316.md
+|           |   pytest_coverage_postflight_20260311_075004.md
+|           |   pytest_coverage_postflight_20260311_075104.md
+|           |   pytest_coverage_postflight_20260311_075334.md
+|           |   pytest_coverage_postflight_20260311_075506.md
+|           |   pytest_coverage_postflight_20260311_075637.md
+|           |   pytest_coverage_postflight_20260311_093419.md
+|           |   pytest_coverage_postflight_20260311_093831.md
+|           |   pytest_coverage_postflight_20260311_094158.md
+|           |   pytest_coverage_postflight_20260311_094411.md
+|           |   pytest_coverage_postflight_20260311_094729.md
+|           |   pytest_coverage_postflight_20260311_095159.md
+|           |   pytest_coverage_postflight_20260311_095323.md
+|           |   pytest_coverage_postflight_20260311_095430.md
+|           |   pytest_coverage_postflight_20260311_095602.md
+|           |   pytest_coverage_postflight_20260311_095717.md
+|           |   pytest_coverage_postflight_20260311_095849.md
+|           |   pytest_coverage_postflight_20260311_100004.md
+|           |   pytest_coverage_postflight_20260311_100144.md
+|           |   pytest_coverage_postflight_20260311_100600.md
+|           |   pytest_coverage_postflight_20260311_101604.md
+|           |   pytest_coverage_postflight_20260311_102154.md
+|           |   pytest_coverage_postflight_20260311_102834.md
+|           |   pytest_coverage_postflight_20260311_103034.md
+|           |   pytest_coverage_postflight_20260311_103241.md
+|           |   pytest_coverage_postflight_20260317_064326.md
+|           |   pytest_coverage_postflight_20260317_064421.md
+|           |   pytest_coverage_postflight_20260327_011149.md
+|           |   pytest_coverage_postflight_20260327_011642.md
+|           |   pytest_coverage_postflight_20260327_100204.md
+|           |   pytest_coverage_postflight_20260327_103532.md
+|           |   rp_consistency_report_20260327_095748.json
+|           |   rp_eval_summary_20260310_1559.json
+|           |   rp_eval_summary_20260310_1559.md
+|           |   rp_eval_summary_20260310_1616_synopt.json
+|           |   rp_eval_summary_20260310_1616_synopt.md
 |           |   
 |           +---checks_run_20260310_153620
 |           |       black.log
@@ -103,7 +203,160 @@ F:.
 |           |       todo-index-sync.log
 |           |       yamllint.log
 |           |       
-|           \---checks_run_20260310_153947
+|           +---checks_run_20260310_153947
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260311_065156
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260311_071951
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260311_072150
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260311_072546
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260317_064114
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260318_051209
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260318_052318
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260327_010903
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           \---checks_run_20260327_011507
 |                   black.log
 |                   doc-freshness.log
 |                   frontmatter.log
@@ -120,13 +373,6 @@ F:.
 |                   todo-index-sync.log
 |                   yamllint.log
 |                   
-+---.tmp-datasets
-|   |   README.md
-|   |   
-|   \---lscan_links_backups
-|           20251112_031821_WORKSPACE_INDEX.md.bak.linkscan
-|           20251112_033338_WORKSPACE_INDEX.md.bak.linkscan
-|           
 +---.venv
 |   |   .gitignore
 |   |   pyvenv.cfg
@@ -56168,15 +56414,12 @@ F:.
 |           AI-Behavior-Mapping-20251201-081946.json
 |           AI-Behavior-Mapping-20251201-081946.md
 |           
-+---eval
-|   +---config
-|   |       context.local.md
-|   |       
-|   \---results
-|       \---tmp_summaries
-|               summary_20251110_0024_scripts_heuristic.md
-|               summary_ALL_20251110_0024_MIXED.md
-|               
++---docs
+|   \---adr
+|           0001-donelog-ebenen.md
+|           0002-quality-gate-sequenz.md
+|           README.md
+|           
 +---githooks
 |       pre-commit
 |       
@@ -62853,6 +63096,7 @@ F:.
 |   |   |   |       scan_links_postflight_20260222_111913.md
 |   |   |   |       
 |   |   |   \---others
+|   |   |           brainstorming.rp.archive.2026-03-18.md
 |   |   |           copilot-instructions-headings.archive.md
 |   |   |           copilot-instructions-update-tode.archive.md
 |   |   |           copilot-instructions.2025-11-15 23-48.md
@@ -63557,6 +63801,46 @@ F:.
 |   |   |   |           ruff.log
 |   |   |   |           yamllint.log
 |   |   |   |           
+|   |   |   +---root-cleanup-20260328_0238
+|   |   |   |   |   combined.json
+|   |   |   |   |   lint.out
+|   |   |   |   |   md003_scan.out
+|   |   |   |   |   
+|   |   |   |   +---.tmp-datasets
+|   |   |   |   |   |   README.md
+|   |   |   |   |   |   
+|   |   |   |   |   \---lscan_links_backups
+|   |   |   |   |           20251112_031821_WORKSPACE_INDEX.md.bak.linkscan
+|   |   |   |   |           20251112_033338_WORKSPACE_INDEX.md.bak.linkscan
+|   |   |   |   |           
+|   |   |   |   \---reports
+|   |   |   |           tagging-20251126T043409Z.log
+|   |   |   |           tagging-20251127T212031Z.log
+|   |   |   |           tagging-20251130T021709Z.log
+|   |   |   |           tagging-20251201T134723Z.log
+|   |   |   |           tagging-20251208T165754Z.log
+|   |   |   |           tagging-20251210T164516Z.log
+|   |   |   |           tagging-20251210T164818Z.log
+|   |   |   |           
+|   |   |   +---root-cleanup-20260328_0330-local-snapshots
+|   |   |   |       extensions.installed.txt
+|   |   |   |       extensions.status.txt
+|   |   |   |       
+|   |   |   +---root-cleanup-20260328_0501-root-eval-rest
+|   |   |   |   \---eval
+|   |   |   |       +---config
+|   |   |   |       |       context.local.md
+|   |   |   |       |       
+|   |   |   |       \---results
+|   |   |   |           \---tmp_summaries
+|   |   |   |                   summary_20251110_0024_scripts_heuristic.md
+|   |   |   |                   summary_ALL_20251110_0024_MIXED.md
+|   |   |   |                   
+|   |   |   +---root-cleanup-20260328_0632-root-eval-rest-postchecks
+|   |   |   |   \---eval
+|   |   |   |       \---config
+|   |   |   |               context.local.md
+|   |   |   |               
 |   |   |   +---rp-canvas-rescue-presync-20260218_0357
 |   |   |   |       dedupe-chat-export.md
 |   |   |   |       resolved.md
@@ -63645,7 +63929,6 @@ F:.
 |   +---docs
 |   |   |   active-surface-index.md
 |   |   |   architecture-summary-local-ai.md
-|   |   |   brainstorming.rp.md
 |   |   |   copilot-vscode-usage.md
 |   |   |   dataset-provenance.md
 |   |   |   donelog.md
@@ -63662,6 +63945,7 @@ F:.
 |   |   |   
 |   |   +---meta
 |   |   |       copilot-behavior.json
+|   |   |       dev-kpi-trends.md
 |   |   |       donelog.json
 |   |   |       index.json
 |   |   |       naming-policy.json
@@ -63670,7 +63954,12 @@ F:.
 |   |   +---process
 |   |   |   |   abschluss-routine.ssot.md
 |   |   |   |   betriebsmodi-sicherheitsprotokoll-notizen.md
+|   |   |   |   doku-konsistenzlauf-aktive-surface-2026-03-28.md
+|   |   |   |   project-context-bridge.ssot.md
+|   |   |   |   rp-inventory-backfill-pilot-2026-03-20.md
+|   |   |   |   rp-metro-warenzuteilung-matrix-2026-03-27.md
 |   |   |   |   standalone-beta-gates.ssot.md
+|   |   |   |   standalone-beta-installblatt.md
 |   |   |   |   
 |   |   |   \---rp-canvas-rescue
 |   |   |           canvas-rescue-plan.md
@@ -66376,9 +66665,326 @@ F:.
 |   |   project.godot
 |   |   README.md
 |   |   
+|   +---.godot
+|   |   |   .gdignore
+|   |   |   global_script_class_cache.cfg
+|   |   |   scene_groups_cache.cfg
+|   |   |   uid_cache.bin
+|   |   |   
+|   |   +---editor
+|   |   |       editor_layout.cfg
+|   |   |       editor_script_doc_cache.res-folding-a7de57390d6e786984ca20c70a831128.cfg
+|   |   |       filesystem_cache10
+|   |   |       filesystem_update4
+|   |   |       Main.tscn-editstate-bcb0d2eb5949c52b6a65bfe9de3e985b.cfg
+|   |   |       Main.tscn-folding-bcb0d2eb5949c52b6a65bfe9de3e985b.cfg
+|   |   |       project_metadata.cfg
+|   |   |       script_editor_cache.cfg
+|   |   |       
+|   |   +---imported
+|   |   |       ChatGPT Image 11. M?rz 2026, 01_12_53.png-b297b6492b78c3617c3fa05258783ff1.ctex
+|   |   |       ChatGPT Image 11. M?rz 2026, 01_12_53.png-b297b6492b78c3617c3fa05258783ff1.md5
+|   |   |       f8bc5f39-0e64-44ca-a53b-ef7688c775ae.png-ad9c057b85a5f2a1c4a80c48fd5536da.ctex
+|   |   |       f8bc5f39-0e64-44ca-a53b-ef7688c775ae.png-ad9c057b85a5f2a1c4a80c48fd5536da.md5
+|   |   |       mainmenu-page1-background-v2.png-d77189cb3d20cc7a3221b38603a277c8.ctex
+|   |   |       mainmenu-page1-background-v2.png-d77189cb3d20cc7a3221b38603a277c8.md5
+|   |   |       mainmenu-page1-background.png-1c38680c3a8ed5622b7c7c03f0d19969.ctex
+|   |   |       mainmenu-page1-background.png-1c38680c3a8ed5622b7c7c03f0d19969.md5
+|   |   |       
+|   |   \---shader_cache
+|   |       +---BestFitNormalShaderRD
+|   |       |   \---4e9da474dc84bf7827216c55a5ccbd80d5194c12c1c41eb2f67d659c3d7b5d11
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---BlitShaderRD
+|   |       |   \---de1bb2427d3dcc66b0497adb6bb381a58368fc24648c5e77b936034fd86c488f
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---BokehDofShaderRD
+|   |       |   \---f0818466663de70a3eb3cacafd3e366a662fec8df19ee39678456c56e0992de3
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---CanvasOcclusionShaderRD
+|   |       |   \---9a7b08184c03a1ecd0f1635a548165ea1b8977af20bdcc6026754dc923445089
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---CanvasSdfShaderRD
+|   |       |   \---0ee98c1c762a031ed5d6ae15569aac5493df641046733f2bdfb3a50df1f4154d
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---CanvasShaderRD
+|   |       |   \---275d4d34e3615bf0802f2ef82109d1cde17c7aa8031e89154c70fc7b3d40d52f
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           45fb1ddc6499e56682916a355ce2839e61f42dfe.vulkan.cache
+|   |       |           4d35b4f1b981d75cb121b24f26aba4271d0d7a2f.vulkan.cache
+|   |       |           8a7277c8d3ac029b087c3fa9c55de85560be5119.vulkan.cache
+|   |       |           c0a681ae42aa3e0b5abba232ccae0b036be455e4.vulkan.cache
+|   |       |           f3e258e8f7ec2e7e740b62f3bc48ecf5c99fb0db.vulkan.cache
+|   |       |           
+|   |       +---ClusterDebugShaderRD
+|   |       |   \---cf9e7f6b32d31ae8694758a95663a7c9fab66d2cdbc6bbfbfbdc73a452409cb7
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---ClusterRenderShaderRD
+|   |       |   \---ce0a20efd77f533c88098581f42714bacac9fff0dd087f4452f4e090a2f1126d
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---ClusterStoreShaderRD
+|   |       |   \---f369908042729ae25ea308b7b8d34547e53e21278e78f6ef3fba410d908cb3d9
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---CopyShaderRD
+|   |       |   \---e9cc8703737058ab94419d921c4ffa210eedec9e9902e44b4b3b0898bea779ad
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---CopyToFbShaderRD
+|   |       |   \---d8c8cfaf4afd14e907114b99e2f0ca909b68e51c06848dcaf4d960b93dc13cb8
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---CubeToDpShaderRD
+|   |       |   \---0352697dfa4e1cfa7c828f5dbe00a582b11eb7ecdaaf632adeef06f06d4b9c96
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---CubeToOctmapShaderRD
+|   |       |   \---5fc57d05f5d131338b97f340dc2c3656545f2e042759ccfe92bdbbf87ab5eac3
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---Fsr2AccumulatePassShaderRD
+|   |       |   \---9459adb5823acc74451c2ea9f81aa9da71ce4d8c54bd7e14167ff9da9d8a2711
+|   |       +---Fsr2AutogenReactivePassShaderRD
+|   |       |   \---5ef69d12bbe593432c1ca417e5dfd0f2e78ca303e90818fa4f8710217cce36f6
+|   |       +---Fsr2ComputeLuminancePyramidPassShaderRD
+|   |       |   \---33dcd4c9fce60b7274a7c7b00ec2e78fdd25f4ee9b281ddad276d78d8fc5910c
+|   |       +---Fsr2DepthClipPassShaderRD
+|   |       |   \---71ab67576a0142e4f2e891c16f6ece1a596effaebd5778782caf05633f473290
+|   |       +---Fsr2LockPassShaderRD
+|   |       |   \---1e661a236764f1e9277829b9df61094a15eb86377dce37c6483e7f72383e9876
+|   |       +---Fsr2RcasPassShaderRD
+|   |       |   \---3e8d848fb42341b39bf63b0791cf76c42bad2c1c35e3a57d175453b8fad7ec07
+|   |       +---Fsr2ReconstructPreviousDepthPassShaderRD
+|   |       |   \---0ad30824a3e564c57490eb4965ac075898a028ec20466de3a8deec496785ed23
+|   |       +---Fsr2TcrAutogenPassShaderRD
+|   |       |   \---b4278dfe68af874a516318944f905a2f7237df106404bfa08f4925ad1eb72177
+|   |       +---FsrUpscaleShaderRD
+|   |       |   \---9a52fdf3c5bde6da20535b5db563542c4713265bf5c8bb52fad6ef2a5b526337
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---GiShaderRD
+|   |       |   +---6070f5e18c68008ac051ae26b1c87390602864b854189b373129b03383b95c1d
+|   |       |   |       087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |   |       
+|   |       |   \---687d1c141f44aed88a07e61d750649cda6236ef2205b4f854f8105ca7b94e6e7
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---IntegrateDfgShaderRD
+|   |       |   \---7049a4978dbea673146c24a42476293190f9806f2c1c73e26f6548a09d9f09d1
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---LuminanceReduceShaderRD
+|   |       |   \---e1310a90e84d7a218320cf28617a5e388c8a11a861edbd726669e71fc3f911a8
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---MotionVectorsShaderRD
+|   |       |   \---23e525d5cbab296a974d3ff5dca6670923233ede9e68996ab30d7ff8704cddf7
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---OctmapDownsamplerShaderRD
+|   |       |   \---f7cc7d472883dcc7f351a5ffde028bb15c7b5d7589eacdf02c3633cf2a7829c5
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---OctmapFilterShaderRD
+|   |       |   \---51d055a87b73bba94f62ffe0b579322bddb3d5638e4db2bcedbcd05733e17083
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---OctmapRoughnessShaderRD
+|   |       |   \---953daee2b7c11cf846dd5b590a624c33a6d367972b684494ecbbb5fdeb8e9b1f
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---ParticlesCopyShaderRD
+|   |       |   \---e1ec2b862158669cdd5f5cfa489962a45b22a1d170a38418ac800c5944f38061
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---ParticlesShaderRD
+|   |       |   \---48be2fd5ec149691044dab9a7783b80a4ec194c46b14e88e6cb21540ec8f681c
+|   |       |           f128cab0b22fb7e0d9f023d6cdb81309be392d95.vulkan.cache
+|   |       |           
+|   |       +---ResolveShaderRD
+|   |       |   \---1f73a86e4de984063f8d52430568260a983404585561eebf294292dcf117aaef
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SceneForwardClusteredShaderRD
+|   |       |   +---8ddb51fb99c663b5edfdb05f068cd2206a3d4337f2c5324da8668e87060657ab
+|   |       |   +---981624c017530f42770c6e2f31ec21cb2891c35339d98784d60c8ba927a8db7a
+|   |       |   +---dd444ccad0fdfef3c30d6c11fd21099ac24ab801a60f7ecc43d18c6059e9e17a
+|   |       |   \---ddf71e2b0a93f8f42fc8827ef66052f76ea3654cfcd999e621135fc1399a5a79
+|   |       |           111f8cfd3c260d918df85827eb251dc36a43cb13.vulkan.cache
+|   |       |           35a078cb7dc07df55e460ed1a913486a68ab6bb0.vulkan.cache
+|   |       |           3d6fc53bad5e871b1b878eb1a4ed0a0fcec449cb.vulkan.cache
+|   |       |           7412c254abd0f944fb53942228920fe187f1d723.vulkan.cache
+|   |       |           7a57964a6a80c226a1011fb78edbda41d2219632.vulkan.cache
+|   |       |           7a6b05ba6ca90f8a542e0d1fcc3360f7d52c6e09.vulkan.cache
+|   |       |           7d4c2429f20db9b651852713d31971380f209eec.vulkan.cache
+|   |       |           89044bace37a3ce54cf2cc5190e11bed6d14f97a.vulkan.cache
+|   |       |           a38af1e47720abf30ca44f3d3c099c07b046df81.vulkan.cache
+|   |       |           ab0b960474f1491b42ef9f2ca13dbd4ccaf64911.vulkan.cache
+|   |       |           f88424e725a3bb50f358e9b042552af7b1c2f921.vulkan.cache
+|   |       |           f89c365b12d7e2d46fb2e1f6ace46a76b6cd5e89.vulkan.cache
+|   |       |           
+|   |       +---ScreenSpaceReflectionDownsampleShaderRD
+|   |       |   \---ded9db1eac9e5b4ad8eec541c15639621959cc7ba975c35a7b00e693dbd63ed2
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---ScreenSpaceReflectionFilterShaderRD
+|   |       |   \---eb63705abd051e467483bd6b2685b6faedabead31ba6939e17542ab4de0459d4
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---ScreenSpaceReflectionHizShaderRD
+|   |       |   \---b6bddb256a75b062d6dcc54cab3068e5681c11efabeecfd56a8b6aa811fd04f7
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---ScreenSpaceReflectionResolveShaderRD
+|   |       |   \---81e8ef1f8dea212538147e6fe6944ceda353f1384bfc9862c90015b21db84c65
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---ScreenSpaceReflectionShaderRD
+|   |       |   \---3f11fe3b906bae8febe9b4aa23c6e89fa571e2edae7b9517b7f00208fdccae97
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SdfgiDebugProbesShaderRD
+|   |       |   \---04d93c03fbe1db79d1166bf8062718b246216fd24fea2444a0ff1c91794984c7
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SdfgiDebugShaderRD
+|   |       |   \---7e91b12089148e9624d3b772c591a8eee798246bf853e9ec512804a7f33b3889
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SdfgiDirectLightShaderRD
+|   |       |   \---64ad7310244510c316ee6a757d8aca3c2e569d002f9a977a411dc3eed01aa136
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SdfgiIntegrateShaderRD
+|   |       |   \---41b4833fa068f8f1d6aca463d4264bd17b48cdb4b8e9a4c6238ce96804fab13d
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SdfgiPreprocessShaderRD
+|   |       |   \---570afa2fb30077473ab0e981ef16979b1b8655516ee0d556dc33020f9b771742
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---ShadowFrustumShaderRD
+|   |       |   \---66c287915614d37b9e7cab38554ceb8cf9587c0a1ad8f3ed523d1119d02a432a
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SkeletonShaderRD
+|   |       |   \---b807701246eba2e5b805fc0e7ba7b175f6b6d09a9e37d9e4cf9457567e5b8692
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SkyShaderRD
+|   |       |   \---674aa6a56f4fc992ebe09ae7e571e379f6e557dd2354506b5062519ad7a427e1
+|   |       |           03e3b11c69e24394b2d955a8c0ba85587bb70839.vulkan.cache
+|   |       |           de678811d1bad3cad4892a8db7b6ea0be197d51d.vulkan.cache
+|   |       |           e105b1e014f9523daf8d734c2f2dc115ba341902.vulkan.cache
+|   |       |           
+|   |       +---SmaaBlendingShaderRD
+|   |       |   \---607ccc762120fdee816ab47fd2451dbbaa886d445321b7411140032a35f1a739
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SmaaEdgeDetectionShaderRD
+|   |       |   \---d87a8d48df4d7f1e99d50fdda5183397a5adb65dc240df7fc07a7ce2955fe3d7
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SmaaWeightCalculationShaderRD
+|   |       |   \---8e27991ff4e390c0330de8c3b47a42294afc92f41d1049dfd06896302c2e0b04
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SortShaderRD
+|   |       |   \---5f7b2ec9b49f6ba75e1d03ef4dfdbfad8d55d693fa2c7cb5bc6e761cb986a8e5
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SpecularMergeShaderRD
+|   |       |   \---f37e3095c1ac9cac056c9f2aa34f04ba24881a09cdcd83d20dbf7897f273b846
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SsaoBlurShaderRD
+|   |       |   \---fcd180ca97c9c60af86c6ab2e8c04c9a5151590707bbf1e28568cee1a7d1f79b
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SsaoImportanceMapShaderRD
+|   |       |   \---4edba1c913bbcf0fe2fb8c435ab1359f70a7444f7dd23c4ce34fc93c45843eb3
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SsaoInterleaveShaderRD
+|   |       |   \---eb4ca8219783922a87341a3a2ad615ecc8356bb6e044ce477536e99902f96a22
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SsaoShaderRD
+|   |       |   \---b4930144c0d6d905950e21dba7bee754e2d9afe084ae8d5555df96fce770139f
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SsEffectsDownsampleShaderRD
+|   |       |   \---9b03fd7cbef33949b738847086d7bd7ff6c796ec877d4d57e9c0b0f078d6ab26
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SsilBlurShaderRD
+|   |       |   \---c828d4bcf21ef1709d97f8548e6525f7879a2a375039528da204ac3b329c718e
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SsilImportanceMapShaderRD
+|   |       |   \---6c7db621e01f163f7fd5e9f70c773e06433e17a5fb96e54db218d422d723aacb
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SsilInterleaveShaderRD
+|   |       |   \---1827fdf7222528b41b71648898590a2b481dff874d5abb29dee45a9987f785ba
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SsilShaderRD
+|   |       |   \---0c54181813ac355caa336bd64f0d15b67563cb80589a0ad2ac890813bf2e3c86
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---SubsurfaceScatteringShaderRD
+|   |       |   \---a0a69873fdce28a7a8c50458dcc8506beabb26c6baf5449448339e820eeb917d
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---TaaResolveShaderRD
+|   |       |   \---8470bc598ece1480705c4d97217aed576067ef39813f3e16506ad87fcedc44e2
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---TonemapShaderRD
+|   |       |   \---3769da6e8bdc270efe950e09ec5b0ed4d95998156701f9bafd635fe9d5972f71
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---VolumetricFogProcessShaderRD
+|   |       |   +---19f039cd73a0ac6607074fc92d3b2f57204b62a447b166e83d0e60040e2cf6a4
+|   |       |   +---b574c5bab440796f9fd6eefd0e7181223c8e77658ddda965d5d1a2bf343e41dd
+|   |       |   +---cbabfe7b968265f8c48f929175dd979f1adb0b050591291ed9426e10c85e3609
+|   |       |   |       087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |   |       
+|   |       |   \---e6adfd0ce829e6d1f98d92ba49909d373fcd9babf25299fca9f21f3924ba1407
+|   |       +---VolumetricFogShaderRD
+|   |       |   +---3e55031a37779b7d3026b7500d38886881a51f2bf77021cdbbbe9afb199c27de
+|   |       |   |       9a227745af2d65830f930370a9fbba551fbd6f60.vulkan.cache
+|   |       |   |       
+|   |       |   +---757251820332d10b11f8db2ad4fb78c2ab5b327b747dabc3a12824d51281115c
+|   |       |   +---7d2b9e765537654c60cdf5cff124b279223872c8b12e2a3620d80891a2bd31fe
+|   |       |   \---f2cfca4e669cf66da6a56749d1a711c08926cbc7651b5870c9cc1d17cb15b617
+|   |       +---VoxelGiDebugShaderRD
+|   |       |   \---30164a8664ea1d0b0caec729a89edc30b41521ceb006a0b39e12d5c0455a7a5b
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       +---VoxelGiShaderRD
+|   |       |   \---020f6e5393138c6a26909fdf3f9bdebabe18dcd37d7444b7c8006364aa00c63e
+|   |       |           087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |       |           
+|   |       \---VrsShaderRD
+|   |           \---1b6806612839b886988be481f152b0ffed872402198373a972e8546cd1497e33
+|   |                   087916079fba7c625e62b0c2cca570e0fb87c99a.vulkan.cache
+|   |                   
 |   +---assets
+|   |       ChatGPT Image 11. M?rz 2026, 01_12_53.png
+|   |       ChatGPT Image 11. M?rz 2026, 01_12_53.png.import
 |   |       f8bc5f39-0e64-44ca-a53b-ef7688c775ae.png
 |   |       f8bc5f39-0e64-44ca-a53b-ef7688c775ae.png.import
+|   |       mainmenu-page1-background-v2.png
+|   |       mainmenu-page1-background-v2.png.import
 |   |       mainmenu-page1-background.png
 |   |       mainmenu-page1-background.png.import
 |   |       
@@ -69009,6 +69615,8 @@ F:.
 |   |       |   |   audit_workspace.meta.json
 |   |       |   |   build_eval_from_rp.data.json
 |   |       |   |   build_eval_from_rp.meta.json
+|   |       |   |   build_project_context_index.data.json
+|   |       |   |   build_project_context_index.meta.json
 |   |       |   |   check_dependency_profiles.data.json
 |   |       |   |   check_dependency_profiles.meta.json
 |   |       |   |   check_legacy_shim_imports.data.json
@@ -78673,6 +79281,7 @@ F:.
 |   |   |   
 |   |   \---v
 |   |       \---cache
+|   |               lastfailed
 |   |               nodeids
 |   |               
 |   +---.tmp
@@ -78839,6 +79448,7 @@ F:.
 |   |   |   synonyms.json
 |   |   |   
 |   |   +---config
+|   |   |   |   context.bridge.sources.json
 |   |   |   |   context.local.md
 |   |   |   |   context.local.sample.md
 |   |   |   |   policy.sample.json
@@ -79271,6 +79881,51 @@ F:.
 |   |       |   finetune_alpaca_results_20250101_0101_20260310_1537.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260310_1540.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260310_1541.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260310_1543.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0652.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0658.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0659.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0711.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0715.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0718.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0720.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0722.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0726.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0750.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0751.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0753.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0755.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0756.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0934.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0938.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0942.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0944.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0947.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0952.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0953.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0954.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0956.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0957.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_0958.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_1000.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_1001.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_1006.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_1016.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_1021.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_1028.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_1030.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260311_1032.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260317_0642.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260317_0643.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260317_0644.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260318_0513.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260318_0523.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260327_0110.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260327_0111.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260327_0115.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260327_0116.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260327_1002.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260327_1035.jsonl
 |   |       |   finetune_alpaca_r_20260107_1006.jsonl
 |   |       |   finetune_openai_chat_results_20250823_1110_20250823_1122.jsonl
 |   |       |   finetune_openai_chat_results_20260226_0306_quality_de_round7b_repeat3_20260227_0527.jsonl
@@ -80070,6 +80725,98 @@ F:.
 |   |       |   results_20260310_1540_rerun.jsonl
 |   |       |   results_20260310_1541.jsonl
 |   |       |   results_20260310_1541_rerun.jsonl
+|   |       |   results_20260310_1543.jsonl
+|   |       |   results_20260310_1543_rerun.jsonl
+|   |       |   results_20260310_1559_rp_all_full.jsonl
+|   |       |   results_20260310_1616_rp_all_full_synopt.jsonl
+|   |       |   results_20260311_0652.jsonl
+|   |       |   results_20260311_0653_rerun.jsonl
+|   |       |   results_20260311_0659.jsonl
+|   |       |   results_20260311_0659_rerun.jsonl
+|   |       |   results_20260311_0700.jsonl
+|   |       |   results_20260311_0700_rerun.jsonl
+|   |       |   results_20260311_0711.jsonl
+|   |       |   results_20260311_0712_rerun.jsonl
+|   |       |   results_20260311_0715.jsonl
+|   |       |   results_20260311_0715_rerun.jsonl
+|   |       |   results_20260311_0718.jsonl
+|   |       |   results_20260311_0719_rerun.jsonl
+|   |       |   results_20260311_0720.jsonl
+|   |       |   results_20260311_0720_rerun.jsonl
+|   |       |   results_20260311_0722.jsonl
+|   |       |   results_20260311_0722_rerun.jsonl
+|   |       |   results_20260311_0726.jsonl
+|   |       |   results_20260311_0726_rerun.jsonl
+|   |       |   results_20260311_0750.jsonl
+|   |       |   results_20260311_0750_rerun.jsonl
+|   |       |   results_20260311_0751.jsonl
+|   |       |   results_20260311_0751_rerun.jsonl
+|   |       |   results_20260311_0753.jsonl
+|   |       |   results_20260311_0754_rerun.jsonl
+|   |       |   results_20260311_0755.jsonl
+|   |       |   results_20260311_0755_rerun.jsonl
+|   |       |   results_20260311_0756.jsonl
+|   |       |   results_20260311_0757_rerun.jsonl
+|   |       |   results_20260311_0934.jsonl
+|   |       |   results_20260311_0935_rerun.jsonl
+|   |       |   results_20260311_0938.jsonl
+|   |       |   results_20260311_0939_rerun.jsonl
+|   |       |   results_20260311_0942.jsonl
+|   |       |   results_20260311_0942_rerun.jsonl
+|   |       |   results_20260311_0944.jsonl
+|   |       |   results_20260311_0944_rerun.jsonl
+|   |       |   results_20260311_0947.jsonl
+|   |       |   results_20260311_0948_rerun.jsonl
+|   |       |   results_20260311_0952.jsonl
+|   |       |   results_20260311_0952_rerun.jsonl
+|   |       |   results_20260311_0953.jsonl
+|   |       |   results_20260311_0953_rerun.jsonl
+|   |       |   results_20260311_0954.jsonl
+|   |       |   results_20260311_0955_rerun.jsonl
+|   |       |   results_20260311_0956.jsonl
+|   |       |   results_20260311_0956_rerun.jsonl
+|   |       |   results_20260311_0957.jsonl
+|   |       |   results_20260311_0957_rerun.jsonl
+|   |       |   results_20260311_0959.jsonl
+|   |       |   results_20260311_0959_rerun.jsonl
+|   |       |   results_20260311_1000.jsonl
+|   |       |   results_20260311_1000_rerun.jsonl
+|   |       |   results_20260311_1001.jsonl
+|   |       |   results_20260311_1002_rerun.jsonl
+|   |       |   results_20260311_1006.jsonl
+|   |       |   results_20260311_1006_rerun.jsonl
+|   |       |   results_20260311_1016.jsonl
+|   |       |   results_20260311_1016_rerun.jsonl
+|   |       |   results_20260311_1022.jsonl
+|   |       |   results_20260311_1022_rerun.jsonl
+|   |       |   results_20260311_1028.jsonl
+|   |       |   results_20260311_1029_rerun.jsonl
+|   |       |   results_20260311_1030.jsonl
+|   |       |   results_20260311_1031_rerun.jsonl
+|   |       |   results_20260311_1032.jsonl
+|   |       |   results_20260311_1033_rerun.jsonl
+|   |       |   results_20260311_1227.jsonl
+|   |       |   results_20260317_0642.jsonl
+|   |       |   results_20260317_0643.jsonl
+|   |       |   results_20260317_0643_rerun.jsonl
+|   |       |   results_20260317_0644.jsonl
+|   |       |   results_20260317_0644_rerun.jsonl
+|   |       |   results_20260318_0514.jsonl
+|   |       |   results_20260318_0514_rerun.jsonl
+|   |       |   results_20260318_0523.jsonl
+|   |       |   results_20260318_0524_rerun.jsonl
+|   |       |   results_20260327_0110.jsonl
+|   |       |   results_20260327_0111_rerun.jsonl
+|   |       |   results_20260327_0112.jsonl
+|   |       |   results_20260327_0112_rerun.jsonl
+|   |       |   results_20260327_0115.jsonl
+|   |       |   results_20260327_0116_rerun.jsonl
+|   |       |   results_20260327_0117.jsonl
+|   |       |   results_20260327_0117_rerun.jsonl
+|   |       |   results_20260327_1002.jsonl
+|   |       |   results_20260327_1002_rerun.jsonl
+|   |       |   results_20260327_1035.jsonl
+|   |       |   results_20260327_1036_rerun.jsonl
 |   |       |   
 |   |       +---baselines
 |   |       |       training_profiles.2026-02.json
@@ -80127,6 +80874,7 @@ F:.
 |   |       |       finetune_openai_chat_results_20260302_1848_20260302_2025_val.jsonl
 |   |       |       
 |   |       +---rag
+|   |       |       context_bridge.index.json
 |   |       |       s2-core-index-20260218.json
 |   |       |       
 |   |       +---reports
@@ -80614,6 +81362,51 @@ F:.
 |   |               finetune_alpaca_r_20260310_1537.jsonl
 |   |               finetune_alpaca_r_20260310_1540.jsonl
 |   |               finetune_alpaca_r_20260310_1541.jsonl
+|   |               finetune_alpaca_r_20260310_1543.jsonl
+|   |               finetune_alpaca_r_20260311_0652.jsonl
+|   |               finetune_alpaca_r_20260311_0658.jsonl
+|   |               finetune_alpaca_r_20260311_0659.jsonl
+|   |               finetune_alpaca_r_20260311_0711.jsonl
+|   |               finetune_alpaca_r_20260311_0715.jsonl
+|   |               finetune_alpaca_r_20260311_0718.jsonl
+|   |               finetune_alpaca_r_20260311_0720.jsonl
+|   |               finetune_alpaca_r_20260311_0722.jsonl
+|   |               finetune_alpaca_r_20260311_0726.jsonl
+|   |               finetune_alpaca_r_20260311_0750.jsonl
+|   |               finetune_alpaca_r_20260311_0751.jsonl
+|   |               finetune_alpaca_r_20260311_0753.jsonl
+|   |               finetune_alpaca_r_20260311_0755.jsonl
+|   |               finetune_alpaca_r_20260311_0756.jsonl
+|   |               finetune_alpaca_r_20260311_0934.jsonl
+|   |               finetune_alpaca_r_20260311_0938.jsonl
+|   |               finetune_alpaca_r_20260311_0942.jsonl
+|   |               finetune_alpaca_r_20260311_0944.jsonl
+|   |               finetune_alpaca_r_20260311_0947.jsonl
+|   |               finetune_alpaca_r_20260311_0952.jsonl
+|   |               finetune_alpaca_r_20260311_0953.jsonl
+|   |               finetune_alpaca_r_20260311_0954.jsonl
+|   |               finetune_alpaca_r_20260311_0956.jsonl
+|   |               finetune_alpaca_r_20260311_0957.jsonl
+|   |               finetune_alpaca_r_20260311_0958.jsonl
+|   |               finetune_alpaca_r_20260311_1000.jsonl
+|   |               finetune_alpaca_r_20260311_1001.jsonl
+|   |               finetune_alpaca_r_20260311_1006.jsonl
+|   |               finetune_alpaca_r_20260311_1016.jsonl
+|   |               finetune_alpaca_r_20260311_1021.jsonl
+|   |               finetune_alpaca_r_20260311_1028.jsonl
+|   |               finetune_alpaca_r_20260311_1030.jsonl
+|   |               finetune_alpaca_r_20260311_1032.jsonl
+|   |               finetune_alpaca_r_20260317_0642.jsonl
+|   |               finetune_alpaca_r_20260317_0643.jsonl
+|   |               finetune_alpaca_r_20260317_0644.jsonl
+|   |               finetune_alpaca_r_20260318_0513.jsonl
+|   |               finetune_alpaca_r_20260318_0523.jsonl
+|   |               finetune_alpaca_r_20260327_0110.jsonl
+|   |               finetune_alpaca_r_20260327_0111.jsonl
+|   |               finetune_alpaca_r_20260327_0115.jsonl
+|   |               finetune_alpaca_r_20260327_0116.jsonl
+|   |               finetune_alpaca_r_20260327_1002.jsonl
+|   |               finetune_alpaca_r_20260327_1035.jsonl
 |   |               
 |   +---examples
 |   |   |   unrestricted_prompt_example.txt
@@ -80825,6 +81618,62 @@ F:.
 |   |   +---lora-20260310_1538
 |   |   +---lora-20260310_1540
 |   |   +---lora-20260310_1541
+|   |   +---lora-20260310_1543
+|   |   +---lora-20260311_0652
+|   |   +---lora-20260311_0659
+|   |   +---lora-20260311_0700
+|   |   +---lora-20260311_0711
+|   |   +---lora-20260311_0712
+|   |   +---lora-20260311_0715
+|   |   +---lora-20260311_0718
+|   |   +---lora-20260311_0719
+|   |   +---lora-20260311_0720
+|   |   +---lora-20260311_0722
+|   |   +---lora-20260311_0726
+|   |   +---lora-20260311_0750
+|   |   +---lora-20260311_0751
+|   |   +---lora-20260311_0753
+|   |   +---lora-20260311_0755
+|   |   +---lora-20260311_0756
+|   |   +---lora-20260311_0757
+|   |   +---lora-20260311_0934
+|   |   +---lora-20260311_0938
+|   |   +---lora-20260311_0942
+|   |   +---lora-20260311_0944
+|   |   +---lora-20260311_0947
+|   |   +---lora-20260311_0952
+|   |   +---lora-20260311_0953
+|   |   +---lora-20260311_0954
+|   |   +---lora-20260311_0956
+|   |   +---lora-20260311_0957
+|   |   +---lora-20260311_0958
+|   |   +---lora-20260311_0959
+|   |   +---lora-20260311_1000
+|   |   +---lora-20260311_1001
+|   |   +---lora-20260311_1002
+|   |   +---lora-20260311_1006
+|   |   +---lora-20260311_1016
+|   |   +---lora-20260311_1021
+|   |   +---lora-20260311_1022
+|   |   +---lora-20260311_1028
+|   |   +---lora-20260311_1030
+|   |   +---lora-20260311_1032
+|   |   +---lora-20260311_1033
+|   |   +---lora-20260317_0642
+|   |   +---lora-20260317_0643
+|   |   +---lora-20260317_0644
+|   |   +---lora-20260318_0513
+|   |   +---lora-20260318_0514
+|   |   +---lora-20260318_0523
+|   |   +---lora-20260318_0524
+|   |   +---lora-20260327_0110
+|   |   +---lora-20260327_0111
+|   |   +---lora-20260327_0112
+|   |   +---lora-20260327_0115
+|   |   +---lora-20260327_0116
+|   |   +---lora-20260327_0117
+|   |   +---lora-20260327_1002
+|   |   +---lora-20260327_1035
 |   |   \---tts
 |   |       \---runtime
 |   |           \---coqui
@@ -80842,6 +81691,7 @@ F:.
 |   |   |   append_done.py
 |   |   |   audit_workspace.py
 |   |   |   build_eval_from_rp.py
+|   |   |   build_project_context_index.py
 |   |   |   check_dependency_profiles.py
 |   |   |   check_legacy_shim_imports.py
 |   |   |   check_openai_key.py
@@ -80922,6 +81772,7 @@ F:.
 |   |           append_done.cpython-313.pyc
 |   |           audit_workspace.cpython-313.pyc
 |   |           build_eval_from_rp.cpython-313.pyc
+|   |           build_project_context_index.cpython-313.pyc
 |   |           check_dependency_profiles.cpython-313.pyc
 |   |           check_legacy_shim_imports.cpython-313.pyc
 |   |           check_openai_key.cpython-313.pyc
@@ -80964,6 +81815,7 @@ F:.
 |   +---tests
 |   |   |   helpers.py
 |   |   |   tests_sim_api.py
+|   |   |   test_agent_wrapper_impls.py
 |   |   |   test_api_chat_internal_branches.py
 |   |   |   test_api_health.py
 |   |   |   test_api_sim_state.py
@@ -80994,10 +81846,13 @@ F:.
 |   |   |   test_batch8_smoke.py
 |   |   |   test_batch9_smoke.py
 |   |   |   test_chai_checks.py
+|   |   |   test_chat_additional_branches.py
 |   |   |   test_chat_endpoint_prompt_injection.py
 |   |   |   test_chat_helpers_and_options.py
+|   |   |   test_chat_more_branches.py
 |   |   |   test_chat_options_and_context.py
 |   |   |   test_chat_prompts_and_options.py
+|   |   |   test_chat_shadow_and_utils.py
 |   |   |   test_chat_stream_backend_error.py
 |   |   |   test_chat_stream_minimal_sse.py
 |   |   |   test_chat_stream_sse.py
@@ -81065,6 +81920,7 @@ F:.
 |   |   |   test_run_eval_import_smoke.py
 |   |   |   test_run_eval_unit.py
 |   |   |   test_session_id_coercion.py
+|   |   |   test_settings_contract_branches.py
 |   |   |   test_settings_parsing.py
 |   |   |   test_smoke_asgi_script.py
 |   |   |   test_streaming_error_paths.py
@@ -81077,6 +81933,7 @@ F:.
 |   |   |   test_tts_api_contract.py
 |   |   |   test_tts_auth_contract.py
 |   |   |   test_tts_cache_contract.py
+|   |   |   test_tts_providers_internals.py
 |   |   |   test_tts_provider_abstraction.py
 |   |   |   test_tts_rate_limit_contract.py
 |   |   |   test_utils_context_and_summarize.py
@@ -81091,14 +81948,19 @@ F:.
 |   |   |   |   test_append_done_smoke.py
 |   |   |   |   test_audit_workspace_fallbacks.py
 |   |   |   |   test_build_eval_from_rp.py
+|   |   |   |   test_build_project_context_index.py
 |   |   |   |   test_check_dependency_profiles.py
 |   |   |   |   test_check_legacy_shim_imports.py
+|   |   |   |   test_check_legacy_shim_imports_edges.py
 |   |   |   |   test_check_runtime_prereqs.py
+|   |   |   |   test_check_runtime_prereqs_edges.py
 |   |   |   |   test_check_sim_epoch_assets.py
 |   |   |   |   test_cleanup_artifacts.py
+|   |   |   |   test_cleanup_artifacts_edges.py
 |   |   |   |   test_curate_dataset_filters_empty.py
 |   |   |   |   test_curate_dataset_filters_positive.py
 |   |   |   |   test_curate_dataset_from_latest_minimal.py
+|   |   |   |   test_customize_prompts_edge_paths.py
 |   |   |   |   test_customize_prompts_io_and_cli.py
 |   |   |   |   test_customize_prompts_smoke.py
 |   |   |   |   test_customize_prompts_unrestricted.py
@@ -81114,6 +81976,7 @@ F:.
 |   |   |   |   test_export_finetune_more_edges.py
 |   |   |   |   test_export_finetune_openai_chat.py
 |   |   |   |   test_fine_tune_pipeline_edges.py
+|   |   |   |   test_fine_tune_pipeline_env_paths.py
 |   |   |   |   test_fine_tune_pipeline_happy.py
 |   |   |   |   test_fine_tune_pipeline_interrupt_and_fp16.py
 |   |   |   |   test_fine_tune_pipeline_smoke.py
@@ -81138,6 +82001,7 @@ F:.
 |   |   |   |   test_open_latest_summary_smoke.py
 |   |   |   |   test_prepare_pack_smoke.py
 |   |   |   |   test_quick_eval_main_stubbed.py
+|   |   |   |   test_rerun_failed_edge_paths.py
 |   |   |   |   test_rerun_failed_json_array.py
 |   |   |   |   test_rerun_failed_no_results.py
 |   |   |   |   test_rerun_failed_only_success.py
@@ -81149,6 +82013,7 @@ F:.
 |   |   |   |   test_run_eval_term_helpers.py
 |   |   |   |   test_run_tests_error_path.py
 |   |   |   |   test_run_tests_script_smoke.py
+|   |   |   |   test_snapshot_gate_and_pre_commit.py
 |   |   |   |   test_summarize_marathon_kpis.py
 |   |   |   |   test_third_party_quality.py
 |   |   |   |   test_todo_gather_smoke.py
@@ -81161,14 +82026,19 @@ F:.
 |   |   |           test_append_done_smoke.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_audit_workspace_fallbacks.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_build_eval_from_rp.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_build_project_context_index.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_check_dependency_profiles.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_check_legacy_shim_imports.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_check_legacy_shim_imports_edges.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_check_runtime_prereqs.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_check_runtime_prereqs_edges.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_check_sim_epoch_assets.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_cleanup_artifacts.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_cleanup_artifacts_edges.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_curate_dataset_filters_empty.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_curate_dataset_filters_positive.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_curate_dataset_from_latest_minimal.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_customize_prompts_edge_paths.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_customize_prompts_io_and_cli.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_customize_prompts_smoke.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_customize_prompts_unrestricted.cpython-313-pytest-9.0.1.pyc
@@ -81184,6 +82054,7 @@ F:.
 |   |   |           test_export_finetune_more_edges.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_export_finetune_openai_chat.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_fine_tune_pipeline_edges.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_fine_tune_pipeline_env_paths.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_fine_tune_pipeline_happy.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_fine_tune_pipeline_interrupt_and_fp16.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_fine_tune_pipeline_smoke.cpython-313-pytest-9.0.1.pyc
@@ -81208,6 +82079,7 @@ F:.
 |   |   |           test_open_latest_summary_smoke.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_prepare_pack_smoke.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_quick_eval_main_stubbed.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_rerun_failed_edge_paths.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_rerun_failed_json_array.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_rerun_failed_no_results.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_rerun_failed_only_success.cpython-313-pytest-9.0.1.pyc
@@ -81219,6 +82091,7 @@ F:.
 |   |   |           test_run_eval_term_helpers.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_run_tests_error_path.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_run_tests_script_smoke.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_snapshot_gate_and_pre_commit.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_summarize_marathon_kpis.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_third_party_quality.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_todo_gather_smoke.cpython-313-pytest-9.0.1.pyc
@@ -81226,6 +82099,7 @@ F:.
 |   |   |           test_validate_eval_datasets.cpython-313-pytest-9.0.1.pyc
 |   |   |           
 |   |   \---__pycache__
+|   |           test_agent_wrapper_impls.cpython-313-pytest-9.0.1.pyc
 |   |           test_api_chat_internal_branches.cpython-313-pytest-9.0.1.pyc
 |   |           test_api_health.cpython-313-pytest-9.0.1.pyc
 |   |           test_api_sim_state.cpython-313-pytest-9.0.1.pyc
@@ -81256,10 +82130,13 @@ F:.
 |   |           test_batch8_smoke.cpython-313-pytest-9.0.1.pyc
 |   |           test_batch9_smoke.cpython-313-pytest-9.0.1.pyc
 |   |           test_chai_checks.cpython-313-pytest-9.0.1.pyc
+|   |           test_chat_additional_branches.cpython-313-pytest-9.0.1.pyc
 |   |           test_chat_endpoint_prompt_injection.cpython-313-pytest-9.0.1.pyc
 |   |           test_chat_helpers_and_options.cpython-313-pytest-9.0.1.pyc
+|   |           test_chat_more_branches.cpython-313-pytest-9.0.1.pyc
 |   |           test_chat_options_and_context.cpython-313-pytest-9.0.1.pyc
 |   |           test_chat_prompts_and_options.cpython-313-pytest-9.0.1.pyc
+|   |           test_chat_shadow_and_utils.cpython-313-pytest-9.0.1.pyc
 |   |           test_chat_stream_backend_error.cpython-313-pytest-9.0.1.pyc
 |   |           test_chat_stream_minimal_sse.cpython-313-pytest-9.0.1.pyc
 |   |           test_chat_stream_sse.cpython-313-pytest-9.0.1.pyc
@@ -81327,6 +82204,7 @@ F:.
 |   |           test_run_eval_import_smoke.cpython-313-pytest-9.0.1.pyc
 |   |           test_run_eval_unit.cpython-313-pytest-9.0.1.pyc
 |   |           test_session_id_coercion.cpython-313-pytest-9.0.1.pyc
+|   |           test_settings_contract_branches.cpython-313-pytest-9.0.1.pyc
 |   |           test_settings_parsing.cpython-313-pytest-9.0.1.pyc
 |   |           test_smoke_asgi_script.cpython-313-pytest-9.0.1.pyc
 |   |           test_streaming_error_paths.cpython-313-pytest-9.0.1.pyc
@@ -81339,6 +82217,7 @@ F:.
 |   |           test_tts_api_contract.cpython-313-pytest-9.0.1.pyc
 |   |           test_tts_auth_contract.cpython-313-pytest-9.0.1.pyc
 |   |           test_tts_cache_contract.cpython-313-pytest-9.0.1.pyc
+|   |           test_tts_providers_internals.cpython-313-pytest-9.0.1.pyc
 |   |           test_tts_provider_abstraction.cpython-313-pytest-9.0.1.pyc
 |   |           test_tts_rate_limit_contract.cpython-313-pytest-9.0.1.pyc
 |   |           test_utils_context_and_summarize.cpython-313-pytest-9.0.1.pyc
@@ -81347,6 +82226,8 @@ F:.
 |   |           test_utils_summarize_edge_cases.cpython-313-pytest-9.0.1.pyc
 |   |           __init__.cpython-313.pyc
 |   |           
+|   +---tmp
+|   |   \---forbidden
 |   +---utils
 |   |   |   context_notes.py
 |   |   |   eval_cache.py
@@ -81445,6 +82326,10 @@ F:.
 |   +---lora-20260222_2357
 |   +---lora-20260225_0222
 |   +---lora-20260225_0225
+|   +---lora-20260311_0658
+|   +---lora-20260311_0659
+|   +---lora-20260311_0941
+|   +---lora-20260311_0944
 |   +---lora-baseline-20260227_01
 |   |   |   adapter_config.json
 |   |   |   adapter_model.safetensors
@@ -81531,15 +82416,6 @@ F:.
 |   \---novapolis_common
 |           __init__.py
 |           
-+---reports
-|       tagging-20251126T043409Z.log
-|       tagging-20251127T212031Z.log
-|       tagging-20251130T021709Z.log
-|       tagging-20251201T134723Z.log
-|       tagging-20251208T165754Z.log
-|       tagging-20251210T164516Z.log
-|       tagging-20251210T164818Z.log
-|       
 +---scripts
 |   |   append_agent_donelog_entry.py
 |   |   audit_rp_characters_affiliation_location.py
@@ -81611,6 +82487,10 @@ F:.
 |   |   |   
 |   |   \---__pycache__
 |   |           dependency_check.cpython-313.pyc
+|   |           estimate_tokens.cpython-313.pyc
+|   |           migrate_dataset_schemas.cpython-313.pyc
+|   |           prepare_finetune_pack.cpython-313.pyc
+|   |           quick_eval.cpython-313.pyc
 |   |           run_eval.cpython-313.pyc
 |   |           _bootstrap.cpython-313.pyc
 |   |           _run_module.cpython-313.pyc
@@ -81622,8 +82502,15 @@ F:.
 |   +---task_wrappers
 |   \---__pycache__
 |           check_sim_epoch_assets.cpython-313.pyc
+|           pre_commit.cpython-313.pyc
+|           snapshot_gate.cpython-313.pyc
 |           __init__.cpython-313.pyc
 |           
++---tmp
+|   \---forbidden
 \---utils
-        __init__.py
-        
+    |   __init__.py
+    |   
+    \---__pycache__
+            __init__.cpython-313.pyc
+            
