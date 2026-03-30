@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 05:08
-update: Dev-DONELOG dokumentiert jetzt den aktiven README-Renaming-Lauf fuer nicht-kanonische Unterordner-Dokus.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
+stand: 2026-03-30 07:16
+update: Dev-DONELOG dokumentiert jetzt das operative RP-Arbeitsledger fuer die finale Metro-Warenzuteilung.
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS (2026-03-30 07:16)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,13 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+RP/Inventory: Operatives Arbeitsledger fuer die finale Metro-Warenzuteilung verankert (2026-03-30 06:17)
+------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md` ueberfuehrt die vorhandene RP-Zuteilungsmatrix jetzt in drei operative Ledger-Tabellen `fix`, `rahmenwert` und `handentscheidung` statt nur in eine Vorbereitungslogik.
+- Jeder Ledger-Eintrag fuehrt Station/Zielraum, Fraktion, sichtbaren Zielpfad und den beabsichtigten Updatepfad; fuer Novapolis sind damit `D5-inventar.md`, `C6-inventar.md`, `Novapolis-inventar.md` und `Missionslog-Novapolis.md` direkt ansteuerbar, fuer externe Fraktionen die jeweiligen Inventarseiten unter `novapolis-rp/database-rp/01-factions/*/04-inventory/`.
+- `todo.rp.md`, `todo.index.md` und `todo.root.md` fuehren den Schritt im selben Lauf als geschlossen; offen bleiben jetzt nur noch die belastbare Transferkette `D5 -> C6`, die Delta-/Bilanzstruktur in `Novapolis-inventar.md` und der spaetere Realabgleich der offenen Handentscheidungen.
 
 Dev/Docs: Nicht-kanonische Unterordner-READMEs im Stub-/Runbook-Scope umbenannt (2026-03-30 04:15)
 -------------------------------------------------------------------------------------------------

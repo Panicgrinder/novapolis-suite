@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-03-28 06:51
-update: Nach dem Matrix-Recheck ist jetzt auch das operative Zuteilungsledger als direkter RP-Folgepfad verankert.
-checks: markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS (2026-03-28 00:22)
+stand: 2026-03-30 07:16
+update: Das operative Arbeitsledger fuer die finale Metro-Warenzuteilung ist angelegt; der RP-Fokus liegt jetzt wieder auf Transferkette und Delta-/Bilanzformat.
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS (2026-03-30 07:16)
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -16,8 +16,8 @@ TODO (Novapolis-RP)
 Prioritaetstags (aktiv)
 -----------------------
 
-- `Jetzt`: RP-Folgearbeit sitzt auf Transferkette, Zielbuchung und Fraktionsaggregation fuer den Inventar-Backfill.
-- `Als naechstes`: Mengen-Backfill fuer Inventare konkret fortsetzen; Skill-Mapping ist dokumentiert und bleibt nur noch Referenzrahmen.
+- `Jetzt`: RP-Folgearbeit sitzt auf Transferkette, Delta-/Bilanzformat und belastbarer Fraktionsaggregation fuer den Inventar-Backfill.
+- `Als naechstes`: Mengen-Backfill fuer Inventare konkret fortsetzen; das Arbeitsledger steht, die Handentscheidungen muessen jetzt in die Zielinventare ueberfuehrt werden.
 - `Spaeter`: TTS-Block (OGG-Kandidaten + Live-Dialog-Cache) ausrollen.
 
 Aktiver Vorbereitungspunkt (2026-03-20)
@@ -72,7 +72,7 @@ Aktiver Vorbereitungspunkt (2026-03-20)
   - Folge fuer die finale Handverteilung 2026-03-27 16:12: Direkt gesetzt werden koennen die belegten D5-/C6-Anker und Tagesdeltas; offen fuer Handentscheid bleiben aktuelle Fraktionssummen, konkrete Transfermengen, Restbestaende je Station und exakte Mengen der uebrigen Hauptfraktionen.
   - Recheck 2026-03-27 16:19: Die Matrix ist jetzt fraktionsscharf fuer Arkologie-A1, Schienenbund, Haendlerbund, Eiserne Enklave/Eisenkonklave, Schattenbund und Fluesterkollektiv nachgezogen. Novapolis bleibt darin ausdruecklich gesondert, weil die aktive SSOT nur eine lokale Kernfraktion in frueher Aufbauphase belegt, nicht aber eine etablierte Metro-Hauptfraktion mit normalisiertem Handelsnetz.
 
-- [ ] [Als naechstes] Finale Metro-Warenzuteilung aus der Matrix in ein operatives Arbeitsledger ueberfuehren.
+- [x] [Jetzt] Finale Metro-Warenzuteilung aus der Matrix in ein operatives Arbeitsledger ueberfuehren.
   - Ziel: Die Dreiteilung `hart gesetzt | konservativ geschaetzt | manuell zu entscheiden` soll in ein belastbares Zuteilungsblatt fuer Stationen und Fraktionen ueberfuehrt werden.
   - Akzeptanzkriterien:
     1) jeder verteilte Posten ist als `fix`, `rahmenwert` oder `handentscheidung` markiert,
@@ -80,6 +80,7 @@ Aktiver Vorbereitungspunkt (2026-03-20)
     3) offene Handentscheidungen bleiben explizit als `tbd` statt implizit gesetzt,
     4) das Ergebnis verweist sauber auf Matrix, Inventarebene und den spaeteren Updatepfad fuer D5/C6/Fraktionsinventare.
   - Evidenz: `novapolis-dev/docs/process/rp-metro-warenzuteilung-matrix-2026-03-27.md` fuehrt die benoetigte Dreiteilung bereits vollstaendig; im Board selbst fehlt aber noch der direkte Uebergang in ein operatives Verteilungsledger fuer die finale Handarbeit.
+  - Abschluss 2026-03-30: `novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md` fuehrt die Matrix jetzt als operatives Ledger mit getrennten Tabellen fuer `fix`, `rahmenwert` und `handentscheidung`, sichtbaren Zielpfaden sowie einem expliziten Updatepfad fuer `D5-inventar.md`, `C6-inventar.md`, `Novapolis-inventar.md` und die externen Fraktionsinventare.
 
 Canvas-Rettung - Sprint 1 (Stand 2025-11-01)
 --------------------------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 05:08
-update: Root-Summary zieht den aktiven README-Renaming-Lauf fuer nicht-kanonische Unterordner-Dokus nach.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
+stand: 2026-03-30 07:16
+update: Root-Summary dokumentiert jetzt das operative RP-Arbeitsledger fuer die finale Metro-Warenzuteilung.
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS (2026-03-30 07:16)
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,8 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-03-30 06:17: Die RP-Finalzuteilung hat jetzt ihr operatives Arbeitsledger. `novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md` trennt die fraktionsscharfe Matrix in `fix`, `rahmenwert` und `handentscheidung`, fuehrt pro Posten Station, Fraktion, Zielpfad und Updatepfad sichtbar und schliesst damit den offenen Uebergang von der Matrix in ein echtes Verteilungsblatt; auf Root-/RP-Board bleiben jetzt nur noch Transferkette und Delta-/Bilanzfortschreibung offen.
 
 - 2026-03-30 04:15: Der aktive README-Renaming-Lauf ist im dokumentierten Stub-/Runbook-/Tool-Scope nachgezogen. Nicht-kanonische Unterordner-Dokus fuehren jetzt sprechende Dateinamen wie `docs/adr/adr-index.md`, `novapolis_agent/scripts/scripts-overview.md`, `novapolis_agent/eval/eval-overview.md`, `novapolis-dev/logs/logs-policy.md`, `novapolis-rp/coding/tools/validators/validator-suite.md` und `novapolis-rp/database-raw/99-exports/raw-export-policy.md`; aktive Querverweise in Hub, Index, DONELOG, TODOs, RP-Workflow, `Current-State.md`, `novapolis-history.md` und Workspace-Settings sind konsistent nachgezogen, und `scripts/check_logs_policy.py` erzwingt fuer den aktiven Logpfad jetzt ebenfalls `logs-policy.md` statt des alten `README.md`. Root-/Modul-READMEs sowie RP-Inhaltsindizes unter `novapolis-rp/database-rp/01-factions/**` blieben bewusst unveraendert.
 

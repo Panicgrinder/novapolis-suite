@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 05:08
-update: Agent-Export-/Pack-Pfad gegen historischen Results-Drift gehaertet; Null-Exports werden jetzt laut diagnostiziert und der Kurationslauf nimmt das neueste exportierbare Resultset.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
+stand: 2026-03-30 07:16
+update: Das RP-Arbeitsledger fuer die finale Metro-Warenzuteilung ist angelegt; der offene Root-RP-Rest liegt jetzt nur noch auf Transferkette und Delta-/Bilanzformat.
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS (2026-03-30 07:16)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -60,8 +60,9 @@ Neue Punkte (Backlog)
 - [ ] RP-Inventar-Backfill in die belegte Transferkette ueberfuehren (`D5 -> C6` mit Entnahme, Zielbuchung, Quittung) und `Novapolis-inventar.md` auf Delta-Format umstellen.
   - Evidenz: `novapolis-dev/docs/todo.rp.md`, `novapolis-dev/docs/process/rp-inventory-backfill-pilot-2026-03-20.md`, `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md`.
 
-- [ ] RP-Finalzuteilung aus der fraktionsscharfen Matrix in ein operatives Arbeitsledger ueberfuehren.
-  - Evidenz: `novapolis-dev/docs/process/rp-metro-warenzuteilung-matrix-2026-03-27.md`, `novapolis-dev/docs/todo.rp.md`.
+- [x] RP-Finalzuteilung aus der fraktionsscharfen Matrix in ein operatives Arbeitsledger ueberfuehren.
+  - Evidenz: `novapolis-dev/docs/process/rp-metro-warenzuteilung-matrix-2026-03-27.md`, `novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md`, `novapolis-dev/docs/todo.rp.md`.
+  - Abschluss 2026-03-30: Das neue Arbeitsledger trennt jetzt den fixen Sockel, konservative Rahmenwerte und echte Handentscheidungen mit sichtbaren Zielpfaden; damit ist der Uebergang von der Matrix in ein operatives Verteilungsblatt geschlossen.
 
 - [ ] Sim-Asset-Warnungen aus dem Wochenabschluss entscheiden: entweder beheben oder als bewusste Ausnahme dokumentieren.
   - Evidenz: `novapolis-dev/docs/todo.sim.md`, `WORKSPACE_STATUS.md` (Wochenabschluss 2026-03-27, `summary=fail:0,warn:2`).
