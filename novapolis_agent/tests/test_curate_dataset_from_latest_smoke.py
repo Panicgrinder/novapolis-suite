@@ -96,6 +96,18 @@ def test_curate_dataset_from_latest_smoke(tmp_path: Path, monkeypatch: pytest.Mo
     ) -> dict[str, Any]:  # type: ignore[override]
         return {"ok": True, "out": str(exported), "count": 2}
 
+    async def fake_inspect(
+        results_path: str,
+        include_failures: bool = False,
+        patterns: list[str] | None = None,
+    ) -> dict[str, Any]:
+        return {
+            "ok": True,
+            "successful_rows": 1,
+            "exportable_count": 2,
+            "unmapped_item_ids": [],
+        }
+
     def fake_prepare(
         src_path: str,
         out_dir: str | None = None,
@@ -140,7 +152,11 @@ def test_curate_dataset_from_latest_smoke(tmp_path: Path, monkeypatch: pytest.Mo
     mod = importlib.import_module("scripts.curate_dataset_from_latest")
 
     # Monkeypatch export and prepare
-    monkeypatch.setattr(mod, "_export", SimpleNamespace(export_from_results=fake_export))
+    monkeypatch.setattr(
+        mod,
+        "_export",
+        SimpleNamespace(export_from_results=fake_export, inspect_results_for_export=fake_inspect),
+    )
     monkeypatch.setattr(mod, "_prepare", SimpleNamespace(prepare_pack=fake_prepare))
 
     # Capture stdout

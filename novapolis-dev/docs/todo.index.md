@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
-update: Root-eval-Migration inklusive post-check Stub-Bereinigung abgeschlossen; Board- und Modulzaehlung bleiben synchron.
-checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
+stand: 2026-03-30 03:59
+update: Agent-Export-/Kurationspfad gegen historischen Results-Drift geschlossen; das Agent-Modul steht wieder bei offen: 0.
+checks: snapshot-lock PASS; targeted pytest PASS; temp export-pack PASS; markdownlint PASS; frontmatter PASS; todo-index PASS (2026-03-30 03:59)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -14,7 +14,7 @@ TODO-Index (Novapolis-Dev)
 
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 7)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
-- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 1)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 2)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
@@ -22,6 +22,10 @@ Statushinweise (aktuell)
 ------------------------
 
 - Root v1.2: Der letzte aktive Root-eval-Rest ist final geschlossen. Lokale Kontext-Notizen-Defaults, Eval-Standardpfade und die RAG-Fallbacks laufen jetzt ueber `novapolis_agent/eval/...`; der ehemalige Root-Ordner `eval/` liegt nachvollziehbar unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval`, ein nach den Abschluss-Checks erneut erzeugter lokaler Stub wurde zusaetzlich unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0632-root-eval-rest-postchecks/eval` abgelegt, und die Tree-Artefakte wurden danach erneut neu erzeugt (`offen: unveraendert`).
+
+- Agent v5.3: Der historische Null-Export-Drift im Export-/Kurationspfad ist geschlossen. `export_finetune.py` liefert jetzt laute Diagnostik statt stiller `0`-Exports, `curate_dataset_from_latest.py` nimmt das neueste exportierbare Resultset statt blind des neuesten Dateinamens, und ein temp-basierter Real-Lauf erzeugte fuer `results_20260226_0306_quality_de_round7b_repeat3.jsonl` wieder `20` Export-Eintraege plus Pack-Split `18/2` (`offen: 1 -> 0`).
+
+- Agent v5.2: Der Artefakt-Cleanup gruppiert Retention jetzt auf Run-/Artefaktgruppen-Ebene statt pro Datei. `outputs/` bleibt im Dry-Run als ganze Laufgruppen zusammen, und fuer `novapolis_agent/eval/results` werden nur noch ganze Cluster statt gemischter Dateireste markiert; als einziger offener Agent-Punkt bleibt damit wieder der Export-/Kurationspfad gegen historische Results-Drift (`offen: 1 -> 1`).
 
 - Agent v5.1: Die Kontext-Notizen-Migration ist abgeschlossen. `CONTEXT_NOTES_PATHS`, `open_context_notes.py`, `README.md` und die Eval-/RAG-Defaults fuehren jetzt konsistent auf `novapolis_agent/eval/...`, womit das Agent-Board wieder nur den historischen Export-/Kurationspfad offen fuehrt (`offen: 2 -> 1`).
 
@@ -92,7 +96,7 @@ Board-Metadaten (automationsrelevant)
 | --- | --- | --- | --- |
 | Dev (`docs/todo.dev.md`) | 2026-03-27 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-03-27 | - [ ] [Als naechstes] Finale Metro-Warenzuteilung aus der Matrix in ein operatives Arbeitsledger ueberfuehren. | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-03-28 | - [ ] [Als naechstes] Export-/Kurationspfad gegen Null-Exports durch historische Results-Drift haerten. | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-03-30 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-03-27 | - [ ] [Als naechstes] Sim-Asset-Warnungen aus `scripts/check_sim_epoch_assets.py` aufloesen oder bewusst kanonisch ausnehmen. | nein |
 
 

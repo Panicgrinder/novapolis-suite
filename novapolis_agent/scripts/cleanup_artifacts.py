@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -12,6 +13,9 @@ DEFAULT_TARGETS: tuple[str, ...] = (
     "outputs",
 )
 
+RUN_GROUP_TARGETS = {"novapolis_agent/eval/results"}
+RUN_TOKEN_RE = re.compile(r"(\d{8}_\d{4})")
+
 
 @dataclass(frozen=True)
 class ArtifactDecision:
@@ -21,19 +25,70 @@ class ArtifactDecision:
     reason: str
 
 
+@dataclass(frozen=True)
+class ArtifactGroup:
+    key: str
+    target: str
+    paths: tuple[Path, ...]
+    newest_mtime: float
+
+
 def _iter_files(target_dir: Path) -> list[Path]:
     if not target_dir.exists():
         return []
     return [p for p in target_dir.rglob("*") if p.is_file()]
 
 
-def _matches_keep_name(path: Path, keep_names: tuple[str, ...]) -> str | None:
-    low = path.name.lower()
+def _matches_keep_name(path: Path | str, keep_names: tuple[str, ...]) -> str | None:
+    low = str(path).replace("\\", "/").lower()
     for name in keep_names:
         n = name.strip().lower()
         if n and n in low:
             return n
     return None
+
+
+def _extract_run_token(path: Path | str) -> str | None:
+    matches = RUN_TOKEN_RE.findall(str(path).replace("\\", "/"))
+    if not matches:
+        return None
+    return matches[-1]
+
+
+def _group_key_for_target(target: str, target_dir: Path, file_path: Path) -> str:
+    rel = file_path.relative_to(target_dir).as_posix()
+
+    if target in RUN_GROUP_TARGETS:
+        run_token = _extract_run_token(rel)
+        if run_token is not None:
+            return f"run:{run_token}"
+
+    top_level = rel.split("/", 1)[0]
+    return f"entry:{top_level}"
+
+
+def _build_artifact_groups(target: str, target_dir: Path) -> list[ArtifactGroup]:
+    grouped_paths: dict[str, list[Path]] = {}
+
+    for file_path in _iter_files(target_dir):
+        group_key = _group_key_for_target(target, target_dir, file_path)
+        grouped_paths.setdefault(group_key, []).append(file_path)
+
+    groups: list[ArtifactGroup] = []
+    for group_key, paths in grouped_paths.items():
+        groups.append(
+            ArtifactGroup(
+                key=group_key,
+                target=target,
+                paths=tuple(sorted(paths, key=lambda path: path.as_posix())),
+                newest_mtime=max(path.stat().st_mtime for path in paths),
+            )
+        )
+
+    return sorted(
+        groups,
+        key=lambda group: (-group.newest_mtime, group.key),
+    )
 
 
 def plan_artifact_cleanup(
@@ -46,41 +101,37 @@ def plan_artifact_cleanup(
 
     for rel in targets:
         target_dir = repo_root / rel
-        files = _iter_files(target_dir)
-        files_sorted = sorted(files, key=lambda p: p.stat().st_mtime, reverse=True)
+        groups = _build_artifact_groups(rel, target_dir)
+        kept_latest_groups = 0
 
-        for idx, file_path in enumerate(files_sorted):
-            keep_token = _matches_keep_name(file_path, keep_names)
+        for group in groups:
+            keep_token = None
+            for group_path in group.paths:
+                rel_path = group_path.relative_to(repo_root).as_posix()
+                keep_token = _matches_keep_name(rel_path, keep_names)
+                if keep_token is not None:
+                    break
+
             if keep_token is not None:
+                action = "keep"
+                reason = f"name:{keep_token}"
+            elif kept_latest_groups < keep_latest:
+                action = "keep"
+                reason = f"latest-groups:{keep_latest}"
+                kept_latest_groups += 1
+            else:
+                action = "remove"
+                reason = f"beyond-latest-groups:{keep_latest}"
+
+            for file_path in group.paths:
                 decisions.append(
                     ArtifactDecision(
                         path=file_path,
                         target=rel,
-                        action="keep",
-                        reason=f"name:{keep_token}",
+                        action=action,
+                        reason=reason,
                     )
                 )
-                continue
-
-            if idx < keep_latest:
-                decisions.append(
-                    ArtifactDecision(
-                        path=file_path,
-                        target=rel,
-                        action="keep",
-                        reason=f"latest:{keep_latest}",
-                    )
-                )
-                continue
-
-            decisions.append(
-                ArtifactDecision(
-                    path=file_path,
-                    target=rel,
-                    action="remove",
-                    reason=f"beyond-latest:{keep_latest}",
-                )
-            )
 
     return decisions
 

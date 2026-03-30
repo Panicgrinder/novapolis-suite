@@ -113,7 +113,7 @@ def test_export_out_dir_none_uses_settings_fallback(
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_export_skips_unmapped_item(tmp_path: os.PathLike[str]) -> None:
+def test_export_unmapped_item_returns_error(tmp_path: os.PathLike[str]) -> None:
     from novapolis_agent.scripts import export_finetune as exporter
 
     # Ergebnis referenziert nicht existierendes Item
@@ -128,9 +128,7 @@ def test_export_skips_unmapped_item(tmp_path: os.PathLike[str]) -> None:
             patterns=[os.path.join(tmp_path, "empty.jsonl")],
         )
     )
-    assert out.get("ok")
-    assert int(out.get("count", -1)) == 0
-    out_path = str(out.get("out"))
-    with open(out_path, encoding="utf-8") as f:
-        lines = [line for line in f if line.strip()]
-    assert len(lines) == 0
+    assert out.get("ok") is False
+    assert "Kein exportierbares Item gefunden" in str(out.get("error"))
+    assert out.get("exportable_count") == 0
+    assert out.get("unmapped_item_ids") == ["missing-id"]

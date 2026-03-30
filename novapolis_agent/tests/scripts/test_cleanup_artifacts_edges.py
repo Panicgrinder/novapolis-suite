@@ -15,6 +15,7 @@ def test_iter_files_missing_dir_and_keep_name_matching(tmp_path: Path) -> None:
 
     assert mod._iter_files(tmp_path / "missing") == []
     assert mod._matches_keep_name(Path("artifact_MARATHON.bin"), ("marathon",)) == "marathon"
+    assert mod._matches_keep_name("novapolis_agent/eval/results/baselines/training_profiles.2026-02.json", ("baseline",)) == "baseline"
     assert mod._matches_keep_name(Path("artifact.bin"), ("", "x")) is None
 
 

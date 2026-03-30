@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
-update: Kontext-Notizen-Defaults und Eval-Standardpfade auf den Agent-Modulpfad vereinheitlicht.
-checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
+stand: 2026-03-30 03:59
+update: Export-/Kurationspfad haertet Results-Auswahl und Null-Export-Fehler; das Agent-Board steht damit wieder bei offen: 0.
+checks: snapshot-lock PASS; targeted pytest PASS; temp export-pack PASS; markdownlint PASS; frontmatter PASS; todo-index PASS (2026-03-30 03:59)
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -158,7 +158,17 @@ Neue Aufgaben - Datensaetze & Training (2026-02-25)
   - Evidenz: `novapolis_agent/app/core/settings.py`, `novapolis_agent/scripts/open_context_notes.py`, `novapolis_agent/README.md`, `eval/config/context.local.md` und `novapolis_agent/eval/config/context.local.md`.
   - Abschluss 2026-03-28: `EVAL_*`, `CONTEXT_NOTES_PATHS` und `RAG_INDEX_PATH` zeigen jetzt auf `novapolis_agent/eval/...`; `scripts/open_context_notes.py` nutzt denselben Default, die README ist nachgezogen, und die verbleibende Root-Kopie wurde anschliessend quarantanisiert.
 
-- [ ] [Als naechstes] Export-/Kurationspfad gegen Null-Exports durch historische Results-Drift haerten.
+- [x] [Jetzt] Artefakt-Cleanup von dateibasierter auf runbasierte Retention umstellen.
+  - Ziel: Reale Cleanup-Laeufe duerfen zusammengehoerige Eval- oder LoRA-Runs nicht mehr in getrennte Keep-/Remove-Entscheidungen aufspalten.
+  - Akzeptanzkriterien:
+    1) `cleanup_artifacts.py` entscheidet fuer `novapolis_agent/eval/results` und `outputs` auf Run-/Cluster-Ebene statt pro Datei,
+    2) ein Dry-Run behaelt oder entfernt Artefakte desselben Runs konsistent als Gruppe,
+    3) Name-Pinning (`baseline`, `marathon`, `quality_de`) bleibt erhalten, ohne Laufgruppen zu zerreissen,
+    4) Tests decken mindestens einen Eval-Run-Cluster und einen Output-Laufordner gegen Split-Retention ab.
+  - Evidenz: Der Dry-Run `Data: artifacts cleanup (dry-run)` vom 2026-03-29 (`.tmp/results/reports/artifact_lifecycle_report.json`) wuerde aktuell 1893 Dateien entfernen und dabei zusammengehoerige Run-Artefakte wie `outputs/lora-baseline-vscode/*` sowie die Maerz-2026-Eval-Cluster nur teilweise behalten.
+  - Abschluss 2026-03-29: `cleanup_artifacts.py` gruppiert `novapolis_agent/eval/results` jetzt ueber den letzten Run-Zeitanker und `outputs` ueber Laufordner/Top-Level-Eintraege; Name-Pinning gilt auf relativen Artefaktpfaden statt nur auf Dateinamen, neue Tests sichern Eval-Cluster und Output-Laufordner gegen Split-Retention ab, und der erneute Dry-Run haelt `outputs/` vollstaendig zusammen (`keep=68`, `remove=0`) und markiert bei `novapolis_agent/eval/results` nur noch ganze Gruppen (`keep=60`, `remove=1813`).
+
+- [x] [Als naechstes] Export-/Kurationspfad gegen Null-Exports durch historische Results-Drift haerten.
   - Ziel: Die Task-Kette `Data: export+pack (latest results)` soll fuer reale aktuelle Ergebnisse trainierbare Artefakte liefern oder bei unbrauchbaren Quellen hart und klar abbrechen.
   - Akzeptanzkriterien:
     1) der Export erkennt historische oder inkonsistente `source_path`-Verweise und faellt kontrolliert auf validen Input oder expliziten Fehler zurueck,
@@ -166,6 +176,7 @@ Neue Aufgaben - Datensaetze & Training (2026-02-25)
     3) Runbook und README nennen den kanonischen Weg fuer kuratierbare Results ohne manuelle Pfadforensik,
     4) mindestens ein dokumentierter Lauf erzeugt wieder ein nichtleeres Export- oder Pack-Artefakt aus einem aktuellen Results-Set.
   - Evidenz: Die vorhandenen Laufbelege fuehren fuer 2026-02-27 einen `export_finetune.py`-Run mit `0` Eintraegen wegen Source-Path-Drift an, waehrend der nachgelagerte Pack-Schritt nur auf bereits vorhandenem Exportmaterial erfolgreich war; die Tasklabels bleiben dennoch der dokumentierte Standardpfad.
+  - Abschluss 2026-03-30: `scripts/export_finetune.py` inspiziert Results jetzt vor dem Export, nutzt Result-Metadaten plus `source_file` fuer robustere Dataset-Aufloesung, matched Item-IDs/Slugs resilienter und liefert bei `0` exportierbaren Datensaetzen einen expliziten Fehler statt stiller Erfolgsantwort. `scripts/curate_dataset_from_latest.py` prueft `results_*.jsonl` newest-first auf Exportierbarkeit und nimmt das neueste kuratierbare Set; uebersprungene Drift-Kandidaten werden als `skipped_results` ausgewiesen. Regressionstests in `tests/scripts/test_export_finetune_edges.py`, `tests/scripts/test_export_finetune_more_edges.py`, `tests/scripts/test_curate_dataset_from_latest_minimal.py`, `tests/test_curate_dataset_from_latest_smoke.py`, `tests/test_curate_filters_smoke.py` und `tests/test_export_and_prepare_pipeline.py` sind gruen. Der temp-basierte Real-Lauf gegen `novapolis_agent/eval/results/` waehlte nach mehreren unbrauchbaren Maerz-2026-Kandidaten kontrolliert `results_20260226_0306_quality_de_round7b_repeat3.jsonl` und erzeugte wieder `20` Export-Eintraege plus Pack-Split `18/2`.
 
 - [x] [Jetzt] Individuelle Trainingsdatensaetze als kanonische Pakete definieren (Chronistin-Profile).
   - Ziel: Neben Eval-Paketen strukturierte Training-Pakete fuer unterschiedliche Einsatzprofile der Chronistin bereitstellen (z. B. neutral-assistiv, lore-intensiv, operativ-kurz).

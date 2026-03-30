@@ -46,6 +46,10 @@ def _latest_results(path: str) -> str | None:
     return files[0] if files else None
 
 
+def _latest_results_candidates(path: str) -> list[str]:
+    return sorted(glob.glob(os.path.join(path, "results_*.jsonl")), reverse=True)
+
+
 def main() -> int:
     # Dynamischer Default-Pfad über Settings
     try:
@@ -115,17 +119,55 @@ def main() -> int:
     args = p.parse_args()
 
     results_dir = args.results_dir
-    chosen = args.results_file or _latest_results(results_dir)
-    if not chosen:
+    candidates = [args.results_file] if args.results_file else _latest_results_candidates(results_dir)
+    if not candidates:
         print(json.dumps({"ok": False, "error": f"Keine results_*.jsonl in {results_dir}"}))
+        return 2
+
+    selection_failures: list[dict[str, Any]] = []
+    chosen: str | None = None
+
+    import asyncio
+
+    for candidate in candidates:
+        inspection = asyncio.run(
+            _export.inspect_results_for_export(
+                candidate,
+                include_failures=args.include_failures,
+            )
+        )
+        if inspection.get("ok"):
+            chosen = candidate
+            break
+
+        selection_failures.append(
+            {
+                "results": candidate,
+                "error": inspection.get("error"),
+                "successful_rows": inspection.get("successful_rows", 0),
+                "exportable_count": inspection.get("exportable_count", 0),
+                "unmapped_item_ids": inspection.get("unmapped_item_ids", []),
+            }
+        )
+
+    if not chosen:
+        print(
+            json.dumps(
+                {
+                    "ok": False,
+                    "error": "Keine kuratierbare results_*.jsonl gefunden",
+                    "results_dir": results_dir,
+                    "checked_candidates": selection_failures[:5],
+                },
+                ensure_ascii=False,
+            )
+        )
         return 2
 
     finetune_dir = os.path.join(results_dir, "finetune")
     os.makedirs(finetune_dir, exist_ok=True)
 
     # 1) Export
-    import asyncio
-
     exp = asyncio.run(
         _export.export_from_results(
             chosen,
@@ -135,7 +177,20 @@ def main() -> int:
         )
     )
     if not exp.get("ok"):
-        print(json.dumps({"ok": False, "error": exp.get("error")}))
+        print(
+            json.dumps(
+                {
+                    "ok": False,
+                    "error": exp.get("error"),
+                    "results": chosen,
+                    "patterns_used": exp.get("patterns_used", []),
+                    "successful_rows": exp.get("successful_rows", 0),
+                    "exportable_count": exp.get("exportable_count", 0),
+                    "unmapped_item_ids": exp.get("unmapped_item_ids", []),
+                },
+                ensure_ascii=False,
+            )
+        )
         return 3
 
     exported_path = str(exp.get("out"))
@@ -297,6 +352,8 @@ def main() -> int:
         "val": pack.get("val"),
         "counts": pack.get("counts"),
     }
+    if selection_failures:
+        report["skipped_results"] = selection_failures[:5]
     print(json.dumps(report, ensure_ascii=False, indent=2))
     return 0
 

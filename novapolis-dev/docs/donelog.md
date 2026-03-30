@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
-update: Dev-Current-Window um die post-check Bereinigung des erneut entstandenen Root-eval-Stubs erweitert.
-checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
+stand: 2026-03-30 03:59
+update: Agent-Export-/Kurationspfad gegen historischen Results-Drift gehaertet und per temp-basiertem Real-Lauf validiert.
+checks: snapshot-lock PASS; targeted pytest PASS; temp export-pack PASS; markdownlint PASS; frontmatter PASS; todo-index PASS (2026-03-30 03:59)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,34 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Agent/Data: Export-/Kurationspfad gegen historischen Results-Drift gehaertet (2026-03-30 01:21)
+---------------------------------------------------------------------------------------------
+
+- `novapolis_agent/scripts/export_finetune.py` inspiziert Results jetzt vor dem Export, leitet Dataset-Kandidaten aus Result-Metadaten und `source_file` ab, matched Item-IDs/Slugs resilienter und liefert bei `0` exportierbaren Datensaetzen einen expliziten Fehler mit Diagnostik (`successful_rows`, `exportable_count`, `unmapped_item_ids`) statt einer stillen Erfolgsantwort.
+- `novapolis_agent/scripts/curate_dataset_from_latest.py` prueft `results_*.jsonl` newest-first auf Exportierbarkeit und nimmt das neueste kuratierbare Set; uebersprungene Drift-Kandidaten erscheinen als `skipped_results` im Bericht.
+- Regressionen sind ueber gezielte Pytests fuer Export-/Curate-Edges und Smoke-Pfade abgesichert. Ein temp-basierter Real-Lauf gegen `novapolis_agent/eval/results/` waehlte kontrolliert `results_20260226_0306_quality_de_round7b_repeat3.jsonl` und erzeugte wieder `20` Export-Eintraege plus Pack-Split `train=18`, `val=2`.
+
+Agent/Artifacts: Outputs-Cleanup als No-Op bestaetigt (2026-03-29 07:07)
+-----------------------------------------------------------------------
+
+- Der reale Cleanup-Lauf `novapolis_agent/scripts/cleanup_artifacts.py --target outputs --keep-latest 15` hatte unter der runbasierten Retention keine Remove-Kandidaten; Apply-Report `.tmp/results/reports/artifact_lifecycle_report_apply_outputs_20260329_0707.json` mit `keep=68`, `remove=0`, `removed=0`.
+- Der direkte Post-Dry-Run auf denselben Zielpfad bestaetigt denselben Sollzustand ohne Restueberhang; Post-Check-Report `.tmp/results/reports/artifact_lifecycle_report_post_outputs_20260329_0707.json` mit `keep=68`, `remove=0`, `removed=0`.
+- Damit bleibt `outputs/` nach der runbasierten Retention aktuell vollstaendig bestehen; echte Remove-Kandidaten lagen in diesem Pfad nicht mehr vor.
+
+Agent/Artifacts: echter Eval-Results-Cleanup ausgefuehrt (2026-03-29 06:47)
+--------------------------------------------------------------------------
+
+- Der reale Cleanup-Lauf `novapolis_agent/scripts/cleanup_artifacts.py --target novapolis_agent/eval/results --keep-latest 15` hat im Agent-Resultpfad 1813 Dateien entfernt und 60 Artefakte behalten; der Maschinenreport liegt unter `.tmp/results/reports/artifact_lifecycle_report_apply_eval_results_20260329_0647.json`.
+- Der direkte Nachlauf per erneutem Dry-Run auf denselben Zielpfad bestaetigt den Zielzustand ohne Restueberhang (`keep=60`, `remove=0`, `removed=0`); der Post-Check-Report liegt unter `.tmp/results/reports/artifact_lifecycle_report_post_eval_results_20260329_0647.json`.
+- Der Cleanup wurde bewusst nur auf `novapolis_agent/eval/results` ausgefuehrt; `outputs/` und `novapolis_agent/outputs/` blieben in diesem Lauf unveraendert.
+
+Agent/Artifacts: runbasierte Retention fuer Cleanup gehaertet (2026-03-29 06:45)
+-----------------------------------------------------------------------------
+
+- `novapolis_agent/scripts/cleanup_artifacts.py` gruppiert Artefakte jetzt fuer `novapolis_agent/eval/results` ueber Run-Zeitanker und fuer `outputs` ueber Laufordner/Top-Level-Eintraege statt pro Einzeldatei; Name-Pinning greift auf relativen Pfaden und reisst dadurch Baseline- oder Quality-DE-Artefakte nicht mehr auf Dateiebene auseinander.
+- Neue Regressionstests in `novapolis_agent/tests/scripts/test_cleanup_artifacts.py` und `novapolis_agent/tests/scripts/test_cleanup_artifacts_edges.py` sichern Eval-Cluster, Output-Laufordner und Baseline-Pfade gegen Split-Retention ab; der erneute Dry-Run-Report unter `.tmp/results/reports/artifact_lifecycle_report.json` haelt `outputs/` jetzt komplett zusammen (`keep=68`, `remove=0`).
+- `todo.agent-board.md` fuehrt den Fixpunkt im selben Lauf von offen auf erledigt, und `todo.index.md` bleibt fuer das Agent-Modul wieder bei genau einem offenen Folgepunkt (`Export-/Kurationspfad gegen historische Results-Drift`).
 
 Root-Cleanup: Root-eval-Rest final bereinigt und post-check Stub erneut quarantanisiert (2026-03-28 06:32)
 -------------------------------------------------------------------------------------------------------

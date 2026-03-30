@@ -74,6 +74,14 @@ def test_curation_filters_reduce_records(tmp_path: Path, monkeypatch: pytest.Mon
     async def fake_export(*_a: Any, **_k: Any) -> dict[str, Any]:
         return {"ok": True, "out": str(exported), "count": 2}
 
+    async def fake_inspect(*_a: Any, **_k: Any) -> dict[str, Any]:
+        return {
+            "ok": True,
+            "successful_rows": 2,
+            "exportable_count": 2,
+            "unmapped_item_ids": [],
+        }
+
     def fake_prepare(src_path: str, *_, **__) -> dict[str, Any]:  # type: ignore[override]
         return {
             "ok": True,
@@ -101,7 +109,11 @@ def test_curation_filters_reduce_records(tmp_path: Path, monkeypatch: pytest.Mon
             "2",
         ],
     )
-    monkeypatch.setattr(mod, "_export", SimpleNamespace(export_from_results=fake_export))
+    monkeypatch.setattr(
+        mod,
+        "_export",
+        SimpleNamespace(export_from_results=fake_export, inspect_results_for_export=fake_inspect),
+    )
     monkeypatch.setattr(mod, "_prepare", SimpleNamespace(prepare_pack=fake_prepare))
 
     from contextlib import redirect_stdout

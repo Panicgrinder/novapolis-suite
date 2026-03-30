@@ -11,6 +11,7 @@ Standard: Nur erfolgreiche Antworten exportieren.
 
 from __future__ import annotations
 
+import glob
 import json
 import os
 import sys
@@ -19,13 +20,16 @@ from typing import Any, cast
 from utils.time_utils import now_compact
 
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO_ROOT = os.path.dirname(PROJECT_ROOT)
+
+
 def _load_run_eval_module():
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    if project_root not in sys.path:
-        sys.path.insert(0, project_root)
+    if PROJECT_ROOT not in sys.path:
+        sys.path.insert(0, PROJECT_ROOT)
     import importlib.util
 
-    run_eval_path = os.path.join(project_root, "scripts", "run_eval.py")
+    run_eval_path = os.path.join(PROJECT_ROOT, "scripts", "run_eval.py")
     spec = importlib.util.spec_from_file_location("run_eval", run_eval_path)
     if spec is None or spec.loader is None:
         raise RuntimeError("Konnte run_eval.py nicht laden")
@@ -37,7 +41,8 @@ def _load_run_eval_module():
 run_eval = _load_run_eval_module()
 
 
-def _load_results(path: str) -> list[dict[str, Any]]:
+def _load_results(path: str) -> tuple[dict[str, Any] | None, list[dict[str, Any]]]:
+    meta: dict[str, Any] | None = None
     rows: list[dict[str, Any]] = []
     with open(path, encoding="utf-8") as f:
         for line in f:
@@ -53,24 +58,157 @@ def _load_results(path: str) -> list[dict[str, Any]]:
                 continue
             data: dict[str, Any] = cast(dict[str, Any], raw)
             if data.get("_meta") is True:
+                if meta is None:
+                    meta = data
                 continue
             rows.append(data)
-    return rows
+    return meta, rows
+
+
+def _dataset_dir() -> str:
+    return str(getattr(run_eval, "DEFAULT_DATASET_DIR", os.path.join(PROJECT_ROOT, "eval", "datasets")))
+
+
+def _dedupe_preserve_order(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for value in values:
+        if not value:
+            continue
+        key = os.path.normcase(os.path.normpath(value))
+        if key in seen:
+            continue
+        seen.add(key)
+        ordered.append(value)
+    return ordered
+
+
+def _resolve_existing_inputs(raw_inputs: list[str], dataset_dir: str) -> list[str]:
+    resolved: list[str] = []
+
+    for raw_input in raw_inputs:
+        if not raw_input:
+            continue
+
+        basename = os.path.basename(raw_input.replace("\\", "/"))
+        candidate_inputs: list[str] = []
+
+        if os.path.isabs(raw_input):
+            candidate_inputs.append(raw_input)
+        else:
+            candidate_inputs.extend(
+                [
+                    raw_input,
+                    os.path.join(REPO_ROOT, raw_input),
+                    os.path.join(PROJECT_ROOT, raw_input),
+                    os.path.join(dataset_dir, raw_input),
+                ]
+            )
+            if basename:
+                candidate_inputs.append(os.path.join(dataset_dir, "**", basename))
+
+        for candidate in _dedupe_preserve_order(candidate_inputs):
+            matches = sorted(glob.glob(candidate, recursive=True))
+            if matches:
+                resolved.extend([match for match in matches if os.path.isfile(match)])
+                continue
+            if os.path.isfile(candidate):
+                resolved.append(candidate)
+
+    return _dedupe_preserve_order(resolved)
+
+
+def _derive_patterns_from_results(
+    rows: list[dict[str, Any]],
+    meta: dict[str, Any] | None,
+    patterns: list[str] | None = None,
+) -> list[str]:
+    dataset_dir = _dataset_dir()
+
+    if patterns is not None:
+        return _resolve_existing_inputs(list(patterns), dataset_dir)
+
+    meta_patterns = [
+        str(value)
+        for value in cast(list[Any], (meta or {}).get("patterns") or [])
+        if isinstance(value, str) and value.strip()
+    ]
+    source_files = [
+        str(row.get("source_file"))
+        for row in rows
+        if isinstance(row.get("source_file"), str) and str(row.get("source_file")).strip()
+    ]
+
+    resolved = _resolve_existing_inputs(meta_patterns, dataset_dir)
+    resolved.extend(_resolve_existing_inputs(source_files, dataset_dir))
+    return _dedupe_preserve_order(resolved)
+
+
+def _item_lookup_keys(item: Any) -> list[str]:
+    item_id = str(getattr(item, "id", "") or "").strip()
+    slug = str(getattr(item, "slug", "") or "").strip()
+    keys: list[str] = []
+
+    for raw_value in [item_id, slug]:
+        if not raw_value:
+            continue
+        keys.append(raw_value)
+        if raw_value.startswith("eval-"):
+            keys.append(raw_value[5:])
+        else:
+            keys.append(f"eval-{raw_value}")
+
+    return _dedupe_preserve_order(keys)
+
+
+def _result_lookup_keys(row: dict[str, Any]) -> list[str]:
+    keys: list[str] = []
+    for field in ("item_id", "slug", "id", "eval_id"):
+        raw_value = row.get(field)
+        if raw_value is None:
+            continue
+        value = str(raw_value).strip()
+        if not value:
+            continue
+        keys.append(value)
+        if value.startswith("eval-"):
+            keys.append(value[5:])
+        else:
+            keys.append(f"eval-{value}")
+    return _dedupe_preserve_order(keys)
+
+
+def _match_item_for_row(row: dict[str, Any], id_map: dict[str, Any]) -> Any | None:
+    for key in _result_lookup_keys(row):
+        item = id_map.get(key)
+        if item is not None:
+            return item
+    return None
+
+
+def _collect_export_pairs(
+    rows: list[dict[str, Any]],
+    id_map: dict[str, Any],
+) -> tuple[list[tuple[dict[str, Any], Any]], list[str]]:
+    pairs: list[tuple[dict[str, Any], Any]] = []
+    unmapped_ids: list[str] = []
+
+    for row in rows:
+        item = _match_item_for_row(row, id_map)
+        if item is None:
+            unmapped_ids.append(str(row.get("item_id") or row.get("id") or "unbekannt"))
+            continue
+        pairs.append((row, item))
+
+    return pairs, unmapped_ids
 
 
 async def _load_items_map(patterns: list[str] | None = None) -> dict[str, Any]:
     items = await run_eval.load_evaluation_items(patterns)
     id_map: dict[str, Any] = {}
     for it in items:
-        # Primärer Key: die vom Loader gesetzte ID
-        try:
-            key = str(it.id)
-        except Exception:
-            continue
-        id_map[key] = it
-        # Sekundärer Key: falls die ID mit "eval-" beginnt, zusätzlich Variante ohne Präfix mappen
-        if key.startswith("eval-"):
-            id_map[key[len("eval-") :]] = it
+        for key in _item_lookup_keys(it):
+            id_map[key] = it
     return id_map
 
 
@@ -118,48 +256,27 @@ async def export_from_results(
         out_dir_str = str(out_dir)
     os.makedirs(out_dir_str, exist_ok=True)
 
-    rows = _load_results(results_path)
-    if not rows:
-        return {"ok": False, "error": "Keine Ergebnisse in Datei"}
+    analysis = await inspect_results_for_export(
+        results_path,
+        include_failures=include_failures,
+        patterns=patterns,
+    )
+    if not analysis.get("ok"):
+        return {
+            "ok": False,
+            "error": analysis.get("error"),
+            "results": results_path,
+            "patterns_used": analysis.get("patterns_used", []),
+            "meta_patterns": analysis.get("meta_patterns", []),
+            "successful_rows": analysis.get("successful_rows", 0),
+            "exportable_count": analysis.get("exportable_count", 0),
+            "unmapped_item_ids": analysis.get("unmapped_item_ids", []),
+            "used_broad_fallback": analysis.get("used_broad_fallback", False),
+        }
 
-    # Map Items laden: Bevorzuge explizite Source-Dateien aus den Results,
-    # plus Standard-Globs aus Settings, damit auch nicht 'eval-*' benannte Datasets gefunden werden.
-    if patterns is None:
-        cand: list[str] = []
-        # 1) Explizite Quell-Dateien aus den Results
-        try:
-            ddir = str(run_eval.DEFAULT_DATASET_DIR)
-        except Exception:
-            ddir = None
-        src_files: list[str] = []
-        for r in rows:
-            sf = r.get("source_file")
-            if isinstance(sf, str) and sf:
-                # Wenn möglich mit dem Dataset-Verzeichnis verknüpfen
-                if ddir:
-                    src_files.append(os.path.join(ddir, sf))
-                else:
-                    src_files.append(sf)
-        # 2) Fallback-Globs
-        if hasattr(run_eval, "DEFAULT_DATASET_DIR"):
-            try:
-                ddir2 = str(run_eval.DEFAULT_DATASET_DIR)
-                pat = str(run_eval.DEFAULT_FILE_PATTERN)
-                cand.append(os.path.join(ddir2, pat))
-            except Exception:
-                pass
-        try:
-            edir = str(run_eval.DEFAULT_EVAL_DIR)
-            pat2 = str(run_eval.DEFAULT_FILE_PATTERN)
-            cand.append(os.path.join(edir, pat2))
-        except Exception:
-            pass
-        patterns = (src_files + cand) or None
-    id2item = await _load_items_map(patterns)
+    export_pairs = cast(list[tuple[dict[str, Any], Any]], analysis["export_pairs"])
 
-    # Filter
-    if not include_failures:
-        rows = [r for r in rows if r.get("success")]
+    rows = [row for row, _item in export_pairs]
 
     timestamp = now_compact()
     base = os.path.splitext(os.path.basename(results_path))[0]
@@ -167,14 +284,8 @@ async def export_from_results(
 
     count = 0
     with open(out_path, "w", encoding="utf-8") as out:
-        for r in rows:
-            item_id = r.get("item_id")
-            if not item_id:
-                continue
-            item = id2item.get(item_id)
-            if not item:
-                # Item evtl. nicht in aktuellen Paketen; überspringen
-                continue
+        for r, item in export_pairs:
+            item_id = str(r.get("item_id") or r.get("id") or getattr(item, "id", ""))
             messages = cast(list[dict[str, str]], item.messages or [])
             response = r.get("response", "")
 
@@ -210,7 +321,76 @@ async def export_from_results(
             out.write(json.dumps(rec, ensure_ascii=False) + "\n")
             count += 1
 
-    return {"ok": True, "out": out_path, "count": count}
+    return {
+        "ok": True,
+        "out": out_path,
+        "count": count,
+        "results": results_path,
+        "patterns_used": analysis.get("patterns_used", []),
+        "used_broad_fallback": analysis.get("used_broad_fallback", False),
+        "unmapped_item_ids": analysis.get("unmapped_item_ids", []),
+    }
+
+
+async def inspect_results_for_export(
+    results_path: str,
+    include_failures: bool = False,
+    patterns: list[str] | None = None,
+) -> dict[str, Any]:
+    meta, rows = _load_results(results_path)
+    if not rows:
+        return {"ok": False, "error": "Keine Ergebnisse in Datei"}
+
+    candidate_rows = rows if include_failures else [row for row in rows if row.get("success")]
+    if not candidate_rows:
+        return {"ok": False, "error": "Keine erfolgreichen Ergebnisse für Export"}
+
+    resolved_patterns = _derive_patterns_from_results(candidate_rows, meta, patterns)
+    id_map = await _load_items_map(resolved_patterns or None)
+    export_pairs, unmapped_ids = _collect_export_pairs(candidate_rows, id_map)
+    used_broad_fallback = False
+
+    if not export_pairs and patterns is None:
+        broad_patterns = [os.path.join(_dataset_dir(), "**", "*.json*")]
+        broad_map = await _load_items_map(broad_patterns)
+        broad_pairs, broad_unmapped = _collect_export_pairs(candidate_rows, broad_map)
+        if broad_pairs:
+            resolved_patterns = broad_patterns
+            id_map = broad_map
+            export_pairs = broad_pairs
+            unmapped_ids = broad_unmapped
+            used_broad_fallback = True
+
+    if not export_pairs:
+        return {
+            "ok": False,
+            "error": "Kein exportierbares Item gefunden; Results verweisen wahrscheinlich auf veraltete oder nicht mehr auflösbare Dataset-Pfade.",
+            "meta_patterns": [
+                str(value)
+                for value in cast(list[Any], (meta or {}).get("patterns") or [])
+                if isinstance(value, str) and value.strip()
+            ],
+            "patterns_used": resolved_patterns,
+            "successful_rows": len(candidate_rows),
+            "exportable_count": 0,
+            "unmapped_item_ids": unmapped_ids[:20],
+            "used_broad_fallback": used_broad_fallback,
+        }
+
+    return {
+        "ok": True,
+        "meta_patterns": [
+            str(value)
+            for value in cast(list[Any], (meta or {}).get("patterns") or [])
+            if isinstance(value, str) and value.strip()
+        ],
+        "patterns_used": resolved_patterns,
+        "successful_rows": len(candidate_rows),
+        "exportable_count": len(export_pairs),
+        "unmapped_item_ids": unmapped_ids[:20],
+        "used_broad_fallback": used_broad_fallback,
+        "export_pairs": export_pairs,
+    }
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
-update: Root-eval-Rest final bereinigt; nach den Abschluss-Checks neu entstandener Stub separat quarantanisiert und Tree-Artefakte erneut nachgezogen.
-checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
+stand: 2026-03-30 03:59
+update: Agent-Export-/Pack-Pfad gegen historischen Results-Drift gehaertet; Null-Exports werden jetzt laut diagnostiziert und der Kurationslauf nimmt das neueste exportierbare Resultset.
+checks: snapshot-lock PASS; targeted pytest PASS; temp export-pack PASS; markdownlint PASS; frontmatter PASS; todo-index PASS (2026-03-30 03:59)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -53,8 +53,9 @@ Neue Punkte (Backlog)
   - Evidenz: `novapolis-dev/README.md`, `WORKSPACE_INDEX.md`, `novapolis_agent/README.md`, `novapolis-rp/README.md`, `novapolis-sim/README.md` fuehren teils noch Vor-Maerz-Receipts, Altpfade oder lokale `venv`-/Sibling-Hinweise statt des aktuellen Root-`.venv`- und PASS-Kontexts.
   - Abschluss 2026-03-28: Die aktiven Lesedokumente fuehren jetzt keinen veralteten FAIL-Header mehr, nutzen den Single-Root-/`.venv`-Pfad konsistent und trennen im Sim-Modul UI-Start sauber von optionalen Asset-Warnungen.
 
-- [ ] Agent-Export-/Pack-Pfad gegen Null-Exports aus historischem Results-Drift haerten.
-  - Evidenz: `novapolis-dev/docs/todo.agent-board.md`, `novapolis_agent/docs/DONELOG.txt` (Laufbeleg 2026-02-27: `export_finetune.py` lieferte fuer ein historisches Resultset `0` Eintraege wegen Source-Path-Drift).
+- [x] Agent-Export-/Pack-Pfad gegen Null-Exports aus historischem Results-Drift haerten.
+  - Evidenz: `novapolis-dev/docs/todo.agent-board.md`, `novapolis_agent/docs/DONELOG.txt` (historischer Laufbeleg 2026-02-27 mit `0` Export-Eintraegen wegen Source-Path-Drift).
+  - Abschluss 2026-03-30: `novapolis_agent/scripts/export_finetune.py` leitet Dataset-Kandidaten jetzt aus Results-Metadaten und `source_file` ab, `novapolis_agent/scripts/curate_dataset_from_latest.py` waehlt nicht mehr blind den Dateinamen-Toptreffer, sondern das neueste exportierbare Resultset, und Null-Exports brechen mit Diagnostik (`successful_rows`, `exportable_count`, `unmapped_item_ids`) explizit ab. Gezielte Pytests sind gruen; ein temp-basierter Real-Lauf gegen `novapolis_agent/eval/results/` hat fuer `results_20260226_0306_quality_de_round7b_repeat3.jsonl` wieder `20` Export-Eintraege und einen Pack-Split `train=18`, `val=2` erzeugt.
 
 - [ ] RP-Inventar-Backfill in die belegte Transferkette ueberfuehren (`D5 -> C6` mit Entnahme, Zielbuchung, Quittung) und `Novapolis-inventar.md` auf Delta-Format umstellen.
   - Evidenz: `novapolis-dev/docs/todo.rp.md`, `novapolis-dev/docs/process/rp-inventory-backfill-pilot-2026-03-20.md`, `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md`.

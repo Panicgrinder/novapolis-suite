@@ -21,6 +21,18 @@ DONELOG – Abgeschlossene Arbeiten
 =================================
 
 
+2026-03-30 01:21 | Copilot | Export-/Kurationspfad gegen historischen Results-Drift gehaertet: `scripts/export_finetune.py` inspiziert Results jetzt vor dem Export, leitet Dataset-Kandidaten aus Result-Metadaten und `source_file` ab, matched Item-IDs/Slugs resilienter und liefert bei `0` exportierbaren Datensaetzen einen expliziten Fehler mit Diagnostik statt stiller Erfolgsantwort. `scripts/curate_dataset_from_latest.py` prueft `results_*.jsonl` newest-first auf Exportierbarkeit und nimmt das neueste kuratierbare Set; uebersprungene Drift-Kandidaten werden als `skipped_results` berichtet. Verifikation: gezielter Pytest-Block fuer Export-/Curate-Tests PASS; temp-basierter Real-Lauf gegen `novapolis_agent/eval/results/` waehlt `results_20260226_0306_quality_de_round7b_repeat3.jsonl` und erzeugt wieder `20` Export-Eintraege plus Pack-Split `train=18`, `val=2`.
+
+
+2026-03-29 07:07 | Copilot | Outputs-Cleanup nach der runbasierten Retention ausgefuehrt und als No-Op bestaetigt: `novapolis_agent/scripts/cleanup_artifacts.py --target outputs --keep-latest 15` hatte keine Remove-Kandidaten. Apply-Report `.tmp/results/reports/artifact_lifecycle_report_apply_outputs_20260329_0707.json` und Post-Dry-Run `.tmp/results/reports/artifact_lifecycle_report_post_outputs_20260329_0707.json` melden beide `keep=68`, `remove=0`, `removed=0`.
+
+
+2026-03-29 06:47 | Copilot | Echten Artefakt-Cleanup fuer `novapolis_agent/eval/results` ausgefuehrt: `novapolis_agent/scripts/cleanup_artifacts.py --target novapolis_agent/eval/results --keep-latest 15` hat nach der runbasierten Retention 1813 Dateien entfernt und 60 Artefakte behalten; Apply-Report `.tmp/results/reports/artifact_lifecycle_report_apply_eval_results_20260329_0647.json`. Der direkte Post-Dry-Run auf denselben Zielpfad bestaetigt den Sollzustand ohne Restueberhang (`keep=60`, `remove=0`, `removed=0`) im Report `.tmp/results/reports/artifact_lifecycle_report_post_eval_results_20260329_0647.json`.
+
+
+2026-03-29 06:45 | Copilot | Artefakt-Cleanup gegen Split-Retention gehaertet: `scripts/cleanup_artifacts.py` entscheidet fuer `novapolis_agent/eval/results` jetzt ueber Run-Zeitanker und fuer `outputs` ueber Laufordner/Top-Level-Eintraege statt pro Einzeldatei; Name-Pinning greift auf relativen Artefaktpfaden, neue Regressionstests `tests/scripts/test_cleanup_artifacts.py` und `tests/scripts/test_cleanup_artifacts_edges.py` decken Eval-Cluster, Output-Laufordner und Baseline-Pfade ab. Verifikation: gezielter Pytest-Lauf PASS, Dry-Run-Report `.tmp/results/reports/artifact_lifecycle_report.json` haelt `outputs/` jetzt ohne Split zusammen (`keep=68`, `remove=0`).
+
+
 2026-03-28 06:11 | Copilot | Root-eval-Migration fuer das Agent-Modul abgeschlossen: `app/core/settings.py` fuehrt `EVAL_*`, `CONTEXT_NOTES_PATHS` und `RAG_INDEX_PATH` jetzt ueber `novapolis_agent/eval/...`, `app/api/chat.py`, `scripts/open_context_notes.py` sowie die betroffenen Eval-Helfer und README-Pfade nutzen denselben Modulpfad, die betroffenen Tests sind nachgezogen, und der fruehere Root-Ordner `eval/` liegt jetzt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval`.
 
 

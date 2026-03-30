@@ -120,3 +120,26 @@ def test_export_includes_failures_when_requested(tmp_path: os.PathLike[str]) -> 
     metas = [r.get("meta", {}) for r in rows]
     ids = {m.get("id") for m in metas}
     assert {"item-ok", "item-err"}.issubset(ids)
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_inspect_results_for_export_reports_unmapped_ids(tmp_path: os.PathLike[str]) -> None:
+    from novapolis_agent.scripts import export_finetune as exporter
+
+    results = os.path.join(tmp_path, "results.jsonl")
+    _write_mixed_results(results)
+
+    out = asyncio.run(
+        exporter.inspect_results_for_export(
+            results,
+            include_failures=False,
+            patterns=[os.path.join(tmp_path, "missing.jsonl")],
+        )
+    )
+
+    assert out.get("ok") is False
+    assert out.get("successful_rows") == 1
+    assert out.get("exportable_count") == 0
+    assert out.get("unmapped_item_ids") == ["item-ok"]
+    assert "Kein exportierbares Item gefunden" in str(out.get("error"))
