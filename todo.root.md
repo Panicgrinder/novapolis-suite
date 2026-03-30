@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 03:59
+stand: 2026-03-30 05:08
 update: Agent-Export-/Pack-Pfad gegen historischen Results-Drift gehaertet; Null-Exports werden jetzt laut diagnostiziert und der Kurationslauf nimmt das neueste exportierbare Resultset.
-checks: snapshot-lock PASS; targeted pytest PASS; temp export-pack PASS; markdownlint PASS; frontmatter PASS; todo-index PASS (2026-03-30 03:59)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -112,7 +112,7 @@ Ziel: Eine lokal reproduzierbare Standalone-Beta mit stabilen Gates, dokumentier
   - Evidenz: `scripts/check_doc_freshness.py` (ACTIVE `<=14`, REFERENCE `<=60`), `scripts/run_checks_and_report.py`, `/.vscode/tasks.json` (`Checks: doc freshness`).
 - [x] [Optional O10] Logs-Policy haerten: klare Regeln fuer `novapolis-dev/logs/` inkl. `*.tmp.md` konsistent umsetzen.
   - Akzeptanz: keine policy-widrigen Artefakte im aktiven Logpfad.
-  - Evidenz: `scripts/check_logs_policy.py`, `novapolis-dev/logs/README.md`, verschobener Rohlog nach `novapolis-dev/archive/quarantine/logs/betriebsmodi-20251103-0341.tmp.md`.
+  - Evidenz: `scripts/check_logs_policy.py`, `novapolis-dev/logs/logs-policy.md`, verschobener Rohlog nach `novapolis-dev/archive/quarantine/logs/betriebsmodi-20251103-0341.tmp.md`.
 - [x] [Optional O11] Beta-Installblatt fuer Dritte erstellen: minimale Voraussetzungen, Setup, Troubleshooting.
   - Akzeptanz: eine externe Person kann lokal ohne implizites Vorwissen starten.
   - Evidenz: `novapolis-dev/docs/process/standalone-beta-installblatt.md`, Root-README-Verweis im Abschnitt `Standalone-Beta Startpfad (kanonisch)`.

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
+stand: 2026-03-30 05:08
 update: Phase-2-Konsistenzlauf spiegelt jetzt den aktiven Stil- und Sweep-Status im Workspace-Index statt der alten Redirect-Phase.
-checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:23)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -141,7 +141,7 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 ### Eval (`novapolis_agent/eval`)
 
 - [`novapolis_agent/eval/.gitignore`](novapolis_agent/eval/.gitignore) - Eval-spezifische Git-Ignorier-Regeln
-- [`novapolis_agent/eval/README.md`](novapolis_agent/eval/README.md) - Hinweise zu Eval
+- [`novapolis_agent/eval/eval-overview.md`](novapolis_agent/eval/eval-overview.md) - Hinweise zu Eval
 - [`novapolis_agent/eval/DEPRECATIONS.md`](novapolis_agent/eval/DEPRECATIONS.md) - Deprecations/Altpfade (Eval)
 <!-- Top-Level Duplikat entfernt; maßgeblich sind Dateien unter eval/datasets/ -->
 
@@ -193,7 +193,7 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
 
 ### Scripts (`novapolis_agent/scripts`)
 
-- [`novapolis_agent/scripts/README.md`](novapolis_agent/scripts/README.md) - Hinweise zu Skripten
+- [`novapolis_agent/scripts/scripts-overview.md`](novapolis_agent/scripts/scripts-overview.md) - Hinweise zu Skripten
 - [`novapolis_agent/scripts/run_eval.py`](novapolis_agent/scripts/run_eval.py) - Hauptevaluierungsskript
 - [`novapolis_agent/scripts/quick_eval.py`](novapolis_agent/scripts/quick_eval.py) - Schnelle Eval (ASGI)
 - [`novapolis_agent/scripts/eval_ui.py`](novapolis_agent/scripts/eval_ui.py) - Konsolen-UI für Evaluierung

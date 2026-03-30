@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 03:59
-update: Agent-Export-/Kurationspfad gegen historischen Results-Drift geschlossen; das Agent-Modul steht wieder bei offen: 0.
-checks: snapshot-lock PASS; targeted pytest PASS; temp export-pack PASS; markdownlint PASS; frontmatter PASS; todo-index PASS (2026-03-30 03:59)
+stand: 2026-03-30 05:08
+update: README-Renaming fuer nicht-kanonische Unterordner-Dokus abgeschlossen; der Dev-Open-Count ist wieder bei 0.
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -22,6 +22,8 @@ Statushinweise (aktuell)
 ------------------------
 
 - Root v1.2: Der letzte aktive Root-eval-Rest ist final geschlossen. Lokale Kontext-Notizen-Defaults, Eval-Standardpfade und die RAG-Fallbacks laufen jetzt ueber `novapolis_agent/eval/...`; der ehemalige Root-Ordner `eval/` liegt nachvollziehbar unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval`, ein nach den Abschluss-Checks erneut erzeugter lokaler Stub wurde zusaetzlich unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0632-root-eval-rest-postchecks/eval` abgelegt, und die Tree-Artefakte wurden danach erneut neu erzeugt (`offen: unveraendert`).
+
+- Dev v5.21: Der aktive Stub-/Runbook-/Tool-Scope fuehrt jetzt unterscheidbare Dateinamen statt austauschbarer Unterordner-READMEs. Umbenannt wurden u. a. `docs/adr/adr-index.md`, `novapolis_agent/scripts/scripts-overview.md`, `novapolis_agent/eval/eval-overview.md`, `novapolis-dev/logs/logs-policy.md`, `novapolis-rp/coding/tools/validators/validator-suite.md` und `novapolis-rp/database-raw/99-exports/raw-export-policy.md`; aktive Querverweise sind im selben Lauf nachgezogen. Bewusst unveraendert blieben die kanonischen Root-/Modul-Einstiege sowie fachliche RP-Landingpages unter `novapolis-rp/database-rp/01-factions/**` (`offen: 1 -> 0`).
 
 - Agent v5.3: Der historische Null-Export-Drift im Export-/Kurationspfad ist geschlossen. `export_finetune.py` liefert jetzt laute Diagnostik statt stiller `0`-Exports, `curate_dataset_from_latest.py` nimmt das neueste exportierbare Resultset statt blind des neuesten Dateinamens, und ein temp-basierter Real-Lauf erzeugte fuer `results_20260226_0306_quality_de_round7b_repeat3.jsonl` wieder `20` Export-Eintraege plus Pack-Split `18/2` (`offen: 1 -> 0`).
 
@@ -94,10 +96,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-03-27 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-03-27 | - [ ] [Als naechstes] Finale Metro-Warenzuteilung aus der Matrix in ein operatives Arbeitsledger ueberfuehren. | nein |
+| Dev (`docs/todo.dev.md`) | 2026-03-28 | keiner (offen: 0) | nein |
+| RP (`docs/todo.rp.md`) | 2026-03-28 | - [ ] [Als naechstes] Finale Metro-Warenzuteilung aus der Matrix in ein operatives Arbeitsledger ueberfuehren. | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-03-30 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-03-27 | - [ ] [Als naechstes] Sim-Asset-Warnungen aus `scripts/check_sim_epoch_assets.py` aufloesen oder bewusst kanonisch ausnehmen. | nein |
+| Sim (`docs/todo.sim.md`) | 2026-03-28 | - [ ] [Als naechstes] Sim-Asset-Warnungen aus `scripts/check_sim_epoch_assets.py` aufloesen oder bewusst kanonisch ausnehmen. | nein |
 
 
 Hinweise (Index)

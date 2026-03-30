@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-19 11:09
+stand: 2026-03-30 05:08
 update: ADR-Ordner aktiviert; zwei akzeptierte Grundsatzentscheidungen fuer DONELOG-Ebenen und Quality-Gate-Sequenz aufgenommen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 Architecture Decision Records (ADR)

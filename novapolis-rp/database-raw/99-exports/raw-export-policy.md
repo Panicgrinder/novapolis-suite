@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-08 07:48
+stand: 2026-03-30 05:08
 update: Kanonische RAW-Quelle auf 2025-10-27T09-16 korrigiert; Legacy-Hinweis beibehalten.
-checks: "not run (doc update)"
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 RAW Exporte (Stub)

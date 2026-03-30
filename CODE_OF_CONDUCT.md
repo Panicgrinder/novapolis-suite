@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 04:52
+stand: 2026-03-30 05:08
 update: Code of Conduct im kompakten Contributor-Standard angelegt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (2026-03-11 04:49); .\.venv\Scripts\python.exe scripts/check_frontmatter.py SECURITY.md CODE_OF_CONDUCT.md CHANGELOG.md docs/adr/README.md PASS (EXITCODE=0, 2026-03-11 04:49)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 Code of Conduct

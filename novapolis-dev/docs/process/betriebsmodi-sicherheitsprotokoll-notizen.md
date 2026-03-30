@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-17 09:12
+stand: 2026-03-30 05:08
 update: Multi-Root-Hinweis als Regression-Fallback formuliert (Single-Root ist Norm).
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/process/betriebsmodi-sicherheitsprotokoll-notizen.md' PASS (2026-02-17 02:48); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-dev\\docs\\process\\betriebsmodi-sicherheitsprotokoll-notizen.md PASS (2026-02-17 02:48)"
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -79,7 +79,7 @@ Logging & Ablage
 
 - **Arbeitsverzeichnis:** `novapolis-dev/logs/` (ggf. neu anlegen, steht jetzt bereit). Datei je Sitzung, z. B. `betriebsmodi-20251103-0256.tmp.md`.
 - **Vorlage:** `novapolis-dev/logs/log-template.md` enthält Frontmatter, Expected-State-Block und Paketstruktur.
-- **README:** `novapolis-dev/logs/README.md` dokumentiert Benennung, Rotation und Mindestinhalte.
+- **README:** `novapolis-dev/logs/logs-policy.md` dokumentiert Benennung, Rotation und Mindestinhalte.
 - **Format je Abschnitt:**
   - Frontmatter: `stand`, `aufgabe`, `modus`, `checks`.
   - Pro Paket: Zeitstempel, Operationen, IST, SOLL, Drift, Maßnahmen, nächste Schritte.

@@ -2,9 +2,9 @@
 title: "Scenes: Definition & Template"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-03-28 06:51
+stand: 2026-03-30 05:08
 update: "Phase-2-Konsistenzlauf zieht das Scenes-Runbook auf den aktuellen PASS-Kontext und Root-Wrapper fuer die Gates."
-checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 slug: scenes-konventionen-stub
 ---
 

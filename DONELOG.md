@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
-update: Root-Summary um den finalen post-check Cleanup des erneut entstandenen Root-eval-Stubs erweitert.
-checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
+stand: 2026-03-30 05:08
+update: Root-Summary zieht den aktiven README-Renaming-Lauf fuer nicht-kanonische Unterordner-Dokus nach.
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,8 @@ Hinweis
 Aktuelle Eintraege (Summary)
 ----------------------------
 
+- 2026-03-30 04:15: Der aktive README-Renaming-Lauf ist im dokumentierten Stub-/Runbook-/Tool-Scope nachgezogen. Nicht-kanonische Unterordner-Dokus fuehren jetzt sprechende Dateinamen wie `docs/adr/adr-index.md`, `novapolis_agent/scripts/scripts-overview.md`, `novapolis_agent/eval/eval-overview.md`, `novapolis-dev/logs/logs-policy.md`, `novapolis-rp/coding/tools/validators/validator-suite.md` und `novapolis-rp/database-raw/99-exports/raw-export-policy.md`; aktive Querverweise in Hub, Index, DONELOG, TODOs, RP-Workflow, `Current-State.md`, `novapolis-history.md` und Workspace-Settings sind konsistent nachgezogen, und `scripts/check_logs_policy.py` erzwingt fuer den aktiven Logpfad jetzt ebenfalls `logs-policy.md` statt des alten `README.md`. Root-/Modul-READMEs sowie RP-Inhaltsindizes unter `novapolis-rp/database-rp/01-factions/**` blieben bewusst unveraendert.
+
 - 2026-03-28 06:32: Der Root-Cleanup ist final nachgezogen. `novapolis_agent/app/core/settings.py`, `novapolis_agent/app/api/chat.py`, `novapolis_agent/scripts/open_context_notes.py` und die betroffenen Eval-Helfer nutzen jetzt durchgaengig `novapolis_agent/eval/...`; der urspruengliche Root-Ordner `eval/` liegt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval`, ein nach den Abschluss-Checks erneut entstandener lokaler Stub `eval/config/context.local.md` wurde zusaetzlich unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0632-root-eval-rest-postchecks/eval` abgelegt, und `workspace_tree.txt`, `workspace_tree_dirs.txt` sowie `workspace_tree_full.txt` wurden danach erneut neu erzeugt.
 
 - 2026-03-28 03:30: Der verbliebene lokale Root-Maschinenstand ist bereinigt. `extensions.installed.txt`, `extensions.status.txt` und `desktop.ini` liegen jetzt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0330-local-snapshots/`; die Root-Tree-Artefakte wurden direkt per Terminal regeneriert, weil die vorhandenen `Workspace tree:*`-Shell-Tasks lokal weiter am bekannten `pwsh /d /c`-Fehlpfad scheitern.
@@ -27,7 +29,7 @@ Aktuelle Eintraege (Summary)
 
 - 2026-03-28 01:39: Der dokumentierte Stil- und Konsistenzlauf ist geschlossen. `todo.root.md` und `novapolis-dev/docs/todo.dev.md` markieren ihn jetzt als erledigt, `novapolis-dev/docs/todo.index.md` fuehrt Dev wieder mit `offen: 0`, und im aktiven Scope blieb beim Restscan nur ignorierte Drittanbieter-Doku unter `node_modules` ausserhalb des Arbeitsbereichs uebrig.
 
-- 2026-03-28 01:31: Der Doku-Konsistenzlauf hat die zweite Schicht aktiver Dev-Doku nachgezogen. Architektur-, Test-, Provenance-, Prozess- und Log-SSOTs fuehren jetzt keinen alten FAIL-Kontext mehr; dazu laufen `novapolis_agent/scripts/README.md` und `novapolis-rp/database-rp/06-scenes/README.md` auf denselben Root-Wrapper- und PowerShell-Stil.
+- 2026-03-28 01:31: Der Doku-Konsistenzlauf hat die zweite Schicht aktiver Dev-Doku nachgezogen. Architektur-, Test-, Provenance-, Prozess- und Log-SSOTs fuehren jetzt keinen alten FAIL-Kontext mehr; dazu laufen `novapolis_agent/scripts/scripts-overview.md` und `novapolis-rp/database-rp/06-scenes/scenes-guidelines.md` auf denselben Root-Wrapper- und PowerShell-Stil.
 
 - 2026-03-28 01:27: Der erste Hochfrequenz-Block des Doku-Konsistenzlaufs ist geschlossen. Das Root-README fuehrt bei der Wrapper-Policy jetzt denselben Root-Interpreter-Stil wie Status- und Modultexte; damit bleibt im aktiven Einstiegsset keine harte Wrapper- oder Portabilitaetsdrift mehr offen.
 
@@ -67,7 +69,7 @@ Aktuelle Eintraege (Summary)
 
 - 2026-03-18 22:40: Community-/Maintainer-Paket abgeschlossen. `SUPPORT.md`, `RELEASE.md`, `MAINTAINERS.md`, Root-Issue-Templates und ein PR-Template wurden angelegt; `README.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` sind darauf synchronisiert, der Dev-Open-Count liegt nun bei `2`.
 
-- 2026-03-18 22:36: ADR-Aktivierung abgeschlossen. Unter `docs/adr/` liegen jetzt `0001-donelog-ebenen.md` und `0002-quality-gate-sequenz.md` als akzeptierte Grundsatzentscheidungen; parallel wurden `docs/adr/README.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` auf den neuen Iststand synchronisiert.
+- 2026-03-18 22:36: ADR-Aktivierung abgeschlossen. Unter `docs/adr/` liegen jetzt `0001-donelog-ebenen.md` und `0002-quality-gate-sequenz.md` als akzeptierte Grundsatzentscheidungen; parallel wurden `docs/adr/adr-index.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` auf den neuen Iststand synchronisiert.
 
 - 2026-03-18 22:20: Dokumentations-Sync fuer den aktuellen Arbeitsstand eingezogen. `WORKSPACE_STATUS.md`, `todo.root.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` spiegeln jetzt den dokumentierten PASS-Lauf `checks_report_20260318_052318.md`; der Dev-Coverage-Sprint wurde evidenzbasiert mit `93.69%` als erreicht abgeschlossen und der Dev-Open-Count auf `4` reduziert.
 
@@ -95,7 +97,7 @@ Aktuelle Eintraege (Summary)
 - 2026-03-11 06:49: Letzter offener Dev-Optimierungspunkt geschlossen. Woechentliche 60-Minuten-Hygiene-Cadence mit KPI-Protokoll in `novapolis-dev/docs/process/abschluss-routine.ssot.md` verankert; Dev-Board und TODO-Index auf `offen: 0` synchronisiert.
 - 2026-03-11 06:43: Rueckwaertskompatibilitaet fuer TODO-Index-CLI wiederhergestellt. `scripts/check_todo_index_sync.py` akzeptiert erneut `--root` als Alias zu `--repo-root` und toleriert `--strict` als Deprecated-Noop, damit bestehende Aufrufe nicht fehlschlagen.
 - 2026-03-11 05:12: Beide Folgepunkte umgesetzt. `README.md` und `novapolis-dev/README.md` auf aktive Kurzoberflaeche gestrafft; `scripts/check_todo_index_sync.py` auf Auto-Write von Open-Counts/Board-Metadaten erweitert und in `scripts/run_checks_and_report.py` sowie `.vscode/tasks.json` eingebunden.
-- 2026-03-11 04:49: Receipt-Hygiene abgeschlossen. Neue Governance-Dokumente (`SECURITY.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, `docs/adr/README.md`) enthalten jetzt echte Gate-Receipts statt temporaerer `checks: pending`-Marker.
+- 2026-03-11 04:49: Receipt-Hygiene abgeschlossen. Neue Governance-Dokumente (`SECURITY.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, `docs/adr/adr-index.md`) enthalten jetzt echte Gate-Receipts statt temporaerer `checks: pending`-Marker.
 - 2026-03-11 04:46: README-Finish fuer aktive Lesbarkeit umgesetzt. Root-README verlinkt nun explizit `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS`, `CHANGELOG.md` und `docs/adr/`; `novapolis-dev/README.md` wurde von einem veralteten Receipt-Block bereinigt und den Abschnitt `Checks & Reports` auf dauerhafte, scanbare Form gebracht.
 - 2026-03-11 04:46: Root-DONELOG auf Summary-Ebene reduziert (Informationsarchitektur Schritt 2). Historische Detailketten in den Root-Archivpfad ausgelagert/verankert; aktive Root-Ansicht bleibt bewusst kurz.
 - 2026-03-11 04:27: Doku-Informationsarchitektur geschaerft: aktive Oberflaechen in `novapolis-dev/docs` reduziert, Archiv-/Log-Matrix in Root/Dev-README verankert, TODO-Index-Guard und DONELOG-Workflow gehaertet.

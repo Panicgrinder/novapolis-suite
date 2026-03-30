@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 04:52
+stand: 2026-03-30 05:08
 update: Schlanken Changelog im Keep-a-Changelog-Stil eingefuehrt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc CHANGELOG.md SECURITY.md CODE_OF_CONDUCT.md docs/adr/README.md PASS (2026-03-11 04:49); .\.venv\Scripts\python.exe scripts/check_frontmatter.py CHANGELOG.md SECURITY.md CODE_OF_CONDUCT.md docs/adr/README.md PASS (EXITCODE=0, 2026-03-11 04:49)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 Changelog
@@ -15,7 +15,7 @@ Format orientiert sich an Keep a Changelog.
 
 ### Added
 
-- Standard-Governance-Dokumente eingefuehrt: `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS`, `docs/adr/README.md`.
+- Standard-Governance-Dokumente eingefuehrt: `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS`, `docs/adr/adr-index.md`.
 
 ### Changed
 

@@ -1,9 +1,9 @@
-stand: 2026-03-28 06:11
-update: Eval-/Kontext-Defaults vom Root auf den Agent-Modulpfad umgezogen und Root-eval-Rest geschlossen.
-checks: snapshot-lock PASS; Abschluss-Checks laufen (2026-03-28 06:11)
+stand: 2026-03-30 04:42
+update: Agent-Doku fuehrt jetzt unterscheidbare Unterordner-Dateinamen fuer Scripts/Eval/Kontextnotizen.
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
 
 
-checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:11)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
 ----------
 Meta: Modus=Postflight, Modell=GPT-5, Arbeitsverzeichnis=F:\VS Code Workspace\Main, RepoRoot=F:\VS Code Workspace\Main, PSScriptRoot=F:\VS Code Workspace\Main\scripts, PSVersion=7.5.4, Aufruf=python F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, SHA256=65570151AA983A6A3784D89B589486A214B8A171D1BA22766C1BF17C49F54E30, STOP-Gate=aktiv, Wrapper-Policy=erfüllt, Quellen=F:\VS Code Workspace\Main\.github\copilot-instructions.md;F:\VS Code Workspace\Main\novapolis_agent\docs\DONELOG.txt;F:\VS Code Workspace\Main\scripts\run_checks_and_report.py, Aktion=Automatisierter Checklauf Backend-relevant (PowerShell-Variante archiviert)
 Prüfung: ruff=FAIL, black=FAIL, markdownlint=FAIL, frontmatter=FAIL, pyright=FAIL, mypy=FAIL, pytest=STOP (>40 Testdateien), coverage=SKIP (STOP), PSScriptAnalyzerExit=1
@@ -21,6 +21,7 @@ DONELOG – Abgeschlossene Arbeiten
 =================================
 
 
+2026-03-30 04:15 | Copilot | Agent-Doku im aktiven Unterordner-Scope auf unterscheidbare Dateinamen umgestellt: `scripts/README.md` -> `scripts/scripts-overview.md`, `eval/README.md` -> `eval/eval-overview.md`, `eval/config/context.notes/README.md` -> `eval/config/context.notes/context-notes-guide.md`. Aktive Verweise in `WORKSPACE_INDEX.md`, Dev-Hub-Dokus und interne `checks:`-Selbstreferenzen der Eval-Stubs sind auf die neuen Pfade nachgezogen.
 2026-03-30 01:21 | Copilot | Export-/Kurationspfad gegen historischen Results-Drift gehaertet: `scripts/export_finetune.py` inspiziert Results jetzt vor dem Export, leitet Dataset-Kandidaten aus Result-Metadaten und `source_file` ab, matched Item-IDs/Slugs resilienter und liefert bei `0` exportierbaren Datensaetzen einen expliziten Fehler mit Diagnostik statt stiller Erfolgsantwort. `scripts/curate_dataset_from_latest.py` prueft `results_*.jsonl` newest-first auf Exportierbarkeit und nimmt das neueste kuratierbare Set; uebersprungene Drift-Kandidaten werden als `skipped_results` berichtet. Verifikation: gezielter Pytest-Block fuer Export-/Curate-Tests PASS; temp-basierter Real-Lauf gegen `novapolis_agent/eval/results/` waehlt `results_20260226_0306_quality_de_round7b_repeat3.jsonl` und erzeugt wieder `20` Export-Eintraege plus Pack-Split `train=18`, `val=2`.
 
 

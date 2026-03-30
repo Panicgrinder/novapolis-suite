@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
+stand: 2026-03-30 05:08
 update: Phase-2-Konsistenzlauf aktualisiert den Hub-Header und die manuellen Pruefbeispiele auf den aktuellen Root-Wrapper-Stil.
-checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 Novapolis Dokumentations-Hub
@@ -129,23 +129,23 @@ Stub-Mapping (Phase 1)
 
 | Pfad | Abschnitt | Typ |
 | ---- | --------- | ---- |
-| novapolis-rp/coding/tools/validators/README.md | Validator Tools | stub |
-| novapolis-rp/coding/tools/chat-exporter/README.md | Export & Ingest | stub |
-| novapolis-rp/coding/tools/metadata/README.md | Metadata Layer | stub |
+| novapolis-rp/coding/tools/validators/validator-suite.md | Validator Tools | stub |
+| novapolis-rp/coding/tools/chat-exporter/chat-exporter-guide.md | Export & Ingest | stub |
+| novapolis-rp/coding/tools/metadata/metadata-tools.md | Metadata Layer | stub |
 | novapolis-rp/coding/devcontainer/README.md | Tooling (Lint Env) | stub |
-| novapolis-rp/database-curated/README.md | Curation Workflow | stub |
-| novapolis-rp/database-curated/staging/README.md | Curation Workflow | stub |
-| novapolis-rp/database-raw/99-exports/README.md | Export & Ingest | stub |
-| novapolis-rp/database-rp/06-scenes/README.md | Scenes Guidelines | stub |
-| novapolis_agent/eval/config/context.notes/README.md | Metadata Layer | stub |
-| novapolis-dev/integrations/mcp-openai-eval/README.md | Integrations (Future) | stub |
+| novapolis-rp/database-curated/curation-workflow.md | Curation Workflow | stub |
+| novapolis-rp/database-curated/staging/staging-workflow.md | Curation Workflow | stub |
+| novapolis-rp/database-raw/99-exports/raw-export-policy.md | Export & Ingest | stub |
+| novapolis-rp/database-rp/06-scenes/scenes-guidelines.md | Scenes Guidelines | stub |
+| novapolis_agent/eval/config/context.notes/context-notes-guide.md | Metadata Layer | stub |
+| novapolis-dev/integrations/mcp-openai-eval/mcp-openai-eval-guide.md | Integrations (Future) | stub |
 
 | .tmp/results/README.md | Temporäre Bereiche | stub |
 | .tmp/datasets/README.md | Temporäre Bereiche | stub |
 
 Kern-READMEs (bleiben ausführlich)
 ----------------------------------
-Root `README.md`, `novapolis-dev/README.md`, `novapolis_agent/README.md`, `novapolis-rp/README.md`, `novapolis-sim/README.md`, `packages/README.md`, plus Prozess-/Log-Dokumente (`novapolis-dev/logs/README.md`, Archive Übersicht, Agent Eval & Scripts READMEs).
+Root `README.md`, `novapolis-dev/README.md`, `novapolis_agent/README.md`, `novapolis-rp/README.md`, `novapolis-sim/README.md`, `packages/README.md`, plus Prozess-/Log-Dokumente (`novapolis-dev/logs/logs-policy.md`, Archive Übersicht, `novapolis_agent/eval/eval-overview.md`, `novapolis_agent/scripts/scripts-overview.md`).
 
 Migrationsstatus
 ----------------

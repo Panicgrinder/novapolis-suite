@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 03:59
+stand: 2026-03-30 05:08
 update: Frische-Review durchgeführt; Entry-Point, Snapshot-Gates und T0-Referenzen weiterhin gültig (kein Kanon-Delta).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Current-State.md' PASS (2026-02-23 04:00); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Current-State.md' PASS (2026-02-23 04:00); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 04:00)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 slug: current-state
 category: Admin
 canvas: current-state
@@ -87,8 +87,8 @@ Arbeitsfluss (SSOT/RAW/curated)
 -------------------------------
 
 - **SSOT (RP):** [database-rp/](..) (dieser Bereich)
-- **RAW-Exporte:** [database-raw/99-exports](../../database-raw/99-exports/README.md) (ungefiltert, nur dort)
-- **Curated:** [database-curated](../../database-curated/README.md) (staging/reviewed/final)
+- **RAW-Exporte:** [database-raw/99-exports](../../database-raw/99-exports/raw-export-policy.md) (ungefiltert, nur dort)
+- **Curated:** [database-curated](../../database-curated/curation-workflow.md) (staging/reviewed/final)
 
 Regel: Neue Fakten gehen nicht direkt in den Canon-Core, solange sie noch volatil sind. Nutze dafür zuerst die Reference-Ebene.
 

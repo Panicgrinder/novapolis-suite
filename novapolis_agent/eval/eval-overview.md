@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 03:44
+stand: 2026-03-30 05:08
 update: checks aktualisiert (Basis-Stabilisierung)
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-01-11 03:44); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis_agent\analysis_chat_routers.md novapolis_agent\scripts\README.md novapolis_agent\eval\README.md novapolis_agent\eval\DEPRECATIONS.md novapolis_agent\eval\config\context.notes\README.md PASS (2026-01-11 03:44)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 Evaluierungswerkzeug für den Novapolis Agent
 ===========================================

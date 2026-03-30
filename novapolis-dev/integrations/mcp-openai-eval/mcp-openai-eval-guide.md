@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-20 00:57
+stand: 2026-03-30 05:08
 update: MCP-Prototyp verifiziert (lokaler Start mit PYTHONPATH, Web-Client-Health-Check erfolgreich).
-checks: "Invoke-WebRequest -UseBasicParsing http://127.0.0.1:4000/health PASS ({\"status\":\"ok\"}) (2026-02-19 23:14)"
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 MCP OpenAI Eval (Prototyp)

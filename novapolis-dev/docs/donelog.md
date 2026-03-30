@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 03:59
-update: Agent-Export-/Kurationspfad gegen historischen Results-Drift gehaertet und per temp-basiertem Real-Lauf validiert.
-checks: snapshot-lock PASS; targeted pytest PASS; temp export-pack PASS; markdownlint PASS; frontmatter PASS; todo-index PASS (2026-03-30 03:59)
+stand: 2026-03-30 05:08
+update: Dev-DONELOG dokumentiert jetzt den aktiven README-Renaming-Lauf fuer nicht-kanonische Unterordner-Dokus.
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,13 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev/Docs: Nicht-kanonische Unterordner-READMEs im Stub-/Runbook-Scope umbenannt (2026-03-30 04:15)
+-------------------------------------------------------------------------------------------------
+
+- Umbenannt wurden die aktiven Unterordner-Dokus aus dem dokumentierten Hub-/Stub-/Tool-Scope, darunter `docs/adr/adr-index.md`, `novapolis_agent/scripts/scripts-overview.md`, `novapolis_agent/eval/eval-overview.md`, `novapolis_agent/eval/config/context.notes/context-notes-guide.md`, `novapolis-dev/logs/logs-policy.md`, `novapolis-dev/integrations/mcp-openai-eval/mcp-openai-eval-guide.md`, `novapolis-rp/coding/tools/validators/validator-suite.md`, `novapolis-rp/database-curated/curation-workflow.md` und `novapolis-rp/database-raw/99-exports/raw-export-policy.md`.
+- Aktive Querverweise in `WORKSPACE_INDEX.md`, `DONELOG.md`, `todo.root.md`, `novapolis-dev/docs/readme_decisions.md`, `novapolis-dev/docs/readme.hub.md`, `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md`, `novapolis-rp/database-rp/00-admin/Process-Workflow.md`, `novapolis-rp/database-rp/00-admin/Current-State.md`, `novapolis-rp/database-rp/01-factions/novapolis/00-doctrine/novapolis-history.md` sowie `.vscode/settings.json` zeigen jetzt auf die neuen Dateinamen; interne `checks:`-Selbstreferenzen der umbenannten Stubs wurden ebenfalls nachgezogen. Als Gate-Nachzug erzwingt `scripts/check_logs_policy.py` fuer den aktiven Logpfad jetzt den neuen kanonischen Namen `novapolis-dev/logs/logs-policy.md`.
+- Bewusst unveraendert blieben die kanonischen Root-/Modul-Einstiege (`README.md` auf Root- und Modul-Ebene) sowie fachliche RP-Landingpages unter `novapolis-rp/database-rp/01-factions/**`, weil `novapolis-dev/docs/readme_decisions.md` diesen Renaming-Lauf auf Hub-, Stub-, Tool- und Runbook-Dokus begrenzt.
 
 Agent/Data: Export-/Kurationspfad gegen historischen Results-Drift gehaertet (2026-03-30 01:21)
 ---------------------------------------------------------------------------------------------
@@ -80,8 +87,8 @@ Docs/Consistency Sweep: Board- und Index-Abschluss nachgezogen (2026-03-28 01:39
 Docs/Consistency Sweep: aktive Dev-Doku und erste Runbooks nachgezogen (2026-03-28 01:31)
 -------------------------------------------------------------------------------
 
-- Im aktiven Dev-Scope fuehren `architecture-summary-local-ai.md`, `tests.md`, `dataset-provenance.md`, `readme.hub.md`, `novapolis-dev/logs/README.md`, `process/abschluss-routine.ssot.md`, `process/standalone-beta-gates.ssot.md` und `specs/tts-exporter-coqui.md` jetzt keinen alten FAIL-Kontext mehr; Root-Wrapper und manuelle Pruefbeispiele sind vereinheitlicht.
-- Als erste modulnahe Runbooks sind `novapolis_agent/scripts/README.md` und `novapolis-rp/database-rp/06-scenes/README.md` auf denselben PASS-/PowerShell-/Root-Wrapper-Rahmen gezogen.
+- Im aktiven Dev-Scope fuehren `architecture-summary-local-ai.md`, `tests.md`, `dataset-provenance.md`, `readme.hub.md`, `novapolis-dev/logs/logs-policy.md`, `process/abschluss-routine.ssot.md`, `process/standalone-beta-gates.ssot.md` und `specs/tts-exporter-coqui.md` jetzt keinen alten FAIL-Kontext mehr; Root-Wrapper und manuelle Pruefbeispiele sind vereinheitlicht.
+- Als erste modulnahe Runbooks sind `novapolis_agent/scripts/scripts-overview.md` und `novapolis-rp/database-rp/06-scenes/scenes-guidelines.md` auf denselben PASS-/PowerShell-/Root-Wrapper-Rahmen gezogen.
 
 Docs/Consistency Sweep: Root-README-Wrapperstil nachgezogen (2026-03-28 01:27)
 -------------------------------------------------------------------------
@@ -364,7 +371,7 @@ Dev/Architecture: ADR-Ordner aktiviert (2026-03-18 22:36)
 
 - `docs/adr/0001-donelog-ebenen.md` als akzeptierte Entscheidung fuer die normalisierten DONELOG-Ebenen angelegt.
 - `docs/adr/0002-quality-gate-sequenz.md` als akzeptierte Entscheidung fuer die verbindliche Reihenfolge `Lint -> Typen -> Tests -> Coverage` und die Coverage-Zweistufenlogik angelegt.
-- `docs/adr/README.md` um einen aktiven ADR-Index erweitert; `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` auf `Dev offen: 3` synchronisiert.
+- `docs/adr/adr-index.md` um einen aktiven ADR-Index erweitert; `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` auf `Dev offen: 3` synchronisiert.
 
 Dev/Governance: Status- und Board-Sync auf PASS-Referenzlauf gezogen (2026-03-18 22:20)
 -------------------------------------------------------------------------------
@@ -417,7 +424,7 @@ Dev/Tooling: TODO-Index-CLI Rueckwaertskompatibel (2026-03-11 06:43)
 Dev/Docs: Receipt-Hygiene fuer Governance-Dokus finalisiert (2026-03-11 04:49)
 ------------------------------------------------------------------------
 
-- `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, `docs/adr/README.md` von temporaeren `checks: pending`-Markern auf echte Receipt-Zeilen umgestellt.
+- `SECURITY.md`, `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, `docs/adr/adr-index.md` von temporaeren `checks: pending`-Markern auf echte Receipt-Zeilen umgestellt.
 - `novapolis-dev/docs/donelog.md` Frontmatter auf denselben Lauf synchronisiert.
 - Ergebnis: aktive Governance-Dokumente sind jetzt konsistent mit den laufenden Markdown-/Frontmatter-Gates.
 
@@ -443,7 +450,7 @@ Dev/Docs: Informationsarchitektur-Runde v2 (2026-03-11 04:27)
 - TODO-Index operativ gestrafft: `todo.index.md` auf Kernstatus reduziert und um Board-Metadaten erweitert.
 - `scripts/check_todo_index_sync.py` erweitert: Open-Count-Konsistenz, Widerspruchserkennung (`keine offenen` bei offenen Checkboxen) und Diagnoseausgaben.
 - Archiv-/Log-Matrix in Root-`README.md` und `novapolis-dev/README.md` vereinheitlicht.
-- Repo-Standards ergaenzt: `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS`, `CHANGELOG.md`, `docs/adr/README.md`.
+- Repo-Standards ergaenzt: `SECURITY.md`, `CODE_OF_CONDUCT.md`, `.github/CODEOWNERS`, `CHANGELOG.md`, `docs/adr/adr-index.md`.
 
 Dev/Docs: Root-DONELOG auf Summary-Ebene normalisiert (2026-03-11 04:46)
 -------------------------------------------------------------------------

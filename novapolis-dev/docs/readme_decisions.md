@@ -1,14 +1,14 @@
 ---
-stand: 2026-02-22 16:51
+stand: 2026-03-30 05:08
 update: Frontmatter-Checks auf portable Pfadangaben ohne hostgebundene Absolutpfade umgestellt.
-checks: .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' 'README.md' 'WORKSPACE_INDEX.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/docs/readme_decisions.md' 'todo.root.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 16:40)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 README Konsolidierungs-Entscheidungsliste
 =========================================
 
 Zweck
 -----
-Diese Datei dokumentiert, welche der identifizierten 22 README.md-Dateien künftig voll erhalten bleiben, verschlankt (Stub/Redirect) oder archiviert werden. Ziel ist Reduktion von Duplikaten und klare zentrale Navigation über das Hub-README (`novapolis-dev/README.md`).
+Diese Datei dokumentiert, welche der ehemals identifizierten 22 README-basierten Doku-Dateien künftig voll erhalten bleiben, verschlankt (Stub/Redirect) oder archiviert werden. Ziel ist Reduktion von Duplikaten und klare zentrale Navigation über das Hub-README (`novapolis-dev/README.md`). Der Scope betrifft bewusst Hub-, Stub-, Tool- und Runbook-Dokus; fachliche Inhaltsindizes unter `novapolis-rp/database-rp/01-factions/**` bleiben eigene Landingpages und sind nicht Teil dieses Renaming-Laufs.
 
 Kategorien
 ----------
@@ -21,22 +21,22 @@ Entscheidungsmatrix
 -------------------
 - README.md (Root): KEEP - Einstiegs- und Projektübersicht.
 - novapolis_agent/README.md: KEEP - Backend-spezifische Laufzeit/Entwicklung.
-- novapolis_agent/scripts/README.md: TOOL - Skriptliste (konsolidieren auf aktuelle Skripte, später evtl. SLIM).
-- novapolis_agent/eval/README.md: TOOL - Eval-Prozess, bleibt bis vereinheitlichte Eval-Doku existiert.
-- novapolis_agent/eval/config/context.notes/README.md: SLIM - Redirect zu zentraler Kontext-/Prompt-Doku.
+- novapolis_agent/scripts/scripts-overview.md: TOOL - Skriptliste (konsolidieren auf aktuelle Skripte, später evtl. SLIM).
+- novapolis_agent/eval/eval-overview.md: TOOL - Eval-Prozess, bleibt bis vereinheitlichte Eval-Doku existiert.
+- novapolis_agent/eval/config/context.notes/context-notes-guide.md: SLIM - Redirect zu zentraler Kontext-/Prompt-Doku.
 - novapolis-dev/README.md: KEEP - Hub.
 - novapolis-dev/archive/README.md: SLIM - Kurzer Hinweis, Redirect ins Hub-Archiv-Verzeichnis.
-- novapolis-dev/logs/README.md: SLIM - Hinweis auf Log-Policy + Redirect.
-- novapolis-dev/integrations/mcp-openai-eval/README.md: TOOL - Spezifische Integration.
+- novapolis-dev/logs/logs-policy.md: SLIM - Hinweis auf Log-Policy + Redirect.
+- novapolis-dev/integrations/mcp-openai-eval/mcp-openai-eval-guide.md: TOOL - Spezifische Integration.
 - novapolis-rp/README.md: KEEP - RP-Domain, Canvas-Hinweise.
-- novapolis-rp/database-rp/06-scenes/README.md: TOOL - Szenenstruktur.
-- novapolis-rp/database-curated/README.md: SLIM - Redirect zu zentraler Kurations-Policy.
-- novapolis-rp/database-curated/staging/README.md: ARCHIVE - Nach Migration nur Staging-Hinweis.
-- novapolis-rp/database-raw/99-exports/README.md: TOOL - Export-Policy (RAW only).
+- novapolis-rp/database-rp/06-scenes/scenes-guidelines.md: TOOL - Szenenstruktur.
+- novapolis-rp/database-curated/curation-workflow.md: SLIM - Redirect zu zentraler Kurations-Policy.
+- novapolis-rp/database-curated/staging/staging-workflow.md: ARCHIVE - Nach Migration nur Staging-Hinweis.
+- novapolis-rp/database-raw/99-exports/raw-export-policy.md: TOOL - Export-Policy (RAW only).
 - novapolis-rp/coding/devcontainer/README.md: TOOL - Devcontainer Setup.
-- novapolis-rp/coding/tools/chat-exporter/README.md: TOOL - Nutzung Chat-Exporter.
-- novapolis-rp/coding/tools/metadata/README.md: TOOL - Metadata-/Validator-Hinweise.
-- novapolis-rp/coding/tools/validators/README.md: TOOL - Validatoren (Behalten bis zentrale Validator-Doku erstellt).
+- novapolis-rp/coding/tools/chat-exporter/chat-exporter-guide.md: TOOL - Nutzung Chat-Exporter.
+- novapolis-rp/coding/tools/metadata/metadata-tools.md: TOOL - Metadata-/Validator-Hinweise.
+- novapolis-rp/coding/tools/validators/validator-suite.md: TOOL - Validatoren (Behalten bis zentrale Validator-Doku erstellt).
 - .tmp/results/README.md: SLIM - Temporärbereich, deutlicher Hinweis auf Flüchtigkeit.
 
 - .tmp-datasets/README.md: SLIM - Temporärdaten, Redirect zu Data-Policy.

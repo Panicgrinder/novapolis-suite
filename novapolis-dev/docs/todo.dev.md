@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
-update: Der dokumentierte Stil- und Konsistenzlauf fuer aktive Surface und erste Modul-Runbooks ist abgeschlossen; das Dev-Board steht wieder bei offen 0.
-checks: markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS (2026-03-28 01:39)
+stand: 2026-03-30 05:08
+update: README-Renaming fuer nicht-kanonische Unterordner-Dokus abgeschlossen; das Dev-Board steht wieder bei offen 0.
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -19,6 +19,16 @@ Hinweis
 Offene Aufgaben (Dev)
 ---------------------
 
+- [x] [Jetzt] Nicht-kanonische Unterordner-READMEs auf unterscheidbare Dateinamen ziehen und Querverweise konsistent nachziehen.
+  - Ziel: Aktive Unterordner-Dokumente sollen im Editor, in Suchtreffern und in Linklisten nicht mehr als austauschbare `README.md`-Treffer kollidieren, ohne die kanonischen Root-/Modul-Einstiege (`README.md` auf Root- und Modul-Ebene) zu verlieren.
+  - Akzeptanzkriterien:
+    1) nicht-kanonische aktive README-Dateien in Tool-/Runbook-/Stub-Unterordnern werden auf sprechende, unterscheidbare Dateinamen umgestellt,
+    2) Root- und Modul-Einstiege (`README.md`, `novapolis-dev/README.md`, `novapolis_agent/README.md`, `novapolis-rp/README.md`, `novapolis-sim/README.md`) bleiben bewusst unveraendert,
+    3) aktive Querverweise in README-Hub, Index, DONELOG, TODOs und betroffenen Fachdokus zeigen danach auf die neuen Dateinamen,
+    4) Naming-Gate, Markdownlint und Frontmatter laufen fuer den geaenderten Doku-Scope gruen.
+  - Evidenz: `novapolis-dev/docs/readme_decisions.md` und `novapolis-dev/docs/readme.hub.md` fuehren seit Laengerem mehrere Unterordner-READMEs als Stubs/Tool-Dokus, waehrend der aktive Workspace bis vor dem Umbau zahlreiche gleichnamige Dateien wie `novapolis_agent/scripts/scripts-overview.md`, `novapolis_agent/eval/eval-overview.md`, `docs/adr/adr-index.md`, `novapolis-rp/database-rp/06-scenes/scenes-guidelines.md` und `novapolis-rp/coding/tools/validators/validator-suite.md` in ihrer frueheren `README.md`-Form gleichzeitig fuehrte.
+  - Abschluss 2026-03-30: Der aktive Stub-/Runbook-/Tool-Scope fuehrt jetzt sprechende Dateinamen (`adr-index.md`, `scripts-overview.md`, `eval-overview.md`, `logs-policy.md`, `validator-suite.md`, `raw-export-policy.md` u. a.); Querverweise in Hub, Index, DONELOG, TODOs, RP-Workflow und `.vscode/settings.json` sind nachgezogen. Bewusst unveraendert blieben die kanonischen Root-/Modul-Einstiege sowie fachliche RP-Landingpages unter `novapolis-rp/database-rp/01-factions/**`.
+
 - [x] [Als naechstes] Stil- und Konsistenzlauf fuer Hochfrequenz-Dateien und die aktive Doku nach dokumentiertem Phasenplan ausfuehren.
   - Ziel: Vor einem breiten Sweep soll die aktive Dokumentoberflaeche mit einem festen Stilrahmen und einer festen Reihenfolge vereinheitlicht werden, statt wieder nur punktuell Drift zu reparieren.
   - Akzeptanzkriterien:
@@ -27,7 +37,7 @@ Offene Aufgaben (Dev)
     3) Archive und Quarantaene-Dateien bleiben bewusst ausserhalb des aktiven Sweep-Scope,
     4) der Abschlusslauf zieht TODO, DONELOG und Index im selben Lauf nach.
   - Evidenz: Die letzte Reader-Surface-Welle musste bereits sichtbare Inkonsistenzen in `README.md`, `WORKSPACE_INDEX.md`, `novapolis-dev/README.md`, den Modul-READMEs und `docs/todo.index.md` bereinigen; fuer den naechsten Schritt liegt der Arbeitsplan jetzt in `novapolis-dev/docs/process/doku-konsistenzlauf-aktive-surface-2026-03-28.md`.
-  - Abschluss 2026-03-28: Hochfrequenz-Dateien, die zweite Schicht aktiver Dev-Doku sowie die ersten Modul-Runbooks (`novapolis_agent/scripts/README.md`, `novapolis-rp/database-rp/06-scenes/README.md`) fuehren jetzt denselben PASS-/PowerShell-/Root-Wrapper-Stil; beim Restscan blieben nur ignorierte Drittanbieter-READMEs unter `node_modules` ausserhalb des aktiven Scopes uebrig.
+  - Abschluss 2026-03-28: Hochfrequenz-Dateien, die zweite Schicht aktiver Dev-Doku sowie die ersten Modul-Runbooks (`novapolis_agent/scripts/scripts-overview.md`, `novapolis-rp/database-rp/06-scenes/scenes-guidelines.md`) fuehren jetzt denselben PASS-/PowerShell-/Root-Wrapper-Stil; beim Restscan blieben nur ignorierte Drittanbieter-READMEs unter `node_modules` ausserhalb des aktiven Scopes uebrig.
 
 - [x] [Jetzt] Aktive Reader-Surface fuer Root/Dev und die vier Hauptmodule auf den aktuellen Single-Root-/PASS-Iststand ziehen.
   - Ziel: Die aktive Dokuoberflaeche soll nach den Maerz-Governance- und Modulfortschritten keine alten FAIL-Receipts, Alt-Kommandos oder Vor-Single-Root-Pfade mehr als aktuellen Stand fuehren.
@@ -88,7 +98,7 @@ Offene Aufgaben (Dev)
   - Abschluss 2026-03-18: Root-Community-Oberflaeche ist jetzt vollstaendig verlinkt; der naechste offene Dev-Punkt bleibt die KPI-Trendansicht.
 - [x] [Als naechstes] ADR-Ordner von "bereit" auf "aktiv genutzt" heben (mind. `ADR-0001`, `ADR-0002`).
   - Akzeptanzkriterium: zentrale Entscheidungen (z. B. DONELOG-Ebenen, Quality-Gate-Sequenz) sind als akzeptierte ADRs dokumentiert.
-  - Evidenz: `docs/adr/0001-donelog-ebenen.md`, `docs/adr/0002-quality-gate-sequenz.md`, `docs/adr/README.md`.
+  - Evidenz: `docs/adr/0001-donelog-ebenen.md`, `docs/adr/0002-quality-gate-sequenz.md`, `docs/adr/adr-index.md`.
   - Abschluss 2026-03-18: Der ADR-Ordner enthaelt jetzt zwei akzeptierte Grundsatzentscheidungen und wird aktiv als Governance-Ablage genutzt.
 - [x] [Jetzt] Punkt-3-Strategie aktivieren: Coverage-Steuerung auf realistische Zielkorridore (`85-90%`) fuer grosse Pfade umstellen und `90%` als verbindliches Qualitaetsziel fest verankern.
   - Akzeptanzkriterium: dokumentierte Gate-Logik mit Hard-Gate (`>=80%`) plus verbindlichem Qualitaetsziel (`>=90%`) inkl. Nachweispflicht bei Unterschreitung.
@@ -116,7 +126,7 @@ Offene Aufgaben (Dev)
   - Evidenz: `novapolis-dev/docs/donelog.md` (Current-Window), `novapolis-dev/archive/docs/donelogs/donelog_dev.window-archive.pre-2026-02-20.md` (Archivfenster).
 - [x] [Als naechstes] Logs-Policy fuer `novapolis-dev/logs/` durchsetzen (Umgang mit `*.tmp.md` festlegen und konsistent umsetzen).
   - Akzeptanzkriterium: Keine policy-widrigen Rohlogs im aktiven Log-Pfad oder Policy explizit angepasst und dokumentiert.
-  - Evidenz: `scripts/check_logs_policy.py`, `novapolis-dev/logs/README.md`, Verschiebung nach `novapolis-dev/archive/quarantine/logs/`.
+  - Evidenz: `scripts/check_logs_policy.py`, `novapolis-dev/logs/logs-policy.md`, Verschiebung nach `novapolis-dev/archive/quarantine/logs/`.
 - [x] [Als naechstes] Stand-Freshness-SLA festlegen (`ACTIVE <= 14 Tage`, `REFERENCE <= 60 Tage`) und als wiederkehrenden Check im Dev-Modul verankern.
   - Akzeptanzkriterium: Alle aktiven Dev-Dokumente haben frische `stand`-Werte oder dokumentierte Ausnahmen.
   - Evidenz: `scripts/check_doc_freshness.py`, `novapolis-dev/docs/active-surface-index.md`, Integration in `scripts/run_checks_and_report.py`.

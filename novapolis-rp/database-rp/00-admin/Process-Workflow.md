@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 03:27
+stand: 2026-03-30 05:08
 update: Frische-Review durchgeführt; Workflow-Regeln/Verweise geprüft und als weiterhin gültig bestätigt (kein Inhaltsdelta).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Process-Workflow.md' 'novapolis-rp/database-rp/00-admin/Sim-State-Schema.md' 'novapolis-rp/database-rp/00-admin/Tick-Regeln-Simulation.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:28); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Process-Workflow.md' 'novapolis-rp/database-rp/00-admin/Sim-State-Schema.md' 'novapolis-rp/database-rp/00-admin/Tick-Regeln-Simulation.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:28); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 03:28)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 slug: process-workflow
 category: Admin
 schemaVersion: 1
@@ -93,13 +93,13 @@ Stub-Mapping (Auszug)
 
 | Pfad | Abschnitt | Typ |
 | ---- | --------- | ---- |
-| novapolis-rp/coding/tools/validators/README.md | Validatoren | stub |
-| novapolis-rp/coding/tools/chat-exporter/README.md | Export & Ingest | stub |
-| novapolis-rp/coding/tools/metadata/README.md | Metadata Layer | stub |
-| novapolis-rp/database-curated/README.md | Curation Workflow | stub |
-| novapolis-rp/database-curated/staging/README.md | Curation Workflow | stub |
-| novapolis-rp/database-raw/99-exports/README.md | Export & Ingest | stub |
-| novapolis-rp/database-rp/06-scenes/README.md | Scenes Guidelines | stub |
+| novapolis-rp/coding/tools/validators/validator-suite.md | Validatoren | stub |
+| novapolis-rp/coding/tools/chat-exporter/chat-exporter-guide.md | Export & Ingest | stub |
+| novapolis-rp/coding/tools/metadata/metadata-tools.md | Metadata Layer | stub |
+| novapolis-rp/database-curated/curation-workflow.md | Curation Workflow | stub |
+| novapolis-rp/database-curated/staging/staging-workflow.md | Curation Workflow | stub |
+| novapolis-rp/database-raw/99-exports/raw-export-policy.md | Export & Ingest | stub |
+| novapolis-rp/database-rp/06-scenes/scenes-guidelines.md | Scenes Guidelines | stub |
 
 Naming-Policy (database-rp)
 ---------------------------

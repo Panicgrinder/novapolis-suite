@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 12:54
+stand: 2026-03-30 05:08
 update: Maschinenlesbare Metadaten + Chronik-Regeln ergänzt (Anker über Scenes/Missionslog); Checks PASS.
-checks: "& .\\.venv\\Scripts\\python.exe scripts\\run_checks_and_report.py PASS (2026-02-16 12:54)"
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 category: canon
 schemaVersion: 1
 language: de
@@ -35,7 +35,7 @@ Referenzen
 
 - Ereignislog Weltgeschehen (Reference): [Ereignislog-Weltgeschehen](../../../00-admin/Ereignislog-Weltgeschehen.md)
 - Missionslog (Fraktion): [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md)
-- Scenes (Narrative): [Scenes README](../../../06-scenes/README.md)
+- Scenes (Narrative): [Scenes Guide](../../../06-scenes/scenes-guidelines.md)
 
 Offene Konfliktlinien
 ---------------------

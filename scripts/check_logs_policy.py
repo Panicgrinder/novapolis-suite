@@ -2,7 +2,7 @@
 
 Policy (enforced):
 - No `*.tmp.md` files in active logs path.
-- Required policy files must exist: README.md, log-template.md.
+- Required policy files must exist: logs-policy.md, log-template.md.
 """
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ import argparse
 from pathlib import Path
 
 LOGS_DIR = Path("novapolis-dev/logs")
-REQUIRED_FILES = ("README.md", "log-template.md")
+REQUIRED_FILES = ("logs-policy.md", "log-template.md")
 
 
 def parse_args() -> argparse.Namespace:

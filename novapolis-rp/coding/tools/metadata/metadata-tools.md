@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-18 04:05
+stand: 2026-03-30 05:08
 update: Metadata-Init konsolidiert; Python-Skript ist kanonisch.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-rp/coding/tools/metadata/README.md novapolis-dev/docs/donelog.md PASS (2026-02-18 04:05); F:/VS-Code-Workspace/Main/.venv/Scripts/python.exe scripts/check_frontmatter.py DONELOG.md WORKSPACE_STATUS.md todo.root.md novapolis-rp/coding/tools/metadata/README.md novapolis-dev/docs/donelog.md PASS (2026-02-18 04:05)
+checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
 ---
 
 Metadata Tool (Stub)
