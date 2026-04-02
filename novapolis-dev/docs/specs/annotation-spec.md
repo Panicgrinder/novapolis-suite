@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 01:16
-update: Skill-Mapping-V1 fuer Novapolis um eine zweite Referenzreihe fuer Pahl, Reflex, Lumen und Echo erweitert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
+stand: 2026-04-02 06:27
+update: Skill-Mapping-V1 fuehrt jetzt einen dokumentierten Realabgleich fuer Ronja/Reflex, Pahl sowie Kora/Echo inklusive Kontext-Guard fuer D5-Interimkommando.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
 ---
 
 Annotation-Spec (Knowledge · Actions · Skill-Ableitung)
@@ -187,12 +187,12 @@ Beispielableitungen (V1)
 - Kora (`KRM4`, Rolle `stationsleitung`, Signatur `L72-T74-N69-E61-O56-C63-M47`) -> `reparieren=2`, `funk=2`, `wahrnehmung=1`, `wache=2`
 
 Rollenfit fuer weitere Kernfiguren (V1)
-- `Pahl` bleibt trotz Sicherheitsfreigaben primaer `wartung_technik`, weil die belegte Grundrolle auf Leittechnik, Wartungsplanung und Systemaufsicht liegt.
+- `Pahl` bleibt trotz Sicherheitsfreigaben primaer `wartung_technik`, weil die belegte Grundrolle auf Leittechnik, Wartungsplanung und Systemaufsicht liegt; bei explizitem D5-Interimkommando darf V1 situativ `funk +1` und `wache +1` geben, ohne die Grundrolle umzuschreiben.
 - `Reflex` und `Echo` werden als `sicherung_monitoring` gelesen, weil Schutz, Sensorik, Alarmroutinen und lokale Signalisierung ihr belegter Primarscope sind.
 - `Lumen` bleibt `wartung_technik`, weil Werkstattassistenz und Diagnose der belegte Schwerpunkt sind; Schutz bleibt eng am Werkstatt-/Jonas-Kontext.
 
 Weitere Referenzableitungen (V1)
-- Pahl (`PHL2`, Rollenfit `wartung_technik`, Signatur `L48-T60-N71-E50-O44-C62-M30`) -> `reparieren=2`, `funk=1`, `wahrnehmung=1`, `wache=1`
+- Pahl (`PHL2`, Rollenfit `wartung_technik`, Signatur `L48-T60-N71-E50-O44-C62-M30`) -> `reparieren=2`, `funk=1`, `wahrnehmung=1`, `wache=1` (Baseline; im dokumentierten D5-Interimkommando situativ `funk=2`, `wache=2`)
 - Reflex (`RFX4`, Rollenfit `sicherung_monitoring`, Signatur `L80-S68-N77-T83-E64-O51-M25-C44`) -> `reparieren=2`, `funk=2`, `wahrnehmung=2`, `wache=2`
 - Lumen (`LMN1`, Rollenfit `wartung_technik`, Signatur `L78-T71-E60-O49-N44-S52-C26-M18`) -> `reparieren=2`, `funk=2`, `wahrnehmung=1`, `wache=1`
 - Echo (`ECO1`, Rollenfit `sicherung_monitoring`, Signatur `L85-S74-T62-E58-N52-O44-C28-M16`) -> `reparieren=2`, `funk=2`, `wahrnehmung=2`, `wache=2`
@@ -205,9 +205,16 @@ Lesart der Beispiele
 - Reflex und Echo bestaetigen die `sicherung_monitoring`-Baseline als Schutz-/Sensorprofil; beide bleiben breit stabil, aber ohne ueberzogenes 3er-Niveau.
 - Lumen ist die passende Bruecke zwischen Werkstattassistenz und leichtem Schutzkontext: gutes `funk`/`reparieren`, aber bewusst nur mittlere `wache`-Tiefe.
 
+Realabgleich gegen aktive RP-Pfade (2026-04-02)
+- `Ronja` + `Reflex` im Missionspfad `D5 -> C6: Materiallauf / Guetertransport` bestaetigen die bestehende Kombination `wartung_technik` + `sicherung_monitoring`: Packen, Abmeldung, Transportassist, Ankunft und Bestandsaufnahme erfordern keinen Rollenlift.
+- `Pahl` im belegten D5-Interimkommando bestaetigt keine neue Dauerrolle, aber einen szenengebundenen Zusatzkontext: Wenn D5 explizit unter seinem Freigabe-, Hausregel- und Sicherheitskommando laeuft, darf V1 `funk` und `wache` situativ um je `+1` anheben.
+- `Kora` + `Echo` im C6-Schutz-/Logistikkontext bestaetigen die bestehende Kombination `stationsleitung` + `sicherung_monitoring`: Logistikfuehrung, Signalisierung, Nahschutz und Sichtkontakt bleiben damit ohne Zusatzrolle plausibel abgedeckt.
+- Referenzpfade: `Missionslog-Novapolis.md`, `scene-2025-10-27-ak.md`, `scene-2025-10-27-d.md`, `scene-2025-10-27-e.md`, `Ronja-Kerschner.md`, `Pahl-Brenner.md`, `Kora-Malenkov.md`, `Reflex.md`, `Echo.md`.
+
 Guardrails fuer V1
 - V1 ist absichtlich konservativ: nur 4 Skills, nur 3 Rollen-Baselines, keine versteckten Synergieboni.
 - Modifikatoren (`k`, `p`, `r` usw.) bleiben qualitative Driftmarker und werden in V1 nicht direkt verrechnet.
+- Kontext-Lifts sind nur zulaessig, wenn Mission, Szene oder Rollenlog die Zusatzlast explizit belegt; sie heben hoechstens zwei Skills um je `+1` und ersetzen keine neue Dauerrolle.
 - Ableitungen bleiben on-demand; die Tierwerte werden nicht dauerhaft als zweite Wahrheit in Charakterdateien gespeichert.
 
 Leitlinien

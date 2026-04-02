@@ -31,6 +31,7 @@ import sys
 from typing import Any, cast
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REPO_ROOT = os.path.dirname(PROJECT_ROOT)
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
@@ -39,6 +40,18 @@ from utils.time_utils import now_compact  # noqa: E402
 from scripts import export_finetune as _export  # noqa: E402
 from scripts import prepare_finetune_pack as _prepare  # noqa: E402
 from scripts import run_eval as _run_eval  # noqa: E402
+
+
+def _resolve_eval_path(value: str, *, default_base: str = PROJECT_ROOT) -> str:
+    if os.path.isabs(value):
+        return value
+    normalized = value.replace("\\", "/")
+    base = (
+        REPO_ROOT
+        if normalized == "novapolis_agent" or normalized.startswith("novapolis_agent/")
+        else default_base
+    )
+    return os.path.normpath(os.path.join(base, value))
 
 
 def _latest_results(path: str) -> str | None:
@@ -50,14 +63,36 @@ def _latest_results_candidates(path: str) -> list[str]:
     return sorted(glob.glob(os.path.join(path, "results_*.jsonl")), reverse=True)
 
 
+async def _inspect_candidate_for_export(
+    candidate: str,
+    *,
+    include_failures: bool,
+) -> dict[str, Any]:
+    inspect_fn = getattr(_export, "inspect_results_for_export", None)
+    if callable(inspect_fn):
+        return cast(
+            dict[str, Any],
+            await inspect_fn(candidate, include_failures=include_failures),
+        )
+    return {
+        "ok": True,
+        "successful_rows": 0,
+        "exportable_count": 0,
+        "unmapped_item_ids": [],
+    }
+
+
 def main() -> int:
     # Dynamischer Default-Pfad über Settings
     try:
         from novapolis_agent.app.core.settings import settings
 
-        default_results = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)),
-            getattr(settings, "EVAL_RESULTS_DIR", os.path.join("novapolis_agent", "eval", "results")),
+        default_results = _resolve_eval_path(
+            getattr(
+                settings,
+                "EVAL_RESULTS_DIR",
+                os.path.join("novapolis_agent", "eval", "results"),
+            ),
         )
     except Exception:
         default_results = os.path.join("novapolis_agent", "eval", "results")
@@ -119,7 +154,9 @@ def main() -> int:
     args = p.parse_args()
 
     results_dir = args.results_dir
-    candidates = [args.results_file] if args.results_file else _latest_results_candidates(results_dir)
+    candidates = (
+        [args.results_file] if args.results_file else _latest_results_candidates(results_dir)
+    )
     if not candidates:
         print(json.dumps({"ok": False, "error": f"Keine results_*.jsonl in {results_dir}"}))
         return 2
@@ -131,7 +168,7 @@ def main() -> int:
 
     for candidate in candidates:
         inspection = asyncio.run(
-            _export.inspect_results_for_export(
+            _inspect_candidate_for_export(
                 candidate,
                 include_failures=args.include_failures,
             )

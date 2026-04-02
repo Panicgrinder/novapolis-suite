@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from collections.abc import Iterable, Mapping
 from typing import Any, cast
 
@@ -53,10 +54,35 @@ def create_unrestricted_prompt(scenario_type: str) -> str:
     """
 
 
-try:
-    from .settings import settings
-except Exception:  # pragma: no cover - fail-open für Importzyklen
-    settings = None  # type: ignore[assignment]
+def _resolve_settings_object() -> Any:
+    for module_name in ("app.core.settings", "novapolis_agent.app.core.settings"):
+        module = sys.modules.get(module_name)
+        if module is not None and hasattr(module, "settings"):
+            return module.settings
+    for module_name in ("app.core.settings", "novapolis_agent.app.core.settings"):
+        try:
+            module = __import__(module_name, fromlist=["settings"])
+            return module.settings
+        except Exception:
+            continue
+    return None
+
+
+class _SettingsProxy:
+    def __getattr__(self, name: str) -> Any:
+        current = _resolve_settings_object()
+        if current is None:
+            raise AttributeError(name)
+        return getattr(current, name)
+
+    def __setattr__(self, name: str, value: Any) -> None:
+        current = _resolve_settings_object()
+        if current is None:
+            raise AttributeError(name)
+        setattr(current, name, value)
+
+
+settings = _SettingsProxy()
 
 
 class PreResult:

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 07:16
-update: Das RP-Arbeitsledger fuer die finale Metro-Warenzuteilung ist angelegt; der RP-Open-Count sinkt auf 6.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS (2026-03-30 07:16)
+stand: 2026-04-02 06:27
+update: Der RP-Realabgleich fuer Skill-Mapping-V1 ist dokumentiert; der RP-Open-Count sinkt auf 2.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,7 +12,7 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 6)
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 2)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 2)
@@ -42,6 +42,22 @@ Statushinweise (aktuell)
 - Index v2.2: `todo.root.md` steht jetzt explizit in der Uebersicht; weitere `todo*.md` unter `novapolis-dev/archive/**` und `novapolis-dev/archive/quarantine/**` bleiben historische bzw. quarantänisierte Nebenpfade und zaehlen nicht zum aktiven Backlog.
 
 - Index v2.1: Neue Folgepunkte sind jetzt explizit verankert: RP wurde vom Sammelpunkt auf Transferkette/Delta-Struktur/Realabgleich aufgefaechert, Sim fuehrt die bekannten Asset-Warnungen erstmals als aktiven Punkt, Dev den sichtbaren Metadaten-Drift im Index selbst.
+
+- RP v5.29: Skill-Mapping-V1 ist jetzt gegen reale RP-Pfade dokumentiert. `annotation-spec.md` fuehrt den Realabgleich fuer `Ronja/Reflex` im Materiallauf `D5 -> C6`, fuer `Pahl` als faktisches D5-Kommando und fuer `Kora/Echo` im C6-Schutz-/Logistikkontext; die Baselines bleiben konservativ, nur fuer `Pahl` ist ein szenengebundener Kontext-Lift `funk/wache +1` statt eines Rollenwechsels festgehalten (`offen: 3 -> 2`).
+
+- RP v5.27: Der Schattenbund fuehrt jetzt erstmals einen belegten Relations- und Beschaffungsrahmen statt nur T0-Abschirmhuelle. `Relationslog-Schattenbund.md`, `Handelslog-Schattenbund.md`, `Missionslog-Schattenbund.md` und `Schattenbund-inventar.md` dokumentieren nun den konservativen Rahmen `Novapolis = unbekannt`, `Eisenkonklave = feindselig`, `Arkologie = verdeckt` samt verdeckter Kette `Jarek Voan -> Sera Nol -> Nyra Vehl`; Mengen, Routen und benannte Gegenparteien bleiben bewusst offen (`offen: 3 -> 3`).
+
+- RP v5.28: Das Fluesterkollektiv fuehrt jetzt erstmals einen belegten Minimalrahmen jenseits der reinen T0-Huelle. `Relationslog-Fluesterkollektiv.md`, `Handelslog-Fluesterkollektiv.md`, `Missionslog-Fluesterkollektiv.md` und `Fluesterkollektiv-inventar.md` dokumentieren nun den konservativen Rahmen `Novapolis = unbekannt` samt indirekter Kette `Corin Mael -> Sera Kaal -> Iris Vey`; benannte Gegenparteien, Routen und Mengen bleiben bewusst offen (`offen: 3 -> 3`).
+
+- RP v5.26: Arkologie-A1 fuehrt jetzt erstmals einen belegten Aussenrahmen statt nur T0-Versorgungshuelle. `Relationslog-Arkologie-A1.md`, `Handelslog-Arkologie-A1.md`, `Missionslog-Arkologie-A1.md` und `Arkologie-inventar.md` dokumentieren nun den konservativen Rahmen `Haendlerbund = beschraenkt`, `Eisenkonklave = umkaempft`, `Novapolis = unbekannt` samt Handels-, Sicherheits- und Biosicherheitskette `Nera Vossen -> Borin Khade -> Liora Navesh`; Mengen, Routen und Einzeldeals bleiben bewusst offen (`offen: 3 -> 3`).
+
+- RP v5.25: Die Eisenkonklave fuehrt jetzt erstmals einen belegten Handelsanker statt nur Rohrahmen. `Missionslog-Eisenkonklave.md`, `Handelslog-Eisenkonklave.md` und `Eiserne-Enklave-inventar.md` dokumentieren nun den konservativen Rahmen `Haendlerbund = handel_gelegentlich` samt Freigabekette `Kaspar Dorn -> Yara Kest`; konkrete Dealmengen, Routen und Tauschlisten bleiben bewusst offen (`offen: 3 -> 3`).
+
+- RP v5.24: Der Haendlerbund ist von der reinen Rahmenwert-Huelle auf einen belegten Aufbaupfad gezogen. `Missionslog-Haendlerbund.md`, `caravan-moves.md` und `Haendlerbund-inventar.md` fuehren jetzt `H-47`, `C6 als Handelsstuetzpunkt`, `G7 als externer Kontaktpunkt` und die ersten Austauschklassen `Energie/Reparaturen/Kommunikationszugang <-> Nahrungsmittel/Filter/Grundbedarfsgueter`; Mengen und Manifeste bleiben bewusst offen (`offen: 3 -> 3`).
+
+- RP v5.23: Die externen Fraktionsinventare fuehren jetzt denselben konservativen `rahmenwert`-Stand wie Matrix, Arbeitsledger und `Warenueberblick-T0.md`. Arkologie-A1, Schienenbund, Haendlerbund, Eisenkonklave, Schattenbund und Fluesterkollektiv zeigen jetzt explizite T0-Rahmen, Herkunftslogik und dokumentierte `RAHMENWERT`-Logs statt leerer `tbd`-Huellen; neue Mengen wurden bewusst nicht gesetzt (`offen: 3 -> 3`).
+
+- RP v5.22: Der offene Warenlauf ist jetzt konservativ geschlossen. `Missionslog-Novapolis.md`, `D5-inventar.md`, `C6-inventar.md` und `Novapolis-inventar.md` fuehren dieselbe belegte Prozessspur `Entnahme/Packen in D5 -> Abmeldung -> Transport mit ReflexAssist -> Eintreffen/Bestandsaufnahme/Empfang in C6`; parallel fuehrt `Novapolis-inventar.md` jetzt das geforderte Delta-/Bilanzformat mit Bedarfsblock statt generischer Sammelnotizen (`offen: 6 -> 3`).
 
 - RP v5.21: Das operative Arbeitsledger fuer die finale Metro-Warenzuteilung ist jetzt als eigenes Arbeitsblatt angelegt. Die Matrix ist damit in `fix`, `rahmenwert` und `handentscheidung` mit sichtbaren Zielpfaden, Stationsbezug und Updatepfad fuer die Zielinventare ueberfuehrt; als offene RP-Reste bleiben Transferkette, Delta-/Bilanzformat und der spaetere Realabgleich (`offen: 7 -> 6`).
 
@@ -99,7 +115,7 @@ Board-Metadaten (automationsrelevant)
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
 | Dev (`docs/todo.dev.md`) | 2026-03-30 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-03-28 | - [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten. | nein |
+| RP (`docs/todo.rp.md`) | 2026-03-30 | - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren. | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-03-30 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-03-28 | - [ ] [Als naechstes] Sim-Asset-Warnungen aus `scripts/check_sim_epoch_assets.py` aufloesen oder bewusst kanonisch ausnehmen. | nein |
 

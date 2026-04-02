@@ -46,7 +46,9 @@ def _sanitize_dict(d: dict[str, list[str]]) -> tuple[dict[str, list[str]], int]:
 
 
 def load_synonyms() -> tuple[dict[str, list[str]], int]:
-    """Load and merge synonyms from novapolis_agent/eval/config/, with additional and local overlays.
+    """Load and merge synonyms from novapolis_agent/eval/config/.
+
+    Additional and local overlays are merged afterwards.
     Returns (merged_dict, count_total).
     """
     base = DEFAULT_SYNONYMS_DIR / "synonyms.json"

@@ -83,17 +83,21 @@ def test_plan_artifact_cleanup_keeps_eval_run_cluster_together(tmp_path: Path) -
         keep_names=(),
     )
 
-    keep_paths = {
-        d.path.relative_to(tmp_path).as_posix() for d in decisions if d.action == "keep"
-    }
+    keep_paths = {d.path.relative_to(tmp_path).as_posix() for d in decisions if d.action == "keep"}
     remove_paths = {
         d.path.relative_to(tmp_path).as_posix() for d in decisions if d.action == "remove"
     }
 
     assert "novapolis_agent/eval/results/results_20250102_0000.jsonl" in keep_paths
-    assert "novapolis_agent/eval/results/tmp-export/finetune_alpaca_r_20250102_0000.jsonl" in keep_paths
+    assert (
+        "novapolis_agent/eval/results/tmp-export/finetune_alpaca_r_20250102_0000.jsonl"
+        in keep_paths
+    )
     assert "novapolis_agent/eval/results/results_20250101_0000.jsonl" in remove_paths
-    assert "novapolis_agent/eval/results/tmp-export/finetune_alpaca_r_20250101_0000.jsonl" in remove_paths
+    assert (
+        "novapolis_agent/eval/results/tmp-export/finetune_alpaca_r_20250101_0000.jsonl"
+        in remove_paths
+    )
 
 
 @pytest.mark.scripts
@@ -114,9 +118,7 @@ def test_plan_artifact_cleanup_keeps_output_directory_as_unit(tmp_path: Path) ->
         keep_names=(),
     )
 
-    keep_paths = {
-        d.path.relative_to(tmp_path).as_posix() for d in decisions if d.action == "keep"
-    }
+    keep_paths = {d.path.relative_to(tmp_path).as_posix() for d in decisions if d.action == "keep"}
     remove_paths = {
         d.path.relative_to(tmp_path).as_posix() for d in decisions if d.action == "remove"
     }

@@ -1,14 +1,19 @@
 from __future__ import annotations
 
 import os
+import sys
 from pathlib import Path
 from typing import Any, cast
 
 from pydantic import field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-
 AGENT_EVAL_ROOT = os.path.join("novapolis_agent", "eval")
+
+if __name__ == "app.core.settings":
+    sys.modules.setdefault("novapolis_agent.app.core.settings", sys.modules[__name__])
+elif __name__ == "novapolis_agent.app.core.settings":
+    sys.modules.setdefault("app.core.settings", sys.modules[__name__])
 
 
 class Settings(BaseSettings):

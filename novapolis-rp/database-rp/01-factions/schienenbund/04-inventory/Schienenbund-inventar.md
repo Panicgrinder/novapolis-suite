@@ -1,17 +1,9 @@
 ---
-stand: 2026-02-04 09:34
-update: Links auf 00-admin relativisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:34)
+stand: 2026-04-02 06:27
+update: T0-Rahmen fuer Schienenbund aus Warenueberblick und Arbeitsledger als konservative Bestandslage verankert.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
 canvas: Inventar Schienenbund
-last_updated: 2025-11-07T04:32:00+01:00
-category: inventory
-slug: schienenbund-inventar
-owner: schienenbund
-scope: faction
-version: "0.1"
----
-canvas: Inventar Schienenbund
-last-updated: 2025-11-07T04:32:00+01:00
+last_updated: 2026-03-31T17:41:25+02:00
 category: inventory
 slug: schienenbund-inventar
 owner: schienenbund
@@ -24,14 +16,23 @@ Inventar - Schienenbund (Fraktion)
 
 Bestände (Auszug)
 -----------------
-- Kugeln (neu): tbd (hochwertig; 1 neu ≈ 10 gebraucht)
-- Kugeln (gebraucht): tbd (Alltag/Hauptmunition; Qualität streut)
-- Schienen-/Baukomponenten: tbd
-- Werkzeuge: tbd
+- Kugeln (neu): hochwertig (1 neu ≈ 10 gebraucht; Bestand nicht quantifiziert)
+- Kugeln (gebraucht): Alltagswährung/Hauptmunition (Qualität streut; Bestand nicht quantifiziert)
+- Schienen-/Baukomponenten: variabel (keine Stückzahlen)
+- Werkzeuge: variabel (keine Stückzahlen)
+- Reparaturgüter: belastbarer Rollenrahmen, aber nicht quantifiziert
+
+Rahmenlage (T0)
+---------------
+
+- Schienenbund bleibt als logistischer Reparatur- und Baukontext gerahmt, nicht als quantifiziertes Lager.
+- Dominante Herkunftslabel: `produced`, `scavenged`.
+- Stationsscharfe Reserven und echte Verbrauchsbilanzen bleiben bis zu neuer Belegkette `tbd`.
 
 Bewegungen (Log)
 ----------------
-- tbd
+- 2026-03-31 [RAHMENWERT] Logistik-/Reparaturfokus aus `Warenueberblick-T0.md` und Arbeitsledger fuer die finale Metro-Warenzuteilung bestaetigt; keine Mengensetzung vorgenommen.
+- Template: YYYY-MM-DD | Bezug: scene-/missionslog-/admin-artefakt | Delta: +/− | Gegenpartei: ... | Abrechnung: Kugeln/Tausch | Notiz: ...
 
 Links
 -----

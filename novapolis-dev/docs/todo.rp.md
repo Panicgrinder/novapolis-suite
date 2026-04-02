@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-03-30 07:16
-update: Das operative Arbeitsledger fuer die finale Metro-Warenzuteilung ist angelegt; der RP-Fokus liegt jetzt wieder auf Transferkette und Delta-/Bilanzformat.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS (2026-03-30 07:16)
+stand: 2026-04-02 06:27
+update: Skill-Mapping-V1 ist jetzt gegen Ronja/Reflex, Pahl sowie Kora/Echo real gegengeprueft; der RP-Open-Count sinkt auf 2.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -16,8 +16,8 @@ TODO (Novapolis-RP)
 Prioritaetstags (aktiv)
 -----------------------
 
-- `Jetzt`: RP-Folgearbeit sitzt auf Transferkette, Delta-/Bilanzformat und belastbarer Fraktionsaggregation fuer den Inventar-Backfill.
-- `Als naechstes`: Mengen-Backfill fuer Inventare konkret fortsetzen; das Arbeitsledger steht, die Handentscheidungen muessen jetzt in die Zielinventare ueberfuehrt werden.
+- `Jetzt`: Kein aktiver RP-Blocker mehr im konservativen Inventar-/Skill-Strang; offen bleibt nur der spaetere TTS-Block.
+- `Als naechstes`: Falls RP wieder geoeffnet wird, den TTS-Block fuer OGG-Summaries und Live-Dialog-Cache vorbereiten.
 - `Spaeter`: TTS-Block (OGG-Kandidaten + Live-Dialog-Cache) ausrollen.
 
 Aktiver Vorbereitungspunkt (2026-03-20)
@@ -81,6 +81,66 @@ Aktiver Vorbereitungspunkt (2026-03-20)
     4) das Ergebnis verweist sauber auf Matrix, Inventarebene und den spaeteren Updatepfad fuer D5/C6/Fraktionsinventare.
   - Evidenz: `novapolis-dev/docs/process/rp-metro-warenzuteilung-matrix-2026-03-27.md` fuehrt die benoetigte Dreiteilung bereits vollstaendig; im Board selbst fehlt aber noch der direkte Uebergang in ein operatives Verteilungsledger fuer die finale Handarbeit.
   - Abschluss 2026-03-30: `novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md` fuehrt die Matrix jetzt als operatives Ledger mit getrennten Tabellen fuer `fix`, `rahmenwert` und `handentscheidung`, sichtbaren Zielpfaden sowie einem expliziten Updatepfad fuer `D5-inventar.md`, `C6-inventar.md`, `Novapolis-inventar.md` und die externen Fraktionsinventare.
+
+- [x] [Jetzt] Externe Fraktionsinventare auf konservative T0-Rahmenwerte aus Matrix und Arbeitsledger angleichen.
+  - Ziel: Die externen Fraktionen sollen denselben `rahmenwert`-Stand fuehren wie Matrix und Arbeitsledger, ohne stillschweigend Mengen zu setzen.
+  - Akzeptanzkriterien:
+    1) jedes externe Fraktionsinventar fuehrt ein explizites T0-Rahmenbild statt leerer `tbd`-Huellen,
+    2) keine Datei setzt neue Bestandsmengen oder stationsscharfe Lagerzahlen,
+    3) Warenueberblick-T0 und Arbeitsledger bleiben die sichtbaren Quellanker,
+    4) RP-Validator bleibt gruen.
+  - Evidenz: `novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md`, `novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md`, `novapolis-rp/database-rp/01-factions/*/04-inventory/*.md`.
+  - Abschluss 2026-03-31: `Arkologie-inventar.md`, `Schienenbund-inventar.md`, `Haendlerbund-inventar.md`, `Eiserne-Enklave-inventar.md`, `Schattenbund-inventar.md` und `Fluesterkollektiv-inventar.md` fuehren jetzt je einen expliziten T0-Rahmen mit Herkunftslogik, nicht-quantifizierten Bestandsklassen und einem dokumentierten `RAHMENWERT`-Logeintrag.
+
+- [x] [Jetzt] Haendlerbund vom generischen Rahmenwert auf einen belegten H-47/C6-Handelsanker nachziehen.
+  - Ziel: Den Haendlerbund nicht nur als generischen Umlaufraum, sondern mit einem konkreten, belegten Aufbaupfad `H-47 -> C6-Handelsstuetzpunkt -> geregelte Handelszyklen` dokumentieren.
+  - Akzeptanzkriterien:
+    1) `Missionslog-Haendlerbund.md` fuehrt mindestens einen belegten H-47/C6-Missionsanker,
+    2) `caravan-moves.md` fuehrt belegte Route, Kontaktpunkte und Austauschklassen statt nur `tbd`,
+    3) `Haendlerbund-inventar.md` uebernimmt denselben Handelsanker ohne Mengensetzung,
+    4) RP-Validator bleibt gruen.
+  - Evidenz: `novapolis-rp/database-raw/99-exports/RAW-canvas-2025-10-16T05-34-00-000Z.txt`, `novapolis-rp/database-raw/99-exports/RAW-canvas-2025-10-16T08-07-00-000Z.txt`, `novapolis-rp/database-rp/01-factions/haendlerbund/03-locations/G7.md`, `novapolis-rp/database-rp/01-factions/haendlerbund/06-handel-diplomatie/Handel-Diplomatie-Haendlergilde.md`.
+  - Abschluss 2026-03-31: `Missionslog-Haendlerbund.md`, `caravan-moves.md` und `Haendlerbund-inventar.md` fuehren jetzt denselben belegten H-47/C6-Aufbaupfad mit aktiviertem Handelsstuetzpunkt, Austauschklassen und offen gelassenen Mengen/Manifesten.
+
+- [x] [Jetzt] Eisenkonklave vom reinen Rahmenwert auf belegte Handelsfenster mit Haendlerbund nachziehen.
+  - Ziel: Die Eisenkonklave soll nicht nur als Werkstoff-/Schutzgüterraum erscheinen, sondern einen belegten, konservativen Handelsanker mit Freigabekette fuehren.
+  - Akzeptanzkriterien:
+    1) `Missionslog-Eisenkonklave.md` fuehrt mindestens einen belegten Handels-/Sicherheitsanker,
+    2) `Handelslog-Eisenkonklave.md` fuehrt den belegten Rahmen `handel_gelegentlich` statt Stub,
+    3) `Eiserne-Enklave-inventar.md` uebernimmt denselben Handelsrahmen ohne Mengensetzung,
+    4) RP-Validator bleibt gruen.
+  - Evidenz: `novapolis-rp/database-raw/99-exports/RAW-canvas-2025-10-16T16-55-00-000Z.txt`, `novapolis-rp/database-rp/01-factions/eisenkonklave/06-handel-diplomatie/Relationslog-Eisenkonklave.md`, `novapolis-rp/database-rp/01-factions/eisenkonklave/02-characters/Kaspar-Dorn.md`, `novapolis-rp/database-rp/01-factions/eisenkonklave/02-characters/Yara-Kest.md`.
+  - Abschluss 2026-03-31: `Missionslog-Eisenkonklave.md`, `Handelslog-Eisenkonklave.md` und `Eiserne-Enklave-inventar.md` fuehren jetzt denselben konservativen Händlerbund-Anker `handel_gelegentlich` inklusive Handelsleitung, Sicherheitsfreigabe und offen gelassenen Dealmengen.
+
+- [x] [Jetzt] Arkologie-A1 vom reinen Rahmenwert auf belegten Haendlergilden-Kanal und Konfliktanker nachziehen.
+  - Ziel: Arkologie A1 soll nicht nur als stabiler Aussenblock erscheinen, sondern den belegten Rahmen `Haendlerbund = beschraenkt`, `Eisenkonklave = umkaempft`, `Novapolis = unbekannt` sichtbar in Missions-, Handels-, Relations- und Inventarlogik fuehren.
+  - Akzeptanzkriterien:
+    1) `Relationslog-Arkologie-A1.md` fuehrt die belegten Statuswerte statt `tbd`,
+    2) `Missionslog-Arkologie-A1.md` und `Handelslog-Arkologie-A1.md` fuehren denselben beschraenkten Haendlergilden-Kanal mit Nera/Borin/Liora,
+    3) `Arkologie-inventar.md` uebernimmt dieselbe Aussenlage ohne Mengensetzung,
+    4) RP-Validator bleibt gruen.
+  - Evidenz: `novapolis-rp/database-raw/99-exports/RAW-canvas-2025-10-16T16-55-00-000Z.txt`, `novapolis-rp/database-raw/99-exports/RAW-canvas-2025-10-16T03-25-10-000Z.txt`, `novapolis-rp/database-rp/01-factions/arkologie-a1/02-characters/Nera-Vossen.md`, `novapolis-rp/database-rp/01-factions/arkologie-a1/02-characters/Borin-Khade.md`, `novapolis-rp/database-rp/01-factions/arkologie-a1/02-characters/Liora-Navesh.md`.
+  - Abschluss 2026-03-31: `Relationslog-Arkologie-A1.md`, `Handelslog-Arkologie-A1.md`, `Missionslog-Arkologie-A1.md` und `Arkologie-inventar.md` fuehren jetzt denselben konservativen Arkologie-Rahmen aus beschraenktem Haendlergilden-Kanal, umkaempfter Eisenkonklave-Lage und weiterhin unbekanntem Novapolis-Kontakt.
+
+- [x] [Jetzt] Schattenbund vom reinen Rahmenwert auf belegten Relations- und Beschaffungsrahmen nachziehen.
+  - Ziel: Der Schattenbund soll nicht nur als opportunistischer Rahmenraum erscheinen, sondern die belegte Aussenlage `Novapolis = unbekannt`, `Eisenkonklave = feindselig`, `Arkologie = verdeckt` sowie die verdeckte Beschaffungskette `Jarek -> Sera -> Nyra` sichtbar fuehren.
+  - Akzeptanzkriterien:
+    1) `Relationslog-Schattenbund.md` fuehrt die belegten Statuswerte statt `tbd`,
+    2) `Handelslog-Schattenbund.md` und `Missionslog-Schattenbund.md` fuehren denselben verdeckten Beschaffungsrahmen,
+    3) `Schattenbund-inventar.md` uebernimmt dieselbe Aussenlage ohne Mengensetzung,
+    4) RP-Validator bleibt gruen.
+  - Evidenz: `novapolis-rp/database-raw/99-exports/RAW-canvas-2025-10-16T16-55-00-000Z.txt`, `novapolis-rp/database-rp/01-factions/schattenbund/02-characters/Jarek-Voan.md`, `novapolis-rp/database-rp/01-factions/schattenbund/02-characters/Sera-Nol.md`, `novapolis-rp/database-rp/01-factions/schattenbund/02-characters/Nyra-Vehl.md`.
+  - Abschluss 2026-04-01: `Relationslog-Schattenbund.md`, `Handelslog-Schattenbund.md`, `Missionslog-Schattenbund.md` und `Schattenbund-inventar.md` fuehren jetzt denselben konservativen Schattenbund-Rahmen aus unbekanntem Novapolis-Kontakt, feindseliger Eisenkonklave-Lage, verdeckter Arkologie-Beziehung und verdeckten Beschaffungsfenstern ueber Zwischenhaendler.
+
+- [x] [Jetzt] Fluesterkollektiv vom reinen Rahmenwert auf belegten Minimalrahmen nachziehen.
+  - Ziel: Das Fluesterkollektiv soll nicht nur als Informationsraum erscheinen, sondern den belastbaren Minimalrahmen `Novapolis = unbekannt` sowie die interne Kette `Corin -> Sera -> Iris` sichtbar in Relations-, Handels-, Missions- und Inventarlogik fuehren.
+  - Akzeptanzkriterien:
+    1) `Relationslog-Fluesterkollektiv.md` fuehrt mindestens den belegten Status `Novapolis = unbekannt` statt reiner `tbd`-Huelle,
+    2) `Handelslog-Fluesterkollektiv.md` und `Missionslog-Fluesterkollektiv.md` fuehren denselben konservativen Rahmen indirekter Kanaele ohne benannte Gegenparteien,
+    3) `Fluesterkollektiv-inventar.md` uebernimmt dieselbe Aussenlage ohne Mengensetzung,
+    4) RP-Validator bleibt gruen.
+  - Evidenz: `novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md`, `novapolis-rp/database-rp/01-factions/fluesterkollektiv/02-characters/Corin-Mael.md`, `novapolis-rp/database-rp/01-factions/fluesterkollektiv/02-characters/Sera-Kaal.md`, `novapolis-rp/database-rp/01-factions/fluesterkollektiv/02-characters/Iris-Vey.md`.
+  - Abschluss 2026-04-01: `Relationslog-Fluesterkollektiv.md`, `Handelslog-Fluesterkollektiv.md`, `Missionslog-Fluesterkollektiv.md` und `Fluesterkollektiv-inventar.md` fuehren jetzt denselben konservativen Minimalrahmen aus unbekanntem Novapolis-Kontakt sowie indirekten Kanal- und Sicherheitsketten ohne benannte Gegenparteien oder Mengen.
 
 Canvas-Rettung - Sprint 1 (Stand 2025-11-01)
 --------------------------------------------
@@ -193,14 +253,15 @@ Definition of Done (P0)
   - Evidenz: `novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md` (Abschnitt `Fraktionsueberblick T0 (Herkunftslabel)`).
 - [x] [Jetzt] D5/C6 sind konsistent als fruehe Aufbauphase modelliert; keine impliziten Handelsannahmen.
   - Evidenz: `novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md` (Abschnitt `D5/C6-Modell (fruehe Aufbauphase)`).
-- [ ] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten.
+- [x] [Als naechstes] Danach erst Mengen-Backfill in Inventaren (D5/C6/Fraktionen) starten.
   - Startreihenfolge fuer den heutigen Pilot: `C6-inventar` -> `D5-inventar` -> `Novapolis-inventar`.
   - Arbeitsgrundlage: `novapolis-dev/docs/process/rp-inventory-backfill-pilot-2026-03-20.md`.
   - Verbindliche Gesamt-Reihenfolge fuer den naechsten Ausbau: `Metro-Rahmen` -> `Fraktionsbasis/known stations` -> `Stationsinventare` -> `Team/POI` -> `Charakter-/Rollenanker` -> `Fraktionsaggregation`.
   - Vor jeder Mengenpromotion muessen mindestens die betroffene Missions-/Logistikspur und die Ziel-Inventarebene existieren; fuer Aussenfluss zusaetzlich Handels- oder Relationslog.
   - Die vier Minimal-Deltas `Transfer`, `Verbrauch`, `Handel`, `Bilanz` sind ab jetzt der Pflichtwortschatz fuer neue Bestandsfortschreibung; ohne Quelle, Ziel oder Beleg bleibt der Eintrag `tbd`/`offen`.
+  - Abschluss 2026-03-31: Der Pilot ist operativ durchgezogen. `D5-inventar.md`, `C6-inventar.md`, `Novapolis-inventar.md` und `Missionslog-Novapolis.md` fuehren jetzt denselben konservativen Warenlauf; fuer externe Fraktionen bleibt nur noch Rahmenpflege ohne Mengensetzung.
 
-- [ ] [Jetzt] Fehlende Transferkette `Entnahme -> Transport -> Ankunft -> Quittung` fuer `D5 -> C6` mit belastbaren RP-Belegzeilen schliessen.
+- [x] [Jetzt] Fehlende Transferkette `Entnahme -> Transport -> Ankunft -> Quittung` fuer `D5 -> C6` mit belastbaren RP-Belegzeilen schliessen.
   - Ziel: den aktuell nur generisch belegten Materiallauf so absichern, dass er fuer echte Bestandsfortschreibung taugt.
   - Akzeptanzkriterien:
     1) mindestens eine explizite Entnahmezeile im Quellkontext D5 ist belegt,
@@ -211,8 +272,9 @@ Definition of Done (P0)
   - Recheck 2026-03-27 08:14: Umfeld und RAW erneut geprueft. Hart belegt sind aktuell nur `AktiveFracht:D5->C6(Bauteile,Werkzeuge,Versorgungsgueter)` im RAW-Logistikcanvas `RAW-canvas-2025-10-16T13-05-00-000Z`, die Abmeldung `melden sich noch bei D5 ab` sowie die anschliessende `Ankunft` und `Bestandsaufnahme` in C6 im Chat-RAW. Nicht belegt bleiben explizite Entnahmezeilen, konkrete C6-Zielbuchungen in Schleuse/Lagerhalle und Quittungen/Verantwortliche; der Punkt bleibt daher bewusst offen.
   - Recheck 2026-03-27 08:25: D5-seitig ist der Quellkontext jetzt enger. `RAW-canvas-2025-10-20T12-05-00-000Z` belegt ein Materiallager unter dem Bahnsteig mit Lastenaufzug und Nutzung `Schwerlast, Rohstahl, Kabeltrommeln, Energiezellenpaletten`; `Draisine-Transportmodul.md` und Chat-RAW belegen parallel Werkstattbestand, Materiallauf-Unterstuetzung und die Freigabe/Fokussierung von Jonas, Pahl und Lumen auf das Transportmodul. Das reicht fuer eine belastbare Herkunftsannahme `D5-Materiallager und/oder Werkstattbestand`, aber weiter nicht fuer eine harte Inventarbuchung ohne explizite Entnahme- und Quittungszeile.
   - Recheck 2026-03-27 08:29: C6-seitig ist der Empfangspfad jetzt enger. Chat-RAW belegt nach der Abmeldung in D5 nicht nur `Ankunft` und `Bestandsaufnahme`, sondern auch den expliziten Satz `der Empfang der Ware muss bestaetigt werden`; anschliessend soll die Ware `zusammen mit der aus D5 an die Baustellen gebracht` werden. Das reicht fuer eine belastbare Zielannahme `Empfang in C6 mit nachgelagerter Baustellenverteilung`, aber weiter nicht fuer eine harte Inventarbuchung in `C6-Schleuse` oder `C6-Lagerhalle`, weil Einlagerungs-/Inventarlog-Zeilen fehlen.
+  - Abschluss 2026-03-31: Der Punkt ist konservativ geschlossen. Der Chat-RAW liefert jetzt D5-seitig die explizite Entnahme-/Packzeile `Ronja wird das notwendige einpacken`, den Transport mit `Reflex`-Unterstuetzung, die `Abmeldung` in D5 sowie C6-seitig `Eintreffen`, `Bestandsaufnahme` und `Empfang der Ware muss bestaetigt werden`. `Missionslog-Novapolis.md`, `D5-inventar.md`, `C6-inventar.md` und `Novapolis-inventar.md` fuehren damit dieselbe Prozesskette widerspruchsfrei; offen bleiben nur Mengen, Charge und Primaer-/Sekundaerlager-Zuordnung.
 
-- [ ] [Jetzt] `Novapolis-inventar.md` von der generischen Fraktionslage auf ein belegtes Delta-/Bilanzformat umstellen.
+- [x] [Jetzt] `Novapolis-inventar.md` von der generischen Fraktionslage auf ein belegtes Delta-/Bilanzformat umstellen.
   - Ziel: Das Fraktionsinventar soll nicht nur offene Hinweise sammeln, sondern die belegten Deltas `Transfer`, `Verbrauch`, `Handel`, `Bilanz` direkt in einer auswertbaren Struktur fuehren.
   - Akzeptanzkriterien:
     1) jeder aktuelle Fraktionsposten ist einem Delta-Typ zugeordnet,
@@ -220,6 +282,7 @@ Definition of Done (P0)
     3) die Struktur referenziert sauber auf D5/C6-Teilinventare und Missionslog,
     4) RP-Validator bleibt gruen.
   - Evidenz: Das Board fuehrt seit 2026-03-20 die vier Pflicht-Deltas; `Novapolis-inventar.md` enthaelt bislang zwar belegt/offen-Anker, aber noch keine eigenstaendige Delta-Struktur.
+  - Abschluss 2026-03-31: `Novapolis-inventar.md` fuehrt jetzt getrennte Abschnitte fuer `Transfer`, `Verbrauch`, `Bilanz`, `Handel`, dazu einen kompakten Bedarfsblock und explizite `tbd`-Restmengen. Die Fraktionslage ist damit auswertbar, ohne Restbestaende zu erfinden.
 
 - 24×1h-Runden (PC-zentriert) einführen
   - [x] Policy festhalten: Stunde spult leise weiter, bis ein PC-relevantes Ereignis eintritt (z. B. „Reflex weckt Ronja“). *(erledigt 2026-02-22)*
@@ -245,14 +308,15 @@ Definition of Done (P0)
   - [x] [Jetzt] Formel/Beispiele im Spec verlinkt; Ableitung bleibt on-demand, keine Duplikat-Wahrheit. *(umgesetzt 2026-03-20; Beispiele fuer Ronja, Jonas und Kora im Spec ergänzt)*
   - Ausbau 2026-03-20 07:08: zweite Referenzreihe fuer `Pahl`, `Reflex`, `Lumen` und `Echo` im Spec nachgezogen; Rollenfit bleibt konservativ auf `wartung_technik` bzw. `sicherung_monitoring` begrenzt.
 
-- [ ] [Als naechstes] Skill-Mapping-V1 an mindestens zwei aktiven Missions- oder Rollenpfaden gegen reale Szenen pruefen.
+- [x] [Als naechstes] Skill-Mapping-V1 an mindestens zwei aktiven Missions- oder Rollenpfaden gegen reale Szenen pruefen.
   - Ziel: Die dokumentierte V1 soll nicht nur als Spec existieren, sondern an echten RP-Faellen auf Plausibilitaet und Grenzfaelle gegengeprueft werden.
   - Akzeptanzkriterien:
     1) mindestens zwei konkrete Szenen/Missionen sind mit der V1 nachvollziehbar gegengelesen,
     2) auffaellige Ueber- oder Unterbewertungen sind als Guardrail oder Anpassung dokumentiert,
     3) keine zweite Wahrheit in Charakterdateien entsteht,
     4) Ergebnis landet im RP-Prozesslog oder Spec-Nachtrag.
-  - Evidenz: `novapolis-dev/docs/specs/annotation-spec.md` enthaelt inzwischen V1-Beispiele fuer sieben Kernfiguren, aber noch keinen dokumentierten Realabgleich gegen aktive Missionsablaeufe.
+  - Evidenz: `novapolis-dev/docs/specs/annotation-spec.md` enthaelt jetzt den Realabgleich fuer den Missionspfad `D5 -> C6` mit `Ronja`/`Reflex`, fuer `Pahl` als faktisches D5-Kommando sowie fuer `Kora`/`Echo` im C6-Schutz-/Logistikkontext.
+  - Abschluss 2026-04-02: Der Realabgleich bestaetigt die konservativen Baselines fuer `Ronja`/`Reflex` und `Kora`/`Echo`. Nur `Pahl` bekommt keinen Rollenwechsel, sondern einen szenengebundenen Kontext-Lift `funk +1`, `wache +1`, wenn D5 explizit unter seinem Freigabe-/Sicherheitskommando laeuft.
 
 - TTS (gemischt)
   - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren.

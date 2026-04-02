@@ -92,6 +92,7 @@ except Exception:
 # Füge das Hauptverzeichnis zum Python-Pfad hinzu (vor internen Imports!)
 script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.dirname(script_dir)
+repo_root = os.path.dirname(project_root)
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
@@ -110,6 +111,18 @@ def _import_any(modules: list[str]) -> Any:
     if last_error is not None:
         raise last_error
     raise ImportError("No module candidates provided")
+
+
+def _resolve_eval_path(value: str, *, default_base: str = project_root) -> str:
+    if os.path.isabs(value):
+        return value
+    normalized = value.replace("\\", "/")
+    base = (
+        repo_root
+        if normalized == "novapolis_agent" or normalized.startswith("novapolis_agent/")
+        else default_base
+    )
+    return os.path.normpath(os.path.join(base, value))
 
 
 _eval_utils_mod = _import_any(["utils.eval_utils", "novapolis_agent.utils.eval_utils"])
@@ -169,19 +182,15 @@ try:
 
     # Verwende die Einstellungen für Standardwerte (neue Unterordner-Struktur)
     _st_any: Any = cast(Any, settings)
-    DEFAULT_EVAL_DIR = os.path.join(
-        project_root, cast(str, getattr(_st_any, "EVAL_DIRECTORY", "eval"))
-    )
-    DEFAULT_DATASET_DIR = os.path.join(
-        project_root,
+    DEFAULT_EVAL_DIR = _resolve_eval_path(cast(str, getattr(_st_any, "EVAL_DIRECTORY", "eval")))
+    DEFAULT_DATASET_DIR = _resolve_eval_path(
         cast(str, getattr(_st_any, "EVAL_DATASET_DIR", os.path.join("eval", "datasets"))),
     )
-    DEFAULT_RESULTS_DIR = os.path.join(
-        project_root,
+    DEFAULT_RESULTS_DIR = _resolve_eval_path(
         cast(str, getattr(_st_any, "EVAL_RESULTS_DIR", os.path.join("eval", "results"))),
     )
-    DEFAULT_CONFIG_DIR = os.path.join(
-        project_root, cast(str, getattr(_st_any, "EVAL_CONFIG_DIR", os.path.join("eval", "config")))
+    DEFAULT_CONFIG_DIR = _resolve_eval_path(
+        cast(str, getattr(_st_any, "EVAL_CONFIG_DIR", os.path.join("eval", "config")))
     )
     # Bevorzuge JSONL als Default; Nutzer kann via Settings EVAL_FILE_PATTERN überschreiben
     DEFAULT_FILE_PATTERN: str = cast(str, getattr(_st_any, "EVAL_FILE_PATTERN", "eval-*.jsonl"))

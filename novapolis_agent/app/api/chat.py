@@ -3,6 +3,7 @@ import importlib
 import json as _json
 import logging
 import re
+import sys
 import time
 from collections.abc import Mapping
 from pathlib import Path
@@ -19,12 +20,35 @@ except Exception:
 from ..core.content_management import apply_post, apply_pre, modify_prompt_for_freedom
 from ..core.memory import compose_with_memory, get_memory_store
 from ..core.prompts import DEFAULT_SYSTEM_PROMPT, EVAL_SYSTEM_PROMPT, UNRESTRICTED_SYSTEM_PROMPT
-from ..core.settings import settings
 from ..utils.session_memory import session_memory
 from .chat_helpers import normalize_ollama_options
 from .models import ChatRequest, ChatResponse
 
+
+def _resolve_settings_object() -> Any:
+    for module_name in ("app.core.settings", "novapolis_agent.app.core.settings"):
+        module = sys.modules.get(module_name)
+        if module is not None and hasattr(module, "settings"):
+            return module.settings
+    for module_name in ("app.core.settings", "novapolis_agent.app.core.settings"):
+        try:
+            module = importlib.import_module(module_name)
+            return module.settings
+        except Exception:
+            continue
+    raise RuntimeError("settings module not available")
+
+
+class _SettingsProxy:
+    def __getattr__(self, name: str) -> Any:
+        return getattr(_resolve_settings_object(), name)
+
+    def __setattr__(self, name: str, value: Any) -> None:
+        setattr(_resolve_settings_object(), name, value)
+
+
 load_context_notes = _ctx_notes_mod.load_context_notes
+settings = _SettingsProxy()
 
 if TYPE_CHECKING:
     _TfIdfIndex = Any

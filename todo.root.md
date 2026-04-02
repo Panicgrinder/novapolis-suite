@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 07:16
-update: Das RP-Arbeitsledger fuer die finale Metro-Warenzuteilung ist angelegt; der offene Root-RP-Rest liegt jetzt nur noch auf Transferkette und Delta-/Bilanzformat.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS (2026-03-30 07:16)
+stand: 2026-04-02 06:27
+update: Der Root-RP-Rest fuer Warenverteilung und Bedarf ist geschlossen; offen bleiben im RP-Board nur noch Punkte ausserhalb des heutigen Warenlaufs.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -57,8 +57,9 @@ Neue Punkte (Backlog)
   - Evidenz: `novapolis-dev/docs/todo.agent-board.md`, `novapolis_agent/docs/DONELOG.txt` (historischer Laufbeleg 2026-02-27 mit `0` Export-Eintraegen wegen Source-Path-Drift).
   - Abschluss 2026-03-30: `novapolis_agent/scripts/export_finetune.py` leitet Dataset-Kandidaten jetzt aus Results-Metadaten und `source_file` ab, `novapolis_agent/scripts/curate_dataset_from_latest.py` waehlt nicht mehr blind den Dateinamen-Toptreffer, sondern das neueste exportierbare Resultset, und Null-Exports brechen mit Diagnostik (`successful_rows`, `exportable_count`, `unmapped_item_ids`) explizit ab. Gezielte Pytests sind gruen; ein temp-basierter Real-Lauf gegen `novapolis_agent/eval/results/` hat fuer `results_20260226_0306_quality_de_round7b_repeat3.jsonl` wieder `20` Export-Eintraege und einen Pack-Split `train=18`, `val=2` erzeugt.
 
-- [ ] RP-Inventar-Backfill in die belegte Transferkette ueberfuehren (`D5 -> C6` mit Entnahme, Zielbuchung, Quittung) und `Novapolis-inventar.md` auf Delta-Format umstellen.
+- [x] RP-Inventar-Backfill in die belegte Transferkette ueberfuehren (`D5 -> C6` mit Entnahme, Zielbuchung, Quittung) und `Novapolis-inventar.md` auf Delta-Format umstellen.
   - Evidenz: `novapolis-dev/docs/todo.rp.md`, `novapolis-dev/docs/process/rp-inventory-backfill-pilot-2026-03-20.md`, `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md`.
+  - Abschluss 2026-03-31: Der Warenlauf fuehrt jetzt in `Missionslog-Novapolis.md`, `D5-inventar.md`, `C6-inventar.md` und `Novapolis-inventar.md` dieselbe konservativ belegte Prozesskette mit Pack-/Entnahmeanker in D5, Transport durch Ronja plus ReflexAssist, Eintreffen/Bestandsaufnahme/Empfang in C6 und anschliessender Baustellenverteilung; `Novapolis-inventar.md` fuehrt die Fraktionslage parallel im Delta-/Bilanzformat mit Bedarfsblock statt Sammelfreitext.
 
 - [x] RP-Finalzuteilung aus der fraktionsscharfen Matrix in ein operatives Arbeitsledger ueberfuehren.
   - Evidenz: `novapolis-dev/docs/process/rp-metro-warenzuteilung-matrix-2026-03-27.md`, `novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md`, `novapolis-dev/docs/todo.rp.md`.

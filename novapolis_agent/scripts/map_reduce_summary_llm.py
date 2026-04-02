@@ -3,7 +3,8 @@
 LLM-gestützter Map-Reduce Summarizer für den Workspace.
 
 Verwendung (empfohlen im ASGI-In-Process-Modus, kein laufender Server nötig):
-    python scripts/map_reduce_summary_llm.py --asgi --out-dir novapolis_agent/eval/results/summaries \
+        python scripts/map_reduce_summary_llm.py --asgi \
+            --out-dir novapolis_agent/eval/results/summaries \
       --llm-scopes app,scripts,utils,tests,docs --heuristic-scopes eval-datasets \
       --max-files 0 --max-chars 700 --concurrency 4 --num-predict 220 --temperature 0.2
 

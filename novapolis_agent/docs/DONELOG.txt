@@ -21,6 +21,9 @@ DONELOG – Abgeschlossene Arbeiten
 =================================
 
 
+2026-04-02 06:05 | Copilot | Eval-Pfade und Recheck-Fixes gehaertet: `app/core/settings.py` verwendet fuer `EVAL_*` jetzt einen stabilen Modulpfad statt cwd-abhaengiger Relativpfade, `scripts/curate_dataset_from_latest.py` faellt fuer Tests und Minimal-Stubs sauber auf direkten Candidate-Export ohne `inspect_results_for_export` zurueck, und der kleine Ruff-/Black-Drift in Export-, Eval- und Test-Skripten ist bereinigt. Ziel: gruene Gates fuer den Commit-Push-Lauf.
+
+
 2026-03-30 04:15 | Copilot | Agent-Doku im aktiven Unterordner-Scope auf unterscheidbare Dateinamen umgestellt: `scripts/README.md` -> `scripts/scripts-overview.md`, `eval/README.md` -> `eval/eval-overview.md`, `eval/config/context.notes/README.md` -> `eval/config/context.notes/context-notes-guide.md`. Aktive Verweise in `WORKSPACE_INDEX.md`, Dev-Hub-Dokus und interne `checks:`-Selbstreferenzen der Eval-Stubs sind auf die neuen Pfade nachgezogen.
 2026-03-30 01:21 | Copilot | Export-/Kurationspfad gegen historischen Results-Drift gehaertet: `scripts/export_finetune.py` inspiziert Results jetzt vor dem Export, leitet Dataset-Kandidaten aus Result-Metadaten und `source_file` ab, matched Item-IDs/Slugs resilienter und liefert bei `0` exportierbaren Datensaetzen einen expliziten Fehler mit Diagnostik statt stiller Erfolgsantwort. `scripts/curate_dataset_from_latest.py` prueft `results_*.jsonl` newest-first auf Exportierbarkeit und nimmt das neueste kuratierbare Set; uebersprungene Drift-Kandidaten werden als `skipped_results` berichtet. Verifikation: gezielter Pytest-Block fuer Export-/Curate-Tests PASS; temp-basierter Real-Lauf gegen `novapolis_agent/eval/results/` waehlt `results_20260226_0306_quality_de_round7b_repeat3.jsonl` und erzeugt wieder `20` Export-Eintraege plus Pack-Split `train=18`, `val=2`.
 

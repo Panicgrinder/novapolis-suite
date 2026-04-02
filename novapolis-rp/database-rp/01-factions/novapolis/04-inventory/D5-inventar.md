@@ -1,9 +1,9 @@
 ---
-stand: 2026-03-27 09:54
-update: Materiallauf D5 -> C6 als lokaler Review-Anker ergänzt; D5-Abbuchungen bleiben ohne Item-Belege offen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
+stand: 2026-04-02 06:27
+update: Der D5-Materiallauf nach C6 fuehrt jetzt einen expliziten Entnahmeanker mit Ronja und Reflex; Mengen und saubere Item-Abgaenge bleiben offen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
 title: Inventar - D5
-last_updated: 2026-03-20T11:49:00+01:00
+last_updated: 2026-03-31T08:46:44+02:00
 category: inventory
 slug: d5-inventar
 owner: novapolis
@@ -56,14 +56,15 @@ Bewegungen (Log)
 - 2026-03-20 06:52 [FACT?] Tagesabschluss Tag 12 -> 13: Tunnelarbeiten verbrauchen fraktionsweit `1,3 t Baustoffe`, `120 m Schienenprofil`, `18 m² Betonplatten`; `2` Werkzeuge sind beschaedigt, geschaetzt reparabel. Lokaler D5-Anteil bleibt offen. Quelle: `database-curated/staging/chat-export.normalized.txt`.
 - 2026-03-20 07:22 [FACT?] Startsnapshot 2025-10-16: D5 fuehrt im Basis-Canvas ein Stationsinventar mit `Union-Kisten (3)`, leeren Filterkartuschen, Ersatzrohren/Ventilkomponenten, defekter Reparaturstation und zu `60 %` lesbaren Schaltplaenen. Quelle: `database-curated/staging/RAW-canvas-2025-10-16T12-00-00-000Z.normalized.txt`.
 - 2026-03-20 11:49 [REVIEW] Ein Materiallauf `D5 -> C6` fuer Reparatur- und Versorgungsgueter ist als Vorgang belegt. Belastbar sind Richtung und Zweck sowie generische Frachtarten wie `Bauteile`, `Werkzeuge` und `Versorgungsgueter`; nicht belastbar sind Entnahmemengen, konkrete D5-Abbuchungen und die spaetere Zielbuchung in C6. Quelle: `database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt`, `database-raw/99-exports/chat-export.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md).
+- 2026-03-31 08:46 [FACT?] Der Chat-RAW fuehrt den D5-Abgang jetzt explizit auf Prozessebene: `Ronja wird das notwendige einpacken` und das Material `zusammen mit Reflex Unterstuetzung zur Station bringen`; der RAW-Logistikcanvas stuetzt dazu `manuellerTransport` und `Tragegestell(ReflexAssist)`. Konkrete Item-Mengen und eine saubere D5-Abbuchung bleiben weiter `tbd`. Quelle: `database-raw/99-exports/RAW-chat-export-2025-10-27T09-16-00-188Z.txt`, `database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt`.
 
 Delta zum Missionslog
 ---------------------
 
 - Delta 1 (belegt): D5-Werkzeug-/Wartungskontext als Missionsanker vorhanden; Inventar-Ownership der Werkzeugtasche bleibt offen bis belastbare Zuordnung vorliegt.
   - Quelle: [Missionslog-Novapolis - D5: Wartungsauftrag & Wartungsgang](../05-projects/Missionslog-Novapolis.md#d5-wartungsauftrag--wartungsgang), [scene-2025-10-27-g](../../../06-scenes/scene-2025-10-27-g.md)
-- Delta 2 (belegt/offen): Trennung D5↔C6 bleibt verbindlich; Detailbuchungen nur nach belegter Transferzeile.
-  - Quelle: [Missionslog-Novapolis - Anomalie: Verbindungstunnel D5-C6](../05-projects/Missionslog-Novapolis.md#anomalie-verbindungstunnel-d5-c6), [scene-2025-10-27-x](../../../06-scenes/scene-2025-10-27-x.md)
+- Delta 2 (belegt/offen): Trennung D5↔C6 bleibt verbindlich; fuer den Materiallauf sind D5-Abmeldung, Verpacken in D5 und Transportfuehrung durch Ronja mit Reflex-Assist jetzt explizit belegt. Offen bleiben weiter Itemliste, Charge und die eigentliche Mengenabbuchung aus D5.
+  - Quelle: [Missionslog-Novapolis - D5 -> C6: Materiallauf / Guetertransport](../05-projects/Missionslog-Novapolis.md#d5---c6-materiallauf--guetertransport), `database-raw/99-exports/RAW-chat-export-2025-10-27T09-16-00-188Z.txt`, `database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt`
 - Delta 3 (belegt): Staging/RAW bestaetigen, dass die C6-Expeditionsgueter nicht stillschweigend im D5-Inventar landen duerfen.
   - Quelle: `database-raw/99-exports/chat-export-complete.txt` (Inventar & Ressourcen), `database-curated/staging/chat-export-complete.finalgate.md`, `database-curated/staging/chat-export (1).review.md`
 - Delta 4 (belegt): Der D5-Reaktor-/Energiepfad bleibt lokal verankert; fuer Tag 12 -> 13 ist eine exportgetriebene Tagesbilanz `-10` belegt, ohne dass daraus ein absoluter Restbestand ableitbar waere.

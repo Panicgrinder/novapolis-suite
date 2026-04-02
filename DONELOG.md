@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 07:16
-update: Root-Summary dokumentiert jetzt das operative RP-Arbeitsledger fuer die finale Metro-Warenzuteilung.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS (2026-03-30 07:16)
+stand: 2026-04-02 06:27
+update: Root-Summary dokumentiert jetzt den belegten Fluesterkollektiv-Minimalrahmen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,20 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-01 00:53: Das Fluesterkollektiv fuehrt jetzt einen ersten belastbaren Minimalanker jenseits des T0-Rahmens. `Relationslog-Fluesterkollektiv.md`, `Handelslog-Fluesterkollektiv.md`, `Missionslog-Fluesterkollektiv.md` und `Fluesterkollektiv-inventar.md` dokumentieren nun den konservativen Rahmen `Novapolis -> unbekannt` samt indirekter Kette `Corin Mael -> Sera Kaal -> Iris Vey`; benannte Gegenparteien, Routen und Mengen bleiben bewusst offen.
+
+- 2026-04-01 00:39: Der Schattenbund fuehrt jetzt einen ersten belastbaren Relations- und Beschaffungsanker jenseits des T0-Rahmens. `Relationslog-Schattenbund.md`, `Handelslog-Schattenbund.md`, `Missionslog-Schattenbund.md` und `Schattenbund-inventar.md` dokumentieren nun den konservativen Rahmen `Novapolis -> unbekannt`, `Eisenkonklave -> feindselig`, `Arkologie -> verdeckt` samt verdeckter Kette `Jarek Voan -> Sera Nol -> Nyra Vehl`; Mengen, Routen und benannte Gegenparteien bleiben bewusst offen.
+
+- 2026-03-31 18:22: Arkologie-A1 fuehrt jetzt einen ersten belastbaren Aussenanker jenseits des T0-Rahmens. `Relationslog-Arkologie-A1.md`, `Handelslog-Arkologie-A1.md`, `Missionslog-Arkologie-A1.md` und `Arkologie-inventar.md` dokumentieren nun den konservativen Rahmen `Haendlerbund -> beschraenkt`, `Eisenkonklave -> umkaempft`, `Novapolis -> unbekannt` samt Handels-, Sicherheits- und Biosicherheitskette `Nera Vossen -> Borin Khade -> Liora Navesh`; Mengen, Routen und Tauschlisten bleiben bewusst offen.
+
+- 2026-03-31 18:12: Die Eisenkonklave fuehrt jetzt einen ersten belastbaren Handelsanker jenseits des T0-Rahmens. `Missionslog-Eisenkonklave.md`, `Handelslog-Eisenkonklave.md` und `Eiserne-Enklave-inventar.md` dokumentieren nun den konservativen Rahmen `Haendlerbund -> handel_gelegentlich` samt Handelsleitung und Sicherheitsfreigabe; Mengen, Routen und Tauschlisten bleiben bewusst offen.
+
+- 2026-03-31 17:50: Der Haendlerbund fuehrt jetzt einen ersten echten Handelsanker statt nur einer Rahmenhülle. `Missionslog-Haendlerbund.md`, `caravan-moves.md` und `Haendlerbund-inventar.md` dokumentieren nun den belegten Pfad `H-47 -> dauerhafte Kooperation -> C6 als Handelsstuetzpunkt -> geregelte Handelszyklen`, plus die ersten Austauschklassen gegen Novapolis; Mengen und Konvoi-Manifeste bleiben bewusst offen.
+
+- 2026-03-31 17:41: Die externen RP-Fraktionsinventare fuehren jetzt denselben konservativen T0-Rahmen wie Matrix und Arbeitsledger. `Arkologie-inventar.md`, `Schienenbund-inventar.md`, `Haendlerbund-inventar.md`, `Eiserne-Enklave-inventar.md`, `Schattenbund-inventar.md` und `Fluesterkollektiv-inventar.md` zeigen nun explizite Rollen- und Versorgungsklassen, Herkunftslogik und dokumentierte `RAHMENWERT`-Eintraege, ohne neue Mengen oder Stationslager zu erfinden.
+
+- 2026-03-31 08:46: Der offene RP-Warenlauf ist konservativ geschlossen. `Missionslog-Novapolis.md`, `D5-inventar.md`, `C6-inventar.md` und `Novapolis-inventar.md` fuehren jetzt dieselbe belegte Prozessspur `Packen/Entnahme in D5 -> Abmeldung -> manueller Transport mit ReflexAssist -> Eintreffen/Bestandsaufnahme/Empfang in C6`; zugleich fuehrt `Novapolis-inventar.md` die Fraktionslage nun im Delta-/Bilanzformat mit sichtbarem Bedarfsblock. Damit ist der Root-Restpunkt zu Warenverteilung und Bedarf geschlossen, ohne freie Mengen oder Lagerbuchungen zu erfinden.
 
 - 2026-03-30 06:17: Die RP-Finalzuteilung hat jetzt ihr operatives Arbeitsledger. `novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md` trennt die fraktionsscharfe Matrix in `fix`, `rahmenwert` und `handentscheidung`, fuehrt pro Posten Station, Fraktion, Zielpfad und Updatepfad sichtbar und schliesst damit den offenen Uebergang von der Matrix in ein echtes Verteilungsblatt; auf Root-/RP-Board bleiben jetzt nur noch Transferkette und Delta-/Bilanzfortschreibung offen.
 

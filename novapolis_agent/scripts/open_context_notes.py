@@ -5,10 +5,7 @@ import webbrowser
 
 from novapolis_agent.app.core.settings import settings
 
-
-DEFAULT_CONTEXT_NOTES_PATH = os.path.join(
-    "novapolis_agent", "eval", "config", "context.local.md"
-)
+DEFAULT_CONTEXT_NOTES_PATH = os.path.join("novapolis_agent", "eval", "config", "context.local.md")
 
 
 def ensure_file(path: str) -> str:

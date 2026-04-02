@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 07:16
-update: Dev-DONELOG dokumentiert jetzt das operative RP-Arbeitsledger fuer die finale Metro-Warenzuteilung.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS (2026-03-30 07:16)
+stand: 2026-04-02 06:27
+update: Dev-DONELOG dokumentiert jetzt den Skill-Mapping-Realabgleich fuer die aktiven Novapolis-RP-Pfade.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,62 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+RP/Spec: Skill-Mapping-V1 gegen aktive RP-Pfade gegengeprueft (2026-04-02 05:32)
+-------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/specs/annotation-spec.md` dokumentiert jetzt den Realabgleich fuer den belegten Missionspfad `D5 -> C6` mit `Ronja`/`Reflex`, fuer `Pahl` als faktisches D5-Interimkommando und fuer `Kora`/`Echo` im C6-Schutz-/Logistikkontext.
+- Die konservativen Baselines bleiben bestehen; nur fuer `Pahl` ist jetzt ein szenengebundener Kontext-Lift `funk +1`, `wache +1` dokumentiert, wenn D5 explizit unter seinem Freigabe- und Sicherheitskommando laeuft.
+- `todo.rp.md` markiert den Realabgleich damit als abgeschlossen, `todo.index.md` zieht den RP-Open-Count im selben Lauf von `3` auf `2` nach.
+
+RP/Inventory: Fluesterkollektiv mit belegtem Minimalrahmen vertieft (2026-04-01 00:53)
+------------------------------------------------------------------------------------
+
+- `Relationslog-Fluesterkollektiv.md` fuehrt jetzt nicht mehr nur `tbd`, sondern den belastbaren Minimalstatus `Novapolis = unbekannt` aus dem aktiven Gegenlog von Novapolis.
+- `Handelslog-Fluesterkollektiv.md` und `Missionslog-Fluesterkollektiv.md` dokumentieren jetzt denselben konservativen Rahmen indirekter Tausch- und Informationskanaele ueber `Corin -> Sera -> Iris` statt einer reinen Stub-Huelle.
+- `Fluesterkollektiv-inventar.md` uebernimmt denselben Aussen- und Kanalrahmen in die Inventarlage; benannte Gegenparteien, Routen und Mengen bleiben bewusst `tbd`.
+
+RP/Inventory: Schattenbund mit belegtem Relations- und Beschaffungsrahmen vertieft (2026-04-01 00:39)
+-----------------------------------------------------------------------------------------------------
+
+- `Relationslog-Schattenbund.md` fuehrt jetzt nicht mehr nur `tbd`, sondern die belegte Aussenlage `Novapolis = unbekannt`, `Eisenkonklave = feindselig`, `Arkologie = verdeckt`.
+- `Handelslog-Schattenbund.md` und `Missionslog-Schattenbund.md` dokumentieren jetzt denselben konservativen Rahmen verdeckter Beschaffungsfenster ueber Zwischenhaendler und gestaffelte Uebergaben statt einer reinen Stub-Huelle.
+- `Schattenbund-inventar.md` uebernimmt denselben Aussen- und Beschaffungsrahmen in die Inventarlage; die Kette `Jarek -> Sera -> Nyra` ist sichtbar, Mengen, Routen und benannte Gegenparteien bleiben bewusst `tbd`.
+
+RP/Inventory: Arkologie-A1 mit belegtem Haendlergilden- und Konfliktrahmen vertieft (2026-03-31 18:22)
+---------------------------------------------------------------------------------------------------
+
+- `Relationslog-Arkologie-A1.md` fuehrt jetzt nicht mehr nur `tbd`, sondern die belegte Aussenlage `Haendlerbund = beschraenkt`, `Eisenkonklave = umkaempft`, `Novapolis = unbekannt`.
+- `Handelslog-Arkologie-A1.md` und `Missionslog-Arkologie-A1.md` dokumentieren jetzt denselben konservativen Haendlergilden-Kanal unter Sicherheits- und Biosicherheitsauflagen statt einer reinen Stub-Huelle.
+- `Arkologie-inventar.md` uebernimmt denselben Aussenrahmen in die Inventarlage; Handels-, Konflikt- und Sicherheitskette `Nera -> Borin -> Liora` ist sichtbar, Mengen und Routen bleiben bewusst `tbd`.
+
+RP/Inventory: Eisenkonklave mit belegtem Händlerbund-Handelsrahmen vertieft (2026-03-31 18:12)
+-----------------------------------------------------------------------------------------------
+
+- `Missionslog-Eisenkonklave.md` fuehrt jetzt mit den gelegentlichen Händlerbund-Handelsfenstern den ersten belegten Missionsanker der Eisenkonklave ausserhalb des reinen T0-Rahmens.
+- `Handelslog-Eisenkonklave.md` ist kein Stub mehr, sondern fuehrt jetzt den belegten Rahmen `handel_gelegentlich` sowie die Freigabekette `Kaspar Dorn -> Yara Kest`.
+- `Eiserne-Enklave-inventar.md` uebernimmt denselben Handelsanker in die Inventarlage; Eigenklassen bleiben sichtbar, aber Dealmengen, Routen und Tauschlisten bewusst `tbd`.
+
+RP/Inventory: Haendlerbund mit belegtem H-47/C6-Handelsanker vertieft (2026-03-31 17:50)
+------------------------------------------------------------------------------------
+
+- `Missionslog-Haendlerbund.md` fuehrt jetzt mit `H-47: Erstkontakt und Integration in C6` den ersten belegten Missionspfad des Haendlerbunds: dauerhafte Kooperation, `C6 als Handelsstuetzpunkt aktiviert`, geregelte Handelszyklen im Aufbau.
+- `caravan-moves.md` fuehrt denselben Pfad als aktives Karawanenlog mit `G7 <-> C6`-Kontaktlinie, sekundärem `C6 <-> D5`-Handoff und den ersten belegten Austauschklassen statt einer fast leeren Planhülle.
+- `Haendlerbund-inventar.md` übernimmt H-47, C6-Handelsstuetzpunkt, G7-Kontaktpunkt und die Austauschklassen in die Inventarlage; Mengen, Konvoi-Manifeste und Abrechnung bleiben bewusst `tbd`.
+
+RP/Inventory: Externe Fraktionsinventare auf konservative T0-Rahmenwerte gezogen (2026-03-31 17:41)
+-----------------------------------------------------------------------------------------------
+
+- `Arkologie-inventar.md`, `Schienenbund-inventar.md`, `Haendlerbund-inventar.md` und `Eiserne-Enklave-inventar.md` fuehren jetzt nicht mehr nur leere `tbd`-Listen, sondern explizite, nicht quantifizierte T0-Rahmen fuer Grundversorgung, Austauschgüter, Reparatur-/Baukontext, Handelsraum oder Werkstoff-/Schutzgüter.
+- `Schattenbund-inventar.md` und `Fluesterkollektiv-inventar.md` wurden auf denselben Rahmenstandard nachgezogen und führen jetzt ebenfalls eine explizite `Rahmenlage (T0)` plus `RAHMENWERT`-Logeintrag statt nur Baseline ohne Bezug zur aktuellen Warenmatrix.
+- Der Schritt folgt exakt dem Arbeitsledger-Pfad `Externe Fraktionsinventare: nur rahmenwert bestaetigen; keine neue Mengensetzung ohne fraktionsscharfe Evidenz`; `todo.rp.md` und `todo.index.md` dokumentieren den Abschluss, der RP-Open-Count bleibt unverändert bei `3`.
+
+RP/Inventory: Warenlauf D5 -> C6 und Delta-/Bilanzformat fuer Novapolis geschlossen (2026-03-31 08:46)
+-------------------------------------------------------------------------------------------------
+
+- `novapolis-rp/database-rp/01-factions/novapolis/05-projects/Missionslog-Novapolis.md` fuehrt den Lauf `D5 -> C6` jetzt nicht mehr nur generisch, sondern mit belegtem D5-Pack-/Entnahmeanker, D5-Abmeldung, Transport mit `ReflexAssist`, Eintreffen in C6, Bestandsaufnahme und Empfangsbestaetigung; Mengen, Charge und Lagerziel bleiben bewusst offen.
+- `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md` und `C6-inventar.md` ziehen denselben konservativen Prozessanker jetzt standortscharf nach, ohne daraus freie Mengen oder stillschweigende Lagerbuchungen zu machen.
+- `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md` fuehrt die Fraktionslage jetzt in den vier Pflichtdeltas `Transfer`, `Verbrauch`, `Bilanz`, `Handel` plus kompaktem Bedarfsblock; `todo.rp.md`, `todo.index.md`, `todo.root.md` und `DONELOG.md` schliessen den Waren-/Bedarfslauf im selben Zug.
 
 RP/Inventory: Operatives Arbeitsledger fuer die finale Metro-Warenzuteilung verankert (2026-03-30 06:17)
 ------------------------------------------------------------------------------------------------------

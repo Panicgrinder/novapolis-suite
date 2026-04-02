@@ -161,7 +161,11 @@ def ensure_eval_files_exist() -> None:
     eval_dir: str = getattr(
         run_eval,
         "DEFAULT_EVAL_DIR",
-        getattr(run_eval, "DEFAULT_DATASET_DIR", os.path.join("novapolis_agent", "eval", "datasets")),
+        getattr(
+            run_eval,
+            "DEFAULT_DATASET_DIR",
+            os.path.join("novapolis_agent", "eval", "datasets"),
+        ),
     )
     os.makedirs(eval_dir, exist_ok=True)
     pattern: str = run_eval.DEFAULT_FILE_PATTERN

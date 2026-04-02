@@ -109,7 +109,9 @@ def test_curate_minimal_flow(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) ->
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_curate_skips_newest_unexportable_results(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_curate_skips_newest_unexportable_results(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     mod = importlib.import_module("scripts.curate_dataset_from_latest")
 
     res_dir = tmp_path / "eval" / "results"
@@ -136,7 +138,10 @@ def test_curate_skips_newest_unexportable_results(monkeypatch: pytest.MonkeyPatc
         if results_path.endswith("results_20250102_0000.jsonl"):
             return {
                 "ok": False,
-                "error": "Kein exportierbares Item gefunden; Results verweisen wahrscheinlich auf veraltete oder nicht mehr auflösbare Dataset-Pfade.",
+                "error": (
+                    "Kein exportierbares Item gefunden; Results verweisen wahrscheinlich "
+                    "auf veraltete oder nicht mehr aufloesbare Dataset-Pfade."
+                ),
                 "successful_rows": 1,
                 "exportable_count": 0,
                 "unmapped_item_ids": ["eval-missing"],
@@ -187,7 +192,14 @@ def test_curate_skips_newest_unexportable_results(monkeypatch: pytest.MonkeyPatc
             "counts": {"train": 1, "val": 1},
         }
 
-    monkeypatch.setattr(mod, "_export", types.SimpleNamespace(export_from_results=_export, inspect_results_for_export=_inspect))
+    monkeypatch.setattr(
+        mod,
+        "_export",
+        types.SimpleNamespace(
+            export_from_results=_export,
+            inspect_results_for_export=_inspect,
+        ),
+    )
     monkeypatch.setattr(mod, "_prepare", types.SimpleNamespace(prepare_pack=_prepare_pack))
 
     buf = io.StringIO()

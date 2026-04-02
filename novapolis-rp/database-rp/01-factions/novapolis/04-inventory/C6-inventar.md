@@ -1,9 +1,9 @@
 ---
-stand: 2026-03-27 09:54
-update: Materiallauf D5 -> C6 als lokaler Review-Anker ergänzt; C6-Zielbuchungen bleiben ohne Item-Belege offen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260327_011507.md
+stand: 2026-04-02 06:27
+update: Der Materiallauf aus D5 nach C6 fuehrt jetzt expliziten Empfang, Bestandsaufnahme und Empfangsbestaetigung; Lagerzuordnung und Mengen bleiben offen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
 title: Inventar - C6
-last_updated: 2026-03-20T11:49:00+01:00
+last_updated: 2026-03-31T08:46:44+02:00
 category: inventory
 slug: c6-inventar
 owner: novapolis
@@ -68,6 +68,7 @@ Bewegungen (Log)
 - 2026-03-20 06:52 [FACT?] Tagesabschluss Tag 12 -> 13: Tunnelarbeiten verbrauchen fraktionsweit `1,3 t Baustoffe`, `120 m Schienenprofil`, `18 m² Betonplatten`; `2` Werkzeuge sind beschaedigt, geschaetzt reparabel. Lokaler C6-Anteil bleibt offen. Quelle: `database-curated/staging/chat-export.normalized.txt`.
 - 2026-03-20 07:14 [FACT?] Startsnapshot 2025-10-16: `inventar_c6_v2` und `logistik_c6_v2` belegen für C6 konkrete Lager-/Frachtwerte (`Luftfilter(3)`, `Ersatzrohre(12)`, `Kabelspulen(6)`, `Schmieroel(5)`, `Strommodule(2)`, `Wasserkanister(4)`, `Werkzeugsets(2)`, `Sensorpaket(1)`, `Rationen(9)`, `Wasserflaschen(10)`, `Schutzanzuege(2)`, `Ersatzmasken(3)`), plus Werkzeugliste `Wartungsschluessel(2)`, `Druckmesser(1)`, `Schweissgeraet(1)`. Quelle: `database-curated/staging/RAW-canvas-2025-10-16T12-30-00-000Z.normalized.txt`, `database-curated/staging/RAW-canvas-2025-10-16T12-55-00-000Z.normalized.txt`.
 - 2026-03-20 11:49 [REVIEW] Ein missionierter Zugang aus D5 nach C6 ist als Reparatur- und Versorgungslauf belegt. Belastbar sind Transportrichtung und Kontext; nicht belastbar sind Ankunftsmengen je Item, saubere Zielbuchungen in der C6-Lagerstruktur und Quittungen an Schleuse oder Lagerhalle. Quelle: `database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt`, `database-raw/99-exports/chat-export.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), [C6-Schleuse](../03-locations/C6-Schleuse.md), [C6-Lagerhalle](../03-locations/C6-Lagerhalle.md).
+- 2026-03-31 08:46 [FACT?] Der Chat-RAW fuehrt die C6-Seite des Laufs jetzt explizit als `Eintreffen in C6`, `Bestandsaufnahme` und `Empfang der Ware muss bestaetigt werden`; anschliessend geht die Ware zusammen mit D5-Material an die Baustellen. Welche Charge in Primaer- oder Sekundaerlager landete, bleibt weiter `tbd`. Quelle: `database-raw/99-exports/chat-export.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), [C6-Lagerhalle](../03-locations/C6-Lagerhalle.md).
 
 Delta zum Missionslog
 ---------------------
@@ -84,8 +85,8 @@ Delta zum Missionslog
   - Quelle: `database-curated/staging/chat-export.normalized.txt` (Materialverbrauch / Werkzeuginspektion Tag 12 -> 13)
 - Delta 6 (belegt): Fuer C6 existiert ein frueher, quantifizierter Bestandssnapshot; er taugt als Startanker fuer lokale Restmengen, aber nicht als aktueller Fraktionsgesamtstand ohne D5-Gegenbeleg und spaetere Verbrauchs-/Transferkette.
   - Quelle: `database-curated/staging/RAW-canvas-2025-10-16T12-30-00-000Z.normalized.txt`, `database-curated/staging/RAW-canvas-2025-10-16T12-55-00-000Z.normalized.txt`, `database-curated/staging/RAW-canvas-2025-10-16T13-05-00-000Z.normalized.txt`
-- Delta 7 (belegt/offen): Ein Reparatur- und Versorgungslauf aus D5 nach C6 ist als Missionskontext belegt; fuer konkrete C6-Bestandsfortschreibung fehlen jedoch Zielbuchung, Lagerzuordnung und Quittung.
-  - Quelle: [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), `database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt`, `database-raw/99-exports/chat-export.txt`, [C6-Schleuse](../03-locations/C6-Schleuse.md), [C6-Lagerhalle](../03-locations/C6-Lagerhalle.md)
+- Delta 7 (belegt/offen): Der Reparatur- und Versorgungslauf aus D5 nach C6 ist jetzt bis `Ankunft -> Bestandsaufnahme -> Empfangsbestaetigung` explizit belegt. Offen bleiben weiterhin konkrete Zielbuchung, Lagerzuordnung zwischen Primaer-/Sekundaerlager und jede Item-Menge.
+  - Quelle: [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), `database-raw/99-exports/chat-export.txt`, `database-raw/99-exports/RAW-canvas-2025-10-16T12-55-00-000Z.txt`, [C6-Schleuse](../03-locations/C6-Schleuse.md), [C6-Lagerhalle](../03-locations/C6-Lagerhalle.md)
 
 Aktionen
 --------

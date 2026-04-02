@@ -19,9 +19,20 @@ from typing import Any, cast
 
 from utils.time_utils import now_compact
 
-
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REPO_ROOT = os.path.dirname(PROJECT_ROOT)
+
+
+def _resolve_eval_path(value: str, *, default_base: str = PROJECT_ROOT) -> str:
+    if os.path.isabs(value):
+        return value
+    normalized = value.replace("\\", "/")
+    base = (
+        REPO_ROOT
+        if normalized == "novapolis_agent" or normalized.startswith("novapolis_agent/")
+        else default_base
+    )
+    return os.path.normpath(os.path.join(base, value))
 
 
 def _load_run_eval_module():
@@ -66,7 +77,13 @@ def _load_results(path: str) -> tuple[dict[str, Any] | None, list[dict[str, Any]
 
 
 def _dataset_dir() -> str:
-    return str(getattr(run_eval, "DEFAULT_DATASET_DIR", os.path.join(PROJECT_ROOT, "eval", "datasets")))
+    return str(
+        getattr(
+            run_eval,
+            "DEFAULT_DATASET_DIR",
+            os.path.join(PROJECT_ROOT, "eval", "datasets"),
+        )
+    )
 
 
 def _dedupe_preserve_order(values: list[str]) -> list[str]:
@@ -246,9 +263,12 @@ async def export_from_results(
             except Exception:
                 from novapolis_agent.app.core.settings import settings
 
-            out_dir_str = os.path.join(
-                os.path.dirname(os.path.dirname(__file__)),
-                getattr(settings, "EVAL_RESULTS_DIR", os.path.join("novapolis_agent", "eval", "results")),
+            out_dir_str = _resolve_eval_path(
+                getattr(
+                    settings,
+                    "EVAL_RESULTS_DIR",
+                    os.path.join("novapolis_agent", "eval", "results"),
+                )
             )
         except Exception:
             out_dir_str = str(getattr(run_eval, "DEFAULT_RESULTS_DIR", run_eval.DEFAULT_EVAL_DIR))
@@ -275,8 +295,6 @@ async def export_from_results(
         }
 
     export_pairs = cast(list[tuple[dict[str, Any], Any]], analysis["export_pairs"])
-
-    rows = [row for row, _item in export_pairs]
 
     timestamp = now_compact()
     base = os.path.splitext(os.path.basename(results_path))[0]
@@ -364,7 +382,10 @@ async def inspect_results_for_export(
     if not export_pairs:
         return {
             "ok": False,
-            "error": "Kein exportierbares Item gefunden; Results verweisen wahrscheinlich auf veraltete oder nicht mehr auflösbare Dataset-Pfade.",
+            "error": (
+                "Kein exportierbares Item gefunden; Results verweisen wahrscheinlich "
+                "auf veraltete oder nicht mehr aufloesbare Dataset-Pfade."
+            ),
             "meta_patterns": [
                 str(value)
                 for value in cast(list[Any], (meta or {}).get("patterns") or [])
