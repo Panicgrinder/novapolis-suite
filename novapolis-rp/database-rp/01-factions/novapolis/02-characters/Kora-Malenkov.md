@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 12:01
-update: Stellvertretung (Novapolis) und Handel-Zuständigkeit ergänzt.
-checks: not run (not requested)
+stand: 2026-04-05 19:43
+update: Kora verweist jetzt auf den eigenen Mind-Cluster und fuehrt ein startkorridor-taugliches Knowledge-/Actions-Set fuer C6.
+checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
 title: Kora Malenkov
 category: character
 slug: kora-malenkov
@@ -21,7 +21,6 @@ Kora Malenkov
 =============
 
 - Meta: last-updated: 2026-02-16T12:01:00+01:00
-- Verhaltenssignatur: `KRM4=L72-T74-N69-E61-O56-C63-M47-P35-fb` - analytische Logistikerin mit wachsamer Paranoia, kontrolliert Abläufe mit feinem Sensor für Risiko.
 - Rolle: Stellvertretung der Fraktionsleitung (Novapolis); Leitung C6; Logistik- und Handelskoordination (Außenhandel über C6) (FACT [CARAVAN-LEADERSHIP]).
 - Werte: Kraft 3, Geschick 4, Geist 5, Wille 4, Charisma 5.
 - Skills:
@@ -61,6 +60,71 @@ Wissensstand (Matrix - Auszug)
 - Extern: Händlerbund-Kanäle, Außenlinienrouten; keine Weitergabe von Novapolis-Koordinaten ohne Ronjas Freigabe (FACT [FR-KNOWLEDGE]).
 - Beobachtet D5/Reflex vorsichtig; hält Entscheidungsprotokolle schriftlich zur Nachvollziehbarkeit.
 
+Knowledge (24x1h Starter)
+-------------------------
+
+```yaml
+knowledge:
+  - id: know-kora-c6-sicherungsstatus-2026-04-05-01
+    about: c6_security_status
+    channel: log
+    source: missionslog-novapolis
+    scope: allies_only
+    confidence: 0.87
+    freshness: 2026-04-05T08:10:00+02:00
+    visibility_to: [kora-malenkov, echo, ronja-kerschner]
+    attachments: [doc:../03-locations/C6.md, doc:../05-projects/Missionslog-Novapolis.md#c6-sicherungmarkierung-c6-n3--artefakt-7a]
+  - id: know-kora-c6-handover-window-2026-04-05-01
+    about: c6_handover_window
+    channel: direct
+    source: echo
+    scope: private
+    confidence: 0.79
+    freshness: 2026-04-05T08:10:00+02:00
+    visibility_to: [kora-malenkov]
+    attachments: [scene:scene-2025-10-27-e]
+```
+
+Actions (24x1h Starter)
+-----------------------
+
+```yaml
+actions:
+  - id: act-kora-terminal-ping-d5-2026-04-05-01
+    verb: funk
+    base_duration_min: 15
+    effort: 2
+    interruptible: true
+    locks: [terminal_c6]
+    may_trigger_event: true
+    resources: [verschluesseltes_terminal]
+    prerequisites: []
+    outputs: [d5_status_abgleich]
+    risks: [signalverlust]
+  - id: act-kora-sicherungskoordination-c6n3-2026-04-05-01
+    verb: wache
+    base_duration_min: 30
+    effort: 3
+    interruptible: true
+    locks: [zugang_c6_n3]
+    may_trigger_event: true
+    resources: [echo_signalbaender, lageplan]
+    prerequisites: [know-kora-c6-sicherungsstatus-2026-04-05-01]
+    outputs: [c6_n3_sicherung]
+    risks: [ueberlastung]
+  - id: act-kora-uebergabefenster-c6-2026-04-05-01
+    verb: handel
+    base_duration_min: 25
+    effort: 3
+    interruptible: true
+    locks: [uebergabepunkt_c6]
+    may_trigger_event: true
+    resources: [protokollmappe]
+    prerequisites: []
+    outputs: [uebergabe_protokolliert]
+    risks: [misstrauen]
+```
+
 Interaktion & Safety
 --------------------
 
@@ -77,15 +141,11 @@ Hinweis: PROXIMITY-Mechanik (Zuneigung+Schutz, Zustände, Training) siehe [Refer
 - „Echo, Schild bei mir - Blickrichtung Tor.“ → Echo verschiebt Material für Sichtlinie.
 - „Echo, löst - Ruheschutz.“ → Echo zieht sich zurück, Kora übernimmt direkte Ansprache.
 
-Beziehungen
------------
+Mind-Cluster-Referenz (SSOT)
+----------------------------
 
-- Echo - primäre Bezugsperson, gegenseitige Stabilisierung.
-- Ronja Kerschner - Ansprechpartnerin für strategische Freigaben und Sicherheitsentscheidungen.
-- Marei - Co-Leitung Logistik/Inventar, koordiniert Evakuierte und Übergaben.
-- Marven Kael - Führt externen Konvoi; täglicher Lageabgleich, klare Zuständigkeitstrennung.
-- Arlen Dross - Vermittlungs-/Handelskontakte, bei diplomatischen Aufgaben eingebunden.
-- Jonas/Lumen - erhalten Materialanforderungen/Statusmeldungen aus C6; Kora bewertet Risiken vor Freigabe.
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/kora-malenkov-mind-cluster.md`
 
 Risiken & Schutzmaßnahmen
 -------------------------
@@ -109,6 +169,7 @@ Systemverknüpfungen & Referenzen
 - `caravan-moves` - Koordination externer Läufe mit Marven/Arlen.
 - `ai_behavior_index_v2` - Verhaltenseintrag „Die Verhandlerin“.
 - [G7](../../haendlerbund/03-locations/G7.md) & [C6](../../novapolis/03-locations/C6.md) - Lage/Risiko.
+- Mind-Cluster (Kora) -> ../07-mind-clusters/kora-malenkov-mind-cluster.md
 
 Quellen & Hinweise
 ------------------

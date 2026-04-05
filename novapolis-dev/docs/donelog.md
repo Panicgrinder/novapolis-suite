@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-02 06:27
-update: Dev-DONELOG dokumentiert jetzt den Skill-Mapping-Realabgleich fuer die aktiven Novapolis-RP-Pfade.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
+stand: 2026-04-05 19:43
+update: Dev-DONELOG dokumentiert jetzt die konfliktbereinigten Neutralstarts `E2/F1` inklusive Crossref-Fixlauf.
+checks: snapshot-lock PASS (2026-04-05 19:41); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,110 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+RP/Planning: Neutralstarts `E2/F1` plus F1-Klarstellung in `C6` geschlossen (2026-04-05 19:33)
+-----------------------------------------------------------------------------------------------
+
+- `C6.md` fuehrt `F1` jetzt nicht mehr als stationslosen Codename gegen den aktiven T0-Stand, sondern als realen Knoten mit unbelegtem direktem C6-Pfad.
+- `novapolis-rp/database-rp/03-locations/E2.md` und `F1.md` sowie `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-e2.ssot.md` und `rp-startbogen-freie-gruppen-f1.ssot.md` heben beide auf eigenstaendige `full_slice`-Neutralstarts.
+- `rp-startgebiete-reveal-matrix.ssot.md`, `rp-start-chooser.ssot.md`, `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `todo.rp.md` und `todo.index.md` sind im selben Lauf synchronisiert; ein anschliessender Crossref-Fix begrenzt `connections` auf bereits dokumentierte Nachbar-SSOTs; der RP-Open-Count bleibt bei `2`.
+
+RP/Planning: Neutralstartboegen `C1/D1` geschlossen (2026-04-05 19:24)
+---------------------------------------------------------------------
+
+- `novapolis-rp/database-rp/03-locations/C1.md` und `D1.md` geben zwei weiteren aktiven Neutralraeumen konservative Orts-SSOTs auf Basis der T0-Topologie `C2-C1-D1-D2`.
+- `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-c1.ssot.md` und `rp-startbogen-freie-gruppen-d1.ssot.md` heben beide Raeume auf eigenstaendige `full_slice`-Neutralstarts, ohne lokale Crews oder implizite Rechte zu erfinden.
+- `rp-startgebiete-reveal-matrix.ssot.md`, `rp-start-chooser.ssot.md`, `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `todo.rp.md` und `todo.index.md` sind im selben Lauf synchronisiert; der RP-Open-Count bleibt bei `2`.
+
+RP/Planning: Neutralstartboegen `B1/C3` und Kampagnen-Folgekorridor `slot 16-20` geschlossen (2026-04-05 19:19)
+----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-b1.ssot.md` und `rp-startbogen-freie-gruppen-c3.ssot.md` geben dem fraktionslosen Pfad jetzt zwei weitere konkrete `full_slice`-Starts auf neutralen Pufferstationen, ohne lokale Crews oder Rechte frei zu erfinden.
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-16-20.ssot.md` fuehrt den Produktpfad hinter `slot 15` in eine erste Kampagnenfolge fuer Innen-, Aussen- und Mobilitaetspfad weiter.
+- `rp-start-chooser.ssot.md`, `rp-folgekorridor-slot-11-15.ssot.md`, `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `todo.rp.md` und `todo.index.md` sind im selben Lauf synchronisiert; der RP-Open-Count bleibt bei `2`.
+
+RP/Planning: Langzeit-Folgekorridor `slot 11-15` und neutrale Puffer-SSOTs `A2/B1/C3` geschlossen (2026-04-05 18:49)
+-----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-11-15.ssot.md` fuehrt den Produktpfad hinter `slot 10` auf erste Langzeitfolgen fuer Innenpfad, Aussenkontakt und neutralen Mobilitaetspfad weiter.
+- `novapolis-rp/database-rp/03-locations/A2.md`, `B1.md` und `C3.md` geben den ersten neutralen Pufferstationen konservative Orts-SSOTs aus T0-Topologie, Startboegen und den belegten Anschlusskanten `A1-A2-B1-B2-C3-D3`.
+- `rp-startbogen-freie-gruppen-a2.ssot.md`, `rp-startgebiete-reveal-matrix.ssot.md`, `rp-folgekorridor-slot-06-10.ssot.md`, `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `todo.rp.md` und `todo.index.md` sind im selben Lauf synchronisiert; der RP-Open-Count bleibt bei `2`.
+
+RP/Planning: Reveal-Raum weiterer Startgebiete und Folgekorridor `slot 06-10` geschlossen (2026-04-05 11:34)
+------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-startgebiete-reveal-matrix.ssot.md` zieht die Reveal- und Wissensgrenzen fuer `A1`, `B2`, `H12`, `F9`, `K4`, `G7` und `A2` auf dieselbe SSOT-Ebene wie den Novapolis-Startkorridor; rohe Innenlagen und verdeckte Fraktionsziele bleiben dabei weiter strikt aus dem PC-Text heraus.
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-06-10.ssot.md` fuehrt den ersten Produktpfad hinter `slot 05` auf echte Folge-Slots fuer Nordlinie, Materiallauf `D5 -> C6`, C6-Empfang/Verteilung, G7-Aussenkontakt und die anschliessende Schwerpunktwahl weiter.
+- `rp-folgekorridor-slot-00-05.ssot.md`, `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `todo.rp.md` und `todo.index.md` sind im selben Lauf synchronisiert; der RP-Open-Count bleibt bei `2`.
+
+RP/Planning: Slot-00-05 kanonisiert und lokale Tiefenschaerfe der Full-Slice-Kerne angezogen (2026-04-05 10:53)
+---------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-00-05.ssot.md` fixiert jetzt den ersten spielbaren Folgekorridor mit primaerer Linse, Konsequenzklassen, Fail-Forward und Persistenzvertrag gegen `Missionslog-Novapolis.md`, `Nordlinie-01.md`, `D5.md`, `C6.md` und die Reveal-Matrix.
+- `A1.md`, `H12.md`, `B2.md`, `F9.md` und `K4.md` fuehren jetzt konservative Status-, Infrastruktur- und Tiefenschaerfe-Bloecke statt reiner `tbd`-Huelle; die zugehoerigen Startboegen `A1/H12/B2/F9/K4` sowie `G7` benennen Mind-Cluster-Anbindung, Unterraeume und Nebenstart-Hooks.
+- `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `todo.rp.md` und `todo.index.md` sind im selben Lauf synchronisiert; der RP-Open-Count sinkt von `3` auf `2`.
+
+RP/Planning: Erweiterter Mind-Cluster-Rollout fuer Anschlusscast und externe Full-Slice-Kerne geschlossen (2026-04-05 10:32)
+------------------------------------------------------------------------------------------------------------------
+
+- Neue Mind-Cluster-SSOTs fuer `Arlen`, `Lumen`, `Marven`, `Marei`, `Lyra` und `Senn` schliessen die bislang verbleibenden beziehungsnahen Luecken im direkten Novapolis-Anschlussraum; die zugehoerigen Charakterdateien verweisen jetzt auf diese Cluster statt auf doppelte Signatur-/Beziehungsbloecke.
+- `novapolis-rp/database-rp/01-factions/arkologie-a1/07-mind-clusters/`, `eisenkonklave/07-mind-clusters/`, `schienenbund/07-mind-clusters/`, `schattenbund/07-mind-clusters/` und `fluesterkollektiv/07-mind-clusters/` fuehren jetzt die Kernfiguren der Full-Slice-Starts `A1/B2/H12/F9/K4` als eigene Cluster-SSOTs; die Charakterdateien dieser Kerne tragen jeweils einen expliziten Verweis.
+- `rp-startbogen-novapolis-d5.ssot.md`, `rp-startbogen-novapolis-c6.ssot.md`, `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `todo.rp.md` und `todo.index.md` sind im selben Lauf auf den erweiterten Rollout synchronisiert; der RP-Open-Count bleibt bei `3`.
+
+RP/Planning: Startkorridor-Unterbau aus Mind-Clustern, Scheduler-Daten und Reveal-Matrix geschlossen (2026-04-05 08:10)
+-----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/reflex-mind-cluster.md`, `jonas-merek-mind-cluster.md`, `pahl-brenner-mind-cluster.md`, `kora-malenkov-mind-cluster.md` und `echo-mind-cluster.md` ziehen den fehlenden Mind-Cluster-Rollout fuer den Kerncast nach; die zugehoerigen Charakterdateien verweisen jetzt auf diese Cluster statt auf doppelte Beziehungs-/Verhaltensbloecke.
+- `D5.md`, `C6.md`, `Nordlinie-01.md` sowie die Kernfiguren `Ronja`, `Reflex`, `Jonas`, `Pahl`, `Kora` und `Echo` fuehren jetzt startkorridor-taugliche `knowledge`-/`actions`-Bloecke mit Reveal-Kanaelen, Voraussetzungen, Outputs und Risiken.
+- `novapolis-dev/docs/process/rp-startkorridor-reveal-matrix.ssot.md` fixiert die Klassen `pc_visible`, `allies_only`, `npc_only`, `world_only`, `rumor` und `log/reflex` samt Reveal-Pfaden und Guardrails fuer `D5/C6/Nordlinie`.
+- `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `todo.rp.md` und `todo.index.md` sind im selben Lauf synchronisiert; der RP-Open-Count sinkt von `6` auf `3`.
+
+RP/Planning: Restliche Fraktionskerne als eigene Minimal-Startboegen festgezogen (2026-04-05 08:03)
+----------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-startbogen-arkologie-a1.ssot.md`, `rp-startbogen-schienenbund-b2.ssot.md`, `rp-startbogen-eisenkonklave-h12.ssot.md`, `rp-startbogen-schattenbund-f9.ssot.md` und `rp-startbogen-fluesterkollektiv-k4.ssot.md` definieren jetzt fuer `A1/B2/H12/F9/K4` je einen belastbaren Minimalstart mit Startkern, Stakes, Entscheidungsraum, Fail-Forward und Guardrails.
+- `novapolis-dev/docs/process/rp-start-chooser.ssot.md` fuehrt damit alle derzeit freigegebenen Kernstationen als `full_slice`; das fruehere `framing_start` fuer diese fuenf Knoten ist geschlossen.
+- `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md` fuehrt die neuen Boegen jetzt direkt im Startpaket-Kontext mit.
+- `todo.rp.md` schliesst den offenen Folgepunkt fuer die restlichen Fraktionskerne; `todo.index.md` zieht den RP-Open-Count auf `6` nach.
+
+RP/Planning: D5-Defaultstart und C6-Parallelslice als eigene SSOTs festgezogen (2026-04-05 07:51)
+-----------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-startbogen-novapolis-d5.ssot.md` definiert jetzt den kanonischen Default-Start in D5 mit Ronja, Reflex, Jonas und Pahl.
+- `novapolis-dev/docs/process/rp-startbogen-novapolis-c6.ssot.md` zieht `C6` als eigenstaendigen Novapolis-Start mit Kora, Echo, Sicherungsdruck und gefiltertem Reveal nach.
+- `novapolis-dev/docs/process/rp-start-chooser.ssot.md` fuehrt `novapolis_d5` und `novapolis_c6` jetzt beide als `full_slice`; das fruehere offene Startpaket in `todo.rp.md` ist geschlossen.
+- Im selben Lauf wurde als sichtbarer Nachfolger ein neuer RP-Punkt fuer die verbleibenden Fraktionskerne `A1/B2/H12/F9/K4` geoeffnet; der RP-Open-Count bleibt dadurch bei `7`.
+
+RP/Planning: Start-Chooser, Neutralstart und erster externer Fraktionsstart festgezogen (2026-04-05 07:09)
+----------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-start-chooser.ssot.md` definiert jetzt die aktive Startauswahl mit `novapolis_default`, `faction_start`, `factionless_start`, `neutral_start`, Gebietsklassen, Dichtegraden und Reveal-Guardrails.
+- `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-a2.ssot.md` liefert den ersten fraktionslosen Neutralstart ueber `Freie Gruppen` in `A2`.
+- `novapolis-dev/docs/process/rp-startbogen-haendlerbund-g7.ssot.md` hebt `G7` mit `Marven`, `Arlen` und H-47-Kontext auf einen echten externen Fraktionsstart.
+- `todo.rp.md` schliesst damit den Folgepunkt fuer mindestens einen externen und einen fraktionslosen Startbogen; `todo.index.md` zieht den RP-Open-Count von `8` auf `7` nach.
+
+RP/Planning: Mehrere Startoptionen, fraktionsloser Pfad und freie Gebietswahl verankert (2026-04-05 07:01)
+---------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md` fuehrt jetzt neben dem Default-Slice `Ronja/Reflex in D5` auch `Fraktionsstart`, `Fraktionslos / Freie Gruppen` und `Neutralstart` als evidence-first Startklassen.
+- Die Erweiterung stuetzt sich direkt auf `Fraktionen-Taxonomie.md`, `Stationskontroll-Matrix.md`, `Metrokarte-T0.md`, `Freie-Gruppen-inventar.md` sowie die belegten Fraktionsknoten `G7`, `H12`, `A1`, `B2`, `F9`, `K4`.
+- `todo.rp.md` fuehrt Mehrfachstart, fraktionslosen Start und freie Gebietswahl jetzt als feste Anforderungen des Startpakets; ein neuer Folgepunkt zieht externe Fraktionsstarts und den Neutralstart spaeter von `Rahmenstart` auf echte Startboegen.
+- `todo.index.md` zieht den RP-Open-Count dafuer von `7` auf `8` nach.
+
+RP/Planning: Startpaket und Slot-00-05-Korridor als Arbeitsblatt zerlegt (2026-04-05 06:52)
+--------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md` fuehrt jetzt den ersten spielbaren Novapolis-Slice evidence-first zusammen: Primärlinse `Ronja/Reflex in D5`, Parallelfaden `Kora/Echo in C6`, Reveal-Grenzen, Konsequenzklassen und die Arbeitsfenster `slot 00-05`.
+- `todo.rp.md` referenziert dieses Arbeitsblatt direkt in den offenen Punkten fuer Startpaket, Mind-Cluster-Rollout, Knowledge-/Actions-Abdeckung, Reveal-Matrix und Mehrslot-Korridor.
+- `todo.index.md` zieht den neuen RP-Statushinweis im selben Lauf nach; der RP-Open-Count bleibt bewusst bei `7`, weil in diesem Lauf Planungstiefe und nicht Umsetzung geschlossen wurde.
+
+Docs/Planning: Produktpfad zum KI-geleiteten Text-RPG ueber die aktiven Boards zerlegt (2026-04-03 10:53)
+---------------------------------------------------------------------------------------------------------
+
+- `todo.root.md` fuehrt jetzt einen suiteweiten Produktpfad mit vertikalem Slice, MVP/Beta-/Release-Stufen und der Priorisierung `spielbarer Kern vor Weltbreite/Komfort`.
+- `todo.dev.md` fuehrt den fehlenden End-to-End-Produkt-Gate-Pfad vom RP-Kontext ueber Agent-Session und State-Logs bis zur Sim-/Replay-Sicht als neuen offenen Dev-Punkt.
+- `todo.agent-board.md`, `todo.rp.md` und `todo.sim.md` fuehren jetzt erstmals die eigentlichen Produktluecken fuer Spielleiter-Orchestrierung, Startpaket/Sphaeren-SSOT sowie Live-Spielclient/Replays statt nur isolierter Rest- oder Hygienepunkte.
+- `todo.index.md` zieht Open-Counts, Statushinweise und Board-Metadaten im selben Lauf auf den neuen Produktpfad nach.
 
 RP/Spec: Skill-Mapping-V1 gegen aktive RP-Pfade gegengeprueft (2026-04-02 05:32)
 -------------------------------------------------------------------------------

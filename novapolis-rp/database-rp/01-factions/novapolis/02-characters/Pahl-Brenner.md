@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 12:01
-update: Nachname ergänzt; Rolle als Sicherheitsoffizier (Novapolis) explizit verankert.
-checks: not run (not requested)
+stand: 2026-04-05 19:43
+update: Pahl verweist jetzt auf den eigenen Mind-Cluster und fuehrt ein erstes Knowledge-/Actions-Startset fuer Freigabe und D5-Sicherheit.
+checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
 title: Pahl Brenner
 category: character
 slug: pahl
@@ -21,7 +21,6 @@ Pahl Brenner
 ====
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `PHL2=L48-T60-N71-E50-O44-C62-M30-P25-bn` - kontrollorientierter Beobachter, priorisiert Ordnung und Berechenbarkeit.
 - Status: aktiv (geschwächt); Rekonvaleszenz nach Gasexposition, weiterhin eingeschränkte Belastbarkeit.
 - Rolle: Leitender Ingenieur und Wartungskoordinator von D5; Sicherheitsoffizier (Novapolis) für Hausregeln/Freigaben (FACT [HOUSE-RULES]).
 - Werte: Kraft 2, Geschick 3, Geist 5, Wille 4, Charisma 2.
@@ -62,6 +61,71 @@ Wissensstand (Matrix - Auszug)
 - Extern: Kennt Karawanenpräsenz in C6, vertraut auf Ronja/Koras Berichte. Keine präzisen Koordinaten zu Außenfraktionen (FACT [FR-KNOWLEDGE] - implizit einhalten).
 - Reflex: Kennt Stufe-I-Protokolle, weiß um emotionale Schwankungen und respektiert Ronjas Primat.
 
+Knowledge (24x1h Starter)
+-------------------------
+
+```yaml
+knowledge:
+  - id: know-pahl-d5-freigabe-2026-04-05-01
+    about: d5_access_release_rules
+    channel: log
+    source: house_rules
+    scope: allies_only
+    confidence: 0.9
+    freshness: 2026-04-05T08:10:00+02:00
+    visibility_to: [pahl-brenner, ronja-kerschner, jonas-merek]
+    attachments: [doc:../03-locations/D5.md, doc:../05-projects/Missionslog-Novapolis.md]
+  - id: know-pahl-tunnel-risk-budget-2026-04-05-01
+    about: nordlinie_risk_budget
+    channel: log
+    source: nordlinie-01
+    scope: allies_only
+    confidence: 0.82
+    freshness: 2026-04-05T08:10:00+02:00
+    visibility_to: [pahl-brenner, ronja-kerschner]
+    attachments: [doc:../05-projects/Nordlinie-01.md]
+```
+
+Actions (24x1h Starter)
+-----------------------
+
+```yaml
+actions:
+  - id: act-pahl-freigabe-pruefen-2026-04-05-01
+    verb: pruefen
+    base_duration_min: 20
+    effort: 2
+    interruptible: true
+    locks: [freigabe_d5]
+    may_trigger_event: true
+    resources: [wartungstablet]
+    prerequisites: [know-pahl-d5-freigabe-2026-04-05-01]
+    outputs: [zugang_freigegeben]
+    risks: [zeitverlust]
+  - id: act-pahl-systemdiagnose-d5-2026-04-05-01
+    verb: reparatur
+    base_duration_min: 30
+    effort: 3
+    interruptible: true
+    locks: [kontrollraum_d5]
+    may_trigger_event: true
+    resources: [wartungstablet, sensorpaket]
+    prerequisites: []
+    outputs: [diagnosebericht]
+    risks: [atembelastung]
+  - id: act-pahl-regel-blau-2026-04-05-01
+    verb: erste_hilfe
+    base_duration_min: 15
+    effort: 2
+    interruptible: true
+    locks: [med_bereich_d5]
+    may_trigger_event: false
+    resources: [atemschutzpaket, inhalator]
+    prerequisites: []
+    outputs: [belastung_reduziert]
+    risks: []
+```
+
 Gesundheit & Safety
 -------------------
 
@@ -83,13 +147,11 @@ Interaktion & Protokolle
 - „Regel Blau - Atempause, Kontrolle an Ronja übergeben.“
 - „Regel Rot - Zugang stoppen, ungeprüfte Hände raus aus der Werkstatt.“
 
-Beziehungen
------------
+Mind-Cluster-Referenz (SSOT)
+----------------------------
 
-- Ronja Kerschner - Respekt und Vertrauen; diskutiert Entscheidungen, hält sich letztlich an ihre Leitung.
-- Jonas Merek - Mentor, gelegentlich herablassend; schult Jonas, delegiert körperlich anspruchsvolle Teile.
-- Reflex - Beobachtet mit Skepsis, akzeptiert Schutzfunktion für Ronja; bittet um Warnsignale vor Eingriffen.
-- Karawanen/C6-Team - Kooperativ, solange Hausregeln beachtet werden; Pahl bietet technische Beratung, erwartet disziplinierte Abläufe.
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/pahl-brenner-mind-cluster.md`
 
 Risiken & Schutzmaßnahmen
 -------------------------
@@ -113,6 +175,7 @@ Systemverknüpfungen & Referenzen
 - `logistik` - Synchronisierung von Wartungsfenstern und Materialflüssen.
 - [D5](../03-locations/D5.md) - Standort- und Infrastrukturkontext.
 - [Logistik](../../../00-admin/Logistik.md) - Linien-/Energieaufzeichnungen.
+- Mind-Cluster (Pahl) -> ../07-mind-clusters/pahl-brenner-mind-cluster.md
 
 Quellen & Hinweise
 ------------------

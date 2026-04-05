@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-02 06:27
-update: Der Root-RP-Rest fuer Warenverteilung und Bedarf ist geschlossen; offen bleiben im RP-Board nur noch Punkte ausserhalb des heutigen Warenlaufs.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
+stand: 2026-04-05 19:43
+update: Der Produktpfad vom aktuellen Workspace-Stand hin zu einem KI-geleiteten Text-RPG ist jetzt ueber Root-, Dev-, Agent-, RP- und Sim-Board als aktive Folgearbeit zerlegt.
+checks: snapshot-lock PASS (2026-04-03 10:53); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -18,6 +18,33 @@ Kurzstatus
 
 Neue Punkte (Backlog)
 ---------------------
+
+- [ ] Vertikalen Slice `Spielstart Novapolis` als kanonische Produktkette vom Prompt bis zur spielbaren Rueckmeldung festziehen.
+  - Ziel: Der erste echte Produktpfad soll nicht mehr nur aus getrennten Chat-, RP-, TTS- und Sim-Bausteinen bestehen, sondern einen zusammenhaengenden Slice `Spielerinput -> KI-Spielleitung -> Weltmutation -> PC-Rueckmeldung -> Logs/Audio/UI` definieren.
+  - Akzeptanzkriterien:
+    1) Root-, Agent-, RP-, Sim- und Dev-Board benennen denselben Slice ohne widerspruechliche Scope-Grenzen,
+    2) der Slice hat einen klaren Startpunkt mit Startslot, Startzustand und erstem Entscheidungsraum,
+    3) Weltwahrheit, PC-Sicht und Debug-/Operator-Sicht sind als getrennte Ebenen beschrieben,
+    4) der Pfad ist bis Save/Replay/Checks als zusammenhaengende Produktkette nachverfolgbar.
+  - Evidenz: `novapolis_agent/README.md` fuehrt stabilen Chat-, TTS- und Eval-Betrieb, `novapolis_agent/app/api/sim.py` aber nur einen Minimalzustand ohne Spielschleife; `novapolis-dev/docs/specs/annotation-spec.md` und `novapolis-dev/docs/specs/scheduler-spec.md` definieren Daten- und Zeitmodell, `novapolis-sim/scripts/Main.gd` konsumiert derzeit statische `world_log`/`pc_log`-Artefakte.
+
+- [ ] Ersten internen Releasepfad `Slice -> spielbarer MVP -> betreibbare Beta` moduluebergreifend absichern.
+  - Ziel: Der Weg bis zum fertigen Produkt soll nicht beim ersten spielbaren Prototyp enden, sondern bereits jetzt die Stufen bis zu einem betreibbaren, testbaren und nachvollziehbar freigabefaehigen Build beschreiben.
+  - Akzeptanzkriterien:
+    1) MVP-, Beta- und spaeterer Produktstatus sind ueber klare DoD-/Gate-Kriterien getrennt,
+    2) technische Folgepunkte liegen in Dev/Agent/Sim, inhaltliche Folgepunkte in RP, die Root-Sicht verknuepft nur noch,
+    3) Save/Replay, Operator-Runbook, Eval- und Release-Gates sind vor einer Beta nicht mehr implizit, sondern eigene Arbeitspakete,
+    4) der Produktpfad bleibt im Root sichtbar, ohne Modul-Detailarbeit doppelt zu fuehren.
+  - Evidenz: `novapolis-dev/docs/process/project-context-bridge.ssot.md` fuehrt bisher nur den projektbewussten Chatmodus bis Phase 4, `novapolis_agent/docs/runbook.md` trennt Chat, Sim, TTS und Eval noch als Einzelablaeufe, und `novapolis-dev/docs/todo.index.md` fuehrte bis jetzt keinen zusammenhaengenden Text-RPG-Produktpfad.
+
+- [ ] Inhalts- und Technikskalen nach dem ersten Slice sauber trennen: `spielbarer Kern` zuerst, `Weltbreite und Komfort` danach.
+  - Ziel: Das Produkt soll zuerst eine belastbare, KI-geleitete Kernrunde koennen, bevor breitere Weltabdeckung, TTS-Komfort, Asset-Ausbau und spaetere Erweiterungen dieselbe Prioritaet bekommen.
+  - Akzeptanzkriterien:
+    1) Pflichtarbeit fuer den ersten Slice ist als `Jetzt/Als naechstes` von spaeterem Welt- und Komfortausbau getrennt,
+    2) RP priorisiert Startkorridor, Sphaeren-/Mind-Cluster-SSOT und Reveal-Regeln vor spaeterem Flavour-Ausbau,
+    3) Agent priorisiert Session-/State-/Eval-Pfade vor weiterem Komforttraining,
+    4) Sim priorisiert Live-Spielclient und Replay-Bridge vor Atmosphaere-/Asset-Breite.
+  - Evidenz: `novapolis-dev/docs/todo.rp.md` hielt zuletzt nur Restarbeit fuer TTS offen, `novapolis-dev/docs/todo.agent-board.md` stand bei offen `0`, und `novapolis-dev/docs/todo.sim.md` fuehrte nur Hygiene-/Assetpunkte statt eines produktnahen Spielerloops.
 
 - [x] Verbleibenden Root-eval-Rest auf den Modulpfad umziehen und danach aus dem aktiven Root-Surface entfernen.
   - Ziel: Der letzte noch aktive Root-Verweis `eval/config/context.local.md` soll auf den kanonischen Modulpfad unter `novapolis_agent/eval/config/` umgestellt werden, damit der verbliebene Root-eval-Rest nicht weiter technisch live bleibt.

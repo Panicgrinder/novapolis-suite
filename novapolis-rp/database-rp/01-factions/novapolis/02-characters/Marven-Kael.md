@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-04 13:31
+stand: 2026-04-05 19:43
 update: Linkziel auf relativen Pfad normalisiert.
 checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:31)"
 title: Marven Kael
@@ -21,7 +21,6 @@ Marven Kael
 ===========
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `MRV2=L62-T55-N80-E58-O66-C70-M42-P50-qa` - vorsichtiger Stratege, balanciert Loyalität der Crew mit Risikoanalysen.
 - Rolle: Karawanenführer/Handelskoordinator des Händlerbunds - führt den externen Konvoi, verhandelt Allianzen mit Novapolis (FACT [CARAVAN-LEADERSHIP]).
 - Werte: Kraft 3, Geschick 4, Geist 4, Wille 5, Charisma 6.
 - Skills:
@@ -72,14 +71,11 @@ Interaktion & Safety
 - „Sicherung Delta - Konvoi bleibt vor Tor, ich verhandle innen.“
 - „Notfallplan Gamma - Rückzug auf Route Zwei, Bericht in 6 Stunden.“
 
-Beziehungen
------------
+Mind-Cluster-Referenz (SSOT)
+----------------------------
 
-- Kora Malenkov - Austauschpunkt für interne Logistikstatus, klare Zuständigkeitstrennung.
-- Marei - Koordiniert Evakuierte/Inventar-Schnittstellen; erhält Konvoi-Fahrpläne zur Abstimmung.
-- Ronja Kerschner - strategische Verhandlungspartnerin; bewertet Allianzen gemeinsam.
-- Arlen Dross - Diplomatischer Partner für Kontaktpflege, übernimmt Teilverhandlungen.
-- Crew (Händlerbund) - Hohe Loyalität, priorisiert Schutz und Vertrauen.
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/marven-kael-mind-cluster.md`
 
 Risiken & Schutzmaßnahmen
 -------------------------
@@ -103,6 +99,7 @@ Systemverknüpfungen & Referenzen
 - `logistik` - Abgleich mit G7/D5-Beständen.
 - `ai_behavior_index_v2` - Verhaltenseintrag „Der vorsichtige Stratege“.
 - [G7](../../haendlerbund/03-locations/G7.md) - Stationskontext.
+- Mind-Cluster (Marven) -> ../07-mind-clusters/marven-kael-mind-cluster.md
 
 Quellen & Hinweise
 ------------------

@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-04 10:22
+stand: 2026-04-05 19:43
 update: Dependencies auf caravan-moves konsolidiert.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 10:22)
 title: Arlen Dross
@@ -21,7 +21,6 @@ Arlen Dross
 ===========
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `ARD5=L67-T72-N74-E58-O66-C71-M48-P40-db` - ausgleichender Vermittler, verknüpft Risikoanalysen mit Freiheitsdrang.
 - Rolle: Händler- und Diplomatiebeauftragter des Händlerbunds - moderiert Kontakte zwischen Karawane und Novapolis, ohne Kora/Marven zu duplizieren (FACT [CARAVAN-LEADERSHIP]).
 - Werte: Kraft 3, Geschick 4, Geist 4, Wille 5, Charisma 5.
 - Skills:
@@ -72,14 +71,11 @@ Interaktion & Safety
 - „Verhandlungsstufe Beta - wir halten den Konvoi bereit, Verhandlungen in Kammer Drei.“
 - „Freiheitsmarke hoch - sollte die Vereinbarung Fesseln erzeugen, ziehen wir zurück und evaluieren neu.“
 
-Beziehungen
------------
+Mind-Cluster-Referenz (SSOT)
+----------------------------
 
-- Kora Malenkov - eng abgestimmte Logistikübergaben; Kora liefert Bedarfslisten, Arlen arrangiert Gegenangebote.
-- Marven Kael - strategischer Partner; Arlen übernimmt Moderation, wenn Marvens Risikoanalyse auf Widerstand trifft.
-- Ronja Kerschner - primäre Verhandlungspartnerin Novapolis-seitig; Arlen registriert ihre Entscheidungen und prüft Rückwirkungen auf die Karawane.
-- Marei - Abstimmung über Evakuierte und Versorgungsstände; erhält diplomatische Lageberichte.
-- Reflex - beobachtet mit Respekt und Vorsicht; signalisiert Grenzen bei unklaren Eingriffen.
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/arlen-dross-mind-cluster.md`
 
 Risiken & Schutzmaßnahmen
 -------------------------
@@ -103,6 +99,7 @@ Systemverknüpfungen & Referenzen
 - `logistik` - Abgleich interner/externer Warenflüsse.
 - `handel_diplomatie_haendlergilde_v1` - Diplomatieprotokolle des Händlerbunds (ID: haendlergilde).
 - `ai_behavior_index_v2` - Eintrag „Der Vermittler“.
+- Mind-Cluster (Arlen) -> ../07-mind-clusters/arlen-dross-mind-cluster.md
 
 Quellen & Hinweise
 ------------------

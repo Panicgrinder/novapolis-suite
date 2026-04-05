@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
-update: Modulreview trennt den Sim-Restpunkt jetzt in Warnungsentscheidung und Clean-Checkout-Bootstrap fuer Asset-Checks.
-checks: markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS (2026-03-28 00:22)
+stand: 2026-04-05 19:43
+update: Das Sim-Board fuehrt jetzt den Produktpfad fuer Live-Spielclient und Replay-/Audio-Bridge zusaetzlich zu den bestehenden Asset-/Bootstrap-Punkten.
+checks: snapshot-lock PASS (2026-04-03 10:53); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -21,12 +21,20 @@ Hinweis
 Prioritaetstags (aktiv)
 -----------------------
 
-- `Jetzt`: Keine Sim-Blocker; nur ein dokumentierter Hygiene-Punkt aus dem Asset-Check ist offen.
-- `Als naechstes`: Asset-Warnungen entscheiden und neue Sim-Pakete nur evidenzbasiert als konkrete Backlogpunkte aufnehmen.
-- `Spaeter`: Erweiterungen in separaten, klar begrenzten Sim-Epics planen.
+- `Jetzt`: Live-Spielclient fuer den ersten Slice statt rein statischer Hub-/Log-Anzeige.
+- `Als naechstes`: Replay-/Audio-Bridge und Asset-/Bootstrap-Klarheit fuer denselben Slice.
+- `Spaeter`: Komfort- und Atmosphaere-Ausbau erst nach stabilem Produktloop.
 
 Offene Aufgaben (Sim)
 ---------------------
+
+- [ ] [Jetzt] Live-Spielclient fuer den ersten Text-RPG-Slice statt nur Hub-Chat und statischer Epoch-Logs bauen.
+  - Akzeptanzkriterium: Die Sim kann eine laufende Spielsession mit aktueller Szene, angebotenen Optionen, Spielereingabe und Rueckmeldung anzeigen, statt nur freie Chat-Nachrichten und vorab gespeicherte Logs zu rendern.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` fuehrt aktuell ein Hub-Chat-Panel und laedt `world_log.jsonl`/`pc_log.jsonl` aus `res://data/epochs`, besitzt aber keinen live angebundenen Session-/Optionspfad.
+
+- [ ] [Als naechstes] Replay-/Epoch-Bridge an denselben Agent-Session-Vertrag koppeln.
+  - Akzeptanzkriterium: Live-Lauf, gespeicherter Run und Replay nutzen dasselbe Session-/Slot-Modell; `world_log`, `pc_log` und spaetere Audioartefakte lassen sich im Sim-Client ohne Parallelformat laden oder abspielen.
+  - Evidenz: `_load_epochs()` in `novapolis-sim/scripts/Main.gd` erwartet lokale Dateien unter `res://data/epochs/<epoch>/world_log.jsonl` und `pc_log.jsonl`, waehrend `novapolis_agent/app/api/sim.py` bisher keinen dazu passenden Produktvertrag liefert.
 
 - [ ] [Als naechstes] Sim-Asset-Warnungen aus `scripts/check_sim_epoch_assets.py` aufloesen oder bewusst kanonisch ausnehmen.
   - Akzeptanzkriterium: Der Check liefert entweder `warn:0` oder die verbleibenden Warnungen sind als absichtliche Ausnahme im Sim-Runbook/Board mit Ursache, Scope und Wiedervorlage dokumentiert.

@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 05:08
-update: README-Renaming fuer nicht-kanonische Unterordner-Dokus abgeschlossen; das Dev-Board steht wieder bei offen 0.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
+stand: 2026-04-05 19:43
+update: Das Dev-Board fuehrt jetzt den fehlenden End-to-End-Produkt-Gate-Pfad fuer ein KI-geleitetes Text-RPG als neuen offenen Punkt.
+checks: snapshot-lock PASS (2026-04-03 10:53); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -18,6 +18,15 @@ Hinweis
 
 Offene Aufgaben (Dev)
 ---------------------
+
+- [ ] [Jetzt] End-to-End-Produkt-Gate fuer das KI-geleitete Text-RPG v1 als reproduzierbaren Standardlauf definieren.
+  - Ziel: Vor spaeteren Implementierungssprints braucht der Workspace einen klaren technischen Freigabepfad vom RP-Quellstand ueber Agent-Session und State-Logs bis zur Sim-/Replay-Sicht statt isolierter Einzelchecks.
+  - Akzeptanzkriterien:
+    1) ein kanonischer Lauf oder Task-Block baut den benoetigten Projektkontext, prueft den Agent-Session-Vertrag, validiert Log-/Replay-Artefakte und deckt den Sim-Produktpfad zumindest als Smoke ab,
+    2) der Gate-Lauf scheitert hart bei OpenAPI-/Schema-Drift, fehlenden `world_log`/`pc_log`-Artefakten, ungueltigen `state_patches` oder Slot-/Replay-Widerspruechen,
+    3) Runbook, Tasklabels und Board verwenden denselben Namen fuer diesen Produkt-Gate-Pfad,
+    4) der Lauf liefert einen report- und release-tauglichen Kurzbeleg statt verteilter Einzelartefakte ohne Produktkontext.
+  - Evidenz: `novapolis_agent/docs/runbook.md` fuehrt Chat/Context-Bridge, Sim-Pruefablauf, TTS und Eval derzeit als getrennte Einzelablaeufe; `novapolis_agent/app/api/sim.py` liefert nur einen Minimalzustand, und `novapolis-sim/scripts/Main.gd` erwartet statische Epoch-Logs statt eines geprueften End-to-End-Produktlaufs.
 
 - [x] [Jetzt] Nicht-kanonische Unterordner-READMEs auf unterscheidbare Dateinamen ziehen und Querverweise konsistent nachziehen.
   - Ziel: Aktive Unterordner-Dokumente sollen im Editor, in Suchtreffern und in Linklisten nicht mehr als austauschbare `README.md`-Treffer kollidieren, ohne die kanonischen Root-/Modul-Einstiege (`README.md` auf Root- und Modul-Ebene) zu verlieren.

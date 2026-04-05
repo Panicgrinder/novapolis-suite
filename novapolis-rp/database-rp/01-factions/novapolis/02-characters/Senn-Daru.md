@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-04 09:21
+stand: 2026-04-05 19:43
 update: Links auf relative Pfade korrigiert.
 checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)"
 title: Senn Daru
@@ -21,7 +21,6 @@ Kurzprofil
 ----------
 - Rolle/Funktion: Händler/Vermittler, Karawane H-47; nach Anschluss an Novapolis Basis C6.
 - Auftreten: verhandelt empathisch, bleibt neugierig-offen, priorisiert Ausgleich vor Eigeninteresse.
-- Verhaltenssignatur: `SND1=E72-N64-L58-O46-S42-T38-C30-M22-P44-s`.
 
 Rollen & Verantwortlichkeiten (Pflichtfelder)
 ---------------------------------------------
@@ -44,11 +43,11 @@ Notizen
 
 - Abgrenzung: kein „Karawanenführer“ im Kanon (siehe Rollenabgrenzung Marven/Kora im Personenindex).
 
-Beziehungen & Schnittstellen
+Mind-Cluster-Referenz (SSOT)
 ----------------------------
 
-- Novapolis: Erstkontakt/Anbahnung über C6; operative Schnittstelle über Handels-/Diplomatie-Protokolle.
-- Händlerbund: eingebunden in externe Routen/Versorgung; genaue Rolle innerhalb des Händlerbunds ist offen.
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/senn-daru-mind-cluster.md`
 
 Wissensstand (Matrix - Auszug)
 ------------------------------
@@ -70,6 +69,7 @@ Links
 - Handel & Diplomatie (Händlerbund) → ../06-handel-diplomatie/Handel-Diplomatie-Haendlergilde.md
 - Personenindex Novapolis → ../../novapolis/02-characters/person-index-np.md
 - G7 → ../03-locations/G7.md
+- Mind-Cluster (Senn) -> ../07-mind-clusters/senn-daru-mind-cluster.md
 
 Quellen & Review
 ----------------

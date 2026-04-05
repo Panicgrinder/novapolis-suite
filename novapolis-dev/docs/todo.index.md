@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-02 06:27
-update: Der RP-Realabgleich fuer Skill-Mapping-V1 ist dokumentiert; der RP-Open-Count sinkt auf 2.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
+stand: 2026-04-05 19:43
+update: Der RP-Index dokumentiert jetzt die konfliktbereinigten Neutralstarts `E2/F1` bei unveraendertem RP-Open-Count.
+checks: snapshot-lock PASS (2026-04-05 19:33); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -13,13 +13,49 @@ TODO-Index (Novapolis-Dev)
 ---------
 
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 2)
-- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
-- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 2)
+- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 1)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 5)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 4)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
 Statushinweise (aktuell)
 ------------------------
+
+- RP v5.43: Der Neutralpfad deckt jetzt auch `E2` und `F1` als eigenstaendige Starts ab, und der fruehere F1-Konflikt im C6-Kontext ist aktiv geradegezogen. `C6.md` fuehrt `F1` nun konsistent als realen T0-Knoten; `novapolis-rp/database-rp/03-locations/E2.md` und `F1.md` sowie `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-e2.ssot.md` und `rp-startbogen-freie-gruppen-f1.ssot.md` heben beide auf `full_slice` (`offen: 2 -> 2`).
+
+- RP v5.42: Der fraktionslose Pfad dehnt sich jetzt in weitere aktive Neutralraeume aus. `novapolis-rp/database-rp/03-locations/C1.md` und `D1.md` geben zwei weiteren T0-Knoten konservative Ortsanker; `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-c1.ssot.md` und `rp-startbogen-freie-gruppen-d1.ssot.md` heben beide auf `full_slice`, und die Startgebiete-Reveal-Matrix fuehrt sie explizit mit (`offen: 2 -> 2`).
+
+- RP v5.41: Der fraktionslose Pfad besitzt jetzt mehr als einen echten Start, und der Produktpfad reicht bis in eine erste Kampagnenfolge. `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-b1.ssot.md` und `rp-startbogen-freie-gruppen-c3.ssot.md` heben die neutralen Puffer `B1/C3` auf `full_slice`; `novapolis-dev/docs/process/rp-folgekorridor-slot-16-20.ssot.md` fuehrt die Folge hinter `slot 15` als Kampagnenast weiter (`offen: 2 -> 2`).
+
+- RP v5.40: Der erste Langzeitast des Produktpfads ist jetzt kanonisch, und die ersten neutralen Pufferstationen sind keine reinen Codepunkte mehr. `novapolis-dev/docs/process/rp-folgekorridor-slot-11-15.ssot.md` fuehrt die Langzeitfolgen fuer Innen-, Aussen- und Pufferpfad; `novapolis-rp/database-rp/03-locations/A2.md`, `B1.md` und `C3.md` geben dem fraktionslosen Mobilitaetspfad konservative Ortsanker, die in A2-Startbogen und Startgebiete-Reveal-Matrix eingebunden sind (`offen: 2 -> 2`).
+
+- RP v5.39: Die Reveal-Logik endet nicht mehr bei `D5/C6`, und der erste Mehrslot-Korridor laeuft jetzt belegt ueber `slot 05` hinaus. `novapolis-dev/docs/process/rp-startgebiete-reveal-matrix.ssot.md` fixiert die Sichtbarkeitsklassen fuer `A1/B2/H12/F9/K4/G7/A2`; `novapolis-dev/docs/process/rp-folgekorridor-slot-06-10.ssot.md` fuehrt Tunnel, Materiallauf, C6-Empfang und Aussenkontakt als kanonische Folge-Slots weiter (`offen: 2 -> 2`).
+
+- RP v5.38: Der erste Mehrslot-Korridor ist jetzt kanonisch statt nur als Arbeitsfenster notiert, und die duennen Full-Slice-Kerne fuehren konservative lokale Unterraeume samt Nebenstart-Hooks. `novapolis-dev/docs/process/rp-folgekorridor-slot-00-05.ssot.md` fixiert die Slots `00-05` mit Missions-, Reveal- und Fail-Forward-Vertrag; `A1.md`, `H12.md`, `B2.md`, `F9.md`, `K4.md` sowie die Startboegen `A1/H12/B2/F9/K4/G7` binden Mind-Cluster, Unterraeume und Hook-Linsen explizit an (`offen: 3 -> 2`).
+
+- RP v5.37: Der Mind-Cluster-Unterbau endet nicht mehr am ersten Novapolis-Kerncast. Neue `*-mind-cluster.md` fuer den direkten Anschlusscast `Arlen/Lumen/Marven/Marei/Lyra/Senn` sowie fuer die Full-Slice-Kerne `A1/B2/H12/F9/K4` schliessen die restliche Luecke zwischen Startboegen und beziehungsnaher SSOT; die zugehoerigen Charakterdateien verweisen jetzt auf die Cluster, und die veralteten Lueckenhinweise in `rp-startbogen-novapolis-d5.ssot.md` und `rp-startbogen-novapolis-c6.ssot.md` sind entfernt (`offen: 3 -> 3`).
+
+- RP v5.36: Der erste Novapolis-Startkorridor besitzt jetzt den fehlenden verdeckten und operativen Unterbau. Neue Mind-Cluster-SSOTs fuer `Reflex/Jonas/Pahl/Kora/Echo`, startkorridor-taugliche `knowledge`-/`actions`-Bloecke in `D5.md`, `C6.md`, `Nordlinie-01.md` und den Kernfiguren sowie `rp-startkorridor-reveal-matrix.ssot.md` schliessen die drei Folgepunkte fuer Sphaeren, Scheduler-Readiness und Reveal-Grenzen in einem Lauf (`offen: 6 -> 3`).
+
+- RP v5.35: Die restlichen belegten Fraktionskerne sind jetzt nicht mehr nur Auswahlrahmen. `novapolis-dev/docs/process/rp-startbogen-arkologie-a1.ssot.md`, `rp-startbogen-schienenbund-b2.ssot.md`, `rp-startbogen-eisenkonklave-h12.ssot.md`, `rp-startbogen-schattenbund-f9.ssot.md` und `rp-startbogen-fluesterkollektiv-k4.ssot.md` definieren fuer `A1/B2/H12/F9/K4` je einen konservativen Minimalstart; `rp-start-chooser.ssot.md` fuehrt damit alle derzeit freigegebenen Kernstationen als `full_slice` (`offen: 7 -> 6`).
+
+- RP v5.34: Der erste Novapolis-Start ist jetzt kanonisch statt nur als Arbeitsblatt beschrieben. `novapolis-dev/docs/process/rp-startbogen-novapolis-d5.ssot.md` definiert den Default-Start in D5, `rp-startbogen-novapolis-c6.ssot.md` grenzt `C6` als parallelen Novapolis-Start ab, und `rp-start-chooser.ssot.md` fuehrt beide jetzt als `full_slice`. Das fruehere offene Startpaket ist damit geschlossen; als neuer Nachfolger bleibt die Promotion der restlichen Fraktionskerne `A1/B2/H12/F9/K4` offen (`offen: 7 -> 7`).
+
+- RP v5.33: Der Produktpfad fuehrt jetzt einen echten Start-Chooser statt nur eine lose Mehrfachstart-Notiz. `novapolis-dev/docs/process/rp-start-chooser.ssot.md` trennt Startmodus, Gebietswahl, Dichtegrad und Reveal-Regeln; `rp-startbogen-freie-gruppen-a2.ssot.md` liefert den ersten fraktionslosen Neutralstart und `rp-startbogen-haendlerbund-g7.ssot.md` den ersten externen Fraktionsstart. Damit ist der Folgepunkt `Rahmenstart -> echter Startbogen` fuer mindestens einen externen und einen fraktionslosen Start geschlossen (`offen: 8 -> 7`).
+
+- RP v5.32: Das Startmodell fuehrt jetzt mehrere Startoptionen statt nur eines Default-Slices. `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md` trennt nun `Novapolis-Default`, `Fraktionsstart`, `Fraktionslos / Freie Gruppen` und `Neutralstart`, bindet freie Gebietswahl an `Fraktionen-Taxonomie.md`, `Stationskontroll-Matrix.md` und `Metrokarte-T0.md` und markiert externe Bereiche bewusst als `Rahmenstart`, solange lokale Startboegen noch fehlen (`offen: 7 -> 8`).
+
+- RP v5.31: Startpaket und der erste Mehrslot-Korridor sind nicht mehr nur als offene Schlagworte notiert, sondern als Arbeitsblatt zerlegt. `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md` fuehrt jetzt Primärlinse `Ronja/Reflex in D5`, die parallele C6-Linse, Reveal-Grenzen, Fail-Forward-Klassen und die Arbeitsfenster `slot 00-05`; der RP-Open-Count blieb dabei zunaechst bewusst unveraendert (`offen: 7 -> 7`).
+
+- Root v1.3: Der Produktpfad zum KI-geleiteten Text-RPG ist erstmals als suiteweite Folgearbeit sichtbar. `todo.root.md` verankert jetzt den vertikalen Slice `Spielerinput -> Spielleitung -> Weltmutation -> PC-Rueckmeldung -> Logs/Audio/UI`, trennt MVP/Beta/Product-Gates und haelt die Priorisierung `spielbarer Kern vor Weltbreite/Komfort` auf Root-Ebene fest (`offen: unveraendert`).
+
+- Dev v5.21: Der fehlende technische Produkt-Gate-Pfad ist als eigener Dev-Punkt geoefnet. Statt nur Einzelchecks fuer Chat, Sim, TTS und Eval zu fahren, fuehrt `todo.dev.md` jetzt einen End-to-End-Lauf vom RP-Kontext ueber Agent-Session und State-/Log-Artefakte bis zur Sim-/Replay-Sicht als neue Dev-Folgearbeit (`offen: 0 -> 1`).
+
+- Agent v5.4: Das Agent-Board fuehrt jetzt erstmals den eigentlichen Spielleiter-Produktpfad statt nur Chat/TTS/Eval-Einzelbausteinen. Neu verankert sind Session-/Kampagnenvertrag, Spielleiter-Orchestrierung, persistenter Weltzustand mit `world_log`/`pc_log`/Replay, eine eigene GM-Eval-Suite und die spaetere Session-TTS-Kopplung (`offen: 0 -> 5`).
+
+- RP v5.30: Das RP-Board fuehrt jetzt den inhaltlichen Produktpfad fuer den ersten spielbaren Slice statt nur Restarbeit im Inventar-/TTS-Strang. Neu offen sind Startpaket, Sphaeren-/Mind-Cluster-Rollout fuer die Kernbesetzung, scheduler-ready Knowledge-/Actions-Abdeckung, Reveal-/Geheimhaltungsmatrix und ein fail-forward Mehrslot-Korridor `slot 00-05` (`offen: 2 -> 7`).
+
+- Sim v5.2: Das Sim-Board fuehrt jetzt neben den bekannten Asset-Warnungen den fehlenden Produktpfad fuer Spieleroberflaeche und Replay. Neu offen sind ein Live-Spielclient fuer laufende Sessions sowie eine Replay-/Epoch-Bridge auf denselben Session-/Slot-Vertrag statt rein statischer `res://data/epochs`-Artefakte (`offen: 2 -> 4`).
 
 - Root v1.2: Der letzte aktive Root-eval-Rest ist final geschlossen. Lokale Kontext-Notizen-Defaults, Eval-Standardpfade und die RAG-Fallbacks laufen jetzt ueber `novapolis_agent/eval/...`; der ehemalige Root-Ordner `eval/` liegt nachvollziehbar unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval`, ein nach den Abschluss-Checks erneut erzeugter lokaler Stub wurde zusaetzlich unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0632-root-eval-rest-postchecks/eval` abgelegt, und die Tree-Artefakte wurden danach erneut neu erzeugt (`offen: unveraendert`).
 
@@ -114,10 +150,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-03-30 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-03-30 | - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren. | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-03-30 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-03-28 | - [ ] [Als naechstes] Sim-Asset-Warnungen aus `scripts/check_sim_epoch_assets.py` aufloesen oder bewusst kanonisch ausnehmen. | nein |
+| Dev (`docs/todo.dev.md`) | 2026-03-30 | - [ ] [Jetzt] End-to-End-Produkt-Gate fuer das KI-geleitete Text-RPG v1 als reproduzierbaren Standardlauf definieren. | nein |
+| RP (`docs/todo.rp.md`) | 2026-04-02 | - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren. | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-03-30 | - [ ] [Jetzt] Session- und Kampagnenvertrag fuer das Text-RPG v1 als API- und Backend-SSOT festziehen. | nein |
+| Sim (`docs/todo.sim.md`) | 2026-03-28 | - [ ] [Jetzt] Live-Spielclient fuer den ersten Text-RPG-Slice statt nur Hub-Chat und statischer Epoch-Logs bauen. | nein |
 
 
 Hinweise (Index)

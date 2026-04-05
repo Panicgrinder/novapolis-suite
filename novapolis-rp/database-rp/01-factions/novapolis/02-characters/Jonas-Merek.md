@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 01:49
-update: 24x1h-Knowledge-Startset ergänzt (Werkstatt/Proximity/Funk).
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:13); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Jonas-Merek.md' PASS (2026-02-22 01:13)
+stand: 2026-04-05 19:43
+update: Jonas verweist jetzt auf den eigenen Mind-Cluster und fuehrt startkorridor-taugliche Actions neben dem bestehenden Knowledge-Startset.
+checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
 title: Jonas Merek
 category: character
 slug: jonas-merek
@@ -21,7 +21,6 @@ Jonas Merek
 ===========
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `JNS3=L55-T68-N40-E72-O50-C42-M78-P32-ab` - sicherheitsorientiert, hilfsbereit, driftet bei Überlast in Fluchtreflexe.
 - Rolle: Technikerlehrling/Mechaniker; betreut Werkstatt & Materiallauf in D5 (Quelle: RAW char_jonas_v2)
 - Werte: Kraft 3, Geschick 5, Geist 3, Wille 4, Charisma 3
 - Skills:
@@ -86,6 +85,46 @@ knowledge:
     attachments: [doc:./Lumen.md]
 ```
 
+Actions (24x1h Starter)
+-----------------------
+
+```yaml
+actions:
+  - id: act-jonas-werkstattdiagnose-2026-04-05-01
+    verb: reparatur
+    base_duration_min: 35
+    effort: 3
+    interruptible: true
+    locks: [werkbank_d5]
+    may_trigger_event: true
+    resources: [werkzeugkasten, messgeraete]
+    prerequisites: [know-jonas-workshop-shift-2026-02-22-01]
+    outputs: [werkstatt_status]
+    risks: [ueberlastung]
+  - id: act-jonas-funkbruecke-c6-2026-04-05-01
+    verb: funk
+    base_duration_min: 20
+    effort: 2
+    interruptible: true
+    locks: [terminal_d5]
+    may_trigger_event: true
+    resources: [terminalverbindung]
+    prerequisites: []
+    outputs: [c6_terminal_ping]
+    risks: [signalverlust]
+  - id: act-jonas-materiallauf-vorbereitung-2026-04-05-01
+    verb: logistik
+    base_duration_min: 30
+    effort: 3
+    interruptible: true
+    locks: [materiallager_d5]
+    may_trigger_event: true
+    resources: [checkliste, schutzausruestung]
+    prerequisites: []
+    outputs: [materiallauf_bereit]
+    risks: [trigger_gasgeruch]
+```
+
 Sicherheit & Interaktion
 ------------------------
 
@@ -102,15 +141,11 @@ Hinweis: PROXIMITY-Mechanik (Zuneigung+Schutz, Zustände, Training) siehe [Refer
 - „Lumen, Statuscheck Werkzeugbank.“ → Lumen führt Diagnose, meldet Werte.
 - „Abbruch, zurück!“ → Sofortiger Rückzug von aktiven Maschinen, Not-Aus setzen.
 
-Beziehungen
------------
+Mind-Cluster-Referenz (SSOT)
+----------------------------
 
-- Lumen - gekoppelte Instanz, gegenseitige Stabilisierung (siehe Lumen-Canvas).
-- Ronja Kerschner - Mentorin/Supervisor für Werkstatt- und Logistikfreigaben.
-- Pahl - Reha-Partner, Austausch über Wartungsprotokolle, Jonas unterstützt bei Wiederaufnahme.
-- Marei & Kora - erhalten Material- und Statusmeldungen via Terminal für C6/E3 Evakuierte.
-- Echo - über Kora-Berichte bekannt; hält Distanz, respektiert Proximity-Protokolle bei Übergaben.
-- Reflex (Primär) - Faszination und vorsichtige Zusammenarbeit; Jonas respektiert Grenzen, meldet Unregelmäßigkeiten sofort.
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/jonas-merek-mind-cluster.md`
 
 Risiken & Schutzmaßnahmen
 -------------------------
@@ -134,6 +169,7 @@ Systemverknüpfungen & Referenzen
 - [Draisine-Transportmodul](../05-projects/Draisine-Transportmodul.md) - D5-Prototyp (Draisine/Transportmodul), Jonas liefert Werkstattstatus.
 - [caravan-moves](../../haendlerbund/05-projects/caravan-moves.md) - Konvoi-/Routen-Übersicht (Koordination externer Läufe).
 - [Lumen](Lumen.md) - Kopplungsdetails.
+- Mind-Cluster (Jonas) -> ../07-mind-clusters/jonas-merek-mind-cluster.md
 
 Quellen & Hinweise
 ------------------

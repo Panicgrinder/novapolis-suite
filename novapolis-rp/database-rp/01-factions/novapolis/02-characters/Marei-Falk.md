@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-16 12:01
+stand: 2026-04-05 19:43
 update: Nachname ergänzt.
 checks: not run (not requested)
 title: Marei Falk
@@ -59,11 +59,11 @@ Interaktion & Safety
 - Klare, strukturierte Anweisungen bevorzugt; protokolliert Übergaben schriftlich (Logistik-Knoten).
 - Delegation geschieht abgestimmt mit Kora und Ronja; erwartet kurze Rückkanäle für Freigaben.
 
-Beziehungen
------------
-- Kora Malenkov - direkte Vorgesetzte, teilt Stationsleitung C6
-- Ronja Kerschner - Fraktionsleitung, bestätigt Entscheidungen
-- Echo - berücksichtigt Bindung an Kora bei Ablaufplanung
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/marei-falk-mind-cluster.md`
 
 Projekte & Missionen (Verlinkungen)
 -----------------------------------
@@ -76,5 +76,6 @@ Links
 - C6 → ../03-locations/C6.md
 - E3 → ../03-locations/E3.md
 - Verbindungstunnel C6-E3 → ../03-locations/Verbindungstunnel-C6-E3.md
+- Mind-Cluster (Marei) -> ../07-mind-clusters/marei-falk-mind-cluster.md
 
 

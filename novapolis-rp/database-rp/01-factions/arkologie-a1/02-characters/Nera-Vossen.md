@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-05 01:00
+stand: 2026-04-05 19:43
 update: Neuer SSOT-Charakter angelegt (Leitung Handel Arkologie A1).
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 title: Nera Vossen
@@ -43,10 +43,17 @@ Beziehungen & Führungseinordnung
 - Führungsbezug: arbeitet unter der Fraktionsleitung Arkologie A1 (Liora Navesh).
 - Schnittstelle Sicherheit: Übergaben nur mit Sicherheitsfreigabe.
 
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+
+- Beziehungsnahe Lage und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/nera-vossen-mind-cluster.md`
+
 Verlinkungen
 ------------
 
 - Fraktionsübersicht → ../README.md
 - Location A1 → ../03-locations/A1.md
 - Logistik (global) → ../../../00-admin/Logistik.md
+- Mind-Cluster (Nera) -> ../07-mind-clusters/nera-vossen-mind-cluster.md
 

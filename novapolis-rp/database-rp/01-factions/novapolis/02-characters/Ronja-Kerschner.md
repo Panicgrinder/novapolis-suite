@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-24 15:35
-update: Verhaltenssignatur, Beziehungen und geistnahen Zustandsblock in den Mind-Cluster ausgelagert; Charakterdatei als Referenz bereinigt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/instructions/mind-cluster.instructions.md' 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/mind-cluster-template.md' 'novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md' 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/brainstorming.rp.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-02-24 15:10); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-24 15:10)
+stand: 2026-04-05 19:43
+update: Ronja fuehrt jetzt die startkorridor-tauglichen Actions direkt in der Charakter-SSOT und bleibt an den Mind-Cluster gebunden.
+checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
 title: Ronja Kerschner
 category: character
 slug: ronja-kerschner
@@ -76,6 +76,46 @@ knowledge:
     freshness: 2026-02-22T00:00:00+01:00
     visibility_to: [ronja-kerschner]
     attachments: [doc:../05-projects/Missionslog-Novapolis.md#anomalie-e3-gefahr]
+```
+
+Actions (24x1h Starter)
+-----------------------
+
+```yaml
+actions:
+  - id: act-ronja-wartungsgang-d5-2026-04-05-01
+    verb: wartung
+    base_duration_min: 30
+    effort: 3
+    interruptible: true
+    locks: [d5_wartungsgang]
+    may_trigger_event: true
+    resources: [werkzeugkit, lichtquelle]
+    prerequisites: [know-ronja-e3-risk-2026-02-22-01]
+    outputs: [d5_wartungsstatus]
+    risks: [systemrauschen]
+  - id: act-ronja-system-link-d5-2026-04-05-01
+    verb: funk
+    base_duration_min: 20
+    effort: 3
+    interruptible: true
+    locks: [terminal_d5]
+    may_trigger_event: true
+    resources: [terminalzugang, reflex_link]
+    prerequisites: []
+    outputs: [system_link_signal]
+    risks: [daempfung, fehlinterpretation]
+  - id: act-ronja-c6-abgleich-2026-04-05-01
+    verb: funk
+    base_duration_min: 15
+    effort: 2
+    interruptible: true
+    locks: [funkkanal_d5_c6]
+    may_trigger_event: true
+    resources: [funkterminal]
+    prerequisites: []
+    outputs: [c6_status_update]
+    risks: [signalverlust]
 ```
 
 Reflex - Interaktion & Safety (Hausregeln)

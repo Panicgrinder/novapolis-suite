@@ -1,5 +1,5 @@
 ---
-stand: 2026-01-07 18:47
+stand: 2026-04-05 19:43
 update: Fraktionsnamen (Anzeige) aktualisiert (Händlerbund/Schienenbund).
 checks: markdownlint-cli2 PASS; scripts/check_frontmatter.py PASS; scripts/checks_rp_consistency.py --strict PASS (2026-01-07 18:53)
 title: Varek Solun
@@ -21,7 +21,6 @@ Varek Solun
 ===========
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `VRS1=O88-M76-S68-T62-L55-N44-C28-E25-P60-pr` - kontrollorientiert, führt mit strenger Autorität und paranoid-rationaler Wachsamkeit.
 - Rolle: Kommandant der Eisenkonklave (Militär & Zivil) (Quelle: FACT EK-LEADERSHIP)
 - Werte: noch offen (Union-Bewertungen nicht veröffentlicht)
 - Skills:
@@ -78,6 +77,12 @@ Diplomatie & Beziehungen
 - Schienenbund - feindselig, keine diplomatischen Kontakte, Vorbereitung auf Infiltrationsversuche.
 - Novapolis - nur Beobachtung externer Gerüchte, keine bestätigten Begegnungen, Alarmstufe „wachsam“.
 
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/varek-solun-mind-cluster.md`
+
 Risiken & Schutzmaßnahmen
 -------------------------
 
@@ -92,6 +97,7 @@ Systemverknüpfungen & Referenzen
 - `relationslog_eisenkonklave_v1` - dokumentiert Kontakte/Spannungen, Abgleich mit Logistik erforderlich.
 - `handelslog_eisenkonklave_v1` - Handelskapazitäten und Konten (Lazy-Load, Health-Check empfehlenswert).
 - `cluster_index_v1` - Standortalias „Sektor_H3“ verweist auf H12.
+- Mind-Cluster (Varek) -> ../07-mind-clusters/varek-solun-mind-cluster.md
 
 Ziele (kurz)
 ------------

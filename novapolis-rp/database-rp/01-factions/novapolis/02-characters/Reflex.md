@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-04 13:31
-update: Verknuepfungen auf relative Pfade umgestellt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 13:31)"
+stand: 2026-04-05 19:43
+update: Reflex verweist jetzt auf den eigenen Mind-Cluster und fuehrt startkorridor-taugliche Knowledge- und Actions-Starter.
+checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
 title: Reflex
 category: character
 slug: reflex
@@ -20,7 +20,6 @@ dependencies: [ronja-kerschner, lumen, echo, jonas-merek, kora-malenkov, d5, c6,
 Reflex
 ======
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `RFX4=L80-S68-N77-T83-E64-O51-M25-C44-ka` - suchender Schatten, verbindet analytische Wachsamkeit mit impulsiver Neugier.
 - Status: Symbiose Stufe I (extern anliegend), Resonanz 7.3-8.0 Hz; letzter Auto-Check 2025-10-16_13:45 (Systemstatus grün).
 - Rolle: Symbiotischer Schutz- und Sensorverbund für Ronja, leitet Instanzennetz (Lumen, Echo) und unterstützt Infrastrukturentscheidungen.
 - Haltung: Beschützend, stark bindungsorientiert; Nähebedürfnis aus Zuneigung + Schutzmodus. Im Alltag an Ronjas Regeln gebunden, bei akuter Selbst-/Fremdgefährdung greift Reflex kurzfristig über (FACT? [PROXIMITY], FACT? [REFLEX-CONTROL]).
@@ -58,6 +57,71 @@ Wissensstand (Matrix - Auszug)
 - Jonas Merek, Kora Malenkov - hohes Vertrauen über Instanzen; Reflex kennt nur, was aus Trainings und Missionslogs geteilt wurde.
 - Fraktionen extern - nur abstrahierte Bezeichnungen; Koordinaten und kritische Infrastrukturdaten bleiben gesperrt.
 
+Knowledge (24x1h Starter)
+-------------------------
+
+```yaml
+knowledge:
+  - id: know-reflex-d5-system-link-2026-04-05-01
+    about: d5_system_link_risk
+    channel: reflex_link
+    source: d5_terminal_monitoring
+    scope: private
+    confidence: 0.88
+    freshness: 2026-04-05T08:10:00+02:00
+    visibility_to: [reflex, ronja-kerschner]
+    attachments: [scene:scene-2025-10-27-h, doc:../03-locations/D5.md]
+  - id: know-reflex-c6-parallel-state-2026-04-05-01
+    about: c6_parallel_state
+    channel: system
+    source: missionslog-novapolis
+    scope: allies_only
+    confidence: 0.77
+    freshness: 2026-04-05T08:10:00+02:00
+    visibility_to: [reflex, ronja-kerschner]
+    attachments: [doc:../05-projects/Missionslog-Novapolis.md#c6-sicherungmarkierung-c6-n3--artefakt-7a]
+```
+
+Actions (24x1h Starter)
+-----------------------
+
+```yaml
+actions:
+  - id: act-reflex-schutzschirm-beta-2026-04-05-01
+    verb: wache
+    base_duration_min: 25
+    effort: 3
+    interruptible: true
+    locks: [ronja_proximity]
+    may_trigger_event: true
+    resources: [se_pool_reflex]
+    prerequisites: []
+    outputs: [schutzschirm_aktiv]
+    risks: [se_verbrauch]
+  - id: act-reflex-systemscan-d5-2026-04-05-01
+    verb: funk
+    base_duration_min: 15
+    effort: 2
+    interruptible: true
+    locks: [reflex_link]
+    may_trigger_event: true
+    resources: [sensorik]
+    prerequisites: [know-reflex-d5-system-link-2026-04-05-01]
+    outputs: [signalfilter]
+    risks: [fehlalarm]
+  - id: act-reflex-alarmpuffer-c6-2026-04-05-01
+    verb: wahrnehmung
+    base_duration_min: 20
+    effort: 2
+    interruptible: true
+    locks: [instanznetz]
+    may_trigger_event: true
+    resources: [reflex_link, echo_signal]
+    prerequisites: [know-reflex-c6-parallel-state-2026-04-05-01]
+    outputs: [c6_warnfenster]
+    risks: [signalrauschen]
+```
+
 Instanzen & Netzwerk
 --------------------
 
@@ -91,6 +155,12 @@ Interaktion & Safety
 - „Reflex, Ruhemodus Alpha.“ → Senkt Muskeltonus, zieht sich auf Grundschicht zurück.
 - „Reflex, Signal frei.“ → Erlaubt Tympanon-Kommunikation; Reflex bestätigt Nutzungsdauer.
 
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/reflex-mind-cluster.md`
+
 Risiken & Schutzmaßnahmen
 -------------------------
 
@@ -113,6 +183,7 @@ Systemverknüpfungen & Referenzen
 - `missionslog` & `logistik` - Freigaben, Handschuh-Protokolle, Energieflüsse.
 - [Reflex-Wissensstand-Trainingsstand](Reflex-Wissensstand-Trainingsstand.md) - Detailmatrix und Trainingsstatus.
 - [Ronja-Kerschner](Ronja-Kerschner.md), [Lumen](Lumen.md), [Echo](Echo.md), [Jonas-Merek](Jonas-Merek.md), [Kora-Malenkov](Kora-Malenkov.md) - Bezugspersonen und Instanzen.
+- Mind-Cluster (Reflex) -> ../07-mind-clusters/reflex-mind-cluster.md
 
 Quellen & Hinweise
 ------------------

@@ -1,5 +1,5 @@
 ---
-stand: 2026-01-13 02:03
+stand: 2026-04-05 19:43
 update: Werkstatt-Mitüberwachung (D5-Systeme) präzisiert; Postflight-Receipt ergänzt.
 checks: "run_checks_and_report.py PASS (2026-01-13 02:01); npm validate:rp PASS (2026-01-13 02:03); npm validate:crossrefs PASS (2026-01-13 02:03); checks_rp_consistency.py --strict PASS (2026-01-13 02:03)"
 title: Lumen
@@ -18,7 +18,6 @@ Lumen
 -----
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `LMN1=L78-T71-E60-O49-N44-S52-C26-M18-P28-ks` - sucht Nähe zu Jonas, hilft technisch fokussiert und bleibt kindlich-selbstlos im Support.
 
 - Rolle: Reflex-Instanz (an Jonas gekoppelt)
 - Werte: tbd
@@ -92,10 +91,11 @@ Ziele (kurz)
 - [ ] Werkzeug-/Geräte-Signaturen lernen
 - [ ] Stabile Kopplung bei Werkstatteinsätzen sichern
 
-Beziehungen
------------
-- Jonas - Bezugsperson
-- Reflex - Primärinstanz
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/lumen-mind-cluster.md`
 
 Projekte & Missions (Verlinkungen)
 ----------------------------------
@@ -105,6 +105,7 @@ Links
 -----
 - Jonas → ./Jonas-Merek.md
 - Reflex → ./Reflex.md
+- Mind-Cluster (Lumen) -> ../07-mind-clusters/lumen-mind-cluster.md
 
 
 

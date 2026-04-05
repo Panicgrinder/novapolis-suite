@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-02 18:40
-update: "Fortschrittsmodell präzisiert: Arbeitsblöcke ergänzen E/S/B für skalierbares Reporting."
-checks: "run_checks_and_report.py PASS (2026-01-13 02:01); npm validate:rp PASS (2026-01-13 02:03); npm validate:crossrefs PASS (2026-01-13 02:03); checks_rp_consistency.py --strict PASS (2026-01-13 02:03)"
+stand: 2026-04-05 19:43
+update: Nordlinie 01 fuehrt jetzt ein startkorridor-taugliches Knowledge-Set und Kernactions fuer den Scheduler-Pfad.
+checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
 title: Nordlinie 01 (Tunnel D5-C6)
 category: project
 slug: nordlinie-01
@@ -44,6 +44,71 @@ Risiken
 Notizen
 -------
 - Überwachungs-Splitter an C6 liefert Frühwarnungen.
+
+Knowledge (24x1h Starter)
+-------------------------
+
+```yaml
+knowledge:
+  - id: know-nordlinie-esb-status-2026-04-05-01
+    about: nordlinie_esb_status
+    channel: log
+    source: projektstatus
+    scope: allies_only
+    confidence: 0.88
+    freshness: 2026-04-05T08:10:00+02:00
+    visibility_to: [ronja-kerschner, jonas-merek, pahl-brenner, kora-malenkov]
+    attachments: [doc:./Nordlinie-01.md]
+  - id: know-nordlinie-c6-fruehwarnung-2026-04-05-01
+    about: nordlinie_c6_warning
+    channel: reflex_link
+    source: c6_monitoring
+    scope: allies_only
+    confidence: 0.73
+    freshness: 2026-04-05T08:10:00+02:00
+    visibility_to: [ronja-kerschner, reflex, kora-malenkov]
+    attachments: [doc:../03-locations/C6.md]
+```
+
+Actions (24x1h Starter)
+-----------------------
+
+```yaml
+actions:
+  - id: act-nordlinie-abschnitt-a-sichern-2026-04-05-01
+    verb: sichern
+    base_duration_min: 60
+    effort: 4
+    interruptible: true
+    locks: [abschnitt_a]
+    may_trigger_event: true
+    resources: [stuetzen, markierungskit]
+    prerequisites: [know-nordlinie-esb-status-2026-04-05-01]
+    outputs: [abschnitt_a_stabil]
+    risks: [altschacht_instabilitaet]
+  - id: act-nordlinie-trasse-ziehen-b-2026-04-05-01
+    verb: reparatur
+    base_duration_min: 90
+    effort: 4
+    interruptible: true
+    locks: [abschnitt_b]
+    may_trigger_event: true
+    resources: [adapter_dn60, werkzeugkit]
+    prerequisites: []
+    outputs: [trasse_abschnitt_b]
+    risks: [materialmangel]
+  - id: act-nordlinie-probefahrt-2026-04-05-01
+    verb: test
+    base_duration_min: 45
+    effort: 3
+    interruptible: false
+    locks: [tunnelkorridor]
+    may_trigger_event: true
+    resources: [draisine_modul, funkterminal]
+    prerequisites: [know-nordlinie-esb-status-2026-04-05-01]
+    outputs: [betriebscheck]
+    risks: [streckenausfall]
+```
 
 ---
 

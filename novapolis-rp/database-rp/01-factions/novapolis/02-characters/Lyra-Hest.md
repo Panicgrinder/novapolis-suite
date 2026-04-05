@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-04 09:08
+stand: 2026-04-05 19:43
 update: Personenindex-Link aktualisiert.
 checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:08)"
 title: Lyra Hest
@@ -19,7 +19,6 @@ Lyra Hest
 =========
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `LYH1=O74-L68-T62-E58-S54-N46-M32-C28-P48-r` - strukturiert, loyal gegenüber Novapolis und rational in Logistikentscheidungen.
 
 - Rolle: Stellvertretende Leitung (Zivil/Logistik)
 - Werte: tbd
@@ -55,6 +54,12 @@ Wissensstand (Matrix - Auszug)
 - Intern: tbd (Teilkentnisse Reflex/Instanzen?)
 - Extern: tbd
 
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/lyra-hest-mind-cluster.md`
+
 Ziele (kurz)
 ------------
 - [ ] tbd
@@ -64,6 +69,7 @@ Verlinkungen
 - [D5](../03-locations/D5.md) · [C6](../03-locations/C6.md)
 - [Novapolis-Inventar](../04-inventory/Novapolis-inventar.md)
 - [Admin: Logistik](../../../00-admin/Logistik.md) · [Missionslog](../05-projects/Missionslog-Novapolis.md) · [Personenindex](./person-index-np.md)
+- Mind-Cluster (Lyra) -> ../07-mind-clusters/lyra-hest-mind-cluster.md
 
 
 

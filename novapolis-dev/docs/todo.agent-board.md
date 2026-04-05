@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 03:59
-update: Export-/Kurationspfad haertet Results-Auswahl und Null-Export-Fehler; das Agent-Board steht damit wieder bei offen: 0.
-checks: snapshot-lock PASS; targeted pytest PASS; temp export-pack PASS; markdownlint PASS; frontmatter PASS; todo-index PASS (2026-03-30 03:59)
+stand: 2026-04-05 19:43
+update: Das Agent-Board fuehrt jetzt den fehlenden Produktpfad fuer Session-Vertrag, Spielleiter-Orchestrierung, Replay/Logs, GM-Evals und Session-TTS als aktive Folgearbeit.
+checks: snapshot-lock PASS (2026-04-03 10:53); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -18,9 +18,57 @@ Hinweis
 Prioritaetstags (aktiv)
 -----------------------
 
-- `Jetzt`: TTS-Build-Time-MVP, Runtime-Provider, Eval-Qualitaetsbetrieb.
-- `Als naechstes`: Datensaetze/Training operationalisieren und VS Code Tasks vervollstaendigen.
-- `Spaeter`: Templates fuer `knowledge:`/`actions:` in Agent-README verlinken.
+- `Jetzt`: Session-/Kampagnenvertrag, Spielleiter-Orchestrierung und produktfaehiger Weltzustand fuer den ersten spielbaren Slice.
+- `Als naechstes`: Replay/Savegame, GM-Eval-Gates und Session-TTS an denselben Slice anbinden.
+- `Spaeter`: Training, Komfort und weitere Provider erst nach belastbarem Spielkern ausbauen.
+
+Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
+-------------------------------------------------
+
+- [ ] [Jetzt] Session- und Kampagnenvertrag fuer das Text-RPG v1 als API- und Backend-SSOT festziehen.
+  - Ziel: Der Agent soll vom generischen Chat mit optionaler Session-ID zu einer belastbaren Spielsession mit Szenen-, Kampagnen- und Weltzustandsgrenzen uebergehen.
+  - Akzeptanzkriterien:
+    1) Request-/Response-Modelle unterscheiden sauber zwischen `session_id`, `campaign_id`, `scene_id`, Spielerinput, angebotenen Optionen und rueckgelieferten `state_patches`,
+    2) ein Session-Lauf ist speicher-, fortsetz- und abbrechbar, ohne dass Fortschritt nur implizit im freien Chattext steckt,
+    3) Weltinterner Hidden-Context und PC-sichtbare Antwortflaeche sind vertraglich getrennt,
+    4) OpenAPI, Tests und Runbook fuehren denselben Session-Vertrag.
+  - Evidenz: `novapolis_agent/app/api/models.py` fuehrt aktuell nur generische Chat-Modelle mit optionaler `session_id`, `novapolis_agent/app/core/prompts.py` kennt `State_Patches` bislang nur als Formattext, und `novapolis_agent/app/api/chat.py` speichert Session-Memory ohne eigentlichen Kampagnen-/Spielzustandsvertrag.
+
+- [ ] [Jetzt] Spielleiter-Orchestrator zwischen Chat-Flow, Projektkontext, RP-SSOT und Scheduler anschliessen.
+  - Ziel: Die KI soll nicht nur frei antworten, sondern den kanonischen RP-Kontext, laufenden Weltzustand und spaetere Scheduler-/Action-Regeln in einem kontrollierten Spielleiterpfad zusammenfuehren.
+  - Akzeptanzkriterien:
+    1) ein definierter Orchestrator-Pfad injiziert Projektkontext, RP-Retrieval, aktuelle Session-Daten und Hidden-Knowledge kontrolliert in denselben Lauf,
+    2) Antworten bleiben im gewuenschten Ausgabeformat `Szene/Konsequenz/Optionen/State_Patches`, erzeugen aber gleichzeitig maschinenlesbare Folgedaten,
+    3) Hidden-Informationen aus RP, Knowledge und Sphaeren-/Mind-Cluster-SSOT werden nicht versehentlich an den PC ausgespielt,
+    4) der Pfad ist testsicher gegen leere Retrievals, Scheduler-Ausfall und widerspruechliche State-Patches.
+  - Evidenz: `novapolis-dev/docs/process/project-context-bridge.ssot.md` fuehrt nur den projektbewussten Chatmodus als Phase 1, `novapolis-dev/docs/specs/scheduler-spec.md` existiert nur als Doku, und `novapolis_agent/app/core/prompts.py` bleibt derzeit ein reiner Format-/Persona-Prompt ohne Spielleiter-Orchestrierung.
+
+- [ ] [Als naechstes] Persistente Weltzustands-, Log- und Replay-Pipeline fuer `world_log`, `pc_log` und Savegames schaffen.
+  - Ziel: Ein spielbarer Text-RPG-Run braucht nachvollziehbaren Weltfortschritt, Replay und Wiederaufnahme statt nur volatilem Antworttext und einer Minimal-Sim-API.
+  - Akzeptanzkriterien:
+    1) Weltzustand, Event-Historie und `state_patches` werden pro Session persistiert und auditierbar fortgeschrieben,
+    2) `world_log` und `pc_log` entstehen aus demselben Lauf reproduzierbar und koennen fuer Replay/Sim exportiert werden,
+    3) Seeds, Resume-Punkte und Abbruchfaelle sind fuer Debugging und spaetere Produktbelege wiederherstellbar,
+    4) der Exportpfad bleibt kompatibel mit dem Sim-Client statt ein paralleles Artefaktformat einzufuehren.
+  - Evidenz: `novapolis_agent/app/api/sim.py` fuehrt nur `{tick,time,regions,actors,events}` als Minimalmodell ohne Persistenz, waehrend `novapolis-sim/scripts/Main.gd` seine Ansicht aktuell aus statischen `world_log.jsonl`/`pc_log.jsonl` unter `res://data/epochs` aufbaut.
+
+- [ ] [Als naechstes] Dedizierte Eval- und Regressionssuiten fuer KI-Spielleitung einfuehren.
+  - Ziel: Der Agent soll nicht nur auf allgemeine RPG-Stilfragen gut reagieren, sondern auf Kontinuitaet, Geheimhaltung, Wahlqualitaet und valide Zustandsfortschreibung im echten Spielleiterbetrieb getestet werden.
+  - Akzeptanzkriterien:
+    1) mindestens eine eigene Session-/GM-Suite prueft Kontinuitaet, Reveal-Disziplin, Optionsqualitaet und Patch-Gueltigkeit,
+    2) die Suite trennt harte Blocker von Beobachtungen, damit Release-Entscheidungen spaeter nicht auf Bauchgefuehl beruhen,
+    3) Ergebnisreports verweisen reproduzierbar auf Session-Faelle, Quellenpakete und aktivierte Checks,
+    4) Folgepunkte aus den Ergebnissen werden wieder in dieses Board rueckgekoppelt.
+  - Evidenz: `novapolis_agent/docs/runbook.md` fuehrt aktuell nur die Suiten `neutral`, `rpg` und `rp_content`; ein spezifischer Produkt-Gate fuer KI-Spielleitung mit Session-/State-Pruefungen fehlt.
+
+- [ ] [Als naechstes] Session-TTS an denselben Spielzustand und dieselben Log-Kanaele anbinden.
+  - Ziel: Audio soll spaeter nicht als separater Nebenpfad laufen, sondern dieselben `pc|world|ally|sys`-Kanaele, Cache-Schluessel und Replay-Artefakte wie der Spielzustand verwenden.
+  - Akzeptanzkriterien:
+    1) Session-Ausgaben koennen kontrolliert in TTS-Requests ueberfuehrt werden, ohne den inhaltlichen Spielzustand zu verlieren,
+    2) Artefakte und Manifeste referenzieren denselben Session-/Slot-Kontext wie `world_log`/`pc_log`,
+    3) Cache-Key, Rechte- und Fallback-Pfad bleiben mit dem bestehenden TTS-Vertrag kompatibel,
+    4) der Sim-Client kann spaeter dieselben Audioartefakte konsumieren statt eines separaten Exportformats.
+  - Evidenz: `novapolis_agent/app/main.py` und `novapolis_agent/app/tts/providers.py` liefern produktive TTS-Endpunkte, `novapolis-dev/docs/specs/tts-exporter-coqui.md` beschreibt slotbezogene OGG-Artefakte, und `novapolis-sim/scripts/Main.gd` zeigt Audio-/Epoch-Slots bereits als eigene Oberflaechen an, aber noch ohne Session-Anbindung.
 
 Platzhalter
 

@@ -1,7 +1,7 @@
 ---
-stand: 2026-01-11 01:40
-update: "JEALOUSY-GLOVES aligned: Kontakt-Guard (betroffene Körperstelle bedecken) bei Kora, Consent/Stop/Freigabe via Reference."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-11 01:37); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-11 01:37)
+stand: 2026-04-05 19:43
+update: Echo verweist jetzt auf den eigenen Mind-Cluster und fuehrt ein lokales Knowledge-/Actions-Set fuer den C6-Startkorridor.
+checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
 title: Echo
 category: character
 slug: echo
@@ -20,8 +20,6 @@ Echo
 ====
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `ECO1=L85-S74-T62-E58-N52-O44-C28-M16-P30-ks` - bindet sich eng an Kora, reagiert kindlich-selbstlos und priorisiert Schutzinstinkte.
-
 - Rolle: Reflex-Instanz (an Kora gekoppelt)
 - Werte: tbd
 - Skills:
@@ -72,6 +70,71 @@ Wissensstand (Matrix - Auszug)
 - Intern: Reflex/Instanzen bekannt
 - Extern: nicht bekannt/keine Offenlegung [FR-KNOWLEDGE]
 
+Knowledge (24x1h Starter)
+-------------------------
+
+```yaml
+knowledge:
+  - id: know-echo-kora-stress-2026-04-05-01
+    about: kora_stress_shift
+    channel: direct
+    source: proximity_link
+    scope: private
+    confidence: 0.9
+    freshness: 2026-04-05T08:10:00+02:00
+    visibility_to: [echo, kora-malenkov]
+    attachments: [doc:./Kora-Malenkov.md]
+  - id: know-echo-c6-gate-contact-2026-04-05-01
+    about: c6_gate_contact
+    channel: overhear
+    source: c6_watch
+    scope: allies_only
+    confidence: 0.7
+    freshness: 2026-04-05T08:10:00+02:00
+    visibility_to: [echo, kora-malenkov]
+    attachments: [doc:../03-locations/C6.md]
+```
+
+Actions (24x1h Starter)
+-----------------------
+
+```yaml
+actions:
+  - id: act-echo-schutzmantel-2026-04-05-01
+    verb: wache
+    base_duration_min: 20
+    effort: 2
+    interruptible: true
+    locks: [kora_proximity]
+    may_trigger_event: true
+    resources: [se_pool_echo]
+    prerequisites: []
+    outputs: [schutzmantel_aktiv]
+    risks: [se_verbrauch]
+  - id: act-echo-signalping-c6-2026-04-05-01
+    verb: funk
+    base_duration_min: 10
+    effort: 1
+    interruptible: true
+    locks: [echo_signal_channel]
+    may_trigger_event: true
+    resources: [signalband]
+    prerequisites: []
+    outputs: [warnsignal]
+    risks: [fehlalarm]
+  - id: act-echo-kontakt-guard-2026-04-05-01
+    verb: guard
+    base_duration_min: 5
+    effort: 2
+    interruptible: true
+    locks: [kontaktzone_kora]
+    may_trigger_event: true
+    resources: [reflex_gewebe]
+    prerequisites: [know-echo-c6-gate-contact-2026-04-05-01]
+    outputs: [kontakt_geblockt]
+    risks: [misread_contact]
+```
+
 Interaktion & Safety (Instanz)
 ------------------------------
 
@@ -83,6 +146,12 @@ Interaktion & Safety (Instanz)
 
 - Request: „Echo, dicht bei mir - Sicht frei.“
 - Stop: „Stopp.“ → sofort lösen
+
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/echo-mind-cluster.md`
 
 Ausrüstung (Details)
 --------------------
@@ -100,12 +169,6 @@ Ziele (kurz)
 - [ ] Stabiler Betrieb an Koras Seite
 - [ ] Schutz ohne Sicht/Atmung zu blockieren
 
-Beziehungen
------------
-
-- Kora - Bezugsperson
-- Reflex - Primärinstanz; Lumen - Schwester-Instanz
-
 Projekte & Missions (Verlinkungen)
 ----------------------------------
 
@@ -116,6 +179,7 @@ Links
 
 - Kora → ./Kora-Malenkov.md
 - Reflex → ./Reflex.md
+- Mind-Cluster (Echo) -> ../07-mind-clusters/echo-mind-cluster.md
 
 
 

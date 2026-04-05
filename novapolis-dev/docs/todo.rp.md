@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-02 06:27
-update: Skill-Mapping-V1 ist jetzt gegen Ronja/Reflex, Pahl sowie Kora/Echo real gegengeprueft; der RP-Open-Count sinkt auf 2.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
+stand: 2026-04-05 19:43
+update: Das RP-Board schliesst jetzt die konfliktbereinigten Neutralstarts `E2/F1` im selben Lauf.
+checks: snapshot-lock PASS (2026-04-05 19:33); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -16,9 +16,219 @@ TODO (Novapolis-RP)
 Prioritaetstags (aktiv)
 -----------------------
 
-- `Jetzt`: Kein aktiver RP-Blocker mehr im konservativen Inventar-/Skill-Strang; offen bleibt nur der spaetere TTS-Block.
-- `Als naechstes`: Falls RP wieder geoeffnet wird, den TTS-Block fuer OGG-Summaries und Live-Dialog-Cache vorbereiten.
-- `Spaeter`: TTS-Block (OGG-Kandidaten + Live-Dialog-Cache) ausrollen.
+- `Jetzt`: Startpaket, Sphaeren-/Mind-Cluster-SSOT und scheduler-ready Startkorridor fuer den ersten spielbaren Slice.
+- `Als naechstes`: Reveal-/Geheimhaltungsregeln und fail-forward Folgekorridor fuer mehrere Slots sauber kanonisieren.
+- `Spaeter`: TTS-Block (OGG-Kandidaten + Live-Dialog-Cache) erst nach belastbarem Spielkern ausrollen.
+
+Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
+-------------------------------------------------
+
+- [x] [Jetzt] Spielstartpaket und Slot-00-05-Korridor als evidence-first Arbeitsblatt zerlegen.
+  - Ziel: Die offenen RP-Punkte fuer Startpaket und Mehrslot-Korridor sollen vor der eigentlichen Kanonisierung nicht abstrakt bleiben, sondern als belastbare Arbeitsstruktur mit Beleglage, Reveal-Grenzen und Fail-Forward-Klassen vorliegen.
+  - Ergebnis 2026-04-05: `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md` fuehrt jetzt Primärlinse, Startort, Stakes, Startkern, Reveal-Regeln, mehrere Startoptionen, einen fraktionslosen Pfad, freie Gebietswahl, die Arbeitsfenster `slot 00-05` sowie die Folge-Reihenfolge fuer Mind-Cluster-, Knowledge- und Actions-Ausbau evidence-first zusammen.
+
+- [x] [Jetzt] Spielstartpaket fuer den ersten spielbaren Novapolis-Run als kanonische SSOT anlegen.
+  - Ziel: Der spaetere KI-Spielleiter soll einen eindeutigen Startpunkt mit Ort, Zeitpunkt, Stakeholdern und erstem Entscheidungsraum bekommen statt nur verteilter Lore-, Missions- und Inventaranteile.
+  - Akzeptanzkriterien:
+    1) mehrere Startoptionen sind explizit benannt: mindestens `Novapolis-Default`, `Fraktionsstart` und `Fraktionslos / Freie Gruppen`,
+    2) Startbereich und Fraktionsmodus sind getrennt waehlbar; mindestens die belegten Kernraeume und Neutral-/Transitbereiche sind als Auswahlklassen sichtbar,
+    3) der Start verweist auf bestehende Missions-, Orts-, Inventar-, Knowledge- und Mind-Cluster-SSOTs statt Inhalte zu doppeln,
+    4) offene Luecken im Startpaket bleiben sichtbar als `tbd` oder eigener Folgepunkt,
+    5) der erste Slice ist als belastbarer Einstieg fuer Agent, Sim und spaetere Replay-/TTS-Pfade lesbar.
+  - Arbeitspakete laut Arbeitsblatt:
+    1) Primärlinse `Ronja/Reflex in D5` gegen Parallelfaden `Kora/Echo in C6` festziehen,
+    2) Mehrfachstart-Matrix `Default-Slice | Fraktionsstart | Fraktionslos | Neutralstart` festziehen,
+    3) Startbereich und Fraktionsmodus sauber trennen,
+    4) Reveal-Grenzen `pc_visible|allies_only|world_only|rumor` direkt am Startbogen benennen,
+    5) offene Kanon-Luecken sichtbar halten (keine stillen Auffuellungen).
+  - Ergebnis 2026-04-05: `novapolis-dev/docs/process/rp-startbogen-novapolis-d5.ssot.md` ist jetzt der kanonische Default-Start fuer den ersten Novapolis-Run; `novapolis-dev/docs/process/rp-startbogen-novapolis-c6.ssot.md` grenzt `C6` als eigenen parallelen Novapolis-Start ab; `novapolis-dev/docs/process/rp-start-chooser.ssot.md` fuehrt beide zusammen mit Fraktions- und fraktionslosen Starts auf derselben Auswahl- und Reveal-Schicht.
+  - Evidenz: `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `novapolis-dev/docs/process/rp-start-chooser.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-novapolis-d5.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-novapolis-c6.ssot.md`, `novapolis-dev/docs/specs/annotation-spec.md`, `novapolis-dev/docs/specs/scheduler-spec.md`, `Missionslog-Novapolis.md`, `D5.md`, `C6.md`, `Fraktionen-Taxonomie.md`, `Stationskontroll-Matrix.md`, `Metrokarte-T0.md`, `Freie-Gruppen-inventar.md`.
+
+- [x] [Als naechstes] Verbleibende Fraktionskerne `A1`, `B2`, `H12`, `F9` und `K4` von `framing_start` auf echte Startboegen heben.
+  - Ziel: Nach D5, C6, G7 und A2 sollen auch die verbleibenden belegten Fraktionskerne einen ersten belastbaren Entscheidungsraum erhalten, statt nur als auswählbarer Rahmenknoten sichtbar zu sein.
+  - Akzeptanzkriterien:
+    1) jeder Kern fuehrt mindestens Basisstation, Startkern, Stakes und ersten Entscheidungsraum,
+    2) Rahmenstart und voll tragfaehiger Start bleiben im Chooser sichtbar getrennt,
+    3) neue Startboegen bleiben an echte Orts-, Fraktions- und Topologie-SSOTs gebunden,
+    4) offene lokale Luecken werden pro Start explizit markiert statt aufgefuellt.
+  - Ergebnis 2026-04-05: `rp-startbogen-arkologie-a1.ssot.md`, `rp-startbogen-schienenbund-b2.ssot.md`, `rp-startbogen-eisenkonklave-h12.ssot.md`, `rp-startbogen-schattenbund-f9.ssot.md` und `rp-startbogen-fluesterkollektiv-k4.ssot.md` heben jetzt alle verbleibenden Kernstationen auf echte Minimal-Startboegen; `rp-start-chooser.ssot.md` fuehrt damit alle derzeit freigegebenen Kernstationen als `full_slice`.
+  - Evidenz: `novapolis-dev/docs/process/rp-start-chooser.ssot.md`, `Fraktionen-Taxonomie.md`, `Stationskontroll-Matrix.md`, `Metrokarte-T0.md`, `A1.md`, `B2.md`, `H12.md`, `F9.md`, `K4.md`, `novapolis-dev/docs/process/rp-startbogen-arkologie-a1.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-schienenbund-b2.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-eisenkonklave-h12.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-schattenbund-f9.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-fluesterkollektiv-k4.ssot.md`.
+
+- [x] [Jetzt] Mind-Cluster- und Sphaeren-SSOT fuer die Kernbesetzung des Startkorridors ausrollen.
+  - Ziel: Beziehungen, geistnahe Zustaende und verdeckte Dynamik der ersten spielrelevanten Figuren duerfen nicht implizit im Fliesstext bleiben, sondern sollen im geregelten Sphaerenmodell vorliegen.
+  - Akzeptanzkriterien:
+    1) alle Kernfiguren und unmittelbaren Fraktionskontakte des ersten Slice besitzen je eine eigene `*-mind-cluster.md`,
+    2) observer-/target-Richtung, Pflichtfelder, Reason-Codes und angewandte Regeln sind validator-konform,
+    3) Charakterdateien verweisen nur noch auf diese SSOTs statt beziehungsnahe Doppelungen zu tragen,
+    4) mindestens die startrelevanten Vertrauens-, Loyalitaets-, Bedrohungs- und Konfliktachsen sind belegt oder bewusst `tbd` markiert.
+  - Priorisierte Reihenfolge fuer den Startkorridor:
+    1) Reflex,
+    2) Jonas,
+    3) Pahl,
+    4) Kora,
+    5) Echo.
+  - Ergebnis 2026-04-05: Fuer `Reflex`, `Jonas`, `Pahl`, `Kora` und `Echo` liegen jetzt eigene `*-mind-cluster.md`-SSOTs vor; die Charakterdateien verweisen auf diese Cluster statt Beziehungs- und Verhaltensduplikate mitzuschleppen.
+  - Evidenz: `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `novapolis-rp/database-rp/00-admin/mind-cluster-template.md`, `.github/instructions/mind-cluster.instructions.md`, `novapolis-rp/database-rp/01-factions/novapolis/07-mind-clusters/reflex-mind-cluster.md`, `jonas-merek-mind-cluster.md`, `pahl-brenner-mind-cluster.md`, `kora-malenkov-mind-cluster.md`, `echo-mind-cluster.md`.
+
+- [x] [Jetzt] Scheduler-ready Knowledge-/Actions-Abdeckung fuer Startorte, Missionsanker und Kernfiguren schliessen.
+  - Ziel: Der erste Slice soll nicht nur erzaehlbar, sondern aus aktiver SSOT auch plan- und simulierbar sein.
+  - Akzeptanzkriterien:
+    1) die startrelevanten Orte, Missionen und Figuren fuehren die benoetigten `knowledge:`- und `actions:`-Felder in der aktiven SSOT,
+    2) Dauer, Locks, Ressourcen, Interruptfaehigkeit und Reveal-Kanaele reichen fuer einen ersten Scheduler-/GM-Lauf aus,
+    3) Knowledge-Eintraege unterscheiden sichtbar zwischen Weltwahrheit, Gruppenwissen und PC-Sicht,
+    4) der Startkorridor benoetigt fuer seine Kernentscheidungen keine impliziten Chat-Absprachen ausserhalb der SSOT.
+  - Startkorridor-Scope:
+    1) `D5.md`,
+    2) `C6.md`,
+    3) `Missionslog-Novapolis.md`,
+    4) `Nordlinie-01.md`,
+    5) die startrelevanten Charakterdateien des Kerncasts.
+  - Ergebnis 2026-04-05: `D5.md`, `C6.md`, `Nordlinie-01.md` sowie der Kerncast `Ronja/Reflex/Jonas/Pahl/Kora/Echo` fuehren jetzt startkorridor-taugliche `knowledge:`- und `actions:`-Bloecke mit Reveal-Kanaelen, Voraussetzungen, Outputs und Risiken; `Missionslog-Novapolis.md` bleibt der Missionsanker fuer die D5-C6-Kette.
+  - Evidenz: `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `novapolis-dev/docs/specs/annotation-spec.md`, `D5.md`, `C6.md`, `Nordlinie-01.md`, `Missionslog-Novapolis.md`, `Ronja-Kerschner.md`, `Reflex.md`, `Jonas-Merek.md`, `Pahl-Brenner.md`, `Kora-Malenkov.md`, `Echo.md`.
+
+- [x] [Als naechstes] Reveal-, Geheimhaltungs- und Wissensgrenzen fuer Spielleitung vs. PC-Sicht als Startbogen-Matrix festziehen.
+  - Ziel: Die KI-Spielleitung soll spaeter eindeutig wissen, was Weltwahrheit bleibt, was nur als Geruecht auftauchen darf und was der PC in welchem Kanal sehen darf.
+  - Akzeptanzkriterien:
+    1) fuer den Startbogen ist pro Informationsklasse geklaert, ob sie `world_only`, `npc_only`, `pc_visible`, `allies_only`, `rumor` oder `log/reflex`-gebunden ist,
+    2) Reveal-Pfade ueber Funk, Log, Reflex-Link, Geruecht oder direkte Beobachtung sind explizit benannt,
+    3) geheime Sphaeren-/Mind-Cluster-Daten und verdeckte Fraktionslagen bleiben klar von PC-Text getrennt,
+    4) die Matrix verweist auf reale Orte, Figuren und Missionsanker statt nur auf abstrakte Regeltexte.
+  - Ergebnis 2026-04-05: `novapolis-dev/docs/process/rp-startkorridor-reveal-matrix.ssot.md` trennt jetzt fuer `D5`, `C6`, `Nordlinie`, Missionslog und Mind-Cluster-Daten sauber zwischen `pc_visible`, `allies_only`, `npc_only`, `world_only`, `rumor` und `log/reflex` samt Reveal-Pfaden und Guardrails.
+  - Evidenz: `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `annotation-spec.md`, `novapolis-dev/docs/process/rp-startkorridor-reveal-matrix.ssot.md`; die Canvas-Rescue-Unterlagen fuehren `[FACT] [KNOWLEDGE]`, `[FACT] [SECRECY]`, `[FACT] [FR-KNOWLEDGE]`, `[FACT] [WORLD-TURNS]` und sind damit jetzt in eine aktive Startbogen-Matrix ueberfuehrt.
+
+- [x] [Als naechstes] Externe Fraktionsstarts und fraktionslosen Neutralstart von Rahmenstart auf echte Startboegen heben.
+  - Ziel: Mehrere Startoptionen sollen nicht nur als Auswahlidee existieren, sondern fuer mindestens einen externen Fraktionsstart und einen fraktionslosen Start einen belastbaren ersten Entscheidungsraum besitzen.
+  - Akzeptanzkriterien:
+    1) mindestens ein externer Fraktionsstart besitzt Basisstation, Startkern, Stakes und ersten Entscheidungsraum,
+    2) der fraktionslose Start fuehrt einen neutralen oder transitiven Startbereich plus Anschlusslogik an Kontakt, Handel, Gefahr oder Fraktion,
+    3) Rahmenstarts und voll tragfaehige Starts bleiben sichtbar getrennt,
+    4) die Auswahl `Bereich frei waehlen` bleibt an reale Stations- und Kontroll-SSOTs gebunden.
+  - Ergebnis 2026-04-05: `novapolis-dev/docs/process/rp-startbogen-haendlerbund-g7.ssot.md` hebt `G7` als ersten externen Fraktionsstart auf `full_slice`; `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-a2.ssot.md` liefert den ersten fraktionslosen Neutralstart in `A2`; `novapolis-dev/docs/process/rp-start-chooser.ssot.md` bindet beide an dieselben Start- und Gebietswahl-Regeln.
+  - Evidenz: `Fraktionen-Taxonomie.md`, `Stationskontroll-Matrix.md`, `Metrokarte-T0.md`, `Freie-Gruppen-inventar.md`, `G7.md`, `novapolis-dev/docs/process/rp-startbogen-haendlerbund-g7.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-a2.ssot.md`, `novapolis-dev/docs/process/rp-start-chooser.ssot.md`.
+
+- [x] [Jetzt] Erweiterten Mind-Cluster-Rollout fuer Anschlusscast und externe Full-Slice-Kerne nachziehen.
+  - Ziel: Der Mind-Cluster-Unterbau soll nicht beim ersten Novapolis-Startkorridor enden, sondern auch den aktuell freigegebenen Anschlusscast und die externen Full-Slice-Kerne als beziehungsnahe SSOT abdecken.
+  - Akzeptanzkriterien:
+    1) fuer den direkten Anschlusscast `Arlen`, `Lumen`, `Marven`, `Marei`, `Lyra` und `Senn` liegen eigene `*-mind-cluster.md`-Dateien oder bewusst dokumentierte Ausnahmen vor,
+    2) fuer die Kernfiguren der Startboegen `A1`, `B2`, `H12`, `F9` und `K4` liegen je eigene Mind-Cluster-SSOTs vor,
+    3) Charakterdateien mit beziehungsnahen Doppelungen oder Verhaltenssignaturen verweisen auf diese SSOTs statt dieselben Bloecke lokal zu tragen,
+    4) Startboegen und Arbeitsblatt fuehren keine veralteten Hinweise mehr auf bereits geschlossene Mind-Cluster-Luecken.
+  - Scope laut Startboegen und aktuellem Anschlusscast:
+    1) `Arlen-Dross.md`, `Lumen.md`, `Marven-Kael.md`, `Marei-Falk.md`, `Lyra-Hest.md`, `Senn-Daru.md`,
+    2) `Liora-Navesh.md`, `Nera-Vossen.md`, `Borin-Khade.md`,
+    3) `Varek-Solun.md`, `Kaspar-Dorn.md`, `Yara-Kest.md`,
+    4) `Helia-Vorn.md`, `Rian-Kord.md`, `Tera-Solm.md`,
+    5) `Nyra-Vehl.md`, `Jarek-Voan.md`, `Sera-Nol.md`,
+    6) `Iris-Vey.md`, `Corin-Mael.md`, `Sera-Kaal.md`.
+  - Ergebnis 2026-04-05: fuer den direkten Anschlusscast `Arlen`, `Lumen`, `Marven`, `Marei`, `Lyra` und `Senn` sowie fuer die Full-Slice-Kerne von `A1`, `B2`, `H12`, `F9` und `K4` liegen jetzt eigene `*-mind-cluster.md`-Dateien vor; die Charakter-SSOTs verweisen auf diese Cluster, und die veralteten D5/C6-Arbeitsluecken sind gestrichen.
+  - Evidenz: `novapolis-dev/docs/process/rp-startbogen-haendlerbund-g7.ssot.md`, `rp-startbogen-arkologie-a1.ssot.md`, `rp-startbogen-schienenbund-b2.ssot.md`, `rp-startbogen-eisenkonklave-h12.ssot.md`, `rp-startbogen-schattenbund-f9.ssot.md`, `rp-startbogen-fluesterkollektiv-k4.ssot.md`, `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `.github/instructions/mind-cluster.instructions.md`.
+
+- [x] [Als naechstes] Ersten spielbaren Folgekorridor `slot 00-05` mit Konsequenzklassen und Fail-Forward sauber kanonisieren.
+  - Ziel: Aus dem Startpaket soll ein mehrslotiger Spielbogen werden, der Entscheidungen, Konsequenzen, Ressourcenfolgen und Eskalationen nachvollziehbar traegt, ohne bei einem Fehlentscheid sofort in Sackgassen zu enden.
+  - Akzeptanzkriterien:
+    1) mindestens die ersten 3-5 spielbaren Entscheidungsfenster sind als Folgekorridor mit moeglichen Konsequenzklassen beschrieben,
+    2) Ressourcen-, Missions-, Beziehungs- und Gefahrenfolgen sind pro Fenster sichtbar benannt,
+    3) harte Dead Ends werden vermieden; stattdessen existieren dokumentierte Fail-Forward-Pfade,
+    4) der Korridor bleibt mit Missionslog, Inventaren, Knowledge und Mind-Clustern kompatibel.
+  - Vorstruktur laut Arbeitsblatt:
+    - Slot 00: D5 Wartungsauftrag/Wartungsgang,
+    - Slot 01: D5 Terminal/Port/System-Link,
+    - Slot 02: D5 Werkstatt-/Funk-Weiterlauf und Pahl-Kontext,
+    - Slot 03: C6 Sicherung/Markierung als Parallelfaden,
+    - Slot 04: C6 Abschluss/Übergabe als kontrollierter Reveal,
+    - Slot 05: D5 Grundriss-/Nordlinie-Entscheidungsfenster.
+  - Ergebnis 2026-04-05: `novapolis-dev/docs/process/rp-folgekorridor-slot-00-05.ssot.md` kanonisiert jetzt die Slots `00-05` mit primaerer Linse, Konsequenzklassen, fail-forward-faehigen Ausweichpfaden sowie einem Missions-/Reveal-/Persistenzvertrag; das Arbeitsblatt verweist nur noch auf diese Folge-SSOT.
+  - Evidenz: `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `novapolis-dev/docs/process/rp-folgekorridor-slot-00-05.ssot.md`, `scheduler-spec.md`, `Missionslog-Novapolis.md`, `Nordlinie-01.md`.
+
+- [x] [Als naechstes] Lokale Tiefenschaerfe und Nebenstart-Hooks fuer die Full-Slice-Kerne an die neuen Mind-Cluster anbinden.
+  - Ziel: Die bereits freigegebenen Full-Slice-Starts sollen nicht bei einem reinen Minimalbogen stehen bleiben, sondern pro Kernstation belastbare Unterraeume, lokale Konfliktherde und anschlussfaehige Nebenstart-Linsen erhalten.
+  - Akzeptanzkriterien:
+    1) die noch duennen Kernstationen `A1`, `H12`, `B2`, `F9` und `K4` fuehren konservative lokale Unterraeume oder Funktionszonen statt nur `tbd`,
+    2) die zugehoerigen Startboegen benennen pro Kern mindestens eine lokale Leitungs-, Handels- und Sicherheitslinse,
+    3) die neuen Mind-Cluster-SSOTs der Kernfiguren sind im Startkontext explizit angebunden,
+    4) Nebenstart-Hooks bleiben als Hook markiert und werden nicht still zu voll ausgearbeiteten Zusatzstartboegen promoted.
+  - Ergebnis 2026-04-05: `A1.md`, `H12.md`, `B2.md`, `F9.md` und `K4.md` fuehren jetzt belastbare Status-, Bevoelkerungs-, Infrastruktur- und Tiefenschaerfe-Bloecke; die Startboegen von `A1/H12/B2/F9/K4` sowie `G7` binden ihre Mind-Cluster explizit an und nennen lokale Unterraeume sowie konservative Nebenstart-Hooks.
+  - Evidenz: `A1.md`, `H12.md`, `B2.md`, `F9.md`, `K4.md`, `rp-startbogen-arkologie-a1.ssot.md`, `rp-startbogen-eisenkonklave-h12.ssot.md`, `rp-startbogen-schienenbund-b2.ssot.md`, `rp-startbogen-schattenbund-f9.ssot.md`, `rp-startbogen-fluesterkollektiv-k4.ssot.md`, `rp-startbogen-haendlerbund-g7.ssot.md`, die zugehoerigen `*-mind-cluster.md`-Dateien.
+
+- [x] [Als naechstes] Reveal-Matrix auf die weiteren Full-Slice- und Neutralstarts ausdehnen.
+  - Ziel: Die KI-Spielleitung soll nicht nur fuer `D5/C6`, sondern auch fuer die freigegebenen weiteren Startgebiete klar unterscheiden koennen, was unmittelbarer Startkontext, internes Gruppenwissen, Geruecht oder reine Weltlage bleibt.
+  - Akzeptanzkriterien:
+    1) mindestens `A1`, `B2`, `H12`, `F9`, `K4` sowie die angrenzenden Startpfade `G7` und `A2` sind mit Reveal-Klassen dokumentiert,
+    2) pro Startgebiet sind lokale Sichtbarkeit, interne Freigabelogik und `world_only`-Grenzen erkennbar,
+    3) die Matrix verweist auf reale Startboegen und Orts-SSOTs statt freie Metaregeln zu wiederholen,
+    4) rohe Mind-Cluster- oder verdeckte Fraktionslagen bleiben auch in der erweiterten Matrix strikt aus dem PC-Text getrennt.
+  - Ergebnis 2026-04-05: `novapolis-dev/docs/process/rp-startgebiete-reveal-matrix.ssot.md` fixiert jetzt Reveal-, Geheimhaltungs- und Wissensgrenzen fuer `A1`, `B2`, `H12`, `F9`, `K4`, `G7` und `A2` samt Pfaden `pc_visible`, `allies_only`, `world_only` und `rumor`.
+  - Evidenz: `rp-startbogen-arkologie-a1.ssot.md`, `rp-startbogen-schienenbund-b2.ssot.md`, `rp-startbogen-eisenkonklave-h12.ssot.md`, `rp-startbogen-schattenbund-f9.ssot.md`, `rp-startbogen-fluesterkollektiv-k4.ssot.md`, `rp-startbogen-haendlerbund-g7.ssot.md`, `rp-startbogen-freie-gruppen-a2.ssot.md`, `A1.md`, `B2.md`, `H12.md`, `F9.md`, `K4.md`, `G7.md`, `Stationskontroll-Matrix.md`, `Metrokarte-T0.md`.
+
+- [x] [Als naechstes] Folgekorridor hinter `slot 05` auf echte Slots fuer Tunnel, Materiallauf und Aussenkontakt ausbauen.
+  - Ziel: Der erste Mehrslot-Korridor soll nach der internen Startphase nicht abstrakt abbrechen, sondern in belegte Folge-Slots fuer Nordlinie, Materiallauf, C6-Empfang und den ersten Aussenkontakt uebergehen.
+  - Akzeptanzkriterien:
+    1) mindestens `slot 06-10` sind als Folge-SSOT beschrieben,
+    2) Tunnel-/Projektarbeit, Materiallauf und Aussenkontakt sind als getrennte Entscheidungsfenster sichtbar,
+    3) der Folgekorridor bleibt kompatibel mit Missionslog, Reveal-Matrix und bestehenden Startboegen,
+    4) die neue Folgeform fuehrt Schwerpunktverzweigungen statt harter Dead Ends ein.
+  - Ergebnis 2026-04-05: `novapolis-dev/docs/process/rp-folgekorridor-slot-06-10.ssot.md` fuehrt jetzt Slots fuer Nordlinie-Priorisierung, den belegten Materiallauf `D5 -> C6`, C6-Empfang/Verteilung, das Kontaktfenster `G7 <-> C6` und die anschliessende Schwerpunktwahl nach innen oder aussen.
+  - Evidenz: `rp-folgekorridor-slot-00-05.ssot.md`, `rp-folgekorridor-slot-06-10.ssot.md`, `rp-startbogen-haendlerbund-g7.ssot.md`, `rp-startbogen-freie-gruppen-a2.ssot.md`, `Missionslog-Novapolis.md`, `Nordlinie-01.md`, `D5.md`, `C6.md`, `G7.md`.
+
+- [x] [Als naechstes] Langzeit-Folgekorridor hinter `slot 10` als erste echte Schwerpunktfolge kanonisieren.
+  - Ziel: Der Produktpfad soll nach der ersten Innen-/Aussenwahl nicht abbrechen, sondern belastbare Folge-Slots fuer Langzeitkosten, Puffernutzung und Schwerpunktsetzung fuehren.
+  - Akzeptanzkriterien:
+    1) mindestens `slot 11-15` sind als eigene Folge-SSOT beschrieben,
+    2) Innen-, Aussen- und Pufferpfad sind als unterschiedliche Schwerpunktentscheidungen sichtbar,
+    3) die Folge-Slots bleiben an bestehende Orts-, Reveal- und Missions-SSOTs gebunden,
+    4) Langzeitfolgen laufen ueber Druck, Kosten und Spezialisierung statt ueber harte Dead Ends.
+  - Ergebnis 2026-04-05: `novapolis-dev/docs/process/rp-folgekorridor-slot-11-15.ssot.md` fuehrt jetzt Langzeitfolgen fuer Nordlinie-/Materialpfad, neutrale Pufferknoten `A2/B1/C3`, Aussenkontakt `G7` und die erste dauerhafte Schwerpunktwahl.
+  - Evidenz: `rp-folgekorridor-slot-06-10.ssot.md`, `rp-folgekorridor-slot-11-15.ssot.md`, `rp-startbogen-freie-gruppen-a2.ssot.md`, `rp-startbogen-haendlerbund-g7.ssot.md`, `A2.md`, `B1.md`, `C3.md`, `Missionslog-Novapolis.md`, `Nordlinie-01.md`, `Metrokarte-T0.md`.
+
+- [x] [Als naechstes] Neutrale Pufferknoten `A2`, `B1` und `C3` als lokale Orts-SSOTs verdichten.
+  - Ziel: Der fraktionslose und mobile Pfad soll nicht nur ueber abstrakte Stationscodes laufen, sondern fuer die ersten Pufferknoten konservative Ortsanker mit Risiko- und Anschlusslogik besitzen.
+  - Akzeptanzkriterien:
+    1) `A2`, `B1` und `C3` liegen als eigene Orts-SSOTs vor,
+    2) jede Datei fuehrt Status, Infrastruktur, Risiken und eine minimale lokale Tiefenschaerfe ohne freie NPC-Erfindung,
+    3) `rp-startbogen-freie-gruppen-a2.ssot.md` bindet diese Orts-SSOTs explizit an,
+    4) Reveal- und Folgekorridor-SSOTs koennen die Knoten ohne implizite Leerstellen referenzieren.
+  - Ergebnis 2026-04-05: `novapolis-rp/database-rp/03-locations/A2.md`, `B1.md` und `C3.md` fuehren jetzt konservative Orts-SSOTs fuer aktive bzw. teilaktive Neutralpuffer; der A2-Startbogen und die Startgebiete-Reveal-Matrix binden diese Knoten explizit an.
+  - Evidenz: `A2.md`, `B1.md`, `C3.md`, `rp-startbogen-freie-gruppen-a2.ssot.md`, `rp-startgebiete-reveal-matrix.ssot.md`, `Metrokarte-T0.md`, `Stationskontroll-Matrix.md`, `A1.md`, `B2.md`.
+
+- [x] [Als naechstes] Weitere Neutralstarts `B1` und `C3` von Orts-SSOT auf eigene Startboegen heben.
+  - Ziel: Der mobile/fraktionslose Produktpfad soll nach `A2` nicht auf einen einzigen Neutralstart beschraenkt bleiben, sondern fuer den Vorpuffer `B1` und den teilaktiven Schwellenraum `C3` eigene belastbare Einstiegsfenster besitzen.
+  - Akzeptanzkriterien:
+    1) fuer `B1` und `C3` liegen je eigene Startboegen mit Startkern, Stakes und erstem Entscheidungsraum vor,
+    2) beide Startboegen bleiben strikt an die neutralen Orts-SSOTs und T0-Topologie gebunden,
+    3) Start-Chooser und Arbeitsblatt fuehren die neuen Neutralstarts als `full_slice`,
+    4) keine benannten NPC oder Fraktionsrechte werden frei erfunden.
+  - Ergebnis 2026-04-05: `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-b1.ssot.md` und `rp-startbogen-freie-gruppen-c3.ssot.md` heben `B1` und `C3` jetzt auf eigenstaendige neutrale Startboegen; der Start-Chooser fuehrt damit drei fraktionslose/neutralnahe Full-Slice-Einstiege `A2/B1/C3`.
+  - Evidenz: `B1.md`, `C3.md`, `rp-startbogen-freie-gruppen-b1.ssot.md`, `rp-startbogen-freie-gruppen-c3.ssot.md`, `rp-start-chooser.ssot.md`, `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `Metrokarte-T0.md`, `Stationskontroll-Matrix.md`.
+
+- [x] [Als naechstes] Folgekorridor hinter `slot 15` auf erste Kampagnenfolge `slot 16-20` erweitern.
+  - Ziel: Der Produktpfad soll hinter der ersten Langzeitpriorisierung nicht erneut abbrechen, sondern einen belastbaren Anschluss fuer Kampagnenrichtung, Mobilitaet, Kontakt und Rueckkopplung besitzen.
+  - Akzeptanzkriterien:
+    1) mindestens `slot 16-20` liegen als eigene Folge-SSOT vor,
+    2) die Slots fuehren Innen-, Aussen- und Mobilitaetspfad in erste stabile Kampagnenformen ueber,
+    3) `slot 16-20` bleibt an vorhandene Orts-, Reveal- und Start-SSOTs gebunden,
+    4) Konsequenzen laufen weiter ueber Druck, Kosten und Schwerpunktwahl statt ueber harte Dead Ends.
+  - Ergebnis 2026-04-05: `novapolis-dev/docs/process/rp-folgekorridor-slot-16-20.ssot.md` fuehrt jetzt die erste Kampagnenfolge fuer wiederkehrende Innenstabilisierung, neutrale Mobilitaetsfenster `B1/C3`, Aussenpfad `G7` und die Rueckkopplung zwischen diesen Schwerpunkten.
+  - Evidenz: `rp-folgekorridor-slot-11-15.ssot.md`, `rp-folgekorridor-slot-16-20.ssot.md`, `rp-startbogen-freie-gruppen-b1.ssot.md`, `rp-startbogen-freie-gruppen-c3.ssot.md`, `rp-startbogen-haendlerbund-g7.ssot.md`, `B1.md`, `C3.md`, `Missionslog-Novapolis.md`, `Metrokarte-T0.md`.
+
+- [x] [Als naechstes] Weitere Neutralstarts `C1` und `D1` von T0-Knoten auf eigene Startboegen heben.
+  - Ziel: Der fraktionslose Produktpfad soll nicht nur an den ersten Pufferstationen haengen bleiben, sondern auch auf weitere aktive Neutralraeume mit eigener Startlogik ausgedehnt werden.
+  - Akzeptanzkriterien:
+    1) fuer `C1` und `D1` liegen je eigene Orts-SSOTs und Startboegen vor,
+    2) beide Starts bleiben strikt an T0-Topologie und Statusbelege gebunden,
+    3) Start-Chooser und Reveal-Matrix fuehren die neuen Neutralstarts explizit,
+    4) keine lokalen Crews, Fraktionsrechte oder Anschlusslagen ohne Beleg werden erfunden.
+  - Ergebnis 2026-04-05: `novapolis-rp/database-rp/03-locations/C1.md` und `D1.md` sowie `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-c1.ssot.md` und `rp-startbogen-freie-gruppen-d1.ssot.md` heben die beiden aktiven T0-Neutralraeume jetzt auf eigene spielbare Einstiege; Start-Chooser und Startgebiete-Reveal-Matrix binden sie explizit an.
+  - Evidenz: `C1.md`, `D1.md`, `rp-startbogen-freie-gruppen-c1.ssot.md`, `rp-startbogen-freie-gruppen-d1.ssot.md`, `rp-start-chooser.ssot.md`, `rp-startgebiete-reveal-matrix.ssot.md`, `Metrokarte-T0.md`, `Stationskontroll-Matrix.md`.
+
+- [x] [Als naechstes] `E2` und `F1` aus dem aktiven Konfliktstand auf echte Neutralstarts heben.
+  - Ziel: Die aktiven Neutralraume `E2` und `F1` sollen trotz des frueheren C6-Codename-Konflikts auf konsistente Orts- und Start-SSOTs gezogen werden.
+  - Akzeptanzkriterien:
+    1) `C6.md` fuehrt `F1` nicht mehr als stationslosen Codename gegen den aktiven T0-Stand,
+    2) `E2` und `F1` liegen je als eigene Orts-SSOT und als eigener Startbogen vor,
+    3) Reveal-Matrix und Start-Chooser fuehren beide neuen Neutralstarts explizit,
+    4) keine unbelegten Direktverbindungen, Crews oder Detailretcons werden hinzugefuegt.
+  - Ergebnis 2026-04-05: `C6.md` fuehrt `F1` jetzt konsistent als realen T0-Knoten mit nur unbelegtem direktem C6-Pfad; `novapolis-rp/database-rp/03-locations/E2.md` und `F1.md` sowie `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-e2.ssot.md` und `rp-startbogen-freie-gruppen-f1.ssot.md` heben beide auf spielbare Neutralstarts.
+  - Evidenz: `C6.md`, `E2.md`, `F1.md`, `rp-startbogen-freie-gruppen-e2.ssot.md`, `rp-startbogen-freie-gruppen-f1.ssot.md`, `rp-startgebiete-reveal-matrix.ssot.md`, `rp-start-chooser.ssot.md`, `Missionslog-Novapolis.md`, `Jonas-Merek.md`, `Metrokarte-T0.md`, `Stationskontroll-Matrix.md`.
 
 Aktiver Vorbereitungspunkt (2026-03-20)
 ---------------------------------------

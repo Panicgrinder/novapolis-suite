@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-05 01:00
+stand: 2026-04-05 19:43
 update: Neuer SSOT-Charakter angelegt (Leitung Sicherheit Eisenkonklave).
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 title: Yara Kest
@@ -43,10 +43,17 @@ Beziehungen & Führungseinordnung
 - Führungsbezug: berichtet an die Fraktionsleitung (Varek Solun).
 - Schnittstelle Handel: Sicherheitsfreigaben für Handelsfenster und Konvois.
 
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+
+- Beziehungsnahe Lage und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/yara-kest-mind-cluster.md`
+
 Verlinkungen
 ------------
 
 - Fraktionsübersicht → ../README.md
 - Location H12 → ../03-locations/H12.md
 - Tick-Regeln (global) → ../../../00-admin/Tick-Regeln-Simulation.md
+- Mind-Cluster (Yara) -> ../07-mind-clusters/yara-kest-mind-cluster.md
 

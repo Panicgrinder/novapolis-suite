@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-05 01:00
+stand: 2026-04-05 19:43
 update: Neuer SSOT-Charakter angelegt (Leitung Handel Flüsterkollektiv).
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 title: Corin Mael
@@ -37,10 +37,17 @@ Zugehörigkeit & Standort
 - Standort: K4, Handelszelle
 - Status: aktiv; Lageabgleich mit Fraktionsleitung und Sicherheit
 
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+
+- Beziehungsnahe Lage und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/corin-mael-mind-cluster.md`
+
 Verlinkungen
 ------------
 
 - Fraktionsübersicht → ../README.md
 - Location K4 → ../03-locations/K4.md
 - Logistik (global) → ../../../00-admin/Logistik.md
+- Mind-Cluster (Corin) -> ../07-mind-clusters/corin-mael-mind-cluster.md
 

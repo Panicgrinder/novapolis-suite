@@ -1,5 +1,5 @@
 ---
-stand: 2026-02-04 09:21
+stand: 2026-04-05 19:43
 update: Verweise auf Admin-SSOT relativisiert.
 checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-04 09:21)
 title: Liora Navesh
@@ -19,7 +19,6 @@ Liora Navesh
 ============
 
 - Meta: last-updated: 2025-11-07T03:32:00+01:00
-- Verhaltenssignatur: `LNR1=O82-T76-N68-S58-L52-M47-E34-C21-P55-r` - analytisch-strukturiert, sucht abgesicherte Erkenntniswege und handelt streng rational.
 - Rolle: Fraktionsleitung Arkologie A1; Leiterin Forschungsrat / Chefärztin Biotechnologie (Quelle: FACT ARKO-RESEARCH)
 - Werte: Kraft 2 · Geschick 3 · Geist 5 · Wille 4 · Charisma 4
 - Skills:
@@ -76,6 +75,12 @@ Diplomatie & Beziehungen
 - Eisenkonklave - Wettbewerb um anomale Ressourcen; Kooperation nur unter strenger Kontrolle
 - Novapolis - unbekannt; alle Meldungen verlangen externe Validierung
 
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+
+- Beziehungen, Verhaltenssignatur und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/liora-navesh-mind-cluster.md`
+
 Risiken & Schutzmaßnahmen
 -------------------------
 
@@ -90,6 +95,7 @@ Systemverknüpfungen & Referenzen
 - `relationslog_arkologie_v1` - Kontakte, Spannungen und Handelskanäle
 - [Ereignislog-Weltgeschehen](../../../00-admin/Ereignislog-Weltgeschehen.md) - Verknüpfung für SÜDFRAGMENT/TIMELINE-Abgleich
 - `cluster_index_v1` - Standortcodierung „Arkologie_A1“ (Alias gepflegt)
+- Mind-Cluster (Liora) -> ../07-mind-clusters/liora-navesh-mind-cluster.md
 
 Ziele (kurz)
 ------------

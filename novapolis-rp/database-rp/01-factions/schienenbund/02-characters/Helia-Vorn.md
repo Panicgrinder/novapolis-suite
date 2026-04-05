@@ -1,5 +1,5 @@
 ---
-stand: 2026-03-05 01:00
+stand: 2026-04-05 19:43
 update: Neuer SSOT-Charakter angelegt (Fraktionsleitung Schienenbund).
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260305_005843.md
 title: Helia Vorn
@@ -37,10 +37,17 @@ Zugehörigkeit & Standort
 - Standort: B2, Kommandoknoten
 - Status: aktiv; Lageabgleich pro Schichtfenster
 
+Mind-Cluster-Referenz (SSOT)
+----------------------------
+
+- Beziehungsnahe Lage und geistnaher Zustand liegen zentral im Mind-Cluster:
+- `../07-mind-clusters/helia-vorn-mind-cluster.md`
+
 Verlinkungen
 ------------
 
 - Fraktionsübersicht → ../README.md
 - Location B2 → ../03-locations/B2.md
 - Tick-Regeln (global) → ../../../00-admin/Tick-Regeln-Simulation.md
+- Mind-Cluster (Helia) -> ../07-mind-clusters/helia-vorn-mind-cluster.md
 
