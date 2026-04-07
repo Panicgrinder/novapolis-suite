@@ -132,4 +132,3 @@ def test_validate_audio_dir_warns_without_clean_checkout_flag(tmp_path: Path) ->
     messages = mod.validate_audio_dir(audio_root, allow_empty=False)
 
     assert any(m.level == "WARN" and "no .ogg files found" in m.text for m in messages)
-

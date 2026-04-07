@@ -311,7 +311,9 @@ async def test_process_chat_request_injects_orchestrator_context(
             turn_id="turn-1",
             pc_log=[{"role": "assistant", "content": "Voriger Zug"}],
             state_patches=[
-                sim.StatePatchRecord(scope="session", op="set", path="mission.anchor", value="Scannerkarte")
+                sim.StatePatchRecord(
+                    scope="session", op="set", path="mission.anchor", value="Scannerkarte"
+                )
             ],
         ),
     )

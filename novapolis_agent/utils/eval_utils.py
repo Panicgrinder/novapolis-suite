@@ -136,11 +136,15 @@ def coerce_eval_records(text: str, source_path: str | None = None) -> list[dict[
     if len(docs) == 1:
         single = docs[0]
         if isinstance(single, list):
-            return [cast(dict[str, Any], r) for r in single if isinstance(r, dict)]
+            records = cast(list[object], single)
+            return [cast(dict[str, Any], record) for record in records if isinstance(record, dict)]
         if isinstance(single, dict):
             items = cast(dict[str, Any], single).get("items")
             if isinstance(items, list):
-                return [cast(dict[str, Any], r) for r in items if isinstance(r, dict)]
+                records = cast(list[object], items)
+                return [
+                    cast(dict[str, Any], record) for record in records if isinstance(record, dict)
+                ]
             return [cast(dict[str, Any], single)]
         return []
 
@@ -150,7 +154,10 @@ def coerce_eval_records(text: str, source_path: str | None = None) -> list[dict[
         if isinstance(doc, dict):
             out.append(cast(dict[str, Any], doc))
         elif isinstance(doc, list):
-            out.extend([cast(dict[str, Any], r) for r in doc if isinstance(r, dict)])
+            records = cast(list[object], doc)
+            out.extend(
+                [cast(dict[str, Any], record) for record in records if isinstance(record, dict)]
+            )
     return out
 
 
@@ -164,12 +171,14 @@ def _extract_synonym_values(raw_value: Any) -> list[str]:
     """
 
     if isinstance(raw_value, list):
-        return [v for v in raw_value if isinstance(v, str)]
+        values = cast(list[object], raw_value)
+        return [value for value in values if isinstance(value, str)]
 
     if isinstance(raw_value, dict):
         synonyms_val = cast(dict[str, Any], raw_value).get("synonyms", [])
         if isinstance(synonyms_val, list):
-            return [v for v in synonyms_val if isinstance(v, str)]
+            values = cast(list[object], synonyms_val)
+            return [value for value in values if isinstance(value, str)]
 
     return []
 
@@ -188,9 +197,10 @@ def load_term_relations(
     merged: dict[str, dict[str, list[str]]] = {}
 
     def _extract_list_field(obj: dict[str, Any], field: str) -> list[str]:
-        val = obj.get(field, [])
-        if isinstance(val, list):
-            return [v for v in val if isinstance(v, str)]
+        raw_list: object = obj.get(field, [])
+        if isinstance(raw_list, list):
+            values = cast(list[object], raw_list)
+            return [value for value in values if isinstance(value, str)]
         return []
 
     for synonym_path in paths:
@@ -222,7 +232,8 @@ def load_term_relations(
 
             # Legacy-Liste oder strukturierte Form
             if isinstance(value, list):
-                incoming_synonyms = [v for v in value if isinstance(v, str)]
+                values = cast(list[object], value)
+                incoming_synonyms = [entry for entry in values if isinstance(entry, str)]
                 incoming_broader: list[str] = []
                 incoming_narrower: list[str] = []
                 structured_override = False
@@ -236,13 +247,14 @@ def load_term_relations(
                 continue
 
             if structured_override:
+                structured_value = cast(dict[str, Any], value)
                 # Strukturwerte sind feldweise autoritativ: sie können
                 # bewusst zu breite Basiseinträge überschreiben.
-                if "synonyms" in cast(dict[str, Any], value):
+                if "synonyms" in structured_value:
                     current["synonyms"] = list(dict.fromkeys(incoming_synonyms))
-                if "broader_terms" in cast(dict[str, Any], value):
+                if "broader_terms" in structured_value:
                     current["broader_terms"] = list(dict.fromkeys(incoming_broader))
-                if "narrower_terms" in cast(dict[str, Any], value):
+                if "narrower_terms" in structured_value:
                     current["narrower_terms"] = list(dict.fromkeys(incoming_narrower))
             else:
                 for term in incoming_synonyms:

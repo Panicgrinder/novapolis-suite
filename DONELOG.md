@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 16:11
-update: Root-Summary dokumentiert jetzt den geschlossenen Sim-Clean-Checkout-Bootstrap und den warnungsfreien Offline-Asset-Check.
-checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 21:38
+update: Root-Summary dokumentiert jetzt auch den vollstaendig warnungsfreien kanonischen Agent-Typenlauf inklusive des zuvor getrennten Restpfads in eval_utils und rag.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260407_213201.md
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,10 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-07 20:57: Der kanonische Agent-Typenlauf ist jetzt vollstaendig warnungsfrei. Nach dem Nachlauf in `novapolis_agent/utils/eval_utils.py` und `novapolis_agent/utils/rag.py` liefert `.tmp/results/reports/checks_types_20260407_205737.log` fuer `pyright -p pyrightconfig.json` jetzt `0 errors, 0 warnings`, waehrend `mypy --config-file mypy.ini app scripts` weiterhin gruen bleibt. `WORKSPACE_STATUS.md`, `novapolis-dev/docs/todo.index.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/donelog.md` und `novapolis_agent/docs/DONELOG.txt` sind im selben Lauf auf denselben Iststand synchronisiert.
+
+- 2026-04-07 16:28: Der suiteweite Root-Metapfad fuer den ersten Text-RPG-Slice ist jetzt auf den belegten Produkt-Iststand nachgezogen und geschlossen. `todo.root.md` verweist fuer den kanonischen Start, den Sessionvertrag, den spielbaren Gate-Pfad und die Beta-Freigabe jetzt nur noch auf `novapolis-dev/docs/process/rp-start-chooser.ssot.md`, `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md`, `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md`, `novapolis-dev/docs/process/standalone-beta-gates.ssot.md`, `novapolis_agent/docs/runbook.md` und die Modul-Boards; `novapolis-dev/docs/todo.index.md` zeigt dazu alle Modul-Boards auf `offen: 0`.
 
 - 2026-04-07 15:55: Die letzten offenen Sim-Restpunkte zu Offline-Assets und Bootstrap sind geschlossen. `scripts/check_sim_epoch_assets.py` behandelt `--allow-empty` jetzt als kanonisches Clean-Checkout-Profil, der Lauf `--repo-root . --allow-empty --check-slot-consistency` endet im aktuellen Repo-Stand mit `summary=fail:0,warn:0`, und `novapolis-sim/README.md` dokumentiert dazu die Bootstrap-Zielorte `novapolis-sim/data/epochs/` und `novapolis-sim/assets/audio/` gegenueber dem artefaktbelegten Vollstand. `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md`, `todo.root.md`, `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` sind im selben Lauf synchronisiert.
 

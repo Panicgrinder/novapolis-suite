@@ -6,7 +6,7 @@ import json
 import re
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Protocol
+from typing import Protocol, cast
 from urllib import error as _urlerror
 from urllib import request as _urlrequest
 
@@ -102,6 +102,13 @@ class AdapterScaffoldProvider:
         )
 
 
+def _coerce_json_object(value: object) -> dict[str, object] | None:
+    if not isinstance(value, dict):
+        return None
+    raw_dict = cast(dict[object, object], value)
+    return {str(key): item for key, item in raw_dict.items()}
+
+
 def _coqui_join_url(base_url: str, path: str) -> str:
     left = base_url.rstrip("/")
     right = path if path.startswith("/") else "/" + path
@@ -137,17 +144,17 @@ def _coqui_request_synthesis(
         return raw, content_type
 
     try:
-        payload_json = json.loads(raw.decode("utf-8"))
+        payload_json = _coerce_json_object(json.loads(raw.decode("utf-8")))
     except Exception as exc:
         raise TtsProviderUnavailableError("Invalid Coqui response payload") from exc
 
-    encoded = None
+    encoded: object | None = None
     mime_type = "audio/ogg"
-    if isinstance(payload_json, dict):
+    if payload_json is not None:
         encoded = payload_json.get("audio_base64") or payload_json.get("audio")
         mime_type = str(payload_json.get("mime_type") or mime_type)
-        data_obj = payload_json.get("data")
-        if not encoded and isinstance(data_obj, dict):
+        data_obj = _coerce_json_object(payload_json.get("data"))
+        if not encoded and data_obj is not None:
             encoded = data_obj.get("audio_base64") or data_obj.get("audio")
             mime_type = str(data_obj.get("mime_type") or mime_type)
 
@@ -175,11 +182,13 @@ def _coqui_request_voices(*, base_url: str, voices_path: str, timeout_sec: float
 
     raw_items: list[object] = []
     if isinstance(payload, list):
-        raw_items = payload
-    elif isinstance(payload, dict):
-        value = payload.get("voices")
-        if isinstance(value, list):
-            raw_items = value
+        raw_items = cast(list[object], payload)
+    else:
+        payload_obj = _coerce_json_object(payload)
+        if payload_obj is not None:
+            value = payload_obj.get("voices")
+            if isinstance(value, list):
+                raw_items = cast(list[object], value)
 
     voices: list[TtsVoice] = []
     for item in raw_items:
@@ -196,13 +205,14 @@ def _coqui_request_voices(*, base_url: str, voices_path: str, timeout_sec: float
                 )
             )
             continue
-        if not isinstance(item, dict):
+        item_obj = _coerce_json_object(item)
+        if item_obj is None:
             continue
-        voice_id = str(item.get("voice_id") or item.get("id") or "").strip()
+        voice_id = str(item_obj.get("voice_id") or item_obj.get("id") or "").strip()
         if not voice_id:
             continue
-        label = str(item.get("label") or item.get("name") or voice_id).strip() or voice_id
-        language = str(item.get("language") or item.get("lang") or "de").strip() or "de"
+        label = str(item_obj.get("label") or item_obj.get("name") or voice_id).strip() or voice_id
+        language = str(item_obj.get("language") or item_obj.get("lang") or "de").strip() or "de"
         voices.append(
             TtsVoice(
                 voice_id=voice_id,
@@ -243,7 +253,7 @@ class CoquiRuntimeProvider:
         ]
 
     def synthesize(self, request: TtsSynthesizeRequest) -> ProviderSynthesisResult:
-        payload = {
+        payload: dict[str, object] = {
             "text": request.text,
             "speaker": request.voice,
             "language": request.language,
@@ -258,7 +268,7 @@ class CoquiRuntimeProvider:
             payload=payload,
         )
 
-        key_payload = {
+        key_payload: dict[str, object] = {
             "provider": self.provider_id,
             "text": request.text,
             "voice": request.voice,
@@ -281,7 +291,11 @@ class CoquiRuntimeProvider:
             safe_session = re.sub(r"[^A-Za-z0-9._-]+", "_", request.session_id).strip("._-")
             safe_session = safe_session or "session"
             artifact_dir = (
-                self.runtime_output_dir / "sessions" / safe_session / request.channel / request_key[:2]
+                self.runtime_output_dir
+                / "sessions"
+                / safe_session
+                / request.channel
+                / request_key[:2]
             )
         else:
             artifact_dir = self.runtime_output_dir / self.provider_id / request_key[:2]

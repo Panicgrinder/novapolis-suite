@@ -11,6 +11,9 @@ from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+AGENT_ROOT = ROOT / "novapolis_agent"
+PYRIGHT_CONFIG = AGENT_ROOT / "pyrightconfig.json"
+MYPY_CONFIG = AGENT_ROOT / "mypy.ini"
 TS = datetime.now().strftime("%Y%m%d_%H%M%S")
 TMP = ROOT / ".tmp" / "results" / "reports"
 TMP.mkdir(parents=True, exist_ok=True)
@@ -18,15 +21,35 @@ LOG = TMP / f"checks_types_{TS}.log"
 RECEIPT = TMP / f"checks_types_postflight_{TS}.md"
 
 COMMANDS = [
-    ([sys.executable, "-m", "pyright", "-p", "pyrightconfig.json"], "pyright"),
-    ([sys.executable, "-m", "mypy", "--config-file", "mypy.ini", "app", "scripts"], "mypy"),
+    (
+        [sys.executable, "-m", "pyright", "-p", str(PYRIGHT_CONFIG)],
+        "pyright",
+    ),
+    (
+        [
+            sys.executable,
+            "-m",
+            "mypy",
+            "--config-file",
+            str(MYPY_CONFIG),
+            "app",
+            "scripts",
+        ],
+        "mypy",
+    ),
 ]
 
 results = []
 with LOG.open("w", encoding="utf8") as lh:
     for cmd, name in COMMANDS:
         lh.write(f"\n== {name} CMD: {' '.join(cmd)} ==\n")
-        proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        proc = subprocess.run(
+            cmd,
+            cwd=AGENT_ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+        )
         lh.write(proc.stdout + "\n")
         results.append({"tool": name, "returncode": proc.returncode})
 

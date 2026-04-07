@@ -7,7 +7,7 @@ import re
 from datetime import UTC, datetime
 from pathlib import Path
 from threading import Lock
-from typing import Any
+from typing import Any, cast
 
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
@@ -251,7 +251,8 @@ def _load_jsonl(path: Path) -> list[dict[str, Any]]:
             continue
         parsed = json.loads(clean_line)
         if isinstance(parsed, dict):
-            entries.append(dict(parsed))
+            parsed_obj = cast(dict[object, Any], parsed)
+            entries.append({str(key): value for key, value in parsed_obj.items()})
     return entries
 
 

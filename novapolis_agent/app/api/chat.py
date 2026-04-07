@@ -24,10 +24,10 @@ from ..utils.session_memory import session_memory
 from . import sim as _sim_api
 from .chat_helpers import normalize_ollama_options
 from .models import (
-    ChatRequest,
-    ChatResponse,
     TEXT_RPG_LOG_CHANNELS,
     TEXT_RPG_SESSION_CONTRACT_VERSION,
+    ChatRequest,
+    ChatResponse,
 )
 
 
@@ -152,8 +152,9 @@ def _coerce_string_list(value: Any) -> list[str]:
         stripped = value.strip()
         return [stripped] if stripped else []
     if isinstance(value, list | tuple | set):
+        iterable = list(cast(list[Any] | tuple[Any, ...] | set[Any], value))
         items: list[str] = []
-        for entry in value:
+        for entry in iterable:
             text = str(entry).strip()
             if text:
                 items.append(text)
@@ -253,7 +254,7 @@ def _session_snapshot_text(session_id: str | None) -> str | None:
     record = _sim_api.load_session_record(session_id)
     if record is None:
         return None
-    snapshot = {
+    snapshot: dict[str, Any] = {
         "session_id": record.session_id,
         "session_status": record.session_status,
         "campaign_id": record.campaign_id,

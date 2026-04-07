@@ -145,7 +145,9 @@ def test_sim_session_persistence_writes_expected_artifacts(tmp_path: Path) -> No
         assert record.state_patches[0].turn_id == "turn-0003"
 
         savegame_payload = json.loads((session_dir / "savegame.json").read_text(encoding="utf-8"))
-        replay_payload = json.loads((session_dir / "replay_manifest.json").read_text(encoding="utf-8"))
+        replay_payload = json.loads(
+            (session_dir / "replay_manifest.json").read_text(encoding="utf-8")
+        )
         assert savegame_payload["contract_version"] == "text_rpg_session_v1"
         assert savegame_payload["session_status"] == "active"
         assert savegame_payload["campaign_id"] == "campaign-alpha"

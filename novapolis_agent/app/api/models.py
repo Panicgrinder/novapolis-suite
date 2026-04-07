@@ -2,7 +2,6 @@ from typing import Any, cast
 
 from pydantic import BaseModel, field_validator
 
-
 TEXT_RPG_SESSION_CONTRACT_VERSION = "text_rpg_session_v1"
 TEXT_RPG_LOG_CHANNELS = ("world", "pc", "ally", "sys")
 

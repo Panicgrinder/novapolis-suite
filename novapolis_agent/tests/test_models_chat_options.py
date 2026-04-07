@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, cast
 
-from app.api.models import ChatOptions, ChatRequest, ChatResponse, TEXT_RPG_SESSION_CONTRACT_VERSION
+from app.api.models import TEXT_RPG_SESSION_CONTRACT_VERSION, ChatOptions, ChatRequest, ChatResponse
 
 
 def test_chat_options_schema_accepts_and_dumps() -> None:

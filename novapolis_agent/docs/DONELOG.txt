@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 14:33
-update: Agent-Code und Runbook fuehren jetzt den bidirektionalen Session-Roundtrip im Orchestrator und die sessiongebundene TTS-Anbindung auf demselben Text-RPG-Vertrag.
-checks: snapshot-lock PASS (2026-04-07 14:33); markdownlint PASS; frontmatter PASS; todo-index PASS
+stand: 2026-04-07 20:58
+update: Agent-Code fuehrt jetzt auch die letzten separaten Pyright-Warnungen in eval_utils und rag auf null; der kanonische Typenlauf ist vollstaendig warnungsfrei.
+checks: snapshot-lock PASS (2026-04-07 20:58); pyright PASS; mypy PASS; markdownlint PASS; frontmatter PASS
 
 
 checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
@@ -20,6 +20,12 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+
+2026-04-07 20:57 | Copilot | Letzten separaten Typenrest ausserhalb des Produktpfads geschlossen: `utils/eval_utils.py` und `utils/rag.py` fuehren Listen-, YAML- und Mapping-Pfade jetzt ueber explizite Typverengungen. Ergebnis: `pyright -p pyrightconfig.json` meldet im kanonischen Agent-Lauf `0 errors, 0 warnings`, `mypy --config-file mypy.ini app scripts` bleibt gruen, und die Status-/Board-Dokus sind auf denselben Iststand synchronisiert.
+
+
+2026-04-07 18:35 | Copilot | Verbleibende Pyright-Warnungen im aktiven Produktpfad eingeengt: `app/api/chat.py`, `app/api/sim.py`, `app/main.py` und `app/tts/providers.py` fuehren Session-, JSON- und TTS-Cache-Payloads jetzt ueber explizite Coercion- bzw. TypedDict-Pfade statt ueber implizit unbekannte Dict-Formen. Ergebnis: `pyright -p pyrightconfig.json` meldet im produktiven App-/Runtime-Pfad keine Warnungen mehr, `mypy --config-file mypy.ini app scripts` bleibt gruen, und der gezielte Pytest-Block fuer Chat, Sim und TTS sowie Ruff und Black sind PASS; uebrig bleiben nur noch getrennte Warnungen in `utils/eval_utils.py` und `utils/rag.py` ausserhalb dieses Produktpfads.
 
 
 2026-04-07 13:18 | Copilot | Text-RPG-Sessionvertrag jetzt end-to-end im aktiven Lauf verdrahtet: `app/api/chat.py` injiziert bei aktiviertem Orchestrator den aktuellen Session-Snapshot als internen Block `[Session-Stand intern]`, parst `State_Patches:` aus der Modellantwort und schreibt Folgezug plus normalisierte `state_patches` ueber `app/api/sim.py` in denselben Session-Store zurueck; `app/api/tts_models.py`, `app/main.py` und `app/tts/providers.py` heben denselben Session-/Slot-/Kanalrahmen in `/tts/synthesize`, Cache-Key, TTS-Manifest und sessionbezogenen Coqui-Artefaktpfad; `tests/test_api_chat_internal_branches.py`, `test_tts_api_contract.py`, `test_tts_cache_contract.py`, `test_tts_provider_abstraction.py` und `test_openapi_contract.py` sichern den Schnitt ab, und `docs/runbook.md` dokumentiert denselben Betriebsweg.

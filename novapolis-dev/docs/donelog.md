@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 16:11
-update: Dev-DONELOG dokumentiert jetzt den geschlossenen Sim-Clean-Checkout-Bootstrap und den warnungsfreien Offline-Asset-Check.
-checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 21:38
+update: Dev-DONELOG dokumentiert jetzt den vollstaendig warnungsfreien kanonischen Agent-Typenlauf und den nachgezogenen Doku-Sync dazu.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260407_213201.md
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,55 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Agent/Typing: Kanonischen Typenrest in eval_utils und rag geschlossen (2026-04-07 20:57)
+---------------------------------------------------------------------------------------
+
+- `novapolis_agent/utils/eval_utils.py` und `novapolis_agent/utils/rag.py` fuehren die letzten JSON-/Mapping-Pfade jetzt ueber engere Listen- und Mapping-Casts statt ueber implizit unbekannte Objektwerte.
+- Der frische Report `.tmp/results/reports/checks_types_20260407_205737.log` liefert fuer `pyright -p pyrightconfig.json` jetzt `0 errors, 0 warnings`; `mypy --config-file mypy.ini app scripts` bleibt ebenfalls gruen.
+- `WORKSPACE_STATUS.md`, `todo.index.md`, `todo.agent-board.md`, `novapolis_agent/docs/DONELOG.txt` und `DONELOG.md` sind auf denselben Iststand nachgezogen; der zuvor noch getrennte Typenrest ausserhalb des Produktpfads ist damit ebenfalls geschlossen.
+
+Agent/Typing: Produktpfad-Warnungen aus Pyright eingeengt (2026-04-07 18:35)
+-------------------------------------------------------------------------
+
+- `novapolis_agent/app/api/chat.py`, `app/api/sim.py`, `app/main.py` und `app/tts/providers.py` fuehren JSON-/Snapshot- und Cache-Payloads jetzt ueber engere Coercion- bzw. TypedDict-Pfade statt ueber implizit unbekannte Dict-Formen.
+- Der erneute Agent-Typenlauf liefert fuer den aktiven Produktpfad keine Pyright-Warnungen mehr; uebrig bleiben nur noch getrennte Warnungen in `novapolis_agent/utils/eval_utils.py` und `novapolis_agent/utils/rag.py`, die bewusst ausserhalb dieses Produktpfad-Punkts liegen.
+- `novapolis-dev/docs/todo.agent-board.md` fuehrt den Folgepunkt damit wieder als geschlossen, `novapolis-dev/docs/todo.index.md` setzt Agent auf `offen: 0`, und der gezielte Pytest-Block fuer Chat, Sim und TTS blieb gruen.
+
+Dev/Typing: Kanonischen Typenpfad repariert und Full-Check wieder gruen (2026-04-07 17:20)
+-------------------------------------------------------------------------------------------
+
+- `scripts/checks_types.py` bindet Pyright und Mypy jetzt explizit an `novapolis_agent/pyrightconfig.json` und `novapolis_agent/mypy.ini` und fuehrt beide Kommandos mit `cwd=novapolis_agent` aus; `.vscode/tasks.json` startet denselben Wrapper wieder aus dem Repo-Root statt ueber ein implizites Modul-CWD.
+- Der neue Postflight `.tmp/results/reports/checks_types_postflight_20260407_170654.md` zeigt `pyright=0` und `mypy=0`; der zuvor geoeffnete Dev-Punkt in `novapolis-dev/docs/todo.dev.md` ist damit wieder geschlossen und `novapolis-dev/docs/todo.index.md` setzt Dev zurueck auf `offen: 0`.
+- Fuer den anschliessenden Gesamtbeleg wurden die unmittelbar betroffenen Portabilitaets- sowie Ruff-/Black-Reste nachgezogen; `.tmp/results/reports/checks_report_20260407_171142.md` liefert den kanonischen Full-Check jetzt wieder vollstaendig PASS.
+
+Dev/Typing: Kanonischen Typenpfad als offenen Infrastrukturrest wieder sichtbar gemacht (2026-04-07 16:55)
+---------------------------------------------------------------------------------------------------------
+
+- `scripts/checks_types.py` laeuft aktuell nicht auf derselben Konfigurationsbasis wie der Agent-Scoped Typenpfad: Der Wrapper startet von Repo-Root und ruft `pyright -p pyrightconfig.json` sowie `mypy --config-file mypy.ini` auf, obwohl die realen Config-Dateien nur unter `novapolis_agent/` liegen.
+- Der Beleg liegt in `.tmp/results/reports/checks_types_20260407_165332.log` und dem zugehoerigen Postflight: Pyright faellt bereits an einer nicht lesbaren Config-Datei am Repo-Root, Mypy mit `Cannot find config file 'mypy.ini'`; der Workspace-Task `Checks: types (pyright+mypy)` ist damit aktuell kein verifizierbarer Gate-Lauf.
+- `novapolis-dev/docs/todo.dev.md` fuehrt die Reparatur deshalb wieder als offenen `Jetzt`-Punkt, und `novapolis-dev/docs/todo.index.md` hebt den Dev-Open-Count entsprechend von `0` auf `1`.
+
+Root/Meta: Slice-, Product-Gate- und Beta-Pfad auf den belegten Produkt-Iststand verdichtet (2026-04-07 16:28)
+-----------------------------------------------------------------------------------------------------------------
+
+- `todo.root.md` fuehrt den suiteweiten Metablock fuer `Spielstart Novapolis`, `Slice -> MVP -> Beta` und `spielbarer Kern vor Komfort` jetzt als geschlossen. Root verweist dabei nur noch auf die aktiven SSOTs `rp-start-chooser.ssot.md`, `text-rpg-session-contract-v1.md`, `text-rpg-product-gate-v1.ssot.md`, `standalone-beta-gates.ssot.md` sowie `novapolis_agent/docs/runbook.md`.
+- `todo.index.md` zeigt dazu alle Modul-Boards `Dev`, `RP`, `Agent` und `Sim` auf `offen: 0`; der Root-Pfad fuehrt damit keine stale Meta-Forderung mehr neben einem bereits belegten Modul-Iststand.
+- Die Schliessung bleibt rein synchronisierend: Es wurden keine neuen Runtime-Zusagen erfunden, sondern nur der bestehende Slice-, Gate- und Release-Stand auf Root-Ebene ohne Doppelpflege festgezogen.
+
+RP/Audio: Live-Dialogpfad ueber produktiven Coqui-Runtime-Stand als geschlossen nachgezogen (2026-04-07 16:28)
+-----------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/main.py` und `novapolis_agent/app/tts/providers.py` fuehren Live-TTS bereits ueber den produktiven `coqui`-Provider mit Hash-Cache, Session-/Slot-/Kanalrahmen und sessionbezogenem Artefaktpfad `runtime/sessions/<session>/<channel>/...`; `novapolis_agent/docs/runbook.md`, `README.md` und `docs/DONELOG.txt` dokumentieren denselben Iststand.
+- `novapolis-sim/scripts/Main.gd` wertet `tts_manifest` aus dem Sessionpfad bereits fuer Live-Audio aus und spielt passende Eintraege kanalbezogen ab; der RP-Punkt bleibt damit keine theoretische Nacharbeit mehr, sondern ist am aktiven Produktpfad belegt.
+- `todo.rp.md` fuehrt den Punkt jetzt als geschlossen, `todo.index.md` senkt den RP-Open-Count von `1` auf `0`; offene Board-Reste verbleiben damit nur noch auf Root-Ebene.
+
+RP/Audio: OGG-Summary-Kandidaten ueber slot 00-30 als SSOT markiert (2026-04-07 16:28)
+--------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-ogg-summary-kandidaten-slot-00-30.ssot.md` markiert jetzt die ersten belastbaren Build-Time-Kandidaten fuer `world`- und `pc`-Summaries entlang des bestehenden Produktpfads. Priorisiert sind nur Handover-, Kontakt- und Episodenkanten wie `slot 01`, `04`, `08`, `09`, `15`, `20`, `25` und `30`; die restlichen Stunden bleiben bewusst ohne Audio-Pflicht.
+- Die Ableitung bleibt strikt an den bestehenden Slot-SSOTs `00-05`, `06-10`, `11-15`, `16-20`, `21-25` und `26-30` sowie am vorhandenen Audio-Namensschema `epoch{dd}_slot{hh}_{channel}.ogg`; Build-Time-Kandidaten und spaetere Live-Dialoge werden bewusst getrennt.
+- `todo.rp.md` fuehrt den Kandidatenpunkt jetzt als geschlossen, `todo.index.md` senkt den RP-Open-Count von `2` auf `1`; als letzter RP-Rest bleibt nur noch der spaetere Runtime-Punkt fuer Live-Dialoge mit Cache.
 
 Sim/Runtime: Clean-Checkout-Bootstrap und warnungsfreier Offline-Asset-Check geschlossen (2026-04-07 15:55)
 ----------------------------------------------------------------------------------------------------------------

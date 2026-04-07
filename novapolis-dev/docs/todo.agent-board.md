@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 14:33
-update: Das Agent-Board schliesst jetzt den Session-Roundtrip des Orchestrators und die Session-TTS-Anbindung auf demselben Text-RPG-Vertrag.
-checks: snapshot-lock PASS (2026-04-07 14:33); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 21:38
+update: Das Agent-Board fuehrt jetzt auch den zuletzt noch getrennten Typenrest in eval_utils und rag als geschlossen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260407_213201.md
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -24,6 +24,16 @@ Prioritaetstags (aktiv)
 
 Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
 -------------------------------------------------
+
+- [x] [Als naechstes] Verbleibende Pyright-Warnungen im aktiven Text-RPG-Produktpfad auf belastbare Typen einengen.
+  - Ziel: Der kanonische Agent-Typenlauf soll nicht nur fehlerfrei, sondern im produktnahen App-/Runtime-Pfad auch warnungsarm und semantisch enger werden, damit `pyright -p pyrightconfig.json` weniger `Unknown`-Daten durch Chat-, Session- und TTS-Lauf traegt.
+  - Akzeptanzkriterien:
+    1) die aktuellen Pyright-Warnungen in `app/api/chat.py`, `app/api/sim.py`, `app/main.py` und `app/tts/providers.py` werden auf konkrete Mapping-/Payload-Typen oder enge Coercion-Pfade zurueckgefuehrt,
+    2) der produktive Text-RPG-Pfad behaelt denselben API-, Session- und TTS-Vertrag ohne Parallelmodell oder Verhaltensdrift,
+    3) `pyright -p pyrightconfig.json`, `mypy --config-file mypy.ini app scripts` und die betroffenen Agent-Tests bleiben gruen,
+    4) der Punkt bleibt auf den aktiven Produktpfad begrenzt; spaetere Warnungen in Eval-/RAG-Helfern koennen separat bewertet werden.
+  - Evidenz: Der aktuelle Typenreport `.tmp/results/reports/checks_types_20260407_170654.log` endet zwar mit `0 errors`, meldet aber weiter Warnungen fuer unbekannte oder nur teilweise bekannte Payloads in `novapolis_agent/app/api/chat.py`, `novapolis_agent/app/api/sim.py`, `novapolis_agent/app/main.py` und besonders `novapolis_agent/app/tts/providers.py`; der Full-Check ist dadurch nicht rot, aber der aktive Produktpfad bleibt typseitig noch breiter als noetig.
+  - Ergebnis 2026-04-07: `app/api/chat.py`, `app/api/sim.py`, `app/main.py` und `app/tts/providers.py` fuehren JSON-/Cache- und Snapshot-Payloads jetzt ueber engere Coercion- und TypedDict-Pfade statt ueber implizit unbekannte Dict-Formen. Der erneute Lauf `pyright -p pyrightconfig.json` meldet im aktiven Produktpfad keine Warnungen mehr; der spaetere Nachlauf in `utils/eval_utils.py` und `utils/rag.py` zieht auch den zuvor getrennten Restpfad auf `0 warnings`. `mypy --config-file mypy.ini app scripts` bleibt gruen, und der gezielte Pytest-Block fuer Chat, Sim und TTS ist PASS.
 
 - [x] [Jetzt] Session- und Kampagnenvertrag fuer das Text-RPG v1 als API- und Backend-SSOT festziehen.
   - Ziel: Der Agent soll vom generischen Chat mit optionaler Session-ID zu einer belastbaren Spielsession mit Szenen-, Kampagnen- und Weltzustandsgrenzen uebergehen.

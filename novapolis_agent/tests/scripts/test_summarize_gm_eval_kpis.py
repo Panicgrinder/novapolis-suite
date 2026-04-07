@@ -115,6 +115,6 @@ def test_main_writes_gm_reports(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
         (tmp_path / ".tmp/results/reports/gm_summary.json").read_text(encoding="utf-8")
     )
     assert payload["summary"]["severity"] == "blocker"
-    assert "GM Session KPI Summary" in (
-        tmp_path / ".tmp/results/reports/gm_summary.md"
-    ).read_text(encoding="utf-8")
+    assert "GM Session KPI Summary" in (tmp_path / ".tmp/results/reports/gm_summary.md").read_text(
+        encoding="utf-8"
+    )

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 16:11
-update: Workspace-Status dokumentiert jetzt den warnungsfreien Sim-Clean-Checkout-Check und die Profiltrennung fuer Offline-Epoch-/Audio-Artefakte.
-checks: snapshot-lock PASS (2026-04-07 16:11); pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS
+stand: 2026-04-07 21:38
+update: Workspace-Status dokumentiert jetzt den vollstaendig warnungsfreien kanonischen Agent-Typenlauf; auch die bisherigen Restwarnungen in eval_utils und rag sind geschlossen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260407_213201.md
 ---
 
 Workspace-Status
@@ -9,6 +9,16 @@ Workspace-Status
 
 Aktuelles Wochenfenster
 -----------------------
+
+- 2026-04-07 20:57: Der kanonische Agent-Typenlauf ist jetzt vollstaendig warnungsfrei. Nach den letzten Typverengungen in `novapolis_agent/utils/eval_utils.py` und `novapolis_agent/utils/rag.py` liefert `.tmp/results/reports/checks_types_20260407_205737.log` fuer `pyright -p pyrightconfig.json` jetzt `0 errors, 0 warnings`, und `mypy --config-file mypy.ini app scripts` bleibt ebenfalls gruen. Damit ist der fruehere Restpfad ausserhalb des aktiven Produktpfads ebenfalls geschlossen.
+
+- 2026-04-07 18:35: Der aktive Agent-Produktpfad fuehrt keine offenen Pyright-Warnungen mehr. `app/api/chat.py`, `app/api/sim.py`, `app/main.py` und `app/tts/providers.py` tragen JSON-, Snapshot- und Cache-Payloads jetzt ueber engere Coercion- bzw. TypedDict-Pfade; der erneute `pyright -p pyrightconfig.json` meldet im Produktpfad keine Warnungen mehr, `mypy --config-file mypy.ini app scripts` bleibt gruen, und der gezielte Pytest-Block fuer Chat, Sim und TTS ist PASS. Die verbleibenden Warnungen liegen nur noch in `novapolis_agent/utils/eval_utils.py` und `novapolis_agent/utils/rag.py` und sind damit ein separater Folgepfad ausserhalb des aktuellen Produktpunktes.
+
+- 2026-04-07 17:20: Der offene Dev-Rest zum kanonischen Typenpfad ist wieder geschlossen. `scripts/checks_types.py` bindet Pyright und Mypy jetzt explizit an `novapolis_agent/pyrightconfig.json` und `novapolis_agent/mypy.ini`, fuehrt beide Kommandos mit `cwd=novapolis_agent` aus, und `.vscode/tasks.json` startet denselben Wrapper wieder aus dem Repo-Root; `.tmp/results/reports/checks_types_postflight_20260407_170654.md` zeigt `pyright=0` und `mypy=0`. Nach den direkt betroffenen Portabilitaets- und Formatkorrekturen liefert `.tmp/results/reports/checks_report_20260407_171142.md` den kanonischen Full-Check wieder komplett PASS, und `novapolis-dev/docs/todo.index.md` zeigt alle Modul-Boards erneut auf `offen: 0`.
+
+- 2026-04-07 16:55: Der Text-RPG-Slice selbst bleibt typenstabil, aber der kanonische Workspace-Typenlauf ist erneut als offener Infrastrukturrest aufgetaucht. `scripts/checks_types.py` loest seinen Root auf das Repo und ruft von dort `pyright -p pyrightconfig.json` sowie `mypy --config-file mypy.ini` auf, obwohl `novapolis_agent/pyrightconfig.json` und `novapolis_agent/mypy.ini` die realen Config-Dateien sind; `.tmp/results/reports/checks_types_20260407_165332.log` belegt dazu eine nicht lesbare Pyright-Config am Repo-Root plus `Cannot find config file 'mypy.ini'`. `novapolis-dev/docs/todo.dev.md` fuehrt die Reparatur deshalb wieder als offenen `Jetzt`-Punkt, und `novapolis-dev/docs/todo.index.md` zeigt Dev damit auf `offen: 1` statt alle Boards auf `0`.
+
+- 2026-04-07 16:28: Der suiteweite Root-Metablock fuer `Spielstart Novapolis`, den internen Produktpfad `Slice -> MVP -> Beta` und die Prioritaet `spielbarer Kern vor Komfort` ist jetzt gegen den realen Modul-Iststand geschlossen. `todo.root.md` verweist dafuer nur noch auf `rp-start-chooser.ssot.md`, `text-rpg-session-contract-v1.md`, `text-rpg-product-gate-v1.ssot.md`, `standalone-beta-gates.ssot.md`, `novapolis_agent/docs/runbook.md` und die Modul-Boards; `novapolis-dev/docs/todo.index.md` zeigt alle Modul-Boards auf `offen: 0`.
 
 - 2026-04-07 15:55: Der Sim-Offline-Check trennt jetzt sauber zwischen Clean-Checkout und Vollstand. `scripts/check_sim_epoch_assets.py` behandelt `--allow-empty` nun als kanonisches Clean-Checkout-Profil; der Lauf `--repo-root . --allow-empty --check-slot-consistency` endet im aktuellen Repo-Stand mit `summary=fail:0,warn:0`, waehrend Vollstand-Laeufe ohne dieses Flag weiter echte Offline-Artefakte unter `novapolis-sim/data/epochs/` und `novapolis-sim/assets/audio/` erwarten.
 

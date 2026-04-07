@@ -9,7 +9,7 @@ import platform as _platform
 import threading
 import time
 from collections.abc import Mapping as _Mapping
-from typing import Any
+from typing import Any, TypedDict
 from typing import cast as _cast
 
 import fastapi as _fastapi
@@ -20,12 +20,12 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from .api import sim as _sim_api
 from .api.chat import process_chat_request, stream_chat_request
 from .api.models import (
+    TEXT_RPG_LOG_CHANNELS,
+    TEXT_RPG_SESSION_CONTRACT_VERSION,
     ApiErrorResponse,
     ChatMessage,
     ChatRequest,
     ChatResponse,
-    TEXT_RPG_LOG_CHANNELS,
-    TEXT_RPG_SESSION_CONTRACT_VERSION,
 )
 from .api.tts_models import (
     TtsCacheCleanupResponse,
@@ -50,7 +50,24 @@ app = FastAPI(
 )
 
 _tts_cache_lock = threading.Lock()
-_tts_cache_store: dict[str, dict[str, Any]] = {}
+
+
+class _TtsCachePayload(TypedDict):
+    mime_type: str
+    request_hash: str
+    is_placeholder: bool
+    artifact_path: str | None
+    detail: str
+
+
+class _TtsCacheEntry(TypedDict):
+    created_at: float
+    last_access: float
+    size_bytes: int
+    response: _TtsCachePayload
+
+
+_tts_cache_store: dict[str, _TtsCacheEntry] = {}
 _tts_cache_stats: dict[str, int] = {
     "hits": 0,
     "misses": 0,
@@ -64,7 +81,7 @@ _tts_provider_instance = build_tts_provider(settings.TTS_PROVIDER)
 def _tts_cache_total_size_unlocked() -> int:
     total = 0
     for item in _tts_cache_store.values():
-        total += int(item.get("size_bytes", 0))
+        total += item["size_bytes"]
     return total
 
 
@@ -81,7 +98,7 @@ def _tts_cache_cleanup_unlocked(now: float | None = None) -> dict[str, int]:
 
     expired_keys: list[str] = []
     for key, item in _tts_cache_store.items():
-        created_at = float(item.get("created_at", now))
+        created_at = item["created_at"]
         if (now - created_at) > ttl:
             expired_keys.append(key)
 
@@ -96,7 +113,7 @@ def _tts_cache_cleanup_unlocked(now: float | None = None) -> dict[str, int]:
             return None
         return min(
             _tts_cache_store.items(),
-            key=lambda kv: float(kv[1].get("last_access", 0.0)),
+            key=lambda kv: kv[1]["last_access"],
         )[0]
 
     while len(_tts_cache_store) > max_entries:
@@ -193,7 +210,7 @@ def _record_tts_session_artifact(
     return session_record.artifact_paths.get("tts_manifest")
 
 
-def _tts_cache_get(cache_key: str, now: float) -> tuple[dict[str, Any] | None, dict[str, int]]:
+def _tts_cache_get(cache_key: str, now: float) -> tuple[_TtsCachePayload | None, dict[str, int]]:
     if not settings.TTS_CACHE_ENABLED:
         return None, {"removed_expired": 0, "removed_size": 0}
 
@@ -206,22 +223,22 @@ def _tts_cache_get(cache_key: str, now: float) -> tuple[dict[str, Any] | None, d
 
         item["last_access"] = now
         _tts_cache_stats["hits"] += 1
-        response = dict(_cast(dict[str, Any], item.get("response", {})))
-        return response, cleanup
+        return _cast(_TtsCachePayload, dict(item["response"])), cleanup
 
 
-def _tts_cache_put(cache_key: str, response: dict[str, Any], now: float) -> dict[str, int]:
+def _tts_cache_put(cache_key: str, response: _TtsCachePayload, now: float) -> dict[str, int]:
     if not settings.TTS_CACHE_ENABLED:
         return {"removed_expired": 0, "removed_size": 0}
 
     response_bytes = len(_json.dumps(response, ensure_ascii=False, sort_keys=True).encode("utf-8"))
     with _tts_cache_lock:
-        _tts_cache_store[cache_key] = {
+        cache_entry: _TtsCacheEntry = {
             "created_at": now,
             "last_access": now,
             "size_bytes": response_bytes,
-            "response": dict(response),
+            "response": response,
         }
+        _tts_cache_store[cache_key] = cache_entry
         cleanup = _tts_cache_cleanup_unlocked(now)
     return cleanup
 
@@ -472,7 +489,7 @@ async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynt
             ),
         )
 
-    digest_source = {
+    digest_source: dict[str, Any] = {
         "provider": _tts_provider(),
         "text": request.text,
         "voice": request.voice,
@@ -494,14 +511,14 @@ async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynt
     now = time.time()
     cached, cleanup_get = _tts_cache_get(cache_key, now)
     if cached is not None:
-        cached_placeholder = bool(cached.get("is_placeholder", True))
+        cached_placeholder = cached["is_placeholder"]
         cached_status = "placeholder" if cached_placeholder else "ok"
-        cached_detail = str(cached.get("detail") or "cached-response")
-        cached_artifact_path = str(cached.get("artifact_path")) if cached.get("artifact_path") else None
+        cached_detail = cached["detail"] or "cached-response"
+        cached_artifact_path = cached["artifact_path"]
         manifest_path = _record_tts_session_artifact(
             request,
             provider=_tts_provider(),
-            mime_type=str(cached.get("mime_type", "audio/ogg")),
+            mime_type=cached["mime_type"],
             request_hash=request_hash,
             cache_key=cache_key,
             cache_hit=True,
@@ -513,7 +530,7 @@ async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynt
             status=cached_status,
             provider=_tts_provider(),
             output_format=request.output_format,
-            mime_type=str(cached.get("mime_type", "audio/ogg")),
+            mime_type=cached["mime_type"],
             is_placeholder=cached_placeholder,
             request_hash=request_hash,
             cache_key=cache_key,
@@ -541,7 +558,7 @@ async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynt
 
     mime = provider_result.mime_type
 
-    payload_to_cache = {
+    payload_to_cache: _TtsCachePayload = {
         "mime_type": mime,
         "request_hash": request_hash,
         "is_placeholder": bool(provider_result.is_placeholder),

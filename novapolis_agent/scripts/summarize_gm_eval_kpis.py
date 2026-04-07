@@ -231,7 +231,9 @@ def _build_markdown(report: dict[str, Any]) -> str:
     lines.append("")
     lines.append("## Board Ready")
     lines.append("- Blocker-Faelle direkt in das Agent-Board rueckspiegeln.")
-    lines.append("- Beobachtungen gesammelt triagieren und erst danach naechste Produkt-Gates schliessen.")
+    lines.append(
+        "- Beobachtungen gesammelt triagieren und erst danach naechste Produkt-Gates schliessen."
+    )
     lines.append("")
     return "\n".join(lines)
 

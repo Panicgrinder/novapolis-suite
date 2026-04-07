@@ -70,7 +70,8 @@ class TfIdfIndex:
             tf: dict[str, int] = {}
             tf_any: object = cd.get("tf", {})
             if isinstance(tf_any, Mapping):
-                for k_obj, v_obj in tf_any.items():
+                tf_mapping = cast(Mapping[object, object], tf_any)
+                for k_obj, v_obj in tf_mapping.items():
                     try:
                         k_s = str(k_obj)
                         v_i = int(v_obj)  # type: ignore[arg-type]

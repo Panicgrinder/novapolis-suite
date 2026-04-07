@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 10:20
-update: Das Dev-Board fuehrt das Text-RPG Product Gate v1 jetzt als definierte End-to-End-SSOT statt als offenen Rohpunkt.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 21:38
+update: Das Dev-Board fuehrt den kanonischen Typenlauf nach Wrapper-Fix, Task-Abgleich und erneut gruenem Full-Check wieder als geschlossen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260407_213201.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -18,6 +18,16 @@ Hinweis
 
 Offene Aufgaben (Dev)
 ---------------------
+
+- [x] [Jetzt] Kanonischen Typenlauf fuer Workspace-Task und Wrapper wieder auf dieselbe Agent-Konfigurationsbasis ziehen.
+  - Ziel: `Checks: types (pyright+mypy)` soll wieder denselben belastbaren Scope pruefen wie der dokumentierte Agent-Produktpfad, statt wegen Konfigurationspfad-Drift in einen unbeabsichtigten Repo-Weitlauf zu kippen.
+  - Akzeptanzkriterien:
+    1) `scripts/checks_types.py` verwendet die real vorhandenen Konfigurationen `novapolis_agent/pyrightconfig.json` und `novapolis_agent/mypy.ini` oder setzt den Prozesspfad aequivalent belastbar,
+    2) der Workspace-Task `Checks: types (pyright+mypy)` prueft denselben Scope reproduzierbar und scheitert nicht mehr schon an fehlenden Config-Dateien,
+    3) Pyright laeuft nicht mehr versehentlich gegen den gesamten Repo-Baum mit fremden Integrations-/Optional-Dependency-Treffern ausserhalb des beabsichtigten Agent-Scopes,
+    4) Board, Runbook-Claim und Task-Realitaet widersprechen sich danach nicht mehr.
+  - Evidenz: `.vscode/tasks.json` startet `scripts/checks_types.py` zwar fuer `novapolis_agent`, aber der Wrapper loest seinen `ROOT` auf das Repo auf und ruft von dort `pyright -p pyrightconfig.json` sowie `mypy --config-file mypy.ini app scripts` auf. Im Report `.tmp/results/reports/checks_types_20260407_165332.log` meldet Pyright deshalb, dass die Config-Datei am Repo-Root nicht gelesen werden kann, Mypy `Cannot find config file 'mypy.ini'`, und der Task faellt mit `pyright=3`, `mypy=2` um, obwohl der gezielte Slice-Lauf fuer `app/api/{models,chat,sim}.py` plus zugehoerige Tests aktuell PASS liefert.
+  - Ergebnis 2026-04-07: `scripts/checks_types.py` bindet Pyright und Mypy jetzt explizit an `novapolis_agent/pyrightconfig.json` und `novapolis_agent/mypy.ini` und fuehrt beide Kommandos mit `cwd=novapolis_agent` aus; `.vscode/tasks.json` startet denselben Wrapper wieder aus dem Repo-Root statt auf implizites CWD-Verhalten zu setzen. Der neue Report `.tmp/results/reports/checks_types_postflight_20260407_170654.md` zeigt `pyright=0` und `mypy=0`, und der anschliessende Full-Check `.tmp/results/reports/checks_report_20260407_171142.md` ist wieder komplett PASS.
 
 - [x] [Jetzt] End-to-End-Produkt-Gate fuer das KI-geleitete Text-RPG v1 als reproduzierbaren Standardlauf definieren.
   - Ziel: Vor spaeteren Implementierungssprints braucht der Workspace einen klaren technischen Freigabepfad vom RP-Quellstand ueber Agent-Session und State-Logs bis zur Sim-/Replay-Sicht statt isolierter Einzelchecks.

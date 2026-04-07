@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-07 11:46
-update: Das RP-Board zieht jetzt den modularen Folgekorridor `slot 26-30` als naechste Produktstufe hinter `slot 25` nach.
-checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 21:38
+update: Das RP-Board fuehrt jetzt auch den produktiven Coqui-Live-Dialogpfad mit Session-Cache als geschlossen; der RP-Open-Count sinkt auf 0.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260407_213201.md
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -549,8 +549,24 @@ Definition of Done (P0)
   - Abschluss 2026-04-02: Der Realabgleich bestaetigt die konservativen Baselines fuer `Ronja`/`Reflex` und `Kora`/`Echo`. Nur `Pahl` bekommt keinen Rollenwechsel, sondern einen szenengebundenen Kontext-Lift `funk +1`, `wache +1`, wenn D5 explizit unter seinem Freigabe-/Sicherheitskommando laeuft.
 
 - TTS (gemischt)
-  - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren.
-  - [ ] [Spaeter] Live-Dialoge via Coqui XTTS v2 mit Cache (Hash(Text+Stimme)); Fallback Windows/Azure nur bei Bedarf.
+  - [x] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren.
+    - Ziel: Der spaetere Build-Time-Export soll nicht blind jede Stunde vertonen, sondern zuerst die bereits kanonisierten Handover-, Kontakt- und Episodenkanten des Produktpfads markieren.
+    - Akzeptanzkriterien:
+      1) die Kandidaten bleiben an bestehende Slot-SSOTs und das vorhandene Audio-Namensschema gebunden,
+      2) `world`- und `pc`-Kandidaten sind getrennt markiert,
+      3) Build-Time-Kandidaten und spaetere Live-Dialoge werden nicht vermischt,
+      4) der Punkt landet als nachvollziehbare SSOT im RP-Prozesspfad statt als lose Board-Notiz.
+    - Ergebnis 2026-04-07: `novapolis-dev/docs/process/rp-ogg-summary-kandidaten-slot-00-30.ssot.md` markiert jetzt die erste belastbare Exportwelle ueber `slot 00-30`. Priorisiert sind die bestehenden Handover-, Kontakt- und Episodenkanten `01`, `04`, `07`, `08`, `09`, `10`, `15`, `20`, `25`, `26`, `28`, `29` und `30`; nicht priorisierte Slots bleiben bewusst ohne Audio-Pflicht.
+    - Evidenz: `rp-folgekorridor-slot-00-05.ssot.md`, `rp-folgekorridor-slot-06-10.ssot.md`, `rp-folgekorridor-slot-11-15.ssot.md`, `rp-folgekorridor-slot-16-20.ssot.md`, `rp-folgekorridor-slot-21-25.ssot.md`, `rp-folgekorridor-slot-26-30.ssot.md`, `novapolis-dev/docs/specs/annotation-spec.md`, `novapolis-dev/docs/specs/scheduler-spec.md`, `novapolis-dev/docs/specs/tts-exporter-coqui.md`.
+  - [x] [Spaeter] Live-Dialoge ueber produktiven Coqui-Runtime-Pfad mit Hash-Cache und sessionbezogener Artefaktkette fuehren.
+    - Ziel: Der RP-Pfad soll Audio nicht nur fuer Build-Time-Summaries vormerken, sondern auch denselben Live-Dialogpfad nutzen koennen, der bereits Session, Kanal und Cache kontrolliert zusammenhaelt.
+    - Akzeptanzkriterien:
+      1) Live-Synthese bleibt an denselben Text-RPG-Sessionrahmen gebunden wie `world_log` und `pc_log`,
+      2) Cache-Key und Artefaktpfad bleiben reproduzierbar und sessionbezogen,
+      3) der Sim-Client kann dieselben Audioartefakte ueber `tts_manifest` konsumieren,
+      4) weitere Provider bleiben explizite Ausnahme- oder Vergleichspfade statt impliziter Pflicht.
+    - Ergebnis 2026-04-07: Der aktuelle Runtime-Iststand fuehrt Live-Dialoge bereits ueber den produktiven `coqui`-Provider. `novapolis_agent/app/main.py` und `app/tts/providers.py` fuehren denselben Session-/Slot-/Kanalrahmen in `/tts/synthesize`, Hash-Cache und Artefaktpfad `runtime/sessions/<session>/<channel>/...`; `novapolis_agent/docs/runbook.md` und `README.md` dokumentieren denselben Betriebsstand, und `novapolis-sim/scripts/Main.gd` konsumiert die sessionbezogenen Eintraege aus `tts_manifest` bereits fuer Live-Audio im Hub.
+    - Evidenz: `novapolis_agent/docs/runbook.md`, `novapolis_agent/README.md`, `novapolis_agent/docs/DONELOG.txt`, `novapolis_agent/app/main.py`, `novapolis_agent/app/tts/providers.py`, `novapolis-sim/scripts/Main.gd`.
 
 
 
