@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 10:20
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich die dateigestuetzte Session-/Replay-Bruecke im Sim-Modul und den bereinigten PR-Scope-Text.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 11:46
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich den angehobenen Agent-Vertragsschnitt fuer Chat-Response, Savegame und Replay.
+checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,20 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Agent/Runtime: Contract-Rahmen fuer Chat-Response, Savegame und Replay angehoben (2026-04-07 10:42)
+------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/api/models.py` fuehrt fuer `/chat` jetzt einen expliziten Contract-Block mit `contract_version`, Session-/Slot-Metadaten, `session_status`, `replay_checkpoint_id` und `log_channels`; `novapolis_agent/app/api/chat.py` fuellt denselben Rahmen im bestehenden Produktpfad.
+- `novapolis_agent/app/api/sim.py` validiert den kanonischen Vertragswert `text_rpg_session_v1`, persistiert denselben Rahmen in `savegame.json` und `replay_manifest.json` und normalisiert `state_patches` auf Session-/Slot-/Tick-Kontext statt freier Patchanhaenge.
+- `novapolis_agent/tests/test_models_chat_options.py`, `test_api_chat_internal_branches.py`, `test_api_sim_state.py`, `tests/tests_sim_api.py` und `test_openapi_contract.py` sichern die API-, Replay- und OpenAPI-Seite; `novapolis_agent/docs/runbook.md`, `todo.agent-board.md` und `todo.index.md` sind im selben Lauf synchronisiert.
+
+RP/Planning: Modularen Folgekorridor `slot 26-30` als Anschluss hinter dem Episodenanker festgezogen (2026-04-07 10:33)
+-----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md` fuehrt jetzt die naechste Kampagnenstufe hinter `slot 25` als resume-faehigen Folgeblock ueber `D5/C6`, `G7` und die duennen Neutralraeume `E2/F1`, ohne freie Tiefennetz- oder Fraktionslogik zu erfinden.
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-21-25.ssot.md`, `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md` und `text-rpg-product-gate-v1.ssot.md` verweisen im selben Lauf auf denselben erweiterten Produktpfad bis `slot 30`; `todo.rp.md` fuehrt den Punkt als geschlossen, `todo.index.md` behaelt den RP-Open-Count bei `2`.
+- Die verbleibenden RP-Open-Items bleiben bewusst die spaeteren TTS-/OGG-Folgepunkte; der Produktpfad selbst ist damit eine Stufe weiter festgezogen.
 
 Agent/Docs: Session-/Replay-Bruecke und PR-Scope fuer den Text-RPG-Slice nachgezogen (2026-04-07 09:50)
 -------------------------------------------------------------------------------------------------------

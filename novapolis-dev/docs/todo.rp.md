@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-07 10:20
-update: Das RP-Board zieht jetzt den Kampagnen-Folgekorridor `slot 21-25` als naechste Produktstufe hinter `slot 20` nach.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 11:46
+update: Das RP-Board zieht jetzt den modularen Folgekorridor `slot 26-30` als naechste Produktstufe hinter `slot 25` nach.
+checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -239,6 +239,16 @@ Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
     4) hinter `slot 25` ist ein lesbarer Episoden- oder Folgekorridor-Anker sichtbar statt eines freien Abrisses.
   - Ergebnis 2026-04-06: `novapolis-dev/docs/process/rp-folgekorridor-slot-21-25.ssot.md` fuehrt jetzt die naechste Kampagnenstufe ueber `E2`, `F1`, Rueckkopplung zwischen Innen-, Kontakt- und Neutralpfad sowie einen episodischen Uebergabeanker; `rp-folgekorridor-slot-16-20.ssot.md` und das Startpaket verweisen im selben Lauf auf diese Anschluss-SSOT.
   - Evidenz: `rp-folgekorridor-slot-16-20.ssot.md`, `rp-folgekorridor-slot-21-25.ssot.md`, `rp-startbogen-freie-gruppen-e2.ssot.md`, `rp-startbogen-freie-gruppen-f1.ssot.md`, `rp-startbogen-haendlerbund-g7.ssot.md`, `E2.md`, `F1.md`, `C6.md`, `Missionslog-Novapolis.md`, `Metrokarte-T0.md`.
+
+- [x] [Als naechstes] Folgekorridor hinter `slot 25` auf `slot 26-30` mit Resume-Klarheit und modularem Anschluss ausbauen.
+  - Ziel: Der Produktpfad soll hinter dem ersten episodischen Uebergabeanker einen wiederaufnehmbaren Folgeblock besitzen, der D5/C6/G7 sowie die duennen Neutralraeume `E2/F1` weiter nutzt, ohne freie Stations- oder Tiefennetzlogik zu erfinden.
+  - Akzeptanzkriterien:
+    1) mindestens `slot 26-30` liegen als eigene Anschluss-SSOT vor,
+    2) der Korridor bleibt an bestehende Start-, Reveal- und Orts-SSOTs gebunden,
+    3) jeder Slot bleibt als Resume-/Save-/Replay-Anker desselben Produktpfads lesbar,
+    4) hinter `slot 30` ist ein klarer Folgeanker fuer weitere Slots oder modulare Episoden sichtbar.
+  - Ergebnis 2026-04-07: `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md` fuehrt jetzt die modulare Anschlussstufe hinter `slot 25`; `rp-folgekorridor-slot-21-25.ssot.md`, das Startpaket und `text-rpg-product-gate-v1.ssot.md` verweisen im selben Lauf auf denselben erweiterten Produktpfad bis `slot 30`.
+  - Evidenz: `rp-folgekorridor-slot-21-25.ssot.md`, `rp-folgekorridor-slot-26-30.ssot.md`, `rp-startbogen-freie-gruppen-e2.ssot.md`, `rp-startbogen-freie-gruppen-f1.ssot.md`, `rp-startbogen-haendlerbund-g7.ssot.md`, `rp-startbogen-novapolis-d5.ssot.md`, `rp-startbogen-novapolis-c6.ssot.md`, `text-rpg-product-gate-v1.ssot.md`, `text-rpg-session-contract-v1.md`, `Missionslog-Novapolis.md`.
 
 Aktiver Vorbereitungspunkt (2026-03-20)
 ---------------------------------------

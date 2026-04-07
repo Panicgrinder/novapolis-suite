@@ -24,6 +24,20 @@ def test_openapi_includes_chat_and_tts_contract_paths() -> None:
 
     chat_post = spec["paths"]["/chat"]["post"]
     tts_post = spec["paths"]["/tts/synthesize"]["post"]
+    chat_response_schema = spec["components"]["schemas"]["ChatResponse"]
+
+    for field_name in [
+        "contract_version",
+        "session_id",
+        "campaign_id",
+        "scene_id",
+        "slot_id",
+        "turn_id",
+        "session_status",
+        "replay_checkpoint_id",
+        "log_channels",
+    ]:
+        assert field_name in chat_response_schema["properties"]
 
     # Step 3 contract: explicit error codes and OpenAPI as technical SSOT
     for code in ["400", "429", "500", "504"]:

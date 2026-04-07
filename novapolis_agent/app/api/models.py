@@ -3,6 +3,10 @@ from typing import Any, cast
 from pydantic import BaseModel, field_validator
 
 
+TEXT_RPG_SESSION_CONTRACT_VERSION = "text_rpg_session_v1"
+TEXT_RPG_LOG_CHANNELS = ("world", "pc", "ally", "sys")
+
+
 class ChatOptions(BaseModel):
     host: str | None = None
     session_id: str | None = None
@@ -79,6 +83,15 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     content: str
     model: str | None = None
+    contract_version: str | None = None
+    session_id: str | None = None
+    campaign_id: str | None = None
+    scene_id: str | None = None
+    slot_id: str | None = None
+    turn_id: str | None = None
+    session_status: str | None = None
+    replay_checkpoint_id: str | None = None
+    log_channels: list[str] | None = None
 
 
 class ApiErrorResponse(BaseModel):

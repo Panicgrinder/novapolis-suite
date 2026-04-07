@@ -116,7 +116,14 @@ def test_sim_session_persistence_writes_expected_artifacts(tmp_path: Path) -> No
                 seed=7,
                 world_log=[{"event": "world-step"}],
                 pc_log=[{"event": "pc-choice", "text": "Investigate D5"}],
-                state_patches=[{"op": "replace", "path": "/scene_id", "value": "scene-d5"}],
+                state_patches=[
+                    sim.StatePatchRecord(
+                        scope="session",
+                        op="replace",
+                        path="/scene_id",
+                        value="scene-d5",
+                    )
+                ],
             ),
         )
 
@@ -127,18 +134,48 @@ def test_sim_session_persistence_writes_expected_artifacts(tmp_path: Path) -> No
         assert (session_dir / "pc_log.jsonl").exists()
         assert (session_dir / "replay_manifest.json").exists()
         assert record.resume_checkpoint_id == "turn-0003"
+        assert record.contract_version == "text_rpg_session_v1"
+        assert record.session_status == "active"
         assert record.seed == 7
+        assert record.log_channels == ["world", "pc", "ally", "sys"]
         assert record.world_log[0]["channel"] == "world"
         assert record.pc_log[0]["channel"] == "pc"
+        assert record.state_patches[0].session_id == "campaign-alpha"
+        assert record.state_patches[0].slot_id == "slot-03"
+        assert record.state_patches[0].turn_id == "turn-0003"
 
         savegame_payload = json.loads((session_dir / "savegame.json").read_text(encoding="utf-8"))
+        replay_payload = json.loads((session_dir / "replay_manifest.json").read_text(encoding="utf-8"))
+        assert savegame_payload["contract_version"] == "text_rpg_session_v1"
+        assert savegame_payload["session_status"] == "active"
         assert savegame_payload["campaign_id"] == "campaign-alpha"
         assert savegame_payload["scene_id"] == "scene-d5"
         assert savegame_payload["slot_index"] == 3
         assert savegame_payload["seed"] == 7
         assert savegame_payload["state_patches"] == [
-            {"op": "replace", "path": "/scene_id", "value": "scene-d5"}
+            {
+                "patch_id": None,
+                "scope": "session",
+                "op": "replace",
+                "path": "/scene_id",
+                "value": "scene-d5",
+                "visibility": "pc_visible",
+                "evidence_refs": [],
+                "replay_epoch_id": None,
+                "session_id": "campaign-alpha",
+                "campaign_id": "campaign-alpha",
+                "scene_id": "scene-d5",
+                "slot_id": "slot-03",
+                "slot_index": 3,
+                "turn_id": "turn-0003",
+                "tick": 0,
+                "time": 0.0,
+                "timestamp": savegame_payload["updated_at"],
+            }
         ]
+        assert replay_payload["contract_version"] == "text_rpg_session_v1"
+        assert replay_payload["session_status"] == "active"
+        assert replay_payload["log_channels"] == ["world", "pc", "ally", "sys"]
     finally:
         sim._SESSION_STORE_DIR = original_store_dir
 

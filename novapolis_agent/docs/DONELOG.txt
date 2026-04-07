@@ -1,6 +1,7 @@
-stand: 2026-04-07 09:50
-update: Agent-Code und Runbook fuehren jetzt zusaetzlich die dateigestuetzte Session-/Replay-Bruecke fuer den Sim-Pfad.
-checks: snapshot-lock PASS (2026-04-07 09:50); markdownlint PASS; frontmatter PASS; todo-index PASS
+---
+stand: 2026-04-07 11:46
+update: Agent-Code und Runbook fuehren jetzt zusaetzlich denselben Contract-Rahmen fuer Chat-Response, Savegame und Replay.
+checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS; todo-index PASS
 
 
 checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
@@ -19,6 +20,9 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+
+2026-04-07 10:42 | Copilot | Text-RPG-Vertragsbruecke im Agent-Modul angehoben: `app/api/models.py` fuehrt fuer `/chat` jetzt `contract_version`, Session-/Slot-Metadaten, `session_status`, `replay_checkpoint_id` und `log_channels`; `app/api/chat.py` fuellt diesen Contract-Block im bestehenden Chat-Pfad; `app/api/sim.py` validiert und persistiert denselben Rahmen in `savegame.json` und `replay_manifest.json` und normalisiert `state_patches` auf Session-/Slot-/Tick-Kontext; `tests/test_models_chat_options.py`, `tests/test_api_chat_internal_branches.py`, `tests/test_api_sim_state.py`, `tests/tests_sim_api.py` und `tests/test_openapi_contract.py` sichern den Schnitt ab, und `docs/runbook.md` dokumentiert denselben Betriebsstand.
 
 
 2026-04-07 09:50 | Copilot | Dateigestuetzte Session-/Replay-Bruecke im Sim-Modul umgesetzt: `app/api/sim.py` fuehrt jetzt `PUT /session/{session_id}`, `GET /session/{session_id}` und `GET /session/{session_id}/replay` sowie den Artefaktkern `savegame.json`, `world_log.jsonl`, `pc_log.jsonl`, `replay_manifest.json` unter `novapolis_agent/tmp/sim_sessions/<session_id>/`; `tests/test_api_sim_state.py` und `tests/tests_sim_api.py` sichern Write-, Reload-, Replay-Manifest- und 404-Pfade, und `docs/runbook.md` dokumentiert den neuen Betriebsweg.

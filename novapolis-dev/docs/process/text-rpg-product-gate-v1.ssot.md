@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 10:20
-update: Das Text-RPG Product Gate v1 definiert jetzt den kanonischen End-to-End-Gate-Pfad vom RP-Quellstand bis zur Agent-/Sim-Pruefung.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS
+stand: 2026-04-07 11:46
+update: Das Text-RPG Product Gate v1 referenziert jetzt den erweiterten RP-Produktpfad bis `slot 30` als kanonischen Folgekorridor.
+checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS
 ---
 
 Text-RPG Product Gate v1
@@ -32,6 +32,7 @@ Quellenbasis
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-11-15.ssot.md`
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-16-20.ssot.md`
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-21-25.ssot.md`
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md`
 
 Wahrheitsrahmen
 ---------------

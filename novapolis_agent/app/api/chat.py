@@ -22,7 +22,12 @@ from ..core.memory import compose_with_memory, get_memory_store
 from ..core.prompts import DEFAULT_SYSTEM_PROMPT, EVAL_SYSTEM_PROMPT, UNRESTRICTED_SYSTEM_PROMPT
 from ..utils.session_memory import session_memory
 from .chat_helpers import normalize_ollama_options
-from .models import ChatRequest, ChatResponse
+from .models import (
+    ChatRequest,
+    ChatResponse,
+    TEXT_RPG_LOG_CHANNELS,
+    TEXT_RPG_SESSION_CONTRACT_VERSION,
+)
 
 
 def _resolve_settings_object() -> Any:
@@ -334,6 +339,39 @@ def _inject_orchestrator_messages(
     for message in reversed(additions):
         messages.insert(insert_at, message)
     return messages
+
+
+def _build_contract_chat_response(
+    request: ChatRequest,
+    *,
+    content: str,
+    model: str | None,
+) -> ChatResponse:
+    options = _options_to_dict(getattr(request, "options", None))
+    session_id_raw = getattr(request, "session_id", None) or options.get("session_id")
+    session_id = str(session_id_raw).strip() if isinstance(session_id_raw, str) else None
+    campaign_id = str(options.get("campaign_id", "")).strip() or None
+    scene_id = str(options.get("scene_id", "")).strip() or None
+    slot_id = str(options.get("slot_id", "")).strip() or None
+    turn_id = str(options.get("turn_id", "")).strip() or None
+
+    contract_active = _orchestrator_enabled(options) or any(
+        value for value in (session_id, campaign_id, scene_id, slot_id, turn_id)
+    )
+
+    return ChatResponse(
+        content=content,
+        model=model,
+        contract_version=TEXT_RPG_SESSION_CONTRACT_VERSION if contract_active else None,
+        session_id=session_id,
+        campaign_id=campaign_id,
+        scene_id=scene_id,
+        slot_id=slot_id,
+        turn_id=turn_id,
+        session_status="active" if contract_active else None,
+        replay_checkpoint_id=turn_id,
+        log_channels=list(TEXT_RPG_LOG_CHANNELS) if contract_active else None,
+    )
 
 
 def _append_shadow_mode_event(
@@ -1247,7 +1285,11 @@ async def process_chat_request(
         except Exception as mem_err3:
             logger.warning("Memory-Append fehlgeschlagen: %s", mem_err3)
 
-        return ChatResponse(content=generated_content, model=settings.MODEL_NAME)
+        return _build_contract_chat_response(
+            request,
+            content=generated_content,
+            model=settings.MODEL_NAME,
+        )
     except HTTPException:
         raise
     except Exception as exc:
@@ -1292,4 +1334,8 @@ async def process_chat_request(
             "Entschuldigung, bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten: "
             + str(exc)
         )
-        return ChatResponse(content=err_msg, model=settings.MODEL_NAME)
+        return _build_contract_chat_response(
+            request,
+            content=err_msg,
+            model=settings.MODEL_NAME,
+        )

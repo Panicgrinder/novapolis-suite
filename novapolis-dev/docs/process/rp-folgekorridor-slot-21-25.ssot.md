@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 10:20
+stand: 2026-04-07 11:46
 update: Der Folgekorridor hinter `slot 20` fuehrt jetzt die naechste Kampagnenstufe `slot 21-25` ueber `E2/F1`, Rueckkopplung und episodischen Uebergang als eigene SSOT.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS
+checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS
 ---
 
 RP Folgekorridor: Slot 21-25
@@ -118,4 +118,5 @@ Guardrails
 Weiterer Ausbau
 ---------------
 
-- Der naechste Ausbau hinter `slot 25` soll entweder `slot 26-30` als neue SSOT fuehren oder den Produktpfad bewusst in modulare Episodenform aufspalten.
+- Die direkte Anschluss-SSOT hinter `slot 25` liegt jetzt in `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md`.
+- Der weitere Ausbau hinter `slot 30` soll entweder `slot 31-35` als neue SSOT fuehren oder den Produktpfad bewusst in modular benannte Episodenform aufspalten.

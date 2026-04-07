@@ -7,6 +7,7 @@ from typing import Any, cast
 
 import httpx
 import pytest
+from app.api import sim
 from app.api.models import ChatRequest
 from fastapi import HTTPException
 
@@ -310,6 +311,15 @@ async def test_process_chat_request_injects_orchestrator_context(
     )
 
     assert result.content == "model answer"
+    assert result.contract_version == "text_rpg_session_v1"
+    assert result.session_id == "sess-3"
+    assert result.campaign_id == "camp-7"
+    assert result.scene_id == "scene-d5"
+    assert result.slot_id == "slot-03"
+    assert result.turn_id == "turn-2"
+    assert result.session_status == "active"
+    assert result.replay_checkpoint_id == "turn-2"
+    assert result.log_channels == ["world", "pc", "ally", "sys"]
     assert client.last_payload is not None
     contents = [message["content"] for message in client.last_payload["messages"]]
     orchestrator_messages = [
@@ -332,6 +342,22 @@ async def test_process_chat_request_injects_orchestrator_context(
     assert "[State-Patch-Ziele]" in orchestrator_text
     assert not any(content.startswith("[RAG]") for content in contents)
     assert not any(content.startswith("[Kontext-Notizen]") for content in contents)
+
+
+@pytest.mark.unit
+def test_upsert_session_rejects_unsupported_contract_version(tmp_path: Path) -> None:
+    original_store_dir = sim._SESSION_STORE_DIR
+    sim._SESSION_STORE_DIR = tmp_path / "sim_sessions"
+    try:
+        with pytest.raises(HTTPException) as exc_info:
+            sim.upsert_session(
+                "bad-contract",
+                sim.SessionUpsertRequest(contract_version="text_rpg_session_v0"),
+            )
+        assert exc_info.value.status_code == 400
+        assert exc_info.value.detail == "unsupported contract_version"
+    finally:
+        sim._SESSION_STORE_DIR = original_store_dir
 
 
 @pytest.mark.asyncio

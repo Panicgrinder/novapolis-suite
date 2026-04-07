@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 10:20
-update: Der TODO-Index schliesst jetzt die dateigestuetzte Agent-Session-/Replay-Bruecke ab und fuehrt den Agent-Open-Count mit 3 weiter.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 11:46
+update: Der TODO-Index fuehrt jetzt den angehobenen Agent-Vertragsschnitt fuer Chat-Response, Savegame und Replay bei unveraendertem Agent-Open-Count.
+checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -22,6 +22,10 @@ Statushinweise (aktuell)
 ------------------------
 
 - Agent v5.10: Der Persistenz- und Replay-Folgepunkt ist jetzt als minimaler Session-Store im Sim-Modul geschlossen. `novapolis_agent/app/api/sim.py` schreibt pro Session `savegame.json`, `world_log.jsonl`, `pc_log.jsonl` und `replay_manifest.json`, liefert Resume-/Replay-Daten ueber `PUT /session/{session_id}`, `GET /session/{session_id}` und `GET /session/{session_id}/replay`, und `novapolis_agent/tests/test_api_sim_state.py` plus `tests/tests_sim_api.py` sichern Write-, Reload-, Manifest- und 404-Pfade ab (`offen: 4 -> 3`).
+
+- Agent v5.11: Der Sessionvertrag materialisiert sich jetzt nicht mehr nur in SSOT und Sim-Artefakten, sondern auch im aktiven API-Rahmen. `novapolis_agent/app/api/models.py` fuehrt fuer `/chat` jetzt `contract_version`, Session-/Slot-Metadaten, `session_status`, `replay_checkpoint_id` und `log_channels`; `novapolis_agent/app/api/sim.py` validiert und persistiert denselben Rahmen in Savegame und Replay und normalisiert `state_patches` auf denselben Session-/Slot-/Tick-Kontext; `novapolis_agent/tests/test_models_chat_options.py`, `test_api_chat_internal_branches.py`, `test_api_sim_state.py`, `tests/tests_sim_api.py` und `test_openapi_contract.py` decken den Schnitt ab (`offen: 3 -> 3`).
+
+- RP v5.45: Der Produktpfad fuehrt jetzt hinter dem episodischen Uebergabeanker eine modulare Anschlussstufe statt nur eines losen Folgehinweises. `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md` fuehrt den erweiterten Korridor ueber D5/C6, `G7` und `E2/F1` bis `slot 30`; `rp-folgekorridor-slot-21-25.ssot.md`, `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md` und `text-rpg-product-gate-v1.ssot.md` verweisen im selben Lauf auf denselben erweiterten Produktpfad (`offen: 2 -> 2`).
 
 - Agent v5.8: Der Spielleiter-Orchestrator fuehrt Projektkontext jetzt nicht mehr nur als lose Nebenbloecke, sondern im selben kontrollierten Lauf. `novapolis_agent/app/api/models.py` fuehrt `retrieval_query`; `novapolis_agent/app/api/chat.py` faltet bei aktiviertem Orchestrator Kontextnotizen und RP-/Projekt-Retrieval in denselben Systemblock und laesst die getrennten `[Kontext-Notizen]`-/`[RAG]`-Bloecke in diesem Pfad bewusst weg; `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt die gebuendelte Injektion ab (`offen: 4 -> 4`).
 
@@ -166,10 +170,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-04-05 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-04-05 | - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren. | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-04-05 | - [ ] [Jetzt] Spielleiter-Orchestrator zwischen Chat-Flow, Projektkontext, RP-SSOT und Scheduler anschliessen. | nein |
-| Sim (`docs/todo.sim.md`) | 2026-04-05 | - [ ] [Jetzt] Live-Spielclient fuer den ersten Text-RPG-Slice statt nur Hub-Chat und statischer Epoch-Logs bauen. | nein |
+| Dev (`docs/todo.dev.md`) | 2026-04-07 | keiner (offen: 0) | nein |
+| RP (`docs/todo.rp.md`) | 2026-04-07 | - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren. | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-04-07 | - [ ] [Jetzt] Spielleiter-Orchestrator zwischen Chat-Flow, Projektkontext, RP-SSOT und Scheduler anschliessen. | nein |
+| Sim (`docs/todo.sim.md`) | 2026-04-07 | - [ ] [Jetzt] Live-Spielclient fuer den ersten Text-RPG-Slice statt nur Hub-Chat und statischer Epoch-Logs bauen. | nein |
 
 
 Hinweise (Index)

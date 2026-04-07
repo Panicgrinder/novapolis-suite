@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 10:20
-update: Das RP-Arbeitsblatt referenziert jetzt auch `E2/F1` als konkrete Neutralstarts und fuehrt die F1-Klarstellung gegen C6 mit.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS
+stand: 2026-04-07 11:46
+update: Das RP-Arbeitsblatt verweist jetzt fuer den naechsten Ausbau auf den Anschluss hinter `slot 30` statt erneut auf `slot 26-30`.
+checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS
 ---
 
 RP-Produktpfad: Spielstartpaket und Slot-00-05-Korridor
@@ -270,7 +270,7 @@ Konsequenzklassen fuer den ersten Korridor
 Arbeitsreihenfolge fuer die naechsten RP-Laeufe
 -----------------------------------------------
 
-1. Den Folgekorridor hinter `slot 25` auf `slot 26-30` oder eine bewusst modulare Episodenform ausbauen.
+1. Den Folgekorridor hinter `slot 30` auf `slot 31-35` oder eine bewusst modulare Episodenform ausbauen.
 2. Sessionvertrag, Produkt-Gate und spaetere Replay-Pfade technisch an denselben RP-Produktpfad anbinden.
 3. Reveal- und Folgekorridor-Logik spaeter auf weitere Kern- und Puffergebiete jenseits des aktuellen Full-Slice-Sets ausdehnen.
 

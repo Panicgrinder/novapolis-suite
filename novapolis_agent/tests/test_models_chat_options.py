@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Any, cast
 
-from app.api.models import ChatOptions, ChatRequest
+from app.api.models import ChatOptions, ChatRequest, ChatResponse, TEXT_RPG_SESSION_CONTRACT_VERSION
 
 
 def test_chat_options_schema_accepts_and_dumps() -> None:
@@ -65,3 +65,25 @@ def test_chat_request_message_coercion_handles_various_inputs() -> None:
     serialized = req.model_dump()
     roles = [item["role"] for item in serialized["messages"]]
     assert roles == ["assistant", "user", "system"]
+
+
+def test_chat_response_contract_fields_dump_cleanly() -> None:
+    response = ChatResponse(
+        content="Szene: Test",
+        model="unit-model",
+        contract_version=TEXT_RPG_SESSION_CONTRACT_VERSION,
+        session_id="sess-1",
+        campaign_id="camp-1",
+        scene_id="scene-1",
+        slot_id="slot-02",
+        turn_id="turn-0002",
+        session_status="active",
+        replay_checkpoint_id="turn-0002",
+        log_channels=["world", "pc", "ally", "sys"],
+    )
+
+    dumped = response.model_dump()
+    assert dumped["contract_version"] == TEXT_RPG_SESSION_CONTRACT_VERSION
+    assert dumped["session_id"] == "sess-1"
+    assert dumped["slot_id"] == "slot-02"
+    assert dumped["session_status"] == "active"

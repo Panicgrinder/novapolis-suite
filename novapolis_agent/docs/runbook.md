@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 10:20
-update: Runbook fuehrt jetzt zusaetzlich die dateigestuetzte Session-/Replay-Bruecke mit `savegame.json`, `world_log.jsonl`, `pc_log.jsonl` und `replay_manifest.json`.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS
+stand: 2026-04-07 11:46
+update: Runbook fuehrt jetzt zusaetzlich denselben Contract-Rahmen fuer Chat-Response, Savegame und Replay auf dem Session-/Slot-Pfad.
+checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -90,7 +90,7 @@ Verbindliche Kernobjekte:
 Aktueller Wahrheitsrahmen:
 
 - Der bestehende Runtime-Pfad bleibt vorerst der vorhandene `/chat`-Flow mit optionaler `session_id`.
-- Der Vollvertrag ist bereits festgezogen, auch wenn API-Modelle, Persistenz und Replay noch nicht voll auf denselben Stand gehoben sind.
+- Der Vollvertrag ist bereits festgezogen; `/chat` fuehrt jetzt denselben Contract-Block fuer Session, Slot, Status und Replay-Checkpoint wie der Replay-Pfad, auch wenn der Szenetext weiter in `content` bleibt.
 - Neue Session- oder Replay-Artefakte muessen sich an diese SSOT haengen, nicht an freie Nebenformate.
 
 Text-RPG Product Gate v1
@@ -148,6 +148,18 @@ Aktive opt-in Felder in `ChatRequest.options`:
 - `scheduler_hints`
 - `state_patch_hints`
 
+Aktiver Contract-Block in `ChatResponse`:
+
+- `contract_version`
+- `session_id`
+- `campaign_id`
+- `scene_id`
+- `slot_id`
+- `turn_id`
+- `session_status`
+- `replay_checkpoint_id`
+- `log_channels`
+
 Operatives Verhalten des Hooks:
 
 - der bestehende Chat-Pfad bleibt erhalten,
@@ -180,16 +192,18 @@ Aktive Endpunkte:
 
 - `PUT /session/{session_id}`
   - schreibt oder erweitert den Sessionstand,
-  - nimmt `campaign_id`, `scene_id`, `slot_id`, `slot_index`, `turn_id`, `seed`, `world_state`, `state_patches`, `world_log` und `pc_log` an,
-  - normalisiert Logeintraege auf denselben Session-/Slot-/Tick-Kontext.
+  - nimmt `contract_version`, `session_status`, `campaign_id`, `scene_id`, `slot_id`, `slot_index`, `turn_id`, `seed`, `world_state`, `state_patches`, `world_log` und `pc_log` an,
+  - validiert den kanonischen Vertragswert `text_rpg_session_v1` und den Sessionstatus,
+  - normalisiert Logeintraege und `state_patches` auf denselben Session-/Slot-/Tick-Kontext.
 - `GET /session/{session_id}`
-  - liefert den aktuellen Resume-Stand inklusive `resume_checkpoint_id`, Checkpoint-Liste, `world_state`, `state_patches`, `world_log` und `pc_log`.
+  - liefert den aktuellen Resume-Stand inklusive `contract_version`, `session_status`, `resume_checkpoint_id`, Checkpoint-Liste, `world_state`, `state_patches`, `world_log` und `pc_log`.
 - `GET /session/{session_id}/replay`
-  - liefert den Replay-Manifestkern mit Artefaktpfaden und Event-/Patch-Zaehlern fuer spaetere Hub- oder Epoch-Exporte.
+  - liefert den Replay-Manifestkern mit demselben `contract_version`-/`session_status`-Block, Artefaktpfaden und Event-/Patch-Zaehlern fuer spaetere Hub- oder Epoch-Exporte.
 
 Operative Lesart:
 
 - Die Bruecke ersetzt noch nicht den Produktpfad ueber `/chat`, sondern stabilisiert den Artefaktkern darunter.
+- `/chat` und die Session-API fuehren jetzt denselben Contract-Rahmen fuer Session, Slot, Status und Replay-Checkpoint.
 - `world_log` und `pc_log` bleiben bewusst Sim-kompatible JSONL-Dateien statt eines neuen Nebenformats.
 - Resume-Punkte laufen zunaechst ueber `turn_id`, sonst ueber einen Tick-basierten Fallback `tick-XXXX`.
 

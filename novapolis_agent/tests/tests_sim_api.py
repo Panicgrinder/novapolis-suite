@@ -100,6 +100,8 @@ async def test_session_endpoints_persist_and_expose_replay_manifest(
         response = await client.put(
             "/session/live-alpha",
             json={
+                "contract_version": "text_rpg_session_v1",
+                "session_status": "active",
                 "campaign_id": "campaign-alpha",
                 "scene_id": "scene-d5",
                 "slot_id": "slot-05",
@@ -108,7 +110,14 @@ async def test_session_endpoints_persist_and_expose_replay_manifest(
                 "seed": 11,
                 "world_log": [{"event": "world-start"}],
                 "pc_log": [{"event": "pc-start", "text": "Look around"}],
-                "state_patches": [{"op": "add", "path": "/flags/0", "value": "started"}],
+                "state_patches": [
+                    {
+                        "scope": "session",
+                        "op": "add",
+                        "path": "/flags/0",
+                        "value": "started",
+                    }
+                ],
             },
         )
         current = await client.get("/session/live-alpha")
@@ -116,21 +125,28 @@ async def test_session_endpoints_persist_and_expose_replay_manifest(
 
     assert response.status_code == 200
     saved = response.json()
+    assert saved["contract_version"] == "text_rpg_session_v1"
+    assert saved["session_status"] == "active"
     assert saved["campaign_id"] == "campaign-alpha"
     assert saved["world_log"][0]["channel"] == "world"
     assert saved["pc_log"][0]["channel"] == "pc"
+    assert saved["state_patches"][0]["slot_id"] == "slot-05"
     assert saved["artifact_paths"]["savegame"].endswith("sim_sessions/live-alpha/savegame.json")
 
     assert current.status_code == 200
     current_payload = current.json()
+    assert current_payload["contract_version"] == "text_rpg_session_v1"
     assert current_payload["resume_checkpoint_id"] == "turn-0005"
     assert current_payload["checkpoints"] == ["turn-0005"]
 
     assert replay.status_code == 200
     replay_payload = replay.json()
+    assert replay_payload["contract_version"] == "text_rpg_session_v1"
+    assert replay_payload["session_status"] == "active"
     assert replay_payload["world_event_count"] == 1
     assert replay_payload["pc_event_count"] == 1
     assert replay_payload["state_patch_count"] == 1
+    assert replay_payload["log_channels"] == ["world", "pc", "ally", "sys"]
     assert replay_payload["artifact_paths"]["world_log"].endswith(
         "sim_sessions/live-alpha/world_log.jsonl"
     )

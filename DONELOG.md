@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 10:20
-update: Root-Summary dokumentiert jetzt zusaetzlich die dateigestuetzte Session-/Replay-Bruecke und den auf den realen Text-RPG-Scope bereinigten PR-Text.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 11:46
+update: Root-Summary dokumentiert jetzt zusaetzlich den angehobenen Agent-Vertragsschnitt fuer Chat-Response, Savegame und Replay.
+checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,10 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-07 10:42: Der Text-RPG-Sessionvertrag materialisiert sich jetzt zugleich im Chat- und Replay-Pfad. `novapolis_agent/app/api/models.py` fuehrt fuer `/chat` jetzt `contract_version`, Session-/Slot-Metadaten, `session_status`, `replay_checkpoint_id` und `log_channels`; `novapolis_agent/app/api/chat.py` fuellt diesen Rahmen auf dem bestehenden Produktpfad; `novapolis_agent/app/api/sim.py` validiert und persistiert denselben Contract-Block in `savegame.json` und `replay_manifest.json` und normalisiert `state_patches` auf Session-/Slot-/Tick-Kontext. `novapolis_agent/tests/test_models_chat_options.py`, `novapolis_agent/tests/test_api_chat_internal_branches.py`, `novapolis_agent/tests/test_api_sim_state.py`, `novapolis_agent/tests/tests_sim_api.py`, `novapolis_agent/tests/test_openapi_contract.py`, `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.index.md`, `novapolis_agent/docs/DONELOG.txt` und `novapolis-dev/docs/donelog.md` sind im selben Lauf synchronisiert.
+
+- 2026-04-07 10:33: Der RP-Produktpfad reicht jetzt als eigener Folgeblock hinter den ersten episodischen Uebergabeanker. `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md` fuehrt die naechste Kampagnenstufe ueber `D5/C6`, `G7` und `E2/F1` als resume- und modulfaehigen Anschluss bis `slot 30`; `novapolis-dev/docs/process/rp-folgekorridor-slot-21-25.ssot.md`, `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md`, `novapolis-dev/docs/todo.rp.md`, `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/donelog.md` sind im selben Lauf darauf synchronisiert, waehrend der RP-Open-Count bewusst bei `2` bleibt.
 
 - 2026-04-07 09:50: Der erste Replay-/Resume-Brueckenschritt des Text-RPG-Slice ist jetzt als echter Artefaktkern umgesetzt. `novapolis_agent/app/api/sim.py` fuehrt dateigestuetzte Session-Endpunkte `PUT /session/{session_id}`, `GET /session/{session_id}` und `GET /session/{session_id}/replay`, schreibt pro Session `savegame.json`, `world_log.jsonl`, `pc_log.jsonl` und `replay_manifest.json` unter `novapolis_agent/tmp/sim_sessions/<session_id>/`, und `novapolis_agent/tests/test_api_sim_state.py` plus `novapolis_agent/tests/tests_sim_api.py` sichern Write-, Reload-, Manifest- und 404-Pfade. `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.index.md`, `novapolis_agent/docs/runbook.md`, `novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md` und `PR_DESCRIPTION.md` sind im selben Lauf auf den realen Text-RPG-Branch-Scope synchronisiert.
 

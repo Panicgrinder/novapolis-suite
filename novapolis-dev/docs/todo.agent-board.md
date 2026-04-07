@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 10:20
-update: Das Agent-Board dokumentiert jetzt die umgesetzte dateigestuetzte Session-/Replay-Bruecke fuer `savegame.json`, `world_log.jsonl`, `pc_log.jsonl` und `replay_manifest.json`.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 11:46
+update: Das Agent-Board dokumentiert jetzt den angehobenen Contract-Rahmen fuer Chat-Response, Savegame und Replay auf demselben Session-/Slot-Pfad.
+checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -56,6 +56,7 @@ Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
   - Ergebnis 2026-04-06: `novapolis_agent/app/api/models.py` fuehrt dafuer jetzt opt-in Felder wie `campaign_id`, `scene_id`, `slot_id`, `turn_id`, `public_context`, `hidden_context`, `scheduler_hints` und `state_patch_hints`; `novapolis_agent/app/api/chat.py` injiziert daraus einen ersten Spielleiter-Orchestrator-Block in `/chat` und `/chat/stream`, ohne einen Parallelendpunkt einzufuehren.
   - Arbeitsstand 2026-04-07: Der naechste Implementierungsschritt legt Projektkontext nicht mehr nur als lose Standard-Bloecke neben den Orchestrator, sondern buendelt Kontextnotizen, einen optional expliziten `retrieval_query` und RP-/Projekt-Retrieval in denselben kontrollierten Spielleiter-Lauf.
   - Ergebnis 2026-04-07: `novapolis_agent/app/api/models.py` fuehrt dafuer jetzt `retrieval_query`; `novapolis_agent/app/api/chat.py` faltet bei aktiviertem Orchestrator Kontextnotizen und RP-/Projekt-Retrieval in denselben Systemblock und unterdrueckt in diesem Pfad die getrennten `[Kontext-Notizen]`-/`[RAG]`-Einblendungen; `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt die gebuendelte Injektion gezielt ab.
+  - Ergebnis 2026-04-07 (Vertragsschnitt): `novapolis_agent/app/api/models.py` fuehrt fuer `/chat` jetzt einen expliziten Contract-Block mit `contract_version`, Session-/Slot-Metadaten, `session_status`, `replay_checkpoint_id` und `log_channels`; `novapolis_agent/app/api/chat.py` fuellt diesen Block im bestehenden Produktpfad; `novapolis_agent/app/api/sim.py` validiert und persistiert denselben Rahmen in `savegame.json` und `replay_manifest.json` und normalisiert `state_patches` auf Session-/Slot-/Tick-Kontext; `novapolis_agent/tests/test_api_chat_internal_branches.py`, `test_models_chat_options.py`, `test_api_sim_state.py`, `tests/tests_sim_api.py` und `test_openapi_contract.py` sichern denselben Vertrag.
   - Evidenz: `novapolis-dev/docs/process/project-context-bridge.ssot.md` fuehrt nur den projektbewussten Chatmodus als Phase 1, `novapolis-dev/docs/specs/scheduler-spec.md` existiert nur als Doku, `novapolis_agent/app/core/prompts.py` bleibt derzeit ein reiner Format-/Persona-Prompt ohne Spielleiter-Orchestrierung, und `novapolis_agent/tests/test_models_chat_options.py` plus `novapolis_agent/tests/test_api_chat_internal_branches.py` decken den neuen Hook jetzt gezielt ab.
 
 - [x] [Als naechstes] Persistente Weltzustands-, Log- und Replay-Pipeline fuer `world_log`, `pc_log` und Savegames schaffen.

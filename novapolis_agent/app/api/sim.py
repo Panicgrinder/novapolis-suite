@@ -12,6 +12,8 @@ from typing import Any
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
+from .models import TEXT_RPG_LOG_CHANNELS, TEXT_RPG_SESSION_CONTRACT_VERSION
+
 
 def _empty_events() -> list[dict[str, Any]]:
     return []
@@ -31,6 +33,10 @@ def _empty_dict() -> dict[str, str]:
 
 def _empty_strings() -> list[str]:
     return []
+
+
+def _default_log_channels() -> list[str]:
+    return list(TEXT_RPG_LOG_CHANNELS)
 
 
 app = FastAPI(
@@ -53,7 +59,33 @@ class StepRequest(BaseModel):
     dt: float = Field(..., gt=0.0, description="Zeitschritt in Sekunden, muss > 0 sein")
 
 
+class StatePatchRecord(BaseModel):
+    patch_id: str | None = None
+    scope: str = Field(..., min_length=1)
+    op: str = Field(..., min_length=1)
+    path: str = Field(..., min_length=1)
+    value: Any = None
+    visibility: str = "pc_visible"
+    evidence_refs: list[str] = Field(default_factory=_empty_strings)
+    replay_epoch_id: str | None = None
+    session_id: str | None = None
+    campaign_id: str | None = None
+    scene_id: str | None = None
+    slot_id: str | None = None
+    slot_index: int | None = None
+    turn_id: str | None = None
+    tick: int | None = None
+    time: float | None = None
+    timestamp: str | None = None
+
+
+def _empty_state_patches() -> list[StatePatchRecord]:
+    return []
+
+
 class SessionUpsertRequest(BaseModel):
+    contract_version: str = TEXT_RPG_SESSION_CONTRACT_VERSION
+    session_status: str = "active"
     campaign_id: str | None = None
     scene_id: str | None = None
     slot_id: str | None = None
@@ -61,13 +93,15 @@ class SessionUpsertRequest(BaseModel):
     turn_id: str | None = None
     seed: int | None = None
     world_state: WorldState | None = None
-    state_patches: list[dict[str, Any]] = Field(default_factory=_empty_events)
+    state_patches: list[StatePatchRecord] = Field(default_factory=_empty_state_patches)
     world_log: list[dict[str, Any]] = Field(default_factory=_empty_events)
     pc_log: list[dict[str, Any]] = Field(default_factory=_empty_events)
 
 
 class SessionRecord(BaseModel):
+    contract_version: str = TEXT_RPG_SESSION_CONTRACT_VERSION
     session_id: str
+    session_status: str = "active"
     campaign_id: str | None = None
     scene_id: str | None = None
     slot_id: str | None = None
@@ -78,15 +112,18 @@ class SessionRecord(BaseModel):
     updated_at: str
     resume_checkpoint_id: str | None = None
     checkpoints: list[str] = Field(default_factory=_empty_strings)
+    log_channels: list[str] = Field(default_factory=_default_log_channels)
     artifact_paths: dict[str, str] = Field(default_factory=_empty_dict)
     world_state: WorldState
-    state_patches: list[dict[str, Any]] = Field(default_factory=_empty_events)
+    state_patches: list[StatePatchRecord] = Field(default_factory=_empty_state_patches)
     world_log: list[dict[str, Any]] = Field(default_factory=_empty_events)
     pc_log: list[dict[str, Any]] = Field(default_factory=_empty_events)
 
 
 class ReplayManifest(BaseModel):
+    contract_version: str = TEXT_RPG_SESSION_CONTRACT_VERSION
     session_id: str
+    session_status: str = "active"
     campaign_id: str | None = None
     scene_id: str | None = None
     slot_id: str | None = None
@@ -95,6 +132,7 @@ class ReplayManifest(BaseModel):
     seed: int | None = None
     resume_checkpoint_id: str | None = None
     checkpoints: list[str] = Field(default_factory=_empty_strings)
+    log_channels: list[str] = Field(default_factory=_default_log_channels)
     artifact_paths: dict[str, str] = Field(default_factory=_empty_dict)
     world_event_count: int = 0
     pc_event_count: int = 0
@@ -184,7 +222,7 @@ def _load_jsonl(path: Path) -> list[dict[str, Any]]:
             continue
         parsed = json.loads(clean_line)
         if isinstance(parsed, dict):
-            entries.append(parsed)
+            entries.append(dict(parsed))
     return entries
 
 
@@ -194,6 +232,7 @@ def _default_session_record(session_id: str) -> SessionRecord:
         session_id=session_id,
         created_at=now,
         updated_at=now,
+        log_channels=_default_log_channels(),
         artifact_paths=_artifact_paths(session_id),
         world_state=_snapshot(),
     )
@@ -240,6 +279,58 @@ def _normalize_log_entries(
     return normalized_entries
 
 
+def _normalize_state_patches(
+    entries: list[StatePatchRecord],
+    *,
+    session_id: str,
+    campaign_id: str | None,
+    scene_id: str | None,
+    slot_id: str | None,
+    slot_index: int | None,
+    turn_id: str | None,
+    world_state: WorldState,
+    timestamp: str,
+) -> list[StatePatchRecord]:
+    normalized_entries: list[StatePatchRecord] = []
+    for raw_patch in entries:
+        patch = raw_patch.model_dump()
+        if not patch.get("session_id"):
+            patch["session_id"] = session_id
+        if campaign_id:
+            if not patch.get("campaign_id"):
+                patch["campaign_id"] = campaign_id
+        if scene_id:
+            if not patch.get("scene_id"):
+                patch["scene_id"] = scene_id
+        if slot_id:
+            if not patch.get("slot_id"):
+                patch["slot_id"] = slot_id
+        if slot_index is not None:
+            if patch.get("slot_index") is None:
+                patch["slot_index"] = slot_index
+        if turn_id:
+            if not patch.get("turn_id"):
+                patch["turn_id"] = turn_id
+        if patch.get("tick") is None:
+            patch["tick"] = world_state.tick
+        if patch.get("time") is None:
+            patch["time"] = world_state.time
+        if not patch.get("timestamp"):
+            patch["timestamp"] = timestamp
+        normalized_entries.append(StatePatchRecord.model_validate(patch))
+    return normalized_entries
+
+
+def _validate_contract_version(contract_version: str) -> None:
+    if contract_version != TEXT_RPG_SESSION_CONTRACT_VERSION:
+        raise HTTPException(status_code=400, detail="unsupported contract_version")
+
+
+def _validate_session_status(session_status: str) -> None:
+    if session_status not in {"created", "active", "paused", "completed", "aborted"}:
+        raise HTTPException(status_code=400, detail="unsupported session_status")
+
+
 def _session_payload(record: SessionRecord) -> dict[str, Any]:
     payload = record.model_dump()
     payload.pop("world_log", None)
@@ -250,7 +341,9 @@ def _session_payload(record: SessionRecord) -> dict[str, Any]:
 
 def _build_replay_manifest(record: SessionRecord) -> ReplayManifest:
     return ReplayManifest(
+        contract_version=record.contract_version,
         session_id=record.session_id,
+        session_status=record.session_status,
         campaign_id=record.campaign_id,
         scene_id=record.scene_id,
         slot_id=record.slot_id,
@@ -259,6 +352,7 @@ def _build_replay_manifest(record: SessionRecord) -> ReplayManifest:
         seed=record.seed,
         resume_checkpoint_id=record.resume_checkpoint_id,
         checkpoints=list(record.checkpoints),
+        log_channels=list(record.log_channels),
         artifact_paths=dict(record.artifact_paths),
         world_event_count=len(record.world_log),
         pc_event_count=len(record.pc_log),
@@ -315,6 +409,12 @@ def upsert_session(session_id: str, request: SessionUpsertRequest) -> SessionRec
     with _state_lock:
         record = _load_session(session_id) or _default_session_record(session_id)
 
+        _validate_contract_version(request.contract_version)
+        _validate_session_status(request.session_status)
+
+        record.contract_version = request.contract_version
+        record.session_status = request.session_status
+
         if request.campaign_id is not None:
             record.campaign_id = request.campaign_id
         if request.scene_id is not None:
@@ -370,7 +470,19 @@ def upsert_session(session_id: str, request: SessionUpsertRequest) -> SessionRec
                 timestamp=record.updated_at,
             )
         )
-        record.state_patches.extend(request.state_patches)
+        record.state_patches.extend(
+            _normalize_state_patches(
+                request.state_patches,
+                session_id=record.session_id,
+                campaign_id=record.campaign_id,
+                scene_id=record.scene_id,
+                slot_id=record.slot_id,
+                slot_index=record.slot_index,
+                turn_id=record.turn_id,
+                world_state=record.world_state,
+                timestamp=record.updated_at,
+            )
+        )
         record.artifact_paths = _artifact_paths(session_id)
 
         _persist_session(record)
