@@ -1,3 +1,4 @@
+---
 stand: 2026-04-07 16:11
 update: Phase-2-Konsistenzlauf harmonisiert im Root-README auch die Wrapper-Beispiele auf den aktuellen Root-Interpreter-Stil.
 checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:27)

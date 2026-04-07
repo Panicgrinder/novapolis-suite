@@ -1,3 +1,4 @@
+---
 stand: 2026-04-07 16:11
 update: Root-Summary dokumentiert jetzt den geschlossenen Sim-Clean-Checkout-Bootstrap und den warnungsfreien Offline-Asset-Check.
 checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS

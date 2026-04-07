@@ -1,3 +1,4 @@
+---
 stand: 2026-04-07 16:11
 update: Der Root-Backlog fuehrt die offenen Sim-Restpunkte zu Asset-Warnungen und Bootstrap jetzt als geschlossen; Clean-Checkout und Vollstand sind getrennt dokumentiert.
 checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS

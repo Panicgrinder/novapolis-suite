@@ -1,3 +1,4 @@
+---
 stand: 2026-04-07 16:11
 update: Der TODO-Index fuehrt jetzt auch den Sim-Clean-Checkout-Bootstrap und den warnungsfreien Offline-Asset-Check; der Sim-Open-Count sinkt von 2 auf 0.
 checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS

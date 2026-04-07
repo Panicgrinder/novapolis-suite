@@ -1,3 +1,4 @@
+---
 stand: 2026-04-07 16:11
 update: Die Sim-README trennt jetzt den warnungsfreien Clean-Checkout-Bootstrap vom artefaktbasierten Vollstand-Pfad und dokumentiert die Bootstrap-Zielorte.
 checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS

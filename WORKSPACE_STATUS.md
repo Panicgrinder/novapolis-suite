@@ -1,3 +1,4 @@
+---
 stand: 2026-04-07 16:11
 update: Workspace-Status dokumentiert jetzt den warnungsfreien Sim-Clean-Checkout-Check und die Profiltrennung fuer Offline-Epoch-/Audio-Artefakte.
 checks: snapshot-lock PASS (2026-04-07 16:11); pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS
