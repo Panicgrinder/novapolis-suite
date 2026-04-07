@@ -1,7 +1,6 @@
----
-stand: 2026-03-28 06:51
-update: Phase-2-Konsistenzlauf vereinheitlicht die Sim-README weiter auf portable Godot-Aufrufe und denselben Root-Wrapper-Rahmen wie die anderen Einstiegstexte.
-checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:23)
+stand: 2026-04-07 16:11
+update: Die Sim-README trennt jetzt den warnungsfreien Clean-Checkout-Bootstrap vom artefaktbasierten Vollstand-Pfad und dokumentiert die Bootstrap-Zielorte.
+checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 Novapolis Sim
@@ -32,7 +31,7 @@ How to run
 
 Während der Agent nicht erreichbar ist, bleibt die Oberfläche responsiv und zeigt unten eine Statusmeldung an. Läuft die API, aktualisieren sich Tick und Zeit etwa fünfmal pro Sekunde.
 
-Für den UI-Start werden keine zusätzlichen Pflicht-Assets benötigt; der separate Offline-Asset-Check kann auf Clean-Checkout aber weiter Warnungen zu optionalen Epoch- und Audio-Artefakten melden, bis der Bootstrap-Pfad aus `todo.sim.md` umgesetzt ist.
+Für den UI-Start werden keine zusätzlichen Pflicht-Assets benötigt. Der separate Offline-Asset-Check unterscheidet jetzt zwei Profile: `Clean-Checkout` mit `--allow-empty` endet ohne Warnungen auch ohne `epochNN`-Ordner oder OGG-Dateien, waehrend der Vollstand-Pfad ohne dieses Flag echte Offline-Artefakte unter `novapolis-sim/data/epochs/` und `novapolis-sim/assets/audio/` erwartet.
 
 Hub-Chatfenster (Hauptmenue)
 ---------------------------
@@ -46,6 +45,9 @@ Im Hub-Hauptmenue ist ein kleines Chatfenster integriert (`Chat mit Projektkonte
 Hinweis:
 
 - Ohne erreichbare Agent-API bleibt die Sim stabil; das Chatpanel zeigt den HTTP-/Request-Fehler nur als Status/Verlaufseintrag an.
+- `Neu laden` zieht zusaetzlich den aktuellen Sessionstand ueber `GET /session/{session_id}` vom Sim-API-Host nach und spiegelt `world_log`, `pc_log`, Resume-Checkpoint und verfuegbare Session-Artefakte in derselben Ansicht wie die lokalen Epoch-Daten.
+- Wenn im Session-Artefaktpfad ein `tts_manifest` vorliegt, markiert die Sim Audio als live verfuegbar und kann spaetere Kanaldateien aus demselben Sessionlauf statt nur aus `res://assets/audio` aufloesen.
+- Offline-Bootstrap-Zielorte: `novapolis-sim/data/epochs/` fuer spaetere `epochNN`-Fixtures und `novapolis-sim/assets/audio/` fuer optionale OGG-Dateien nach dem Schema `epoch{dd}_slot{hh}_{pc|world}.ogg`.
 
 Local Start / Stop / Verify (Developer)
 -------------------------------------
@@ -132,7 +134,7 @@ godot --headless --path '.\novapolis-sim' --quit --scene res://Main.tscn
 .\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --profile eval --limit 20 --quiet --tag quality_de --checks must_include,keywords_any,keywords_at_least,not_include,regex,quality_de --packages novapolis_agent/eval/datasets/neutral/quality_de_core.v1.jsonl --packages novapolis_agent/eval/datasets/neutral/quality_de_drift.v1.jsonl --packages novapolis_agent/eval/datasets/neutral/quality_de_canary.v1.jsonl
 ```
 
-Hinweis: Stufe 1 bis 3 muessen gruen sein, bevor ein Sim-Lauf als lokal verifiziert gilt. Mit `--check-slot-consistency` gilt der Lauf als fehlgeschlagen bei Slot-Mismatch (`world_log` vs. `pc_log`) oder ungueltigen Slotwerten ausserhalb `0..23`.
+Hinweis: Stufe 1 bis 3 muessen gruen sein, bevor ein Sim-Lauf als lokal verifiziert gilt. Mit `--allow-empty` pruefst du das warnungsfreie Clean-Checkout-Profil; ohne dieses Flag pruefst du den Vollstand mit echten Offline-Artefakten. Mit `--check-slot-consistency` gilt der Lauf als fehlgeschlagen bei Slot-Mismatch (`world_log` vs. `pc_log`) oder ungueltigen Slotwerten ausserhalb `0..23`.
 
 Hinweis: Wenn deine lokale Godot-Binary eine Debug-Build ist, zeigt das exportierte Editor-Playfenster weiterhin Debug-Markierungen. Lade im Zweifelsfall die offizielle Release-Binary von `https://godotengine.org` oder nutze einen Export (Release) für produktives Ausführen.
 

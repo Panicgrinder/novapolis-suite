@@ -1,7 +1,6 @@
----
-stand: 2026-04-05 19:43
-update: Der Produktpfad vom aktuellen Workspace-Stand hin zu einem KI-geleiteten Text-RPG ist jetzt ueber Root-, Dev-, Agent-, RP- und Sim-Board als aktive Folgearbeit zerlegt.
-checks: snapshot-lock PASS (2026-04-03 10:53); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 16:11
+update: Der Root-Backlog fuehrt die offenen Sim-Restpunkte zu Asset-Warnungen und Bootstrap jetzt als geschlossen; Clean-Checkout und Vollstand sind getrennt dokumentiert.
+checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -92,11 +91,13 @@ Neue Punkte (Backlog)
   - Evidenz: `novapolis-dev/docs/process/rp-metro-warenzuteilung-matrix-2026-03-27.md`, `novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md`, `novapolis-dev/docs/todo.rp.md`.
   - Abschluss 2026-03-30: Das neue Arbeitsledger trennt jetzt den fixen Sockel, konservative Rahmenwerte und echte Handentscheidungen mit sichtbaren Zielpfaden; damit ist der Uebergang von der Matrix in ein operatives Verteilungsblatt geschlossen.
 
-- [ ] Sim-Asset-Warnungen aus dem Wochenabschluss entscheiden: entweder beheben oder als bewusste Ausnahme dokumentieren.
+- [x] Sim-Asset-Warnungen aus dem Wochenabschluss entscheiden: entweder beheben oder als bewusste Ausnahme dokumentieren.
   - Evidenz: `novapolis-dev/docs/todo.sim.md`, `WORKSPACE_STATUS.md` (Wochenabschluss 2026-03-27, `summary=fail:0,warn:2`).
+  - Abschluss 2026-04-07: `scripts/check_sim_epoch_assets.py` behandelt `--allow-empty` jetzt als kanonisches Clean-Checkout-Profil statt als Warnpfad; der Lauf `--repo-root . --allow-empty --check-slot-consistency` endet im aktuellen Repo-Stand mit `summary=fail:0,warn:0`.
 
-- [ ] Sim-Minimalprofil fuer Epoch-/Audio-Assets festlegen, damit Clean-Checkout und Vollstand getrennte Erwartungswerte haben.
+- [x] Sim-Minimalprofil fuer Epoch-/Audio-Assets festlegen, damit Clean-Checkout und Vollstand getrennte Erwartungswerte haben.
   - Evidenz: `novapolis-dev/docs/todo.sim.md`, `novapolis-sim/README.md`, `WORKSPACE_STATUS.md` (weiter `warn:2` trotz sonst gruener Sim-Verifikation).
+  - Abschluss 2026-04-07: `novapolis-sim/data/epochs/` und `novapolis-sim/assets/audio/` sind als Bootstrap-Zielorte angelegt; `novapolis-sim/README.md` und der Checker unterscheiden jetzt explizit zwischen warnungsfreiem `Clean-Checkout` mit `--allow-empty` und artefaktbelegtem Vollstand ohne dieses Flag.
 
 - [x] Wochenabschluss 2026-03-27 nach SSOT komplett ausgefuehrt (Full-Gate, Coverage-Gate, Hygiene-KPIs, Abschluss-Sync).
   - Evidenz: `.tmp/results/reports/checks_report_20260327_011507.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `novapolis-dev/docs/meta/dev-kpi-trends.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.sim.md`.

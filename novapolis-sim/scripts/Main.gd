@@ -236,6 +236,10 @@ var _hub_chat_current_consequence: String = ""
 var _hub_chat_current_options: Array[String] = []
 var _hub_chat_current_state_patches: Array[String] = []
 var _hub_chat_public_context: String = ""
+var _hub_session_request: HTTPRequest
+var _hub_session_sync_in_flight: bool = false
+var _live_session_artifact_paths: Dictionary = {}
+var _live_session_resume_checkpoint_id: String = ""
 var _marquee_state: Dictionary = {}
 var _lower_shared_topic: String = "agent_api"
 const _HUB_PREFS_PATH: String = "user://hub_prefs.cfg"
@@ -330,6 +334,10 @@ func _ready() -> void:
 	hub_chat_send_button.pressed.connect(_on_hub_chat_send_pressed)
 	hub_chat_input_edit.text_submitted.connect(_on_hub_chat_input_submitted)
 	hub_chat_request.request_completed.connect(_on_hub_chat_request_completed)
+	_hub_session_request = HTTPRequest.new()
+	_hub_session_request.timeout = 4.0
+	add_child(_hub_session_request)
+	_hub_session_request.request_completed.connect(_on_hub_session_request_completed)
 	api_card_panel.gui_input.connect(Callable(self, "_on_api_card_panel_gui_input"))
 	_audio_player = AudioStreamPlayer.new()
 	add_child(_audio_player)
@@ -1386,6 +1394,35 @@ func _load_log_entries(path: String) -> Array[Dictionary]:
 	return entries
 
 
+func _coerce_dict_array(value: Variant) -> Array[Dictionary]:
+	var entries: Array[Dictionary] = []
+	if typeof(value) != TYPE_ARRAY:
+		return entries
+	for item in value:
+		if typeof(item) == TYPE_DICTIONARY:
+			entries.append(item)
+	return entries
+
+
+func _parse_slot_number(value: Variant) -> int:
+	if typeof(value) == TYPE_INT:
+		return int(value)
+	if typeof(value) == TYPE_FLOAT:
+		return int(value)
+	var text := str(value).strip_edges()
+	if text == "":
+		return -1
+	if text.is_valid_int():
+		return int(text)
+	var digits := ""
+	for ch in text:
+		if ch >= "0" and ch <= "9":
+			digits += ch
+	if digits.is_valid_int():
+		return int(digits)
+	return -1
+
+
 func _derive_initial_slot(pc_log: Array) -> int:
 	for entry in pc_log:
 		if typeof(entry) != TYPE_DICTIONARY:
@@ -1397,10 +1434,90 @@ func _derive_initial_slot(pc_log: Array) -> int:
 
 
 func _extract_slot_from_entry(entry: Dictionary) -> int:
-	for key in ["slot", "hour", "slot_index"]:
+	for key in ["slot", "hour", "slot_index", "slot_id"]:
 		if entry.has(key):
-			return int(entry.get(key, 0))
+			var slot_number := _parse_slot_number(entry.get(key, -1))
+			if slot_number >= 0:
+				return slot_number
 	return -1
+
+
+func _live_session_epoch_name() -> String:
+	if _hub_chat_session_id == "":
+		return "live-session"
+	return "session-%s" % _hub_chat_session_id
+
+
+func _apply_live_session_state(session_payload: Dictionary) -> void:
+	var world_log := _coerce_dict_array(session_payload.get("world_log", []))
+	var pc_log := _coerce_dict_array(session_payload.get("pc_log", []))
+	var artifact_paths := {}
+	if typeof(session_payload.get("artifact_paths", {})) == TYPE_DICTIONARY:
+		artifact_paths = session_payload.get("artifact_paths", {})
+	_live_session_artifact_paths = artifact_paths
+	_live_session_resume_checkpoint_id = str(session_payload.get("resume_checkpoint_id", "")).strip_edges()
+	_loaded_epochs.clear()
+	_loaded_epochs.append(
+		{
+			"name": _live_session_epoch_name(),
+			"world_log": world_log,
+			"pc_log": pc_log,
+			"artifact_paths": artifact_paths,
+			"source": "session_api",
+		}
+	)
+	_current_epoch_index = 0
+	var slot_number := _parse_slot_number(session_payload.get("slot_index", -1))
+	if slot_number < 0:
+		slot_number = _parse_slot_number(session_payload.get("slot_id", -1))
+	if slot_number < 0:
+		slot_number = _derive_initial_slot(pc_log)
+	if slot_number < 0:
+		slot_number = _current_slot
+	_current_slot = clampi(slot_number, 0, 23)
+	_audio_assets_present = _audio_assets_present or artifact_paths.has("tts_manifest")
+	var patch_count := 0
+	if typeof(session_payload.get("state_patches", [])) == TYPE_ARRAY:
+		patch_count = (session_payload.get("state_patches", []) as Array).size()
+	_set_marquee_text(
+		epoch_status_label,
+		"Epochen: Live-Session %s | pc=%d | world=%d | patches=%d" % [
+			_hub_chat_session_id,
+			pc_log.size(),
+			world_log.size(),
+			patch_count,
+		]
+	)
+	if _live_session_resume_checkpoint_id != "":
+		rp_replay_seed_label.text = "Replay-Seed: %s" % _live_session_resume_checkpoint_id
+	_render_pc_centric_view()
+	_refresh_module_cards()
+
+
+func _hub_session_endpoint() -> String:
+	var host := "127.0.0.1"
+	var port := 8765
+	if _sim_client:
+		host = str(_sim_client.get("host"))
+		port = int(_sim_client.get("port"))
+	return "http://%s:%d/session/%s" % [host, port, _hub_chat_session_id.uri_encode()]
+
+
+func _request_live_session_state() -> void:
+	if _hub_chat_session_id == "":
+		return
+	if _hub_session_request == null:
+		return
+	if _hub_session_sync_in_flight:
+		return
+	if _hub_session_request.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
+		return
+	var error := _hub_session_request.request(_hub_session_endpoint())
+	if error != OK:
+		_set_marquee_text(epoch_status_label, "Epochen: Session-Reload konnte nicht gestartet werden (%d)" % error)
+		return
+	_hub_session_sync_in_flight = true
+	_append_runtime_event("SESSION_SYNC", {"action": "request", "session_id": _hub_chat_session_id})
 
 
 func _render_pc_centric_view() -> void:
@@ -1656,6 +1773,8 @@ func _filter_events_for_slot(entries: Array, slot: int) -> Array[Dictionary]:
 func _event_to_text(event: Dictionary) -> String:
 	if event.has("text"):
 		return str(event.get("text"))
+	if event.has("content"):
+		return str(event.get("content"))
 	if event.has("event"):
 		return str(event.get("event"))
 	if event.has("message"):
@@ -2492,6 +2611,8 @@ func _ps_quote(value: String) -> String:
 
 
 func _play_audio_for_channel(channel: String) -> void:
+	if _play_audio_from_live_session(channel):
+		return
 	if _loaded_epochs.is_empty():
 		audio_status_label.text = "Audio: keine Epochen geladen"
 		return
@@ -2516,6 +2637,73 @@ func _play_audio_for_channel(channel: String) -> void:
 	audio_status_label.text = "Audio spielt: %s" % file_name
 
 
+func _workspace_root_path() -> String:
+	return ProjectSettings.globalize_path("res://..")
+
+
+func _agent_root_path() -> String:
+	return ProjectSettings.globalize_path("res://../novapolis_agent")
+
+
+func _resolve_local_file_path(path: String, prefer_agent_root: bool = false) -> String:
+	var normalized := path.strip_edges().replace("\\", "/")
+	if normalized == "":
+		return ""
+	if normalized.find(":/") == 1:
+		return normalized
+	var workspace_root := _workspace_root_path()
+	var agent_root := _agent_root_path()
+	var candidates: Array[String] = []
+	if prefer_agent_root or normalized.begins_with("tmp/"):
+		candidates.append("%s/%s" % [agent_root, normalized])
+		candidates.append("%s/%s" % [workspace_root, normalized])
+	else:
+		candidates.append("%s/%s" % [workspace_root, normalized])
+		candidates.append("%s/%s" % [agent_root, normalized])
+	for candidate in candidates:
+		if FileAccess.file_exists(candidate):
+			return candidate
+	return candidates[0] if not candidates.is_empty() else normalized
+
+
+func _load_tts_manifest_entries() -> Array[Dictionary]:
+	if not _live_session_artifact_paths.has("tts_manifest"):
+		return []
+	var manifest_path := _resolve_local_file_path(str(_live_session_artifact_paths.get("tts_manifest", "")), true)
+	return _load_log_entries(manifest_path)
+
+
+func _play_audio_from_live_session(channel: String) -> bool:
+	var entries := _load_tts_manifest_entries()
+	if entries.is_empty():
+		return false
+	for idx in range(entries.size() - 1, -1, -1):
+		var entry := entries[idx]
+		if str(entry.get("channel", "")).strip_edges().to_lower() != channel:
+			continue
+		var artifact_path := _resolve_local_file_path(str(entry.get("artifact_path", "")))
+		if artifact_path == "" or not FileAccess.file_exists(artifact_path):
+			continue
+		if artifact_path.to_lower().ends_with(".ogg"):
+			var ogg_stream := AudioStreamOggVorbis.load_from_file(artifact_path)
+			if ogg_stream != null:
+				_audio_player.stream = ogg_stream
+				_audio_player.play()
+				audio_status_label.text = "Audio spielt (Session): %s" % artifact_path.get_file()
+				return true
+		if artifact_path.to_lower().ends_with(".wav"):
+			var wav_stream := AudioStreamWAV.load_from_file(artifact_path)
+			if wav_stream != null:
+				_audio_player.stream = wav_stream
+				_audio_player.play()
+				audio_status_label.text = "Audio spielt (Session): %s" % artifact_path.get_file()
+				return true
+		audio_status_label.text = "Audio unlesbar (Session): %s" % artifact_path.get_file()
+		return false
+	audio_status_label.text = "Audio fehlt (Session): channel=%s" % channel
+	return false
+
+
 func _extract_epoch_number(epoch_name: String) -> int:
 	var digits := ""
 	for ch in epoch_name:
@@ -2528,6 +2716,9 @@ func _extract_epoch_number(epoch_name: String) -> int:
 
 func _scan_audio_assets() -> void:
 	_audio_assets_present = false
+	if _live_session_artifact_paths.has("tts_manifest"):
+		_audio_assets_present = true
+		return
 	var dir := DirAccess.open(audio_assets_dir)
 	if dir == null:
 		return
@@ -2553,6 +2744,7 @@ func _on_server_toggle_pressed() -> void:
 
 
 func _on_hub_reload_pressed() -> void:
+	_request_live_session_state()
 	on_action_start.emit("hub_reload", {})
 	_refresh_status_label()
 	_refresh_hub_topbar()
@@ -2644,10 +2836,12 @@ func _on_hub_chat_request_completed(result: int, response_code: int, _headers: P
 				answer = str(obj.get("detail", "(leere Antwort)"))
 			_append_hub_chat_line("SL", answer)
 			_apply_hub_chat_response(answer)
+			_request_live_session_state()
 			hub_chat_status_label.text = "Live-Spielclient: Antwort ok (%d)" % response_code
 		else:
 			_append_hub_chat_line("SL", text)
 			_apply_hub_chat_response(text)
+			_request_live_session_state()
 			hub_chat_status_label.text = "Live-Spielclient: Antwort ok (%d)" % response_code
 	else:
 		_hub_chat_pending_turn_id = ""
@@ -2661,6 +2855,36 @@ func _on_hub_chat_request_completed(result: int, response_code: int, _headers: P
 		hub_chat_status_label.text = "Live-Spielclient: Fehler (%d)" % response_code
 
 	_append_runtime_event("HUB_CHAT", {"action": "response", "http": response_code, "result": result})
+
+
+func _on_hub_session_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	_hub_session_sync_in_flight = false
+	var text := body.get_string_from_utf8().strip_edges()
+	var parsed: Variant = JSON.parse_string(text)
+	if result != HTTPRequest.RESULT_SUCCESS:
+		_set_marquee_text(epoch_status_label, "Epochen: Session-Sync fehlgeschlagen (%d)" % result)
+		_append_runtime_event("SESSION_SYNC", {"action": "error", "result": result})
+		return
+	if response_code < 200 or response_code >= 300:
+		var detail := "HTTP %d" % response_code
+		if typeof(parsed) == TYPE_DICTIONARY:
+			detail = "%s | %s" % [detail, str((parsed as Dictionary).get("detail", "Fehler ohne Detail"))]
+		_set_marquee_text(epoch_status_label, "Epochen: %s" % detail)
+		_append_runtime_event("SESSION_SYNC", {"action": "http_error", "http": response_code})
+		return
+	if typeof(parsed) != TYPE_DICTIONARY:
+		_set_marquee_text(epoch_status_label, "Epochen: Session-Antwort unlesbar")
+		_append_runtime_event("SESSION_SYNC", {"action": "parse_error", "http": response_code})
+		return
+	_apply_live_session_state(parsed as Dictionary)
+	_append_runtime_event(
+		"SESSION_SYNC",
+		{
+			"action": "applied",
+			"session_id": _hub_chat_session_id,
+			"http": response_code,
+		}
+	)
 
 
 func _append_hub_chat_line(role: String, content: String) -> void:

@@ -45,7 +45,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--allow-empty",
         action="store_true",
-        help="Pass when no epoch folders are present (useful for initial setup).",
+        help=(
+            "Treat missing epoch folders / audio assets as clean-checkout bootstrap "
+            "state instead of warnings."
+        ),
     )
     parser.add_argument(
         "--check-slot-consistency",
@@ -210,6 +213,40 @@ def collect_epoch_dirs(epochs_root: Path) -> list[Path]:
     return sorted(epoch_dirs, key=lambda path: path.name.lower())
 
 
+def validate_epoch_dirs(
+    epochs_root: Path, epoch_dirs: list[Path], *, allow_empty: bool, check_slot_consistency: bool
+) -> list[CheckMessage]:
+    messages: list[CheckMessage] = []
+    if not epoch_dirs:
+        if allow_empty:
+            messages.append(
+                CheckMessage(
+                    "INFO",
+                    (
+                        "no epochNN folders found "
+                        f"under {epochs_root.as_posix()} (clean-checkout profile)"
+                    ),
+                )
+            )
+            return messages
+        messages.append(
+            CheckMessage(
+                "FAIL",
+                (
+                    f"no epochNN folders found under {epochs_root.as_posix()} "
+                    "(use --allow-empty for clean-checkout bootstrap)"
+                ),
+            )
+        )
+        return messages
+
+    for epoch_dir in epoch_dirs:
+        messages.extend(
+            validate_epoch_folder(epoch_dir, check_slot_consistency=check_slot_consistency)
+        )
+    return messages
+
+
 def validate_epoch_folder(
     epoch_dir: Path, *, check_slot_consistency: bool = False
 ) -> list[CheckMessage]:
@@ -247,10 +284,18 @@ def validate_epoch_folder(
     return messages
 
 
-def validate_audio_dir(audio_root: Path) -> list[CheckMessage]:
+def validate_audio_dir(audio_root: Path, *, allow_empty: bool = False) -> list[CheckMessage]:
     messages: list[CheckMessage] = []
 
     if not audio_root.exists():
+        if allow_empty:
+            messages.append(
+                CheckMessage(
+                    "INFO",
+                    f"audio directory missing: {audio_root.as_posix()} (clean-checkout profile)",
+                )
+            )
+            return messages
         messages.append(CheckMessage("WARN", f"audio directory missing: {audio_root.as_posix()}"))
         return messages
     if not audio_root.is_dir():
@@ -263,6 +308,9 @@ def validate_audio_dir(audio_root: Path) -> list[CheckMessage]:
         [item for item in audio_root.iterdir() if item.is_file() and item.suffix.lower() == ".ogg"]
     )
     if not ogg_files:
+        if allow_empty:
+            messages.append(CheckMessage("INFO", "no .ogg files found (clean-checkout profile)"))
+            return messages
         messages.append(CheckMessage("WARN", "no .ogg files found (naming check skipped)"))
         return messages
 
@@ -293,25 +341,16 @@ def main() -> int:
     all_messages: list[CheckMessage] = []
 
     epoch_dirs = collect_epoch_dirs(epochs_root)
-    if not epoch_dirs:
-        if args.allow_empty:
-            all_messages.append(
-                CheckMessage("WARN", "no epochNN folders found (allow-empty active)")
-            )
-        else:
-            all_messages.append(
-                CheckMessage(
-                    "FAIL",
-                    f"no epochNN folders found under {epochs_root.as_posix()} (use --allow-empty for bootstrap)",
-                )
-            )
-
-    for epoch_dir in epoch_dirs:
-        all_messages.extend(
-            validate_epoch_folder(epoch_dir, check_slot_consistency=args.check_slot_consistency)
+    all_messages.extend(
+        validate_epoch_dirs(
+            epochs_root,
+            epoch_dirs,
+            allow_empty=args.allow_empty,
+            check_slot_consistency=args.check_slot_consistency,
         )
+    )
 
-    all_messages.extend(validate_audio_dir(audio_root))
+    all_messages.extend(validate_audio_dir(audio_root, allow_empty=args.allow_empty))
 
     fail_count = sum(1 for message in all_messages if message.level == "FAIL")
     warn_count = sum(1 for message in all_messages if message.level == "WARN")

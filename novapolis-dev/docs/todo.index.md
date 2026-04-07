@@ -1,7 +1,6 @@
----
-stand: 2026-04-07 14:33
-update: Der TODO-Index fuehrt jetzt den geschlossenen Orchestrator-Session-Roundtrip und die Session-TTS-Anbindung; der Agent-Open-Count sinkt auf 0.
-checks: snapshot-lock PASS (2026-04-07 14:33); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 16:11
+update: Der TODO-Index fuehrt jetzt auch den Sim-Clean-Checkout-Bootstrap und den warnungsfreien Offline-Asset-Check; der Sim-Open-Count sinkt von 2 auf 0.
+checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -15,7 +14,7 @@ TODO-Index (Novapolis-Dev)
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 2)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 4)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
 Statushinweise (aktuell)
@@ -34,6 +33,12 @@ Statushinweise (aktuell)
 - Agent v5.8: Der Spielleiter-Orchestrator fuehrt Projektkontext jetzt nicht mehr nur als lose Nebenbloecke, sondern im selben kontrollierten Lauf. `novapolis_agent/app/api/models.py` fuehrt `retrieval_query`; `novapolis_agent/app/api/chat.py` faltet bei aktiviertem Orchestrator Kontextnotizen und RP-/Projekt-Retrieval in denselben Systemblock und laesst die getrennten `[Kontext-Notizen]`-/`[RAG]`-Bloecke in diesem Pfad bewusst weg; `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt die gebuendelte Injektion ab (`offen: 4 -> 4`).
 
 - Sim v5.3: Der bisher freie Hub-Chat zeigt jetzt einen ersten echten Sessionpfad statt nur lose Nachrichten. `novapolis-sim/scripts/Main.gd` sendet den Hub-Aufruf mit Sessionrahmen und Orchestrator-Hinweisen an `/chat`, haelt eine laufende Session-ID und bereitet Antworten als `Szene/Konsequenz/Optionen/State-Patches` im bestehenden Panel auf (`offen: 4 -> 4`).
+
+- Sim v5.4: Die Replay-/Epoch-Bridge nutzt jetzt denselben Sessionvertrag wie der Live-Lauf. `novapolis-sim/scripts/Main.gd` zieht `world_log`, `pc_log`, `slot_id`, `slot_index`, Resume-Checkpoint und `artifact_paths` ueber `GET /session/{session_id}` vom Sim-API-Host nach, rendert denselben Stand in der vorhandenen Epochenansicht und markiert `tts_manifest` als live verfuegbaren Audiopfad statt nur `res://data/epochs` zu lesen (`offen: 4 -> 3`).
+
+- Sim v5.5: Der Hub ist jetzt als minimaler Live-Spielclient des ersten Text-RPG-Slice geschlossen. `novapolis-sim/scripts/Main.gd` sendet die laufende Spielereingabe mit Sessionrahmen an `/chat`, zeigt Session, Slot/Scene, Szene, Konsequenz, Optionen, State-Patches und Protokoll direkt im Hub an und zieht den sichtbaren Stand anschliessend ueber `GET /session/{session_id}` aus demselben Sessionvertrag nach (`offen: 3 -> 2`).
+
+- Sim v5.6: Der Sim-Offline-Check kennt jetzt eine explizite Profiltrennung statt Restwarnungen im Clean-Checkout. `scripts/check_sim_epoch_assets.py` wertet `--allow-empty` nun als kanonisches Clean-Checkout-Profil, der Lauf `--repo-root . --allow-empty --check-slot-consistency` endet im aktuellen Repo-Stand mit `summary=fail:0,warn:0`, und `novapolis-sim/README.md` dokumentiert die Bootstrap-Pfade `novapolis-sim/data/epochs/` und `novapolis-sim/assets/audio/` gegenueber dem Vollstand-Pfad (`offen: 2 -> 0`).
 
 - Agent v5.7: Der offene Spielleiter-Orchestrator ist jetzt nicht mehr nur Konzept, sondern als erster Runtime-Hook im bestehenden Chat-Pfad angelegt. `novapolis_agent/app/api/models.py` fuehrt opt-in Felder fuer Sitzungsrahmen, `public_context`, `hidden_context`, Scheduler- und Patch-Hinweise; `novapolis_agent/app/api/chat.py` injiziert daraus einen kontrollierten Systemblock in `/chat` und `/chat/stream`, waehrend `novapolis_agent/tests/test_models_chat_options.py` und `novapolis_agent/tests/test_api_chat_internal_branches.py` den Hook absichern (`offen: 4 -> 4`).
 
@@ -177,7 +182,7 @@ Board-Metadaten (automationsrelevant)
 | Dev (`docs/todo.dev.md`) | 2026-04-07 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-04-07 | - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren. | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-04-07 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-04-07 | - [ ] [Jetzt] Live-Spielclient fuer den ersten Text-RPG-Slice statt nur Hub-Chat und statischer Epoch-Logs bauen. | nein |
+| Sim (`docs/todo.sim.md`) | 2026-04-07 | keiner (offen: 0) | nein |
 
 
 Hinweise (Index)

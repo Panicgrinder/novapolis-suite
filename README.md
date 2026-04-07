@@ -1,7 +1,6 @@
----
-stand: 2026-03-28 06:51
+stand: 2026-04-07 16:11
 update: Phase-2-Konsistenzlauf harmonisiert im Root-README auch die Wrapper-Beispiele auf den aktuellen Root-Interpreter-Stil.
-checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:27)
+checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:27)
 ---
 Novapolis Suite
 ===============
@@ -205,6 +204,8 @@ Standalone-Beta Startpfad (kanonisch)
 & .\.venv\Scripts\python.exe scripts\run_checks_and_report.py
 & .\.venv\Scripts\python.exe scripts\check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency
 ```
+
+`--allow-empty` ist dabei der kanonische Clean-Checkout-Modus fuer `novapolis-sim/data/epochs/` und `novapolis-sim/assets/audio/`; ohne dieses Flag prueft derselbe Check den artefaktbelegten Vollstand.
 
 Release Go/No-Go (Standalone Beta)
 ----------------------------------

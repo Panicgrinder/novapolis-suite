@@ -1,7 +1,6 @@
----
-stand: 2026-04-07 14:33
-update: Dev-DONELOG dokumentiert jetzt den geschlossenen Session-Roundtrip im Orchestrator und die sessiongebundene TTS-Anbindung im Agent-Produktpfad.
-checks: snapshot-lock PASS (2026-04-07 14:33); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 16:11
+update: Dev-DONELOG dokumentiert jetzt den geschlossenen Sim-Clean-Checkout-Bootstrap und den warnungsfreien Offline-Asset-Check.
+checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +17,27 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Sim/Runtime: Clean-Checkout-Bootstrap und warnungsfreier Offline-Asset-Check geschlossen (2026-04-07 15:55)
+----------------------------------------------------------------------------------------------------------------
+
+- `scripts/check_sim_epoch_assets.py` wertet `--allow-empty` jetzt nicht mehr als Restwarnung, sondern als kanonisches Clean-Checkout-Profil. Fehlende `epochNN`-Ordner und fehlende OGG-Dateien werden in diesem Profil als `INFO` statt `WARN` berichtet; der aktuelle Lauf `--repo-root . --allow-empty --check-slot-consistency` endet damit mit `summary=fail:0,warn:0`.
+- `novapolis-sim/README.md` trennt denselben Minimalstand jetzt explizit vom Vollstand-Pfad ohne `--allow-empty` und dokumentiert die Bootstrap-Zielorte `novapolis-sim/data/epochs/` und `novapolis-sim/assets/audio/` fuer spaetere Offline-Artefakte.
+- `todo.sim.md`, `todo.index.md`, `todo.root.md`, `WORKSPACE_STATUS.md` und `DONELOG.md` sind im selben Lauf synchronisiert; der Sim-Open-Count sinkt von `2` auf `0`.
+
+Sim/Runtime: Live-Spielclient-Basis im Hub geschlossen (2026-04-07 15:43)
+-----------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd` nutzt den bestehenden Hub jetzt nicht mehr nur als freien Chat, sondern als minimalen Live-Spielclient: `_on_hub_chat_send_pressed()` sendet Spielereingaben mit Sessionrahmen an `/chat`, `_refresh_hub_chat_ui()` zeigt Session, Slot/Scene, Szene, Konsequenz, Optionen, State-Patches und Protokoll direkt im Panel, und die Response-Callbacks ziehen den sichtbaren Stand anschliessend ueber denselben Sessionvertrag nach.
+- Die bereits geschlossene Replay-/Epoch-Bridge bleibt dabei dieselbe Datenbasis: `_on_hub_chat_request_completed()` und `_on_hub_session_request_completed()` halten Chat-Ansicht und Session-Logs zusammen, statt freie Chat-Ausgabe und statische Epoch-Dateien parallel zu fuehren.
+- `todo.sim.md`, `todo.index.md` und `DONELOG.md` sind im selben Lauf synchronisiert; der Sim-Open-Count sinkt von `3` auf `2`.
+
+Sim/Runtime: Session-Bridge fuer Replay-/Epoch-Ansicht und Audio-Verfuegbarkeit geschlossen (2026-04-07 15:32)
+-----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd` zieht den aktuellen Sessionstand jetzt ueber `GET /session/{session_id}` vom bestehenden Sim-API-Host nach, mappt `world_log` und `pc_log` direkt in die vorhandene Epochenansicht und uebernimmt `slot_id`, `slot_index`, Resume-Checkpoint und `artifact_paths` aus demselben Sessionvertrag statt nur `res://data/epochs` zu lesen.
+- Der Hub-Reload triggert denselben Session-Sync nach erfolgreichen `/chat`-Antworten und per `Neu laden`; `content`-basierte Logeintraege, `slot_id`-Strings und `tts_manifest`-Artefakte werden dabei direkt fuer die Sim-Oberflaeche ausgewertet, sodass Audio-Verfuegbarkeit aus dem Live-Sessionpfad statt nur aus Offline-Assets erkennbar ist.
+- `todo.sim.md`, `todo.index.md`, `novapolis-sim/README.md` und `DONELOG.md` sind im selben Lauf synchronisiert; der Sim-Open-Count sinkt von `4` auf `3`.
 
 Agent/Runtime: Session-Roundtrip und Session-TTS im Text-RPG-Slice geschlossen (2026-04-07 13:18)
 --------------------------------------------------------------------------------------------------

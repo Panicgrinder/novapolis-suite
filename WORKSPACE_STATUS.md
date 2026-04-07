@@ -1,7 +1,6 @@
----
-stand: 2026-03-28 06:51
-update: Workspace-Status um die post-check Bereinigung des erneut entstandenen Root-eval-Stubs und den finalen Root-Surface erweitert.
-checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
+stand: 2026-04-07 16:11
+update: Workspace-Status dokumentiert jetzt den warnungsfreien Sim-Clean-Checkout-Check und die Profiltrennung fuer Offline-Epoch-/Audio-Artefakte.
+checks: snapshot-lock PASS (2026-04-07 16:11); pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS
 ---
 
 Workspace-Status
@@ -9,6 +8,8 @@ Workspace-Status
 
 Aktuelles Wochenfenster
 -----------------------
+
+- 2026-04-07 15:55: Der Sim-Offline-Check trennt jetzt sauber zwischen Clean-Checkout und Vollstand. `scripts/check_sim_epoch_assets.py` behandelt `--allow-empty` nun als kanonisches Clean-Checkout-Profil; der Lauf `--repo-root . --allow-empty --check-slot-consistency` endet im aktuellen Repo-Stand mit `summary=fail:0,warn:0`, waehrend Vollstand-Laeufe ohne dieses Flag weiter echte Offline-Artefakte unter `novapolis-sim/data/epochs/` und `novapolis-sim/assets/audio/` erwarten.
 
 - 2026-03-28 06:32: Der letzte aktive Root-eval-Rest ist final geschlossen. Lokale Kontext-Notizen, Eval-Standardpfade und RAG-Fallbacks laufen jetzt ueber `novapolis_agent/eval/...`; der fruehere Root-Ordner `eval/` wurde nach `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval` ueberfuehrt, ein nach den Abschluss-Checks erneut entstandener lokaler Stub `eval/config/context.local.md` zusaetzlich nach `novapolis-dev/archive/quarantine/root-cleanup-20260328_0632-root-eval-rest-postchecks/eval`, und die drei Root-Tree-Artefakte wurden danach erneut neu erzeugt.
 

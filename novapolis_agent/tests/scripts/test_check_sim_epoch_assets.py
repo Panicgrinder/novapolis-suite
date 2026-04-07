@@ -89,3 +89,47 @@ def test_slot_consistency_fails_for_out_of_range_slot(tmp_path: Path) -> None:
 
     messages = mod.validate_epoch_folder(epoch, check_slot_consistency=True)
     assert any(m.level == "FAIL" and "outside 0..23" in m.text for m in messages)
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_validate_epoch_dirs_clean_checkout_returns_info(tmp_path: Path) -> None:
+    from scripts import check_sim_epoch_assets as mod
+
+    messages = mod.validate_epoch_dirs(
+        tmp_path / "epochs",
+        [],
+        allow_empty=True,
+        check_slot_consistency=True,
+    )
+
+    assert [m.level for m in messages] == ["INFO"]
+    assert "clean-checkout profile" in messages[0].text
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_validate_audio_dir_clean_checkout_returns_info_for_empty_dir(tmp_path: Path) -> None:
+    from scripts import check_sim_epoch_assets as mod
+
+    audio_root = tmp_path / "audio"
+    audio_root.mkdir(parents=True)
+
+    messages = mod.validate_audio_dir(audio_root, allow_empty=True)
+
+    assert [m.level for m in messages] == ["INFO"]
+    assert "clean-checkout profile" in messages[0].text
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_validate_audio_dir_warns_without_clean_checkout_flag(tmp_path: Path) -> None:
+    from scripts import check_sim_epoch_assets as mod
+
+    audio_root = tmp_path / "audio"
+    audio_root.mkdir(parents=True)
+
+    messages = mod.validate_audio_dir(audio_root, allow_empty=False)
+
+    assert any(m.level == "WARN" and "no .ogg files found" in m.text for m in messages)
+

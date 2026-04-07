@@ -1,7 +1,6 @@
----
-stand: 2026-04-07 14:33
-update: Root-Summary dokumentiert jetzt den geschlossenen Session-Roundtrip im Orchestrator und die sessiongebundene TTS-Anbindung auf demselben Text-RPG-Vertrag.
-checks: snapshot-lock PASS (2026-04-07 14:33); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 16:11
+update: Root-Summary dokumentiert jetzt den geschlossenen Sim-Clean-Checkout-Bootstrap und den warnungsfreien Offline-Asset-Check.
+checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +15,12 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-07 15:55: Die letzten offenen Sim-Restpunkte zu Offline-Assets und Bootstrap sind geschlossen. `scripts/check_sim_epoch_assets.py` behandelt `--allow-empty` jetzt als kanonisches Clean-Checkout-Profil, der Lauf `--repo-root . --allow-empty --check-slot-consistency` endet im aktuellen Repo-Stand mit `summary=fail:0,warn:0`, und `novapolis-sim/README.md` dokumentiert dazu die Bootstrap-Zielorte `novapolis-sim/data/epochs/` und `novapolis-sim/assets/audio/` gegenueber dem artefaktbelegten Vollstand. `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md`, `todo.root.md`, `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` sind im selben Lauf synchronisiert.
+
+- 2026-04-07 15:43: Der Sim-Hub ist jetzt als minimaler Live-Spielclient des ersten Text-RPG-Slice geschlossen. `novapolis-sim/scripts/Main.gd` sendet laufende Spielereingaben mit Sessionrahmen an `/chat`, zeigt Session, Slot/Scene, Szene, Konsequenz, Optionen, State-Patches und Protokoll direkt im Hub und zieht den sichtbaren Stand anschliessend ueber `GET /session/{session_id}` aus demselben Sessionvertrag nach. `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/donelog.md` sind im selben Lauf synchronisiert.
+
+- 2026-04-07 15:32: Die Sim nutzt fuer Replay und Epoch-Ansicht jetzt denselben Sessionvertrag wie der Live-Lauf. `novapolis-sim/scripts/Main.gd` fragt den aktuellen Sessionstand ueber `GET /session/{session_id}` am bestehenden Sim-API-Host ab, mappt `world_log` und `pc_log` direkt in die vorhandene Epochenansicht, uebernimmt `slot_id`/`slot_index`, Resume-Checkpoint und `artifact_paths` aus dem Sessionvertrag und markiert `tts_manifest` als live verfuegbaren Audiopfad. `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md`, `novapolis-sim/README.md` und `novapolis-dev/docs/donelog.md` sind im selben Lauf synchronisiert.
 
 - 2026-04-07 13:18: Der erste Text-RPG-Slice fuehrt jetzt denselben Sessionvertrag durch Chat, Persistenz und TTS. `novapolis_agent/app/api/chat.py` injiziert den bestehenden Session-Snapshot als internen Orchestrator-Block und schreibt `pc_log` plus geparste `state_patches` ueber `novapolis_agent/app/api/sim.py` in denselben Session-Store zurueck; `novapolis_agent/app/api/tts_models.py`, `novapolis_agent/app/main.py` und `novapolis_agent/app/tts/providers.py` heben denselben Session-/Slot-/Kanalrahmen in `/tts/synthesize`, Cache-Key, TTS-Manifest und sessionbezogenen Coqui-Artefaktpfad. `novapolis_agent/tests/test_api_chat_internal_branches.py`, `novapolis_agent/tests/test_tts_api_contract.py`, `novapolis_agent/tests/test_tts_cache_contract.py`, `novapolis_agent/tests/test_tts_provider_abstraction.py`, `novapolis_agent/tests/test_openapi_contract.py`, `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.index.md`, `novapolis_agent/docs/DONELOG.txt` und `novapolis-dev/docs/donelog.md` sind im selben Lauf synchronisiert.
 
