@@ -80,6 +80,24 @@
         "novapolis_agent/eval/datasets/rp/rp_locations_core.v1.jsonl",
         "novapolis_agent/eval/datasets/rp/rp_admin_core.v1.jsonl"
       ]
+    },
+    "gm_session": {
+      "description": "Dedizierte Spielleiter-Session-Suite fuer Kontinuitaet, Reveal-Disziplin, Optionsqualitaet und Patch-Lesbarkeit",
+      "profile": "unrestricted",
+      "eval_mode": false,
+      "asgi": true,
+      "default_limit": 12,
+      "checks": [
+        "must_include",
+        "keywords_any",
+        "keywords_at_least",
+        "not_include",
+        "regex",
+        "rpg_style"
+      ],
+      "packages": [
+        "novapolis_agent/eval/datasets/rpg/rpg_gm_session_core.v1.jsonl"
+      ]
     }
   }
 }

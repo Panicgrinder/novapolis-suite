@@ -245,12 +245,27 @@ async def test_process_chat_request_rewrite_and_memory(monkeypatch: pytest.Monke
 @pytest.mark.asyncio
 async def test_process_chat_request_injects_orchestrator_context(
     monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
 ) -> None:
     from app.api import chat as chat_module
 
     settings = chat_module.settings
-    response = _DummyHTTPResponse({"message": {"content": "model answer"}})
+    response = _DummyHTTPResponse(
+        {
+            "message": {
+                "content": (
+                    "Szene: Die Schleuse antwortet auf die Scannerkarte.\n\n"
+                    "Konsequenz: Reflex haelt den Materiallauf stabil.\n\n"
+                    "Optionen:\n1. Materiallauf sichern\n2. Rueckzug\n3. Analyse\n\n"
+                    "State_Patches:\n"
+                    "mission.materiallauf.progress = 2\n"
+                    "- Scannerkarte bleibt als Anschlussanker markiert"
+                )
+            }
+        }
+    )
     client = _DummyClient(response)
+    original_store_dir = sim._SESSION_STORE_DIR
 
     async def _compose(messages, session_id, **kwargs):
         return list(messages)
@@ -286,62 +301,89 @@ async def test_process_chat_request_injects_orchestrator_context(
         ],
     )
 
-    request = ChatRequest(
-        messages=[{"role": "user", "content": "weiter"}],
-        profile_id="text_rpg",
-        session_id="sess-3",
-        options={
-            "orchestrator_enabled": True,
-            "campaign_id": "camp-7",
-            "scene_id": "scene-d5",
-            "slot_id": "slot-03",
-            "turn_id": "turn-2",
-            "retrieval_query": "D5 Reflex Materiallauf",
-            "public_context": "Reflex bleibt an der Schleuse.",
-            "hidden_context": "Die Schleuse klemmt wegen verdecktem Druckverlust.",
-            "scheduler_hints": ["halte den Materiallauf stabil"],
-            "state_patch_hints": ["mission.materiallauf.progress += 1"],
-        },
+    sim._SESSION_STORE_DIR = tmp_path / "sim_sessions"
+    sim.upsert_session(
+        "sess-3",
+        sim.SessionUpsertRequest(
+            campaign_id="camp-7",
+            scene_id="scene-d5",
+            slot_id="slot-03",
+            turn_id="turn-1",
+            pc_log=[{"role": "assistant", "content": "Voriger Zug"}],
+            state_patches=[
+                sim.StatePatchRecord(scope="session", op="set", path="mission.anchor", value="Scannerkarte")
+            ],
+        ),
     )
 
-    result = await chat_module.process_chat_request(
-        request,
-        client=cast(httpx.AsyncClient, client),
-        request_id="req-orch",
-    )
+    try:
+        request = ChatRequest(
+            messages=[{"role": "user", "content": "weiter"}],
+            profile_id="text_rpg",
+            session_id="sess-3",
+            options={
+                "orchestrator_enabled": True,
+                "campaign_id": "camp-7",
+                "scene_id": "scene-d5",
+                "slot_id": "slot-03",
+                "turn_id": "turn-2",
+                "retrieval_query": "D5 Reflex Materiallauf",
+                "public_context": "Reflex bleibt an der Schleuse.",
+                "hidden_context": "Die Schleuse klemmt wegen verdecktem Druckverlust.",
+                "scheduler_hints": ["halte den Materiallauf stabil"],
+                "state_patch_hints": ["mission.materiallauf.progress += 1"],
+            },
+        )
 
-    assert result.content == "model answer"
-    assert result.contract_version == "text_rpg_session_v1"
-    assert result.session_id == "sess-3"
-    assert result.campaign_id == "camp-7"
-    assert result.scene_id == "scene-d5"
-    assert result.slot_id == "slot-03"
-    assert result.turn_id == "turn-2"
-    assert result.session_status == "active"
-    assert result.replay_checkpoint_id == "turn-2"
-    assert result.log_channels == ["world", "pc", "ally", "sys"]
-    assert client.last_payload is not None
-    contents = [message["content"] for message in client.last_payload["messages"]]
-    orchestrator_messages = [
-        content for content in contents if content.startswith("[Text-RPG-Orchestrator]")
-    ]
-    assert orchestrator_messages
-    orchestrator_text = orchestrator_messages[0]
-    assert "campaign_id: camp-7" in orchestrator_text
-    assert "[PC-Sicht]" in orchestrator_text
-    assert "[Projektkontext-Notizen intern]" in orchestrator_text
-    assert "D5 verbindet Materiallauf" in orchestrator_text
-    assert "[Retrieval-Query]" in orchestrator_text
-    assert "D5 Reflex Materiallauf" in orchestrator_text
-    assert "[RP-/Projektkontext-Retrieval intern]" in orchestrator_text
-    assert "Reflex assistiert dem Materiallauf" in orchestrator_text
-    assert "Reflex bleibt an der Schleuse." in orchestrator_text
-    assert "[Hidden-Context intern]" in orchestrator_text
-    assert "verdecktem Druckverlust" in orchestrator_text
-    assert "[Scheduler-Hinweise]" in orchestrator_text
-    assert "[State-Patch-Ziele]" in orchestrator_text
-    assert not any(content.startswith("[RAG]") for content in contents)
-    assert not any(content.startswith("[Kontext-Notizen]") for content in contents)
+        result = await chat_module.process_chat_request(
+            request,
+            client=cast(httpx.AsyncClient, client),
+            request_id="req-orch",
+        )
+
+        assert "State_Patches:" in result.content
+        assert result.contract_version == "text_rpg_session_v1"
+        assert result.session_id == "sess-3"
+        assert result.campaign_id == "camp-7"
+        assert result.scene_id == "scene-d5"
+        assert result.slot_id == "slot-03"
+        assert result.turn_id == "turn-2"
+        assert result.session_status == "active"
+        assert result.replay_checkpoint_id == "turn-2"
+        assert result.log_channels == ["world", "pc", "ally", "sys"]
+        assert client.last_payload is not None
+        contents = [message["content"] for message in client.last_payload["messages"]]
+        orchestrator_messages = [
+            content for content in contents if content.startswith("[Text-RPG-Orchestrator]")
+        ]
+        assert orchestrator_messages
+        orchestrator_text = orchestrator_messages[0]
+        assert "campaign_id: camp-7" in orchestrator_text
+        assert "[Session-Stand intern]" in orchestrator_text
+        assert "mission.anchor" in orchestrator_text
+        assert "[PC-Sicht]" in orchestrator_text
+        assert "[Projektkontext-Notizen intern]" in orchestrator_text
+        assert "D5 verbindet Materiallauf" in orchestrator_text
+        assert "[Retrieval-Query]" in orchestrator_text
+        assert "D5 Reflex Materiallauf" in orchestrator_text
+        assert "[RP-/Projektkontext-Retrieval intern]" in orchestrator_text
+        assert "Reflex assistiert dem Materiallauf" in orchestrator_text
+        assert "Reflex bleibt an der Schleuse." in orchestrator_text
+        assert "[Hidden-Context intern]" in orchestrator_text
+        assert "verdecktem Druckverlust" in orchestrator_text
+        assert "[Scheduler-Hinweise]" in orchestrator_text
+        assert "[State-Patch-Ziele]" in orchestrator_text
+        assert not any(content.startswith("[RAG]") for content in contents)
+        assert not any(content.startswith("[Kontext-Notizen]") for content in contents)
+
+        stored = sim.load_session_record("sess-3")
+        assert stored is not None
+        assert stored.turn_id == "turn-2"
+        assert stored.pc_log[-1]["content"].startswith("Szene: Die Schleuse")
+        assert stored.state_patches[-2].path == "mission.materiallauf.progress"
+        assert stored.state_patches[-1].value == "Scannerkarte bleibt als Anschlussanker markiert"
+    finally:
+        sim._SESSION_STORE_DIR = original_store_dir
 
 
 @pytest.mark.unit

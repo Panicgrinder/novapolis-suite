@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 11:46
-update: Der TODO-Index fuehrt jetzt den angehobenen Agent-Vertragsschnitt fuer Chat-Response, Savegame und Replay bei unveraendertem Agent-Open-Count.
-checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 14:33
+update: Der TODO-Index fuehrt jetzt den geschlossenen Orchestrator-Session-Roundtrip und die Session-TTS-Anbindung; der Agent-Open-Count sinkt auf 0.
+checks: snapshot-lock PASS (2026-04-07 14:33); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -14,12 +14,16 @@ TODO-Index (Novapolis-Dev)
 
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 2)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
-- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 3)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 4)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
 Statushinweise (aktuell)
 ------------------------
+
+- Agent v5.13: Der erste Text-RPG-Slice fuehrt jetzt denselben Sessionvertrag end-to-end durch Chat- und TTS-Lauf. `novapolis_agent/app/api/chat.py` injiziert den Session-Snapshot als internen Orchestrator-Block und schreibt `pc_log` plus geparste `state_patches` ueber `novapolis_agent/app/api/sim.py` in denselben Session-Store zurueck; `novapolis_agent/app/api/tts_models.py`, `novapolis_agent/app/main.py` und `novapolis_agent/app/tts/providers.py` heben denselben Session-/Slot-/Kanalrahmen in `/tts/synthesize`, Cache-Key, TTS-Manifest und sessionbezogenen Coqui-Artefaktpfad (`offen: 2 -> 0`).
+
+- Agent v5.12: Die erste dedizierte Spielleiter-Regression laeuft jetzt nicht mehr nur ueber allgemeine RPG-Suiten, sondern als eigener Session-Gate. `novapolis_agent/eval/config/suites.json` fuehrt `gm_session`, `novapolis_agent/eval/datasets/rpg/rpg_gm_session_core.v1.jsonl` prueft Kontinuitaet, Reveal-Disziplin, Optionsqualitaet und Patch-Lesbarkeit, `novapolis_agent/scripts/run_eval.py` schreibt `slug/category/tags` reproduzierbar in die Resultatdateien, und `novapolis_agent/scripts/summarize_gm_eval_kpis.py` trennt Blocker-Faelle von Beobachtungen fuer Board-Triage (`offen: 3 -> 2`).
 
 - Agent v5.10: Der Persistenz- und Replay-Folgepunkt ist jetzt als minimaler Session-Store im Sim-Modul geschlossen. `novapolis_agent/app/api/sim.py` schreibt pro Session `savegame.json`, `world_log.jsonl`, `pc_log.jsonl` und `replay_manifest.json`, liefert Resume-/Replay-Daten ueber `PUT /session/{session_id}`, `GET /session/{session_id}` und `GET /session/{session_id}/replay`, und `novapolis_agent/tests/test_api_sim_state.py` plus `tests/tests_sim_api.py` sichern Write-, Reload-, Manifest- und 404-Pfade ab (`offen: 4 -> 3`).
 
@@ -172,7 +176,7 @@ Board-Metadaten (automationsrelevant)
 | --- | --- | --- | --- |
 | Dev (`docs/todo.dev.md`) | 2026-04-07 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-04-07 | - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren. | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-04-07 | - [ ] [Jetzt] Spielleiter-Orchestrator zwischen Chat-Flow, Projektkontext, RP-SSOT und Scheduler anschliessen. | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-04-07 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-04-07 | - [ ] [Jetzt] Live-Spielclient fuer den ersten Text-RPG-Slice statt nur Hub-Chat und statischer Epoch-Logs bauen. | nein |
 
 

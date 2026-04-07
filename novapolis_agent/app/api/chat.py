@@ -21,6 +21,7 @@ from ..core.content_management import apply_post, apply_pre, modify_prompt_for_f
 from ..core.memory import compose_with_memory, get_memory_store
 from ..core.prompts import DEFAULT_SYSTEM_PROMPT, EVAL_SYSTEM_PROMPT, UNRESTRICTED_SYSTEM_PROMPT
 from ..utils.session_memory import session_memory
+from . import sim as _sim_api
 from .chat_helpers import normalize_ollama_options
 from .models import (
     ChatRequest,
@@ -246,6 +247,114 @@ def _build_rag_snippet_text(hits: list[dict[str, Any]]) -> str:
     )
 
 
+def _session_snapshot_text(session_id: str | None) -> str | None:
+    if not session_id:
+        return None
+    record = _sim_api.load_session_record(session_id)
+    if record is None:
+        return None
+    snapshot = {
+        "session_id": record.session_id,
+        "session_status": record.session_status,
+        "campaign_id": record.campaign_id,
+        "scene_id": record.scene_id,
+        "slot_id": record.slot_id,
+        "slot_index": record.slot_index,
+        "turn_id": record.turn_id,
+        "resume_checkpoint_id": record.resume_checkpoint_id,
+        "checkpoints": record.checkpoints[-3:],
+        "world_tick": record.world_state.tick,
+        "world_time": record.world_state.time,
+        "recent_pc_log": record.pc_log[-2:],
+        "recent_state_patches": [patch.model_dump() for patch in record.state_patches[-3:]],
+    }
+    return _json.dumps(snapshot, ensure_ascii=False, indent=2)
+
+
+def _parse_state_patches(content: str) -> list[_sim_api.StatePatchRecord]:
+    match = re.search(
+        r"(?is)state_patches\s*:\s*(.*?)(?:\n\s*\n|\Z)",
+        content,
+    )
+    if not match:
+        return []
+    raw_block = match.group(1).strip()
+    if not raw_block:
+        return []
+    normalized = raw_block.lower().strip(" .")
+    if normalized in {"none", "keine", "keine aenderungen", "keine änderungen"}:
+        return []
+
+    patches: list[_sim_api.StatePatchRecord] = []
+    raw_lines = [line.strip() for line in raw_block.splitlines() if line.strip()]
+    if not raw_lines:
+        raw_lines = [raw_block]
+
+    for index, line in enumerate(raw_lines, start=1):
+        cleaned = line.lstrip("-* ").strip()
+        if not cleaned:
+            continue
+        if cleaned.startswith("{") and cleaned.endswith("}"):
+            try:
+                payload = _json.loads(cleaned)
+                if isinstance(payload, dict):
+                    patches.append(_sim_api.StatePatchRecord.model_validate(payload))
+                    continue
+            except Exception:
+                pass
+
+        path_match = re.match(r"(?P<path>[A-Za-z0-9_.-]+)\s*=\s*(?P<value>.+)", cleaned)
+        if path_match:
+            patches.append(
+                _sim_api.StatePatchRecord(
+                    patch_id=f"llm-{index}",
+                    scope="session",
+                    op="set",
+                    path=path_match.group("path"),
+                    value=path_match.group("value").strip(),
+                )
+            )
+            continue
+
+        patches.append(
+            _sim_api.StatePatchRecord(
+                patch_id=f"llm-{index}",
+                scope="narrative",
+                op="note",
+                path=f"state_patches/{index}",
+                value=cleaned,
+            )
+        )
+    return patches
+
+
+def _persist_orchestrator_turn(request: ChatRequest, content: str) -> None:
+    options = _options_to_dict(getattr(request, "options", None))
+    session_id_raw = getattr(request, "session_id", None) or options.get("session_id")
+    session_id = str(session_id_raw).strip() if isinstance(session_id_raw, str) else ""
+    if not session_id:
+        return
+
+    campaign_id = str(options.get("campaign_id", "")).strip() or None
+    scene_id = str(options.get("scene_id", "")).strip() or None
+    slot_id = str(options.get("slot_id", "")).strip() or None
+    turn_id = str(options.get("turn_id", "")).strip() or None
+    state_patches = _parse_state_patches(content)
+    _sim_api.upsert_session(
+        session_id,
+        _sim_api.SessionUpsertRequest(
+            contract_version=TEXT_RPG_SESSION_CONTRACT_VERSION,
+            session_status="active",
+            campaign_id=campaign_id,
+            scene_id=scene_id,
+            slot_id=slot_id,
+            turn_id=turn_id,
+            pc_log=[{"role": "assistant", "channel": "pc", "content": content}],
+            state_patches=state_patches,
+        ),
+    )
+
+
 def _build_orchestrator_messages(
     request: ChatRequest,
     *,
@@ -288,6 +397,10 @@ def _build_orchestrator_messages(
     ]
     if frame_lines:
         lines.extend(["[Sitzungsrahmen]", *frame_lines])
+
+    session_snapshot = _session_snapshot_text(session_id)
+    if session_snapshot:
+        lines.extend(["[Session-Stand intern]", session_snapshot])
 
     public_context = str(options.get("public_context", "")).strip()
     if public_context:
@@ -1284,6 +1397,11 @@ async def process_chat_request(
                 await store.append(session_id, "assistant", generated_content)
         except Exception as mem_err3:
             logger.warning("Memory-Append fehlgeschlagen: %s", mem_err3)
+
+        try:
+            _persist_orchestrator_turn(request, generated_content)
+        except Exception as persist_err:
+            logger.warning("Session-Writeback fehlgeschlagen: %s", persist_err)
 
         return _build_contract_chat_response(
             request,

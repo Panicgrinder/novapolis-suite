@@ -17,8 +17,16 @@ from fastapi import FastAPI, HTTPException, Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 
+from .api import sim as _sim_api
 from .api.chat import process_chat_request, stream_chat_request
-from .api.models import ApiErrorResponse, ChatMessage, ChatRequest, ChatResponse
+from .api.models import (
+    ApiErrorResponse,
+    ChatMessage,
+    ChatRequest,
+    ChatResponse,
+    TEXT_RPG_LOG_CHANNELS,
+    TEXT_RPG_SESSION_CONTRACT_VERSION,
+)
 from .api.tts_models import (
     TtsCacheCleanupResponse,
     TtsCacheStatsResponse,
@@ -115,6 +123,74 @@ def _tts_cache_cleanup_unlocked(now: float | None = None) -> dict[str, int]:
 
 def _tts_cache_key_from_payload(payload: str) -> str:
     return _hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def _tts_contract_fields(request: TtsSynthesizeRequest) -> dict[str, Any]:
+    contract_active = any(
+        bool(value)
+        for value in (
+            request.session_id,
+            request.campaign_id,
+            request.scene_id,
+            request.slot_id,
+            request.turn_id,
+        )
+    )
+    contract_version = None
+    if contract_active:
+        contract_version = request.contract_version or TEXT_RPG_SESSION_CONTRACT_VERSION
+    return {
+        "contract_version": contract_version,
+        "session_id": request.session_id,
+        "campaign_id": request.campaign_id,
+        "scene_id": request.scene_id,
+        "slot_id": request.slot_id,
+        "turn_id": request.turn_id,
+        "channel": request.channel if contract_active else None,
+        "log_channels": list(TEXT_RPG_LOG_CHANNELS) if contract_active else None,
+    }
+
+
+def _record_tts_session_artifact(
+    request: TtsSynthesizeRequest,
+    *,
+    provider: str,
+    mime_type: str,
+    request_hash: str,
+    cache_key: str | None,
+    cache_hit: bool,
+    artifact_path: str | None,
+    is_placeholder: bool,
+    detail: str,
+) -> str | None:
+    if not request.session_id:
+        return None
+    _sim_api.record_tts_artifact(
+        request.session_id,
+        _sim_api.TtsArtifactRecord(
+            contract_version=request.contract_version or TEXT_RPG_SESSION_CONTRACT_VERSION,
+            session_id=request.session_id,
+            campaign_id=request.campaign_id,
+            scene_id=request.scene_id,
+            slot_id=request.slot_id,
+            turn_id=request.turn_id,
+            channel=request.channel,
+            provider=provider,
+            voice=request.voice,
+            output_format=request.output_format.value,
+            mime_type=mime_type,
+            request_hash=request_hash,
+            cache_key=cache_key,
+            cache_hit=cache_hit,
+            artifact_path=artifact_path,
+            is_placeholder=is_placeholder,
+            detail=detail,
+        ),
+    )
+    session_record = _sim_api.load_session_record(request.session_id)
+    if session_record is None:
+        return None
+    return session_record.artifact_paths.get("tts_manifest")
 
 
 def _tts_cache_get(cache_key: str, now: float) -> tuple[dict[str, Any] | None, dict[str, int]]:
@@ -404,6 +480,13 @@ async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynt
         "output_format": request.output_format.value,
         "sample_rate_hz": request.sample_rate_hz,
         "settings": request.settings,
+        "contract_version": request.contract_version,
+        "session_id": request.session_id,
+        "campaign_id": request.campaign_id,
+        "scene_id": request.scene_id,
+        "slot_id": request.slot_id,
+        "turn_id": request.turn_id,
+        "channel": request.channel,
     }
     payload = _json.dumps(digest_source, ensure_ascii=False, sort_keys=True)
     request_hash = _hashlib.sha256(payload.encode("utf-8")).hexdigest()
@@ -414,6 +497,18 @@ async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynt
         cached_placeholder = bool(cached.get("is_placeholder", True))
         cached_status = "placeholder" if cached_placeholder else "ok"
         cached_detail = str(cached.get("detail") or "cached-response")
+        cached_artifact_path = str(cached.get("artifact_path")) if cached.get("artifact_path") else None
+        manifest_path = _record_tts_session_artifact(
+            request,
+            provider=_tts_provider(),
+            mime_type=str(cached.get("mime_type", "audio/ogg")),
+            request_hash=request_hash,
+            cache_key=cache_key,
+            cache_hit=True,
+            artifact_path=cached_artifact_path,
+            is_placeholder=cached_placeholder,
+            detail=cached_detail,
+        )
         return TtsSynthesizeResponse(
             status=cached_status,
             provider=_tts_provider(),
@@ -423,11 +518,9 @@ async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynt
             request_hash=request_hash,
             cache_key=cache_key,
             cache_hit=True,
-            artifact_path=(
-                str(cached.get("artifact_path"))
-                if cached.get("artifact_path") is not None
-                else None
-            ),
+            artifact_path=cached_artifact_path,
+            tts_manifest_path=manifest_path,
+            **_tts_contract_fields(request),
             detail=(
                 "Cache hit (removed_expired="
                 + str(cleanup_get.get("removed_expired", 0))
@@ -456,6 +549,17 @@ async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynt
         "detail": provider_result.detail,
     }
     cleanup_put = _tts_cache_put(cache_key, payload_to_cache, now)
+    manifest_path = _record_tts_session_artifact(
+        request,
+        provider=_tts_provider(),
+        mime_type=mime,
+        request_hash=request_hash,
+        cache_key=cache_key,
+        cache_hit=False,
+        artifact_path=provider_result.artifact_path,
+        is_placeholder=bool(provider_result.is_placeholder),
+        detail=provider_result.detail,
+    )
 
     response_status = "placeholder" if provider_result.is_placeholder else "ok"
 
@@ -469,6 +573,8 @@ async def tts_synthesize(request: TtsSynthesizeRequest, req: Request) -> TtsSynt
         cache_key=cache_key,
         cache_hit=False,
         artifact_path=provider_result.artifact_path,
+        tts_manifest_path=manifest_path,
+        **_tts_contract_fields(request),
         detail=(
             "Cache miss (removed_expired="
             + str(cleanup_put.get("removed_expired", 0))

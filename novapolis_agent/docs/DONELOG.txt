@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 11:46
-update: Agent-Code und Runbook fuehren jetzt zusaetzlich denselben Contract-Rahmen fuer Chat-Response, Savegame und Replay.
-checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS; todo-index PASS
+stand: 2026-04-07 14:33
+update: Agent-Code und Runbook fuehren jetzt den bidirektionalen Session-Roundtrip im Orchestrator und die sessiongebundene TTS-Anbindung auf demselben Text-RPG-Vertrag.
+checks: snapshot-lock PASS (2026-04-07 14:33); markdownlint PASS; frontmatter PASS; todo-index PASS
 
 
 checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
@@ -20,6 +20,12 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+
+2026-04-07 13:18 | Copilot | Text-RPG-Sessionvertrag jetzt end-to-end im aktiven Lauf verdrahtet: `app/api/chat.py` injiziert bei aktiviertem Orchestrator den aktuellen Session-Snapshot als internen Block `[Session-Stand intern]`, parst `State_Patches:` aus der Modellantwort und schreibt Folgezug plus normalisierte `state_patches` ueber `app/api/sim.py` in denselben Session-Store zurueck; `app/api/tts_models.py`, `app/main.py` und `app/tts/providers.py` heben denselben Session-/Slot-/Kanalrahmen in `/tts/synthesize`, Cache-Key, TTS-Manifest und sessionbezogenen Coqui-Artefaktpfad; `tests/test_api_chat_internal_branches.py`, `test_tts_api_contract.py`, `test_tts_cache_contract.py`, `test_tts_provider_abstraction.py` und `test_openapi_contract.py` sichern den Schnitt ab, und `docs/runbook.md` dokumentiert denselben Betriebsweg.
+
+
+2026-04-07 12:44 | Copilot | Dedizierte GM-Session-Regression eingefuehrt: `eval/config/suites.json` fuehrt `gm_session`, `eval/datasets/rpg/rpg_gm_session_core.v1.jsonl` deckt Kontinuitaet, Reveal-Disziplin, Optionsqualitaet und Patch-Lesbarkeit ab, `scripts/run_eval.py` schreibt `slug/category/tags` reproduzierbar in Resultatdateien, `scripts/summarize_gm_eval_kpis.py` trennt Blocker-Faelle von Beobachtungen fuer Board-Triage, `.vscode/tasks.json` fuehrt denselben Lauf plus KPI-Summary, `tests/scripts/test_summarize_gm_eval_kpis.py` und `tests/scripts/test_run_eval_result_metadata.py` sichern Reporter und Resultatmetadaten, und `docs/runbook.md` dokumentiert denselben Eval-Pfad.
 
 
 2026-04-07 10:42 | Copilot | Text-RPG-Vertragsbruecke im Agent-Modul angehoben: `app/api/models.py` fuehrt fuer `/chat` jetzt `contract_version`, Session-/Slot-Metadaten, `session_status`, `replay_checkpoint_id` und `log_channels`; `app/api/chat.py` fuellt diesen Contract-Block im bestehenden Chat-Pfad; `app/api/sim.py` validiert und persistiert denselben Rahmen in `savegame.json` und `replay_manifest.json` und normalisiert `state_patches` auf Session-/Slot-/Tick-Kontext; `tests/test_models_chat_options.py`, `tests/test_api_chat_internal_branches.py`, `tests/test_api_sim_state.py`, `tests/tests_sim_api.py` und `tests/test_openapi_contract.py` sichern den Schnitt ab, und `docs/runbook.md` dokumentiert denselben Betriebsstand.

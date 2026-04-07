@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 11:46
-update: Runbook fuehrt jetzt zusaetzlich denselben Contract-Rahmen fuer Chat-Response, Savegame und Replay auf dem Session-/Slot-Pfad.
-checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS
+stand: 2026-04-07 14:33
+update: Runbook fuehrt jetzt den bidirektionalen Session-Roundtrip des Orchestrators und den sessiongebundenen TTS-Vertrag auf demselben Text-RPG-Pfad.
+checks: snapshot-lock PASS (2026-04-07 14:33); markdownlint PASS; frontmatter PASS
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -164,8 +164,10 @@ Operatives Verhalten des Hooks:
 
 - der bestehende Chat-Pfad bleibt erhalten,
 - der Hook injiziert einen kontrollierten Systemblock fuer Sitzungsrahmen, PC-Sicht, Hidden-Context, Scheduler-Hinweise und Patch-Ziele,
+- bei vorhandenem Session-Store fuehrt derselbe Systemblock jetzt zusaetzlich einen internen Abschnitt `[Session-Stand intern]` mit Resume-Checkpoint, recent `pc_log` und recent `state_patches`,
 - bei aktivem Orchestrator werden Kontextnotizen, ein optionaler `retrieval_query` und RP-/Projekt-Retrieval in denselben Spielleiter-Block gefaltet statt als lose Zusatzbloecke daneben zu stehen,
 - `hidden_context` bleibt explizit nur interner Steuerkontext und ist nicht fuer direkte PC-Ausgabe gedacht,
+- Antworten mit Abschnitt `State_Patches:` werden auf dem Rueckweg geparst und zusammen mit dem erzeugten Folgezug als `pc_log` plus normalisierte `state_patches` in denselben Session-Store geschrieben,
 - Projektkontext-Bruecke, Kontextnotizen und RAG bleiben derselbe bestehende Unterbau; getrennte `[Kontext-Notizen]`-/`[RAG]`-Bloecke laufen weiter nur fuer den nicht orchestrierten Standardpfad.
 
 Minimaler Sim-Live-Client (Hub)
@@ -203,15 +205,14 @@ Aktive Endpunkte:
 Operative Lesart:
 
 - Die Bruecke ersetzt noch nicht den Produktpfad ueber `/chat`, sondern stabilisiert den Artefaktkern darunter.
-- `/chat` und die Session-API fuehren jetzt denselben Contract-Rahmen fuer Session, Slot, Status und Replay-Checkpoint.
+- `/chat` und die Session-API fuehren jetzt denselben Contract-Rahmen fuer Session, Slot, Status und Replay-Checkpoint; der Orchestrator zieht den Session-Snapshot intern ein und schreibt den Folgezug wieder in denselben Store zurueck.
 - `world_log` und `pc_log` bleiben bewusst Sim-kompatible JSONL-Dateien statt eines neuen Nebenformats.
 - Resume-Punkte laufen zunaechst ueber `turn_id`, sonst ueber einen Tick-basierten Fallback `tick-XXXX`.
 
 Noch offen:
 
 - keine echte Scheduler-Engine,
-- keine automatische Ableitung aus RP-SSOTs,
-- keine direkte Verdrahtung des `/chat`-Pfads auf die neue Session-API.
+- keine automatische Ableitung aus RP-SSOTs.
 
 Qualitaetsgates (verbindliche Reihenfolge)
 ------------------------------------------
@@ -354,6 +355,8 @@ TTS Runtime-Status (wahrheitsgetreu)
 - Weitere Provider verbleiben als Adapter-Scaffolds: `ollama`, `openai`; Testanker: `dummy`, `null`.
 - Fallback-Verhalten: bei nicht verfuegbarem Runtime-Provider liefert `/tts/synthesize` kontrolliert `503` (kein Silent-Fail).
 - Sicherheit und Stabilitaet aktiv: TTS-Auth, TTS-Rate-Limit, TTS-Cache (TTL/Size/Cleanup/Telemetry).
+- Sessionvertrag aktiv: `/tts/synthesize` fuehrt jetzt optional `contract_version`, `session_id`, `campaign_id`, `scene_id`, `slot_id`, `turn_id` und `channel` (`world|pc|ally|sys`) auf demselben Text-RPG-Schnitt.
+- Session-Anbindung aktiv: der Cache-Key enthaelt denselben Rahmen, erfolgreiche und gecachte Antworten schreiben einen sessionbezogenen TTS-Manifest-Eintrag, und Coqui-Artefakte liegen unter `novapolis_agent/outputs/tts/runtime/sessions/<session>/<channel>/...`.
 
 TTS Build-Time-Exporter
 -----------------------
@@ -381,6 +384,8 @@ Tasks:
 - `Eval: suite neutral (20, asgi)`
 - `Eval: suite rpg (20, asgi)`
 - `Eval: suite rp_content (20, asgi)`
+- `Eval: suite gm_session (12, asgi)`
+- `Eval: summarize gm session KPIs`
 
 Direkte CLI-Variante (neutral):
 
@@ -400,12 +405,21 @@ Direkte CLI-Variante (rp_content):
 .\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --profile unrestricted --limit 20 --quiet --packages novapolis_agent/eval/datasets/rp/rp_characters_core.v1.jsonl --packages novapolis_agent/eval/datasets/rp/rp_locations_core.v1.jsonl --packages novapolis_agent/eval/datasets/rp/rp_admin_core.v1.jsonl
 ```
 
+Direkte CLI-Variante (gm_session):
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --profile unrestricted --limit 12 --quiet --tag gm_session --checks must_include,keywords_any,keywords_at_least,not_include,regex,rpg_style --packages novapolis_agent/eval/datasets/rpg/rpg_gm_session_core.v1.jsonl
+.\.venv\Scripts\python.exe novapolis_agent/scripts/summarize_gm_eval_kpis.py --pattern novapolis_agent/eval/results/results_*_gm_session*.jsonl --report-json .tmp/results/reports/gm_session_kpi_summary.json --report-md .tmp/results/reports/gm_session_kpi_summary.md
+```
+
 Interpretation:
 
 - `neutral` bewertet primär neutrale Hilfsantworten (rpg_style sollte niedrig sein).
 - `rpg` bewertet rollenspielnahe/szenische Antworten; der Lauf ist nicht direkt mit neutralen Keyword-Anforderungen vergleichbar.
 - `rp_content` bewertet RP-SSOT-nahe Inhalte (Charaktere, Orte, Admin-/Lagekontexte) auf den RP-Datasetpaketen.
+- `gm_session` bewertet denselben Produktpfad als Spielleiterlauf mit Session-/Slot-Fortsetzung, Reveal-Disziplin, dreifacher Optionsflaeche und lesbaren `State_Patches`.
 - Fuer die RPG-Suite ist `rpg_style` bewusst aus den Checks entfernt, damit kein neutraler Stil-Malus den RPG-Lauf verfälscht.
+- Die GM-Summary trennt Blocker-Faelle (`tags` enthalten `blocker`) von Beobachtungen und verweist je Fail weiter auf `item_id`, `slug`, `source_package` und `failed_checks`.
 
 Quality-Track `quality_de` (operativ)
 -------------------------------------
@@ -450,6 +464,7 @@ Dataset-Metadaten (slug/tags, YAML)
 - Eval-Datasets koennen jetzt neben JSON/JSONL auch YAML (`.yaml`, `.yml`) nutzen.
 - Feld `slug` wird als stabiler Identifier unterstuetzt; fehlt `id`, wird `id` aus `slug` abgeleitet (`eval-<slug>`).
 - Feld `tags` (Liste von Strings) wird fuer Routing-/Heuristik-Logik verwendet.
+- Eval-Resultate spiegeln `slug`, `category` und `tags` jetzt ebenfalls in `results_<timestamp>*.jsonl`, damit KPI-Reports denselben Session-Fall reproduzierbar referenzieren koennen.
 
 Validator-Gate:
 

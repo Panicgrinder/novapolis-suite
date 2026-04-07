@@ -248,6 +248,8 @@ class EvaluationResult:
     source_file: str | None = None
     source_package: str | None = None
     slug: str | None = None
+    category: str | None = None
+    tags: list[str] = field(default_factory=_empty_str_list)
     duration_ms: int = 0
     attempts: int = 1
 
@@ -1420,6 +1422,8 @@ async def evaluate_item(
                             source_file=item.source_file,
                             source_package=item.source_package,
                             slug=item.slug,
+                            category=item.category,
+                            tags=list(item.tags),
                             duration_ms=duration_ms,
                             attempts=attempts_used,
                         )
@@ -1434,6 +1438,8 @@ async def evaluate_item(
                             source_file=item.source_file,
                             source_package=item.source_package,
                             slug=item.slug,
+                            category=item.category,
+                            tags=list(item.tags),
                             duration_ms=duration_ms,
                             attempts=attempts_used,
                         )
@@ -1453,6 +1459,8 @@ async def evaluate_item(
             source_file=item.source_file,
             source_package=item.source_package,
             slug=item.slug,
+            category=item.category,
+            tags=list(item.tags),
             duration_ms=duration_ms,
             attempts=attempts_used,
         )
@@ -1471,6 +1479,8 @@ async def evaluate_item(
             source_file=item.source_file,
             source_package=item.source_package,
             slug=item.slug,
+            category=item.category,
+            tags=list(item.tags),
             duration_ms=duration_ms,
         )
 

@@ -5,6 +5,8 @@ from typing import Any
 
 from pydantic import BaseModel, Field, field_validator
 
+from .models import TEXT_RPG_LOG_CHANNELS, TEXT_RPG_SESSION_CONTRACT_VERSION
+
 
 class TtsOutputFormat(str, Enum):
     wav = "wav"
@@ -18,6 +20,13 @@ class TtsSynthesizeRequest(BaseModel):
     output_format: TtsOutputFormat = TtsOutputFormat.ogg
     sample_rate_hz: int = 22050
     settings: dict[str, Any] = {}
+    contract_version: str | None = None
+    session_id: str | None = None
+    campaign_id: str | None = None
+    scene_id: str | None = None
+    slot_id: str | None = None
+    turn_id: str | None = None
+    channel: str = "pc"
 
     @field_validator("text")
     @classmethod
@@ -26,6 +35,32 @@ class TtsSynthesizeRequest(BaseModel):
         if not normalized:
             raise ValueError("text must not be empty")
         return normalized
+
+    @field_validator("contract_version")
+    @classmethod
+    def _validate_contract_version(cls, value: str | None) -> str | None:
+        if value is None:
+            return value
+        normalized = value.strip()
+        if normalized != TEXT_RPG_SESSION_CONTRACT_VERSION:
+            raise ValueError("unsupported contract_version")
+        return normalized
+
+    @field_validator("channel")
+    @classmethod
+    def _validate_channel(cls, value: str) -> str:
+        normalized = value.strip().lower()
+        if normalized not in TEXT_RPG_LOG_CHANNELS:
+            raise ValueError("unsupported channel")
+        return normalized
+
+    @field_validator("session_id", "campaign_id", "scene_id", "slot_id", "turn_id")
+    @classmethod
+    def _normalize_optional_ids(cls, value: str | None) -> str | None:
+        if value is None:
+            return value
+        normalized = value.strip()
+        return normalized or None
 
 
 class TtsHealthResponse(BaseModel):
@@ -57,6 +92,15 @@ class TtsSynthesizeResponse(BaseModel):
     cache_key: str | None = None
     cache_hit: bool
     artifact_path: str | None = None
+    contract_version: str | None = None
+    session_id: str | None = None
+    campaign_id: str | None = None
+    scene_id: str | None = None
+    slot_id: str | None = None
+    turn_id: str | None = None
+    channel: str | None = None
+    log_channels: list[str] | None = None
+    tts_manifest_path: str | None = None
     detail: str
 
 

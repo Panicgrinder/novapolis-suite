@@ -372,6 +372,33 @@
     }
     ,
     {
+      "label": "Eval: suite gm_session (12, asgi)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "scripts.agent.run_eval",
+        "--asgi",
+        "--profile",
+        "unrestricted",
+        "--limit",
+        "12",
+        "--quiet",
+        "--tag",
+        "gm_session",
+        "--checks",
+        "must_include,keywords_any,keywords_at_least,not_include,regex,rpg_style",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\rpg\\rpg_gm_session_core.v1.jsonl"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
       "label": "Eval: suite marathon (~60m, asgi, loud)",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
@@ -429,6 +456,26 @@
     }
     ,
     {
+      "label": "Eval: summarize gm session KPIs",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\novapolis_agent\\scripts\\summarize_gm_eval_kpis.py",
+        "--pattern",
+        "novapolis_agent/eval/results/results_*_gm_session*.jsonl",
+        "--report-json",
+        ".tmp/results/reports/gm_session_kpi_summary.json",
+        "--report-md",
+        ".tmp/results/reports/gm_session_kpi_summary.md"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
       "label": "Eval: validate datasets (slug+tags)",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
@@ -458,7 +505,9 @@
         "--suite",
         "quality_de",
         "--suite",
-        "rp_content"
+        "rp_content",
+        "--suite",
+        "gm_session"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "test",

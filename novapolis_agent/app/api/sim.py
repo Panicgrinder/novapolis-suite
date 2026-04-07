@@ -140,6 +140,28 @@ class ReplayManifest(BaseModel):
     updated_at: str
 
 
+class TtsArtifactRecord(BaseModel):
+    contract_version: str = TEXT_RPG_SESSION_CONTRACT_VERSION
+    session_id: str
+    campaign_id: str | None = None
+    scene_id: str | None = None
+    slot_id: str | None = None
+    slot_index: int | None = None
+    turn_id: str | None = None
+    channel: str = "pc"
+    provider: str
+    voice: str
+    output_format: str
+    mime_type: str
+    request_hash: str
+    cache_key: str | None = None
+    cache_hit: bool = False
+    artifact_path: str | None = None
+    is_placeholder: bool = True
+    detail: str = ""
+    timestamp: str | None = None
+
+
 _state_lock = Lock()
 _world_state = WorldState()
 _MAX_EVENTS = 20
@@ -182,6 +204,10 @@ def _replay_manifest_path(session_id: str) -> Path:
     return _session_dir(session_id) / "replay_manifest.json"
 
 
+def _tts_manifest_path(session_id: str) -> Path:
+    return _session_dir(session_id) / "tts_manifest.jsonl"
+
+
 def _artifact_paths(session_id: str) -> dict[str, str]:
     session_paths = {
         "savegame": _savegame_path(session_id),
@@ -189,6 +215,9 @@ def _artifact_paths(session_id: str) -> dict[str, str]:
         "pc_log": _pc_log_path(session_id),
         "replay_manifest": _replay_manifest_path(session_id),
     }
+    tts_manifest_path = _tts_manifest_path(session_id)
+    if tts_manifest_path.exists():
+        session_paths["tts_manifest"] = tts_manifest_path
     artifact_paths: dict[str, str] = {}
     for key, path in session_paths.items():
         try:
@@ -331,6 +360,11 @@ def _validate_session_status(session_status: str) -> None:
         raise HTTPException(status_code=400, detail="unsupported session_status")
 
 
+def _validate_log_channel(channel: str) -> None:
+    if channel not in TEXT_RPG_LOG_CHANNELS:
+        raise HTTPException(status_code=400, detail="unsupported log channel")
+
+
 def _session_payload(record: SessionRecord) -> dict[str, Any]:
     payload = record.model_dump()
     payload.pop("world_log", None)
@@ -379,6 +413,55 @@ def _load_session(session_id: str) -> SessionRecord | None:
     payload["world_log"] = _load_jsonl(_world_log_path(session_id))
     payload["pc_log"] = _load_jsonl(_pc_log_path(session_id))
     return SessionRecord.model_validate(payload)
+
+
+def load_session_record(session_id: str) -> SessionRecord | None:
+    with _state_lock:
+        return _load_session(session_id)
+
+
+def record_tts_artifact(session_id: str, request: TtsArtifactRecord) -> TtsArtifactRecord:
+    with _state_lock:
+        record = _load_session(session_id) or _default_session_record(session_id)
+        _validate_contract_version(request.contract_version)
+        _validate_log_channel(request.channel)
+
+        if request.campaign_id is not None:
+            record.campaign_id = request.campaign_id
+        if request.scene_id is not None:
+            record.scene_id = request.scene_id
+        if request.slot_id is not None:
+            record.slot_id = request.slot_id
+        if request.slot_index is not None:
+            record.slot_index = request.slot_index
+        if request.turn_id is not None:
+            record.turn_id = request.turn_id
+
+        timestamp = _now_iso()
+        record.updated_at = timestamp
+        record.resume_checkpoint_id = _checkpoint_id(record.world_state, record.turn_id)
+        if record.resume_checkpoint_id not in record.checkpoints:
+            record.checkpoints.append(record.resume_checkpoint_id)
+
+        payload = request.model_dump()
+        payload["session_id"] = record.session_id
+        payload["campaign_id"] = payload.get("campaign_id") or record.campaign_id
+        payload["scene_id"] = payload.get("scene_id") or record.scene_id
+        payload["slot_id"] = payload.get("slot_id") or record.slot_id
+        if payload.get("slot_index") is None:
+            payload["slot_index"] = record.slot_index
+        payload["turn_id"] = payload.get("turn_id") or record.turn_id
+        payload["timestamp"] = payload.get("timestamp") or timestamp
+        entry = TtsArtifactRecord.model_validate(payload)
+
+        manifest_path = _tts_manifest_path(session_id)
+        entries = _load_jsonl(manifest_path)
+        entries.append(entry.model_dump())
+        _write_jsonl(manifest_path, entries)
+
+        record.artifact_paths = _artifact_paths(session_id)
+        _persist_session(record)
+        return entry
 
 
 @app.get("/world/state", response_model=WorldState)

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 11:46
-update: Root-Summary dokumentiert jetzt zusaetzlich den angehobenen Agent-Vertragsschnitt fuer Chat-Response, Savegame und Replay.
-checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 14:33
+update: Root-Summary dokumentiert jetzt den geschlossenen Session-Roundtrip im Orchestrator und die sessiongebundene TTS-Anbindung auf demselben Text-RPG-Vertrag.
+checks: snapshot-lock PASS (2026-04-07 14:33); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,10 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-07 13:18: Der erste Text-RPG-Slice fuehrt jetzt denselben Sessionvertrag durch Chat, Persistenz und TTS. `novapolis_agent/app/api/chat.py` injiziert den bestehenden Session-Snapshot als internen Orchestrator-Block und schreibt `pc_log` plus geparste `state_patches` ueber `novapolis_agent/app/api/sim.py` in denselben Session-Store zurueck; `novapolis_agent/app/api/tts_models.py`, `novapolis_agent/app/main.py` und `novapolis_agent/app/tts/providers.py` heben denselben Session-/Slot-/Kanalrahmen in `/tts/synthesize`, Cache-Key, TTS-Manifest und sessionbezogenen Coqui-Artefaktpfad. `novapolis_agent/tests/test_api_chat_internal_branches.py`, `novapolis_agent/tests/test_tts_api_contract.py`, `novapolis_agent/tests/test_tts_cache_contract.py`, `novapolis_agent/tests/test_tts_provider_abstraction.py`, `novapolis_agent/tests/test_openapi_contract.py`, `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.index.md`, `novapolis_agent/docs/DONELOG.txt` und `novapolis-dev/docs/donelog.md` sind im selben Lauf synchronisiert.
+
+- 2026-04-07 12:44: Der Agent fuehrt jetzt die erste dedizierte Spielleiter-Regression als eigenen Session-Gate. `novapolis_agent/eval/config/suites.json` fuehrt `gm_session`, `novapolis_agent/eval/datasets/rpg/rpg_gm_session_core.v1.jsonl` deckt Kontinuitaet, Reveal-Disziplin, Optionsqualitaet und Patch-Lesbarkeit ab, `novapolis_agent/scripts/run_eval.py` schreibt `slug/category/tags` reproduzierbar in Resultatdateien, `novapolis_agent/scripts/summarize_gm_eval_kpis.py` trennt Blocker-Faelle von Beobachtungen fuer die Board-Triage, und `.vscode/tasks.json`, `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.index.md`, `novapolis_agent/docs/DONELOG.txt` und `novapolis-dev/docs/donelog.md` sind im selben Lauf synchronisiert.
 
 - 2026-04-07 10:42: Der Text-RPG-Sessionvertrag materialisiert sich jetzt zugleich im Chat- und Replay-Pfad. `novapolis_agent/app/api/models.py` fuehrt fuer `/chat` jetzt `contract_version`, Session-/Slot-Metadaten, `session_status`, `replay_checkpoint_id` und `log_channels`; `novapolis_agent/app/api/chat.py` fuellt diesen Rahmen auf dem bestehenden Produktpfad; `novapolis_agent/app/api/sim.py` validiert und persistiert denselben Contract-Block in `savegame.json` und `replay_manifest.json` und normalisiert `state_patches` auf Session-/Slot-/Tick-Kontext. `novapolis_agent/tests/test_models_chat_options.py`, `novapolis_agent/tests/test_api_chat_internal_branches.py`, `novapolis_agent/tests/test_api_sim_state.py`, `novapolis_agent/tests/tests_sim_api.py`, `novapolis_agent/tests/test_openapi_contract.py`, `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.index.md`, `novapolis_agent/docs/DONELOG.txt` und `novapolis-dev/docs/donelog.md` sind im selben Lauf synchronisiert.
 

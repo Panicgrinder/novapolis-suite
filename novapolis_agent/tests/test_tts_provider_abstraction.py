@@ -65,6 +65,12 @@ def test_tts_provider_coqui_runtime_uses_same_contract(
         "output_format": "ogg",
         "sample_rate_hz": 22050,
         "settings": {},
+        "session_id": "sess-provider-1",
+        "campaign_id": "camp-provider",
+        "scene_id": "scene-provider",
+        "slot_id": "slot-provider",
+        "turn_id": "turn-provider",
+        "channel": "ally",
     }
     resp = client.post("/tts/synthesize", json=payload)
 
@@ -74,6 +80,7 @@ def test_tts_provider_coqui_runtime_uses_same_contract(
     assert data["status"] == "ok"
     assert data["is_placeholder"] is False
     assert data["artifact_path"]
+    assert "sessions/sess-provider-1/ally/" in data["artifact_path"].replace("\\", "/")
 
 
 @pytest.mark.api

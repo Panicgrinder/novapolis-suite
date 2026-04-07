@@ -25,6 +25,8 @@ def test_openapi_includes_chat_and_tts_contract_paths() -> None:
     chat_post = spec["paths"]["/chat"]["post"]
     tts_post = spec["paths"]["/tts/synthesize"]["post"]
     chat_response_schema = spec["components"]["schemas"]["ChatResponse"]
+    tts_request_schema = spec["components"]["schemas"]["TtsSynthesizeRequest"]
+    tts_response_schema = spec["components"]["schemas"]["TtsSynthesizeResponse"]
 
     for field_name in [
         "contract_version",
@@ -43,6 +45,30 @@ def test_openapi_includes_chat_and_tts_contract_paths() -> None:
     for code in ["400", "429", "500", "504"]:
         assert code in chat_post["responses"]
         assert code in tts_post["responses"]
+
+    for field_name in [
+        "contract_version",
+        "session_id",
+        "campaign_id",
+        "scene_id",
+        "slot_id",
+        "turn_id",
+        "channel",
+    ]:
+        assert field_name in tts_request_schema["properties"]
+
+    for field_name in [
+        "contract_version",
+        "session_id",
+        "campaign_id",
+        "scene_id",
+        "slot_id",
+        "turn_id",
+        "channel",
+        "log_channels",
+        "tts_manifest_path",
+    ]:
+        assert field_name in tts_response_schema["properties"]
 
 
 @pytest.mark.api

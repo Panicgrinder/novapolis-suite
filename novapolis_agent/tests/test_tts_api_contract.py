@@ -50,6 +50,12 @@ def test_tts_synthesize_contract(monkeypatch: pytest.MonkeyPatch) -> None:
         "output_format": "ogg",
         "sample_rate_hz": 22050,
         "settings": {"temperature": 0.0},
+        "session_id": "sess-tts-1",
+        "campaign_id": "camp-tts",
+        "scene_id": "scene-a",
+        "slot_id": "slot-01",
+        "turn_id": "turn-01",
+        "channel": "pc",
     }
     resp = client.post("/tts/synthesize", json=payload)
     assert resp.status_code == 200
@@ -60,3 +66,12 @@ def test_tts_synthesize_contract(monkeypatch: pytest.MonkeyPatch) -> None:
     assert data["mime_type"] == "audio/ogg"
     assert isinstance(data["request_hash"], str)
     assert len(data["request_hash"]) == 64
+    assert data["contract_version"] == "text_rpg_session_v1"
+    assert data["session_id"] == "sess-tts-1"
+    assert data["campaign_id"] == "camp-tts"
+    assert data["scene_id"] == "scene-a"
+    assert data["slot_id"] == "slot-01"
+    assert data["turn_id"] == "turn-01"
+    assert data["channel"] == "pc"
+    assert data["log_channels"] == ["world", "pc", "ally", "sys"]
+    assert data["tts_manifest_path"].endswith("tts_manifest.jsonl")

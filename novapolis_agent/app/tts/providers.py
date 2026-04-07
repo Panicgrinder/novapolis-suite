@@ -3,6 +3,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
@@ -265,11 +266,25 @@ class CoquiRuntimeProvider:
             "output_format": request.output_format.value,
             "sample_rate_hz": request.sample_rate_hz,
             "settings": request.settings,
+            "contract_version": request.contract_version,
+            "session_id": request.session_id,
+            "campaign_id": request.campaign_id,
+            "scene_id": request.scene_id,
+            "slot_id": request.slot_id,
+            "turn_id": request.turn_id,
+            "channel": request.channel,
         }
         key_raw = json.dumps(key_payload, ensure_ascii=False, sort_keys=True)
         request_key = hashlib.sha256(key_raw.encode("utf-8")).hexdigest()
         ext = "ogg" if request.output_format == TtsOutputFormat.ogg else "wav"
-        artifact_dir = self.runtime_output_dir / self.provider_id / request_key[:2]
+        if request.session_id:
+            safe_session = re.sub(r"[^A-Za-z0-9._-]+", "_", request.session_id).strip("._-")
+            safe_session = safe_session or "session"
+            artifact_dir = (
+                self.runtime_output_dir / "sessions" / safe_session / request.channel / request_key[:2]
+            )
+        else:
+            artifact_dir = self.runtime_output_dir / self.provider_id / request_key[:2]
         artifact_path = artifact_dir / f"{request_key}.{ext}"
         artifact_dir.mkdir(parents=True, exist_ok=True)
         artifact_path.write_bytes(audio_bytes)

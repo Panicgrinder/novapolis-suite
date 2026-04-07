@@ -44,6 +44,16 @@ def test_tts_cache_hit_miss_and_deterministic_key(monkeypatch: pytest.MonkeyPatc
     assert d2["cache_hit"] is True
     assert d2["cache_key"] == d1["cache_key"]
 
+    scoped_payload = _payload("Hallo Cache")
+    scoped_payload["session_id"] = "sess-cache-a"
+    scoped_payload["channel"] = "pc"
+    r3 = client.post("/tts/synthesize", json=scoped_payload)
+    assert r3.status_code == 200
+    d3 = r3.json()
+    assert d3["cache_hit"] is False
+    assert d3["cache_key"] != d1["cache_key"]
+    assert d3["tts_manifest_path"].endswith("tts_manifest.jsonl")
+
 
 @pytest.mark.api
 @pytest.mark.unit
