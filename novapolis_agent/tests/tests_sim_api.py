@@ -1,5 +1,7 @@
 """Tests für die Simulations-API."""
 
+from pathlib import Path
+
 import pytest
 from app.api import sim
 from httpx import ASGITransport, AsyncClient
@@ -85,3 +87,65 @@ async def test_step_world_event_cap_enforced(monkeypatch: pytest.MonkeyPatch):
     assert final_state["tick"] == 7
     assert len(final_state["events"]) == 4
     assert [event["tick"] for event in final_state["events"]] == [4, 5, 6, 7]
+
+
+@pytest.mark.asyncio
+async def test_session_endpoints_persist_and_expose_replay_manifest(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    monkeypatch.setattr(sim, "_SESSION_STORE_DIR", tmp_path / "sim_sessions", raising=False)
+    transport = ASGITransport(app=sim.app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        response = await client.put(
+            "/session/live-alpha",
+            json={
+                "campaign_id": "campaign-alpha",
+                "scene_id": "scene-d5",
+                "slot_id": "slot-05",
+                "slot_index": 5,
+                "turn_id": "turn-0005",
+                "seed": 11,
+                "world_log": [{"event": "world-start"}],
+                "pc_log": [{"event": "pc-start", "text": "Look around"}],
+                "state_patches": [{"op": "add", "path": "/flags/0", "value": "started"}],
+            },
+        )
+        current = await client.get("/session/live-alpha")
+        replay = await client.get("/session/live-alpha/replay")
+
+    assert response.status_code == 200
+    saved = response.json()
+    assert saved["campaign_id"] == "campaign-alpha"
+    assert saved["world_log"][0]["channel"] == "world"
+    assert saved["pc_log"][0]["channel"] == "pc"
+    assert saved["artifact_paths"]["savegame"].endswith("sim_sessions/live-alpha/savegame.json")
+
+    assert current.status_code == 200
+    current_payload = current.json()
+    assert current_payload["resume_checkpoint_id"] == "turn-0005"
+    assert current_payload["checkpoints"] == ["turn-0005"]
+
+    assert replay.status_code == 200
+    replay_payload = replay.json()
+    assert replay_payload["world_event_count"] == 1
+    assert replay_payload["pc_event_count"] == 1
+    assert replay_payload["state_patch_count"] == 1
+    assert replay_payload["artifact_paths"]["world_log"].endswith(
+        "sim_sessions/live-alpha/world_log.jsonl"
+    )
+
+
+@pytest.mark.asyncio
+async def test_session_endpoints_return_404_for_missing_session(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    monkeypatch.setattr(sim, "_SESSION_STORE_DIR", tmp_path / "sim_sessions", raising=False)
+    transport = ASGITransport(app=sim.app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        missing_session = await client.get("/session/missing")
+        missing_replay = await client.get("/session/missing/replay")
+
+    assert missing_session.status_code == 404
+    assert missing_replay.status_code == 404

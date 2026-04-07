@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-05 19:43
-update: Das RP-Board schliesst jetzt die konfliktbereinigten Neutralstarts `E2/F1` im selben Lauf.
-checks: snapshot-lock PASS (2026-04-05 19:33); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 10:20
+update: Das RP-Board zieht jetzt den Kampagnen-Folgekorridor `slot 21-25` als naechste Produktstufe hinter `slot 20` nach.
+checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -229,6 +229,16 @@ Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
     4) keine unbelegten Direktverbindungen, Crews oder Detailretcons werden hinzugefuegt.
   - Ergebnis 2026-04-05: `C6.md` fuehrt `F1` jetzt konsistent als realen T0-Knoten mit nur unbelegtem direktem C6-Pfad; `novapolis-rp/database-rp/03-locations/E2.md` und `F1.md` sowie `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-e2.ssot.md` und `rp-startbogen-freie-gruppen-f1.ssot.md` heben beide auf spielbare Neutralstarts.
   - Evidenz: `C6.md`, `E2.md`, `F1.md`, `rp-startbogen-freie-gruppen-e2.ssot.md`, `rp-startbogen-freie-gruppen-f1.ssot.md`, `rp-startgebiete-reveal-matrix.ssot.md`, `rp-start-chooser.ssot.md`, `Missionslog-Novapolis.md`, `Jonas-Merek.md`, `Metrokarte-T0.md`, `Stationskontroll-Matrix.md`.
+
+- [x] [Als naechstes] Folgekorridor hinter `slot 20` auf `slot 21-25` mit `E2/F1` und episodischem Uebergabeanker erweitern.
+  - Ziel: Der Produktpfad soll hinter der ersten Kampagnenstufe nicht nur laenger werden, sondern die duennen Reichweitenraeume `E2/F1`, die Rueckkopplung zu D5/C6/G7 und einen save-/replay-faehigen Uebergabeanker fuer die naechste Episode fuehren.
+  - Akzeptanzkriterien:
+    1) mindestens `slot 21-25` liegen als eigene Folge-SSOT vor,
+    2) `E2` und `F1` werden nur entlang ihrer belegten T0- und Konfliktlogik genutzt,
+    3) der Korridor bleibt an vorhandene Orts-, Reveal- und Start-SSOTs gebunden,
+    4) hinter `slot 25` ist ein lesbarer Episoden- oder Folgekorridor-Anker sichtbar statt eines freien Abrisses.
+  - Ergebnis 2026-04-06: `novapolis-dev/docs/process/rp-folgekorridor-slot-21-25.ssot.md` fuehrt jetzt die naechste Kampagnenstufe ueber `E2`, `F1`, Rueckkopplung zwischen Innen-, Kontakt- und Neutralpfad sowie einen episodischen Uebergabeanker; `rp-folgekorridor-slot-16-20.ssot.md` und das Startpaket verweisen im selben Lauf auf diese Anschluss-SSOT.
+  - Evidenz: `rp-folgekorridor-slot-16-20.ssot.md`, `rp-folgekorridor-slot-21-25.ssot.md`, `rp-startbogen-freie-gruppen-e2.ssot.md`, `rp-startbogen-freie-gruppen-f1.ssot.md`, `rp-startbogen-haendlerbund-g7.ssot.md`, `E2.md`, `F1.md`, `C6.md`, `Missionslog-Novapolis.md`, `Metrokarte-T0.md`.
 
 Aktiver Vorbereitungspunkt (2026-03-20)
 ---------------------------------------

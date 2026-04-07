@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import pytest
 from app.api import sim
 from pydantic import ValidationError
@@ -94,3 +97,78 @@ def test_sim_reset_restores_invariants_after_mutation() -> None:
     assert cleared.actors == {}
     assert cleared.events == []
     assert cleared.sim_meta == {"mode": "baseline", "seed": None}
+
+
+@pytest.mark.unit
+def test_sim_session_persistence_writes_expected_artifacts(tmp_path: Path) -> None:
+    sim.reset_state()
+    original_store_dir = sim._SESSION_STORE_DIR
+    sim._SESSION_STORE_DIR = tmp_path / "sim_sessions"
+    try:
+        record = sim.upsert_session(
+            "campaign-alpha",
+            sim.SessionUpsertRequest(
+                campaign_id="campaign-alpha",
+                scene_id="scene-d5",
+                slot_id="slot-03",
+                slot_index=3,
+                turn_id="turn-0003",
+                seed=7,
+                world_log=[{"event": "world-step"}],
+                pc_log=[{"event": "pc-choice", "text": "Investigate D5"}],
+                state_patches=[{"op": "replace", "path": "/scene_id", "value": "scene-d5"}],
+            ),
+        )
+
+        session_dir = tmp_path / "sim_sessions" / "campaign-alpha"
+        assert session_dir.exists()
+        assert (session_dir / "savegame.json").exists()
+        assert (session_dir / "world_log.jsonl").exists()
+        assert (session_dir / "pc_log.jsonl").exists()
+        assert (session_dir / "replay_manifest.json").exists()
+        assert record.resume_checkpoint_id == "turn-0003"
+        assert record.seed == 7
+        assert record.world_log[0]["channel"] == "world"
+        assert record.pc_log[0]["channel"] == "pc"
+
+        savegame_payload = json.loads((session_dir / "savegame.json").read_text(encoding="utf-8"))
+        assert savegame_payload["campaign_id"] == "campaign-alpha"
+        assert savegame_payload["scene_id"] == "scene-d5"
+        assert savegame_payload["slot_index"] == 3
+        assert savegame_payload["seed"] == 7
+        assert savegame_payload["state_patches"] == [
+            {"op": "replace", "path": "/scene_id", "value": "scene-d5"}
+        ]
+    finally:
+        sim._SESSION_STORE_DIR = original_store_dir
+
+
+@pytest.mark.unit
+def test_sim_session_reload_merges_existing_logs(tmp_path: Path) -> None:
+    sim.reset_state()
+    original_store_dir = sim._SESSION_STORE_DIR
+    sim._SESSION_STORE_DIR = tmp_path / "sim_sessions"
+    try:
+        sim.upsert_session(
+            "session-beta",
+            sim.SessionUpsertRequest(
+                slot_index=4,
+                world_log=[{"event": "tick-start"}],
+            ),
+        )
+        second = sim.upsert_session(
+            "session-beta",
+            sim.SessionUpsertRequest(
+                turn_id="turn-0002",
+                pc_log=[{"event": "player-choice"}],
+            ),
+        )
+
+        reloaded = sim.get_session("session-beta")
+        assert len(reloaded.world_log) == 1
+        assert len(reloaded.pc_log) == 1
+        assert second.resume_checkpoint_id == "turn-0002"
+        assert reloaded.checkpoints[0] == "tick-0000"
+        assert reloaded.checkpoints[-1] == "turn-0002"
+    finally:
+        sim._SESSION_STORE_DIR = original_store_dir

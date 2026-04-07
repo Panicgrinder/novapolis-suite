@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
-update: Der RP-Index dokumentiert jetzt die konfliktbereinigten Neutralstarts `E2/F1` bei unveraendertem RP-Open-Count.
-checks: snapshot-lock PASS (2026-04-05 19:33); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 10:20
+update: Der TODO-Index schliesst jetzt die dateigestuetzte Agent-Session-/Replay-Bruecke ab und fuehrt den Agent-Open-Count mit 3 weiter.
+checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -13,13 +13,29 @@ TODO-Index (Novapolis-Dev)
 ---------
 
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 2)
-- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 1)
-- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 5)
+- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 3)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 4)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
 Statushinweise (aktuell)
 ------------------------
+
+- Agent v5.10: Der Persistenz- und Replay-Folgepunkt ist jetzt als minimaler Session-Store im Sim-Modul geschlossen. `novapolis_agent/app/api/sim.py` schreibt pro Session `savegame.json`, `world_log.jsonl`, `pc_log.jsonl` und `replay_manifest.json`, liefert Resume-/Replay-Daten ueber `PUT /session/{session_id}`, `GET /session/{session_id}` und `GET /session/{session_id}/replay`, und `novapolis_agent/tests/test_api_sim_state.py` plus `tests/tests_sim_api.py` sichern Write-, Reload-, Manifest- und 404-Pfade ab (`offen: 4 -> 3`).
+
+- Agent v5.8: Der Spielleiter-Orchestrator fuehrt Projektkontext jetzt nicht mehr nur als lose Nebenbloecke, sondern im selben kontrollierten Lauf. `novapolis_agent/app/api/models.py` fuehrt `retrieval_query`; `novapolis_agent/app/api/chat.py` faltet bei aktiviertem Orchestrator Kontextnotizen und RP-/Projekt-Retrieval in denselben Systemblock und laesst die getrennten `[Kontext-Notizen]`-/`[RAG]`-Bloecke in diesem Pfad bewusst weg; `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt die gebuendelte Injektion ab (`offen: 4 -> 4`).
+
+- Sim v5.3: Der bisher freie Hub-Chat zeigt jetzt einen ersten echten Sessionpfad statt nur lose Nachrichten. `novapolis-sim/scripts/Main.gd` sendet den Hub-Aufruf mit Sessionrahmen und Orchestrator-Hinweisen an `/chat`, haelt eine laufende Session-ID und bereitet Antworten als `Szene/Konsequenz/Optionen/State-Patches` im bestehenden Panel auf (`offen: 4 -> 4`).
+
+- Agent v5.7: Der offene Spielleiter-Orchestrator ist jetzt nicht mehr nur Konzept, sondern als erster Runtime-Hook im bestehenden Chat-Pfad angelegt. `novapolis_agent/app/api/models.py` fuehrt opt-in Felder fuer Sitzungsrahmen, `public_context`, `hidden_context`, Scheduler- und Patch-Hinweise; `novapolis_agent/app/api/chat.py` injiziert daraus einen kontrollierten Systemblock in `/chat` und `/chat/stream`, waehrend `novapolis_agent/tests/test_models_chat_options.py` und `novapolis_agent/tests/test_api_chat_internal_branches.py` den Hook absichern (`offen: 4 -> 4`).
+
+- Agent v5.6: Die lokale Laufzeitbasis des ersten Slices ist jetzt nicht mehr nur `Ollama` als Runtime, sondern auch im Default-Modell festgezogen. `novapolis_agent/app/core/settings.py` und die Root-`.env.example` fuehren `qwen2.5:7b` jetzt als bevorzugtes Baseline-Modell fuer 8-GB-VRAM-Systeme; `novapolis_agent/README.md` und `novapolis_agent/docs/runbook.md` dokumentieren denselben Betriebsstandard (`offen: 4 -> 4`).
+
+- RP v5.44: Der Produktpfad reicht jetzt hinter die erste Kampagnenstufe, ohne den Kanon ueber `E2/F1` hinaus frei auszudehnen. `novapolis-dev/docs/process/rp-folgekorridor-slot-21-25.ssot.md` fuehrt die naechste Kampagnenstufe ueber `E2`, `F1`, Rueckkopplung und episodischen Uebergabeanker; `rp-folgekorridor-slot-16-20.ssot.md` und `rp-text-rpg-startpaket-slot-00-05-2026-04-05.md` verweisen darauf (`offen: 2 -> 2`).
+
+- Dev v5.22: Der technische Produkt-Gate-Pfad ist jetzt als verbindliche SSOT statt als loser Boardpunkt definiert. `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` fuehrt den kanonischen Gate-Namen `Text-RPG Product Gate v1`, die Gate-Stufen und den aktuellen operativen Task-Block; `novapolis_agent/docs/runbook.md` fuehrt denselben Namen fuer den Betriebsweg (`offen: 1 -> 0`).
+
+- Agent v5.5: Der Session- und Kampagnenvertrag des ersten Text-RPG-Slice ist jetzt als eigene SSOT festgezogen. `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md` trennt Kampagne, Session, Szene, Slot, Zug, `state_patches` und Log-Kanaele verbindlich; `novapolis_agent/docs/runbook.md` fuehrt denselben Vertrag als operativen Referenzanker, waehrend Orchestrator, Persistenz und GM-Gates als verbleibende Implementierungswellen offen bleiben (`offen: 5 -> 4`).
 
 - RP v5.43: Der Neutralpfad deckt jetzt auch `E2` und `F1` als eigenstaendige Starts ab, und der fruehere F1-Konflikt im C6-Kontext ist aktiv geradegezogen. `C6.md` fuehrt `F1` nun konsistent als realen T0-Knoten; `novapolis-rp/database-rp/03-locations/E2.md` und `F1.md` sowie `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-e2.ssot.md` und `rp-startbogen-freie-gruppen-f1.ssot.md` heben beide auf `full_slice` (`offen: 2 -> 2`).
 
@@ -150,10 +166,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-03-30 | - [ ] [Jetzt] End-to-End-Produkt-Gate fuer das KI-geleitete Text-RPG v1 als reproduzierbaren Standardlauf definieren. | nein |
-| RP (`docs/todo.rp.md`) | 2026-04-02 | - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren. | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-03-30 | - [ ] [Jetzt] Session- und Kampagnenvertrag fuer das Text-RPG v1 als API- und Backend-SSOT festziehen. | nein |
-| Sim (`docs/todo.sim.md`) | 2026-03-28 | - [ ] [Jetzt] Live-Spielclient fuer den ersten Text-RPG-Slice statt nur Hub-Chat und statischer Epoch-Logs bauen. | nein |
+| Dev (`docs/todo.dev.md`) | 2026-04-05 | keiner (offen: 0) | nein |
+| RP (`docs/todo.rp.md`) | 2026-04-05 | - [ ] [Spaeter] Vorproduzierte OGG-Summaries je Stunde (world/pc) - Kandidaten markieren. | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-04-05 | - [ ] [Jetzt] Spielleiter-Orchestrator zwischen Chat-Flow, Projektkontext, RP-SSOT und Scheduler anschliessen. | nein |
+| Sim (`docs/todo.sim.md`) | 2026-04-05 | - [ ] [Jetzt] Live-Spielclient fuer den ersten Text-RPG-Slice statt nur Hub-Chat und statischer Epoch-Logs bauen. | nein |
 
 
 Hinweise (Index)

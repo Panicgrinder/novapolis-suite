@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
-update: Das Agent-Board fuehrt jetzt den fehlenden Produktpfad fuer Session-Vertrag, Spielleiter-Orchestrierung, Replay/Logs, GM-Evals und Session-TTS als aktive Folgearbeit.
-checks: snapshot-lock PASS (2026-04-03 10:53); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 10:20
+update: Das Agent-Board dokumentiert jetzt die umgesetzte dateigestuetzte Session-/Replay-Bruecke fuer `savegame.json`, `world_log.jsonl`, `pc_log.jsonl` und `replay_manifest.json`.
+checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -18,21 +18,32 @@ Hinweis
 Prioritaetstags (aktiv)
 -----------------------
 
-- `Jetzt`: Session-/Kampagnenvertrag, Spielleiter-Orchestrierung und produktfaehiger Weltzustand fuer den ersten spielbaren Slice.
-- `Als naechstes`: Replay/Savegame, GM-Eval-Gates und Session-TTS an denselben Slice anbinden.
+- `Jetzt`: Spielleiter-Orchestrierung und produktfaehiger Weltzustand fuer den ersten spielbaren Slice.
+- `Als naechstes`: GM-Eval-Gates und Session-TTS an denselben Slice anbinden.
 - `Spaeter`: Training, Komfort und weitere Provider erst nach belastbarem Spielkern ausbauen.
 
 Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
 -------------------------------------------------
 
-- [ ] [Jetzt] Session- und Kampagnenvertrag fuer das Text-RPG v1 als API- und Backend-SSOT festziehen.
+- [x] [Jetzt] Session- und Kampagnenvertrag fuer das Text-RPG v1 als API- und Backend-SSOT festziehen.
   - Ziel: Der Agent soll vom generischen Chat mit optionaler Session-ID zu einer belastbaren Spielsession mit Szenen-, Kampagnen- und Weltzustandsgrenzen uebergehen.
   - Akzeptanzkriterien:
     1) Request-/Response-Modelle unterscheiden sauber zwischen `session_id`, `campaign_id`, `scene_id`, Spielerinput, angebotenen Optionen und rueckgelieferten `state_patches`,
     2) ein Session-Lauf ist speicher-, fortsetz- und abbrechbar, ohne dass Fortschritt nur implizit im freien Chattext steckt,
     3) Weltinterner Hidden-Context und PC-sichtbare Antwortflaeche sind vertraglich getrennt,
     4) OpenAPI, Tests und Runbook fuehren denselben Session-Vertrag.
-  - Evidenz: `novapolis_agent/app/api/models.py` fuehrt aktuell nur generische Chat-Modelle mit optionaler `session_id`, `novapolis_agent/app/core/prompts.py` kennt `State_Patches` bislang nur als Formattext, und `novapolis_agent/app/api/chat.py` speichert Session-Memory ohne eigentlichen Kampagnen-/Spielzustandsvertrag.
+  - Ergebnis 2026-04-06: `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md` zieht jetzt `campaign_id`, `session_id`, `scene_id`, `slot_id`, `turn_id`, `options`, `state_patches` sowie die Log-Kanaele `world|pc|ally|sys` als kanonischen Vertrag zusammen; `novapolis_agent/docs/runbook.md` fuehrt denselben Vertrag als operativen Referenzanker fuer den ersten Slice.
+  - Evidenz: `novapolis_agent/app/api/models.py` fuehrt aktuell nur generische Chat-Modelle mit optionaler `session_id`, `novapolis_agent/app/core/prompts.py` kennt `State_Patches` bislang nur als Formattext, `novapolis_agent/app/api/chat.py` speichert Session-Memory ohne eigentlichen Kampagnen-/Spielzustandsvertrag, und `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md` definiert jetzt den kanonischen Zielvertrag.
+
+- [x] [Jetzt] Lokale Runtime-Baseline fuer den ersten Slice auf `Ollama + qwen2.5:7b` festziehen.
+  - Ziel: Der lokale Produktpfad soll fuer 8-GB-VRAM-Hardware einen klaren Standard haben, statt `Ollama` als Runtime und das eigentliche Laufmodell implizit oder historisch gemischt zu lassen.
+  - Akzeptanzkriterien:
+    1) `Ollama` bleibt die kanonische lokale Runtime-Basis,
+    2) `qwen2.5:7b` ist als bevorzugtes Default-Modell fuer 8-GB-VRAM im Agent-Setup festgezogen,
+    3) Settings, Beispiel-Env, README und Runbook fuehren denselben Baseline-Entscheid,
+    4) `llama3.1:8b` bleibt nur noch als Vergleichs- oder Fallback-Kandidat lesbar, nicht mehr als Default.
+  - Ergebnis 2026-04-06: `novapolis_agent/app/core/settings.py` setzt `MODEL_NAME` und den Fallback jetzt auf `qwen2.5:7b`; die Root-`.env.example`, `novapolis_agent/README.md` und `novapolis_agent/docs/runbook.md` fuehren denselben Runtime-Standard fuer den lokalen Slice.
+  - Evidenz: `novapolis_agent/app/core/settings.py` und der Root-`.env.example` fuehrten bisher `llama3.1:8b` als Default, waehrend der dokumentierte 8-GB-VRAM-Pfad bereits eine quantisierte 7B-Klasse mit `Ollama` als Runtime nahelegt.
 
 - [ ] [Jetzt] Spielleiter-Orchestrator zwischen Chat-Flow, Projektkontext, RP-SSOT und Scheduler anschliessen.
   - Ziel: Die KI soll nicht nur frei antworten, sondern den kanonischen RP-Kontext, laufenden Weltzustand und spaetere Scheduler-/Action-Regeln in einem kontrollierten Spielleiterpfad zusammenfuehren.
@@ -41,15 +52,21 @@ Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
     2) Antworten bleiben im gewuenschten Ausgabeformat `Szene/Konsequenz/Optionen/State_Patches`, erzeugen aber gleichzeitig maschinenlesbare Folgedaten,
     3) Hidden-Informationen aus RP, Knowledge und Sphaeren-/Mind-Cluster-SSOT werden nicht versehentlich an den PC ausgespielt,
     4) der Pfad ist testsicher gegen leere Retrievals, Scheduler-Ausfall und widerspruechliche State-Patches.
-  - Evidenz: `novapolis-dev/docs/process/project-context-bridge.ssot.md` fuehrt nur den projektbewussten Chatmodus als Phase 1, `novapolis-dev/docs/specs/scheduler-spec.md` existiert nur als Doku, und `novapolis_agent/app/core/prompts.py` bleibt derzeit ein reiner Format-/Persona-Prompt ohne Spielleiter-Orchestrierung.
+  - Arbeitsstand 2026-04-06: Der erste Implementierungsschritt haengt den Orchestrator als opt-in Runtime-Hook an den bestehenden `/chat`- und `/chat/stream`-Pfad, statt sofort einen Parallelendpunkt zu eroeffnen. Ziel dieses Schritts ist die kontrollierte Injektion von Sitzungsrahmen, `public_context`, `hidden_context`, Scheduler-Hinweisen und Patch-Zielen in denselben bestehenden Produktpfad.
+  - Ergebnis 2026-04-06: `novapolis_agent/app/api/models.py` fuehrt dafuer jetzt opt-in Felder wie `campaign_id`, `scene_id`, `slot_id`, `turn_id`, `public_context`, `hidden_context`, `scheduler_hints` und `state_patch_hints`; `novapolis_agent/app/api/chat.py` injiziert daraus einen ersten Spielleiter-Orchestrator-Block in `/chat` und `/chat/stream`, ohne einen Parallelendpunkt einzufuehren.
+  - Arbeitsstand 2026-04-07: Der naechste Implementierungsschritt legt Projektkontext nicht mehr nur als lose Standard-Bloecke neben den Orchestrator, sondern buendelt Kontextnotizen, einen optional expliziten `retrieval_query` und RP-/Projekt-Retrieval in denselben kontrollierten Spielleiter-Lauf.
+  - Ergebnis 2026-04-07: `novapolis_agent/app/api/models.py` fuehrt dafuer jetzt `retrieval_query`; `novapolis_agent/app/api/chat.py` faltet bei aktiviertem Orchestrator Kontextnotizen und RP-/Projekt-Retrieval in denselben Systemblock und unterdrueckt in diesem Pfad die getrennten `[Kontext-Notizen]`-/`[RAG]`-Einblendungen; `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt die gebuendelte Injektion gezielt ab.
+  - Evidenz: `novapolis-dev/docs/process/project-context-bridge.ssot.md` fuehrt nur den projektbewussten Chatmodus als Phase 1, `novapolis-dev/docs/specs/scheduler-spec.md` existiert nur als Doku, `novapolis_agent/app/core/prompts.py` bleibt derzeit ein reiner Format-/Persona-Prompt ohne Spielleiter-Orchestrierung, und `novapolis_agent/tests/test_models_chat_options.py` plus `novapolis_agent/tests/test_api_chat_internal_branches.py` decken den neuen Hook jetzt gezielt ab.
 
-- [ ] [Als naechstes] Persistente Weltzustands-, Log- und Replay-Pipeline fuer `world_log`, `pc_log` und Savegames schaffen.
+- [x] [Als naechstes] Persistente Weltzustands-, Log- und Replay-Pipeline fuer `world_log`, `pc_log` und Savegames schaffen.
   - Ziel: Ein spielbarer Text-RPG-Run braucht nachvollziehbaren Weltfortschritt, Replay und Wiederaufnahme statt nur volatilem Antworttext und einer Minimal-Sim-API.
   - Akzeptanzkriterien:
     1) Weltzustand, Event-Historie und `state_patches` werden pro Session persistiert und auditierbar fortgeschrieben,
     2) `world_log` und `pc_log` entstehen aus demselben Lauf reproduzierbar und koennen fuer Replay/Sim exportiert werden,
     3) Seeds, Resume-Punkte und Abbruchfaelle sind fuer Debugging und spaetere Produktbelege wiederherstellbar,
     4) der Exportpfad bleibt kompatibel mit dem Sim-Client statt ein paralleles Artefaktformat einzufuehren.
+  - Ergebnis 2026-04-07: `novapolis_agent/app/api/sim.py` fuehrt jetzt einen dateigestuetzten Session-Store unter `novapolis_agent/tmp/sim_sessions/<session_id>/`; `PUT /session/{session_id}` schreibt `savegame.json`, `world_log.jsonl`, `pc_log.jsonl` und `replay_manifest.json`, `GET /session/{session_id}` liefert den aktuellen Resume-Stand, und `GET /session/{session_id}/replay` gibt den Replay-Manifestkern fuer Hub-/Epoch-Folgeschritte aus.
+  - Verifikation 2026-04-07: `novapolis_agent/tests/test_api_sim_state.py` und `novapolis_agent/tests/tests_sim_api.py` decken Artefaktwrite, Reload, Resume-Checkpoint, Replay-Manifest und 404-Pfade gezielt ab.
   - Evidenz: `novapolis_agent/app/api/sim.py` fuehrt nur `{tick,time,regions,actors,events}` als Minimalmodell ohne Persistenz, waehrend `novapolis-sim/scripts/Main.gd` seine Ansicht aktuell aus statischen `world_log.jsonl`/`pc_log.jsonl` unter `res://data/epochs` aufbaut.
 
 - [ ] [Als naechstes] Dedizierte Eval- und Regressionssuiten fuer KI-Spielleitung einfuehren.

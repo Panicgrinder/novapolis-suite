@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
-update: Das Sim-Board fuehrt jetzt den Produktpfad fuer Live-Spielclient und Replay-/Audio-Bridge zusaetzlich zu den bestehenden Asset-/Bootstrap-Punkten.
-checks: snapshot-lock PASS (2026-04-03 10:53); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 10:20
+update: Das Sim-Board fuehrt den Hub-Chat jetzt als minimalen Live-Spielclient-Arbeitsstand fuer den ersten Text-RPG-Slice.
+checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -30,6 +30,8 @@ Offene Aufgaben (Sim)
 
 - [ ] [Jetzt] Live-Spielclient fuer den ersten Text-RPG-Slice statt nur Hub-Chat und statischer Epoch-Logs bauen.
   - Akzeptanzkriterium: Die Sim kann eine laufende Spielsession mit aktueller Szene, angebotenen Optionen, Spielereingabe und Rueckmeldung anzeigen, statt nur freie Chat-Nachrichten und vorab gespeicherte Logs zu rendern.
+  - Arbeitsstand 2026-04-07: Der bestehende Hub-Chat bleibt bewusst die UI-Basis, wird aber auf den Text-RPG-Pfad gehoben: Der Client sendet Sitzungsrahmen und Orchestrator-Hinweise mit, haelt eine laufende Session-ID und zeigt Szene, Konsequenz, Optionen und Patch-Vorschau als sichtbaren Sessionstand an.
+  - Ergebnis 2026-04-07: `novapolis-sim/scripts/Main.gd` sendet den Hub-Chat jetzt mit `orchestrator_enabled`, `campaign_id`, `scene_id`, `slot_id`, `turn_id`, `public_context`, `state_patch_hints` und `retrieval_query` an denselben `/chat`-Pfad; eingehende Antworten werden fuer Szene/Konsequenz/Optionen/State-Patches geparst und im bestehenden Panel als minimaler Live-Spielclient gerendert.
   - Evidenz: `novapolis-sim/scripts/Main.gd` fuehrt aktuell ein Hub-Chat-Panel und laedt `world_log.jsonl`/`pc_log.jsonl` aus `res://data/epochs`, besitzt aber keinen live angebundenen Session-/Optionspfad.
 
 - [ ] [Als naechstes] Replay-/Epoch-Bridge an denselben Agent-Session-Vertrag koppeln.

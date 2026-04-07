@@ -63,7 +63,7 @@ class Settings(BaseSettings):
     SETTINGS_CONTRACT_ISSUES: list[str] = []
 
     OLLAMA_HOST: str = "http://localhost:11434"
-    MODEL_NAME: str = "llama3.1:8b"
+    MODEL_NAME: str = "qwen2.5:7b"
     TEMPERATURE: float = 0.7
     TOP_P: float = 0.9
     TOP_K: int = 40
@@ -237,7 +237,7 @@ class Settings(BaseSettings):
     @classmethod
     def _normalize_model_name(cls, value: Any) -> str:
         string_value = cls._to_nonempty_str(value)
-        return string_value if string_value is not None else "llama3.1:8b"
+        return string_value if string_value is not None else "qwen2.5:7b"
 
     @model_validator(mode="after")
     def _apply_flag_aliases(self) -> Settings:

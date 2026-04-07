@@ -242,6 +242,99 @@ async def test_process_chat_request_rewrite_and_memory(monkeypatch: pytest.Monke
 
 
 @pytest.mark.asyncio
+async def test_process_chat_request_injects_orchestrator_context(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    response = _DummyHTTPResponse({"message": {"content": "model answer"}})
+    client = _DummyClient(response)
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "unit-model", raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "CONTEXT_NOTES_ENABLED", True, raising=False)
+    monkeypatch.setattr(settings, "CONTEXT_NOTES_PATHS", ["context.md"], raising=False)
+    monkeypatch.setattr(settings, "CONTEXT_NOTES_MAX_CHARS", 4000, raising=False)
+    monkeypatch.setattr(settings, "RAG_ENABLED", True, raising=False)
+    monkeypatch.setattr(settings, "RAG_TOP_K", 2, raising=False)
+    monkeypatch.setattr(settings, "RAG_INDEX_PATH", "rag-index.json", raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(
+        chat_module, "apply_post", lambda text, **k: SimpleNamespace(action="allow")
+    )
+    monkeypatch.setattr(
+        chat_module, "normalize_ollama_options", lambda opts, **_: ({"opt": True}, "http://ollama")
+    )
+    monkeypatch.setattr(
+        chat_module,
+        "load_context_notes",
+        lambda *_: "D5 verbindet Materiallauf und Schleusenstatus.",
+    )
+    monkeypatch.setattr("utils.rag.load_index", lambda *_: object())
+    monkeypatch.setattr(
+        "utils.rag.retrieve",
+        lambda *_, **__: [
+            {"source": "rp-ssot", "text": "Reflex assistiert dem Materiallauf nach C6."}
+        ],
+    )
+
+    request = ChatRequest(
+        messages=[{"role": "user", "content": "weiter"}],
+        profile_id="text_rpg",
+        session_id="sess-3",
+        options={
+            "orchestrator_enabled": True,
+            "campaign_id": "camp-7",
+            "scene_id": "scene-d5",
+            "slot_id": "slot-03",
+            "turn_id": "turn-2",
+            "retrieval_query": "D5 Reflex Materiallauf",
+            "public_context": "Reflex bleibt an der Schleuse.",
+            "hidden_context": "Die Schleuse klemmt wegen verdecktem Druckverlust.",
+            "scheduler_hints": ["halte den Materiallauf stabil"],
+            "state_patch_hints": ["mission.materiallauf.progress += 1"],
+        },
+    )
+
+    result = await chat_module.process_chat_request(
+        request,
+        client=cast(httpx.AsyncClient, client),
+        request_id="req-orch",
+    )
+
+    assert result.content == "model answer"
+    assert client.last_payload is not None
+    contents = [message["content"] for message in client.last_payload["messages"]]
+    orchestrator_messages = [
+        content for content in contents if content.startswith("[Text-RPG-Orchestrator]")
+    ]
+    assert orchestrator_messages
+    orchestrator_text = orchestrator_messages[0]
+    assert "campaign_id: camp-7" in orchestrator_text
+    assert "[PC-Sicht]" in orchestrator_text
+    assert "[Projektkontext-Notizen intern]" in orchestrator_text
+    assert "D5 verbindet Materiallauf" in orchestrator_text
+    assert "[Retrieval-Query]" in orchestrator_text
+    assert "D5 Reflex Materiallauf" in orchestrator_text
+    assert "[RP-/Projektkontext-Retrieval intern]" in orchestrator_text
+    assert "Reflex assistiert dem Materiallauf" in orchestrator_text
+    assert "Reflex bleibt an der Schleuse." in orchestrator_text
+    assert "[Hidden-Context intern]" in orchestrator_text
+    assert "verdecktem Druckverlust" in orchestrator_text
+    assert "[Scheduler-Hinweise]" in orchestrator_text
+    assert "[State-Patch-Ziele]" in orchestrator_text
+    assert not any(content.startswith("[RAG]") for content in contents)
+    assert not any(content.startswith("[Kontext-Notizen]") for content in contents)
+
+
+@pytest.mark.asyncio
 async def test_process_chat_request_policy_post_block(monkeypatch: pytest.MonkeyPatch) -> None:
     from app.api import chat as chat_module
 

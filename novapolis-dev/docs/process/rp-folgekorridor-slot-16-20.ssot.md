@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
-update: Der Folgekorridor hinter `slot 15` fuehrt jetzt die erste Kampagnenfolge fuer Innen-, Aussen- und Mobilitaetspfad als eigene SSOT.
-checks: snapshot-lock PASS (2026-04-05 19:19); markdownlint PASS; frontmatter PASS
+stand: 2026-04-07 10:20
+update: Der Folgekorridor hinter `slot 15` verweist jetzt explizit auf die Anschluss-SSOT `slot 21-25`.
+checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS
 ---
 
 RP Folgekorridor: Slot 16-20
@@ -114,3 +114,5 @@ Guardrails
 - Keine neuen Crew-, Stations- oder Fraktionsbeziehungen ohne eigene SSOTs setzen.
 - Keine Details hinter `D3` oder tiefere Netze hinter `B2` frei behaupten.
 - Keine stillen Mengen-, Lager- oder Infrastruktur-Retcons aus Mobilitaetspfaden ableiten.
+
+- Die direkte Anschluss-SSOT fuer denselben Produktpfad liegt in `novapolis-dev/docs/process/rp-folgekorridor-slot-21-25.ssot.md`.

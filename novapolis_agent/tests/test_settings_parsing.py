@@ -49,7 +49,7 @@ def test_settings_contract_fallbacks(monkeypatch: MonkeyPatch) -> None:
     assert s.REQUEST_MAX_INPUT_CHARS == 16000
     assert s.RATE_LIMIT_WINDOW_SEC == 60.0
     assert s.OLLAMA_HOST == "http://localhost:11434"
-    assert s.MODEL_NAME == "llama3.1:8b"
+    assert s.MODEL_NAME == "qwen2.5:7b"
     assert len(s.SETTINGS_CONTRACT_ISSUES) >= 3
 
 

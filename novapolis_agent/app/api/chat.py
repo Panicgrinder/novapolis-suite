@@ -120,6 +120,222 @@ def _redact_preview(text: str) -> str:
     return out[:max_chars]
 
 
+def _options_to_dict(options: Any) -> dict[str, Any]:
+    if isinstance(options, Mapping):
+        try:
+            return {str(key): value for key, value in cast(Mapping[object, Any], options).items()}
+        except Exception:
+            return {}
+    if options is None:
+        return {}
+    model_dump = getattr(options, "model_dump", None)
+    if callable(model_dump):
+        try:
+            raw = model_dump()
+            if isinstance(raw, Mapping):
+                return {str(key): value for key, value in cast(Mapping[object, Any], raw).items()}
+        except Exception:
+            return {}
+    return {}
+
+
+def _coerce_string_list(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        stripped = value.strip()
+        return [stripped] if stripped else []
+    if isinstance(value, list | tuple | set):
+        items: list[str] = []
+        for entry in value:
+            text = str(entry).strip()
+            if text:
+                items.append(text)
+        return items
+    text = str(value).strip()
+    return [text] if text else []
+
+
+def _orchestrator_enabled(options: Mapping[str, Any]) -> bool:
+    flag = options.get("orchestrator_enabled")
+    enabled = _bool_from_unknown(flag, default=False) if flag is not None else False
+    return enabled or any(
+        bool(options.get(key))
+        for key in (
+            "campaign_id",
+            "scene_id",
+            "slot_id",
+            "turn_id",
+            "retrieval_query",
+            "public_context",
+            "hidden_context",
+            "scheduler_hints",
+            "state_patch_hints",
+        )
+    )
+
+
+def _latest_user_text(messages: list[dict[str, str]]) -> str:
+    user_texts = [
+        message.get("content", "") for message in messages if message.get("role") == "user"
+    ]
+    return user_texts[-1] if user_texts else ""
+
+
+def _clip_text(value: str, limit: int = 400) -> str:
+    return value if len(value) <= limit else f"{value[:limit]}…"
+
+
+def _resolve_context_notes() -> str | None:
+    try:
+        enabled = bool(getattr(settings, "CONTEXT_NOTES_ENABLED", False))
+        notes: str | None = None
+        try:
+            notes = load_context_notes(
+                getattr(settings, "CONTEXT_NOTES_PATHS", []),
+                getattr(settings, "CONTEXT_NOTES_MAX_CHARS", 4000),
+            )
+        except Exception:
+            notes = None
+        if (enabled or notes) and notes:
+            return notes
+    except Exception:
+        return None
+    return None
+
+
+def _resolve_retrieval_query(messages: list[dict[str, str]], options: Mapping[str, Any]) -> str:
+    explicit_query = str(options.get("retrieval_query", "")).strip()
+    if explicit_query:
+        return explicit_query
+    return _latest_user_text(messages).strip()
+
+
+def _resolve_rag_hits(query: str) -> list[dict[str, Any]]:
+    if not query:
+        return []
+    if not bool(getattr(settings, "RAG_ENABLED", False)):
+        return []
+    from utils.rag import load_index, retrieve
+
+    rag_path = str(
+        getattr(settings, "RAG_INDEX_PATH", "novapolis_agent/eval/results/rag/index.json")
+    )
+    try:
+        idx: _TfIdfIndex | None = load_index(rag_path)
+        if idx is None:
+            return []
+        top_k = int(getattr(settings, "RAG_TOP_K", 3))
+        hits_any: object = retrieve(idx, query, top_k=top_k)
+        hits = cast(list[dict[str, Any]], hits_any)
+        return hits or []
+    except FileNotFoundError:
+        return []
+    except Exception:
+        return []
+
+
+def _build_rag_snippet_text(hits: list[dict[str, Any]]) -> str:
+    return "\n\n".join(
+        f"- {hit.get('source', '?')}: {_clip_text(str(hit.get('text', '')))}" for hit in hits
+    )
+
+
+def _build_orchestrator_messages(
+    request: ChatRequest,
+    *,
+    context_notes: str | None = None,
+    rag_hits: list[dict[str, Any]] | None = None,
+    retrieval_query: str | None = None,
+) -> list[dict[str, str]]:
+    options = _options_to_dict(getattr(request, "options", None))
+    enabled = _orchestrator_enabled(options)
+    if not enabled:
+        return []
+
+    session_id = getattr(request, "session_id", None) or options.get("session_id")
+    frame_fields = {
+        "profile_id": getattr(request, "profile_id", None),
+        "campaign_id": options.get("campaign_id"),
+        "session_id": session_id,
+        "scene_id": options.get("scene_id"),
+        "slot_id": options.get("slot_id"),
+        "turn_id": options.get("turn_id"),
+    }
+    lines = [
+        "[Text-RPG-Orchestrator]",
+        "Arbeite als kontrollierte Spielleitung auf dem kanonischen Novapolis-Produktpfad.",
+        (
+            "Nutze Projektkontext, RP-SSOT und Scheduler-Hinweise nur regelkonform "
+            "und ohne freie Kanonerweiterung."
+        ),
+        "Antworte weiter im Format Szene/Konsequenz/Optionen/State_Patches.",
+        (
+            "Inhalte aus dem Hidden-Context bleiben intern und duerfen nicht direkt "
+            "an die PC-Sicht auslaufen."
+        ),
+    ]
+
+    frame_lines = [
+        f"- {key}: {value}"
+        for key, value in frame_fields.items()
+        if isinstance(value, str) and value.strip()
+    ]
+    if frame_lines:
+        lines.extend(["[Sitzungsrahmen]", *frame_lines])
+
+    public_context = str(options.get("public_context", "")).strip()
+    if public_context:
+        lines.extend(["[PC-Sicht]", public_context])
+
+    context_notes_text = str(context_notes or "").strip()
+    if context_notes_text:
+        lines.extend(["[Projektkontext-Notizen intern]", context_notes_text])
+
+    retrieval_query_text = str(retrieval_query or "").strip()
+    if retrieval_query_text:
+        lines.extend(["[Retrieval-Query]", retrieval_query_text])
+
+    if rag_hits:
+        lines.extend(["[RP-/Projektkontext-Retrieval intern]", _build_rag_snippet_text(rag_hits)])
+
+    hidden_context = str(options.get("hidden_context", "")).strip()
+    if hidden_context:
+        lines.extend(["[Hidden-Context intern]", hidden_context])
+
+    scheduler_hints = _coerce_string_list(options.get("scheduler_hints"))
+    if scheduler_hints:
+        lines.extend(["[Scheduler-Hinweise]", *[f"- {hint}" for hint in scheduler_hints]])
+
+    state_patch_hints = _coerce_string_list(options.get("state_patch_hints"))
+    if state_patch_hints:
+        lines.extend(["[State-Patch-Ziele]", *[f"- {hint}" for hint in state_patch_hints]])
+
+    return [{"role": "system", "content": "\n".join(lines)}]
+
+
+def _inject_orchestrator_messages(
+    messages: list[dict[str, str]],
+    request: ChatRequest,
+    *,
+    context_notes: str | None = None,
+    rag_hits: list[dict[str, Any]] | None = None,
+    retrieval_query: str | None = None,
+) -> list[dict[str, str]]:
+    additions = _build_orchestrator_messages(
+        request,
+        context_notes=context_notes,
+        rag_hits=rag_hits,
+        retrieval_query=retrieval_query,
+    )
+    if not additions:
+        return messages
+    insert_at = 1 if messages and messages[0].get("role") == "system" else 0
+    for message in reversed(additions):
+        messages.insert(insert_at, message)
+    return messages
+
+
 def _append_shadow_mode_event(
     *,
     request: ChatRequest,
@@ -247,50 +463,38 @@ async def stream_chat_request(
     except Exception:
         pass
 
+    options = _options_to_dict(getattr(request, "options", None))
+    orchestrator_enabled = _orchestrator_enabled(options)
+    notes: str | None = None
+    rag_hits: list[dict[str, Any]] = []
+    retrieval_query = ""
+
     try:
-        enabled = bool(getattr(settings, "CONTEXT_NOTES_ENABLED", False))
-        notes: str | None = None
-        try:
-            notes = load_context_notes(
-                getattr(settings, "CONTEXT_NOTES_PATHS", []),
-                getattr(settings, "CONTEXT_NOTES_MAX_CHARS", 4000),
-            )
-        except Exception:
-            notes = None
-        if (enabled or notes) and notes:
+        notes = _resolve_context_notes()
+        if notes and not orchestrator_enabled:
             messages.insert(1, {"role": "system", "content": f"[Kontext-Notizen]\n{notes}"})
     except Exception:
-        pass
+        notes = None
 
     try:
-        if bool(getattr(settings, "RAG_ENABLED", False)):
-            from utils.rag import load_index, retrieve
-
-            rag_path = str(
-                getattr(settings, "RAG_INDEX_PATH", "novapolis_agent/eval/results/rag/index.json")
+        retrieval_query = _resolve_retrieval_query(messages, options)
+        rag_hits = _resolve_rag_hits(retrieval_query)
+        if rag_hits and not orchestrator_enabled:
+            messages.insert(
+                1,
+                {"role": "system", "content": f"[RAG]\n{_build_rag_snippet_text(rag_hits)}"},
             )
-            try:
-                idx: _TfIdfIndex | None = load_index(rag_path)
-                user_texts = [m.get("content", "") for m in messages if m.get("role") == "user"]
-                query = user_texts[-1] if user_texts else ""
-                if query and idx is not None:
-                    top_k = int(getattr(settings, "RAG_TOP_K", 3))
-                    _hits_any: object = retrieve(idx, query, top_k=top_k)
-                    hits = cast(list[dict[str, Any]], _hits_any)
-                    if hits:
+    except Exception:
+        rag_hits = []
 
-                        def _clip(value: str, limit: int = 400) -> str:
-                            return value if len(value) <= limit else f"{value[:limit]}…"
-
-                        snippet_text = "\n\n".join(
-                            f"- {h.get('source', '?')}: {_clip(str(h.get('text', '')))}"
-                            for h in hits
-                        )
-                        messages.insert(1, {"role": "system", "content": f"[RAG]\n{snippet_text}"})
-            except FileNotFoundError:
-                pass
-            except Exception:
-                pass
+    try:
+        messages = _inject_orchestrator_messages(
+            messages,
+            request,
+            context_notes=notes if orchestrator_enabled else None,
+            rag_hits=rag_hits if orchestrator_enabled else None,
+            retrieval_query=retrieval_query if orchestrator_enabled else None,
+        )
     except Exception:
         pass
 
@@ -733,58 +937,38 @@ async def process_chat_request(
         except Exception:
             pass
 
+        options = _options_to_dict(getattr(request, "options", None))
+        orchestrator_enabled = _orchestrator_enabled(options)
+        notes: str | None = None
+        rag_hits: list[dict[str, Any]] = []
+        retrieval_query = ""
+
         try:
-            enabled = bool(getattr(settings, "CONTEXT_NOTES_ENABLED", False))
-            notes: str | None = None
-            try:
-                notes = load_context_notes(
-                    getattr(settings, "CONTEXT_NOTES_PATHS", []),
-                    getattr(settings, "CONTEXT_NOTES_MAX_CHARS", 4000),
-                )
-            except Exception:
-                notes = None
-            if (enabled or notes) and notes:
+            notes = _resolve_context_notes()
+            if notes and not orchestrator_enabled:
                 messages.insert(1, {"role": "system", "content": f"[Kontext-Notizen]\n{notes}"})
         except Exception:
-            pass
+            notes = None
 
         try:
-            if bool(getattr(settings, "RAG_ENABLED", False)):
-                from utils.rag import load_index, retrieve
-
-                rag_path = str(
-                    getattr(
-                        settings,
-                        "RAG_INDEX_PATH",
-                        "novapolis_agent/eval/results/rag/index.json",
-                    )
+            retrieval_query = _resolve_retrieval_query(messages, options)
+            rag_hits = _resolve_rag_hits(retrieval_query)
+            if rag_hits and not orchestrator_enabled:
+                messages.insert(
+                    1,
+                    {"role": "system", "content": f"[RAG]\n{_build_rag_snippet_text(rag_hits)}"},
                 )
-                try:
-                    idx: _TfIdfIndex | None = load_index(rag_path)
-                    user_texts2 = [
-                        m.get("content", "") for m in messages if m.get("role") == "user"
-                    ]
-                    query2 = user_texts2[-1] if user_texts2 else ""
-                    if query2 and idx is not None:
-                        top_k2 = int(getattr(settings, "RAG_TOP_K", 3))
-                        _hits2_any: object = retrieve(idx, query2, top_k=top_k2)
-                        hits2 = cast(list[dict[str, Any]], _hits2_any)
-                        if hits2:
+        except Exception:
+            rag_hits = []
 
-                            def _clip2(value: str, limit: int = 400) -> str:
-                                return value if len(value) <= limit else f"{value[:limit]}…"
-
-                            snippet_text2 = "\n\n".join(
-                                f"- {h.get('source', '?')}: {_clip2(str(h.get('text', '')))}"
-                                for h in hits2
-                            )
-                            messages.insert(
-                                1, {"role": "system", "content": f"[RAG]\n{snippet_text2}"}
-                            )
-                except FileNotFoundError:
-                    pass
-                except Exception:
-                    pass
+        try:
+            messages = _inject_orchestrator_messages(
+                messages,
+                request,
+                context_notes=notes if orchestrator_enabled else None,
+                rag_hits=rag_hits if orchestrator_enabled else None,
+                retrieval_query=retrieval_query if orchestrator_enabled else None,
+            )
         except Exception:
             pass
 

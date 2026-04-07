@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
+stand: 2026-04-07 10:20
 update: Das RP-Arbeitsblatt referenziert jetzt auch `E2/F1` als konkrete Neutralstarts und fuehrt die F1-Klarstellung gegen C6 mit.
-checks: snapshot-lock PASS (2026-04-05 19:33); markdownlint PASS; frontmatter PASS
+checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS
 ---
 
 RP-Produktpfad: Spielstartpaket und Slot-00-05-Korridor
@@ -157,6 +157,7 @@ Mehrfachstarts und Gebietswahl v0
 - Folgekorridor-Erweiterung: `novapolis-dev/docs/process/rp-folgekorridor-slot-06-10.ssot.md`.
 - Langzeit-Folgekorridor: `novapolis-dev/docs/process/rp-folgekorridor-slot-11-15.ssot.md`.
 - Kampagnen-Folgekorridor: `novapolis-dev/docs/process/rp-folgekorridor-slot-16-20.ssot.md`.
+- Weiterer Kampagnen-Folgekorridor: `novapolis-dev/docs/process/rp-folgekorridor-slot-21-25.ssot.md`.
 - Neutrale Orts-SSOTs fuer den Pufferpfad: `novapolis-rp/database-rp/03-locations/A2.md`, `B1.md`, `C3.md`.
 - Weitere neutrale Startboegen: `rp-startbogen-freie-gruppen-b1.ssot.md`, `rp-startbogen-freie-gruppen-c3.ssot.md`.
 - Zusaetzliche neutrale Orts- und Start-SSOTs: `novapolis-rp/database-rp/03-locations/C1.md`, `D1.md`, `rp-startbogen-freie-gruppen-c1.ssot.md`, `rp-startbogen-freie-gruppen-d1.ssot.md`.
@@ -269,8 +270,8 @@ Konsequenzklassen fuer den ersten Korridor
 Arbeitsreihenfolge fuer die naechsten RP-Laeufe
 -----------------------------------------------
 
-1. Weitere Neutralstarts jenseits `A2/B1/C1/C3/D1/E2/F1` aus dem freigegebenen T0-Netz konkretisieren.
-2. Den Folgekorridor hinter `slot 20` auf laengere Kampagnenpfade oder modulare Episodenstrukturen ausbauen.
+1. Den Folgekorridor hinter `slot 25` auf `slot 26-30` oder eine bewusst modulare Episodenform ausbauen.
+2. Sessionvertrag, Produkt-Gate und spaetere Replay-Pfade technisch an denselben RP-Produktpfad anbinden.
 3. Reveal- und Folgekorridor-Logik spaeter auf weitere Kern- und Puffergebiete jenseits des aktuellen Full-Slice-Sets ausdehnen.
 
 Definition of Done fuer diesen Planungsschritt

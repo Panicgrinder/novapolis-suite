@@ -6,6 +6,16 @@ from pydantic import BaseModel, field_validator
 class ChatOptions(BaseModel):
     host: str | None = None
     session_id: str | None = None
+    orchestrator_enabled: bool | None = None
+    campaign_id: str | None = None
+    scene_id: str | None = None
+    slot_id: str | None = None
+    turn_id: str | None = None
+    retrieval_query: str | None = None
+    public_context: str | None = None
+    hidden_context: str | None = None
+    scheduler_hints: list[str] | str | None = None
+    state_patch_hints: list[str] | str | None = None
 
     temperature: float | None = None
     top_p: float | None = None

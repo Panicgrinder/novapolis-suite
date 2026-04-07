@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-11 03:57
-update: Projektkontext-Bruecke (Phase 1) als operativer Build-/Betriebsweg ergaenzt.
-checks: .\.venv\Scripts\python.exe novapolis_agent\scripts\build_project_context_index.py PASS (indexed_sources=10, n_docs=10, vocab=2807, 2026-03-10 17:05); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/process/project-context-bridge.ssot.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (2026-03-10 17:05); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/process/project-context-bridge.ssot.md' 'novapolis_agent/docs/runbook.md' 'novapolis-dev/docs/donelog.md' 'novapolis_agent/docs/DONELOG.txt' PASS (EXITCODE=0, 2026-03-10 17:05)
+stand: 2026-04-07 10:20
+update: Runbook fuehrt jetzt zusaetzlich die dateigestuetzte Session-/Replay-Bruecke mit `savegame.json`, `world_log.jsonl`, `pc_log.jsonl` und `replay_manifest.json`.
+checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -71,6 +71,133 @@ Hinweise:
 - Quellenmanifest: `novapolis_agent/eval/config/context.bridge.sources.json`
 - Build-Skript: `novapolis_agent/scripts/build_project_context_index.py`
 - SSOT zur Planung/Phasen: `novapolis-dev/docs/process/project-context-bridge.ssot.md`
+
+Text-RPG Sessionvertrag v1
+-------------------------
+
+Der kanonische Vertragsanker fuer den ersten spielbaren Slice liegt in `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md`.
+
+Verbindliche Kernobjekte:
+
+- `campaign_id`
+- `session_id`
+- `scene_id`
+- `slot_id`
+- `turn_id`
+- `state_patches`
+- Log-Kanaele `world|pc|ally|sys`
+
+Aktueller Wahrheitsrahmen:
+
+- Der bestehende Runtime-Pfad bleibt vorerst der vorhandene `/chat`-Flow mit optionaler `session_id`.
+- Der Vollvertrag ist bereits festgezogen, auch wenn API-Modelle, Persistenz und Replay noch nicht voll auf denselben Stand gehoben sind.
+- Neue Session- oder Replay-Artefakte muessen sich an diese SSOT haengen, nicht an freie Nebenformate.
+
+Text-RPG Product Gate v1
+------------------------
+
+Der kanonische Gate-Rahmen liegt in `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md`.
+
+Aktueller operativer Gate-Block:
+
+1. `Checks: full`
+2. `Tests: pytest (api+streaming)`
+3. `Checks: sim epoch assets`
+
+Der Gate-Name bleibt verbindlich `Text-RPG Product Gate v1`, auch solange der Ablauf noch ueber einen Task-Block statt ueber einen dedizierten Wrapper gefahren wird.
+
+Hard-Fail-Klassen laut SSOT:
+
+- OpenAPI-/Schema-Drift gegen den Sessionvertrag
+- fehlende oder spaeter widerspruechliche `world_log`-/`pc_log`-/`state_patches`-Artefakte
+- Slot- oder Replay-Widersprueche zwischen Agent- und Sim-Pfad
+
+Lokale Runtime-Baseline
+-----------------------
+
+Der kanonische lokale Runtime-Pfad bleibt `Ollama`.
+
+Bevorzugtes Baseline-Modell fuer den aktuellen Slice auf 8-GB-VRAM-Systemen:
+
+- `qwen2.5:7b`
+
+Vergleichs- oder Fallback-Kandidaten:
+
+- `llama3.1:8b`
+
+Operative Konsequenz:
+
+- neue lokale Setups, Beispiel-Umgebungen und Default-Fallbacks sollen `qwen2.5:7b` verwenden,
+- spaetere Modellvergleiche duerfen davon abweichen, aber nur bewusst und nicht still ueber historische Defaults.
+
+Minimaler Spielleiter-Orchestrator-Hook
+---------------------------------------
+
+Der erste Runtime-Schritt fuer den offenen Spielleiter-Orchestrator bleibt auf den vorhandenen Endpunkten `/chat` und `/chat/stream`.
+
+Aktive opt-in Felder in `ChatRequest.options`:
+
+- `orchestrator_enabled`
+- `campaign_id`
+- `scene_id`
+- `slot_id`
+- `turn_id`
+- `retrieval_query`
+- `public_context`
+- `hidden_context`
+- `scheduler_hints`
+- `state_patch_hints`
+
+Operatives Verhalten des Hooks:
+
+- der bestehende Chat-Pfad bleibt erhalten,
+- der Hook injiziert einen kontrollierten Systemblock fuer Sitzungsrahmen, PC-Sicht, Hidden-Context, Scheduler-Hinweise und Patch-Ziele,
+- bei aktivem Orchestrator werden Kontextnotizen, ein optionaler `retrieval_query` und RP-/Projekt-Retrieval in denselben Spielleiter-Block gefaltet statt als lose Zusatzbloecke daneben zu stehen,
+- `hidden_context` bleibt explizit nur interner Steuerkontext und ist nicht fuer direkte PC-Ausgabe gedacht,
+- Projektkontext-Bruecke, Kontextnotizen und RAG bleiben derselbe bestehende Unterbau; getrennte `[Kontext-Notizen]`-/`[RAG]`-Bloecke laufen weiter nur fuer den nicht orchestrierten Standardpfad.
+
+Minimaler Sim-Live-Client (Hub)
+-------------------------------
+
+- `novapolis-sim/scripts/Main.gd` nutzt das bestehende Hub-Chat-Panel jetzt als minimalen Live-Spielclient fuer denselben Text-RPG-Pfad,
+- der Client sendet `session_id`, `campaign_id`, `scene_id`, `slot_id`, `turn_id`, `public_context`, `state_patch_hints` und `retrieval_query` an `/chat`,
+- eingehende Antworten werden heuristisch in `Szene`, `Konsequenz`, `Optionen` und `State_Patches` zerlegt und als laufender Sessionstand im Panel gehalten,
+- der Produktpfad bleibt bewusst minimal: die Session-/Replay-Bridge lebt jetzt separat in der Sim-API, waehrend Chat-Orchestrierung und Scheduler-Rueckkopplung weiter locker gekoppelt bleiben.
+
+Session- und Replay-Bruecke
+---------------------------
+
+Die minimal belastbare Persistenz fuer den ersten Slice liegt jetzt in `novapolis_agent/app/api/sim.py`.
+
+Artefaktkern pro Session:
+
+- `novapolis_agent/tmp/sim_sessions/<session_id>/savegame.json`
+- `novapolis_agent/tmp/sim_sessions/<session_id>/world_log.jsonl`
+- `novapolis_agent/tmp/sim_sessions/<session_id>/pc_log.jsonl`
+- `novapolis_agent/tmp/sim_sessions/<session_id>/replay_manifest.json`
+
+Aktive Endpunkte:
+
+- `PUT /session/{session_id}`
+  - schreibt oder erweitert den Sessionstand,
+  - nimmt `campaign_id`, `scene_id`, `slot_id`, `slot_index`, `turn_id`, `seed`, `world_state`, `state_patches`, `world_log` und `pc_log` an,
+  - normalisiert Logeintraege auf denselben Session-/Slot-/Tick-Kontext.
+- `GET /session/{session_id}`
+  - liefert den aktuellen Resume-Stand inklusive `resume_checkpoint_id`, Checkpoint-Liste, `world_state`, `state_patches`, `world_log` und `pc_log`.
+- `GET /session/{session_id}/replay`
+  - liefert den Replay-Manifestkern mit Artefaktpfaden und Event-/Patch-Zaehlern fuer spaetere Hub- oder Epoch-Exporte.
+
+Operative Lesart:
+
+- Die Bruecke ersetzt noch nicht den Produktpfad ueber `/chat`, sondern stabilisiert den Artefaktkern darunter.
+- `world_log` und `pc_log` bleiben bewusst Sim-kompatible JSONL-Dateien statt eines neuen Nebenformats.
+- Resume-Punkte laufen zunaechst ueber `turn_id`, sonst ueber einen Tick-basierten Fallback `tick-XXXX`.
+
+Noch offen:
+
+- keine echte Scheduler-Engine,
+- keine automatische Ableitung aus RP-SSOTs,
+- keine direkte Verdrahtung des `/chat`-Pfads auf die neue Session-API.
 
 Qualitaetsgates (verbindliche Reihenfolge)
 ------------------------------------------

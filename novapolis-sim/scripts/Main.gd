@@ -121,7 +121,7 @@ signal on_interrupt(reason: String, context: Dictionary)
 @export var eval_summary_refresh_interval_seconds: float = 8.0
 @export var eval_expected_duration_seconds: float = 25.0
 @export var eval_quick_limit: int = 30
-@export var hub_chat_profile_id: String = "context_bridge"
+@export var hub_chat_profile_id: String = "text_rpg"
 
 var _loaded_epochs: Array[Dictionary] = []
 var _current_epoch_index: int = 0
@@ -226,6 +226,16 @@ var _hub_refresh_profile: String = "normal"
 var _hub_config_collapsed: bool = false
 var _hub_chat_in_flight: bool = false
 var _hub_chat_lines: Array[String] = []
+var _hub_chat_campaign_id: String = "novapolis_text_rpg_v1"
+var _hub_chat_session_id: String = ""
+var _hub_chat_scene_id: String = "hub_boot"
+var _hub_chat_turn_index: int = 0
+var _hub_chat_pending_turn_id: String = ""
+var _hub_chat_current_scene_text: String = "Kein Live-Lauf aktiv."
+var _hub_chat_current_consequence: String = ""
+var _hub_chat_current_options: Array[String] = []
+var _hub_chat_current_state_patches: Array[String] = []
+var _hub_chat_public_context: String = ""
 var _marquee_state: Dictionary = {}
 var _lower_shared_topic: String = "agent_api"
 const _HUB_PREFS_PATH: String = "user://hub_prefs.cfg"
@@ -356,8 +366,10 @@ func _ready() -> void:
 	_refresh_hub_config_ui()
 	_set_hub_config_collapsed(false)
 	hub_chat_history_label.bbcode_enabled = false
-	hub_chat_history_label.text = "System: Chat bereit."
-	hub_chat_status_label.text = "Chat: bereit"
+	_hub_chat_session_id = "sim-hub-%s" % Time.get_datetime_string_from_system(false, true).replace(":", "").replace("-", "").replace(" ", "_")
+	_hub_chat_public_context = _build_hub_chat_public_context()
+	_refresh_hub_chat_ui()
+	hub_chat_status_label.text = "Live-Spielclient: bereit"
 	_refresh_agent_studio_ui()
 	_refresh_agent_form_ui()
 	agent_studio_hint_label.visible = false
@@ -1404,6 +1416,7 @@ func _render_pc_centric_view() -> void:
 		else:
 			empty_lines.append_array(_runtime_events)
 		log_label.text = "\n".join(empty_lines)
+		_refresh_hub_chat_ui()
 		return
 
 	var epoch := _loaded_epochs[_current_epoch_index]
@@ -1437,6 +1450,174 @@ func _render_pc_centric_view() -> void:
 		lines.append_array(_runtime_events)
 
 	log_label.text = "\n".join(lines)
+	_refresh_hub_chat_ui()
+
+
+func _hub_chat_slot_id() -> String:
+	return "slot-%02d" % _current_slot
+
+
+func _next_hub_chat_turn_id() -> String:
+	return "turn-%02d" % (_hub_chat_turn_index + 1)
+
+
+func _build_hub_chat_public_context() -> String:
+	var lines: Array[String] = []
+	lines.append("slot: %02d" % _current_slot)
+	if _hub_chat_current_scene_text != "" and _hub_chat_current_scene_text != "Kein Live-Lauf aktiv.":
+		lines.append("szene: %s" % _hub_chat_current_scene_text)
+	if _hub_chat_current_consequence != "":
+		lines.append("konsequenz: %s" % _hub_chat_current_consequence)
+	if not _hub_chat_current_options.is_empty():
+		lines.append("optionen:")
+		for option in _hub_chat_current_options:
+			lines.append("- %s" % option)
+	return "\n".join(lines)
+
+
+func _build_hub_chat_retrieval_query(prompt: String) -> String:
+	var parts: Array[String] = []
+	parts.append(prompt.strip_edges())
+	parts.append(_hub_chat_slot_id())
+	if _hub_chat_scene_id != "":
+		parts.append(_hub_chat_scene_id)
+	if _hub_chat_current_scene_text != "" and _hub_chat_current_scene_text != "Kein Live-Lauf aktiv.":
+		parts.append(_hub_chat_current_scene_text)
+	if _hub_chat_current_consequence != "":
+		parts.append(_hub_chat_current_consequence)
+	return " | ".join(parts)
+
+
+func _coerce_hub_chat_string_array(value: Variant) -> Array[String]:
+	var result: Array[String] = []
+	if typeof(value) != TYPE_ARRAY:
+		return result
+	for entry in value:
+		var text := str(entry).strip_edges()
+		if text != "":
+			result.append(text)
+	return result
+
+
+func _extract_hub_chat_heading_value(line: String) -> String:
+	var separator_index := line.find(":")
+	if separator_index < 0:
+		return ""
+	return line.substr(separator_index + 1).strip_edges()
+
+
+func _clean_hub_chat_item(line: String) -> String:
+	var clean := line.strip_edges()
+	for prefix in ["- ", "* ", "• "]:
+		if clean.begins_with(prefix):
+			return clean.substr(prefix.length()).strip_edges()
+	return clean
+
+
+func _parse_hub_chat_response(content: String) -> Dictionary:
+	var scene_lines: Array[String] = []
+	var consequence_lines: Array[String] = []
+	var option_lines: Array[String] = []
+	var state_patch_lines: Array[String] = []
+	var current_section := ""
+
+	for raw_line in content.split("\n"):
+		var line := raw_line.strip_edges()
+		if line == "":
+			continue
+		var lower := line.to_lower()
+		if lower.begins_with("szene"):
+			current_section = "scene"
+			var scene_value := _extract_hub_chat_heading_value(line)
+			if scene_value != "":
+				scene_lines.append(scene_value)
+			continue
+		if lower.begins_with("konsequenz"):
+			current_section = "consequence"
+			var consequence_value := _extract_hub_chat_heading_value(line)
+			if consequence_value != "":
+				consequence_lines.append(consequence_value)
+			continue
+		if lower.begins_with("optionen"):
+			current_section = "options"
+			var option_value := _extract_hub_chat_heading_value(line)
+			if option_value != "":
+				option_lines.append(_clean_hub_chat_item(option_value))
+			continue
+		if lower.begins_with("state_patches") or lower.begins_with("state patches"):
+			current_section = "state_patches"
+			var patch_value := _extract_hub_chat_heading_value(line)
+			if patch_value != "":
+				state_patch_lines.append(_clean_hub_chat_item(patch_value))
+			continue
+
+		match current_section:
+			"scene":
+				scene_lines.append(line)
+			"consequence":
+				consequence_lines.append(line)
+			"options":
+				option_lines.append(_clean_hub_chat_item(line))
+			"state_patches":
+				state_patch_lines.append(_clean_hub_chat_item(line))
+			_:
+				pass
+
+	var scene_text := " ".join(scene_lines).strip_edges()
+	var consequence_text := " ".join(consequence_lines).strip_edges()
+	if scene_text == "" and consequence_text == "" and content.strip_edges() != "":
+		consequence_text = content.strip_edges().replace("\n", " ")
+	return {
+		"scene": scene_text,
+		"consequence": consequence_text,
+		"options": option_lines,
+		"state_patches": state_patch_lines,
+	}
+
+
+func _refresh_hub_chat_ui() -> void:
+	var chat_title := get_node_or_null("HubChatPanel/HubChatTitleLabel") as Label
+	if chat_title:
+		chat_title.text = "Live-Spielclient | %s | scene=%s | turn=%d" % [_hub_chat_slot_id(), _hub_chat_scene_id, _hub_chat_turn_index]
+
+	var lines: Array[String] = []
+	lines.append("Session: %s | Kampagne: %s" % [_hub_chat_session_id if _hub_chat_session_id != "" else "n/a", _hub_chat_campaign_id])
+	lines.append("Slot/Scene: %s | %s" % [_hub_chat_slot_id(), _hub_chat_scene_id])
+	lines.append("Szene: %s" % _hub_chat_current_scene_text)
+	if _hub_chat_current_consequence != "":
+		lines.append("Konsequenz: %s" % _hub_chat_current_consequence)
+	if not _hub_chat_current_options.is_empty():
+		lines.append("Optionen:")
+		for option in _hub_chat_current_options:
+			lines.append("- %s" % option)
+	if not _hub_chat_current_state_patches.is_empty():
+		lines.append("State-Patches:")
+		for patch in _hub_chat_current_state_patches:
+			lines.append("- %s" % patch)
+	lines.append("")
+	lines.append("Protokoll:")
+	if _hub_chat_lines.is_empty():
+		lines.append("System: Live-Spielclient bereit.")
+	else:
+		lines.append_array(_hub_chat_lines)
+	hub_chat_history_label.text = "\n".join(lines)
+
+
+func _apply_hub_chat_response(answer: String) -> void:
+	var parsed := _parse_hub_chat_response(answer)
+	var scene_text := str(parsed.get("scene", "")).strip_edges()
+	if scene_text != "":
+		_hub_chat_current_scene_text = scene_text
+		_hub_chat_scene_id = _hub_chat_slot_id()
+	var consequence_text := str(parsed.get("consequence", "")).strip_edges()
+	_hub_chat_current_consequence = consequence_text
+	_hub_chat_current_options = _coerce_hub_chat_string_array(parsed.get("options", []))
+	_hub_chat_current_state_patches = _coerce_hub_chat_string_array(parsed.get("state_patches", []))
+	_hub_chat_public_context = _build_hub_chat_public_context()
+	if _hub_chat_pending_turn_id != "":
+		_hub_chat_turn_index += 1
+		_hub_chat_pending_turn_id = ""
+	_refresh_hub_chat_ui()
 
 
 func _collect_unique_slots(world_log: Array, pc_log: Array) -> Array[int]:
@@ -2390,31 +2571,50 @@ func _on_hub_chat_input_submitted(_text: String) -> void:
 
 func _send_hub_chat_message() -> void:
 	if _hub_chat_in_flight:
-		hub_chat_status_label.text = "Chat: Anfrage laeuft bereits"
+		hub_chat_status_label.text = "Live-Spielclient: Anfrage laeuft bereits"
 		return
 
 	var prompt := hub_chat_input_edit.text.strip_edges()
 	if prompt == "":
-		hub_chat_status_label.text = "Chat: Bitte Nachricht eingeben"
+		hub_chat_status_label.text = "Live-Spielclient: Bitte Nachricht eingeben"
 		return
 
 	var endpoint := _hub_chat_endpoint()
+	if _hub_chat_scene_id == "hub_boot":
+		_hub_chat_scene_id = _hub_chat_slot_id()
+	_hub_chat_public_context = _build_hub_chat_public_context()
+	var turn_id := _next_hub_chat_turn_id()
 	var payload := {
 		"messages": [{"role": "user", "content": prompt}],
 		"profile_id": hub_chat_profile_id,
+		"session_id": _hub_chat_session_id,
+		"options": {
+			"session_id": _hub_chat_session_id,
+			"orchestrator_enabled": true,
+			"campaign_id": _hub_chat_campaign_id,
+			"scene_id": _hub_chat_scene_id,
+			"slot_id": _hub_chat_slot_id(),
+			"turn_id": turn_id,
+			"retrieval_query": _build_hub_chat_retrieval_query(prompt),
+			"public_context": _hub_chat_public_context,
+			"scheduler_hints": ["sim_live_client", _hub_chat_slot_id()],
+			"state_patch_hints": ["scene.current", "pc_log.append", "world_log.append"],
+		},
 	}
 	var body := JSON.stringify(payload, "")
 	var headers := PackedStringArray(["Content-Type: application/json"])
 	var err := hub_chat_request.request(endpoint, headers, HTTPClient.METHOD_POST, body)
 	if err != OK:
-		hub_chat_status_label.text = "Chat: Request-Fehler (%d)" % err
+		_hub_chat_pending_turn_id = ""
+		hub_chat_status_label.text = "Live-Spielclient: Request-Fehler (%d)" % err
 		_append_hub_chat_line("System", "Request konnte nicht gestartet werden.")
 		return
 
+	_hub_chat_pending_turn_id = turn_id
 	_hub_chat_in_flight = true
 	hub_chat_send_button.disabled = true
 	hub_chat_input_edit.editable = false
-	hub_chat_status_label.text = "Chat: sende an %s" % endpoint
+	hub_chat_status_label.text = "Live-Spielclient: sende an %s" % endpoint
 	_append_hub_chat_line("Du", prompt)
 	hub_chat_input_edit.clear()
 	_append_runtime_event("HUB_CHAT", {"action": "send", "endpoint": endpoint})
@@ -2442,12 +2642,15 @@ func _on_hub_chat_request_completed(result: int, response_code: int, _headers: P
 			var answer := str(obj.get("content", ""))
 			if answer == "":
 				answer = str(obj.get("detail", "(leere Antwort)"))
-			_append_hub_chat_line("KI", answer)
-			hub_chat_status_label.text = "Chat: Antwort ok (%d)" % response_code
+			_append_hub_chat_line("SL", answer)
+			_apply_hub_chat_response(answer)
+			hub_chat_status_label.text = "Live-Spielclient: Antwort ok (%d)" % response_code
 		else:
-			_append_hub_chat_line("KI", text)
-			hub_chat_status_label.text = "Chat: Antwort ok (%d)" % response_code
+			_append_hub_chat_line("SL", text)
+			_apply_hub_chat_response(text)
+			hub_chat_status_label.text = "Live-Spielclient: Antwort ok (%d)" % response_code
 	else:
+		_hub_chat_pending_turn_id = ""
 		var detail := "HTTP %d | result=%d" % [response_code, result]
 		if typeof(parsed) == TYPE_DICTIONARY:
 			var err_obj := parsed as Dictionary
@@ -2455,7 +2658,7 @@ func _on_hub_chat_request_completed(result: int, response_code: int, _headers: P
 		elif text != "":
 			detail = "%s | %s" % [detail, text]
 		_append_hub_chat_line("System", detail)
-		hub_chat_status_label.text = "Chat: Fehler (%d)" % response_code
+		hub_chat_status_label.text = "Live-Spielclient: Fehler (%d)" % response_code
 
 	_append_runtime_event("HUB_CHAT", {"action": "response", "http": response_code, "result": result})
 
@@ -2468,7 +2671,7 @@ func _append_hub_chat_line(role: String, content: String) -> void:
 	_hub_chat_lines.append(line)
 	while _hub_chat_lines.size() > _HUB_CHAT_MAX_LINES:
 		_hub_chat_lines.remove_at(0)
-	hub_chat_history_label.text = "\n".join(_hub_chat_lines)
+	_refresh_hub_chat_ui()
 
 
 func _on_hub_checks_pressed() -> void:

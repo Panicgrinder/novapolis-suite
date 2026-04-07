@@ -1,62 +1,67 @@
 ---
-stand: 2026-03-03 14:48
-update: Follow-up umgesetzt: Root-Asset-Quelle nach Verschiebung ins Sim-Modul wieder entfernt; Doku auf Ist-Zustand aktualisiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (2026-03-03 14:48); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'PR_DESCRIPTION.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-03 14:48)
+stand: 2026-04-07 10:20
+update: PR-Beschreibung beschreibt jetzt konsistent den aktuellen Text-RPG-Branch-Scope mit Orchestrator-, Sim-Live-Client- und Session-Replay-Bruecke.
+checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS
 ---
 
-PR: Stabilization And Governance Hardening (2026-03-03)
-========================================================
+PR: Text-RPG Slice Scope Sync (2026-04-07)
+==========================================
 
 Summary
 -------
 
-This PR finalizes the Novapolis stabilization and governance hardening run across RP, checks/tooling, docs, and sim UI.
+This branch no longer matches the stale draft title of the active pull request.
+
+The real scope of the current branch is the next Text-RPG product slice across Agent, Sim, and docs:
+
+- local runtime baseline on `Ollama + qwen2.5:7b`,
+- session contract and product gate SSOTs,
+- opt-in game-master orchestrator on the existing `/chat` and `/chat/stream` path,
+- minimal live-session client in the Sim hub,
+- file-backed session/replay bridge for `savegame.json`, `world_log.jsonl`, `pc_log.jsonl`, and `replay_manifest.json`.
 
 What Changed
 ------------
 
-### RP: Mind-Cluster governance and validation
+### Agent runtime and orchestrator
 
-- Hardened mind-cluster instruction rules with explicit enums/ranges/taxonomies.
-- Extended RP validator with strict checks for:
-  - `relation_status` enum
-  - `confidence`/`volatility` in `0.0..1.0`
-  - `event_id` schema (`evt:<domain>-<seq>`)
-  - closed event taxonomy
-  - registered `R-MCL-*` / `E-MCL-*` rule-id sets
-  - registered `RC-*` reason-code taxonomy
-- Migrated existing Novapolis mind-cluster reason codes to registered `RC-*` values.
+- `novapolis_agent/app/core/settings.py` and the environment docs now treat `qwen2.5:7b` as the local 8-GB baseline on top of `Ollama`.
+- `novapolis_agent/app/api/models.py` and `novapolis_agent/app/api/chat.py` extend the existing chat path with the current orchestrator fields, including `retrieval_query` and the bundled context/retrieval injection.
+- The orchestrator remains on `/chat` and `/chat/stream`; this branch does not add a parallel game-master endpoint.
 
-### Checks/Tooling hardening
+### Sim live client and session artifacts
 
-- Added naming-policy gate and wired it into consolidated checks.
-- Hardened path-portability checker to ignore audit-style `checks:` frontmatter command traces.
-- Expanded markdownlint ignore scope for vendor mirror path (`TTS/**`).
-- Added workspace search utility and naming-policy checker scripts.
-- Cleaned remaining lint/format issues in helper scripts and agent shim files.
+- `novapolis-sim/scripts/Main.gd` uses the existing hub chat as a minimal live-session client and sends session/orchestrator fields to `/chat`.
+- `novapolis_agent/app/api/sim.py` now persists per-session artifacts under `novapolis_agent/tmp/sim_sessions/<session_id>/`.
+- The new session endpoints are:
+  - `PUT /session/{session_id}`
+  - `GET /session/{session_id}`
+  - `GET /session/{session_id}/replay`
+- The persisted artifact set is:
+  - `savegame.json`
+  - `world_log.jsonl`
+  - `pc_log.jsonl`
+  - `replay_manifest.json`
 
-### Sim UI and assets
+### Docs and scope cleanup
 
-- Added main menu page-1 background asset and scene binding.
-- Implemented responsive Hub layout behavior.
-- Replaced raw JSON form flow in Agent module with structured dynamic form fields and typed controls.
-- Improved agent panel/form layout behavior in exclusive and docked modes.
+- `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.index.md`, `novapolis_agent/docs/runbook.md`, `novapolis_agent/docs/DONELOG.txt`, `novapolis-dev/docs/donelog.md`, and `DONELOG.md` were synchronized to the actual Text-RPG slice.
+- This file now reflects the current branch scope instead of the outdated stabilization/governance draft text.
 
-### Docs and status synchronization
+Checks
+------
 
-- Updated root/dev/module donelogs and status/todo index docs to reflect completed stabilization milestones.
-- Updated portable command snippets in active docs/settings.
+- Targeted tests cover the new session bridge and replay manifest paths in:
+  - `novapolis_agent/tests/test_api_sim_state.py`
+  - `novapolis_agent/tests/tests_sim_api.py`
+- Additional targeted Agent tests already cover the orchestrator path in:
+  - `novapolis_agent/tests/test_api_chat_internal_branches.py`
+  - `novapolis_agent/tests/test_models_chat_options.py`
 
-Validation
-----------
-
-- Consolidated quality run reports `overall=PASS` after stabilization.
-- Relevant gates reported green in latest full run: lint/format/type/tests/coverage/frontmatter/naming/path portability.
-
-Notes / Follow-up
+Risks / Follow-up
 -----------------
 
-- The temporary root `assets/` source folder was removed after the asset handover to `novapolis-sim/assets/`.
-- Large workspace tree artifacts were refreshed as part of status synchronization.
-- Asset provenance note: assets in this change run were generated with GPT.
+- The active GitHub draft PR title/body are still stale until they are updated on GitHub itself.
+- The new session bridge is intentionally minimal and not yet wired directly into the `/chat` runtime path.
+- Scheduler execution, GM eval gates, and session-TTS coupling remain open follow-up work.
 

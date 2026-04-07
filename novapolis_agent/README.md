@@ -1,14 +1,16 @@
 ---
-stand: 2026-03-28 06:51
-update: Lokale Kontext-Notizen, Eval-Defaults und README-Beispiele auf den kanonischen Modulpfad `novapolis_agent/eval/` umgestellt.
-checks: snapshot-lock PASS; pytest PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS; doc-freshness PASS (2026-03-28 06:32)
+stand: 2026-04-07 10:20
+update: README fuehrt jetzt `Ollama + qwen2.5:7b` als lokale Runtime-Baseline fuer 8-GB-VRAM-Systeme.
+checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS
 ---
 
 Novapolis Agent
 ===============
 
-Ein FastAPI-Backend für einen Conversational Agent innerhalb der Novapolis Suite, der Ollama als LLM verwendet.
+Ein FastAPI-Backend für einen Conversational Agent innerhalb der Novapolis Suite, der Ollama als LLM-Runtime verwendet.
 Der Agent tritt unter dem Namen "Chronistin von Novapolis" auf.
+
+Lokale Runtime-Baseline (2026-04-06): `Ollama + qwen2.5:7b` ist das bevorzugte Standardprofil fuer 8-GB-VRAM-Systeme. `llama3.1:8b` bleibt ein moeglicher Vergleichs- oder Fallback-Kandidat, ist aber nicht mehr der Default.
 
 Ist-Stand (Betriebsfaehigkeit)
 ------------------------------
@@ -116,7 +118,7 @@ Nach der Installation: ollama serve
 5. LLM-Modell herunterladen:
 
 ```powershell
-   ollama pull llama3.1:8b
+   ollama pull qwen2.5:7b
    ```
 
 Anwendung starten
@@ -196,6 +198,12 @@ Einstellungen/Umgebung
 Konfiguration per `.env` (siehe Beispiele in `app/core/settings.py`). Wichtige Felder:
 
 Hinweis: Bei aktiviertem Rate Limiting wird pro IP innerhalb eines 60s-Fensters begrenzt (in-memory, best-effort).
+
+Empfohlene lokale Modellbasis:
+
+- Runtime: `Ollama`
+- Baseline-Modell: `qwen2.5:7b`
+- Vergleich/Fallback: `llama3.1:8b`
 
 ### Konfigurationsvertrag (Masterplan Schritt 2)
 

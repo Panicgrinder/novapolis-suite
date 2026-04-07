@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
-update: Dev-DONELOG dokumentiert jetzt die konfliktbereinigten Neutralstarts `E2/F1` inklusive Crossref-Fixlauf.
-checks: snapshot-lock PASS (2026-04-05 19:41); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-07 10:20
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich die dateigestuetzte Session-/Replay-Bruecke im Sim-Modul und den bereinigten PR-Scope-Text.
+checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,41 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Agent/Docs: Session-/Replay-Bruecke und PR-Scope fuer den Text-RPG-Slice nachgezogen (2026-04-07 09:50)
+-------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/api/sim.py` schreibt jetzt pro Session einen dateigestuetzten Artefaktkern `savegame.json`, `world_log.jsonl`, `pc_log.jsonl` und `replay_manifest.json` unter `novapolis_agent/tmp/sim_sessions/<session_id>/` und stellt denselben Stand ueber `PUT /session/{session_id}`, `GET /session/{session_id}` und `GET /session/{session_id}/replay` bereit.
+- `novapolis_agent/tests/test_api_sim_state.py` und `tests/tests_sim_api.py` sichern Artefaktwrite, Reload, Resume-Checkpoint, Replay-Manifest und 404-Pfade; das Agent-Board schliesst damit den Replay-/Savegame-Punkt und `todo.index.md` reduziert den Agent-Open-Count von `4` auf `3`.
+- `novapolis_agent/docs/runbook.md` dokumentiert den neuen Betriebsweg, und `PR_DESCRIPTION.md` spiegelt jetzt den realen Branch-Scope fuer den Text-RPG-Slice statt der veralteten Draft-Beschreibung.
+
+Agent/Sim: Orchestrator-Kontext gebuendelt und Hub zum Live-Spielclient gehoben (2026-04-07 09:14)
+-----------------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/api/models.py` fuehrt fuer den Orchestrator jetzt zusaetzlich `retrieval_query`; `novapolis_agent/app/api/chat.py` faltet bei aktiviertem Spielleiter-Pfad Kontextnotizen und RP-/Projekt-Retrieval in denselben Systemblock und vermeidet dort die getrennten `[Kontext-Notizen]`-/`[RAG]`-Bloecke.
+- `novapolis_agent/tests/test_api_chat_internal_branches.py` und `test_models_chat_options.py` sichern die gebuendelte Injektion und das erweiterte Optionsschema; der gezielte Pytest-Lauf fuer beide Dateien sowie ein gezielter Ruff-Check auf den geaenderten Python-Dateien liefen gruen.
+- `novapolis-sim/scripts/Main.gd` nutzt das bestehende Hub-Panel jetzt als minimalen Live-Spielclient: Session-ID, Slot-/Turn-Rahmen, `public_context`, `state_patch_hints` und `retrieval_query` werden an `/chat` gesendet, und Antworten werden im Panel als `Szene/Konsequenz/Optionen/State-Patches` aufgefaehrt; `todo.agent-board.md`, `todo.sim.md`, `todo.index.md`, `novapolis_agent/docs/runbook.md`, `novapolis_agent/docs/DONELOG.txt` und `DONELOG.md` sind im selben Lauf synchronisiert.
+
+Agent/Runtime: Minimaler Spielleiter-Orchestrator-Hook gestartet (2026-04-06 06:57)
+-------------------------------------------------------------------------------
+
+- Die lokale Root-`.env` ist fuer den aktiven Lauf jetzt ebenfalls auf `qwen2.5:7b` nachgezogen.
+- `novapolis_agent/app/api/models.py` fuehrt opt-in Felder fuer Sitzungsrahmen, `public_context`, `hidden_context`, Scheduler- und Patch-Hinweise; `novapolis_agent/app/api/chat.py` injiziert daraus einen ersten kontrollierten Systemblock in `/chat` und `/chat/stream`.
+- `novapolis_agent/tests/test_models_chat_options.py` und `novapolis_agent/tests/test_api_chat_internal_branches.py` sichern den Hook; `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/todo.agent-board.md` und `novapolis-dev/docs/todo.index.md` sind im selben Lauf nachgezogen.
+
+Agent/Runtime: Lokale Baseline `Ollama + qwen2.5:7b` festgezogen (2026-04-06 05:42)
+------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/core/settings.py` fuehrt `qwen2.5:7b` jetzt als Default- und Fallback-Modell, waehrend `Ollama` die kanonische lokale Runtime bleibt.
+- Die Root-`.env.example` sowie `novapolis_agent/README.md` und `novapolis_agent/docs/runbook.md` fuehren denselben 8-GB-VRAM-Betriebsstandard und halten `llama3.1:8b` nur noch als Vergleichs- oder Fallback-Kandidaten lesbar.
+- `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.index.md` und `novapolis_agent/docs/DONELOG.txt` sind im selben Lauf synchronisiert.
+
+Docs/Planning: Sessionvertrag v1, Product Gate v1 und Kampagnenkorridor `slot 21-25` festgezogen (2026-04-06 00:46)
+--------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md` definiert jetzt den kanonischen Session- und Kampagnenvertrag des ersten spielbaren Slice mit `campaign_id`, `session_id`, `scene_id`, `slot_id`, `turn_id`, `state_patches` und den Log-Kanaelen `world|pc|ally|sys`.
+- `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` fuehrt den verbindlichen End-to-End-Gate-Namen `Text-RPG Product Gate v1` samt Gate-Stufen und aktuellem Task-Block `Checks: full` -> `Tests: pytest (api+streaming)` -> `Checks: sim epoch assets`.
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-21-25.ssot.md` fuehrt den Produktpfad hinter `slot 20` ueber `E2/F1`, Rueckkopplung und episodischen Uebergabeanker weiter; `todo.agent-board.md`, `todo.dev.md`, `todo.rp.md`, `todo.index.md`, `novapolis_agent/docs/runbook.md`, `novapolis_agent/docs/DONELOG.txt` und das RP-Startpaket sind im selben Lauf synchronisiert.
 
 RP/Planning: Neutralstarts `E2/F1` plus F1-Klarstellung in `C6` geschlossen (2026-04-05 19:33)
 -----------------------------------------------------------------------------------------------
