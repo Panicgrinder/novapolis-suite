@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 21:38
-update: Dev-DONELOG dokumentiert jetzt den vollstaendig warnungsfreien kanonischen Agent-Typenlauf und den nachgezogenen Doku-Sync dazu.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260407_213201.md
+stand: 2026-04-08 13:40
+update: Dev-DONELOG dokumentiert jetzt den nachgezogenen Wochenabschluss mit gruenem Full-Check, Coverage-, Sim- und KPI-Block.
+checks: Wochenabschluss via scripts/run_checks_and_report.py overall=PASS; report=.tmp\results\reports\checks_report_20260408_131224.md; scripts\check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency summary=fail:0,warn:0; scripts\run_pytest_coverage.py --fail-under 80 PASS report=.tmp\results\reports\pytest_coverage_postflight_20260408_131356.md coverage=90.14%; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py WORKSPACE_STATUS.md DONELOG.md todo.root.md novapolis-dev/docs/donelog.md novapolis-dev/docs/todo.index.md novapolis-dev/docs/meta/dev-kpi-trends.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . --write-index-meta PASS; .\.venv\Scripts\python.exe scripts\check_doc_freshness.py --repo-root . PASS; .\.venv\Scripts\python.exe scripts\check_logs_policy.py --repo-root . PASS
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,23 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Wochenabschluss: Nachgezogenen Abschlusslauf komplett gruen dokumentiert (2026-04-08 13:27)
+---------------------------------------------------------------------------------------------
+
+- `scripts/run_checks_and_report.py` liefert erneut `overall=PASS`; der neue Sammelbeleg liegt unter `.tmp/results/reports/checks_report_20260408_131224.md`, alle Pflichtgates einschliesslich `todo-index-sync`, `doc-freshness`, `logs-policy`, `ruff`, `black`, `pyright`, `mypy` und `pytest` sind gruen.
+- Der separate Coverage-Lauf `scripts/run_pytest_coverage.py --fail-under 80` ist ebenfalls PASS; `.tmp/results/reports/pytest_coverage_postflight_20260408_131356.md` meldet `Total coverage: 90.14%` bei `518 passed, 1 warning`, damit sind Hard Gate und Qualitaetsziel zugleich gehalten.
+- Der Sim-Offline-Check `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency` endet weiterhin mit `summary=fail:0,warn:0`; mangels Strukturdelta mussten keine Tree-Artefakte neu erzeugt werden.
+- Die Hygiene-Cadence bleibt bei `todo_index_drift=0`, `active_docs_stale=0`, `placeholder_conflicts=0` und `logs_policy_violations=0`; die Ableitung stuetzt sich auf den PASS-Block aus dem Full-Check, den separaten `check_logs_policy.py`-Direktlauf und das Fehlen offener Placeholder-/Truthfulness-Konflikte im aktiven Dev-Bestand. `novapolis-dev/docs/meta/dev-kpi-trends.md` fuehrt dafuer jetzt den Slot `S6`.
+- `todo.root.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md`, `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/meta/dev-kpi-trends.md` sind im selben Lauf synchronisiert.
+
+Docs/Governance: Root-Steuerdoku gegen April-Iststand synchronisiert (2026-04-08 12:16)
+------------------------------------------------------------------------------------------
+
+- `WORKSPACE_STATUS.md` fuehrt jetzt die zuvor fehlenden 06./07.-April-Schritte des Text-RPG-Slice, statt nach dem Sim-Offline-Check direkt in den Maerz-Root-Cleanup zurueckzuspringen.
+- `todo.root.md` referenziert jetzt den PASS-Lauf vom 2026-04-07 statt des veralteten Referenzstands vom 2026-03-27.
+- `DONELOG.md` bleibt als Root-Summary auf knappe Root-Meilensteine fokussiert; `todo.index.md` fuehrt nur noch den aktuellen Board- und Gate-Stand, waehrend die Zwischenhistorie in diesem Dev-DONELOG verbleibt.
+- Gezielte Doku-Pruefung nach dem Sync: markdownlint, Frontmatter-Validator, `check_todo_index_sync.py --write-index-meta` und `check_doc_freshness.py` sind PASS.
 
 Agent/Typing: Kanonischen Typenrest in eval_utils und rag geschlossen (2026-04-07 20:57)
 ---------------------------------------------------------------------------------------

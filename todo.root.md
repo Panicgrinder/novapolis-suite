@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 21:38
-update: Der Root-Backlog fuehrt jetzt den kanonischen Text-RPG-Slice, den internen Releasepfad und die Prioritaet `spielbarer Kern vor Komfort` als geschlossen; offen bleiben keine Root-Metapunkte.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260407_213201.md
+stand: 2026-04-08 13:40
+update: Root-Backlog verweist jetzt auf den nachgezogenen Wochenabschluss vom 2026-04-08 als aktuellen Referenzlauf; Root-Metapunkte bleiben geschlossen.
+checks: Wochenabschluss via scripts/run_checks_and_report.py overall=PASS; report=.tmp\results\reports\checks_report_20260408_131224.md; scripts\check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency summary=fail:0,warn:0; scripts\run_pytest_coverage.py --fail-under 80 PASS report=.tmp\results\reports\pytest_coverage_postflight_20260408_131356.md coverage=90.14%; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py WORKSPACE_STATUS.md DONELOG.md todo.root.md novapolis-dev/docs/donelog.md novapolis-dev/docs/todo.index.md novapolis-dev/docs/meta/dev-kpi-trends.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . --write-index-meta PASS; .\.venv\Scripts\python.exe scripts\check_doc_freshness.py --repo-root . PASS; .\.venv\Scripts\python.exe scripts\check_logs_policy.py --repo-root . PASS
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -10,7 +10,10 @@ TODO-Uebersicht (Novapolis Suite)
 Kurzstatus
 ----------
 
-- Der aktuelle Referenzlauf vom 2026-03-27 ist gruen (`overall=PASS`, Coverage `93.69%`); der Wochenabschluss ist komplett nach SSOT dokumentiert, inklusive Coverage-Gate, Hygiene-KPIs und Sim-Asset-Check ohne harte Fehler.
+- Der aktuelle Referenzlauf vom 2026-04-08 ist gruen (`overall=PASS`); der kanonische Beleg liegt unter `.tmp/results/reports/checks_report_20260408_131224.md`.
+- Der separate Coverage-Lauf `scripts/run_pytest_coverage.py --fail-under 80` ist ebenfalls PASS (`90.14%`, `518 passed, 1 warning`); der Sim-Offline-Check im Clean-Checkout-Profil endet mit `summary=fail:0,warn:0`.
+- Die woechentliche Hygiene-Cadence bleibt gruen (`todo_index_drift=0`, `active_docs_stale=0`, `placeholder_conflicts=0`, `logs_policy_violations=0`).
+- Der erste Text-RPG-Slice, der interne Pfad `Slice -> MVP -> Beta` und die Prioritaet `spielbarer Kern vor Komfort` sind auf Root-Ebene gegen den belegten Modul-Iststand geschlossen; die Detailfuehrung liegt jetzt in den Modul-Boards und Gate-SSOTs.
 - Vorheriger Vollinhalt wurde archiviert unter `novapolis-dev/archive/quarantine/todo-root-snapshot-20260222_1234.md`.
 - Historische Sammelbasis: `novapolis-dev/archive/todo.root.archive.md`.
 - Diese Datei ist jetzt die aktive Arbeitsliste fuer neue Punkte.
