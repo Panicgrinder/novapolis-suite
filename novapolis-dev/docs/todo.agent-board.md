@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 21:38
-update: Das Agent-Board fuehrt jetzt auch den zuletzt noch getrennten Typenrest in eval_utils und rag als geschlossen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260407_213201.md
+stand: 2026-04-09 14:10
+update: Das Agent-Board fuehrt jetzt einen offenen Coverage-Haertungslauf fuer fuenf Low-Coverage-Module; Ziel ist echte Testabdeckung statt kosmetischer Quotenpflege.
+checks: scripts\run_pytest_coverage.py --fail-under 80 PASS; report=.tmp\results\reports\pytest_coverage_postflight_20260409_123310.md; coverage=88.98%
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -22,8 +22,48 @@ Prioritaetstags (aktiv)
 - `Als naechstes`: GM-Eval-Gates und Session-TTS an denselben Slice anbinden.
 - `Spaeter`: Training, Komfort und weitere Provider erst nach belastbarem Spielkern ausbauen.
 
+Neue Aufgaben - Coverage-Haertung (2026-04-09)
+----------------------------------------------
+
+- [ ] [Jetzt] Fuenf Low-Coverage-Module testseitig auf echte Vollabdeckung ziehen.
+  - Ziel: Die aktuell groessten Abdeckungsluecken im produktnahen Agent-Scope sollen nicht ueber globale Quoten versteckt, sondern mit belastbaren Unit- und Fehlerpfadtests geschlossen werden.
+  - Akzeptanzkriterien:
+    1) `novapolis_agent/scripts/run_text_rpg_reference_session.py`, `novapolis_agent/scripts/validate_eval_datasets.py`, `novapolis_agent/scripts/summarize_gm_eval_kpis.py`, `novapolis_agent/app/core/content_management.py` und `novapolis_agent/app/api/tts_models.py` erreichen in der Coverage-Nachmessung jeweils `100%`,
+    2) neue Tests decken explizit Fehler-, Fallback- und CLI-/Validatorpfade ab statt nur Happy Paths,
+    3) der gezielte Testlauf fuer die neuen Dateien bleibt gruen,
+    4) der anschliessende Coverage-Lauf bestaetigt den Effekt ueber den kanonischen Wrapper `scripts/run_pytest_coverage.py`.
+  - Evidenz: `.tmp/results/reports/pytest_coverage_20260409_123310.log` meldet aktuell `55%` fuer `novapolis_agent/scripts/run_text_rpg_reference_session.py`, `76%` fuer `novapolis_agent/scripts/validate_eval_datasets.py`, `83%` fuer `novapolis_agent/scripts/summarize_gm_eval_kpis.py`, `84%` fuer `novapolis_agent/app/core/content_management.py` und `86%` fuer `novapolis_agent/app/api/tts_models.py`.
+
 Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
 -------------------------------------------------
+
+- [x] [Jetzt] Strikten GM-Antwortvertrag im Chat-Pfad nachziehen.
+  - Ziel: Wenn der Userprompt explizit die Abschnittstitel `Szene:`, `Konsequenz:`, `Optionen:` und `State_Patches:` verlangt, soll der produktive `/chat`-Pfad eine enge Format- und Sichtbarkeitsfuehrung in denselben Lauf injizieren, damit qwen im GM-Slice weniger haeufig an fehlenden Abschnittstiteln, fehlenden nummerierten Optionen oder auslaufenden `State_Patches` scheitert.
+  - Akzeptanzkriterien:
+    1) der Chat-Pfad erkennt strikte Text-RPG-Formatprompts ohne neuen Parallelendpunkt,
+    2) die injizierte Zusatzfuehrung verlangt immer die vier Abschnittstitel, exakt drei nummerierte Optionen und ein explizites `State_Patches`-Segment, notfalls mit `[]`,
+    3) sichtbare Prompt-Anker wie Slot-/Turn-IDs bleiben als sichtbare Leitplanken erhalten, waehrend verdeckte/internal markierte Begriffe nicht in die sichtbare Antwort gezogen werden sollen,
+    4) ein gezielter Test deckt die Payload-Injektion gegen Regression ab.
+  - Evidenz: Der qwen-Sweep `novapolis_agent/eval/results/results_20260409_0041_gm_compare_qwen_sweep_n256.jsonl` ist zwar der stabilste Lauf ohne 504, scheitert aber bei `gm.session.continuity.v1` und `gm.session.reveal-discipline.v1` beide Male an fehlendem `State_Patches:` und fehlenden `1./2./3.`-Optionen; `results_20260409_0041_gm_compare_qwen_sweep_n512.jsonl` zeigt denselben Produktpfad mit besserer Strukturabdeckung, verfehlt aber weiter Sichtbarkeitsanker (`Geraeusch`, `Druck`) und leakt einmal `Verdeckter Auftrag`.
+  - Ergebnis 2026-04-09 03:05: `novapolis_agent/app/api/chat.py` injiziert fuer diese Prompts jetzt einen engeren `[Text-RPG-Formatvertrag]` mit exakt vier Abschnittstiteln, genau drei nummerierten Optionen, ohne zusaetzliche sichtbare Ueberschriften und mit getrennten sichtbaren bzw. verdeckten Prompt-Ankern. Der gezielte Test `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt denselben Hint jetzt fuer `process_chat_request()` und `stream_chat_request()` ab; der fokussierte Pytest-Lauf ist PASS.
+  - Nachmessung 2026-04-09 03:29: Der Punkt bleibt trotz des Payload-Fixes offen. Der qwen-Re-Run `results_20260409_0312_gm_compare_qwen_sweep_n256.jsonl` kommt nur auf `1/4`, und der bereinigte Produkt-Gate-Lauf `text_rpg_product_gate_20260409_032736.md` faellt korrekt auf `gm_session summary classified: blocker`. Die aktuellen Blocker bleiben `gm.session.continuity.v1` mit fehlendem `slot-03` und `turn-0007` sowie `gm.session.reveal-discipline.v1` mit fehlendem `Geraeusch`.
+  - Arbeitsstand 2026-04-09 08:18: Die aktuelle Triage zieht den Restpunkt auf Literal-Treue ein. Die Abschnittsstruktur ist stabil, aber die Produktantwort paraphrasiert sichtbare Pflichtanker noch zu frei: `slot-03` und `turn-0007` fehlen ganz, und `Geraeusch` driftet in eine nicht mehr checkkompatible Schreibweise. Naechster Fixlauf haertet deshalb die Hint-Injektion auf exakte, ASCII-stabile Pflichtanker pro sichtbarer Antwort aus.
+  - Zwischenstand 2026-04-09 08:39: Der Fixlauf hat den offenen Rest deutlich verkleinert. `gm.session.continuity.v1` ist jetzt gruen, `gm.session.option-quality.v1` ist ebenfalls gruen, und das Product Gate steht bei `3/4`. Offen bleibt nur noch `gm.session.reveal-discipline.v1`: Im Lauf `results_20260409_0838_gm_session.jsonl` fehlen weiter die exakten Literalanker `Geraeusch`, `Druck` und `Entscheidung`, obwohl Format, Nummerierung und die restlichen GM-Faelle jetzt halten.
+  - Arbeitsauftrag 2026-04-09 09:40: Die frische Nachmessung `novapolis_agent/eval/results/results_20260409_0910_gm_session.jsonl` zeigt die letzte echte Haertekante: Reveal antwortet noch mit `Geräusch` statt dem exakten ASCII-Literal `Geraeusch`, und `gm.session.option-quality.v1` kippt wieder auf eine Inline-`Optionen:`-Zeile ohne eigenes `State_Patches:`-Segment. Der naechste Fixlauf rekonstruiert deshalb den finalen Vier-Sektions-Output deterministisch aus der Modellantwort, erzwingt ASCII-stabile Pflichtanker in `Szene:`/`Konsequenz:` und zieht fehlende `State_Patches:`- bzw. `1./2./3.`-Optionen am Endtext kanonisch nach.
+  - Umsetzung 2026-04-09 09:48: Der Chat-Pfad fuehrt jetzt genau diesen Rebuilder aus. `novapolis_agent/app/api/chat.py` parsed den finalen Modelltext in die vier Pflichtsektionen, ersetzt Aliasformen wie `Geräusch` wieder durch `Geraeusch`, zerlegt Inline-Optionen in echte `1./2./3.`-Zeilen und setzt fehlende `State_Patches:`-Segmente auf `[]`. Der gezielte Pytest-Block in `novapolis_agent/tests/test_api_chat_internal_branches.py` ist mit drei relevanten Regressionen gruen; offen bleibt der Punkt, bis ein frischer Product-Gate-Lauf den letzten Messstand aktualisiert.
+  - Fresh-Run 2026-04-09 09:57: Der neue Produktlauf `.tmp/results/reports/text_rpg_product_gate_20260409_095602.md` zieht jetzt den kompletten technischen Pfad gruen durch; `gm_session_eval` selbst ist PASS. Offen bleibt nur die KPI-Summary `.tmp/results/reports/gm_session_kpi_summary_20260409_095602.md` mit `Success: 2/4`: Reveal verfehlt weiter die exakten Literale `Geraeusch` und `Entscheidung`, und `gm.session.option-quality.v1` verfehlt als Beobachtung die sichtbaren Labels `vorsichtige`, `riskante` und `soziale`.
+  - Arbeitsauftrag 2026-04-09 10:40: Der naechste Fixlauf trennt die Pflichtterm-Haertung jetzt von den allgemeinen Sichtbarkeitsankern. Reveal bekommt einen eigenen Pfad fuer die exakten sichtbaren Terme `Geraeusch`, `Druck` und `Entscheidung`, und die Optionsstruktur bekommt einen separaten Pflichtlabel-Pfad fuer `vorsichtige`, `riskante` und `soziale`, damit die finalen Strings nicht mehr nur implizit ueber generische Anchor-Listen zusammenfallen.
+  - Abschluss 2026-04-09 12:20: Der reproduzierte Root Cause lag im Eval-Pfad selbst: `novapolis_agent/scripts/run_eval.py` haengt fuer Szenenfaelle einen zweiten Userturn `Hinweis: Verwende diese Begriffe ...` an, und `novapolis_agent/app/api/chat.py` hatte dadurch den letzten statt den letzten passenden Vertrags-Prompt fuer Strict-RPG-Hint und Rebuilder gelesen. Der Fix ignoriert diesen Eval-Hinweis als Vertragsquelle, neue Regressionen decken denselben Drift ab, `novapolis_agent/eval/results/results_20260409_1217_gm_session.jsonl` steht bei `4/4`, und der kanonische Produktlauf `.tmp/results/reports/text_rpg_product_gate_20260409_121807.md` ist wieder PASS.
+
+- [x] [Jetzt] Eval-Resultatheader auf das effektive Modell ziehen.
+  - Ziel: Ergebnisdateien aus `novapolis_agent/scripts/run_eval.py` sollen im `_meta`-Header dasselbe Modell ausweisen, das der Lauf tatsaechlich verwendet hat, damit die GM-Vergleichslaeufe nicht durch einen falschen Default im Kopf verfälscht werden.
+  - Akzeptanzkriterien:
+    1) `_meta.model` bevorzugt `--model` bzw. `model_override`, solange ein Override gesetzt ist,
+    2) derselbe effektive Modellname bleibt auch in Sweep-Dateien konsistent sichtbar,
+    3) ein gezielter Test deckt die Header-Metadaten gegen Regression ab,
+    4) die anschliessende qwen-Nachmessung kann sich auf korrekt beschriftete Resultatdateien stuetzen.
+  - Evidenz: `novapolis_agent/eval/results/results_20260408_2359_gm_compare_llama.jsonl` fuehrte im `_meta`-Header zunaechst `"model": "qwen2.5:7b"`, obwohl `"overrides": {"model": "llama3.1:8b"}` denselben Lauf korrekt beschrieb; die Divergenz kam direkt aus `novapolis_agent/scripts/run_eval.py`.
+  - Ergebnis 2026-04-09 00:40: `novapolis_agent/scripts/run_eval.py` zieht `meta_header["model"]` jetzt ueber den effektiven Override statt ueber den Settings-Default, und `novapolis_agent/tests/scripts/test_run_eval_result_metadata.py` deckt denselben Fall gezielt ab. Die anschliessenden Sweep-Dateien `results_20260409_0041_gm_compare_qwen_sweep_n256.jsonl` bis `_n768.jsonl` fuehren im `_meta`-Header konsistent `"model": "qwen2.5:7b"` plus `"overrides": {"num_predict": ...}`.
 
 - [x] [Als naechstes] Verbleibende Pyright-Warnungen im aktiven Text-RPG-Produktpfad auf belastbare Typen einengen.
   - Ziel: Der kanonische Agent-Typenlauf soll nicht nur fehlerfrei, sondern im produktnahen App-/Runtime-Pfad auch warnungsarm und semantisch enger werden, damit `pyright -p pyrightconfig.json` weniger `Unknown`-Daten durch Chat-, Session- und TTS-Lauf traegt.

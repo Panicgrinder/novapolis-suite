@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-08 13:40
-update: Der TODO-Index fuehrt den nachgezogenen Wochenabschluss als aktuellen gruenen Board- und Gate-Stand; Zwischenhistorie bleibt im Dev-DONELOG.
-checks: Wochenabschluss via scripts/run_checks_and_report.py overall=PASS; report=.tmp\results\reports\checks_report_20260408_131224.md; scripts\check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency summary=fail:0,warn:0; scripts\run_pytest_coverage.py --fail-under 80 PASS report=.tmp\results\reports\pytest_coverage_postflight_20260408_131356.md coverage=90.14%; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py WORKSPACE_STATUS.md DONELOG.md todo.root.md novapolis-dev/docs/donelog.md novapolis-dev/docs/todo.index.md novapolis-dev/docs/meta/dev-kpi-trends.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . --write-index-meta PASS; .\.venv\Scripts\python.exe scripts\check_doc_freshness.py --repo-root . PASS; .\.venv\Scripts\python.exe scripts\check_logs_policy.py --repo-root . PASS
+stand: 2026-04-09 14:10
+update: Der TODO-Index fuehrt im Agent-Modul jetzt einen offenen Coverage-Haertungslauf fuer fuenf Low-Coverage-Dateien.
+checks: scripts\run_pytest_coverage.py --fail-under 80 PASS; report=.tmp\results\reports\pytest_coverage_postflight_20260409_123310.md; coverage=88.98%
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -14,7 +14,7 @@ TODO-Index (Novapolis-Dev)
 
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 0)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
-- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 1)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
@@ -23,9 +23,9 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` fuehrt den nachgezogenen Wochenabschluss vom 2026-04-08 als aktuellen Referenzlauf; Full-Check, separater Coverage-Lauf, Sim-Clean-Checkout und Hygiene-Cadence sind gruen, der Root-Metablock `Slice -> MVP -> Beta` bleibt gegen den belegten Modul-Iststand geschlossen.
 
-- Dev: Der kanonische Typenpfad ist belastbar, der produktive Text-RPG-Gate-Pfad ist als SSOT dokumentiert, und der nachgezogene Wochenabschluss vom 2026-04-08 liefert wieder Full-Check PASS bei Hygiene-KPIs `0/0/0/0`. Das Dev-Board steht damit auf `offen: 0`.
+- Dev: Der kanonische Typenpfad ist belastbar, und der produktive Text-RPG-Gate-Pfad trennt den GM-Rest jetzt sauber. Die Live-Ursachenanalyse hat den unbeabsichtigten Kontextnotiz-Turn im GM-Payload geschlossen: `novapolis_agent/app/api/chat.py` injiziert bei `CONTEXT_NOTES_ENABLED=False` keine `[Kontext-Notizen]` mehr, der neue Regressionstest ist gruen, und die Live-Payload-Pruefung fuer `gm.session.continuity.v1` zeigt nur noch den Zweier-Prompt aus `system` und `user`. Das Dev-Board steht damit wieder auf `offen: 0`.
 
-- Agent: Sessionvertrag, Replay-/Savegame-Pfad, `gm_session`-Eval, Session-TTS und der warnungsfreie Produktpfad sind auf demselben Text-RPG-Slice geschlossen. Das Agent-Board steht auf `offen: 0`.
+- Agent: Sessionvertrag, Replay-/Savegame-Pfad, `gm_session`-Eval, Session-TTS und der warnungsfreie Produktpfad bleiben geschlossen. Neu offen ist ein gezielter Coverage-Haertungslauf fuer `run_text_rpg_reference_session.py`, `validate_eval_datasets.py`, `summarize_gm_eval_kpis.py`, `content_management.py` und `tts_models.py`; Basis ist der frische Wrapper-Lauf `.tmp/results/reports/pytest_coverage_postflight_20260409_123310.md` mit `88.98%` Gesamtquote. Das Agent-Board steht damit bei `offen: 1`.
 
 - RP: Start-Chooser, Reveal-Matrizen und Folgekorridore reichen jetzt bis `slot 30`; OGG-Kandidaten und der Live-Dialogpfad sind gegen den aktiven Produktstand nachgezogen. Das RP-Board steht auf `offen: 0`.
 

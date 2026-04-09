@@ -118,3 +118,53 @@ def test_main_writes_gm_reports(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
     assert "GM Session KPI Summary" in (tmp_path / ".tmp/results/reports/gm_summary.md").read_text(
         encoding="utf-8"
     )
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_main_accepts_explicit_results_file_without_pattern(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from scripts import summarize_gm_eval_kpis as mod
+
+    results = tmp_path / "custom_gm_results.jsonl"
+    results.write_text(
+        json.dumps(
+            {
+                "item_id": "eval-gm-1",
+                "slug": "gm.session.continuity.v1",
+                "category": "gm_session",
+                "tags": ["gm", "observation"],
+                "success": True,
+                "failed_checks": [],
+                "source_package": "rpg_gm_session_core.v1",
+                "duration_ms": 25,
+            },
+            ensure_ascii=False,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "summarize_gm_eval_kpis.py",
+            "--repo-root",
+            str(tmp_path),
+            "--results-file",
+            "custom_gm_results.jsonl",
+            "--report-json",
+            ".tmp/results/reports/gm_summary_single.json",
+            "--report-md",
+            ".tmp/results/reports/gm_summary_single.md",
+        ],
+    )
+
+    rc = mod.main()
+    assert rc == 0
+    payload = json.loads(
+        (tmp_path / ".tmp/results/reports/gm_summary_single.json").read_text(encoding="utf-8")
+    )
+    assert payload["summary"]["records"] == 1

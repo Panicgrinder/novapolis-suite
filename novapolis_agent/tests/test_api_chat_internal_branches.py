@@ -243,6 +243,602 @@ async def test_process_chat_request_rewrite_and_memory(monkeypatch: pytest.Monke
 
 
 @pytest.mark.asyncio
+async def test_process_chat_request_skips_context_notes_when_disabled(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    response = _DummyHTTPResponse({"message": {"content": "model answer"}})
+    client = _DummyClient(response)
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "unit-model", raising=False)
+    monkeypatch.setattr(settings, "CONTEXT_NOTES_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "CONTEXT_NOTES_PATHS", ["context.md"], raising=False)
+    monkeypatch.setattr(settings, "CONTEXT_NOTES_MAX_CHARS", 4000, raising=False)
+    monkeypatch.setattr(settings, "RAG_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(
+        chat_module,
+        "apply_post",
+        lambda text, **k: SimpleNamespace(action="allow"),
+    )
+    monkeypatch.setattr(
+        chat_module,
+        "normalize_ollama_options",
+        lambda opts, **_: ({"opt": True}, "http://ollama"),
+    )
+    monkeypatch.setattr(chat_module, "load_context_notes", lambda *_: "Kontext", raising=False)
+
+    request = ChatRequest(messages=[{"role": "user", "content": "weiter"}])
+
+    result = await chat_module.process_chat_request(
+        request,
+        client=cast(httpx.AsyncClient, client),
+        request_id="req-no-context",
+    )
+
+    assert result.content == "model answer"
+    assert client.last_payload is not None
+    contents = [message["content"] for message in client.last_payload["messages"]]
+    assert not any(content.startswith("[Kontext-Notizen]") for content in contents)
+
+
+@pytest.mark.asyncio
+async def test_process_chat_request_injects_strict_rpg_contract_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    response = _DummyHTTPResponse({"message": {"content": "model answer"}})
+    client = _DummyClient(response)
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    prompt = (
+        "Fuehre den produktiven Slice fort. Der letzte sichtbare Fortschritt war eine "
+        "Scannerkarte. campaign_id=camp-7 session_id=sess-3 scene_id=scene-d5 "
+        "slot_id=slot-03 turn_id=turn-0007. Antworte exakt mit Szene:, Konsequenz:, "
+        "Optionen:, State_Patches:."
+    )
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "unit-model", raising=False)
+    monkeypatch.setattr(settings, "RAG_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(
+        chat_module,
+        "apply_post",
+        lambda text, **k: SimpleNamespace(action="allow"),
+    )
+    monkeypatch.setattr(
+        chat_module,
+        "normalize_ollama_options",
+        lambda opts, **_: ({"opt": True}, "http://ollama"),
+    )
+
+    request = ChatRequest(messages=[{"role": "user", "content": prompt}])
+
+    result = await chat_module.process_chat_request(
+        request,
+        client=cast(httpx.AsyncClient, client),
+        request_id="req-rpg-contract",
+    )
+
+    assert result.content.startswith("Szene: model answer")
+    assert "Konsequenz:" in result.content
+    assert "Optionen:" in result.content
+    assert "State_Patches:" in result.content
+    assert client.last_payload is not None
+    contract_messages = [
+        message["content"]
+        for message in client.last_payload["messages"]
+        if message["role"] == "system" and message["content"].startswith("[Text-RPG-Formatvertrag]")
+    ]
+    assert len(contract_messages) == 1
+    contract_text = contract_messages[0]
+    assert "1. , 2. , 3. ." in contract_text
+    assert "Fuege keine weiteren sichtbaren Ueberschriften" in contract_text
+    assert "State_Patches muss immer vorhanden sein" in contract_text
+    assert "mindestens einmal exakt in Szene: oder Konsequenz:" in contract_text
+    assert "slot-03" in contract_text
+    assert "turn-0007" in contract_text
+    assert "Scannerkarte" in contract_text
+    assert "camp-7" not in contract_text
+
+
+@pytest.mark.asyncio
+async def test_process_chat_request_injects_strict_rpg_contract_hint_with_trailing_eval_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    response = _DummyHTTPResponse({"message": {"content": "model answer"}})
+    client = _DummyClient(response)
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    prompt = (
+        "Antworte als Spielleitung fuer denselben Session-Pfad. Im internen Material "
+        "existiert ein verdeckter Auftrag, der nicht an den PC verraten werden darf. "
+        "Nutze exakt die Abschnittstitel Szene:, Konsequenz:, Optionen:, State_Patches:. "
+        "Die sichtbare Lage darf nur ueber Geraeusch, Druck und Entscheidung gespielt "
+        "werden. Liefere drei nummerierte Optionen."
+    )
+    eval_hint = (
+        "Hinweis: Verwende diese Begriffe woertlich im Text: Szene:, Konsequenz:, Optionen:, "
+        "State_Patches:, Geraeusch, Druck, Entscheidung"
+    )
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "unit-model", raising=False)
+    monkeypatch.setattr(settings, "RAG_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(
+        chat_module,
+        "apply_post",
+        lambda text, **k: SimpleNamespace(action="allow"),
+    )
+    monkeypatch.setattr(
+        chat_module,
+        "normalize_ollama_options",
+        lambda opts, **_: ({"opt": True}, "http://ollama"),
+    )
+
+    request = ChatRequest(
+        messages=[
+            {"role": "user", "content": prompt},
+            {"role": "user", "content": eval_hint},
+        ]
+    )
+
+    result = await chat_module.process_chat_request(
+        request,
+        client=cast(httpx.AsyncClient, client),
+        request_id="req-rpg-contract-trailing-hint",
+    )
+
+    assert "Geraeusch" in result.content
+    assert "Druck" in result.content
+    assert "Entscheidung" in result.content
+    assert client.last_payload is not None
+    contract_messages = [
+        message["content"]
+        for message in client.last_payload["messages"]
+        if message["role"] == "system" and message["content"].startswith("[Text-RPG-Formatvertrag]")
+    ]
+    assert len(contract_messages) == 1
+
+
+def test_repair_strict_rpg_contract_uses_matching_prompt_before_eval_hint() -> None:
+    from app.api import chat as chat_module
+
+    prompt = (
+        "Schreibe eine knappe Spielleiter-Antwort fuer slot-04. Nutze exakt die "
+        "Abschnittstitel Szene:, Konsequenz:, Optionen:, State_Patches:. Unter Optionen "
+        "muessen drei nummerierte Handlungswege stehen: eine vorsichtige, eine riskante "
+        "und eine soziale Option."
+    )
+    eval_hint = (
+        "Hinweis: Verwende diese Begriffe woertlich im Text: Szene:, Konsequenz:, Optionen:, "
+        "State_Patches:, vorsichtige, riskante, soziale"
+    )
+    raw_response = (
+        "Szene: Der alte Torbogen der Stadtmauer hat sich als ein Ort der Entscheidungen "
+        "erwiesen.\n\n"
+        "Konsequenz: Die Stadt Novapolis lebt von diesen Entscheidungen, die ihre Bewohner "
+        "tagtaeglich treffen muessen.\n\n"
+        "Optionen:\n"
+        "1. steigen\n"
+        "2. weitergehen\n"
+        "3. abwarten\n\n"
+        "State_Patches:\n[]"
+    )
+
+    repaired = chat_module._repair_strict_rpg_contract_response(
+        [
+            {"role": "user", "content": prompt},
+            {"role": "user", "content": eval_hint},
+        ],
+        raw_response,
+    )
+
+    repaired_lines = repaired.splitlines()
+    assert any(line.startswith("1. vorsichtige Option:") for line in repaired_lines)
+    assert any(line.startswith("2. riskante Option:") for line in repaired_lines)
+    assert any(line.startswith("3. soziale Option:") for line in repaired_lines)
+
+
+@pytest.mark.asyncio
+async def test_stream_chat_request_injects_strict_rpg_contract_hidden_anchor_hint(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    response_text = (
+        "Szene: stabil\n"
+        "Konsequenz: offen\n"
+        "Optionen:\n"
+        "1. A\n"
+        "2. B\n"
+        "3. C\n"
+        "State_Patches:\n"
+        "[]"
+    )
+    lines = [
+        json.dumps({"message": {"content": response_text}}),
+        json.dumps({"done": True}),
+    ]
+    client = _DummyStreamClient(lines)
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    prompt = (
+        "Antworte als Spielleitung fuer denselben Session-Pfad. Im internen Material "
+        "existiert ein verdeckter Auftrag, der nicht an den PC verraten werden darf. "
+        "Nutze exakt die Abschnittstitel Szene:, Konsequenz:, Optionen:, State_Patches:. "
+        "Die sichtbare Lage darf nur ueber Geraeusch, Druck und Entscheidung gespielt "
+        "werden. Liefere drei nummerierte Optionen."
+    )
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "unit-model", raising=False)
+    monkeypatch.setattr(settings, "RAG_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(
+        chat_module,
+        "apply_post",
+        lambda text, **k: SimpleNamespace(action="allow"),
+    )
+    monkeypatch.setattr(
+        chat_module,
+        "normalize_ollama_options",
+        lambda opts, **_: ({"opt": True}, "http://ollama"),
+    )
+
+    request = ChatRequest(messages=[{"role": "user", "content": prompt}])
+
+    generator = await chat_module.stream_chat_request(
+        request,
+        client=cast(httpx.AsyncClient, client),
+        request_id="req-stream-rpg-contract",
+    )
+    chunks = [chunk async for chunk in generator]
+
+    assert any(chunk.startswith("event: done") for chunk in chunks)
+    assert client.last_payload is not None
+    contract_messages = [
+        message["content"]
+        for message in client.last_payload["messages"]
+        if message["role"] == "system" and message["content"].startswith("[Text-RPG-Formatvertrag]")
+    ]
+    assert len(contract_messages) == 1
+    contract_text = contract_messages[0]
+    assert "Geraeusch" in contract_text
+    assert "Druck" in contract_text
+    assert "Entscheidung" in contract_text
+    assert "verdeckter Auftrag" in contract_text
+    assert "ASCII-Umschriften wie ae, oe oder ue" in contract_text
+
+
+@pytest.mark.asyncio
+async def test_process_chat_request_repairs_missing_strict_rpg_visible_anchors(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    response = _DummyHTTPResponse(
+        {
+            "message": {
+                "content": (
+                    "Szene: Die Scannerkarte liegt auf dem Tisch.\n\n"
+                    "Konsequenz: Die Analyse beginnt sofort.\n\n"
+                    "Optionen:\n"
+                    "1. Weiter pruefen\n"
+                    "2. Rueckzug antreten\n"
+                    "3. Hilfe holen\n"
+                    "State_Patches:\n[]"
+                )
+            }
+        }
+    )
+    client = _DummyClient(response)
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    prompt = (
+        "Fuehre dieselbe Text-RPG-Session weiter. Nutze exakt die Abschnittstitel Szene:, "
+        "Konsequenz:, Optionen:, State_Patches:. Voriger Stand: campaign_id=camp-7, "
+        "session_id=sess-3, scene_id=scene-d5, slot_id=slot-03, turn_id=turn-0007. "
+        "Der letzte sichtbare Fortschritt war eine Scannerkarte aus D5, die jetzt als "
+        "Anschlussanker gelten soll. Liefere drei nummerierte Optionen."
+    )
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "unit-model", raising=False)
+    monkeypatch.setattr(settings, "RAG_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(
+        chat_module,
+        "apply_post",
+        lambda text, **k: SimpleNamespace(action="allow"),
+    )
+    monkeypatch.setattr(
+        chat_module,
+        "normalize_ollama_options",
+        lambda opts, **_: ({"opt": True}, "http://ollama"),
+    )
+
+    request = ChatRequest(messages=[{"role": "user", "content": prompt}])
+
+    result = await chat_module.process_chat_request(
+        request,
+        client=cast(httpx.AsyncClient, client),
+        request_id="req-rpg-contract-repair",
+    )
+
+    assert "slot-03" in result.content
+    assert "turn-0007" in result.content
+    assert "Scannerkarte" in result.content
+
+
+@pytest.mark.asyncio
+async def test_process_chat_request_repairs_strict_rpg_option_labels(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    response = _DummyHTTPResponse(
+        {
+            "message": {
+                "content": (
+                    "Szene: slot-04 bleibt instabil.\n\n"
+                    "Konsequenz: Drei Wege stehen offen.\n\n"
+                    "Optionen:\n"
+                    "1. Vorsichtig: Du gehst langsam weiter.\n"
+                    "2. Riskant: Du rennst in den Korridor.\n"
+                    "3. Sozial: Du suchst das Gespraech.\n"
+                    "State_Patches:\n[]"
+                )
+            }
+        }
+    )
+    client = _DummyClient(response)
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    prompt = (
+        "Schreibe eine knappe Spielleiter-Antwort fuer slot-04. Nutze exakt die "
+        "Abschnittstitel Szene:, Konsequenz:, Optionen:, State_Patches:. Unter Optionen "
+        "muessen drei nummerierte Handlungswege stehen: eine vorsichtige, eine riskante "
+        "und eine soziale Option."
+    )
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "unit-model", raising=False)
+    monkeypatch.setattr(settings, "RAG_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(
+        chat_module,
+        "apply_post",
+        lambda text, **k: SimpleNamespace(action="allow"),
+    )
+    monkeypatch.setattr(
+        chat_module,
+        "normalize_ollama_options",
+        lambda opts, **_: ({"opt": True}, "http://ollama"),
+    )
+
+    request = ChatRequest(messages=[{"role": "user", "content": prompt}])
+
+    result = await chat_module.process_chat_request(
+        request,
+        client=cast(httpx.AsyncClient, client),
+        request_id="req-rpg-contract-options-repair",
+    )
+
+    result_lines = result.content.splitlines()
+    assert "Optionen:" in result_lines
+    assert any(line.startswith("1. vorsichtige Option:") for line in result_lines)
+    assert any(line.startswith("2. riskante Option:") for line in result_lines)
+    assert any(line.startswith("3. soziale Option:") for line in result_lines)
+    assert "State_Patches:" in result_lines
+
+
+def test_extract_visible_contract_anchors_normalizes_option_labels() -> None:
+    from app.api import chat as chat_module
+
+    prompt = (
+        "Schreibe eine knappe Spielleiter-Antwort fuer slot-04. Nutze exakt die "
+        "Abschnittstitel Szene:, Konsequenz:, Optionen:, State_Patches:. Unter Optionen "
+        "muessen drei nummerierte Handlungswege stehen: eine vorsichtige, eine riskante "
+        "und eine soziale Option."
+    )
+
+    anchors = chat_module._extract_visible_contract_anchors(prompt)
+
+    assert "vorsichtige" in anchors
+    assert "riskante" in anchors
+    assert "soziale" in anchors
+    assert "eine vorsichtige" not in anchors
+    assert "eine soziale Option" not in anchors
+
+
+@pytest.mark.asyncio
+async def test_process_chat_request_rebuilds_inline_options_and_missing_state_patches(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    response = _DummyHTTPResponse(
+        {
+            "message": {
+                "content": (
+                    "Szene: Der schmale Pfad bleibt offen.\n\n"
+                    "Konsequenz: Die Ruinen wirken unruhig.\n\n"
+                    "Optionen: 1. Vorsichtig naeher ruecken 2. Riskant lossprinten "
+                    "3. Sozial die Gruppe abstimmen"
+                )
+            }
+        }
+    )
+    client = _DummyClient(response)
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    prompt = (
+        "Schreibe eine knappe Spielleiter-Antwort fuer slot-04. Nutze exakt die "
+        "Abschnittstitel Szene:, Konsequenz:, Optionen:, State_Patches:. Unter Optionen "
+        "muessen drei nummerierte Handlungswege stehen: eine vorsichtige, eine riskante "
+        "und eine soziale Option."
+    )
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "unit-model", raising=False)
+    monkeypatch.setattr(settings, "RAG_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(
+        chat_module,
+        "apply_post",
+        lambda text, **k: SimpleNamespace(action="allow"),
+    )
+    monkeypatch.setattr(
+        chat_module,
+        "normalize_ollama_options",
+        lambda opts, **_: ({"opt": True}, "http://ollama"),
+    )
+
+    request = ChatRequest(messages=[{"role": "user", "content": prompt}])
+
+    result = await chat_module.process_chat_request(
+        request,
+        client=cast(httpx.AsyncClient, client),
+        request_id="req-rpg-contract-inline-options-repair",
+    )
+
+    result_lines = result.content.splitlines()
+    assert result_lines[0].startswith("Szene: ")
+    assert "Optionen:" in result_lines
+    assert any(line.startswith("1. vorsichtige Option:") for line in result_lines)
+    assert any(line.startswith("2. riskante Option:") for line in result_lines)
+    assert any(line.startswith("3. soziale Option:") for line in result_lines)
+    assert "State_Patches:" in result_lines
+    assert result.content.rstrip().endswith("[]")
+
+
+@pytest.mark.asyncio
+async def test_process_chat_request_repairs_reveal_case_with_numbered_options(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    response = _DummyHTTPResponse(
+        {
+            "message": {
+                "content": (
+                    "Szene: Die Straßen von Novapolis sind verlassen, nur ein unbestimmtes "
+                    "Geraune kommt aus einer dunklen Ecke.\n\n"
+                    "Konsequenz: Das Gemurmel verstaerkt sich zu einem leisen Druck, der die "
+                    "Gruppe irritiert. Die Atmosphaere ist angespannt, jeder bereit fuer eine "
+                    "ungewisse Reaktion.\n\n"
+                    "Optionen:\n"
+                    "1. Den Schatten nachgehen.\n"
+                    "2. Sich zurueckziehen.\n"
+                    "3. Die Umgebung absichern.\n"
+                    "State_Patches:\n[]"
+                )
+            }
+        }
+    )
+    client = _DummyClient(response)
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    prompt = (
+        "Antworte als Spielleitung fuer denselben Session-Pfad. Im internen Material "
+        "existiert ein verdeckter Auftrag, der nicht an den PC verraten werden darf. "
+        "Nutze exakt die Abschnittstitel Szene:, Konsequenz:, Optionen:, State_Patches:. "
+        "Die sichtbare Lage darf nur ueber Geraeusch, Druck und Entscheidung gespielt "
+        "werden. Liefere drei nummerierte Optionen."
+    )
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "unit-model", raising=False)
+    monkeypatch.setattr(settings, "RAG_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(
+        chat_module,
+        "apply_post",
+        lambda text, **k: SimpleNamespace(action="allow"),
+    )
+    monkeypatch.setattr(
+        chat_module,
+        "normalize_ollama_options",
+        lambda opts, **_: ({"opt": True}, "http://ollama"),
+    )
+
+    request = ChatRequest(messages=[{"role": "user", "content": prompt}])
+
+    result = await chat_module.process_chat_request(
+        request,
+        client=cast(httpx.AsyncClient, client),
+        request_id="req-rpg-contract-reveal-repair",
+    )
+
+    assert "Geraeusch" in result.content
+    assert "Geraune" in result.content or "Geraeusch" in result.content
+    assert "Druck" in result.content
+    assert "Entscheidung" in result.content
+    result_lines = result.content.splitlines()
+    assert any(line.startswith("1. ") for line in result_lines)
+    assert any(line.startswith("2. ") for line in result_lines)
+    assert any(line.startswith("3. ") for line in result_lines)
+    assert "State_Patches:" in result_lines
+
+
+@pytest.mark.asyncio
 async def test_process_chat_request_injects_orchestrator_context(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,

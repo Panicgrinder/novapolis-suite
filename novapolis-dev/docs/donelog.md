@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-08 13:40
-update: Dev-DONELOG dokumentiert jetzt den nachgezogenen Wochenabschluss mit gruenem Full-Check, Coverage-, Sim- und KPI-Block.
-checks: Wochenabschluss via scripts/run_checks_and_report.py overall=PASS; report=.tmp\results\reports\checks_report_20260408_131224.md; scripts\check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency summary=fail:0,warn:0; scripts\run_pytest_coverage.py --fail-under 80 PASS report=.tmp\results\reports\pytest_coverage_postflight_20260408_131356.md coverage=90.14%; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py WORKSPACE_STATUS.md DONELOG.md todo.root.md novapolis-dev/docs/donelog.md novapolis-dev/docs/todo.index.md novapolis-dev/docs/meta/dev-kpi-trends.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . --write-index-meta PASS; .\.venv\Scripts\python.exe scripts\check_doc_freshness.py --repo-root . PASS; .\.venv\Scripts\python.exe scripts\check_logs_policy.py --repo-root . PASS
+stand: 2026-04-09 14:10
+update: Dev-DONELOG dokumentiert jetzt den geschlossenen GM-Eval-Rest nach dem Fix fuer den angehaengten Eval-Hinweisturn; der Product-Gate-Lauf ist wieder PASS.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260409_121807.md
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,73 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+GM Vertrag: Eval-Hinweisturn entkoppelt Strict-RPG-Rebuilder nicht mehr (2026-04-09 12:20)
+-------------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/api/chat.py` waehlt fuer Strict-RPG-Hint und Rebuilder jetzt nicht mehr blind den letzten Userturn, sondern den letzten Userturn mit echtem Vertragsmuster `Szene:/Konsequenz:/Optionen:/State_Patches:` und ignoriert den von `novapolis_agent/scripts/run_eval.py` angehaengten Eval-Hinweisturn `Hinweis: Verwende diese Begriffe ...`.
+- `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt den Root Cause jetzt mit zwei gezielten Regressionen ab: Hint-Injektion und Rebuilder muessen auch dann greifen, wenn der Eval-Hinweis als zweiter Userturn hinter dem eigentlichen Prompt haengt.
+- Der gezielte Suite-Lauf `novapolis_agent/eval/results/results_20260409_1217_gm_session.jsonl` ist jetzt `4/4`, und der kanonische End-to-End-Lauf `.tmp/results/reports/text_rpg_product_gate_20260409_121807.md` ist wieder PASS; die zugehoerige KPI-Summary `.tmp/results/reports/gm_session_kpi_summary_20260409_121807.md` zeigt keine Blocker und keine Beobachtungen mehr.
+
+GM Vertrag: Frischer Product-Gate-Lauf isoliert den Rest auf KPI-Ebene (2026-04-09 09:58)
+-----------------------------------------------------------------------------------------
+
+- `.tmp/results/reports/text_rpg_product_gate_20260409_095602.md` ist jetzt der frische End-to-End-Beleg nach dem Vier-Sektions-Rebuilder: `checks_full`, API-/Streaming-Tests, Referenz-Session, Sim-Assets, Runtime-Preflight und `gm_session_eval` laufen alle gruen durch.
+- Der verbleibende Product-Fail kommt ausschliesslich aus `.tmp/results/reports/gm_session_kpi_summary_20260409_095602.md` mit `Success: 2/4` und `Severity: blocker`.
+- Blocker bleibt `gm.session.reveal-discipline.v1` auf fehlendem `Geraeusch` und `Entscheidung`; `gm.session.option-quality.v1` bleibt Beobachtung auf den fehlenden exakten Labels `vorsichtige`, `riskante` und `soziale`.
+
+GM Vertrag: Finalen Vier-Sektions-Rebuilder fuer Reveal-Anker und Optionen eingezogen (2026-04-09 09:48)
+------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/api/chat.py` rekonstruiert fuer strikte Text-RPG-Formatprompts den finalen Antworttext jetzt kanonisch aus `Szene:`, `Konsequenz:`, `Optionen:` und `State_Patches:` statt nur punktuell fehlende Teilstuecke anzuhängen.
+- Der neue Rebuilder ersetzt umlautete Aliasformen wieder durch exakte ASCII-Pflichtanker wie `Geraeusch`, normalisiert inline ausgespielte Optionen auf echte `1./2./3.`-Zeilen und setzt fehlende `State_Patches:`-Segmente deterministisch auf `[]`.
+- `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt den neuen Pfad jetzt zusaetzlich fuer inline `Optionen:` ohne State-Patches und fuer den Reveal-Fall mit `Geräusch`-Drift ab; der fokussierte Pytest-Lauf ist mit `3 passed` gruen.
+- Ein frischer Product-Gate-Lauf wurde in diesem Schritt bewusst noch nicht nachgezogen; der letzte belegte Messstand bleibt deshalb bei `.tmp/results/reports/text_rpg_product_gate_20260409_083707.md` und `.tmp/results/reports/gm_session_kpi_summary_20260409_083707.md` mit `3/4`.
+
+GM Vertrag: Literal-Anker-Fixlauf drueckt den Rest auf einen Reveal-Fall (2026-04-09 08:39)
+-------------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/api/chat.py` zieht den strikten Text-RPG-Vertrag jetzt nicht mehr nur ueber Systemhinweise, sondern repariert fehlende Sichtbarkeitsanker und Optionslabels nach der Modellantwort deterministisch an der finalen Ausgabestelle.
+- `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt den neuen Reparaturpfad fuer fehlende Slot-/Turn-Anker, Optionslabel und den Reveal-Fall gezielt ab; der fokussierte Pytest-Lauf bleibt gruen, Ruff ebenfalls.
+- Der belegte Effekt liegt im aktuellen Produktlauf `.tmp/results/reports/text_rpg_product_gate_20260409_083707.md`: `gm.session.continuity.v1` und `gm.session.option-quality.v1` sind jetzt gruen, die KPI-Summary `.tmp/results/reports/gm_session_kpi_summary_20260409_083707.md` steht bei `Success: 3/4`, und als einziger Blocker bleibt `gm.session.reveal-discipline.v1` mit den fehlenden Literalankern `Geraeusch`, `Druck` und `Entscheidung`.
+
+Product Gate: Wrapper-Haertung und blocker-treuer Gate-Status nachgezogen (2026-04-09 03:29)
+----------------------------------------------------------------------------------------------
+
+- `scripts/run_text_rpg_product_gate.py` loest den Runtime-Target-Import jetzt robust ueber Repo-/Modulpfade, setzt fuer Unterprozesse `PYTHONIOENCODING=utf-8` plus `PYTHONUTF8=1` und wertet die GM-KPI-Summary jetzt als harte Gate-Quelle aus.
+- Dadurch scheitert das Product Gate nicht mehr an Ruff/Black-Drift, Importfehlern oder `cp1252`-Ausgaben aus `run_eval.py`, sondern am fachlich richtigen Signal `gm_session summary classified: blocker`.
+- Die frische Nachmessung `results_20260409_0312_gm_compare_qwen_sweep_n256.jsonl` kommt nur auf `1/4`; der finale Gate-Lauf `.tmp/results/reports/text_rpg_product_gate_20260409_032736.md` endet bei `Success: 2/4` in der KPI-Summary mit Blockern `slot-03`/`turn-0007` sowie `Geraeusch`.
+
+GM Vertrag: Strikten Antwortvertrag im produktiven Chat-Pfad nachgezogen (2026-04-09 03:05)
+-------------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/api/chat.py` fuehrt fuer explizite Text-RPG-Formatprompts jetzt einen engeren Systemhinweis: exakt vier Abschnittstitel, genau drei nummerierte Optionen, keine zusaetzlichen sichtbaren Ueberschriften und ein verpflichtendes `State_Patches`-Segment.
+- Der Hinweis extrahiert sichtbare Prompt-Anker wie `slot-03`, `turn-0007`, `Scannerkarte`, `Geraeusch`, `Druck` und `Entscheidung` separat und haelt sie sichtbar stabil; verdeckte Begriffe wie `verdeckter Auftrag` werden zugleich explizit als nicht sichtbarer Antwortinhalt markiert.
+- `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt denselben Vertrag jetzt sowohl fuer `process_chat_request()` als auch fuer `stream_chat_request()` gezielt ab; der fokussierte Pytest-Lauf ist PASS.
+
+GM Payload: Kontextnotizen im deaktivierten Zustand wirklich abgeschaltet (2026-04-08 23:08)
+------------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/api/chat.py` beendet `_resolve_context_notes()` jetzt sofort, wenn `CONTEXT_NOTES_ENABLED` nicht aktiv ist; gefundene lokale Notizdateien duerfen den produktiven `/chat`-Payload damit nicht mehr stillschweigend vergroessern.
+- Ausloeser war die Live-Repro fuer `gm.session.continuity.v1`: Der extrahierte Payload enthielt trotz deaktiviertem Flag einen dritten Systemturn `[Kontext-Notizen]`, und genau der volle Payload kippte in der Direktprobe wieder in Timeouts, waehrend der reduzierte `system+user`-Pfad noch antwortete.
+- Der neue Regressionstest `test_process_chat_request_skips_context_notes_when_disabled` in `novapolis_agent/tests/test_api_chat_internal_branches.py` ist PASS; die anschliessende Live-Payload-Pruefung zeigt nur noch zwei Nachrichten (`system`, `user`) ohne Kontextturn.
+
+Product Gate: GM-Restpfad im Produktlauf mit Preflight und Fehlklassifikation gehaertet (2026-04-08 22:38)
+-----------------------------------------------------------------------------------------------------------
+
+- `scripts/run_text_rpg_product_gate.py` fuehrt vor `gm_session_eval` jetzt einen expliziten Schritt `gm_runtime_preflight` gegen den aktiven Ollama-Host samt `/api/tags`-Pruefung und Modellnachweis aus; fehlende Runtime und fehlendes Modell brechen damit frueh und sichtbar ab.
+- Der Produktlauf klassifiziert spaetere GM-Resultate jetzt getrennt als `runtime_unreachable`, `model_missing`, `ollama_http_500` und `gm_timeout_504` statt nur als generisches `step failed: gm_session_eval`.
+- Ausloeser war der frische Re-Run `novapolis_agent/eval/results/results_20260408_2150_gm_session.jsonl`: `gm.session.continuity.v1` schlug mit direktem Ollama-500 fehl, zwei weitere Faelle mit `504 Gateway Timeout` im Agent-/ASGI-Pfad, waehrend der lokale Listener selbst auf `127.0.0.1:11434` fuer `qwen2.5:7b` und `llama3.1:8b` erreichbar blieb.
+- Der gezielte Unit-Test `novapolis_agent/tests/scripts/test_run_text_rpg_product_gate.py` deckt jetzt sowohl Preflight als auch Klassifikation ab und ist mit vier Tests PASS; Ruff und `black --check` sind fuer die geaenderten Dateien ebenfalls gruen.
+
+Product Gate: Reproduzierbaren Text-RPG-Verbundlauf mit Referenz-Session verankert (2026-04-08 14:22)
+-----------------------------------------------------------------------------------------------------
+
+- `scripts/run_text_rpg_product_gate.py` fuehrt `checks_full`, `pytest_api_streaming`, Referenz-Session, Sim-Offline-Check, `gm_session_eval` und die direkte KPI-Summary jetzt in einem kanonischen Root-Lauf aus; `.vscode/tasks.json` fuehrt denselben Verbund ueber `Checks: text-rpg product gate` und `Tests: text-rpg reference session`.
+- `novapolis_agent/scripts/run_text_rpg_reference_session.py` und `novapolis_agent/eval/config/text_rpg_reference_session.v1.json` fixieren einen dreistufigen D5/`slot-03..05`-Referenzfall; der Verifikationslauf ist PASS und bestaetigt `savegame.json`, `world_log.jsonl`, `pc_log.jsonl` und `replay_manifest.json` samt Endzustand `scene-d5-nordlinie`, `slot-05`, `turn-0009` unter `.tmp/results/reports/text_rpg_reference_session_verify.md`.
+- `novapolis_agent/scripts/summarize_gm_eval_kpis.py` akzeptiert explizite Resultatdateien jetzt sauber ohne Pattern-Fallback; dadurch bindet der Verbundlauf die KPI-Summary an genau `novapolis_agent/eval/results/results_20260408_1422_gm_session.jsonl` statt an historische Altlaeufe.
+- Der gezielte Pytest-Block fuer die neuen Scriptpfade ist PASS, der anschliessende Full-Check bleibt komplett gruen (`.tmp/results/reports/checks_report_20260408_141908.md`), und der Gesamtbericht `.tmp/results/reports/text_rpg_product_gate_verify.md` zeigt nur noch `gm_session_eval` als FAIL.
+- Der verbleibende Blocker ist kein Gate-Drift mehr, sondern der lokal nicht erreichbare Modellruntime im produktiven Chat-Pfad (`httpx.ConnectError: All connection attempts failed`); `.tmp/results/reports/gm_session_kpi_summary_20260408_142100.md` spiegelt denselben Befund mit `Severity: blocker`, `Records: 4` und `Success: 0`.
 
 Wochenabschluss: Nachgezogenen Abschlusslauf komplett gruen dokumentiert (2026-04-08 13:27)
 ---------------------------------------------------------------------------------------------

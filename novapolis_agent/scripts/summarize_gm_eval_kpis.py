@@ -248,7 +248,7 @@ def main() -> int:
     parser.add_argument(
         "--pattern",
         action="append",
-        default=["novapolis_agent/eval/results/results_*_gm_session*.jsonl"],
+        default=[],
         help="Relative glob pattern for result files",
     )
     parser.add_argument(
@@ -270,7 +270,12 @@ def main() -> int:
     args = parser.parse_args()
 
     repo_root = Path(args.repo_root).resolve()
-    files = _collect_result_files(repo_root, list(args.pattern), list(args.results_file))
+    patterns = list(args.pattern)
+    explicit_files = list(args.results_file)
+    if not patterns and not explicit_files:
+        patterns = ["novapolis_agent/eval/results/results_*_gm_session*.jsonl"]
+
+    files = _collect_result_files(repo_root, patterns, explicit_files)
     if not files:
         print("[gm-session-kpi] ERROR no matching result files")
         return 2

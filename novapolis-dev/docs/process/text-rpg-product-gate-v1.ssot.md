@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 11:46
-update: Das Text-RPG Product Gate v1 referenziert jetzt den erweiterten RP-Produktpfad bis `slot 30` als kanonischen Folgekorridor.
-checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS
+stand: 2026-04-09 14:10
+update: Das Text-RPG Product Gate v1 fuehrt jetzt einen kanonischen Verbundlauf mit Wrapper-Task, fester Referenz-Session und GM-KPI-Summary.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260409_121807.md
 ---
 
 Text-RPG Product Gate v1
@@ -37,22 +37,30 @@ Quellenbasis
 Wahrheitsrahmen
 ---------------
 
-- Das Product Gate ist aktuell ein definierter Standardlauf, noch kein voll automatisierter Ein-Klick-Wrapper.
-- Bis echte Session-Artefakte produktiv erzeugt werden, bleibt ein Teil des Gates dokument- und vertragsgetrieben.
-- Die Gate-Definition ist trotzdem verbindlich: neue Runtime- oder Sim-Artefakte muessen sich an diesen Ablauf haengen, nicht umgekehrt.
+- Das Product Gate hat jetzt einen kanonischen Wrapper-Task `Checks: text-rpg product gate`; die Einzel-Tasks bleiben fuer Diagnose und Teilretries erhalten.
+- Die feste Referenz-Session unter `novapolis_agent/eval/config/text_rpg_reference_session.v1.json` liefert einen deterministischen Artefaktbeleg fuer Savegame, `world_log`, `pc_log` und Replay-Manifest.
+- Der GM-Session-Teil bleibt runtime-gebunden: ohne erreichbare lokale Modellruntime am produktiven Chat-Pfad scheitert dieser Gate-Abschnitt weiterhin hart.
+- Die Gate-Definition bleibt verbindlich: neue Runtime- oder Sim-Artefakte muessen sich an diesen Ablauf haengen, nicht umgekehrt.
 
 Kanonischer Gate-Block
 ----------------------
 
 Der Produktlauf heisst verbindlich `Text-RPG Product Gate v1`.
 
-Aktueller operativer Task-Block:
+Aktueller operativer Wrapper-Task:
+
+1. `Checks: text-rpg product gate`
+
+Der Wrapper fuehrt aktuell diese Stufen in derselben kanonischen Reihenfolge aus:
 
 1. `Checks: full`
 2. `Tests: pytest (api+streaming)`
-3. `Checks: sim epoch assets`
+3. `Tests: text-rpg reference session`
+4. `Checks: sim epoch assets`
+5. `Eval: suite gm_session (12, asgi)`
+6. `Eval: summarize gm session KPIs`
 
-Diese drei vorhandenen Task-Labels bilden die aktuelle ausfuehrbare Huelle. Der Gate-Name selbst bleibt die kanonische Klammer fuer Board, Runbook und spaetere Wrapper-Skripte.
+Die einzelnen Task-Labels bleiben weiterhin als diagnostische Teilpfade verfuegbar. Der Gate-Name bleibt die kanonische Klammer fuer Board, Runbook und Wrapper-Skript.
 
 Gate-Stufen
 -----------
@@ -74,14 +82,20 @@ Gate-Stufen
 
 ### Stufe 4 - Log- und Replay-Vertrag
 
-- Sobald Session-Artefakte vorliegen, muessen `world_log`, `pc_log` und `state_patches` als gemeinsamer Lauf pruefbar sein.
+- Die feste Referenz-Session muss `world_log`, `pc_log`, `state_patches`, `savegame.json` und `replay_manifest.json` fuer denselben Slice deterministisch erzeugen und verifizieren.
 - Hard Fail bei fehlenden Artefakten, ungueltigen `state_patches`, Slot-Mismatch zwischen Logs oder Replay-Widerspruechen.
-- Solange diese Artefakte noch nicht produktiv erzeugt werden, bleibt diese Stufe als definierter Pflichtblock fuer die naechste Implementierungswelle bestehen.
+- Produktive Chat-Laeufe duerfen spaeter weitere Artefakte erzeugen, muessen aber denselben Vertrags- und Dateirahmen halten wie die Referenz-Session.
 
 ### Stufe 5 - Sim-Anschluss
 
 - Der Sim-Pfad muss mindestens denselben Slice als Smoke sichtbar pruefen koennen.
 - Hard Fail bei ungueltigen Slotwerten, nicht lesbaren Epoch-Dateien oder Artefakten ausserhalb des vertraglichen Session-/Slot-Rahmens.
+
+### Stufe 6 - GM-Session-Eval und KPI-Triage
+
+- Der produktive Slice muss zusaetzlich denselben Sessionpfad ueber die dedizierte Suite `gm_session` pruefen.
+- Die KPI-Summary muss auf genau die Resultatdatei desselben Gate-Laufs zeigen und Blocker-Faelle von Beobachtungen trennen.
+- Hard Fail bei nicht erreichbarer Modellruntime, fehlender Resultatdatei oder fehlender KPI-Summary fuer den aktuellen Lauf.
 
 Gate-Erfolg
 -----------
@@ -90,13 +104,16 @@ Gate-Erfolg
 
 - RP-Pfad, Sessionvertrag und Runbook denselben Slice beschreiben,
 - die aktuelle Agent-API-/Streaming-Pruefung gruen ist,
+- die feste Referenz-Session fuer denselben Slice Artefakte und Replay-Vertrag gruen bestaetigt,
 - der Sim-Asset-/Epoch-Pfad fuer denselben Slice nicht widerspricht,
-- und neue Session-/Replay-Artefakte spaeter ohne Parallelvertrag an denselben Gateblock andocken.
+- der `gm_session`-Eval-Lauf eine Ergebnisdatei fuer denselben Gate-Lauf erzeugt,
+- und die KPI-Summary auf genau diese Resultatdatei verweist.
 
 Runbook-Verankerung
 -------------------
 
 Das Runbook fuehrt denselben Gate-Namen und denselben operativen Task-Block. Ein spaeterer dedizierter Wrapper oder Task darf den Ablauf vereinfachen, aber nicht semantisch veraendern.
+Das Runbook fuehrt denselben Gate-Namen, denselben Wrapper-Task und dieselbe Referenz-Session-Datei. Diagnose-Tasks duerfen kuerzer sein, aber nicht vom Gate-Vertrag abweichen.
 
 Guardrails
 ----------
@@ -109,6 +126,7 @@ Definition of Done
 ------------------
 
 - Der End-to-End-Gate-Pfad besitzt einen kanonischen Namen.
-- Board, Runbook und Produktdoku verweisen auf denselben Gate-Block.
-- Die harten Fail-Klassen fuer Vertrags-, Log- und Slot-Drift sind benannt.
-- Der Pfad ist fuer eine spaetere technische Automatisierung vorbereitet, ohne den aktuellen Ist-Stand zu ueberbehaupten.
+- Board, Runbook, Tasking und Produktdoku verweisen auf denselben Wrapper-Task.
+- Die feste Referenz-Session ist als aktive Gate-Datei dokumentiert.
+- Die harten Fail-Klassen fuer Vertrags-, Log-, Slot- und GM-Runtime-Drift sind benannt.
+- Der Pfad ist technisch automatisiert, ohne den lokalen Modellruntime-Bedarf des GM-Eval-Teils zu verschweigen.

@@ -1607,6 +1607,8 @@ async def run_evaluation(
             except Exception:
                 pass
 
+            effective_model_name = model_override or _model_name
+
             meta_header: dict[str, Any] = {
                 "_meta": True,
                 "timestamp": timestamp,
@@ -1624,7 +1626,7 @@ async def run_evaluation(
                     "regex",
                     "rpg_style",
                 ],
-                "model": _model_name,
+                "model": effective_model_name,
                 "temperature": _temperature,
                 "host": _host,
                 "overrides": {

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 14:33
-update: Runbook fuehrt jetzt den bidirektionalen Session-Roundtrip des Orchestrators und den sessiongebundenen TTS-Vertrag auf demselben Text-RPG-Pfad.
-checks: snapshot-lock PASS (2026-04-07 14:33); markdownlint PASS; frontmatter PASS
+stand: 2026-04-09 14:10
+update: Runbook fuehrt jetzt den kanonischen Produkt-Gate-Wrapper samt fester Referenz-Session und GM-KPI-Summary auf demselben Text-RPG-Pfad.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260409_121807.md
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -98,19 +98,46 @@ Text-RPG Product Gate v1
 
 Der kanonische Gate-Rahmen liegt in `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md`.
 
-Aktueller operativer Gate-Block:
+Aktueller operativer Wrapper-Task:
+
+1. `Checks: text-rpg product gate`
+
+Der Wrapper fuehrt intern denselben Gate-Block aus:
 
 1. `Checks: full`
 2. `Tests: pytest (api+streaming)`
-3. `Checks: sim epoch assets`
+3. `Tests: text-rpg reference session`
+4. `Checks: sim epoch assets`
+5. `Eval: suite gm_session (12, asgi)`
+6. `Eval: summarize gm session KPIs`
 
-Der Gate-Name bleibt verbindlich `Text-RPG Product Gate v1`, auch solange der Ablauf noch ueber einen Task-Block statt ueber einen dedizierten Wrapper gefahren wird.
+Die Diagnose-Tasks bleiben zusaetzlich einzeln verfuegbar; der verbindliche Produktpfad laeuft aber ueber denselben Wrapper.
 
 Hard-Fail-Klassen laut SSOT:
 
 - OpenAPI-/Schema-Drift gegen den Sessionvertrag
-- fehlende oder spaeter widerspruechliche `world_log`-/`pc_log`-/`state_patches`-Artefakte
+- fehlende oder spaeter widerspruechliche `world_log`-/`pc_log`-/`state_patches`-Artefakte in der festen Referenz-Session
 - Slot- oder Replay-Widersprueche zwischen Agent- und Sim-Pfad
+- nicht erreichbare lokale Modellruntime fuer den `gm_session`-Eval-Teil
+
+Feste Referenz-Session
+----------------------
+
+Der deterministische Artefaktbeleg fuer den Slice liegt unter `novapolis_agent/eval/config/text_rpg_reference_session.v1.json`.
+
+Direkter Einzelaufruf:
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe novapolis_agent\scripts\run_text_rpg_reference_session.py --repo-root .
+```
+
+Der Lauf schreibt einen JSON- und Markdown-Report unter `.tmp/results/reports/`, erzeugt denselben Session-Artefaktkern (`savegame.json`, `world_log.jsonl`, `pc_log.jsonl`, `replay_manifest.json`) in einem temporaeren Store unter `.tmp/results/reference_sessions/` und validiert die erwarteten Slot-/Turn-/Artefaktzaehler gegen die Referenzdatei.
+
+Operative Lesart:
+
+- Die Referenz-Session ist kein Ersatz fuer den produktiven Chat-Lauf, sondern ein deterministischer Vertragsanker fuer Replay- und Artefaktpruefung.
+- Der `gm_session`-Eval-Teil prueft zusaetzlich den produktiven Modellpfad; ohne erreichbare lokale Modellruntime bleibt dieser Teil weiterhin ein Hard-Fail des Gesamt-Gates.
 
 Lokale Runtime-Baseline
 -----------------------

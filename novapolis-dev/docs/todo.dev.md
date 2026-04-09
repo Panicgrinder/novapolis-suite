@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 21:38
-update: Das Dev-Board fuehrt den kanonischen Typenlauf nach Wrapper-Fix, Task-Abgleich und erneut gruenem Full-Check wieder als geschlossen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260407_213201.md
+stand: 2026-04-09 14:10
+update: Das Dev-Board fuehrt die GM-Ursachenanalyse wieder als geschlossen: deaktivierte Kontextnotizen bleiben jetzt wirklich aus dem Payload, und der Restpfad ist auf den produktiven Zweier-Prompt reduziert.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260409_121807.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -18,6 +18,36 @@ Hinweis
 
 Offene Aufgaben (Dev)
 ---------------------
+
+- [x] [Jetzt] GM-Payload-Pfad ohne ungewollte Kontextnotizen haerten.
+  - Ziel: Der produktive `/chat`-Pfad soll lokale Kontextnotizen nur dann in GM-Requests injizieren, wenn `CONTEXT_NOTES_ENABLED` explizit aktiv ist, damit der Restpfad nicht durch unbeabsichtigte Zusatzprompts verlangsamt oder verfälscht wird.
+  - Akzeptanzkriterien:
+    1) `_resolve_context_notes()` liefert bei `CONTEXT_NOTES_ENABLED=False` auch dann `None`, wenn an den konfigurierten Pfaden Notizdateien liegen,
+    2) `process_chat_request()` injiziert im deaktivierten Zustand keinen `[Kontext-Notizen]`-Systemturn,
+    3) ein gezielter Test deckt den deaktivierten Pfad gegen Regression ab,
+    4) die vorhandene Live-Repro bleibt als Evidenz am Board haengen.
+  - Evidenz: Der heute extrahierte GM-Payload fuer `gm.session.continuity.v1` enthielt zunaechst drei Nachrichten mit einem zusaetzlichen Systemturn `[Kontext-Notizen]`, obwohl `CONTEXT_NOTES_ENABLED` im aktiven Settings-Stand `False` ist. Die direkte Variantenprobe zeigte ausserdem: `system_user_512` liefert noch eine Antwort, waehrend `full_512`, `full_2048` und `full_10024` im aktuellen Localhost-Lauf in Timeouts kippen.
+  - Ergebnis 2026-04-08 23:08: `novapolis_agent/app/api/chat.py` beendet `_resolve_context_notes()` jetzt sofort bei deaktiviertem Flag, statt gefundene Notizen trotzdem durchzureichen. Der neue Test `test_process_chat_request_skips_context_notes_when_disabled` ist PASS, und die Live-Payload-Pruefung fuer `gm.session.continuity.v1` zeigt danach nur noch zwei Nachrichten (`system`, `user`) ohne `[Kontext-Notizen]`-Turn.
+
+- [x] [Jetzt] Text-RPG Product Gate v1 um Runtime-Preflight und trennscharfe GM-Fehlklassifikation haerten.
+  - Ziel: Der Produktlauf soll den verbleibenden GM-Restpfad nicht mehr als diffusen Runtime-Haenger melden, sondern fehlende Ollama-Runtime, Ollama-500 und produktive Timeouts vor oder direkt nach dem GM-Schritt explizit unterscheiden.
+  - Akzeptanzkriterien:
+    1) `scripts/run_text_rpg_product_gate.py` fuehrt vor `gm_session_eval` einen schnellen Runtime-Preflight fuer Host, `/api/tags` und erwartetes Modell aus,
+    2) der Produktreport markiert `runtime_unreachable`, `model_missing`, `ollama_http_500` und `gm_timeout_504` als getrennte Fehlerklassen statt nur `step failed: gm_session_eval`,
+    3) ein fehlender oder defekter GM-Lauf bleibt weiter summarisiert, aber die Hauptursache ist im Report ohne Logsuche sichtbar,
+    4) der neue Pfad ist mit Unit-Tests fuer Preflight-/Klassifikationslogik abgesichert.
+  - Evidenz: Der frische Re-Run `process: Eval: suite gm_session (12, asgi)` erzeugt `novapolis_agent/eval/results/results_20260408_2150_gm_session.jsonl`; dabei scheitert `gm.session.continuity.v1` mit `Server error '500 Internal Server Error' for url 'http://localhost:11434/api/chat'`, waehrend `gm.session.reveal-discipline.v1` und `gm.session.option-quality.v1` im Agent-Pfad mit `504 Gateway Timeout` enden. Der lokale Listener selbst ist dagegen live (`127.0.0.1:11434`, Modelle `qwen2.5:7b` und `llama3.1:8b`), sodass der Produktlauf ohne Preflight-/Fehlertrennung aktuell einen zu groben Restblocker meldet.
+  - Ergebnis 2026-04-08: `scripts/run_text_rpg_product_gate.py` fuehrt vor `gm_session_eval` jetzt `gm_runtime_preflight` gegen den aktiven Ollama-Host und das erwartete Modell aus und klassifiziert spaetere GM-Resultate nach `runtime_unreachable`, `model_missing`, `ollama_http_500` und `gm_timeout_504`. Der gezielte Testblock `novapolis_agent/tests/scripts/test_run_text_rpg_product_gate.py` ist mit vier Tests PASS, und Ruff sowie `black --check` sind fuer die betroffenen Dateien gruen.
+
+- [x] [Jetzt] Text-RPG Product Gate v1 als reproduzierbaren Verbundlauf mit GM-Session-Eval, KPI-Summary und fester Referenz-Session haerten.
+  - Ziel: Der kanonische Produktpfad soll nicht laenger aus getrennten Einzel-Tasks bestehen, sondern denselben Text-RPG-Lauf ueber Full-Check, API-/Streaming-Smoke, Sim-Smoke, GM-Session-Eval und eine feste Referenz-Session reproduzierbar zusammenhalten.
+  - Akzeptanzkriterien:
+    1) ein kanonischer Runner oder Task fuehrt `Checks: full`, `Tests: pytest (api+streaming)`, `Checks: sim epoch assets`, den `gm_session`-Eval-Lauf und die KPI-Summary in dokumentierter Reihenfolge aus,
+    2) Produkt-Gate-SSOT, Runbook und Workspace-Tasking verwenden danach denselben Verbundlauf statt separater, nur lose referenzierter Teilpfade,
+    3) eine feste Referenz-Session oder ein aequivalenter Referenz-Case ist fuer denselben Produktpfad als reproduzierbarer Beleg definiert,
+    4) der Lauf erzeugt einen kompakten Reportpfad fuer den Produktentscheid statt nur verteilte Einzelartefakte.
+  - Evidenz: `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` und `novapolis_agent/docs/runbook.md` fuehren aktuell nur den Task-Block `Checks: full` -> `Tests: pytest (api+streaming)` -> `Checks: sim epoch assets`; `.vscode/tasks.json` enthaelt zwar bereits `Eval: suite gm_session (12, asgi)` und `Eval: summarize gm session KPIs`, aber noch keinen kanonischen Verbundlauf, der diese Stufen zusammen mit einer festen Referenz-Session als Produkt-Gate ausfuehrt.
+  - Ergebnis 2026-04-08: `scripts/run_text_rpg_product_gate.py` und der Task `Checks: text-rpg product gate` fuehren jetzt Full-Check, API-/Streaming-Tests, `Tests: text-rpg reference session`, Sim-Smoke, `gm_session`-Eval und KPI-Summary in einem Reportpfad zusammen. Die feste Referenz-Session liegt unter `novapolis_agent/eval/config/text_rpg_reference_session.v1.json`, laeuft ueber `novapolis_agent/scripts/run_text_rpg_reference_session.py` deterministisch gegen die Session-API und schreibt Savegame-, `world_log`-, `pc_log`- und Replay-Belege. Der reale Verifikationslauf `.tmp/results/reports/text_rpg_reference_session_verify.json` ist PASS; der Wrapper-Gesamtlauf `.tmp/results/reports/text_rpg_product_gate_verify.md` belegt denselben neuen Verbundpfad und zeigt als verbleibende lokale Hard-Fail-Grenze nur noch die nicht erreichbare Modellruntime des `gm_session`-Abschnitts, nicht mehr Gate- oder Task-Drift.
 
 - [x] [Jetzt] Kanonischen Typenlauf fuer Workspace-Task und Wrapper wieder auf dieselbe Agent-Konfigurationsbasis ziehen.
   - Ziel: `Checks: types (pyright+mypy)` soll wieder denselben belastbaren Scope pruefen wie der dokumentierte Agent-Produktpfad, statt wegen Konfigurationspfad-Drift in einen unbeabsichtigten Repo-Weitlauf zu kippen.

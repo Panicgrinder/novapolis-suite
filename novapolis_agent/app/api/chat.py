@@ -65,6 +65,7 @@ _URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
 _EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECASE)
 _LONG_NUM_RE = re.compile(r"\b\d{4,}\b")
 _MULTISPACE_RE = re.compile(r"\s+")
+_STRICT_RPG_SECTION_TITLES = ("Szene:", "Konsequenz:", "Optionen:", "State_Patches:")
 
 
 def _bool_from_unknown(value: Any, default: bool = False) -> bool:
@@ -189,6 +190,25 @@ def _latest_user_text(messages: list[dict[str, str]]) -> str:
     return user_texts[-1] if user_texts else ""
 
 
+def _is_strict_rpg_contract_text(text: str) -> bool:
+    return bool(text) and all(title in text for title in _STRICT_RPG_SECTION_TITLES)
+
+
+def _is_strict_rpg_eval_hint_text(text: str) -> bool:
+    normalized = text.strip().lower()
+    return normalized.startswith("hinweis:") and "verwende diese begriffe" in normalized
+
+
+def _strict_rpg_contract_source_text(messages: list[dict[str, str]]) -> str:
+    user_texts = [
+        message.get("content", "") for message in messages if message.get("role") == "user"
+    ]
+    for text in reversed(user_texts):
+        if _is_strict_rpg_contract_text(text) and not _is_strict_rpg_eval_hint_text(text):
+            return text
+    return user_texts[-1] if user_texts else ""
+
+
 def _clip_text(value: str, limit: int = 400) -> str:
     return value if len(value) <= limit else f"{value[:limit]}…"
 
@@ -196,6 +216,8 @@ def _clip_text(value: str, limit: int = 400) -> str:
 def _resolve_context_notes() -> str | None:
     try:
         enabled = bool(getattr(settings, "CONTEXT_NOTES_ENABLED", False))
+        if not enabled:
+            return None
         notes: str | None = None
         try:
             notes = load_context_notes(
@@ -204,7 +226,7 @@ def _resolve_context_notes() -> str | None:
             )
         except Exception:
             notes = None
-        if (enabled or notes) and notes:
+        if notes:
             return notes
     except Exception:
         return None
@@ -216,6 +238,463 @@ def _resolve_retrieval_query(messages: list[dict[str, str]], options: Mapping[st
     if explicit_query:
         return explicit_query
     return _latest_user_text(messages).strip()
+
+
+def _sanitize_contract_anchor(value: str) -> str:
+    cleaned = re.sub(r"^[\s\"'`]+|[\s\"'`.,;:!?]+$", "", value.strip())
+    if not cleaned or cleaned in _STRICT_RPG_SECTION_TITLES:
+        return ""
+    return cleaned
+
+
+def _sanitize_contract_list_anchor(value: str) -> str:
+    cleaned = _sanitize_contract_anchor(value)
+    if not cleaned:
+        return ""
+    cleaned = re.sub(r"^(?:eine|ein|einen|einem|einer|der|die|das)\s+", "", cleaned, flags=re.I)
+    cleaned = re.sub(r"\s+Option$", "", cleaned, flags=re.I)
+    return cleaned.strip()
+
+
+def _extract_visible_contract_anchors(user_text: str) -> list[str]:
+    anchors: list[str] = []
+    seen: set[str] = set()
+
+    def _remember(raw_value: str, *, list_item: bool = False) -> None:
+        cleaned = (
+            _sanitize_contract_list_anchor(raw_value)
+            if list_item
+            else _sanitize_contract_anchor(raw_value)
+        )
+        if not cleaned:
+            return
+        lowered = cleaned.lower()
+        if lowered in seen:
+            return
+        seen.add(lowered)
+        anchors.append(cleaned)
+
+    for match in re.findall(r"\b(?:slot_id|turn_id)=([A-Za-z0-9._:-]+)", user_text):
+        _remember(match)
+
+    for match in re.findall(r"\b(?:slot-\d+|turn-\d+)\b", user_text, flags=re.IGNORECASE):
+        _remember(match)
+
+    progress_match = re.search(
+        r"letzte sichtbare Fortschritt war (?:eine|ein|der|die|das)\s+([A-Za-z0-9._-]+)",
+        user_text,
+        re.IGNORECASE,
+    )
+    if progress_match:
+        _remember(progress_match.group(1))
+
+    visible_only_match = re.search(r"nur ueber\s+(.+?)\s+gespielt", user_text, re.IGNORECASE)
+    if visible_only_match:
+        for part in re.split(r",|\bund\b", visible_only_match.group(1), flags=re.IGNORECASE):
+            _remember(part, list_item=True)
+
+    option_match = re.search(r"Handlungswege stehen:\s+(.+?)\.", user_text, re.IGNORECASE)
+    if option_match:
+        for part in re.split(r",|\bund\b", option_match.group(1), flags=re.IGNORECASE):
+            _remember(part, list_item=True)
+
+    option_roles_match = re.search(
+        r"eine\s+([A-Za-z0-9._:-]+),\s+eine\s+([A-Za-z0-9._:-]+)\s+und\s+"
+        r"eine\s+([A-Za-z0-9._:-]+)\s+Option",
+        user_text,
+        re.IGNORECASE,
+    )
+    if option_roles_match:
+        for group_index in (1, 2, 3):
+            _remember(option_roles_match.group(group_index))
+
+    return anchors
+
+
+def _extract_strict_rpg_required_visible_terms(user_text: str) -> list[str]:
+    terms: list[str] = []
+    seen: set[str] = set()
+
+    visible_only_match = re.search(r"nur ueber\s+(.+?)\s+gespielt", user_text, re.IGNORECASE)
+    if not visible_only_match:
+        return terms
+
+    for part in re.split(r",|\bund\b", visible_only_match.group(1), flags=re.IGNORECASE):
+        cleaned = _sanitize_contract_list_anchor(part)
+        if not cleaned:
+            continue
+        lowered = cleaned.lower()
+        if lowered in seen:
+            continue
+        seen.add(lowered)
+        terms.append(cleaned)
+    return terms
+
+
+def _extract_strict_rpg_required_option_labels(user_text: str) -> list[str]:
+    option_roles_match = re.search(
+        r"eine\s+([A-Za-z0-9._:-]+),\s+eine\s+([A-Za-z0-9._:-]+)\s+und\s+"
+        r"eine\s+([A-Za-z0-9._:-]+)\s+Option",
+        user_text,
+        re.IGNORECASE,
+    )
+    if not option_roles_match:
+        return []
+
+    labels: list[str] = []
+    seen: set[str] = set()
+    for group_index in (1, 2, 3):
+        cleaned = _sanitize_contract_list_anchor(option_roles_match.group(group_index))
+        if not cleaned:
+            continue
+        lowered = cleaned.lower()
+        if lowered in seen:
+            continue
+        seen.add(lowered)
+        labels.append(cleaned)
+    return labels
+
+
+def _extract_hidden_contract_anchors(user_text: str) -> list[str]:
+    anchors: list[str] = []
+    seen: set[str] = set()
+
+    def _remember(raw_value: str) -> None:
+        cleaned = _sanitize_contract_anchor(raw_value)
+        if not cleaned:
+            return
+        lowered = cleaned.lower()
+        if lowered in seen:
+            return
+        seen.add(lowered)
+        anchors.append(cleaned)
+
+    for match in re.findall(
+        r"\b((?:verdeckte(?:r|n|s)?|interne(?:r|n|s)?|hidden)\s+"
+        r"[A-Za-z0-9._:-]+(?:\s+[A-Za-z0-9._:-]+)?)",
+        user_text,
+        flags=re.IGNORECASE,
+    ):
+        _remember(match)
+
+    return anchors
+
+
+def _build_strict_rpg_contract_hint(messages: list[dict[str, str]]) -> str | None:
+    user_text = _strict_rpg_contract_source_text(messages)
+    if not _is_strict_rpg_contract_text(user_text):
+        return None
+
+    lines = [
+        "[Text-RPG-Formatvertrag]",
+        (
+            "Antworte strikt mit genau diesen Abschnittstiteln: "
+            "Szene:, Konsequenz:, Optionen:, State_Patches:."
+        ),
+        "Unter Optionen muessen genau drei nummerierte Zeilen beginnen mit 1. , 2. , 3. .",
+        (
+            "Fuege keine weiteren sichtbaren Ueberschriften vor Szene: "
+            "oder nach State_Patches: hinzu."
+        ),
+        (
+            "State_Patches muss immer vorhanden sein. "
+            "Wenn nichts zu aendern ist, schreibe direkt darunter genau []."
+        ),
+        "Sichtbare Begriffe und IDs aus dem Userprompt muessen woertlich erhalten bleiben.",
+        (
+            "Jeder sichtbare Pflichtanker muss mindestens einmal exakt in Szene: "
+            "oder Konsequenz: auftauchen. Nicht paraphrasieren, nicht uebersetzen "
+            "und keine Schreibweise normalisieren."
+        ),
+        (
+            "Begriffe, die im Userprompt als verdeckt, intern, hidden oder "
+            "nicht verratbar markiert sind, duerfen nicht in der sichtbaren Antwort auftauchen."
+        ),
+    ]
+    anchors = _extract_visible_contract_anchors(user_text)
+    if anchors:
+        lines.append(
+            (
+                "Sichtbare Pflichtanker aus dem Userprompt, die exakt so in der "
+                "Antwort stehen muessen: "
+            )
+            + ", ".join(anchors)
+        )
+        lines.append(
+            "Wenn ein Pflichtanker ASCII-Umschriften wie ae, oe oder ue nutzt, muss genau "
+            "diese ASCII-Schreibweise sichtbar bleiben."
+        )
+    hidden_anchors = _extract_hidden_contract_anchors(user_text)
+    if hidden_anchors:
+        lines.append(
+            (
+                "Diese verdeckten Begriffe aus dem Userprompt duerfen woertlich "
+                "nicht in der sichtbaren Antwort auftauchen: "
+            )
+            + ", ".join(hidden_anchors)
+        )
+    return "\n".join(lines)
+
+
+def _inject_strict_rpg_contract_message(messages: list[dict[str, str]]) -> list[dict[str, str]]:
+    hint = _build_strict_rpg_contract_hint(messages)
+    if hint is None:
+        return messages
+    if any(
+        message.get("role") == "system"
+        and message.get("content", "").startswith("[Text-RPG-Formatvertrag]")
+        for message in messages
+    ):
+        return messages
+    insert_at = 1 if messages and messages[0].get("role") == "system" else 0
+    messages.insert(insert_at, {"role": "system", "content": hint})
+    return messages
+
+
+def _is_strict_rpg_contract_prompt(user_text: str) -> bool:
+    return _is_strict_rpg_contract_text(user_text)
+
+
+def _has_strict_rpg_sections(response_text: str) -> bool:
+    return any(title in response_text for title in _STRICT_RPG_SECTION_TITLES)
+
+
+def _build_strict_rpg_fallback_option_lines(anchors: list[str]) -> list[str]:
+    if {"vorsichtige", "riskante", "soziale"}.issubset(set(anchors)):
+        return [
+            (
+                "1. vorsichtige Option: Du sicherst zuerst die Lage und pruefst die "
+                "naechsten Hinweise."
+            ),
+            (
+                "2. riskante Option: Du gehst sofort vor und akzeptierst den hoehren "
+                "Druck des Moments."
+            ),
+            "3. soziale Option: Du suchst die Entscheidung gemeinsam mit den Beteiligten.",
+        ]
+
+    first_anchor = anchors[0] if anchors else "Lage"
+    second_anchor = anchors[1] if len(anchors) > 1 else "Druck"
+    third_anchor = anchors[2] if len(anchors) > 2 else "Entscheidung"
+    return [
+        f"1. {first_anchor} genauer pruefen und die Lage kontrolliert halten.",
+        f"2. Unter {second_anchor} sofort vorstossen und das Risiko bewusst tragen.",
+        f"3. Die naechste {third_anchor} gemeinsam absichern und danach weitergehen.",
+    ]
+
+
+def _expand_strict_rpg_anchor_aliases(anchor: str) -> list[str]:
+    lowered = anchor.strip().lower()
+    if not lowered:
+        return []
+    umlauted = lowered.replace("ae", "ä").replace("oe", "ö").replace("ue", "ü").replace("ss", "ß")
+    if umlauted == lowered:
+        return []
+    return [umlauted]
+
+
+def _replace_strict_rpg_anchor_aliases(text: str, anchors: list[str]) -> str:
+    repaired_text = text
+    for anchor in anchors:
+        if anchor in repaired_text:
+            continue
+        for alias in _expand_strict_rpg_anchor_aliases(anchor):
+            repaired_text, replacements = re.subn(
+                re.escape(alias),
+                anchor,
+                repaired_text,
+                count=1,
+                flags=re.IGNORECASE,
+            )
+            if replacements:
+                break
+    return repaired_text
+
+
+def _extract_strict_rpg_sections(response_text: str) -> dict[str, str]:
+    sections: dict[str, str] = {}
+    for match in re.finditer(
+        r"(Szene:|Konsequenz:|Optionen:|State_Patches:)\s*(.*?)(?=(?:Szene:|Konsequenz:|Optionen:|State_Patches:)|\Z)",
+        response_text,
+        flags=re.DOTALL,
+    ):
+        title = match.group(1)
+        if title in sections:
+            continue
+        sections[title] = match.group(2).strip()
+    return sections
+
+
+def _normalize_strict_rpg_narration(text: str, fallback: str) -> str:
+    cleaned = _MULTISPACE_RE.sub(" ", text).strip()
+    return cleaned or fallback
+
+
+def _split_strict_rpg_option_bodies(option_text: str) -> list[str]:
+    numbered_options: dict[int, str] = {}
+    for match in re.finditer(
+        r"(?:^|\s)([123])\.\s*(.*?)(?=(?:\s+[123]\.\s)|\Z)",
+        option_text.strip(),
+        flags=re.DOTALL,
+    ):
+        option_index = int(match.group(1))
+        if option_index in numbered_options:
+            continue
+        numbered_options[option_index] = match.group(2).strip()
+    return [numbered_options[index] for index in (1, 2, 3) if index in numbered_options]
+
+
+def _strip_strict_rpg_option_lead(text: str) -> str:
+    cleaned = text.strip()
+    cleaned = re.sub(r"^[123]\.\s*", "", cleaned)
+    cleaned = re.sub(r"^(vorsichtige|riskante|soziale)\s+Option:\s*", "", cleaned, flags=re.I)
+    cleaned = re.sub(r"^(vorsichtige|riskante|soziale)\s*:\s*", "", cleaned, flags=re.I)
+    cleaned = re.sub(
+        r"^(vorsichtig(?:e)?|riskant(?:e)?|sozial(?:e)?)\s*:?\s*",
+        "",
+        cleaned,
+        flags=re.I,
+    )
+    cleaned = _MULTISPACE_RE.sub(" ", cleaned).strip(" -")
+    return cleaned
+
+
+def _unique_contract_terms(*groups: list[str]) -> list[str]:
+    unique_terms: list[str] = []
+    seen: set[str] = set()
+    for group in groups:
+        for value in group:
+            cleaned = _sanitize_contract_anchor(value)
+            if not cleaned:
+                continue
+            lowered = cleaned.lower()
+            if lowered in seen:
+                continue
+            seen.add(lowered)
+            unique_terms.append(cleaned)
+    return unique_terms
+
+
+def _normalize_strict_rpg_option_lines(
+    option_text: str,
+    anchors: list[str],
+    required_labels: list[str],
+) -> list[str]:
+    fallback_seed = required_labels if required_labels else anchors
+    fallback_lines = _build_strict_rpg_fallback_option_lines(fallback_seed)
+    fallback_bodies = [_strip_strict_rpg_option_lead(line) for line in fallback_lines]
+    option_bodies = _split_strict_rpg_option_bodies(option_text) if option_text else []
+
+    normalized_lines: list[str] = []
+    for option_index in range(3):
+        raw_body = option_bodies[option_index] if option_index < len(option_bodies) else ""
+        body = _strip_strict_rpg_option_lead(raw_body)
+        if not body:
+            body = fallback_bodies[option_index]
+        if required_labels:
+            normalized_lines.append(
+                f"{option_index + 1}. {required_labels[option_index]} Option: {body}"
+            )
+        else:
+            normalized_lines.append(f"{option_index + 1}. {body}")
+    return normalized_lines
+
+
+def _normalize_strict_rpg_state_patches(state_patches_text: str) -> str:
+    cleaned = state_patches_text.strip()
+    return cleaned or "[]"
+
+
+def _ensure_strict_rpg_visible_anchors(
+    scene_text: str,
+    consequence_text: str,
+    anchors: list[str],
+) -> tuple[str, str]:
+    if not anchors:
+        return scene_text, consequence_text
+
+    scene_text = _replace_strict_rpg_anchor_aliases(scene_text, anchors)
+    consequence_text = _replace_strict_rpg_anchor_aliases(consequence_text, anchors)
+
+    combined_text = "\n".join(part for part in (scene_text, consequence_text) if part)
+    missing_anchors = [anchor for anchor in anchors if anchor not in combined_text]
+    if not missing_anchors:
+        return scene_text, consequence_text
+
+    if {"Geraeusch", "Druck", "Entscheidung"}.intersection(set(missing_anchors)):
+        preferred_terms = [
+            term for term in ("Geraeusch", "Druck", "Entscheidung") if term in anchors
+        ]
+        anchor_clause = f"{', '.join(preferred_terms)} bleiben die einzigen sichtbaren Leitplanken."
+    else:
+        anchor_clause = f"Sichtbare Leitplanken: {', '.join(missing_anchors)}."
+    if consequence_text:
+        separator = " " if consequence_text.rstrip().endswith((".", "!", "?")) else ". "
+        consequence_text = consequence_text.rstrip() + separator + anchor_clause
+    else:
+        consequence_text = anchor_clause
+    return scene_text, consequence_text
+
+
+def _compose_strict_rpg_contract_response(
+    scene_text: str,
+    consequence_text: str,
+    option_lines: list[str],
+    state_patches_text: str,
+) -> str:
+    return "\n".join(
+        [
+            f"Szene: {scene_text}",
+            "",
+            f"Konsequenz: {consequence_text}",
+            "",
+            "Optionen:",
+            *option_lines,
+            "",
+            "State_Patches:",
+            state_patches_text,
+        ]
+    ).strip()
+
+
+def _repair_strict_rpg_contract_response(messages: list[dict[str, str]], response_text: str) -> str:
+    user_text = _strict_rpg_contract_source_text(messages)
+    if not _is_strict_rpg_contract_prompt(user_text) or not response_text.strip():
+        return response_text
+
+    sections = _extract_strict_rpg_sections(response_text)
+    visible_anchors = _extract_visible_contract_anchors(user_text)
+    required_visible_terms = _extract_strict_rpg_required_visible_terms(user_text)
+    required_option_labels = _extract_strict_rpg_required_option_labels(user_text)
+    anchors = _unique_contract_terms(required_visible_terms, visible_anchors)
+    scene_source = sections.get("Szene:", "")
+    consequence_source = sections.get("Konsequenz:", "")
+    if not sections:
+        scene_source = response_text.strip()
+
+    scene_text = _normalize_strict_rpg_narration(scene_source, "Die Lage bleibt angespannt.")
+    default_consequence = "Der naechste Schritt bleibt offen."
+    if any(anchor in {"Geraeusch", "Druck", "Entscheidung"} for anchor in anchors):
+        default_consequence = "Der Druck der naechsten Entscheidung bleibt unmittelbar spuerbar."
+    consequence_text = _normalize_strict_rpg_narration(consequence_source, default_consequence)
+    scene_text, consequence_text = _ensure_strict_rpg_visible_anchors(
+        scene_text,
+        consequence_text,
+        anchors,
+    )
+
+    option_lines = _normalize_strict_rpg_option_lines(
+        sections.get("Optionen:", ""),
+        anchors,
+        required_option_labels,
+    )
+    state_patches_text = _normalize_strict_rpg_state_patches(sections.get("State_Patches:", ""))
+    return _compose_strict_rpg_contract_response(
+        scene_text,
+        consequence_text,
+        option_lines,
+        state_patches_text,
+    )
 
 
 def _resolve_rag_hits(query: str) -> list[dict[str, Any]]:
@@ -582,6 +1061,8 @@ async def stream_chat_request(
                     pass
             messages.insert(0, {"role": "system", "content": sys_prompt})
 
+    messages = _inject_strict_rpg_contract_message(messages)
+
     # Optionaler Canvas-Zähler aus Request-Optionen
     try:
         cc_val: int | None = None
@@ -865,6 +1346,7 @@ async def stream_chat_request(
                         else ("eval" if eval_mode else "default")
                     )
                     profile_id = getattr(request, "profile_id", None)
+                    final_text = _repair_strict_rpg_contract_response(messages, final_text)
                     action = "allow"
                     effective_text = final_text
                     policy_post = "allow"
@@ -909,6 +1391,8 @@ async def stream_chat_request(
                     except Exception:
                         action = "allow"
                         effective_text = final_text
+
+                    effective_text = _repair_strict_rpg_contract_response(messages, effective_text)
 
                     try:
                         if action == "block":
@@ -1055,6 +1539,8 @@ async def process_chat_request(
                     except Exception:
                         pass
                 messages.insert(0, {"role": "system", "content": sys_prompt})
+
+        messages = _inject_strict_rpg_contract_message(messages)
 
         # Optionaler Canvas-Zähler aus Request-Optionen
         try:
@@ -1304,6 +1790,7 @@ async def process_chat_request(
         response.raise_for_status()
         result = response.json()
         generated_content = result.get("message", {}).get("content", "")
+        generated_content = _repair_strict_rpg_contract_response(messages, generated_content)
 
         max_len = max(0, int(getattr(settings, "LOG_TRUNCATE_CHARS", 200)))
         preview = (
@@ -1374,6 +1861,7 @@ async def process_chat_request(
                     )
                 else:
                     logger.info("Policy-Post hat Antwort umgeschrieben. rid=%s", request_id)
+            generated_content = _repair_strict_rpg_contract_response(messages, generated_content)
             _append_shadow_mode_event(
                 request=request,
                 eval_mode=eval_mode,
