@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-09 14:10
-update: Root-Summary fuehrt jetzt den geschlossenen Text-RPG-Produktpfad nach dem Eval-Hinweis-Fix; der kanonische Product-Gate-Lauf ist wieder PASS.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260409_121807.md
+stand: 2026-04-09 17:52
+update: Root-Summary fuehrt jetzt den lokalen CPU-Schonmodus fuer schwere Test- und Check-Tasks; VS-Code-Aufrufe laufen ueber einen gemeinsamen Affinitaets-Wrapper.
+checks: pytest novapolis_agent/tests/scripts/test_run_with_cpu_limit.py PASS; run_with_cpu_limit env probe PASS; snapshot-lock 2026-04-09 17:52
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,8 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-09 17:34: Der lokale Test-/Check-Pfad besitzt jetzt einen CPU-Schonmodus fuer VS Code. `scripts/run_with_cpu_limit.py` begrenzt schwere Python-Aufrufe auf eine kleine CPU-Affinitätsmaske, setzt die Prioritaet auf `below_normal` und zieht CPU-nahe Thread-Variablen wie `OMP_NUM_THREADS`, `OPENBLAS_NUM_THREADS` und `MKL_NUM_THREADS` konservativ nach; auf dem aktuellen 12-Thread-System landet der Auto-Modus damit bei `4` logischen CPUs. `.vscode/tasks.json` fuehrt Root-Pytest, Coverage, Full-Check, Produkt-Gate sowie die relevanten Eval-/Validierungslaufe jetzt ueber denselben Wrapper. Der neue Regressionstest `novapolis_agent/tests/scripts/test_run_with_cpu_limit.py` ist PASS, und die direkte Kindprozess-Probe bestaetigt `NVP_CPU_LIMIT_ACTIVE=4` plus `TOKENIZERS_PARALLELISM=false`.
 
 - 2026-04-09 12:20: Der strikte GM-Vertrag ist jetzt auch im Eval-Pfad geschlossen. Ausloeser war der reproduzierte Root Cause, dass `novapolis_agent/scripts/run_eval.py` fuer Szenen-Items einen zweiten Userturn `Hinweis: Verwende diese Begriffe ...` anhaengt und `novapolis_agent/app/api/chat.py` dadurch den letzten statt den letzten passenden Vertrags-Prompt ausgewertet hat. `novapolis_agent/app/api/chat.py` waehlt fuer Strict-RPG-Hint und Rebuilder jetzt den letzten Userturn mit echtem Vertragsmuster und ignoriert den Eval-Hinweisturn; neue Regressionen in `novapolis_agent/tests/test_api_chat_internal_branches.py` decken genau diesen Pfad ab. Der gezielte GM-Lauf `novapolis_agent/eval/results/results_20260409_1217_gm_session.jsonl` steht bei `4/4`, und der kanonische Produktlauf `.tmp/results/reports/text_rpg_product_gate_20260409_121807.md` ist wieder PASS; die KPI-Summary `.tmp/results/reports/gm_session_kpi_summary_20260409_121807.md` zeigt `Success: 4/4`, keine Blocker und keine Beobachtungen.
 

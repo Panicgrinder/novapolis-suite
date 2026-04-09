@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-09 14:10
-update: Der TODO-Index fuehrt im Agent-Modul jetzt einen offenen Coverage-Haertungslauf fuer fuenf Low-Coverage-Dateien.
-checks: scripts\run_pytest_coverage.py --fail-under 80 PASS; report=.tmp\results\reports\pytest_coverage_postflight_20260409_123310.md; coverage=88.98%
+stand: 2026-04-09 17:52
+update: Der TODO-Index fuehrt den CPU-Schonmodus fuer Test- und Check-Tasks jetzt als abgeschlossen; schwere Tasklaeufe teilen sich einen gemeinsamen 4-CPU-Wrapper.
+checks: pytest novapolis_agent/tests/scripts/test_run_with_cpu_limit.py PASS; run_with_cpu_limit env probe PASS; snapshot-lock 2026-04-09 17:52
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,7 +23,7 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` fuehrt den nachgezogenen Wochenabschluss vom 2026-04-08 als aktuellen Referenzlauf; Full-Check, separater Coverage-Lauf, Sim-Clean-Checkout und Hygiene-Cadence sind gruen, der Root-Metablock `Slice -> MVP -> Beta` bleibt gegen den belegten Modul-Iststand geschlossen.
 
-- Dev: Der kanonische Typenpfad ist belastbar, und der produktive Text-RPG-Gate-Pfad trennt den GM-Rest jetzt sauber. Die Live-Ursachenanalyse hat den unbeabsichtigten Kontextnotiz-Turn im GM-Payload geschlossen: `novapolis_agent/app/api/chat.py` injiziert bei `CONTEXT_NOTES_ENABLED=False` keine `[Kontext-Notizen]` mehr, der neue Regressionstest ist gruen, und die Live-Payload-Pruefung fuer `gm.session.continuity.v1` zeigt nur noch den Zweier-Prompt aus `system` und `user`. Das Dev-Board steht damit wieder auf `offen: 0`.
+- Dev: Der kanonische Typenpfad ist belastbar, und der produktive Text-RPG-Gate-Pfad trennt den GM-Rest jetzt sauber. Der neue Schonmodus fuehrt schwere Test-, Coverage-, Produkt-Gate- und Eval-Tasks ueber `scripts/run_with_cpu_limit.py`; auf dem lokalen 6C/12T-System greift damit ohne Override ein konservativer `4`-CPU-Slice plus reduzierte Prioritaet. Das Dev-Board steht damit wieder bei `offen: 0`.
 
 - Agent: Sessionvertrag, Replay-/Savegame-Pfad, `gm_session`-Eval, Session-TTS und der warnungsfreie Produktpfad bleiben geschlossen. Neu offen ist ein gezielter Coverage-Haertungslauf fuer `run_text_rpg_reference_session.py`, `validate_eval_datasets.py`, `summarize_gm_eval_kpis.py`, `content_management.py` und `tts_models.py`; Basis ist der frische Wrapper-Lauf `.tmp/results/reports/pytest_coverage_postflight_20260409_123310.md` mit `88.98%` Gesamtquote. Das Agent-Board steht damit bei `offen: 1`.
 
@@ -38,9 +38,9 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-04-07 | keiner (offen: 0) | nein |
+| Dev (`docs/todo.dev.md`) | 2026-04-09 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-04-07 | keiner (offen: 0) | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-04-07 | keiner (offen: 0) | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-04-09 | - [ ] [Jetzt] Fuenf Low-Coverage-Module testseitig auf echte Vollabdeckung ziehen. | nein |
 | Sim (`docs/todo.sim.md`) | 2026-04-07 | keiner (offen: 0) | nein |
 
 

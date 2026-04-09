@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-09 14:10
-update: Dev-DONELOG dokumentiert jetzt den geschlossenen GM-Eval-Rest nach dem Fix fuer den angehaengten Eval-Hinweisturn; der Product-Gate-Lauf ist wieder PASS.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260409_121807.md
+stand: 2026-04-09 17:52
+update: Dev-DONELOG dokumentiert jetzt den CPU-Schonmodus fuer schwere Test- und Check-Tasks auf dem lokalen 6C/12T-Windows-System.
+checks: pytest novapolis_agent/tests/scripts/test_run_with_cpu_limit.py PASS; run_with_cpu_limit env probe PASS; snapshot-lock 2026-04-09 17:52
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,13 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+CPU Schonmodus: Gemeinsamen Wrapper fuer schwere Tasklaeufe eingezogen (2026-04-09 17:34)
+-----------------------------------------------------------------------------------------
+
+- `scripts/run_with_cpu_limit.py` fuehrt schwere Python-Aufrufe jetzt ueber einen kleinen CPU-Slice statt frei ueber alle logischen Prozessoren: Unter Windows setzt der Wrapper CPU-Affinität, `below_normal`-Prioritaet und konservative Thread-Umgebungsvariablen; ohne Override nutzt er auf dem lokalen `AMD Ryzen 5 3600X` mit `12` Threads automatisch `4` logische CPUs.
+- `.vscode/tasks.json` haengt Root-Pytest, Coverage, Full-Check, den Text-RPG-Produktlauf sowie die relevanten Eval-/Validierungslaeufe an denselben Schonpfad, damit Taskverhalten und Direktaufruf nicht auseinanderdriften.
+- `novapolis_agent/tests/scripts/test_run_with_cpu_limit.py` deckt Default-Sizing, Env-Begrenzung und den echten Child-Spawn-Pfad gegen Regression ab. Die direkte Probe `scripts/run_with_cpu_limit.py -- ... -c "import os; ..."` bestaetigt im Kindprozess `NVP_CPU_LIMIT_ACTIVE=4`, `OMP_NUM_THREADS=4` und `TOKENIZERS_PARALLELISM=false`.
 
 GM Vertrag: Eval-Hinweisturn entkoppelt Strict-RPG-Rebuilder nicht mehr (2026-04-09 12:20)
 -------------------------------------------------------------------------------------------

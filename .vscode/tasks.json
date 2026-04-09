@@ -50,7 +50,12 @@
       "label": "Tests: pytest (-q) [root]",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["${workspaceFolder}\\scripts\\tests_pytest_root.py"],
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "${workspaceFolder}\\scripts\\tests_pytest_root.py"
+      ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -72,7 +77,12 @@
       "label": "Tests: coverage (fail-under)",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["${workspaceFolder}\\scripts\\run_pytest_coverage.py"],
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "${workspaceFolder}\\scripts\\run_pytest_coverage.py"
+      ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -83,7 +93,12 @@
       "label": "Checks: full",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["${workspaceFolder}\\scripts\\run_checks_and_report.py"],
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "${workspaceFolder}\\scripts\\run_checks_and_report.py"
+      ],
       "options": { "cwd": "${workspaceFolder}" },
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
       "runOptions": { "instanceLimit": 1 },
@@ -164,7 +179,12 @@
       "label": "Checks: text-rpg product gate",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["${workspaceFolder}\\scripts\\run_text_rpg_product_gate.py"],
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "${workspaceFolder}\\scripts\\run_text_rpg_product_gate.py"
+      ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -215,7 +235,14 @@
       "label": "Tests: pytest (-q)",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["-m", "pytest", "-q"],
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q"
+      ],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -244,7 +271,16 @@
       "label": "Tests: pytest (unit)",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["-m", "pytest", "-q", "-m", "unit"],
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "-m",
+        "unit"
+      ],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -256,7 +292,16 @@
       "label": "Tests: pytest (api+streaming)",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["-m", "pytest", "-q", "-m", "api or streaming"],
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "-m",
+        "api or streaming"
+      ],
       "options": { "cwd": "${workspaceFolder}/novapolis_agent" },
       "group": "test",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -269,6 +314,9 @@
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "${workspaceFolder}\\novapolis_agent\\scripts\\run_text_rpg_reference_session.py",
         "--repo-root",
         "${workspaceFolder}"
@@ -285,6 +333,9 @@
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "-m",
         "scripts.agent.run_eval",
         "--asgi",
@@ -314,6 +365,9 @@
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "-m",
         "scripts.agent.run_eval",
         "--asgi",
@@ -345,6 +399,9 @@
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "-m",
         "scripts.agent.run_eval",
         "--asgi",
@@ -374,6 +431,9 @@
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "-m",
         "scripts.agent.run_eval",
         "--asgi",
@@ -403,6 +463,9 @@
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "-m",
         "scripts.agent.run_eval",
         "--asgi",
@@ -430,6 +493,9 @@
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "-m",
         "scripts.agent.run_eval",
         "--asgi",
@@ -507,6 +573,9 @@
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "${workspaceFolder}\\novapolis_agent\\scripts\\validate_eval_datasets.py"
       ],
       "options": { "cwd": "${workspaceFolder}" },
@@ -521,6 +590,9 @@
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "${workspaceFolder}\\novapolis_agent\\scripts\\validate_eval_datasets.py",
         "--strict",
         "--suite-config",
@@ -699,6 +771,9 @@
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "${workspaceFolder}\\novapolis_agent\\scripts\\build_eval_from_rp.py",
         "--rp-root",
         "novapolis-rp/database-rp",
@@ -719,6 +794,9 @@
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
       "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "${workspaceFolder}\\novapolis-dev\\integrations\\mcp-openai-eval\\src\\mcp_openai_eval\\server.py"
       ],
       "options": { "cwd": "${workspaceFolder}" },

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-09 14:10
-update: Das Dev-Board fuehrt die GM-Ursachenanalyse wieder als geschlossen: deaktivierte Kontextnotizen bleiben jetzt wirklich aus dem Payload, und der Restpfad ist auf den produktiven Zweier-Prompt reduziert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260409_121807.md
+stand: 2026-04-09 17:52
+update: Der Schonmodus-Lauf fuer CPU-begrenzte Test- und Check-Tasks ist umgesetzt; schwere Workspace-Tasks laufen jetzt ueber einen gemeinsamen CPU-Limiter.
+checks: pytest novapolis_agent/tests/scripts/test_run_with_cpu_limit.py PASS; run_with_cpu_limit env probe PASS; snapshot-lock 2026-04-09 17:52
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -18,6 +18,16 @@ Hinweis
 
 Offene Aufgaben (Dev)
 ---------------------
+
+- [x] [Jetzt] Schonmodus fuer Test- und Check-Tasks ueber CPU-Limit einfuehren.
+  - Ziel: Workspace-Tasks fuer Tests, Coverage und Sammelchecks sollen auf dem lokalen 6C/12T-Rechner keine unnoetigen CPU-Spitzen mehr verursachen und dadurch den Gesamtzustand des Systems stabiler halten.
+  - Akzeptanzkriterien:
+    1) ein wiederverwendbarer Wrapper begrenzt Python-Subprozesse auf einen kleinen CPU-Slice statt alle logischen Prozessoren frei zu nutzen,
+    2) die relevanten VS-Code-Tasks fuer Tests und Checks laufen ueber denselben Schonpfad,
+    3) die Loesung bleibt per Parameter anpassbar und ist nicht hart auf genau eine CPU-Maske verdrahtet,
+    4) ein gezielter Testlauf oder Script-Test belegt den Wrapper gegen Regression.
+  - Evidenz: Die aktuelle Systemprobe meldet `AMD Ryzen 5 3600X`, `6` physische Kerne, `12` logische Prozessoren und bereits im Leerlauf rund `69%` committed RAM; die bestehenden Tasks in `.vscode/tasks.json` und Root-Wrapper wie `scripts/run_pytest_coverage.py` setzen bislang keine CPU-Grenzen.
+  - Ergebnis 2026-04-09 17:34: `scripts/run_with_cpu_limit.py` begrenzt jetzt Windows-Tasklaeufe ueber CPU-Affinität, `below_normal`-Prioritaet und konservative Thread-Umgebungsvariablen; ohne expliziten Override nutzt der Wrapper auf dem lokalen 12-Thread-System automatisch `4` logische CPUs. Die schweren VS-Code-Tasks fuer Root-Pytest, Coverage, Full-Check, Produkt-Gate sowie Eval-/Validierungslaeufe in `.vscode/tasks.json` laufen jetzt ueber denselben Schonpfad. Der neue Regressionstest `novapolis_agent/tests/scripts/test_run_with_cpu_limit.py` ist PASS, und die direkte Env-Probe ueber den Wrapper bestaetigt `NVP_CPU_LIMIT_ACTIVE=4`, `OMP_NUM_THREADS=4` und `TOKENIZERS_PARALLELISM=false` im Kindprozess.
 
 - [x] [Jetzt] GM-Payload-Pfad ohne ungewollte Kontextnotizen haerten.
   - Ziel: Der produktive `/chat`-Pfad soll lokale Kontextnotizen nur dann in GM-Requests injizieren, wenn `CONTEXT_NOTES_ENABLED` explizit aktiv ist, damit der Restpfad nicht durch unbeabsichtigte Zusatzprompts verlangsamt oder verfälscht wird.
