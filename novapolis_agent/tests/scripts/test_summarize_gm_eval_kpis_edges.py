@@ -152,7 +152,9 @@ def test_summarize_files_with_meta_only_marks_blocker(tmp_path: Path) -> None:
     from scripts import summarize_gm_eval_kpis as mod
 
     results = tmp_path / "results_meta_gm_session.jsonl"
-    results.write_text(json.dumps({"_meta": True, "enabled_checks": ["must_include"]}) + "\n", encoding="utf-8")
+    results.write_text(
+        json.dumps({"_meta": True, "enabled_checks": ["must_include"]}) + "\n", encoding="utf-8"
+    )
 
     report = mod.summarize_files([results])
 
@@ -206,7 +208,9 @@ def test_summarize_files_handles_blank_lines_non_dict_records_and_warnung(tmp_pa
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_main_returns_2_when_no_results_match(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_main_returns_2_when_no_results_match(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from scripts import summarize_gm_eval_kpis as mod
 
     monkeypatch.setattr(
@@ -226,7 +230,9 @@ def test_main_returns_2_when_no_results_match(tmp_path: Path, monkeypatch: pytes
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_main_uses_default_pattern_when_no_args_given(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_main_uses_default_pattern_when_no_args_given(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from scripts import summarize_gm_eval_kpis as mod
 
     results_dir = tmp_path / "novapolis_agent" / "eval" / "results"
@@ -272,6 +278,7 @@ def test_main_uses_default_pattern_when_no_args_given(tmp_path: Path, monkeypatc
 @pytest.mark.scripts
 @pytest.mark.unit
 def test_module_main_executes_via_runpy(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    script_path = Path(__file__).resolve().parents[2] / "scripts" / "summarize_gm_eval_kpis.py"
     results_dir = tmp_path / "novapolis_agent" / "eval" / "results"
     results_dir.mkdir(parents=True)
     (results_dir / "results_demo_gm_session.jsonl").write_text(
@@ -306,6 +313,6 @@ def test_module_main_executes_via_runpy(tmp_path: Path, monkeypatch: pytest.Monk
     )
 
     with pytest.raises(SystemExit) as exc_info:
-        runpy.run_module("scripts.summarize_gm_eval_kpis", run_name="__main__")
+        runpy.run_path(str(script_path), run_name="__main__")
 
     assert exc_info.value.code == 0

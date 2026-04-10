@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-09 14:10
-update: Runbook fuehrt jetzt den kanonischen Produkt-Gate-Wrapper samt fester Referenz-Session und GM-KPI-Summary auf demselben Text-RPG-Pfad.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260409_121807.md
+stand: 2026-04-10 13:22
+update: Runbook fuehrt jetzt auch den gemeinsamen Folgeanker `Text-RPG Slice 2 Handover v1` hinter slot 30.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -119,6 +119,17 @@ Hard-Fail-Klassen laut SSOT:
 - fehlende oder spaeter widerspruechliche `world_log`-/`pc_log`-/`state_patches`-Artefakte in der festen Referenz-Session
 - Slot- oder Replay-Widersprueche zwischen Agent- und Sim-Pfad
 - nicht erreichbare lokale Modellruntime fuer den `gm_session`-Eval-Teil
+
+Text-RPG Slice 2 Handover v1
+----------------------------
+
+Der gemeinsame Folgeanker hinter `slot 30` liegt in `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md`.
+
+Operative Lesart:
+
+- Der erste Slice bleibt produktiv bis `slot 30` geschlossen; der naechste Ausbau hinter diesem Punkt darf im Agent-Scope keinen freien Zweitnamen bekommen.
+- Neue Referenzfaelle, Gate-Erweiterungen oder Resume-Checks hinter `slot 30` muessen denselben Session- und Artefaktvertrag (`savegame.json`, `world_log`, `pc_log`, `replay_manifest.json`, `resume_checkpoint_id`) weiterverwenden.
+- Die offene Sim-Folgearbeit haengt explizit an diesem Handover: `resume_checkpoint_id` und `replay_manifest` bleiben damit nicht nur Runtime-Daten, sondern der operative Wiederanlaufanker fuer denselben Folgepfad.
 
 Feste Referenz-Session
 ----------------------

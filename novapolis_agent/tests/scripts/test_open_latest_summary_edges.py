@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+import runpy
 from pathlib import Path
 
 import pytest
@@ -10,6 +11,7 @@ import pytest
 @pytest.mark.unit
 def test_open_latest_summary_empty_dir(tmp_path: Path) -> None:
     mod = importlib.import_module("scripts.open_latest_summary")
+    script_path = Path(mod.__file__).resolve()
 
     # find_latest_summary liefert None bei leerem Verzeichnis
     assert mod.find_latest_summary(tmp_path) is None
@@ -21,10 +23,7 @@ def test_open_latest_summary_empty_dir(tmp_path: Path) -> None:
     try:
         sys.argv = ["open_latest_summary.py", "--print", "--dir", str(tmp_path)]
         with pytest.raises(SystemExit) as se:
-            # Falls __main__ vorhanden ist, rufe es als Modul auf
-            import runpy
-
-            runpy.run_module(mod.__name__, run_name="__main__")
+            runpy.run_path(str(script_path), run_name="__main__")
         assert se.value.code == 2
     except AttributeError:
         # Fallback: direkte Ausführung von main()

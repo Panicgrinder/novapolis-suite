@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-08 13:40
-update: Root-Backlog verweist jetzt auf den nachgezogenen Wochenabschluss vom 2026-04-08 als aktuellen Referenzlauf; Root-Metapunkte bleiben geschlossen.
-checks: Wochenabschluss via scripts/run_checks_and_report.py overall=PASS; report=.tmp\results\reports\checks_report_20260408_131224.md; scripts\check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency summary=fail:0,warn:0; scripts\run_pytest_coverage.py --fail-under 80 PASS report=.tmp\results\reports\pytest_coverage_postflight_20260408_131356.md coverage=90.14%; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py WORKSPACE_STATUS.md DONELOG.md todo.root.md novapolis-dev/docs/donelog.md novapolis-dev/docs/todo.index.md novapolis-dev/docs/meta/dev-kpi-trends.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . --write-index-meta PASS; .\.venv\Scripts\python.exe scripts\check_doc_freshness.py --repo-root . PASS; .\.venv\Scripts\python.exe scripts\check_logs_policy.py --repo-root . PASS
+stand: 2026-04-10 13:22
+update: Root-Backlog verankert den Folgepfad hinter slot 30 jetzt als gemeinsame SSOT `Text-RPG Slice 2 Handover v1`.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -21,6 +21,16 @@ Kurzstatus
 
 Neue Punkte (Backlog)
 ---------------------
+
+- [x] Zweiten Text-RPG-Produktslice hinter `slot 30` suiteweit auf dieselbe kanonische Kette ziehen.
+  - Ziel: Nach dem geschlossenen ersten Slice sollen Root, RP, Agent und Sim denselben Anschluss hinter `slot 30` fuehren, statt den naechsten Produktschritt nur implizit aus RP- oder Runtime-Resten abzuleiten.
+  - Akzeptanzkriterien:
+    1) Root-, Dev-, Agent-, RP- und Sim-Board benennen denselben Folgepfad hinter `slot 30` ohne abweichende Slice-Namen,
+    2) der RP-Pfad fuehrt einen belastbaren Anschluss fuer `slot 31-35` oder eine gleichwertige modulare Episode,
+    3) Agent-Produkt-Gate, Referenz-Session und Runbook benennen denselben Handover statt nur den Stand bis `slot 30`,
+    4) Sim- und Replay-Pfad koennen den Episodenuebergang ohne ad-hoc-Annahmen ueber Resume-/Checkpoint-Logik tragen.
+  - Evidenz: `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` fuehrt den kanonischen Produktpfad derzeit nur bis `rp-folgekorridor-slot-26-30.ssot.md`; derselbe RP-Folgekorridor nennt im Abschnitt `Weiterer Ausbau` explizit `slot 31-35` oder einen modularen Episodenpfad als naechsten Ausbau.
+  - Ergebnis 2026-04-10 00:11: `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` fixiert jetzt den gemeinsamen Namen, den Session-/Artefaktvertrag und die Modulrollen fuer den Folgepfad hinter `slot 30`. `text-rpg-product-gate-v1.ssot.md` und `novapolis_agent/docs/runbook.md` verweisen im selben Lauf auf dieselbe SSOT; die offenen RP- und Sim-Folgepunkte fuehren damit keinen freien Folgepfad mehr, sondern denselben gemeinsamen Handover.
 
 - [x] Vertikalen Slice `Spielstart Novapolis` als kanonische Produktkette vom Prompt bis zur spielbaren Rueckmeldung festziehen.
   - Ziel: Der erste echte Produktpfad soll nicht mehr nur aus getrennten Chat-, RP-, TTS- und Sim-Bausteinen bestehen, sondern einen zusammenhaengenden Slice `Spielerinput -> KI-Spielleitung -> Weltmutation -> PC-Rueckmeldung -> Logs/Audio/UI` definieren.

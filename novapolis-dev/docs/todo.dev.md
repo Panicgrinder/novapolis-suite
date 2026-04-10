@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-09 17:52
-update: Der Schonmodus-Lauf fuer CPU-begrenzte Test- und Check-Tasks ist umgesetzt; schwere Workspace-Tasks laufen jetzt ueber einen gemeinsamen CPU-Limiter.
-checks: pytest novapolis_agent/tests/scripts/test_run_with_cpu_limit.py PASS; run_with_cpu_limit env probe PASS; snapshot-lock 2026-04-09 17:52
+stand: 2026-04-10 13:22
+update: Der kanonische Coverage-Lauf ist jetzt wieder warnungsfrei; der `runpy`-Hygiene-Rest ist geschlossen.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -18,6 +18,16 @@ Hinweis
 
 Offene Aufgaben (Dev)
 ---------------------
+
+- [x] [Jetzt] `runpy`-Warnings im kanonischen Coverage-Lauf auf einen sauberen, warnungsfreien Skriptpfad reduzieren.
+  - Ziel: Der produktive Coverage- und Script-Testpfad soll keine vermeidbaren Importzustands-Warnings mehr ausgeben, damit echte Runtime-Warnungen nicht hinter bekannten Testartefakten verschwinden.
+  - Akzeptanzkriterien:
+    1) die aktuellen `RuntimeWarning: ... found in sys.modules after import of package 'scripts'` fuer `open_latest_summary`, `run_text_rpg_reference_session`, `summarize_gm_eval_kpis` und `validate_eval_datasets` verschwinden aus dem kanonischen Coverage-Lauf,
+    2) die betroffenen Edge-Tests bleiben in ihrer Modul- bzw. CLI-Absicherung gruen,
+    3) die Loesung erklaert nachvollziehbar, ob `runpy`, Importreihenfolge oder Shim-Layout der Root Cause ist, statt die Warnings nur zu unterdruecken,
+    4) `.tmp/results/reports/pytest_coverage_postflight_*.md` bleibt danach weiter PASS und fuehrt keine neuen Warnings derselben Klasse.
+  - Evidenz: `.tmp/results/reports/pytest_coverage_postflight_20260409_232603.md` endet mit genau vier `runpy`-RuntimeWarnings in `tests/scripts/test_open_latest_summary_edges.py`, `test_run_text_rpg_reference_session_edges.py`, `test_summarize_gm_eval_kpis_edges.py` und `test_validate_eval_datasets_edges.py`.
+  - Ergebnis 2026-04-10 05:16: Die vier Edge-Tests fuehren die betroffenen CLI-Pfade nicht mehr via `runpy.run_module()` auf bereits vorimportierten `scripts.*`-Modulen aus, sondern ueber den echten Skriptpfad per `runpy.run_path(..., run_name="__main__")`. Damit verschwindet die `sys.modules`-Kollision an der Ursache statt per Warning-Filter. Der kanonische Wrapper-Lauf `.tmp/results/reports/pytest_coverage_postflight_20260410_051125.md` ist mit `596 passed`, `returncode=0`, `Total coverage: 93.66%` und ohne `found in sys.modules after import of package 'scripts'`-Warnings PASS; das Dev-Board steht damit wieder bei `offen: 0`.
 
 - [x] [Jetzt] Schonmodus fuer Test- und Check-Tasks ueber CPU-Limit einfuehren.
   - Ziel: Workspace-Tasks fuer Tests, Coverage und Sammelchecks sollen auf dem lokalen 6C/12T-Rechner keine unnoetigen CPU-Spitzen mehr verursachen und dadurch den Gesamtzustand des Systems stabiler halten.

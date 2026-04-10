@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-09 17:52
-update: Root-Summary fuehrt jetzt den lokalen CPU-Schonmodus fuer schwere Test- und Check-Tasks; VS-Code-Aufrufe laufen ueber einen gemeinsamen Affinitaets-Wrapper.
-checks: pytest novapolis_agent/tests/scripts/test_run_with_cpu_limit.py PASS; run_with_cpu_limit env probe PASS; snapshot-lock 2026-04-09 17:52
+stand: 2026-04-10 13:22
+update: Root-Summary fuehrt jetzt den geschlossenen Coverage-Warning-Fix; offen bleiben nur noch Agent und Sim.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,16 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-10 05:16: Der offene Dev-Hygiene-Rest im kanonischen Coverage-Pfad ist geschlossen. Die vier `runpy`-Warnings kamen aus Edge-Tests, die bereits vorimportierte `scripts.*`-Module noch einmal per `runpy.run_module(..., run_name="__main__")` ausfuehrten; die Tests laufen jetzt ueber echte Skriptpfade mit `runpy.run_path(..., run_name="__main__")`. Der frische Postflight `.tmp/results/reports/pytest_coverage_postflight_20260410_051125.md` ist mit `596 passed`, `Total coverage: 93.66%` und ohne Warnings derselben Klasse PASS. Dev steht damit wieder bei `offen: 0`; offen bleiben nur noch Agent und Sim.
+
+- 2026-04-10 00:11: Der Slice-2-Handover ist jetzt fachlich bis `slot 35` ausgearbeitet. `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` fuehrt den ersten Ausbau hinter `slot 30` als vierte Kampagnenstufe auf demselben Resume-, Reveal- und Artefaktrahmen; `text-rpg-slice-2-handover-v1.ssot.md` und `text-rpg-product-gate-v1.ssot.md` verweisen im selben Lauf auf dieselbe neue RP-SSOT. Das RP-Board steht damit wieder bei `offen: 0`; offen bleiben Dev, Agent und Sim.
+
+- 2026-04-10 00:11: Der Folgepfad hinter `slot 30` ist jetzt als gemeinsame SSOT `Text-RPG Slice 2 Handover v1` eingezogen. Die neue Datei `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` fixiert den gemeinsamen Namen, den Session-/Artefaktvertrag und die Modulrollen fuer Root, RP, Agent und Sim; `text-rpg-product-gate-v1.ssot.md` und `novapolis_agent/docs/runbook.md` verweisen im selben Lauf auf dieselbe Quelle. Der Root-Backlog fuehrt die SSOT-Arbeit damit als geschlossen; offen bleiben nur die fachlichen Folgearbeiten in RP und Sim sowie spaetere Gate-/Referenz-Erweiterungen auf demselben Handover.
+
+- 2026-04-09 23:45: Der Workspace ist nach dem geschlossenen Coverage-Rest erneut gegen aktuelle Reports, SSOTs und den Sim-Hub gescannt. Daraus entstehen neue Folgepunkte in allen aktiven TODO-Dateien: Dev zieht die vier `runpy`-Warnings aus `.tmp/results/reports/pytest_coverage_postflight_20260409_232603.md` auf einen sauberen Skriptpfad; Agent fuehrt die naechste Coverage-Welle fuer `app/api/chat_helpers.py` (`89%`), `app/main.py` (`90%`) und `app/tts/providers.py` (`87%`); RP fuehrt den belegten Anschluss hinter `slot 30` als `slot 31-35` oder modulare Episode weiter; Sim hebt den bisher nur angezeigten `resume_checkpoint_id`-Stand auf einen echten Replay-/Resume-Bedienpfad. `todo.root.md`, die vier Modul-Boards, `novapolis-dev/docs/todo.index.md` und `WORKSPACE_STATUS.md` sind damit wieder auf denselben offenen Folgepfad synchronisiert.
+
+- 2026-04-09 23:33: Der letzte offene Agent-Coverage-Rest ist geschlossen. `novapolis_agent/tests/test_content_management_edges.py` deckt die letzten drei offenen Zweige in `app/core/content_management.py`, und `novapolis_agent/scripts/validate_eval_datasets.py` nutzt seine Default-Dataset- und Suite-Config-Pfade jetzt skriptrelativ statt cwd-abhaengig, damit der kanonische Coverage-Wrapper im Agent-CWD nicht mehr am Validator-Test scheitert. Die fokussierte Nachmessung zieht `run_text_rpg_reference_session.py`, `validate_eval_datasets.py`, `summarize_gm_eval_kpis.py`, `app/core/content_management.py` und `app/api/tts_models.py` jeweils auf `100%`; der anschliessende Wrapper-Lauf `.tmp/results/reports/pytest_coverage_postflight_20260409_232603.md` ist mit `596 passed` und `Total coverage: 93.73%` PASS. Das Agent-Board und der TODO-Index stehen damit wieder bei `offen: 0`.
 
 - 2026-04-09 17:34: Der lokale Test-/Check-Pfad besitzt jetzt einen CPU-Schonmodus fuer VS Code. `scripts/run_with_cpu_limit.py` begrenzt schwere Python-Aufrufe auf eine kleine CPU-Affinitätsmaske, setzt die Prioritaet auf `below_normal` und zieht CPU-nahe Thread-Variablen wie `OMP_NUM_THREADS`, `OPENBLAS_NUM_THREADS` und `MKL_NUM_THREADS` konservativ nach; auf dem aktuellen 12-Thread-System landet der Auto-Modus damit bei `4` logischen CPUs. `.vscode/tasks.json` fuehrt Root-Pytest, Coverage, Full-Check, Produkt-Gate sowie die relevanten Eval-/Validierungslaufe jetzt ueber denselben Wrapper. Der neue Regressionstest `novapolis_agent/tests/scripts/test_run_with_cpu_limit.py` ist PASS, und die direkte Kindprozess-Probe bestaetigt `NVP_CPU_LIMIT_ACTIVE=4` plus `TOKENIZERS_PARALLELISM=false`.
 

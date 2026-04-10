@@ -252,8 +252,12 @@ def test_run_reference_session_reports_session_and_replay_fetch_failures(
 
     assert report["status"] == "FAIL"
     assert len(report["steps"]) == 1
-    assert any("session fetch failed with status 503: session-down" in entry for entry in report["errors"])
-    assert any("replay fetch failed with status 502: replay-down" in entry for entry in report["errors"])
+    assert any(
+        "session fetch failed with status 503: session-down" in entry for entry in report["errors"]
+    )
+    assert any(
+        "replay fetch failed with status 502: replay-down" in entry for entry in report["errors"]
+    )
 
 
 @pytest.mark.scripts
@@ -324,6 +328,9 @@ def test_main_writes_reports_for_success_and_failure(
 @pytest.mark.scripts
 @pytest.mark.unit
 def test_module_main_executes_via_runpy(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    script_path = (
+        Path(__file__).resolve().parents[2] / "scripts" / "run_text_rpg_reference_session.py"
+    )
     spec_path = tmp_path / "reference-session.json"
     spec_path.write_text(
         json.dumps(
@@ -340,7 +347,9 @@ def test_module_main_executes_via_runpy(tmp_path: Path, monkeypatch: pytest.Monk
                         "turn_id": "turn-0001",
                         "world_log": [{"event": "world-a"}],
                         "pc_log": [{"event": "pc-a"}],
-                        "state_patches": [{"scope": "session", "op": "add", "path": "/flags/a", "value": True}],
+                        "state_patches": [
+                            {"scope": "session", "op": "add", "path": "/flags/a", "value": True}
+                        ],
                     }
                 ],
                 "expected": {
@@ -382,7 +391,7 @@ def test_module_main_executes_via_runpy(tmp_path: Path, monkeypatch: pytest.Monk
     )
 
     with pytest.raises(SystemExit) as exc_info:
-        runpy.run_module("scripts.run_text_rpg_reference_session", run_name="__main__")
+        runpy.run_path(str(script_path), run_name="__main__")
 
     assert exc_info.value.code == 0
     assert (tmp_path / "reports" / "out.json").exists()

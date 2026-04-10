@@ -9,14 +9,21 @@ import json
 import os
 from typing import Any
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+DEFAULT_SUITE_CONFIG = os.path.join(PROJECT_ROOT, "eval", "config", "suites.json")
+DEFAULT_DATASET_PATTERNS = [
+    os.path.join(PROJECT_ROOT, "eval", "datasets", "**", "*.json*"),
+    os.path.join(PROJECT_ROOT, "eval", "datasets", "**", "*.yml"),
+    os.path.join(PROJECT_ROOT, "eval", "datasets", "**", "*.yaml"),
+]
+
 
 def _load_coercer():
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(script_dir)
     import sys
 
-    if project_root not in sys.path:
-        sys.path.insert(0, project_root)
+    if PROJECT_ROOT not in sys.path:
+        sys.path.insert(0, PROJECT_ROOT)
     mod = importlib.import_module("utils.eval_utils")
     return mod.coerce_eval_records
 
@@ -98,7 +105,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--suite-config",
-        default=os.path.join("novapolis_agent", "eval", "config", "suites.json"),
+        default=DEFAULT_SUITE_CONFIG,
         help="Path to suite config JSON",
     )
     parser.add_argument(
@@ -127,11 +134,7 @@ def main(argv: list[str] | None = None) -> int:
     patterns = list(args.pattern or [])
     patterns.extend(suite_patterns)
     if not patterns:
-        patterns = [
-            os.path.join("novapolis_agent", "eval", "datasets", "**", "*.json*"),
-            os.path.join("novapolis_agent", "eval", "datasets", "**", "*.yml"),
-            os.path.join("novapolis_agent", "eval", "datasets", "**", "*.yaml"),
-        ]
+        patterns = list(DEFAULT_DATASET_PATTERNS)
 
     files: list[str] = []
     for pat in patterns:

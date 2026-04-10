@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-09 12:20
-update: Agent-Code fuehrt jetzt den geschlossenen GM-Eval-Rest nach dem Eval-Hinweis-Fix; Product Gate und GM-Suite sind wieder gruen.
-checks: snapshot-lock PASS (2026-04-09 12:20); text-rpg-product-gate PASS report=.tmp/results/reports/text_rpg_product_gate_20260409_121807.md; checks-full PASS report=.tmp/results/reports/checks_report_20260409_121807.md; gm-session-kpi PASS report=.tmp/results/reports/gm_session_kpi_summary_20260409_121807.md success=4/4 severity=beobachtung
+stand: 2026-04-10 05:16
+update: Agent-Scope dokumentiert jetzt den geschlossenen runpy-Warning-Fix im kanonischen Coverage-Pfad.
+checks: workspace review via .tmp/results/reports/pytest_coverage_postflight_20260410_051125.md, novapolis_agent/tests/scripts/test_open_latest_summary_edges.py, novapolis_agent/tests/scripts/test_run_text_rpg_reference_session_edges.py, novapolis_agent/tests/scripts/test_summarize_gm_eval_kpis_edges.py, novapolis_agent/tests/scripts/test_validate_eval_datasets_edges.py; snapshot-lock 2026-04-10 05:16
 
 
 checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
@@ -20,6 +20,15 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+
+2026-04-10 05:16 | Copilot | Die vier bekannten `runpy`-Warnings im kanonischen Coverage-Lauf sind an der Ursache beseitigt. `tests/scripts/test_open_latest_summary_edges.py`, `test_run_text_rpg_reference_session_edges.py`, `test_summarize_gm_eval_kpis_edges.py` und `test_validate_eval_datasets_edges.py` fuehren ihre CLI-Belege nicht mehr per `runpy.run_module()` auf bereits vorimportierten `scripts.*`-Modulen aus, sondern ueber den realen Skriptpfad mit `runpy.run_path(..., run_name="__main__")`. Der frische Postflight `.tmp/results/reports/pytest_coverage_postflight_20260410_051125.md` ist danach mit `596 passed`, `Total coverage: 93.66%` und ohne `found in sys.modules after import of package 'scripts'`-Warnings PASS.
+
+
+2026-04-10 00:11 | Copilot | Den Folgepfad hinter `slot 30` als gemeinsame SSOT `Text-RPG Slice 2 Handover v1` samt erstem RP-Ausbau bis `slot 35` im Agent-Scope verankert. `novapolis_agent/docs/runbook.md` verweist jetzt explizit auf denselben Handover wie `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md`; der operative Rahmen fuer spaetere Gate-, Referenz- und Resume-Arbeit bleibt damit auf demselben Session- und Artefaktvertrag (`savegame.json`, `world_log`, `pc_log`, `replay_manifest.json`, `resume_checkpoint_id`) statt auf einem freien Folgepfad.
+
+
+2026-04-09 23:33 | Copilot | Coverage-Haertung fuer den letzten Agent-Rest abgeschlossen: `tests/test_content_management_edges.py` deckt jetzt den erfolgreichen `_SettingsProxy.__setattr__`-Pfad, den erlaubten `apply_pre()`-No-Op unter aktiven Policies und den `apply_post()`-Bypass fuer `mode="unrestricted"` ab. Zusaetzlich nutzt `scripts/validate_eval_datasets.py` seine Default-Dataset- und Suite-Config-Pfade jetzt skriptrelativ statt cwd-abhaengig, damit der kanonische Coverage-Wrapper im Agent-CWD nicht mehr am Test `test_main_covers_default_patterns_read_fail_duplicate_id_strict_and_missing_id_strict` scheitert. Die fokussierte Nachmessung zieht `run_text_rpg_reference_session.py`, `validate_eval_datasets.py`, `summarize_gm_eval_kpis.py`, `app/core/content_management.py` und `app/api/tts_models.py` jeweils auf `100%`; der anschliessende Wrapper-Lauf `.tmp/results/reports/pytest_coverage_postflight_20260409_232603.md` ist mit `596 passed` und `Total coverage: 93.73%` PASS.
 
 
 2026-04-09 12:20 | Copilot | Root-Cause-Fix fuer den letzten GM-Eval-Drift eingezogen: `app/api/chat.py` waehlt fuer Strict-RPG-Hint und Rebuilder jetzt den letzten Userturn mit echtem `Szene:/Konsequenz:/Optionen:/State_Patches:`-Vertrag und ignoriert den von `scripts/run_eval.py` angehaengten Eval-Hinweisturn `Hinweis: Verwende diese Begriffe ...`. `tests/test_api_chat_internal_branches.py` deckt denselben Fall jetzt sowohl fuer die Hint-Injektion als auch fuer den Rebuilder gegen Regression ab; der gezielte Pytest-Block ist PASS. Der anschliessende Suite-Lauf `eval/results/results_20260409_1217_gm_session.jsonl` steht bei `4/4`, und das kanonische Product Gate `.tmp/results/reports/text_rpg_product_gate_20260409_121807.md` ist wieder PASS; die KPI-Summary `.tmp/results/reports/gm_session_kpi_summary_20260409_121807.md` zeigt keine Blocker oder Beobachtungen mehr.

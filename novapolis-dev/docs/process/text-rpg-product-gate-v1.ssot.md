@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-09 14:10
-update: Das Text-RPG Product Gate v1 fuehrt jetzt einen kanonischen Verbundlauf mit Wrapper-Task, fester Referenz-Session und GM-KPI-Summary.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260409_121807.md
+stand: 2026-04-10 13:22
+update: Das Product Gate verankert den Folgepfad hinter slot 30 jetzt explizit ueber die gemeinsame SSOT `Text-RPG Slice 2 Handover v1`.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
 ---
 
 Text-RPG Product Gate v1
@@ -33,6 +33,8 @@ Quellenbasis
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-16-20.ssot.md`
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-21-25.ssot.md`
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md`
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md`
+- `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md`
 
 Wahrheitsrahmen
 ---------------
@@ -41,6 +43,15 @@ Wahrheitsrahmen
 - Die feste Referenz-Session unter `novapolis_agent/eval/config/text_rpg_reference_session.v1.json` liefert einen deterministischen Artefaktbeleg fuer Savegame, `world_log`, `pc_log` und Replay-Manifest.
 - Der GM-Session-Teil bleibt runtime-gebunden: ohne erreichbare lokale Modellruntime am produktiven Chat-Pfad scheitert dieser Gate-Abschnitt weiterhin hart.
 - Die Gate-Definition bleibt verbindlich: neue Runtime- oder Sim-Artefakte muessen sich an diesen Ablauf haengen, nicht umgekehrt.
+- Der gemeinsame Folgeanker hinter `slot 30` heisst `Text-RPG Slice 2 Handover v1`; spaetere Gate- und Referenzfaelle hinter dem ersten Slice muessen an dieselbe SSOT haengen statt einen freien Zweitpfad zu eroeffnen.
+
+Slice-2-Handover
+----------------
+
+- `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` ist die gemeinsame Quelle fuer den Folgepfad hinter `slot 30`.
+- Das Product Gate selbst erweitert damit noch keinen neuen Runtime-Block, benennt aber verbindlich, auf welchen Handover spaetere RP-, Agent- und Sim-Folgearbeit referenzieren muessen.
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` fuehrt den ersten fachlichen Ausbau dieses Handover jetzt als vierte Kampagnenstufe aus.
+- Sobald Sim den Resume-Anker operativ nutzt, wird derselbe Handover auch fuer den naechsten Produkt-Gate-Ausbau vollstaendig ueber RP, Agent und Sim belegt.
 
 Kanonischer Gate-Block
 ----------------------

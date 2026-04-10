@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-07 21:38
-update: Das RP-Board fuehrt jetzt auch den produktiven Coqui-Live-Dialogpfad mit Session-Cache als geschlossen; der RP-Open-Count sinkt auf 0.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260407_213201.md
+stand: 2026-04-10 13:22
+update: Das RP-Board fuehrt `slot 31-35` jetzt als eigene Anschluss-SSOT unter `Text-RPG Slice 2 Handover v1`; der RP-Folgepunkt ist damit geschlossen.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -22,6 +22,16 @@ Prioritaetstags (aktiv)
 
 Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
 -------------------------------------------------
+
+- [x] [Als naechstes] `Text-RPG Slice 2 Handover v1` als belastbare Anschluss-SSOT `slot 31-35` oder gleichwertige modulare Episode ausarbeiten.
+  - Ziel: Der RP-Produktpfad soll hinter dem ersten belegten Episodenanker nicht wieder nur als Hinweis enden, sondern denselben Start-/Reveal-/Resume-Rahmen in die naechste spielbare Stufe fortsetzen.
+  - Akzeptanzkriterien:
+    1) hinter `rp-folgekorridor-slot-26-30.ssot.md` liegt eine eigene Anschluss-SSOT fuer `slot 31-35` oder ein explizit gleichwertiger Episodenpfad vor,
+    2) der Ausbau bleibt auf belegte Raeume und Kontakte (`D5`, `C6`, `G7`, `E2`, `F1`) oder sauber dokumentierte Anschlussanker beschraenkt,
+    3) Missionslog-, Reveal- und Sessionvertragsbezug bleiben fuer denselben Produktpfad lesbar,
+    4) Product-Gate-SSOT und Root-Backlog koennen danach denselben neuen Anschluss nennen statt nur den Stand bis `slot 30`.
+  - Evidenz: `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md` endet im Abschnitt `Weiterer Ausbau` explizit damit, dass der Pfad hinter `slot 30` als `slot 31-35` oder modular benannte Episode weitergefuehrt werden soll; `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` fixiert dafuer jetzt den gemeinsamen Handover-Rahmen ueber Root, Agent und Sim.
+  - Ergebnis 2026-04-10 00:11: `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` fuehrt den ersten fachlichen Ausbau hinter `slot 30` jetzt als vierte Kampagnenstufe auf demselben Resume-, Reveal- und Artefaktrahmen aus. `text-rpg-slice-2-handover-v1.ssot.md` und `text-rpg-product-gate-v1.ssot.md` verweisen im selben Lauf auf die neue RP-SSOT; das RP-Board steht damit wieder bei `offen: 0`.
 
 - [x] [Jetzt] Spielstartpaket und Slot-00-05-Korridor als evidence-first Arbeitsblatt zerlegen.
   - Ziel: Die offenen RP-Punkte fuer Startpaket und Mehrslot-Korridor sollen vor der eigentlichen Kanonisierung nicht abstrakt bleiben, sondern als belastbare Arbeitsstruktur mit Beleglage, Reveal-Grenzen und Fail-Forward-Klassen vorliegen.

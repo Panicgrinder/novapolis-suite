@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-09 17:52
-update: Dev-DONELOG dokumentiert jetzt den CPU-Schonmodus fuer schwere Test- und Check-Tasks auf dem lokalen 6C/12T-Windows-System.
-checks: pytest novapolis_agent/tests/scripts/test_run_with_cpu_limit.py PASS; run_with_cpu_limit env probe PASS; snapshot-lock 2026-04-09 17:52
+stand: 2026-04-10 13:22
+update: Dev-DONELOG dokumentiert jetzt den geschlossenen Coverage-Warning-Fix fuer den kanonischen Pytest-Pfad.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,41 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev Hygiene: runpy-Warnings im kanonischen Coverage-Pfad an der Ursache beseitigt (2026-04-10 05:16)
+-----------------------------------------------------------------------------------------------
+
+- Die vier bekannten `RuntimeWarning: ... found in sys.modules after import of package 'scripts'` kamen aus Edge-Tests, die denselben `scripts.*`-Modulnamen nach einem Vorimport noch einmal per `runpy.run_module(..., run_name="__main__")` starteten. Das war eine echte Importzustands-Kollision zwischen Vorimport und CLI-Simulation, kein Wrapper- oder Coverage-Fehler.
+- `novapolis_agent/tests/scripts/test_open_latest_summary_edges.py`, `test_run_text_rpg_reference_session_edges.py`, `test_summarize_gm_eval_kpis_edges.py` und `test_validate_eval_datasets_edges.py` fuehren die betroffenen CLI-Pfade jetzt ueber den realen Skriptpfad per `runpy.run_path(..., run_name="__main__")` aus. Damit bleibt der CLI-Beleg erhalten, ohne dass `runpy` ein bereits geladenes `scripts.*`-Modul erneut als `__main__` re-exekutieren muss.
+- Der gezielte Testblock ist gruen, und der kanonische Wrapper-Lauf `.tmp/results/reports/pytest_coverage_postflight_20260410_051125.md` bestaetigt `596 passed`, `returncode=0`, `Total coverage: 93.66%` sowie `warnings=0` fuer diese Klasse; `todo.dev.md` und `todo.index.md` fuehren Dev damit wieder auf `offen: 0`.
+
+RP/Planning: Slice-2-Handover fachlich bis `slot 35` ausgebaut (2026-04-10 00:11)
+-------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` fuehrt den ersten fachlichen Ausbau hinter `slot 30` jetzt als vierte Kampagnenstufe. Der Pfad bleibt auf `D5`, `C6`, `G7`, `E2` und `F1` begrenzt und nutzt denselben Resume-, Reveal- und Artefaktrahmen wie `Text-RPG Slice 2 Handover v1`.
+- `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` und `text-rpg-product-gate-v1.ssot.md` verweisen im selben Lauf auf die neue RP-SSOT; das RP-Board fuehrt den Handover-Punkt damit als geschlossen und der TODO-Index zieht den RP-Open-Count wieder auf `0`.
+- Offen bleiben nach diesem Lauf nur die Dev-, Agent- und Sim-Folgearbeiten; der RP-Pfad selbst benoetigt fuer Slice 2 keinen freien Platzhalter mehr.
+
+Slice 2 Handover: Gemeinsame SSOT hinter `slot 30` eingezogen (2026-04-10 00:11)
+-------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` fixiert jetzt den gemeinsamen Namen, den Session-/Artefaktvertrag und die Modulrollen fuer den Folgepfad hinter `slot 30`; Root, Product Gate und Agent-Runbook nutzen damit denselben Handover statt freier Folgebezeichnungen.
+- `todo.root.md` fuehrt den Root-Punkt damit als geschlossen, waehrend `todo.rp.md` und `todo.sim.md` ihre offenen Folgearbeiten explizit unter denselben Handover stellen; `todo.index.md` spiegelt den neuen gemeinsamen Anker im Root-/RP-/Sim-Status.
+- Der Handover selbst fuehrt bewusst noch keine neue Runtime oder neuen RP-Slot aus; offen bleiben die fachliche Ausarbeitung `slot 31-35`, der Sim-Resume-Bedienpfad und spaetere Agent-Gate-/Referenz-Erweiterungen auf demselben Vertragsrahmen.
+
+Workspace Review: Neue Folgepunkte fuer alle aktiven TODO-Boards angelegt (2026-04-09 23:45)
+------------------------------------------------------------------------------------------
+
+- Der aktuelle Workspace-Scan leitet neue offene Punkte jetzt direkt aus der belegten Istlage ab statt aus pauschaler Wunschliste: Dev fuehrt die vier `runpy`-Warnings aus `.tmp/results/reports/pytest_coverage_postflight_20260409_232603.md` als Hygiene-Rest, Agent die naechste Coverage-Welle fuer `app/api/chat_helpers.py` (`89%`), `app/main.py` (`90%`) und `app/tts/providers.py` (`87%`).
+- RP fuehrt den naechsten belegten Ausbau hinter `slot 30`, weil `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md` im Abschnitt `Weiterer Ausbau` explizit `slot 31-35` oder eine modulare Episode fordert; Sim fuehrt einen Replay-/Resume-UI-Punkt, weil `novapolis-sim/scripts/Main.gd` `resume_checkpoint_id` derzeit nur als Label zeigt und keinen sichtbaren Replay-Endpunktpfad nutzt.
+- `todo.root.md`, `todo.dev.md`, `todo.agent-board.md`, `todo.rp.md`, `todo.sim.md`, `todo.index.md` und `WORKSPACE_STATUS.md` sind im selben Lauf auf diesen neuen Folgepfad synchronisiert.
+
+Agent Coverage: Letzten Low-Coverage-Rest geschlossen und Wrapper-CWD gehärtet (2026-04-09 23:33)
+-----------------------------------------------------------------------------------------------
+
+- `novapolis_agent/tests/test_content_management_edges.py` deckt jetzt den erfolgreichen `_SettingsProxy.__setattr__`-Pfad, den erlaubten `apply_pre()`-No-Op unter aktiven Policies und den `apply_post()`-Bypass fuer `mode="unrestricted"`; damit schliesst `novapolis_agent/app/core/content_management.py` die letzten drei offenen Zeilen.
+- `novapolis_agent/scripts/validate_eval_datasets.py` nutzt seine Default-Dataset- und Suite-Config-Pfade jetzt skriptrelativ statt cwd-abhaengig. Ausloeser war der kanonische Coverage-Wrapper im Agent-CWD, der zuvor am Test `test_main_covers_default_patterns_read_fail_duplicate_id_strict_and_missing_id_strict` mit `No dataset files found.` scheiterte.
+- Die fokussierte Nachmessung zieht `run_text_rpg_reference_session.py`, `validate_eval_datasets.py`, `summarize_gm_eval_kpis.py`, `content_management.py` und `tts_models.py` jeweils auf `100%`; der anschliessende Wrapper-Lauf `.tmp/results/reports/pytest_coverage_postflight_20260409_232603.md` ist mit `596 passed`, `returncode=0` und `Total coverage: 93.73%` PASS.
 
 CPU Schonmodus: Gemeinsamen Wrapper fuer schwere Tasklaeufe eingezogen (2026-04-09 17:34)
 -----------------------------------------------------------------------------------------

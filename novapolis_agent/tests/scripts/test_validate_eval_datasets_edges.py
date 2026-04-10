@@ -32,7 +32,7 @@ def test_load_suite_patterns_covers_continue_and_skip_paths(tmp_path: Path) -> N
         '"skip": "no-dict", '
         '"empty": {"packages": "no-list"}, '
         '"mix": {"packages": ["", 1, "  ok.jsonl  "]}'
-        '}}',
+        "}}",
         encoding="utf-8",
     )
 
@@ -212,6 +212,7 @@ def test_main_covers_default_patterns_read_fail_duplicate_id_strict_and_missing_
 @pytest.mark.scripts
 @pytest.mark.unit
 def test_module_main_executes_via_runpy(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    script_path = Path(__file__).resolve().parents[2] / "scripts" / "validate_eval_datasets.py"
     dataset = tmp_path / "dataset.yaml"
     dataset.write_text(
         """
@@ -232,6 +233,6 @@ def test_module_main_executes_via_runpy(tmp_path: Path, monkeypatch: pytest.Monk
     )
 
     with pytest.raises(SystemExit) as exc_info:
-        runpy.run_module("scripts.validate_eval_datasets", run_name="__main__")
+        runpy.run_path(str(script_path), run_name="__main__")
 
     assert exc_info.value.code == 0

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-09 14:10
-update: Das Agent-Board fuehrt jetzt einen offenen Coverage-Haertungslauf fuer fuenf Low-Coverage-Module; Ziel ist echte Testabdeckung statt kosmetischer Quotenpflege.
-checks: scripts\run_pytest_coverage.py --fail-under 80 PASS; report=.tmp\results\reports\pytest_coverage_postflight_20260409_123310.md; coverage=88.98%
+stand: 2026-04-10 13:22
+update: Das Agent-Board fuehrt jetzt die naechste Coverage-Welle fuer verbleibende Produktpfad-Module unter 95 Prozent.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -25,14 +25,24 @@ Prioritaetstags (aktiv)
 Neue Aufgaben - Coverage-Haertung (2026-04-09)
 ----------------------------------------------
 
-- [ ] [Jetzt] Fuenf Low-Coverage-Module testseitig auf echte Vollabdeckung ziehen.
+- [ ] [Als naechstes] Naechste Coverage-Welle fuer den aktiven Produktpfad auf `chat_helpers`, `main` und `tts/providers` ziehen.
+  - Ziel: Nach dem geschlossenen Fuenferblock sollen die verbleibenden produktnahen Laufzeitmodule unter `95%` nicht als unsichtbarer Rest im Sammelreport bleiben, sondern gezielt ueber echte Fehler-, Fallback- und Providerpfade nachgezogen werden.
+  - Akzeptanzkriterien:
+    1) `novapolis_agent/app/api/chat_helpers.py`, `novapolis_agent/app/main.py` und `novapolis_agent/app/tts/providers.py` steigen in der fokussierten Nachmessung jeweils auf mindestens `95%`,
+    2) neue Tests decken reale Fehler- und Degradationspfade ab statt nur Serialisierungs-Happy-Paths,
+    3) der kanonische Coverage-Wrapper `scripts/run_pytest_coverage.py --fail-under 80` bleibt gruen,
+    4) der Produktpfad `/chat`, `/session` und `/tts/synthesize` behaelt denselben API-Vertrag ohne Parallelimplementierungen.
+  - Evidenz: `.tmp/results/reports/pytest_coverage_postflight_20260409_232603.md` meldet aktuell `89%` fuer `app/api/chat_helpers.py`, `90%` fuer `app/main.py` und `87%` fuer `app/tts/providers.py` bei insgesamt weiter gruener Gesamtquote.
+
+- [x] [Jetzt] Fuenf Low-Coverage-Module testseitig auf echte Vollabdeckung ziehen.
   - Ziel: Die aktuell groessten Abdeckungsluecken im produktnahen Agent-Scope sollen nicht ueber globale Quoten versteckt, sondern mit belastbaren Unit- und Fehlerpfadtests geschlossen werden.
   - Akzeptanzkriterien:
     1) `novapolis_agent/scripts/run_text_rpg_reference_session.py`, `novapolis_agent/scripts/validate_eval_datasets.py`, `novapolis_agent/scripts/summarize_gm_eval_kpis.py`, `novapolis_agent/app/core/content_management.py` und `novapolis_agent/app/api/tts_models.py` erreichen in der Coverage-Nachmessung jeweils `100%`,
     2) neue Tests decken explizit Fehler-, Fallback- und CLI-/Validatorpfade ab statt nur Happy Paths,
     3) der gezielte Testlauf fuer die neuen Dateien bleibt gruen,
     4) der anschliessende Coverage-Lauf bestaetigt den Effekt ueber den kanonischen Wrapper `scripts/run_pytest_coverage.py`.
-  - Evidenz: `.tmp/results/reports/pytest_coverage_20260409_123310.log` meldet aktuell `55%` fuer `novapolis_agent/scripts/run_text_rpg_reference_session.py`, `76%` fuer `novapolis_agent/scripts/validate_eval_datasets.py`, `83%` fuer `novapolis_agent/scripts/summarize_gm_eval_kpis.py`, `84%` fuer `novapolis_agent/app/core/content_management.py` und `86%` fuer `novapolis_agent/app/api/tts_models.py`.
+  - Evidenz: `.tmp/results/reports/pytest_coverage_20260409_123310.log` meldete zuvor `55%` fuer `novapolis_agent/scripts/run_text_rpg_reference_session.py`, `76%` fuer `novapolis_agent/scripts/validate_eval_datasets.py`, `83%` fuer `novapolis_agent/scripts/summarize_gm_eval_kpis.py`, `84%` fuer `novapolis_agent/app/core/content_management.py` und `86%` fuer `novapolis_agent/app/api/tts_models.py`.
+  - Ergebnis 2026-04-09 23:33: `novapolis_agent/tests/test_content_management_edges.py` deckt die letzten drei offenen Zweige in `app/core/content_management.py` jetzt gezielt ab. Zusaetzlich nutzt `novapolis_agent/scripts/validate_eval_datasets.py` Default-Dataset- und Suite-Config-Pfade jetzt skriptrelativ statt cwd-abhaengig, damit der kanonische Coverage-Wrapper im Agent-CWD nicht mehr am Test `test_main_covers_default_patterns_read_fail_duplicate_id_strict_and_missing_id_strict` scheitert. Die fokussierte Nachmessung zieht `run_text_rpg_reference_session.py`, `validate_eval_datasets.py`, `summarize_gm_eval_kpis.py`, `content_management.py` und `tts_models.py` jeweils auf `100%`; `.tmp/results/reports/pytest_coverage_postflight_20260409_232603.md` bestaetigt anschliessend `596 passed`, `returncode=0` und `Total coverage: 93.73%`.
 
 Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
 -------------------------------------------------

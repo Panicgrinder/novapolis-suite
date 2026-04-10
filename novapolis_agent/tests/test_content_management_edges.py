@@ -7,7 +7,6 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
-
 from app.core import content_management as cm
 
 
@@ -49,6 +48,9 @@ def test_resolve_settings_object_import_paths_and_proxy(monkeypatch: pytest.Monk
     dummy_settings = SimpleNamespace(VALUE=1)
     monkeypatch.setitem(sys.modules, "app.core.settings", SimpleNamespace(settings=dummy_settings))
     assert cm._resolve_settings_object() is dummy_settings
+    proxy = cm._SettingsProxy()
+    proxy.__setattr__("VALUE", 2)
+    assert dummy_settings.VALUE == 2
 
     monkeypatch.delitem(sys.modules, "app.core.settings", raising=False)
     monkeypatch.delitem(sys.modules, "novapolis_agent.app.core.settings", raising=False)
@@ -107,7 +109,9 @@ def test_get_policies_and_bypass_variants(tmp_path: Path, monkeypatch: pytest.Mo
         json.dumps(
             {
                 "default": {"forbidden_terms": ["bad"], "rewrite_map": {"tea": "coffee"}},
-                "profiles": {"eval": {"forbidden_terms": ["evalban"], "rewrite_map": {"foo": "bar"}}},
+                "profiles": {
+                    "eval": {"forbidden_terms": ["evalban"], "rewrite_map": {"foo": "bar"}}
+                },
             }
         ),
         encoding="utf-8",
@@ -116,7 +120,11 @@ def test_get_policies_and_bypass_variants(tmp_path: Path, monkeypatch: pytest.Mo
     monkeypatch.setattr(
         cm,
         "_resolve_settings_object",
-        lambda: SimpleNamespace(POLICIES_ENABLED=True, POLICY_FILE=str(policy_path), POLICY_STRICT_UNRESTRICTED_BYPASS=True),
+        lambda: SimpleNamespace(
+            POLICIES_ENABLED=True,
+            POLICY_FILE=str(policy_path),
+            POLICY_STRICT_UNRESTRICTED_BYPASS=True,
+        ),
     )
     assert cm._get_policies(mode="eval") == {
         "forbidden_terms": ["bad", "evalban"],
@@ -129,7 +137,11 @@ def test_get_policies_and_bypass_variants(tmp_path: Path, monkeypatch: pytest.Mo
     monkeypatch.setattr(
         cm,
         "_resolve_settings_object",
-        lambda: SimpleNamespace(POLICIES_ENABLED=True, POLICY_FILE=str(simple_policy), POLICY_STRICT_UNRESTRICTED_BYPASS=True),
+        lambda: SimpleNamespace(
+            POLICIES_ENABLED=True,
+            POLICY_FILE=str(simple_policy),
+            POLICY_STRICT_UNRESTRICTED_BYPASS=True,
+        ),
     )
     assert cm._get_policies(mode="default") == {"rewrite_map": {"x": "y"}}
 
@@ -138,7 +150,11 @@ def test_get_policies_and_bypass_variants(tmp_path: Path, monkeypatch: pytest.Mo
     monkeypatch.setattr(
         cm,
         "_resolve_settings_object",
-        lambda: SimpleNamespace(POLICIES_ENABLED=True, POLICY_FILE=str(list_policy), POLICY_STRICT_UNRESTRICTED_BYPASS=True),
+        lambda: SimpleNamespace(
+            POLICIES_ENABLED=True,
+            POLICY_FILE=str(list_policy),
+            POLICY_STRICT_UNRESTRICTED_BYPASS=True,
+        ),
     )
     assert cm._get_policies(mode="default") == {}
 
@@ -154,16 +170,24 @@ def test_get_policies_and_bypass_variants(tmp_path: Path, monkeypatch: pytest.Mo
     monkeypatch.setattr(
         cm,
         "_resolve_settings_object",
-        lambda: SimpleNamespace(POLICIES_ENABLED=True, POLICY_FILE="", POLICY_STRICT_UNRESTRICTED_BYPASS=True),
+        lambda: SimpleNamespace(
+            POLICIES_ENABLED=True, POLICY_FILE="", POLICY_STRICT_UNRESTRICTED_BYPASS=True
+        ),
     )
     assert cm._get_policies(mode="default") == {}
 
     weird_policy = tmp_path / "weird.json"
-    weird_policy.write_text(json.dumps({"default": [], "profiles": [], "other": 1}), encoding="utf-8")
+    weird_policy.write_text(
+        json.dumps({"default": [], "profiles": [], "other": 1}), encoding="utf-8"
+    )
     monkeypatch.setattr(
         cm,
         "_resolve_settings_object",
-        lambda: SimpleNamespace(POLICIES_ENABLED=True, POLICY_FILE=str(weird_policy), POLICY_STRICT_UNRESTRICTED_BYPASS=True),
+        lambda: SimpleNamespace(
+            POLICIES_ENABLED=True,
+            POLICY_FILE=str(weird_policy),
+            POLICY_STRICT_UNRESTRICTED_BYPASS=True,
+        ),
     )
     assert cm._get_policies(mode="default") == {"forbidden_terms": [], "rewrite_map": {}}
 
@@ -175,11 +199,19 @@ def test_get_policies_and_bypass_variants(tmp_path: Path, monkeypatch: pytest.Mo
     monkeypatch.setattr(
         cm,
         "_resolve_settings_object",
-        lambda: SimpleNamespace(POLICIES_ENABLED=True, POLICY_FILE=str(non_dict_profile), POLICY_STRICT_UNRESTRICTED_BYPASS=True),
+        lambda: SimpleNamespace(
+            POLICIES_ENABLED=True,
+            POLICY_FILE=str(non_dict_profile),
+            POLICY_STRICT_UNRESTRICTED_BYPASS=True,
+        ),
     )
     assert cm._get_policies(mode="eval") == {"forbidden_terms": ["base"], "rewrite_map": {}}
 
-    monkeypatch.setattr(cm, "_merge_rewrite_map", lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("boom")))
+    monkeypatch.setattr(
+        cm,
+        "_merge_rewrite_map",
+        lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("boom")),
+    )
     assert cm._get_policies(mode="eval") == {}
 
     class _BrokenSettings:
@@ -220,7 +252,10 @@ def test_apply_pre_and_post_cover_rewrite_block_and_exceptions(
         ),
     )
 
-    assert cm.apply_pre([{"role": "user", "content": "this is bad"}], mode="unrestricted").action == "allow"
+    assert (
+        cm.apply_pre([{"role": "user", "content": "this is bad"}], mode="unrestricted").action
+        == "allow"
+    )
 
     pre_rewrite = cm.apply_pre(
         [{"role": "system", "content": "keep"}, {"role": "user", "content": "foo here"}],
@@ -246,12 +281,16 @@ def test_apply_pre_and_post_cover_rewrite_block_and_exceptions(
     blocked_post = cm.apply_post("this is bad", mode="default")
     assert blocked_post.action == "block"
 
-    monkeypatch.setattr(cm, "_get_policies", lambda **kwargs: (_ for _ in ()).throw(RuntimeError("boom")))
+    monkeypatch.setattr(
+        cm, "_get_policies", lambda **kwargs: (_ for _ in ()).throw(RuntimeError("boom"))
+    )
     assert cm.apply_pre([{"role": "user", "content": "x"}], mode="default").action == "allow"
     assert cm.apply_post("x", mode="default").action == "allow"
 
 
-def test_apply_pre_and_post_cover_disabled_and_eval_passthrough(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_apply_pre_and_post_cover_disabled_and_eval_passthrough(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     monkeypatch.setattr(cm, "settings", None)
     assert cm.apply_pre([{"role": "user", "content": "x"}], mode="default").action == "allow"
     assert cm.apply_post("x", mode="default").action == "allow"
@@ -268,13 +307,41 @@ def test_apply_pre_and_post_cover_disabled_and_eval_passthrough(monkeypatch: pyt
             EVAL_POST_MAX_CHARS=240,
         ),
     )
-    monkeypatch.setattr(cm, "_get_policies", lambda **kwargs: {"forbidden_terms": [], "rewrite_map": {}})
+    monkeypatch.setattr(
+        cm, "_get_policies", lambda **kwargs: {"forbidden_terms": [], "rewrite_map": {}}
+    )
 
     unchanged = cm.apply_post("Sachlich bleiben.", mode="eval")
     assert unchanged.action == "allow"
 
 
-def test_apply_post_eval_identity_path_continues_into_rules(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_apply_pre_noop_and_post_unrestricted_bypass(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(
+        cm,
+        "_resolve_settings_object",
+        lambda: SimpleNamespace(
+            POLICIES_ENABLED=True,
+            POLICY_FILE="",
+            POLICY_STRICT_UNRESTRICTED_BYPASS=True,
+            EVAL_POST_REWRITE_ENABLED=True,
+            EVAL_POST_MAX_SENTENCES=2,
+            EVAL_POST_MAX_CHARS=240,
+        ),
+    )
+    monkeypatch.setattr(
+        cm, "_get_policies", lambda **kwargs: {"forbidden_terms": [], "rewrite_map": {}}
+    )
+
+    pre_result = cm.apply_pre([{"role": "user", "content": "neutral text"}], mode="default")
+    assert pre_result.action == "allow"
+
+    post_result = cm.apply_post("anything", mode="unrestricted")
+    assert post_result.action == "allow"
+
+
+def test_apply_post_eval_identity_path_continues_into_rules(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     monkeypatch.setattr(
         cm,
         "_resolve_settings_object",
@@ -291,7 +358,9 @@ def test_apply_post_eval_identity_path_continues_into_rules(monkeypatch: pytest.
     monkeypatch.setattr(cm, "limit_sentences", lambda text, max_sentences: text)
     monkeypatch.setattr(cm, "trim_length", lambda text, max_chars: text)
     monkeypatch.setattr(cm, "compact", lambda text: text)
-    monkeypatch.setattr(cm, "_get_policies", lambda **kwargs: {"forbidden_terms": [], "rewrite_map": {}})
+    monkeypatch.setattr(
+        cm, "_get_policies", lambda **kwargs: {"forbidden_terms": [], "rewrite_map": {}}
+    )
 
     result = cm.apply_post("Unveraendert.", mode="eval")
     assert result.action == "allow"

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 16:11
-update: Das Sim-Board fuehrt jetzt auch den Clean-Checkout-Bootstrap und den warnungsfreien Offline-Asset-Check als geschlossen; der Sim-Open-Count sinkt auf 0.
-checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-10 13:22
+update: Das Sim-Board fuehrt den offenen Replay-/Resume-Punkt jetzt explizit unter `Text-RPG Slice 2 Handover v1`.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -27,6 +27,15 @@ Prioritaetstags (aktiv)
 
 Offene Aufgaben (Sim)
 ---------------------
+
+- [ ] [Als naechstes] Replay-/Resume-Steuerung fuer `Text-RPG Slice 2 Handover v1` im Hub auf den bestehenden Session-Vertrag heben.
+  - Ziel: Der Live-Spielclient soll den bereits vorhandenen Session-/Replay-Vertrag operativ nutzbar machen, statt `resume_checkpoint_id` nur als Label zu zeigen.
+  - Akzeptanzkriterien:
+    1) der Hub nutzt einen klaren Replay-/Resume-Pfad auf Basis des bestehenden Sessionvertrags statt nur `_request_live_session_state()` auf den aktuellen Snapshot,
+    2) Resume-Checkpoint oder Replay-Manifest sind im Client sichtbar waehl- oder abrufbar,
+    3) die bestehende Epoch-/Audio-Ansicht bleibt an dieselben Session-Artefakte gebunden,
+    4) der neue Pfad bleibt fuer Godot-Bedienung und erwartete Resultate dokumentierbar.
+  - Evidenz: `novapolis-sim/scripts/Main.gd` liest aktuell `resume_checkpoint_id` in `_apply_live_session_state()` ein und zeigt ihn nur ueber `rp_replay_seed_label` an; derselbe Client nutzt fuer Live-Sync `_request_live_session_state()` auf dem Session-Snapshot, fuehrt aber keinen sichtbaren Replay-/Checkpoint-Requestpfad. `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` fixiert diesen Resume-Anker jetzt als gemeinsamen Folgevertrag hinter `slot 30`.
 
 - [x] [Jetzt] Live-Spielclient fuer den ersten Text-RPG-Slice statt nur Hub-Chat und statischer Epoch-Logs bauen.
   - Akzeptanzkriterium: Die Sim kann eine laufende Spielsession mit aktueller Szene, angebotenen Optionen, Spielereingabe und Rueckmeldung anzeigen, statt nur freie Chat-Nachrichten und vorab gespeicherte Logs zu rendern.
