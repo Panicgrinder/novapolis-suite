@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 05:16
-update: Agent-Scope dokumentiert jetzt den geschlossenen runpy-Warning-Fix im kanonischen Coverage-Pfad.
-checks: workspace review via .tmp/results/reports/pytest_coverage_postflight_20260410_051125.md, novapolis_agent/tests/scripts/test_open_latest_summary_edges.py, novapolis_agent/tests/scripts/test_run_text_rpg_reference_session_edges.py, novapolis_agent/tests/scripts/test_summarize_gm_eval_kpis_edges.py, novapolis_agent/tests/scripts/test_validate_eval_datasets_edges.py; snapshot-lock 2026-04-10 05:16
+stand: 2026-04-10 13:36
+update: Agent-Scope dokumentiert jetzt den sichtbaren Terminal-Heartbeat fuer lange Testlaeufe in den zentralen Wrappern.
+checks: scoped validation PASS; ruff=PASS; black=PASS; pytest=PASS; snapshot-lock 2026-04-10 13:36
 
 
 checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
@@ -20,6 +20,9 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+
+2026-04-10 13:36 | Copilot | Testfortschritt im Terminal sichtbarer gemacht. Der neue Root-Helfer `scripts/terminal_progress.py` streamt lange Kommandoausgaben weiter und erzeugt in stillen Phasen Heartbeat-Zeilen mit Laufzeit, Ausgabezeilen und Idle-Zeit. `scripts/run_pytest_coverage.py`, `scripts/tests_pytest_root.py` und der Pytest-Schritt in `scripts/run_checks_and_report.py` nutzen diesen Pfad jetzt fuer lange Testlaeufe; neue Script-Tests decken Heartbeat-Ausgabe und die Anbindung in `run_checks_and_report.py` ab.
 
 
 2026-04-10 05:16 | Copilot | Die vier bekannten `runpy`-Warnings im kanonischen Coverage-Lauf sind an der Ursache beseitigt. `tests/scripts/test_open_latest_summary_edges.py`, `test_run_text_rpg_reference_session_edges.py`, `test_summarize_gm_eval_kpis_edges.py` und `test_validate_eval_datasets_edges.py` fuehren ihre CLI-Belege nicht mehr per `runpy.run_module()` auf bereits vorimportierten `scripts.*`-Modulen aus, sondern ueber den realen Skriptpfad mit `runpy.run_path(..., run_name="__main__")`. Der frische Postflight `.tmp/results/reports/pytest_coverage_postflight_20260410_051125.md` ist danach mit `596 passed`, `Total coverage: 93.66%` und ohne `found in sys.modules after import of package 'scripts'`-Warnings PASS.

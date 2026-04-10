@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:22
-update: Root-Summary fuehrt jetzt den geschlossenen Coverage-Warning-Fix; offen bleiben nur noch Agent und Sim.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-10 13:36
+update: Root-Summary fuehrt jetzt den sichtbaren Terminal-Heartbeat fuer lange Testlaeufe; offene Folgepunkte bleiben Agent und Sim.
+checks: scoped validation PASS; ruff=PASS; black=PASS; pytest=PASS; snapshot-lock 2026-04-10 13:36
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,8 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-10 13:36: Lange Testlaeufe zeigen jetzt sichtbare Lebenszeichen im Terminal, statt in stillen Phasen wie ein Haenger zu wirken. Der neue Root-Helfer `scripts/terminal_progress.py` streamt laufende Prozessausgabe weiter und druckt bei Bedarf Heartbeat-Zeilen mit Laufzeit, Ausgabezeilen und Zeit seit der letzten Aktivitaet; `scripts/run_pytest_coverage.py`, `scripts/tests_pytest_root.py` und der Pytest-Schritt in `scripts/run_checks_and_report.py` nutzen denselben Pfad jetzt fuer menschenlesbaren Fortschritt. Der gezielte Scope mit Ruff, Black und Script-Pytest ist PASS.
 
 - 2026-04-10 05:16: Der offene Dev-Hygiene-Rest im kanonischen Coverage-Pfad ist geschlossen. Die vier `runpy`-Warnings kamen aus Edge-Tests, die bereits vorimportierte `scripts.*`-Module noch einmal per `runpy.run_module(..., run_name="__main__")` ausfuehrten; die Tests laufen jetzt ueber echte Skriptpfade mit `runpy.run_path(..., run_name="__main__")`. Der frische Postflight `.tmp/results/reports/pytest_coverage_postflight_20260410_051125.md` ist mit `596 passed`, `Total coverage: 93.66%` und ohne Warnings derselben Klasse PASS. Dev steht damit wieder bei `offen: 0`; offen bleiben nur noch Agent und Sim.
 

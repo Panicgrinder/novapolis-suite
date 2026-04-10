@@ -7,10 +7,14 @@ Usage: python scripts/tests_pytest_root.py
 
 from __future__ import annotations
 
-import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
+
+try:
+    from terminal_progress import run_command_with_heartbeat
+except ModuleNotFoundError:
+    from scripts.terminal_progress import run_command_with_heartbeat
 
 ROOT = Path(__file__).resolve().parents[1]
 TS = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -20,7 +24,7 @@ LOG = TMP / f"pytest_root_{TS}.log"
 RECEIPT = TMP / f"pytest_root_postflight_{TS}.md"
 
 cmd = [sys.executable, "-m", "pytest", "-q", "-c", str(ROOT / "pytest.ini")]
-proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+proc = run_command_with_heartbeat(cmd, cwd=str(ROOT), label="pytest root")
 with LOG.open("w", encoding="utf-8") as lh:
     lh.write(proc.stdout)
 

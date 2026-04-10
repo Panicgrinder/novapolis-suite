@@ -6,10 +6,14 @@ Usage: python scripts/run_pytest_coverage.py [--fail-under 80]
 """
 
 import argparse
-import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
+
+try:
+    from terminal_progress import run_command_with_heartbeat
+except ModuleNotFoundError:
+    from scripts.terminal_progress import run_command_with_heartbeat
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--fail-under", type=int, default=80)
@@ -37,12 +41,10 @@ cmd = [
     str(AGENT_DIR / ".coveragerc"),
     f"--cov-fail-under={args.fail_under}",
 ]
-proc = subprocess.run(
+proc = run_command_with_heartbeat(
     cmd,
     cwd=str(AGENT_DIR),
-    stdout=subprocess.PIPE,
-    stderr=subprocess.STDOUT,
-    text=True,
+    label="pytest coverage",
 )
 with LOG.open("w", encoding="utf8") as lh:
     lh.write(proc.stdout)

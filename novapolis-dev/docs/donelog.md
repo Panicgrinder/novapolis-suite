@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:22
-update: Dev-DONELOG dokumentiert jetzt den geschlossenen Coverage-Warning-Fix fuer den kanonischen Pytest-Pfad.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-10 13:36
+update: Dev-DONELOG dokumentiert jetzt den sichtbaren Terminal-Heartbeat fuer lange Testlaeufe im lokalen Wrapper-Pfad.
+checks: scoped validation PASS; ruff=PASS; black=PASS; pytest=PASS; snapshot-lock 2026-04-10 13:36
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,13 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Dev UX: Terminal-Heartbeat fuer lange Testlaeufe eingezogen (2026-04-10 13:36)
+-------------------------------------------------------------------------
+
+- Lange Testlaeufe ueber `scripts/run_pytest_coverage.py`, `scripts/tests_pytest_root.py` und den Pytest-Schritt in `scripts/run_checks_and_report.py` zeigen jetzt einen sichtbaren Heartbeat im Terminal statt ueber laengere Strecken komplett still zu bleiben.
+- Der neue Helfer `scripts/terminal_progress.py` streamt vorhandene Prozessausgabe weiter, puffert sie gleichzeitig fuer Logs/Receipts und schreibt in stillen Phasen periodisch Statuszeilen wie Laufzeit, Ausgabezeilen und Zeit seit der letzten Aktivitaet.
+- Der Effekt ist bewusst minimalinvasiv: keine neue TUI, kein Umbau des Pytest-Aufrufs, sondern nur sichtbare Lebenszeichen fuer Menschen, wenn ein Testlauf laenger arbeitet als der letzte sichtbare Output vermuten laesst.
 
 Dev Hygiene: runpy-Warnings im kanonischen Coverage-Pfad an der Ursache beseitigt (2026-04-10 05:16)
 -----------------------------------------------------------------------------------------------

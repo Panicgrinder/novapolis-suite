@@ -23,6 +23,11 @@ try:
 except ModuleNotFoundError:  # pragma: no cover
     import tomli as tomllib  # type: ignore[no-redef]
 
+try:
+    from terminal_progress import run_command_with_heartbeat
+except ModuleNotFoundError:  # pragma: no cover
+    from scripts.terminal_progress import run_command_with_heartbeat
+
 
 @dataclass
 class CheckResult:
@@ -205,23 +210,35 @@ def run_command(
     log_path: Path,
     timeout: int | None = CHECK_TIMEOUT,
     extra_env: dict[str, str] | None = None,
+    progress_label: str | None = None,
 ) -> tuple[int, str, int]:
     env = os.environ.copy()
     env.setdefault("PYTHONIOENCODING", LOG_ENCODING)
     if extra_env:
         env.update(extra_env)
     start = time.perf_counter()
-    completed = subprocess.run(
-        list(command),
-        cwd=str(cwd),
-        env=env,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-        encoding=LOG_ENCODING,
-        errors="replace",
-        timeout=timeout,
-    )
+    if progress_label:
+        completed = run_command_with_heartbeat(
+            list(command),
+            cwd=str(cwd),
+            env=env,
+            label=progress_label,
+            encoding=LOG_ENCODING,
+            errors="replace",
+            timeout=timeout,
+        )
+    else:
+        completed = subprocess.run(
+            list(command),
+            cwd=str(cwd),
+            env=env,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            encoding=LOG_ENCODING,
+            errors="replace",
+            timeout=timeout,
+        )
     duration_ms = int((time.perf_counter() - start) * 1000)
     output = completed.stdout or ""
     write_log(log_path, output)
@@ -403,6 +420,7 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, o
                 log_path,
                 timeout=timeout,
                 extra_env=env_overrides,
+                progress_label=tool if tool == "pytest" else None,
             )
         except FileNotFoundError:
             reason = f"Executable not found: {command_list[0]}"
