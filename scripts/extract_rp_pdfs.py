@@ -5,6 +5,7 @@
 - Normalizes whitespace (trim lines, collapse internal runs, normalize newlines)
 - Writes .txt outputs with UTF-8 + LF
 """
+
 from __future__ import annotations
 
 import re

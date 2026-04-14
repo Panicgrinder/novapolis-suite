@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import pytest
-from pydantic import ValidationError
-
 from app.api.models import TEXT_RPG_SESSION_CONTRACT_VERSION
 from app.api.tts_models import TtsSynthesizeRequest
+from pydantic import ValidationError
 
 
 def test_tts_synthesize_request_normalizes_valid_fields() -> None:
@@ -37,7 +36,9 @@ def test_tts_synthesize_request_normalizes_valid_fields() -> None:
         ({"text": "ok", "channel": "wrong"}, "unsupported channel"),
     ],
 )
-def test_tts_synthesize_request_rejects_invalid_values(payload: dict[str, str], message: str) -> None:
+def test_tts_synthesize_request_rejects_invalid_values(
+    payload: dict[str, str], message: str
+) -> None:
     with pytest.raises(ValidationError, match=message):
         TtsSynthesizeRequest(**payload)
 

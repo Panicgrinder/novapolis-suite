@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 12:25
+stand: 2026-04-14 12:55
 update: Das Sim-Board fuehrt den Replay-/Resume-Punkt jetzt als geschlossen; der Hub nutzt den bestehenden Session-/Replay-Vertrag sichtbar und bedienbar.
-checks: snapshot-lock 2026-04-14 12:25; get_errors PASS (Main.gd, Main.tscn); verify_sim.gd headless EXITCODE=0; pytest sim replay/session PASS (EXITCODE=0)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260414_124519.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -37,7 +37,7 @@ Offene Aufgaben (Sim)
     4) der neue Aufbau bleibt per Godot-Headless-Ladung ohne Scene-Fehler verifizierbar.
   - Evidenz: `novapolis-sim/Main.tscn` fuehrt den Hub derzeit als breite Menge frei platzierter Labels, Panels und Buttons; `novapolis-sim/scripts/Main.gd` verteilt dieselben Knoten in `_apply_editor_hub_layout()`, `_layout_hub_topbar()`, `_layout_hub_actions()` und `_layout_hub_log_and_cards()` weiterhin ueber viele feste Einzelkoordinaten.
   - Ergebnis 2026-04-14 12:03: Der Hub ist visuell und layoutseitig neu aufgebaut. `Main.tscn` fuehrt jetzt eigene Shell-Zonen (`HubTopBandPanel`, `HubStagePanel`, `HubOpsPanel`, `HubTelemetryPanel`) plus neue Panel-Stile; `scripts/Main.gd` schaltet standardmaessig auf den neuen Responsive-Pfad und layoutet den Hub ueber wenige Hauptrechtecke (`_hub_stage_rect()`, `_hub_ops_rect()`, `_layout_hub_shells()`) statt ueber die alte Freihand-Anordnung.
-  - Verifikation 2026-04-14 12:03: Die statische Validierung ist gruen (`get_errors` fuer `Main.gd` und `Main.tscn` ohne Befund). Der kanonische Headless-Verifier `res://scripts/verify_sim.gd` laeuft mit der lokal gestarteten Binary `F:/Downloads/Godot/Godot_v4.6.1-stable_win64.exe` jetzt ebenfalls gruen und liefert `SIM_VERIFY: OK` bei `EXITCODE=0`.
+  - Verifikation 2026-04-14 12:03: Die statische Validierung ist gruen (`get_errors` fuer `Main.gd` und `Main.tscn` ohne Befund). Der kanonische Headless-Verifier `res://scripts/verify_sim.gd` laeuft mit einer lokal gestarteten Godot-4.6.1-Binary ebenfalls gruen und liefert `SIM_VERIFY: OK` bei `EXITCODE=0`.
 
 - [x] [Als naechstes] Replay-/Resume-Steuerung fuer `Text-RPG Slice 2 Handover v1` im Hub auf den bestehenden Session-Vertrag heben.
   - Ziel: Der Live-Spielclient soll den bereits vorhandenen Session-/Replay-Vertrag operativ nutzbar machen, statt `resume_checkpoint_id` nur als Label zu zeigen.

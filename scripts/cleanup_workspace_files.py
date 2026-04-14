@@ -13,6 +13,7 @@ Targets (root-level only, conservative):
 
 This is a minimal, safe replacement for the old cleanup_workspace_files.ps1.
 """
+
 from __future__ import annotations
 
 import argparse

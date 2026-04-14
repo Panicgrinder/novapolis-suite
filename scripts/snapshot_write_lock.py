@@ -10,6 +10,7 @@ Options:
   --file <path>   Optional alternative lock file path (default: <repo>/.snapshot.now)
   --print-only    Do not write; only print the timestamp (dry run)
 """
+
 from __future__ import annotations
 
 import argparse

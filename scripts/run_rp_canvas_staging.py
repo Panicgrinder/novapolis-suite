@@ -7,6 +7,7 @@
 - Generates text stats per source file
 - Updates manifest artifacts for processed entries
 """
+
 from __future__ import annotations
 
 import json

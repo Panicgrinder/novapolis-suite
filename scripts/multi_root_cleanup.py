@@ -11,6 +11,7 @@ Usage:
   python scripts/multi_root_cleanup.py --whatif
   python scripts/multi_root_cleanup.py --apply --run-wrapper
 """
+
 from __future__ import annotations
 
 import argparse

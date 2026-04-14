@@ -22,6 +22,9 @@ DONELOG – Abgeschlossene Arbeiten
 =================================
 
 
+2026-04-14 12:47 | Copilot | Den letzten Ruff-/Black-Rest des Wochenabschlusses geschlossen. `app/api/tts_models.py` nutzt fuer `TtsOutputFormat` jetzt `StrEnum`, `tests/scripts/test_run_with_cpu_limit.py`, `tests/test_tts_models_validators.py` und `tests/test_tts_provider_edges.py` sind lint-/formatkonform nachgezogen, und der gezielte Pytest-Scope fuer genau diese drei Dateien ist PASS. Zusammen mit dem frischen Sammellauf `.tmp/results/reports/checks_report_20260414_124519.md` sind `ruff`, `black`, `pyright`, `mypy` und `pytest` im Agent-Scope wieder vollstaendig gruen.
+
+
 2026-04-14 11:15 | Copilot | Die offene Agent-Coverage-Welle ist geschlossen. `tests/test_chat_helpers_edges.py` deckt jetzt die restlichen Coercion-/Omit-Pfade von `app/api/chat_helpers.py`, `tests/test_main_internal_edges.py` die fehlenden TTS-Cache-Hit-/Snapshot-/Hash-Pfade in `app/main.py`, und `tests/test_tts_provider_edges.py` die verbleibenden Platzhalter-Provider- sowie sanitisierten Sessionpfade in `app/tts/providers.py`. Der breite Fokuslauf bestaetigt `app/api/chat_helpers.py = 100%`, `app/main.py = 98%`, `app/tts/providers.py = 96%`; der kanonische Wrapper `scripts/run_pytest_coverage.py --fail-under 80` bleibt mit `615 passed` und `Total coverage: 94.92%` PASS.
 
 

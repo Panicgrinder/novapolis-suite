@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:22
-update: Root-Backlog verankert den Folgepfad hinter slot 30 jetzt als gemeinsame SSOT `Text-RPG Slice 2 Handover v1`.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-14 12:55
+update: Wochenpruefung 2026-04-14 ist jetzt vollstaendig gruen; der kurz geoeffnete Dev-Rest fuer Ruff/Black ist im selben Lauf wieder geschlossen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260414_124519.md
 ---
 
 TODO-Uebersicht (Novapolis Suite)
@@ -10,9 +10,10 @@ TODO-Uebersicht (Novapolis Suite)
 Kurzstatus
 ----------
 
-- Der aktuelle Referenzlauf vom 2026-04-08 ist gruen (`overall=PASS`); der kanonische Beleg liegt unter `.tmp/results/reports/checks_report_20260408_131224.md`.
-- Der separate Coverage-Lauf `scripts/run_pytest_coverage.py --fail-under 80` ist ebenfalls PASS (`90.14%`, `518 passed, 1 warning`); der Sim-Offline-Check im Clean-Checkout-Profil endet mit `summary=fail:0,warn:0`.
+- Die Wochenpruefung vom 2026-04-14 ist jetzt vollstaendig gruen: `markdownlint`, `frontmatter`, `path-portability`, `namingpolicy`, `todo-index-sync`, `doc-freshness`, `logs-policy`, `ruff`, `black`, `pyright`, `mypy` und `pytest` sind PASS; der kanonische Beleg liegt unter `.tmp/results/reports/checks_report_20260414_124519.md`.
+- Der separate Coverage-Lauf `scripts/run_pytest_coverage.py --fail-under 80` bleibt ebenfalls PASS (`94.92%`, `615 passed`); der Sim-Offline-Check im Clean-Checkout-Profil endet weiter mit `summary=fail:0,warn:0`.
 - Die woechentliche Hygiene-Cadence bleibt gruen (`todo_index_drift=0`, `active_docs_stale=0`, `placeholder_conflicts=0`, `logs_policy_violations=0`).
+- Der zwischenzeitliche Dev-Rest ist im selben Lauf geschlossen: `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` stehen wieder bei `offen: 0`.
 - Der erste Text-RPG-Slice, der interne Pfad `Slice -> MVP -> Beta` und die Prioritaet `spielbarer Kern vor Komfort` sind auf Root-Ebene gegen den belegten Modul-Iststand geschlossen; die Detailfuehrung liegt jetzt in den Modul-Boards und Gate-SSOTs.
 - Vorheriger Vollinhalt wurde archiviert unter `novapolis-dev/archive/quarantine/todo-root-snapshot-20260222_1234.md`.
 - Historische Sammelbasis: `novapolis-dev/archive/todo.root.archive.md`.

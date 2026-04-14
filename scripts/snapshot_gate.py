@@ -8,6 +8,7 @@ und ob eine `.snapshot.now` Lock-Datei vorhanden und aktuell ist.
 
 Exit-Code 0 = PASS, 1 = FAIL
 """
+
 from __future__ import annotations
 
 import os

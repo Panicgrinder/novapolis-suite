@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 12:25
-update: Dev-DONELOG dokumentiert jetzt den geschlossenen Replay-/Resume-Pfad im Sim-Hub samt Verifikation.
-checks: snapshot-lock 2026-04-14 12:25; get_errors PASS (Main.gd, Main.tscn); verify_sim.gd headless EXITCODE=0; pytest sim replay/session PASS (EXITCODE=0)
+stand: 2026-04-14 12:55
+update: Dev-DONELOG dokumentiert die Wochenpruefung 2026-04-14 jetzt als vollstaendig grünen Abschlusslauf.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260414_124519.md
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,21 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Wochenpruefung 2026-04-14: letzter Ruff-/Black-Rest geschlossen, Full-Check wieder vollstaendig PASS (2026-04-14 12:47)
+-----------------------------------------------------------------------------------------------------------------
+
+- Der zwischenzeitliche Dev-Rest der Wochenpruefung ist im selben Lauf wieder geschlossen. `novapolis_agent/app/api/tts_models.py` nutzt fuer `TtsOutputFormat` jetzt `StrEnum`, die betroffenen TTS- und CPU-Limit-Tests sind lint-/formatkonform nachgezogen, und der von `black` gemeldete Restdateisatz in `scripts/` ist formatiert.
+- Der gezielte Pytest-Scope fuer `tests/scripts/test_run_with_cpu_limit.py`, `tests/test_tts_models_validators.py` und `tests/test_tts_provider_edges.py` ist PASS; `ruff check novapolis_agent scripts`, `black --check novapolis_agent scripts` und der frische Sammellauf `.tmp/results/reports/checks_report_20260414_124519.md` sind ebenfalls PASS.
+- `todo.dev.md` und `todo.index.md` fuehren Dev damit wieder auf `offen: 0`; zusammen mit den bereits geschlossenen RP-, Agent- und Sim-Punkten stehen alle aktiven Modul-Boards wieder auf `0`.
+
+Wochenpruefung 2026-04-14: Doku-/Governance-Drift bereinigt, Rest auf Ruff/Black eingegrenzt (2026-04-14 12:37)
+------------------------------------------------------------------------------------------------------------------
+
+- Der erste Wochenlauf zeigte noch Nebengeräusche ausserhalb des eigentlichen Produktrests: `markdownlint` griff in eine lokale Backup-Venv, und `path-portability` meldete hostgebundene Godot-Pfade in aktiven Root-/Sim-Dokus.
+- Der Same-Run-Fix bleibt bewusst minimal: `.markdownlint-cli2.jsonc` ignoriert jetzt auch `.venv-py313-backup-*/**`, und `DONELOG.md`, `WORKSPACE_STATUS.md`, `novapolis-dev/docs/donelog.md` sowie `novapolis-dev/docs/todo.sim.md` fuehren die erfolgreiche Headless-Verifikation nur noch portabel als lokal gestartete Godot-4.6.1-Binary.
+- Der frische Recheck `.tmp/results/reports/checks_report_20260414_123622.md` ist damit fuer `markdownlint`, `frontmatter`, `path-portability`, `namingpolicy`, `todo-index-sync`, `doc-freshness`, `logs-policy`, `pyright`, `mypy` und `pytest` PASS; der separate Coverage-Lauf haelt `94.92%`, und der Sim-Offline-Check bleibt mit `summary=fail:0,warn:0` gruen.
+- Offen bleibt nur noch der repo-eigene Python-Baseline-Rest `ruff=FAIL (8)` und `black=FAIL (13)`; `todo.dev.md` fuehrt dafuer wieder genau einen offenen Dev-Punkt, und `todo.index.md` zieht den Dev-Open-Count im selben Lauf auf `1` nach.
 
 Sim Replay/Resume: Hub nutzt jetzt den bestehenden Replay-Vertrag sichtbar und bedienbar (2026-04-14 12:21)
 ----------------------------------------------------------------------------------------------------
@@ -38,7 +53,7 @@ Sim UI: Hub-Reset jetzt lokal mit Godot 4.6.1 verifiziert (2026-04-14 12:03)
 
 - Der Sim-Hub ist auf User-Anforderung sichtbar neu aufgesetzt. `novapolis-sim/Main.tscn` fuehrt eigene Shell-Zonen fuer Top-Band, Live-Stage, Operations-Spalte und Telemetrieband sowie neue Panel-Stile statt der frueheren losen Hintergrundflaechen.
 - `novapolis-sim/scripts/Main.gd` schaltet den Hub standardmaessig auf den neuen Responsive-Pfad, fuehrt Hilfsrechtecke fuer Stage und Ops ein und verteilt Topbar, Buttons, Chat, Config und Telemetrie jetzt ueber wenige Hauptbereiche statt ueber die alte Sammellogik aus vielen Einzelkoordinaten.
-- Die statische Validierung bleibt gruen (`get_errors` ohne Befund fuer `Main.gd` und `Main.tscn`), und der kanonische Verifier `res://scripts/verify_sim.gd` liefert mit der lokal laufenden Binary `F:/Downloads/Godot/Godot_v4.6.1-stable_win64.exe` jetzt `SIM_VERIFY: OK` bei `EXITCODE=0`. `todo.sim.md` schliesst den UI-Reset damit; offen bleibt im Sim-Board nur noch Replay-/Resume.
+- Die statische Validierung bleibt gruen (`get_errors` ohne Befund fuer `Main.gd` und `Main.tscn`), und der kanonische Verifier `res://scripts/verify_sim.gd` liefert mit einer lokal laufenden Godot-4.6.1-Binary jetzt `SIM_VERIFY: OK` bei `EXITCODE=0`. `todo.sim.md` schliesst den UI-Reset damit; offen bleibt im Sim-Board nur noch Replay-/Resume.
 
 Agent Coverage: Restwelle fuer chat_helpers, main und providers geschlossen (2026-04-14 11:15)
 -------------------------------------------------------------------------------------------

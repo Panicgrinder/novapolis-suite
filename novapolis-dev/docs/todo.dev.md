@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:22
-update: Der kanonische Coverage-Lauf ist jetzt wieder warnungsfrei; der `runpy`-Hygiene-Rest ist geschlossen.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-14 12:55
+update: Der kurz geoeffnete Ruff-/Black-Rest aus der Wochenpruefung 2026-04-14 ist geschlossen; das Dev-Board steht wieder bei offen: 0.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260414_124519.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -18,6 +18,16 @@ Hinweis
 
 Offene Aufgaben (Dev)
 ---------------------
+
+- [x] [Jetzt] Repo-eigene Ruff-/Black-Restdrift aus der Wochenpruefung 2026-04-14 schliessen.
+  - Ziel: Der kanonische Full-Check soll nach dem Wochenlauf nicht mehr an Python-Lint-/Formatresten in `novapolis_agent` und `scripts` haengen, nachdem `markdownlint`, `path-portability`, Typen, Tests, Coverage und die Hygiene-Cadence bereits wieder gruen sind.
+  - Akzeptanzkriterien:
+    1) `python -m ruff check novapolis_agent scripts` liefert `0` Findings,
+    2) `python -m black --check novapolis_agent scripts` liefert `0` reformattierbare Dateien,
+    3) `scripts/run_checks_and_report.py` endet danach wieder mit `overall=PASS`,
+    4) der Fixlauf fuehrt keine neuen Typ- oder Testregressionen ein.
+  - Evidenz: `.tmp/results/reports/checks_report_20260414_123622.md` zeigt nach den Root-Cause-Korrekturen fuer `markdownlint` und `path-portability` nur noch `ruff=FAIL (8)` und `black=FAIL (13)` als verbleibende Wochenabschluss-Blocker.
+  - Ergebnis 2026-04-14 12:47: `novapolis_agent/app/api/tts_models.py` nutzt fuer `TtsOutputFormat` jetzt `StrEnum`, die betroffenen TTS- und CPU-Limit-Tests sind lint-/formatkonform nachgezogen, und der von `black` gemeldete Restdateisatz in `scripts/` ist formatiert. Der gezielte Pytest-Scope fuer `tests/scripts/test_run_with_cpu_limit.py`, `tests/test_tts_models_validators.py` und `tests/test_tts_provider_edges.py` ist PASS; `ruff check novapolis_agent scripts`, `black --check novapolis_agent scripts` und der Sammellauf `.tmp/results/reports/checks_report_20260414_124519.md` sind ebenfalls PASS. Das Dev-Board steht damit wieder bei `offen: 0`.
 
 - [x] [Jetzt] `runpy`-Warnings im kanonischen Coverage-Lauf auf einen sauberen, warnungsfreien Skriptpfad reduzieren.
   - Ziel: Der produktive Coverage- und Script-Testpfad soll keine vermeidbaren Importzustands-Warnings mehr ausgeben, damit echte Runtime-Warnungen nicht hinter bekannten Testartefakten verschwinden.

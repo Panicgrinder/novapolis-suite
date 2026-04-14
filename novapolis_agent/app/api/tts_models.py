@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from pydantic import BaseModel, Field, field_validator
@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field, field_validator
 from .models import TEXT_RPG_LOG_CHANNELS, TEXT_RPG_SESSION_CONTRACT_VERSION
 
 
-class TtsOutputFormat(str, Enum):
+class TtsOutputFormat(StrEnum):
     wav = "wav"
     ogg = "ogg"
 

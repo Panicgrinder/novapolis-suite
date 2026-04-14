@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 12:25
-update: Der TODO-Index fuehrt jetzt auch den Sim-Replay-/Resume-Pfad als geschlossen; alle Modul-Boards stehen damit auf offen: 0.
-checks: snapshot-lock 2026-04-14 12:25; get_errors PASS (Main.gd, Main.tscn); verify_sim.gd headless EXITCODE=0; pytest sim replay/session PASS (EXITCODE=0)
+stand: 2026-04-14 12:55
+update: Der TODO-Index spiegelt die vollstaendig grüne Wochenpruefung 2026-04-14; alle aktiven Modul-Boards stehen wieder auf offen: 0.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260414_124519.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,7 +23,7 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` fuehrt den Folgepfad hinter `slot 30` jetzt ueber `Text-RPG Slice 2 Handover v1`. Root, Product Gate und Runbook nutzen damit denselben Namen und denselben Session-/Artefaktvertrag; die Root-seitige SSOT-Arbeit ist geschlossen.
 
-- Dev: Der kanonische Typenpfad und der CPU-Schonmodus bleiben belastbar, und der Coverage-Hygiene-Rest ist jetzt geschlossen. Die vier `runpy`-Warnings aus `.tmp/results/reports/pytest_coverage_postflight_20260409_232603.md` kamen aus Edge-Tests, die `runpy.run_module()` auf bereits vorimportierten `scripts.*`-Modulen ausfuehrten; nach der Umstellung auf echte Skriptpfade via `runpy.run_path(..., run_name="__main__")` ist `.tmp/results/reports/pytest_coverage_postflight_20260410_051125.md` mit `596 passed`, `Total coverage: 93.66%` und ohne Warnings derselben Klasse PASS. Das Dev-Board steht damit wieder bei `offen: 0`.
+- Dev: Der kurz geoeffnete Wochenrest fuer `ruff` und `black` ist im selben Lauf wieder geschlossen. `novapolis_agent/app/api/tts_models.py` nutzt fuer `TtsOutputFormat` jetzt `StrEnum`, die betroffenen TTS- und CPU-Limit-Tests sind lint-/formatkonform nachgezogen, und der von `black` gemeldete Restdateisatz in `scripts/` ist formatiert. `.tmp/results/reports/checks_report_20260414_124519.md` ist jetzt vollstaendig PASS; das Dev-Board steht damit wieder bei `offen: 0`.
 
 - Agent: Sessionvertrag, Replay-/Savegame-Pfad, `gm_session`-Eval, Session-TTS, der warnungsfreie Produktpfad und die Coverage-Welle fuer `app/api/chat_helpers.py`, `app/main.py` und `app/tts/providers.py` sind jetzt geschlossen. Der breite Fokuslauf bestaetigt `100%/98%/96%` fuer die drei Zielmodule, und der kanonische Wrapper `scripts/run_pytest_coverage.py --fail-under 80` bleibt mit `615 passed` und `Total coverage: 94.92%` PASS. Das Agent-Board steht damit wieder bei `offen: 0`.
 
@@ -40,8 +40,8 @@ Board-Metadaten (automationsrelevant)
 | --- | --- | --- | --- |
 | Dev (`docs/todo.dev.md`) | 2026-04-10 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-04-10 | keiner (offen: 0) | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-04-10 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-04-10 | keiner (offen: 0) | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-04-14 | keiner (offen: 0) | nein |
+| Sim (`docs/todo.sim.md`) | 2026-04-14 | keiner (offen: 0) | nein |
 
 
 Hinweise (Index)

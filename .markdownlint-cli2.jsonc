@@ -18,6 +18,7 @@
   "ignores": [
     "TTS/**",
     ".venv/**",
+    ".venv-py313-backup-*/**",
     "novapolis_agent/eval/results/**",
     "novapolis_agent/outputs/**",
     "outputs/**",

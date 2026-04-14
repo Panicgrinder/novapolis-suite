@@ -272,7 +272,9 @@ def test_placeholder_providers_and_session_sanitizing_paths(
     assert "openai" in adapter_result.detail
 
     monkeypatch.setattr(providers.settings, "TTS_RUNTIME_OUTPUT_DIR", str(tmp_path), raising=False)
-    monkeypatch.setattr(providers, "_coqui_request_synthesis", lambda **kwargs: (b"OggS", "audio/ogg"))
+    monkeypatch.setattr(
+        providers, "_coqui_request_synthesis", lambda **kwargs: (b"OggS", "audio/ogg")
+    )
 
     coqui_provider = providers.CoquiRuntimeProvider()
     sanitized_result = coqui_provider.synthesize(

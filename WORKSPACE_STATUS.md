@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 12:25
-update: Der Sim-Hub deckt jetzt auch Replay-/Resume sichtbar ab; damit sind alle aktiven Modul-Boards wieder geschlossen.
-checks: snapshot-lock 2026-04-14 12:25; get_errors PASS (Main.gd, Main.tscn); verify_sim.gd headless EXITCODE=0; pytest sim replay/session PASS (EXITCODE=0)
+stand: 2026-04-14 12:55
+update: Wochenpruefung 2026-04-14 ist nach dem Ruff-/Black-Fixlauf vollstaendig gruen; alle aktiven Modul-Boards stehen wieder auf offen: 0.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260414_124519.md
 ---
 
 Workspace-Status
@@ -10,9 +10,13 @@ Workspace-Status
 Aktuelles Wochenfenster
 -----------------------
 
+- 2026-04-14 12:47: Der kurz geoeffnete Dev-Rest aus der Wochenpruefung ist im selben Lauf wieder geschlossen. `novapolis_agent/app/api/tts_models.py` nutzt fuer `TtsOutputFormat` jetzt `StrEnum`, die betroffenen TTS- und CPU-Limit-Tests sind lint-/formatkonform nachgezogen, und der von `black` gemeldete Restdateisatz in `scripts/` ist formatiert. Der gezielte Pytest-Scope fuer `test_run_with_cpu_limit.py`, `test_tts_models_validators.py` und `test_tts_provider_edges.py` ist gruen, und der frische Sammellauf `.tmp/results/reports/checks_report_20260414_124519.md` ist jetzt vollstaendig PASS. `todo.dev.md` und `todo.index.md` fuehren Dev damit wieder auf `offen: 0`; zusammen mit den bereits geschlossenen RP-, Agent- und Sim-Punkten stehen alle aktiven Modul-Boards wieder auf `0`.
+
+- 2026-04-14 12:37: Die Wochenpruefung gemaess `novapolis-dev/docs/process/abschluss-routine.ssot.md` ist jetzt auf den echten Rest eingegrenzt. Nach zwei kleinen Root-Cause-Korrekturen ausserhalb des Produktcodes sind `markdownlint` und `path-portability` wieder gruen: `.markdownlint-cli2.jsonc` ignoriert nun auch `.venv-py313-backup-*/**`, und die aktiven Sim-/Root-Dokus fuehren keine hostgebundene Godot-Binary mehr. Der frische Recheck `.tmp/results/reports/checks_report_20260414_123622.md` ist damit fuer `markdownlint`, `frontmatter`, `path-portability`, `namingpolicy`, `todo-index-sync`, `doc-freshness`, `logs-policy`, `pyright`, `mypy` und `pytest` PASS; der separate Coverage-Lauf haelt `94.92%`, und `Checks: sim epoch assets` bleibt mit `summary=fail:0,warn:0` sauber. Offen bleibt nur noch der repo-eigene Python-Baseline-Rest `ruff=8` und `black=13`; `novapolis-dev/docs/todo.dev.md` fuehrt dafuer wieder einen offenen Punkt.
+
 - 2026-04-14 12:21: Der letzte offene Sim-Punkt ist geschlossen. `novapolis-sim/Main.tscn` fuehrt jetzt einen sichtbaren Replay-/Resume-Block im Hub, und `novapolis-sim/scripts/Main.gd` nutzt den bestehenden Replay-Endpunkt `/session/{session_id}/replay` explizit neben dem Session-Snapshot, zeigt Manifest- und Checkpoint-Daten sichtbar an und wendet den gewaehlten Resume-Anker auf Slot- und Logansicht an. `get_errors` bleibt fuer `Main.gd` und `Main.tscn` ohne Befund, `res://scripts/verify_sim.gd` endet headless mit `EXITCODE=0`, und der gezielte Session-/Replay-Pytest-Scope endet ebenfalls mit `EXITCODE=0`. Damit stehen Dev, RP, Agent und Sim wieder jeweils bei `offen: 0`.
 
-- 2026-04-14 12:03: Der Sim-Hub-Reset ist jetzt auch runtime-seitig bestaetigt. Neben der bereits grünen statischen Editor-Pruefung laeuft der kanonische Verifier `res://scripts/verify_sim.gd` mit der lokal gestarteten Binary `F:/Downloads/Godot/Godot_v4.6.1-stable_win64.exe` headless gruen und liefert `SIM_VERIFY: OK` bei `EXITCODE=0`; offen bleibt im Sim-Modul damit nur noch der Replay-/Resume-Pfad fuer `Text-RPG Slice 2 Handover v1`.
+- 2026-04-14 12:03: Der Sim-Hub-Reset ist jetzt auch runtime-seitig bestaetigt. Neben der bereits grünen statischen Editor-Pruefung laeuft der kanonische Verifier `res://scripts/verify_sim.gd` mit einer lokal gestarteten Godot-4.6.1-Binary headless gruen und liefert `SIM_VERIFY: OK` bei `EXITCODE=0`; offen bleibt im Sim-Modul damit nur noch der Replay-/Resume-Pfad fuer `Text-RPG Slice 2 Handover v1`.
 
 - 2026-04-14 11:15: Die offene Agent-Coverage-Welle fuer `app/api/chat_helpers.py`, `app/main.py` und `app/tts/providers.py` ist geschlossen. Neue Edge-Tests ziehen die drei Zielmodule im breiten Fokuslauf auf `100%`, `98%` und `96%`; der kanonische Wrapper `scripts/run_pytest_coverage.py --fail-under 80` bleibt mit `615 passed` und `Total coverage: 94.92%` PASS. `novapolis-dev/docs/todo.agent-board.md` und `novapolis-dev/docs/todo.index.md` fuehren Agent damit wieder auf `offen: 0`; offen bleibt im aktiven Modulindex nur noch Sim.
 

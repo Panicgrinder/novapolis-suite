@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-08 13:40
-update: Dev-KPI-Trendansicht um den Wochenabschluss-Slot S6 vom 2026-04-08 erweitert; die vier Hygiene-Kernmetriken bleiben bei Null.
-checks: Wochenabschluss via scripts/run_checks_and_report.py overall=PASS; report=.tmp\results\reports\checks_report_20260408_131224.md; scripts\run_pytest_coverage.py --fail-under 80 PASS report=.tmp\results\reports\pytest_coverage_postflight_20260408_131356.md coverage=90.14%; .\.venv\Scripts\python.exe scripts\check_logs_policy.py --repo-root . PASS; npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/meta/dev-kpi-trends.md PASS
+stand: 2026-04-14 12:55
+update: Dev-KPI-Trendansicht fuehrt Slot S7 jetzt auf dem final grünen Wochenabschluss-Report; die vier Hygiene-Kernmetriken bleiben weiter bei Null.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260414_124519.md
 ---
 
 Dev KPI Trends
@@ -38,12 +38,13 @@ Trend-Slots
 | S4 | 2026-03-19 11:01 | 0 | 0 | 0 | 0 | Direktlauf `scripts/check_todo_index_sync.py`, `scripts/check_doc_freshness.py`, `scripts/check_logs_policy.py`; Grep auf offene Placeholder-/Truthfulness-Konflikte im aktiven Dev-Bestand ohne Treffer |
 | S5 | 2026-03-27 01:16 | 0 | 0 | 0 | 0 | `.tmp/results/reports/checks_report_20260327_011507.md`: PASS fuer `todo-index-sync`, `doc-freshness`, `logs-policy`; Grep auf offene Placeholder-/Truthfulness-Konflikte im aktiven Dev-Bestand ohne Treffer |
 | S6 | 2026-04-08 13:27 | 0 | 0 | 0 | 0 | `.tmp/results/reports/checks_report_20260408_131224.md`: PASS fuer `todo-index-sync`, `doc-freshness`, `logs-policy`; Direktlauf `scripts/check_logs_policy.py --repo-root .` PASS; kein offener Placeholder-/Truthfulness-Konflikt im aktiven Dev-Bestand nach dem Doku-Sync |
+| S7 | 2026-04-14 12:47 | 0 | 0 | 0 | 0 | `.tmp/results/reports/checks_report_20260414_124519.md`: vollstaendig PASS; `todo-index-sync`, `doc-freshness` und `logs-policy` bleiben PASS, und auch der zwischenzeitliche Dev-Rest fuer `ruff`/`black` ist im selben Lauf geschlossen |
 
 Kurzfazit
 ---------
 
-- Die vier Kernmetriken liegen ueber alle sechs dokumentierten Slots stabil bei `0`.
-- Der verbleibende Dev-Backlog ist damit kein Hygiene- oder Governance-Blocker mehr, sondern nur noch normale Ausbauarbeit ausserhalb der Cadence-KPIs.
+- Die vier Kernmetriken liegen ueber alle sieben dokumentierten Slots stabil bei `0`.
+- Auch der nun vollstaendig grüne Wochenabschluss vom 2026-04-14 bestaetigt: die Cadence-KPIs bleiben stabil `0`, und der kurz geoeffnete Python-Lint-/Formatrest war kein Hygiene- oder Governance-Blocker.
 
 Quellen
 -------
@@ -53,6 +54,7 @@ Quellen
 - `.tmp/results/reports/checks_report_20260318_052318.md`
 - `.tmp/results/reports/checks_report_20260327_011507.md`
 - `.tmp/results/reports/checks_report_20260408_131224.md`
+- `.tmp/results/reports/checks_report_20260414_124519.md`
 - `.tmp/results/reports/pytest_coverage_postflight_20260408_131356.md`
 - `novapolis-dev/docs/todo.dev.md`
 - `novapolis-dev/docs/donelog.md`
