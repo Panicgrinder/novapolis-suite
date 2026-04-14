@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 12:55
-update: Der TODO-Index spiegelt die vollstaendig grüne Wochenpruefung 2026-04-14; alle aktiven Modul-Boards stehen wieder auf offen: 0.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260414_124519.md
+stand: 2026-04-14 16:27
+update: Der TODO-Index spiegelt jetzt den Sim-Drift-Fix fuer den ausgelagerten Hub-Layout-Controller; der zuvor sichtbare Godot-Preload-Parserfehler ist behoben.
+checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -15,7 +15,7 @@ TODO-Index (Novapolis-Dev)
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 0)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 4)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
 Statushinweise (aktuell)
@@ -29,7 +29,7 @@ Statushinweise (aktuell)
 
 - RP: Start-Chooser, Reveal-Matrizen und Folgekorridore reichen jetzt bis `slot 35`. `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` fuehrt den ersten fachlichen Ausbau des `Text-RPG Slice 2 Handover v1` auf demselben Resume-, Reveal- und Artefaktrahmen; das RP-Board steht damit wieder bei `offen: 0`.
 
-- Sim: Live-Spielclient, Audio-Wiedergabe, Clean-Checkout-Profil, Hub-UI-Reset und jetzt auch der Replay-/Resume-Pfad sind geschlossen. `novapolis-sim/Main.tscn` fuehrt einen sichtbaren `HubReplayPanel`-Bedienpfad, `novapolis-sim/scripts/Main.gd` nutzt neben dem Session-Snapshot jetzt explizit `GET /session/{session_id}/replay`, und der aktive Resume-Anker bleibt an dieselben Session-Artefakte gebunden. Das Sim-Board steht damit bei `offen: 0`.
+- Sim: Der Agent-Studio-Block ist ebenfalls weiter entkoppelt. Neben Helpern, Session-/Replay-Request, Session-/Replay-State, Hub-Chat, Layout, Hub-Config und Checks/RP liegt jetzt auch Agent-Studio-UI/Layout in eigenen Controllern; zusaetzlich ist ein Drift in `hub_layout_controller.gd` bereinigt, der zuvor einen Godot-Preload-Parserfehler ausgeloest hatte. Offen bleiben im Sim-Board weiter vier Punkte, darunter im Architekturrest vor allem Agent-Form-State und Runtime-Aktionspfade.
 
 - Historische Zwischenstaende und offene Uebergangsphasen bleiben im Dev-DONELOG dokumentiert; der TODO-Index fuehrt absichtlich nur noch den aktuellen Board- und Gate-Stand.
 
@@ -38,10 +38,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-04-10 | keiner (offen: 0) | nein |
+| Dev (`docs/todo.dev.md`) | 2026-04-14 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-04-10 | keiner (offen: 0) | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-04-14 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-04-14 | keiner (offen: 0) | nein |
+| Sim (`docs/todo.sim.md`) | 2026-04-14 | - [ ] [Jetzt] Sim-Hub nach dem Layout-Reset in modulare Controller und Runtime-Dienste zerlegen. | nein |
 
 
 Hinweise (Index)

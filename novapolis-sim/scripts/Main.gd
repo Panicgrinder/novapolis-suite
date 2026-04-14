@@ -1,6 +1,15 @@
 extends Node2D
 
+const AgentStudioControllerRef = preload("res://scripts/agent_studio_controller.gd")
+const ChecksRpControllerRef = preload("res://scripts/checks_rp_controller.gd")
 const SchedulerHookRef = preload("res://scripts/scheduler_hook.gd")
+const HubChatControllerRef = preload("res://scripts/hub_chat_controller.gd")
+const HubConfigControllerRef = preload("res://scripts/hub_config_controller.gd")
+const HubLayoutControllerRef = preload("res://scripts/hub_layout_controller.gd")
+const HubPreferencesStoreRef = preload("res://scripts/hub_preferences_store.gd")
+const SessionReplayHelpersRef = preload("res://scripts/session_replay_helpers.gd")
+const SessionReplayRequestControllerRef = preload("res://scripts/session_replay_request_controller.gd")
+const SessionReplayStateControllerRef = preload("res://scripts/session_replay_state_controller.gd")
 
 signal on_action_start(action_name: String, context: Dictionary)
 signal on_action_end(action_name: String, context: Dictionary)
@@ -110,7 +119,10 @@ signal on_interrupt(reason: String, context: Dictionary)
 @onready var hub_replay_fetch_button: Button = $HubReplayPanel/HubReplayFetchButton
 @onready var hub_replay_apply_button: Button = $HubReplayPanel/HubReplayApplyButton
 @onready var hub_replay_status_label: Label = $HubReplayPanel/HubReplayStatusLabel
+@onready var hub_replay_title_label: Label = $HubReplayPanel/HubReplayTitleLabel
+@onready var hub_replay_checkpoint_label: Label = $HubReplayPanel/HubReplayCheckpointLabel
 @onready var hub_chat_panel: Panel = $HubChatPanel
+@onready var hub_chat_title_label: Label = $HubChatPanel/HubChatTitleLabel
 @onready var hub_chat_history_label: RichTextLabel = $HubChatPanel/HubChatHistoryLabel
 @onready var hub_chat_input_edit: LineEdit = $HubChatPanel/HubChatInputEdit
 @onready var hub_chat_send_button: Button = $HubChatPanel/HubChatSendButton
@@ -235,7 +247,6 @@ var _hub_show_eval_card: bool = true
 var _hub_default_panel: String = "hub"
 var _hub_refresh_profile: String = "normal"
 var _hub_config_collapsed: bool = false
-var _hub_chat_in_flight: bool = false
 var _hub_chat_lines: Array[String] = []
 var _hub_chat_campaign_id: String = "novapolis_text_rpg_v1"
 var _hub_chat_session_id: String = ""
@@ -248,15 +259,22 @@ var _hub_chat_current_options: Array[String] = []
 var _hub_chat_current_state_patches: Array[String] = []
 var _hub_chat_public_context: String = ""
 var _hub_session_request: HTTPRequest
-var _hub_session_sync_in_flight: bool = false
 var _hub_replay_request: HTTPRequest
-var _hub_replay_sync_in_flight: bool = false
 var _live_session_artifact_paths: Dictionary = {}
 var _live_session_resume_checkpoint_id: String = ""
 var _live_replay_manifest: Dictionary = {}
 var _hub_selected_replay_checkpoint_id: String = ""
 var _marquee_state: Dictionary = {}
 var _lower_shared_topic: String = "agent_api"
+var _agent_studio_controller = AgentStudioControllerRef.new()
+var _checks_rp_controller = ChecksRpControllerRef.new()
+var _hub_chat_controller = HubChatControllerRef.new()
+var _hub_config_controller = HubConfigControllerRef.new()
+var _hub_layout_controller = HubLayoutControllerRef.new()
+var _hub_preferences_store = HubPreferencesStoreRef.new()
+var _session_replay_helpers = SessionReplayHelpersRef.new()
+var _session_replay_request_controller = SessionReplayRequestControllerRef.new(_session_replay_helpers)
+var _session_replay_state_controller = SessionReplayStateControllerRef.new(_session_replay_helpers)
 const _HUB_PREFS_PATH: String = "user://hub_prefs.cfg"
 const _DATASET_REGISTRY_PATH: String = "user://agent_user_data/datasets/_registry.json"
 const _SYNONYM_REGISTRY_PATH: String = "user://agent_user_data/synonyms/_registry.json"
@@ -417,602 +435,87 @@ func _on_viewport_size_changed() -> void:
 
 
 func _get_safe_viewport_size() -> Vector2:
-	var size := get_viewport_rect().size
-	return Vector2(maxf(size.x, _UI_MIN_WIDTH), maxf(size.y, _UI_MIN_HEIGHT))
+	return _hub_layout_controller.get_safe_viewport_size(get_viewport_rect().size, _UI_MIN_WIDTH, _UI_MIN_HEIGHT)
 
 
 func _apply_responsive_layout() -> void:
 	var size := _get_safe_viewport_size()
 	var width := size.x
 	var height := size.y
-	if preserve_editor_hub_layout and not _agent_submenu_open and not _checks_submenu_open and not _rp_submenu_open:
-		_apply_editor_hub_layout(width, height)
-		return
-	_layout_hub_shells(width, height)
-	_layout_hub_config_panel(width, height)
-	_layout_hub_topbar(width)
-	_layout_hub_actions(width, height)
-	_layout_hub_log_and_cards(width, height)
+	_hub_layout_controller.apply_responsive_hub_layout(_hub_layout_controls(), _hub_layout_state(), width, height)
 	_layout_module_panels(width, height)
 
 
-func _set_control_rect(control: Control, left: float, top: float, right: float, bottom: float) -> void:
-	control.offset_left = left
-	control.offset_top = top
-	control.offset_right = right
-	control.offset_bottom = bottom
-
-
-func _scale_hub_x(value: float, width: float) -> float:
-	return value * (width / _UI_BASE_WIDTH)
-
-
-func _scale_hub_y(value: float, height: float) -> float:
-	return value * (height / _UI_BASE_HEIGHT)
-
-
-func _hub_cards_shell_height(height: float) -> float:
-	return clampf(height * 0.22, 196.0, 248.0)
-
-
-func _hub_cards_shell_top(height: float) -> float:
-	return height - _UI_MARGIN - _hub_cards_shell_height(height)
-
-
-func _hub_content_top() -> float:
-	return 132.0
-
-
-func _hub_ops_rect(width: float, height: float) -> Rect2:
-	var top := _hub_content_top()
-	var bottom := _hub_cards_shell_top(height) - _UI_GAP
-	var shell_width := clampf(width * 0.31, 360.0, 500.0)
-	return Rect2(
-		width - _UI_MARGIN - shell_width,
-		top,
-		shell_width,
-		maxf(260.0, bottom - top)
-	)
-
-
-func _hub_stage_rect(width: float, height: float) -> Rect2:
-	var top := _hub_content_top()
-	var bottom := _hub_cards_shell_top(height) - _UI_GAP
-	var ops_rect := _hub_ops_rect(width, height)
-	return Rect2(
-		_UI_MARGIN,
-		top,
-		maxf(420.0, ops_rect.position.x - _UI_MARGIN - _UI_GAP),
-		maxf(260.0, bottom - top)
-	)
-
-
-func _layout_hub_shells(width: float, height: float) -> void:
-	_set_control_rect(hub_top_band_panel, _UI_MARGIN, 16.0, width - _UI_MARGIN, 100.0)
-	var stage_rect := _hub_stage_rect(width, height)
-	_set_control_rect(
-		hub_stage_panel,
-		stage_rect.position.x,
-		stage_rect.position.y,
-		stage_rect.position.x + stage_rect.size.x,
-		stage_rect.position.y + stage_rect.size.y
-	)
-	var ops_rect := _hub_ops_rect(width, height)
-	_set_control_rect(
-		hub_ops_panel,
-		ops_rect.position.x,
-		ops_rect.position.y,
-		ops_rect.position.x + ops_rect.size.x,
-		ops_rect.position.y + ops_rect.size.y
-	)
-	_set_control_rect(
-		hub_telemetry_panel,
-		_UI_MARGIN,
-		_hub_cards_shell_top(height),
-		width - _UI_MARGIN,
-		height - _UI_MARGIN
-	)
-
-
-func _apply_editor_hub_layout(width: float, height: float) -> void:
-	# Preserve the dashboard arrangement authored in Main.tscn as hub source of truth.
-	var area_01_left := _scale_hub_x(98.0, width)
-	var area_01_top := _scale_hub_y(117.0, height)
-	var area_01_right := _scale_hub_x(497.0, width)
-	var area_01_bottom := _scale_hub_y(231.0, height)
-	var area_02_left := _scale_hub_x(520.0, width)
-	var area_02_top := _scale_hub_y(116.0, height)
-	var area_02_right := _scale_hub_x(902.0, width)
-	var area_02_bottom := _scale_hub_y(229.0, height)
-	var area_03_left := _scale_hub_x(1018.0, width)
-	var area_03_top := _scale_hub_y(117.0, height)
-	var area_03_right := _scale_hub_x(1399.0, width)
-	var _area_03_bottom := _scale_hub_y(230.0, height)
-	var area_04_left := _scale_hub_x(1424.0, width)
-	var area_04_top := _scale_hub_y(116.0, height)
-	var area_04_right := _scale_hub_x(1821.0, width)
-	var area_04_bottom := _scale_hub_y(228.0, height)
-
-	var inner_pad_x := _scale_hub_x(8.0, width)
-	var inner_pad_y := _scale_hub_y(8.0, height)
-	var area_01_line_h := _scale_hub_y(17.0, height)
-	var area_01_line_gap := _scale_hub_y(2.0, height)
-	var area_01_line_y := area_01_top + inner_pad_y
-
-	_set_control_rect(
-		hub_title_label,
-		area_01_left + inner_pad_x,
-		area_01_line_y,
-		area_01_right - inner_pad_x,
-		area_01_line_y + area_01_line_h
-	)
-	area_01_line_y += area_01_line_h + area_01_line_gap
-	_set_control_rect(
-		hub_api_label,
-		area_01_left + inner_pad_x,
-		area_01_line_y,
-		area_01_right - inner_pad_x,
-		area_01_line_y + area_01_line_h
-	)
-	area_01_line_y += area_01_line_h + area_01_line_gap
-	_set_control_rect(
-		slot_label,
-		area_01_left + inner_pad_x,
-		area_01_line_y,
-		area_01_right - inner_pad_x,
-		area_01_line_y + area_01_line_h
-	)
-	area_01_line_y += area_01_line_h + area_01_line_gap
-	_set_control_rect(
-		audio_status_label,
-		area_01_left + inner_pad_x,
-		area_01_line_y,
-		area_01_right - inner_pad_x,
-		area_01_line_y + area_01_line_h
-	)
-	area_01_line_y += area_01_line_h + area_01_line_gap
-	_set_control_rect(
-		epoch_label,
-		area_01_left + inner_pad_x,
-		area_01_line_y,
-		area_01_left + _scale_hub_x(110.0, width),
-		area_01_line_y + area_01_line_h
-	)
-	_set_control_rect(
-		epoch_status_label,
-		area_01_left + _scale_hub_x(114.0, width),
-		area_01_line_y,
-		area_01_right - inner_pad_x,
-		area_01_line_y + area_01_line_h
-	)
-
-	var action_pad := _scale_hub_x(10.0, width)
-	var action_gap := _scale_hub_x(10.0, width)
-	var action_inner_left := area_02_left + action_pad
-	var action_inner_right := area_02_right - action_pad
-	var action_width := maxf(
-		_scale_hub_x(140.0, width),
-		(action_inner_right - action_inner_left - action_gap) / 2.0
-	)
-	var action_top_row_top := area_02_top + inner_pad_y
-	var action_top_row_bottom := action_top_row_top + _scale_hub_y(46.0, height)
-	var action_bottom_row_top := action_top_row_bottom + _scale_hub_y(10.0, height)
-	var action_bottom_row_bottom := area_02_bottom - inner_pad_y
-
-	_set_control_rect(
-		play_pc_button,
-		action_inner_left,
-		action_top_row_top,
-		action_inner_left + action_width,
-		action_top_row_bottom
-	)
-	_set_control_rect(
-		play_world_button,
-		action_inner_left + action_width + action_gap,
-		action_top_row_top,
-		action_inner_right,
-		action_top_row_bottom
-	)
-	_set_control_rect(
-		hub_checks_button,
-		action_inner_left,
-		action_bottom_row_top,
-		action_inner_left + action_width,
-		action_bottom_row_bottom
-	)
-	_set_control_rect(
-		hub_reload_button,
-		action_inner_left + action_width + action_gap,
-		action_bottom_row_top,
-		action_inner_right,
-		action_bottom_row_bottom
-	)
-
-	var status_pad := _scale_hub_x(8.0, width)
-	var status_left := area_03_left + status_pad
-	var status_right := area_03_right - status_pad
-	var status_line_h := _scale_hub_y(16.0, height)
-	var status_gap := _scale_hub_y(2.0, height)
-	var status_y := area_03_top + inner_pad_y
-
-	_set_control_rect(
-		server_toggle_button,
-		status_left,
-		status_y,
-		status_left + _scale_hub_x(148.0, width),
-		status_y + _scale_hub_y(30.0, height)
-	)
-	_set_control_rect(
-		server_status_label,
-		status_left + _scale_hub_x(154.0, width),
-		status_y,
-		status_right,
-		status_y + _scale_hub_y(30.0, height)
-	)
-	status_y += _scale_hub_y(32.0, height)
-	_set_control_rect(
-		hub_errors_label,
-		status_left,
-		status_y,
-		status_right,
-		status_y + status_line_h
-	)
-	status_y += status_line_h + status_gap
-	_set_control_rect(
-		hub_queue_label,
-		status_left,
-		status_y,
-		status_right,
-		status_y + status_line_h
-	)
-	status_y += status_line_h + status_gap
-	_set_control_rect(
-		hub_polling_label,
-		status_left,
-		status_y,
-		status_right,
-		status_y + status_line_h
-	)
-	status_y += status_line_h + status_gap
-	_set_control_rect(
-		tick_label,
-		status_left,
-		status_y,
-		status_left + _scale_hub_x(188.0, width),
-		status_y + status_line_h
-	)
-	_set_control_rect(
-		time_label,
-		status_left + _scale_hub_x(194.0, width),
-		status_y,
-		status_right,
-		status_y + status_line_h
-	)
-
-	_set_control_rect(
-		hub_config_panel,
-		area_04_left,
-		area_04_top,
-		area_04_right,
-		area_04_bottom
-	)
-	_set_control_rect(
-		status_label,
-		_scale_hub_x(20.0, width),
-		_scale_hub_y(92.0, height),
-		_scale_hub_x(1825.0, width),
-		_scale_hub_y(114.0, height)
-	)
-	_set_control_rect(
-		log_label,
-		_scale_hub_x(99.0, width),
-		_scale_hub_y(256.0, height),
-		_scale_hub_x(897.0, width),
-		_scale_hub_y(565.0, height)
-	)
-	_set_control_rect(
-		hub_chat_panel,
-		_scale_hub_x(1020.0, width),
-		_scale_hub_y(255.0, height),
-		_scale_hub_x(1820.0, width),
-		_scale_hub_y(558.0, height)
-	)
-	_layout_hub_chat_contents()
-
-	_set_control_rect(
-		sim_card_panel,
-		_scale_hub_x(104.0, width),
-		_scale_hub_y(824.0, height),
-		_scale_hub_x(898.0, width),
-		_scale_hub_y(1002.0, height)
-	)
-	_set_control_rect(
-		api_card_panel,
-		_scale_hub_x(552.0, width),
-		_scale_hub_y(630.0, height),
-		_scale_hub_x(1358.0, width),
-		_scale_hub_y(801.0, height)
-	)
-	_set_control_rect(
-		eval_card_panel,
-		_scale_hub_x(1016.0, width),
-		_scale_hub_y(826.0, height),
-		_scale_hub_x(1822.0, width),
-		_scale_hub_y(998.0, height)
-	)
-
-	_layout_module_panels(width, height)
-
-
-func _layout_hub_topbar(width: float) -> void:
-	var left := hub_top_band_panel.offset_left + 20.0
-	var top := hub_top_band_panel.offset_top + 14.0
-	var right := hub_top_band_panel.offset_right - 20.0
-	var title_w := clampf(width * 0.17, 240.0, 320.0)
-	var errors_w := clampf(width * 0.18, 190.0, 280.0)
-
-	hub_title_label.offset_left = left
-	hub_title_label.offset_top = top
-	hub_title_label.offset_right = left + title_w
-	hub_title_label.offset_bottom = top + 24.0
-
-	hub_errors_label.offset_left = right - errors_w
-	hub_errors_label.offset_top = top
-	hub_errors_label.offset_right = right
-	hub_errors_label.offset_bottom = top + 24.0
-
-	hub_api_label.offset_left = hub_title_label.offset_right + _UI_GAP
-	hub_api_label.offset_top = top
-	hub_api_label.offset_right = hub_errors_label.offset_left - _UI_GAP
-	hub_api_label.offset_bottom = top + 24.0
-
-	var row2_top := top + 34.0
-	var chip_width := (right - left - _UI_GAP * 3.0) / 4.0
-
-	tick_label.offset_left = left
-	tick_label.offset_top = row2_top
-	tick_label.offset_right = left + chip_width
-	tick_label.offset_bottom = row2_top + 22.0
-
-	time_label.offset_left = tick_label.offset_right + _UI_GAP
-	time_label.offset_top = row2_top
-	time_label.offset_right = time_label.offset_left + chip_width
-	time_label.offset_bottom = row2_top + 22.0
-
-	hub_polling_label.offset_left = time_label.offset_right + _UI_GAP
-	hub_polling_label.offset_top = row2_top
-	hub_polling_label.offset_right = hub_polling_label.offset_left + chip_width
-	hub_polling_label.offset_bottom = row2_top + 22.0
-
-	hub_queue_label.offset_left = hub_polling_label.offset_right + _UI_GAP
-	hub_queue_label.offset_top = row2_top
-	hub_queue_label.offset_right = right
-	hub_queue_label.offset_bottom = row2_top + 22.0
-
-	status_label.offset_left = _UI_MARGIN
-	status_label.offset_top = hub_top_band_panel.offset_bottom + 8.0
-	status_label.offset_right = width - _UI_MARGIN
-	status_label.offset_bottom = status_label.offset_top + 22.0
-
-
-func _layout_hub_actions(width: float, height: float) -> void:
-	var ops_rect := _hub_ops_rect(width, height)
-	var left := ops_rect.position.x + 18.0
-	var right := ops_rect.position.x + ops_rect.size.x - 18.0
-	var top := ops_rect.position.y + 56.0
-	var col_width := (right - left - _UI_GAP) / 2.0
-
-	_set_control_rect(server_toggle_button, left, top, right, top + 40.0)
-	_set_control_rect(server_status_label, left, top + 48.0, right, top + 70.0)
-
-	top += 86.0
-	_set_control_rect(play_pc_button, left, top, left + col_width, top + 40.0)
-	_set_control_rect(play_world_button, left + col_width + _UI_GAP, top, right, top + 40.0)
-
-	top += 50.0
-	_set_control_rect(hub_checks_button, left, top, left + col_width, top + 40.0)
-	_set_control_rect(hub_reload_button, left + col_width + _UI_GAP, top, right, top + 40.0)
-
-	_set_control_rect(audio_status_label, left, top + 52.0, right, top + 74.0)
-
-
-func _layout_hub_log_and_cards(width: float, height: float) -> void:
-	var stage_rect := _hub_stage_rect(width, height)
-	var stage_left := stage_rect.position.x + 24.0
-	var stage_right := stage_rect.position.x + stage_rect.size.x - 24.0
-	var stage_header_top := stage_rect.position.y + 56.0
-
-	_set_control_rect(epoch_label, stage_left, stage_header_top, stage_left + 180.0, stage_header_top + 22.0)
-	_set_control_rect(slot_label, stage_left + 196.0, stage_header_top, stage_right, stage_header_top + 22.0)
-	_set_control_rect(epoch_status_label, stage_left, stage_header_top + 28.0, stage_right, stage_header_top + 50.0)
-	_set_control_rect(
-		log_label,
-		stage_left,
-		stage_header_top + 66.0,
-		stage_right,
-		stage_rect.position.y + stage_rect.size.y - 22.0
-	)
-
-	var ops_rect := _hub_ops_rect(width, height)
-	_set_control_rect(
-		hub_replay_panel,
-		ops_rect.position.x + 18.0,
-		audio_status_label.offset_bottom + 16.0,
-		ops_rect.position.x + ops_rect.size.x - 18.0,
-		audio_status_label.offset_bottom + 190.0
-	)
-	_layout_hub_replay_contents()
-	_set_control_rect(
-		hub_chat_panel,
-		ops_rect.position.x + 18.0,
-		hub_replay_panel.offset_bottom + 12.0,
-		ops_rect.position.x + ops_rect.size.x - 18.0,
-		hub_config_panel.offset_top - 12.0
-	)
-	_layout_hub_chat_contents()
-
-	var cards_left := hub_telemetry_panel.offset_left + 18.0
-	var cards_right := hub_telemetry_panel.offset_right - 18.0
-	var cards_top := hub_telemetry_panel.offset_top + 54.0
-	var cards_bottom := hub_telemetry_panel.offset_bottom - 18.0
-	var card_width := (cards_right - cards_left - _UI_GAP * 2.0) / 3.0
-
-	_set_control_rect(sim_card_panel, cards_left, cards_top, cards_left + card_width, cards_bottom)
-	_set_control_rect(
-		api_card_panel,
-		sim_card_panel.offset_right + _UI_GAP,
-		cards_top,
-		sim_card_panel.offset_right + _UI_GAP + card_width,
-		cards_bottom
-	)
-	_set_control_rect(
-		eval_card_panel,
-		api_card_panel.offset_right + _UI_GAP,
-		cards_top,
-		api_card_panel.offset_right + _UI_GAP + card_width,
-		cards_bottom
-	)
-
-
-func _layout_hub_chat_contents() -> void:
-	var panel_w := maxf(220.0, hub_chat_panel.offset_right - hub_chat_panel.offset_left)
-	var panel_h := maxf(140.0, hub_chat_panel.offset_bottom - hub_chat_panel.offset_top)
-	var pad := 10.0
-	var send_w := clampf(panel_w * 0.22, 84.0, 108.0)
-	var input_h := 30.0
-	var status_h := 20.0
-	var title_top := 8.0
-	var title_bottom := 26.0
-	var input_top := panel_h - pad - status_h - 4.0 - input_h
-	var history_bottom := input_top - 8.0
-
-	hub_chat_history_label.offset_left = pad
-	hub_chat_history_label.offset_top = 30.0
-	hub_chat_history_label.offset_right = panel_w - pad
-	hub_chat_history_label.offset_bottom = maxf(64.0, history_bottom)
-
-	hub_chat_input_edit.offset_left = pad
-	hub_chat_input_edit.offset_top = input_top
-	hub_chat_input_edit.offset_right = panel_w - pad - send_w - 8.0
-	hub_chat_input_edit.offset_bottom = input_top + input_h
-
-	hub_chat_send_button.offset_left = hub_chat_input_edit.offset_right + 8.0
-	hub_chat_send_button.offset_top = input_top
-	hub_chat_send_button.offset_right = panel_w - pad
-	hub_chat_send_button.offset_bottom = input_top + input_h
-
-	hub_chat_status_label.offset_left = pad
-	hub_chat_status_label.offset_top = hub_chat_input_edit.offset_bottom + 4.0
-	hub_chat_status_label.offset_right = panel_w - pad
-	hub_chat_status_label.offset_bottom = hub_chat_status_label.offset_top + status_h
-
-	var chat_title := get_node_or_null("HubChatPanel/HubChatTitleLabel") as Label
-	if chat_title:
-		chat_title.offset_left = pad
-		chat_title.offset_top = title_top
-		chat_title.offset_right = panel_w - pad
-		chat_title.offset_bottom = title_bottom
-
-
-func _layout_hub_replay_contents() -> void:
-	var panel_w := maxf(220.0, hub_replay_panel.offset_right - hub_replay_panel.offset_left)
-	var pad := 10.0
-	var button_gap := 8.0
-	var button_w := (panel_w - pad * 2.0 - button_gap) / 2.0
-	var title := get_node_or_null("HubReplayPanel/HubReplayTitleLabel") as Label
-	var checkpoint_label := get_node_or_null("HubReplayPanel/HubReplayCheckpointLabel") as Label
-	if title:
-		title.offset_left = pad
-		title.offset_top = 8.0
-		title.offset_right = panel_w - pad
-		title.offset_bottom = 26.0
-	if checkpoint_label:
-		checkpoint_label.offset_left = pad
-		checkpoint_label.offset_top = 56.0
-		checkpoint_label.offset_right = panel_w - pad
-		checkpoint_label.offset_bottom = 76.0
-	hub_replay_summary_label.offset_left = pad
-	hub_replay_summary_label.offset_top = 30.0
-	hub_replay_summary_label.offset_right = panel_w - pad
-	hub_replay_summary_label.offset_bottom = 50.0
-	hub_replay_checkpoint_button.offset_left = pad
-	hub_replay_checkpoint_button.offset_top = 80.0
-	hub_replay_checkpoint_button.offset_right = panel_w - pad
-	hub_replay_checkpoint_button.offset_bottom = 110.0
-	hub_replay_fetch_button.offset_left = pad
-	hub_replay_fetch_button.offset_top = 118.0
-	hub_replay_fetch_button.offset_right = pad + button_w
-	hub_replay_fetch_button.offset_bottom = 148.0
-	hub_replay_apply_button.offset_left = hub_replay_fetch_button.offset_right + button_gap
-	hub_replay_apply_button.offset_top = 118.0
-	hub_replay_apply_button.offset_right = panel_w - pad
-	hub_replay_apply_button.offset_bottom = 148.0
-	hub_replay_status_label.offset_left = pad
-	hub_replay_status_label.offset_top = 154.0
-	hub_replay_status_label.offset_right = panel_w - pad
-	hub_replay_status_label.offset_bottom = 176.0
-
-
-func _layout_hub_config_panel(width: float, height: float) -> void:
-	var ops_rect := _hub_ops_rect(width, height)
-	var left := ops_rect.position.x + 18.0
-	var right := ops_rect.position.x + ops_rect.size.x - 18.0
-	var bottom := ops_rect.position.y + ops_rect.size.y - 18.0
-	var panel_height := _HUB_CONFIG_COLLAPSED_HEIGHT
-	if not _hub_config_collapsed:
-		panel_height = 188.0
-	_set_control_rect(hub_config_panel, left, bottom - panel_height, right, bottom)
-
-	var panel_width := right - left
-	hub_config_title_label.offset_left = 14.0
-	hub_config_title_label.offset_top = 10.0
-	hub_config_title_label.offset_right = panel_width - 250.0
-	hub_config_title_label.offset_bottom = 32.0
-
-	hub_config_quit_button.offset_left = panel_width - 236.0
-	hub_config_quit_button.offset_top = 10.0
-	hub_config_quit_button.offset_right = panel_width - 124.0
-	hub_config_quit_button.offset_bottom = 40.0
-
-	hub_config_close_button.offset_left = panel_width - 118.0
-	hub_config_close_button.offset_top = 10.0
-	hub_config_close_button.offset_right = panel_width - 12.0
-	hub_config_close_button.offset_bottom = 40.0
-
-	hub_config_sim_card_button.offset_left = 12.0
-	hub_config_sim_card_button.offset_top = 54.0
-	hub_config_sim_card_button.offset_right = 118.0
-	hub_config_sim_card_button.offset_bottom = 84.0
-
-	hub_config_api_card_button.offset_left = 12.0
-	hub_config_api_card_button.offset_top = 90.0
-	hub_config_api_card_button.offset_right = 118.0
-	hub_config_api_card_button.offset_bottom = 120.0
-
-	hub_config_eval_card_button.offset_left = 12.0
-	hub_config_eval_card_button.offset_top = 126.0
-	hub_config_eval_card_button.offset_right = 118.0
-	hub_config_eval_card_button.offset_bottom = 156.0
-
-	hub_config_default_panel_button.offset_left = 136.0
-	hub_config_default_panel_button.offset_top = 54.0
-	hub_config_default_panel_button.offset_right = panel_width - 136.0
-	hub_config_default_panel_button.offset_bottom = 84.0
-
-	hub_config_refresh_button.offset_left = 136.0
-	hub_config_refresh_button.offset_top = 92.0
-	hub_config_refresh_button.offset_right = panel_width - 136.0
-	hub_config_refresh_button.offset_bottom = 122.0
-
-	hub_config_save_button.offset_left = panel_width - 126.0
-	hub_config_save_button.offset_top = 126.0
-	hub_config_save_button.offset_right = panel_width - 12.0
-	hub_config_save_button.offset_bottom = 156.0
-
-	hub_config_status_label.offset_left = 12.0
-	hub_config_status_label.offset_top = 162.0
-	hub_config_status_label.offset_right = panel_width - 12.0
-	hub_config_status_label.offset_bottom = 182.0
+func _hub_layout_controls() -> Dictionary:
+	return {
+		"hub_top_band_panel": hub_top_band_panel,
+		"hub_stage_panel": hub_stage_panel,
+		"hub_ops_panel": hub_ops_panel,
+		"hub_telemetry_panel": hub_telemetry_panel,
+		"hub_title_label": hub_title_label,
+		"hub_api_label": hub_api_label,
+		"hub_polling_label": hub_polling_label,
+		"hub_queue_label": hub_queue_label,
+		"hub_errors_label": hub_errors_label,
+		"tick_label": tick_label,
+		"time_label": time_label,
+		"status_label": status_label,
+		"slot_label": slot_label,
+		"audio_status_label": audio_status_label,
+		"epoch_label": epoch_label,
+		"epoch_status_label": epoch_status_label,
+		"play_pc_button": play_pc_button,
+		"play_world_button": play_world_button,
+		"hub_checks_button": hub_checks_button,
+		"hub_reload_button": hub_reload_button,
+		"server_toggle_button": server_toggle_button,
+		"server_status_label": server_status_label,
+		"hub_config_panel": hub_config_panel,
+		"hub_config_title_label": hub_config_title_label,
+		"hub_config_quit_button": hub_config_quit_button,
+		"hub_config_close_button": hub_config_close_button,
+		"hub_config_sim_card_button": hub_config_sim_card_button,
+		"hub_config_api_card_button": hub_config_api_card_button,
+		"hub_config_eval_card_button": hub_config_eval_card_button,
+		"hub_config_default_panel_button": hub_config_default_panel_button,
+		"hub_config_refresh_button": hub_config_refresh_button,
+		"hub_config_save_button": hub_config_save_button,
+		"hub_config_status_label": hub_config_status_label,
+		"hub_replay_panel": hub_replay_panel,
+		"hub_replay_title_label": hub_replay_title_label,
+		"hub_replay_checkpoint_label": hub_replay_checkpoint_label,
+		"hub_replay_summary_label": hub_replay_summary_label,
+		"hub_replay_checkpoint_button": hub_replay_checkpoint_button,
+		"hub_replay_fetch_button": hub_replay_fetch_button,
+		"hub_replay_apply_button": hub_replay_apply_button,
+		"hub_replay_status_label": hub_replay_status_label,
+		"hub_chat_panel": hub_chat_panel,
+		"hub_chat_title_label": hub_chat_title_label,
+		"hub_chat_history_label": hub_chat_history_label,
+		"hub_chat_input_edit": hub_chat_input_edit,
+		"hub_chat_send_button": hub_chat_send_button,
+		"hub_chat_status_label": hub_chat_status_label,
+		"log_label": log_label,
+		"sim_card_panel": sim_card_panel,
+		"api_card_panel": api_card_panel,
+		"eval_card_panel": eval_card_panel,
+	}
+
+
+func _hub_layout_state() -> Dictionary:
+	return {
+		"preserve_editor_hub_layout": preserve_editor_hub_layout,
+		"agent_submenu_open": _agent_submenu_open,
+		"checks_submenu_open": _checks_submenu_open,
+		"rp_submenu_open": _rp_submenu_open,
+		"hub_config_collapsed": _hub_config_collapsed,
+		"hub_config_collapsed_height": _HUB_CONFIG_COLLAPSED_HEIGHT,
+		"hub_config_expanded_height": _HUB_CONFIG_EXPANDED_BOTTOM - 44.0,
+		"ui_base_width": _UI_BASE_WIDTH,
+		"ui_base_height": _UI_BASE_HEIGHT,
+		"ui_margin": _UI_MARGIN,
+		"ui_gap": _UI_GAP,
+	}
 
 
 func _layout_module_panels(width: float, height: float) -> void:
@@ -1046,6 +549,85 @@ func _layout_module_panels(width: float, height: float) -> void:
 	agent_studio_panel.offset_right = right
 	agent_studio_panel.offset_bottom = bottom
 	_apply_agent_module_layout(false)
+
+
+func _agent_studio_controls() -> Dictionary:
+	return {
+		"agent_studio_panel": agent_studio_panel,
+		"agent_back_button": agent_back_button,
+		"agent_studio_mode_label": agent_studio_mode_label,
+		"agent_operate_button": agent_operate_button,
+		"agent_author_button": agent_author_button,
+		"agent_eval_run_button": agent_eval_run_button,
+		"agent_eval_suite_button": agent_eval_suite_button,
+		"agent_dataset_source_button": agent_dataset_source_button,
+		"agent_datasets_button": agent_datasets_button,
+		"agent_synonyms_button": agent_synonyms_button,
+		"agent_finetune_button": agent_finetune_button,
+		"agent_profiles_button": agent_profiles_button,
+		"agent_ai_status_button": agent_ai_status_button,
+		"agent_eval_status_label": agent_eval_status_label,
+		"agent_system_metrics_label": agent_system_metrics_label,
+		"agent_latest_runs_label": agent_latest_runs_label,
+		"agent_studio_hint_label": agent_studio_hint_label,
+		"agent_form_panel": agent_form_panel,
+	}
+
+
+func _agent_studio_state() -> Dictionary:
+	return {
+		"studio_mode": _agent_studio_mode,
+		"eval_pid": _eval_pid,
+		"eval_started_ms": _eval_started_ms,
+		"eval_expected_duration_seconds": eval_expected_duration_seconds,
+		"last_eval_exit_code": _last_eval_exit_code,
+		"enable_system_resource_monitoring": enable_system_resource_monitoring,
+		"system_metrics_text": _agent_system_metrics_text(),
+		"dataset_status_text": _dataset_status_text,
+		"active_dataset_label": _active_dataset_label(),
+		"synonym_status_text": _synonym_status_text,
+		"active_synonym_label": _active_synonym_label(),
+		"profile_status_text": _profile_status_text,
+		"active_profile_label": _active_profile_label(),
+		"advanced_settings_status_text": _advanced_settings_status_text,
+		"jobs_status_text": _jobs_status_text,
+		"finetune_status_text": _finetune_status_text,
+		"latest_eval_summary_text": _latest_eval_summary_text,
+		"ai_trend_summary_text": _ai_trend_summary_text,
+		"artifacts_summary_text": _artifacts_summary_text,
+		"experiments_summary_text": _experiments_summary_text,
+		"policy_sandbox_summary_text": _policy_sandbox_summary_text,
+		"release_gate_summary_text": _release_gate_summary_text,
+		"audit_trail_summary_text": _audit_trail_summary_text,
+		"security_model_summary_text": _security_model_summary_text,
+		"eval_suite_options": _EVAL_SUITE_OPTIONS,
+		"dataset_source_options": _DATASET_SOURCE_OPTIONS,
+		"agent_eval_suite": _agent_eval_suite,
+		"dataset_source_mode": _dataset_source_mode,
+		"dataset_source_mode_label": _dataset_source_mode_label(),
+		"agent_submenu_open": _agent_submenu_open,
+		"agent_form_kind": _agent_form_kind,
+		"collapse_agent_status_when_form_open": collapse_agent_status_when_form_open,
+		"agent_form_panel_normal_tint": _AGENT_FORM_PANEL_NORMAL_TINT,
+		"agent_form_panel_active_tint": _AGENT_FORM_PANEL_ACTIVE_TINT,
+		"agent_status_normal_tint": _AGENT_STATUS_NORMAL_TINT,
+		"agent_status_dim_tint": _AGENT_STATUS_DIM_TINT,
+		"destructive_armed_action": _destructive_armed_action,
+		"destructive_armed_until_ms": _destructive_armed_until_ms,
+		"now_ms": Time.get_ticks_msec(),
+		"agent_action_busy": _agent_action_busy,
+		"dataset_pid": _dataset_pid,
+		"finetune_pid": _finetune_pid,
+	}
+
+
+func _agent_system_metrics_text() -> String:
+	return "System: CPU %s | RAM %s | VRAM %s | Temp %s" % [
+		_format_percent(_system_cpu_percent),
+		_format_percent(_system_ram_percent),
+		_format_vram(),
+		_format_temperature(_effective_temperature_c()),
+	]
 
 
 func receive_world_state(state: Dictionary) -> void:
@@ -1574,174 +1156,117 @@ func _load_log_entries(path: String) -> Array[Dictionary]:
 
 
 func _coerce_dict_array(value: Variant) -> Array[Dictionary]:
-	var entries: Array[Dictionary] = []
-	if typeof(value) != TYPE_ARRAY:
-		return entries
-	for item in value:
-		if typeof(item) == TYPE_DICTIONARY:
-			entries.append(item)
-	return entries
+	return _session_replay_helpers.coerce_dict_array(value)
 
 
 func _parse_slot_number(value: Variant) -> int:
-	if typeof(value) == TYPE_INT:
-		return int(value)
-	if typeof(value) == TYPE_FLOAT:
-		return int(value)
-	var text := str(value).strip_edges()
-	if text == "":
-		return -1
-	if text.is_valid_int():
-		return int(text)
-	var digits := ""
-	for ch in text:
-		if ch >= "0" and ch <= "9":
-			digits += ch
-	if digits.is_valid_int():
-		return int(digits)
-	return -1
+	return _session_replay_helpers.parse_slot_number(value)
 
 
 func _derive_initial_slot(pc_log: Array) -> int:
-	for entry in pc_log:
-		if typeof(entry) != TYPE_DICTIONARY:
-			continue
-		var slot_value := _extract_slot_from_entry(entry)
-		if slot_value >= 0:
-			return slot_value
-	return 0
+	return _session_replay_helpers.derive_initial_slot(pc_log)
 
 
 func _extract_slot_from_entry(entry: Dictionary) -> int:
-	for key in ["slot", "hour", "slot_index", "slot_id"]:
-		if entry.has(key):
-			var slot_number := _parse_slot_number(entry.get(key, -1))
-			if slot_number >= 0:
-				return slot_number
-	return -1
+	return _session_replay_helpers.extract_slot_from_entry(entry)
 
 
 func _live_session_epoch_name() -> String:
-	if _hub_chat_session_id == "":
-		return "live-session"
-	return "session-%s" % _hub_chat_session_id
+	return _session_replay_helpers.live_session_epoch_name(_hub_chat_session_id)
+
+
+func _apply_session_replay_state_updates(updates: Dictionary) -> void:
+	if updates.has("live_session_artifact_paths"):
+		_live_session_artifact_paths = updates.get("live_session_artifact_paths", {})
+	if updates.has("live_session_resume_checkpoint_id"):
+		_live_session_resume_checkpoint_id = str(updates.get("live_session_resume_checkpoint_id", "")).strip_edges()
+	if updates.has("loaded_epochs"):
+		_loaded_epochs = updates.get("loaded_epochs", [])
+	if updates.has("current_epoch_index"):
+		_current_epoch_index = int(updates.get("current_epoch_index", _current_epoch_index))
+	if updates.has("current_slot"):
+		_current_slot = int(updates.get("current_slot", _current_slot))
+	if updates.has("audio_assets_present"):
+		_audio_assets_present = bool(updates.get("audio_assets_present", _audio_assets_present))
+	if updates.has("live_replay_manifest"):
+		_live_replay_manifest = updates.get("live_replay_manifest", {})
+	if updates.has("hub_selected_replay_checkpoint_id"):
+		_hub_selected_replay_checkpoint_id = str(updates.get("hub_selected_replay_checkpoint_id", "")).strip_edges()
 
 
 func _apply_live_session_state(session_payload: Dictionary) -> void:
-	var world_log := _coerce_dict_array(session_payload.get("world_log", []))
-	var pc_log := _coerce_dict_array(session_payload.get("pc_log", []))
-	var state_patches := _coerce_dict_array(session_payload.get("state_patches", []))
-	var artifact_paths := {}
-	if typeof(session_payload.get("artifact_paths", {})) == TYPE_DICTIONARY:
-		artifact_paths = session_payload.get("artifact_paths", {})
-	_live_session_artifact_paths = artifact_paths
-	_live_session_resume_checkpoint_id = str(session_payload.get("resume_checkpoint_id", "")).strip_edges()
-	_loaded_epochs.clear()
-	_loaded_epochs.append(
-		{
-			"name": _live_session_epoch_name(),
-			"world_log": world_log,
-			"pc_log": pc_log,
-			"state_patches": state_patches,
-			"artifact_paths": artifact_paths,
-			"source": "session_api",
-		}
+	var updates: Dictionary = _session_replay_state_controller.build_live_session_state(
+		session_payload,
+		_hub_chat_session_id,
+		_current_slot,
+		_audio_assets_present,
+		_hub_selected_replay_checkpoint_id
 	)
-	_current_epoch_index = 0
-	var slot_number := _parse_slot_number(session_payload.get("slot_index", -1))
-	if slot_number < 0:
-		slot_number = _parse_slot_number(session_payload.get("slot_id", -1))
-	if slot_number < 0:
-		slot_number = _derive_initial_slot(pc_log)
-	if slot_number < 0:
-		slot_number = _current_slot
-	_current_slot = clampi(slot_number, 0, 23)
-	_audio_assets_present = _audio_assets_present or artifact_paths.has("tts_manifest")
-	var patch_count := 0
-	if typeof(session_payload.get("state_patches", [])) == TYPE_ARRAY:
-		patch_count = (session_payload.get("state_patches", []) as Array).size()
-	_set_marquee_text(
-		epoch_status_label,
-		"Epochen: Live-Session %s | pc=%d | world=%d | patches=%d" % [
-			_hub_chat_session_id,
-			pc_log.size(),
-			world_log.size(),
-			patch_count,
-		]
-	)
-	if _live_session_resume_checkpoint_id != "":
-		rp_replay_seed_label.text = "Replay-Seed: %s" % _live_session_resume_checkpoint_id
-		if _hub_selected_replay_checkpoint_id == "":
-			_hub_selected_replay_checkpoint_id = _live_session_resume_checkpoint_id
+	_apply_session_replay_state_updates(updates)
+	_set_marquee_text(epoch_status_label, str(updates.get("epoch_status_text", "Epochen: Live-Session synchronisiert")))
+	if updates.has("rp_replay_seed_text"):
+		rp_replay_seed_label.text = str(updates.get("rp_replay_seed_text", rp_replay_seed_label.text))
 	_render_pc_centric_view()
 	_refresh_hub_replay_ui()
 	_refresh_module_cards()
 
 
-func _hub_session_endpoint() -> String:
+func _hub_request_host() -> String:
 	var host := "127.0.0.1"
-	var port := 8765
 	if _sim_client:
 		host = str(_sim_client.get("host"))
+	return host
+
+
+func _hub_request_port() -> int:
+	var port := 8765
+	if _sim_client:
 		port = int(_sim_client.get("port"))
-	return "http://%s:%d/session/%s" % [host, port, _hub_chat_session_id.uri_encode()]
-
-
-func _hub_replay_endpoint() -> String:
-	return "%s/replay" % _hub_session_endpoint()
+	return port
 
 
 func _request_live_session_state() -> void:
-	if _hub_chat_session_id == "":
+	var request_state: Dictionary = _session_replay_request_controller.request_live_session(
+		_hub_chat_session_id,
+		_hub_session_request,
+		_hub_request_host(),
+		_hub_request_port()
+	)
+	if not bool(request_state.get("started", false)):
+		var message := str(request_state.get("message", "")).strip_edges()
+		if message != "":
+			_set_marquee_text(epoch_status_label, message)
 		return
-	if _hub_session_request == null:
-		return
-	if _hub_session_sync_in_flight:
-		return
-	if _hub_session_request.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
-		return
-	var error := _hub_session_request.request(_hub_session_endpoint())
-	if error != OK:
-		_set_marquee_text(epoch_status_label, "Epochen: Session-Reload konnte nicht gestartet werden (%d)" % error)
-		return
-	_hub_session_sync_in_flight = true
-	_append_runtime_event("SESSION_SYNC", {"action": "request", "session_id": _hub_chat_session_id})
+	_append_runtime_event("SESSION_SYNC", request_state.get("event", {}))
 
 
 func _request_live_session_replay() -> void:
-	if _hub_chat_session_id == "":
+	var request_state: Dictionary = _session_replay_request_controller.request_live_replay(
+		_hub_chat_session_id,
+		_hub_replay_request,
+		_hub_request_host(),
+		_hub_request_port()
+	)
+	if not bool(request_state.get("started", false)):
+		var message := str(request_state.get("message", "")).strip_edges()
+		if message != "":
+			hub_replay_status_label.text = message
 		return
-	if _hub_replay_request == null:
-		return
-	if _hub_replay_sync_in_flight:
-		return
-	if _hub_replay_request.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
-		return
-	var error := _hub_replay_request.request(_hub_replay_endpoint())
-	if error != OK:
-		hub_replay_status_label.text = "Replay: Request konnte nicht gestartet werden (%d)" % error
-		return
-	_hub_replay_sync_in_flight = true
-	hub_replay_status_label.text = "Replay: Manifest wird geladen"
-	_append_runtime_event("SESSION_REPLAY", {"action": "request", "session_id": _hub_chat_session_id})
+	hub_replay_status_label.text = str(request_state.get("pending_status", hub_replay_status_label.text))
+	_append_runtime_event("SESSION_REPLAY", request_state.get("event", {}))
 
 
 func _coerce_string_array(value: Variant) -> Array[String]:
-	var result: Array[String] = []
-	if typeof(value) != TYPE_ARRAY:
-		return result
-	for item in value:
-		var text := str(item).strip_edges()
-		if text != "":
-			result.append(text)
-	return result
+	return _session_replay_helpers.coerce_string_array(value)
 
 
 func _refresh_hub_replay_checkpoint_options() -> void:
-	var checkpoints := _coerce_string_array(_live_replay_manifest.get("checkpoints", []))
-	var resume_checkpoint := str(_live_replay_manifest.get("resume_checkpoint_id", _live_session_resume_checkpoint_id)).strip_edges()
-	if resume_checkpoint != "" and not checkpoints.has(resume_checkpoint):
-		checkpoints.insert(0, resume_checkpoint)
+	var option_state: Dictionary = _session_replay_helpers.build_checkpoint_options(
+		_live_replay_manifest,
+		_live_session_resume_checkpoint_id,
+		_hub_selected_replay_checkpoint_id
+	)
+	var checkpoints: Array[String] = option_state.get("checkpoints", [])
 	hub_replay_checkpoint_button.clear()
 	if checkpoints.is_empty():
 		hub_replay_checkpoint_button.add_item("Keine Checkpoints")
@@ -1751,8 +1276,7 @@ func _refresh_hub_replay_checkpoint_options() -> void:
 	hub_replay_checkpoint_button.disabled = false
 	for checkpoint in checkpoints:
 		hub_replay_checkpoint_button.add_item(checkpoint)
-	if _hub_selected_replay_checkpoint_id == "" or not checkpoints.has(_hub_selected_replay_checkpoint_id):
-		_hub_selected_replay_checkpoint_id = resume_checkpoint if resume_checkpoint != "" else checkpoints[0]
+	_hub_selected_replay_checkpoint_id = str(option_state.get("selected_checkpoint_id", "")).strip_edges()
 	var selected_index := checkpoints.find(_hub_selected_replay_checkpoint_id)
 	if selected_index < 0:
 		selected_index = 0
@@ -1787,47 +1311,20 @@ func _refresh_hub_replay_ui() -> void:
 
 
 func _parse_checkpoint_tick(checkpoint_id: String) -> int:
-	var text := checkpoint_id.strip_edges()
-	if not text.begins_with("tick-"):
-		return -1
-	var digits := text.substr(5)
-	if digits.is_valid_int():
-		return int(digits)
-	return -1
+	return _session_replay_helpers.parse_checkpoint_tick(checkpoint_id)
 
 
 func _find_slot_for_checkpoint_in_entries(entries: Array, checkpoint_id: String) -> int:
-	var checkpoint_tick := _parse_checkpoint_tick(checkpoint_id)
-	for item in entries:
-		if typeof(item) != TYPE_DICTIONARY:
-			continue
-		var entry := item as Dictionary
-		if str(entry.get("turn_id", "")).strip_edges() == checkpoint_id:
-			var slot_number := _extract_slot_from_entry(entry)
-			if slot_number >= 0:
-				return slot_number
-		if checkpoint_tick >= 0 and int(entry.get("tick", -1)) == checkpoint_tick:
-			var tick_slot := _extract_slot_from_entry(entry)
-			if tick_slot >= 0:
-				return tick_slot
-	return -1
+	return _session_replay_helpers.find_slot_for_checkpoint_in_entries(entries, checkpoint_id)
 
 
 func _find_slot_for_checkpoint(checkpoint_id: String) -> int:
-	if checkpoint_id == "" or _loaded_epochs.is_empty():
-		return -1
-	var epoch := _loaded_epochs[_current_epoch_index]
-	for key in ["pc_log", "world_log", "state_patches"]:
-		var slot_number := _find_slot_for_checkpoint_in_entries(epoch.get(key, []), checkpoint_id)
-		if slot_number >= 0:
-			return slot_number
-	var manifest_slot := _parse_slot_number(_live_replay_manifest.get("slot_index", -1))
-	if manifest_slot >= 0:
-		return manifest_slot
-	manifest_slot = _parse_slot_number(_live_replay_manifest.get("slot_id", -1))
-	if manifest_slot >= 0:
-		return manifest_slot
-	return -1
+	return _session_replay_helpers.find_slot_for_checkpoint(
+		_loaded_epochs,
+		_current_epoch_index,
+		_live_replay_manifest,
+		checkpoint_id
+	)
 
 
 func _apply_selected_replay_checkpoint() -> void:
@@ -1835,14 +1332,18 @@ func _apply_selected_replay_checkpoint() -> void:
 	if checkpoint_id == "":
 		hub_replay_status_label.text = "Replay: kein Checkpoint ausgewaehlt"
 		return
-	_live_session_resume_checkpoint_id = checkpoint_id
-	rp_replay_seed_label.text = "Replay-Seed: %s" % checkpoint_id
-	var slot_number := _find_slot_for_checkpoint(checkpoint_id)
-	if slot_number >= 0:
-		_current_slot = clampi(slot_number, 0, 23)
-	_set_marquee_text(epoch_status_label, "Epochen: Resume-Anker %s | slot=%02d" % [checkpoint_id, _current_slot])
-	hub_chat_status_label.text = "Live-Spielclient: Resume-Anker %s aktiv" % checkpoint_id
-	_append_runtime_event("SESSION_REPLAY", {"action": "apply", "checkpoint_id": checkpoint_id, "slot": _current_slot})
+	var updates: Dictionary = _session_replay_state_controller.build_selected_replay_checkpoint_state(
+		checkpoint_id,
+		_loaded_epochs,
+		_current_epoch_index,
+		_live_replay_manifest,
+		_current_slot
+	)
+	_apply_session_replay_state_updates(updates)
+	rp_replay_seed_label.text = str(updates.get("rp_replay_seed_text", rp_replay_seed_label.text))
+	_set_marquee_text(epoch_status_label, str(updates.get("epoch_status_text", epoch_status_label.text)))
+	hub_chat_status_label.text = str(updates.get("hub_chat_status_text", hub_chat_status_label.text))
+	_append_runtime_event("SESSION_REPLAY", updates.get("runtime_event", {"action": "apply", "checkpoint_id": checkpoint_id, "slot": _current_slot}))
 	_render_pc_centric_view()
 	_refresh_hub_replay_ui()
 
@@ -1902,125 +1403,38 @@ func _render_pc_centric_view() -> void:
 
 
 func _hub_chat_slot_id() -> String:
-	return "slot-%02d" % _current_slot
+	return _hub_chat_controller.build_slot_id(_current_slot)
 
 
 func _next_hub_chat_turn_id() -> String:
-	return "turn-%02d" % (_hub_chat_turn_index + 1)
+	return _hub_chat_controller.next_turn_id(_hub_chat_turn_index)
 
 
 func _build_hub_chat_public_context() -> String:
-	var lines: Array[String] = []
-	lines.append("slot: %02d" % _current_slot)
-	if _hub_chat_current_scene_text != "" and _hub_chat_current_scene_text != "Kein Live-Lauf aktiv.":
-		lines.append("szene: %s" % _hub_chat_current_scene_text)
-	if _hub_chat_current_consequence != "":
-		lines.append("konsequenz: %s" % _hub_chat_current_consequence)
-	if not _hub_chat_current_options.is_empty():
-		lines.append("optionen:")
-		for option in _hub_chat_current_options:
-			lines.append("- %s" % option)
-	return "\n".join(lines)
+	return _hub_chat_controller.build_public_context(
+		_current_slot,
+		_hub_chat_current_scene_text,
+		_hub_chat_current_consequence,
+		_hub_chat_current_options
+	)
 
 
 func _build_hub_chat_retrieval_query(prompt: String) -> String:
-	var parts: Array[String] = []
-	parts.append(prompt.strip_edges())
-	parts.append(_hub_chat_slot_id())
-	if _hub_chat_scene_id != "":
-		parts.append(_hub_chat_scene_id)
-	if _hub_chat_current_scene_text != "" and _hub_chat_current_scene_text != "Kein Live-Lauf aktiv.":
-		parts.append(_hub_chat_current_scene_text)
-	if _hub_chat_current_consequence != "":
-		parts.append(_hub_chat_current_consequence)
-	return " | ".join(parts)
+	return _hub_chat_controller.build_retrieval_query(
+		prompt,
+		_hub_chat_slot_id(),
+		_hub_chat_scene_id,
+		_hub_chat_current_scene_text,
+		_hub_chat_current_consequence
+	)
 
 
 func _coerce_hub_chat_string_array(value: Variant) -> Array[String]:
-	var result: Array[String] = []
-	if typeof(value) != TYPE_ARRAY:
-		return result
-	for entry in value:
-		var text := str(entry).strip_edges()
-		if text != "":
-			result.append(text)
-	return result
-
-
-func _extract_hub_chat_heading_value(line: String) -> String:
-	var separator_index := line.find(":")
-	if separator_index < 0:
-		return ""
-	return line.substr(separator_index + 1).strip_edges()
-
-
-func _clean_hub_chat_item(line: String) -> String:
-	var clean := line.strip_edges()
-	for prefix in ["- ", "* ", "• "]:
-		if clean.begins_with(prefix):
-			return clean.substr(prefix.length()).strip_edges()
-	return clean
+	return _hub_chat_controller.coerce_string_array(value)
 
 
 func _parse_hub_chat_response(content: String) -> Dictionary:
-	var scene_lines: Array[String] = []
-	var consequence_lines: Array[String] = []
-	var option_lines: Array[String] = []
-	var state_patch_lines: Array[String] = []
-	var current_section := ""
-
-	for raw_line in content.split("\n"):
-		var line := raw_line.strip_edges()
-		if line == "":
-			continue
-		var lower := line.to_lower()
-		if lower.begins_with("szene"):
-			current_section = "scene"
-			var scene_value := _extract_hub_chat_heading_value(line)
-			if scene_value != "":
-				scene_lines.append(scene_value)
-			continue
-		if lower.begins_with("konsequenz"):
-			current_section = "consequence"
-			var consequence_value := _extract_hub_chat_heading_value(line)
-			if consequence_value != "":
-				consequence_lines.append(consequence_value)
-			continue
-		if lower.begins_with("optionen"):
-			current_section = "options"
-			var option_value := _extract_hub_chat_heading_value(line)
-			if option_value != "":
-				option_lines.append(_clean_hub_chat_item(option_value))
-			continue
-		if lower.begins_with("state_patches") or lower.begins_with("state patches"):
-			current_section = "state_patches"
-			var patch_value := _extract_hub_chat_heading_value(line)
-			if patch_value != "":
-				state_patch_lines.append(_clean_hub_chat_item(patch_value))
-			continue
-
-		match current_section:
-			"scene":
-				scene_lines.append(line)
-			"consequence":
-				consequence_lines.append(line)
-			"options":
-				option_lines.append(_clean_hub_chat_item(line))
-			"state_patches":
-				state_patch_lines.append(_clean_hub_chat_item(line))
-			_:
-				pass
-
-	var scene_text := " ".join(scene_lines).strip_edges()
-	var consequence_text := " ".join(consequence_lines).strip_edges()
-	if scene_text == "" and consequence_text == "" and content.strip_edges() != "":
-		consequence_text = content.strip_edges().replace("\n", " ")
-	return {
-		"scene": scene_text,
-		"consequence": consequence_text,
-		"options": option_lines,
-		"state_patches": state_patch_lines,
-	}
+	return _hub_chat_controller.parse_response(content)
 
 
 func _refresh_hub_chat_ui() -> void:
@@ -2057,19 +1471,22 @@ func _refresh_hub_chat_ui() -> void:
 
 
 func _apply_hub_chat_response(answer: String) -> void:
-	var parsed := _parse_hub_chat_response(answer)
-	var scene_text := str(parsed.get("scene", "")).strip_edges()
-	if scene_text != "":
-		_hub_chat_current_scene_text = scene_text
-		_hub_chat_scene_id = _hub_chat_slot_id()
-	var consequence_text := str(parsed.get("consequence", "")).strip_edges()
-	_hub_chat_current_consequence = consequence_text
-	_hub_chat_current_options = _coerce_hub_chat_string_array(parsed.get("options", []))
-	_hub_chat_current_state_patches = _coerce_hub_chat_string_array(parsed.get("state_patches", []))
-	_hub_chat_public_context = _build_hub_chat_public_context()
-	if _hub_chat_pending_turn_id != "":
-		_hub_chat_turn_index += 1
-		_hub_chat_pending_turn_id = ""
+	var updates := _hub_chat_controller.build_response_state(
+		answer,
+		_current_slot,
+		_hub_chat_scene_id,
+		_hub_chat_current_scene_text,
+		_hub_chat_pending_turn_id,
+		_hub_chat_turn_index
+	)
+	_hub_chat_scene_id = str(updates.get("scene_id", _hub_chat_scene_id))
+	_hub_chat_current_scene_text = str(updates.get("scene_text", _hub_chat_current_scene_text))
+	_hub_chat_current_consequence = str(updates.get("consequence", _hub_chat_current_consequence))
+	_hub_chat_current_options = updates.get("options", _hub_chat_current_options)
+	_hub_chat_current_state_patches = updates.get("state_patches", _hub_chat_current_state_patches)
+	_hub_chat_public_context = str(updates.get("public_context", _hub_chat_public_context))
+	_hub_chat_turn_index = int(updates.get("turn_index", _hub_chat_turn_index))
+	_hub_chat_pending_turn_id = str(updates.get("pending_turn_id", _hub_chat_pending_turn_id))
 	_refresh_hub_chat_ui()
 
 
@@ -2150,16 +1567,7 @@ func _set_agent_module_exclusive(open: bool) -> void:
 		_set_checks_module_exclusive(false)
 	if open and _rp_submenu_open:
 		_set_rp_module_exclusive(false)
-	agent_studio_panel.visible = open
-	agent_back_button.visible = open
-	agent_operate_button.disabled = not open
-	agent_author_button.disabled = not open
-	agent_eval_run_button.disabled = not open
-	agent_datasets_button.disabled = not open
-	agent_synonyms_button.disabled = not open
-	agent_finetune_button.disabled = not open
-	agent_profiles_button.disabled = not open
-	agent_ai_status_button.disabled = not open
+	_agent_studio_controller.set_module_exclusive_ui(_agent_studio_controls(), open)
 	_agent_submenu_open = open
 
 	_set_hub_content_visible(not open)
@@ -2172,19 +1580,7 @@ func _set_checks_module_exclusive(open: bool) -> void:
 	if open and _rp_submenu_open:
 		_set_rp_module_exclusive(false)
 
-	checks_studio_panel.visible = open
-	checks_back_button.visible = open
-	checks_target_sim_button.disabled = _checks_running or not open
-	checks_target_agent_button.disabled = _checks_running or not open
-	checks_target_eval_button.disabled = _checks_running or not open
-	checks_target_workspace_button.disabled = _checks_running or not open
-	checks_type_smoke_button.disabled = _checks_running or not open
-	checks_type_unit_button.disabled = _checks_running or not open
-	checks_type_api_button.disabled = _checks_running or not open
-	checks_type_lint_button.disabled = _checks_running or not open
-	checks_type_full_button.disabled = _checks_running or not open
-	checks_run_selected_button.disabled = _checks_running or not open
-	checks_run_module_pack_button.disabled = _checks_running or not open
+	_checks_rp_controller.set_checks_module_exclusive(_checks_rp_controls(), open, _checks_running)
 	_checks_submenu_open = open
 
 	_set_hub_content_visible(not open)
@@ -2198,10 +1594,7 @@ func _set_rp_module_exclusive(open: bool) -> void:
 	if open and _checks_submenu_open:
 		_set_checks_module_exclusive(false)
 
-	rp_studio_panel.visible = open
-	rp_back_button.visible = open
-	rp_hour_plus_button.disabled = not open
-	rp_auto_advance_button.disabled = not open
+	_checks_rp_controller.set_rp_module_exclusive(_checks_rp_controls(), open)
 	_rp_submenu_open = open
 
 	_set_hub_content_visible(not open)
@@ -2238,192 +1631,7 @@ func _set_hub_content_visible(visible_state: bool) -> void:
 
 
 func _apply_agent_module_layout(exclusive_open: bool) -> void:
-	if exclusive_open:
-		var panel_width := agent_studio_panel.offset_right - agent_studio_panel.offset_left
-		var panel_height := agent_studio_panel.offset_bottom - agent_studio_panel.offset_top
-		var left := 24.0
-		var right := panel_width - 24.0
-		var col_gap := 18.0
-		var col_width := maxf(240.0, (right - left - col_gap * 2.0) / 3.0)
-		var col1_left := left
-		var col2_left := col1_left + col_width + col_gap
-		var col3_left := col2_left + col_width + col_gap
-		var col1_right := col1_left + col_width
-		var col2_right := col2_left + col_width
-		var col3_right := minf(right, col3_left + col_width)
-
-		agent_back_button.offset_left = right - 210.0
-		agent_back_button.offset_top = 10.0
-		agent_back_button.offset_right = right
-		agent_back_button.offset_bottom = 42.0
-
-		agent_studio_mode_label.offset_left = left
-		agent_studio_mode_label.offset_top = 56.0
-		agent_studio_mode_label.offset_right = right
-		agent_studio_mode_label.offset_bottom = 76.0
-
-		agent_operate_button.offset_left = col1_left
-		agent_operate_button.offset_top = 88.0
-		agent_operate_button.offset_right = col1_right
-		agent_operate_button.offset_bottom = 132.0
-
-		agent_author_button.offset_left = col2_left
-		agent_author_button.offset_top = 88.0
-		agent_author_button.offset_right = col2_right
-		agent_author_button.offset_bottom = 132.0
-
-		agent_dataset_source_button.offset_left = col3_left
-		agent_dataset_source_button.offset_top = 88.0
-		agent_dataset_source_button.offset_right = col3_right
-		agent_dataset_source_button.offset_bottom = 132.0
-
-		agent_eval_suite_button.offset_left = col3_left
-		agent_eval_suite_button.offset_top = 46.0
-		agent_eval_suite_button.offset_right = col3_right
-		agent_eval_suite_button.offset_bottom = 80.0
-
-		agent_eval_run_button.offset_left = col1_left
-		agent_eval_run_button.offset_top = 152.0
-		agent_eval_run_button.offset_right = col1_right
-		agent_eval_run_button.offset_bottom = 196.0
-
-		agent_datasets_button.offset_left = col2_left
-		agent_datasets_button.offset_top = 152.0
-		agent_datasets_button.offset_right = col2_right
-		agent_datasets_button.offset_bottom = 196.0
-
-		agent_synonyms_button.offset_left = col3_left
-		agent_synonyms_button.offset_top = 152.0
-		agent_synonyms_button.offset_right = col3_right
-		agent_synonyms_button.offset_bottom = 196.0
-
-		agent_finetune_button.offset_left = col1_left
-		agent_finetune_button.offset_top = 212.0
-		agent_finetune_button.offset_right = col1_right
-		agent_finetune_button.offset_bottom = 256.0
-
-		agent_profiles_button.offset_left = col2_left
-		agent_profiles_button.offset_top = 212.0
-		agent_profiles_button.offset_right = col2_right
-		agent_profiles_button.offset_bottom = 256.0
-
-		agent_ai_status_button.offset_left = col3_left
-		agent_ai_status_button.offset_top = 212.0
-		agent_ai_status_button.offset_right = col3_right
-		agent_ai_status_button.offset_bottom = 256.0
-
-		agent_eval_status_label.offset_left = left
-		agent_eval_status_label.offset_top = 286.0
-		agent_eval_status_label.offset_right = right
-		agent_eval_status_label.offset_bottom = 306.0
-
-		agent_system_metrics_label.offset_left = left
-		agent_system_metrics_label.offset_top = 320.0
-		agent_system_metrics_label.offset_right = right
-		agent_system_metrics_label.offset_bottom = 340.0
-
-		agent_latest_runs_label.offset_left = left
-		agent_latest_runs_label.offset_top = 356.0
-		agent_latest_runs_label.offset_right = right
-		agent_latest_runs_label.offset_bottom = 376.0
-
-		var form_top := clampf(panel_height * 0.49, 430.0, 560.0)
-		agent_studio_hint_label.offset_left = left
-		agent_studio_hint_label.offset_top = form_top - 40.0
-		agent_studio_hint_label.offset_right = right
-		agent_studio_hint_label.offset_bottom = form_top - 20.0
-
-		agent_form_panel.offset_left = left
-		agent_form_panel.offset_top = form_top
-		agent_form_panel.offset_right = right
-		agent_form_panel.offset_bottom = panel_height - 18.0
-		return
-
-	agent_studio_mode_label.offset_left = 10.0
-	agent_studio_mode_label.offset_top = 30.0
-	agent_studio_mode_label.offset_right = 10.0
-	agent_studio_mode_label.offset_bottom = 30.0
-
-	agent_operate_button.offset_left = 10.0
-	agent_operate_button.offset_top = 54.0
-	agent_operate_button.offset_right = 184.0
-	agent_operate_button.offset_bottom = 88.0
-
-	agent_author_button.offset_left = 196.0
-	agent_author_button.offset_top = 54.0
-	agent_author_button.offset_right = 370.0
-	agent_author_button.offset_bottom = 88.0
-
-	agent_dataset_source_button.offset_left = 380.0
-	agent_dataset_source_button.offset_top = 54.0
-	agent_dataset_source_button.offset_right = 564.0
-	agent_dataset_source_button.offset_bottom = 88.0
-
-	var compact_right := agent_studio_panel.offset_right - agent_studio_panel.offset_left - 10.0
-	agent_back_button.offset_left = compact_right - 170.0
-	agent_back_button.offset_top = 6.0
-	agent_back_button.offset_right = compact_right
-	agent_back_button.offset_bottom = 34.0
-
-	agent_eval_suite_button.offset_left = compact_right - 184.0
-	agent_eval_suite_button.offset_top = 38.0
-	agent_eval_suite_button.offset_right = compact_right
-	agent_eval_suite_button.offset_bottom = 68.0
-
-	agent_eval_run_button.offset_left = 10.0
-	agent_eval_run_button.offset_top = 104.0
-	agent_eval_run_button.offset_right = 280.0
-	agent_eval_run_button.offset_bottom = 138.0
-
-	agent_datasets_button.offset_left = 294.0
-	agent_datasets_button.offset_top = 104.0
-	agent_datasets_button.offset_right = 564.0
-	agent_datasets_button.offset_bottom = 138.0
-
-	agent_synonyms_button.offset_left = 10.0
-	agent_synonyms_button.offset_top = 148.0
-	agent_synonyms_button.offset_right = 280.0
-	agent_synonyms_button.offset_bottom = 182.0
-
-	agent_finetune_button.offset_left = 294.0
-	agent_finetune_button.offset_top = 148.0
-	agent_finetune_button.offset_right = 564.0
-	agent_finetune_button.offset_bottom = 182.0
-
-	agent_profiles_button.offset_left = 10.0
-	agent_profiles_button.offset_top = 192.0
-	agent_profiles_button.offset_right = 280.0
-	agent_profiles_button.offset_bottom = 226.0
-
-	agent_ai_status_button.offset_left = 294.0
-	agent_ai_status_button.offset_top = 192.0
-	agent_ai_status_button.offset_right = 564.0
-	agent_ai_status_button.offset_bottom = 226.0
-
-	agent_eval_status_label.offset_left = 10.0
-	agent_eval_status_label.offset_top = 246.0
-	agent_eval_status_label.offset_right = 10.0
-	agent_eval_status_label.offset_bottom = 246.0
-
-	agent_system_metrics_label.offset_left = 10.0
-	agent_system_metrics_label.offset_top = 278.0
-	agent_system_metrics_label.offset_right = 10.0
-	agent_system_metrics_label.offset_bottom = 278.0
-
-	agent_latest_runs_label.offset_left = 10.0
-	agent_latest_runs_label.offset_top = 316.0
-	agent_latest_runs_label.offset_right = 10.0
-	agent_latest_runs_label.offset_bottom = 316.0
-
-	agent_studio_hint_label.offset_left = 10.0
-	agent_studio_hint_label.offset_top = 390.0
-	agent_studio_hint_label.offset_right = 10.0
-	agent_studio_hint_label.offset_bottom = 390.0
-
-	agent_form_panel.offset_left = 10.0
-	agent_form_panel.offset_top = 422.0
-	agent_form_panel.offset_right = 564.0
-	agent_form_panel.offset_bottom = 402.0
+	_agent_studio_controller.apply_module_layout(_agent_studio_controls(), exclusive_open)
 
 
 func _on_play_world_audio_pressed() -> void:
@@ -2505,56 +1713,60 @@ func _update_rp_menu_ui() -> void:
 
 
 func _refresh_hub_config_ui() -> void:
-	hub_config_sim_card_button.text = _select_label("Sim", _hub_show_sim_card)
-	hub_config_api_card_button.text = _select_label("API", _hub_show_api_card)
-	hub_config_eval_card_button.text = _select_label("Eval", _hub_show_eval_card)
-	_select_option_value(hub_config_default_panel_button, _HUB_DEFAULT_PANEL_OPTIONS, _hub_default_panel)
-	_select_option_value(hub_config_refresh_button, _HUB_REFRESH_PROFILE_OPTIONS, _hub_refresh_profile)
+	_hub_config_controller.refresh_ui(
+		_hub_config_controls(),
+		_hub_show_sim_card,
+		_hub_show_api_card,
+		_hub_show_eval_card,
+		_hub_default_panel,
+		_hub_refresh_profile,
+		_hub_config_collapsed,
+		_HUB_DEFAULT_PANEL_OPTIONS,
+		_HUB_REFRESH_PROFILE_OPTIONS
+	)
 	_set_marquee_text(hub_config_status_label, "Refresh=%s | default=%s" % [_hub_refresh_profile, _hub_default_panel])
-	hub_config_close_button.text = "Öffnen" if _hub_config_collapsed else "Minimieren"
 
 
 func _set_hub_config_collapsed(collapsed: bool) -> void:
 	_hub_config_collapsed = collapsed
-	var show_body := not collapsed
-	hub_config_sim_card_button.visible = show_body
-	hub_config_api_card_button.visible = show_body
-	hub_config_eval_card_button.visible = show_body
-	hub_config_default_panel_button.visible = show_body
-	hub_config_refresh_button.visible = show_body
-	hub_config_save_button.visible = show_body
-	hub_config_status_label.visible = show_body
-
-	if collapsed:
-		hub_config_panel.offset_bottom = hub_config_panel.offset_top + _HUB_CONFIG_COLLAPSED_HEIGHT
-	else:
-		hub_config_panel.offset_bottom = hub_config_panel.offset_top + (_HUB_CONFIG_EXPANDED_BOTTOM - 44.0)
-
-	hub_config_close_button.text = "Öffnen" if collapsed else "Minimieren"
+	_hub_config_controller.set_collapsed(
+		_hub_config_controls(),
+		collapsed,
+		_HUB_CONFIG_COLLAPSED_HEIGHT,
+		_HUB_CONFIG_EXPANDED_BOTTOM - 44.0
+	)
 	_apply_responsive_layout()
 
 
 func _load_hub_preferences() -> void:
-	var cfg := ConfigFile.new()
-	var err := cfg.load(_HUB_PREFS_PATH)
-	if err != OK:
-		return
-
-	_hub_show_sim_card = bool(cfg.get_value("hub", "show_sim_card", _hub_show_sim_card))
-	_hub_show_api_card = bool(cfg.get_value("hub", "show_api_card", _hub_show_api_card))
-	_hub_show_eval_card = bool(cfg.get_value("hub", "show_eval_card", _hub_show_eval_card))
-	_hub_default_panel = str(cfg.get_value("hub", "default_panel", _hub_default_panel))
-	_hub_refresh_profile = str(cfg.get_value("hub", "refresh_profile", _hub_refresh_profile))
+	var values: Dictionary = _hub_preferences_store.load_preferences(
+		_HUB_PREFS_PATH,
+		{
+			"show_sim_card": _hub_show_sim_card,
+			"show_api_card": _hub_show_api_card,
+			"show_eval_card": _hub_show_eval_card,
+			"default_panel": _hub_default_panel,
+			"refresh_profile": _hub_refresh_profile,
+		}
+	)
+	_hub_show_sim_card = bool(values.get("show_sim_card", _hub_show_sim_card))
+	_hub_show_api_card = bool(values.get("show_api_card", _hub_show_api_card))
+	_hub_show_eval_card = bool(values.get("show_eval_card", _hub_show_eval_card))
+	_hub_default_panel = str(values.get("default_panel", _hub_default_panel))
+	_hub_refresh_profile = str(values.get("refresh_profile", _hub_refresh_profile))
 
 
 func _save_hub_preferences() -> void:
-	var cfg := ConfigFile.new()
-	cfg.set_value("hub", "show_sim_card", _hub_show_sim_card)
-	cfg.set_value("hub", "show_api_card", _hub_show_api_card)
-	cfg.set_value("hub", "show_eval_card", _hub_show_eval_card)
-	cfg.set_value("hub", "default_panel", _hub_default_panel)
-	cfg.set_value("hub", "refresh_profile", _hub_refresh_profile)
-	var err := cfg.save(_HUB_PREFS_PATH)
+	var err := _hub_preferences_store.save_preferences(
+		_HUB_PREFS_PATH,
+		{
+			"show_sim_card": _hub_show_sim_card,
+			"show_api_card": _hub_show_api_card,
+			"show_eval_card": _hub_show_eval_card,
+			"default_panel": _hub_default_panel,
+			"refresh_profile": _hub_refresh_profile,
+		}
+	)
 	if err == OK:
 		hub_config_status_label.text = "Gespeichert: %s" % _HUB_PREFS_PATH
 		_append_runtime_event("HUB_CONFIG", {"action": "save", "status": "ok", "path": _HUB_PREFS_PATH})
@@ -2572,46 +1784,28 @@ func _apply_hub_preferences() -> void:
 
 func _apply_card_visibility_now() -> void:
 	var in_hub := not _agent_submenu_open and not _checks_submenu_open and not _rp_submenu_open
-	hub_telemetry_panel.visible = in_hub and (_hub_show_sim_card or _hub_show_api_card or _hub_show_eval_card)
-	sim_card_panel.visible = in_hub and _hub_show_sim_card
-	api_card_panel.visible = in_hub and _hub_show_api_card
-	eval_card_panel.visible = in_hub and _hub_show_eval_card
+	_hub_config_controller.apply_card_visibility(
+		_hub_config_controls(),
+		in_hub,
+		_hub_show_sim_card,
+		_hub_show_api_card,
+		_hub_show_eval_card
+	)
 
 
 func _set_refresh_profile(profile: String) -> void:
-	match profile:
-		"fast":
-			_hub_refresh_profile = "fast"
-			metrics_refresh_interval_seconds = 2.0
-			eval_summary_refresh_interval_seconds = 4.0
-		"slow":
-			_hub_refresh_profile = "slow"
-			metrics_refresh_interval_seconds = 8.0
-			eval_summary_refresh_interval_seconds = 12.0
-		_:
-			_hub_refresh_profile = "normal"
-			metrics_refresh_interval_seconds = 4.0
-			eval_summary_refresh_interval_seconds = 8.0
+	var resolved: Dictionary = _hub_config_controller.resolve_refresh_profile(profile)
+	_hub_refresh_profile = str(resolved.get("profile", "normal"))
+	metrics_refresh_interval_seconds = float(resolved.get("metrics_interval", 4.0))
+	eval_summary_refresh_interval_seconds = float(resolved.get("eval_interval", 8.0))
 
 
 func _cycle_refresh_profile() -> void:
-	if _hub_refresh_profile == "normal":
-		_set_refresh_profile("fast")
-		return
-	if _hub_refresh_profile == "fast":
-		_set_refresh_profile("slow")
-		return
-	_set_refresh_profile("normal")
+	_set_refresh_profile(_hub_config_controller.cycle_refresh_profile(_hub_refresh_profile))
 
 
 func _cycle_default_panel() -> void:
-	if _hub_default_panel == "hub":
-		_hub_default_panel = "agent"
-		return
-	if _hub_default_panel == "agent":
-		_hub_default_panel = "checks"
-		return
-	_hub_default_panel = "hub"
+	_hub_default_panel = _hub_config_controller.cycle_default_panel(_hub_default_panel)
 
 
 func _open_default_panel_if_configured() -> void:
@@ -2644,57 +1838,51 @@ func _on_hub_config_quit_pressed() -> void:
 func _on_hub_config_sim_card_pressed() -> void:
 	_hub_show_sim_card = not _hub_show_sim_card
 	_apply_hub_preferences()
-	hub_config_status_label.text = "Sim Card: %s" % ("sichtbar" if _hub_show_sim_card else "ausgeblendet")
+	hub_config_status_label.text = _hub_config_controller.toggle_card_status("Sim Card", _hub_show_sim_card, _agent_submenu_open, _checks_submenu_open)
 
 
 func _on_hub_config_api_card_pressed() -> void:
 	_hub_show_api_card = not _hub_show_api_card
 	_apply_hub_preferences()
-	hub_config_status_label.text = "API Card: %s" % ("sichtbar" if _hub_show_api_card else "ausgeblendet")
+	hub_config_status_label.text = _hub_config_controller.toggle_card_status("API Card", _hub_show_api_card, _agent_submenu_open, _checks_submenu_open)
 
 
 func _on_hub_config_eval_card_pressed() -> void:
 	_hub_show_eval_card = not _hub_show_eval_card
 	_apply_hub_preferences()
-	if _agent_submenu_open or _checks_submenu_open:
-		hub_config_status_label.text = "Eval Card gespeichert: %s (sichtbar im Hub)" % ("an" if _hub_show_eval_card else "aus")
-	else:
-		hub_config_status_label.text = "Eval Card: %s" % ("sichtbar" if _hub_show_eval_card else "ausgeblendet")
+	hub_config_status_label.text = _hub_config_controller.toggle_card_status("Eval Card", _hub_show_eval_card, _agent_submenu_open, _checks_submenu_open)
 
 
 func _on_hub_config_default_panel_selected(index: int) -> void:
-	if index < 0 or index >= _HUB_DEFAULT_PANEL_OPTIONS.size():
-		return
-	_hub_default_panel = _HUB_DEFAULT_PANEL_OPTIONS[index]
+	_hub_default_panel = _hub_config_controller.resolve_selected_option(index, _HUB_DEFAULT_PANEL_OPTIONS, _hub_default_panel)
 	_refresh_hub_config_ui()
 
 
 func _on_hub_config_refresh_selected(index: int) -> void:
-	if index < 0 or index >= _HUB_REFRESH_PROFILE_OPTIONS.size():
-		return
-	_set_refresh_profile(_HUB_REFRESH_PROFILE_OPTIONS[index])
+	_set_refresh_profile(_hub_config_controller.resolve_selected_option(index, _HUB_REFRESH_PROFILE_OPTIONS, _hub_refresh_profile))
 	_apply_hub_preferences()
 
 
+func _hub_config_controls() -> Dictionary:
+	return {
+		"hub_telemetry_panel": hub_telemetry_panel,
+		"sim_card_panel": sim_card_panel,
+		"api_card_panel": api_card_panel,
+		"eval_card_panel": eval_card_panel,
+		"hub_config_panel": hub_config_panel,
+		"hub_config_sim_card_button": hub_config_sim_card_button,
+		"hub_config_api_card_button": hub_config_api_card_button,
+		"hub_config_eval_card_button": hub_config_eval_card_button,
+		"hub_config_default_panel_button": hub_config_default_panel_button,
+		"hub_config_refresh_button": hub_config_refresh_button,
+		"hub_config_save_button": hub_config_save_button,
+		"hub_config_status_label": hub_config_status_label,
+		"hub_config_close_button": hub_config_close_button,
+	}
+
+
 func _refresh_checks_studio_ui() -> void:
-	checks_target_sim_button.text = _select_label("Sim", _checks_target == "sim")
-	checks_target_agent_button.text = _select_label("Agent/API", _checks_target == "agent")
-	checks_target_eval_button.text = _select_label("Eval/Training", _checks_target == "eval")
-	checks_target_workspace_button.text = _select_label("Workspace", _checks_target == "workspace")
-
-	checks_type_smoke_button.text = _select_label("Smoke", _checks_type == "smoke")
-	checks_type_unit_button.text = _select_label("Unit", _checks_type == "unit")
-	checks_type_api_button.text = _select_label("API/Integration", _checks_type == "api")
-	checks_type_lint_button.text = _select_label("Lint/Type", _checks_type == "lint")
-	checks_type_full_button.text = _select_label("Full", _checks_type == "full")
-
-	checks_run_selected_button.disabled = _checks_running
-	checks_run_module_pack_button.disabled = _checks_running
-
-	if _checks_running:
-		checks_status_label.text = "Checks: running..."
-	else:
-		checks_status_label.text = "Checks: target=%s | type=%s" % [_checks_target, _checks_type]
+	_checks_rp_controller.refresh_checks_ui(_checks_rp_controls(), _checks_target, _checks_type, _checks_running)
 
 
 func _select_label(base: String, selected: bool) -> String:
@@ -3105,131 +2293,78 @@ func _on_hub_chat_input_submitted(_text: String) -> void:
 
 
 func _send_hub_chat_message() -> void:
-	if _hub_chat_in_flight:
-		hub_chat_status_label.text = "Live-Spielclient: Anfrage laeuft bereits"
+	var request_state: Dictionary = _hub_chat_controller.request_chat(
+		hub_chat_input_edit.text,
+		hub_chat_request,
+		_hub_request_host(),
+		_hub_request_port(),
+		hub_chat_profile_id,
+		_hub_chat_session_id,
+		_hub_chat_campaign_id,
+		_hub_chat_scene_id,
+		_hub_chat_turn_index,
+		_current_slot,
+		_hub_chat_current_scene_text,
+		_hub_chat_current_consequence,
+		_hub_chat_current_options
+	)
+	if not bool(request_state.get("started", false)):
+		_hub_chat_pending_turn_id = str(request_state.get("pending_turn_id", "")).strip_edges()
+		hub_chat_status_label.text = str(request_state.get("message", hub_chat_status_label.text))
+		var detail_line := str(request_state.get("detail_line", "")).strip_edges()
+		if detail_line != "":
+			_append_hub_chat_line("System", detail_line)
 		return
 
-	var prompt := hub_chat_input_edit.text.strip_edges()
-	if prompt == "":
-		hub_chat_status_label.text = "Live-Spielclient: Bitte Nachricht eingeben"
-		return
-
-	var endpoint := _hub_chat_endpoint()
-	if _hub_chat_scene_id == "hub_boot":
-		_hub_chat_scene_id = _hub_chat_slot_id()
-	_hub_chat_public_context = _build_hub_chat_public_context()
-	var turn_id := _next_hub_chat_turn_id()
-	var payload := {
-		"messages": [{"role": "user", "content": prompt}],
-		"profile_id": hub_chat_profile_id,
-		"session_id": _hub_chat_session_id,
-		"options": {
-			"session_id": _hub_chat_session_id,
-			"orchestrator_enabled": true,
-			"campaign_id": _hub_chat_campaign_id,
-			"scene_id": _hub_chat_scene_id,
-			"slot_id": _hub_chat_slot_id(),
-			"turn_id": turn_id,
-			"retrieval_query": _build_hub_chat_retrieval_query(prompt),
-			"public_context": _hub_chat_public_context,
-			"scheduler_hints": ["sim_live_client", _hub_chat_slot_id()],
-			"state_patch_hints": ["scene.current", "pc_log.append", "world_log.append"],
-		},
-	}
-	var body := JSON.stringify(payload, "")
-	var headers := PackedStringArray(["Content-Type: application/json"])
-	var err := hub_chat_request.request(endpoint, headers, HTTPClient.METHOD_POST, body)
-	if err != OK:
-		_hub_chat_pending_turn_id = ""
-		hub_chat_status_label.text = "Live-Spielclient: Request-Fehler (%d)" % err
-		_append_hub_chat_line("System", "Request konnte nicht gestartet werden.")
-		return
-
-	_hub_chat_pending_turn_id = turn_id
-	_hub_chat_in_flight = true
+	_hub_chat_pending_turn_id = str(request_state.get("pending_turn_id", "")).strip_edges()
+	_hub_chat_scene_id = str(request_state.get("scene_id", _hub_chat_scene_id))
+	_hub_chat_public_context = str(request_state.get("public_context", _hub_chat_public_context))
 	hub_chat_send_button.disabled = true
 	hub_chat_input_edit.editable = false
-	hub_chat_status_label.text = "Live-Spielclient: sende an %s" % endpoint
-	_append_hub_chat_line("Du", prompt)
+	hub_chat_status_label.text = "Live-Spielclient: sende an %s" % str(request_state.get("endpoint", _hub_chat_endpoint()))
+	_append_hub_chat_line("Du", str(request_state.get("prompt", "")))
 	hub_chat_input_edit.clear()
-	_append_runtime_event("HUB_CHAT", {"action": "send", "endpoint": endpoint})
+	_append_runtime_event("HUB_CHAT", request_state.get("event", {}))
 
 
 func _hub_chat_endpoint() -> String:
-	var host := "127.0.0.1"
-	var port := 8765
-	if _sim_client:
-		host = str(_sim_client.get("host"))
-		port = int(_sim_client.get("port"))
-	return "http://%s:%d/chat" % [host, port]
+	return _hub_chat_controller.build_endpoint(_hub_request_host(), _hub_request_port())
 
 
 func _on_hub_chat_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	_hub_chat_in_flight = false
 	hub_chat_send_button.disabled = false
 	hub_chat_input_edit.editable = true
-
-	var text := body.get_string_from_utf8().strip_edges()
-	var parsed: Variant = JSON.parse_string(text)
-	if response_code >= 200 and response_code < 300:
-		if typeof(parsed) == TYPE_DICTIONARY:
-			var obj := parsed as Dictionary
-			var answer := str(obj.get("content", ""))
-			if answer == "":
-				answer = str(obj.get("detail", "(leere Antwort)"))
-			_append_hub_chat_line("SL", answer)
-			_apply_hub_chat_response(answer)
-			_request_live_session_state()
-			_request_live_session_replay()
-			hub_chat_status_label.text = "Live-Spielclient: Antwort ok (%d)" % response_code
-		else:
-			_append_hub_chat_line("SL", text)
-			_apply_hub_chat_response(text)
-			_request_live_session_state()
-			_request_live_session_replay()
-			hub_chat_status_label.text = "Live-Spielclient: Antwort ok (%d)" % response_code
+	var completion_state: Dictionary = _hub_chat_controller.complete_chat_request(result, response_code, body)
+	if str(completion_state.get("status", "")) == "ok":
+		var answer := str(completion_state.get("answer", "")).strip_edges()
+		_append_hub_chat_line("SL", answer)
+		_apply_hub_chat_response(answer)
+		_request_live_session_state()
+		_request_live_session_replay()
+		hub_chat_status_label.text = str(completion_state.get("status_text", "Live-Spielclient: Antwort ok"))
 	else:
-		_hub_chat_pending_turn_id = ""
-		var detail := "HTTP %d | result=%d" % [response_code, result]
-		if typeof(parsed) == TYPE_DICTIONARY:
-			var err_obj := parsed as Dictionary
-			detail = "%s | %s" % [detail, str(err_obj.get("detail", "Fehler ohne Detail"))]
-		elif text != "":
-			detail = "%s | %s" % [detail, text]
-		_append_hub_chat_line("System", detail)
-		hub_chat_status_label.text = "Live-Spielclient: Fehler (%d)" % response_code
+		_hub_chat_pending_turn_id = str(completion_state.get("pending_turn_id", "")).strip_edges()
+		var detail_line := str(completion_state.get("detail_line", "")).strip_edges()
+		if detail_line != "":
+			_append_hub_chat_line("System", detail_line)
+		hub_chat_status_label.text = str(completion_state.get("status_text", "Live-Spielclient: Fehler"))
 
-	_append_runtime_event("HUB_CHAT", {"action": "response", "http": response_code, "result": result})
+	_append_runtime_event("HUB_CHAT", completion_state.get("event", {}))
 
 
 func _on_hub_session_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	_hub_session_sync_in_flight = false
-	var text := body.get_string_from_utf8().strip_edges()
-	var parsed: Variant = JSON.parse_string(text)
-	if result != HTTPRequest.RESULT_SUCCESS:
-		_set_marquee_text(epoch_status_label, "Epochen: Session-Sync fehlgeschlagen (%d)" % result)
-		_append_runtime_event("SESSION_SYNC", {"action": "error", "result": result})
-		return
-	if response_code < 200 or response_code >= 300:
-		var detail := "HTTP %d" % response_code
-		if typeof(parsed) == TYPE_DICTIONARY:
-			detail = "%s | %s" % [detail, str((parsed as Dictionary).get("detail", "Fehler ohne Detail"))]
-		_set_marquee_text(epoch_status_label, "Epochen: %s" % detail)
-		_append_runtime_event("SESSION_SYNC", {"action": "http_error", "http": response_code})
-		return
-	if typeof(parsed) != TYPE_DICTIONARY:
-		_set_marquee_text(epoch_status_label, "Epochen: Session-Antwort unlesbar")
-		_append_runtime_event("SESSION_SYNC", {"action": "parse_error", "http": response_code})
-		return
-	_apply_live_session_state(parsed as Dictionary)
-	_append_runtime_event(
-		"SESSION_SYNC",
-		{
-			"action": "applied",
-			"session_id": _hub_chat_session_id,
-			"http": response_code,
-		}
+	var completion_state: Dictionary = _session_replay_request_controller.complete_live_session(
+		result,
+		response_code,
+		body,
+		_hub_chat_session_id
 	)
+	if str(completion_state.get("status", "")) != "ok":
+		_set_marquee_text(epoch_status_label, str(completion_state.get("message", "Epochen: Session-Sync fehlgeschlagen")))
+		_append_runtime_event("SESSION_SYNC", completion_state.get("event", {}))
+		return
+	_apply_live_session_state(completion_state.get("payload", {}))
+	_append_runtime_event("SESSION_SYNC", completion_state.get("event", {}))
 
 
 func _on_hub_replay_fetch_pressed() -> void:
@@ -3250,29 +2385,26 @@ func _on_hub_replay_checkpoint_selected(index: int) -> void:
 
 
 func _on_hub_replay_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
-	_hub_replay_sync_in_flight = false
-	var text := body.get_string_from_utf8().strip_edges()
-	var parsed: Variant = JSON.parse_string(text)
-	if result != HTTPRequest.RESULT_SUCCESS:
-		hub_replay_status_label.text = "Replay: Sync fehlgeschlagen (%d)" % result
-		_append_runtime_event("SESSION_REPLAY", {"action": "error", "result": result})
+	var completion_state: Dictionary = _session_replay_request_controller.complete_live_replay(
+		result,
+		response_code,
+		body,
+		_hub_chat_session_id,
+		_live_session_resume_checkpoint_id,
+		_hub_selected_replay_checkpoint_id
+	)
+	if str(completion_state.get("status", "")) != "ok":
+		hub_replay_status_label.text = str(completion_state.get("message", "Replay: Sync fehlgeschlagen"))
+		_append_runtime_event("SESSION_REPLAY", completion_state.get("event", {}))
 		return
-	if response_code < 200 or response_code >= 300:
-		var detail := "HTTP %d" % response_code
-		if typeof(parsed) == TYPE_DICTIONARY:
-			detail = "%s | %s" % [detail, str((parsed as Dictionary).get("detail", "Fehler ohne Detail"))]
-		hub_replay_status_label.text = "Replay: %s" % detail
-		_append_runtime_event("SESSION_REPLAY", {"action": "http_error", "http": response_code})
-		return
-	if typeof(parsed) != TYPE_DICTIONARY:
-		hub_replay_status_label.text = "Replay: Antwort unlesbar"
-		_append_runtime_event("SESSION_REPLAY", {"action": "parse_error", "http": response_code})
-		return
-	_live_replay_manifest = parsed as Dictionary
-	if _hub_selected_replay_checkpoint_id == "":
-		_hub_selected_replay_checkpoint_id = str(_live_replay_manifest.get("resume_checkpoint_id", _live_session_resume_checkpoint_id)).strip_edges()
+	var updates: Dictionary = _session_replay_state_controller.build_replay_manifest_state(
+		completion_state.get("manifest", {}),
+		_live_session_resume_checkpoint_id,
+		_hub_selected_replay_checkpoint_id
+	)
+	_apply_session_replay_state_updates(updates)
 	_refresh_hub_replay_ui()
-	_append_runtime_event("SESSION_REPLAY", {"action": "applied", "http": response_code, "session_id": _hub_chat_session_id})
+	_append_runtime_event("SESSION_REPLAY", completion_state.get("event", {}))
 
 
 func _append_hub_chat_line(role: String, content: String) -> void:
@@ -3288,15 +2420,12 @@ func _append_hub_chat_line(role: String, content: String) -> void:
 
 func _on_hub_checks_pressed() -> void:
 	on_action_start.emit("hub_checks", {})
-	_set_checks_module_exclusive(not _checks_submenu_open)
+	var toggle_state: Dictionary = _checks_rp_controller.toggle_checks_panel(_checks_submenu_open, _checks_target, _checks_type)
+	_set_checks_module_exclusive(bool(toggle_state.get("open", false)))
 	_update_checks_menu_ui()
 	_update_agent_menu_ui()
-	if _checks_submenu_open:
-		audio_status_label.text = "Checks-Modul: geöffnet"
-		_append_runtime_event("CHECKS_UI", {"status": "opened", "target": _checks_target, "type": _checks_type})
-	else:
-		audio_status_label.text = "Checks-Modul: geschlossen"
-		_append_runtime_event("CHECKS_UI", {"status": "closed"})
+	audio_status_label.text = str(toggle_state.get("audio_status", audio_status_label.text))
+	_append_runtime_event("CHECKS_UI", toggle_state.get("event", {}))
 	on_action_end.emit("hub_checks", {"status": "ok", "open": _checks_submenu_open})
 
 
@@ -3313,40 +2442,58 @@ func _on_rp_back_pressed() -> void:
 
 
 func _on_rp_hour_plus_pressed() -> void:
-	if _loaded_epochs.is_empty():
-		rp_status_label.text = "RP: keine Epochen geladen"
+	var updates: Dictionary = _checks_rp_controller.apply_rp_hour_plus(_loaded_epochs, _current_slot)
+	if str(updates.get("status", "")) != "ok":
+		rp_status_label.text = str(updates.get("rp_status", "RP: keine Epochen geladen"))
 		return
-
-	var from_slot := _current_slot
-	_current_slot = (_current_slot + 1) % 24
+	_current_slot = int(updates.get("current_slot", _current_slot))
 	_render_pc_centric_view()
-	rp_status_label.text = "RP: Hour +1 (%02d -> %02d)" % [from_slot, _current_slot]
-	_append_runtime_event("RP_HOUR_JUMP", {"from": from_slot, "to": _current_slot})
+	rp_status_label.text = str(updates.get("rp_status", rp_status_label.text))
+	_append_runtime_event("RP_HOUR_JUMP", updates.get("event", {}))
 
 
 func _on_rp_auto_advance_pressed() -> void:
-	_rp_auto_advance = not _rp_auto_advance
-	if _rp_auto_advance:
-		_rp_last_auto_advance_ms = Time.get_ticks_msec()
+	var updates: Dictionary = _checks_rp_controller.toggle_rp_auto_advance(_rp_auto_advance, Time.get_ticks_msec())
+	_rp_auto_advance = bool(updates.get("enabled", _rp_auto_advance))
+	if updates.has("last_auto_advance_ms"):
+		_rp_last_auto_advance_ms = int(updates.get("last_auto_advance_ms", _rp_last_auto_advance_ms))
 	_refresh_rp_studio_ui()
-	_append_runtime_event("RP_AUTO_ADVANCE", {"enabled": _rp_auto_advance})
+	_append_runtime_event("RP_AUTO_ADVANCE", updates.get("event", {"enabled": _rp_auto_advance}))
 
 
 func _refresh_rp_studio_ui() -> void:
-	if _last_world_state.has("sim_meta") and typeof(_last_world_state.get("sim_meta")) == TYPE_DICTIONARY:
-		var sim_meta: Dictionary = _last_world_state.get("sim_meta", {})
-		if _live_session_resume_checkpoint_id != "":
-			rp_replay_seed_label.text = "Replay-Seed: %s" % _live_session_resume_checkpoint_id
-		else:
-			rp_replay_seed_label.text = "Replay-Seed: %s" % str(sim_meta.get("seed", "n/a"))
-	else:
-		if _live_session_resume_checkpoint_id != "":
-			rp_replay_seed_label.text = "Replay-Seed: %s" % _live_session_resume_checkpoint_id
-		else:
-			rp_replay_seed_label.text = "Replay-Seed: n/a"
+	_checks_rp_controller.refresh_rp_ui(
+		_checks_rp_controls(),
+		_last_world_state,
+		_live_session_resume_checkpoint_id,
+		_current_slot,
+		_rp_auto_advance
+	)
 
-	rp_auto_advance_button.text = _select_label("Auto-Advance", _rp_auto_advance)
-	rp_status_label.text = "RP: slot=%02d | auto=%s" % [_current_slot, str(_rp_auto_advance)]
+
+func _checks_rp_controls() -> Dictionary:
+	return {
+		"checks_studio_panel": checks_studio_panel,
+		"checks_back_button": checks_back_button,
+		"checks_target_sim_button": checks_target_sim_button,
+		"checks_target_agent_button": checks_target_agent_button,
+		"checks_target_eval_button": checks_target_eval_button,
+		"checks_target_workspace_button": checks_target_workspace_button,
+		"checks_type_smoke_button": checks_type_smoke_button,
+		"checks_type_unit_button": checks_type_unit_button,
+		"checks_type_api_button": checks_type_api_button,
+		"checks_type_lint_button": checks_type_lint_button,
+		"checks_type_full_button": checks_type_full_button,
+		"checks_run_selected_button": checks_run_selected_button,
+		"checks_run_module_pack_button": checks_run_module_pack_button,
+		"checks_status_label": checks_status_label,
+		"rp_studio_panel": rp_studio_panel,
+		"rp_back_button": rp_back_button,
+		"rp_hour_plus_button": rp_hour_plus_button,
+		"rp_auto_advance_button": rp_auto_advance_button,
+		"rp_replay_seed_label": rp_replay_seed_label,
+		"rp_status_label": rp_status_label,
+	}
 
 
 func _run_rp_auto_advance(force: bool) -> void:
@@ -5150,122 +4297,9 @@ func _run_agent_action_summary(action_name: String) -> void:
 
 
 func _refresh_agent_studio_ui() -> void:
-	agent_studio_mode_label.text = "Modus: %s" % _agent_studio_mode.capitalize()
-	var eval_text := "Eval: idle"
-	if _eval_pid > 0:
-		var elapsed_s := maxf(0.0, float(Time.get_ticks_msec() - _eval_started_ms) / 1000.0)
-		var expected_s := maxf(1.0, eval_expected_duration_seconds)
-		var progress := mini(95, int((elapsed_s / expected_s) * 100.0))
-		eval_text = "Eval: running [%s] (%d%%, ~%.1fs)" % [_agent_eval_suite, progress, elapsed_s]
-	elif _last_eval_exit_code == 0:
-		eval_text = "Eval: done (100%)"
-	elif _last_eval_exit_code > 0:
-		eval_text = "Eval: failed (exit=%d)" % _last_eval_exit_code
-	agent_eval_status_label.text = eval_text
-	if enable_system_resource_monitoring:
-		agent_system_metrics_label.text = "System: CPU %s | RAM %s | VRAM %s | Temp %s" % [
-			_format_percent(_system_cpu_percent),
-			_format_percent(_system_ram_percent),
-			_format_vram(),
-			_format_temperature(_effective_temperature_c()),
-		]
-	else:
-		agent_system_metrics_label.text = "System: Monitoring deaktiviert (testweise)"
-	var full_status_text := "• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n• %s\n• %s\n• %s" % [_dataset_status_text, _active_dataset_label(), _synonym_status_text, _active_synonym_label(), _profile_status_text, _active_profile_label(), _advanced_settings_status_text, _jobs_status_text, _finetune_status_text, _latest_eval_summary_text, _ai_trend_summary_text, _artifacts_summary_text, _experiments_summary_text, _policy_sandbox_summary_text, _release_gate_summary_text, _audit_trail_summary_text, _security_model_summary_text]
-	var compact_status_text := "• %s\n• %s\n\n• %s\n• %s\n\n• %s\n• %s\n• %s" % [_dataset_status_text, _active_dataset_label(), _jobs_status_text, _synonym_status_text, _latest_eval_summary_text, _release_gate_summary_text, _security_model_summary_text]
-	_select_option_value(agent_eval_suite_button, _EVAL_SUITE_OPTIONS, _agent_eval_suite)
-	_select_option_value(agent_dataset_source_button, _DATASET_SOURCE_OPTIONS, _dataset_source_mode)
-
-	var hint_base_top := 362.0
-	if _agent_submenu_open:
-		hint_base_top = 430.0
-	var form_should_show := _agent_submenu_open and _agent_studio_mode == "author" and (_agent_form_kind == "datasets" or _agent_form_kind == "synonyms" or _agent_form_kind == "finetune" or _agent_form_kind == "profiles" or _agent_form_kind == "advanced" or _agent_form_kind == "jobs")
-	var collapse_status_block := form_should_show and collapse_agent_status_when_form_open
-	agent_latest_runs_label.text = compact_status_text if collapse_status_block else full_status_text
-
-	if collapse_status_block:
-		agent_eval_status_label.visible = false
-		agent_system_metrics_label.visible = false
-		agent_latest_runs_label.modulate = _AGENT_STATUS_DIM_TINT
-		agent_form_panel.self_modulate = _AGENT_FORM_PANEL_ACTIVE_TINT
-		if _agent_submenu_open:
-			agent_latest_runs_label.offset_top = 282.0
-			agent_latest_runs_label.offset_bottom = 282.0
-		else:
-			agent_latest_runs_label.offset_top = 242.0
-			agent_latest_runs_label.offset_bottom = 242.0
-	else:
-		agent_eval_status_label.visible = true
-		agent_system_metrics_label.visible = true
-		agent_latest_runs_label.modulate = _AGENT_STATUS_NORMAL_TINT
-		agent_form_panel.self_modulate = _AGENT_FORM_PANEL_NORMAL_TINT
-		if _agent_submenu_open:
-			agent_latest_runs_label.offset_top = 356.0
-			agent_latest_runs_label.offset_bottom = 356.0
-		else:
-			agent_latest_runs_label.offset_top = 316.0
-			agent_latest_runs_label.offset_bottom = 316.0
-
-	var latest_runs_lines: int = maxi(1, agent_latest_runs_label.get_line_count())
-	var line_step := 22.0 if collapse_status_block else 24.0
-	var hint_height := 26.0
-	var hint_top := maxf(hint_base_top, agent_latest_runs_label.offset_top + (float(latest_runs_lines) * line_step) + 14.0)
-	var hint_max_top := agent_studio_panel.offset_bottom - 30.0 - hint_height
-	hint_top = minf(hint_top, hint_max_top)
-	agent_studio_hint_label.visible = false
-	agent_studio_hint_label.offset_top = hint_top
-	agent_studio_hint_label.offset_bottom = hint_top + hint_height
-	if form_should_show:
-		var form_bottom := agent_studio_panel.offset_bottom - 22.0
-		var min_form_height := 300.0
-		var desired_top := hint_top + 28.0
-		if desired_top + min_form_height > form_bottom:
-			desired_top = maxf(96.0, form_bottom - min_form_height)
-		agent_form_panel.offset_top = desired_top
-		agent_form_panel.offset_bottom = form_bottom
+	var ui_state: Dictionary = _agent_studio_controller.refresh_studio_ui(_agent_studio_controls(), _agent_studio_state())
+	if bool(ui_state.get("form_should_show", false)):
 		_layout_agent_form_controls()
-
-	if _agent_studio_mode == "operate":
-		if _eval_pid > 0:
-			agent_eval_run_button.text = "Eval Stop"
-		else:
-			agent_eval_run_button.text = "Eval Start"
-		if _dataset_pid > 0:
-			agent_datasets_button.text = "Datasets Stop"
-		else:
-			agent_datasets_button.text = "Datasets Form [%s]" % _dataset_source_mode_label()
-		if _finetune_pid > 0:
-			agent_finetune_button.text = "Finetune Stop"
-		else:
-			agent_finetune_button.text = "Finetune Start"
-		agent_profiles_button.text = "Profiles Form"
-		agent_ai_status_button.text = "AI Status"
-	else:
-		agent_eval_run_button.text = "Jobs Config"
-		if _dataset_pid > 0:
-			agent_datasets_button.text = "Datasets Stop"
-		else:
-			agent_datasets_button.text = "Datasets Konfig [%s]" % _dataset_source_mode_label()
-		if _finetune_pid > 0:
-			agent_finetune_button.text = "Finetune Stop"
-		else:
-			agent_finetune_button.text = "Finetune Config"
-		agent_profiles_button.text = "Profiles Config"
-		agent_ai_status_button.text = "Advanced + Gate"
-
-	if _destructive_armed_action != "" and Time.get_ticks_msec() <= _destructive_armed_until_ms:
-		agent_studio_hint_label.visible = true
-		agent_studio_hint_label.text = "Sicherheits-Gate aktiv: Aktion '%s' innerhalb 8s erneut bestaetigen" % _destructive_armed_action
-	else:
-		agent_studio_hint_label.text = ""
-
-	agent_datasets_button.disabled = _agent_action_busy or not _agent_submenu_open
-	agent_synonyms_button.disabled = _agent_action_busy or not _agent_submenu_open
-	agent_finetune_button.disabled = _agent_action_busy or not _agent_submenu_open
-	agent_profiles_button.disabled = _agent_action_busy or not _agent_submenu_open
-	agent_ai_status_button.disabled = _agent_action_busy or not _agent_submenu_open
-	agent_eval_suite_button.disabled = _eval_pid > 0 or not _agent_submenu_open
-	agent_dataset_source_button.disabled = _dataset_pid > 0 or not _agent_submenu_open
 
 
 func _dataset_source_mode_label() -> String:

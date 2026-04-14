@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 12:55
-update: Das Sim-Board fuehrt den Replay-/Resume-Punkt jetzt als geschlossen; der Hub nutzt den bestehenden Session-/Replay-Vertrag sichtbar und bedienbar.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260414_124519.md
+stand: 2026-04-14 16:27
+update: Das Sim-Board dokumentiert jetzt den Drift-Fix fuer den neu ausgelagerten Hub-Layout-Controller: die versehentlich angehaengte zweite Dateihälfte ist bereinigt, der Preload-Pfad in Main.gd wieder parsebar.
+checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -21,12 +21,80 @@ Hinweis
 Prioritaetstags (aktiv)
 -----------------------
 
-- `Jetzt`: Live-Spielclient fuer den ersten Slice statt rein statischer Hub-/Log-Anzeige.
-- `Als naechstes`: Replay-/Audio-Bridge und Asset-/Bootstrap-Klarheit fuer denselben Slice.
+- `Jetzt`: Architektur-Entflechtung und belastbare Sim-Verifikation hinter dem neuen Hub.
+- `Als naechstes`: Export-/Release-Pfad, Spiel-IA und Fortsetzungslogik auf denselben Produktpfad heben.
 - `Spaeter`: Komfort- und Atmosphaere-Ausbau erst nach stabilem Produktloop.
 
 Offene Aufgaben (Sim)
 ---------------------
+
+- [ ] [Jetzt] Sim-Hub nach dem Layout-Reset in modulare Controller und Runtime-Dienste zerlegen.
+  - Ziel: `novapolis-sim/scripts/Main.gd` soll nicht dauerhaft zugleich Layout-Manager, Session-Client, Replay-Steuerung, Audio-Bridge, Agent-/Checks-/RP-Menue und Prozess-Orchestrator bleiben.
+  - Akzeptanzkriterien:
+    1) Hub-Layout, Session-/Replay-Lebenszyklus, Runtime-/Process-Steuerung und Modulnavigation liegen in getrennten Scripts oder klar abgegrenzten Controller-Komponenten,
+    2) `Main.gd` bleibt sichtbarer Einstieg, verliert aber den All-in-One-Charakter als zentrale Sammelstelle fuer nahezu jeden Sim-Pfad,
+    3) bestehende Node-Pfade und Bedienwege fuer Hub, Agent, Checks und RP bleiben kompatibel oder der Migrationspfad ist im selben Lauf dokumentiert,
+    4) der Headless-Start bleibt ohne neue Scene-Fehler verifizierbar.
+  - Evidenz: Unter `novapolis-sim/scripts/` liegen aktuell nur `Main.gd`, `scheduler_hook.gd` und `verify_sim.gd`; `Main.gd` fuehrt zugleich Responsive-Layout, Session-/Replay-Sync, Audio-Wiedergabe, Hub-Prefs, Modul-Toggles, Checks-, Agent- und RP-Studio-Logik.
+  - Arbeitsstand 2026-04-14 13:29: Der erste Refactor-Schnitt bleibt bewusst klein und kompatibel. Zuerst wandern Session-/Replay-Normalisierung, Checkpoint-/Slot-Helfer und das Laden/Speichern der Hub-Prefs in eigene Runtime-Helfer, waehrend `Main.gd` die Node-Anbindung und sichtbaren Bedienpfade unveraendert behaelt.
+  - Ergebnis 2026-04-14 13:29: `novapolis-sim/scripts/hub_preferences_store.gd` und `novapolis-sim/scripts/session_replay_helpers.gd` sind neu. `novapolis-sim/scripts/Main.gd` delegiert das Laden/Speichern der Hub-Prefs, die Session-/Replay-Normalisierung, Endpoint-Bildung sowie Checkpoint-/Slot-Helfer jetzt an diese Runtime-Helfer, behaelt aber vorerst die sichtbare Node- und UI-Orchestrierung als kompatible Fassade.
+  - Verifikation 2026-04-14 13:29: `get_errors` bleibt fuer `novapolis-sim/scripts/Main.gd`, `novapolis-sim/scripts/hub_preferences_store.gd` und `novapolis-sim/scripts/session_replay_helpers.gd` ohne Befund. Ein erneuter Godot-Headless-Lauf war in diesem Terminal-Kontext nicht belegbar, weil keine lokal aufloesbare Godot-Binary im PATH gemeldet wurde.
+  - Arbeitsstand 2026-04-14 13:49: Der zweite Schnitt zieht nicht mehr nur Daten-Helfer aus `Main.gd`, sondern die eigentliche Session-/Replay-Request-Statemaschine. In-Flight-Status, Request-Guards und Response-Auswertung fuer Session- und Replay-HTTP-Laeufe sollen in einen eigenen Controller wandern, waehrend `Main.gd` nur noch Resultate auf Epochen-, Replay- und UI-Zustand abbildet.
+  - Ergebnis 2026-04-14 13:49: `novapolis-sim/scripts/session_replay_request_controller.gd` ist neu. `novapolis-sim/scripts/Main.gd` delegiert Startbedingungen, In-Flight-Status und Response-Auswertung fuer Session- und Replay-Requests jetzt an diesen Controller; `Main.gd` behaelt fuer diese Pfade nur noch Host/Port-Aufloesung sowie die Abbildung erfolgreicher Resultate auf Sim-Zustand und UI.
+  - Verifikation 2026-04-14 13:49: `get_errors` bleibt fuer `novapolis-sim/scripts/Main.gd`, `novapolis-sim/scripts/session_replay_request_controller.gd`, `novapolis-sim/scripts/session_replay_helpers.gd` und `novapolis-sim/scripts/hub_preferences_store.gd` ohne Befund. Ein erneuter Godot-Headless-Lauf bleibt weiter offen, solange keine lokal aufloesbare Godot-Binary fuer den Terminalkontext verfuegbar ist.
+  - Naechster Schnitt 2026-04-14 13:57: Nach den Helper- und Request-Controllern soll als naechste Entflechtung die Session-/Replay-Zustandsanwendung selbst in einen eigenen State-Controller wandern, damit `Main.gd` in diesen Pfaden nur noch UI-Komposition statt Zustandsmutation traegt.
+  - Arbeitsstand 2026-04-14 14:02: Dieser dritte Schnitt zieht jetzt die eigentlichen State-Transitionen aus `Main.gd`: Live-Session-Anwendung, Replay-Manifest-Uebernahme und Resume-/Checkpoint-Anwendung sollen in einen eigenen Controller wandern, waehrend `Main.gd` nur noch die daraus resultierenden Zustands-Snapshots auf bestehende Member spiegelt und UI-Refreshes ausloest.
+  - Ergebnis 2026-04-14 14:02: `novapolis-sim/scripts/session_replay_state_controller.gd` ist neu. `novapolis-sim/scripts/Main.gd` delegiert die Live-Session-Anwendung, die Replay-Manifest-Uebernahme und die Resume-/Checkpoint-State-Transition jetzt an diesen Controller und spiegelt nur noch die resultierenden Snapshot-Updates auf bestehende Member, bevor UI-Refreshes laufen.
+  - Verifikation 2026-04-14 14:02: `get_errors` bleibt fuer `novapolis-sim/scripts/Main.gd`, `novapolis-sim/scripts/session_replay_state_controller.gd`, `novapolis-sim/scripts/session_replay_request_controller.gd` und `novapolis-sim/scripts/session_replay_helpers.gd` ohne Befund. Ein echter Godot-Headless-Lauf bleibt fuer diesen Refactor weiterhin nur mit lokaler Binary moeglich.
+  - Arbeitsstand 2026-04-14 14:10: Als naechster kleiner Schnitt folgt jetzt der Hub-Chat-Pfad. Prompt-Aufbau, Retrieval-Query, Antwort-Parsing und Chat-State-Anwendung sind bislang noch direkt in `Main.gd` verdrahtet, obwohl dieser Pfad inhaltlich bereits wie ein eigener Runtime-Controller funktioniert.
+  - Ergebnis 2026-04-14 14:10: `novapolis-sim/scripts/hub_chat_controller.gd` ist neu. `novapolis-sim/scripts/Main.gd` delegiert Slot-/Context-Aufbau, Request-Start, Response-Auswertung und Chat-State-Anwendung fuer den Live-Spielclient jetzt an diesen Controller und behaelt fuer den Chat-Pfad nur noch Widget-Status, Logzeilen und die anschliessenden UI-/Session-Refreshes.
+  - Verifikation 2026-04-14 14:10: `get_errors` bleibt fuer `novapolis-sim/scripts/Main.gd` und `novapolis-sim/scripts/hub_chat_controller.gd` ohne Befund. Ein echter Godot-Headless-Lauf bleibt auch fuer diesen Schnitt weiter von einer lokal verfuegbaren Binary abhaengig.
+  - Arbeitsstand 2026-04-14 14:25: Nach Session-/Replay und Hub-Chat folgen in diesem Sammellauf die letzten klar abgegrenzten Controller-Schnitte fuer `Main.gd`: der Responsive-/Hub-Layoutpfad, der Hub-Config-/Prefs-Bedienpfad sowie der Checks-/RP-Modulpfad. Der deutlich breitere Agent-Studio-Block bleibt bewusst ausserhalb dieses Laufs, weil er aktuell noch Form-State, Scriptstarts, Registry-Lader und Runtime-Refreshs zu eng koppelt, um als kleiner sicherer Controller-Schnitt zu gelten.
+  - Ergebnis 2026-04-14 14:36: `novapolis-sim/scripts/hub_layout_controller.gd`, `hub_config_controller.gd` und `checks_rp_controller.gd` sind neu. `novapolis-sim/scripts/Main.gd` delegiert damit jetzt auch den Responsive-/Hub-Layoutpfad, die Hub-Config-/Prefs-Bedienlogik sowie die Checks-/RP-Modul-UI in eigene Controller und behaelt fuer diese Bereiche nur noch Zustandsfluss, Node-Fassade und die verbleibend eng gekoppelte Agent-Studio-Orchestrierung.
+  - Verifikation 2026-04-14 14:36: `get_errors` bleibt fuer `novapolis-sim/scripts/Main.gd`, `novapolis-sim/scripts/hub_layout_controller.gd`, `novapolis-sim/scripts/hub_config_controller.gd` und `novapolis-sim/scripts/checks_rp_controller.gd` ohne Befund. Ein echter Godot-Headless-Lauf bleibt fuer diesen Sammelschnitt weiter offen, solange im aktuellen Terminalkontext keine lokal aufloesbare Godot-Binary belegbar ist.
+  - Ergebnis 2026-04-14 14:49: `novapolis-sim/scripts/agent_studio_controller.gd` ist neu. `novapolis-sim/scripts/Main.gd` delegiert damit jetzt auch Agent-Studio-UI-Exklusivschaltung, Agent-Studio-Layout und den zentralen Studio-UI-Refresh in einen eigenen Controller; zusaetzlich sind die versehentlich doppelt angehaengten Dateihälften in `hub_config_controller.gd` und `checks_rp_controller.gd` im selben Lauf bereinigt.
+  - Verifikation 2026-04-14 14:49: `get_errors` bleibt fuer `novapolis-sim/scripts/Main.gd`, `novapolis-sim/scripts/agent_studio_controller.gd`, `novapolis-sim/scripts/hub_config_controller.gd` und `novapolis-sim/scripts/checks_rp_controller.gd` ohne Befund. Ein echter Godot-Headless-Lauf bleibt fuer diesen Agent-Schnitt weiter offen, solange im aktuellen Terminalkontext keine lokal aufloesbare Godot-Binary belegbar ist.
+  - Ergebnis 2026-04-14 15:01: `novapolis-sim/scripts/hub_layout_controller.gd` ist nach einem Runtime-Befund auf Datei-Integritaet nachgezogen. Die angehaengte zweite Klassenhaelfte wurde entfernt; damit entfaellt der Parserfehler beim `preload("res://scripts/hub_layout_controller.gd")` in `Main.gd`.
+  - Verifikation 2026-04-14 15:01: Der Doppelbezeichner `class_name HubLayoutController` liegt in `hub_layout_controller.gd` wieder nur einmal vor, und `get_errors` bleibt fuer `novapolis-sim/scripts/Main.gd` sowie `novapolis-sim/scripts/hub_layout_controller.gd` ohne Befund.
+
+- [x] [Jetzt] Den Godot-Headless-Verifier von einem Projekt-Ladecheck auf einen echten Sim-Smokepfad heben.
+  - Ziel: Der kanonische Verifier soll kuenftig mehr absichern als nur, dass das Projekt irgendeine `application/config/name`-Einstellung besitzt.
+  - Akzeptanzkriterien:
+    1) `res://scripts/verify_sim.gd` prueft mindestens Main-Scene, Autoload `SimClient` und die fuer Hub-/Replay-/Chat-Bedienung benoetigten Kernknoten,
+    2) der Lauf scheitert mit klarer Fehlermeldung, wenn zentrale Sim-Knoten oder Projektverknuepfungen fehlen,
+    3) der Verifier bleibt headless und lokal reproduzierbar,
+    4) README und Board nennen denselben Verifier als kanonischen Smoke-Pfad.
+  - Evidenz: `novapolis-sim/scripts/verify_sim.gd` prueft derzeit nur `ProjectSettings.has_setting("application/config/name")` und endet anschliessend pauschal mit `SIM_VERIFY: OK`.
+  - Arbeitsstand 2026-04-14 13:57: Der Ausbau laeuft jetzt gegen den echten Startpfad. `project.godot` fuehrt `application/run/main_scene="res://Main.tscn"` und `autoload/SimClient`, waehrend `Main.tscn` die relevanten Hub-, Replay-, Chat- und Modulpanels bereits eindeutig traegt. Der neue Verifier soll diese Projektverknuepfung und die Kernknoten direkt headless pruefen.
+  - Ergebnis 2026-04-14 13:57: `novapolis-sim/scripts/verify_sim.gd` prueft jetzt Projektname, Main-Scene, Autoload `SimClient`, das Root-Script `res://scripts/Main.gd` sowie die zentralen Hub-, Replay-, Chat- und Modul-Knoten direkt an einer instanziierten Main-Scene. Fehler werden als `SIM_VERIFY: FAIL` mit konkreten Einzelursachen ausgegeben und beenden den Lauf mit Exitcode `1` statt als pauschales OK/WARN durchzulaufen.
+  - Verifikation 2026-04-14 13:57: `get_errors` bleibt fuer `novapolis-sim/scripts/verify_sim.gd`, `novapolis-sim/scripts/Main.gd`, `novapolis-sim/project.godot` und `novapolis-sim/Main.tscn` ohne Befund. `novapolis-sim/README.md` verweist bereits auf denselben Verifier-Pfad `res://scripts/verify_sim.gd` als Headless-Smoke-Lauf. Ein echter Godot-Prozesslauf war in diesem Terminalkontext nicht belegbar, weil weder `GODOT_BIN` gesetzt war noch `godot`/`godot4` im PATH aufloesbar waren.
+
+- [ ] [Als naechstes] Den Release-/Exportpfad fuer das eigentliche Spiel kanonisch und reproduzierbar machen.
+  - Ziel: Der produktive Start ausserhalb des Godot-Editors soll nicht nur als Handhinweis `Project -> Export` existieren, sondern als belastbarer Repo-Pfad.
+  - Akzeptanzkriterien:
+    1) das Repo fuehrt Export-Voreinstellungen oder eine gleichwertig verbindliche Export-Dokumentation fuer den produktiven Windows-Desktop-Pfad,
+    2) Asset- und Datenvoraussetzungen fuer Clean-Checkout, lokalen Vollstand und exportierte Laufzeit sind getrennt beschrieben,
+    3) ein lokaler Smoke-Test fuer die exportierte App ist beschrieben und ohne Editor-Overlay nachvollziehbar,
+    4) README, Board und Folge-Doku zeigen denselben Release-Pfad.
+  - Evidenz: `novapolis-sim/README.md` empfiehlt derzeit nur `Project -> Export` fuer Windows Desktop; im Sim-Baum liegt zugleich keine `export_presets.cfg`, und unter `novapolis-dev/docs/process/` gibt es keinen eigenen aktiven Sim-Export-/Release-Leitfaden.
+
+- [ ] [Als naechstes] Informationen zum UI- und Menueaufbau des eigentlichen Spiels als Sim-SSOT dokumentieren.
+  - Ziel: Vor weiterer Oberflaechenarbeit braucht der Workspace eine klare Beschreibung, wie Hub, eigentliches Spiel, Menues, Rueckspruenge und Modulwechsel fachlich zusammenhaengen.
+  - Akzeptanzkriterien:
+    1) die Doku trennt klar zwischen Sim-Hub, eigentlichem Spielablauf, Replay-/Resume-Pfad und operativen Modulen,
+    2) Startscreen, Hauptmenue, Ingame-Menues, Pause/Optionen, Rueckwege und Modulwechsel sind als Screen-/Menuebaum oder Informationsarchitektur beschrieben,
+    3) die Beschreibung nennt Zustandsbesitz fuer Session, Slot, Replay-Anker und aktive Ansicht statt nur Layoutnamen,
+    4) README und Board verweisen auf dieselbe kanonische IA-/Menue-Doku.
+  - Evidenz: `novapolis-sim/Main.tscn` und `novapolis-sim/scripts/Main.gd` zeigen Hub-Zonen, Replay-Panel, Chat-Panel und Modulpfade, waehrend `novapolis-sim/README.md` nur das Hub-Hauptmenue und Laufzeitverhalten beschreibt; ein eigener aktiver Sim-Prozesspfad fuer IA oder Menueaufbau ist unter `novapolis-dev/docs/process/` derzeit nicht vorhanden.
+
+- [ ] [Spaeter] Session- und Hub-Persistenz fuer echte Fortsetzungslaufe haerten.
+  - Ziel: Eine laufende Spielsession soll nach Neustarts nicht nur ueber Zufalls-Session-IDs oder manuelles Neuanknuepfen weiterleben.
+  - Akzeptanzkriterien:
+    1) die Persistenz speichert nur stabile Fortsetzungsdaten wie Session-ID, Resume-Anker und relevante Hub-Voreinstellungen, nicht fluechtige Runtime-Metriken,
+    2) Neustartverhalten fuer Hub, Replay und Live-Session ist bewusst dokumentiert,
+    3) bestehende lokale Prefs bleiben lesbar oder sauber migrierbar,
+    4) der Fortsetzungspfad bleibt mit denselben Session-Endpunkten kompatibel.
+  - Evidenz: `Main.gd` setzt `_hub_chat_session_id` beim Start jedes Mal aus dem aktuellen Zeitstempel neu; `_load_hub_preferences()` und `_save_hub_preferences()` persistieren bislang nur Karten-Sichtbarkeit, Default-Panel und Refresh-Profil.
 
 - [x] [Jetzt] Sim-Hub UI von Grund auf als klaren Spiel-/Operations-Hub neu aufsetzen.
   - Ziel: Die aktuelle Godot-Oberflaeche soll nicht weiter als gewachsene Offset-Sammlung gepflegt werden, sondern einen klaren Hub mit Statusband, Live-Spiel-Flaeche, Operations-Spalte und belastbarer Modulzone erhalten.
@@ -80,6 +148,20 @@ Offene Aufgaben (Sim)
 
 Aktiver Kontext (max. 14 Tage)
 ------------------------------
+
+- 2026-04-14: Der gemeldete Godot-Preload-Fehler auf `hub_layout_controller.gd` war ein Drift-Artefakt aus einer angehaengten zweiten Klassenhaelfte. Nach Deduplizierung ist der Scriptkopf wieder eindeutig und der Preload-Pfad parsebar.
+
+- 2026-04-14: Der vierte Refactor-Schnitt der Sim-Entflechtung ist umgesetzt. Der Live-Spielclient-Chat liegt jetzt ebenfalls in einem eigenen Controller; in `Main.gd` verbleiben in diesem Pfad nur noch Widget-Status, Logzeilen und UI-Folgeaktionen.
+
+- 2026-04-14: Der Agent-Studio-Pfad ist im Architekturpunkt weiter geschrumpft. `Main.gd` delegiert Agent-Studio-UI-Exklusivschaltung, Layout und Studio-Refresh jetzt an `agent_studio_controller.gd`; offen bleiben dort vor allem Form-State-Aufbereitung und Runtime-Aktionspfade.
+
+- 2026-04-14: Der Sammellauf fuer die letzten klaren Main.gd-Controller ist umgesetzt. Layout, Hub-Config und Checks/RP liegen jetzt ebenfalls in eigenen Controllern; in `Main.gd` verbleibt als groesserer Architekturrest im Wesentlichen nur noch der bewusst noch nicht geschnittene Agent-Studio-Block.
+
+- 2026-04-14: Der dritte Refactor-Schnitt der Sim-Entflechtung ist umgesetzt. Nach Helpern und Request-Controller liegt jetzt auch die Session-/Replay-Zustandsanwendung in einem eigenen State-Controller; in `Main.gd` bleibt fuer diese Pfade nur noch Snapshot-Anwendung plus UI-Komposition.
+
+- 2026-04-14: Der Headless-Verifier prueft nicht mehr nur eine Projekteinstellung, sondern jetzt Main-Scene, Autoload und zentrale Hub-Knoten. Die Session-/Replay-Zustandsanwendung ist inzwischen ebenfalls ausgelagert; offen bleibt fuer die Architektur damit nur noch weitere Entflechtung ausserhalb dieses bereits migrierten Pfads.
+
+- 2026-04-14: Nach Abschluss von Hub-Reset und Replay-/Resume-Pfad ist das Sim-Board wieder offen. Die naechsten Folgepunkte betreffen jetzt nicht neue Oberflaechen-Implementierung, sondern Architektur-Schnitt, Verifier-Tiefe, Export-/Release-Pfad, Session-Fortsetzung und eine kanonische Beschreibung des eigentlichen Spiel-UI-/Menueaufbaus.
 
 - 2026-04-14: Der Sim-Hub ist in diesem Lauf layoutseitig neu aufgesetzt und inzwischen auch mit lokaler Godot-4.6.1-Binary headless verifiziert. Der bestehende Live-Spielclient, die Modulpfade und der offene Resume-/Replay-Punkt bleiben funktional erhalten, waehrend der Hub jetzt ueber Top-Band, Stage, Operations-Spalte und Telemetrieband organisiert wird.
 
