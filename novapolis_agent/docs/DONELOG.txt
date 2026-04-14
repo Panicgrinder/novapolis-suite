@@ -22,6 +22,9 @@ DONELOG – Abgeschlossene Arbeiten
 =================================
 
 
+2026-04-14 20:42 | Copilot | Den erweiterten Sim-vor-RP-Vertragsrahmen in den Agent-Runtimepfad gezogen: `app/api/models.py` fuehrt jetzt `turn_context`, `resume_checkpoint_id` und `carry_over` als gemeinsame Vertragsobjekte fuer Chat und Sessionpersistenz; `app/api/sim.py` speichert dieselben Felder in `savegame.json` und `replay_manifest.json`; `app/api/chat.py` persistiert und beantwortet den `/chat`-Vertrag jetzt aus dem echten Session-Stand statt nur aus dem nackten `turn_id`-Echo. Zusaetzlich ziehen `scripts/run_text_rpg_reference_session.py`, die Referenz-Session-Tests sowie die OpenAPI-/Chat-/Sim-Vertragstests denselben Rahmen nach.
+
+
 2026-04-14 12:47 | Copilot | Den letzten Ruff-/Black-Rest des Wochenabschlusses geschlossen. `app/api/tts_models.py` nutzt fuer `TtsOutputFormat` jetzt `StrEnum`, `tests/scripts/test_run_with_cpu_limit.py`, `tests/test_tts_models_validators.py` und `tests/test_tts_provider_edges.py` sind lint-/formatkonform nachgezogen, und der gezielte Pytest-Scope fuer genau diese drei Dateien ist PASS. Zusammen mit dem frischen Sammellauf `.tmp/results/reports/checks_report_20260414_124519.md` sind `ruff`, `black`, `pyright`, `mypy` und `pytest` im Agent-Scope wieder vollstaendig gruen.
 
 

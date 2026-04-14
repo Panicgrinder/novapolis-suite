@@ -23,6 +23,12 @@ def test_run_reference_session_writes_expected_artifacts(tmp_path: Path) -> None
                 "slot_id": "slot-01",
                 "slot_index": 1,
                 "turn_id": "turn-0001",
+                "turn_context": {
+                    "turn_mode": "standard",
+                    "turn_window_minutes": 30,
+                    "tick_minutes": None,
+                    "budget_class": "within_frame",
+                },
                 "world_log": [{"event": "world-a"}],
                 "pc_log": [{"event": "pc-a"}],
                 "state_patches": [
@@ -42,6 +48,13 @@ def test_run_reference_session_writes_expected_artifacts(tmp_path: Path) -> None
                 "slot_id": "slot-02",
                 "slot_index": 2,
                 "turn_id": "turn-0002",
+                "carry_over": [
+                    {
+                        "task_id": "follow-up",
+                        "state": "offen",
+                        "resume_hint": "naechsten Turn starten",
+                    }
+                ],
                 "world_log": [{"event": "world-b"}],
                 "pc_log": [{"event": "pc-b"}],
                 "state_patches": [
@@ -62,6 +75,13 @@ def test_run_reference_session_writes_expected_artifacts(tmp_path: Path) -> None
             "slot_index": 2,
             "turn_id": "turn-0002",
             "resume_checkpoint_id": "turn-0002",
+            "turn_context": {
+                "turn_mode": "standard",
+                "turn_window_minutes": 30,
+                "tick_minutes": None,
+                "budget_class": "within_frame",
+            },
+            "carry_over_count": 1,
             "checkpoints": ["turn-0001", "turn-0002"],
             "world_log_count": 2,
             "pc_log_count": 2,
@@ -80,6 +100,8 @@ def test_run_reference_session_writes_expected_artifacts(tmp_path: Path) -> None
     assert report["actual"]["world_log_count"] == 2
     assert report["actual"]["pc_log_count"] == 2
     assert report["actual"]["state_patch_count"] == 2
+    assert report["actual"]["turn_context"]["turn_window_minutes"] == 30
+    assert report["actual"]["carry_over_count"] == 1
     assert report["actual"]["artifacts"]["savegame"]["exists"] is True
     assert report["actual"]["artifacts"]["replay_manifest"]["exists"] is True
     assert (tmp_path / "sessions" / "reference-session" / "world_log.jsonl").exists()

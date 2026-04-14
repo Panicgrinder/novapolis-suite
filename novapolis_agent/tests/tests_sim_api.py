@@ -108,6 +108,19 @@ async def test_session_endpoints_persist_and_expose_replay_manifest(
                 "slot_index": 5,
                 "turn_id": "turn-0005",
                 "seed": 11,
+                "turn_context": {
+                    "turn_mode": "standard",
+                    "turn_window_minutes": 30,
+                    "tick_minutes": None,
+                    "budget_class": "within_frame",
+                },
+                "carry_over": [
+                    {
+                        "task_id": "nordlinie-check",
+                        "state": "offen",
+                        "resume_hint": "im naechsten Turn pruefen",
+                    }
+                ],
                 "world_log": [{"event": "world-start"}],
                 "pc_log": [{"event": "pc-start", "text": "Look around"}],
                 "state_patches": [
@@ -138,6 +151,8 @@ async def test_session_endpoints_persist_and_expose_replay_manifest(
     assert current_payload["contract_version"] == "text_rpg_session_v1"
     assert current_payload["resume_checkpoint_id"] == "turn-0005"
     assert current_payload["checkpoints"] == ["turn-0005"]
+    assert current_payload["turn_context"]["turn_window_minutes"] == 30
+    assert current_payload["carry_over"][0]["task_id"] == "nordlinie-check"
 
     assert replay.status_code == 200
     replay_payload = replay.json()
@@ -147,6 +162,7 @@ async def test_session_endpoints_persist_and_expose_replay_manifest(
     assert replay_payload["pc_event_count"] == 1
     assert replay_payload["state_patch_count"] == 1
     assert replay_payload["log_channels"] == ["world", "pc", "ally", "sys"]
+    assert replay_payload["turn_context"]["budget_class"] == "within_frame"
     assert replay_payload["artifact_paths"]["world_log"].endswith(
         "sim_sessions/live-alpha/world_log.jsonl"
     )

@@ -4,6 +4,22 @@ from pydantic import BaseModel, field_validator
 
 TEXT_RPG_SESSION_CONTRACT_VERSION = "text_rpg_session_v1"
 TEXT_RPG_LOG_CHANNELS = ("world", "pc", "ally", "sys")
+TEXT_RPG_DEFAULT_TURN_WINDOW_MINUTES = 30
+TEXT_RPG_DENSE_TICK_MINUTES = 1
+
+
+class TurnContext(BaseModel):
+    turn_mode: str = "standard"
+    turn_window_minutes: int = TEXT_RPG_DEFAULT_TURN_WINDOW_MINUTES
+    tick_minutes: int | None = None
+    budget_class: str | None = None
+
+
+class CarryOverItem(BaseModel):
+    task_id: str
+    state: str
+    resume_hint: str
+    prepared_assets: list[str] | None = None
 
 
 class ChatOptions(BaseModel):
@@ -19,6 +35,11 @@ class ChatOptions(BaseModel):
     hidden_context: str | None = None
     scheduler_hints: list[str] | str | None = None
     state_patch_hints: list[str] | str | None = None
+    turn_mode: str | None = None
+    turn_window_minutes: int | None = None
+    tick_minutes: int | None = None
+    budget_class: str | None = None
+    carry_over: list[CarryOverItem] | None = None
 
     temperature: float | None = None
     top_p: float | None = None
@@ -89,8 +110,11 @@ class ChatResponse(BaseModel):
     slot_id: str | None = None
     turn_id: str | None = None
     session_status: str | None = None
+    resume_checkpoint_id: str | None = None
     replay_checkpoint_id: str | None = None
     log_channels: list[str] | None = None
+    turn_context: TurnContext | None = None
+    carry_over: list[CarryOverItem] | None = None
 
 
 class ApiErrorResponse(BaseModel):

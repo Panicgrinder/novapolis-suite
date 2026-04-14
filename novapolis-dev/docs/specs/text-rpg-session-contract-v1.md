@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 10:20
-update: Der Text-RPG-Sessionvertrag v1 definiert jetzt den kanonischen Session-, Kampagnen- und Patch-Rahmen fuer den ersten spielbaren Slice.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS
+stand: 2026-04-14 21:08
+update: Der Sessionvertrag fuehrt jetzt den verbindlichen Turn-, Verdichtungs-, Carry-Over- und Resume-Rahmen fuer den Sim-vor-RP-Pfad auf denselben Session- und Replay-Ankern.
+checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 Text-RPG Session- und Kampagnenvertrag v1
@@ -50,6 +50,7 @@ Kernobjekte
 - `slot_id`: kanonischer Fortschrittsanker entlang eines RP-Folgekorridors.
 - `turn_id`: einzelner Spielerzug innerhalb derselben Szene.
 - `request_id`: technischer Requestanker fuer Debugging, Logs und Retries.
+- `resume_checkpoint_id`: kanonischer Wiederanlaufanker an stabilen Turn-Grenzen.
 - `replay_epoch_id`: spaeterer Exportanker fuer Sim-/Replay-Chunks.
 
 Lebenszyklus
@@ -62,6 +63,15 @@ Eine Session laeuft kanonisch ueber folgende Statuswerte:
 - `paused`: Session ist bewusst angehalten und spaeter fortsetzbar.
 - `completed`: Session oder Episodenbogen ist regulär abgeschlossen.
 - `aborted`: Session wurde mit nachvollziehbarem Abbruchgrund beendet.
+
+Turn-, Verdichtungs- und Resume-Rahmen
+--------------------------------------
+
+- Der aeussere Produktzug bleibt `1 Turn = 30 Minuten` Ingame-Zeit.
+- Verdichtung ist ein Turn-internes Reaktionsfenster mit `1 Tick = 1 Minute`.
+- Verdichtung erzeugt keinen zweiten aeusseren Zugvertrag neben `turn_id`, sondern bleibt Unterstruktur desselben Turns.
+- `resume_checkpoint_id` darf nur an stabilen Turn-Grenzen materialisiert oder ersetzt werden, nicht mitten in einer laufenden Verdichtung ohne explizite Sonderregel.
+- Carry-Over bleibt Teil desselben Sessionvertrags und darf nicht als lokale UI-Notiz oder freier Sim-Sonderpfad ausweichen.
 
 Vertragsrahmen v1
 -----------------
@@ -88,11 +98,18 @@ Ein produktfaehiger Spielzug fuehrt mindestens diese Felder:
     "resume_from": null,
     "seed": 42,
     "profile_id": "context_bridge"
+  },
+  "turn_context": {
+    "turn_mode": "standard",
+    "turn_window_minutes": 30,
+    "tick_minutes": null,
+    "resume_checkpoint_id": null
   }
 }
 ```
 
 Minimal verbindlich sind `campaign_id`, `session_id`, `scene_id`, `slot_id`, `turn_id` und `player_input.utterance`.
+Wenn Turn- oder Replay-Kontext materialisiert wird, gehoeren `turn_context.turn_mode`, `turn_context.turn_window_minutes` und der aktuelle `resume_checkpoint_id` auf denselben Vertragsblock.
 
 ### Response-Huelle
 
@@ -116,11 +133,31 @@ Die Spielleiterantwort fuer denselben Zug fuehrt mindestens diese Felder:
     "ally": [],
     "sys": []
   },
-  "session_status": "active"
+  "session_status": "active",
+  "resume_checkpoint_id": "rcp_slot_00_turn_0001",
+  "turn_context": {
+    "turn_mode": "standard",
+    "turn_window_minutes": 30,
+    "tick_minutes": null,
+    "budget_class": "within_frame"
+  },
+  "carry_over": []
 }
 ```
 
 Antworttext und Folgedaten bleiben Teil derselben Antwort und werden nicht in getrennte Nebenpfade aufgespalten.
+
+Turn-Kontext
+------------
+
+Jede produktfaehige Turn-Antwort darf zusaetzlich einen kompakten `turn_context` fuehren. Sobald er vorhanden ist, gelten mindestens diese Felder:
+
+- `turn_mode`: `standard|dense`
+- `turn_window_minutes`: im aktuellen Produktpfad `30`
+- `tick_minutes`: `1` im Verdichtungsfenster, sonst `null`
+- `budget_class`: `within_frame|slightly_over|significantly_over|blocked`
+
+Wenn `turn_mode=dense` gilt, bleibt `turn_id` trotzdem der aeussere Vertrag. Ticks erscheinen nur als Unterstruktur in Replay, Logs oder Laufzeitdarstellung.
 
 Optionen
 --------
@@ -150,6 +187,14 @@ Jeder `state_patch` fuehrt mindestens:
 
 Nicht zulaessig sind freie Textpatches ohne `scope`, `op` und `path`.
 
+Carry-Over und Wiederaufnahme
+-----------------------------
+
+- `carry_over` fuehrt nur Aufgaben weiter, die als `begonnen`, `unterbrochen` oder `offen` real in den Folgeturn wirken.
+- Jeder Carry-Over-Eintrag soll mindestens `task_id`, `state`, einen kurzen `resume_hint` und optional vorbereitete Mittel oder geoeffnete Zugaenge tragen.
+- Zulaessige Zustandswerte sind `begonnen`, `unterbrochen` und `offen`.
+- Wenn eine Session fortgesetzt wird, verweist `resume_checkpoint_id` auf denselben Turn- und Slotrahmen, aus dem `carry_over`, `world_log`, `pc_log` und `state_patches` lesbar rekonstruiert werden koennen.
+
 Sichtbarkeit und Log-Kanaele
 ----------------------------
 
@@ -170,7 +215,9 @@ Ein spaeterer produktiver Lauf soll pro Session mindestens folgende Artefakte fu
 - `world_log.jsonl`
 - `pc_log.jsonl`
 - optional `ally_log.jsonl`
-- optional `replay_manifest.json`
+- `replay_manifest.json`
+
+`session_manifest.json` oder `replay_manifest.json` muessen dabei den letzten stabilen `resume_checkpoint_id`, den aktiven `slot_id`, den zuletzt abgeschlossenen `turn_id` und gegebenenfalls eingebettete Verdichtungssegmente desselben Turns lesbar halten.
 
 Diese SSOT definiert den Namen und die Pflichtrolle dieser Artefakte, nicht bereits ihre volle Runtime-Implementierung.
 
@@ -205,4 +252,5 @@ Definition of Done
 - Kampagne, Session, Szene, Slot und Zug sind als getrennte Vertragsobjekte benannt.
 - `state_patches` besitzen einen kanonischen Minimalrahmen statt freier Textanhaenge.
 - Sichtbarkeit und Log-Kanaele sind gegen RP-Reveal-Regeln sauber getrennt.
+- Turn-, Verdichtungs-, Carry-Over- und Resume-Rahmen bleiben auf demselben Sessionvertrag lesbar.
 - Runbook und Produkt-Gate koennen auf denselben Vertrag verweisen.

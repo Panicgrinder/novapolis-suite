@@ -24,10 +24,13 @@ from ..utils.session_memory import session_memory
 from . import sim as _sim_api
 from .chat_helpers import normalize_ollama_options
 from .models import (
+    TEXT_RPG_DEFAULT_TURN_WINDOW_MINUTES,
     TEXT_RPG_LOG_CHANNELS,
     TEXT_RPG_SESSION_CONTRACT_VERSION,
+    CarryOverItem,
     ChatRequest,
     ChatResponse,
+    TurnContext,
 )
 
 
@@ -742,6 +745,8 @@ def _session_snapshot_text(session_id: str | None) -> str | None:
         "slot_index": record.slot_index,
         "turn_id": record.turn_id,
         "resume_checkpoint_id": record.resume_checkpoint_id,
+        "turn_context": record.turn_context.model_dump(),
+        "carry_over": [item.model_dump() for item in record.carry_over[-3:]],
         "checkpoints": record.checkpoints[-3:],
         "world_tick": record.world_state.tick,
         "world_time": record.world_state.time,
@@ -819,6 +824,25 @@ def _persist_orchestrator_turn(request: ChatRequest, content: str) -> None:
     scene_id = str(options.get("scene_id", "")).strip() or None
     slot_id = str(options.get("slot_id", "")).strip() or None
     turn_id = str(options.get("turn_id", "")).strip() or None
+    turn_mode = str(options.get("turn_mode", "")).strip() or "standard"
+    raw_turn_window = options.get("turn_window_minutes")
+    raw_tick_minutes = options.get("tick_minutes")
+    budget_class = str(options.get("budget_class", "")).strip() or None
+    turn_window_minutes = (
+        int(raw_turn_window)
+        if isinstance(raw_turn_window, int) and raw_turn_window > 0
+        else TEXT_RPG_DEFAULT_TURN_WINDOW_MINUTES
+    )
+    tick_minutes = (
+        int(raw_tick_minutes)
+        if isinstance(raw_tick_minutes, int) and raw_tick_minutes > 0
+        else None
+    )
+    carry_over_raw = options.get("carry_over")
+    carry_over: list[CarryOverItem] | None = None
+    if isinstance(carry_over_raw, list):
+        carry_over_entries = cast(list[Any], carry_over_raw)
+        carry_over = [CarryOverItem.model_validate(item) for item in carry_over_entries]
     state_patches = _parse_state_patches(content)
     _sim_api.upsert_session(
         session_id,
@@ -829,6 +853,13 @@ def _persist_orchestrator_turn(request: ChatRequest, content: str) -> None:
             scene_id=scene_id,
             slot_id=slot_id,
             turn_id=turn_id,
+            turn_context=TurnContext(
+                turn_mode=turn_mode,
+                turn_window_minutes=turn_window_minutes,
+                tick_minutes=tick_minutes,
+                budget_class=budget_class,
+            ),
+            carry_over=carry_over,
             pc_log=[{"role": "assistant", "channel": "pc", "content": content}],
             state_patches=state_patches,
         ),
@@ -947,10 +978,45 @@ def _build_contract_chat_response(
     scene_id = str(options.get("scene_id", "")).strip() or None
     slot_id = str(options.get("slot_id", "")).strip() or None
     turn_id = str(options.get("turn_id", "")).strip() or None
+    turn_context: TurnContext | None = None
+    carry_over: list[CarryOverItem] | None = None
+    checkpoint_id: str | None = None
 
     contract_active = _orchestrator_enabled(options) or any(
         value for value in (session_id, campaign_id, scene_id, slot_id, turn_id)
     )
+
+    if contract_active and session_id:
+        record = _sim_api.load_session_record(session_id)
+        if record is not None:
+            campaign_id = record.campaign_id or campaign_id
+            scene_id = record.scene_id or scene_id
+            slot_id = record.slot_id or slot_id
+            turn_id = record.turn_id or turn_id
+            checkpoint_id = record.resume_checkpoint_id
+            turn_context = record.turn_context
+            carry_over = list(record.carry_over)
+
+    if contract_active and turn_context is None:
+        raw_turn_window = options.get("turn_window_minutes")
+        raw_tick_minutes = options.get("tick_minutes")
+        turn_context = TurnContext(
+            turn_mode=str(options.get("turn_mode", "")).strip() or "standard",
+            turn_window_minutes=(
+                int(raw_turn_window)
+                if isinstance(raw_turn_window, int) and raw_turn_window > 0
+                else TEXT_RPG_DEFAULT_TURN_WINDOW_MINUTES
+            ),
+            tick_minutes=(
+                int(raw_tick_minutes)
+                if isinstance(raw_tick_minutes, int) and raw_tick_minutes > 0
+                else None
+            ),
+            budget_class=str(options.get("budget_class", "")).strip() or None,
+        )
+
+    if contract_active and checkpoint_id is None:
+        checkpoint_id = turn_id
 
     return ChatResponse(
         content=content,
@@ -962,8 +1028,11 @@ def _build_contract_chat_response(
         slot_id=slot_id,
         turn_id=turn_id,
         session_status="active" if contract_active else None,
-        replay_checkpoint_id=turn_id,
+        resume_checkpoint_id=checkpoint_id,
+        replay_checkpoint_id=checkpoint_id,
         log_channels=list(TEXT_RPG_LOG_CHANNELS) if contract_active else None,
+        turn_context=turn_context,
+        carry_over=carry_over if contract_active else None,
     )
 
 

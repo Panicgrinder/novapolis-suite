@@ -114,6 +114,20 @@ def test_sim_session_persistence_writes_expected_artifacts(tmp_path: Path) -> No
                 slot_index=3,
                 turn_id="turn-0003",
                 seed=7,
+                turn_context=sim.TurnContext(
+                    turn_mode="dense",
+                    turn_window_minutes=30,
+                    tick_minutes=1,
+                    budget_class="slightly_over",
+                ),
+                carry_over=[
+                    sim.CarryOverItem(
+                        task_id="repair-valve",
+                        state="begonnen",
+                        resume_hint="Werkzeug liegt bereit",
+                        prepared_assets=["Werkzeug", "offener Zugang"],
+                    )
+                ],
                 world_log=[{"event": "world-step"}],
                 pc_log=[{"event": "pc-choice", "text": "Investigate D5"}],
                 state_patches=[
@@ -138,6 +152,9 @@ def test_sim_session_persistence_writes_expected_artifacts(tmp_path: Path) -> No
         assert record.session_status == "active"
         assert record.seed == 7
         assert record.log_channels == ["world", "pc", "ally", "sys"]
+        assert record.turn_context.turn_mode == "dense"
+        assert record.turn_context.tick_minutes == 1
+        assert record.carry_over[0].task_id == "repair-valve"
         assert record.world_log[0]["channel"] == "world"
         assert record.pc_log[0]["channel"] == "pc"
         assert record.state_patches[0].session_id == "campaign-alpha"
@@ -154,6 +171,20 @@ def test_sim_session_persistence_writes_expected_artifacts(tmp_path: Path) -> No
         assert savegame_payload["scene_id"] == "scene-d5"
         assert savegame_payload["slot_index"] == 3
         assert savegame_payload["seed"] == 7
+        assert savegame_payload["turn_context"] == {
+            "turn_mode": "dense",
+            "turn_window_minutes": 30,
+            "tick_minutes": 1,
+            "budget_class": "slightly_over",
+        }
+        assert savegame_payload["carry_over"] == [
+            {
+                "task_id": "repair-valve",
+                "state": "begonnen",
+                "resume_hint": "Werkzeug liegt bereit",
+                "prepared_assets": ["Werkzeug", "offener Zugang"],
+            }
+        ]
         assert savegame_payload["state_patches"] == [
             {
                 "patch_id": None,
@@ -178,6 +209,8 @@ def test_sim_session_persistence_writes_expected_artifacts(tmp_path: Path) -> No
         assert replay_payload["contract_version"] == "text_rpg_session_v1"
         assert replay_payload["session_status"] == "active"
         assert replay_payload["log_channels"] == ["world", "pc", "ally", "sys"]
+        assert replay_payload["turn_context"]["turn_mode"] == "dense"
+        assert replay_payload["carry_over"][0]["task_id"] == "repair-valve"
     finally:
         sim._SESSION_STORE_DIR = original_store_dir
 

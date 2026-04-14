@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:22
-update: Diese SSOT zieht den Folgepfad hinter slot 30 als gemeinsamen Handover fuer Root, RP, Agent und Sim auf denselben Namen und Vertragsrahmen.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-14 21:08
+update: Der Slice-2-Handover fuehrt jetzt auch den gemeinsamen Turn-, Carry-Over- und Resume-Rahmen hinter slot 30 explizit auf denselben Sessionvertrag.
+checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 Text-RPG Slice 2 Handover v1
@@ -34,7 +34,15 @@ Handover-Anker
 - `slot 30` bleibt der kanonische Abschluss- und Wiederanlaufpunkt des ersten belegten Produktpfads.
 - Der Handover nutzt denselben Sessionvertrag wie der erste Slice: `campaign_id`, `session_id`, `scene_id`, `slot_id`, `turn_id`, `state_patches`, `world_log`, `pc_log` und `replay_manifest.json` bleiben die verbindlichen Vertragsanker.
 - `resume_checkpoint_id` ist der operative Resume-Hebel fuer Sim- und Replay-Folgearbeit; er darf nicht als rein dekoratives Label behandelt werden.
+- Der Wiederanlauf hinter `slot 30` fuehrt denselben Turn-Rahmen weiter: aeusserer Turn bleibt `30 Minuten`, Verdichtung bleibt ein eingebettetes `1-Minuten`-Fenster innerhalb desselben `turn_id`, und Carry-Over bleibt ueber denselben Sessionvertrag lesbar.
 - Die belegten Anschlussraeume bleiben fuer diesen Handover auf `D5`, `C6`, `G7`, `E2` und `F1` beschraenkt, bis eine spaetere RP-SSOT weitere Raeume explizit freigibt.
+
+Resume- und Turn-Kontext
+------------------------
+
+- Ein Resume hinter `slot 30` ist nur dann sauber, wenn `resume_checkpoint_id`, `slot_id`, letzter abgeschlossener `turn_id` und die noch offenen Carry-Over-Arbeiten auf denselben Handover zeigen.
+- Ein Verdichtungsfenster darf im Replay als Untersegment erscheinen, aber keinen zweiten aeusseren Resume-Pfad neben dem Handover erzeugen.
+- Der erste Wiedereinstieg nach dem Handover muss dadurch sowohl fuer RP als auch fuer Sim lesbar machen, welche Arbeiten `begonnen`, `unterbrochen` oder `offen` in den Folgeblock getragen werden.
 
 Modulrollen
 -----------
@@ -59,6 +67,7 @@ Modulrollen
 
 - Der Hub muss `resume_checkpoint_id` und `replay_manifest` aus demselben Sessionvertrag fuer den Handover nutzbar machen.
 - Replay-/Resume-Bedienung darf keinen parallelen Artefaktpfad neben dem bestehenden Session-Store aufziehen.
+- Sim darf hinter `slot 30` keinen eigenen Turn- oder Tick-Hauptvertrag erfinden; Verdichtung bleibt auch hier Unterstruktur desselben Handover-Zugs.
 
 Artefakt- und Gate-Vertrag
 --------------------------
@@ -73,6 +82,7 @@ Guardrails
 - Kein zweiter Slice-2-Name neben `Text-RPG Slice 2 Handover v1`.
 - Keine freien neuen Stationen, Fraktionen, Crews oder Tiefennetzpfade fuer den Handover.
 - Kein neuer Replay- oder Resume-Pfad ausserhalb des bestehenden Sessionvertrags.
+- Kein Resume hinter `slot 30` ohne gemeinsamen Anker aus `slot_id`, `turn_id`, `resume_checkpoint_id` und lesbarem Carry-Over-Zustand.
 - Kein Gate-PASS hinter `slot 30`, der nur auf einzelnen Tests beruht, ohne den Resume- und Artefaktvertrag mitzudenken.
 
 Definition of Done

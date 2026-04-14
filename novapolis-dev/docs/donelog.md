@@ -1,6 +1,6 @@
 ---
-stand: 2026-04-14 16:27
-update: Dev-DONELOG dokumentiert jetzt den erweiterten Fragenkatalog und die umfangreiche Checkliste fuer den Sim-Spielaufbau vor RP-Integration.
+stand: 2026-04-14 21:08
+update: Dev-DONELOG dokumentiert jetzt die Uebernahme des Sim-vor-RP-Turnrahmens in Sessionvertrag, Product Gate, Slice-Handover und RP-Startanker.
 checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
@@ -18,6 +18,98 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Sim Integration: Turn-, Resume- und Startanker in Bestandsdaten uebernommen (2026-04-14 20:42)
+-----------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md` fuehrt den Sim-vor-RP-Rahmen jetzt explizit ueber denselben Vertrag: aeusserer `30`-Minuten-Turn, eingebettete `1`-Minuten-Verdichtung, verpflichtender `resume_checkpoint_id` und Carry-Over als Teil desselben Session-, Log- und Replay-Blocks.
+- `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` und `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` pruefen bzw. fuehren denselben Turn-, Resume- und Replay-Rahmen jetzt explizit hinter dem bestehenden Slice, statt Sim dafuer einen Parallelpfad zu erlauben.
+- `novapolis-dev/docs/process/rp-start-chooser.ssot.md` und `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md` binden Neueinstiege jetzt explizit an `slot_00`, belegte Startgebiete und denselben Sessionvertrag; freie Sim-Vorstarts ausserhalb der RP-Produktanker sind damit dokumentarisch ausgeschlossen.
+- Verifikation im selben Lauf: markdownlint, Frontmatter-Check und TODO-Index-Sync laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Ideensammlung gegen bestehende Bestandsdaten abgegrenzt (2026-04-14 20:32)
+----------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` markiert den aktuellen Stand jetzt explizit als Ideensammlung statt als neue direkte Bestandsdatenquelle. Der naechste Schritt ist dort als Pflicht zur Einbindung in die bereits aktiven Zielquellen `text-rpg-session-contract-v1.md`, `text-rpg-product-gate-v1.ssot.md`, `text-rpg-slice-2-handover-v1.ssot.md`, RP-Start-/Folgekorridor-SSOTs sowie die belegten Runtime-Pfade festgezogen.
+- Damit ist klargestellt, dass Turn-, Tick-, Replay- und Startlogik aus der Sim-SSOT erst nach sauberer Uebernahme in bestehende Vertrags-, Gate-, Handover- und RP-Bestandsdokumente als operativer Bestand gelten und nicht als parallele Wahrheit in der Ideensammlung verbleiben sollen.
+- Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Mechanik-Gates, Replay-Grenzen und Blockade-Alternativpfad nachgezogen (2026-04-14 20:22)
+-------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt jetzt eine messbare Pruefmatrix fuer die bestehenden Mechanik-Akzeptanzkriterien, damit Standardturn, Fragmentierung, Bestaetigungspflicht, harte Blockade, Verdichtungswechsel, Carry-Over und Sessionvertragsabbildung nicht nur als Zielbild, sondern als pruefbare Gate-Faelle vorliegen.
+- Zusaetzlich sind dort die Replay-/Checkpoint-Grenzen fuer Verdichtungsfenster explizit dokumentiert, die UI-Verankerung des Turn-Feedbacks auf Stage-, Interaktions- und Ops-Flaeche festgezogen und ein dritter Referenzfall fuer `harte Blockade -> vorbereitende Teilhandlung -> aufgeloester Folgeturn-Anker` als kompletter Beleglauf eingefuegt.
+- Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Referenzturns fuer Normalmodus und Verdichtung simuliert (2026-04-14 19:45)
+-------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt jetzt zwei komplette mechanische Beispielturns: einen normalen 30-Minuten-Turn mit fragmentierter Druckprobe und einen Turn, der mitten in einen verdichteten sozialen Konflikt kippt und sauber wieder in den normalen Turn zurueckkehrt.
+- Die beiden Referenzfaelle zeigen nicht nur Regeln, sondern den gesamten Ablauf aus Lagebild, Spielerplan, Bewertung, Systemausgabe, Ausspielung, Carry-Over und Mindestfeedback. Damit ist die SSOT jetzt auch als Beleg nutzbar, dass die Mechanik praktisch lesbar bleibt.
+- Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Review-Luecken in SSOT geschlossen (2026-04-14 19:41)
+-------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt jetzt ein explizites Zustandsmodell fuer den Lauf zwischen Briefing, Planung, Budgetpruefung, Bestaetigung, Ausspielung, Verdichtung, Aufloesung und Resume-Bereitschaft. Dadurch ist die Turn-Mechanik nicht mehr nur in Regeln, sondern auch in erlaubten Uebergaengen beschrieben.
+- Zusaetzlich sind dort neue Mechanik-Akzeptanzkriterien, ein Turn-Feedback-Mindestset und das Mapping der internen Turn- und Tick-Mechanik auf den bestehenden Sessionvertrag dokumentiert; dabei wurde zugleich die inkonsistente Ueberschrift `Tick-Referenzschema` im Turn-Schema bereinigt.
+- Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Spieler-Ausgaberegeln fuer Turn-Mechanik in SSOT verankert (2026-04-14 19:27)
+-----------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt jetzt eine eigene Regelschicht fuer die Ausgabe an den Spieler: klare Budgethinweise, sichtbare Fragmentierung, konkrete Blockade-Sprache und markierte Verdichtungswechsel.
+- Zusaetzlich liegen dort Referenzformulierungen fuer `innerhalb des Rahmens`, `knapp drueber`, `deutlich drueber`, harte Blockade sowie Ein- und Austritt aus dem Verdichtungsmodus, damit die interne Mechanik spaeter nicht beliebig nach aussen formuliert wird.
+- Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Prioritaetslogik und Blockade-Regeln in SSOT verankert (2026-04-14 19:21)
+-------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` trennt jetzt explizit die Reihenfolge `harte Blockade -> Verdichtungsbedarf -> Minutenmodifikatoren -> Sequenzverlust`, damit die Zeitableitung nicht mit unmittelbarer Reaktionslogik oder Unmoeglichkeitsfaellen vermischt wird.
+- Zusaetzlich sind dort feste Eskalationsregeln fuer den Wechsel in den Verdichtungsmodus und konkrete Blockade-Klassen wie koerperlich, werkzeugseitig, zugangsseitig, wissensseitig und sozial unmoeglich dokumentiert.
+- Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Modifikator-Matrix und Tick-Schema in SSOT nachgezogen (2026-04-14 19:16)
+-----------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt jetzt feste Zeitmodifikatoren fuer Zustand der Figur, Umgebung und Druck, Hilfsmittel, Unterstuetzung sowie Vertrautheit und Routine. Die Zeitableitung hat damit erstmals konkrete Zu- und Abschlaege statt nur Kategorien.
+- Zusaetzlich liegt dort nun ein technisches Tick-Schema fuer den Verdichtungsmodus mit `tick_context`, `perception`, `decision_window`, `resolution` und `carry_tick_state`; zugleich ist der Tick fest auf `1 Minute` normiert.
+- Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Zeitbasis auf 30-Minuten-Turn umgestellt (2026-04-14 19:14)
+----------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt den Normalmodus jetzt mit `1 Turn = 30 Minuten` statt `1 Turn = 1 Stunde`; dazu sind Zeitklassen, Referenz-Grundwerte, Budgetschwellen und das technische Antwortschema auf denselben Rahmen nachgezogen.
+- Der Verdichtungsmodus bleibt bei `1 Tick = 1 Minute`, arbeitet dadurch jetzt im Regelfall mit bis zu `30 Ticks` pro Turn und fuehrt Restzeit nach dem Ruecksprung in einen 30-Minuten-Kontext zurueck.
+- Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Referenz-Grundwerte und Turn-Schema in SSOT nachgezogen (2026-04-14 19:06)
+------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt jetzt eine erste Referenz-Grundwerttabelle fuer Standardhandlungen, damit die Zeitableitung auf wiederholbaren Minutenwerten statt nur auf Klassen und Modifikatoren aufbaut.
+- Zusaetzlich liegt dort nun ein technisches Antwortschema fuer `plan_analysis`, `budget_decision`, `execution_result`, `carry_over` und `time_state`, inklusive Referenz-JSON und festen Semantikregeln fuer Klassifikation, Fragmentierung und Wiederaufnahme.
+- Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Stunden-Turn als belastbare Mechanik geschaerft (2026-04-14 18:49)
+-------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt den Stunden-Turn jetzt nicht mehr nur als Erzaehlrahmen, sondern als abgeleitete Mechanik: atomare Schrittzerlegung, feste Grundwerte, Pflicht-Modifikatoren und Sequenzverlust mit Uebergangsaufschlag.
+- Zusaetzlich sind klare Budgetschwellen dokumentiert (`<= 60`, `60 bis 75`, `75 bis 120`, `> 120` oder logisch unmoeglich), dazu die Persistenzzustaende `begonnen`, `unterbrochen`, `offen` samt konkreter Zustandsfelder fuer Wiederaufnahme und Fragmentierung.
+- Die Verdichtungsregel fuehrt jetzt explizite Trigger, Tick-Logik und Ruecksprung in den Stundenkontext; Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Turn-Modell, Zeitmodell und Verdichtungsregel in SSOT konsolidiert (2026-04-14 18:11)
+----------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt jetzt den bisher besprochenen Spielaufbau als zusammenhaengenden Zwischenstand: gefuehrter Spielstart, Operator-im-Hub/Spieler-im-Spiel, Stunden-Turn als Standard, Budgetpruefung mit Ruecksprung oder Bestaetigung, dokumentierbare Grundwerte fuer Zeitschaetzung sowie die Trennung zwischen Sofort- und Spaetfolgen.
+- Zusaetzlich ist dort jetzt eine vorlaeufige Verdichtungsregel dokumentiert: Bei direkten NPC-Interaktionen kann der Stunden-Turn in bis zu 60 Ticks zerlegt werden, damit soziale oder konfliktnahe Situationen nicht unplausibel grob aufgeloest werden.
+- Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
+
+Sim Planung: Erste Festlegungsrunde zum Spielaufbau in SSOT uebernommen (2026-04-14 17:09)
+--------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt jetzt die erste beantwortete Entscheidungsrunde als feste Vorfestlegung: Charaktererstellung in den ersten 5 bis 10 Minuten, Hauptmenue als heruntergekommener U-Bahn-Ticketschalter, Erzaehler-KI als Eintrittsschwelle, klare Trennung Operator im Hub versus Spieler im eigentlichen Spiel und Turn als kleinste spielbare Einheit.
+- Zusaetzlich ist dort jetzt eine sachliche Einordnung des aktuellen Planungsstands dokumentiert, inklusive der offenen Risiken bei Balancing der Eingabemodi und beim Spannungsfeld zwischen realitaetsnahem Fortschritt und kurzfristig sichtbarem Feedback.
+- Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS; der anschliessende Projekt-Scan fuer Turn-/Spielzug-Anker wird im Antworttext mit konkreten Evidenzstellen zusammengefasst.
 
 Sim Planung: Fragenkatalog und Spielaufbau-Checkliste vor RP-Integration erweitert (2026-04-14 16:16)
 ------------------------------------------------------------------------------------------------------

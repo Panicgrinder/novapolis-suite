@@ -947,8 +947,13 @@ async def test_process_chat_request_injects_orchestrator_context(
         assert result.slot_id == "slot-03"
         assert result.turn_id == "turn-2"
         assert result.session_status == "active"
+        assert result.resume_checkpoint_id == "turn-2"
         assert result.replay_checkpoint_id == "turn-2"
         assert result.log_channels == ["world", "pc", "ally", "sys"]
+        assert result.turn_context is not None
+        assert result.turn_context.turn_mode == "standard"
+        assert result.turn_context.turn_window_minutes == 30
+        assert result.carry_over == []
         assert client.last_payload is not None
         contents = [message["content"] for message in client.last_payload["messages"]]
         orchestrator_messages = [
@@ -977,6 +982,7 @@ async def test_process_chat_request_injects_orchestrator_context(
         stored = sim.load_session_record("sess-3")
         assert stored is not None
         assert stored.turn_id == "turn-2"
+        assert stored.turn_context.turn_window_minutes == 30
         assert stored.pc_log[-1]["content"].startswith("Szene: Die Schleuse")
         assert stored.state_patches[-2].path == "mission.materiallauf.progress"
         assert stored.state_patches[-1].value == "Scannerkarte bleibt als Anschlussanker markiert"

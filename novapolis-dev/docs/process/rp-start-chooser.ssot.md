@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
-update: Der Start-Chooser fuehrt jetzt mit `E2` und `F1` sieben konkrete fraktionslose/neutralnahe Full-Slice-Starts.
-checks: snapshot-lock PASS (2026-04-05 19:33); markdownlint PASS; frontmatter PASS
+stand: 2026-04-14 21:08
+update: Der Start-Chooser bindet Startoptionen jetzt explizit an Sessionvertrag, Slot-00-Startanker und belegte Welt-/Gebietsquellen statt an freie Sim-Vorstarts.
+checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 RP Start-Chooser SSOT
@@ -23,6 +23,7 @@ Quellenbasis
 - `novapolis-rp/database-rp/00-admin/Metrokarte-T0.md`
 - `novapolis-rp/database-rp/04-inventory/Freie-Gruppen-inventar.md`
 - `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`
+- `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md`
 - `novapolis-dev/docs/process/rp-startbogen-novapolis-d5.ssot.md`
 - `novapolis-dev/docs/process/rp-startbogen-novapolis-c6.ssot.md`
 - `novapolis-dev/docs/process/rp-startbogen-arkologie-a1.ssot.md`
@@ -145,6 +146,14 @@ Produktregeln fuer die Auswahl
 3. Ein `framing_start` darf keine Scheintiefe vortaeuschen.
 4. Ein `factionless_start` muss auf `Freie Gruppen` oder einen gleichwertigen fraktionslosen SSOT-Anker zeigen.
 5. Gebietswahl bleibt an reale Kontroll- und Topologie-SSOTs gebunden.
+
+Vertragsanker fuer Sim-Voraufbau
+--------------------------------
+
+- Der Start-Chooser ist nur die Freigabeschicht fuer kanonische RP-Startanker; er ist kein freier Sprunggenerator in beliebige spaetere Slots oder Weltbereiche.
+- Jeder freigegebene Start muss auf denselben Sessionvertrag zeigen und deshalb mindestens mit `campaign_id`, `scene_id`, `slot_id` und belegtem Startgebiet verknuepfbar sein.
+- Produktive Neueinstiege fuer den Sim-vor-RP-Pfad starten auf den RP-Ankern des Startpakets bei `slot_00`; spaetere Resume-Einstiege hinter `slot 30` laufen ueber den Slice-2-Handover und nicht ueber den Start-Chooser.
+- Die Weltbindung des Starts bleibt auf die durch Startbogen, Reveal-Matrix und Topologie belegten Gebiete beschraenkt; der Chooser darf keine freie Parallelkontinuitaet zu nicht belegten Raeumen erzeugen.
 
 Freigegebene Startkandidaten 2026-04-05
 ---------------------------------------

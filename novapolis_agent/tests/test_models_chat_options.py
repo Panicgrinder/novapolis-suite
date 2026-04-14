@@ -2,7 +2,14 @@ from __future__ import annotations
 
 from typing import Any, cast
 
-from app.api.models import TEXT_RPG_SESSION_CONTRACT_VERSION, ChatOptions, ChatRequest, ChatResponse
+from app.api.models import (
+    TEXT_RPG_SESSION_CONTRACT_VERSION,
+    CarryOverItem,
+    ChatOptions,
+    ChatRequest,
+    ChatResponse,
+    TurnContext,
+)
 
 
 def test_chat_options_schema_accepts_and_dumps() -> None:
@@ -19,6 +26,17 @@ def test_chat_options_schema_accepts_and_dumps() -> None:
         hidden_context="Verdeckt",
         scheduler_hints=["folge dem Pfad"],
         state_patch_hints=["mission.progress +1"],
+        turn_mode="dense",
+        turn_window_minutes=30,
+        tick_minutes=1,
+        budget_class="slightly_over",
+        carry_over=[
+            CarryOverItem(
+                task_id="task-1",
+                state="begonnen",
+                resume_hint="Werkzeug liegt bereit",
+            )
+        ],
         temperature=0.7,
         top_p=0.9,
         num_ctx=2048,
@@ -40,6 +58,11 @@ def test_chat_options_schema_accepts_and_dumps() -> None:
     assert o["hidden_context"] == "Verdeckt"
     assert o["scheduler_hints"] == ["folge dem Pfad"]
     assert o["state_patch_hints"] == ["mission.progress +1"]
+    assert o["turn_mode"] == "dense"
+    assert o["turn_window_minutes"] == 30
+    assert o["tick_minutes"] == 1
+    assert o["budget_class"] == "slightly_over"
+    assert o["carry_over"][0]["task_id"] == "task-1"
     assert o["temperature"] == 0.7
     assert o["num_ctx"] == 2048
     assert o["stop"] == ["\n\n", "<END>"]
@@ -78,8 +101,17 @@ def test_chat_response_contract_fields_dump_cleanly() -> None:
         slot_id="slot-02",
         turn_id="turn-0002",
         session_status="active",
+        resume_checkpoint_id="rcp-slot-02-turn-0002",
         replay_checkpoint_id="turn-0002",
         log_channels=["world", "pc", "ally", "sys"],
+        turn_context=TurnContext(turn_mode="standard", turn_window_minutes=30),
+        carry_over=[
+            CarryOverItem(
+                task_id="task-2",
+                state="offen",
+                resume_hint="noch nicht begonnen",
+            )
+        ],
     )
 
     dumped = response.model_dump()
@@ -87,3 +119,6 @@ def test_chat_response_contract_fields_dump_cleanly() -> None:
     assert dumped["session_id"] == "sess-1"
     assert dumped["slot_id"] == "slot-02"
     assert dumped["session_status"] == "active"
+    assert dumped["resume_checkpoint_id"] == "rcp-slot-02-turn-0002"
+    assert dumped["turn_context"]["turn_window_minutes"] == 30
+    assert dumped["carry_over"][0]["task_id"] == "task-2"

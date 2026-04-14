@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 11:46
-update: Das RP-Arbeitsblatt verweist jetzt fuer den naechsten Ausbau auf den Anschluss hinter `slot 30` statt erneut auf `slot 26-30`.
-checks: snapshot-lock PASS (2026-04-07 11:46); markdownlint PASS; frontmatter PASS
+stand: 2026-04-14 21:08
+update: Das Startpaket fuehrt jetzt den verbindlichen Slot-00-Startanker und die belegte Weltbindung fuer den Sim-vor-RP-Einstieg auf denselben Sessionvertrag.
+checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 RP-Produktpfad: Spielstartpaket und Slot-00-05-Korridor
@@ -38,6 +38,15 @@ Evidenzbasis (harte Anker)
 - Freie-Gruppen-Anker fuer fraktionslose Starts: `novapolis-rp/database-rp/04-inventory/Freie-Gruppen-inventar.md`
 - Externe Fraktions- und Ortsanker fuer Bereichsstarts: `G7.md`, `H12.md`, `A1.md`, `B2.md`, `F9.md`, `K4.md`
 - Start-Chooser und konkrete Startboegen: `novapolis-dev/docs/process/rp-start-chooser.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-novapolis-d5.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-novapolis-c6.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-arkologie-a1.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-schienenbund-b2.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-eisenkonklave-h12.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-schattenbund-f9.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-fluesterkollektiv-k4.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-freie-gruppen-a2.ssot.md`, `novapolis-dev/docs/process/rp-startbogen-haendlerbund-g7.ssot.md`
+
+Vertrags- und Weltanker fuer den Sim-vor-RP-Start
+-------------------------------------------------
+
+- Dieses Startpaket ist die aktive RP-Zielquelle fuer produktive Neueinstiege bei `slot_00` bis `slot_05`.
+- Der Sim-vor-RP-Einstieg darf deshalb keine freie Vorszene ausserhalb dieses Korridors aufziehen, sondern muss denselben Sessionvertrag mit `campaign_id`, `session_id`, `scene_id`, `slot_id` und `turn_id` auf diese Startanker legen.
+- Der Default-Start bleibt weltseitig bei den belegten Novapolis-Kernraeumen `D5` und `C6`; weitere Startgebiete duerfen nur ueber ihren belegten Startbogen und den Start-Chooser an denselben Vertragsrahmen angeschlossen werden.
+- `slot_00` ist der kanonische Neueinstiegsanker; spaetere Resume- oder Folgepfade werden nicht aus diesem Startpaket erfunden, sondern ueber die jeweiligen Folgekorridor- oder Handover-SSOTs fortgesetzt.
+- Der Weltbezug des Startpakets bleibt dadurch auf die hier belegten Orts-, Projekt-, Reveal- und Charakterquellen beschraenkt; freie Sim-Startwelten ohne RP-Anker sind ausgeschlossen.
 
 Startpaket v0 (belegt/offen getrennt)
 -------------------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:22
-update: Das Product Gate verankert den Folgepfad hinter slot 30 jetzt explizit ueber die gemeinsame SSOT `Text-RPG Slice 2 Handover v1`.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-14 21:08
+update: Das Product Gate prueft jetzt zusaetzlich den gemeinsamen Turn-, Resume- und Replay-Rahmen fuer Sim-vor-RP gegen Sessionvertrag und Slice-2-Handover.
+checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 Text-RPG Product Gate v1
@@ -85,6 +85,7 @@ Gate-Stufen
 
 - Der Sessionvertrag v1 ist die kanonische Quelle fuer Session-, Slot- und Patchrahmen.
 - Hard Fail bei Drift zwischen Runbook, spaeteren API-Modellen und dem vertraglich benoetigten Kernset aus `campaign_id`, `session_id`, `scene_id`, `slot_id`, `turn_id`, `options`, `state_patches`.
+- Hard Fail ebenfalls, wenn der operative Lauf den jetzt kanonischen Turn-Rahmen (`turn_window_minutes=30`, optionales Verdichtungsfenster mit `tick_minutes=1`, `resume_checkpoint_id`, `carry_over`) nicht auf denselben Vertragsblock legt.
 
 ### Stufe 3 - Agent-API- und Streaming-Smoke
 
@@ -95,12 +96,14 @@ Gate-Stufen
 
 - Die feste Referenz-Session muss `world_log`, `pc_log`, `state_patches`, `savegame.json` und `replay_manifest.json` fuer denselben Slice deterministisch erzeugen und verifizieren.
 - Hard Fail bei fehlenden Artefakten, ungueltigen `state_patches`, Slot-Mismatch zwischen Logs oder Replay-Widerspruechen.
+- Hard Fail ebenfalls, wenn `resume_checkpoint_id`, letzter stabiler `turn_id`, `slot_id` oder eingebettete Verdichtungssegmente desselben Turns zwischen Savegame, Logs und Replay auseinanderlaufen.
 - Produktive Chat-Laeufe duerfen spaeter weitere Artefakte erzeugen, muessen aber denselben Vertrags- und Dateirahmen halten wie die Referenz-Session.
 
 ### Stufe 5 - Sim-Anschluss
 
 - Der Sim-Pfad muss mindestens denselben Slice als Smoke sichtbar pruefen koennen.
 - Hard Fail bei ungueltigen Slotwerten, nicht lesbaren Epoch-Dateien oder Artefakten ausserhalb des vertraglichen Session-/Slot-Rahmens.
+- Hard Fail ebenfalls, wenn Sim fuer denselben Lauf einen parallelen Turn- oder Resume-Pfad fuehrt statt `slot_id`, `turn_id`, `resume_checkpoint_id` und denselben RP-Startanker aus Sessionvertrag und RP-Produkt-SSOT zu nutzen.
 
 ### Stufe 6 - GM-Session-Eval und KPI-Triage
 
@@ -116,6 +119,7 @@ Gate-Erfolg
 - RP-Pfad, Sessionvertrag und Runbook denselben Slice beschreiben,
 - die aktuelle Agent-API-/Streaming-Pruefung gruen ist,
 - die feste Referenz-Session fuer denselben Slice Artefakte und Replay-Vertrag gruen bestaetigt,
+- der gemeinsame Turn-, Verdichtungs- und Resume-Rahmen zwischen Sessionvertrag, Replay und Sim nicht driftet,
 - der Sim-Asset-/Epoch-Pfad fuer denselben Slice nicht widerspricht,
 - der `gm_session`-Eval-Lauf eine Ergebnisdatei fuer denselben Gate-Lauf erzeugt,
 - und die KPI-Summary auf genau diese Resultatdatei verweist.

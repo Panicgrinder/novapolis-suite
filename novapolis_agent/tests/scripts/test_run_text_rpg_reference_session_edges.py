@@ -83,6 +83,8 @@ def test_validate_expected_reports_mismatches_and_missing_artifacts(tmp_path: Pa
         "slot_index": 1,
         "turn_id": "turn-0001",
         "resume_checkpoint_id": "turn-0001",
+        "turn_context": {"turn_mode": "standard", "turn_window_minutes": 30},
+        "carry_over_count": 0,
         "checkpoints": ["turn-0001"],
         "world_log_count": 1,
         "pc_log_count": 1,
@@ -99,6 +101,7 @@ def test_validate_expected_reports_mismatches_and_missing_artifacts(tmp_path: Pa
     expected = {
         "scene_id": "scene-b",
         "slot_id": "slot-02",
+        "carry_over_count": 2,
         "world_log_count": 2,
     }
 
@@ -106,6 +109,7 @@ def test_validate_expected_reports_mismatches_and_missing_artifacts(tmp_path: Pa
 
     assert "expected scene_id='scene-b' but got 'scene-a'" in errors
     assert "expected slot_id='slot-02' but got 'slot-01'" in errors
+    assert "expected carry_over_count=2 but got 0" in errors
     assert "expected world_log_count=2 but got 1" in errors
     assert "missing artifact: savegame" in errors
     assert "missing artifact: world_log" in errors
@@ -131,6 +135,8 @@ def test_build_markdown_renders_artifact_entries_and_error_block() -> None:
             "slot_index": 1,
             "turn_id": "turn-0001",
             "resume_checkpoint_id": "turn-0001",
+            "turn_context": {"turn_mode": "standard", "turn_window_minutes": 30},
+            "carry_over_count": 0,
             "world_log_count": 1,
             "pc_log_count": 1,
             "state_patch_count": 1,

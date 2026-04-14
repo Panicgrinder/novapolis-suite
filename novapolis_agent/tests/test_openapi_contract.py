@@ -36,8 +36,11 @@ def test_openapi_includes_chat_and_tts_contract_paths() -> None:
         "slot_id",
         "turn_id",
         "session_status",
+        "resume_checkpoint_id",
         "replay_checkpoint_id",
         "log_channels",
+        "turn_context",
+        "carry_over",
     ]:
         assert field_name in chat_response_schema["properties"]
 

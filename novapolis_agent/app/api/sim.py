@@ -12,7 +12,13 @@ from typing import Any, cast
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
-from .models import TEXT_RPG_LOG_CHANNELS, TEXT_RPG_SESSION_CONTRACT_VERSION
+from .models import (
+    TEXT_RPG_DEFAULT_TURN_WINDOW_MINUTES,
+    TEXT_RPG_LOG_CHANNELS,
+    TEXT_RPG_SESSION_CONTRACT_VERSION,
+    CarryOverItem,
+    TurnContext,
+)
 
 
 def _empty_events() -> list[dict[str, Any]]:
@@ -83,6 +89,14 @@ def _empty_state_patches() -> list[StatePatchRecord]:
     return []
 
 
+def _empty_carry_over() -> list[CarryOverItem]:
+    return []
+
+
+def _default_turn_context() -> TurnContext:
+    return TurnContext(turn_window_minutes=TEXT_RPG_DEFAULT_TURN_WINDOW_MINUTES)
+
+
 class SessionUpsertRequest(BaseModel):
     contract_version: str = TEXT_RPG_SESSION_CONTRACT_VERSION
     session_status: str = "active"
@@ -92,6 +106,8 @@ class SessionUpsertRequest(BaseModel):
     slot_index: int | None = Field(default=None, ge=0, le=23)
     turn_id: str | None = None
     seed: int | None = None
+    turn_context: TurnContext | None = None
+    carry_over: list[CarryOverItem] | None = None
     world_state: WorldState | None = None
     state_patches: list[StatePatchRecord] = Field(default_factory=_empty_state_patches)
     world_log: list[dict[str, Any]] = Field(default_factory=_empty_events)
@@ -114,6 +130,8 @@ class SessionRecord(BaseModel):
     checkpoints: list[str] = Field(default_factory=_empty_strings)
     log_channels: list[str] = Field(default_factory=_default_log_channels)
     artifact_paths: dict[str, str] = Field(default_factory=_empty_dict)
+    turn_context: TurnContext = Field(default_factory=_default_turn_context)
+    carry_over: list[CarryOverItem] = Field(default_factory=_empty_carry_over)
     world_state: WorldState
     state_patches: list[StatePatchRecord] = Field(default_factory=_empty_state_patches)
     world_log: list[dict[str, Any]] = Field(default_factory=_empty_events)
@@ -134,6 +152,8 @@ class ReplayManifest(BaseModel):
     checkpoints: list[str] = Field(default_factory=_empty_strings)
     log_channels: list[str] = Field(default_factory=_default_log_channels)
     artifact_paths: dict[str, str] = Field(default_factory=_empty_dict)
+    turn_context: TurnContext = Field(default_factory=_default_turn_context)
+    carry_over: list[CarryOverItem] = Field(default_factory=_empty_carry_over)
     world_event_count: int = 0
     pc_event_count: int = 0
     state_patch_count: int = 0
@@ -389,6 +409,8 @@ def _build_replay_manifest(record: SessionRecord) -> ReplayManifest:
         checkpoints=list(record.checkpoints),
         log_channels=list(record.log_channels),
         artifact_paths=dict(record.artifact_paths),
+        turn_context=record.turn_context,
+        carry_over=list(record.carry_over),
         world_event_count=len(record.world_log),
         pc_event_count=len(record.pc_log),
         state_patch_count=len(record.state_patches),
@@ -511,6 +533,10 @@ def upsert_session(session_id: str, request: SessionUpsertRequest) -> SessionRec
             record.turn_id = request.turn_id
         if request.seed is not None:
             record.seed = request.seed
+        if request.turn_context is not None:
+            record.turn_context = request.turn_context
+        if request.carry_over is not None:
+            record.carry_over = list(request.carry_over)
 
         if request.world_state is not None:
             record.world_state = request.world_state
