@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:22
-update: Das Agent-Board fuehrt jetzt die naechste Coverage-Welle fuer verbleibende Produktpfad-Module unter 95 Prozent.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-14 12:25
+update: Die offene Agent-Coverage-Welle fuer chat_helpers, main und tts/providers ist jetzt geschlossen und gegen den kanonischen Wrapper verifiziert.
+checks: snapshot-lock 2026-04-14 12:25; focused coverage PASS (chat_helpers=100, main=98, providers=96); scripts/run_pytest_coverage.py --fail-under 80 PASS (615 passed, total=94.92%)
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -25,7 +25,7 @@ Prioritaetstags (aktiv)
 Neue Aufgaben - Coverage-Haertung (2026-04-09)
 ----------------------------------------------
 
-- [ ] [Als naechstes] Naechste Coverage-Welle fuer den aktiven Produktpfad auf `chat_helpers`, `main` und `tts/providers` ziehen.
+- [x] [Als naechstes] Naechste Coverage-Welle fuer den aktiven Produktpfad auf `chat_helpers`, `main` und `tts/providers` ziehen.
   - Ziel: Nach dem geschlossenen Fuenferblock sollen die verbleibenden produktnahen Laufzeitmodule unter `95%` nicht als unsichtbarer Rest im Sammelreport bleiben, sondern gezielt ueber echte Fehler-, Fallback- und Providerpfade nachgezogen werden.
   - Akzeptanzkriterien:
     1) `novapolis_agent/app/api/chat_helpers.py`, `novapolis_agent/app/main.py` und `novapolis_agent/app/tts/providers.py` steigen in der fokussierten Nachmessung jeweils auf mindestens `95%`,
@@ -33,6 +33,8 @@ Neue Aufgaben - Coverage-Haertung (2026-04-09)
     3) der kanonische Coverage-Wrapper `scripts/run_pytest_coverage.py --fail-under 80` bleibt gruen,
     4) der Produktpfad `/chat`, `/session` und `/tts/synthesize` behaelt denselben API-Vertrag ohne Parallelimplementierungen.
   - Evidenz: `.tmp/results/reports/pytest_coverage_postflight_20260409_232603.md` meldet aktuell `89%` fuer `app/api/chat_helpers.py`, `90%` fuer `app/main.py` und `87%` fuer `app/tts/providers.py` bei insgesamt weiter gruener Gesamtquote.
+  - Arbeitsstand 2026-04-14 11:06: Der Restscope ist vor dem naechsten Fixlauf auf konkrete Zweige eingegrenzt. In `app/api/chat_helpers.py` fehlen vor allem Coercion-/Clamp-Pfade in `normalize_ollama_options()`, in `app/main.py` ungetestete Cache- und Cleanup-Aeste (`_tts_cache_cleanup_unlocked()`, `_tts_cache_get()`, `_tts_cache_put()`), und in `app/tts/providers.py` verbleiben vor allem Platzhalter-/Fallback-Zweige bei `NullTtsProvider`, `AdapterScaffoldProvider`, Coqui-Decodefehlern sowie dem sessionlosen Artefaktpfad.
+  - Ergebnis 2026-04-14 11:15: Der Punkt ist jetzt ueber minimale Testergaenzungen geschlossen. Neue Edge-Tests decken in `tests/test_chat_helpers_edges.py` die restlichen Coercion-/Omit-Pfade von `normalize_ollama_options()`, in `tests/test_main_internal_edges.py` Cache-Hit-/Snapshot-/Hash-Pfade und in `tests/test_tts_provider_edges.py` Platzhalter-Provider plus sessionloses bzw. sanitisiertes Artefaktlayout ab. Der breite Fokuslauf bestaetigt `app/api/chat_helpers.py = 100%`, `app/main.py = 98%`, `app/tts/providers.py = 96%`; der kanonische Wrapper `scripts/run_pytest_coverage.py --fail-under 80` bleibt mit `615 passed` und `Total coverage: 94.92%` PASS.
 
 - [x] [Jetzt] Fuenf Low-Coverage-Module testseitig auf echte Vollabdeckung ziehen.
   - Ziel: Die aktuell groessten Abdeckungsluecken im produktnahen Agent-Scope sollen nicht ueber globale Quoten versteckt, sondern mit belastbaren Unit- und Fehlerpfadtests geschlossen werden.

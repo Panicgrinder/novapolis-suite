@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:36
-update: Dev-DONELOG dokumentiert jetzt den sichtbaren Terminal-Heartbeat fuer lange Testlaeufe im lokalen Wrapper-Pfad.
-checks: scoped validation PASS; ruff=PASS; black=PASS; pytest=PASS; snapshot-lock 2026-04-10 13:36
+stand: 2026-04-14 12:25
+update: Dev-DONELOG dokumentiert jetzt den geschlossenen Replay-/Resume-Pfad im Sim-Hub samt Verifikation.
+checks: snapshot-lock 2026-04-14 12:25; get_errors PASS (Main.gd, Main.tscn); verify_sim.gd headless EXITCODE=0; pytest sim replay/session PASS (EXITCODE=0)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,41 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Sim Replay/Resume: Hub nutzt jetzt den bestehenden Replay-Vertrag sichtbar und bedienbar (2026-04-14 12:21)
+----------------------------------------------------------------------------------------------------
+
+- Der letzte offene Sim-Bedienpfad ist jetzt produktiv im Hub verankert, ohne einen zweiten Replay-Kanal neben dem bestehenden Sessionvertrag einzufuehren.
+- `novapolis-sim/Main.tscn` fuehrt dafuer einen eigenen `HubReplayPanel`-Block mit Checkpoint-Auswahl sowie `Replay Sync`- und `Resume-Anker`-Buttons; `novapolis-sim/scripts/Main.gd` laedt neben dem Session-Snapshot jetzt auch explizit `GET /session/{session_id}/replay`, zeigt Manifestzaehler und Pfade an und wendet den ausgewaehlten Resume-Anker auf Slot- und Logansicht an.
+- Die statische Pruefung bleibt gruen (`get_errors` fuer `Main.gd` und `Main.tscn` ohne Befund), der kanonische Godot-Verifier endet mit `EXITCODE=0`, und der gezielte Session-/Replay-Testscope `novapolis_agent/tests/test_api_sim_state.py` plus `novapolis_agent/tests/tests_sim_api.py` endet ebenfalls mit `EXITCODE=0`. Das Sim-Board steht damit jetzt bei `offen: 0`.
+
+Sim Replay/Resume: Client-Luecke vor dem Fixlauf konkret eingegrenzt (2026-04-14 12:09)
+-------------------------------------------------------------------------------
+
+- Der noch offene Sim-Punkt ist jetzt auf eine konkrete Client-Luecke eingegrenzt statt auf einen diffusen Folgewunsch.
+- `novapolis_agent/app/api/sim.py` stellt den benoetigten Vertrag bereits bereit: `GET /session/{session_id}` liefert den aktuellen Sessionstand, `GET /session/{session_id}/replay` den Replay-Manifestpfad inklusive `resume_checkpoint_id`, `checkpoints`, `artifact_paths` und Event-Zaehlern.
+- `novapolis-sim/scripts/Main.gd` ruft derzeit nur `_request_live_session_state()` und zeigt `resume_checkpoint_id` lediglich ueber `rp_replay_seed_label`; genau diese fehlende Client-Nutzung des bestehenden Replay-Endpunkts wird im naechsten Schritt geschlossen.
+
+Sim UI: Hub-Reset jetzt lokal mit Godot 4.6.1 verifiziert (2026-04-14 12:03)
+-----------------------------------------------------------------------------
+
+- Der Sim-Hub ist auf User-Anforderung sichtbar neu aufgesetzt. `novapolis-sim/Main.tscn` fuehrt eigene Shell-Zonen fuer Top-Band, Live-Stage, Operations-Spalte und Telemetrieband sowie neue Panel-Stile statt der frueheren losen Hintergrundflaechen.
+- `novapolis-sim/scripts/Main.gd` schaltet den Hub standardmaessig auf den neuen Responsive-Pfad, fuehrt Hilfsrechtecke fuer Stage und Ops ein und verteilt Topbar, Buttons, Chat, Config und Telemetrie jetzt ueber wenige Hauptbereiche statt ueber die alte Sammellogik aus vielen Einzelkoordinaten.
+- Die statische Validierung bleibt gruen (`get_errors` ohne Befund fuer `Main.gd` und `Main.tscn`), und der kanonische Verifier `res://scripts/verify_sim.gd` liefert mit der lokal laufenden Binary `F:/Downloads/Godot/Godot_v4.6.1-stable_win64.exe` jetzt `SIM_VERIFY: OK` bei `EXITCODE=0`. `todo.sim.md` schliesst den UI-Reset damit; offen bleibt im Sim-Board nur noch Replay-/Resume.
+
+Agent Coverage: Restwelle fuer chat_helpers, main und providers geschlossen (2026-04-14 11:15)
+-------------------------------------------------------------------------------------------
+
+- Die offene Coverage-Welle im Agent-Modul ist jetzt ueber minimale Testergaenzungen geschlossen, ohne Produktcode oder API-Vertraege umzubauen.
+- Neue Edge-Tests decken die restlichen Coercion-/Omit-Pfade in `app/api/chat_helpers.py`, die TTS-Cache-Hit-/Snapshot-Helfer in `app/main.py` sowie Platzhalter-Provider und den sanitisierten Sessionpfad in `app/tts/providers.py` ab.
+- Der breite Fokuslauf bestaetigt `app/api/chat_helpers.py = 100%`, `app/main.py = 98%`, `app/tts/providers.py = 96%`; der kanonische Wrapper `scripts/run_pytest_coverage.py --fail-under 80` bleibt anschliessend mit `615 passed` und `Total coverage: 94.92%` PASS. `todo.agent-board.md` und `todo.index.md` fuehren Agent damit wieder auf `offen: 0`.
+
+Agent Coverage: Offenen Restpunkt vor dem Fixlauf auf konkrete Zweige eingegrenzt (2026-04-14 11:06)
+-----------------------------------------------------------------------------------------------
+
+- Die offene Coverage-Welle im Agent-Board ist vor der eigentlichen Mutation auf konkrete Restpfade eingegrenzt, statt als pauschaler Sammelpunkt offen zu bleiben.
+- `app/api/chat_helpers.py` haelt seine Restluecken vor allem in Coercion-/Clamp-Kombinationen von `normalize_ollama_options()`, `app/main.py` in den Cache-/Cleanup-Helfern fuer TTS, und `app/tts/providers.py` in Platzhalter-, Decode- und sessionlosen Artefakt-Fallbacks.
+- Das Agent-Board und `todo.index.md` fuehren denselben evidenzbasierten Zuschnitt jetzt vor dem naechsten Testlauf, damit der folgende Fixlauf minimal auf neue Tests statt auf Produktpfad-Umbauten begrenzt bleibt.
 
 Dev UX: Terminal-Heartbeat fuer lange Testlaeufe eingezogen (2026-04-10 13:36)
 -------------------------------------------------------------------------

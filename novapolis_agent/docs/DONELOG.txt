@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:36
-update: Agent-Scope dokumentiert jetzt den sichtbaren Terminal-Heartbeat fuer lange Testlaeufe in den zentralen Wrappern.
-checks: scoped validation PASS; ruff=PASS; black=PASS; pytest=PASS; snapshot-lock 2026-04-10 13:36
+stand: 2026-04-14 11:15
+update: Agent-Scope dokumentiert jetzt die geschlossene Coverage-Welle fuer chat_helpers, main und tts/providers.
+checks: snapshot-lock PASS; focused coverage PASS (chat_helpers=100, main=98, providers=96); scripts/run_pytest_coverage.py --fail-under 80 PASS (615 passed, total=94.92%)
 
 
 checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
@@ -20,6 +20,9 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+
+2026-04-14 11:15 | Copilot | Die offene Agent-Coverage-Welle ist geschlossen. `tests/test_chat_helpers_edges.py` deckt jetzt die restlichen Coercion-/Omit-Pfade von `app/api/chat_helpers.py`, `tests/test_main_internal_edges.py` die fehlenden TTS-Cache-Hit-/Snapshot-/Hash-Pfade in `app/main.py`, und `tests/test_tts_provider_edges.py` die verbleibenden Platzhalter-Provider- sowie sanitisierten Sessionpfade in `app/tts/providers.py`. Der breite Fokuslauf bestaetigt `app/api/chat_helpers.py = 100%`, `app/main.py = 98%`, `app/tts/providers.py = 96%`; der kanonische Wrapper `scripts/run_pytest_coverage.py --fail-under 80` bleibt mit `615 passed` und `Total coverage: 94.92%` PASS.
 
 
 2026-04-10 13:36 | Copilot | Testfortschritt im Terminal sichtbarer gemacht. Der neue Root-Helfer `scripts/terminal_progress.py` streamt lange Kommandoausgaben weiter und erzeugt in stillen Phasen Heartbeat-Zeilen mit Laufzeit, Ausgabezeilen und Idle-Zeit. `scripts/run_pytest_coverage.py`, `scripts/tests_pytest_root.py` und der Pytest-Schritt in `scripts/run_checks_and_report.py` nutzen diesen Pfad jetzt fuer lange Testlaeufe; neue Script-Tests decken Heartbeat-Ausgabe und die Anbindung in `run_checks_and_report.py` ab.

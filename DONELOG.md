@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:36
-update: Root-Summary fuehrt jetzt den sichtbaren Terminal-Heartbeat fuer lange Testlaeufe; offene Folgepunkte bleiben Agent und Sim.
-checks: scoped validation PASS; ruff=PASS; black=PASS; pytest=PASS; snapshot-lock 2026-04-10 13:36
+stand: 2026-04-14 12:25
+update: Root-Summary fuehrt jetzt auch den geschlossenen Sim-Replay-/Resume-Pfad; alle Modul-Boards stehen damit wieder auf offen: 0.
+checks: snapshot-lock 2026-04-14 12:25; get_errors PASS (Main.gd, Main.tscn); verify_sim.gd headless EXITCODE=0; pytest sim replay/session PASS (EXITCODE=0)
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,12 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-14 12:21: Der letzte offene Sim-Restpunkt ist geschlossen. Der Hub fuehrt jetzt einen sichtbaren Replay-/Resume-Block mit Checkpoint-Auswahl, `Replay Sync` und `Resume-Anker`; `novapolis-sim/scripts/Main.gd` zieht den bestehenden Endpunkt `GET /session/{session_id}/replay` neben dem Session-Snapshot ein und spiegelt den aktiven Resume-Anker in Hub-, Stage- und RP-Ansicht, ohne einen Parallelvertrag einzufuehren. Die statiche Editor-Pruefung bleibt gruen, der kanonische Godot-Verifier endet mit `EXITCODE=0`, und der gezielte Pytest-Scope fuer `novapolis_agent/tests/test_api_sim_state.py` plus `novapolis_agent/tests/tests_sim_api.py` endet ebenfalls mit `EXITCODE=0`. Alle Modul-Boards stehen damit wieder auf `offen: 0`.
+
+- 2026-04-14 12:03: Der Sim-Hub-Reset ist jetzt auch runtime-seitig belegt. Der kanonische Headless-Verifier `res://scripts/verify_sim.gd` laeuft mit der lokal gestarteten Godot-Binary `F:/Downloads/Godot/Godot_v4.6.1-stable_win64.exe` gruen und liefert `SIM_VERIFY: OK` bei `EXITCODE=0`; damit ist der UI-Reset geschlossen und im Sim-Modul bleibt nur noch der Replay-/Resume-Pfad fuer `Text-RPG Slice 2 Handover v1` offen.
+
+- 2026-04-14 11:15: Die offene Agent-Coverage-Welle ist geschlossen. Minimal erweiterte Edge-Tests ziehen `app/api/chat_helpers.py` auf `100%`, `app/main.py` auf `98%` und `app/tts/providers.py` auf `96%`; der kanonische Wrapper `scripts/run_pytest_coverage.py --fail-under 80` bleibt mit `615 passed` und `Total coverage: 94.92%` PASS. `todo.agent-board.md`, `novapolis-dev/docs/todo.index.md`, `WORKSPACE_STATUS.md`, `novapolis-dev/docs/donelog.md` und `novapolis_agent/docs/DONELOG.txt` sind im selben Lauf synchronisiert; offen bleibt im aktiven Modulindex nur noch Sim.
 
 - 2026-04-10 13:36: Lange Testlaeufe zeigen jetzt sichtbare Lebenszeichen im Terminal, statt in stillen Phasen wie ein Haenger zu wirken. Der neue Root-Helfer `scripts/terminal_progress.py` streamt laufende Prozessausgabe weiter und druckt bei Bedarf Heartbeat-Zeilen mit Laufzeit, Ausgabezeilen und Zeit seit der letzten Aktivitaet; `scripts/run_pytest_coverage.py`, `scripts/tests_pytest_root.py` und der Pytest-Schritt in `scripts/run_checks_and_report.py` nutzen denselben Pfad jetzt fuer menschenlesbaren Fortschritt. Der gezielte Scope mit Ruff, Black und Script-Pytest ist PASS.
 

@@ -212,6 +212,47 @@ def test_tts_cache_helpers_cover_disabled_expired_and_size_cleanup(
 
 
 @pytest.mark.unit
+def test_tts_cache_helpers_cover_put_hit_snapshot_and_hash() -> None:
+    app_mod = _load_app_main()
+
+    app_mod.settings.TTS_CACHE_ENABLED = True
+    app_mod.settings.TTS_CACHE_TTL_SEC = 300
+    app_mod.settings.TTS_CACHE_MAX_ENTRIES = 10
+    app_mod.settings.TTS_CACHE_MAX_BYTES = 100000
+
+    app_mod._tts_cache_store.clear()
+    app_mod._tts_cache_stats.update(
+        {"hits": 0, "misses": 0, "evictions_ttl": 0, "evictions_size": 0}
+    )
+
+    payload = {
+        "mime_type": "audio/ogg",
+        "request_hash": "hash-1",
+        "is_placeholder": False,
+        "artifact_path": "artifact.ogg",
+        "detail": "detail",
+    }
+    cleanup = app_mod._tts_cache_put("cache-key", payload, 10.0)
+    assert cleanup == {"removed_expired": 0, "removed_size": 0}
+    assert app_mod._tts_cache_store["cache-key"]["created_at"] == 10.0
+
+    cached, cached_cleanup = app_mod._tts_cache_get("cache-key", 12.0)
+    assert cached == payload
+    assert cached_cleanup == {"removed_expired": 0, "removed_size": 0}
+    assert app_mod._tts_cache_store["cache-key"]["last_access"] == 12.0
+
+    key_a = app_mod._tts_cache_key_from_payload("same-payload")
+    key_b = app_mod._tts_cache_key_from_payload("same-payload")
+    assert key_a == key_b
+
+    snapshot = app_mod._tts_cache_stats_snapshot()
+    assert snapshot.entries == 1
+    assert snapshot.hits == 1
+    assert snapshot.misses == 0
+    assert snapshot.size_bytes > 0
+
+
+@pytest.mark.unit
 def test_tts_auth_and_token_extract_cover_direct_and_bearer_paths(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

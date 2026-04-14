@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:22
-update: Der Coverage-Hygiene-Rest ist geschlossen; der kanonische Pytest-Coverage-Pfad laeuft wieder ohne die vier bekannten `runpy`-Warnings.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-14 12:25
+update: Der Sim-Hub deckt jetzt auch Replay-/Resume sichtbar ab; damit sind alle aktiven Modul-Boards wieder geschlossen.
+checks: snapshot-lock 2026-04-14 12:25; get_errors PASS (Main.gd, Main.tscn); verify_sim.gd headless EXITCODE=0; pytest sim replay/session PASS (EXITCODE=0)
 ---
 
 Workspace-Status
@@ -9,6 +9,12 @@ Workspace-Status
 
 Aktuelles Wochenfenster
 -----------------------
+
+- 2026-04-14 12:21: Der letzte offene Sim-Punkt ist geschlossen. `novapolis-sim/Main.tscn` fuehrt jetzt einen sichtbaren Replay-/Resume-Block im Hub, und `novapolis-sim/scripts/Main.gd` nutzt den bestehenden Replay-Endpunkt `/session/{session_id}/replay` explizit neben dem Session-Snapshot, zeigt Manifest- und Checkpoint-Daten sichtbar an und wendet den gewaehlten Resume-Anker auf Slot- und Logansicht an. `get_errors` bleibt fuer `Main.gd` und `Main.tscn` ohne Befund, `res://scripts/verify_sim.gd` endet headless mit `EXITCODE=0`, und der gezielte Session-/Replay-Pytest-Scope endet ebenfalls mit `EXITCODE=0`. Damit stehen Dev, RP, Agent und Sim wieder jeweils bei `offen: 0`.
+
+- 2026-04-14 12:03: Der Sim-Hub-Reset ist jetzt auch runtime-seitig bestaetigt. Neben der bereits grünen statischen Editor-Pruefung laeuft der kanonische Verifier `res://scripts/verify_sim.gd` mit der lokal gestarteten Binary `F:/Downloads/Godot/Godot_v4.6.1-stable_win64.exe` headless gruen und liefert `SIM_VERIFY: OK` bei `EXITCODE=0`; offen bleibt im Sim-Modul damit nur noch der Replay-/Resume-Pfad fuer `Text-RPG Slice 2 Handover v1`.
+
+- 2026-04-14 11:15: Die offene Agent-Coverage-Welle fuer `app/api/chat_helpers.py`, `app/main.py` und `app/tts/providers.py` ist geschlossen. Neue Edge-Tests ziehen die drei Zielmodule im breiten Fokuslauf auf `100%`, `98%` und `96%`; der kanonische Wrapper `scripts/run_pytest_coverage.py --fail-under 80` bleibt mit `615 passed` und `Total coverage: 94.92%` PASS. `novapolis-dev/docs/todo.agent-board.md` und `novapolis-dev/docs/todo.index.md` fuehren Agent damit wieder auf `offen: 0`; offen bleibt im aktiven Modulindex nur noch Sim.
 
 - 2026-04-10 05:16: Der offene Dev-Hygiene-Rest im kanonischen Coverage-Pfad ist geschlossen. Die vier `RuntimeWarning: ... found in sys.modules after import of package 'scripts'` kamen nicht aus dem Wrapper selbst, sondern aus Edge-Tests, die `runpy.run_module()` auf bereits vorimportierten `scripts.*`-Modulen ausfuehrten. `novapolis_agent/tests/scripts/test_open_latest_summary_edges.py`, `test_run_text_rpg_reference_session_edges.py`, `test_summarize_gm_eval_kpis_edges.py` und `test_validate_eval_datasets_edges.py` fuehren denselben CLI-Beleg jetzt ueber echte Skriptpfade per `runpy.run_path(..., run_name="__main__")` aus; `.tmp/results/reports/pytest_coverage_postflight_20260410_051125.md` bestaetigt danach `596 passed`, `returncode=0`, `Total coverage: 93.66%` und keine Warnings derselben Klasse mehr. Das Dev-Board steht damit wieder bei `offen: 0`; offen bleiben nur noch Agent und Sim.
 

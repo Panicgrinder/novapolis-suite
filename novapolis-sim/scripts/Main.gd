@@ -15,6 +15,10 @@ signal on_interrupt(reason: String, context: Dictionary)
 @onready var hub_polling_label: Label = $HubPollingLabel
 @onready var hub_queue_label: Label = $HubQueueLabel
 @onready var hub_errors_label: Label = $HubErrorsLabel
+@onready var hub_top_band_panel: Panel = $HubTopBandPanel
+@onready var hub_stage_panel: Panel = $HubStagePanel
+@onready var hub_ops_panel: Panel = $HubOpsPanel
+@onready var hub_telemetry_panel: Panel = $HubTelemetryPanel
 @onready var sim_card_state_label: Label = $SimCardPanel/SimCardStateLabel
 @onready var sim_card_tick_label: Label = $SimCardPanel/SimCardTickLabel
 @onready var sim_card_queue_label: Label = $SimCardPanel/SimCardQueueLabel
@@ -90,6 +94,7 @@ signal on_interrupt(reason: String, context: Dictionary)
 @onready var hub_checks_button: Button = $HubChecksButton
 @onready var server_status_label: Label = $ServerStatusLabel
 @onready var hub_config_panel: Panel = $HubConfigPanel
+@onready var hub_config_title_label: Label = $HubConfigPanel/HubConfigTitleLabel
 @onready var hub_config_close_button: Button = $HubConfigPanel/HubConfigCloseButton
 @onready var hub_config_quit_button: Button = $HubConfigPanel/HubConfigQuitButton
 @onready var hub_config_save_button: Button = $HubConfigPanel/HubConfigSaveButton
@@ -99,6 +104,12 @@ signal on_interrupt(reason: String, context: Dictionary)
 @onready var hub_config_default_panel_button: OptionButton = $HubConfigPanel/HubConfigDefaultPanelButton
 @onready var hub_config_refresh_button: OptionButton = $HubConfigPanel/HubConfigRefreshButton
 @onready var hub_config_status_label: Label = $HubConfigPanel/HubConfigStatusLabel
+@onready var hub_replay_panel: Panel = $HubReplayPanel
+@onready var hub_replay_summary_label: Label = $HubReplayPanel/HubReplaySummaryLabel
+@onready var hub_replay_checkpoint_button: OptionButton = $HubReplayPanel/HubReplayCheckpointButton
+@onready var hub_replay_fetch_button: Button = $HubReplayPanel/HubReplayFetchButton
+@onready var hub_replay_apply_button: Button = $HubReplayPanel/HubReplayApplyButton
+@onready var hub_replay_status_label: Label = $HubReplayPanel/HubReplayStatusLabel
 @onready var hub_chat_panel: Panel = $HubChatPanel
 @onready var hub_chat_history_label: RichTextLabel = $HubChatPanel/HubChatHistoryLabel
 @onready var hub_chat_input_edit: LineEdit = $HubChatPanel/HubChatInputEdit
@@ -238,8 +249,12 @@ var _hub_chat_current_state_patches: Array[String] = []
 var _hub_chat_public_context: String = ""
 var _hub_session_request: HTTPRequest
 var _hub_session_sync_in_flight: bool = false
+var _hub_replay_request: HTTPRequest
+var _hub_replay_sync_in_flight: bool = false
 var _live_session_artifact_paths: Dictionary = {}
 var _live_session_resume_checkpoint_id: String = ""
+var _live_replay_manifest: Dictionary = {}
+var _hub_selected_replay_checkpoint_id: String = ""
 var _marquee_state: Dictionary = {}
 var _lower_shared_topic: String = "agent_api"
 const _HUB_PREFS_PATH: String = "user://hub_prefs.cfg"
@@ -284,7 +299,7 @@ const _UI_GAP: float = 12.0
 const _QUALITY_REFRESH_INTERVAL_SECONDS: float = 15.0
 const _MARQUEE_STEP_MS: int = 180
 const _MARQUEE_SEPARATOR: String = "     "
-@export var preserve_editor_hub_layout: bool = true
+@export var preserve_editor_hub_layout: bool = false
 
 func _ready() -> void:
 	add_to_group("world_listeners")
@@ -331,6 +346,9 @@ func _ready() -> void:
 	hub_config_eval_card_button.pressed.connect(_on_hub_config_eval_card_pressed)
 	hub_config_default_panel_button.item_selected.connect(_on_hub_config_default_panel_selected)
 	hub_config_refresh_button.item_selected.connect(_on_hub_config_refresh_selected)
+	hub_replay_fetch_button.pressed.connect(_on_hub_replay_fetch_pressed)
+	hub_replay_apply_button.pressed.connect(_on_hub_replay_apply_pressed)
+	hub_replay_checkpoint_button.item_selected.connect(_on_hub_replay_checkpoint_selected)
 	hub_chat_send_button.pressed.connect(_on_hub_chat_send_pressed)
 	hub_chat_input_edit.text_submitted.connect(_on_hub_chat_input_submitted)
 	hub_chat_request.request_completed.connect(_on_hub_chat_request_completed)
@@ -338,6 +356,10 @@ func _ready() -> void:
 	_hub_session_request.timeout = 4.0
 	add_child(_hub_session_request)
 	_hub_session_request.request_completed.connect(_on_hub_session_request_completed)
+	_hub_replay_request = HTTPRequest.new()
+	_hub_replay_request.timeout = 4.0
+	add_child(_hub_replay_request)
+	_hub_replay_request.request_completed.connect(_on_hub_replay_request_completed)
 	api_card_panel.gui_input.connect(Callable(self, "_on_api_card_panel_gui_input"))
 	_audio_player = AudioStreamPlayer.new()
 	add_child(_audio_player)
@@ -406,9 +428,10 @@ func _apply_responsive_layout() -> void:
 	if preserve_editor_hub_layout and not _agent_submenu_open and not _checks_submenu_open and not _rp_submenu_open:
 		_apply_editor_hub_layout(width, height)
 		return
-	_layout_hub_config_panel(width)
+	_layout_hub_shells(width, height)
+	_layout_hub_config_panel(width, height)
 	_layout_hub_topbar(width)
-	_layout_hub_actions(width)
+	_layout_hub_actions(width, height)
 	_layout_hub_log_and_cards(width, height)
 	_layout_module_panels(width, height)
 
@@ -426,6 +449,69 @@ func _scale_hub_x(value: float, width: float) -> float:
 
 func _scale_hub_y(value: float, height: float) -> float:
 	return value * (height / _UI_BASE_HEIGHT)
+
+
+func _hub_cards_shell_height(height: float) -> float:
+	return clampf(height * 0.22, 196.0, 248.0)
+
+
+func _hub_cards_shell_top(height: float) -> float:
+	return height - _UI_MARGIN - _hub_cards_shell_height(height)
+
+
+func _hub_content_top() -> float:
+	return 132.0
+
+
+func _hub_ops_rect(width: float, height: float) -> Rect2:
+	var top := _hub_content_top()
+	var bottom := _hub_cards_shell_top(height) - _UI_GAP
+	var shell_width := clampf(width * 0.31, 360.0, 500.0)
+	return Rect2(
+		width - _UI_MARGIN - shell_width,
+		top,
+		shell_width,
+		maxf(260.0, bottom - top)
+	)
+
+
+func _hub_stage_rect(width: float, height: float) -> Rect2:
+	var top := _hub_content_top()
+	var bottom := _hub_cards_shell_top(height) - _UI_GAP
+	var ops_rect := _hub_ops_rect(width, height)
+	return Rect2(
+		_UI_MARGIN,
+		top,
+		maxf(420.0, ops_rect.position.x - _UI_MARGIN - _UI_GAP),
+		maxf(260.0, bottom - top)
+	)
+
+
+func _layout_hub_shells(width: float, height: float) -> void:
+	_set_control_rect(hub_top_band_panel, _UI_MARGIN, 16.0, width - _UI_MARGIN, 100.0)
+	var stage_rect := _hub_stage_rect(width, height)
+	_set_control_rect(
+		hub_stage_panel,
+		stage_rect.position.x,
+		stage_rect.position.y,
+		stage_rect.position.x + stage_rect.size.x,
+		stage_rect.position.y + stage_rect.size.y
+	)
+	var ops_rect := _hub_ops_rect(width, height)
+	_set_control_rect(
+		hub_ops_panel,
+		ops_rect.position.x,
+		ops_rect.position.y,
+		ops_rect.position.x + ops_rect.size.x,
+		ops_rect.position.y + ops_rect.size.y
+	)
+	_set_control_rect(
+		hub_telemetry_panel,
+		_UI_MARGIN,
+		_hub_cards_shell_top(height),
+		width - _UI_MARGIN,
+		height - _UI_MARGIN
+	)
 
 
 func _apply_editor_hub_layout(width: float, height: float) -> void:
@@ -659,130 +745,133 @@ func _apply_editor_hub_layout(width: float, height: float) -> void:
 
 
 func _layout_hub_topbar(width: float) -> void:
-	var top := 4.0
-	var left := _UI_MARGIN
-	status_label.offset_left = _UI_MARGIN
-	status_label.offset_top = 92.0
-	status_label.offset_right = width - _UI_MARGIN
-	status_label.offset_bottom = 114.0
+	var left := hub_top_band_panel.offset_left + 20.0
+	var top := hub_top_band_panel.offset_top + 14.0
+	var right := hub_top_band_panel.offset_right - 20.0
+	var title_w := clampf(width * 0.17, 240.0, 320.0)
+	var errors_w := clampf(width * 0.18, 190.0, 280.0)
 
-	var title_w := clampf(width * 0.18, 240.0, 360.0)
 	hub_title_label.offset_left = left
 	hub_title_label.offset_top = top
 	hub_title_label.offset_right = left + title_w
-	hub_title_label.offset_bottom = top + 20.0
+	hub_title_label.offset_bottom = top + 24.0
 
-	var x := left + title_w + _UI_GAP
-	var right := width - _UI_MARGIN
-	var remaining := maxf(420.0, right - x)
-	var api_w := remaining * 0.44
-	var polling_w := remaining * 0.23
-	var queue_w := remaining * 0.13
-	var errors_w := maxf(130.0, remaining - api_w - polling_w - queue_w - _UI_GAP * 3.0)
-
-	hub_api_label.offset_left = x
-	hub_api_label.offset_top = top
-	hub_api_label.offset_right = x + api_w
-	hub_api_label.offset_bottom = top + 20.0
-	x = hub_api_label.offset_right + _UI_GAP
-
-	hub_polling_label.offset_left = x
-	hub_polling_label.offset_top = top
-	hub_polling_label.offset_right = x + polling_w
-	hub_polling_label.offset_bottom = top + 20.0
-	x = hub_polling_label.offset_right + _UI_GAP
-
-	hub_queue_label.offset_left = x
-	hub_queue_label.offset_top = top
-	hub_queue_label.offset_right = x + queue_w
-	hub_queue_label.offset_bottom = top + 20.0
-	x = hub_queue_label.offset_right + _UI_GAP
-
-	hub_errors_label.offset_left = x
+	hub_errors_label.offset_left = right - errors_w
 	hub_errors_label.offset_top = top
-	hub_errors_label.offset_right = minf(right, x + errors_w)
-	hub_errors_label.offset_bottom = top + 20.0
+	hub_errors_label.offset_right = right
+	hub_errors_label.offset_bottom = top + 24.0
+
+	hub_api_label.offset_left = hub_title_label.offset_right + _UI_GAP
+	hub_api_label.offset_top = top
+	hub_api_label.offset_right = hub_errors_label.offset_left - _UI_GAP
+	hub_api_label.offset_bottom = top + 24.0
+
+	var row2_top := top + 34.0
+	var chip_width := (right - left - _UI_GAP * 3.0) / 4.0
+
+	tick_label.offset_left = left
+	tick_label.offset_top = row2_top
+	tick_label.offset_right = left + chip_width
+	tick_label.offset_bottom = row2_top + 22.0
+
+	time_label.offset_left = tick_label.offset_right + _UI_GAP
+	time_label.offset_top = row2_top
+	time_label.offset_right = time_label.offset_left + chip_width
+	time_label.offset_bottom = row2_top + 22.0
+
+	hub_polling_label.offset_left = time_label.offset_right + _UI_GAP
+	hub_polling_label.offset_top = row2_top
+	hub_polling_label.offset_right = hub_polling_label.offset_left + chip_width
+	hub_polling_label.offset_bottom = row2_top + 22.0
+
+	hub_queue_label.offset_left = hub_polling_label.offset_right + _UI_GAP
+	hub_queue_label.offset_top = row2_top
+	hub_queue_label.offset_right = right
+	hub_queue_label.offset_bottom = row2_top + 22.0
+
+	status_label.offset_left = _UI_MARGIN
+	status_label.offset_top = hub_top_band_panel.offset_bottom + 8.0
+	status_label.offset_right = width - _UI_MARGIN
+	status_label.offset_bottom = status_label.offset_top + 22.0
 
 
-func _layout_hub_actions(width: float) -> void:
-	var y := 228.0
-	var h := 38.0
-	var left := _UI_MARGIN
-	var right := minf(width - _UI_MARGIN, hub_config_panel.offset_left - _UI_GAP)
-	if right <= left + 620.0:
-		right = width - _UI_MARGIN
-	var count := 5.0
-	var available := maxf(680.0, right - left)
-	var button_w := maxf(120.0, (available - _UI_GAP * (count - 1.0)) / count)
+func _layout_hub_actions(width: float, height: float) -> void:
+	var ops_rect := _hub_ops_rect(width, height)
+	var left := ops_rect.position.x + 18.0
+	var right := ops_rect.position.x + ops_rect.size.x - 18.0
+	var top := ops_rect.position.y + 56.0
+	var col_width := (right - left - _UI_GAP) / 2.0
 
-	play_pc_button.offset_left = left
-	play_pc_button.offset_top = y
-	play_pc_button.offset_right = left + button_w
-	play_pc_button.offset_bottom = y + h
+	_set_control_rect(server_toggle_button, left, top, right, top + 40.0)
+	_set_control_rect(server_status_label, left, top + 48.0, right, top + 70.0)
 
-	play_world_button.offset_left = play_pc_button.offset_right + _UI_GAP
-	play_world_button.offset_top = y
-	play_world_button.offset_right = play_world_button.offset_left + button_w
-	play_world_button.offset_bottom = y + h
+	top += 86.0
+	_set_control_rect(play_pc_button, left, top, left + col_width, top + 40.0)
+	_set_control_rect(play_world_button, left + col_width + _UI_GAP, top, right, top + 40.0)
 
-	server_toggle_button.offset_left = play_world_button.offset_right + _UI_GAP
-	server_toggle_button.offset_top = y
-	server_toggle_button.offset_right = server_toggle_button.offset_left + button_w
-	server_toggle_button.offset_bottom = y + h
+	top += 50.0
+	_set_control_rect(hub_checks_button, left, top, left + col_width, top + 40.0)
+	_set_control_rect(hub_reload_button, left + col_width + _UI_GAP, top, right, top + 40.0)
 
-	hub_reload_button.offset_left = server_toggle_button.offset_right + _UI_GAP
-	hub_reload_button.offset_top = y
-	hub_reload_button.offset_right = hub_reload_button.offset_left + button_w
-	hub_reload_button.offset_bottom = y + h
-
-	hub_checks_button.offset_left = hub_reload_button.offset_right + _UI_GAP
-	hub_checks_button.offset_top = y
-	hub_checks_button.offset_right = hub_checks_button.offset_left + button_w
-	hub_checks_button.offset_bottom = y + h
-
-	audio_status_label.offset_left = _UI_MARGIN
-	audio_status_label.offset_top = 284.0
-	audio_status_label.offset_right = _UI_MARGIN + 380.0
-	audio_status_label.offset_bottom = 304.0
-
-	server_status_label.offset_left = server_toggle_button.offset_left
-	server_status_label.offset_top = 284.0
-	server_status_label.offset_right = server_status_label.offset_left + 560.0
-	server_status_label.offset_bottom = 304.0
+	_set_control_rect(audio_status_label, left, top + 52.0, right, top + 74.0)
 
 
 func _layout_hub_log_and_cards(width: float, height: float) -> void:
-	var cards_h := clampf(height * 0.19, 140.0, 190.0)
-	var cards_top := height - _UI_MARGIN - cards_h
-	var cards_bottom := height - _UI_MARGIN
-	var card_w := (width - _UI_MARGIN * 2.0 - _UI_GAP * 2.0) / 3.0
+	var stage_rect := _hub_stage_rect(width, height)
+	var stage_left := stage_rect.position.x + 24.0
+	var stage_right := stage_rect.position.x + stage_rect.size.x - 24.0
+	var stage_header_top := stage_rect.position.y + 56.0
 
-	sim_card_panel.offset_left = _UI_MARGIN
-	sim_card_panel.offset_top = cards_top
-	sim_card_panel.offset_right = sim_card_panel.offset_left + card_w
-	sim_card_panel.offset_bottom = cards_bottom
+	_set_control_rect(epoch_label, stage_left, stage_header_top, stage_left + 180.0, stage_header_top + 22.0)
+	_set_control_rect(slot_label, stage_left + 196.0, stage_header_top, stage_right, stage_header_top + 22.0)
+	_set_control_rect(epoch_status_label, stage_left, stage_header_top + 28.0, stage_right, stage_header_top + 50.0)
+	_set_control_rect(
+		log_label,
+		stage_left,
+		stage_header_top + 66.0,
+		stage_right,
+		stage_rect.position.y + stage_rect.size.y - 22.0
+	)
 
-	api_card_panel.offset_left = sim_card_panel.offset_right + _UI_GAP
-	api_card_panel.offset_top = cards_top
-	api_card_panel.offset_right = api_card_panel.offset_left + card_w
-	api_card_panel.offset_bottom = cards_bottom
-
-	eval_card_panel.offset_left = api_card_panel.offset_right + _UI_GAP
-	eval_card_panel.offset_top = cards_top
-	eval_card_panel.offset_right = eval_card_panel.offset_left + card_w
-	eval_card_panel.offset_bottom = cards_bottom
-
-	log_label.offset_left = _UI_MARGIN
-	log_label.offset_top = 318.0
-	var chat_panel_w := clampf(width * 0.26, 300.0, 420.0)
-	hub_chat_panel.offset_left = width - _UI_MARGIN - chat_panel_w
-	hub_chat_panel.offset_top = 318.0
-	hub_chat_panel.offset_right = width - _UI_MARGIN
-	hub_chat_panel.offset_bottom = minf(height - _UI_MARGIN - cards_h - _UI_GAP, 620.0)
+	var ops_rect := _hub_ops_rect(width, height)
+	_set_control_rect(
+		hub_replay_panel,
+		ops_rect.position.x + 18.0,
+		audio_status_label.offset_bottom + 16.0,
+		ops_rect.position.x + ops_rect.size.x - 18.0,
+		audio_status_label.offset_bottom + 190.0
+	)
+	_layout_hub_replay_contents()
+	_set_control_rect(
+		hub_chat_panel,
+		ops_rect.position.x + 18.0,
+		hub_replay_panel.offset_bottom + 12.0,
+		ops_rect.position.x + ops_rect.size.x - 18.0,
+		hub_config_panel.offset_top - 12.0
+	)
 	_layout_hub_chat_contents()
 
-	log_label.offset_right = hub_chat_panel.offset_left - _UI_GAP
-	log_label.offset_bottom = maxf(log_label.offset_top + 140.0, cards_top - _UI_GAP)
+	var cards_left := hub_telemetry_panel.offset_left + 18.0
+	var cards_right := hub_telemetry_panel.offset_right - 18.0
+	var cards_top := hub_telemetry_panel.offset_top + 54.0
+	var cards_bottom := hub_telemetry_panel.offset_bottom - 18.0
+	var card_width := (cards_right - cards_left - _UI_GAP * 2.0) / 3.0
+
+	_set_control_rect(sim_card_panel, cards_left, cards_top, cards_left + card_width, cards_bottom)
+	_set_control_rect(
+		api_card_panel,
+		sim_card_panel.offset_right + _UI_GAP,
+		cards_top,
+		sim_card_panel.offset_right + _UI_GAP + card_width,
+		cards_bottom
+	)
+	_set_control_rect(
+		eval_card_panel,
+		api_card_panel.offset_right + _UI_GAP,
+		cards_top,
+		api_card_panel.offset_right + _UI_GAP + card_width,
+		cards_bottom
+	)
 
 
 func _layout_hub_chat_contents() -> void:
@@ -825,15 +914,105 @@ func _layout_hub_chat_contents() -> void:
 		chat_title.offset_bottom = title_bottom
 
 
-func _layout_hub_config_panel(width: float) -> void:
-	var panel_w := clampf(width * 0.16, 240.0, 300.0)
-	hub_config_panel.offset_left = width - _UI_MARGIN - panel_w
-	hub_config_panel.offset_top = 44.0
-	hub_config_panel.offset_right = width - _UI_MARGIN
-	if _hub_config_collapsed:
-		hub_config_panel.offset_bottom = hub_config_panel.offset_top + _HUB_CONFIG_COLLAPSED_HEIGHT
-	else:
-		hub_config_panel.offset_bottom = hub_config_panel.offset_top + (_HUB_CONFIG_EXPANDED_BOTTOM - 44.0)
+func _layout_hub_replay_contents() -> void:
+	var panel_w := maxf(220.0, hub_replay_panel.offset_right - hub_replay_panel.offset_left)
+	var pad := 10.0
+	var button_gap := 8.0
+	var button_w := (panel_w - pad * 2.0 - button_gap) / 2.0
+	var title := get_node_or_null("HubReplayPanel/HubReplayTitleLabel") as Label
+	var checkpoint_label := get_node_or_null("HubReplayPanel/HubReplayCheckpointLabel") as Label
+	if title:
+		title.offset_left = pad
+		title.offset_top = 8.0
+		title.offset_right = panel_w - pad
+		title.offset_bottom = 26.0
+	if checkpoint_label:
+		checkpoint_label.offset_left = pad
+		checkpoint_label.offset_top = 56.0
+		checkpoint_label.offset_right = panel_w - pad
+		checkpoint_label.offset_bottom = 76.0
+	hub_replay_summary_label.offset_left = pad
+	hub_replay_summary_label.offset_top = 30.0
+	hub_replay_summary_label.offset_right = panel_w - pad
+	hub_replay_summary_label.offset_bottom = 50.0
+	hub_replay_checkpoint_button.offset_left = pad
+	hub_replay_checkpoint_button.offset_top = 80.0
+	hub_replay_checkpoint_button.offset_right = panel_w - pad
+	hub_replay_checkpoint_button.offset_bottom = 110.0
+	hub_replay_fetch_button.offset_left = pad
+	hub_replay_fetch_button.offset_top = 118.0
+	hub_replay_fetch_button.offset_right = pad + button_w
+	hub_replay_fetch_button.offset_bottom = 148.0
+	hub_replay_apply_button.offset_left = hub_replay_fetch_button.offset_right + button_gap
+	hub_replay_apply_button.offset_top = 118.0
+	hub_replay_apply_button.offset_right = panel_w - pad
+	hub_replay_apply_button.offset_bottom = 148.0
+	hub_replay_status_label.offset_left = pad
+	hub_replay_status_label.offset_top = 154.0
+	hub_replay_status_label.offset_right = panel_w - pad
+	hub_replay_status_label.offset_bottom = 176.0
+
+
+func _layout_hub_config_panel(width: float, height: float) -> void:
+	var ops_rect := _hub_ops_rect(width, height)
+	var left := ops_rect.position.x + 18.0
+	var right := ops_rect.position.x + ops_rect.size.x - 18.0
+	var bottom := ops_rect.position.y + ops_rect.size.y - 18.0
+	var panel_height := _HUB_CONFIG_COLLAPSED_HEIGHT
+	if not _hub_config_collapsed:
+		panel_height = 188.0
+	_set_control_rect(hub_config_panel, left, bottom - panel_height, right, bottom)
+
+	var panel_width := right - left
+	hub_config_title_label.offset_left = 14.0
+	hub_config_title_label.offset_top = 10.0
+	hub_config_title_label.offset_right = panel_width - 250.0
+	hub_config_title_label.offset_bottom = 32.0
+
+	hub_config_quit_button.offset_left = panel_width - 236.0
+	hub_config_quit_button.offset_top = 10.0
+	hub_config_quit_button.offset_right = panel_width - 124.0
+	hub_config_quit_button.offset_bottom = 40.0
+
+	hub_config_close_button.offset_left = panel_width - 118.0
+	hub_config_close_button.offset_top = 10.0
+	hub_config_close_button.offset_right = panel_width - 12.0
+	hub_config_close_button.offset_bottom = 40.0
+
+	hub_config_sim_card_button.offset_left = 12.0
+	hub_config_sim_card_button.offset_top = 54.0
+	hub_config_sim_card_button.offset_right = 118.0
+	hub_config_sim_card_button.offset_bottom = 84.0
+
+	hub_config_api_card_button.offset_left = 12.0
+	hub_config_api_card_button.offset_top = 90.0
+	hub_config_api_card_button.offset_right = 118.0
+	hub_config_api_card_button.offset_bottom = 120.0
+
+	hub_config_eval_card_button.offset_left = 12.0
+	hub_config_eval_card_button.offset_top = 126.0
+	hub_config_eval_card_button.offset_right = 118.0
+	hub_config_eval_card_button.offset_bottom = 156.0
+
+	hub_config_default_panel_button.offset_left = 136.0
+	hub_config_default_panel_button.offset_top = 54.0
+	hub_config_default_panel_button.offset_right = panel_width - 136.0
+	hub_config_default_panel_button.offset_bottom = 84.0
+
+	hub_config_refresh_button.offset_left = 136.0
+	hub_config_refresh_button.offset_top = 92.0
+	hub_config_refresh_button.offset_right = panel_width - 136.0
+	hub_config_refresh_button.offset_bottom = 122.0
+
+	hub_config_save_button.offset_left = panel_width - 126.0
+	hub_config_save_button.offset_top = 126.0
+	hub_config_save_button.offset_right = panel_width - 12.0
+	hub_config_save_button.offset_bottom = 156.0
+
+	hub_config_status_label.offset_left = 12.0
+	hub_config_status_label.offset_top = 162.0
+	hub_config_status_label.offset_right = panel_width - 12.0
+	hub_config_status_label.offset_bottom = 182.0
 
 
 func _layout_module_panels(width: float, height: float) -> void:
@@ -1451,6 +1630,7 @@ func _live_session_epoch_name() -> String:
 func _apply_live_session_state(session_payload: Dictionary) -> void:
 	var world_log := _coerce_dict_array(session_payload.get("world_log", []))
 	var pc_log := _coerce_dict_array(session_payload.get("pc_log", []))
+	var state_patches := _coerce_dict_array(session_payload.get("state_patches", []))
 	var artifact_paths := {}
 	if typeof(session_payload.get("artifact_paths", {})) == TYPE_DICTIONARY:
 		artifact_paths = session_payload.get("artifact_paths", {})
@@ -1462,6 +1642,7 @@ func _apply_live_session_state(session_payload: Dictionary) -> void:
 			"name": _live_session_epoch_name(),
 			"world_log": world_log,
 			"pc_log": pc_log,
+			"state_patches": state_patches,
 			"artifact_paths": artifact_paths,
 			"source": "session_api",
 		}
@@ -1490,7 +1671,10 @@ func _apply_live_session_state(session_payload: Dictionary) -> void:
 	)
 	if _live_session_resume_checkpoint_id != "":
 		rp_replay_seed_label.text = "Replay-Seed: %s" % _live_session_resume_checkpoint_id
+		if _hub_selected_replay_checkpoint_id == "":
+			_hub_selected_replay_checkpoint_id = _live_session_resume_checkpoint_id
 	_render_pc_centric_view()
+	_refresh_hub_replay_ui()
 	_refresh_module_cards()
 
 
@@ -1501,6 +1685,10 @@ func _hub_session_endpoint() -> String:
 		host = str(_sim_client.get("host"))
 		port = int(_sim_client.get("port"))
 	return "http://%s:%d/session/%s" % [host, port, _hub_chat_session_id.uri_encode()]
+
+
+func _hub_replay_endpoint() -> String:
+	return "%s/replay" % _hub_session_endpoint()
 
 
 func _request_live_session_state() -> void:
@@ -1518,6 +1706,145 @@ func _request_live_session_state() -> void:
 		return
 	_hub_session_sync_in_flight = true
 	_append_runtime_event("SESSION_SYNC", {"action": "request", "session_id": _hub_chat_session_id})
+
+
+func _request_live_session_replay() -> void:
+	if _hub_chat_session_id == "":
+		return
+	if _hub_replay_request == null:
+		return
+	if _hub_replay_sync_in_flight:
+		return
+	if _hub_replay_request.get_http_client_status() != HTTPClient.STATUS_DISCONNECTED:
+		return
+	var error := _hub_replay_request.request(_hub_replay_endpoint())
+	if error != OK:
+		hub_replay_status_label.text = "Replay: Request konnte nicht gestartet werden (%d)" % error
+		return
+	_hub_replay_sync_in_flight = true
+	hub_replay_status_label.text = "Replay: Manifest wird geladen"
+	_append_runtime_event("SESSION_REPLAY", {"action": "request", "session_id": _hub_chat_session_id})
+
+
+func _coerce_string_array(value: Variant) -> Array[String]:
+	var result: Array[String] = []
+	if typeof(value) != TYPE_ARRAY:
+		return result
+	for item in value:
+		var text := str(item).strip_edges()
+		if text != "":
+			result.append(text)
+	return result
+
+
+func _refresh_hub_replay_checkpoint_options() -> void:
+	var checkpoints := _coerce_string_array(_live_replay_manifest.get("checkpoints", []))
+	var resume_checkpoint := str(_live_replay_manifest.get("resume_checkpoint_id", _live_session_resume_checkpoint_id)).strip_edges()
+	if resume_checkpoint != "" and not checkpoints.has(resume_checkpoint):
+		checkpoints.insert(0, resume_checkpoint)
+	hub_replay_checkpoint_button.clear()
+	if checkpoints.is_empty():
+		hub_replay_checkpoint_button.add_item("Keine Checkpoints")
+		hub_replay_checkpoint_button.disabled = true
+		_hub_selected_replay_checkpoint_id = ""
+		return
+	hub_replay_checkpoint_button.disabled = false
+	for checkpoint in checkpoints:
+		hub_replay_checkpoint_button.add_item(checkpoint)
+	if _hub_selected_replay_checkpoint_id == "" or not checkpoints.has(_hub_selected_replay_checkpoint_id):
+		_hub_selected_replay_checkpoint_id = resume_checkpoint if resume_checkpoint != "" else checkpoints[0]
+	var selected_index := checkpoints.find(_hub_selected_replay_checkpoint_id)
+	if selected_index < 0:
+		selected_index = 0
+	hub_replay_checkpoint_button.select(selected_index)
+
+
+func _refresh_hub_replay_ui() -> void:
+	var current_epoch := _loaded_epochs[0] if not _loaded_epochs.is_empty() else {}
+	var manifest_status := str(_live_replay_manifest.get("session_status", "n/a"))
+	var world_count := int(_live_replay_manifest.get("world_event_count", current_epoch.get("world_log", []).size()))
+	var pc_count := int(_live_replay_manifest.get("pc_event_count", current_epoch.get("pc_log", []).size()))
+	var patch_count := int(_live_replay_manifest.get("state_patch_count", current_epoch.get("state_patches", []).size()))
+	hub_replay_summary_label.text = "Manifest: %s | world=%d | pc=%d | patches=%d" % [manifest_status, world_count, pc_count, patch_count]
+	_refresh_hub_replay_checkpoint_options()
+	var resume_checkpoint := _live_session_resume_checkpoint_id
+	if resume_checkpoint == "":
+		resume_checkpoint = str(_live_replay_manifest.get("resume_checkpoint_id", "")).strip_edges()
+	if resume_checkpoint == "" and _hub_selected_replay_checkpoint_id == "":
+		hub_replay_status_label.text = "Replay: kein Manifest/Checkpoint aktiv"
+		return
+	var status_parts: Array[String] = []
+	if resume_checkpoint != "":
+		status_parts.append("resume=%s" % resume_checkpoint)
+	if _hub_selected_replay_checkpoint_id != "":
+		status_parts.append("selected=%s" % _hub_selected_replay_checkpoint_id)
+	var replay_path := ""
+	if typeof(_live_replay_manifest.get("artifact_paths", {})) == TYPE_DICTIONARY:
+		replay_path = str((_live_replay_manifest.get("artifact_paths", {}) as Dictionary).get("replay_manifest", "")).strip_edges()
+	if replay_path != "":
+		status_parts.append("manifest=%s" % replay_path)
+	hub_replay_status_label.text = "Replay: %s" % (" | ".join(status_parts) if not status_parts.is_empty() else "n/a")
+
+
+func _parse_checkpoint_tick(checkpoint_id: String) -> int:
+	var text := checkpoint_id.strip_edges()
+	if not text.begins_with("tick-"):
+		return -1
+	var digits := text.substr(5)
+	if digits.is_valid_int():
+		return int(digits)
+	return -1
+
+
+func _find_slot_for_checkpoint_in_entries(entries: Array, checkpoint_id: String) -> int:
+	var checkpoint_tick := _parse_checkpoint_tick(checkpoint_id)
+	for item in entries:
+		if typeof(item) != TYPE_DICTIONARY:
+			continue
+		var entry := item as Dictionary
+		if str(entry.get("turn_id", "")).strip_edges() == checkpoint_id:
+			var slot_number := _extract_slot_from_entry(entry)
+			if slot_number >= 0:
+				return slot_number
+		if checkpoint_tick >= 0 and int(entry.get("tick", -1)) == checkpoint_tick:
+			var tick_slot := _extract_slot_from_entry(entry)
+			if tick_slot >= 0:
+				return tick_slot
+	return -1
+
+
+func _find_slot_for_checkpoint(checkpoint_id: String) -> int:
+	if checkpoint_id == "" or _loaded_epochs.is_empty():
+		return -1
+	var epoch := _loaded_epochs[_current_epoch_index]
+	for key in ["pc_log", "world_log", "state_patches"]:
+		var slot_number := _find_slot_for_checkpoint_in_entries(epoch.get(key, []), checkpoint_id)
+		if slot_number >= 0:
+			return slot_number
+	var manifest_slot := _parse_slot_number(_live_replay_manifest.get("slot_index", -1))
+	if manifest_slot >= 0:
+		return manifest_slot
+	manifest_slot = _parse_slot_number(_live_replay_manifest.get("slot_id", -1))
+	if manifest_slot >= 0:
+		return manifest_slot
+	return -1
+
+
+func _apply_selected_replay_checkpoint() -> void:
+	var checkpoint_id := _hub_selected_replay_checkpoint_id.strip_edges()
+	if checkpoint_id == "":
+		hub_replay_status_label.text = "Replay: kein Checkpoint ausgewaehlt"
+		return
+	_live_session_resume_checkpoint_id = checkpoint_id
+	rp_replay_seed_label.text = "Replay-Seed: %s" % checkpoint_id
+	var slot_number := _find_slot_for_checkpoint(checkpoint_id)
+	if slot_number >= 0:
+		_current_slot = clampi(slot_number, 0, 23)
+	_set_marquee_text(epoch_status_label, "Epochen: Resume-Anker %s | slot=%02d" % [checkpoint_id, _current_slot])
+	hub_chat_status_label.text = "Live-Spielclient: Resume-Anker %s aktiv" % checkpoint_id
+	_append_runtime_event("SESSION_REPLAY", {"action": "apply", "checkpoint_id": checkpoint_id, "slot": _current_slot})
+	_render_pc_centric_view()
+	_refresh_hub_replay_ui()
 
 
 func _render_pc_centric_view() -> void:
@@ -1549,6 +1876,10 @@ func _render_pc_centric_view() -> void:
 
 	var lines: Array[String] = []
 	lines.append("PC-zentrierte Ansicht")
+	if _live_session_resume_checkpoint_id != "":
+		lines.append("- Resume-Anker: %s" % _live_session_resume_checkpoint_id)
+	if _hub_selected_replay_checkpoint_id != "" and _hub_selected_replay_checkpoint_id != _live_session_resume_checkpoint_id:
+		lines.append("- Replay-Auswahl: %s" % _hub_selected_replay_checkpoint_id)
 	lines.append("- PC-Log-Eintraege: %d" % pc_log.size())
 	lines.append("- World-Log-Eintraege: %d" % world_log.size())
 	lines.append("- Slot-Eintraege (PC): %d" % pc_slot_events.size())
@@ -1699,6 +2030,11 @@ func _refresh_hub_chat_ui() -> void:
 
 	var lines: Array[String] = []
 	lines.append("Session: %s | Kampagne: %s" % [_hub_chat_session_id if _hub_chat_session_id != "" else "n/a", _hub_chat_campaign_id])
+	if _live_session_resume_checkpoint_id != "" or _hub_selected_replay_checkpoint_id != "":
+		lines.append("Replay/Resume: %s | selected=%s" % [
+			_live_session_resume_checkpoint_id if _live_session_resume_checkpoint_id != "" else "n/a",
+			_hub_selected_replay_checkpoint_id if _hub_selected_replay_checkpoint_id != "" else "n/a",
+		])
 	lines.append("Slot/Scene: %s | %s" % [_hub_chat_slot_id(), _hub_chat_scene_id])
 	lines.append("Szene: %s" % _hub_chat_current_scene_text)
 	if _hub_chat_current_consequence != "":
@@ -1874,6 +2210,10 @@ func _set_rp_module_exclusive(open: bool) -> void:
 
 
 func _set_hub_content_visible(visible_state: bool) -> void:
+	hub_top_band_panel.visible = visible_state
+	hub_stage_panel.visible = visible_state
+	hub_ops_panel.visible = visible_state
+	hub_telemetry_panel.visible = visible_state and (_hub_show_sim_card or _hub_show_api_card or _hub_show_eval_card)
 	tick_label.visible = visible_state
 	time_label.visible = visible_state
 	status_label.visible = visible_state
@@ -1888,6 +2228,7 @@ func _set_hub_content_visible(visible_state: bool) -> void:
 	audio_status_label.visible = visible_state
 	server_status_label.visible = visible_state
 	hub_config_panel.visible = visible_state
+	hub_replay_panel.visible = visible_state
 	hub_chat_panel.visible = visible_state
 	log_label.visible = visible_state
 	rp_studio_panel.visible = _rp_submenu_open
@@ -2231,6 +2572,7 @@ func _apply_hub_preferences() -> void:
 
 func _apply_card_visibility_now() -> void:
 	var in_hub := not _agent_submenu_open and not _checks_submenu_open and not _rp_submenu_open
+	hub_telemetry_panel.visible = in_hub and (_hub_show_sim_card or _hub_show_api_card or _hub_show_eval_card)
 	sim_card_panel.visible = in_hub and _hub_show_sim_card
 	api_card_panel.visible = in_hub and _hub_show_api_card
 	eval_card_panel.visible = in_hub and _hub_show_eval_card
@@ -2745,6 +3087,7 @@ func _on_server_toggle_pressed() -> void:
 
 func _on_hub_reload_pressed() -> void:
 	_request_live_session_state()
+	_request_live_session_replay()
 	on_action_start.emit("hub_reload", {})
 	_refresh_status_label()
 	_refresh_hub_topbar()
@@ -2837,11 +3180,13 @@ func _on_hub_chat_request_completed(result: int, response_code: int, _headers: P
 			_append_hub_chat_line("SL", answer)
 			_apply_hub_chat_response(answer)
 			_request_live_session_state()
+			_request_live_session_replay()
 			hub_chat_status_label.text = "Live-Spielclient: Antwort ok (%d)" % response_code
 		else:
 			_append_hub_chat_line("SL", text)
 			_apply_hub_chat_response(text)
 			_request_live_session_state()
+			_request_live_session_replay()
 			hub_chat_status_label.text = "Live-Spielclient: Antwort ok (%d)" % response_code
 	else:
 		_hub_chat_pending_turn_id = ""
@@ -2885,6 +3230,49 @@ func _on_hub_session_request_completed(result: int, response_code: int, _headers
 			"http": response_code,
 		}
 	)
+
+
+func _on_hub_replay_fetch_pressed() -> void:
+	_request_live_session_replay()
+
+
+func _on_hub_replay_apply_pressed() -> void:
+	_apply_selected_replay_checkpoint()
+
+
+func _on_hub_replay_checkpoint_selected(index: int) -> void:
+	if hub_replay_checkpoint_button.is_disabled():
+		return
+	if index < 0 or index >= hub_replay_checkpoint_button.item_count:
+		return
+	_hub_selected_replay_checkpoint_id = hub_replay_checkpoint_button.get_item_text(index)
+	_refresh_hub_replay_ui()
+
+
+func _on_hub_replay_request_completed(result: int, response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
+	_hub_replay_sync_in_flight = false
+	var text := body.get_string_from_utf8().strip_edges()
+	var parsed: Variant = JSON.parse_string(text)
+	if result != HTTPRequest.RESULT_SUCCESS:
+		hub_replay_status_label.text = "Replay: Sync fehlgeschlagen (%d)" % result
+		_append_runtime_event("SESSION_REPLAY", {"action": "error", "result": result})
+		return
+	if response_code < 200 or response_code >= 300:
+		var detail := "HTTP %d" % response_code
+		if typeof(parsed) == TYPE_DICTIONARY:
+			detail = "%s | %s" % [detail, str((parsed as Dictionary).get("detail", "Fehler ohne Detail"))]
+		hub_replay_status_label.text = "Replay: %s" % detail
+		_append_runtime_event("SESSION_REPLAY", {"action": "http_error", "http": response_code})
+		return
+	if typeof(parsed) != TYPE_DICTIONARY:
+		hub_replay_status_label.text = "Replay: Antwort unlesbar"
+		_append_runtime_event("SESSION_REPLAY", {"action": "parse_error", "http": response_code})
+		return
+	_live_replay_manifest = parsed as Dictionary
+	if _hub_selected_replay_checkpoint_id == "":
+		_hub_selected_replay_checkpoint_id = str(_live_replay_manifest.get("resume_checkpoint_id", _live_session_resume_checkpoint_id)).strip_edges()
+	_refresh_hub_replay_ui()
+	_append_runtime_event("SESSION_REPLAY", {"action": "applied", "http": response_code, "session_id": _hub_chat_session_id})
 
 
 func _append_hub_chat_line(role: String, content: String) -> void:
@@ -2947,9 +3335,15 @@ func _on_rp_auto_advance_pressed() -> void:
 func _refresh_rp_studio_ui() -> void:
 	if _last_world_state.has("sim_meta") and typeof(_last_world_state.get("sim_meta")) == TYPE_DICTIONARY:
 		var sim_meta: Dictionary = _last_world_state.get("sim_meta", {})
-		rp_replay_seed_label.text = "Replay-Seed: %s" % str(sim_meta.get("seed", "n/a"))
+		if _live_session_resume_checkpoint_id != "":
+			rp_replay_seed_label.text = "Replay-Seed: %s" % _live_session_resume_checkpoint_id
+		else:
+			rp_replay_seed_label.text = "Replay-Seed: %s" % str(sim_meta.get("seed", "n/a"))
 	else:
-		rp_replay_seed_label.text = "Replay-Seed: n/a"
+		if _live_session_resume_checkpoint_id != "":
+			rp_replay_seed_label.text = "Replay-Seed: %s" % _live_session_resume_checkpoint_id
+		else:
+			rp_replay_seed_label.text = "Replay-Seed: n/a"
 
 	rp_auto_advance_button.text = _select_label("Auto-Advance", _rp_auto_advance)
 	rp_status_label.text = "RP: slot=%02d | auto=%s" % [_current_slot, str(_rp_auto_advance)]

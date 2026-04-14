@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:22
-update: Das Sim-Board fuehrt den offenen Replay-/Resume-Punkt jetzt explizit unter `Text-RPG Slice 2 Handover v1`.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-14 12:25
+update: Das Sim-Board fuehrt den Replay-/Resume-Punkt jetzt als geschlossen; der Hub nutzt den bestehenden Session-/Replay-Vertrag sichtbar und bedienbar.
+checks: snapshot-lock 2026-04-14 12:25; get_errors PASS (Main.gd, Main.tscn); verify_sim.gd headless EXITCODE=0; pytest sim replay/session PASS (EXITCODE=0)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -28,7 +28,18 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (Sim)
 ---------------------
 
-- [ ] [Als naechstes] Replay-/Resume-Steuerung fuer `Text-RPG Slice 2 Handover v1` im Hub auf den bestehenden Session-Vertrag heben.
+- [x] [Jetzt] Sim-Hub UI von Grund auf als klaren Spiel-/Operations-Hub neu aufsetzen.
+  - Ziel: Die aktuelle Godot-Oberflaeche soll nicht weiter als gewachsene Offset-Sammlung gepflegt werden, sondern einen klaren Hub mit Statusband, Live-Spiel-Flaeche, Operations-Spalte und belastbarer Modulzone erhalten.
+  - Akzeptanzkriterien:
+    1) der Hub trennt Live-Spiel, Steueraktionen, Telemetrie und Modulzugaenge sichtbar statt mehrere Statusinseln lose uebereinander zu legen,
+    2) die bestehenden Bedienpfade fuer Live-Chat, Serversteuerung, Checks, RP und Agent bleiben auf denselben Funktionspfaden benutzbar,
+    3) der responsive Layoutpfad in `novapolis-sim/scripts/Main.gd` beschreibt den neuen Hub bewusst als wenige Hauptzonen statt als fortgesetzte Einzelrect-Sammlung,
+    4) der neue Aufbau bleibt per Godot-Headless-Ladung ohne Scene-Fehler verifizierbar.
+  - Evidenz: `novapolis-sim/Main.tscn` fuehrt den Hub derzeit als breite Menge frei platzierter Labels, Panels und Buttons; `novapolis-sim/scripts/Main.gd` verteilt dieselben Knoten in `_apply_editor_hub_layout()`, `_layout_hub_topbar()`, `_layout_hub_actions()` und `_layout_hub_log_and_cards()` weiterhin ueber viele feste Einzelkoordinaten.
+  - Ergebnis 2026-04-14 12:03: Der Hub ist visuell und layoutseitig neu aufgebaut. `Main.tscn` fuehrt jetzt eigene Shell-Zonen (`HubTopBandPanel`, `HubStagePanel`, `HubOpsPanel`, `HubTelemetryPanel`) plus neue Panel-Stile; `scripts/Main.gd` schaltet standardmaessig auf den neuen Responsive-Pfad und layoutet den Hub ueber wenige Hauptrechtecke (`_hub_stage_rect()`, `_hub_ops_rect()`, `_layout_hub_shells()`) statt ueber die alte Freihand-Anordnung.
+  - Verifikation 2026-04-14 12:03: Die statische Validierung ist gruen (`get_errors` fuer `Main.gd` und `Main.tscn` ohne Befund). Der kanonische Headless-Verifier `res://scripts/verify_sim.gd` laeuft mit der lokal gestarteten Binary `F:/Downloads/Godot/Godot_v4.6.1-stable_win64.exe` jetzt ebenfalls gruen und liefert `SIM_VERIFY: OK` bei `EXITCODE=0`.
+
+- [x] [Als naechstes] Replay-/Resume-Steuerung fuer `Text-RPG Slice 2 Handover v1` im Hub auf den bestehenden Session-Vertrag heben.
   - Ziel: Der Live-Spielclient soll den bereits vorhandenen Session-/Replay-Vertrag operativ nutzbar machen, statt `resume_checkpoint_id` nur als Label zu zeigen.
   - Akzeptanzkriterien:
     1) der Hub nutzt einen klaren Replay-/Resume-Pfad auf Basis des bestehenden Sessionvertrags statt nur `_request_live_session_state()` auf den aktuellen Snapshot,
@@ -36,6 +47,9 @@ Offene Aufgaben (Sim)
     3) die bestehende Epoch-/Audio-Ansicht bleibt an dieselben Session-Artefakte gebunden,
     4) der neue Pfad bleibt fuer Godot-Bedienung und erwartete Resultate dokumentierbar.
   - Evidenz: `novapolis-sim/scripts/Main.gd` liest aktuell `resume_checkpoint_id` in `_apply_live_session_state()` ein und zeigt ihn nur ueber `rp_replay_seed_label` an; derselbe Client nutzt fuer Live-Sync `_request_live_session_state()` auf dem Session-Snapshot, fuehrt aber keinen sichtbaren Replay-/Checkpoint-Requestpfad. `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` fixiert diesen Resume-Anker jetzt als gemeinsamen Folgevertrag hinter `slot 30`.
+  - Arbeitsstand 2026-04-14 12:09: Der Backend-Vertrag ist bereits da. `novapolis_agent/app/api/sim.py` liefert `GET /session/{session_id}` und `GET /session/{session_id}/replay`, inklusive `resume_checkpoint_id`, `checkpoints`, `artifact_paths` und Replay-Zaehlern. Im Sim-Client fehlt aktuell nur der operative Pfad: `scripts/Main.gd` ruft weiterhin lediglich `_request_live_session_state()` und nutzt den Replay-Endpunkt noch nirgends.
+  - Ergebnis 2026-04-14 12:21: Der Hub fuehrt jetzt einen eigenen Replay-/Resume-Block. `novapolis-sim/Main.tscn` enthaelt `HubReplayPanel` mit Checkpoint-Auswahl sowie `Replay Sync`- und `Resume-Anker`-Buttons; `novapolis-sim/scripts/Main.gd` ruft den bestehenden Endpunkt `GET /session/{session_id}/replay` jetzt explizit auf, synchronisiert Manifestdaten in denselben Session-/Artefaktpfad und wendet den gewaehlten Resume-Anker ohne Parallelformat auf Slot- und Logansicht an.
+  - Verifikation 2026-04-14 12:21: Die statische Pruefung bleibt gruen (`get_errors` fuer `Main.gd` und `Main.tscn` ohne Befund), der kanonische Headless-Verifier `res://scripts/verify_sim.gd` endet mit `EXITCODE=0`, und der gezielte Session-/Replay-Vertragspfad `python -m pytest -q novapolis_agent/tests/test_api_sim_state.py novapolis_agent/tests/tests_sim_api.py` endet ebenfalls mit `EXITCODE=0`.
 
 - [x] [Jetzt] Live-Spielclient fuer den ersten Text-RPG-Slice statt nur Hub-Chat und statischer Epoch-Logs bauen.
   - Akzeptanzkriterium: Die Sim kann eine laufende Spielsession mit aktueller Szene, angebotenen Optionen, Spielereingabe und Rueckmeldung anzeigen, statt nur freie Chat-Nachrichten und vorab gespeicherte Logs zu rendern.
@@ -66,6 +80,10 @@ Offene Aufgaben (Sim)
 
 Aktiver Kontext (max. 14 Tage)
 ------------------------------
+
+- 2026-04-14: Der Sim-Hub ist in diesem Lauf layoutseitig neu aufgesetzt und inzwischen auch mit lokaler Godot-4.6.1-Binary headless verifiziert. Der bestehende Live-Spielclient, die Modulpfade und der offene Resume-/Replay-Punkt bleiben funktional erhalten, waehrend der Hub jetzt ueber Top-Band, Stage, Operations-Spalte und Telemetrieband organisiert wird.
+
+- 2026-04-14: Der letzte offene Bedienpfad ist jetzt ebenfalls geschlossen. Der Hub hat einen sichtbaren Replay-/Resume-Block, nutzt `GET /session/{session_id}/replay` explizit neben dem Session-Snapshot und spiegelt den aktiven Resume-Anker in Hub-, Stage- und RP-Ansicht.
 
 - 2026-04-07: Der Sim-Offline-Check kennt jetzt ein kanonisches Clean-Checkout-Profil. `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency` liefert im aktuellen Repo-Stand `summary=fail:0,warn:0`; Vollstand-Laeufe ohne `--allow-empty` pruefen weiter echte Offline-Artefakte.
 - 2026-03-27: Wochenabschluss-Refresh. `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty --check-slot-consistency` blieb damals ohne harte Fehler (`summary=fail:0,warn:2`); die Restwarnungen zu fehlenden Epoch-Ordnern und Audio-Assets sind seit 2026-04-07 ueber das Clean-Checkout-Profil geschlossen.

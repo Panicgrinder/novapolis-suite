@@ -232,3 +232,60 @@ def test_coqui_request_voices_and_runtime_provider_cover_fallback_paths(
     assert result.mime_type == "audio/wav"
     assert result.artifact_path is not None
     assert "/coqui/" in result.artifact_path.replace("\\", "/")
+
+
+@pytest.mark.unit
+def test_placeholder_providers_and_session_sanitizing_paths(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    providers = _load_providers_module()
+
+    null_provider = providers.NullTtsProvider()
+    null_result = null_provider.synthesize(
+        providers.TtsSynthesizeRequest(
+            text="hello",
+            voice="null-default",
+            language="de",
+            output_format=providers.TtsOutputFormat.wav,
+            sample_rate_hz=22050,
+            settings={},
+        )
+    )
+    assert null_provider.voices() == []
+    assert null_result.is_placeholder is True
+    assert null_result.mime_type == "audio/wav"
+
+    adapter = providers.AdapterScaffoldProvider("openai")
+    adapter_result = adapter.synthesize(
+        providers.TtsSynthesizeRequest(
+            text="hello",
+            voice="openai-default",
+            language="de",
+            output_format=providers.TtsOutputFormat.ogg,
+            sample_rate_hz=22050,
+            settings={},
+        )
+    )
+    assert adapter.voices() == []
+    assert adapter_result.is_placeholder is True
+    assert adapter_result.mime_type == "audio/ogg"
+    assert "openai" in adapter_result.detail
+
+    monkeypatch.setattr(providers.settings, "TTS_RUNTIME_OUTPUT_DIR", str(tmp_path), raising=False)
+    monkeypatch.setattr(providers, "_coqui_request_synthesis", lambda **kwargs: (b"OggS", "audio/ogg"))
+
+    coqui_provider = providers.CoquiRuntimeProvider()
+    sanitized_result = coqui_provider.synthesize(
+        providers.TtsSynthesizeRequest(
+            text="hello",
+            voice="coqui-default",
+            language="de",
+            output_format=providers.TtsOutputFormat.ogg,
+            sample_rate_hz=22050,
+            settings={},
+            session_id="!!!",
+            channel="pc",
+        )
+    )
+    assert sanitized_result.artifact_path is not None
+    assert "/sessions/session/pc/" in sanitized_result.artifact_path.replace("\\", "/")
