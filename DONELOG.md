@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 12:55
-update: Root-Summary fuehrt die Wochenpruefung 2026-04-14 jetzt als vollstaendig grünen Lauf; der zwischenzeitliche Dev-Rest `ruff`/`black` ist geschlossen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260414_124519.md
+stand: 2026-04-15 02:57
+update: Root-Summary fuehrt jetzt zusaetzlich einen dataset-basierten Support-Eval-Track auf dem echten support_de_ab-Pfad.
+checks: targeted pytest PASS (support_de_ab branch, think regression, support_ab_smoke tests, run_eval profile_id tests); suite-validator PASS; support_de_ab probe eval PASS als Laufstart mit offenem Qualitaetsrest (1/2); markdownlint/frontmatter re-run pending same-run for touched logs
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,10 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-15 02:52: Neben den Smoke-Tasks besitzt der Workspace jetzt auch einen kleinen dataset-basierten Support-Track auf dem echten `support_de_ab`-Pfad. `novapolis_agent/eval/datasets/neutral/support_de_ab_core.v1.jsonl` fuehrt acht deutsche Support-Faelle, `novapolis_agent/scripts/run_eval.py` kann dafuer nun ein freies `profile_id` bis `/chat` und in die Ergebnis-Metadaten durchreichen, und `.vscode/tasks.json` enthaelt mit `Eval: suite support_de_ab (8, asgi)` den dazugehoerigen Lauf. Der Validator fuer die Suite ist PASS; der erste Probe-Lauf gegen den echten Pfad liegt bewusst nicht schoengerechnet bei `1/2` und markiert damit einen verbleibenden RPG-Leak im ersten Support-Fall als echten Folgepunkt.
+
+- 2026-04-15 02:38: Der Workspace fuehrt jetzt eine eigene neutrale Support-Schiene neben dem Text-RPG-Produktpfad. `.vscode/tasks.json` enthaelt reproduzierbare Smoke-Tasks fuer `support_de_ab` einmal rein regelbasiert und einmal mit erzwungenem Judge; `novapolis_agent/docs/runbook.md` dokumentiert denselben Split operativ mit `qwen3.5:4b` als primaerem Text-RPG-Modell, `llama3.1:8b` plus `qwen3.5:4b` als Support-Kandidaten und optionalem engem Judge `qwen2.5:7b`. Die technische Modul-Historie und der eigentliche Smoke-Runner liegen im Agent-Modul.
 
 - 2026-04-14 12:47: Der letzte Dev-Rest der Wochenpruefung ist geschlossen. `novapolis_agent/app/api/tts_models.py` nutzt fuer `TtsOutputFormat` jetzt `StrEnum`, die betroffenen TTS- und CPU-Limit-Tests sind lint-/formatkonform nachgezogen, und der von `black` gemeldete Restdateisatz in `scripts/` ist formatiert. Der gezielte Pytest-Scope fuer `test_run_with_cpu_limit.py`, `test_tts_models_validators.py` und `test_tts_provider_edges.py` ist PASS, und der frische Sammellauf `.tmp/results/reports/checks_report_20260414_124519.md` ist jetzt mit allen Pflichtchecks gruen. `todo.dev.md`, `todo.index.md`, `WORKSPACE_STATUS.md`, `novapolis-dev/docs/donelog.md` und `novapolis_agent/docs/DONELOG.txt` sind im selben Lauf nachgezogen; alle aktiven Modul-Boards stehen damit wieder auf `offen: 0`.
 

@@ -163,8 +163,28 @@ def normalize_ollama_options(
     return out, host
 
 
+def resolve_ollama_think(
+    raw_options: dict[str, Any] | None,
+    *,
+    model_name: str | None,
+) -> bool | None:
+    """Ermittelt den Top-Level-Ollama-Schalter ``think`` fuer Modelle mit Thinking-Kanal."""
+    ro: dict[str, Any] = dict(raw_options or {})
+
+    explicit = _coerce_bool(ro.get("think"))
+    if explicit is not None:
+        return explicit
+
+    normalized_model = (model_name or "").strip().lower()
+    if normalized_model.startswith("qwen3.5:"):
+        return False
+
+    return None
+
+
 __all__ = [
     "ensure_system_message",
     "get_system_prompt",
     "normalize_ollama_options",
+    "resolve_ollama_think",
 ]

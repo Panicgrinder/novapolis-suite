@@ -80,6 +80,178 @@ class _FailingClient:
 
 
 @pytest.mark.asyncio
+async def test_process_chat_request_support_ab_profile_prefers_better_candidate(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    async def _fake_run(**kwargs: Any):
+        model_name = kwargs["model_name"]
+        if model_name == "llama3.1:8b":
+            return (
+                "Vielen Dank fuer Ihre Rueckmeldung. Bitte senden Sie die Rechnungsnummer, damit wir den Fall schnell pruefen koennen.",
+                1100,
+            )
+        if model_name == "qwen3.5:4b":
+            return ("Szene: Novapolis meldet sich bei Ihnen. Optionen: ...", 900)
+        raise AssertionError(model_name)
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "qwen3.5:4b", raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "REQUEST_ID_HEADER", "X-Request-ID", raising=False)
+    monkeypatch.setattr(settings, "LOG_TRUNCATE_CHARS", 50, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(chat_module, "apply_post", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(chat_module, "get_memory_store", lambda: _DummyStore())
+    monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda _: []))
+    monkeypatch.setattr(chat_module, "_run_nonstream_ollama_request", _fake_run, raising=False)
+
+    request = ChatRequest(
+        messages=[{"role": "user", "content": "Bitte formuliere eine versandfaehige Support-Antwort zur fehlenden Rechnungsnummer."}],
+        profile_id="support_de_ab",
+    )
+    result = await chat_module.process_chat_request(request)
+
+    assert result.model == "llama3.1:8b"
+    assert "Rechnungsnummer" in result.content
+    assert "Szene:" not in result.content
+
+
+@pytest.mark.asyncio
+async def test_process_chat_request_support_ab_uses_optional_judge(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    calls: list[str] = []
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    async def _fake_run(**kwargs: Any):
+        model_name = kwargs["model_name"]
+        calls.append(model_name)
+        if model_name == "llama3.1:8b":
+            return ("Vielen Dank fuer Ihre Nachricht. Bitte senden Sie die Rechnungsnummer.", 1500)
+        if model_name == "qwen3.5:4b":
+            return ("Danke fuer Ihre Nachricht. Bitte senden Sie die Rechnungsnummer.", 1400)
+        if model_name == "qwen2.5:7b":
+            return ("B", 400)
+        raise AssertionError(model_name)
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "qwen3.5:4b", raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "REQUEST_ID_HEADER", "X-Request-ID", raising=False)
+    monkeypatch.setattr(settings, "LOG_TRUNCATE_CHARS", 50, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(chat_module, "apply_post", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(chat_module, "get_memory_store", lambda: _DummyStore())
+    monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda _: []))
+    monkeypatch.setattr(chat_module, "_run_nonstream_ollama_request", _fake_run, raising=False)
+
+    request = ChatRequest(
+        messages=[{"role": "user", "content": "Bitte formuliere eine versandfaehige Support-Antwort zur fehlenden Rechnungsnummer."}],
+        profile_id="support_de_ab",
+        options={"support_judge_model": "qwen2.5:7b", "support_force_judge": True},
+    )
+    result = await chat_module.process_chat_request(request)
+
+    assert result.model == "qwen3.5:4b"
+    assert result.content.startswith("Danke fuer Ihre Nachricht")
+    assert calls == ["llama3.1:8b", "qwen3.5:4b", "qwen2.5:7b"]
+
+
+@pytest.mark.asyncio
+async def test_process_chat_request_sets_top_level_think_false_for_qwen35(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    response = _DummyHTTPResponse({"message": {"content": "model answer"}})
+    client = _DummyClient(response)
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "qwen3.5:4b", raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "REQUEST_ID_HEADER", "X-Request-ID", raising=False)
+    monkeypatch.setattr(settings, "LOG_TRUNCATE_CHARS", 50, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(chat_module, "apply_post", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(chat_module, "get_memory_store", lambda: _DummyStore())
+    monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda _: []))
+
+    request = ChatRequest(messages=[{"role": "user", "content": "hi"}])
+    result = await chat_module.process_chat_request(
+        request,
+        client=cast(httpx.AsyncClient, client),
+    )
+
+    assert result.content == "model answer"
+    assert client.last_payload is not None
+    assert client.last_payload["model"] == "qwen3.5:4b"
+    assert client.last_payload["think"] is False
+
+
+@pytest.mark.asyncio
+async def test_stream_chat_request_sets_top_level_think_false_for_qwen35(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    lines = [json.dumps({"message": {"content": "ok"}}), json.dumps({"done": True})]
+    client = _DummyStreamClient(lines)
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "qwen3.5:9b", raising=False)
+    monkeypatch.setattr(settings, "CONTENT_POLICY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "CONTEXT_NOTES_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "RAG_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "REQUEST_ID_HEADER", "X-Request-ID", raising=False)
+    monkeypatch.setattr(settings, "LOG_TRUNCATE_CHARS", 50, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(chat_module, "apply_post", lambda *a, **k: SimpleNamespace(action="allow"))
+
+    request = ChatRequest(messages=[{"role": "user", "content": "hi"}])
+    generator = await chat_module.stream_chat_request(
+        request,
+        client=cast(httpx.AsyncClient, client),
+    )
+    chunks = []
+    async for chunk in generator:
+        chunks.append(chunk)
+
+    assert any("event: done" in chunk for chunk in chunks)
+    assert client.last_payload is not None
+    assert client.last_payload["model"] == "qwen3.5:9b"
+    assert client.last_payload["think"] is False
+
+
+@pytest.mark.asyncio
 async def test_stream_chat_enriches_messages_and_rewrites(monkeypatch: pytest.MonkeyPatch) -> None:
     from app.api import chat as chat_module
 

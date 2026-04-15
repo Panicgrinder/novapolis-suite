@@ -395,6 +395,83 @@
     }
     ,
     {
+      "label": "Eval: suite support_de_ab (8, asgi)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "-m",
+        "scripts.agent.run_eval",
+        "--asgi",
+        "--profile",
+        "default",
+        "--profile-id",
+        "support_de_ab",
+        "--temperature",
+        "0.2",
+        "--top-p",
+        "0.1",
+        "--max-tokens",
+        "128",
+        "--limit",
+        "8",
+        "--quiet",
+        "--tag",
+        "support_de_ab",
+        "--checks",
+        "must_include,keywords_any,keywords_at_least,not_include,regex,quality_de,rpg_style",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\neutral\\support_de_ab_core.v1.jsonl"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Eval: support_de_ab smoke (asgi, rules)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "${workspaceFolder}\\novapolis_agent\\scripts\\support_ab_smoke.py",
+        "--asgi"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Eval: support_de_ab smoke (asgi, judge)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "${workspaceFolder}\\novapolis_agent\\scripts\\support_ab_smoke.py",
+        "--asgi",
+        "--judge-model",
+        "qwen2.5:7b",
+        "--force-judge"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
       "label": "Eval: suite rpg (20, asgi)",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
@@ -603,6 +680,8 @@
         "rpg",
         "--suite",
         "quality_de",
+        "--suite",
+        "support_de_ab",
         "--suite",
         "rp_content",
         "--suite",

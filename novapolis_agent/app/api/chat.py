@@ -17,12 +17,12 @@ try:
 except Exception:
     _ctx_notes_mod = importlib.import_module("novapolis_agent.utils.context_notes")
 
-from ..core.content_management import apply_post, apply_pre, modify_prompt_for_freedom
+from ..core.content_management import apply_post, apply_pre, modify_prompt_for_freedom, neutralize
 from ..core.memory import compose_with_memory, get_memory_store
 from ..core.prompts import DEFAULT_SYSTEM_PROMPT, EVAL_SYSTEM_PROMPT, UNRESTRICTED_SYSTEM_PROMPT
 from ..utils.session_memory import session_memory
 from . import sim as _sim_api
-from .chat_helpers import normalize_ollama_options
+from .chat_helpers import normalize_ollama_options, resolve_ollama_think
 from .models import (
     TEXT_RPG_DEFAULT_TURN_WINDOW_MINUTES,
     TEXT_RPG_LOG_CHANNELS,
@@ -69,6 +69,80 @@ _EMAIL_RE = re.compile(r"\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b", re.IGNORECA
 _LONG_NUM_RE = re.compile(r"\b\d{4,}\b")
 _MULTISPACE_RE = re.compile(r"\s+")
 _STRICT_RPG_SECTION_TITLES = ("Szene:", "Konsequenz:", "Optionen:", "State_Patches:")
+_SUPPORT_DE_AB_PROFILE = "support_de_ab"
+_SUPPORT_DE_AB_DEFAULT_CANDIDATES = ("llama3.1:8b", "qwen3.5:4b")
+_SUPPORT_DE_AB_POLITE_MARKERS = (
+    "bitte",
+    "danke",
+    "vielen dank",
+    "rueckmeldung",
+    "rückmeldung",
+    "entschuldigung",
+    "freundlichen gruessen",
+    "freundlichen grüßen",
+)
+_SUPPORT_DE_AB_RPG_MARKERS = (
+    "szene:",
+    "konsequenz:",
+    "optionen:",
+    "state_patches:",
+    "/roll",
+    "novapolis",
+    "slot-",
+    "turn-",
+    "gm_only",
+    "hidden_context",
+)
+_SUPPORT_DE_AB_AI_SELF_MARKERS = (
+    "als ki",
+    "als sprachmodell",
+    "ich bin ein computerprogramm",
+    "ich bin ein ki-modell",
+)
+_SUPPORT_DE_AB_STOPWORDS = {
+    "aber",
+    "alles",
+    "beim",
+    "bereits",
+    "bitte",
+    "damit",
+    "danke",
+    "dass",
+    "deine",
+    "deiner",
+    "deinem",
+    "deinen",
+    "deutlich",
+    "diese",
+    "diesem",
+    "einen",
+    "einer",
+    "eines",
+    "eurer",
+    "fuer",
+    "gern",
+    "gerne",
+    "heute",
+    "hier",
+    "ihnen",
+    "ihre",
+    "ihren",
+    "ihrer",
+    "koennen",
+    "können",
+    "mehr",
+    "noch",
+    "oder",
+    "sowie",
+    "support",
+    "unser",
+    "unsere",
+    "unter",
+    "vielen",
+    "weiter",
+    "werden",
+    "wurde",
+}
 
 
 def _bool_from_unknown(value: Any, default: bool = False) -> bool:
@@ -191,6 +265,247 @@ def _latest_user_text(messages: list[dict[str, str]]) -> str:
         message.get("content", "") for message in messages if message.get("role") == "user"
     ]
     return user_texts[-1] if user_texts else ""
+
+
+def _support_ab_enabled(
+    options: Mapping[str, Any],
+    *,
+    profile_id: str | None,
+    eval_mode: bool,
+    unrestricted_mode: bool,
+) -> bool:
+    if eval_mode or unrestricted_mode:
+        return False
+    if profile_id == _SUPPORT_DE_AB_PROFILE:
+        return True
+    return _bool_from_unknown(options.get("support_ab_enabled"), default=False)
+
+
+def _support_ab_force_judge(options: Mapping[str, Any]) -> bool:
+    return _bool_from_unknown(options.get("support_force_judge"), default=False)
+
+
+def _support_ab_candidate_models(options: Mapping[str, Any]) -> list[str]:
+    raw_models = _coerce_string_list(options.get("support_candidate_models"))
+    candidates = raw_models if len(raw_models) >= 2 else list(_SUPPORT_DE_AB_DEFAULT_CANDIDATES)
+    deduped: list[str] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        normalized = candidate.strip()
+        if not normalized:
+            continue
+        lowered = normalized.lower()
+        if lowered in seen:
+            continue
+        seen.add(lowered)
+        deduped.append(normalized)
+    return deduped[:2] if len(deduped) >= 2 else list(_SUPPORT_DE_AB_DEFAULT_CANDIDATES)
+
+
+def _support_ab_judge_model(options: Mapping[str, Any]) -> str | None:
+    value = str(options.get("support_judge_model", "")).strip()
+    return value or None
+
+
+def _support_ab_query_terms(text: str) -> list[str]:
+    tokens = re.findall(r"[a-zA-ZäöüÄÖÜß]{4,}", text.lower())
+    deduped: list[str] = []
+    seen: set[str] = set()
+    for token in tokens:
+        if token in _SUPPORT_DE_AB_STOPWORDS:
+            continue
+        if token in seen:
+            continue
+        seen.add(token)
+        deduped.append(token)
+    return deduped[:6]
+
+
+def _score_support_candidate_response(user_text: str, response_text: str) -> tuple[int, list[str]]:
+    text = response_text.strip()
+    if not text:
+        return (-100, ["empty_response"])
+
+    score = 0
+    reasons: list[str] = []
+    lowered = text.lower()
+    text_len = len(text)
+
+    if 80 <= text_len <= 700:
+        score += 2
+        reasons.append("good_length")
+    elif 40 <= text_len <= 1000:
+        score += 1
+        reasons.append("acceptable_length")
+    elif text_len < 25:
+        score -= 3
+        reasons.append("too_short")
+    elif text_len > 1300:
+        score -= 2
+        reasons.append("too_long")
+
+    if text[:1].isupper():
+        score += 1
+        reasons.append("starts_clean")
+    if lowered.endswith((".", "!", "?")):
+        score += 1
+        reasons.append("ends_clean")
+
+    rpg_hits = sum(1 for marker in _SUPPORT_DE_AB_RPG_MARKERS if marker in lowered)
+    if rpg_hits > 0:
+        score -= 20 + min(10, (rpg_hits - 1) * 3)
+        reasons.append("rpg_leak")
+    if any(marker in lowered for marker in _SUPPORT_DE_AB_AI_SELF_MARKERS):
+        score -= 4
+        reasons.append("ai_self_reference")
+
+    polite_hits = sum(1 for marker in _SUPPORT_DE_AB_POLITE_MARKERS if marker in lowered)
+    if polite_hits > 0:
+        score += min(2, polite_hits)
+        reasons.append("polite_markers")
+
+    overlap = sum(1 for term in _support_ab_query_terms(user_text) if term in lowered)
+    if overlap > 0:
+        score += min(3, overlap)
+        reasons.append("query_overlap")
+
+    try:
+        neutralized = neutralize(text)
+        if len(neutralized) < max(12, text_len // 3):
+            score -= 2
+            reasons.append("needs_heavy_neutralize")
+    except Exception:
+        pass
+
+    return score, reasons
+
+
+def _build_support_judge_messages(
+    *,
+    user_text: str,
+    candidate_a: str,
+    candidate_b: str,
+) -> list[dict[str, str]]:
+    system_prompt = (
+        "Du bist ein strenger Qualitaetsrichter fuer deutschsprachige Support-Antworten. "
+        "Waehle die bessere versandfaehige Antwort nach diesen Kriterien in Reihenfolge: "
+        "Korrektheit, Nutzerbezug, Klarheit, Hoeflichkeit, Knappheit. "
+        "Antworte nur mit A oder B."
+    )
+    user_prompt = (
+        "Anfrage:\n"
+        f"{user_text}\n\n"
+        "Antwort A:\n"
+        f"{candidate_a}\n\n"
+        "Antwort B:\n"
+        f"{candidate_b}\n\n"
+        "Welche Antwort ist die bessere versandfaehige Support-Antwort? "
+        "Antworte nur mit A oder B."
+    )
+    return [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt},
+    ]
+
+
+def _parse_support_judge_choice(text: str) -> str | None:
+    match = re.search(r"\b([AB])\b", text.strip().upper())
+    if match:
+        return match.group(1)
+    return None
+
+
+async def _run_nonstream_ollama_request(
+    *,
+    messages: list[dict[str, str]],
+    raw_options: Mapping[str, Any],
+    model_name: str,
+    eval_mode: bool,
+    client: httpx.AsyncClient | None,
+    request_id: str | None,
+) -> tuple[str, int | None]:
+    norm_opts, base_host = normalize_ollama_options(dict(raw_options), eval_mode=eval_mode)
+    think_flag = resolve_ollama_think(dict(raw_options), model_name=model_name)
+
+    ollama_payload: dict[str, Any] = {
+        "model": model_name,
+        "messages": messages,
+        "stream": False,
+        "options": norm_opts,
+    }
+    if think_flag is not None:
+        ollama_payload["think"] = think_flag
+
+    ollama_url = f"{base_host}/api/chat"
+
+    async def _post_with(_client: httpx.AsyncClient):
+        headers = {"Content-Type": "application/json"}
+        if request_id:
+            headers[settings.REQUEST_ID_HEADER] = request_id
+        if getattr(settings, "LOG_JSON", False):
+            logger.info(
+                _json.dumps(
+                    {
+                        "event": "model_request",
+                        "url": ollama_url,
+                        "model": ollama_payload.get("model"),
+                        "options": ollama_payload.get("options", {}),
+                        "stream": bool(ollama_payload.get("stream", False)),
+                        "request_id": request_id,
+                    },
+                    ensure_ascii=False,
+                )
+            )
+        else:
+            logger.info(
+                "Sende Anfrage an Ollama: %s model=%s opts=%s rid=%s",
+                ollama_url,
+                ollama_payload.get("model"),
+                ollama_payload.get("options", {}),
+                request_id,
+            )
+        started = time.time()
+        resp = await _client.post(ollama_url, json=ollama_payload, headers=headers)
+        return resp, started
+
+    if client is not None:
+        response, started = await _post_with(client)
+    else:
+        async with httpx.AsyncClient(timeout=settings.REQUEST_TIMEOUT) as temp_client:
+            response, started = await _post_with(temp_client)
+
+    response.raise_for_status()
+    result = response.json()
+    generated_content = result.get("message", {}).get("content", "")
+    generated_content = _repair_strict_rpg_contract_response(messages, generated_content)
+
+    max_len = max(0, int(getattr(settings, "LOG_TRUNCATE_CHARS", 200)))
+    preview = (
+        generated_content if len(generated_content) <= max_len else f"{generated_content[:max_len]}..."
+    )
+    duration_ms = int((time.time() - started) * 1000)
+    if getattr(settings, "LOG_JSON", False):
+        logger.info(
+            _json.dumps(
+                {
+                    "event": "model_response",
+                    "model": ollama_payload.get("model"),
+                    "status": int(response.status_code),
+                    "duration_ms": duration_ms,
+                    "preview": preview,
+                    "request_id": request_id,
+                },
+                ensure_ascii=False,
+            )
+        )
+    else:
+        logger.info(
+            "Antwort von Ollama erhalten. %s ms rid=%s Inhalt: %s",
+            duration_ms,
+            request_id,
+            preview,
+        )
+    return generated_content, duration_ms
 
 
 def _is_strict_rpg_contract_text(text: str) -> bool:
@@ -1312,7 +1627,9 @@ async def stream_chat_request(
             raw_opts = {}
     else:
         raw_opts = {}
+    resolved_model = req_model or settings.MODEL_NAME
     norm_opts, base_host = normalize_ollama_options(raw_opts, eval_mode=eval_mode)
+    think_flag = resolve_ollama_think(raw_opts, model_name=resolved_model)
 
     try:
         if getattr(settings, "SESSION_MEMORY_ENABLED", False):
@@ -1336,11 +1653,13 @@ async def stream_chat_request(
         pass
 
     ollama_payload: dict[str, Any] = {
-        "model": req_model or settings.MODEL_NAME,
+        "model": resolved_model,
         "messages": messages,
         "stream": True,
         "options": norm_opts,
     }
+    if think_flag is not None:
+        ollama_payload["think"] = think_flag
 
     ollama_url = f"{base_host}/api/chat"
 
@@ -1757,6 +2076,7 @@ async def process_chat_request(
             pass
 
         req_model = getattr(request, "model", None)
+        profile_id = getattr(request, "profile_id", None)
         raw_any2 = getattr(request, "options", None)
         raw_opts2: dict[str, Any] = {}
         if isinstance(raw_any2, Mapping):
@@ -1780,7 +2100,7 @@ async def process_chat_request(
                 raw_opts2 = {}
         else:
             raw_opts2 = {}
-        norm_opts2, base_host = normalize_ollama_options(raw_opts2, eval_mode=eval_mode)
+        resolved_model = req_model or settings.MODEL_NAME
 
         try:
             if getattr(settings, "SESSION_MEMORY_ENABLED", False):
@@ -1806,97 +2126,119 @@ async def process_chat_request(
         except Exception:
             pass
 
-        ollama_payload: dict[str, Any] = {
-            "model": req_model or settings.MODEL_NAME,
-            "messages": messages,
-            "stream": False,
-            "options": norm_opts2,
-        }
-
-        ollama_url = f"{base_host}/api/chat"
-
-        async def _post_with(_client: httpx.AsyncClient):
-            headers = {"Content-Type": "application/json"}
-            if request_id:
-                headers[settings.REQUEST_ID_HEADER] = request_id
-            if getattr(settings, "LOG_JSON", False):
-                logger.info(
-                    _json.dumps(
-                        {
-                            "event": "model_request",
-                            "url": ollama_url,
-                            "model": ollama_payload.get("model"),
-                            "options": ollama_payload.get("options", {}),
-                            "stream": bool(ollama_payload.get("stream", False)),
-                            "request_id": request_id,
-                        },
-                        ensure_ascii=False,
-                    )
+        selected_model = resolved_model
+        if _support_ab_enabled(
+            raw_opts2,
+            profile_id=profile_id,
+            eval_mode=eval_mode,
+            unrestricted_mode=unrestricted_mode,
+        ):
+            candidate_models = _support_ab_candidate_models(raw_opts2)
+            candidate_results: list[dict[str, Any]] = []
+            last_user_text = _latest_user_text(messages)
+            for candidate_model in candidate_models:
+                candidate_text, candidate_duration = await _run_nonstream_ollama_request(
+                    messages=messages,
+                    raw_options=raw_opts2,
+                    model_name=candidate_model,
+                    eval_mode=eval_mode,
+                    client=client,
+                    request_id=request_id,
                 )
-            else:
-                logger.info(
-                    "Sende Anfrage an Ollama: %s model=%s opts=%s rid=%s",
-                    ollama_url,
-                    ollama_payload.get("model"),
-                    ollama_payload.get("options", {}),
-                    request_id,
+                candidate_score, candidate_reasons = _score_support_candidate_response(
+                    last_user_text, candidate_text
                 )
-            started = time.time()
-            resp = await _client.post(ollama_url, json=ollama_payload, headers=headers)
-            # mypy: Response may not have custom attribute _started; use Any cast to set it
-            from typing import Any as _Any
-
-            resp_any = cast(_Any, resp)
-            resp_any._started = started
-            return resp
-
-        if client is not None:
-            response = await _post_with(client)
-        else:
-            async with httpx.AsyncClient(timeout=settings.REQUEST_TIMEOUT) as temp_client:
-                response = await _post_with(temp_client)
-
-        response.raise_for_status()
-        result = response.json()
-        generated_content = result.get("message", {}).get("content", "")
-        generated_content = _repair_strict_rpg_contract_response(messages, generated_content)
-
-        max_len = max(0, int(getattr(settings, "LOG_TRUNCATE_CHARS", 200)))
-        preview = (
-            generated_content
-            if len(generated_content) <= max_len
-            else f"{generated_content[:max_len]}..."
-        )
-        started = getattr(response, "_started", None)
-        duration_ms = int((time.time() - started) * 1000) if isinstance(started, float) else None
-        if getattr(settings, "LOG_JSON", False):
-            logger.info(
-                _json.dumps(
+                candidate_results.append(
                     {
-                        "event": "model_response",
-                        "model": ollama_payload.get("model"),
-                        "status": int(response.status_code),
-                        "duration_ms": duration_ms,
-                        "preview": preview,
-                        "request_id": request_id,
-                    },
-                    ensure_ascii=False,
+                        "model": candidate_model,
+                        "text": candidate_text,
+                        "duration_ms": candidate_duration,
+                        "score": candidate_score,
+                        "reasons": candidate_reasons,
+                    }
                 )
+
+            ranked_candidates = sorted(
+                candidate_results,
+                key=lambda item: (
+                    int(cast(int, item.get("score", -100))),
+                    -int(cast(int | None, item.get("duration_ms", 0)) or 0),
+                ),
+                reverse=True,
+            )
+            winner = ranked_candidates[0]
+            runner_up = ranked_candidates[1] if len(ranked_candidates) > 1 else None
+            judge_model = _support_ab_judge_model(raw_opts2)
+            use_judge = _support_ab_force_judge(raw_opts2)
+            if (
+                judge_model
+                and len(candidate_results) >= 2
+                and (use_judge or runner_up is not None)
+            ):
+                score_gap = abs(
+                    int(cast(int, winner.get("score", -100)))
+                    - int(cast(int, runner_up.get("score", -100)))
+                ) if runner_up is not None else 0
+                if use_judge or score_gap <= 1:
+                    judge_messages = _build_support_judge_messages(
+                        user_text=last_user_text,
+                        candidate_a=str(candidate_results[0].get("text", "")),
+                        candidate_b=str(candidate_results[1].get("text", "")),
+                    )
+                    judge_text, _judge_duration = await _run_nonstream_ollama_request(
+                        messages=judge_messages,
+                        raw_options={**raw_opts2, "temperature": 0.0, "top_p": 0.1, "num_predict": 32},
+                        model_name=judge_model,
+                        eval_mode=False,
+                        client=client,
+                        request_id=request_id,
+                    )
+                    judge_choice = _parse_support_judge_choice(judge_text)
+                    if judge_choice == "A":
+                        winner = candidate_results[0]
+                    elif judge_choice == "B":
+                        winner = candidate_results[1]
+                    if getattr(settings, "LOG_JSON", False):
+                        logger.info(
+                            _json.dumps(
+                                {
+                                    "event": "support_ab_judge",
+                                    "judge_model": judge_model,
+                                    "choice": judge_choice,
+                                    "request_id": request_id,
+                                },
+                                ensure_ascii=False,
+                            )
+                        )
+                    else:
+                        logger.info(
+                            "support_de_ab judge=%s choice=%s rid=%s",
+                            judge_model,
+                            judge_choice,
+                            request_id,
+                        )
+
+            generated_content = str(winner.get("text", ""))
+            selected_model = str(winner.get("model", resolved_model))
+            logger.info(
+                "support_de_ab gewaehlt: model=%s score=%s reasons=%s rid=%s",
+                selected_model,
+                winner.get("score"),
+                ",".join(cast(list[str], winner.get("reasons", []))),
+                request_id,
             )
         else:
-            if duration_ms is not None:
-                logger.info(
-                    "Antwort von Ollama erhalten. %s ms rid=%s Inhalt: %s",
-                    duration_ms,
-                    request_id,
-                    preview,
-                )
-            else:
-                logger.info("Antwort von Ollama erhalten. rid=%s Inhalt: %s", request_id, preview)
+            generated_content, _duration_ms = await _run_nonstream_ollama_request(
+                messages=messages,
+                raw_options=raw_opts2,
+                model_name=resolved_model,
+                eval_mode=eval_mode,
+                client=client,
+                request_id=request_id,
+            )
 
         try:
             mode = "unrestricted" if unrestricted_mode else ("eval" if eval_mode else "default")
-            profile_id = getattr(request, "profile_id", None)
             post = apply_post(generated_content, mode=mode, profile_id=profile_id)
             action = getattr(post, "action", "allow")
             policy_post = "allow"
@@ -1964,7 +2306,7 @@ async def process_chat_request(
         return _build_contract_chat_response(
             request,
             content=generated_content,
-            model=settings.MODEL_NAME,
+            model=selected_model,
         )
     except HTTPException:
         raise

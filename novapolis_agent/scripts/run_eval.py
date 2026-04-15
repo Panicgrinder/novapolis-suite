@@ -895,6 +895,7 @@ async def evaluate_item(
     eval_mode: bool = False,
     client: httpx.AsyncClient | None = None,
     enabled_checks: list[str] | None = None,
+    profile_id_override: str | None = None,
     model_override: str | None = None,
     temperature_override: float | None = None,
     host_override: str | None = None,
@@ -983,6 +984,8 @@ async def evaluate_item(
             "messages": messages,
             "eval_mode": eval_mode,  # Signal für die API, den RPG-Modus zu deaktivieren
         }
+        if profile_id_override:
+            payload["profile_id"] = profile_id_override
         if model_override:
             payload["model"] = model_override
         # Merge option overrides
@@ -1020,6 +1023,7 @@ async def evaluate_item(
                             "api_url": api_url,
                             "messages": _payload.get("messages"),
                             "options": _payload.get("options"),
+                            "profile_id": _payload.get("profile_id"),
                             "model": _payload.get("model") or model_override,
                             "eval_mode": eval_mode,
                         }
@@ -1492,6 +1496,7 @@ async def run_evaluation(
     eval_mode: bool = False,
     asgi: bool = False,
     enabled_checks: list[str] | None = None,
+    profile_id_override: str | None = None,
     model_override: str | None = None,
     temperature_override: float | None = None,
     host_override: str | None = None,
@@ -1626,10 +1631,12 @@ async def run_evaluation(
                     "regex",
                     "rpg_style",
                 ],
+                "profile_id": profile_id_override,
                 "model": effective_model_name,
                 "temperature": _temperature,
                 "host": _host,
                 "overrides": {
+                    "profile_id": profile_id_override,
                     "model": model_override,
                     "temperature": temperature_override,
                     "host": host_override,
@@ -1703,6 +1710,7 @@ async def run_evaluation(
                         eval_mode=eval_mode,
                         client=asgi_client,
                         enabled_checks=enabled_checks,
+                        profile_id_override=profile_id_override,
                         model_override=model_override,
                         temperature_override=(
                             temp_override if temp_override is not None else temperature_override
@@ -2255,6 +2263,12 @@ if __name__ == "__main__":
         help="Profil-Preset: eval, default, unrestricted",
     )
     parser.add_argument(
+        "--profile-id",
+        dest="profile_id",
+        type=str,
+        help="Optionales profile_id, das unverändert an /chat weitergereicht wird (z. B. support_de_ab)",
+    )
+    parser.add_argument(
         "--checks",
         nargs="*",
         help="Aktiviere Check-Typen; unterstützt Komma-Liste und Alias 'term_inclusion'",
@@ -2537,6 +2551,8 @@ if __name__ == "__main__":
         console.print(f"temperature Override: {t_final}")
     if args.model:
         console.print(f"Model Override: {args.model}")
+    if args.profile_id:
+        console.print(f"Profile-ID Override: {args.profile_id}")
     if args.host:
         console.print(f"Host Override: {args.host}")
     if args.retries:
@@ -2598,6 +2614,7 @@ if __name__ == "__main__":
             eval_mode=eval_mode_flag,
             asgi=args.asgi,
             enabled_checks=checks_final,
+            profile_id_override=args.profile_id,
             model_override=args.model,
             temperature_override=t_final,
             host_override=args.host,

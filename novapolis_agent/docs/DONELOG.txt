@@ -1,5 +1,5 @@
 ---
-stand: 2026-04-14 11:15
+stand: 2026-04-15 02:57
 update: Agent-Scope dokumentiert jetzt die geschlossene Coverage-Welle fuer chat_helpers, main und tts/providers.
 checks: snapshot-lock PASS; focused coverage PASS (chat_helpers=100, main=98, providers=96); scripts/run_pytest_coverage.py --fail-under 80 PASS (615 passed, total=94.92%)
 
@@ -20,6 +20,21 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+
+2026-04-15 02:10 | Copilot | Den neutralen Support-Pfad als getrennte Mehrmodell-Option angelegt, ohne den Text-RPG-Produktpfad umzubauen. `app/api/models.py` fuehrt jetzt die opt-in Felder fuer `support_de_ab`-Routing, Kandidatenmodelle und optionalen Judge; `app/api/chat.py` kann fuer `profile_id=support_de_ab` zwei Kandidaten (`llama3.1:8b` und `qwen3.5:4b`, overridable) gegeneinander laufen lassen, bewertet beide zuerst regelbasiert auf versandfaehige Support-Qualitaet und zieht nur bei Bedarf einen engen Modell-Judge nach. Gezielte Tests sichern Kandidatenauswahl und optionalen Judge gegen Regression ab.
+
+
+2026-04-15 02:38 | Copilot | Den neuen Support-A/B-Pfad operativ verdrahtet. `novapolis_agent/scripts/support_ab_smoke.py` fuehrt denselben `/chat`-Pfad mit `profile_id=support_de_ab` als reproduzierbaren Smoke-Lauf aus, `novapolis_agent/tests/scripts/test_support_ab_smoke.py` sichert Payload- und Request-Aufbau, und `novapolis_agent/docs/runbook.md` dokumentiert jetzt sowohl den Primärwechsel auf `qwen3.5:4b` fuer Text-RPG als auch die neutralen Support-Requests inkl. opt-in Judge. Fuer den Workspace liegen dazu zwei direkte Tasks in `.vscode/tasks.json`: regelbasiert und Judge-erzwungen.
+
+
+2026-04-15 02:40 | Copilot | Den Support-Score nach einem echten Smoke-Lauf gehaertet. Ausloeser war eine Live-Auswahl, bei der `llama3.1:8b` trotz sichtbarer RPG-Leaks (`Szene`, `Optionen`, `State_Patches`) noch vor einer sachlichen Support-Antwort lag; `app/api/chat.py` stuft solche Marker jetzt als harten Shippability-Verlust statt nur als kleinen Malus ein, damit der regelbasierte Selector den neutralen Support-Zweig belastbarer trennt.
+
+
+2026-04-15 02:52 | Copilot | Den naechsten thematisch passenden Schritt fuer `support_de_ab` eingezogen: `novapolis_agent/eval/datasets/neutral/support_de_ab_core.v1.jsonl` fuehrt acht typische deutschsprachige Support-Faelle, `novapolis_agent/scripts/run_eval.py` reicht dafuer ein optionales `profile_id` unveraendert an `/chat` weiter und schreibt denselben Override auch in die Ergebnis-Metadaten. Die neue Suite in `novapolis_agent/eval/config/suites.json`, der Task `Eval: suite support_de_ab (8, asgi)` in `.vscode/tasks.json` und gezielte Script-Tests sind gruen; der erste Probe-Lauf ueber den echten Support-Pfad zeigt bewusst noch keinen Schein-PASS, sondern einen echten Rest mit `1/2` Erfolg und einem verbleibenden RPG-Leak im ersten Fall.
+
+
+2026-04-15 01:35 | Copilot | Root-Cause-Fix fuer die gemessenen Qwen-3.5-Timeouts im Agent-Chatpfad eingezogen. Befund aus dem lokalen Ollama-Check: `qwen3.5:*` streamt standardmaessig erst in das separate Feld `thinking`, waehrend `message.content` leer bleibt und der produktive Chatpfad damit bis `num_predict`/Timeout ins Leere laeuft. `app/api/chat_helpers.py` loest deshalb jetzt einen gezielten Top-Level-Schalter `think` auf, `app/api/models.py` fuehrt ihn im Optionsschema, und `app/api/chat.py` setzt fuer `qwen3.5:*` standardmaessig `think=false`, sofern kein explizites Override uebergeben wird. Neue Regressionstests decken den Resolver sowie die Payload-Injektion fuer Stream- und Non-Stream-Pfad ab.
 
 
 2026-04-14 20:42 | Copilot | Den erweiterten Sim-vor-RP-Vertragsrahmen in den Agent-Runtimepfad gezogen: `app/api/models.py` fuehrt jetzt `turn_context`, `resume_checkpoint_id` und `carry_over` als gemeinsame Vertragsobjekte fuer Chat und Sessionpersistenz; `app/api/sim.py` speichert dieselben Felder in `savegame.json` und `replay_manifest.json`; `app/api/chat.py` persistiert und beantwortet den `/chat`-Vertrag jetzt aus dem echten Session-Stand statt nur aus dem nackten `turn_id`-Echo. Zusaetzlich ziehen `scripts/run_text_rpg_reference_session.py`, die Referenz-Session-Tests sowie die OpenAPI-/Chat-/Sim-Vertragstests denselben Rahmen nach.

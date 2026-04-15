@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:22
-update: Runbook fuehrt jetzt auch den gemeinsamen Folgeanker `Text-RPG Slice 2 Handover v1` hinter slot 30.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-15 02:57
+update: Runbook fuehrt jetzt qwen3.5:4b als primären Text-RPG-Pfad und dokumentiert den neuen neutralen Support-A/B-Smoke-Flow samt Task-Ankern.
+checks: targeted pytest PASS (support_de_ab branch, think regression, support_ab_smoke tests); support_ab_smoke rules PASS; support_ab_smoke judge PASS; markdownlint PASS; frontmatter PASS; snapshot-lock PASS
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -155,18 +155,55 @@ Lokale Runtime-Baseline
 
 Der kanonische lokale Runtime-Pfad bleibt `Ollama`.
 
-Bevorzugtes Baseline-Modell fuer den aktuellen Slice auf 8-GB-VRAM-Systemen:
+Primaeres Modell fuer den aktuellen Text-RPG-Produktpfad auf 8-GB-VRAM-Systemen:
+
+- `qwen3.5:4b`
+
+Vergleichs- oder Fallback-Kandidaten fuer den Text-RPG-Pfad:
 
 - `qwen2.5:7b`
-
-Vergleichs- oder Fallback-Kandidaten:
-
 - `llama3.1:8b`
 
 Operative Konsequenz:
 
-- neue lokale Setups, Beispiel-Umgebungen und Default-Fallbacks sollen `qwen2.5:7b` verwenden,
+- neue lokale Setups fuer den Text-RPG-Produktpfad sollen `qwen3.5:4b` als Primärmodell fuehren,
+- `qwen2.5:7b` bleibt ein belastbarer Vergleichsanker und `llama3.1:8b` ein sinnvoller Gegencheck,
 - spaetere Modellvergleiche duerfen davon abweichen, aber nur bewusst und nicht still ueber historische Defaults.
+
+Neutraler Support-A/B-Pfad
+--------------------------
+
+Fuer neutralen Deutsch-/Support-Output laeuft der Produktpfad bewusst getrennt vom Text-RPG-Flow.
+
+Kanonische Kandidaten:
+
+- Antwortkandidat A: `llama3.1:8b`
+- Antwortkandidat B: `qwen3.5:4b`
+
+Auswahlziel:
+
+- beste versandfaehige Support-Antwort,
+- nicht die kreativste oder laengste Antwort,
+- regelbasierte Auswahl zuerst, enger Modell-Judge nur opt-in.
+
+Direkter Request gegen `/chat`:
+
+```powershell
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/chat" -Method Post -ContentType "application/json" -Body '{"messages":[{"role":"user","content":"Bitte formuliere eine versandfaehige Support-Antwort: Die Rechnungsnummer fehlt noch, wir brauchen sie fuer die weitere Pruefung."}],"profile_id":"support_de_ab","options":{"support_ab_enabled":true,"support_candidate_models":["llama3.1:8b","qwen3.5:4b"]}}'
+```
+
+Optionale Judge-Variante:
+
+```powershell
+Invoke-RestMethod -Uri "http://127.0.0.1:8000/chat" -Method Post -ContentType "application/json" -Body '{"messages":[{"role":"user","content":"Bitte formuliere eine versandfaehige Support-Antwort: Die Rechnungsnummer fehlt noch, wir brauchen sie fuer die weitere Pruefung."}],"profile_id":"support_de_ab","options":{"support_ab_enabled":true,"support_candidate_models":["llama3.1:8b","qwen3.5:4b"],"support_judge_model":"qwen2.5:7b","support_force_judge":true}}'
+```
+
+Reproduzierbare Workspace-Tasks:
+
+1. `Eval: support_de_ab smoke (asgi, rules)`
+2. `Eval: support_de_ab smoke (asgi, judge)`
+
+Der zugehoerige Runner liegt in `novapolis_agent/scripts/support_ab_smoke.py` und nutzt denselben `/chat`-Pfad wie der produktive Agent, jedoch mit `profile_id=support_de_ab` statt des Text-RPG-Vertrags.
 
 Minimaler Spielleiter-Orchestrator-Hook
 ---------------------------------------

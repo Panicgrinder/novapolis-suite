@@ -43,6 +43,26 @@
         "novapolis_agent/eval/datasets/neutral/quality_de_canary.v1.jsonl"
       ]
     },
+    "support_de_ab": {
+      "description": "Neutraler deutschsprachiger Support-Track fuer versandfaehige Antworten auf dem support_de_ab-Pfad",
+      "profile": "default",
+      "profile_id": "support_de_ab",
+      "eval_mode": false,
+      "asgi": true,
+      "default_limit": 8,
+      "checks": [
+        "must_include",
+        "keywords_any",
+        "keywords_at_least",
+        "not_include",
+        "regex",
+        "quality_de",
+        "rpg_style"
+      ],
+      "packages": [
+        "novapolis_agent/eval/datasets/neutral/support_de_ab_core.v1.jsonl"
+      ]
+    },
     "rpg": {
       "description": "RPG-orientierte Evaluierung (Szenen/Dialog/Fantasy)",
       "profile": "unrestricted",

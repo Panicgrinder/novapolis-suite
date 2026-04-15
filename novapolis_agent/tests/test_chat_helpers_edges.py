@@ -256,3 +256,12 @@ def test_normalize_ollama_options_omits_invalid_optional_fields(
     assert "mirostat_tau" not in options
     assert "mirostat_eta" not in options
     assert "penalize_newline" not in options
+
+
+@pytest.mark.unit
+def test_resolve_ollama_think_defaults_for_qwen35_and_respects_explicit_override() -> None:
+    from app.api import chat_helpers
+
+    assert chat_helpers.resolve_ollama_think({}, model_name="qwen3.5:4b") is False
+    assert chat_helpers.resolve_ollama_think({"think": True}, model_name="qwen3.5:4b") is True
+    assert chat_helpers.resolve_ollama_think({}, model_name="qwen2.5:7b") is None

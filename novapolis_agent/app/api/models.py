@@ -24,6 +24,11 @@ class CarryOverItem(BaseModel):
 
 class ChatOptions(BaseModel):
     host: str | None = None
+    think: bool | None = None
+    support_ab_enabled: bool | None = None
+    support_force_judge: bool | None = None
+    support_candidate_models: list[str] | str | None = None
+    support_judge_model: str | None = None
     session_id: str | None = None
     orchestrator_enabled: bool | None = None
     campaign_id: str | None = None
