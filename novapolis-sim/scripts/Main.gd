@@ -1,6 +1,8 @@
 extends Node2D
 
 const AgentStudioControllerRef = preload("res://scripts/agent_studio_controller.gd")
+const AgentFormControllerRef = preload("res://scripts/agent_form_controller.gd")
+const AgentRuntimeControllerRef = preload("res://scripts/agent_runtime_controller.gd")
 const ChecksRpControllerRef = preload("res://scripts/checks_rp_controller.gd")
 const SchedulerHookRef = preload("res://scripts/scheduler_hook.gd")
 const HubChatControllerRef = preload("res://scripts/hub_chat_controller.gd")
@@ -267,6 +269,8 @@ var _hub_selected_replay_checkpoint_id: String = ""
 var _marquee_state: Dictionary = {}
 var _lower_shared_topic: String = "agent_api"
 var _agent_studio_controller = AgentStudioControllerRef.new()
+var _agent_form_controller = AgentFormControllerRef.new()
+var _agent_runtime_controller = AgentRuntimeControllerRef.new()
 var _checks_rp_controller = ChecksRpControllerRef.new()
 var _hub_chat_controller = HubChatControllerRef.new()
 var _hub_config_controller = HubConfigControllerRef.new()
@@ -414,10 +418,16 @@ func _ready() -> void:
 	_refresh_hub_config_ui()
 	_set_hub_config_collapsed(false)
 	hub_chat_history_label.bbcode_enabled = false
-	_hub_chat_session_id = "sim-hub-%s" % Time.get_datetime_string_from_system(false, true).replace(":", "").replace("-", "").replace(" ", "_")
+	if _hub_chat_scene_id == "":
+		_hub_chat_scene_id = "hub_boot"
+	var restored_live_session := _hub_chat_session_id.strip_edges() != ""
+	if not restored_live_session:
+		_hub_chat_session_id = _generate_hub_session_id()
+		_persist_hub_session_state()
 	_hub_chat_public_context = _build_hub_chat_public_context()
 	_refresh_hub_chat_ui()
-	hub_chat_status_label.text = "Live-Spielclient: bereit"
+	_refresh_hub_replay_ui()
+	hub_chat_status_label.text = "Live-Spielclient: Fortsetzung wird synchronisiert" if restored_live_session else "Live-Spielclient: bereit"
 	_refresh_agent_studio_ui()
 	_refresh_agent_form_ui()
 	agent_studio_hint_label.visible = false
@@ -428,6 +438,9 @@ func _ready() -> void:
 	_open_default_panel_if_configured()
 	_apply_responsive_layout()
 	_render_pc_centric_view()
+	if restored_live_session:
+		_request_live_session_state()
+		_request_live_session_replay()
 
 
 func _on_viewport_size_changed() -> void:
@@ -574,6 +587,21 @@ func _agent_studio_controls() -> Dictionary:
 	}
 
 
+func _agent_form_ui_controls() -> Dictionary:
+	return {
+		"agent_form_panel": agent_form_panel,
+		"agent_form_title_label": agent_form_title_label,
+		"agent_form_mode_button": agent_form_mode_button,
+		"agent_form_target_button": agent_form_target_button,
+		"agent_form_name_edit": agent_form_name_edit,
+		"agent_form_apply_button": agent_form_apply_button,
+		"agent_form_payload_edit": agent_form_payload_edit,
+		"agent_form_fields_scroll": agent_form_fields_scroll,
+		"agent_form_fields_box": agent_form_fields_box,
+		"agent_form_status_label": agent_form_status_label,
+	}
+
+
 func _agent_studio_state() -> Dictionary:
 	return {
 		"studio_mode": _agent_studio_mode,
@@ -619,6 +647,98 @@ func _agent_studio_state() -> Dictionary:
 		"dataset_pid": _dataset_pid,
 		"finetune_pid": _finetune_pid,
 	}
+
+
+func _agent_runtime_state() -> Dictionary:
+	return {
+		"studio_mode": _agent_studio_mode,
+		"eval_pid": _eval_pid,
+		"eval_started_ms": _eval_started_ms,
+		"last_eval_exit_code": _last_eval_exit_code,
+		"agent_eval_suite": _agent_eval_suite,
+		"eval_quick_limit": maxi(1, eval_quick_limit),
+		"python_exec": _resolve_python_executable(),
+		"repo_root": ProjectSettings.globalize_path("res://.."),
+		"eval_script_abs": ProjectSettings.globalize_path("res://../scripts/agent/run_eval.py"),
+		"finetune_pid": _finetune_pid,
+		"finetune_started_ms": _finetune_started_ms,
+		"last_finetune_exit_code": _last_finetune_exit_code,
+		"finetune_profile": _finetune_profile,
+		"finetune_base_model": _finetune_base_model,
+		"finetune_output_name": _finetune_output_name,
+		"finetune_epochs": _finetune_epochs,
+		"finetune_max_steps": _finetune_max_steps,
+		"finetune_batch_size": _finetune_batch_size,
+		"finetune_lr": _finetune_lr,
+		"active_dataset_name": _active_dataset_name,
+		"fallback_finetune_train_file_res": "res://../novapolis_agent/eval/datasets/training/chronistin_operativ_kurz.v1.jsonl",
+		"finetune_script_abs": ProjectSettings.globalize_path("res://../scripts/agent/fine_tune_pipeline.py"),
+		"jobs_queue_path": _JOBS_QUEUE_PATH,
+		"destructive_guard_enabled": _destructive_guard_enabled,
+		"destructive_guard_window_ms": _destructive_guard_window_ms,
+		"destructive_armed_action": _destructive_armed_action,
+		"destructive_armed_until_ms": _destructive_armed_until_ms,
+		"now_ms": Time.get_ticks_msec(),
+	}
+
+
+func _apply_agent_runtime_result(result: Dictionary) -> void:
+	var updates_any = result.get("updates", {})
+	if typeof(updates_any) == TYPE_DICTIONARY:
+		var updates: Dictionary = updates_any
+		if updates.has("destructive_armed_action"):
+			_destructive_armed_action = str(updates.get("destructive_armed_action", _destructive_armed_action))
+		if updates.has("destructive_armed_until_ms"):
+			_destructive_armed_until_ms = int(updates.get("destructive_armed_until_ms", _destructive_armed_until_ms))
+		if updates.has("eval_pid"):
+			_eval_pid = int(updates.get("eval_pid", _eval_pid))
+		if updates.has("eval_started_ms"):
+			_eval_started_ms = int(updates.get("eval_started_ms", _eval_started_ms))
+		if updates.has("last_eval_exit_code"):
+			_last_eval_exit_code = int(updates.get("last_eval_exit_code", _last_eval_exit_code))
+		if updates.has("finetune_pid"):
+			_finetune_pid = int(updates.get("finetune_pid", _finetune_pid))
+		if updates.has("finetune_started_ms"):
+			_finetune_started_ms = int(updates.get("finetune_started_ms", _finetune_started_ms))
+		if updates.has("last_finetune_exit_code"):
+			_last_finetune_exit_code = int(updates.get("last_finetune_exit_code", _last_finetune_exit_code))
+		if updates.has("finetune_profile"):
+			_finetune_profile = str(updates.get("finetune_profile", _finetune_profile))
+		if updates.has("finetune_base_model"):
+			_finetune_base_model = str(updates.get("finetune_base_model", _finetune_base_model))
+		if updates.has("finetune_output_name"):
+			_finetune_output_name = str(updates.get("finetune_output_name", _finetune_output_name))
+		if updates.has("finetune_epochs"):
+			_finetune_epochs = int(updates.get("finetune_epochs", _finetune_epochs))
+		if updates.has("finetune_max_steps"):
+			_finetune_max_steps = int(updates.get("finetune_max_steps", _finetune_max_steps))
+		if updates.has("finetune_batch_size"):
+			_finetune_batch_size = int(updates.get("finetune_batch_size", _finetune_batch_size))
+		if updates.has("finetune_lr"):
+			_finetune_lr = _to_float_or_default(updates.get("finetune_lr", _finetune_lr), _finetune_lr)
+		if updates.has("finetune_status_text"):
+			_finetune_status_text = str(updates.get("finetune_status_text", _finetune_status_text))
+		if updates.has("jobs_status_text"):
+			_jobs_status_text = str(updates.get("jobs_status_text", _jobs_status_text))
+		if updates.has("agent_summary_refresh_pending"):
+			_agent_summary_refresh_pending = bool(updates.get("agent_summary_refresh_pending", _agent_summary_refresh_pending))
+		if updates.has("agent_summary_refresh_due_ms"):
+			_agent_summary_refresh_due_ms = int(updates.get("agent_summary_refresh_due_ms", _agent_summary_refresh_due_ms))
+		if updates.has("form_status_text"):
+			agent_form_status_label.text = str(updates.get("form_status_text", agent_form_status_label.text))
+	if result.has("set_studio_mode"):
+		_agent_studio_mode = str(result.get("set_studio_mode", _agent_studio_mode))
+	if result.has("open_form"):
+		_open_agent_form(str(result.get("open_form", "")))
+	if bool(result.get("refresh_latest_eval_summary", false)):
+		_refresh_latest_eval_summary(true)
+	var events_any = result.get("events", [])
+	if typeof(events_any) == TYPE_ARRAY:
+		for event_any in events_any:
+			if typeof(event_any) != TYPE_DICTIONARY:
+				continue
+			var event: Dictionary = event_any
+			_append_runtime_event(str(event.get("tag", "AGENT_ACTION")), event.get("payload", {}))
 
 
 func _agent_system_metrics_text() -> String:
@@ -1192,9 +1312,14 @@ func _apply_session_replay_state_updates(updates: Dictionary) -> void:
 		_live_replay_manifest = updates.get("live_replay_manifest", {})
 	if updates.has("hub_selected_replay_checkpoint_id"):
 		_hub_selected_replay_checkpoint_id = str(updates.get("hub_selected_replay_checkpoint_id", "")).strip_edges()
+	_persist_hub_session_state()
 
 
 func _apply_live_session_state(session_payload: Dictionary) -> void:
+	if session_payload.has("campaign_id"):
+		_hub_chat_campaign_id = str(session_payload.get("campaign_id", _hub_chat_campaign_id)).strip_edges()
+	if session_payload.has("scene_id"):
+		_hub_chat_scene_id = str(session_payload.get("scene_id", _hub_chat_scene_id)).strip_edges()
 	var updates: Dictionary = _session_replay_state_controller.build_live_session_state(
 		session_payload,
 		_hub_chat_session_id,
@@ -1487,6 +1612,7 @@ func _apply_hub_chat_response(answer: String) -> void:
 	_hub_chat_public_context = str(updates.get("public_context", _hub_chat_public_context))
 	_hub_chat_turn_index = int(updates.get("turn_index", _hub_chat_turn_index))
 	_hub_chat_pending_turn_id = str(updates.get("pending_turn_id", _hub_chat_pending_turn_id))
+	_persist_hub_session_state()
 	_refresh_hub_chat_ui()
 
 
@@ -1539,10 +1665,6 @@ func _event_to_text(event: Dictionary) -> String:
 
 func _on_play_pc_audio_pressed() -> void:
 	on_action_start.emit("agent_menu_toggle", {})
-	if _checks_submenu_open:
-		_set_checks_module_exclusive(false)
-	if _rp_submenu_open:
-		_set_rp_module_exclusive(false)
 	_set_agent_module_exclusive(not _agent_submenu_open)
 	_update_agent_menu_ui()
 	_update_checks_menu_ui()
@@ -1562,44 +1684,53 @@ func _on_agent_back_pressed() -> void:
 	audio_status_label.text = "Hub-Modus aktiv"
 
 
-func _set_agent_module_exclusive(open: bool) -> void:
+func _set_agent_module_exclusive(open: bool, defer_hub_refresh: bool = false) -> void:
 	if open and _checks_submenu_open:
-		_set_checks_module_exclusive(false)
+		_set_checks_module_exclusive(false, true)
 	if open and _rp_submenu_open:
-		_set_rp_module_exclusive(false)
+		_set_rp_module_exclusive(false, true)
 	_agent_studio_controller.set_module_exclusive_ui(_agent_studio_controls(), open)
 	_agent_submenu_open = open
 
-	_set_hub_content_visible(not open)
-	_apply_responsive_layout()
+	if defer_hub_refresh:
+		return
+	_apply_hub_visibility_for_modules()
 
 
-func _set_checks_module_exclusive(open: bool) -> void:
+func _set_checks_module_exclusive(open: bool, defer_hub_refresh: bool = false) -> void:
 	if open and _agent_submenu_open:
-		_set_agent_module_exclusive(false)
+		_set_agent_module_exclusive(false, true)
 	if open and _rp_submenu_open:
-		_set_rp_module_exclusive(false)
+		_set_rp_module_exclusive(false, true)
 
 	_checks_rp_controller.set_checks_module_exclusive(_checks_rp_controls(), open, _checks_running)
 	_checks_submenu_open = open
 
-	_set_hub_content_visible(not open)
-	_apply_responsive_layout()
+	if defer_hub_refresh:
+		return
+	_apply_hub_visibility_for_modules()
 	_refresh_checks_studio_ui()
 
 
-func _set_rp_module_exclusive(open: bool) -> void:
+func _set_rp_module_exclusive(open: bool, defer_hub_refresh: bool = false) -> void:
 	if open and _agent_submenu_open:
-		_set_agent_module_exclusive(false)
+		_set_agent_module_exclusive(false, true)
 	if open and _checks_submenu_open:
-		_set_checks_module_exclusive(false)
+		_set_checks_module_exclusive(false, true)
 
 	_checks_rp_controller.set_rp_module_exclusive(_checks_rp_controls(), open)
 	_rp_submenu_open = open
 
-	_set_hub_content_visible(not open)
-	_apply_responsive_layout()
+	if defer_hub_refresh:
+		return
+	_apply_hub_visibility_for_modules()
 	_refresh_rp_studio_ui()
+
+
+func _apply_hub_visibility_for_modules() -> void:
+	var in_hub := not _agent_submenu_open and not _checks_submenu_open and not _rp_submenu_open
+	_set_hub_content_visible(in_hub)
+	_apply_responsive_layout()
 
 
 func _set_hub_content_visible(visible_state: bool) -> void:
@@ -1607,6 +1738,11 @@ func _set_hub_content_visible(visible_state: bool) -> void:
 	hub_stage_panel.visible = visible_state
 	hub_ops_panel.visible = visible_state
 	hub_telemetry_panel.visible = visible_state and (_hub_show_sim_card or _hub_show_api_card or _hub_show_eval_card)
+	hub_title_label.visible = visible_state
+	hub_api_label.visible = visible_state
+	hub_polling_label.visible = visible_state
+	hub_queue_label.visible = visible_state
+	hub_errors_label.visible = visible_state
 	tick_label.visible = visible_state
 	time_label.visible = visible_state
 	status_label.visible = visible_state
@@ -1738,6 +1874,16 @@ func _set_hub_config_collapsed(collapsed: bool) -> void:
 	_apply_responsive_layout()
 
 
+func _generate_hub_session_id() -> String:
+	return "sim-hub-%s" % Time.get_datetime_string_from_system(false, true).replace(":", "").replace("-", "").replace(" ", "_")
+
+
+func _persist_hub_session_state() -> void:
+	if _hub_chat_session_id.strip_edges() == "":
+		return
+	_save_hub_preferences(true)
+
+
 func _load_hub_preferences() -> void:
 	var values: Dictionary = _hub_preferences_store.load_preferences(
 		_HUB_PREFS_PATH,
@@ -1747,6 +1893,10 @@ func _load_hub_preferences() -> void:
 			"show_eval_card": _hub_show_eval_card,
 			"default_panel": _hub_default_panel,
 			"refresh_profile": _hub_refresh_profile,
+			"session_id": _hub_chat_session_id,
+			"scene_id": _hub_chat_scene_id,
+			"resume_checkpoint_id": _live_session_resume_checkpoint_id,
+			"selected_replay_checkpoint_id": _hub_selected_replay_checkpoint_id,
 		}
 	)
 	_hub_show_sim_card = bool(values.get("show_sim_card", _hub_show_sim_card))
@@ -1754,9 +1904,13 @@ func _load_hub_preferences() -> void:
 	_hub_show_eval_card = bool(values.get("show_eval_card", _hub_show_eval_card))
 	_hub_default_panel = str(values.get("default_panel", _hub_default_panel))
 	_hub_refresh_profile = str(values.get("refresh_profile", _hub_refresh_profile))
+	_hub_chat_session_id = str(values.get("session_id", _hub_chat_session_id)).strip_edges()
+	_hub_chat_scene_id = str(values.get("scene_id", _hub_chat_scene_id)).strip_edges()
+	_live_session_resume_checkpoint_id = str(values.get("resume_checkpoint_id", _live_session_resume_checkpoint_id)).strip_edges()
+	_hub_selected_replay_checkpoint_id = str(values.get("selected_replay_checkpoint_id", _hub_selected_replay_checkpoint_id)).strip_edges()
 
 
-func _save_hub_preferences() -> void:
+func _save_hub_preferences(silent: bool = false) -> void:
 	var err := _hub_preferences_store.save_preferences(
 		_HUB_PREFS_PATH,
 		{
@@ -1765,19 +1919,25 @@ func _save_hub_preferences() -> void:
 			"show_eval_card": _hub_show_eval_card,
 			"default_panel": _hub_default_panel,
 			"refresh_profile": _hub_refresh_profile,
+			"session_id": _hub_chat_session_id,
+			"scene_id": _hub_chat_scene_id,
+			"resume_checkpoint_id": _live_session_resume_checkpoint_id,
+			"selected_replay_checkpoint_id": _hub_selected_replay_checkpoint_id,
 		}
 	)
 	if err == OK:
-		hub_config_status_label.text = "Gespeichert: %s" % _HUB_PREFS_PATH
-		_append_runtime_event("HUB_CONFIG", {"action": "save", "status": "ok", "path": _HUB_PREFS_PATH})
+		if not silent:
+			hub_config_status_label.text = "Gespeichert: %s" % _HUB_PREFS_PATH
+			_append_runtime_event("HUB_CONFIG", {"action": "save", "status": "ok", "path": _HUB_PREFS_PATH})
 	else:
-		hub_config_status_label.text = "Speichern fehlgeschlagen (err=%d)" % err
+		if not silent:
+			hub_config_status_label.text = "Speichern fehlgeschlagen (err=%d)" % err
 		_append_runtime_event("HUB_CONFIG", {"action": "save", "status": "failed", "err": err})
 
 
 func _apply_hub_preferences() -> void:
 	_set_refresh_profile(_hub_refresh_profile)
-	_set_hub_content_visible(not _agent_submenu_open and not _checks_submenu_open and not _rp_submenu_open)
+	_apply_hub_visibility_for_modules()
 	_apply_card_visibility_now()
 	_refresh_hub_config_ui()
 
@@ -2381,6 +2541,7 @@ func _on_hub_replay_checkpoint_selected(index: int) -> void:
 	if index < 0 or index >= hub_replay_checkpoint_button.item_count:
 		return
 	_hub_selected_replay_checkpoint_id = hub_replay_checkpoint_button.get_item_text(index)
+	_persist_hub_session_state()
 	_refresh_hub_replay_ui()
 
 
@@ -2522,36 +2683,22 @@ func _run_rp_auto_advance(force: bool) -> void:
 
 
 func _open_agent_form(kind: String) -> void:
-	_agent_form_kind = kind
+	var form_state := _agent_form_controller.open_form(
+		kind,
+		{
+			"dataset_source_mode": _dataset_source_mode,
+			"finetune_profile": _finetune_profile,
+			"finetune_output_name": _finetune_output_name,
+			"active_profile_name": _active_profile_name,
+			"active_profile_mode": _active_profile_mode,
+		}
+	)
+	_agent_form_kind = str(form_state.get("form_kind", kind))
+	_agent_form_mode_value = str(form_state.get("form_mode_value", _agent_form_mode_value))
+	_agent_form_target_value = str(form_state.get("form_target_value", _agent_form_target_value))
 	_agent_form_template_signature = ""
-	if kind == "datasets":
-		_agent_form_mode_value = _dataset_source_mode
-		_agent_form_target_value = "new"
-		agent_form_name_edit.text = "user_dataset_%s" % Time.get_datetime_string_from_system(false, true).replace(":", "").replace("-", "").replace(" ", "_")
-	elif kind == "finetune":
-		_agent_form_mode_value = _finetune_profile
-		_agent_form_target_value = "new"
-		agent_form_name_edit.text = _finetune_output_name
-	elif kind == "profiles":
-		_agent_form_mode_value = "balanced"
-		if _active_profile_mode != "":
-			_agent_form_mode_value = _active_profile_mode
-		_agent_form_target_value = "new"
-		agent_form_name_edit.text = "profile_default"
-		if _active_profile_name != "":
-			agent_form_name_edit.text = _active_profile_name
-	elif kind == "advanced":
-		_agent_form_mode_value = "balanced"
-		_agent_form_target_value = "update"
-		agent_form_name_edit.text = "advanced_settings"
-	elif kind == "jobs":
-		_agent_form_mode_value = "eval"
-		_agent_form_target_value = "new"
-		agent_form_name_edit.text = "job_%s" % Time.get_datetime_string_from_system(false, true).replace(":", "").replace("-", "").replace(" ", "_")
-	else:
-		_agent_form_mode_value = "pairs"
-		_agent_form_target_value = "append_user"
-		agent_form_name_edit.text = "user_synonyms"
+	_agent_form_controls.clear()
+	agent_form_name_edit.text = str(form_state.get("form_name", "")).strip_edges()
 
 	_refresh_agent_form_ui()
 
@@ -2559,7 +2706,7 @@ func _open_agent_form(kind: String) -> void:
 func _on_agent_form_mode_selected(index: int) -> void:
 	if _form_dropdowns_syncing:
 		return
-	var options := _agent_form_mode_options_for_kind(_agent_form_kind)
+	var options := _agent_form_controller.mode_options_for_kind(_agent_form_kind)
 	if index < 0 or index >= options.size():
 		return
 	_agent_form_mode_value = options[index]
@@ -2569,82 +2716,11 @@ func _on_agent_form_mode_selected(index: int) -> void:
 func _on_agent_form_target_selected(index: int) -> void:
 	if _form_dropdowns_syncing:
 		return
-	var options := _agent_form_target_options_for_kind(_agent_form_kind)
+	var options := _agent_form_controller.target_options_for_kind(_agent_form_kind)
 	if index < 0 or index >= options.size():
 		return
 	_agent_form_target_value = options[index]
 	_refresh_agent_form_ui()
-
-
-func _agent_form_mode_options_for_kind(kind: String) -> Array[String]:
-	if kind == "datasets":
-		return ["clean", "with_failures"]
-	if kind == "synonyms":
-		return ["pairs", "broader_terms"]
-	if kind == "finetune":
-		return ["baseline", "quality", "extended"]
-	if kind == "profiles":
-		return ["balanced", "strict", "creative"]
-	if kind == "advanced":
-		return ["balanced", "strict", "explorative"]
-	if kind == "jobs":
-		return ["eval", "finetune", "datasets"]
-	return ["pairs", "broader_terms"]
-
-
-func _agent_form_target_options_for_kind(kind: String) -> Array[String]:
-	if kind == "datasets" or kind == "synonyms":
-		return ["new", "append_user"]
-	if kind == "profiles":
-		return ["new", "update"]
-	if kind == "jobs":
-		return ["new", "retry_latest", "cancel_latest"]
-	return []
-
-
-func _agent_form_mode_display_label(kind: String, value: String) -> String:
-	if kind == "datasets":
-		return _dataset_mode_label(value)
-	if kind == "synonyms":
-		return _synonym_mode_label(value)
-	if kind == "finetune":
-		return _finetune_profile_label(value)
-	if kind == "profiles":
-		return _profile_mode_label(value)
-	if kind == "advanced":
-		return _advanced_mode_label(value)
-	if kind == "jobs":
-		return _job_type_label(value)
-	return value
-
-
-func _refresh_agent_form_dropdowns() -> void:
-	var mode_options := _agent_form_mode_options_for_kind(_agent_form_kind)
-	if mode_options.is_empty():
-		mode_options = ["default"]
-
-	if _index_of_value(mode_options, _agent_form_mode_value) < 0:
-		_agent_form_mode_value = mode_options[0]
-
-	_form_dropdowns_syncing = true
-	agent_form_mode_button.clear()
-	for value in mode_options:
-		agent_form_mode_button.add_item(_agent_form_mode_display_label(_agent_form_kind, value))
-	_select_option_value(agent_form_mode_button, mode_options, _agent_form_mode_value)
-
-	var target_options := _agent_form_target_options_for_kind(_agent_form_kind)
-	agent_form_target_button.clear()
-	if target_options.is_empty():
-		agent_form_target_button.add_item("Nicht relevant")
-		agent_form_target_button.disabled = true
-	else:
-		if _index_of_value(target_options, _agent_form_target_value) < 0:
-			_agent_form_target_value = target_options[0]
-		for value in target_options:
-			agent_form_target_button.add_item(_form_target_label(value))
-		agent_form_target_button.disabled = false
-		_select_option_value(agent_form_target_button, target_options, _agent_form_target_value)
-	_form_dropdowns_syncing = false
 
 
 func _on_agent_form_apply_pressed() -> void:
@@ -3136,71 +3212,8 @@ func _write_json_to_path(path_text: String, payload: Dictionary) -> bool:
 
 
 func _apply_finetune_form_payload(payload: Dictionary) -> void:
-	if _finetune_pid > 0:
-		agent_form_status_label.text = "Form: Finetune laeuft bereits"
-		return
-
-	var profile := _sanitize_agent_form_name(str(payload.get("profile", "baseline")))
-	if profile == "":
-		profile = "baseline"
-	var base_model := str(payload.get("base_model", "sshleifer/tiny-gpt2")).strip_edges()
-	if base_model == "":
-		agent_form_status_label.text = "Form: base_model fehlt"
-		return
-
-	var output_name := _sanitize_agent_form_name(str(payload.get("output_name", _finetune_output_name)))
-	if output_name == "":
-		output_name = "lora-agent-hub"
-
-	var epochs := int(payload.get("epochs", 1))
-	var max_steps := int(payload.get("max_steps", 10))
-	var batch_size := int(payload.get("batch_size", 1))
-	var lr := _to_float_or_default(payload.get("lr", 0.0002), 0.0002)
-	var no_check := bool(payload.get("no_check", true))
-
-	if epochs < 1:
-		agent_form_status_label.text = "Form: epochs muss >= 1 sein"
-		return
-	if max_steps < 1:
-		agent_form_status_label.text = "Form: max_steps muss >= 1 sein"
-		return
-	if batch_size < 1:
-		agent_form_status_label.text = "Form: batch_size muss >= 1 sein"
-		return
-	if lr <= 0.0:
-		agent_form_status_label.text = "Form: lr muss > 0 sein"
-		return
-
-	var train_file := str(payload.get("train_file", "")).strip_edges()
-	if train_file == "":
-		train_file = _resolve_finetune_train_file()
-	if train_file == "":
-		agent_form_status_label.text = "Form: keine Train-Datei verfuegbar"
-		return
-
-	var train_path_abs := ProjectSettings.globalize_path(train_file) if train_file.begins_with("user://") else train_file
-	if not FileAccess.file_exists(train_path_abs):
-		agent_form_status_label.text = "Form: train_file fehlt"
-		return
-
-	var options: Dictionary = {
-		"profile": profile,
-		"base_model": base_model,
-		"output_name": output_name,
-		"train_file": train_path_abs,
-		"epochs": epochs,
-		"max_steps": max_steps,
-		"batch_size": batch_size,
-		"lr": lr,
-		"no_check": no_check,
-	}
-
-	var started := _start_finetune_run(options)
-	if not started:
-		agent_form_status_label.text = "Form: Finetune konnte nicht gestartet werden"
-		return
-
-	agent_form_status_label.text = "Form: Finetune gestartet (%s, %s)" % [profile, base_model]
+	var result := _agent_runtime_controller.apply_finetune_form_payload(payload, _agent_runtime_state())
+	_apply_agent_runtime_result(result)
 
 
 func _apply_profile_form_payload(payload: Dictionary) -> void:
@@ -3317,121 +3330,15 @@ func _apply_advanced_settings_form_payload(payload: Dictionary) -> void:
 
 
 func _apply_jobs_form_payload(payload: Dictionary) -> void:
-	var target := str(payload.get("target", _agent_form_target_value))
-	if target != "new" and target != "retry_latest" and target != "cancel_latest":
-		agent_form_status_label.text = "Form: target muss new/retry_latest/cancel_latest sein"
-		return
-
-	var queue_payload := _load_jobs_queue_payload()
-	var jobs := _jobs_array_from_payload(queue_payload)
-
-	if target == "retry_latest":
-		var retry_index := _find_latest_job_index_by_status(jobs, ["failed", "cancelled"])
-		if retry_index < 0:
-			agent_form_status_label.text = "Form: kein fehlgeschlagener/abgebrochener Job fuer Retry"
-			return
-		var base_any = jobs[retry_index]
-		if typeof(base_any) != TYPE_DICTIONARY:
-			agent_form_status_label.text = "Form: Retry-Quelle ist ungueltig"
-			return
-		var base_job: Dictionary = base_any
-		var base_name := _sanitize_agent_form_name(str(base_job.get("name", "job")))
-		if base_name == "":
-			base_name = "job"
-		var retry_name := "%s_retry" % base_name
-		var attempt := int(base_job.get("attempt", 1)) + 1
-		var retry_entry: Dictionary = {
-			"id": "job_%d" % Time.get_ticks_msec(),
-			"name": retry_name,
-			"type": str(base_job.get("type", "eval")),
-			"status": "queued",
-			"priority": int(base_job.get("priority", 10)),
-			"created_at": Time.get_datetime_string_from_system(false, true),
-			"retry_of": str(base_job.get("id", "")),
-			"attempt": attempt,
-			"payload": base_job.get("payload", {}),
-		}
-		jobs.append(retry_entry)
-		queue_payload["jobs"] = jobs
-		queue_payload["updated_at"] = Time.get_datetime_string_from_system(false, true)
-		if not _write_jobs_queue_payload(queue_payload):
-			agent_form_status_label.text = "Form: Jobs-Queue konnte nicht gespeichert werden"
-			return
-		_refresh_jobs_status_text(jobs)
-		agent_form_status_label.text = "Form: Retry eingereiht (%s)" % retry_name
-		_append_runtime_event("AGENT_FORM", {"kind": "jobs", "action": "retry_latest", "retry_of": str(base_job.get("id", "")), "name": retry_name, "queue_size": jobs.size(), "path": _JOBS_QUEUE_PATH})
-		return
-
-	if target == "cancel_latest":
-		var cancel_index := _find_latest_job_index_by_status(jobs, ["queued", "running"])
-		if cancel_index < 0:
-			agent_form_status_label.text = "Form: kein aktiver Job fuer Cancel"
-			return
-		var cancel_any = jobs[cancel_index]
-		if typeof(cancel_any) != TYPE_DICTIONARY:
-			agent_form_status_label.text = "Form: Cancel-Ziel ist ungueltig"
-			return
-		var cancel_job: Dictionary = cancel_any
-		cancel_job["status"] = "cancelled"
-		cancel_job["cancelled_at"] = Time.get_datetime_string_from_system(false, true)
-		cancel_job["cancel_reason"] = str(payload.get("notes", "manual_cancel"))
-		jobs[cancel_index] = cancel_job
-		queue_payload["jobs"] = jobs
-		queue_payload["updated_at"] = Time.get_datetime_string_from_system(false, true)
-		if not _write_jobs_queue_payload(queue_payload):
-			agent_form_status_label.text = "Form: Jobs-Queue konnte nicht gespeichert werden"
-			return
-		_refresh_jobs_status_text(jobs)
-		agent_form_status_label.text = "Form: Job abgebrochen (%s)" % str(cancel_job.get("name", "job"))
-		_append_runtime_event("AGENT_FORM", {"kind": "jobs", "action": "cancel_latest", "id": str(cancel_job.get("id", "")), "name": str(cancel_job.get("name", "job")), "queue_size": jobs.size(), "path": _JOBS_QUEUE_PATH})
-		return
-
-	var job_name := _sanitize_agent_form_name(str(payload.get("job_name", agent_form_name_edit.text)))
-	if job_name == "":
-		agent_form_status_label.text = "Form: job_name fehlt"
-		return
-
-	var job_type := _sanitize_agent_form_name(str(payload.get("job_type", _agent_form_mode_value)))
-	if job_type == "":
-		job_type = "eval"
-
-	var priority := int(payload.get("priority", 10))
-	if priority < 0:
-		priority = 0
-	if priority > 100:
-		priority = 100
-
-	var enqueue_now := bool(payload.get("enqueue", true))
-	if not enqueue_now:
-		agent_form_status_label.text = "Form: enqueue=false, kein Job angelegt"
-		return
-
-	var job_payload_any = payload.get("payload", {})
-	if typeof(job_payload_any) != TYPE_DICTIONARY:
-		job_payload_any = {}
-	var job_payload: Dictionary = job_payload_any
-
-	var job_entry: Dictionary = {
-		"id": "job_%d" % Time.get_ticks_msec(),
-		"name": job_name,
-		"type": job_type,
-		"status": "queued",
-		"priority": priority,
-		"attempt": 1,
-		"created_at": Time.get_datetime_string_from_system(false, true),
-		"payload": job_payload,
-	}
-	jobs.append(job_entry)
-	queue_payload["jobs"] = jobs
-	queue_payload["updated_at"] = Time.get_datetime_string_from_system(false, true)
-
-	if not _write_jobs_queue_payload(queue_payload):
-		agent_form_status_label.text = "Form: Jobs-Queue konnte nicht gespeichert werden"
-		return
-
-	_refresh_jobs_status_text(jobs)
-	agent_form_status_label.text = "Form: Job eingereiht (%s, prio=%d)" % [job_type, priority]
-	_append_runtime_event("AGENT_FORM", {"kind": "jobs", "action": "enqueue", "name": job_name, "job_type": job_type, "priority": priority, "queue_size": jobs.size(), "path": _JOBS_QUEUE_PATH})
+	var runtime_payload := payload.duplicate(true)
+	if not runtime_payload.has("target"):
+		runtime_payload["target"] = _agent_form_target_value
+	if not runtime_payload.has("job_name"):
+		runtime_payload["job_name"] = agent_form_name_edit.text
+	if not runtime_payload.has("job_type"):
+		runtime_payload["job_type"] = _agent_form_mode_value
+	var result := _agent_runtime_controller.apply_jobs_form_payload(runtime_payload, _agent_runtime_state())
+	_apply_agent_runtime_result(result)
 
 
 func _load_jobs_queue_payload() -> Dictionary:
@@ -3534,255 +3441,25 @@ func _sanitize_agent_form_name(value: String) -> String:
 
 
 func _refresh_agent_form_ui() -> void:
-	var show_form := _agent_submenu_open and _agent_studio_mode == "author" and (_agent_form_kind == "datasets" or _agent_form_kind == "synonyms" or _agent_form_kind == "finetune" or _agent_form_kind == "profiles" or _agent_form_kind == "advanced" or _agent_form_kind == "jobs")
-	agent_form_panel.visible = show_form
-	if not show_form:
-		return
-	agent_form_payload_edit.visible = false
-	agent_form_fields_scroll.visible = true
-	_refresh_agent_form_dropdowns()
-	agent_form_name_edit.placeholder_text = _agent_form_name_placeholder_for_kind(_agent_form_kind)
-	agent_form_payload_edit.placeholder_text = _agent_form_payload_placeholder_for_kind(_agent_form_kind)
-
-	var signature := "%s|%s|%s" % [_agent_form_kind, _agent_form_mode_value, _agent_form_target_value]
-	var template_changed := signature != _agent_form_template_signature
-	_agent_form_template_signature = signature
-	if template_changed:
-		_rebuild_agent_form_fields()
-
-	_layout_agent_form_controls()
-
-	if _agent_form_kind == "datasets":
-		agent_form_title_label.text = "Form: Datasets"
-		if template_changed:
-			agent_form_status_label.text = "Form: Datasets-Konfiguration bereit"
-	elif _agent_form_kind == "finetune":
-		agent_form_title_label.text = "Form: Finetune"
-		if template_changed:
-			agent_form_status_label.text = "Form: Finetune-Konfiguration bereit"
-	elif _agent_form_kind == "profiles":
-		agent_form_title_label.text = "Form: Profiles"
-		if template_changed:
-			agent_form_status_label.text = "Form: Profile-Konfiguration bereit"
-	elif _agent_form_kind == "advanced":
-		agent_form_title_label.text = "Form: Advanced Settings"
-		if template_changed:
-			agent_form_status_label.text = "Form: Advanced-Settings-Konfiguration bereit"
-	elif _agent_form_kind == "jobs":
-		agent_form_title_label.text = "Form: Jobs"
-		if template_changed:
-			agent_form_status_label.text = "Form: Jobs-Konfiguration bereit"
-	else:
-		agent_form_title_label.text = "Form: Synonyms"
-		if template_changed:
-			agent_form_status_label.text = "Form: Synonym-Konfiguration bereit"
-
-
-func _layout_agent_form_controls() -> void:
-	var panel_w := agent_form_panel.offset_right - agent_form_panel.offset_left
-	var panel_h := agent_form_panel.offset_bottom - agent_form_panel.offset_top
-	var left := 12.0
-	var right := maxf(left + 24.0, panel_w - 12.0)
-
-	agent_form_title_label.offset_left = left
-	agent_form_title_label.offset_top = 10.0
-	agent_form_title_label.offset_right = right
-	agent_form_title_label.offset_bottom = 28.0
-
-	var row_top := 38.0
-	var row_bottom := 72.0
-	var field_gap := 12.0
-	var field_w := maxf(140.0, (right - left - field_gap) / 2.0)
-
-	agent_form_mode_button.offset_left = left
-	agent_form_mode_button.offset_top = row_top
-	agent_form_mode_button.offset_right = left + field_w
-	agent_form_mode_button.offset_bottom = row_bottom
-
-	agent_form_target_button.offset_left = agent_form_mode_button.offset_right + field_gap
-	agent_form_target_button.offset_top = row_top
-	agent_form_target_button.offset_right = right
-	agent_form_target_button.offset_bottom = row_bottom
-
-	agent_form_name_edit.offset_left = left
-	agent_form_name_edit.offset_top = 84.0
-	agent_form_name_edit.offset_right = right - 98.0
-	agent_form_name_edit.offset_bottom = 114.0
-
-	agent_form_apply_button.offset_left = right - 90.0
-	agent_form_apply_button.offset_top = 84.0
-	agent_form_apply_button.offset_right = right
-	agent_form_apply_button.offset_bottom = 114.0
-
-	var fields_bottom := maxf(164.0, panel_h - 44.0)
-	agent_form_fields_scroll.offset_left = left
-	agent_form_fields_scroll.offset_top = 126.0
-	agent_form_fields_scroll.offset_right = right
-	agent_form_fields_scroll.offset_bottom = fields_bottom
-
-	agent_form_payload_edit.offset_left = left
-	agent_form_payload_edit.offset_top = 126.0
-	agent_form_payload_edit.offset_right = right
-	agent_form_payload_edit.offset_bottom = fields_bottom
-
-	agent_form_status_label.offset_left = left
-	agent_form_status_label.offset_top = fields_bottom + 12.0
-	agent_form_status_label.offset_right = right
-	agent_form_status_label.offset_bottom = fields_bottom + 30.0
-
-
-func _rebuild_agent_form_fields() -> void:
-	for child in agent_form_fields_box.get_children():
-		child.queue_free()
-	_agent_form_controls.clear()
-
-	if _agent_form_kind == "datasets":
-		_add_form_line_field("dataset_tag", "Dataset-Tag", _active_dataset_tag if _active_dataset_tag != "" else "v1", "z. B. v1")
-		_add_form_int_field("dataset_min_output_chars", "Min. Output Chars", 20, 1, 2000)
-		_add_form_float_field("dataset_train_ratio", "Train-Ratio", 0.9, 0.1, 0.99, 0.01)
-		_add_form_bool_field("dataset_set_active", "Als aktives Dataset setzen", true)
-		_add_form_text_field("dataset_system_prompt", "System-Prompt", "Du bist Novapolis Agent.", "Optionaler System-Kontext", 66.0)
-		_add_form_text_field("dataset_user_prompt", "User-Beispiel", "", "z. B. Erstelle eine kurze RP-Szene mit Konflikt und Hook.", 66.0)
-		_add_form_text_field("dataset_assistant_prompt", "Assistant-Beispiel", "", "z. B. Hier ist eine kurze RP-Szene...", 66.0)
-		_add_form_text_field("dataset_notes", "Notizen", "", "Optional", 56.0)
-		return
-
-	if _agent_form_kind == "synonyms":
-		_add_form_line_field("syn_tag", "Synonym-Tag", _active_synonym_tag if _active_synonym_tag != "" else "v1", "z. B. v1")
-		_add_form_bool_field("syn_set_active", "Als aktives Synonym-Set setzen", true)
-		_add_form_line_field("syn_term", "Begriff", "", "z. B. Aufstand")
-		_add_form_line_field("syn_values_csv", "Synonyme (CSV)", "", "z. B. rebell, revolt, uprising")
-		_add_form_text_field("syn_notes", "Notizen", "", "Optional", 56.0)
-		return
-
-	if _agent_form_kind == "finetune":
-		_add_form_line_field("ft_base_model", "Base Model", _finetune_base_model, "z. B. sshleifer/tiny-gpt2")
-		_add_form_line_field("ft_train_file", "Train-Datei (optional)", "", "Leer = automatische Aufloesung")
-		_add_form_int_field("ft_epochs", "Epochs", 1, 1, 20)
-		_add_form_int_field("ft_max_steps", "Max Steps", 10, 1, 100000)
-		_add_form_int_field("ft_batch_size", "Batch Size", 1, 1, 128)
-		_add_form_float_field("ft_lr", "Learning Rate", 0.0002, 0.000001, 0.01, 0.0001)
-		_add_form_bool_field("ft_no_check", "Pre-Checks ueberspringen", true)
-		_add_form_text_field("ft_notes", "Notizen", "", "Optional", 56.0)
-		return
-
-	if _agent_form_kind == "profiles":
-		_add_form_text_field("profile_prompt_system", "System-Prompt", "Du bist ein hilfreicher Novapolis-Agent mit klaren, kurzen Antworten.", "Pflichtfeld", 90.0)
-		_add_form_text_field("profile_behavior_notes", "Behavior Notes", "Priorisiert Klarheit, Korrektheit und kurze Struktur.", "Optional", 72.0)
-		_add_form_line_field("profile_assign_to_csv", "Assign To (CSV)", "eval,finetune", "z. B. eval,finetune")
-		_add_form_bool_field("profile_set_active", "Als aktives Profil setzen", true)
-		_add_form_bool_field("profile_archive", "Profil archivieren", false)
-		_add_form_text_field("profile_notes", "Notizen", "", "Optional", 56.0)
-		return
-
-	if _agent_form_kind == "advanced":
-		_add_form_line_field("adv_policy_profile", "Policy Profile", "default", "z. B. default")
-		_add_form_line_field("adv_strictness_level", "Strictness", "normal", "z. B. normal")
-		_add_form_line_field("adv_safety_profile", "Safety Profile", "standard", "z. B. standard")
-		_add_form_line_field("adv_debug_level", "Debug Level", "minimal", "z. B. minimal")
-		_add_form_text_field("adv_system_behavior", "System Behavior", "", "Pflichtfeld", 90.0)
-		_add_form_text_field("adv_notes", "Notizen", "", "Optional", 56.0)
-		return
-
-	if _agent_form_kind == "jobs":
-		_add_form_bool_field("job_enqueue", "Job sofort einreihen", true)
-		_add_form_int_field("job_priority", "Prioritaet", 10, 0, 100)
-		_add_form_text_field("job_payload_notes", "Payload Notes", "", "z. B. limit=20, suite=neutral", 72.0)
-		_add_form_text_field("job_notes", "Notizen", "", "Optional", 56.0)
-
-
-func _add_form_line_field(key: String, label_text: String, value: String, placeholder: String) -> void:
-	var label := Label.new()
-	label.text = label_text
-	agent_form_fields_box.add_child(label)
-
-	var edit := LineEdit.new()
-	edit.text = value
-	edit.placeholder_text = placeholder
-	agent_form_fields_box.add_child(edit)
-	_agent_form_controls[key] = edit
-
-
-func _add_form_text_field(key: String, label_text: String, value: String, placeholder: String, height: float) -> void:
-	var label := Label.new()
-	label.text = label_text
-	agent_form_fields_box.add_child(label)
-
-	var edit := TextEdit.new()
-	edit.text = value
-	edit.placeholder_text = placeholder
-	edit.custom_minimum_size = Vector2(0.0, height)
-	agent_form_fields_box.add_child(edit)
-	_agent_form_controls[key] = edit
-
-
-func _add_form_int_field(key: String, label_text: String, value: int, min_value: int, max_value: int) -> void:
-	var label := Label.new()
-	label.text = label_text
-	agent_form_fields_box.add_child(label)
-
-	var spin := SpinBox.new()
-	spin.min_value = min_value
-	spin.max_value = max_value
-	spin.step = 1.0
-	spin.rounded = true
-	spin.value = value
-	agent_form_fields_box.add_child(spin)
-	_agent_form_controls[key] = spin
-
-
-func _add_form_float_field(key: String, label_text: String, value: float, min_value: float, max_value: float, step_value: float) -> void:
-	var label := Label.new()
-	label.text = label_text
-	agent_form_fields_box.add_child(label)
-
-	var spin := SpinBox.new()
-	spin.min_value = min_value
-	spin.max_value = max_value
-	spin.step = step_value
-	spin.value = value
-	agent_form_fields_box.add_child(spin)
-	_agent_form_controls[key] = spin
-
-
-func _add_form_bool_field(key: String, label_text: String, value: bool) -> void:
-	var check := CheckBox.new()
-	check.text = label_text
-	check.button_pressed = value
-	agent_form_fields_box.add_child(check)
-	_agent_form_controls[key] = check
-
-
-func _agent_form_name_placeholder_for_kind(kind: String) -> String:
-	if kind == "datasets":
-		return "z. B. user_dataset_support_faq"
-	if kind == "synonyms":
-		return "z. B. user_synonyms_novapolis"
-	if kind == "finetune":
-		return "z. B. lora-novapolis-v1"
-	if kind == "profiles":
-		return "z. B. profile_strict_short"
-	if kind == "advanced":
-		return "z. B. advanced_settings"
-	if kind == "jobs":
-		return "z. B. job_eval_neutral"
-	return "Name eingeben"
-
-
-func _agent_form_payload_placeholder_for_kind(kind: String) -> String:
-	if kind == "datasets":
-		return "JSON-Beispiel: dataset_name, dataset_tag, records[] ..."
-	if kind == "synonyms":
-		return "JSON-Beispiel: synonym_set, entries[] ..."
-	if kind == "finetune":
-		return "JSON-Beispiel: base_model, train_file, epochs ..."
-	if kind == "profiles":
-		return "JSON-Beispiel: profile_name, mode, prompt_system ..."
-	if kind == "advanced":
-		return "JSON-Beispiel: mode, policy_profile, strictness_level ..."
-	if kind == "jobs":
-		return "JSON-Beispiel: job_name, job_type, priority, payload ..."
-	return "JSON eingeben"
+	var form_state := _agent_form_controller.refresh_form_ui(
+		_agent_form_ui_controls(),
+		{
+			"agent_submenu_open": _agent_submenu_open,
+			"studio_mode": _agent_studio_mode,
+			"form_kind": _agent_form_kind,
+			"form_mode_value": _agent_form_mode_value,
+			"form_target_value": _agent_form_target_value,
+			"template_signature": _agent_form_template_signature,
+			"form_controls": _agent_form_controls,
+			"active_dataset_tag": _active_dataset_tag,
+			"active_synonym_tag": _active_synonym_tag,
+			"finetune_base_model": _finetune_base_model,
+		}
+	)
+	_agent_form_mode_value = str(form_state.get("form_mode_value", _agent_form_mode_value))
+	_agent_form_target_value = str(form_state.get("form_target_value", _agent_form_target_value))
+	_agent_form_template_signature = str(form_state.get("template_signature", _agent_form_template_signature))
+	_agent_form_controls = form_state.get("form_controls", _agent_form_controls)
 
 
 func _dataset_mode_label(mode_value: String) -> String:
@@ -3847,141 +3524,6 @@ func _job_type_label(job_type: String) -> String:
 	return "Eval"
 
 
-func _build_dataset_form_template() -> String:
-	var name_value := agent_form_name_edit.text.strip_edges()
-	if name_value == "":
-		name_value = "user_dataset"
-	var tag_value := "v1"
-	if _active_dataset_tag != "":
-		tag_value = _active_dataset_tag
-	return JSON.stringify(
-		{
-			"dataset_name": name_value,
-			"dataset_tag": tag_value,
-			"target": _agent_form_target_value,
-			"set_active": true,
-			"source_mode": _agent_form_mode_value,
-			"records": [
-				{
-					"messages": [
-						{"role": "system", "content": "Du bist Novapolis Agent."},
-						{"role": "user", "content": "Kurze Beispielanfrage"},
-						{"role": "assistant", "content": "Kurze Beispielantwort"}
-					]
-				}
-			],
-			"train_ratio": 0.9,
-			"min_output_chars": 20,
-			"notes": "Records fuellen; dataset_tag setzen; set_active=true markiert dieses Dataset als aktiv.",
-		},
-		"  "
-	)
-
-
-func _build_synonym_form_template() -> String:
-	var name_value := agent_form_name_edit.text.strip_edges()
-	if name_value == "":
-		name_value = "user_synonyms"
-	var tag_value := "v1"
-	if _active_synonym_tag != "":
-		tag_value = _active_synonym_tag
-	return JSON.stringify(
-		{
-			"synonym_set": name_value,
-			"synonym_tag": tag_value,
-			"target": _agent_form_target_value,
-			"set_active": true,
-			"mode": _agent_form_mode_value,
-			"entries": [
-				{"term": "beispiel", "synonyms": ["muster", "sample"]}
-			],
-			"notes": "Entries fuellen; synonym_tag setzen; set_active=true markiert dieses Synonym-Set als aktiv.",
-		},
-		"  "
-	)
-
-
-func _build_finetune_form_template() -> String:
-	var output_name := agent_form_name_edit.text.strip_edges()
-	if output_name == "":
-		output_name = _finetune_output_name
-	var train_file := _resolve_finetune_train_file()
-	if train_file == "":
-		train_file = "res://../novapolis_agent/eval/datasets/training/chronistin_operativ_kurz.v1.jsonl"
-
-	return JSON.stringify(
-		{
-			"profile": _agent_form_mode_value,
-			"base_model": _finetune_base_model,
-			"output_name": output_name,
-			"train_file": train_file,
-			"epochs": 1,
-			"max_steps": 10,
-			"batch_size": 1,
-			"lr": 0.0002,
-			"no_check": true,
-			"notes": "Apply startet den Finetune-Run. Im Operate-Modus kann ueber Finetune Stop abgebrochen werden.",
-		},
-		"  "
-	)
-
-
-func _build_profile_form_template() -> String:
-	var name_value := agent_form_name_edit.text.strip_edges()
-	if name_value == "":
-		name_value = "profile_default"
-
-	return JSON.stringify(
-		{
-			"profile_name": name_value,
-			"target": _agent_form_target_value,
-			"mode": _agent_form_mode_value,
-			"prompt_system": "Du bist ein hilfreicher Novapolis-Agent mit klaren, kurzen Antworten.",
-			"behavior_notes": "Priorisiert Klarheit, Korrektheit und kurze Struktur.",
-			"assign_to": ["eval", "finetune"],
-			"set_active": true,
-			"archive": false,
-			"notes": "target=new|update; archive=true setzt Profil auf Archivstatus.",
-		},
-		"  "
-	)
-
-
-func _build_advanced_settings_form_template() -> String:
-	return JSON.stringify(
-		{
-			"mode": _agent_form_mode_value,
-			"policy_profile": "default",
-			"strictness_level": "normal",
-			"safety_profile": "standard",
-			"debug_level": "minimal",
-			"system_behavior": "Antworten knapp, regelkonform und nachvollziehbar; bei Unsicherheit defensiv.",
-			"notes": "Wird unter user://agent_user_data/settings/advanced.json gespeichert.",
-		},
-		"  "
-	)
-
-
-func _build_jobs_form_template() -> String:
-	var job_name := agent_form_name_edit.text.strip_edges()
-	if job_name == "":
-		job_name = "job_default"
-
-	return JSON.stringify(
-		{
-			"job_name": job_name,
-			"job_type": _agent_form_mode_value,
-			"enqueue": true,
-			"priority": 10,
-			"payload": {
-				"notes": "Ausfuehrungsdetails folgen in Jobs Schritt 2.",
-			},
-			"notes": "Schritt 1: Queue-Eintrag in user://agent_user_data/jobs/queue.json",
-		},
-		"  "
-	)
-
-
 func _on_agent_operate_pressed() -> void:
 	_agent_studio_mode = "operate"
 	_refresh_agent_studio_ui()
@@ -4024,98 +3566,9 @@ func _on_agent_dataset_source_selected(index: int) -> void:
 
 
 func _on_agent_eval_run_pressed() -> void:
-	if _agent_studio_mode == "author":
-		_open_agent_form("jobs")
-		_append_runtime_event("AGENT_ACTION", {"action": "jobs", "mode": _agent_studio_mode, "status": "form_opened"})
-		return
-
-	if _agent_studio_mode != "operate":
-		_append_runtime_event("AGENT_ACTION", {"action": "eval_run", "mode": _agent_studio_mode, "status": "blocked", "reason": "author_mode"})
-		return
-	if _eval_pid > 0:
-		if not _confirm_destructive_action("eval_stop", "Eval Stop: zweite Betaetigung zur Bestaetigung"):
-			_refresh_agent_studio_ui()
-			return
-		var stop_rc := int(OS.kill(_eval_pid))
-		_append_runtime_event("AGENT_ACTION", {"action": "eval_run", "mode": _agent_studio_mode, "status": "stop_requested", "pid": _eval_pid, "rc": stop_rc})
-		_eval_pid = -1
-		_last_eval_exit_code = 130
-		_refresh_agent_studio_ui()
-		return
-
-	var python_exec := _resolve_python_executable()
-	var eval_script_abs := ProjectSettings.globalize_path("res://../scripts/agent/run_eval.py")
-	if not FileAccess.file_exists(eval_script_abs):
-		_append_runtime_event("AGENT_ACTION", {"action": "eval_run", "status": "failed", "reason": "script_missing", "path": eval_script_abs})
-		return
-
-	var args: Array[String] = _build_eval_suite_args(eval_script_abs)
-	var pid := int(OS.create_process(python_exec, args, false))
-	if pid <= 0:
-		_append_runtime_event("AGENT_ACTION", {"action": "eval_run", "status": "start_failed", "python": python_exec})
-		return
-
-	_eval_pid = pid
-	_eval_started_ms = Time.get_ticks_msec()
-	_last_eval_exit_code = -1
-	_append_runtime_event("AGENT_ACTION", {"action": "eval_run", "mode": _agent_studio_mode, "status": "started", "pid": _eval_pid, "suite": _agent_eval_suite})
-
-
-func _build_eval_suite_args(eval_script_abs: String) -> Array[String]:
-	var repo_root := ProjectSettings.globalize_path("res://..")
-	var limit_text := str(maxi(1, eval_quick_limit))
-	var args: Array[String] = [
-		eval_script_abs,
-		"--asgi",
-		"--limit",
-		limit_text,
-		"--quiet",
-	]
-
-	match _agent_eval_suite:
-		"rpg":
-			args.append_array([
-				"--profile",
-				"unrestricted",
-				"--checks",
-				"must_include,keywords_any,keywords_at_least,not_include,regex",
-				"--packages",
-				"%s\\novapolis_agent\\eval\\datasets\\rpg\\rpg_21_40_fantasy.v1.jsonl" % repo_root,
-				"--packages",
-				"%s\\novapolis_agent\\eval\\datasets\\rpg\\rpg_41_60_dialog.v1.jsonl" % repo_root,
-				"--packages",
-				"%s\\novapolis_agent\\eval\\datasets\\rpg\\rpg_61_80_szenen.v1.jsonl" % repo_root,
-			])
-		"quality_de":
-			args.append_array([
-				"--profile",
-				"eval",
-				"--tag",
-				"quality_de",
-				"--checks",
-				"must_include,keywords_any,keywords_at_least,not_include,regex,quality_de",
-				"--packages",
-				"%s\\novapolis_agent\\eval\\datasets\\neutral\\quality_de_core.v1.jsonl" % repo_root,
-				"--packages",
-				"%s\\novapolis_agent\\eval\\datasets\\neutral\\quality_de_drift.v1.jsonl" % repo_root,
-				"--packages",
-				"%s\\novapolis_agent\\eval\\datasets\\neutral\\quality_de_canary.v1.jsonl" % repo_root,
-			])
-		_:
-			args.append_array([
-				"--profile",
-				"eval",
-				"--checks",
-				"must_include,keywords_any,keywords_at_least,not_include,regex,rpg_style,quality_de",
-				"--packages",
-				"%s\\novapolis_agent\\eval\\datasets\\neutral\\neutral_01_20_core.v1.jsonl" % repo_root,
-				"--packages",
-				"%s\\novapolis_agent\\eval\\datasets\\neutral\\neutral_81_100_tech.v1.jsonl" % repo_root,
-				"--packages",
-				"%s\\novapolis_agent\\eval\\datasets\\neutral\\neutral_smoke.v1.jsonl" % repo_root,
-			])
-
-	return args
+	var result := _agent_runtime_controller.handle_eval_run(_agent_runtime_state())
+	_apply_agent_runtime_result(result)
+	_refresh_agent_studio_ui()
 
 
 func _on_agent_datasets_pressed() -> void:
@@ -4195,14 +3648,8 @@ func _on_agent_synonyms_pressed() -> void:
 
 func _on_agent_finetune_pressed() -> void:
 	if _finetune_pid > 0:
-		if not _confirm_destructive_action("finetune_stop", "Finetune Stop: zweite Betaetigung zur Bestaetigung"):
-			_refresh_agent_studio_ui()
-			return
-		var stop_rc := int(OS.kill(_finetune_pid))
-		_append_runtime_event("AGENT_FINETUNE", {"action": "stop_requested", "pid": _finetune_pid, "rc": stop_rc})
-		_finetune_pid = -1
-		_last_finetune_exit_code = 130
-		_finetune_status_text = "Finetune: stop requested"
+		var stop_result := _agent_runtime_controller.handle_finetune_stop(_agent_runtime_state())
+		_apply_agent_runtime_result(stop_result)
 		_refresh_agent_studio_ui()
 		return
 
@@ -4297,9 +3744,7 @@ func _run_agent_action_summary(action_name: String) -> void:
 
 
 func _refresh_agent_studio_ui() -> void:
-	var ui_state: Dictionary = _agent_studio_controller.refresh_studio_ui(_agent_studio_controls(), _agent_studio_state())
-	if bool(ui_state.get("form_should_show", false)):
-		_layout_agent_form_controls()
+	_agent_studio_controller.refresh_studio_ui(_agent_studio_controls(), _agent_studio_state())
 
 
 func _dataset_source_mode_label() -> String:
@@ -4422,9 +3867,8 @@ func _load_advanced_settings_state() -> void:
 
 func _load_jobs_state() -> void:
 	_jobs_status_text = "Jobs: idle"
-	var queue_payload := _load_jobs_queue_payload()
-	var jobs := _jobs_array_from_payload(queue_payload)
-	_refresh_jobs_status_text(jobs)
+	var result := _agent_runtime_controller.load_jobs_state(_JOBS_QUEUE_PATH)
+	_apply_agent_runtime_result(result)
 
 
 func _load_security_model_state() -> void:
@@ -4462,18 +3906,9 @@ func _persist_security_model_state() -> void:
 
 
 func _confirm_destructive_action(action_key: String, hint_text: String) -> bool:
-	if not _destructive_guard_enabled:
-		return true
-	var now_ms := Time.get_ticks_msec()
-	if _destructive_armed_action == action_key and now_ms <= _destructive_armed_until_ms:
-		_destructive_armed_action = ""
-		_destructive_armed_until_ms = -1
-		return true
-	_destructive_armed_action = action_key
-	_destructive_armed_until_ms = now_ms + _destructive_guard_window_ms
-	agent_form_status_label.text = hint_text
-	_append_runtime_event("SECURITY_GUARD", {"action": action_key, "status": "armed", "valid_for_ms": _destructive_guard_window_ms})
-	return false
+	var result := _agent_runtime_controller.confirm_destructive_action(_agent_runtime_state(), action_key, hint_text)
+	_apply_agent_runtime_result(result)
+	return bool(result.get("confirmed", false))
 
 
 func _refresh_agent_restpoint_summaries() -> void:
@@ -4780,44 +4215,13 @@ func _start_finetune_run(options: Dictionary) -> bool:
 
 
 func _refresh_finetune_runtime_state() -> void:
-	if _finetune_pid <= 0:
-		return
-
-	if OS.is_process_running(_finetune_pid):
-		var elapsed_s := maxf(0.0, float(Time.get_ticks_msec() - _finetune_started_ms) / 1000.0)
-		_finetune_status_text = "Finetune: running (%s, %.1fs, e=%d, s=%d, b=%d, lr=%.5f)" % [_finetune_profile, elapsed_s, _finetune_epochs, _finetune_max_steps, _finetune_batch_size, _finetune_lr]
-		return
-
-	var exit_code := int(OS.get_process_exit_code(_finetune_pid))
-	_last_finetune_exit_code = exit_code
-	_append_runtime_event("AGENT_FINETUNE", {
-		"action": "finished",
-		"pid": _finetune_pid,
-		"exit_code": exit_code,
-		"profile": _finetune_profile,
-		"model": _finetune_base_model,
-	})
-	_finetune_pid = -1
-	var total_runtime_s := maxf(0.0, float(Time.get_ticks_msec() - _finetune_started_ms) / 1000.0)
-	if exit_code == 0:
-		_finetune_status_text = "Finetune: done (%s, %.1fs, e=%d, s=%d, b=%d, lr=%.5f)" % [_finetune_output_name, total_runtime_s, _finetune_epochs, _finetune_max_steps, _finetune_batch_size, _finetune_lr]
-		_agent_summary_refresh_pending = true
-		_agent_summary_refresh_due_ms = Time.get_ticks_msec() + 400
-	else:
-		_finetune_status_text = "Finetune: failed (exit=%d, %.1fs, e=%d, s=%d)" % [exit_code, total_runtime_s, _finetune_epochs, _finetune_max_steps]
+	var result := _agent_runtime_controller.refresh_finetune_runtime_state(_agent_runtime_state())
+	_apply_agent_runtime_result(result)
 
 
 func _refresh_eval_runtime_state() -> void:
-	if _eval_pid <= 0:
-		return
-	if OS.is_process_running(_eval_pid):
-		return
-
-	var exit_code := int(OS.get_process_exit_code(_eval_pid))
-	_last_eval_exit_code = exit_code
-	_append_runtime_event("AGENT_ACTION", {"action": "eval_run", "status": "finished", "pid": _eval_pid, "exit_code": exit_code})
-	_eval_pid = -1
-	_refresh_latest_eval_summary(true)
+	var result := _agent_runtime_controller.refresh_eval_runtime_state(_agent_runtime_state())
+	_apply_agent_runtime_result(result)
 
 
 func _refresh_latest_eval_summary(force: bool) -> void:

@@ -64,31 +64,36 @@ func request_live_replay(session_id: String, request: HTTPRequest, host: String,
 func complete_live_session(result: int, response_code: int, body: PackedByteArray, session_id: String) -> Dictionary:
 	_session_sync_in_flight = false
 	var text := body.get_string_from_utf8().strip_edges()
-	var parsed: Variant = JSON.parse_string(text)
 	if result != HTTPRequest.RESULT_SUCCESS:
 		return {
 			"status": "error",
 			"message": "Epochen: Session-Sync fehlgeschlagen (%d)" % result,
 			"event": {"action": "error", "result": result},
 		}
+	var parsed_state := _parse_json_dictionary(text)
 	if response_code < 200 or response_code >= 300:
 		var detail := "HTTP %d" % response_code
-		if typeof(parsed) == TYPE_DICTIONARY:
-			detail = "%s | %s" % [detail, str((parsed as Dictionary).get("detail", "Fehler ohne Detail"))]
+		if bool(parsed_state.get("ok", false)):
+			var error_payload: Dictionary = parsed_state.get("value", {})
+			detail = "%s | %s" % [detail, str(error_payload.get("detail", "Fehler ohne Detail"))]
 		return {
 			"status": "http_error",
 			"message": "Epochen: %s" % detail,
 			"event": {"action": "http_error", "http": response_code},
 		}
-	if typeof(parsed) != TYPE_DICTIONARY:
+	if not bool(parsed_state.get("ok", false)):
 		return {
 			"status": "parse_error",
 			"message": "Epochen: Session-Antwort unlesbar",
-			"event": {"action": "parse_error", "http": response_code},
+			"event": {
+				"action": "parse_error",
+				"http": response_code,
+				"detail": str(parsed_state.get("detail", "invalid_json")),
+			},
 		}
 	return {
 		"status": "ok",
-		"payload": parsed as Dictionary,
+		"payload": parsed_state.get("value", {}),
 		"event": {"action": "applied", "session_id": session_id, "http": response_code},
 	}
 
@@ -96,29 +101,34 @@ func complete_live_session(result: int, response_code: int, body: PackedByteArra
 func complete_live_replay(result: int, response_code: int, body: PackedByteArray, session_id: String, fallback_resume_checkpoint_id: String, current_selected_checkpoint_id: String) -> Dictionary:
 	_replay_sync_in_flight = false
 	var text := body.get_string_from_utf8().strip_edges()
-	var parsed: Variant = JSON.parse_string(text)
 	if result != HTTPRequest.RESULT_SUCCESS:
 		return {
 			"status": "error",
 			"message": "Replay: Sync fehlgeschlagen (%d)" % result,
 			"event": {"action": "error", "result": result},
 		}
+	var parsed_state := _parse_json_dictionary(text)
 	if response_code < 200 or response_code >= 300:
 		var detail := "HTTP %d" % response_code
-		if typeof(parsed) == TYPE_DICTIONARY:
-			detail = "%s | %s" % [detail, str((parsed as Dictionary).get("detail", "Fehler ohne Detail"))]
+		if bool(parsed_state.get("ok", false)):
+			var error_payload: Dictionary = parsed_state.get("value", {})
+			detail = "%s | %s" % [detail, str(error_payload.get("detail", "Fehler ohne Detail"))]
 		return {
 			"status": "http_error",
 			"message": "Replay: %s" % detail,
 			"event": {"action": "http_error", "http": response_code},
 		}
-	if typeof(parsed) != TYPE_DICTIONARY:
+	if not bool(parsed_state.get("ok", false)):
 		return {
 			"status": "parse_error",
 			"message": "Replay: Antwort unlesbar",
-			"event": {"action": "parse_error", "http": response_code},
+			"event": {
+				"action": "parse_error",
+				"http": response_code,
+				"detail": str(parsed_state.get("detail", "invalid_json")),
+			},
 		}
-	var manifest := parsed as Dictionary
+	var manifest: Dictionary = parsed_state.get("value", {})
 	var option_state: Dictionary = _helpers.build_checkpoint_options(
 		manifest,
 		fallback_resume_checkpoint_id,
@@ -130,3 +140,22 @@ func complete_live_replay(result: int, response_code: int, body: PackedByteArray
 		"selected_checkpoint_id": str(option_state.get("selected_checkpoint_id", "")).strip_edges(),
 		"event": {"action": "applied", "http": response_code, "session_id": session_id},
 	}
+
+
+func _parse_json_dictionary(text: String) -> Dictionary:
+	var trimmed := text.strip_edges()
+	if trimmed == "":
+		return {"ok": false, "detail": "empty_body"}
+	var parser := JSON.new()
+	var parse_err := parser.parse(trimmed)
+	if parse_err != OK:
+		return {
+			"ok": false,
+			"detail": "line %d: %s" % [parser.get_error_line(), parser.get_error_message()],
+		}
+	if typeof(parser.data) != TYPE_DICTIONARY:
+		return {
+			"ok": false,
+			"detail": "json_type_%d" % typeof(parser.data),
+		}
+	return {"ok": true, "value": parser.data as Dictionary}

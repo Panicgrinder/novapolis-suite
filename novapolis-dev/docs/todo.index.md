@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 16:27
-update: Der TODO-Index spiegelt jetzt den Sim-Drift-Fix fuer den ausgelagerten Hub-Layout-Controller; der zuvor sichtbare Godot-Preload-Parserfehler ist behoben.
-checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 01:04
+update: Der TODO-Index spiegelt jetzt die dokumentierte Sim-Controller-Roadmap hinter dem Runtime-Schnitt und grenzt direkte sowie optionale Folge-Controller sauber ab.
+checks: snapshot-lock PASS (2026-04-17 01:04); Main.gd-Evidenz PASS; markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -15,7 +15,7 @@ TODO-Index (Novapolis-Dev)
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 0)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 4)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 1)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
 Statushinweise (aktuell)
@@ -29,7 +29,7 @@ Statushinweise (aktuell)
 
 - RP: Start-Chooser, Reveal-Matrizen und Folgekorridore reichen jetzt bis `slot 35`. `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` fuehrt den ersten fachlichen Ausbau des `Text-RPG Slice 2 Handover v1` auf demselben Resume-, Reveal- und Artefaktrahmen; das RP-Board steht damit wieder bei `offen: 0`.
 
-- Sim: Der Agent-Studio-Block ist ebenfalls weiter entkoppelt. Neben Helpern, Session-/Replay-Request, Session-/Replay-State, Hub-Chat, Layout, Hub-Config und Checks/RP liegt jetzt auch Agent-Studio-UI/Layout in eigenen Controllern; zusaetzlich ist ein Drift in `hub_layout_controller.gd` bereinigt, der zuvor einen Godot-Preload-Parserfehler ausgeloest hatte. Offen bleiben im Sim-Board weiter vier Punkte, darunter im Architekturrest vor allem Agent-Form-State und Runtime-Aktionspfade.
+- Sim: Der offene Sim-Block ist hinter dem Runtime-Schnitt jetzt auch dokumentarisch vorbereitet. `novapolis-dev/docs/process/sim-controller-roadmap.ssot.md` fuehrt die verbleibenden sinnvollen Controller-Kandidaten mit Prioritaet; direkt naechstliegend bleiben Payload-Building/Validation und Persistenz-/Registry-Pfade, waehrend Summary-, Server-Ops- und Audit-Schnitte als optionale Folgecontroller bereits abgegrenzt sind.
 
 - Historische Zwischenstaende und offene Uebergangsphasen bleiben im Dev-DONELOG dokumentiert; der TODO-Index fuehrt absichtlich nur noch den aktuellen Board- und Gate-Stand.
 
@@ -41,7 +41,7 @@ Board-Metadaten (automationsrelevant)
 | Dev (`docs/todo.dev.md`) | 2026-04-14 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-04-10 | keiner (offen: 0) | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-04-14 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-04-14 | - [ ] [Jetzt] Sim-Hub nach dem Layout-Reset in modulare Controller und Runtime-Dienste zerlegen. | nein |
+| Sim (`docs/todo.sim.md`) | 2026-04-17 | - [ ] [Jetzt] Sim-Hub nach dem Layout-Reset in modulare Controller und Runtime-Dienste zerlegen. | nein |
 
 
 Hinweise (Index)

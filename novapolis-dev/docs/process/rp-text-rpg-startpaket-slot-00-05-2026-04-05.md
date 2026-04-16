@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 21:08
-update: Das Startpaket fuehrt jetzt den verbindlichen Slot-00-Startanker und die belegte Weltbindung fuer den Sim-vor-RP-Einstieg auf denselben Sessionvertrag.
-checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 01:04
+update: Das Startpaket fuehrt jetzt auch Spielhauptmenue und OOC-Charakterstart als Vorschaltpfad fuer den RP-gebundenen Neueinstieg auf slot_00.
+checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
 ---
 
 RP-Produktpfad: Spielstartpaket und Slot-00-05-Korridor
@@ -47,6 +47,15 @@ Vertrags- und Weltanker fuer den Sim-vor-RP-Start
 - Der Default-Start bleibt weltseitig bei den belegten Novapolis-Kernraeumen `D5` und `C6`; weitere Startgebiete duerfen nur ueber ihren belegten Startbogen und den Start-Chooser an denselben Vertragsrahmen angeschlossen werden.
 - `slot_00` ist der kanonische Neueinstiegsanker; spaetere Resume- oder Folgepfade werden nicht aus diesem Startpaket erfunden, sondern ueber die jeweiligen Folgekorridor- oder Handover-SSOTs fortgesetzt.
 - Der Weltbezug des Startpakets bleibt dadurch auf die hier belegten Orts-, Projekt-, Reveal- und Charakterquellen beschraenkt; freie Sim-Startwelten ohne RP-Anker sind ausgeschlossen.
+
+Vorschaltpfad vor slot_00
+-------------------------
+
+- Der produktive Neueinstieg verlaeuft ueber `Hub -> Spielhauptmenue -> Start-Chooser -> Startpaket`.
+- Wenn zum gewaehlten Startanker noch keine bestehende Figur oder laufende Session vorliegt, startet davor ein OOC-Charakterstart mit minimalem Produktumfang.
+- Dieser Charakterstart umfasst mindestens Startoption und Schwierigkeitsgrad und bleibt an den gewaehlten RP-Startanker gebunden.
+- Der OOC-Charakterstart erzeugt keinen freien Weltslot vor `slot_00`, sondern bereitet nur den kanonischen Einstieg in denselben Slot-00-Korridor vor.
+- Der erste inworld-verbindliche Zustand des Produktpfads liegt damit weiter erst bei `slot_00`.
 
 Startpaket v0 (belegt/offen getrennt)
 -------------------------------------
@@ -208,6 +217,7 @@ Hinweis: Die folgenden Slots sind ein Arbeitskorridor fuer spaetere Kanonisierun
 
 - Primärlinse: PC-direkt.
 - Evidenz: `scene-2025-10-27-g.md`.
+- Bei einem frischen Neueinstieg ersetzt ein kurzes Startbriefing nach OOC-Charakterstart die Aufloesung einer Vorrunde; der Weltanker bleibt trotzdem derselbe Slot-00-Start.
 - Spielkern: Ronja prueft Unregelmaessigkeit statt sofortiger Konfrontation.
 - Entscheidungsklassen:
   - vorsichtig beobachten,

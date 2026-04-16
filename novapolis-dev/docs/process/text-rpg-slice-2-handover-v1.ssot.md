@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 21:08
-update: Der Slice-2-Handover fuehrt jetzt auch den gemeinsamen Turn-, Carry-Over- und Resume-Rahmen hinter slot 30 explizit auf denselben Sessionvertrag.
-checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 01:04
+update: Der Slice-2-Handover fuehrt jetzt auch den minimal akzeptierten RP-Adapter-Scope fuer den ersten Integrationsschnitt explizit.
+checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
 ---
 
 Text-RPG Slice 2 Handover v1
@@ -41,8 +41,10 @@ Resume- und Turn-Kontext
 ------------------------
 
 - Ein Resume hinter `slot 30` ist nur dann sauber, wenn `resume_checkpoint_id`, `slot_id`, letzter abgeschlossener `turn_id` und die noch offenen Carry-Over-Arbeiten auf denselben Handover zeigen.
+- `turn_resume_ready` bleibt auch hinter `slot 30` der einzige kanonische Zustand, aus dem Checkpoint, Resume oder Replay weiterlaufen duerfen.
 - Ein Verdichtungsfenster darf im Replay als Untersegment erscheinen, aber keinen zweiten aeusseren Resume-Pfad neben dem Handover erzeugen.
 - Der erste Wiedereinstieg nach dem Handover muss dadurch sowohl fuer RP als auch fuer Sim lesbar machen, welche Arbeiten `begonnen`, `unterbrochen` oder `offen` in den Folgeblock getragen werden.
+- Derselbe Wiedereinstieg muss zusaetzlich sichtbares Turn-Feedback und Anschlusslogik aus demselben Vertragsrahmen rekonstruieren koennen, statt Folge-Slots nur als nackten Checkpoint zu zeigen.
 
 Modulrollen
 -----------
@@ -58,6 +60,16 @@ Modulrollen
 - Reveal-, Missions- und Ortsbezug bleiben an die bereits belegten Raeume und den bestehenden Produktpfad gebunden.
 - Der erste konkrete Ausbau liegt jetzt in `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md`.
 
+Minimaler RP-Adapter-Scope fuer den ersten Integrationsschnitt
+--------------------------------------------------------------
+
+- Akzeptiert ist nur ein Adapter, der denselben Handover hinter `slot 30` liest und keine zweite Produktnaht neben `Text-RPG Slice 2 Handover v1` eroefnet.
+- Pflichtanker bleiben `campaign_id`, `session_id`, `scene_id`, `slot_id`, `turn_id`, `resume_checkpoint_id`, `state_patches`, `world_log`, `pc_log` und `replay_manifest.json`.
+- Der erste Integrationsschnitt darf RP-seitig genau den Anschluss an den bereits belegten Folgepfad `slot 31-35` herstellen, inklusive lesbarem Resume-Anker und Carry-Over-Zustand.
+- Der Adapter darf RP-spezifische Darstellung, Folgeoptionen und Reveal-Grenzen auf diesem Vertragsrahmen sichtbar machen, muss dafuer aber keine neue Sessionklasse, keine neue Ticklogik und keinen eigenen Save-/Replay-Pfad einfuehren.
+- Nicht Teil dieses Minimal-Scope sind freie neue Orte, neue Fraktionssysteme, ein zweiter Startwaehler oder neue Parallelformate fuer Save, Replay oder Resume.
+- Der Integrationsschnitt gilt erst dann als sauber, wenn Sim, RP, Product Gate und Runbook denselben Adapter als Fortsetzung desselben Handover und nicht als separaten Produktpfad lesen.
+
 ### Agent
 
 - Product Gate, Referenz-Session und Runbook muessen den Handover als naechsten gemeinsamen Ausbau hinter `slot 30` benennen.
@@ -66,6 +78,7 @@ Modulrollen
 ### Sim
 
 - Der Hub muss `resume_checkpoint_id` und `replay_manifest` aus demselben Sessionvertrag fuer den Handover nutzbar machen.
+- Der Wiedereinstieg hinter `slot 30` bleibt derselbe Bedienpfad `Hub -> Spielhauptmenue -> Resume/Checkpoint`; Sim darf dafuer keinen separaten Schnellpfad neben dem kanonischen Einstieg eroefnen.
 - Replay-/Resume-Bedienung darf keinen parallelen Artefaktpfad neben dem bestehenden Session-Store aufziehen.
 - Sim darf hinter `slot 30` keinen eigenen Turn- oder Tick-Hauptvertrag erfinden; Verdichtung bleibt auch hier Unterstruktur desselben Handover-Zugs.
 
@@ -92,3 +105,4 @@ Definition of Done
 - RP- und Sim-Folgepunkte benennen denselben Handover statt freier Folgeformeln.
 - Der weitere Ausbau hinter `slot 30` bleibt auf demselben Session- und Artefaktvertrag verankert.
 - Der erste fachliche Ausbau hinter `slot 30` liegt als eigene RP-SSOT fuer `slot 31-35` oder als gleichwertige modulare Episode vor.
+- Der minimal akzeptierte RP-Adapter-Scope fuer den ersten Integrationsschnitt ist explizit benannt und fuehrt keinen zweiten Resume-, Save- oder Produktpfad ein.

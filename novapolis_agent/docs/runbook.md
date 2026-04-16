@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-15 02:57
-update: Runbook fuehrt jetzt qwen3.5:4b als primären Text-RPG-Pfad und dokumentiert den neuen neutralen Support-A/B-Smoke-Flow samt Task-Ankern.
-checks: targeted pytest PASS (support_de_ab branch, think regression, support_ab_smoke tests); support_ab_smoke rules PASS; support_ab_smoke judge PASS; markdownlint PASS; frontmatter PASS; snapshot-lock PASS
+stand: 2026-04-17 01:04
+update: Runbook dokumentiert jetzt zusaetzlich den Sim-vor-RP-Spielfluss mit Spielhauptmenue, Eingabemodi, Turn-Zustaenden und Resume-Pfad auf demselben Sessionvertrag.
+checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -92,6 +92,16 @@ Aktueller Wahrheitsrahmen:
 - Der bestehende Runtime-Pfad bleibt vorerst der vorhandene `/chat`-Flow mit optionaler `session_id`.
 - Der Vollvertrag ist bereits festgezogen; `/chat` fuehrt jetzt denselben Contract-Block fuer Session, Slot, Status und Replay-Checkpoint wie der Replay-Pfad, auch wenn der Szenetext weiter in `content` bleibt.
 - Neue Session- oder Replay-Artefakte muessen sich an diese SSOT haengen, nicht an freie Nebenformate.
+
+Pre-RP-Spielfluss im Sim-Hub
+----------------------------
+
+- Der Hub bleibt Operator-Oberflaeche fuer Runtime, Checks, Sessionstatus und Resume-/Replay-Bedienung.
+- Der eigentliche Spieleinstieg laeuft fachlich ueber `Hub -> Spielhauptmenue` und springt nicht direkt aus der Operator-Oberflaeche in eine laufende Szene.
+- Neue Laeufe fuehren im Spielhauptmenue in einen von der Erzaehler-KI vorgeschlagenen Charakterstart mit mindestens Startoption und Schwierigkeitsgrad; bestehende Laeufe fuehren ueber denselben Pfad in Begruessung, Resume oder Checkpoint-Fortsetzung.
+- Der Sessionvertrag fuehrt dafuer bei Materialisierung denselben Bedienrahmen: `player_input.mode` als `free_text|guided|hybrid` plus `turn_state` fuer `turn_briefing -> turn_planning -> turn_budget_review -> optional turn_confirmation_required -> turn_execution -> optional turn_dense_mode -> turn_resolution -> turn_resume_ready`.
+- `turn_resume_ready` bleibt der einzige kanonische Zustand fuer Checkpoint, Resume und Replay; ein technischer Snapshot mitten in der Verdichtung ist ohne Sonderregel kein sauberer Wiedereinstieg.
+- Sichtbares Turn-Feedback trennt mindestens `completed`, `started`, `interrupted` und `open` und fuehrt dazu ein unmittelbares Signal plus naechsten Anschluss, statt Folgezustaende nur implizit im Fliesstext zu verstecken.
 
 Text-RPG Product Gate v1
 ------------------------
@@ -251,6 +261,7 @@ Minimaler Sim-Live-Client (Hub)
 - `novapolis-sim/scripts/Main.gd` nutzt das bestehende Hub-Chat-Panel jetzt als minimalen Live-Spielclient fuer denselben Text-RPG-Pfad,
 - der Client sendet `session_id`, `campaign_id`, `scene_id`, `slot_id`, `turn_id`, `public_context`, `state_patch_hints` und `retrieval_query` an `/chat`,
 - eingehende Antworten werden heuristisch in `Szene`, `Konsequenz`, `Optionen` und `State_Patches` zerlegt und als laufender Sessionstand im Panel gehalten,
+- derselbe Pfad bleibt fachlich an den Pre-RP-Spielaufbau gebunden: Hub als Operator-Ebene, Spielhauptmenue als Einstiegsschwelle und Resume/Checkpoint nur aus `turn_resume_ready`,
 - der Produktpfad bleibt bewusst minimal: die Session-/Replay-Bridge lebt jetzt separat in der Sim-API, waehrend Chat-Orchestrierung und Scheduler-Rueckkopplung weiter locker gekoppelt bleiben.
 
 Session- und Replay-Bruecke

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 21:08
-update: Dev-DONELOG dokumentiert jetzt die Uebernahme des Sim-vor-RP-Turnrahmens in Sessionvertrag, Product Gate, Slice-Handover und RP-Startanker.
-checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 01:04
+update: Dev-DONELOG dokumentiert jetzt die Sim-Controller-Roadmap fuer die weiteren sinnvollen Folgeschnitte nach dem Runtime-Controller.
+checks: snapshot-lock PASS (2026-04-17 01:04); Main.gd-Evidenz PASS; markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,99 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Sim Planung: Verbleibende Controller-Schnitte in eigener Roadmap-SSOT vorbereitet (2026-04-17 00:58)
+-----------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-controller-roadmap.ssot.md` ist neu und grenzt die verbleibenden sinnvollen Controller-Kandidaten in `novapolis-sim/scripts/Main.gd` nach dem Runtime-Schnitt pragmatisch ab.
+- Als direkte Folgecontroller sind dort `AgentAuthoringPayloadController` und `AgentAuthoringPersistenceController` dokumentiert; `AgentRegistryStateController`, `AgentRestpointSummaryController`, `HubServerOpsController` und `RuntimeAuditController` sind als nachgelagerte, aber belastbar abgegrenzte Folgepfade vorbereitet.
+- `novapolis-dev/docs/todo.sim.md` und `novapolis-dev/docs/todo.index.md` spiegeln dieselbe Roadmap im selben Lauf, damit der offene Sim-Rest jetzt nicht nur technisch, sondern auch dokumentarisch auf Controller-Ebene vorbereitet ist.
+
+Sim Refactor: Runtime-/Prozesssteuerung aus Main.gd in AgentRuntimeController gezogen (2026-04-17 00:50)
+------------------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/agent_runtime_controller.gd` ist neu und kapselt jetzt Eval-Start/Stop, Finetune-Start/Stop, Jobs-Queue-Mutationen, Destructive-Guard sowie die Runtime-Refresh-Pfade fuer Eval und Finetune in einem eigenen Controller.
+- `novapolis-sim/scripts/Main.gd` fuehrt fuer diesen Block jetzt eine explizite Runtime-State-/Result-Bruecke (`_agent_runtime_state()`, `_apply_agent_runtime_result()`) und delegiert die zuvor lokalen Handler `_on_agent_eval_run_pressed()`, `_apply_finetune_form_payload()`, `_apply_jobs_form_payload()`, `_load_jobs_state()`, `_confirm_destructive_action()`, `_refresh_eval_runtime_state()` und `_refresh_finetune_runtime_state()` an den neuen Controller.
+- `novapolis-dev/docs/todo.sim.md` und `novapolis-dev/docs/todo.index.md` ziehen den kleineren Architekturrest im selben Lauf nach: offen bleiben fuer den Agent-Studio-Rest jetzt vor allem Payload-Building/Validation und Persistenz-/Registry-Pfade.
+
+Sim Board: Offenen Agent-Studio-Rest auf konkrete Folgeschnitte geschaerft (2026-04-17 00:33)
+----------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd` traegt im offenen Architekturrest nicht mehr den Form-UI-Aufbau, sondern noch drei klar abgrenzbare Restgruppen: Payload-Building und lokale Form-Validation, Persistenz-/Registry-Schreibpfade fuer Authoring-Aktionen sowie Runtime-/Prozesssteuerung fuer Eval, Finetune und Jobs.
+- `novapolis-dev/docs/todo.sim.md` fuehrt diesen Rest jetzt nicht mehr als unscharfen Runtime-/Apply-Block, sondern als konkreten Folgeschnitt mit drei technischen Teilpfaden plus Zielbild fuer einen kleineren `Main.gd`-Fassadenrest.
+- `novapolis-dev/docs/todo.index.md` spiegelt dieselbe Schärfung im aktiven Modulindex, ohne den Open-Count des Sim-Boards kuenstlich aufzublasen.
+
+Sim Debug: Hub-Overlay-Reste und Session-/Replay-Parsefehler bereinigt (2026-04-15 05:02)
+-------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd` blendet im exklusiven Modulmodus jetzt auch die separaten Hub-Topbar-Labels aus (`hub_title_label`, `hub_api_label`, `hub_polling_label`, `hub_queue_label`, `hub_errors_label`), sodass im Agent-Modul kein Hub-Overlay mehr durchscheint.
+- `novapolis-sim/scripts/session_replay_request_controller.gd` ersetzt in `complete_live_session()` und `complete_live_replay()` das direkte `JSON.parse_string(...)` durch robustes Parsing via `JSON.new().parse(...)` und liefert bei leerem/ungueltigem Body kontrollierte `parse_error`-Events statt harter Parserlogs.
+- `novapolis-dev/docs/todo.sim.md` und `novapolis-dev/docs/todo.index.md` spiegeln denselben Debug-Schnitt im selben Lauf auf den aktiven Board-Stand.
+
+Sim UI: Hub beim exklusiven Modulwechsel ohne Zwischen-Einblendung (2026-04-15 04:56)
+-----------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd` fuehrt fuer Agent-/Checks-/RP-Modulumschaltung jetzt einen `defer_hub_refresh`-Pfad ein. Beim Wechsel zwischen zwei exklusiven Modulen werden Schliessvorgaenge intern ohne sofortige Hub-Aktualisierung ausgefuehrt.
+- Die Hub-Sichtbarkeit wird anschliessend genau einmal zentral ueber `_apply_hub_visibility_for_modules()` gesetzt; damit faellt das kurzzeitige Wieder-Einblenden des Hub-Layouts beim Modulwechsel weg.
+- `novapolis-dev/docs/todo.sim.md` und `novapolis-dev/docs/todo.index.md` ziehen diesen UI-Fix im selben Lauf auf den aktiven Board-Stand nach.
+
+Sim Refactor: Agent-Form-UI aus Main.gd herausgezogen (2026-04-15 04:39)
+-------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/agent_form_controller.gd` ist neu und fuehrt jetzt den Agent-Form-Baukasten fuer das Sim-Hub-Studio: Form-Defaults beim Oeffnen, Dropdown-Normalisierung, Platzhalter, Form-Layout und den dynamischen Feldaufbau fuer Datasets, Synonyms, Finetune, Profiles, Advanced und Jobs.
+- `novapolis-sim/scripts/Main.gd` delegiert diese Form-UI-Pfade jetzt an den neuen Controller und verliert damit den lokalen Block `_refresh_agent_form_ui()`, `_rebuild_agent_form_fields()` sowie die ungenutzten `_build_*_form_template()`-Helfer. Im offenen Architekturrest bleiben dort jetzt vor allem Payload-Anwendung und Runtime-Aktionspfade.
+- `novapolis-dev/docs/todo.sim.md` und `novapolis-dev/docs/todo.index.md` ziehen denselben kleineren Rest im selben Lauf nach: offen bleibt nur noch der Runtime-/Apply-Pfad im Agent-Studio-Block.
+
+Sim Integration: Planungs-SSOT vollstaendig aufgeloest und archiviert (2026-04-15 04:35)
+------------------------------------------------------------------------------------------
+
+- Der verbliebene strategische Produktrest des Pre-RP-Sim-Pfads liegt jetzt kompakt in `novapolis-dev/docs/process/text-rpg-pre-rp-product-model-v1.ssot.md` als Entscheidungsraster statt als lange Moderationsfragenliste.
+- UI-Hinweise fuer den Zustand ohne aktive RP-Integration liegen in `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md`; der minimale RP-Adapter-Scope fuer den ersten Integrationsschnitt liegt in `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md`.
+- Die fruehere Datei `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` ist vollstaendig aus der aktiven Dev-Oberflaeche verschwunden und lebt nur noch als historische Evidenz unter `novapolis-dev/archive/docs/others/sim-spielaufbau-vor-rp-integration.archive.2026-04-15.md`.
+- Aktive Zielquellen referenzieren den frueheren Zwischenschritt nicht mehr; `novapolis-dev/docs/active-surface-index.md` fuehrt den Zustand auf dem Archivstand `2026-04-15`.
+
+Sim Integration: Pre-RP-Sim-KPI-Matrix im Product Gate konkretisiert (2026-04-15 04:07)
+------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` fuehrt jetzt die kanonische KPI-Matrix fuer den Pre-RP-Sim-Pfad ueber denselben `gm_session`- und Summary-Rahmen: `gm.session.continuity.v1` und `gm.session.reveal-discipline.v1` bleiben harte Gate-Blocker, `gm.session.option-quality.v1` und `gm.session.patch-validity.v1` Beobachtungen.
+- Die Gate-Lesart der bestehenden Summary ist jetzt explizit: `severity=blocker` ist harter Produkt-Fail, `severity=warnung` bleibt Beobachtungspfad ohne Blockerstatus, `severity=beobachtung` ist der gruene Zielzustand des aktuellen Summary-Skripts.
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt die Frage nach Sim-seitigen Gate-KPIs damit nicht mehr als offenen Planungsrest, sondern verweist fuer diesen Block auf das Product Gate.
+
+Sim Integration: Detaillierte Turn-Budget-Mechanik in eigene Prozess-SSOT ausgelagert (2026-04-15 03:53)
+---------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/text-rpg-turn-budget-model-v1.ssot.md` ist neu und fuehrt die ausdifferenzierte Referenzlogik fuer Zeitwerte, Modifikatoren, Budgetschwellen, Verdichtungswechsel, harte Blockaden und die drei mechanischen Referenzfaelle jetzt als eigene aktive Prozessquelle.
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt damit keinen Detailblock fuer Zeit-/Budgetmechanik mehr, sondern nur noch den strategischen Planungsrest aus Produktannahmen, Moderationsfragen und Restcheckliste.
+- Der kompakte Vertragskern in `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md` bleibt bewusst unangetastet; die neue Prozess-SSOT ergaenzt ihn als Detailreferenz statt ihn zu duplizieren.
+
+Sim Integration: Uebernommene Bloecke aus der Sim-Planungs-SSOT entfernt (2026-04-15 03:35)
+-------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt jetzt nur noch den verbliebenen Planungsrest. Entfernt wurden die inzwischen aktiven Doppelungen fuer Start-/Charakterpfad, Bedienmodi, Turn-Zustandsrahmen, sichtbares Turn-Feedback, Resume-Wiedereinstieg sowie der zuvor dort noch mitgefuehrte UI-/Menueaufbau.
+- Als Zielquellen verweist die bereinigte Sim-SSOT jetzt explizit auf `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md`, `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md`, `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md`, `novapolis-dev/docs/process/rp-start-chooser.ssot.md`, `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md`, `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md` und `novapolis_agent/docs/runbook.md`.
+- In der Datei verbleiben bewusst nur noch die nicht kanonisierten Detailmatrizen fuer Zeit/Modifikatoren, mechanische Referenzfaelle, Moderationsfragen und die grosse Planungscheckliste.
+
+Sim Integration: Budgetlogik und RP-Startpfad in Bestandsdaten nachgezogen (2026-04-15 03:27)
+-----------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md` fuehrt jetzt den kompakten Vertragskern fuer strukturierte Budget- und Zeitlogik: `plan_analysis`, `budget_decision` und `time_state` bleiben optionale Vertragsbloecke mit festen Schritt- und Modifikatorklassen statt frei in der Planungs-SSOT zu bleiben.
+- `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` behandelt dieselbe Budget- und Zeitlogik jetzt als Gate-relevante Driftklasse. Damit ist der kleine Vertragskern produktnah verankert, ohne die gesamte ausdifferenzierte Zeitwert-Matrix sofort als Runtime-Pflicht zu promoten.
+- `novapolis-dev/docs/process/rp-start-chooser.ssot.md` und `novapolis-dev/docs/process/rp-text-rpg-startpaket-slot-00-05-2026-04-05.md` fuehren jetzt den RP-gebundenen Neueinstieg ueber `Hub -> Spielhauptmenue -> Start-Chooser -> slot_00` sowie den minimalen OOC-Charakterstart fuer neue Laeufe. Die Sim-Planungs-SSOT weist denselben Uebernahmestand jetzt explizit aus.
+
+Sim Integration: Spielfluss und Turn-Feedback in Bestandsdaten nachgezogen (2026-04-15 03:16)
+----------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md` fuehrt jetzt fuer den Sim-vor-RP-Pfad zusaetzlich `player_input.mode`, den sichtbaren `turn_state`-Rahmen und den optionalen Block `turn_feedback`. Damit liegen Bedienmodus, Turn-Lebenszyklus und sichtbare Turn-Rueckmeldung nicht mehr nur in der Planungs-SSOT, sondern auf demselben Vertragsblock wie `resume_checkpoint_id`, `carry_over`, `world_log` und `pc_log`.
+- `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` und `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` ziehen denselben Nachzug nach: Bedienmodi, Turn-Zustaende und sichtbares Turn-Feedback sind jetzt explizite Driftklassen im Product Gate, und der Wiedereinstieg hinter `slot 30` bleibt an `turn_resume_ready` plus denselben Pfad `Hub -> Spielhauptmenue -> Resume/Checkpoint` gebunden.
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` weist den Uebernahmestand jetzt selbst aus und grenzt die weiter reine Planungsmasse sauber ab: Zeitwert-Matrix, Referenzfaelle, Moderationsfragen und Checkliste bleiben dort vorerst bewusst Ideenraum.
+
+Sim Hub: Fortsetzungspersistenz, Exportpfad und UI-IA kanonisiert (2026-04-15 03:00)
+-------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd` persistiert ueber den bestehenden Hub-Prefs-Pfad jetzt nicht mehr nur Sichtbarkeit und Default-Panel, sondern zusaetzlich `session_id`, `scene_id`, `resume_checkpoint_id` und den zuletzt gewaehlten Replay-Checkpoint. Beim Neustart wird eine vorhandene Session-ID nicht mehr durch einen Zeitstempel ersetzt; stattdessen synchronisiert die Sim `GET /session/{session_id}` und `GET /session/{session_id}/replay` direkt erneut.
+- `novapolis-dev/docs/process/sim-export-release-path.ssot.md` ist als kanonische Export-/Release-SSOT neu. Die Datei trennt Clean-Checkout, lokalen Vollstand und exportierte Laufzeit, dokumentiert den Windows-Desktop-Zielpfad `novapolis-sim/exports/windows/NovapolisSim.exe` und fuehrt den lokalen Smoke fuer die exportierte App als expliziten Godot-Klickpfad.
+- `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md` ist als kanonische IA-SSOT neu. Dort sind jetzt Screen-/Menuebaum, Rueckwege und Zustandsbesitz fuer Hub, eigentlichen Spielpfad, Replay/Resume und operative Module festgehalten; `novapolis-sim/README.md`, `novapolis-dev/docs/todo.sim.md` und `novapolis-dev/docs/todo.index.md` verweisen im selben Lauf auf dieselben Sim-SSOTs.
+- Verifikation im selben Lauf: `get_errors` bleibt fuer `novapolis-sim/scripts/Main.gd`, `novapolis-sim/scripts/hub_preferences_store.gd` und `novapolis-sim/README.md` ohne Befund; markdownlint, Frontmatter-Check und TODO-Index-Sync werden fuer die betroffenen Doku-Dateien im selben Lauf nachgezogen.
 
 Sim Integration: Turn-, Resume- und Startanker in Bestandsdaten uebernommen (2026-04-14 20:42)
 -----------------------------------------------------------------------------------------------

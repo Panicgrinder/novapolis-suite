@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-15 02:57
-update: Agent-Scope dokumentiert jetzt die geschlossene Coverage-Welle fuer chat_helpers, main und tts/providers.
-checks: snapshot-lock PASS; focused coverage PASS (chat_helpers=100, main=98, providers=96); scripts/run_pytest_coverage.py --fail-under 80 PASS (615 passed, total=94.92%)
+stand: 2026-04-15 03:16
+update: Agent-Scope dokumentiert jetzt den operativen Nachzug des Sim-vor-RP-Spielflusses in das Runbook.
+checks: snapshot-lock PASS (2026-04-15 03:16); markdownlint=PASS; frontmatter=PASS (touched md)
 
 
 checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
@@ -20,6 +20,9 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+
+2026-04-15 03:16 | Copilot | Den operativen Sim-vor-RP-Spielfluss im Agent-Runbook nachgezogen. `novapolis_agent/docs/runbook.md` dokumentiert jetzt den fachlichen Pfad `Hub -> Spielhauptmenue` fuer den eigentlichen Spieleinstieg, Charakterstart fuer neue Laeufe, Resume-/Checkpoint-Fortsetzung fuer bestehende Laeufe sowie die vertraglichen Bedienmodi `free_text|guided|hybrid` und den sichtbaren Turn-Zustandsrahmen bis `turn_resume_ready`. Damit liegt derselbe Bedienpfad nicht mehr nur in der Sim-Planungs-SSOT, sondern auch in der operativen Agent-Doku fuer Sessionvertrag, Replay und Produkt-Gate.
 
 
 2026-04-15 02:10 | Copilot | Den neutralen Support-Pfad als getrennte Mehrmodell-Option angelegt, ohne den Text-RPG-Produktpfad umzubauen. `app/api/models.py` fuehrt jetzt die opt-in Felder fuer `support_de_ab`-Routing, Kandidatenmodelle und optionalen Judge; `app/api/chat.py` kann fuer `profile_id=support_de_ab` zwei Kandidaten (`llama3.1:8b` und `qwen3.5:4b`, overridable) gegeneinander laufen lassen, bewertet beide zuerst regelbasiert auf versandfaehige Support-Qualitaet und zieht nur bei Bedarf einen engen Modell-Judge nach. Gezielte Tests sichern Kandidatenauswahl und optionalen Judge gegen Regression ab.

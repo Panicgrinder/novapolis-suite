@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-19 11:09
-update: RP-Brainstorming aus der aktiven Dev-Oberflaeche ins Archiv ueberfuehrt; Klassifikation synchronisiert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260318_052318.md
+stand: 2026-04-17 01:04
+update: Die ehemals aktive Sim-Redirect-SSOT ist ins Dev-Archiv verschoben; die Oberflaechenklassifikation bleibt damit konsistent.
+checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
 ---
 
 Active Surface Index (Dev Docs)
@@ -40,9 +40,9 @@ Index (novapolis-dev/docs)
 | `novapolis-dev/docs/readme.hub.md` | REFERENCE | dev-governance | 2026-03-04 |
 | `novapolis-dev/docs/architecture-summary-local-ai.md` | REFERENCE | architecture | 2026-03-04 |
 | `novapolis-dev/docs/specs/**` | REFERENCE | domain-maintainers | 2026-03-04 |
-| `novapolis-dev/docs/process/**` | REFERENCE | process-governance | 2026-03-04 |
+| `novapolis-dev/docs/process/**` | REFERENCE | process-governance | 2026-04-15 |
 | `novapolis-dev/docs/meta/**` | REFERENCE | dev-governance | 2026-03-04 |
-| `novapolis-dev/archive/docs/**` | HISTORICAL | archive-maintainers | 2026-03-18 |
+| `novapolis-dev/archive/docs/**` | HISTORICAL | archive-maintainers | 2026-04-15 |
 
 Pflege
 ------

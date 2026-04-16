@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 21:08
-update: Der Sessionvertrag fuehrt jetzt den verbindlichen Turn-, Verdichtungs-, Carry-Over- und Resume-Rahmen fuer den Sim-vor-RP-Pfad auf denselben Session- und Replay-Ankern.
-checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 01:04
+update: Der Sessionvertrag fuehrt jetzt zusaetzlich die kompakte Budget- und Zeitlogik fuer den Sim-vor-RP-Turn auf demselben Vertragsblock.
+checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
 ---
 
 Text-RPG Session- und Kampagnenvertrag v1
@@ -92,6 +92,7 @@ Ein produktfaehiger Spielzug fuehrt mindestens diese Felder:
     "utterance": "Ich pruefe den Port vorsichtig und halte Reflex bereit.",
     "selected_option_ids": ["opt_safe_probe"],
     "intent": "inspect",
+    "mode": "hybrid",
     "channel": "pc"
   },
   "client_hints": {
@@ -103,6 +104,7 @@ Ein produktfaehiger Spielzug fuehrt mindestens diese Felder:
     "turn_mode": "standard",
     "turn_window_minutes": 30,
     "tick_minutes": null,
+    "turn_state": "turn_planning",
     "resume_checkpoint_id": null
   }
 }
@@ -110,6 +112,7 @@ Ein produktfaehiger Spielzug fuehrt mindestens diese Felder:
 
 Minimal verbindlich sind `campaign_id`, `session_id`, `scene_id`, `slot_id`, `turn_id` und `player_input.utterance`.
 Wenn Turn- oder Replay-Kontext materialisiert wird, gehoeren `turn_context.turn_mode`, `turn_context.turn_window_minutes` und der aktuelle `resume_checkpoint_id` auf denselben Vertragsblock.
+Wenn Eingabemodus oder sichtbarer Turn-Zustand materialisiert werden, gehoeren `player_input.mode` und `turn_context.turn_state` auf denselben Vertragsblock statt in freie UI-Nebenpfade.
 
 ### Response-Huelle
 
@@ -139,9 +142,18 @@ Die Spielleiterantwort fuer denselben Zug fuehrt mindestens diese Felder:
     "turn_mode": "standard",
     "turn_window_minutes": 30,
     "tick_minutes": null,
+    "turn_state": "turn_resume_ready",
     "budget_class": "within_frame"
   },
-  "carry_over": []
+  "carry_over": [],
+  "turn_feedback": {
+    "completed": [],
+    "started": [],
+    "interrupted": [],
+    "open": [],
+    "immediate_signal": "Die Lage beruhigt sich fuer den Moment.",
+    "next_hook": "Der naechste Turn kann die offene Wartung fortsetzen."
+  }
 }
 ```
 
@@ -155,9 +167,19 @@ Jede produktfaehige Turn-Antwort darf zusaetzlich einen kompakten `turn_context`
 - `turn_mode`: `standard|dense`
 - `turn_window_minutes`: im aktuellen Produktpfad `30`
 - `tick_minutes`: `1` im Verdichtungsfenster, sonst `null`
+- `turn_state`: `turn_idle|turn_briefing|turn_planning|turn_budget_review|turn_confirmation_required|turn_execution|turn_dense_mode|turn_resolution|turn_resume_ready`
 - `budget_class`: `within_frame|slightly_over|significantly_over|blocked`
 
 Wenn `turn_mode=dense` gilt, bleibt `turn_id` trotzdem der aeussere Vertrag. Ticks erscheinen nur als Unterstruktur in Replay, Logs oder Laufzeitdarstellung.
+
+Spielerinput und Turn-Lebenszyklus
+----------------------------------
+
+- `player_input.mode` fuehrt den aktiven Bedienmodus als `free_text|guided|hybrid`.
+- `guided` steht fuer reine Vorauswahl, `free_text` fuer freien Plantext, `hybrid` fuer Vorauswahl mit optionaler Freitext-Ergaenzung.
+- `turn_state` fuehrt denselben sichtbaren Lebenszyklus fuer Briefing, Planung, Budgetpruefung, optionale Bestaetigung, Ausspielung, optionale Verdichtung, Aufloesung und Resume-Bereitschaft.
+- `turn_resume_ready` bleibt der einzige kanonische Zustand, aus dem Checkpoint, Resume oder Replay weitergefuehrt werden duerfen.
+- Rueckfragen ohne bestaetigten Ausspielpfad verlassen den Vertragsrahmen nicht, sondern bleiben in `turn_planning` oder kehren aus `turn_budget_review` dorthin zurueck.
 
 Optionen
 --------
@@ -194,6 +216,34 @@ Carry-Over und Wiederaufnahme
 - Jeder Carry-Over-Eintrag soll mindestens `task_id`, `state`, einen kurzen `resume_hint` und optional vorbereitete Mittel oder geoeffnete Zugaenge tragen.
 - Zulaessige Zustandswerte sind `begonnen`, `unterbrochen` und `offen`.
 - Wenn eine Session fortgesetzt wird, verweist `resume_checkpoint_id` auf denselben Turn- und Slotrahmen, aus dem `carry_over`, `world_log`, `pc_log` und `state_patches` lesbar rekonstruiert werden koennen.
+
+Sichtbares Turn-Feedback
+------------------------
+
+- `turn_feedback` bleibt optional, ist aber der kanonische Vertragsblock fuer sichtbare Turn-Rueckmeldung, sobald dieselbe Information nicht nur implizit in Freitext lebt.
+- `turn_feedback.completed`, `started`, `interrupted` und `open` trennen sichtbar, was erledigt, begonnen, unterbrochen oder offengeblieben ist.
+- `turn_feedback.immediate_signal` fuehrt mindestens ein direkt lesbares Rueckmeldesignal wie Zustandsaenderung, Reaktion, Risiko oder neuen Anschluss.
+- `turn_feedback.next_hook` fuehrt den naechsten spielbaren Anschluss, ohne dafuer einen Parallelpfad ausserhalb von `carry_over`, `pc_log` oder `world_log` zu erfinden.
+
+Kompakte Budget- und Zeitlogik
+------------------------------
+
+- `plan_analysis`, `budget_decision` und `time_state` bleiben optionale Vertragsbloecke fuer Zuege, in denen Budgetpruefung oder Zeitlogik strukturiert materialisiert werden.
+- `plan_analysis.steps[]` fuehrt pro atomarem Schritt mindestens `step_id`, `label`, `step_class`, `base_minutes` und `estimated_minutes`.
+- Zulaessige `step_class`-Werte sind `very_short|short|medium|long|multi_stage`.
+- Wenn Modifikatoren strukturiert materialisiert werden, fuehrt jeder Eintrag mindestens `kind`, `effect_minutes` und `reason`.
+- Zulaessige `kind`-Werte sind `condition|environment|tools|support|routine|transition`.
+- `budget_decision.class` bleibt auf `within_frame|slightly_over|significantly_over|blocked` begrenzt.
+- `time_state` fuehrt mindestens `turn_budget_minutes`, `consumed_minutes` und `remaining_minutes`; `dense_mode_minutes` bleibt optional.
+
+Budget- und Zeit-Guardrails
+---------------------------
+
+- Eine harte Blockade wird zuerst geprueft; wenn sie greift, endet die Minutenrechnung fuer den betroffenen Schritt und `budget_decision.class=blocked`.
+- `base_minutes` kommen aus einer dokumentierten Referenzlogik und nicht aus freiem Dramatisieren pro Zug.
+- Mehrschrittplaene duerfen einen expliziten Uebergangsaufschlag tragen; dieser laeuft als `kind=transition` innerhalb derselben Analyse statt als separater Schattenpfad.
+- `multi_stage` kennzeichnet Arbeit, die nicht sauber in einen einzelnen `30`-Minuten-Turn passt und deshalb ueber `carry_over` oder Folgezuege weiterlaufen muss.
+- Die strukturierten Budget- und Zeitbloecke ersetzen den Spielertext nicht, sondern machen dieselbe Bewertung nur fuer Vertrag, Replay und Gate nachvollziehbar.
 
 Sichtbarkeit und Log-Kanaele
 ----------------------------
@@ -253,4 +303,5 @@ Definition of Done
 - `state_patches` besitzen einen kanonischen Minimalrahmen statt freier Textanhaenge.
 - Sichtbarkeit und Log-Kanaele sind gegen RP-Reveal-Regeln sauber getrennt.
 - Turn-, Verdichtungs-, Carry-Over- und Resume-Rahmen bleiben auf demselben Sessionvertrag lesbar.
+- Eingabemodi, Turn-Zustand und sichtbares Turn-Feedback bleiben auf demselben Sessionvertrag lesbar, sobald sie materialisiert werden.
 - Runbook und Produkt-Gate koennen auf denselben Vertrag verweisen.

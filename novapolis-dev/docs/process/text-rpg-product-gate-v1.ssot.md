@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 21:08
-update: Das Product Gate prueft jetzt zusaetzlich den gemeinsamen Turn-, Resume- und Replay-Rahmen fuer Sim-vor-RP gegen Sessionvertrag und Slice-2-Handover.
-checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 01:04
+update: Das Product Gate fuehrt jetzt die kanonische KPI-Matrix fuer den Pre-RP-Sim-Pfad auf denselben gm_session- und Summary-Rahmen.
+checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
 ---
 
 Text-RPG Product Gate v1
@@ -86,6 +86,8 @@ Gate-Stufen
 - Der Sessionvertrag v1 ist die kanonische Quelle fuer Session-, Slot- und Patchrahmen.
 - Hard Fail bei Drift zwischen Runbook, spaeteren API-Modellen und dem vertraglich benoetigten Kernset aus `campaign_id`, `session_id`, `scene_id`, `slot_id`, `turn_id`, `options`, `state_patches`.
 - Hard Fail ebenfalls, wenn der operative Lauf den jetzt kanonischen Turn-Rahmen (`turn_window_minutes=30`, optionales Verdichtungsfenster mit `tick_minutes=1`, `resume_checkpoint_id`, `carry_over`) nicht auf denselben Vertragsblock legt.
+- Hard Fail ebenfalls, wenn materialisierte Bedienmodi oder Turn-Zustaende (`player_input.mode`, `turn_state`) am Sessionvertrag vorbeilaufen oder der Pfad `turn_budget_review -> confirmation oder execution -> turn_resume_ready` zwischen Vertrag, Runbook und Produktlauf driftet.
+- Hard Fail ebenfalls, wenn strukturierte Budgetpruefung (`plan_analysis`, `budget_decision`, `time_state`) parallel neben dem Vertrag lebt oder Klassifikationen wie `within_frame|slightly_over|significantly_over|blocked` und die zulaessigen Modifikatorarten driftig werden.
 
 ### Stufe 3 - Agent-API- und Streaming-Smoke
 
@@ -97,6 +99,7 @@ Gate-Stufen
 - Die feste Referenz-Session muss `world_log`, `pc_log`, `state_patches`, `savegame.json` und `replay_manifest.json` fuer denselben Slice deterministisch erzeugen und verifizieren.
 - Hard Fail bei fehlenden Artefakten, ungueltigen `state_patches`, Slot-Mismatch zwischen Logs oder Replay-Widerspruechen.
 - Hard Fail ebenfalls, wenn `resume_checkpoint_id`, letzter stabiler `turn_id`, `slot_id` oder eingebettete Verdichtungssegmente desselben Turns zwischen Savegame, Logs und Replay auseinanderlaufen.
+- Hard Fail ebenfalls, wenn sichtbares Turn-Feedback (`completed|started|interrupted|open`, unmittelbares Signal, naechster Anschluss) fuer denselben Zug nicht aus Antwort, Logs oder Replay konsistent rekonstruierbar ist.
 - Produktive Chat-Laeufe duerfen spaeter weitere Artefakte erzeugen, muessen aber denselben Vertrags- und Dateirahmen halten wie die Referenz-Session.
 
 ### Stufe 5 - Sim-Anschluss
@@ -104,12 +107,41 @@ Gate-Stufen
 - Der Sim-Pfad muss mindestens denselben Slice als Smoke sichtbar pruefen koennen.
 - Hard Fail bei ungueltigen Slotwerten, nicht lesbaren Epoch-Dateien oder Artefakten ausserhalb des vertraglichen Session-/Slot-Rahmens.
 - Hard Fail ebenfalls, wenn Sim fuer denselben Lauf einen parallelen Turn- oder Resume-Pfad fuehrt statt `slot_id`, `turn_id`, `resume_checkpoint_id` und denselben RP-Startanker aus Sessionvertrag und RP-Produkt-SSOT zu nutzen.
+- Hard Fail ebenfalls, wenn ein produktiver Neueinstieg den RP-gebundenen Pfad `Hub -> Spielhauptmenue -> RP-Startanker bei slot_00` umgeht und statt dessen eine freie Sim-Vorszene ohne Start-Chooser oder Startpaket eroefnet.
 
 ### Stufe 6 - GM-Session-Eval und KPI-Triage
 
 - Der produktive Slice muss zusaetzlich denselben Sessionpfad ueber die dedizierte Suite `gm_session` pruefen.
 - Die KPI-Summary muss auf genau die Resultatdatei desselben Gate-Laufs zeigen und Blocker-Faelle von Beobachtungen trennen.
 - Hard Fail bei nicht erreichbarer Modellruntime, fehlender Resultatdatei oder fehlender KPI-Summary fuer den aktuellen Lauf.
+- Hard Fail ebenfalls, wenn die Summary `severity=blocker` liefert oder `blocker_failures > 0` fuer denselben Lauf meldet.
+
+Kanonische KPI-Matrix fuer den Pre-RP-Sim-Pfad
+----------------------------------------------
+
+### Quelle und Bindung
+
+- Die KPI-Triage fuer denselben Produktlauf ist an `Eval: suite gm_session (12, asgi)` plus `Eval: summarize gm session KPIs` gebunden.
+- Die Summary bleibt genau dann gate-gueltig, wenn sie auf die Resultatdatei desselben Wrapper-Laufs zeigt und nicht auf einen aelteren Pattern-Treffer.
+- Der aktuelle fachliche Referenzsatz haengt am Paket `rpg_gm_session_core.v1` und dessen Fallklassen; neue KPI-Faelle duerfen den Satz erweitern, aber nicht still ersetzen.
+
+### Harte Gate-KPIs
+
+- `gm.session.continuity.v1` bleibt Blocker: Der produktive Antwortpfad muss denselben Session-, Slot- und Turn-Anschluss sichtbar halten und denselben Fortsetzungsanker nicht verlieren.
+- `gm.session.reveal-discipline.v1` bleibt Blocker: Die sichtbare Lage muss ueber erlaubte Anker wie `Geraeusch`, `Druck` und `Entscheidung` laufen und darf keinen verdeckten GM-Kontext oder freie Geheimanker leaken.
+- Wenn einer dieser Blockerfaelle im aktuellen Lauf fehlschlaegt, gilt `Text-RPG Product Gate v1` unabhaengig von allen anderen Gruen-Signalen als FAIL.
+
+### Beobachtungs-KPIs
+
+- `gm.session.option-quality.v1` bleibt Beobachtung: Drei nummerierte Handlungswege mit vorsichtiger, riskanter und sozialer Option sollen sauber materialisiert sein.
+- `gm.session.patch-validity.v1` bleibt Beobachtung: `State_Patches` sollen als lesbare Patch-Struktur mit `op`, `path` und `value` rekonstruierbar bleiben.
+- Reine Beobachtungen oeffnen Folgetriage, aber keinen harten Produkt-Fail, solange keine Blockerfaelle aktiv sind.
+
+### Gate-Lesart der Summary
+
+- `severity=blocker` bedeutet harter Produkt-Fail.
+- `severity=warnung` bedeutet Produktpfad fachlich beobachtungsbeduerftig, aber nicht blockerhaft; die offenen Beobachtungen muessen im Folgeboard oder DONELOG sichtbar bleiben.
+- `severity=beobachtung` gilt im aktuellen Summary-Skript als gruener Zielzustand ohne offene Blocker- oder Beobachtungsfaelle.
 
 Gate-Erfolg
 -----------
@@ -120,8 +152,11 @@ Gate-Erfolg
 - die aktuelle Agent-API-/Streaming-Pruefung gruen ist,
 - die feste Referenz-Session fuer denselben Slice Artefakte und Replay-Vertrag gruen bestaetigt,
 - der gemeinsame Turn-, Verdichtungs- und Resume-Rahmen zwischen Sessionvertrag, Replay und Sim nicht driftet,
+- materialisierte Bedienmodi, Turn-Zustaende und sichtbares Turn-Feedback denselben Vertragsrahmen halten,
+- strukturierte Budget- und Zeitlogik denselben Vertragsrahmen halten,
 - der Sim-Asset-/Epoch-Pfad fuer denselben Slice nicht widerspricht,
 - der `gm_session`-Eval-Lauf eine Ergebnisdatei fuer denselben Gate-Lauf erzeugt,
+- die KPI-Summary fuer denselben Gate-Lauf keinen Blockerfall in `gm.session.continuity.v1` oder `gm.session.reveal-discipline.v1` fuehrt,
 - und die KPI-Summary auf genau diese Resultatdatei verweist.
 
 Runbook-Verankerung
@@ -144,4 +179,6 @@ Definition of Done
 - Board, Runbook, Tasking und Produktdoku verweisen auf denselben Wrapper-Task.
 - Die feste Referenz-Session ist als aktive Gate-Datei dokumentiert.
 - Die harten Fail-Klassen fuer Vertrags-, Log-, Slot- und GM-Runtime-Drift sind benannt.
+- Bedienmodi, Turn-Zustaende und sichtbares Turn-Feedback sind als Gate-relevante Driftklassen benannt.
+- Die kanonische KPI-Matrix fuer Blocker- und Beobachtungsfaelle des Pre-RP-Sim-Pfads ist explizit benannt.
 - Der Pfad ist technisch automatisiert, ohne den lokalen Modellruntime-Bedarf des GM-Eval-Teils zu verschweigen.

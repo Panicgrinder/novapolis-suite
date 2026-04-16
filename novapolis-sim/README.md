@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 16:11
-update: Die Sim-README trennt jetzt den warnungsfreien Clean-Checkout-Bootstrap vom artefaktbasierten Vollstand-Pfad und dokumentiert die Bootstrap-Zielorte.
-checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; todo-index-sync PASS
+stand: 2026-04-17 01:04
+update: Die Sim-README dokumentiert jetzt den kanonischen Export-/Release-Pfad, die UI-/Menue-IA-SSOT und die neue Fortsetzungspersistenz fuer Live-Session und Replay.
+checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS; get_errors=PASS
 ---
 
 Novapolis Sim
@@ -103,6 +103,26 @@ Wenn du vermeiden willst, dass Godot das Editorfenster mit „(DEBUG)“ öffnet
 - Vorher bei Bedarf einmalig setzen: `$env:GODOT_BIN = '<Pfad-zur-Godot-Binary>'`.
 - Headless verifier (schnell, für CI / Smoke): `& $env:GODOT_BIN --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless` oder ohne gesetzte Variable mit `godot4 --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless` starten.
 - Release/Export (empfohlen für Produktion): Exportiere das Projekt (`Project -> Export`) als Windows Desktop und starte die erzeugte `.exe` — das läuft ohne Editor-Overlay und ohne Debug-Label.
+
+Fortsetzung und Persistenz
+--------------------------
+
+- Der Hub persistiert stabile Fortsetzungsdaten jetzt in `user://hub_prefs.cfg`: sichtbare Hub-Prefs, `session_id`, `scene_id`, `resume_checkpoint_id` und den zuletzt gewaehlten Replay-Checkpoint.
+- Beim naechsten Start erzeugt die Sim keine neue Hub-Session, wenn bereits eine persistierte Session-ID vorliegt. Stattdessen werden `GET /session/{session_id}` und `GET /session/{session_id}/replay` direkt erneut geladen.
+- Der Persistenzpfad speichert bewusst keine fluechtigen Runtime-Metriken wie Polling-Zeiten, Queue-Zwischenstaende oder temporaere Fehlerraten.
+- Das kanonische Neustartverhalten fuer Hub, Replay und Live-Session ist in `novapolis-dev/docs/process/sim-export-release-path.ssot.md` beschrieben.
+
+Kanonische Release-/Export-Doku
+-------------------------------
+
+- Der verbindliche Release-/Export-Pfad fuer Windows Desktop liegt unter `novapolis-dev/docs/process/sim-export-release-path.ssot.md`.
+- Diese SSOT trennt Clean-Checkout, lokalen Vollstand und exportierte Laufzeit, dokumentiert die Godot-Klickpfade fuer den Export und beschreibt den lokalen Smoke-Test fuer die exportierte `.exe` ohne Editor-Overlay.
+
+Kanonische UI-/Menue-IA
+-----------------------
+
+- Die fachliche Informationsarchitektur fuer Hub, Hauptmenue, eigentlichen Spielpfad, Replay/Resume und Modulwechsel liegt unter `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md`.
+- README, Board und die Prozess-SSOTs verweisen damit fuer den eigentlichen Spielaufbau auf dieselbe Quelle statt nur auf einzelne Hub-Beschreibungen.
 
 Verification Record
 -------------------

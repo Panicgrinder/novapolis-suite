@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 21:08
-update: Der Start-Chooser bindet Startoptionen jetzt explizit an Sessionvertrag, Slot-00-Startanker und belegte Welt-/Gebietsquellen statt an freie Sim-Vorstarts.
-checks: markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 01:04
+update: Der Start-Chooser bindet jetzt auch Spielhauptmenue und Charakterstart als OOC-Vorschaltpfad an die RP-Startanker bei slot_00.
+checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
 ---
 
 RP Start-Chooser SSOT
@@ -154,6 +154,15 @@ Vertragsanker fuer Sim-Voraufbau
 - Jeder freigegebene Start muss auf denselben Sessionvertrag zeigen und deshalb mindestens mit `campaign_id`, `scene_id`, `slot_id` und belegtem Startgebiet verknuepfbar sein.
 - Produktive Neueinstiege fuer den Sim-vor-RP-Pfad starten auf den RP-Ankern des Startpakets bei `slot_00`; spaetere Resume-Einstiege hinter `slot 30` laufen ueber den Slice-2-Handover und nicht ueber den Start-Chooser.
 - Die Weltbindung des Starts bleibt auf die durch Startbogen, Reveal-Matrix und Topologie belegten Gebiete beschraenkt; der Chooser darf keine freie Parallelkontinuitaet zu nicht belegten Raeumen erzeugen.
+
+Produktiver Einstiegsfluss
+--------------------------
+
+- Der Start-Chooser liegt fachlich im Spielhauptmenue hinter dem Hub und nicht direkt auf der Operator-Oberflaeche.
+- Neueinstieg bedeutet deshalb: `Hub -> Spielhauptmenue -> Start-Chooser -> RP-Startanker bei slot_00`.
+- Wenn fuer den gewaehlten RP-Startanker noch keine laufende Figur oder Session existiert, fuehrt derselbe Pfad zuerst in einen OOC-Charakterstart statt direkt in eine Inworld-Szene.
+- Dieser OOC-Charakterstart bleibt auf den minimalen Produktumfang beschraenkt: Startoption, Schwierigkeitsgrad und Bindung an den gewaehlten RP-Startanker.
+- Der Charakterstart erzeugt keine freie Vorszene und keinen Parallel-Slot vor `slot_00`, sondern bereitet nur denselben kanonischen Neueinstieg fuer das Startpaket vor.
 
 Freigegebene Startkandidaten 2026-04-05
 ---------------------------------------
