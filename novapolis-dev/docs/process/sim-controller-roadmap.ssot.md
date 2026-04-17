@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 01:04
-update: Diese SSOT dokumentiert die verbleibenden sinnvollen Controller-Schnitte im Sim-Architekturrest nach dem AgentRuntimeController.
-checks: snapshot-lock PASS (2026-04-17 01:04); Main.gd-Evidenz PASS; markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 02:07
+update: Diese SSOT dokumentiert jetzt den nahezu vollstaendig umgesetzten Controller-Fahrplan des Sim-Architekturrests und die verbleibenden kleineren Cleanup-Altlasten.
+checks: snapshot-lock PASS (2026-04-17 02:07); Main.gd-Evidenz PASS; get_errors=PASS (Main.gd, runtime_telemetry_controller.gd); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 Sim Controller Roadmap (SSOT)
@@ -26,11 +26,11 @@ Nicht-Ziele
 - keine kuenstliche Controller-Zerlegung fuer triviale String- oder Format-Helfer
 - keine Aenderung an Node-Pfaden, UI-Bedienwegen oder Session-Vertrag
 
-Iststand nach dem Runtime-Schnitt
----------------------------------
+Iststand nach den Controller-Schnitten
+-------------------------------------
 
-- Bereits ausgelagert sind Hub-Layout, Hub-Config, Hub-Chat, Session-/Replay-Helper, Session-/Replay-Requests, Session-/Replay-State, Checks/RP, Agent-Studio-UI, Agent-Form-UI und Agent-Runtime.
-- In [novapolis-sim/scripts/Main.gd](novapolis-sim/scripts/Main.gd) verbleiben danach vor allem noch Agent-Authoring-Payloads, Persistenz-/Registry-IO, Security-/Summary-State sowie Server-/Audit-Steuerung.
+- Bereits ausgelagert sind Hub-Layout, Hub-Config, Hub-Chat, Session-/Replay-Helper, Session-/Replay-Requests, Session-/Replay-State, Checks/RP, Agent-Studio-UI, Agent-Form-UI, Agent-Runtime, Agent-Authoring-Payloads, Agent-Authoring-Persistenz, Agent-Registry-State, Agent-Restpoint-Summaries, Hub-Server-Ops, Runtime-Audit und jetzt auch Runtime-Telemetrie.
+- In [novapolis-sim/scripts/Main.gd](novapolis-sim/scripts/Main.gd) verbleiben damit praktisch nur noch kleinere Cleanup-Altlasten wie unreferenzierte Runtime-Helfer, harmlose Format-/Textbausteine und die bewusst zentrale Fassade fuer Node-Wiring sowie Zustandsanwendung.
 - Die frueheren Runtime-Helfer `_resolve_finetune_train_file()`, `_start_finetune_run()`, `_load_jobs_queue_payload()` und `_write_jobs_queue_payload()` stehen in [novapolis-sim/scripts/Main.gd](novapolis-sim/scripts/Main.gd) aktuell nur noch als Altlasten- oder Cleanup-Kandidaten ohne belegten Call-Site-Rest im verbleibenden Pfad.
 
 Pragmatische Leitlinien
@@ -46,7 +46,7 @@ Controller-Kandidaten
 
 ### 1. AgentAuthoringPayloadController
 
-- Prioritaet: sofort sinnvoll
+- Status: umgesetzt 2026-04-17 01:16
 - Ziel: Form-Payload-Building, lokale Validation und Normalisierung aus [novapolis-sim/scripts/Main.gd](novapolis-sim/scripts/Main.gd) herausziehen.
 - Evidenzfunktionen:
   - `_build_agent_form_payload_from_controls()`
@@ -64,7 +64,7 @@ Controller-Kandidaten
 
 ### 2. AgentAuthoringPersistenceController
 
-- Prioritaet: sofort sinnvoll
+- Status: umgesetzt 2026-04-17 01:24
 - Ziel: Authoring-Schreibpfade fuer Dataset-, Synonym-, Profil- und Advanced-Settings aus [novapolis-sim/scripts/Main.gd](novapolis-sim/scripts/Main.gd) entfernen.
 - Evidenzfunktionen:
   - `_apply_dataset_form_payload()`
@@ -84,7 +84,7 @@ Controller-Kandidaten
 
 ### 3. AgentRegistryStateController
 
-- Prioritaet: sinnvoll nach Payload/Persistenz
+- Status: umgesetzt 2026-04-17 01:32
 - Ziel: aktive Registry- und Sicherheitsmodell-Zustaende von Authoring-IO und UI-Fassade trennen.
 - Evidenzfunktionen:
   - `_load_dataset_registry_state()`
@@ -104,7 +104,7 @@ Controller-Kandidaten
 
 ### 4. AgentRestpointSummaryController
 
-- Prioritaet: sinnvoll, aber nachrangig
+- Status: umgesetzt 2026-04-17 02:00
 - Ziel: die verbleibende Summary- und Gate-Bildung aus [novapolis-sim/scripts/Main.gd](novapolis-sim/scripts/Main.gd) herausziehen.
 - Evidenzfunktionen:
   - `_refresh_agent_restpoint_summaries()`
@@ -119,7 +119,7 @@ Controller-Kandidaten
 
 ### 5. HubServerOpsController
 
-- Prioritaet: optional sinnvoll nach dem Agent-Studio-Rest
+- Status: umgesetzt 2026-04-17 02:00
 - Ziel: lokale Serverprozess-Steuerung von der Sim-Fassade trennen.
 - Evidenzfunktionen:
   - `_resolve_python_executable()`
@@ -136,7 +136,7 @@ Controller-Kandidaten
 
 ### 6. RuntimeAuditController
 
-- Prioritaet: optional sinnvoll nach den fachlichen Kernschnitten
+- Status: umgesetzt 2026-04-17 02:00
 - Ziel: Runtime-Event-Puffer und Audit-Trail-Persistenz entkoppeln.
 - Evidenzfunktionen:
   - `_append_runtime_event()`
@@ -150,6 +150,12 @@ Controller-Kandidaten
 - Hinweis:
   - Dieser Schnitt ist vor allem dann sinnvoll, wenn Event- und Audit-Logik weiter fuer mehrere Module waechst.
 
+Verbleibender Rest ohne neuen Gross-Controller
+----------------------------------------------
+
+- Der fruehere kleine Telemetrie-/Helper-Block ist jetzt in `runtime_telemetry_controller.gd` gekapselt.
+- Verbleibend sind vor allem unreferenzierte Runtime-Altlasten wie `_resolve_finetune_train_file()` und `_start_finetune_run()` sowie einige harmlose Text-/Format-Helfer, die aktuell keinen weiteren grossen Controller rechtfertigen.
+
 Bewusst keine eigenen Controller
 --------------------------------
 
@@ -157,19 +163,16 @@ Bewusst keine eigenen Controller
 - `_format_percent()`, `_format_temperature()`, `_format_vram()` und `_effective_temperature_c()` rechtfertigen aktuell keinen eigenen Controller.
 - Unreferenzierte Runtime-Reste in [novapolis-sim/scripts/Main.gd](novapolis-sim/scripts/Main.gd) sollen im naechsten Codeschnitt eher bereinigt als als neue Controller promoted werden.
 
-Empfohlene Reihenfolge
-----------------------
+Empfohlene Restreihenfolge
+-------------------------
 
-1. AgentAuthoringPayloadController
-2. AgentAuthoringPersistenceController
-3. AgentRegistryStateController
-4. AgentRestpointSummaryController
-5. HubServerOpsController
-6. RuntimeAuditController
+1. Unreferenzierte Runtime-Altlasten in [novapolis-sim/scripts/Main.gd](novapolis-sim/scripts/Main.gd) pruefen und bei belegter Ueberfluessigkeit entfernen
+2. Verbleibende harmlose Text-/Format-Helfer nur dann anfassen, wenn sie fachlich weiter wachsen
+3. Ansonsten den Rest bewusst in [novapolis-sim/scripts/Main.gd](novapolis-sim/scripts/Main.gd) als Fassade belassen
 
 Definition of Done
 ------------------
 
-- Die verbleibenden sinnvollen Controller-Kandidaten sind evidenzbasiert aus [novapolis-sim/scripts/Main.gd](novapolis-sim/scripts/Main.gd) abgeleitet.
-- Die direkte Restarbeit hinter dem AgentRuntimeController ist klar von optionalen Folge-Schnitten getrennt.
-- Der naechste Codeschnitt kann ohne neue Repo-Exploration direkt auf Payload- und Persistenz-Controller gehen.
+- Die verbleibenden sinnvollen Controller-Kandidaten sind evidenzbasiert aus [novapolis-sim/scripts/Main.gd](novapolis-sim/scripts/Main.gd) abgeleitet und inzwischen umgesetzt.
+- Der verbleibende Rest ist klar als kleiner Telemetrie-/Helper-Block statt als neuer grosser Controller-Kandidat beschrieben.
+- Der naechste Codeschnitt kann ohne neue Repo-Exploration direkt auf den verbleibenden Cleanup-Rest gehen.

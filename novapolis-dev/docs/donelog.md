@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 01:04
-update: Dev-DONELOG dokumentiert jetzt die Sim-Controller-Roadmap fuer die weiteren sinnvollen Folgeschnitte nach dem Runtime-Controller.
-checks: snapshot-lock PASS (2026-04-17 01:04); Main.gd-Evidenz PASS; markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 02:07
+update: Dev-DONELOG dokumentiert jetzt auch den umgesetzten RuntimeTelemetryController nach Payload, Persistenz, Registry-State, Summary, Server-Ops, Runtime-Audit und Runtime.
+checks: snapshot-lock PASS (2026-04-17 02:07); get_errors=PASS (Main.gd, runtime_telemetry_controller.gd); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,41 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Sim Cleanup: Letzten Runtime-Telemetrie-/Helper-Block aus Main.gd in RuntimeTelemetryController gezogen (2026-04-17 02:07)
+----------------------------------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/runtime_telemetry_controller.gd` ist neu und kapselt jetzt Eval-Summary-Refresh, Trendbildung, System-Metrik-Refresh, Python-Aufloesung sowie Health-/Reachability-Ableitung des verbliebenen Sim-Rests.
+- `novapolis-sim/scripts/Main.gd` fuehrt fuer diesen Block jetzt nur noch dünne Wrapper und Statusanwendung aus; die zuvor lokalen Helfer `_refresh_latest_eval_summary()`, `_build_ai_trend_summary()`, `_refresh_system_metrics()`, `_format_*()`, `_effective_temperature_c()`, `_resolve_python_executable()`, `_sim_runtime_status()`, `_derive_health_state()` und `_is_external_server_reachable()` delegieren jetzt an den neuen Controller.
+- `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/process/sim-controller-roadmap.ssot.md` spiegeln denselben neuen Stand im selben Lauf nach: direkt offen bleiben jetzt praktisch nur noch kleinere Cleanup-Altlasten statt eines weiteren grossen Controller-Kandidaten.
+
+Sim Refactor: Summary-, Server-Ops- und Runtime-Audit-Block aus Main.gd in eigene Controller gezogen (2026-04-17 02:00)
+--------------------------------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/agent_restpoint_summary_controller.gd`, `hub_server_ops_controller.gd` und `runtime_audit_controller.gd` sind neu und kapseln jetzt Restpoint-Summary-Bildung, lokale Serversteuerung sowie Runtime-Event-/Audit-Trail-Persistenz des verbleibenden Sim-Rests.
+- `novapolis-sim/scripts/Main.gd` fuehrt fuer diese drei Bereiche jetzt nur noch Zustandsanwendung, Event-Weitergabe, Health-Ableitung und wenige gemeinsame Runtime-Helfer aus; die zuvor lokalen Blöcke `_refresh_agent_restpoint_summaries()`, `_build_*_summary()`, `_start_local_server()`, `_stop_local_server()`, `_update_server_control_ui()`, `_refresh_server_runtime_state()`, `_append_runtime_event()`, `_append_audit_event()`, `_runtime_event_rate_per_second()`, `_trim_runtime_event_rate_window()` und `_extract_error_code()` delegieren jetzt an die neuen Controller.
+- `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/process/sim-controller-roadmap.ssot.md` spiegeln denselben neuen Stand im selben Lauf nach: direkt offen bleibt jetzt nur noch ein kleiner gemeinsamer Runtime-Telemetrie-/Helper-Block statt eines weiteren grossen Controller-Kandidaten.
+
+Sim Refactor: Registry-/State-Ladepfade aus Main.gd in AgentRegistryStateController gezogen (2026-04-17 01:32)
+----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/agent_registry_state_controller.gd` ist neu und kapselt jetzt Dataset-/Synonym-/Profile-/Advanced-State-Lader sowie das Security-Model-Laden mitsamt Default-Persistenz des Agent-Studio-Rests.
+- `novapolis-sim/scripts/Main.gd` fuehrt fuer diesen Block jetzt nur noch die State-/Result-Anwendung aus; die zuvor lokalen Helfer `_load_dataset_registry_state()`, `_load_synonym_registry_state()`, `_load_profile_registry_state()`, `_load_advanced_settings_state()`, `_load_security_model_state()` und `_persist_security_model_state()` delegieren nur noch an den neuen Controller.
+- `novapolis-dev/docs/todo.sim.md` und `novapolis-dev/docs/todo.index.md` spiegeln denselben kleineren Rest im selben Lauf nach: direkt offen bleiben jetzt vor allem Summary-Bildung, Server-Ops und Runtime-Audit.
+
+Sim Refactor: Persistenz-/Registry-Schreibpfade aus Main.gd in AgentAuthoringPersistenceController gezogen (2026-04-17 01:24)
+----------------------------------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/agent_authoring_persistence_controller.gd` ist neu und kapselt jetzt Dataset-/Synonym-/Profile-/Advanced-Persistenz, Synonym-Import/Export, lokale Persistenz-Validation und die zugehoerigen Registry-Schreibpfade des Agent-Studio-Authoring-Pfads.
+- `novapolis-sim/scripts/Main.gd` fuehrt fuer diesen Block jetzt nur noch die Persistenz-State-/Result-Bruecke und die Runtime-Event-Weitergabe aus; die zuvor lokalen Helfer `_apply_*_form_payload()`, `_load_synonym_entries_from_path()`, `_build_synonym_delta()`, `_validate_synonym_entries()`, `_write_json_to_path()` und `_update_*_registry()` entfallen dort vollstaendig.
+- `novapolis-dev/docs/todo.sim.md` und `novapolis-dev/docs/todo.index.md` spiegeln denselben kleineren Rest im selben Lauf nach: direkt offen bleiben jetzt vor allem Registry-State-/Ladepfade, Summary-Bildung, Server-Ops und Runtime-Audit.
+
+Sim Refactor: Form-Payload-Building aus Main.gd in AgentAuthoringPayloadController gezogen (2026-04-17 01:16)
+----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/agent_authoring_payload_controller.gd` ist neu und kapselt jetzt das Lesen der Form-Controls, lokale Pflichtfeldpruefung und die kanonische Payload-Normalisierung fuer Datasets, Synonyms, Finetune, Profiles, Advanced und Jobs.
+- `novapolis-sim/scripts/Main.gd` fuehrt fuer diesen Pfad nur noch den Form-Dispatch weiter und wendet Status-Updates des neuen Controllers auf das bestehende Formular an; die zuvor lokalen Helfer `_build_agent_form_payload_from_controls()` und `_form_control_*()` entfallen dort vollstaendig.
+- `novapolis-dev/docs/todo.sim.md` und `novapolis-dev/docs/todo.index.md` spiegeln denselben kleineren Rest im selben Lauf nach: direkt offen bleiben jetzt vor allem die Persistenz-/Registry-Schreibpfade des Agent-Studio-Blocks.
 
 Sim Planung: Verbleibende Controller-Schnitte in eigener Roadmap-SSOT vorbereitet (2026-04-17 00:58)
 -----------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 01:04
-update: Root-Summary fuehrt jetzt auch die dokumentierte Sim-Controller-Roadmap fuer die weiteren Folgeschnitte nach dem Runtime-Controller auf.
-checks: snapshot-lock PASS (2026-04-17 01:04); Main.gd-Evidenz PASS; markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-17 02:07
+update: Root-Summary fuehrt jetzt auch den umgesetzten RuntimeTelemetryController als weiteren Architekturfortschritt auf.
+checks: snapshot-lock PASS (2026-04-17 02:07); get_errors=PASS (Main.gd, runtime_telemetry_controller.gd); markdownlint=PASS; frontmatter=PASS
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,16 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-17 02:07: Der offene Sim-Architekturrest ist erneut kleiner geworden. `novapolis-sim/scripts/runtime_telemetry_controller.gd` kapselt jetzt auch Eval-Summary-Refresh, System-Metrik-Refresh, Python-Aufloesung sowie Health-/Reachability-Ableitung; `novapolis-sim/scripts/Main.gd` behaelt damit praktisch nur noch Wrapper und kleinere Cleanup-Altlasten. `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md`, `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/process/sim-controller-roadmap.ssot.md` sind im selben Lauf auf diesen Reststand nachgezogen.
+
+- 2026-04-17 02:00: Der offene Sim-Architekturrest ist erneut deutlich kleiner geworden. `novapolis-sim/scripts/agent_restpoint_summary_controller.gd`, `hub_server_ops_controller.gd` und `runtime_audit_controller.gd` kapseln jetzt Summary-Bildung, lokale Serversteuerung sowie Runtime-Event-/Audit-Trail-Persistenz; `novapolis-sim/scripts/Main.gd` behaelt dort nur noch Zustandsanwendung, Event-Weitergabe und einige gemeinsame Runtime-Helfer. `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md`, `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/process/sim-controller-roadmap.ssot.md` sind im selben Lauf auf den verbleibenden kleinen Telemetrie-/Helper-Rest nachgezogen.
+
+- 2026-04-17 01:32: Der offene Sim-Architekturrest ist erneut kleiner geworden. `novapolis-sim/scripts/agent_registry_state_controller.gd` kapselt jetzt Dataset-/Synonym-/Profile-/Advanced-State-Lader sowie das Security-Model-Laden mitsamt Default-Persistenz; `novapolis-sim/scripts/Main.gd` behaelt dort nur noch die Anwendung geladener Zustandswerte. `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/donelog.md` sind im selben Lauf auf den verbleibenden Summary-/Server-/Audit-Rest nachgezogen.
+
+- 2026-04-17 01:24: Der offene Sim-Architekturrest ist erneut kleiner geworden. `novapolis-sim/scripts/agent_authoring_persistence_controller.gd` kapselt jetzt Dataset-/Synonym-/Profile-/Advanced-Persistenz, Synonym-Import/Export und Registry-Schreibpfade des Agent-Studio-Authoring-Pfads; `novapolis-sim/scripts/Main.gd` behaelt dort nur noch Resultat-Anwendung und Runtime-Event-Weitergabe. `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/donelog.md` sind im selben Lauf auf den verbleibenden Registry-/Summary-/Server-/Audit-Rest nachgezogen.
+
+- 2026-04-17 01:16: Der offene Sim-Architekturrest ist erneut kleiner geworden. `novapolis-sim/scripts/agent_authoring_payload_controller.gd` kapselt jetzt Form-Control-Lesen, lokale Validation und Payload-Normalisierung fuer den Agent-Studio-Authoring-Pfad; `novapolis-sim/scripts/Main.gd` behaelt dort nur noch Form-Dispatch und Statusanwendung. `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/donelog.md` sind im selben Lauf auf den verbleibenden Persistenz-/Registry-Rest nachgezogen.
 
 - 2026-04-17 00:58: Der verbleibende Sim-Architekturrest ist jetzt auch dokumentarisch auf Controller-Ebene vorbereitet. `novapolis-dev/docs/process/sim-controller-roadmap.ssot.md` grenzt nach dem umgesetzten `agent_runtime_controller.gd` die weiteren sinnvollen Folgeschnitte fuer Payload-Building, Persistenz-/Registry-State, Summary-Bildung, Server-Ops und Runtime-Audit ab; `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/donelog.md` spiegeln denselben Stand im selben Lauf.
 

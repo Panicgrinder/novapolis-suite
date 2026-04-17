@@ -1,9 +1,16 @@
 extends Node2D
 
+const AgentAuthoringPayloadControllerRef = preload("res://scripts/agent_authoring_payload_controller.gd")
+const AgentAuthoringPersistenceControllerRef = preload("res://scripts/agent_authoring_persistence_controller.gd")
+const AgentRegistryStateControllerRef = preload("res://scripts/agent_registry_state_controller.gd")
+const AgentRestpointSummaryControllerRef = preload("res://scripts/agent_restpoint_summary_controller.gd")
 const AgentStudioControllerRef = preload("res://scripts/agent_studio_controller.gd")
 const AgentFormControllerRef = preload("res://scripts/agent_form_controller.gd")
 const AgentRuntimeControllerRef = preload("res://scripts/agent_runtime_controller.gd")
+const HubServerOpsControllerRef = preload("res://scripts/hub_server_ops_controller.gd")
 const ChecksRpControllerRef = preload("res://scripts/checks_rp_controller.gd")
+const RuntimeTelemetryControllerRef = preload("res://scripts/runtime_telemetry_controller.gd")
+const RuntimeAuditControllerRef = preload("res://scripts/runtime_audit_controller.gd")
 const SchedulerHookRef = preload("res://scripts/scheduler_hook.gd")
 const HubChatControllerRef = preload("res://scripts/hub_chat_controller.gd")
 const HubConfigControllerRef = preload("res://scripts/hub_config_controller.gd")
@@ -268,10 +275,17 @@ var _live_replay_manifest: Dictionary = {}
 var _hub_selected_replay_checkpoint_id: String = ""
 var _marquee_state: Dictionary = {}
 var _lower_shared_topic: String = "agent_api"
+var _agent_authoring_payload_controller = AgentAuthoringPayloadControllerRef.new()
+var _agent_authoring_persistence_controller = AgentAuthoringPersistenceControllerRef.new()
+var _agent_registry_state_controller = AgentRegistryStateControllerRef.new()
+var _agent_restpoint_summary_controller = AgentRestpointSummaryControllerRef.new()
 var _agent_studio_controller = AgentStudioControllerRef.new()
 var _agent_form_controller = AgentFormControllerRef.new()
 var _agent_runtime_controller = AgentRuntimeControllerRef.new()
+var _hub_server_ops_controller = HubServerOpsControllerRef.new()
 var _checks_rp_controller = ChecksRpControllerRef.new()
+var _runtime_telemetry_controller = RuntimeTelemetryControllerRef.new()
+var _runtime_audit_controller = RuntimeAuditControllerRef.new()
 var _hub_chat_controller = HubChatControllerRef.new()
 var _hub_config_controller = HubConfigControllerRef.new()
 var _hub_layout_controller = HubLayoutControllerRef.new()
@@ -680,6 +694,284 @@ func _agent_runtime_state() -> Dictionary:
 		"destructive_armed_until_ms": _destructive_armed_until_ms,
 		"now_ms": Time.get_ticks_msec(),
 	}
+
+
+func _agent_authoring_payload_state() -> Dictionary:
+	return {
+		"form_kind": _agent_form_kind,
+		"form_mode_value": _agent_form_mode_value,
+		"form_target_value": _agent_form_target_value,
+		"form_name": agent_form_name_edit.text.strip_edges(),
+		"form_controls": _agent_form_controls,
+		"finetune_base_model": _finetune_base_model,
+	}
+
+
+func _agent_authoring_persistence_state() -> Dictionary:
+	return {
+		"form_target_value": _agent_form_target_value,
+		"form_mode_value": _agent_form_mode_value,
+		"dataset_registry_path": _DATASET_REGISTRY_PATH,
+		"synonym_registry_path": _SYNONYM_REGISTRY_PATH,
+		"profile_registry_path": _PROFILE_REGISTRY_PATH,
+		"advanced_settings_path": _ADVANCED_SETTINGS_PATH,
+		"active_dataset_name": _active_dataset_name,
+		"active_dataset_tag": _active_dataset_tag,
+		"active_synonym_set": _active_synonym_set,
+		"active_synonym_tag": _active_synonym_tag,
+		"active_profile_name": _active_profile_name,
+		"active_profile_mode": _active_profile_mode,
+		"profile_status_text": _profile_status_text,
+	}
+
+
+func _agent_registry_state() -> Dictionary:
+	return {
+		"dataset_registry_path": _DATASET_REGISTRY_PATH,
+		"synonym_registry_path": _SYNONYM_REGISTRY_PATH,
+		"profile_registry_path": _PROFILE_REGISTRY_PATH,
+		"advanced_settings_path": _ADVANCED_SETTINGS_PATH,
+		"security_model_path": _SECURITY_MODEL_PATH,
+		"destructive_guard_enabled": _destructive_guard_enabled,
+		"destructive_guard_window_ms": _destructive_guard_window_ms,
+		"destructive_guard_token": _destructive_guard_token,
+	}
+
+
+func _agent_restpoint_summary_state() -> Dictionary:
+	return {
+		"active_dataset_name": _active_dataset_name,
+		"active_dataset_tag": _active_dataset_tag,
+		"active_synonym_set": _active_synonym_set,
+		"active_synonym_tag": _active_synonym_tag,
+		"finetune_output_name": _finetune_output_name,
+		"last_finetune_exit_code": _last_finetune_exit_code,
+		"quality_tests_last": _quality_tests_last,
+		"quality_types_last": _quality_types_last,
+		"quality_coverage_last": _quality_coverage_last,
+		"latest_eval_runs": _latest_eval_runs,
+		"ai_trend_summary_text": _ai_trend_summary_text,
+		"destructive_guard_enabled": _destructive_guard_enabled,
+		"destructive_guard_token": _destructive_guard_token,
+		"advanced_settings_path": _ADVANCED_SETTINGS_PATH,
+		"audit_trail_path": _AUDIT_TRAIL_PATH,
+	}
+
+
+func _server_ops_state() -> Dictionary:
+	return {
+		"server_pid": _server_pid,
+		"server_status_text": _server_status_text,
+		"server_exit_reported": _server_exit_reported,
+		"python_exec": _resolve_python_executable(),
+		"server_script_abs": ProjectSettings.globalize_path(server_script_path),
+	}
+
+
+func _runtime_audit_state() -> Dictionary:
+	return {
+		"runtime_events": _runtime_events,
+		"runtime_event_timestamps_ms": _runtime_event_timestamps_ms,
+		"max_runtime_events": _MAX_RUNTIME_EVENTS,
+		"event_rate_window_seconds": _EVENT_RATE_WINDOW_SECONDS,
+		"audit_trail_path": _AUDIT_TRAIL_PATH,
+	}
+
+
+func _runtime_telemetry_state() -> Dictionary:
+	return {
+		"server_python_path": server_python_path,
+		"eval_summary_script_path": eval_summary_script_path,
+		"system_snapshot_script_path": system_snapshot_script_path,
+		"enable_system_resource_monitoring": enable_system_resource_monitoring,
+		"metrics_refresh_interval_seconds": metrics_refresh_interval_seconds,
+		"eval_summary_refresh_interval_seconds": eval_summary_refresh_interval_seconds,
+		"agent_submenu_open": _agent_submenu_open,
+		"last_eval_summary_refresh_ms": _last_eval_summary_refresh_ms,
+		"latest_eval_runs": _latest_eval_runs,
+		"ai_trend_summary_text": _ai_trend_summary_text,
+		"last_metrics_refresh_ms": _last_metrics_refresh_ms,
+		"system_cpu_percent": _system_cpu_percent,
+		"system_ram_percent": _system_ram_percent,
+		"system_gpu_vram_percent": _system_gpu_vram_percent,
+		"system_gpu_vram_used_mb": _system_gpu_vram_used_mb,
+		"system_gpu_vram_total_mb": _system_gpu_vram_total_mb,
+		"system_cpu_temp_c": _system_cpu_temp_c,
+		"system_gpu_temp_c": _system_gpu_temp_c,
+		"sim_client": _sim_client,
+		"last_status_message": _last_status_message,
+		"last_success_ms": _last_success_ms,
+		"server_pid": _server_pid,
+		"server_status_text": _server_status_text,
+	}
+
+
+func _apply_agent_registry_state_result(result: Dictionary) -> void:
+	var updates_any = result.get("updates", {})
+	if typeof(updates_any) != TYPE_DICTIONARY:
+		return
+	var updates: Dictionary = updates_any
+	if updates.has("active_dataset_name"):
+		_active_dataset_name = str(updates.get("active_dataset_name", _active_dataset_name))
+	if updates.has("active_dataset_tag"):
+		_active_dataset_tag = str(updates.get("active_dataset_tag", _active_dataset_tag))
+	if updates.has("dataset_status_text"):
+		_dataset_status_text = str(updates.get("dataset_status_text", _dataset_status_text))
+	if updates.has("active_synonym_set"):
+		_active_synonym_set = str(updates.get("active_synonym_set", _active_synonym_set))
+	if updates.has("active_synonym_tag"):
+		_active_synonym_tag = str(updates.get("active_synonym_tag", _active_synonym_tag))
+	if updates.has("synonym_status_text"):
+		_synonym_status_text = str(updates.get("synonym_status_text", _synonym_status_text))
+	if updates.has("active_profile_name"):
+		_active_profile_name = str(updates.get("active_profile_name", _active_profile_name))
+	if updates.has("active_profile_mode"):
+		_active_profile_mode = str(updates.get("active_profile_mode", _active_profile_mode))
+	if updates.has("profile_status_text"):
+		_profile_status_text = str(updates.get("profile_status_text", _profile_status_text))
+	if updates.has("advanced_settings_status_text"):
+		_advanced_settings_status_text = str(updates.get("advanced_settings_status_text", _advanced_settings_status_text))
+	if updates.has("policy_sandbox_summary_text"):
+		_policy_sandbox_summary_text = str(updates.get("policy_sandbox_summary_text", _policy_sandbox_summary_text))
+	if updates.has("destructive_guard_enabled"):
+		_destructive_guard_enabled = bool(updates.get("destructive_guard_enabled", _destructive_guard_enabled))
+	if updates.has("destructive_guard_window_ms"):
+		_destructive_guard_window_ms = int(updates.get("destructive_guard_window_ms", _destructive_guard_window_ms))
+	if updates.has("destructive_guard_token"):
+		_destructive_guard_token = str(updates.get("destructive_guard_token", _destructive_guard_token))
+	if updates.has("security_model_summary_text"):
+		_security_model_summary_text = str(updates.get("security_model_summary_text", _security_model_summary_text))
+
+
+func _apply_agent_restpoint_summary_result(result: Dictionary) -> void:
+	var updates_any = result.get("updates", {})
+	if typeof(updates_any) != TYPE_DICTIONARY:
+		return
+	var updates: Dictionary = updates_any
+	if updates.has("artifacts_summary_text"):
+		_artifacts_summary_text = str(updates.get("artifacts_summary_text", _artifacts_summary_text))
+	if updates.has("experiments_summary_text"):
+		_experiments_summary_text = str(updates.get("experiments_summary_text", _experiments_summary_text))
+	if updates.has("policy_sandbox_summary_text"):
+		_policy_sandbox_summary_text = str(updates.get("policy_sandbox_summary_text", _policy_sandbox_summary_text))
+	if updates.has("release_gate_summary_text"):
+		_release_gate_summary_text = str(updates.get("release_gate_summary_text", _release_gate_summary_text))
+	if updates.has("audit_trail_summary_text"):
+		_audit_trail_summary_text = str(updates.get("audit_trail_summary_text", _audit_trail_summary_text))
+	if updates.has("security_model_summary_text"):
+		_security_model_summary_text = str(updates.get("security_model_summary_text", _security_model_summary_text))
+
+
+func _apply_server_ops_result(result: Dictionary) -> void:
+	var updates_any = result.get("updates", {})
+	if typeof(updates_any) == TYPE_DICTIONARY:
+		var updates: Dictionary = updates_any
+		if updates.has("server_pid"):
+			_server_pid = int(updates.get("server_pid", _server_pid))
+		if updates.has("server_status_text"):
+			_server_status_text = str(updates.get("server_status_text", _server_status_text))
+		if updates.has("server_exit_reported"):
+			_server_exit_reported = bool(updates.get("server_exit_reported", _server_exit_reported))
+		if updates.has("server_toggle_text"):
+			server_toggle_button.text = str(updates.get("server_toggle_text", server_toggle_button.text))
+		if updates.has("server_status_label_text"):
+			server_status_label.text = str(updates.get("server_status_label_text", server_status_label.text))
+	var events_any = result.get("events", [])
+	if typeof(events_any) == TYPE_ARRAY:
+		for event_any in events_any:
+			if typeof(event_any) != TYPE_DICTIONARY:
+				continue
+			var event: Dictionary = event_any
+			_append_runtime_event(str(event.get("tag", "SERVER_EVENT")), event.get("payload", {}))
+	if bool(result.get("refresh_server_control_ui", false)):
+		_update_server_control_ui()
+
+
+func _apply_runtime_audit_result(result: Dictionary) -> void:
+	var updates_any = result.get("updates", {})
+	if typeof(updates_any) != TYPE_DICTIONARY:
+		return
+	var updates: Dictionary = updates_any
+	if updates.has("runtime_events"):
+		var runtime_events_any = updates.get("runtime_events", _runtime_events)
+		if typeof(runtime_events_any) == TYPE_ARRAY:
+			_runtime_events = runtime_events_any
+	if updates.has("runtime_event_timestamps_ms"):
+		var timestamps_any = updates.get("runtime_event_timestamps_ms", _runtime_event_timestamps_ms)
+		if typeof(timestamps_any) == TYPE_ARRAY:
+			_runtime_event_timestamps_ms = timestamps_any
+	if updates.has("last_error_code"):
+		_last_error_code = str(updates.get("last_error_code", _last_error_code))
+	if bool(updates.get("render_pc_centric_view", false)):
+		_render_pc_centric_view()
+
+
+func _apply_runtime_telemetry_result(result: Dictionary) -> void:
+	var updates_any = result.get("updates", {})
+	if typeof(updates_any) != TYPE_DICTIONARY:
+		return
+	var updates: Dictionary = updates_any
+	if updates.has("last_eval_summary_refresh_ms"):
+		_last_eval_summary_refresh_ms = int(updates.get("last_eval_summary_refresh_ms", _last_eval_summary_refresh_ms))
+	if updates.has("latest_eval_summary_text"):
+		_latest_eval_summary_text = str(updates.get("latest_eval_summary_text", _latest_eval_summary_text))
+	if updates.has("latest_eval_runs"):
+		var latest_eval_runs_any = updates.get("latest_eval_runs", _latest_eval_runs)
+		if typeof(latest_eval_runs_any) == TYPE_ARRAY:
+			_latest_eval_runs = latest_eval_runs_any
+	if updates.has("ai_trend_summary_text"):
+		_ai_trend_summary_text = str(updates.get("ai_trend_summary_text", _ai_trend_summary_text))
+	if updates.has("last_metrics_refresh_ms"):
+		_last_metrics_refresh_ms = int(updates.get("last_metrics_refresh_ms", _last_metrics_refresh_ms))
+	if updates.has("system_cpu_percent"):
+		_system_cpu_percent = float(updates.get("system_cpu_percent", _system_cpu_percent))
+	if updates.has("system_ram_percent"):
+		_system_ram_percent = float(updates.get("system_ram_percent", _system_ram_percent))
+	if updates.has("system_gpu_vram_percent"):
+		_system_gpu_vram_percent = float(updates.get("system_gpu_vram_percent", _system_gpu_vram_percent))
+	if updates.has("system_gpu_vram_used_mb"):
+		_system_gpu_vram_used_mb = float(updates.get("system_gpu_vram_used_mb", _system_gpu_vram_used_mb))
+	if updates.has("system_gpu_vram_total_mb"):
+		_system_gpu_vram_total_mb = float(updates.get("system_gpu_vram_total_mb", _system_gpu_vram_total_mb))
+	if updates.has("system_cpu_temp_c"):
+		_system_cpu_temp_c = float(updates.get("system_cpu_temp_c", _system_cpu_temp_c))
+	if updates.has("system_gpu_temp_c"):
+		_system_gpu_temp_c = float(updates.get("system_gpu_temp_c", _system_gpu_temp_c))
+
+
+func _apply_agent_authoring_persistence_result(result: Dictionary) -> void:
+	var updates_any = result.get("updates", {})
+	if typeof(updates_any) == TYPE_DICTIONARY:
+		var updates: Dictionary = updates_any
+		if updates.has("active_dataset_name"):
+			_active_dataset_name = str(updates.get("active_dataset_name", _active_dataset_name))
+		if updates.has("active_dataset_tag"):
+			_active_dataset_tag = str(updates.get("active_dataset_tag", _active_dataset_tag))
+		if updates.has("dataset_status_text"):
+			_dataset_status_text = str(updates.get("dataset_status_text", _dataset_status_text))
+		if updates.has("active_synonym_set"):
+			_active_synonym_set = str(updates.get("active_synonym_set", _active_synonym_set))
+		if updates.has("active_synonym_tag"):
+			_active_synonym_tag = str(updates.get("active_synonym_tag", _active_synonym_tag))
+		if updates.has("synonym_status_text"):
+			_synonym_status_text = str(updates.get("synonym_status_text", _synonym_status_text))
+		if updates.has("active_profile_name"):
+			_active_profile_name = str(updates.get("active_profile_name", _active_profile_name))
+		if updates.has("active_profile_mode"):
+			_active_profile_mode = str(updates.get("active_profile_mode", _active_profile_mode))
+		if updates.has("profile_status_text"):
+			_profile_status_text = str(updates.get("profile_status_text", _profile_status_text))
+		if updates.has("advanced_settings_status_text"):
+			_advanced_settings_status_text = str(updates.get("advanced_settings_status_text", _advanced_settings_status_text))
+		if updates.has("form_status_text"):
+			agent_form_status_label.text = str(updates.get("form_status_text", agent_form_status_label.text))
+	var events_any = result.get("events", [])
+	if typeof(events_any) == TYPE_ARRAY:
+		for event_any in events_any:
+			if typeof(event_any) != TYPE_DICTIONARY:
+				continue
+			var event: Dictionary = event_any
+			_append_runtime_event(str(event.get("tag", "AGENT_FORM")), event.get("payload", {}))
 
 
 func _apply_agent_runtime_result(result: Dictionary) -> void:
@@ -1157,50 +1449,11 @@ func _refresh_quality_status(force: bool) -> void:
 
 
 func _sim_runtime_status() -> Dictionary:
-	if _sim_client and _sim_client.has_method("get_runtime_status"):
-		var payload = _sim_client.call("get_runtime_status")
-		if typeof(payload) == TYPE_DICTIONARY:
-			return payload
-	return {}
+	return _runtime_telemetry_controller.sim_runtime_status(_runtime_telemetry_state())
 
 
 func _derive_health_state(runtime_status: Dictionary) -> Dictionary:
-	var failures := int(runtime_status.get("consecutive_failures", 0))
-	var paused := bool(runtime_status.get("paused_due_to_failures", false))
-
-	if _last_status_message != "":
-		var reason_text := _last_status_message.split("|")[0].strip_edges()
-		if reason_text == "":
-			reason_text = "status error"
-		return {
-			"state": "degraded",
-			"reason": reason_text,
-		}
-
-	if _server_pid > 0:
-		var local_reason := "local pid=%d" % _server_pid
-		if paused or failures > 0:
-			local_reason = "%s, poll=paused fail=%d" % [local_reason, failures]
-		return {
-			"state": "local",
-			"reason": local_reason,
-		}
-
-	if _is_external_server_reachable():
-		return {
-			"state": "external",
-			"reason": "reachable without local pid",
-		}
-
-	var offline_reason := "no successful poll yet"
-	if _last_success_ms >= 0:
-		offline_reason = "last_ok expired"
-	if _server_status_text != "stopped":
-		offline_reason = _server_status_text
-	return {
-		"state": "offline",
-		"reason": offline_reason,
-	}
+	return _runtime_telemetry_controller.derive_health_state(_runtime_telemetry_state(), runtime_status)
 
 
 func _load_epochs() -> void:
@@ -2726,7 +2979,16 @@ func _on_agent_form_target_selected(index: int) -> void:
 func _on_agent_form_apply_pressed() -> void:
 	if _agent_form_kind == "":
 		return
-	var payload := _build_agent_form_payload_from_controls()
+	var payload_result := _agent_authoring_payload_controller.build_form_payload(_agent_authoring_payload_state())
+	var payload_updates_any = payload_result.get("updates", {})
+	if typeof(payload_updates_any) == TYPE_DICTIONARY:
+		var payload_updates: Dictionary = payload_updates_any
+		if payload_updates.has("form_status_text"):
+			agent_form_status_label.text = str(payload_updates.get("form_status_text", agent_form_status_label.text))
+	var payload_any = payload_result.get("payload", {})
+	if typeof(payload_any) != TYPE_DICTIONARY:
+		return
+	var payload: Dictionary = payload_any
 	if payload.is_empty():
 		return
 	if _agent_form_kind == "datasets":
@@ -2756,459 +3018,14 @@ func _on_agent_form_apply_pressed() -> void:
 	agent_form_status_label.text = "Form: Unbekannter Form-Typ"
 
 
-func _build_agent_form_payload_from_controls() -> Dictionary:
-	var payload: Dictionary = {}
-	if _agent_form_kind == "datasets":
-		var dataset_name := agent_form_name_edit.text.strip_edges()
-		if dataset_name == "":
-			agent_form_status_label.text = "Form: Name fehlt"
-			return {}
-		var sys_prompt := _form_control_text("dataset_system_prompt").strip_edges()
-		var user_prompt := _form_control_text("dataset_user_prompt").strip_edges()
-		var assistant_prompt := _form_control_text("dataset_assistant_prompt").strip_edges()
-		if user_prompt == "" or assistant_prompt == "":
-			agent_form_status_label.text = "Form: User/Assistant-Beispiel fehlt"
-			return {}
-		payload = {
-			"dataset_name": dataset_name,
-			"dataset_tag": _form_control_text("dataset_tag", "v1"),
-			"target": _agent_form_target_value,
-			"set_active": _form_control_bool("dataset_set_active", true),
-			"source_mode": _agent_form_mode_value,
-			"records": [
-				{
-					"messages": [
-						{"role": "system", "content": sys_prompt if sys_prompt != "" else "Du bist Novapolis Agent."},
-						{"role": "user", "content": user_prompt},
-						{"role": "assistant", "content": assistant_prompt},
-					],
-				}
-			],
-			"train_ratio": _form_control_float("dataset_train_ratio", 0.9),
-			"min_output_chars": _form_control_int("dataset_min_output_chars", 20),
-			"notes": _form_control_text("dataset_notes", ""),
-		}
-		return payload
-
-	if _agent_form_kind == "synonyms":
-		var synonym_set := agent_form_name_edit.text.strip_edges()
-		if synonym_set == "":
-			agent_form_status_label.text = "Form: Name fehlt"
-			return {}
-		var term := _form_control_text("syn_term").strip_edges()
-		var syn_csv := _form_control_text("syn_values_csv").strip_edges()
-		if term == "" or syn_csv == "":
-			agent_form_status_label.text = "Form: term/synonyms fehlt"
-			return {}
-		var synonyms: Array[String] = []
-		for part in syn_csv.split(","):
-			var clean := str(part).strip_edges()
-			if clean != "":
-				synonyms.append(clean)
-		if synonyms.is_empty():
-			agent_form_status_label.text = "Form: mind. ein Synonym erforderlich"
-			return {}
-		payload = {
-			"synonym_set": synonym_set,
-			"synonym_tag": _form_control_text("syn_tag", "v1"),
-			"target": _agent_form_target_value,
-			"set_active": _form_control_bool("syn_set_active", true),
-			"mode": _agent_form_mode_value,
-			"import_path": _form_control_text("syn_import_path", ""),
-			"export_path": _form_control_text("syn_export_path", ""),
-			"entries": [{"term": term, "synonyms": synonyms}],
-			"notes": _form_control_text("syn_notes", ""),
-		}
-		return payload
-
-	if _agent_form_kind == "finetune":
-		payload = {
-			"profile": _agent_form_mode_value,
-			"base_model": _form_control_text("ft_base_model", _finetune_base_model),
-			"output_name": agent_form_name_edit.text.strip_edges(),
-			"train_file": _form_control_text("ft_train_file", ""),
-			"epochs": _form_control_int("ft_epochs", 1),
-			"max_steps": _form_control_int("ft_max_steps", 10),
-			"batch_size": _form_control_int("ft_batch_size", 1),
-			"lr": _form_control_float("ft_lr", 0.0002),
-			"no_check": _form_control_bool("ft_no_check", true),
-			"notes": _form_control_text("ft_notes", ""),
-		}
-		return payload
-
-	if _agent_form_kind == "profiles":
-		payload = {
-			"profile_name": agent_form_name_edit.text.strip_edges(),
-			"target": _agent_form_target_value,
-			"mode": _agent_form_mode_value,
-			"prompt_system": _form_control_text("profile_prompt_system", ""),
-			"behavior_notes": _form_control_text("profile_behavior_notes", ""),
-			"assign_to": _form_control_csv_array("profile_assign_to_csv"),
-			"set_active": _form_control_bool("profile_set_active", true),
-			"archive": _form_control_bool("profile_archive", false),
-			"notes": _form_control_text("profile_notes", ""),
-		}
-		return payload
-
-	if _agent_form_kind == "advanced":
-		payload = {
-			"mode": _agent_form_mode_value,
-			"policy_profile": _form_control_text("adv_policy_profile", "default"),
-			"strictness_level": _form_control_text("adv_strictness_level", "normal"),
-			"safety_profile": _form_control_text("adv_safety_profile", "standard"),
-			"debug_level": _form_control_text("adv_debug_level", "minimal"),
-			"system_behavior": _form_control_text("adv_system_behavior", ""),
-			"notes": _form_control_text("adv_notes", ""),
-		}
-		return payload
-
-	if _agent_form_kind == "jobs":
-		payload = {
-			"job_name": agent_form_name_edit.text.strip_edges(),
-			"job_type": _agent_form_mode_value,
-			"target": _agent_form_target_value,
-			"enqueue": _form_control_bool("job_enqueue", true),
-			"priority": _form_control_int("job_priority", 10),
-			"payload": {"notes": _form_control_text("job_payload_notes", "")},
-			"notes": _form_control_text("job_notes", ""),
-		}
-		return payload
-
-	return {}
-
-
-func _form_control_text(key: String, fallback: String = "") -> String:
-	var ctrl: Variant = _agent_form_controls.get(key, null)
-	if ctrl is LineEdit:
-		return (ctrl as LineEdit).text
-	if ctrl is TextEdit:
-		return (ctrl as TextEdit).text
-	return fallback
-
-
-func _form_control_int(key: String, fallback: int) -> int:
-	var ctrl: Variant = _agent_form_controls.get(key, null)
-	if ctrl is SpinBox:
-		return int((ctrl as SpinBox).value)
-	return fallback
-
-
-func _form_control_float(key: String, fallback: float) -> float:
-	var ctrl: Variant = _agent_form_controls.get(key, null)
-	if ctrl is SpinBox:
-		return float((ctrl as SpinBox).value)
-	return fallback
-
-
-func _form_control_bool(key: String, fallback: bool) -> bool:
-	var ctrl: Variant = _agent_form_controls.get(key, null)
-	if ctrl is CheckBox:
-		return (ctrl as CheckBox).button_pressed
-	return fallback
-
-
-func _form_control_csv_array(key: String) -> Array[String]:
-	var values: Array[String] = []
-	var raw := _form_control_text(key, "")
-	for part in raw.split(","):
-		var clean := str(part).strip_edges()
-		if clean != "":
-			values.append(clean)
-	return values
-
-
 func _apply_dataset_form_payload(payload: Dictionary) -> void:
-	var dataset_name := _sanitize_agent_form_name(str(payload.get("dataset_name", "")))
-	if dataset_name == "":
-		agent_form_status_label.text = "Form: dataset_name fehlt"
-		return
-	var dataset_tag := _sanitize_agent_form_name(str(payload.get("dataset_tag", "v1")))
-	if dataset_tag == "":
-		dataset_tag = "v1"
-	var set_active := bool(payload.get("set_active", true))
-
-	var target := str(payload.get("target", _agent_form_target_value))
-	if target != "new" and target != "append_user":
-		agent_form_status_label.text = "Form: target muss new/append_user sein"
-		return
-
-	var records_any = payload.get("records", [])
-	if typeof(records_any) != TYPE_ARRAY:
-		agent_form_status_label.text = "Form: records muss Array sein"
-		return
-	var records: Array = records_any
-	if records.is_empty():
-		agent_form_status_label.text = "Form: records ist leer"
-		return
-
-	for rec_any in records:
-		if typeof(rec_any) != TYPE_DICTIONARY:
-			agent_form_status_label.text = "Form: records enthaelt ungueltige Eintraege"
-			return
-		var rec: Dictionary = rec_any
-		var msgs_any = rec.get("messages", [])
-		if typeof(msgs_any) != TYPE_ARRAY or msgs_any.is_empty():
-			agent_form_status_label.text = "Form: jeder record braucht messages[]"
-			return
-
-	var base_dir := "user://agent_user_data/datasets"
-	DirAccess.make_dir_recursive_absolute(base_dir)
-	var file_path := "%s/%s.jsonl" % [base_dir, dataset_name]
-	var exists := FileAccess.file_exists(file_path)
-
-	if target == "new" and exists:
-		agent_form_status_label.text = "Form: Dataset existiert bereits"
-		return
-	if target == "append_user" and not exists:
-		agent_form_status_label.text = "Form: Dataset fuer append nicht gefunden"
-		return
-
-	var mode := FileAccess.WRITE
-	if exists:
-		mode = FileAccess.READ_WRITE
-	var f := FileAccess.open(file_path, mode)
-	if f == null:
-		agent_form_status_label.text = "Form: Datei konnte nicht geoeffnet werden"
-		return
-
-	if exists:
-		f.seek_end()
-
-	for rec_out in records:
-		f.store_string(JSON.stringify(rec_out, "") + "\n")
-	f.close()
-	_update_dataset_registry(dataset_name, dataset_tag, set_active)
-
-	agent_form_status_label.text = "Form: Dataset gespeichert (%s@%s, +%d)" % [dataset_name, dataset_tag, records.size()]
-	_append_runtime_event("AGENT_FORM", {"kind": "datasets", "target": target, "name": dataset_name, "tag": dataset_tag, "set_active": set_active, "records": records.size(), "path": file_path})
+	var result := _agent_authoring_persistence_controller.apply_dataset_form_payload(payload, _agent_authoring_persistence_state())
+	_apply_agent_authoring_persistence_result(result)
 
 
 func _apply_synonym_form_payload(payload: Dictionary) -> void:
-	var synonym_set := _sanitize_agent_form_name(str(payload.get("synonym_set", "")))
-	if synonym_set == "":
-		agent_form_status_label.text = "Form: synonym_set fehlt"
-		return
-	var synonym_tag := _sanitize_agent_form_name(str(payload.get("synonym_tag", "v1")))
-	if synonym_tag == "":
-		synonym_tag = "v1"
-	var set_active := bool(payload.get("set_active", true))
-
-	var target := str(payload.get("target", _agent_form_target_value))
-	if target != "new" and target != "append_user":
-		agent_form_status_label.text = "Form: target muss new/append_user sein"
-		return
-
-	var entries_any = payload.get("entries", [])
-	if typeof(entries_any) != TYPE_ARRAY:
-		agent_form_status_label.text = "Form: entries muss Array sein"
-		return
-	var entries: Array = entries_any
-	if entries.is_empty():
-		agent_form_status_label.text = "Form: entries ist leer"
-		return
-	var import_path := str(payload.get("import_path", "")).strip_edges()
-	var export_path := str(payload.get("export_path", "")).strip_edges()
-	if import_path != "":
-		var imported_result := _load_synonym_entries_from_path(import_path)
-		if not bool(imported_result.get("ok", false)):
-			agent_form_status_label.text = "Form: Import fehlgeschlagen (%s)" % str(imported_result.get("reason", "parse"))
-			return
-		var imported_any = imported_result.get("entries", [])
-		if typeof(imported_any) == TYPE_ARRAY:
-			for imported_entry_any in imported_any:
-				entries.append(imported_entry_any)
-
-	for e_any in entries:
-		if typeof(e_any) != TYPE_DICTIONARY:
-			agent_form_status_label.text = "Form: entries enthaelt ungueltige Eintraege"
-			return
-		var e: Dictionary = e_any
-		if str(e.get("term", "")).strip_edges() == "":
-			agent_form_status_label.text = "Form: jeder Eintrag braucht term"
-			return
-
-	var base_dir := "user://agent_user_data/synonyms"
-	DirAccess.make_dir_recursive_absolute(base_dir)
-	var file_path := "%s/%s.json" % [base_dir, synonym_set]
-	var exists := FileAccess.file_exists(file_path)
-
-	if target == "new" and exists:
-		agent_form_status_label.text = "Form: Synonym-Set existiert bereits"
-		return
-	if target == "append_user" and not exists:
-		agent_form_status_label.text = "Form: Synonym-Set fuer append nicht gefunden"
-		return
-
-	var merged_entries: Array = []
-	var existing_entries_snapshot: Array = []
-	if exists:
-		var rf := FileAccess.open(file_path, FileAccess.READ)
-		if rf != null:
-			var raw := rf.get_as_text()
-			rf.close()
-			var parsed_existing = JSON.parse_string(raw)
-			if typeof(parsed_existing) == TYPE_DICTIONARY:
-				var existing_dict: Dictionary = parsed_existing
-				var ex = existing_dict.get("entries", [])
-				if typeof(ex) == TYPE_ARRAY:
-					merged_entries = ex
-					existing_entries_snapshot = ex.duplicate(true)
-
-	for add_item in entries:
-		merged_entries.append(add_item)
-
-	var delta := _build_synonym_delta(existing_entries_snapshot, merged_entries)
-	var validator := _validate_synonym_entries(merged_entries)
-	var validator_status := str(validator.get("status", "warn"))
-	if validator_status == "error":
-		agent_form_status_label.text = "Form: Synonyms ungueltig (%s)" % str(validator.get("reason", "validation"))
-		return
-
-	var out_payload: Dictionary = {
-		"synonym_set": synonym_set,
-		"synonym_tag": synonym_tag,
-		"mode": str(payload.get("mode", _agent_form_mode_value)),
-		"entries": merged_entries,
-		"validator_status": validator_status,
-		"validator_warnings": validator.get("warnings", []),
-		"updated_at": Time.get_datetime_string_from_system(false, true),
-	}
-	var wf := FileAccess.open(file_path, FileAccess.WRITE)
-	if wf == null:
-		agent_form_status_label.text = "Form: Synonym-Datei konnte nicht geschrieben werden"
-		return
-	wf.store_string(JSON.stringify(out_payload, "  "))
-	wf.close()
-	if export_path != "":
-		var export_ok := _write_json_to_path(export_path, out_payload)
-		if not export_ok:
-			agent_form_status_label.text = "Form: Exportpfad konnte nicht geschrieben werden"
-			return
-	_update_synonym_registry(synonym_set, synonym_tag, set_active)
-
-	_synonym_status_text = "Synonyms: active %s | delta=+%d terms/+%d syns | validator=%s" % [_active_synonym_label().replace("Active Synonyms: ", ""), int(delta.get("terms_added", 0)), int(delta.get("synonyms_added", 0)), validator_status]
-	agent_form_status_label.text = "Form: Synonyms gespeichert (%s@%s, +%d)" % [synonym_set, synonym_tag, entries.size()]
-	_append_runtime_event("AGENT_FORM", {
-		"kind": "synonyms",
-		"target": target,
-		"name": synonym_set,
-		"tag": synonym_tag,
-		"set_active": set_active,
-		"entries_added": entries.size(),
-		"delta_terms": int(delta.get("terms_added", 0)),
-		"delta_synonyms": int(delta.get("synonyms_added", 0)),
-		"validator_status": validator_status,
-		"path": file_path,
-	})
-
-
-func _load_synonym_entries_from_path(path_text: String) -> Dictionary:
-	var normalized := path_text.strip_edges()
-	if normalized == "":
-		return {"ok": false, "reason": "empty_path", "entries": []}
-	var exists_path := normalized
-	if normalized.begins_with("user://") or normalized.begins_with("res://"):
-		exists_path = ProjectSettings.globalize_path(normalized)
-	if not FileAccess.file_exists(exists_path):
-		return {"ok": false, "reason": "file_missing", "entries": []}
-
-	var rf := FileAccess.open(normalized, FileAccess.READ)
-	if rf == null:
-		rf = FileAccess.open(exists_path, FileAccess.READ)
-	if rf == null:
-		return {"ok": false, "reason": "open_failed", "entries": []}
-	var raw := rf.get_as_text()
-	rf.close()
-	var parsed = JSON.parse_string(raw)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		return {"ok": false, "reason": "parse_failed", "entries": []}
-	var doc: Dictionary = parsed
-	var entries_any = doc.get("entries", [])
-	if typeof(entries_any) != TYPE_ARRAY:
-		return {"ok": false, "reason": "entries_not_array", "entries": []}
-	return {"ok": true, "reason": "ok", "entries": entries_any}
-
-
-func _build_synonym_delta(before_entries: Array, after_entries: Array) -> Dictionary:
-	var before_terms := {}
-	var before_pair_count := 0
-	for item_any in before_entries:
-		if typeof(item_any) != TYPE_DICTIONARY:
-			continue
-		var item: Dictionary = item_any
-		var term := str(item.get("term", "")).strip_edges().to_lower()
-		if term == "":
-			continue
-		before_terms[term] = true
-		var syn_any = item.get("synonyms", [])
-		if typeof(syn_any) == TYPE_ARRAY:
-			before_pair_count += (syn_any as Array).size()
-
-	var after_terms := {}
-	var after_pair_count := 0
-	for item2_any in after_entries:
-		if typeof(item2_any) != TYPE_DICTIONARY:
-			continue
-		var item2: Dictionary = item2_any
-		var term2 := str(item2.get("term", "")).strip_edges().to_lower()
-		if term2 == "":
-			continue
-		after_terms[term2] = true
-		var syn2_any = item2.get("synonyms", [])
-		if typeof(syn2_any) == TYPE_ARRAY:
-			after_pair_count += (syn2_any as Array).size()
-
-	return {
-		"terms_added": maxi(0, after_terms.size() - before_terms.size()),
-		"synonyms_added": maxi(0, after_pair_count - before_pair_count),
-	}
-
-
-func _validate_synonym_entries(entries: Array) -> Dictionary:
-	var warnings: Array[String] = []
-	var seen_terms := {}
-	for idx in range(entries.size()):
-		var item_any = entries[idx]
-		if typeof(item_any) != TYPE_DICTIONARY:
-			return {"status": "error", "reason": "entry_not_object_%d" % idx, "warnings": warnings}
-		var item: Dictionary = item_any
-		var term := str(item.get("term", "")).strip_edges().to_lower()
-		if term == "":
-			return {"status": "error", "reason": "term_missing_%d" % idx, "warnings": warnings}
-		if seen_terms.has(term):
-			warnings.append("duplicate_term:%s" % term)
-		seen_terms[term] = true
-		var syn_any = item.get("synonyms", [])
-		if typeof(syn_any) != TYPE_ARRAY:
-			return {"status": "error", "reason": "synonyms_not_array_%s" % term, "warnings": warnings}
-		var syn_arr: Array = syn_any
-		if syn_arr.is_empty():
-			warnings.append("empty_synonyms:%s" % term)
-	return {
-		"status": "ok" if warnings.is_empty() else "warn",
-		"reason": "ok",
-		"warnings": warnings,
-	}
-
-
-func _write_json_to_path(path_text: String, payload: Dictionary) -> bool:
-	var normalized := path_text.strip_edges()
-	if normalized == "":
-		return false
-	var abs_path := normalized
-	if normalized.begins_with("user://") or normalized.begins_with("res://"):
-		abs_path = ProjectSettings.globalize_path(normalized)
-	var parent_dir := abs_path.get_base_dir()
-	if parent_dir != "":
-		DirAccess.make_dir_recursive_absolute(parent_dir)
-	var wf := FileAccess.open(normalized, FileAccess.WRITE)
-	if wf == null:
-		wf = FileAccess.open(abs_path, FileAccess.WRITE)
-	if wf == null:
-		return false
-	wf.store_string(JSON.stringify(payload, "  "))
-	wf.close()
-	return true
+	var result := _agent_authoring_persistence_controller.apply_synonym_form_payload(payload, _agent_authoring_persistence_state())
+	_apply_agent_authoring_persistence_result(result)
 
 
 func _apply_finetune_form_payload(payload: Dictionary) -> void:
@@ -3217,116 +3034,13 @@ func _apply_finetune_form_payload(payload: Dictionary) -> void:
 
 
 func _apply_profile_form_payload(payload: Dictionary) -> void:
-	var profile_name := _sanitize_agent_form_name(str(payload.get("profile_name", "")))
-	if profile_name == "":
-		agent_form_status_label.text = "Form: profile_name fehlt"
-		return
-
-	var target := str(payload.get("target", _agent_form_target_value))
-	if target != "new" and target != "update":
-		agent_form_status_label.text = "Form: target muss new/update sein"
-		return
-
-	var mode := _sanitize_agent_form_name(str(payload.get("mode", _agent_form_mode_value)))
-	if mode == "":
-		mode = "balanced"
-
-	var prompt_system := str(payload.get("prompt_system", "")).strip_edges()
-	if prompt_system == "":
-		agent_form_status_label.text = "Form: prompt_system fehlt"
-		return
-
-	var assign_any = payload.get("assign_to", [])
-	if typeof(assign_any) != TYPE_ARRAY:
-		agent_form_status_label.text = "Form: assign_to muss Array sein"
-		return
-	var assign_to: Array = assign_any
-
-	var set_active := bool(payload.get("set_active", true))
-	var archive := bool(payload.get("archive", false))
-
-	var base_dir := "user://agent_user_data/profiles"
-	DirAccess.make_dir_recursive_absolute(base_dir)
-	var file_path := "%s/%s.json" % [base_dir, profile_name]
-	var exists := FileAccess.file_exists(file_path)
-
-	if target == "new" and exists:
-		agent_form_status_label.text = "Form: Profil existiert bereits"
-		return
-	if target == "update" and not exists:
-		agent_form_status_label.text = "Form: Profil fuer update nicht gefunden"
-		return
-
-	var out_payload: Dictionary = {
-		"profile_name": profile_name,
-		"mode": mode,
-		"prompt_system": prompt_system,
-		"behavior_notes": str(payload.get("behavior_notes", "")).strip_edges(),
-		"assign_to": assign_to,
-		"archive": archive,
-		"updated_at": Time.get_datetime_string_from_system(false, true),
-	}
-
-	var wf := FileAccess.open(file_path, FileAccess.WRITE)
-	if wf == null:
-		agent_form_status_label.text = "Form: Profil-Datei konnte nicht geschrieben werden"
-		return
-	wf.store_string(JSON.stringify(out_payload, "  "))
-	wf.close()
-
-	_update_profile_registry(profile_name, mode, set_active and not archive, archive)
-	agent_form_status_label.text = "Form: Profil gespeichert (%s, mode=%s)" % [profile_name, mode]
-	_append_runtime_event("AGENT_FORM", {"kind": "profiles", "target": target, "name": profile_name, "mode": mode, "set_active": set_active, "archive": archive, "path": file_path})
+	var result := _agent_authoring_persistence_controller.apply_profile_form_payload(payload, _agent_authoring_persistence_state())
+	_apply_agent_authoring_persistence_result(result)
 
 
 func _apply_advanced_settings_form_payload(payload: Dictionary) -> void:
-	var mode := _sanitize_agent_form_name(str(payload.get("mode", _agent_form_mode_value)))
-	if mode == "":
-		mode = "balanced"
-
-	var policy_profile := _sanitize_agent_form_name(str(payload.get("policy_profile", "default")))
-	if policy_profile == "":
-		policy_profile = "default"
-
-	var strictness_level := _sanitize_agent_form_name(str(payload.get("strictness_level", "normal")))
-	if strictness_level == "":
-		strictness_level = "normal"
-
-	var safety_profile := _sanitize_agent_form_name(str(payload.get("safety_profile", "standard")))
-	if safety_profile == "":
-		safety_profile = "standard"
-
-	var debug_level := _sanitize_agent_form_name(str(payload.get("debug_level", "minimal")))
-	if debug_level == "":
-		debug_level = "minimal"
-
-	var system_behavior := str(payload.get("system_behavior", "")).strip_edges()
-	if system_behavior == "":
-		agent_form_status_label.text = "Form: system_behavior fehlt"
-		return
-
-	DirAccess.make_dir_recursive_absolute("user://agent_user_data/settings")
-	var out_payload: Dictionary = {
-		"mode": mode,
-		"policy_profile": policy_profile,
-		"strictness_level": strictness_level,
-		"safety_profile": safety_profile,
-		"debug_level": debug_level,
-		"system_behavior": system_behavior,
-		"notes": str(payload.get("notes", "")).strip_edges(),
-		"updated_at": Time.get_datetime_string_from_system(false, true),
-	}
-
-	var wf := FileAccess.open(_ADVANCED_SETTINGS_PATH, FileAccess.WRITE)
-	if wf == null:
-		agent_form_status_label.text = "Form: Advanced Settings konnten nicht gespeichert werden"
-		return
-	wf.store_string(JSON.stringify(out_payload, "  "))
-	wf.close()
-
-	_advanced_settings_status_text = "Advanced: %s | policy=%s | strict=%s" % [mode, policy_profile, strictness_level]
-	agent_form_status_label.text = "Form: Advanced Settings gespeichert (%s)" % mode
-	_append_runtime_event("AGENT_FORM", {"kind": "advanced", "mode": mode, "policy_profile": policy_profile, "strictness_level": strictness_level, "path": _ADVANCED_SETTINGS_PATH})
+	var result := _agent_authoring_persistence_controller.apply_advanced_settings_form_payload(payload, _agent_authoring_persistence_state())
+	_apply_agent_authoring_persistence_result(result)
 
 
 func _apply_jobs_form_payload(payload: Dictionary) -> void:
@@ -3778,91 +3492,23 @@ func _active_profile_label() -> String:
 
 
 func _load_dataset_registry_state() -> void:
-	_active_dataset_name = ""
-	_active_dataset_tag = ""
-	if not FileAccess.file_exists(_DATASET_REGISTRY_PATH):
-		return
-
-	var f := FileAccess.open(_DATASET_REGISTRY_PATH, FileAccess.READ)
-	if f == null:
-		return
-	var raw := f.get_as_text()
-	f.close()
-	var parsed = JSON.parse_string(raw)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		return
-
-	var registry: Dictionary = parsed
-	_active_dataset_name = str(registry.get("active_dataset", ""))
-	_active_dataset_tag = str(registry.get("active_tag", ""))
-	if _active_dataset_name != "":
-		_dataset_status_text = "Datasets: active %s" % _active_dataset_label().replace("Active Dataset: ", "")
+	var result := _agent_registry_state_controller.load_dataset_registry_state(_agent_registry_state())
+	_apply_agent_registry_state_result(result)
 
 
 func _load_synonym_registry_state() -> void:
-	_active_synonym_set = ""
-	_active_synonym_tag = ""
-	if not FileAccess.file_exists(_SYNONYM_REGISTRY_PATH):
-		return
-
-	var f := FileAccess.open(_SYNONYM_REGISTRY_PATH, FileAccess.READ)
-	if f == null:
-		return
-	var raw := f.get_as_text()
-	f.close()
-	var parsed = JSON.parse_string(raw)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		return
-
-	var registry: Dictionary = parsed
-	_active_synonym_set = str(registry.get("active_set", ""))
-	_active_synonym_tag = str(registry.get("active_tag", ""))
-	if _active_synonym_set != "":
-		_synonym_status_text = "Synonyms: active %s" % _active_synonym_label().replace("Active Synonyms: ", "")
+	var result := _agent_registry_state_controller.load_synonym_registry_state(_agent_registry_state())
+	_apply_agent_registry_state_result(result)
 
 
 func _load_profile_registry_state() -> void:
-	_active_profile_name = ""
-	_active_profile_mode = ""
-	if not FileAccess.file_exists(_PROFILE_REGISTRY_PATH):
-		return
-
-	var f := FileAccess.open(_PROFILE_REGISTRY_PATH, FileAccess.READ)
-	if f == null:
-		return
-	var raw := f.get_as_text()
-	f.close()
-	var parsed = JSON.parse_string(raw)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		return
-
-	var registry: Dictionary = parsed
-	_active_profile_name = str(registry.get("active_profile", ""))
-	_active_profile_mode = str(registry.get("active_mode", ""))
-	if _active_profile_name != "":
-		_profile_status_text = "Profiles: active %s" % _active_profile_label().replace("Active Profile: ", "")
+	var result := _agent_registry_state_controller.load_profile_registry_state(_agent_registry_state())
+	_apply_agent_registry_state_result(result)
 
 
 func _load_advanced_settings_state() -> void:
-	_advanced_settings_status_text = "Advanced: idle"
-	if not FileAccess.file_exists(_ADVANCED_SETTINGS_PATH):
-		return
-
-	var f := FileAccess.open(_ADVANCED_SETTINGS_PATH, FileAccess.READ)
-	if f == null:
-		return
-	var raw := f.get_as_text()
-	f.close()
-	var parsed = JSON.parse_string(raw)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		return
-
-	var payload: Dictionary = parsed
-	var mode := str(payload.get("mode", "balanced"))
-	var policy_profile := str(payload.get("policy_profile", "default"))
-	var strictness_level := str(payload.get("strictness_level", "normal"))
-	_advanced_settings_status_text = "Advanced: %s | policy=%s | strict=%s" % [mode, policy_profile, strictness_level]
-	_policy_sandbox_summary_text = "Policy Sandbox: mode=%s | policy=%s | strict=%s" % [mode, policy_profile, strictness_level]
+	var result := _agent_registry_state_controller.load_advanced_settings_state(_agent_registry_state())
+	_apply_agent_registry_state_result(result)
 
 
 func _load_jobs_state() -> void:
@@ -3872,37 +3518,12 @@ func _load_jobs_state() -> void:
 
 
 func _load_security_model_state() -> void:
-	if not FileAccess.file_exists(_SECURITY_MODEL_PATH):
-		_persist_security_model_state()
-		return
-	var rf := FileAccess.open(_SECURITY_MODEL_PATH, FileAccess.READ)
-	if rf == null:
-		return
-	var raw := rf.get_as_text()
-	rf.close()
-	var parsed = JSON.parse_string(raw)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		return
-	var payload: Dictionary = parsed
-	_destructive_guard_enabled = bool(payload.get("destructive_guard_enabled", true))
-	_destructive_guard_window_ms = int(payload.get("destructive_guard_window_ms", 8000))
-	_destructive_guard_token = str(payload.get("destructive_guard_token", "confirm"))
-	_security_model_summary_text = "Security: destructive_guard=%s | token=%s" % [str(_destructive_guard_enabled), _destructive_guard_token]
+	var result := _agent_registry_state_controller.load_security_model_state(_agent_registry_state())
+	_apply_agent_registry_state_result(result)
 
 
 func _persist_security_model_state() -> void:
-	DirAccess.make_dir_recursive_absolute("user://agent_user_data/security")
-	var payload: Dictionary = {
-		"destructive_guard_enabled": _destructive_guard_enabled,
-		"destructive_guard_window_ms": _destructive_guard_window_ms,
-		"destructive_guard_token": _destructive_guard_token,
-		"updated_at": Time.get_datetime_string_from_system(false, true),
-	}
-	var wf := FileAccess.open(_SECURITY_MODEL_PATH, FileAccess.WRITE)
-	if wf == null:
-		return
-	wf.store_string(JSON.stringify(payload, "  "))
-	wf.close()
+	_agent_registry_state_controller.persist_security_model_state(_agent_registry_state())
 
 
 func _confirm_destructive_action(action_key: String, hint_text: String) -> bool:
@@ -3912,231 +3533,8 @@ func _confirm_destructive_action(action_key: String, hint_text: String) -> bool:
 
 
 func _refresh_agent_restpoint_summaries() -> void:
-	_artifacts_summary_text = _build_artifacts_summary()
-	_experiments_summary_text = _build_experiments_summary()
-	_policy_sandbox_summary_text = _build_policy_sandbox_summary()
-	_release_gate_summary_text = _build_release_gate_summary()
-	_audit_trail_summary_text = _build_audit_trail_summary()
-	_security_model_summary_text = "Security: destructive_guard=%s | token=%s" % [str(_destructive_guard_enabled), _destructive_guard_token]
-
-
-func _build_artifacts_summary() -> String:
-	var dataset_ref := _active_dataset_name
-	if dataset_ref == "":
-		dataset_ref = "n/a"
-	elif _active_dataset_tag != "":
-		dataset_ref = "%s@%s" % [_active_dataset_name, _active_dataset_tag]
-
-	var synonym_ref := _active_synonym_set
-	if synonym_ref == "":
-		synonym_ref = "n/a"
-	elif _active_synonym_tag != "":
-		synonym_ref = "%s@%s" % [_active_synonym_set, _active_synonym_tag]
-
-	var model_ref := _finetune_output_name
-	if _last_finetune_exit_code != 0:
-		model_ref = "n/a"
-
-	var reports_ref := "tests=%s types=%s cov=%s" % [_quality_tests_last, _quality_types_last, _quality_coverage_last]
-	return "Artifacts: dataset=%s | synonyms=%s | model=%s | %s" % [dataset_ref, synonym_ref, model_ref, reports_ref]
-
-
-func _build_experiments_summary() -> String:
-	if _latest_eval_runs.size() < 2:
-		return "Experiments: n/a (mind. 2 Runs erforderlich)"
-	var latest_any = _latest_eval_runs[0]
-	var prev_any = _latest_eval_runs[1]
-	if typeof(latest_any) != TYPE_DICTIONARY or typeof(prev_any) != TYPE_DICTIONARY:
-		return "Experiments: n/a"
-	var latest: Dictionary = latest_any
-	var previous: Dictionary = prev_any
-	var latest_pct := _to_float_or_default(latest.get("success_rate_percent", null), -1.0)
-	var prev_pct := _to_float_or_default(previous.get("success_rate_percent", null), -1.0)
-	if latest_pct < 0.0 or prev_pct < 0.0:
-		return "Experiments: n/a"
-	var delta := latest_pct - prev_pct
-	var tag := "stable"
-	if delta >= 2.0:
-		tag = "A>B"
-	elif delta <= -2.0:
-		tag = "A<B"
-	return "Experiments: A/B delta=%+.1fpp | tag=%s" % [delta, tag]
-
-
-func _build_policy_sandbox_summary() -> String:
-	var mode := "balanced"
-	var policy := "default"
-	var strict := "normal"
-	if FileAccess.file_exists(_ADVANCED_SETTINGS_PATH):
-		var rf := FileAccess.open(_ADVANCED_SETTINGS_PATH, FileAccess.READ)
-		if rf != null:
-			var parsed = JSON.parse_string(rf.get_as_text())
-			rf.close()
-			if typeof(parsed) == TYPE_DICTIONARY:
-				var p: Dictionary = parsed
-				mode = str(p.get("mode", mode))
-				policy = str(p.get("policy_profile", policy))
-				strict = str(p.get("strictness_level", strict))
-	var quality_ok := (_quality_tests_last == "PASS") and (_quality_types_last == "PASS")
-	var gate := "ready" if quality_ok else "hold"
-	return "Policy Sandbox: mode=%s | policy=%s | strict=%s | gate=%s" % [mode, policy, strict, gate]
-
-
-func _build_release_gate_summary() -> String:
-	var coverage_value := _to_float_or_default(_quality_coverage_last.replace("%", ""), -1.0)
-	var tests_ok := _quality_tests_last == "PASS"
-	var types_ok := _quality_types_last == "PASS"
-	var cov_ok := coverage_value >= 80.0
-	var regression := _ai_trend_summary_text.find("regress=regression") >= 0
-	var safety_ok := _destructive_guard_enabled
-	var go := tests_ok and types_ok and cov_ok and (not regression) and safety_ok
-	return "Release Gate: %s | tests=%s | types=%s | cov=%s | regression=%s | safety=%s" % ["GO" if go else "NO-GO", str(tests_ok), str(types_ok), str(cov_ok), str(regression), str(safety_ok)]
-
-
-func _build_audit_trail_summary() -> String:
-	var abs_path := ProjectSettings.globalize_path(_AUDIT_TRAIL_PATH)
-	if not FileAccess.file_exists(abs_path):
-		return "Audit Trail: entries=0"
-	var rf := FileAccess.open(abs_path, FileAccess.READ)
-	if rf == null:
-		return "Audit Trail: unreadable"
-	var count := 0
-	var last_line := ""
-	while not rf.eof_reached():
-		var line := rf.get_line().strip_edges()
-		if line == "":
-			continue
-		count += 1
-		last_line = line
-	rf.close()
-	if count == 0:
-		return "Audit Trail: entries=0"
-	var tag := "n/a"
-	var parsed = JSON.parse_string(last_line)
-	if typeof(parsed) == TYPE_DICTIONARY:
-		var p: Dictionary = parsed
-		tag = str(p.get("tag", "n/a"))
-	return "Audit Trail: entries=%d | last=%s" % [count, tag]
-
-
-func _update_dataset_registry(dataset_name: String, dataset_tag: String, set_active: bool) -> void:
-	var registry: Dictionary = {}
-	if FileAccess.file_exists(_DATASET_REGISTRY_PATH):
-		var rf := FileAccess.open(_DATASET_REGISTRY_PATH, FileAccess.READ)
-		if rf != null:
-			var raw := rf.get_as_text()
-			rf.close()
-			var parsed = JSON.parse_string(raw)
-			if typeof(parsed) == TYPE_DICTIONARY:
-				registry = parsed
-
-	var datasets_any = registry.get("datasets", {})
-	if typeof(datasets_any) != TYPE_DICTIONARY:
-		datasets_any = {}
-	var datasets: Dictionary = datasets_any
-	datasets[dataset_name] = {
-		"tag": dataset_tag,
-		"updated_at": Time.get_datetime_string_from_system(false, true),
-	}
-	registry["datasets"] = datasets
-
-	if set_active or str(registry.get("active_dataset", "")) == "":
-		registry["active_dataset"] = dataset_name
-		registry["active_tag"] = dataset_tag
-		_active_dataset_name = dataset_name
-		_active_dataset_tag = dataset_tag
-
-	DirAccess.make_dir_recursive_absolute("user://agent_user_data/datasets")
-	var wf := FileAccess.open(_DATASET_REGISTRY_PATH, FileAccess.WRITE)
-	if wf == null:
-		return
-	wf.store_string(JSON.stringify(registry, "  "))
-	wf.close()
-	if _active_dataset_name != "":
-		_dataset_status_text = "Datasets: active %s" % _active_dataset_label().replace("Active Dataset: ", "")
-
-
-func _update_synonym_registry(synonym_set: String, synonym_tag: String, set_active: bool) -> void:
-	var registry: Dictionary = {}
-	if FileAccess.file_exists(_SYNONYM_REGISTRY_PATH):
-		var rf := FileAccess.open(_SYNONYM_REGISTRY_PATH, FileAccess.READ)
-		if rf != null:
-			var raw := rf.get_as_text()
-			rf.close()
-			var parsed = JSON.parse_string(raw)
-			if typeof(parsed) == TYPE_DICTIONARY:
-				registry = parsed
-
-	var sets_any = registry.get("sets", {})
-	if typeof(sets_any) != TYPE_DICTIONARY:
-		sets_any = {}
-	var sets: Dictionary = sets_any
-	sets[synonym_set] = {
-		"tag": synonym_tag,
-		"updated_at": Time.get_datetime_string_from_system(false, true),
-	}
-	registry["sets"] = sets
-
-	if set_active or str(registry.get("active_set", "")) == "":
-		registry["active_set"] = synonym_set
-		registry["active_tag"] = synonym_tag
-		_active_synonym_set = synonym_set
-		_active_synonym_tag = synonym_tag
-
-	DirAccess.make_dir_recursive_absolute("user://agent_user_data/synonyms")
-	var wf := FileAccess.open(_SYNONYM_REGISTRY_PATH, FileAccess.WRITE)
-	if wf == null:
-		return
-	wf.store_string(JSON.stringify(registry, "  "))
-	wf.close()
-	if _active_synonym_set != "":
-		_synonym_status_text = "Synonyms: active %s" % _active_synonym_label().replace("Active Synonyms: ", "")
-
-
-func _update_profile_registry(profile_name: String, mode: String, set_active: bool, archive: bool) -> void:
-	var registry: Dictionary = {}
-	if FileAccess.file_exists(_PROFILE_REGISTRY_PATH):
-		var rf := FileAccess.open(_PROFILE_REGISTRY_PATH, FileAccess.READ)
-		if rf != null:
-			var raw := rf.get_as_text()
-			rf.close()
-			var parsed = JSON.parse_string(raw)
-			if typeof(parsed) == TYPE_DICTIONARY:
-				registry = parsed
-
-	var profiles_any = registry.get("profiles", {})
-	if typeof(profiles_any) != TYPE_DICTIONARY:
-		profiles_any = {}
-	var profiles: Dictionary = profiles_any
-	profiles[profile_name] = {
-		"mode": mode,
-		"archive": archive,
-		"updated_at": Time.get_datetime_string_from_system(false, true),
-	}
-	registry["profiles"] = profiles
-
-	if archive:
-		if str(registry.get("active_profile", "")) == profile_name:
-			registry["active_profile"] = ""
-			registry["active_mode"] = ""
-			_active_profile_name = ""
-			_active_profile_mode = ""
-		_profile_status_text = "Profiles: archived %s" % profile_name
-	else:
-		if set_active or str(registry.get("active_profile", "")) == "":
-			registry["active_profile"] = profile_name
-			registry["active_mode"] = mode
-			_active_profile_name = profile_name
-			_active_profile_mode = mode
-		if _active_profile_name != "":
-			_profile_status_text = "Profiles: active %s" % _active_profile_label().replace("Active Profile: ", "")
-
-	DirAccess.make_dir_recursive_absolute("user://agent_user_data/profiles")
-	var wf := FileAccess.open(_PROFILE_REGISTRY_PATH, FileAccess.WRITE)
-	if wf == null:
-		return
-	wf.store_string(JSON.stringify(registry, "  "))
-	wf.close()
+	var result := _agent_restpoint_summary_controller.refresh_agent_restpoint_summaries(_agent_restpoint_summary_state())
+	_apply_agent_restpoint_summary_result(result)
 
 
 func _resolve_finetune_train_file() -> String:
@@ -4225,191 +3623,33 @@ func _refresh_eval_runtime_state() -> void:
 
 
 func _refresh_latest_eval_summary(force: bool) -> void:
-	if not _agent_submenu_open and not force:
-		return
-
-	var now_ms := Time.get_ticks_msec()
-	if not force and _last_eval_summary_refresh_ms >= 0:
-		var delta_s := float(now_ms - _last_eval_summary_refresh_ms) / 1000.0
-		if delta_s < maxf(2.0, eval_summary_refresh_interval_seconds):
-			return
-	_last_eval_summary_refresh_ms = now_ms
-
-	var python_exec := _resolve_python_executable()
-	var summary_script_abs := ProjectSettings.globalize_path(eval_summary_script_path)
-	if not FileAccess.file_exists(summary_script_abs):
-		_latest_eval_summary_text = "Letzte Eval-Runs: Script fehlt"
-		return
-
-	var output := []
-	var exec_code := OS.execute(
-		python_exec,
-		[summary_script_abs, "--count", "3"],
-		output,
-		true,
-	)
-	if exec_code != 0 or output.is_empty():
-		_latest_eval_summary_text = "Letzte Eval-Runs: nicht verfügbar"
-		return
-
-	var raw := str(output[0]).strip_edges()
-	if raw == "":
-		_latest_eval_summary_text = "Letzte Eval-Runs: keine Daten"
-		return
-
-	var parsed = JSON.parse_string(raw)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		_latest_eval_summary_text = "Letzte Eval-Runs: Antwort unlesbar"
-		return
-
-	var payload: Dictionary = parsed
-	var runs_any = payload.get("runs", [])
-	if typeof(runs_any) != TYPE_ARRAY:
-		_latest_eval_summary_text = "Letzte Eval-Runs: keine Daten"
-		return
-
-	var runs: Array = runs_any
-	if runs.is_empty():
-		_latest_eval_summary_text = "Letzte Eval-Runs: keine Runs gefunden"
-		_latest_eval_runs = []
-		_ai_trend_summary_text = "Trendkarte: keine Daten"
-		return
-
-	var lines: Array[String] = ["Letzte Eval-Runs (Success Rate):"]
-	var pcts: Array[float] = []
-	var avg_duration_values: Array[float] = []
-	for run_any in runs:
-		if typeof(run_any) != TYPE_DICTIONARY:
-			continue
-		var run: Dictionary = run_any
-		var stamp := str(run.get("timestamp", "n/a"))
-		var pct := _to_float_or_default(run.get("success_rate_percent", null), -1.0)
-		var ok_count := int(run.get("success", 0))
-		var total_count := int(run.get("items", 0))
-		var avg_ms := _to_float_or_default(run.get("avg_duration_ms", null), -1.0)
-		lines.append("- %s: %.1f%% (%d/%d), avg %.0fms" % [stamp, pct, ok_count, total_count, maxf(0.0, avg_ms)])
-		if pct >= 0.0:
-			pcts.append(pct)
-		if avg_ms >= 0.0:
-			avg_duration_values.append(avg_ms)
-
-	_latest_eval_runs = runs
-
-	var trend_line := _build_ai_trend_summary(pcts, avg_duration_values)
-	lines.append(trend_line)
-	_ai_trend_summary_text = trend_line
-
-	_latest_eval_summary_text = "\n".join(lines)
+	var result := _runtime_telemetry_controller.refresh_latest_eval_summary(_runtime_telemetry_state(), force)
+	_apply_runtime_telemetry_result(result)
 
 
 func _build_ai_trend_summary(pcts: Array[float], avg_duration_values: Array[float]) -> String:
-	if pcts.is_empty():
-		return "Trendkarte: n/a"
-	var newest := pcts[0]
-	var oldest := pcts[pcts.size() - 1]
-	var delta := newest - oldest
-	var min_pct := pcts[0]
-	var max_pct := pcts[0]
-	var sum_pct := 0.0
-	for value in pcts:
-		sum_pct += value
-		min_pct = minf(min_pct, value)
-		max_pct = maxf(max_pct, value)
-	var avg_pct := sum_pct / float(pcts.size())
-
-	var regression_status := "stabil"
-	if delta <= -3.0:
-		regression_status = "regression"
-	elif delta >= 3.0:
-		regression_status = "verbessert"
-
-	var drift_status := "stable"
-	if (max_pct - min_pct) >= 12.0:
-		drift_status = "watch"
-
-	var avg_ms_text := "n/a"
-	if not avg_duration_values.is_empty():
-		var sum_ms := 0.0
-		for ms in avg_duration_values:
-			sum_ms += ms
-		avg_ms_text = "%.0f" % (sum_ms / float(avg_duration_values.size()))
-
-	return "Trendkarte: pass=%.1f%% (delta=%+.1f) | regress=%s | drift=%s | avg_ms=%s" % [avg_pct, delta, regression_status, drift_status, avg_ms_text]
+	return _runtime_telemetry_controller.build_ai_trend_summary(pcts, avg_duration_values)
 
 
 func _refresh_system_metrics(force: bool) -> void:
-	if not enable_system_resource_monitoring:
-		_system_cpu_percent = -1.0
-		_system_ram_percent = -1.0
-		_system_gpu_vram_percent = -1.0
-		_system_gpu_vram_used_mb = -1.0
-		_system_gpu_vram_total_mb = -1.0
-		_system_cpu_temp_c = -999.0
-		_system_gpu_temp_c = -999.0
-		return
-
-	var now_ms := Time.get_ticks_msec()
-	if not force and _last_metrics_refresh_ms >= 0:
-		var delta_s := float(now_ms - _last_metrics_refresh_ms) / 1000.0
-		if delta_s < maxf(1.0, metrics_refresh_interval_seconds):
-			return
-	_last_metrics_refresh_ms = now_ms
-
-	var python_exec := _resolve_python_executable()
-	var metrics_script_abs := ProjectSettings.globalize_path(system_snapshot_script_path)
-	if not FileAccess.file_exists(metrics_script_abs):
-		return
-
-	var output := []
-	var exec_code := OS.execute(python_exec, [metrics_script_abs], output, true)
-	if exec_code != 0:
-		return
-	if output.is_empty():
-		return
-
-	var raw := str(output[0]).strip_edges()
-	if raw == "":
-		return
-	var parsed = JSON.parse_string(raw)
-	if typeof(parsed) != TYPE_DICTIONARY:
-		return
-
-	var payload: Dictionary = parsed
-	_system_cpu_percent = _to_float_or_default(payload.get("cpu_percent", null), -1.0)
-	_system_ram_percent = _to_float_or_default(payload.get("ram_percent", null), -1.0)
-	_system_gpu_vram_percent = _to_float_or_default(payload.get("gpu_vram_percent", null), -1.0)
-	_system_gpu_vram_used_mb = _to_float_or_default(payload.get("gpu_vram_used_mb", null), -1.0)
-	_system_gpu_vram_total_mb = _to_float_or_default(payload.get("gpu_vram_total_mb", null), -1.0)
-	_system_cpu_temp_c = _to_float_or_default(payload.get("cpu_temp_c", null), -999.0)
-	_system_gpu_temp_c = _to_float_or_default(payload.get("gpu_temp_c", null), -999.0)
+	var result := _runtime_telemetry_controller.refresh_system_metrics(_runtime_telemetry_state(), force)
+	_apply_runtime_telemetry_result(result)
 
 
 func _format_percent(value: float) -> String:
-	if value < 0.0:
-		return "n/a"
-	return "%.1f%%" % value
+	return _runtime_telemetry_controller.format_percent(value)
 
 
 func _format_temperature(value_c: float) -> String:
-	if value_c < -100.0:
-		return "n/a"
-	return "%.1fC" % value_c
+	return _runtime_telemetry_controller.format_temperature(value_c)
 
 
 func _format_vram() -> String:
-	if _system_gpu_vram_percent < 0.0:
-		return "n/a"
-	if _system_gpu_vram_used_mb >= 0.0 and _system_gpu_vram_total_mb > 0.0:
-		var used_gb := _system_gpu_vram_used_mb / 1024.0
-		var total_gb := _system_gpu_vram_total_mb / 1024.0
-		return "%.1f%% (%.1f/%.1fGB)" % [_system_gpu_vram_percent, used_gb, total_gb]
-	return "%.1f%%" % _system_gpu_vram_percent
+	return _runtime_telemetry_controller.format_vram(_runtime_telemetry_state())
 
 
 func _effective_temperature_c() -> float:
-	if _system_gpu_temp_c > -100.0:
-		return _system_gpu_temp_c
-	return _system_cpu_temp_c
+	return _runtime_telemetry_controller.effective_temperature_c(_runtime_telemetry_state())
 
 
 func _to_float_or_default(value, default_value: float) -> float:
@@ -4423,167 +3663,54 @@ func _to_float_or_default(value, default_value: float) -> float:
 
 
 func _start_local_server() -> void:
-	var python_exec := _resolve_python_executable()
-	var script_abs := ProjectSettings.globalize_path(server_script_path)
-	if not FileAccess.file_exists(script_abs):
-		_server_status_text = "script missing"
-		_append_runtime_event("SERVER_START_FAILED", {"reason": "script_missing", "path": script_abs})
-		return
-
-	var args: Array[String] = [script_abs]
-	var pid := int(OS.create_process(python_exec, args, false))
-	if pid <= 0:
-		_server_status_text = "start failed"
-		_append_runtime_event("SERVER_START_FAILED", {"python": python_exec, "script": script_abs})
-		return
-
-	_server_pid = pid
-	_server_exit_reported = false
-	_server_status_text = "running (pid=%d)" % _server_pid
-	_append_runtime_event("SERVER_STARTED", {"pid": _server_pid, "python": python_exec})
+	var result := _hub_server_ops_controller.start_local_server(_server_ops_state())
+	_apply_server_ops_result(result)
 
 
 func _stop_local_server() -> void:
-	if _server_pid <= 0:
-		_server_status_text = "stopped"
-		return
-
-	var kill_rc := int(OS.kill(_server_pid))
-	if kill_rc == OK:
-		_append_runtime_event("SERVER_STOPPED", {"pid": _server_pid})
-		_server_pid = -1
-		_server_status_text = "stopped"
-		_server_exit_reported = false
-		return
-
-	_server_status_text = "stop failed (rc=%d)" % kill_rc
-	_append_runtime_event("SERVER_STOP_FAILED", {"pid": _server_pid, "rc": kill_rc})
+	var result := _hub_server_ops_controller.stop_local_server(_server_ops_state())
+	_apply_server_ops_result(result)
 
 
 func _update_server_control_ui() -> void:
-	var health := _derive_health_state(_sim_runtime_status())
-	var state := str(health.get("state", "offline"))
-	var _reason := str(health.get("reason", "n/a"))
-
-	if _server_pid > 0:
-		server_toggle_button.text = "Stop Server"
-	else:
-		if state == "external":
-			server_toggle_button.text = "Start Local Server"
-		elif state == "offline":
-			server_toggle_button.text = "Start Server"
-		elif state == "degraded":
-			server_toggle_button.text = "Start Server"
-		else:
-			server_toggle_button.text = "Start Server"
-	server_status_label.text = "Server: %s" % state
+	var result := _hub_server_ops_controller.update_server_control_ui(_server_ops_state(), _derive_health_state(_sim_runtime_status()))
+	_apply_server_ops_result(result)
 
 
 func _resolve_python_executable() -> String:
-	var preferred_res := server_python_path
-	if preferred_res.strip_edges() == "":
-		preferred_res = "res://../.venv/Scripts/python.exe"
-	var preferred := ProjectSettings.globalize_path(preferred_res)
-	if FileAccess.file_exists(preferred):
-		return preferred
-	var local_venv := ProjectSettings.globalize_path("res://../.venv/Scripts/python.exe")
-	if FileAccess.file_exists(local_venv):
-		return local_venv
-	return "python"
+	return _runtime_telemetry_controller.resolve_python_executable(_runtime_telemetry_state())
 
 
 func _refresh_server_runtime_state() -> void:
-	if _server_pid <= 0:
-		return
-	if OS.is_process_running(_server_pid):
-		return
-	if _server_exit_reported:
-		return
-
-	_append_runtime_event("SERVER_EXITED", {"pid": _server_pid})
-	_server_pid = -1
-	_server_status_text = "exited"
-	_server_exit_reported = true
-	_update_server_control_ui()
+	var result := _hub_server_ops_controller.refresh_server_runtime_state(_server_ops_state())
+	_apply_server_ops_result(result)
 
 
 func _is_external_server_reachable() -> bool:
-	if _last_status_message != "":
-		return false
-	if _last_success_ms < 0:
-		return false
-	if _server_pid > 0:
-		return false
-
-	var runtime_status := _sim_runtime_status()
-	var step_interval := float(runtime_status.get("step_interval", 0.5))
-	var max_age_s := maxf(1.2, step_interval * 3.0)
-	var age_s := maxf(0.0, float(Time.get_ticks_msec() - _last_success_ms) / 1000.0)
-	return age_s <= max_age_s
+	return _runtime_telemetry_controller.is_external_server_reachable(_runtime_telemetry_state(), _sim_runtime_status())
 
 
 func _append_runtime_event(tag: String, payload: Dictionary) -> void:
-	var line := "- %s %s" % [tag, JSON.stringify(payload)]
-	_runtime_events.append(line)
-	_runtime_event_timestamps_ms.append(Time.get_ticks_msec())
-	_append_audit_event(tag, payload)
-	_trim_runtime_event_rate_window()
-	if _runtime_events.size() > _MAX_RUNTIME_EVENTS:
-		_runtime_events = _runtime_events.slice(_runtime_events.size() - _MAX_RUNTIME_EVENTS, _runtime_events.size())
-	_render_pc_centric_view()
+	var result := _runtime_audit_controller.append_runtime_event(_runtime_audit_state(), tag, payload)
+	_apply_runtime_audit_result(result)
 
 
 func _append_audit_event(tag: String, payload: Dictionary) -> void:
-	DirAccess.make_dir_recursive_absolute("user://agent_user_data/audit")
-	var wf := FileAccess.open(_AUDIT_TRAIL_PATH, FileAccess.READ_WRITE)
-	if wf == null:
-		wf = FileAccess.open(_AUDIT_TRAIL_PATH, FileAccess.WRITE)
-	if wf == null:
-		return
-	wf.seek_end()
-	var entry := {
-		"ts": Time.get_datetime_string_from_system(false, true),
-		"tag": tag,
-		"payload": payload,
-	}
-	wf.store_string(JSON.stringify(entry, "") + "\n")
-	wf.close()
+	var result := _runtime_audit_controller.append_audit_event(_runtime_audit_state(), tag, payload)
+	_apply_runtime_audit_result(result)
 
 
 func _runtime_event_rate_per_second() -> float:
-	_trim_runtime_event_rate_window()
-	if _runtime_event_timestamps_ms.is_empty():
-		return 0.0
-	return float(_runtime_event_timestamps_ms.size()) / _EVENT_RATE_WINDOW_SECONDS
+	return _runtime_audit_controller.runtime_event_rate_per_second(_runtime_audit_state())
 
 
 func _trim_runtime_event_rate_window() -> void:
-	if _runtime_event_timestamps_ms.is_empty():
-		return
-	var now_ms := Time.get_ticks_msec()
-	var min_ms := int(_EVENT_RATE_WINDOW_SECONDS * 1000.0)
-	while not _runtime_event_timestamps_ms.is_empty() and now_ms - _runtime_event_timestamps_ms[0] > min_ms:
-		_runtime_event_timestamps_ms.remove_at(0)
+	var result := _runtime_audit_controller.trim_runtime_event_rate_window(_runtime_audit_state())
+	_apply_runtime_audit_result(result)
 
 
 func _extract_error_code(message: String) -> String:
-	if message == "":
-		return "none"
-	var marker := "code="
-	var idx := message.find(marker)
-	if idx < 0:
-		return "n/a"
-	var start := idx + marker.length()
-	var end := start
-	while end < message.length():
-		var ch := message[end]
-		if ch == '|' or ch == ' ' or ch == ')' or ch == ',':
-			break
-		end += 1
-	var value := message.substr(start, end - start).strip_edges()
-	if value == "":
-		return "n/a"
-	return value
+	return _runtime_audit_controller.extract_error_code(message)
 
 
 func _on_action_start_event(action_name: String, context: Dictionary) -> void:
