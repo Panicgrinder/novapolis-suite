@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 from types import SimpleNamespace
+from typing import Literal
 
 import pytest
 
@@ -25,6 +26,12 @@ def test_build_base_gate_steps_orders_reference_session_before_sim_and_eval(
         "gm_session_eval",
     ]
     assert any("run_text_rpg_reference_session.py" in part for part in steps[2].command)
+    assert steps[2].command.count("--spec") == 2
+    assert any("text_rpg_reference_session.v1.json" in part for part in steps[2].command)
+    assert any(
+        "text_rpg_reference_session_handover_slot31_40.v1.json" in part
+        for part in steps[2].command
+    )
     assert any("check_sim_epoch_assets.py" in part for part in steps[3].command)
     assert steps[4].command[1:3] == ("-m", "scripts.agent.run_eval")
 
@@ -63,7 +70,7 @@ def test_run_gm_runtime_preflight_reports_listener_and_model(
         def __enter__(self) -> object:
             return object()
 
-        def __exit__(self, exc_type, exc, tb) -> bool:
+        def __exit__(self, exc_type, exc, tb) -> Literal[False]:
             return False
 
     monkeypatch.setattr(mod.socket, "create_connection", lambda *args, **kwargs: _DummySocket())
@@ -74,7 +81,7 @@ def test_run_gm_runtime_preflight_reports_listener_and_model(
         def __enter__(self) -> _DummyResponse:
             return self
 
-        def __exit__(self, exc_type, exc, tb) -> bool:
+        def __exit__(self, exc_type, exc, tb) -> Literal[False]:
             return False
 
         def read(self) -> bytes:

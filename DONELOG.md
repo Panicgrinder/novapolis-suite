@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 02:07
-update: Root-Summary fuehrt jetzt auch den umgesetzten RuntimeTelemetryController als weiteren Architekturfortschritt auf.
-checks: snapshot-lock PASS (2026-04-17 02:07); get_errors=PASS (Main.gd, runtime_telemetry_controller.gd); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-17 04:39
+update: Root-Summary dokumentiert jetzt auch den kleinen Root-Konsistenznachzug; die aktive Root-Uebersicht fuehrt wieder denselben Stand wie der TODO-Index.
+checks: snapshot-lock PASS (2026-04-17 04:33); workspace-evidence PASS (todo.root, todo.index, DONELOG); markdownlint=PASS; frontmatter=PASS
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,28 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-17 04:33: Der kleine Root-Konsistenznachzug ist abgeschlossen. `todo.root.md` fuehrt im Kurzstatus jetzt wieder denselben Modulstand `Dev=0`, `RP=0`, `Agent=0`, `Sim=0` wie `novapolis-dev/docs/todo.index.md`; es wurde kein neuer Board-Inhalt geaendert, nur der veraltete Kurzstatus auf den bereits belegten Iststand nachgezogen.
+
+- 2026-04-17 04:27: Der zuletzt geschlossene Sim-Board-Block ist archiviert. `novapolis-dev/archive/todo.sim.archive.md` fuehrt jetzt den Sim-Abschlussschnitt vom 2026-04-17 als Archivabschnitt mit `archived_at`; `novapolis-dev/docs/todo.sim.md` ist wieder als schlanke Live-Oberflaeche fuer neue Sim-Punkte vorbereitet. `novapolis-dev/docs/todo.index.md` und `WORKSPACE_STATUS.md` fuehren den Modulstand weiter mit `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
+
+- 2026-04-17 04:24: Der zuletzt offene Sim-Abschlussschnitt ist geschlossen. `novapolis-sim/scripts/Main.gd` fuehrt die doppelten Finetune-Helfer nicht mehr, `scripts/run_sim_headless_verify.py` und `.vscode/tasks.json` fuehren denselben kanonischen Godot-CLI-Smoke, und `novapolis-sim/scripts/verify_sim.gd` beendet den Headless-Lauf nach Cleanup jetzt sauber mit `SIM_VERIFY: OK` und `EXITCODE=0`. `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md` und `WORKSPACE_STATUS.md` sind im selben Lauf auf `Sim=0` und damit wieder alle Modul-Boards auf `0` nachgezogen.
+
+- 2026-04-17 04:15: Der zuletzt geschlossene Agent-Board-Block ist archiviert. `novapolis-dev/archive/todo.agent.archive.md` fuehrt jetzt den Handover-Abschluss vom 2026-04-17 als Archivabschnitt mit `archived_at`; `novapolis-dev/docs/todo.agent-board.md` ist wieder als schlanke Live-Oberflaeche fuer neue Agent-Punkte vorbereitet. `novapolis-dev/docs/todo.index.md` und `WORKSPACE_STATUS.md` fuehren den Modulstand weiter mit `Agent=0`, `Sim=2`.
+
+- 2026-04-17 04:00: Der offene Agent-Punkt fuer den zweiten Handover-Referenzfall hinter `slot 30` ist geschlossen. `novapolis_agent/eval/config/text_rpg_reference_session_handover_slot31_40.v1.json`, `novapolis_agent/scripts/run_text_rpg_reference_session.py`, `scripts/run_text_rpg_product_gate.py`, `.vscode/tasks.json`, `novapolis_agent/docs/runbook.md` sowie `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` fuehren jetzt denselben erweiterten Referenzlauf; `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.index.md`, `todo.root.md` und `WORKSPACE_STATUS.md` sind im selben Lauf auf `Agent=0`, `Sim=2` nachgezogen.
+
+- 2026-04-17 02:54: Die zuletzt geschlossenen Modulpunkte aus Dev und RP sind archiviert. `novapolis-dev/archive/todo.dev.archive.md` fuehrt jetzt den Reader-Surface-Abschluss vom 2026-04-17, `novapolis-dev/archive/todo.rp.archive.md` fuehrt den Folgeblock `slot 36-40`; `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.rp.md`, `novapolis-dev/docs/todo.index.md` und `WORKSPACE_STATUS.md` sind im selben Lauf auf vorbereitete Live-Boards ohne offene Dev-/RP-Punkte nachgezogen.
+
+- 2026-04-17 02:44: Der offene RP-Folgepunkt hinter `slot 35` ist geschlossen. `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md` fuehrt jetzt die fuenfte Kampagnenstufe auf demselben Slice-2-Handover-Vertrag aus; `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md`, `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md`, `novapolis-dev/docs/todo.rp.md`, `novapolis-dev/docs/todo.index.md`, `todo.root.md` und `WORKSPACE_STATUS.md` sind im selben Lauf auf denselben Anschlussstand nachgezogen.
+
+- 2026-04-17 02:44: Der offene Dev-Steuerpunkt fuer Reader-Surface-Drift ist geschlossen. `novapolis-dev/docs/active-surface-index.md` fuehrt fuer aktive Boards, `novapolis-dev/docs/donelog.md` und `process/**` jetzt belastbare April-Pruefstaende; `WORKSPACE_INDEX.md` fuehrt den dokumentierten Phase-2-Konsistenzlauf nicht mehr als irrefuehrenden Dauerclaim `Phase 2 aktiv`. `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md` und `WORKSPACE_STATUS.md` sind im selben Lauf auf diesen Stand nachgezogen.
+
+- 2026-04-17 02:39: Der vollstaendig abgeschlossene Root-Backlog ist archiviert. `novapolis-dev/archive/todo.root.archive.md` fuehrt jetzt den abgeschlossenen Root-Block vom 2026-04-17 als eigenen Archivabschnitt; `todo.root.md` ist wieder als leere Arbeitsvorlage fuer neue suiteweite Punkte vorbereitet. `novapolis-dev/docs/todo.index.md` und `WORKSPACE_STATUS.md` sind im selben Lauf auf denselben Root-Zustand nachgezogen.
+
+- 2026-04-17 02:27: Der offene Root-Produktrest ist als erster suiteweiter Vertikalslice geschlossen. `novapolis-dev/docs/process/text-rpg-pre-rp-product-model-v1.ssot.md` fixiert jetzt Kernfantasie, Spielversprechen, Sessionziel sowie den Pfad `Hub -> Spielhauptmenue -> Charakterstart -> erster Vollturn -> turn_resume_ready`; `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` und `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md` fuehren denselben kleinsten stabilen Save-Punkt und denselben Replay-Zweck als Nachvollzug und Wiedereinstiegshilfe. `todo.root.md`, `novapolis-dev/docs/todo.index.md` und `WORKSPACE_STATUS.md` sind im selben Lauf auf diesen Abschlussstand nachgezogen.
+
+- 2026-04-17 02:17: Der Workspace ist erneut gegen aktive Boards und Produkt-SSOTs geprueft. `todo.root.md`, `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.rp.md` und `novapolis-dev/docs/todo.sim.md` fuehren jetzt wieder belegte Folgepunkte statt des vorherigen Fast-Nullstands; `novapolis-dev/docs/todo.index.md` und `WORKSPACE_STATUS.md` sind im selben Lauf auf `Dev=1`, `Agent=1`, `RP=1`, `Sim=2` nachgezogen.
 
 - 2026-04-17 02:07: Der offene Sim-Architekturrest ist erneut kleiner geworden. `novapolis-sim/scripts/runtime_telemetry_controller.gd` kapselt jetzt auch Eval-Summary-Refresh, System-Metrik-Refresh, Python-Aufloesung sowie Health-/Reachability-Ableitung; `novapolis-sim/scripts/Main.gd` behaelt damit praktisch nur noch Wrapper und kleinere Cleanup-Altlasten. `novapolis-dev/docs/todo.sim.md`, `novapolis-dev/docs/todo.index.md`, `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/process/sim-controller-roadmap.ssot.md` sind im selben Lauf auf diesen Reststand nachgezogen.
 

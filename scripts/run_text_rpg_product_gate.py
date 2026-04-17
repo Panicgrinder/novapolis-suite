@@ -21,6 +21,10 @@ from typing import Any
 GM_RESULTS_GLOB = "results_*_gm_session*.jsonl"
 GM_CHECKS = "must_include,keywords_any,keywords_at_least,not_include,regex,rpg_style"
 GM_PREFLIGHT_TIMEOUT_SEC = 5.0
+REFERENCE_SPECS = (
+    "novapolis_agent/eval/config/text_rpg_reference_session.v1.json",
+    "novapolis_agent/eval/config/text_rpg_reference_session_handover_slot31_40.v1.json",
+)
 
 
 @dataclass(frozen=True)
@@ -91,6 +95,15 @@ def build_base_gate_steps(repo_root: Path, python_exec: Path, timestamp: str) ->
     reference_runner = (
         repo_root / "novapolis_agent" / "scripts" / "run_text_rpg_reference_session.py"
     )
+    reference_command = [
+        str(python_exec),
+        str(reference_runner),
+        "--repo-root",
+        str(repo_root),
+    ]
+    for spec_path in REFERENCE_SPECS:
+        reference_command.extend(("--spec", spec_path))
+    reference_command.extend(("--report-json", reference_json, "--report-md", reference_md))
 
     return [
         GateStep(
@@ -107,19 +120,14 @@ def build_base_gate_steps(repo_root: Path, python_exec: Path, timestamp: str) ->
         ),
         GateStep(
             name="reference_session",
-            command=(
-                str(python_exec),
-                str(reference_runner),
-                "--repo-root",
-                str(repo_root),
-                "--report-json",
-                reference_json,
-                "--report-md",
-                reference_md,
-            ),
+            command=tuple(reference_command),
             cwd=repo_root,
             log_path=reports_dir / f"text_rpg_product_gate_{timestamp}_reference_session.log",
-            metadata={"report_json": reference_json, "report_md": reference_md},
+            metadata={
+                "report_json": reference_json,
+                "report_md": reference_md,
+                "reference_specs": ",".join(REFERENCE_SPECS),
+            },
         ),
         GateStep(
             name="sim_epoch_assets",
@@ -210,10 +218,16 @@ def load_runtime_target() -> tuple[str, str]:
         get_settings = getattr(module, "get_settings", None)
         if callable(get_settings):
             settings = get_settings()
-            return str(settings.OLLAMA_HOST), str(settings.MODEL_NAME)
+            host = getattr(settings, "OLLAMA_HOST", None)
+            model = getattr(settings, "MODEL_NAME", None)
+            if host is not None and model is not None:
+                return str(host), str(model)
         settings_obj = getattr(module, "settings", None)
         if settings_obj is not None:
-            return str(settings_obj.OLLAMA_HOST), str(settings_obj.MODEL_NAME)
+            host = getattr(settings_obj, "OLLAMA_HOST", None)
+            model = getattr(settings_obj, "MODEL_NAME", None)
+            if host is not None and model is not None:
+                return str(host), str(model)
     raise RuntimeError("could not resolve settings module for runtime target")
 
 

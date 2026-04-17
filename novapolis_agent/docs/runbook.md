@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 01:04
-update: Runbook dokumentiert jetzt zusaetzlich den Sim-vor-RP-Spielfluss mit Spielhauptmenue, Eingabemodi, Turn-Zustaenden und Resume-Pfad auf demselben Sessionvertrag.
-checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-17 04:39
+update: Das Runbook fuehrt jetzt auch den zweiten deterministischen Handover-Referenzfall hinter slot 30 im bestehenden Product-Gate-Standardlauf.
+checks: snapshot-lock PASS (2026-04-17 04:09); markdownlint=PASS; frontmatter=PASS
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -99,9 +99,13 @@ Pre-RP-Spielfluss im Sim-Hub
 - Der Hub bleibt Operator-Oberflaeche fuer Runtime, Checks, Sessionstatus und Resume-/Replay-Bedienung.
 - Der eigentliche Spieleinstieg laeuft fachlich ueber `Hub -> Spielhauptmenue` und springt nicht direkt aus der Operator-Oberflaeche in eine laufende Szene.
 - Neue Laeufe fuehren im Spielhauptmenue in einen von der Erzaehler-KI vorgeschlagenen Charakterstart mit mindestens Startoption und Schwierigkeitsgrad; bestehende Laeufe fuehren ueber denselben Pfad in Begruessung, Resume oder Checkpoint-Fortsetzung.
+- Der erste suiteweite Vertikalslice lautet produktseitig `Hub -> Spielhauptmenue -> Charakterstart -> erster Vollturn -> turn_resume_ready`.
 - Der Sessionvertrag fuehrt dafuer bei Materialisierung denselben Bedienrahmen: `player_input.mode` als `free_text|guided|hybrid` plus `turn_state` fuer `turn_briefing -> turn_planning -> turn_budget_review -> optional turn_confirmation_required -> turn_execution -> optional turn_dense_mode -> turn_resolution -> turn_resume_ready`.
-- `turn_resume_ready` bleibt der einzige kanonische Zustand fuer Checkpoint, Resume und Replay; ein technischer Snapshot mitten in der Verdichtung ist ohne Sonderregel kein sauberer Wiedereinstieg.
+- `turn_resume_ready` bleibt der einzige kanonische Zustand fuer Checkpoint, Resume und Replay; der kleinste stabile Save-Punkt ist das erste `turn_resume_ready` nach einem voll ausgespielten ersten Turn, und ein technischer Snapshot mitten in der Verdichtung ist ohne Sonderregel kein sauberer Wiedereinstieg.
+- Replay-Zweck bleibt Nachvollzug und Wiedereinstiegshilfe fuer denselben Lauf und nicht ein paralleler Fortschrittspfad.
 - Sichtbares Turn-Feedback trennt mindestens `completed`, `started`, `interrupted` und `open` und fuehrt dazu ein unmittelbares Signal plus naechsten Anschluss, statt Folgezustaende nur implizit im Fliesstext zu verstecken.
+- Pflichtkern in diesem Schnitt: KI-gestuetzter Charakterstart, sichtbarer erster Vollturn mit `Szene/Konsequenz/Optionen/State_Patches` sowie Save-/Resume-/Replay-Bruecke ab `turn_resume_ready`.
+- Bewusst spaeter: breitere Startauswahl, aktive RP-Integration hinter `slot 30`, Komfort-/Atmosphaereausbau.
 
 Text-RPG Product Gate v1
 ------------------------
@@ -121,7 +125,7 @@ Der Wrapper fuehrt intern denselben Gate-Block aus:
 5. `Eval: suite gm_session (12, asgi)`
 6. `Eval: summarize gm session KPIs`
 
-Die Diagnose-Tasks bleiben zusaetzlich einzeln verfuegbar; der verbindliche Produktpfad laeuft aber ueber denselben Wrapper.
+Die Diagnose-Tasks bleiben zusaetzlich einzeln verfuegbar; der verbindliche Produktpfad laeuft aber ueber denselben Wrapper. Der Schritt `Tests: text-rpg reference session` materialisiert dabei jetzt denselben Standardlauf fuer den D5-Basisfall und einen zweiten Handover-Folgefall hinter `slot 30`.
 
 Hard-Fail-Klassen laut SSOT:
 
@@ -141,23 +145,27 @@ Operative Lesart:
 - Neue Referenzfaelle, Gate-Erweiterungen oder Resume-Checks hinter `slot 30` muessen denselben Session- und Artefaktvertrag (`savegame.json`, `world_log`, `pc_log`, `replay_manifest.json`, `resume_checkpoint_id`) weiterverwenden.
 - Die offene Sim-Folgearbeit haengt explizit an diesem Handover: `resume_checkpoint_id` und `replay_manifest` bleiben damit nicht nur Runtime-Daten, sondern der operative Wiederanlaufanker fuer denselben Folgepfad.
 
-Feste Referenz-Session
-----------------------
+Deterministische Referenzfaelle
+-------------------------------
 
-Der deterministische Artefaktbeleg fuer den Slice liegt unter `novapolis_agent/eval/config/text_rpg_reference_session.v1.json`.
+Die deterministischen Artefaktbelege fuer denselben Produktpfad liegen unter:
+
+- `novapolis_agent/eval/config/text_rpg_reference_session.v1.json`
+- `novapolis_agent/eval/config/text_rpg_reference_session_handover_slot31_40.v1.json`
 
 Direkter Einzelaufruf:
 
 ```powershell
 Set-Location ..
-.\.venv\Scripts\python.exe novapolis_agent\scripts\run_text_rpg_reference_session.py --repo-root .
+.\.venv\Scripts\python.exe novapolis_agent\scripts\run_text_rpg_reference_session.py --repo-root . --spec novapolis_agent/eval/config/text_rpg_reference_session.v1.json --spec novapolis_agent/eval/config/text_rpg_reference_session_handover_slot31_40.v1.json
 ```
 
-Der Lauf schreibt einen JSON- und Markdown-Report unter `.tmp/results/reports/`, erzeugt denselben Session-Artefaktkern (`savegame.json`, `world_log.jsonl`, `pc_log.jsonl`, `replay_manifest.json`) in einem temporaeren Store unter `.tmp/results/reference_sessions/` und validiert die erwarteten Slot-/Turn-/Artefaktzaehler gegen die Referenzdatei.
+Der Lauf schreibt einen JSON- und Markdown-Report unter `.tmp/results/reports/`, erzeugt denselben Session-Artefaktkern (`savegame.json`, `world_log.jsonl`, `pc_log.jsonl`, `replay_manifest.json`) in einem temporaeren Store unter `.tmp/results/reference_sessions/` und validiert die erwarteten Slot-/Turn-/Artefaktzaehler gegen beide Referenzfaelle.
 
 Operative Lesart:
 
-- Die Referenz-Session ist kein Ersatz fuer den produktiven Chat-Lauf, sondern ein deterministischer Vertragsanker fuer Replay- und Artefaktpruefung.
+- Die Referenzfaelle sind kein Ersatz fuer den produktiven Chat-Lauf, sondern deterministische Vertragsanker fuer Replay- und Artefaktpruefung.
+- Der erste Fall belegt weiter den D5-Basislauf bis `slot 05`; der zweite Fall belegt denselben Vertragsrahmen explizit hinter `slot 30` bis zum Folgeanker bei `slot 40`.
 - Der `gm_session`-Eval-Teil prueft zusaetzlich den produktiven Modellpfad; ohne erreichbare lokale Modellruntime bleibt dieser Teil weiterhin ein Hard-Fail des Gesamt-Gates.
 
 Lokale Runtime-Baseline

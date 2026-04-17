@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 01:04
-update: Diese SSOT definiert den kanonischen Windows-Export- und Smoke-Pfad fuer den Sim-Client ausserhalb des Godot-Editors.
-checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-17 04:39
+update: Diese SSOT fuehrt jetzt auch den kanonischen Headless-Verify-Wrapper und den passenden VS-Code-Task fuer den Editor-nahen CLI-Smoke.
+checks: snapshot-lock PASS (2026-04-17 04:20); markdownlint=PASS; frontmatter=PASS
 ---
 
 Sim Export- und Release-Pfad (SSOT)
@@ -18,6 +18,7 @@ Scope
 - kanonischer Exportpfad fuer Windows Desktop
 - getrennte Voraussetzungen fuer Clean-Checkout, lokalen Vollstand und exportierte Laufzeit
 - lokaler Smoke-Test fuer die exportierte App ohne Editor-Overlay
+- kanonischer Headless-Verify-Pfad fuer den lokalen Editor-/Repo-Smoke vor Export oder Release-Smoke
 
 Nicht-Ziele
 -----------
@@ -82,6 +83,14 @@ Lokaler Smoke fuer die exportierte App
    Erwartetes Ergebnis: Die App synchronisiert `GET /session/{session_id}` und `GET /session/{session_id}/replay` beim Start automatisch nach.
 5. Einen kurzen Bedienpfad pruefen.
    Erwartetes Ergebnis: `Hub-Chat`, Replay-Zusammenfassung und Statuszeilen reagieren ohne Editorpfad oder Menue-Umschaltung.
+
+Kanonischer Headless-Verify vor Export
+--------------------------------------
+
+- VS-Code-Task: `Checks: sim headless verify`
+- CLI-Wrapper: `& .\.venv\Scripts\python.exe scripts\run_sim_headless_verify.py`
+- Fallback fuer lokale Binaries ausserhalb des PATH: `GODOT_BIN=<Pfad-zur-Godot-Binary>` oder `--godot-bin <Pfad-zur-Godot-Binary>`.
+- Erwartetes Ergebnis: `SIM_VERIFY: OK` ohne neue Scene-, Preload- oder Parserfehler fuer `Main.tscn` und den aktuellen Hub-Pfad.
 
 Verknuepfte Istquellen
 ----------------------

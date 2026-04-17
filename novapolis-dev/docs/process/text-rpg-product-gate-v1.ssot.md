@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 01:04
-update: Das Product Gate fuehrt jetzt die kanonische KPI-Matrix fuer den Pre-RP-Sim-Pfad auf denselben gm_session- und Summary-Rahmen.
-checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-17 04:39
+update: Das Product Gate fuehrt jetzt auch den zweiten deterministischen Handover-Referenzfall hinter slot 30 im bestehenden Standardlauf.
+checks: snapshot-lock PASS (2026-04-17 04:09); markdownlint=PASS; frontmatter=PASS
 ---
 
 Text-RPG Product Gate v1
@@ -34,23 +34,35 @@ Quellenbasis
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-21-25.ssot.md`
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md`
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md`
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md`
 - `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md`
 
 Wahrheitsrahmen
 ---------------
 
 - Das Product Gate hat jetzt einen kanonischen Wrapper-Task `Checks: text-rpg product gate`; die Einzel-Tasks bleiben fuer Diagnose und Teilretries erhalten.
-- Die feste Referenz-Session unter `novapolis_agent/eval/config/text_rpg_reference_session.v1.json` liefert einen deterministischen Artefaktbeleg fuer Savegame, `world_log`, `pc_log` und Replay-Manifest.
+- Der Referenzlauf unter `novapolis_agent/scripts/run_text_rpg_reference_session.py` validiert jetzt zwei deterministische Artefaktfaelle: den D5-Basisfall unter `novapolis_agent/eval/config/text_rpg_reference_session.v1.json` und den Handover-Folgefall unter `novapolis_agent/eval/config/text_rpg_reference_session_handover_slot31_40.v1.json`.
 - Der GM-Session-Teil bleibt runtime-gebunden: ohne erreichbare lokale Modellruntime am produktiven Chat-Pfad scheitert dieser Gate-Abschnitt weiterhin hart.
 - Die Gate-Definition bleibt verbindlich: neue Runtime- oder Sim-Artefakte muessen sich an diesen Ablauf haengen, nicht umgekehrt.
 - Der gemeinsame Folgeanker hinter `slot 30` heisst `Text-RPG Slice 2 Handover v1`; spaetere Gate- und Referenzfaelle hinter dem ersten Slice muessen an dieselbe SSOT haengen statt einen freien Zweitpfad zu eroeffnen.
+
+Produktfokus des Gates
+----------------------
+
+- Der erste suiteweite Vertikalslice heisst verbindlich `Hub -> Spielhauptmenue -> Charakterstart -> erster Vollturn -> turn_resume_ready`.
+- Der kleinste stabile Save-Punkt ist das erste `turn_resume_ready` nach einem voll ausgespielten ersten Turn; vor diesem Zustand gibt es keinen zugesagten Resume-Anker.
+- Replay-Zweck bleibt Nachvollzug und Wiedereinstiegshilfe fuer denselben Lauf und nicht ein paralleler Fortschrittspfad.
+- Gate-blockend fuer diesen Schnitt sind vor allem drei Kernelemente: KI-gestuetzter Charakterstart, sichtbarer erster Vollturn mit `Szene/Konsequenz/Optionen/State_Patches`, Save-/Resume-/Replay-Bruecke ab `turn_resume_ready`.
+- Bewusst spaeter und damit aktuell nicht eigener Gate-Fokus sind breitere Startauswahl, aktive RP-Integration hinter `slot 30` sowie Komfort-/Atmosphaereausbau.
 
 Slice-2-Handover
 ----------------
 
 - `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` ist die gemeinsame Quelle fuer den Folgepfad hinter `slot 30`.
 - Das Product Gate selbst erweitert damit noch keinen neuen Runtime-Block, benennt aber verbindlich, auf welchen Handover spaetere RP-, Agent- und Sim-Folgearbeit referenzieren muessen.
-- `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` fuehrt den ersten fachlichen Ausbau dieses Handover jetzt als vierte Kampagnenstufe aus.
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` fuehrt den ersten fachlichen Ausbau dieses Handover als vierte Kampagnenstufe aus.
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md` fuehrt denselben Vertragsrahmen jetzt als fuenfte Kampagnenstufe hinter `slot 35` fort.
+- Der deterministische Agent-Referenzlauf belegt denselben Handover jetzt auch technisch mit einem zweiten Folgefall hinter `slot 30` bis `slot 40`, statt nur den D5-Basislauf zu pruefen.
 - Sobald Sim den Resume-Anker operativ nutzt, wird derselbe Handover auch fuer den naechsten Produkt-Gate-Ausbau vollstaendig ueber RP, Agent und Sim belegt.
 
 Kanonischer Gate-Block
@@ -96,11 +108,11 @@ Gate-Stufen
 
 ### Stufe 4 - Log- und Replay-Vertrag
 
-- Die feste Referenz-Session muss `world_log`, `pc_log`, `state_patches`, `savegame.json` und `replay_manifest.json` fuer denselben Slice deterministisch erzeugen und verifizieren.
+- Der Referenzlauf muss `world_log`, `pc_log`, `state_patches`, `savegame.json` und `replay_manifest.json` fuer denselben Slice und den Handover-Folgefall hinter `slot 30` deterministisch erzeugen und verifizieren.
 - Hard Fail bei fehlenden Artefakten, ungueltigen `state_patches`, Slot-Mismatch zwischen Logs oder Replay-Widerspruechen.
 - Hard Fail ebenfalls, wenn `resume_checkpoint_id`, letzter stabiler `turn_id`, `slot_id` oder eingebettete Verdichtungssegmente desselben Turns zwischen Savegame, Logs und Replay auseinanderlaufen.
 - Hard Fail ebenfalls, wenn sichtbares Turn-Feedback (`completed|started|interrupted|open`, unmittelbares Signal, naechster Anschluss) fuer denselben Zug nicht aus Antwort, Logs oder Replay konsistent rekonstruierbar ist.
-- Produktive Chat-Laeufe duerfen spaeter weitere Artefakte erzeugen, muessen aber denselben Vertrags- und Dateirahmen halten wie die Referenz-Session.
+- Produktive Chat-Laeufe duerfen spaeter weitere Artefakte erzeugen, muessen aber denselben Vertrags- und Dateirahmen halten wie die Referenzfaelle.
 
 ### Stufe 5 - Sim-Anschluss
 
@@ -177,7 +189,7 @@ Definition of Done
 
 - Der End-to-End-Gate-Pfad besitzt einen kanonischen Namen.
 - Board, Runbook, Tasking und Produktdoku verweisen auf denselben Wrapper-Task.
-- Die feste Referenz-Session ist als aktive Gate-Datei dokumentiert.
+- Die deterministischen Referenzfaelle fuer Basislauf und Handover-Folgepfad sind als aktive Gate-Dateien dokumentiert.
 - Die harten Fail-Klassen fuer Vertrags-, Log-, Slot- und GM-Runtime-Drift sind benannt.
 - Bedienmodi, Turn-Zustaende und sichtbares Turn-Feedback sind als Gate-relevante Driftklassen benannt.
 - Die kanonische KPI-Matrix fuer Blocker- und Beobachtungsfaelle des Pre-RP-Sim-Pfads ist explizit benannt.

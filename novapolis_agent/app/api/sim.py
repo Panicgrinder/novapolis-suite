@@ -103,7 +103,7 @@ class SessionUpsertRequest(BaseModel):
     campaign_id: str | None = None
     scene_id: str | None = None
     slot_id: str | None = None
-    slot_index: int | None = Field(default=None, ge=0, le=23)
+    slot_index: int | None = Field(default=None, ge=0)
     turn_id: str | None = None
     seed: int | None = None
     turn_context: TurnContext | None = None

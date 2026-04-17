@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 05:08
-update: Phase-2-Konsistenzlauf spiegelt jetzt den aktiven Stil- und Sweep-Status im Workspace-Index statt der alten Redirect-Phase.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
+stand: 2026-04-17 04:39
+update: Der Workspace-Index fuehrt jetzt den dokumentierten Abschluss des Phase-2-Konsistenzlaufs statt des alten Dauerclaims `Phase 2 aktiv`.
+checks: snapshot-lock PASS (2026-04-17 02:44); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -14,13 +14,14 @@ Monorepo Redirect / Konsolidierung
 
 Dieser Datei-Index bleibt als detailreicher, agent-lastiger Referenzkatalog bestehen, verweist aber nun zentral auf das Hub-README (`novapolis-dev/README.md`) für globale Navigations- und Governance-Hinweise. Der aktuelle Betriebszustand liegt in `WORKSPACE_STATUS.md`; dieser Index dient im Single-Root-Setup als nachgezogene Referenz für die Arbeitsoberflaeche und die wichtigsten Pfade unterhalb des Repo-Roots.
 
-Geplante Vereinheitlichung (Phase 2):
+Konsistenzlauf der Reader-Surface (Phase 2, dokumentiert):
 - 2026-03-28 00:43: Der Stil- und Konsistenzlauf ist vor Start als Prozessanker dokumentiert (`novapolis-dev/docs/process/doku-konsistenzlauf-aktive-surface-2026-03-28.md`).
 - Erst-Scope sind die Hochfrequenz-Dateien (`README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, Root-/Modul-READMEs, aktive TODO-Oberflaeche).
 - Danach folgt die restliche aktive Dev- und Modul-Doku; Archive und Quarantaene bleiben ausserhalb des Sweep-Scope.
 - Ziel ist kein Strukturumbau, sondern ein einheitlicher Stilrahmen fuer Frontmatter, Pfade, Kommandos und Statusbegriffe.
+- 2026-04-17 02:44: Der Reader-Surface-Nachzug ist als offener Dev-Driftpunkt geschlossen; Active-Surface-Index, Board-Oberflaeche und Root-Reader-Doku fuehren damit keinen irrefuehrenden Dauerclaim mehr, sondern nur noch den dokumentierten Prozessanker plus inkrementelle Pflege ueber Boards, DONELOG und Statussync.
 
-Status: Phase 2 aktiv; der laufende Sweep arbeitet den dokumentierten Erst-Scope aus dem Prozessanker ab.
+Status: Der dokumentierte Phase-2-Konsistenzlauf ist als Prozessanker und Referenzpfad abgeschlossen; die aktive Reader-Surface wird seitdem inkrementell ueber Board-, DONELOG- und Status-Sync gepflegt.
 
 Vollständiger Index aller Dateien im Agent-Verzeichnis
 ------------------------------------------------------

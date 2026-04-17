@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 01:04
-update: Das Produktmodell nennt den frueheren Redirect nicht mehr explizit und verweist nur noch direkt auf aktive Zielquellen.
-checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-17 04:39
+update: Das Produktmodell zieht den ersten suiteweiten Vertikalslice jetzt als belastbare Produktformel fuer Start, Save und Replay nach.
+checks: snapshot-lock PASS (2026-04-17 02:27); markdownlint=PASS; frontmatter=PASS
 ---
 
 Text-RPG Pre-RP Product Model v1
@@ -67,6 +67,32 @@ Strategische Leitannahmen
 - Die flexible Eingabestruktur ist produktseitig stark, muss spaeter aber auf gleiche Entscheidungsqualitaet und Balancing geprueft werden, damit nicht verschiedene Modi zu unterschiedlichen Spielniveaus fuehren.
 - Der realitaetsnahe Fortschrittsanspruch ist fachlich plausibel, erzeugt aber das Risiko, dass Fortschritt kurzfristig zu indirekt wirkt. Fuer den eigentlichen Turn-Ablauf werden daher zusaetzlich lokale, unmittelbar lesbare Rueckmeldesignale noetig sein.
 
+Erster suiteweiter Vertikalslice
+--------------------------------
+
+- Kernfantasie des Spiels in einem Satz: Du fuehrst als neu eingesetzte Figur in Novapolis einen kleinen, folgenreichen Einsatzstart und siehst sofort, wie Welt, Gruppen und Lage auf deinen ersten Zug reagieren.
+- Primaeres Spielversprechen: In den ersten `5-10` Minuten bekommst du einen klaren Einstieg, mindestens eine bedeutende Entscheidung, sichtbare Konsequenzen und einen stabilen Wiedereinstiegspunkt fuer dieselbe Session.
+- Zielgefuehl der ersten Session: Du sollst nach dem ersten Abschnitt das Gefuehl haben, die Lage verstanden, eine erste Position bezogen und einen belastbaren Anker fuer die Fortsetzung erreicht zu haben.
+- Der erste suiteweite Vertikalslice fuehrt verbindlich ueber `Hub -> Spielhauptmenue -> Charakterstart -> erster Vollturn -> turn_resume_ready`.
+- Sichtbare Fortschrittssignale im ersten Slice sind ein lesbarer Szenenwechsel, eine sichtbare Welt- oder Gruppenreaktion und ein klar benannter naechster Anschluss im selben Lauf.
+- Der kleinste stabile Save-Punkt ist das erste `turn_resume_ready` nach einem voll ausgespielten ersten Turn; davor gibt es keinen versprochenen Resume-Anker.
+- Replay-Zweck bleibt Nachvollzug und Wiedereinstiegshilfe fuer denselben Lauf und nicht ein paralleler Fortschrittspfad, kein Ersatz fuer Live-Spiel und kein eigenes Feature-Ziel.
+
+Priorisierung fuer diesen Schnitt
+---------------------------------
+
+- Drei unverzichtbare Kernelemente: KI-gestuetzter Charakterstart im Spielhauptmenue, sichtbarer erster Vollturn mit `Szene/Konsequenz/Optionen/State_Patches`, Save-/Resume-/Replay-Bruecke ab dem ersten `turn_resume_ready`.
+- Drei bewusst spaetere Elemente: breitere Startauswahl und mehr Hintergruende, aktive RP-Integration hinter `slot 30`, Komfort-/Atmosphaereausbau wie TTS-Polish, Audio-Breite und zusaetzliche Sim-Atmosphaere.
+
+Gezielt offene Restfragen
+-------------------------
+
+| Restfrage | Aktueller Zuschnitt | Zielquelle fuer Entscheidung |
+| --- | --- | --- |
+| Wie hart darf Fail-Forward bei blockierten oder deutlich ueberzogenen Plaenen formuliert werden? | Produktseitig offen, weil die genaue Recovery-Sprache noch nicht kanonisch ist. | `novapolis-dev/docs/process/text-rpg-turn-budget-model-v1.ssot.md` |
+| Welche Knappheits- und Warnsignale muessen im Hub sichtbar werden, bevor voller Komfortausbau beginnt? | Die Produktlogik ist klar, aber die konkrete UI-Lesart fuer Drucksignale ist noch nicht festgezogen. | `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md` |
+| Welche kurze Produktformel beschreibt den ersten aktiven Wechsel vom Pre-RP-Pfad in den RP-Folgeblock hinter `slot 30`? | Der Handover-Vertrag steht, die knappe player-facing Uebergabeformel bleibt offen. | `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` und der naechste RP-Folgeblock |
+
 Entscheidungsraster fuer den verbleibenden Produktrest
 -----------------------------------------------------
 
@@ -74,21 +100,21 @@ Der verbleibende Produktrest wird hier nicht mehr als lange Fragenliste gefuehrt
 
 | Raster | Bereits fest | Verbleibende Formulierungsarbeit | Zielquelle fuer Nachzug |
 | --- | --- | --- | --- |
-| Produktkern und Spielversprechen | Der Pre-RP-Pfad bleibt spielnaher Operations-Client mit fruehem Gameplay-Kern; Fortschritt soll primaer ueber Weltreaktion und second-level ueber wirtschaftliche Lage lesbar sein. | Die erste 5-bis-10-Minuten-Spielerfahrung und das primaere Spielversprechen noch in eine knappe Endform bringen. | Diese Datei, spaeter Produkt Gate bei Gate-Relevanz |
-| Entscheidungen und Konsequenzen | Turn-Antworten, Konsequenzen, Patch-Hinweise und sichtbare Rueckmeldesignale sind als Produktmuster gesetzt; harte Dead Ends sollen vermieden werden. | Entscheidungstypen, Fail-Forward-Haerte und Recovery-Sprache noch enger benennen. | Diese Datei, spaeter Turn-Budget-Modell oder Product Gate je nach Vertragsnaehe |
-| Session, Save, Resume, Replay | Live-, Resume- und Replay-Unterschiede sind als UI-Lesart gebunden; Resume-Anker und Handover laufen ueber denselben Sessionvertrag. | Kleinsten stabilen Save-Punkt und player-facing Replay-Zweck noch knapp ausformulieren. | Session Contract, UI-IA, Slice-2-Handover |
-| RP-Integrationsnaht | Der erste Anschluss liegt hinter `slot 30`; minimaler RP-Adapter-Scope und UI-Hinweise ohne aktive RP-Integration sind bereits ausgelagert. | Die spielerseitige Lesart des Wechsels von Pre-RP zu aktivem RP noch in eine kurze Produktformel verdichten. | Slice-2-Handover, spaeter RP-Produktpfad |
+| Produktkern und Spielversprechen | Der Pre-RP-Pfad bleibt spielnaher Operations-Client mit fruehem Gameplay-Kern; Fortschritt soll primaer ueber Weltreaktion und second-level ueber wirtschaftliche Lage lesbar sein. | Die Endform fuer Kernfantasie, Spielversprechen und Sessionziel ist unten festgezogen; spaeter folgt bei Bedarf nur noch die Gate-kurze Verdichtung. | Diese Datei, spaeter Produkt Gate bei Gate-Relevanz |
+| Entscheidungen und Konsequenzen | Turn-Antworten, Konsequenzen, Patch-Hinweise und sichtbare Rueckmeldesignale sind als Produktmuster gesetzt; harte Dead Ends sollen vermieden werden. | Offen bleibt nur noch die genaue Recovery-Sprache fuer harte Blockaden und deutlich ueberzogene Plaene. | Diese Datei, spaeter Turn-Budget-Modell oder Product Gate je nach Vertragsnaehe |
+| Session, Save, Resume, Replay | Live-, Resume- und Replay-Unterschiede sind als UI-Lesart gebunden; Resume-Anker und Handover laufen ueber denselben Sessionvertrag. | Der kleinste stabile Save-Punkt ist jetzt das erste `turn_resume_ready` nach dem ersten Vollturn; Replay bleibt Nachvollzug und Wiedereinstiegshilfe fuer denselben Lauf. | Session Contract, UI-IA, Product Gate |
+| RP-Integrationsnaht | Der erste Anschluss liegt hinter `slot 30`; minimaler RP-Adapter-Scope und UI-Hinweise ohne aktive RP-Integration sind bereits ausgelagert. | Offen bleibt nur noch die knappe player-facing Produktformel fuer den ersten aktiven RP-Anschluss hinter dem Pre-RP-Slice. | Slice-2-Handover, spaeter RP-Produktpfad |
 
 Arbeitsraster
 -------------
 
-Die folgende Checkliste bleibt als Arbeitsraster fuer den noch nicht uebernommenen Rest bestehen.
+Die folgende Checkliste bleibt als Arbeitsraster fuer den noch nicht uebernommenen Rest bestehen. Bereits abgehakte Punkte sind in dieser Datei oder in den benannten Zielquellen kanonisiert.
 
 ### 1. Spielidentitaet
 
-- [ ] Kernfantasie des Spiels in einem Satz festhalten.
-- [ ] Primaeres Spielversprechen an den Spieler definieren.
-- [ ] Zielgefuehl der ersten Session benennen.
+- [x] Kernfantasie des Spiels in einem Satz festhalten.
+- [x] Primaeres Spielversprechen an den Spieler definieren.
+- [x] Zielgefuehl der ersten Session benennen.
 
 ### 2. Entscheidungen und Konsequenzen
 
@@ -99,10 +125,10 @@ Die folgende Checkliste bleibt als Arbeitsraster fuer den noch nicht uebernommen
 
 ### 3. Fortschritt und Motivation
 
-- [ ] Kurzfristige Ziele pro Session definieren.
+- [x] Kurzfristige Ziele pro Session definieren.
 - [ ] Mittelfristige Ziele definieren.
-- [ ] Sichtbare Fortschrittsmarker festlegen.
-- [ ] Bedingung definieren, wann sich eine Session gelungen anfuehlt.
+- [x] Sichtbare Fortschrittsmarker festlegen.
+- [x] Bedingung definieren, wann sich eine Session gelungen anfuehlt.
 
 ### 4. Ressourcen und Drucksysteme
 
@@ -127,31 +153,31 @@ Die folgende Checkliste bleibt als Arbeitsraster fuer den noch nicht uebernommen
 
 ### 7. Save, Resume und Replay
 
-- [ ] Speicherzeitpunkte definieren.
-- [ ] Minimalen stabilen Resume-Anker festlegen.
-- [ ] Replay-Zweck definieren: Debug, Nachvollzug, Spielhilfe oder Feature.
+- [x] Speicherzeitpunkte definieren.
+- [x] Minimalen stabilen Resume-Anker festlegen.
+- [x] Replay-Zweck definieren: Debug, Nachvollzug, Spielhilfe oder Feature.
 - [x] Unterschiede zwischen Live, Resume und Replay im UI sichtbar machen.
 
 ### 8. Integrationsgrenze zum RP-Modul
 
-- [ ] Klar definieren, was vor RP stabil stehen muss.
+- [x] Klar definieren, was vor RP stabil stehen muss.
 - [x] Klar definieren, was RP spaeter erstmal liefern darf.
 - [x] Erste RP-Integrationsstelle im Flow bestimmen.
 - [ ] Sicherstellen, dass RP den Sim-Kernloop nicht bricht.
 
 ### 9. Gate vor RP-Integration
 
-- [ ] Produktkriterien fuer den Pre-RP-Sim festlegen.
+- [x] Produktkriterien fuer den Pre-RP-Sim festlegen.
 - [ ] Qualitaetskriterien fuer UI und Loop festlegen.
-- [ ] Kriterien fuer lesbaren Spielzustand festlegen.
-- [ ] Kriterien fuer Save/Resume/Replaysicherheit festlegen.
+- [x] Kriterien fuer lesbaren Spielzustand festlegen.
+- [x] Kriterien fuer Save/Resume/Replaysicherheit festlegen.
 
 ### 10. Priorisierung fuer den naechsten Planungsschritt
 
-- [ ] Drei absolut unverzichtbare Kernelemente bestimmen.
-- [ ] Drei Elemente benennen, die spaeter kommen duerfen.
-- [ ] Einen ersten vertikalen Slice des verbleibenden Spielaufbaus definieren.
-- [ ] Offene Punkte markieren, die vor Implementierung entschieden werden muessen.
+- [x] Drei absolut unverzichtbare Kernelemente bestimmen.
+- [x] Drei Elemente benennen, die spaeter kommen duerfen.
+- [x] Einen ersten vertikalen Slice des verbleibenden Spielaufbaus definieren.
+- [x] Offene Punkte markieren, die vor Implementierung entschieden werden muessen.
 
 Definition of Done
 ------------------

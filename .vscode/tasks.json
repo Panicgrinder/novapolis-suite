@@ -176,6 +176,17 @@
       "problemMatcher": []
     },
     {
+      "label": "Checks: sim headless verify",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\run_sim_headless_verify.py"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
       "label": "Checks: text-rpg product gate",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
@@ -319,7 +330,11 @@
         "${workspaceFolder}\\.venv\\Scripts\\python.exe",
         "${workspaceFolder}\\novapolis_agent\\scripts\\run_text_rpg_reference_session.py",
         "--repo-root",
-        "${workspaceFolder}"
+        "${workspaceFolder}",
+        "--spec",
+        "novapolis_agent/eval/config/text_rpg_reference_session.v1.json",
+        "--spec",
+        "novapolis_agent/eval/config/text_rpg_reference_session_handover_slot31_40.v1.json"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "test",

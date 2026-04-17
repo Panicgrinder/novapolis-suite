@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 14:21
-update: Vollsnapshot aus `todo.root.md` archiviert und Root-TODO auf neue Arbeitsvorlage umgestellt.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/archive/todo.root.archive.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 12:35); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/archive/todo.root.archive.md' 'todo.root.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 12:35)
+stand: 2026-04-17 04:39
+update: Der vollstaendig abgeschlossene Root-Backlog vom 2026-04-17 ist archiviert; die aktive Root-TODO ist wieder auf eine leere Arbeitsvorlage zurueckgesetzt.
+checks: snapshot-lock PASS (2026-04-17 02:39); markdownlint=PASS; frontmatter=PASS
 ---
 
 TODO-Archiv (Root)
@@ -15,6 +15,29 @@ Hinweis
 - Direkt unter der Abschnitts-Überschrift im Archiv eine Zeile ergänzen: `archived_at: YYYY-MM-DD HH:MM`.
 
 Archivierte Einträge
+
+Root-Backlog (2026-04-17) - vollständig abgeschlossen
+----------------------------------------------------
+
+archived_at: 2026-04-17 02:39
+
+Quelle: `todo.root.md` (vollstaendiger Stand 2026-04-17 02:27 vor dem Reset auf die neue Arbeitsvorlage).
+
+- [x] Der offene Pre-RP-Produktrest wurde in einen ersten suiteweiten Vertikalslice ueberfuehrt und in `text-rpg-pre-rp-product-model-v1.ssot.md`, `novapolis_agent/docs/runbook.md`, `text-rpg-product-gate-v1.ssot.md` und `sim-ui-menue-ia.ssot.md` kanonisiert.
+- [x] Der zweite Text-RPG-Produktslice hinter `slot 30` wurde suiteweit auf dieselbe Handover-Kette gezogen.
+- [x] Der vertikale Slice `Spielstart Novapolis` wurde als Produktkette vom Prompt bis zur spielbaren Rueckmeldung geschlossen.
+- [x] Der interne Releasepfad `Slice -> spielbarer MVP -> betreibbare Beta` wurde moduluebergreifend abgesichert.
+- [x] Die Prioritaet `spielbarer Kern vor Weltbreite und Komfort` wurde auf Root-Ebene gegen den Modul-Iststand geschlossen.
+- [x] Der verbliebene Root-eval-Rest wurde auf den Modulpfad umgezogen und aus dem aktiven Root-Surface entfernt.
+- [x] Lokale Editor-/Host-Snapshots und weitere sichere Root-Altartefakte wurden in Quarantaene ueberfuehrt.
+- [x] Stil-, Konsistenz- und Reader-Surface-Nachzuege fuer aktive Doku wurden abgeschlossen und in den aktiven SSOTs verankert.
+- [x] Der Agent-Export-/Pack-Pfad, der RP-Inventar-Backfill und die RP-Finalzuteilung wurden als fruehere Root-Querschnittspunkte abgeschlossen und auf Modul-/Prozessquellen verteilt.
+- [x] Sim-Asset-Warnungen, Sim-Minimalprofil und die Wochenabschluesse 2026-03-10 sowie 2026-03-27 wurden als erledigte Root-Punkte validiert dokumentiert.
+- [x] Der Tunnel-Check-Task, die Prioritaetstags der Modul-Boards und die Wochenabschluss-Routine wurden abgeschlossen und bleiben nur noch historisch im Root-Archiv.
+- [x] Die Root-TTS-Migration ist abgeschlossen; der fruehere Punkt lebt nur noch als historischer Abschlussnachweis.
+- [x] Die Standalone-Beta Exit-Checkliste v0 ist vollstaendig gruen: Blocker `B1-B7` sowie Optionals `O8-O12` sind abgeschlossen.
+- [x] Die `Definition of Ready` fuer `Standalone Beta` ist vollstaendig erfuellt und archiviert.
+- [x] Die aktive Datei `todo.root.md` wurde nach dieser Archivierung wieder auf eine leere Arbeitsvorlage fuer neue suiteweite Punkte zurueckgesetzt.
 
 Root-Backlog (2026-02-22) - vollständig abgeschlossen
 ----------------------------------------------------

@@ -1,0 +1,250 @@
+{
+  "session_id": "gate-ref-handover-slot31-40",
+  "campaign_id": "gate-campaign-handover",
+  "contract_version": "text_rpg_session_v1",
+  "session_status": "active",
+  "steps": [
+    {
+      "contract_version": "text_rpg_session_v1",
+      "session_status": "active",
+      "campaign_id": "gate-campaign-handover",
+      "scene_id": "scene-slot31-handover-entry",
+      "slot_id": "slot-31",
+      "slot_index": 31,
+      "turn_id": "turn-0011",
+      "seed": 31,
+      "turn_context": {
+        "turn_mode": "standard",
+        "turn_window_minutes": 30,
+        "tick_minutes": 1,
+        "budget_class": "within_frame"
+      },
+      "world_state": {
+        "tick": 31,
+        "time": 31.0,
+        "regions": {
+          "d5": {
+            "status": "handover-uebernommen"
+          },
+          "c6": {
+            "status": "innenpfad-stabil"
+          }
+        },
+        "actors": {
+          "reflex": {
+            "state": "koordiniert"
+          }
+        },
+        "events": [
+          {
+            "type": "reference_step",
+            "tick": 31,
+            "label": "handover-uebernommen"
+          }
+        ],
+        "sim_meta": {
+          "mode": "reference_handover",
+          "seed": 31
+        }
+      },
+      "world_log": [
+        {
+          "event": "handover-uebernommen",
+          "text": "Der Resume-Anker aus slot 30 ist in D5 uebernommen und der Innenpfad bleibt lesbar.",
+          "slot_id": "slot-31"
+        }
+      ],
+      "pc_log": [
+        {
+          "event": "checkpoint",
+          "text": "Ronja bestaetigt den Handover und priorisiert die offenen Innenarbeiten.",
+          "slot_id": "slot-31"
+        }
+      ],
+      "state_patches": [
+        {
+          "scope": "session",
+          "op": "add",
+          "path": "/flags/handover_slot_30",
+          "value": "acknowledged"
+        }
+      ]
+    },
+    {
+      "contract_version": "text_rpg_session_v1",
+      "session_status": "active",
+      "campaign_id": "gate-campaign-handover",
+      "scene_id": "scene-slot36-g7-relay",
+      "slot_id": "slot-36",
+      "slot_index": 36,
+      "turn_id": "turn-0014",
+      "carry_over": [
+        {
+          "task_id": "d5-innerer-druck",
+          "state": "begonnen",
+          "resume_hint": "innenpfad-stabilisieren"
+        },
+        {
+          "task_id": "g7-kontaktkanal",
+          "state": "unterbrochen",
+          "resume_hint": "kontaktfenster-schmal-halten"
+        }
+      ],
+      "world_state": {
+        "tick": 36,
+        "time": 36.0,
+        "regions": {
+          "d5": {
+            "status": "druck-verwaltet"
+          },
+          "g7": {
+            "status": "kontaktkanal-aktiv"
+          }
+        },
+        "actors": {
+          "reflex": {
+            "state": "leitet-weiter"
+          }
+        },
+        "events": [
+          {
+            "type": "reference_step",
+            "tick": 36,
+            "label": "g7-relay-stabilisiert"
+          }
+        ],
+        "sim_meta": {
+          "mode": "reference_handover",
+          "seed": 31
+        }
+      },
+      "world_log": [
+        {
+          "event": "g7-relay-stabilisiert",
+          "text": "Der schmale Kontaktkanal ueber G7 bleibt offen, ohne einen freien Parallelpfad zu erzeugen.",
+          "slot_id": "slot-36"
+        }
+      ],
+      "pc_log": [
+        {
+          "event": "entscheidung",
+          "text": "Ronja haelt den Kontaktkanal schmal und zieht den Innenpfad nicht vom Handover weg.",
+          "slot_id": "slot-36"
+        }
+      ],
+      "state_patches": [
+        {
+          "scope": "session",
+          "op": "add",
+          "path": "/flags/g7_relay",
+          "value": "narrow_active"
+        }
+      ]
+    },
+    {
+      "contract_version": "text_rpg_session_v1",
+      "session_status": "active",
+      "campaign_id": "gate-campaign-handover",
+      "scene_id": "scene-slot40-follow-anchor",
+      "slot_id": "slot-40",
+      "slot_index": 40,
+      "turn_id": "turn-0018",
+      "carry_over": [
+        {
+          "task_id": "d5-innerer-druck",
+          "state": "begonnen",
+          "resume_hint": "innenpfad-weiter-stabilisieren"
+        },
+        {
+          "task_id": "g7-kontaktkanal",
+          "state": "unterbrochen",
+          "resume_hint": "kontaktfenster-begrenzt-fortsetzen"
+        },
+        {
+          "task_id": "randdruck-e2-f1",
+          "state": "offen",
+          "resume_hint": "randdruck-schmal-halten"
+        }
+      ],
+      "world_state": {
+        "tick": 40,
+        "time": 40.0,
+        "regions": {
+          "d5": {
+            "status": "folgeanker-fixiert"
+          },
+          "g7": {
+            "status": "kontakt-hebel-begrenzt"
+          },
+          "f1": {
+            "status": "randdruck-beobachtet"
+          }
+        },
+        "actors": {
+          "reflex": {
+            "state": "haelt-folgeanker"
+          }
+        },
+        "events": [
+          {
+            "type": "reference_step",
+            "tick": 40,
+            "label": "folgeanker-fixiert"
+          }
+        ],
+        "sim_meta": {
+          "mode": "reference_handover",
+          "seed": 31
+        }
+      },
+      "world_log": [
+        {
+          "event": "folgeanker-fixiert",
+          "text": "Der Folgeanker hinter slot 40 bleibt auf demselben Resume- und Artefaktrahmen fixiert.",
+          "slot_id": "slot-40"
+        }
+      ],
+      "pc_log": [
+        {
+          "event": "entscheidung",
+          "text": "Ronja fixiert den Folgeanker und laesst nur begrenzten Restdruck fuer den naechsten Block offen.",
+          "slot_id": "slot-40"
+        }
+      ],
+      "state_patches": [
+        {
+          "scope": "session",
+          "op": "add",
+          "path": "/flags/follow_anchor_slot_40",
+          "value": "fixed"
+        }
+      ]
+    }
+  ],
+  "expected": {
+    "contract_version": "text_rpg_session_v1",
+    "session_status": "active",
+    "scene_id": "scene-slot40-follow-anchor",
+    "slot_id": "slot-40",
+    "slot_index": 40,
+    "turn_id": "turn-0018",
+    "resume_checkpoint_id": "turn-0018",
+    "turn_context": {
+      "turn_mode": "standard",
+      "turn_window_minutes": 30,
+      "tick_minutes": 1,
+      "budget_class": "within_frame"
+    },
+    "carry_over_count": 3,
+    "checkpoints": [
+      "turn-0011",
+      "turn-0014",
+      "turn-0018"
+    ],
+    "world_log_count": 3,
+    "pc_log_count": 3,
+    "state_patch_count": 3,
+    "world_event_count": 3,
+    "pc_event_count": 3
+  }
+}

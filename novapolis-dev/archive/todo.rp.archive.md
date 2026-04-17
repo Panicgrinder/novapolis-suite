@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 01:49
-update: Vollständig erledigte RP-Abschnitte aus todo.rp.md archiviert (Aktiv jetzt, Priorität B, Priorität C).
-checks: markdownlint-cli2 via Repo-Config auf Archive-Pfad ausgeschlossen (`novapolis-dev/archive/**`); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/archive/todo.rp.archive.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-22 00:33)
+stand: 2026-04-17 04:39
+update: Der zuletzt geschlossene RP-Folgeblock slot 36-40 ist jetzt aus dem Live-Board ins RP-Archiv uebernommen und mit archived_at dokumentiert.
+checks: snapshot-lock PASS (2026-04-17 02:54); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 TODO-Archiv - RP
@@ -26,6 +26,23 @@ Ablage
 - Neueste Einträge oben einfügen.
 
 <!-- Hier unterhalb neue, vollständig erledigte und kanonisierte Blöcke einfügen (neu zuerst). -->
+
+Offene Aufgaben - Slice-2 Folgepfad (2026-04-17)
+------------------------------------------------
+
+archived_at: 2026-04-17 02:54
+
+Quelle: `novapolis-dev/docs/todo.rp.md` (Block `Offene Aufgaben - Slice-2 Folgepfad (2026-04-17)`, Stand 2026-04-17 02:49).
+
+- [x] [Jetzt] Folgekorridor `slot 36-40` oder gleichwertigen Folgeblock unter demselben Slice-2-Handover-Vertrag ausarbeiten.
+	- Ziel: Der RP-Produktpfad soll hinter `slot 35` nicht wieder nur auf einen offenen Marker verweisen, sondern denselben Resume-, Carry-Over- und Reveal-Rahmen in die naechste spielbare Stufe fortsetzen.
+	- Akzeptanzkriterien:
+		1) hinter `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` liegt eine eigene SSOT fuer `slot 36-40` oder ein explizit gleichwertiger Folgeblock unter demselben Vertragsrahmen,
+		2) `resume_checkpoint_id`, offener Restdruck und Carry-Over-Arbeiten bleiben fuer den neuen Block lesbar,
+		3) der Ausbau fuehrt keine unbelegten Stationen, Verbindungen oder Retcons in den aktiven Produktpfad ein,
+		4) Product Gate, Handover-SSOT und RP-Board koennen denselben neuen Anschluss benennen statt weiter bei `slot 31-35` zu enden.
+	- Evidenz: `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` fuehrt im Abschnitt `Weiterer Ausbau` explizit, dass hinter `slot 35` entweder `slot 36-40` oder ein gleichwertiger Folgeblock unter demselben Vertragsrahmen auszuarbeiten ist.
+	- Ergebnis 2026-04-17 02:44: `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md` fuehrt jetzt den Folgepfad als fuenfte Kampagnenstufe auf demselben Handover-Rahmen fort und haelt `resume_checkpoint_id`, offenen Restdruck sowie Carry-Over-Arbeiten ueber `D5`, `C6`, `G7`, `E2` und `F1` lesbar. `text-rpg-product-gate-v1.ssot.md` und `text-rpg-slice-2-handover-v1.ssot.md` benennen im selben Lauf denselben neuen Anschluss; das RP-Board steht damit wieder bei `offen: 0`.
 
 Aktiv jetzt (sicher)
 --------------------

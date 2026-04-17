@@ -1,7 +1,6 @@
----
-stand: 2026-04-15 03:16
-update: Agent-Scope dokumentiert jetzt den operativen Nachzug des Sim-vor-RP-Spielflusses in das Runbook.
-checks: snapshot-lock PASS (2026-04-15 03:16); markdownlint=PASS; frontmatter=PASS (touched md)
+stand: 2026-04-17 02:27
+update: Agent-Scope dokumentiert jetzt denselben ersten suiteweiten Vertikalslice wie Produktmodell, Gate und UI-IA im Runbook.
+checks: snapshot-lock PASS (2026-04-17 02:27); markdownlint=PASS; frontmatter=PASS (touched md)
 
 
 checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
@@ -21,6 +20,9 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 DONELOG – Abgeschlossene Arbeiten
 =================================
 
+2026-04-17 04:00 | Copilot | Den offenen Agent-Punkt fuer den zweiten Handover-Referenzfall hinter `slot 30` geschlossen. `novapolis_agent/eval/config/text_rpg_reference_session_handover_slot31_40.v1.json` fuehrt jetzt einen deterministischen Folgefall bis `slot 40`, `novapolis_agent/scripts/run_text_rpg_reference_session.py` akzeptiert wiederholte `--spec`-Aufrufe fuer mehrere Referenzfaelle, und `scripts/run_text_rpg_product_gate.py` sowie `.vscode/tasks.json` ziehen Basis- und Handover-Fall im selben Standardschritt `Tests: text-rpg reference session`. `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` und `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` fuehren denselben erweiterten Gate- und Handover-Rahmen jetzt auch dokumentarisch.
+
+2026-04-17 02:27 | Copilot | Den ersten suiteweiten Vertikalslice des Pre-RP-Produktpfads im Agent-Runbook geschlossen. `novapolis_agent/docs/runbook.md` fuehrt jetzt denselben Pfad `Hub -> Spielhauptmenue -> Charakterstart -> erster Vollturn -> turn_resume_ready` wie Produktmodell, Product Gate und UI-IA, fixiert den kleinsten stabilen Save-Punkt auf dem ersten `turn_resume_ready` und beschreibt Replay ausdruecklich als Nachvollzug und Wiedereinstiegshilfe statt als parallelen Fortschrittspfad.
 
 2026-04-15 03:16 | Copilot | Den operativen Sim-vor-RP-Spielfluss im Agent-Runbook nachgezogen. `novapolis_agent/docs/runbook.md` dokumentiert jetzt den fachlichen Pfad `Hub -> Spielhauptmenue` fuer den eigentlichen Spieleinstieg, Charakterstart fuer neue Laeufe, Resume-/Checkpoint-Fortsetzung fuer bestehende Laeufe sowie die vertraglichen Bedienmodi `free_text|guided|hybrid` und den sichtbaren Turn-Zustandsrahmen bis `turn_resume_ready`. Damit liegt derselbe Bedienpfad nicht mehr nur in der Sim-Planungs-SSOT, sondern auch in der operativen Agent-Doku fuer Sessionvertrag, Replay und Produkt-Gate.
 

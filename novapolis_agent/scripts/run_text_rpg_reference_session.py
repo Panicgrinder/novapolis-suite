@@ -14,6 +14,9 @@ from typing import Any
 import httpx
 
 DEFAULT_SPEC = "novapolis_agent/eval/config/text_rpg_reference_session.v1.json"
+DEFAULT_HANDOVER_SPEC = (
+    "novapolis_agent/eval/config/text_rpg_reference_session_handover_slot31_40.v1.json"
+)
 DEFAULT_SESSION_STORE = ".tmp/results/reference_sessions"
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -160,6 +163,37 @@ def _validate_expected(actual: dict[str, Any], expected: dict[str, Any]) -> list
 
 
 def _build_markdown(report: dict[str, Any]) -> str:
+    if "cases" in report:
+        lines = ["# Text-RPG Reference Sessions", ""]
+        lines.append(f"- Status: {report['status']}")
+        lines.append(f"- Cases: {report['passed_cases']}/{report['case_count']}")
+        lines.append(f"- Session Store: {report['session_store_dir']}")
+        lines.append("")
+        lines.append("## Cases")
+        for case in report["cases"]:
+            actual = case["actual"]
+            lines.append(
+                "- "
+                f"{case['session_id']}: {case['status']} "
+                f"(spec={case['spec_path']}, slot={actual.get('slot_id')}, "
+                f"turn={actual.get('turn_id')}, resume={actual.get('resume_checkpoint_id')})"
+            )
+            lines.append(
+                "  "
+                f"logs={actual.get('world_log_count')}/{actual.get('pc_log_count')}, "
+                f"patches={actual.get('state_patch_count')}, "
+                f"carry_over={actual.get('carry_over_count')}"
+            )
+        lines.append("")
+        lines.append("## Errors")
+        if report["errors"]:
+            for entry in report["errors"]:
+                lines.append(f"- {entry}")
+        else:
+            lines.append("- none")
+        lines.append("")
+        return "\n".join(lines)
+
     lines = ["# Text-RPG Reference Session", ""]
     lines.append(f"- Status: {report['status']}")
     lines.append(f"- Session ID: {report['session_id']}")
@@ -287,8 +321,35 @@ async def run_reference_session(spec_path: Path, session_store_dir: Path) -> dic
     }
 
 
+async def run_reference_sessions(
+    spec_paths: list[Path], session_store_dir: Path
+) -> dict[str, Any]:
+    case_reports: list[dict[str, Any]] = []
+    errors: list[str] = []
+
+    for spec_path in spec_paths:
+        report = await run_reference_session(spec_path, session_store_dir)
+        case_reports.append(report)
+        if report["errors"]:
+            errors.extend(f"{report['session_id']}: {entry}" for entry in report["errors"])
+
+    passed_cases = sum(1 for report in case_reports if report["status"] == "PASS")
+    return {
+        "status": "PASS" if not errors else "FAIL",
+        "session_store_dir": session_store_dir.as_posix(),
+        "spec_paths": [path.as_posix() for path in spec_paths],
+        "case_count": len(case_reports),
+        "passed_cases": passed_cases,
+        "failed_cases": len(case_reports) - passed_cases,
+        "cases": case_reports,
+        "errors": errors,
+    }
+
+
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run the fixed Text-RPG reference session")
+    parser = argparse.ArgumentParser(
+        description="Run deterministic Text-RPG reference sessions"
+    )
     parser.add_argument(
         "--repo-root",
         default=str(Path(__file__).resolve().parents[2]),
@@ -296,8 +357,13 @@ def main() -> int:
     )
     parser.add_argument(
         "--spec",
-        default=DEFAULT_SPEC,
-        help="Relative path to the reference session spec JSON",
+        action="append",
+        dest="specs",
+        default=[],
+        help=(
+            "Relative path to a reference session spec JSON. "
+            "Can be repeated for multiple deterministic reference cases."
+        ),
     )
     parser.add_argument(
         "--session-store-dir",
@@ -317,7 +383,8 @@ def main() -> int:
     args = parser.parse_args()
 
     repo_root = Path(args.repo_root).resolve()
-    spec_path = (repo_root / args.spec).resolve()
+    spec_inputs = args.specs or [DEFAULT_SPEC]
+    spec_paths = [(repo_root / spec).resolve() for spec in spec_inputs]
     session_store_dir = (repo_root / args.session_store_dir).resolve()
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -325,14 +392,20 @@ def main() -> int:
     report_json = (repo_root / args.report_json).resolve() if args.report_json else default_json
     report_md = (repo_root / args.report_md).resolve() if args.report_md else default_md
 
-    report = asyncio.run(run_reference_session(spec_path, session_store_dir))
+    if len(spec_paths) == 1:
+        report = asyncio.run(run_reference_session(spec_paths[0], session_store_dir))
+    else:
+        report = asyncio.run(run_reference_sessions(spec_paths, session_store_dir))
     report_json.parent.mkdir(parents=True, exist_ok=True)
     report_md.parent.mkdir(parents=True, exist_ok=True)
     report_json.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     report_md.write_text(_build_markdown(report), encoding="utf-8", newline="\n")
 
     print(f"[reference-session] status={report['status']}")
-    print(f"[reference-session] session_id={report['session_id']}")
+    if "session_id" in report:
+        print(f"[reference-session] session_id={report['session_id']}")
+    else:
+        print(f"[reference-session] case_count={report['case_count']}")
     print(f"[reference-session] report_json={report_json}")
     print(f"[reference-session] report_md={report_md}")
     if report["errors"]:

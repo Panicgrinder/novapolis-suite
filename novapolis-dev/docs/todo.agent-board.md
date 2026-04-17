@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 12:25
-update: Die offene Agent-Coverage-Welle fuer chat_helpers, main und tts/providers ist jetzt geschlossen und gegen den kanonischen Wrapper verifiziert.
-checks: snapshot-lock 2026-04-14 12:25; focused coverage PASS (chat_helpers=100, main=98, providers=96); scripts/run_pytest_coverage.py --fail-under 80 PASS (615 passed, total=94.92%)
+stand: 2026-04-17 04:39
+update: Der zuletzt geschlossene Agent-Handover-Block ist archiviert; das Live-Board ist wieder fuer neue Agent-Punkte vorbereitet.
+checks: snapshot-lock PASS (2026-04-17 04:15); workspace-evidence PASS (todo.agent-board, todo.agent.archive, todo.index, WORKSPACE_STATUS, DONELOG); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -21,6 +21,14 @@ Prioritaetstags (aktiv)
 - `Jetzt`: Spielleiter-Orchestrierung und produktfaehiger Weltzustand fuer den ersten spielbaren Slice.
 - `Als naechstes`: GM-Eval-Gates und Session-TTS an denselben Slice anbinden.
 - `Spaeter`: Training, Komfort und weitere Provider erst nach belastbarem Spielkern ausbauen.
+
+Offene Aufgaben (Agent)
+-----------------------
+
+- Zurzeit keine offenen Agent-Punkte.
+
+Abgeschlossene Eintraege (Bestand)
+----------------------------------
 
 Neue Aufgaben - Coverage-Haertung (2026-04-09)
 ----------------------------------------------

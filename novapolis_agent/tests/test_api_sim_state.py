@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 import pytest
-from app.api import sim
+from novapolis_agent.app.api import sim
 from pydantic import ValidationError
 
 
@@ -242,5 +242,41 @@ def test_sim_session_reload_merges_existing_logs(tmp_path: Path) -> None:
         assert second.resume_checkpoint_id == "turn-0002"
         assert reloaded.checkpoints[0] == "tick-0000"
         assert reloaded.checkpoints[-1] == "turn-0002"
+    finally:
+        sim._SESSION_STORE_DIR = original_store_dir
+
+
+@pytest.mark.unit
+def test_sim_session_accepts_handover_slot_index_above_23(tmp_path: Path) -> None:
+    sim.reset_state()
+    original_store_dir = sim._SESSION_STORE_DIR
+    sim._SESSION_STORE_DIR = tmp_path / "sim_sessions"
+    try:
+        record = sim.upsert_session(
+            "session-handover",
+            sim.SessionUpsertRequest(
+                campaign_id="campaign-handover",
+                scene_id="scene-slot40-anchor",
+                slot_id="slot-40",
+                slot_index=40,
+                turn_id="turn-0018",
+                carry_over=[
+                    sim.CarryOverItem(
+                        task_id="follow-anchor",
+                        state="offen",
+                        resume_hint="folgeanker-halten",
+                    )
+                ],
+                world_log=[{"event": "follow-anchor-fixed"}],
+                pc_log=[{"event": "player-choice", "text": "Hold the anchor"}],
+            ),
+        )
+
+        reloaded = sim.get_session("session-handover")
+        assert record.slot_index == 40
+        assert record.slot_id == "slot-40"
+        assert record.resume_checkpoint_id == "turn-0018"
+        assert reloaded.slot_index == 40
+        assert reloaded.checkpoints[-1] == "turn-0018"
     finally:
         sim._SESSION_STORE_DIR = original_store_dir

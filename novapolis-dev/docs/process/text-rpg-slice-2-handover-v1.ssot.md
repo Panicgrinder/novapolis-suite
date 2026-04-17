@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 01:04
-update: Der Slice-2-Handover fuehrt jetzt auch den minimal akzeptierten RP-Adapter-Scope fuer den ersten Integrationsschnitt explizit.
-checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-17 04:39
+update: Der Slice-2-Handover fuehrt jetzt auch den zweiten deterministischen Agent-Referenzfall bis slot 40 als belegten Folgepfad.
+checks: snapshot-lock PASS (2026-04-17 04:09); markdownlint=PASS; frontmatter=PASS
 ---
 
 Text-RPG Slice 2 Handover v1
@@ -22,6 +22,7 @@ Quellenbasis
 ------------
 
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md`
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md`
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md`
 - `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md`
 - `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md`
@@ -56,16 +57,16 @@ Modulrollen
 
 ### RP
 
-- RP fuehrt den Handover entweder als `slot 31-35` oder als explizit modulare Episode auf demselben Vertragsrahmen fort.
+- RP fuehrt den Handover aktuell als `slot 31-35` und `slot 36-40` auf demselben Vertragsrahmen fort; spaetere modulare Episoden bleiben daran gebunden.
 - Reveal-, Missions- und Ortsbezug bleiben an die bereits belegten Raeume und den bestehenden Produktpfad gebunden.
-- Der erste konkrete Ausbau liegt jetzt in `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md`.
+- Die ersten beiden konkreten Ausbauten liegen jetzt in `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` und `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md`.
 
 Minimaler RP-Adapter-Scope fuer den ersten Integrationsschnitt
 --------------------------------------------------------------
 
 - Akzeptiert ist nur ein Adapter, der denselben Handover hinter `slot 30` liest und keine zweite Produktnaht neben `Text-RPG Slice 2 Handover v1` eroefnet.
 - Pflichtanker bleiben `campaign_id`, `session_id`, `scene_id`, `slot_id`, `turn_id`, `resume_checkpoint_id`, `state_patches`, `world_log`, `pc_log` und `replay_manifest.json`.
-- Der erste Integrationsschnitt darf RP-seitig genau den Anschluss an den bereits belegten Folgepfad `slot 31-35` herstellen, inklusive lesbarem Resume-Anker und Carry-Over-Zustand.
+- Der erste Integrationsschnitt darf RP-seitig genau den bereits belegten Folgepfad bis `slot 40` herstellen, inklusive lesbarem Resume-Anker und Carry-Over-Zustand.
 - Der Adapter darf RP-spezifische Darstellung, Folgeoptionen und Reveal-Grenzen auf diesem Vertragsrahmen sichtbar machen, muss dafuer aber keine neue Sessionklasse, keine neue Ticklogik und keinen eigenen Save-/Replay-Pfad einfuehren.
 - Nicht Teil dieses Minimal-Scope sind freie neue Orte, neue Fraktionssysteme, ein zweiter Startwaehler oder neue Parallelformate fuer Save, Replay oder Resume.
 - Der Integrationsschnitt gilt erst dann als sauber, wenn Sim, RP, Product Gate und Runbook denselben Adapter als Fortsetzung desselben Handover und nicht als separaten Produktpfad lesen.
@@ -74,6 +75,7 @@ Minimaler RP-Adapter-Scope fuer den ersten Integrationsschnitt
 
 - Product Gate, Referenz-Session und Runbook muessen den Handover als naechsten gemeinsamen Ausbau hinter `slot 30` benennen.
 - Neue Gate- oder Referenzfaelle hinter `slot 30` duerfen nur auf demselben Session- und Artefaktvertrag aufbauen.
+- Der deterministische Agent-Referenzlauf umfasst jetzt den D5-Basisfall und den Handover-Folgefall `novapolis_agent/eval/config/text_rpg_reference_session_handover_slot31_40.v1.json` bis `slot 40`.
 
 ### Sim
 
@@ -104,5 +106,6 @@ Definition of Done
 - Root-Backlog, Product Gate und Agent-Runbook verweisen auf diese SSOT.
 - RP- und Sim-Folgepunkte benennen denselben Handover statt freier Folgeformeln.
 - Der weitere Ausbau hinter `slot 30` bleibt auf demselben Session- und Artefaktvertrag verankert.
-- Der erste fachliche Ausbau hinter `slot 30` liegt als eigene RP-SSOT fuer `slot 31-35` oder als gleichwertige modulare Episode vor.
+- Die ersten fachlichen Ausbauten hinter `slot 30` liegen als eigene RP-SSOTs fuer `slot 31-35` und `slot 36-40` vor.
 - Der minimal akzeptierte RP-Adapter-Scope fuer den ersten Integrationsschnitt ist explizit benannt und fuehrt keinen zweiten Resume-, Save- oder Produktpfad ein.
+- Der zweite deterministische Agent-Referenzfall hinter `slot 30` liegt als eigene Referenzdatei vor und nutzt denselben Session- und Artefaktvertrag bis `slot 40`.

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 01:04
-update: Die kanonischen Verweise zeigen nach Archivierung der alten Redirect-SSOT nur noch auf aktive Zielquellen.
-checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-17 04:39
+update: Die UI-IA verweist jetzt fuer den kanonischen CLI-Smoke desselben Hub-/Spielpfads auf den Headless-Verify-Wrapper und den VS-Code-Task.
+checks: snapshot-lock PASS (2026-04-17 04:20); markdownlint=PASS; frontmatter=PASS
 ---
 
 Sim UI- und Menue-IA (SSOT)
@@ -19,6 +19,16 @@ Scope
 - Zustandsbesitz fuer Session, Slot, Replay-Anker und aktive Ansicht
 - Rueckwege zwischen Hub, Spielsicht und operativen Modulen
 - kanonische User-Hinweise fuer den Zustand, in dem RP noch nicht aktiv oder noch nicht ueber denselben Sessionpfad angeschlossen ist
+
+Produktlesart des ersten Vertikalslice
+-------------------------------------
+
+- Der erste suiteweite Vertikalslice lautet auch in der UI verbindlich `Hub -> Spielhauptmenue -> Charakterstart -> erster Vollturn -> turn_resume_ready`.
+- Der kleinste stabile Save-Punkt ist das erste `turn_resume_ready` nach einem voll ausgespielten ersten Turn; davor darf die UI keinen versprochenen Resume-Anker anzeigen.
+- Replay-Zweck bleibt Nachvollzug und Wiedereinstiegshilfe fuer denselben Lauf und nicht ein paralleler Fortschrittspfad.
+- Pflichtkern fuer die erste sichtbare UI: KI-gestuetzter Charakterstart, lesbarer erster Vollturn mit unmittelbarem Anschlusssignal, Save-/Resume-/Replay-Bruecke ab `turn_resume_ready`.
+- Bewusst spaeter bleiben breitere Startauswahl, aktive RP-Integration hinter `slot 30` und Komfort-/Atmosphaereausbau.
+- Kanonischer CLI-Smoke fuer genau diesen UI-Pfad bleibt `Checks: sim headless verify` bzw. `& .\.venv\Scripts\python.exe scripts\run_sim_headless_verify.py`.
 
 Screen- und Menuebaum
 ---------------------
@@ -74,6 +84,7 @@ Zustandsbesitz
 - Besitzer: Sim-API plus lokaler Auswahlzustand
 - Daten: `resume_checkpoint_id`, `checkpoints`, `replay_manifest`, lokal gewaehlter Checkpoint
 - Persistenz: Resume- und Replay-Basis in den Session-Artefakten; zuletzt gewaehlter Checkpoint zusaetzlich in `user://hub_prefs.cfg`
+- Fachliche Lesart: Resume setzt nur den kleinsten stabilen Save-Punkt auf `turn_resume_ready` fort; Replay dient demselben Lauf als Nachvollzug und Wiedereinstiegshilfe.
 
 ### Aktive Ansicht
 

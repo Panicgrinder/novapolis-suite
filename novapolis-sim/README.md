@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 01:04
-update: Die Sim-README dokumentiert jetzt den kanonischen Export-/Release-Pfad, die UI-/Menue-IA-SSOT und die neue Fortsetzungspersistenz fuer Live-Session und Replay.
-checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS; get_errors=PASS
+stand: 2026-04-17 04:39
+update: Die Sim-README fuehrt jetzt den kanonischen Headless-Verify-Wrapper samt Fallback-Aufloesung und dokumentiert den bereinigten Godot-CLI-Smoke mit EXITCODE=0.
+checks: snapshot-lock PASS (2026-04-17 04:20); markdownlint=PASS; frontmatter=PASS; get_errors=PASS
 ---
 
 Novapolis Sim
@@ -65,12 +65,15 @@ Set-Location "${workspaceFolder}/novapolis_agent"
 - Godot starten (Editor) oder Headless verifier:
 
 ```powershell
-$godot = if ($env:GODOT_BIN) { $env:GODOT_BIN } else { 'godot4' }
 # optional: $env:AGENT_PORT = 8765
+$godot = if ($env:GODOT_BIN) { $env:GODOT_BIN } elseif (Get-Command godot4 -ErrorAction SilentlyContinue) { 'godot4' } else { 'godot' }
+# optional, falls Godot nicht in PATH liegt: $env:GODOT_BIN = '<Pfad-zur-Godot-Binary>'
 & $godot --path "${workspaceFolder}/novapolis-sim"
-# headless verifier (prints SIM_VERIFY: OK and exits):
-& $godot --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless
+# kanonischer Headless-Verifier (prints SIM_VERIFY: OK and exits):
+& .\.venv\Scripts\python.exe scripts\run_sim_headless_verify.py
 ```
+
+Alternativ in VS Code direkt den Task `Checks: sim headless verify` ausfuehren. Der Wrapper nutzt zuerst `--godot-bin`, dann `GODOT_BIN` und danach `godot4`/`godot` aus dem PATH.
 
 - Quick POST check (PowerShell):
 
@@ -101,7 +104,7 @@ Avoiding the Editor / (DEBUG) window
 Wenn du vermeiden willst, dass Godot das Editorfenster mit „(DEBUG)“ öffnet, starte die Simulation headless oder führe eine exportierte Release-Build aus. Zwei einfache Optionen:
 
 - Vorher bei Bedarf einmalig setzen: `$env:GODOT_BIN = '<Pfad-zur-Godot-Binary>'`.
-- Headless verifier (schnell, für CI / Smoke): `& $env:GODOT_BIN --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless` oder ohne gesetzte Variable mit `godot4 --path "${workspaceFolder}/novapolis-sim" -s res://scripts/verify_sim.gd --headless` starten.
+- Headless verifier (schnell, fuer CI / Smoke): `& .\.venv\Scripts\python.exe scripts\run_sim_headless_verify.py` oder bei Bedarf explizit `& .\.venv\Scripts\python.exe scripts\run_sim_headless_verify.py --godot-bin '<Pfad-zur-Godot-Binary>'` starten.
 - Release/Export (empfohlen für Produktion): Exportiere das Projekt (`Project -> Export`) als Windows Desktop und starte die erzeugte `.exe` — das läuft ohne Editor-Overlay und ohne Debug-Label.
 
 Fortsetzung und Persistenz
@@ -127,6 +130,7 @@ Kanonische UI-/Menue-IA
 Verification Record
 -------------------
 
+- 2026-04-17 04:24 — Der kanonische Wrapper `scripts/run_sim_headless_verify.py` lief gegen Godot `v4.6.1.stable.official.14d19694e` mit explizitem `--godot-bin` erfolgreich durch. `res://scripts/verify_sim.gd` meldete `SIM_VERIFY: OK`, und nach der Cleanup-Korrektur endet derselbe Lauf jetzt ohne RID-/Resource-Leaks bei `EXITCODE=0`.
 - 2025-11-16 04:54 — Headless verification executed: Godot Engine `v4.5.1.stable.official.f62fdbde1` loaded `novapolis-sim/project.godot` in headless mode and exited cleanly. Log file: `.tmp/results/logs/godot_headless_20251116_045407.log`. Quick scan found no ERROR/WARNING/Traceback lines. See `novapolis-dev/docs/donelog.md` for the postflight entry.
 
 Kanonischer Testablauf (lokal)
@@ -135,7 +139,7 @@ Kanonischer Testablauf (lokal)
 Die Sim-Verifikation laeuft in fester Reihenfolge:
 
 1. API-smoke
-2. Godot-headless scene load
+2. Godot-headless verify
 3. Offline-Asset-Check
 4. optionaler Eval-Fokuslauf
 
@@ -145,8 +149,8 @@ Beispielkommandos (Workspace-Root):
 # 1) API-smoke
 .\.venv\Scripts\python.exe -m pytest -q novapolis_agent/tests/tests_sim_api.py::test_get_world_state_initial_values
 
-# 2) Godot-headless
-godot --headless --path '.\novapolis-sim' --quit --scene res://Main.tscn
+# 2) Godot-headless verify
+.\.venv\Scripts\python.exe scripts\run_sim_headless_verify.py
 
 # 3) Offline-Asset-Check (+ optionale Slot-Konsistenz)
 .\.venv\Scripts\python.exe scripts/check_sim_epoch_assets.py --allow-empty --check-slot-consistency
@@ -155,7 +159,7 @@ godot --headless --path '.\novapolis-sim' --quit --scene res://Main.tscn
 .\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --profile eval --limit 20 --quiet --tag quality_de --checks must_include,keywords_any,keywords_at_least,not_include,regex,quality_de --packages novapolis_agent/eval/datasets/neutral/quality_de_core.v1.jsonl --packages novapolis_agent/eval/datasets/neutral/quality_de_drift.v1.jsonl --packages novapolis_agent/eval/datasets/neutral/quality_de_canary.v1.jsonl
 ```
 
-Hinweis: Stufe 1 bis 3 muessen gruen sein, bevor ein Sim-Lauf als lokal verifiziert gilt. Mit `--allow-empty` pruefst du das warnungsfreie Clean-Checkout-Profil; ohne dieses Flag pruefst du den Vollstand mit echten Offline-Artefakten. Mit `--check-slot-consistency` gilt der Lauf als fehlgeschlagen bei Slot-Mismatch (`world_log` vs. `pc_log`) oder ungueltigen Slotwerten ausserhalb `0..23`.
+Hinweis: Stufe 1 bis 3 muessen gruen sein, bevor ein Sim-Lauf als lokal verifiziert gilt. Mit `--allow-empty` pruefst du das warnungsfreie Clean-Checkout-Profil; ohne dieses Flag pruefst du den Vollstand mit echten Offline-Artefakten. Mit `--check-slot-consistency` gilt der Lauf als fehlgeschlagen bei Slot-Mismatch (`world_log` vs. `pc_log`) oder ungueltigen Slotwerten ausserhalb `0..23`. Fuer den Headless-Verifier bleibt `Checks: sim headless verify` der kanonische VS-Code-Einstieg.
 
 Hinweis: Wenn deine lokale Godot-Binary eine Debug-Build ist, zeigt das exportierte Editor-Playfenster weiterhin Debug-Markierungen. Lade im Zweifelsfall die offizielle Release-Binary von `https://godotengine.org` oder nutze einen Export (Release) für produktives Ausführen.
 

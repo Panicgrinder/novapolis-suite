@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-24 15:35
-update: Erledigten Dev-Block aus todo.dev validiert uebernommen und mit archived_at dokumentiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.dev.archive.md' '.github/instructions/rp-docs.instructions.md' 'DONELOG.md' PASS (2026-02-23 22:29); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/todo.dev.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' 'novapolis-dev/archive/todo.dev.archive.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-23 22:29)
+stand: 2026-04-17 04:39
+update: Der zuletzt geschlossene Dev-Steuerpunkt ist jetzt aus dem Live-Board ins Dev-Archiv uebernommen und mit archived_at dokumentiert.
+checks: snapshot-lock PASS (2026-04-17 02:54); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 TODO-Archiv - Dev
@@ -19,6 +19,23 @@ Ablage
 - Neueste Einträge oben einfügen.
 
 <!-- Hier unterhalb neue, vollständig erledigte Blöcke einfügen (neu zuerst). -->
+
+Offene Aufgaben (Dev) - Reader-Surface-Abschluss 2026-04-17
+-----------------------------------------------------------
+
+archived_at: 2026-04-17 02:54
+
+Quelle: `novapolis-dev/docs/todo.dev.md` (Block `Offene Aufgaben (Dev)`, Stand 2026-04-17 02:44).
+
+- [x] [Jetzt] Active-Surface-Index und Workspace-Reader-Surface gegen den April-Iststand haerten.
+	- Ziel: Der aktive Dev-Steuerpfad soll die seit Maerz mehrfach mutierten Boards, DONELOGs und Prozess-SSOTs nicht weiter mit veralteten `last_check`- und Phase-Claims fuehren.
+	- Akzeptanzkriterien:
+		1) `novapolis-dev/docs/active-surface-index.md` fuehrt fuer aktive Boards, DONELOG und relevante Prozessquellen belastbare `last_check`-Werte und Owner nach den April-Laeufen,
+		2) `WORKSPACE_INDEX.md` fuehrt den aktuellen Reader-/Sweep-Zustand ohne irrefuehrenden Dauerclaim `Phase 2 aktiv`, wenn dieser Status nicht mehr die reale Lage beschreibt,
+		3) die aktive Reader-Surface bleibt portabel und widerspricht weder `todo.index.md` noch `WORKSPACE_STATUS.md`,
+		4) der Nachzug bleibt ein Doku-/Governance-Lauf ohne unbegruendeten Strukturumbau.
+	- Evidenz: `novapolis-dev/docs/active-surface-index.md` fuehrt fuer `todo.index.md`, `todo.dev.md`, `todo.rp.md`, `todo.agent-board.md`, `todo.sim.md` und `donelog.md` noch `last_check = 2026-03-04`, obwohl diese Dateien im April mehrfach mutiert wurden; `WORKSPACE_INDEX.md` spricht zugleich weiter von `Phase 2 aktiv` auf `stand: 2026-03-30`.
+	- Ergebnis 2026-04-17 02:44: `novapolis-dev/docs/active-surface-index.md` fuehrt fuer die aktiven Boards, `donelog.md` und `process/**` jetzt belastbare April-Pruefstaende statt des alten Maerz-Drifts. `WORKSPACE_INDEX.md` benennt den Phase-2-Konsistenzlauf nicht mehr als dauerhaft aktiv, sondern als dokumentierten Prozessanker mit inkrementeller Pflege ueber Board-, DONELOG- und Status-Sync. `todo.index.md` und `WORKSPACE_STATUS.md` widersprechen dem Reader-Surface damit nicht mehr; das Dev-Board steht wieder bei `offen: 0`.
 
 Offene Aufgaben (Dev) - Snapshot 2026-02-23 abgeschlossen
 ----------------------------------------------------------

@@ -32,6 +32,7 @@ func _init() -> void:
 	var scene_root := _load_main_scene(errors)
 	if scene_root != null:
 		_validate_main_scene(scene_root, errors)
+		_cleanup_main_scene(scene_root)
 
 	if errors.is_empty():
 		print("SIM_VERIFY: OK")
@@ -93,3 +94,7 @@ func _validate_main_scene(scene_root: Node, errors: Array[String]) -> void:
 	for node_path in _REQUIRED_NODE_PATHS:
 		if scene_root.get_node_or_null(NodePath(node_path)) == null:
 			errors.append("required node missing: %s" % node_path)
+
+
+func _cleanup_main_scene(scene_root: Node) -> void:
+	scene_root.free()

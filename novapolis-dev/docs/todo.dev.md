@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-14 12:55
-update: Der kurz geoeffnete Ruff-/Black-Rest aus der Wochenpruefung 2026-04-14 ist geschlossen; das Dev-Board steht wieder bei offen: 0.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260414_124519.md
+stand: 2026-04-17 04:39
+update: Der zuletzt geschlossene Reader-Surface-Steuerpunkt ist archiviert; das Live-Board ist fuer neue Dev-Punkte vorbereitet.
+checks: snapshot-lock PASS (2026-04-17 04:09); workspace-evidence PASS (todo.dev, todo.dev.archive, todo.index, WORKSPACE_STATUS, DONELOG); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -18,6 +18,11 @@ Hinweis
 
 Offene Aufgaben (Dev)
 ---------------------
+
+- Zurzeit keine offenen Dev-Punkte.
+
+Abgeschlossene Eintraege (Bestand)
+----------------------------------
 
 - [x] [Jetzt] Repo-eigene Ruff-/Black-Restdrift aus der Wochenpruefung 2026-04-14 schliessen.
   - Ziel: Der kanonische Full-Check soll nach dem Wochenlauf nicht mehr an Python-Lint-/Formatresten in `novapolis_agent` und `scripts` haengen, nachdem `markdownlint`, `path-portability`, Typen, Tests, Coverage und die Hygiene-Cadence bereits wieder gruen sind.

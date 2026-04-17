@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-10 13:22
-update: Das RP-Board fuehrt `slot 31-35` jetzt als eigene Anschluss-SSOT unter `Text-RPG Slice 2 Handover v1`; der RP-Folgepunkt ist damit geschlossen.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-17 04:39
+update: Der zuletzt geschlossene RP-Folgeblock slot 36-40 ist archiviert; das Live-Board ist fuer neue RP-Punkte vorbereitet.
+checks: snapshot-lock PASS (2026-04-17 04:09); workspace-evidence PASS (todo.rp, todo.rp.archive, todo.index, WORKSPACE_STATUS, DONELOG); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -20,8 +20,13 @@ Prioritaetstags (aktiv)
 - `Als naechstes`: Reveal-/Geheimhaltungsregeln und fail-forward Folgekorridor fuer mehrere Slots sauber kanonisieren.
 - `Spaeter`: TTS-Block (OGG-Kandidaten + Live-Dialog-Cache) erst nach belastbarem Spielkern ausrollen.
 
-Neue Aufgaben - Text-RPG Produktpfad (2026-04-03)
--------------------------------------------------
+Offene Aufgaben (RP)
+--------------------
+
+- Zurzeit keine offenen RP-Punkte.
+
+Abgeschlossene Eintraege (Bestand)
+----------------------------------
 
 - [x] [Als naechstes] `Text-RPG Slice 2 Handover v1` als belastbare Anschluss-SSOT `slot 31-35` oder gleichwertige modulare Episode ausarbeiten.
   - Ziel: Der RP-Produktpfad soll hinter dem ersten belegten Episodenanker nicht wieder nur als Hinweis enden, sondern denselben Start-/Reveal-/Resume-Rahmen in die naechste spielbare Stufe fortsetzen.
