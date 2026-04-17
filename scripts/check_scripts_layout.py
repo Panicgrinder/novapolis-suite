@@ -80,6 +80,8 @@ def _is_allowed_new_script(path: str) -> bool:
     allowed_compat = {
         "novapolis_agent/scripts/agent/__init__.py",
         "novapolis_agent/scripts/agent/_proxy.py",
+        "novapolis_agent/scripts/agent/export_finetune.py",
+        "novapolis_agent/scripts/agent/fine_tune_pipeline.py",
         "novapolis_agent/scripts/agent/run_eval.py",
         "novapolis_agent/scripts/agent/quick_eval.py",
         "novapolis_agent/scripts/agent/prepare_finetune_pack.py",
@@ -87,6 +89,9 @@ def _is_allowed_new_script(path: str) -> bool:
         "novapolis_agent/scripts/agent/estimate_tokens.py",
         "novapolis_agent/scripts/agent/map_reduce_summary_llm.py",
         "novapolis_agent/scripts/agent/migrate_dataset_schemas.py",
+        "novapolis_agent/scripts/agent/rerun_failed.py",
+        "novapolis_agent/scripts/agent/rerun_from_results.py",
+        "novapolis_agent/scripts/agent/train_lora.py",
     }
     if path in allowed_compat:
         return True

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Root-Summary dokumentiert jetzt auch den kleinen Root-Konsistenznachzug; die aktive Root-Uebersicht fuehrt wieder denselben Stand wie der TODO-Index.
-checks: snapshot-lock PASS (2026-04-17 04:33); workspace-evidence PASS (todo.root, todo.index, DONELOG); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-17 05:25
+update: Root-Summary dokumentiert jetzt auch den Commit-Preflight fuer den Main-Push; Snapshot-Stand, Root-Trees und Wrapper-Aenderungen sind gemeinsam auf einen frischen Gate-Zeitpunkt nachgezogen.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_052246.md
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,12 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-17 05:18: Der Commit-Preflight fuer den Push auf `main` ist frisch nachgezogen. Die aktiven Root-Dokus fuehren wieder denselben Snapshot-Zeitpunkt wie `.snapshot.now`, die bereits aktualisierten Tree-Artefakte und Wrapper-Aenderungen bleiben der belegte Nutzinhalt des Laufs, und der vorbereitende Fokus-Testscope fuer die neuen Agent-Wrapper-Checks bleibt vor dem Commit gruen.
+
+- 2026-04-17 04:54: Der Wrapper-Reparaturlauf ist belegt abgeschlossen. Die vier aktiven VS-Code-Tasks mit direktem `pwsh`-Shelltyp in `.vscode/tasks.json` laufen jetzt als Prozess-Tasks und umgehen damit den lokalen Launcher-Bruch `pwsh -NoLogo /d /c ...`; `Workspace tree: full` und `Workspace tree: directories` starten danach ohne den alten `/d`-Fehler, und `TTS: check voices` erreicht wieder den eigentlichen Runtime-Aufruf statt schon im Launcher mit Exitcode `64` abzubrechen. Zusaetzlich spiegelt `novapolis_agent/scripts/agent/` die oeffentlichen Root-Wrapper aus `scripts/agent/` wieder vollstaendig, sodass `scripts.agent.fine_tune_pipeline` und die uebrigen Shims auch bei `cwd=novapolis_agent` wieder importierbar sind; ein neuer Drift-Test deckt diese Spiegelung kuenftig ab.
+
+- 2026-04-17 04:44: Der Root-Tree-Refresh ist erneut auf den aktuellen Workspace-Stand nachgezogen. `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` spiegeln jetzt auch die aktuellen `.tmp`-Referenz-/Reportpfade sowie die lokale Venv-/Cache-Oberflaeche; der anschliessende aktive Freshness-Lauf bleibt mit `checked_docs=14` und `findings=0` PASS. Die vorhandenen Shell-Tasks `Workspace tree:*` brechen lokal weiter am bekannten `pwsh /d /c`-Launcherpfad ab, deshalb lief derselbe Refresh wieder direkt per Terminal plus `scripts/update_workspace_tree_dirs.py`.
 
 - 2026-04-17 04:33: Der kleine Root-Konsistenznachzug ist abgeschlossen. `todo.root.md` fuehrt im Kurzstatus jetzt wieder denselben Modulstand `Dev=0`, `RP=0`, `Agent=0`, `Sim=0` wie `novapolis-dev/docs/todo.index.md`; es wurde kein neuer Board-Inhalt geaendert, nur der veraltete Kurzstatus auf den bereits belegten Iststand nachgezogen.
 

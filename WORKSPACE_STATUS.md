@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Der zuletzt geschlossene Sim-Board-Block ist jetzt archiviert; alle Live-Boards bleiben bei offen: 0.
-checks: snapshot-lock PASS (2026-04-17 04:27); workspace-evidence PASS (todo.sim, todo.sim.archive, todo.index, DONELOG); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 05:25
+update: Commit-Preflight und aktive Reader-Doku fuehren wieder einen frischen gemeinsamen Snapshot-Zeitpunkt; der vorbereitende Gate-Lauf bleibt ohne neue Docs-Befunde.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_052246.md
 ---
 
 Workspace-Status
@@ -9,6 +9,10 @@ Workspace-Status
 
 Aktuelles Wochenfenster
 -----------------------
+
+- 2026-04-17 05:18: Vor dem Push auf `main` sind die aktiven Root-Dokus erneut auf denselben frischen Snapshot-Zeitpunkt wie `.snapshot.now` nachgezogen. Die bereits aktualisierten Tree-Artefakte und Wrapper-Dateien bleiben unveraendert der sachliche Inhalt des Laufs; zusaetzlich bleibt der vorbereitende Fokus-Testscope fuer die neuen Agent-Wrapper-Checks gruen.
+
+- 2026-04-17 04:44: Die Root-Tree-Artefakte `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` sind erneut auf den aktuellen Workspace-Stand gezogen. Der Refresh spiegelt jetzt auch die aktuellen `.tmp`-Referenz-/Reportpfade sowie die lokale Venv-/Cache-Oberflaeche; der anschliessende aktive Freshness-Lauf bleibt mit `checked_docs=14` und `findings=0` PASS. Die vorhandenen Shell-Tasks `Workspace tree:*` brechen lokal weiter am bekannten `pwsh /d /c`-Launcherpfad ab, deshalb lief derselbe Refresh wieder direkt per Terminal plus `scripts/update_workspace_tree_dirs.py`.
 
 - 2026-04-17 04:27: Der zuletzt geschlossene Sim-Board-Block ist jetzt archiviert. `novapolis-dev/archive/todo.sim.archive.md` fuehrt den Sim-Abschlussschnitt vom 2026-04-17 mit `archived_at`, und `novapolis-dev/docs/todo.sim.md` ist wieder als schlanke Live-Oberflaeche fuer neue Sim-Punkte vorbereitet. `novapolis-dev/docs/todo.index.md` fuehrt den Modulstand weiter mit `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
 

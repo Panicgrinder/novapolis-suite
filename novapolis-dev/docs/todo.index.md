@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
+stand: 2026-04-17 05:25
 update: Der TODO-Index spiegelt jetzt auch die Archivierung des letzten Sim-Abschlussschnitts; alle Live-Boards stehen weiter bei offen: 0.
-checks: snapshot-lock PASS (2026-04-17 04:27); workspace-evidence PASS (todo.sim, todo.sim.archive, todo.index, WORKSPACE_STATUS, DONELOG); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_052246.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -38,9 +38,9 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-04-14 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-04-10 | keiner (offen: 0) | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-04-14 | keiner (offen: 0) | nein |
+| Dev (`docs/todo.dev.md`) | 2026-04-17 | keiner (offen: 0) | nein |
+| RP (`docs/todo.rp.md`) | 2026-04-17 | keiner (offen: 0) | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-04-17 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-04-17 | keiner (offen: 0) | nein |
 
 

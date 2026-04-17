@@ -213,7 +213,7 @@
     },
     {
       "label": "Workspace tree: full",
-      "type": "shell",
+      "type": "process",
       "command": "pwsh",
       "args": ["-NoLogo", "-Command", "tree /A /F | Out-File -Encoding ascii workspace_tree_full.txt"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -223,7 +223,7 @@
     },
     {
       "label": "Workspace tree: directories",
-      "type": "shell",
+      "type": "process",
       "command": "pwsh",
       "args": ["-NoLogo", "-Command", "tree /A | Out-File -Encoding ascii workspace_tree.txt"],
       "options": { "cwd": "${workspaceFolder}" },
@@ -811,7 +811,7 @@
     ,
     {
       "label": "TTS: clean cache",
-      "type": "shell",
+      "type": "process",
       "command": "pwsh",
       "args": [
         "-NoLogo",
@@ -827,7 +827,7 @@
     ,
     {
       "label": "TTS: check voices",
-      "type": "shell",
+      "type": "process",
       "command": "pwsh",
       "args": [
         "-NoLogo",

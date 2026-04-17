@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Dev-DONELOG dokumentiert jetzt auch den kleinen Root-Konsistenznachzug fuer die aktive TODO-Uebersicht.
-checks: snapshot-lock PASS (2026-04-17 04:33); workspace-evidence PASS (todo.root, todo.index, DONELOG); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-17 05:25
+update: Dev-DONELOG dokumentiert jetzt auch den Commit-Preflight fuer den Main-Push; aktive Reader-Doku und belegte Tree-/Wrapper-Artefakte fuehren wieder denselben frischen Snapshot-Zeitpunkt.
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_052246.md
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,20 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Commit-Preflight: Aktive Reader-Doku vor dem Main-Push auf frischen Snapshot-Stand gezogen (2026-04-17 05:18)
+-----------------------------------------------------------------------------------------------------------
+
+- `DONELOG.md`, `WORKSPACE_STATUS.md` und diese Dev-DONELOG-Datei fuehren vor dem Push auf `main` wieder denselben Snapshot-Zeitpunkt wie `.snapshot.now`.
+- Die bereits aktualisierten `workspace_tree*.txt`-Artefakte sowie die Wrapper-/Test-Aenderungen bleiben der sachliche Inhalt des Laufs; der Doku-Nachzug zieht nur den Gate-Zeitwert und den belegten Commit-Preflight nach.
+- Der vorbereitende Fokus-Testscope fuer die neuen Agent-Wrapper-Checks bleibt vor dem Commit gruen.
+
+Workspace-Trees: Root-Strukturartefakte und aktive Reader-Doku erneut auf Iststand gezogen (2026-04-17 04:44)
+----------------------------------------------------------------------------------------------------------
+
+- `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` sind erneut direkt aus dem aktuellen Repo-Stand erzeugt und spiegeln jetzt auch die aktuellen `.tmp`-Referenz-/Reportpfade sowie die lokale Venv-/Cache-Oberflaeche.
+- Der anschliessende aktive Freshness-Lauf bleibt mit `checked_docs=14` und `findings=0` PASS; es war kein weiterer Stale-Docs-Nachzug noetig.
+- Die vorhandenen Shell-Tasks `Workspace tree:*` brechen lokal weiter am bekannten `pwsh /d /c`-Launcherpfad ab, deshalb lief derselbe Refresh wieder direkt per Terminal plus `scripts/update_workspace_tree_dirs.py` statt ueber die Task-Wrapper.
 
 Root-Konsistenznachzug: Aktive TODO-Uebersicht auf den aktuellen Index-Stand gezogen (2026-04-17 04:33)
 -----------------------------------------------------------------------------------------------------
