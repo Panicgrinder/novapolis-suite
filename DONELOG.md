@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 07:12
-update: Root-Summary dokumentiert jetzt den geschlossenen Board-Refill fuer Root und alle vier Live-Boards; der kanonische Full-Check bleibt vollstaendig auf PASS.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
+stand: 2026-04-18 00:55
+update: Root-Summary dokumentiert jetzt auch die Archivierung des abgeschlossenen April-Root-Blocks; der kanonische Full-Check bleibt vollstaendig auf PASS.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 00:55)
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,16 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-18 00:49: Der vollstaendig abgeschlossene April-Root-Block ist jetzt unter `novapolis-dev/archive/todo.root.archive.md` archiviert. `todo.root.md` ist wieder die schlanke Live-Oberflaeche fuer neue suiteweite Punkte; `WORKSPACE_STATUS.md`, `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/todo.index.md` fuehren denselben Archivstand ohne offene Root-Punkte nach.
+
+- 2026-04-17 23:59: Der letzte offene Root-Punkt zur suiteweiten Hygiene-Cadence ist geschlossen. `novapolis-dev/docs/process/abschluss-routine.ssot.md` bleibt die kanonische Vorlage fuer den 60-Minuten-Slot aus Drift-Scan, Donelog-Cleanup und TODO/Index-Abgleich; `todo.root.md`, `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` fuehren denselben April-Rahmen jetzt sichtbar mit den KPI-Feldern `todo_index_drift`, `active_docs_stale`, `placeholder_conflicts` und `logs_policy_violations`. `todo.root.md` fuehrt damit aktuell keinen offenen suiteweiten Folgepunkt mehr.
+
+- 2026-04-17 23:22: Die beiden offenen Root-Punkte zum player-facing Handover hinter `slot 30` und zum suiteweiten Release-Evidence-Bundle sind geschlossen. `novapolis-dev/docs/process/text-rpg-pre-rp-product-model-v1.ssot.md`, `text-rpg-slice-2-handover-v1.ssot.md` und `rp-folgekorridor-slot-31-35.ssot.md` fuehren jetzt dieselbe Kurzformel `Weiter im selben Lauf: offener Druck, offene Aufgaben, klarer naechster Zug.`; die neue Klammer `novapolis-dev/docs/process/text-rpg-release-evidence-bundle-v1.ssot.md` bindet dazu `Checks: full`, `Checks: text-rpg product gate`, die deterministischen Referenzfaelle, den Sim-Export-Smoke und die Workspace-Protokollierung zusammen. `README.md`, `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` und `novapolis-dev/docs/process/sim-export-release-path.ssot.md` zeigen jetzt auf denselben Freigabepfad; `todo.root.md` fuehrt damit nur noch einen suiteweiten Folgepunkt.
+
+- 2026-04-17 22:51: Der offene Root-Punkt zu Druck-, Knappheits- und Warnsignalen ist geschlossen. `novapolis-dev/docs/process/text-rpg-pre-rp-product-model-v1.ssot.md` und `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md` fuehren jetzt dieselbe Viererlesart `stille Hintergrundlage`, `Knappheit`, `Warnung` und `Ueberzug`; `novapolis-sim/README.md` zieht dieselbe IA-Lesart fuer den produktiven Hub im selben Lauf nach. `todo.root.md` fuehrt damit nur noch drei suiteweite Folgepunkte, waehrend `novapolis-dev/docs/todo.index.md` den Root-Hinweis entsprechend nachzieht.
+
+- 2026-04-17 22:36: Der offene Root-Punkt zur Fail-Forward-Sprache ist geschlossen. `novapolis-dev/docs/process/text-rpg-turn-budget-model-v1.ssot.md` fuehrt jetzt die kanonischen Recovery-Klassen `teilmoeglich`, `verschoben` und `blockiert`; `text-rpg-pre-rp-product-model-v1.ssot.md`, `text-rpg-product-gate-v1.ssot.md`, `novapolis_agent/docs/runbook.md` und `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md` fuehren dieselbe Lesart im selben Lauf nach. `todo.root.md` fuehrt damit nur noch vier suiteweite Folgepunkte, waehrend `novapolis-dev/docs/todo.index.md` den Root-Hinweis entsprechend nachzieht.
 
 - 2026-04-17 06:37: Der evidenzbasierte Board-Refill fuer die aktive Workspace-Oberflaeche ist geschlossen. `todo.root.md` sowie `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.rp.md` und `novapolis-dev/docs/todo.sim.md` fuehren nach dem erneuten Workspace-Scan wieder je fuenf aktive Folgepunkte; `novapolis-dev/docs/todo.index.md` synchronisiert die Modul-Open-Counts jetzt auf `Dev=5`, `RP=5`, `Agent=5` und `Sim=5`, waehrend Root bewusst separat bleibt. Der kanonische Sammellauf `.tmp/results/reports/checks_report_20260417_063849.md` endet dazu vollstaendig mit `overall=PASS`, `639 passed` und `Total coverage: 93.89%`.
 

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 01:04
-update: Die Quellenbasis fuehrt den archivierten Sim-Redirect nicht mehr; aktive Referenzen zeigen nur noch auf verbleibende Zielquellen.
-checks: snapshot-lock PASS (2026-04-17 01:04); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-18 00:55
+update: Die player-facing Recovery-Sprache fuer teilmoeglich, verschoben und blockiert ist jetzt kanonisch und mit Produktmodell, Gate, Runbook und UI-Lesart synchronisiert.
+checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
 ---
 
 Text-RPG Turn-Budget-Referenzmodell v1
@@ -213,9 +213,17 @@ Budgetschwellen und Auslegung v0.1
 ### Schwellenlogik fuer die Budgetpruefung
 
 - `within_frame` wird ohne Sonderdialog ausgespielt.
-- `slightly_over` wird nur mit sichtbarer Fragmentierung ausgespielt: letzte Schritte fallen weg oder bleiben begonnen und offen.
-- `significantly_over` fuehrt zu einem klaren Hinweis, dass der Plan nicht sauber in den Turn passt; der Spieler muss kuerzen oder die Fragmentierung bewusst bestaetigen.
-- `blocked` bedeutet entweder zeitlich unspielbar oder logisch unmoeglich; in beiden Faellen greift eine harte Blockade.
+- `slightly_over` wird nur mit sichtbarer Fragmentierung ausgespielt und nutzt player-facing die Recovery-Klasse `teilmoeglich`: letzte Schritte fallen weg oder bleiben begonnen und offen.
+- `significantly_over` fuehrt player-facing zur Recovery-Klasse `verschoben`: Der Plan passt nicht sauber in den Turn und muss gekuerzt, vorbereitet oder bewusst in spaetere Schritte aufgeteilt werden.
+- `blocked` bedeutet entweder zeitlich unspielbar oder logisch unmoeglich und nutzt player-facing die Recovery-Klasse `blockiert`; in beiden Faellen greift eine harte Blockade.
+
+### Kanonische Recovery-Klassen fuer den Produktpfad
+
+- `teilmoeglich`: Der Plan ist im aktuellen Turn anspielbar, erreicht sein Ziel aber nicht vollstaendig. Die Ausspielung zeigt sichtbar, was bereits geschafft ist, was begonnen oder offen bleibt und welcher direkte Anschluss aus derselben Handlungslinie folgt.
+- `verschoben`: Das Ziel ist im aktuellen Turn nicht sauber ausspielbar, weil der Plan deutlich zu breit, zu lang oder zu viele Schwerpunkte zugleich enthaelt. Die Rueckmeldung kuerzt nicht still, sondern benennt klar, dass der Zielplan fuer spaeter verschoben wird und jetzt nur Vorarbeit, ein engerer Teilschritt oder eine bestaetigte Fragmentierung sinnvoll ist.
+- `blockiert`: Ein Kernschritt ist real nicht moeglich. Die Rueckmeldung benennt die konkrete Blockade, erklaert kurz, warum sie greift, und bietet mindestens einen vorbereitenden Alternativschritt oder einen anderen plausiblen Zugang an.
+- Die Recovery-Klassen ersetzen nicht die Budgetklassen, sondern sind deren verbindliche player-facing Lesart fuer Produkttext, Runbook, UI und spaetere Agent-Antworten.
+- `within_frame` braucht keine eigene Recovery-Klasse; hier bleibt die Rueckmeldung regulare Fortschritts- und Konsequenzsprache ohne Zusatzetikett.
 
 ### Realitaetsgruende fuer harte Blockaden
 
@@ -266,6 +274,7 @@ Referenzfaelle
 #### Budgetentscheidung
 
 - Klasse: `slightly_over`
+- Recovery-Klasse: `teilmoeglich`
 - Systemausgabe: `Das ist etwas mehr, als in diesen Turn sauber hineinpasst. Ich kann den Plan anspielen, aber die letzten Schritte bleiben wahrscheinlich begonnen oder offen.`
 
 #### Spielerentscheidung
@@ -375,6 +384,7 @@ Referenzfaelle
 - Kernschritt `Depot oeffnen` scheitert an `zugangsseitig unmoeglich`.
 - Der Folgeeingriff `Spannungsregler austauschen` ist ohne diesen Zugang ebenfalls nicht spielbar.
 - `budget_decision.class`: `blocked`
+- `recovery.class`: `blockiert`
 - `hard_block`: `true`
 
 #### Systemausgabe bei Blockade

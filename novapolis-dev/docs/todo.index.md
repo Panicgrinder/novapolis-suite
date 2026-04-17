@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 07:12
-update: Der TODO-Index fuehrt nach dem erneuten Workspace-Scan fuer alle vier Live-Boards wieder je fuenf offene Folgepunkte; Root fuehrt zusaetzlich fuenf suiteweite Querschnittspunkte ausserhalb der Modul-Open-Counts.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
+stand: 2026-04-18 00:55
+update: Der TODO-Index fuehrt fuer alle vier Live-Boards weiter je fuenf offene Folgepunkte; der zuletzt abgeschlossene April-Root-Block ist archiviert und die aktive Root-Datei wieder als leere Live-Oberflaeche vorbereitet.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 00:55)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -21,7 +21,7 @@ TODO-Index (Novapolis-Dev)
 Statushinweise (aktuell)
 ------------------------
 
-- Root/Meta: `todo.root.md` fuehrt nach dem erneuten Workspace-Scan wieder fuenf suiteweite Querschnittspunkte. Der zuletzt abgeschlossene Root-Block bleibt weiterhin unter `novapolis-dev/archive/todo.root.archive.md` archiviert; Root bleibt bewusst ausserhalb der Modul-Open-Counts.
+- Root/Meta: `todo.root.md` ist nach der Archivierung des abgeschlossenen April-Blocks wieder als schlanke Live-Oberflaeche vorbereitet und fuehrt aktuell keine offenen suiteweiten Querschnittspunkte. Der zuletzt abgeschlossene Root-Block liegt unter `novapolis-dev/archive/todo.root.archive.md`; der naechste Hygiene-Takt fuer KPI-/Boardpflege bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` und die aktuellen Root-Protokolle verankert, waehrend Root bewusst ausserhalb der Modul-Open-Counts bleibt.
 
 - Dev: `novapolis-dev/docs/todo.dev.md` fuehrt jetzt fuenf neue Steuerpunkte fuer Workspace-Tree-Tasks, Reader-Surface, Active-Surface-Index, Tree-Artefakt-Schnitt und Doku-Sync; die zuvor geschlossene Reader-/Surface-Welle bleibt weiter zusaetzlich unter `novapolis-dev/archive/todo.dev.archive.md` archiviert.
 

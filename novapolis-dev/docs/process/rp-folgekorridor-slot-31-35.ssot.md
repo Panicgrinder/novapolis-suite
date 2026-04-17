@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-10 13:22
-update: Der Folgepfad hinter slot 30 fuehrt jetzt `slot 31-35` als vierte Kampagnenstufe auf demselben Slice-2-Handover-Rahmen.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=FAIL; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260410_131501.md
+stand: 2026-04-18 00:55
+update: Der Folgepfad hinter slot 30 fuehrt jetzt auch die kanonische player-facing Kurzformel fuer den ersten aktiven RP-Anschluss.
+checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
 ---
 
 RP Folgekorridor: Slot 31-35
@@ -31,6 +31,7 @@ Korridorvertrag
 ---------------
 
 - `slot 31-35` setzt `Text-RPG Slice 2 Handover v1` ohne Namens- oder Vertragsdrift in eine spielbare Folgephase um.
+- Die knappe player-facing Kurzformel fuer diesen Wiedereinstieg lautet verbindlich: `Weiter im selben Lauf: offener Druck, offene Aufgaben, klarer naechster Zug.`
 - `D5`, `C6`, `G7`, `E2` und `F1` bleiben weiterhin die einzigen belastbaren Anschlussraeume; neue Stationen, Direktverbindungen oder Fraktionsrechte werden nicht frei ergaenzt.
 - Der Slice bleibt resume-, save- und replay-lesbar; `slot 35` endet mit einem klaren Folgeanker statt mit einem losen Lore-Sprung.
 - Innenpfad, Kontaktpfad und Neutralpfad bleiben gegeneinander verschiebbar, aber keiner dieser Pfade darf den bestehenden Missions- und Reveal-Rahmen verlassen.
@@ -42,6 +43,7 @@ Slotfolge
 
 - Primaerlinse: `pc_visible` mit Resume- und Taktkonsolidierung.
 - Startanker: derselbe Resume-Anker aus `slot 30`.
+- Player-facing Lesart: `Weiter im selben Lauf: offener Druck, offene Aufgaben, klarer naechster Zug.`
 - Kernentscheidungen:
   1) den begonnenen Schwerpunkt direkt weiterfahren,
   2) erst Lage und Ressourcen neu ordnen,

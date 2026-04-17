@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Diese SSOT fuehrt jetzt auch den kanonischen Headless-Verify-Wrapper und den passenden VS-Code-Task fuer den Editor-nahen CLI-Smoke.
-checks: snapshot-lock PASS (2026-04-17 04:20); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-18 00:55
+update: Diese SSOT fuehrt den Export-Smoke jetzt auch explizit als Sim-Beleg des gemeinsamen Text-RPG-Release-Evidence-Bundles.
+checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
 ---
 
 Sim Export- und Release-Pfad (SSOT)
@@ -83,6 +83,13 @@ Lokaler Smoke fuer die exportierte App
    Erwartetes Ergebnis: Die App synchronisiert `GET /session/{session_id}` und `GET /session/{session_id}/replay` beim Start automatisch nach.
 5. Einen kurzen Bedienpfad pruefen.
    Erwartetes Ergebnis: `Hub-Chat`, Replay-Zusammenfassung und Statuszeilen reagieren ohne Editorpfad oder Menue-Umschaltung.
+
+Rolle im Release-Evidence-Bundle
+--------------------------------
+
+- Der Export-Smoke unter `novapolis-sim/exports/windows/NovapolisSim.exe` ist der Sim-seitige Pflichtbeleg des gemeinsamen Pfads `novapolis-dev/docs/process/text-rpg-release-evidence-bundle-v1.ssot.md`.
+- `Checks: sim headless verify` bleibt der Vorlauf fuer Editor- und Projektintegritaet, ersetzt aber nicht den produktiven Export-Smoke ausserhalb des Editors.
+- Ein Slice gilt daher nicht als release-reif, solange entweder der Headless-Vorlauf oder der exportierte Windows-Smoke fuer denselben Stand fehlt.
 
 Kanonischer Headless-Verify vor Export
 --------------------------------------

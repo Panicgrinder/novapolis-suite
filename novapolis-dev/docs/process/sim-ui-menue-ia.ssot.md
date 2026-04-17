@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Die UI-IA verweist jetzt fuer den kanonischen CLI-Smoke desselben Hub-/Spielpfads auf den Headless-Verify-Wrapper und den VS-Code-Task.
-checks: snapshot-lock PASS (2026-04-17 04:20); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-18 00:55
+update: Die UI-IA fuehrt jetzt auch die kanonische Warnsignal-Matrix fuer stille Hintergrundlage, Knappheit, Warnung und Ueberzug.
+checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
 ---
 
 Sim UI- und Menue-IA (SSOT)
@@ -27,8 +27,27 @@ Produktlesart des ersten Vertikalslice
 - Der kleinste stabile Save-Punkt ist das erste `turn_resume_ready` nach einem voll ausgespielten ersten Turn; davor darf die UI keinen versprochenen Resume-Anker anzeigen.
 - Replay-Zweck bleibt Nachvollzug und Wiedereinstiegshilfe fuer denselben Lauf und nicht ein paralleler Fortschrittspfad.
 - Pflichtkern fuer die erste sichtbare UI: KI-gestuetzter Charakterstart, lesbarer erster Vollturn mit unmittelbarem Anschlusssignal, Save-/Resume-/Replay-Bruecke ab `turn_resume_ready`.
+- Die UI verwendet fuer planbezogene Rueckmeldungen ohne Parallelformel dieselben drei Recovery-Begriffe wie der restliche Produktpfad: `teilmoeglich`, `verschoben`, `blockiert`.
 - Bewusst spaeter bleiben breitere Startauswahl, aktive RP-Integration hinter `slot 30` und Komfort-/Atmosphaereausbau.
 - Kanonischer CLI-Smoke fuer genau diesen UI-Pfad bleibt `Checks: sim headless verify` bzw. `& .\.venv\Scripts\python.exe scripts\run_sim_headless_verify.py`.
+
+Recovery-Lesart im UI-Pfad
+--------------------------
+
+- `teilmoeglich`: Die Spielsicht zeigt sichtbaren Fortschritt, markiert aber denselben Planrest als begonnen oder offen und gibt einen direkten Folgeschritt aus derselben Linie.
+- `verschoben`: Die Spielsicht zeigt, dass der Zielplan in diesem Turn nicht sauber passt, und lenkt auf Vorarbeit, engeren Teilschritt oder bestaetigte Aufteilung um, statt still zu kuerzen.
+- `blockiert`: Die Spielsicht nennt die konkrete Sperre und zeigt unmittelbar einen vorbereitenden Alternativschritt oder einen anderen plausiblen Zugang an.
+- Diese drei Begriffe sind fuer den ersten Vertikalslice die kanonische Lesart in Hub-Chat, Resume-Hinweisen und spaeteren UI-Statusmeldungen.
+
+Warnsignal-Matrix im UI-Pfad
+----------------------------
+
+- `stille Hintergrundlage` bleibt dauerhaft lesbar, aber unaufdringlich. Sie gehoert in Topband und Telemetrieband und fuehrt Grundton, wirtschaftliche Lage oder langsamen Systemdruck, ohne den laufenden Turn zur Hauptsache zu machen.
+- `Knappheit` gehoert sichtbar ins Topband und in die aktive Spielsicht, sobald eine Ressource oder ein Spielraum knapp wird. Der Spieler soll auf einen Blick erkennen koennen, was enger wird und welcher stabile naechste Schritt die Lage entschärft.
+- `Warnung` gehoert sichtbar in Stage und Ops-Spalte, sobald eine unmittelbare negative Folge fuer Sicherheit, Lage oder Anschluss droht. Sie braucht eine kurze Handlungslesart statt nur ein abstraktes Gefahrenschild.
+- `Ueberzug` gehoert direkt an Turn-Feedback, Hub-Chat und Resume-Hinweise. Er markiert keine allgemeine Weltgefahr, sondern dass der aktuelle Plan den Turn-Rahmen ueberzieht und deshalb in `teilmoeglich` oder `verschoben` uebergeht.
+- Dieselbe Viererlesart bleibt ueber alle Hub-Zonen stabil: ruhige Lage in Topband/Telemetrie, knappe Mittel in Topband/Spielsicht, akute Warnung in Stage/Ops, turnbezogener Ueberzug am Antwort- und Resume-Pfad.
+- Die UI soll fuer den ersten Slice lieber einen dominanten Druckhinweis pro Kategorie zeigen als mehrere konkurrierende Marker zugleich.
 
 Screen- und Menuebaum
 ---------------------

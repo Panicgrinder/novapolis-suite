@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Die Sim-README fuehrt jetzt den kanonischen Headless-Verify-Wrapper samt Fallback-Aufloesung und dokumentiert den bereinigten Godot-CLI-Smoke mit EXITCODE=0.
-checks: snapshot-lock PASS (2026-04-17 04:20); markdownlint=PASS; frontmatter=PASS; get_errors=PASS
+stand: 2026-04-18 00:55
+update: Die Sim-README fuehrt jetzt dieselbe Warnsignal-Lesart fuer stille Hintergrundlage, Knappheit, Warnung und Ueberzug wie die kanonische UI-IA.
+checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS; get_errors=PASS
 ---
 
 Novapolis Sim
@@ -126,6 +126,16 @@ Kanonische UI-/Menue-IA
 
 - Die fachliche Informationsarchitektur fuer Hub, Hauptmenue, eigentlichen Spielpfad, Replay/Resume und Modulwechsel liegt unter `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md`.
 - README, Board und die Prozess-SSOTs verweisen damit fuer den eigentlichen Spielaufbau auf dieselbe Quelle statt nur auf einzelne Hub-Beschreibungen.
+
+Kanonische Warnsignal-Lesart im Hub
+----------------------------------
+
+- Der produktive Hub folgt derselben Viererlesart wie die UI-IA: `stille Hintergrundlage`, `Knappheit`, `Warnung`, `Ueberzug`.
+- `stille Hintergrundlage` bleibt in Topband und Telemetrie die ruhige Lesart fuer laufende Wirtschafts-, System- oder Weltlage ohne akuten Eingriffsdruck.
+- `Knappheit` wird im aktiven Hub sichtbar, sobald Mittel, Reichweite oder Spielraum knapp werden, aber noch stabilisierbar sind.
+- `Warnung` wird in Spielsicht und Ops-Kontext prominent, sobald eine unmittelbare negative Folge fuer Sicherheit, Lage oder Anschluss droht.
+- `Ueberzug` bleibt an den turnbezogenen Antwortpfad gebunden und zeigt an, dass ein Plan nicht sauber in den Turn passt, statt eine zweite allgemeine Gefahrenskala zu eroeffnen.
+- Fuer den ersten Vertikalslice fuehrt der Hub diese Signale knapp und handlungsnah; Komfort- oder Atmosphaerehinweise bleiben bewusst ausserhalb dieser Pflichtmatrix.
 
 Verification Record
 -------------------

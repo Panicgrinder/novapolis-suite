@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 07:12
-update: Dev-DONELOG dokumentiert jetzt auch den geschlossenen Board-Refill fuer Root und alle vier Live-Boards; der kanonische Full-Check steht weiter auf PASS.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
+stand: 2026-04-18 00:55
+update: Dev-DONELOG dokumentiert jetzt auch die Archivierung des abgeschlossenen April-Root-Blocks; der kanonische Full-Check steht weiter auf PASS.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 00:55)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,46 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Root-Archivschnitt: Abgeschlossenen April-Block ins Root-Archiv uebernommen und Live-Datei zurueckgesetzt (2026-04-18 00:49)
+--------------------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/archive/todo.root.archive.md` fuehrt jetzt den vollstaendig abgeschlossenen April-Block mit Recovery-, Warnsignal-, Handover-, Release- und Hygiene-Nachzug als eigenen Archivabschnitt.
+- `todo.root.md` ist im selben Lauf wieder als schlanke Live-Arbeitsvorlage ohne offene suiteweite Punkte vorbereitet, statt den bereits erledigten Block weiter auf der aktiven Root-Oberflaeche zu tragen.
+- `novapolis-dev/docs/todo.index.md`, `WORKSPACE_STATUS.md` und `DONELOG.md` spiegeln denselben Archivstand nach; die Modul-Boards bleiben unveraendert bei `Dev=5`, `RP=5`, `Agent=5` und `Sim=5`.
+- Der aktuelle Doku-Lauf bleibt auf Snapshot-, Markdownlint-, Frontmatter- und TODO-Index-Gate begrenzt; der Technikreferenzstand bleibt `.tmp/results/reports/checks_report_20260417_071110.md`.
+
+Hygiene-Cadence-Nachzug: April-Root-Takt fuer KPI- und Boardpflege wieder aktiv verankert (2026-04-17 23:59)
+----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/abschluss-routine.ssot.md` bleibt die kanonische Vorlage fuer den 60-Minuten-Hygiene-Slot mit Drift-Scan, Donelog-Cleanup und TODO/Index-Abgleich.
+- `todo.root.md` fuehrt nach dem Nachzug keinen offenen suiteweiten Punkt mehr; `novapolis-dev/docs/todo.index.md` spiegelt dazu weiter unveraenderte Modul-Open-Counts `Dev=5`, `RP=5`, `Agent=5` und `Sim=5`, waehrend Root ausserhalb dieser Summe bleibt.
+- `WORKSPACE_STATUS.md` und `DONELOG.md` fuehren denselben April-Rahmen jetzt sichtbar mit den KPI-Feldern `todo_index_drift`, `active_docs_stale`, `placeholder_conflicts` und `logs_policy_violations`, statt den letzten grünen Hygiene-Schnitt nur historisch auf 2026-04-08 stehen zu lassen.
+- Der sachliche Technikreferenzstand bleibt der letzte kanonische Gruenlauf `.tmp/results/reports/checks_report_20260417_071110.md`; der aktuelle Doku-Nachzug bleibt auf Snapshot-, Markdownlint-, Frontmatter- und TODO-Index-Gate begrenzt.
+
+Handover- und Release-Nachzug: Root-Kurzformel und Freigabeklammer fuer den ersten Vertikalslice geschlossen (2026-04-17 23:22)
+--------------------------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/text-rpg-pre-rp-product-model-v1.ssot.md`, `text-rpg-slice-2-handover-v1.ssot.md` und `rp-folgekorridor-slot-31-35.ssot.md` fuehren jetzt dieselbe player-facing Kurzformel `Weiter im selben Lauf: offener Druck, offene Aufgaben, klarer naechster Zug.` fuer den ersten aktiven Anschluss hinter `slot 30`.
+- Die neue SSOT `novapolis-dev/docs/process/text-rpg-release-evidence-bundle-v1.ssot.md` bindet `Checks: full`, `Checks: text-rpg product gate`, `Tests: text-rpg reference session`, den Sim-Export-Smoke und die Release-Protokollierung in `WORKSPACE_STATUS.md`, `novapolis-dev/docs/donelog.md` und `DONELOG.md` zu einer aktiven Freigabekette zusammen.
+- `README.md`, `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` und `novapolis-dev/docs/process/sim-export-release-path.ssot.md` zeigen jetzt auf denselben Bundle-Pfad statt nur auf getrennte Teilbelege.
+- `todo.root.md` markiert beide suiteweiten Root-Punkte als geschlossen, `novapolis-dev/docs/todo.index.md` fuehrt Root danach nur noch mit einem offenen Querschnittspunkt weiter.
+
+Warnsignal-Nachzug: Root-Produktsprache fuer stille Hintergrundlage, Knappheit, Warnung und Ueberzug geschlossen (2026-04-17 22:51)
+------------------------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/text-rpg-pre-rp-product-model-v1.ssot.md` fuehrt jetzt die kanonische Viererlesart `stille Hintergrundlage`, `Knappheit`, `Warnung` und `Ueberzug` als Pflichtmatrix fuer den ersten Vertikalslice.
+- `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md` zieht dieselbe Matrix auf die Hub-Zonen `Topband`, `Stage`, `Ops-Spalte` und `Telemetrieband`; `novapolis-sim/README.md` fuehrt dieselbe IA-Lesart fuer den produktiven Hub nach.
+- `todo.root.md` markiert den suiteweiten Root-Punkt als geschlossen, `novapolis-dev/docs/todo.index.md` fuehrt Root danach mit noch drei offenen Querschnittspunkten weiter.
+- Der sachliche Checkreferenzstand bleibt der letzte kanonische Gruenlauf `.tmp/results/reports/checks_report_20260417_071110.md`; der Doku-Nachzug selbst bleibt auf Snapshot-, Markdownlint- und Frontmatter-Gate begrenzt.
+
+Recovery-Nachzug: Root-Produktsprache fuer teilmoeglich, verschoben und blockiert geschlossen (2026-04-17 22:36)
+----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/text-rpg-turn-budget-model-v1.ssot.md` fuehrt jetzt die drei kanonischen Recovery-Klassen `teilmoeglich`, `verschoben` und `blockiert` als player-facing Lesart der Budgetklassen `slightly_over`, `significantly_over` und `blocked`.
+- `novapolis-dev/docs/process/text-rpg-pre-rp-product-model-v1.ssot.md`, `text-rpg-product-gate-v1.ssot.md`, `novapolis_agent/docs/runbook.md` und `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md` ziehen dieselbe Lesart im selben Lauf nach; damit driftet der erste Vertikalslice nicht mehr zwischen Produktmodell, Gate, Agent und UI.
+- `todo.root.md` markiert den suiteweiten Root-Punkt als geschlossen, `novapolis-dev/docs/todo.index.md` fuehrt Root danach mit noch vier offenen Querschnittspunkten weiter.
+- Der sachliche Checkreferenzstand bleibt der letzte kanonische Gruenlauf `.tmp/results/reports/checks_report_20260417_071110.md`; der Doku-Nachzug selbst bleibt auf Snapshot-, Markdownlint- und Frontmatter-Gate begrenzt.
 
 Board-Refill: Root und Live-Boards wieder auf je fuenf Punkte gezogen (2026-04-17 06:37)
 ----------------------------------------------------------------------------------------

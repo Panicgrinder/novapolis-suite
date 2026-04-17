@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 16:11
-update: Phase-2-Konsistenzlauf harmonisiert im Root-README auch die Wrapper-Beispiele auf den aktuellen Root-Interpreter-Stil.
-checks: snapshot-lock PASS (2026-04-07 16:11); markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:27)
+stand: 2026-04-18 00:55
+update: Das Root-README verweist jetzt fuer den ersten Text-RPG-Vertikalslice auf den gemeinsamen Release-Evidence-Pfad und dessen Pflichtbelege.
+checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-04-17 23:22)
 ---
 Novapolis Suite
 ===============
@@ -214,6 +214,13 @@ Release Go/No-Go (Standalone Beta)
 - `GO`: `Checks: full` ist gruen und Sim-Offline-Check meldet `fail:0`.
 - `NO-GO`: ein Pflichtcheck faellt oder Sim-Check meldet harte Fehler.
 - Jeder Entscheid muss mit Reportpfad in `novapolis-dev/docs/donelog.md` und `DONELOG.md` protokolliert sein.
+
+Text-RPG Release-Evidence-Pfad
+------------------------------
+
+- Fuer den ersten suiteweiten Text-RPG-Vertikalslice ist der kanonische Freigabepfad `novapolis-dev/docs/process/text-rpg-release-evidence-bundle-v1.ssot.md`.
+- Dieser Pfad bindet `Checks: full`, `Checks: text-rpg product gate`, die deterministischen Referenzfaelle, den Sim-Export-Smoke und `WORKSPACE_STATUS.md` zu derselben Release-Kette.
+- Ohne lokale Modellruntime fuer den `gm_session`-Anteil oder ohne exportierten Windows-Smoke unter `novapolis-sim/exports/windows/NovapolisSim.exe` gilt derselbe Slice nicht als release-reif.
 
 
 

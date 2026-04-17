@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Das Produktmodell zieht den ersten suiteweiten Vertikalslice jetzt als belastbare Produktformel fuer Start, Save und Replay nach.
-checks: snapshot-lock PASS (2026-04-17 02:27); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-18 00:55
+update: Das Produktmodell fuehrt jetzt auch die knappe Handover-Formel hinter slot 30 und den gemeinsamen Release-Evidence-Pfad fuer den ersten Vertikalslice.
+checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
 ---
 
 Text-RPG Pre-RP Product Model v1
@@ -89,9 +89,9 @@ Gezielt offene Restfragen
 
 | Restfrage | Aktueller Zuschnitt | Zielquelle fuer Entscheidung |
 | --- | --- | --- |
-| Wie hart darf Fail-Forward bei blockierten oder deutlich ueberzogenen Plaenen formuliert werden? | Produktseitig offen, weil die genaue Recovery-Sprache noch nicht kanonisch ist. | `novapolis-dev/docs/process/text-rpg-turn-budget-model-v1.ssot.md` |
-| Welche Knappheits- und Warnsignale muessen im Hub sichtbar werden, bevor voller Komfortausbau beginnt? | Die Produktlogik ist klar, aber die konkrete UI-Lesart fuer Drucksignale ist noch nicht festgezogen. | `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md` |
-| Welche kurze Produktformel beschreibt den ersten aktiven Wechsel vom Pre-RP-Pfad in den RP-Folgeblock hinter `slot 30`? | Der Handover-Vertrag steht, die knappe player-facing Uebergabeformel bleibt offen. | `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` und der naechste RP-Folgeblock |
+| Wie hart darf Fail-Forward bei blockierten oder deutlich ueberzogenen Plaenen formuliert werden? | Geklaert: `teilmoeglich` fuer anspielbare Fragmentierung, `verschoben` fuer deutlich ueberzogene Zielplaene mit Vorarbeit oder Aufteilung und `blockiert` fuer reale Kernblockaden mit vorbereitender Alternative. | `novapolis-dev/docs/process/text-rpg-turn-budget-model-v1.ssot.md` |
+| Welche Knappheits- und Warnsignale muessen im Hub sichtbar werden, bevor voller Komfortausbau beginnt? | Geklaert: `stille Hintergrundlage`, `Knappheit`, `Warnung` und `Ueberzug` bilden die kanonische Viererlesart fuer den ersten Vertikalslice. | `novapolis-dev/docs/process/sim-ui-menue-ia.ssot.md` |
+| Welche kurze Produktformel beschreibt den ersten aktiven Wechsel vom Pre-RP-Pfad in den RP-Folgeblock hinter `slot 30`? | Geklaert: `Weiter im selben Lauf: offener Druck, offene Aufgaben, klarer naechster Zug.` bleibt die knappe player-facing Formel fuer denselben Handover und denselben Resume-Anker. | `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md` und `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` |
 
 Entscheidungsraster fuer den verbleibenden Produktrest
 -----------------------------------------------------
@@ -101,9 +101,45 @@ Der verbleibende Produktrest wird hier nicht mehr als lange Fragenliste gefuehrt
 | Raster | Bereits fest | Verbleibende Formulierungsarbeit | Zielquelle fuer Nachzug |
 | --- | --- | --- | --- |
 | Produktkern und Spielversprechen | Der Pre-RP-Pfad bleibt spielnaher Operations-Client mit fruehem Gameplay-Kern; Fortschritt soll primaer ueber Weltreaktion und second-level ueber wirtschaftliche Lage lesbar sein. | Die Endform fuer Kernfantasie, Spielversprechen und Sessionziel ist unten festgezogen; spaeter folgt bei Bedarf nur noch die Gate-kurze Verdichtung. | Diese Datei, spaeter Produkt Gate bei Gate-Relevanz |
-| Entscheidungen und Konsequenzen | Turn-Antworten, Konsequenzen, Patch-Hinweise und sichtbare Rueckmeldesignale sind als Produktmuster gesetzt; harte Dead Ends sollen vermieden werden. | Offen bleibt nur noch die genaue Recovery-Sprache fuer harte Blockaden und deutlich ueberzogene Plaene. | Diese Datei, spaeter Turn-Budget-Modell oder Product Gate je nach Vertragsnaehe |
+| Entscheidungen und Konsequenzen | Turn-Antworten, Konsequenzen, Patch-Hinweise und sichtbare Rueckmeldesignale sind als Produktmuster gesetzt; harte Dead Ends sollen vermieden werden. | Die Recovery-Sprache ist jetzt festgezogen; offen bleibt hier spaeter nur noch eine knappe Gate-Verdichtung derselben Begriffe. | Diese Datei, spaeter Turn-Budget-Modell oder Product Gate je nach Vertragsnaehe |
+| Ressourcen und Drucksysteme | Wirtschaftliche Lage, Risiko und Turn-Rueckmeldung sollen nicht nur im SSOT-Hintergrund stehen, sondern im ersten Slice direkt sichtbar bleiben. | Die Viererlesart fuer `stille Hintergrundlage`, `Knappheit`, `Warnung` und `Ueberzug` ist jetzt festgezogen; spaeter folgt bei Bedarf nur noch eine UI-nahe Verdichtung fuer konkrete Styles oder Widgets. | Diese Datei, Sim-UI-IA, spaeter Sim-Pfad |
 | Session, Save, Resume, Replay | Live-, Resume- und Replay-Unterschiede sind als UI-Lesart gebunden; Resume-Anker und Handover laufen ueber denselben Sessionvertrag. | Der kleinste stabile Save-Punkt ist jetzt das erste `turn_resume_ready` nach dem ersten Vollturn; Replay bleibt Nachvollzug und Wiedereinstiegshilfe fuer denselben Lauf. | Session Contract, UI-IA, Product Gate |
-| RP-Integrationsnaht | Der erste Anschluss liegt hinter `slot 30`; minimaler RP-Adapter-Scope und UI-Hinweise ohne aktive RP-Integration sind bereits ausgelagert. | Offen bleibt nur noch die knappe player-facing Produktformel fuer den ersten aktiven RP-Anschluss hinter dem Pre-RP-Slice. | Slice-2-Handover, spaeter RP-Produktpfad |
+| RP-Integrationsnaht | Der erste Anschluss liegt hinter `slot 30`; minimaler RP-Adapter-Scope und UI-Hinweise ohne aktive RP-Integration sind bereits ausgelagert. | Die knappe player-facing Produktformel ist jetzt festgezogen; spaeter folgt nur noch eine Oberflaechenverdichtung derselben Sprache in Gate- oder UI-Texten. | Slice-2-Handover, spaeter RP-Produktpfad |
+
+Kanonische Handover-Formel hinter `slot 30`
+-------------------------------------------
+
+- Die knappe player-facing Formel fuer den ersten aktiven Anschluss hinter `slot 30` lautet verbindlich: `Weiter im selben Lauf: offener Druck, offene Aufgaben, klarer naechster Zug.`
+- `Weiter im selben Lauf` bindet den Anschluss an denselben Session-, Save-, Resume- und Replay-Rahmen statt an einen neuen Produktpfad.
+- `offener Druck` markiert den fortgesetzten Lage-, Risiko- oder Reichweitendruck aus dem Pre-RP-Slice, ohne einen zweiten Warnbegriff neben der bereits gesetzten Warnsignal-Matrix zu eroeffnen.
+- `offene Aufgaben` macht den Carry-Over aus begonnenen, unterbrochenen oder offenen Arbeiten lesbar.
+- `klarer naechster Zug` verpflichtet den Handover auf einen konkreten Anschluss statt auf ein loses Episodenversprechen.
+- Dieselbe Kurzformel bleibt absichtlich knapp genug fuer Produktmodell, Handover-SSOT, RP-Folgekorridor, Product Gate, Runbook und Workspace-Status.
+
+Release-Evidence-Pfad fuer den ersten Vertikalslice
+--------------------------------------------------
+
+- Der suiteweite Freigabepfad fuer den ersten Vertikalslice haengt jetzt an `novapolis-dev/docs/process/text-rpg-release-evidence-bundle-v1.ssot.md`.
+- Die Produktlesart bleibt: `Checks: full` deckt die repoweite Baseline ab, `Checks: text-rpg product gate` deckt den eigentlichen Slice-Vertrag ab, die deterministischen Referenzfaelle belegen denselben Artefaktpfad, und der Sim-Export-Smoke belegt den produktiven Windows-Start ausserhalb des Editors.
+- Release-reif ist derselbe Slice erst dann, wenn auch lokale Modellruntime fuer den `gm_session`-Gate-Teil und der exportierte Sim-Smoke fuer `novapolis-sim/exports/windows/NovapolisSim.exe` belastbar vorliegen.
+
+Kanonische Recovery-Lesart
+--------------------------
+
+- `teilmoeglich` ist die verbindliche Produktlesart fuer einen Turn, der denselben Plan sichtbar anspielt, aber nicht vollstaendig abschliesst. Der Spieler sieht, was geschafft ist, was offen bleibt und worauf der naechste Schritt aufsetzt.
+- `verschoben` ist die verbindliche Produktlesart fuer einen deutlich ueberzogenen Plan. Die Rueckmeldung verlegt den Zielplan nicht still nach hinten, sondern macht sichtbar, dass jetzt nur Vorarbeit, ein engerer Teilschritt oder eine bewusst bestaetigte Aufteilung in Frage kommt.
+- `blockiert` ist die verbindliche Produktlesart fuer reale Kernblockaden. Die Rueckmeldung benennt die Blockade klar und fuehrt direkt in einen vorbereitenden Alternativschritt statt in einen toten Endpunkt.
+- Der Pre-RP-Pfad vermeidet damit harte Dead Ends als Standardform: Scheitern darf Tempo, Reichweite, Sicherheit oder Spielraum kosten, soll aber moeglichst in einen lesbaren Anschluss uebergehen.
+
+Kanonische Warnsignal-Matrix
+---------------------------
+
+- `stille Hintergrundlage` ist die ruhige, fortlaufende Lesart fuer Welt-, Wirtschafts- und Betriebszustand ohne unmittelbaren Eingriffsdruck. Sie haelt den Spieler ueber Richtung und Grundton informiert, ohne den laufenden Turn zu unterbrechen.
+- `Knappheit` signalisiert eine begrenzte Ressource oder einen enger werdenden Spielraum, der noch beherrschbar ist, aber nicht mehr ignoriert werden sollte. Die Rueckmeldung nennt knapp, was knapp wird und welcher naechste Schritt die Lage stabilisieren kann.
+- `Warnung` signalisiert nahen negativen Druck auf Sicherheit, Lage oder Anschlussfaehigkeit. Die Rueckmeldung macht sichtbar, welche unmittelbare Folge droht, wenn der Spieler den Punkt weiter laufen laesst.
+- `Ueberzug` signalisiert, dass der aktuelle Plan nicht mehr sauber in den Turn-Rahmen passt. Die Rueckmeldung bleibt an die Recovery-Lesart gebunden und fuehrt in `teilmoeglich` oder `verschoben`, statt ein paralleles Warnsystem zu eroeffnen.
+- Die Viererlesart ist absichtlich knapp: `stille Hintergrundlage` fuer Grundton, `Knappheit` fuer enger werdende Mittel, `Warnung` fuer akuten Handlungsdruck, `Ueberzug` fuer turnbezogene Planueberdehnung.
+- Fuer den ersten Vertikalslice muessen diese Signale mindestens wirtschaftliche Lage, Sicherheitsdruck, Anschlussrisiko und Turn-Passung lesbar machen; Komfort- oder Atmosphaerehinweise gehoeren nicht in diese Pflichtmatrix.
 
 Arbeitsraster
 -------------
@@ -120,8 +156,8 @@ Die folgende Checkliste bleibt als Arbeitsraster fuer den noch nicht uebernommen
 
 - [ ] Entscheidungstypen katalogisieren.
 - [ ] Kurzfristige und mittelfristige Konsequenzen unterscheiden.
-- [ ] Fail-Forward-Regeln festlegen.
-- [ ] Harte Sackgassen vermeiden oder bewusst markieren.
+- [x] Fail-Forward-Regeln festlegen.
+- [x] Harte Sackgassen vermeiden oder bewusst markieren.
 
 ### 3. Fortschritt und Motivation
 
@@ -134,14 +170,14 @@ Die folgende Checkliste bleibt als Arbeitsraster fuer den noch nicht uebernommen
 
 - [ ] Relevante Ressourcen bestimmen.
 - [ ] Klaeren, ob Zeit eine echte Ressource ist.
-- [ ] Knappheitssignale im UI definieren.
-- [ ] Schwellwerte fuer Warnungen festlegen.
+- [x] Knappheitssignale im UI definieren.
+- [x] Schwellwerte fuer Warnungen festlegen.
 
 ### 5. Risiko, Scheitern und Recovery
 
-- [ ] Arten von Fehlschlaegen definieren.
-- [ ] Recovery-Pfade fuer Fehlentscheidungen festlegen.
-- [ ] Feedbackstil bei Fehlern bestimmen.
+- [x] Arten von Fehlschlaegen definieren.
+- [x] Recovery-Pfade fuer Fehlentscheidungen festlegen.
+- [x] Feedbackstil bei Fehlern bestimmen.
 - [ ] Saubere Rueckkehr nach Fehlern planen.
 
 ### 6. Sessionstruktur

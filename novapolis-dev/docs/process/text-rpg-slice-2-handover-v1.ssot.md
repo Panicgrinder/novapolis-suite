@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Der Slice-2-Handover fuehrt jetzt auch den zweiten deterministischen Agent-Referenzfall bis slot 40 als belegten Folgepfad.
-checks: snapshot-lock PASS (2026-04-17 04:09); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-18 00:55
+update: Der Slice-2-Handover fuehrt jetzt auch die kanonische player-facing Kurzformel hinter slot 30 und verweist auf den gemeinsamen Release-Evidence-Pfad.
+checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
 ---
 
 Text-RPG Slice 2 Handover v1
@@ -38,6 +38,14 @@ Handover-Anker
 - Der Wiederanlauf hinter `slot 30` fuehrt denselben Turn-Rahmen weiter: aeusserer Turn bleibt `30 Minuten`, Verdichtung bleibt ein eingebettetes `1-Minuten`-Fenster innerhalb desselben `turn_id`, und Carry-Over bleibt ueber denselben Sessionvertrag lesbar.
 - Die belegten Anschlussraeume bleiben fuer diesen Handover auf `D5`, `C6`, `G7`, `E2` und `F1` beschraenkt, bis eine spaetere RP-SSOT weitere Raeume explizit freigibt.
 
+Player-facing Uebergabeformel
+-----------------------------
+
+- Die knappe player-facing Kurzformel fuer den ersten aktiven Anschluss hinter `slot 30` lautet verbindlich: `Weiter im selben Lauf: offener Druck, offene Aufgaben, klarer naechster Zug.`
+- `Weiter im selben Lauf` verhindert, dass der Handover wie ein zweiter Startschirm oder ein freier Episodenwechsel gelesen wird; derselbe Session-, Save-, Resume- und Replay-Vertrag bleibt aktiv.
+- `offener Druck` und `offene Aufgaben` spiegeln den lesbaren Carry-Over aus Lage, Reichweite und angefangener Arbeit, ohne einen zweiten Namen neben `Text-RPG Slice 2 Handover v1` zu etablieren.
+- `klarer naechster Zug` verpflichtet RP, Agent und Sim darauf, den Folgeblock nicht als vage Fortsetzung, sondern als direkt anschlussfaehigen Handlungsraum zu praesentieren.
+
 Resume- und Turn-Kontext
 ------------------------
 
@@ -54,12 +62,14 @@ Modulrollen
 
 - Root fuehrt nur den gemeinsamen Handover und verweist fuer Ausgestaltung auf RP-, Agent- und Sim-SSOTs.
 - Root darf keinen zweiten, freieren Namen fuer denselben Folgepfad etablieren.
+- Root fuehrt fuer denselben Folgepfad dieselbe Kurzformel `Weiter im selben Lauf: offener Druck, offene Aufgaben, klarer naechster Zug.`
 
 ### RP
 
 - RP fuehrt den Handover aktuell als `slot 31-35` und `slot 36-40` auf demselben Vertragsrahmen fort; spaetere modulare Episoden bleiben daran gebunden.
 - Reveal-, Missions- und Ortsbezug bleiben an die bereits belegten Raeume und den bestehenden Produktpfad gebunden.
 - Die ersten beiden konkreten Ausbauten liegen jetzt in `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` und `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md`.
+- Der erste Folgeblock `slot 31-35` fuehrt fuer den aktiven Wiedereinstieg dieselbe Kurzformel ohne Abweichung oder Zweitnamen.
 
 Minimaler RP-Adapter-Scope fuer den ersten Integrationsschnitt
 --------------------------------------------------------------
@@ -76,6 +86,7 @@ Minimaler RP-Adapter-Scope fuer den ersten Integrationsschnitt
 - Product Gate, Referenz-Session und Runbook muessen den Handover als naechsten gemeinsamen Ausbau hinter `slot 30` benennen.
 - Neue Gate- oder Referenzfaelle hinter `slot 30` duerfen nur auf demselben Session- und Artefaktvertrag aufbauen.
 - Der deterministische Agent-Referenzlauf umfasst jetzt den D5-Basisfall und den Handover-Folgefall `novapolis_agent/eval/config/text_rpg_reference_session_handover_slot31_40.v1.json` bis `slot 40`.
+- Product Gate und Runbook fuehren fuer denselben Anschluss dieselbe Kurzformel statt einer eigenen Gateway- oder Runtime-Umschreibung.
 
 ### Sim
 
@@ -105,6 +116,7 @@ Definition of Done
 
 - Root-Backlog, Product Gate und Agent-Runbook verweisen auf diese SSOT.
 - RP- und Sim-Folgepunkte benennen denselben Handover statt freier Folgeformeln.
+- Produktmodell, Handover-SSOT, RP-Folgeblock, Product Gate und Runbook fuehren dieselbe player-facing Kurzformel fuer den Anschluss hinter `slot 30`.
 - Der weitere Ausbau hinter `slot 30` bleibt auf demselben Session- und Artefaktvertrag verankert.
 - Die ersten fachlichen Ausbauten hinter `slot 30` liegen als eigene RP-SSOTs fuer `slot 31-35` und `slot 36-40` vor.
 - Der minimal akzeptierte RP-Adapter-Scope fuer den ersten Integrationsschnitt ist explizit benannt und fuehrt keinen zweiten Resume-, Save- oder Produktpfad ein.

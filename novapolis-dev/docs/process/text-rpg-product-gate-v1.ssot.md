@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Das Product Gate fuehrt jetzt auch den zweiten deterministischen Handover-Referenzfall hinter slot 30 im bestehenden Standardlauf.
-checks: snapshot-lock PASS (2026-04-17 04:09); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-18 00:55
+update: Das Product Gate fuehrt jetzt auch die kanonische Handover-Kurzformel hinter slot 30 und den gemeinsamen Release-Evidence-Pfad fuer den ersten Vertikalslice.
+checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
 ---
 
 Text-RPG Product Gate v1
@@ -64,6 +64,14 @@ Slice-2-Handover
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md` fuehrt denselben Vertragsrahmen jetzt als fuenfte Kampagnenstufe hinter `slot 35` fort.
 - Der deterministische Agent-Referenzlauf belegt denselben Handover jetzt auch technisch mit einem zweiten Folgefall hinter `slot 30` bis `slot 40`, statt nur den D5-Basislauf zu pruefen.
 - Sobald Sim den Resume-Anker operativ nutzt, wird derselbe Handover auch fuer den naechsten Produkt-Gate-Ausbau vollstaendig ueber RP, Agent und Sim belegt.
+- Die knappe player-facing Kurzformel fuer denselben Anschluss lautet verbindlich: `Weiter im selben Lauf: offener Druck, offene Aufgaben, klarer naechster Zug.`
+
+Release-Evidence-Bundle
+-----------------------
+
+- Der gemeinsame Release-Belegpfad fuer denselben Vertikalslice liegt unter `novapolis-dev/docs/process/text-rpg-release-evidence-bundle-v1.ssot.md`.
+- Release-tauglich ist der Slice nicht schon mit einem isolierten Gate-PASS, sondern erst mit derselben Kette aus `Checks: full`, `Checks: text-rpg product gate`, deterministischen Referenzfaellen, Sim-Export-Smoke und dokumentiertem Workspace-Status.
+- Ohne erreichbare lokale Modellruntime fuer `Eval: suite gm_session (12, asgi)` oder ohne exportierten Windows-Smoke unter `novapolis-sim/exports/windows/NovapolisSim.exe` bleibt derselbe Slice nicht release-reif.
 
 Kanonischer Gate-Block
 ----------------------
@@ -100,6 +108,7 @@ Gate-Stufen
 - Hard Fail ebenfalls, wenn der operative Lauf den jetzt kanonischen Turn-Rahmen (`turn_window_minutes=30`, optionales Verdichtungsfenster mit `tick_minutes=1`, `resume_checkpoint_id`, `carry_over`) nicht auf denselben Vertragsblock legt.
 - Hard Fail ebenfalls, wenn materialisierte Bedienmodi oder Turn-Zustaende (`player_input.mode`, `turn_state`) am Sessionvertrag vorbeilaufen oder der Pfad `turn_budget_review -> confirmation oder execution -> turn_resume_ready` zwischen Vertrag, Runbook und Produktlauf driftet.
 - Hard Fail ebenfalls, wenn strukturierte Budgetpruefung (`plan_analysis`, `budget_decision`, `time_state`) parallel neben dem Vertrag lebt oder Klassifikationen wie `within_frame|slightly_over|significantly_over|blocked` und die zulaessigen Modifikatorarten driftig werden.
+- Hard Fail ebenfalls, wenn die player-facing Recovery-Sprache `teilmoeglich|verschoben|blockiert` zwischen Turn-Budget-Modell, Produktmodell, Runbook und Sim-UI driftet oder von den Budgetklassen `slightly_over|significantly_over|blocked` abgekoppelt wird.
 
 ### Stufe 3 - Agent-API- und Streaming-Smoke
 
@@ -166,6 +175,7 @@ Gate-Erfolg
 - der gemeinsame Turn-, Verdichtungs- und Resume-Rahmen zwischen Sessionvertrag, Replay und Sim nicht driftet,
 - materialisierte Bedienmodi, Turn-Zustaende und sichtbares Turn-Feedback denselben Vertragsrahmen halten,
 - strukturierte Budget- und Zeitlogik denselben Vertragsrahmen halten,
+- die player-facing Recovery-Sprache `teilmoeglich|verschoben|blockiert` zwischen Produktmodell, Turn-Budget-SSOT, Runbook und Sim-UI konsistent bleibt,
 - der Sim-Asset-/Epoch-Pfad fuer denselben Slice nicht widerspricht,
 - der `gm_session`-Eval-Lauf eine Ergebnisdatei fuer denselben Gate-Lauf erzeugt,
 - die KPI-Summary fuer denselben Gate-Lauf keinen Blockerfall in `gm.session.continuity.v1` oder `gm.session.reveal-discipline.v1` fuehrt,

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Der vollstaendig abgeschlossene Root-Backlog vom 2026-04-17 ist archiviert; die aktive Root-TODO ist wieder auf eine leere Arbeitsvorlage zurueckgesetzt.
-checks: snapshot-lock PASS (2026-04-17 02:39); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-18 00:55
+update: Das Root-Archiv fuehrt jetzt auch den vollstaendig abgeschlossenen April-Block mit Recovery-, Warnsignal-, Handover-, Release- und Hygiene-Nachzug; die aktive Root-TODO ist wieder auf eine schlanke Live-Arbeitsvorlage zurueckgesetzt.
+checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
 ---
 
 TODO-Archiv (Root)
@@ -15,6 +15,20 @@ Hinweis
 - Direkt unter der Abschnitts-Überschrift im Archiv eine Zeile ergänzen: `archived_at: YYYY-MM-DD HH:MM`.
 
 Archivierte Einträge
+
+Root-Backlog (2026-04-17, April-Refill) - vollständig abgeschlossen
+-------------------------------------------------------------------
+
+archived_at: 2026-04-18 00:49
+
+Quelle: `todo.root.md` (vollstaendiger Stand 2026-04-17 23:59 vor dem Reset auf die neue Live-Arbeitsvorlage).
+
+- [x] Fail-Forward-Sprache fuer blockierte oder deutlich ueberzogene Plaene als suiteweiten Produktvertrag festgezogen und ueber Produktmodell, Turn-Budget-SSOT, Runbook und Sim-UI auf dieselbe Recovery-Lesart `teilmoeglich`, `verschoben`, `blockiert` gezogen.
+- [x] Sichtbare Druck-, Knappheits- und Warnsignale fuer den ersten suiteweiten Vertikalslice zwischen Produktmodell und Sim-UI auf dieselbe Viererlesart `stille Hintergrundlage`, `Knappheit`, `Warnung`, `Ueberzug` gezogen.
+- [x] Eine knappe player-facing Uebergabeformel fuer den ersten aktiven RP-Anschluss hinter `slot 30` kanonisiert und ueber Produktmodell, Slice-2-Handover, RP-Folgekorridor, Product Gate und Runbook synchronisiert.
+- [x] Ein suiteweites Release-Evidence-Bundle fuer den ersten Vertikalslice aus Produkt-Gate, Referenzfaellen, Export- und Workspace-Belegen als eigene SSOT verankert und in Root, Gate, Runbook und Sim-Export-SSOT referenziert.
+- [x] Die suiteweite Hygiene-Cadence fuer den April-Arbeitsstand wieder als aktiven Root-Takt mit den KPI-Feldern `todo_index_drift`, `active_docs_stale`, `placeholder_conflicts` und `logs_policy_violations` verankert.
+- [x] Die aktive Datei `todo.root.md` wurde nach dieser Archivierung wieder auf eine schlanke Live-Arbeitsvorlage fuer neue suiteweite Punkte zurueckgesetzt.
 
 Root-Backlog (2026-04-17) - vollständig abgeschlossen
 ----------------------------------------------------

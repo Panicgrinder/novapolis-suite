@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Das Runbook fuehrt jetzt auch den zweiten deterministischen Handover-Referenzfall hinter slot 30 im bestehenden Product-Gate-Standardlauf.
-checks: snapshot-lock PASS (2026-04-17 04:09); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-18 00:55
+update: Das Runbook fuehrt jetzt auch die knappe Handover-Formel hinter slot 30 und den gemeinsamen Release-Evidence-Pfad fuer den ersten Vertikalslice.
+checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -104,6 +104,7 @@ Pre-RP-Spielfluss im Sim-Hub
 - `turn_resume_ready` bleibt der einzige kanonische Zustand fuer Checkpoint, Resume und Replay; der kleinste stabile Save-Punkt ist das erste `turn_resume_ready` nach einem voll ausgespielten ersten Turn, und ein technischer Snapshot mitten in der Verdichtung ist ohne Sonderregel kein sauberer Wiedereinstieg.
 - Replay-Zweck bleibt Nachvollzug und Wiedereinstiegshilfe fuer denselben Lauf und nicht ein paralleler Fortschrittspfad.
 - Sichtbares Turn-Feedback trennt mindestens `completed`, `started`, `interrupted` und `open` und fuehrt dazu ein unmittelbares Signal plus naechsten Anschluss, statt Folgezustaende nur implizit im Fliesstext zu verstecken.
+- Die player-facing Recovery-Sprache ist fuer denselben Produktpfad verbindlich: `teilmoeglich` fuer sichtbar angespielte, aber nicht vollendete Plaene, `verschoben` fuer deutlich zu breite Zielplaene mit Vorarbeit oder Aufteilung und `blockiert` fuer reale Kernblockaden mit vorbereitender Alternative.
 - Pflichtkern in diesem Schnitt: KI-gestuetzter Charakterstart, sichtbarer erster Vollturn mit `Szene/Konsequenz/Optionen/State_Patches` sowie Save-/Resume-/Replay-Bruecke ab `turn_resume_ready`.
 - Bewusst spaeter: breitere Startauswahl, aktive RP-Integration hinter `slot 30`, Komfort-/Atmosphaereausbau.
 
@@ -132,6 +133,7 @@ Hard-Fail-Klassen laut SSOT:
 - OpenAPI-/Schema-Drift gegen den Sessionvertrag
 - fehlende oder spaeter widerspruechliche `world_log`-/`pc_log`-/`state_patches`-Artefakte in der festen Referenz-Session
 - Slot- oder Replay-Widersprueche zwischen Agent- und Sim-Pfad
+- Drift der player-facing Recovery-Sprache `teilmoeglich|verschoben|blockiert` gegen Produktmodell, Turn-Budget-SSOT oder Sim-UI
 - nicht erreichbare lokale Modellruntime fuer den `gm_session`-Eval-Teil
 
 Text-RPG Slice 2 Handover v1
@@ -142,8 +144,16 @@ Der gemeinsame Folgeanker hinter `slot 30` liegt in `novapolis-dev/docs/process/
 Operative Lesart:
 
 - Der erste Slice bleibt produktiv bis `slot 30` geschlossen; der naechste Ausbau hinter diesem Punkt darf im Agent-Scope keinen freien Zweitnamen bekommen.
+- Die knappe player-facing Kurzformel fuer denselben Anschluss lautet verbindlich: `Weiter im selben Lauf: offener Druck, offene Aufgaben, klarer naechster Zug.`
 - Neue Referenzfaelle, Gate-Erweiterungen oder Resume-Checks hinter `slot 30` muessen denselben Session- und Artefaktvertrag (`savegame.json`, `world_log`, `pc_log`, `replay_manifest.json`, `resume_checkpoint_id`) weiterverwenden.
 - Die offene Sim-Folgearbeit haengt explizit an diesem Handover: `resume_checkpoint_id` und `replay_manifest` bleiben damit nicht nur Runtime-Daten, sondern der operative Wiederanlaufanker fuer denselben Folgepfad.
+
+Release-Evidence-Pfad
+---------------------
+
+- Der kanonische Freigabepfad fuer denselben Slice liegt unter `novapolis-dev/docs/process/text-rpg-release-evidence-bundle-v1.ssot.md`.
+- Operativ gehoeren dazu mindestens `Checks: full`, `Checks: text-rpg product gate`, `Tests: text-rpg reference session`, der Sim-Export-Smoke laut `novapolis-dev/docs/process/sim-export-release-path.ssot.md` und der dokumentierte Workspace-Entscheid in `WORKSPACE_STATUS.md`, `novapolis-dev/docs/donelog.md` und `DONELOG.md`.
+- Ohne erreichbare lokale Modellruntime fuer den `gm_session`-Teil oder ohne belegten Export-Smoke bleibt der Slice fuer Release-Zwecke unvollstaendig, auch wenn Teilchecks bereits gruen sind.
 
 Deterministische Referenzfaelle
 -------------------------------
