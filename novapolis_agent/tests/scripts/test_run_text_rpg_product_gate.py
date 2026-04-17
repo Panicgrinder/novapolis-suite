@@ -29,8 +29,7 @@ def test_build_base_gate_steps_orders_reference_session_before_sim_and_eval(
     assert steps[2].command.count("--spec") == 2
     assert any("text_rpg_reference_session.v1.json" in part for part in steps[2].command)
     assert any(
-        "text_rpg_reference_session_handover_slot31_40.v1.json" in part
-        for part in steps[2].command
+        "text_rpg_reference_session_handover_slot31_40.v1.json" in part for part in steps[2].command
     )
     assert any("check_sim_epoch_assets.py" in part for part in steps[3].command)
     assert steps[4].command[1:3] == ("-m", "scripts.agent.run_eval")

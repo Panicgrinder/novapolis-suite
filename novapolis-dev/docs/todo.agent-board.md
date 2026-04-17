@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Der zuletzt geschlossene Agent-Handover-Block ist archiviert; das Live-Board ist wieder fuer neue Agent-Punkte vorbereitet.
-checks: snapshot-lock PASS (2026-04-17 04:15); workspace-evidence PASS (todo.agent-board, todo.agent.archive, todo.index, WORKSPACE_STATUS, DONELOG); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 07:12
+update: Das Agent-Board fuehrt nach dem erneuten Workspace-Scan wieder fuenf offene Punkte fuer Coverage-Reste, Referenzpfad-Haertung und Runtime-Diagnostik.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -25,7 +25,50 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (Agent)
 -----------------------
 
-- Zurzeit keine offenen Agent-Punkte.
+- [ ] [Jetzt] `novapolis_agent/scripts/support_ab_smoke.py` vom aktuellen Reststand auf belastbare Produkt- und Testabdeckung ziehen.
+  - Ziel: Der neutrale Support-A/B-Pfad soll nicht nur taskseitig vorhanden sein, sondern als kleiner, stabiler Smoke- und Contract-Pfad mit klarer Fehler- und Erfolgssemantik abgesichert werden.
+  - Akzeptanzkriterien:
+    1) der Scriptpfad deckt Erfolgs-, Netzwerk-, HTTP- und Payload-Fehler sauber ab,
+    2) die Testabdeckung steigt deutlich ueber den aktuell sehr niedrigen Reststand,
+    3) Runbook, Tasking und Script beschreiben denselben neutralen Support-A/B-Smoke,
+    4) der Pfad bleibt getrennt vom Text-RPG-Produktgate und verfuegbar fuer schnellen Support-Check.
+  - Evidenz: Der aktuelle Full-Check vom 2026-04-17 fuehrt `scripts/support_ab_smoke.py` im Coverage-Termblock weiterhin als klaren Ausreisser unter dem uebrigen Agent-Skriptstand.
+
+- [ ] [Jetzt] Den deterministischen Referenzlauf `run_text_rpg_reference_session.py` auf Fehler-, Artefakt- und Randpfade weiter haerten.
+  - Ziel: Die Referenzfaelle sollen den Produktvertrag nicht nur im Erfolgsfall, sondern auch bei Artefakt- und Validierungsfehlern stabil absichern.
+  - Akzeptanzkriterien:
+    1) fehlende oder widerspruechliche Slot-/Turn-/Artefaktwerte werden explizit testseitig abgefangen,
+    2) Report- und Fehlerpfade des Referenzrunners sind zusaetzlich abgesichert,
+    3) die Referenzfaelle hinter `slot 05` und `slot 40` bleiben derselbe kanonische Vertragsanker,
+    4) die Restabdeckung des Skripts steigt sichtbar gegen den aktuellen Stand.
+  - Evidenz: `novapolis_agent/docs/runbook.md` definiert den Runner als deterministischen Vertragsanker fuer beide Referenzfaelle; der aktuelle Full-Check fuehrt `run_text_rpg_reference_session.py` dennoch noch nicht auf Vollabdeckung.
+
+- [ ] [Als naechstes] `scripts/export_finetune.py` fuer Fehler-, Artefakt- und Resume-Pfade testseitig nachziehen.
+  - Ziel: Der Finetune-Exportpfad soll nicht nur im Erfolgsfall gruen bleiben, sondern auch Artefaktfehler, fehlende Inputs und Resume-/Overwrite-Situationen kontrolliert behandeln.
+  - Akzeptanzkriterien:
+    1) zentrale Fehler- und Fruehabbruchpfade sind mit Tests abgedeckt,
+    2) Artefakt- und Reportausgaben bleiben reproduzierbar,
+    3) der Exportpfad fuehrt keine stillen Launcher- oder Dateifehler mehr als ungetesteten Rest,
+    4) die Restabdeckung des Skripts steigt sichtbar ueber den aktuellen Stand.
+  - Evidenz: Der aktuelle Full-Check fuehrt `scripts/export_finetune.py` weiter deutlich unter der sonstigen Voll- oder Nahezu-Vollabdeckung vieler Agent-Skripte.
+
+- [ ] [Als naechstes] `scripts/map_reduce_summary.py` wegen seiner branch-lastigen Zusammenfassungslogik ueber echte Edge-Cases haerten.
+  - Ziel: Die branchreiche Summary-Logik soll nicht nur gegen Happy Paths, sondern gegen leere, partielle, widerspruechliche und mehrfach aggregierte Eingaben abgesichert werden.
+  - Akzeptanzkriterien:
+    1) neue Tests decken branch-lastige Merge-, Skip- und Fehlerfaelle ab,
+    2) der Summary-Pfad behaelt denselben CLI- und Artefaktvertrag,
+    3) keine Regression fuer bestehende Reports oder Eval-Zusammenfassungen,
+    4) die Skriptabdeckung steigt sichtbar ueber den aktuellen Reststand.
+  - Evidenz: Der aktuelle Full-Check fuehrt `scripts/map_reduce_summary.py` weiterhin als branchreichen Restpfad mit spuerbarer Distanz zum uebrigen Agent-Skriptstandard.
+
+- [ ] [Als naechstes] Den `gm_session`-Hard-Fail bei nicht erreichbarer lokaler Modellruntime diagnostisch besser einhegen.
+  - Ziel: Der produktive Spielleiter-Gate soll bei fehlender lokaler Runtime weiterhin hart scheitern duerfen, aber frueher und klarer in Vorpruefung, Report und Triage sichtbar werden.
+  - Akzeptanzkriterien:
+    1) Runbook, Gate-Wrapper und Report trennen Runtime-unreachable, Modell-fehlt und spaeteren Eval-Fail noch klarer,
+    2) der Hard-Fail bleibt produktseitig erhalten, wird aber schneller und eindeutiger berichtet,
+    3) lokale Nutzer erhalten einen klaren Vorpruefpfad vor dem teuren Gesamtgate,
+    4) der Punkt erzeugt keine Parallelsemantik fuer den bestehenden Produktpfad.
+  - Evidenz: `novapolis_agent/docs/runbook.md` benennt die nicht erreichbare lokale Modellruntime fuer den `gm_session`-Eval-Teil weiterhin explizit als Hard-Fail-Klasse des Gesamtgates.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------

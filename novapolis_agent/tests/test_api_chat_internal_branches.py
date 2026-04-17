@@ -94,7 +94,8 @@ async def test_process_chat_request_support_ab_profile_prefers_better_candidate(
         model_name = kwargs["model_name"]
         if model_name == "llama3.1:8b":
             return (
-                "Vielen Dank fuer Ihre Rueckmeldung. Bitte senden Sie die Rechnungsnummer, damit wir den Fall schnell pruefen koennen.",
+                "Vielen Dank fuer Ihre Rueckmeldung. Bitte senden Sie die "
+                "Rechnungsnummer, damit wir den Fall schnell pruefen koennen.",
                 1100,
             )
         if model_name == "qwen3.5:4b":
@@ -115,7 +116,15 @@ async def test_process_chat_request_support_ab_profile_prefers_better_candidate(
     monkeypatch.setattr(chat_module, "_run_nonstream_ollama_request", _fake_run, raising=False)
 
     request = ChatRequest(
-        messages=[{"role": "user", "content": "Bitte formuliere eine versandfaehige Support-Antwort zur fehlenden Rechnungsnummer."}],
+        messages=[
+            {
+                "role": "user",
+                "content": (
+                    "Bitte formuliere eine versandfaehige Support-Antwort "
+                    "zur fehlenden Rechnungsnummer."
+                ),
+            }
+        ],
         profile_id="support_de_ab",
     )
     result = await chat_module.process_chat_request(request)
@@ -162,7 +171,15 @@ async def test_process_chat_request_support_ab_uses_optional_judge(
     monkeypatch.setattr(chat_module, "_run_nonstream_ollama_request", _fake_run, raising=False)
 
     request = ChatRequest(
-        messages=[{"role": "user", "content": "Bitte formuliere eine versandfaehige Support-Antwort zur fehlenden Rechnungsnummer."}],
+        messages=[
+            {
+                "role": "user",
+                "content": (
+                    "Bitte formuliere eine versandfaehige Support-Antwort "
+                    "zur fehlenden Rechnungsnummer."
+                ),
+            }
+        ],
         profile_id="support_de_ab",
         options={"support_judge_model": "qwen2.5:7b", "support_force_judge": True},
     )
@@ -170,6 +187,122 @@ async def test_process_chat_request_support_ab_uses_optional_judge(
 
     assert result.model == "qwen3.5:4b"
     assert result.content.startswith("Danke fuer Ihre Nachricht")
+    assert calls == ["llama3.1:8b", "qwen3.5:4b", "qwen2.5:7b"]
+
+
+@pytest.mark.asyncio
+async def test_process_chat_request_support_ab_keeps_ranked_winner_on_invalid_judge_choice(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    calls: list[str] = []
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    async def _fake_run(**kwargs: Any):
+        model_name = kwargs["model_name"]
+        calls.append(model_name)
+        if model_name == "llama3.1:8b":
+            return (
+                "Vielen Dank fuer Ihre Nachricht. Bitte senden Sie die Rechnungsnummer.",
+                1500,
+            )
+        if model_name == "qwen3.5:4b":
+            return ("Szene: Novapolis meldet sich bei Ihnen. Optionen: ...", 1400)
+        if model_name == "qwen2.5:7b":
+            return ("keine praefenz erkennbar", 400)
+        raise AssertionError(model_name)
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "qwen3.5:4b", raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "REQUEST_ID_HEADER", "X-Request-ID", raising=False)
+    monkeypatch.setattr(settings, "LOG_TRUNCATE_CHARS", 50, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(chat_module, "apply_post", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(chat_module, "get_memory_store", lambda: _DummyStore())
+    monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda _: []))
+    monkeypatch.setattr(chat_module, "_run_nonstream_ollama_request", _fake_run, raising=False)
+
+    request = ChatRequest(
+        messages=[
+            {
+                "role": "user",
+                "content": (
+                    "Bitte formuliere eine versandfaehige Support-Antwort "
+                    "zur fehlenden Rechnungsnummer."
+                ),
+            }
+        ],
+        profile_id="support_de_ab",
+        options={"support_judge_model": "qwen2.5:7b", "support_force_judge": True},
+    )
+    result = await chat_module.process_chat_request(request)
+
+    assert result.model == "llama3.1:8b"
+    assert result.content.startswith("Vielen Dank fuer Ihre Nachricht")
+    assert calls == ["llama3.1:8b", "qwen3.5:4b", "qwen2.5:7b"]
+
+
+@pytest.mark.asyncio
+async def test_process_chat_request_support_ab_keeps_duration_tiebreak_on_invalid_judge_choice(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from app.api import chat as chat_module
+
+    settings = chat_module.settings
+    calls: list[str] = []
+    equal_support_answer = "Vielen Dank fuer Ihre Nachricht. Bitte senden Sie die Rechnungsnummer."
+
+    async def _compose(messages, session_id, **kwargs):
+        return list(messages)
+
+    async def _fake_run(**kwargs: Any):
+        model_name = kwargs["model_name"]
+        calls.append(model_name)
+        if model_name == "llama3.1:8b":
+            return (equal_support_answer, 1500)
+        if model_name == "qwen3.5:4b":
+            return (equal_support_answer, 1400)
+        if model_name == "qwen2.5:7b":
+            return ("keine klare entscheidung", 400)
+        raise AssertionError(model_name)
+
+    monkeypatch.setattr(settings, "MODEL_NAME", "qwen3.5:4b", raising=False)
+    monkeypatch.setattr(settings, "MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "SESSION_MEMORY_ENABLED", False, raising=False)
+    monkeypatch.setattr(settings, "REQUEST_ID_HEADER", "X-Request-ID", raising=False)
+    monkeypatch.setattr(settings, "LOG_TRUNCATE_CHARS", 50, raising=False)
+    monkeypatch.setattr(settings, "LOG_JSON", False, raising=False)
+    monkeypatch.setattr(chat_module, "compose_with_memory", _compose, raising=False)
+    monkeypatch.setattr(chat_module, "apply_pre", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(chat_module, "apply_post", lambda *a, **k: SimpleNamespace(action="allow"))
+    monkeypatch.setattr(chat_module, "get_memory_store", lambda: _DummyStore())
+    monkeypatch.setattr(chat_module, "session_memory", SimpleNamespace(get=lambda _: []))
+    monkeypatch.setattr(chat_module, "_run_nonstream_ollama_request", _fake_run, raising=False)
+
+    request = ChatRequest(
+        messages=[
+            {
+                "role": "user",
+                "content": (
+                    "Bitte formuliere eine versandfaehige Support-Antwort "
+                    "zur fehlenden Rechnungsnummer."
+                ),
+            }
+        ],
+        profile_id="support_de_ab",
+        options={"support_judge_model": "qwen2.5:7b", "support_force_judge": True},
+    )
+    result = await chat_module.process_chat_request(request)
+
+    assert result.model == "qwen3.5:4b"
+    assert result.content == equal_support_answer
     assert calls == ["llama3.1:8b", "qwen3.5:4b", "qwen2.5:7b"]
 
 

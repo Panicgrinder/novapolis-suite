@@ -321,9 +321,7 @@ async def run_reference_session(spec_path: Path, session_store_dir: Path) -> dic
     }
 
 
-async def run_reference_sessions(
-    spec_paths: list[Path], session_store_dir: Path
-) -> dict[str, Any]:
+async def run_reference_sessions(spec_paths: list[Path], session_store_dir: Path) -> dict[str, Any]:
     case_reports: list[dict[str, Any]] = []
     errors: list[str] = []
 
@@ -347,9 +345,7 @@ async def run_reference_sessions(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Run deterministic Text-RPG reference sessions"
-    )
+    parser = argparse.ArgumentParser(description="Run deterministic Text-RPG reference sessions")
     parser.add_argument(
         "--repo-root",
         default=str(Path(__file__).resolve().parents[2]),

@@ -228,9 +228,7 @@ def test_run_reference_sessions_aggregates_multiple_specs(tmp_path: Path) -> Non
     first_path = tmp_path / "reference-base.json"
     second_path = tmp_path / "reference-handover.json"
     first_path.write_text(json.dumps(first_spec, ensure_ascii=False, indent=2), encoding="utf-8")
-    second_path.write_text(
-        json.dumps(second_spec, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
+    second_path.write_text(json.dumps(second_spec, ensure_ascii=False, indent=2), encoding="utf-8")
 
     report = asyncio.run(
         mod.run_reference_sessions([first_path, second_path], tmp_path / "sessions")

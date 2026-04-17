@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Der Workspace-Index fuehrt jetzt den dokumentierten Abschluss des Phase-2-Konsistenzlaufs statt des alten Dauerclaims `Phase 2 aktiv`.
-checks: snapshot-lock PASS (2026-04-17 02:44); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 07:12
+update: Der Workspace-Index priorisiert jetzt aktive Reader-Surface-Pfade und kapselt private oder generierte Artefaktklassen explizit ab.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -29,14 +29,16 @@ Vollständiger Index aller Dateien im Agent-Verzeichnis
 Hinweis: Alle Pfade beziehen sich auf den Repo-Root (`Main/`). Sofern nicht anders erwähnt, beginnen sie bei `novapolis_agent/`.
 Hinweis (Aktualisierung 2026-02-26): Der Eval-Dataset-Bestand ist kanonisch in `novapolis-dev/docs/dataset-provenance.md` nachzuverfolgen.
 
+Reader-Surface-Grenze
+---------------------
+
+Der folgende Index priorisiert navigationsrelevante, aktive Repo-Inhalte. Private Laufzeitdateien, Caches und generierte Einzelartefakte gehoeren nicht zur primaeren Reader-Surface; sie werden nur als Klassen dokumentiert, nicht mehr als gleichrangige Einzelnavigation.
+
 ### Paket `novapolis_agent/` (Unterordner im Single-Root)
 
-- [`novapolis_agent/.coverage`](novapolis_agent/.coverage) - Coverage-Report (generiert)
 - [`novapolis_agent/.coveragerc`](novapolis_agent/.coveragerc) - Coverage-Konfiguration
-- [`novapolis_agent/.env`](novapolis_agent/.env) - Umgebungsvariablen (private Konfiguration)
 - [`novapolis_agent/.env.example`](novapolis_agent/.env.example) - Template für Umgebungsvariablen
 - [`novapolis_agent/.gitignore`](novapolis_agent/.gitignore) - Git-Ignorier-Regeln
-- [`novapolis_agent/coverage.xml`](novapolis_agent/coverage.xml) - Coverage-Report (XML, generiert)
 - [`novapolis_agent/cleanup_recommendations.md`](novapolis_agent/cleanup_recommendations.md) - Aufräum-Empfehlungen
 - [`novapolis_agent/docs/CONTEXT_ARCH.md`](novapolis_agent/docs/CONTEXT_ARCH.md) - Kontextfluss Developer ⇄ Copilot ⇄ GPT (Rollen, Beispiele, Privacy)
 - [`novapolis_agent/mypy.ini`](novapolis_agent/mypy.ini) - mypy-Konfiguration
@@ -48,9 +50,11 @@ Hinweis (Aktualisierung 2026-02-26): Der Eval-Dataset-Bestand ist kanonisch in `
  - [`novapolis_agent/requirements-dev.txt`](novapolis_agent/requirements-dev.txt) - Dev-Abhängigkeiten (Lint/Tests)
 - [`novapolis_agent/run_server.py`](novapolis_agent/run_server.py) - Server-Startskript
 - [`novapolis_agent/test_settings.py`](novapolis_agent/test_settings.py) - Einstellungen-Test
-- [`novapolis_agent/__pycache__/`](novapolis_agent/__pycache__/) - Python-Bytecode-Cache (generiert)
-- [`novapolis_agent/.mypy_cache/`](novapolis_agent/.mypy_cache/) - mypy-Cache (generiert)
-- [`novapolis_agent/.pytest_cache/`](novapolis_agent/.pytest_cache/) - Pytest-Cache (generiert)
+
+### Lokale/generierte Artefaktklassen (nicht Teil der aktiven Reader-Surface)
+
+- Private Laufzeitkonfiguration liegt lokal unter `novapolis_agent/.env`; kanonischer Dokumentations- und Einstiegspunkt bleibt [`novapolis_agent/.env.example`](novapolis_agent/.env.example).
+- Generierte Test- und Coverage-Artefakte wie `novapolis_agent/.coverage`, `novapolis_agent/coverage.xml`, `novapolis_agent/__pycache__/`, `novapolis_agent/.mypy_cache/` und `novapolis_agent/.pytest_cache/` gehoeren zum lokalen Arbeitszustand, nicht zur primaeren Navigation.
 
 ### VS Code — Agent Workspace (`novapolis_agent/.vscode`)
 

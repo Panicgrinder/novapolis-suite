@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 05:25
-update: Der TODO-Index spiegelt jetzt auch die Archivierung des letzten Sim-Abschlussschnitts; alle Live-Boards stehen weiter bei offen: 0.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_052246.md
+stand: 2026-04-17 07:12
+update: Der TODO-Index fuehrt nach dem erneuten Workspace-Scan fuer alle vier Live-Boards wieder je fuenf offene Folgepunkte; Root fuehrt zusaetzlich fuenf suiteweite Querschnittspunkte ausserhalb der Modul-Open-Counts.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,24 +12,24 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 0)
-- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
-- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 5)
+- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 5)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 5)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 5)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
 Statushinweise (aktuell)
 ------------------------
 
-- Root/Meta: `todo.root.md` ist nach vollstaendiger Erledigung und Validierung des letzten Root-Blocks wieder auf eine leere Arbeitsvorlage fuer neue suiteweite Punkte zurueckgesetzt. Der abgeschlossene Inhalt liegt jetzt unter `novapolis-dev/archive/todo.root.archive.md`; offene Folgearbeit liegt ausschliesslich in den Modul-Boards.
+- Root/Meta: `todo.root.md` fuehrt nach dem erneuten Workspace-Scan wieder fuenf suiteweite Querschnittspunkte. Der zuletzt abgeschlossene Root-Block bleibt weiterhin unter `novapolis-dev/archive/todo.root.archive.md` archiviert; Root bleibt bewusst ausserhalb der Modul-Open-Counts.
 
-- Dev: Der zuletzt geschlossene Reader-/Surface-Nachzug liegt jetzt zusaetzlich unter `novapolis-dev/archive/todo.dev.archive.md`; `novapolis-dev/docs/todo.dev.md` ist wieder als schlanke Live-Oberflaeche fuer neue Dev-Punkte vorbereitet und steht weiter bei `offen: 0`.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt jetzt fuenf neue Steuerpunkte fuer Workspace-Tree-Tasks, Reader-Surface, Active-Surface-Index, Tree-Artefakt-Schnitt und Doku-Sync; die zuvor geschlossene Reader-/Surface-Welle bleibt weiter zusaetzlich unter `novapolis-dev/archive/todo.dev.archive.md` archiviert.
 
-- Agent: Der zuletzt geschlossene Handover-Block liegt jetzt zusaetzlich unter `novapolis-dev/archive/todo.agent.archive.md`; `novapolis-dev/docs/todo.agent-board.md` ist wieder als schlanke Live-Oberflaeche fuer neue Agent-Punkte vorbereitet und steht weiter bei `offen: 0`.
+- Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt jetzt fuenf neue Punkte fuer Coverage-Reste, Referenzpfad-Haertung und `gm_session`-Runtime-Diagnostik; der zuletzt geschlossene Handover-Block bleibt zusaetzlich unter `novapolis-dev/archive/todo.agent.archive.md` archiviert.
 
-- RP: Der zuletzt geschlossene Folgepfad `slot 36-40` liegt jetzt zusaetzlich unter `novapolis-dev/archive/todo.rp.archive.md`; `novapolis-dev/docs/todo.rp.md` ist wieder als schlanke Live-Oberflaeche fuer neue RP-Punkte vorbereitet und steht weiter bei `offen: 0`.
+- RP: `novapolis-dev/docs/todo.rp.md` fuehrt jetzt fuenf neue Punkte fuer `slot 41-45` und die warenbezogene Evidenzkette von D5/C6 bis Metro-Ebene; der zuletzt geschlossene Folgepfad `slot 36-40` bleibt zusaetzlich unter `novapolis-dev/archive/todo.rp.archive.md` archiviert.
 
-- Sim: Der zuletzt geschlossene Sim-Abschlussschnitt liegt jetzt zusaetzlich unter `novapolis-dev/archive/todo.sim.archive.md`; `novapolis-dev/docs/todo.sim.md` ist wieder als schlanke Live-Oberflaeche fuer neue Sim-Punkte vorbereitet und steht weiter bei `offen: 0`.
+- Sim: `novapolis-dev/docs/todo.sim.md` fuehrt jetzt fuenf neue Punkte fuer Architekturrest, Exportpfad, Export-Smoke, Offline-Vollstand und Persistenzhaertung; der zuletzt geschlossene Sim-Abschlussschnitt bleibt zusaetzlich unter `novapolis-dev/archive/todo.sim.archive.md` archiviert.
 
 - Historische Zwischenstaende und offene Uebergangsphasen bleiben im Dev-DONELOG dokumentiert; der TODO-Index fuehrt absichtlich nur noch den aktuellen Board- und Gate-Stand.
 
@@ -38,10 +38,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-04-17 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-04-17 | keiner (offen: 0) | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-04-17 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-04-17 | keiner (offen: 0) | nein |
+| Dev (`docs/todo.dev.md`) | 2026-04-17 | - [ ] [Jetzt] `Workspace tree:*`-Tasks, Statusclaim und echten Launcher-Pfad wieder auf denselben reproduzierbaren Iststand ziehen. | nein |
+| RP (`docs/todo.rp.md`) | 2026-04-17 | - [ ] [Jetzt] Den Folgekorridor hinter `slot 40` als `slot 41-45` unter demselben Slice-2-Handover-Vertrag ausarbeiten. | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-04-17 | - [ ] [Jetzt] `novapolis_agent/scripts/support_ab_smoke.py` vom aktuellen Reststand auf belastbare Produkt- und Testabdeckung ziehen. | nein |
+| Sim (`docs/todo.sim.md`) | 2026-04-17 | - [ ] [Jetzt] Den verbliebenen Agent-Studio-/Form-State-Rest aus `Main.gd` in denselben Controller-Schnitt ziehen wie die uebrigen Hub-Pfade. | nein |
 
 
 Hinweise (Index)

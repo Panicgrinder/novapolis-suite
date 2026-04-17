@@ -4,8 +4,9 @@ import json
 from pathlib import Path
 
 import pytest
-from novapolis_agent.app.api import sim
 from pydantic import ValidationError
+
+from novapolis_agent.app.api import sim
 
 
 @pytest.mark.unit

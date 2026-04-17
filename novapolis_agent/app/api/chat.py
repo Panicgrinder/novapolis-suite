@@ -481,7 +481,9 @@ async def _run_nonstream_ollama_request(
 
     max_len = max(0, int(getattr(settings, "LOG_TRUNCATE_CHARS", 200)))
     preview = (
-        generated_content if len(generated_content) <= max_len else f"{generated_content[:max_len]}..."
+        generated_content
+        if len(generated_content) <= max_len
+        else f"{generated_content[:max_len]}..."
     )
     duration_ms = int((time.time() - started) * 1000)
     if getattr(settings, "LOG_JSON", False):
@@ -2170,15 +2172,15 @@ async def process_chat_request(
             runner_up = ranked_candidates[1] if len(ranked_candidates) > 1 else None
             judge_model = _support_ab_judge_model(raw_opts2)
             use_judge = _support_ab_force_judge(raw_opts2)
-            if (
-                judge_model
-                and len(candidate_results) >= 2
-                and (use_judge or runner_up is not None)
-            ):
-                score_gap = abs(
-                    int(cast(int, winner.get("score", -100)))
-                    - int(cast(int, runner_up.get("score", -100)))
-                ) if runner_up is not None else 0
+            if judge_model and len(candidate_results) >= 2 and (use_judge or runner_up is not None):
+                score_gap = (
+                    abs(
+                        int(cast(int, winner.get("score", -100)))
+                        - int(cast(int, runner_up.get("score", -100)))
+                    )
+                    if runner_up is not None
+                    else 0
+                )
                 if use_judge or score_gap <= 1:
                     judge_messages = _build_support_judge_messages(
                         user_text=last_user_text,
@@ -2187,7 +2189,12 @@ async def process_chat_request(
                     )
                     judge_text, _judge_duration = await _run_nonstream_ollama_request(
                         messages=judge_messages,
-                        raw_options={**raw_opts2, "temperature": 0.0, "top_p": 0.1, "num_predict": 32},
+                        raw_options={
+                            **raw_opts2,
+                            "temperature": 0.0,
+                            "top_p": 0.1,
+                            "num_predict": 32,
+                        },
                         model_name=judge_model,
                         eval_mode=False,
                         client=client,

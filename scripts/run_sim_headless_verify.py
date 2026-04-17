@@ -7,7 +7,6 @@ import subprocess
 import sys
 from pathlib import Path
 
-
 DEFAULT_PROJECT_DIR = "novapolis-sim"
 DEFAULT_VERIFY_SCRIPT = "res://scripts/verify_sim.gd"
 
@@ -31,7 +30,8 @@ def _resolve_godot_executable(raw_value: str | None) -> Path:
             return candidate_path.resolve()
 
     raise FileNotFoundError(
-        "Could not resolve a Godot executable. Set GODOT_BIN, pass --godot-bin, or add godot4/godot to PATH."
+        "Could not resolve a Godot executable. Set GODOT_BIN, pass "
+        "--godot-bin, or add godot4/godot to PATH."
     )
 
 

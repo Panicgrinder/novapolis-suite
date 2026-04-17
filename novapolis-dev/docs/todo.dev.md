@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Der zuletzt geschlossene Reader-Surface-Steuerpunkt ist archiviert; das Live-Board ist fuer neue Dev-Punkte vorbereitet.
-checks: snapshot-lock PASS (2026-04-17 04:09); workspace-evidence PASS (todo.dev, todo.dev.archive, todo.index, WORKSPACE_STATUS, DONELOG); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 07:12
+update: Das Dev-Board fuehrt nach dem erneuten Workspace-Scan wieder fuenf offene Steuerpunkte fuer Tasking, Reader-Surface, Active-Surface-Index und Doku-Sync.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -19,10 +19,82 @@ Hinweis
 Offene Aufgaben (Dev)
 ---------------------
 
-- Zurzeit keine offenen Dev-Punkte.
+- [ ] [Jetzt] `Workspace tree:*`-Tasks, Statusclaim und echten Launcher-Pfad wieder auf denselben reproduzierbaren Iststand ziehen.
+  - Ziel: Der Workspace soll nicht gleichzeitig aktuelle Prozess-Tasks und einen fortgeschriebenen Statusclaim ueber lokal scheiternde Tree-Tasks tragen; entweder wird der aktuelle Launcherpfad belastbar gruen verifiziert oder die Doku auf den echten Reststand korrigiert.
+  - Akzeptanzkriterien:
+    1) `.vscode/tasks.json`, `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` widersprechen sich danach nicht mehr beim Tree-Task-Verhalten,
+    2) `Workspace tree: full` und `Workspace tree: directories` laufen lokal belegbar ueber denselben kanonischen Pfad oder sind bewusst anders dokumentiert,
+    3) die Root-Tree-Artefakte lassen sich ohne Terminal-Sonderweg aktualisieren,
+    4) der Punkt bleibt auf den technischen Task-/Governance-Pfad begrenzt.
+  - Evidenz: `.vscode/tasks.json` fuehrt die Tree-Tasks inzwischen als `process`, waehrend `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` weiter den alten lokalen `pwsh /d /c`-Fehlpfad fuer `Workspace tree:*` fortschreiben.
+
+- [ ] [Jetzt] `WORKSPACE_INDEX.md` von einem agent-lastigen Tiefenkatalog wieder auf eine echte Workspace-Landing-Surface mit klaren Modullinks ausrichten.
+  - Ziel: Die aktive Reader-Surface soll zuerst durch Root, Dev, Agent, RP und Sim navigieren und erst danach in Modultiefe gehen, statt weiterhin unter dem Workspace-Titel primär einen Agent-Dateiindex zu fuehren.
+  - Akzeptanzkriterien:
+    1) `WORKSPACE_INDEX.md` startet mit einer scanbaren Workspace-Landing-Surface ueber Root plus vier Hauptmodule,
+    2) agent-lastige Detailtiefe bleibt erreichbar, dominiert aber nicht mehr den Einstieg,
+    3) `WORKSPACE_STATUS.md`, `novapolis-dev/README.md` und der Index fuehren denselben Navigationsrahmen,
+    4) Reader-Surface-Grenze und aktive Modulwege bleiben portabel und ohne Artefaktdrift.
+  - Evidenz: `WORKSPACE_INDEX.md` fuehrt zwar bereits eine Reader-Surface-Grenze, traegt aber weiterhin als fruehen Hauptblock `Vollständiger Index aller Dateien im Agent-Verzeichnis` und bleibt damit fuer einen Workspace-Index noch deutlich agent-zentriert.
+
+- [ ] [Als naechstes] Den `active-surface-index.md` fuer Referenzdokus mit altem `last_check` vom 2026-03-04 erneut pruefen und sauber neu klassifizieren.
+  - Ziel: Der Active-Surface-Index soll nicht nur die Boards und `process/**` frisch fuehren, sondern auch die weiterhin aktiven Referenzquellen belastbar auf April-Stand pruefen oder bewusst als weniger aktiv markieren.
+  - Akzeptanzkriterien:
+    1) Referenzdokus mit `last_check 2026-03-04` sind entweder frisch geprueft oder als bewusst seltener gepflegt umklassifiziert,
+    2) `active-surface-index.md`, `doc-freshness`-Logik und Reader-Surface widersprechen sich nicht,
+    3) die Pflege bleibt scanbar und ohne unnötigen Vollscan historischer Quellen,
+    4) der Index bleibt kompakt und dient weiter als echte Governance-Hilfe.
+  - Evidenz: `novapolis-dev/docs/active-surface-index.md` fuehrt Boards und `process/**` auf April-Stand, waehrend mehrere weiterhin relevante Referenzdokus noch `last_check = 2026-03-04` tragen.
+
+- [ ] [Als naechstes] Die Root-Tree-Artefakte in einen aktiven Reader-Baum und einen forensischen Vollbaum mit klarer Filterlogik aufspalten.
+  - Ziel: Die kanonischen Tree-Artefakte sollen fuer aktive Navigation nicht weiter Venv-, Cache- und `.tmp`-Oberflaeche in derselben Form wie den Forensik-Vollstand mischen.
+  - Akzeptanzkriterien:
+    1) ein aktiver Tree fokussiert navigationsrelevante Surface statt lokaler Artefaktmassen,
+    2) ein zweiter Pfad bleibt bewusst forensisch/vollstaendig fuer Audit-Zwecke erhalten,
+    3) `WORKSPACE_STATUS.md`, Tree-Tasks und README/Index beschreiben dieselbe Zweiteilung,
+    4) der Refresh bleibt automatisierbar ueber denselben Dev-Pfad.
+  - Evidenz: `WORKSPACE_STATUS.md` dokumentiert, dass die aktuellen Tree-Artefakte inzwischen auch `.tmp`-Referenz-/Reportpfade sowie lokale Venv-/Cache-Oberflaechen spiegeln; zugleich soll die Reader-Surface laut Index gerade solche Artefaktklassen bewusst abgrenzen.
+
+- [ ] [Als naechstes] Einen kleinen Doku-Sync-Helfer fuer Frontmatter-, Report- und Board-Nachzug nach grünen Sammellaeufen einfuehren.
+  - Ziel: Nach groen Full-Checks sollen Root- und Dev-Dokus nicht mehr rein manuell denselben Reportpfad, denselben Stand und dieselben Open-Counts nachziehen muessen.
+  - Akzeptanzkriterien:
+    1) Root-/Dev-Dokus und Boards lassen sich nach einem validierten Lauf konsistent mit demselben Reportpfad aktualisieren,
+    2) der Helfer respektiert Snapshot-, Frontmatter- und TODO-Index-Gates,
+    3) `DONELOG.md`, `WORKSPACE_STATUS.md`, `todo.root.md`, `todo.index.md` und betroffene Boards bleiben danach in einem kleineren Sync-Aufwand,
+    4) die Loesung reduziert nur Drift, ersetzt aber nicht die inhaltliche Boardpflege.
+  - Evidenz: Die aktiven Root- und Dev-Dokus ziehen nach fast jedem grünen Sammellauf denselben Reportpfad, denselben Boardstand und denselben Checkzustand manuell ueber mehrere Dateien nach.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Logsprache, Reader-Surface-Grenze, Python-Versionstext und Support-A-B-Tie-Break-Fallback nachziehen.
+  - Ziel: Die aktive Reader- und Runtime-Doku soll robuste, nicht vorschnell veraltende Aussagen fuehren; lokale Artefaktklassen sollen nicht mehr als direkte Navigationsziele erscheinen; und der Support-A-B-Pfad soll auch den Gleichstands-Tie-Break bei unbrauchbarer Judge-Antwort explizit testseitig abdecken.
+  - Akzeptanzkriterien:
+    1) die Formulierung `finale[r] kanonische[r] Sammellauf` ist in den betroffenen aktiven Logs auf eine zeitstabile Formulierung nachgezogen,
+    2) `WORKSPACE_INDEX.md` beschreibt lokale/private Artefaktklassen ohne direkte Reader-Links auf diese Einzelpfade,
+    3) `novapolis_agent/README.md` fuehrt die Root-Umgebung robust als Python-3.12.x-Referenz mit belegtem Iststand statt als patch-genaues Muss,
+    4) `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt zusaetzlich den Fall gleicher heuristischer Scores plus unbrauchbarer Judge-Antwort ab, wobei der Dauer-Tie-Break stabil erhalten bleibt.
+  - Ergebnis 2026-04-17 06:04: Die aktiven Logs fuehren keine veraltende `finale`-Formulierung fuer den 05:30-Lauf mehr, `WORKSPACE_INDEX.md` beschreibt lokale/private Artefaktklassen nur noch als Klassenhinweis ohne direkte Reader-Links, `novapolis_agent/README.md` fuehrt die Root-`.venv` robust als Python-3.12.x-Referenz mit zuletzt dokumentiertem Gruenlauf 3.12.10, und `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt jetzt auch den Gleichstandsfall mit unbrauchbarer Judge-Antwort ab. Der Sammellauf `.tmp/results/reports/checks_report_20260417_060413.md` endet vollstaendig mit `overall=PASS`, `639 passed` und `Total coverage: 93.89%`.
+
+- [x] [Jetzt] Reader-Surface, Runtime-Doku und Support-A-B-Semantik auf einen konsistenten Iststand ziehen.
+  - Ziel: Die aktive Reader-Oberflaeche soll keine private oder generierte Artefaktliste mehr als primaere Orientierung mischen, die Agent-Runtime-Doku soll den belegten Python- und Modellstand klar trennen, und der Support-A-B-Pfad soll einen explizit abgesicherten Fallback bei ungueltiger Judge-Antwort erhalten.
+  - Akzeptanzkriterien:
+    1) `novapolis_agent/README.md` beschreibt den belegten Python-Laufzeitstand konsistent und trennt Standard-Chat, Support-A-B und Judge-Modell klar,
+    2) `WORKSPACE_INDEX.md` reduziert die aktive Reader-Surface auf navigationstaugliche Inhalte und kapselt private oder generierte Artefakte eindeutig ab,
+    3) `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt den Fall ab, dass der Judge keine verwertbare Antwort `A|B` liefert und der heuristische Gewinner bestehen bleibt,
+    4) die zugehoerigen DONELOG-/Index-Dokumente sind im selben Lauf nachgezogen.
+  - Evidenz: Die aktuelle Workspace-Semantik zeigte drei konkrete Driftpunkte: `novapolis_agent/README.md` forderte Python 3.13, waehrend der belegte Checklauf zuletzt mit Python 3.12.10 verifiziert wurde; `WORKSPACE_INDEX.md` fuehrte lokale Artefakte wie `.env`, `.coverage`, `coverage.xml` und `__pycache__` im aktiven Reader-Surface; und der Support-A-B-Pfad in `novapolis_agent/app/api/chat.py` hatte noch keinen eigenen Test fuer den Fallback bei nicht parsebarer Judge-Antwort.
+  - Ergebnis 2026-04-17 05:55: `novapolis_agent/README.md` fuehrt jetzt den belegten Python-3.12.10-Interpreter als Referenzpfad und trennt Standard-Chat, Support-A-B und Judge in einer Profilmatrix. `WORKSPACE_INDEX.md` kapselt private und generierte Artefaktklassen hinter einer eigenen Reader-Surface-Grenze, statt sie als primaere Navigation zu fuehren. `novapolis_agent/tests/test_api_chat_internal_branches.py` sichert den Fall ab, dass ein gesetzter Judge keine verwertbare Antwort `A|B` liefert und der heuristische Gewinner bestehen bleibt. Der kanonische Sammellauf `.tmp/results/reports/checks_report_20260417_055543.md` ist mit `overall=PASS`, `638 passed` und `Total coverage: 93.89%` belegt gruen.
+
+- [x] [Jetzt] Aktuellen Ruff-/Black-Drift im Python-Scope `novapolis_agent` plus `scripts` wieder auf Gruen ziehen.
+  - Ziel: Der aktuelle Python-Qualitaetsscope soll wieder ohne Ruff- und Black-Reste laufen, damit der naechste Full-Check nicht an lokalem Stil-/Lint-Drift scheitert.
+  - Akzeptanzkriterien:
+    1) `python -m ruff check novapolis_agent scripts` liefert `0` Findings,
+    2) `python -m black --check novapolis_agent scripts` liefert `0` reformattierbare Dateien,
+    3) der Fixlauf fuehrt keine neuen Test- oder Typregressionen ein,
+    4) der betroffene Full-Check-Pfad bleibt danach mindestens fuer Docs, Typen, Tests und Coverage gruen und scheitert nicht mehr an neu eingefuehrtem Drift im angefassten Scope.
+  - Evidenz: Der Ausgangslauf `.tmp/results/reports/checks_report_20260417_052246.md` meldete `ruff=FAIL` und `black=FAIL`; der direkte Recheck zeigte 13 Ruff-Fundstellen und 9 Black-Reformat-Kandidaten u. a. in `novapolis_agent/app/api/chat.py`, `novapolis_agent/scripts/run_eval.py`, `novapolis_agent/scripts/support_ab_smoke.py`, `novapolis_agent/tests/test_api_chat_internal_branches.py`, `novapolis_agent/tests/test_api_sim_state.py` und `scripts/run_sim_headless_verify.py`.
+  - Ergebnis 2026-04-17 05:30: Die gemeldeten Zeilenlaengen-, Import- und Formatdrifts sind im betroffenen Scope bereinigt. Der gezielte Testblock fuer Chat-, Sim- und Script-Pfade ist PASS, `python -m ruff check novapolis_agent scripts` ist PASS, `python -m black --check novapolis_agent scripts` ist PASS, und der damals gezogene kanonische Sammellauf `.tmp/results/reports/checks_report_20260417_053609.md` endet wieder mit `overall=PASS`.
 
 - [x] [Jetzt] Repo-eigene Ruff-/Black-Restdrift aus der Wochenpruefung 2026-04-14 schliessen.
   - Ziel: Der kanonische Full-Check soll nach dem Wochenlauf nicht mehr an Python-Lint-/Formatresten in `novapolis_agent` und `scripts` haengen, nachdem `markdownlint`, `path-portability`, Typen, Tests, Coverage und die Hygiene-Cadence bereits wieder gruen sind.

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 05:25
-update: Dev-DONELOG dokumentiert jetzt auch den Commit-Preflight fuer den Main-Push; aktive Reader-Doku und belegte Tree-/Wrapper-Artefakte fuehren wieder denselben frischen Snapshot-Zeitpunkt.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_052246.md
+stand: 2026-04-17 07:12
+update: Dev-DONELOG dokumentiert jetzt auch den geschlossenen Board-Refill fuer Root und alle vier Live-Boards; der kanonische Full-Check steht weiter auf PASS.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -18,6 +18,37 @@ Hinweis
 
 Current-Window Eintraege
 ------------------------
+
+Board-Refill: Root und Live-Boards wieder auf je fuenf Punkte gezogen (2026-04-17 06:37)
+----------------------------------------------------------------------------------------
+
+- `todo.root.md` sowie `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.rp.md` und `novapolis-dev/docs/todo.sim.md` fuehren nach dem erneuten Workspace-Scan wieder je fuenf aktive Folgepunkte statt leerer Live-Oberflaechen.
+- `novapolis-dev/docs/todo.index.md` synchronisiert die Modulzaehlung jetzt auf `Dev=5`, `RP=5`, `Agent=5` und `Sim=5`; Root bleibt bewusst ausserhalb dieser Counts.
+- Die neuen Punkte bleiben an aktuelle Evidenz gebunden: Dev fokussiert Workspace-/Reader-Surface-/Sync-Themen, Agent fokussiert Coverage- und Runtime-Reste, RP fokussiert den Korridor hinter `slot 40`, und Sim fokussiert Export-, Persistenz- und Architekturrest.
+- Der kanonische Sammellauf `.tmp/results/reports/checks_report_20260417_063849.md` ist dazu vollstaendig PASS; die Board-Dateien sind nach der Tab-Korrektur in `todo.root.md` wieder markdownlint-sauber.
+
+Semantik-Nachzug II: Logsprache, Reader-Surface-Abgrenzung und Tie-Break-Fallback geschlossen (2026-04-17 06:04)
+----------------------------------------------------------------------------------------------------------------
+
+- `WORKSPACE_INDEX.md` beschreibt lokale/private Artefaktklassen jetzt nur noch als Klassenhinweise; direkte Reader-Links auf diese Einzelpfade sind aus der aktiven Surface entfernt.
+- `novapolis_agent/README.md` fuehrt die Root-`.venv` jetzt robust als Python-3.12.x-Referenz mit zuletzt dokumentiertem Gruenlauf 3.12.10, statt die operative Baseline patch-genau zu verengen.
+- `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt jetzt zusaetzlich den Gleichstandsfall gleicher heuristischer Scores plus unbrauchbarer Judge-Antwort ab; der Dauer-Tie-Break bleibt dabei stabil auf dem vorgerankten Gewinner.
+- Der kanonische Sammellauf `.tmp/results/reports/checks_report_20260417_060413.md` ist dazu vollstaendig PASS; `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` stehen wieder bei `offen: 0`.
+
+Semantik-Nachzug: Reader-Surface, Runtime-Doku und Support-A-B-Fallback konsistent geschlossen (2026-04-17 05:55)
+-------------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/README.md` fuehrt jetzt den belegten Root-Interpreter als reproduzierbaren Python-3.12.x-Referenzpfad mit zuletzt dokumentiertem Gruenlauf 3.12.10 und trennt Standard-Chat, Support-A-B und Judge in einer operativen Profilmatrix.
+- `WORKSPACE_INDEX.md` priorisiert wieder aktive Navigation und kapselt private oder generierte Artefaktklassen hinter einer eigenen Reader-Surface-Grenze, statt sie als gleichrangige Einzelnavigation zu fuehren.
+- `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt jetzt den Fallback ab, falls ein gesetzter Support-A-B-Judge keine verwertbare Antwort `A|B` liefert und der heuristische Gewinner bestehen bleiben muss.
+- Der kanonische Sammellauf `.tmp/results/reports/checks_report_20260417_055543.md` ist dazu vollstaendig PASS; `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` stehen wieder bei `offen: 0`.
+
+Ruff-/Black-Nachzug: Python-Stildrift in Agent- und Root-Skripten wieder auf PASS gezogen (2026-04-17 05:30)
+----------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/app/api/chat.py`, `novapolis_agent/scripts/run_eval.py`, `novapolis_agent/scripts/support_ab_smoke.py`, mehrere betroffene Agent-Tests sowie `scripts/run_sim_headless_verify.py` fuehren wieder denselben repoweiten Stilrahmen ohne die zuvor gemeldeten E501-, I001- und EOF-Drifts.
+- Der gezielte Testscope fuer Chat-, Sim- und Script-Pfade ist PASS; `ruff check novapolis_agent scripts` und `black --check novapolis_agent scripts` sind ebenfalls PASS.
+- Der damals gezogene kanonische Sammellauf `.tmp/results/reports/checks_report_20260417_053609.md` endet dadurch wieder vollstaendig mit `overall=PASS`, und `novapolis-dev/docs/todo.dev.md` plus `novapolis-dev/docs/todo.index.md` stehen erneut bei `offen: 0`.
 
 Commit-Preflight: Aktive Reader-Doku vor dem Main-Push auf frischen Snapshot-Stand gezogen (2026-04-17 05:18)
 -----------------------------------------------------------------------------------------------------------

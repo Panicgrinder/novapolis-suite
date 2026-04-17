@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 05:25
-update: Root-Summary dokumentiert jetzt auch den Commit-Preflight fuer den Main-Push; Snapshot-Stand, Root-Trees und Wrapper-Aenderungen sind gemeinsam auf einen frischen Gate-Zeitpunkt nachgezogen.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_052246.md
+stand: 2026-04-17 07:12
+update: Root-Summary dokumentiert jetzt den geschlossenen Board-Refill fuer Root und alle vier Live-Boards; der kanonische Full-Check bleibt vollstaendig auf PASS.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,14 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-17 06:37: Der evidenzbasierte Board-Refill fuer die aktive Workspace-Oberflaeche ist geschlossen. `todo.root.md` sowie `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.rp.md` und `novapolis-dev/docs/todo.sim.md` fuehren nach dem erneuten Workspace-Scan wieder je fuenf aktive Folgepunkte; `novapolis-dev/docs/todo.index.md` synchronisiert die Modul-Open-Counts jetzt auf `Dev=5`, `RP=5`, `Agent=5` und `Sim=5`, waehrend Root bewusst separat bleibt. Der kanonische Sammellauf `.tmp/results/reports/checks_report_20260417_063849.md` endet dazu vollstaendig mit `overall=PASS`, `639 passed` und `Total coverage: 93.89%`.
+
+- 2026-04-17 06:04: Der kurze Semantik-Nachzug zu Logsprache, Reader-Surface-Abgrenzung, Python-Versionstext und Support-A-B-Tie-Break ist belegt geschlossen. `WORKSPACE_INDEX.md` beschreibt lokale/private Artefaktklassen jetzt ohne direkte Reader-Links auf diese Einzelpfade, `novapolis_agent/README.md` fuehrt die Root-`.venv` robust als Python-3.12.x-Referenz mit zuletzt dokumentiertem Gruenlauf 3.12.10, und `novapolis_agent/tests/test_api_chat_internal_branches.py` deckt zusaetzlich den Gleichstandsfall mit unbrauchbarer Judge-Antwort ab, bei dem der Dauer-Tie-Break stabil erhalten bleibt. Der Sammellauf `.tmp/results/reports/checks_report_20260417_060413.md` endet dazu vollstaendig mit `overall=PASS`.
+
+- 2026-04-17 05:55: Der Semantik-Nachzug fuer Reader-Surface und Agent-Runtime ist belegt geschlossen. `novapolis_agent/README.md` fuehrt jetzt den belegten Python-3.12.10-Interpreter als reproduzierbaren Referenzpfad und trennt Standard-Chat, Support-A-B und Judge explizit; `WORKSPACE_INDEX.md` stuft private und generierte Artefaktklassen nicht mehr als primaere Navigation ein; und `novapolis_agent/tests/test_api_chat_internal_branches.py` sichert den Support-A-B-Fallback gegen ungueltige Judge-Antworten ab. Der Sammellauf `.tmp/results/reports/checks_report_20260417_055543.md` bleibt dabei vollstaendig PASS.
+
+- 2026-04-17 05:30: Der aktuelle Ruff-/Black-Nachzug ist belegt geschlossen. `novapolis_agent/app/api/chat.py`, `novapolis_agent/scripts/run_eval.py`, `novapolis_agent/scripts/support_ab_smoke.py`, mehrere betroffene Agent-Tests sowie `scripts/run_sim_headless_verify.py` fuehren jetzt wieder denselben repoweiten Stilrahmen ohne die zuvor gemeldeten Zeilenlaengen-, Import- und EOF-Drifts; der damals gezogene kanonische Sammellauf `.tmp/results/reports/checks_report_20260417_053609.md` endet dadurch wieder vollstaendig mit `overall=PASS`.
 
 - 2026-04-17 05:18: Der Commit-Preflight fuer den Push auf `main` ist frisch nachgezogen. Die aktiven Root-Dokus fuehren wieder denselben Snapshot-Zeitpunkt wie `.snapshot.now`, die bereits aktualisierten Tree-Artefakte und Wrapper-Aenderungen bleiben der belegte Nutzinhalt des Laufs, und der vorbereitende Fokus-Testscope fuer die neuen Agent-Wrapper-Checks bleibt vor dem Commit gruen.
 

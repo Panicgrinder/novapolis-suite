@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Der zuletzt geschlossene Sim-Abschlussschnitt ist archiviert; das Live-Board ist wieder fuer neue Sim-Punkte vorbereitet.
-checks: snapshot-lock PASS (2026-04-17 04:27); workspace-evidence PASS (todo.sim, todo.sim.archive, todo.index, WORKSPACE_STATUS, DONELOG); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 07:12
+update: Das Sim-Board fuehrt nach dem erneuten Workspace-Scan wieder fuenf offene Punkte fuer Architekturrest, Exportpfad, Offline-Vollstand und Persistenzhaertung.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -28,7 +28,50 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (Sim)
 ---------------------
 
-- Zurzeit keine offenen Sim-Punkte.
+- [ ] [Jetzt] Den verbliebenen Agent-Studio-/Form-State-Rest aus `Main.gd` in denselben Controller-Schnitt ziehen wie die uebrigen Hub-Pfade.
+  - Ziel: Die laufende Sim-Entflechtung soll nicht kurz vor dem letzten groesseren UI-Rest stehen bleiben, sondern `Main.gd` auch im Agent-Studio-Pfad weiter auf Shell- und Glue-Code reduzieren.
+  - Akzeptanzkriterien:
+    1) der verbleibende Agent-Studio-Block liegt in einem eigenen Controller oder klar abgegrenzten Helfern,
+    2) `Main.gd` behaelt fuer diesen Pfad nur noch Orchestrierung und UI-Folgeaktionen,
+    3) Headless-Verify und statische Fehlerpruefung bleiben gruen,
+    4) Bedienpfade und Labels im Hub bleiben unveraendert nutzbar.
+  - Evidenz: `novapolis-dev/docs/todo.sim.md` fuehrt im aktiven Kontext selbst, dass in `Main.gd` als groesserer Architekturrest im Wesentlichen noch der Agent-Studio-Block offen bleibt.
+
+- [ ] [Jetzt] Den kanonischen Windows-Exportpfad von reinem Klickpfad auf einen belastbaren Preset-/Konfigurationsanker heben.
+  - Ziel: Der dokumentierte Export soll reproduzierbar bleiben, auch wenn der Editorpfad lokal genutzt wird; dazu braucht es einen belastbaren technischen Anker statt nur Handarbeit.
+  - Akzeptanzkriterien:
+    1) `export_presets.cfg` oder ein gleichwertiger repo-seitiger Konfigurationsanker fuehrt denselben Windows-Release-Pfad,
+    2) `novapolis-sim/README.md` und die Export-SSOT zeigen auf denselben Anker,
+    3) Zielpfad `novapolis-sim/exports/windows/NovapolisSim.exe` bleibt unveraendert,
+    4) der Editor-Klickpfad bleibt dokumentiert, aber nicht mehr alleinige Wahrheit.
+  - Evidenz: `sim-export-release-path.ssot.md` nennt den Exportpfad bereits kanonisch, fuehrt aber zugleich explizit `keine Verpflichtung auf export_presets.cfg`.
+
+- [ ] [Als naechstes] Einen lokalen Post-Export-Smoke fuer die erzeugte `NovapolisSim.exe` als eigenen Wrapper-/Checkpfad nachziehen.
+  - Ziel: Zwischen Editor-Export und produktivem Start soll ein kleiner, repo-seitiger Smoke den Windows-Build gegen triviale Startfehler absichern.
+  - Akzeptanzkriterien:
+    1) der Export-Smoke prueft die erzeugte `.exe` oder deren Mindestartefakte nachvollziehbar,
+    2) Export-SSOT, README und Tasking nennen denselben Pfad,
+    3) der Smoke bleibt klar getrennt vom Editor-headless verify,
+    4) ein fehlender Export wird als klare Vorbedingung und nicht als diffuser Sim-Fehler ausgewiesen.
+  - Evidenz: Die Export-SSOT beschreibt bisher den lokalen Smoke fuer die exportierte App nur dokumentarisch; ein eigener repo-seitiger Wrapper oder Task dafuer ist in den aktiven Sim-Pfaden noch nicht verankert.
+
+- [ ] [Als naechstes] Fuer den Offline-Asset-Check neben `Clean-Checkout` einen kleinen, reproduzierbaren Vollstand-Fixture-Pfad aufbauen.
+  - Ziel: Der Sim-Asset-Check soll nicht nur warnungsfrei im leeren Profil laufen, sondern auch einen kleinen, echten Offline-Vollstand ohne grosse manuelle Vorbereitung pruefbar machen.
+  - Akzeptanzkriterien:
+    1) es existiert ein minimales Fixture-Set fuer `world_log`, `pc_log` und optional Audio,
+    2) der Vollstand-Pfad ist von `--allow-empty` sauber getrennt,
+    3) README, Export-SSOT und Asset-Check nennen denselben Minimal-Vollstand,
+    4) Slot-Konsistenz bleibt mit echten Beispielartefakten pruefbar.
+  - Evidenz: `novapolis-sim/README.md` und `WORKSPACE_STATUS.md` beschreiben den Offline-Check derzeit vor allem ueber das warnungsfreie `Clean-Checkout` mit `--allow-empty`; fuer einen kleinen kanonischen Vollstand gibt es noch keinen ebenso konkreten Fixture-Pfad.
+
+- [ ] [Als naechstes] Persistenz und Replay-Resume fuer `user://hub_prefs.cfg` ueber gezielte Regressions- oder Verifikationspfade absichern.
+  - Ziel: Die inzwischen produktive Fortsetzungslogik soll nicht nur dokumentiert, sondern gegen Neustart-, Migrations- und teilweise fehlende Pref-Daten gehaertet werden.
+  - Akzeptanzkriterien:
+    1) Session-ID-, Resume-Checkpoint- und Replay-Wiederaufnahme sind gegen leere, alte oder partielle Prefs abgesichert,
+    2) README, Persistenzpfad und Code fuehren dieselbe Neustartlogik,
+    3) der Pfad bleibt kompatibel mit dem bestehenden Sessionvertrag,
+    4) Headless- oder statische Pruefung deckt die Kernfaelle nachvollziehbar ab.
+  - Evidenz: `novapolis-sim/README.md` beschreibt die persistente Fortsetzungslogik bereits operativ; ein eigener, explizit dokumentierter Regressionspfad fuer Pref-Migration und Resume-Neustart ist in der aktiven Sim-Oberflaeche noch nicht benannt.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------

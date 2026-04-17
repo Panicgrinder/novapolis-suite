@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-17 04:39
-update: Der zuletzt geschlossene RP-Folgeblock slot 36-40 ist archiviert; das Live-Board ist fuer neue RP-Punkte vorbereitet.
-checks: snapshot-lock PASS (2026-04-17 04:09); workspace-evidence PASS (todo.rp, todo.rp.archive, todo.index, WORKSPACE_STATUS, DONELOG); markdownlint=PASS; frontmatter=PASS; todo-index-sync=PASS
+stand: 2026-04-17 07:12
+update: Das RP-Board fuehrt nach dem erneuten Workspace-Scan wieder fuenf offene Punkte fuer Folgekorridor und warenbezogene Evidenzketten.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -23,7 +23,50 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (RP)
 --------------------
 
-- Zurzeit keine offenen RP-Punkte.
+- [ ] [Jetzt] Den Folgekorridor hinter `slot 40` als `slot 41-45` unter demselben Slice-2-Handover-Vertrag ausarbeiten.
+  - Ziel: Der spielbare RP-Pfad soll nach der inzwischen belegten fuenften Kampagnenstufe nicht wieder nur als impliziter Folgegedanke stehen bleiben, sondern denselben Resume-, Reveal- und Artefaktrahmen in die naechste Stufe fortsetzen.
+  - Akzeptanzkriterien:
+    1) hinter `rp-folgekorridor-slot-36-40.ssot.md` liegt eine eigene Folge-SSOT fuer `slot 41-45` oder ein gleichwertig benannter Block vor,
+    2) `turn_resume_ready`, Carry-Over-Arbeit und Restdruck bleiben auf demselben Vertrag,
+    3) Product-Gate-, Handover- und RP-Quellen zeigen auf denselben Folgepfad,
+    4) der Ausbau bleibt evidence-first an belegte Orte und bestehende Start-/Folgekorridore gebunden.
+  - Evidenz: `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md` fuehrt unter `Weiterer Ausbau` den naechsten Folgeblock hinter `slot 40` weiterhin nur als offenen Anschluss.
+
+- [ ] [Jetzt] Die D5->C6-Transferkette im Warenledger von `tbd` auf echte Belegzeilen fuer Entnahme, Transport, Ankunft und Quittung ziehen.
+  - Ziel: Der erste produktrelevante Materiallauf soll nicht nur narrativ und missionsseitig sichtbar sein, sondern im Warenpfad ueber nachvollziehbare Belegschritte geschlossen werden.
+  - Akzeptanzkriterien:
+    1) Missionslog, D5-Inventar und C6-Inventar fuehren dieselbe Transferkette,
+    2) Quelle, Ziel, verantwortlicher Rahmen und Quittungslogik sind benannt,
+    3) offene Mengen oder Teilbelege bleiben sichtbar statt implizit gefuellt,
+    4) der Schritt bleibt an reale RP-SSOT gebunden und erfindet keine freie Lagerwelt.
+  - Evidenz: `novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md` fuehrt die Transferkette `D5 -> C6` weiterhin ausdruecklich als `tbd` mit offenem Belegpfad.
+
+- [ ] [Als naechstes] Das Verbrauchsdelta Tag 12->13 fuer Novapolis standortscharf zwischen D5 und C6 aufteilen.
+  - Ziel: Der belegte Verbrauchsanker fuer Novapolis soll fuer den produktnahen Folgepfad nicht fraktionsweit abstrakt bleiben, sondern auf die beiden aktiven Kernorte heruntergebrochen werden.
+  - Akzeptanzkriterien:
+    1) `Novapolis-inventar.md`, `D5-inventar.md` und `C6-inventar.md` fuehren dieselbe standortscharfe Lesart,
+    2) offene Anteile bleiben sichtbar, wenn Belege fehlen,
+    3) Missions- und Materialpfad profitieren direkt von derselben Split-Logik,
+    4) keine freie Quantifizierung ohne Belegkette.
+  - Evidenz: Das Arbeitsledger fuehrt den standortscharfen Split des Verbrauchsdeltas Tag 12 -> 13 fuer D5 vs. C6 weiterhin explizit als offenen Handentscheid.
+
+- [ ] [Als naechstes] Externe Stations- und Fraktionsinventare im Warenzuteilungsledger dort nachziehen, wo neue Belegketten ueber den reinen Rahmenwert hinausreichen.
+  - Ziel: Die externen Fraktionen sollen nur dort von pauschalem `tbd` weggezogen werden, wo echte Belege fuer stationsscharfe oder mengennahe Aussagen vorliegen.
+  - Akzeptanzkriterien:
+    1) Arkologie, Schienenbund, Haendlerbund, Eisenkonklave, Schattenbund und Fluesterkollektiv bleiben evidence-first,
+    2) neue Quantifizierung erfolgt nur mit konkreter Belegkette,
+    3) Rahmenwerte und harte Zahlen werden sauber getrennt,
+    4) `Warenueberblick-T0.md` und die Fraktionsinventare widersprechen sich danach nicht.
+  - Evidenz: `rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md` fuehrt fuer alle externen Fraktionen stationsscharfe Lageranteile und Mengen weiterhin bewusst als `tbd`.
+
+- [ ] [Als naechstes] Den Metro-Gesamtrahmen im Warenueberblick nach den Einzelbelegen wieder belastbar verdichten.
+  - Ziel: Nach den standort- und fraktionsnahen Nachzuegen soll die Metro-Ebene wieder eine nachvollziehbare, evidence-first verdichtete Lesart erhalten, ohne ungesicherte Summen zu behaupten.
+  - Akzeptanzkriterien:
+    1) Metro-Ebene verweist nachvollziehbar auf die aktualisierten Einzelbelege,
+    2) neutrale Stationslager und Gesamtmengen bleiben nur dort offen, wo Belege fehlen,
+    3) Matrix, Warenueberblick und Inventarpfade fuehren dieselbe Aggregationslogik,
+    4) die Verdichtung bleibt mit Start-, Folge- und Reveal-SSOT kompatibel.
+  - Evidenz: Das Arbeitsledger fuehrt `Metro gesamt` und mehrere neutrale Lagerlagen weiterhin explizit als `tbd`, bis die belastbaren Einzelketten geschlossen sind.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------

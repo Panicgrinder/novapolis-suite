@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-07 10:20
-update: README fuehrt jetzt `Ollama + qwen2.5:7b` als lokale Runtime-Baseline fuer 8-GB-VRAM-Systeme.
-checks: snapshot-lock PASS (2026-04-07 10:20); markdownlint PASS; frontmatter PASS
+stand: 2026-04-17 07:12
+update: README trennt jetzt den belegten Python-Interpreter, Standard-Chat, Support-A-B und Judge-Pfad sauber in einer operativen Profilmatrix.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
 ---
 
 Novapolis Agent
@@ -16,11 +16,22 @@ Ist-Stand (Betriebsfaehigkeit)
 ------------------------------
 
 - Runtime-Betrieb erfolgt stabil über `.venv` und `app.main` (FastAPI).
+- Belegter Workspace-Interpreter fuer den aktuellen Gate-Stand ist die Root-`.venv` mit Python 3.12.x; der zuletzt dokumentierte gruene Sammellauf lief mit Python 3.12.10. Solange kein eigener Migrationslauf dokumentiert ist, bleibt diese 3.12.x-Umgebung der reproduzierbare Referenzpfad fuer Tests, Typen und Sammelchecks.
 - Betriebsname: "Chronistin von Novapolis".
 - Qualitaetsgates sind in Reihenfolge `Lint -> Typen -> Tests -> Coverage` dokumentiert und lauffaehig.
 - TTS-Runtime ist produktiv über `coqui`: API, Auth, Rate-Limit, Cache und Provider-Abstraktion sind aktiv; `coqui` erzeugt reale Artefakte (`status=ok`, `artifact_path`), `ollama`/`openai` bleiben Adapter-Scaffolds.
 - `quality_de` ist operativ: dedizierte Suite auf Core/Drift/Canary (10/10/6), dokumentierter Laufstand bis `20/20` inkl. 3-facher Wiederholung zur Reproduzierbarkeit.
 - Operatives Runbook: `novapolis_agent/docs/runbook.md`.
+
+Profilmatrix (Chat/Runtime)
+---------------------------
+
+| Pfad | Zweck | Standardmodell(e) | Hinweis |
+| --- | --- | --- | --- |
+| Standard-Chat | allgemeiner Produkt- und API-Betrieb | `qwen2.5:7b` | aktuelle lokale Runtime-Baseline fuer 8-GB-VRAM-Systeme |
+| Support A/B | neutrale Support-Antworten ueber `profile_id=support_de_ab` | `llama3.1:8b`, `qwen3.5:4b` | heuristische Kandidatenwertung, optional mit Modell-Judge |
+| Support-Judge | opt-in Tie-Break oder erzwungene Zweitentscheidung | typischerweise `qwen2.5:7b` | nur wenn `support_judge_model` gesetzt ist |
+| Vergleich/Fallback | manueller oder operativer Vergleichspfad | `llama3.1:8b` | nicht die Default-Baseline des Standard-Chats |
 
 VS Code Task-Labels (Datensatz & Training)
 ------------------------------------------
@@ -60,7 +71,7 @@ Repository-Info
 Einrichtung
 ----------
 
-1. Python 3.13 im Root-Workspace verwenden.
+1. Fuer reproduzierbare Checks und lokale Nachstellung die aktuell verifizierte Root-`.venv` mit Python 3.12.x verwenden; der zuletzt belegte gruene Sammellauf lief mit Python 3.12.10.
 2. Im Repo-Root die Root-`.venv` aktivieren:
 
 ```powershell
@@ -202,8 +213,10 @@ Hinweis: Bei aktiviertem Rate Limiting wird pro IP innerhalb eines 60s-Fensters 
 Empfohlene lokale Modellbasis:
 
 - Runtime: `Ollama`
-- Baseline-Modell: `qwen2.5:7b`
-- Vergleich/Fallback: `llama3.1:8b`
+- Baseline-Modell (Standard-Chat): `qwen2.5:7b`
+- Support-A-B-Kandidaten: `llama3.1:8b`, `qwen3.5:4b`
+- Typischer Judge fuer Support-A-B: `qwen2.5:7b`
+- Vergleich/Fallback ausserhalb des Standard-Chats: `llama3.1:8b`
 
 ### Konfigurationsvertrag (Masterplan Schritt 2)
 

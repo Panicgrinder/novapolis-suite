@@ -2266,7 +2266,10 @@ if __name__ == "__main__":
         "--profile-id",
         dest="profile_id",
         type=str,
-        help="Optionales profile_id, das unverändert an /chat weitergereicht wird (z. B. support_de_ab)",
+        help=(
+            "Optionales profile_id, das unveraendert an /chat weitergereicht wird "
+            "(z. B. support_de_ab)"
+        ),
     )
     parser.add_argument(
         "--checks",

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 05:25
-update: Commit-Preflight und aktive Reader-Doku fuehren wieder einen frischen gemeinsamen Snapshot-Zeitpunkt; der vorbereitende Gate-Lauf bleibt ohne neue Docs-Befunde.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_052246.md
+stand: 2026-04-17 07:12
+update: Der Workspace fuehrt nach dem evidenzbasierten Board-Refill weiter einen vollstaendig gruenen kanonischen Full-Check; alle vier Live-Boards stehen jetzt wieder bei offen: 5, Root fuehrt zusaetzlich fuenf suiteweite Punkte.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
 ---
 
 Workspace-Status
@@ -9,6 +9,14 @@ Workspace-Status
 
 Aktuelles Wochenfenster
 -----------------------
+
+- 2026-04-17 06:37: Der Board-Refill fuer Root, Dev, Agent, RP und Sim ist geschlossen. `todo.root.md` sowie die vier Live-Boards unter `novapolis-dev/docs/` fuehren nach dem erneuten Workspace-Scan wieder je fuenf offene Folgepunkte; `novapolis-dev/docs/todo.index.md` synchronisiert die Modul-Open-Counts jetzt auf `Dev=5`, `RP=5`, `Agent=5` und `Sim=5`, waehrend Root bewusst ausserhalb dieser Modulzaehlung bleibt. Der Sammellauf `.tmp/results/reports/checks_report_20260417_063849.md` endet vollstaendig mit `overall=PASS`, `639 passed` und `Total coverage: 93.89%`.
+
+- 2026-04-17 06:04: Der kurze Semantik-Nachzug fuer Logsprache, Reader-Surface-Abgrenzung, Python-Versionstext und den Support-A-B-Tie-Break ist geschlossen. `WORKSPACE_INDEX.md` fuehrt lokale/private Artefaktklassen nur noch als Klassenhinweis statt als direkte Reader-Ziele, `novapolis_agent/README.md` beschreibt die Root-`.venv` robust als Python-3.12.x-Referenz mit zuletzt dokumentiertem Gruenlauf 3.12.10, und `novapolis_agent/tests/test_api_chat_internal_branches.py` sichert jetzt auch den Gleichstandsfall mit unbrauchbarer Judge-Antwort ab, bei dem der Dauer-Tie-Break erhalten bleiben muss. Der Sammellauf `.tmp/results/reports/checks_report_20260417_060413.md` endet vollstaendig mit `overall=PASS`, `639 passed` und `Total coverage: 93.89%`.
+
+- 2026-04-17 05:55: Der Semantik-Nachzug fuer Reader-Surface, Runtime-Doku und den Support-A-B-Fallback ist geschlossen. `novapolis_agent/README.md` fuehrt jetzt den belegten Python-3.12.10-Interpreter als Referenzpfad und trennt Standard-Chat, Support-A-B und Judge explizit; `WORKSPACE_INDEX.md` kapselt private und generierte Artefaktklassen hinter einer Reader-Surface-Grenze; und `novapolis_agent/tests/test_api_chat_internal_branches.py` sichert den Fallback ab, falls ein gesetzter Judge keine verwertbare Antwort `A|B` liefert. Der Sammellauf `.tmp/results/reports/checks_report_20260417_055543.md` endet weiterhin vollstaendig mit `overall=PASS`, `638 passed` und `Total coverage: 93.89%`.
+
+- 2026-04-17 05:30: Der aktuelle Ruff-/Black-Nachzug ist geschlossen. Die gemeldeten Python-Stildrifts in `novapolis_agent/app/api/chat.py`, `novapolis_agent/scripts/run_eval.py`, `novapolis_agent/scripts/support_ab_smoke.py`, mehreren betroffenen Agent-Tests sowie `scripts/run_sim_headless_verify.py` sind bereinigt; der damals gezogene kanonische Sammellauf `.tmp/results/reports/checks_report_20260417_053609.md` endet dadurch wieder vollstaendig mit `overall=PASS`, und `novapolis-dev/docs/todo.dev.md` plus `novapolis-dev/docs/todo.index.md` stehen erneut bei `offen: 0`.
 
 - 2026-04-17 05:18: Vor dem Push auf `main` sind die aktiven Root-Dokus erneut auf denselben frischen Snapshot-Zeitpunkt wie `.snapshot.now` nachgezogen. Die bereits aktualisierten Tree-Artefakte und Wrapper-Dateien bleiben unveraendert der sachliche Inhalt des Laufs; zusaetzlich bleibt der vorbereitende Fokus-Testscope fuer die neuen Agent-Wrapper-Checks gruen.
 
