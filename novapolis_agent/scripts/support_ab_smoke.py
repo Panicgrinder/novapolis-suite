@@ -22,6 +22,11 @@ DEFAULT_PROMPT = (
     "Die Rechnungsnummer fehlt noch, wir brauchen sie fuer die weitere Pruefung."
 )
 
+EXIT_SUCCESS = 0
+EXIT_HTTP_ERROR = 1
+EXIT_PAYLOAD_ERROR = 2
+EXIT_NETWORK_ERROR = 3
+
 
 def build_payload(
     *,
@@ -48,6 +53,20 @@ def build_payload(
     }
 
 
+def emit_result(payload: Mapping[str, Any]) -> None:
+    print(json.dumps(dict(payload), ensure_ascii=False, indent=2))
+
+
+def extract_error_detail(data: Mapping[str, Any]) -> str | None:
+    detail = data.get("detail")
+    if isinstance(detail, str) and detail.strip():
+        return detail.strip()
+    error = data.get("error")
+    if isinstance(error, str) and error.strip():
+        return error.strip()
+    return None
+
+
 async def post_support_request(
     *,
     client: httpx.AsyncClient,
@@ -58,7 +77,13 @@ async def post_support_request(
     content_type = response.headers.get("content-type", "")
     if not content_type.startswith("application/json"):
         raise RuntimeError(f"unexpected content-type: {content_type or '<empty>'}")
-    return int(response.status_code), cast(dict[str, Any], response.json())
+    try:
+        response_payload = response.json()
+    except ValueError as exc:
+        raise RuntimeError("response body is not valid JSON") from exc
+    if not isinstance(response_payload, dict):
+        raise RuntimeError("response JSON must be an object")
+    return int(response.status_code), cast(dict[str, Any], response_payload)
 
 
 async def run_support_smoke(args: argparse.Namespace) -> int:
@@ -70,45 +95,68 @@ async def run_support_smoke(args: argparse.Namespace) -> int:
         force_judge=bool(args.force_judge),
         host_override=(str(args.host).strip() or None) if args.host else None,
     )
+    output: dict[str, Any] = {
+        "status": "pending",
+        "profile_id": payload.get("profile_id"),
+        "mode": "asgi" if args.asgi else "http",
+        "api_url": "/chat" if args.asgi else str(args.api_url),
+        "used_judge": bool(payload.get("options", {}).get("support_judge_model")),
+    }
 
-    if args.asgi:
-        from novapolis_agent.app.main import app as fastapi_app
+    try:
+        if args.asgi:
+            from novapolis_agent.app.main import app as fastapi_app
 
-        transport = httpx.ASGITransport(app=cast(Any, fastapi_app))
-        async with httpx.AsyncClient(
-            transport=transport,
-            base_url="http://asgi",
-            timeout=float(args.timeout),
-        ) as client:
-            status_code, data = await post_support_request(
-                client=client,
-                api_url="/chat",
-                payload=payload,
-            )
-    else:
-        async with httpx.AsyncClient(timeout=float(args.timeout)) as client:
-            status_code, data = await post_support_request(
-                client=client,
-                api_url=str(args.api_url),
-                payload=payload,
-            )
+            transport = httpx.ASGITransport(app=cast(Any, fastapi_app))
+            async with httpx.AsyncClient(
+                transport=transport,
+                base_url="http://asgi",
+                timeout=float(args.timeout),
+            ) as client:
+                status_code, data = await post_support_request(
+                    client=client,
+                    api_url="/chat",
+                    payload=payload,
+                )
+        else:
+            async with httpx.AsyncClient(timeout=float(args.timeout)) as client:
+                status_code, data = await post_support_request(
+                    client=client,
+                    api_url=str(args.api_url),
+                    payload=payload,
+                )
+    except httpx.RequestError as exc:
+        output["status"] = "network_error"
+        output["error"] = str(exc)
+        emit_result(output)
+        return EXIT_NETWORK_ERROR
+    except RuntimeError as exc:
+        output["status"] = "payload_error"
+        output["error"] = str(exc)
+        emit_result(output)
+        return EXIT_PAYLOAD_ERROR
 
     content = str(data.get("content", ""))
     model = str(data.get("model", ""))
-    output = {
-        "status_code": status_code,
-        "profile_id": payload.get("profile_id"),
-        "selected_model": model,
-        "content": content,
-        "used_judge": bool(args.judge_model),
-    }
-    print(json.dumps(output, ensure_ascii=False, indent=2))
+    output["status_code"] = status_code
+    output["selected_model"] = model
+    output["content"] = content
 
     if status_code != 200:
-        return 1
+        output["status"] = "http_error"
+        output["error"] = extract_error_detail(data) or f"HTTP {status_code}"
+        emit_result(output)
+        return EXIT_HTTP_ERROR
+
     if not model or not content.strip():
-        return 2
-    return 0
+        output["status"] = "payload_error"
+        output["error"] = "missing model or content in JSON response"
+        emit_result(output)
+        return EXIT_PAYLOAD_ERROR
+
+    output["status"] = "ok"
+    emit_result(output)
+    return EXIT_SUCCESS
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:

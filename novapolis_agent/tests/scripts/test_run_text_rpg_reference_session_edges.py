@@ -156,6 +156,96 @@ def test_build_markdown_renders_artifact_entries_and_error_block() -> None:
 
 @pytest.mark.scripts
 @pytest.mark.unit
+@pytest.mark.parametrize(
+    ("errors", "expected_fragment"),
+    [([], "- none"), (["ref-b: replay missing"], "- ref-b: replay missing")],
+)
+def test_build_markdown_renders_case_reports(errors: list[str], expected_fragment: str) -> None:
+    from scripts import run_text_rpg_reference_session as mod
+
+    markdown = mod._build_markdown(
+        {
+            "status": "FAIL" if errors else "PASS",
+            "passed_cases": 1,
+            "case_count": 2,
+            "session_store_dir": "store",
+            "cases": [
+                {
+                    "session_id": "ref-a",
+                    "status": "PASS",
+                    "spec_path": "spec-a.json",
+                    "actual": {
+                        "slot_id": "slot-05",
+                        "turn_id": "turn-0009",
+                        "resume_checkpoint_id": "turn-0009",
+                        "world_log_count": 3,
+                        "pc_log_count": 3,
+                        "state_patch_count": 3,
+                        "carry_over_count": 0,
+                    },
+                },
+                {
+                    "session_id": "ref-b",
+                    "status": "FAIL",
+                    "spec_path": "spec-b.json",
+                    "actual": {
+                        "slot_id": "slot-40",
+                        "turn_id": "turn-0018",
+                        "resume_checkpoint_id": "turn-0018",
+                        "world_log_count": 3,
+                        "pc_log_count": 3,
+                        "state_patch_count": 3,
+                        "carry_over_count": 3,
+                    },
+                },
+            ],
+            "errors": errors,
+        }
+    )
+
+    assert "# Text-RPG Reference Sessions" in markdown
+    assert "ref-a: PASS" in markdown
+    assert "ref-b: FAIL" in markdown
+    assert "carry_over=3" in markdown
+    assert expected_fragment in markdown
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_run_reference_sessions_prefixes_case_errors(monkeypatch: pytest.MonkeyPatch) -> None:
+    from scripts import run_text_rpg_reference_session as mod
+
+    async def _fake_run_reference_session(
+        spec_path: Path, session_store_dir: Path
+    ) -> dict[str, object]:
+        if spec_path.name == "ok.json":
+            return {
+                "status": "PASS",
+                "session_id": "ok-session",
+                "errors": [],
+                "actual": {},
+            }
+        return {
+            "status": "FAIL",
+            "session_id": "bad-session",
+            "errors": ["missing artifact: replay_manifest"],
+            "actual": {},
+        }
+
+    monkeypatch.setattr(mod, "run_reference_session", _fake_run_reference_session)
+
+    report = asyncio.run(
+        mod.run_reference_sessions([Path("ok.json"), Path("bad.json")], Path("store"))
+    )
+
+    assert report["status"] == "FAIL"
+    assert report["passed_cases"] == 1
+    assert report["failed_cases"] == 1
+    assert report["errors"] == ["bad-session: missing artifact: replay_manifest"]
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
 def test_run_reference_session_reports_step_failure_and_restores_store(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
@@ -329,6 +419,61 @@ def test_main_writes_reports_for_success_and_failure(
     failure_output = capsys.readouterr().out
     assert "[reference-session] status=FAIL" in failure_output
     assert "[reference-session] error=broken" in failure_output
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_main_uses_multi_spec_runner_and_prints_case_count(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    from scripts import run_text_rpg_reference_session as mod
+
+    captured: dict[str, object] = {}
+
+    async def _fake_run_reference_sessions(
+        spec_paths: list[Path], session_store_dir: Path
+    ) -> dict[str, object]:
+        captured["spec_paths"] = spec_paths
+        captured["session_store_dir"] = session_store_dir
+        return {
+            "status": "PASS",
+            "session_store_dir": session_store_dir.as_posix(),
+            "spec_paths": [path.as_posix() for path in spec_paths],
+            "case_count": 2,
+            "passed_cases": 2,
+            "failed_cases": 0,
+            "cases": [],
+            "errors": [],
+        }
+
+    monkeypatch.setattr(mod, "run_reference_sessions", _fake_run_reference_sessions)
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "run_text_rpg_reference_session.py",
+            "--repo-root",
+            str(tmp_path),
+            "--spec",
+            "spec-a.json",
+            "--spec",
+            "spec-b.json",
+            "--report-json",
+            "reports/out.json",
+            "--report-md",
+            "reports/out.md",
+        ],
+    )
+
+    assert mod.main() == 0
+    assert captured["spec_paths"] == [
+        (tmp_path / "spec-a.json").resolve(),
+        (tmp_path / "spec-b.json").resolve(),
+    ]
+    assert captured["session_store_dir"] == (tmp_path / mod.DEFAULT_SESSION_STORE).resolve()
+    output = capsys.readouterr().out
+    assert "[reference-session] case_count=2" in output
+    assert (tmp_path / "reports" / "out.json").exists()
+    assert (tmp_path / "reports" / "out.md").exists()
 
 
 @pytest.mark.scripts
