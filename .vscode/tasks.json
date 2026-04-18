@@ -138,6 +138,23 @@
       "problemMatcher": []
     },
     {
+      "label": "Docs: sync after checks",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\sync_docs_after_checks.py",
+        "--repo-root",
+        "${workspaceFolder}",
+        "--report",
+        "latest"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
       "label": "Checks: doc freshness",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
@@ -214,8 +231,8 @@
     {
       "label": "Workspace tree: full",
       "type": "process",
-      "command": "pwsh",
-      "args": ["-NoLogo", "-Command", "tree /A /F | Out-File -Encoding ascii workspace_tree_full.txt"],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["scripts\\update_workspace_tree_dirs.py", "--mode", "forensic-full"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -224,8 +241,8 @@
     {
       "label": "Workspace tree: directories",
       "type": "process",
-      "command": "pwsh",
-      "args": ["-NoLogo", "-Command", "tree /A | Out-File -Encoding ascii workspace_tree.txt"],
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["scripts\\update_workspace_tree_dirs.py", "--mode", "active-tree"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
@@ -235,7 +252,7 @@
       "label": "Workspace tree: summary (dirs)",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
-      "args": ["scripts\\update_workspace_tree_dirs.py"],
+      "args": ["scripts\\update_workspace_tree_dirs.py", "--mode", "active-dirs"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },

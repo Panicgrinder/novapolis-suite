@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 07:12
-update: Der Workspace-Index priorisiert jetzt aktive Reader-Surface-Pfade und kapselt private oder generierte Artefaktklassen explizit ab.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
+stand: 2026-04-18 03:00
+update: Der Workspace-Index fuehrt die aktive Reader-Surface jetzt getrennt vom forensischen Vollbaum; der tiefe Agent-Katalog bleibt als nachgelagerter Referenzpfad erhalten.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 03:00)
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -9,30 +9,48 @@ checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontm
 Novapolis Suite - Workspace Datei-Index
 =======================================
 
-Monorepo Redirect / Konsolidierung
-----------------------------------
+Workspace-Landing-Surface
+-------------------------
 
-Dieser Datei-Index bleibt als detailreicher, agent-lastiger Referenzkatalog bestehen, verweist aber nun zentral auf das Hub-README (`novapolis-dev/README.md`) für globale Navigations- und Governance-Hinweise. Der aktuelle Betriebszustand liegt in `WORKSPACE_STATUS.md`; dieser Index dient im Single-Root-Setup als nachgezogene Referenz für die Arbeitsoberflaeche und die wichtigsten Pfade unterhalb des Repo-Roots.
+Dieser Index startet als schnelle Arbeitsoberflaeche fuer Root plus die vier Hauptmodule. Der detaillierte Agent-Dateikatalog bleibt darunter als Referenzpfad erhalten, dominiert aber nicht mehr den Einstieg. Fuer den laufenden Iststand ist `WORKSPACE_STATUS.md` fuehrend; fuer gemeinsame Governance und Board-Navigation sind Root- und Dev-Hub-Dokumente der erste Anlaufpunkt.
 
-Konsistenzlauf der Reader-Surface (Phase 2, dokumentiert):
-- 2026-03-28 00:43: Der Stil- und Konsistenzlauf ist vor Start als Prozessanker dokumentiert (`novapolis-dev/docs/process/doku-konsistenzlauf-aktive-surface-2026-03-28.md`).
-- Erst-Scope sind die Hochfrequenz-Dateien (`README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, Root-/Modul-READMEs, aktive TODO-Oberflaeche).
-- Danach folgt die restliche aktive Dev- und Modul-Doku; Archive und Quarantaene bleiben ausserhalb des Sweep-Scope.
-- Ziel ist kein Strukturumbau, sondern ein einheitlicher Stilrahmen fuer Frontmatter, Pfade, Kommandos und Statusbegriffe.
-- 2026-04-17 02:44: Der Reader-Surface-Nachzug ist als offener Dev-Driftpunkt geschlossen; Active-Surface-Index, Board-Oberflaeche und Root-Reader-Doku fuehren damit keinen irrefuehrenden Dauerclaim mehr, sondern nur noch den dokumentierten Prozessanker plus inkrementelle Pflege ueber Boards, DONELOG und Statussync.
+Root-Steuerflaeche
+------------------
 
-Status: Der dokumentierte Phase-2-Konsistenzlauf ist als Prozessanker und Referenzpfad abgeschlossen; die aktive Reader-Surface wird seitdem inkrementell ueber Board-, DONELOG- und Status-Sync gepflegt.
+- [`README.md`](README.md) - Root-Einstieg fuer Repository-Rahmen, gemeinsame Regeln und Startpfade.
+- [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) - laufender Betriebszustand und aktueller Wochenrahmen.
+- [`todo.root.md`](todo.root.md) - aktive suiteweite Querschnittspunkte.
+- [`DONELOG.md`](DONELOG.md) - Root-Summary fuer Releases und Governance.
+- [`.github/copilot-instructions.md`](.github/copilot-instructions.md) - verbindliche SSOT fuer Arbeitsweise, Gates und Logging.
+- [`.vscode/tasks.json`](.vscode/tasks.json) - kanonischer Task-Einstieg fuer Checks, Tests, Produkt-Gates und Tree-Refresh.
 
-Vollständiger Index aller Dateien im Agent-Verzeichnis
-------------------------------------------------------
+Hauptmodule
+-----------
 
-Hinweis: Alle Pfade beziehen sich auf den Repo-Root (`Main/`). Sofern nicht anders erwähnt, beginnen sie bei `novapolis_agent/`.
-Hinweis (Aktualisierung 2026-02-26): Der Eval-Dataset-Bestand ist kanonisch in `novapolis-dev/docs/dataset-provenance.md` nachzuverfolgen.
+- Dev-Hub: [`novapolis-dev/README.md`](novapolis-dev/README.md) fuer Hub-Navigation, [`novapolis-dev/docs/todo.index.md`](novapolis-dev/docs/todo.index.md) fuer die Live-Boards, [`novapolis-dev/docs/donelog.md`](novapolis-dev/docs/donelog.md) fuer operative Beschluesse.
+- Agent: [`novapolis_agent/README.md`](novapolis_agent/README.md) fuer Runtime- und Produktpfad, [`novapolis_agent/docs/runbook.md`](novapolis_agent/docs/runbook.md) fuer den operativen Agent-/Gate-Lauf, [`novapolis-dev/docs/todo.agent-board.md`](novapolis-dev/docs/todo.agent-board.md) fuer den aktiven Backend-Backlog.
+- RP: [`novapolis-rp/README.md`](novapolis-rp/README.md) fuer Daten- und Workflow-Einstieg, [`novapolis-dev/docs/todo.rp.md`](novapolis-dev/docs/todo.rp.md) fuer den aktiven RP-Backlog.
+- Sim: [`novapolis-sim/README.md`](novapolis-sim/README.md) fuer Hub-, API- und Verify-Pfade, [`novapolis-dev/docs/todo.sim.md`](novapolis-dev/docs/todo.sim.md) fuer den aktiven Sim-Backlog.
+
+Arbeits- und Referenzpfade
+--------------------------
+
+- [`workspace_tree.txt`](workspace_tree.txt) - aktiver Reader-Baum mit gefilterter Root-Surface fuer Navigation.
+- [`workspace_tree_dirs.txt`](workspace_tree_dirs.txt) - aktive Verzeichnis-Summary derselben Reader-Surface.
+- [`workspace_tree_full.txt`](workspace_tree_full.txt) - forensischer Vollbaum; regenerierbar via Tasks `Workspace tree:*`.
+- [`novapolis-dev/docs/active-surface-index.md`](novapolis-dev/docs/active-surface-index.md) - ACTIVE/REFERENCE/HISTORICAL-Klassifikation der Fuehrungsdoku.
+- [`novapolis-dev/docs/process/abschluss-routine.ssot.md`](novapolis-dev/docs/process/abschluss-routine.ssot.md) - kanonischer Hygiene- und Abschlussrhythmus.
 
 Reader-Surface-Grenze
 ---------------------
 
-Der folgende Index priorisiert navigationsrelevante, aktive Repo-Inhalte. Private Laufzeitdateien, Caches und generierte Einzelartefakte gehoeren nicht zur primaeren Reader-Surface; sie werden nur als Klassen dokumentiert, nicht mehr als gleichrangige Einzelnavigation.
+Die Landing-Surface priorisiert navigationsrelevante, aktive Repo-Inhalte. Private Laufzeitdateien, Caches und generierte Einzelartefakte gehoeren nicht zur primaeren Reader-Surface; sie werden nur als Klassen oder nachgelagerte Referenzpfade dokumentiert. Der folgende Agent-Katalog bleibt bewusst erhalten, dient aber als Tiefeinstieg statt als Workspace-Startpunkt.
+
+Referenzkatalog Agent-Verzeichnis
+---------------------------------
+
+Hinweis: Alle Pfade beziehen sich auf den Repo-Root (`Main/`). Sofern nicht anders erwähnt, beginnen sie bei `novapolis_agent/`.
+Hinweis (Aktualisierung 2026-02-26): Der Eval-Dataset-Bestand ist kanonisch in `novapolis-dev/docs/dataset-provenance.md` nachzuverfolgen.
 
 ### Paket `novapolis_agent/` (Unterordner im Single-Root)
 

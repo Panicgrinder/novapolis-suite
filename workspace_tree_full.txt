@@ -275,6 +275,32 @@ F:.
 |           |   checks_report_20260415_020424.md
 |           |   checks_report_20260415_020649.json
 |           |   checks_report_20260415_020649.md
+|           |   checks_report_20260417_051949.json
+|           |   checks_report_20260417_051949.md
+|           |   checks_report_20260417_052246.json
+|           |   checks_report_20260417_052246.md
+|           |   checks_report_20260417_053025.json
+|           |   checks_report_20260417_053025.md
+|           |   checks_report_20260417_053353.json
+|           |   checks_report_20260417_053353.md
+|           |   checks_report_20260417_053609.json
+|           |   checks_report_20260417_053609.md
+|           |   checks_report_20260417_055543.json
+|           |   checks_report_20260417_055543.md
+|           |   checks_report_20260417_060413.json
+|           |   checks_report_20260417_060413.md
+|           |   checks_report_20260417_060725.json
+|           |   checks_report_20260417_060725.md
+|           |   checks_report_20260417_061638.json
+|           |   checks_report_20260417_061638.md
+|           |   checks_report_20260417_061928.json
+|           |   checks_report_20260417_061928.md
+|           |   checks_report_20260417_063849.json
+|           |   checks_report_20260417_063849.md
+|           |   checks_report_20260417_065225.json
+|           |   checks_report_20260417_065225.md
+|           |   checks_report_20260417_071110.json
+|           |   checks_report_20260417_071110.md
 |           |   checks_rp_consistency_20260327_095748.log
 |           |   checks_rp_consistency_20260328_065328.log
 |           |   checks_rp_consistency_20260328_065404.log
@@ -416,6 +442,7 @@ F:.
 |           |   pytest_coverage_20260410_063757.log
 |           |   pytest_coverage_20260414_111400.log
 |           |   pytest_coverage_20260414_123149.log
+|           |   pytest_coverage_20260417_050800.log
 |           |   pytest_coverage_postflight_20260310_154111.md
 |           |   pytest_coverage_postflight_20260310_154316.md
 |           |   pytest_coverage_postflight_20260311_075004.md
@@ -472,6 +499,7 @@ F:.
 |           |   pytest_coverage_postflight_20260410_063757.md
 |           |   pytest_coverage_postflight_20260414_111400.md
 |           |   pytest_coverage_postflight_20260414_123149.md
+|           |   pytest_coverage_postflight_20260417_050800.md
 |           |   rp_consistency_report_20260327_095748.json
 |           |   rp_consistency_report_20260328_065328.json
 |           |   rp_consistency_report_20260328_065404.json
@@ -1739,7 +1767,228 @@ F:.
 |           |       todo-index-sync.log
 |           |       yamllint.log
 |           |       
-|           \---checks_run_20260415_020649
+|           +---checks_run_20260415_020649
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_051949
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_052246
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_053025
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_053353
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_053609
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_055543
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_060413
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_060725
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_061638
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_061928
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_063849
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260417_065225
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           \---checks_run_20260417_071110
 |                   black.log
 |                   doc-freshness.log
 |                   frontmatter.log
@@ -122366,6 +122615,7 @@ F:.
 |   |   |   |   standalone-beta-installblatt.md
 |   |   |   |   text-rpg-pre-rp-product-model-v1.ssot.md
 |   |   |   |   text-rpg-product-gate-v1.ssot.md
+|   |   |   |   text-rpg-release-evidence-bundle-v1.ssot.md
 |   |   |   |   text-rpg-slice-2-handover-v1.ssot.md
 |   |   |   |   text-rpg-turn-budget-model-v1.ssot.md
 |   |   |   |   
@@ -138587,6 +138837,20 @@ F:.
 |   |       |   finetune_alpaca_results_20250101_0101_20260415_0115.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260415_0204.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260415_0207.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0508.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0520.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0523.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0530.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0534.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0536.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0556.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0604.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0607.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0616.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0619.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0639.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0652.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260417_0711.jsonl
 |   |       |   finetune_openai_chat_results_20260226_0306_quality_de_round7b_repeat3_20260227_0527.jsonl
 |   |       |   results_20260226_0025_quality_de.jsonl
 |   |       |   results_20260226_0209_quality_de.jsonl
@@ -138837,6 +139101,34 @@ F:.
 |   |       |   results_20260415_0249_support_de_ab.jsonl
 |   |       |   results_20260415_0250_support_de_ab.jsonl
 |   |       |   results_20260415_0251_support_de_ab_probe.jsonl
+|   |       |   results_20260417_0508.jsonl
+|   |       |   results_20260417_0509_rerun.jsonl
+|   |       |   results_20260417_0520.jsonl
+|   |       |   results_20260417_0520_rerun.jsonl
+|   |       |   results_20260417_0523.jsonl
+|   |       |   results_20260417_0523_rerun.jsonl
+|   |       |   results_20260417_0530.jsonl
+|   |       |   results_20260417_0531_rerun.jsonl
+|   |       |   results_20260417_0534.jsonl
+|   |       |   results_20260417_0534_rerun.jsonl
+|   |       |   results_20260417_0536.jsonl
+|   |       |   results_20260417_0537_rerun.jsonl
+|   |       |   results_20260417_0556.jsonl
+|   |       |   results_20260417_0556_rerun.jsonl
+|   |       |   results_20260417_0604.jsonl
+|   |       |   results_20260417_0605_rerun.jsonl
+|   |       |   results_20260417_0607.jsonl
+|   |       |   results_20260417_0608_rerun.jsonl
+|   |       |   results_20260417_0617.jsonl
+|   |       |   results_20260417_0617_rerun.jsonl
+|   |       |   results_20260417_0619.jsonl
+|   |       |   results_20260417_0620_rerun.jsonl
+|   |       |   results_20260417_0639.jsonl
+|   |       |   results_20260417_0639_rerun.jsonl
+|   |       |   results_20260417_0652.jsonl
+|   |       |   results_20260417_0653_rerun.jsonl
+|   |       |   results_20260417_0711.jsonl
+|   |       |   results_20260417_0712_rerun.jsonl
 |   |       |   
 |   |       +---baselines
 |   |       |       training_profiles.2026-02.json
@@ -138949,6 +139241,20 @@ F:.
 |   |               finetune_alpaca_r_20260415_0115.jsonl
 |   |               finetune_alpaca_r_20260415_0204.jsonl
 |   |               finetune_alpaca_r_20260415_0207.jsonl
+|   |               finetune_alpaca_r_20260417_0508.jsonl
+|   |               finetune_alpaca_r_20260417_0520.jsonl
+|   |               finetune_alpaca_r_20260417_0523.jsonl
+|   |               finetune_alpaca_r_20260417_0530.jsonl
+|   |               finetune_alpaca_r_20260417_0534.jsonl
+|   |               finetune_alpaca_r_20260417_0536.jsonl
+|   |               finetune_alpaca_r_20260417_0556.jsonl
+|   |               finetune_alpaca_r_20260417_0604.jsonl
+|   |               finetune_alpaca_r_20260417_0607.jsonl
+|   |               finetune_alpaca_r_20260417_0616.jsonl
+|   |               finetune_alpaca_r_20260417_0619.jsonl
+|   |               finetune_alpaca_r_20260417_0639.jsonl
+|   |               finetune_alpaca_r_20260417_0652.jsonl
+|   |               finetune_alpaca_r_20260417_0711.jsonl
 |   |               
 |   +---examples
 |   |   |   unrestricted_prompt_example.txt
@@ -139355,6 +139661,25 @@ F:.
 |   |   +---lora-20260415_0205
 |   |   +---lora-20260415_0207
 |   |   +---lora-20260415_0208
+|   |   +---lora-20260417_0508
+|   |   +---lora-20260417_0520
+|   |   +---lora-20260417_0523
+|   |   +---lora-20260417_0530
+|   |   +---lora-20260417_0531
+|   |   +---lora-20260417_0534
+|   |   +---lora-20260417_0536
+|   |   +---lora-20260417_0556
+|   |   +---lora-20260417_0604
+|   |   +---lora-20260417_0607
+|   |   +---lora-20260417_0608
+|   |   +---lora-20260417_0616
+|   |   +---lora-20260417_0617
+|   |   +---lora-20260417_0619
+|   |   +---lora-20260417_0620
+|   |   +---lora-20260417_0639
+|   |   +---lora-20260417_0652
+|   |   +---lora-20260417_0653
+|   |   +---lora-20260417_0711
 |   |   \---tts
 |   |       \---runtime
 |   |           +---coqui
@@ -140574,13 +140899,23 @@ F:.
 |   |   |   __init__.py
 |   |   |   
 |   |   \---__pycache__
+|   |           dependency_check.cpython-312.pyc
 |   |           dependency_check.cpython-313.pyc
+|   |           estimate_tokens.cpython-312.pyc
 |   |           estimate_tokens.cpython-313.pyc
+|   |           export_finetune.cpython-312.pyc
+|   |           fine_tune_pipeline.cpython-312.pyc
+|   |           migrate_dataset_schemas.cpython-312.pyc
 |   |           migrate_dataset_schemas.cpython-313.pyc
+|   |           prepare_finetune_pack.cpython-312.pyc
 |   |           prepare_finetune_pack.cpython-313.pyc
+|   |           quick_eval.cpython-312.pyc
 |   |           quick_eval.cpython-313.pyc
+|   |           rerun_failed.cpython-312.pyc
+|   |           rerun_from_results.cpython-312.pyc
 |   |           run_eval.cpython-312.pyc
 |   |           run_eval.cpython-313.pyc
+|   |           train_lora.cpython-312.pyc
 |   |           _bootstrap.cpython-312.pyc
 |   |           _bootstrap.cpython-313.pyc
 |   |           _run_module.cpython-312.pyc
@@ -140606,6 +140941,7 @@ F:.
 |           snapshot_gate.cpython-312.pyc
 |           snapshot_gate.cpython-313.pyc
 |           terminal_progress.cpython-312.pyc
+|           update_workspace_tree_dirs.cpython-312.pyc
 |           __init__.cpython-312.pyc
 |           __init__.cpython-313.pyc
 |           

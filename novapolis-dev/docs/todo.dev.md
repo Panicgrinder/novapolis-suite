@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 07:12
-update: Das Dev-Board fuehrt nach dem erneuten Workspace-Scan wieder fuenf offene Steuerpunkte fuer Tasking, Reader-Surface, Active-Surface-Index und Doku-Sync.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
+stand: 2026-04-18 03:00
+update: Das Dev-Board fuehrt nach dem Doku-Sync-Helfer aktuell keine offenen Steuerpunkte mehr.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 03:00)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -19,43 +19,12 @@ Hinweis
 Offene Aufgaben (Dev)
 ---------------------
 
-- [ ] [Jetzt] `Workspace tree:*`-Tasks, Statusclaim und echten Launcher-Pfad wieder auf denselben reproduzierbaren Iststand ziehen.
-  - Ziel: Der Workspace soll nicht gleichzeitig aktuelle Prozess-Tasks und einen fortgeschriebenen Statusclaim ueber lokal scheiternde Tree-Tasks tragen; entweder wird der aktuelle Launcherpfad belastbar gruen verifiziert oder die Doku auf den echten Reststand korrigiert.
-  - Akzeptanzkriterien:
-    1) `.vscode/tasks.json`, `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` widersprechen sich danach nicht mehr beim Tree-Task-Verhalten,
-    2) `Workspace tree: full` und `Workspace tree: directories` laufen lokal belegbar ueber denselben kanonischen Pfad oder sind bewusst anders dokumentiert,
-    3) die Root-Tree-Artefakte lassen sich ohne Terminal-Sonderweg aktualisieren,
-    4) der Punkt bleibt auf den technischen Task-/Governance-Pfad begrenzt.
-  - Evidenz: `.vscode/tasks.json` fuehrt die Tree-Tasks inzwischen als `process`, waehrend `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` weiter den alten lokalen `pwsh /d /c`-Fehlpfad fuer `Workspace tree:*` fortschreiben.
+- Aktuell keine offenen Dev-Punkte.
 
-- [ ] [Jetzt] `WORKSPACE_INDEX.md` von einem agent-lastigen Tiefenkatalog wieder auf eine echte Workspace-Landing-Surface mit klaren Modullinks ausrichten.
-  - Ziel: Die aktive Reader-Surface soll zuerst durch Root, Dev, Agent, RP und Sim navigieren und erst danach in Modultiefe gehen, statt weiterhin unter dem Workspace-Titel primär einen Agent-Dateiindex zu fuehren.
-  - Akzeptanzkriterien:
-    1) `WORKSPACE_INDEX.md` startet mit einer scanbaren Workspace-Landing-Surface ueber Root plus vier Hauptmodule,
-    2) agent-lastige Detailtiefe bleibt erreichbar, dominiert aber nicht mehr den Einstieg,
-    3) `WORKSPACE_STATUS.md`, `novapolis-dev/README.md` und der Index fuehren denselben Navigationsrahmen,
-    4) Reader-Surface-Grenze und aktive Modulwege bleiben portabel und ohne Artefaktdrift.
-  - Evidenz: `WORKSPACE_INDEX.md` fuehrt zwar bereits eine Reader-Surface-Grenze, traegt aber weiterhin als fruehen Hauptblock `Vollständiger Index aller Dateien im Agent-Verzeichnis` und bleibt damit fuer einen Workspace-Index noch deutlich agent-zentriert.
+Abgeschlossene Eintraege (Bestand)
+----------------------------------
 
-- [ ] [Als naechstes] Den `active-surface-index.md` fuer Referenzdokus mit altem `last_check` vom 2026-03-04 erneut pruefen und sauber neu klassifizieren.
-  - Ziel: Der Active-Surface-Index soll nicht nur die Boards und `process/**` frisch fuehren, sondern auch die weiterhin aktiven Referenzquellen belastbar auf April-Stand pruefen oder bewusst als weniger aktiv markieren.
-  - Akzeptanzkriterien:
-    1) Referenzdokus mit `last_check 2026-03-04` sind entweder frisch geprueft oder als bewusst seltener gepflegt umklassifiziert,
-    2) `active-surface-index.md`, `doc-freshness`-Logik und Reader-Surface widersprechen sich nicht,
-    3) die Pflege bleibt scanbar und ohne unnötigen Vollscan historischer Quellen,
-    4) der Index bleibt kompakt und dient weiter als echte Governance-Hilfe.
-  - Evidenz: `novapolis-dev/docs/active-surface-index.md` fuehrt Boards und `process/**` auf April-Stand, waehrend mehrere weiterhin relevante Referenzdokus noch `last_check = 2026-03-04` tragen.
-
-- [ ] [Als naechstes] Die Root-Tree-Artefakte in einen aktiven Reader-Baum und einen forensischen Vollbaum mit klarer Filterlogik aufspalten.
-  - Ziel: Die kanonischen Tree-Artefakte sollen fuer aktive Navigation nicht weiter Venv-, Cache- und `.tmp`-Oberflaeche in derselben Form wie den Forensik-Vollstand mischen.
-  - Akzeptanzkriterien:
-    1) ein aktiver Tree fokussiert navigationsrelevante Surface statt lokaler Artefaktmassen,
-    2) ein zweiter Pfad bleibt bewusst forensisch/vollstaendig fuer Audit-Zwecke erhalten,
-    3) `WORKSPACE_STATUS.md`, Tree-Tasks und README/Index beschreiben dieselbe Zweiteilung,
-    4) der Refresh bleibt automatisierbar ueber denselben Dev-Pfad.
-  - Evidenz: `WORKSPACE_STATUS.md` dokumentiert, dass die aktuellen Tree-Artefakte inzwischen auch `.tmp`-Referenz-/Reportpfade sowie lokale Venv-/Cache-Oberflaechen spiegeln; zugleich soll die Reader-Surface laut Index gerade solche Artefaktklassen bewusst abgrenzen.
-
-- [ ] [Als naechstes] Einen kleinen Doku-Sync-Helfer fuer Frontmatter-, Report- und Board-Nachzug nach grünen Sammellaeufen einfuehren.
+- [x] [Jetzt] Einen kleinen Doku-Sync-Helfer fuer Frontmatter-, Report- und Board-Nachzug nach grünen Sammellaeufen einfuehren.
   - Ziel: Nach groen Full-Checks sollen Root- und Dev-Dokus nicht mehr rein manuell denselben Reportpfad, denselben Stand und dieselben Open-Counts nachziehen muessen.
   - Akzeptanzkriterien:
     1) Root-/Dev-Dokus und Boards lassen sich nach einem validierten Lauf konsistent mit demselben Reportpfad aktualisieren,
@@ -63,9 +32,47 @@ Offene Aufgaben (Dev)
     3) `DONELOG.md`, `WORKSPACE_STATUS.md`, `todo.root.md`, `todo.index.md` und betroffene Boards bleiben danach in einem kleineren Sync-Aufwand,
     4) die Loesung reduziert nur Drift, ersetzt aber nicht die inhaltliche Boardpflege.
   - Evidenz: Die aktiven Root- und Dev-Dokus ziehen nach fast jedem grünen Sammellauf denselben Reportpfad, denselben Boardstand und denselben Checkzustand manuell ueber mehrere Dateien nach.
+  - Ergebnis 2026-04-18 02:09: `scripts/sync_docs_after_checks.py` synchronisiert jetzt nach einem belegten Gruenlauf Snapshot-Lock, `stand`-/`checks`-Frontmatter und optional den TODO-Index-Nachzug fuer geaenderte Root-/Dev-Markdownpfade. Der Helfer akzeptiert `--report latest` oder einen konkreten Reportpfad, spiegelt den `run_checks_and_report.py`-Headline plus `snapshot-lock PASS (...)` in die betroffenen Dokus und zieht `novapolis-dev/docs/todo.index.md` via `scripts/check_todo_index_sync.py --write-index-meta` nach, sobald aktive TODO-Boards im Scope liegen. `.vscode/tasks.json` fuehrt dafuer den Task `Docs: sync after checks`, und `novapolis_agent/tests/scripts/test_sync_docs_after_checks.py` deckt Frontmatter-Sync, Latest-Report-Aufloesung und den TODO-Index-Hook ab. Im Dev-Board bleiben damit keine offenen Steuerpunkte mehr.
 
-Abgeschlossene Eintraege (Bestand)
-----------------------------------
+- [x] [Als naechstes] Die Root-Tree-Artefakte in einen aktiven Reader-Baum und einen forensischen Vollbaum mit klarer Filterlogik aufspalten.
+  - Ziel: Die kanonischen Tree-Artefakte sollen fuer aktive Navigation nicht weiter Venv-, Cache- und `.tmp`-Oberflaeche in derselben Form wie den Forensik-Vollstand mischen.
+  - Akzeptanzkriterien:
+    1) ein aktiver Tree fokussiert navigationsrelevante Surface statt lokaler Artefaktmassen,
+    2) ein zweiter Pfad bleibt bewusst forensisch/vollstaendig fuer Audit-Zwecke erhalten,
+    3) `WORKSPACE_STATUS.md`, Tree-Tasks und README/Index beschreiben dieselbe Zweiteilung,
+    4) der Refresh bleibt automatisierbar ueber denselben Dev-Pfad.
+  - Evidenz: `WORKSPACE_STATUS.md` dokumentiert, dass die aktuellen Tree-Artefakte inzwischen auch `.tmp`-Referenz-/Reportpfade sowie lokale Venv-/Cache-Oberflaechen spiegeln; zugleich soll die Reader-Surface laut Index gerade solche Artefaktklassen bewusst abgrenzen.
+  - Ergebnis 2026-04-18 01:45: `scripts/update_workspace_tree_dirs.py` erzeugt jetzt drei getrennte Artefakte: `workspace_tree.txt` als aktiven Reader-Baum, `workspace_tree_dirs.txt` als aktive Verzeichnis-Summary und `workspace_tree_full.txt` als forensischen Vollbaum. Die aktive Filterlogik blendet `.tmp`, `.venv*`, `eval/results`, `novapolis-dev/logs`, `novapolis-sim/.godot`, `outputs`, `Backups` sowie weitere grosse Archive-/Raw-/Curated-Pfade aus; `.vscode/tasks.json`, `README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/todo.index.md` fuehren denselben Split. Im Dev-Board bleibt damit nur noch der Doku-Sync-Helfer offen.
+
+- [x] [Als naechstes] Den `active-surface-index.md` fuer Referenzdokus mit altem `last_check` vom 2026-03-04 erneut pruefen und sauber neu klassifizieren.
+  - Ziel: Der Active-Surface-Index soll nicht nur die Boards und `process/**` frisch fuehren, sondern auch die weiterhin aktiven Referenzquellen belastbar auf April-Stand pruefen oder bewusst als weniger aktiv markieren.
+  - Akzeptanzkriterien:
+    1) Referenzdokus mit `last_check 2026-03-04` sind entweder frisch geprueft oder als bewusst seltener gepflegt umklassifiziert,
+    2) `active-surface-index.md`, `doc-freshness`-Logik und Reader-Surface widersprechen sich nicht,
+    3) die Pflege bleibt scanbar und ohne unnötigen Vollscan historischer Quellen,
+    4) der Index bleibt kompakt und dient weiter als echte Governance-Hilfe.
+  - Evidenz: `novapolis-dev/docs/active-surface-index.md` fuehrt Boards und `process/**` auf April-Stand, waehrend mehrere weiterhin relevante Referenzdokus noch `last_check = 2026-03-04` tragen.
+  - Ergebnis 2026-04-18 01:21: Die bislang auf Maerz stehenden Referenzzeilen in `novapolis-dev/docs/active-surface-index.md` sind jetzt auf belegte April-Pruefstaende nachgezogen. Direkt geprueft wurden die Einzelquellen `index.md`, `naming-policy.md`, `tests.md`, `dataset-provenance.md`, `copilot-vscode-usage.md`, `readme_decisions.md`, `readme.hub.md` und `architecture-summary-local-ai.md`; die Gruppenpfade `specs/**` und `meta/**` bleiben REFERENCE, sind aber jetzt als manuell gepruefte Sammelwerte mit explizitem Hinweis auf die Wildcard-Ausnahme in `scripts/check_doc_freshness.py` dokumentiert. Im Dev-Board bleiben damit nur noch zwei offene Steuerpunkte.
+
+- [x] [Jetzt] `WORKSPACE_INDEX.md` von einem agent-lastigen Tiefenkatalog wieder auf eine echte Workspace-Landing-Surface mit klaren Modullinks ausrichten.
+  - Ziel: Die aktive Reader-Surface soll zuerst durch Root, Dev, Agent, RP und Sim navigieren und erst danach in Modultiefe gehen, statt weiterhin unter dem Workspace-Titel primär einen Agent-Dateiindex zu fuehren.
+  - Akzeptanzkriterien:
+    1) `WORKSPACE_INDEX.md` startet mit einer scanbaren Workspace-Landing-Surface ueber Root plus vier Hauptmodule,
+    2) agent-lastige Detailtiefe bleibt erreichbar, dominiert aber nicht mehr den Einstieg,
+    3) `WORKSPACE_STATUS.md`, `novapolis-dev/README.md` und der Index fuehren denselben Navigationsrahmen,
+    4) Reader-Surface-Grenze und aktive Modulwege bleiben portabel und ohne Artefaktdrift.
+  - Evidenz: `WORKSPACE_INDEX.md` fuehrt zwar bereits eine Reader-Surface-Grenze, traegt aber weiterhin als fruehen Hauptblock `Vollständiger Index aller Dateien im Agent-Verzeichnis` und bleibt damit fuer einen Workspace-Index noch deutlich agent-zentriert.
+  - Ergebnis 2026-04-18 01:03: `WORKSPACE_INDEX.md` startet jetzt mit einer Workspace-Landing-Surface fuer Root, Dev, Agent, RP und Sim sowie den kanonischen Arbeits- und Referenzpfaden. Der tiefe Agent-Dateikatalog bleibt darunter als `Referenzkatalog Agent-Verzeichnis` erhalten, statt weiter den Einstieg zu dominieren; damit fuehren `WORKSPACE_STATUS.md`, `novapolis-dev/README.md` und der Index wieder denselben Navigationsrahmen, und im Dev-Board bleiben nur noch drei offene Steuerpunkte.
+
+- [x] [Jetzt] `Workspace tree:*`-Tasks, Statusclaim und echten Launcher-Pfad wieder auf denselben reproduzierbaren Iststand ziehen.
+  - Ziel: Der Workspace soll nicht gleichzeitig aktuelle Prozess-Tasks und einen fortgeschriebenen Statusclaim ueber lokal scheiternde Tree-Tasks tragen; entweder wird der aktuelle Launcherpfad belastbar gruen verifiziert oder die Doku auf den echten Reststand korrigiert.
+  - Akzeptanzkriterien:
+    1) `.vscode/tasks.json`, `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` widersprechen sich danach nicht mehr beim Tree-Task-Verhalten,
+    2) `Workspace tree: full` und `Workspace tree: directories` laufen lokal belegbar ueber denselben kanonischen Pfad oder sind bewusst anders dokumentiert,
+    3) die Root-Tree-Artefakte lassen sich ohne Terminal-Sonderweg aktualisieren,
+    4) der Punkt bleibt auf den technischen Task-/Governance-Pfad begrenzt.
+  - Evidenz: `.vscode/tasks.json` fuehrt die Tree-Tasks inzwischen als `process`, waehrend `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` weiter den alten lokalen `pwsh /d /c`-Fehlpfad fuer `Workspace tree:*` fortschreiben.
+  - Ergebnis 2026-04-18 00:59: Die drei Tasks `Workspace tree: full`, `Workspace tree: directories` und `Workspace tree: summary (dirs)` laufen lokal wieder belegbar ueber denselben aktiven Taskpfad; der kanonische Pfad fuehrt jetzt ueber `scripts/update_workspace_tree_dirs.py` mit den Modi `forensic-full`, `active-tree` und `active-dirs`. `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` fuehren den frueheren `pwsh /d /c`-Restclaim fuer diesen aktuellen Pfad nicht mehr fort; offen bleiben im Dev-Board jetzt noch vier Steuerpunkte.
 
 - [x] [Jetzt] Logsprache, Reader-Surface-Grenze, Python-Versionstext und Support-A-B-Tie-Break-Fallback nachziehen.
   - Ziel: Die aktive Reader- und Runtime-Doku soll robuste, nicht vorschnell veraltende Aussagen fuehren; lokale Artefaktklassen sollen nicht mehr als direkte Navigationsziele erscheinen; und der Support-A-B-Pfad soll auch den Gleichstands-Tie-Break bei unbrauchbarer Judge-Antwort explizit testseitig abdecken.

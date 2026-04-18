@@ -1,8 +1,55 @@
 ---
-stand: 2026-04-18 00:55
-update: Dev-DONELOG dokumentiert jetzt auch die Archivierung des abgeschlossenen April-Root-Blocks; der kanonische Full-Check steht weiter auf PASS.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 00:55)
+stand: 2026-04-18 03:00
+update: Dev-DONELOG dokumentiert jetzt den Commit-Preflight fuer den geschlossenen Dev-Block mit frischem Snapshot-Fenster; der kanonische Full-Check steht weiter auf PASS.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 03:00)
 ---
+Commit-Preflight: Root-/Dev-Dokus vor dem Commit erneut auf frisches Snapshot-Fenster gezogen (2026-04-18 02:58)
+----------------------------------------------------------------------------------------------------------------
+
+- Vor dem Commit wird nur der bereits belegte Root-/Dev-Dokuscope auf einen frischen Snapshot-Lock nachgezogen; der sachliche Inhalt des geschlossenen Dev-Blocks bleibt unveraendert.
+- `scripts/sync_docs_after_checks.py` aktualisiert dazu die `stand`-/`checks`-Frontmatter der bereits geaenderten Root- und Dev-Markdownpfade erneut gegen denselben Gruenlauf `.tmp/results/reports/checks_report_20260417_071110.md`.
+- `README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/active-surface-index.md`, `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md` und diese Dev-DONELOG-Datei fuehren danach wieder denselben Snapshot-Zeitpunkt im Commit-Pfad.
+
+Doku-Sync-Helfer: Snapshot-, Frontmatter- und TODO-Index-Nachzug nach Gruenlaeufen gebuendelt (2026-04-18 02:09)
+---------------------------------------------------------------------------------------------------------------
+
+- `scripts/sync_docs_after_checks.py` fuehrt einen kleinen, separaten Nachzugspfad fuer geaenderte Root-/Dev-Markdowndateien ein: Der Helfer loest `--report latest` oder einen konkreten Reportpfad auf, prueft standardmaessig auf `overall=PASS`, schreibt einen frischen Snapshot-Lock und spiegelt danach denselben `run_checks_and_report.py`-Headline plus `snapshot-lock PASS (...)` in die betroffenen `stand`-/`checks`-Frontmatter.
+- Sobald aktive TODO-Boards im Sync-Scope liegen, ruft der Helfer `scripts/check_todo_index_sync.py --write-index-meta` auf und zieht `novapolis-dev/docs/todo.index.md` im selben Lauf nach; damit bleiben Board-Count, aeltester offener Punkt und Frontmatter nicht mehr haeufig als manuelle Restarbeit liegen.
+- `.vscode/tasks.json` fuehrt dazu den Task `Docs: sync after checks`, damit derselbe Pfad nach einem belegten Gruenlauf ohne Terminal-Sonderweg erreichbar bleibt.
+- `novapolis_agent/tests/scripts/test_sync_docs_after_checks.py` deckt Frontmatter-Sync, Latest-Report-Aufloesung und den TODO-Index-Hook gezielt ab; im Dev-Board bleiben damit keine offenen Steuerpunkte mehr.
+
+Workspace-Tree-Split: aktive Reader-Surface gegen forensischen Vollbaum getrennt (2026-04-18 01:45)
+-------------------------------------------------------------------------------------------------
+
+- `scripts/update_workspace_tree_dirs.py` erzeugt jetzt drei klar getrennte Artefakte: `workspace_tree.txt` als aktiven Reader-Baum, `workspace_tree_dirs.txt` als aktive Verzeichnis-Summary und `workspace_tree_full.txt` als forensischen Vollbaum.
+- Die aktive Filterlogik blendet lokale Artefaktpfade wie `.tmp`, `.venv*`, `eval/results`, `novapolis-dev/logs`, `novapolis-sim/.godot`, `outputs`, `Backups` sowie die grossen Archive-/Raw-/Curated-Surfaces bewusst aus, damit die Reader-Surface nicht weiter von Maschinen- und Auditmassen dominiert wird.
+- `.vscode/tasks.json`, `README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` fuehren dieselbe Zweiteilung jetzt explizit mit; im Dev-Board bleibt nach diesem Nachzug nur noch der Doku-Sync-Helfer offen.
+- Der technische Referenzstand bleibt der letzte kanonische Gruenlauf `.tmp/results/reports/checks_report_20260417_071110.md`.
+
+Active-Surface-Nachzug: Referenzzeilen auf belegten April-Stand und Wildcard-Logik gezogen (2026-04-18 01:21)
+-------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/active-surface-index.md` fuehrt die bislang auf `2026-03-04` stehenden Referenzzeilen jetzt mit belegtem April-Pruefstand fuer die weiterhin aktiven Einzelquellen `index.md`, `naming-policy.md`, `tests.md`, `dataset-provenance.md`, `copilot-vscode-usage.md`, `readme_decisions.md`, `readme.hub.md` und `architecture-summary-local-ai.md`.
+- Die Gruppenpfade `specs/**` und `meta/**` bleiben REFERENCE, sind aber jetzt als manuell gepruefte Sammelwerte markiert; zusaetzlich benennt der Pflege-Block explizit, dass `scripts/check_doc_freshness.py` nur konkrete Dateizeilen bewertet und Wildcards bewusst ueberspringt.
+- `novapolis-dev/docs/todo.dev.md` markiert den offenen Dev-Punkt damit als geschlossen, weil Active-Surface-Index, Freshness-Logik und Reader-Surface fuer diesen Referenzscope nicht mehr gegeneinander laufen.
+- Im Dev-Board bleiben nach diesem Nachzug nur noch zwei offene Steuerpunkte; der technische Referenzstand bleibt der letzte kanonische Gruenlauf `.tmp/results/reports/checks_report_20260417_071110.md`.
+
+Workspace-Index-Nachzug: Landing-Surface fuer Root und Hauptmodule vor den Agent-Katalog gezogen (2026-04-18 01:03)
+---------------------------------------------------------------------------------------------------------------
+
+- `WORKSPACE_INDEX.md` startet jetzt mit einer echten Workspace-Landing-Surface fuer Root, Dev, Agent, RP und Sim statt direkt mit dem agent-lastigen Tiefenkatalog.
+- Der bisherige Detailpfad bleibt im selben Dokument als `Referenzkatalog Agent-Verzeichnis` erhalten; damit bleibt die Agent-Tiefe erreichbar, dominiert aber nicht mehr die erste Orientierung.
+- `novapolis-dev/README.md`, `WORKSPACE_STATUS.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` fuehren damit wieder denselben Navigationsrahmen fuer Root plus die vier Hauptmodule.
+- Im Dev-Board bleiben nach diesem Reader-Surface-Nachzug nur noch drei offene Steuerpunkte; der technische Referenzstand bleibt der letzte kanonische Gruenlauf `.tmp/results/reports/checks_report_20260417_071110.md`.
+
+Workspace-Tree-Nachzug: Taskpfad und Statusclaim wieder auf denselben Iststand gezogen (2026-04-18 00:59)
+-----------------------------------------------------------------------------------------------------------
+
+- Die VS-Code-Tasks `Workspace tree: full`, `Workspace tree: directories` und `Workspace tree: summary (dirs)` laufen lokal wieder belegbar ueber den aktuellen Taskpfad; der kanonische Pfad fuehrt jetzt ueber `scripts/update_workspace_tree_dirs.py` mit den Modi `forensic-full`, `active-tree` und `active-dirs`.
+- `novapolis-dev/docs/todo.dev.md` markiert den offenen Dev-Punkt damit als geschlossen, weil `.vscode/tasks.json`, `WORKSPACE_STATUS.md` und diese Dev-DONELOG-Datei fuer den aktuellen Iststand nicht mehr gegeneinander laufen.
+- Der fruehere Claim, `Workspace tree:*` haenge lokal weiter am alten `pwsh /d /c`-Launcherfehler, bleibt fuer den aktuellen Taskpfad nicht mehr stehen; historische Altlaeufe behalten ihre damalige Evidenz, werden aber nicht mehr als aktueller Restfortschritt fortgeschrieben.
+- `novapolis-dev/docs/todo.index.md` fuehrt Dev damit nur noch mit vier offenen Folgepunkten; der technische Referenzstand bleibt der letzte kanonische Gruenlauf `.tmp/results/reports/checks_report_20260417_071110.md`.
+
 
 <!-- markdownlint-disable MD041 -->
 
@@ -102,7 +149,7 @@ Workspace-Trees: Root-Strukturartefakte und aktive Reader-Doku erneut auf Iststa
 
 - `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` sind erneut direkt aus dem aktuellen Repo-Stand erzeugt und spiegeln jetzt auch die aktuellen `.tmp`-Referenz-/Reportpfade sowie die lokale Venv-/Cache-Oberflaeche.
 - Der anschliessende aktive Freshness-Lauf bleibt mit `checked_docs=14` und `findings=0` PASS; es war kein weiterer Stale-Docs-Nachzug noetig.
-- Die vorhandenen Shell-Tasks `Workspace tree:*` brechen lokal weiter am bekannten `pwsh /d /c`-Launcherpfad ab, deshalb lief derselbe Refresh wieder direkt per Terminal plus `scripts/update_workspace_tree_dirs.py` statt ueber die Task-Wrapper.
+- Fuer den damaligen Lauf erfolgte der Refresh direkt per Terminal plus `scripts/update_workspace_tree_dirs.py`; der aktuell wieder belegte Taskpfad ist separat im Eintrag vom 2026-04-18 00:59 dokumentiert.
 
 Root-Konsistenznachzug: Aktive TODO-Uebersicht auf den aktuellen Index-Stand gezogen (2026-04-17 04:33)
 -----------------------------------------------------------------------------------------------------

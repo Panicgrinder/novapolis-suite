@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 04:39
-update: Die aktiven Boards, DONELOGs und Prozessquellen fuehren jetzt belastbare April-Pruefstaende statt des alten Maerz-Drifts.
-checks: snapshot-lock PASS (2026-04-17 02:44); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-18 03:00
+update: Die verbliebenen Maerz-Referenzzeilen sind jetzt als belegte April-Pruefstaende oder als bewusst gepruefte Gruppenpfade nachgezogen; der Index bleibt kompakt und kompatibel zur Freshness-Logik.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 03:00)
 ---
 
 Active Surface Index (Dev Docs)
@@ -31,17 +31,17 @@ Index (novapolis-dev/docs)
 | `novapolis-dev/docs/todo.rp.md` | ACTIVE | rp-governance | 2026-04-17 |
 | `novapolis-dev/docs/todo.agent-board.md` | ACTIVE | agent-governance | 2026-04-17 |
 | `novapolis-dev/docs/todo.sim.md` | ACTIVE | sim-governance | 2026-04-17 |
-| `novapolis-dev/docs/index.md` | REFERENCE | dev-governance | 2026-03-04 |
-| `novapolis-dev/docs/naming-policy.md` | REFERENCE | dev-governance | 2026-03-04 |
-| `novapolis-dev/docs/tests.md` | REFERENCE | qa-governance | 2026-03-04 |
-| `novapolis-dev/docs/dataset-provenance.md` | REFERENCE | data-governance | 2026-03-04 |
-| `novapolis-dev/docs/copilot-vscode-usage.md` | REFERENCE | tooling-governance | 2026-03-04 |
-| `novapolis-dev/docs/readme_decisions.md` | REFERENCE | dev-governance | 2026-03-04 |
-| `novapolis-dev/docs/readme.hub.md` | REFERENCE | dev-governance | 2026-03-04 |
-| `novapolis-dev/docs/architecture-summary-local-ai.md` | REFERENCE | architecture | 2026-03-04 |
-| `novapolis-dev/docs/specs/**` | REFERENCE | domain-maintainers | 2026-03-04 |
+| `novapolis-dev/docs/index.md` | REFERENCE | dev-governance | 2026-04-18 |
+| `novapolis-dev/docs/naming-policy.md` | REFERENCE | dev-governance | 2026-04-18 |
+| `novapolis-dev/docs/tests.md` | REFERENCE | qa-governance | 2026-04-18 |
+| `novapolis-dev/docs/dataset-provenance.md` | REFERENCE | data-governance | 2026-04-18 |
+| `novapolis-dev/docs/copilot-vscode-usage.md` | REFERENCE | tooling-governance | 2026-04-18 |
+| `novapolis-dev/docs/readme_decisions.md` | REFERENCE | dev-governance | 2026-04-18 |
+| `novapolis-dev/docs/readme.hub.md` | REFERENCE | dev-governance | 2026-04-18 |
+| `novapolis-dev/docs/architecture-summary-local-ai.md` | REFERENCE | architecture | 2026-04-18 |
+| `novapolis-dev/docs/specs/**` | REFERENCE | domain-maintainers | 2026-04-18 |
 | `novapolis-dev/docs/process/**` | REFERENCE | process-governance | 2026-04-17 |
-| `novapolis-dev/docs/meta/**` | REFERENCE | dev-governance | 2026-03-04 |
+| `novapolis-dev/docs/meta/**` | REFERENCE | dev-governance | 2026-04-18 |
 | `novapolis-dev/archive/docs/**` | HISTORICAL | archive-maintainers | 2026-04-15 |
 
 Pflege
@@ -50,6 +50,7 @@ Pflege
 - Bei Neuaufnahme/Aenderung operativer Dev-Dokumente den Index im selben Lauf aktualisieren.
 - `last_check` wird bei inhaltlicher Pruefung oder Klassifikationsaenderung aktualisiert.
 - Die Sammelwerte fuer `process/**` und `meta/**` bleiben bewusst Gruppensignale; punktuelle Einzellaeufe muessen nicht jeden Referenzpfad auf denselben Tag ziehen.
+- Wildcard-Zeilen (`specs/**`, `process/**`, `meta/**`) sind manuelle Gruppenpruefungen; `scripts/check_doc_freshness.py` bewertet weiterhin nur konkrete Dateipfade aus dieser Tabelle und ueberspringt Wildcards bewusst.
 
 
 

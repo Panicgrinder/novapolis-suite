@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 00:55
+stand: 2026-04-18 03:00
 update: Das Root-README verweist jetzt fuer den ersten Text-RPG-Vertikalslice auf den gemeinsamen Release-Evidence-Pfad und dessen Pflichtbelege.
-checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-04-17 23:22)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 03:00)
 ---
 Novapolis Suite
 ===============
@@ -161,7 +161,9 @@ Aktuelle Statusdokumente
 - [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) - laufender Betriebsstatus mit aktuellem Stand (Single-Root, Wrapper, Health-Checks).
 - [`todo.root.md`](todo.root.md) - aktive Root-Aufgabenübersicht und Querschnitts-Backlog.
 - [`WORKSPACE_INDEX.md`](WORKSPACE_INDEX.md) - Workspace-/Dateiindex zur schnellen Orientierung.
-- [`workspace_tree_full.txt`](workspace_tree_full.txt) - vollständiger Verzeichnisbaum; regenerierbar via Tasks `Workspace tree:*`.
+- [`workspace_tree.txt`](workspace_tree.txt) - aktiver Reader-Baum mit gefilterter Root-Surface fuer Navigation.
+- [`workspace_tree_dirs.txt`](workspace_tree_dirs.txt) - aktive Verzeichnis-Summary derselben Reader-Surface.
+- [`workspace_tree_full.txt`](workspace_tree_full.txt) - forensischer Vollbaum; regenerierbar via Tasks `Workspace tree:*`.
 - Backups befinden sich zentral unter `Backups/` (keine tool-lesbaren Backups neben aktiven Configs).
 
 Naechste Schritte

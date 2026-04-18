@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 00:55
-update: Root-Summary dokumentiert jetzt auch die Archivierung des abgeschlossenen April-Root-Blocks; der kanonische Full-Check bleibt vollstaendig auf PASS.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 00:55)
+stand: 2026-04-18 03:00
+update: Root-Summary fuehrt den Commit-Preflight fuer den geschlossenen Dev-Block jetzt mit frischem Snapshot-Fenster; der kanonische Full-Check bleibt vollstaendig auf PASS.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 03:00)
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,18 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-18 02:58: Vor dem Commit ist der aktive Root-/Dev-Dokuscope erneut auf ein frisches Snapshot-Fenster gezogen. Der sachliche Inhalt des Dev-Abschlussblocks bleibt unveraendert; nachgezogen werden nur die frischen `stand`-/`checks`-Frontmatter fuer `README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, `DONELOG.md` sowie die betroffenen Dev-Hub-Dokus, damit der Commit-Pfad wieder denselben belegten Gruenlauf und denselben Snapshot-Lock fuehrt.
+
+- 2026-04-18 02:09: Der letzte offene Dev-Punkt fuer den Doku-Sync-Helfer ist geschlossen. `scripts/sync_docs_after_checks.py` synchronisiert jetzt nach belegten Gruenlaeufen Snapshot-Lock, `stand`-/`checks`-Frontmatter und den optionalen TODO-Index-Nachzug fuer geaenderte Root-/Dev-Dokus; `.vscode/tasks.json` fuehrt dazu den Task `Docs: sync after checks`, und `novapolis_agent/tests/scripts/test_sync_docs_after_checks.py` deckt den neuen Helfer ab. `WORKSPACE_STATUS.md`, `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/donelog.md` fuehren denselben Abschlussstand; im Dev-Board bleiben keine offenen Punkte mehr.
+
+- 2026-04-18 01:45: Der offene Dev-Punkt fuer den Root-Tree-Artefaktschnitt ist geschlossen. `workspace_tree.txt` fuehrt jetzt die gefilterte Reader-Surface ohne `.tmp`, `.venv*`, Eval-Resultate, Dev-Logs und Godot-Cache; `workspace_tree_dirs.txt` bildet dieselbe aktive Surface als Verzeichnis-Summary ab, waehrend `workspace_tree_full.txt` der forensische Vollbaum bleibt. `README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/donelog.md` fuehren denselben Split; offen bleibt im Dev-Board nur noch der Doku-Sync-Helfer.
+
+- 2026-04-18 01:21: Der offene Dev-Punkt fuer den `active-surface-index.md` ist geschlossen. Die bislang auf Maerz stehenden Referenzzeilen sind jetzt als belegte April-Pruefstaende nachgezogen; die Gruppenpfade `specs/**` und `meta/**` bleiben REFERENCE, fuehren aber nun explizit den Hinweis, dass die Freshness-Logik Wildcards nur als manuelle Sammelwerte behandelt. `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md`, `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` fuehren denselben Abschlussstand; offen bleiben im Dev-Board nur noch zwei Punkte.
+
+- 2026-04-18 01:03: Der offene Dev-Punkt fuer die agent-lastige Startoberflaeche von `WORKSPACE_INDEX.md` ist geschlossen. Der Index startet jetzt mit einer echten Landing-Surface fuer Root, Dev, Agent, RP und Sim sowie den kanonischen Arbeits- und Referenzpfaden; der detaillierte Agent-Katalog bleibt darunter als Referenzpfad erhalten. `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md`, `WORKSPACE_STATUS.md` und `novapolis-dev/docs/donelog.md` fuehren denselben Abschlussstand; offen bleiben im Dev-Board nur noch drei Punkte.
+
+- 2026-04-18 00:59: Der offene Dev-Punkt fuer den Workspace-Tree-Taskpfad ist geschlossen. Die Tasks `Workspace tree: full`, `Workspace tree: directories` und `Workspace tree: summary (dirs)` laufen lokal wieder belegbar ueber den aktiven VS-Code-Taskpfad; der alte Root-/Dev-Claim ueber einen fortbestehenden `pwsh /d /c`-Fehlpfad bleibt fuer diesen aktuellen Iststand nicht mehr stehen. `novapolis-dev/docs/todo.dev.md`, `WORKSPACE_STATUS.md`, `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/todo.index.md` fuehren denselben Abschlussstand.
 
 - 2026-04-18 00:49: Der vollstaendig abgeschlossene April-Root-Block ist jetzt unter `novapolis-dev/archive/todo.root.archive.md` archiviert. `todo.root.md` ist wieder die schlanke Live-Oberflaeche fuer neue suiteweite Punkte; `WORKSPACE_STATUS.md`, `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/todo.index.md` fuehren denselben Archivstand ohne offene Root-Punkte nach.
 
