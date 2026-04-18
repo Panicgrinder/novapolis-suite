@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 03:00
-update: Dev-DONELOG dokumentiert jetzt den Commit-Preflight fuer den geschlossenen Dev-Block mit frischem Snapshot-Fenster; der kanonische Full-Check steht weiter auf PASS.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 03:00)
+stand: 2026-04-18 06:28
+update: Dev-DONELOG dokumentiert jetzt auch den geschlossenen gm_session-Diagnostiknachzug; im Agent-Board bleiben keine offenen Punkte mehr.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 06:28)
 ---
 Commit-Preflight: Root-/Dev-Dokus vor dem Commit erneut auf frisches Snapshot-Fenster gezogen (2026-04-18 02:58)
 ----------------------------------------------------------------------------------------------------------------
@@ -17,6 +17,55 @@ Doku-Sync-Helfer: Snapshot-, Frontmatter- und TODO-Index-Nachzug nach Gruenlaeuf
 - Sobald aktive TODO-Boards im Sync-Scope liegen, ruft der Helfer `scripts/check_todo_index_sync.py --write-index-meta` auf und zieht `novapolis-dev/docs/todo.index.md` im selben Lauf nach; damit bleiben Board-Count, aeltester offener Punkt und Frontmatter nicht mehr haeufig als manuelle Restarbeit liegen.
 - `.vscode/tasks.json` fuehrt dazu den Task `Docs: sync after checks`, damit derselbe Pfad nach einem belegten Gruenlauf ohne Terminal-Sonderweg erreichbar bleibt.
 - `novapolis_agent/tests/scripts/test_sync_docs_after_checks.py` deckt Frontmatter-Sync, Latest-Report-Aufloesung und den TODO-Index-Hook gezielt ab; im Dev-Board bleiben damit keine offenen Steuerpunkte mehr.
+
+Agent-Board-Abschluss: gm_session-Hard-Fail diagnostisch frueher und klarer getrennt (2026-04-18 06:08)
+-----------------------------------------------------------------------------------------------------------
+
+- `scripts/run_text_rpg_product_gate.py` fuehrt jetzt einen separaten `--gm-preflight-only`-Pfad und dieselbe explizite `GM Diagnosis` im Produkt-Gate-Report. Damit werden `preflight`, `eval` und `summary` sowie `runtime_unreachable`, `model_missing` und spaetere inhaltliche Blocker nicht mehr nur indirekt ueber Fehlerlisten, sondern als klarer Diagnosepfad mit naechstem Schritt ausgewiesen.
+- `.vscode/tasks.json` fuehrt dazu den leichten Task `Checks: gm runtime preflight`; `novapolis_agent/docs/runbook.md` zieht denselben Vorpruefpfad vor dem teuren Gesamtgate und die neue Diagnose-Lesart im Report nach.
+- `novapolis_agent/tests/scripts/test_run_text_rpg_product_gate.py` deckt die neue Vorpruefungs- und Diagnose-Aufteilung gezielt ab; der fokussierte Pytest-Lauf bleibt PASS, und im Agent-Board sinkt der offene Stand damit von `1` auf `0`.
+
+Agent-Board-Abschluss: map_reduce_summary-Rest ueber Edge-Tests geschlossen (2026-04-18 04:49)
+--------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/tests/scripts/test_map_reduce_summary_edges.py` deckt jetzt gezielt die verbliebenen `safe_read()`- und Python-Parse-Fallbacks, den markdownfreien Rohtext, JSON-/JSONL-Fehler- und Skalarpfade, die Skip-/Exception-Zweige in `walk_scope()` sowie den Fehler- und `__main__`-Pfad von `main()` ab.
+- Der fokussierte Testblock `pytest -q novapolis_agent/tests/scripts/test_map_reduce_summary_heuristic_min.py novapolis_agent/tests/scripts/test_map_reduce_summary_json_modes.py novapolis_agent/tests/scripts/test_map_reduce_summary_markdown_and_excludes.py novapolis_agent/tests/scripts/test_map_reduce_summary_python_and_json.py novapolis_agent/tests/scripts/test_map_reduce_summary_edges.py novapolis_agent/tests/test_map_reduce_summary_smoke_minimal.py novapolis_agent/tests/test_map_reduce_summary_scripts_smoke.py` bleibt komplett PASS, und die Nachmessung `--cov=scripts.map_reduce_summary --cov-report=term-missing` zieht den Runner von `89%` auf `100%` Coverage.
+- Der bestehende CLI- und Artefaktvertrag des Summary-Runners bleibt dabei unveraendert; im Agent-Board sinkt der offene Stand damit von `2` auf `1`.
+
+Agent-Board-Abschluss: Support-A/B-Smoke auf klare Fehlerklassen und belastbare Tests gezogen (2026-04-18 03:28)
+-----------------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/scripts/support_ab_smoke.py` gibt fuer denselben `/chat`-Smoke jetzt immer einen strukturierten JSON-Block mit `status` aus und trennt Nicht-200-Antworten, Payload-/Contract-Drift und Netzwerkfehler explizit in `http_error`, `payload_error` und `network_error`.
+- `novapolis_agent/tests/scripts/test_support_ab_smoke.py` deckt jetzt Happy Path, non-JSON, invalides JSON-Objekt, HTTP-Detailfehler, fehlende Modell-/Content-Felder, Runtime-Parsefehler, Netzwerkfehler, Argumentparser und `main()` gezielt ab; der frische Pytest-Lauf ist PASS, und die fokussierte Nachmessung hebt `scripts.support_ab_smoke` von `47%` auf `91%` Coverage.
+- `novapolis_agent/docs/runbook.md` fuehrt dieselbe Erfolgs-/Fehlersprache fuer den Support-A/B-Smoke jetzt explizit mit; im Agent-Board sinkt der offene Stand damit von `5` auf `4`.
+
+Agent-Board-Abschluss: Referenzrunner-Rest ueber Sammelreport- und Multi-Spec-Tests geschlossen (2026-04-18 03:40)
+-------------------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/tests/scripts/test_run_text_rpg_reference_session_edges.py` deckt jetzt gezielt die verbleibenden Sammelreport-Zweige in `_build_markdown()` mit und ohne Fehlerliste, die Fehleraggregation in `run_reference_sessions()` sowie den Multi-Spec-CLI-Pfad in `main()` inklusive `case_count`-Ausgabe und Reportschreiben ab.
+- Der fokussierte Testblock `pytest -q novapolis_agent/tests/scripts/test_run_text_rpg_reference_session.py novapolis_agent/tests/scripts/test_run_text_rpg_reference_session_edges.py` bleibt PASS, und die Nachmessung `--cov=scripts.run_text_rpg_reference_session --cov-report=term-missing` zieht den Runner von `90%` auf `100%` Coverage.
+- Der bestehende Referenz- und Artefaktvertrag fuer die deterministischen Faelle hinter `slot 05` und `slot 40` bleibt dabei unveraendert; im Agent-Board sinkt der offene Stand damit von `4` auf `3`.
+
+Agent-Board-Arbeitsstand: export_finetune-Rest auf Fallback- und CLI-Zweige eingegrenzt (2026-04-18 04:05)
+----------------------------------------------------------------------------------------------------------------
+
+- Der naechste offene Agent-Punkt ist evidence-first auf den heutigen Restzweig von `novapolis_agent/scripts/export_finetune.py` eingegrenzt.
+- Der fokussierte Testblock ueber Export-, Fallback- und Prepare-Integration ist derzeit nur an einer fragilen `app.core.settings`-Importannahme in `novapolis_agent/tests/scripts/test_export_finetune_more_edges.py` rot und misst fuer `scripts.export_finetune` aktuell `85%` Coverage.
+- Offen bleiben laut Nachmessung vor allem `_load_run_eval_module()`-Fehlerzweig, Guard-/Dedup-Zweige in `_resolve_existing_inputs()` und `_collect_export_pairs()`, der doppelte Settings-/Default-Fallback in `export_from_results()`, der `unknown format`-Guard, der breite Dataset-Fallback in `inspect_results_for_export()` sowie der direkte CLI-Block unter `__main__`.
+
+Agent-Board-Abschluss: export_finetune-Rest ueber Fallback- und CLI-Tests geschlossen (2026-04-18 04:09)
+----------------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/tests/scripts/test_export_finetune_more_edges.py` deckt jetzt die verbleibenden Settings-Fallbacks ueber den zweiten Importpfad und den finalen `run_eval`-Default, Helper-/Dedup-Skip-Pfade, den breiten Dataset-Fallback in `inspect_results_for_export()`, den `unknown format`-Guard sowie den direkten CLI-Block unter `__main__` gezielt ab.
+- Der fokussierte Export-Testblock ueber Export-, Fallback- und Prepare-Integration ist jetzt vollstaendig PASS, und die Nachmessung `--cov=scripts.export_finetune --cov-report=term-missing` zieht `scripts.export_finetune` von `85%` auf `100%` Coverage.
+- Der bestehende Export- und Prepare-Pack-Vertrag bleibt dabei unveraendert; im Agent-Board sinkt der offene Stand damit von `3` auf `2`.
+
+Agent-Board-Arbeitsstand: map_reduce_summary-Rest auf Helper-, JSON- und CLI-Zweige eingegrenzt (2026-04-18 04:40)
+--------------------------------------------------------------------------------------------------------------------
+
+- Der naechste offene Agent-Punkt ist evidence-first auf den heutigen Restzweig von `novapolis_agent/scripts/map_reduce_summary.py` eingegrenzt.
+- Der fokussierte Testblock fuer Heuristik-, JSON-, Markdown-, Python- und Smoke-Pfade ist grün, misst fuer `scripts.map_reduce_summary` aktuell aber nur `89%` Coverage.
+- Offen bleiben laut Nachmessung vor allem `safe_read()`-Fallbacks, der Parse-Fallback in `summarize_python()`, der markdownfreie Textpfad in `summarize_markdown()`, JSON-/JSONL-Fehler- und Simplify-Zweige in `summarize_json()`, die Skip-/Exception-Pfade in `walk_scope()`, der Verzeichnis-Write-Pfad in `write_md()` sowie der Fehler- und `__main__`-Pfad von `main()`.
 
 Workspace-Tree-Split: aktive Reader-Surface gegen forensischen Vollbaum getrennt (2026-04-18 01:45)
 -------------------------------------------------------------------------------------------------

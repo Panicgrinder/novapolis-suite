@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 03:00
-update: Root-Summary fuehrt den Commit-Preflight fuer den geschlossenen Dev-Block jetzt mit frischem Snapshot-Fenster; der kanonische Full-Check bleibt vollstaendig auf PASS.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 03:00)
+stand: 2026-04-18 06:28
+update: Root-Summary dokumentiert jetzt auch den geschlossenen gm_session-Diagnostiknachzug; im Agent-Board bleiben keine offenen Punkte mehr.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 06:28)
 ---
 
 DONELOG (Root Summary)
@@ -17,6 +17,16 @@ Hinweis
 
 Aktuelle Eintraege (Summary)
 ----------------------------
+
+- 2026-04-18 06:08: Der letzte offene Agent-Punkt fuer die gm_session-Runtime-Diagnostik ist geschlossen. `scripts/run_text_rpg_product_gate.py` fuehrt jetzt einen separaten `--gm-preflight-only`-Pfad und eine explizite `GM Diagnosis` im Produkt-Gate-Report, die `preflight`, `eval` und `summary` sowie `runtime_unreachable`, `model_missing` und spaetere inhaltliche Blocker klar auseinanderzieht. `.vscode/tasks.json` fuehrt dazu den Task `Checks: gm runtime preflight`, `novapolis_agent/docs/runbook.md` beschreibt denselben Vorpruefpfad jetzt explizit vor dem teuren Gesamtgate, und der fokussierte Testblock `novapolis_agent/tests/scripts/test_run_text_rpg_product_gate.py` bleibt PASS; im Agent-Board bleiben damit keine offenen Punkte mehr.
+
+- 2026-04-18 04:49: Der naechste offene Agent-Punkt fuer `novapolis_agent/scripts/map_reduce_summary.py` ist geschlossen. `novapolis_agent/tests/scripts/test_map_reduce_summary_edges.py` deckt jetzt die verbleibenden `safe_read()`- und Python-Parse-Fallbacks, den markdownfreien Rohtext, JSON-/JSONL-Fehler- und Skalarpfade, die Skip-/Exception-Zweige in `walk_scope()` sowie den Fehler- und `__main__`-Pfad von `main()` gezielt ab. Die fokussierte Nachmessung zieht `scripts.map_reduce_summary` damit von `89%` auf `100%`, ohne den bestehenden CLI- und Artefaktvertrag zu aendern; im Agent-Board bleibt noch ein offener Punkt.
+
+- 2026-04-18 04:09: Der naechste offene Agent-Punkt fuer den Finetune-Exportpfad ist geschlossen. `novapolis_agent/tests/scripts/test_export_finetune_more_edges.py` deckt jetzt die verbleibenden Settings-Fallbacks, Helper-/Dedup-Skip-Pfade, den breiten Dataset-Fallback in `inspect_results_for_export()`, den `unknown format`-Guard sowie den direkten CLI-Block unter `__main__` gezielt ab. Die fokussierte Nachmessung zieht `scripts.export_finetune` damit von `85%` auf `100%`; im Agent-Board bleiben noch zwei offene Punkte.
+
+- 2026-04-18 03:40: Der naechste offene Agent-Punkt fuer den deterministischen Referenzrunner ist geschlossen. `novapolis_agent/tests/scripts/test_run_text_rpg_reference_session_edges.py` deckt jetzt die verbleibenden Sammelreport-Zweige in `_build_markdown()`, die Fehleraggregation in `run_reference_sessions()` sowie den Multi-Spec-CLI-Pfad in `main()` inklusive `case_count`-Ausgabe gezielt ab. Die fokussierte Nachmessung zieht `scripts.run_text_rpg_reference_session` damit von `90%` auf `100%`; im Agent-Board bleiben noch drei offene Punkte.
+
+- 2026-04-18 03:28: Der erste offene Agent-Punkt fuer den neutralen Support-A/B-Smoke ist geschlossen. `novapolis_agent/scripts/support_ab_smoke.py` trennt Nicht-200-Antworten, Payload-/Contract-Drift und Netzwerkfehler jetzt explizit in `http_error`, `payload_error` und `network_error`; `novapolis_agent/tests/scripts/test_support_ab_smoke.py` deckt die zugehoerigen Happy-, HTTP-, Payload-, Netzwerk-, Parser- und `main()`-Pfade gezielt ab. Die fokussierte Nachmessung hebt `scripts.support_ab_smoke` dabei von `47%` auf `91%` Coverage; im Agent-Board bleiben noch vier offene Punkte.
 
 - 2026-04-18 02:58: Vor dem Commit ist der aktive Root-/Dev-Dokuscope erneut auf ein frisches Snapshot-Fenster gezogen. Der sachliche Inhalt des Dev-Abschlussblocks bleibt unveraendert; nachgezogen werden nur die frischen `stand`-/`checks`-Frontmatter fuer `README.md`, `WORKSPACE_INDEX.md`, `WORKSPACE_STATUS.md`, `DONELOG.md` sowie die betroffenen Dev-Hub-Dokus, damit der Commit-Pfad wieder denselben belegten Gruenlauf und denselben Snapshot-Lock fuehrt.
 

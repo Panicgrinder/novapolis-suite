@@ -220,6 +220,23 @@
       "problemMatcher": []
     },
     {
+      "label": "Checks: gm runtime preflight",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "${workspaceFolder}\\scripts\\run_text_rpg_product_gate.py",
+        "--gm-preflight-only"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
       "label": "Git: commit+push",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",

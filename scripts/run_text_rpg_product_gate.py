@@ -466,6 +466,20 @@ def _build_markdown(report: dict[str, Any]) -> str:
     if report.get("gm_runtime_target"):
         lines.append(f"- GM Runtime Target: {report['gm_runtime_target']}")
     lines.append("")
+    diagnosis = report.get("gm_diagnosis")
+    if isinstance(diagnosis, dict) and diagnosis:
+        lines.append("## GM Diagnosis")
+        if diagnosis.get("phase"):
+            lines.append(f"- Phase: {diagnosis['phase']}")
+        if diagnosis.get("classification"):
+            lines.append(f"- Classification: {diagnosis['classification']}")
+        if diagnosis.get("detail"):
+            lines.append(f"- Detail: {diagnosis['detail']}")
+        if diagnosis.get("examples"):
+            lines.append(f"- Examples: {diagnosis['examples']}")
+        if diagnosis.get("hint"):
+            lines.append(f"- Next step: {diagnosis['hint']}")
+        lines.append("")
     lines.append("## Steps")
     for step in report["steps"]:
         summary = (
@@ -485,6 +499,179 @@ def _build_markdown(report: dict[str, Any]) -> str:
         lines.append("- none")
     lines.append("")
     return "\n".join(lines)
+
+
+def _gm_preflight_hint(error_kind: str, metadata: dict[str, str]) -> str:
+    host = metadata.get("host", "<unbekannt>")
+    model = metadata.get("model", "<unbekannt>")
+    if error_kind == "runtime_unreachable":
+        return (
+            f"Lokale Runtime zuerst separat pruefen: Task 'Checks: gm runtime preflight' "
+            f"oder --gm-preflight-only gegen {host}."
+        )
+    if error_kind == "model_missing":
+        return (
+            f"Runtime antwortet, aber Modell fehlt: {model}. Modell in Ollama verfuegbar machen "
+            "und erst danach das Gesamt-Gate erneut fahren."
+        )
+    if error_kind == "tags_endpoint_http_error":
+        return (
+            f"Lokale Runtime ist erreichbar, aber /api/tags antwortet fehlerhaft auf {host}. "
+            "Runtime-Logs pruefen, bevor das teure gm_session-Eval erneut laeuft."
+        )
+    return "Vorpruefung fehlgeschlagen; zuerst den gm-Preflight isoliert laufen lassen und den Log pruefen."
+
+
+def build_gm_diagnosis(step_results: list[StepResult]) -> dict[str, str]:
+    diagnosis: dict[str, str] = {
+        "phase": "none",
+        "classification": "none",
+        "hint": "Keine gm-spezifische Diagnose vorhanden.",
+    }
+    preflight = next((step for step in step_results if step.name == "gm_runtime_preflight"), None)
+    gm_eval = next((step for step in step_results if step.name == "gm_session_eval"), None)
+    summary = next((step for step in step_results if step.name == "gm_session_summary"), None)
+
+    if preflight is None:
+        return diagnosis
+
+    if preflight.metadata.get("host"):
+        diagnosis["runtime_target"] = preflight.metadata["host"]
+    if preflight.metadata.get("model"):
+        diagnosis["runtime_model"] = preflight.metadata["model"]
+
+    if preflight.exit_code != 0:
+        error_kind = preflight.metadata.get("error_kind", "gm_preflight_failed")
+        diagnosis.update(
+            {
+                "phase": "preflight",
+                "classification": error_kind,
+                "detail": preflight.metadata.get("error_detail", ""),
+                "hint": _gm_preflight_hint(error_kind, preflight.metadata),
+            }
+        )
+        return diagnosis
+
+    if gm_eval is None:
+        diagnosis.update(
+            {
+                "phase": "preflight",
+                "classification": "ready",
+                "hint": "Vorpruefung ist gruen; jetzt kann das vollstaendige gm_session-Gate laufen.",
+            }
+        )
+        return diagnosis
+
+    failure_summary = gm_eval.metadata.get("failure_summary", "none")
+    if failure_summary != "none":
+        diagnosis.update(
+            {
+                "phase": "eval",
+                "classification": "eval_runtime_or_execution_failures",
+                "detail": failure_summary,
+                "examples": gm_eval.metadata.get("failure_examples", "none"),
+                "hint": (
+                    "Vorpruefung war gruen; der Fail trat erst waehrend gm_session_eval auf. "
+                    "Results-Datei, KPI-Summary und Eval-Log gemeinsam triagieren."
+                ),
+            }
+        )
+        return diagnosis
+
+    if gm_eval.exit_code != 0:
+        diagnosis.update(
+            {
+                "phase": "eval",
+                "classification": "gm_session_eval_failed_without_result_classification",
+                "hint": "gm_session_eval ist fehlgeschlagen, ohne klassifizierbare Resultatdatei zu liefern; Eval-Log direkt pruefen.",
+            }
+        )
+        return diagnosis
+
+    if summary is None:
+        diagnosis.update(
+            {
+                "phase": "summary",
+                "classification": "summary_missing",
+                "hint": "gm_session_eval ist gruen, aber die KPI-Summary fehlt; Reporter-Schritt pruefen.",
+            }
+        )
+        return diagnosis
+
+    if summary.exit_code != 0:
+        diagnosis.update(
+            {
+                "phase": "summary",
+                "classification": "summary_step_failed",
+                "hint": "gm_session_eval lieferte Resultate, aber der KPI-Reporter ist fehlgeschlagen.",
+            }
+        )
+        return diagnosis
+
+    severity = summary.metadata.get("severity", "")
+    if severity == "blocker":
+        diagnosis.update(
+            {
+                "phase": "summary",
+                "classification": "summary_blocker",
+                "detail": severity,
+                "hint": (
+                    "Lokale Runtime und Modell waren erreichbar; der Rest liegt jetzt in inhaltlichen gm_session-Checks, "
+                    "nicht in der Runtime-Vorpruefung."
+                ),
+            }
+        )
+        return diagnosis
+    if severity:
+        diagnosis.update(
+            {
+                "phase": "summary",
+                "classification": f"summary_{severity}",
+                "detail": severity,
+                "hint": "gm_session-Eval ist ausgewertet; Triage jetzt ueber KPI-Summary und betroffene Faelle fortsetzen.",
+            }
+        )
+        return diagnosis
+
+    diagnosis.update(
+        {
+            "phase": "summary",
+            "classification": "summary_missing_severity",
+            "hint": "gm_session-Eval ist durchgelaufen, aber die KPI-Summary liefert keine Severity.",
+        }
+    )
+    return diagnosis
+
+
+def run_gm_preflight_only(repo_root: Path, timestamp: str) -> dict[str, Any]:
+    preflight_result = run_gm_runtime_preflight(repo_root, timestamp)
+    errors: list[str] = []
+    if preflight_result.exit_code != 0:
+        error_kind = preflight_result.metadata.get("error_kind", "gm_preflight_failed")
+        errors.append(f"gm_runtime_preflight classified: {error_kind}")
+
+    step_results = [preflight_result]
+    return {
+        "status": "PASS" if not errors and preflight_result.exit_code == 0 else "FAIL",
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "gm_results_file": None,
+        "gm_runtime_target": preflight_result.metadata.get("host"),
+        "steps": [
+            {
+                "name": step.name,
+                "status": step.status,
+                "exit_code": step.exit_code,
+                "duration_ms": step.duration_ms,
+                "command": step.command,
+                "cwd": step.cwd,
+                "log_path": step.log_path,
+                "metadata": step.metadata,
+            }
+            for step in step_results
+        ],
+        "gm_diagnosis": build_gm_diagnosis(step_results),
+        "errors": errors,
+    }
 
 
 def run_product_gate(
@@ -580,6 +767,7 @@ def run_product_gate(
             }
             for step in step_results
         ],
+        "gm_diagnosis": build_gm_diagnosis(step_results),
         "errors": errors,
     }
 
@@ -606,6 +794,11 @@ def main() -> int:
         action="store_true",
         help="Continue after failing steps instead of stopping at the first failure",
     )
+    parser.add_argument(
+        "--gm-preflight-only",
+        action="store_true",
+        help="Run only the lightweight gm runtime preflight instead of the full product gate",
+    )
     args = parser.parse_args()
 
     repo_root = Path(args.repo_root).resolve()
@@ -623,7 +816,10 @@ def main() -> int:
         else reports_dir / f"text_rpg_product_gate_{timestamp}.md"
     )
 
-    report = run_product_gate(repo_root, python_exec, timestamp, args.continue_on_fail)
+    if args.gm_preflight_only:
+        report = run_gm_preflight_only(repo_root, timestamp)
+    else:
+        report = run_product_gate(repo_root, python_exec, timestamp, args.continue_on_fail)
     report_json.parent.mkdir(parents=True, exist_ok=True)
     report_md.parent.mkdir(parents=True, exist_ok=True)
     report_json.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")

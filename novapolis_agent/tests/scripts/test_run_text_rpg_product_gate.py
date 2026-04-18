@@ -101,6 +101,92 @@ def test_run_gm_runtime_preflight_reports_listener_and_model(
 
 @pytest.mark.scripts
 @pytest.mark.unit
+def test_build_gm_diagnosis_distinguishes_preflight_and_eval_failures() -> None:
+    from scripts import run_text_rpg_product_gate as mod
+
+    preflight_fail = mod.StepResult(
+        name="gm_runtime_preflight",
+        status="FAIL",
+        exit_code=1,
+        duration_ms=5,
+        command=[],
+        cwd=".",
+        log_path="preflight.log",
+        metadata={
+            "error_kind": "runtime_unreachable",
+            "error_detail": "connection refused",
+            "host": "http://localhost:11434",
+            "model": "qwen3.5:4b",
+        },
+    )
+    diagnosis = mod.build_gm_diagnosis([preflight_fail])
+    assert diagnosis["phase"] == "preflight"
+    assert diagnosis["classification"] == "runtime_unreachable"
+    assert "gm runtime preflight" in diagnosis["hint"]
+
+    preflight_ok = mod.StepResult(
+        name="gm_runtime_preflight",
+        status="PASS",
+        exit_code=0,
+        duration_ms=5,
+        command=[],
+        cwd=".",
+        log_path="preflight.log",
+        metadata={"host": "http://localhost:11434", "model": "qwen3.5:4b"},
+    )
+    eval_fail = mod.StepResult(
+        name="gm_session_eval",
+        status="PASS",
+        exit_code=0,
+        duration_ms=20,
+        command=[],
+        cwd=".",
+        log_path="gm_eval.log",
+        metadata={
+            "failure_summary": "gm_timeout_504=1, runtime_unreachable=1",
+            "failure_examples": "gm_timeout_504:gm.session.continuity.v1",
+        },
+    )
+    diagnosis = mod.build_gm_diagnosis([preflight_ok, eval_fail])
+    assert diagnosis["phase"] == "eval"
+    assert diagnosis["classification"] == "eval_runtime_or_execution_failures"
+    assert diagnosis["detail"] == "gm_timeout_504=1, runtime_unreachable=1"
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_run_gm_preflight_only_returns_diagnostic_fail(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    from scripts import run_text_rpg_product_gate as mod
+
+    monkeypatch.setattr(
+        mod,
+        "run_gm_runtime_preflight",
+        lambda *_args, **_kwargs: mod.StepResult(
+            name="gm_runtime_preflight",
+            status="FAIL",
+            exit_code=1,
+            duration_ms=1,
+            command=[],
+            cwd=".",
+            log_path="preflight.log",
+            metadata={
+                "error_kind": "model_missing",
+                "error_detail": "qwen3.5:4b",
+                "host": "http://localhost:11434",
+                "model": "qwen3.5:4b",
+            },
+        ),
+    )
+
+    report = mod.run_gm_preflight_only(tmp_path, "20260418_0500")
+
+    assert report["status"] == "FAIL"
+    assert report["errors"] == ["gm_runtime_preflight classified: model_missing"]
+    assert report["gm_diagnosis"]["classification"] == "model_missing"
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
 def test_load_runtime_target_prefers_app_settings_module(monkeypatch: pytest.MonkeyPatch) -> None:
     from scripts import run_text_rpg_product_gate as mod
 
@@ -292,3 +378,5 @@ def test_run_product_gate_fails_on_blocker_summary(
 
     assert report["status"] == "FAIL"
     assert "gm_session summary classified: blocker" in report["errors"]
+    assert report["gm_diagnosis"]["phase"] == "summary"
+    assert report["gm_diagnosis"]["classification"] == "summary_blocker"

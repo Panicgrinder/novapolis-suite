@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 00:55
-update: Das Runbook fuehrt jetzt auch die knappe Handover-Formel hinter slot 30 und den gemeinsamen Release-Evidence-Pfad fuer den ersten Vertikalslice.
-checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-18 06:28
+update: Das Runbook fuehrt fuer den gm_session-Gate jetzt auch einen separaten Runtime-Preflight und klarere Diagnosephasen vor dem teuren Gesamtlauf.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 06:28)
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -115,7 +115,10 @@ Der kanonische Gate-Rahmen liegt in `novapolis-dev/docs/process/text-rpg-product
 
 Aktueller operativer Wrapper-Task:
 
-1. `Checks: text-rpg product gate`
+1. `Checks: gm runtime preflight`
+2. `Checks: text-rpg product gate`
+
+Der leichte Preflight prueft nur lokale Runtime-Erreichbarkeit, `/api/tags` und Modellverfuegbarkeit fuer denselben gm_session-Pfad. Er ist der kanonische Vorab-Check vor dem teuren Gesamtgate, aendert aber nichts an der Hard-Fail-Semantik des eigentlichen Produktlaufs.
 
 Der Wrapper fuehrt intern denselben Gate-Block aus:
 
@@ -154,6 +157,7 @@ Release-Evidence-Pfad
 - Der kanonische Freigabepfad fuer denselben Slice liegt unter `novapolis-dev/docs/process/text-rpg-release-evidence-bundle-v1.ssot.md`.
 - Operativ gehoeren dazu mindestens `Checks: full`, `Checks: text-rpg product gate`, `Tests: text-rpg reference session`, der Sim-Export-Smoke laut `novapolis-dev/docs/process/sim-export-release-path.ssot.md` und der dokumentierte Workspace-Entscheid in `WORKSPACE_STATUS.md`, `novapolis-dev/docs/donelog.md` und `DONELOG.md`.
 - Ohne erreichbare lokale Modellruntime fuer den `gm_session`-Teil oder ohne belegten Export-Smoke bleibt der Slice fuer Release-Zwecke unvollstaendig, auch wenn Teilchecks bereits gruen sind.
+- Der Produkt-Gate-Report trennt den gm-Pfad jetzt explizit in `preflight`, `eval` und `summary`; damit bleiben Runtime-unreachable, Modell-fehlt und spaetere inhaltliche Eval-Blocker im selben Report klar getrennt.
 
 Deterministische Referenzfaelle
 -------------------------------
@@ -232,6 +236,8 @@ Reproduzierbare Workspace-Tasks:
 2. `Eval: support_de_ab smoke (asgi, judge)`
 
 Der zugehoerige Runner liegt in `novapolis_agent/scripts/support_ab_smoke.py` und nutzt denselben `/chat`-Pfad wie der produktive Agent, jedoch mit `profile_id=support_de_ab` statt des Text-RPG-Vertrags.
+
+Der Runner gibt dazu immer einen kompakten JSON-Block mit `status` aus und trennt die Fehlerklassen jetzt explizit in `http_error`, `payload_error` und `network_error`; damit bleiben Tasking, Runbook und Script beim schnellen Support-Check auf derselben Erfolgs- und Fehlersprache.
 
 Minimaler Spielleiter-Orchestrator-Hook
 ---------------------------------------
@@ -512,6 +518,7 @@ Direkte CLI-Variante (rp_content):
 Direkte CLI-Variante (gm_session):
 
 ```powershell
+.\.venv\Scripts\python.exe scripts/run_text_rpg_product_gate.py --gm-preflight-only
 .\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --profile unrestricted --limit 12 --quiet --tag gm_session --checks must_include,keywords_any,keywords_at_least,not_include,regex,rpg_style --packages novapolis_agent/eval/datasets/rpg/rpg_gm_session_core.v1.jsonl
 .\.venv\Scripts\python.exe novapolis_agent/scripts/summarize_gm_eval_kpis.py --pattern novapolis_agent/eval/results/results_*_gm_session*.jsonl --report-json .tmp/results/reports/gm_session_kpi_summary.json --report-md .tmp/results/reports/gm_session_kpi_summary.md
 ```
@@ -522,6 +529,8 @@ Interpretation:
 - `rpg` bewertet rollenspielnahe/szenische Antworten; der Lauf ist nicht direkt mit neutralen Keyword-Anforderungen vergleichbar.
 - `rp_content` bewertet RP-SSOT-nahe Inhalte (Charaktere, Orte, Admin-/Lagekontexte) auf den RP-Datasetpaketen.
 - `gm_session` bewertet denselben Produktpfad als Spielleiterlauf mit Session-/Slot-Fortsetzung, Reveal-Disziplin, dreifacher Optionsflaeche und lesbaren `State_Patches`.
+- Der Preflight-only-Lauf ist die schnelle lokale Vorpruefung: `runtime_unreachable` und `model_missing` sollen dort bereits vor dem schweren Eval sichtbar werden.
+- Wenn der Preflight gruen ist und der spaetere Produkt-Gate-Report dennoch auf `eval` oder `summary` faellt, liegt der Rest nicht mehr in der lokalen Grundverfuegbarkeit der Runtime, sondern im eigentlichen gm_session-Lauf oder dessen KPI-Auswertung.
 - Fuer die RPG-Suite ist `rpg_style` bewusst aus den Checks entfernt, damit kein neutraler Stil-Malus den RPG-Lauf verfälscht.
 - Die GM-Summary trennt Blocker-Faelle (`tags` enthalten `blocker`) von Beobachtungen und verweist je Fail weiter auf `item_id`, `slug`, `source_package` und `failed_checks`.
 
