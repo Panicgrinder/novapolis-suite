@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 03:00
-update: Das Dev-Board fuehrt nach dem Doku-Sync-Helfer aktuell keine offenen Steuerpunkte mehr.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 03:00)
+stand: 2026-04-20 21:22
+update: Das Dev-Board fuehrt nach dem konservativeren CPU-Schonpfad und dem gezielten Stilnachzug wieder keine offenen Steuerpunkte; der Wochenabschluss ist im Schonmodus erneut gruen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md; snapshot-lock PASS (2026-04-20 21:22)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -24,6 +24,16 @@ Offene Aufgaben (Dev)
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
 
+- [x] [Jetzt] Den Wochenabschluss-Schonpfad fuer `Checks: full` und verwandte Wrapper-Laeufe konservativer ziehen und den verbliebenen Stilrest ohne erneuten Voll-Lastlauf schliessen.
+  - Ziel: Der kanonische Full-Check soll auf dem aktuellen lokalen System nicht wieder CPU- und RAM-Spitzen bis an die Systemgrenze verursachen; zugleich soll der bereits vorliegende FAIL-Lauf ohne neuen teuren Vollscan nur noch ueber die verbliebenen Stilreste geschlossen werden.
+  - Akzeptanzkriterien:
+    1) der Auto-Modus von `scripts/run_with_cpu_limit.py` nutzt fuer schwere lokale Python-Laeufe einen kleineren Standard-Slice als bisher,
+    2) der geaenderte Schonpfad ist durch den vorhandenen Regressionstest abgedeckt,
+    3) der aktuelle Ruff-/Black-Restscope aus `.tmp/results/reports/checks_run_20260420_204514/{ruff,black}.log` ist gezielt gruen,
+    4) Root-/Dev-Statusdokus dokumentieren denselben Abschluss, ohne den problematischen Voll-Lauf blind zu wiederholen.
+  - Evidenz: Der Sammelreport `.tmp/results/reports/checks_report_20260420_204514.md` zeigte alle Governance-, Typ- und Test-Gates bereits gruen; offen blieben nur `ruff=FAIL (32)` und `black=FAIL (7)`. Gleichzeitig meldete der lokale Nutzerlauf, dass `Checks: full` kurz vor dem Terminal-Abbruch CPU und RAM auf `99%` getrieben hatte, waehrend der Wrapper auf dem 12-Thread-System noch automatisch `4` logische CPUs nutzte.
+  - Ergebnis 2026-04-20 21:07: `scripts/run_with_cpu_limit.py` nutzt im Auto-Modus jetzt nur noch `2` logische CPUs statt `4`; `novapolis_agent/tests/scripts/test_run_with_cpu_limit.py` deckt den konservativeren Standard weiter ab und isoliert den Default-Test jetzt gegen ein aeusseres `NVP_CPU_LIMIT`. Die gezielten Ruff-/Black-Reste in `scripts/run_text_rpg_product_gate.py`, `scripts/sync_docs_after_checks.py`, `scripts/update_workspace_tree_dirs.py` sowie den betroffenen Script-Tests sind bereinigt. Der frische Full-Check `.tmp/results/reports/checks_report_20260420_210436.md` ist im expliziten 1-CPU-Schonmodus wieder vollstaendig PASS; der separate Coverage-Lauf bleibt mit `672 passed` und `96.16%` PASS, und `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty` endet im Clean-Checkout-Profil weiter mit `summary=fail:0,warn:0`.
+
 - [x] [Jetzt] Einen kleinen Doku-Sync-Helfer fuer Frontmatter-, Report- und Board-Nachzug nach grünen Sammellaeufen einfuehren.
   - Ziel: Nach groen Full-Checks sollen Root- und Dev-Dokus nicht mehr rein manuell denselben Reportpfad, denselben Stand und dieselben Open-Counts nachziehen muessen.
   - Akzeptanzkriterien:
@@ -32,7 +42,7 @@ Abgeschlossene Eintraege (Bestand)
     3) `DONELOG.md`, `WORKSPACE_STATUS.md`, `todo.root.md`, `todo.index.md` und betroffene Boards bleiben danach in einem kleineren Sync-Aufwand,
     4) die Loesung reduziert nur Drift, ersetzt aber nicht die inhaltliche Boardpflege.
   - Evidenz: Die aktiven Root- und Dev-Dokus ziehen nach fast jedem grünen Sammellauf denselben Reportpfad, denselben Boardstand und denselben Checkzustand manuell ueber mehrere Dateien nach.
-  - Ergebnis 2026-04-18 02:09: `scripts/sync_docs_after_checks.py` synchronisiert jetzt nach einem belegten Gruenlauf Snapshot-Lock, `stand`-/`checks`-Frontmatter und optional den TODO-Index-Nachzug fuer geaenderte Root-/Dev-Markdownpfade. Der Helfer akzeptiert `--report latest` oder einen konkreten Reportpfad, spiegelt den `run_checks_and_report.py`-Headline plus `snapshot-lock PASS (...)` in die betroffenen Dokus und zieht `novapolis-dev/docs/todo.index.md` via `scripts/check_todo_index_sync.py --write-index-meta` nach, sobald aktive TODO-Boards im Scope liegen. `.vscode/tasks.json` fuehrt dafuer den Task `Docs: sync after checks`, und `novapolis_agent/tests/scripts/test_sync_docs_after_checks.py` deckt Frontmatter-Sync, Latest-Report-Aufloesung und den TODO-Index-Hook ab. Im Dev-Board bleiben damit keine offenen Steuerpunkte mehr.
+  - Ergebnis 2026-04-18 02:09: `scripts/sync_docs_after_checks.py` synchronisiert jetzt nach einem belegten Gruenlauf Snapshot-Lock, `stand`-/`checks`-Frontmatter und optional den TODO-Index-Nachzug fuer geaenderte Root-/Dev-Markdownpfade. Der Helfer akzeptiert `--report latest` oder einen konkreten Reportpfad, spiegelt den `run_checks_and_report.py`-Headline plus `snapshot-lock PASS (...)` in die betroffenen Dokus und zieht `novapolis-dev/docs/todo.index.md` via `scripts/check_todo_index_sync.py --write-index-meta` nach, sobald aktive TODO-Boards im Scope liegen. `.vscode/tasks.json` fuehrt dafuer den Task `Docs: sync after checks`, und `novapolis_agent/tests/scripts/test_sync_docs_after_checks.py` deckt Frontmatter-Sync, Latest-Report-Aufloesung und den TODO-Index-Hook ab. Der damalige Steuerpunkt war damit geschlossen.
 
 - [x] [Als naechstes] Die Root-Tree-Artefakte in einen aktiven Reader-Baum und einen forensischen Vollbaum mit klarer Filterlogik aufspalten.
   - Ziel: Die kanonischen Tree-Artefakte sollen fuer aktive Navigation nicht weiter Venv-, Cache- und `.tmp`-Oberflaeche in derselben Form wie den Forensik-Vollstand mischen.

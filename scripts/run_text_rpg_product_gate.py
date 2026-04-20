@@ -519,7 +519,10 @@ def _gm_preflight_hint(error_kind: str, metadata: dict[str, str]) -> str:
             f"Lokale Runtime ist erreichbar, aber /api/tags antwortet fehlerhaft auf {host}. "
             "Runtime-Logs pruefen, bevor das teure gm_session-Eval erneut laeuft."
         )
-    return "Vorpruefung fehlgeschlagen; zuerst den gm-Preflight isoliert laufen lassen und den Log pruefen."
+    return (
+        "Vorpruefung fehlgeschlagen; zuerst den gm-Preflight isoliert laufen "
+        "lassen und den Log pruefen."
+    )
 
 
 def build_gm_diagnosis(step_results: list[StepResult]) -> dict[str, str]:
@@ -557,7 +560,9 @@ def build_gm_diagnosis(step_results: list[StepResult]) -> dict[str, str]:
             {
                 "phase": "preflight",
                 "classification": "ready",
-                "hint": "Vorpruefung ist gruen; jetzt kann das vollstaendige gm_session-Gate laufen.",
+                "hint": (
+                    "Vorpruefung ist gruen; jetzt kann das vollstaendige " "gm_session-Gate laufen."
+                ),
             }
         )
         return diagnosis
@@ -583,7 +588,10 @@ def build_gm_diagnosis(step_results: list[StepResult]) -> dict[str, str]:
             {
                 "phase": "eval",
                 "classification": "gm_session_eval_failed_without_result_classification",
-                "hint": "gm_session_eval ist fehlgeschlagen, ohne klassifizierbare Resultatdatei zu liefern; Eval-Log direkt pruefen.",
+                "hint": (
+                    "gm_session_eval ist fehlgeschlagen, ohne klassifizierbare "
+                    "Resultatdatei zu liefern; Eval-Log direkt pruefen."
+                ),
             }
         )
         return diagnosis
@@ -593,7 +601,10 @@ def build_gm_diagnosis(step_results: list[StepResult]) -> dict[str, str]:
             {
                 "phase": "summary",
                 "classification": "summary_missing",
-                "hint": "gm_session_eval ist gruen, aber die KPI-Summary fehlt; Reporter-Schritt pruefen.",
+                "hint": (
+                    "gm_session_eval ist gruen, aber die KPI-Summary fehlt; "
+                    "Reporter-Schritt pruefen."
+                ),
             }
         )
         return diagnosis
@@ -603,7 +614,10 @@ def build_gm_diagnosis(step_results: list[StepResult]) -> dict[str, str]:
             {
                 "phase": "summary",
                 "classification": "summary_step_failed",
-                "hint": "gm_session_eval lieferte Resultate, aber der KPI-Reporter ist fehlgeschlagen.",
+                "hint": (
+                    "gm_session_eval lieferte Resultate, aber der KPI-Reporter "
+                    "ist fehlgeschlagen."
+                ),
             }
         )
         return diagnosis
@@ -616,7 +630,8 @@ def build_gm_diagnosis(step_results: list[StepResult]) -> dict[str, str]:
                 "classification": "summary_blocker",
                 "detail": severity,
                 "hint": (
-                    "Lokale Runtime und Modell waren erreichbar; der Rest liegt jetzt in inhaltlichen gm_session-Checks, "
+                    "Lokale Runtime und Modell waren erreichbar; der Rest "
+                    "liegt jetzt in inhaltlichen gm_session-Checks, "
                     "nicht in der Runtime-Vorpruefung."
                 ),
             }
@@ -628,7 +643,10 @@ def build_gm_diagnosis(step_results: list[StepResult]) -> dict[str, str]:
                 "phase": "summary",
                 "classification": f"summary_{severity}",
                 "detail": severity,
-                "hint": "gm_session-Eval ist ausgewertet; Triage jetzt ueber KPI-Summary und betroffene Faelle fortsetzen.",
+                "hint": (
+                    "gm_session-Eval ist ausgewertet; Triage jetzt ueber "
+                    "KPI-Summary und betroffene Faelle fortsetzen."
+                ),
             }
         )
         return diagnosis
@@ -637,7 +655,9 @@ def build_gm_diagnosis(step_results: list[StepResult]) -> dict[str, str]:
         {
             "phase": "summary",
             "classification": "summary_missing_severity",
-            "hint": "gm_session-Eval ist durchgelaufen, aber die KPI-Summary liefert keine Severity.",
+            "hint": (
+                "gm_session-Eval ist durchgelaufen, aber die KPI-Summary " "liefert keine Severity."
+            ),
         }
     )
     return diagnosis

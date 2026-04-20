@@ -148,9 +148,7 @@ def write_active_tree(root: Path, out_path: Path) -> None:
 
 
 def write_forensic_full(root: Path, out_path: Path) -> None:
-    command = (
-        f"tree /A /F | Out-File -Encoding ascii '{out_path.name}'"
-    )
+    command = f"tree /A /F | Out-File -Encoding ascii '{out_path.name}'"
     completed = subprocess.run(
         ["pwsh", "-NoLogo", "-Command", command],
         cwd=root,

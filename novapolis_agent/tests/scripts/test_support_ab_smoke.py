@@ -55,7 +55,10 @@ class _DummyResponse:
 class _DummyClient:
     def __init__(self, response: _DummyResponse | None = None) -> None:
         self.calls: list[tuple[str, dict[str, Any]]] = []
-        self._response = response or _DummyResponse(200, {"model": "llama3.1:8b", "content": "Antwort"})
+        self._response = response or _DummyResponse(
+            200,
+            {"model": "llama3.1:8b", "content": "Antwort"},
+        )
 
     async def post(self, api_url: str, json: dict[str, Any]) -> _DummyResponse:
         self.calls.append((api_url, json))
@@ -103,7 +106,9 @@ async def test_post_support_request_posts_payload_and_parses_json() -> None:
 async def test_post_support_request_rejects_non_json_content_type() -> None:
     from scripts import support_ab_smoke as mod
 
-    client = _DummyClient(_DummyResponse(200, {"model": "x", "content": "y"}, content_type="text/plain"))
+    client = _DummyClient(
+        _DummyResponse(200, {"model": "x", "content": "y"}, content_type="text/plain")
+    )
 
     with pytest.raises(RuntimeError, match="unexpected content-type"):
         await mod.post_support_request(
@@ -169,7 +174,9 @@ async def test_run_support_smoke_returns_success_and_prints_json(
 
     factory = _AsyncClientFactory()
 
-    async def fake_post_support_request(*, client: Any, api_url: str, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
+    async def fake_post_support_request(
+        *, client: Any, api_url: str, payload: dict[str, Any]
+    ) -> tuple[int, dict[str, Any]]:
         assert api_url == "http://localhost:8000/chat"
         assert payload["profile_id"] == "support_de_ab"
         return 200, {"model": "llama3.1:8b", "content": "Versandfaehige Antwort"}
@@ -196,7 +203,9 @@ async def test_run_support_smoke_returns_http_error_with_detail(
 
     factory = _AsyncClientFactory()
 
-    async def fake_post_support_request(*, client: Any, api_url: str, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
+    async def fake_post_support_request(
+        *, client: Any, api_url: str, payload: dict[str, Any]
+    ) -> tuple[int, dict[str, Any]]:
         return 503, {"detail": "upstream unavailable", "model": "", "content": ""}
 
     monkeypatch.setattr(mod.httpx, "AsyncClient", factory)
@@ -220,7 +229,9 @@ async def test_run_support_smoke_returns_payload_error_for_missing_fields(
 
     factory = _AsyncClientFactory()
 
-    async def fake_post_support_request(*, client: Any, api_url: str, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
+    async def fake_post_support_request(
+        *, client: Any, api_url: str, payload: dict[str, Any]
+    ) -> tuple[int, dict[str, Any]]:
         return 200, {"model": "", "content": "   "}
 
     monkeypatch.setattr(mod.httpx, "AsyncClient", factory)
@@ -244,7 +255,9 @@ async def test_run_support_smoke_returns_payload_error_for_runtime_parse_error(
 
     factory = _AsyncClientFactory()
 
-    async def fake_post_support_request(*, client: Any, api_url: str, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
+    async def fake_post_support_request(
+        *, client: Any, api_url: str, payload: dict[str, Any]
+    ) -> tuple[int, dict[str, Any]]:
         raise RuntimeError("unexpected content-type")
 
     monkeypatch.setattr(mod.httpx, "AsyncClient", factory)
@@ -268,7 +281,9 @@ async def test_run_support_smoke_returns_network_error(
 
     factory = _AsyncClientFactory()
 
-    async def fake_post_support_request(*, client: Any, api_url: str, payload: dict[str, Any]) -> tuple[int, dict[str, Any]]:
+    async def fake_post_support_request(
+        *, client: Any, api_url: str, payload: dict[str, Any]
+    ) -> tuple[int, dict[str, Any]]:
         request = httpx.Request("POST", api_url)
         raise httpx.ConnectError("connection refused", request=request)
 
@@ -288,20 +303,22 @@ async def test_run_support_smoke_returns_network_error(
 def test_parse_args_supports_asgi_and_optional_flags() -> None:
     from scripts import support_ab_smoke as mod
 
-    args = mod.parse_args([
-        "--asgi",
-        "--candidate-model",
-        "llama3.1:8b",
-        "--candidate-model",
-        "qwen3.5:4b",
-        "--judge-model",
-        "qwen2.5:7b",
-        "--force-judge",
-        "--host",
-        "http://localhost:11434",
-        "--timeout",
-        "12",
-    ])
+    args = mod.parse_args(
+        [
+            "--asgi",
+            "--candidate-model",
+            "llama3.1:8b",
+            "--candidate-model",
+            "qwen3.5:4b",
+            "--judge-model",
+            "qwen2.5:7b",
+            "--force-judge",
+            "--host",
+            "http://localhost:11434",
+            "--timeout",
+            "12",
+        ]
+    )
 
     assert args.asgi is True
     assert args.candidate_model == ["llama3.1:8b", "qwen3.5:4b"]

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-02 06:27
+stand: 2026-04-20 21:22
 update: Der D5-Materiallauf nach C6 fuehrt jetzt einen expliziten Entnahmeanker mit Ronja und Reflex; Mengen und saubere Item-Abgaenge bleiben offen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md
 title: Inventar - D5
 last_updated: 2026-03-31T08:46:44+02:00
 category: inventory
@@ -53,7 +53,7 @@ Bewegungen (Log)
 - 2026-02-10 17:09 [FACT?] Werkzeugtasche (Fundstueck) in D5 beobachtet; Ownership/Inhalt offen. Quelle: scene-2025-10-27-g.
 - 2026-03-20 06:28 [REVIEW] Fruehere C6-Posten (`Filter`, `Energiezellen`, `Hydrofilter-Behälter`) aus D5 entfernt; RAW/Staging und `scene-2025-10-27-x` bestaetigen die Standorttrennung ohne impliziten Transfer.
 - 2026-03-20 06:45 [FACT?] Tagesabschluss Tag 12 -> 13: D5 `+10 Produktion - 8 Eigenverbrauch - 12 Export` => `-10` Tagesbilanz; nur Flusslogik belegt, keine absolute Zellmenge. Quelle: `database-curated/staging/chat-export.normalized.txt`, [Logistik](../../../00-admin/Logistik.md).
-- 2026-03-20 06:52 [FACT?] Tagesabschluss Tag 12 -> 13: Tunnelarbeiten verbrauchen fraktionsweit `1,3 t Baustoffe`, `120 m Schienenprofil`, `18 m² Betonplatten`; `2` Werkzeuge sind beschaedigt, geschaetzt reparabel. Lokaler D5-Anteil bleibt offen. Quelle: `database-curated/staging/chat-export.normalized.txt`.
+- 2026-03-20 06:52 [FACT?] Tagesabschluss Tag 12 -> 13: Tunnelarbeiten verbrauchen fraktionsweit `1,3 t Baustoffe`, `120 m Schienenprofil`, `18 m² Betonplatten`; `2` Werkzeuge sind beschaedigt, geschaetzt reparabel. Der Verbrauchsort ist konservativ als C6-/Nordlinie-Baustellenumfeld lesbar; D5 bleibt Quell- und Transferseite ohne harte Materialabbuchung je Posten. Quelle: `database-curated/staging/chat-export.normalized.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md).
 - 2026-03-20 07:22 [FACT?] Startsnapshot 2025-10-16: D5 fuehrt im Basis-Canvas ein Stationsinventar mit `Union-Kisten (3)`, leeren Filterkartuschen, Ersatzrohren/Ventilkomponenten, defekter Reparaturstation und zu `60 %` lesbaren Schaltplaenen. Quelle: `database-curated/staging/RAW-canvas-2025-10-16T12-00-00-000Z.normalized.txt`.
 - 2026-03-20 11:49 [REVIEW] Ein Materiallauf `D5 -> C6` fuer Reparatur- und Versorgungsgueter ist als Vorgang belegt. Belastbar sind Richtung und Zweck sowie generische Frachtarten wie `Bauteile`, `Werkzeuge` und `Versorgungsgueter`; nicht belastbar sind Entnahmemengen, konkrete D5-Abbuchungen und die spaetere Zielbuchung in C6. Quelle: `database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt`, `database-raw/99-exports/chat-export.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md).
 - 2026-03-31 08:46 [FACT?] Der Chat-RAW fuehrt den D5-Abgang jetzt explizit auf Prozessebene: `Ronja wird das notwendige einpacken` und das Material `zusammen mit Reflex Unterstuetzung zur Station bringen`; der RAW-Logistikcanvas stuetzt dazu `manuellerTransport` und `Tragegestell(ReflexAssist)`. Konkrete Item-Mengen und eine saubere D5-Abbuchung bleiben weiter `tbd`. Quelle: `database-raw/99-exports/RAW-chat-export-2025-10-27T09-16-00-188Z.txt`, `database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt`.
@@ -69,8 +69,8 @@ Delta zum Missionslog
   - Quelle: `database-raw/99-exports/chat-export-complete.txt` (Inventar & Ressourcen), `database-curated/staging/chat-export-complete.finalgate.md`, `database-curated/staging/chat-export (1).review.md`
 - Delta 4 (belegt): Der D5-Reaktor-/Energiepfad bleibt lokal verankert; fuer Tag 12 -> 13 ist eine exportgetriebene Tagesbilanz `-10` belegt, ohne dass daraus ein absoluter Restbestand ableitbar waere.
   - Quelle: `database-curated/staging/chat-export.normalized.txt` (Tagesabrechnung Tag 12 -> 13), [Logistik](../../../00-admin/Logistik.md)
-- Delta 5 (belegt/offen): Materialverbrauch und Werkzeugschaden des Tunnel-Tagesabschlusses sind als gemeinsames Novapolis-Delta belegbar, aber noch nicht standortscharf D5 oder C6 zuzuweisen.
-  - Quelle: `database-curated/staging/chat-export.normalized.txt` (Materialverbrauch / Werkzeuginspektion Tag 12 -> 13)
+- Delta 5 (belegt/offen): Materialverbrauch und Werkzeugschaden des Tunnel-Tagesabschlusses sind jetzt konservativ als C6-/Nordlinie-Baustellenverbrauch lesbar; fuer D5 bleibt lediglich die Quell-/Transferseite belegt, waehrend die eigentliche D5-Abbuchung je Item weiter `tbd` ist.
+  - Quelle: `database-curated/staging/chat-export.normalized.txt` (Materialverbrauch / Werkzeuginspektion Tag 12 -> 13), [Missionslog-Novapolis - D5 -> C6: Materiallauf / Guetertransport](../05-projects/Missionslog-Novapolis.md#d5---c6-materiallauf--guetertransport)
 - Delta 6 (belegt): Fuer D5 existiert ein frueher Stationsanker mit teilquantifiziertem Basisinventar; er taugt fuer lokale Startwerte, aber nicht fuer aktuelle Restbestaende ohne spaetere Verbrauchs- und Transferkette.
   - Quelle: `database-curated/staging/RAW-canvas-2025-10-16T12-00-00-000Z.normalized.txt`, [D5](../03-locations/D5.md)
 

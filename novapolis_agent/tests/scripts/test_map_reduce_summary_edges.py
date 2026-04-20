@@ -40,7 +40,7 @@ def test_summarize_markdown_and_json_edge_cases(tmp_path: Path) -> None:
 
     json_fail = mod.summarize_json(
         str(tmp_path / "broken.jsonl"),
-        "not-json\n\nnot-json\nnot-json\nnot-json\nnot-json\n{\"late\": true}\n",
+        'not-json\n\nnot-json\nnot-json\nnot-json\nnot-json\n{"late": true}\n',
         160,
     )
     assert "Konnte JSON nicht parsen" in json_fail

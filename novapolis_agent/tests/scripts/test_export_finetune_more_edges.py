@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import builtins
 import asyncio
+import builtins
 import importlib
 import json
 import os
@@ -108,7 +108,7 @@ def test_load_run_eval_module_raises_when_loader_missing(monkeypatch: pytest.Mon
         lambda *args, **kwargs: SimpleNamespace(loader=None),
     )
 
-    with pytest.raises(RuntimeError, match="Konnte run_eval.py nicht laden"):
+    with pytest.raises(RuntimeError, match=r"Konnte run_eval\.py nicht laden"):
         exporter._load_run_eval_module()
 
     assert exporter.PROJECT_ROOT in sys.path
@@ -277,7 +277,9 @@ def test_inspect_results_for_export_reports_no_successful_rows(tmp_path: Path) -
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_inspect_results_for_export_uses_broad_fallback(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_inspect_results_for_export_uses_broad_fallback(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     exporter = _load_module()
 
     results = tmp_path / "results.jsonl"
@@ -306,7 +308,9 @@ def test_inspect_results_for_export_uses_broad_fallback(monkeypatch: pytest.Monk
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_export_from_results_rejects_unknown_format(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_export_from_results_rejects_unknown_format(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     exporter = _load_module()
 
     async def _fake_inspect_results_for_export(*args, **kwargs) -> dict[str, object]:

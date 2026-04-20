@@ -1,8 +1,57 @@
 ---
-stand: 2026-04-18 06:28
-update: Dev-DONELOG dokumentiert jetzt auch den geschlossenen gm_session-Diagnostiknachzug; im Agent-Board bleiben keine offenen Punkte mehr.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 06:28)
+stand: 2026-04-20 21:22
+update: Dev-DONELOG dokumentiert jetzt den gruenen Wochenabschluss im konservativen CPU-Schonmodus; Dev, Agent und RP stehen wieder bei `offen: 0`, Sim bleibt bei fuenf Punkten.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md; snapshot-lock PASS (2026-04-20 21:22)
 ---
+Wochenabschluss: CPU-Schonpfad konservativer gezogen, Full-Check wieder gruen (2026-04-20 21:07)
+---------------------------------------------------------------------------------------------
+
+- `scripts/run_with_cpu_limit.py` nutzt im Auto-Modus jetzt nur noch `2` logische CPUs statt `4`; der Regressionstest `novapolis_agent/tests/scripts/test_run_with_cpu_limit.py` zieht denselben konservativeren Default nach und isoliert den Default-Pfad gegen ein aeusseres `NVP_CPU_LIMIT`.
+- Die verbliebenen Ruff-/Black-Reste in `scripts/run_text_rpg_product_gate.py`, `scripts/sync_docs_after_checks.py`, `scripts/update_workspace_tree_dirs.py` sowie den betroffenen Script-Tests sind bereinigt; der kleine Testblock fuer Wrapper, Produkt-Gate und Doku-Sync bleibt PASS.
+- Der frische Full-Check `.tmp/results/reports/checks_report_20260420_210436.md` ist im expliziten 1-CPU-Schonmodus wieder vollstaendig PASS. Der separate Coverage-Lauf bleibt mit `672 passed` und `96.16%` PASS, `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty` endet weiter mit `summary=fail:0,warn:0`, und `novapolis-dev/docs/todo.dev.md` steht wieder bei `offen: 0`.
+
+Sim-Arbeitsstand: Agent-Form-Session-State aus `Main.gd` gezogen, Headless-Verify an lokaler Godot-Runtime blockiert (2026-04-18 07:16)
+---------------------------------------------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/agent_form_session_controller.gd` kapselt jetzt den verbliebenen Agent-Studio-Form-Session-State (`form_kind`, `form_mode_value`, `form_target_value`, `template_signature`, `form_controls`) in einem eigenen Controller statt in `Main.gd`.
+- `novapolis-sim/scripts/Main.gd` delegiert fuer denselben Pfad jetzt Form-Oeffnen, Modus-/Zielwahl, Payload-/Persistenz-State und Form-UI-Refresh an diesen Controller; im Main-Script bleiben damit nur noch Orchestrierung, Payload-Dispatch und UI-Folgeaktionen.
+- `get_errors` bleibt fuer beide GDScript-Dateien ohne Befund. Der kanonische Task `Checks: sim headless verify` endet im aktuellen Terminalkontext dagegen weiter mit Exitcode `2`, weil kein Godot-Binary aufloesbar ist (`GODOT_BIN` leer, `godot4`/`godot` nicht im PATH, keine lokale `*godot*.exe` gefunden); der Sim-Board-Punkt bleibt deshalb bewusst offen.
+
+RP-Board-Abschluss: Metro-Warenueberblick auf belastbare Aggregationslogik verdichtet (2026-04-18 07:08)
+------------------------------------------------------------------------------------------------------
+
+- `novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md` aggregiert jetzt evidence-first nur die belegten D5/C6-Aufbaupfade, den Haendlerbund-Korridor `G7 <-> C6` sowie die T0-Bandbreiten der uebrigen externen Fraktionen. Neutrale Stationslager und Weltsummen bleiben im selben Lauf explizit `tbd`.
+- `rp-metro-warenzuteilung-matrix-2026-03-27.md` und `rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md` fuehren dieselbe Aggregationslogik fuer `Metro gesamt`; damit verweisen Matrix, Warenueberblick und Inventarpfade wieder auf denselben evidence-first Verdichtungsrahmen.
+- `novapolis-dev/docs/todo.rp.md` schliesst damit den letzten offenen RP-Punkt, und `novapolis-dev/docs/todo.index.md` zieht den RP-Stand im selben Lauf auf `offen: 0` nach.
+
+RP-Board-Abschluss: Externer Warenledger nur dort ueber Rahmenwert geschoben, wo echte Belegkette vorliegt (2026-04-18 06:52)
+-----------------------------------------------------------------------------------------------------------------------
+
+- `rp-metro-warenzuteilung-matrix-2026-03-27.md` und `rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md` fuehren beim Haendlerbund jetzt den konkreten G7-<->-C6-Austauschkorridor mit `H-47`, aktiviertem Handelsstuetzpunkt `C6` und belegten Austauschklassen `Energie`, `technische Reparaturen`, `Kommunikationszugang` gegen `Nahrungsmittel`, `Filter` und `Grundbedarfsgueter` explizit mit.
+- Arkologie-A1, Schienenbund, Eisenkonklave, Schattenbund und Fluesterkollektiv bleiben im selben Lauf bewusst auf Rahmenwert, weil weiter keine belastbaren Mengen-, Manifest- oder Stationsketten vorliegen; damit bleibt die externe Warenzuteilung evidence-first statt pauschal aufgeblasen.
+- `novapolis-dev/docs/todo.rp.md` schliesst damit den vorletzten offenen RP-Punkt, und `novapolis-dev/docs/todo.index.md` zieht den RP-Stand im selben Lauf von `2` auf `1` offenen Punkt nach.
+
+RP-Board-Abschluss: Verbrauchsdelta Tag 12 -> 13 konservativ zwischen D5-Quellseite und C6-Baustellenverbrauch gezogen (2026-04-18 06:44)
+-----------------------------------------------------------------------------------------------------------------------------
+
+- `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md`, `D5-inventar.md` und `C6-inventar.md` fuehren den Materialverbrauch Tag 12 -> 13 jetzt deckungsgleich als `C6-/Nordlinie-Baustellenverbrauch` bei D5-seitiger Quell-/Transferlast. Neue Mengen, Charges oder Restbestaende werden dabei nicht gesetzt; offen bleiben nur konkrete D5-Abbuchungen und C6-Lagerbuchungen.
+- `rp-metro-warenzuteilung-matrix-2026-03-27.md` und `rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md` ziehen dieselbe konservative Standortlesart fuer den laufenden Produktpfad nach, statt das Delta weiter pauschal als fraktionsweit ungesplittet stehen zu lassen.
+- `novapolis-dev/docs/todo.rp.md` schliesst damit den naechsten offenen RP-Punkt, und `novapolis-dev/docs/todo.index.md` zieht den RP-Stand im selben Lauf von `3` auf `2` offene Punkte nach.
+
+RP-Board-Abschluss: D5->C6-Transferkette im Warenledger explizit auf den belegten Prozessrahmen gezogen (2026-04-18 06:37)
+-----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md` fuehrt den D5->C6-Lauf jetzt nicht mehr als offenen `tbd`-Belegpfad, sondern als explizite Prozesskette mit Quelle `D5-Materiallager unter dem Bahnsteig und/oder Werkstattbestand`, D5-seitigem `Entnahme/Packen -> Abmeldung`, `manuellerTransport` mit `Tragegestell(ReflexAssist)` sowie C6-seitigem `Eintreffen -> Bestandsaufnahme -> Empfangsbestaetigung -> Baustellenverteilung`.
+- `rp-metro-warenzuteilung-matrix-2026-03-27.md`, `Missionslog-Novapolis.md`, `D5-inventar.md`, `C6-inventar.md` und `Novapolis-inventar.md` fuehren damit denselben konservativen Belegrahmen; offen bleiben weiter nur Mengen, Charge und die genaue Zielbuchung in C6 statt stiller Mengenpromotion.
+- `novapolis-dev/docs/todo.rp.md` schliesst damit den aeltesten offenen RP-Punkt, und `novapolis-dev/docs/todo.index.md` zieht den RP-Stand im selben Lauf von `4` auf `3` offene Punkte nach.
+
+RP-Board-Abschluss: Folgekorridor slot 41-45 unter demselben Slice-2-Handover-Vertrag ausgebaut (2026-04-18 06:32)
+-----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-41-45.ssot.md` fuehrt jetzt den sechsten Kampagnenblock hinter `slot 40` evidence-first auf demselben Resume-, Reveal- und Artefaktrahmen fort. Der neue Folgeblock bleibt auf `D5`, `C6`, `G7`, `E2` und `F1` begrenzt und setzt hinter `slot 45` wieder nur einen klaren adapterfaehigen Anschluss statt freier Weltverbreiterung.
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md`, `text-rpg-slice-2-handover-v1.ssot.md` und `text-rpg-product-gate-v1.ssot.md` zeigen im selben Lauf auf denselben neuen Folgepfad; damit bleiben RP-, Handover- und Product-Gate-Quellen fuer den Ausbau hinter `slot 40` wieder deckungsgleich.
+- `novapolis-dev/docs/todo.rp.md` schliesst damit den aeltesten offenen RP-Punkt; `novapolis-dev/docs/todo.index.md` zieht den RP-Stand im selben Lauf von `5` auf `4` offene Punkte nach.
+
 Commit-Preflight: Root-/Dev-Dokus vor dem Commit erneut auf frisches Snapshot-Fenster gezogen (2026-04-18 02:58)
 ----------------------------------------------------------------------------------------------------------------
 

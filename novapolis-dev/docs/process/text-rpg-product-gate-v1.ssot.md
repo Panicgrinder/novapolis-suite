@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 00:55
+stand: 2026-04-20 21:22
 update: Das Product Gate fuehrt jetzt auch die kanonische Handover-Kurzformel hinter slot 30 und den gemeinsamen Release-Evidence-Pfad fuer den ersten Vertikalslice.
-checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md
 ---
 
 Text-RPG Product Gate v1
@@ -35,6 +35,7 @@ Quellenbasis
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-26-30.ssot.md`
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md`
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md`
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-41-45.ssot.md`
 - `novapolis-dev/docs/process/text-rpg-slice-2-handover-v1.ssot.md`
 
 Wahrheitsrahmen
@@ -62,6 +63,7 @@ Slice-2-Handover
 - Das Product Gate selbst erweitert damit noch keinen neuen Runtime-Block, benennt aber verbindlich, auf welchen Handover spaetere RP-, Agent- und Sim-Folgearbeit referenzieren muessen.
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-31-35.ssot.md` fuehrt den ersten fachlichen Ausbau dieses Handover als vierte Kampagnenstufe aus.
 - `novapolis-dev/docs/process/rp-folgekorridor-slot-36-40.ssot.md` fuehrt denselben Vertragsrahmen jetzt als fuenfte Kampagnenstufe hinter `slot 35` fort.
+- `novapolis-dev/docs/process/rp-folgekorridor-slot-41-45.ssot.md` fuehrt denselben Vertragsrahmen jetzt als sechste Kampagnenstufe hinter `slot 40` fort.
 - Der deterministische Agent-Referenzlauf belegt denselben Handover jetzt auch technisch mit einem zweiten Folgefall hinter `slot 30` bis `slot 40`, statt nur den D5-Basislauf zu pruefen.
 - Sobald Sim den Resume-Anker operativ nutzt, wird derselbe Handover auch fuer den naechsten Produkt-Gate-Ausbau vollstaendig ueber RP, Agent und Sim belegt.
 - Die knappe player-facing Kurzformel fuer denselben Anschluss lautet verbindlich: `Weiter im selben Lauf: offener Druck, offene Aufgaben, klarer naechster Zug.`

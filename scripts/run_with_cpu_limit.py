@@ -37,7 +37,7 @@ def detect_logical_cpus() -> int:
 def default_cpu_limit(logical_cpus: int) -> int:
     if logical_cpus <= 2:
         return 1
-    return min(4, max(2, logical_cpus // 2))
+    return 2
 
 
 def resolve_cpu_limit(explicit_limit: int | None, logical_cpus: int) -> int:

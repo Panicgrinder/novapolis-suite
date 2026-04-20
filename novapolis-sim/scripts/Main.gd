@@ -6,6 +6,7 @@ const AgentRegistryStateControllerRef = preload("res://scripts/agent_registry_st
 const AgentRestpointSummaryControllerRef = preload("res://scripts/agent_restpoint_summary_controller.gd")
 const AgentStudioControllerRef = preload("res://scripts/agent_studio_controller.gd")
 const AgentFormControllerRef = preload("res://scripts/agent_form_controller.gd")
+const AgentFormSessionControllerRef = preload("res://scripts/agent_form_session_controller.gd")
 const AgentRuntimeControllerRef = preload("res://scripts/agent_runtime_controller.gd")
 const HubServerOpsControllerRef = preload("res://scripts/hub_server_ops_controller.gd")
 const ChecksRpControllerRef = preload("res://scripts/checks_rp_controller.gd")
@@ -204,12 +205,6 @@ var _advanced_settings_status_text: String = "Advanced: idle"
 var _jobs_status_text: String = "Jobs: idle"
 var _active_profile_name: String = ""
 var _active_profile_mode: String = ""
-var _agent_form_kind: String = ""
-var _agent_form_mode_value: String = "clean"
-var _agent_form_target_value: String = "new"
-var _agent_form_template_signature: String = ""
-var _agent_form_controls: Dictionary = {}
-var _form_dropdowns_syncing: bool = false
 var _last_metrics_refresh_ms: int = -1
 var _system_cpu_percent: float = -1.0
 var _system_ram_percent: float = -1.0
@@ -281,6 +276,7 @@ var _agent_registry_state_controller = AgentRegistryStateControllerRef.new()
 var _agent_restpoint_summary_controller = AgentRestpointSummaryControllerRef.new()
 var _agent_studio_controller = AgentStudioControllerRef.new()
 var _agent_form_controller = AgentFormControllerRef.new()
+var _agent_form_session_controller = AgentFormSessionControllerRef.new()
 var _agent_runtime_controller = AgentRuntimeControllerRef.new()
 var _hub_server_ops_controller = HubServerOpsControllerRef.new()
 var _checks_rp_controller = ChecksRpControllerRef.new()
@@ -648,7 +644,7 @@ func _agent_studio_state() -> Dictionary:
 		"dataset_source_mode": _dataset_source_mode,
 		"dataset_source_mode_label": _dataset_source_mode_label(),
 		"agent_submenu_open": _agent_submenu_open,
-		"agent_form_kind": _agent_form_kind,
+		"agent_form_kind": _agent_form_session_controller.form_kind(),
 		"collapse_agent_status_when_form_open": collapse_agent_status_when_form_open,
 		"agent_form_panel_normal_tint": _AGENT_FORM_PANEL_NORMAL_TINT,
 		"agent_form_panel_active_tint": _AGENT_FORM_PANEL_ACTIVE_TINT,
@@ -697,20 +693,14 @@ func _agent_runtime_state() -> Dictionary:
 
 
 func _agent_authoring_payload_state() -> Dictionary:
-	return {
-		"form_kind": _agent_form_kind,
-		"form_mode_value": _agent_form_mode_value,
-		"form_target_value": _agent_form_target_value,
-		"form_name": agent_form_name_edit.text.strip_edges(),
-		"form_controls": _agent_form_controls,
-		"finetune_base_model": _finetune_base_model,
-	}
+	return _agent_form_session_controller.build_payload_state(
+		agent_form_name_edit.text.strip_edges(),
+		_finetune_base_model
+	)
 
 
 func _agent_authoring_persistence_state() -> Dictionary:
-	return {
-		"form_target_value": _agent_form_target_value,
-		"form_mode_value": _agent_form_mode_value,
+	return _agent_form_session_controller.build_persistence_state({
 		"dataset_registry_path": _DATASET_REGISTRY_PATH,
 		"synonym_registry_path": _SYNONYM_REGISTRY_PATH,
 		"profile_registry_path": _PROFILE_REGISTRY_PATH,
@@ -722,7 +712,7 @@ func _agent_authoring_persistence_state() -> Dictionary:
 		"active_profile_name": _active_profile_name,
 		"active_profile_mode": _active_profile_mode,
 		"profile_status_text": _profile_status_text,
-	}
+	})
 
 
 func _agent_registry_state() -> Dictionary:
@@ -2936,7 +2926,8 @@ func _run_rp_auto_advance(force: bool) -> void:
 
 
 func _open_agent_form(kind: String) -> void:
-	var form_state := _agent_form_controller.open_form(
+	var form_state := _agent_form_session_controller.open_form(
+		_agent_form_controller,
 		kind,
 		{
 			"dataset_source_mode": _dataset_source_mode,
@@ -2946,38 +2937,26 @@ func _open_agent_form(kind: String) -> void:
 			"active_profile_mode": _active_profile_mode,
 		}
 	)
-	_agent_form_kind = str(form_state.get("form_kind", kind))
-	_agent_form_mode_value = str(form_state.get("form_mode_value", _agent_form_mode_value))
-	_agent_form_target_value = str(form_state.get("form_target_value", _agent_form_target_value))
-	_agent_form_template_signature = ""
-	_agent_form_controls.clear()
 	agent_form_name_edit.text = str(form_state.get("form_name", "")).strip_edges()
 
 	_refresh_agent_form_ui()
 
 
 func _on_agent_form_mode_selected(index: int) -> void:
-	if _form_dropdowns_syncing:
+	if not _agent_form_session_controller.select_mode(_agent_form_controller, index):
 		return
-	var options := _agent_form_controller.mode_options_for_kind(_agent_form_kind)
-	if index < 0 or index >= options.size():
-		return
-	_agent_form_mode_value = options[index]
 	_refresh_agent_form_ui()
 
 
 func _on_agent_form_target_selected(index: int) -> void:
-	if _form_dropdowns_syncing:
+	if not _agent_form_session_controller.select_target(_agent_form_controller, index):
 		return
-	var options := _agent_form_controller.target_options_for_kind(_agent_form_kind)
-	if index < 0 or index >= options.size():
-		return
-	_agent_form_target_value = options[index]
 	_refresh_agent_form_ui()
 
 
 func _on_agent_form_apply_pressed() -> void:
-	if _agent_form_kind == "":
+	var form_kind := _agent_form_session_controller.form_kind()
+	if form_kind == "":
 		return
 	var payload_result := _agent_authoring_payload_controller.build_form_payload(_agent_authoring_payload_state())
 	var payload_updates_any = payload_result.get("updates", {})
@@ -2991,27 +2970,27 @@ func _on_agent_form_apply_pressed() -> void:
 	var payload: Dictionary = payload_any
 	if payload.is_empty():
 		return
-	if _agent_form_kind == "datasets":
+	if form_kind == "datasets":
 		_apply_dataset_form_payload(payload)
 		return
 
-	if _agent_form_kind == "synonyms":
+	if form_kind == "synonyms":
 		_apply_synonym_form_payload(payload)
 		return
 
-	if _agent_form_kind == "finetune":
+	if form_kind == "finetune":
 		_apply_finetune_form_payload(payload)
 		return
 
-	if _agent_form_kind == "profiles":
+	if form_kind == "profiles":
 		_apply_profile_form_payload(payload)
 		return
 
-	if _agent_form_kind == "advanced":
+	if form_kind == "advanced":
 		_apply_advanced_settings_form_payload(payload)
 		return
 
-	if _agent_form_kind == "jobs":
+	if form_kind == "jobs":
 		_apply_jobs_form_payload(payload)
 		return
 
@@ -3046,11 +3025,11 @@ func _apply_advanced_settings_form_payload(payload: Dictionary) -> void:
 func _apply_jobs_form_payload(payload: Dictionary) -> void:
 	var runtime_payload := payload.duplicate(true)
 	if not runtime_payload.has("target"):
-		runtime_payload["target"] = _agent_form_target_value
+		runtime_payload["target"] = _agent_form_session_controller.form_target_value()
 	if not runtime_payload.has("job_name"):
 		runtime_payload["job_name"] = agent_form_name_edit.text
 	if not runtime_payload.has("job_type"):
-		runtime_payload["job_type"] = _agent_form_mode_value
+		runtime_payload["job_type"] = _agent_form_session_controller.form_mode_value()
 	var result := _agent_runtime_controller.apply_jobs_form_payload(runtime_payload, _agent_runtime_state())
 	_apply_agent_runtime_result(result)
 
@@ -3155,25 +3134,17 @@ func _sanitize_agent_form_name(value: String) -> String:
 
 
 func _refresh_agent_form_ui() -> void:
-	var form_state := _agent_form_controller.refresh_form_ui(
+	_agent_form_session_controller.refresh_form_ui(
+		_agent_form_controller,
 		_agent_form_ui_controls(),
 		{
 			"agent_submenu_open": _agent_submenu_open,
 			"studio_mode": _agent_studio_mode,
-			"form_kind": _agent_form_kind,
-			"form_mode_value": _agent_form_mode_value,
-			"form_target_value": _agent_form_target_value,
-			"template_signature": _agent_form_template_signature,
-			"form_controls": _agent_form_controls,
 			"active_dataset_tag": _active_dataset_tag,
 			"active_synonym_tag": _active_synonym_tag,
 			"finetune_base_model": _finetune_base_model,
 		}
 	)
-	_agent_form_mode_value = str(form_state.get("form_mode_value", _agent_form_mode_value))
-	_agent_form_target_value = str(form_state.get("form_target_value", _agent_form_target_value))
-	_agent_form_template_signature = str(form_state.get("template_signature", _agent_form_template_signature))
-	_agent_form_controls = form_state.get("form_controls", _agent_form_controls)
 
 
 func _dataset_mode_label(mode_value: String) -> String:

@@ -8,8 +8,8 @@ import pytest
 def test_default_cpu_limit_prefers_small_slice() -> None:
     from scripts import run_with_cpu_limit as mod
 
-    assert mod.default_cpu_limit(12) == 4
-    assert mod.default_cpu_limit(8) == 4
+    assert mod.default_cpu_limit(12) == 2
+    assert mod.default_cpu_limit(8) == 2
     assert mod.default_cpu_limit(4) == 2
     assert mod.default_cpu_limit(2) == 1
 
@@ -38,6 +38,7 @@ def test_main_runs_child_with_resolved_cpu_limit(
 
     calls: dict[str, object] = {}
 
+    monkeypatch.delenv("NVP_CPU_LIMIT", raising=False)
     monkeypatch.setattr(mod, "detect_logical_cpus", lambda: 12)
     monkeypatch.setattr(mod, "set_current_process_limits", lambda mask, priority: True)
     monkeypatch.setattr(mod, "apply_limits_to_pid", lambda pid, mask, priority: True)
@@ -57,11 +58,11 @@ def test_main_runs_child_with_resolved_cpu_limit(
     out = capsys.readouterr().out
 
     assert rc == 0
-    assert "active=4" in out
+    assert "active=2" in out
     assert calls["command"] == ["python", "-m", "pytest", "-q"]
     env = calls["env"]
     assert isinstance(env, dict)
-    assert env["NVP_CPU_LIMIT"] == "4"
+    assert env["NVP_CPU_LIMIT"] == "2"
 
 
 @pytest.mark.scripts

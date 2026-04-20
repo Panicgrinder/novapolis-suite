@@ -155,7 +155,9 @@ def test_build_gm_diagnosis_distinguishes_preflight_and_eval_failures() -> None:
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_run_gm_preflight_only_returns_diagnostic_fail(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+def test_run_gm_preflight_only_returns_diagnostic_fail(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     from scripts import run_text_rpg_product_gate as mod
 
     monkeypatch.setattr(

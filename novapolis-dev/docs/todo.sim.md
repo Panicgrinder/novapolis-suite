@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 07:12
-update: Das Sim-Board fuehrt nach dem erneuten Workspace-Scan wieder fuenf offene Punkte fuer Architekturrest, Exportpfad, Offline-Vollstand und Persistenzhaertung.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
+stand: 2026-04-20 21:22
+update: Der aelteste Sim-Architekturpunkt ist code-seitig bis zum neuen Agent-Form-Session-Controller gezogen; formal offen bleibt er nur noch, weil der Headless-Verify mangels lokal aufloesbarer Godot-Binary derzeit nicht belegbar ist.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -36,6 +36,8 @@ Offene Aufgaben (Sim)
     3) Headless-Verify und statische Fehlerpruefung bleiben gruen,
     4) Bedienpfade und Labels im Hub bleiben unveraendert nutzbar.
   - Evidenz: `novapolis-dev/docs/todo.sim.md` fuehrt im aktiven Kontext selbst, dass in `Main.gd` als groesserer Architekturrest im Wesentlichen noch der Agent-Studio-Block offen bleibt.
+  - Arbeitsstand 2026-04-18 07:16: `novapolis-sim/scripts/agent_form_session_controller.gd` uebernimmt jetzt den verbliebenen Form-Session-State (`form_kind`, `form_mode_value`, `form_target_value`, `template_signature`, `form_controls`); `novapolis-sim/scripts/Main.gd` delegiert Oeffnen, Modus-/Zielwahl, Payload-/Persistenz-State und den Form-UI-Refresh an denselben Controller.
+  - Verifikation 2026-04-18 07:16: `get_errors` bleibt fuer `novapolis-sim/scripts/Main.gd` und `novapolis-sim/scripts/agent_form_session_controller.gd` ohne Befund. `Checks: sim headless verify` bleibt im aktuellen Terminalkontext blockiert, weil kein Godot-Binary aufloesbar ist (`GODOT_BIN` leer, `godot4`/`godot` nicht im PATH, keine lokale `*godot*.exe` gefunden).
 
 - [ ] [Jetzt] Den kanonischen Windows-Exportpfad von reinem Klickpfad auf einen belastbaren Preset-/Konfigurationsanker heben.
   - Ziel: Der dokumentierte Export soll reproduzierbar bleiben, auch wenn der Editorpfad lokal genutzt wird; dazu braucht es einen belastbaren technischen Anker statt nur Handarbeit.
@@ -175,6 +177,8 @@ Abgeschlossene Eintraege (Bestand)
 
 Aktiver Kontext (max. 14 Tage)
 ------------------------------
+
+- 2026-04-18: Der verbliebene Agent-Studio-/Form-State-Rest ist code-seitig weiter geschrumpft. `novapolis-sim/scripts/agent_form_session_controller.gd` kapselt jetzt den Form-Session-State, waehrend `Main.gd` fuer diesen Pfad nur noch Orchestrierung und Folgeaktionen behaelt; offen bleibt fuer den Board-Punkt derzeit nur noch ein belegbarer Headless-Verify gegen eine lokal verfuegbare Godot-Binary.
 
 - 2026-04-14: Der gemeldete Godot-Preload-Fehler auf `hub_layout_controller.gd` war ein Drift-Artefakt aus einer angehaengten zweiten Klassenhaelfte. Nach Deduplizierung ist der Scriptkopf wieder eindeutig und der Preload-Pfad parsebar.
 

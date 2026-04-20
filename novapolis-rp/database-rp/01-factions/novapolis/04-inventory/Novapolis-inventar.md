@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-02 06:27
+stand: 2026-04-20 21:22
 update: Das Fraktionsinventar fuehrt Novapolis jetzt im Delta-/Bilanzformat; der D5->C6-Lauf ist als belegte Prozessspur mit Verantwortlichen und Empfangsbestaetigung verankert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md
 canvas: Inventar Novapolis
 last_updated: 2026-03-31T08:46:44+02:00
 category: inventory
@@ -34,10 +34,10 @@ Verbrauch
 
 | Status | Zeitraum | Delta | Menge | Standortsplit | Beleg |
 | --- | --- | --- | --- | --- | --- |
-| belegt | Tag 12 -> 13 | Baustoffe | `1,3 t` | `tbd` | `database-curated/staging/chat-export.normalized.txt` |
-| belegt | Tag 12 -> 13 | Schienenprofil | `120 m` | `tbd` | `database-curated/staging/chat-export.normalized.txt` |
-| belegt | Tag 12 -> 13 | Betonplatten | `18 m2` | `tbd` | `database-curated/staging/chat-export.normalized.txt` |
-| belegt | Tag 12 -> 13 | Beschaedigte Werkzeuge | `2` | `tbd` | `database-curated/staging/chat-export.normalized.txt` |
+| belegt | Tag 12 -> 13 | Baustoffe | `1,3 t` | `Verbrauchsort C6-/Nordlinie-Baustellenumfeld; D5-Quellabgang je Posten bleibt tbd` | `database-curated/staging/chat-export.normalized.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md) |
+| belegt | Tag 12 -> 13 | Schienenprofil | `120 m` | `Verbrauchsort C6-/Nordlinie-Baustellenumfeld; D5-Quellabgang je Posten bleibt tbd` | `database-curated/staging/chat-export.normalized.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md) |
+| belegt | Tag 12 -> 13 | Betonplatten | `18 m2` | `Verbrauchsort C6-/Nordlinie-Baustellenumfeld; D5-Quellabgang je Posten bleibt tbd` | `database-curated/staging/chat-export.normalized.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md) |
+| belegt | Tag 12 -> 13 | Beschaedigte Werkzeuge | `2` | `Schadensort C6-/Nordlinie-Baustellenumfeld; D5-Quellabgang je Posten bleibt tbd` | `database-curated/staging/chat-export.normalized.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md) |
 
 Bilanz
 ------
@@ -67,7 +67,7 @@ Offene Restmengen
 -----------------
 
 - Harte Fraktionssummen bleiben `tbd`, solange D5/C6 nur Fruehanker plus Prozesskette, aber keine vollstaendige Mengenbuchung fuehren.
-- Der standortscharfe Split des Materialverbrauchs Tag 12 -> 13 bleibt `tbd`.
+- Der standortscharfe Split des Materialverbrauchs Tag 12 -> 13 ist konservativ als `C6-/Nordlinie-Baustellenumfeld` bei D5-seitiger Quell-/Transferlast lesbar; offen bleiben die konkrete D5-Abbuchung je Posten und der konkrete C6-Lagerabgang.
 - Konkrete C6-Einlagerung zwischen Primaer- und Sekundaerlager bleibt `tbd`.
 
 Links

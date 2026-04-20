@@ -6,10 +6,8 @@ from __future__ import annotations
 import argparse
 import json
 import subprocess
-import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any
 
 try:
     from scripts import check_frontmatter as frontmatter_mod
@@ -138,7 +136,9 @@ def read_snapshot_value(repo_root: Path) -> str:
     return datetime.now().strftime("%Y-%m-%d %H:%M")
 
 
-def run_python_subprocess(python_exec: Path, script_path: Path, *args: str, cwd: Path) -> subprocess.CompletedProcess[str]:
+def run_python_subprocess(
+    python_exec: Path, script_path: Path, *args: str, cwd: Path
+) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
         [str(python_exec), str(script_path), *args],
         cwd=str(cwd),
