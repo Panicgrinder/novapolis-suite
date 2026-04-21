@@ -1,6 +1,6 @@
-stand: 2026-04-17 02:27
-update: Agent-Scope dokumentiert jetzt denselben ersten suiteweiten Vertikalslice wie Produktmodell, Gate und UI-IA im Runbook.
-checks: snapshot-lock PASS (2026-04-17 02:27); markdownlint=PASS; frontmatter=PASS (touched md)
+stand: 2026-04-21 01:10
+update: Agent-Scope dokumentiert jetzt zusaetzlich die Rueckkopplung `Session Promotion Pack -> Eval -> Export/Pack` ueber getaggte Results und `--results-glob`.
+checks: snapshot-lock PASS (2026-04-21 01:10); markdownlint=PASS; frontmatter=PASS (touched md)
 
 
 checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
@@ -19,6 +19,12 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+2026-04-21 01:10 | Copilot | Die fehlende Rueckkopplung vom Session-Promotionspack in denselben Eval-/Export-Pfad eingezogen. `.vscode/tasks.json` fuehrt jetzt `Eval: session promotions review (10, asgi)` und `Data: export+pack (session promotions review)`, damit reviewpflichtige Promotions-Records erst ueber einen getaggten Results-Lauf `results_*_session_promotions*.jsonl` in denselben Export-/Pack-Vertrag gehen. `novapolis_agent/scripts/curate_dataset_from_latest.py` akzeptiert dafuer jetzt `--results-glob`, und `tests/scripts/test_curate_dataset_from_latest_minimal.py` deckt die gezielte Kandidatenauswahl ab. `tests/test_export_and_prepare_pipeline.py` belegt zusaetzlich, dass `export_finetune.py` Session-Promotions ueber `results._meta.patterns` wieder auf das Curation-Dataset aufloest und anschliessend denselben Prepare-Pack-Pfad nutzt. Damit bleibt roh nur noch der spaetere harte Gate-Block gegen rote Provenienz- oder `rp_content`-Signale vor LoRA offen.
+
+2026-04-21 00:52 | Copilot | Den zweiten RP->Training-Umsetzungsschnitt im Agent-Scope eingezogen. `novapolis_agent/scripts/build_session_promotion_pack.py` erzeugt jetzt reviewpflichtige Promotions-Records unter `novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl` aus dem kanonischen Session-Artefaktquartett `savegame.json`, `replay_manifest.json`, `pc_log.jsonl` und `world_log.jsonl`; `scripts/agent/build_session_promotion_pack.py` stellt dazu den Root-Wrapper bereit. `.vscode/tasks.json` fuehrt den kanonischen Task `Data: build session promotion pack`, `tests/scripts/test_build_session_promotion_pack.py` deckt Record-, Skip- und CLI-Pfade gezielt ab, und der erste belegte Builder-Lauf hat 10 strikt valide Promotions-Records geschrieben. `docs/runbook.md` und `novapolis-dev/docs/dataset-provenance.md` dokumentieren denselben getrennten Curation-Pfad jetzt explizit gegen direkte Trainingsimporte.
+
+2026-04-20 22:03 | Copilot | Den ersten RP->Training-Umsetzungsschnitt im Agent-Scope eingezogen. `novapolis_agent/scripts/build_training_from_rp.py` erzeugt jetzt RP-abgeleitete Trainings-Seed-Pakete fuer die Profile `lore` und `ops` mit den Provenienzfeldern `source_file`, `source_kind`, `promotion_level`, `license_scope` und `source_package`; `scripts/agent/build_training_from_rp.py` stellt dazu den Root-Wrapper bereit. `.vscode/tasks.json` fuehrt die Builder-Tasks fuer beide Profile, `tests/scripts/test_build_training_from_rp.py` deckt Parser-, Record-, CLI- und Output-Pfade gezielt ab, und `docs/runbook.md` dokumentiert denselben Truth-Layer- und Promotionsrahmen gegen direkte Session-/Replay-Imports.
 
 2026-04-20 21:07 | Copilot | Den Agent-Testnachzug fuer den konservativeren CPU-Schonpfad geschlossen. `novapolis_agent/tests/scripts/test_run_with_cpu_limit.py` erwartet den neuen Auto-Default von `2` logischen CPUs statt `4` und isoliert den Default-Pfad jetzt zusaetzlich gegen ein aeusseres `NVP_CPU_LIMIT`, damit der Wrapper-Test auch unter einem bereits begrenzten Elternlauf stabil bleibt. Die betroffenen Script-Tests fuer `run_text_rpg_product_gate.py`, `sync_docs_after_checks.py`, `support_ab_smoke.py`, `export_finetune.py` und `map_reduce_summary.py` sind im selben Lauf stilkonform nachgezogen; der gezielte Pytest-Block bleibt PASS.
 

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-20 21:22
-update: Der TODO-Index fuehrt Dev, Agent und RP wieder ohne offene Punkte; Sim bleibt bei fuenf offenen Punkten, waehrend der Wochenabschluss im konservativen CPU-Schonmodus erneut gruen ist.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md; snapshot-lock PASS (2026-04-20 21:22)
+stand: 2026-04-21 01:59
+update: Der TODO-Index fuehrt weiter einen offenen Agent-Punkt fuer RP->Training; die Rueckkopplung ueber Eval-/Export-Pfade ist jetzt task- und testseitig verdrahtet, offen bleibt nur noch der harte Gate-Block vor LoRA.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md; snapshot-lock PASS (2026-04-21 01:59)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -14,7 +14,7 @@ TODO-Index (Novapolis-Dev)
 
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 0)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
-- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
+- Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 1)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 5)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
@@ -25,7 +25,7 @@ Statushinweise (aktuell)
 
 - Dev: `novapolis-dev/docs/todo.dev.md` fuehrt nach dem konservativeren CPU-Schonpfad und dem gezielten Stilnachzug aktuell wieder keine offenen Steuerpunkte mehr. Der Auto-Modus von `scripts/run_with_cpu_limit.py` nutzt lokal jetzt standardmaessig nur noch `2` logische CPUs; der frische Full-Check bleibt im expliziten 1-CPU-Schonmodus vollstaendig PASS, und der separate Coverage-Lauf liegt weiter bei `96.16%`.
 
-- Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt nach dem geschlossenen gm_session-Diagnostikpunkt aktuell keine offenen Punkte mehr. Der Produkt-Gate-Wrapper trennt Runtime-Vorpruefung, spaetere Eval-Fails und Summary-Blocker jetzt klarer, waehrend der zuletzt geschlossene Handover-Block zusaetzlich unter `novapolis-dev/archive/todo.agent.archive.md` archiviert bleibt.
+- Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt weiter genau einen offenen Ausbaupunkt. Neben dem RP-Train-Builder fuer `lore` und `ops` liegt jetzt auch ein getrennter Session-/Replay-Promotionsbuilder samt Root-Wrapper, Task und Script-Tests vor; der erste belegte Lauf hat 10 reviewpflichtige Records unter `novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl` erzeugt. Neu hinzu kommen jetzt die Rueckkopplungs-Tasks `Eval: session promotions review (10, asgi)` und `Data: export+pack (session promotions review)` sowie der gezielte `--results-glob`-Pfad im Kurationsrunner. Offen bleibt damit nur noch der spaetere harte Gate-Block gegen rote Provenienz- oder `rp_content`-Signale vor LoRA.
 
 - RP: `novapolis-dev/docs/todo.rp.md` fuehrt nach der Metro-Verdichtung aktuell keine offenen Punkte mehr. `Warenueberblick-T0.md`, das Arbeitsledger und die Matrix aggregieren jetzt evidence-first nur noch die belegten D5/C6-Aufbaupfade, den Haendlerbund-Korridor `G7 <-> C6` und die T0-Bandbreiten der uebrigen externen Fraktionen; neutrale Stationslager und Weltsummen bleiben explizit offen.
 
@@ -38,10 +38,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-04-18 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-04-17 | keiner (offen: 0) | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-04-18 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-04-17 | - [ ] [Jetzt] Den verbliebenen Agent-Studio-/Form-State-Rest aus `Main.gd` in denselben Controller-Schnitt ziehen wie die uebrigen Hub-Pfade. | nein |
+| Dev (`docs/todo.dev.md`) | 2026-04-20 | keiner (offen: 0) | nein |
+| RP (`docs/todo.rp.md`) | 2026-04-20 | keiner (offen: 0) | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-04-18 | - [ ] [Als naechstes] RP-SSOT, Spielstand und Trainingspipeline sauber trennen und koppeln. | nein |
+| Sim (`docs/todo.sim.md`) | 2026-04-20 | - [ ] [Jetzt] Den verbliebenen Agent-Studio-/Form-State-Rest aus `Main.gd` in denselben Controller-Schnitt ziehen wie die uebrigen Hub-Pfade. | nein |
 
 
 Hinweise (Index)

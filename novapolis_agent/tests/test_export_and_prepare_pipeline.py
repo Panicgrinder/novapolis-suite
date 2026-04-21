@@ -92,3 +92,90 @@ def test_export_openai_chat_and_prepare_pack(tmp_path: os.PathLike[str]) -> None
     assert res.get("ok")
     assert os.path.exists(str(res.get("train")))
     assert os.path.exists(str(res.get("val")))
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_export_openai_chat_and_prepare_pack_uses_meta_patterns_for_session_promotions(
+    tmp_path: os.PathLike[str],
+) -> None:
+    results_path = os.path.join(tmp_path, "results_20250101_1215_session_promotions.jsonl")
+    dataset_path = os.path.join(tmp_path, "session_promotions.v1.jsonl")
+
+    with open(dataset_path, "w", encoding="utf-8") as f:
+        f.write(
+            json.dumps(
+                {
+                    "id": "promote-session-alpha",
+                    "messages": [
+                        {
+                            "role": "user",
+                            "content": "Nutze nur belegte Laufzeit-Artefakte aus Session alpha.",
+                        }
+                    ],
+                    "source_file": "tmp/sim_sessions/alpha/replay_manifest.json",
+                    "source_package": "session_promotion_builder.v1",
+                },
+                ensure_ascii=False,
+            )
+            + "\n"
+        )
+
+    with open(results_path, "w", encoding="utf-8") as f:
+        f.write(
+            json.dumps(
+                {
+                    "_meta": True,
+                    "patterns": [dataset_path],
+                    "timestamp": "20250101_1215",
+                }
+            )
+            + "\n"
+        )
+        f.write(
+            json.dumps(
+                {
+                    "item_id": "promote-session-alpha",
+                    "response": "Belegte Promotionsnotiz fuer RP-SSOT.",
+                    "success": True,
+                    "failed_checks": [],
+                    "source_file": "tmp/sim_sessions/alpha/replay_manifest.json",
+                    "source_package": "session_promotion_builder.v1",
+                },
+                ensure_ascii=False,
+            )
+            + "\n"
+        )
+
+    from novapolis_agent.scripts import export_finetune as exporter
+
+    out = asyncio.run(
+        exporter.export_from_results(
+            results_path,
+            out_dir=str(tmp_path),
+            format="openai_chat",
+            include_failures=False,
+        )
+    )
+    assert out.get("ok")
+    exported = str(out.get("out"))
+    assert os.path.exists(exported)
+
+    with open(exported, encoding="utf-8") as f:
+        row = json.loads(f.readline())
+    assert row["messages"][0]["role"] == "user"
+    assert row["messages"][-1]["content"] == "Belegte Promotionsnotiz fuer RP-SSOT."
+
+    from novapolis_agent.scripts import prepare_finetune_pack as prep
+
+    res: dict[str, Any] = prep.prepare_pack(
+        exported,
+        out_dir=str(tmp_path),
+        format="openai_chat",
+        train_ratio=0.5,
+        seed=1,
+        min_output_chars=1,
+    )
+    assert res.get("ok")
+    assert os.path.exists(str(res.get("train")))
+    assert os.path.exists(str(res.get("val")))

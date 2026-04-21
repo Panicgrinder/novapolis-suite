@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-20 21:22
-update: Root-Summary dokumentiert jetzt den gruenen Wochenabschluss im konservativen CPU-Schonmodus; Sim bleibt der einzige offene Modulrest, weil der Headless-Verify lokal weiter keine Godot-Binary findet.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md; snapshot-lock PASS (2026-04-20 21:22)
+stand: 2026-04-21 01:59
+update: Root-Summary fuehrt jetzt auch einen konkreten RP-Runtime-Beispielzug, der die neue Routing-Logik ueber Session-, Figuren-, Beziehungs-, Inventar- und Zustandsdateien sichtbar macht.
+checks: snapshot-lock PASS (2026-04-21 01:59); markdownlint=PASS; frontmatter=PASS (touched md)
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,24 @@ Hinweis
 - Technische Laufdetails liegen in Reports unter `.tmp/results/reports/`.
 
 Aktuelle Eintraege (Summary)
+
+- 2026-04-21 01:53: Der RP-Runtime-Baum enthaelt jetzt einen konkreten Beispielzug unter `sessions/c6-h47-handelsfenster-01/scene-log.md` samt sauber getrennten Nebenartefakten fuer `characters/mara-quell.md`, `relationships/mara-quell-zu-c6.md`, `inventories/c6.md` und `state/c6.md`. Damit ist das neue Routing fuer Laufzeitdaten nicht nur dokumentiert, sondern direkt als Arbeitsmuster im Repo angelegt.
+
+- 2026-04-21 01:50: Der RP-Agent hat jetzt eine feste Routing-Logik fuer Laufzeitdaten. Szenenzuege landen weiter unter `sessions/`, Figuren unter `characters/`, Beziehungen unter `relationships/`, Bestandsaenderungen unter `inventories/` und uebergeordnete Weltfolgen unter `state/`; bei Mischfaellen wird der Zug im Session-Log gefuehrt und die belegten Nebenfolgen parallel in die passenden Typdateien geschrieben.
+
+- 2026-04-21 01:38: Der RP-Laufzeitbereich unter `novapolis-rp/database-curated/staging/rp-runtime/` hat jetzt eine konkrete Startstruktur. Fuer `sessions`, `characters`, `relationships`, `inventories` und `state` liegen jeweils Leitdateien und einfache Vorlagen vor, damit der RP-Agent laufende Verwaltungsdaten nicht nur irgendwo schreibt, sondern pro Datentyp sauber getrennt ablegt. Die Promotion nach `database-rp/**` bleibt weiterhin ein expliziter Folgeschritt.
+
+- 2026-04-21 01:34: Der neue RP-Agent ist von read-only auf einen kontrollierten Schreibmodus umgestellt. Unter `novapolis-rp/database-curated/staging/rp-runtime/` liegt jetzt ein eigener RP-Laufzeitbereich fuer Szenenlogs, Inventare, Beziehungen, neue Figuren und Zustandsaenderungen. Der Agent darf dort Arbeitsdaten pflegen, promoted aber weiterhin nicht ohne ausdrueckliche Freigabe direkt in `novapolis-rp/database-rp/**`.
+
+- 2026-04-21 01:28: Unter `.github/agents/novapolis-rp-szenenlabor.agent.md` liegt jetzt ein eigener Workspace-Agent fuer RP im Chat. Er trennt Szene und Kurzauswertung, kalibriert Ton, Stimmung und Figurenstimme gezielt und markiert neue Signale explizit als belegt, vorsichtig oder Probe statt stillschweigend Kanon zu behaupten. Der Agent bleibt read-only auf Repo-Ebene und ergaenzt damit den bestehenden Governance-Agenten um einen eigenen RP-Arbeitsmodus.
+
+- 2026-04-21 01:10: Die fehlende Rueckkopplung vom Session-Promotionspack in denselben Eval-/Export-Pfad ist jetzt verdrahtet. `.vscode/tasks.json` fuehrt dazu die Tasks `Eval: session promotions review (10, asgi)` und `Data: export+pack (session promotions review)`, `novapolis_agent/scripts/curate_dataset_from_latest.py` schraenkt die Kandidatenauswahl ueber `--results-glob` gezielt auf den getaggten Results-Strom ein, und `novapolis_agent/tests/test_export_and_prepare_pipeline.py` belegt die Rueckaufloesung des Curation-Datasets ueber `results._meta.patterns` plus denselben Prepare-Pack-Vertrag. Der Modulstand bleibt damit `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+- 2026-04-21 00:52: Der zweite RP->Training-Schnitt ist technisch eingezogen. `novapolis_agent/scripts/build_session_promotion_pack.py` schreibt jetzt ein getrenntes, reviewpflichtiges Curation-Pack unter `novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl` aus dem kanonischen Session-Artefaktquartett, `scripts/agent/build_session_promotion_pack.py` stellt den Root-Wrapper, `.vscode/tasks.json` den Builder-Task und `novapolis_agent/tests/scripts/test_build_session_promotion_pack.py` die gezielte Script-Absicherung. Der erste belegte Lauf hat 10 strikt valide Promotions-Records geschrieben; `novapolis-dev/docs/dataset-provenance.md`, `novapolis-dev/docs/architecture-summary-local-ai.md` und `novapolis_agent/docs/runbook.md` fuehren denselben getrennten Promotionspfad jetzt explizit mit. Der Modulstand bleibt damit `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+- 2026-04-20 22:03: Der erste RP->Training-Schnitt ist technisch eingezogen. `novapolis_agent/scripts/build_training_from_rp.py` stellt jetzt den Builder fuer RP-abgeleitete Trainings-Seeds bereit, `scripts/agent/build_training_from_rp.py` den Root-Wrapper, `.vscode/tasks.json` die beiden Builder-Tasks fuer `lore` und `ops`, und die Referenzdokus `novapolis-dev/docs/dataset-provenance.md`, `novapolis-dev/docs/architecture-summary-local-ai.md` sowie `novapolis_agent/docs/runbook.md` fuehren denselben Truth-Layer- und Promotionsrahmen jetzt explizit mit. Der Modulstand bleibt damit `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+- 2026-04-20 21:48: Der naechste offene Agent-Ausbaupunkt ist wieder explizit verankert. `novapolis-dev/docs/todo.agent-board.md` fuehrt jetzt einen konkreten RP->Training-Plan, der RP-SSOT, Spielstands-/Replay-Artefakte und kuratierte Trainingspakete sauber trennt, einen eigenen RP-Train-Builder plus Promotionspfad vorsieht und denselben Gate-Pfad `RP -> Eval -> Training -> Export/Pack -> LoRA` ueber Provenienz- und `rp_content`-Checks bindet. `novapolis-dev/docs/todo.index.md` und `WORKSPACE_STATUS.md` fuehren denselben Modulstand jetzt wieder deckungsgleich mit `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
 
 - 2026-04-20 21:07: Der Wochenabschluss ist nach einem zu aggressiven lokalen Voll-Lauf wieder kontrolliert gruen. `scripts/run_with_cpu_limit.py` nutzt im Auto-Modus jetzt nur noch `2` logische CPUs statt `4`; der repoweite Full-Check lief danach im expliziten 1-CPU-Schonmodus erneut vollstaendig PASS (`.tmp/results/reports/checks_report_20260420_210436.md`). Der separate Coverage-Lauf bleibt mit `672 passed` und `96.16%` PASS, `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty` endet weiter mit `summary=fail:0,warn:0`, und das Dev-Board steht wieder bei `offen: 0`.
 

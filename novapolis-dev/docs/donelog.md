@@ -1,8 +1,71 @@
 ---
-stand: 2026-04-20 21:22
-update: Dev-DONELOG dokumentiert jetzt den gruenen Wochenabschluss im konservativen CPU-Schonmodus; Dev, Agent und RP stehen wieder bei `offen: 0`, Sim bleibt bei fuenf Punkten.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md; snapshot-lock PASS (2026-04-20 21:22)
+stand: 2026-04-21 01:59
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich einen konkreten Beispielzug im RP-Runtime-Baum mit Session-, Figuren-, Beziehungs-, Inventar- und Zustandsdatei.
+checks: snapshot-lock PASS (2026-04-21 01:59); markdownlint=PASS; frontmatter=PASS (touched md)
 ---
+RP-Runtime: Beispielzug mit kompletter Routing-Spur angelegt (2026-04-21 01:53)
+-------------------------------------------------------------------------
+
+- Unter `novapolis-rp/database-curated/staging/rp-runtime/sessions/c6-h47-handelsfenster-01/scene-log.md` liegt jetzt ein konkreter Beispielzug, der das neue Routing nicht nur beschreibt, sondern mit echten Runtime-Artefakten vorfuehrt.
+- Die Nebenfolgen des Zugs sind getrennt in `characters/mara-quell.md`, `relationships/mara-quell-zu-c6.md`, `inventories/c6.md` und `state/c6.md` abgelegt. Damit ist das Muster fuer `Session -> Figur -> Beziehung -> Inventar -> Status` direkt im Repo sichtbar.
+- Alle neu angelegten Dateien bleiben bewusst `Probe` oder `working`, referenzieren belegte SSOT-Anker aus C6, Mara Quell und dem H-47/C6-Versorgungsrahmen und vermeiden damit freie Kanon-Promotion. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+RP-Agent: Automatische Routing-Logik fuer Laufzeitdaten geschaerft (2026-04-21 01:50)
+------------------------------------------------------------------------------------
+
+- `.github/agents/novapolis-rp-szenenlabor.agent.md` fuehrt jetzt eine explizite Routing-Logik nach Aenderungsart: Szenenzuege gehen in `sessions/`, Figuren in `characters/`, Beziehungsverschiebungen in `relationships/`, Bestandsaenderungen in `inventories/` und uebergeordnete Weltfolgen in `state/`.
+- Fuer Mischfaelle ist jetzt festgezogen, dass der eigentliche RP-Zug immer im Session-Log landet, zusaetzliche belastbare Folgen aber parallel in die passenden Typdateien geschrieben werden statt in einem unscharfen Sammelartefakt zu verschwinden.
+- `novapolis-rp/database-curated/staging/rp-runtime/README.md` spiegelt dieselbe Routing-Matrix fuer den Arbeitsbereich, damit Agent-Vertrag und Runtime-Doku wieder denselben Schreibpfad fuehren. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+RP-Runtime: Konkrete Unterstruktur und Vorlagen angelegt (2026-04-21 01:38)
+-------------------------------------------------------------------------
+
+- Unter `novapolis-rp/database-curated/staging/rp-runtime/` liegen jetzt die festen Unterordner `sessions/`, `characters/`, `relationships/`, `inventories/` und `state/` jeweils mit eigener Leitdatei und einer einfachen Vorlage. Damit hat der RP-Agent jetzt konkrete Landing-Paths statt nur eines abstrakten Schreibbereichs.
+- `sessions/` ist auf laufende Sitzungsordner mit `scene-log.md` ausgerichtet; `characters/`, `relationships/`, `inventories/` und `state/` trennen Figuren-, Beziehungs-, Bestands- und Weltstatusarbeit bewusst auseinander. Alle Pfade bleiben Arbeitsstand und markieren ihre Inhalte weiter explizit als `Probe`, `working`, `review_required` oder `promotion_ready`.
+- Der RP-Agent kann damit laufende Verwaltung fuer Inventar, Beziehungen, neue Figuren und Statuswechsel jetzt strukturiert ablegen, ohne direkt RP-SSOT und Runtime-Arbeitsdaten zu vermischen. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+Agent-Customization: RP-Agent auf kontrollierten Laufzeitbereich umgestellt (2026-04-21 01:34)
+---------------------------------------------------------------------------------------------
+
+- `.github/agents/novapolis-rp-szenenlabor.agent.md` ist nicht mehr read-only. Der Agent darf jetzt kontrolliert schreiben, aber standardmaessig nur unter `novapolis-rp/database-curated/staging/rp-runtime/**` statt direkt im RP-SSOT.
+- Der neue Leitpfad `novapolis-rp/database-curated/staging/rp-runtime/README.md` definiert dafuer die Arbeitsflaeche fuer Szenenlogs, Figuren, Beziehungen, Inventare und Zustandsdateien. Alles dort bleibt bewusst Arbeitsstand und wird erst nach Review oder expliziter User-Freigabe nach `database-rp/**` promoted.
+- Damit ist der RP-Agent fuer laufende Verwaltung brauchbar, ohne Kanon und Laufzeitdaten zu vermischen. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+Agent-Customization: Workspace-Agent fuer RP-Szenenlabor angelegt (2026-04-21 01:28)
+--------------------------------------------------------------------------------------
+
+- Unter `.github/agents/novapolis-rp-szenenlabor.agent.md` liegt jetzt ein eigener, user-invocable Workspace-Agent fuer RP im Chat. Er trennt Inworld-Szene und OOC-Auswertung, priorisiert Ton-, Stimmungs- und Figurenstimmen-Kalibrierung und markiert Kanonlage sowie Wiederverwendbarkeit jedes Zugs explizit.
+- Der Agent bleibt absichtlich read-only auf Repo-Ebene und darf nur lesen und suchen. Damit taugt er fuer belastbare RP-Weiterfuehrung und Stiltests, ohne nebenbei Workspace-Dateien oder Logs zu mutieren.
+- Der neue Agent ergaenzt den bestehenden Governance-Agenten unter `.github/agents/novapolis-workspace-navigator.agent.md` um einen klar getrennten Dialog- und Szenenmodus. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+Agent-Implementierung: Rueckkopplung vom Session-Promotionspack in Eval/Export verdrahtet (2026-04-21 01:10)
+--------------------------------------------------------------------------------------------------------------
+
+- `.vscode/tasks.json` fuehrt jetzt die beiden Rueckkopplungs-Tasks `Eval: session promotions review (10, asgi)` und `Data: export+pack (session promotions review)`, damit das reviewpflichtige Curation-Pack nicht roh in Trainingsjobs, sondern ueber einen getaggten Results-Lauf in denselben Export-/Pack-Vertrag geht.
+- `novapolis_agent/scripts/curate_dataset_from_latest.py` akzeptiert dazu jetzt `--results-glob`, sodass der Export-/Pack-Schritt gezielt `results_*_session_promotions*.jsonl` statt irgendeiner neuesten Results-Datei waehlt.
+- `novapolis_agent/tests/scripts/test_curate_dataset_from_latest_minimal.py` und `novapolis_agent/tests/test_export_and_prepare_pipeline.py` sichern denselben Pfad gegen Drift ab: gezielte Results-Auswahl, Rueckaufloesung auf das Curation-Dataset ueber `results._meta.patterns` und anschliessender Prepare-Pack-Lauf bleiben PASS. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+Agent-Implementierung: Zweiter RP->Training-Schnitt mit Session-/Replay-Promotionspack eingezogen (2026-04-21 00:52)
+-----------------------------------------------------------------------------------------------------------------
+
+- `novapolis_agent/scripts/build_session_promotion_pack.py` erzeugt jetzt ein getrenntes Curation-Pack unter `novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl` aus dem kanonischen Session-Artefaktquartett `savegame.json`, `replay_manifest.json`, `pc_log.jsonl` und `world_log.jsonl` statt rohe Laufzeitartefakte direkt in Trainingsjobs zu schieben.
+- `scripts/agent/build_session_promotion_pack.py`, `.vscode/tasks.json` und `novapolis_agent/tests/scripts/test_build_session_promotion_pack.py` fuehren denselben Pfad als Root-Wrapper, kanonischen Task `Data: build session promotion pack` und gezielt abgesicherten Script-Scope; der erste belegte Builder-Lauf hat 10 valide reviewpflichtige Promotions-Records geschrieben.
+- `novapolis-dev/docs/dataset-provenance.md`, `novapolis-dev/docs/architecture-summary-local-ai.md`, `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.index.md`, `WORKSPACE_STATUS.md` und `DONELOG.md` fuehren denselben getrennten Pfad `Runtime Session -> Session Promotion Pack -> RP-SSOT oder freigegebene Trainingsableitung` jetzt deckungsgleich mit. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+Agent-Implementierung: Erster RP->Training-Schnitt mit Builder, Tasks und Referenzdoku eingezogen (2026-04-20 22:03)
+---------------------------------------------------------------------------------------------------------------
+
+- `.vscode/tasks.json` fuehrt jetzt die beiden Root-Tasks `Data: build training from RP (lore)` und `Data: build training from RP (ops)`, damit RP-abgeleitete Trainings-Seed-Pakete nicht ueber freie Terminal-Sonderwege entstehen.
+- `novapolis-dev/docs/dataset-provenance.md`, `novapolis-dev/docs/architecture-summary-local-ai.md` und `novapolis_agent/docs/runbook.md` fuehren denselben Truth-Layer-, Promotions- und Gate-Rahmen jetzt explizit mit: RP-SSOT bleibt Quelle, Laufzeitlogs bleiben getrennt, Trainingspakete sind abgeleitete Seeds.
+- `novapolis-dev/docs/todo.agent-board.md` fuehrt denselben ersten Umsetzungsschnitt als Arbeitsstand am offenen Agent-Punkt; `novapolis-dev/docs/todo.index.md`, `WORKSPACE_STATUS.md` und `DONELOG.md` bleiben auf demselben Modulstand `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+Agent-Plan: RP-SSOT, Spielstand und Trainingsableitung wieder als offener Ausbaupunkt verankert (2026-04-20 21:48)
+-------------------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.agent-board.md` fuehrt jetzt wieder genau einen offenen Agent-Punkt, der RP-SSOT, Session-/Replay-Artefakte und kuratierte Trainingspakete explizit trennt, statt rohes RP oder Laufzeitlogs direkt in Trainingsjobs laufen zu lassen.
+- Der konkrete Plan legt denselben Ausbaupfad auf `Truth-Layer -> RP-Train-Builder -> Promotionspfad -> Gates -> Export/Pack -> LoRA` fest und verankert dazu die Zielpfade `novapolis_agent/scripts/build_training_from_rp.py`, `novapolis_agent/eval/datasets/training/` sowie die Pflichtquellen `dataset-provenance.md`, `architecture-summary-local-ai.md` und `novapolis_agent/docs/runbook.md`.
+- `novapolis-dev/docs/todo.index.md`, `WORKSPACE_STATUS.md` und `DONELOG.md` fuehren denselben offenen Agent-Stand jetzt wieder deckungsgleich mit `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
 Wochenabschluss: CPU-Schonpfad konservativer gezogen, Full-Check wieder gruen (2026-04-20 21:07)
 ---------------------------------------------------------------------------------------------
 

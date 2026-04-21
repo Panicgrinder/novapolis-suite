@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 06:28
-update: Das Runbook fuehrt fuer den gm_session-Gate jetzt auch einen separaten Runtime-Preflight und klarere Diagnosephasen vor dem teuren Gesamtlauf.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 06:28)
+stand: 2026-04-21 01:59
+update: Das Runbook beschreibt jetzt zusaetzlich die Rueckkopplung `Session Promotion Pack -> Eval -> Export/Pack` ueber einen gezielten Results-Glob-Pfad.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260420_210436.md; snapshot-lock PASS (2026-04-21 01:59)
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -158,6 +158,94 @@ Release-Evidence-Pfad
 - Operativ gehoeren dazu mindestens `Checks: full`, `Checks: text-rpg product gate`, `Tests: text-rpg reference session`, der Sim-Export-Smoke laut `novapolis-dev/docs/process/sim-export-release-path.ssot.md` und der dokumentierte Workspace-Entscheid in `WORKSPACE_STATUS.md`, `novapolis-dev/docs/donelog.md` und `DONELOG.md`.
 - Ohne erreichbare lokale Modellruntime fuer den `gm_session`-Teil oder ohne belegten Export-Smoke bleibt der Slice fuer Release-Zwecke unvollstaendig, auch wenn Teilchecks bereits gruen sind.
 - Der Produkt-Gate-Report trennt den gm-Pfad jetzt explizit in `preflight`, `eval` und `summary`; damit bleiben Runtime-unreachable, Modell-fehlt und spaetere inhaltliche Eval-Blocker im selben Report klar getrennt.
+
+RP-Train-Builder (erster Umsetzungsschnitt)
+-------------------------------------------
+
+Der RP-Train-Pfad bleibt bewusst von Laufzeit- und Replay-Artefakten getrennt.
+
+Kanonische Builder-Tasks:
+
+1. `Data: build training from RP (lore)`
+2. `Data: build training from RP (ops)`
+
+Direkter Root-Aufruf:
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe -m scripts.agent.build_training_from_rp --rp-root novapolis-rp/database-rp --profile lore --out novapolis_agent/eval/datasets/training/rp_lore_train.v1.jsonl --limit 120 --include-glob "01-factions/**/*.md"
+```
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe -m scripts.agent.build_training_from_rp --rp-root novapolis-rp/database-rp --profile ops --out novapolis_agent/eval/datasets/training/rp_ops_train.v1.jsonl --limit 120 --include-glob "00-admin/**/*.md" --include-glob "01-factions/**/04-inventory/**/*.md"
+```
+
+Vertragsrahmen:
+
+- Quelle bleibt ausschliesslich `novapolis-rp/database-rp/**`.
+- Ausgabepakete unter `novapolis_agent/eval/datasets/training/` enthalten Seed-Records mit `messages`, `source_file`, `source_kind`, `promotion_level`, `license_scope` und `source_package`.
+- Session-, Replay-, Savegame- und Raw-Artefakte aus `novapolis_agent/tmp/sim_sessions/**` oder `novapolis-rp/database-raw/**` fliessen nicht direkt ein.
+- Der Builder erzeugt nur dokumentierte Ableitungen aus freigegebenen RP-Slices; die Promotion aus Laufzeitdaten laeuft jetzt ueber einen eigenen Curation-Schritt.
+
+Session-Promotion-Pack (zweiter Umsetzungsschnitt)
+-------------------------------------------------
+
+Der Promotionspfad aus Laufzeitartefakten bleibt getrennt von RP-Train-Paketen und Export-Jobs.
+
+Kanonischer Builder-Task:
+
+1. `Data: build session promotion pack`
+
+Direkter Root-Aufruf:
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe -m scripts.agent.build_session_promotion_pack --session-root novapolis_agent/tmp/sim_sessions --out novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl --limit 40
+```
+
+Vertragsrahmen:
+
+- Quelle bleibt auf das Session-Artefaktquartett `savegame.json`, `replay_manifest.json`, `pc_log.jsonl` und `world_log.jsonl` begrenzt.
+- Das Pack schreibt reviewpflichtige Records unter `novapolis_agent/eval/datasets/curation/` mit `source_kind=session_replay`, `promotion_level=runtime_session_review_required`, `license_scope=internal` und `source_package=session_promotion_builder.v1`.
+- `replay_manifest.json` bleibt der Primaeranker in `source_file`; Log-Kontext wird nur als knapper evidenzgetriebener Ausschnitt uebernommen.
+- Das Pack ist nicht direkt trainierbar. Erst nach RP- oder Review-Promotion darf ein Inhalt in RP-SSOT oder eine freigegebene Trainingsableitung zurueckfliessen.
+
+Operative Reihenfolge:
+
+1. Session-Artefakte unter `novapolis_agent/tmp/sim_sessions/**` materialisieren oder bestaetigen
+2. `Data: build session promotion pack`
+3. `novapolis_agent/scripts/validate_eval_datasets.py --pattern novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl --strict`
+4. Review-/Promotionsentscheidung nach RP-SSOT oder explizitem Trainingsableitungspfad
+5. `Eval: session promotions review (10, asgi)`
+6. `Data: export+pack (session promotions review)`
+7. Erst danach ein spaeterer LoRA-Lauf oder eine weitere RP-Promotion
+
+Eval-/Export-Rueckkopplung (dritter Umsetzungsschnitt)
+------------------------------------------------------
+
+Der Review-Pfad fuer Session-Promotions bleibt beim bestehenden Export- und Pack-Vertrag, bekommt aber einen eigenen, gezielt adressierbaren Results-Strom.
+
+Kanonische Rueckkopplungs-Tasks:
+
+1. `Eval: session promotions review (10, asgi)`
+2. `Data: export+pack (session promotions review)`
+
+Operativer Vertrag:
+
+- Der Eval-Task laedt direkt `novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl` und schreibt einen getaggten Results-Lauf `results_*_session_promotions*.jsonl` unter `novapolis_agent/eval/results/`.
+- `novapolis_agent/scripts/curate_dataset_from_latest.py` kann die Kandidatenauswahl jetzt ueber `--results-glob` auf genau diesen Review-Lauf einengen, statt blind irgendeine neueste Results-Datei zu nehmen.
+- Der bestehende Exporter `novapolis_agent/scripts/export_finetune.py` nutzt weiter `results._meta.patterns`, um Session-Promotions wieder auf das Curation-Dataset aufzulösen, haengt daran die beantwortete Review-Nachricht an und uebergibt die Ausgabe dann unveraendert an `prepare_finetune_pack.py`.
+- Damit bleibt der Pfad konsistent: `Session Promotion Pack -> Review-Result -> export+pack -> Train/Val-Paket`; das rohe Promotionspack selbst bleibt weiterhin nicht direkt trainierbar.
+
+Operative Reihenfolge:
+
+1. RP-SSOT aktualisieren oder bestaetigen
+2. `Data: build eval from RP (core)`
+3. `Data: build training from RP (lore|ops)`
+4. `Eval: validate suite datasets (strict)` plus `rp_content`
+5. `Data: export+pack (latest results)` oder `Data: export+pack (session promotions review)`
+6. `Train: baseline LoRA (tiny-gpt2, 1-step)` oder ein spaeterer freigegebener Trainingslauf
 
 Deterministische Referenzfaelle
 -------------------------------

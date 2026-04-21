@@ -58,6 +58,14 @@ def test_agent_run_eval_impl_returns_module() -> None:
 @pytest.mark.parametrize(
     ("module_name", "impl_name"),
     [
+        (
+            "scripts.agent.build_session_promotion_pack",
+            "novapolis_agent.scripts.build_session_promotion_pack",
+        ),
+        (
+            "scripts.agent.build_training_from_rp",
+            "novapolis_agent.scripts.build_training_from_rp",
+        ),
         ("scripts.agent.export_finetune", "novapolis_agent.scripts.export_finetune"),
         (
             "scripts.agent.fine_tune_pipeline",
@@ -82,6 +90,8 @@ def test_agent_extra_wrappers_impl_returns_module(module_name: str, impl_name: s
 @pytest.mark.parametrize(
     "module_name",
     [
+        "scripts.agent.build_session_promotion_pack",
+        "scripts.agent.build_training_from_rp",
         "scripts.agent.export_finetune",
         "scripts.agent.fine_tune_pipeline",
         "scripts.agent.rerun_failed",

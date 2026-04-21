@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
-update: Phase-2-Konsistenzlauf aktualisiert den Provenance-Header auf den aktuellen PASS-Kontext, ohne die Matrixinhalte zu aendern.
-checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
+stand: 2026-04-21 01:59
+update: Die Provenance-SSOT fuehrt jetzt sowohl RP-abgeleitete Trainings-Seeds als auch den reviewpflichtigen Session-/Replay-Promotionspfad in ein getrenntes Curation-Pack.
+checks: markdownlint PASS; frontmatter PASS; todo-index-sync PASS; snapshot-lock PASS (2026-04-21 01:59)
 ---
 
 Dataset Provenance (SSOT)
@@ -33,6 +33,9 @@ Statusmatrix
 | RP Characters Core | `novapolis_agent/eval/datasets/rp/rp_characters_core.v1.jsonl` | intern script-generiert aus RP-SSOT | intern | gruen | `novapolis_agent/docs/DONELOG.txt` |
 | RP Locations Core | `novapolis_agent/eval/datasets/rp/rp_locations_core.v1.jsonl` | intern script-generiert aus RP-SSOT | intern | gruen | `novapolis_agent/docs/DONELOG.txt` |
 | RP Admin Core | `novapolis_agent/eval/datasets/rp/rp_admin_core.v1.jsonl` | intern script-generiert aus RP-SSOT | intern | gruen | `novapolis_agent/docs/DONELOG.txt` |
+| RP Lore Train | `novapolis_agent/eval/datasets/training/rp_lore_train.v1.jsonl` | intern script-generiert aus RP-SSOT | intern | gruen | `novapolis_agent/docs/DONELOG.txt` |
+| RP Ops Train | `novapolis_agent/eval/datasets/training/rp_ops_train.v1.jsonl` | intern script-generiert aus RP-SSOT | intern | gruen | `novapolis_agent/docs/DONELOG.txt` |
+| Session Promotion Pack | `novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl` | intern script-generiert aus Session-/Replay-Artefakten | intern | gelb | `novapolis_agent/docs/DONELOG.txt` |
 | Training Profil: neutral-assistiv | `novapolis_agent/eval/datasets/training/chronistin_neutral_assistiv.v1.jsonl` | intern erstellt (Profilpaket) | intern | gruen | `novapolis-dev/docs/donelog.md` |
 | Training Profil: lore-intensiv | `novapolis_agent/eval/datasets/training/chronistin_lore_intensiv.v1.jsonl` | intern erstellt (Profilpaket) | intern | gruen | `novapolis-dev/docs/donelog.md` |
 | Training Profil: operativ-kurz | `novapolis_agent/eval/datasets/training/chronistin_operativ_kurz.v1.jsonl` | intern erstellt (Profilpaket) | intern | gruen | `novapolis-dev/docs/donelog.md` |
@@ -48,6 +51,40 @@ Trainingsprofil-Konvention (verbindlich)
   - `tags` (list[str]),
   - Profilkennzeichnung ueber Feld `profile` und redundante Profilmarke in `tags`.
 - Strukturminimum pro Record: mindestens `messages` oder `prompt` oder `conversation` (Validator-Vertrag).
+
+RP-Train-Builder-Konvention (verbindlich)
+-----------------------------------------
+
+- Zielpfade: `novapolis_agent/eval/datasets/training/rp_lore_train.v1.jsonl` und `novapolis_agent/eval/datasets/training/rp_ops_train.v1.jsonl`.
+- Herkunft: nur intern script-generiert aus `novapolis-rp/database-rp/**` ueber `novapolis_agent/scripts/build_training_from_rp.py`.
+- Pflichtfelder pro Record:
+  - `id` und `slug` (stabil und eindeutig),
+  - `messages` als Seed-Prompt,
+  - `source_file`,
+  - `source_kind`,
+  - `promotion_level`,
+  - `license_scope`,
+  - `source_package`,
+  - `tags` inklusive Profilmarke `profile-rp-lore` oder `profile-rp-ops`.
+- Zulassungsgrenze: direkte Session-, Replay-, Savegame- oder Raw-Exports aus `novapolis_agent/tmp/sim_sessions/**`, `novapolis-rp/database-raw/**` oder ungeprueften Laufzeitlogs duerfen nicht in diese Pakete einfliessen.
+- Promotionsregel: Laufzeitartefakte werden erst nach dokumentierter Promotion in RP-SSOT oder ein freigegebenes Curation-Pack in trainierbare Pakete uebernommen.
+
+Session-Promotion-Pack-Konvention (verbindlich)
+-----------------------------------------------
+
+- Zielpfad: `novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl`.
+- Herkunft: intern script-generiert aus `novapolis_agent/tmp/sim_sessions/**` ueber `novapolis_agent/scripts/build_session_promotion_pack.py`.
+- Primärquellen: nur das kanonische Artefakt-Quartett `savegame.json`, `replay_manifest.json`, `pc_log.jsonl` und `world_log.jsonl`; andere Nebenartefakte werden nicht in die Promotionsoberflaeche gezogen.
+- Pflichtfelder pro Record:
+  - `id` und `slug` (stabil und eindeutig),
+  - `messages` als reviewpflichtiger Promotionsprompt,
+  - `source_file=replay_manifest.json` als Primaeranker,
+  - `source_kind=session_replay`,
+  - `promotion_level=runtime_session_review_required`,
+  - `license_scope=internal`,
+  - `source_package=session_promotion_builder.v1`,
+  - `meta.artifact_paths`, `meta.resume_checkpoint_id`, `meta.session_status` und Ereigniszaehler als Provenienzrahmen.
+- Freigabegrenze: Das Curation-Pack ist bewusst `gelb`, nicht direkt trainierbar und muss vor jedem RP- oder Trainingsimport noch in RP-SSOT oder eine explizit freigegebene Trainingsableitung uebernommen werden.
 
 Freigaberegel
 -------------

@@ -615,6 +615,34 @@
     }
     ,
     {
+      "label": "Eval: session promotions review (10, asgi)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "-m",
+        "scripts.agent.run_eval",
+        "--asgi",
+        "--profile",
+        "eval",
+        "--limit",
+        "10",
+        "--quiet",
+        "--tag",
+        "session_promotions",
+        "--packages",
+        "${workspaceFolder}\\novapolis_agent\\eval\\datasets\\curation\\session_promotions.v1.jsonl"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
       "label": "Eval: suite marathon (~60m, asgi, loud)",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
@@ -785,6 +813,28 @@
     }
     ,
     {
+      "label": "Data: export+pack (session promotions review)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\novapolis_agent\\scripts\\curate_dataset_from_latest.py",
+        "--format",
+        "openai_chat",
+        "--train-ratio",
+        "0.9",
+        "--min-output-chars",
+        "20",
+        "--results-glob",
+        "results_*_session_promotions*.jsonl"
+      ],
+      "options": { "cwd": "${workspaceFolder}\\novapolis_agent" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
       "label": "Train: baseline LoRA (tiny-gpt2, 1-step)",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
@@ -909,6 +959,85 @@
         "novapolis_agent/eval/datasets/rp/rp_ssot_core.v1.jsonl",
         "--limit",
         "120"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Data: build training from RP (lore)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "${workspaceFolder}\\novapolis_agent\\scripts\\build_training_from_rp.py",
+        "--rp-root",
+        "novapolis-rp/database-rp",
+        "--profile",
+        "lore",
+        "--out",
+        "novapolis_agent/eval/datasets/training/rp_lore_train.v1.jsonl",
+        "--limit",
+        "120",
+        "--include-glob",
+        "01-factions/**/*.md"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Data: build training from RP (ops)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "${workspaceFolder}\\novapolis_agent\\scripts\\build_training_from_rp.py",
+        "--rp-root",
+        "novapolis-rp/database-rp",
+        "--profile",
+        "ops",
+        "--out",
+        "novapolis_agent/eval/datasets/training/rp_ops_train.v1.jsonl",
+        "--limit",
+        "120",
+        "--include-glob",
+        "00-admin/**/*.md",
+        "--include-glob",
+        "01-factions/**/04-inventory/**/*.md"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "Data: build session promotion pack",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\run_with_cpu_limit.py",
+        "--",
+        "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+        "${workspaceFolder}\\novapolis_agent\\scripts\\build_session_promotion_pack.py",
+        "--session-root",
+        "novapolis_agent/tmp/sim_sessions",
+        "--out",
+        "novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl",
+        "--limit",
+        "40"
       ],
       "options": { "cwd": "${workspaceFolder}" },
       "group": "build",

@@ -59,8 +59,8 @@ def _latest_results(path: str) -> str | None:
     return files[0] if files else None
 
 
-def _latest_results_candidates(path: str) -> list[str]:
-    return sorted(glob.glob(os.path.join(path, "results_*.jsonl")), reverse=True)
+def _latest_results_candidates(path: str, pattern: str = "results_*.jsonl") -> list[str]:
+    return sorted(glob.glob(os.path.join(path, pattern)), reverse=True)
 
 
 async def _inspect_candidate_for_export(
@@ -132,6 +132,14 @@ def main() -> int:
     p.add_argument(
         "--results-file", default=None, help="Konkrete results_*.jsonl statt neuester wählen"
     )
+    p.add_argument(
+        "--results-glob",
+        default="results_*.jsonl",
+        help=(
+            "Glob relativ zu --results-dir fuer Kandidaten-Auswahl "
+            "(Default: results_*.jsonl)"
+        ),
+    )
     # Zusätzliche Filter/Metriken (Defaults: aus)
     p.add_argument(
         "--min-assistant-words",
@@ -155,10 +163,21 @@ def main() -> int:
 
     results_dir = args.results_dir
     candidates = (
-        [args.results_file] if args.results_file else _latest_results_candidates(results_dir)
+        [args.results_file]
+        if args.results_file
+        else _latest_results_candidates(results_dir, args.results_glob)
     )
     if not candidates:
-        print(json.dumps({"ok": False, "error": f"Keine results_*.jsonl in {results_dir}"}))
+        print(
+            json.dumps(
+                {
+                    "ok": False,
+                    "error": (
+                        f"Keine Results-Dateien fuer Glob {args.results_glob} in {results_dir}"
+                    ),
+                }
+            )
+        )
         return 2
 
     selection_failures: list[dict[str, Any]] = []
@@ -194,6 +213,7 @@ def main() -> int:
                     "ok": False,
                     "error": "Keine kuratierbare results_*.jsonl gefunden",
                     "results_dir": results_dir,
+                    "results_glob": args.results_glob,
                     "checked_candidates": selection_failures[:5],
                 },
                 ensure_ascii=False,

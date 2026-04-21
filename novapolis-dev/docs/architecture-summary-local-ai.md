@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
-update: Phase-2-Konsistenzlauf harmonisiert die Architektur-Notiz auf aktuelle Root-Wrapper und den aktiven Single-Root-Betriebsrahmen.
-checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
+stand: 2026-04-21 01:59
+update: Die Architektur-Notiz beschreibt jetzt explizit den getrennten Pfad RP-SSOT -> Trainings-Seeds und Runtime -> Promotions-Curation, bevor Export/Pack oder LoRA folgen.
+checks: markdownlint PASS; frontmatter PASS; snapshot-lock PASS (2026-04-21 01:59)
 ---
 Architektur-Notiz: Monorepo & Single-Root (lokale AI)
 ====================================================
@@ -20,6 +20,8 @@ Wichtige Prinzipien
 - Wrapper-Policy (R-WRAP): Mehrschrittprozesse (Lint/Typen/Tests/Coverage/Cleanup) laufen über Python-Skripte unter `scripts/` statt über adhoc Shell-Kommandos.
 - Governance im Repo: Behaviour-/Sicherheitsregeln liegen in `.github/copilot-instructions.md` und werden von Root-Dokumenten (`README.md`, `WORKSPACE_STATUS.md`, `todo.root.md`, `DONELOG.md`) gespiegelt.
 - Meta-Schicht für AI: Index/Status/TODO/DONELOG bilden gemeinsam eine leicht auswertbare Übersichtsschicht für Menschen und Tools.
+- Wahrheit vor Training: RP-SSOT unter `novapolis-rp/database-rp/**` bleibt der redaktionelle Truth-Layer; trainierbare Pakete unter `novapolis_agent/eval/datasets/training/**` entstehen nur als dokumentierte Ableitung daraus.
+- Promotionsgrenze: Session-, Replay- und Savegame-Artefakte bleiben Laufzeitsignal, bis sie explizit in RP-SSOT oder ein freigegebenes Curation-Pack uebernommen werden.
 
 Vergleich zu "klassischen" Setups
 ---------------------------------
@@ -36,6 +38,15 @@ Standard-Workflows (Root-basiert)
 - Multi-Root-Guard: `& .\.venv\Scripts\python.exe scripts/multi_root_cleanup.py --whatif`
 
 Diese Kommandos sind die bevorzugte Oberfläche für Menschen und für die lokale AI.
+
+RP-zu-Training (aktueller Umsetzungsschnitt)
+-------------------------------------------
+
+- RP-Eval bleibt ueber `novapolis_agent/scripts/build_eval_from_rp.py` an den Suite-Pfad `rp_content` gekoppelt.
+- Der erste RP-Train-Schnitt laeuft jetzt ueber `novapolis_agent/scripts/build_training_from_rp.py` und erzeugt getrennte Seed-Pakete fuer `lore` und `ops` unter `novapolis_agent/eval/datasets/training/`.
+- Der zweite Promotionsschnitt laeuft jetzt getrennt ueber `novapolis_agent/scripts/build_session_promotion_pack.py` und schreibt reviewpflichtige Curation-Records unter `novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl` aus dem kanonischen Session-Artefaktquartett.
+- Die RP-Train-Pakete bleiben bewusst Vorstufen mit Provenienz- und Promotionsfeldern, nicht freie Rohimports aus Session- oder Replay-Daten.
+- Der operative Pfad verzweigt damit sauber: `RP-SSOT -> RP-Eval/RP-Training-Seeds -> Export/Pack -> LoRA` und getrennt `Runtime Session -> Session Promotion Pack -> RP-SSOT oder freigegebene Trainingsableitung`; RP-Markdown und Laufzeitlogs gehen weiterhin nicht direkt in Trainingsjobs.
 
 Hinweis
 -------

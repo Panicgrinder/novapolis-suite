@@ -218,3 +218,105 @@ def test_curate_skips_newest_unexportable_results(
     payload = json.loads(buf.getvalue())
     assert payload["results"].endswith("results_20250101_0000.jsonl")
     assert payload["skipped_results"][0]["results"].endswith("results_20250102_0000.jsonl")
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_curate_uses_results_glob_for_session_promotion_feedback(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    mod = importlib.import_module("scripts.curate_dataset_from_latest")
+
+    res_dir = tmp_path / "eval" / "results"
+    res_dir.mkdir(parents=True)
+    neutral = res_dir / "results_20250103_0000_neutral.jsonl"
+    neutral.write_text(
+        json.dumps({"item_id": "eval-neutral", "success": True, "response": "neutral"}) + "\n",
+        encoding="utf-8",
+    )
+    promotions = res_dir / "results_20250102_0000_session_promotions.jsonl"
+    promotions.write_text(
+        json.dumps({"item_id": "eval-promo", "success": True, "response": "promotions"}) + "\n",
+        encoding="utf-8",
+    )
+
+    export_calls: list[str] = []
+
+    async def _inspect(
+        results_path: str,
+        include_failures: bool = False,
+        patterns: list[str] | None = None,
+    ) -> dict[str, object]:
+        return {
+            "ok": True,
+            "successful_rows": 1,
+            "exportable_count": 1,
+            "unmapped_item_ids": [],
+        }
+
+    async def _export(
+        results_path: str, out_dir: str, format: str, include_failures: bool
+    ) -> dict[str, object]:
+        export_calls.append(results_path)
+        p = Path(out_dir) / "fin.jsonl"
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(
+            json.dumps(
+                {
+                    "messages": [
+                        {"role": "user", "content": "q"},
+                        {"role": "assistant", "content": "antwort mit ausreichender laenge"},
+                    ]
+                }
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        return {"ok": True, "out": str(p), "count": 1}
+
+    def _prepare_pack(
+        src_path: str,
+        out_dir: str,
+        format: str,
+        train_ratio: float,
+        seed: int,
+        min_output_chars: int,
+        dedupe_by_instruction: bool,
+    ) -> dict[str, object]:
+        out = Path(out_dir)
+        (out / "train.jsonl").write_text("{}\n", encoding="utf-8")
+        (out / "val.jsonl").write_text("{}\n", encoding="utf-8")
+        return {
+            "ok": True,
+            "train": str(out / "train.jsonl"),
+            "val": str(out / "val.jsonl"),
+            "counts": {"train": 1, "val": 1},
+        }
+
+    monkeypatch.setattr(
+        mod,
+        "_export",
+        types.SimpleNamespace(
+            export_from_results=_export,
+            inspect_results_for_export=_inspect,
+        ),
+    )
+    monkeypatch.setattr(mod, "_prepare", types.SimpleNamespace(prepare_pack=_prepare_pack))
+
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        mod.sys.argv = [
+            "curate_dataset_from_latest.py",
+            "--results-dir",
+            str(res_dir),
+            "--results-glob",
+            "results_*_session_promotions.jsonl",
+            "--format",
+            "openai_chat",
+        ]
+        rc = mod.main()
+
+    assert rc == 0
+    assert export_calls == [os.fspath(promotions)]
+    payload = json.loads(buf.getvalue())
+    assert payload["results"].endswith("results_20250102_0000_session_promotions.jsonl")

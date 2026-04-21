@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-17 07:12
+stand: 2026-04-21 01:59
 update: README trennt jetzt den belegten Python-Interpreter, Standard-Chat, Support-A-B und Judge-Pfad sauber in einer operativen Profilmatrix.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-21 01:59)
 ---
 
 Novapolis Agent
@@ -38,6 +38,8 @@ VS Code Task-Labels (Datensatz & Training)
 
 - `Data: curate from latest (train pack)`
 - `Data: export+pack (latest results)`
+- `Eval: session promotions review (10, asgi)`
+- `Data: export+pack (session promotions review)`
 - `Train: baseline LoRA (tiny-gpt2, 1-step)`
 
 Hinweis: Diese Labels sind bewusst identisch in `novapolis-dev/docs/todo.agent-board.md` und `novapolis_agent/docs/runbook.md` gehalten, um Doku-Drift zu vermeiden.
@@ -353,6 +355,7 @@ Aus Eval-Ergebnissen Trainingspakete erzeugen:
 
 - Skript: `scripts/curate_dataset_from_latest.py`
 - Ablauf: nimmt die neueste `results_*.jsonl`, exportiert in `openai_chat` oder `alpaca`, erzeugt deduplizierte Train/Val-Dateien.
+- Zusatz fuer getrennte Review-Pfade: ueber `--results-glob` kann die Kandidatenauswahl gezielt auf einen getaggten Results-Strom wie `results_*_session_promotions*.jsonl` eingegrenzt werden.
 - Ausgabe liegt unter `novapolis_agent/eval/results/finetune/`.
 
 Finetune workflow
