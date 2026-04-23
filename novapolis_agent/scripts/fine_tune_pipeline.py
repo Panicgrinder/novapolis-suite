@@ -20,6 +20,8 @@ import subprocess
 import sys
 from datetime import datetime
 
+from scripts import training_release_gate as release_gate
+
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Kuratierte Liste kostenloser/offener Modelle, die ohne Gate nutzbar sind
@@ -74,6 +76,11 @@ def main() -> int:
     p.add_argument("--fp16", action="store_true")
     p.add_argument("--no-check", action="store_true", help="Umgebungs-Checks überspringen")
     p.add_argument(
+        "--no-release-gate",
+        action="store_true",
+        help="Repo-Release-Gate vor LoRA-Lauf überspringen",
+    )
+    p.add_argument(
         "--only-free",
         action="store_true",
         default=True,
@@ -101,6 +108,15 @@ def main() -> int:
             }
         )
         return 4
+
+    if not args.no_release_gate:
+        gate_result = release_gate.ensure_release_gate(
+            train_file=train_file,
+            require_green_provenance=True,
+        )
+        if not gate_result.ok:
+            print(gate_result.to_payload())
+            return gate_result.code
 
     if not args.no_check:
         msg = env_check()

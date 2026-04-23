@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 16:00
-update: Das Agent-Board fuehrt jetzt zusaetzlich den neuen RP-Chattranskriptpfad als Rohsignal vor Promotion und Training.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
+stand: 2026-04-23 16:50
+update: Das Agent-Board steht jetzt bei null offenen Punkten; Export und LoRA laufen ueber einen gemeinsamen Release-Gate-Pfad mit rp_content- und Provenienz-Blockade.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -25,34 +25,14 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (Agent)
 -----------------------
 
-- [ ] [Als naechstes] RP-SSOT, Spielstand und Trainingspipeline sauber trennen und koppeln.
-  - Ziel: Das bestehende RP bleibt die kanonische Wahrheits- und Grounding-Schicht fuer Weltzustand, Lore und operative Fakten; trainierbare Pakete entstehen nur als kuratierte Ableitung daraus statt aus rohen Markdown-, Session- oder Replay-Artefakten.
-  - Akzeptanzkriterien:
-    1) `novapolis-rp/database-rp/**` bleibt die einzige redaktionelle SSOT fuer Lore-, Inventar- und Weltfakten; Trainingsjobs lesen keine Roh-Markdownquellen direkt und umgehen auch keine spaetere Freigabe.
-    2) Ein neuer Builder `novapolis_agent/scripts/build_training_from_rp.py` oder ein gleichwertiger kanonischer Pfad erzeugt versionierte JSONL-Pakete unter `novapolis_agent/eval/datasets/training/` aus freigegebenen RP-Slices statt nur Prompt-/Eval-Faelle.
-    3) Session-, Replay- und Savegame-Artefakte aus `novapolis_agent/tmp/sim_sessions/**` oder vergleichbaren Laufzeitpfaden duerfen nur nach dokumentierter Promotion in RP-SSOT oder ein freigegebenes Curation-Pack in Trainingsdaten eingehen.
-    4) Vor `export+pack` und `train_lora.py` laeuft derselbe Gate-Pfad `validate_eval_datasets --strict`, `rp_content` und Datenprovenienz grün; ein roter Provenienz- oder RP-Content-Check blockiert den Export.
-    5) `novapolis-dev/docs/dataset-provenance.md`, `novapolis-dev/docs/architecture-summary-local-ai.md`, `novapolis_agent/docs/runbook.md` und die VS-Code-Tasks beschreiben denselben Pfad `RP -> Eval -> Training -> Export/Pack -> LoRA` ohne Parallelsemantik.
-  - Evidenz: `novapolis_agent/scripts/build_eval_from_rp.py` erzeugt heute bereits RP-basierte Eval-Sets, `novapolis_agent/eval/config/suites.json` fuehrt die Suite `rp_content`, und `novapolis-dev/docs/dataset-provenance.md` listet sowohl RP-Core- als auch Trainingsprofil-Datensaetze. Es fehlt der dokumentierte Ableitungspfad von RP-SSOT zu kuratierten Trainingspaketen.
-  - Konkreter Plan:
-    1) Truth-Layer festziehen: `dataset-provenance.md`, `architecture-summary-local-ai.md` und `novapolis_agent/docs/runbook.md` fixieren RP-SSOT als Faktenbasis, Session-/Replay-Logs als Rohsignal und Trainingspakete als abgeleitete Lernflaeche.
-    2) Datenklassen trennen: Neben den bestehenden RP-Eval-Sets entstehen zwei klar getrennte Trainingsklassen `rp_lore_train` und `rp_ops_train` mit stabilen JSONL-Feldern fuer `messages`, `source_file`, `source_kind`, `promotion_level`, `tags` und `license_scope`.
-    3) Builder einfuehren: Ein RP-Train-Builder liest nur freigegebene RP-Slices, erzeugt keine freien Goldantworten aus verdeckten Notizen und schreibt die Ausgabe versioniert nach `novapolis_agent/eval/datasets/training/`.
-    4) Promotionspfad definieren: Neue Spielstands- oder Session-Ereignisse gehen zuerst in RP-SSOT oder ein separates Curation-Pack; direkte Trainingslaeufe auf `tmp/sim_sessions`, `database-raw` oder ungeprueften Logs bleiben ausgeschlossen.
-    5) Gates verdrahten: Neue Tasks fuer `Data: build training from RP`, `Eval: suite rp_content`, `Data: export+pack (latest results)` und `Train: baseline LoRA ...` laufen in fester Reihenfolge; ein roter RP-Content- oder Provenienz-Check blockiert den naechsten Schritt.
-    6) Produktpfad rueckkoppeln: Jedes neue Trainingspaket wird anschliessend gegen `rp_content`, `gm_session` und einen kleinen Referenzsatz gemessen, damit RP-Lernen nicht gegen den kanonischen Spielstand driftet.
-  - Erster Umsetzungsschnitt:
-    1) Datensatzschema und Provenienzfelder fuer RP-Train-Pakete in `dataset-provenance.md` und `novapolis_agent/docs/runbook.md` festziehen.
-    2) RP-Train-Builder plus Validator-/Smoke-Tests anlegen.
-    3) Task- und Runbook-Pfad fuer `Build -> Eval -> Export -> Pack -> LoRA` nachziehen.
-    4) Erst danach ein kleines RP-Train-Paket aus einem eng begrenzten SSOT-Slice bauen und gegen die bestehenden Gates laufen lassen.
-  - Arbeitsstand 2026-04-20 22:03: `novapolis_agent/scripts/build_training_from_rp.py` erzeugt jetzt RP-abgeleitete Trainings-Seed-Pakete fuer die Profile `lore` und `ops` mit den Pflichtfeldern `messages`, `source_file`, `source_kind`, `promotion_level`, `license_scope` und `source_package`. `.vscode/tasks.json` fuehrt dazu die kanonischen Tasks `Data: build training from RP (lore)` und `Data: build training from RP (ops)`, `scripts/agent/build_training_from_rp.py` stellt den Root-Wrapper bereit, und `novapolis_agent/tests/scripts/test_build_training_from_rp.py` sichert Parser-, Record-, CLI- und Output-Pfade gezielt ab. `novapolis-dev/docs/dataset-provenance.md`, `novapolis-dev/docs/architecture-summary-local-ai.md` und `novapolis_agent/docs/runbook.md` fuehren denselben Truth-Layer- und Promotionsrahmen jetzt explizit mit.
-  - Arbeitsstand 2026-04-21 00:52: `novapolis_agent/scripts/build_session_promotion_pack.py` erzeugt jetzt ein getrenntes, reviewpflichtiges Curation-Pack unter `novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl`. Der Builder bleibt auf das kanonische Session-Artefaktquartett `savegame.json`, `replay_manifest.json`, `pc_log.jsonl` und `world_log.jsonl` begrenzt, markiert jeden Record mit `source_kind=session_replay`, `promotion_level=runtime_session_review_required`, `license_scope=internal` und `source_package=session_promotion_builder.v1` und hat im ersten belegten Lauf 10 valide Promotions-Records aus `novapolis_agent/tmp/sim_sessions/**` geschrieben. `.vscode/tasks.json` fuehrt dazu den Task `Data: build session promotion pack`, `scripts/agent/build_session_promotion_pack.py` stellt den Root-Wrapper bereit, und `novapolis_agent/tests/scripts/test_build_session_promotion_pack.py` sichert Record-, Skip- und CLI-Pfade gezielt ab.
-  - Arbeitsstand 2026-04-21 01:10: Die Rueckkopplung ueber Eval-/Export-Pfade ist jetzt ohne Parallelpipeline an den bestehenden Pack-Vertrag gezogen. `.vscode/tasks.json` fuehrt dazu die Tasks `Eval: session promotions review (10, asgi)` und `Data: export+pack (session promotions review)`, `novapolis_agent/scripts/curate_dataset_from_latest.py` akzeptiert fuer die Kandidatenauswahl jetzt zusaetzlich `--results-glob`, und `novapolis_agent/tests/test_export_and_prepare_pipeline.py` belegt, dass der bestehende Exporter Session-Promotions ueber `results._meta.patterns` wieder auf das Curation-Dataset aufloest und anschliessend denselben Pack-Pfad nutzen kann. Offen bleibt im Agent-Punkt damit nur noch der spaetere harte Gate-Block gegen rote Provenienz- oder `rp_content`-Signale vor LoRA.
-  - Arbeitsstand 2026-04-23 13:26: `novapolis-dev/docs/process/rp-chat-transcript-flow.ssot.md` fixiert jetzt einen append-only Rohpfad `novapolis-rp/database-curated/staging/rp-runtime/sessions/<session-id>/transcript.jsonl` fuer RP-Chatverlaeufe. `novapolis-rp/database-curated/staging/rp-runtime/README.md`, `sessions/README.md` und `sessions/session-template.md` fuehren denselben Vertrag mit; `novapolis_agent/docs/runbook.md` und `novapolis-dev/docs/architecture-summary-local-ai.md` markieren die neue Rohspur explizit als Reviewhilfe ausserhalb des Builder-Inputs. Fuer `d5-c6-nordlinie-sanierung-01` liegt bereits ein ehrlicher Bootstrap-Record mit `backfill_status=not_backfilled` vor. Offen bleibt weiterhin der spaetere harte Gate-Block vor direkter Trainingsfreigabe.
+- Aktuell keine offenen Agent-Punkte.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Als naechstes] RP-SSOT, Spielstand und Trainingspipeline sauber trennen und koppeln.
+  - Ergebnis 2026-04-23 16:38: `novapolis_agent/scripts/training_release_gate.py` ist jetzt der gemeinsame Repo-Guard vor `curate_dataset_from_latest.py` und `fine_tune_pipeline.py`. Exportpfade laufen damit vor jedem Pack-Lauf durch `validate_eval_datasets --strict`, verlangen einen grünen `rp_content`-Resultatbeleg und pruefen die Provenienz der beteiligten Datasets; LoRA-Laeufe verlangen zusaetzlich Provenienzstatus `gruen` fuer den konkreten Trainingsdatensatz.
+  - Verifikation 2026-04-23 16:38: Der fokussierte Pytest-Block fuer `test_training_release_gate.py`, `test_fine_tune_pipeline_edges.py` und `test_curate_dataset_from_latest_minimal.py` bleibt PASS. Der direkte Repo-Lauf `novapolis_agent/scripts/training_release_gate.py --train-file novapolis_agent/eval/datasets/training/chronistin_operativ_kurz.v1.jsonl` blockiert im aktuellen Stand korrekt mit `missing rp_content results` statt ungeguardet in LoRA zu springen.
 
 - [x] [Als naechstes] Den `gm_session`-Hard-Fail bei nicht erreichbarer lokaler Modellruntime diagnostisch besser einhegen.
   - Ziel: Der produktive Spielleiter-Gate soll bei fehlender lokaler Runtime weiterhin hart scheitern duerfen, aber frueher und klarer in Vorpruefung, Report und Triage sichtbar werden.

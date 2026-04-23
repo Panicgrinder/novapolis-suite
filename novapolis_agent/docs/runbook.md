@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 16:00
+stand: 2026-04-23 16:50
 update: Das Runbook beschreibt jetzt zusaetzlich den RP-Chattranskriptpfad als Rohsignal ausserhalb des Session-Promotion-Builders.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -245,8 +245,28 @@ Operative Reihenfolge:
 2. `Data: build eval from RP (core)`
 3. `Data: build training from RP (lore|ops)`
 4. `Eval: validate suite datasets (strict)` plus `rp_content`
-5. `Data: export+pack (latest results)` oder `Data: export+pack (session promotions review)`
-6. `Train: baseline LoRA (tiny-gpt2, 1-step)` oder ein spaeterer freigegebener Trainingslauf
+5. `novapolis_agent/scripts/training_release_gate.py` laeuft als gemeinsamer Repo-Guard vor Export und LoRA
+6. `Data: export+pack (latest results)` oder `Data: export+pack (session promotions review)`
+7. `Train: baseline LoRA (tiny-gpt2, 1-step)` oder ein spaeterer freigegebener Trainingslauf
+
+Release-Gate vor Export und LoRA
+--------------------------------
+
+Der letzte offene Trainingsrest ist jetzt in einen gemeinsamen Repo-Guard gezogen.
+
+Direkter Aufruf:
+
+```powershell
+Set-Location ..
+.\.venv\Scripts\python.exe novapolis_agent\scripts\training_release_gate.py --train-file novapolis_agent/eval/datasets/training/chronistin_operativ_kurz.v1.jsonl
+```
+
+Operative Lesart:
+
+- `curate_dataset_from_latest.py` ruft denselben Guard vor `export+pack` automatisch auf.
+- `fine_tune_pipeline.py` ruft denselben Guard vor dem LoRA-Lauf automatisch auf; `--no-check` ueberspringt nur Environment-Checks, nicht die Release-Gates.
+- Exportpfade akzeptieren reviewpflichtige Curation-Datasets nur bis Provenienzstatus `gelb`; LoRA-Laeufe verlangen fuer den konkreten Trainingsdatensatz `gruen`.
+- Im aktuellen Repo-Stand blockiert der direkte Guard-Lauf erwartungsgemaess an `missing rp_content results`, solange kein frischer grüner `rp_content`-Beleg unter `novapolis_agent/eval/results/` vorliegt.
 
 Deterministische Referenzfaelle
 -------------------------------

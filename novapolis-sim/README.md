@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 00:55
-update: Die Sim-README fuehrt jetzt dieselbe Warnsignal-Lesart fuer stille Hintergrundlage, Knappheit, Warnung und Ueberzug wie die kanonische UI-IA.
-checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS; get_errors=PASS
+stand: 2026-04-23 16:50
+update: Die Sim-README fuehrt jetzt zusaetzlich den Export-Presetanker, den minimalen Vollstand und den statischen Hub-Prefs-Contract-Check als kanonische Repo-Pfade.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
 ---
 
 Novapolis Sim
@@ -75,6 +75,13 @@ $godot = if ($env:GODOT_BIN) { $env:GODOT_BIN } elseif (Get-Command godot4 -Erro
 
 Alternativ in VS Code direkt den Task `Checks: sim headless verify` ausfuehren. Der Wrapper nutzt zuerst `--godot-bin`, dann `GODOT_BIN` und danach `godot4`/`godot` aus dem PATH.
 
+Exportanker und Export-Smoke
+----------------------------
+
+- Der repo-seitige Windows-Presetanker liegt jetzt unter `novapolis-sim/export_presets.cfg` und fuehrt denselben Zielpfad `novapolis-sim/exports/windows/NovapolisSim.exe`.
+- Der neue Task `Checks: sim export smoke` ruft `scripts/run_sim_export_smoke.py --launch` auf. Solange kein Export vorliegt, liefert derselbe Pfad bewusst die klare Vorbedingung `export executable missing`.
+- Der Headless-Verify bleibt davon getrennt: `Checks: sim headless verify` prueft Projektintegritaet, `Checks: sim export smoke` den produktiven Windows-Export.
+
 - Quick POST check (PowerShell):
 
 ```powershell
@@ -114,12 +121,13 @@ Fortsetzung und Persistenz
 - Beim naechsten Start erzeugt die Sim keine neue Hub-Session, wenn bereits eine persistierte Session-ID vorliegt. Stattdessen werden `GET /session/{session_id}` und `GET /session/{session_id}/replay` direkt erneut geladen.
 - Der Persistenzpfad speichert bewusst keine fluechtigen Runtime-Metriken wie Polling-Zeiten, Queue-Zwischenstaende oder temporaere Fehlerraten.
 - Das kanonische Neustartverhalten fuer Hub, Replay und Live-Session ist in `novapolis-dev/docs/process/sim-export-release-path.ssot.md` beschrieben.
+- Der neue Task `Checks: sim hub prefs contract` ruft `scripts/check_sim_hub_prefs_contract.py` auf und prueft denselben Key-Satz jetzt repo-seitig gegen leere, partielle und aeltere Fixture-Dateien unter `novapolis-sim/tests/fixtures/hub_prefs/`.
 
 Kanonische Release-/Export-Doku
 -------------------------------
 
 - Der verbindliche Release-/Export-Pfad fuer Windows Desktop liegt unter `novapolis-dev/docs/process/sim-export-release-path.ssot.md`.
-- Diese SSOT trennt Clean-Checkout, lokalen Vollstand und exportierte Laufzeit, dokumentiert die Godot-Klickpfade fuer den Export und beschreibt den lokalen Smoke-Test fuer die exportierte `.exe` ohne Editor-Overlay.
+- Diese SSOT trennt Clean-Checkout, minimalen Vollstand und exportierte Laufzeit, dokumentiert die Godot-Klickpfade fuer den Export, verweist auf `novapolis-sim/export_presets.cfg` und beschreibt den lokalen Smoke-Test fuer die exportierte `.exe` ohne Editor-Overlay.
 
 Kanonische UI-/Menue-IA
 -----------------------
@@ -165,11 +173,17 @@ Beispielkommandos (Workspace-Root):
 # 3) Offline-Asset-Check (+ optionale Slot-Konsistenz)
 .\.venv\Scripts\python.exe scripts/check_sim_epoch_assets.py --allow-empty --check-slot-consistency
 
+# 3b) Minimaler Vollstand ohne --allow-empty
+.\.venv\Scripts\python.exe scripts/check_sim_epoch_assets.py --check-slot-consistency
+
+# 3c) Statischer Hub-Prefs-Contract
+.\.venv\Scripts\python.exe scripts/check_sim_hub_prefs_contract.py --repo-root .
+
 # 4) optional: quality_de Eval-Fokus
 .\.venv\Scripts\python.exe -m scripts.agent.run_eval --asgi --profile eval --limit 20 --quiet --tag quality_de --checks must_include,keywords_any,keywords_at_least,not_include,regex,quality_de --packages novapolis_agent/eval/datasets/neutral/quality_de_core.v1.jsonl --packages novapolis_agent/eval/datasets/neutral/quality_de_drift.v1.jsonl --packages novapolis_agent/eval/datasets/neutral/quality_de_canary.v1.jsonl
 ```
 
-Hinweis: Stufe 1 bis 3 muessen gruen sein, bevor ein Sim-Lauf als lokal verifiziert gilt. Mit `--allow-empty` pruefst du das warnungsfreie Clean-Checkout-Profil; ohne dieses Flag pruefst du den Vollstand mit echten Offline-Artefakten. Mit `--check-slot-consistency` gilt der Lauf als fehlgeschlagen bei Slot-Mismatch (`world_log` vs. `pc_log`) oder ungueltigen Slotwerten ausserhalb `0..23`. Fuer den Headless-Verifier bleibt `Checks: sim headless verify` der kanonische VS-Code-Einstieg.
+Hinweis: Stufe 1 bis 3 muessen gruen sein, bevor ein Sim-Lauf als lokal verifiziert gilt. Mit `--allow-empty` pruefst du das warnungsfreie Clean-Checkout-Profil; ohne dieses Flag pruefst du den kleinen Repo-Vollstand unter `novapolis-sim/data/epochs/epoch01/` und `novapolis-sim/assets/audio/`. Mit `--check-slot-consistency` gilt der Lauf als fehlgeschlagen bei Slot-Mismatch (`world_log` vs. `pc_log`) oder ungueltigen Slotwerten ausserhalb `0..23`. Fuer den Headless-Verifier bleibt `Checks: sim headless verify` der kanonische VS-Code-Einstieg; `Checks: sim hub prefs contract` deckt die persistente Resume-Logik statisch ohne Godot-Binary ab.
 
 Hinweis: Wenn deine lokale Godot-Binary eine Debug-Build ist, zeigt das exportierte Editor-Playfenster weiterhin Debug-Markierungen. Lade im Zweifelsfall die offizielle Release-Binary von `https://godotengine.org` oder nutze einen Export (Release) für produktives Ausführen.
 

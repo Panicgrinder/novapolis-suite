@@ -1,8 +1,23 @@
 ---
-stand: 2026-04-23 16:00
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich den selektiven Transcript-Backfill fuer die laufende Nordlinie-Session.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
+stand: 2026-04-23 16:50
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich den geschlossenen Agent-Release-Gate-Schnitt und vier repo-seitig geschlossene Sim-Reste.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
 ---
+Agent: Gemeinsamen Release-Gate-Pfad vor Export und LoRA eingezogen (2026-04-23 16:38)
+---------------------------------------------------------------------------------------
+
+- `novapolis_agent/scripts/training_release_gate.py` ist jetzt der kanonische Repo-Guard vor `curate_dataset_from_latest.py` und `fine_tune_pipeline.py`.
+- Der Guard erzwingt `validate_eval_datasets --strict`, einen grünen `rp_content`-Beleg und die passende Provenienzschwelle; Exportpfade akzeptieren reviewpflichtige Datasets bis `gelb`, LoRA-Laeufe verlangen fuer den konkreten Trainingsdatensatz `gruen`.
+- Der fokussierte Pytest-Block fuer `test_training_release_gate.py`, `test_fine_tune_pipeline_edges.py` und `test_curate_dataset_from_latest_minimal.py` bleibt PASS; der direkte Repo-Lauf blockiert aktuell sauber an `missing rp_content results` statt ungeguardet in LoRA zu springen. Der Modulstand liegt damit jetzt bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=1`.
+
+Sim: Exportanker, Export-Smoke, Minimal-Vollstand und Hub-Prefs-Contract geschlossen (2026-04-23 16:38)
+-----------------------------------------------------------------------------------------------------
+
+- `novapolis-sim/export_presets.cfg` fuehrt jetzt den Windows-Desktop-Pfad `exports/windows/NovapolisSim.exe` repo-seitig als Godot-Presetanker.
+- `scripts/run_sim_export_smoke.py`, `scripts/check_sim_hub_prefs_contract.py` und die neuen Tasks `Checks: sim export smoke`, `Checks: sim epoch assets (minimal fullstand)` sowie `Checks: sim hub prefs contract` ziehen die vier repo-loesbaren Sim-Reste in eigene Pruefpfade.
+- Unter `novapolis-sim/data/epochs/epoch01/` plus `novapolis-sim/assets/audio/` liegt jetzt ein kleiner Vollstand; `scripts/check_sim_epoch_assets.py --repo-root . --check-slot-consistency` endet damit im Repo-Stand mit `summary=fail:0,warn:0`.
+- Der neue Pytest-Block fuer `test_run_sim_export_smoke.py`, `test_check_sim_hub_prefs_contract.py` und `test_check_sim_epoch_assets.py` ist PASS. Offen bleibt im Sim-Scope nur noch der Headless-Verify, weil lokal weiterhin keine Godot-Binary aufloesbar ist. Der Modulstand liegt damit jetzt bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=1`.
+
 RP-Runtime: Selektiver Transcript-Backfill fuer Nordlinie-Session nachgezogen (2026-04-23 14:26)
 --------------------------------------------------------------------------------------------
 

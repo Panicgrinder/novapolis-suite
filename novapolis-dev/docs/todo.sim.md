@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-20 21:22
-update: Der aelteste Sim-Architekturpunkt ist code-seitig bis zum neuen Agent-Form-Session-Controller gezogen; formal offen bleibt er nur noch, weil der Headless-Verify mangels lokal aufloesbarer Godot-Binary derzeit nicht belegbar ist.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md
+stand: 2026-04-23 16:50
+update: Das Sim-Board steht jetzt nur noch bei einem offenen Punkt; Exportanker, Export-Smoke, Minimal-Vollstand und Hub-Prefs-Contract sind repo-seitig geschlossen, waehrend der Headless-Verify weiter an einer fehlenden lokalen Godot-Binary haengt.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -39,44 +39,23 @@ Offene Aufgaben (Sim)
   - Arbeitsstand 2026-04-18 07:16: `novapolis-sim/scripts/agent_form_session_controller.gd` uebernimmt jetzt den verbliebenen Form-Session-State (`form_kind`, `form_mode_value`, `form_target_value`, `template_signature`, `form_controls`); `novapolis-sim/scripts/Main.gd` delegiert Oeffnen, Modus-/Zielwahl, Payload-/Persistenz-State und den Form-UI-Refresh an denselben Controller.
   - Verifikation 2026-04-18 07:16: `get_errors` bleibt fuer `novapolis-sim/scripts/Main.gd` und `novapolis-sim/scripts/agent_form_session_controller.gd` ohne Befund. `Checks: sim headless verify` bleibt im aktuellen Terminalkontext blockiert, weil kein Godot-Binary aufloesbar ist (`GODOT_BIN` leer, `godot4`/`godot` nicht im PATH, keine lokale `*godot*.exe` gefunden).
 
-- [ ] [Jetzt] Den kanonischen Windows-Exportpfad von reinem Klickpfad auf einen belastbaren Preset-/Konfigurationsanker heben.
-  - Ziel: Der dokumentierte Export soll reproduzierbar bleiben, auch wenn der Editorpfad lokal genutzt wird; dazu braucht es einen belastbaren technischen Anker statt nur Handarbeit.
-  - Akzeptanzkriterien:
-    1) `export_presets.cfg` oder ein gleichwertiger repo-seitiger Konfigurationsanker fuehrt denselben Windows-Release-Pfad,
-    2) `novapolis-sim/README.md` und die Export-SSOT zeigen auf denselben Anker,
-    3) Zielpfad `novapolis-sim/exports/windows/NovapolisSim.exe` bleibt unveraendert,
-    4) der Editor-Klickpfad bleibt dokumentiert, aber nicht mehr alleinige Wahrheit.
-  - Evidenz: `sim-export-release-path.ssot.md` nennt den Exportpfad bereits kanonisch, fuehrt aber zugleich explizit `keine Verpflichtung auf export_presets.cfg`.
-
-- [ ] [Als naechstes] Einen lokalen Post-Export-Smoke fuer die erzeugte `NovapolisSim.exe` als eigenen Wrapper-/Checkpfad nachziehen.
-  - Ziel: Zwischen Editor-Export und produktivem Start soll ein kleiner, repo-seitiger Smoke den Windows-Build gegen triviale Startfehler absichern.
-  - Akzeptanzkriterien:
-    1) der Export-Smoke prueft die erzeugte `.exe` oder deren Mindestartefakte nachvollziehbar,
-    2) Export-SSOT, README und Tasking nennen denselben Pfad,
-    3) der Smoke bleibt klar getrennt vom Editor-headless verify,
-    4) ein fehlender Export wird als klare Vorbedingung und nicht als diffuser Sim-Fehler ausgewiesen.
-  - Evidenz: Die Export-SSOT beschreibt bisher den lokalen Smoke fuer die exportierte App nur dokumentarisch; ein eigener repo-seitiger Wrapper oder Task dafuer ist in den aktiven Sim-Pfaden noch nicht verankert.
-
-- [ ] [Als naechstes] Fuer den Offline-Asset-Check neben `Clean-Checkout` einen kleinen, reproduzierbaren Vollstand-Fixture-Pfad aufbauen.
-  - Ziel: Der Sim-Asset-Check soll nicht nur warnungsfrei im leeren Profil laufen, sondern auch einen kleinen, echten Offline-Vollstand ohne grosse manuelle Vorbereitung pruefbar machen.
-  - Akzeptanzkriterien:
-    1) es existiert ein minimales Fixture-Set fuer `world_log`, `pc_log` und optional Audio,
-    2) der Vollstand-Pfad ist von `--allow-empty` sauber getrennt,
-    3) README, Export-SSOT und Asset-Check nennen denselben Minimal-Vollstand,
-    4) Slot-Konsistenz bleibt mit echten Beispielartefakten pruefbar.
-  - Evidenz: `novapolis-sim/README.md` und `WORKSPACE_STATUS.md` beschreiben den Offline-Check derzeit vor allem ueber das warnungsfreie `Clean-Checkout` mit `--allow-empty`; fuer einen kleinen kanonischen Vollstand gibt es noch keinen ebenso konkreten Fixture-Pfad.
-
-- [ ] [Als naechstes] Persistenz und Replay-Resume fuer `user://hub_prefs.cfg` ueber gezielte Regressions- oder Verifikationspfade absichern.
-  - Ziel: Die inzwischen produktive Fortsetzungslogik soll nicht nur dokumentiert, sondern gegen Neustart-, Migrations- und teilweise fehlende Pref-Daten gehaertet werden.
-  - Akzeptanzkriterien:
-    1) Session-ID-, Resume-Checkpoint- und Replay-Wiederaufnahme sind gegen leere, alte oder partielle Prefs abgesichert,
-    2) README, Persistenzpfad und Code fuehren dieselbe Neustartlogik,
-    3) der Pfad bleibt kompatibel mit dem bestehenden Sessionvertrag,
-    4) Headless- oder statische Pruefung deckt die Kernfaelle nachvollziehbar ab.
-  - Evidenz: `novapolis-sim/README.md` beschreibt die persistente Fortsetzungslogik bereits operativ; ein eigener, explizit dokumentierter Regressionspfad fuer Pref-Migration und Resume-Neustart ist in der aktiven Sim-Oberflaeche noch nicht benannt.
-
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Den kanonischen Windows-Exportpfad von reinem Klickpfad auf einen belastbaren Preset-/Konfigurationsanker heben.
+  - Ergebnis 2026-04-23 16:38: `novapolis-sim/export_presets.cfg` fuehrt jetzt denselben Windows-Desktop-Pfad `exports/windows/NovapolisSim.exe` repo-seitig als Godot-Presetanker. README, Export-SSOT und Tasking referenzieren damit nicht mehr nur einen Editor-Klickpfad, sondern denselben technischen Zielanker im Projektbaum.
+
+- [x] [Als naechstes] Einen lokalen Post-Export-Smoke fuer die erzeugte `NovapolisSim.exe` als eigenen Wrapper-/Checkpfad nachziehen.
+  - Ergebnis 2026-04-23 16:38: `scripts/run_sim_export_smoke.py` plus Task `Checks: sim export smoke` pruefen den exportierten Windows-Pfad jetzt repo-seitig. Fehlt die EXE, liefert derselbe Wrapper bewusst `export executable missing` statt diffuser Sim-Fehlersprache; liegt ein Export vor, kann derselbe Pfad die App optional kurz starten.
+  - Verifikation 2026-04-23 16:38: Die fokussierten Tests fuer `test_run_sim_export_smoke.py` sind PASS; der direkte Repo-Lauf meldet aktuell erwartungsgemaess die Vorbedingung `novapolis-sim/exports/windows/NovapolisSim.exe` als fehlend.
+
+- [x] [Als naechstes] Fuer den Offline-Asset-Check neben `Clean-Checkout` einen kleinen, reproduzierbaren Vollstand-Fixture-Pfad aufbauen.
+  - Ergebnis 2026-04-23 16:38: Unter `novapolis-sim/data/epochs/epoch01/` liegt jetzt ein minimaler Vollstand mit `world_log.jsonl` und `pc_log.jsonl`; `novapolis-sim/assets/audio/` fuehrt dazu benannte OGG-Beispiele. Der neue Task `Checks: sim epoch assets (minimal fullstand)` laeuft ohne `--allow-empty` gegen genau diesen kleinen Repo-Vollstand.
+  - Verifikation 2026-04-23 16:38: `scripts/check_sim_epoch_assets.py --repo-root . --check-slot-consistency` endet mit `summary=fail:0,warn:0` und bestaetigt Slot-Konsistenz fuer `epoch01` plus gueltige Audionamen.
+
+- [x] [Als naechstes] Persistenz und Replay-Resume fuer `user://hub_prefs.cfg` ueber gezielte Regressions- oder Verifikationspfade absichern.
+  - Ergebnis 2026-04-23 16:38: `scripts/check_sim_hub_prefs_contract.py` prueft jetzt repo-seitig die in `Main.gd` verwendeten Load-/Save-Schluessel gegen leere, partielle und aeltere Fixture-Dateien unter `novapolis-sim/tests/fixtures/hub_prefs/`. Dazu kommt der neue Task `Checks: sim hub prefs contract` als statischer Drift- und Neustartpfad ohne Godot-Runtime.
+  - Verifikation 2026-04-23 16:38: Der neue Pytest-Block `test_check_sim_hub_prefs_contract.py` ist PASS, und der direkte Repo-Lauf bestaetigt denselben Key-Satz fuer `session_id`, `scene_id`, `resume_checkpoint_id` und `selected_replay_checkpoint_id` plus die Default-/Fallback-Lesart der Fixtures.
 
 - Der zuletzt geschlossene Sim-Abschlussschnitt liegt jetzt zusaetzlich unter `novapolis-dev/archive/todo.sim.archive.md`; das Live-Board ist fuer neue Sim-Punkte vorbereitet.
 

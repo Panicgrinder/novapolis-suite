@@ -204,6 +204,53 @@
       "problemMatcher": []
     },
     {
+      "label": "Checks: sim export smoke",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\run_sim_export_smoke.py",
+        "--repo-root",
+        "${workspaceFolder}",
+        "--launch"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Checks: sim epoch assets (minimal fullstand)",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\check_sim_epoch_assets.py",
+        "--repo-root",
+        "${workspaceFolder}",
+        "--check-slot-consistency"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Checks: sim hub prefs contract",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": [
+        "${workspaceFolder}\\scripts\\check_sim_hub_prefs_contract.py",
+        "--repo-root",
+        "${workspaceFolder}"
+      ],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
       "label": "Checks: text-rpg product gate",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",

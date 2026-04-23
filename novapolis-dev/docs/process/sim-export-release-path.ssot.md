@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 00:55
-update: Diese SSOT fuehrt den Export-Smoke jetzt auch explizit als Sim-Beleg des gemeinsamen Text-RPG-Release-Evidence-Bundles.
-checks: snapshot-lock PASS (2026-04-18 00:55); markdownlint=PASS; frontmatter=PASS
+stand: 2026-04-23 16:50
+update: Diese SSOT fuehrt jetzt zusaetzlich `export_presets.cfg`, den Repo-Export-Smoke und den minimalen Vollstand als kanonische Sim-Anker.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
 ---
 
 Sim Export- und Release-Pfad (SSOT)
@@ -23,12 +23,12 @@ Scope
 Nicht-Ziele
 -----------
 
-- keine Verpflichtung auf `export_presets.cfg`, solange derselbe Pfad reproduzierbar dokumentiert bleibt
 - keine CI-Automatisierung des Godot-Exports in diesem Lauf
 
 Kanonischer Zielpfad
 --------------------
 
+- Repo-Anker: `novapolis-sim/export_presets.cfg`
 - Exportziel: `novapolis-sim/exports/windows/NovapolisSim.exe`
 - Begleitdateien liegen im selben Zielordner wie von Godot erzeugt.
 - Dieser Pfad ist die kanonische lokale Release-Ablage fuer manuelle Windows-Smokes.
@@ -46,7 +46,8 @@ Voraussetzungen nach Profil
 
 - Agent-Sim-API laeuft lokal.
 - Optionale Session-Artefakte unter `novapolis_agent/tmp/sim_sessions/<session_id>/` koennen fuer Replay, Resume und Audio vorhanden sein.
-- Optionale Offline-Artefakte unter `novapolis-sim/data/epochs/` und `novapolis-sim/assets/audio/` koennen zusaetzlich geladen werden.
+- Minimaler Repo-Vollstand liegt unter `novapolis-sim/data/epochs/epoch01/` plus benannte OGG-Beispiele unter `novapolis-sim/assets/audio/`.
+- Optionale weitere Offline-Artefakte unter `novapolis-sim/data/epochs/` und `novapolis-sim/assets/audio/` koennen zusaetzlich geladen werden.
 
 ### Exportierte Laufzeit
 
@@ -65,9 +66,11 @@ Da dieser Schritt nicht direkt in VS Code laeuft, gilt die User-Praeferenz: expl
    Erwartetes Ergebnis: Der Export-Dialog erscheint.
 3. Falls noch kein Windows-Desktop-Preset vorhanden ist: `Add... -> Windows Desktop` waehlen.
    Erwartetes Ergebnis: Ein Preset `Windows Desktop` erscheint in der linken Preset-Liste.
-4. Im Windows-Preset den Zielpfad auf `novapolis-sim/exports/windows/NovapolisSim.exe` setzen.
+4. Falls der Editor einen bestehenden Presetanker anbietet, `novapolis-sim/export_presets.cfg` laden bzw. bestaetigen.
+   Erwartetes Ergebnis: Der Windows-Desktop-Preset fuehrt denselben Repo-Zielpfad bereits vor.
+5. Im Windows-Preset den Zielpfad auf `novapolis-sim/exports/windows/NovapolisSim.exe` setzen oder gegen den vorhandenen Wert gegenpruefen.
    Erwartetes Ergebnis: Die Ausgabe landet reproduzierbar im Repo unter `novapolis-sim/exports/windows/`.
-5. Exportmodus auf Release belassen und den Export starten.
+6. Exportmodus auf Release belassen und den Export starten.
    Erwartetes Ergebnis: `NovapolisSim.exe` und die von Godot benoetigten Begleitdateien werden geschrieben.
 
 Lokaler Smoke fuer die exportierte App
@@ -75,13 +78,15 @@ Lokaler Smoke fuer die exportierte App
 
 1. Zuerst die Sim-API lokal starten.
    Erwartetes Ergebnis: `http://127.0.0.1:8765/world/step` und die Session-Endpunkte sind erreichbar.
-2. Danach `novapolis-sim/exports/windows/NovapolisSim.exe` starten.
+2. Danach `Checks: sim export smoke` oder direkt `scripts/run_sim_export_smoke.py --repo-root . --launch` ausfuehren.
+   Erwartetes Ergebnis: Fehlende Exporte werden klar als Vorbedingung `export executable missing` gemeldet; ein vorhandener Export startet zumindest kurz an.
+3. Danach `novapolis-sim/exports/windows/NovapolisSim.exe` starten, falls der Wrapper nur den Vorcheck ausfuehrte.
    Erwartetes Ergebnis: Die App oeffnet ohne Editor-Overlay oder `(DEBUG)`-Fenster.
-3. Im Hub pruefen.
+4. Im Hub pruefen.
    Erwartetes Ergebnis: Topband, Stage, Ops-Spalte und Telemetrieband werden sichtbar geladen.
-4. Falls bereits eine persistierte Session vorliegt, `Neu laden` nicht zwingend selbst betaetigen.
+5. Falls bereits eine persistierte Session vorliegt, `Neu laden` nicht zwingend selbst betaetigen.
    Erwartetes Ergebnis: Die App synchronisiert `GET /session/{session_id}` und `GET /session/{session_id}/replay` beim Start automatisch nach.
-5. Einen kurzen Bedienpfad pruefen.
+6. Einen kurzen Bedienpfad pruefen.
    Erwartetes Ergebnis: `Hub-Chat`, Replay-Zusammenfassung und Statuszeilen reagieren ohne Editorpfad oder Menue-Umschaltung.
 
 Rolle im Release-Evidence-Bundle
@@ -98,6 +103,14 @@ Kanonischer Headless-Verify vor Export
 - CLI-Wrapper: `& .\.venv\Scripts\python.exe scripts\run_sim_headless_verify.py`
 - Fallback fuer lokale Binaries ausserhalb des PATH: `GODOT_BIN=<Pfad-zur-Godot-Binary>` oder `--godot-bin <Pfad-zur-Godot-Binary>`.
 - Erwartetes Ergebnis: `SIM_VERIFY: OK` ohne neue Scene-, Preload- oder Parserfehler fuer `Main.tscn` und den aktuellen Hub-Pfad.
+
+Zusaetzliche Repo-Checks
+------------------------
+
+- VS-Code-Task: `Checks: sim epoch assets (minimal fullstand)`
+- VS-Code-Task: `Checks: sim hub prefs contract`
+- Der erste prueft den kleinen Vollstand unter `novapolis-sim/data/epochs/epoch01/` plus benannte OGG-Beispiele ohne `--allow-empty`.
+- Der zweite prueft statisch die Persistenzschluessel fuer `user://hub_prefs.cfg` gegen leere, partielle und aeltere Fixture-Dateien.
 
 Verknuepfte Istquellen
 ----------------------

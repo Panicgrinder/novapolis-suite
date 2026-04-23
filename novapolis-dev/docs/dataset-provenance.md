@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-21 01:59
-update: Die Provenance-SSOT fuehrt jetzt sowohl RP-abgeleitete Trainings-Seeds als auch den reviewpflichtigen Session-/Replay-Promotionspfad in ein getrenntes Curation-Pack.
-checks: markdownlint PASS; frontmatter PASS; todo-index-sync PASS; snapshot-lock PASS (2026-04-21 01:59)
+stand: 2026-04-23 16:50
+update: Die Provenance-SSOT fuehrt jetzt zusaetzlich den gemeinsamen Release-Gate-Pfad vor Export und LoRA mit rp_content- und Freigabeschwellen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
 ---
 
 Dataset Provenance (SSOT)
@@ -92,6 +92,14 @@ Freigaberegel
 - `gruen`: Nutzung fuer Eval/Training im Repo freigegeben.
 - `gelb`: Nutzung nur intern fuer Eval, bis Quellen- oder Lizenznachweis explizit dokumentiert ist.
 - `rot`: Keine Nutzung bis zur Klaerung.
+
+Release-Gate-Konvention
+-----------------------
+
+- `novapolis_agent/scripts/training_release_gate.py` ist der kanonische Repo-Guard vor `curate_dataset_from_latest.py` und `fine_tune_pipeline.py`.
+- Export-/Pack-Pfade verlangen denselben Mindestpfad: `validate_eval_datasets --strict`, den neuesten grünen `rp_content`-Resultatbeleg und eine Provenienzpruefung der beteiligten Datasets.
+- Fuer Export-/Review-Pfade reicht Provenienzstatus mindestens `gelb`, solange der Pfad bewusst reviewpflichtig bleibt; direkte LoRA-Laeufe verlangen fuer den konkreten Trainingsdatensatz weiterhin `gruen`.
+- Fehlende oder `rot` markierte Provenienz sowie ein fehlender oder nicht grüner `rp_content`-Beleg blockieren den naechsten Schritt hart statt in Export oder Training durchzufallen.
 
 Offene Punkte
 -------------

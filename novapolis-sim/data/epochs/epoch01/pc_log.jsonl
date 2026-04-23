@@ -1,0 +1,2 @@
+{"tick": 1, "slot": 0, "event": "pc-start", "text": "Der Hub startet mit Minimal-Fullstand."}
+{"tick": 2, "slot": 1, "event": "pc-followup", "text": "Der Replay-Pfad sieht denselben Slot wie world_log."}

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 16:00
-update: Root-Summary protokolliert jetzt zusaetzlich den Status-Sync, der den RP-Transcript- und Nordlinie-Nachzug in WORKSPACE_STATUS spiegelt.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
+stand: 2026-04-23 16:50
+update: Root-Summary fuehrt jetzt den geschlossenen Agent-Gate-Schnitt und vier repo-seitig geschlossene Sim-Reste bei nur noch einem offenen Sim-Punkt mit.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,8 @@ Hinweis
 - Technische Laufdetails liegen in Reports unter `.tmp/results/reports/`.
 
 Aktuelle Eintraege (Summary)
+
+- 2026-04-23 16:38: Der letzte offene Agent-Punkt ist repo-seitig geschlossen. `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, `rp_content` oder Provenienz nicht halten; im aktuellen Repo-Stand scheitert der Direktlauf erwartungsgemaess an `missing rp_content results`. Parallel sind vier repo-loesbare Sim-Reste geschlossen: `novapolis-sim/export_presets.cfg`, der Wrapper `scripts/run_sim_export_smoke.py`, der minimale Vollstand unter `novapolis-sim/data/epochs/epoch01/` samt Audio-Beispielen und der statische Hub-Prefs-Contract-Check. Offen bleibt suiteweit nur noch `Sim=1` wegen der weiterhin fehlenden lokalen Godot-Binary fuer `Checks: sim headless verify`.
 
 - 2026-04-23 15:32: `WORKSPACE_STATUS.md` ist auf denselben RP-Runtime-Schnitt wie Root-DONELOG, Dev-DONELOG und TODO-Index nachgezogen. Der Root-Status fuehrt damit jetzt sowohl den append-only Transcript-Pfad als auch den selektiven Backfill fuer `d5-c6-nordlinie-sanierung-01`; der offene Modulstand bleibt unveraendert `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
 

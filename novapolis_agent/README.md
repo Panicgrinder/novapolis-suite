@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-21 01:59
+stand: 2026-04-23 16:50
 update: README trennt jetzt den belegten Python-Interpreter, Standard-Chat, Support-A-B und Judge-Pfad sauber in einer operativen Profilmatrix.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-21 01:59)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
 ---
 
 Novapolis Agent
@@ -43,6 +43,11 @@ VS Code Task-Labels (Datensatz & Training)
 - `Train: baseline LoRA (tiny-gpt2, 1-step)`
 
 Hinweis: Diese Labels sind bewusst identisch in `novapolis-dev/docs/todo.agent-board.md` und `novapolis_agent/docs/runbook.md` gehalten, um Doku-Drift zu vermeiden.
+
+Release-Gate-Hinweis:
+
+- `Data: export+pack (latest results)` und `Train: baseline LoRA (tiny-gpt2, 1-step)` laufen jetzt beide ueber `novapolis_agent/scripts/training_release_gate.py`.
+- Der Guard blockiert hart, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Dataset-Provenienz fehlen.
 
 Lizenz
 ------

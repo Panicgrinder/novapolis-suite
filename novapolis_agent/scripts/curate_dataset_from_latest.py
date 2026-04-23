@@ -40,6 +40,7 @@ from utils.time_utils import now_compact  # noqa: E402
 from scripts import export_finetune as _export  # noqa: E402
 from scripts import prepare_finetune_pack as _prepare  # noqa: E402
 from scripts import run_eval as _run_eval  # noqa: E402
+from scripts import training_release_gate as _release_gate  # noqa: E402
 
 
 def _resolve_eval_path(value: str, *, default_base: str = PROJECT_ROOT) -> str:
@@ -219,6 +220,15 @@ def main() -> int:
             )
         )
         return 2
+
+    gate_result = _release_gate.ensure_release_gate(
+        results_file=chosen,
+        results_dir=results_dir,
+        require_green_provenance=False,
+    )
+    if not gate_result.ok:
+        print(json.dumps(gate_result.to_payload(), ensure_ascii=False))
+        return gate_result.code
 
     finetune_dir = os.path.join(results_dir, "finetune")
     os.makedirs(finetune_dir, exist_ok=True)
