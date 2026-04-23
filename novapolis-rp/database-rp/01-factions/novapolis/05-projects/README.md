@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 00:17
-update: Link auf 24x1h-Log-Template ergänzt.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-02-22 00:09); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/00-admin' 'novapolis-rp/database-rp/01-factions/novapolis/05-projects' 'novapolis-rp/database-rp/01-factions/haendlerbund/05-projects' 'novapolis-rp/database-rp/01-factions/eisenkonklave/05-projects' 'novapolis-rp/database-rp/01-factions/arkologie-a1/05-projects' 'novapolis-rp/database-rp/01-factions/schienenbund/05-projects' 'novapolis-rp/database-rp/01-factions/schattenbund/05-projects' 'novapolis-rp/database-rp/01-factions/fluesterkollektiv/05-projects' PASS (EXITCODE=0, 2026-02-22 00:09)"
+stand: 2026-04-23 16:00
+update: Projektindex verweist jetzt zusaetzlich auf den fokussierten Nordlinie-D5-C6-Fortsetzungsindex.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
 slug: novapolis-projects
 category: index
 version: "0.1"
@@ -19,5 +19,6 @@ Nützliche Links
 ---------------
 
 - Fraktionsordner → ../README.md
+- Nordlinie-D5-C6-Fortsetzungsindex → ../Nordlinie-D5-C6-Index.md
 - Missionslog → ./Missionslog-Novapolis.md
 - 24x1h-Log-Template → ./24x1h-Log-Template.md

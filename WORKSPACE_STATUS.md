@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-21 01:59
-update: Der Wochenabschluss bleibt gruen; im offenen Agent-Punkt ist jetzt auch die Rueckkopplung `Session Promotion Pack -> Eval -> Export/Pack` verdrahtet, waehrend Sim weiter am lokalen Godot-Headless-Verify haengt.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md; snapshot-lock PASS (2026-04-21 01:59)
+stand: 2026-04-23 16:00
+update: Der Root-Status spiegelt jetzt den RP-Chattranskriptpfad, den selektiven Nordlinie-Backfill und den nachgezogenen Nordlinie-Fortsetzungsstand.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
 ---
 - 2026-04-21 01:10: Die fehlende Rueckkopplung vom Session-Promotionspack in den Eval-/Export-Pfad ist eingezogen. `.vscode/tasks.json` fuehrt jetzt `Eval: session promotions review (10, asgi)` und `Data: export+pack (session promotions review)`, `novapolis_agent/scripts/curate_dataset_from_latest.py` schraenkt die Kandidatenauswahl ueber `--results-glob` gezielt auf den getaggten Results-Strom ein, und `novapolis_agent/tests/test_export_and_prepare_pipeline.py` belegt den Rueckweg `results._meta.patterns -> export_finetune -> prepare_finetune_pack` fuer Session-Promotions. Offen bleibt im Agent-Scope damit nur noch der harte Gate-Block gegen rote Provenienz- oder `rp_content`-Signale vor LoRA. Der Modulstand bleibt `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
 
@@ -53,6 +53,10 @@ Workspace-Status
 
 Aktuelles Wochenfenster
 -----------------------
+
+- 2026-04-23 15:32: Der Root-Status ist auf den aktuellen RP-Runtime-Stand nachgezogen. `WORKSPACE_STATUS.md` spiegelt jetzt denselben 23.-April-Schnitt wie `DONELOG.md`, `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/todo.index.md`: Der append-only RP-Chattranskriptpfad unter `novapolis-rp/database-curated/staging/rp-runtime/sessions/<session-id>/transcript.jsonl` ist als Rohsignal ausserhalb des Builder-Inputs verankert, fuer `d5-c6-nordlinie-sanierung-01` liegt der selektive Backfill mit sichtbarer Restluecke vor, und der offene Modulstand bleibt `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+- 2026-04-21 07:33: Der RP-Runtime-Strang rund um die Nordlinie ist ueber den reinen Beispielzug hinaus belastbar verdichtet. `novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, `state/nordlinie-01.md` und `inventories/d5.md` fuehren jetzt den Folgeabschnitt mit gebuendelten Markierungsarbeiten, erster Materialerfassung und weiter offenem D5-Engpass; der neue Fortsetzungsindex `novapolis-rp/database-rp/01-factions/novapolis/Nordlinie-D5-C6-Index.md` verdrahtet dazu Projekt, Tunnel, Kerncast und den Runtime-Handover fuer die naechste Fortsetzung.
 
 - 2026-04-18 00:49: Der vollstaendig abgeschlossene April-Root-Block ist jetzt unter `novapolis-dev/archive/todo.root.archive.md` archiviert. `todo.root.md` ist wieder als schlanke Live-Arbeitsvorlage vorbereitet und fuehrt aktuell keine offenen suiteweiten Punkte; `novapolis-dev/docs/todo.index.md`, `DONELOG.md` und `novapolis-dev/docs/donelog.md` spiegeln denselben Archivstand, waehrend die vier Modul-Boards unveraendert bei je `5` offenen Punkten bleiben.
 

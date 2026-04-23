@@ -136,8 +136,7 @@ def main() -> int:
         "--results-glob",
         default="results_*.jsonl",
         help=(
-            "Glob relativ zu --results-dir fuer Kandidaten-Auswahl "
-            "(Default: results_*.jsonl)"
+            "Glob relativ zu --results-dir fuer Kandidaten-Auswahl " "(Default: results_*.jsonl)"
         ),
     )
     # Zusätzliche Filter/Metriken (Defaults: aus)

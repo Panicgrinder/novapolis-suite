@@ -1,8 +1,79 @@
 ---
-stand: 2026-04-21 01:59
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich einen konkreten Beispielzug im RP-Runtime-Baum mit Session-, Figuren-, Beziehungs-, Inventar- und Zustandsdatei.
-checks: snapshot-lock PASS (2026-04-21 01:59); markdownlint=PASS; frontmatter=PASS (touched md)
+stand: 2026-04-23 16:00
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich den selektiven Transcript-Backfill fuer die laufende Nordlinie-Session.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
 ---
+RP-Runtime: Selektiver Transcript-Backfill fuer Nordlinie-Session nachgezogen (2026-04-23 14:26)
+--------------------------------------------------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/transcript.jsonl` fuehrt jetzt neben dem Bootstrap-Record auch belegte Originalnachrichten aus dem exportierten VS-Code-Chat mit: Agentwechsel-Erfassung, Story-Fortsetzungsauftrag, die Architekturantwort zum Rohtranskriptpfad und die folgende Auswahl `2. und 1.`.
+- Der Ruecktrag bleibt bewusst ehrlich selektiv: Ein `correction`-Record markiert `selective_backfill_applied`, waehrend die bislang im engen Suchlauf nicht wiedergefundene ausloesende Nutzerfrage zur Transcript-Architektur explizit als weiter offen dokumentiert ist.
+- Damit ist die Rohspur fuer `d5-c6-nordlinie-sanierung-01` nicht mehr nur vorbereitet, sondern auf belegte Entscheidungs- und Uebergabepunkte aus dem bisherigen Chatverlauf zurueckgezogen, ohne stilles Umschreiben oder erfundene Rueckdatierung. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+RP-Runtime: RP-Chattranskriptpfad als append-only Rohspur angelegt (2026-04-23 13:26)
+------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/rp-chat-transcript-flow.ssot.md` definiert jetzt den kleinen Vertragsrahmen fuer `sessions/<session-id>/transcript.jsonl`: append-only, roh, nachvollziehbar, aber weder RP-SSOT noch direkter Trainingsinput.
+- `novapolis-rp/database-curated/staging/rp-runtime/README.md`, `sessions/README.md` und `sessions/session-template.md` fuehren denselben Pfad jetzt direkt in der Runtime-Struktur mit; `sessions/transcript-template.jsonl` liefert ein minimales JSONL-Schema.
+- Fuer `d5-c6-nordlinie-sanierung-01` liegt bereits ein Bootstrap-Record in `sessions/d5-c6-nordlinie-sanierung-01/transcript.jsonl`, der den Start der Repo-seitigen Rohspur ehrlich als `backfill_status=not_backfilled` markiert.
+- `novapolis_agent/docs/runbook.md`, `novapolis-dev/docs/architecture-summary-local-ai.md`, `novapolis-dev/docs/todo.agent-board.md` und `novapolis-dev/docs/todo.index.md` ziehen denselben Truth-Layer- und Promotionsrahmen nach. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+RP-Runtime: Gebuendelte Nordlinie-Folge-Szene mit erster Materialerfassung nachgezogen (2026-04-21 07:33)
+-------------------------------------------------------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt jetzt Turn 5: Ronja und Reflex ziehen die Markierungsarbeiten als gebuendelten Arbeitsblock weiter und fassen den Folgeabschnitt erstmals materiell gegliedert.
+- `state/nordlinie-01.md` zieht denselben Schritt als lesbarer strukturierten Sanierungsstand nach; `inventories/d5.md` trennt harte Sofortblocker (`Schweißgeraet`, `Adapter DN60`) jetzt sichtbar von markierten Folgebedarfen (`Stuetzelemente` an Schwachzonen), ohne daraus schon eine Lieferung zu machen.
+- Damit ist der Nordlinie-Zug fuer die naechste Werkstatt- oder Materialantwort vorbereitet, ohne den vorbereitenden Charakter der Tunnelsanierung oder die offene Beleglage zu beschoenigen. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+RP-Index: Nordlinie-D5-C6-Fortsetzungsindex angelegt und verdrahtet (2026-04-21 07:28)
+------------------------------------------------------------------------------------
+
+- Unter `novapolis-rp/database-rp/01-factions/novapolis/Nordlinie-D5-C6-Index.md` liegt jetzt ein fokussierter Index fuer den aktiven Tunnel- und Werkstattstrang zwischen `D5` und `C6`.
+- Der Index buendelt die relevanten Projekt-, Orts-, Figuren-, Missions- und Inventar-SSOTs und markiert den aktuellen Runtime-Handover sauber als Arbeitsstand ausserhalb des RP-SSOT.
+- `novapolis-rp/database-rp/01-factions/novapolis/README.md` sowie die Teilindizes fuer `02-characters`, `03-locations` und `05-projects` verweisen jetzt direkt auf denselben Fortsetzungsindex. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+RP-Runtime: Agentwechsel in SSOT-/Lore-Modus als vollzogen erfasst (2026-04-21 07:23)
+-----------------------------------------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt jetzt einen expliziten `Admin Handover` mit `agent_switch: vollzogen`, Zielmodus `SSOT, Story, Weltgeschichte, Lore` und derselben Handoverbasis aus dem nicht unterbrochenen Vorspulwurf.
+- `state/nordlinie-01.md` zieht dieselbe Admin-Lesart nach: Der Folgeagent startet nicht mehr auf einer vorbereiteten, sondern auf einer bereits uebernommenen Wechselkante.
+- Damit ist im Repo nicht nur die Vorbereitung, sondern auch der tatsaechliche Wechselzustand dokumentiert; die Tagespruefung bleibt wie vorgesehen spaeter nachgezogen. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+RP-Runtime: Nordlinie-Handover fuer Agentwechsel nach nicht unterbrochenem Vorspulwurf nachgezogen (2026-04-21 07:23)
+-----------------------------------------------------------------------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt jetzt Turn 4 mit dem echten Vorspulwurf `1W6 = 4`: kein Ereignis unterbricht die laufenden Markierungsarbeiten.
+- `state/nordlinie-01.md` zieht denselben Handover-Zustand nach: beidseitig vorsichtiger Sanierungsmodus, keine neue Gefahr, kein Durchbruch, kein Materialwunder, aber freie Bahn fuer eine gebuendelte Folgeszene zu Markierungsarbeiten und erster Materialerfassung.
+- Damit ist der naechste Agentwechsel fachlich vorbereitet: Der Folgeagent kann direkt SSOT-, Story-, Welt- und Lore-Fortschreibung auf dem bestehenden Nordlinie-Stand beginnen, ohne eine fehlende Zwischenszene rekonstruieren zu muessen. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+RP-Runtime: Nordlinie-Zug um C6-Lageabgleich erweitert (2026-04-21 02:02)
+-----------------------------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt jetzt Turn 3: Ronja markiert am Problemabschnitt weiter und holt zwischendurch einen knappen Status von C6 ein.
+- `state/nordlinie-01.md` verdichtet daraus keinen freien Fortschritt, sondern einen beidseitig vorsichtigen Sanierungsmodus: D5 und C6 arbeiten weiter an derselben Linie, aber ohne Durchbruch, Materialwunder oder freigegebenen Abschnitt.
+- Damit bleibt die Runtime-Lesart weiter konsistent mit dem SSOT-Rahmen der Nordlinie: beidseitige Arbeit ja, beschoenigter Fortschritt nein. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+RP-Runtime: Nordlinie-Zug mit D5-Rueckmeldung fortgefuehrt (2026-04-21 02:02)
+-------------------------------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt jetzt auch Turn 2: D5 bestaetigt Ronjas Meldung knapp, verspricht keine Wunderloesung und laesst den Engpass an Schweißgeraet und DN60-Adaptern bewusst offen.
+- `state/nordlinie-01.md` zieht denselben Projektstand als laufenden Material- und Werkstattdruck nach; `inventories/d5.md` bleibt eine Bedarfs- statt Transfernotiz, fuehrt nun aber die bestaetigte Priorisierung ohne sofortige Ausgabe mit.
+- Damit bleibt die Runtime-Lesart belastbar: D5 reagiert, aber es wird nichts stillschweigend verfuegbar gemacht, was im SSOT weiter fehlt. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+RP-Runtime: Nordlinie-Sanierungszug mit Status- und Bedarfsrouting angelegt (2026-04-21 02:02)
+-------------------------------------------------------------------------------------------------
+
+- Unter `novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` liegt jetzt ein erster Runtime-Zug fuer Ronjas laufende Tunnelsanierung zwischen D5 und C6.
+- Die belastbaren Nebenfolgen des Zugs sind getrennt in `state/nordlinie-01.md` und `inventories/d5.md` nachgezogen: einmal als knapper Projektstatus fuer Nordlinie 01, einmal als noch nicht erfuellter D5-Materialbedarf fuer Schweißgeraet, DN60-Adapter und Stuetzelemente.
+- Alle neuen Artefakte bleiben bewusst `Probe` oder `working`, referenzieren den bestehenden SSOT-Rahmen aus Nordlinie-01, Draisine-Transportmodul und Verbindungstunnel D5-C6 und behaupten keinen bereits erfolgten Materialfluss. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+Agent-Customization: Testwechsel fuer RP-Szenenlabor vorbereitet (2026-04-21 02:02)
+-------------------------------------------------------------------------------------
+
+- `.github/agents/novapolis-rp-szenenlabor.agent.md` fuehrt im `argument-hint` jetzt auch Session-ID und Runtime-Verwaltung explizit mit, damit der Wechsel im Agentenwaehler zielgerichteter startet.
+- `novapolis-rp/database-curated/staging/rp-runtime/README.md` enthaelt jetzt einen kompakten Teststart mit einem sofort nutzbaren Prompt fuer `c6-h47-handelsfenster-01` und der erwarteten Routing-Spur in `sessions/`, `inventories/`, `relationships/` und `state/`.
+- Damit ist der naechste Agentwechsel nicht nur technisch moeglich, sondern fuer einen ersten Turn-2-Probelauf direkt vorbereitet. Der Modulstand bleibt dabei `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
 RP-Runtime: Beispielzug mit kompletter Routing-Spur angelegt (2026-04-21 01:53)
 -------------------------------------------------------------------------
 

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-21 01:59
-update: Root-Summary fuehrt jetzt auch einen konkreten RP-Runtime-Beispielzug, der die neue Routing-Logik ueber Session-, Figuren-, Beziehungs-, Inventar- und Zustandsdateien sichtbar macht.
-checks: snapshot-lock PASS (2026-04-21 01:59); markdownlint=PASS; frontmatter=PASS (touched md)
+stand: 2026-04-23 16:00
+update: Root-Summary protokolliert jetzt zusaetzlich den Status-Sync, der den RP-Transcript- und Nordlinie-Nachzug in WORKSPACE_STATUS spiegelt.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
 ---
 
 DONELOG (Root Summary)
@@ -16,6 +16,28 @@ Hinweis
 - Technische Laufdetails liegen in Reports unter `.tmp/results/reports/`.
 
 Aktuelle Eintraege (Summary)
+
+- 2026-04-23 15:32: `WORKSPACE_STATUS.md` ist auf denselben RP-Runtime-Schnitt wie Root-DONELOG, Dev-DONELOG und TODO-Index nachgezogen. Der Root-Status fuehrt damit jetzt sowohl den append-only Transcript-Pfad als auch den selektiven Backfill fuer `d5-c6-nordlinie-sanierung-01`; der offene Modulstand bleibt unveraendert `Dev=0`, `RP=0`, `Agent=1`, `Sim=5`.
+
+- 2026-04-23 14:26: Die Rohspur fuer `d5-c6-nordlinie-sanierung-01` ist jetzt selektiv aus dem exportierten Chatverlauf zurueckgezogen. `transcript.jsonl` enthaelt neben dem Bootstrap-Record nun belegte Nachrichten zu Agentwechsel, Story-Fortsetzung, Transcript-Architektur und der folgenden Auswahl; eine verbleibende Extraktionsluecke wird explizit als offen markiert statt still rekonstruiert.
+
+- 2026-04-23 13:26: RP-Sessions koennen jetzt eine append-only Rohspur unter `sessions/<session-id>/transcript.jsonl` fuehren. Die neue SSOT `novapolis-dev/docs/process/rp-chat-transcript-flow.ssot.md` und die Runtime-Dokus verdrahten den Pfad als nachvollziehbare, aber nicht direkt trainierbare Vorstufe; fuer `d5-c6-nordlinie-sanierung-01` liegt bereits ein Bootstrap-Record ohne stille Rueckdatierung vor.
+
+- 2026-04-21 07:33: Der laufende Nordlinie-Zug ist um die naechste gebuendelte Folge-Szene erweitert. `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt jetzt die fortgesetzten Markierungsarbeiten samt erster Materialerfassung, waehrend `state/nordlinie-01.md` und `inventories/d5.md` denselben Folgeabschnitt als lesbarer strukturierten Sanierungs- und Bedarfsstand nachziehen.
+
+- 2026-04-21 07:28: Fuer den aktiven Nordlinie-Strang liegt jetzt ein eigener Fortsetzungsindex unter `novapolis-rp/database-rp/01-factions/novapolis/Nordlinie-D5-C6-Index.md` vor. Die Novapolis-README sowie die Teilindizes fuer Projekte, Orte und Charaktere verweisen im selben Lauf auf denselben Einstieg, damit der Folgeagent Projekt, Tunnel, Kerncast und Handover-Arbeitsstand ohne Suchlauf laden kann.
+
+- 2026-04-21 07:23: Der Wechsel in den SSOT-/Lore-Agenten ist jetzt nicht nur vorbereitet, sondern als vollzogen erfasst. `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt dafuer einen expliziten `Admin Handover`, und `state/nordlinie-01.md` markiert denselben Nordlinie-Stand als direkte Startkante fuer die Folgeszene im Folgeagenten.
+
+- 2026-04-21 07:23: Der laufende Nordlinie-Zug ist als sauberer Handover fuer den naechsten SSOT-/Lore-Agenten vorbereitet. `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt den nicht unterbrochenen Vorspulwurf mit, `state/nordlinie-01.md` zieht denselben beidseitig vorsichtigen Sanierungsstand nach, und die naechste Szene kann damit Markierungsarbeiten plus erste Materialerfassung gebuendelt fortschreiben.
+
+- 2026-04-21 02:02: Die probeweise Nordlinie-Runtime fuehrt jetzt auch Ronjas kurzen Lageabgleich mit C6. `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` und `state/nordlinie-01.md` halten damit einen beidseitig vorsichtigen Sanierungsstand fest, ohne einen freien Durchbruch oder neue Materialverfuegbarkeit zu behaupten.
+
+- 2026-04-21 02:02: Die probeweise Nordlinie-Runtime ist um D5s Rueckmeldung erweitert. `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt jetzt auch den knappen Antwortzug aus D5, waehrend `state/nordlinie-01.md` und `inventories/d5.md` denselben weiter offenen Materialengpass ohne freie Sofortloesung nachziehen.
+
+- 2026-04-21 02:02: Fuer Ronjas laufende Tunnelsanierung liegt jetzt ein eigener Runtime-Zug unter `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` vor. Die belastbaren Nebenfolgen werden dazu nicht im Chat versteckt, sondern getrennt als Projektstatus in `state/nordlinie-01.md` und als offener D5-Materialbedarf in `inventories/d5.md` mitgefuehrt. Alles bleibt bewusst Probe-/Arbeitsstand ohne direkte Promotion in das RP-SSOT.
+
+- 2026-04-21 02:02: Der Wechsel in den neuen RP-Agenten ist fuer den naechsten Testlauf vorbereitet. `.github/agents/novapolis-rp-szenenlabor.agent.md` nennt im `argument-hint` jetzt auch Session-ID und Runtime-Verwaltung explizit, und `novapolis-rp/database-curated/staging/rp-runtime/README.md` enthaelt einen kompakten Startprompt fuer einen Turn-2-Test in `c6-h47-handelsfenster-01` samt klarer Erwartung, dass belastbare Folgen nur in `sessions/`, `inventories/`, `relationships/` und `state/` landen.
 
 - 2026-04-21 01:53: Der RP-Runtime-Baum enthaelt jetzt einen konkreten Beispielzug unter `sessions/c6-h47-handelsfenster-01/scene-log.md` samt sauber getrennten Nebenartefakten fuer `characters/mara-quell.md`, `relationships/mara-quell-zu-c6.md`, `inventories/c6.md` und `state/c6.md`. Damit ist das neue Routing fuer Laufzeitdaten nicht nur dokumentiert, sondern direkt als Arbeitsmuster im Repo angelegt.
 

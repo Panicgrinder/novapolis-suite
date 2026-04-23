@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-21 01:59
-update: Das Runbook beschreibt jetzt zusaetzlich die Rueckkopplung `Session Promotion Pack -> Eval -> Export/Pack` ueber einen gezielten Results-Glob-Pfad.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260420_210436.md; snapshot-lock PASS (2026-04-21 01:59)
+stand: 2026-04-23 16:00
+update: Das Runbook beschreibt jetzt zusaetzlich den RP-Chattranskriptpfad als Rohsignal ausserhalb des Session-Promotion-Builders.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
 ---
 
 Novapolis Agent Runbook (Ist-Stand)
@@ -207,6 +207,7 @@ Set-Location ..
 Vertragsrahmen:
 
 - Quelle bleibt auf das Session-Artefaktquartett `savegame.json`, `replay_manifest.json`, `pc_log.jsonl` und `world_log.jsonl` begrenzt.
+- RP-Chattranskripte unter `novapolis-rp/database-curated/staging/rp-runtime/sessions/*/transcript.jsonl` gelten nur als zusaetzliche Rohspur fuer Menschen und spaetere Review-Arbeit; sie gehoeren nicht zum Builder-Inputvertrag und sind nicht direkt trainierbar.
 - Das Pack schreibt reviewpflichtige Records unter `novapolis_agent/eval/datasets/curation/` mit `source_kind=session_replay`, `promotion_level=runtime_session_review_required`, `license_scope=internal` und `source_package=session_promotion_builder.v1`.
 - `replay_manifest.json` bleibt der Primaeranker in `source_file`; Log-Kontext wird nur als knapper evidenzgetriebener Ausschnitt uebernommen.
 - Das Pack ist nicht direkt trainierbar. Erst nach RP- oder Review-Promotion darf ein Inhalt in RP-SSOT oder eine freigegebene Trainingsableitung zurueckfliessen.

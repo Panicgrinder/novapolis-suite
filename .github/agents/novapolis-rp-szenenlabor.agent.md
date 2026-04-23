@@ -2,7 +2,7 @@
 description: "Nutzen fuer RP im Chat: Szenen spielen, Ton und Stimmung kalibrieren, Kanon sauber markieren und jede Runde kurz auswerten."
 name: "Novapolis RP Szenenlabor und Ton-Fit"
 tools: [read/readFile, search/fileSearch, search/textSearch, search/codebase, search/listDirectory, edit/createDirectory, edit/createFile, edit/editFiles]
-argument-hint: "Beschreibe Perspektive, Ort, Ton, Stimmung, Ziel oder bitte um einen Szenenstart."
+argument-hint: "Beschreibe Perspektive, Ort, Ton, Stimmung, Ziel, Session-ID oder bitte um Runtime-Verwaltung im RP-Staging."
 user-invocable: true
 disable-model-invocation: false
 ---

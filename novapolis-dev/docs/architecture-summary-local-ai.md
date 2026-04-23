@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-21 01:59
-update: Die Architektur-Notiz beschreibt jetzt explizit den getrennten Pfad RP-SSOT -> Trainings-Seeds und Runtime -> Promotions-Curation, bevor Export/Pack oder LoRA folgen.
-checks: markdownlint PASS; frontmatter PASS; snapshot-lock PASS (2026-04-21 01:59)
+stand: 2026-04-23 16:00
+update: Die Architektur-Notiz beschreibt jetzt zusaetzlich den append-only RP-Chattranskriptpfad als Rohsignal vor jeder Promotion.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
 ---
 Architektur-Notiz: Monorepo & Single-Root (lokale AI)
 ====================================================
@@ -45,6 +45,7 @@ RP-zu-Training (aktueller Umsetzungsschnitt)
 - RP-Eval bleibt ueber `novapolis_agent/scripts/build_eval_from_rp.py` an den Suite-Pfad `rp_content` gekoppelt.
 - Der erste RP-Train-Schnitt laeuft jetzt ueber `novapolis_agent/scripts/build_training_from_rp.py` und erzeugt getrennte Seed-Pakete fuer `lore` und `ops` unter `novapolis_agent/eval/datasets/training/`.
 - Der zweite Promotionsschnitt laeuft jetzt getrennt ueber `novapolis_agent/scripts/build_session_promotion_pack.py` und schreibt reviewpflichtige Curation-Records unter `novapolis_agent/eval/datasets/curation/session_promotions.v1.jsonl` aus dem kanonischen Session-Artefaktquartett.
+- RP-Runtime-Sessions koennen jetzt zusaetzlich ein append-only `transcript.jsonl` unter `novapolis-rp/database-curated/staging/rp-runtime/sessions/<session-id>/` fuehren; diese Rohspur dient Nachvollziehbarkeit und spaeterer Review-Arbeit, ist aber weder SSOT noch direkter Builder-Input.
 - Die RP-Train-Pakete bleiben bewusst Vorstufen mit Provenienz- und Promotionsfeldern, nicht freie Rohimports aus Session- oder Replay-Daten.
 - Der operative Pfad verzweigt damit sauber: `RP-SSOT -> RP-Eval/RP-Training-Seeds -> Export/Pack -> LoRA` und getrennt `Runtime Session -> Session Promotion Pack -> RP-SSOT oder freigegebene Trainingsableitung`; RP-Markdown und Laufzeitlogs gehen weiterhin nicht direkt in Trainingsjobs.
 

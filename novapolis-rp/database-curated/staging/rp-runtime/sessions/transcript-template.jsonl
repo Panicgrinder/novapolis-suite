@@ -1,0 +1,2 @@
+{"record_type":"transcript_tracking_started","session_id":"example-session","timestamp":"2026-04-23T13:26:00+02:00","coverage":"partial","backfill_status":"not_backfilled","note":"Use this bootstrap record when repo-side transcript tracking starts after a session already exists."}
+{"record_type":"message","session_id":"example-session","timestamp":"2026-04-23T13:27:00+02:00","role":"user","channel":"rp","content":"Ronja geht den naechsten Abschnitt an.","turn_ref":"Turn 5","evidence_state":"raw","source":"chat"}

@@ -261,7 +261,9 @@ def collect_session_promotion_items(
         last_world_excerpt = _last_log_excerpt(world_log)
         session_status = str(replay_payload.get("session_status") or "unknown")
         resume_checkpoint_id = str(replay_payload.get("resume_checkpoint_id") or "")
-        updated_at = str(replay_payload.get("updated_at") or savegame_payload.get("updated_at") or "")
+        updated_at = str(
+            replay_payload.get("updated_at") or savegame_payload.get("updated_at") or ""
+        )
         checkpoints = list(replay_payload.get("checkpoints") or [])
         prompt = _build_promotion_prompt(
             session_id=session_id,
@@ -340,7 +342,9 @@ def main(argv: list[str] | None = None) -> int:
         help="Relative output path for the curation pack",
     )
     parser.add_argument("--limit", type=int, default=40)
-    parser.add_argument("--session-id", action="append", default=[], help="Repeatable session id filter")
+    parser.add_argument(
+        "--session-id", action="append", default=[], help="Repeatable session id filter"
+    )
     args = parser.parse_args(argv)
 
     repo_root = Path(args.repo_root).resolve()

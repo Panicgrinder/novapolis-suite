@@ -138,7 +138,9 @@ def test_main_success_writes_profile_default_output(
         sys.argv = old_argv
 
     out = capsys.readouterr().out
-    result = tmp_path / "novapolis_agent" / "eval" / "datasets" / "training" / "rp_lore_train.v1.jsonl"
+    result = (
+        tmp_path / "novapolis_agent" / "eval" / "datasets" / "training" / "rp_lore_train.v1.jsonl"
+    )
     assert rc == 0
     assert "[rp-train-builder] done" in out
     assert result.exists()
