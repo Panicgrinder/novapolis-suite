@@ -1,9 +1,11 @@
 ---
-stand: 2026-04-23 16:50
-update: Root-Summary fuehrt jetzt den geschlossenen Agent-Gate-Schnitt und vier repo-seitig geschlossene Sim-Reste bei nur noch einem offenen Sim-Punkt mit.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
+stand: 2026-04-23 19:03
+update: Root-Summary fuehrt jetzt den geschlossenen W2/W5-Verdrahtungsrest aus dem neuen Workspace-Audit mit; alle Modul-Boards stehen wieder auf null offenen Punkten.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
 ---
+- 2026-04-23 18:53: Der segmentierte Workspace-Auditrest ist wieder geschlossen. `.vscode/tasks.json` fuehrt jetzt die kanonischen Einstiege `Checks: scripts layout`, `Checks: rp current-state gate`, `Checks: rp consistency`, `Checks: rp hard gates`, `Checks: rp staging tag coverage` und `Backups: update manifest`; der direkte Validierungslauf der pruefbaren W2/W5-Kommandos ist gruen. Damit steht der moduluebergreifende Reststand wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
 
+- 2026-04-23 18:38: Der erste segmentierte Workspace-Auditlauf hat einen echten Governance-Rest offengelegt. Die neue SSOT `novapolis-dev/docs/process/workspace-audit-segmente.ssot.md` bleibt aktiv, aber fuer die Segmente `W2` Shared Tooling/Pakete und `W5` RP-Kanon/Curation fehlen mehreren bereits vorhandenen Skripten noch kanonische Einstiege ueber `.vscode/tasks.json` oder `scripts/run_checks_and_report.py`. Das Dev-Board fuehrt diesen Nachzug jetzt als einzigen offenen Steuerpunkt; der Modulstand lautet damit `Dev=1`, `RP=0`, `Agent=0`, `Sim=0`.
 DONELOG (Root Summary)
 ======================
 
@@ -16,6 +18,14 @@ Hinweis
 - Technische Laufdetails liegen in Reports unter `.tmp/results/reports/`.
 
 Aktuelle Eintraege (Summary)
+
+- 2026-04-23 18:38: Der erste segmentierte Workspace-Auditlauf hat einen echten Governance-Rest offengelegt. Die neue SSOT `novapolis-dev/docs/process/workspace-audit-segmente.ssot.md` bleibt aktiv, aber fuer die Segmente `W2` Shared Tooling/Pakete und `W5` RP-Kanon/Curation fehlen mehreren bereits vorhandenen Skripten noch kanonische Einstiege ueber `.vscode/tasks.json` oder `scripts/run_checks_and_report.py`. Das Dev-Board fuehrt diesen Nachzug jetzt als einzigen offenen Steuerpunkt; der Modulstand lautet damit `Dev=1`, `RP=0`, `Agent=0`, `Sim=0`.
+
+- 2026-04-23 18:34: Der letzte offene Sim-Punkt ist geschlossen. `scripts/run_sim_headless_verify.py` erkennt unter Windows jetzt auch den Pfad eines laufenden lokalen Godot-Prozesses ueber `pwsh` oder `powershell` und loest im aktuellen Workspace-Kontext damit `F:\Downloads\Godot\Godot_v4.6.1-stable_win64.exe` automatisch fuer `Checks: sim headless verify` auf. Der kanonische Verify endet wieder mit `SIM_VERIFY: OK`, der neue fokussierte Pytest-Scope fuer den Resolver-Fallback ist PASS, und die Modul-Boards stehen damit wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
+
+- 2026-04-23 18:27: Der Workspace ist erstmals in einen festen, wiederverwendbaren Audit-Zuschnitt zerlegt. `novapolis-dev/docs/process/workspace-audit-segmente.ssot.md` fuehrt jetzt die sieben kanonischen Pruefsegmente `W1` bis `W7` fuer Root-Governance, Shared Tooling/Pakete, Dev-Hub, Agent, RP, Sim und forensische Flaechen; `README.md`, `WORKSPACE_INDEX.md` und `novapolis-dev/README.md` verweisen im selben Lauf auf dieselbe SSOT. Der erste segmentierte Iststand zeigt keine zweite konkurrierende Audit-SSOT; offener Rest bleibt weiterhin nur `W6`, weil der Sim-Headless-Verify auf dem aktuellen Tunnel-Host nicht lokal belegbar ist.
+
+- 2026-04-23 17:39: Der letzte verbliebene Sim-Code-Rest ist aus `novapolis-sim/scripts/Main.gd` in `novapolis-sim/scripts/agent_form_workflow_controller.gd` gezogen. Der neue Controller uebernimmt jetzt das Open/Select/Apply-Routing fuer die Agent-Studio-Formen `datasets`, `synonyms`, `finetune`, `profiles`, `advanced` und `jobs`; `Main.gd` bleibt fuer diesen Pfad bei State-Uebergabe, Result-Anwendung und UI-Refresh. Parserseitig bleibt der Slice sauber, aber der formale letzte Todo-Punkt bleibt bei `Sim=1`, weil `Checks: sim headless verify` lokal weiterhin mit `Could not resolve a Godot executable` blockiert.
 
 - 2026-04-23 16:38: Der letzte offene Agent-Punkt ist repo-seitig geschlossen. `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, `rp_content` oder Provenienz nicht halten; im aktuellen Repo-Stand scheitert der Direktlauf erwartungsgemaess an `missing rp_content results`. Parallel sind vier repo-loesbare Sim-Reste geschlossen: `novapolis-sim/export_presets.cfg`, der Wrapper `scripts/run_sim_export_smoke.py`, der minimale Vollstand unter `novapolis-sim/data/epochs/epoch01/` samt Audio-Beispielen und der statische Hub-Prefs-Contract-Check. Offen bleibt suiteweit nur noch `Sim=1` wegen der weiterhin fehlenden lokalen Godot-Binary fuer `Checks: sim headless verify`.
 

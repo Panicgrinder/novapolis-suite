@@ -11,6 +11,39 @@ DEFAULT_PROJECT_DIR = "novapolis-sim"
 DEFAULT_VERIFY_SCRIPT = "res://scripts/verify_sim.gd"
 
 
+def _resolve_running_godot_process_path() -> Path | None:
+    if os.name != "nt":
+        return None
+
+    script = (
+        "Get-Process -Name godot*,Godot* -ErrorAction SilentlyContinue | "
+        "Select-Object -ExpandProperty Path | Where-Object { $_ }"
+    )
+    for shell_name in ("pwsh", "powershell"):
+        shell_path = shutil.which(shell_name)
+        if not shell_path:
+            continue
+        try:
+            completed = subprocess.run(
+                [shell_path, "-NoProfile", "-Command", script],
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+        except OSError:
+            continue
+        if completed.returncode != 0:
+            continue
+        for line in completed.stdout.splitlines():
+            candidate = line.strip()
+            if not candidate:
+                continue
+            candidate_path = Path(candidate).expanduser()
+            if candidate_path.exists():
+                return candidate_path.resolve()
+    return None
+
+
 def _resolve_godot_executable(raw_value: str | None) -> Path:
     candidates: list[str] = []
     if raw_value:
@@ -23,6 +56,10 @@ def _resolve_godot_executable(raw_value: str | None) -> Path:
         found = shutil.which(name)
         if found:
             candidates.append(found)
+
+    running_process_path = _resolve_running_godot_process_path()
+    if running_process_path is not None:
+        candidates.append(str(running_process_path))
 
     for candidate in candidates:
         candidate_path = Path(candidate).expanduser()
@@ -46,7 +83,7 @@ def _build_command(godot_executable: Path, project_dir: Path, verify_script: str
     ]
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Run the canonical Godot headless smoke verifier for novapolis-sim"
     )
@@ -75,7 +112,7 @@ def main() -> int:
         action="store_true",
         help="Print the resolved command without running Godot",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     repo_root = Path(args.repo_root).resolve()
     project_dir = (repo_root / args.project_dir).resolve()

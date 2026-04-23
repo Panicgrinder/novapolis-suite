@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 16:50
-update: Das Sim-Board steht jetzt nur noch bei einem offenen Punkt; Exportanker, Export-Smoke, Minimal-Vollstand und Hub-Prefs-Contract sind repo-seitig geschlossen, waehrend der Headless-Verify weiter an einer fehlenden lokalen Godot-Binary haengt.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
+stand: 2026-04-23 19:03
+update: Das Sim-Board steht jetzt wieder bei `offen: 0`; der letzte Headless-Verify-Rest ist ueber den Resolver-Fallback auf die lokal laufende Godot-Binary geschlossen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -28,19 +28,14 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (Sim)
 ---------------------
 
-- [ ] [Jetzt] Den verbliebenen Agent-Studio-/Form-State-Rest aus `Main.gd` in denselben Controller-Schnitt ziehen wie die uebrigen Hub-Pfade.
-  - Ziel: Die laufende Sim-Entflechtung soll nicht kurz vor dem letzten groesseren UI-Rest stehen bleiben, sondern `Main.gd` auch im Agent-Studio-Pfad weiter auf Shell- und Glue-Code reduzieren.
-  - Akzeptanzkriterien:
-    1) der verbleibende Agent-Studio-Block liegt in einem eigenen Controller oder klar abgegrenzten Helfern,
-    2) `Main.gd` behaelt fuer diesen Pfad nur noch Orchestrierung und UI-Folgeaktionen,
-    3) Headless-Verify und statische Fehlerpruefung bleiben gruen,
-    4) Bedienpfade und Labels im Hub bleiben unveraendert nutzbar.
-  - Evidenz: `novapolis-dev/docs/todo.sim.md` fuehrt im aktiven Kontext selbst, dass in `Main.gd` als groesserer Architekturrest im Wesentlichen noch der Agent-Studio-Block offen bleibt.
-  - Arbeitsstand 2026-04-18 07:16: `novapolis-sim/scripts/agent_form_session_controller.gd` uebernimmt jetzt den verbliebenen Form-Session-State (`form_kind`, `form_mode_value`, `form_target_value`, `template_signature`, `form_controls`); `novapolis-sim/scripts/Main.gd` delegiert Oeffnen, Modus-/Zielwahl, Payload-/Persistenz-State und den Form-UI-Refresh an denselben Controller.
-  - Verifikation 2026-04-18 07:16: `get_errors` bleibt fuer `novapolis-sim/scripts/Main.gd` und `novapolis-sim/scripts/agent_form_session_controller.gd` ohne Befund. `Checks: sim headless verify` bleibt im aktuellen Terminalkontext blockiert, weil kein Godot-Binary aufloesbar ist (`GODOT_BIN` leer, `godot4`/`godot` nicht im PATH, keine lokale `*godot*.exe` gefunden).
+- Derzeit keine offenen Sim-Aufgaben im aktiven Board.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Den Godot-Resolver des kanonischen Headless-Verify auf den lokal vorhandenen Editor-/Binary-Pfad heben.
+  - Ergebnis 2026-04-23 18:34: `scripts/run_sim_headless_verify.py` erkennt unter Windows jetzt neben `GODOT_BIN`, `godot4` und `godot` auch den Pfad eines bereits laufenden lokalen Godot-Prozesses ueber `pwsh` oder `powershell`. Im aktuellen Workspace-Kontext wird damit `F:\Downloads\Godot\Godot_v4.6.1-stable_win64.exe` automatisch aufgeloest, ohne den bestehenden Fehlerpfad fuer wirklich fehlende Binaries zu verschleifen.
+  - Verifikation 2026-04-23 18:34: Der kanonische Task `Checks: sim headless verify` endet jetzt mit `SIM_VERIFY: OK`. Der neue fokussierte Pytest-Scope `novapolis_agent/tests/scripts/test_run_sim_headless_verify.py` ist ebenfalls PASS; das Sim-Board steht damit wieder bei `offen: 0`.
 
 - [x] [Jetzt] Den kanonischen Windows-Exportpfad von reinem Klickpfad auf einen belastbaren Preset-/Konfigurationsanker heben.
   - Ergebnis 2026-04-23 16:38: `novapolis-sim/export_presets.cfg` fuehrt jetzt denselben Windows-Desktop-Pfad `exports/windows/NovapolisSim.exe` repo-seitig als Godot-Presetanker. README, Export-SSOT und Tasking referenzieren damit nicht mehr nur einen Editor-Klickpfad, sondern denselben technischen Zielanker im Projektbaum.

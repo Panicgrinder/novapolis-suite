@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 03:00
+stand: 2026-04-23 19:03
 update: Der Workspace-Index fuehrt die aktive Reader-Surface jetzt getrennt vom forensischen Vollbaum; der tiefe Agent-Katalog bleibt als nachgelagerter Referenzpfad erhalten.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 03:00)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -21,6 +21,7 @@ Root-Steuerflaeche
 - [`WORKSPACE_STATUS.md`](WORKSPACE_STATUS.md) - laufender Betriebszustand und aktueller Wochenrahmen.
 - [`todo.root.md`](todo.root.md) - aktive suiteweite Querschnittspunkte.
 - [`DONELOG.md`](DONELOG.md) - Root-Summary fuer Releases und Governance.
+- [`novapolis-dev/docs/process/workspace-audit-segmente.ssot.md`](novapolis-dev/docs/process/workspace-audit-segmente.ssot.md) - kanonische Zerlegung des Workspaces in wiederverwendbare Pruefsegmente.
 - [`.github/copilot-instructions.md`](.github/copilot-instructions.md) - verbindliche SSOT fuer Arbeitsweise, Gates und Logging.
 - [`.vscode/tasks.json`](.vscode/tasks.json) - kanonischer Task-Einstieg fuer Checks, Tests, Produkt-Gates und Tree-Refresh.
 
@@ -40,6 +41,8 @@ Arbeits- und Referenzpfade
 - [`workspace_tree_full.txt`](workspace_tree_full.txt) - forensischer Vollbaum; regenerierbar via Tasks `Workspace tree:*`.
 - [`novapolis-dev/docs/active-surface-index.md`](novapolis-dev/docs/active-surface-index.md) - ACTIVE/REFERENCE/HISTORICAL-Klassifikation der Fuehrungsdoku.
 - [`novapolis-dev/docs/process/abschluss-routine.ssot.md`](novapolis-dev/docs/process/abschluss-routine.ssot.md) - kanonischer Hygiene- und Abschlussrhythmus.
+- [`novapolis-dev/docs/process/workspace-audit-segmente.ssot.md`](novapolis-dev/docs/process/workspace-audit-segmente.ssot.md) - fester Auditrahmen fuer Root, Shared Tooling, Dev, Agent, RP, Sim und forensische Flaechen.
+- [`packages/novapolis_common/README.md`](packages/novapolis_common/README.md) - Einstieg in die gemeinsame Paketlage ausserhalb der vier Hauptmodule.
 
 Reader-Surface-Grenze
 ---------------------

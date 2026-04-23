@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
+stand: 2026-04-23 19:03
 update: Phase-2-Konsistenzlauf zieht den Dev-Hub auf repo-relative Referenzen und einen einheitlichen Root-Wrapper-Rahmen nach.
-checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:23)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
 ---
 
 Novapolis Dev Hub
@@ -32,6 +32,7 @@ Primary Docs
 - `docs/donelog.md` - tägliche Fortschritte und Beschlüsse
 - `docs/todo.index.md` - TODO-Index (Navigation zu Modul-Boards)
   - Module: Dev `docs/todo.dev.md`, RP `docs/todo.rp.md`, Agent `docs/todo.agent-board.md`, Sim `docs/todo.sim.md`
+- `docs/process/workspace-audit-segmente.ssot.md` - kanonische Zerlegung des Gesamt-Workspaces in feste Pruefsegmente fuer kuenftige Audits
 - `.github/copilot-instructions.md` - Arbeitsweise, Stil, Sicherheitsleitplanken (SSOT)
 - `docs/naming-policy.md` - verbindliche Dateibenennung im Verbund
 - `docs/tests.md` - Testabdeckung und Sim-/Client-Checkliste

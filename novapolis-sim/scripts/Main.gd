@@ -6,6 +6,7 @@ const AgentRegistryStateControllerRef = preload("res://scripts/agent_registry_st
 const AgentRestpointSummaryControllerRef = preload("res://scripts/agent_restpoint_summary_controller.gd")
 const AgentStudioControllerRef = preload("res://scripts/agent_studio_controller.gd")
 const AgentFormControllerRef = preload("res://scripts/agent_form_controller.gd")
+const AgentFormWorkflowControllerRef = preload("res://scripts/agent_form_workflow_controller.gd")
 const AgentFormSessionControllerRef = preload("res://scripts/agent_form_session_controller.gd")
 const AgentRuntimeControllerRef = preload("res://scripts/agent_runtime_controller.gd")
 const HubServerOpsControllerRef = preload("res://scripts/hub_server_ops_controller.gd")
@@ -276,6 +277,7 @@ var _agent_registry_state_controller = AgentRegistryStateControllerRef.new()
 var _agent_restpoint_summary_controller = AgentRestpointSummaryControllerRef.new()
 var _agent_studio_controller = AgentStudioControllerRef.new()
 var _agent_form_controller = AgentFormControllerRef.new()
+var _agent_form_workflow_controller = AgentFormWorkflowControllerRef.new()
 var _agent_form_session_controller = AgentFormSessionControllerRef.new()
 var _agent_runtime_controller = AgentRuntimeControllerRef.new()
 var _hub_server_ops_controller = HubServerOpsControllerRef.new()
@@ -2926,7 +2928,8 @@ func _run_rp_auto_advance(force: bool) -> void:
 
 
 func _open_agent_form(kind: String) -> void:
-	var form_state := _agent_form_session_controller.open_form(
+	var form_state := _agent_form_workflow_controller.open_form(
+		_agent_form_session_controller,
 		_agent_form_controller,
 		kind,
 		{
@@ -2943,58 +2946,41 @@ func _open_agent_form(kind: String) -> void:
 
 
 func _on_agent_form_mode_selected(index: int) -> void:
-	if not _agent_form_session_controller.select_mode(_agent_form_controller, index):
+	if not _agent_form_workflow_controller.select_mode(_agent_form_session_controller, _agent_form_controller, index):
 		return
 	_refresh_agent_form_ui()
 
 
 func _on_agent_form_target_selected(index: int) -> void:
-	if not _agent_form_session_controller.select_target(_agent_form_controller, index):
+	if not _agent_form_workflow_controller.select_target(_agent_form_session_controller, _agent_form_controller, index):
 		return
 	_refresh_agent_form_ui()
 
 
 func _on_agent_form_apply_pressed() -> void:
-	var form_kind := _agent_form_session_controller.form_kind()
-	if form_kind == "":
+	var workflow_result := _agent_form_workflow_controller.apply_form(
+		_agent_form_session_controller,
+		_agent_authoring_payload_controller,
+		_agent_authoring_payload_state(),
+		_agent_authoring_persistence_controller,
+		_agent_authoring_persistence_state(),
+		_agent_runtime_controller,
+		_agent_runtime_state(),
+		agent_form_name_edit.text
+	)
+	var workflow_status := str(workflow_result.get("form_status_text", "")).strip_edges()
+	if workflow_status != "":
+		agent_form_status_label.text = workflow_status
+	var result_any = workflow_result.get("result", {})
+	if typeof(result_any) != TYPE_DICTIONARY:
 		return
-	var payload_result := _agent_authoring_payload_controller.build_form_payload(_agent_authoring_payload_state())
-	var payload_updates_any = payload_result.get("updates", {})
-	if typeof(payload_updates_any) == TYPE_DICTIONARY:
-		var payload_updates: Dictionary = payload_updates_any
-		if payload_updates.has("form_status_text"):
-			agent_form_status_label.text = str(payload_updates.get("form_status_text", agent_form_status_label.text))
-	var payload_any = payload_result.get("payload", {})
-	if typeof(payload_any) != TYPE_DICTIONARY:
+	var result: Dictionary = result_any
+	var pipeline := str(workflow_result.get("pipeline", "")).strip_edges()
+	if pipeline == "persistence":
+		_apply_agent_authoring_persistence_result(result)
 		return
-	var payload: Dictionary = payload_any
-	if payload.is_empty():
-		return
-	if form_kind == "datasets":
-		_apply_dataset_form_payload(payload)
-		return
-
-	if form_kind == "synonyms":
-		_apply_synonym_form_payload(payload)
-		return
-
-	if form_kind == "finetune":
-		_apply_finetune_form_payload(payload)
-		return
-
-	if form_kind == "profiles":
-		_apply_profile_form_payload(payload)
-		return
-
-	if form_kind == "advanced":
-		_apply_advanced_settings_form_payload(payload)
-		return
-
-	if form_kind == "jobs":
-		_apply_jobs_form_payload(payload)
-		return
-
-	agent_form_status_label.text = "Form: Unbekannter Form-Typ"
+	if pipeline == "runtime":
+		_apply_agent_runtime_result(result)
 
 
 func _apply_dataset_form_payload(payload: Dictionary) -> void:

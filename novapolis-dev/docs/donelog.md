@@ -1,8 +1,29 @@
 ---
-stand: 2026-04-23 16:50
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich den geschlossenen Agent-Release-Gate-Schnitt und vier repo-seitig geschlossene Sim-Reste.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
+stand: 2026-04-23 19:03
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich den geschlossenen letzten Sim-Rest ueber den Godot-Resolver-Fallback im Headless-Verify.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
 ---
+Sim: Headless-Verify ueber laufende Godot-Binary wieder gruen (2026-04-23 18:34)
+-----------------------------------------------------------------------------
+
+- `scripts/run_sim_headless_verify.py` erkennt unter Windows jetzt auch den Pfad eines bereits laufenden lokalen Godot-Prozesses ueber `pwsh` oder `powershell` und nutzt ihn als Resolver-Fallback hinter `GODOT_BIN`, `godot4` und `godot`.
+- Der kanonische Task `Checks: sim headless verify` loest im aktuellen Workspace-Kontext damit automatisch `F:\Downloads\Godot\Godot_v4.6.1-stable_win64.exe` auf und endet wieder mit `SIM_VERIFY: OK` statt am frueheren Exit `2`.
+- `novapolis_agent/tests/scripts/test_run_sim_headless_verify.py` sichert denselben Fallback mit zwei fokussierten Unit-Tests ab. Damit stehen die Modul-Boards wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
+
+Workspace: Feste Audit-Segmente fuer den Gesamt-Workspace eingefuehrt (2026-04-23 18:27)
+-------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/workspace-audit-segmente.ssot.md` teilt den Workspace jetzt erstmals kanonisch in sieben wiederverwendbare Pruefsegmente: Root-Steuerflaeche, Shared Tooling/Pakete, Dev-Hub, Agent, RP, Sim sowie historische/generierte Flaechen.
+- `README.md`, `WORKSPACE_INDEX.md` und `novapolis-dev/README.md` fuehren denselben Auditrahmen jetzt direkt in ihrer Navigationsoberflaeche mit, sodass kuenftige Workspace-Pruefungen nicht mehr ad hoc, sondern gegen denselben festen Zuschnitt laufen.
+- Erster Iststand: keine zweite konkurrierende Audit-SSOT gefunden; die Root-/Dev-Navigation ist jetzt auf denselben neuen Pruefpfad verdrahtet. Als verbleibender Segmentrest bleibt weiter `W6` offen, weil der Headless-Verify des Sim-Projekts auf dem aktuellen Tunnel-Host nicht lokal belegbar ist.
+
+Sim: Agent-Form-Workflow aus Main.gd in eigenen Controller gezogen (2026-04-23 17:39)
+------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/agent_form_workflow_controller.gd` uebernimmt jetzt das branchige Open/Select/Apply-Routing fuer `datasets`, `synonyms`, `finetune`, `profiles`, `advanced` und `jobs`.
+- `novapolis-sim/scripts/Main.gd` reicht fuer denselben Agent-Studio-Formpfad jetzt nur noch Session-, Payload-, Persistence- und Runtime-State in den neuen Controller hinein, nimmt das Pipeline-Ergebnis entgegen und bleibt bei UI-Refresh plus Result-Anwendung.
+- `get_errors` bleibt fuer `Main.gd`, `agent_form_workflow_controller.gd` und `agent_form_session_controller.gd` ohne Befund. Der formale Board-Abschluss bleibt dennoch offen, weil `Checks: sim headless verify` weiterhin mit `Could not resolve a Godot executable` auf Exit `2` faellt. Der Modulstand bleibt damit `Dev=0`, `RP=0`, `Agent=0`, `Sim=1`.
+
 Agent: Gemeinsamen Release-Gate-Pfad vor Export und LoRA eingezogen (2026-04-23 16:38)
 ---------------------------------------------------------------------------------------
 

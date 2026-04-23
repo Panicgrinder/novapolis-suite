@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 16:50
-update: Der TODO-Index steht jetzt bei `Agent=0` und `Sim=1`; nur der Godot-Headless-Verify bleibt an einer fehlenden lokalen Binary blockiert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
+stand: 2026-04-23 19:03
+update: Der TODO-Index steht nach dem Verdrahtungsnachzug der W2/W5-Segment-Checks wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -15,7 +15,7 @@ TODO-Index (Novapolis-Dev)
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 0)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
-- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 1)
+- Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
 
 Statushinweise (aktuell)
@@ -23,13 +23,13 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` ist nach der Archivierung des abgeschlossenen April-Blocks wieder als schlanke Live-Oberflaeche vorbereitet und fuehrt aktuell keine offenen suiteweiten Querschnittspunkte. Der zuletzt abgeschlossene Root-Block liegt unter `novapolis-dev/archive/todo.root.archive.md`; der naechste Hygiene-Takt fuer KPI-/Boardpflege bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` und die aktuellen Root-Protokolle verankert, waehrend Root bewusst ausserhalb der Modul-Open-Counts bleibt.
 
-- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt nach dem konservativeren CPU-Schonpfad und dem gezielten Stilnachzug aktuell wieder keine offenen Steuerpunkte mehr. Der Auto-Modus von `scripts/run_with_cpu_limit.py` nutzt lokal jetzt standardmaessig nur noch `2` logische CPUs; der frische Full-Check bleibt im expliziten 1-CPU-Schonmodus vollstaendig PASS, und der separate Coverage-Lauf liegt weiter bei `96.16%`.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Steuerpunkte mehr. Der im ersten segmentierten Workspace-Audit gefundene Verdrahtungsrest ist geschlossen: `.vscode/tasks.json` fuehrt jetzt die kanonischen Einstiege fuer `Checks: scripts layout`, `Checks: rp current-state gate`, `Checks: rp consistency`, `Checks: rp hard gates`, `Checks: rp staging tag coverage` und `Backups: update manifest`.
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt aktuell keine offenen Punkte mehr. Der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Provenienz fehlen; im aktuellen Repo-Stand scheitert derselbe Direktlauf erwartungsgemaess an `missing rp_content results` statt ungeguardet in Training zu laufen.
 
 - RP: `novapolis-dev/docs/todo.rp.md` fuehrt nach der Metro-Verdichtung aktuell keine offenen Punkte mehr. `Warenueberblick-T0.md`, das Arbeitsledger und die Matrix aggregieren jetzt evidence-first nur noch die belegten D5/C6-Aufbaupfade, den Haendlerbund-Korridor `G7 <-> C6` und die T0-Bandbreiten der uebrigen externen Fraktionen; neutrale Stationslager und Weltsummen bleiben explizit offen.
 
-- Sim: `novapolis-dev/docs/todo.sim.md` fuehrt jetzt nur noch einen offenen Punkt. `export_presets.cfg`, der neue Export-Smoke-Wrapper, der minimale Vollstand unter `novapolis-sim/data/epochs/epoch01/` und der statische Hub-Prefs-Contract-Check sind repo-seitig geschlossen und validiert; formal offen bleibt nur noch `Checks: sim headless verify`, weil in diesem Windows-Kontext weiterhin keine Godot-Binary ueber `GODOT_BIN`, `godot4`, `godot` oder typische Installationsorte aufloesbar ist.
+- Sim: `novapolis-dev/docs/todo.sim.md` fuehrt aktuell keine offenen Punkte mehr. `scripts/run_sim_headless_verify.py` loest im aktuellen Windows-Kontext jetzt auch den Pfad eines laufenden lokalen Godot-Prozesses auf; `Checks: sim headless verify` endet damit wieder mit `SIM_VERIFY: OK` statt am frueheren Exit `2`.
 
 - Historische Zwischenstaende und offene Uebergangsphasen bleiben im Dev-DONELOG dokumentiert; der TODO-Index fuehrt absichtlich nur noch den aktuellen Board- und Gate-Stand.
 
@@ -41,7 +41,7 @@ Board-Metadaten (automationsrelevant)
 | Dev (`docs/todo.dev.md`) | 2026-04-20 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-04-20 | keiner (offen: 0) | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-04-23 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-04-20 | - [ ] [Jetzt] Den verbliebenen Agent-Studio-/Form-State-Rest aus `Main.gd` in denselben Controller-Schnitt ziehen wie die uebrigen Hub-Pfade. | nein |
+| Sim (`docs/todo.sim.md`) | 2026-04-23 | keiner (offen: 0) | nein |
 
 
 Hinweise (Index)

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-20 21:22
-update: Das Dev-Board fuehrt nach dem konservativeren CPU-Schonpfad und dem gezielten Stilnachzug wieder keine offenen Steuerpunkte; der Wochenabschluss ist im Schonmodus erneut gruen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md; snapshot-lock PASS (2026-04-20 21:22)
+stand: 2026-04-23 19:03
+update: Das Dev-Board fuehrt nach dem Nachzug der kanonischen W2/W5-Taskeinstiege wieder keine offenen Steuerpunkte mehr.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,6 +23,11 @@ Offene Aufgaben (Dev)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Workspace-Audit-Segmente `W2` und `W5` auf kanonische Task- oder Sammelcheck-Einstiege ziehen.
+  - Ziel: Bereits vorhandene Governance- und Audit-Skripte sollen nicht nur lose im Repo liegen, sondern ueber dieselben kanonischen Einstiege erreichbar sein wie die uebrigen Workspace-Checks.
+  - Evidenz: Der erste segmentierte Workspace-Auditlauf 2026-04-23 zeigte fuer `W2` und `W5` eine Verdrahtungsluecke: die Skripte `scripts/check_scripts_layout.py`, `scripts/check_current_state_gate.py`, `scripts/check_rp_hard_gates.py`, `scripts/checks_rp_consistency.py`, `scripts/check_rp_staging_tag_coverage.py` und `scripts/update_backups_manifest.py` existierten bereits unter `scripts/`, hatten aber noch keinen kanonischen Einstieg in `.vscode/tasks.json`.
+  - Ergebnis 2026-04-23 18:53: `.vscode/tasks.json` fuehrt jetzt die kanonischen Einstiege `Checks: scripts layout`, `Checks: rp current-state gate`, `Checks: rp consistency`, `Checks: rp hard gates`, `Checks: rp staging tag coverage` sowie `Backups: update manifest`. Der direkte Validierungslauf derselben W2/W5-Kommandos ist gruen: `check_current_state_gate.py`, `checks_rp_consistency.py`, `check_rp_hard_gates.py` und `check_rp_staging_tag_coverage.py` sind PASS; `check_scripts_layout.py` bleibt auf sauberem Arbeitsbaum unauffaellig. Der Steuerpunkt ist damit geschlossen.
 
 - [x] [Jetzt] Den Wochenabschluss-Schonpfad fuer `Checks: full` und verwandte Wrapper-Laeufe konservativer ziehen und den verbliebenen Stilrest ohne erneuten Voll-Lastlauf schliessen.
   - Ziel: Der kanonische Full-Check soll auf dem aktuellen lokalen System nicht wieder CPU- und RAM-Spitzen bis an die Systemgrenze verursachen; zugleich soll der bereits vorliegende FAIL-Lauf ohne neuen teuren Vollscan nur noch ueber die verbliebenen Stilreste geschlossen werden.

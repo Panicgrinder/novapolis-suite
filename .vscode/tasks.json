@@ -177,6 +177,72 @@
       "problemMatcher": []
     },
     {
+      "label": "Checks: scripts layout",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\check_scripts_layout.py"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Checks: rp current-state gate",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\check_current_state_gate.py"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Checks: rp consistency",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\checks_rp_consistency.py"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Checks: rp hard gates",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\check_rp_hard_gates.py"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Checks: rp staging tag coverage",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\check_rp_staging_tag_coverage.py"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backups: update manifest",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["${workspaceFolder}\\scripts\\update_backups_manifest.py", "${workspaceFolder}\\Backups"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
       "label": "Checks: sim epoch assets",
       "type": "process",
       "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
