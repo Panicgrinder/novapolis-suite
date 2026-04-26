@@ -1,8 +1,115 @@
 ---
-stand: 2026-04-26 21:23
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich den Figuren-Guard fuer Mara Quell und eine kleine Labor-/Review-Matrix fuer RP-Fortsetzung, Promotion und spaetere Trainingsableitung.
-checks: snapshot-lock PASS (2026-04-26 21:23)
+stand: 2026-04-27 01:53
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich Arkologies konservatives Sozialmodell T0 fuer Population, Bildung und Alltagsspannung.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
 ---
+RP-Sozialmodell: Arkologie-A1 mit konservativem Bevoelkerungsmodell und Alltagsdoktrin nachgezogen (2026-04-27 01:44)
+------------------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/arkologie-a1/00-doctrine/arkologie-a1-sozialmodell-t0.md](novapolis-rp/database-rp/01-factions/arkologie-a1/00-doctrine/arkologie-a1-sozialmodell-t0.md) fuehrt jetzt den zentralen Arbeitsanker fuer Arkologies Soziallesart: kein harter Zensus, sondern ein konservatives Stationsverhaeltnis `A1 > A5 > A3`, offene Bildung mit leistungsbezogener Zuteilung und spielbare Konfliktlinien zwischen Prestigezentrum und Betriebsarmen.
+- [novapolis-rp/database-rp/01-factions/arkologie-a1/Arkologie-A1.md](novapolis-rp/database-rp/01-factions/arkologie-a1/Arkologie-A1.md) sowie [novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A1.md](novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A1.md), [novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A3.md](novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A3.md) und [novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A5.md](novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A5.md) verweisen denselben Sozialanker jetzt direkt aus Fraktions- und Ortssicht.
+- [novapolis-rp/database-rp/01-factions/arkologie-a1/00-doctrine/README.md](novapolis-rp/database-rp/01-factions/arkologie-a1/00-doctrine/README.md) fuehrt das neue Sozialmodell im Doctrine-Index mit, damit Bildung, Zuteilung, Bevoelkerungsverteilung und Alltagskonflikt nicht als Streuwissen im Repo verbleiben.
+
+RP-Soziallesart: Arkologie-A1 mit offener Bildung und betrieblicher Rollenverteilung nachgezogen (2026-04-27 01:39)
+-----------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/arkologie-a1/Arkologie-A1.md](novapolis-rp/database-rp/01-factions/arkologie-a1/Arkologie-A1.md) fuehrt jetzt explizit, dass Arkologie-A1 Bildung und fachliche Schulung hoch gewichtet, den Zugang formal offen haelt und Zuteilung vor allem ueber Wissen, Leistung, Eignung und Freigabefaehigkeit liest, ohne kleinere Korruptions- und Netzwerkeffekte auszublenden.
+- [novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A1.md](novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A1.md) fuehrt A1 jetzt als Schwerpunkt von Lehre, Forschung, Archiv und dichter Kernbevoelkerung; [novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A3.md](novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A3.md) und [novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A5.md](novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A5.md) lesen ihre Bevoelkerung dagegen bewusst als Pruef-, Sicherungs-, Versorgungs- und Wartungsarme fuer den Betrieb von A1.
+- Die Arkologie bleibt damit als funktional kontrollierter Dreistationskern lesbar, ohne drei gleich dichte Macht- oder Siedlungszentren behaupten zu muessen; die innere Spannung entsteht jetzt sichtbar aus Bildungs- und Prestigeschwerpunkt in A1 bei realer Betriebslast in A3 und A5.
+
+RP-Umfeld: Arkologie-A1-Nahraum bis Ring 2 und naechstem Fremdkorridor nachgezogen (2026-04-27 01:24)
+----------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/arkologie-a1/00-doctrine/arkologie-a1-nahraum-t0.md](novapolis-rp/database-rp/01-factions/arkologie-a1/00-doctrine/arkologie-a1-nahraum-t0.md) fuehrt jetzt den Arkologie-Nahraum konservativ bis zwei Stationsschritte aus: Kerngebiet `A1/A3/A5`, erster Ring `A2/A4/B5`, zweiter Ring `B1/A6/C5` und der naechste belegte Fremdfraktionskorridor Richtung `B2`.
+- [novapolis-rp/database-rp/03-locations/A6.md](novapolis-rp/database-rp/03-locations/A6.md) und [novapolis-rp/database-rp/03-locations/C5.md](novapolis-rp/database-rp/03-locations/C5.md) wurden als fehlende Zweitring-Orte angelegt; [novapolis-rp/database-rp/03-locations/A4.md](novapolis-rp/database-rp/03-locations/A4.md) und [novapolis-rp/database-rp/03-locations/B5.md](novapolis-rp/database-rp/03-locations/B5.md) fuehren ihre Anschlusskanten jetzt wieder vollstaendig.
+- [novapolis-rp/database-rp/01-factions/arkologie-a1/Arkologie-A1.md](novapolis-rp/database-rp/01-factions/arkologie-a1/Arkologie-A1.md) und [novapolis-rp/database-rp/01-factions/arkologie-a1/00-doctrine/README.md](novapolis-rp/database-rp/01-factions/arkologie-a1/00-doctrine/README.md) verlinken den neuen Nahraumanker direkt aus dem Fraktionskern heraus.
+
+RP-Ledger: Arkologie-A1 mit Kerngebiet A1-A3-A5 nachgezogen (2026-04-27 01:14)
+-----------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A3.md](novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A3.md) und [novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A5.md](novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A5.md) existieren jetzt als fehlende Orts-SSOTs fuer den belegten Arkologie-Kern; [novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A1.md](novapolis-rp/database-rp/01-factions/arkologie-a1/03-locations/A1.md) fuehrt denselben Dreistationskern jetzt verlinkt mit.
+- [novapolis-rp/database-rp/03-locations/A4.md](novapolis-rp/database-rp/03-locations/A4.md) und [novapolis-rp/database-rp/03-locations/B5.md](novapolis-rp/database-rp/03-locations/B5.md) wurden im selben Lauf als fehlende neutrale Pufferorte angelegt, damit die neuen Arkologie-Verbindungen nach `A3 -> A4` und `A5 -> B5` nicht nur behauptet, sondern repo-seitig valide referenzierbar sind.
+- [novapolis-rp/database-rp/01-factions/arkologie-a1/Arkologie-A1.md](novapolis-rp/database-rp/01-factions/arkologie-a1/Arkologie-A1.md) und [novapolis-rp/database-rp/01-factions/arkologie-a1/04-inventory/Arkologie-inventar.md](novapolis-rp/database-rp/01-factions/arkologie-a1/04-inventory/Arkologie-inventar.md) fuehren Arkologie-A1 jetzt explizit als Kerngebiet `A1/A3/A5` mit Leit-, Validierungs- und Versorgungsfunktion statt als impliziten Ein-Station-Sockel.
+- [novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md](novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md) und [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) aggregieren denselben Dreistationskern jetzt auch auf Arbeits- und T0-Ebene.
+
+RP-Ledger: Schienenbund mit Stationssockel und Instandsetzungsanker nachgezogen (2026-04-27 01:05)
+-------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md](novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md) fuehrt jetzt B2 explizit als aktiven Stationssockel mit Betriebslager, kontrolliertem Transit-/Freigabelager und lokaler Instandsetzungsnahe.
+- [novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md](novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md) zieht denselben Schienenbund-Pfad im Rahmenwert- und Rollenmatrixblock nach: Lager und kleine Produktionsnahe sind fuer B2 jetzt explizit erlaubt, waehrend freie Fabrik- oder Vollsortimentslogik weiter ausgeschlossen bleibt.
+
+RP-Ledger: Rollenbasierte Promotionsmatrix fuer externe Fraktionen nachgezogen (2026-04-27 01:02)
+--------------------------------------------------------------------------------------------------
+
+- [novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md](novapolis-dev/docs/process/rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md) fuehrt jetzt eine rollenbasierte Promotionsmatrix fuer Arkologie-A1, Schienenbund, Haendlerbund, Eisenkonklave, Schattenbund und Fluesterkollektiv.
+- Der neue Block trennt fuer jede Fraktion zwischen aktuellem Sockel, Rollenanker, passendem naechstem Promotionspfad und explizitem Nicht-Ziel, damit kuenftige Nachzuege nicht aus allen Fraktionen dieselbe Lagerlogik machen.
+- Die empfohlene Reihenfolge priorisiert zuerst rollennahe Ausbaupfade: Schienenbund ueber Infrastruktur-/Reparaturkorridor, danach Arkologie-A1 oder Eisenkonklave ueber kontrollierte Freigabefenster; Schattenbund und Fluesterkollektiv bleiben vorerst bewusst auf indirekteren Kontakt- und Signalpfaden.
+
+RP-Inventar: C6-Stagingpfad zwischen Empfang und Baustellenabgang explizit gezogen (2026-04-27 00:51)
+----------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md) fuehrt jetzt den belegten Zwischenpfad `Eintreffen -> Bestandsaufnahme -> C6-Staging -> spaeterer Baustellenabgang` explizit, ohne freie Itemmengen fuer Schleuse, Lagerhalle oder Zielcharge zu behaupten.
+- [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md) fuehrt denselben D5->C6-Transfer jetzt deckungsgleich als C6-Stagingprozess statt als direkten Sprung von Empfang zu Baustellenverteilung.
+
+RP-Inventar: Nordlinie-Turn-7-Abgang und Draisine-Werkstattbindung konkret gebucht (2026-04-27 00:44)
+-------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md) fuehrt jetzt echte D5-Reststaende nach dem kleinen Nordlinie-Turn-7-Abgang sowie nach der aktuellen Draisine-Werkstattbindung.
+- [novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md), [novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md) und [novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md) fuehren denselben kleinen Turn-7-Stuetzsatz jetzt klassenweise mit Transfer, Einsatz und Tunnelrest statt nur als narrativen Behelfssatz.
+- [novapolis-rp/database-rp/01-factions/novapolis/05-projects/Draisine-Transportmodul.md](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Draisine-Transportmodul.md) fuehrt jetzt eine konkrete kleine Werkstattbindung aus D5 fuer den Prototyp; derselbe Abgang ist in [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md) als Fraktionsbuchung verdichtet.
+- [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) liest damit Nordlinie und Draisine nicht mehr nur als Druckbild, sondern fuer den aktuellen Kleinrahmen auch als konkrete Projektbuchung.
+
+RP-Inventar: Verbrauch fuer beide Stationen und offene Projekte nachgezogen (2026-04-27 00:06)
+---------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md) fuehrt jetzt einen konservativen Verbrauchsrahmen fuer D5-Basisbetrieb sowie den kombinierten Werkstattdruck aus Nordlinie und Draisine.
+- [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md) fuehrt jetzt einen konservativen Verbrauchsrahmen fuer den Stationsbetrieb mit `27` Personen sowie den Nordlinie-Druck auf Reserve- und Einsatzgueter.
+- [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md) buendelt denselben Verbrauch jetzt fraktionsweit ueber beide Stationen plus die offenen Projekte [Nordlinie-01](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md) und [Draisine-Transportmodul](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Draisine-Transportmodul.md).
+- [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) spiegelt dieselbe Lage als T0-Operativbild: D5 begrenzt-stabil, C6 knapp, Nordlinie hoher Materialverbrauch, Draisine kleiner technischer Nebenverbrauch.
+
+RP-Inventar: Bestehenden Warenindex erweitert und konservative D5-/C6-Istbestaende nachgezogen (2026-04-26 22:31)
+-------------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) war bereits vorhanden und wurde nur um die aktuell fehlenden Klassen erweitert: Nordlinie-Stuetzbaukasten sowie schlanke Evakuierungs-/Stationsgueter fuer C6.
+- [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md) fuehrt jetzt einen konservativ generierten aktuellen Stationsbestand, der D5 als lange verriegelten Kernstandort mit relativ intaktem Altbestand, aber ohne breite Marktbequemlichkeit liest.
+- [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md) fuehrt jetzt zusaetzlich die definierte Evakuierungsmitnahme aus E3 und einen angespannten aktuellen C6-Arbeitsbestand fuer 27 Personen.
+- [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) spiegelt dieselbe Lage als T0-Ueberblick: D5 begrenzt, aber arbeitsfaehig; C6 knapp und priorisierungsbeduerftig.
+
+RP-SSOT: Nordlinie-Stuetzbaukasten vor weiterem Warenfluss explizit festgezogen (2026-04-26 22:07)
+------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md) definiert `Stuetzelemente` jetzt als komponentenbasierten Baukasten aus Profilen, Formteilen und Verbindungsmitteln statt als pauschalen Lagerposten.
+- [novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md) und [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md) fuehren dieselbe Lesart jetzt mit; offen bleiben weiter die zaehlbaren Klassenmengen und der Restbestand nach Runtime-Teilbereitstellung.
+- [novapolis-dev/docs/todo.rp.md](novapolis-dev/docs/todo.rp.md), [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) und [.github/agents/novapolis-rp-szenenlabor.agent.md](.github/agents/novapolis-rp-szenenlabor.agent.md) ziehen denselben Guard nach: Materialarten zuerst festziehen, dann erst weitere Warenbewegung narrativ oder runtime-seitig vergroessern.
+
+RP-Governance: Mengen- und Restbuchung fuer Runtime-Warenfluss als offener Evidenzpunkt nachgezogen (2026-04-26 22:07)
+---------------------------------------------------------------------------------------------------------------
+
+- [novapolis-dev/docs/todo.rp.md](novapolis-dev/docs/todo.rp.md) fuehrt jetzt wieder genau einen offenen RP-Punkt: Die Nordlinie-Teilbereitstellung aus Turn 7 ist als realer Warenfluss belegt, aber noch nicht als belastbare Mengen- und Restbuchung geschlossen.
+- [.github/agents/novapolis-rp-szenenlabor.agent.md](.github/agents/novapolis-rp-szenenlabor.agent.md) beschreibt dafuer jetzt explizit, wann die Formulierung `ohne harte Mengen- oder Restbuchung` zu verwenden ist und welche Evidenz mindestens vorliegen muss, bevor ein Transfer als belastbar gebucht gilt.
+- [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) ist im selben Lauf auf `RP=1` synchronisiert, damit Board, Index und Agent denselben offenen Nachzug fuehren.
+
+Workspace-Agenten: RP-Szenenlabor auf Admin-Loop und vollen Runtime-Datenabgleich nachgezogen (2026-04-26 21:54)
+---------------------------------------------------------------------------------------------------------
+
+- `.github/agents/novapolis-rp-szenenlabor.agent.md` fuehrt jetzt den festen Ablauf `Turn -> Admin-Auswertung -> Bestaetigung -> Admin-Freigabe` als Standard ein, statt freie Mehrturn-Fortsetzung zu erlauben.
+- Derselbe Agent liest bei Admin-Rueckmeldungen kuenftig verpflichtend die betroffenen Runtime-Dateien zu Session, State, Inventar, Beziehungen und Figuren erneut ein; Warenfluss und Beziehungsaenderungen sind damit explizite Pflichtachsen statt impliziter Nebenpfad.
+- Die Tool-Freigabe des RP-Agenten ist auf `read`, `search`, `edit` und `execute` gehoben, damit er Rueckmeldungen nicht nur textlich bestaetigt, sondern bei Bedarf auch validieren und Laufzeitdaten belastbar nachziehen kann.
+
+RP-Runtime: Nordlinie Turn 7 mit erster kleiner D5-Teilbereitstellung fortgefuehrt (2026-04-26 21:44)
+-----------------------------------------------------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt jetzt Turn 7: D5 bringt erstmals einen kleinen Behelfssatz fuer markierte Schwachzonen in den Tunnelzug, ohne daraus einen falschen Reparaturdurchbruch zu machen.
+- `novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md` und `novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md` spiegeln denselben Stand als Runtime-Typdaten: reale, aber eng begrenzte Teilbereitstellung; Schweißgeraet und `DN60` bleiben die harten Hauptblocker.
+- Der Hauptweltpfad gewinnt damit einen belastbaren naechsten Anschluss fuer weiteres Bespielen unter Laborbedingungen, ohne Kanon, Mengenlage oder Fortschrittsgrad unnoetig aufzublaehen.
+
+RP-Runtime: Nordlinie mit enger D5-Werkstattantwort fortgesetzt (2026-04-26 21:24)
+-----------------------------------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt jetzt einen weiteren Folgezug: D5 beantwortet die gegliederte Bedarfsskizze nicht mit einem Vollerfolg, sondern mit einer schmalen Werkstattvorbereitung fuer Stuetzelemente, waehrend Schweißgeraet und Adapter `DN60` weiter die harten Hauptblocker bleiben.
+- `novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md` und `novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md` spiegeln denselben Laborstand jetzt typisiert mit: vorbereitete Stuetzelemente sind als enger Werkstattpfad lesbar, aber noch nicht als echte Teilbereitstellung oder Mengenbuchung promotable.
+- Der Hauptweltpfad bleibt damit konsistent auf Nordlinie D5-C6, gewinnt aber einen engeren naechsten Anschluss fuer weitere Laborzuege, ohne den Materialmangel oder die SSOT-Grenzen weichzuzeichnen.
+
 RP-Runtime: Figuren-Guard und Labor-/Review-Matrix fuer weitere Datensammlung eingezogen (2026-04-26 21:17)
 -----------------------------------------------------------------------------------------------------------
 

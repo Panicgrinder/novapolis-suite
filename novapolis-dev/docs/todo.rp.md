@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-20 21:22
-update: Das RP-Board fuehrt nach dem geschlossenen D5->C6-Warenledger-Nachzug jetzt noch drei offene Punkte fuer Delta-Split und Metro-Verdichtung.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md
+stand: 2026-04-27 01:53
+update: Das RP-Board fuehrt weiter genau einen offenen Punkt; fuer den Nordlinie-Warenzug sind jetzt allgemeiner Warenindex, D5-/C6-Istbestand und Mengen-/Restbuchung gemeinsam als ein Evidenzpfad gebuendelt.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -23,7 +23,17 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (RP)
 --------------------
 
-- Derzeit keine offenen RP-Aufgaben im aktiven Board.
+- [ ] [Jetzt] Runtime-Warenfluss im Nordlinie-Laborpfad von narrativer Teilbereitstellung auf belastbare Mengen- und Restbuchung heben.
+  - Ziel: Der kleine D5->Tunnel-Behelfssatz aus dem Nordlinie-Laborpfad soll nicht nur als erzaehlte Teilbereitstellung lesbar sein, sondern als nachvollziehbarer Warenfluss mit belastbarer Mengen- und Restlogik.
+  - Akzeptanzkriterien:
+    1) [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) fuehrt die benoetigten Gueterklassen fuer den Nordlinie-/Stationspfad explizit und ohne Sammelnebel,
+    2) die Materialarten des Nordlinie-Stuetzbaukastens sind in einer eigenen SSOT als komponentenbasierter Baukasten statt als fertige Lagerstuetzen festgezogen,
+    3) [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md) und [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md) fuehren einen konservativen aktuellen Stationsbestand, der Altbestand, Evakuierungsmitnahme und Fundlage sauber trennt,
+    4) `scene-log.md` und `inventories/d5.md` fuehren denselben Transferanlass und denselben Zielkontext,
+    5) Quelle/Bestandstraeger, Ziel/Verwendung und mindestens eine zaehlbare Groesse pro transferiertem Gut sind benannt,
+    6) Einsatz, Verbrauch und verbleibender Restbestand werden getrennt behandelt statt implizit zusammengeschoben,
+    7) wenn exakte Zahlen weiter fehlen, bleibt die Luecke explizit als offene Evidenz markiert und wird nicht still mit Scheinpraezision gefuellt.
+  - Evidenz: [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) existiert bereits als Katalog-SSOT; [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) modelliert D5/C6 explizit als fruehe Aufbauphase aus `legacy`, `evac_e3` und `scavenged`; [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) und [novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md) belegen fuer Turn 7 eine reale kleine Teilbereitstellung, markieren aber Mengen, Reststatus und Lagerbuchung weiterhin explizit als offen; [novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md) fixiert die Materialarten als Komponentenklassen statt als fertige Stuetze.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
-update: Nordlinie 01 fuehrt jetzt ein startkorridor-taugliches Knowledge-Set und Kernactions fuer den Scheduler-Pfad.
-checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
+stand: 2026-04-27 01:53
+update: Nordlinie 01 fuehrt jetzt zusaetzlich den kleinen Turn-7-Stuetzsatz als konkrete Klassenbuchung mit Einsatz und Rest vor Ort.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
 title: Nordlinie 01 (Tunnel D5-C6)
 category: project
 slug: nordlinie-01
@@ -9,7 +9,7 @@ status: active
 locations: ["d5", "c6", "verbindungstunnel-d5-c6"]
 dependencies: ["novapolis-inventar", "missionslog"]
 version: "1.0"
-last_updated: 2026-02-02T18:40:54+01:00
+last_updated: 2026-04-27T00:44:00+02:00
 tags: []
 ---
 
@@ -23,18 +23,38 @@ Wiederinbetriebnahme des Verbindungstunnels zwischen D5 und C6.
 Phasen
 ------
 1) Aufnahme & Kartierung ✓
-2) Materialbeschaffung (Schweißgerät, Adapter DN60, Stützen)
+2) Materialbeschaffung (Schweißgerät, Adapter DN60, Stuetzbaukasten)
 3) Abschnittsweise Reparatur (Sicherung → Trassen → Tests)
 4) Betriebsaufnahme (Probefahrt/Lasttest)
 
 Aufgabenliste
 -------------
 - [ ] Stückliste finalisieren
+- [ ] Stuetzbaukasten zaehlbar fuehren
 - [ ] Schweißgerät beschaffen/bauen
 - [ ] Adapter DN60 fertigen/beschaffen
 - [ ] Abschnitt A sichern
 - [ ] Abschnitt B Trassen ziehen
 - [ ] Abschlussprüfung/Protokoll
+
+Material- und Buchungsstand (kleiner Turn-7-Satz)
+-------------------------------------------------
+
+| Klasse | Transfer aus D5 | im D5-seitigen Tunnel eingesetzt | Rest vor Ort | Notiz |
+| --- | --- | --- | --- | --- |
+| Metallprofil (mittel) | `2` | `2` | `0` | fuer die tragfaehigeren der zwei beruhigten Stellen |
+| Metallprofil (kurz) | `4` | `3` | `1` | Versteifung und Unterfuetterung |
+| Stuetzklemme | `4` | `4` | `0` | direkte Fixierung an markierten Schwachzonen |
+| Lasche / Knotenblech | `2` | `2` | `0` | Lastverteilung der improvisierten Baugruppen |
+| Ausgleichsplatte | `2` | `1` | `1` | eine Platte als kleiner Tunnelrest fuer die naechste enge Stelle |
+| Schraubensatz (mittel) | `4 Sets` | `3 Sets` | `1 Set` | kontrollierbare Verbindung statt freier Notloesung |
+| Bolzen-Mutter-Satz (stark) | `1 Set` | `1 Set` | `0` | nur fuer den staerkeren Punkt eingesetzt |
+| Klebmasse (schwach) | `1 Kartusche` | `1 Kartusche` | `0` | nur ausrichtend/fixierend, nicht tragend |
+
+Hinweise
+
+- Der Satz bleibt bewusst klein: genug fuer zwei beruhigte Schwachzonen, nicht genug fuer Reparaturdurchbruch oder Leitungsabschluss.
+- `Schweißgeraet` und `Adapter DN60` bleiben weiterhin die eigentlichen Hauptblocker; die Buchung hier schliesst nur die kleine Turn-7-Teilbereitstellung.
 
 Risiken
 -------
@@ -44,6 +64,9 @@ Risiken
 Notizen
 -------
 - Überwachungs-Splitter an C6 liefert Frühwarnungen.
+- `Stuetzen` meint fuer Nordlinie 01 ab jetzt den komponentenbasierten Baukasten aus Profilen, Formteilen und Verbindungsmitteln; siehe [Nordlinie-01-Stuetzbaukasten](./Nordlinie-01-Stuetzbaukasten.md).
+- Im Actions-Block bleibt `stuetzen` vorerst als Legacy-Kurzform stehen, bis Folgesysteme auf `stuetzbaukasten` umgestellt sind.
+- Der kleine Turn-7-Satz ist jetzt konservativ klassenweise gebucht; offen bleiben weitere Folgeabgaenge, Ruecklaeufe und eine vollstaendige chargenscharfe Historie.
 
 Knowledge (24x1h Starter)
 -------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-20 21:22
-update: T0-Ueberblick verdichtet jetzt nur noch belegte Metro-Pfade aus D5/C6, Haendlerbund G7-<->-C6 und den externen T0-Bandbreiten; neutrale Lager und Weltsummen bleiben explizit offen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md
+stand: 2026-04-27 01:53
+update: T0-Ueberblick fuehrt jetzt zusaetzlich Arkologie-A1 als belegten Dreistationskern A1/A3/A5.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
 slug: warenueberblick-t0
 category: Admin
 canvas: warenueberblick-t0
@@ -36,8 +36,9 @@ Lagebild nach Warengruppen (MVP)
 | Energie / Zellen | verfuegbar | knapp | tbd | C6 mit teilaktivem Betrieb |
 | Wasser / Filter | verfuegbar | knapp | tbd | C6-Monitoring als Engpasssignal |
 | Werkzeuge / Reparatur | verfuegbar | verfuegbar | tbd | aus Missions-/Inventarplaenen fortschreiben |
-| Medizin / Erste Hilfe | tbd | tbd | tbd | global noch nicht belastbar zusammengeführt |
-| Nahrung / Verbrauchsgueter | tbd | tbd | tbd | fraktionsseitig nachziehen |
+| Bau / Stuetzmaterial | begrenzt | knapp | tbd | D5 fuehrt kleinen Stuetzbaukasten; C6 bleibt primaer Verbrauchsort |
+| Medizin / Erste Hilfe | begrenzt | knapp | tbd | D5 mit kleiner Basisreserve; C6 unter Evakuierungsdruck |
+| Nahrung / Verbrauchsgueter | begrenzt | knapp | tbd | D5 stabil fuer Kernteam; C6 fuer 27 Personen angespannt |
 
 Fraktionsueberblick T0 (Herkunftslabel)
 ---------------------------------------
@@ -47,7 +48,7 @@ Hinweis: Die Label folgen dem P0-Schema `legacy|evac_e3|scavenged|produced|unkno
 | Fraktion | T0-Warenbild (Bandbreite) | Herkunftslabel (dominant) | Verweis |
 | --- | --- | --- | --- |
 | Novapolis (D5/C6/E3) | Energie/Wasser/Werkzeuge verfuegbar, Medizin/Nahrung teils knapp; D5/C6 bleiben fruehe Aufbauphase mit belegter Transfer- und Verbrauchslogik, aber ohne Marktnormalisierung | legacy, evac_e3, scavenged | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md), [Logistik](./Logistik.md) |
-| Arkologie-A1 | Grundversorgung stabil, Austausch gueter selektiv | produced, legacy | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
+| Arkologie-A1 | Grundversorgung stabil, Austausch gueter selektiv; Kerngebiet `A1/A3/A5` ist jetzt explizit als kontrollierter Dreistationskern lesbar | produced, legacy | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md) |
 | Schienenbund | Logistik-/Reparaturfokus, Verbrauchsgueter variabel | produced, scavenged | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
 | Schattenbund | Versorgung uneinheitlich, Schwerpunkt opportunistische Beschaffung | scavenged, unknown | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
 | Haendlerbund | Umlaufgueter verfuegbar, stationaere Reserven variabel; `G7` bleibt Kontakt-/Umschlagpunkt, `H-47` fuehrt einen belegten G7-<->-C6-Korridor mit aktivem Handelsstuetzpunkt `C6` | legacy, scavenged, produced | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md), [Logistik](./Logistik.md) |
@@ -59,7 +60,19 @@ D5/C6-Modell (fruehe Aufbauphase)
 
 - D5/C6 bleiben in T0 explizit als fruehe Aufbauphase modelliert.
 - Keine impliziten Handelsnormalisierungen: Verfuegbarkeit wird aus Altbestand (`legacy`), Mitnahme (`evac_e3`) und Fund-/Rueckgewinnung (`scavenged`) abgeleitet.
+- D5 bleibt zugaenglich erst nach Ronjas Oeffnung von innen zu lesen; daraus folgt relativ intakter Altbestand bei geringer Handelsdurchmischung.
+- C6 fuehrt zusaetzlich tragbare Evakuierungsmitnahme aus `E3`; das entlastet die Grundversorgung leicht, ersetzt aber keinen stabilen Stationspuffer.
 - Mengenretcons bleiben untersagt, bis belastbare Inventar-/Transferbelege vorliegen.
+
+Verbrauchsrahmen (operativ, konservativ)
+----------------------------------------
+
+| Bereich | Takt | Verbrauchsbild | Lesart |
+| --- | --- | --- | --- |
+| D5 | pro Tag | `3-4` Rationenaequivalente, `1` Wasserkanister; zusaetzlich kleiner Werkstattdruck aus Nordlinie und Draisine | begrenzt, aber relativ stabil |
+| C6 | pro Tag | `8-12` Reserve-Rationen, `1-2` Wasserkanister plus mobile Wasserreserve; Hygiene-/Ersthilfedruck fuer `27` Personen | knapp und priorisierungsbeduerftig |
+| Nordlinie 01 | belegter Bautag plus laufende Sicherungsbloecke | belegt hoher Baustoff- und Werkzeugverschleiss; der kleine Turn-7-Satz ist jetzt konkret als `2x mittel`, `4x kurz`, `4x klemme`, `2x lasche`, `2x ausgleich`, `4x schraubensatz`, `1x bolzen`, `1x klebmasse` gebucht | groesster materielle Projektverbrauch |
+| Draisine-Transportmodul | je Werkstattblock | kleiner, aber stetiger Verbrauch an Schmieroel, Lagerfett, Sicherungen und punktuell Dichtungsmaterial; aktuell konkret gebunden: `1x schmieroel`, `1x lagerfett`, `1x sicherungssatz`, `1x dichtungsmanschette` | technischer Nebenverbrauch, kein Hauptfresser |
 
 Aktive Metro-Pfade (verdichtet)
 -------------------------------
@@ -73,6 +86,7 @@ Statuslegende
 -------------
 
 - `verfuegbar`: einsatzbereit laut belegter Operativlage.
+- `begrenzt`: vorhanden als kleine operative Reserve, aber nicht fuer laengere Entspannung ausreichend.
 - `knapp`: vorhanden, aber priorisierungsbeduerftig.
 - `tbd`: keine belastbare globale Zusammenfuehrung.
 

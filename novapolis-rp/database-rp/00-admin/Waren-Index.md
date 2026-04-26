@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 04:39
-update: "Inhaltlich erweitert: wahrscheinliche Kernbedarfs-Items ergänzt (Medizin/Versorgung/Wartung) und Unique-Handling präzisiert."
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Waren-Index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 04:40); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Waren-Index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 04:40); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 04:40)"
+stand: 2026-04-27 01:53
+update: "Waren-Index erweitert um Nordlinie-Stuetzbaukasten sowie konservative Evakuierungs-/Stationsgueter fuer D5 und C6."
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
 slug: waren-index
 category: Admin
 schemaVersion: 1
@@ -403,6 +403,97 @@ items:
     tags: [technik, druck, wartung]
     seenIn: [missionslog, reference-campaign-state]
     notes: "Nutzbar fuer Pneumatik/Werkzeuge; Logistikbedarf schwankend."
+  - id: metallprofil-lang
+    name: Metallprofil (lang)
+    kind: component
+    unit: stk
+    tags: [stuetzbau, metallprofil, lang]
+    seenIn: [nordlinie-01-stuetzbaukasten, d5-inventar]
+    notes: "Tragendes Laengenteil fuer groessere Spannweiten oder schräge Abstuetzung."
+  - id: metallprofil-mittel
+    name: Metallprofil (mittel)
+    kind: component
+    unit: stk
+    tags: [stuetzbau, metallprofil, mittel]
+    seenIn: [nordlinie-01-stuetzbaukasten, d5-inventar]
+    notes: "Standardprofil fuer die meisten behelfmaessigen Tunnelstuetzen."
+  - id: metallprofil-kurz
+    name: Metallprofil (kurz)
+    kind: component
+    unit: stk
+    tags: [stuetzbau, metallprofil, kurz]
+    seenIn: [nordlinie-01-stuetzbaukasten, d5-inventar]
+    notes: "Kurzteil fuer Versteifung, Querzug oder lokale Unterfuetterung."
+  - id: stuetzklemme
+    name: Stuetzklemme
+    kind: component
+    unit: stk
+    tags: [stuetzbau, klemme, verbindung]
+    seenIn: [nordlinie-01-stuetzbaukasten, d5-inventar]
+    notes: "Schnelle Fixierung und Verspannung an vorbereiteten Punkten."
+  - id: lasche-knotenblech
+    name: Lasche / Knotenblech
+    kind: component
+    unit: stk
+    tags: [stuetzbau, lasche, knotenblech]
+    seenIn: [nordlinie-01-stuetzbaukasten, d5-inventar]
+    notes: "Flaechige Verbindung oder Lastverteilung zwischen Profilen."
+  - id: ausgleichsplatte
+    name: Ausgleichsplatte
+    kind: component
+    unit: stk
+    tags: [stuetzbau, ausgleich, platte]
+    seenIn: [nordlinie-01-stuetzbaukasten, d5-inventar]
+    notes: "Unterlage oder Distanzstueck fuer unruhige Auflagepunkte."
+  - id: klebmasse-schwach
+    name: Klebmasse (schwach)
+    kind: consumable
+    unit: kartusche
+    tags: [stuetzbau, klebmasse, fixierung]
+    seenIn: [nordlinie-01-stuetzbaukasten, d5-inventar]
+    notes: "Nur fuer Ansetzen, Ausrichten oder leichte Fixierung; nie primaere Endverbindung."
+  - id: schraubensatz-mittel
+    name: Schraubensatz (mittel)
+    kind: component
+    unit: set
+    tags: [stuetzbau, schrauben, verbindung]
+    seenIn: [nordlinie-01-stuetzbaukasten, d5-inventar]
+    notes: "Mittlere Sicherung fuer behelfmaessige, kontrollierbare Verbindung."
+  - id: bolzen-mutter-satz-stark
+    name: Bolzen-Mutter-Satz (stark)
+    kind: component
+    unit: set
+    tags: [stuetzbau, bolzen, muttern, verbindung]
+    seenIn: [nordlinie-01-stuetzbaukasten, d5-inventar]
+    notes: "Starke mechanische Verbindung fuer hoeher belastete Baugruppen."
+  - id: notdecke
+    name: Notdecke
+    kind: consumable
+    unit: stk
+    tags: [evakuierung, versorgung, waerme]
+    seenIn: [c6-inventar]
+    notes: "Leichte Waerme-/Notversorgung fuer Evakuierungs- und Schlaflagen."
+  - id: wechselkleidung-set
+    name: Wechselkleidung (Set)
+    kind: consumable
+    unit: set
+    tags: [evakuierung, kleidung, versorgung]
+    seenIn: [c6-inventar]
+    notes: "Konservativer Sammelposten fuer tragbare Ersatzkleidung."
+  - id: hygienepaket-basis
+    name: Hygienepaket (Basis)
+    kind: consumable
+    unit: set
+    tags: [evakuierung, hygiene, versorgung]
+    seenIn: [c6-inventar]
+    notes: "Basispaket aus Waschartikeln und kleinen Pflegeguetern."
+  - id: kochgeschirr-set
+    name: Kochgeschirr (Set)
+    kind: tool
+    unit: set
+    tags: [versorgung, kueche, evakuierung]
+    seenIn: [c6-inventar]
+    notes: "Kleines Koch-/Essgeschirr fuer Schicht- oder Gruppenversorgung."
 ---
 
 Waren-Index (weltweit)
@@ -483,6 +574,19 @@ Kurzübersicht (menschlich lesbar)
 - Kühlmittel (Industrie) [kuehlmittel-industrie]
 - Lagerfett (Technik) [lagerfett-technik]
 - Druckluftkartusche [druckluftkartusche]
+- Metallprofil (lang) [metallprofil-lang]
+- Metallprofil (mittel) [metallprofil-mittel]
+- Metallprofil (kurz) [metallprofil-kurz]
+- Stuetzklemme [stuetzklemme]
+- Lasche / Knotenblech [lasche-knotenblech]
+- Ausgleichsplatte [ausgleichsplatte]
+- Klebmasse (schwach) [klebmasse-schwach]
+- Schraubensatz (mittel) [schraubensatz-mittel]
+- Bolzen-Mutter-Satz (stark) [bolzen-mutter-satz-stark]
+- Notdecke [notdecke]
+- Wechselkleidung (Set) [wechselkleidung-set]
+- Hygienepaket (Basis) [hygienepaket-basis]
+- Kochgeschirr (Set) [kochgeschirr-set]
 
 Links
 -----

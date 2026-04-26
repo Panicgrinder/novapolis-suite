@@ -1,14 +1,14 @@
 ---
-stand: 2026-04-20 21:22
-update: Die fraktionsscharfe Metro-Zuteilungsmatrix ist in ein operatives Arbeitsledger mit Zielpfaden und Updatekette ueberfuehrt.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260420_210436.md
+stand: 2026-04-27 01:53
+update: Das Arbeitsledger fuehrt jetzt zusaetzlich den Arkologie-Kern A1/A3/A5 mit kontrollierter Freigabe- und Versorgungsteilung.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
 ---
 
 RP-Arbeitsledger: Finale Metro-Warenzuteilung (2026-03-30)
 ==========================================================
 
-Ziel
-----
+Zweck der Matrix
+----------------
 
 - Dieses Arbeitsledger ueberfuehrt die vorhandene Matrix `hart gesetzt | konservativ geschaetzt | manuell zu entscheiden` in direkte Arbeitszeilen fuer die naechste RP-Handverteilung.
 - Es ist bewusst kein neues SSOT fuer Mengen, sondern die operative Zwischenebene zwischen Matrix und den Zielinventaren.
@@ -48,12 +48,48 @@ Rahmenwerte
 | rahmenwert | D5 Materiallager / Werkstatt | Novapolis | Der Quellraum fuer schwere Reparatur- und Versorgungsgueter ist konservativ als `D5-Materiallager unter dem Bahnsteig und/oder Werkstattbestand` lesbar; konkrete Entnahmen bleiben offen. | `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md` | Kontext erst in `D5-inventar.md`, spaeter nur bei belegter Entnahme nach `Novapolis-inventar.md` promoten | Matrix, `rp-inventory-backfill-pilot-2026-03-20.md`, `D5-inventar.md` |
 | rahmenwert | C6 Primaer- / Sekundaerlager | Novapolis | Die Zielseite des Laufs endet plausibel in bestaetigtem Empfang mit nachgelagerter Baustellenverteilung; konkrete Lagerzuordnung zwischen Primaer- und Sekundaerlager bleibt offen. | `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md` | Prozessrahmen in `C6-inventar.md`, Zielbuchung erst nach neuer Belegzeile | Matrix, `rp-inventory-backfill-pilot-2026-03-20.md`, `C6-inventar.md` |
 | rahmenwert | D5 + C6 | Novapolis | Das Fraktionsaggregat bleibt Bilanz- und Risikoebene; es fuehrt keine harte Restmenge, solange Transfer- und Verbrauchskette nicht komplett belegt sind. | `novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md` | `D5-inventar.md` + `C6-inventar.md` -> `Novapolis-inventar.md` | Matrix, `Novapolis-inventar.md` |
-| rahmenwert | externe Stationen tbd | Arkologie-A1 | Arkologie-A1 bleibt als etablierter Block mit stabiler Grundversorgung und selektiven Austauschguetern gerahmt; exakte Mengen bleiben offen. | `novapolis-rp/database-rp/01-factions/arkologie-a1/04-inventory/Arkologie-inventar.md` | `Arkologie-inventar.md` -> `00-admin/Warenueberblick-T0.md` | Matrix, `Warenueberblick-T0.md`, `Arkologie-inventar.md` |
-| rahmenwert | externe Stationen tbd | Schienenbund | Schienenbund bleibt als logistischer Reparatur- und Baukontext gerahmt; Mengen und stationsscharfe Reserven bleiben offen. | `novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md` | `Schienenbund-inventar.md` -> `00-admin/Warenueberblick-T0.md` | Matrix, `Warenueberblick-T0.md`, `Schienenbund-inventar.md` |
+| rahmenwert | A1 / A3 / A5 | Arkologie-A1 | Arkologie-A1 fuehrt ihr Kerngebiet jetzt explizit als kontrollierten Dreistationskern: `A1` als Leit- und Freigabeknoten, `A3` als teilaktiven Validierungs- und Quarantaenepuffer, `A5` als aktiven Versorgungs- und Aufbereitungsanker; exakte Mengen bleiben offen. | `novapolis-rp/database-rp/01-factions/arkologie-a1/04-inventory/Arkologie-inventar.md` | `Arkologie-inventar.md` + `A1.md` + `A3.md` + `A5.md` -> `00-admin/Warenueberblick-T0.md` | Matrix, `Warenueberblick-T0.md`, `Arkologie-inventar.md`, `A1.md`, `A3.md`, `A5.md` |
+| rahmenwert | B2 | Schienenbund | Schienenbund fuehrt in B2 einen aktiven Stationssockel mit Betriebslager, kontrolliertem Transit-/Freigabelager und lokalem Instandsetzungsanker; Mengen, Teilmengen und Outputbilanzen bleiben offen. | `novapolis-rp/database-rp/01-factions/schienenbund/04-inventory/Schienenbund-inventar.md` | `Schienenbund-inventar.md` -> `00-admin/Warenueberblick-T0.md` | Matrix, `Warenueberblick-T0.md`, `Schienenbund-inventar.md`, `B2.md` |
 | fix | G7 / C6-Kontaktpfad | Haendlerbund | `H-47` ist als dauerhafter Aussenkontakt belegt; `G7` bleibt externer Kontakt-/Umschlagpunkt, `C6` ist als Handelsstuetzpunkt aktiviert. Belegte Austauschklassen sind `Energie`, `technische Reparaturen`, `Kommunikationszugang` gegen `Nahrungsmittel`, `Filter` und `Grundbedarfsgueter`; Mengen, Manifest und Abrechnung bleiben offen. | `novapolis-rp/database-rp/01-factions/haendlerbund/04-inventory/Haendlerbund-inventar.md` | `Haendlerbund-inventar.md` + `Missionslog-Haendlerbund.md` + `G7.md` -> `00-admin/Warenueberblick-T0.md` | Matrix, `Warenueberblick-T0.md`, `Haendlerbund-inventar.md`, `Missionslog-Haendlerbund.md`, `G7.md` |
 | rahmenwert | externe Stationen tbd | Eisenkonklave | Eisenkonklave bleibt als Werkstoff- und Schutzgueterrahmen lesbar; konkrete Rohstoff- oder Waffenmengen bleiben offen. | `novapolis-rp/database-rp/01-factions/eisenkonklave/04-inventory/Eiserne-Enklave-inventar.md` | `Eiserne-Enklave-inventar.md` -> `00-admin/Warenueberblick-T0.md` | Matrix, `Warenueberblick-T0.md`, `Eiserne-Enklave-inventar.md` |
 | rahmenwert | externe Stationen tbd | Schattenbund | Schattenbund bleibt als opportunistischer Schmuggel- und Tarnraum gerahmt; konkrete Ware und Lagerstaende bleiben offen. | `novapolis-rp/database-rp/01-factions/schattenbund/04-inventory/Schattenbund-inventar.md` | `Schattenbund-inventar.md` -> `00-admin/Warenueberblick-T0.md` | Matrix, `Warenueberblick-T0.md`, `Schattenbund-inventar.md` |
 | rahmenwert | externe Stationen tbd | Fluesterkollektiv | Fluesterkollektiv bleibt als Informations- und Spezialgueterraum gerahmt; konkrete Verbrauchsmengen und Technikposten bleiben offen. | `novapolis-rp/database-rp/01-factions/fluesterkollektiv/04-inventory/Fluesterkollektiv-inventar.md` | `Fluesterkollektiv-inventar.md` -> `00-admin/Warenueberblick-T0.md` | Matrix, `Warenueberblick-T0.md`, `Fluesterkollektiv-inventar.md` |
+
+Rollenbasierte Promotionsmatrix (externe Fraktionen)
+---------------------------------------------------
+
+Ziel
+----
+
+- Diese Matrix legt nicht fest, was die Fraktionen besitzen sollen, sondern welcher naechste Ausbaupfad zu ihrer bereits belegten Rolle passt.
+- Ein Ausbau ist nur dann sauber, wenn er die Eigenfunktion der Fraktion schaerft statt sie in ein beliebiges Vollinventar zu verwandeln.
+
+Matrix
+------
+
+| Fraktion | Aktueller Sockel | Rollenanker | Passender naechster Promotionspfad | Nicht als naechster Schritt |
+| --- | --- | --- | --- | --- |
+| Arkologie-A1 | kontrollierter Dreistationskern `A1/A3/A5`, Grundversorgung stabil, Mengen offen | kontrollierter Hochsicherheits- und Validierungsblock | freigegebenes Tauschfenster mit klarer Freigabekette `Nera -> Borin -> Liora`, also `welche Gueterklasse darf unter welchen Sicherheitsauflagen den Block verlassen oder erreichen`; innerhalb des Kerngebiets tragen `A3` die Validierung und `A5` die Versorgungsvorbereitung | stationsscharfe Vollinventare oder freie Marktregale; das widerspricht der belegten Gatekeeper-Rolle |
+| Schienenbund | aktiver Stationssockel B2 plus Reparatur-, Logistik- und Baukontext als Rahmenwert | Infrastrukturknoten mit lokalem Lager- und Instandsetzungsanker | einsatznaher Reparaturkorridor oder Bauauftrag mit Klassen wie Schienen-/Werkzeug-/Reparaturgut entlang eines konkreten Strecken- oder Stationsfensters; lokal darf dabei ein B2-Betriebslager und kleiner Instandsetzungsoutput mitgelesen werden | allgemeines Vollsortiment fuer Alltag oder freie Industrieproduktion; das ist nicht die primaere Rollenlogik |
+| Haendlerbund | belegter G7-/H-47-/C6-Handelsanker | Umlauf, Austausch, Stuetzpunktbetrieb | Manifest- oder Zykluspfad fuer `H-47 <-> C6`, also erste kleine Handelscharge oder wiederkehrender Umlauf mit weiter offen gelassenen Mengen, aber belegtem Klassen- und Verantwortungsrahmen | tiefe stationaere Reservelogik; der Kern der Rolle ist Umlauf, nicht Lagerstarre |
+| Eisenkonklave | Werkstoff-, Schutz- und Instandsetzungsgueterrahmen plus gelegentliche Handelsfenster | kontrollierter Werkstoff- und Freigabeblock | freigegebenes Werkstoff- oder Schutzgutfenster ueber `Kaspar -> Yara`, also `welcher Werkstofftyp oder welches Schutzgut wird fuer welches Fenster ueberhaupt freigegeben` | breite Handelsnormalisierung oder diffuse Konsumgueterlisten; das verwischt den Produktions- und Freigabekern |
+| Schattenbund | opportunistischer Beschaffungs-, Schmuggel- und Abschirmrahmen | verdeckte Stroeme, Tarnung, Zwischenhaendler | verdeckter Beschaffungspfad mit Uebergabeform statt Menge, z. B. `welche Schmuggel- oder Tarnklasse laeuft ueber welchen Schattenkorridor und welche Sicherungskette` | hartes Hauptlager oder offene Stationsversorgung; das passt nicht zur Abschirm- und Verteilrolle |
+| Fluesterkollektiv | Informations- und Spezialgueterrahmen bei unbekanntem Novapolis-Kontakt | indirekte Signale, Informationsware, sensible Technik | erster belastbarer Kontakt- oder Signalpfad, z. B. `welche Informations- oder Spezialguterklasse wird ueber Corin/Sera/Iris ueberhaupt indirekt tauschbar oder beobachtbar` | konkrete Massenware oder breite Sachgutquantifizierung; das waere fuer diese Rolle zu grob und zu frueh |
+
+Operative Auswahlregel
+----------------------
+
+1. Fraktionen mit `Kontroll- oder Freigabekern` zuerst ueber Fensterlogik schaerfen, nicht ueber Lagergroesse.
+2. Fraktionen mit `Umlauf- oder Transportkern` zuerst ueber Korridor, Zyklus oder Auftrag schaerfen.
+3. Fraktionen mit `verdecktem oder indirektem Kern` zuerst ueber Uebergabe-, Signal- oder Kontaktform schaerfen.
+4. Erst wenn ein solcher rollengerechter Pfad belegt ist, darf daraus spaeter eine engere Mengen-, Manifest- oder Restlogik werden.
+
+Empfohlene Reihenfolge fuer den naechsten Ausbau
+-----------------------------------------------
+
+1. Schienenbund: am klarsten anschlussfaehig an die laufende Nordlinie-/Infrastrukturarbeit; B2 kann dabei als aktiver Lager- und Instandsetzungssockel genutzt werden, ohne freie Markt- oder Fabriklogik zu erfinden.
+2. Arkologie-A1 oder Eisenkonklave: beide tragen kontrollierte Freigabeketten; sie eignen sich fuer den naechsten sauberen Ausbau ueber `Fenster statt Vollinventar`.
+3. Fluesterkollektiv und Schattenbund spaeter: dort ist der richtige Ausbau eher Kontakt-/Schattenpfad als Warenbilanz und braucht deshalb meist zunaechst einen staerkeren Missions- oder Relationsanker.
 
 Handentscheidungen
 ------------------
