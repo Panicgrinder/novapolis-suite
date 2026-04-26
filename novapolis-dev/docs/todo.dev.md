@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 19:03
-update: Das Dev-Board fuehrt nach dem Nachzug der kanonischen W2/W5-Taskeinstiege wieder keine offenen Steuerpunkte mehr.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
+stand: 2026-04-26 20:27
+update: Das Dev-Board fuehrt nach dem erneuten Workspace-Audit wieder keine offenen Steuerpunkte mehr; der kleine Portabilitaets- und Python-Stilrest ist geschlossen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,6 +23,10 @@ Offene Aufgaben (Dev)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Den kleinen Audit-Rest aus aktiver Doku-Portabilitaet und Python-Stil wieder auf einen gemeinsamen Gruenstand ziehen.
+  - Ergebnis 2026-04-23 23:50: `todo.root.md` fuehrt wieder den aktuellen Modulstand statt des veralteten Kurzstatus. `novapolis-dev/docs/todo.sim.md` beschreibt die lokal laufende Godot-Binary jetzt portabel ohne hostgebundenen Pfad. `novapolis_agent/scripts/training_release_gate.py`, `scripts/check_sim_hub_prefs_contract.py`, `scripts/run_sim_export_smoke.py` sowie der betroffene Testsatz unter `novapolis_agent/tests/scripts/` sind wieder Ruff-/Black-konform.
+  - Verifikation 2026-04-23 23:50: Der enge Script-Testscope fuer `test_check_sim_hub_prefs_contract.py`, `test_run_sim_export_smoke.py`, `test_run_sim_headless_verify.py` und `test_training_release_gate.py` ist PASS. `scripts/check_portable_paths.py --repo-root .`, `python -m ruff check novapolis_agent scripts`, `python -m black --check novapolis_agent scripts` und der kanonische Voll-Lauf `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260423_234820.md` sind ebenfalls PASS. Damit steht das Dev-Board wieder bei `offen: 0`.
 
 - [x] [Jetzt] Workspace-Audit-Segmente `W2` und `W5` auf kanonische Task- oder Sammelcheck-Einstiege ziehen.
   - Ziel: Bereits vorhandene Governance- und Audit-Skripte sollen nicht nur lose im Repo liegen, sondern ueber dieselben kanonischen Einstiege erreichbar sein wie die uebrigen Workspace-Checks.

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 19:03
-update: Root-Summary fuehrt jetzt den geschlossenen W2/W5-Verdrahtungsrest aus dem neuen Workspace-Audit mit; alle Modul-Boards stehen wieder auf null offenen Punkten.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
+stand: 2026-04-26 20:27
+update: Root-Summary fuehrt jetzt den geschlossenen kleinen Dev-Rest aus dem erneuten Workspace-Audit; alle Modul-Boards stehen wieder auf null offenen Punkten.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
 ---
 - 2026-04-23 18:53: Der segmentierte Workspace-Auditrest ist wieder geschlossen. `.vscode/tasks.json` fuehrt jetzt die kanonischen Einstiege `Checks: scripts layout`, `Checks: rp current-state gate`, `Checks: rp consistency`, `Checks: rp hard gates`, `Checks: rp staging tag coverage` und `Backups: update manifest`; der direkte Validierungslauf der pruefbaren W2/W5-Kommandos ist gruen. Damit steht der moduluebergreifende Reststand wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
 
@@ -18,6 +18,10 @@ Hinweis
 - Technische Laufdetails liegen in Reports unter `.tmp/results/reports/`.
 
 Aktuelle Eintraege (Summary)
+
+- 2026-04-23 23:50: Der kleine Rest aus dem erneuten Workspace-Audit ist wieder geschlossen. `todo.root.md` fuehrt wieder den aktuellen Modulstand `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`; `novapolis-dev/docs/todo.sim.md` beschreibt die lokal laufende Godot-Binary jetzt portabel ohne hostgebundenen Pfad; und `ruff` plus `black` sind fuer `novapolis_agent` und `scripts` wieder gruen. Der kanonische Voll-Lauf `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260423_234820.md` endet vollstaendig PASS.
+
+- 2026-04-23 23:42: Der erneute Workspace-Audit ist technisch weitgehend gruen, legt aber einen kleinen neuen Dev-Rest offen. `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260423_234016.md` faellt aktuell an genau drei Stellen: `novapolis-dev/docs/todo.sim.md` fuehrt einen hostgebundenen Pfad fuer die lokal laufende Godot-Binary und verletzt damit `path-portability`; zusaetzlich sind `ruff` und `black` fuer einen kleinen Dateisatz unter `novapolis_agent/` und `scripts/` wieder rot. Parallel ist `todo.root.md` in diesem Lauf auf den aktuellen Modulstand `Dev=1`, `RP=0`, `Agent=0`, `Sim=0` nachgezogen.
 
 - 2026-04-23 18:38: Der erste segmentierte Workspace-Auditlauf hat einen echten Governance-Rest offengelegt. Die neue SSOT `novapolis-dev/docs/process/workspace-audit-segmente.ssot.md` bleibt aktiv, aber fuer die Segmente `W2` Shared Tooling/Pakete und `W5` RP-Kanon/Curation fehlen mehreren bereits vorhandenen Skripten noch kanonische Einstiege ueber `.vscode/tasks.json` oder `scripts/run_checks_and_report.py`. Das Dev-Board fuehrt diesen Nachzug jetzt als einzigen offenen Steuerpunkt; der Modulstand lautet damit `Dev=1`, `RP=0`, `Agent=0`, `Sim=0`.
 

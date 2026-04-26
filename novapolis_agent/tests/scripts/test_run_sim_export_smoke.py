@@ -10,7 +10,9 @@ from scripts import run_sim_export_smoke as mod
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_export_smoke_fails_when_exe_missing(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+def test_export_smoke_fails_when_exe_missing(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
     repo_root = tmp_path / "repo"
     repo_root.mkdir()
 

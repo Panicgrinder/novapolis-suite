@@ -7,7 +7,6 @@ import re
 from pathlib import Path
 from typing import Any
 
-
 DEFAULT_FIXTURE_DIR = "novapolis-sim/tests/fixtures/hub_prefs"
 EXPECTED_KEYS = {
     "show_sim_card",
@@ -23,7 +22,9 @@ EXPECTED_KEYS = {
 
 
 def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Static contract check for novapolis-sim hub_prefs")
+    parser = argparse.ArgumentParser(
+        description="Static contract check for novapolis-sim hub_prefs"
+    )
     parser.add_argument("--repo-root", default=Path(__file__).resolve().parents[1])
     parser.add_argument("--fixture-dir", default=DEFAULT_FIXTURE_DIR)
     return parser.parse_args(argv)
@@ -99,13 +100,19 @@ def main(argv: list[str] | None = None) -> int:
         errors.append("empty fixture does not fall back to defaults")
 
     partial_values = _load_fixture(fixture_dir / "partial.cfg", defaults)
-    if partial_values["session_id"] != "sim-hub-existing" or partial_values["default_panel"] != "chat":
+    if (
+        partial_values["session_id"] != "sim-hub-existing"
+        or partial_values["default_panel"] != "chat"
+    ):
         errors.append("partial fixture does not preserve stored session/default_panel values")
     if partial_values["resume_checkpoint_id"] != defaults["resume_checkpoint_id"]:
         errors.append("partial fixture should keep default resume checkpoint")
 
     legacy_values = _load_fixture(fixture_dir / "legacy.cfg", defaults)
-    if legacy_values["refresh_profile"] != "slow" or legacy_values["selected_replay_checkpoint_id"] != "slot-03":
+    if (
+        legacy_values["refresh_profile"] != "slow"
+        or legacy_values["selected_replay_checkpoint_id"] != "slot-03"
+    ):
         errors.append("legacy fixture does not preserve refresh_profile or replay checkpoint")
     if legacy_values["session_id"] != defaults["session_id"]:
         errors.append("legacy fixture should fall back to default session_id")

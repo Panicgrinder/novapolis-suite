@@ -1,8 +1,22 @@
 ---
-stand: 2026-04-23 19:03
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich den geschlossenen letzten Sim-Rest ueber den Godot-Resolver-Fallback im Headless-Verify.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
+stand: 2026-04-26 20:27
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich den geschlossenen kleinen Dev-Rest aus dem erneuten Workspace-Audit.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
 ---
+Workspace: Kleiner Audit-Rest wieder geschlossen (2026-04-23 23:50)
+--------------------------------------------------------------
+
+- `todo.root.md` fuehrt wieder den aktuellen Modulstand `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`; der zuvor veraltete Kurzstatus ist damit aus der aktiven Root-Oberflaeche verschwunden.
+- `novapolis-dev/docs/todo.sim.md` fuehrt den Resolver-Erfolg fuer den Godot-Headless-Verify jetzt ohne hostgebundenen Pfad; `scripts/check_portable_paths.py --repo-root .` ist damit wieder PASS.
+- `novapolis_agent/scripts/training_release_gate.py`, `scripts/check_sim_hub_prefs_contract.py`, `scripts/run_sim_export_smoke.py` und der betroffene Testsatz unter `novapolis_agent/tests/scripts/` sind wieder Ruff-/Black-konform. Der gezielte Script-Testblock und der kanonische Voll-Lauf `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260423_234820.md` bleiben PASS. Damit stehen die Modul-Boards wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
+
+Workspace: Erneuter Auditlauf zeigt kleinen Dev-Rest in Doku-Portabilitaet und Python-Stil (2026-04-23 23:42)
+-----------------------------------------------------------------------------------------------------------
+
+- Der kanonische Recheck `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260423_234016.md` bleibt fuer `markdownlint`, `frontmatter`, `todo-index-sync`, `doc-freshness`, `logs-policy`, `pytest`, `pyright` und `mypy` gruen, faellt aber aktuell an `path-portability`, `ruff` und `black`.
+- Der konkrete Portabilitaetsbefund sitzt in `novapolis-dev/docs/todo.sim.md` als hostgebundener Pfad `F:\Downloads\Godot\Godot_v4.6.1-stable_win64.exe`; parallel trug `todo.root.md` noch den veralteten Kurzstatus mit viermal fuenf offenen Boards und ist in diesem Lauf auf `Dev=1`, `RP=0`, `Agent=0`, `Sim=0` nachgezogen.
+- Das Dev-Board fuehrt dafuer jetzt wieder genau einen offenen Steuerpunkt. Der Rest bleibt bewusst klein und belegt: aktive Doku-Portabilitaet plus der aktuelle Ruff-/Black-Dateisatz unter `novapolis_agent/` und `scripts/`.
+
 Sim: Headless-Verify ueber laufende Godot-Binary wieder gruen (2026-04-23 18:34)
 -----------------------------------------------------------------------------
 

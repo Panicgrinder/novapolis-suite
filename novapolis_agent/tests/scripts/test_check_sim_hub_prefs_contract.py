@@ -23,7 +23,12 @@ def test_hub_prefs_contract_detects_key_drift(tmp_path: Path) -> None:
     scripts_dir.mkdir(parents=True)
     fixture_dir.mkdir(parents=True)
     (scripts_dir / "Main.gd").write_text(
-        'func _load_hub_preferences() -> void:\n\tvar values = {"session_id": "x"}\n\nfunc _save_hub_preferences(silent: bool = false) -> void:\n\tvar values = {"scene_id": "y"}\n',
+        (
+            "func _load_hub_preferences() -> void:\n"
+            '\tvar values = {"session_id": "x"}\n\n'
+            "func _save_hub_preferences(silent: bool = false) -> void:\n"
+            '\tvar values = {"scene_id": "y"}\n'
+        ),
         encoding="utf-8",
     )
     for name in ("empty.cfg", "partial.cfg", "legacy.cfg"):

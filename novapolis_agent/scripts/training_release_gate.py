@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import glob
+import importlib
 import json
 import os
 import sys
@@ -15,7 +16,7 @@ REPO_ROOT = os.path.dirname(PROJECT_ROOT)
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-from scripts import validate_eval_datasets as dataset_validator
+dataset_validator = importlib.import_module("scripts.validate_eval_datasets")
 
 DEFAULT_RESULTS_DIR = os.path.join(PROJECT_ROOT, "eval", "results")
 DEFAULT_PROVENANCE_DOC = os.path.join(REPO_ROOT, "novapolis-dev", "docs", "dataset-provenance.md")
@@ -133,7 +134,7 @@ def _collect_results_source_paths(results_path: str) -> list[str]:
 
     if not resolved:
         for source_path in source_paths:
-            if source_path.startswith("novapolis_agent/") or source_path.startswith("novapolis-rp/"):
+            if source_path.startswith(("novapolis_agent/", "novapolis-rp/")):
                 expanded = _expand_repo_pattern(source_path)
                 if expanded:
                     resolved.extend(expanded)
@@ -213,7 +214,13 @@ def ensure_release_gate(
         return GateResult(False, 2, [], ["missing target path"], {})
 
     if not _is_repo_path(target_path):
-        return GateResult(True, 0, ["repo-scope skipped for external target"], [], {"skipped": True})
+        return GateResult(
+            True,
+            0,
+            ["repo-scope skipped for external target"],
+            [],
+            {"skipped": True},
+        )
 
     resolved_results_dir = results_dir or DEFAULT_RESULTS_DIR
 
@@ -249,7 +256,9 @@ def ensure_release_gate(
             {"rp_content": rp_content_details},
         )
 
-    provenance_paths = [train_file] if train_file else _collect_results_source_paths(results_file or "")
+    provenance_paths = (
+        [train_file] if train_file else _collect_results_source_paths(results_file or "")
+    )
     provenance_errors, provenance_found = _check_provenance(
         [path for path in provenance_paths if path],
         minimum_status="gruen" if require_green_provenance else "gelb",

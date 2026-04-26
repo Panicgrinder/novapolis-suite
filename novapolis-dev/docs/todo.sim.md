@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 19:03
+stand: 2026-04-26 20:27
 update: Das Sim-Board steht jetzt wieder bei `offen: 0`; der letzte Headless-Verify-Rest ist ueber den Resolver-Fallback auf die lokal laufende Godot-Binary geschlossen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -34,7 +34,7 @@ Abgeschlossene Eintraege (Bestand)
 ----------------------------------
 
 - [x] [Jetzt] Den Godot-Resolver des kanonischen Headless-Verify auf den lokal vorhandenen Editor-/Binary-Pfad heben.
-  - Ergebnis 2026-04-23 18:34: `scripts/run_sim_headless_verify.py` erkennt unter Windows jetzt neben `GODOT_BIN`, `godot4` und `godot` auch den Pfad eines bereits laufenden lokalen Godot-Prozesses ueber `pwsh` oder `powershell`. Im aktuellen Workspace-Kontext wird damit `F:\Downloads\Godot\Godot_v4.6.1-stable_win64.exe` automatisch aufgeloest, ohne den bestehenden Fehlerpfad fuer wirklich fehlende Binaries zu verschleifen.
+  - Ergebnis 2026-04-23 18:34: `scripts/run_sim_headless_verify.py` erkennt unter Windows jetzt neben `GODOT_BIN`, `godot4` und `godot` auch den Pfad eines bereits laufenden lokalen Godot-Prozesses ueber `pwsh` oder `powershell`. Im aktuellen Workspace-Kontext wird damit die lokal laufende Godot-4.6.1-Windows-Binary automatisch aufgeloest, ohne den bestehenden Fehlerpfad fuer wirklich fehlende Binaries zu verschleifen.
   - Verifikation 2026-04-23 18:34: Der kanonische Task `Checks: sim headless verify` endet jetzt mit `SIM_VERIFY: OK`. Der neue fokussierte Pytest-Scope `novapolis_agent/tests/scripts/test_run_sim_headless_verify.py` ist ebenfalls PASS; das Sim-Board steht damit wieder bei `offen: 0`.
 
 - [x] [Jetzt] Den kanonischen Windows-Exportpfad von reinem Klickpfad auf einen belastbaren Preset-/Konfigurationsanker heben.

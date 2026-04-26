@@ -3,15 +3,15 @@ from __future__ import annotations
 import argparse
 import json
 import subprocess
-import sys
 from pathlib import Path
-
 
 DEFAULT_EXPORT_EXE = "novapolis-sim/exports/windows/NovapolisSim.exe"
 
 
 def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run the local Windows export smoke for novapolis-sim")
+    parser = argparse.ArgumentParser(
+        description="Run the local Windows export smoke for novapolis-sim"
+    )
     parser.add_argument("--repo-root", default=Path(__file__).resolve().parents[1])
     parser.add_argument("--export-exe", default=DEFAULT_EXPORT_EXE)
     parser.add_argument("--launch", action="store_true")

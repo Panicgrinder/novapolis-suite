@@ -1,6 +1,6 @@
-stand: 2026-04-21 01:10
-update: Agent-Scope dokumentiert jetzt zusaetzlich die Rueckkopplung `Session Promotion Pack -> Eval -> Export/Pack` ueber getaggte Results und `--results-glob`.
-checks: snapshot-lock PASS (2026-04-21 01:10); markdownlint=PASS; frontmatter=PASS (touched md)
+stand: 2026-04-26 20:26
+update: Agent-Scope dokumentiert jetzt zusaetzlich den geschlossenen kleinen Script-/Test-Nachzug fuer Release-Gate und Sim-Checks.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
 
 
 checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
@@ -19,6 +19,8 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+2026-04-26 20:26 | Copilot | Den kleinen Script-/Test-Nachzug im Agent-Scope sauber protokolliert. `novapolis_agent/scripts/training_release_gate.py` loest `validate_eval_datasets` jetzt robust ueber `importlib.import_module(...)`, sodass der Release-Gate-Pfad auch im Repo-Kontext ohne fragilen Direktimport bleibt. Parallel sind `scripts/check_sim_hub_prefs_contract.py`, `scripts/run_sim_export_smoke.py` sowie der betroffene Testsatz unter `novapolis_agent/tests/scripts/` stilkonform nachgezogen; der kanonische Voll-Lauf `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260426_202354.md` ist vollstaendig PASS.
 
 2026-04-23 16:38 | Copilot | Den letzten offenen Agent-Board-Punkt geschlossen. `novapolis_agent/scripts/training_release_gate.py` bildet jetzt den gemeinsamen Repo-Guard vor `curate_dataset_from_latest.py` und `fine_tune_pipeline.py`, prueft `validate_eval_datasets --strict`, den neuesten grünen `rp_content`-Beleg und die passende Provenienzschwelle fuer Export- bzw. LoRA-Pfade. `novapolis_agent/tests/scripts/test_training_release_gate.py` deckt den Guard gezielt ab; der direkte Repo-Lauf blockiert im aktuellen Stand erwartungsgemaess an `missing rp_content results`, statt ungeguardet in Training weiterzulaufen.
 

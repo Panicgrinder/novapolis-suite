@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 19:03
-update: Der TODO-Index steht nach dem Verdrahtungsnachzug der W2/W5-Segment-Checks wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
+stand: 2026-04-26 20:27
+update: Der TODO-Index steht nach dem erneuten Workspace-Audit wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`; der kleine Dev-Rest fuer Portabilitaet und Python-Stil ist geschlossen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,7 +23,7 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` ist nach der Archivierung des abgeschlossenen April-Blocks wieder als schlanke Live-Oberflaeche vorbereitet und fuehrt aktuell keine offenen suiteweiten Querschnittspunkte. Der zuletzt abgeschlossene Root-Block liegt unter `novapolis-dev/archive/todo.root.archive.md`; der naechste Hygiene-Takt fuer KPI-/Boardpflege bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` und die aktuellen Root-Protokolle verankert, waehrend Root bewusst ausserhalb der Modul-Open-Counts bleibt.
 
-- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Steuerpunkte mehr. Der im ersten segmentierten Workspace-Audit gefundene Verdrahtungsrest ist geschlossen: `.vscode/tasks.json` fuehrt jetzt die kanonischen Einstiege fuer `Checks: scripts layout`, `Checks: rp current-state gate`, `Checks: rp consistency`, `Checks: rp hard gates`, `Checks: rp staging tag coverage` und `Backups: update manifest`.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Steuerpunkte mehr. Der kleine Audit-Rest ist geschlossen: `todo.root.md` fuehrt wieder den aktuellen Modulstand, `novapolis-dev/docs/todo.sim.md` ist portabel formuliert, und `ruff` plus `black` sind fuer `novapolis_agent` und `scripts` wieder gruen.
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt aktuell keine offenen Punkte mehr. Der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Provenienz fehlen; im aktuellen Repo-Stand scheitert derselbe Direktlauf erwartungsgemaess an `missing rp_content results` statt ungeguardet in Training zu laufen.
 
@@ -38,7 +38,7 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-04-20 | keiner (offen: 0) | nein |
+| Dev (`docs/todo.dev.md`) | 2026-04-23 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-04-20 | keiner (offen: 0) | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-04-23 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-04-23 | keiner (offen: 0) | nein |
