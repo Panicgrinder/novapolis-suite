@@ -1,8 +1,28 @@
 ---
-stand: 2026-04-26 20:40
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich den grünen Wochenabschluss mit Vollcheck, Sim-Asset-Check und Coverage-Ziellauf.
-checks: scripts/run_checks_and_report.py overall=PASS; tests_coverage=PASS (92.19%, 696 passed); sim_epoch_assets=PASS (summary=fail:0,warn:0); report=.tmp\results\reports\checks_report_20260426_203550.md
+stand: 2026-04-26 21:23
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich den Figuren-Guard fuer Mara Quell und eine kleine Labor-/Review-Matrix fuer RP-Fortsetzung, Promotion und spaetere Trainingsableitung.
+checks: snapshot-lock PASS (2026-04-26 21:23)
 ---
+RP-Runtime: Figuren-Guard und Labor-/Review-Matrix fuer weitere Datensammlung eingezogen (2026-04-26 21:17)
+-----------------------------------------------------------------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/rp-runtime/characters/mara-quell.md` markiert die dortige Lesart jetzt ebenfalls explizit als verworfenen Probe-Einstiegspunkt statt als still lesbare Hauptwelt-Figurenfortsetzung.
+- `novapolis-rp/database-curated/staging/rp-runtime/README.md` verweist jetzt auf eine kleine operative Matrix fuer Hauptweltpfad, Laborzuege, Review, Promotion und spaetere Trainingsnutzung.
+- `novapolis-dev/docs/process/rp-labor-review-und-promotion-matrix.ssot.md` fasst denselben Guard erstmals als eigene SSOT zusammen: Nordlinie D5-C6 bleibt aktueller Hauptweltpfad; weitere RP-Fortsetzung unter Laborbedingungen ist ausdruecklich sinnvoll, aber nur mit sauberer Trennung zwischen Runtime, Hauptwelt und spaeterer Trainingsableitung.
+
+RP-Runtime: Zeitlinien-Guard auch in C6-H47-Inventar und Beziehung nachgezogen (2026-04-26 21:13)
+-------------------------------------------------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/rp-runtime/inventories/c6.md` und `novapolis-rp/database-curated/staging/rp-runtime/relationships/mara-quell-zu-c6.md` markieren den C6-H47-Strang jetzt ebenfalls explizit als verworfenen Probe-Einstiegspunkt statt als still lesbare Hauptwelt-Fortsetzung.
+- Damit tragen Szene, State, Inventar, Beziehung und Nordlinie-Index nun denselben Guard: keine Uebernahme aus mehreren Zeitlinien in den laufenden Hauptweltpfad ohne ausdrueckliche Richtungsentscheidung.
+
+RP-Runtime: Nordlinie als aktueller Weltstand explizit gegen C6-H47 abgegrenzt (2026-04-26 21:09)
+-----------------------------------------------------------------------------------------------
+
+- `novapolis-rp/database-curated/staging/rp-runtime/sessions/c6-h47-handelsfenster-01/scene-log.md` und `novapolis-rp/database-curated/staging/rp-runtime/state/c6.md` markieren das fruehe C6-H47-Fenster jetzt explizit als Probe- und Routingversuch, der nicht weiter als laufender Hauptpfad fortgesetzt wird.
+- `novapolis-rp/database-rp/01-factions/novapolis/Nordlinie-D5-C6-Index.md` fuehrt den Nordlinie-D5-C6-Strang jetzt genauso explizit als chronologisch aktuellen Welt- und Fortsetzungsstand fuer das laufende Bespielen im Chat.
+- Damit ist fuer Review, Lore-Fortschreibung und spaetere Trainingsableitung klarer getrennt, welcher Runtime-Strang nur dokumentierte Probe blieb und welcher Strang aktuell als massgeblicher Fortsetzungsanker gelesen werden muss.
+
 Workspace: Wochenabschluss auf grünem Evidenzstand nachgezogen (2026-04-26 20:40)
 -------------------------------------------------------------------------------
 

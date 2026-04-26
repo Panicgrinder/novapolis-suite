@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-21 01:59
-update: Beispiel-Session fuer das RP-Runtime-Routing mit C6, Mara Quell und einem probeweisen H-47-Versorgungsfenster angelegt.
-checks: snapshot-lock PASS (2026-04-21 01:59); markdownlint=PASS; frontmatter=PASS (touched md)
+stand: 2026-04-26 21:23
+update: Die Probe-Session bleibt als verworfener Einstiegspunkt fuer die aktuelle Weltfortsetzung dokumentiert; der chronologisch aktuelle Fortsetzungsanker liegt stattdessen im Nordlinie-Strang.
+checks: snapshot-lock PASS (2026-04-26 21:23); markdownlint=PASS; frontmatter=PASS (touched md)
 ---
 
 Scene Log - C6 H47 Handelsfenster 01
@@ -14,10 +14,18 @@ Meta
 - status: active
 - canon_state: Probe
 - review_state: working
+- continuity_status: verworfener Einstiegspunkt fuer die aktuelle Weltfortsetzung; nicht als laufenden Hauptstrang weiterlesen
 - perspective: C6, Logistik- und Empfangsebene
 - location: C6 Aussenposten
 - tone: angespannt, knapp, pragmatisch
 - mood: kontrollierte Unsicherheit unter Versorgungsdruck
+
+Hinweis zur Einordnung
+----------------------
+
+- Diese Session bleibt als frueher Probe- und Routingversuch erhalten, ist aber nicht der kanonische Fortsetzungsanker fuer den aktuellen Weltstand.
+- Die laufende Fortsetzung wird stattdessen ueber den Nordlinie-D5-C6-Strang weitergefuehrt.
+- Wenn C6/H-47 spaeter erneut aufgegriffen wird, dann nur als bewusst separater, neu eingeordneter Folgezug und nicht als verdeckter Hauptpfad.
 
 Turn 1
 ------
@@ -54,4 +62,4 @@ Open Threads
 Promotion Notes
 ---------------
 
-- nothing promoted yet
+- Diese Probe-Session aktuell nicht als Hauptfortsetzung promoten; der laufende Welt- und Handover-Stand liegt im Nordlinie-Strang.

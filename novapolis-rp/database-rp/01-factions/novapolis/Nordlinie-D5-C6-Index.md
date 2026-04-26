@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 16:00
-update: Fokussierter Fortsetzungsindex buendelt jetzt den Nordlinie-D5-C6-Strang ueber Projekte, Orte, Figuren, Missionen und den aktuellen Handover-Arbeitsstand.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
+stand: 2026-04-26 21:23
+update: Der Fortsetzungsindex markiert jetzt explizit den Nordlinie-Strang als chronologisch aktuellen Weltstand; C6-H47 bleibt nur als frueher verworfener Einstiegspunkt dokumentiert.
+checks: snapshot-lock PASS (2026-04-26 21:23); markdownlint=PASS; frontmatter=PASS; path-portability=PASS
 slug: nordlinie-d5-c6-index
 category: index
 version: "0.1"
@@ -18,6 +18,8 @@ Dieser Index buendelt die RP-relevanten SSOTs fuer die laufende Fortsetzung rund
 Kanonischer Fokus
 -----------------
 
+- Der Nordlinie-D5-C6-Strang ist der chronologisch aktuelle Welt- und Fortsetzungsstand fuer das laufende Bespielen im Chat.
+- Das fruehere C6-H47-Handelsfenster bleibt als Probe- und Routingversuch dokumentiert, ist aber bewusst nicht der aktuelle Hauptpfad der Weltfortsetzung.
 - `Nordlinie 01` bleibt das aktive Tunnelprojekt zwischen `D5` und `C6`.
 - Der [Verbindungstunnel D5-C6](./03-locations/Verbindungstunnel-D5-C6.md) bleibt beschaedigt; belastbar offene Bedarfe sind Schweißgeraet, Adapter `DN60` und Stuetzelemente.
 - Auf der D5-Seite arbeiten [Ronja Kerschner](./02-characters/Ronja-Kerschner.md) und [Reflex](./02-characters/Reflex.md) im Tunnel.
@@ -51,6 +53,7 @@ Prozess- und Fortsetzungsrahmen
 Arbeitsstand fuer die naechste Szene (nicht SSOT)
 -------------------------------------------------
 
+- Aktueller Runtime-Hauptanker fuer die Fortsetzung: Nordlinie-D5-C6.
 - Runtime-Handover: [scene-log](../../../database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md)
 - Runtime-Projektstand: [state/nordlinie-01](../../../database-curated/staging/rp-runtime/state/nordlinie-01.md)
 
@@ -68,5 +71,6 @@ Guardrails
 ----------
 
 - Runtime-Artefakte unter `database-curated/staging/rp-runtime/` sind Arbeitsstand und keine automatische RP-SSOT.
+- Das probeweise C6-H47-Handelsfenster darf nicht still als aktueller Fortsetzungsanker gelesen oder weitergeschrieben werden, solange kein ausdruecklicher Richtungswechsel beschlossen ist.
 - Neue Fortschritte duerfen `D5`, `C6`, `Nordlinie 01`, Tunnelbedarf und D5-Werkstattdruck fortschreiben, aber keinen freien Vollerfolg oder neue Raeume behaupten.
 - Ein Materialfluss wird erst dann RP-SSOT, wenn er in Missions-, Inventar- oder Ortsbelegen sauber belastbar ist.

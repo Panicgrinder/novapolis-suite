@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 16:00
-update: Der RP-Laufzeitbereich fuehrt jetzt zusaetzlich einen append-only Rohpfad fuer Chattranskripte pro Session.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
+stand: 2026-04-26 21:23
+update: Der RP-Laufzeitbereich verweist jetzt zusaetzlich auf eine kleine Review- und Promotionsmatrix fuer Hauptweltpfad, Laborzuege und spaetere Trainingsableitung.
+checks: snapshot-lock PASS (2026-04-26 21:23)
 ---
 
 RP Runtime Staging
@@ -71,7 +71,9 @@ Vertragsregeln
 - `rp-runtime/` ist absichtlich fluechtiger, aber nachvollziehbarer als freie Chat-Improvisation.
 - `transcript.jsonl` bleibt append-only Rohspur und ist weder RP-SSOT noch direkt trainierbar.
 - Jeder Eintrag soll kenntlich machen, ob er `Probe`, `Arbeitsstand`, `review_required` oder `promotion_ready` ist.
+- Jeder laufende Strang braucht zusaetzlich eine klare Einordnung als `Hauptweltpfad`, `Laborpfad`, `verworfen` oder `bewusst pausiert`, damit keine stillen Zeitlinienmischungen in den Kanon rueberlaufen.
 - Wenn Faktenlage unsicher ist, bleibt der Eintrag hier und wandert nicht direkt in den Kanon.
+- Der operative Guard fuer Review, Promotion und spaetere Trainingsnutzung liegt in `novapolis-dev/docs/process/rp-labor-review-und-promotion-matrix.ssot.md`.
 
 Promotion-Pfad
 --------------
@@ -80,6 +82,13 @@ Promotion-Pfad
 2. Rohchat kann parallel append-only in `sessions/<session-id>/transcript.jsonl` mitlaufen
 3. Review auf Kanontreue, Belastbarkeit und Stil
 4. Erst danach gezielte Uebernahme nach `database-rp/**` oder in andere kuratierte Artefakte
+
+Labornutzen
+-----------
+
+- Weitere RP-Fortsetzung unter Laborbedingungen ist ausdruecklich sinnvoll, solange Hauptweltpfad und Probe-/Nebenpfade sauber getrennt markiert bleiben.
+- Der Laborpfad liefert dem Projekt mehr Rohdaten fuer Stil, Weltverdichtung, Review und spaetere Curation, aber nicht automatisch mehr Kanon oder direkt trainierbare Daten.
+- Mehr Daten helfen nur dann, wenn Session, Rohspur, Verdichtung, Typdateien und Promotionsentscheidung sauber aufeinander verweisen.
 
 Schneller Testwechsel
 ---------------------
