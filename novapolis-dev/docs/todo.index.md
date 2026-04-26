@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-26 20:27
-update: Der TODO-Index steht nach dem erneuten Workspace-Audit wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`; der kleine Dev-Rest fuer Portabilitaet und Python-Stil ist geschlossen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
+stand: 2026-04-26 20:40
+update: Der TODO-Index steht weiter bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`; der Wochenabschluss ist mit Vollcheck, Sim-Asset-Check und Coverage-Ziellauf gruen belegt.
+checks: scripts/run_checks_and_report.py overall=PASS; tests_coverage=PASS (92.19%, 696 passed); sim_epoch_assets=PASS (summary=fail:0,warn:0); report=.tmp\results\reports\checks_report_20260426_203550.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -21,7 +21,7 @@ TODO-Index (Novapolis-Dev)
 Statushinweise (aktuell)
 ------------------------
 
-- Root/Meta: `todo.root.md` ist nach der Archivierung des abgeschlossenen April-Blocks wieder als schlanke Live-Oberflaeche vorbereitet und fuehrt aktuell keine offenen suiteweiten Querschnittspunkte. Der zuletzt abgeschlossene Root-Block liegt unter `novapolis-dev/archive/todo.root.archive.md`; der naechste Hygiene-Takt fuer KPI-/Boardpflege bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` und die aktuellen Root-Protokolle verankert, waehrend Root bewusst ausserhalb der Modul-Open-Counts bleibt.
+- Root/Meta: `todo.root.md` ist nach der Archivierung des abgeschlossenen April-Blocks wieder als schlanke Live-Oberflaeche vorbereitet und fuehrt aktuell keine offenen suiteweiten Querschnittspunkte. Der Wochenabschluss vom 2026-04-26 20:40 ist gruen belegt (`Checks: full` PASS, `Checks: sim epoch assets` PASS, Coverage `92.19%`), und der naechste Hygiene-Takt bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` sowie die aktuellen Root-Protokolle verankert, waehrend Root bewusst ausserhalb der Modul-Open-Counts bleibt.
 
 - Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Steuerpunkte mehr. Der kleine Audit-Rest ist geschlossen: `todo.root.md` fuehrt wieder den aktuellen Modulstand, `novapolis-dev/docs/todo.sim.md` ist portabel formuliert, und `ruff` plus `black` sind fuer `novapolis_agent` und `scripts` wieder gruen.
 
@@ -38,10 +38,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-04-23 | keiner (offen: 0) | nein |
+| Dev (`docs/todo.dev.md`) | 2026-04-26 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-04-20 | keiner (offen: 0) | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-04-23 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-04-23 | keiner (offen: 0) | nein |
+| Sim (`docs/todo.sim.md`) | 2026-04-26 | keiner (offen: 0) | nein |
 
 
 Hinweise (Index)

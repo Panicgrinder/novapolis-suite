@@ -1,8 +1,10 @@
 ---
-stand: 2026-04-26 20:27
-update: Der Root-Status fuehrt jetzt den geschlossenen kleinen Dev-Rest aus dem erneuten Workspace-Audit; alle Modul-Boards stehen wieder bei null offenen Punkten.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
+stand: 2026-04-26 20:40
+update: Der Root-Status fuehrt jetzt den grünen Wochenabschluss mit Vollcheck, Sim-Asset-Check und 92.19% Coverage; alle Modul-Boards bleiben bei null offenen Punkten.
+checks: scripts/run_checks_and_report.py overall=PASS; tests_coverage=PASS (92.19%, 696 passed); sim_epoch_assets=PASS (summary=fail:0,warn:0); report=.tmp\results\reports\checks_report_20260426_203550.md
 ---
+- 2026-04-26 20:40: Der Wochenabschluss ist gruen belegt. `Checks: full` endet gegen `.tmp/results/reports/checks_report_20260426_203550.md` vollstaendig PASS, `Checks: sim epoch assets` meldet `summary=fail:0,warn:0`, und `Tests: coverage (fail-under)` bleibt mit `696 passed` und `92.19%` klar ueber Hard Gate und Qualitaetsziel. Die Modul-Boards bleiben damit bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
+
 - 2026-04-23 23:50: Der kleine Rest aus dem erneuten Workspace-Audit ist geschlossen. `todo.root.md` fuehrt wieder den aktuellen Modulstand `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`; `novapolis-dev/docs/todo.sim.md` ist portabel formuliert; `scripts/check_portable_paths.py --repo-root .`, `python -m ruff check novapolis_agent scripts`, `python -m black --check novapolis_agent scripts` und der kanonische Voll-Lauf `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260423_234820.md` sind PASS.
 
 - 2026-04-23 23:42: Der erneute Workspace-Audit faellt aktuell an einem kleinen Dev-Rest. `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260423_234016.md` bleibt fuer Doku-, Typ-, Test- und Coverage-Gates gruen, meldet aber `path-portability=FAIL`, `ruff=FAIL` und `black=FAIL`. Der konkrete Doku-Befund sitzt in `novapolis-dev/docs/todo.sim.md` als hostgebundener Godot-Pfad; parallel fuehrte `todo.root.md` noch den veralteten Kurzstatus mit viermal fuenf offenen Boards und ist in diesem Lauf auf `Dev=1`, `RP=0`, `Agent=0`, `Sim=0` nachgezogen.

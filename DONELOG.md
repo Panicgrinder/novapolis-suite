@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-26 20:27
-update: Root-Summary fuehrt jetzt den geschlossenen kleinen Dev-Rest aus dem erneuten Workspace-Audit; alle Modul-Boards stehen wieder auf null offenen Punkten.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
+stand: 2026-04-26 20:40
+update: Root-Summary fuehrt jetzt den grünen Wochenabschluss mit Vollcheck, Sim-Asset-Check und Coverage-Ziellauf; alle Modul-Boards bleiben auf null offenen Punkten.
+checks: scripts/run_checks_and_report.py overall=PASS; tests_coverage=PASS (92.19%, 696 passed); sim_epoch_assets=PASS (summary=fail:0,warn:0); report=.tmp\results\reports\checks_report_20260426_203550.md
 ---
 - 2026-04-23 18:53: Der segmentierte Workspace-Auditrest ist wieder geschlossen. `.vscode/tasks.json` fuehrt jetzt die kanonischen Einstiege `Checks: scripts layout`, `Checks: rp current-state gate`, `Checks: rp consistency`, `Checks: rp hard gates`, `Checks: rp staging tag coverage` und `Backups: update manifest`; der direkte Validierungslauf der pruefbaren W2/W5-Kommandos ist gruen. Damit steht der moduluebergreifende Reststand wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
 
@@ -18,6 +18,8 @@ Hinweis
 - Technische Laufdetails liegen in Reports unter `.tmp/results/reports/`.
 
 Aktuelle Eintraege (Summary)
+
+- 2026-04-26 20:40: Der Wochenabschluss ist vollstaendig gruen. `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260426_203550.md` endet PASS, `Checks: sim epoch assets` meldet `summary=fail:0,warn:0`, und `Tests: coverage (fail-under)` bleibt mit `696 passed` und `92.19%` ueber Hard Gate und Qualitaetsziel. `todo.root.md`, `WORKSPACE_STATUS.md`, `DONELOG.md` und `novapolis-dev/docs/donelog.md` sind im selben Lauf auf denselben Abschlussstand synchronisiert; die Modul-Boards bleiben bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
 
 - 2026-04-23 23:50: Der kleine Rest aus dem erneuten Workspace-Audit ist wieder geschlossen. `todo.root.md` fuehrt wieder den aktuellen Modulstand `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`; `novapolis-dev/docs/todo.sim.md` beschreibt die lokal laufende Godot-Binary jetzt portabel ohne hostgebundenen Pfad; und `ruff` plus `black` sind fuer `novapolis_agent` und `scripts` wieder gruen. Der kanonische Voll-Lauf `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260423_234820.md` endet vollstaendig PASS.
 

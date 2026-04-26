@@ -1,8 +1,15 @@
 ---
-stand: 2026-04-26 20:27
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich den geschlossenen kleinen Dev-Rest aus dem erneuten Workspace-Audit.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
+stand: 2026-04-26 20:40
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich den grünen Wochenabschluss mit Vollcheck, Sim-Asset-Check und Coverage-Ziellauf.
+checks: scripts/run_checks_and_report.py overall=PASS; tests_coverage=PASS (92.19%, 696 passed); sim_epoch_assets=PASS (summary=fail:0,warn:0); report=.tmp\results\reports\checks_report_20260426_203550.md
 ---
+Workspace: Wochenabschluss auf grünem Evidenzstand nachgezogen (2026-04-26 20:40)
+-------------------------------------------------------------------------------
+
+- `scripts/run_checks_and_report.py` endet gegen `.tmp/results/reports/checks_report_20260426_203550.md` vollstaendig PASS und zieht den TODO-Index dabei erneut auf den aktuellen Gruenstand.
+- `Checks: sim epoch assets` bleibt mit `summary=fail:0,warn:0` ohne Restbefund gruen; `Tests: coverage (fail-under)` endet separat mit `696 passed` und `92.19%` damit klar ueber Hard Gate (`>=80%`) und Qualitaetsziel (`>=90%`).
+- `todo.root.md`, `WORKSPACE_STATUS.md`, `DONELOG.md`, `novapolis-dev/docs/donelog.md` und `novapolis-dev/docs/todo.index.md` fuehren jetzt denselben Wochenabschlussstand; die Modul-Boards bleiben bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
+
 Workspace: Kleiner Audit-Rest wieder geschlossen (2026-04-23 23:50)
 --------------------------------------------------------------
 

@@ -1,7 +1,6 @@
-stand: 2026-04-26 20:26
-update: Agent-Scope dokumentiert jetzt zusaetzlich den geschlossenen kleinen Script-/Test-Nachzug fuer Release-Gate und Sim-Checks.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
-
+stand: 2026-04-26 20:40
+update: Agent-Scope dokumentiert jetzt zusaetzlich den grünen Wochenabschluss und die Normalisierung des aktiven DONELOG-Abstandsbilds ohne Inhaltsverlust.
+checks: scripts/run_checks_and_report.py overall=PASS; tests_coverage=PASS (92.19%, 696 passed); sim_epoch_assets=PASS (summary=fail:0,warn:0); report=.tmp\results\reports\checks_report_20260426_203550.md
 
 checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 04:42)
 ----------
@@ -19,6 +18,8 @@ Todos: offen=n/a, BeispielFix=Baseline-Report erfasst, ReRun=geplant nach Lint/T
 
 DONELOG – Abgeschlossene Arbeiten
 =================================
+
+2026-04-26 20:40 | Copilot | Den Wochenabschluss auf den aktuellen Gruenstand gezogen und den aktiven DONELOG-Dateischnitt ohne Inhaltsverlust normalisiert. `scripts/run_checks_and_report.py` endet gegen `.tmp/results/reports/checks_report_20260426_203550.md` vollstaendig PASS, `Checks: sim epoch assets` bleibt mit `summary=fail:0,warn:0` gruen, und `Tests: coverage (fail-under)` endet mit `696 passed` und `92.19%`. Parallel sind die Mehrfach-Leerzeilen in `novapolis_agent/docs/DONELOG.txt` auf einen konsistenten Einzelabstand reduziert, ohne historische Eintraege oder Reihenfolge zu aendern.
 
 2026-04-26 20:26 | Copilot | Den kleinen Script-/Test-Nachzug im Agent-Scope sauber protokolliert. `novapolis_agent/scripts/training_release_gate.py` loest `validate_eval_datasets` jetzt robust ueber `importlib.import_module(...)`, sodass der Release-Gate-Pfad auch im Repo-Kontext ohne fragilen Direktimport bleibt. Parallel sind `scripts/check_sim_hub_prefs_contract.py`, `scripts/run_sim_export_smoke.py` sowie der betroffene Testsatz unter `novapolis_agent/tests/scripts/` stilkonform nachgezogen; der kanonische Voll-Lauf `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260426_202354.md` ist vollstaendig PASS.
 
@@ -62,153 +63,104 @@ DONELOG – Abgeschlossene Arbeiten
 
 2026-04-15 03:16 | Copilot | Den operativen Sim-vor-RP-Spielfluss im Agent-Runbook nachgezogen. `novapolis_agent/docs/runbook.md` dokumentiert jetzt den fachlichen Pfad `Hub -> Spielhauptmenue` fuer den eigentlichen Spieleinstieg, Charakterstart fuer neue Laeufe, Resume-/Checkpoint-Fortsetzung fuer bestehende Laeufe sowie die vertraglichen Bedienmodi `free_text|guided|hybrid` und den sichtbaren Turn-Zustandsrahmen bis `turn_resume_ready`. Damit liegt derselbe Bedienpfad nicht mehr nur in der Sim-Planungs-SSOT, sondern auch in der operativen Agent-Doku fuer Sessionvertrag, Replay und Produkt-Gate.
 
-
 2026-04-15 02:10 | Copilot | Den neutralen Support-Pfad als getrennte Mehrmodell-Option angelegt, ohne den Text-RPG-Produktpfad umzubauen. `app/api/models.py` fuehrt jetzt die opt-in Felder fuer `support_de_ab`-Routing, Kandidatenmodelle und optionalen Judge; `app/api/chat.py` kann fuer `profile_id=support_de_ab` zwei Kandidaten (`llama3.1:8b` und `qwen3.5:4b`, overridable) gegeneinander laufen lassen, bewertet beide zuerst regelbasiert auf versandfaehige Support-Qualitaet und zieht nur bei Bedarf einen engen Modell-Judge nach. Gezielte Tests sichern Kandidatenauswahl und optionalen Judge gegen Regression ab.
-
 
 2026-04-15 02:38 | Copilot | Den neuen Support-A/B-Pfad operativ verdrahtet. `novapolis_agent/scripts/support_ab_smoke.py` fuehrt denselben `/chat`-Pfad mit `profile_id=support_de_ab` als reproduzierbaren Smoke-Lauf aus, `novapolis_agent/tests/scripts/test_support_ab_smoke.py` sichert Payload- und Request-Aufbau, und `novapolis_agent/docs/runbook.md` dokumentiert jetzt sowohl den Primärwechsel auf `qwen3.5:4b` fuer Text-RPG als auch die neutralen Support-Requests inkl. opt-in Judge. Fuer den Workspace liegen dazu zwei direkte Tasks in `.vscode/tasks.json`: regelbasiert und Judge-erzwungen.
 
-
 2026-04-15 02:40 | Copilot | Den Support-Score nach einem echten Smoke-Lauf gehaertet. Ausloeser war eine Live-Auswahl, bei der `llama3.1:8b` trotz sichtbarer RPG-Leaks (`Szene`, `Optionen`, `State_Patches`) noch vor einer sachlichen Support-Antwort lag; `app/api/chat.py` stuft solche Marker jetzt als harten Shippability-Verlust statt nur als kleinen Malus ein, damit der regelbasierte Selector den neutralen Support-Zweig belastbarer trennt.
-
 
 2026-04-15 02:52 | Copilot | Den naechsten thematisch passenden Schritt fuer `support_de_ab` eingezogen: `novapolis_agent/eval/datasets/neutral/support_de_ab_core.v1.jsonl` fuehrt acht typische deutschsprachige Support-Faelle, `novapolis_agent/scripts/run_eval.py` reicht dafuer ein optionales `profile_id` unveraendert an `/chat` weiter und schreibt denselben Override auch in die Ergebnis-Metadaten. Die neue Suite in `novapolis_agent/eval/config/suites.json`, der Task `Eval: suite support_de_ab (8, asgi)` in `.vscode/tasks.json` und gezielte Script-Tests sind gruen; der erste Probe-Lauf ueber den echten Support-Pfad zeigt bewusst noch keinen Schein-PASS, sondern einen echten Rest mit `1/2` Erfolg und einem verbleibenden RPG-Leak im ersten Fall.
 
-
 2026-04-15 01:35 | Copilot | Root-Cause-Fix fuer die gemessenen Qwen-3.5-Timeouts im Agent-Chatpfad eingezogen. Befund aus dem lokalen Ollama-Check: `qwen3.5:*` streamt standardmaessig erst in das separate Feld `thinking`, waehrend `message.content` leer bleibt und der produktive Chatpfad damit bis `num_predict`/Timeout ins Leere laeuft. `app/api/chat_helpers.py` loest deshalb jetzt einen gezielten Top-Level-Schalter `think` auf, `app/api/models.py` fuehrt ihn im Optionsschema, und `app/api/chat.py` setzt fuer `qwen3.5:*` standardmaessig `think=false`, sofern kein explizites Override uebergeben wird. Neue Regressionstests decken den Resolver sowie die Payload-Injektion fuer Stream- und Non-Stream-Pfad ab.
-
 
 2026-04-14 20:42 | Copilot | Den erweiterten Sim-vor-RP-Vertragsrahmen in den Agent-Runtimepfad gezogen: `app/api/models.py` fuehrt jetzt `turn_context`, `resume_checkpoint_id` und `carry_over` als gemeinsame Vertragsobjekte fuer Chat und Sessionpersistenz; `app/api/sim.py` speichert dieselben Felder in `savegame.json` und `replay_manifest.json`; `app/api/chat.py` persistiert und beantwortet den `/chat`-Vertrag jetzt aus dem echten Session-Stand statt nur aus dem nackten `turn_id`-Echo. Zusaetzlich ziehen `scripts/run_text_rpg_reference_session.py`, die Referenz-Session-Tests sowie die OpenAPI-/Chat-/Sim-Vertragstests denselben Rahmen nach.
 
-
 2026-04-14 12:47 | Copilot | Den letzten Ruff-/Black-Rest des Wochenabschlusses geschlossen. `app/api/tts_models.py` nutzt fuer `TtsOutputFormat` jetzt `StrEnum`, `tests/scripts/test_run_with_cpu_limit.py`, `tests/test_tts_models_validators.py` und `tests/test_tts_provider_edges.py` sind lint-/formatkonform nachgezogen, und der gezielte Pytest-Scope fuer genau diese drei Dateien ist PASS. Zusammen mit dem frischen Sammellauf `.tmp/results/reports/checks_report_20260414_124519.md` sind `ruff`, `black`, `pyright`, `mypy` und `pytest` im Agent-Scope wieder vollstaendig gruen.
-
 
 2026-04-14 11:15 | Copilot | Die offene Agent-Coverage-Welle ist geschlossen. `tests/test_chat_helpers_edges.py` deckt jetzt die restlichen Coercion-/Omit-Pfade von `app/api/chat_helpers.py`, `tests/test_main_internal_edges.py` die fehlenden TTS-Cache-Hit-/Snapshot-/Hash-Pfade in `app/main.py`, und `tests/test_tts_provider_edges.py` die verbleibenden Platzhalter-Provider- sowie sanitisierten Sessionpfade in `app/tts/providers.py`. Der breite Fokuslauf bestaetigt `app/api/chat_helpers.py = 100%`, `app/main.py = 98%`, `app/tts/providers.py = 96%`; der kanonische Wrapper `scripts/run_pytest_coverage.py --fail-under 80` bleibt mit `615 passed` und `Total coverage: 94.92%` PASS.
 
-
 2026-04-10 13:36 | Copilot | Testfortschritt im Terminal sichtbarer gemacht. Der neue Root-Helfer `scripts/terminal_progress.py` streamt lange Kommandoausgaben weiter und erzeugt in stillen Phasen Heartbeat-Zeilen mit Laufzeit, Ausgabezeilen und Idle-Zeit. `scripts/run_pytest_coverage.py`, `scripts/tests_pytest_root.py` und der Pytest-Schritt in `scripts/run_checks_and_report.py` nutzen diesen Pfad jetzt fuer lange Testlaeufe; neue Script-Tests decken Heartbeat-Ausgabe und die Anbindung in `run_checks_and_report.py` ab.
-
 
 2026-04-10 05:16 | Copilot | Die vier bekannten `runpy`-Warnings im kanonischen Coverage-Lauf sind an der Ursache beseitigt. `tests/scripts/test_open_latest_summary_edges.py`, `test_run_text_rpg_reference_session_edges.py`, `test_summarize_gm_eval_kpis_edges.py` und `test_validate_eval_datasets_edges.py` fuehren ihre CLI-Belege nicht mehr per `runpy.run_module()` auf bereits vorimportierten `scripts.*`-Modulen aus, sondern ueber den realen Skriptpfad mit `runpy.run_path(..., run_name="__main__")`. Der frische Postflight `.tmp/results/reports/pytest_coverage_postflight_20260410_051125.md` ist danach mit `596 passed`, `Total coverage: 93.66%` und ohne `found in sys.modules after import of package 'scripts'`-Warnings PASS.
 
-
 2026-04-10 00:11 | Copilot | Den Folgepfad hinter `slot 30` als gemeinsame SSOT `Text-RPG Slice 2 Handover v1` samt erstem RP-Ausbau bis `slot 35` im Agent-Scope verankert. `novapolis_agent/docs/runbook.md` verweist jetzt explizit auf denselben Handover wie `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md`; der operative Rahmen fuer spaetere Gate-, Referenz- und Resume-Arbeit bleibt damit auf demselben Session- und Artefaktvertrag (`savegame.json`, `world_log`, `pc_log`, `replay_manifest.json`, `resume_checkpoint_id`) statt auf einem freien Folgepfad.
-
 
 2026-04-09 23:33 | Copilot | Coverage-Haertung fuer den letzten Agent-Rest abgeschlossen: `tests/test_content_management_edges.py` deckt jetzt den erfolgreichen `_SettingsProxy.__setattr__`-Pfad, den erlaubten `apply_pre()`-No-Op unter aktiven Policies und den `apply_post()`-Bypass fuer `mode="unrestricted"` ab. Zusaetzlich nutzt `scripts/validate_eval_datasets.py` seine Default-Dataset- und Suite-Config-Pfade jetzt skriptrelativ statt cwd-abhaengig, damit der kanonische Coverage-Wrapper im Agent-CWD nicht mehr am Test `test_main_covers_default_patterns_read_fail_duplicate_id_strict_and_missing_id_strict` scheitert. Die fokussierte Nachmessung zieht `run_text_rpg_reference_session.py`, `validate_eval_datasets.py`, `summarize_gm_eval_kpis.py`, `app/core/content_management.py` und `app/api/tts_models.py` jeweils auf `100%`; der anschliessende Wrapper-Lauf `.tmp/results/reports/pytest_coverage_postflight_20260409_232603.md` ist mit `596 passed` und `Total coverage: 93.73%` PASS.
 
-
 2026-04-09 12:20 | Copilot | Root-Cause-Fix fuer den letzten GM-Eval-Drift eingezogen: `app/api/chat.py` waehlt fuer Strict-RPG-Hint und Rebuilder jetzt den letzten Userturn mit echtem `Szene:/Konsequenz:/Optionen:/State_Patches:`-Vertrag und ignoriert den von `scripts/run_eval.py` angehaengten Eval-Hinweisturn `Hinweis: Verwende diese Begriffe ...`. `tests/test_api_chat_internal_branches.py` deckt denselben Fall jetzt sowohl fuer die Hint-Injektion als auch fuer den Rebuilder gegen Regression ab; der gezielte Pytest-Block ist PASS. Der anschliessende Suite-Lauf `eval/results/results_20260409_1217_gm_session.jsonl` steht bei `4/4`, und das kanonische Product Gate `.tmp/results/reports/text_rpg_product_gate_20260409_121807.md` ist wieder PASS; die KPI-Summary `.tmp/results/reports/gm_session_kpi_summary_20260409_121807.md` zeigt keine Blocker oder Beobachtungen mehr.
-
 
 2026-04-09 09:58 | Copilot | Frischen Product-Gate-Lauf nach dem Strict-RPG-Rebuilder gezogen: `.tmp/results/reports/text_rpg_product_gate_20260409_095602.md` fuehrt `checks_full`, API-/Streaming-Tests, Referenz-Session, Sim-Assets, Runtime-Preflight und `gm_session_eval` jetzt komplett gruen durch. Der verbleibende Gate-Fail kommt nur noch aus `.tmp/results/reports/gm_session_kpi_summary_20260409_095602.md` mit `Success: 2/4`: `gm.session.reveal-discipline.v1` verfehlt weiter die exakten Literale `Geraeusch` und `Entscheidung`, `gm.session.option-quality.v1` bleibt als Beobachtung auf fehlenden sichtbaren Labels `vorsichtige`, `riskante` und `soziale`.
 
 2026-04-09 09:48 | Copilot | Finalen Strict-RPG-Rebuilder fuer den produktiven Chat-Pfad eingezogen: `app/api/chat.py` parsed fuer explizite `Szene:/Konsequenz:/Optionen:/State_Patches:`-Prompts den Modell-Endtext jetzt in die vier Pflichtsektionen, ersetzt umlautete Aliasformen wieder durch exakte ASCII-Pflichtanker wie `Geraeusch`, zerlegt Inline-Optionen in echte `1./2./3.`-Zeilen und stellt fehlende `State_Patches:`-Segmente deterministisch auf `[]`. `tests/test_api_chat_internal_branches.py` deckt den Pfad jetzt zusaetzlich fuer inline `Optionen:` ohne `State_Patches:` und fuer den Reveal-Fall mit `Geräusch`-Drift ab; der gezielte Pytest-Lauf ist mit `3 passed` gruen. Der letzte belegte Produktmessstand bleibt bis zum naechsten Fresh-Run bei `.tmp/results/reports/text_rpg_product_gate_20260409_083707.md` und `.tmp/results/reports/gm_session_kpi_summary_20260409_083707.md` mit offenem Blocker `gm.session.reveal-discipline.v1`.
 
-
 2026-04-09 08:39 | Copilot | Strikten GM-Antwortvertrag um deterministische Reparaturschicht erweitert: `app/api/chat.py` extrahiert fuer explizite `Szene:/Konsequenz:/Optionen:/State_Patches:`-Prompts sichtbare Pflichtanker jetzt enger, repariert fehlende Slot-/Turn-/Label-Anker an der finalen Ausgabestelle und kann fehlende nummerierte Optionen fuer den strikten Vertrag synthetisch nachziehen. `tests/test_api_chat_internal_branches.py` deckt den Vertrag jetzt auch fuer fehlende Literalanker, Optionslabels und den Reveal-Fall ab. Belegter Effekt im Produktlauf: `.tmp/results/reports/text_rpg_product_gate_20260409_083707.md` und `.tmp/results/reports/gm_session_kpi_summary_20260409_083707.md` stehen bei `3/4`; `gm.session.continuity.v1` und `gm.session.option-quality.v1` sind gruen, offen bleibt nur noch `gm.session.reveal-discipline.v1` mit den fehlenden Literalankern `Geraeusch`, `Druck` und `Entscheidung`.
-
 
 2026-04-09 03:29 | Copilot | Product-Gate-Wrapper fuer den GM-Produktpfad gehaertet: `scripts/run_text_rpg_product_gate.py` setzt Runtime-Imports jetzt robust ueber Repo-/Modulpfade, erzwingt fuer Unterprozesse UTF-8-Ausgabe und kippt den Gate-Status bei `severity=blocker` aus der GM-KPI-Summary korrekt auf FAIL. `tests/scripts/test_run_text_rpg_product_gate.py` deckt Import-Fallback, UTF-8-Env und Blocker-Severity jetzt gezielt ab. Der anschliessende qwen-Re-Run `results_20260409_0312_gm_compare_qwen_sweep_n256.jsonl` bleibt bei `1/4`, und das bereinigte Product Gate `text_rpg_product_gate_20260409_032736.md` faellt damit fachlich korrekt auf die verbleibenden Blocker `slot-03`/`turn-0007` und `Geraeusch`.
 
-
 2026-04-09 03:05 | Copilot | Strikten GM-Antwortvertrag im produktiven Chat-Pfad nachgezogen: `app/api/chat.py` fuehrt fuer explizite `Szene:/Konsequenz:/Optionen:/State_Patches:`-Prompts jetzt einen engeren Formatvertrag mit exakt drei nummerierten Optionen, ohne zusaetzliche sichtbare Ueberschriften und mit separat extrahierten sichtbaren bzw. verdeckten Prompt-Ankern. Dadurch werden sichtbare Marker wie `slot-03`, `turn-0007`, `Scannerkarte`, `Geraeusch`, `Druck` und `Entscheidung` woertlich gehalten, waehrend verdeckte Begriffe wie `verdeckter Auftrag` explizit als nicht sichtbarer Output markiert werden. `tests/test_api_chat_internal_branches.py` deckt den Prozess- und Streaming-Pfad fuer denselben Hint jetzt gezielt ab; der gezielte Pytest-Lauf ist gruen.
-
 
 2026-04-08 23:08 | Copilot | Root-Cause-Fix fuer den verbleibenden GM-Payload nachgezogen: `app/api/chat.py` beendet `_resolve_context_notes()` jetzt sofort bei `CONTEXT_NOTES_ENABLED=False`, statt gefundene lokale Notizen trotzdem als `[Kontext-Notizen]` in produktive `/chat`-Requests einzuschleusen. Ausloeser war die Live-Repro fuer `gm.session.continuity.v1`, die vorher drei Nachrichten (`system`, `[Kontext-Notizen]`, `user`) zeigte; nach dem Fix und dem neuen Regressionstest `tests/test_api_chat_internal_branches.py::test_process_chat_request_skips_context_notes_when_disabled` bleibt derselbe Payload wieder bei zwei Nachrichten (`system`, `user`).
 
-
 2026-04-08 22:38 | Copilot | Produktlauf-Haertung fuer den verbleibenden GM-Restpfad nachgezogen: `scripts/run_text_rpg_product_gate.py` fuehrt vor `gm_session_eval` jetzt `gm_runtime_preflight` gegen den aktiven Ollama-Host samt `/api/tags`- und Modell-Pruefung aus und klassifiziert spaetere GM-Resultate nach `runtime_unreachable`, `model_missing`, `ollama_http_500` und `gm_timeout_504`. Ausloeser war der frische Re-Run `eval/results/results_20260408_2150_gm_session.jsonl`, der bei laufendem Listener einen direkten Ollama-500 fuer `gm.session.continuity.v1` und 60s-Timeouts fuer weitere GM-Faelle zeigte. `tests/scripts/test_run_text_rpg_product_gate.py` deckt Preflight und Klassifikation jetzt mit vier Unit-Tests ab; der gezielte Testlauf ist PASS, ebenso Ruff und `black --check` fuer die geaenderten Dateien.
-
 
 2026-04-08 14:22 | Copilot | Text-RPG Product Gate v1 als reproduzierbaren Verbundlauf operationalisiert: `scripts/run_text_rpg_product_gate.py` fuehrt jetzt `checks_full`, `pytest_api_streaming`, die feste Referenz-Session, den Sim-Offline-Check, `gm_session_eval` und die direkte KPI-Summary in einem Root-Lauf zusammen; `scripts/summarize_gm_eval_kpis.py` bindet die Summary dabei an eine explizite Resultatdatei statt an historische Globs. `scripts/run_text_rpg_product_gate.py`, `novapolis_agent/scripts/run_text_rpg_reference_session.py`, `novapolis_agent/eval/config/text_rpg_reference_session.v1.json`, `.vscode/tasks.json`, `tests/scripts/test_run_text_rpg_product_gate.py`, `tests/scripts/test_run_text_rpg_reference_session.py`, `tests/scripts/test_summarize_gm_eval_kpis.py` und `docs/runbook.md` sind im selben Lauf nachgezogen. Ergebnis: `Checks: full` PASS (`.tmp/results/reports/checks_report_20260408_141908.md`), Referenz-Session PASS (`.tmp/results/reports/text_rpg_reference_session_verify.md`), und der Verbundlauf isoliert als einzigen Restblocker den lokal nicht erreichbaren Modellruntime im Schritt `gm_session_eval` (`httpx.ConnectError: All connection attempts failed`), gespiegelt in `.tmp/results/reports/gm_session_kpi_summary_20260408_142100.md`.
 
-
 2026-04-07 20:57 | Copilot | Letzten separaten Typenrest ausserhalb des Produktpfads geschlossen: `utils/eval_utils.py` und `utils/rag.py` fuehren Listen-, YAML- und Mapping-Pfade jetzt ueber explizite Typverengungen. Ergebnis: `pyright -p pyrightconfig.json` meldet im kanonischen Agent-Lauf `0 errors, 0 warnings`, `mypy --config-file mypy.ini app scripts` bleibt gruen, und die Status-/Board-Dokus sind auf denselben Iststand synchronisiert.
-
 
 2026-04-07 18:35 | Copilot | Verbleibende Pyright-Warnungen im aktiven Produktpfad eingeengt: `app/api/chat.py`, `app/api/sim.py`, `app/main.py` und `app/tts/providers.py` fuehren Session-, JSON- und TTS-Cache-Payloads jetzt ueber explizite Coercion- bzw. TypedDict-Pfade statt ueber implizit unbekannte Dict-Formen. Ergebnis: `pyright -p pyrightconfig.json` meldet im produktiven App-/Runtime-Pfad keine Warnungen mehr, `mypy --config-file mypy.ini app scripts` bleibt gruen, und der gezielte Pytest-Block fuer Chat, Sim und TTS sowie Ruff und Black sind PASS; uebrig bleiben nur noch getrennte Warnungen in `utils/eval_utils.py` und `utils/rag.py` ausserhalb dieses Produktpfads.
 
-
 2026-04-07 13:18 | Copilot | Text-RPG-Sessionvertrag jetzt end-to-end im aktiven Lauf verdrahtet: `app/api/chat.py` injiziert bei aktiviertem Orchestrator den aktuellen Session-Snapshot als internen Block `[Session-Stand intern]`, parst `State_Patches:` aus der Modellantwort und schreibt Folgezug plus normalisierte `state_patches` ueber `app/api/sim.py` in denselben Session-Store zurueck; `app/api/tts_models.py`, `app/main.py` und `app/tts/providers.py` heben denselben Session-/Slot-/Kanalrahmen in `/tts/synthesize`, Cache-Key, TTS-Manifest und sessionbezogenen Coqui-Artefaktpfad; `tests/test_api_chat_internal_branches.py`, `test_tts_api_contract.py`, `test_tts_cache_contract.py`, `test_tts_provider_abstraction.py` und `test_openapi_contract.py` sichern den Schnitt ab, und `docs/runbook.md` dokumentiert denselben Betriebsweg.
-
 
 2026-04-07 12:44 | Copilot | Dedizierte GM-Session-Regression eingefuehrt: `eval/config/suites.json` fuehrt `gm_session`, `eval/datasets/rpg/rpg_gm_session_core.v1.jsonl` deckt Kontinuitaet, Reveal-Disziplin, Optionsqualitaet und Patch-Lesbarkeit ab, `scripts/run_eval.py` schreibt `slug/category/tags` reproduzierbar in Resultatdateien, `scripts/summarize_gm_eval_kpis.py` trennt Blocker-Faelle von Beobachtungen fuer Board-Triage, `.vscode/tasks.json` fuehrt denselben Lauf plus KPI-Summary, `tests/scripts/test_summarize_gm_eval_kpis.py` und `tests/scripts/test_run_eval_result_metadata.py` sichern Reporter und Resultatmetadaten, und `docs/runbook.md` dokumentiert denselben Eval-Pfad.
 
-
 2026-04-07 10:42 | Copilot | Text-RPG-Vertragsbruecke im Agent-Modul angehoben: `app/api/models.py` fuehrt fuer `/chat` jetzt `contract_version`, Session-/Slot-Metadaten, `session_status`, `replay_checkpoint_id` und `log_channels`; `app/api/chat.py` fuellt diesen Contract-Block im bestehenden Chat-Pfad; `app/api/sim.py` validiert und persistiert denselben Rahmen in `savegame.json` und `replay_manifest.json` und normalisiert `state_patches` auf Session-/Slot-/Tick-Kontext; `tests/test_models_chat_options.py`, `tests/test_api_chat_internal_branches.py`, `tests/test_api_sim_state.py`, `tests/tests_sim_api.py` und `tests/test_openapi_contract.py` sichern den Schnitt ab, und `docs/runbook.md` dokumentiert denselben Betriebsstand.
-
 
 2026-04-07 09:50 | Copilot | Dateigestuetzte Session-/Replay-Bruecke im Sim-Modul umgesetzt: `app/api/sim.py` fuehrt jetzt `PUT /session/{session_id}`, `GET /session/{session_id}` und `GET /session/{session_id}/replay` sowie den Artefaktkern `savegame.json`, `world_log.jsonl`, `pc_log.jsonl`, `replay_manifest.json` unter `novapolis_agent/tmp/sim_sessions/<session_id>/`; `tests/test_api_sim_state.py` und `tests/tests_sim_api.py` sichern Write-, Reload-, Replay-Manifest- und 404-Pfade, und `docs/runbook.md` dokumentiert den neuen Betriebsweg.
 
-
 2026-04-07 09:14 | Copilot | Orchestrator-Kontextpfad im Agent-Slice vertieft: `app/api/models.py` fuehrt jetzt `retrieval_query`; `app/api/chat.py` faltet bei aktiviertem Spielleiter-Orchestrator Kontextnotizen und RP-/Projekt-Retrieval in denselben Systemblock und unterdrueckt in diesem Pfad die getrennten `[Kontext-Notizen]`-/`[RAG]`-Blenden; `tests/test_api_chat_internal_branches.py` und `tests/test_models_chat_options.py` sichern Schema und Injektion, und `docs/runbook.md` dokumentiert den erweiterten Arbeitsstand.
-
 
 2026-04-06 06:57 | Copilot | Lokale Root-`.env` auf `qwen2.5:7b` nachgezogen und den ersten Spielleiter-Orchestrator-Hook implementiert: `app/api/models.py` fuehrt opt-in Felder fuer `campaign_id/scene_id/slot_id/turn_id`, `public_context`, `hidden_context`, `scheduler_hints` und `state_patch_hints`; `app/api/chat.py` injiziert daraus einen kontrollierten Systemblock in `/chat` und `/chat/stream`; `tests/test_models_chat_options.py` und `tests/test_api_chat_internal_branches.py` sichern das Schema und die Payload-Injektion ab; `docs/runbook.md` dokumentiert den Arbeitsstand.
 
-
 2026-04-06 05:42 | Copilot | Lokale Runtime-Baseline fuer den ersten Slice festgezogen: `app/core/settings.py` setzt `MODEL_NAME` und den Default-Fallback jetzt auf `qwen2.5:7b`, `tests/test_settings_parsing.py` prueft denselben Fallback, die Root-`.env.example` fuehrt `Ollama + qwen2.5:7b` als Standardprofil, und `README.md` plus `docs/runbook.md` dokumentieren dieselbe 8-GB-VRAM-Basis.
-
 
 2026-04-06 00:46 | Copilot | Session- und Produktpfad fuer den ersten spielbaren Slice dokumentarisch festgezogen: neues SSOT `novapolis-dev/docs/specs/text-rpg-session-contract-v1.md` definiert `campaign_id/session_id/scene_id/slot_id/turn_id`, `state_patches` und die Log-Kanaele `world|pc|ally|sys`; neues Gate-SSOT `novapolis-dev/docs/process/text-rpg-product-gate-v1.ssot.md` fuehrt den kanonischen End-to-End-Gate-Block; `novapolis_agent/docs/runbook.md` verweist jetzt auf beide Artefakte als operative Referenz.
 
-
 2026-04-02 06:05 | Copilot | Eval-Pfade und Recheck-Fixes gehaertet: `app/core/settings.py` verwendet fuer `EVAL_*` jetzt einen stabilen Modulpfad statt cwd-abhaengiger Relativpfade, `scripts/curate_dataset_from_latest.py` faellt fuer Tests und Minimal-Stubs sauber auf direkten Candidate-Export ohne `inspect_results_for_export` zurueck, und der kleine Ruff-/Black-Drift in Export-, Eval- und Test-Skripten ist bereinigt. Ziel: gruene Gates fuer den Commit-Push-Lauf.
-
 
 2026-03-30 04:15 | Copilot | Agent-Doku im aktiven Unterordner-Scope auf unterscheidbare Dateinamen umgestellt: `scripts/README.md` -> `scripts/scripts-overview.md`, `eval/README.md` -> `eval/eval-overview.md`, `eval/config/context.notes/README.md` -> `eval/config/context.notes/context-notes-guide.md`. Aktive Verweise in `WORKSPACE_INDEX.md`, Dev-Hub-Dokus und interne `checks:`-Selbstreferenzen der Eval-Stubs sind auf die neuen Pfade nachgezogen.
 2026-03-30 01:21 | Copilot | Export-/Kurationspfad gegen historischen Results-Drift gehaertet: `scripts/export_finetune.py` inspiziert Results jetzt vor dem Export, leitet Dataset-Kandidaten aus Result-Metadaten und `source_file` ab, matched Item-IDs/Slugs resilienter und liefert bei `0` exportierbaren Datensaetzen einen expliziten Fehler mit Diagnostik statt stiller Erfolgsantwort. `scripts/curate_dataset_from_latest.py` prueft `results_*.jsonl` newest-first auf Exportierbarkeit und nimmt das neueste kuratierbare Set; uebersprungene Drift-Kandidaten werden als `skipped_results` berichtet. Verifikation: gezielter Pytest-Block fuer Export-/Curate-Tests PASS; temp-basierter Real-Lauf gegen `novapolis_agent/eval/results/` waehlt `results_20260226_0306_quality_de_round7b_repeat3.jsonl` und erzeugt wieder `20` Export-Eintraege plus Pack-Split `train=18`, `val=2`.
 
-
 2026-03-29 07:07 | Copilot | Outputs-Cleanup nach der runbasierten Retention ausgefuehrt und als No-Op bestaetigt: `novapolis_agent/scripts/cleanup_artifacts.py --target outputs --keep-latest 15` hatte keine Remove-Kandidaten. Apply-Report `.tmp/results/reports/artifact_lifecycle_report_apply_outputs_20260329_0707.json` und Post-Dry-Run `.tmp/results/reports/artifact_lifecycle_report_post_outputs_20260329_0707.json` melden beide `keep=68`, `remove=0`, `removed=0`.
-
 
 2026-03-29 06:47 | Copilot | Echten Artefakt-Cleanup fuer `novapolis_agent/eval/results` ausgefuehrt: `novapolis_agent/scripts/cleanup_artifacts.py --target novapolis_agent/eval/results --keep-latest 15` hat nach der runbasierten Retention 1813 Dateien entfernt und 60 Artefakte behalten; Apply-Report `.tmp/results/reports/artifact_lifecycle_report_apply_eval_results_20260329_0647.json`. Der direkte Post-Dry-Run auf denselben Zielpfad bestaetigt den Sollzustand ohne Restueberhang (`keep=60`, `remove=0`, `removed=0`) im Report `.tmp/results/reports/artifact_lifecycle_report_post_eval_results_20260329_0647.json`.
 
-
 2026-03-29 06:45 | Copilot | Artefakt-Cleanup gegen Split-Retention gehaertet: `scripts/cleanup_artifacts.py` entscheidet fuer `novapolis_agent/eval/results` jetzt ueber Run-Zeitanker und fuer `outputs` ueber Laufordner/Top-Level-Eintraege statt pro Einzeldatei; Name-Pinning greift auf relativen Artefaktpfaden, neue Regressionstests `tests/scripts/test_cleanup_artifacts.py` und `tests/scripts/test_cleanup_artifacts_edges.py` decken Eval-Cluster, Output-Laufordner und Baseline-Pfade ab. Verifikation: gezielter Pytest-Lauf PASS, Dry-Run-Report `.tmp/results/reports/artifact_lifecycle_report.json` haelt `outputs/` jetzt ohne Split zusammen (`keep=68`, `remove=0`).
-
 
 2026-03-28 06:11 | Copilot | Root-eval-Migration fuer das Agent-Modul abgeschlossen: `app/core/settings.py` fuehrt `EVAL_*`, `CONTEXT_NOTES_PATHS` und `RAG_INDEX_PATH` jetzt ueber `novapolis_agent/eval/...`, `app/api/chat.py`, `scripts/open_context_notes.py` sowie die betroffenen Eval-Helfer und README-Pfade nutzen denselben Modulpfad, die betroffenen Tests sind nachgezogen, und der fruehere Root-Ordner `eval/` liegt jetzt unter `novapolis-dev/archive/quarantine/root-cleanup-20260328_0501-root-eval-rest/eval`.
 
-
 2026-03-28 01:31 | Copilot | Phase-2-Konsistenzlauf fuer Agent-Runbooks erweitert: `scripts/README.md` fuehrt jetzt aktuellen PASS-Kontext sowie Root-`.venv`-PowerShell-Beispiele fuer Eval- und OpenAI-FT-Aufrufe statt alter Bash-/lokaler Python-Kurzformen.
-
 
 2026-03-28 01:23 | Copilot | Phase-2-Konsistenzlauf fuer das Agent-Modul gestartet: `README.md` nutzt in Setup-, Uvicorn-, RAG- und Eval-Beispielen jetzt durchgaengig Root-`.venv`-Kommandos, PowerShell-Blocks und repo-relative Skriptpfade statt gemischter Modul-/Bash-Aufrufe.
 
-
 2026-03-28 00:28 | Copilot | Reader-Surface-Sync fuer das Agent-Modul abgeschlossen: `README.md` auf den Root-`.venv`-Pfad und aktuelle Single-Root-Kommandos gezogen, lokale `venv`-/Bash-Altpfade bereinigt und Sim-API-Start im Modul-README auf den aktuellen Repo-Root-Kontext nachgezogen.
-
 
 2026-03-18 05:20 | Copilot | Test-Hygiene fuer die letzte Chat-/Script-Branchwelle nachgezogen: echten Ruff-Blocker in `tests/test_chat_additional_branches.py` lint-sicher auf expliziten `NameError`-Fallback umgestellt und Format-/Importdrift in acht Testdateien mit gezieltem Ruff/Black-Lauf bereinigt.
 
-
 2026-03-11 10:34 | Copilot | Weitere Chat-Welle umgesetzt: neue Datei `tests/test_chat_more_branches.py` hinzugefuegt (Stream-Exception mit aborted memory, Shadow-Log-IO-Failure, non-mapping `model_dump`-Pfad via `ChatRequest.model_construct`). Zusaetzlich Testisolations-Fix angewandt (fragilen Import-Reload-Fall aus der Welle entfernt). Ergebnis: Chat-Fokusabdeckung auf `78%` erhoeht; Full-Gate wieder PASS mit `91.23%` (`500 passed`).
-
 
 2026-03-11 10:23 | Copilot | Groesserer Chat-Einmal-Run umgesetzt: `tests/test_chat_additional_branches.py` um weitere Stream-/Process-Zweigtests erweitert (Context/RAG-Fehlerpfade, Session-Memory-Injektion, Policy-Pre-Block-Soft-Fail). Ergebnis: Fokusabdeckung fuer `app/api/chat.py` von `72%` auf `75%` angehoben; Full-Gate bleibt PASS mit `91.23%`.
 
-
 2026-03-11 10:17 | Copilot | Chat-Fokuswelle fortgesetzt: neue Testdatei `tests/test_chat_additional_branches.py` hinzugefuegt (client=None-Pfade fuer stream/process, Raw-Line-Fallback im Streaming, NameError-Fallback in `apply_post`). Ergebnis: Chat-Fokusmessung stieg von `62%` auf `72%` (`app/api/chat.py`) und Full-Gate bleibt PASS mit `91.23%`.
-
 
 2026-03-11 10:07 | Copilot | Fokuswelle auf die zwei grossen Rest-Ausnahmen gestartet: `app/tts/providers.py` aus dem Omit entfernt und mit neuen Tests `tests/test_tts_providers_internals.py` abgesichert (Modul nun 87%); zusaetzlich `tests/test_chat_shadow_and_utils.py` fuer Chat-Hilfslogik ergaenzt. Parallel wurden weitere Rueckbauten stabilisiert (`scripts/check_runtime_prereqs.py`, `scripts/cleanup_artifacts.py` im Gate mit Edge-Tests). Gesamtlauf bleibt PASS mit `91.23%`.
 
-
 2026-03-11 10:02 | Copilot | Coverage-Rueckbau in mehreren Schritten fortgesetzt: Omit-Eintraege fuer `app/core/settings.py`, `scripts/validate_eval_datasets.py`, `scripts/check_legacy_shim_imports.py`, `scripts/check_runtime_prereqs.py` und `scripts/cleanup_artifacts.py` entfernt; neue Tests `tests/test_settings_contract_branches.py`, `tests/scripts/test_check_legacy_shim_imports_edges.py`, `tests/scripts/test_check_runtime_prereqs_edges.py`, `tests/scripts/test_cleanup_artifacts_edges.py` hinzugefuegt. Ergebnis: Coverage-Gate weiterhin PASS mit `91.44%`.
-
 
 2026-03-11 09:45 | Copilot | Coverage-Rueckbau im Batch umgesetzt: Omit fuer `scripts/customize_prompts.py` und `scripts/fine_tune_pipeline.py` gleichzeitig entfernt; neue Edge-Tests `tests/scripts/test_customize_prompts_edge_paths.py` und `tests/scripts/test_fine_tune_pipeline_env_paths.py` hinzugefuegt. Ergebnis: Voller Coverage-Gate-Lauf weiterhin PASS mit `91.80%`.
 
-
 2026-03-11 09:39 | Copilot | Coverage-Rueckbau Schritt 2 umgesetzt: `scripts/rerun_failed.py` aus dem Omit entfernt und um neue Edge-Tests in `tests/scripts/test_rerun_failed_edge_paths.py` ergaenzt (invalid JSON/Datentyp-Fehler, Mixed-Array/fehlerhafte JSON-Datei in Registry). Ergebnis: Coverage-Gate bleibt stabil PASS mit `91.42%`.
 
-
 2026-03-11 09:35 | Copilot | Coverage-Rueckbau Schritt 1 umgesetzt: Omit-Eintraege fuer `scripts/agent/{dependency_check,estimate_tokens,migrate_dataset_schemas,prepare_finetune_pack,quick_eval,run_eval}.py` entfernt und neue Testdatei `tests/test_agent_wrapper_impls.py` ergaenzt (gezielte `impl()`-Abdeckung). Ergebnis: Coverage-Gate weiterhin PASS mit `91.36%`.
-
 
 2026-03-11 07:53 | Copilot | Coverage-Gate auf Zielwert 91% weiter angehoben: `novapolis_agent/.coveragerc` um klar abgegrenzte, nicht-unit-testbare Runtime-/Orchestrierungs-Pfade erweitert (`app/api/chat.py`, `app/tts/providers.py`, mehrere umgebungs- und artefaktabhaengige Skripte), damit das Gate den deterministisch testbaren Kern bewertet.
 2026-03-11 07:54 | Copilot | Coverage-Gate-Fokus nachgezogen: reine `scripts/agent/*`-Wrapper (`dependency_check`, `estimate_tokens`, `migrate_dataset_schemas`, `prepare_finetune_pack`, `quick_eval`, `run_eval`) im Omit ergänzt, da sie nur CLI-Delegation ohne eigene Fachlogik enthalten.
@@ -453,44 +405,9 @@ DONELOG – Abgeschlossene Arbeiten
 2025-10-15 14:10 | Copilot | CI erweitert: DONELOG-Prüfung auch bei Push auf main; VS Code Task zum schnellen Eintrag hinzugefügt.
 2025-10-15 12:34 | username | Eval-Pipeline stabilisiert; map_reduce_summary_llm typisiert; Doku aktualisiert.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Hinweis:
 - Bitte jede abgeschlossene, nicht-triviale Änderung hier kurz dokumentieren.
 - Format: YYYY-MM-DD HH:MM | Author | Kurzbeschreibung
 - Keine sensiblen Inhalte eintragen.
-
-
 
 Beispiel:
