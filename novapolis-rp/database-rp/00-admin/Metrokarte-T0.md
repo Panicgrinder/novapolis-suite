@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 04:21
-update: Frische-Review durchgeführt; T0-Topologie, ID-Schema und Zustandsmodell weiterhin gültig (kein Kanon-Delta).
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' PASS (2026-02-23 04:22); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' PASS (2026-02-23 04:22); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 04:22)
+stand: 2026-04-27 05:33
+update: T0-Kartenlesart fuehrt jetzt zusaetzlich einen verbindlichen Belebungs-, Gefahren- und Loot-Gradienten inklusive moeglicher zentraler toter Zone.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'novapolis-dev/docs/donelog.md' PASS (2026-04-27 02:54); f:/VS-Code-Workspace/Main/.venv-py313-backup-20260409_1832/Scripts/python.exe F:/VS-Code-Workspace/Main/scripts/check_frontmatter.py 'F:/VS-Code-Workspace/Main/novapolis-rp/database-rp/00-admin/Metrokarte-T0.md' 'F:/VS-Code-Workspace/Main/novapolis-dev/docs/donelog.md' PASS (2026-04-27 02:54)
 slug: metrokarte-t0
 category: Admin
 canvas: metrokarte-t0
@@ -36,6 +36,33 @@ Verteilung T0 (54)
 | Fraktionsnahe Stationen | 24 | Primäre Operationsräume und Fraktionsanker |
 | Neutrale Puffer-/Transitstationen | 18 | Trenn- und Austauschzonen zwischen Fraktionsräumen |
 | Rand-/Peripherie-Stationen | 12 | Erweiterungs- und Unsicherheitsraum (tbd) |
+
+Raumgefuehl T0 (verbindliche Lesart)
+------------------------------------
+
+- Die Metro darf sich nicht wie ein einzelner dichter Fraktionsklumpen mit leerem Rest anfuehlen.
+- Belebung konzentriert sich auf wenige harte Fraktionskerne, mehrere neutrale Durchlauf- und Pufferraeume sowie einzelne Schadens- und Sperrzonen.
+- `neutral` bedeutet im T0-Modell nicht automatisch sicher, leer oder belanglos, sondern oft Transit, Zwischenhandel, Wartelage, Kontrollverlust oder improvisierte Nutzung.
+- Mit wachsender Distanz zu belastbar belebten Kernen steigt im Regelfall Gefahr, Verlassenheit und Improvisationsdruck; zugleich steigen Bergungswert, Schrottchance und der Reiz fuer riskante Missionen.
+- Auch im geographischen oder verkehrstechnischen Zentrum darf eine tote Zone liegen, wenn Offenheit, Witterung, Einsturz oder Oberflaechennaehe den Raum entwertet haben.
+
+Gradientenmodell T0
+-------------------
+
+| Raumtyp | Lesart | Gefahr | Ertrag/Anreiz |
+| --- | --- | --- | --- |
+| belebter Kernraum | dichter Betrieb, Schutz, Freigaben, knappe Ordnung | mittel | planbarer Handel, Werkstatt, Politik |
+| neutraler Pufferraum | Transit, Wartefenster, informeller Austausch, wechselnde Kontrolle | mittel bis hoch | Kontaktpunkte, kleine Deals, Geruechte, Engpasschancen |
+| aeusserer Schadensraum | Teilnutzung unter Hazard, Reparatur- oder Sperrdruck | hoch | Bergegut, Routenabkuerzung, Missionsziele |
+| tote Zone | weitgehend entwerteter, gefaehrlicher oder klimatisch offener Raum | sehr hoch | seltener Schrott, Alttechnik, vergessene Lager, Risk-Reward-Missionen |
+
+Zentrale Tote Zone (T0-Leseregel)
+---------------------------------
+
+- Mindestens eine tote Zone im weiteren Innennetz ist fuer das T0-Gefuehl ausdruecklich zulaessig und gewuenscht.
+- Plausible Lesart: ehemalige grosse, halb offene oder witterungsexponierte Station mit gefaehrlicher Passage, Sichtoffenheit, Feuchte-, Kalt- oder Schuttproblem.
+- Solch ein Raum trennt nicht nur Rand von Zentrum, sondern kann auch mitten in einer sonst relevanten Netzachse wie ein toter Keil wirken.
+- Die Leseregel setzt noch keinen neuen Stationscode und keinen konkreten Ortsretcon; die konkrete Verankerung folgt erst mit belastbarer Stations- oder Missions-Evidenz.
 
 Regel "Neutrale Zwischenstation"
 ---------------------------------
@@ -169,21 +196,21 @@ STATION|id=ST-F1|code=F1|faction=neutral|status=active|ist_zustand=verschlissen|
 STATION|id=ST-F2|code=F2|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4130
 STATION|id=ST-F3|code=F3|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_m|size_m2=4460
 STATION|id=ST-F4|code=F4|faction=neutral|status=restricted|ist_zustand=kritisch|ist_grund=kontamination_oder_blockade|nutzflaeche_faktor=0.62|tier=periphery|size_class=station_xs|size_m2=780
-STATION|id=ST-F5|code=F5|faction=haendlerbund|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4290
+STATION|id=ST-F5|code=F5|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4290
 STATION|id=ST-F6|code=F6|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_m|size_m2=3970
-STATION|id=ST-F7|code=F7|faction=schattenbund|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4680
+STATION|id=ST-F7|code=F7|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4680
 STATION|id=ST-F8|code=F8|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_s|size_m2=1730
 STATION|id=ST-F9|code=F9|faction=schattenbund|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_l|size_m2=7590
-STATION|id=ST-G1|code=G1|faction=eisenkonklave|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4360
+STATION|id=ST-G1|code=G1|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4360
 STATION|id=ST-G2|code=G2|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_s|size_m2=1850
 STATION|id=ST-G3|code=G3|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_s|size_m2=2210
 STATION|id=ST-G4|code=G4|faction=neutral|status=restricted|ist_zustand=kritisch|ist_grund=kontamination_oder_blockade|nutzflaeche_faktor=0.62|tier=periphery|size_class=station_xs|size_m2=730
 STATION|id=ST-G5|code=G5|faction=haendlerbund|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=faction|size_class=station_m|size_m2=4150
-STATION|id=ST-G6|code=G6|faction=fluesterkollektiv|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4440
+STATION|id=ST-G6|code=G6|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4440
 STATION|id=ST-G7|code=G7|faction=haendlerbund|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_xl|size_m2=9480
-STATION|id=ST-H1|code=H1|faction=fluesterkollektiv|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=faction|size_class=station_m|size_m2=4020
-STATION|id=ST-H2|code=H2|faction=eisenkonklave|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_m|size_m2=4310
-STATION|id=ST-H3|code=H3|faction=eisenkonklave|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=faction|size_class=station_m|size_m2=4590
+STATION|id=ST-H1|code=H1|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_m|size_m2=4020
+STATION|id=ST-H2|code=H2|faction=neutral|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=neutral|size_class=station_m|size_m2=4310
+STATION|id=ST-H3|code=H3|faction=neutral|status=partial|ist_zustand=beschaedigt|ist_grund=strukturermuedung|nutzflaeche_faktor=0.78|tier=neutral|size_class=station_m|size_m2=4590
 STATION|id=ST-H12|code=H12|faction=eisenkonklave|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_xl|size_m2=9840
 STATION|id=ST-K4|code=K4|faction=fluesterkollektiv|status=active|ist_zustand=verschlissen|ist_grund=langzeitbetrieb|nutzflaeche_faktor=0.90|tier=faction|size_class=station_l|size_m2=7080
 

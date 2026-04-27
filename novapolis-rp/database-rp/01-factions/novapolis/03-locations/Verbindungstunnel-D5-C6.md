@@ -1,9 +1,9 @@
 ---
-stand: 2026-01-09 05:15
-update: P0 Pflichtfelder ergänzt (Bevölkerung/Infrastruktur/Risiken) für Ortsgraph-Konsistenz.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-09 05:15); & .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-rp\database-rp PASS (2026-01-09 05:15); & .\.venv\Scripts\python.exe scripts\checks_rp_consistency.py --strict PASS (2026-01-09 05:15)
+stand: 2026-04-27 05:33
+update: Tunnelzustand fuehrt jetzt explizit den mehrfach belegten Fussbetrieb zwischen D5 und C6, ohne die Bau- und Sicherungsrisiken weichzuzeichnen.
+checks: snapshot-lock PASS (2026-04-27 05:33)
 title: Verbindungstunnel D5-C6
-last_updated: 2026-01-09T05:14:03+01:00
+last_updated: 2026-04-27T05:33:00+02:00
 category: location
 slug: verbindungstunnel-d5-c6
 version: "1.0"
@@ -17,8 +17,9 @@ Verbindungstunnel D5-C6
 -----------------------
 
 Status
-------
-- Strukturelle Schäden; kartiert
+- Regulärer, beschaedigter U-Bahn-Tunnel; kartiert
+- Zu Fuss bereits mehrfach passiert und als Arbeitskorridor zwischen D5 und C6 belegt
+- Kein Totalausfall, aber weiter nur unter Reparatur-, Sicherungs- und Vorsichtslogik belastbar
 
 Bevölkerung
 -----------
@@ -27,6 +28,7 @@ Bevölkerung
 Infrastruktur / Zugänge
 -----------------------
 - Zugänge: D5 ↔ C6
+- Passage aktuell im Fussbetrieb moeglich; groessere Stabilisierung und belastbarere Nutzung laufen weiter ueber [Nordlinie-01](../05-projects/Nordlinie-01.md)
 - Engstellen/Abschnitte werden im Projekt [Nordlinie-01](../05-projects/Nordlinie-01.md) geführt
 
 Risiken
@@ -34,6 +36,11 @@ Risiken
 - Statik/Trümmer
 - Belüftung/Schadstoffe
 - Sicht-/Stromausfall in Teilabschnitten
+
+Nutzung
+-------
+- Mehrfach belegter Fuss- und Arbeitsweg zwischen D5 und C6; darauf setzen Status-Pings, Materiallaeufe und Folgekoordination auf
+- Nordlinie 01 bedeutet hier nicht "erste Begehbarkeit herstellen", sondern Sicherung, Stuetzung, Materialfuehrung und bessere Belastbarkeit des bereits genutzten Tunnels
 
 Material/Bedarf
 ----------------

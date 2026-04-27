@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-27 01:53
-update: Nordlinie 01 fuehrt jetzt zusaetzlich den kleinen Turn-7-Stuetzsatz als konkrete Klassenbuchung mit Einsatz und Rest vor Ort.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
+stand: 2026-04-27 05:33
+update: Nordlinie 01 beschreibt den D5-C6-Korridor jetzt klar als bereits genutzten Arbeitsweg, dessen Belastbarkeit und Materialfuehrung ausgebaut werden.
+checks: snapshot-lock PASS (2026-04-27 04:18); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-dev/docs/donelog.md' PASS (2026-04-27 04:26); .venv-py313-backup-20260409_1832/Scripts/python.exe scripts/check_frontmatter.py 'novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md' 'novapolis-dev/docs/donelog.md' PASS (2026-04-27 04:26); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-04-27 04:26)
 title: Nordlinie 01 (Tunnel D5-C6)
 category: project
 slug: nordlinie-01
@@ -9,7 +9,7 @@ status: active
 locations: ["d5", "c6", "verbindungstunnel-d5-c6"]
 dependencies: ["novapolis-inventar", "missionslog"]
 version: "1.0"
-last_updated: 2026-04-27T00:44:00+02:00
+last_updated: 2026-04-27T04:18:00+02:00
 tags: []
 ---
 
@@ -18,14 +18,14 @@ Projekt: Nordlinie 01 (Tunnel D5-C6)
 
 Ziel
 ----
-Wiederinbetriebnahme des Verbindungstunnels zwischen D5 und C6.
+Belastbarkeitsausbau des bereits genutzten Verbindungstunnels zwischen D5 und C6 fuer sichereren Arbeits-, Material- und spaeteren Trassenbetrieb.
 
 Phasen
 ------
 1) Aufnahme & Kartierung ✓
 2) Materialbeschaffung (Schweißgerät, Adapter DN60, Stuetzbaukasten)
-3) Abschnittsweise Reparatur (Sicherung → Trassen → Tests)
-4) Betriebsaufnahme (Probefahrt/Lasttest)
+3) Abschnittsweise Sicherung und Reparatur (Sicherung → Trassen → Tests)
+4) Belastbarkeitsausbau (Probefahrt/Lasttest ohne freie Vollinstandsetzung zu behaupten)
 
 Aufgabenliste
 -------------
@@ -52,6 +52,8 @@ Material- und Buchungsstand (kleiner Turn-7-Satz)
 | Klebmasse (schwach) | `1 Kartusche` | `1 Kartusche` | `0` | nur ausrichtend/fixierend, nicht tragend |
 
 Hinweise
+
+- Nordlinie 01 bedeutet nicht, den ersten Fussweg zwischen `D5` und `C6` ueberhaupt erst herzustellen; der Korridor ist bereits als Arbeitsweg genutzt, das Projekt zieht vor allem Sicherheit, Stuetzung, Materialfuehrung und spaetere Lastfaehigkeit nach.
 
 - Der Satz bleibt bewusst klein: genug fuer zwei beruhigte Schwachzonen, nicht genug fuer Reparaturdurchbruch oder Leitungsabschluss.
 - `Schweißgeraet` und `Adapter DN60` bleiben weiterhin die eigentlichen Hauptblocker; die Buchung hier schliesst nur die kleine Turn-7-Teilbereitstellung.
@@ -147,7 +149,7 @@ Wir führen drei getrennte Kennzahlen (0-100%). Dadurch können alte Aussagen (�
 
 - Erkundungsgrad: Wie viel vom Tunnel ist kartiert/verstanden?
 - Sicherungsgrad: Wie viel ist statisch gesichert (Stützen, Gefahrstellen markiert)?
-- Betriebsgrad: Wie viel ist für regelmäßige Nutzung freigegeben (Begehbarkeit/Trasse/Tests)?
+- Betriebsgrad: Wie viel ist fuer regelmaessigere Nutzung ueber den bereits moeglichen Fussbetrieb hinaus freigegeben (Trasse/Tests/Belastbarkeit)?
 
 Tagesleistung (skalierbar)
 --------------------------

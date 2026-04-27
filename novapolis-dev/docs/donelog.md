@@ -1,8 +1,80 @@
 ---
-stand: 2026-04-27 02:30
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich den konservativen D5-C6-Kernraum von Novapolis.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
+stand: 2026-04-27 05:33
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich den Snapshot-Sync des gesamten RP-Commit-Slices fuer den Push auf main.
+checks: snapshot-lock PASS (2026-04-27 05:33)
 ---
+RP-Commitpfad: Snapshot-Sync fuer den gesamten Orts- und Prozess-Slice nachgezogen (2026-04-27 05:33)
+-----------------------------------------------------------------------------------------------
+
+- Die aktuell zu pushenden Markdown-Dateien wurden vor dem Commit gemeinsam auf den frischen Snapshot-Lock `2026-04-27 05:33` synchronisiert, damit das Snapshot-Gate fuer aktive Doku- und RP-Dateien wieder sauber greift.
+- [novapolis-rp/database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md) fuehrt den zuletzt versehentlich in den Body gerutschten Zusatzblock jetzt wieder sauber im Frontmatter und als normale Statussektion.
+
+RP-Ortsmodell: E2-Frontmatter vor Commit auf bestehende Orts-Slugs begrenzt (2026-04-27 05:16)
+----------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/03-locations/E2.md](novapolis-rp/database-rp/03-locations/E2.md) behaelt die neue Lichtgarten- und Mehr-Ebenen-Lesart, fuehrt im `connections`-Frontmatter aber wieder nur den aktuell belegten validator-sicheren Orts-Slug `e3`.
+- Die textliche Topologie zu `E1` und `F2` bleibt als Ortsbeschreibung erhalten; eigene Frontmatter-Verbindungen fuer diese Knoten folgen erst, wenn dafuer auch echte Ortsdateien existieren.
+
+RP-Ortsmodell: Hauptort als Default, Unterort nur mit Separationsgrund festgezogen (2026-04-27 05:05)
+----------------------------------------------------------------------------------------------------
+
+- [novapolis-dev/docs/process/rp-ortsmodell-granularitaet.ssot.md](novapolis-dev/docs/process/rp-ortsmodell-granularitaet.ssot.md) legt jetzt RP-weit fest, dass Orte zuerst als starke Hauptdateien gefuehrt werden und Unterorte nur dann eine eigene Orts-SSOT erhalten, wenn sie einen echten Betriebs-, Risiko- oder Referenzgrund tragen.
+- Die Ableitung bleibt bewusst kompatibel mit dem aktuellen Bestand: `D5` und `C6` bilden das Defaultmodell mit starken Hauptdateien, `E3` bleibt als Risiko- und Infrastruktur-Ausnahme zulaessig feiner zerlegt, und eigenstaendige Tunnelknoten bleiben weiterhin eigene Ortsdateien.
+
+RP-Ortslesart: E3-Wasseraufbereitung als verriegelte Infrastrukturreserve geschaerft (2026-04-27 04:51)
+------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/novapolis/03-locations/E3-Wasseraufbereitung.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/E3-Wasseraufbereitung.md) fuehrt den Ort jetzt nicht mehr nur als abstrakten POI, sondern als kritische, derzeit verriegelte Wasser- und Filterinfrastruktur hinter dem E3-Risikorahmen.
+- Der Nachzug bleibt bewusst konservativ: belastbar sind Kritikalitaet, fehlende Freigabe, offener Filter- und Wasserdruck auf C6-Seite sowie der moegliche Zukunftswert fuer eine spaetere Reaktivierung; nicht behauptet werden freie Zugangswege, intakte Produktion oder konkrete Anlagenraeume.
+
+RP-Ortslesart: E3 zieht die C6-E3-Korridorlogik jetzt am Stationsende nach (2026-04-27 04:28)
+----------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/novapolis/03-locations/E3.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/E3.md) fuehrt den Anschluss nach `C6` jetzt nicht mehr nur als pauschal begehbaren Verbindungsweg, sondern als durch Evakuierung belegten, kontrollierten Fuss- und Sicherungsarm mit verriegeltem E3-Ende.
+- Damit ist die C6-E3-Kante jetzt auf beiden Seiten gleich gelesen: nutzbar fuer Evakuierung und Kontrolle, aber nicht als freie Rueckkehr- oder Routineverbindung normalisiert.
+
+RP-Korridorlogik: Nordlinie 01 und C6-E3 auf belegten Fussbetrieb geschaerft (2026-04-27 04:18)
+---------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01.md) beschreibt den D5-C6-Korridor jetzt nicht mehr als Projekt zur ersten Begehbarmachung, sondern als Belastbarkeits-, Sicherungs- und Materialfuehrungsprojekt fuer einen bereits genutzten Arbeitsweg.
+- [novapolis-rp/database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-C6-E3.md) fuehrt den Tunnel jetzt ausdruecklich als im Fussbetrieb belegten, aber nicht normalisierten Sicherungs- und Evakuierungskorridor; [novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md) zieht diese Lesart im Linienstatus nach.
+
+RP-Korridorlesart: D5-C6 als mehrfach begangener U-Bahn-Arbeitsweg geschaerft (2026-04-27 04:13)
+--------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/Verbindungstunnel-D5-C6.md) fuehrt den Korridor jetzt explizit als regulaeren, beschaedigten U-Bahn-Tunnel, der bereits mehrfach zu Fuss passiert wurde und damit kein unpassierbarer Bruchraum ist.
+- [novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md) trennt diese belegte D5-Seite jetzt sauberer vom eigentlichen Nord- und E3-Risikodruck, damit die Ortslesart nicht den falschen Tunnel ueberdramatisiert.
+
+RP-Ortslesart: C6 als gedrungener Novapolis-Aussenposten bildlich verdichtet (2026-04-27 04:06)
+----------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md) fuehrt C6 jetzt nicht mehr nur als teilaktiven Aussenposten mit Zahlen- und Betriebsdaten, sondern als eng gefuehrten Vorposten mit Schleuse, Stagingraum, geschuetzter Kernzone, Technikzugang, Beobachtungskante und staendigem E3-/Norddruck.
+- Die Verdichtung bleibt an vorhandene RP-Belege gebunden: 27 Personen auf kleiner aktiver Kernflaeche, Kora/Echo als lokale Filter- und Rueckmeldeinstanz, H-47 und E3-Evakuierte als Personendruck sowie der C6-seitig gesicherte, aber gefaehrliche Anschluss nach E3.
+
+RP-Ortslesart: D5 als kompakter Novapolis-Kern bildlich verdichtet (2026-04-27 04:02)
+---------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md) fuehrt D5 jetzt nicht mehr nur als funktionale Hauptbasis, sondern als engen, von innen reaktivierten Kernstandort mit restauriertem Kontrollraum, Wartungsgang, Schacht-/Unterbereich, Materialsockel am Bahnsteig und D5-seitiger Tunnelkante.
+- Die Verdichtung bleibt an vorhandene RP-Belege gebunden: Ronja/Reflex als D5-seitige Korridorarbeiterinnen, Jonas/Pahl als Werkstatt- und Freigabeschiene, sowie der belegte Material- und Wartungspfad aus D5 heraus.
+
+RP-Ortslesart: E2 als Lichtgarten-Hochrisikoknoten kanonisch verdichtet (2026-04-27 03:54)
+-----------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/03-locations/E2.md](novapolis-rp/database-rp/03-locations/E2.md) fuehrt `E2` jetzt nicht mehr nur als neutralen Knoten mit Gasunfall-Nachhall, sondern als mehrstufigen Lichtgarten-Komplex mit altem Oberflaechenwahrzeichen, eingestuerzter Glaskuppel, offener Hallenebene, darunterliegendem Verteilergeschoss und weiter betriebsrelevanter Unterebene.
+- Der Nachzug bleibt kompatibel mit der bisherigen Evidenz: aktive Hauptnutzung unten, keine feste Kerncrew, echter Transitdruck nach `E1` und `F2`, sowie ein deutlich riskanter, instabiler Bezug Richtung `E3`.
+
+RP-Kartenlesart: Metrogradient und tote Zonen als In-World-Rahmen verankert (2026-04-27 02:53)
+-----------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/00-admin/Metrokarte-T0.md](novapolis-rp/database-rp/00-admin/Metrokarte-T0.md) fuehrt jetzt explizit, dass sich die Metro im T0-Rahmen nicht wie ein einzelner Fraktionsklumpen anfuehlen soll, sondern wie ein Netz aus wenigen harten Kernen, neutralen Durchlaufraeumen, Schadenszonen und toten Bereichen mit steigendem Risiko-Loot-Verhaeltnis nach aussen.
+- Dieselbe Karten-SSOT erlaubt jetzt ausdruecklich auch eine zentrale tote Zone: eine ehemalige grosse, halb offene oder witterungsexponierte Station darf als gefaehrlicher toter Keil mitten in einer wichtigen Netzachse liegen, ohne dass dafuer schon ein konkreter Stationsretcon behauptet wird.
+
+RP-Kartenregel: neutrale Zwischenstationen im T0-Verteilungsbild wiederhergestellt (2026-04-27 02:42)
+------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/00-admin/Metrokarte-T0.md](novapolis-rp/database-rp/00-admin/Metrokarte-T0.md) fuehrt die Verteilungsregel fuer neutrale Zwischenstationen jetzt wieder konsistent aus: die nicht-kernigen Marker `F5`, `F7`, `G1`, `G6`, `H1`, `H2` und `H3` wurden auf neutrale Puffer zurueckgesetzt, damit zwischen verschiedenen Fraktionskernen keine direkte Fraktions-zu-Fraktions-Kopplung mehr im T0-Verteilungsbild steht.
+- Der Fix bleibt bewusst auf die Kartenverteilung begrenzt und folgt den bereits nachgezogenen konservativen Kernlesarten: aktive Eigenkerne bleiben `B2`, `D5`, `G7`, `F9`, `H12` und `K4`; nicht-kernige Korridor- oder Randstationen werden dadurch nicht nachtraeglich als Vollkerne gelesen.
+
 RP-Kernmodell: Novapolis mit Kernbasis D5 und Aussenposten C6 nachgezogen (2026-04-27 02:24)
 ------------------------------------------------------------------------------------------
 
