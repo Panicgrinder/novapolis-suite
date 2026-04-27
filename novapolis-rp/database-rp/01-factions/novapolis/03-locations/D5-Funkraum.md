@@ -1,46 +1,39 @@
 ---
-stand: 2026-01-14 12:32
-update: "Neu: POI (Funkraum) ergänzt. Receipts aktualisiert (Gates PASS)."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-14 12:32); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 12:32); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 12:32); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 12:32); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 12:32)
-
+stand: 2026-04-27 06:11
+update: D5-Funkraum bleibt als Kompatibilitaetsstub erhalten; autoritative Ortsdetails liegen jetzt in D5 als starkem Hauptort.
+checks: snapshot-lock PASS (2026-04-27 06:11)
 title: D5 Funkraum
-last_updated: 2026-01-14T10:15:02+01:00
+last_updated: 2026-04-27T05:52:00+02:00
 category: location
 slug: d5-funkraum
-version: "0.1"
+version: "0.2"
 affiliations: [novapolis]
 status: aktiv
 connections: ["d5"]
 tags: ["poi", "d5", "funk"]
 ---
 
-D5 - Funkraum
--------------
+D5 - Funkraum (Kompatibilitaetsstub)
+------------------------------------
+
+Zweck
+-----
+
+- Diese Datei bleibt als stabiles Verweisziel fuer bestehende Charakter-, Inventar- und Projektlinks erhalten.
+- Die autoritative Ortslesart liegt inzwischen im Hauptort [D5](./D5.md).
 
 Status
 ------
-- Aktiv; priorisierte Kommunikationszelle (D5↔C6)
+- Aktiv als Funktionsbereich innerhalb von D5; keine eigenstaendige Ortswelt.
 
-Funktion
---------
-- Funk-/Signalabgleich, Protokollierung von Callsigns, Zeitfenster-Planung
-- Schnittstelle für externe Kontakte (nur nach Freigabe)
+Autoritativer Kontext
+---------------------
 
-Zugang
-------
-- Zugang nur mit Rollenfreigabe; Mitschnitt/Meta-Log ist Pflicht
-
-Risiken
--------
-- „Offene“ Frequenzen → Leaks/Ortung
-- Störsender/Interferenz → Fehlinterpretationen
-
-Hooks
------
-- Unbekannter Ping im Zeitfenster (nur Meta-Daten) → Analyse vs. Lockdown
-- Widersprüchliche Log-Zeilen zwischen Funklog und Missionslog → Konsistenzprüfung
+- Funk-/Signalabgleich, Protokollierung und Freigabekommunikation sitzen im Kontroll- und Terminalkern von D5.
+- Eigene Detailfortschreibung erfolgt in D5 sowie den verknuepften Missions- und Rollenartefakten, nicht mehr in einer separaten Orts-SSOT.
 
 Verlinkungen
 ------------
-- D5 → ./D5.md
-- Missionslog → ../05-projects/Missionslog-Novapolis.md
+
+- D5 -> ./D5.md
+- Missionslog -> ../05-projects/Missionslog-Novapolis.md

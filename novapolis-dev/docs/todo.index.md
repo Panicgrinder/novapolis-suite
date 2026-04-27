@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-27 02:30
-update: Der TODO-Index steht weiter bei `Dev=0`, `RP=1`, `Agent=0`, `Sim=0`; der offene RP-Punkt fuehrt jetzt den ganzen Evidenzpfad aus Warenindex, D5-/C6-Istbestand sowie Mengen- und Restbuchung.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
+stand: 2026-04-27 06:11
+update: Der TODO-Index steht jetzt wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`; der Nordlinie-Runtimepunkt ist in RP-SSOT, Runtime-Artefakten und C6-Hauptort geschlossen.
+checks: snapshot-lock PASS (2026-04-27 06:11); markdownlint=PASS (2026-04-27 06:06); frontmatter=PASS (2026-04-27 06:06); todo-index-sync=PASS (2026-04-27 06:06); doc-freshness=PASS (2026-04-27 06:06); validate:rp=PASS (2026-04-27 06:06)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,7 +12,7 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 1)
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 0)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
@@ -27,7 +27,7 @@ Statushinweise (aktuell)
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt aktuell keine offenen Punkte mehr. Der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Provenienz fehlen; im aktuellen Repo-Stand scheitert derselbe Direktlauf erwartungsgemaess an `missing rp_content results` statt ungeguardet in Training zu laufen.
 
-- RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell genau einen offenen Punkt. Im Nordlinie-Laborpfad ist eine reale kleine Teilbereitstellung bereits belegt; fuer die saubere Fortschreibung muessen nun allgemeiner Warenindex, konservativer D5-/C6-Istbestand sowie Transfer-, Einsatz- und Restlogik denselben Evidenzpfad fuehren.
+- RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell keine offenen Punkte mehr. Der Nordlinie-Laborpfad ist fuer den kleinen Runtime-Turn-7-Satz jetzt zwischen Waren-Index, Stuetzbaukasten, D5-/C6-Inventaren und Runtime-Artefakten konsistent geschlossen; darueber hinaus offene C6-Lagerdetails bleiben bewusst als Evidenzluecke in den Fachdokumenten stehen statt als Board-Blocker.
 
 - Sim: `novapolis-dev/docs/todo.sim.md` fuehrt aktuell keine offenen Punkte mehr. `scripts/run_sim_headless_verify.py` loest im aktuellen Windows-Kontext jetzt auch den Pfad eines laufenden lokalen Godot-Prozesses auf; `Checks: sim headless verify` endet damit wieder mit `SIM_VERIFY: OK` statt am frueheren Exit `2`.
 
@@ -39,7 +39,7 @@ Board-Metadaten (automationsrelevant)
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
 | Dev (`docs/todo.dev.md`) | 2026-04-26 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-04-27 | - [ ] [Jetzt] Runtime-Warenfluss im Nordlinie-Laborpfad von narrativer Teilbereitstellung auf belastbare Mengen- und Restbuchung heben. | nein |
+| RP (`docs/todo.rp.md`) | 2026-04-27 | keiner (offen: 0) | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-04-23 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-04-26 | keiner (offen: 0) | nein |
 

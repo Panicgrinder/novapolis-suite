@@ -1,46 +1,39 @@
 ---
-stand: 2026-01-14 12:32
-update: "Neu: POI (Werkstatt) ergänzt. Receipts aktualisiert (Gates PASS)."
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/**/*.md' PASS (2026-01-14 12:32); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp PASS (2026-01-14 12:32); & .\\.venv\\Scripts\\python.exe scripts\\checks_rp_consistency.py --strict PASS (2026-01-14 12:32); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:rp PASS (2026-01-14 12:32); npm --prefix novapolis-rp\\coding\\tools\\validators run validate:crossrefs PASS (2026-01-14 12:32)
-
+stand: 2026-04-27 06:11
+update: D5-Werkstatt bleibt als Kompatibilitaetsstub erhalten; autoritative Ortsdetails liegen jetzt in D5 als starkem Hauptort.
+checks: snapshot-lock PASS (2026-04-27 06:11)
 title: D5 Werkstatt
-last_updated: 2026-01-14T10:15:02+01:00
+last_updated: 2026-04-27T05:52:00+02:00
 category: location
 slug: d5-werkstatt
-version: "0.1"
+version: "0.2"
 affiliations: [novapolis]
 status: aktiv
 connections: ["d5"]
 tags: ["poi", "d5", "werkstatt"]
 ---
 
-D5 - Werkstatt
---------------
+D5 - Werkstatt (Kompatibilitaetsstub)
+-------------------------------------
+
+Zweck
+-----
+
+- Diese Datei bleibt als stabiles Verweisziel fuer bestehende Links und Abhaengigkeiten erhalten.
+- Die autoritative Ortslesart der Werkstatt liegt inzwischen im Hauptort [D5](./D5.md).
 
 Status
 ------
-- Aktiv; Kernbereich für Reparaturen und Improvisation
+- Aktiv als Werkstattbereich innerhalb von D5; keine eigenstaendige Ortswelt.
 
-Funktion
---------
-- Primär: Instandsetzung, Umbau, Kleinserien-Fertigung (Adapter/Fittings, Halterungen, Gehäuse)
-- Sekundär: Materialausgabe (Werkzeug, Verbrauchsmittel) über Freigabe
+Autoritativer Kontext
+---------------------
 
-Zugang
-------
-- Zugang über D5-Innenkorridor; Ausgabe nur mit Log-Eintrag (Inventar-SSOT)
-
-Risiken
--------
-- Engpass: Verbrauchsmaterial (Schleifscheiben, Schweißdraht, Filter)
-- Sicherheitsrisiko: Funkenflug/Brandlast → klare Zonenmarkierung
-
-Hooks
------
-- Fehlteil-Liste blockiert Reparatur an der Nordlinie (Adapter DN60/Passstücke)
-- „Gefundenes“ Werkzeug taucht ohne Log auf → Audit/Spurensuche
+- Werkstattdruck, Jonas' Techniknische und der Draisine-/Nordlinienbezug werden jetzt direkt in D5, den Projekt-SSOTs und den Inventarpfaden fortgeschrieben.
+- Die Datei dient nur noch der rueckwaertskompatiblen Verortung dieses Teilraums.
 
 Verlinkungen
 ------------
+
 - D5 → ./D5.md
 - Inventar D5 → ../04-inventory/D5-inventar.md

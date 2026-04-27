@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-27 01:53
-update: Das RP-Board fuehrt weiter genau einen offenen Punkt; fuer den Nordlinie-Warenzug sind jetzt allgemeiner Warenindex, D5-/C6-Istbestand und Mengen-/Restbuchung gemeinsam als ein Evidenzpfad gebuendelt.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
+stand: 2026-04-27 06:11
+update: Der offene Nordlinie-Runtimepunkt ist jetzt geschlossen; Turn-7-Teilbereitstellung, D5-/C6-Inventare und der C6-Hauptort laufen nun im selben Evidenzpfad.
+checks: snapshot-lock PASS (2026-04-27 06:11); markdownlint=PASS (2026-04-27 06:06); frontmatter=PASS (2026-04-27 06:06); todo-index-sync=PASS (2026-04-27 06:06); doc-freshness=PASS (2026-04-27 06:06); validate:rp=PASS (2026-04-27 06:06)
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -23,7 +23,12 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (RP)
 --------------------
 
-- [ ] [Jetzt] Runtime-Warenfluss im Nordlinie-Laborpfad von narrativer Teilbereitstellung auf belastbare Mengen- und Restbuchung heben.
+- Aktuell keine offenen RP-Aufgaben.
+
+Abgeschlossene Eintraege (Bestand)
+----------------------------------
+
+- [x] [Jetzt] Runtime-Warenfluss im Nordlinie-Laborpfad von narrativer Teilbereitstellung auf belastbare Mengen- und Restbuchung heben.
   - Ziel: Der kleine D5->Tunnel-Behelfssatz aus dem Nordlinie-Laborpfad soll nicht nur als erzaehlte Teilbereitstellung lesbar sein, sondern als nachvollziehbarer Warenfluss mit belastbarer Mengen- und Restlogik.
   - Akzeptanzkriterien:
     1) [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) fuehrt die benoetigten Gueterklassen fuer den Nordlinie-/Stationspfad explizit und ohne Sammelnebel,
@@ -33,10 +38,8 @@ Offene Aufgaben (RP)
     5) Quelle/Bestandstraeger, Ziel/Verwendung und mindestens eine zaehlbare Groesse pro transferiertem Gut sind benannt,
     6) Einsatz, Verbrauch und verbleibender Restbestand werden getrennt behandelt statt implizit zusammengeschoben,
     7) wenn exakte Zahlen weiter fehlen, bleibt die Luecke explizit als offene Evidenz markiert und wird nicht still mit Scheinpraezision gefuellt.
-  - Evidenz: [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) existiert bereits als Katalog-SSOT; [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) modelliert D5/C6 explizit als fruehe Aufbauphase aus `legacy`, `evac_e3` und `scavenged`; [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) und [novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md) belegen fuer Turn 7 eine reale kleine Teilbereitstellung, markieren aber Mengen, Reststatus und Lagerbuchung weiterhin explizit als offen; [novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md) fixiert die Materialarten als Komponentenklassen statt als fertige Stuetze.
-
-Abgeschlossene Eintraege (Bestand)
-----------------------------------
+  - Evidenz: [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) existiert bereits als Katalog-SSOT; [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) modelliert D5/C6 explizit als fruehe Aufbauphase aus `legacy`, `evac_e3` und `scavenged`; [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) und [novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md) belegen fuer Turn 7 eine reale kleine Teilbereitstellung; [novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md) fixiert die Materialarten als Komponentenklassen statt als fertige Stuetze.
+  - Ergebnis 2026-04-27 06:06: Der kleine Turn-7-Satz ist jetzt zwischen Runtime-Log, Runtime-Inventar, [novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md](novapolis-rp/database-rp/01-factions/novapolis/05-projects/Nordlinie-01-Stuetzbaukasten.md) und [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md) konsistent als kleine Teilbereitstellung mit Transfer, Einsatz und Tunnelrest lesbar. [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md) fuehrt den C6-seitigen Empfangs- und Stagingpfad jetzt ueber den Hauptort [novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md), waehrend [novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6-Schleuse.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6-Schleuse.md) und [novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6-Lagerhalle.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6-Lagerhalle.md) nur noch stabile Kompatibilitaetsziele bleiben. Exakte spaetere C6-Lagerbuchungen ausserhalb dieses kleinen Runtime-Satzes bleiben weiterhin sichtbar offen und werden nicht frei erfunden.
 
 - [x] [Als naechstes] Den Metro-Gesamtrahmen im Warenueberblick nach den Einzelbelegen wieder belastbar verdichten.
   - Ziel: Nach den standort- und fraktionsnahen Nachzuegen soll die Metro-Ebene wieder eine nachvollziehbare, evidence-first verdichtete Lesart erhalten, ohne ungesicherte Summen zu behaupten.

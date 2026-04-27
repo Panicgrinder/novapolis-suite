@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-27 09:54
-update: C6-Zielanker der Transferkette gegen RAW und Logistikcanvas nachgeschaerft; konservative Definitionsschwelle explizit gemacht.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/process/rp-inventory-backfill-pilot-2026-03-20.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-27 08:33); .\.venv\Scripts\python.exe scripts/check_frontmatter.py 'novapolis-dev/docs/process/rp-inventory-backfill-pilot-2026-03-20.md' 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/todo.index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-27 08:33)
+stand: 2026-04-27 06:11
+update: Der Pilot fuehrt den C6-Zielanker jetzt ueber den Hauptort C6; Schleuse und Lagerhalle bleiben nur noch Kompatibilitaetsstubs.
+checks: snapshot-lock PASS (2026-04-27 06:11); markdownlint=PASS (2026-04-27 06:06); frontmatter=PASS (2026-04-27 06:06); todo-index-sync=PASS (2026-04-27 06:06); doc-freshness=PASS (2026-04-27 06:06); validate:rp=PASS (2026-04-27 06:06)
 ---
 
 RP-Pilot: Mengen-Backfill D5/C6/Novapolis (2026-03-20)
@@ -85,14 +85,14 @@ Transferketten-Review (2026-03-20 11:33)
 - Mehrere RAW-/Staging-Stellen bestaetigen die Luecke explizit: Material wurde fuer C6 transportiert, doch die Menge je Item und das entlastete Quellinventar fehlen; genau diese fehlende Entnahme-/Quittungskette wurde im Chat selbst beanstandet.
 - Ergebnis fuer den Pilot: Aus D5- und C6-Ankern kann noch keine belastbare harte Fraktionssumme gebildet werden; vor einer Aggregation braucht es belegte Transferzeilen oder einen kanonischen Wochenreport mit Quelle, Ziel, Mengen und Verantwortlichen.
 
-Nachpruefung D5 -> C6 (2026-03-27 08:14)
-----------------------------------------
+Nachpruefung D5 -> C6 (2026-03-27 08:14; Autoritaetspfad nachgezogen 2026-04-27 06:06)
+---------------------------------------------------------------------------------------------
 
-- Das Umfeld wurde erneut gegen die aktiven SSOT-Dateien `Nordlinie-01.md`, `C6-Schleuse.md`, `C6-Lagerhalle.md` und das globale Regelwerk `Logistik.md` geprueft. Ergebnis: Der kanonische Soll-Fluss bleibt `Entnahme -> Transport -> Ankunft -> Belege/Quittungen -> Verantwortliche`; Schleuse und Lagerhalle definieren nur den Prozess, nicht den konkret verbuchten Fall.
+- Das Umfeld wurde erneut gegen die aktiven SSOT-Dateien `Nordlinie-01.md`, `C6.md`, `C6-Logistik-Policy.md` und das globale Regelwerk `Logistik.md` geprueft. Ergebnis: Der kanonische Soll-Fluss bleibt `Entnahme -> Transport -> Ankunft -> Belege/Quittungen -> Verantwortliche`; die alten Unterorte `C6-Schleuse.md` und `C6-Lagerhalle.md` bleiben nur noch Kompatibilitaetsstubs und definieren keinen eigenen autoritativen Buchungsfall mehr.
 - Im spezifischen RAW-Logistikcanvas `RAW-canvas-2025-10-16T13-05-00-000Z.normalized.txt` ist die Transportlage weiter nur generisch belegt: `AktiveFracht:C6→D5(Materialrueckfuehrung),D5→C6(Bauteile,Werkzeuge,Versorgungsgueter)` bei `Transportmittel:manuellerTransport,Tragegestell(ReflexAssist),keineBahnverbindung`.
 - Im Chat-RAW ist fuer den laufenden Vor-Ort-Prozess nur der Rahmen hart sichtbar: `melden sich noch bei D5 ab` vor dem Rueckweg bzw. der Verlagerung und danach `Ankunft` plus `Bestandsaufnahme` in C6. Diese Stellen tragen den Missionsablauf, aber keine belastbare Item-Buchung.
 - Ein weiterer Inventartreffer `Die Vorraete aus der C6-Expedition (Filter, Energiezellen, Werkzeuge) sind korrekt eingerechnet.` ist als Konsistenzsatz vorhanden, belegt aber keine neue D5->C6-Entnahme oder C6-Zielbuchung fuer den offenen Materiallauf.
-- Konsequenz: Der offene Punkt darf derzeit nur auf `generischer Transportkontext plus Prozessrahmen` verengt werden. Ohne explizite Entnahme, Zielbuchung in `C6-Schleuse` oder `C6-Lagerhalle` und Quittung/Verantwortliche bleibt jede harte Mengenpromotion gesperrt.
+- Konsequenz: Der offene Punkt darf derzeit nur auf `generischer Transportkontext plus Prozessrahmen` verengt werden. Ohne explizite Entnahme, Zielbuchung im C6-Hauptort/Lagerkontext und Quittung/Verantwortliche bleibt jede harte Mengenpromotion gesperrt.
 
 Nachpruefung D5-Quellorte (2026-03-27 08:25)
 --------------------------------------------
@@ -102,13 +102,13 @@ Nachpruefung D5-Quellorte (2026-03-27 08:25)
 - Damit laesst sich die offene Herkunft enger formulieren: Der Lauf `D5 -> C6` stammt plausibel aus `Materiallager unter Bahnsteig` und/oder `Werkstattbestand D5`, nicht nur aus einem abstrakten Stationsvorrat.
 - Die harte Schwelle bleibt dennoch unveraendert: Es fehlt weiterhin die eigentliche Entnahmebuchung aus einem dieser Quellorte, ausserdem fehlen die saubere Zielbuchung in C6 und ein Quittungs-/Verantwortlichenanker. Fuer Inventarmathematik bleibt der Punkt also blockiert; fuer eine spaetere kanonische Definition ist der Ursprung nun nur besser gerahmt.
 
-Nachpruefung C6-Zielseite (2026-03-27 08:29)
---------------------------------------------
+Nachpruefung C6-Zielseite (2026-03-27 08:29; Autoritaetspfad nachgezogen 2026-04-27 06:06)
+---------------------------------------------------------------------------------------------
 
-- Der C6-Empfang ist jetzt enger eingrenzbar als im ersten Recheck. `C6-Schleuse.md` und `C6-Lagerhalle.md` definieren weiterhin nur den Soll-Prozess `Wer/Was/Wann/Wohin` bzw. `Ausgabe gegen Freigabe + Eintrag im Inventar-Log`, nicht aber den konkreten Buchungsfall.
+- Der C6-Empfang ist jetzt enger eingrenzbar als im ersten Recheck. Der Hauptort `C6.md` definiert inzwischen den autoritativen Funktionsrahmen aus Empfangskante, Logistik-/Stagingraum und Kernsektor; `C6-Schleuse.md` und `C6-Lagerhalle.md` bleiben nur noch stabile Verweisziele fuer alte Prozess- und Inventarlinks.
 - Im Chat-RAW ist der konkrete Ablauf inzwischen staerker: Nach `melden sich noch bei D5 ab` folgen `Eintreffen in C6`, `Bestandsaufnahme`, der explizite Satz `der Empfang der Ware muss bestaetigt werden` und danach die Aussage, dass die Ware `zusammen mit der aus D5 an die Baustellen gebracht` wird.
 - Damit laesst sich die offene Zielseite enger formulieren: Der Lauf `D5 -> C6` endet plausibel in einem bestaetigten Empfang in C6 mit anschliessender operativer Verteilung an Baustellen, nicht nur in abstrakter `Ankunft`.
-- Die harte Schwelle bleibt aber auch hier unveraendert: Es fehlt weiterhin die eigentliche Inventar-/Lagerbuchung in `C6-Schleuse` oder `C6-Lagerhalle`, ausserdem fehlen Charge, Verantwortliche im Logformat und eine saubere Zielzeile im Inventarlog. Fuer Inventarmathematik bleibt der Punkt also blockiert; fuer eine spaetere kanonische Definition ist die Zielseite nun nur besser gerahmt.
+- Die harte Schwelle bleibt aber auch hier unveraendert: Es fehlt weiterhin die eigentliche Inventar-/Lagerbuchung im C6-Hauptort bzw. dessen Lagerkontext, ausserdem fehlen Charge, Verantwortliche im Logformat und eine saubere Zielzeile im Inventarlog. Fuer Inventarmathematik bleibt der Punkt also blockiert; fuer eine spaetere kanonische Definition ist die Zielseite nun nur besser gerahmt.
 
 Nachpruefung C6-Zielanker und Definitionsschwelle (2026-03-27 08:33)
 --------------------------------------------------------------------

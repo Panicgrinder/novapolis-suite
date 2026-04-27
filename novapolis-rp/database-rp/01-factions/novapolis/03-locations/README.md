@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 16:00
-update: Ortsindex verweist jetzt zusaetzlich auf den Nordlinie-D5-C6-Fortsetzungsindex fuer den aktiven Tunnelstrang.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
+stand: 2026-04-27 06:11
+update: Der Novapolis-Ortsindex ist jetzt ausdruecklich nur noch Graphanker; Detailorte bleiben in ihren eigenen Dateien und der Weltkarte.
+checks: snapshot-lock PASS (2026-04-27 06:11)
 slug: novapolis-locations
 category: index
 version: "0.1"
@@ -13,7 +13,11 @@ Orte (Novapolis)
 Zweck
 -----
 
-Ablage aller **Orts-SSOTs**, die primär Novapolis zugeordnet sind.
+Dieser Index bleibt bewusst ein reiner Graphanker fuer den Novapolis-Kernraum.
+
+- Er fuehrt nur den lokalen Knoten- und Korridorzusammenhang der Hauptorte und Tunnelknoten.
+- Detailorte und Kompatibilitaetsstubs bleiben in ihren eigenen Dateien.
+- Breitere Topologie- und Stationsdetails liegen in der Weltkarte bzw. den jeweiligen Orts-SSOTs.
 
 Nützliche Links
 ---------------

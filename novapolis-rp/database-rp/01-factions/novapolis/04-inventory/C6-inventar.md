@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-27 02:30
-update: C6-Inventar fuehrt jetzt zusaetzlich die konservative Betriebskorridor-Lesart T0 fuer den Aussenposten C6 innerhalb des D5-C6-Kernraums.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
+stand: 2026-04-27 06:11
+update: C6-Inventar fuehrt Empfang und Staging jetzt ausdruecklich ueber den Hauptort C6; Schleuse und Lagerhalle bleiben nur noch stabile Kompatibilitaetsziele.
+checks: snapshot-lock PASS (2026-04-27 06:11); markdownlint=PASS (2026-04-27 06:06); frontmatter=PASS (2026-04-27 06:06); todo-index-sync=PASS (2026-04-27 06:06); doc-freshness=PASS (2026-04-27 06:06); validate:rp=PASS (2026-04-27 06:06)
 title: Inventar - C6
 last_updated: 2026-04-27T02:24:00+02:00
 category: inventory
@@ -126,10 +126,11 @@ Hinweise
 
 - Der belegte D5-Lauf endet zuerst in C6 und nicht direkt im Tunnel.
 - Belastbar ist der Prozess `Eintreffen -> Bestandsaufnahme -> Empfangsbestaetigung -> spaeterer Baustellenabgang`; nicht belastbar sind konkrete Itemmengen je Stufe.
+- Der autoritative Ortskontext fuer Empfang, Lagerlauf und Staging liegt jetzt in [C6](../03-locations/C6.md); [C6-Schleuse](../03-locations/C6-Schleuse.md) und [C6-Lagerhalle](../03-locations/C6-Lagerhalle.md) bleiben nur als rueckwaertskompatible Verweisziele erhalten.
 
 | Stufe | Ort | Gueterklassen | Mengenstand | Aussage |
 | --- | --- | --- | --- | --- |
-| C6-Empfang | C6-Schleuse / C6-Lagerhalle | `Bauteile`, `Werkzeuge`, `Versorgungsgueter` aus D5 | `tbd` | der Materiallauf kommt zuerst in C6 an; der Tunnel ist dabei nur Durchgang, nicht Zielort |
+| C6-Empfang | C6-Hauptort (Empfangskante / Lagerkontext) | `Bauteile`, `Werkzeuge`, `Versorgungsgueter` aus D5 | `tbd` | der Materiallauf kommt zuerst in C6 an; der Tunnel ist dabei nur Durchgang, nicht Zielort |
 | Bestandsaufnahme / Staging | C6-Lagerkontext | `Bauteile`, `Werkzeuge`, `Versorgungsgueter` | `tbd` | Ware bleibt nach Ankunft zunaechst auf C6-Seite, bis Empfang und Sichtung erfolgt sind |
 | Baustellenabgang | C6 -> C6-/Nordlinie-Baustellenumfeld | `Bauteile`, `Werkzeuge`, `Versorgungsgueter` | `tbd` | Weitergabe an die Baustellen erfolgt erst nach Personaleinteilung; Itemsplit und Zielcharge bleiben offen |
 
@@ -149,7 +150,7 @@ Fehlend / Offen
 - Adapter/Fittings DN60 (kritisch)
 - Schweißausrüstung (kritisch)
 - Lagerplätze/Containerstruktur für C6-Inventar
-- Item- und chargenscharfer Split des belegten C6-Stagings zwischen Schleuse, Lagerhalle und Baustellenabgang
+- Item- und chargenscharfer Split des belegten C6-Stagings zwischen Empfangskante, Lagerkontext und Baustellenabgang
 - Bequeme Nahrungs-, Hygiene- und Maskenreserve fuer 27 Personen; C6 bleibt mit Evakbestand arbeitsfaehig, aber angespannt
 
 Bewegungen (Log)
@@ -161,8 +162,8 @@ Bewegungen (Log)
 - 2026-03-20 06:45 [FACT?] Tagesabschluss Tag 12 -> 13: C6 `+12 Verbrauch` bei `+10 Zufuhr aus D5` => `-2` Tagesbilanz; nur Flusslogik belegt, keine absolute Zellmenge. Quelle: `database-curated/staging/chat-export.normalized.txt`, [Logistik](../../../00-admin/Logistik.md).
 - 2026-03-20 06:52 [FACT?] Tagesabschluss Tag 12 -> 13: Tunnelarbeiten verbrauchen fraktionsweit `1,3 t Baustoffe`, `120 m Schienenprofil`, `18 m² Betonplatten`; `2` Werkzeuge sind beschaedigt, geschaetzt reparabel. Der Verbrauchsort ist konservativ als C6-/Nordlinie-Baustellenumfeld lesbar; konkrete C6-Lager- oder Itemabbuchungen bleiben weiter `tbd`. Quelle: `database-curated/staging/chat-export.normalized.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md).
 - 2026-03-20 07:14 [FACT?] Startsnapshot 2025-10-16: `inventar_c6_v2` und `logistik_c6_v2` belegen für C6 konkrete Lager-/Frachtwerte (`Luftfilter(3)`, `Ersatzrohre(12)`, `Kabelspulen(6)`, `Schmieroel(5)`, `Strommodule(2)`, `Wasserkanister(4)`, `Werkzeugsets(2)`, `Sensorpaket(1)`, `Rationen(9)`, `Wasserflaschen(10)`, `Schutzanzuege(2)`, `Ersatzmasken(3)`), plus Werkzeugliste `Wartungsschluessel(2)`, `Druckmesser(1)`, `Schweissgeraet(1)`. Quelle: `database-curated/staging/RAW-canvas-2025-10-16T12-30-00-000Z.normalized.txt`, `database-curated/staging/RAW-canvas-2025-10-16T12-55-00-000Z.normalized.txt`.
-- 2026-03-20 11:49 [REVIEW] Ein missionierter Zugang aus D5 nach C6 ist als Reparatur- und Versorgungslauf belegt. Belastbar sind Transportrichtung und Kontext; nicht belastbar sind Ankunftsmengen je Item, saubere Zielbuchungen in der C6-Lagerstruktur und Quittungen an Schleuse oder Lagerhalle. Quelle: `database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt`, `database-raw/99-exports/chat-export.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), [C6-Schleuse](../03-locations/C6-Schleuse.md), [C6-Lagerhalle](../03-locations/C6-Lagerhalle.md).
-- 2026-03-31 08:46 [FACT?] Der Chat-RAW fuehrt die C6-Seite des Laufs jetzt explizit als `Eintreffen in C6`, `Bestandsaufnahme` und `Empfang der Ware muss bestaetigt werden`; anschliessend geht die Ware zusammen mit D5-Material an die Baustellen. Welche Charge in Primaer- oder Sekundaerlager landete, bleibt weiter `tbd`. Quelle: `database-raw/99-exports/chat-export.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), [C6-Lagerhalle](../03-locations/C6-Lagerhalle.md).
+- 2026-03-20 11:49 [REVIEW] Ein missionierter Zugang aus D5 nach C6 ist als Reparatur- und Versorgungslauf belegt. Belastbar sind Transportrichtung und Kontext; nicht belastbar sind Ankunftsmengen je Item, saubere Zielbuchungen in der C6-Lagerstruktur und eine harte Quittungszeile im Lagerkontext. Quelle: `database-raw/99-exports/RAW-canvas-2025-10-16T13-05-00-000Z.txt`, `database-raw/99-exports/chat-export.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), [C6](../03-locations/C6.md).
+- 2026-03-31 08:46 [FACT?] Der Chat-RAW fuehrt die C6-Seite des Laufs jetzt explizit als `Eintreffen in C6`, `Bestandsaufnahme` und `Empfang der Ware muss bestaetigt werden`; anschliessend geht die Ware zusammen mit D5-Material an die Baustellen. Welche Charge in Primaer- oder Sekundaerlager landete, bleibt weiter `tbd`. Quelle: `database-raw/99-exports/chat-export.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), [C6](../03-locations/C6.md).
 - 2026-04-26 22:31 [REVIEW] Der aktuelle C6-Arbeitsbestand wird jetzt konservativ aus Stationssnapshot, Evakuierungsmitnahme E3 und laufender Verbrauchslage modelliert. Ergebnis: arbeitsfaehig, aber fuer 27 Personen klar angespannt; `DN60` und operative Schweißausruestung bleiben kritisch. Quelle: [C6](../03-locations/C6.md), [Warenueberblick-T0](../../../00-admin/Warenueberblick-T0.md), [Verbindungstunnel-C6-E3](../03-locations/Verbindungstunnel-C6-E3.md).
 - 2026-04-27 00:06 [REVIEW] C6 fuehrt jetzt einen konservativen Verbrauchsrahmen fuer Stationsbetrieb und Nordlinie-Unterstuetzung. Der groesste Druck sitzt auf schneller Verpflegung, tragbarem Wasser, Hygiene und kleinen Einsatzposten statt auf vollem Werkstattkern. Quelle: [C6](../03-locations/C6.md), [Nordlinie-01](../05-projects/Nordlinie-01.md), [Verbindungstunnel-C6-E3](../03-locations/Verbindungstunnel-C6-E3.md).
 - 2026-04-27 00:51 [REVIEW] C6 fuehrt den belegten Materiallauf jetzt explizit als Empfang, Bestandsaufnahme und belegt-mengenoffenes Staging vor dem spaeteren Baustellenabgang. Der Rohbeleg trennt damit C6 als Zwischenlager von einem direkten Tunnelabwurf, ohne freie Itemmengen zu behaupten. Quelle: `database-raw/99-exports/chat-export.txt`, `database-curated/staging/chat-export-complete.normalized.txt`, [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), [C6-Schleuse](../03-locations/C6-Schleuse.md), [C6-Lagerhalle](../03-locations/C6-Lagerhalle.md).
@@ -183,13 +184,13 @@ Delta zum Missionslog
 - Delta 6 (belegt): Fuer C6 existiert ein frueher, quantifizierter Bestandssnapshot; er taugt als Startanker fuer lokale Restmengen, aber nicht als aktueller Fraktionsgesamtstand ohne D5-Gegenbeleg und spaetere Verbrauchs-/Transferkette.
   - Quelle: `database-curated/staging/RAW-canvas-2025-10-16T12-30-00-000Z.normalized.txt`, `database-curated/staging/RAW-canvas-2025-10-16T12-55-00-000Z.normalized.txt`, `database-curated/staging/RAW-canvas-2025-10-16T13-05-00-000Z.normalized.txt`
 - Delta 7 (belegt/offen): Der Reparatur- und Versorgungslauf aus D5 nach C6 ist jetzt bis `Ankunft -> Bestandsaufnahme -> Empfangsbestaetigung` explizit belegt. Offen bleiben weiterhin konkrete Zielbuchung, Lagerzuordnung zwischen Primaer-/Sekundaerlager und jede Item-Menge.
-  - Quelle: [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), `database-raw/99-exports/chat-export.txt`, `database-raw/99-exports/RAW-canvas-2025-10-16T12-55-00-000Z.txt`, [C6-Schleuse](../03-locations/C6-Schleuse.md), [C6-Lagerhalle](../03-locations/C6-Lagerhalle.md)
+  - Quelle: [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), `database-raw/99-exports/chat-export.txt`, `database-raw/99-exports/RAW-canvas-2025-10-16T12-55-00-000Z.txt`, [C6](../03-locations/C6.md)
 - Delta 8 (review): C6 fuehrt jetzt einen konservativ generierten aktuellen Stationsbestand plus definierte Evakuierungsmitnahme aus E3. Der Stand soll C6 nicht leicht machen: Versorgung, Medizin und Schutz sind vorhanden, aber unter 27-Personen-Druck klar knapp.
   - Quelle: [C6](../03-locations/C6.md), [Verbindungstunnel-C6-E3](../03-locations/Verbindungstunnel-C6-E3.md), [Warenueberblick-T0](../../../00-admin/Warenueberblick-T0.md)
 - Delta 9 (review): C6 fuehrt jetzt einen operativen Verbrauchsrahmen fuer Stationsbetrieb und Nordlinie-Unterstuetzung; damit ist der Druck auf Reserveverpflegung, Wasser und Hygieneposten erstmals stationsscharf lesbar.
   - Quelle: [C6](../03-locations/C6.md), [Nordlinie-01](../05-projects/Nordlinie-01.md)
 - Delta 10 (belegt/review): C6 fuehrt jetzt den belegten Zwischenpfad `Empfang -> Bestandsaufnahme -> Staging -> Baustellenabgang` explizit, ohne ihn mit freier Item- oder Mengenpraezision zu ueberziehen.
-  - Quelle: [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), [C6-Schleuse](../03-locations/C6-Schleuse.md), [C6-Lagerhalle](../03-locations/C6-Lagerhalle.md)
+  - Quelle: [Missionslog-Novapolis](../05-projects/Missionslog-Novapolis.md), [C6](../03-locations/C6.md)
 
 Aktionen
 --------
