@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-27 06:11
-update: Der TODO-Index steht jetzt wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`; der Nordlinie-Runtimepunkt ist in RP-SSOT, Runtime-Artefakten und C6-Hauptort geschlossen.
-checks: snapshot-lock PASS (2026-04-27 06:11); markdownlint=PASS (2026-04-27 06:06); frontmatter=PASS (2026-04-27 06:06); todo-index-sync=PASS (2026-04-27 06:06); doc-freshness=PASS (2026-04-27 06:06); validate:rp=PASS (2026-04-27 06:06)
+stand: 2026-04-28 01:22
+update: Der TODO-Index fuehrt den neuen workspaceweiten Freshness-Scope jetzt als geschlossenen Dev-Steuerpunkt bei unveraendertem Modulstand `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
+checks: snapshot-lock PASS (2026-04-28 01:22); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,7 +23,7 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` ist nach der Archivierung des abgeschlossenen April-Blocks wieder als schlanke Live-Oberflaeche vorbereitet und fuehrt aktuell keine offenen suiteweiten Querschnittspunkte. Der Wochenabschluss vom 2026-04-26 20:40 ist gruen belegt (`Checks: full` PASS, `Checks: sim epoch assets` PASS, Coverage `92.19%`), und der naechste Hygiene-Takt bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` sowie die aktuellen Root-Protokolle verankert, waehrend Root bewusst ausserhalb der Modul-Open-Counts bleibt.
 
-- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Steuerpunkte mehr. Der kleine Audit-Rest ist geschlossen: `todo.root.md` fuehrt wieder den aktuellen Modulstand, `novapolis-dev/docs/todo.sim.md` ist portabel formuliert, und `ruff` plus `black` sind fuer `novapolis_agent` und `scripts` wieder gruen.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Steuerpunkte mehr. Der dokumentierte Freshness-Scope ist jetzt workspaceweit statt nur dev-lokal: `scripts/check_doc_freshness.py` liest `novapolis-dev/docs/meta/doc-freshness-scope.md`, expandiert Root-, Governance-, Agent-, RP-, Sim- und Tree-Pfade zu `checked_docs=262`, und `novapolis-dev/docs/active-surface-index.md` bleibt wieder reine Dev-Klassifikation statt versteckter Scope-Ersatzquelle.
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt aktuell keine offenen Punkte mehr. Der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Provenienz fehlen; im aktuellen Repo-Stand scheitert derselbe Direktlauf erwartungsgemaess an `missing rp_content results` statt ungeguardet in Training zu laufen.
 

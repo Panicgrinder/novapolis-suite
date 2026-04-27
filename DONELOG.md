@@ -1,8 +1,10 @@
 ---
-stand: 2026-04-26 20:40
-update: Root-Summary fuehrt jetzt den grünen Wochenabschluss mit Vollcheck, Sim-Asset-Check und Coverage-Ziellauf; alle Modul-Boards bleiben auf null offenen Punkten.
-checks: scripts/run_checks_and_report.py overall=PASS; tests_coverage=PASS (92.19%, 696 passed); sim_epoch_assets=PASS (summary=fail:0,warn:0); report=.tmp\results\reports\checks_report_20260426_203550.md
+stand: 2026-04-28 01:22
+update: Root-Summary fuehrt jetzt den workspaceweiten Freshness-Scope mit Root-, Modul- und Tree-Abdeckung als geschlossenen Governance-Nachzug.
+checks: snapshot-lock PASS (2026-04-28 01:22); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
 ---
+- 2026-04-28 01:17: Der Workspace-Freshness-Check deckt jetzt nicht mehr nur ein Dev-Subset, sondern die fuehrenden Doku- und Navigationspfade aus Root, Governance, Dev, Agent, RP, Sim und den Tree-Artefakten ab. `scripts/check_doc_freshness.py` liest dafuer jetzt `novapolis-dev/docs/meta/doc-freshness-scope.md`, expandiert dort hinterlegte Globs zu konkreten Dateien und wertet je nach Pfad `frontmatter`, Legacy-Header oder `mtime` aus. Der frische Recheck endet mit `scope_rows=46`, `expanded_glob_rows=12`, `checked_docs=262` und `findings=0`; `novapolis-dev/docs/active-surface-index.md` bleibt dabei bewusst die Dev-Hub-Klassifikation statt der operativen Workspace-Scope-Quelle.
+
 - 2026-04-23 18:53: Der segmentierte Workspace-Auditrest ist wieder geschlossen. `.vscode/tasks.json` fuehrt jetzt die kanonischen Einstiege `Checks: scripts layout`, `Checks: rp current-state gate`, `Checks: rp consistency`, `Checks: rp hard gates`, `Checks: rp staging tag coverage` und `Backups: update manifest`; der direkte Validierungslauf der pruefbaren W2/W5-Kommandos ist gruen. Damit steht der moduluebergreifende Reststand wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
 
 - 2026-04-23 18:38: Der erste segmentierte Workspace-Auditlauf hat einen echten Governance-Rest offengelegt. Die neue SSOT `novapolis-dev/docs/process/workspace-audit-segmente.ssot.md` bleibt aktiv, aber fuer die Segmente `W2` Shared Tooling/Pakete und `W5` RP-Kanon/Curation fehlen mehreren bereits vorhandenen Skripten noch kanonische Einstiege ueber `.vscode/tasks.json` oder `scripts/run_checks_and_report.py`. Das Dev-Board fuehrt diesen Nachzug jetzt als einzigen offenen Steuerpunkt; der Modulstand lautet damit `Dev=1`, `RP=0`, `Agent=0`, `Sim=0`.

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-26 20:27
-update: Das Dev-Board fuehrt nach dem erneuten Workspace-Audit wieder keine offenen Steuerpunkte mehr; der kleine Portabilitaets- und Python-Stilrest ist geschlossen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260426_202354.md
+stand: 2026-04-28 01:22
+update: Das Dev-Board dokumentiert jetzt den workspaceweiten Freshness-Scope; der bisherige Dev-Subset-Pfad ueber active-surface-index ist als alleinige Scope-Quelle ersetzt.
+checks: snapshot-lock PASS (2026-04-28 01:22); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,6 +23,11 @@ Offene Aufgaben (Dev)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Den Doc-Freshness-Scope von einem Dev-Subset auf einen workspaceweiten, moduluebergreifenden Pruefrahmen ziehen.
+  - Ziel: Ein gruener Freshness-Lauf soll nicht laenger still nur den Dev-Hub meinen, sondern die fuehrenden Doku- und Navigationspfade aus Root, Governance, Agent, RP, Sim und den Tree-Artefakten abdecken.
+  - Evidenz: `scripts/check_doc_freshness.py` leitete den Scope zuvor ausschliesslich aus `novapolis-dev/docs/active-surface-index.md` ab und uebersprang Wildcards bewusst. Der belegte Lauf meldete daher nur `checked_docs=14`, obwohl der Workspace-Audit-Rahmen in `novapolis-dev/docs/process/workspace-audit-segmente.ssot.md` Root, Dev, Agent, RP, Sim und W7-Flaechen explizit fuehrt.
+  - Ergebnis 2026-04-28 01:17: `scripts/check_doc_freshness.py` liest den Scope jetzt aus `novapolis-dev/docs/meta/doc-freshness-scope.md`, expandiert die dort hinterlegten Globs zu konkreten Dateien und unterstuetzt `frontmatter`, `legacy-header` und `mtime` als Frischequellen. Der aktuelle Lauf deckt damit `scope_rows=46`, `expanded_glob_rows=12` und `checked_docs=262` ohne Findings ab. `novapolis-dev/docs/active-surface-index.md` bleibt dabei bewusst die Dev-Hub-Klassifikation und nicht mehr die versteckte Workspace-Scope-Quelle.
 
 - [x] [Jetzt] Den kleinen Audit-Rest aus aktiver Doku-Portabilitaet und Python-Stil wieder auf einen gemeinsamen Gruenstand ziehen.
   - Ergebnis 2026-04-23 23:50: `todo.root.md` fuehrt wieder den aktuellen Modulstand statt des veralteten Kurzstatus. `novapolis-dev/docs/todo.sim.md` beschreibt die lokal laufende Godot-Binary jetzt portabel ohne hostgebundenen Pfad. `novapolis_agent/scripts/training_release_gate.py`, `scripts/check_sim_hub_prefs_contract.py`, `scripts/run_sim_export_smoke.py` sowie der betroffene Testsatz unter `novapolis_agent/tests/scripts/` sind wieder Ruff-/Black-konform.

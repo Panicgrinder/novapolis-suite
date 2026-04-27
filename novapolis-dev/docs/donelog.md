@@ -1,8 +1,16 @@
 ---
-stand: 2026-04-27 06:11
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich den Snapshot-Sync des gesamten Commit-Retry-Slices nach dem erfolgreich geprueften Laborpfad-Nachzug.
-checks: snapshot-lock PASS (2026-04-27 06:11)
+stand: 2026-04-28 01:22
+update: Dev-DONELOG dokumentiert jetzt den workspaceweiten Freshness-Scope samt Glob-Expansion, Pruefmodi und differenzierten Max-Alter-Fenstern.
+checks: snapshot-lock PASS (2026-04-28 01:22); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
 ---
+Workspace-Doc-Freshness: Scope von Dev-Subset auf workspaceweiten Pruefrahmen gehoben (2026-04-28 01:17)
+----------------------------------------------------------------------------------------------------------
+
+- [scripts/check_doc_freshness.py](scripts/check_doc_freshness.py) leitet seinen Scope nicht mehr aus [novapolis-dev/docs/active-surface-index.md](novapolis-dev/docs/active-surface-index.md) ab, sondern aus [novapolis-dev/docs/meta/doc-freshness-scope.md](novapolis-dev/docs/meta/doc-freshness-scope.md).
+- Der neue Scope fuehrt Root-, Governance-, Dev-, Agent-, RP- und Sim-Doku sowie [workspace_tree.txt](workspace_tree.txt), [workspace_tree_dirs.txt](workspace_tree_dirs.txt) und [workspace_tree_full.txt](workspace_tree_full.txt) in einer eigenen Tabelle mit den Modi `frontmatter`, `legacy-header` und `mtime`.
+- Globs werden jetzt explizit zu konkreten Dateien expandiert; ein gruener Lauf bedeutet damit nicht mehr still nur ein kleines Dev-Subset. Der aktuelle Recheck endet mit `scope_rows=46`, `expanded_glob_rows=12`, `checked_docs=262` und `findings=0`.
+- [novapolis-dev/docs/active-surface-index.md](novapolis-dev/docs/active-surface-index.md) bleibt dabei absichtlich die Dev-Hub-Klassifikation und nicht mehr die operative Scope-Quelle des Freshness-Checks.
+
 RP-Commitretry: Snapshot-Sync fuer Commit-Slice nachgezogen (2026-04-27 06:11)
 --------------------------------------------------------------------------
 

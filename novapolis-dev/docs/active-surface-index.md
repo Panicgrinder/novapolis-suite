@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-18 03:00
-update: Die verbliebenen Maerz-Referenzzeilen sind jetzt als belegte April-Pruefstaende oder als bewusst gepruefte Gruppenpfade nachgezogen; der Index bleibt kompakt und kompatibel zur Freshness-Logik.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260417_071110.md; snapshot-lock PASS (2026-04-18 03:00)
+stand: 2026-04-28 01:22
+update: Der Active-Surface-Index bleibt jetzt ausdruecklich die Dev-Hub-Klassifikation; der workspaceweite Freshness-Scope lebt getrennt unter docs/meta/doc-freshness-scope.md.
+checks: snapshot-lock PASS (2026-04-28 01:22); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
 ---
 
 Active Surface Index (Dev Docs)
@@ -50,7 +50,8 @@ Pflege
 - Bei Neuaufnahme/Aenderung operativer Dev-Dokumente den Index im selben Lauf aktualisieren.
 - `last_check` wird bei inhaltlicher Pruefung oder Klassifikationsaenderung aktualisiert.
 - Die Sammelwerte fuer `process/**` und `meta/**` bleiben bewusst Gruppensignale; punktuelle Einzellaeufe muessen nicht jeden Referenzpfad auf denselben Tag ziehen.
-- Wildcard-Zeilen (`specs/**`, `process/**`, `meta/**`) sind manuelle Gruppenpruefungen; `scripts/check_doc_freshness.py` bewertet weiterhin nur konkrete Dateipfade aus dieser Tabelle und ueberspringt Wildcards bewusst.
+- Der workspaceweite Freshness-Check liest seinen Scope nicht mehr aus dieser Tabelle, sondern aus `novapolis-dev/docs/meta/doc-freshness-scope.md`.
+- Die Wildcard-Zeilen (`specs/**`, `process/**`, `meta/**`) bleiben hier reine Dev-Klassifikation und nicht laenger ein versteckter Workspace-Freshness-Scope.
 
 
 
