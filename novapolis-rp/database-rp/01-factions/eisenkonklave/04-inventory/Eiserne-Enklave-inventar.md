@@ -1,9 +1,9 @@
 ---
-stand: 2026-04-02 06:27
-update: Die Eisenkonklave fuehrt jetzt den belegten Haendlerbund-Handelsrahmen samt Freigabekette; Mengen bleiben offen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
+stand: 2026-04-27 02:30
+update: Die Eisenkonklave fuehrt jetzt zusaetzlich den konservativen Betriebskorridor T0 fuer H12 und den Schadenskorridor H3-H12.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
 canvas: Inventar Eiserne Enklave
-last_updated: 2026-03-31T18:12:34+02:00
+last_updated: 2026-04-27T02:02:00+02:00
 category: inventory
 slug: eiserne-enklave-inventar
 owner: eiserne-enklave
@@ -28,6 +28,12 @@ Rahmenlage (T0)
 - Eisenkonklave bleibt als Werkstoff- und Schutzgüterraum gerahmt, nicht als quantifiziertes Gesamtlager.
 - Dominante Herkunftslabel: `produced`, `legacy`.
 - Konkrete Rohstoffmengen, Waffenbestände und stationsscharfe Lageranteile bleiben bis zu neuer Belegkette `tbd`.
+
+Betriebskorridor T0
+-------------------
+
+- Das konservative Betriebsmodell fuehrt `H12` als aktiven Kern und `H3 -> H12` als beschaedigten Zulauf desselben Kontrollblocks; siehe [eisenkonklave-betriebsmodell-t0](../00-doctrine/eisenkonklave-betriebsmodell-t0.md) und [eisenkonklave-nahraum-t0](../00-doctrine/eisenkonklave-nahraum-t0.md).
+- Inventarseitig folgt daraus: belastbar ist der Kernsockel in `H12`, waehrend der Schadenskorridor Lager-, Sicherheits- und Versorgungslage rahmt, aber kein zweites Vollinventar begruendet.
 
 Handelslage (belegt)
 --------------------

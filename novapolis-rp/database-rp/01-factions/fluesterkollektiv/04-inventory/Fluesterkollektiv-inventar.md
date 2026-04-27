@@ -1,9 +1,9 @@
 ---
-stand: 2026-04-02 06:27
-update: Fluesterkollektiv fuehrt jetzt den belegten Minimalrahmen aus unbekanntem Novapolis-Kontakt und interner Kanal-/Sicherheitskette; Mengen bleiben offen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
+stand: 2026-04-27 02:30
+update: Fluesterkollektiv fuehrt jetzt zusaetzlich den konservativen Betriebskorridor T0 fuer K4 und indirekte Kanalpfade.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
 canvas: Inventar Fluesterkollektiv
-last_updated: 2026-04-01T00:53:51+02:00
+last_updated: 2026-04-27T02:06:00+02:00
 category: inventory
 slug: fluesterkollektiv-inventar
 owner: fluesterkollektiv
@@ -29,6 +29,12 @@ Rahmenlage (T0)
 - Fluesterkollektiv bleibt als Informations- und Spezialgüterraum gerahmt, nicht als harter Sachgutbestand.
 - Dominante Herkunftslabel: `unknown`, `scavenged`.
 - Konkrete Verbrauchsmengen, Technikposten und tauschbare Spezialgüter bleiben bis zu neuer Belegkette `tbd`.
+
+Betriebskorridor T0
+-------------------
+
+- Das konservative Betriebsmodell fuehrt `K4` als aktiven Kern und indirekte Kanalpfade als belegten Funktionsraum desselben Fluesterkollektiv-Blocks; siehe [fluesterkollektiv-betriebsmodell-t0](../00-doctrine/fluesterkollektiv-betriebsmodell-t0.md) und [fluesterkollektiv-nahraum-t0](../00-doctrine/fluesterkollektiv-nahraum-t0.md).
+- Inventarseitig folgt daraus: belastbar ist der Kernsockel in `K4`, waehrend indirekte Kanaele Kontaktlogik, Signalhygiene und Risiko rahmen, aber kein zweites Vollinventar begruenden.
 
 Aussenlage (belegt)
 -------------------

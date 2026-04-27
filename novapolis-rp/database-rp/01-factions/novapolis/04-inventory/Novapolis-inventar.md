@@ -1,9 +1,9 @@
 ---
-stand: 2026-04-27 01:53
-update: Das Fraktionsinventar fuehrt jetzt zusaetzlich den belegten C6-Stagingpfad zwischen Empfang und Baustellenverteilung explizit.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
+stand: 2026-04-27 02:30
+update: Das Fraktionsinventar fuehrt jetzt zusaetzlich den konservativen Betriebskorridor T0 fuer D5, C6 und den aktiven D5-C6-Pfad.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
 canvas: Inventar Novapolis
-last_updated: 2026-04-27T00:51:00+02:00
+last_updated: 2026-04-27T02:24:00+02:00
 category: inventory
 slug: novapolis-inventar
 owner: novapolis
@@ -17,6 +17,12 @@ Hinweis: Fraktionsinventare strikt getrennt (Policy Y.1). Abrechnung im Wochenzy
 
 - Transfers zwischen D5 und C6 nur via Mission/Logistik.
 - Waehrung "Kugeln" wird als Inventar-Item gefuehrt (neu/gebraucht).
+
+Betriebskorridor T0
+-------------------
+
+- Das konservative Betriebsmodell fuehrt `D5` als aktive Kernbasis, `C6` als teilaktiven Aussenposten und `D5 <-> C6` als belegten Arbeitskorridor desselben Novapolis-Blocks; siehe [novapolis-betriebsmodell-t0](../00-doctrine/novapolis-betriebsmodell-t0.md) und [novapolis-nahraum-t0](../00-doctrine/novapolis-nahraum-t0.md).
+- Inventarseitig folgt daraus: belastbar sind D5 als Fraktionskern, C6 als Verbrauchs- und Stagingschwerpunkt und der Transferpfad dazwischen; `E3` begruendet weiterhin kein aktives Inventarcluster.
 
 Delta-/Bilanzformat (belegt)
 ----------------------------

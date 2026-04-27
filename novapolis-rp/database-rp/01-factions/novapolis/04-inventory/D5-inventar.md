@@ -1,9 +1,9 @@
 ---
-stand: 2026-04-27 01:53
-update: D5-Inventar fuehrt jetzt echte Reststaende nach dem kleinen Nordlinie-Turn-7-Abgang und der aktuellen Draisine-Werkstattbindung.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
+stand: 2026-04-27 02:30
+update: D5-Inventar fuehrt jetzt zusaetzlich die konservative Betriebskorridor-Lesart T0 fuer D5 als Kernbasis und C6 als Aussenposten.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
 title: Inventar - D5
-last_updated: 2026-04-27T00:44:00+02:00
+last_updated: 2026-04-27T02:24:00+02:00
 category: inventory
 slug: d5-inventar
 owner: novapolis
@@ -22,6 +22,12 @@ Policy
 ------
 - Inventare bleiben getrennt; Transfers nur via Mission/Logistik.
 - Buchungen mit Quelle/Ziel in [Logistik](../../../00-admin/Logistik.md) dokumentieren.
+
+Betriebskorridor T0
+-------------------
+
+- Das konservative Betriebsmodell fuehrt `D5` als Kernbasis und `C6` als teilaktiven Aussenposten desselben Novapolis-Blocks; siehe [novapolis-betriebsmodell-t0](../00-doctrine/novapolis-betriebsmodell-t0.md) und [novapolis-nahraum-t0](../00-doctrine/novapolis-nahraum-t0.md).
+- Inventarseitig folgt daraus: D5 traegt den belastbaren Fraktionssockel fuer Basisbetrieb, Werkstatt und Ausgaenge in den Korridor, aber nicht automatisch den gesamten Aussenpostenverbrauch von C6.
 
 Bestände (verbucht)
 -------------------

@@ -1,9 +1,9 @@
 ---
-stand: 2026-04-02 06:27
-update: Schattenbund fuehrt jetzt den belegten Relations- und Beschaffungsrahmen mit Jarek/Sera/Nyra; Mengen bleiben offen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
+stand: 2026-04-27 02:30
+update: Schattenbund fuehrt jetzt zusaetzlich den konservativen Betriebskorridor T0 fuer F9 und den Korridor F9-G6.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
 canvas: Inventar Schattenbund
-last_updated: 2026-04-01T00:39:39+02:00
+last_updated: 2026-04-27T02:06:00+02:00
 category: inventory
 slug: schattenbund-inventar
 owner: schattenbund
@@ -29,6 +29,12 @@ Rahmenlage (T0)
 - Schattenbund bleibt als opportunistischer Beschaffungs- und Abschirmraum gerahmt, nicht als hartes Mengendepot.
 - Dominante Herkunftslabel: `scavenged`, `unknown`.
 - Konkrete Ware, Lagerstände und Quoten zwischen Schmuggel, Tarnung und Werkzeug bleiben bis zu neuer Belegkette `tbd`.
+
+Betriebskorridor T0
+-------------------
+
+- Das konservative Betriebsmodell fuehrt `F9` als aktiven Kern und `F9 -> G6` als aktiven Tarnungs- und Bewegungskorridor desselben Schattenblocks; siehe [schattenbund-betriebsmodell-t0](../00-doctrine/schattenbund-betriebsmodell-t0.md) und [schattenbund-nahraum-t0](../00-doctrine/schattenbund-nahraum-t0.md).
+- Inventarseitig folgt daraus: belastbar ist der Kernsockel in `F9`, waehrend der Korridor Beschaffung, Abschirmung und Risiko rahmt, aber kein zweites Vollinventar begruendet.
 
 Aussenlage (belegt)
 -------------------

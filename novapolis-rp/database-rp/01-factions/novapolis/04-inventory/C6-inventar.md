@@ -1,9 +1,9 @@
 ---
-stand: 2026-04-27 01:53
-update: C6-Inventar fuehrt jetzt zusaetzlich den belegten C6-Stagingpfad zwischen Empfang, Bestandsaufnahme und Baustellenabgang.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
+stand: 2026-04-27 02:30
+update: C6-Inventar fuehrt jetzt zusaetzlich die konservative Betriebskorridor-Lesart T0 fuer den Aussenposten C6 innerhalb des D5-C6-Kernraums.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
 title: Inventar - C6
-last_updated: 2026-04-27T00:51:00+02:00
+last_updated: 2026-04-27T02:24:00+02:00
 category: inventory
 slug: c6-inventar
 owner: novapolis
@@ -22,6 +22,12 @@ Policy
 ------
 - Inventare bleiben getrennt; Transfers nur via Mission/Logistik.
 - Buchungen mit Quelle/Ziel in [Logistik](../../../00-admin/Logistik.md) dokumentieren.
+
+Betriebskorridor T0
+-------------------
+
+- Das konservative Betriebsmodell fuehrt `C6` als teilaktiven Aussenposten innerhalb desselben Novapolis-Blocks, nicht als zweiten voll stabilen Kern; siehe [novapolis-betriebsmodell-t0](../00-doctrine/novapolis-betriebsmodell-t0.md) und [novapolis-nahraum-t0](../00-doctrine/novapolis-nahraum-t0.md).
+- Inventarseitig folgt daraus: C6 bleibt der Verbrauchs-, Staging- und Druckschwerpunkt des Fraktionsraums, waehrend D5 die stabilere Quell- und Rueckhalteseite des Korridors bildet.
 
 Bestände (lokal belegt, ohne Stückzahlen)
 -----------------------------------------

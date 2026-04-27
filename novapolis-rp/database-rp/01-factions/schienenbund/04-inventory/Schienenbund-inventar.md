@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-27 01:53
-update: Schienenbund fuehrt jetzt zusaetzlich einen konservativen Stationssockel fuer B2 samt Lager- und Instandsetzungsanker.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
+stand: 2026-04-27 02:30
+update: Schienenbund fuehrt jetzt zusaetzlich den konservativen Betriebskorridor T0 fuer B2, B1 und C3.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
 canvas: Inventar Schienenbund
 last_updated: 2026-04-27T01:05:00+02:00
 category: inventory
@@ -51,6 +51,12 @@ Rahmenlage (T0)
 - Schienenbund bleibt als logistischer Reparatur- und Baukontext mit aktivem Stationssockel in B2 gerahmt, nicht als quantifiziertes Gesamtlager.
 - Dominante Herkunftslabel: `produced`, `scavenged`.
 - Stationsscharfe Teilmengen, echte Verbrauchsbilanzen und jede engere Outputlogik bleiben bis zu neuer Belegkette `tbd`.
+
+Betriebskorridor T0
+-------------------
+
+- Das konservative Betriebsmodell fuehrt `B2` als aktiven Kern und `B1/C3` als Vor- und Nachpuffer desselben Trassenblocks; siehe [schienenbund-betriebsmodell-t0](../00-doctrine/schienenbund-betriebsmodell-t0.md) und [schienenbund-nahraum-t0](../00-doctrine/schienenbund-nahraum-t0.md).
+- Inventarseitig folgt daraus: belastbar ist der Kernsockel in `B2`, waehrend Zulauf- und Nachlaufdruck die Lager- und Freigabelogik rahmen, aber keine eigenen Schienenbund-Vollinventare begruenden.
 
 Bewegungen (Log)
 ----------------

@@ -1,9 +1,9 @@
 ---
-stand: 2026-04-02 06:27
-update: Der Haendlerbund fuehrt jetzt den belegten H-47/C6-Handelsanker mit Austauschklassen; Mengen und Manifeste bleiben offen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260402_062604.md
+stand: 2026-04-27 02:30
+update: Der Haendlerbund fuehrt jetzt zusaetzlich den konservativen Betriebskorridor T0 fuer G7 als Zentrale und C6 als eingebettete Niederlassung.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
 canvas: Inventar Händlerbund
-last_updated: 2026-03-31T17:50:25+02:00
+last_updated: 2026-04-27T02:17:00+02:00
 category: inventory
 slug: haendlerbund-inventar
 owner: haendlerbund
@@ -29,11 +29,17 @@ Rahmenlage (T0)
 - Dominante Herkunftslabel: `legacy`, `scavenged`, `produced`.
 - Konkrete Umlaufmengen, feste Stationslager und belastbare Bestandsketten bleiben bis zu neuer Belegkette `tbd`.
 
+Betriebskorridor T0
+-------------------
+
+- Das konservative Betriebsmodell fuehrt `G7` als aktive externe Zentrale und `C6` als belegte eingebettete Niederlassung desselben Haendlerbund-Blocks; siehe [haendlerbund-betriebsmodell-t0](../00-doctrine/haendlerbund-betriebsmodell-t0.md) und [haendlerbund-nahraum-t0](../00-doctrine/haendlerbund-nahraum-t0.md).
+- Inventarseitig folgt daraus: belastbar ist der Kernsockel in `G7`, waehrend `C6` als Partner- und Niederlassungsfenster Austausch, Ruecklauf und Versorgungslogik rahmt, aber kein zweites unabhaengiges Haendlerbund-Vollinventar begruendet.
+
 Handelslage (belegt)
 --------------------
 
 - `H-47` ist als ueberlebende Haendlerkarawane mit dauerhafter Kooperation zu Novapolis belegt; `C6` ist als Handelsstuetzpunkt aktiviert.
-- `G7` bleibt externer Kontakt-/Umschlagpunkt; `H-47` fuehrt seine Basis zugleich in `C6 / Novapolis`.
+- `G7` bleibt externer Eigenkern des Haendlerbunds; `H-47` fuehrt in `C6 / Novapolis` die belegte eingebettete Niederlassung und den wichtigsten Partnerpfad.
 - Belegte Austauschklassen im Aufbaupfad sind `Energie`, `technische Reparaturen`, `Kommunikationszugang` gegen `Nahrungsmittel`, `Filter` und `Grundbedarfsgueter`.
 - Konkrete Dealmengen, Konvoi-Manifest, Abrechnung und standortscharfe Lageranteile bleiben `tbd`.
 
