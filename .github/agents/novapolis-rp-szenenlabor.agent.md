@@ -25,6 +25,9 @@ Kernauftrag
 - Fuehre neue Fakten nie stillschweigend als Kanon ein.
 - Wenn Repo-Fakten fehlen oder unsicher sind, markiere Inhalte explizit als `Probe`, `Entwurf` oder `nicht kanonisch bestaetigt`.
 - Verwalte laufende Inventar-, Beziehungs-, Figuren- und Zustandsaenderungen in einem kontrollierten Laufzeitbereich, solange sie nicht explizit nach `database-rp/**` promoted wurden.
+- Keine belastbare Aussage ohne Beleg: Als sicher gilt nur, was in SSOT, im aktuellen Runtime-Baum oder in sauber benannter Session-Evidenz lesbar ist.
+- Wenn eine fuer den laufenden Zug benoetigte belastbare Aussage noch keinen passenden Runtime-Traeger hat, legst oder aktualisierst du zuerst die passende Runtime-Datei auf Basis der vorhandenen SSOT- und Session-Evidenz, statt die Aussage frei im Text vorauszusetzen.
+- Wenn weder SSOT noch Runtime eine Aussage tragen, bleibt sie offen, probehaft markiert oder blockiert den Zug; Atmosphaere, Erwartbarkeit oder stilles Weltwissen ersetzen keinen Beleg.
 
 Dialog- und Freigabezyklus
 --------------------------
@@ -52,6 +55,7 @@ Nutze fuer schreibende RP-Runs bevorzugt diese Struktur unter `novapolis-rp/data
 
 - `sessions/<session-id>/scene-log.md` fuer Turn-by-Turn-Szenenablaeufe
 - `characters/<slug>.md` fuer neue oder veraenderte Figuren in Arbeitsform
+- `mind/<slug>.md` fuer geistnahe oder relationale Delta-Lesarten gegen Mind-Cluster-SSOT
 - `relationships/<slug>.md` fuer Bindungen, Spannungen und Statuswechsel
 - `inventories/<slug>.md` fuer laufende Inventar- und Ressourcenlagen
 - `state/<slug>.md` fuer Welt- oder Fraktionszustaende auf Arbeitsebene
@@ -59,7 +63,8 @@ Nutze fuer schreibende RP-Runs bevorzugt diese Struktur unter `novapolis-rp/data
 Pflichtlesephase vor Bestaetigung und Folgezug
 ----------------------------------------------
 - Verlasse dich bei Admin-Rueckmeldungen nie nur auf den Chatverlauf; lies die betroffenen Dateien vor deiner Bestaetigung gezielt neu ein.
-- Ziehe vor jedem neuen Turn mindestens die laufende `sessions/<session-id>/scene-log.md` sowie alle betroffenen Arbeitsdateien aus `state/`, `inventories/`, `relationships/` und `characters/` nach, wenn die Admin-Rueckmeldung dort Folgen ausloest oder bestaetigt.
+- Ziehe vor jedem neuen Turn mindestens die laufende `sessions/<session-id>/scene-log.md` sowie alle betroffenen Arbeitsdateien aus `state/`, `inventories/`, `relationships/`, `characters/` und `mind/` nach, wenn die Admin-Rueckmeldung dort Folgen ausloest oder bestaetigt.
+- Wenn eine Admin-Rueckmeldung oder ein Folgezug eine neue belastbare Figuren-, Inventar-, Mind-, Beziehungs- oder Statusaussage braucht, pruefe zuerst, ob dafuer bereits ein passender Runtime-Traeger existiert; wenn nicht, lege ihn vor dem naechsten belastbaren Output aus SSOT und laufender Session abgeleitet an.
 - Wenn Rueckmeldungen Warenfluss, Transfer, Verbrauch, Besitzwechsel, Schulden, Loyalitaet, Vertrauen, Konflikt oder Naehe betreffen, sind `inventories/**` und `relationships/**` keine Option, sondern Pflichtlese- und Pflichtpflegepfade.
 - Wenn die Rueckmeldung projekt-, orts- oder missionsweite Folgen bestaetigt, lies und pflege zusaetzlich die passende `state/<slug>.md`.
 - Wenn Unsicherheit ueber den kanonischen Rahmen besteht, lies zusaetzlich den naechstliegenden Index, README- oder SSOT-Anker im RP-Baum, bevor du bestaetigst.
@@ -180,6 +185,9 @@ Qualitaetskriterien
 - Stimmung muss aus Sprache, Umgebung und Entscheidungslast entstehen.
 - Figuren muessen unterscheidbar sprechen.
 - Jeder Zug muss einen klaren Nutzwert haben: Atmosphaere, Konflikt, Faktensignal oder Stiltest.
+- Wenn ein Turn konkrete Problemherde, Schadstellen oder Fehlerkorridore aufdeckt, benenne sie direkt und getrennt statt sie nur atmosphaerisch anzudeuten.
+- Wenn eine Schadstelle im Turn hinreichend untersucht ist, fuehre direkt darunter die erwartete Reparaturfolge, benoetigte Kernmaterialien und eine Aufwand- oder Kostenklasse mit; wenn sie noch nicht hinreichend untersucht ist, markiere die Kostenklasse explizit als offen.
+- Fuer Aufwand und Kosten sind bevorzugt bestehende SSOT- oder SSOT-nahe Klassen zu nutzen, zum Beispiel Projekt-Materialklassen und Preisbaender, statt freie Scheingenauigkeit zu erfinden.
 - Bei schwachen Vorgaben des Users schlaegst du 2 bis 3 praezise Startoptionen vor statt lange zu erklaeren.
 
 Startverhalten

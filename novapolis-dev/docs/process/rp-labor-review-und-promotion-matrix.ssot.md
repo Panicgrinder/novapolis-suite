@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-26 21:23
-update: Diese SSOT fasst den operativen Guard fuer Hauptweltpfad, Laborzuege, Review, Promotion und spaetere Trainingsableitung im RP zusammen.
-checks: snapshot-lock PASS (2026-04-26 21:23)
+stand: 2026-04-28 05:46
+update: Diese SSOT behandelt jetzt auch `mind/` als feste Runtime-Typflaeche in Review und Promotion des RP-Laborpfads.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
 ---
 
 RP Labor Review- und Promotion-Matrix
@@ -54,7 +54,7 @@ Pflichtpruefung vor Promotion
 Vor jeder Promotion muessen alle folgenden Fragen mit Ja beantwortet sein:
 
 1. Ist klar markiert, welcher Strang Hauptweltpfad ist und welcher Strang nur Labor oder Probe war?
-2. Stimmen `scene-log.md`, `transcript.jsonl` und alle betroffenen Typdateien (`state/`, `inventories/`, `relationships/`, `characters/`) im selben Richtungsentscheid ueberein?
+2. Stimmen `scene-log.md`, `transcript.jsonl` und alle betroffenen Typdateien (`state/`, `inventories/`, `relationships/`, `characters/`, `mind/`) im selben Richtungsentscheid ueberein?
 3. Verweist der Strang auf die relevanten SSOT-Anker in `database-rp/**` und widerspricht ihnen nicht?
 4. Ist sichtbar, ob der Eintrag nur Runtime-Arbeitsstand, reviewpflichtig oder wirklich promotionsreif ist?
 5. Wuerde eine Uebernahme in die Hauptwelt keinen zweiten parallelen Weltverlauf erzeugen?
@@ -82,6 +82,8 @@ Verknuepfte Quellen
 -------------------
 
 - `novapolis-rp/database-curated/staging/rp-runtime/README.md`
+- `novapolis-rp/database-curated/staging/rp-runtime/mind/README.md`
 - `novapolis-dev/docs/process/rp-chat-transcript-flow.ssot.md`
+- `novapolis-dev/docs/process/rp-runtime-surface-matrix.ssot.md`
 - `novapolis-dev/docs/dataset-provenance.md`
 - `novapolis-rp/database-rp/01-factions/novapolis/Nordlinie-D5-C6-Index.md`

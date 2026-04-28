@@ -168,7 +168,11 @@ def contains_any(text: str, terms: tuple[str, ...]) -> bool:
     return any(term in text for term in terms)
 
 
-def decision_payload(decision: str, reason: str | None = None, system_message: str | None = None) -> dict[str, Any]:
+def decision_payload(
+    decision: str,
+    reason: str | None = None,
+    system_message: str | None = None,
+) -> dict[str, Any]:
     payload: dict[str, Any] = {
         "continue": True,
         "hookSpecificOutput": {
@@ -207,30 +211,52 @@ def evaluate(payload: Mapping[str, Any]) -> dict[str, Any]:
         return decision_payload(
             "deny",
             "RP-Runtime-Guard: Mehrere neue Turns in einer Mutation erkannt.",
-            "RP-Runtime-Guard blockiert diese Mutation: Im RP-Testbetrieb ist pro Antwort nur ein begrenzter Schritt zulaessig.",
+            (
+                "RP-Runtime-Guard blockiert diese Mutation: Im RP-Testbetrieb ist "
+                "pro Antwort nur ein begrenzter Schritt zulaessig."
+            ),
         )
 
     if added_turns and looks_like_admin_fix and not has_freigabe:
         turn_label = added_turns[0]
         return decision_payload(
             "deny",
-            f"RP-Runtime-Guard: Neuer Turn {turn_label} nach Admin-Fix ohne ausdrueckliche Freigabe erkannt.",
-            "RP-Runtime-Guard blockiert diese Mutation: Nach Admin-Rueckmeldung zuerst Bestaetigung und Datenabgleich, neuer Turn erst nach Freigabe.",
+            (
+                "RP-Runtime-Guard: Neuer Turn "
+                f"{turn_label} nach Admin-Fix ohne ausdrueckliche Freigabe erkannt."
+            ),
+            (
+                "RP-Runtime-Guard blockiert diese Mutation: Nach "
+                "Admin-Rueckmeldung zuerst Bestaetigung und Datenabgleich, "
+                "neuer Turn erst nach Freigabe."
+            ),
         )
 
     if added_turns and not has_freigabe:
         turn_label = added_turns[0]
         return decision_payload(
             "ask",
-            f"RP-Runtime-Guard: Neuer Turn {turn_label} im RP-Runtime-Slice ohne klaren Freigabeanker.",
-            "RP-Runtime-Guard: Bitte kurz pruefen, ob der neue Turn im aktuellen Admin-/Freigabestand wirklich freigegeben ist.",
+            (
+                "RP-Runtime-Guard: Neuer Turn "
+                f"{turn_label} im RP-Runtime-Slice ohne klaren Freigabeanker."
+            ),
+            (
+                "RP-Runtime-Guard: Bitte kurz pruefen, ob der neue Turn im "
+                "aktuellen Admin-/Freigabestand wirklich freigegeben ist."
+            ),
         )
 
     if not has_workflow_marker:
         return decision_payload(
             "ask",
-            "RP-Runtime-Guard: Mutation im RP-Runtime-Bereich ohne klaren Turn-/Admin-/Freigabeanker.",
-            "RP-Runtime-Guard: Bitte den RP-Mindestablauf explizit machen: Turn, Admin-Nachzug oder Freigabe.",
+            (
+                "RP-Runtime-Guard: Mutation im RP-Runtime-Bereich ohne klaren "
+                "Turn-/Admin-/Freigabeanker."
+            ),
+            (
+                "RP-Runtime-Guard: Bitte den RP-Mindestablauf explizit machen: "
+                "Turn, Admin-Nachzug oder Freigabe."
+            ),
         )
 
     return decision_payload("allow")
@@ -246,7 +272,10 @@ def main() -> int:
             decision_payload(
                 "ask",
                 f"RP-Runtime-Guard: Hook-Payload konnte nicht sicher gelesen werden ({exc}).",
-                "RP-Runtime-Guard: Unklarer Hook-Kontext, bitte Mutation im RP-Runtime-Slice kurz manuell bestaetigen.",
+                (
+                    "RP-Runtime-Guard: Unklarer Hook-Kontext, bitte Mutation im "
+                    "RP-Runtime-Slice kurz manuell bestaetigen."
+                ),
             ),
             sys.stdout,
         )

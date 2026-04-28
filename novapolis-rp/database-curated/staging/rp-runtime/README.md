@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-26 21:23
-update: Der RP-Laufzeitbereich verweist jetzt zusaetzlich auf eine kleine Review- und Promotionsmatrix fuer Hauptweltpfad, Laborzuege und spaetere Trainingsableitung.
-checks: snapshot-lock PASS (2026-04-26 21:23)
+stand: 2026-04-28 05:46
+update: Der RP-Laufzeitbereich verankert jetzt explizit die Evidence-Pflicht: keine belastbare Aussage ohne SSOT- oder Runtime-Beleg, fehlende Runtime-Traeger zuerst aus SSOT ableiten.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
 ---
 
 RP Runtime Staging
@@ -32,6 +32,7 @@ Empfohlene Struktur
 - `sessions/<session-id>/scene-log.md`
 - `sessions/<session-id>/transcript.jsonl`
 - `characters/<slug>.md`
+- `mind/<slug>.md`
 - `relationships/<slug>.md`
 - `inventories/<slug>.md`
 - `state/<slug>.md`
@@ -42,6 +43,7 @@ Vorhandene Startstruktur
 - `sessions/README.md` und `sessions/session-template.md`
 - `sessions/transcript-template.jsonl`
 - `characters/README.md` und `characters/character-template.md`
+- `mind/README.md` und `mind/mind-template.md`
 - `relationships/README.md` und `relationships/relationship-template.md`
 - `inventories/README.md` und `inventories/inventory-template.md`
 - `state/README.md` und `state/state-template.md`
@@ -52,6 +54,7 @@ Automatische Routing-Matrix
 - Szenenzuege, verdichtete Turn-Protokolle und Kurzauswertung: `sessions/<session-id>/scene-log.md`
 - ungekuerzter RP-/Admin-Chatverlauf: `sessions/<session-id>/transcript.jsonl`
 - Figurenanlage oder Figurenupdate: `characters/<slug>.md`
+- Mind-/Sphaerenverschiebung, geistnaher Zustand oder relationale Delta-Lesart gegen einen bestehenden Mind-Cluster: `mind/<slug>.md`
 - Beziehungs- oder Loyalitaetsverschiebung: `relationships/<slug>.md`
 - Inventar-, Transfer- oder Ressourcenupdate: `inventories/<slug>.md`
 - Welt-, Orts-, Fraktions- oder Projektstatus: `state/<slug>.md`
@@ -74,6 +77,11 @@ Vertragsregeln
 - Jeder laufende Strang braucht zusaetzlich eine klare Einordnung als `Hauptweltpfad`, `Laborpfad`, `verworfen` oder `bewusst pausiert`, damit keine stillen Zeitlinienmischungen in den Kanon rueberlaufen.
 - Wenn Faktenlage unsicher ist, bleibt der Eintrag hier und wandert nicht direkt in den Kanon.
 - Der operative Guard fuer Review, Promotion und spaetere Trainingsnutzung liegt in `novapolis-dev/docs/process/rp-labor-review-und-promotion-matrix.ssot.md`.
+- Nicht jede Datei unter `database-rp/**` braucht einen 1:1-Runtime-Spiegel. Runtime-pflichtig sind nur aktiv veraenderliche Laufzeittraeger wie `sessions`, `characters`, `mind`, `relationships`, `inventories` und `state`; Taxonomien, Preisbaender, Regel-SSOTs, Doctrines, Indizes und historische Szenen bleiben SSOT-only, bis eine explizite Laborfrage etwas anderes verlangt.
+- Die abgeleitete Surface-Matrix fuer den gesamten RP-Baum liegt unter `novapolis-dev/docs/process/rp-runtime-surface-matrix.ssot.md`.
+- Keine belastbare Aussage ohne Beleg: Als sicher gilt im ERP/RP nur, was in `database-rp/**`, im aktuellen `rp-runtime/**` oder in sauber benannter Session-Evidenz lesbar ist.
+- Wenn fuer den laufenden RP-Zug eine belastbare Aussage gebraucht wird, aber der passende Runtime-Traeger fehlt, wird die noetige Runtime-Datei zuerst aus bestehender SSOT, Governance und aktueller Session-Evidenz abgeleitet angelegt oder aktualisiert.
+- Wenn weder SSOT noch Runtime eine Aussage tragen, bleibt sie `offen`, `Probe` oder blockiert den Zug; freie Zwischenbehauptungen sind kein zulaessiger Ersatz fuer fehlende Evidenz.
 
 Promotion-Pfad
 --------------

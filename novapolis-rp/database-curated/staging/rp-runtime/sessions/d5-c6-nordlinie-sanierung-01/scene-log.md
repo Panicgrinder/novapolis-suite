@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 02:08
-update: Turn 7 fuehrt jetzt nicht nur Reflex korrekt als Ronjas Exoskelett, sondern zieht auch Handover und offene Folgefaeden auf den tatsaechlichen Stand nach abgeschlossener kleiner Teilbereitstellung.
-checks: snapshot-lock PASS (2026-04-28 02:08); markdownlint=PASS (2026-04-28 02:08); frontmatter=PASS (2026-04-28 02:08)
+stand: 2026-04-28 05:46
+update: Turn 8 replayt den Folgekorridor jetzt mit direkt benannten Problemherden sowie Reparaturfolge und Kostenklasse, wo Ronjas Untersuchung bereits weit genug reicht.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
 ---
 
 Scene Log - D5 C6 Nordlinie Sanierung 01
@@ -108,12 +108,44 @@ Turn 7
   - Review required: Konkrete Mengen, Haltbarkeit des Behelfssatzes und die genaue Reichweite des gesicherten Folgeabschnitts bleiben fuer den naechsten Zug offen.
 - follow_up: Den neu stabilisierten Abschnitt sauber nachziehen und pruefen, ob der gewonnene Spielraum fuer weitere Vorbereitung reicht oder der naechste echte Materialstopp sofort wieder greift.
 
+  Turn 8
+  ------
+
+  - input: Ronja geht mit Reflex den durch Turn 7 gewonnenen Korridor weiter ab, erfasst die naechsten Fehler enger und nutzt dabei nur den real verbliebenen Tunnelrest des kleinen Behelfssatzes, ohne eine neue D5-Lieferung zu behaupten.
+  - inworld_result: Ronja bleibt im gleichen Arbeitsrhythmus und macht aus dem kleinen Zugewinn keinen falschen Durchbruch. Zusammen mit Reflex geht sie den freier gewordenen Meter weiter ab, leuchtet Fugen, Lagerpunkte und die naechste Trassenkante neu aus und zieht die Fehler jetzt enger auseinander. Drei Problemherde stehen danach nicht mehr nur als Stimmung, sondern als Befund im Abschnitt: Erstens die `Schottertasche Nordkante`, bei der unter einer seitlichen Kante Material ausgespuelt ist und der Unterbau lokal nachgibt. Zweitens das `Haltepunktpaar Leitungszug`, zwei noch sitzende, aber nur vorlaeufig tragende Haltepunkte am seitlichen Leitungsstrang. Drittens der `Uebergang Engbogen`, ein kurz vor dem engeren Bogen verzogener Uebergang, der ohne Schweißgeraet und DN60 nicht in belastbare Reparatur kippt. Weil aus D5 seit Turn 7 nichts Neues angekommen ist, arbeiten Ronja und Reflex nur mit dem Rest, der tatsaechlich noch im Tunnel liegt. Reflex haelt Ronjas Koerper weiter exoskelettnah im Druck, waehrend Ronja ein verbliebenes kurzes Metallprofil mit der letzten Ausgleichsplatte und dem letzten mittleren Schraubensatz an die vibrierende Nordkante setzt, damit die `Schottertasche Nordkante` fuer den naechsten Leseschritt nicht sofort wieder aufreisst. Mehr wird daraus bewusst nicht gemacht: Keine neue Lieferung, kein nacherfundenes Material und keine Reparaturbehauptung ueber den Rest hinaus. Der Gewinn von Turn 8 liegt nicht in Loesung, sondern in saubererem Fehlerbild. Ronja hat jetzt genauer vor sich, wo lose Masse, seitlicher Halt und Leitungsuebergang auseinanderfallen und wo der naechste echte Materialzug aus D5 nicht nur hilfreich, sondern zwingend real geliefert werden muss.
+  - problem_clusters:
+    - name: `Schottertasche Nordkante`
+      status: hinreichend untersucht
+      befund: Seitliche Kante mit ausgespueltem Unterbau und vibrierender Auflage; provisorisch beruhigt, aber nicht tragend saniert.
+      reparaturfolge: Freiraeumen, Unterfuetterung stabilisieren, Auflage neu verspannen und die lokale Kante mit Baukastenmaterial erneut setzen.
+      kernmaterialien: `metallprofil-kurz`, `ausgleichsplatte`, `schraubensatz-mittel`, zusaetzliche Unterfuetterung / Schotterarbeit
+      kostenklasse: `Band M`
+    - name: `Haltepunktpaar Leitungszug`
+      status: teilweise untersucht
+      befund: Zwei Haltepunkte sitzen noch, tragen aber nur unter Vorbehalt; Langzeitlast und Anschlussqualitaet sind im Zug noch nicht voll geprueft.
+      reparaturfolge: Anschlussstellen freilegen, Haltepunkte einzeln pruefen und erst danach Ersatz oder Neuverspannung festziehen.
+      kernmaterialien: offen nach Freilegung; wahrscheinlich `klemme` und Verbindungsteile aus dem Baukasten
+      kostenklasse: offen bis zur vollstaendigen Untersuchung
+    - name: `Uebergang Engbogen`
+      status: hinreichend untersucht
+      befund: Verzogener Uebergang vor dem engeren Bogen; ohne thermische Arbeit und DN60-Anschluss keine belastbare Rueckfuehrung in den Trassen- und Leitungsverbund.
+      reparaturfolge: Uebergang freilegen, Geometrie neu ausrichten, mit Schweißgeraet nacharbeiten, DN60-Adapter sauber einpassen und den Bereich anschliessend mechanisch sichern.
+      kernmaterialien: `Schweißgeraet`, `Adapter DN60`, zusaetzliche Verbindungssicherung
+      kostenklasse: `Band H`
+  - new_signals:
+    - Probe: Turn 8 verbraucht nur den realen Tunnelrest des kleinen Turn-7-Satzes; eine weitere D5-Lieferung findet in diesem Zug nicht statt.
+    - Probe: Der naechste Fehlerkorridor ist jetzt nicht nur enger lesbar, sondern direkt in `Schottertasche Nordkante`, `Haltepunktpaar Leitungszug` und `Uebergang Engbogen` getrennt.
+    - Probe: Reflex bleibt auch im Folgezug koerpernah als Ronjas Exoskelett eingebunden; es gibt keine abgeloeste Material- oder Traegerfigur.
+    - Probe: Fuer `Schottertasche Nordkante` ist die Reparaturfolge jetzt mit `Band M` belastbar eingegrenzt; fuer den `Uebergang Engbogen` liegt mit `Band H` ein klar technischer Hauptblocker vor.
+    - Review required: Der naechste materielle Fortschritt muss als reale Lieferung aus D5 belegt werden; aus dem ausgeschopften Tunnelrest laesst sich kein weiterer Behelfssatz mehr ableiten.
+  - follow_up: Die benannten Problemherde im Runtime-State mit Reparaturklasse nachziehen und den naechsten Materialzug erst dann als Fortschritt buchen, wenn D5 die fuer `Uebergang Engbogen` benoetigten Kernmaterialien explizit und real in den Tunnel bringt.
+
 Admin Handover
 -------------
 
 - agent_switch: vollzogen
 - target_mode: SSOT, Story, Weltgeschichte, Lore
-- handover_basis: Turn 1-7 bilden jetzt den Runtime-Arbeitsstand; die Folgeszene schliesst direkt an die kleine reale Teilbereitstellung, den gewonnenen Arbeitsraum und die weiter harten Blocker Schweißgeraet und DN60 an.
+- handover_basis: Turn 1-8 bilden jetzt den Runtime-Arbeitsstand; die Folgeszene schliesst an den enger gelesenen Fehlerkorridor, den ausgeschopften Turn-7-Rest und den weiter ungeoeffneten Materialstopp bei Schweißgeraet und DN60 an.
 - interruption_roll: `1W6 = 4`, kein Unterbrechungsereignis
 
 Kurzauswertung
@@ -137,16 +169,19 @@ Neue belastbare Signale
 - Session-Arbeitslesart: D5 zieht auf die Bedarfsskizze eine kleine, konkrete Werkstattvorbereitung fuer Stuetzelemente nach, ohne die Hauptblocker kleinzureden.
 - Session-Arbeitslesart: Der erste kleine Behelfssatz aus D5 schafft reale Sicherung an markierten Schwachzonen, aber keinen Reparaturdurchbruch.
 - Session-Arbeitslesart: Reflex bleibt auch bei praktischer Trage- und Setzhilfe koerpernah an Ronja gebunden; der Turn liest die Assistenz explizit als Exoskelett und nicht als abgeloeste Begleitfigur.
+- Session-Arbeitslesart: Turn 8 arbeitet ohne neue Lieferung nur mit dem realen Tunnelrest weiter; weiterer Materialfortschritt muss ab jetzt wieder als explizite D5-Lieferung belegt werden.
+- Session-Arbeitslesart: Der Fehlerkorridor ist jetzt direkt als `Schottertasche Nordkante`, `Haltepunktpaar Leitungszug` und `Uebergang Engbogen` benannt.
+- Session-Arbeitslesart: Fuer die hinreichend untersuchten Problemherde liegen jetzt Reparaturfolge und Aufwandsklasse vor: `Schottertasche Nordkante` auf `Band M`, `Uebergang Engbogen` auf `Band H`.
 
 Open Threads
 ------------
 
-- naechsten Tunnelabschnitt zwischen Sicherung, Freiraeumen und Trassenvorbereitung einordnen
+- naechsten Tunnelabschnitt zwischen `Schottertasche Nordkante`, `Haltepunktpaar Leitungszug` und `Uebergang Engbogen` priorisieren
 - D5-Priorisierung gegen die jetzt gegliederte Bedarfsskizze erneut pruefen
 - C6-Seite spaeter konkreter ziehen, falls aus dem bilateralen Sanierungsstand eine koordinierte Aktion entsteht
 - Reichweite und Haltbarkeit der ersten Teilbereitstellung gegen den naechsten Abschnitt pruefen
-- Tunnelrest des kleinen Stuetzsatzes gegen den neu gewonnenen Arbeitsraum und den D5-Restbestand fuer den Folgezug sauber lesen
-- pruefen, ob der gewonnene Spielraum fuer weitere Vorbereitung traegt oder der naechste echte Materialstopp sofort wieder greift
+- konkrete Folgelieferung aus D5 nur dann fortschreiben, wenn sie im Runtime-Zug explizit real ankommt
+- pruefen, ob der enger gelesene Uebergang vor dem Bogen erst mit Schweißgeraet und DN60 oder schon mit vorgelagerter Freiraeumung sinnvoll weitergezogen werden kann
 - Folgeszene im SSOT-/Lore-Agenten auf genau diesem Handover-Stand fortsetzen
 - pruefen, ob aus der laufenden Runtime-Session spaeter ein belastbarer Nordlinie-Status fuer RP-SSOT promotable wird
 

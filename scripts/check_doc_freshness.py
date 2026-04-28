@@ -78,16 +78,17 @@ def parse_scope_rows(scope_path: Path) -> list[ScopeRow]:
                 surface=match.group("surface").strip(),
                 mode=match.group("mode").strip(),
                 max_age_days=(
-                    None
-                    if match.group("max_age_days") == "-"
-                    else int(match.group("max_age_days"))
+                    None if match.group("max_age_days") == "-" else int(match.group("max_age_days"))
                 ),
             )
         )
     return rows
 
 
-def expand_scope_rows(repo_root: Path, rows: list[ScopeRow]) -> tuple[list[ScopeEntry], list[Finding], int]:
+def expand_scope_rows(
+    repo_root: Path,
+    rows: list[ScopeRow],
+) -> tuple[list[ScopeEntry], list[Finding], int]:
     expanded: dict[str, ScopeEntry] = {}
     findings: list[Finding] = []
     expanded_glob_rows = 0
@@ -214,7 +215,10 @@ def main() -> int:
                 Finding(
                     entry.rel_path,
                     "stale",
-                    f"surface={entry.surface}; mode={entry.mode}; age_days={age_days}; limit={limit}",
+                    (
+                        f"surface={entry.surface}; mode={entry.mode}; "
+                        f"age_days={age_days}; limit={limit}"
+                    ),
                 )
             )
 

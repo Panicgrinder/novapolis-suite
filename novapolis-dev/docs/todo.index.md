@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 01:22
-update: Der TODO-Index fuehrt den neuen workspaceweiten Freshness-Scope jetzt als geschlossenen Dev-Steuerpunkt bei unveraendertem Modulstand `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
-checks: snapshot-lock PASS (2026-04-28 01:22); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
+stand: 2026-04-28 05:46
+update: Der TODO-Index fuehrt den RP-Nachzug fuer den expliziten Inventar-Diff des kleinen Nordlinie-Turn-7/8-Satzes jetzt als geschlossen; alle Modul-Boards stehen wieder auf offen: 0.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -27,7 +27,7 @@ Statushinweise (aktuell)
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt aktuell keine offenen Punkte mehr. Der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Provenienz fehlen; im aktuellen Repo-Stand scheitert derselbe Direktlauf erwartungsgemaess an `missing rp_content results` statt ungeguardet in Training zu laufen.
 
-- RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell keine offenen Punkte mehr. Der Nordlinie-Laborpfad ist fuer den kleinen Runtime-Turn-7-Satz jetzt zwischen Waren-Index, Stuetzbaukasten, D5-/C6-Inventaren und Runtime-Artefakten konsistent geschlossen; darueber hinaus offene C6-Lagerdetails bleiben bewusst als Evidenzluecke in den Fachdokumenten stehen statt als Board-Blocker.
+- RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell wieder keine offenen Punkte mehr. Die D5-Inventarspur trennt den kleinen Nordlinie-Turn-7/8-Satz jetzt nicht nur als Mengenstand, sondern zusaetzlich als ausdruecklichen Delta-Block fuer Lieferung, Einsatz und offene Evidenzgrenze.
 
 - Sim: `novapolis-dev/docs/todo.sim.md` fuehrt aktuell keine offenen Punkte mehr. `scripts/run_sim_headless_verify.py` loest im aktuellen Windows-Kontext jetzt auch den Pfad eines laufenden lokalen Godot-Prozesses auf; `Checks: sim headless verify` endet damit wieder mit `SIM_VERIFY: OK` statt am frueheren Exit `2`.
 
@@ -38,7 +38,7 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-04-26 | keiner (offen: 0) | nein |
+| Dev (`docs/todo.dev.md`) | 2026-04-28 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-04-27 | keiner (offen: 0) | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-04-23 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-04-26 | keiner (offen: 0) | nein |

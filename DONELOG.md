@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 01:22
+stand: 2026-04-28 05:46
 update: Root-Summary fuehrt jetzt den workspaceweiten Freshness-Scope mit Root-, Modul- und Tree-Abdeckung als geschlossenen Governance-Nachzug.
-checks: snapshot-lock PASS (2026-04-28 01:22); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
 ---
 - 2026-04-28 01:17: Der Workspace-Freshness-Check deckt jetzt nicht mehr nur ein Dev-Subset, sondern die fuehrenden Doku- und Navigationspfade aus Root, Governance, Dev, Agent, RP, Sim und den Tree-Artefakten ab. `scripts/check_doc_freshness.py` liest dafuer jetzt `novapolis-dev/docs/meta/doc-freshness-scope.md`, expandiert dort hinterlegte Globs zu konkreten Dateien und wertet je nach Pfad `frontmatter`, Legacy-Header oder `mtime` aus. Der frische Recheck endet mit `scope_rows=46`, `expanded_glob_rows=12`, `checked_docs=262` und `findings=0`; `novapolis-dev/docs/active-surface-index.md` bleibt dabei bewusst die Dev-Hub-Klassifikation statt der operativen Workspace-Scope-Quelle.
 
@@ -20,6 +20,8 @@ Hinweis
 - Technische Laufdetails liegen in Reports unter `.tmp/results/reports/`.
 
 Aktuelle Eintraege (Summary)
+
+- 2026-04-28 05:45: Der Workspace steht wieder auf einem sauberen Gruenpfad. `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260428_051914.md` endet PASS, die zusaetzlichen Gates fuer RP, Sim, GM-Preflight und Text-RPG sind gruen, und `Checks: sim export smoke` liefert nach Installation der lokalen Godot-Export-Templates wieder den belegten Windows-Export `novapolis-sim/exports/windows/NovapolisSim.exe`. Parallel ignoriert `novapolis-sim/.gitignore` den lokalen Exportpfad jetzt explizit, damit die fuer den Smoke benoetigten `.exe`-/`.pck`-Artefakte nicht versehentlich in den Repo-Commit geraten.
 
 - 2026-04-26 20:40: Der Wochenabschluss ist vollstaendig gruen. `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260426_203550.md` endet PASS, `Checks: sim epoch assets` meldet `summary=fail:0,warn:0`, und `Tests: coverage (fail-under)` bleibt mit `696 passed` und `92.19%` ueber Hard Gate und Qualitaetsziel. `todo.root.md`, `WORKSPACE_STATUS.md`, `DONELOG.md` und `novapolis-dev/docs/donelog.md` sind im selben Lauf auf denselben Abschlussstand synchronisiert; die Modul-Boards bleiben bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
 

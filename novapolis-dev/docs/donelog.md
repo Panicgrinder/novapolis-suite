@@ -1,8 +1,63 @@
 ---
-stand: 2026-04-28 02:09
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich die Bereinigung der Hook-Doku: aktiver Root-Git-Hook, aktiver Workspace-Agent-Hook und kein verbliebener Modul-`.githooks`-Pfad.
-checks: snapshot-lock PASS (2026-04-28 02:09); markdownlint=PASS (2026-04-28 02:09); frontmatter=PASS (2026-04-28 02:09)
+stand: 2026-04-28 05:46
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich den geschlossenen RP-Nachzug fuer den expliziten Inventar-Diff des kleinen Nordlinie-Turn-7/8-Satzes.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
 ---
+RP-Runtime: Expliziten Inventar-Diff fuer den kleinen Nordlinie-Turn-7/8-Satz nachgezogen (2026-04-28 05:09)
+------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md) fuehrt den kleinen Behelfssatz jetzt nicht mehr nur als konsolidierten Mengenstand, sondern zusaetzlich als `Turn Delta Ledger` fuer Turn 7 und Turn 8.
+- Turn 7 trennt jetzt sichtbar zwischen realer D5-Teilbereitstellung, belegtem Ersteinsatz an markierten Schwachzonen und der offenen Evidenzgrenze, dass noch nicht jede einzelne Komponente einem exakt benannten Punkt zugeordnet werden kann.
+- Turn 8 zieht den Restverbrauch ohne neue D5-Lieferung komponentenscharf an der `Schottertasche Nordkante` nach und macht damit klar, warum genau `metallprofil-kurz`, `ausgleichsplatte` und `schraubensatz-mittel` dort auf Null laufen.
+
+Governance: Evidence-Pflicht fuer ERP/RP explizit verankert (2026-04-28 04:56)
+---------------------------------------------------------------------------
+
+- [.github/instructions/rp-docs.instructions.md](.github/instructions/rp-docs.instructions.md) fuehrt jetzt agentuebergreifend die Kernregel `keine Aussage ohne Beleg` fuer ERP/RP: belastbar sind nur SSOT, bestehende Runtime-Dateien oder sauber benannte Session-Evidenz; fehlende Runtime-Traeger muessen vor der Nutzung aus SSOT, Governance und laufender Evidenz abgeleitet angelegt werden.
+- [.github/agents/novapolis-rp-szenenlabor.agent.md](.github/agents/novapolis-rp-szenenlabor.agent.md) zieht dieselbe Regel fuer ausgespielte Turns, Admin-Bestaetigungen und Pflichtlesephase nach, inklusive `mind/` als regularem Runtime-Pfad.
+- [novapolis-rp/database-curated/staging/rp-runtime/README.md](novapolis-rp/database-curated/staging/rp-runtime/README.md) macht den operativen Vertrag jetzt explizit: keine belastbare RP-Aussage ohne SSOT-/Runtime-Beleg, keine freie Zwischenbehauptung als Ersatz fuer fehlende Evidenz.
+
+RP-Runtime: Aktiven Nordlinie-Traegersatz fuer Figuren, D5 und Jonas-Lumen geschlossen (2026-04-28 04:50)
+---------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/characters/ronja-kerschner.md](novapolis-rp/database-curated/staging/rp-runtime/characters/ronja-kerschner.md), [novapolis-rp/database-curated/staging/rp-runtime/characters/reflex.md](novapolis-rp/database-curated/staging/rp-runtime/characters/reflex.md), [novapolis-rp/database-curated/staging/rp-runtime/characters/jonas-merek.md](novapolis-rp/database-curated/staging/rp-runtime/characters/jonas-merek.md), [novapolis-rp/database-curated/staging/rp-runtime/characters/pahl-brenner.md](novapolis-rp/database-curated/staging/rp-runtime/characters/pahl-brenner.md) und [novapolis-rp/database-curated/staging/rp-runtime/characters/lumen.md](novapolis-rp/database-curated/staging/rp-runtime/characters/lumen.md) fuehren den aktiven Nordlinie-Hauptpfad jetzt auch auf Figurenebene statt nur ueber Projekt-, Inventar- und Mind-Deltas.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/d5.md](novapolis-rp/database-curated/staging/rp-runtime/state/d5.md) zieht den aktuellen D5-Werkstatt- und Freigabestand als eigenen Runtime-Ort nach; [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md) nennt Lumen in derselben Hauptpfadlage jetzt ausdruecklich mit.
+- [novapolis-rp/database-curated/staging/rp-runtime/mind/lumen.md](novapolis-rp/database-curated/staging/rp-runtime/mind/lumen.md) fuehrt die bisher fehlende Jonas-Begleitinstanz als eigenen Runtime-Mind-Arbeitsstand; [novapolis-rp/database-curated/staging/rp-runtime/mind/jonas-merek.md](novapolis-rp/database-curated/staging/rp-runtime/mind/jonas-merek.md) traegt die Jonas-Lumen-Kopplung im aktiven Runtime-Slice jetzt explizit statt nur implizit.
+- [novapolis-dev/docs/process/rp-runtime-surface-matrix.ssot.md](novapolis-dev/docs/process/rp-runtime-surface-matrix.ssot.md) fuehrt die aktuelle Mindestmenge jetzt belastbar mit Figuren-, D5- und Lumen-Traegern und haelt zugleich fest, dass fuer den Hauptpfad weiterhin keine pauschale Fraktions-, C6- oder Relationship-Vollspiegelung noetig ist.
+
+RP-Runtime: Mind-Pfad und Surface-Matrix fuer den aktiven Laborbetrieb angelegt (2026-04-28 04:44)
+---------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/mind/README.md](novapolis-rp/database-curated/staging/rp-runtime/mind/README.md) und [novapolis-rp/database-curated/staging/rp-runtime/mind/mind-template.md](novapolis-rp/database-curated/staging/rp-runtime/mind/mind-template.md) fuehren jetzt einen eigenen Runtime-Pfad fuer Mind-/Sphaeren-Arbeitsstaende statt diese Delta-Lesarten in `relationships/` oder `state/` zu verstecken.
+- [novapolis-rp/database-curated/staging/rp-runtime/mind/ronja-kerschner.md](novapolis-rp/database-curated/staging/rp-runtime/mind/ronja-kerschner.md), [novapolis-rp/database-curated/staging/rp-runtime/mind/reflex.md](novapolis-rp/database-curated/staging/rp-runtime/mind/reflex.md), [novapolis-rp/database-curated/staging/rp-runtime/mind/jonas-merek.md](novapolis-rp/database-curated/staging/rp-runtime/mind/jonas-merek.md) und [novapolis-rp/database-curated/staging/rp-runtime/mind/pahl-brenner.md](novapolis-rp/database-curated/staging/rp-runtime/mind/pahl-brenner.md) ziehen den aktiven Nordlinie-Kerncast erstmals als Runtime-Mind-Arbeitsstand gegen die bestehenden Mind-Cluster-SSOTs nach.
+- [novapolis-rp/database-curated/staging/rp-runtime/README.md](novapolis-rp/database-curated/staging/rp-runtime/README.md) fuehrt `mind/` jetzt in Struktur, Routing-Matrix und Vertragsregeln, und [novapolis-dev/docs/process/rp-labor-review-und-promotion-matrix.ssot.md](novapolis-dev/docs/process/rp-labor-review-und-promotion-matrix.ssot.md) behandelt `mind/` ab jetzt als gleichwertige Runtime-Typflaeche vor Promotion.
+- [novapolis-dev/docs/process/rp-runtime-surface-matrix.ssot.md](novapolis-dev/docs/process/rp-runtime-surface-matrix.ssot.md) leitet fuer den gesamten RP-Baum her, welche Klassen wirklich runtime-pflichtig sind und welche bewusst SSOT-only bleiben; damit ist explizit geklaert, dass vor dem Weiterspielen nicht der gesamte `database-rp` vorgespiegelt werden muss.
+
+Governance: Allgemeine RP-Terminologie-SSOT angelegt (2026-04-28 04:24)
+----------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/00-admin/rp-terminologie.ssot.md](novapolis-rp/database-rp/00-admin/rp-terminologie.ssot.md) fuehrt jetzt einen ersten kontrollierten Begriffsrahmen fuer RP: Raumbegriffe, Schadstellenmuster, Befundstatus und bevorzugte Aufwand-/Kostenbenennung.
+- Der Startsatz zieht insbesondere fuer Nordlinie-01 den bevorzugten Oberbegriff `U-Bahn-Tunnel` sowie erste belastbare Problemherd-Bezeichnungen wie `Schottertasche Nordkante` und `Schienenversatz Engbogen` vor.
+
+RP-Runtime: Turn 8 replayt Problemherde jetzt direkt benannt und klassifiziert (2026-04-28 02:49)
+----------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt Turn 8 jetzt nicht mehr nur atmosphaerisch, sondern mit direkt benannten Problemherden: `Schottertasche Nordkante`, `Haltepunktpaar Leitungszug` und `Uebergang Engbogen`.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md) zieht fuer die hinreichend untersuchten Schadstellen die Reparatur- und Aufwandsklassen nach: `Band M` fuer die lokale Nordkante, `Band H` fuer den Engbogen; die Kostenklasse des Leitungszug-Haltepunktpaars bleibt bis zur Volluntersuchung offen.
+
+Governance: RP-Regel fuer Problemherde und Reparaturklassen verankert (2026-04-28 02:49)
+-------------------------------------------------------------------------------------
+
+- [.github/instructions/rp-docs.instructions.md](.github/instructions/rp-docs.instructions.md) fuehrt jetzt agentuebergreifend fuer RP-Runtime-Zuege die Pflicht ein, Problemherde direkt zu benennen und nach hinreichender Untersuchung mit Reparaturfolge, Kernmaterialien und Aufwand- oder Kostenklasse zu versehen.
+- [.github/agents/novapolis-rp-szenenlabor.agent.md](.github/agents/novapolis-rp-szenenlabor.agent.md) zieht dieselbe Regel in die Qualitaetskriterien des ausgespielten Turns nach, damit Schadstellen nicht nur atmosphaerisch bleiben, sondern auswertbar benannt werden.
+
+RP-Runtime: Turn 8 zieht den Folgekorridor nur mit realem Tunnelrest weiter (2026-04-28 02:37)
+----------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt Turn 8 als engen Folgezug auf den in Turn 7 real gewonnenen Arbeitsraum: Ronja und Reflex erfassen weitere Fehler, aber behaupten keine neue D5-Lieferung.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md) zieht den enger gelesenen Fehlerkorridor und den ausgeschopften Tunnelrest auf den Runtime-Zustand nach.
+- [novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md) verbucht nur den echten Restverbrauch aus Turn 7 auf Null; weiterer Materialfortschritt bleibt bis zu einer expliziten realen D5-Lieferung gesperrt.
+
 Governance: Hook-Surface im Workspace gegen Ist-Bestand abgeglichen (2026-04-28 02:03)
 -------------------------------------------------------------------------------
 

@@ -27,7 +27,12 @@ def test_guard_asks_without_workflow_anchor_for_runtime_edit() -> None:
     payload = {
         "toolName": "functions.apply_patch",
         "toolInput": {
-            "input": "*** Begin Patch\n*** Update File: novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md\n*** End Patch"
+            "input": (
+                "*** Begin Patch\n"
+                "*** Update File: "
+                "novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md\n"
+                "*** End Patch"
+            )
         },
         "userPrompt": "Bitte das nachziehen.",
     }
@@ -45,7 +50,13 @@ def test_guard_denies_new_turn_after_admin_fix_without_release() -> None:
     payload = {
         "toolName": "functions.apply_patch",
         "toolInput": {
-            "input": "*** Begin Patch\n*** Update File: novapolis-rp/database-curated/staging/rp-runtime/sessions/demo/scene-log.md\n+Turn 8\n*** End Patch"
+            "input": (
+                "*** Begin Patch\n"
+                "*** Update File: "
+                "novapolis-rp/database-curated/staging/rp-runtime/sessions/demo/scene-log.md\n"
+                "+Turn 8\n"
+                "*** End Patch"
+            )
         },
         "userPrompt": "Admin-Rueckmeldung: fixe Turn 7 bitte noch einmal.",
     }
@@ -53,7 +64,9 @@ def test_guard_denies_new_turn_after_admin_fix_without_release() -> None:
     result = mod.evaluate(payload)
 
     assert result["hookSpecificOutput"]["permissionDecision"] == "deny"
-    assert "ohne ausdrueckliche Freigabe" in result["hookSpecificOutput"]["permissionDecisionReason"]
+    assert (
+        "ohne ausdrueckliche Freigabe" in result["hookSpecificOutput"]["permissionDecisionReason"]
+    )
 
 
 @pytest.mark.scripts
@@ -64,7 +77,13 @@ def test_guard_allows_new_turn_with_explicit_release() -> None:
     payload = {
         "toolName": "functions.apply_patch",
         "toolInput": {
-            "input": "*** Begin Patch\n*** Update File: novapolis-rp/database-curated/staging/rp-runtime/sessions/demo/scene-log.md\n+Turn 8\n*** End Patch"
+            "input": (
+                "*** Begin Patch\n"
+                "*** Update File: "
+                "novapolis-rp/database-curated/staging/rp-runtime/sessions/demo/scene-log.md\n"
+                "+Turn 8\n"
+                "*** End Patch"
+            )
         },
         "userPrompt": "Admin-Freigabe liegt vor, spiele den naechsten Turn aus.",
     }

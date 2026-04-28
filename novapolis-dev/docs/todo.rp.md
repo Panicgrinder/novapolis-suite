@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-27 06:11
-update: Der offene Nordlinie-Runtimepunkt ist jetzt geschlossen; Turn-7-Teilbereitstellung, D5-/C6-Inventare und der C6-Hauptort laufen nun im selben Evidenzpfad.
-checks: snapshot-lock PASS (2026-04-27 06:11); markdownlint=PASS (2026-04-27 06:06); frontmatter=PASS (2026-04-27 06:06); todo-index-sync=PASS (2026-04-27 06:06); doc-freshness=PASS (2026-04-27 06:06); validate:rp=PASS (2026-04-27 06:06)
+stand: 2026-04-28 05:46
+update: Der RP-Nachzug fuer den expliziten Inventar-Diff des kleinen Nordlinie-Turn-7/8-Satzes ist jetzt geschlossen; Lieferung, Einsatz und Evidenzgrenze sind turn-scharf lesbar.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -27,6 +27,46 @@ Offene Aufgaben (RP)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Expliziten Inventar-Diff fuer den kleinen Nordlinie-Turn-7/8-Satz nachziehen.
+  - Ziel: Die Runtime-Inventarspur soll nicht nur Endmengen fuehren, sondern den kleinen Behelfssatz aus D5 als turn-scharfen Delta-Block mit klarer Trennung zwischen Lieferung, Einsatz und offener Evidenzgrenze lesbar machen.
+  - Akzeptanzkriterien:
+    1) `inventories/d5.md` fuehrt einen expliziten Delta-Block fuer Turn 7 und den Restverbrauch in Turn 8,
+    2) fuer jeden Delta-Block ist sichtbar, was belegt geliefert, was belegt eingesetzt und was nur teilweise ortsscharf belegt ist,
+    3) komponentenscharfe Einsatzorte werden nur dort benannt, wo der Scene-Log sie wirklich traegt,
+    4) offene Orts- oder Chargenluecken bleiben ausdruecklich offen statt implizit glattgezogen.
+  - Evidenz: Turn 7 belegt reale Teilbereitstellung und Verarbeitung, `inventories/d5.md` fuehrt bisher aber nur den konsolidierten Mengenstand statt eines ausdruecklichen turn-scharfen Inventar-Diffs.
+  - Ergebnis 2026-04-28 05:09: `inventories/d5.md` fuehrt jetzt einen expliziten `Turn Delta Ledger` fuer Turn 7 und Turn 8. Turn 7 trennt reale Lieferung, belegten Ersteinsatz und offene Ortsschaerfe; Turn 8 zieht den Restverbrauch ohne neue D5-Lieferung komponentenscharf bis zur `Schottertasche Nordkante` nach. Die verbleibende Evidenzluecke fuer die vollstaendige komponentenscharfe Ortung des gesamten Turn-7-Satzes bleibt sichtbar offen.
+
+- [x] [Jetzt] Evidence-Pflicht fuer ERP/RP explizit als Runtime-Regel verankern.
+  - Ziel: Im ERP/RP sollen keine Aussagen mehr als belastbar ausgegeben werden, wenn sie weder durch SSOT noch durch bestehende Runtime-Dateien belegt sind; wenn fuer eine belastbare Aussage eine Runtime-Datei fehlt, muss sie zuerst aus SSOT und Governance abgeleitet angelegt werden.
+  - Akzeptanzkriterien:
+    1) die agentuebergreifende RP-Instructions-Datei nennt explizit die Regel `keine Aussage ohne Beleg` und trennt zwischen `belegt`, `offen` und `Runtime zuerst anlegen`,
+    2) der RP-Agent fuer das Szenenlabor zieht dieselbe Regel fuer ausgespielte Zuege und Admin-Bestaetigungen nach,
+    3) die Runtime-README beschreibt die operative Folge: neue belastbare Aussagen brauchen entweder vorhandene Runtime-Evidenz oder vorab angelegte Runtime-Dateien auf Basis der SSOT,
+    4) unklare oder nur implizite Ableitungen bleiben STOP oder offen, statt frei ausgespielt zu werden.
+  - Evidenz: Die bisherige RP-Governance verbietet bereits freie Kanonisierung und fordert Runtime-Nachzuege, nennt aber die Kernregel `keine Aussage ohne Beleg oder Runtime-Niederschrift` noch nicht als expliziten Standard fuer ERP/RP.
+  - Ergebnis 2026-04-28 04:56: [.github/instructions/rp-docs.instructions.md](.github/instructions/rp-docs.instructions.md) fuehrt jetzt agentuebergreifend die Regel `keine Aussage ohne Beleg` samt Pflicht zur SSOT-abgeleiteten Runtime-Anlage, [.github/agents/novapolis-rp-szenenlabor.agent.md](.github/agents/novapolis-rp-szenenlabor.agent.md) zieht dieselbe Logik fuer Turns und Admin-Bestaetigungen nach, und [novapolis-rp/database-curated/staging/rp-runtime/README.md](novapolis-rp/database-curated/staging/rp-runtime/README.md) macht die operative Folge fuer den Runtime-Baum explizit.
+
+- [x] [Jetzt] Runtime-Traegersatz des aktiven Nordlinie-Stands vervollstaendigen.
+  - Ziel: Der aktuelle Hauptweltpfad `d5-c6-nordlinie-sanierung-01` soll nicht nur Projekt-, Inventar- und Mind-Spuren fuehren, sondern auch die aktiven Charakter- und Orts-Traeger sauber als Runtime-Dateien abbilden.
+  - Akzeptanzkriterien:
+    1) `rp-runtime/characters/` fuehrt fuer den aktuellen Hauptweltpfad mindestens `Ronja`, `Reflex`, `Jonas`, `Pahl` und die an Jonas gekoppelte Begleitinstanz `Lumen`,
+    2) `rp-runtime/state/` fuehrt einen aktuellen D5-Arbeitsstand fuer Werkstatt-, Freigabe- und Begleitlogik des Nordlinie-Laufs,
+    3) Jonas-Lumen-Kopplung und Begleitung sind im Runtime-Stand explizit statt nur implizit aus SSOT ableitbar,
+    4) der Nachzug bleibt auf die aktuell belegten Laufzeittraeger beschraenkt; nicht belegte Fraktions- oder Inventarflaechen werden bewusst nicht blind vorgespiegelt.
+  - Evidenz: Im aktuellen Hauptweltpfad benennt `state/nordlinie-01.md` die aktiven Figuren `Ronja`, `Reflex`, `Jonas` und `Pahl`, waehrend `rp-runtime/characters/` bislang nur `mara-quell.md` aus einem verworfenen Probe-Einstieg fuehrt; zusaetzlich verlangt `Jonas-Merek.md` die laufende Begleitung durch die gekoppelte Instanz `Lumen`.
+  - Ergebnis 2026-04-28 04:50: `rp-runtime/characters/` fuehrt jetzt die aktiven Runtime-Figurenblaetter fuer `Ronja`, `Reflex`, `Jonas`, `Pahl` und `Lumen`; `rp-runtime/state/d5.md` zieht den aktuellen Werkstatt- und Freigabestand nach, `rp-runtime/mind/lumen.md` fuehrt die fehlende Begleitinstanz als eigenen Runtime-Mind-Arbeitsstand, und `rp-runtime/mind/jonas-merek.md` sowie `state/nordlinie-01.md` benennen Jonas-Lumen-Kopplung jetzt explizit. Die aktualisierte Surface-Matrix haelt zugleich fest, dass fuer den aktuellen Hauptpfad keine pauschale Fraktions- oder C6-Vollspiegelung noetig ist, solange dort keine neuen belastbaren Figuren-, Inventar- oder Ortsdeltas ausgespielt werden.
+
+- [x] [Jetzt] Runtime-Mind-Fuehrung fuer RP-Laborpfad und aktive Surface sauber einziehen.
+  - Ziel: Der laufende RP-Test soll Mind-/Sphaerenwirkung nicht nur implizit in Szene und State tragen, sondern ueber einen eigenen Runtime-Pfad kontrolliert erfassen; gleichzeitig soll klar werden, welche RP-SSOT-Flaechen wirklich eine Runtime-Entsprechung brauchen und welche bewusst SSOT-only bleiben.
+  - Akzeptanzkriterien:
+    1) `novapolis-rp/database-curated/staging/rp-runtime/` fuehrt einen eigenen Pfad fuer Mind-/Sphaeren-Arbeitsstaende inklusive README und Vorlage,
+    2) der aktive Nordlinie-Kerncast `Ronja`, `Reflex`, `Jonas` und `Pahl` besitzt dort je einen ersten Runtime-Mind-Arbeitsstand oder eine explizite, belegte Ausnahme,
+    3) eine RP-Doku im aktiven Scope trennt belastbar zwischen runtime-pflichtigen Surface-Klassen und SSOT-only-Flaechen statt pauschal den ganzen `database-rp` zu spiegeln,
+    4) vor der Fortsetzung des ERP-/RP-Laufs ist klar dokumentiert, dass nicht jede RP-Datei vorab als Runtime-Datei angelegt werden muss, sondern nur die aktiv benoetigten Laufzeittraeger plus die kanonischen Vorlagen.
+  - Evidenz: `rp-runtime/README.md` kannte zuvor nur `sessions`, `characters`, `relationships`, `inventories` und `state`, waehrend `07-mind-clusters/**` im RP-SSOT fuer den Nordlinie-Kerncast bereits existierte, aber gegenueber dem Laufstand bis Turn 8 nicht als Runtime-Arbeitsstand nachgezogen wurde.
+  - Ergebnis 2026-04-28 04:44: `novapolis-rp/database-curated/staging/rp-runtime/mind/` fuehrt jetzt README, Vorlage und die ersten vier Nordlinie-Arbeitsstaende fuer `Ronja`, `Reflex`, `Jonas` und `Pahl`. `novapolis-rp/database-curated/staging/rp-runtime/README.md` zieht den neuen Typ in die Routing-Matrix, und `novapolis-dev/docs/process/rp-runtime-surface-matrix.ssot.md` trennt fuer den gesamten RP-Baum zwischen runtime-pflichtigen Laufzeittraegern und bewusst SSOT-only-Flaechen. Damit ist explizit festgezogen, dass vor dem Weiterspielen nicht der ganze `database-rp` vorgespiegelt werden muss, sondern nur die kanonischen Runtime-Typen plus die aktuell benoetigten Traegerdateien.
 
 - [x] [Jetzt] Runtime-Warenfluss im Nordlinie-Laborpfad von narrativer Teilbereitstellung auf belastbare Mengen- und Restbuchung heben.
   - Ziel: Der kleine D5->Tunnel-Behelfssatz aus dem Nordlinie-Laborpfad soll nicht nur als erzaehlte Teilbereitstellung lesbar sein, sondern als nachvollziehbarer Warenfluss mit belastbarer Mengen- und Restlogik.
