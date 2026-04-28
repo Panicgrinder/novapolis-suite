@@ -19,14 +19,32 @@ def test_committed_workspace_trees_match_fresh_generation() -> None:
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_forensic_full_tree_is_not_part_of_default_freshness_gate() -> None:
+def test_forensic_full_tree_is_part_of_default_freshness_gate() -> None:
     from scripts import update_workspace_tree_dirs as mod
 
     repo_root = Path(__file__).resolve().parents[3]
 
-    outputs = mod.active_snapshot_outputs(repo_root)
+    outputs = mod.snapshot_outputs(repo_root)
 
-    assert [path.name for path in outputs] == ["workspace_tree.txt", "workspace_tree_dirs.txt"]
+    assert [path.name for path in outputs] == [
+        "workspace_tree.txt",
+        "workspace_tree_dirs.txt",
+        "workspace_tree_full.txt",
+    ]
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_forensic_full_tree_excludes_ignore_based_machine_volatility() -> None:
+    from scripts import update_workspace_tree_dirs as mod
+
+    repo_root = Path(__file__).resolve().parents[3]
+    forensic = mod.build_forensic_full_text(repo_root)
+
+    assert ".snapshot.now" not in forensic
+    assert ".venv/" not in forensic
+    assert "coverage.xml" not in forensic
+    assert "workspace_tree_full.txt" in forensic
 
 
 @pytest.mark.scripts

@@ -9,9 +9,11 @@ Outputs:
 
 Notes:
 - Active snapshots skip local caches, venvs, generated outputs and local repo metadata.
-- The forensic snapshot preserves the complete root tree for audit/reference.
+- The forensic snapshot preserves the full repo-visible tree for audit/reference.
 - Policy: active tree snapshots keep tracked repo content visible and exclude only
     local machine-artifact and repo-metadata paths.
+- Policy: the forensic snapshot is deterministic and excludes ignore-based machine
+    volatility, so it can stay inside the default freshness gate.
 - Non-destructive; overwrites only the snapshot files above.
 """
 
@@ -20,7 +22,6 @@ from __future__ import annotations
 import argparse
 import os
 import subprocess
-import tempfile
 from pathlib import Path
 
 ACTIVE_GITIGNORE_SKIP_DIRS = {
@@ -64,6 +65,7 @@ ACTIVE_LOCAL_METADATA_SKIP_DIRS = {
 ACTIVE_SKIP_DIRS = ACTIVE_GITIGNORE_SKIP_DIRS | ACTIVE_LOCAL_METADATA_SKIP_DIRS
 ACTIVE_SKIP_FILES = ACTIVE_GITIGNORE_SKIP_FILES
 ACTIVE_SKIP_PREFIXES = ACTIVE_GITIGNORE_SKIP_PREFIXES
+FORENSIC_LOCAL_METADATA_SKIP_DIRS = ACTIVE_LOCAL_METADATA_SKIP_DIRS
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -160,20 +162,73 @@ def build_active_tree_text(root: Path, out_path: Path) -> str:
     return "\n".join(sorted(lines)) + "\n"
 
 
+def _git_visible_paths(root: Path) -> list[str]:
+    completed = subprocess.run(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+        cwd=root,
+        capture_output=True,
+        text=False,
+    )
+    if completed.returncode != 0:
+        message = completed.stderr.decode("utf-8", errors="replace").strip() or "git ls-files failed"
+        raise RuntimeError(message)
+
+    visible: set[str] = set()
+    for raw in completed.stdout.split(b"\0"):
+        if not raw:
+            continue
+        rel = normalize_rel(raw.decode("utf-8", errors="replace"))
+        if not rel:
+            continue
+        root_name = rel.split("/", 1)[0]
+        if root_name in FORENSIC_LOCAL_METADATA_SKIP_DIRS:
+            continue
+        visible.add(rel)
+    return sorted(visible)
+
+
+def _insert_render_path(tree: dict[str, object], rel: str) -> None:
+    parts = rel.split("/")
+    node = tree
+    for part in parts[:-1]:
+        dirs = node.setdefault("dirs", {})
+        assert isinstance(dirs, dict)
+        child = dirs.setdefault(part, {})
+        assert isinstance(child, dict)
+        node = child
+    files = node.setdefault("files", set())
+    assert isinstance(files, set)
+    files.add(parts[-1])
+
+
+def _render_tree_lines(node: dict[str, object], prefix: str = "") -> list[str]:
+    files = sorted(str(name) for name in node.get("files", set()))
+    dirs = node.get("dirs", {})
+    assert isinstance(dirs, dict)
+    entries: list[tuple[str, str]] = [(name, "file") for name in files]
+    entries.extend((str(name), "dir") for name in sorted(dirs))
+
+    lines: list[str] = []
+    for index, (name, kind) in enumerate(entries):
+        is_last = index == len(entries) - 1
+        connector = "`-- " if is_last else "|-- "
+        suffix = "/" if kind == "dir" else ""
+        lines.append(f"{prefix}{connector}{name}{suffix}")
+        if kind == "dir":
+            child = dirs[name]
+            assert isinstance(child, dict)
+            child_prefix = prefix + ("    " if is_last else "|   ")
+            lines.extend(_render_tree_lines(child, child_prefix))
+    return lines
+
+
 def build_forensic_full_text(root: Path) -> str:
-    with tempfile.TemporaryDirectory(prefix="workspace-tree-") as temp_dir:
-        temp_path = Path(temp_dir) / "workspace_tree_full.txt"
-        command = f"tree /A /F | Out-File -Encoding ascii '{temp_path}'"
-        completed = subprocess.run(
-            ["pwsh", "-NoLogo", "-Command", command],
-            cwd=root,
-            capture_output=True,
-            text=True,
-        )
-        if completed.returncode != 0:
-            message = completed.stderr.strip() or completed.stdout.strip() or "tree command failed"
-            raise RuntimeError(message)
-        return temp_path.read_text(encoding="ascii")
+    tree: dict[str, object] = {}
+    for rel in _git_visible_paths(root):
+        _insert_render_path(tree, rel)
+    lines = ["Repo-visible PATH listing", "Root = .", "."]
+    lines.extend(_render_tree_lines(tree))
+    return "\n".join(lines) + "\n"
 
 
 def write_active_dirs(root: Path, out_path: Path) -> None:
@@ -185,7 +240,7 @@ def write_active_tree(root: Path, out_path: Path) -> None:
 
 
 def write_forensic_full(root: Path, out_path: Path) -> None:
-    out_path.write_text(build_forensic_full_text(root), encoding="ascii")
+    out_path.write_text(build_forensic_full_text(root), encoding="utf-8")
 
 
 def snapshot_outputs(root: Path) -> list[Path]:
@@ -193,13 +248,6 @@ def snapshot_outputs(root: Path) -> list[Path]:
         root / "workspace_tree.txt",
         root / "workspace_tree_dirs.txt",
         root / "workspace_tree_full.txt",
-    ]
-
-
-def active_snapshot_outputs(root: Path) -> list[Path]:
-    return [
-        root / "workspace_tree.txt",
-        root / "workspace_tree_dirs.txt",
     ]
 
 
@@ -213,12 +261,11 @@ def expected_snapshot_text(root: Path, out_path: Path) -> str:
     raise ValueError(f"Unsupported snapshot path: {out_path}")
 
 
-def stale_snapshot_paths(root: Path, *, include_forensic_full: bool = False) -> list[Path]:
+def stale_snapshot_paths(root: Path, *, include_forensic_full: bool = True) -> list[Path]:
     stale: list[Path] = []
-    outputs = snapshot_outputs(root) if include_forensic_full else active_snapshot_outputs(root)
+    outputs = snapshot_outputs(root) if include_forensic_full else snapshot_outputs(root)[:2]
     for out_path in outputs:
-        encoding = "ascii" if out_path.name.endswith("_full.txt") else "utf-8"
-        current = out_path.read_text(encoding=encoding)
+        current = out_path.read_text(encoding="utf-8")
         expected = expected_snapshot_text(root, out_path)
         if current != expected:
             stale.append(out_path)

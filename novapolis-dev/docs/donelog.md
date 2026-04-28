@@ -1,8 +1,16 @@
 ---
-stand: 2026-04-28 12:53
-update: Dev-DONELOG dokumentiert jetzt den vereinfachten Tree-Policy-Nachzug: aktive Trees zeigen wieder den getrackten Repo-Inhalt und blenden nur noch ignorierte Maschinenartefakte aus.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 12:53)
+stand: 2026-04-28 13:05
+update: Dev-DONELOG dokumentiert jetzt auch den erneuten Vollbaum-Nachzug: alle drei Tree-Artefakte bleiben wieder im Default-Freshness-Gate, ohne ignore-basierte Maschinenvolatilitaet mitzuschleppen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 13:05)
 ---
+Governance: Vollbaum wieder im Default-Freshness-Gate, aber ohne Ignore-Drift (2026-04-28 12:53)
+----------------------------------------------------------------------------------------------
+
+- [scripts/update_workspace_tree_dirs.py](scripts/update_workspace_tree_dirs.py) rendert [workspace_tree_full.txt](workspace_tree_full.txt) jetzt deterministisch aus repo-sichtbaren Pfaden via `git ls-files --cached --others --exclude-standard`, statt den kompletten lokalen Maschinenbaum direkt zu serialisieren.
+- Damit bleibt der Vollbaum wieder im Default-Freshness-Gate von `stale_snapshot_paths()`, ohne an ignore-basierten Laufartefakten wie `.snapshot.now`, `.venv`, `.tmp` oder `coverage.xml` zu kippen.
+- [novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py](novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py) deckt jetzt sowohl die Rueckkehr von [workspace_tree_full.txt](workspace_tree_full.txt) in den Default-Gate als auch das Ausfiltern derselben Ignore-Volatilitaet explizit ab.
+- [workspace_tree_full.txt](workspace_tree_full.txt) ist mit dem neuen Renderer neu erzeugt; [novapolis-dev/docs/todo.dev.md](novapolis-dev/docs/todo.dev.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) fuehren den Abschluss im selben Lauf nach.
+
 Governance: Aktive Root-Trees jetzt tracked-only statt Reader-Surface-Sonderfilter (2026-04-28 12:53)
 ------------------------------------------------------------------------------------------------
 

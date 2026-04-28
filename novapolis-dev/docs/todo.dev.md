@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 12:53
-update: Das Dev-Board fuehrt nach dem Tree-Policy-Nachzug wieder keine offenen Punkte; aktive Trees zeigen jetzt getrackten Repo-Inhalt und blenden nur noch ignorierte Maschinenartefakte aus.
-checks: snapshot-lock PASS (2026-04-28 12:53); markdownlint=PASS; frontmatter=PASS; pytest=PASS (novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
+stand: 2026-04-28 13:05
+update: Das Dev-Board fuehrt nach dem Vollbaum-Nachzug wieder keine offenen Punkte; alle drei Workspace-Trees liegen jetzt wieder im Default-Freshness-Gate.
+checks: snapshot-lock PASS (2026-04-28 13:05); markdownlint=PASS; frontmatter=PASS; pytest=PASS (novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,6 +23,16 @@ Offene Aufgaben (Dev)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] `workspace_tree_full.txt` wieder in den Default-Freshness-Gate aufnehmen, ohne Ignore-Drift mitzuschleppen.
+  - Ziel: Alle drei Workspace-Trees sollen wieder standardmaessig auf Freshness geprueft werden, aber der Vollbaum darf dabei nicht mehr von `.snapshot.now`, `.venv`, `.tmp` oder anderen ignore-basierten Laufartefakten kippen.
+  - Akzeptanzkriterien:
+    1) `scripts/update_workspace_tree_dirs.py` erzeugt den Vollbaum deterministisch aus repo-sichtbaren Pfaden statt aus maschinenlokalem Junk,
+    2) `stale_snapshot_paths()` prueft standardmaessig wieder `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt`,
+    3) der Testpfad deckt ab, dass `workspace_tree_full.txt` wieder Teil des Default-Gates ist und ignore-basierte Volatilitaet wie `.snapshot.now` nicht in den Vollbaum gelangt,
+    4) Board, Index und DONELOG fuehren denselben Abschluss im selben Lauf.
+  - Evidenz: Der billige Gegencheck gegen `stale_snapshot_paths(..., include_forensic_full=True)` meldete im aktuellen Stand bereits `workspace_tree_full.txt` als stale; zugleich enthielt der committed Vollbaum maschinenlokale Ignore-Pfade wie `.snapshot.now`, `.tmp`, `.venv` und `coverage.xml`, die den Default-Freshness-Gate instabil machten.
+  - Ergebnis 2026-04-28 12:53: `scripts/update_workspace_tree_dirs.py` rendert `workspace_tree_full.txt` jetzt deterministisch aus `git ls-files --cached --others --exclude-standard` statt aus dem rohen Maschinenbaum. Damit bleiben repo-sichtbare Pfade erhalten, waehrend ignore-basierte Volatilitaet wie `.snapshot.now`, `.venv`, `.tmp` und `coverage.xml` aus dem Vollbaum herausfaellt. `stale_snapshot_paths()` prueft standardmaessig wieder alle drei Tree-Artefakte, `novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py` deckt die Rueckkehr von `workspace_tree_full.txt` in den Default-Gate plus die neue Volatilitaetsregel ab, und `workspace_tree_full.txt` ist mit dem neuen Renderer neu erzeugt.
 
 - [x] [Jetzt] Aktive Workspace-Trees auf tracked Repo-Inhalt statt Reader-Surface-Sonderfiltern zurueckziehen.
   - Ziel: `workspace_tree.txt` und `workspace_tree_dirs.txt` sollen kuenftig alle getrackten Repo-Pfade zeigen und nur noch ignorierte Maschinenartefakte ausblenden.
