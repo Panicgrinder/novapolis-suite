@@ -173,7 +173,9 @@ def _git_visible_paths(root: Path) -> list[str]:
         text=False,
     )
     if completed.returncode != 0:
-        message = completed.stderr.decode("utf-8", errors="replace").strip() or "git ls-files failed"
+        message = (
+            completed.stderr.decode("utf-8", errors="replace").strip() or "git ls-files failed"
+        )
         raise RuntimeError(message)
 
     visible: set[str] = set()

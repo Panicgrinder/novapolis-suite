@@ -1,8 +1,15 @@
 ---
-stand: 2026-04-28 13:19
-update: Dev-DONELOG dokumentiert jetzt den sauberen Vierer-Split der Tree-Artefakte: drei überwachte Trees plus ein expliziter lokaler Maschinenbaum.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 13:19)
+stand: 2026-04-28 17:32
+update: Dev-DONELOG dokumentiert den gruernen Nachzug fuer den kanonischen Vollcheck nach dem letzten Tree-Slice-Stilfix.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_172700.md; snapshot-lock PASS (2026-04-28 17:32)
 ---
+Governance: Kanonischen Vollcheck nach lokalem Tree-Slice-Stilfix wieder komplett gruen gezogen (2026-04-28 17:28)
+---------------------------------------------------------------------------------------------------
+
+- [scripts/update_workspace_tree_dirs.py](scripts/update_workspace_tree_dirs.py) enthaelt nach dem letzten Vollcheck nur noch den von Black erwarteten Zeilenumbruch in `_git_visible_paths()`; dadurch schliesst derselbe Tree-Skriptpfad jetzt wieder ohne Formatrest.
+- [novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py](novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py) endet wieder mit abschliessender Newline, womit der letzte Ruff-Hinweis im zugehoerigen Testpfad ebenfalls wegfaellt.
+- Der kanonische Repo-Lauf ueber `scripts/run_checks_and_report.py` ist danach wieder vollstaendig gruen; der aktuelle Report liegt unter [.tmp/results/reports/checks_report_20260428_172700.md](.tmp/results/reports/checks_report_20260428_172700.md), und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) fuehrt den PASS-Stand im selben Lauf nach.
+
 Governance: Expliziten lokalen Workspace-Baum neben den drei überwachten Trees eingeführt (2026-04-28 13:15)
 --------------------------------------------------------------------------------------------------------
 

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 13:19
+stand: 2026-04-28 17:32
 update: Der TODO-Index fuehrt nach dem Local-Tree-Nachzug wieder keine offenen Modul-Boards; Dev, RP, Agent und Sim stehen bei offen: 0.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 13:19)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260428_172700.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -39,7 +39,7 @@ Board-Metadaten (automationsrelevant)
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
 | Dev (`docs/todo.dev.md`) | 2026-04-28 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-04-27 | keiner (offen: 0) | nein |
+| RP (`docs/todo.rp.md`) | 2026-04-28 | keiner (offen: 0) | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-04-23 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-04-26 | keiner (offen: 0) | nein |
 
