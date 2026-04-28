@@ -1,8 +1,16 @@
 ---
-stand: 2026-04-28 12:39
-update: Dev-DONELOG dokumentiert jetzt den abgeschlossenen Tree-Policy-Nachzug: gitignore-Spiegelung und Reader-Surface-Ausnahmen sind getrennt, getestet und in den aktiven Trees nachgezogen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 12:39)
+stand: 2026-04-28 12:53
+update: Dev-DONELOG dokumentiert jetzt den vereinfachten Tree-Policy-Nachzug: aktive Trees zeigen wieder den getrackten Repo-Inhalt und blenden nur noch ignorierte Maschinenartefakte aus.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 12:53)
 ---
+Governance: Aktive Root-Trees jetzt tracked-only statt Reader-Surface-Sonderfilter (2026-04-28 12:53)
+------------------------------------------------------------------------------------------------
+
+- [scripts/update_workspace_tree_dirs.py](scripts/update_workspace_tree_dirs.py) fuehrt in aktiven Trees keine zusaetzlichen Reader-Surface-Sonderausschluesse fuer getrackte Repo-Pfade mehr; ausgeschlossen bleiben nur noch Ignore-basierte Maschinenartefakte sowie lokale Repo-Metadatenpfade wie `.git` und `.tox`.
+- [novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py](novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py) prueft jetzt explizit, dass getrackte Repo-Pfade aus [novapolis-dev/archive](novapolis-dev/archive), [novapolis-rp/database-raw](novapolis-rp/database-raw) und [novapolis-rp/database-curated](novapolis-rp/database-curated) in der aktiven Tree- und Directory-Sicht wieder sichtbar sind, waehrend Ignore-Faelle wie `coverage.xml` weiterhin ausgeschlossen bleiben.
+- [workspace_tree.txt](workspace_tree.txt) und [workspace_tree_dirs.txt](workspace_tree_dirs.txt) sind mit derselben vereinfachten Policy neu erzeugt und zeigen damit wieder den vollstaendigen getrackten Repo-Inhalt der aktiven Surface.
+- [novapolis-dev/docs/todo.dev.md](novapolis-dev/docs/todo.dev.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) fuehren denselben Abschluss im selben Lauf nach; das Dev-Board steht wieder bei `offen: 0`.
+
 Governance: Tree-Skip-Policy jetzt explizit gegen gitignore gespiegelt (2026-04-28 12:18)
 -------------------------------------------------------------------------------------
 

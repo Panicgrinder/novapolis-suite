@@ -8,10 +8,10 @@ Outputs:
 - workspace_tree_full.txt   (forensic full tree)
 
 Notes:
-- Active snapshots skip local caches, venvs, generated outputs and heavy archive paths.
+- Active snapshots skip local caches, venvs, generated outputs and local repo metadata.
 - The forensic snapshot preserves the complete root tree for audit/reference.
-- Policy: active tree snapshots must mirror gitignore-relevant machine-artifact classes,
-  while stronger reader-surface-only exclusions stay in a separate explicit allowlist.
+- Policy: active tree snapshots keep tracked repo content visible and exclude only
+    local machine-artifact and repo-metadata paths.
 - Non-destructive; overwrites only the snapshot files above.
 """
 
@@ -57,20 +57,13 @@ ACTIVE_GITIGNORE_SKIP_PREFIXES = (
     "novapolis-sim/.import",
     "novapolis-sim/exports",
 )
-ACTIVE_READER_SURFACE_ONLY_DIRS = {
+ACTIVE_LOCAL_METADATA_SKIP_DIRS = {
     ".git",
     ".tox",
 }
-ACTIVE_READER_SURFACE_ONLY_PREFIXES = (
-    "novapolis-dev/archive",
-    "novapolis-dev/logs",
-    "novapolis_agent/archive",
-    "novapolis-rp/database-curated",
-    "novapolis-rp/database-raw",
-)
-ACTIVE_SKIP_DIRS = ACTIVE_GITIGNORE_SKIP_DIRS | ACTIVE_READER_SURFACE_ONLY_DIRS
+ACTIVE_SKIP_DIRS = ACTIVE_GITIGNORE_SKIP_DIRS | ACTIVE_LOCAL_METADATA_SKIP_DIRS
 ACTIVE_SKIP_FILES = ACTIVE_GITIGNORE_SKIP_FILES
-ACTIVE_SKIP_PREFIXES = ACTIVE_GITIGNORE_SKIP_PREFIXES + ACTIVE_READER_SURFACE_ONLY_PREFIXES
+ACTIVE_SKIP_PREFIXES = ACTIVE_GITIGNORE_SKIP_PREFIXES
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:

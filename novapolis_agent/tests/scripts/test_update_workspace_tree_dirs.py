@@ -55,20 +55,25 @@ def test_active_tree_policy_mirrors_gitignored_machine_artifacts() -> None:
 
 @pytest.mark.scripts
 @pytest.mark.unit
-def test_active_tree_policy_separates_reader_surface_only_extras() -> None:
+def test_active_tree_policy_keeps_tracked_repo_content_visible() -> None:
     from scripts import update_workspace_tree_dirs as mod
 
-    extras = set(mod.ACTIVE_READER_SURFACE_ONLY_PREFIXES)
-    mirrored = set(mod.ACTIVE_GITIGNORE_SKIP_PREFIXES)
+    repo_root = Path(__file__).resolve().parents[3]
+    active_tree = mod.build_active_tree_text(repo_root, repo_root / "workspace_tree.txt")
+    active_dirs = mod.build_active_dirs_text(repo_root)
+    active_tree_lines = {line.replace("\\", "/") for line in active_tree.splitlines()}
+    active_dir_lines = {line.replace("\\", "/") for line in active_dirs.splitlines()}
 
     assert {
-        "novapolis-dev/archive",
-        "novapolis-dev/logs",
-        "novapolis_agent/archive",
-        "novapolis-rp/database-raw",
-        "novapolis-rp/database-curated",
-    } <= extras
-    assert extras.isdisjoint(mirrored)
+        "novapolis-dev/archive/todo.dev.archive.md",
+        "novapolis-rp/database-raw/99-exports/raw-export-policy.md",
+        "novapolis-rp/database-curated/staging/staging-workflow.md",
+    } <= active_tree_lines
+    assert {
+        "novapolis-dev/archive/",
+        "novapolis-rp/database-raw/99-exports/",
+        "novapolis-rp/database-curated/staging/",
+    } <= active_dir_lines
 
 
 @pytest.mark.scripts

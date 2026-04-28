@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 12:39
-update: Das Dev-Board fuehrt nach dem Tree-Policy-Nachzug wieder keine offenen Punkte; gitignore-Spiegelung und Reader-Surface-Ausnahmen sind jetzt explizit getrennt und testseitig abgesichert.
-checks: snapshot-lock PASS (2026-04-28 12:39); markdownlint=PASS; frontmatter=PASS; pytest=PASS (novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
+stand: 2026-04-28 12:53
+update: Das Dev-Board fuehrt nach dem Tree-Policy-Nachzug wieder keine offenen Punkte; aktive Trees zeigen jetzt getrackten Repo-Inhalt und blenden nur noch ignorierte Maschinenartefakte aus.
+checks: snapshot-lock PASS (2026-04-28 12:53); markdownlint=PASS; frontmatter=PASS; pytest=PASS (novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,6 +23,16 @@ Offene Aufgaben (Dev)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Aktive Workspace-Trees auf tracked Repo-Inhalt statt Reader-Surface-Sonderfiltern zurueckziehen.
+  - Ziel: `workspace_tree.txt` und `workspace_tree_dirs.txt` sollen kuenftig alle getrackten Repo-Pfade zeigen und nur noch ignorierte Maschinenartefakte ausblenden.
+  - Akzeptanzkriterien:
+    1) `scripts/update_workspace_tree_dirs.py` entfernt die zusaetzlichen Reader-Surface-Sonderausschluesse aus der aktiven Tree-Policy,
+    2) der Testpfad belegt, dass getrackte Repo-Pfade aus `novapolis-dev/archive`, `novapolis-rp/database-raw` und `novapolis-rp/database-curated` in der aktiven Tree-Surface wieder erscheinen,
+    3) ignorierte Artefakte wie `coverage.xml` bleiben weiterhin ausserhalb der aktiven Trees,
+    4) Board, Index und DONELOG fuehren denselben Abschluss im selben Lauf.
+  - Evidenz: `scripts/update_workspace_tree_dirs.py` fuehrte aktive Reader-Surface-Sonderfilter fuer getrackte Repo-Pfade wie `novapolis-dev/archive`, `novapolis-rp/database-raw` und `novapolis-rp/database-curated`, obwohl die gewuenschte Regel fuer aktive Trees auf "alles Getrackte sichtbar, nur ignorierte Maschinenartefakte ausgeblendet" zielt.
+  - Ergebnis 2026-04-28 12:52: `scripts/update_workspace_tree_dirs.py` fuehrt in aktiven Trees nur noch Ignore-basierte Maschinenartefakt-Excludes plus lokale Repo-Metadatenpfade wie `.git` und `.tox`; die Reader-Surface-Sonderfilter sind entfernt. `novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py` prueft jetzt explizit, dass getrackte Repo-Pfade aus `novapolis-dev/archive`, `novapolis-rp/database-raw` und `novapolis-rp/database-curated` in aktiver Tree- und Directory-Sicht sichtbar bleiben, waehrend ignorierte Artefakte wie `coverage.xml` weiterhin ausgeschlossen sind. `workspace_tree.txt` und `workspace_tree_dirs.txt` sind auf dieser Basis neu erzeugt.
 
 - [x] [Jetzt] Tree-Skip-Policy gegen gitignore spiegeln und feste Drift-Regel verankern.
   - Ziel: Die aktive Tree-Surface soll ignorierte Maschinenpfade nicht still wieder sichtbar machen; gitignore-relevante Skip-Klassen muessen explizit gespiegelt werden, und zusaetzliche Reader-Surface-Ausnahmen muessen als bewusst getrennte Regel statt als implizite Mischliste lesbar sein.
