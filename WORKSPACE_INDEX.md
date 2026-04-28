@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 19:03
-update: Der Workspace-Index fuehrt die aktive Reader-Surface jetzt getrennt vom forensischen Vollbaum; der tiefe Agent-Katalog bleibt als nachgelagerter Referenzpfad erhalten.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 19:03)
+stand: 2026-04-28 02:09
+update: Der Workspace-Index fuehrt die aktiven Hook-Surfaces jetzt getrennt nach Git- und Agent-Hooks und entfernt den veralteten Modulverweis auf einen nicht mehr vorhandenen `.githooks`-Pfad.
+checks: snapshot-lock PASS (2026-04-28 02:09); markdownlint=PASS (2026-04-28 02:09); frontmatter=PASS (2026-04-28 02:09)
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -265,10 +265,15 @@ Hinweis Datenmodelle: Quelle ist [`novapolis_agent/app/api/models.py`](novapolis
     - [`novapolis_agent/tests/test_prepare_finetune_pack_extras.py`](novapolis_agent/tests/test_prepare_finetune_pack_extras.py)
     - Weitere Tests siehe Ordnerliste unter `tests/`.
 
-### Git Hooks (optional)
+### Git Hooks (aktiv)
 
-- [`novapolis_agent/.githooks/pre-commit`](novapolis_agent/.githooks/pre-commit) - Lokaler Pre-commit Hook (DONELOG/Lint)
- - [`githooks/pre-commit`](githooks/pre-commit) - Root-Pre-commit Hook (DONELOG/Lint) für das Gesamt-Repo
+- [`githooks/pre-commit`](githooks/pre-commit) - Root-Pre-commit Hook (DONELOG/Lint) fuer das Gesamt-Repo; `git config --get core.hooksPath` zeigt im Workspace auf `githooks`.
+
+### Agent Hooks (workspace)
+
+- [`.github/hooks/rp-runtime-loop-guard.json`](.github/hooks/rp-runtime-loop-guard.json) - Workspace-PreToolUse-Hook fuer RP-Runtime-Mutationen im Agentbetrieb.
+
+Hinweis: Ein modullokaler Pfad `novapolis_agent/.githooks/` ist im aktuellen Workspace nicht mehr vorhanden; fruehere Verweise darauf sind Legacy-Doku, kein aktiver Hook-Ort.
 
 Repository-Hinweis: Standard-Branch ist `main`.
 

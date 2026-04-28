@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "type": "command",
+        "windows": ".\\.venv\\Scripts\\python.exe scripts\\rp_runtime_loop_guard.py",
+        "linux": "./.venv/bin/python scripts/rp_runtime_loop_guard.py",
+        "osx": "./.venv/bin/python scripts/rp_runtime_loop_guard.py",
+        "cwd": ".",
+        "timeout": 15
+      }
+    ]
+  }
+}

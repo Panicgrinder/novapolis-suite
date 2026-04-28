@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-27 01:53
-update: Die Probe-Session fuehrt jetzt zusaetzlich die erste kleine D5-Teilbereitstellung fuer markierte Schwachzonen als Turn 7.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
+stand: 2026-04-28 02:08
+update: Turn 7 fuehrt jetzt nicht nur Reflex korrekt als Ronjas Exoskelett, sondern zieht auch Handover und offene Folgefaeden auf den tatsaechlichen Stand nach abgeschlossener kleiner Teilbereitstellung.
+checks: snapshot-lock PASS (2026-04-28 02:08); markdownlint=PASS (2026-04-28 02:08); frontmatter=PASS (2026-04-28 02:08)
 ---
 
 Scene Log - D5 C6 Nordlinie Sanierung 01
@@ -99,10 +99,10 @@ Turn 7
 ------
 
 - input: Ronja laesst die angekuendigte kleine Teilbereitstellung aus D5 an den markierten Schwachzonen konkret werden und prueft sofort, was sich damit im Tunnel wirklich stabilisieren laesst.
-- inworld_result: Der naechste Zug bleibt klein und ehrlich. Aus D5 kommt kein grosser Materiallauf, sondern nur das, was Jonas und Pahl in der Werkstatt kurzfristig tatsaechlich loseisen konnten: ein schmaler Satz einfacher Stuetzelemente, Klemmen und improvisierter Versteifungen fuer genau die markierten Schwachzonen, die Ronja im letzten Block sauber vorbereitet hat. Reflex uebernimmt den schwierigen Teil des Tragens und Einsetzens, waehrend Ronja die Punkte nicht der Reihe nach, sondern nach echtem Risiko abarbeitet. Zwei Stellen lassen sich damit sichtbar ruhiger bekommen: lose Kanten stehen nicht mehr sofort auf Druck, ein kurzer Abschnitt wirkt beim Nachsetzen weniger fragil, und der Arbeitsraum wird fuer die naechsten Meter lesbarer. Gleichzeitig zeigt der Zug auch seine Grenze. Wo die Trasse selbst oder der Leitungsuebergang wirklich auf Verbindung und Halt angewiesen waeren, helfen weder die kleinen Stuetzelemente noch saubere Improvisation; dort bleiben Schweißgeraet und DN60 die unverschoebbaren Stopmarken. Ronja meldet genau das knapp zurueck: Der Behelfssatz war nuetzlich, aber nur fuer Sicherung und Vorbereitung, nicht fuer eigentliche Reparatur. Danach bleibt sie im Tunnel, nutzt den gewonnenen Spielraum sofort aus und zieht den Blick auf den naechsten Meter, der jetzt bearbeitbar ist, solange niemand aus dem kleinen Zugewinn einen falschen Fortschritt macht.
+- inworld_result: Der naechste Zug bleibt klein und ehrlich. Aus D5 kommt kein grosser Materiallauf, sondern nur das, was Jonas und Pahl in der Werkstatt kurzfristig tatsaechlich loseisen konnten: ein schmaler Satz einfacher Stuetzelemente, Klemmen und improvisierter Versteifungen fuer genau die markierten Schwachzonen, die Ronja im letzten Block sauber vorbereitet hat. Reflex uebernimmt den schwierigen Teil des Tragens und Einsetzens nicht als geloeste Zweitfigur, sondern eng an Ronja gebunden als ihr Exoskelett; die Kraft- und Stabilisierungshilfe bleibt damit koerpernah in Ronjas Arbeitszug eingebettet. Ronja arbeitet die Punkte nicht der Reihe nach, sondern nach echtem Risiko ab. Zwei Stellen lassen sich damit sichtbar ruhiger bekommen: lose Kanten stehen nicht mehr sofort auf Druck, ein kurzer Abschnitt wirkt beim Nachsetzen weniger fragil, und der Arbeitsraum wird fuer die naechsten Meter lesbarer. Gleichzeitig zeigt der Zug auch seine Grenze. Wo die Trasse selbst oder der Leitungsuebergang wirklich auf Verbindung und Halt angewiesen waeren, helfen weder die kleinen Stuetzelemente noch saubere Improvisation; dort bleiben Schweißgeraet und DN60 die unverschoebbaren Stopmarken. Ronja meldet genau das knapp zurueck: Der Behelfssatz war nuetzlich, aber nur fuer Sicherung und Vorbereitung, nicht fuer eigentliche Reparatur. Danach bleibt sie im Tunnel, nutzt den gewonnenen Spielraum sofort aus und zieht den Blick auf den naechsten Meter, der jetzt bearbeitbar ist, solange niemand aus dem kleinen Zugewinn einen falschen Fortschritt macht.
 - new_signals:
   - Probe: D5 hat erstmals eine kleine, reale Teilbereitstellung fuer markierte Schwachzonen in den Nordlinie-Zug gebracht.
-  - Probe: Reflex stuetzt den Tunnelzug weiter praktisch beim Tragen und Setzen der improvisierten Sicherungen.
+  - Probe: Reflex stuetzt den Tunnelzug beim Tragen und Setzen der improvisierten Sicherungen weiterhin koerpernah als Ronjas Exoskelett, nicht als frei geloeste Traegerinstanz.
   - Probe: Der Behelfssatz verbessert Sicherung und Lesbarkeit einzelner Stellen, ersetzt aber keine eigentliche Reparatur.
   - Probe: Schweißgeraet und Adapter DN60 bleiben trotz erster Teilbereitstellung die unverschoebbaren Hauptblocker.
   - Review required: Konkrete Mengen, Haltbarkeit des Behelfssatzes und die genaue Reichweite des gesicherten Folgeabschnitts bleiben fuer den naechsten Zug offen.
@@ -113,7 +113,7 @@ Admin Handover
 
 - agent_switch: vollzogen
 - target_mode: SSOT, Story, Weltgeschichte, Lore
-- handover_basis: Turn 1-4 bleiben Runtime-Arbeitsstand; die Folgeszene kann ohne Zwischenszene direkt als gebuendelte Fortschrittssequenz fuer Markierungsarbeiten und erste Materialerfassung im Folgeagenten weitergefuehrt werden.
+- handover_basis: Turn 1-7 bilden jetzt den Runtime-Arbeitsstand; die Folgeszene schliesst direkt an die kleine reale Teilbereitstellung, den gewonnenen Arbeitsraum und die weiter harten Blocker Schweißgeraet und DN60 an.
 - interruption_roll: `1W6 = 4`, kein Unterbrechungsereignis
 
 Kurzauswertung
@@ -136,6 +136,7 @@ Neue belastbare Signale
 - Session-Arbeitslesart: Die erste Materialerfassung liegt jetzt als gegliederte Bedarfsskizze fuer einen konkreten Folgeabschnitt vor.
 - Session-Arbeitslesart: D5 zieht auf die Bedarfsskizze eine kleine, konkrete Werkstattvorbereitung fuer Stuetzelemente nach, ohne die Hauptblocker kleinzureden.
 - Session-Arbeitslesart: Der erste kleine Behelfssatz aus D5 schafft reale Sicherung an markierten Schwachzonen, aber keinen Reparaturdurchbruch.
+- Session-Arbeitslesart: Reflex bleibt auch bei praktischer Trage- und Setzhilfe koerpernah an Ronja gebunden; der Turn liest die Assistenz explizit als Exoskelett und nicht als abgeloeste Begleitfigur.
 
 Open Threads
 ------------
@@ -143,9 +144,9 @@ Open Threads
 - naechsten Tunnelabschnitt zwischen Sicherung, Freiraeumen und Trassenvorbereitung einordnen
 - D5-Priorisierung gegen die jetzt gegliederte Bedarfsskizze erneut pruefen
 - C6-Seite spaeter konkreter ziehen, falls aus dem bilateralen Sanierungsstand eine koordinierte Aktion entsteht
-- Werkstattantwort oder Teilbereitstellung als naechsten Folgezug ziehen
-- Werkstattvorbereitung in eine tatsaechliche, belastbare Teilbereitstellung ueberfuehren oder offen blockieren
 - Reichweite und Haltbarkeit der ersten Teilbereitstellung gegen den naechsten Abschnitt pruefen
+- Tunnelrest des kleinen Stuetzsatzes gegen den neu gewonnenen Arbeitsraum und den D5-Restbestand fuer den Folgezug sauber lesen
+- pruefen, ob der gewonnene Spielraum fuer weitere Vorbereitung traegt oder der naechste echte Materialstopp sofort wieder greift
 - Folgeszene im SSOT-/Lore-Agenten auf genau diesem Handover-Stand fortsetzen
 - pruefen, ob aus der laufenden Runtime-Session spaeter ein belastbarer Nordlinie-Status fuer RP-SSOT promotable wird
 

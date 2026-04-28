@@ -1,8 +1,40 @@
 ---
-stand: 2026-04-28 01:22
-update: Dev-DONELOG dokumentiert jetzt den workspaceweiten Freshness-Scope samt Glob-Expansion, Pruefmodi und differenzierten Max-Alter-Fenstern.
-checks: snapshot-lock PASS (2026-04-28 01:22); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
+stand: 2026-04-28 02:09
+update: Dev-DONELOG dokumentiert jetzt zusaetzlich die Bereinigung der Hook-Doku: aktiver Root-Git-Hook, aktiver Workspace-Agent-Hook und kein verbliebener Modul-`.githooks`-Pfad.
+checks: snapshot-lock PASS (2026-04-28 02:09); markdownlint=PASS (2026-04-28 02:09); frontmatter=PASS (2026-04-28 02:09)
 ---
+Governance: Hook-Surface im Workspace gegen Ist-Bestand abgeglichen (2026-04-28 02:03)
+-------------------------------------------------------------------------------
+
+- [WORKSPACE_INDEX.md](WORKSPACE_INDEX.md) fuehrt den veralteten Verweis auf `novapolis_agent/.githooks/pre-commit` nicht mehr; aktiv dokumentiert bleiben nur [githooks/pre-commit](githooks/pre-commit) und [`.github/hooks/rp-runtime-loop-guard.json`](.github/hooks/rp-runtime-loop-guard.json).
+- Der Abgleich bestaetigt fuer den aktiven Workspace: Git nutzt `core.hooksPath=githooks`, der Agent-Hook lebt unter `.github/hooks/`, und weitere Hook-Treffer liegen nur noch in Archiv-, Backup- oder Tooling-Kontexten.
+
+Governance: RP-Runtime-Hook-Guard fuer Freigabe- und Mehrturn-Drift angelegt (2026-04-28 01:55)
+-----------------------------------------------------------------------------------------------
+
+- [.github/hooks/rp-runtime-loop-guard.json](.github/hooks/rp-runtime-loop-guard.json) haengt einen Workspace-PreToolUse-Hook ein, der Mutationen im RP-Runtime-Slice gegen den Mindestablauf prueft.
+- [scripts/rp_runtime_loop_guard.py](scripts/rp_runtime_loop_guard.py) fragt bei unklarem Workflowanker nach und blockiert insbesondere neue Turn-Heading-Mutationen in `scene-log.md`, wenn der Prompt wie ein Admin-Fix ohne ausdrueckliche Freigabe aussieht.
+- [novapolis_agent/tests/scripts/test_rp_runtime_loop_guard.py](novapolis_agent/tests/scripts/test_rp_runtime_loop_guard.py) deckt die kleinen Kernfaelle fuer `allow`, `ask` und `deny` ab.
+
+Governance: Agentuebergreifende RP-Mindestschleife im Testbetrieb verankert (2026-04-28 01:51)
+-------------------------------------------------------------------------------------------
+
+- [.github/instructions/rp-docs.instructions.md](.github/instructions/rp-docs.instructions.md) fuehrt jetzt fuer Arbeit in `novapolis-rp/database-curated/staging/rp-runtime/**` einen kleinen, agentuebergreifenden Mindestablauf: Runtime-Dateien vor Folgezug neu lesen, pro Antwort nur einen begrenzten RP-Schritt zulassen und nach Admin-Rueckmeldung keinen neuen Turn ohne ausdrueckliche Freigabe starten.
+- Der Nachzug setzt absichtlich nicht den vollen Szenenlabor-Vertrag fuer jeden Agenten global durch, erzwingt aber dieselbe Sicherheitskante dort, wo im RP-Testbetrieb sonst unbemerkt Mehrturn- oder Freigabe-Drift passieren koennte.
+
+RP-Runtime: Turn-7-Handover und Begleitlogik auf Ist-Stand gezogen (2026-04-28 01:39)
+--------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt Turn 1-7 jetzt als echten Handover-Stand; veraltete offene Punkte, die die Teilbereitstellung noch wie Turn 6 behandelten, sind gestrichen oder auf die neue Folgelage umgeschrieben.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md) fuehrt den kleinen Satz jetzt als reale Teilbereitstellung mit koerpernaher Reflex-Assistenz und korrigierter Blockerformulierung ueber den Turn-7-Satz hinaus.
+- [novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md) trennt die Turn-6-Werkstattvorbereitung jetzt sauber vom Turn-7-Ist-Zustand, damit spaetere Datensammlung nicht dieselbe Bewegung gleichzeitig als vorbereitet und als noch nicht geliefert liest.
+
+RP-Runtime: Turn 7 fuehrt Reflex jetzt ausdruecklich als Ronjas Exoskelett (2026-04-28 01:34)
+----------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt den kleinen Stuetzsatz in Turn 7 jetzt nicht mehr so, als trage Reflex getrennt neben Ronja, sondern explizit koerpernah als an Ronja gebundene Exoskelett-Hilfe.
+- Der Nachzug bleibt absichtlich klein und aendert weder Materialfluss noch Erfolgslage des Turns; korrigiert wird nur die Bindungslogik, damit sie mit [novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md](novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md) und dessen Detachment-Regel deckungsgleich bleibt.
+
 Workspace-Doc-Freshness: Scope von Dev-Subset auf workspaceweiten Pruefrahmen gehoben (2026-04-28 01:17)
 ----------------------------------------------------------------------------------------------------------
 
