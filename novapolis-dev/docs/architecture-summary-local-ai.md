@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-23 16:00
+stand: 2026-04-28 06:57
 update: Die Architektur-Notiz beschreibt jetzt zusaetzlich den append-only RP-Chattranskriptpfad als Rohsignal vor jeder Promotion.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:00)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 06:57)
 ---
 Architektur-Notiz: Monorepo & Single-Root (lokale AI)
 ====================================================
@@ -29,6 +29,18 @@ Vergleich zu "klassischen" Setups
 - Multi-Repo-Ansatz (pro Produkt ein Repo) wäre hier hinderlich: die Domänen greifen stark ineinander, und AI-gestützte Aufgaben würden durch Kontextwechsel erschwert.
 - Strenger Monorepo-Ansatz (Bazel/Pants) ist Overkill; stattdessen: klare Paketgrenzen (z. B. `novapolis_agent`, `novapolis-rp`, `packages/novapolis_common`) mit leichtgewichtiger Orchestrierung über Python-Skripte.
 - Das Projekt ähnelt eher einem Framework- und Tooling-Monorepo: Kernpaket(e), Daten/Stories, Simulation, Dokumentation und Dev-Tools in einem Workspace.
+
+Kontrolliertes Simulationssystem
+--------------------------------
+
+- Novapolis ist kein freier Chatbot, sondern ein kontrolliertes Simulationssystem.
+- Das Optimierungsziel ist nicht maximale Kreativitaet, sondern maximale Konsistenz gegen SSOT, Runtime, Gates und belegte Arbeitsstaende.
+- Die aktuelle Modellarbeit ist bewusst in Rollen getrennt:
+  - `llama3.1:8b` fuer stabile Erstantwort, Dokuarbeit, Governance-nahe Routine und Turn-Formulierung,
+  - `qwen3.5:4b` fuer Gegenpruefung, Widerspruch, Semantik- und Scope-Kontrolle,
+  - `qwen2.5:7b` als opt-in Judge fuer Tie-Break, Konfliktbewertung, Priorisierung und Freigabeempfehlung.
+- Verbindlich wird hier nichts durch ein Modell allein. Verbindlich wird nur, was durch SSOT, DONELOG, STOP-Gates, Runtime-Artefakte, Frontmatter und Validatoren getragen ist.
+- Die operative Modellmatrix fuer den Agent-Pfad bleibt in `novapolis_agent/README.md`; dieser Abschnitt fixiert nur die uebergeordnete Systemlesart.
 
 Standard-Workflows (Root-basiert)
 ---------------------------------

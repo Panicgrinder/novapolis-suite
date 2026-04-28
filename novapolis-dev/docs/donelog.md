@@ -1,8 +1,14 @@
 ---
-stand: 2026-04-28 05:46
+stand: 2026-04-28 06:57
 update: Dev-DONELOG dokumentiert jetzt zusaetzlich den geschlossenen RP-Nachzug fuer den expliziten Inventar-Diff des kleinen Nordlinie-Turn-7/8-Satzes.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 06:57)
 ---
+Governance: Architektur-Notiz fixiert jetzt die Systemlesart als kontrollierte Simulation (2026-04-28 06:40)
+---------------------------------------------------------------------------------------------------------
+
+- [novapolis-dev/docs/architecture-summary-local-ai.md](novapolis-dev/docs/architecture-summary-local-ai.md) fuehrt jetzt explizit aus, dass Novapolis nicht als freier Chatbot, sondern als kontrolliertes Simulationssystem betrieben wird.
+- Die Notiz trennt dabei bewusst zwischen Modellrollen und Fuehrungsstruktur: `llama3.1:8b`, `qwen3.5:4b` und `qwen2.5:7b` bleiben operative Rollen im A/B/Judge-Pfad, waehrend SSOT, DONELOG, STOP-Gates, Runtime-Artefakte, Frontmatter und Validatoren die eigentliche Verbindlichkeit tragen.
+
 RP-Runtime: Expliziten Inventar-Diff fuer den kleinen Nordlinie-Turn-7/8-Satz nachgezogen (2026-04-28 05:09)
 ------------------------------------------------------------------------------------------------------
 
