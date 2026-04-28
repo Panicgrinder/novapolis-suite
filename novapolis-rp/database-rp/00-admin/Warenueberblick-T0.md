@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 00:47
-update: T0-Ueberblick fuehrt jetzt zusaetzlich aktive RP-Warenklassen fuer Kabelanschnitt, Schienenprofil, Betonplatte sowie die H-47-Handelsklassen Nahrungsmittel und Grundbedarfsgueter.
-checks: snapshot-lock PASS (2026-04-29 00:20)
+stand: 2026-04-29 00:59
+update: T0-Ueberblick fuehrt die neuen Sammelklassen jetzt auch auf der belegten Handels- und Bedarfsebene fuer Novapolis/C6 sichtbar mit.
+checks: snapshot-lock PASS (2026-04-29 00:59)
 slug: warenueberblick-t0
 category: Admin
 canvas: warenueberblick-t0
@@ -37,8 +37,8 @@ Lagebild nach Warengruppen (MVP)
 | Wasser / Filter | verfuegbar | knapp | tbd | C6-Monitoring als Engpasssignal |
 | Werkzeuge / Reparatur | verfuegbar | verfuegbar | tbd | aus Missions-/Inventarplaenen fortschreiben |
 | Bau / Stuetzmaterial | begrenzt | knapp | tbd | D5 fuehrt kleinen Stuetzbaukasten; Schienenprofil und Betonplatten sind als Nordlinie-Verbrauchsklassen belegt, C6 bleibt primaer Verbrauchsort |
-| Medizin / Erste Hilfe | begrenzt | knapp | tbd | D5 mit kleiner Basisreserve; C6 unter Evakuierungsdruck |
-| Nahrung / Verbrauchsgueter | begrenzt | knapp | tbd | D5 stabil fuer Kernteam; C6 fuer 27 Personen angespannt |
+| Medizin / Erste Hilfe | begrenzt | knapp | tbd | D5 mit kleiner Basisreserve; C6 unter Evakuierungsdruck, dazu belegt breiter Bedarf an `Medizinischen Guetern` fuer Aussenhandel und Stationsversorgung |
+| Nahrung / Verbrauchsgueter | begrenzt | knapp | tbd | D5 stabil fuer Kernteam; C6 fuer 27 Personen angespannt, H-47/C6 fuehrt dafuer die Klassen `Nahrungsmittel (Grundbedarf)` und `Grundbedarfsgueter` |
 
 Fraktionsueberblick T0 (Herkunftslabel)
 ---------------------------------------
@@ -47,7 +47,7 @@ Hinweis: Die Label folgen dem P0-Schema `legacy|evac_e3|scavenged|produced|unkno
 
 | Fraktion | T0-Warenbild (Bandbreite) | Herkunftslabel (dominant) | Verweis |
 | --- | --- | --- | --- |
-| Novapolis (D5/C6/E3) | Energie/Wasser/Werkzeuge verfuegbar, Medizin/Nahrung teils knapp; D5/C6 bleiben fruehe Aufbauphase mit belegter Transfer- und Verbrauchslogik, aber ohne Marktnormalisierung | legacy, evac_e3, scavenged | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md), [Logistik](./Logistik.md) |
+| Novapolis (D5/C6/E3) | Energie/Wasser/Werkzeuge verfuegbar, Medizin/Nahrung teils knapp; D5/C6 bleiben fruehe Aufbauphase mit belegter Transfer- und Verbrauchslogik, aber ohne Marktnormalisierung. C6 fuehrt zusaetzlich die breiten Markt-/Bedarfsklassen `Rohmaterialien`, `Medizinische Gueter` und `Informationsgueter` als aktive Handelsoberflaeche. | legacy, evac_e3, scavenged | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md), [Logistik](./Logistik.md) |
 | Arkologie-A1 | Grundversorgung stabil, Austausch gueter selektiv; Kerngebiet `A1/A3/A5` ist jetzt explizit als kontrollierter Dreistationskern lesbar | produced, legacy | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md) |
 | Schienenbund | Logistik-/Reparaturfokus, Verbrauchsgueter variabel | produced, scavenged | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
 | Schattenbund | Versorgung uneinheitlich, Schwerpunkt opportunistische Beschaffung | scavenged, unknown | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
@@ -80,6 +80,7 @@ Aktive RP-Waren- und Teileklassen (vor dem naechsten ERP/RP-Lauf)
 - `Kabelanschnitt` ist jetzt als kleine, wiederverwendbare Werkstatt- und Baustellenklasse fuer D5, C6 und das Draisine-Projekt lesbar; bisher lief der Bedarf nur implizit ueber `Kabelspule` und Werkstatttext.
 - `Schienenprofil` und `Betonplatte` sind als belegte Verbrauchsklassen von `Nordlinie 01` im Fraktions- und Stationskontext sichtbar; sie bleiben vom kleineren Stuetzbaukasten getrennt.
 - `Nahrungsmittel (Grundbedarf)` und `Grundbedarfsgueter` bleiben bewusst grobe Handelsklassen, weil der H-47-/C6-Austauschpfad dafuer belegt ist, aber noch keine feinere Packlisten- oder Stationsinventarlinie vorliegt.
+- `Rohmaterialien`, `Medizinische Gueter` und `Informationsgueter` sind jetzt als breite, aber belegte Novapolis-/C6-Handels- und Bedarfsklassen sichtbar, weil Relationslog, Marktflaechen und Preisband-Doku diese Gueterkorridore bereits eigenstaendig fuehren.
 - Nicht nachgezogen werden bewusst blosse Runtime-Arbeitsworte wie `Anschlusssicherung` oder `Verbindungsmaterial`, solange dafuer noch kein hinreichend harter SSOT-/Log-Anker als eigene kanonische Warenklasse vorliegt.
 
 Aktive Metro-Pfade (verdichtet)

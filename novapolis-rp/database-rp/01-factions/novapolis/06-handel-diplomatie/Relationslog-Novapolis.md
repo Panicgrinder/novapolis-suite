@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-21 21:58
-update: Missionslog-Querverweise als Evidenzblock ergänzt; Handelsaussagen strikt auf belegte Anker ausgerichtet.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md' PASS (2026-02-21 21:55); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/todo.rp.md' 'novapolis-dev/docs/donelog.md' 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md' 'novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md' 'novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md' PASS (EXITCODE=0, 2026-02-21 21:55)"
+stand: 2026-04-29 00:59
+update: Handels- und Bedarfsklassen auf den aktuellen Waren-Index-Kanon fuer Novapolis/C6 nachgezogen.
+checks: snapshot-lock PASS (2026-04-29 00:59)
 title: Relationslog – Novapolis (Handel & Diplomatie)
 category: canon
 slug: relationslog_novapolis_v1
@@ -31,7 +31,7 @@ Quellen
 ----------------------
 
 - Überfluss: technische Expertise, Energieerzeugung (reaktorbasiert), Organisationsstrukturen
-- Bedarf: Nahrungsmittel, Rohmaterialien, Ersatzteile, medizinische Güter
+- Bedarf: Nahrungsmittel (Grundbedarf), Rohmaterialien, Ersatzteile, Medizinische Gueter
 - Handelsmodus: aktuell intern; externer Handel im Aufbau über C6
 - Struktur: zentralisiert unter Leitung von Ronja Kerschner, technische Koordination durch Reflex
 
@@ -43,7 +43,7 @@ Quellen
 - Status: im Aufbau (freundlich-neutral)
 - Ströme:
   - Export: Energie, technische Reparaturen, Kommunikationszugang
-  - Import: Nahrungsmittel, Filter, Grundbedarfsgüter
+  - Import: Nahrungsmittel (Grundbedarf), Filter, Grundbedarfsgueter
 - Abhängigkeit: gering (autarkes Ziel)
 - Bemerkung: erste Handelskontakte über Karawane H-47 (Senn Daru) in C6; siehe Charaktereintrag: [Senn Daru](../02-characters/Senn-Daru.md).
 

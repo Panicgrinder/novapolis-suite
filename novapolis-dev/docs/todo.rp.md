@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-29 00:47
-update: Die proaktive Erweiterung des Waren-Index um belegte Sammelklassen ist geschlossen und fuer den naechsten ERP/RP-Fortschritt verfuegbar.
-checks: snapshot-lock PASS (2026-04-29 00:31); markdownlint PASS; frontmatter PASS; validate-rp PASS
+stand: 2026-04-29 00:59
+update: Der Nachzug derselben Sammelklassen in die passende externe Handelsflaeche des Fluesterkollektivs ist geschlossen.
+checks: snapshot-lock PASS (2026-04-29 00:59)
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -27,6 +27,26 @@ Offene Aufgaben (RP)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Sammelklassen in passende externe Handelsflaechen ausserhalb Novapolis nachziehen.
+  - Ziel: Die bereits im Waren-Index geschlossenen Sammelklassen sollen in den verbleibenden passend belegten Handelsdokus ausserhalb von Novapolis sichtbar mitgefuehrt werden, damit externe Handelsoberflaechen denselben Kanon lesen wie Inventar und Waren-Index.
+  - Akzeptanzkriterien:
+    1) der Nachzug bleibt auf Handelsflaechen mit hartem Inventar- oder Relationsbeleg fuer dieselben Sammelklassen beschraenkt,
+    2) keine neue Fraktion oder neue offene Handelsroute wird ohne vorhandenen Deal-/Inventaranker aufgemacht,
+    3) aeltere unschaerfe Handelsbegriffe werden nur dort ersetzt oder ergaenzt, wo dieselben Klassen fuer die Fraktion bereits als belegt lesbar sind,
+    4) Board, Index und Logs fuehren denselben Nachzug im selben Lauf.
+  - Evidenz: Die Suche durch `01-factions/**/06-handel-diplomatie/` zeigt ausserhalb von Novapolis derzeit nur [novapolis-rp/database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.md](novapolis-rp/database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.md) als belastbare Handelsflaeche mit noch unscharfer Formulierung `Informationskanaele`; [novapolis-rp/database-rp/01-factions/fluesterkollektiv/04-inventory/Fluesterkollektiv-inventar.md](novapolis-rp/database-rp/01-factions/fluesterkollektiv/04-inventory/Fluesterkollektiv-inventar.md) fuehrt bereits `Informationsgueter`, `Tarn-/Signaltechnik` und `Batterien` als aktive Fraktionsklassen.
+  - Ergebnis 2026-04-29 00:55: [novapolis-rp/database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.md](novapolis-rp/database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.md) fuehrt jetzt die belegten Spezial- und Handelsklassen `Informationsgueter`, `Tarn-/Signaltechnik` und `Batterien` explizit auf der externen Handelsoberflaeche mit, ohne neue Gegenparteien, Lieferfenster oder Mengen zu erfinden. [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) und die Logs fuehren den Nachzug im selben Lauf wieder auf `RP=0`.
+
+- [x] [Jetzt] Neue Sammelklassen in Warenueberblick T0 und betroffene Handelsdokus nachziehen.
+  - Ziel: [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) sowie die direkt betroffenen Handelsdokus unter `01-factions/**/06-handel-diplomatie/` sollen denselben Kanon fuer die frisch ergaenzten Sammelklassen fuehren, damit T0-Lage, Markt-/Relationssicht und Waren-Index nicht wieder auseinanderlaufen.
+  - Akzeptanzkriterien:
+    1) T0 fuehrt die bereits belegten breiten Handelsklassen nur dort nach, wo dafuer ein aktiver Handels- oder Marktanker vorliegt,
+    2) betroffene Handelsdokus ersetzen aeltere Oberbegriffe wie `Informationen` oder `medizinische Versorgung` durch die bereits geschlossenen SSOT-Klassen, ohne freie neue Detailwaren zu erfinden,
+    3) der Nachzug bleibt auf bereits belegte Novapolis-/C6-Handelsflaechen beschraenkt,
+    4) Board, Index und Logs fuehren denselben Nachzug im selben Lauf.
+  - Evidenz: [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) fuehrt jetzt `Rohmaterialien`, `Medizinische Gueter`, `Informationsgueter`, `Tarn-/Signaltechnik` und `Batterien`; [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) fuehrte diese neuen Sammelklassen noch nicht sichtbar mit; [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-markets.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-markets.md) nutzte weiter die aelteren Marktbegriffe `Informationen` und `medizinische Versorgung`, waehrend [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md) bereits `Rohmaterialien` und `medizinische Gueter` fuehrte.
+  - Ergebnis 2026-04-29 00:50: [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) fuehrt jetzt `Rohmaterialien`, `Medizinische Gueter` und `Informationsgueter` explizit als belegte breite Novapolis-/C6-Handels- und Bedarfsklassen auf T0-Ebene. [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md), [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-markets.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-markets.md) und [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-pricebands.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-pricebands.md) fuehren denselben Kanon jetzt ebenfalls, ohne freie neue Handelskorridore jenseits der belegten Novapolis-/C6-Oberflaeche zu erfinden.
 
 - [x] [Jetzt] Waren-Index proaktiv um belegte Sammelklassen erweitern.
   - Ziel: [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) soll vor dem naechsten ERP/RP-Fortschritt nicht nur bereits konkrete Einzelwaren, sondern auch die bereits benutzten breiten Handels- und Inventarklassen fuehren, damit offensichtliche Gueterkorridore nicht bei jedem Folgeschritt erneut in die SSOT gezogen werden muessen.

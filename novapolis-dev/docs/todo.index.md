@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 00:47
-update: Der TODO-Index fuehrt den abgeschlossenen RP-Nachzug fuer weitere belegte Sammelklassen im Waren-Index jetzt wieder bei offen: 0.
-checks: snapshot-lock PASS (2026-04-29 00:31); markdownlint PASS; frontmatter PASS; validate-rp PASS
+stand: 2026-04-29 00:59
+update: Der TODO-Index fuehrt den abgeschlossenen RP-Nachzug fuer die passende externe Handelsflaeche des Fluesterkollektivs jetzt wieder bei offen: 0.
+checks: snapshot-lock PASS (2026-04-29 00:59)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -27,7 +27,7 @@ Statushinweise (aktuell)
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt aktuell keine offenen Punkte mehr. Der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Provenienz fehlen; im aktuellen Repo-Stand scheitert derselbe Direktlauf erwartungsgemaess an `missing rp_content results` statt ungeguardet in Training zu laufen.
 
-- RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell wieder keine offenen Punkte mehr. [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) fuehrt jetzt zusaetzlich die belegten Sammelklassen `Rohmaterialien`, `medizinische Gueter`, `Informationsgueter`, `Tarn-/Signaltechnik` und `Batterien` fuer erwartbare Gueterkorridore.
+- RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell wieder keine offenen Punkte mehr. [novapolis-rp/database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.md](novapolis-rp/database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.md) fuehrt jetzt ebenfalls die belegten Spezial- und Handelsklassen `Informationsgueter`, `Tarn-/Signaltechnik` und `Batterien` fuer die externe Fluesterkollektiv-Oberflaeche.
 
 - Sim: `novapolis-dev/docs/todo.sim.md` fuehrt aktuell keine offenen Punkte mehr. `scripts/run_sim_headless_verify.py` loest im aktuellen Windows-Kontext jetzt auch den Pfad eines laufenden lokalen Godot-Prozesses auf; `Checks: sim headless verify` endet damit wieder mit `SIM_VERIFY: OK` statt am frueheren Exit `2`.
 
@@ -39,7 +39,7 @@ Board-Metadaten (automationsrelevant)
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
 | Dev (`docs/todo.dev.md`) | 2026-04-28 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-04-28 | keiner (offen: 0) | nein |
+| RP (`docs/todo.rp.md`) | 2026-04-29 | keiner (offen: 0) | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-04-23 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-04-26 | keiner (offen: 0) | nein |
 

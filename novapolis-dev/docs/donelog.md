@@ -1,8 +1,22 @@
 ---
-stand: 2026-04-29 00:47
-update: Das Dev-DONELOG dokumentiert jetzt die geschlossene proaktive Erweiterung des Waren-Index um belegte Sammelklassen.
-checks: snapshot-lock PASS (2026-04-29 00:31); markdownlint PASS; frontmatter PASS; validate-rp PASS
+stand: 2026-04-29 00:59
+update: Das Dev-DONELOG dokumentiert jetzt den geschlossenen Nachzug der Fluesterkollektiv-Handelsflaeche auf den neuen Sammelklassen-Kanon.
+checks: snapshot-lock PASS (2026-04-29 00:59)
 ---
+RP-SSOT: Fluesterkollektiv-Handelslog auf Sammelklassen-Kanon nachgezogen (2026-04-29 00:55)
+----------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.md](novapolis-rp/database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.md) fuehrt jetzt die bereits inventarseitig belegten Klassen `Informationsgueter`, `Tarn-/Signaltechnik` und `Batterien` explizit auch auf der externen Handelsoberflaeche mit.
+- Der Nachzug bleibt bewusst eng: keine neue Gegenpartei, kein neues Lieferfenster und keine Mengenretcon; die Handelsflaeche bleibt weiter ein konservativer Kanalrahmen fuer indirekte Uebergaben.
+- [novapolis-dev/docs/todo.rp.md](novapolis-dev/docs/todo.rp.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) fuehren den Nachzug im selben Lauf wieder auf `RP=0`.
+
+RP-SSOT: Neue Sammelklassen in Warenueberblick T0 und Novapolis-Handelsdokus nachgezogen (2026-04-29 00:50)
+------------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) fuehrt jetzt `Rohmaterialien`, `Medizinische Gueter` und `Informationsgueter` explizit als breite, aber belegte Handels- und Bedarfsklassen fuer die aktive Novapolis-/C6-Oberflaeche mit.
+- [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md), [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-markets.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-markets.md) und [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-pricebands.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-pricebands.md) fuehren denselben Kanon jetzt ebenfalls, indem `Nahrungsmittel (Grundbedarf)`, `Grundbedarfsgueter`, `Rohmaterialien`, `Medizinische Gueter` und `Informationsgueter` die bisherigen unschaerferen Oberbegriffe ersetzen oder ergaenzen.
+- [novapolis-dev/docs/todo.rp.md](novapolis-dev/docs/todo.rp.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) fuehren den Nachzug im selben Lauf wieder auf `RP=0`.
+
 RP-SSOT: Waren-Index um belegte Sammelklassen fuer erwartbare Gueterkorridore erweitert (2026-04-29 00:35)
 ---------------------------------------------------------------------------------------------------------
 

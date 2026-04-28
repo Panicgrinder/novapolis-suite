@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 17:37
-update: In 06-handel-diplomatie konsolidiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/*.md' PASS (2026-02-16 17:40); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp\\01-factions\\novapolis\\06-handel-diplomatie\\novapolis-pricebands.md PASS (2026-02-16 17:40)"
+stand: 2026-04-29 00:59
+update: Preisband-Heuristik auf die aktuellen Sammelklassen fuer Novapolis/C6 angepasst.
+checks: snapshot-lock PASS (2026-04-29 00:59)
 slug: novapolis-pricebands
 category: Economy
 schemaVersion: 1
@@ -47,10 +47,11 @@ Artikelgruppen (Startliste)
 |KUGELN (neu)|H–X|Reserve/Schlüsselgut; nur kontrolliert|
 |Energiezellen / Energiematerial|M–H|Abhängig von Technik/Netzlage|
 |Werkzeuge/Standardteile|N–M|D5 kann vieles intern halten/repairen|
-|Medizin / Desinfektion / Antibiotika|H–X|Engpassanfällig; Vertrauens-/Protokollpflicht|
+|Medizinische Gueter / Desinfektion / Antibiotika|H–X|Engpassanfaellig; Vertrauens-/Protokollpflicht|
 |Filter / Masken / Atemschutz|M–H|Sicherheitsrelevant, Nachfrage schwankt|
 |Elektronik / Sensorik|H|Reparaturfähig, aber Teile knapp|
-|Informationen / Lagebilder|M–X|Wert hängt von Aktualität/Risiko ab|
+|Rohmaterialien / Halbzeuge|M–H|Wert steigt mit Reparaturdruck, Transportfenster und Materialguete|
+|Informationsgueter / Lagebilder|M–X|Wert haengt von Aktualitaet/Risiko ab|
 
 Abgleich & Pflege
 -----------------

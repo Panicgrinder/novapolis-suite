@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 17:37
-update: In 06-handel-diplomatie konsolidiert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/*.md' PASS (2026-02-16 17:40); & .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py novapolis-rp\\database-rp\\01-factions\\novapolis\\06-handel-diplomatie\\novapolis-markets.md PASS (2026-02-16 17:40)"
+stand: 2026-04-29 00:59
+update: Marktflaechen fuehren jetzt den aktuellen Kanon fuer breite Handels- und Bedarfsklassen von C6.
+checks: snapshot-lock PASS (2026-04-29 00:59)
 slug: novapolis-markets
 category: Economy
 schemaVersion: 1
@@ -30,7 +30,7 @@ Handelsplatz C6 (Außenhandel)
 - Zweck: kontrollierter Außenhandel / Übergabepunkt.
 - Leitung/Koordination: Kora Malenkov (C6) in Abstimmung mit Ronja (Diplomatie/Freigaben) und Pahl (Sicherheitslage).
 - Zugang: Nur über Freigabe + dokumentiertes Lieferfenster; Koordinatenschutz hat Vorrang.
-- Typische Güter (Beispiele): Tauschware, Ersatzteile, Munition/Währungseinheiten (KUGELN), Informationen, medizinische Versorgung.
+- Typische Gueter (Beispiele): Tauschware, Rohmaterialien, Ersatzteile, Grundbedarfsgueter, Munition/Waehrungseinheiten (KUGELN), Informationsgueter, Medizinische Gueter.
 
 Regeln (Kurz)
 -------------
