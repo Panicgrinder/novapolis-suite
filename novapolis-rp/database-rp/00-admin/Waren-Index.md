@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-27 01:53
-update: "Waren-Index erweitert um Nordlinie-Stuetzbaukasten sowie konservative Evakuierungs-/Stationsgueter fuer D5 und C6."
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
+stand: 2026-04-29 00:47
+update: "Waren-Index erweitert um weitere belegte Sammelklassen fuer Rohmaterialien, medizinische Gueter, Informationsgueter, Tarn-/Signaltechnik und Batterien."
+checks: snapshot-lock PASS (2026-04-29 00:31)
 slug: waren-index
 category: Admin
 schemaVersion: 1
@@ -382,6 +382,13 @@ items:
     tags: [wartung, dichtung, ersatzteile]
     seenIn: [marktpreise-inventar, missionslog]
     notes: "Abdichtung von Leitungen/Anschluessen; kritisch bei Leckagen."
+  - id: kabelanschnitt
+    name: Kabelanschnitt
+    kind: component
+    unit: abschnitt
+    tags: [kabel, energie, montage]
+    seenIn: [d5-inventar, c6-inventar, novapolis-inventar, draisine-transportmodul]
+    notes: "Kleiner abgehaengter Kabelabschnitt fuer Montage, Reparatur oder Leitungsfuehrung; meist aus vorhandener Kabelspule gezogen statt als ganze Spule verbucht."
   - id: kuhlmittel-industrie
     name: Kühlmittel (Industrie)
     kind: consumable
@@ -466,6 +473,20 @@ items:
     tags: [stuetzbau, bolzen, muttern, verbindung]
     seenIn: [nordlinie-01-stuetzbaukasten, d5-inventar]
     notes: "Starke mechanische Verbindung fuer hoeher belastete Baugruppen."
+  - id: schienenprofil
+    name: Schienenprofil
+    kind: component
+    unit: m
+    tags: [trasse, schiene, metall, bau]
+    seenIn: [missionslog, d5-inventar, c6-inventar, novapolis-inventar]
+    notes: "Laengenmaterial fuer Trassen- und Leitungsfuehrung im Tunnelkorridor; im aktuellen RP als belegte Verbrauchsklasse von Nordlinie 01 gefuehrt."
+  - id: betonplatte
+    name: Betonplatte
+    kind: component
+    unit: m2
+    tags: [bau, platte, tunnel]
+    seenIn: [missionslog, d5-inventar, c6-inventar, novapolis-inventar]
+    notes: "Bauplatte fuer Unterbau, Lastverteilung oder staerkere Sicherungszonen; im aktuellen RP als belegte Verbrauchsklasse von Nordlinie 01 gefuehrt."
   - id: notdecke
     name: Notdecke
     kind: consumable
@@ -494,6 +515,55 @@ items:
     tags: [versorgung, kueche, evakuierung]
     seenIn: [c6-inventar]
     notes: "Kleines Koch-/Essgeschirr fuer Schicht- oder Gruppenversorgung."
+  - id: nahrungsmittel-grundbedarf
+    name: Nahrungsmittel (Grundbedarf)
+    kind: consumable
+    unit: paket
+    tags: [nahrung, handel, grundbedarf]
+    seenIn: [relationslog_novapolis_v1, haendlerbund-inventar, caravan-moves]
+    notes: "Belegte Handelsklasse fuer Grundversorgung im Austauschpfad Novapolis <-> Haendlerbund; bewusst grob, solange keine feinere Packlisten- oder Stationsinventarlinie vorliegt."
+  - id: grundbedarfsgueter
+    name: Grundbedarfsgueter
+    kind: consumable
+    unit: paket
+    tags: [versorgung, handel, grundbedarf]
+    seenIn: [relationslog_novapolis_v1, haendlerbund-inventar, caravan-moves]
+    notes: "Breite Sammelklasse fuer nichtluxurioese Alltagsgueter im H-47-/C6-Austauschpfad; bleibt absichtlich oberhalb einzelner Verbrauchsartikel, bis konkrete Packlisten vorliegen."
+  - id: rohmaterialien
+    name: Rohmaterialien
+    kind: component
+    unit: paket
+    tags: [handel, material, rohstoff]
+    seenIn: [relationslog_novapolis_v1]
+    notes: "Breite Importklasse fuer noch nicht weiter zerlegte Grund- und Baustoffe; im aktiven Novapolis-Handelsbedarf bereits als eigener Korridor benannt, aber noch ohne feinere Materialsplitterung."
+  - id: medizinische-gueter
+    name: Medizinische Gueter
+    kind: consumable
+    unit: paket
+    tags: [medizin, handel, versorgung]
+    seenIn: [relationslog_novapolis_v1, novapolis-markets]
+    notes: "Breite Handels- und Versorgungsklasse oberhalb einzelner Medkits, Antibiotika oder Desinfektionsposten; dient als kanonischer Sammelanker fuer importierte medizinische Versorgung."
+  - id: informationsgueter
+    name: Informationsgueter
+    kind: component
+    unit: paket
+    tags: [handel, information, trust]
+    seenIn: [novapolis-markets, fluesterkollektiv-inventar]
+    notes: "Nichtstoffliche, aber tauschbare Sammelklasse fuer Geruechte, Kontakte, Zugangscodes oder vergleichbare Wissensgueter; bleibt bewusst grob, solange keine feinere Handelslinie belegt ist."
+  - id: tarn-signaltechnik
+    name: Tarn-/Signaltechnik
+    kind: tool
+    unit: set
+    tags: [technik, signal, tarnung]
+    seenIn: [fluesterkollektiv-inventar]
+    notes: "Breite Technikklasse fuer kleine Signal-, Abschirm- und Tarnmittel des Fluesterkollektivs; bewusst ohne Einzelgeraete, solange keine konkrete Stueckliste vorliegt."
+  - id: batterien
+    name: Batterien
+    kind: consumable
+    unit: stk
+    tags: [energie, verbrauch, mobil]
+    seenIn: [fluesterkollektiv-inventar]
+    notes: "Allgemeine mobile Stromquelle fuer kleine Geraete und Feldtechnik; im aktuellen RP bislang nur als belegter Verbrauchsanker innerhalb breiter Verbrauchsmaterial-Klassen gefuehrt."
 ---
 
 Waren-Index (weltweit)
@@ -508,7 +578,8 @@ Hinweise
 - ID ist der slug in `items[].id` (stabil, slug-only-Regel). Benennung: kleinschreibung, minus-getrennt.
 - `seenIn` referenziert Dokument-slugs (nicht Dateinamen).
 - Preise werden nicht hier gepflegt, sondern in `marktpreise-inventar` und fraktionsbezogen in 01-factions/*/06-handel-diplomatie/.
-- Erweiterung nur um Items, die im RP/Logs/Szenen vorgekommen sind; neue Items zuerst im Missionslog/Scenes belegen.
+- Erweiterung nur um Items, die im RP/Logs/Szenen oder in aktiven Inventar-/Handels-SSOTs bereits als eigenstaendige Klasse vorgekommen sind; neue Detailwaren zuerst im Missionslog/Scenes belegen.
+- Breite Sammelklassen sind zulaessig, wenn sie im aktiven Handel, in Fraktionsinventaren oder Markt-SSOTs bereits als eigener Gueterkorridor benannt werden und noch keine feinere Packliste belastbar ist.
 
 Unique-Items (Empfehlung)
 -------------------------
@@ -571,6 +642,7 @@ Kurzübersicht (menschlich lesbar)
 - Schmerzmittel (Basis) [schmerzmittel-basis]
 - Sicherungssatz [sicherungssatz]
 - Dichtungsmanschette [dichtungsmanschette]
+- Kabelanschnitt [kabelanschnitt]
 - Kühlmittel (Industrie) [kuehlmittel-industrie]
 - Lagerfett (Technik) [lagerfett-technik]
 - Druckluftkartusche [druckluftkartusche]
@@ -583,10 +655,19 @@ Kurzübersicht (menschlich lesbar)
 - Klebmasse (schwach) [klebmasse-schwach]
 - Schraubensatz (mittel) [schraubensatz-mittel]
 - Bolzen-Mutter-Satz (stark) [bolzen-mutter-satz-stark]
+- Schienenprofil [schienenprofil]
+- Betonplatte [betonplatte]
 - Notdecke [notdecke]
 - Wechselkleidung (Set) [wechselkleidung-set]
 - Hygienepaket (Basis) [hygienepaket-basis]
 - Kochgeschirr (Set) [kochgeschirr-set]
+- Nahrungsmittel (Grundbedarf) [nahrungsmittel-grundbedarf]
+- Grundbedarfsgueter [grundbedarfsgueter]
+- Rohmaterialien [rohmaterialien]
+- Medizinische Gueter [medizinische-gueter]
+- Informationsgueter [informationsgueter]
+- Tarn-/Signaltechnik [tarn-signaltechnik]
+- Batterien [batterien]
 
 Links
 -----

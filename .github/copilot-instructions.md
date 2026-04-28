@@ -1,5 +1,5 @@
-stand: 2026-03-28 06:51
-Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (2026-03-28 02:02); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/copilot-instructions-headings.md' '.github/instructions/docs-markdown.instructions.md' 'novapolis-dev/docs/donelog.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-03-28 02:02); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . --write-index-meta PASS (2026-03-28 02:02); .\.venv\Scripts\python.exe scripts\check_logs_policy.py --repo-root . PASS (2026-03-28 02:02)
+stand: 2026-04-29 00:47
+Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/agents/novapolis-workspace-navigator.agent.md' PASS (2026-04-29 00:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/agents/novapolis-workspace-navigator.agent.md' PASS (EXITCODE=0, 2026-04-29 00:13); GOV-EX-FM-001 fuer '.github/copilot-instructions.md' beachtet
 
 
 LLM-Dokumentenheader (nicht löschen)
@@ -33,6 +33,8 @@ Dateipfad & Geltungsbereich
 - Scoped Instruction-Files unter `.github/instructions/*.instructions.md` sind ausdrücklich erlaubt.
 - Scoped Files ergänzen oder präzisieren nur innerhalb ihres `applyTo`-Scopes.
 - Scoped Files dürfen globale Kernregeln dieser Datei nicht aufheben.
+- In der Laborumgebung sind aktive SSOT-Dateien ausdruecklich bearbeitbare Arbeitsflaechen, wenn der aktuelle User-Auftrag gerade das Testen, Schaerfen, Erweitern oder Ergaenzen dieser SSOTs verlangt.
+- Der Navigator-/Logging-Waechter-Modus darf in diesem Fall auch direkt in aktive SSOTs schreiben; das ist keine Regelverletzung, solange Evidenz-, Scope-, Snapshot-, Board-/DONELOG- und Minimaldiff-Regeln eingehalten werden.
 
 ### Konfliktpriorität (Leitlinie)
 - 1. Höchste Priorität: System-/Plattformvorgaben und explizite User-Anweisung im aktuellen Chat.

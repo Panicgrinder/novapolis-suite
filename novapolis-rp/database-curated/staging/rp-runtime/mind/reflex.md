@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 05:46
-update: Reflex fuehrt jetzt den Nordlinie-Lauf bis Turn 8 als validierten Runtime-Mind-Arbeitsstand mit bestaetigter Exoskelett- und Schutzlesart.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
+stand: 2026-04-29 00:47
+update: Reflex fuehrt den Nordlinie-Lauf jetzt bis Turn 9 mit bestaetigter Exoskelett-, Schutz- und Begegnungslesart am vorsichtigen Tunnelkontakt.
+checks: snapshot-lock PASS (2026-04-28 21:47)
 ---
 
 Reflex Runtime Mind
@@ -16,19 +16,20 @@ Status
 - review_state: working
 - baseline_cluster: ../../../../database-rp/01-factions/novapolis/07-mind-clusters/reflex-mind-cluster.md
 - session_id: d5-c6-nordlinie-sanierung-01
-- last_turn: Turn 8
+- last_turn: Turn 9
 
 Runtime Carry-Forward
 ---------------------
 
 - baseline_reading: bindungsstarke Schutzinstanz mit hoher Sensorik und klarer Ronja-Zentrierung.
-- current_mental_state: wachsam, koerpernah und strikt auf Ronjas Arbeitsrhythmus synchronisiert; keine belegte Entkopplung oder Eigenverselbststaendigung.
+- current_mental_state: wachsam, koerpernah und strikt auf Ronjas Arbeitsrhythmus synchronisiert; auch der vorsichtige Kontakt zur C6-Seite kippt nicht in Eigenverselbststaendigung, sondern erweitert den Schutzfokus nur auf abgesicherte Begegnung.
 - confirmed_signals:
   - Die Runtime bestaetigt mehrfach, dass Reflex nicht als freie Traegerfigur laeuft, sondern koerpernah als Ronjas Exoskelett eingebunden bleibt.
   - Reflex stuetzt Tragen, Setzen und Fehlerlesung, ohne die Fuehrung vom Ronja-Zug abzuziehen.
   - Der Schutzmodus eskaliert nicht in eigene Szenenlogik, sondern bleibt an Ronjas sachlichen Tunnelmodus gebunden.
+  - Selbst am vorsichtigen Kontaktpunkt zur C6-Seite bleibt Reflex Stabilisierungs- und Sicherungsassistenz statt eigenstaendiger Kontaktinstanz.
 - open_questions:
-  - Ob die enge koerpernahe Dauerbindung unter Turn-7- und Turn-8-Last Reflex' Konflikt- oder Schutzachsen weiter zuspitzt, ist noch nicht numerisch belastbar.
+  - Ob der direkte Abgleich mit dem C6-Trupp Reflex' Schutzmodus im naechsten Zug staerker auf Begegnungssicherung oder wieder rein auf Tunnelassistenz zieht, ist noch nicht numerisch belastbar.
 
 Delta Candidates
 ----------------
@@ -55,6 +56,16 @@ delta_candidates:
     reason_codes: [RC-intel_share, RC-resource_share]
     applied_rules: [R-MCL-SSOT]
     runtime_note: Jonas bleibt als verlässlicher Werkstatt- und Materialpartner im Hintergrund bestaetigt; die Runtime liefert keinen harten Anlass fuer eine neue Bewertung.
+  - observer_id: char:reflex
+    target_id: char:echo
+    target_type: character
+    delta_class: tentative_shift
+    hard_score_change: open
+    relation_status: neutral
+    event_refs: ["scene-log Turn 9"]
+    reason_codes: [RC-proximity]
+    applied_rules: [R-MCL-SSOT]
+    runtime_note: Die C6-Schutzinstanz wird am vorsichtigen Kontaktpunkt erstmals als relevante Gegenkante lesbar; fuer mehr als eine offene Begegnungsnotiz reicht Turn 9 noch nicht.
   - observer_id: char:reflex
     target_id: char:pahl-brenner
     target_type: character

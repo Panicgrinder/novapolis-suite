@@ -1,5 +1,5 @@
 ---
-stand: 2026-04-27 02:30
+stand: 2026-04-29 00:47
 update: D5-Inventar fuehrt jetzt zusaetzlich die konservative Betriebskorridor-Lesart T0 fuer D5 als Kernbasis und C6 als Aussenposten.
 checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
 title: Inventar - D5
@@ -139,7 +139,7 @@ Hinweise
 | --- | --- | --- | --- |
 | Basisbetrieb D5 | pro Tag | `3-4` Rationenaequivalente, `1` Wasserkanister, geringe Hygiene-/Mednutzung | fuer `2-3` Humanoide arbeitsfaehig, aber ohne lockeren Puffer |
 | Nordlinie 01 (D5-seitige Sicherungsarbeit) | je aktivem Sicherungsblock | `1-2` Metallprofile (`mittel/kurz`), `2-3` Stuetzklemmen, `1-2` Schraubensaetze, optional `0-1` Bolzen-Mutter-Satz und `0-1` Klebmasse | kleiner Stuetzbaukasten sinkt nicht taeglich, aber in jedem echten Sicherungszug spuerbar |
-| Draisine-Transportmodul | je Werkstattblock | `0-1` Schmieroel, `0-1` Lagerfett, `0-1` Sicherungssatz; episodisch `0-1` Dichtungsmanschette oder Kabelanschnitt | Werkstattprojekt zieht wenig Volumen, aber konstant an knappen Technikposten |
+| Draisine-Transportmodul | je Werkstattblock | `0-1` Schmieroel, `0-1` Lagerfett, `0-1` Sicherungssatz; episodisch `0-1` Dichtungsmanschette oder `Kabelanschnitt` | Werkstattprojekt zieht wenig Volumen, aber konstant an knappen Technikposten |
 
 Arbeitslesart
 
@@ -149,7 +149,7 @@ Arbeitslesart
 Potenziale
 ----------
 - Werkzeug-/Wartungsmaterial aus D5-Kontext moeglich, aber derzeit nur als Umfeld- und Fundkontext belegt.
-- Tunnelbaumaterial ist fuer Tag 12 -> 13 als gemeinsamer Verbrauch belegt, aber noch nicht standortscharf D5 oder C6 zugeordnet.
+- `Schienenprofil` und `Betonplatte` sind fuer Tag 12 -> 13 als gemeinsame Verbrauchsklassen des Baustellenumfelds belegt, aber noch nicht standortscharf D5 oder C6 zugeordnet.
 - Der Nordlinie-Bedarf `Stuetzelemente` ist ab jetzt als komponentenbasierter Stuetzbaukasten aus Profilen, Formteilen und Verbindungsmitteln zu lesen; siehe [Nordlinie-01-Stuetzbaukasten](../05-projects/Nordlinie-01-Stuetzbaukasten.md).
 
 Fehlend / Offen

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 05:46
-update: Runtime-Zustand fuehrt den Turn-8-Replay jetzt mit direkt benannten Problemherden und Reparaturklassen weiter, ohne neue D5-Lieferung zu behaupten.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
+stand: 2026-04-29 00:47
+update: Nordlinie 01 fuehrt jetzt einen eigenen Runtime-Inventartraeger fuer Reparaturbedarf; Draisine-Eigenbestand und Tunnel-/Reparaturbedarf bleiben getrennt.
+checks: snapshot-lock PASS (2026-04-28 22:46)
 ---
 
 Runtime State - Nordlinie 01
@@ -18,7 +18,7 @@ Status
 Current State
 -------------
 
-- summary: Ronja und Reflex fuehren die Markierungs- und Fehlerarbeit am D5-seitigen Tunnelabschnitt weiter, haben den kleinen Rest des Turn-7-Satzes ohne neue D5-Lieferung kontrolliert ausgeschopft und lesen den Folgekorridor jetzt direkt als `Schottertasche Nordkante`, `Haltepunktpaar Leitungszug` und `Uebergang Engbogen`; Reflex bleibt dabei koerpernah als Exoskelett-Assistenz im Arbeitszug, waehrend Schweißgeraet und Adapter DN60 fuer den Engbogen weiter die harten Hauptblocker bleiben.
+- summary: Ronja und Reflex fuehren die Markierungs- und Fehlerarbeit am D5-seitigen Tunnelabschnitt nicht endlos linear fort, sondern ziehen den Folgeanker in Turn 11 wieder nach `D5`. Dort trifft Ronja Jonas, Pahl und Lumen an der Draisine auf den Bahnsteiggleisen, klaert zuerst Baufortschritt, gebundenes Material und Fehlstellen des Prototyps und spiegelt erst danach den beidseitigen Tunnelbedarf gegen denselben Arbeitsort. Parallel bleibt `C6` getrennt lesbar: `Kora` haelt die Station und verarbeitet den Bericht des `C6-Tunneltrupps` als eigene Innenaufgabe. Der gebundene Draisine-Bestand wird dafuer in `inventories/draisine-transportmodul.md` gefuehrt, waehrend der eigentliche Nordlinie-Reparaturbedarf jetzt in `inventories/nordlinie-01.md` als eigener Runtime-Inventartraeger steht.
 - drivers:
   - belegt Nordlinie-01 als aktives Tunnelprojekt zwischen D5 und C6
   - belegt Arbeitsteilung Ronja und Reflex im Tunnel, Jonas und Pahl in der D5-Werkstatt; Jonas laeuft dabei nicht allein, sondern mit der gekoppelten Begleitinstanz Lumen
@@ -34,6 +34,20 @@ Current State
   - Session-Arbeitslesart: Turn 8 fuehrt den Tunnel nur mit dem real verbliebenen Rest des Turn-7-Satzes weiter; weitere Materialfortschreibung braucht ab hier wieder eine explizite D5-Lieferung
   - Session-Arbeitslesart: Der naechste Fehlerkorridor ist jetzt als `Schottertasche Nordkante`, `Haltepunktpaar Leitungszug` und `Uebergang Engbogen` getrennt benannt
   - Session-Arbeitslesart: `Schottertasche Nordkante` ist mit lokaler Baukasten-Nachsicherung als `Band M` eingegrenzt; `Uebergang Engbogen` bleibt mit Schweißgeraet und DN60 ein `Band H`-Blocker
+  - Session-Arbeitslesart: Turn 9 verdichtet denselben Hauptpfad jetzt offen ueber `D5`, `C6` und den bilateralen Tunnelkontakt, ohne neue Materialbewegung zu behaupten
+  - Session-Arbeitslesart: `D5` fuehrt jetzt eine belastbar knappe Werkstattanforderung fuer `Schweißgeraet`, `DN60`, Anschlusssicherung und vorgelagerte Freiraeumung
+  - Session-Arbeitslesart: `C6` arbeitet am Tunnel und haelt zugleich unter `Kora` den Innenbetrieb des Aussenpostens stabil
+  - Session-Arbeitslesart: Die nicht eingesetzten Gefluechteten tragen Wasser-, Lager-, Hygiene-, Kuechen-, Wache- und Entlastungsarbeit des laufenden Stationsbetriebs
+  - Session-Arbeitslesart: `Mara Quell` bleibt in `C6`; `G7` bleibt ohne Meldung auf altem Wissensstand
+  - Session-Arbeitslesart: Ronja erreicht den C6-Trupp jetzt an einem schmalen, behelfshaft sicheren Kontaktpunkt und gleicht die Lage direkt ab
+  - Session-Arbeitslesart: Der C6-Tunneltrupp bringt jetzt eigene melderelevante Befunde seiner Haelfte ein und steht nicht nur als bestaetigende Gegenstimme von Ronjas Seite im Raum
+  - Session-Arbeitslesart: Neben `Schottertasche Nordkante`, `Haltepunktpaar Leitungszug` und `Uebergang Engbogen` liegen jetzt auch die C6-seitigen Arbeitsstellen `Schuttkeil Kontaktseite`, `Randauflage Suedlauf` und `Leitungsaufnahme C6-Vorlauf` als Folgeanker vor
+  - Session-Arbeitslesart: Fuer den Folgezug liegt jetzt eine gemeinsame Bedarfskalkulation mit `Schweißgeraet`, `DN60`, Anschlusssicherung, Verbindungsmaterial, Baukasten-Nachsicherung, C6-seitiger Raeumung und Freiraeumung vor
+  - Session-Arbeitslesart: Turn 11 fuehrt Jonas und Pahl nicht in einem stillen Werkstattraum, sondern an der Draisine auf den D5-Bahnsteiggleisen.
+  - Session-Arbeitslesart: Ronja klaert zuerst den realen Draisine-Bau- und Materialstand und erst danach den Tunnelbedarf.
+  - Session-Arbeitslesart: `Kora` verarbeitet in `C6` denselben Bericht als Stations- und Verteilungsaufgabe; ihre Ebene wird nicht mit Ronjas D5-Rueckkehr vermischt.
+  - Session-Arbeitslesart: Der aktuelle Draisine-Eigenbestand liegt jetzt in `inventories/draisine-transportmodul.md` getrennt vom Nordlinie-/Tunnelbedarf.
+  - Session-Arbeitslesart: Der Nordlinie-Reparaturbedarf liegt jetzt in `inventories/nordlinie-01.md` als eigener Projekttraeger statt nur verteilt in Szene, State und D5-Bedarfsnotiz.
 - blockers:
   - Schweißgeraet fehlt
   - Adapter DN60 fehlen
@@ -42,6 +56,11 @@ Current State
   - naechster Materialfortschritt muss als reale D5-Lieferung belegt werden; aus dem ausgeschopften Tunnelrest laesst sich kein weiterer Satz ableiten
   - kein beidseitiger Durchbruch aus C6-Sicht; Fortschritt bleibt vorbereitend statt freigegeben
   - ueber den kleinen Turn-7-Stuetzsatz hinaus bleiben weitere Materialmengen, chargenscharfe Herkunft und jede Folge-Werkstattzusage weiter offen
+  - die verdichtete D5-Anforderung ist noch keine reale Freigabe, sondern erst die enge Form eines moeglichen Folgezugs
+  - auch der neue Kontaktpunkt der Trupps ist noch kein freier Durchgang oder Materialkorridor
+  - C6 fuehrt noch keinen neuen Materialeingang; Innenbetrieb und Tunnelarbeit laufen parallel unter Druck
+  - die C6-Haelfte ist nicht reparaturfrei; ihr eigener Befund ist nur noch nicht so tief technisch ausformuliert wie Ronjas D5-seitige Hauptcluster
+  - G7 bleibt ohne Meldung blind fuer den frischen Laufstand
 - impacted_entities:
   - Nordlinie 01
   - Ronja Kerschner
@@ -49,7 +68,11 @@ Current State
   - Jonas Merek
   - Lumen
   - Pahl Brenner
+  - Kora Malenkov
+  - Echo
+  - Mara Quell
   - D5
+  - C6
   - Verbindungstunnel D5-C6
 
 Named Problem Clusters (Turn 8)
@@ -71,6 +94,11 @@ Evidence
 - Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 6
 - Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 7
 - Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 8
+- Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 9
+- Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 10
+- Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 11
+- Runtime: `inventories/draisine-transportmodul.md`
+- Runtime: `inventories/nordlinie-01.md`
 
 Promotion Notes
 ---------------

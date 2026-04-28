@@ -1,5 +1,5 @@
 ---
-stand: 2026-04-27 02:30
+stand: 2026-04-29 00:47
 update: Das Fraktionsinventar fuehrt jetzt zusaetzlich den konservativen Betriebskorridor T0 fuer D5, C6 und den aktiven D5-C6-Pfad.
 checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_022916.md
 canvas: Inventar Novapolis
@@ -74,7 +74,7 @@ Offene Projekte
 | Status | Projekt | Rhythmus | Konservativer Verbrauch | Fraktionslesart |
 | --- | --- | --- | --- | --- |
 | belegt plus review | Nordlinie 01 | belegter Bautag und laufende Sicherungsbloecke | belegt: `1,3 t Baustoffe`, `120 m Schienenprofil`, `18 m2 Betonplatten`, `2` beschaedigte Werkzeuge; laufend review: D5-seitig kleiner Stuetzbaukasten, C6-seitig Schutz-/Verschleissgut | Nordlinie bleibt der groesste materielle Verbrauchstreiber |
-| review | Draisine-Transportmodul | je Werkstattblock | `0-1` Schmieroel, `0-1` Lagerfett, `0-1` Sicherungssatz; episodisch `0-1` Dichtungsmanschette oder Kabelanschnitt | kleiner, aber stetiger Werkstattdruck auf D5-Technikposten |
+| review | Draisine-Transportmodul | je Werkstattblock | `0-1` Schmieroel, `0-1` Lagerfett, `0-1` Sicherungssatz; episodisch `0-1` Dichtungsmanschette oder `Kabelanschnitt` | kleiner, aber stetiger Werkstattdruck auf D5-Technikposten |
 
 Fraktionsverbrauch (arbeitsnaher Gesamtblick)
 
@@ -100,13 +100,15 @@ Handel
 | --- | --- | --- | --- | --- |
 | belegt, mengenoffen | Kugeln (neu) | `tbd` | hochwertiges Fraktions-Item; `1 neu ≈ 10 gebraucht` | `database-curated/staging/chat-export-complete.finalgate.md`, [Logistik](../../../00-admin/Logistik.md) |
 | belegt, mengenoffen | Kugeln (gebraucht) | `tbd` | Alltags-/Hauptmunition, Qualitaet streut | `database-curated/staging/chat-export-complete.finalgate.md`, [Logistik](../../../00-admin/Logistik.md) |
+| belegt, mengenoffen | Nahrungsmittel (Grundbedarf) | `tbd` | belegte Importklasse im H-47-/C6-Aufbaupfad; noch ohne Packliste oder Stationssplit | [Relationslog-Novapolis](../06-handel-diplomatie/Relationslog-Novapolis.md), [Haendlerbund-inventar](../../haendlerbund/04-inventory/Haendlerbund-inventar.md) |
+| belegt, mengenoffen | Grundbedarfsgueter | `tbd` | breite Importklasse fuer alltaegliche Versorgungsware im H-47-/C6-Austauschpfad | [Relationslog-Novapolis](../06-handel-diplomatie/Relationslog-Novapolis.md), [Haendlerbund-inventar](../../haendlerbund/04-inventory/Haendlerbund-inventar.md) |
 
 Bedarf (belegt, noch nicht gedeckt)
 -----------------------------------
 
 - D5: Schweißausrüstung sowie Adapter/Fitting `DN60` bleiben priorisierter Bedarf ohne belastbaren lokalen Bestand. Quelle: [D5-inventar](./D5-inventar.md).
 - C6: Adapter/Fittings `DN60`, Schweißausrüstung und belastbare Lagerstruktur bleiben offener Bedarf fuer Betriebsaufnahme und Reparatur. Quelle: [C6-inventar](./C6-inventar.md).
-- Fraktionsweit: harte Restmengen fuer D5/C6 bleiben `tbd`, bis Verbrauch, Zielseite und Ruecklauf nicht mehr nur prozessuell, sondern auch mengenmaessig belegt sind.
+- Fraktionsweit: harte Restmengen fuer D5/C6 bleiben `tbd`, bis Verbrauch, Zielseite und Ruecklauf nicht mehr nur prozessuell, sondern auch mengenmaessig belegt sind; das gilt auch fuer die Importklassen `Nahrungsmittel (Grundbedarf)` und `Grundbedarfsgueter`.
 - Fraktionsweit: Der Verbrauchsrahmen ist jetzt fuer den kleinen Nordlinie-Turn-7-Satz und die aktuelle Draisine-Werkstattbindung in konkrete Abgaenge und Reststaende gezogen; die vollstaendige Summenbuchung ueber alle Folgezuege bleibt offen.
 
 Offene Restmengen

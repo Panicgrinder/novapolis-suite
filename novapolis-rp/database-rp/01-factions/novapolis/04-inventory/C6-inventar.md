@@ -1,5 +1,5 @@
 ---
-stand: 2026-04-27 06:11
+stand: 2026-04-29 00:47
 update: C6-Inventar fuehrt Empfang und Staging jetzt ausdruecklich ueber den Hauptort C6; Schleuse und Lagerhalle bleiben nur noch stabile Kompatibilitaetsziele.
 checks: snapshot-lock PASS (2026-04-27 06:11); markdownlint=PASS (2026-04-27 06:06); frontmatter=PASS (2026-04-27 06:06); todo-index-sync=PASS (2026-04-27 06:06); doc-freshness=PASS (2026-04-27 06:06); validate:rp=PASS (2026-04-27 06:06)
 title: Inventar - C6
@@ -117,7 +117,7 @@ Hinweise
 | --- | --- | --- | --- |
 | Basisbetrieb C6 | pro Tag | `8-12` Rationen aus Reserve-/Schnellverpflegung, `1-2` Wasserkanister plus `6-10` Wasserflaschen als mobile Reserve | der gelistete Bestand puffert nur kurz; C6 bleibt auf Priorisierung und Zuteilung angewiesen |
 | Hygiene / Erstversorgung | pro Tag unter Normaldruck | `0-1` Hygienepaket, `0-1` Verbandmaterial-Set; bei Spannungs- oder Krankheitslage sofort mehr | Evak-/Schichtbetrieb zieht die kleinen Versorgungsposten schneller leer als D5 |
-| Nordlinie-Unterstuetzung C6 | je aktivem Tunneltag | `0-1` Schmieroel, `0-1` Verbandmaterial-Set, optional `0-1` Ersatzmaske; episodisch `1-2` Ersatzrohre oder Kabelanschnitt fuer Baustellennaehe | C6 verbraucht weniger Baukernmaterial als D5, aber mehr Schutz-, Verschleiss- und Einsatzgut |
+| Nordlinie-Unterstuetzung C6 | je aktivem Tunneltag | `0-1` Schmieroel, `0-1` Verbandmaterial-Set, optional `0-1` Ersatzmaske; episodisch `1-2` Ersatzrohre oder `Kabelanschnitt` fuer Baustellennaehe | C6 verbraucht weniger Baukernmaterial als D5, aber mehr Schutz-, Verschleiss- und Einsatzgut |
 
 C6-Staging und Baustellenvorlauf (belegt, mengenoffen)
 ------------------------------------------------------
@@ -143,7 +143,7 @@ Potenziale
 ----------
 - Hydrofilter-Behälter (Reserve) - Potenzial vorhanden, Einbindung offen
 - Mechanik-Werkzeug (priorisiert, ohne Stückzahlen)
-- Tunnelbaumaterial ist fuer Tag 12 -> 13 als gemeinsamer Verbrauch belegt, aber noch nicht standortscharf D5 oder C6 zugeordnet.
+- `Schienenprofil` und `Betonplatte` sind fuer Tag 12 -> 13 als gemeinsame Verbrauchsklassen des Baustellenumfelds belegt, aber noch nicht standortscharf D5 oder C6 zugeordnet.
 
 Fehlend / Offen
 ---------------
@@ -151,7 +151,7 @@ Fehlend / Offen
 - Schweißausrüstung (kritisch)
 - Lagerplätze/Containerstruktur für C6-Inventar
 - Item- und chargenscharfer Split des belegten C6-Stagings zwischen Empfangskante, Lagerkontext und Baustellenabgang
-- Bequeme Nahrungs-, Hygiene- und Maskenreserve fuer 27 Personen; C6 bleibt mit Evakbestand arbeitsfaehig, aber angespannt
+- Bequeme Reserve an `Nahrungsmittel (Grundbedarf)`, Hygiene- und Maskenposten fuer 27 Personen; C6 bleibt mit Evakbestand arbeitsfaehig, aber angespannt
 
 Bewegungen (Log)
 ----------------

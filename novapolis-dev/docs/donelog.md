@@ -1,8 +1,101 @@
 ---
-stand: 2026-04-28 17:32
-update: Dev-DONELOG dokumentiert den gruernen Nachzug fuer den kanonischen Vollcheck nach dem letzten Tree-Slice-Stilfix.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_172700.md; snapshot-lock PASS (2026-04-28 17:32)
+stand: 2026-04-29 00:47
+update: Das Dev-DONELOG dokumentiert jetzt die geschlossene proaktive Erweiterung des Waren-Index um belegte Sammelklassen.
+checks: snapshot-lock PASS (2026-04-29 00:31); markdownlint PASS; frontmatter PASS; validate-rp PASS
 ---
+RP-SSOT: Waren-Index um belegte Sammelklassen fuer erwartbare Gueterkorridore erweitert (2026-04-29 00:35)
+---------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) fuehrt jetzt zusaetzlich die Sammelklassen `Rohmaterialien`, `medizinische Gueter`, `Informationsgueter`, `Tarn-/Signaltechnik` und `Batterien`, weil diese Klassen bereits in aktiven Relations-, Markt- oder Inventar-SSOTs als eigene Gueterkorridore lesbar sind.
+- Die Hinweislogik im selben Index ist jetzt enger formuliert: breite Sammelklassen sind erlaubt, wenn aktive Handels-, Markt- oder Fraktionsinventar-SSOTs sie schon explizit fuehren; freie Detailwaren ohne Missions-/Scene- oder SSOT-Anker bleiben weiter ausgeschlossen.
+- [novapolis-dev/docs/todo.rp.md](novapolis-dev/docs/todo.rp.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) fuehren den Nachzug im selben Lauf wieder auf `RP=0`.
+
+RP-SSOT: Neue Warenklassen in betroffene Inventare und Runtime-Traeger nachgezogen (2026-04-29 00:27)
+-----------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md), [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md) und [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md) fuehren `Kabelanschnitt`, `Schienenprofil`, `Betonplatte` sowie die Importklassen `Nahrungsmittel (Grundbedarf)` und `Grundbedarfsgueter` jetzt deckungsgleich dort, wo diese Klassen bereits als Verbrauchs-, Bewegungs- oder Handelsanker belegt waren.
+- [novapolis-rp/database-rp/01-factions/haendlerbund/04-inventory/Haendlerbund-inventar.md](novapolis-rp/database-rp/01-factions/haendlerbund/04-inventory/Haendlerbund-inventar.md) fuehrt denselben Handelswortschatz jetzt ebenfalls kanonisch mit `Nahrungsmittel (Grundbedarf)` statt nur der kuerzeren Sammelbezeichnung.
+- [novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md) und [novapolis-rp/database-curated/staging/rp-runtime/inventories/draisine-transportmodul.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/draisine-transportmodul.md) fuehren denselben Kanon-Wortschatz jetzt auch im Runtime-Slice, ohne `Anschlusssicherung` oder `Verbindungsmaterial` vorschnell als neue SSOT-Warenklasse hochzuziehen; [novapolis-dev/docs/todo.rp.md](novapolis-dev/docs/todo.rp.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) stehen danach wieder bei `RP=0`.
+
+RP-SSOT: Waren-Index und Warenueberblick T0 um aktive RP-Warenklassen erweitert (2026-04-29 00:20)
+---------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) fuehrt jetzt die zusaetzlichen RP-passenden Klassen `Kabelanschnitt`, `Schienenprofil`, `Betonplatte`, `Nahrungsmittel (Grundbedarf)` und `Grundbedarfsgueter` samt Kurzübersicht und SSOT-Ankern aus aktiven Inventar-, Projekt- und Handelsdokus.
+- [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) spiegelt denselben Nachzug auf T0-Arbeitslageebene: `Schienenprofil` und `Betonplatte` laufen jetzt sichtbar als Nordlinie-Verbrauchsklassen, `Kabelanschnitt` als kleine Werkstatt-/Baustellenklasse und der H-47-/C6-Pfad explizit mit `Nahrungsmittel` und `Grundbedarfsgueter`.
+- Bewusst nicht kanonisiert wurden bloße Runtime-Arbeitsworte ohne harten SSOT-/Log-Anker als Warenklasse, insbesondere `Anschlusssicherung` und `Verbindungsmaterial`; [novapolis-dev/docs/todo.rp.md](novapolis-dev/docs/todo.rp.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) fuehren den Nachzug im selben Lauf wieder auf `RP=0`.
+
+Governance: Navigator-/Logging-Waechter-Modus darf aktive SSOTs im Laborbetrieb direkt schaerfen (2026-04-29 00:13)
+-----------------------------------------------------------------------------------------------------------------
+
+- [.github/copilot-instructions.md](.github/copilot-instructions.md) fuehrt jetzt explizit, dass aktive SSOT-Dateien in der Laborumgebung bearbeitbare Arbeitsflaechen sind, wenn der aktuelle Auftrag gerade das Testen, Schaerfen, Erweitern oder Ergaenzen dieser SSOTs verlangt.
+- [.github/agents/novapolis-workspace-navigator.agent.md](.github/agents/novapolis-workspace-navigator.agent.md) fuehrt dieselbe Freigabe jetzt direkt im Navigator-/Logging-Waechter-Modus: aktive SSOTs duerfen im Laborbetrieb evidenzbasiert, minimal und mit vollem Logging-/Checkpfad direkt mutiert werden.
+- Die bestehende Schutzlogik bleibt dabei unveraendert eng: keine freie Kanonvermutung, keine Scope-Ausweitung und keine stillen Mutationen ohne Evidenz, Snapshot-Stand und DONELOG-Nachzug.
+
+RP-Runtime: Novapolis und Haendlerbund jetzt mit Fraktionsruntime; Nordlinie fuehrt erste feste Komponentenlisten (2026-04-28 22:52)
+---------------------------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/state/novapolis.md](novapolis-rp/database-curated/staging/rp-runtime/state/novapolis.md) fuehrt jetzt den aktiven Novapolis-Hauptpfad auf Fraktionsebene mit `D5`, `C6`, `Nordlinie 01` und `Draisine-Transportmodul` als gebuendelten Runtime-Achsen.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/haendlerbund.md](novapolis-rp/database-curated/staging/rp-runtime/state/haendlerbund.md) fuehrt jetzt den aktiven Haendlerbund-Slice als geteilten Stand zwischen `G7` als Eigenkern und `H-47/C6` als eingebetteter Niederlassung, ohne freie neue G7-Reaktion zu behaupten.
+- [novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md) fuehrt fuer die benannten Reparaturcluster jetzt nicht mehr nur Satzlogik, sondern erste feste Komponentenlisten; [novapolis-dev/docs/todo.rp.md](novapolis-dev/docs/todo.rp.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) fuehren den Nachzug im selben Lauf wieder auf `RP=0`.
+
+RP-Runtime: Draisine-Warenscope erweitert und Nordlinie-Reparaturbedarf als eigener Runtime-Traeger nachgezogen (2026-04-28 22:46)
+--------------------------------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/inventories/draisine-transportmodul.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/draisine-transportmodul.md) fuehrt jetzt neben dem gebundenen Prototypbestand auch die naechsten SSOT-gebundenen Projektklassen `Kabelanschnitt`, `Werkzeugkit`, `Werkzeugsatz (Mechanik)`, `Wartungsschluessel` und `Druckmesser` als noch ungebundene Projektumgebung statt als freie Spaetvermutung.
+- [novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md) fuehrt den belegten Reparaturbedarf von Nordlinie 01 jetzt eigenstaendig: harte Blocker `Schweißgeraet` und `Adapter / Fitting (DN60)`, dazu `Anschlusssicherung`, `Verbindungsmaterial`, Nachsicherung, Unterfuetterung, Raeumkapazitaet und Freiraeumung mit Zuordnung auf die benannten Reparaturflaechen.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md) und [novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md) fuehren denselben Trennschnitt jetzt deckungsgleich mit; [novapolis-dev/docs/todo.rp.md](novapolis-dev/docs/todo.rp.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) fuehren den Lauf erst offen und danach wieder geschlossen auf `RP=0`.
+
+RP-Runtime: Draisine-Transportmodul jetzt mit eigenem Runtime-Traeger und getrenntem Bedarfsschnitt (2026-04-28 22:39)
+-----------------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/inventories/draisine-transportmodul.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/draisine-transportmodul.md) fuehrt jetzt den belegten Prototypbestand der Draisine eigenstaendig nach bestehendem `inventories/`-Muster: `Schmieroel`, `Lagerfett (Technik)`, `Sicherungssatz` und `Dichtungsmanschette` sind mit gebundenem Satz plus D5-Rest getrennt gefuehrt.
+- [novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md), [novapolis-rp/database-curated/staging/rp-runtime/state/d5.md](novapolis-rp/database-curated/staging/rp-runtime/state/d5.md) und [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md) fuehren denselben Trennschnitt jetzt deckungsgleich: gebundener Draisine-Bestand laeuft separat, waehrend `Schweißgeraet` und `Adapter / Fitting (DN60)` weiter als Nordlinie-/Tunnelblocker und nicht als Draisine-Eigenverbrauch gelesen werden.
+- [novapolis-dev/docs/todo.rp.md](novapolis-dev/docs/todo.rp.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) fuehren den Nachzug im selben Lauf erst offen und danach wieder geschlossen; das RP-Board steht damit erneut bei `offen: 0`.
+
+RP-Runtime: Turn 11 fuehrt D5-Bahnsteiggleise, Draisine-Status und getrennte C6-Stationsverarbeitung nach (2026-04-28 22:24)
+------------------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt jetzt Turn 11: Ronja kehrt mit Reflex nach `D5` zurueck, trifft Jonas und Pahl an der Draisine auf den Bahnsteiggleisen, klaert erst Baufortschritt und gebundenes Material und erst danach den Tunnelbedarf.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/d5.md](novapolis-rp/database-curated/staging/rp-runtime/state/d5.md), [novapolis-rp/database-curated/staging/rp-runtime/characters/jonas-merek.md](novapolis-rp/database-curated/staging/rp-runtime/characters/jonas-merek.md), [novapolis-rp/database-curated/staging/rp-runtime/characters/pahl-brenner.md](novapolis-rp/database-curated/staging/rp-runtime/characters/pahl-brenner.md) und [novapolis-rp/database-curated/staging/rp-runtime/characters/lumen.md](novapolis-rp/database-curated/staging/rp-runtime/characters/lumen.md) fuehren denselben D5-Schnitt jetzt sichtbar am Bahnsteig-/Gleis-Arbeitsort statt als stillen Werkstattinnenraum.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/c6.md](novapolis-rp/database-curated/staging/rp-runtime/state/c6.md), [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md) und [novapolis-rp/database-curated/staging/rp-runtime/characters/kora-malenkov.md](novapolis-rp/database-curated/staging/rp-runtime/characters/kora-malenkov.md) fuehren zugleich die getrennte C6-Ebene weiter: `Kora` verarbeitet den Bericht des `C6-Tunneltrupps` als Stationsaufgabe, ohne Ronjas D5-Perspektive mitzufuehren.
+
+RP-Runtime: Turn 10 per Admin-Nachzug auf getrennte C6-Tunnel- und Stationslesart korrigiert (2026-04-28 22:13)
+------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt Turn 10 jetzt nicht mehr so, als brächte nur Ronjas Seite melderelevante Befunde an den Kontaktpunkt. Der `C6-Tunneltrupp` fuehrt jetzt mit `Schuttkeil Kontaktseite`, `Randauflage Suedlauf` und `Leitungsaufnahme C6-Vorlauf` einen eigenen Reparaturbefund seiner Haelfte.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/c6.md](novapolis-rp/database-curated/staging/rp-runtime/state/c6.md) trennt jetzt `C6-Tunneltrupp` und `C6-Station` sichtbar: Der Tunneltrupp fuehrt den direkten Arbeitskontakt und die eigene Schadlage, waehrend `Kora` den getrennten Ruecklauf und Innenbetrieb der Station haelt.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md) fuehrt den Folgeanker damit nicht mehr als implizit einseitige D5-Befundlage, sondern als gekoppelte D5-/C6-Reparaturflaeche mit beidseitiger Bedarfskalkulation.
+
+RP-Runtime: KB der aktiven Entitaeten auf Turn-9/10-Stand gezogen und Folgezug mit direktem C6-Kontakt fortgesetzt (2026-04-28 21:47)
+----------------------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/characters/ronja-kerschner.md](novapolis-rp/database-curated/staging/rp-runtime/characters/ronja-kerschner.md), [novapolis-rp/database-curated/staging/rp-runtime/characters/reflex.md](novapolis-rp/database-curated/staging/rp-runtime/characters/reflex.md), [novapolis-rp/database-curated/staging/rp-runtime/mind/ronja-kerschner.md](novapolis-rp/database-curated/staging/rp-runtime/mind/ronja-kerschner.md) und [novapolis-rp/database-curated/staging/rp-runtime/mind/reflex.md](novapolis-rp/database-curated/staging/rp-runtime/mind/reflex.md) fuehren die zuvor noch auf Turn 8 stehende D5-Protagonistenkante jetzt sauber bis zum aktuellen Kontaktstand mit `C6`.
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt jetzt Turn 10: Ronja dokumentiert den Restabschnitt, erreicht den C6-Tunneltrupp an einem schmalen Kontaktpunkt und zieht mit ihm eine gemeinsame Befundliste plus Bedarfskalkulation statt eines freien Durchbruchs.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md) und [novapolis-rp/database-curated/staging/rp-runtime/state/c6.md](novapolis-rp/database-curated/staging/rp-runtime/state/c6.md) fuehren denselben neuen Arbeitsstand jetzt projekt- und ortsscharf: beidseitig bestaetigte Problemherde, gemeinsamer Mindestbedarf `Schweißgeraet` plus `DN60`, aber weiterhin kein freier Material- oder Personaldurchgang.
+
+RP-Runtime: Turn 9 per Admin-Auswertung auf den festgeschriebenen Arbeitsstand korrigiert (2026-04-28 21:36)
+-----------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt Turn 9 jetzt nicht mehr als freien G7-Weltzug, sondern als Admin-Nachzug mit bilateraler Tunnelarbeit, vorsichtiger gegenseitiger Wahrnehmung der beiden Trupps und weiter offenem technischen Blocker.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md) und [novapolis-rp/database-curated/staging/rp-runtime/state/c6.md](novapolis-rp/database-curated/staging/rp-runtime/state/c6.md) fuehren denselben Stand jetzt projekt- und ortsscharf: `Kora` bleibt in der Stationsverwaltung, und die nicht im Tunnel eingesetzten Gefluechteten tragen Wasser-, Lager-, Hygiene-, Kuechen-, Wache- und Entlastungsarbeit des laufenden C6-Innenbetriebs.
+- [novapolis-rp/database-curated/staging/rp-runtime/characters/mara-quell.md](novapolis-rp/database-curated/staging/rp-runtime/characters/mara-quell.md) fuehrt Mara Quell jetzt wieder als Vor-Ort-Akteurin in `C6` beim Aufbau des H-47-Aussenpostens statt als aktive Fernreaktion aus `G7`.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/g7.md](novapolis-rp/database-curated/staging/rp-runtime/state/g7.md) fuehrt im selben Lauf ausdruecklich keinen neuen Novapolis-Wissensstand; ohne Meldung aus `C6` bleibt `G7` beim vorherigen Kenntnisstand.
+
+RP-Runtime: Turn 9 als offener Weltzug ueber die direkt belegten Anschlussachsen gezogen (2026-04-28 21:17)
+---------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt Turn 9 jetzt als offenen Weltzug ueber `Tunnel`, `D5`, `C6` und `G7/H-47`, ohne neue Lieferungen oder freien Vollerfolg zu behaupten.
+- [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md), [novapolis-rp/database-curated/staging/rp-runtime/state/d5.md](novapolis-rp/database-curated/staging/rp-runtime/state/d5.md), [novapolis-rp/database-curated/staging/rp-runtime/state/c6.md](novapolis-rp/database-curated/staging/rp-runtime/state/c6.md) und [novapolis-rp/database-curated/staging/rp-runtime/state/g7.md](novapolis-rp/database-curated/staging/rp-runtime/state/g7.md) fuehren denselben Weltzug jetzt als Projekt-, Werkstatt-, Vorposten- und externe Freigabekante.
+- Neu angelegte Runtime-Traeger fuer [novapolis-rp/database-curated/staging/rp-runtime/characters/kora-malenkov.md](novapolis-rp/database-curated/staging/rp-runtime/characters/kora-malenkov.md), [novapolis-rp/database-curated/staging/rp-runtime/characters/echo.md](novapolis-rp/database-curated/staging/rp-runtime/characters/echo.md), [novapolis-rp/database-curated/staging/rp-runtime/mind/kora-malenkov.md](novapolis-rp/database-curated/staging/rp-runtime/mind/kora-malenkov.md) und [novapolis-rp/database-curated/staging/rp-runtime/mind/echo.md](novapolis-rp/database-curated/staging/rp-runtime/mind/echo.md) halten die jetzt aktiv mitgezogene C6-Achse sauber im Runtime-Baum.
+- [novapolis-rp/database-curated/staging/rp-runtime/characters/mara-quell.md](novapolis-rp/database-curated/staging/rp-runtime/characters/mara-quell.md) fuehrt Mara Quell jetzt nicht mehr nur als alten C6-H47-Probeanker, sondern auch als aktive G7-/H-47-Reaktionskante des aktuellen Hauptpfads.
+
+RP-Runtime: Turn 8 mit erweitertem Runtime-Slice erneut simuliert (2026-04-28 20:01)
+-----------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt Turn 8 jetzt noch einmal auf Basis des inzwischen volleren Runtime-Slices fuer D5, Figuren und Mind-Traeger.
+- Der belegte Ausgang bleibt bewusst unveraendert: keine neue D5-Freigabe, kein neues Material, nur der reale Tunnelrest aus `metallprofil-kurz`, `ausgleichsplatte` und `schraubensatz-mittel` an der `Schottertasche Nordkante`.
+- Neu enger ausgespielt ist vor allem die Hintergrundkante: Die bekannte D5-Werkstattlage bleibt auch in Turn 8 belastbar knapp, statt still als moeglicher Nachschub mitzuschwingen.
+
 Governance: Kanonischen Vollcheck nach lokalem Tree-Slice-Stilfix wieder komplett gruen gezogen (2026-04-28 17:28)
 ---------------------------------------------------------------------------------------------------
 

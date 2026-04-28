@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 17:32
-update: Der TODO-Index fuehrt nach dem Local-Tree-Nachzug wieder keine offenen Modul-Boards; Dev, RP, Agent und Sim stehen bei offen: 0.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260428_172700.md
+stand: 2026-04-29 00:47
+update: Der TODO-Index fuehrt den abgeschlossenen RP-Nachzug fuer weitere belegte Sammelklassen im Waren-Index jetzt wieder bei offen: 0.
+checks: snapshot-lock PASS (2026-04-29 00:31); markdownlint PASS; frontmatter PASS; validate-rp PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -27,7 +27,7 @@ Statushinweise (aktuell)
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt aktuell keine offenen Punkte mehr. Der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Provenienz fehlen; im aktuellen Repo-Stand scheitert derselbe Direktlauf erwartungsgemaess an `missing rp_content results` statt ungeguardet in Training zu laufen.
 
-- RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell wieder keine offenen Punkte mehr. Die D5-Inventarspur trennt den kleinen Nordlinie-Turn-7/8-Satz jetzt nicht nur als Mengenstand, sondern zusaetzlich als ausdruecklichen Delta-Block fuer Lieferung, Einsatz und offene Evidenzgrenze.
+- RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell wieder keine offenen Punkte mehr. [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) fuehrt jetzt zusaetzlich die belegten Sammelklassen `Rohmaterialien`, `medizinische Gueter`, `Informationsgueter`, `Tarn-/Signaltechnik` und `Batterien` fuer erwartbare Gueterkorridore.
 
 - Sim: `novapolis-dev/docs/todo.sim.md` fuehrt aktuell keine offenen Punkte mehr. `scripts/run_sim_headless_verify.py` loest im aktuellen Windows-Kontext jetzt auch den Pfad eines laufenden lokalen Godot-Prozesses auf; `Checks: sim headless verify` endet damit wieder mit `SIM_VERIFY: OK` statt am frueheren Exit `2`.
 

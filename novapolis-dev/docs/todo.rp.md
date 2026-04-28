@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-28 05:46
-update: Der RP-Nachzug fuer den expliziten Inventar-Diff des kleinen Nordlinie-Turn-7/8-Satzes ist jetzt geschlossen; Lieferung, Einsatz und Evidenzgrenze sind turn-scharf lesbar.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
+stand: 2026-04-29 00:47
+update: Die proaktive Erweiterung des Waren-Index um belegte Sammelklassen ist geschlossen und fuer den naechsten ERP/RP-Fortschritt verfuegbar.
+checks: snapshot-lock PASS (2026-04-29 00:31); markdownlint PASS; frontmatter PASS; validate-rp PASS
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -27,6 +27,97 @@ Offene Aufgaben (RP)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Waren-Index proaktiv um belegte Sammelklassen erweitern.
+  - Ziel: [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) soll vor dem naechsten ERP/RP-Fortschritt nicht nur bereits konkrete Einzelwaren, sondern auch die bereits benutzten breiten Handels- und Inventarklassen fuehren, damit offensichtliche Gueterkorridore nicht bei jedem Folgeschritt erneut in die SSOT gezogen werden muessen.
+  - Akzeptanzkriterien:
+    1) neue Eintraege bleiben auf bereits belegte Sammelklassen aus aktiven Inventar-, Markt- oder Relations-SSOTs beschraenkt,
+    2) keine freien Detailwaren oder Packlisten ohne belegten RP-Anker,
+    3) die Hinweise im Waren-Index machen klar, wann breite Sammelklassen zulaessig sind,
+    4) Board, Index und Logs fuehren denselben Nachzug im selben Lauf.
+  - Evidenz: [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/Relationslog-Novapolis.md) fuehrt `Rohmaterialien` und `medizinische Gueter`; [novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-markets.md](novapolis-rp/database-rp/01-factions/novapolis/06-handel-diplomatie/novapolis-markets.md) fuehrt breite Marktklassen wie `medizinische Versorgung` und `Informationen`; [novapolis-rp/database-rp/01-factions/fluesterkollektiv/04-inventory/Fluesterkollektiv-inventar.md](novapolis-rp/database-rp/01-factions/fluesterkollektiv/04-inventory/Fluesterkollektiv-inventar.md) fuehrt `Informationsgueter`, `Tarn-/Signaltechnik` sowie `Batterien` innerhalb von Verbrauchsmaterial.
+  - Ergebnis 2026-04-29 00:35: [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) fuehrt jetzt zusaetzlich die Sammelklassen `Rohmaterialien`, `medizinische Gueter`, `Informationsgueter`, `Tarn-/Signaltechnik` und `Batterien`. Die Hinweise erlauben breite Sammelklassen jetzt explizit nur dann, wenn aktive Inventar-, Handels- oder Markt-SSOTs sie bereits als eigenen Gueterkorridor fuehren. [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) und die Logs fuehren den Nachzug im selben Lauf wieder auf `RP=0`.
+
+- [x] [Jetzt] Neue Warenklassen in betroffene RP-Inventare und Runtime-Traeger nachziehen.
+  - Ziel: Die frisch erweiterten Klassen aus [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) und [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) sollen in den direkt betroffenen Inventar- und Runtime-Traegern denselben Wortschatz fuehren, damit der naechste ERP/RP-Lauf nicht wieder zwischen Katalog, Inventar und Runtime driftet.
+  - Akzeptanzkriterien:
+    1) betroffene Inventar-SSOTs unter `01-factions/**/04-inventory/` fuehren die neuen Klassen dort sichtbar mit, wo sie bereits als Verbrauchs-, Handels- oder Projektanker belegt sind,
+    2) betroffene Runtime-Inventare unter `database-curated/staging/rp-runtime/inventories/` nutzen denselben Kanon-Wortschatz fuer die bereits belegten Klassen,
+    3) keine neuen Inventar- oder Runtime-Flaechen werden ohne vorhandenen Beleg geoeffnet,
+    4) Board, Index und Logs fuehren denselben Nachzug im selben Lauf.
+  - Evidenz: `D5-inventar`, `C6-inventar`, `Novapolis-inventar`, `Haendlerbund-inventar`, `inventories/nordlinie-01.md` und `inventories/draisine-transportmodul.md` fuehren bereits die betroffenen Sachverhalte `Kabelanschnitt`, `Schienenprofil`, `Betonplatten` sowie `Nahrungsmittel`/`Grundbedarfsgueter`, aber noch nicht ueberall im frisch geschlossenen Kanon-Wortschatz.
+  - Ergebnis 2026-04-29 00:27: [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/D5-inventar.md), [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/C6-inventar.md), [novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md](novapolis-rp/database-rp/01-factions/novapolis/04-inventory/Novapolis-inventar.md) und [novapolis-rp/database-rp/01-factions/haendlerbund/04-inventory/Haendlerbund-inventar.md](novapolis-rp/database-rp/01-factions/haendlerbund/04-inventory/Haendlerbund-inventar.md) fuehren die kanonischen Klassen jetzt dort mit, wo sie bereits belegt waren. [novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md) und [novapolis-rp/database-curated/staging/rp-runtime/inventories/draisine-transportmodul.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/draisine-transportmodul.md) halten denselben Wortschatz jetzt auch im Runtime-Slice; der Punkt ist nach `markdownlint`, `check_frontmatter` und `validate:rp` wieder geschlossen.
+
+- [x] [Jetzt] Waren-Index und Warenueberblick T0 entlang der aktiven RP-Waren- und Teilelage erweitern.
+  - Ziel: Die beiden Admin-SSOTs sollen vor dem naechsten ERP/RP-Lauf die aktuell schon belegten, aber noch nicht sauber gefuehrten RP-passenden Waren- und Teileklassen nachziehen, damit kommende Runtime- und Szenenzuege nicht wieder auf impliziten Sammelbegriffen aufsetzen.
+  - Akzeptanzkriterien:
+    1) [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) fuehrt mindestens die bereits belegten und wiederverwendbaren RP-passenden Waren-/Teileklassen aus den aktiven Inventar-, Projekt- und Handels-SSOTs nach,
+    2) [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) spiegelt denselben Nachzug auf T0-/Arbeitslageebene, ohne neue Mengenretcons oder freie Weltsummen zu erfinden,
+    3) die Erweiterung bleibt evidence-first und fuegt keine blossen Runtime-Arbeitsworte ohne belastbare SSOT-/Log-Anker als neue kanonische Warenklasse ein,
+    4) Board, Index und Logs fuehren denselben SSOT-Nachzug im selben Lauf.
+  - Evidenz: Die aktiven RP-SSOTs fuehren bereits konkrete, wiederverwendbare Waren- und Teilebegriffe wie `Kabelanschnitt`, `Schienenprofil`, `Betonplatten` sowie den Handelsaustausch `Nahrungsmittel` und `Grundbedarfsgueter`, waehrend der weltweite Waren-Index und der T0-Ueberblick diese Lage bisher nur teilweise oder gar nicht fuehren.
+  - Ergebnis 2026-04-29 00:20: [novapolis-rp/database-rp/00-admin/Waren-Index.md](novapolis-rp/database-rp/00-admin/Waren-Index.md) fuehrt jetzt `Kabelanschnitt`, `Schienenprofil`, `Betonplatte`, `Nahrungsmittel (Grundbedarf)` und `Grundbedarfsgueter` als aktive RP-passende Warenklassen. [novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md](novapolis-rp/database-rp/00-admin/Warenueberblick-T0.md) spiegelt denselben Schnitt auf T0-Lageebene, trennt die neuen Warenklassen von blosser Runtime-Satzlogik und haelt `Anschlusssicherung`/`Verbindungsmaterial` bewusst weiter ausserhalb des kanonischen Warenkatalogs.
+
+- [x] [Jetzt] Fraktionsruntime fuer Novapolis und Haendlerbund anlegen und Nordlinie-Komponentenliste pro Reparaturcluster festziehen.
+  - Ziel: Die bereits aktiven Fraktionen `Novapolis` und `Haendlerbund` sollen im laufenden Hauptpfad eigene Runtime-Traeger erhalten; zugleich soll der Reparaturbedarf von Nordlinie 01 ueber die bisherige Satzlogik hinaus auf eine erste feste, clusternahe Komponentenliste gezogen werden.
+  - Akzeptanzkriterien:
+    1) unter `state/` liegen eigene Runtime-Traeger fuer `novapolis` und `haendlerbund`,
+    2) beide Traeger bleiben evidence-first und aggregieren nur die im aktuellen Hauptpfad wirklich aktiven Orts-, Projekt- und Inventarachsen,
+    3) `inventories/nordlinie-01.md` fuehrt fuer die benannten Reparaturcluster nicht mehr nur Sammelbedarfe, sondern eine erste feste Komponentenlesart aus bestehenden Waren- und Stuetzbaukastenklassen,
+    4) angrenzende Runtime-Dateien und Logs verweisen auf denselben neuen Fraktions- und Materialschnitt.
+  - Evidenz: `D5`, `C6`, `G7`, `Nordlinie 01`, das Draisine-Modul sowie die Fraktionsinventare von `Novapolis` und `Haendlerbund` sind im aktiven Hauptpfad bereits belegte Laufzeitachsen; bisher fehlen aber eigene Fraktions-States im Runtime-Baum. Fuer Nordlinie 01 liegt der Reparaturbedarf bereits cluster- und materialnah vor, aber noch nicht als erste feste Komponentenliste je Cluster.
+  - Ergebnis 2026-04-28 22:52: [novapolis-rp/database-curated/staging/rp-runtime/state/novapolis.md](novapolis-rp/database-curated/staging/rp-runtime/state/novapolis.md) und [novapolis-rp/database-curated/staging/rp-runtime/state/haendlerbund.md](novapolis-rp/database-curated/staging/rp-runtime/state/haendlerbund.md) fuehren jetzt eigene Runtime-Fraktionsstates fuer die aktiven Hauptpfadachsen. [novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md) fuehrt zusaetzlich eine erste feste Komponentenliste pro Reparaturcluster, darunter feste Arbeitsstuecklisten fuer `Uebergang Engbogen`, `Haltepunktpaar Leitungszug`, `Schottertasche Nordkante`, `Schuttkeil Kontaktseite`, `Randauflage Suedlauf` und `Leitungsaufnahme C6-Vorlauf`.
+
+- [x] [Jetzt] Draisine-Warenscope im Runtime-Traeger entlang bestehender SSOT erweitern und Nordlinie-Reparaturbedarf als eigenen Runtime-Traeger nachziehen.
+  - Ziel: Der neue Draisine-Traeger soll nicht bei den vier bereits gebundenen Posten stehenbleiben, sondern die naechsten belegten Gueterklassen aus SSOT sichtbar abgrenzen; zugleich soll der Reparaturbedarf von Nordlinie 01 nicht weiter nur in Szene, State und D5-Bedarfsnotiz verteilt bleiben, sondern einen eigenen Runtime-Traeger nach bestehendem `inventories/`-Muster erhalten.
+  - Akzeptanzkriterien:
+    1) `inventories/draisine-transportmodul.md` fuehrt neben dem gebundenen Ist-Bestand auch die naechsten SSOT-gebundenen Gueter- und Werkzeugklassen sauber getrennt als noch nicht gebundene Projektklassen,
+    2) `inventories/nordlinie-01.md` existiert als eigener Runtime-Traeger fuer den belegten Reparaturbedarf des Tunnelprojekts,
+    3) der Nordlinie-Traeger trennt harte Blocker, Folgebedarf je Reparaturflaeche und den bereits ausgeschopften Turn-7/8-Satz von neuen offenen Bedarfen,
+    4) `state/nordlinie-01.md` und direkt angrenzende Runtime-Traeger verweisen auf denselben neuen Materialschnitt.
+  - Evidenz: Turn 10 und Turn 11 fuehren die gemeinsame Bedarfskalkulation fuer Nordlinie bereits mit `Schweißgeraet`, `DN60`, Anschlusssicherung, Verbindungsmaterial, Nachsicherung, Unterfuetterung, Raeumung und Freiraeumung; im Runtime-Baum fehlt dafuer aber noch ein eigener Inventartraeger. Beim Draisine-Traeger liegen zusaetzlich bereits SSOT-Hinweise auf `Kabelanschnitt` sowie den D5-seitigen Werkzeugkontext vor.
+  - Ergebnis 2026-04-28 22:46: [novapolis-rp/database-curated/staging/rp-runtime/inventories/draisine-transportmodul.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/draisine-transportmodul.md) fuehrt jetzt zusaetzlich die naechsten SSOT-gebundenen Projektklassen `Kabelanschnitt`, `Werkzeugkit`, `Werkzeugsatz (Mechanik)`, `Wartungsschluessel` und `Druckmesser` als noch ungebundene Projektumgebung. [novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/nordlinie-01.md) fuehrt zugleich den eigenen Reparaturtraeger fuer `Schweißgeraet`, `Adapter / Fitting (DN60)`, `Anschlusssicherung`, `Verbindungsmaterial`, Nachsicherung, Unterfuetterung, Raeumkapazitaet und Freiraeumung sowie die Zuordnung auf die benannten Reparaturflaechen. [novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md](novapolis-rp/database-curated/staging/rp-runtime/state/nordlinie-01.md) und [novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/d5.md) fuehren denselben Schnitt mit.
+
+- [x] [Jetzt] Eigenen Runtime-Traeger fuer das Draisine-Transportmodul im aktiven Nordlinie-Pfad anlegen.
+  - Ziel: Der Draisine-Stand soll nicht laenger nur verteilt ueber `scene-log.md`, `state/d5.md`, `state/nordlinie-01.md`, das Projektblatt und D5-Inventar lesbar sein, sondern als eigener Runtime-Traeger nach bestehendem `inventories/`-Muster vorliegen.
+  - Akzeptanzkriterien:
+    1) unter `novapolis-rp/database-curated/staging/rp-runtime/inventories/` liegt ein eigener Draisine-Traeger statt einer freien Sammelerzaehlung,
+    2) der Traeger trennt belegten gebundenen Werkstattbestand, offene Fehlstellen und den vom Draisine-Eigenbedarf getrennten Tunnel-/Nordlinie-Bedarf,
+    3) verwendete Warenklassen und Begriffe folgen vorhandener SSOT (`Waren-Index`, `D5-inventar`, `Draisine-Transportmodul`) statt neuen Freitext-Klassen,
+    4) die direkt betroffenen Runtime- und Logdateien verweisen auf denselben neuen Traeger.
+  - Evidenz: Aktuell gibt es im Runtime-Baum keinen eigenen Draisine-Traeger; der Stand liegt verteilt in `scene-log.md`, `state/d5.md`, `state/nordlinie-01.md`, `inventories/d5.md` sowie im SSOT-Projektblatt `Draisine-Transportmodul.md`. Fuer feste Betraege und spaetere saubere Verbrauchslogik reicht diese Verteilung nicht mehr.
+  - Ergebnis 2026-04-28 22:39: `inventories/draisine-transportmodul.md` fuehrt jetzt einen eigenen Runtime-Traeger nach bestehendem Inventar-Muster. Der Traeger trennt belegten Prototypbestand (`Schmieroel`, `Lagerfett (Technik)`, `Sicherungssatz`, `Dichtungsmanschette`), den konservativen Werkstatt-Verbrauchsrahmen und den weiterhin getrennt gefuehrten Nordlinie-/Tunnelbedarf `Schweißgeraet` und `Adapter / Fitting (DN60)`. `state/d5.md`, `state/nordlinie-01.md` und `inventories/d5.md` verweisen im selben Lauf auf diesen Trennschnitt.
+
+- [x] [Jetzt] Turn 10 per Admin-Nachzug auf getrennte Lesart fuer C6-Tunneltrupp und C6-Station ziehen.
+  - Ziel: Der aktuelle Folgezug darf nicht so stehenbleiben, als kaeme nur Ronjas D5-Seite mit melderelevanten Reparaturbefunden am Kontaktpunkt an. Der `C6-Tunneltrupp` braucht fuer seine Tunnelhaelfte eigene benannte Arbeitsstellen, waehrend die `C6-Station` unter `Kora` davon getrennt als Ruecklauf- und Innenbetriebsflaeche lesbar bleibt.
+  - Akzeptanzkriterien:
+    1) `scene-log.md` fuehrt Turn 10 nicht mehr als still einseitige Ronja-Liste, sondern mit eigenem C6-Tunnelbefund,
+    2) `state/c6.md` trennt `C6-Tunneltrupp` und `C6-Station` explizit statt beide in einer Sammelflaeche zu verschmelzen,
+    3) `state/nordlinie-01.md` benoetigt keinen still reparaturfreien C6-Halbraum mehr, sondern fuehrt die C6-seitigen Arbeitsstellen sichtbar mit,
+    4) der Lauf bleibt ein Admin-Nachzug und oeffnet keinen neuen Turn 11.
+  - Evidenz: Deine Admin-Anmerkung zeigt die Drift im aktuellen Turn-10-Stand direkt: Wenn nur Ronjas Seite konkrete Befunde mitbringt, wirkt die Tunnelhaelfte Richtung `C6` implizit zu sauber. Genau diese Fehllesart soll jetzt korrigiert werden.
+  - Ergebnis 2026-04-28 22:13: `scene-log.md`, `state/c6.md` und `state/nordlinie-01.md` trennen jetzt sauber zwischen `C6-Tunneltrupp` und `C6-Station`. Der Tunneltrupp fuehrt fuer seine Haelfte die Arbeitsstellen `Schuttkeil Kontaktseite`, `Randauflage Suedlauf` und `Leitungsaufnahme C6-Vorlauf`; `Kora` bleibt der getrennte Ruecklauf der Station. Turn 10 steht damit nicht mehr auf einer implizit reparaturfreien C6-Haelfte.
+
+- [x] [Jetzt] Turn 9 nach Admin-Auswertung auf den festgeschriebenen Arbeitsstand zurueckziehen.
+  - Ziel: Der bereits ausgespielte Weltzug soll nicht frei fortgeschrieben, sondern auf die ausdrueckliche Admin-Klarstellung synchronisiert werden: C6 arbeitet ebenfalls am Tunnel, Kora bleibt in der Stationsverwaltung, die nicht im Tunnel eingesetzten Gefluechteten erhalten eine sichtbare Stationsfunktion, Mara bleibt in C6 beim Aufbau des H-47-Aussenpostens und G7 bleibt mangels Meldung ohne neue Novapolis-Information.
+  - Akzeptanzkriterien:
+    1) `scene-log.md` fuehrt Turn 9 mit bilateraler Tunnelarbeit und mindestens bestaetigter Wahrnehmung der beiden Trupps statt mit freiem G7-Weltzug,
+    2) `state/c6.md` benennt Kora explizit als Stations- statt Tunnelachse und fuehrt die Gefluechteten ausserhalb des Tunneltrupps mit konkreten Aufgaben,
+    3) `state/g7.md` und `characters/mara-quell.md` fuehren keinen aktiven G7-Informations- oder Reaktionsstand fuer Novapolis, solange Mara in C6 bleibt und nichts gemeldet hat,
+    4) der Korrekturlauf bleibt bei Admin-Nachzug und oeffnet keinen neuen Turn 10.
+  - Evidenz: Deine Admin-Auswertung konkretisiert den bereits laufenden Hauptpfad scharf: D5 ist in Ordnung, C6 arbeitet ebenfalls am Tunnel, Kora verwaltet C6, die Gefluechteten brauchen sichtbare Nicht-Tunnel-Aufgaben, Mara bleibt lore-konform in C6 und G7 hat ohne Meldung keinen neuen Wissensstand.
+  - Ergebnis 2026-04-28 21:36: `scene-log.md`, `state/nordlinie-01.md`, `state/c6.md`, `state/g7.md` und `characters/mara-quell.md` fuehren Turn 9 jetzt als Admin-Nachzug statt als freien G7-Weltzug. Die Tunneltrupps aus `D5` und `C6` haben vorsichtige gegenseitige Wahrnehmung, `Kora` bleibt in der Stationsverwaltung, die nicht eingesetzten Gefluechteten tragen den C6-Innenbetrieb, `Mara` bleibt in `C6`, und `G7` bleibt ohne frische Novapolis-Meldung.
+
+- [x] [Jetzt] Turn 9 als offenen Weltzug fuer den aktiven Nordlinie-Hauptpfad ausspielen und die neu betroffenen Runtime-Traeger im selben Lauf anlegen.
+  - Ziel: Der naechste RP-Zug soll im Labor nicht nur Ronjas Tunnelperspektive, sondern den gleichzeitig laufenden Weltzustand der direkt angeschlossenen Achsen `D5`, `C6` und `H-47/G7` sichtbar machen, ohne den Hauptpfad zu verlassen oder unbelegte Fernfraktionen frei zu simulieren.
+  - Akzeptanzkriterien:
+    1) `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md` fuehrt einen einzelnen Turn 9 als offenen Weltzug mit getrennten Teilfenstern fuer Tunnel, D5-Werkstatt, C6-Innenlage und die belegte H-47-/Mara-Kante,
+    2) der Zug bleibt evidence-first: kein freier Vollerfolg, keine neue Lieferbehauptung ohne Runtime-/SSOT-Traeger, keine pauschale "alle Fraktionen"-Simulation ausserhalb der direkt belegten Anschlussachsen,
+    3) alle in Turn 9 neu aktiv ausgespielten Figuren- oder Ortsachsen besitzen danach die noetigen Runtime-Dateien unter `characters/`, `mind/`, `state/`, `inventories/` oder `relationships/`,
+    4) verworfene Probe-Sessions wie `c6-h47-handelsfenster-01` werden nicht heimlich weitergeschrieben, sondern nur ihre belegten Anschlussachsen kontrolliert in den aktuellen Hauptweltzug ueberfuehrt,
+    5) TODO-Index, Root-/Modul-DONELOG und Root-Status fuehren denselben neuen RP-Arbeitsstand im selben Lauf nach.
+  - Evidenz: `Nordlinie-D5-C6-Index.md` fixiert den Nordlinie-Strang als aktuellen Weltstand, `state/nordlinie-01.md` nennt bereits D5 und C6 als gekoppelte Arbeitsachsen, und C6/H-47 liegt als belegter, aber verworfener Probe-Einstieg vor; fuer einen offenen Weltzug fehlten vor dem Lauf noch die aktiven Runtime-Traeger mindestens fuer `Kora`, `Echo` und eine sauber in den Hauptpfad ueberfuehrte H-47-/Mara-Reaktion.
+  - Ergebnis 2026-04-28 21:17: `scene-log.md` fuehrt Turn 9 jetzt als offenen Weltzug ueber `Tunnel`, `D5`, `C6` und `G7/H-47`, ohne freie Lieferungen zu erfinden. Neue Runtime-Traeger fuer `Kora`, `Echo` und `G7` liegen jetzt vor; `state/c6.md` und `characters/mara-quell.md` sind in den aktuellen Hauptpfad nachgezogen. Der Slice bleibt bewusst eng: verdichtete D5-Anforderung, vorbereitete C6-Annahmekante, bestaetigungsorientierter Haltemodus bei Mara/G7.
 
 - [x] [Jetzt] Expliziten Inventar-Diff fuer den kleinen Nordlinie-Turn-7/8-Satz nachziehen.
   - Ziel: Die Runtime-Inventarspur soll nicht nur Endmengen fuehren, sondern den kleinen Behelfssatz aus D5 als turn-scharfen Delta-Block mit klarer Trennung zwischen Lieferung, Einsatz und offener Evidenzgrenze lesbar machen.

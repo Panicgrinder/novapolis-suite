@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 05:46
-update: Ronja Kerschner fuehrt jetzt ein eigenes Runtime-Figurenblatt fuer den aktiven Nordlinie-Hauptpfad.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
+stand: 2026-04-29 00:47
+update: Ronja Kerschner fuehrt den aktiven Nordlinie-Hauptpfad jetzt bis zum direkten Arbeitskontakt mit dem C6-Trupp und einer gemeinsamen Befundliste plus Bedarfskalkulation.
+checks: snapshot-lock PASS (2026-04-28 21:47)
 ---
 
 Ronja Kerschner - Runtime Working Sheet
@@ -30,13 +30,15 @@ Signals
   - Ronja fuehrt den D5-seitigen Tunnelzug weiterhin praktisch an.
   - Sie arbeitet mit Reflex koerpernah im selben Arbeitszug.
   - Sie meldet Bedarf nach D5 sachlich und ohne freie Erfolgsbehauptung.
+  - Sie hat den Fehlerkorridor jetzt so weit dokumentiert, dass der C6-Trupp an einem schmalen Kontaktpunkt direkt erreicht und abgeglichen werden kann.
+  - Ihr Fokus bleibt auf Befund, Priorisierung und belastbarer Bedarfskalkulation statt auf einem freien Durchbruchsclaim.
 - tentative:
-  - Der enger gezogene Fehlerkorridor koennte ihre D5-Kommunikation gegenueber Jonas und Pahl stabiler verankern.
+  - Die gemeinsame Befundliste koennte im naechsten Zug aus reiner Feldkalkulation in einen real gespiegelten D5- und C6-Arbeitsauftrag kippen.
 - contradictions:
   - keine direkte Widerspruchslage im aktuellen Hauptweltpfad
 
 Promotion Notes
 ---------------
 
-- Sessionbezug: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 1-8
+- Sessionbezug: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 1-10
 - Detailwirkung auf Beziehungen und geistnahe Last liegt zusaetzlich in `mind/ronja-kerschner.md`.

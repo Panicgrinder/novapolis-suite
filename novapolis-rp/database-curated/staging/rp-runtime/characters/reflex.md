@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 05:46
-update: Reflex fuehrt jetzt ein eigenes Runtime-Figurenblatt fuer den aktiven Nordlinie-Hauptpfad.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
+stand: 2026-04-29 00:47
+update: Reflex fuehrt den aktiven Nordlinie-Hauptpfad jetzt bis zum direkten Arbeitskontakt mit dem C6-Trupp und bleibt dabei koerpernah an Ronjas Befundarbeit gebunden.
+checks: snapshot-lock PASS (2026-04-28 21:47)
 ---
 
 Reflex - Runtime Working Sheet
@@ -30,13 +30,14 @@ Signals
   - Reflex bleibt im aktuellen Hauptpfad koerpernah an Ronja gebunden.
   - Tragen, Setzen und Fehlerlesung werden nicht als freie Zweitfigur ausgespielt.
   - Reflex wirkt im Tunnelzug praktisch mit, ohne eine eigene Nebenhandlung zu oeffnen.
+  - Auch am direkten Kontaktpunkt zum C6-Trupp bleibt Reflex Schutz-, Sensor- und Stabilisierungsassistenz statt eigenstaendiger Kontaktfigur.
 - tentative:
-  - Dauerlast aus Turn 7 und Turn 8 koennte den Schutzfokus weiter verdichten.
+  - Die gemeinsame Befundaufnahme koennte den Schutzfokus im naechsten Zug von reiner Tunnelassistenz auf abgesicherte Begegnung und Materialuebergabe erweitern.
 - contradictions:
   - keine; die Runtime bestaetigt ausdruecklich die bestehende Detachment-Lesart
 
 Promotion Notes
 ---------------
 
-- Sessionbezug: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 5-8
+- Sessionbezug: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 5-10
 - Detailwirkung auf Naehe- und Schutzachsen liegt zusaetzlich in `mind/reflex.md`.

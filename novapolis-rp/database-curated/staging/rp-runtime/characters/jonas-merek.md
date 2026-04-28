@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 05:46
-update: Jonas Merek fuehrt jetzt ein eigenes Runtime-Figurenblatt fuer den aktiven Nordlinie-Hauptpfad.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 05:46)
+stand: 2026-04-29 00:47
+update: Jonas Merek fuehrt den aktiven Nordlinie-Hauptpfad jetzt bis Turn 11 an der Draisine auf den D5-Bahnsteiggleisen statt nur als allgemeine Werkstattkante.
+checks: snapshot-lock PASS (2026-04-28 22:24)
 ---
 
 Jonas Merek - Runtime Working Sheet
@@ -27,16 +27,17 @@ Signals
 -------
 
 - confirmed:
-  - Jonas bleibt im aktuellen Hauptpfad mit Pahl an die D5-Werkstatt und die Draisine-/Materialschiene gebunden.
+  - Jonas bleibt im aktuellen Hauptpfad mit Pahl an die D5-Draisine und die Materialschiene gebunden.
   - Er beantwortet Ronjas Bedarf ueber knappe, belastbare Rueckmeldungen statt ueber freie Zusagen.
   - Jonas laeuft im laufenden Hauptpfad nicht allein, sondern mit der an ihn gekoppelten Begleitinstanz Lumen.
+  - Turn 11 fuehrt ihn sichtbar an der Draisine auf den Gleisen am D5-Bahnsteig, nicht in einem abgeschlossenen Werkstattinnenraum.
 - tentative:
-  - Die verlaessliche Werkstattrolle koennte Jonas' Vertrauensstellung im D5-Kernteam weiter stabilisieren.
+  - Die verlaessliche Bau- und Materialrolle an der Draisine koennte Jonas' Vertrauensstellung im D5-Kernteam weiter stabilisieren.
 - contradictions:
   - keine direkte Widerspruchslage; die Begleitung durch Lumen war bisher nur im Runtime-Slice untererfasst
 
 Promotion Notes
 ---------------
 
-- Sessionbezug: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 1, 2, 6, 7
+- Sessionbezug: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 1, 2, 6, 7, 11
 - Begleit- und Kopplungslogik liegt zusaetzlich in `characters/lumen.md` und `mind/jonas-merek.md`.

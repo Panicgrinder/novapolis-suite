@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-27 01:53
-update: T0-Ueberblick fuehrt jetzt zusaetzlich Arkologie-A1 als belegten Dreistationskern A1/A3/A5.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260427_015145.md
+stand: 2026-04-29 00:47
+update: T0-Ueberblick fuehrt jetzt zusaetzlich aktive RP-Warenklassen fuer Kabelanschnitt, Schienenprofil, Betonplatte sowie die H-47-Handelsklassen Nahrungsmittel und Grundbedarfsgueter.
+checks: snapshot-lock PASS (2026-04-29 00:20)
 slug: warenueberblick-t0
 category: Admin
 canvas: warenueberblick-t0
@@ -36,7 +36,7 @@ Lagebild nach Warengruppen (MVP)
 | Energie / Zellen | verfuegbar | knapp | tbd | C6 mit teilaktivem Betrieb |
 | Wasser / Filter | verfuegbar | knapp | tbd | C6-Monitoring als Engpasssignal |
 | Werkzeuge / Reparatur | verfuegbar | verfuegbar | tbd | aus Missions-/Inventarplaenen fortschreiben |
-| Bau / Stuetzmaterial | begrenzt | knapp | tbd | D5 fuehrt kleinen Stuetzbaukasten; C6 bleibt primaer Verbrauchsort |
+| Bau / Stuetzmaterial | begrenzt | knapp | tbd | D5 fuehrt kleinen Stuetzbaukasten; Schienenprofil und Betonplatten sind als Nordlinie-Verbrauchsklassen belegt, C6 bleibt primaer Verbrauchsort |
 | Medizin / Erste Hilfe | begrenzt | knapp | tbd | D5 mit kleiner Basisreserve; C6 unter Evakuierungsdruck |
 | Nahrung / Verbrauchsgueter | begrenzt | knapp | tbd | D5 stabil fuer Kernteam; C6 fuer 27 Personen angespannt |
 
@@ -51,7 +51,7 @@ Hinweis: Die Label folgen dem P0-Schema `legacy|evac_e3|scavenged|produced|unkno
 | Arkologie-A1 | Grundversorgung stabil, Austausch gueter selektiv; Kerngebiet `A1/A3/A5` ist jetzt explizit als kontrollierter Dreistationskern lesbar | produced, legacy | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md), [Stationskontroll-Matrix](./Stationskontroll-Matrix.md) |
 | Schienenbund | Logistik-/Reparaturfokus, Verbrauchsgueter variabel | produced, scavenged | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
 | Schattenbund | Versorgung uneinheitlich, Schwerpunkt opportunistische Beschaffung | scavenged, unknown | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
-| Haendlerbund | Umlaufgueter verfuegbar, stationaere Reserven variabel; `G7` bleibt Kontakt-/Umschlagpunkt, `H-47` fuehrt einen belegten G7-<->-C6-Korridor mit aktivem Handelsstuetzpunkt `C6` | legacy, scavenged, produced | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md), [Logistik](./Logistik.md) |
+| Haendlerbund | Umlaufgueter verfuegbar, stationaere Reserven variabel; `G7` bleibt Kontakt-/Umschlagpunkt, `H-47` fuehrt einen belegten G7-<->-C6-Korridor mit aktivem Handelsstuetzpunkt `C6` und den Austauschklassen `Nahrungsmittel`, `Filter` und `Grundbedarfsgueter` | legacy, scavenged, produced | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md), [Logistik](./Logistik.md) |
 | Eisenkonklave | Werkstoff-/Instandsetzungsgueter verfuegbar, Verbrauchsgueter variabel | produced, legacy | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
 | Fluesterkollektiv | Lagerbild nur teilweise belastbar | unknown, scavenged | [Fraktionen-Taxonomie](./Fraktionen-Taxonomie.md) |
 
@@ -71,14 +71,22 @@ Verbrauchsrahmen (operativ, konservativ)
 | --- | --- | --- | --- |
 | D5 | pro Tag | `3-4` Rationenaequivalente, `1` Wasserkanister; zusaetzlich kleiner Werkstattdruck aus Nordlinie und Draisine | begrenzt, aber relativ stabil |
 | C6 | pro Tag | `8-12` Reserve-Rationen, `1-2` Wasserkanister plus mobile Wasserreserve; Hygiene-/Ersthilfedruck fuer `27` Personen | knapp und priorisierungsbeduerftig |
-| Nordlinie 01 | belegter Bautag plus laufende Sicherungsbloecke | belegt hoher Baustoff- und Werkzeugverschleiss; der kleine Turn-7-Satz ist jetzt konkret als `2x mittel`, `4x kurz`, `4x klemme`, `2x lasche`, `2x ausgleich`, `4x schraubensatz`, `1x bolzen`, `1x klebmasse` gebucht | groesster materielle Projektverbrauch |
-| Draisine-Transportmodul | je Werkstattblock | kleiner, aber stetiger Verbrauch an Schmieroel, Lagerfett, Sicherungen und punktuell Dichtungsmaterial; aktuell konkret gebunden: `1x schmieroel`, `1x lagerfett`, `1x sicherungssatz`, `1x dichtungsmanschette` | technischer Nebenverbrauch, kein Hauptfresser |
+| Nordlinie 01 | belegter Bautag plus laufende Sicherungsbloecke | belegt hoher Baustoff- und Werkzeugverschleiss; der kleine Turn-7-Satz ist jetzt konkret als `2x mittel`, `4x kurz`, `4x klemme`, `2x lasche`, `2x ausgleich`, `4x schraubensatz`, `1x bolzen`, `1x klebmasse` gebucht, dazu laufen `Schienenprofil` und `Betonplatten` als belegte Verbrauchsklassen des groesseren Korridors | groesster materielle Projektverbrauch |
+| Draisine-Transportmodul | je Werkstattblock | kleiner, aber stetiger Verbrauch an Schmieroel, Lagerfett, Sicherungen und punktuell Dichtungsmaterial; aktuell konkret gebunden: `1x schmieroel`, `1x lagerfett`, `1x sicherungssatz`, `1x dichtungsmanschette`, episodisch zusaetzlich `Kabelanschnitt` als Werkstattklasse | technischer Nebenverbrauch, kein Hauptfresser |
+
+Aktive RP-Waren- und Teileklassen (vor dem naechsten ERP/RP-Lauf)
+-----------------------------------------------------------------
+
+- `Kabelanschnitt` ist jetzt als kleine, wiederverwendbare Werkstatt- und Baustellenklasse fuer D5, C6 und das Draisine-Projekt lesbar; bisher lief der Bedarf nur implizit ueber `Kabelspule` und Werkstatttext.
+- `Schienenprofil` und `Betonplatte` sind als belegte Verbrauchsklassen von `Nordlinie 01` im Fraktions- und Stationskontext sichtbar; sie bleiben vom kleineren Stuetzbaukasten getrennt.
+- `Nahrungsmittel (Grundbedarf)` und `Grundbedarfsgueter` bleiben bewusst grobe Handelsklassen, weil der H-47-/C6-Austauschpfad dafuer belegt ist, aber noch keine feinere Packlisten- oder Stationsinventarlinie vorliegt.
+- Nicht nachgezogen werden bewusst blosse Runtime-Arbeitsworte wie `Anschlusssicherung` oder `Verbindungsmaterial`, solange dafuer noch kein hinreichend harter SSOT-/Log-Anker als eigene kanonische Warenklasse vorliegt.
 
 Aktive Metro-Pfade (verdichtet)
 -------------------------------
 
 - Novapolis: `D5` bleibt aktiver Kernanker, `C6` teilaktiver Empfangs- und Baustellenknoten; belegte Energie-, Transfer- und Verbrauchspfade duerfen aggregiert werden, ohne daraus harte Metro-Summen abzuleiten.
-- Haendlerbund: `G7` bleibt externer Kontakt-/Umschlagpunkt; `H-47` fuehrt den belegten Austauschpfad nach `C6`, inklusive Handelsstuetzpunkt und belegter Austauschklassen, aber ohne Manifest- oder Mengenpromotion.
+- Haendlerbund: `G7` bleibt externer Kontakt-/Umschlagpunkt; `H-47` fuehrt den belegten Austauschpfad nach `C6`, inklusive Handelsstuetzpunkt und der Austauschklassen `Nahrungsmittel`, `Filter` und `Grundbedarfsgueter`, aber ohne Manifest- oder Mengenpromotion.
 - Weitere externe Fraktionen: Arkologie-A1, Schienenbund, Eisenkonklave, Schattenbund und Fluesterkollektiv bleiben auf ihren belastbaren T0-Bandbreiten, solange keine neuen stationsscharfen Ketten vorliegen.
 - Neutrale Metro-Lager und weltweite Gesamtsummen bleiben weiterhin `tbd`.
 
