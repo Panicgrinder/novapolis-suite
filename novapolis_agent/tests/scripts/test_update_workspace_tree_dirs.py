@@ -35,6 +35,29 @@ def test_forensic_full_tree_is_part_of_default_freshness_gate() -> None:
 
 @pytest.mark.scripts
 @pytest.mark.unit
+def test_local_tree_is_separate_from_default_freshness_gate() -> None:
+    from scripts import update_workspace_tree_dirs as mod
+
+    repo_root = Path(__file__).resolve().parents[3]
+
+    assert mod.local_snapshot_output(repo_root).name == "workspace_tree_local.txt"
+    assert [path.name for path in mod.snapshot_outputs(repo_root)] == [
+        "workspace_tree.txt",
+        "workspace_tree_dirs.txt",
+        "workspace_tree_full.txt",
+    ]
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
+def test_parse_args_accepts_local_full_mode() -> None:
+    from scripts import update_workspace_tree_dirs as mod
+
+    assert mod.parse_args(["--mode", "local-full"]).mode == "local-full"
+
+
+@pytest.mark.scripts
+@pytest.mark.unit
 def test_forensic_full_tree_excludes_ignore_based_machine_volatility() -> None:
     from scripts import update_workspace_tree_dirs as mod
 

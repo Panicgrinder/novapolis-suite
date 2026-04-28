@@ -1,8 +1,16 @@
 ---
-stand: 2026-04-28 13:05
-update: Dev-DONELOG dokumentiert jetzt auch den erneuten Vollbaum-Nachzug: alle drei Tree-Artefakte bleiben wieder im Default-Freshness-Gate, ohne ignore-basierte Maschinenvolatilitaet mitzuschleppen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 13:05)
+stand: 2026-04-28 13:19
+update: Dev-DONELOG dokumentiert jetzt den sauberen Vierer-Split der Tree-Artefakte: drei überwachte Trees plus ein expliziter lokaler Maschinenbaum.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 13:19)
 ---
+Governance: Expliziten lokalen Workspace-Baum neben den drei überwachten Trees eingeführt (2026-04-28 13:15)
+--------------------------------------------------------------------------------------------------------
+
+- [scripts/update_workspace_tree_dirs.py](scripts/update_workspace_tree_dirs.py) erzeugt jetzt zusätzlich [workspace_tree_local.txt](workspace_tree_local.txt) über den neuen Modus `local-full`; der neue Baum bildet den echten lokalen On-Disk-Zustand ab, während [workspace_tree.txt](workspace_tree.txt), [workspace_tree_dirs.txt](workspace_tree_dirs.txt) und [workspace_tree_full.txt](workspace_tree_full.txt) die überwachten kanonischen Trees bleiben.
+- [novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py](novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py) prüft jetzt explizit, dass `workspace_tree_local.txt` bewusst nicht Teil von `snapshot_outputs()` und damit nicht Teil des Default-Freshness-Gates ist; zugleich bleibt der vollständige Tree-Testpfad grün.
+- [.vscode/tasks.json](.vscode/tasks.json), [README.md](README.md) und [WORKSPACE_INDEX.md](WORKSPACE_INDEX.md) führen denselben Vierer-Split jetzt repo-lesbar; der neue Task `Workspace tree: local` erzeugt den lokalen Maschinenbaum gezielt neben den bestehenden Tree-Tasks.
+- Alle vier Tree-Artefakte sind im selben Lauf neu erzeugt; [novapolis-dev/docs/todo.dev.md](novapolis-dev/docs/todo.dev.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) führen den Abschluss im selben Lauf nach.
+
 Governance: Vollbaum wieder im Default-Freshness-Gate, aber ohne Ignore-Drift (2026-04-28 12:53)
 ----------------------------------------------------------------------------------------------
 

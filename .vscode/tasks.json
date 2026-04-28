@@ -387,6 +387,16 @@
       "group": "build",
       "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
       "runOptions": { "instanceLimit": 1 }
+    },
+    {
+      "label": "Workspace tree: local",
+      "type": "process",
+      "command": "${workspaceFolder}\\.venv\\Scripts\\python.exe",
+      "args": ["scripts\\update_workspace_tree_dirs.py", "--mode", "local-full"],
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false, "group": "dedicated-all" },
+      "runOptions": { "instanceLimit": 1 }
     }
     ,
     {

@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 13:05
-update: Das Dev-Board fuehrt nach dem Vollbaum-Nachzug wieder keine offenen Punkte; alle drei Workspace-Trees liegen jetzt wieder im Default-Freshness-Gate.
-checks: snapshot-lock PASS (2026-04-28 13:05); markdownlint=PASS; frontmatter=PASS; pytest=PASS (novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
+stand: 2026-04-28 13:19
+update: Das Dev-Board fuehrt nach dem Local-Tree-Nachzug wieder keine offenen Punkte; neben den drei überwachten Trees gibt es jetzt einen klar getrennten lokalen Maschinenbaum.
+checks: snapshot-lock PASS (2026-04-28 13:19); markdownlint=PASS; frontmatter=PASS; pytest=PASS (novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,6 +23,16 @@ Offene Aufgaben (Dev)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Einen expliziten lokalen Workspace-Baum neben den drei überwachten Tree-Artefakten einfuehren.
+  - Ziel: Neben `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` soll ein vierter Tree klar den lokalen On-Disk-Zustand abbilden, ohne den Default-Freshness-Gate der drei kanonischen Trees wieder zu verwischen.
+  - Akzeptanzkriterien:
+    1) `scripts/update_workspace_tree_dirs.py` erzeugt ein separates lokales Tree-Artefakt mit klarem Namen,
+    2) der neue lokale Baum ist bewusst nicht Teil des Default-Freshness-Gates,
+    3) es gibt einen kanonischen Task und repo-lesbare Doku, die den Unterschied zwischen überwachten Trees und lokalem Baum klar machen,
+    4) Board, Index und DONELOG fuehren denselben Abschluss im selben Lauf.
+  - Evidenz: Der aktuelle Vierer-Split fehlte noch: `workspace_tree_full.txt` ist inzwischen wieder deterministisch repo-sichtbar und überwacht, bildete aber nicht mehr den echten lokalen Maschinenbaum mit `.snapshot.now`, `.venv`, `.tmp` und ähnlichen lokalen Artefakten ab.
+  - Ergebnis 2026-04-28 13:15: `scripts/update_workspace_tree_dirs.py` erzeugt jetzt zusätzlich `workspace_tree_local.txt` als expliziten lokalen Maschinenbaum über den neuen Modus `local-full`. Der neue Baum bleibt bewusst außerhalb von `snapshot_outputs()` und damit außerhalb des Default-Freshness-Gates der drei kanonischen Trees. `.vscode/tasks.json`, `README.md` und `WORKSPACE_INDEX.md` führen denselben Vierer-Split jetzt repo-lesbar, und der vollständige Tree-Testpfad bleibt nach dem Refresh aller Tree-Artefakte grün.
 
 - [x] [Jetzt] `workspace_tree_full.txt` wieder in den Default-Freshness-Gate aufnehmen, ohne Ignore-Drift mitzuschleppen.
   - Ziel: Alle drei Workspace-Trees sollen wieder standardmaessig auf Freshness geprueft werden, aber der Vollbaum darf dabei nicht mehr von `.snapshot.now`, `.venv`, `.tmp` oder anderen ignore-basierten Laufartefakten kippen.

@@ -6,10 +6,12 @@ Outputs:
 - workspace_tree.txt        (active reader tree; filtered files + directories)
 - workspace_tree_dirs.txt   (active reader directory summary)
 - workspace_tree_full.txt   (forensic full tree)
+- workspace_tree_local.txt  (explicit local machine tree)
 
 Notes:
 - Active snapshots skip local caches, venvs, generated outputs and local repo metadata.
 - The forensic snapshot preserves the full repo-visible tree for audit/reference.
+- The local snapshot preserves the raw local on-disk tree for machine-state inspection.
 - Policy: active tree snapshots keep tracked repo content visible and exclude only
     local machine-artifact and repo-metadata paths.
 - Policy: the forensic snapshot is deterministic and excludes ignore-based machine
@@ -22,6 +24,7 @@ from __future__ import annotations
 import argparse
 import os
 import subprocess
+import tempfile
 from pathlib import Path
 
 ACTIVE_GITIGNORE_SKIP_DIRS = {
@@ -72,7 +75,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Update workspace tree snapshots")
     parser.add_argument(
         "--mode",
-        choices=("all", "active-tree", "active-dirs", "forensic-full"),
+        choices=("all", "active-tree", "active-dirs", "forensic-full", "local-full"),
         default="all",
         help="Which snapshot set to generate",
     )
@@ -231,6 +234,29 @@ def build_forensic_full_text(root: Path) -> str:
     return "\n".join(lines) + "\n"
 
 
+def local_snapshot_output(root: Path) -> Path:
+    return root / "workspace_tree_local.txt"
+
+
+def build_local_full_text(root: Path) -> str:
+    with tempfile.TemporaryDirectory(prefix="workspace-tree-local-") as temp_dir:
+        temp_path = Path(temp_dir) / "workspace_tree_local.txt"
+        command = (
+            "$OutputEncoding = [System.Text.UTF8Encoding]::new(); "
+            f"tree /A /F | Out-File -Encoding utf8 '{temp_path}'"
+        )
+        completed = subprocess.run(
+            ["pwsh", "-NoLogo", "-Command", command],
+            cwd=root,
+            capture_output=True,
+            text=True,
+        )
+        if completed.returncode != 0:
+            message = completed.stderr.strip() or completed.stdout.strip() or "tree command failed"
+            raise RuntimeError(message)
+        return temp_path.read_text(encoding="utf-8")
+
+
 def write_active_dirs(root: Path, out_path: Path) -> None:
     out_path.write_text(build_active_dirs_text(root), encoding="utf-8")
 
@@ -241,6 +267,10 @@ def write_active_tree(root: Path, out_path: Path) -> None:
 
 def write_forensic_full(root: Path, out_path: Path) -> None:
     out_path.write_text(build_forensic_full_text(root), encoding="utf-8")
+
+
+def write_local_full(root: Path, out_path: Path) -> None:
+    out_path.write_text(build_local_full_text(root), encoding="utf-8")
 
 
 def snapshot_outputs(root: Path) -> list[Path]:
@@ -258,6 +288,8 @@ def expected_snapshot_text(root: Path, out_path: Path) -> str:
         return build_active_tree_text(root, out_path)
     if out_path.name == "workspace_tree_full.txt":
         return build_forensic_full_text(root)
+    if out_path.name == "workspace_tree_local.txt":
+        return build_local_full_text(root)
     raise ValueError(f"Unsupported snapshot path: {out_path}")
 
 
@@ -281,6 +313,8 @@ def main(argv: list[str] | None = None) -> int:
         write_active_tree(root, root / "workspace_tree.txt")
     if args.mode in {"all", "forensic-full"}:
         write_forensic_full(root, root / "workspace_tree_full.txt")
+    if args.mode in {"all", "local-full"}:
+        write_local_full(root, local_snapshot_output(root))
 
     print(f"[workspace-tree] Updated mode={args.mode}")
     return 0

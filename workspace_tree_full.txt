@@ -31,6 +31,7 @@ Root = .
 |-- workspace_tree.txt
 |-- workspace_tree_dirs.txt
 |-- workspace_tree_full.txt
+|-- workspace_tree_local.txt
 |-- .coverage_tools/
 |   `-- pick_low.py
 |-- .github/

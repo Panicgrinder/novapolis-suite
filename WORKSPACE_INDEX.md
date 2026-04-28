@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 11:26
+stand: 2026-04-28 13:21
 update: Der Workspace-Index verweist fuer die gemeinsame Paketlage jetzt auf den realen Einstieg `packages/README.md`; weitere README-Strukturumbauten bleiben aus.
-checks: snapshot-lock PASS (2026-04-28 11:26); markdownlint=PASS; frontmatter=PASS
+checks: snapshot-lock PASS (2026-04-28 13:21); markdownlint=PASS; frontmatter=PASS
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -38,7 +38,8 @@ Arbeits- und Referenzpfade
 
 - [`workspace_tree.txt`](workspace_tree.txt) - aktiver Reader-Baum mit gefilterter Root-Surface fuer Navigation.
 - [`workspace_tree_dirs.txt`](workspace_tree_dirs.txt) - aktive Verzeichnis-Summary derselben Reader-Surface.
-- [`workspace_tree_full.txt`](workspace_tree_full.txt) - forensischer Vollbaum; regenerierbar via Tasks `Workspace tree:*`.
+- [`workspace_tree_full.txt`](workspace_tree_full.txt) - ueberwachter repo-sichtbarer Vollbaum; regenerierbar via Tasks `Workspace tree:*`.
+- [`workspace_tree_local.txt`](workspace_tree_local.txt) - expliziter lokaler Maschinenbaum fuer den echten On-Disk-Zustand; bewusst getrennt vom Freshness-Gate der drei kanonischen Trees.
 - [`novapolis-dev/docs/active-surface-index.md`](novapolis-dev/docs/active-surface-index.md) - ACTIVE/REFERENCE/HISTORICAL-Klassifikation der Fuehrungsdoku.
 - [`novapolis-dev/docs/process/abschluss-routine.ssot.md`](novapolis-dev/docs/process/abschluss-routine.ssot.md) - kanonischer Hygiene- und Abschlussrhythmus.
 - [`novapolis-dev/docs/process/workspace-audit-segmente.ssot.md`](novapolis-dev/docs/process/workspace-audit-segmente.ssot.md) - fester Auditrahmen fuer Root, Shared Tooling, Dev, Agent, RP, Sim und forensische Flaechen.

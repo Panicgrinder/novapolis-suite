@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 13:05
-update: Der TODO-Index fuehrt nach dem Vollbaum-Nachzug wieder keine offenen Modul-Boards; Dev, RP, Agent und Sim stehen bei offen: 0.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 13:05)
+stand: 2026-04-28 13:19
+update: Der TODO-Index fuehrt nach dem Local-Tree-Nachzug wieder keine offenen Modul-Boards; Dev, RP, Agent und Sim stehen bei offen: 0.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 13:19)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,7 +23,7 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` ist nach der Archivierung des abgeschlossenen April-Blocks wieder als schlanke Live-Oberflaeche vorbereitet und fuehrt aktuell keine offenen suiteweiten Querschnittspunkte. Der Wochenabschluss vom 2026-04-26 20:40 ist gruen belegt (`Checks: full` PASS, `Checks: sim epoch assets` PASS, Coverage `92.19%`), und der naechste Hygiene-Takt bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` sowie die aktuellen Root-Protokolle verankert, waehrend Root bewusst ausserhalb der Modul-Open-Counts bleibt.
 
-- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Punkte mehr. Alle drei Workspace-Trees liegen wieder im Default-Freshness-Gate; `workspace_tree_full.txt` wird dabei deterministisch aus repo-sichtbaren Pfaden erzeugt und nicht mehr von ignore-basierten Laufartefakten gekippt.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Punkte mehr. Der Vierer-Split ist jetzt klar gezogen: `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` bleiben die überwachten kanonischen Trees, waehrend `workspace_tree_local.txt` den echten lokalen On-Disk-Zustand getrennt davon abbildet.
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt aktuell keine offenen Punkte mehr. Der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Provenienz fehlen; im aktuellen Repo-Stand scheitert derselbe Direktlauf erwartungsgemaess an `missing rp_content results` statt ungeguardet in Training zu laufen.
 
