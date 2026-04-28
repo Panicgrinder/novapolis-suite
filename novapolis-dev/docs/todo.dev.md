@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 01:22
-update: Das Dev-Board dokumentiert jetzt den workspaceweiten Freshness-Scope; der bisherige Dev-Subset-Pfad ueber active-surface-index ist als alleinige Scope-Quelle ersetzt.
-checks: snapshot-lock PASS (2026-04-28 01:22); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
+stand: 2026-04-28 11:26
+update: Das Dev-Board fuehrt nach dem verifizierten README-Minifix wieder keine offenen Punkte; der Linkdrift im Workspace-Index und der veraltete Decision-Satz sind geschlossen.
+checks: snapshot-lock PASS (2026-04-28 11:26); markdownlint=PASS; frontmatter=PASS; doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,6 +23,16 @@ Offene Aufgaben (Dev)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Als naechstes] README-Nachzug auf den verifizierten Minimalumfang begrenzen.
+  - Ziel: Der naechste Arbeitslauf soll nur den belegten kaputten Link im Workspace-Index korrigieren und den veralteten Zukunftssatz in `readme_decisions.md` auf den heutigen Iststand ziehen, ohne die bestehende README-Hierarchie neu umzubauen.
+  - Akzeptanzkriterien:
+    1) `WORKSPACE_INDEX.md` ersetzt den falschen Verweis `packages/novapolis_common/README.md` durch den realen Einstieg `packages/README.md`,
+    2) `novapolis-dev/docs/readme_decisions.md` fuehrt den veralteten Phase-2-Zukunftssatz zu `WORKSPACE_INDEX.md` nicht mehr als offenen Zukunftspunkt,
+    3) ein kleiner Root-Skripte-Landing-Block in `WORKSPACE_INDEX.md` wird nur dann aufgenommen, wenn er fuer den operativen Einstieg wirklich einen Mehrwert liefert,
+    4) alle anderen README-, Index- und Hub-Strukturen bleiben unangetastet.
+  - Evidenz: Der belegte aktive Phantom-Link sitzt in `WORKSPACE_INDEX.md`; die Driftstelle steht in `novapolis-dev/docs/readme_decisions.md`, waehrend `WORKSPACE_INDEX.md` und `novapolis-dev/docs/todo.dev.md` den Reader-Surface-Nachzug bereits als Iststand fuehren.
+  - Ergebnis 2026-04-28 08:26: `WORKSPACE_INDEX.md` verweist fuer die gemeinsame Paketlage jetzt auf `packages/README.md`, und `novapolis-dev/docs/readme_decisions.md` fuehrt den Workspace-Index nicht mehr als offenen Phase-2-Verkuerzungspunkt. Ein zusaetzlicher Root-Skripte-Landing-Block wurde bewusst nicht aufgenommen, weil der bestehende Root-Steuerpfad ueber `README.md`, `WORKSPACE_STATUS.md` und `.vscode/tasks.json` bereits den operativen Einstieg abdeckt.
 
 - [x] [Jetzt] Den Doc-Freshness-Scope von einem Dev-Subset auf einen workspaceweiten, moduluebergreifenden Pruefrahmen ziehen.
   - Ziel: Ein gruener Freshness-Lauf soll nicht laenger still nur den Dev-Hub meinen, sondern die fuehrenden Doku- und Navigationspfade aus Root, Governance, Agent, RP, Sim und den Tree-Artefakten abdecken.

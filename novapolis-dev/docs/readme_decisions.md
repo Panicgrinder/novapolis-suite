@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 05:08
-update: Frontmatter-Checks auf portable Pfadangaben ohne hostgebundene Absolutpfade umgestellt.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
+stand: 2026-04-28 11:26
+update: Die README-Entscheidungsliste fuehrt den Workspace-Index nicht mehr als offenen Phase-2-Verkuerzungspunkt, sondern nur noch als zielgerichtete Driftfix-Flaeche.
+checks: snapshot-lock PASS (2026-04-28 11:26); markdownlint=PASS; frontmatter=PASS; path-portability=PASS
 ---
 README Konsolidierungs-Entscheidungsliste
 =========================================
@@ -47,7 +47,7 @@ Nächste Schritte
 ----------------
 1. Phase 2 Patches: SLIM/ARCHIVE Kategorien minimal editieren (Stub + Redirect-Link).
 2. Markdownlint + Frontmatter nach jedem Patch (MD003 Setext sicherstellen).
-3. `WORKSPACE_INDEX.md` nach Abschluss Phase 2 verkürzen (nur Agent-spezifischer Kern + Redirect-Hinweis).
+3. `WORKSPACE_INDEX.md` nur noch punktuell per belegtem Link- oder Driftfix anpassen; kein weiterer Strukturabbau als eigener Phase-2-Punkt.
 4. DONELOG-Einträge für jede Gruppe (Batch) dokumentieren.
 5. Abschluss: Task "Docs/READMEs: Konsolidierung & Leitlinien" abhaken.
 

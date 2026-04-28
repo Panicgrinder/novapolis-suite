@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 02:09
-update: Der Workspace-Index fuehrt die aktiven Hook-Surfaces jetzt getrennt nach Git- und Agent-Hooks und entfernt den veralteten Modulverweis auf einen nicht mehr vorhandenen `.githooks`-Pfad.
-checks: snapshot-lock PASS (2026-04-28 02:09); markdownlint=PASS (2026-04-28 02:09); frontmatter=PASS (2026-04-28 02:09)
+stand: 2026-04-28 11:26
+update: Der Workspace-Index verweist fuer die gemeinsame Paketlage jetzt auf den realen Einstieg `packages/README.md`; weitere README-Strukturumbauten bleiben aus.
+checks: snapshot-lock PASS (2026-04-28 11:26); markdownlint=PASS; frontmatter=PASS
 ---
 
 <!-- markdownlint-disable MD013 -->
@@ -42,7 +42,7 @@ Arbeits- und Referenzpfade
 - [`novapolis-dev/docs/active-surface-index.md`](novapolis-dev/docs/active-surface-index.md) - ACTIVE/REFERENCE/HISTORICAL-Klassifikation der Fuehrungsdoku.
 - [`novapolis-dev/docs/process/abschluss-routine.ssot.md`](novapolis-dev/docs/process/abschluss-routine.ssot.md) - kanonischer Hygiene- und Abschlussrhythmus.
 - [`novapolis-dev/docs/process/workspace-audit-segmente.ssot.md`](novapolis-dev/docs/process/workspace-audit-segmente.ssot.md) - fester Auditrahmen fuer Root, Shared Tooling, Dev, Agent, RP, Sim und forensische Flaechen.
-- [`packages/novapolis_common/README.md`](packages/novapolis_common/README.md) - Einstieg in die gemeinsame Paketlage ausserhalb der vier Hauptmodule.
+- [`packages/README.md`](packages/README.md) - Einstieg in die gemeinsame Paketlage ausserhalb der vier Hauptmodule.
 
 Reader-Surface-Grenze
 ---------------------

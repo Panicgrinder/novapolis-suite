@@ -1,8 +1,16 @@
 ---
-stand: 2026-04-28 06:57
-update: Dev-DONELOG dokumentiert jetzt zusaetzlich den geschlossenen RP-Nachzug fuer den expliziten Inventar-Diff des kleinen Nordlinie-Turn-7/8-Satzes.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 06:57)
+stand: 2026-04-28 11:26
+update: Dev-DONELOG dokumentiert jetzt den abgeschlossenen README-Minifix fuer Workspace-Index und Decision-Liste; das Dev-Board steht wieder bei offen: 0.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 11:26)
 ---
+Governance: README-Minifix fuer Workspace-Index und Decision-Liste abgeschlossen (2026-04-28 08:26)
+---------------------------------------------------------------------------------------------------
+
+- [WORKSPACE_INDEX.md](WORKSPACE_INDEX.md) ersetzt den aktiven Phantom-Link `packages/novapolis_common/README.md` jetzt durch den realen Einstieg [packages/README.md](packages/README.md).
+- [novapolis-dev/docs/readme_decisions.md](novapolis-dev/docs/readme_decisions.md) fuehrt `WORKSPACE_INDEX.md` nicht mehr als offenen Phase-2-Verkuerzungspunkt, sondern nur noch als punktuelle Driftfix-Flaeche.
+- [novapolis-dev/docs/todo.dev.md](novapolis-dev/docs/todo.dev.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) ziehen denselben Abschluss nach; das Dev-Board steht wieder bei `offen: 0`.
+- Ein zusaetzlicher Root-Skripte-Landing-Block in [WORKSPACE_INDEX.md](WORKSPACE_INDEX.md) wurde bewusst nicht aufgenommen, weil der bestehende Root-Steuerpfad bereits den operativen Einstieg abdeckt.
+
 Governance: Architektur-Notiz fixiert jetzt die Systemlesart als kontrollierte Simulation (2026-04-28 06:40)
 ---------------------------------------------------------------------------------------------------------
 
