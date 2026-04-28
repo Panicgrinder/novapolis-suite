@@ -11,9 +11,12 @@
 .github\ISSUE_TEMPLATE\config.yml
 .github\ISSUE_TEMPLATE\feature_request.md
 .github\agents/
+.github\agents\novapolis-rp-szenenlabor.agent.md
 .github\agents\novapolis-workspace-navigator.agent.md
 .github\copilot-instructions-headings.md
 .github\copilot-instructions.md
+.github\hooks/
+.github\hooks\rp-runtime-loop-guard.json
 .github\instructions/
 .github\instructions\agent-backend.instructions.md
 .github\instructions\ci-release.instructions.md
@@ -76,6 +79,7 @@ novapolis-dev\docs\index.md
 novapolis-dev\docs\meta/
 novapolis-dev\docs\meta\copilot-behavior.json
 novapolis-dev\docs\meta\dev-kpi-trends.md
+novapolis-dev\docs\meta\doc-freshness-scope.md
 novapolis-dev\docs\meta\donelog.json
 novapolis-dev\docs\meta\index.json
 novapolis-dev\docs\meta\naming-policy.json
@@ -96,6 +100,7 @@ novapolis-dev\docs\process\rp-canvas-rescue\overlap-arlen-dross.md
 novapolis-dev\docs\process\rp-canvas-rescue\overlap-marven-kael.md
 novapolis-dev\docs\process\rp-canvas-rescue\resolved.md
 novapolis-dev\docs\process\rp-canvas-rescue\uncertainties.md
+novapolis-dev\docs\process\rp-chat-transcript-flow.ssot.md
 novapolis-dev\docs\process\rp-folgekorridor-slot-00-05.ssot.md
 novapolis-dev\docs\process\rp-folgekorridor-slot-06-10.ssot.md
 novapolis-dev\docs\process\rp-folgekorridor-slot-11-15.ssot.md
@@ -104,10 +109,14 @@ novapolis-dev\docs\process\rp-folgekorridor-slot-21-25.ssot.md
 novapolis-dev\docs\process\rp-folgekorridor-slot-26-30.ssot.md
 novapolis-dev\docs\process\rp-folgekorridor-slot-31-35.ssot.md
 novapolis-dev\docs\process\rp-folgekorridor-slot-36-40.ssot.md
+novapolis-dev\docs\process\rp-folgekorridor-slot-41-45.ssot.md
 novapolis-dev\docs\process\rp-inventory-backfill-pilot-2026-03-20.md
+novapolis-dev\docs\process\rp-labor-review-und-promotion-matrix.ssot.md
 novapolis-dev\docs\process\rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md
 novapolis-dev\docs\process\rp-metro-warenzuteilung-matrix-2026-03-27.md
 novapolis-dev\docs\process\rp-ogg-summary-kandidaten-slot-00-30.ssot.md
+novapolis-dev\docs\process\rp-ortsmodell-granularitaet.ssot.md
+novapolis-dev\docs\process\rp-runtime-surface-matrix.ssot.md
 novapolis-dev\docs\process\rp-start-chooser.ssot.md
 novapolis-dev\docs\process\rp-startbogen-arkologie-a1.ssot.md
 novapolis-dev\docs\process\rp-startbogen-eisenkonklave-h12.ssot.md
@@ -137,6 +146,7 @@ novapolis-dev\docs\process\text-rpg-product-gate-v1.ssot.md
 novapolis-dev\docs\process\text-rpg-release-evidence-bundle-v1.ssot.md
 novapolis-dev\docs\process\text-rpg-slice-2-handover-v1.ssot.md
 novapolis-dev\docs\process\text-rpg-turn-budget-model-v1.ssot.md
+novapolis-dev\docs\process\workspace-audit-segmente.ssot.md
 novapolis-dev\docs\readme.hub.md
 novapolis-dev\docs\readme_decisions.md
 novapolis-dev\docs\specs/
@@ -277,6 +287,7 @@ novapolis-rp\database-rp\00-admin\index-rules.md
 novapolis-rp\database-rp\00-admin\memory-bundle.json
 novapolis-rp\database-rp\00-admin\memory-bundle.md
 novapolis-rp\database-rp\00-admin\mind-cluster-template.md
+novapolis-rp\database-rp\00-admin\rp-terminologie.ssot.md
 novapolis-rp\database-rp\00-admin\schema-header-templates.json
 novapolis-rp\database-rp\00-admin\schema-header-templates.md
 novapolis-rp\database-rp\00-admin\system-prompt.json
@@ -297,6 +308,8 @@ novapolis-rp\database-rp\01-factions\arkologie-a1\00-doctrine\arkologie-a1-histo
 novapolis-rp\database-rp\01-factions\arkologie-a1\00-doctrine\arkologie-a1-history.md
 novapolis-rp\database-rp\01-factions\arkologie-a1\00-doctrine\arkologie-a1-logistics.json
 novapolis-rp\database-rp\01-factions\arkologie-a1\00-doctrine\arkologie-a1-logistics.md
+novapolis-rp\database-rp\01-factions\arkologie-a1\00-doctrine\arkologie-a1-nahraum-t0.md
+novapolis-rp\database-rp\01-factions\arkologie-a1\00-doctrine\arkologie-a1-sozialmodell-t0.md
 novapolis-rp\database-rp\01-factions\arkologie-a1\00-doctrine\arkologie-a1-t0-timeline.json
 novapolis-rp\database-rp\01-factions\arkologie-a1\00-doctrine\arkologie-a1-t0-timeline.md
 novapolis-rp\database-rp\01-factions\arkologie-a1\02-characters/
@@ -310,6 +323,8 @@ novapolis-rp\database-rp\01-factions\arkologie-a1\02-characters\README.md
 novapolis-rp\database-rp\01-factions\arkologie-a1\03-locations/
 novapolis-rp\database-rp\01-factions\arkologie-a1\03-locations\A1.json
 novapolis-rp\database-rp\01-factions\arkologie-a1\03-locations\A1.md
+novapolis-rp\database-rp\01-factions\arkologie-a1\03-locations\A3.md
+novapolis-rp\database-rp\01-factions\arkologie-a1\03-locations\A5.md
 novapolis-rp\database-rp\01-factions\arkologie-a1\03-locations\README.md
 novapolis-rp\database-rp\01-factions\arkologie-a1\04-inventory/
 novapolis-rp\database-rp\01-factions\arkologie-a1\04-inventory\Arkologie-inventar.json
@@ -337,6 +352,7 @@ novapolis-rp\database-rp\01-factions\arkologie-a1\README.md
 novapolis-rp\database-rp\01-factions\eisenkonklave/
 novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine/
 novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\README.md
+novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\eisenkonklave-betriebsmodell-t0.md
 novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\eisenkonklave-diplomacy.json
 novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\eisenkonklave-diplomacy.md
 novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\eisenkonklave-ereignislog.json
@@ -345,6 +361,7 @@ novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\eisenkonklave-his
 novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\eisenkonklave-history.md
 novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\eisenkonklave-logistics.json
 novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\eisenkonklave-logistics.md
+novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\eisenkonklave-nahraum-t0.md
 novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\eisenkonklave-t0-timeline.json
 novapolis-rp\database-rp\01-factions\eisenkonklave\00-doctrine\eisenkonklave-t0-timeline.md
 novapolis-rp\database-rp\01-factions\eisenkonklave\02-characters/
@@ -385,6 +402,7 @@ novapolis-rp\database-rp\01-factions\eisenkonklave\README.md
 novapolis-rp\database-rp\01-factions\fluesterkollektiv/
 novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine/
 novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\README.md
+novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\fluesterkollektiv-betriebsmodell-t0.md
 novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\fluesterkollektiv-diplomacy.json
 novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\fluesterkollektiv-diplomacy.md
 novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\fluesterkollektiv-ereignislog.json
@@ -393,6 +411,7 @@ novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\fluesterkolle
 novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\fluesterkollektiv-history.md
 novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\fluesterkollektiv-logistics.json
 novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\fluesterkollektiv-logistics.md
+novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\fluesterkollektiv-nahraum-t0.md
 novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\fluesterkollektiv-t0-timeline.json
 novapolis-rp\database-rp\01-factions\fluesterkollektiv\00-doctrine\fluesterkollektiv-t0-timeline.md
 novapolis-rp\database-rp\01-factions\fluesterkollektiv\02-characters/
@@ -433,6 +452,7 @@ novapolis-rp\database-rp\01-factions\fluesterkollektiv\README.md
 novapolis-rp\database-rp\01-factions\haendlerbund/
 novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine/
 novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\README.md
+novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\haendlerbund-betriebsmodell-t0.md
 novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\haendlerbund-diplomacy.json
 novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\haendlerbund-diplomacy.md
 novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\haendlerbund-ereignislog.json
@@ -441,6 +461,7 @@ novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\haendlerbund-histo
 novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\haendlerbund-history.md
 novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\haendlerbund-logistics.json
 novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\haendlerbund-logistics.md
+novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\haendlerbund-nahraum-t0.md
 novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\haendlerbund-t0-timeline.json
 novapolis-rp\database-rp\01-factions\haendlerbund\00-doctrine\haendlerbund-t0-timeline.md
 novapolis-rp\database-rp\01-factions\haendlerbund\02-characters/
@@ -483,6 +504,7 @@ novapolis-rp\database-rp\01-factions\haendlerbund\README.md
 novapolis-rp\database-rp\01-factions\novapolis/
 novapolis-rp\database-rp\01-factions\novapolis\00-doctrine/
 novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\README.md
+novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\novapolis-betriebsmodell-t0.md
 novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\novapolis-campaign-state.json
 novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\novapolis-campaign-state.md
 novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\novapolis-diplomacy.json
@@ -493,6 +515,7 @@ novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\novapolis-history.jso
 novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\novapolis-history.md
 novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\novapolis-logistics.json
 novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\novapolis-logistics.md
+novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\novapolis-nahraum-t0.md
 novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\novapolis-t0-timeline.json
 novapolis-rp\database-rp\01-factions\novapolis\00-doctrine\novapolis-t0-timeline.md
 novapolis-rp\database-rp\01-factions\novapolis\02-characters/
@@ -624,6 +647,7 @@ novapolis-rp\database-rp\01-factions\novapolis\05-projects\Draisine-Transportmod
 novapolis-rp\database-rp\01-factions\novapolis\05-projects\Draisine-Transportmodul.md
 novapolis-rp\database-rp\01-factions\novapolis\05-projects\Missionslog-Novapolis.json
 novapolis-rp\database-rp\01-factions\novapolis\05-projects\Missionslog-Novapolis.md
+novapolis-rp\database-rp\01-factions\novapolis\05-projects\Nordlinie-01-Stuetzbaukasten.md
 novapolis-rp\database-rp\01-factions\novapolis\05-projects\Nordlinie-01.json
 novapolis-rp\database-rp\01-factions\novapolis\05-projects\Nordlinie-01.md
 novapolis-rp\database-rp\01-factions\novapolis\05-projects\README.md
@@ -650,12 +674,14 @@ novapolis-rp\database-rp\01-factions\novapolis\07-mind-clusters\pahl-brenner-min
 novapolis-rp\database-rp\01-factions\novapolis\07-mind-clusters\reflex-mind-cluster.md
 novapolis-rp\database-rp\01-factions\novapolis\07-mind-clusters\ronja-kerschner-mind-cluster.md
 novapolis-rp\database-rp\01-factions\novapolis\07-mind-clusters\senn-daru-mind-cluster.md
+novapolis-rp\database-rp\01-factions\novapolis\Nordlinie-D5-C6-Index.md
 novapolis-rp\database-rp\01-factions\novapolis\Novapolis.json
 novapolis-rp\database-rp\01-factions\novapolis\Novapolis.md
 novapolis-rp\database-rp\01-factions\novapolis\README.md
 novapolis-rp\database-rp\01-factions\schattenbund/
 novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine/
 novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\README.md
+novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\schattenbund-betriebsmodell-t0.md
 novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\schattenbund-diplomacy.json
 novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\schattenbund-diplomacy.md
 novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\schattenbund-ereignislog.json
@@ -664,6 +690,7 @@ novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\schattenbund-histo
 novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\schattenbund-history.md
 novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\schattenbund-logistics.json
 novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\schattenbund-logistics.md
+novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\schattenbund-nahraum-t0.md
 novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\schattenbund-t0-timeline.json
 novapolis-rp\database-rp\01-factions\schattenbund\00-doctrine\schattenbund-t0-timeline.md
 novapolis-rp\database-rp\01-factions\schattenbund\02-characters/
@@ -706,6 +733,7 @@ novapolis-rp\database-rp\01-factions\schattenbund\Schattenbund.md
 novapolis-rp\database-rp\01-factions\schienenbund/
 novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine/
 novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\README.md
+novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\schienenbund-betriebsmodell-t0.md
 novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\schienenbund-diplomacy.json
 novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\schienenbund-diplomacy.md
 novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\schienenbund-ereignislog.json
@@ -714,6 +742,7 @@ novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\schienenbund-histo
 novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\schienenbund-history.md
 novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\schienenbund-logistics.json
 novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\schienenbund-logistics.md
+novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\schienenbund-nahraum-t0.md
 novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\schienenbund-t0-timeline.json
 novapolis-rp\database-rp\01-factions\schienenbund\00-doctrine\schienenbund-t0-timeline.md
 novapolis-rp\database-rp\01-factions\schienenbund\02-characters/
@@ -753,12 +782,18 @@ novapolis-rp\database-rp\01-factions\schienenbund\Schienenbund.json
 novapolis-rp\database-rp\01-factions\schienenbund\Schienenbund.md
 novapolis-rp\database-rp\03-locations/
 novapolis-rp\database-rp\03-locations\A2.md
+novapolis-rp\database-rp\03-locations\A4.md
+novapolis-rp\database-rp\03-locations\A6.md
 novapolis-rp\database-rp\03-locations\B1.md
+novapolis-rp\database-rp\03-locations\B5.md
 novapolis-rp\database-rp\03-locations\C1.md
 novapolis-rp\database-rp\03-locations\C3.md
+novapolis-rp\database-rp\03-locations\C5.md
 novapolis-rp\database-rp\03-locations\D1.md
+novapolis-rp\database-rp\03-locations\E1.md
 novapolis-rp\database-rp\03-locations\E2.md
 novapolis-rp\database-rp\03-locations\F1.md
+novapolis-rp\database-rp\03-locations\F2.md
 novapolis-rp\database-rp\04-inventory/
 novapolis-rp\database-rp\04-inventory\Freie-Gruppen-inventar.json
 novapolis-rp\database-rp\04-inventory\Freie-Gruppen-inventar.md
@@ -876,6 +911,10 @@ novapolis-sim\assets\ChatGPT Image 11. März 2026, 01_12_53.png
 novapolis-sim\assets\ChatGPT Image 11. März 2026, 01_12_53.png.import
 novapolis-sim\assets\audio/
 novapolis-sim\assets\audio\.gitkeep
+novapolis-sim\assets\audio\epoch01_slot00_pc.ogg
+novapolis-sim\assets\audio\epoch01_slot00_pc.ogg.import
+novapolis-sim\assets\audio\epoch01_slot00_world.ogg
+novapolis-sim\assets\audio\epoch01_slot00_world.ogg.import
 novapolis-sim\assets\f8bc5f39-0e64-44ca-a53b-ef7688c775ae.png
 novapolis-sim\assets\f8bc5f39-0e64-44ca-a53b-ef7688c775ae.png.import
 novapolis-sim\assets\mainmenu-page1-background-v2.png
@@ -888,7 +927,14 @@ novapolis-sim\autoload\SimClient.gd.uid
 novapolis-sim\data/
 novapolis-sim\data\epochs/
 novapolis-sim\data\epochs\.gitkeep
-novapolis-sim\novapolis-sim/
+novapolis-sim\data\epochs\epoch01/
+novapolis-sim\data\epochs\epoch01\pc_log.jsonl
+novapolis-sim\data\epochs\epoch01\world_log.jsonl
+novapolis-sim\export_presets.cfg
+novapolis-sim\exports/
+novapolis-sim\exports\windows/
+novapolis-sim\exports\windows\NovapolisSim.exe
+novapolis-sim\exports\windows\NovapolisSim.pck
 novapolis-sim\project.godot
 novapolis-sim\scripts/
 novapolis-sim\scripts\Main.gd
@@ -899,6 +945,10 @@ novapolis-sim\scripts\agent_authoring_persistence_controller.gd
 novapolis-sim\scripts\agent_authoring_persistence_controller.gd.uid
 novapolis-sim\scripts\agent_form_controller.gd
 novapolis-sim\scripts\agent_form_controller.gd.uid
+novapolis-sim\scripts\agent_form_session_controller.gd
+novapolis-sim\scripts\agent_form_session_controller.gd.uid
+novapolis-sim\scripts\agent_form_workflow_controller.gd
+novapolis-sim\scripts\agent_form_workflow_controller.gd.uid
 novapolis-sim\scripts\agent_registry_state_controller.gd
 novapolis-sim\scripts\agent_registry_state_controller.gd.uid
 novapolis-sim\scripts\agent_restpoint_summary_controller.gd
@@ -933,6 +983,12 @@ novapolis-sim\scripts\session_replay_state_controller.gd
 novapolis-sim\scripts\session_replay_state_controller.gd.uid
 novapolis-sim\scripts\verify_sim.gd
 novapolis-sim\scripts\verify_sim.gd.uid
+novapolis-sim\tests/
+novapolis-sim\tests\fixtures/
+novapolis-sim\tests\fixtures\hub_prefs/
+novapolis-sim\tests\fixtures\hub_prefs\empty.cfg
+novapolis-sim\tests\fixtures\hub_prefs\legacy.cfg
+novapolis-sim\tests\fixtures\hub_prefs\partial.cfg
 novapolis_agent/
 novapolis_agent\.coveragerc
 novapolis_agent\.env.example
@@ -1042,6 +1098,8 @@ novapolis_agent\eval\config\text_rpg_reference_session.v1.json
 novapolis_agent\eval\config\text_rpg_reference_session_handover_slot31_40.v1.json
 novapolis_agent\eval\datasets/
 novapolis_agent\eval\datasets\LICENSE.txt
+novapolis_agent\eval\datasets\curation/
+novapolis_agent\eval\datasets\curation\session_promotions.v1.jsonl
 novapolis_agent\eval\datasets\eval-001-100_technik_erklaerungen_v1.0.zip
 novapolis_agent\eval\datasets\eval-smoke.jsonl
 novapolis_agent\eval\datasets\neutral/
@@ -1068,6 +1126,8 @@ novapolis_agent\eval\datasets\training/
 novapolis_agent\eval\datasets\training\chronistin_lore_intensiv.v1.jsonl
 novapolis_agent\eval\datasets\training\chronistin_neutral_assistiv.v1.jsonl
 novapolis_agent\eval\datasets\training\chronistin_operativ_kurz.v1.jsonl
+novapolis_agent\eval\datasets\training\rp_lore_train.v1.jsonl
+novapolis_agent\eval\datasets\training\rp_ops_train.v1.jsonl
 novapolis_agent\eval\eval-overview.md
 novapolis_agent\eval\finetune_openai_chat_results_20250823_0658_20250823_0745.jsonl
 novapolis_agent\eval\finetune_openai_chat_results_20250823_0658_20250823_0745_train.jsonl
@@ -1155,6 +1215,8 @@ novapolis_agent\scripts\__init__.py
 novapolis_agent\scripts\agent/
 novapolis_agent\scripts\agent\__init__.py
 novapolis_agent\scripts\agent\_proxy.py
+novapolis_agent\scripts\agent\build_session_promotion_pack.py
+novapolis_agent\scripts\agent\build_training_from_rp.py
 novapolis_agent\scripts\agent\dependency_check.py
 novapolis_agent\scripts\agent\estimate_tokens.py
 novapolis_agent\scripts\agent\export_finetune.py
@@ -1172,6 +1234,8 @@ novapolis_agent\scripts\append_done.py
 novapolis_agent\scripts\audit_workspace.py
 novapolis_agent\scripts\build_eval_from_rp.py
 novapolis_agent\scripts\build_project_context_index.py
+novapolis_agent\scripts\build_session_promotion_pack.py
+novapolis_agent\scripts\build_training_from_rp.py
 novapolis_agent\scripts\check_dependency_profiles.py
 novapolis_agent\scripts\check_legacy_shim_imports.py
 novapolis_agent\scripts\check_openai_key.py
@@ -1220,6 +1284,7 @@ novapolis_agent\scripts\syn_loader.py
 novapolis_agent\scripts\system_snapshot.py
 novapolis_agent\scripts\todo_gather.py
 novapolis_agent\scripts\train_lora.py
+novapolis_agent\scripts\training_release_gate.py
 novapolis_agent\scripts\tts_coqui_export.py
 novapolis_agent\scripts\tts_export_coqui.py
 novapolis_agent\scripts\validate_eval_datasets.py
@@ -1235,12 +1300,15 @@ novapolis_agent\tests\scripts\test_append_done_smoke.py
 novapolis_agent\tests\scripts\test_audit_workspace_fallbacks.py
 novapolis_agent\tests\scripts\test_build_eval_from_rp.py
 novapolis_agent\tests\scripts\test_build_project_context_index.py
+novapolis_agent\tests\scripts\test_build_session_promotion_pack.py
+novapolis_agent\tests\scripts\test_build_training_from_rp.py
 novapolis_agent\tests\scripts\test_check_dependency_profiles.py
 novapolis_agent\tests\scripts\test_check_legacy_shim_imports.py
 novapolis_agent\tests\scripts\test_check_legacy_shim_imports_edges.py
 novapolis_agent\tests\scripts\test_check_runtime_prereqs.py
 novapolis_agent\tests\scripts\test_check_runtime_prereqs_edges.py
 novapolis_agent\tests\scripts\test_check_sim_epoch_assets.py
+novapolis_agent\tests\scripts\test_check_sim_hub_prefs_contract.py
 novapolis_agent\tests\scripts\test_cleanup_artifacts.py
 novapolis_agent\tests\scripts\test_cleanup_artifacts_edges.py
 novapolis_agent\tests\scripts\test_curate_dataset_filters_empty.py
@@ -1266,6 +1334,7 @@ novapolis_agent\tests\scripts\test_fine_tune_pipeline_env_paths.py
 novapolis_agent\tests\scripts\test_fine_tune_pipeline_happy.py
 novapolis_agent\tests\scripts\test_fine_tune_pipeline_interrupt_and_fp16.py
 novapolis_agent\tests\scripts\test_fine_tune_pipeline_smoke.py
+novapolis_agent\tests\scripts\test_map_reduce_summary_edges.py
 novapolis_agent\tests\scripts\test_map_reduce_summary_heuristic_min.py
 novapolis_agent\tests\scripts\test_map_reduce_summary_json_modes.py
 novapolis_agent\tests\scripts\test_map_reduce_summary_llm_smoke.py
@@ -1292,6 +1361,7 @@ novapolis_agent\tests\scripts\test_rerun_failed_json_array.py
 novapolis_agent\tests\scripts\test_rerun_failed_no_results.py
 novapolis_agent\tests\scripts\test_rerun_failed_only_success.py
 novapolis_agent\tests\scripts\test_rerun_failed_smoke.py
+novapolis_agent\tests\scripts\test_rp_runtime_loop_guard.py
 novapolis_agent\tests\scripts\test_run_eval_cli_hint.py
 novapolis_agent\tests\scripts\test_run_eval_hint_injection.py
 novapolis_agent\tests\scripts\test_run_eval_hint_terms.py
@@ -1299,6 +1369,8 @@ novapolis_agent\tests\scripts\test_run_eval_no_files_smoke.py
 novapolis_agent\tests\scripts\test_run_eval_profile_id.py
 novapolis_agent\tests\scripts\test_run_eval_result_metadata.py
 novapolis_agent\tests\scripts\test_run_eval_term_helpers.py
+novapolis_agent\tests\scripts\test_run_sim_export_smoke.py
+novapolis_agent\tests\scripts\test_run_sim_headless_verify.py
 novapolis_agent\tests\scripts\test_run_tests_error_path.py
 novapolis_agent\tests\scripts\test_run_tests_script_smoke.py
 novapolis_agent\tests\scripts\test_run_text_rpg_product_gate.py
@@ -1310,10 +1382,13 @@ novapolis_agent\tests\scripts\test_summarize_gm_eval_kpis.py
 novapolis_agent\tests\scripts\test_summarize_gm_eval_kpis_edges.py
 novapolis_agent\tests\scripts\test_summarize_marathon_kpis.py
 novapolis_agent\tests\scripts\test_support_ab_smoke.py
+novapolis_agent\tests\scripts\test_sync_docs_after_checks.py
 novapolis_agent\tests\scripts\test_terminal_progress.py
 novapolis_agent\tests\scripts\test_third_party_quality.py
 novapolis_agent\tests\scripts\test_todo_gather_smoke.py
+novapolis_agent\tests\scripts\test_training_release_gate.py
 novapolis_agent\tests\scripts\test_tts_coqui_export_policy.py
+novapolis_agent\tests\scripts\test_update_workspace_tree_dirs.py
 novapolis_agent\tests\scripts\test_validate_eval_datasets.py
 novapolis_agent\tests\scripts\test_validate_eval_datasets_edges.py
 novapolis_agent\tests\test_agent_wrapper_impls.py
@@ -1470,6 +1545,8 @@ scripts\agent/
 scripts\agent\__init__.py
 scripts\agent\_bootstrap.py
 scripts\agent\_run_module.py
+scripts\agent\build_session_promotion_pack.py
+scripts\agent\build_training_from_rp.py
 scripts\agent\dependency_check.py
 scripts\agent\estimate_tokens.py
 scripts\agent\export_finetune.py
@@ -1497,6 +1574,7 @@ scripts\check_rp_staging_tag_coverage.py
 scripts\check_scripts_layout.py
 scripts\check_shadow_accept_rate.py
 scripts\check_sim_epoch_assets.py
+scripts\check_sim_hub_prefs_contract.py
 scripts\check_todo_index_sync.py
 scripts\checks_linters.py
 scripts\checks_rp_consistency.py
@@ -1517,6 +1595,7 @@ scripts\pre_commit.py
 scripts\rotate_backups.py
 scripts\rp_canon_sync.py
 scripts\rp_receipt_pending_checks.py
+scripts\rp_runtime_loop_guard.py
 scripts\rp_set_checks_pending.py
 scripts\rp_tag_chat_export_complete.py
 scripts\run_checks_and_report.py
@@ -1524,6 +1603,7 @@ scripts\run_pytest_coverage.py
 scripts\run_rp_canvas_staging.py
 scripts\run_rp_chat_dedupe.py
 scripts\run_rp_chat_staging.py
+scripts\run_sim_export_smoke.py
 scripts\run_sim_headless_verify.py
 scripts\run_text_rpg_product_gate.py
 scripts\run_with_cpu_limit.py
@@ -1533,6 +1613,7 @@ scripts\search_workspace.py
 scripts\setup_root_venv.py
 scripts\snapshot_gate.py
 scripts\snapshot_write_lock.py
+scripts\sync_docs_after_checks.py
 scripts\task_wrappers/
 scripts\terminal_progress.py
 scripts\tests_pytest_root.py

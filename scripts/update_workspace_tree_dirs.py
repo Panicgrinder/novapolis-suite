@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import os
 import subprocess
+import tempfile
 from pathlib import Path
 
 ACTIVE_SKIP_DIRS = {
@@ -120,7 +121,7 @@ def should_skip_active_file(root: Path, file_path: Path) -> bool:
     return any(matches_active_prefix(rel, prefix) for prefix in ACTIVE_SKIP_PREFIXES)
 
 
-def write_active_dirs(root: Path, out_path: Path) -> None:
+def build_active_dirs_text(root: Path) -> str:
     lines: list[str] = []
     for dirpath, dirnames, _filenames in os.walk(root):
         rp = Path(dirpath)
@@ -128,10 +129,10 @@ def write_active_dirs(root: Path, out_path: Path) -> None:
         rel = relpath(root, rp)
         if rel:
             lines.append(rel + "/")
-    out_path.write_text("\n".join(sorted(lines)) + "\n", encoding="utf-8")
+    return "\n".join(sorted(lines)) + "\n"
 
 
-def write_active_tree(root: Path, out_path: Path) -> None:
+def build_active_tree_text(root: Path, out_path: Path) -> str:
     lines: list[str] = []
     for dirpath, dirnames, filenames in os.walk(root):
         rp = Path(dirpath)
@@ -144,20 +145,64 @@ def write_active_tree(root: Path, out_path: Path) -> None:
             if p == out_path or should_skip_active_file(root, p):
                 continue
             lines.append(relpath(root, p))
-    out_path.write_text("\n".join(sorted(lines)) + "\n", encoding="utf-8")
+    return "\n".join(sorted(lines)) + "\n"
+
+
+def build_forensic_full_text(root: Path) -> str:
+    with tempfile.TemporaryDirectory(prefix="workspace-tree-") as temp_dir:
+        temp_path = Path(temp_dir) / "workspace_tree_full.txt"
+        command = f"tree /A /F | Out-File -Encoding ascii '{temp_path}'"
+        completed = subprocess.run(
+            ["pwsh", "-NoLogo", "-Command", command],
+            cwd=root,
+            capture_output=True,
+            text=True,
+        )
+        if completed.returncode != 0:
+            message = completed.stderr.strip() or completed.stdout.strip() or "tree command failed"
+            raise RuntimeError(message)
+        return temp_path.read_text(encoding="ascii")
+
+
+def write_active_dirs(root: Path, out_path: Path) -> None:
+    out_path.write_text(build_active_dirs_text(root), encoding="utf-8")
+
+
+def write_active_tree(root: Path, out_path: Path) -> None:
+    out_path.write_text(build_active_tree_text(root, out_path), encoding="utf-8")
 
 
 def write_forensic_full(root: Path, out_path: Path) -> None:
-    command = f"tree /A /F | Out-File -Encoding ascii '{out_path.name}'"
-    completed = subprocess.run(
-        ["pwsh", "-NoLogo", "-Command", command],
-        cwd=root,
-        capture_output=True,
-        text=True,
-    )
-    if completed.returncode != 0:
-        message = completed.stderr.strip() or completed.stdout.strip() or "tree command failed"
-        raise RuntimeError(message)
+    out_path.write_text(build_forensic_full_text(root), encoding="ascii")
+
+
+def snapshot_outputs(root: Path) -> list[Path]:
+    return [
+        root / "workspace_tree.txt",
+        root / "workspace_tree_dirs.txt",
+        root / "workspace_tree_full.txt",
+    ]
+
+
+def expected_snapshot_text(root: Path, out_path: Path) -> str:
+    if out_path.name == "workspace_tree_dirs.txt":
+        return build_active_dirs_text(root)
+    if out_path.name == "workspace_tree.txt":
+        return build_active_tree_text(root, out_path)
+    if out_path.name == "workspace_tree_full.txt":
+        return build_forensic_full_text(root)
+    raise ValueError(f"Unsupported snapshot path: {out_path}")
+
+
+def stale_snapshot_paths(root: Path) -> list[Path]:
+    stale: list[Path] = []
+    for out_path in snapshot_outputs(root):
+        encoding = "ascii" if out_path.name.endswith("_full.txt") else "utf-8"
+        current = out_path.read_text(encoding=encoding)
+        expected = expected_snapshot_text(root, out_path)
+        if current != expected:
+            stale.append(out_path)
+    return stale
 
 
 def main(argv: list[str] | None = None) -> int:

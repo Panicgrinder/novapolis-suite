@@ -45,7 +45,11 @@ F:.
 |   |   pull_request_template.md
 |   |   
 |   +---agents
+|   |       novapolis-rp-szenenlabor.agent.md
 |   |       novapolis-workspace-navigator.agent.md
+|   |       
+|   +---hooks
+|   |       rp-runtime-loop-guard.json
 |   |       
 |   +---instructions
 |   |       agent-backend.instructions.md
@@ -116,10 +120,18 @@ F:.
 |           13534325379638720057
 |           14075788205366789031
 |           15024237927667521916
+|           16471515770581975808
 |           16729876609918982892
 |           17182473058163891077
+|           17226440168183250391
 |           17733321212044841366
+|           222172023401033000
+|           3171338734073602151
 |           3727039522545929861
+|           3990545170919735049
+|           5484059724542730762
+|           6407416709301779316
+|           9302629083514631105
 |           
 +---.tmp
 |   +---datasets
@@ -301,6 +313,40 @@ F:.
 |           |   checks_report_20260417_065225.md
 |           |   checks_report_20260417_071110.json
 |           |   checks_report_20260417_071110.md
+|           |   checks_report_20260420_204514.json
+|           |   checks_report_20260420_204514.md
+|           |   checks_report_20260420_210028.json
+|           |   checks_report_20260420_210028.md
+|           |   checks_report_20260420_210242.json
+|           |   checks_report_20260420_210242.md
+|           |   checks_report_20260420_210436.json
+|           |   checks_report_20260420_210436.md
+|           |   checks_report_20260423_153823.json
+|           |   checks_report_20260423_153823.md
+|           |   checks_report_20260423_154000.json
+|           |   checks_report_20260423_154000.md
+|           |   checks_report_20260423_155606.json
+|           |   checks_report_20260423_155606.md
+|           |   checks_report_20260423_234016.json
+|           |   checks_report_20260423_234016.md
+|           |   checks_report_20260423_234820.json
+|           |   checks_report_20260423_234820.md
+|           |   checks_report_20260426_202354.json
+|           |   checks_report_20260426_202354.md
+|           |   checks_report_20260426_203550.json
+|           |   checks_report_20260426_203550.md
+|           |   checks_report_20260427_014633.json
+|           |   checks_report_20260427_014633.md
+|           |   checks_report_20260427_015145.json
+|           |   checks_report_20260427_015145.md
+|           |   checks_report_20260427_022916.json
+|           |   checks_report_20260427_022916.md
+|           |   checks_report_20260428_051431.json
+|           |   checks_report_20260428_051431.md
+|           |   checks_report_20260428_051914.json
+|           |   checks_report_20260428_051914.md
+|           |   checks_report_20260428_052348.json
+|           |   checks_report_20260428_052348.md
 |           |   checks_rp_consistency_20260327_095748.log
 |           |   checks_rp_consistency_20260328_065328.log
 |           |   checks_rp_consistency_20260328_065404.log
@@ -313,6 +359,51 @@ F:.
 |           |   checks_rp_consistency_20260402_062859.log
 |           |   checks_rp_consistency_20260405_193622.log
 |           |   checks_rp_consistency_20260405_194325.log
+|           |   checks_rp_consistency_20260420_212150.log
+|           |   checks_rp_consistency_20260420_212249.log
+|           |   checks_rp_consistency_20260423_155931.log
+|           |   checks_rp_consistency_20260423_160234.log
+|           |   checks_rp_consistency_20260423_185256.log
+|           |   checks_rp_consistency_20260423_185258.log
+|           |   checks_rp_consistency_20260426_212258.log
+|           |   checks_rp_consistency_20260426_212331.log
+|           |   checks_rp_consistency_20260426_212406.log
+|           |   checks_rp_consistency_20260426_222031.log
+|           |   checks_rp_consistency_20260426_235805.log
+|           |   checks_rp_consistency_20260427_001117.log
+|           |   checks_rp_consistency_20260427_004827.log
+|           |   checks_rp_consistency_20260427_005250.log
+|           |   checks_rp_consistency_20260427_010122.log
+|           |   checks_rp_consistency_20260427_010602.log
+|           |   checks_rp_consistency_20260427_010613.log
+|           |   checks_rp_consistency_20260427_010619.log
+|           |   checks_rp_consistency_20260427_010711.log
+|           |   checks_rp_consistency_20260427_011910.log
+|           |   checks_rp_consistency_20260427_012643.log
+|           |   checks_rp_consistency_20260427_014124.log
+|           |   checks_rp_consistency_20260427_014626.log
+|           |   checks_rp_consistency_20260427_015411.log
+|           |   checks_rp_consistency_20260427_015852.log
+|           |   checks_rp_consistency_20260427_015937.log
+|           |   checks_rp_consistency_20260427_020344.log
+|           |   checks_rp_consistency_20260427_020429.log
+|           |   checks_rp_consistency_20260427_020724.log
+|           |   checks_rp_consistency_20260427_020802.log
+|           |   checks_rp_consistency_20260427_021105.log
+|           |   checks_rp_consistency_20260427_021145.log
+|           |   checks_rp_consistency_20260427_022005.log
+|           |   checks_rp_consistency_20260427_022042.log
+|           |   checks_rp_consistency_20260427_022706.log
+|           |   checks_rp_consistency_20260427_022749.log
+|           |   checks_rp_consistency_20260427_023209.log
+|           |   checks_rp_consistency_20260427_052351.log
+|           |   checks_rp_consistency_20260427_053507.log
+|           |   checks_rp_consistency_20260427_061131.log
+|           |   checks_rp_consistency_20260427_061240.log
+|           |   checks_rp_consistency_20260427_061521.log
+|           |   checks_rp_consistency_20260428_052217.log
+|           |   checks_rp_consistency_20260428_052225.log
+|           |   checks_rp_consistency_20260428_054658.log
 |           |   checks_rp_consistency_postflight_20260327_095748.md
 |           |   checks_rp_consistency_postflight_20260328_065328.md
 |           |   checks_rp_consistency_postflight_20260328_065404.md
@@ -325,6 +416,51 @@ F:.
 |           |   checks_rp_consistency_postflight_20260402_062859.md
 |           |   checks_rp_consistency_postflight_20260405_193622.md
 |           |   checks_rp_consistency_postflight_20260405_194325.md
+|           |   checks_rp_consistency_postflight_20260420_212150.md
+|           |   checks_rp_consistency_postflight_20260420_212249.md
+|           |   checks_rp_consistency_postflight_20260423_155931.md
+|           |   checks_rp_consistency_postflight_20260423_160234.md
+|           |   checks_rp_consistency_postflight_20260423_185256.md
+|           |   checks_rp_consistency_postflight_20260423_185258.md
+|           |   checks_rp_consistency_postflight_20260426_212258.md
+|           |   checks_rp_consistency_postflight_20260426_212331.md
+|           |   checks_rp_consistency_postflight_20260426_212406.md
+|           |   checks_rp_consistency_postflight_20260426_222031.md
+|           |   checks_rp_consistency_postflight_20260426_235805.md
+|           |   checks_rp_consistency_postflight_20260427_001117.md
+|           |   checks_rp_consistency_postflight_20260427_004827.md
+|           |   checks_rp_consistency_postflight_20260427_005250.md
+|           |   checks_rp_consistency_postflight_20260427_010122.md
+|           |   checks_rp_consistency_postflight_20260427_010602.md
+|           |   checks_rp_consistency_postflight_20260427_010613.md
+|           |   checks_rp_consistency_postflight_20260427_010619.md
+|           |   checks_rp_consistency_postflight_20260427_010711.md
+|           |   checks_rp_consistency_postflight_20260427_011910.md
+|           |   checks_rp_consistency_postflight_20260427_012643.md
+|           |   checks_rp_consistency_postflight_20260427_014124.md
+|           |   checks_rp_consistency_postflight_20260427_014626.md
+|           |   checks_rp_consistency_postflight_20260427_015411.md
+|           |   checks_rp_consistency_postflight_20260427_015852.md
+|           |   checks_rp_consistency_postflight_20260427_015937.md
+|           |   checks_rp_consistency_postflight_20260427_020344.md
+|           |   checks_rp_consistency_postflight_20260427_020429.md
+|           |   checks_rp_consistency_postflight_20260427_020724.md
+|           |   checks_rp_consistency_postflight_20260427_020802.md
+|           |   checks_rp_consistency_postflight_20260427_021105.md
+|           |   checks_rp_consistency_postflight_20260427_021145.md
+|           |   checks_rp_consistency_postflight_20260427_022005.md
+|           |   checks_rp_consistency_postflight_20260427_022042.md
+|           |   checks_rp_consistency_postflight_20260427_022706.md
+|           |   checks_rp_consistency_postflight_20260427_022749.md
+|           |   checks_rp_consistency_postflight_20260427_023209.md
+|           |   checks_rp_consistency_postflight_20260427_052351.md
+|           |   checks_rp_consistency_postflight_20260427_053507.md
+|           |   checks_rp_consistency_postflight_20260427_061131.md
+|           |   checks_rp_consistency_postflight_20260427_061240.md
+|           |   checks_rp_consistency_postflight_20260427_061521.md
+|           |   checks_rp_consistency_postflight_20260428_052217.md
+|           |   checks_rp_consistency_postflight_20260428_052225.md
+|           |   checks_rp_consistency_postflight_20260428_054658.md
 |           |   checks_types_20260406_054537.log
 |           |   checks_types_20260406_065950.log
 |           |   checks_types_20260407_165244.log
@@ -383,6 +519,8 @@ F:.
 |           |   gm_session_kpi_summary_20260415_020424.md
 |           |   gm_session_kpi_summary_20260415_020649.json
 |           |   gm_session_kpi_summary_20260415_020649.md
+|           |   gm_session_kpi_summary_20260428_052348.json
+|           |   gm_session_kpi_summary_20260428_052348.md
 |           |   marathon_kpi_summary.json
 |           |   marathon_kpi_summary.md
 |           |   pytest_coverage_20260310_154111.log
@@ -443,6 +581,8 @@ F:.
 |           |   pytest_coverage_20260414_111400.log
 |           |   pytest_coverage_20260414_123149.log
 |           |   pytest_coverage_20260417_050800.log
+|           |   pytest_coverage_20260420_210608.log
+|           |   pytest_coverage_20260426_203820.log
 |           |   pytest_coverage_postflight_20260310_154111.md
 |           |   pytest_coverage_postflight_20260310_154316.md
 |           |   pytest_coverage_postflight_20260311_075004.md
@@ -500,6 +640,8 @@ F:.
 |           |   pytest_coverage_postflight_20260414_111400.md
 |           |   pytest_coverage_postflight_20260414_123149.md
 |           |   pytest_coverage_postflight_20260417_050800.md
+|           |   pytest_coverage_postflight_20260420_210608.md
+|           |   pytest_coverage_postflight_20260426_203820.md
 |           |   rp_consistency_report_20260327_095748.json
 |           |   rp_consistency_report_20260328_065328.json
 |           |   rp_consistency_report_20260328_065404.json
@@ -512,6 +654,51 @@ F:.
 |           |   rp_consistency_report_20260402_062859.json
 |           |   rp_consistency_report_20260405_193622.json
 |           |   rp_consistency_report_20260405_194325.json
+|           |   rp_consistency_report_20260420_212150.json
+|           |   rp_consistency_report_20260420_212249.json
+|           |   rp_consistency_report_20260423_155931.json
+|           |   rp_consistency_report_20260423_160234.json
+|           |   rp_consistency_report_20260423_185256.json
+|           |   rp_consistency_report_20260423_185258.json
+|           |   rp_consistency_report_20260426_212258.json
+|           |   rp_consistency_report_20260426_212331.json
+|           |   rp_consistency_report_20260426_212406.json
+|           |   rp_consistency_report_20260426_222031.json
+|           |   rp_consistency_report_20260426_235805.json
+|           |   rp_consistency_report_20260427_001117.json
+|           |   rp_consistency_report_20260427_004827.json
+|           |   rp_consistency_report_20260427_005250.json
+|           |   rp_consistency_report_20260427_010122.json
+|           |   rp_consistency_report_20260427_010602.json
+|           |   rp_consistency_report_20260427_010613.json
+|           |   rp_consistency_report_20260427_010619.json
+|           |   rp_consistency_report_20260427_010711.json
+|           |   rp_consistency_report_20260427_011910.json
+|           |   rp_consistency_report_20260427_012643.json
+|           |   rp_consistency_report_20260427_014124.json
+|           |   rp_consistency_report_20260427_014626.json
+|           |   rp_consistency_report_20260427_015411.json
+|           |   rp_consistency_report_20260427_015852.json
+|           |   rp_consistency_report_20260427_015937.json
+|           |   rp_consistency_report_20260427_020344.json
+|           |   rp_consistency_report_20260427_020429.json
+|           |   rp_consistency_report_20260427_020724.json
+|           |   rp_consistency_report_20260427_020802.json
+|           |   rp_consistency_report_20260427_021105.json
+|           |   rp_consistency_report_20260427_021145.json
+|           |   rp_consistency_report_20260427_022005.json
+|           |   rp_consistency_report_20260427_022042.json
+|           |   rp_consistency_report_20260427_022706.json
+|           |   rp_consistency_report_20260427_022749.json
+|           |   rp_consistency_report_20260427_023209.json
+|           |   rp_consistency_report_20260427_052351.json
+|           |   rp_consistency_report_20260427_053507.json
+|           |   rp_consistency_report_20260427_061131.json
+|           |   rp_consistency_report_20260427_061240.json
+|           |   rp_consistency_report_20260427_061521.json
+|           |   rp_consistency_report_20260428_052217.json
+|           |   rp_consistency_report_20260428_052225.json
+|           |   rp_consistency_report_20260428_054658.json
 |           |   rp_eval_summary_20260310_1559.json
 |           |   rp_eval_summary_20260310_1559.md
 |           |   rp_eval_summary_20260310_1616_synopt.json
@@ -700,6 +887,21 @@ F:.
 |           |   text_rpg_product_gate_20260415_020649_pytest_api_streaming.log
 |           |   text_rpg_product_gate_20260415_020649_reference_session.log
 |           |   text_rpg_product_gate_20260415_020649_sim_epoch_assets.log
+|           |   text_rpg_product_gate_20260418_060954.json
+|           |   text_rpg_product_gate_20260418_060954.md
+|           |   text_rpg_product_gate_20260418_060954_gm_runtime_preflight.log
+|           |   text_rpg_product_gate_20260428_052324.json
+|           |   text_rpg_product_gate_20260428_052324.md
+|           |   text_rpg_product_gate_20260428_052324_gm_runtime_preflight.log
+|           |   text_rpg_product_gate_20260428_052348.json
+|           |   text_rpg_product_gate_20260428_052348.md
+|           |   text_rpg_product_gate_20260428_052348_checks_full.log
+|           |   text_rpg_product_gate_20260428_052348_gm_runtime_preflight.log
+|           |   text_rpg_product_gate_20260428_052348_gm_session_eval.log
+|           |   text_rpg_product_gate_20260428_052348_gm_session_summary.log
+|           |   text_rpg_product_gate_20260428_052348_pytest_api_streaming.log
+|           |   text_rpg_product_gate_20260428_052348_reference_session.log
+|           |   text_rpg_product_gate_20260428_052348_sim_epoch_assets.log
 |           |   text_rpg_product_gate_qwen_verify.json
 |           |   text_rpg_product_gate_qwen_verify.md
 |           |   text_rpg_product_gate_runtime_retry.json
@@ -752,6 +954,8 @@ F:.
 |           |   text_rpg_reference_session_20260417_040814.md
 |           |   text_rpg_reference_session_20260417_040835.json
 |           |   text_rpg_reference_session_20260417_040835.md
+|           |   text_rpg_reference_session_20260428_052348.json
+|           |   text_rpg_reference_session_20260428_052348.md
 |           |   text_rpg_reference_session_verify.json
 |           |   text_rpg_reference_session_verify.md
 |           |   
@@ -1988,7 +2192,296 @@ F:.
 |           |       todo-index-sync.log
 |           |       yamllint.log
 |           |       
-|           \---checks_run_20260417_071110
+|           +---checks_run_20260417_071110
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260420_204514
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260420_210028
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260420_210242
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260420_210436
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260423_153823
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260423_154000
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260423_155606
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260423_234016
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260423_234820
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260426_202354
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260426_203550
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260427_014633
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260427_015145
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260427_022916
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260428_051431
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260428_051914
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           \---checks_run_20260428_052348
 |                   black.log
 |                   doc-freshness.log
 |                   frontmatter.log
@@ -122567,6 +123060,7 @@ F:.
 |   |   +---meta
 |   |   |       copilot-behavior.json
 |   |   |       dev-kpi-trends.md
+|   |   |       doc-freshness-scope.md
 |   |   |       donelog.json
 |   |   |       index.json
 |   |   |       naming-policy.json
@@ -122577,6 +123071,7 @@ F:.
 |   |   |   |   betriebsmodi-sicherheitsprotokoll-notizen.md
 |   |   |   |   doku-konsistenzlauf-aktive-surface-2026-03-28.md
 |   |   |   |   project-context-bridge.ssot.md
+|   |   |   |   rp-chat-transcript-flow.ssot.md
 |   |   |   |   rp-folgekorridor-slot-00-05.ssot.md
 |   |   |   |   rp-folgekorridor-slot-06-10.ssot.md
 |   |   |   |   rp-folgekorridor-slot-11-15.ssot.md
@@ -122585,10 +123080,14 @@ F:.
 |   |   |   |   rp-folgekorridor-slot-26-30.ssot.md
 |   |   |   |   rp-folgekorridor-slot-31-35.ssot.md
 |   |   |   |   rp-folgekorridor-slot-36-40.ssot.md
+|   |   |   |   rp-folgekorridor-slot-41-45.ssot.md
 |   |   |   |   rp-inventory-backfill-pilot-2026-03-20.md
+|   |   |   |   rp-labor-review-und-promotion-matrix.ssot.md
 |   |   |   |   rp-metro-warenzuteilung-arbeitsledger-2026-03-30.md
 |   |   |   |   rp-metro-warenzuteilung-matrix-2026-03-27.md
 |   |   |   |   rp-ogg-summary-kandidaten-slot-00-30.ssot.md
+|   |   |   |   rp-ortsmodell-granularitaet.ssot.md
+|   |   |   |   rp-runtime-surface-matrix.ssot.md
 |   |   |   |   rp-start-chooser.ssot.md
 |   |   |   |   rp-startbogen-arkologie-a1.ssot.md
 |   |   |   |   rp-startbogen-eisenkonklave-h12.ssot.md
@@ -122618,6 +123117,7 @@ F:.
 |   |   |   |   text-rpg-release-evidence-bundle-v1.ssot.md
 |   |   |   |   text-rpg-slice-2-handover-v1.ssot.md
 |   |   |   |   text-rpg-turn-budget-model-v1.ssot.md
+|   |   |   |   workspace-audit-segmente.ssot.md
 |   |   |   |   
 |   |   |   \---rp-canvas-rescue
 |   |   |           canvas-rescue-plan.md
@@ -124557,52 +125057,104 @@ F:.
 |   |       |       Chronist von Novapolis - Ronjas Novapolis RP.extracted.txt
 |   |       |       Chronist von Novapolis - Ronjas Novapolis RP1.extracted.txt
 |   |       |       
-|   |       \---reports
-|   |               dedupe-chat-export.md
-|   |               delta-chat-export-1_vs_chat-export.md
-|   |               delta-chat-export-1_vs_RAW-02-54.md
-|   |               delta-chat-export-complete_vs_chat-export-1.md
-|   |               delta-chat-export-complete_vs_RAW-09-16.md
-|   |               delta-chat-export_vs_RAW-02-54.md
-|   |               generated-artifacts.md
-|   |               overlap-arlen-dross.md
-|   |               overlap-marven-kael.md
-|   |               resolved.md
-|   |               segment-hash-w5.complete.txt
-|   |               segment-hash-w5.txt
-|   |               tagging-20260108T125035Z.log
-|   |               text-stats.chat-export.md
-|   |               text-stats.complete.md
-|   |               text-stats.md
-|   |               text-stats.RAW-canvas-2025-10-16T03-12-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T03-25-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T03-25-10-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T03-25-20-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T05-34-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T08-07-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T11-05-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T11-45-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T12-00-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T12-30-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T12-55-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T13-05-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T13-45-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T14-12-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T14-41-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T14-56-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T14-56-10-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T14-56-20-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-16T16-55-00-000Z.md
-|   |               text-stats.RAW-canvas-2025-10-20T12-05-00-000Z.md
-|   |               text-stats.RAW-chat-export-2025-10-23T02-54-55-897Z.md
-|   |               text-stats.RAW-chat-export-2025-10-23T03-09-53-586Z.md
-|   |               text-stats.RAW-chat-export-2025-10-23T03-11-11-106Z.md
-|   |               text-stats.RAW-chat-export-2025-10-23T03-57-37-172Z.md
-|   |               text-stats.RAW-chat-export-2025-10-27T09-01-37-066Z.md
-|   |               text-stats.RAW-chat-export-2025-10-27T09-06-23-120Z.md
-|   |               text-stats.RAW-chat-export-2025-10-27T09-16-00-188Z.md
-|   |               uncertainties.md
-|   |               
+|   |       +---reports
+|   |       |       dedupe-chat-export.md
+|   |       |       delta-chat-export-1_vs_chat-export.md
+|   |       |       delta-chat-export-1_vs_RAW-02-54.md
+|   |       |       delta-chat-export-complete_vs_chat-export-1.md
+|   |       |       delta-chat-export-complete_vs_RAW-09-16.md
+|   |       |       delta-chat-export_vs_RAW-02-54.md
+|   |       |       generated-artifacts.md
+|   |       |       overlap-arlen-dross.md
+|   |       |       overlap-marven-kael.md
+|   |       |       resolved.md
+|   |       |       segment-hash-w5.complete.txt
+|   |       |       segment-hash-w5.txt
+|   |       |       tagging-20260108T125035Z.log
+|   |       |       text-stats.chat-export.md
+|   |       |       text-stats.complete.md
+|   |       |       text-stats.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T03-12-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T03-25-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T03-25-10-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T03-25-20-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T05-34-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T08-07-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T11-05-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T11-45-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T12-00-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T12-30-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T12-55-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T13-05-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T13-45-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T14-12-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T14-41-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T14-56-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T14-56-10-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T14-56-20-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-16T16-55-00-000Z.md
+|   |       |       text-stats.RAW-canvas-2025-10-20T12-05-00-000Z.md
+|   |       |       text-stats.RAW-chat-export-2025-10-23T02-54-55-897Z.md
+|   |       |       text-stats.RAW-chat-export-2025-10-23T03-09-53-586Z.md
+|   |       |       text-stats.RAW-chat-export-2025-10-23T03-11-11-106Z.md
+|   |       |       text-stats.RAW-chat-export-2025-10-23T03-57-37-172Z.md
+|   |       |       text-stats.RAW-chat-export-2025-10-27T09-01-37-066Z.md
+|   |       |       text-stats.RAW-chat-export-2025-10-27T09-06-23-120Z.md
+|   |       |       text-stats.RAW-chat-export-2025-10-27T09-16-00-188Z.md
+|   |       |       uncertainties.md
+|   |       |       
+|   |       \---rp-runtime
+|   |           |   README.md
+|   |           |   
+|   |           +---characters
+|   |           |       character-template.md
+|   |           |       jonas-merek.md
+|   |           |       lumen.md
+|   |           |       mara-quell.md
+|   |           |       pahl-brenner.md
+|   |           |       README.md
+|   |           |       reflex.md
+|   |           |       ronja-kerschner.md
+|   |           |       
+|   |           +---inventories
+|   |           |       c6.md
+|   |           |       d5.md
+|   |           |       inventory-template.md
+|   |           |       README.md
+|   |           |       
+|   |           +---mind
+|   |           |       jonas-merek.md
+|   |           |       lumen.md
+|   |           |       mind-template.md
+|   |           |       pahl-brenner.md
+|   |           |       README.md
+|   |           |       reflex.md
+|   |           |       ronja-kerschner.md
+|   |           |       
+|   |           +---relationships
+|   |           |       mara-quell-zu-c6.md
+|   |           |       README.md
+|   |           |       relationship-template.md
+|   |           |       
+|   |           +---sessions
+|   |           |   |   README.md
+|   |           |   |   session-template.md
+|   |           |   |   transcript-template.jsonl
+|   |           |   |   
+|   |           |   +---c6-h47-handelsfenster-01
+|   |           |   |       scene-log.md
+|   |           |   |       
+|   |           |   \---d5-c6-nordlinie-sanierung-01
+|   |           |           scene-log.md
+|   |           |           transcript.jsonl
+|   |           |           
+|   |           \---state
+|   |                   c6.md
+|   |                   d5.md
+|   |                   nordlinie-01.md
+|   |                   README.md
+|   |                   state-template.md
+|   |                   
 |   +---database-raw
 |   |   \---99-exports
 |   |           chat-export (1).txt
@@ -124703,6 +125255,7 @@ F:.
 |       |       Process-Workflow.md
 |       |       Reference-Campaign-State.json
 |       |       Reference-Campaign-State.md
+|       |       rp-terminologie.ssot.md
 |       |       schema-header-templates.json
 |       |       schema-header-templates.md
 |       |       Sim-State-Schema.json
@@ -124740,6 +125293,8 @@ F:.
 |       |   |   |       arkologie-a1-history.md
 |       |   |   |       arkologie-a1-logistics.json
 |       |   |   |       arkologie-a1-logistics.md
+|       |   |   |       arkologie-a1-nahraum-t0.md
+|       |   |   |       arkologie-a1-sozialmodell-t0.md
 |       |   |   |       arkologie-a1-t0-timeline.json
 |       |   |   |       arkologie-a1-t0-timeline.md
 |       |   |   |       README.md
@@ -124756,6 +125311,8 @@ F:.
 |       |   |   +---03-locations
 |       |   |   |       A1.json
 |       |   |   |       A1.md
+|       |   |   |       A3.md
+|       |   |   |       A5.md
 |       |   |   |       README.md
 |       |   |   |       
 |       |   |   +---04-inventory
@@ -124788,6 +125345,7 @@ F:.
 |       |   |   |   README.md
 |       |   |   |   
 |       |   |   +---00-doctrine
+|       |   |   |       eisenkonklave-betriebsmodell-t0.md
 |       |   |   |       eisenkonklave-diplomacy.json
 |       |   |   |       eisenkonklave-diplomacy.md
 |       |   |   |       eisenkonklave-ereignislog.json
@@ -124796,6 +125354,7 @@ F:.
 |       |   |   |       eisenkonklave-history.md
 |       |   |   |       eisenkonklave-logistics.json
 |       |   |   |       eisenkonklave-logistics.md
+|       |   |   |       eisenkonklave-nahraum-t0.md
 |       |   |   |       eisenkonklave-t0-timeline.json
 |       |   |   |       eisenkonklave-t0-timeline.md
 |       |   |   |       README.md
@@ -124844,6 +125403,7 @@ F:.
 |       |   |   |   README.md
 |       |   |   |   
 |       |   |   +---00-doctrine
+|       |   |   |       fluesterkollektiv-betriebsmodell-t0.md
 |       |   |   |       fluesterkollektiv-diplomacy.json
 |       |   |   |       fluesterkollektiv-diplomacy.md
 |       |   |   |       fluesterkollektiv-ereignislog.json
@@ -124852,6 +125412,7 @@ F:.
 |       |   |   |       fluesterkollektiv-history.md
 |       |   |   |       fluesterkollektiv-logistics.json
 |       |   |   |       fluesterkollektiv-logistics.md
+|       |   |   |       fluesterkollektiv-nahraum-t0.md
 |       |   |   |       fluesterkollektiv-t0-timeline.json
 |       |   |   |       fluesterkollektiv-t0-timeline.md
 |       |   |   |       README.md
@@ -124900,6 +125461,7 @@ F:.
 |       |   |   |   README.md
 |       |   |   |   
 |       |   |   +---00-doctrine
+|       |   |   |       haendlerbund-betriebsmodell-t0.md
 |       |   |   |       haendlerbund-diplomacy.json
 |       |   |   |       haendlerbund-diplomacy.md
 |       |   |   |       haendlerbund-ereignislog.json
@@ -124908,6 +125470,7 @@ F:.
 |       |   |   |       haendlerbund-history.md
 |       |   |   |       haendlerbund-logistics.json
 |       |   |   |       haendlerbund-logistics.md
+|       |   |   |       haendlerbund-nahraum-t0.md
 |       |   |   |       haendlerbund-t0-timeline.json
 |       |   |   |       haendlerbund-t0-timeline.md
 |       |   |   |       README.md
@@ -124952,11 +125515,13 @@ F:.
 |       |   |           Relationslog-Haendlerbund.md
 |       |   |           
 |       |   +---novapolis
+|       |   |   |   Nordlinie-D5-C6-Index.md
 |       |   |   |   Novapolis.json
 |       |   |   |   Novapolis.md
 |       |   |   |   README.md
 |       |   |   |   
 |       |   |   +---00-doctrine
+|       |   |   |       novapolis-betriebsmodell-t0.md
 |       |   |   |       novapolis-campaign-state.json
 |       |   |   |       novapolis-campaign-state.md
 |       |   |   |       novapolis-diplomacy.json
@@ -124967,6 +125532,7 @@ F:.
 |       |   |   |       novapolis-history.md
 |       |   |   |       novapolis-logistics.json
 |       |   |   |       novapolis-logistics.md
+|       |   |   |       novapolis-nahraum-t0.md
 |       |   |   |       novapolis-t0-timeline.json
 |       |   |   |       novapolis-t0-timeline.md
 |       |   |   |       README.md
@@ -125103,6 +125669,7 @@ F:.
 |       |   |   |       Draisine-Transportmodul.md
 |       |   |   |       Missionslog-Novapolis.json
 |       |   |   |       Missionslog-Novapolis.md
+|       |   |   |       Nordlinie-01-Stuetzbaukasten.md
 |       |   |   |       Nordlinie-01.json
 |       |   |   |       Nordlinie-01.md
 |       |   |   |       README.md
@@ -125139,6 +125706,7 @@ F:.
 |       |   |   |   
 |       |   |   +---00-doctrine
 |       |   |   |       README.md
+|       |   |   |       schattenbund-betriebsmodell-t0.md
 |       |   |   |       schattenbund-diplomacy.json
 |       |   |   |       schattenbund-diplomacy.md
 |       |   |   |       schattenbund-ereignislog.json
@@ -125147,6 +125715,7 @@ F:.
 |       |   |   |       schattenbund-history.md
 |       |   |   |       schattenbund-logistics.json
 |       |   |   |       schattenbund-logistics.md
+|       |   |   |       schattenbund-nahraum-t0.md
 |       |   |   |       schattenbund-t0-timeline.json
 |       |   |   |       schattenbund-t0-timeline.md
 |       |   |   |       
@@ -125197,6 +125766,7 @@ F:.
 |       |       |   
 |       |       +---00-doctrine
 |       |       |       README.md
+|       |       |       schienenbund-betriebsmodell-t0.md
 |       |       |       schienenbund-diplomacy.json
 |       |       |       schienenbund-diplomacy.md
 |       |       |       schienenbund-ereignislog.json
@@ -125205,6 +125775,7 @@ F:.
 |       |       |       schienenbund-history.md
 |       |       |       schienenbund-logistics.json
 |       |       |       schienenbund-logistics.md
+|       |       |       schienenbund-nahraum-t0.md
 |       |       |       schienenbund-t0-timeline.json
 |       |       |       schienenbund-t0-timeline.md
 |       |       |       
@@ -125248,12 +125819,18 @@ F:.
 |       |               
 |       +---03-locations
 |       |       A2.md
+|       |       A4.md
+|       |       A6.md
 |       |       B1.md
+|       |       B5.md
 |       |       C1.md
 |       |       C3.md
+|       |       C5.md
 |       |       D1.md
+|       |       E1.md
 |       |       E2.md
 |       |       F1.md
+|       |       F2.md
 |       |       
 |       +---04-inventory
 |       |       Freie-Gruppen-inventar.json
@@ -125358,6 +125935,7 @@ F:.
 |               
 +---novapolis-sim
 |   |   .gitignore
+|   |   export_presets.cfg
 |   |   Main.tscn
 |   |   Main.tscn13096062239.tmp
 |   |   Main.tscn20285895882.tmp
@@ -125379,6 +125957,7 @@ F:.
 |   |   +---editor
 |   |   |       editor_layout.cfg
 |   |   |       editor_script_doc_cache.res-folding-a7de57390d6e786984ca20c70a831128.cfg
+|   |   |       export-bcb0d2eb5949c52b6a65bfe9de3e985b-Main.scn-folding-0365e30fa89c4d0ab0ce0494ef9d9eae.cfg
 |   |   |       filesystem_cache10
 |   |   |       filesystem_update4
 |   |   |       Main.tscn-editstate-bcb0d2eb5949c52b6a65bfe9de3e985b.cfg
@@ -125388,9 +125967,16 @@ F:.
 |   |   |       session_replay_helpers.gd-folding-ef61c8eff0bdce96a9ca9a928727df32.cfg
 |   |   |       session_replay_state_controller.gd-folding-8238ff8a73075b48e69e408f890c216e.cfg
 |   |   |       
+|   |   +---exported
+|   |   |   \---133200997
+|   |   |           export-bcb0d2eb5949c52b6a65bfe9de3e985b-Main.scn
+|   |   |           file_cache
+|   |   |           
 |   |   +---imported
 |   |   |       ChatGPT Image 11. M?rz 2026, 01_12_53.png-b297b6492b78c3617c3fa05258783ff1.ctex
 |   |   |       ChatGPT Image 11. M?rz 2026, 01_12_53.png-b297b6492b78c3617c3fa05258783ff1.md5
+|   |   |       epoch01_slot00_pc.ogg-a7885916a5956ccf8003d54b0c71bdde.md5
+|   |   |       epoch01_slot00_world.ogg-5a645a01d94ff4a8722144437b28a56a.md5
 |   |   |       f8bc5f39-0e64-44ca-a53b-ef7688c775ae.png-ad9c057b85a5f2a1c4a80c48fd5536da.ctex
 |   |   |       f8bc5f39-0e64-44ca-a53b-ef7688c775ae.png-ad9c057b85a5f2a1c4a80c48fd5536da.md5
 |   |   |       mainmenu-page1-background-v2.png-d77189cb3d20cc7a3221b38603a277c8.ctex
@@ -125697,6 +126283,10 @@ F:.
 |   |   |   
 |   |   \---audio
 |   |           .gitkeep
+|   |           epoch01_slot00_pc.ogg
+|   |           epoch01_slot00_pc.ogg.import
+|   |           epoch01_slot00_world.ogg
+|   |           epoch01_slot00_world.ogg.import
 |   |           
 |   +---autoload
 |   |       SimClient.gd
@@ -125704,53 +126294,72 @@ F:.
 |   |       
 |   +---data
 |   |   \---epochs
-|   |           .gitkeep
+|   |       |   .gitkeep
+|   |       |   
+|   |       \---epoch01
+|   |               pc_log.jsonl
+|   |               world_log.jsonl
+|   |               
+|   +---exports
+|   |   \---windows
+|   |           NovapolisSim.exe
+|   |           NovapolisSim.pck
 |   |           
-|   +---novapolis-sim
-|   \---scripts
-|           agent_authoring_payload_controller.gd
-|           agent_authoring_payload_controller.gd.uid
-|           agent_authoring_persistence_controller.gd
-|           agent_authoring_persistence_controller.gd.uid
-|           agent_form_controller.gd
-|           agent_form_controller.gd.uid
-|           agent_registry_state_controller.gd
-|           agent_registry_state_controller.gd.uid
-|           agent_restpoint_summary_controller.gd
-|           agent_restpoint_summary_controller.gd.uid
-|           agent_runtime_controller.gd
-|           agent_runtime_controller.gd.uid
-|           agent_studio_controller.gd
-|           agent_studio_controller.gd.uid
-|           checks_rp_controller.gd
-|           checks_rp_controller.gd.uid
-|           hub_chat_controller.gd
-|           hub_chat_controller.gd.uid
-|           hub_config_controller.gd
-|           hub_config_controller.gd.uid
-|           hub_layout_controller.gd
-|           hub_layout_controller.gd.uid
-|           hub_preferences_store.gd
-|           hub_preferences_store.gd.uid
-|           hub_server_ops_controller.gd
-|           hub_server_ops_controller.gd.uid
-|           Main.gd
-|           Main.gd.uid
-|           runtime_audit_controller.gd
-|           runtime_audit_controller.gd.uid
-|           runtime_telemetry_controller.gd
-|           runtime_telemetry_controller.gd.uid
-|           scheduler_hook.gd
-|           scheduler_hook.gd.uid
-|           session_replay_helpers.gd
-|           session_replay_helpers.gd.uid
-|           session_replay_request_controller.gd
-|           session_replay_request_controller.gd.uid
-|           session_replay_state_controller.gd
-|           session_replay_state_controller.gd.uid
-|           verify_sim.gd
-|           verify_sim.gd.uid
-|           
+|   +---scripts
+|   |       agent_authoring_payload_controller.gd
+|   |       agent_authoring_payload_controller.gd.uid
+|   |       agent_authoring_persistence_controller.gd
+|   |       agent_authoring_persistence_controller.gd.uid
+|   |       agent_form_controller.gd
+|   |       agent_form_controller.gd.uid
+|   |       agent_form_session_controller.gd
+|   |       agent_form_session_controller.gd.uid
+|   |       agent_form_workflow_controller.gd
+|   |       agent_form_workflow_controller.gd.uid
+|   |       agent_registry_state_controller.gd
+|   |       agent_registry_state_controller.gd.uid
+|   |       agent_restpoint_summary_controller.gd
+|   |       agent_restpoint_summary_controller.gd.uid
+|   |       agent_runtime_controller.gd
+|   |       agent_runtime_controller.gd.uid
+|   |       agent_studio_controller.gd
+|   |       agent_studio_controller.gd.uid
+|   |       checks_rp_controller.gd
+|   |       checks_rp_controller.gd.uid
+|   |       hub_chat_controller.gd
+|   |       hub_chat_controller.gd.uid
+|   |       hub_config_controller.gd
+|   |       hub_config_controller.gd.uid
+|   |       hub_layout_controller.gd
+|   |       hub_layout_controller.gd.uid
+|   |       hub_preferences_store.gd
+|   |       hub_preferences_store.gd.uid
+|   |       hub_server_ops_controller.gd
+|   |       hub_server_ops_controller.gd.uid
+|   |       Main.gd
+|   |       Main.gd.uid
+|   |       runtime_audit_controller.gd
+|   |       runtime_audit_controller.gd.uid
+|   |       runtime_telemetry_controller.gd
+|   |       runtime_telemetry_controller.gd.uid
+|   |       scheduler_hook.gd
+|   |       scheduler_hook.gd.uid
+|   |       session_replay_helpers.gd
+|   |       session_replay_helpers.gd.uid
+|   |       session_replay_request_controller.gd
+|   |       session_replay_request_controller.gd.uid
+|   |       session_replay_state_controller.gd
+|   |       session_replay_state_controller.gd.uid
+|   |       verify_sim.gd
+|   |       verify_sim.gd.uid
+|   |       
+|   \---tests
+|       \---fixtures
+|           \---hub_prefs
+|                   empty.cfg
+|                   legacy.cfg
+|                   partial.cfg
+|                   
 +---novapolis_agent
 |   |   .coverage
 |   |   .coveragerc
@@ -138722,6 +139331,9 @@ F:.
 |   |   |   |   eval-smoke.jsonl
 |   |   |   |   LICENSE.txt
 |   |   |   |   
+|   |   |   +---curation
+|   |   |   |       session_promotions.v1.jsonl
+|   |   |   |       
 |   |   |   +---neutral
 |   |   |   |   |   neutral_01_20_core.v1.jsonl
 |   |   |   |   |   neutral_81_100_tech.v1.jsonl
@@ -138750,6 +139362,8 @@ F:.
 |   |   |           chronistin_lore_intensiv.v1.jsonl
 |   |   |           chronistin_neutral_assistiv.v1.jsonl
 |   |   |           chronistin_operativ_kurz.v1.jsonl
+|   |   |           rp_lore_train.v1.jsonl
+|   |   |           rp_ops_train.v1.jsonl
 |   |   |           
 |   |   \---results
 |   |       |   finetune_alpaca_results_20250101_0101_20260317_0643.jsonl
@@ -138851,6 +139465,27 @@ F:.
 |   |       |   finetune_alpaca_results_20250101_0101_20260417_0639.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260417_0652.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260417_0711.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260418_0405.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260418_0408.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260420_2045.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260420_2100.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260420_2103.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260420_2105.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260420_2106.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260423_1538.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260423_1540.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260423_1556.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260423_2340.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260423_2348.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260426_2024.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260426_2036.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260426_2038.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260427_0146.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260427_0152.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260427_0229.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260428_0514.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260428_0519.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260428_0524.jsonl
 |   |       |   finetune_openai_chat_results_20260226_0306_quality_de_round7b_repeat3_20260227_0527.jsonl
 |   |       |   results_20260226_0025_quality_de.jsonl
 |   |       |   results_20260226_0209_quality_de.jsonl
@@ -139129,6 +139764,46 @@ F:.
 |   |       |   results_20260417_0653_rerun.jsonl
 |   |       |   results_20260417_0711.jsonl
 |   |       |   results_20260417_0712_rerun.jsonl
+|   |       |   results_20260420_2045.jsonl
+|   |       |   results_20260420_2046_rerun.jsonl
+|   |       |   results_20260420_2101.jsonl
+|   |       |   results_20260420_2101_rerun.jsonl
+|   |       |   results_20260420_2103.jsonl
+|   |       |   results_20260420_2103_rerun.jsonl
+|   |       |   results_20260420_2105.jsonl
+|   |       |   results_20260420_2105_rerun.jsonl
+|   |       |   results_20260420_2106.jsonl
+|   |       |   results_20260420_2106_rerun.jsonl
+|   |       |   results_20260423_1539.jsonl
+|   |       |   results_20260423_1539_rerun.jsonl
+|   |       |   results_20260423_1540.jsonl
+|   |       |   results_20260423_1541_rerun.jsonl
+|   |       |   results_20260423_1556.jsonl
+|   |       |   results_20260423_1557_rerun.jsonl
+|   |       |   results_20260423_2340.jsonl
+|   |       |   results_20260423_2341_rerun.jsonl
+|   |       |   results_20260423_2348.jsonl
+|   |       |   results_20260423_2349.jsonl
+|   |       |   results_20260423_2349_rerun.jsonl
+|   |       |   results_20260426_2024.jsonl
+|   |       |   results_20260426_2025_rerun.jsonl
+|   |       |   results_20260426_2036.jsonl
+|   |       |   results_20260426_2037_rerun.jsonl
+|   |       |   results_20260426_2038.jsonl
+|   |       |   results_20260426_2039_rerun.jsonl
+|   |       |   results_20260427_0147.jsonl
+|   |       |   results_20260427_0147_rerun.jsonl
+|   |       |   results_20260427_0152.jsonl
+|   |       |   results_20260427_0153_rerun.jsonl
+|   |       |   results_20260427_0229.jsonl
+|   |       |   results_20260427_0230_rerun.jsonl
+|   |       |   results_20260428_0515.jsonl
+|   |       |   results_20260428_0516_rerun.jsonl
+|   |       |   results_20260428_0519.jsonl
+|   |       |   results_20260428_0520_rerun.jsonl
+|   |       |   results_20260428_0524.jsonl
+|   |       |   results_20260428_0525_gm_session.jsonl
+|   |       |   results_20260428_0525_rerun.jsonl
 |   |       |   
 |   |       +---baselines
 |   |       |       training_profiles.2026-02.json
@@ -139255,6 +139930,29 @@ F:.
 |   |               finetune_alpaca_r_20260417_0639.jsonl
 |   |               finetune_alpaca_r_20260417_0652.jsonl
 |   |               finetune_alpaca_r_20260417_0711.jsonl
+|   |               finetune_alpaca_r_20260418_0408.jsonl
+|   |               finetune_alpaca_r_20260418_0613.jsonl
+|   |               finetune_alpaca_r_20260420_2045.jsonl
+|   |               finetune_alpaca_r_20260420_2059.jsonl
+|   |               finetune_alpaca_r_20260420_2100.jsonl
+|   |               finetune_alpaca_r_20260420_2103.jsonl
+|   |               finetune_alpaca_r_20260420_2105.jsonl
+|   |               finetune_alpaca_r_20260420_2106.jsonl
+|   |               finetune_alpaca_r_20260420_2120.jsonl
+|   |               finetune_alpaca_r_20260423_1538.jsonl
+|   |               finetune_alpaca_r_20260423_1540.jsonl
+|   |               finetune_alpaca_r_20260423_1556.jsonl
+|   |               finetune_alpaca_r_20260423_2340.jsonl
+|   |               finetune_alpaca_r_20260423_2348.jsonl
+|   |               finetune_alpaca_r_20260426_2024.jsonl
+|   |               finetune_alpaca_r_20260426_2036.jsonl
+|   |               finetune_alpaca_r_20260426_2038.jsonl
+|   |               finetune_alpaca_r_20260427_0146.jsonl
+|   |               finetune_alpaca_r_20260427_0152.jsonl
+|   |               finetune_alpaca_r_20260427_0229.jsonl
+|   |               finetune_alpaca_r_20260428_0514.jsonl
+|   |               finetune_alpaca_r_20260428_0519.jsonl
+|   |               finetune_alpaca_r_20260428_0524.jsonl
 |   |               
 |   +---examples
 |   |   |   unrestricted_prompt_example.txt
@@ -139680,6 +140378,17 @@ F:.
 |   |   +---lora-20260417_0652
 |   |   +---lora-20260417_0653
 |   |   +---lora-20260417_0711
+|   |   +---lora-20260420_2045
+|   |   +---lora-20260420_2046
+|   |   +---lora-20260420_2100
+|   |   +---lora-20260420_2101
+|   |   +---lora-20260420_2103
+|   |   +---lora-20260420_2105
+|   |   +---lora-20260420_2106
+|   |   +---lora-20260423_1538
+|   |   +---lora-20260423_1539
+|   |   +---lora-20260423_1540
+|   |   +---lora-20260423_1556
 |   |   \---tts
 |   |       \---runtime
 |   |           +---coqui
@@ -139704,6 +140413,8 @@ F:.
 |   |   |   audit_workspace.py
 |   |   |   build_eval_from_rp.py
 |   |   |   build_project_context_index.py
+|   |   |   build_session_promotion_pack.py
+|   |   |   build_training_from_rp.py
 |   |   |   check_dependency_profiles.py
 |   |   |   check_legacy_shim_imports.py
 |   |   |   check_openai_key.py
@@ -139747,6 +140458,7 @@ F:.
 |   |   |   syn_loader.py
 |   |   |   system_snapshot.py
 |   |   |   todo_gather.py
+|   |   |   training_release_gate.py
 |   |   |   train_lora.py
 |   |   |   tts_coqui_export.py
 |   |   |   tts_export_coqui.py
@@ -139754,6 +140466,8 @@ F:.
 |   |   |   __init__.py
 |   |   |   
 |   |   +---agent
+|   |   |   |   build_session_promotion_pack.py
+|   |   |   |   build_training_from_rp.py
 |   |   |   |   dependency_check.py
 |   |   |   |   estimate_tokens.py
 |   |   |   |   export_finetune.py
@@ -139770,6 +140484,8 @@ F:.
 |   |   |   |   __init__.py
 |   |   |   |   
 |   |   |   \---__pycache__
+|   |   |           build_session_promotion_pack.cpython-312.pyc
+|   |   |           build_training_from_rp.cpython-312.pyc
 |   |   |           dependency_check.cpython-312.pyc
 |   |   |           dependency_check.cpython-313.pyc
 |   |   |           estimate_tokens.cpython-312.pyc
@@ -139812,6 +140528,8 @@ F:.
 |   |           build_eval_from_rp.cpython-313.pyc
 |   |           build_project_context_index.cpython-312.pyc
 |   |           build_project_context_index.cpython-313.pyc
+|   |           build_session_promotion_pack.cpython-312.pyc
+|   |           build_training_from_rp.cpython-312.pyc
 |   |           check_dependency_profiles.cpython-312.pyc
 |   |           check_dependency_profiles.cpython-313.pyc
 |   |           check_legacy_shim_imports.cpython-312.pyc
@@ -139885,6 +140603,8 @@ F:.
 |   |           syn_loader.cpython-313.pyc
 |   |           todo_gather.cpython-312.pyc
 |   |           todo_gather.cpython-313.pyc
+|   |           training_release_gate.cpython-312.pyc
+|   |           training_release_gate.cpython-313.pyc
 |   |           train_lora.cpython-312.pyc
 |   |           train_lora.cpython-313.pyc
 |   |           tts_coqui_export.cpython-312.pyc
@@ -140037,12 +140757,15 @@ F:.
 |   |   |   |   test_audit_workspace_fallbacks.py
 |   |   |   |   test_build_eval_from_rp.py
 |   |   |   |   test_build_project_context_index.py
+|   |   |   |   test_build_session_promotion_pack.py
+|   |   |   |   test_build_training_from_rp.py
 |   |   |   |   test_check_dependency_profiles.py
 |   |   |   |   test_check_legacy_shim_imports.py
 |   |   |   |   test_check_legacy_shim_imports_edges.py
 |   |   |   |   test_check_runtime_prereqs.py
 |   |   |   |   test_check_runtime_prereqs_edges.py
 |   |   |   |   test_check_sim_epoch_assets.py
+|   |   |   |   test_check_sim_hub_prefs_contract.py
 |   |   |   |   test_cleanup_artifacts.py
 |   |   |   |   test_cleanup_artifacts_edges.py
 |   |   |   |   test_curate_dataset_filters_empty.py
@@ -140068,6 +140791,7 @@ F:.
 |   |   |   |   test_fine_tune_pipeline_happy.py
 |   |   |   |   test_fine_tune_pipeline_interrupt_and_fp16.py
 |   |   |   |   test_fine_tune_pipeline_smoke.py
+|   |   |   |   test_map_reduce_summary_edges.py
 |   |   |   |   test_map_reduce_summary_heuristic_min.py
 |   |   |   |   test_map_reduce_summary_json_modes.py
 |   |   |   |   test_map_reduce_summary_llm_smoke.py
@@ -140094,6 +140818,7 @@ F:.
 |   |   |   |   test_rerun_failed_no_results.py
 |   |   |   |   test_rerun_failed_only_success.py
 |   |   |   |   test_rerun_failed_smoke.py
+|   |   |   |   test_rp_runtime_loop_guard.py
 |   |   |   |   test_run_eval_cli_hint.py
 |   |   |   |   test_run_eval_hint_injection.py
 |   |   |   |   test_run_eval_hint_terms.py
@@ -140101,6 +140826,8 @@ F:.
 |   |   |   |   test_run_eval_profile_id.py
 |   |   |   |   test_run_eval_result_metadata.py
 |   |   |   |   test_run_eval_term_helpers.py
+|   |   |   |   test_run_sim_export_smoke.py
+|   |   |   |   test_run_sim_headless_verify.py
 |   |   |   |   test_run_tests_error_path.py
 |   |   |   |   test_run_tests_script_smoke.py
 |   |   |   |   test_run_text_rpg_product_gate.py
@@ -140112,15 +140839,19 @@ F:.
 |   |   |   |   test_summarize_gm_eval_kpis_edges.py
 |   |   |   |   test_summarize_marathon_kpis.py
 |   |   |   |   test_support_ab_smoke.py
+|   |   |   |   test_sync_docs_after_checks.py
 |   |   |   |   test_terminal_progress.py
 |   |   |   |   test_third_party_quality.py
 |   |   |   |   test_todo_gather_smoke.py
+|   |   |   |   test_training_release_gate.py
 |   |   |   |   test_tts_coqui_export_policy.py
+|   |   |   |   test_update_workspace_tree_dirs.py
 |   |   |   |   test_validate_eval_datasets.py
 |   |   |   |   test_validate_eval_datasets_edges.py
 |   |   |   |   
 |   |   |   \---__pycache__
 |   |   |           test_agent_wrapper_compat.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_agent_wrapper_compat.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_append_done_additional.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_append_done_additional.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_append_done_error_path.cpython-312-pytest-9.0.3.pyc
@@ -140133,6 +140864,10 @@ F:.
 |   |   |           test_build_eval_from_rp.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_build_project_context_index.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_build_project_context_index.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_build_session_promotion_pack.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_build_session_promotion_pack.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_build_training_from_rp.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_build_training_from_rp.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_check_dependency_profiles.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_check_dependency_profiles.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_check_legacy_shim_imports.cpython-312-pytest-9.0.3.pyc
@@ -140145,6 +140880,8 @@ F:.
 |   |   |           test_check_runtime_prereqs_edges.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_check_sim_epoch_assets.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_check_sim_epoch_assets.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_check_sim_hub_prefs_contract.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_check_sim_hub_prefs_contract.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_cleanup_artifacts.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_cleanup_artifacts.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_cleanup_artifacts_edges.cpython-312-pytest-9.0.3.pyc
@@ -140195,6 +140932,8 @@ F:.
 |   |   |           test_fine_tune_pipeline_interrupt_and_fp16.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_fine_tune_pipeline_smoke.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_fine_tune_pipeline_smoke.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_map_reduce_summary_edges.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_map_reduce_summary_edges.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_map_reduce_summary_heuristic_min.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_map_reduce_summary_heuristic_min.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_map_reduce_summary_json_modes.cpython-312-pytest-9.0.3.pyc
@@ -140247,6 +140986,7 @@ F:.
 |   |   |           test_rerun_failed_only_success.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_rerun_failed_smoke.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_rerun_failed_smoke.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_rp_runtime_loop_guard.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_run_eval_cli_hint.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_run_eval_cli_hint.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_run_eval_hint_injection.cpython-312-pytest-9.0.3.pyc
@@ -140256,10 +140996,15 @@ F:.
 |   |   |           test_run_eval_no_files_smoke.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_run_eval_no_files_smoke.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_run_eval_profile_id.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_run_eval_profile_id.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_run_eval_result_metadata.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_run_eval_result_metadata.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_run_eval_term_helpers.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_run_eval_term_helpers.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_run_sim_export_smoke.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_run_sim_export_smoke.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_run_sim_headless_verify.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_run_sim_headless_verify.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_run_tests_error_path.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_run_tests_error_path.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_run_tests_script_smoke.cpython-312-pytest-9.0.3.pyc
@@ -140281,13 +141026,20 @@ F:.
 |   |   |           test_summarize_marathon_kpis.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_summarize_marathon_kpis.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_support_ab_smoke.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_support_ab_smoke.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_sync_docs_after_checks.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_sync_docs_after_checks.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_terminal_progress.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_terminal_progress.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_third_party_quality.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_third_party_quality.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_todo_gather_smoke.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_todo_gather_smoke.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_training_release_gate.cpython-312-pytest-9.0.3.pyc
+|   |   |           test_training_release_gate.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_tts_coqui_export_policy.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_tts_coqui_export_policy.cpython-313-pytest-9.0.1.pyc
+|   |   |           test_update_workspace_tree_dirs.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_validate_eval_datasets.cpython-312-pytest-9.0.3.pyc
 |   |   |           test_validate_eval_datasets.cpython-313-pytest-9.0.1.pyc
 |   |   |           test_validate_eval_datasets_edges.cpython-312-pytest-9.0.3.pyc
@@ -140365,6 +141117,7 @@ F:.
 |   |           test_chat_helpers_and_options.cpython-312-pytest-9.0.3.pyc
 |   |           test_chat_helpers_and_options.cpython-313-pytest-9.0.1.pyc
 |   |           test_chat_helpers_edges.cpython-312-pytest-9.0.3.pyc
+|   |           test_chat_helpers_edges.cpython-313-pytest-9.0.1.pyc
 |   |           test_chat_more_branches.cpython-312-pytest-9.0.3.pyc
 |   |           test_chat_more_branches.cpython-313-pytest-9.0.1.pyc
 |   |           test_chat_options_and_context.cpython-312-pytest-9.0.3.pyc
@@ -140428,6 +141181,7 @@ F:.
 |   |           test_input_length_and_rate_headers.cpython-312-pytest-9.0.3.pyc
 |   |           test_input_length_and_rate_headers.cpython-313-pytest-9.0.1.pyc
 |   |           test_main_internal_edges.cpython-312-pytest-9.0.3.pyc
+|   |           test_main_internal_edges.cpython-313-pytest-9.0.1.pyc
 |   |           test_map_reduce_summary_llm.cpython-312-pytest-9.0.3.pyc
 |   |           test_map_reduce_summary_llm.cpython-313-pytest-9.0.1.pyc
 |   |           test_map_reduce_summary_scripts_smoke.cpython-312-pytest-9.0.3.pyc
@@ -140543,6 +141297,7 @@ F:.
 |   |           test_tts_provider_abstraction.cpython-312-pytest-9.0.3.pyc
 |   |           test_tts_provider_abstraction.cpython-313-pytest-9.0.1.pyc
 |   |           test_tts_provider_edges.cpython-312-pytest-9.0.3.pyc
+|   |           test_tts_provider_edges.cpython-313-pytest-9.0.1.pyc
 |   |           test_tts_rate_limit_contract.cpython-312-pytest-9.0.3.pyc
 |   |           test_tts_rate_limit_contract.cpython-313-pytest-9.0.1.pyc
 |   |           test_utils_context_and_summarize.cpython-312-pytest-9.0.3.pyc
@@ -140739,6 +141494,25 @@ F:.
 |   +---lora-20260410_0631
 |   +---lora-20260410_0633
 |   +---lora-20260410_0634
+|   +---lora-20260423_1626
+|   +---lora-20260423_2340
+|   +---lora-20260423_2341
+|   +---lora-20260423_2348
+|   +---lora-20260423_2349
+|   +---lora-20260426_2024
+|   +---lora-20260426_2025
+|   +---lora-20260426_2036
+|   +---lora-20260426_2038
+|   +---lora-20260427_0146
+|   +---lora-20260427_0147
+|   +---lora-20260427_0152
+|   +---lora-20260427_0229
+|   +---lora-20260427_0230
+|   +---lora-20260428_0514
+|   +---lora-20260428_0515
+|   +---lora-20260428_0519
+|   +---lora-20260428_0520
+|   +---lora-20260428_0524
 |   +---lora-baseline-20260227_01
 |   |   |   adapter_config.json
 |   |   |   adapter_model.safetensors
@@ -140844,6 +141618,7 @@ F:.
 |   |   check_scripts_layout.py
 |   |   check_shadow_accept_rate.py
 |   |   check_sim_epoch_assets.py
+|   |   check_sim_hub_prefs_contract.py
 |   |   check_todo_index_sync.py
 |   |   cleanup_workspace_files.py
 |   |   consolidate_donelogs.py
@@ -140859,6 +141634,7 @@ F:.
 |   |   rotate_backups.py
 |   |   rp_canon_sync.py
 |   |   rp_receipt_pending_checks.py
+|   |   rp_runtime_loop_guard.py
 |   |   rp_set_checks_pending.py
 |   |   rp_tag_chat_export_complete.py
 |   |   run_checks_and_report.py
@@ -140866,6 +141642,7 @@ F:.
 |   |   run_rp_canvas_staging.py
 |   |   run_rp_chat_dedupe.py
 |   |   run_rp_chat_staging.py
+|   |   run_sim_export_smoke.py
 |   |   run_sim_headless_verify.py
 |   |   run_text_rpg_product_gate.py
 |   |   run_with_cpu_limit.py
@@ -140875,6 +141652,7 @@ F:.
 |   |   setup_root_venv.py
 |   |   snapshot_gate.py
 |   |   snapshot_write_lock.py
+|   |   sync_docs_after_checks.py
 |   |   terminal_progress.py
 |   |   tests_pytest_root.py
 |   |   update_backups_manifest.py
@@ -140882,6 +141660,8 @@ F:.
 |   |   __init__.py
 |   |   
 |   +---agent
+|   |   |   build_session_promotion_pack.py
+|   |   |   build_training_from_rp.py
 |   |   |   dependency_check.py
 |   |   |   estimate_tokens.py
 |   |   |   export_finetune.py
@@ -140899,12 +141679,15 @@ F:.
 |   |   |   __init__.py
 |   |   |   
 |   |   \---__pycache__
+|   |           build_session_promotion_pack.cpython-312.pyc
+|   |           build_training_from_rp.cpython-312.pyc
 |   |           dependency_check.cpython-312.pyc
 |   |           dependency_check.cpython-313.pyc
 |   |           estimate_tokens.cpython-312.pyc
 |   |           estimate_tokens.cpython-313.pyc
 |   |           export_finetune.cpython-312.pyc
 |   |           fine_tune_pipeline.cpython-312.pyc
+|   |           map_reduce_summary_llm.cpython-312.pyc
 |   |           migrate_dataset_schemas.cpython-312.pyc
 |   |           migrate_dataset_schemas.cpython-313.pyc
 |   |           prepare_finetune_pack.cpython-312.pyc
@@ -140928,18 +141711,28 @@ F:.
 |   |       
 |   +---task_wrappers
 |   \---__pycache__
+|           check_frontmatter.cpython-312.pyc
 |           check_sim_epoch_assets.cpython-312.pyc
 |           check_sim_epoch_assets.cpython-313.pyc
+|           check_sim_hub_prefs_contract.cpython-312.pyc
+|           check_sim_hub_prefs_contract.cpython-313.pyc
+|           check_todo_index_sync.cpython-312.pyc
 |           pre_commit.cpython-312.pyc
 |           pre_commit.cpython-313.pyc
+|           rp_runtime_loop_guard.cpython-312.pyc
 |           run_checks_and_report.cpython-312.pyc
 |           run_pytest_coverage.cpython-312.pyc
+|           run_sim_export_smoke.cpython-312.pyc
+|           run_sim_export_smoke.cpython-313.pyc
+|           run_sim_headless_verify.cpython-312.pyc
+|           run_sim_headless_verify.cpython-313.pyc
 |           run_text_rpg_product_gate.cpython-312.pyc
 |           run_text_rpg_product_gate.cpython-313.pyc
 |           run_with_cpu_limit.cpython-312.pyc
 |           run_with_cpu_limit.cpython-313.pyc
 |           snapshot_gate.cpython-312.pyc
 |           snapshot_gate.cpython-313.pyc
+|           sync_docs_after_checks.cpython-312.pyc
 |           terminal_progress.cpython-312.pyc
 |           update_workspace_tree_dirs.cpython-312.pyc
 |           __init__.cpython-312.pyc

@@ -3,6 +3,7 @@
 .github/
 .github\ISSUE_TEMPLATE/
 .github\agents/
+.github\hooks/
 .github\instructions/
 .github\workflows/
 .vscode/
@@ -107,8 +108,13 @@ novapolis-sim\assets\audio/
 novapolis-sim\autoload/
 novapolis-sim\data/
 novapolis-sim\data\epochs/
-novapolis-sim\novapolis-sim/
+novapolis-sim\data\epochs\epoch01/
+novapolis-sim\exports/
+novapolis-sim\exports\windows/
 novapolis-sim\scripts/
+novapolis-sim\tests/
+novapolis-sim\tests\fixtures/
+novapolis-sim\tests\fixtures\hub_prefs/
 novapolis_agent/
 novapolis_agent\agents/
 novapolis_agent\agents\cvn_agent/
@@ -133,6 +139,7 @@ novapolis_agent\eval/
 novapolis_agent\eval\config/
 novapolis_agent\eval\config\context.notes/
 novapolis_agent\eval\datasets/
+novapolis_agent\eval\datasets\curation/
 novapolis_agent\eval\datasets\neutral/
 novapolis_agent\eval\datasets\neutral\generated/
 novapolis_agent\eval\datasets\rp/

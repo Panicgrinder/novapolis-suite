@@ -1,8 +1,16 @@
 ---
-stand: 2026-04-28 11:26
-update: Dev-DONELOG dokumentiert jetzt den abgeschlossenen README-Minifix fuer Workspace-Index und Decision-Liste; das Dev-Board steht wieder bei offen: 0.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 11:26)
+stand: 2026-04-28 11:50
+update: Dev-DONELOG dokumentiert jetzt den abgeschlossenen Tree-Refresh samt pytest-basierter Aktualitaetspruefung; das Dev-Board steht wieder bei offen: 0.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 11:50)
 ---
+Governance: Root-Trees erneuert und per pytest gegen Drift abgesichert (2026-04-28 11:50)
+-----------------------------------------------------------------------------------
+
+- [scripts/update_workspace_tree_dirs.py](scripts/update_workspace_tree_dirs.py) bietet jetzt testbare Render-Helfer plus `stale_snapshot_paths()`, sodass Tree-Drift direkt gegen frisch generierten Output nachweisbar ist.
+- [novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py](novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py) fuehrt genau diesen Freshness-Check als pytest-Slice; vor dem Refresh fiel er fuer alle drei Tree-Artefakte rot, nach dem echten Refresh ist er gruen.
+- [workspace_tree.txt](workspace_tree.txt), [workspace_tree_dirs.txt](workspace_tree_dirs.txt) und [workspace_tree_full.txt](workspace_tree_full.txt) sind im selben Lauf neu erzeugt und spiegeln wieder den aktuellen Workspace-Stand.
+- [novapolis-dev/docs/todo.dev.md](novapolis-dev/docs/todo.dev.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) ziehen denselben Abschluss nach; das Dev-Board steht wieder bei `offen: 0`.
+
 Governance: README-Minifix fuer Workspace-Index und Decision-Liste abgeschlossen (2026-04-28 08:26)
 ---------------------------------------------------------------------------------------------------
 

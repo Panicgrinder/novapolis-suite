@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 11:26
-update: Das Dev-Board fuehrt nach dem verifizierten README-Minifix wieder keine offenen Punkte; der Linkdrift im Workspace-Index und der veraltete Decision-Satz sind geschlossen.
-checks: snapshot-lock PASS (2026-04-28 11:26); markdownlint=PASS; frontmatter=PASS; doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
+stand: 2026-04-28 11:50
+update: Das Dev-Board fuehrt nach Tree-Refresh und pytest-basierter Aktualitaetspruefung wieder keine offenen Punkte; die Root-Tree-Artefakte sind neu erzeugt und testseitig abgesichert.
+checks: snapshot-lock PASS (2026-04-28 11:50); markdownlint=PASS; frontmatter=PASS; pytest=PASS (novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,6 +23,16 @@ Offene Aufgaben (Dev)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Root-Tree-Artefakte aktualisieren und gegen kuenftige Drift testseitig absichern.
+  - Ziel: `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` sollen wieder den aktuellen Repo-Stand spiegeln, und die Testsuite soll kuenftig automatisch melden, wenn die committed Trees vom frisch generierten Stand abweichen.
+  - Akzeptanzkriterien:
+    1) alle drei Root-Tree-Artefakte sind neu erzeugt und enthalten auch die seit dem letzten Lauf hinzugekommenen Dateien,
+    2) `scripts/update_workspace_tree_dirs.py` bietet einen testbaren Pfad fuer die inhaltliche Frischepruefung statt nur Side-Effect-Schreiben,
+    3) ein neuer pytest-Test faellt bei Tree-Drift reproduzierbar rot und bleibt im frischen Stand gruen,
+    4) Board, Index und DONELOG fuehren denselben Abschluss im selben Lauf.
+  - Evidenz: Die aktuellen Tree-Artefakte trugen LastWriteTime `2026-04-18 01:47`, waehrend spaeter angelegte Dateien wie `.github/hooks/rp-runtime-loop-guard.json`, `scripts/rp_runtime_loop_guard.py` und `novapolis-rp/database-curated/staging/rp-runtime/mind/README.md` im committed Vollbaum fehlten.
+  - Ergebnis 2026-04-28 11:50: `scripts/update_workspace_tree_dirs.py` fuehrt jetzt testbare Render-Helfer und einen Drift-Check ueber `stale_snapshot_paths()`. Der neue pytest-Slice `novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py` meldet stale Trees reproduzierbar rot und bleibt nach dem echten Refresh gruen. `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` sind im selben Lauf neu erzeugt und tragen wieder den aktuellen Workspace-Stand.
 
 - [x] [Als naechstes] README-Nachzug auf den verifizierten Minimalumfang begrenzen.
   - Ziel: Der naechste Arbeitslauf soll nur den belegten kaputten Link im Workspace-Index korrigieren und den veralteten Zukunftssatz in `readme_decisions.md` auf den heutigen Iststand ziehen, ohne die bestehende README-Hierarchie neu umzubauen.
