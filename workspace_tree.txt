@@ -931,10 +931,6 @@ novapolis-sim\data\epochs\epoch01/
 novapolis-sim\data\epochs\epoch01\pc_log.jsonl
 novapolis-sim\data\epochs\epoch01\world_log.jsonl
 novapolis-sim\export_presets.cfg
-novapolis-sim\exports/
-novapolis-sim\exports\windows/
-novapolis-sim\exports\windows\NovapolisSim.exe
-novapolis-sim\exports\windows\NovapolisSim.pck
 novapolis-sim\project.godot
 novapolis-sim\scripts/
 novapolis-sim\scripts\Main.gd
@@ -1037,13 +1033,6 @@ novapolis_agent\app\utils\summarize.py
 novapolis_agent\cleanup_recommendations.md
 novapolis_agent\config/
 novapolis_agent\config\tts_model_allowlist.json
-novapolis_agent\coverage.xml
-novapolis_agent\data/
-novapolis_agent\data\logs/
-novapolis_agent\data\logs\2025-08-19.jsonl
-novapolis_agent\data\logs\2025-10-21.jsonl
-novapolis_agent\data\logs\2025-10-22.jsonl
-novapolis_agent\data\logs\README.md
 novapolis_agent\docs/
 novapolis_agent\docs\ARCHIVE_PLAN.md
 novapolis_agent\docs\CONTEXT_ARCH.md
@@ -1181,6 +1170,7 @@ novapolis_agent\novapolis_agent\app\utils\session_memory.py
 novapolis_agent\novapolis_agent\app\utils\summarize.py
 novapolis_agent\novapolis_agent\eval/
 novapolis_agent\novapolis_agent\eval\config/
+novapolis_agent\novapolis_agent\eval\config\context.local.md
 novapolis_agent\novapolis_agent\eval\results/
 novapolis_agent\novapolis_agent\outputs/
 novapolis_agent\novapolis_agent\outputs\tts/

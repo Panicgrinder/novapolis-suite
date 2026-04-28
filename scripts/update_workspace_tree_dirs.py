@@ -10,6 +10,8 @@ Outputs:
 Notes:
 - Active snapshots skip local caches, venvs, generated outputs and heavy archive paths.
 - The forensic snapshot preserves the complete root tree for audit/reference.
+- Policy: active tree snapshots must mirror gitignore-relevant machine-artifact classes,
+  while stronger reader-surface-only exclusions stay in a separate explicit allowlist.
 - Non-destructive; overwrites only the snapshot files above.
 """
 
@@ -21,37 +23,54 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-ACTIVE_SKIP_DIRS = {
-    ".git",
+ACTIVE_GITIGNORE_SKIP_DIRS = {
     "__pycache__",
-    ".mypy_cache",
-    ".ruff_cache",
-    ".pytest_cache",
+    ".cache",
+    ".export",
     ".hypothesis",
-    ".tox",
+    ".import",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
     "node_modules",
 }
-ACTIVE_SKIP_FILES = {
+ACTIVE_GITIGNORE_SKIP_FILES = {
     ".coverage",
     ".env",
+    "coverage.xml",
 }
-ACTIVE_SKIP_PREFIXES = (
+ACTIVE_GITIGNORE_SKIP_PREFIXES = (
+    ".history",
     ".tmp",
+    ".tmp-results",
     ".venv",
+    "Backups",
+    "TTS",
     "eval/results",
     "outputs",
-    "Backups",
+    "novapolis_agent/.tmp",
+    "novapolis_agent/data",
+    "novapolis_agent/eval/results",
+    "novapolis_agent/outputs",
+    "novapolis_agent/tmp",
+    "novapolis-sim/.godot",
+    "novapolis-sim/.import",
+    "novapolis-sim/exports",
+)
+ACTIVE_READER_SURFACE_ONLY_DIRS = {
+    ".git",
+    ".tox",
+}
+ACTIVE_READER_SURFACE_ONLY_PREFIXES = (
     "novapolis-dev/archive",
     "novapolis-dev/logs",
     "novapolis_agent/archive",
-    "novapolis_agent/outputs",
-    "novapolis_agent/tmp",
-    "novapolis_agent/.tmp",
-    "novapolis_agent/eval/results",
-    "novapolis-rp/database-raw",
     "novapolis-rp/database-curated",
-    "novapolis-sim/.godot",
+    "novapolis-rp/database-raw",
 )
+ACTIVE_SKIP_DIRS = ACTIVE_GITIGNORE_SKIP_DIRS | ACTIVE_READER_SURFACE_ONLY_DIRS
+ACTIVE_SKIP_FILES = ACTIVE_GITIGNORE_SKIP_FILES
+ACTIVE_SKIP_PREFIXES = ACTIVE_GITIGNORE_SKIP_PREFIXES + ACTIVE_READER_SURFACE_ONLY_PREFIXES
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -184,6 +203,13 @@ def snapshot_outputs(root: Path) -> list[Path]:
     ]
 
 
+def active_snapshot_outputs(root: Path) -> list[Path]:
+    return [
+        root / "workspace_tree.txt",
+        root / "workspace_tree_dirs.txt",
+    ]
+
+
 def expected_snapshot_text(root: Path, out_path: Path) -> str:
     if out_path.name == "workspace_tree_dirs.txt":
         return build_active_dirs_text(root)
@@ -194,9 +220,10 @@ def expected_snapshot_text(root: Path, out_path: Path) -> str:
     raise ValueError(f"Unsupported snapshot path: {out_path}")
 
 
-def stale_snapshot_paths(root: Path) -> list[Path]:
+def stale_snapshot_paths(root: Path, *, include_forensic_full: bool = False) -> list[Path]:
     stale: list[Path] = []
-    for out_path in snapshot_outputs(root):
+    outputs = snapshot_outputs(root) if include_forensic_full else active_snapshot_outputs(root)
+    for out_path in outputs:
         encoding = "ascii" if out_path.name.endswith("_full.txt") else "utf-8"
         current = out_path.read_text(encoding=encoding)
         expected = expected_snapshot_text(root, out_path)

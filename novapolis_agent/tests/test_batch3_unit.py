@@ -53,6 +53,28 @@ def test_content_management_policy_apply(tmp_path, monkeypatch):
     assert post.action in ("allow", "rewrite")
 
 
+def test_content_management_compat_settings_do_not_leak(tmp_path, monkeypatch):
+    compat = importlib.import_module("novapolis_agent.app.core.content_management")
+    impl = importlib.import_module("app.core.content_management")
+    original_settings = impl.settings
+
+    policy = {"default": {"forbidden_terms": ["compatbad"], "rewrite_map": {"foo": "bar"}}}
+    pf = tmp_path / "compat_pol.json"
+    pf.write_text(json.dumps(policy, ensure_ascii=False))
+
+    class S:
+        POLICIES_ENABLED = True
+        POLICY_FILE = str(pf)
+        POLICY_STRICT_UNRESTRICTED_BYPASS = False
+
+    monkeypatch.setattr(compat, "settings", S())
+
+    compat.apply_pre([{"role": "user", "content": "foo here"}], mode="default")
+    compat.apply_post("compatbad here", mode="default")
+
+    assert impl.settings is original_settings
+
+
 @pytest.mark.asyncio
 async def test_memory_inmemory_and_jsonl(tmp_path, monkeypatch):
     mem = importlib.import_module("novapolis_agent.app.core.memory")

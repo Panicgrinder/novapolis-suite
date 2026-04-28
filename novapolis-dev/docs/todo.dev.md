@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 11:50
-update: Das Dev-Board fuehrt nach Tree-Refresh und pytest-basierter Aktualitaetspruefung wieder keine offenen Punkte; die Root-Tree-Artefakte sind neu erzeugt und testseitig abgesichert.
-checks: snapshot-lock PASS (2026-04-28 11:50); markdownlint=PASS; frontmatter=PASS; pytest=PASS (novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
+stand: 2026-04-28 12:39
+update: Das Dev-Board fuehrt nach dem Tree-Policy-Nachzug wieder keine offenen Punkte; gitignore-Spiegelung und Reader-Surface-Ausnahmen sind jetzt explizit getrennt und testseitig abgesichert.
+checks: snapshot-lock PASS (2026-04-28 12:39); markdownlint=PASS; frontmatter=PASS; pytest=PASS (novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,6 +23,16 @@ Offene Aufgaben (Dev)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] Tree-Skip-Policy gegen gitignore spiegeln und feste Drift-Regel verankern.
+  - Ziel: Die aktive Tree-Surface soll ignorierte Maschinenpfade nicht still wieder sichtbar machen; gitignore-relevante Skip-Klassen muessen explizit gespiegelt werden, und zusaetzliche Reader-Surface-Ausnahmen muessen als bewusst getrennte Regel statt als implizite Mischliste lesbar sein.
+  - Akzeptanzkriterien:
+    1) `scripts/update_workspace_tree_dirs.py` trennt gitignore-abgeleitete Skip-Klassen nachvollziehbar von zusaetzlichen Reader-Surface-Ausnahmen,
+    2) der Tree-Skript-/Testpfad deckt mindestens die belegten Driftfaelle `novapolis_agent/coverage.xml` und weitere relevante Ignore-Klassen gegen Regression ab,
+    3) es gibt eine feste, repo-lesbare Regel, dass aktive Trees gitignore-relevante Maschinenartefakte spiegeln und Reader-Surface-Zusatzfilter explizit getrennt fuehren,
+    4) Board, Index und DONELOG fuehren denselben Abschluss im selben Lauf.
+  - Evidenz: `workspace_tree.txt` fuehrte `novapolis_agent/coverage.xml`, obwohl Root-`.gitignore` und `novapolis_agent/.gitignore` `coverage.xml` ignorieren; zugleich mischte `scripts/update_workspace_tree_dirs.py` gitignore-nahe Pfade wie `.venv` und `outputs` mit bewusst staerkeren Reader-Surface-Ausnahmen wie `novapolis-dev/archive` oder `novapolis-rp/database-curated`, ohne diese Policy explizit zu trennen.
+  - Ergebnis 2026-04-28 12:18: `scripts/update_workspace_tree_dirs.py` trennt die Policy jetzt explizit in `ACTIVE_GITIGNORE_SKIP_*` und `ACTIVE_READER_SURFACE_ONLY_*`. Der Test `novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py` deckt sowohl den Freshness-Check als auch die Policy-Regel fuer gitignore-gespiegelte Klassen und bewusst getrennte Reader-Surface-Extras ab. `workspace_tree.txt` und `workspace_tree_dirs.txt` sind danach mit der neuen Skip-Policy neu erzeugt; ignorierte Artefakte wie `novapolis_agent/coverage.xml` tauchen damit nicht mehr still in der aktiven Tree-Surface auf.
 
 - [x] [Jetzt] Root-Tree-Artefakte aktualisieren und gegen kuenftige Drift testseitig absichern.
   - Ziel: `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` sollen wieder den aktuellen Repo-Stand spiegeln, und die Testsuite soll kuenftig automatisch melden, wenn die committed Trees vom frisch generierten Stand abweichen.

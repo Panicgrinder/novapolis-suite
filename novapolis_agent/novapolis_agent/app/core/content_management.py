@@ -27,14 +27,22 @@ trim_length = _export("trim_length")
 settings: Any = getattr(_impl, "settings", None)
 
 
-def apply_pre(*args, **kwargs):  # type: ignore[no-untyped-def]
+def _call_with_legacy_settings(*args, method_name: str, **kwargs):  # type: ignore[no-untyped-def]
+    original_settings = getattr(_impl, "settings", None)
     _impl.settings = settings
-    return _impl.apply_pre(*args, **kwargs)
+    try:
+        method = getattr(_impl, method_name)
+        return method(*args, **kwargs)
+    finally:
+        _impl.settings = original_settings
+
+
+def apply_pre(*args, **kwargs):  # type: ignore[no-untyped-def]
+    return _call_with_legacy_settings(*args, method_name="apply_pre", **kwargs)
 
 
 def apply_post(*args, **kwargs):  # type: ignore[no-untyped-def]
-    _impl.settings = settings
-    return _impl.apply_post(*args, **kwargs)
+    return _call_with_legacy_settings(*args, method_name="apply_post", **kwargs)
 
 
 __all__ = [

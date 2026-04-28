@@ -109,8 +109,6 @@ novapolis-sim\autoload/
 novapolis-sim\data/
 novapolis-sim\data\epochs/
 novapolis-sim\data\epochs\epoch01/
-novapolis-sim\exports/
-novapolis-sim\exports\windows/
 novapolis-sim\scripts/
 novapolis-sim\tests/
 novapolis-sim\tests\fixtures/
@@ -127,8 +125,6 @@ novapolis_agent\app\tts/
 novapolis_agent\app\utils/
 novapolis_agent\app\utils\examples/
 novapolis_agent\config/
-novapolis_agent\data/
-novapolis_agent\data\logs/
 novapolis_agent\docs/
 novapolis_agent\docs\reports/
 novapolis_agent\docs\templates/

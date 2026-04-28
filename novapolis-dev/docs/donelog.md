@@ -1,8 +1,16 @@
 ---
-stand: 2026-04-28 11:50
-update: Dev-DONELOG dokumentiert jetzt den abgeschlossenen Tree-Refresh samt pytest-basierter Aktualitaetspruefung; das Dev-Board steht wieder bei offen: 0.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 11:50)
+stand: 2026-04-28 12:39
+update: Dev-DONELOG dokumentiert jetzt den abgeschlossenen Tree-Policy-Nachzug: gitignore-Spiegelung und Reader-Surface-Ausnahmen sind getrennt, getestet und in den aktiven Trees nachgezogen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 12:39)
 ---
+Governance: Tree-Skip-Policy jetzt explizit gegen gitignore gespiegelt (2026-04-28 12:18)
+-------------------------------------------------------------------------------------
+
+- [scripts/update_workspace_tree_dirs.py](scripts/update_workspace_tree_dirs.py) trennt die aktive Filterlogik jetzt explizit in `ACTIVE_GITIGNORE_SKIP_*` fuer ignorierte Maschinenartefakte und `ACTIVE_READER_SURFACE_ONLY_*` fuer staerkere Reader-Surface-Ausnahmen.
+- Der Nachzug schliesst die belegte Drift, dass ignorierte Artefakte wie `novapolis_agent/coverage.xml` wieder in [workspace_tree.txt](workspace_tree.txt) auftauchten, obwohl Root- und Modul-`.gitignore` sie aus dem Arbeitsstand ausschliessen.
+- [novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py](novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py) prueft jetzt Freshness, gitignore-gespiegelte Skip-Klassen, die Trennung der Reader-Surface-Extras und den konkreten Coverage-Driftfall.
+- [workspace_tree.txt](workspace_tree.txt) und [workspace_tree_dirs.txt](workspace_tree_dirs.txt) sind mit derselben Policy neu erzeugt; [novapolis-dev/docs/todo.dev.md](novapolis-dev/docs/todo.dev.md) und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) ziehen den Abschluss im selben Lauf nach.
+
 Governance: Root-Trees erneuert und per pytest gegen Drift abgesichert (2026-04-28 11:50)
 -----------------------------------------------------------------------------------
 

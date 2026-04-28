@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 11:50
-update: Der TODO-Index fuehrt nach Tree-Refresh und pytest-basierter Aktualitaetspruefung wieder keine offenen Modul-Boards; Dev, RP, Agent und Sim stehen bei offen: 0.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 11:50)
+stand: 2026-04-28 12:39
+update: Der TODO-Index fuehrt nach dem Tree-Policy-Nachzug wieder keine offenen Modul-Boards; Dev, RP, Agent und Sim stehen bei offen: 0.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260428_052348.md; snapshot-lock PASS (2026-04-28 12:39)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,7 +23,7 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` ist nach der Archivierung des abgeschlossenen April-Blocks wieder als schlanke Live-Oberflaeche vorbereitet und fuehrt aktuell keine offenen suiteweiten Querschnittspunkte. Der Wochenabschluss vom 2026-04-26 20:40 ist gruen belegt (`Checks: full` PASS, `Checks: sim epoch assets` PASS, Coverage `92.19%`), und der naechste Hygiene-Takt bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` sowie die aktuellen Root-Protokolle verankert, waehrend Root bewusst ausserhalb der Modul-Open-Counts bleibt.
 
-- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Punkte mehr. `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` sind neu erzeugt, und `novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py` prueft jetzt direkt gegen frisch generierten Output, ob die committed Trees driftfrei sind.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Punkte mehr. Die aktive Tree-Policy trennt jetzt gitignore-gespiegelte Maschinenartefakte explizit von staerkeren Reader-Surface-Ausnahmen; `novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py` deckt beide Regelklassen sowie den Freshness-Check gegen Regression ab.
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt aktuell keine offenen Punkte mehr. Der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Provenienz fehlen; im aktuellen Repo-Stand scheitert derselbe Direktlauf erwartungsgemaess an `missing rp_content results` statt ungeguardet in Training zu laufen.
 
