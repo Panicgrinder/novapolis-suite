@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 03:56
-update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-04-29 06:56
+update: Nordlinie-State fuehrt jetzt T12 mit offener C6-Schuttbruch-Pruefung und offener Draisine-Antriebsfrage.
+checks: snapshot-lock PASS (2026-04-29 06:56); markdownlint PASS; frontmatter PASS; todo-index-sync PASS; logs-policy PASS; snapshot-gate PASS
 ---
 Runtime State - Nordlinie 01
 ============================
@@ -17,7 +17,7 @@ Status
 Current State
 -------------
 
-- summary: Ronja und Reflex fuehren die Markierungs- und Fehlerarbeit am D5-seitigen Tunnelabschnitt nicht endlos linear fort, sondern ziehen den Folgeanker in Turn 11 wieder nach `D5`. Dort trifft Ronja Jonas, Pahl und Lumen an der Draisine auf den Bahnsteiggleisen, klaert zuerst Baufortschritt, gebundenes Material und Fehlstellen des Prototyps und spiegelt erst danach den beidseitigen Tunnelbedarf gegen denselben Arbeitsort. Parallel bleibt `C6` getrennt lesbar: `Kora` haelt die Station und verarbeitet den Bericht des `C6-Tunneltrupps` als eigene Innenaufgabe. Der gebundene Draisine-Bestand wird dafuer in `../../assets/draisine-transportmodul/inventory.md` gefuehrt, waehrend der eigentliche Nordlinie-Reparaturbedarf jetzt in `inventory.md` als eigener Runtime-Inventartraeger steht.
+- summary: Ronja und Reflex fuehren die Markierungs- und Fehlerarbeit am D5-seitigen Tunnelabschnitt nicht endlos linear fort, sondern ziehen den Folgeanker in Turn 11 wieder nach `D5`. Dort trifft Ronja Jonas, Pahl und Lumen an der Draisine auf den Bahnsteiggleisen, klaert zuerst Baufortschritt, gebundenes Material und Fehlstellen des Prototyps und spiegelt erst danach den beidseitigen Tunnelbedarf gegen denselben Arbeitsort. T12 oeffnet zwei Prueffragen statt eines Fortschrittsclaims: C6 soll klaeren, ob der `Schuttkeil Kontaktseite` kontrolliert zu brauchbaren Bruchstuecken fuer die `Schottertasche Nordkante` werden kann, und Jonas/Pahl muessen den konkreten Draisine-Antrieb erst beantworten. Parallel bleibt `C6` getrennt lesbar: `Kora` haelt die Station und verarbeitet den Bericht des `C6-Tunneltrupps` als eigene Innenaufgabe. Der gebundene Draisine-Bestand wird in `../../assets/draisine-transportmodul/inventory.md` gefuehrt, der neue Asset-State in `../../assets/draisine-transportmodul/state.md`; der eigentliche Nordlinie-Reparaturbedarf steht in `inventory.md`.
 - drivers:
   - belegt Nordlinie-01 als aktives Tunnelprojekt zwischen D5 und C6
   - belegt Arbeitsteilung Ronja und Reflex im Tunnel, Jonas und Pahl in der D5-Werkstatt; Jonas laeuft dabei nicht allein, sondern mit der gekoppelten Begleitinstanz Lumen
@@ -47,6 +47,8 @@ Current State
   - Session-Arbeitslesart: `Kora` verarbeitet in `C6` denselben Bericht als Stations- und Verteilungsaufgabe; ihre Ebene wird nicht mit Ronjas D5-Rueckkehr vermischt.
   - Session-Arbeitslesart: Der aktuelle Draisine-Eigenbestand liegt jetzt in `../../assets/draisine-transportmodul/inventory.md` getrennt vom Nordlinie-/Tunnelbedarf.
   - Session-Arbeitslesart: Der Nordlinie-Reparaturbedarf liegt jetzt in `inventory.md` als eigener Projekttraeger statt nur verteilt in Szene, State und D5-Bedarfsnotiz.
+  - Session-Arbeitslesart: T12 prueft Wiederverwendung des `Schuttkeil Kontaktseite` als moegliche Bruchstueck-Stabilisierung fuer die `Schottertasche Nordkante`, aber bucht daraus noch kein Material.
+  - Session-Arbeitslesart: T12 macht den Draisine-Antrieb zur offenen technischen Grundlagenfrage; ohne Antwort bleiben Testlauf, Lastgrenze und Materiallogistik offen.
 - blockers:
   - Schweißgeraet fehlt
   - Adapter DN60 fehlen
@@ -60,6 +62,8 @@ Current State
   - C6 fuehrt noch keinen neuen Materialeingang; Innenbetrieb und Tunnelarbeit laufen parallel unter Druck
   - die C6-Haelfte ist nicht reparaturfrei; ihr eigener Befund ist nur noch nicht so tief technisch ausformuliert wie Ronjas D5-seitige Hauptcluster
   - G7 bleibt ohne Meldung blind fuer den frischen Laufstand
+  - Schuttbruch aus dem `Schuttkeil Kontaktseite` ist nur eine Pruefoption; Eignung, Menge und Gewinnungsrisiko sind nicht bestaetigt
+  - Draisine-Antrieb, Brems-/Stopplogik und Lastgrenze sind im Runtime-Stand offen
 - impacted_entities:
   - Nordlinie 01
   - Ronja Kerschner
@@ -96,10 +100,12 @@ Evidence
 - Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 9
 - Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 10
 - Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 11
+- Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 12
 - Runtime: `../../assets/draisine-transportmodul/inventory.md`
+- Runtime: `../../assets/draisine-transportmodul/state.md`
 - Runtime: `inventory.md`
 
 Promotion Notes
 ---------------
 
-- Kleiner Turn-7-Satz ist mit Turn 8 restseitig ausgeschopft; weitere Promotion oder Materialfortschreibung erst, wenn eine neue Lieferung aus D5 explizit real im Runtime-Zug angekommen ist und die offenen Problemherde weiter technisch geschlossen werden koennen
+- Kleiner Turn-7-Satz ist mit Turn 8 restseitig ausgeschopft; weitere Promotion oder Materialfortschreibung erst, wenn eine neue Lieferung aus D5 explizit real im Runtime-Zug angekommen ist, C6 die Schuttbruch-Eignung belastbar bestaetigt oder die offenen Problemherde weiter technisch geschlossen werden koennen.

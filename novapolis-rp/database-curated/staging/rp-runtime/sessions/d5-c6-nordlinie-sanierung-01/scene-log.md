@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 03:56
-update: Turn 10 fuehrt den Nordlinie-Hauptpfad jetzt bis zur vorsichtigen Begegnung mit dem C6-Tunneltrupp und einer gemeinsamen Befund- plus Bedarfskalkulation fort.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-04-29 06:56
+update: Turn 12 fuehrt Ronjas C6-Schuttkeil-Prueffrage und die offene Draisine-Antriebsfrage als Runtime-Arbeitsstand nach.
+checks: snapshot-lock PASS (2026-04-29 06:56); markdownlint PASS; frontmatter PASS; todo-index-sync PASS; logs-policy PASS; snapshot-gate PASS
 ---
 
 Scene Log - D5 C6 Nordlinie Sanierung 01
@@ -184,12 +184,27 @@ Turn 11
   - Review required: Ob D5 aus Draisine-Bau, bestehendem Materialstand und Tunnelbedarf bereits eine echte Priorisierungsentscheidung oder nur einen weiteren Engpassbericht zieht, bleibt offen, bis der Folgezug denselben Schnitt explizit fortfuehrt.
 - follow_up: Den naechsten Zug erst auf dem jetzt geklaerten Dreischnitt fortsetzen: `Ronja/Reflex` in `D5`, `Jonas/Pahl/Lumen` an der Draisine auf den Bahnsteiggleisen und `Kora` in `C6` mit getrennter Stationsverarbeitung des Tunnelberichts.
 
+Turn 12
+-------
+
+- input: Admin-Korrektur zum Replay: Die Formulierung, dass die Draisine heute nur Pruefstand und kein Versprechen bleibe, wird nicht als Szene uebernommen. Stattdessen ueberlegt Ronja eine Weile, funkt `C6` an und fragt, ob der `Schuttkeil Kontaktseite` so zerschlagen werden kann, dass brauchbare Bruchstuecke die `Schottertasche Nordkante` stabilisieren. Danach fragt sie Jonas und Pahl an der Draisine, wie diese eigentlich angetrieben wird.
+- inworld_result: Ronja bleibt an der D5-Bahnsteigkante stehen, ohne die Draisine vorschnell einzuordnen. Sie laesst den Blick zwischen dem offenen Fahrgestell, Jonas' Arbeitsstelle und der Tunnelliste hin und her gehen. Dann greift sie wieder zum Funkgeraet. "C6, kommen. Koennt ihr den Schuttkeil so zerschlagen, dass man mit den Bruchstuecken die Schottertasche stabilisieren kann? Das wuerde zwei Fliegen mit einer Klappe schlagen." Die Frage geht nicht als Auftrag oder bestaetigte Loesung hinaus, sondern als technische Pruefung: C6 muss erst melden, ob der Schuttkeil Material hergibt, ob die Bruchstuecke tragfaehig genug sind und ob das Zerschlagen den Kontaktpunkt nicht gefaehrdet. Erst danach dreht Ronja sich wieder zu Jonas und Pahl an der Draisine. Sie zeigt nicht auf den Rahmen, sondern auf die offene technische Frage dahinter. "Wie wird die eigentlich angetrieben?" Damit verschiebt sie den D5-Teil des Zuges nicht in einen Testlauf, sondern auf die Grundlagenklaerung: Ohne belegten Antrieb, Bremslogik und Lastgrenze bleibt die Draisine ein offener Prototyp auf den Bahnsteiggleisen. Jonas und Pahl haben die Frage jetzt auf dem Tisch; eine Antwort ist in diesem Zug noch nicht belegt.
+- new_signals:
+  - Probe: Die verworfene Replay-Formulierung zur Draisine wird nicht als Runtime-Stand uebernommen.
+  - Probe: Ronja oeffnet fuer C6 eine konkrete Prueffrage: Ob Bruchstuecke aus dem `Schuttkeil Kontaktseite` als Stabilisierungsmaterial fuer die `Schottertasche Nordkante` taugen, ist jetzt angefragt, aber noch nicht bestaetigt.
+  - Probe: Aus dem Schuttkeil entsteht noch keine Materialbuchung; Tragfaehigkeit, Groesse, Gewinnung und Risiko am Kontaktpunkt bleiben offen bis zur C6-Antwort.
+  - Probe: Die Draisine-Antriebsfrage ist jetzt explizit offen. Der Runtime-Stand belegt noch keinen konkreten Antrieb, keine Lastfreigabe und keinen Testlauf.
+  - Probe: Ronja handelt weiter als technische Leitungsfigur: Sie sucht zuerst Wiederverwendung und Grundlagenklaerung, bevor sie Materiallauf oder Draisine-Einsatz behauptet.
+  - keine neue Mind-Delta / keine neue Relationship-Delta: Die Szene erzeugt technische Prueffragen, aber noch keine belegte relationale Verschiebung zwischen Ronja, C6, Jonas oder Pahl.
+  - Review required: C6-Antwort zur Eignung der Schuttbruchstuecke und Jonas/Pahl-Antwort zum Draisine-Antrieb muessen im Folgezug ausgespielt oder dokumentiert werden.
+- follow_up: Naechsten Zug mit zwei Antworten beginnen: `C6` prueft Schuttbruch-Eignung fuer die `Schottertasche Nordkante`; Jonas und Pahl erklaeren den belegbaren Antrieb, die Brems-/Stopplogik und die aktuelle Lastgrenze der Draisine, ohne einen Testlauf vorwegzunehmen.
+
 Admin Handover
 -------------
 
 - agent_switch: vollzogen
 - target_mode: SSOT, Story, Weltgeschichte, Lore
-- handover_basis: Turn 1-10 bilden jetzt den Runtime-Arbeitsstand; die Folgeszene schliesst an den enger gelesenen Fehlerkorridor, den schmalen Kontaktpunkt mit dem C6-Trupp, die gemeinsame Befundliste plus Bedarfskalkulation sowie den weiter offenen Materialblocker bei `Schweißgeraet` und `DN60` an.
+- handover_basis: Turn 1-12 bilden jetzt den Runtime-Arbeitsstand; die Folgeszene schliesst an Ronjas offene C6-Schuttbruch-Prueffrage, die offene Draisine-Antriebsfrage, den enger gelesenen Fehlerkorridor, den schmalen Kontaktpunkt mit dem C6-Trupp, die gemeinsame Befundliste plus Bedarfskalkulation sowie den weiter offenen Materialblocker bei `Schweißgeraet` und `DN60` an.
 - interruption_roll: `1W6 = 4`, kein Unterbrechungsereignis
 
 Kurzauswertung
@@ -227,6 +242,8 @@ Neue belastbare Signale
 - Session-Arbeitslesart: Turn 11 fuehrt Ronja wieder zurueck nach `D5` und setzt Jonas/Pahl/Lumen sichtbar an die Draisine auf den Bahnsteiggleisen statt in einen stillen Werkstattinnenraum.
 - Session-Arbeitslesart: Ronja klaert zuerst Baufortschritt, Materialverbrauch und Fehlstellen der Draisine und erst danach den Tunnelbedarf.
 - Session-Arbeitslesart: `Kora` verarbeitet denselben Tunnelbericht in `C6` als eigene Stations- und Verteilungsaufgabe; die Ebenen `Ronja`, `D5` und `C6` bleiben dabei getrennt.
+- Session-Arbeitslesart: Turn 12 setzt die C6-Schuttkeil-Idee nur als Prueffrage, nicht als bestaetigte Materialgewinnung oder Reparaturloesung.
+- Session-Arbeitslesart: Die Draisine-Antriebsfrage ist jetzt explizit offen und muss von Jonas/Pahl beantwortet werden, bevor Lastgrenze, Testlauf oder Materiallogistik daraus abgeleitet werden.
 
 Open Threads
 ------------
@@ -246,6 +263,8 @@ Open Threads
 - Mara nur dann ueber `C6` hinaus in neue Handels- oder Meldelogik ziehen, wenn sie dieselbe Lage wirklich nach aussen spiegelt
 - Folgeszene im SSOT-/Lore-Agenten auf genau diesem Handover-Stand fortsetzen
 - pruefen, ob aus der laufenden Runtime-Session spaeter ein belastbarer Nordlinie-Status fuer RP-SSOT promotable wird
+- C6-Antwort einholen, ob der `Schuttkeil Kontaktseite` kontrolliert zerschlagen werden kann und ob die Bruchstuecke fuer die `Schottertasche Nordkante` tragfaehig genug sind
+- Jonas/Pahl-Antwort zum konkreten Draisine-Antrieb, zur Brems-/Stopplogik und zur belastbaren Lastgrenze einholen
 
 Promotion Notes
 ---------------

@@ -1,8 +1,22 @@
 ---
-stand: 2026-04-29 03:56
-update: Das Dev-DONELOG dokumentiert jetzt die Archivierung des alten RP-Runtime-Ordners `characters/` nach vollstaendiger Zielpruefung.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-04-29 06:56
+update: Das Dev-DONELOG dokumentiert jetzt den Runtime-Nachzug fuer Turn 12 mit C6-Schuttbruch-Pruefung und offener Draisine-Antriebsfrage.
+checks: snapshot-lock PASS (2026-04-29 06:56); markdownlint PASS; frontmatter PASS; todo-index-sync PASS; logs-policy PASS; snapshot-gate PASS; rp-hard-gates PASS; current-state-gate PASS; rp-staging-tag-coverage PASS
 ---
+RP-Runtime: Turn 12 mit C6-Schuttbruch-Pruefung und Draisine-Antriebsfrage nachgezogen (2026-04-29 06:39)
+----------------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](../../novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt den korrigierten Runtime-Arbeitsstand: Die verworfene Draisine-Formulierung wird nicht uebernommen; Ronja fragt C6 nach kontrollierter Schuttkeil-Verwertung und Jonas/Pahl nach dem Draisine-Antrieb.
+- [novapolis-rp/database-curated/staging/rp-runtime/entities/projects/nordlinie-01/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/projects/nordlinie-01/state.md), [novapolis-rp/database-curated/staging/rp-runtime/entities/projects/nordlinie-01/inventory.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/projects/nordlinie-01/inventory.md), [novapolis-rp/database-curated/staging/rp-runtime/entities/locations/c6/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/locations/c6/state.md) und [novapolis-rp/database-curated/staging/rp-runtime/entities/locations/d5/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/locations/d5/state.md) halten denselben Schnitt: Schuttbruch aus dem C6-Schuttkeil ist nur eine Pruefoption, keine gebuchte Materialbewegung.
+- [novapolis-rp/database-curated/staging/rp-runtime/entities/assets/draisine-transportmodul/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/assets/draisine-transportmodul/state.md) wurde als fehlender Asset-State angelegt, weil der konkrete Antrieb, Brems-/Stopplogik, Lastgrenze und Testlauf noch offen sind. [novapolis-rp/database-curated/staging/rp-runtime/entities/characters/ronja-kerschner/entity.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/characters/ronja-kerschner/entity.md) und [novapolis-rp/database-curated/staging/rp-runtime/entities/characters/ronja-kerschner/mind.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/characters/ronja-kerschner/mind.md) fuehren T12 als technische Prueffrage ohne neue Mind- oder Relationship-Delta.
+
+RP-Governance: ERP/RP-Ausspielungsregel fuer Praesens, Klartext und Lore-Fit verankert (2026-04-29 05:41)
+------------------------------------------------------------------------------------------------------------------
+
+- [.github/instructions/rp-docs.instructions.md](../../.github/instructions/rp-docs.instructions.md) fuehrt jetzt eine harte `R-RP-SCENE-FIT`-Regel fuer ERP/RP-Ausspielung: Gegenwartsform, klare normalverstaendliche In-World-Sprache, getrennte Admin-/OOC-Begriffe, SSOT-treue Ortsbeschreibungen sowie Rollen- und Mechanik-Fit fuer Figuren und Instanzen.
+- Der Nachzug ist aus dem Admin-Befund zu Turn 12 abgeleitet: D5 ist laut [D5](../../novapolis-rp/database-rp/01-factions/novapolis/03-locations/D5.md) ein geordneter, restaurierter Betriebskern mit engem Funk-/Signalplatz am Kontroll-/Terminalkern; Ronja ist laut [Ronja Kerschner](../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/Ronja-Kerschner.md) Leitungs-, Diplomatie-/Freigabe- und Technikrolle mit starkem Ordnungs- und Planungsprofil.
+- Die Regel verhindert kuenftig, dass ausgespielter RP-Text unklare Technikmetaphern, OOC-Vokabular im Figurendialog, faktisch falsche Raumstimmung oder herabgestufte Rollenhaltung als Atmosphaere ausgibt. Turn 12 bleibt bis zur User-Freigabe pausiert und wird nicht weiter fortgeschrieben.
+
 RP-Runtime: Alter characters-Typordner archiviert (2026-04-29 02:29)
 -------------------------------------------------------------------
 

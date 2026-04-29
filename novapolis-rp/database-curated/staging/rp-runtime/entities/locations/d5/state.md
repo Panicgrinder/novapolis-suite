@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 03:56
-update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-04-29 06:56
+update: D5-State fuehrt jetzt T12 mit Ronjas C6-Schuttkeil-Frage und offener Draisine-Antriebsfrage.
+checks: snapshot-lock PASS (2026-04-29 06:56); markdownlint PASS; frontmatter PASS; todo-index-sync PASS; logs-policy PASS; snapshot-gate PASS
 ---
 Runtime State - D5
 ==================
@@ -17,7 +17,7 @@ Status
 Current State
 -------------
 
-- summary: D5 traegt im aktuellen Hauptweltpfad weiter die Material-, Freigabe- und Arbeitskante fuer Nordlinie 01. Mit Turn 11 kehrt Ronja zu Jonas und Pahl an die Draisine auf den Bahnsteiggleisen zurueck, nicht in einen abgeschlossenen Werkstattinnenraum. Der Prototyp wird dort auf der Schiene aufgebaut, waehrend Ronja zuerst Baufortschritt, gebundenes Material und Fehlstellen abfragt und erst danach den Tunnelbedarf mit `Schweißgeraet`, `DN60`, Anschlusssicherung und Freiraeumung gegen denselben D5-Arbeitsort spiegelt; Jonas bleibt dabei mit Lumen im selben Arbeitsfenster. Der gebundene Draisine-Bestand liegt dafuer jetzt nicht mehr nur verteilt in Szene und SSOT, sondern in einem eigenen Runtime-Traeger getrennt vom Tunnelbedarf.
+- summary: D5 traegt im aktuellen Hauptweltpfad weiter die Material-, Freigabe- und Arbeitskante fuer Nordlinie 01. Mit Turn 11 kehrt Ronja zu Jonas und Pahl an die Draisine auf den Bahnsteiggleisen zurueck, nicht in einen abgeschlossenen Werkstattinnenraum. Der Prototyp wird dort auf der Schiene aufgebaut, waehrend Ronja zuerst Baufortschritt, gebundenes Material und Fehlstellen abfragt und erst danach den Tunnelbedarf mit `Schweißgeraet`, `DN60`, Anschlusssicherung und Freiraeumung gegen denselben D5-Arbeitsort spiegelt; Jonas bleibt dabei mit Lumen im selben Arbeitsfenster. T12 zieht daraus keinen Testlauf, sondern zwei offene technische Prueffragen: Ronja fragt C6 nach Schuttkeil-Bruchstuecken fuer die Schottertasche und Jonas/Pahl nach dem konkreten Draisine-Antrieb. Der gebundene Draisine-Bestand liegt in einem eigenen Runtime-Traeger getrennt vom Tunnelbedarf; der neue Draisine-State fuehrt die offene Antriebsfrage.
 - drivers:
   - D5 ist der aktive Werkstatt- und Kontrollkern von Novapolis.
   - Jonas und Pahl beantworten den Nordlinie-Bedarf ueber belastbare Werkstattarbeit statt ueber freie Vollzusagen.
@@ -26,12 +26,14 @@ Current State
   - Turn 9 verdichtet dieselbe Lage zu einer enger formulierten Werkstattanforderung, statt einen neuen improvisierten Hilfssatz zu behaupten.
   - Turn 11 bindet Draisine-Bau und Tunnelbedarf jetzt sichtbar an denselben Bahnsteig-/Gleis-Arbeitsort in D5.
   - Der neue Runtime-Traeger `../../assets/draisine-transportmodul/inventory.md` trennt ab jetzt gebundenen Prototypbestand sauber vom Nordlinie-/Tunnelbedarf.
+  - T12 fuehrt Ronjas Schuttkeil-Frage an C6 und ihre Antriebsfrage an Jonas/Pahl als offene Pruef- und Grundlagenfragen, nicht als D5-Freigabe oder Testlauf.
 - blockers:
   - Schweißgeraet und Adapter DN60 fehlen weiter als Hauptblocker.
   - Ueber den kleinen Turn-7-Satz hinaus gibt es keine neue reale D5-Lieferung.
   - Konkrete Folgeabgaenge, Chargenherkunft und weitere Werkstattzusagen bleiben offen.
   - Die verdichtete Anforderung ist noch nicht nach aussen in einen bestaetigten Materialzug gekippt.
   - Der Draisine-Prototyp ist noch nicht so weit, dass er bereits als fertiger Logistikpfad fuer den Tunnelbedarf gelesen werden kann.
+  - Draisine-Antrieb, Brems-/Stopplogik und Lastgrenze sind noch nicht beantwortet.
 - impacted_entities:
   - D5
   - Jonas Merek
@@ -50,10 +52,12 @@ Evidence
 - Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 1, 2, 6, 7
 - Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 9
 - Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 11
+- Runtime: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 12
 - Runtime: `inventory.md`
 - Runtime: `../../assets/draisine-transportmodul/inventory.md`
+- Runtime: `../../assets/draisine-transportmodul/state.md`
 
 Promotion Notes
 ---------------
 
-- D5 bleibt fuer den aktuellen Hauptpfad der aktive Werkstatt- und Freigabekern; weitere Fortschreibung erst mit realer neuer Werkstattbewegung oder klarer Veraenderung der D5-Lastlage.
+- D5 bleibt fuer den aktuellen Hauptpfad der aktive Werkstatt- und Freigabekern; weitere Fortschreibung erst mit realer neuer Werkstattbewegung, beantworteter Draisine-Antriebsfrage oder klarer Veraenderung der D5-Lastlage.

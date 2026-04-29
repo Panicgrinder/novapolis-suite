@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 03:56
-update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-04-29 06:56
+update: Ronjas Runtime-Mind fuehrt T12 als Carry-Forward ohne neue Mind- oder Relationship-Delta.
+checks: snapshot-lock PASS (2026-04-29 06:56); markdownlint PASS; frontmatter PASS; todo-index-sync PASS; logs-policy PASS; snapshot-gate PASS
 ---
 Ronja Kerschner Runtime Mind
 ============================
@@ -15,7 +15,7 @@ Status
 - review_state: working
 - baseline_cluster: ../../../../../../database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md
 - session_id: d5-c6-nordlinie-sanierung-01
-- last_turn: Turn 9
+- last_turn: Turn 12
 
 Runtime Carry-Forward
 ---------------------
@@ -27,6 +27,8 @@ Runtime Carry-Forward
   - Der Turn zieht ihre Fehlerarbeit bis zur direkten Benennung von `Schottertasche Nordkante`, `Haltepunktpaar Leitungszug` und `Uebergang Engbogen` enger, statt diffuse Tunnelangst zu spielen.
   - Aus dem kleinen Turn-7-Gewinn macht Ronja keinen falschen Durchbruch; sie verarbeitet die Lage beweisorientiert und ohne freie Erfolgserzaehlung.
   - Turn 9 bestaetigt, dass Ronja selbst am vorsichtigen Sicht- und Rufkontakt zur C6-Seite keine Durchbruchslogik aufzieht, sondern bei sauberer Priorisierung und Dokumentation bleibt.
+  - T12 bestaetigt dieselbe Arbeitslogik: Ronja sucht eine kontrollierte Wiederverwendungspruefung und eine technische Grundlagenantwort, statt Materialgewinnung oder Draisine-Einsatz als schon geloest zu behandeln.
+  - keine neue Mind-Delta / keine neue Relationship-Delta: Die T12-Fragen beruehren C6, Jonas und Pahl technisch, erzeugen aber noch keine belegbare geistnahe oder relationale Verschiebung.
 - open_questions:
   - Ob der bilaterale Tunnelkontakt im naechsten Zug bereits einen belastbaren Vertrauens- oder Kooperationsshift gegenueber dem C6-Trupp rechtfertigt, bleibt Review-Sache.
   - Fuer einen numerischen Rescore von Erschoepfung, Konflikt- oder Kooperationsachsen fehlt noch ein sauberer Delta-Massstab ueber mehrere Folgezuege.
@@ -81,4 +83,4 @@ delta_candidates:
 Promotion Notes
 ---------------
 
-- Erst promoten, wenn mindestens ein weiterer Folgezug zeigt, ob aus der bestaetigten D5-Verlaesslichkeit ein echter Score-Shift oder nur stabiler Carry-Forward wird.
+- T12 bleibt Carry-Forward. Erst C6-Antwort oder Jonas/Pahl-Antwort kann pruefen, ob daraus Vertrauen, Kooperationsneigung oder Belastung messbar driftet.
