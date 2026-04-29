@@ -2,9 +2,9 @@
 title: "TODO (Novapolis-RP)"
 date: 2025-11-12 08:59
 tags: [doc]
-stand: 2026-04-29 00:59
-update: Der Nachzug derselben Sammelklassen in die passende externe Handelsflaeche des Fluesterkollektivs ist geschlossen.
-checks: snapshot-lock PASS (2026-04-29 00:59)
+stand: 2026-04-29 03:56
+update: Der alte RP-Runtime-Typordner `characters/` ist nach vollstaendiger Zielpruefung archiviert; der RP-Boardstand bleibt offen: 0.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -27,6 +27,29 @@ Offene Aufgaben (RP)
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
+
+- [x] [Jetzt] RP-Runtime auf entity-centric Dossiers nach Option 1 migrieren.
+  - Ziel: Vor dem naechsten ERP/RP-Zug soll die Runtime von der flachen Typordnerstruktur auf entitaetszentrierte Dossiers umgestellt werden, solange die aktive Runtime noch klein ist. `sessions/` bleibt top-level; alle entitaetsbezogenen Arbeitsdaten wandern nach `entities/<type>/<slug>/`.
+  - Akzeptanzkriterien:
+    1) [novapolis-rp/database-curated/staging/rp-runtime/README.md](../../novapolis-rp/database-curated/staging/rp-runtime/README.md), [.github/instructions/rp-docs.instructions.md](../../.github/instructions/rp-docs.instructions.md) und [.github/instructions/mind-cluster.instructions.md](../../.github/instructions/mind-cluster.instructions.md) beschreiben nicht mehr das Relationship-Einzelkantenmodell, sondern den Dossier-Guard,
+    2) unter `rp-runtime/entities/` existiert die neue Struktur mit typisierten Namespaces wie `characters/`, `locations/`, `projects/`, `assets/` und `factions/` sowie knappen Templates,
+    3) die vorhandenen aktiven Runtime-Traeger aus `characters/`, `mind/`, `inventories/`, `state/` und `relationships/` sind in passende Dossiers migriert, ohne neue unbelegte Entitaeten, Scores, Mengen oder Kanon-Promotions zu erfinden,
+    4) `relationships.md` wird pro Entitaet gerichtet als `observer_id -> target_id` gefuehrt; keine neue Standardpraxis fuer eine Datei pro Beziehungskante,
+    5) alte Typordner enthalten danach keine aktiven Daten mehr, sondern klar markierte Migrations-/Redirect-Hinweise,
+    6) Board, Index, Logs und Checks fuehren denselben Migrationslauf im selben Lauf.
+  - Evidenz: Der aktuelle Runtime-Baum war noch klein genug fuer einen klaren Schnitt: [novapolis-dev/archive/quarantine/rp-runtime-characters-legacy-20260429-0229/characters/README.md](archive/quarantine/rp-runtime-characters-legacy-20260429-0229/characters/README.md), [novapolis-rp/database-curated/staging/rp-runtime/mind/README.md](../../novapolis-rp/database-curated/staging/rp-runtime/mind/README.md), [novapolis-rp/database-curated/staging/rp-runtime/inventories/README.md](../../novapolis-rp/database-curated/staging/rp-runtime/inventories/README.md), [novapolis-rp/database-curated/staging/rp-runtime/state/README.md](../../novapolis-rp/database-curated/staging/rp-runtime/state/README.md) und [novapolis-rp/database-curated/staging/rp-runtime/relationships/README.md](../../novapolis-rp/database-curated/staging/rp-runtime/relationships/README.md) fuehrten noch getrennte Typordner.
+  - Ergebnis 2026-04-29 02:02: [novapolis-rp/database-curated/staging/rp-runtime/entities/README.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/README.md) ist jetzt die aktive entitaetszentrierte Runtime-Oberflaeche. Figuren-, Mind-, Orts-, Inventar-, Projekt-, Asset-, Fraktions- und Relationship-Arbeitsstaende liegen in Dossiers unter `entities/<type>/<slug>/`; die alten Typordner bleiben nur als Redirect-Flaechen fuer alte Links. Beziehungen laufen als gerichtete Eintraege in `relationships.md` des jeweiligen Observers.
+  - Nachtrag 2026-04-29 02:29: Der alte Typordner `characters/` wurde nach Pruefung aller 14 Redirects unter `novapolis-dev/archive/quarantine/rp-runtime-characters-legacy-20260429-0229/characters/` archiviert. Aktive Figuren liegen damit nur noch unter [novapolis-rp/database-curated/staging/rp-runtime/entities/characters/README.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/characters/README.md); der Boardstand bleibt bei `RP=0`.
+
+- [x] [Jetzt] Entitaets-/Mind-Konsolidierungsregel verankern und C6-Runtime-Traeger fuer Hauptpfad nachziehen.
+  - Ziel: Vor dem naechsten ERP/RP-Zug sollen Entitaetsdaten und zugehoerige Mind-/Runtime-Daten als gemeinsame Pflichtflaeche festgeschrieben werden; zugleich braucht `C6` fuer den aktuellen Hauptpfad einen aktuellen Runtime-Inventartraeger sowie eine Bewohner-/Vor-Ort-Entitaetenoberflaeche.
+  - Akzeptanzkriterien:
+    1) die passenden Rule-/Instruction-Flaechen erzwingen, dass vor und nach jeder individuellen Entitaetsaktion Entitaets- und Mind-/Runtime-Daten gemeinsam geladen, konsolidiert und aktualisiert oder explizit als `keine neue Mind-Delta` markiert werden,
+    2) `rp-runtime` fuehrt den aktuellen C6-Hauptpfad nicht mehr nur ueber `state/c6.md`, sondern auch mit aktuellem Inventartraeger statt dem verworfenen H-47-Probeinventar,
+    3) alle C6-Bewohner und handlungsfaehigen Vor-Ort-Entitaeten sind im Runtime-Baum mindestens als Roster-/Arbeitsstand sichtbar; individuelle Runtime- und Mind-Dateien entstehen fuer Entitaeten mit eigenem SSOT-Mind-Cluster und laufender Handlungsrelevanz,
+    4) Board, Index, Logs und Checks fuehren denselben Nachzug im selben Lauf.
+  - Evidenz: Der aktuelle Review zeigte Mind-Runtime-Drift gegen Turn 11; [novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md](novapolis-rp/database-rp/01-factions/novapolis/03-locations/C6.md) belegt 27 humanoide Personen in `C6`, [novapolis-rp/database-rp/01-factions/novapolis/02-characters/C6-Bewohner.md](novapolis-rp/database-rp/01-factions/novapolis/02-characters/C6-Bewohner.md) fuehrt den Bewohner-Roster, und [novapolis-rp/database-curated/staging/rp-runtime/inventories/c6.md](novapolis-rp/database-curated/staging/rp-runtime/inventories/c6.md) ist noch als verworfener H-47-Probeanker markiert.
+  - Ergebnis 2026-04-29 01:30: [.github/instructions/rp-docs.instructions.md](../../.github/instructions/rp-docs.instructions.md), [.github/instructions/mind-cluster.instructions.md](../../.github/instructions/mind-cluster.instructions.md) und [novapolis-rp/database-curated/staging/rp-runtime/README.md](../../novapolis-rp/database-curated/staging/rp-runtime/README.md) erzwingen jetzt den Entitaets-/Mind-Paarlauf vor und nach individuellen Entitaetsaktionen. [novapolis-rp/database-curated/staging/rp-runtime/inventories/c6.md](../../novapolis-rp/database-curated/staging/rp-runtime/inventories/c6.md) fuehrt den aktuellen C6-Hauptpfad-Bestand, [novapolis-rp/database-curated/staging/rp-runtime/entities/locations/c6/roster.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/locations/c6/roster.md) den Bewohner-/Vor-Ort-Roster und Marei, Marven sowie Arlen liegen jeweils mit Character- und Mind-Runtime vor. Kora/Echo sind auf Turn 11 als `carry_forward_confirmed` konsolidiert; der Index steht wieder bei `RP=0`.
 
 - [x] [Jetzt] Sammelklassen in passende externe Handelsflaechen ausserhalb Novapolis nachziehen.
   - Ziel: Die bereits im Waren-Index geschlossenen Sammelklassen sollen in den verbleibenden passend belegten Handelsdokus ausserhalb von Novapolis sichtbar mitgefuehrt werden, damit externe Handelsoberflaechen denselben Kanon lesen wie Inventar und Waren-Index.

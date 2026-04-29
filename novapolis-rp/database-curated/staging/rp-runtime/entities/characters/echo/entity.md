@@ -1,9 +1,8 @@
 ---
-stand: 2026-04-29 00:47
-update: Echo fuehrt jetzt ein eigenes Runtime-Figurenblatt fuer die aktiv mitgezogene C6-Schutzachse des Nordlinie-Weltzugs.
-checks: snapshot-lock PASS (2026-04-28 21:17)
+stand: 2026-04-29 03:56
+update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
 ---
-
 Echo - Runtime Working Sheet
 ============================
 
@@ -39,4 +38,4 @@ Promotion Notes
 ---------------
 
 - Sessionbezug: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 9
-- Detailwirkung auf Naehe- und Schutzachsen liegt zusaetzlich in `mind/echo.md`.
+- Detailwirkung auf Naehe- und Schutzachsen liegt zusaetzlich in `mind.md`.

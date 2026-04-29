@@ -1,25 +1,15 @@
 ---
-stand: 2026-04-21 01:59
-update: Inventar- und Ressourcenverschiebungen erhalten hier einen getrennten Runtime-Bereich vor dem RP-SSOT.
-checks: snapshot-lock PASS (2026-04-21 01:59); markdownlint=PASS; frontmatter=PASS (touched md)
+stand: 2026-04-29 03:56
+update: Legacy-Typordner nach entity-centric Runtime-Migration; aktive Daten liegen unter `../entities`.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
 ---
 
-Runtime Inventories
-===================
+Legacy Runtime Folder - inventories
+===================================
 
-Zweck
------
+Status
+------
 
-Dieser Ordner ist fuer laufende Inventar- und Ressourcenbewegungen gedacht.
-
-- Transfers
-- Verbrauch
-- neue Funde
-- offene Differenzen
-
-Dateikontrakt
--------------
-
-- Eine Datei pro Bestandstraeger oder Ort: `inventories/<slug>.md`
-- Mengen nur eintragen, wenn sie im RP oder in Runtime-Artefakten belegt sind
-- Ungepruefte Plausibilitaet bleibt `Probe`, nicht Kanon
+- state: migriert
+- active_target: `../entities`
+- migration_note: Dieser Typordner bleibt nur als Redirect-Flaeche fuer alte Links. Neue oder aktive Runtime-Daten werden unter `entities/<type>/<slug>/` gepflegt.

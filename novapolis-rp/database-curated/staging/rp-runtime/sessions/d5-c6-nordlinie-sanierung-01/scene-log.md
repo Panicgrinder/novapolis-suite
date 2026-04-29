@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 00:47
+stand: 2026-04-29 03:56
 update: Turn 10 fuehrt den Nordlinie-Hauptpfad jetzt bis zur vorsichtigen Begegnung mit dem C6-Tunneltrupp und einer gemeinsamen Befund- plus Bedarfskalkulation fort.
-checks: snapshot-lock PASS (2026-04-28 21:47)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
 ---
 
 Scene Log - D5 C6 Nordlinie Sanierung 01

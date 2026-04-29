@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 00:59
-update: Der TODO-Index fuehrt den abgeschlossenen RP-Nachzug fuer die passende externe Handelsflaeche des Fluesterkollektivs jetzt wieder bei offen: 0.
-checks: snapshot-lock PASS (2026-04-29 00:59)
+stand: 2026-04-29 03:56
+update: Der TODO-Index fuehrt die abgeschlossene Archivierung des alten RP-Runtime-Ordners `characters/` bei weiterhin offen: 0.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -27,7 +27,7 @@ Statushinweise (aktuell)
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt aktuell keine offenen Punkte mehr. Der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Provenienz fehlen; im aktuellen Repo-Stand scheitert derselbe Direktlauf erwartungsgemaess an `missing rp_content results` statt ungeguardet in Training zu laufen.
 
-- RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell wieder keine offenen Punkte mehr. [novapolis-rp/database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.md](novapolis-rp/database-rp/01-factions/fluesterkollektiv/06-handel-diplomatie/Handelslog-Fluesterkollektiv.md) fuehrt jetzt ebenfalls die belegten Spezial- und Handelsklassen `Informationsgueter`, `Tarn-/Signaltechnik` und `Batterien` fuer die externe Fluesterkollektiv-Oberflaeche.
+- RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell wieder keine offenen Punkte mehr. Die RP-Runtime ist auf entity-centric Dossiers nach Option 1 migriert: `sessions/` bleibt top-level, waehrend entitaetsbezogene Arbeitsdaten unter `entities/<type>/<slug>/` zusammengefuehrt sind; der alte Typordner `characters/` ist nach Zielpruefung archiviert, die uebrigen alten Typordner dienen nur noch als Redirect-Flaechen.
 
 - Sim: `novapolis-dev/docs/todo.sim.md` fuehrt aktuell keine offenen Punkte mehr. `scripts/run_sim_headless_verify.py` loest im aktuellen Windows-Kontext jetzt auch den Pfad eines laufenden lokalen Godot-Prozesses auf; `Checks: sim headless verify` endet damit wieder mit `SIM_VERIFY: OK` statt am frueheren Exit `2`.
 

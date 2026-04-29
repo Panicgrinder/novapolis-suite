@@ -1,35 +1,15 @@
 ---
-stand: 2026-04-21 01:59
-update: Vorlage fuer Runtime-Inventardateien im RP-Staging.
-checks: snapshot-lock PASS (2026-04-21 01:59); markdownlint=PASS; frontmatter=PASS (touched md)
+stand: 2026-04-29 03:56
+update: Legacy-Redirect nach entity-centric Runtime-Migration; aktiver Inhalt liegt jetzt unter `../entities/templates/inventory-template.md`.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
 ---
 
-Inventory Template
-==================
+Legacy Redirect - Inventory Template
+====================================
 
 Status
 ------
 
-- slug:
-- holder_or_location:
-- state: Probe
-- review_state: working
-
-Entries
--------
-
-- item:
-  amount:
-  unit:
-  source:
-  confidence:
-
-Recent Changes
---------------
-
--
-
-Promotion Notes
----------------
-
--
+- state: migriert
+- active_target: `../entities/templates/inventory-template.md`
+- migration_note: Aktiver Runtime-Inhalt liegt jetzt im entity-centric Dossier. Diese Datei bleibt nur als historischer Redirect fuer alte Links und ist kein aktiver Runtime-Traeger mehr.

@@ -1,9 +1,8 @@
 ---
-stand: 2026-04-29 00:47
-update: Pahl Brenner fuehrt den aktiven Nordlinie-Hauptpfad jetzt bis Turn 11 an der Draisine auf den D5-Bahnsteiggleisen mit sichtbarer Sicherheits- und Materialpruefung.
-checks: snapshot-lock PASS (2026-04-28 22:24)
+stand: 2026-04-29 03:56
+update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
 ---
-
 Pahl Brenner - Runtime Working Sheet
 ====================================
 
@@ -40,4 +39,4 @@ Promotion Notes
 ---------------
 
 - Sessionbezug: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 1, 2, 6, 7, 11
-- Detailwirkung auf Freigabe- und Kontrollachsen liegt zusaetzlich in `mind/pahl-brenner.md`.
+- Detailwirkung auf Freigabe- und Kontrollachsen liegt zusaetzlich in `mind.md`.

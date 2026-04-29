@@ -1,9 +1,8 @@
 ---
-stand: 2026-04-29 00:47
-update: Mara Quell ist per Admin-Auswertung jetzt klar auf C6 und den Aufbau des H-47-Aussenpostens gezogen; G7 bleibt ohne neue Information.
-checks: snapshot-lock PASS (2026-04-28 21:36)
+stand: 2026-04-29 03:56
+update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
 ---
-
 Mara Quell - Runtime Working Sheet
 =================================
 

@@ -1,9 +1,8 @@
 ---
-stand: 2026-04-29 00:47
-update: Ronja Kerschner fuehrt den aktiven Nordlinie-Hauptpfad jetzt bis zum direkten Arbeitskontakt mit dem C6-Trupp und einer gemeinsamen Befundliste plus Bedarfskalkulation.
-checks: snapshot-lock PASS (2026-04-28 21:47)
+stand: 2026-04-29 03:56
+update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
 ---
-
 Ronja Kerschner - Runtime Working Sheet
 =======================================
 
@@ -41,4 +40,4 @@ Promotion Notes
 ---------------
 
 - Sessionbezug: `sessions/d5-c6-nordlinie-sanierung-01/scene-log.md`, Turn 1-10
-- Detailwirkung auf Beziehungen und geistnahe Last liegt zusaetzlich in `mind/ronja-kerschner.md`.
+- Detailwirkung auf Beziehungen und geistnahe Last liegt zusaetzlich in `mind.md`.

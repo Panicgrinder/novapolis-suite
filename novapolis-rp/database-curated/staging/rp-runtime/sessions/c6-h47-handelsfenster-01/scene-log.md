@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-26 21:23
+stand: 2026-04-29 03:56
 update: Die Probe-Session bleibt als verworfener Einstiegspunkt fuer die aktuelle Weltfortsetzung dokumentiert; der chronologisch aktuelle Fortsetzungsanker liegt stattdessen im Nordlinie-Strang.
-checks: snapshot-lock PASS (2026-04-26 21:23); markdownlint=PASS; frontmatter=PASS (touched md)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
 ---
 
 Scene Log - C6 H47 Handelsfenster 01

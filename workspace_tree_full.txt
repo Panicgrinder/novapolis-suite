@@ -465,6 +465,22 @@ Root = .
 |   |   |   |   |-- dedupe-chat-export.md
 |   |   |   |   |-- resolved.md
 |   |   |   |   `-- uncertainties.md
+|   |   |   |-- rp-runtime-characters-legacy-20260429-0229/
+|   |   |   |   `-- characters/
+|   |   |   |       |-- README.md
+|   |   |   |       |-- arlen-dross.md
+|   |   |   |       |-- c6-bewohner.md
+|   |   |   |       |-- character-template.md
+|   |   |   |       |-- echo.md
+|   |   |   |       |-- jonas-merek.md
+|   |   |   |       |-- kora-malenkov.md
+|   |   |   |       |-- lumen.md
+|   |   |   |       |-- mara-quell.md
+|   |   |   |       |-- marei.md
+|   |   |   |       |-- marven-kael.md
+|   |   |   |       |-- pahl-brenner.md
+|   |   |   |       |-- reflex.md
+|   |   |   |       `-- ronja-kerschner.md
 |   |   |   `-- todo-archive-20260217_1909/
 |   |   |       |-- cleanup-todo-v2.md
 |   |   |       |-- rp-base-todo.md
@@ -1049,21 +1065,101 @@ Root = .
 |   |           |-- characters/
 |   |           |   |-- README.md
 |   |           |   |-- character-template.md
+|   |           |   |-- echo.md
 |   |           |   |-- jonas-merek.md
+|   |           |   |-- kora-malenkov.md
 |   |           |   |-- lumen.md
 |   |           |   |-- mara-quell.md
 |   |           |   |-- pahl-brenner.md
 |   |           |   |-- reflex.md
 |   |           |   `-- ronja-kerschner.md
+|   |           |-- entities/
+|   |           |   |-- README.md
+|   |           |   |-- assets/
+|   |           |   |   |-- README.md
+|   |           |   |   `-- draisine-transportmodul/
+|   |           |   |       `-- inventory.md
+|   |           |   |-- characters/
+|   |           |   |   |-- README.md
+|   |           |   |   |-- arlen-dross/
+|   |           |   |   |   |-- entity.md
+|   |           |   |   |   `-- mind.md
+|   |           |   |   |-- echo/
+|   |           |   |   |   |-- entity.md
+|   |           |   |   |   `-- mind.md
+|   |           |   |   |-- jonas-merek/
+|   |           |   |   |   |-- entity.md
+|   |           |   |   |   `-- mind.md
+|   |           |   |   |-- kora-malenkov/
+|   |           |   |   |   |-- entity.md
+|   |           |   |   |   `-- mind.md
+|   |           |   |   |-- lumen/
+|   |           |   |   |   |-- entity.md
+|   |           |   |   |   `-- mind.md
+|   |           |   |   |-- mara-quell/
+|   |           |   |   |   |-- entity.md
+|   |           |   |   |   `-- relationships.md
+|   |           |   |   |-- marei/
+|   |           |   |   |   |-- entity.md
+|   |           |   |   |   `-- mind.md
+|   |           |   |   |-- marven-kael/
+|   |           |   |   |   |-- entity.md
+|   |           |   |   |   `-- mind.md
+|   |           |   |   |-- pahl-brenner/
+|   |           |   |   |   |-- entity.md
+|   |           |   |   |   `-- mind.md
+|   |           |   |   |-- reflex/
+|   |           |   |   |   |-- entity.md
+|   |           |   |   |   `-- mind.md
+|   |           |   |   `-- ronja-kerschner/
+|   |           |   |       |-- entity.md
+|   |           |   |       `-- mind.md
+|   |           |   |-- factions/
+|   |           |   |   |-- README.md
+|   |           |   |   |-- haendlerbund/
+|   |           |   |   |   `-- state.md
+|   |           |   |   `-- novapolis/
+|   |           |   |       `-- state.md
+|   |           |   |-- locations/
+|   |           |   |   |-- README.md
+|   |           |   |   |-- c6/
+|   |           |   |   |   |-- inventory.md
+|   |           |   |   |   |-- roster.md
+|   |           |   |   |   `-- state.md
+|   |           |   |   |-- d5/
+|   |           |   |   |   |-- inventory.md
+|   |           |   |   |   `-- state.md
+|   |           |   |   `-- g7/
+|   |           |   |       `-- state.md
+|   |           |   |-- projects/
+|   |           |   |   |-- README.md
+|   |           |   |   `-- nordlinie-01/
+|   |           |   |       |-- inventory.md
+|   |           |   |       `-- state.md
+|   |           |   `-- templates/
+|   |           |       |-- README.md
+|   |           |       |-- entity-template.md
+|   |           |       |-- inventory-template.md
+|   |           |       |-- mind-template.md
+|   |           |       |-- relationships-template.md
+|   |           |       |-- roster-template.md
+|   |           |       `-- state-template.md
 |   |           |-- inventories/
 |   |           |   |-- README.md
 |   |           |   |-- c6.md
 |   |           |   |-- d5.md
-|   |           |   `-- inventory-template.md
+|   |           |   |-- draisine-transportmodul.md
+|   |           |   |-- inventory-template.md
+|   |           |   `-- nordlinie-01.md
 |   |           |-- mind/
 |   |           |   |-- README.md
+|   |           |   |-- arlen-dross.md
+|   |           |   |-- echo.md
 |   |           |   |-- jonas-merek.md
+|   |           |   |-- kora-malenkov.md
 |   |           |   |-- lumen.md
+|   |           |   |-- marei.md
+|   |           |   |-- marven-kael.md
 |   |           |   |-- mind-template.md
 |   |           |   |-- pahl-brenner.md
 |   |           |   |-- reflex.md
@@ -1085,7 +1181,10 @@ Root = .
 |   |               |-- README.md
 |   |               |-- c6.md
 |   |               |-- d5.md
+|   |               |-- g7.md
+|   |               |-- haendlerbund.md
 |   |               |-- nordlinie-01.md
+|   |               |-- novapolis.md
 |   |               `-- state-template.md
 |   |-- database-raw/
 |   |   `-- 99-exports/

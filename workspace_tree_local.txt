@@ -348,6 +348,12 @@ F:.
 |           |   checks_report_20260428_051914.md
 |           |   checks_report_20260428_052348.json
 |           |   checks_report_20260428_052348.md
+|           |   checks_report_20260428_172239.json
+|           |   checks_report_20260428_172239.md
+|           |   checks_report_20260428_172700.json
+|           |   checks_report_20260428_172700.md
+|           |   checks_report_20260429_035149.json
+|           |   checks_report_20260429_035149.md
 |           |   checks_rp_consistency_20260327_095748.log
 |           |   checks_rp_consistency_20260328_065328.log
 |           |   checks_rp_consistency_20260328_065404.log
@@ -405,6 +411,22 @@ F:.
 |           |   checks_rp_consistency_20260428_052217.log
 |           |   checks_rp_consistency_20260428_052225.log
 |           |   checks_rp_consistency_20260428_054658.log
+|           |   checks_rp_consistency_20260429_003840.log
+|           |   checks_rp_consistency_20260429_004252.log
+|           |   checks_rp_consistency_20260429_004614.log
+|           |   checks_rp_consistency_20260429_004724.log
+|           |   checks_rp_consistency_20260429_004758.log
+|           |   checks_rp_consistency_20260429_004830.log
+|           |   checks_rp_consistency_20260429_004848.log
+|           |   checks_rp_consistency_20260429_005911.log
+|           |   checks_rp_consistency_20260429_005953.log
+|           |   checks_rp_consistency_20260429_010003.log
+|           |   checks_rp_consistency_20260429_010656.log
+|           |   checks_rp_consistency_20260429_012943.log
+|           |   checks_rp_consistency_20260429_013241.log
+|           |   checks_rp_consistency_20260429_013556.log
+|           |   checks_rp_consistency_20260429_021053.log
+|           |   checks_rp_consistency_20260429_024152.log
 |           |   checks_rp_consistency_postflight_20260327_095748.md
 |           |   checks_rp_consistency_postflight_20260328_065328.md
 |           |   checks_rp_consistency_postflight_20260328_065404.md
@@ -462,6 +484,22 @@ F:.
 |           |   checks_rp_consistency_postflight_20260428_052217.md
 |           |   checks_rp_consistency_postflight_20260428_052225.md
 |           |   checks_rp_consistency_postflight_20260428_054658.md
+|           |   checks_rp_consistency_postflight_20260429_003840.md
+|           |   checks_rp_consistency_postflight_20260429_004252.md
+|           |   checks_rp_consistency_postflight_20260429_004614.md
+|           |   checks_rp_consistency_postflight_20260429_004724.md
+|           |   checks_rp_consistency_postflight_20260429_004758.md
+|           |   checks_rp_consistency_postflight_20260429_004830.md
+|           |   checks_rp_consistency_postflight_20260429_004848.md
+|           |   checks_rp_consistency_postflight_20260429_005911.md
+|           |   checks_rp_consistency_postflight_20260429_005953.md
+|           |   checks_rp_consistency_postflight_20260429_010003.md
+|           |   checks_rp_consistency_postflight_20260429_010656.md
+|           |   checks_rp_consistency_postflight_20260429_012943.md
+|           |   checks_rp_consistency_postflight_20260429_013241.md
+|           |   checks_rp_consistency_postflight_20260429_013556.md
+|           |   checks_rp_consistency_postflight_20260429_021053.md
+|           |   checks_rp_consistency_postflight_20260429_024152.md
 |           |   checks_types_20260406_054537.log
 |           |   checks_types_20260406_065950.log
 |           |   checks_types_20260407_165244.log
@@ -700,6 +738,22 @@ F:.
 |           |   rp_consistency_report_20260428_052217.json
 |           |   rp_consistency_report_20260428_052225.json
 |           |   rp_consistency_report_20260428_054658.json
+|           |   rp_consistency_report_20260429_003840.json
+|           |   rp_consistency_report_20260429_004252.json
+|           |   rp_consistency_report_20260429_004614.json
+|           |   rp_consistency_report_20260429_004724.json
+|           |   rp_consistency_report_20260429_004758.json
+|           |   rp_consistency_report_20260429_004830.json
+|           |   rp_consistency_report_20260429_004848.json
+|           |   rp_consistency_report_20260429_005911.json
+|           |   rp_consistency_report_20260429_005953.json
+|           |   rp_consistency_report_20260429_010003.json
+|           |   rp_consistency_report_20260429_010656.json
+|           |   rp_consistency_report_20260429_012943.json
+|           |   rp_consistency_report_20260429_013241.json
+|           |   rp_consistency_report_20260429_013556.json
+|           |   rp_consistency_report_20260429_021053.json
+|           |   rp_consistency_report_20260429_024152.json
 |           |   rp_eval_summary_20260310_1559.json
 |           |   rp_eval_summary_20260310_1559.md
 |           |   rp_eval_summary_20260310_1616_synopt.json
@@ -2482,7 +2536,58 @@ F:.
 |           |       todo-index-sync.log
 |           |       yamllint.log
 |           |       
-|           \---checks_run_20260428_052348
+|           +---checks_run_20260428_052348
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260428_172239
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260428_172700
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           \---checks_run_20260429_035149
 |                   black.log
 |                   doc-freshness.log
 |                   frontmatter.log
@@ -122961,6 +123066,23 @@ F:.
 |   |   |   |       resolved.md
 |   |   |   |       uncertainties.md
 |   |   |   |       
+|   |   |   +---rp-runtime-characters-legacy-20260429-0229
+|   |   |   |   \---characters
+|   |   |   |           arlen-dross.md
+|   |   |   |           c6-bewohner.md
+|   |   |   |           character-template.md
+|   |   |   |           echo.md
+|   |   |   |           jonas-merek.md
+|   |   |   |           kora-malenkov.md
+|   |   |   |           lumen.md
+|   |   |   |           mara-quell.md
+|   |   |   |           marei.md
+|   |   |   |           marven-kael.md
+|   |   |   |           pahl-brenner.md
+|   |   |   |           README.md
+|   |   |   |           reflex.md
+|   |   |   |           ronja-kerschner.md
+|   |   |   |           
 |   |   |   \---todo-archive-20260217_1909
 |   |   |           cleanup-todo-v2.md
 |   |   |           rp-base-todo.md
@@ -125107,25 +125229,118 @@ F:.
 |   |       \---rp-runtime
 |   |           |   README.md
 |   |           |   
-|   |           +---characters
-|   |           |       character-template.md
-|   |           |       jonas-merek.md
-|   |           |       lumen.md
-|   |           |       mara-quell.md
-|   |           |       pahl-brenner.md
-|   |           |       README.md
-|   |           |       reflex.md
-|   |           |       ronja-kerschner.md
-|   |           |       
+|   |           +---entities
+|   |           |   |   README.md
+|   |           |   |   
+|   |           |   +---assets
+|   |           |   |   |   README.md
+|   |           |   |   |   
+|   |           |   |   \---draisine-transportmodul
+|   |           |   |           inventory.md
+|   |           |   |           
+|   |           |   +---characters
+|   |           |   |   |   README.md
+|   |           |   |   |   
+|   |           |   |   +---arlen-dross
+|   |           |   |   |       entity.md
+|   |           |   |   |       mind.md
+|   |           |   |   |       
+|   |           |   |   +---echo
+|   |           |   |   |       entity.md
+|   |           |   |   |       mind.md
+|   |           |   |   |       
+|   |           |   |   +---jonas-merek
+|   |           |   |   |       entity.md
+|   |           |   |   |       mind.md
+|   |           |   |   |       
+|   |           |   |   +---kora-malenkov
+|   |           |   |   |       entity.md
+|   |           |   |   |       mind.md
+|   |           |   |   |       
+|   |           |   |   +---lumen
+|   |           |   |   |       entity.md
+|   |           |   |   |       mind.md
+|   |           |   |   |       
+|   |           |   |   +---mara-quell
+|   |           |   |   |       entity.md
+|   |           |   |   |       relationships.md
+|   |           |   |   |       
+|   |           |   |   +---marei
+|   |           |   |   |       entity.md
+|   |           |   |   |       mind.md
+|   |           |   |   |       
+|   |           |   |   +---marven-kael
+|   |           |   |   |       entity.md
+|   |           |   |   |       mind.md
+|   |           |   |   |       
+|   |           |   |   +---pahl-brenner
+|   |           |   |   |       entity.md
+|   |           |   |   |       mind.md
+|   |           |   |   |       
+|   |           |   |   +---reflex
+|   |           |   |   |       entity.md
+|   |           |   |   |       mind.md
+|   |           |   |   |       
+|   |           |   |   \---ronja-kerschner
+|   |           |   |           entity.md
+|   |           |   |           mind.md
+|   |           |   |           
+|   |           |   +---factions
+|   |           |   |   |   README.md
+|   |           |   |   |   
+|   |           |   |   +---haendlerbund
+|   |           |   |   |       state.md
+|   |           |   |   |       
+|   |           |   |   \---novapolis
+|   |           |   |           state.md
+|   |           |   |           
+|   |           |   +---locations
+|   |           |   |   |   README.md
+|   |           |   |   |   
+|   |           |   |   +---c6
+|   |           |   |   |       inventory.md
+|   |           |   |   |       roster.md
+|   |           |   |   |       state.md
+|   |           |   |   |       
+|   |           |   |   +---d5
+|   |           |   |   |       inventory.md
+|   |           |   |   |       state.md
+|   |           |   |   |       
+|   |           |   |   \---g7
+|   |           |   |           state.md
+|   |           |   |           
+|   |           |   +---projects
+|   |           |   |   |   README.md
+|   |           |   |   |   
+|   |           |   |   \---nordlinie-01
+|   |           |   |           inventory.md
+|   |           |   |           state.md
+|   |           |   |           
+|   |           |   \---templates
+|   |           |           entity-template.md
+|   |           |           inventory-template.md
+|   |           |           mind-template.md
+|   |           |           README.md
+|   |           |           relationships-template.md
+|   |           |           roster-template.md
+|   |           |           state-template.md
+|   |           |           
 |   |           +---inventories
 |   |           |       c6.md
 |   |           |       d5.md
+|   |           |       draisine-transportmodul.md
 |   |           |       inventory-template.md
+|   |           |       nordlinie-01.md
 |   |           |       README.md
 |   |           |       
 |   |           +---mind
+|   |           |       arlen-dross.md
+|   |           |       echo.md
 |   |           |       jonas-merek.md
+|   |           |       kora-malenkov.md
 |   |           |       lumen.md
+|   |           |       marei.md
+|   |           |       marven-kael.md
 |   |           |       mind-template.md
 |   |           |       pahl-brenner.md
 |   |           |       README.md
@@ -125152,7 +125367,10 @@ F:.
 |   |           \---state
 |   |                   c6.md
 |   |                   d5.md
+|   |                   g7.md
+|   |                   haendlerbund.md
 |   |                   nordlinie-01.md
+|   |                   novapolis.md
 |   |                   README.md
 |   |                   state-template.md
 |   |                   
@@ -139491,6 +139709,9 @@ F:.
 |   |       |   finetune_alpaca_results_20250101_0101_20260428_1224.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260428_1229.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260428_1234.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260428_1723.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260428_1727.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260429_0352.jsonl
 |   |       |   finetune_openai_chat_results_20260226_0306_quality_de_round7b_repeat3_20260227_0527.jsonl
 |   |       |   results_20260226_0025_quality_de.jsonl
 |   |       |   results_20260226_0209_quality_de.jsonl
@@ -139817,6 +140038,12 @@ F:.
 |   |       |   results_20260428_1230_rerun.jsonl
 |   |       |   results_20260428_1234.jsonl
 |   |       |   results_20260428_1234_rerun.jsonl
+|   |       |   results_20260428_1723.jsonl
+|   |       |   results_20260428_1724_rerun.jsonl
+|   |       |   results_20260428_1727.jsonl
+|   |       |   results_20260428_1728_rerun.jsonl
+|   |       |   results_20260429_0352.jsonl
+|   |       |   results_20260429_0353_rerun.jsonl
 |   |       |   
 |   |       +---baselines
 |   |       |       training_profiles.2026-02.json
@@ -139970,6 +140197,9 @@ F:.
 |   |               finetune_alpaca_r_20260428_1224.jsonl
 |   |               finetune_alpaca_r_20260428_1229.jsonl
 |   |               finetune_alpaca_r_20260428_1234.jsonl
+|   |               finetune_alpaca_r_20260428_1723.jsonl
+|   |               finetune_alpaca_r_20260428_1727.jsonl
+|   |               finetune_alpaca_r_20260429_0352.jsonl
 |   |               
 |   +---examples
 |   |   |   unrestricted_prompt_example.txt
@@ -141547,6 +141777,9 @@ F:.
 |   +---lora-20260428_0519
 |   +---lora-20260428_0520
 |   +---lora-20260428_0524
+|   +---lora-20260428_1723
+|   +---lora-20260428_1727
+|   +---lora-20260429_0352
 |   +---lora-baseline-20260227_01
 |   |   |   adapter_config.json
 |   |   |   adapter_model.safetensors
