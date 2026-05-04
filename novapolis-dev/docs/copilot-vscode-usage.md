@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-02 22:24
-update: Quellenstatus klargestellt: Guidance-Doku, keine bindende Runtime-Policy; applyTo-Beispiel als Illustration markiert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/copilot-instructions.md' '.github/copilot-instructions-headings.md' '.github/agents/novapolis-workspace-navigator.agent.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (2026-02-27 10:57); .\.venv\Scripts\python.exe scripts/check_frontmatter.py '.github/agents/novapolis-workspace-navigator.agent.md' '.github/copilot-instructions-headings.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'novapolis-dev/archive/docs/others/copilot-instructions.2025-11-15 23-48.md' 'novapolis-dev/archive/docs/others/copilot-instructions-headings.archive.md' 'DONELOG.md' PASS (EXITCODE=0, 2026-02-27 10:57)
+stand: 2026-05-04 09:36
+update: Freshness-Stand im Wochenabschluss erneuert; Guidance-Charakter bleibt unveraendert klar markiert.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
 ---
 
 VS Code + GitHub Copilot - Projektleitfaden

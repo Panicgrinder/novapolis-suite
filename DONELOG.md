@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 03:56
-update: Root-Summary fuehrt jetzt die Archivierung des alten RP-Runtime-Ordners `characters/` nach vollstaendiger Zielpruefung.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-05-04 09:36
+update: Root-Summary fuehrt den gruenen Wochenabschluss samt Wochenbericht und nachgezogener Tree-/Freshness-Drift.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
 ---
 - 2026-04-29 02:29: Der alte RP-Runtime-Typordner `characters/` ist nach WhatIf-Pruefung archiviert. Alle 14 alten Markdown-Dateien waren `state: migriert` und verwiesen auf existierende aktive Dossierziele; die Archivkopie liegt unter `novapolis-dev/archive/quarantine/rp-runtime-characters-legacy-20260429-0229/characters/`. [novapolis-rp/database-curated/staging/rp-runtime/README.md](novapolis-rp/database-curated/staging/rp-runtime/README.md) und [novapolis-rp/database-curated/staging/rp-runtime/entities/README.md](novapolis-rp/database-curated/staging/rp-runtime/entities/README.md) benennen `entities/characters/<slug>/` als aktive Character-Runtime. Die Modul-Boards stehen weiter bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
 
@@ -58,6 +58,8 @@ Hinweis
 - Technische Laufdetails liegen in Reports unter `.tmp/results/reports/`.
 
 Aktuelle Eintraege (Summary)
+
+- 2026-05-04 08:42: Der Wochenabschluss ist nach einem engen Tree-/Freshness-Nachzug wieder vollstaendig gruen. `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260504_083908.md` endet PASS, `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty` meldet `summary=fail:0,warn:0`, und der separate Coverage-Lauf bleibt mit `709 passed` und `92.19%` ueber Hard Gate und Qualitaetsziel. `workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt` und `workspace_tree_local.txt` sind im selben Lauf neu erzeugt; [novapolis-dev/docs/process/wochenbericht-2026-05-04.md](novapolis-dev/docs/process/wochenbericht-2026-05-04.md) fuehrt den konsolidierten Wochenstand im Dev-Modul. Die Modul-Boards bleiben bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
 
 - 2026-04-28 05:45: Der Workspace steht wieder auf einem sauberen Gruenpfad. `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260428_051914.md` endet PASS, die zusaetzlichen Gates fuer RP, Sim, GM-Preflight und Text-RPG sind gruen, und `Checks: sim export smoke` liefert nach Installation der lokalen Godot-Export-Templates wieder den belegten Windows-Export `novapolis-sim/exports/windows/NovapolisSim.exe`. Parallel ignoriert `novapolis-sim/.gitignore` den lokalen Exportpfad jetzt explizit, damit die fuer den Smoke benoetigten `.exe`-/`.pck`-Artefakte nicht versehentlich in den Repo-Commit geraten.
 

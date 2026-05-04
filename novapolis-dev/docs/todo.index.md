@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 03:56
-update: Der TODO-Index fuehrt die abgeschlossene Archivierung des alten RP-Runtime-Ordners `characters/` bei weiterhin offen: 0.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-05-04 09:36
+update: Der TODO-Index fuehrt den gruenen Wochenabschluss 2026-05-04 bei weiterhin offen: 0 und verweist auf den neuen Wochenbericht im Dev-Modul.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -21,7 +21,7 @@ TODO-Index (Novapolis-Dev)
 Statushinweise (aktuell)
 ------------------------
 
-- Root/Meta: `todo.root.md` ist nach der Archivierung des abgeschlossenen April-Blocks wieder als schlanke Live-Oberflaeche vorbereitet und fuehrt aktuell keine offenen suiteweiten Querschnittspunkte. Der Wochenabschluss vom 2026-04-26 20:40 ist gruen belegt (`Checks: full` PASS, `Checks: sim epoch assets` PASS, Coverage `92.19%`), und der naechste Hygiene-Takt bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` sowie die aktuellen Root-Protokolle verankert, waehrend Root bewusst ausserhalb der Modul-Open-Counts bleibt.
+- Root/Meta: `todo.root.md` bleibt die schlanke Live-Oberflaeche ohne offene suiteweite Querschnittspunkte. Der Wochenabschluss vom 2026-05-04 08:42 ist gruen belegt (`Checks: full` PASS, `Checks: sim epoch assets` PASS, Coverage `92.19%` bei `709 passed`), und [novapolis-dev/docs/process/wochenbericht-2026-05-04.md](process/wochenbericht-2026-05-04.md) fuehrt den konsolidierten Wochenstand jetzt zusaetzlich im Dev-Modul. Der naechste Hygiene-Takt bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` sowie die aktuellen Root-Protokolle verankert, waehrend Root bewusst ausserhalb der Modul-Open-Counts bleibt.
 
 - Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Punkte mehr. Der Vierer-Split ist jetzt klar gezogen: `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` bleiben die überwachten kanonischen Trees, waehrend `workspace_tree_local.txt` den echten lokalen On-Disk-Zustand getrennt davon abbildet.
 

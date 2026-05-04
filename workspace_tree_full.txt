@@ -630,6 +630,7 @@ Root = .
 |   |   |   |-- text-rpg-release-evidence-bundle-v1.ssot.md
 |   |   |   |-- text-rpg-slice-2-handover-v1.ssot.md
 |   |   |   |-- text-rpg-turn-budget-model-v1.ssot.md
+|   |   |   |-- wochenbericht-2026-05-04.md
 |   |   |   |-- workspace-audit-segmente.ssot.md
 |   |   |   `-- rp-canvas-rescue/
 |   |   |       |-- canvas-rescue-plan.md
@@ -1062,23 +1063,13 @@ Root = .
 |   |       |   `-- uncertainties.md
 |   |       `-- rp-runtime/
 |   |           |-- README.md
-|   |           |-- characters/
-|   |           |   |-- README.md
-|   |           |   |-- character-template.md
-|   |           |   |-- echo.md
-|   |           |   |-- jonas-merek.md
-|   |           |   |-- kora-malenkov.md
-|   |           |   |-- lumen.md
-|   |           |   |-- mara-quell.md
-|   |           |   |-- pahl-brenner.md
-|   |           |   |-- reflex.md
-|   |           |   `-- ronja-kerschner.md
 |   |           |-- entities/
 |   |           |   |-- README.md
 |   |           |   |-- assets/
 |   |           |   |   |-- README.md
 |   |           |   |   `-- draisine-transportmodul/
-|   |           |   |       `-- inventory.md
+|   |           |   |       |-- inventory.md
+|   |           |   |       `-- state.md
 |   |           |   |-- characters/
 |   |           |   |   |-- README.md
 |   |           |   |   |-- arlen-dross/

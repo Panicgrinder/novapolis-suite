@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-02 23:30
-update: Pfadnotation auf kanonische RP-Zielpfade vereinheitlicht (`novapolis-rp/...`) und CWD-Mehrdeutigkeit reduziert.
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/index.md' PASS (2026-02-22 11:24); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-dev/docs/index.md' PASS (2026-02-22 11:24)"
+stand: 2026-05-04 09:36
+update: Referenzstand im Wochenabschluss erneuert und der aktuelle Wochenbericht im Dev-Prozesspfad verankert.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
 ---
 
 <!-- markdownlint-disable MD041 -->
@@ -30,6 +30,7 @@ Primary Docs
 - `docs/naming-policy.md` — Dateibenennung fuer alle Novapolis-Repos
 - `docs/tests.md` — Testabdeckung, Sim-/Client-Checks
 - `docs/process/abschluss-routine.ssot.md` — SSOT fuer Wochen- und Monatsabschluss (Betriebsrhythmus)
+- `docs/process/wochenbericht-2026-05-04.md` — konsolidierter Wochenbericht fuer den Abschlusslauf 2026-04-28 bis 2026-05-04
 - Meta-Sidecars: `novapolis-dev/docs/meta/*.json` (Quelle, Ursprung, Migrationsstempel)
 
 Betriebsnotiz (temporär)

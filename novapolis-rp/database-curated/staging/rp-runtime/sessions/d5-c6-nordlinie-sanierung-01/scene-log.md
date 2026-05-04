@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 06:56
-update: Turn 12 fuehrt Ronjas C6-Schuttkeil-Prueffrage und die offene Draisine-Antriebsfrage als Runtime-Arbeitsstand nach.
-checks: snapshot-lock PASS (2026-04-29 06:56); markdownlint PASS; frontmatter PASS; todo-index-sync PASS; logs-policy PASS; snapshot-gate PASS
+stand: 2026-05-04 09:36
+update: Der RP-Stand ist jetzt als Vorbereitungsanker fuer den naechsten Zug festgezogen; offen bleiben C6-Schuttbruch-Pruefung und Draisine-Antriebsantwort.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
 ---
 
 Scene Log - D5 C6 Nordlinie Sanierung 01
@@ -198,6 +198,26 @@ Turn 12
   - keine neue Mind-Delta / keine neue Relationship-Delta: Die Szene erzeugt technische Prueffragen, aber noch keine belegte relationale Verschiebung zwischen Ronja, C6, Jonas oder Pahl.
   - Review required: C6-Antwort zur Eignung der Schuttbruchstuecke und Jonas/Pahl-Antwort zum Draisine-Antrieb muessen im Folgezug ausgespielt oder dokumentiert werden.
 - follow_up: Naechsten Zug mit zwei Antworten beginnen: `C6` prueft Schuttbruch-Eignung fuer die `Schottertasche Nordkante`; Jonas und Pahl erklaeren den belegbaren Antrieb, die Brems-/Stopplogik und die aktuelle Lastgrenze der Draisine, ohne einen Testlauf vorwegzunehmen.
+
+Vorbereitungsanker fuer den naechsten Zug
+----------------------------------------
+
+- status: vorbereitet, nicht ausgespielt
+- startreihenfolge:
+  - `C6` beantwortet zuerst, ob der `Schuttkeil Kontaktseite` kontrolliert zerschlagen werden kann, welche Bruchstueckgroesse tragfaehig wirkt und welches Risiko dabei fuer den Kontaktpunkt bleibt.
+  - Jonas und Pahl beantworten danach den belegbaren Draisine-Antrieb sowie die aktuelle Brems-/Stopplogik und Lastgrenze des Prototyps.
+  - Ronja zieht beide Antworten erst anschliessend in einen priorisierten Folgeentscheid fuer `Schottertasche Nordkante`, `Schuttkeil Kontaktseite` und den weiteren Logistikpfad zusammen.
+- harte grenzen:
+  - kein Schuttbruch wird als Materialbuchung, Einsatz oder Transfer gefuehrt, solange `C6` Eignung, Gewinnung und Kontaktpunktrisiko nicht ausdruecklich beantwortet hat.
+  - kein Draisine-Testlauf, keine Lastfreigabe und kein Logistikclaim werden ausgespielt, solange Jonas/Pahl Antrieb, Brems-/Stopplogik und Lastgrenze nicht belastbar benannt haben.
+  - keine neue D5- oder C6-Freigabe wird still aus der Vorbereitung abgeleitet; der naechste Zug darf Antworten und Priorisierung liefern, aber keine freie Erfolgsmeldung.
+- geladene achsen:
+  - `Ronja/Reflex`
+  - `Jonas/Pahl/Lumen`
+  - `C6-Tunneltrupp` und `Kora` als getrennter Stationsruecklauf
+  - `D5`, `C6`, `Nordlinie 01` und `Draisine-Transportmodul`
+- zielbild:
+  - Der naechste Zug ist vorbereitet, wenn die Szene die beiden offenen Antwortachsen zuerst schliesst und den naechsten technischen Arbeitsschritt klar priorisiert, ohne dabei unbelegte Material- oder Fahransprueche mitzuschleppen.
 
 Admin Handover
 -------------

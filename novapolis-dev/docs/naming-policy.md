@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-03 14:32
-update: Repo-weite Naming-SSOT fuer aktive Doku/Governance normiert und maschinelles Gate (`check_naming_policy.py`) verbindlich verankert.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-dev/docs/naming-policy.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (2026-03-03 02:47); .\.venv\Scripts\python.exe scripts\check_frontmatter.py 'novapolis-dev/docs/naming-policy.md' 'DONELOG.md' 'WORKSPACE_STATUS.md' 'novapolis-dev/docs/donelog.md' PASS (EXITCODE=0, 2026-03-03 02:47); .\.venv\Scripts\python.exe scripts\check_naming_policy.py --repo-root . PASS (EXITCODE=0, 2026-03-03 02:47)
+stand: 2026-05-04 09:36
+update: Freshness-Stand im Wochenabschluss erneuert; aktive Naming-SSOT bleibt unveraendert massgeblich.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
 ---
 
 Naming Policy (SSOT fuer aktive Doku/Governance)

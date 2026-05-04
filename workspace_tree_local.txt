@@ -354,6 +354,12 @@ F:.
 |           |   checks_report_20260428_172700.md
 |           |   checks_report_20260429_035149.json
 |           |   checks_report_20260429_035149.md
+|           |   checks_report_20260429_035444.json
+|           |   checks_report_20260429_035444.md
+|           |   checks_report_20260504_083019.json
+|           |   checks_report_20260504_083019.md
+|           |   checks_report_20260504_083643.json
+|           |   checks_report_20260504_083643.md
 |           |   checks_rp_consistency_20260327_095748.log
 |           |   checks_rp_consistency_20260328_065328.log
 |           |   checks_rp_consistency_20260328_065404.log
@@ -427,6 +433,10 @@ F:.
 |           |   checks_rp_consistency_20260429_013556.log
 |           |   checks_rp_consistency_20260429_021053.log
 |           |   checks_rp_consistency_20260429_024152.log
+|           |   checks_rp_consistency_20260429_041603.log
+|           |   checks_rp_consistency_20260429_064758.log
+|           |   checks_rp_consistency_20260429_065020.log
+|           |   checks_rp_consistency_20260429_065915.log
 |           |   checks_rp_consistency_postflight_20260327_095748.md
 |           |   checks_rp_consistency_postflight_20260328_065328.md
 |           |   checks_rp_consistency_postflight_20260328_065404.md
@@ -500,6 +510,10 @@ F:.
 |           |   checks_rp_consistency_postflight_20260429_013556.md
 |           |   checks_rp_consistency_postflight_20260429_021053.md
 |           |   checks_rp_consistency_postflight_20260429_024152.md
+|           |   checks_rp_consistency_postflight_20260429_041603.md
+|           |   checks_rp_consistency_postflight_20260429_064758.md
+|           |   checks_rp_consistency_postflight_20260429_065020.md
+|           |   checks_rp_consistency_postflight_20260429_065915.md
 |           |   checks_types_20260406_054537.log
 |           |   checks_types_20260406_065950.log
 |           |   checks_types_20260407_165244.log
@@ -754,6 +768,10 @@ F:.
 |           |   rp_consistency_report_20260429_013556.json
 |           |   rp_consistency_report_20260429_021053.json
 |           |   rp_consistency_report_20260429_024152.json
+|           |   rp_consistency_report_20260429_041603.json
+|           |   rp_consistency_report_20260429_064758.json
+|           |   rp_consistency_report_20260429_065020.json
+|           |   rp_consistency_report_20260429_065915.json
 |           |   rp_eval_summary_20260310_1559.json
 |           |   rp_eval_summary_20260310_1559.md
 |           |   rp_eval_summary_20260310_1616_synopt.json
@@ -2587,7 +2605,58 @@ F:.
 |           |       todo-index-sync.log
 |           |       yamllint.log
 |           |       
-|           \---checks_run_20260429_035149
+|           +---checks_run_20260429_035149
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260429_035444
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260504_083019
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           \---checks_run_20260504_083643
 |                   black.log
 |                   doc-freshness.log
 |                   frontmatter.log
@@ -123240,6 +123309,7 @@ F:.
 |   |   |   |   text-rpg-release-evidence-bundle-v1.ssot.md
 |   |   |   |   text-rpg-slice-2-handover-v1.ssot.md
 |   |   |   |   text-rpg-turn-budget-model-v1.ssot.md
+|   |   |   |   wochenbericht-2026-05-04.md
 |   |   |   |   workspace-audit-segmente.ssot.md
 |   |   |   |   
 |   |   |   \---rp-canvas-rescue
@@ -125237,6 +125307,7 @@ F:.
 |   |           |   |   |   
 |   |           |   |   \---draisine-transportmodul
 |   |           |   |           inventory.md
+|   |           |   |           state.md
 |   |           |   |           
 |   |           |   +---characters
 |   |           |   |   |   README.md
@@ -139712,6 +139783,9 @@ F:.
 |   |       |   finetune_alpaca_results_20250101_0101_20260428_1723.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260428_1727.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260429_0352.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260429_0355.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260504_0830.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260504_0837.jsonl
 |   |       |   finetune_openai_chat_results_20260226_0306_quality_de_round7b_repeat3_20260227_0527.jsonl
 |   |       |   results_20260226_0025_quality_de.jsonl
 |   |       |   results_20260226_0209_quality_de.jsonl
@@ -140044,6 +140118,12 @@ F:.
 |   |       |   results_20260428_1728_rerun.jsonl
 |   |       |   results_20260429_0352.jsonl
 |   |       |   results_20260429_0353_rerun.jsonl
+|   |       |   results_20260429_0355.jsonl
+|   |       |   results_20260429_0356_rerun.jsonl
+|   |       |   results_20260504_0831.jsonl
+|   |       |   results_20260504_0833_rerun.jsonl
+|   |       |   results_20260504_0837.jsonl
+|   |       |   results_20260504_0838_rerun.jsonl
 |   |       |   
 |   |       +---baselines
 |   |       |       training_profiles.2026-02.json
@@ -140200,6 +140280,9 @@ F:.
 |   |               finetune_alpaca_r_20260428_1723.jsonl
 |   |               finetune_alpaca_r_20260428_1727.jsonl
 |   |               finetune_alpaca_r_20260429_0352.jsonl
+|   |               finetune_alpaca_r_20260429_0355.jsonl
+|   |               finetune_alpaca_r_20260504_0830.jsonl
+|   |               finetune_alpaca_r_20260504_0837.jsonl
 |   |               
 |   +---examples
 |   |   |   unrestricted_prompt_example.txt
@@ -141780,6 +141863,10 @@ F:.
 |   +---lora-20260428_1723
 |   +---lora-20260428_1727
 |   +---lora-20260429_0352
+|   +---lora-20260429_0355
+|   +---lora-20260504_0830
+|   +---lora-20260504_0832
+|   +---lora-20260504_0837
 |   +---lora-baseline-20260227_01
 |   |   |   adapter_config.json
 |   |   |   adapter_model.safetensors

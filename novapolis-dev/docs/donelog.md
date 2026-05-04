@@ -1,8 +1,23 @@
 ---
-stand: 2026-04-29 06:56
-update: Das Dev-DONELOG dokumentiert jetzt den Runtime-Nachzug fuer Turn 12 mit C6-Schuttbruch-Pruefung und offener Draisine-Antriebsfrage.
-checks: snapshot-lock PASS (2026-04-29 06:56); markdownlint PASS; frontmatter PASS; todo-index-sync PASS; logs-policy PASS; snapshot-gate PASS; rp-hard-gates PASS; current-state-gate PASS; rp-staging-tag-coverage PASS
+stand: 2026-05-04 09:36
+update: Der Wochenabschluss zieht Tree- und Freshness-Drift nach und legt den konsolidierten Wochenbericht im Dev-Modul an.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
 ---
+Dev/Governance: Wochenbericht angelegt und belegte Drift aus dem Abschlusslauf nachgezogen (2026-05-04 08:34)
+--------------------------------------------------------------------------------------------------------
+
+- Der initiale Vollcheck [.tmp/results/reports/checks_report_20260504_083019.md](../../.tmp/results/reports/checks_report_20260504_083019.md) war eng rot und belegte nur zwei technische Reste: stale Tree-Artefakte (`workspace_tree.txt`, `workspace_tree_full.txt`) sowie drei ueberfaellige Referenzdokus ([novapolis-dev/docs/copilot-vscode-usage.md](copilot-vscode-usage.md), [novapolis-dev/docs/index.md](index.md), [novapolis-dev/docs/naming-policy.md](naming-policy.md)).
+- `workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt` und `workspace_tree_local.txt` sind im selben Lauf ueber [scripts/update_workspace_tree_dirs.py](../../scripts/update_workspace_tree_dirs.py) neu erzeugt; der fokussierte Test `novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py` ist danach wieder grün.
+- Mit [novapolis-dev/docs/process/wochenbericht-2026-05-04.md](process/wochenbericht-2026-05-04.md) liegt jetzt ein eigener Wochenbericht im Dev-Modul vor. Er buendelt die belastbaren Fortschritte der Woche ueber Dev-/Governance-, RP- und Runtime-Arbeit sowie den offenen fachlichen Naechstanker fuer den Nordlinie-Strang.
+- Der anschliessende Recheck [.tmp/results/reports/checks_report_20260504_083908.md](../../.tmp/results/reports/checks_report_20260504_083908.md) ist wieder vollstaendig PASS; `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty` endet mit `summary=fail:0,warn:0`, und der separate Coverage-Lauf bleibt mit `709 passed` sowie `92.19%` klar ueber Gate und Qualitaetsziel.
+
+RP-Runtime: RP-Stand erfasst und naechsten Antwortzug vorbereitet (2026-04-29 10:51)
+------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](../../novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt jetzt einen eigenen Vorbereitungsanker fuer den naechsten Zug: Erst die C6-Antwort zur Schuttbruch-Eignung, danach die Jonas-/Pahl-Antwort zu Draisine-Antrieb, Brems-/Stopplogik und Lastgrenze.
+- [novapolis-rp/database-curated/staging/rp-runtime/entities/projects/nordlinie-01/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/projects/nordlinie-01/state.md) zieht denselben Schnitt in den Projekt-State: T12 bleibt der aktuelle belegte Arbeitsstand, der naechste Zug ist als Antwortpfad vorbereitet und fuehrt noch keine neue Materialbuchung, keine neue Freigabe und keinen Draisine-Testlauf.
+- Der Lauf bleibt absichtlich minimal: keine neue Szene, keine neue Kanonbehauptung und keine still aus T12 abgeleitete D5-/C6-Erfolgsmeldung. Ziel ist ein sauberer Startanker fuer den naechsten einzelnen Zug.
+
 RP-Runtime: Turn 12 mit C6-Schuttbruch-Pruefung und Draisine-Antriebsfrage nachgezogen (2026-04-29 06:39)
 ----------------------------------------------------------------------------------------------------------------
 

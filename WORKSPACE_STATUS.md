@@ -1,8 +1,10 @@
 ---
-stand: 2026-04-29 03:56
-update: Der Root-Status fuehrt jetzt die Archivierung des alten RP-Runtime-Ordners `characters/` nach vollstaendiger Zielpruefung.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-05-04 09:36
+update: Der Root-Status fuehrt jetzt den gruenen Wochenabschluss, den konsolidierten Wochenbericht und den nachgezogenen Tree-/Freshness-Schnitt.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
 ---
+- 2026-05-04 08:42: Der Wochenabschluss ist wieder auf Gruenstand geschlossen. `scripts/run_checks_and_report.py` gegen `.tmp/results/reports/checks_report_20260504_083908.md` bleibt vollstaendig PASS; `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty` endet mit `summary=fail:0,warn:0`, und der separate Coverage-Lauf haelt `709 passed` sowie `92.19%`. Der frische Wochenbericht [novapolis-dev/docs/process/wochenbericht-2026-05-04.md](novapolis-dev/docs/process/wochenbericht-2026-05-04.md) liegt jetzt im Dev-Modul; die Modul-Boards bleiben weiter bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
+
 - 2026-04-29 02:29: Der alte RP-Runtime-Typordner `characters/` ist nach WhatIf-Pruefung archiviert. Alle 14 alten Markdown-Dateien waren `state: migriert` und verwiesen auf existierende aktive Dossierziele; die Archivkopie liegt unter `novapolis-dev/archive/quarantine/rp-runtime-characters-legacy-20260429-0229/characters/`. Aktive Character-Runtime liegt weiter unter [novapolis-rp/database-curated/staging/rp-runtime/entities/characters/README.md](novapolis-rp/database-curated/staging/rp-runtime/entities/characters/README.md). Die Modul-Boards stehen weiter bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
 
 - 2026-04-29 02:02: Die aktive RP-Runtime ist auf entity-centric Dossiers nach Option 1 migriert. [novapolis-rp/database-curated/staging/rp-runtime/entities/README.md](novapolis-rp/database-curated/staging/rp-runtime/entities/README.md) fuehrt jetzt die aktive Struktur `entities/<type>/<slug>/`; `sessions/` bleibt top-level. Alte Typordner unter `rp-runtime/characters`, `mind`, `inventories`, `state` und `relationships` bleiben nur als Redirect-Flaechen fuer alte Links. Die Modul-Boards stehen wieder bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
