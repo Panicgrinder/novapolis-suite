@@ -1,7 +1,7 @@
 ---
-stand: 2026-05-04 09:36
-update: Der TODO-Index fuehrt den gruenen Wochenabschluss 2026-05-04 bei weiterhin offen: 0 und verweist auf den neuen Wochenbericht im Dev-Modul.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
+stand: 2026-05-11 14:14
+update: Der TODO-Index spiegelt den gruenen Wochenabschluss 2026-05-11 bei weiter offen: 0; der einzige Hygiene-Rest war ein stale Agent-Board und ist im selben Lauf geschlossen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260511_125821.md; snapshot-lock PASS (2026-05-11 14:14)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -21,11 +21,11 @@ TODO-Index (Novapolis-Dev)
 Statushinweise (aktuell)
 ------------------------
 
-- Root/Meta: `todo.root.md` bleibt die schlanke Live-Oberflaeche ohne offene suiteweite Querschnittspunkte. Der Wochenabschluss vom 2026-05-04 08:42 ist gruen belegt (`Checks: full` PASS, `Checks: sim epoch assets` PASS, Coverage `92.19%` bei `709 passed`), und [novapolis-dev/docs/process/wochenbericht-2026-05-04.md](process/wochenbericht-2026-05-04.md) fuehrt den konsolidierten Wochenstand jetzt zusaetzlich im Dev-Modul. Der naechste Hygiene-Takt bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` sowie die aktuellen Root-Protokolle verankert, waehrend Root bewusst ausserhalb der Modul-Open-Counts bleibt.
+- Root/Meta: `todo.root.md` bleibt die schlanke Live-Oberflaeche ohne offene suiteweite Querschnittspunkte. Der Wochenabschluss 2026-05-11 ist gruen belegt: `.tmp\results\reports\checks_report_20260511_125821.md` ist PASS, `Checks: sim epoch assets` bleibt PASS (`summary=fail:0,warn:0`), `Tests: coverage (fail-under)` bleibt bei `92.19%` und `709 passed`, und Root bleibt bewusst ausserhalb der Modul-Open-Counts.
 
 - Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Punkte mehr. Der Vierer-Split ist jetzt klar gezogen: `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` bleiben die überwachten kanonischen Trees, waehrend `workspace_tree_local.txt` den echten lokalen On-Disk-Zustand getrennt davon abbildet.
 
-- Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt aktuell keine offenen Punkte mehr. Der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` blockiert `export+pack` und LoRA jetzt vor dem naechsten Schritt, wenn `validate_eval_datasets --strict`, ein grüner `rp_content`-Beleg oder die notwendige Provenienz fehlen; im aktuellen Repo-Stand scheitert derselbe Direktlauf erwartungsgemaess an `missing rp_content results` statt ungeguardet in Training zu laufen.
+- Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt weiter keine offenen Punkte. Der Wochenabschlusslauf hat hier nur den Freshness-Stand nachgezogen; inhaltlich bleibt der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` unveraendert der harte Vorlauf vor `export+pack` und LoRA.
 
 - RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell wieder keine offenen Punkte mehr. Die RP-Runtime ist auf entity-centric Dossiers nach Option 1 migriert: `sessions/` bleibt top-level, waehrend entitaetsbezogene Arbeitsdaten unter `entities/<type>/<slug>/` zusammengefuehrt sind; der alte Typordner `characters/` ist nach Zielpruefung archiviert, die uebrigen alten Typordner dienen nur noch als Redirect-Flaechen.
 

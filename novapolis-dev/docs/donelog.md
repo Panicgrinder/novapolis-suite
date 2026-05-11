@@ -1,8 +1,17 @@
 ---
-stand: 2026-05-04 09:36
-update: Der Wochenabschluss zieht Tree- und Freshness-Drift nach und legt den konsolidierten Wochenbericht im Dev-Modul an.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
+stand: 2026-05-11 14:14
+update: Der Dev-DONELOG fuehrt den Wochenabschluss 2026-05-11 mit stabilem Repo-Stand, nachgezogenem Agent-Board und neuem Wochenbericht.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260511_125821.md; snapshot-lock PASS (2026-05-11 14:14)
 ---
+Dev/Governance: Wochenabschluss 2026-05-11 auf Gruenstand gehalten (2026-05-11 12:59)
+-----------------------------------------------------------------------------------------
+
+- Seit dem letzten Wochenabschluss kam kein neuer Repo-Commit hinzu; `git log --since="2026-05-04 09:36"` zeigt weiter nur `02f2d9d`. Der Arbeitsstand blieb damit fachlich stabil; der Wochenabschluss war ein reiner Governance- und Hygiene-Lauf.
+- Der initiale Vollcheck [.tmp/results/reports/checks_report_20260511_125233.md](../../.tmp/results/reports/checks_report_20260511_125233.md) fiel nur am stale Agent-Board [novapolis-dev/docs/todo.agent-board.md](todo.agent-board.md). Nach diesem Freshness-Fix kippte der Zwischenlauf [.tmp/results/reports/checks_report_20260511_125608.md](../../.tmp/results/reports/checks_report_20260511_125608.md) nur noch an der pflichtigen Index-Synchronisierung; [novapolis-dev/docs/todo.index.md](todo.index.md) wurde im selben Lauf nachgezogen.
+- Der finale Recheck [.tmp/results/reports/checks_report_20260511_125821.md](../../.tmp/results/reports/checks_report_20260511_125821.md) ist vollstaendig PASS. `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty` bleibt bei `summary=fail:0,warn:0`; der Coverage-Gate-Lauf bleibt mit `709 passed` und `92.19%` klar ueber Hard Gate und Qualitaetsziel.
+- KPI-Hygiene-Slot: `todo_index_drift=0`, `active_docs_stale=1 -> 0 im selben Lauf`, `placeholder_conflicts=0`, `logs_policy_violations=0`. Die Modul-Boards bleiben unveraendert bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
+- Mit [novapolis-dev/docs/process/wochenbericht-2026-05-11.md](process/wochenbericht-2026-05-11.md) liegt der konsolidierte Wochenbericht fuer den Zeitraum 2026-05-05 bis 2026-05-11 jetzt im Dev-Modul vor.
+
 Dev/Governance: Wochenbericht angelegt und belegte Drift aus dem Abschlusslauf nachgezogen (2026-05-04 08:34)
 --------------------------------------------------------------------------------------------------------
 
