@@ -1,7 +1,7 @@
 ---
-stand: 2026-05-04 09:36
-update: Freshness-Stand im Wochenabschluss erneuert; Guidance-Charakter bleibt unveraendert klar markiert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
+stand: 2026-05-19 05:14
+update: Die Guidance fuehrt `Plan` und Agent-Todo jetzt wieder versionsrobust und ohne veraltete Toolnamen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md novapolis-dev/docs/copilot-vscode-usage.md WORKSPACE_STATUS.md DONELOG.md novapolis-dev/docs/donelog.md PASS (2026-05-19 05:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py README.md WORKSPACE_STATUS.md DONELOG.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/donelog.md PASS (EXITCODE=0, 2026-05-19 05:10); snapshot-lock PASS (2026-05-19 05:14)
 ---
 
 VS Code + GitHub Copilot - Projektleitfaden
@@ -118,7 +118,7 @@ MCP-Server & Tools
 
 - Ask: Fragen/Erklärungen ohne Änderungen.
 - Edit: fokussierte Code-Anpassungen im aktuellen File.
-- Plan (Preview/Insiders): Planerischer Entwurf, kein direkter Code-Edit.
+- Plan: Planungs- und Strukturmodus fuer mehrschrittige Arbeit; je nach aktuellem Copilot-/Insiders-Stand kann der Uebergang zu ausfuehrenden Agent-Flows enger sein. Bindend bleibt dafuer immer die SSOT unter `.github/copilot-instructions.md`.
 
 Modelle & Tools
 ---------------
@@ -141,7 +141,7 @@ Projekt-Regeln (wichtig)
 ------------------------
 - Sprache: Deutsch. Kurze, präzise Antworten.
 - Preambles vor Tool-Aktionen: kurz ankündigen, was/warum.
-- Planung: Für mehrschrittige Aufgaben ToDo-Liste (manage_todo_list) nutzen und Schrittweise abhaken.
+- Planung: Für mehrschrittige Aufgaben die jeweils aktuelle Plan-/Todo-Funktion des Agenten nutzen und Schritt für Schritt sichtbar abarbeiten; alte Toolnamen nicht als feste API annehmen.
  - Wrapper-Policy (R-WRAP): Mehrschrittläufe nur via Skript-Wrapper (z. B. `python <script.py>`), kein verschachteltes `-Command`.
 - Chat Prompt-Beispiele: <https://code.visualstudio.com/docs/copilot/chat/prompt-examples>
 - Modelle in VS Code: <https://code.visualstudio.com/docs/copilot/customization/language-models>

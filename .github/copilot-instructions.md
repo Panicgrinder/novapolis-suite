@@ -1,5 +1,5 @@
-stand: 2026-04-29 00:47
-Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '.github/agents/novapolis-workspace-navigator.agent.md' PASS (2026-04-29 00:13); .\.venv\Scripts\python.exe scripts\check_frontmatter.py '.github/agents/novapolis-workspace-navigator.agent.md' PASS (EXITCODE=0, 2026-04-29 00:13); GOV-EX-FM-001 fuer '.github/copilot-instructions.md' beachtet
+stand: 2026-05-19 05:14
+Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-05-19 05:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py README.md WORKSPACE_STATUS.md DONELOG.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/donelog.md PASS (EXITCODE=0, 2026-05-19 05:10); GOV-EX-FM-001 fuer '.github/copilot-instructions.md' beachtet; snapshot-lock PASS (2026-05-19 05:14)
 
 
 LLM-Dokumentenheader (nicht löschen)
@@ -83,6 +83,7 @@ Globale Kernregeln
 - Hard-Trigger: Code-/Doc-Mutationen, skriptgestützte Änderungen, Policy-Änderungen.
 - Soft-Trigger: Mehrdeutigkeit, Konflikt, fehlender Kontext.
 - Ohne Freigabe bei Hard-Trigger keine Ausführung.
+- Eine explizite User-Anweisung im aktuellen Chat kann diese Freigabe selbst darstellen, wenn Ziel und Scope klar sind; bei Mehrdeutigkeit, Konflikt oder verdeckter Scope-Ausweitung bleibt STOP verpflichtend.
 
 #### R-WRAP Wrapper-Policy und Guards
 - Mehrschritt-/Artefaktbefehle über Python-Wrapper (`.venv` bevorzugt, Fallback `python`).

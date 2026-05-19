@@ -1,8 +1,16 @@
 ---
-stand: 2026-05-19 04:34
-update: Der Dev-DONELOG fuehrt den Wochenabschluss 2026-05-18 nach Tree-Refresh, Freshness-Sync und neuem Wochenbericht.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260518_222833.md; snapshot-lock PASS (2026-05-19 04:34)
+stand: 2026-05-19 05:14
+update: Der Dev-DONELOG fuehrt die Guidance-Schaerfung fuer `Plan` und Agent-Todo ohne veraltete Toolnamen.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md novapolis-dev/docs/copilot-vscode-usage.md WORKSPACE_STATUS.md DONELOG.md novapolis-dev/docs/donelog.md PASS (2026-05-19 05:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py README.md WORKSPACE_STATUS.md DONELOG.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/donelog.md PASS (EXITCODE=0, 2026-05-19 05:10); snapshot-lock PASS (2026-05-19 05:14)
 ---
+Dev/Guidance: Copilot-Leitfaden und Root-Kontextsprache an den realen Agent-Betrieb angeglichen (2026-05-19 05:09)
+----------------------------------------------------------------------------------------------------------------
+
+- [novapolis-dev/docs/copilot-vscode-usage.md](copilot-vscode-usage.md) fuehrt `Plan` jetzt nicht mehr als starre Produktgrenze ohne Edit-Pfad, sondern als planungsorientierten Modus mit versionsabhaengigem Uebergang zu ausfuehrenden Agent-Flows; bindend bleibt dafuer ausdruecklich die SSOT unter [.github/copilot-instructions.md](../../.github/copilot-instructions.md).
+- Derselbe Leitfaden benennt fuer mehrschrittige Arbeit nicht mehr das veraltete Werkzeuglabel `manage_todo_list`, sondern die jeweils aktuelle Plan-/Todo-Funktion des Agenten. Damit bleibt die Guidance stabil, auch wenn VS Code oder Copilot interne Toolnamen aendern.
+- [README.md](../../README.md) beschreibt `github.copilot.chat.workspaceInstructions` jetzt enger als SSOT-Anker mit optionalen zusaetzlichen Kontextpfaden; die bisherige Formulierung war breiter als die reale Workspace-Einstellung in [.vscode/settings.json](../../.vscode/settings.json).
+- Parallel fuehrt [.github/copilot-instructions.md](../../.github/copilot-instructions.md) beim STOP-Gate jetzt explizit, dass eine klare User-Anweisung im aktuellen Chat die Freigabe fuer einen Hard-Trigger selbst darstellen kann, solange Ziel und Scope eindeutig sind; bei Mehrdeutigkeit oder Scope-Drift bleibt STOP unveraendert hart.
+
 Dev/Governance: Wochenabschluss 2026-05-18 nach Tree- und Freshness-Drift wieder auf Gruenstand gezogen (2026-05-18 22:32)
 ----------------------------------------------------------------------------------------------------------------------
 
