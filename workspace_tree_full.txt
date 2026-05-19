@@ -631,6 +631,7 @@ Root = .
 |   |   |   |-- text-rpg-slice-2-handover-v1.ssot.md
 |   |   |   |-- text-rpg-turn-budget-model-v1.ssot.md
 |   |   |   |-- wochenbericht-2026-05-04.md
+|   |   |   |-- wochenbericht-2026-05-11.md
 |   |   |   |-- workspace-audit-segmente.ssot.md
 |   |   |   `-- rp-canvas-rescue/
 |   |   |       |-- canvas-rescue-plan.md

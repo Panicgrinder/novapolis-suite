@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 13:19
+stand: 2026-05-19 04:34
 update: Das Dev-Board fuehrt nach dem Local-Tree-Nachzug wieder keine offenen Punkte; neben den drei überwachten Trees gibt es jetzt einen klar getrennten lokalen Maschinenbaum.
-checks: snapshot-lock PASS (2026-04-28 13:19); markdownlint=PASS; frontmatter=PASS; pytest=PASS (novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260518_222833.md; snapshot-lock PASS (2026-05-19 04:34)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->

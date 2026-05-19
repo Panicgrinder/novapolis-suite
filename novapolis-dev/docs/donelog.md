@@ -1,8 +1,18 @@
 ---
-stand: 2026-05-11 14:14
-update: Der Dev-DONELOG fuehrt den Wochenabschluss 2026-05-11 mit stabilem Repo-Stand, nachgezogenem Agent-Board und neuem Wochenbericht.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260511_125821.md; snapshot-lock PASS (2026-05-11 14:14)
+stand: 2026-05-19 04:34
+update: Der Dev-DONELOG fuehrt den Wochenabschluss 2026-05-18 nach Tree-Refresh, Freshness-Sync und neuem Wochenbericht.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260518_222833.md; snapshot-lock PASS (2026-05-19 04:34)
 ---
+Dev/Governance: Wochenabschluss 2026-05-18 nach Tree- und Freshness-Drift wieder auf Gruenstand gezogen (2026-05-18 22:32)
+----------------------------------------------------------------------------------------------------------------------
+
+- Seit dem letzten Wochenabschluss kam kein neuer Repo-Commit hinzu; `git log --since="2026-05-11 12:59"` zeigt weiter nur `855a168`. Der Arbeitsstand blieb damit fachlich stabil; der Wochenabschluss war erneut ein reiner Governance- und Hygiene-Lauf.
+- Der initiale Vollcheck [.tmp/results/reports/checks_report_20260518_222210.md](../../.tmp/results/reports/checks_report_20260518_222210.md) fiel nur an zwei Hygiene-Resten: `doc-freshness` mit 23 stale aktiven/Referenzdokus sowie dem Pytest-Gate fuer stale Workspace-Trees `workspace_tree.txt` und `workspace_tree_full.txt`.
+- `workspace_tree.txt`, `workspace_tree_dirs.txt`, `workspace_tree_full.txt` und `workspace_tree_local.txt` sind im selben Lauf neu erzeugt; der fokussierte Test `novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py` ist danach wieder gruen. Die stale Root-, Dev-, Agent- und RP-Referenzdokus wurden anschliessend gezielt ueber `scripts/sync_docs_after_checks.py` nachgezogen; der Freshness-Recheck endet danach wieder mit `findings=0`.
+- Der finale Recheck [.tmp/results/reports/checks_report_20260518_222833.md](../../.tmp/results/reports/checks_report_20260518_222833.md) ist vollstaendig PASS. `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty` bleibt bei `summary=fail:0,warn:0`; der separate Coverage-Gate-Lauf bleibt mit `709 passed` und `92.19%` klar ueber Hard Gate und Qualitaetsziel.
+- KPI-Hygiene-Slot: `todo_index_drift=0`, `active_docs_stale=23 -> 0 im selben Lauf`, `placeholder_conflicts=0`, `logs_policy_violations=0`. Die Modul-Boards bleiben unveraendert bei `Dev=0`, `RP=0`, `Agent=0`, `Sim=0`.
+- Mit [novapolis-dev/docs/process/wochenbericht-2026-05-18.md](process/wochenbericht-2026-05-18.md) liegt der konsolidierte Wochenbericht fuer den Zeitraum 2026-05-12 bis 2026-05-18 jetzt im Dev-Modul vor.
+
 Dev/Governance: Wochenabschluss 2026-05-11 auf Gruenstand gehalten (2026-05-11 12:59)
 -----------------------------------------------------------------------------------------
 

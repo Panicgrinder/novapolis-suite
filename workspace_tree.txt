@@ -986,6 +986,7 @@ novapolis-dev\docs\process\text-rpg-release-evidence-bundle-v1.ssot.md
 novapolis-dev\docs\process\text-rpg-slice-2-handover-v1.ssot.md
 novapolis-dev\docs\process\text-rpg-turn-budget-model-v1.ssot.md
 novapolis-dev\docs\process\wochenbericht-2026-05-04.md
+novapolis-dev\docs\process\wochenbericht-2026-05-11.md
 novapolis-dev\docs\process\workspace-audit-segmente.ssot.md
 novapolis-dev\docs\readme.hub.md
 novapolis-dev\docs\readme_decisions.md

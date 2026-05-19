@@ -1,7 +1,7 @@
 ---
-stand: 2026-05-11 14:14
-update: Der TODO-Index spiegelt den gruenen Wochenabschluss 2026-05-11 bei weiter offen: 0; der einzige Hygiene-Rest war ein stale Agent-Board und ist im selben Lauf geschlossen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260511_125821.md; snapshot-lock PASS (2026-05-11 14:14)
+stand: 2026-05-19 04:34
+update: Der TODO-Index spiegelt den gruenen Wochenabschluss 2026-05-18 bei weiter offen: 0; die Hygiene-Drift aus Tree- und Freshness-Rest ist im selben Lauf geschlossen.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260518_222833.md; snapshot-lock PASS (2026-05-19 04:34)
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -21,7 +21,7 @@ TODO-Index (Novapolis-Dev)
 Statushinweise (aktuell)
 ------------------------
 
-- Root/Meta: `todo.root.md` bleibt die schlanke Live-Oberflaeche ohne offene suiteweite Querschnittspunkte. Der Wochenabschluss 2026-05-11 ist gruen belegt: `.tmp\results\reports\checks_report_20260511_125821.md` ist PASS, `Checks: sim epoch assets` bleibt PASS (`summary=fail:0,warn:0`), `Tests: coverage (fail-under)` bleibt bei `92.19%` und `709 passed`, und Root bleibt bewusst ausserhalb der Modul-Open-Counts.
+- Root/Meta: `todo.root.md` bleibt die schlanke Live-Oberflaeche ohne offene suiteweite Querschnittspunkte. Der Wochenabschluss 2026-05-18 ist gruen belegt: `.tmp\results\reports\checks_report_20260518_222833.md` ist PASS, `Checks: sim epoch assets` bleibt PASS (`summary=fail:0,warn:0`), `Tests: coverage (fail-under)` bleibt bei `92.19%` und `709 passed`, und Root bleibt bewusst ausserhalb der Modul-Open-Counts. Der initiale Vollcheck `.tmp\results\reports\checks_report_20260518_222210.md` fiel nur an Freshness-/Tree-Drift und ist im selben Lauf geschlossen.
 
 - Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Punkte mehr. Der Vierer-Split ist jetzt klar gezogen: `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` bleiben die überwachten kanonischen Trees, waehrend `workspace_tree_local.txt` den echten lokalen On-Disk-Zustand getrennt davon abbildet.
 
@@ -40,7 +40,7 @@ Board-Metadaten (automationsrelevant)
 | --- | --- | --- | --- |
 | Dev (`docs/todo.dev.md`) | 2026-04-28 | keiner (offen: 0) | nein |
 | RP (`docs/todo.rp.md`) | 2026-04-29 | keiner (offen: 0) | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-04-23 | keiner (offen: 0) | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-05-11 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-04-26 | keiner (offen: 0) | nein |
 
 
