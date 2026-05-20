@@ -1,8 +1,24 @@
 ---
-stand: 2026-05-19 05:14
-update: Der Dev-DONELOG fuehrt die Guidance-Schaerfung fuer `Plan` und Agent-Todo ohne veraltete Toolnamen.
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md novapolis-dev/docs/copilot-vscode-usage.md WORKSPACE_STATUS.md DONELOG.md novapolis-dev/docs/donelog.md PASS (2026-05-19 05:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py README.md WORKSPACE_STATUS.md DONELOG.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/donelog.md PASS (EXITCODE=0, 2026-05-19 05:10); snapshot-lock PASS (2026-05-19 05:14)
+stand: 2026-05-20 06:28
+update: Der Dev-DONELOG fuehrt jetzt die RP-Governance-Schaerfung fuer Spielercharakter-Agency.
+checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22); snapshot-lock PASS (2026-05-20 06:28)
 ---
+RP-Runtime: Turn 13 mit Koras Eigenpruefung und konservativer Draisine-Debatte nachgezogen (2026-05-20 06:18)
+--------------------------------------------------------------------------------------------------------------
+
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](../../novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt jetzt Turn 13: Kora bestaetigt die Schuttkeil-Frage selbst aus dem C6-Funkraum und geht anschliessend eigenhaendig an die Kante, statt ueber Funk eine freie Materialentscheidung zu treffen.
+- [novapolis-rp/database-curated/staging/rp-runtime/entities/locations/c6/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/locations/c6/state.md) und [novapolis-rp/database-curated/staging/rp-runtime/entities/characters/kora-malenkov/entity.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/characters/kora-malenkov/entity.md) sowie [novapolis-rp/database-curated/staging/rp-runtime/entities/characters/kora-malenkov/mind.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/characters/kora-malenkov/mind.md) fuehren denselben Zug als enge Eigenpruefung statt als Fernfreigabe.
+- [novapolis-rp/database-curated/staging/rp-runtime/entities/assets/draisine-transportmodul/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/assets/draisine-transportmodul/state.md), [novapolis-rp/database-curated/staging/rp-runtime/entities/locations/d5/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/locations/d5/state.md) sowie die Jonas-/Pahl-Dossiers ziehen die Draisine-Debatte vom unbelegten Motor auf konservative Hand-/Schubvarianten, ohne daraus Testlauf, Freigabe oder Bauentscheid zu machen.
+- Ronjas und Reflex' Runtime-Dossiers halten den kurzen koerperlichen Kontakt aus demselben Zug bewusst offen: belegt, aber noch nicht in eine harte Naehe- oder Bedeutungsbehauptung promoted.
+
+Dev/RP-Governance: Explizite PC-Agency-Grenze fuer RP-Agenten verankert (2026-05-19 07:18)
+---------------------------------------------------------------------------------------------
+
+- [.github/instructions/rp-docs.instructions.md](../../.github/instructions/rp-docs.instructions.md) fuehrt jetzt eine harte Regel dafuer, dass die KI Spielercharaktere oder aktuell usergesteuerte Figuren nicht eigenmaechtig steuert. Ohne konkrete User-Vorgabe oder turn-spezifische Delegation duerfen Entscheidung, Dialog, innere Reaktion und koerperliche Handlung eines PCs nicht als KI-Zug festgelegt werden.
+- Dieselbe Datei fuehrt dazu einen expliziten Matrix-Eintrag `R-RP-PC-AGENCY`, damit dieselbe Grenze nicht nur als Fliesstext, sondern auch als scanbare RP-Governance-Regel lesbar bleibt.
+- [.github/agents/novapolis-rp-szenenlabor.agent.md](../../.github/agents/novapolis-rp-szenenlabor.agent.md) zieht die Regel fuer den Ausspielmodus nach: In laufenden PC-Szenen liefert der Agent ohne Delegation nur offene Anschlusslagen, NPC-/Umweltreaktionen auf bereits belegte Spielerhandlungen oder klar getrennte Handlungsoptionen statt eines fortgeschriebenen PC-Zugs.
+- Der Lauf bleibt bewusst eng: keine Runtime-Datei und keine aktive Session wurde umgeschrieben; zuerst wurde die fehlende Governance-Luecke geschlossen.
+
 Dev/Guidance: Copilot-Leitfaden und Root-Kontextsprache an den realen Agent-Betrieb angeglichen (2026-05-19 05:09)
 ----------------------------------------------------------------------------------------------------------------
 

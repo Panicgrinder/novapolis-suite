@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 03:56
-update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-05-20 06:28
+update: Koras Runtime-Mind fuehrt jetzt die eigene Pruefzusage am Keil aus Turn 13.
+checks: snapshot-lock PASS (2026-05-20 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22)
 ---
 Kora Malenkov Runtime Mind
 ==========================
@@ -15,18 +15,19 @@ Status
 - review_state: working
 - baseline_cluster: ../../../../../../database-rp/01-factions/novapolis/07-mind-clusters/kora-malenkov-mind-cluster.md
 - session_id: d5-c6-nordlinie-sanierung-01
-- last_turn: Turn 11
+- last_turn: Turn 13
 
 Runtime Carry-Forward
 ---------------------
 
 - baseline_reading: kontrollierte Logistik- und Sicherheitskoordinatorin mit hoher Prozessdisziplin und Echo-Kopplung.
-- current_mental_state: angespannt, aber klar strukturiert; Kora zieht die lokale C6-Lage enger zusammen, verteilt Bewohnerarbeit und liest den Bericht des C6-Tunneltrupps als Stationsaufgabe statt als freie Entlastungszusage.
+- current_mental_state: angespannt, aber klar strukturiert; Kora zieht die lokale C6-Lage enger zusammen, liest die Schuttkeil-Frage nicht als Funkdebatte aus der Ferne, sondern als etwas, das sie mit eigener Sicht pruefen muss, bevor sie irgendetwas weitergibt.
 - confirmed_signals:
   - Kora haelt C6 in Turn 9 bewusst auf enger Annahme-, Sichtungs- und Schutzlogik.
   - Der Weltzug bestaetigt ihre Grundlesart `Sicherheit vor Tempo` statt spontaner Entlastungsversprechen.
   - Echo bleibt dabei lokal an ihrer Seite und wird nicht in freie Distanzlogik gedrueckt.
   - Turn 11 bestaetigt dieselbe Disziplin: Kora verteilt C6-Bewohnerarbeit weiter und verarbeitet den Tunnelbericht getrennt von Ronjas D5-Perspektive.
+  - Turn 13 bestaetigt dieselbe Disziplin weiter: Kora antwortet selbst aus dem C6-Funkraum, verspricht keine Loesung ueber Funk und verlagert die Entscheidung stattdessen in eine eigene Ortspruefung am `Schuttkeil Kontaktseite`.
 - open_questions:
   - Ob aus der verdichteten C6-Disziplin im naechsten Folgezug ein staerkerer Vertrauens- oder Belastungseffekt gegen D5 oder H-47 entsteht, bleibt offen.
 

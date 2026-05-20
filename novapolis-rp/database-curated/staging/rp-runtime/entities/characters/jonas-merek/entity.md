@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 03:56
-update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-05-20 06:28
+update: Jonas-Sheet fuehrt jetzt die konservative Hand-/Schubdebatte der Draisine aus Turn 13.
+checks: snapshot-lock PASS (2026-05-20 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22)
 ---
 Jonas Merek - Runtime Working Sheet
 ===================================
@@ -30,6 +30,7 @@ Signals
   - Er beantwortet Ronjas Bedarf ueber knappe, belastbare Rueckmeldungen statt ueber freie Zusagen.
   - Jonas laeuft im laufenden Hauptpfad nicht allein, sondern mit der an ihn gekoppelten Begleitinstanz Lumen.
   - Turn 11 fuehrt ihn sichtbar an der Draisine auf den Gleisen am D5-Bahnsteig, nicht in einem abgeschlossenen Werkstattinnenraum.
+  - Turn 13 fuehrt Jonas in dieselbe Nuechternheit auch bei der Antriebsfrage: Schieben auf gesicherter Strecke liest er als ehrlichste Anfangsvariante, waehrend eine Hebel-/Handdraisine nur als moegliche, noch unfertige Arbeitsrichtung stehenbleibt.
 - tentative:
   - Die verlaessliche Bau- und Materialrolle an der Draisine koennte Jonas' Vertrauensstellung im D5-Kernteam weiter stabilisieren.
 - contradictions:

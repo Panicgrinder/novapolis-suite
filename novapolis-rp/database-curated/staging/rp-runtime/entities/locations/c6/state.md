@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 06:56
-update: C6-State fuehrt jetzt Ronjas T12-Anfrage zur kontrollierten Schuttkeil-Verwertung als offene Prueffrage.
-checks: snapshot-lock PASS (2026-04-29 06:56); markdownlint PASS; frontmatter PASS; todo-index-sync PASS; logs-policy PASS; snapshot-gate PASS
+stand: 2026-05-20 06:28
+update: C6-State fuehrt jetzt Koras Eigenpruefung des Schuttkeils nach der Rueckmeldung aus dem C6-Funkraum.
+checks: snapshot-lock PASS (2026-05-20 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22)
 ---
 Runtime State - C6
 ==================
@@ -17,7 +17,7 @@ Status
 Current State
 -------------
 
-- summary: C6 ist im aktuellen Nordlinie-Hauptpfad ein teilaktiver Aussenposten unter Doppelbelastung, aber nicht als ein einziger Block zu lesen. Der `C6-Tunneltrupp` arbeitet vorsichtig bis an den Kontaktpunkt weiter und bringt fuer seine Haelfte einen eigenen Reparaturbefund mit: `Schuttkeil Kontaktseite`, `Randauflage Suedlauf` und `Leitungsaufnahme C6-Vorlauf` sind dort eigenstaendige Arbeits- und Meldestellen. T12 legt auf diese Lage eine konkrete Anfrage aus D5: C6 soll pruefen, ob der Schuttkeil kontrolliert zerschlagen werden kann und ob tragfaehige Bruchstuecke fuer die `Schottertasche Nordkante` nutzbar waeren. Davon getrennt haelt die `C6-Station` unter `Kora` Schichtlogik, Sicherheitsordnung und Ruecklauf innen stabil. Die nicht im Tunnel eingesetzten Gefluechteten tragen weiter Wasser-, Lager-, Hygiene-, Kuechen-, Wache- und Entlastungsarbeit; `Mara Quell` bleibt zum Aufbau des H-47-Aussenpostens vor Ort in `C6`.
+- summary: C6 ist im aktuellen Nordlinie-Hauptpfad ein teilaktiver Aussenposten unter Doppelbelastung, aber nicht als ein einziger Block zu lesen. Der `C6-Tunneltrupp` arbeitet vorsichtig bis an den Kontaktpunkt weiter und bringt fuer seine Haelfte einen eigenen Reparaturbefund mit: `Schuttkeil Kontaktseite`, `Randauflage Suedlauf` und `Leitungsaufnahme C6-Vorlauf` sind dort eigenstaendige Arbeits- und Meldestellen. T12 legt auf diese Lage die konkrete Anfrage aus D5, ob der Schuttkeil kontrolliert genug Material fuer die `Schottertasche Nordkante` hergeben kann. Turn 13 zieht den Ruecklauf enger: Kora bestaetigt dieselbe Frage selbst aus dem C6-Funkraum und geht anschliessend eigenhaendig an die Kante, um den Keil mit eigener Sicht zu pruefen. Davon getrennt haelt die `C6-Station` unter ihr Schichtlogik, Sicherheitsordnung und Ruecklauf innen stabil. Die nicht im Tunnel eingesetzten Gefluechteten tragen weiter Wasser-, Lager-, Hygiene-, Kuechen-, Wache- und Entlastungsarbeit; `Mara Quell` bleibt zum Aufbau des H-47-Aussenpostens vor Ort in `C6`.
 - drivers:
   - belegt knappe Versorgungs- und Werkzeuglage in C6
   - C6 bleibt teilaktiver Vorposten und keine freie Entlastungsstation
@@ -30,6 +30,7 @@ Current State
   - die gemeinsame Bedarfsliste laeuft vom Tunneltrupp getrennt in den Ruecklauf der C6-Station
   - Turn 11 fuehrt Kora ausdruecklich weiter in Verteilung und Berichtsauswertung des C6-Tunneltrupps statt in Ronjas D5-Perspektive
   - T12 gibt C6 eine klare Prueffrage zum `Schuttkeil Kontaktseite`: kontrolliertes Zerschlagen, Bruchstueck-Eignung und Risiko am Kontaktpunkt muessen zuerst beurteilt werden
+  - Turn 13 zieht dieselbe Prueffrage auf Koras eigene Ortssicht: Sie bestaetigt aus dem C6-Funkraum, dass sie die Stelle selbst lesen und danach noch einmal direkt an Ronja zurueckmelden wird
   - `inventory.md` fuehrt jetzt den aktuellen C6-Hauptpfad-Bestand statt nur des alten H-47-Probeinventars
   - `roster.md` fuehrt den Bewohner- und Vor-Ort-Roster fuer C6, ohne alle Bewohner als freie Einzelakteure zu behandeln
 - blockers:
@@ -38,7 +39,7 @@ Current State
   - operative Schweißausruestung und `DN60` bleiben auch auf C6-Seite kritisch
   - auch der neue Kontaktpunkt ist noch kein freier Durchgang oder entspannter Materialaustausch
   - `Schuttkeil Kontaktseite`, `Randauflage Suedlauf` und `Leitungsaufnahme C6-Vorlauf` machen klar, dass die C6-Haelfte selbst nicht reparaturfrei ist
-  - Bruchstuecke aus dem Schuttkeil sind noch kein nutzbares Material; Eignung und Gewinnungsrisiko bleiben bis zur C6-Antwort offen
+  - Bruchstuecke aus dem Schuttkeil sind noch kein nutzbares Material; Eignung und Gewinnungsrisiko bleiben bis zu Koras eigener Rueckmeldung offen
 - impacted_entities:
   - C6
   - C6-Tunneltrupp

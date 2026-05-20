@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 03:56
-update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-05-20 06:28
+update: Pahl-Sheet fuehrt jetzt die enge Sicherheitskante fuer Hand-/Schubvarianten der Draisine aus Turn 13.
+checks: snapshot-lock PASS (2026-05-20 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22)
 ---
 Pahl Brenner - Runtime Working Sheet
 ====================================
@@ -30,6 +30,7 @@ Signals
   - Er traegt die knappe, ehrliche Blockerkommunikation fuer Schweißgeraet und DN60 mit.
   - Die kleine Turn-7-Teilbereitstellung bleibt unter dieser kontrollierten Werkstattlesart.
   - Turn 11 fuehrt auch Pahl an der Draisine auf den Gleisen am Bahnsteig statt als unsichtbare Werkstattstimme.
+  - Turn 13 zieht dieselbe Sicherheitskante auf die nichtmotorischen Draisine-Varianten: Weder Hebelbetrieb noch Schubvariante bekommen von Pahl Raum, solange `Brems-/Stopplogik`, `Not-Aus` und Rueckzugspfad nicht denselben engen Standard tragen.
 - tentative:
   - Die funktionale Kooperation mit Ronja und Jonas koennte sich entspannen, ist aber noch nicht hart genug belegt.
 - contradictions:

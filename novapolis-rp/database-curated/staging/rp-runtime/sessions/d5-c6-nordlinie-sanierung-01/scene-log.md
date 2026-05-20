@@ -1,7 +1,7 @@
 ---
-stand: 2026-05-04 09:36
-update: Der RP-Stand ist jetzt als Vorbereitungsanker fuer den naechsten Zug festgezogen; offen bleiben C6-Schuttbruch-Pruefung und Draisine-Antriebsantwort.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
+stand: 2026-05-20 06:28
+update: Turn 13 fuehrt Koras Selbstpruefung am Keil und die konservative Hand-/Schubdebatte zur Draisine als neuen Vorbereitungsanker.
+checks: snapshot-lock PASS (2026-05-20 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22)
 ---
 
 Scene Log - D5 C6 Nordlinie Sanierung 01
@@ -199,17 +199,33 @@ Turn 12
   - Review required: C6-Antwort zur Eignung der Schuttbruchstuecke und Jonas/Pahl-Antwort zum Draisine-Antrieb muessen im Folgezug ausgespielt oder dokumentiert werden.
 - follow_up: Naechsten Zug mit zwei Antworten beginnen: `C6` prueft Schuttbruch-Eignung fuer die `Schottertasche Nordkante`; Jonas und Pahl erklaeren den belegbaren Antrieb, die Brems-/Stopplogik und die aktuelle Lastgrenze der Draisine, ohne einen Testlauf vorwegzunehmen.
 
+Turn 13
+-------
+
+- input: Nach deiner Freigabe bestaetigt Kora aus dem C6-Funkraum, dass sie die Schuttkeil-Frage verstanden hat und sich die Stelle selbst ansehen wird. Anschliessend geht Ronja zu Jonas und Pahl, streichelt Reflex kurz und spricht mit den beiden ruhig ueber konservative Antriebsvarianten fuer die Draisine wie Hebelbetrieb oder schlichtes Schieben auf der Schiene.
+- inworld_result: Im D5-seitigen Funk- und Kontrollkern kommt die Rueckmeldung aus `C6` diesmal nicht nur als weitergereichte Tunnelnotiz an, sondern direkt ueber Kora selbst. Ihre Antwort bleibt knapp und sauber: Sie hat verstanden, dass es nicht um blindes Herausschlagen geht, sondern um die Frage, ob der `Schuttkeil Kontaktseite` an der richtigen Stelle kontrolliert genug Material fuer die `Schottertasche Nordkante` hergeben kann. Sie will das nicht aus zweiter Hand entscheiden. Kora bestaetigt deshalb, dass sie sich vom Funkraum aus selbst an die Kante bewegt, den Keil mit eigener Sicht liest und sich danach noch einmal direkt bei Ronja meldet. Mehr Zusage als diese pruefende Eigenbewegung macht sie nicht.
+- inworld_result: Ronja nimmt genau diese knappe Bestaetigung an und bleibt bei ihrer Arbeitsruhe. Bevor sie sich wieder den Gleisen zuwendet, legt sie Reflex einen kurzen Moment die Hand an die Seite. Es ist kein grosses Zeichen und keine ausformulierte Geste, eher ein stiller Kontakt, der zwischen Arbeit und Warten passt und dessen Bedeutung im Zug offen bleibt. Danach geht sie zu Jonas und Pahl an die Draisine auf den Bahnsteiggleisen.
+- inworld_result: Das Gespraech mit den beiden bleibt ebenso nuechtern. Ronja zieht keine freie Maschinenidee auf, sondern legt einen konservativen Gedanken vor: Wenn weder `D5` noch `C6` ueber einen Motor verfuegen, muesse die erste brauchbare Bewegung vielleicht mechanischer und kleiner gedacht werden, etwa ueber eine einfache Hebelvorrichtung wie bei einer Handdraisine oder notfalls schlicht ueber kontrolliertes Schieben auf der Schiene. Jonas nimmt das ernst, aber nicht euphorisch. Fuer ihn bleibt Schieben auf freier, gesicherter Strecke die ehrlichste Anfangslesart, solange nichts ueber Kraftuebertragung, Verschleiss und Ruecklauf hinaus versprochen wird. Eine Hebelvariante verwirft er nicht, aber sie oeffnet sofort neue Baustellen bei Lagerpunkten, Gestaenge und gleichmaessigem Lauf. Pahl setzt die Sicherheitskante eng dahinter: Weder Hebelbetrieb noch Schubvariante werden zur Freigabe, solange `Brems-/Stopplogik`, `Not-Aus` und ein klarer Rueckzugspfad nicht fuer denselben konservativen Rahmen mitgedacht sind. Damit bleibt der Antrieb offen, aber die Diskussion kippt von der leeren Motorfrage in eine belastbarere, nichtmotorische Arbeitsrichtung.
+- new_signals:
+  - Probe: Kora bestaetigt die Schuttkeil-Frage selbst aus dem C6-Funkraum und geht anschliessend eigenhaendig zur Pruefung an den Kontaktpunkt.
+  - Probe: Die naechste belastbare C6-Antwort soll nicht nur Tunneltrupp-Ruecklauf, sondern Koras eigene Sichtpruefung des `Schuttkeil Kontaktseite` tragen.
+  - Probe: Ronja fuehrt mit Jonas und Pahl jetzt erstmals eine konservative Debatte ueber nichtmotorische Draisine-Varianten statt weiter auf einen unbelegten Motor zu warten.
+  - Probe: Schieben auf gesicherter Strecke und eine einfache Hebel-/Handdraisine bleiben pruefbare Arbeitsrichtungen, aber keine freigegebenen Bau- oder Einsatzentscheidungen.
+  - Probe: Der kurze koerperliche Kontakt zwischen Ronja und Reflex ist jetzt belegt, wird aber bewusst noch nicht in eine feste Bedeutungsbehauptung oder neue Delta-Wertung gezogen.
+  - keine neue Mind-Delta / keine neue Relationship-Delta: Turn 13 bestaetigt Arbeitsnaehe, Disziplin und Prueflogik, aber noch keine belastbare Verschiebung in Vertrauen, Bindung oder Konflikt.
+- follow_up: Auf Koras Eigenpruefung des `Schuttkeil Kontaktseite` warten und die konservative Hand-/Schubdebatte fuer die Draisine erst danach gegen reale Tunnel- und Stopplogik enger ziehen.
+
 Vorbereitungsanker fuer den naechsten Zug
 ----------------------------------------
 
 - status: vorbereitet, nicht ausgespielt
 - startreihenfolge:
-  - `C6` beantwortet zuerst, ob der `Schuttkeil Kontaktseite` kontrolliert zerschlagen werden kann, welche Bruchstueckgroesse tragfaehig wirkt und welches Risiko dabei fuer den Kontaktpunkt bleibt.
-  - Jonas und Pahl beantworten danach den belegbaren Draisine-Antrieb sowie die aktuelle Brems-/Stopplogik und Lastgrenze des Prototyps.
-  - Ronja zieht beide Antworten erst anschliessend in einen priorisierten Folgeentscheid fuer `Schottertasche Nordkante`, `Schuttkeil Kontaktseite` und den weiteren Logistikpfad zusammen.
+  - Kora meldet nach eigener Sichtpruefung aus `C6`, ob der `Schuttkeil Kontaktseite` kontrolliert genug Material hergibt, welche Bruchstueckgroesse fuer die `Schottertasche Nordkante` taugt und welches Risiko dabei fuer den Kontaktpunkt bleibt.
+  - Jonas und Pahl ziehen danach die konservativen Hand-/Schubvarianten der Draisine enger gegen `Brems-/Stopplogik`, `Not-Aus`, Rueckzugspfad und Lastfenster.
+  - Erst danach wird entschieden, ob `Schottertasche Nordkante`, `Schuttkeil Kontaktseite` und der weitere Logistikpfad praktisch zusammengefuehrt werden koennen.
 - harte grenzen:
-  - kein Schuttbruch wird als Materialbuchung, Einsatz oder Transfer gefuehrt, solange `C6` Eignung, Gewinnung und Kontaktpunktrisiko nicht ausdruecklich beantwortet hat.
-  - kein Draisine-Testlauf, keine Lastfreigabe und kein Logistikclaim werden ausgespielt, solange Jonas/Pahl Antrieb, Brems-/Stopplogik und Lastgrenze nicht belastbar benannt haben.
+  - kein Schuttbruch wird als Materialbuchung, Einsatz oder Transfer gefuehrt, solange Kora die Eignung, Gewinnung und das Kontaktpunktrisiko nicht ausdruecklich selbst bestaetigt hat.
+  - weder Hebelbetrieb noch Schubvariante werden als fertiger Antrieb, Lastfreigabe oder Logistikclaim ausgespielt, solange `Brems-/Stopplogik`, `Not-Aus`, Rueckzugspfad und Lastfenster nicht belastbar mitgezogen sind.
   - keine neue D5- oder C6-Freigabe wird still aus der Vorbereitung abgeleitet; der naechste Zug darf Antworten und Priorisierung liefern, aber keine freie Erfolgsmeldung.
 - geladene achsen:
   - `Ronja/Reflex`
@@ -217,14 +233,14 @@ Vorbereitungsanker fuer den naechsten Zug
   - `C6-Tunneltrupp` und `Kora` als getrennter Stationsruecklauf
   - `D5`, `C6`, `Nordlinie 01` und `Draisine-Transportmodul`
 - zielbild:
-  - Der naechste Zug ist vorbereitet, wenn die Szene die beiden offenen Antwortachsen zuerst schliesst und den naechsten technischen Arbeitsschritt klar priorisiert, ohne dabei unbelegte Material- oder Fahransprueche mitzuschleppen.
+  - Der naechste Zug ist vorbereitet, wenn Koras Eigenpruefung und die konservative Draisine-Debatte denselben engen Arbeitsrahmen tragen, ohne daraus schon Material- oder Fahransprueche zu machen.
 
 Admin Handover
 -------------
 
 - agent_switch: vollzogen
 - target_mode: SSOT, Story, Weltgeschichte, Lore
-- handover_basis: Turn 1-12 bilden jetzt den Runtime-Arbeitsstand; die Folgeszene schliesst an Ronjas offene C6-Schuttbruch-Prueffrage, die offene Draisine-Antriebsfrage, den enger gelesenen Fehlerkorridor, den schmalen Kontaktpunkt mit dem C6-Trupp, die gemeinsame Befundliste plus Bedarfskalkulation sowie den weiter offenen Materialblocker bei `Schweißgeraet` und `DN60` an.
+- handover_basis: Turn 1-13 bilden jetzt den Runtime-Arbeitsstand; die Folgeszene schliesst an Koras angekuendigte Eigenpruefung des `Schuttkeil Kontaktseite`, die konservative Hand-/Schubdebatte zur Draisine, den enger gelesenen Fehlerkorridor, den schmalen Kontaktpunkt mit dem C6-Trupp, die gemeinsame Befundliste plus Bedarfskalkulation sowie den weiter offenen Materialblocker bei `Schweißgeraet` und `DN60` an.
 - interruption_roll: `1W6 = 4`, kein Unterbrechungsereignis
 
 Kurzauswertung
@@ -264,6 +280,9 @@ Neue belastbare Signale
 - Session-Arbeitslesart: `Kora` verarbeitet denselben Tunnelbericht in `C6` als eigene Stations- und Verteilungsaufgabe; die Ebenen `Ronja`, `D5` und `C6` bleiben dabei getrennt.
 - Session-Arbeitslesart: Turn 12 setzt die C6-Schuttkeil-Idee nur als Prueffrage, nicht als bestaetigte Materialgewinnung oder Reparaturloesung.
 - Session-Arbeitslesart: Die Draisine-Antriebsfrage ist jetzt explizit offen und muss von Jonas/Pahl beantwortet werden, bevor Lastgrenze, Testlauf oder Materiallogistik daraus abgeleitet werden.
+- Session-Arbeitslesart: Turn 13 zieht Kora selbst in den C6-Funkraum und von dort an die Eigenpruefung des `Schuttkeil Kontaktseite`; die naechste belastbare Antwort soll damit aus ihrer eigenen Sicht kommen.
+- Session-Arbeitslesart: Turn 13 zieht die Draisine-Debatte von der freien Motorfrage auf konservative Hand-/Schubvarianten, ohne daraus schon eine Bau- oder Freigabeentscheidung zu machen.
+- Session-Arbeitslesart: Der kurze Kontakt zwischen Ronja und Reflex ist jetzt belegt, bleibt aber bewusst ohne vorschnelle Deutung oder neue Bindungsbehauptung.
 
 Open Threads
 ------------

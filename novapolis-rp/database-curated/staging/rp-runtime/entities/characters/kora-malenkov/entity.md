@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 03:56
-update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-05-20 06:28
+update: Kora-Sheet fuehrt jetzt die Eigenpruefung des Schuttkeils nach ihrer Funkbestaetigung aus Turn 13.
+checks: snapshot-lock PASS (2026-05-20 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22)
 ---
 Kora Malenkov - Runtime Working Sheet
 ====================================
@@ -30,6 +30,7 @@ Signals
   - Sie oeffnet in Turn 9 kein breites Versorgungsversprechen, sondern haelt Empfang, Sichtung und Schutzdisziplin eng.
   - Echo bleibt dabei an ihrer Seite als lokale Schutzinstanz.
   - Turn 11 fuehrt Kora weiter in Verteilung und Berichtsauswertung des `C6-Tunneltrupps`, nicht in Ronjas D5-Perspektive.
+  - Turn 13 fuehrt Kora selbst an den Funkraum von `C6`: Sie bestaetigt Ronjas Bitte, macht aber keine Fernentscheidung, sondern geht selbst an die Kante, um den `Schuttkeil Kontaktseite` mit eigener Sicht zu pruefen.
 - tentative:
   - Wenn aus D5 ein formal enger Materialabruf kommt, koennte Kora denselben in ein kontrolliertes C6-Stagingfenster uebersetzen.
 - contradictions:

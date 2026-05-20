@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 06:56
-update: Draisine-Transportmodul fuehrt jetzt die offene Antriebsfrage aus T12 als eigenen Runtime-State.
-checks: snapshot-lock PASS (2026-04-29 06:56); markdownlint PASS; frontmatter PASS; todo-index-sync PASS; logs-policy PASS; snapshot-gate PASS
+stand: 2026-05-20 06:28
+update: Draisine-Transportmodul fuehrt jetzt die konservative Hand-/Schubdebatte als Arbeitsrichtung ohne Freigabe.
+checks: snapshot-lock PASS (2026-05-20 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22)
 ---
 
 Runtime State - Draisine-Transportmodul
@@ -18,14 +18,16 @@ Status
 Current State
 -------------
 
-- summary: Die Draisine steht im aktuellen Hauptpfad auf den D5-Bahnsteiggleisen als offener Prototyp von Jonas mit Pahl an der Sicherheits- und Freigabekante. Der vorige Zug belegt gebundenen Werkstattbestand und den Aufbau an der Schiene; T12 oeffnet durch Ronjas direkte Frage die konkrete Antriebsfrage. Ein belegter Antrieb, eine Brems-/Stopplogik, eine Lastgrenze oder ein Testlauf sind damit noch nicht gesetzt.
+- summary: Die Draisine steht im aktuellen Hauptpfad auf den D5-Bahnsteiggleisen als offener Prototyp von Jonas mit Pahl an der Sicherheits- und Freigabekante. Der vorige Zug belegt gebundenen Werkstattbestand und den Aufbau an der Schiene; T12 oeffnet durch Ronjas direkte Frage die konkrete Antriebsfrage. Turn 13 zieht die Debatte auf konservative nichtmotorische Varianten: eine einfache Hebel-/Handdraisine oder notfalls kontrolliertes Schieben auf gesicherter Strecke. Ein belegter Antrieb, eine Brems-/Stopplogik, eine Lastgrenze oder ein Testlauf sind damit weiterhin nicht gesetzt.
 - drivers:
   - SSOT: Das Projekt ist ein konservativer Material-/Transport-Prototyp fuer die Nordlinie, kein schneller Zug und kein Dauerdienst ohne Tunnel-Freigaben.
   - SSOT: Jonas traegt Bau und Integration; Pahl traegt Sicherheits- und Systemreview.
   - Runtime: Der aktuelle gebundene Prototypbestand liegt in `inventory.md`.
   - Runtime: Ronja fragt in T12 Jonas und Pahl, wie die Draisine angetrieben wird.
+  - Runtime: Turn 13 fuehrt Schieben auf gesicherter Strecke und eine einfache Hebel-/Handdraisine als pruefbare Arbeitsrichtungen, aber nicht als beschlossenen Baupfad.
 - blockers:
   - konkreter Antrieb offen
+  - keine der diskutierten nichtmotorischen Varianten ist bisher als Bauentscheidung, Freigabe oder realer Einsatzpfad bestaetigt
   - Brems-/Stopplogik offen
   - Lastgrenze fuer den aktuellen Bauzustand offen
   - kein belegter Testlauf

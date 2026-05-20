@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 06:56
-update: Ronjas Runtime-Mind fuehrt T12 als Carry-Forward ohne neue Mind- oder Relationship-Delta.
-checks: snapshot-lock PASS (2026-04-29 06:56); markdownlint PASS; frontmatter PASS; todo-index-sync PASS; logs-policy PASS; snapshot-gate PASS
+stand: 2026-05-20 06:28
+update: Ronjas Runtime-Mind fuehrt T13 als geduldigen Carry-Forward mit offener Reflex-Deutung und enger Prueflogik.
+checks: snapshot-lock PASS (2026-05-20 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22)
 ---
 Ronja Kerschner Runtime Mind
 ============================
@@ -15,13 +15,13 @@ Status
 - review_state: working
 - baseline_cluster: ../../../../../../database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md
 - session_id: d5-c6-nordlinie-sanierung-01
-- last_turn: Turn 12
+- last_turn: Turn 13
 
 Runtime Carry-Forward
 ---------------------
 
 - baseline_reading: kontrollierte, erschoepfte Technikerin mit hoher Funktionsorientierung und deutlicher Bindung an Reflex.
-- current_mental_state: konzentriert, sachlich und unter Druck weiterhin handlungsfaehig; der vorsichtige Kontakt zur C6-Seite erweitert den Fokus von reiner Fehlerlesung auf abgestimmte Befund- und Bedarfssprache, ohne Ronja aus dem Arbeitsmodus zu loesen.
+- current_mental_state: konzentriert, sachlich und unter Druck weiterhin handlungsfaehig; die neue Lage zieht Ronja nicht in Aktionismus, sondern in geduldige Prueflogik. Sie wartet auf Koras Eigenpruefung, zieht die Draisine-Debatte bewusst auf konservative Varianten und laesst selbst den kurzen Kontakt zu Reflex offen, statt ihn vorschnell mit Bedeutung zu ueberladen.
 - confirmed_signals:
   - Ronja schliesst Teilabschnitte sauber ab, meldet erst danach und bleibt auch ohne schnelle Entlastung im Arbeitsmodus.
   - Der Turn zieht ihre Fehlerarbeit bis zur direkten Benennung von `Schottertasche Nordkante`, `Haltepunktpaar Leitungszug` und `Uebergang Engbogen` enger, statt diffuse Tunnelangst zu spielen.
@@ -29,9 +29,11 @@ Runtime Carry-Forward
   - Turn 9 bestaetigt, dass Ronja selbst am vorsichtigen Sicht- und Rufkontakt zur C6-Seite keine Durchbruchslogik aufzieht, sondern bei sauberer Priorisierung und Dokumentation bleibt.
   - T12 bestaetigt dieselbe Arbeitslogik: Ronja sucht eine kontrollierte Wiederverwendungspruefung und eine technische Grundlagenantwort, statt Materialgewinnung oder Draisine-Einsatz als schon geloest zu behandeln.
   - keine neue Mind-Delta / keine neue Relationship-Delta: Die T12-Fragen beruehren C6, Jonas und Pahl technisch, erzeugen aber noch keine belegbare geistnahe oder relationale Verschiebung.
+  - Turn 13 bestaetigt dieselbe Linie weiter: Koras Zusage zur Eigenpruefung wird ruhig angenommen, die Draisine-Frage auf konservative Hand-/Schubvarianten gezogen und der kurze Kontakt zu Reflex nicht vorschnell als neue Bindungswende gedeutet.
 - open_questions:
   - Ob der bilaterale Tunnelkontakt im naechsten Zug bereits einen belastbaren Vertrauens- oder Kooperationsshift gegenueber dem C6-Trupp rechtfertigt, bleibt Review-Sache.
   - Fuer einen numerischen Rescore von Erschoepfung, Konflikt- oder Kooperationsachsen fehlt noch ein sauberer Delta-Massstab ueber mehrere Folgezuege.
+  - Ob der kurze Kontakt zu Reflex spaeter als eigene Naehe- oder Beruhigungsbewegung lesbar wird oder im Arbeitsmodus folgenlos bleibt, ist bewusst offen.
 
 Delta Candidates
 ----------------

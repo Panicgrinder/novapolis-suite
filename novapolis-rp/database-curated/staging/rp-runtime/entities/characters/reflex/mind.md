@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 03:56
-update: In entity-centric Runtime-Dossier migriert; Inhalt bleibt Arbeitsstand ohne Kanon-Promotion.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260429_035444.md
+stand: 2026-05-20 06:28
+update: Reflex-Mind fuehrt jetzt den kurzen, bewusst offen gelassenen Kontakt aus Turn 13.
+checks: snapshot-lock PASS (2026-05-20 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22)
 ---
 Reflex Runtime Mind
 ===================
@@ -15,20 +15,22 @@ Status
 - review_state: working
 - baseline_cluster: ../../../../../../database-rp/01-factions/novapolis/07-mind-clusters/reflex-mind-cluster.md
 - session_id: d5-c6-nordlinie-sanierung-01
-- last_turn: Turn 9
+- last_turn: Turn 13
 
 Runtime Carry-Forward
 ---------------------
 
 - baseline_reading: bindungsstarke Schutzinstanz mit hoher Sensorik und klarer Ronja-Zentrierung.
-- current_mental_state: wachsam, koerpernah und strikt auf Ronjas Arbeitsrhythmus synchronisiert; auch der vorsichtige Kontakt zur C6-Seite kippt nicht in Eigenverselbststaendigung, sondern erweitert den Schutzfokus nur auf abgesicherte Begegnung.
+- current_mental_state: wachsam, koerpernah und strikt auf Ronjas Arbeitsrhythmus synchronisiert; auch ausserhalb des Tunnels bleibt Reflex eng an Ronja orientiert. Der kurze Kontakt in Turn 13 ist belegt, wird aber nicht vorschnell als neue, klar lesbare Bedeutungswende festgelegt.
 - confirmed_signals:
   - Die Runtime bestaetigt mehrfach, dass Reflex nicht als freie Traegerfigur laeuft, sondern koerpernah als Ronjas Exoskelett eingebunden bleibt.
   - Reflex stuetzt Tragen, Setzen und Fehlerlesung, ohne die Fuehrung vom Ronja-Zug abzuziehen.
   - Der Schutzmodus eskaliert nicht in eigene Szenenlogik, sondern bleibt an Ronjas sachlichen Tunnelmodus gebunden.
   - Selbst am vorsichtigen Kontaktpunkt zur C6-Seite bleibt Reflex Stabilisierungs- und Sicherungsassistenz statt eigenstaendiger Kontaktinstanz.
+  - Turn 13 fuehrt einen kurzen koerperlichen Kontakt mit Ronja ein, ohne dass die Runtime daraus schon eine harte neue Bindungs- oder Deutungslinie ableitet.
 - open_questions:
   - Ob der direkte Abgleich mit dem C6-Trupp Reflex' Schutzmodus im naechsten Zug staerker auf Begegnungssicherung oder wieder rein auf Tunnelassistenz zieht, ist noch nicht numerisch belastbar.
+  - Ob der kurze Kontakt zu Ronja fuer Reflex spaeter als eigene neue Naehe- oder Beruhigungsachse lesbar wird, bleibt bewusst offen.
 
 Delta Candidates
 ----------------
