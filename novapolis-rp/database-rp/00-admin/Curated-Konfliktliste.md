@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-23 02:35
-update: Frische-Review durchgeführt; Konfliktstatus/Referenzen geprüft und als weiterhin konsistent bestätigt (kein Inhaltsdelta).
-checks: "npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md' 'novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md' 'novapolis-rp/database-rp/00-admin/Waren-Index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:36); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Index-Handel-Diplomatie.md' 'novapolis-rp/database-rp/00-admin/Curated-Konfliktliste.md' 'novapolis-rp/database-rp/00-admin/Waren-Index.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 02:36); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 02:36)"
+stand: 2026-05-20 17:42
+update: Konfliktentscheidungen zu Reflex-Control und Kontakt-Guard entkoppeln Safety jetzt von unbelegten formalen Stop-/Freigabe-Kommandos.
+checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 category: admin
 canvas: curated-konfliktliste
 slug: curated-konfliktliste
@@ -96,7 +96,7 @@ Archiv: Gelöste Top-10 (2026-01-11)
 
 5) Reflex Schutz-Übernahme: Trigger/Sinne/Rückgabeprozess (Review 2025-11-01)
   - Quelle: `uncertainties.md` → `[REFLEX-CONTROL]` (unchecked)
-  - Decision (2026-01-10): Rückgabe/Entkopplung erfolgt erst, wenn die Situation als "Sicher" eingeschätzt wird (nicht früher). "Stop" ist Deeskalation (Druck runter), aber volle Entkopplung erst bei "Sicher" (Reference: `Reference-Campaign-State.md`).
+   - Decision (2026-01-10, korrigiert 2026-05-20): Rückgabe/Entkopplung erfolgt erst, wenn die Situation als "Sicher" eingeschätzt wird (nicht früher). Ein belegter Abbruch-, Distanz- oder Widerstandswunsch der Bezugsperson ist Deeskalation (Druck runter), aber volle Entkopplung erst bei "Sicher"; konkrete Stop-Kommandos sind ohne ausgespielte Szene nicht kanonisiert (Reference: `Reference-Campaign-State.md`).
    - Problem: Wann darf Reflex dämpfen/übernehmen; wie wird zurückgegeben; welche Kosten.
    - Layer: Reference
    - Betroffene SSOT-Dateien (vermutet):
@@ -114,7 +114,7 @@ Archiv: Gelöste Top-10 (2026-01-11)
 
 7) Handschuh-/Eifersuchts-Policy: Reflex-Handschutz vs externe Handschuhe
   - Quelle: `uncertainties.md` → `[JEALOUSY-GLOVES]` (unchecked)
-  - Decision (2026-01-11): Kontakt-Guard ist erlaubt: Reflex/Instanzen bedecken die konkret betroffene Körperstelle der Bezugsperson (nicht nur "als Handschuh") und blockieren so unerwünschten Kontakt; consent-first, "Stop" beendet sofort, "Freigabe" erlaubt Kontakt. Externe Handschuhe als Arbeits-/Witterungsschutz ok (Details: `Reference-Campaign-State.md`).
+   - Decision (2026-01-11, korrigiert 2026-05-20): Kontakt-Guard ist erlaubt: Reflex/Instanzen bedecken die konkret betroffene Körperstelle der Bezugsperson (nicht nur "als Handschuh") und blockieren so unerwünschten Kontakt; consent-first, belegter Abbruch-/Distanzwunsch beendet sofort, ausdruecklich gestatteter Kontakt erlaubt Kontakt. Konkrete Stop-/Freigabe-Phrasen sind ohne ausgespielte Szene nicht kanonisiert. Externe Handschuhe als Arbeits-/Witterungsschutz ok (Details: `Reference-Campaign-State.md`).
    - Problem: Policy ist sensibel; muss ohne unangenehme Dynamiken auskommen und als Sicherheitsregel funktionieren.
    - Layer: Reference
    - Betroffene SSOT-Dateien (vermutet):

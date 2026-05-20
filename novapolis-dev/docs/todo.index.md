@@ -1,7 +1,7 @@
 ---
-stand: 2026-05-19 04:34
-update: Der TODO-Index spiegelt den gruenen Wochenabschluss 2026-05-18 bei weiter offen: 0; die Hygiene-Drift aus Tree- und Freshness-Rest ist im selben Lauf geschlossen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260518_222833.md; snapshot-lock PASS (2026-05-19 04:34)
+stand: 2026-05-20 17:42
+update: Der TODO-Index spiegelt den ausgespielten Reflex-Wahrnehmungszug aus Turn 15; offen bleibt 1.
+checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -12,7 +12,7 @@ TODO-Index (Novapolis-Dev)
 Übersicht
 ---------
 
-- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 0)
+- RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 1)
 - Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
@@ -27,7 +27,7 @@ Statushinweise (aktuell)
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt weiter keine offenen Punkte. Der Wochenabschlusslauf hat hier nur den Freshness-Stand nachgezogen; inhaltlich bleibt der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` unveraendert der harte Vorlauf vor `export+pack` und LoRA.
 
-- RP: `novapolis-dev/docs/todo.rp.md` fuehrt aktuell wieder keine offenen Punkte mehr. Die RP-Runtime ist auf entity-centric Dossiers nach Option 1 migriert: `sessions/` bleibt top-level, waehrend entitaetsbezogene Arbeitsdaten unter `entities/<type>/<slug>/` zusammengefuehrt sind; der alte Typordner `characters/` ist nach Zielpruefung archiviert, die uebrigen alten Typordner dienen nur noch als Redirect-Flaechen.
+- RP: `novapolis-dev/docs/todo.rp.md` fuehrt weiter genau einen offenen Punkt. Zug A des aktiven Folgekorridors fuer `d5-c6-nordlinie-sanierung-01` ist mit Turn 14 und Turn 15 belegt: Die Ronja/Reflex-Geste ist als bestaetigendes Naehesignal dokumentiert, und Reflex' Wahrnehmung bleibt unter D5-/C6-Weltendruck kantig, ohne Kokon, Kontrolle, technische Freigabe oder neue Symbiose-Stufe. Als Einschub sind der SSOT-Schnitt gegen unbelegte formale Stop-/Freigabe-/Request-Kommandos sowie die freigegebene Reflex-Profilkante dokumentiert: Bindungs-/Regulationslesart glaettet Reflex nicht; Weltendruck und `CRISIS`-Kokon/Vollschutz bleiben Teil seiner Wahrnehmungs- und Schutzlogik. Offen bleiben Zug B zur konservativen Draisine-Entscheidung mit `Jonas/Pahl/Lumen`, Zug C zu Koras/Echos Schuttkeil-Rueckmeldung sowie das Herkunftsaudit fuer Reflex, weil aktive SSOT aktuell nur `D5-Reaktor-Stabilisierung` fuehrt, waehrend die Datenrettung noch Drift wie `Jonas' Werkstatt (Geburtsort Reflex)` traegt.
 
 - Sim: `novapolis-dev/docs/todo.sim.md` fuehrt aktuell keine offenen Punkte mehr. `scripts/run_sim_headless_verify.py` loest im aktuellen Windows-Kontext jetzt auch den Pfad eines laufenden lokalen Godot-Prozesses auf; `Checks: sim headless verify` endet damit wieder mit `SIM_VERIFY: OK` statt am frueheren Exit `2`.
 
@@ -39,7 +39,7 @@ Board-Metadaten (automationsrelevant)
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
 | Dev (`docs/todo.dev.md`) | 2026-04-28 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-04-29 | keiner (offen: 0) | nein |
+| RP (`docs/todo.rp.md`) | 2026-05-20 | Nordlinie-Folgepaket in drei Zuegen schliessen und Reflex-Herkunft gegen Datenrettung pruefen (offen: 1) | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-05-11 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-04-26 | keiner (offen: 0) | nein |
 

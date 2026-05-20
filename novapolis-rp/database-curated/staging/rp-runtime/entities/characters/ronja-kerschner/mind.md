@@ -1,7 +1,7 @@
 ---
-stand: 2026-05-20 06:28
-update: Ronjas Runtime-Mind fuehrt T13 als geduldigen Carry-Forward mit offener Reflex-Deutung und enger Prueflogik.
-checks: snapshot-lock PASS (2026-05-20 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22)
+stand: 2026-05-20 17:42
+update: Ronjas Runtime-Mind fuehrt jetzt die Turn-14-Bedeutung der Geste an Reflex als bestaetigendes Naehesignal.
+checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 ---
 Ronja Kerschner Runtime Mind
 ============================
@@ -15,13 +15,13 @@ Status
 - review_state: working
 - baseline_cluster: ../../../../../../database-rp/01-factions/novapolis/07-mind-clusters/ronja-kerschner-mind-cluster.md
 - session_id: d5-c6-nordlinie-sanierung-01
-- last_turn: Turn 13
+- last_turn: Turn 14
 
 Runtime Carry-Forward
 ---------------------
 
 - baseline_reading: kontrollierte, erschoepfte Technikerin mit hoher Funktionsorientierung und deutlicher Bindung an Reflex.
-- current_mental_state: konzentriert, sachlich und unter Druck weiterhin handlungsfaehig; die neue Lage zieht Ronja nicht in Aktionismus, sondern in geduldige Prueflogik. Sie wartet auf Koras Eigenpruefung, zieht die Draisine-Debatte bewusst auf konservative Varianten und laesst selbst den kurzen Kontakt zu Reflex offen, statt ihn vorschnell mit Bedeutung zu ueberladen.
+- current_mental_state: konzentriert, sachlich und unter Druck weiterhin handlungsfaehig; die neue Lage zieht Ronja nicht in Aktionismus, sondern in geduldige Prueflogik. Der kurze Kontakt zu Reflex ist jetzt nicht mehr offen, sondern als bewusstes Naehesignal geklaert: Ronja zeigt Reflex, dass sie weiss, dass er da ist, ihn nicht vergessen hat und froh ist, dass er da ist.
 - confirmed_signals:
   - Ronja schliesst Teilabschnitte sauber ab, meldet erst danach und bleibt auch ohne schnelle Entlastung im Arbeitsmodus.
   - Der Turn zieht ihre Fehlerarbeit bis zur direkten Benennung von `Schottertasche Nordkante`, `Haltepunktpaar Leitungszug` und `Uebergang Engbogen` enger, statt diffuse Tunnelangst zu spielen.
@@ -30,10 +30,11 @@ Runtime Carry-Forward
   - T12 bestaetigt dieselbe Arbeitslogik: Ronja sucht eine kontrollierte Wiederverwendungspruefung und eine technische Grundlagenantwort, statt Materialgewinnung oder Draisine-Einsatz als schon geloest zu behandeln.
   - keine neue Mind-Delta / keine neue Relationship-Delta: Die T12-Fragen beruehren C6, Jonas und Pahl technisch, erzeugen aber noch keine belegbare geistnahe oder relationale Verschiebung.
   - Turn 13 bestaetigt dieselbe Linie weiter: Koras Zusage zur Eigenpruefung wird ruhig angenommen, die Draisine-Frage auf konservative Hand-/Schubvarianten gezogen und der kurze Kontakt zu Reflex nicht vorschnell als neue Bindungswende gedeutet.
+  - Turn 14 klaert denselben Kontakt ueber explizite Spielervorgabe als bestaetigendes Signal an Reflex; das erzeugt ein enges Relationship-Delta, aber keine Kontrollfreigabe und keine neue Symbiose-Stufe.
 - open_questions:
   - Ob der bilaterale Tunnelkontakt im naechsten Zug bereits einen belastbaren Vertrauens- oder Kooperationsshift gegenueber dem C6-Trupp rechtfertigt, bleibt Review-Sache.
   - Fuer einen numerischen Rescore von Erschoepfung, Konflikt- oder Kooperationsachsen fehlt noch ein sauberer Delta-Massstab ueber mehrere Folgezuege.
-  - Ob der kurze Kontakt zu Reflex spaeter als eigene Naehe- oder Beruhigungsbewegung lesbar wird oder im Arbeitsmodus folgenlos bleibt, ist bewusst offen.
+  - Ob das bestaetigte Naehesignal spaeter Reflex' Schutzrhythmus messbar beruhigt oder nur als einzelnes Relationship-Signal stehenbleibt, ist weiter offen.
 
 Delta Candidates
 ----------------
@@ -46,10 +47,10 @@ delta_candidates:
     delta_class: reaffirmed
     hard_score_change: none
     relation_status: kooperativ
-    event_refs: ["scene-log Turn 7", "scene-log Turn 8"]
-    reason_codes: [RC-support]
+    event_refs: ["scene-log Turn 7", "scene-log Turn 8", "scene-log Turn 14"]
+    reason_codes: [RC-support, RC-proximity]
     applied_rules: [R-MCL-SSOT]
-    runtime_note: Koerpernahe Exoskelett-Bindung und gemeinsame Fehlerarbeit werden erneut explizit bestaetigt; keine Detachment-Lesart.
+    runtime_note: Koerpernahe Exoskelett-Bindung und gemeinsame Fehlerarbeit werden durch Turn 14 um ein explizites Naehesignal ergaenzt: Ronja zeigt Wahrnehmung, Erinnerung und Freude ueber Reflex' Anwesenheit; keine Detachment- oder Kontrollfreigabe.
   - observer_id: char:ronja-kerschner
     target_id: char:jonas-merek
     target_type: character

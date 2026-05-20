@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
-update: Ronja fuehrt jetzt die startkorridor-tauglichen Actions direkt in der Charakter-SSOT und bleibt an den Mind-Cluster gebunden.
-checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
+stand: 2026-05-20 17:42
+update: Unbelegte formale Ronja-zu-Reflex Stop-/Freigabe-/Request-Kommandos entfernt; Safety bleibt belegpflichtige Abbruch- und Consent-Logik.
+checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 title: Ronja Kerschner
 category: character
 slug: ronja-kerschner
@@ -121,14 +121,14 @@ actions:
 Reflex - Interaktion & Safety (Hausregeln)
 ------------------------------------------
 - Kopplung: Stufe I - Reflex liegt wie ein „Neoprenanzug“ auf; kein Verschmelzen in der Haut (aktuelle Stufe)
-- Consent Gate: im Normalfall keine erzwungene Übernahme gegen Ronjas Willen. In akuter Gefahr darf Reflex Schutz priorisieren; „Stop“ ist Deeskalation (Druck runter), aber volle Rückgabe/Entkopplung erfolgt erst, wenn die Lage als „Sicher“ eingeschätzt wird (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
+- Consent Gate: im Normalfall keine erzwungene Übernahme gegen Ronjas Willen. In akuter Gefahr darf Reflex Schutz priorisieren; ein belegter Abbruch-, Distanz- oder Widerstandswunsch Ronjas ist Deeskalation (Druck runter), aber volle Rückgabe/Entkopplung erfolgt erst, wenn die Lage als „Sicher“ eingeschätzt wird (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
 - Sprech-Mechanik: Privatkanal (Tympanon-Kopplung, Ronja-only) und Broadcast (via Gerät). Consent/Dauer/Erschöpfung sind als Reference-Mechanik festgelegt: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md).
 - Detachment: Reflex (Primärinstanz) bleibt immer verbunden (keine vollständige Trennung). Instanzen (Lumen/Echo) dürfen in sicheren Kontexten kurz lokal ohne Dauer-Körperkontakt agieren; ohne externe Energiequelle steigt der SE-Verbrauch deutlich (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
-- Handschuh-/Kontakt-Guard (Decision [JEALOUSY-GLOVES]): Reflex (und Instanzen bei ihrer Bezugsperson) können die **konkret betroffene Körperstelle** bedecken/abschirmen, um unerwünschten Kontakt zu verhindern (nicht nur "als Handschuh"). Consent-first; "Stop" beendet sofort; "Freigabe" erlaubt Kontakt. Externe Handschuhe sind als Arbeits-/Witterungsschutz ok (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
+- Handschuh-/Kontakt-Guard (Decision [JEALOUSY-GLOVES]): Reflex (und Instanzen bei ihrer Bezugsperson) können die **konkret betroffene Körperstelle** bedecken/abschirmen, um unerwünschten Kontakt zu verhindern (nicht nur "als Handschuh"). Consent-first; belegter Abbruch-/Distanzwunsch beendet sofort; ausdruecklich gestatteter Kontakt erlaubt Kontakt. Konkrete Stop-/Freigabe-Phrasen sind ohne ausgespielte Szene nicht kanonisiert. Externe Handschuhe sind als Arbeits-/Witterungsschutz ok (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
 
-### Signals (Beispiele)
-- Request: „Reflex, Schutz leicht - Hände frei.“ → Assist/Support, Hände unbedeckt, Sicht/Atmung frei.
-- Stop: „Stopp.“ → Soll unmittelbare Lösung auslösen, reagiert aktuell verzögert; Nachregulation/Feedback zwingend dokumentieren.
+### Belegstatus Kommunikation
+
+- Es ist aktuell nicht belegt, dass Ronja Reflex formale Stop-, Freigabe- oder Request-Kommandos beigebracht oder ausgespielt hat. Bis zu einer belegten Szene gelten nur konkret ausgespielte Abbruch-, Distanz-, Consent-, Koerper- und Arbeitszeichen als verwertbar.
 
 Mind-Cluster-Referenz (SSOT)
 ----------------------------
@@ -149,7 +149,7 @@ Verhaltens-Hooks (Kurz, siehe AI-Behavior-Mapping)
 --------------------------------------------------
 - Assist/Support auf Anforderung und mit Scope (Zeit/Ziel) [AI-Behavior]
 - Guard/Protect bei Sicherheitsrisiko, Exit-Kriterien definieren
-- Safe Word/Stop: sofortige Entkopplung, Reflex → Observe/Idle
+- Belegter Abbruch-/Widerstandswunsch: Deeskalation und Ruecknahme auf das notwendige Minimum; konkrete Safe-Word- oder Stop-Phrase nicht kanonisiert
 
 Ziele (kurz)
 ------------

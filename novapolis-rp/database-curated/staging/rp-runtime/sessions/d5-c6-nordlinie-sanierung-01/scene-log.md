@@ -1,7 +1,7 @@
 ---
-stand: 2026-05-20 06:28
-update: Turn 13 fuehrt Koras Selbstpruefung am Keil und die konservative Hand-/Schubdebatte zur Draisine als neuen Vorbereitungsanker.
-checks: snapshot-lock PASS (2026-05-20 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc RP-Runtime-turn13-slice PASS (2026-05-20 06:22); .\.venv\Scripts\python.exe scripts\check_frontmatter.py RP-Runtime-turn13-slice PASS (EXITCODE=0, 2026-05-20 06:22)
+stand: 2026-05-20 17:42
+update: Turn 15 spielt Reflex' Wahrnehmung zwischen bestaetigter Naehe und kantigem Weltendruck aus, ohne technischen Fortschritt.
+checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 ---
 
 Scene Log - D5 C6 Nordlinie Sanierung 01
@@ -215,15 +215,43 @@ Turn 13
   - keine neue Mind-Delta / keine neue Relationship-Delta: Turn 13 bestaetigt Arbeitsnaehe, Disziplin und Prueflogik, aber noch keine belastbare Verschiebung in Vertrauen, Bindung oder Konflikt.
 - follow_up: Auf Koras Eigenpruefung des `Schuttkeil Kontaktseite` warten und die konservative Hand-/Schubdebatte fuer die Draisine erst danach gegen reale Tunnel- und Stopplogik enger ziehen.
 
+Turn 14
+-------
+
+- input: Admin-/Spielervorgabe: Fuer Ronja hatte die kurze Geste an Reflex die Bedeutung, dass sie ihm zeigen wollte, dass sie weiss, dass er da ist, ihn nicht vergessen hat und froh ist, dass er da ist.
+- inworld_result: Der kurze Kontakt aus dem vorigen Zug bleibt damit nicht laenger nur eine offene Bewegung zwischen Arbeit und Warten. Fuer Ronja ist er kein technisches Kommando, keine Freigabe fuer mehr Kontrolle und kein Versuch, die laufende Lage weichzuzeichnen. Er bedeutet schlicht, dass Reflex nicht nur als Werkzeug oder Schutzschicht mitlaeuft: Sie weiss, dass er da ist, sie hat ihn nicht vergessen, und sie ist froh ueber seine Naehe. Reflex nimmt das nicht als Anlass, groesser zu werden oder die Situation an sich zu ziehen. Die Reaktion bleibt klein und koerpernah: ein ruhigeres Anliegen, ein kurzer Abfall von unnoetigem Druck, dann wieder dieselbe wachsame Stabilitaet an Ronjas Seite. Am D5-Bahnsteig aendert sich dadurch technisch nichts. Koras Antwort vom `Schuttkeil Kontaktseite` steht weiter aus, und die Draisine bleibt bei den konservativen Hand-/Schubvarianten ohne Freigabe. Aber zwischen Ronja und Reflex ist der kurze Kontakt jetzt nicht mehr leer: Er ist als bestaetigendes Naehesignal belegt, ohne daraus eine neue Symbiose-Stufe, eine Kontrollfreigabe oder einen geloesten Konflikt zu machen.
+- new_signals:
+  - Probe: Turn 14 klaert die Bedeutung der Geste aus Turn 13 ueber explizite Spielervorgabe: Ronja zeigt Reflex Wahrnehmung, Erinnerung und Freude ueber seine Anwesenheit.
+  - Probe: Reflex nimmt das Signal als Beruhigung und Bestaetigung auf, bleibt aber klein, koerpernah und ohne Kontroll- oder Detachment-Claim.
+  - Probe: Der Zug erzeugt ein Relationship-Delta zwischen Ronja und Reflex, aber keinen technischen Fortschritt an Draisine, Schuttkeil, Materiallage oder Tunnel-Freigabe.
+  - Mind-Delta: Ronjas innerer Sinn der Geste ist jetzt belastbar dokumentiert; Reflex' Reaktion bleibt als ruhige Stabilisierung und bestaetigte Naehe lesbar.
+  - Relationship-Delta: `Ronja -> Reflex` und `Reflex -> Ronja` werden als reaffirmed/contact-signal gefuehrt; kein harter Score, keine neue Symbiose-Stufe.
+  - keine technische Delta: Kora, Jonas, Pahl, Lumen, Draisine und Nordlinie bleiben auf dem Vorbereitungsstand von Turn 13.
+- follow_up: Naechster Zug soll zuerst die konservative Draisine-Frage mit Jonas/Pahl/Lumen enger ziehen, ohne Koras noch offene Eigenpruefung des `Schuttkeil Kontaktseite` still zu ersetzen.
+
+Turn 15
+-------
+
+- input: Freigegebener Reflex-Wahrnehmungszug: Nach der geklaerten Naehesignal-Geste soll zuerst Reflex' Wahrnehmung zwischen Ronja-Bindung, D5-/C6-Druck, Tunnelgefahr und belegter CRISIS-Kokon-Kante ausgespielt werden. Kein neuer technischer Fortschritt, keine neue Ronja-Entscheidung und keine freie Symbiose- oder Kontrollfreigabe.
+- inworld_result: Reflex bleibt an Ronja, aber das ruhige Signal aus Turn 14 macht die Welt nicht weicher. Es sortiert nur den ersten Wert in seinem inneren Raster: Ronja ist da, Ronja weiss von ihm, Ronja will ihn in ihrer Naehe. Danach kommen sofort die anderen Werte, hart und kantig. Der Bahnsteig von `D5` vibriert unter Werkstattlaerm, die offene Draisine riecht nach Schmieroel, Lagerfett und unfertigem Metall, aus dem Tunnel haengt noch Staub in den Luftschichten, und hinter der Funklinie nach `C6` steht der `Schuttkeil Kontaktseite` als ungelesene Masse. Fuer Reflex ist das kein Hintergrund. Es ist Druck, Richtung, Risiko. Er liest kleinste Lastwechsel in Ronjas Haltung, die Entfernung zum Tunnelmund, die offenen Raender des Fahrgestells, Jonas' und Pahls Bewegungen an den Gleisen, das noch unbeantwortete C6-Fenster. Die bestaetigte Naehe senkt seinen Grunddruck, aber nicht seine Schutzbereitschaft. Unter der ruhigen, anliegenden Schicht bleibt ein zweiter Zustand wach: Wenn der Tunnel nachgibt, wenn eine Last kippt, wenn Ronja ploetzlich zu hart aus dem sicheren Arbeitsfenster faellt, waere Reflex nicht erst hoeflich, sondern sofort Huelle, Gegendruck, Dunkelung, Koerper um Koerper. In diesem Moment passiert das nicht. Kein Kokon bildet sich, keine Bewegung wird blockiert, keine Kontrolle wird genommen. Aber der Impuls ist da, sauber unter der Oberflaeche gehalten. Reflex bleibt klein, weil Ronjas Zeichen ihn haelt; er bleibt kantig, weil Novapolis nichts daran verspricht, sicher zu sein.
+- new_signals:
+  - Probe: Turn 15 klaert Reflex' Wahrnehmung nicht als geglaettete Beruhigung, sondern als zweischichtige Regulation: Naehe stabilisiert, Weltendruck haelt den Schutzmodus scharf.
+  - Probe: Der belegte `CRISIS`-Kokon/Vollschutz bleibt als Notfallimpuls lesbar, wird in diesem Zug aber nicht ausgeloest.
+  - Probe: Reflex registriert D5-Bahnsteig, Draisine, Tunnelstaub, C6-Funkfenster und Schuttkeil-Frage als Risiko-/Druckfeld, ohne daraus technische Fakten, Materialbewegung oder neue Freigabe abzuleiten.
+  - keine PC-Delta: Ronja erhaelt keine neue Handlung, Entscheidung, innere Reaktion oder Zustimmung; Turn 15 spielt nur Reflex' Wahrnehmung auf Basis der bereits belegten Lage.
+  - keine technische Delta: Kora, Jonas, Pahl, Lumen, Draisine, Schuttkeil und Nordlinie bleiben auf dem Vorbereitungsstand von Turn 14.
+- follow_up: Naechster Zug kann weiter bei der konservativen Draisine-Frage und Koras offener Schuttkeil-Eigenpruefung ansetzen; Reflex' Wahrnehmung bleibt dabei als kantiger Schutzfilter aktiv, ohne technische Antworten zu ersetzen.
+
 Vorbereitungsanker fuer den naechsten Zug
 ----------------------------------------
 
-- status: vorbereitet, nicht ausgespielt
+- status: vorbereitet nach Turn 15; Ronja/Reflex-Geste geklaert und Reflex' Wahrnehmung als kantiger Schutzfilter ausgespielt, technische Antworten weiter nicht ausgespielt
 - startreihenfolge:
-  - Kora meldet nach eigener Sichtpruefung aus `C6`, ob der `Schuttkeil Kontaktseite` kontrolliert genug Material hergibt, welche Bruchstueckgroesse fuer die `Schottertasche Nordkante` taugt und welches Risiko dabei fuer den Kontaktpunkt bleibt.
-  - Jonas und Pahl ziehen danach die konservativen Hand-/Schubvarianten der Draisine enger gegen `Brems-/Stopplogik`, `Not-Aus`, Rueckzugspfad und Lastfenster.
+  - Jonas und Pahl ziehen als naechste technische Achse die konservativen Hand-/Schubvarianten der Draisine enger gegen `Brems-/Stopplogik`, `Not-Aus`, Rueckzugspfad und Lastfenster.
+  - Kora bleibt mit ihrer eigenen Sichtpruefung aus `C6` als Folgeantwort offen: ob der `Schuttkeil Kontaktseite` kontrolliert genug Material hergibt, welche Bruchstueckgroesse fuer die `Schottertasche Nordkante` taugt und welches Risiko dabei fuer den Kontaktpunkt bleibt, ist noch nicht entschieden.
   - Erst danach wird entschieden, ob `Schottertasche Nordkante`, `Schuttkeil Kontaktseite` und der weitere Logistikpfad praktisch zusammengefuehrt werden koennen.
 - harte grenzen:
+  - Die Bedeutung der Ronja/Reflex-Geste ist jetzt als Naehesignal geklaert, aber nicht als technische Freigabe, Kontrollfreigabe oder Symbiose-Stufe-II-Claim zu lesen.
   - kein Schuttbruch wird als Materialbuchung, Einsatz oder Transfer gefuehrt, solange Kora die Eignung, Gewinnung und das Kontaktpunktrisiko nicht ausdruecklich selbst bestaetigt hat.
   - weder Hebelbetrieb noch Schubvariante werden als fertiger Antrieb, Lastfreigabe oder Logistikclaim ausgespielt, solange `Brems-/Stopplogik`, `Not-Aus`, Rueckzugspfad und Lastfenster nicht belastbar mitgezogen sind.
   - keine neue D5- oder C6-Freigabe wird still aus der Vorbereitung abgeleitet; der naechste Zug darf Antworten und Priorisierung liefern, aber keine freie Erfolgsmeldung.
@@ -240,7 +268,7 @@ Admin Handover
 
 - agent_switch: vollzogen
 - target_mode: SSOT, Story, Weltgeschichte, Lore
-- handover_basis: Turn 1-13 bilden jetzt den Runtime-Arbeitsstand; die Folgeszene schliesst an Koras angekuendigte Eigenpruefung des `Schuttkeil Kontaktseite`, die konservative Hand-/Schubdebatte zur Draisine, den enger gelesenen Fehlerkorridor, den schmalen Kontaktpunkt mit dem C6-Trupp, die gemeinsame Befundliste plus Bedarfskalkulation sowie den weiter offenen Materialblocker bei `Schweißgeraet` und `DN60` an.
+- handover_basis: Turn 1-15 bilden jetzt den Runtime-Arbeitsstand; die Folgeszene schliesst an die geklaerte Ronja/Reflex-Geste, Reflex' kantige Wahrnehmung des D5-/C6-Druckfelds, Koras angekuendigte Eigenpruefung des `Schuttkeil Kontaktseite`, die konservative Hand-/Schubdebatte zur Draisine, den enger gelesenen Fehlerkorridor, den schmalen Kontaktpunkt mit dem C6-Trupp, die gemeinsame Befundliste plus Bedarfskalkulation sowie den weiter offenen Materialblocker bei `Schweißgeraet` und `DN60` an.
 - interruption_roll: `1W6 = 4`, kein Unterbrechungsereignis
 
 Kurzauswertung
@@ -282,7 +310,10 @@ Neue belastbare Signale
 - Session-Arbeitslesart: Die Draisine-Antriebsfrage ist jetzt explizit offen und muss von Jonas/Pahl beantwortet werden, bevor Lastgrenze, Testlauf oder Materiallogistik daraus abgeleitet werden.
 - Session-Arbeitslesart: Turn 13 zieht Kora selbst in den C6-Funkraum und von dort an die Eigenpruefung des `Schuttkeil Kontaktseite`; die naechste belastbare Antwort soll damit aus ihrer eigenen Sicht kommen.
 - Session-Arbeitslesart: Turn 13 zieht die Draisine-Debatte von der freien Motorfrage auf konservative Hand-/Schubvarianten, ohne daraus schon eine Bau- oder Freigabeentscheidung zu machen.
+- Session-Arbeitslesart: Turn 14 klaert die Ronja/Reflex-Geste als bestaetigendes Naehesignal ueber Wahrnehmung, Erinnerung und Freude an Reflex' Anwesenheit.
+- Session-Arbeitslesart: Turn 14 erzeugt ein enges Relationship-Delta zwischen Ronja und Reflex, aber keinen technischen Fortschritt und keine neue Freigabe.
 - Session-Arbeitslesart: Der kurze Kontakt zwischen Ronja und Reflex ist jetzt belegt, bleibt aber bewusst ohne vorschnelle Deutung oder neue Bindungsbehauptung.
+- Session-Arbeitslesart: Turn 15 spielt Reflex' Wahrnehmung als kantigen Schutzfilter aus: Naehe stabilisiert, aber Weltendruck, Tunnelgefahr und `CRISIS`-Kokon-Impuls bleiben aktiv lesbar.
 
 Open Threads
 ------------
@@ -304,6 +335,7 @@ Open Threads
 - pruefen, ob aus der laufenden Runtime-Session spaeter ein belastbarer Nordlinie-Status fuer RP-SSOT promotable wird
 - C6-Antwort einholen, ob der `Schuttkeil Kontaktseite` kontrolliert zerschlagen werden kann und ob die Bruchstuecke fuer die `Schottertasche Nordkante` tragfaehig genug sind
 - Jonas/Pahl-Antwort zum konkreten Draisine-Antrieb, zur Brems-/Stopplogik und zur belastbaren Lastgrenze einholen
+- Reflex' kantigen Schutzfilter bei Folgeantworten mitfuehren, ohne ihn als technische Loesung, PC-Steuerung oder freie Kontrollfreigabe zu verwenden
 
 Promotion Notes
 ---------------

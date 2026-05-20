@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
-update: Kora verweist jetzt auf den eigenen Mind-Cluster und fuehrt ein startkorridor-taugliches Knowledge-/Actions-Set fuer C6.
-checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
+stand: 2026-05-20 17:42
+update: Echo-Kontakt-Guard bei Kora von unbelegten formalen Stop-/Freigabe-Phrasen auf Abbruch-, Distanz- und Consent-Logik umgestellt.
+checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 title: Kora Malenkov
 category: character
 slug: kora-malenkov
@@ -130,7 +130,7 @@ Interaktion & Safety
 
 - Echo-Nähe: Plant Tätigkeiten so, dass Echo physischen Kontakt halten kann; Distanzwarnung löst Schonmodus aus.
 - REFLEX-DETACH (Instanz-Usecase): In sicheren Kontexten (z. B. kurze Hilfe bei Logistik/Handwerk) darf Echo kurz lokal ohne Dauer-Körperkontakt agieren; ohne externe Energiequelle steigt der SE-Verbrauch deutlich, daher Rückkehr in Nähe/Kontakt priorisieren. Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md).
-- JEALOUSY-GLOVES (Kontakt-Guard): Wenn jemand Kora berühren will, kann Echo die **konkret betroffene Körperstelle** bedecken/abschirmen, um unerwünschten Kontakt zu verhindern; "Stop" beendet sofort, "Freigabe" erlaubt Kontakt (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
+- JEALOUSY-GLOVES (Kontakt-Guard): Wenn jemand Kora berühren will, kann Echo die **konkret betroffene Körperstelle** bedecken/abschirmen, um unerwünschten Kontakt zu verhindern; belegter Abbruch-/Distanzwunsch beendet sofort, ausdruecklich gestatteter Kontakt erlaubt Kontakt. Konkrete Stop-/Freigabe-Phrasen sind ohne ausgespielte Szene nicht kanonisiert (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
 
 Hinweis: PROXIMITY-Mechanik (Zuneigung+Schutz, Zustände, Training) siehe [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md).
 - Sicherheitsprioritäten: Crew vor Tempo → bei Alarm sofortige Sammelpunkte, Echo führt Schutzmantel.

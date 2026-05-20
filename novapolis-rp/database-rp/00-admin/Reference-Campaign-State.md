@@ -1,6 +1,6 @@
 ---
-stand: 2026-02-23 03:01
-update: Frische-Review durchgeführt; globale Mechanik-Regeln und Verweise geprüft (kein Kanon-Delta).
+stand: 2026-05-20 17:42
+update: Unbelegte formale Stop-/Freigabe-Kommandos fuer Reflex/Instanzen entfernt; Safety bleibt als belegpflichtige Abbruch-, Distanz- und Consent-Logik erhalten.
 slug: reference-campaign-state
 category: Admin
 canvas: campaign-state
@@ -10,7 +10,7 @@ owners: [admin-novapolis]
 tags: [rp, campaign, state, mechanics]
 status: active
 relatedSlugs: [current-state, memory-bundle, canvas-t0-timeline]
-checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md' 'novapolis-rp/database-rp/00-admin/Canvas-T0-Timeline.md' 'novapolis-rp/database-rp/00-admin/Migrationsplan-Admin-Novapolis.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:02); .\\.venv\\Scripts\\python.exe scripts\\check_frontmatter.py 'novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md' 'novapolis-rp/database-rp/00-admin/Canvas-T0-Timeline.md' 'novapolis-rp/database-rp/00-admin/Migrationsplan-Admin-Novapolis.md' 'novapolis-dev/docs/donelog.md' PASS (2026-02-23 03:02); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-23 03:02)
+checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 validators:
   - id: rp
     cmd: 'npm --prefix novapolis-rp\coding\tools\validators run validate:rp'
@@ -57,7 +57,7 @@ fsm:
       exit: [log_essentials, restore_normal_window]
     - from: ALERT
       to: CRISIS
-      triggers: [acute_threat, medical_escalation, stop_ignored_by_third_party]
+      triggers: [acute_threat, medical_escalation, boundary_signal_ignored_by_third_party]
       entry: [activate_emergency, allow_reflex_control, prioritize_warning_pings]
     - from: CRISIS
       to: ALERT
@@ -210,7 +210,7 @@ Training (Ziele)
 ----------------
 
 - Instanzen: Stabilität bei Distanz verbessern (z. B. auf 30-50 m mit Sicht/Funkkontakt), ohne Arbeitsfähigkeit zu verlieren.
-- Reflex: Deeskalation/Stop-Reaktion verbessern und Eskalationen kürzer halten.
+- Reflex: Deeskalation auf belegte Abbruch-, Distanz- oder Widerstandssignale verbessern und Eskalationen kürzer halten.
 
 Scope-Unterschiede
 ------------------
@@ -235,7 +235,7 @@ Kanal A: Privatkanal (Ronja-only, Tympanon-Kopplung)
 
 - Reflex koppelt sich an Ronjas Hörsystem ("Tympanon") und erzeugt einen internen Schall-/Signalreiz, den **nur Ronja** als Stimme wahrnimmt.
 - Das ist **kein Raumklang**: Außenstehende hören nichts.
-- Default-Regel: Aktivierung nur mit Ronjas Freigabe (Signal/Consent). Ronja kann jederzeit abbrechen ("Stop" / "Signal aus").
+- Default-Regel: Aktivierung nur mit Ronjas belegtem Consent. Ronja kann jederzeit einen Abbruch- oder Pausenwunsch setzen; konkrete Kommandophrasen sind nicht kanonisiert.
 
 Kanal B: Broadcast (über Geräte)
 -------------------------------
@@ -285,10 +285,10 @@ Definition "Sicher" (Heuristik)
 - Ronja ist wieder handlungs- und entscheidungsfähig (Atmung/Orientierung stabil),
 - Umgebung ist stabil genug, dass ein Loslassen nicht sofort wieder in `CRISIS` kippt.
 
-Stop / Deeskalation
--------------------
+Abbruch / Deeskalation
+----------------------
 
-- Ronjas "Stop" ist ein **Deeskalationssignal**: Reflex reduziert Druck/Blockaden auf das notwendige Minimum.
+- Ein belegter Abbruch-, Distanz- oder Widerstandswunsch Ronjas ist ein **Deeskalationssignal**: Reflex reduziert Druck/Blockaden auf das notwendige Minimum.
 - **Volle Entkopplung** erfolgt trotzdem erst bei "Sicher".
 
 Scope & Kosten (kompatibel)
@@ -328,7 +328,7 @@ Kosten/Limitierung (SE-kompatibel, Heuristik)
 
 - Ohne externe Energiequelle steigt der Aufwand deutlich: lokales Agieren ohne Kontakt zählt als **zusätzliche Belastung** (SE-Verbrauch steigt schneller; Schonmodus wird wahrscheinlicher).
 - Mit externer Energiequelle/Anker (z. B. Werkbank/Station-Power/geladenes Modul) ist lokales Agieren **länger und stabiler**, ohne dass SE-Pools zwischen Entitäten übertragen werden.
-- Wenn die Instanz Unruhe/Stress zeigt oder "Stop" kommt: **sofort zurück in Nähe/Kontakt**; bei Überschreiten des eigenen Distanzfensters kippt sie in Schonmodus.
+- Wenn die Instanz Unruhe/Stress zeigt oder ein belegter Abbruch-/Rueckzugswunsch der Bezugsperson erkennbar wird: **sofort zurück in Nähe/Kontakt**; bei Überschreiten des eigenen Distanzfensters kippt sie in Schonmodus.
 
 
 <!-- id: rule-jealousy-gloves -->
@@ -343,18 +343,18 @@ Grundsatz (Decision, JEALOUSY-GLOVES)
 - Reflex (und Instanzen bei ihrer Bezugsperson) darf als Reaktion auf unerwünschten Körperkontakt einen **Kontakt-Guard** bilden: Er legt sich **nicht nur als Handschuh über die Haut**, sondern kann die **konkret betroffene Körperstelle** (z. B. Schulter, Arm, Hand, Rücken) mit einer dünnen Schicht **bedecken/abschirmen**, sodass der Kontakt nicht direkt zustande kommt.
 - Der Kontakt-Guard ist **Blockade/Barriere**, keine Bestrafung: kein Schmerz, keine Luft-/Sichtblockade, kein "Festhalten" als Default.
 
-Consent, Stop, Freigabe
------------------------
+Consent, Abbruch, Kontaktzulassung
+----------------------------------
 
 - **Consent-first:** Kontakt-Guard ist im Normalfall nur aktiv, wenn die Bezugsperson das möchte (oder es als "süßes" Verhalten akzeptiert).
-- **"Stop" beendet sofort** den Kontakt-Guard (Deeskalation auf 0), sofern keine akute Gefahr vorliegt.
-- **"Freigabe"** (oder eine von der Bezugsperson definierte Freigabe-Phrase) erlaubt den Kontakt: Reflex/Instanz zieht sich an der Stelle zurück.
+- Ein belegter Abbruch-, Distanz- oder Rueckzugswunsch beendet sofort den Kontakt-Guard (Deeskalation auf 0), sofern keine akute Gefahr vorliegt.
+- Ausdruecklich gestatteter Kontakt erlaubt Kontakt an der betroffenen Stelle: Reflex/Instanz zieht sich dort zurueck. Eine konkrete Freigabe-Phrase ist nicht kanonisiert.
 
 Eskalation (Heuristik)
 ----------------------
 
 - Default ist erst Signal/Warnung (Kribbeln/Kälte), dann erst Bedecken der Stelle.
-- Wenn wiederholt versucht wird, die Grenze zu übergehen, wird die Barriere dichter und Reflex/Instanz fordert explizit Freigabe oder Abstand.
+- Wenn wiederholt versucht wird, die Grenze zu übergehen, wird die Barriere dichter und Reflex/Instanz fordert ausdrueckliche Kontaktzulassung oder Abstand.
 - Wenn es **keine Jealousy-Situation**, sondern eine **Bedrohung/Übergriff** ist, greifen die Schutzregeln aus `REFLEX-CONTROL` (CRISIS) statt JEALOUSY-GLOVES.
 
 

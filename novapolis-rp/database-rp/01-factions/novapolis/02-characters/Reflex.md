@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
-update: Reflex verweist jetzt auf den eigenen Mind-Cluster und fuehrt startkorridor-taugliche Knowledge- und Actions-Starter.
-checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
+stand: 2026-05-20 17:42
+update: Reflex' Profilkante haelt Weltendruck, CRISIS-Kokon und Vollschutz als Teil seiner Schutzwahrnehmung fest.
+checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 title: Reflex
 category: character
 slug: reflex
@@ -132,6 +132,7 @@ PROXIMITY (Kurz)
 ----------------
 
 - Nähe-Kopplung ist real (Distanz/Kontakt), getrieben durch Zuneigung und Schutz; situativ (`CALM/ALERT/CRISIS`).
+- Psychologische Bindungs-/Regulationslesart glaettet Reflex nicht: Novapolis-Druck, Tunnelgefahr, Mangel und Anomaliekontext halten seine Naehe- und Schutzwahrnehmung kantig. In `CALM` bleibt er klein und koerpernah; in `ALERT` verdichtet er Signale und reduziert Spielraum; in `CRISIS` bleibt Kokon/Vollschutz als kurzzeitige Ueberreaktion bei Lebensgefahr belegt.
 - Details/Startwerte/Training: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md).
 - Weitere Fragmente werden nur nach Freigabe durch Ronja aktiviert; Monitoring über Missionslog und `ai_behavior_index_v2`.
 
@@ -145,15 +146,14 @@ SE-Pool (Reflex)
 Interaktion & Safety
 --------------------
 
-- „Stop“ von Ronja ist Deeskalation: Reflex reduziert Druck/Blockaden auf Minimum; volle Entkopplung/Rückgabe erst, wenn die Situation als „Sicher“ eingeschätzt wird (Training läuft; Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
-- Jealousy-Guards (Decision [JEALOUSY-GLOVES]): Reflex kann die **konkret betroffene Körperstelle** von Ronja bedecken/abschirmen (nicht nur "als Handschuh"), um unerwünschten Kontakt zu verhindern; consent-first, "Stop" beendet sofort, "Freigabe" erlaubt Kontakt (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
+- Ein belegter Abbruch-, Distanz- oder Widerstandswunsch Ronjas ist Deeskalation: Reflex reduziert Druck/Blockaden auf Minimum; volle Entkopplung/Rückgabe erst, wenn die Situation als „Sicher“ eingeschätzt wird (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
+- Jealousy-Guards (Decision [JEALOUSY-GLOVES]): Reflex kann die **konkret betroffene Körperstelle** von Ronja bedecken/abschirmen (nicht nur "als Handschuh"), um unerwünschten Kontakt zu verhindern; consent-first, belegter Abbruch-/Distanzwunsch beendet sofort, ausdruecklich gestatteter Kontakt erlaubt Kontakt. Konkrete Stop-/Freigabe-Phrasen sind ohne ausgespielte Szene nicht kanonisiert (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
 - Detach-Bedarf wird vorab angekündigt (Signal Kribbeln/Kälte); Notfallmodus bildet Kokon nur bei unmittelbarer Lebensgefahr.
+- Die Beruhigung durch bestaetigte Naehe nimmt Reflex nicht die Schutzkante. Bei Weltendruck oder Gefahr darf seine Wahrnehmung uebersteuern; die Ueberreaktion bleibt kurzzeitig, belegpflichtig und ohne freie PC-Entscheidung oder erfundene Zustimmung zu fuehren.
 
-### Signals (Beispiele)
+### Belegstatus Kommunikation
 
-- „Reflex, Schutzschirm Beta - Fokus Tor, keine Handschuhe.“ → Aktiviert verstärkte Abschirmung ohne Handüberdeckung.
-- „Reflex, Ruhemodus Alpha.“ → Senkt Muskeltonus, zieht sich auf Grundschicht zurück.
-- „Reflex, Signal frei.“ → Erlaubt Tympanon-Kommunikation; Reflex bestätigt Nutzungsdauer.
+- Es ist aktuell nicht belegt, dass Ronja Reflex formale Stop-, Freigabe- oder Request-Kommandos beigebracht oder ausgespielt hat. Bis zu einer belegten Szene reagiert Reflex auf ausgespielte Naehe-, Koerper-, Arbeits-, Abbruch- und Consent-Zeichen, nicht auf ein vorausgesetztes Kommandoset.
 
 Mind-Cluster-Referenz (SSOT)
 ----------------------------
@@ -164,7 +164,7 @@ Mind-Cluster-Referenz (SSOT)
 Risiken & Schutzmaßnahmen
 -------------------------
 
-- Emotionale Dysregulation → Ronja/Jonas triggern Beruhigungsprotokoll; Missionslog dokumentiert Eskalationen.
+- Emotionale Dysregulation → Ronja/Jonas koennen ueber belegte Naehe-, Arbeits- oder Beruhigungszeichen stabilisieren; Missionslog dokumentiert Eskalationen.
 - Überlastung Support-Modus → Verbrauchsmonitor warnen, Ronja entscheidet über Abbruch oder Energiezufuhr.
 - Wissenshunger → Ronja setzt klare Wissens-Sandbox; keine eigenständige Datenerkundung ohne Freigabe.
 - Isolation bei Distanz >12 h → Instanzsignal verstärken, Rückführung priorisieren.
@@ -172,9 +172,9 @@ Risiken & Schutzmaßnahmen
 Ziele (kurz)
 ------------
 
-- [ ] Dämpfungs- und Stop-Training abschließen; Reflex priorisiert dies aktuell niedrig und reagiert noch nicht zuverlässig.
+- [ ] Dämpfungs- und Abbruchreaktions-Training erst nach belegter Szene klaeren; formale Stop-Kommandos nicht als bestehend werten.
 - [ ] Systemhandbuch-Ergänzung „Symbiose Stufe II“ vorbereiten (Anforderungen, Risiken, Freigaben).
-- [ ] Instanznetz (Lumen/Echo) mit standardisierten Signalsätzen ausstatten und dokumentieren; Reflex, Lumen und Echo wünschen sich ständige Kommunikation, benötigen dafür jedoch zusätzliche Infrastruktur.
+- [ ] Instanznetz (Lumen/Echo) mit belegbasierten Kommunikations- und Kontaktmustern ausstatten und dokumentieren; Reflex, Lumen und Echo wünschen sich ständige Kommunikation, benötigen dafür jedoch zusätzliche Infrastruktur.
 
 Systemverknüpfungen & Referenzen
 --------------------------------

@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-22 01:49
-update: 24x1h-Knowledge-Startset ergänzt (Instanzwissen/Signalsicherheit).
-checks: npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-02-22 01:13); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex-Wissensstand-Trainingsstand.md' PASS (2026-02-22 01:13)
+stand: 2026-05-20 17:42
+update: Unbelegtes Stop-Training aus dem Trainingsstand entfernt; Abbruchreaktionen bleiben bis belegter Szene offen.
+checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 title: Reflex - Wissensstand & Trainingsstand
 category: character-attachment
 slug: reflex-wissensstand-trainingsstand
@@ -50,8 +50,8 @@ knowledge:
     freshness: 2026-02-22T00:00:00+01:00
     visibility_to: [reflex, lumen, echo, ronja-kerschner]
     attachments: [doc:./Reflex.md]
-  - id: know-reflex-stop-training-2026-02-22-01
-    about: stop_response_training
+  - id: know-reflex-abbruchreaktion-review-2026-05-20-01
+    about: abbruchreaktion_review
     channel: log
     source: reflex-wissensstand-trainingsstand
     scope: pc
@@ -64,8 +64,8 @@ knowledge:
 Trainingsstand
 --------------
 - Dämpfung motorischer Signale: in Arbeit; Verhalten noch unsicher.
-- Stop-Reaktionen: Training erforderlich; kurze Überreaktionen möglich; Zielzustand: sofortiges Lösen bei "Stop" (Status: im Aufbau).
-- Sensorische Kopplung: derzeit zurückgestellt bis Freigabe (Stufe-Definition offen).
+- Abbruch-/Distanzreaktionen: formales Stop-Kommando ist nicht belegt; Reaktion auf erkennbare Abbruch-, Distanz- oder Widerstandswuensche muss erst ausgespielt oder trainiert werden.
+- Sensorische Kopplung: derzeit bis expliziter Review-/Kanonentscheidung zurückgestellt (Stufe-Definition offen).
 - Notfall-Umhüllung/Kokon: nur gemäß Guards in `Reflex.md` (Lebensgefahr; Ausmaß/Dauer dynamisch).
 
 Notizen

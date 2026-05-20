@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-05 19:43
-update: Echo verweist jetzt auf den eigenen Mind-Cluster und fuehrt ein lokales Knowledge-/Actions-Set fuer den C6-Startkorridor.
-checks: snapshot-lock PASS (2026-04-05 08:10); markdownlint PASS; frontmatter PASS; validate:rp PASS
+stand: 2026-05-20 17:42
+update: Unbelegte formale Stop-/Freigabe-/Request-Kommandos fuer Echo entfernt; Instanz-Safety bleibt als Abbruch-, Distanz- und Consent-Logik erhalten.
+checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 title: Echo
 category: character
 slug: echo
@@ -139,13 +139,12 @@ Interaktion & Safety (Instanz)
 ------------------------------
 
 - Kopplung: An Kora gekoppelt; in sicheren Kontexten kurze lokale Bewegung ohne Dauer-Körperkontakt möglich (SE-Mehrverbrauch ohne externen Anker), sonst Schonmodus
-- Eingriffe kurz; bei „Stop“ sofort lösen (Kora Priorität)
-- Kontakt-Guard (Decision [JEALOUSY-GLOVES]): Wenn jemand Kora berühren will, kann Echo die **konkret betroffene Körperstelle** bedecken/abschirmen, um unerwünschten Kontakt zu verhindern; consent-first, "Stop" beendet sofort, "Freigabe" erlaubt Kontakt (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
+- Eingriffe kurz; bei belegtem Abbruch- oder Distanzwunsch von Kora sofort Ruecknahme in Nähe/Kontakt (Kora Priorität)
+- Kontakt-Guard (Decision [JEALOUSY-GLOVES]): Wenn jemand Kora berühren will, kann Echo die **konkret betroffene Körperstelle** bedecken/abschirmen, um unerwünschten Kontakt zu verhindern; consent-first, belegter Abbruch-/Distanzwunsch beendet sofort, ausdruecklich gestatteter Kontakt erlaubt Kontakt. Konkrete Stop-/Freigabe-Phrasen sind ohne ausgespielte Szene nicht kanonisiert (Details: [Reference-Campaign-State](../../../00-admin/Reference-Campaign-State.md)).
 
-### Signals (Beispiele)
+### Belegstatus Kommunikation
 
-- Request: „Echo, dicht bei mir - Sicht frei.“
-- Stop: „Stopp.“ → sofort lösen
+- Es ist aktuell nicht belegt, dass Kora Echo formale Stop-, Freigabe- oder Request-Kommandos beigebracht oder ausgespielt hat. Bis zu einer belegten Szene gelten nur konkret ausgespielte Abbruch-, Distanz-, Consent-, Koerper- und Arbeitszeichen als verwertbar.
 
 Mind-Cluster-Referenz (SSOT)
 ----------------------------

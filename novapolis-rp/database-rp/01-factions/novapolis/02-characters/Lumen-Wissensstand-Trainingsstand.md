@@ -1,7 +1,7 @@
 ---
-stand: 2026-02-16 08:50
-update: Als Character-Anhang normalisiert (parent_character, nicht eigenständig) und Standort auf C6 synchronisiert.
-checks: not run (targeted content update)
+stand: 2026-05-20 17:42
+update: Unbelegte formale Request-/Stop-Kommandos aus dem Lumen-Trainingsstand entfernt.
+checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 title: Lumen - Wissensstand & Trainingsstand
 category: character-attachment
 slug: lumen-wissensstand-trainingsstand
@@ -38,7 +38,7 @@ Wissensstand (Detailmatrix)
 Trainingsstand
 --------------
 - Stabilität bei Distanz: tbd - Kopplungsfenster (Distanz/Zeit) ermitteln; Schonmodus bei Trennung.
-- Signals/Kommandos: "Request"/"Stop" zuverlässig umsetzen (Training laufend).
+- Abbruch-/Arbeitszeichen: formale Request-/Stop-Kommandos sind nicht belegt; Reaktion auf ausgespielte Arbeits-, Abbruch- und Distanzzeichen bleibt Trainings-/Reviewpunkt.
 - Assistenz-Scopes: Kurzdiagnose/Werkzeugscan/leichte Schutzschicht (Feinsteuerung tbd).
 
 Notizen
