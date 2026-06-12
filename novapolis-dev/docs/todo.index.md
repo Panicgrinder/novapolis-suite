@@ -1,7 +1,7 @@
 ---
-stand: 2026-05-20 17:42
-update: Der TODO-Index spiegelt den ausgespielten Reflex-Wahrnehmungszug aus Turn 15; offen bleibt 1.
-checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
+stand: 2026-06-12 22:56
+update: Der TODO-Index fuehrt jetzt einen neuen offenen Dev-Punkt fuer credits-optimierte Modellnutzung (GPT-5 mini + GPT-5.3-Codex).
+checks: snapshot-lock PASS (2026-06-12 22:56); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-12 22:50).
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -13,7 +13,7 @@ TODO-Index (Novapolis-Dev)
 ---------
 
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 1)
-- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 0)
+- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 1)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 0)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 0)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
@@ -23,7 +23,7 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` bleibt die schlanke Live-Oberflaeche ohne offene suiteweite Querschnittspunkte. Der Wochenabschluss 2026-05-18 ist gruen belegt: `.tmp\results\reports\checks_report_20260518_222833.md` ist PASS, `Checks: sim epoch assets` bleibt PASS (`summary=fail:0,warn:0`), `Tests: coverage (fail-under)` bleibt bei `92.19%` und `709 passed`, und Root bleibt bewusst ausserhalb der Modul-Open-Counts. Der initiale Vollcheck `.tmp\results\reports\checks_report_20260518_222210.md` fiel nur an Freshness-/Tree-Drift und ist im selben Lauf geschlossen.
 
-- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell wieder keine offenen Punkte mehr. Der Vierer-Split ist jetzt klar gezogen: `workspace_tree.txt`, `workspace_tree_dirs.txt` und `workspace_tree_full.txt` bleiben die überwachten kanonischen Trees, waehrend `workspace_tree_local.txt` den echten lokalen On-Disk-Zustand getrennt davon abbildet.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt jetzt wieder genau einen offenen Punkt fuer die Governance-/Behavior-Umstellung auf credits-optimierte Modellnutzung. Der Startlauf erfasst die unmittelbar betroffenen Governance-/Behavior-Dateien und legt den Rollout unter `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` an.
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt weiter keine offenen Punkte. Der Wochenabschlusslauf hat hier nur den Freshness-Stand nachgezogen; inhaltlich bleibt der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` unveraendert der harte Vorlauf vor `export+pack` und LoRA.
 
@@ -38,7 +38,7 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-04-28 | keiner (offen: 0) | nein |
+| Dev (`docs/todo.dev.md`) | 2026-06-12 | Governance-/Behavior-Umstellung auf credits-optimierte Modellnutzung (offen: 1) | nein |
 | RP (`docs/todo.rp.md`) | 2026-05-20 | Nordlinie-Folgepaket in drei Zuegen schliessen und Reflex-Herkunft gegen Datenrettung pruefen (offen: 1) | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-05-11 | keiner (offen: 0) | nein |
 | Sim (`docs/todo.sim.md`) | 2026-04-26 | keiner (offen: 0) | nein |

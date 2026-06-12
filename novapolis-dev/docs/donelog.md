@@ -1,8 +1,15 @@
 ---
-stand: 2026-06-12 22:38
-update: Der Dev-DONELOG dokumentiert den Quarantaene-Nachzug fuer die alte Broken-Venv und den neuen Drift-Guard.
-checks: snapshot-lock PASS (2026-06-12 22:38); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-06-12 22:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py DONELOG.md novapolis-dev/docs/donelog.md PASS (EXITCODE=0, 2026-06-12 22:39).
+stand: 2026-06-12 22:56
+update: Der Dev-DONELOG fuehrt jetzt den Startlauf fuer credits-optimierte Modellnutzung plus Scope-Erfassung.
+checks: snapshot-lock PASS (2026-06-12 22:56); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-12 22:50).
 ---
+Dev/Governance: Plan fuer credits-optimierte Modellnutzung angelegt und Scope-Dateien erfasst (2026-06-12 22:49)
+--------------------------------------------------------------------------------------------------------------
+
+- Startlauf fuer die Umstellung auf credits-effiziente Arbeitsweise ist jetzt in [process/model-credits-optimization-plan.ssot.md](process/model-credits-optimization-plan.ssot.md) dokumentiert.
+- Der Lauf hat die initial betroffenen Governance-/Behavior-Dateien explizit erfasst: `.github/agents/novapolis-workspace-navigator.agent.md`, `.github/agents/novapolis-rp-szenenlabor.agent.md`, `.github/copilot-instructions.md` und [copilot-vscode-usage.md](copilot-vscode-usage.md).
+- Das Dev-Board fuehrt denselben Startpunkt jetzt offen in [todo.dev.md](todo.dev.md); [todo.index.md](todo.index.md) ist im selben Lauf auf `Dev offen: 1` synchronisiert.
+
 Dev/Governance: Alte Broken-Venv in Quarantaene verschoben und Drift-Guard gesetzt (2026-06-12 22:38)
 ----------------------------------------------------------------------------------------------------
 

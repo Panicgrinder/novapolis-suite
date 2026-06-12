@@ -926,7 +926,6 @@ offset_top = 6.0
 offset_right = 220.0
 offset_bottom = 36.0
 text = "Auto-Start Server"
-alignment = 0
 
 [node name="HubConfigApiCardButton" type="Button" parent="HubConfigPanel" unique_id=213000304]
 visible = false

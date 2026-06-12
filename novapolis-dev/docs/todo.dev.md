@@ -1,7 +1,7 @@
 ---
-stand: 2026-05-19 04:34
-update: Das Dev-Board fuehrt nach dem Local-Tree-Nachzug wieder keine offenen Punkte; neben den drei überwachten Trees gibt es jetzt einen klar getrennten lokalen Maschinenbaum.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260518_222833.md; snapshot-lock PASS (2026-05-19 04:34)
+stand: 2026-06-12 22:56
+update: Das Dev-Board fuehrt jetzt einen offenen Governance-Punkt fuer credits-optimierte Modellnutzung (GPT-5 mini + GPT-5.3-Codex) mit erfassten betroffenen Dateien.
+checks: snapshot-lock PASS (2026-06-12 22:56); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-12 22:50).
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -19,7 +19,14 @@ Hinweis
 Offene Aufgaben (Dev)
 ---------------------
 
-- Aktuell keine offenen Dev-Punkte.
+- [ ] [Jetzt] Governance- und Behavior-Leitplanken auf credits-optimierte Modellnutzung umstellen.
+  - Ziel: Arbeitsmodus fuer die aktuelle Modelltendenz (`GPT-5 mini` fuer breite, schnelle Durchlaeufe und `GPT-5.3-Codex` fuer praezise Umsetzungslaeufe) explizit und reproduzierbar in Governance-/Behavior-Dokus verankern.
+  - Akzeptanzkriterien:
+    1) ein Dev-Plan unter `novapolis-dev/docs/process/` fuehrt Scope, Rollout und Guardrails fuer credits-effiziente Modellwahl,
+    2) alle unmittelbar betroffenen Governance-/Behavior-Dateien sind vor Implementierung explizit erfasst,
+    3) die Umstellung bleibt minimalinvasiv (keine fachfremden Nebenbaustellen),
+    4) `todo.dev.md`, `todo.index.md` und `novapolis-dev/docs/donelog.md` fuehren denselben Startstand im selben Lauf.
+  - Evidenz: Initiale Scope-Erfassung liegt vor in `.github/agents/novapolis-workspace-navigator.agent.md`, `.github/agents/novapolis-rp-szenenlabor.agent.md`, `.github/copilot-instructions.md`, `novapolis-dev/docs/copilot-vscode-usage.md`, `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md` und im neuen Plan `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md`.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
