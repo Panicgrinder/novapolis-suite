@@ -402,11 +402,17 @@ func _ready() -> void:
 	# Wire real Auto-Start checkbox
 	if hub_config_autostart_checkbox != null:
 		hub_config_autostart_checkbox.toggled.connect(_on_hub_config_autostart_toggled)
-		# Godot 4 uses 'tooltip_text' on Control-derived nodes; fallback to method if needed
-		if hub_config_autostart_checkbox.has_method("set_tooltip"):
-			hub_config_autostart_checkbox.set_tooltip("Startet den lokalen Server automatisch nach 2 aufeinanderfolgenden Poll-Fehlern, falls kein externer Server erreichbar ist.")
-		elif hub_config_autostart_checkbox.has_property("tooltip_text"):
+		# Godot 4 uses 'tooltip_text' on Control-derived nodes; check property list reliably
+		var _tooltip_text_available := false
+		var _props := hub_config_autostart_checkbox.get_property_list()
+		for _p in _props:
+			if _p.get("name", "") == "tooltip_text":
+				_tooltip_text_available = true
+				break
+		if _tooltip_text_available:
 			hub_config_autostart_checkbox.tooltip_text = "Startet den lokalen Server automatisch nach 2 aufeinanderfolgenden Poll-Fehlern, falls kein externer Server erreichbar ist."
+		elif hub_config_autostart_checkbox.has_method("set_tooltip"):
+			hub_config_autostart_checkbox.set_tooltip("Startet den lokalen Server automatisch nach 2 aufeinanderfolgenden Poll-Fehlern, falls kein externer Server erreichbar ist.")
 		else:
 			push_warning("Hub autostart checkbox: cannot set tooltip on this control type")
 	api_card_panel.gui_input.connect(Callable(self, "_on_api_card_panel_gui_input"))
