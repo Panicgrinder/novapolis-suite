@@ -1,5 +1,5 @@
 ---
-stand: 2026-04-23 16:50
+stand: 2026-06-12 08:32
 update: Die Sim-README fuehrt jetzt zusaetzlich den Export-Presetanker, den minimalen Vollstand und den statischen Hub-Prefs-Contract-Check als kanonische Repo-Pfade.
 checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260423_155606.md; snapshot-lock PASS (2026-04-23 16:50)
 ---
@@ -122,6 +122,15 @@ Fortsetzung und Persistenz
 - Der Persistenzpfad speichert bewusst keine fluechtigen Runtime-Metriken wie Polling-Zeiten, Queue-Zwischenstaende oder temporaere Fehlerraten.
 - Das kanonische Neustartverhalten fuer Hub, Replay und Live-Session ist in `novapolis-dev/docs/process/sim-export-release-path.ssot.md` beschrieben.
 - Der neue Task `Checks: sim hub prefs contract` ruft `scripts/check_sim_hub_prefs_contract.py` auf und prueft denselben Key-Satz jetzt repo-seitig gegen leere, partielle und aeltere Fixture-Dateien unter `novapolis-sim/tests/fixtures/hub_prefs/`.
+
+Auto-Start Server (Developer Preference)
+---------------------------------------
+
+- Kurzbeschreibung: Eine neue Option `Auto-Start Server` erlaubt es, den lokalen Python-Server automatisch zu starten, wenn die Sim wiederholt keine Verbindung zum externen Agent-API-Host herstellen kann.
+- Speicherort Preference: `user://hub_prefs.cfg` mit dem Key `server_autostart_enabled` (Boolean).
+- Verhalten: Wenn `server_autostart_enabled=true`, keine aktive lokale Server-PID vorhanden ist und der `SimClient` zwei aufeinanderfolgende Poll-Fehler erkennt, versucht die Sim einen lokalen Serverstart via vorhandenem `_start_local_server()`-Pfad. Versuche sind rate-limitiert und erfolgen nur im Developer-Modus.
+- UI: Die Option ist als echte `CheckBox` in der Hub-Config verfügbar (`HubConfigAutoStartCheckBox`).
+- Hinweis: Sichtbarkeit, Layout und weitere Topbar-Indikatoren koennen in `novapolis-sim/Main.tscn` feiner angepasst werden; visuelle Politur ist eine optionale Folgeaufgabe.
 
 Kanonische Release-/Export-Doku
 -------------------------------

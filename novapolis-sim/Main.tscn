@@ -144,7 +144,7 @@ offset_left = 18.0
 offset_top = 38.0
 offset_right = 360.0
 offset_bottom = 58.0
-text = "Server, Module, Checks und Live-Chat"
+text = "Server, Module und Checks"
 
 [node name="HubTelemetryPanel" type="Panel" parent="." unique_id=213009040]
 z_index = -1
@@ -165,6 +165,7 @@ offset_bottom = 36.0
 text = "Telemetry"
 
 [node name="HubTelemetrySubLabel" type="Label" parent="HubTelemetryPanel" unique_id=213009042]
+visible = false
 modulate = Color(0.78, 0.84, 0.93, 0.92)
 layout_mode = 0
 offset_left = 18.0
@@ -296,6 +297,7 @@ offset_top = 52.0
 offset_right = 10.0
 offset_bottom = 52.0
 text = "Runtime: --"
+clip_text = true
 
 [node name="ApiCardBackoffLabel" type="Label" parent="ApiCardPanel" unique_id=213000115]
 layout_mode = 0
@@ -304,6 +306,7 @@ offset_top = 72.0
 offset_right = 10.0
 offset_bottom = 72.0
 text = "Backoff: --"
+clip_text = true
 
 [node name="ApiCardEndpointLabel" type="Label" parent="ApiCardPanel" unique_id=213000116]
 layout_mode = 0
@@ -312,6 +315,7 @@ offset_top = 92.0
 offset_right = 10.0
 offset_bottom = 92.0
 text = "Endpoint: --"
+clip_text = true
 
 [node name="EvalCardPanel" type="Panel" parent="." unique_id=213000121]
 offset_left = 1016.0
@@ -336,6 +340,7 @@ offset_top = 32.0
 offset_right = 10.0
 offset_bottom = 32.0
 text = "Profile: --"
+clip_text = true
 
 [node name="EvalCardArtifactsLabel" type="Label" parent="EvalCardPanel" unique_id=213000124]
 layout_mode = 0
@@ -344,6 +349,7 @@ offset_top = 52.0
 offset_right = 10.0
 offset_bottom = 52.0
 text = "Artifacts: --"
+clip_text = true
 
 [node name="EvalCardEventsLabel" type="Label" parent="EvalCardPanel" unique_id=213000125]
 layout_mode = 0
@@ -352,6 +358,7 @@ offset_top = 72.0
 offset_right = 10.0
 offset_bottom = 72.0
 text = "Events: --"
+clip_text = true
 
 [node name="EvalCardNotesLabel" type="Label" parent="EvalCardPanel" unique_id=213000126]
 layout_mode = 0
@@ -360,6 +367,7 @@ offset_top = 92.0
 offset_right = 10.0
 offset_bottom = 92.0
 text = "Notes: --"
+clip_text = true
 
 [node name="AgentStudioPanel" type="Panel" parent="." unique_id=213000131]
 offset_left = 1946.0
@@ -730,6 +738,7 @@ offset_right = 1850.0
 offset_bottom = 950.0
 text = "Read-only Output:
 Wähle links ein Modul und daneben den Check-Typ."
+scroll_following = true
 
 [node name="RpStudioPanel" type="Panel" parent="." unique_id=213000401]
 visible = false
@@ -884,6 +893,7 @@ offset_bottom = 256.0
 text = "Run Checks"
 
 [node name="HubConfigPanel" type="Panel" parent="." unique_id=213000301]
+visible = false
 offset_left = 1388.0
 offset_top = 156.0
 offset_right = 1810.0
@@ -900,23 +910,8 @@ text = "Hub Config"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HubConfigCloseButton" type="Button" parent="HubConfigPanel" unique_id=213000310]
-layout_mode = 0
-offset_left = 305.0
-offset_top = 83.0
-offset_right = 407.0
-offset_bottom = 114.0
-text = "Minimieren"
-
-[node name="HubConfigQuitButton" type="Button" parent="HubConfigPanel" unique_id=213000311]
-layout_mode = 0
-offset_left = 302.0
-offset_top = 6.0
-offset_right = 414.0
-offset_bottom = 37.0
-text = "Beenden"
-
 [node name="HubConfigSimCardButton" type="Button" parent="HubConfigPanel" unique_id=213000303]
+visible = false
 layout_mode = 0
 offset_top = 5.0
 offset_right = 102.0
@@ -924,7 +919,17 @@ offset_bottom = 36.0
 text = "[x] Sim"
 alignment = 0
 
+[node name="HubConfigAutoStartCheckBox" type="CheckBox" parent="HubConfigPanel" unique_id=213000312]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 220.0
+offset_bottom = 36.0
+text = "Auto-Start Server"
+alignment = 0
+
 [node name="HubConfigApiCardButton" type="Button" parent="HubConfigPanel" unique_id=213000304]
+visible = false
 layout_mode = 0
 offset_top = 35.0
 offset_right = 102.0
@@ -933,6 +938,7 @@ text = "[x] API"
 alignment = 0
 
 [node name="HubConfigEvalCardButton" type="Button" parent="HubConfigPanel" unique_id=213000305]
+visible = false
 layout_mode = 0
 offset_top = 65.0
 offset_right = 102.0
@@ -972,7 +978,22 @@ offset_bottom = 113.0
 text = "Refresh=normal | default=hub"
 clip_text = true
 
+[node name="HubConfigCloseButton" type="Button" parent="." unique_id=213000310]
+offset_left = 1710.0
+offset_top = 62.0
+offset_right = 1814.0
+offset_bottom = 92.0
+text = "Minimieren"
+
+[node name="HubConfigQuitButton" type="Button" parent="." unique_id=213000311]
+offset_left = 1588.0
+offset_top = 62.0
+offset_right = 1698.0
+offset_bottom = 92.0
+text = "Beenden"
+
 [node name="HubReplayPanel" type="Panel" parent="." unique_id=213000520]
+visible = false
 offset_left = 1390.0
 offset_top = 332.0
 offset_right = 1888.0
@@ -1058,6 +1079,7 @@ text = "Server: stopped"
 clip_text = true
 
 [node name="HubChatPanel" type="Panel" parent="." unique_id=213000501]
+visible = false
 offset_left = 1020.0
 offset_top = 255.0
 offset_right = 1820.0
@@ -1112,6 +1134,7 @@ offset_top = 256.0
 offset_right = 897.0
 offset_bottom = 565.0
 text = "PC-zentrierte Ansicht wird geladen..."
+scroll_following = true
 
 [node name="HubChatRequest" type="HTTPRequest" parent="." unique_id=213000507]
 

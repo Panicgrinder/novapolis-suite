@@ -12,7 +12,6 @@ func apply_responsive_hub_layout(controls: Dictionary, state: Dictionary, width:
 		_apply_editor_hub_layout(controls, state, width, height)
 		return
 	_layout_hub_shells(controls, state, width, height)
-	_layout_hub_config_panel(controls, state, width, height)
 	_layout_hub_topbar(controls, state, width)
 	_layout_hub_actions(controls, state, width, height)
 	_layout_hub_log_and_cards(controls, state, width, height)
@@ -49,7 +48,7 @@ func _hub_ops_rect(state: Dictionary, width: float, height: float) -> Rect2:
 	var top := _hub_content_top()
 	var bottom := _hub_cards_shell_top(height, float(state.get("ui_margin", 16.0))) - float(state.get("ui_gap", 12.0))
 	var ui_margin := float(state.get("ui_margin", 16.0))
-	var shell_width := clampf(width * 0.31, 360.0, 500.0)
+	var shell_width := clampf(width * 0.28, 320.0, 430.0)
 	return Rect2(
 		width - ui_margin - shell_width,
 		top,
@@ -223,6 +222,21 @@ func _layout_hub_topbar(controls: Dictionary, state: Dictionary, width: float) -
 	status_label.offset_right = width - ui_margin
 	status_label.offset_bottom = status_label.offset_top + 22.0
 
+	var hub_config_quit_button := controls.get("hub_config_quit_button") as Control
+	var hub_config_close_button := controls.get("hub_config_close_button") as Control
+	if hub_config_quit_button != null:
+		hub_config_quit_button.offset_left = right - 236.0
+		hub_config_quit_button.offset_top = row2_top
+		hub_config_quit_button.offset_right = right - 124.0
+		hub_config_quit_button.offset_bottom = row2_top + 30.0
+		hub_config_quit_button.visible = true
+	if hub_config_close_button != null:
+		hub_config_close_button.offset_left = right - 118.0
+		hub_config_close_button.offset_top = row2_top
+		hub_config_close_button.offset_right = right - 12.0
+		hub_config_close_button.offset_bottom = row2_top + 30.0
+		hub_config_close_button.visible = true
+
 
 func _layout_hub_actions(controls: Dictionary, state: Dictionary, width: float, height: float) -> void:
 	var ops_rect := _hub_ops_rect(state, width, height)
@@ -264,8 +278,23 @@ func _layout_hub_log_and_cards(controls: Dictionary, state: Dictionary, width: f
 	var hub_chat_panel := controls.get("hub_chat_panel") as Control
 	var hub_config_panel := controls.get("hub_config_panel") as Control
 	hub_replay_panel.clip_contents = true
-	hub_chat_panel.clip_contents = true
+	if hub_chat_panel != null:
+		hub_chat_panel.clip_contents = true
 	hub_config_panel.clip_contents = true
+
+	# New: If settings-stage mode is active, occupy the stage area with the config panel
+	# and collapse the usual terminal/log presentation.
+	var settings_stage_mode := bool(state.get("settings_stage_mode", false))
+	if settings_stage_mode:
+		_set_control_rect(hub_config_panel, stage_left, stage_header_top, stage_right, stage_rect.position.y + stage_rect.size.y - 22.0)
+		# Move log and other stage content out of view but keep layout stable.
+		_set_control_rect(controls.get("log_label") as Control, stage_left, stage_header_top, stage_left, stage_header_top)
+		# Keep replay/chat stacked to the right column collapsed.
+		var ops_rect2 := _hub_ops_rect(state, width, height)
+		_set_control_rect(hub_replay_panel, ops_rect2.position.x + 18.0, ops_rect2.position.y + 56.0, ops_rect2.position.x + 18.0, ops_rect2.position.y + 56.0)
+		if hub_chat_panel != null:
+			_set_control_rect(hub_chat_panel, ops_rect2.position.x + 18.0, ops_rect2.position.y + 56.0, ops_rect2.position.x + 18.0, ops_rect2.position.y + 56.0)
+		return
 
 	var column_left := ops_rect.position.x + 18.0
 	var column_right := ops_rect.position.x + ops_rect.size.x - 18.0
@@ -275,6 +304,56 @@ func _layout_hub_log_and_cards(controls: Dictionary, state: Dictionary, width: f
 	var stack_gap := 12.0
 	var replay_pref_height := 160.0
 	var replay_hard_min_height := 64.0
+	var chat_visible := hub_chat_panel != null and hub_chat_panel.visible
+	var replay_visible := hub_replay_panel != null and hub_replay_panel.visible
+	var config_visible := hub_config_panel != null and hub_config_panel.visible
+
+	if not chat_visible and not replay_visible and not config_visible:
+		_set_control_rect(hub_replay_panel, column_left, stack_top, column_left, stack_top)
+		_set_control_rect(hub_chat_panel, column_left, stack_top, column_left, stack_top)
+		_set_control_rect(hub_config_panel, column_left, stack_top, column_left, stack_top)
+
+		var hub_telemetry_panel_compact := controls.get("hub_telemetry_panel") as Control
+		var cards_left_compact := hub_telemetry_panel_compact.offset_left + 18.0
+		var cards_right_compact := hub_telemetry_panel_compact.offset_right - 18.0
+		var cards_top_compact := hub_telemetry_panel_compact.offset_top + 72.0
+		var cards_bottom_compact := hub_telemetry_panel_compact.offset_bottom - 18.0
+		var card_width_compact := (cards_right_compact - cards_left_compact - ui_gap * 2.0) / 3.0
+
+		_set_control_rect(controls.get("sim_card_panel") as Control, cards_left_compact, cards_top_compact, cards_left_compact + card_width_compact, cards_bottom_compact)
+		var sim_card_panel_compact := controls.get("sim_card_panel") as Control
+		_set_control_rect(controls.get("api_card_panel") as Control, sim_card_panel_compact.offset_right + ui_gap, cards_top_compact, sim_card_panel_compact.offset_right + ui_gap + card_width_compact, cards_bottom_compact)
+		var api_card_panel_compact := controls.get("api_card_panel") as Control
+		_set_control_rect(controls.get("eval_card_panel") as Control, api_card_panel_compact.offset_right + ui_gap, cards_top_compact, api_card_panel_compact.offset_right + ui_gap + card_width_compact, cards_bottom_compact)
+		return
+
+	if not chat_visible:
+		var config_height_no_chat := clampf(hub_config_panel.offset_bottom - hub_config_panel.offset_top, 42.0, 134.0)
+		var replay_height_no_chat := clampf(stack_height - config_height_no_chat - stack_gap, replay_hard_min_height, replay_pref_height)
+		var replay_top_no_chat := stack_top
+		var replay_bottom_no_chat := replay_top_no_chat + replay_height_no_chat
+		_set_control_rect(hub_replay_panel, column_left, replay_top_no_chat, column_right, replay_bottom_no_chat)
+		_layout_hub_replay_contents(controls)
+
+		var config_top_no_chat := replay_bottom_no_chat + stack_gap
+		_set_control_rect(hub_config_panel, column_left, config_top_no_chat, column_right, stack_bottom)
+
+		_set_control_rect(hub_chat_panel, column_left, replay_bottom_no_chat, column_left, replay_bottom_no_chat)
+
+		var hub_telemetry_panel_no_chat := controls.get("hub_telemetry_panel") as Control
+		var cards_left_no_chat := hub_telemetry_panel_no_chat.offset_left + 18.0
+		var cards_right_no_chat := hub_telemetry_panel_no_chat.offset_right - 18.0
+		var cards_top_no_chat := hub_telemetry_panel_no_chat.offset_top + 30.0
+		var cards_bottom_no_chat := hub_telemetry_panel_no_chat.offset_bottom - 18.0
+		var card_width_no_chat := (cards_right_no_chat - cards_left_no_chat - ui_gap * 2.0) / 3.0
+
+		_set_control_rect(controls.get("sim_card_panel") as Control, cards_left_no_chat, cards_top_no_chat, cards_left_no_chat + card_width_no_chat, cards_bottom_no_chat)
+		var sim_card_panel_no_chat := controls.get("sim_card_panel") as Control
+		_set_control_rect(controls.get("api_card_panel") as Control, sim_card_panel_no_chat.offset_right + ui_gap, cards_top_no_chat, sim_card_panel_no_chat.offset_right + ui_gap + card_width_no_chat, cards_bottom_no_chat)
+		var api_card_panel_no_chat := controls.get("api_card_panel") as Control
+		_set_control_rect(controls.get("eval_card_panel") as Control, api_card_panel_no_chat.offset_right + ui_gap, cards_top_no_chat, api_card_panel_no_chat.offset_right + ui_gap + card_width_no_chat, cards_bottom_no_chat)
+		return
+
 	var chat_pref_height := 180.0
 	var chat_min_height := 120.0
 	var config_min_height := 42.0
@@ -320,7 +399,7 @@ func _layout_hub_log_and_cards(controls: Dictionary, state: Dictionary, width: f
 	var hub_telemetry_panel := controls.get("hub_telemetry_panel") as Control
 	var cards_left := hub_telemetry_panel.offset_left + 18.0
 	var cards_right := hub_telemetry_panel.offset_right - 18.0
-	var cards_top := hub_telemetry_panel.offset_top + 54.0
+	var cards_top := hub_telemetry_panel.offset_top + 72.0
 	var cards_bottom := hub_telemetry_panel.offset_bottom - 18.0
 	var card_width := (cards_right - cards_left - ui_gap * 2.0) / 3.0
 

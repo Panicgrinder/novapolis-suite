@@ -5,14 +5,15 @@ class_name HubConfigController
 
 func refresh_ui(
 	controls: Dictionary,
-	hub_show_sim_card: bool,
+	_hub_show_sim_card: bool,
 	hub_show_api_card: bool,
 	hub_show_eval_card: bool,
 	hub_default_panel: String,
 	hub_refresh_profile: String,
 	hub_config_collapsed: bool,
 	default_panel_options: Array[String],
-	refresh_profile_options: Array[String]
+	refresh_profile_options: Array[String],
+	server_autostart_enabled: bool
 ) -> void:
 	var hub_config_sim_card_button := controls.get("hub_config_sim_card_button") as Button
 	var hub_config_api_card_button := controls.get("hub_config_api_card_button") as Button
@@ -20,9 +21,19 @@ func refresh_ui(
 	var hub_config_default_panel_button := controls.get("hub_config_default_panel_button") as OptionButton
 	var hub_config_refresh_button := controls.get("hub_config_refresh_button") as OptionButton
 	var hub_config_close_button := controls.get("hub_config_close_button") as Button
-	hub_config_sim_card_button.text = _select_label("Sim", hub_show_sim_card)
-	hub_config_api_card_button.text = _select_label("API", hub_show_api_card)
-	hub_config_eval_card_button.text = _select_label("Eval", hub_show_eval_card)
+	# Keep the sim/api/eval card toggles hidden (telemetry cards fixed visible elsewhere).
+	if hub_config_sim_card_button != null:
+		hub_config_sim_card_button.visible = false
+	var hub_config_autostart_checkbox := controls.get("hub_config_autostart_checkbox") as CheckBox
+	if hub_config_autostart_checkbox != null:
+		hub_config_autostart_checkbox.set_pressed(server_autostart_enabled)
+		hub_config_autostart_checkbox.visible = true
+	if hub_config_api_card_button != null:
+		hub_config_api_card_button.text = _select_label("API", hub_show_api_card)
+		hub_config_api_card_button.visible = false
+	if hub_config_eval_card_button != null:
+		hub_config_eval_card_button.text = _select_label("Eval", hub_show_eval_card)
+		hub_config_eval_card_button.visible = false
 	_select_option_value(hub_config_default_panel_button, default_panel_options, hub_default_panel)
 	_select_option_value(hub_config_refresh_button, refresh_profile_options, hub_refresh_profile)
 	hub_config_close_button.text = "Öffnen" if hub_config_collapsed else "Minimieren"
@@ -31,9 +42,6 @@ func refresh_ui(
 func set_collapsed(controls: Dictionary, collapsed: bool, collapsed_height: float, expanded_height: float) -> void:
 	var show_body := not collapsed
 	for key in [
-		"hub_config_sim_card_button",
-		"hub_config_api_card_button",
-		"hub_config_eval_card_button",
 		"hub_config_default_panel_button",
 		"hub_config_refresh_button",
 		"hub_config_save_button",

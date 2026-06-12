@@ -1,8 +1,54 @@
 ---
-stand: 2026-05-20 17:42
+stand: 2026-06-12 08:32
 update: Der Dev-DONELOG fuehrt jetzt Reflex' Profilkante und den Turn-15-Wahrnehmungszug.
 checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
 ---
+Sim/UI: Topbar-Status entdoppelt und rote Statuszeile dauerhaft entfernt (2026-06-12 13:35)
+--------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd` blendet die rote Hub-Statuszeile jetzt dauerhaft aus (`StatusLabel`), sodass Fehler-/Serverzustand nicht mehr ein drittes Mal separat im Hub erscheint.
+- Die API-Chip-Zeile in der Topbar wurde auf `API: <state> | last_ok=<age>` reduziert; redundante `reason=`-Wiederholung faellt damit aus dem Hauptblick.
+- Im selben Lauf wurden unbeabsichtigte Fremd-Hunks in `Main.gd` (`_apply_agent_restpoint_summary_result`) sauber zur vorherigen Fallback-Logik zurueckgesetzt.
+- Verify: `Checks: sim headless verify` PASS mit `SIM_VERIFY: OK`.
+
+Sim/UI: Replay aus Hub entfernt, Topbar-Aktionen hochgezogen, Telemetry freigestellt (2026-06-12 13:20)
+------------------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd` blendet `HubReplayPanel` und `HubConfigPanel` im Hauptmenue jetzt konsequent aus; die bisherigen Replay-/Config-Bloecke sind damit nicht mehr Teil der Hub-Startoberflaeche.
+- `novapolis-sim/Main.tscn` verschiebt `HubConfigQuitButton` und `HubConfigCloseButton` auf Root-Ebene (Topbar-Aktionen ohne eigenen Config-Rahmen) und setzt zusaetzlich `clip_text=true` fuer lange API-/Eval-Zeilen, damit kein Text mehr ueber Kartenraender laeuft.
+- `novapolis-sim/scripts/hub_layout_controller.gd` legt die beiden Topbar-Aktionen responsiv aus und reserviert keine Stack-Flaeche mehr fuer ausgeblendete Replay-/Config-/Chat-Bloecke; Telemetry-Cards starten tiefer, sodass die Ueberschrift nicht mehr halb ueberdeckt wird.
+- Verify: `Checks: sim headless verify` PASS mit `SIM_VERIFY: OK`.
+
+Sim/UI: Hub-Spacingschnitt nach Screenshot-Befund (2026-06-12 13:05)
+--------------------------------------------------------------------
+
+- `novapolis-sim/scripts/hub_layout_controller.gd` nutzt die Hauptflaeche links jetzt besser: die Ops-Spalte wurde enger geklammert, und bei ausgeblendetem Hub-Chat reserviert das Layout keinen toten Zwischenraum mehr.
+- Derselbe Schnitt dockt `HubConfigPanel` unter dem Replay-Block in der rechten Spalte, statt den Bereich wie zuvor als entkoppelte Restflaeche wirken zu lassen.
+- `novapolis-sim/Main.tscn` blendet den kleinen Telemetry-Subtext (`HubTelemetrySubLabel`) aus und bereinigt den Ops-Subtext auf `Server, Module und Checks`, damit doppelte bzw. veraltete Lesart wegfaellt.
+- Verify: `Checks: sim headless verify` PASS mit `SIM_VERIFY: OK`.
+
+Sim/UI: Telemetry fixiert, Hub-Chat ausgeblendet, Terminal-Autoscroll aktiv (2026-06-12 12:45)
+----------------------------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd` zeigt Telemetry-Karten im Hub jetzt durchgehend an und blendet das Hub-Chat-Panel im Hauptmenue konsequent aus. Die Card-Sichtbarkeit wird nicht mehr aus alten Pref-Toggles abgeleitet.
+- Derselbe Lauf aktiviert Auto-Scroll fuer das Haupt-Terminal (`PcLogLabel`) und fuer die Checks-Ausgabe; neue Eintraege springen damit automatisch ans Ende.
+- `novapolis-sim/scripts/hub_config_controller.gd` und `novapolis-sim/Main.tscn` ziehen den UI-Schnitt nach: Telemetry-Toggle-Schaltflaechen bleiben dauerhaft verborgen und tauchen auch beim Panel-Collapse nicht wieder auf.
+- Verify: `Checks: sim headless verify` PASS mit `SIM_VERIFY: OK`.
+
+Sim/UI: Hub-Navigation in Main.gd strukturell bereinigt (2026-06-12 12:20)
+--------------------------------------------------------------------------
+
+- `novapolis-sim/scripts/Main.gd` fuehrt die Hub-Navigation jetzt ueber eine zentrale Toggle-Route (`_toggle_operator_module`) und eine gemeinsame UI-Synchronisierung (`_sync_hub_module_menu_ui`) statt mehrfach verteilter Einzelpfade.
+- Ziel des Laufs ist bewusst Architektur-Bereinigung vor Feature-Ausbau: weniger duplizierte Toggle-/Statuslogik, klarere Modulgrenzen zwischen Hub, Agent, Checks und RP ohne neue Fachfunktionen.
+- Der Lauf behaelt den bestehenden Bedienpfad bei (Buttons und Panel-Exklusivitaet unveraendert), reduziert aber Legacy-Verzweigungen als Grundlage fuer den naechsten UI-Neuschnitt.
+
+Sim UI Neustart: Plan angelegt (2026-06-12 12:00)
+------------------------------------------------
+
+- [novapolis-dev/docs/process/sim-ui-restart-plan.md](process/sim-ui-restart-plan.md) angelegt als schlanker Fahrplan fuer den Neuanfang der Sim-Oberflaeche. Erste Schritte: Scaffolding in `novapolis-sim/Main.tscn` planen, Headless-Verify als Akzeptanzkriterium.
+
+Nächster Schritt: Umsetzung in kleinem, commitbarem Patch-Set auf Feature-Branch `feature/sim-ui-restart`.
+
 RP-Runtime/SSOT: Reflex-Profilkante und Turn-15-Wahrnehmung festgeschrieben (2026-05-20 17:39)
 -----------------------------------------------------------------------------------------------
 

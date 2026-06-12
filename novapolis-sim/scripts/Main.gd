@@ -115,8 +115,8 @@ signal on_interrupt(reason: String, context: Dictionary)
 @onready var server_status_label: Label = $ServerStatusLabel
 @onready var hub_config_panel: Panel = $HubConfigPanel
 @onready var hub_config_title_label: Label = $HubConfigPanel/HubConfigTitleLabel
-@onready var hub_config_close_button: Button = $HubConfigPanel/HubConfigCloseButton
-@onready var hub_config_quit_button: Button = $HubConfigPanel/HubConfigQuitButton
+@onready var hub_config_close_button: Button = $HubConfigCloseButton
+@onready var hub_config_quit_button: Button = $HubConfigQuitButton
 @onready var hub_config_save_button: Button = $HubConfigPanel/HubConfigSaveButton
 @onready var hub_config_sim_card_button: Button = $HubConfigPanel/HubConfigSimCardButton
 @onready var hub_config_api_card_button: Button = $HubConfigPanel/HubConfigApiCardButton
@@ -124,6 +124,7 @@ signal on_interrupt(reason: String, context: Dictionary)
 @onready var hub_config_default_panel_button: OptionButton = $HubConfigPanel/HubConfigDefaultPanelButton
 @onready var hub_config_refresh_button: OptionButton = $HubConfigPanel/HubConfigRefreshButton
 @onready var hub_config_status_label: Label = $HubConfigPanel/HubConfigStatusLabel
+@onready var hub_config_autostart_checkbox: CheckBox = $HubConfigPanel/HubConfigAutoStartCheckBox
 @onready var hub_replay_panel: Panel = $HubReplayPanel
 @onready var hub_replay_summary_label: Label = $HubReplayPanel/HubReplaySummaryLabel
 @onready var hub_replay_checkpoint_button: OptionButton = $HubReplayPanel/HubReplayCheckpointButton
@@ -175,6 +176,9 @@ var _audio_assets_present: bool = false
 var _server_pid: int = -1
 var _server_status_text: String = "stopped"
 var _server_exit_reported: bool = false
+var _server_auto_start_enabled: bool = true
+const _SERVER_AUTOSTART_FAILURES: int = 2
+var _server_auto_start_last_attempt_ms: int = -1
 var _agent_studio_mode: String = "operate"
 var _eval_pid: int = -1
 var _eval_started_ms: int = -1
@@ -252,6 +256,7 @@ var _hub_show_eval_card: bool = true
 var _hub_default_panel: String = "hub"
 var _hub_refresh_profile: String = "normal"
 var _hub_config_collapsed: bool = false
+var _settings_stage_mode: bool = false
 var _hub_chat_lines: Array[String] = []
 var _hub_chat_campaign_id: String = "novapolis_text_rpg_v1"
 var _hub_chat_session_id: String = ""
@@ -307,6 +312,9 @@ const _HUB_DEFAULT_PANEL_OPTIONS: Array[String] = ["hub", "agent", "checks"]
 const _HUB_REFRESH_PROFILE_OPTIONS: Array[String] = ["normal", "fast", "slow"]
 const _HUB_CHAT_MAX_LINES: int = 18
 const _LOWER_SHARED_TOPIC_OPTIONS: Array[String] = ["agent_api", "runtime_ops", "eval_quality"]
+const _OP_MODULE_AGENT: String = "agent"
+const _OP_MODULE_CHECKS: String = "checks"
+const _OP_MODULE_RP: String = "rp"
 
 const _AGENT_PANEL_DOCK_LEFT: float = 1320.0
 const _AGENT_PANEL_DOCK_TOP: float = 620.0
@@ -341,7 +349,7 @@ func _ready() -> void:
 	play_pc_button.pressed.connect(_on_play_pc_audio_pressed)
 	play_world_button.pressed.connect(_on_play_world_audio_pressed)
 	server_toggle_button.pressed.connect(_on_server_toggle_pressed)
-	hub_reload_button.pressed.connect(_on_hub_reload_pressed)
+	hub_reload_button.pressed.connect(_on_hub_settings_toggle_pressed)
 	hub_checks_button.pressed.connect(_on_hub_checks_pressed)
 	agent_operate_button.pressed.connect(_on_agent_operate_pressed)
 	agent_author_button.pressed.connect(_on_agent_author_pressed)
@@ -375,9 +383,6 @@ func _ready() -> void:
 	hub_config_save_button.pressed.connect(_on_hub_config_save_pressed)
 	hub_config_close_button.pressed.connect(_on_hub_config_close_pressed)
 	hub_config_quit_button.pressed.connect(_on_hub_config_quit_pressed)
-	hub_config_sim_card_button.pressed.connect(_on_hub_config_sim_card_pressed)
-	hub_config_api_card_button.pressed.connect(_on_hub_config_api_card_pressed)
-	hub_config_eval_card_button.pressed.connect(_on_hub_config_eval_card_pressed)
 	hub_config_default_panel_button.item_selected.connect(_on_hub_config_default_panel_selected)
 	hub_config_refresh_button.item_selected.connect(_on_hub_config_refresh_selected)
 	hub_replay_fetch_button.pressed.connect(_on_hub_replay_fetch_pressed)
@@ -394,10 +399,15 @@ func _ready() -> void:
 	_hub_replay_request.timeout = 4.0
 	add_child(_hub_replay_request)
 	_hub_replay_request.request_completed.connect(_on_hub_replay_request_completed)
+	# Wire real Auto-Start checkbox
+	if hub_config_autostart_checkbox != null:
+		hub_config_autostart_checkbox.toggled.connect(_on_hub_config_autostart_toggled)
+		hub_config_autostart_checkbox.hint_tooltip = "Startet den lokalen Server automatisch nach 2 aufeinanderfolgenden Poll-Fehlern, falls kein externer Server erreichbar ist."
 	api_card_panel.gui_input.connect(Callable(self, "_on_api_card_panel_gui_input"))
 	_audio_player = AudioStreamPlayer.new()
 	add_child(_audio_player)
 	_apply_state({"tick": 0, "time": 0.0})
+	_update_settings_toggle_ui()
 	set_process(true)
 	on_action_start.connect(_on_action_start_event)
 	on_action_end.connect(_on_action_end_event)
@@ -429,6 +439,8 @@ func _ready() -> void:
 	_update_rp_menu_ui()
 	_refresh_hub_config_ui()
 	_set_hub_config_collapsed(false)
+	log_label.scroll_following = true
+	checks_output_label.scroll_following = true
 	hub_chat_history_label.bbcode_enabled = false
 	if _hub_chat_scene_id == "":
 		_hub_chat_scene_id = "hub_boot"
@@ -468,7 +480,16 @@ func _apply_responsive_layout() -> void:
 	var width := size.x
 	var height := size.y
 	_hub_layout_controller.apply_responsive_hub_layout(_hub_layout_controls(), _hub_layout_state(), width, height)
+	# Centralized hook for incremental hub-shell layout adjustments.
+	# Kept minimal to avoid behavioral changes; used as scaffolding point.
+	_layout_hub_shells(width, height)
 	_layout_module_panels(width, height)
+
+
+func _layout_hub_shells(_width: float, _height: float) -> void:
+	# Placeholder for future hub-shell layout logic.
+	# Intentionally minimal: will be expanded in subsequent patches.
+	return
 
 
 func _hub_layout_controls() -> Dictionary:
@@ -533,6 +554,7 @@ func _hub_layout_state() -> Dictionary:
 		"agent_submenu_open": _agent_submenu_open,
 		"checks_submenu_open": _checks_submenu_open,
 		"rp_submenu_open": _rp_submenu_open,
+		"settings_stage_mode": _settings_stage_mode,
 		"hub_config_collapsed": _hub_config_collapsed,
 		"hub_config_collapsed_height": _HUB_CONFIG_COLLAPSED_HEIGHT,
 		"hub_config_expanded_height": _HUB_CONFIG_EXPANDED_BOTTOM - 44.0,
@@ -1072,6 +1094,7 @@ func _on_status_updated(message: String) -> void:
 
 func _process(_delta: float) -> void:
 	_refresh_server_runtime_state()
+	_maybe_autostart_server()
 	_refresh_eval_runtime_state()
 	_refresh_dataset_runtime_state()
 	_refresh_finetune_runtime_state()
@@ -1115,30 +1138,9 @@ func _display_status(message: String) -> void:
 
 
 func _refresh_status_label() -> void:
-	if _agent_submenu_open or _checks_submenu_open or _rp_submenu_open:
-		status_label.visible = false
-		return
-
-	var now_ms := Time.get_ticks_msec()
-	var base_message := "Verbunden"
-	if _last_status_message != "":
-		base_message = _last_status_message
-
-	var details: Array[String] = []
-	if _last_success_ms >= 0:
-		var since_ok := maxf(0.0, float(now_ms - _last_success_ms) / 1000.0)
-		details.append("letztes OK vor %.1fs" % since_ok)
-
-	if _error_started_ms >= 0:
-		var error_for := maxf(0.0, float(now_ms - _error_started_ms) / 1000.0)
-		details.append("Fehlerdauer %.1fs" % error_for)
-
-	status_label.visible = true
-	if details.is_empty():
-		status_label.text = "Status: %s" % base_message
-	else:
-		status_label.text = "Status: %s (%s)" % [base_message, ", ".join(details)]
-
+	# Hub no longer shows a dedicated red status row.
+	# Health and failure information stays in the top-bar chips.
+	status_label.visible = false
 	var error_visible := _last_status_message != ""
 	if error_visible != _last_error_visible:
 		_last_error_visible = error_visible
@@ -1225,13 +1227,12 @@ func _refresh_hub_topbar() -> void:
 	var runtime_status := _sim_runtime_status()
 	var health := _derive_health_state(runtime_status)
 	var api_state := str(health.get("state", "offline"))
-	var reason := _compact_reason_text(str(health.get("reason", "n/a")))
 
 	var last_ok_text := "n/a"
 	if _last_success_ms >= 0:
 		var age := maxf(0.0, float(Time.get_ticks_msec() - _last_success_ms) / 1000.0)
 		last_ok_text = "%.1fs" % age
-	_set_marquee_text(hub_api_label, "API: %s | reason=%s | last_ok=%s" % [api_state, reason, last_ok_text])
+	_set_marquee_text(hub_api_label, "API: %s | last_ok=%s" % [api_state, last_ok_text])
 
 	var paused := bool(runtime_status.get("paused_due_to_failures", false))
 	var polling_state := "active"
@@ -1322,7 +1323,7 @@ func _refresh_module_cards() -> void:
 
 	eval_card_profile_label.text = "Profile: mode=%s | seed=%s" % [mode, seed_text]
 	eval_card_artifacts_label.text = "Artifacts: epochs=%d | audio=%s | dataset=%s" % [_loaded_epochs.size(), str(_audio_assets_present), dataset_ref]
-	eval_card_events_label.text = "Events: runtime=%d/%d | %s" % [_runtime_events.size(), _MAX_RUNTIME_EVENTS, _rp_content_summary()]
+	eval_card_events_label.text = "Events: runtime=%d/%d | %s" % [_runtime_events.size(), _MAX_RUNTIME_EVENTS, _compact_reason_text(_rp_content_summary(), 42)]
 	eval_card_notes_label.text = "Quality: tests=%s | types=%s | cov=%s" % [_quality_tests_last, _quality_types_last, _quality_coverage_last]
 
 
@@ -1731,6 +1732,7 @@ func _render_pc_centric_view() -> void:
 		else:
 			empty_lines.append_array(_runtime_events)
 		log_label.text = "\n".join(empty_lines)
+		_auto_scroll_terminal(log_label)
 		_refresh_hub_chat_ui()
 		return
 
@@ -1769,7 +1771,15 @@ func _render_pc_centric_view() -> void:
 		lines.append_array(_runtime_events)
 
 	log_label.text = "\n".join(lines)
+	_auto_scroll_terminal(log_label)
 	_refresh_hub_chat_ui()
+
+
+func _auto_scroll_terminal(terminal: RichTextLabel) -> void:
+	if terminal == null:
+		return
+	var last_line := maxi(0, terminal.get_line_count() - 1)
+	terminal.scroll_to_line(last_line)
 
 
 func _hub_chat_slot_id() -> String:
@@ -1908,24 +1918,41 @@ func _event_to_text(event: Dictionary) -> String:
 	return JSON.stringify(event)
 
 
-func _on_play_pc_audio_pressed() -> void:
-	on_action_start.emit("agent_menu_toggle", {})
-	_set_agent_module_exclusive(not _agent_submenu_open)
+func _sync_hub_module_menu_ui() -> void:
 	_update_agent_menu_ui()
 	_update_checks_menu_ui()
 	_update_rp_menu_ui()
+
+
+func _toggle_operator_module(module_name: String) -> bool:
+	match module_name:
+		_OP_MODULE_AGENT:
+			_set_agent_module_exclusive(not _agent_submenu_open)
+			return _agent_submenu_open
+		_OP_MODULE_CHECKS:
+			_set_checks_module_exclusive(not _checks_submenu_open)
+			return _checks_submenu_open
+		_OP_MODULE_RP:
+			_set_rp_module_exclusive(not _rp_submenu_open)
+			return _rp_submenu_open
+		_:
+			return false
+
+
+func _on_play_pc_audio_pressed() -> void:
+	on_action_start.emit("agent_menu_toggle", {})
+	var opened := _toggle_operator_module(_OP_MODULE_AGENT)
+	_sync_hub_module_menu_ui()
 	if _agent_submenu_open:
 		audio_status_label.text = "Agent-Modul: geöffnet"
 		_refresh_latest_eval_summary(true)
 	else:
 		audio_status_label.text = "Agent-Modul: geschlossen"
-	on_action_end.emit("agent_menu_toggle", {"open": _agent_submenu_open})
+	on_action_end.emit("agent_menu_toggle", {"open": opened})
 
 func _on_agent_back_pressed() -> void:
 	_set_agent_module_exclusive(false)
-	_update_agent_menu_ui()
-	_update_checks_menu_ui()
-	_update_rp_menu_ui()
+	_sync_hub_module_menu_ui()
 	audio_status_label.text = "Hub-Modus aktiv"
 
 
@@ -1982,7 +2009,7 @@ func _set_hub_content_visible(visible_state: bool) -> void:
 	hub_top_band_panel.visible = visible_state
 	hub_stage_panel.visible = visible_state
 	hub_ops_panel.visible = visible_state
-	hub_telemetry_panel.visible = visible_state and (_hub_show_sim_card or _hub_show_api_card or _hub_show_eval_card)
+	hub_telemetry_panel.visible = visible_state
 	hub_title_label.visible = visible_state
 	hub_api_label.visible = visible_state
 	hub_polling_label.visible = visible_state
@@ -1990,7 +2017,7 @@ func _set_hub_content_visible(visible_state: bool) -> void:
 	hub_errors_label.visible = visible_state
 	tick_label.visible = visible_state
 	time_label.visible = visible_state
-	status_label.visible = visible_state
+	status_label.visible = false
 	epoch_label.visible = visible_state
 	slot_label.visible = visible_state
 	epoch_status_label.visible = visible_state
@@ -2001,14 +2028,14 @@ func _set_hub_content_visible(visible_state: bool) -> void:
 	hub_checks_button.visible = visible_state
 	audio_status_label.visible = visible_state
 	server_status_label.visible = visible_state
-	hub_config_panel.visible = visible_state
-	hub_replay_panel.visible = visible_state
-	hub_chat_panel.visible = visible_state
+	hub_config_panel.visible = false
+	hub_replay_panel.visible = false
+	hub_chat_panel.visible = false
 	log_label.visible = visible_state
 	rp_studio_panel.visible = _rp_submenu_open
-	sim_card_panel.visible = visible_state and _hub_show_sim_card
-	api_card_panel.visible = visible_state and _hub_show_api_card
-	eval_card_panel.visible = visible_state and _hub_show_eval_card
+	sim_card_panel.visible = visible_state
+	api_card_panel.visible = visible_state
+	eval_card_panel.visible = visible_state
 
 
 func _apply_agent_module_layout(exclusive_open: bool) -> void:
@@ -2017,17 +2044,15 @@ func _apply_agent_module_layout(exclusive_open: bool) -> void:
 
 func _on_play_world_audio_pressed() -> void:
 	on_action_start.emit("rp_module_toggle", {})
-	_set_rp_module_exclusive(not _rp_submenu_open)
-	_update_rp_menu_ui()
-	_update_agent_menu_ui()
-	_update_checks_menu_ui()
-	if _rp_submenu_open:
+	var opened := _toggle_operator_module(_OP_MODULE_RP)
+	_sync_hub_module_menu_ui()
+	if opened:
 		audio_status_label.text = "RP-Modul: geoeffnet"
 		_append_runtime_event("RP_MODULE", {"action": "toggle", "status": "opened", "auto_advance": _rp_auto_advance})
 	else:
 		audio_status_label.text = "Hub-Modus aktiv"
 		_append_runtime_event("RP_MODULE", {"action": "toggle", "status": "closed"})
-	on_action_end.emit("rp_module_toggle", {"status": "ok", "open": _rp_submenu_open})
+	on_action_end.emit("rp_module_toggle", {"status": "ok", "open": opened})
 
 
 func _update_agent_menu_ui() -> void:
@@ -2103,7 +2128,8 @@ func _refresh_hub_config_ui() -> void:
 		_hub_refresh_profile,
 		_hub_config_collapsed,
 		_HUB_DEFAULT_PANEL_OPTIONS,
-		_HUB_REFRESH_PROFILE_OPTIONS
+		_HUB_REFRESH_PROFILE_OPTIONS,
+		_server_auto_start_enabled
 	)
 	_set_marquee_text(hub_config_status_label, "Refresh=%s | default=%s" % [_hub_refresh_profile, _hub_default_panel])
 
@@ -2138,6 +2164,7 @@ func _load_hub_preferences() -> void:
 			"show_eval_card": _hub_show_eval_card,
 			"default_panel": _hub_default_panel,
 			"refresh_profile": _hub_refresh_profile,
+			"server_autostart_enabled": _server_auto_start_enabled,
 			"session_id": _hub_chat_session_id,
 			"scene_id": _hub_chat_scene_id,
 			"resume_checkpoint_id": _live_session_resume_checkpoint_id,
@@ -2147,8 +2174,15 @@ func _load_hub_preferences() -> void:
 	_hub_show_sim_card = bool(values.get("show_sim_card", _hub_show_sim_card))
 	_hub_show_api_card = bool(values.get("show_api_card", _hub_show_api_card))
 	_hub_show_eval_card = bool(values.get("show_eval_card", _hub_show_eval_card))
+	# Telemetry cards are fixed to always visible in the hub shell.
+	_hub_show_sim_card = true
+	_hub_show_api_card = true
+	_hub_show_eval_card = true
 	_hub_default_panel = str(values.get("default_panel", _hub_default_panel))
 	_hub_refresh_profile = str(values.get("refresh_profile", _hub_refresh_profile))
+	_server_auto_start_enabled = bool(values.get("server_autostart_enabled", _server_auto_start_enabled))
+	if hub_config_autostart_checkbox != null:
+		hub_config_autostart_checkbox.set_pressed(_server_auto_start_enabled)
 	_hub_chat_session_id = str(values.get("session_id", _hub_chat_session_id)).strip_edges()
 	_hub_chat_scene_id = str(values.get("scene_id", _hub_chat_scene_id)).strip_edges()
 	_live_session_resume_checkpoint_id = str(values.get("resume_checkpoint_id", _live_session_resume_checkpoint_id)).strip_edges()
@@ -2159,11 +2193,12 @@ func _save_hub_preferences(silent: bool = false) -> void:
 	var err := _hub_preferences_store.save_preferences(
 		_HUB_PREFS_PATH,
 		{
-			"show_sim_card": _hub_show_sim_card,
-			"show_api_card": _hub_show_api_card,
-			"show_eval_card": _hub_show_eval_card,
+			"show_sim_card": true,
+			"show_api_card": true,
+			"show_eval_card": true,
 			"default_panel": _hub_default_panel,
 			"refresh_profile": _hub_refresh_profile,
+			"server_autostart_enabled": _server_auto_start_enabled,
 			"session_id": _hub_chat_session_id,
 			"scene_id": _hub_chat_scene_id,
 			"resume_checkpoint_id": _live_session_resume_checkpoint_id,
@@ -2192,9 +2227,9 @@ func _apply_card_visibility_now() -> void:
 	_hub_config_controller.apply_card_visibility(
 		_hub_config_controls(),
 		in_hub,
-		_hub_show_sim_card,
-		_hub_show_api_card,
-		_hub_show_eval_card
+		true,
+		true,
+		true
 	)
 
 
@@ -2232,7 +2267,7 @@ func _on_hub_config_save_pressed() -> void:
 
 
 func _on_hub_config_close_pressed() -> void:
-	_set_hub_config_collapsed(not _hub_config_collapsed)
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED)
 
 
 func _on_hub_config_quit_pressed() -> void:
@@ -2276,6 +2311,7 @@ func _hub_config_controls() -> Dictionary:
 		"eval_card_panel": eval_card_panel,
 		"hub_config_panel": hub_config_panel,
 		"hub_config_sim_card_button": hub_config_sim_card_button,
+		"hub_config_autostart_checkbox": hub_config_autostart_checkbox,
 		"hub_config_api_card_button": hub_config_api_card_button,
 		"hub_config_eval_card_button": hub_config_eval_card_button,
 		"hub_config_default_panel_button": hub_config_default_panel_button,
@@ -2417,6 +2453,7 @@ func _append_checks_output(chunk: String, keep_existing: bool) -> void:
 		checks_output_label.text = chunk
 	else:
 		checks_output_label.text += "\n" + chunk
+	_auto_scroll_terminal(checks_output_label)
 
 
 func _build_check_command(target: String, check_type: String) -> Dictionary:
@@ -2677,16 +2714,21 @@ func _on_server_toggle_pressed() -> void:
 		_start_local_server()
 	_update_server_control_ui()
 
+func _update_settings_toggle_ui() -> void:
+	hub_reload_button.text = "Terminal" if _settings_stage_mode else "Einstellungen"
+	# When showing settings in stage, hide the terminal label to avoid double paint.
+	log_label.visible = not _settings_stage_mode
+	# Ensure layout adapts
+	_apply_responsive_layout()
 
-func _on_hub_reload_pressed() -> void:
-	_request_live_session_state()
-	_request_live_session_replay()
-	on_action_start.emit("hub_reload", {})
-	_refresh_status_label()
-	_refresh_hub_topbar()
-	_refresh_module_cards()
-	_update_server_control_ui()
-	on_action_end.emit("hub_reload", {"status": "ok"})
+
+func _on_hub_settings_toggle_pressed() -> void:
+	_settings_stage_mode = not _settings_stage_mode
+	_update_settings_toggle_ui()
+	if _settings_stage_mode:
+		audio_status_label.text = "Einstellungen geöffnet"
+	else:
+		audio_status_label.text = "Terminal geöffnet"
 
 
 func _on_hub_chat_send_pressed() -> void:
@@ -2826,24 +2868,26 @@ func _append_hub_chat_line(role: String, content: String) -> void:
 
 func _on_hub_checks_pressed() -> void:
 	on_action_start.emit("hub_checks", {})
-	var toggle_state: Dictionary = _checks_rp_controller.toggle_checks_panel(_checks_submenu_open, _checks_target, _checks_type)
-	_set_checks_module_exclusive(bool(toggle_state.get("open", false)))
-	_update_checks_menu_ui()
-	_update_agent_menu_ui()
-	audio_status_label.text = str(toggle_state.get("audio_status", audio_status_label.text))
-	_append_runtime_event("CHECKS_UI", toggle_state.get("event", {}))
+	var opened := _toggle_operator_module(_OP_MODULE_CHECKS)
+	_sync_hub_module_menu_ui()
+	if opened:
+		audio_status_label.text = "Checks-Modul: geöffnet"
+		_append_runtime_event("CHECKS_UI", {"action": "toggle", "status": "opened", "target": _checks_target, "type": _checks_type})
+	else:
+		audio_status_label.text = "Hub-Modus aktiv"
+		_append_runtime_event("CHECKS_UI", {"action": "toggle", "status": "closed"})
 	on_action_end.emit("hub_checks", {"status": "ok", "open": _checks_submenu_open})
 
 
 func _on_checks_back_pressed() -> void:
 	_set_checks_module_exclusive(false)
-	_update_checks_menu_ui()
+	_sync_hub_module_menu_ui()
 	audio_status_label.text = "Hub-Modus aktiv"
 
 
 func _on_rp_back_pressed() -> void:
 	_set_rp_module_exclusive(false)
-	_update_rp_menu_ui()
+	_sync_hub_module_menu_ui()
 	audio_status_label.text = "Hub-Modus aktiv"
 
 
@@ -3613,3 +3657,33 @@ func _on_visibility_change_event(visible_state: bool, reason: String) -> void:
 
 func _on_interrupt_event(reason: String, context: Dictionary) -> void:
 	_append_runtime_event("INTERRUPT:%s" % reason, context)
+
+
+# --- Server Auto-Start helpers -------------------------------------------------
+func _maybe_autostart_server() -> void:
+	if not _server_auto_start_enabled:
+		return
+	if _server_pid > 0:
+		return
+	if _is_external_server_reachable():
+		return
+	var runtime_status := _sim_runtime_status()
+	var failures := int(runtime_status.get("consecutive_failures", 0))
+	var paused := bool(runtime_status.get("paused_due_to_failures", false))
+	if paused:
+		return
+	if failures < _SERVER_AUTOSTART_FAILURES:
+		return
+	var now_ms := Time.get_ticks_msec()
+	if _server_auto_start_last_attempt_ms > 0 and (now_ms - _server_auto_start_last_attempt_ms) < 4000:
+		return
+	_server_auto_start_last_attempt_ms = now_ms
+	_append_runtime_event("SERVER_AUTOSTART", {"reason": "consecutive_failures", "failures": failures})
+	_start_local_server()
+
+
+func _on_hub_config_autostart_toggled(pressed: bool) -> void:
+	_server_auto_start_enabled = pressed
+	_save_hub_preferences(true)
+	_refresh_hub_config_ui()
+	hub_config_status_label.text = "Auto-Start Server: %s" % ("an" if _server_auto_start_enabled else "aus")
