@@ -2730,6 +2730,9 @@ func _update_settings_toggle_ui() -> void:
 	hub_reload_button.text = "Terminal" if _settings_stage_mode else "Einstellungen"
 	# When showing settings in stage, hide the terminal label to avoid double paint.
 	log_label.visible = not _settings_stage_mode
+	# Ensure the hub config panel is visible when settings-stage mode is active
+	if hub_config_panel != null:
+		hub_config_panel.visible = _settings_stage_mode
 	# Ensure layout adapts
 	_apply_responsive_layout()
 
