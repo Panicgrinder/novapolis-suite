@@ -7,7 +7,7 @@
   "python.testing.unittestEnabled": false,
   "python.analysis.typeCheckingMode": "standard",
   "python.terminal.activateEnvironment": true,
-  "github.copilot.chat.workspaceInstructions": "Primärdokument: .github/copilot-instructions.md (SSOT). Ergänzende Navigation: novapolis-dev/docs/index.md; für RP-Datenflüsse: novapolis-rp/database-raw/99-exports/raw-export-policy.md. Wichtige Policy: Rohdaten bleiben in database-raw; keine ungefilterten Daten nach database-rp.",
+  "github.copilot.chat.workspaceInstructions": ".github/copilot-instructions.md",
   "github.copilot.chat.codebase": {
     "enabled": true
   },
@@ -22,16 +22,20 @@
   "terminal.integrated.cwd": "${workspaceFolder}",
   "terminal.integrated.profiles.windows": {
     "PowerShell 7": {
-      "path": "pwsh",
+      "path": "C:/Users/FloAu/AppData/Local/Microsoft/WindowsApps/pwsh.exe",
       "args": ["-NoLogo"],
       "icon": "terminal-powershell"
     }
   },
   "terminal.integrated.defaultProfile.windows": "PowerShell 7",
   "terminal.integrated.automationProfile.windows": {
-    "path": "pwsh",
+    "path": "C:/Users/FloAu/AppData/Local/Microsoft/WindowsApps/pwsh.exe",
     "args": ["-NoLogo"]
   },
+  "powershell.powerShellAdditionalExePaths": {
+    "PowerShell 7 (x64)": "C:/Users/FloAu/AppData/Local/Microsoft/WindowsApps/pwsh.exe"
+  },
+  "powershell.powerShellDefaultVersion": "PowerShell 7 (x64)",
   "terminal.integrated.shellIntegration.enabled": true,
   "terminal.integrated.enablePersistentSessions": false,
   "godotTools.editorPath.godot4": "${env:GODOT4_PATH}",

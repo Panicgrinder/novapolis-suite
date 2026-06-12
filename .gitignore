@@ -19,6 +19,7 @@ desktop.ini
 
 # Root-level virtual env & tooling caches
 /.venv/
+/.venv_broken_py*/
 /.ruff_cache/
 /.mypy_cache/
 /.pytest_cache/
@@ -73,6 +74,7 @@ desktop.ini
 # Novapolis Dev / Sim temp
 /novapolis-dev/.DS_Store
 /novapolis-dev/**/__pycache__/
+/novapolis-dev/archive/quarantine/.venv_broken_py*/
 /novapolis-dev/logs/*.tmp.md
 /novapolis-sim/.godot/
 /novapolis-sim/.import/

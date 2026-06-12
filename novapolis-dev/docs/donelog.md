@@ -1,10 +1,25 @@
 ---
-stand: 2026-06-12 08:32
-update: Der Dev-DONELOG fuehrt jetzt Reflex' Profilkante und den Turn-15-Wahrnehmungszug.
-checks: snapshot-lock PASS (2026-05-20 17:42); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-md PASS (EXITCODE=0, 2026-05-20 17:42); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-05-20 17:42); npm --prefix novapolis-rp/coding/tools/validators run validate:rp PASS (2026-05-20 17:42); git diff --check PASS (CRLF warnings only, 2026-05-20 17:42).
+stand: 2026-06-12 22:38
+update: Der Dev-DONELOG dokumentiert den Quarantaene-Nachzug fuer die alte Broken-Venv und den neuen Drift-Guard.
+checks: snapshot-lock PASS (2026-06-12 22:38); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-06-12 22:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py DONELOG.md novapolis-dev/docs/donelog.md PASS (EXITCODE=0, 2026-06-12 22:39).
 ---
+Dev/Governance: Alte Broken-Venv in Quarantaene verschoben und Drift-Guard gesetzt (2026-06-12 22:38)
+----------------------------------------------------------------------------------------------------
+
+- Der lokale Altordner `.venv_broken_py312_20260612_221541` wurde aus dem Workspace-Root nach [../archive/quarantine/.venv_broken_py312_20260612_221541-20260612-2238](../archive/quarantine/.venv_broken_py312_20260612_221541-20260612-2238) verschoben, damit Root nicht mehr durch untracked Paketmassen blockiert wird.
+- [.gitignore](../../.gitignore) ignoriert jetzt zusaetzlich `/.venv_broken_py*/` sowie `/novapolis-dev/archive/quarantine/.venv_broken_py*/`, damit derselbe Drift kuenftig nicht erneut im aktiven Git-Status auftaucht.
+- Scope bewusst minimal: keine inhaltlichen Aenderungen an Sim-/Agent-/RP-Fachdateien; nur Quarantaene-Nachzug plus Doku.
+
 Sim/UI: Topbar-Status entdoppelt und rote Statuszeile dauerhaft entfernt (2026-06-12 13:35)
 --------------------------------------------------------------------------------------------
+
+Sim/UI: Auto-Start Server implementiert (2026-06-12 12:00)
+-------------------------------------------------------
+
+- `novapolis-sim` - Implementiert: `Auto-Start Server` Einstellung im Hub-Config-Panel, persistente Preference `server_autostart_enabled`, Auto-Start-Trigger nach 2 aufeinanderfolgenden SimClient-Poll-Fehlern sowie Topbar Settings<->Terminal Toggle.
+- Geänderte Dateien: [novapolis-sim/scripts/Main.gd](../../novapolis-sim/scripts/Main.gd), [novapolis-sim/scripts/hub_config_controller.gd](../../novapolis-sim/scripts/hub_config_controller.gd), [novapolis-sim/scripts/hub_layout_controller.gd](../../novapolis-sim/scripts/hub_layout_controller.gd), [novapolis-sim/Main.tscn](../../novapolis-sim/Main.tscn)
+- Verify: Lokaler Headless-Check `Checks: sim headless verify` (empfohlen) und UI-Quicktest in Godot-Editor.
+
 
 - `novapolis-sim/scripts/Main.gd` blendet die rote Hub-Statuszeile jetzt dauerhaft aus (`StatusLabel`), sodass Fehler-/Serverzustand nicht mehr ein drittes Mal separat im Hub erscheint.
 - Die API-Chip-Zeile in der Topbar wurde auf `API: <state> | last_ok=<age>` reduziert; redundante `reason=`-Wiederholung faellt damit aus dem Hauptblick.
