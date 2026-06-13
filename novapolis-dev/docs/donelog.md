@@ -1,8 +1,15 @@
 ---
-stand: 2026-06-12 22:56
-update: Der Dev-DONELOG fuehrt jetzt den Startlauf fuer credits-optimierte Modellnutzung plus Scope-Erfassung.
-checks: snapshot-lock PASS (2026-06-12 22:56); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-12 22:50).
+stand: 2026-06-13 06:28
+update: Der Dev-DONELOG fuehrt jetzt den nachgezogenen VS-Code-Governance-Surface-Datensatz und die AI-Credits-Fakten fuer den laufenden Governance-Umbau.
+checks: snapshot-lock PASS (2026-06-13 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-13 06:24).
 ---
+Dev/Governance: VS-Code-Governance-Surface und AI-Credits-Fakten als belastbare Umbaugrundlage nachgezogen (2026-06-13 06:23)
+----------------------------------------------------------------------------------------------------------------------------
+
+- [process/vscode-agent-governance-surface.ssot.md](process/vscode-agent-governance-surface.ssot.md) fuehrt jetzt als eigener Datensatz, wie VS Code die aktive Governance tatsaechlich verarbeitet: Always-on Instructions, scoped `*.instructions.md`, Custom Agents, Hooks, Prompt Files, MCP-Server, Workspace-/User-/Org-Prioritaeten sowie relevante Settings und Diagnostikpfade.
+- [process/model-credits-optimization-plan.ssot.md](process/model-credits-optimization-plan.ssot.md) ist im selben Lauf auf AI-Credits statt Legacy-Request-Primat nachgezogen. Explizit festgehalten sind jetzt der Logging-Waechter als Orchestrierungsinstanz, die VS-Code-Customization-Surface als Vorphase des eigentlichen Policy-Umbauplans und die Regel, dass Deutsch als Repo-Sprache bleiben kann, waehrend Tokenmenge, Kontextgroesse, Reasoning-Level und Modellwahl die eigentlichen Kostentreiber sind.
+- [todo.dev.md](todo.dev.md) und [todo.index.md](todo.index.md) fuehren denselben Nachzug im selben Lauf mit, damit die spaetere Umsetzung nicht auf veralteten Annahmen wie `workspaceInstructions` als einzigem Governance-Anker oder `premium requests` als Primaerlogik aufsetzt.
+
 Dev/Governance: Plan fuer credits-optimierte Modellnutzung angelegt und Scope-Dateien erfasst (2026-06-12 22:49)
 --------------------------------------------------------------------------------------------------------------
 

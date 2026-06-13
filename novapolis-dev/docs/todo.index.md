@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-12 22:56
-update: Der TODO-Index fuehrt jetzt einen neuen offenen Dev-Punkt fuer credits-optimierte Modellnutzung (GPT-5 mini + GPT-5.3-Codex).
-checks: snapshot-lock PASS (2026-06-12 22:56); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-12 22:50).
+stand: 2026-06-13 06:28
+update: Der TODO-Index fuehrt fuer den offenen Dev-Punkt jetzt auch den VS-Code-Governance-Surface-Datensatz und AI-Credits-Fakten als belastbare Umsetzungsgrundlage.
+checks: snapshot-lock PASS (2026-06-13 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-13 06:24).
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,7 +23,7 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` bleibt die schlanke Live-Oberflaeche ohne offene suiteweite Querschnittspunkte. Der Wochenabschluss 2026-05-18 ist gruen belegt: `.tmp\results\reports\checks_report_20260518_222833.md` ist PASS, `Checks: sim epoch assets` bleibt PASS (`summary=fail:0,warn:0`), `Tests: coverage (fail-under)` bleibt bei `92.19%` und `709 passed`, und Root bleibt bewusst ausserhalb der Modul-Open-Counts. Der initiale Vollcheck `.tmp\results\reports\checks_report_20260518_222210.md` fiel nur an Freshness-/Tree-Drift und ist im selben Lauf geschlossen.
 
-- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt jetzt wieder genau einen offenen Punkt fuer die Governance-/Behavior-Umstellung auf credits-optimierte Modellnutzung. Der Startlauf erfasst die unmittelbar betroffenen Governance-/Behavior-Dateien und legt den Rollout unter `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` an.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt jetzt wieder genau einen offenen Punkt fuer die Governance-/Behavior-Umstellung auf credits-optimierte Modellnutzung. Der Startlauf erfasst die unmittelbar betroffenen Governance-/Behavior-Dateien, fuehrt den Rollout unter `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` und haelt mit `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md` jetzt zusaetzlich die aktuelle VS-Code-Customization-Surface, den AI-Credits-Rahmen und den Logging-Waechter als Orchestrierungsinstanz belastbar fest.
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt weiter keine offenen Punkte. Der Wochenabschlusslauf hat hier nur den Freshness-Stand nachgezogen; inhaltlich bleibt der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` unveraendert der harte Vorlauf vor `export+pack` und LoRA.
 

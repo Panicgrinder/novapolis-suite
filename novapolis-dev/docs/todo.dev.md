@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-12 22:56
-update: Das Dev-Board fuehrt jetzt einen offenen Governance-Punkt fuer credits-optimierte Modellnutzung (GPT-5 mini + GPT-5.3-Codex) mit erfassten betroffenen Dateien.
-checks: snapshot-lock PASS (2026-06-12 22:56); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-12 22:50); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-12 22:50).
+stand: 2026-06-13 06:28
+update: Das Dev-Board fuehrt jetzt den VS-Code-Governance-Surface-Datensatz plus AI-Credits-Fakten als explizite Grundlage fuer den credits-optimierten Umbau.
+checks: snapshot-lock PASS (2026-06-13 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-13 06:24).
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -26,7 +26,7 @@ Offene Aufgaben (Dev)
     2) alle unmittelbar betroffenen Governance-/Behavior-Dateien sind vor Implementierung explizit erfasst,
     3) die Umstellung bleibt minimalinvasiv (keine fachfremden Nebenbaustellen),
     4) `todo.dev.md`, `todo.index.md` und `novapolis-dev/docs/donelog.md` fuehren denselben Startstand im selben Lauf.
-  - Evidenz: Initiale Scope-Erfassung liegt vor in `.github/agents/novapolis-workspace-navigator.agent.md`, `.github/agents/novapolis-rp-szenenlabor.agent.md`, `.github/copilot-instructions.md`, `novapolis-dev/docs/copilot-vscode-usage.md`, `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md` und im neuen Plan `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md`.
+  - Evidenz: Initiale Scope-Erfassung liegt vor in `.github/agents/novapolis-workspace-navigator.agent.md`, `.github/agents/novapolis-rp-szenenlabor.agent.md`, `.github/copilot-instructions.md`, `novapolis-dev/docs/copilot-vscode-usage.md`, `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md`, `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` und `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md`. Belastbar nachgezogen sind dabei explizit: AI-Credits statt Legacy-Request-Primat, Logging-Waechter als Orchestrierungsinstanz, VS-Code-Customization-Surface (Instructions, Agents, Hooks, Prompt Files, MCP, Settings) sowie die Feststellung, dass Deutsch als Repo-Sprache bleiben kann, waehrend Tokenmenge, Kontext und Modellwahl die eigentlichen Kostentreiber sind.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------
