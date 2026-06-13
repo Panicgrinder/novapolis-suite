@@ -81,3 +81,20 @@ Navigator-DoD
 - Befunde sind evidenzbasiert und Quellen sind nachvollziehbar genannt.
 - Mutationen sind minimal und im passenden DONELOG protokolliert.
 - Checks sind transparent berichtet.
+
+Agent-Policy (Phase 2 — Härtung)
+--------------------------------
+
+- `mini-first.required`: true — Alle Befund-, Such- und Planungsstufen sind primär mit `GPT-5 mini` auszufuehren. `GPT-5 mini` muss Befund, fokussierte Suche, Patch-Plan, Diff-Review und Check-Auswertung versucht haben, bevor eine Eskalation in Betracht gezogen wird.
+- `codex-handoff.requires`: ["mini_befund", "failed_mini_patches", "complex_multifile_integration", "security_block"] — `GPT-5.3-Codex` ist nur zulaessig, wenn einer oder mehrere der obigen, belegten Gruende vorliegen. Jede Codex-Eskalation muss einen kurzen Nachweisblock enthalten (Scope, Mini-Befund, Eskalationsgrund, erwartetes Ergebnis, Rueckfuehrungsplan).
+- `handoff.default_send`: false — Standard ist `review`/`send:false`. `send:true` ist eine begruendungspflichtige Ausnahme und benoetigt explizite Zustimmung im Lauf.
+- `diagnostics.level`: `standard` | `detailed-on-escalation` — Default ist `standard`; bei begruendeter Codex-Eskalation schaltet der Agent auf `detailed` (mehr Hook-/Tool-Logs) und protokolliert diese im Lauf.
+- `hook-budget-guard`:
+   - `max_tool_calls_per_run`: 4
+   - `max_model_turns_per_mutation`: 3
+   - `max_subagent_starts`: 1
+   - `enforcement`: `ask/deny` — Ueberschreitung fuehrt zu `ask` (manual review) oder `deny` je nach Kritikalitaet.
+
+- `audit_requirements`: Jede Mutation in Scope muss die Hook-Output-IDs oder Hook-Decision-Payloads (sofern vorhanden) referenzieren, damit Hook-Ereignislogs als Evidenz im DEV-Log gesammelt werden koennen.
+
+Hinweis: Diese Felder sind als normative Schicht fuer Phase 2 gedacht; sie wirken als Durchsetzungs- und Dokumentationsanker, nicht als vollständige technische Implementierung. Die konkrete Enforcement-Integration erfolgt in `scripts/rp_runtime_loop_guard.py` und in Pre-Commit/Snapshot-Gates, die in Phase 2 pruefbar gemacht werden.

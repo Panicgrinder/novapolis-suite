@@ -1,5 +1,5 @@
 ---
-stand: 2026-06-13 11:22
+stand: 2026-06-13 11:25
 update: Phase 1 ist als verbindlicher Zielvertrag nachgezogen: Mini-first-Pflicht, belegte Codex-Eskalation und reviewbarer Handoff sind jetzt explizit als Soll-Regeln dokumentiert.
 checks: snapshot-lock PASS (2026-06-13 10:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase1-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase1-docs PASS (EXITCODE=0)
 ---

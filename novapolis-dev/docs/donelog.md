@@ -1,5 +1,5 @@
 ---
-stand: 2026-06-13 11:22
+stand: 2026-06-13 11:25
 update: Phase 1 des hooks-first Governance-Plans ist abgeschlossen; der Dev-Zielvertrag fuer Mini-first und Codex-Eskalation ist jetzt verbindlich dokumentiert und mit Board/Index synchronisiert.
 checks: snapshot-lock PASS (2026-06-13 10:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase1-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase1-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
