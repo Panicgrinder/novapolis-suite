@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 15:20
+stand: 2026-06-13 21:52
 update: Phase 3 ist als Root-Governance-Sync minimal nachgezogen: KI-operative Framework-Semantik und Phase-2-Abgrenzung sind in der Root-SSOT deckungsgleich verankert. Phase 4 (Read-only-Audit der VS-Code-Settings) abgeschlossen: kein Drift; keine Settings-Mutation erforderlich.
-checks: snapshot-lock PASS (2026-06-13 15:20); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md PASS (EXITCODE=0)
+checks: snapshot-lock PASS (2026-06-13 21:52); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md PASS (EXITCODE=0)
 ---
 
 Model-Credits Optimization Plan (Dev SSOT)
@@ -94,6 +94,9 @@ Rollout-Phasen
 - Abgrenzung: Keine Runtime-Hook-Enforcement-Implementierung, keine VS-Code-Settings-Aenderung, keine Phase-4/5/6-Vorwegnahme.
 
 5. Phase 4 - VS-Code-Settings nur bei belegtem Drift
+  - Ergebnisstand: Phase 4 — Read-only Settings-Audit abgeschlossen; kein Drift festgestellt; keine Settings-Mutation erforderlich.
+  - Evidenz: novapolis-dev/docs/donelog.md (DONELOG‑Eintrag, 2026-06-13 15:20).
+  - Abgrenzung: Dokumentarischer Audit‑Abschluss; operative Settings‑Änderungen erfolgen nur nach frischem Snapshot‑Lock und regulärer Check‑Sequenz.
 
 6. Phase 5 - Verifikation
 

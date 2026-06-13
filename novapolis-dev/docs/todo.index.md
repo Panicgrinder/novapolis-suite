@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 15:20
+stand: 2026-06-13 21:52
 update: Der TODO-Index fuehrt den Dev-Plan jetzt mit abgeschlossenen Phasen 0/1/2/3 konsistent bei offen: 0 und behaelt die technische Enforcement-Integration weiterhin offen. Phase 4 (Read-only-Audit der VS-Code-Settings) abgeschlossen: kein Drift; keine Settings-Mutation erforderlich.
-checks: snapshot-lock PASS (2026-06-13 15:20); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc novapolis-dev/docs/todo.index.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.index.md PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+checks: snapshot-lock PASS (2026-06-13 21:52); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc novapolis-dev/docs/todo.index.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.index.md PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -24,6 +24,7 @@ Statushinweise (aktuell)
 - Root/Meta: `todo.root.md` bleibt die schlanke Live-Oberflaeche ohne offene suiteweite Querschnittspunkte. Der Wochenabschluss 2026-05-18 ist gruen belegt: `.tmp\results\reports\checks_report_20260518_222833.md` ist PASS, `Checks: sim epoch assets` bleibt PASS (`summary=fail:0,warn:0`), `Tests: coverage (fail-under)` bleibt bei `92.19%` und `709 passed`, und Root bleibt bewusst ausserhalb der Modul-Open-Counts. Der initiale Vollcheck `.tmp\results\reports\checks_report_20260518_222210.md` fiel nur an Freshness-/Tree-Drift und ist im selben Lauf geschlossen.
 
 - Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell keine offenen Checkbox-Tasks (`offen: 0`), sondern den freigegebenen hooks-first Governance-Umsetzungsplan als Startgrundlage. Phase 0 (Baseline + VS-Code-Governance-Surface + Hook-Audit), Phase 1 (verbindlicher Zielvertrag im Credits-SSOT), Phase 2 (Agent-Policy-Haertung im Navigator-Agent) und Phase 3 (Root-Governance-Sync) sind dokumentiert abgeschlossen. Technische Enforcement-Integration bleibt dabei explizit offen. Der Plan priorisiert weiterhin Baseline+Hook-Audit vor Root-/Settings-Nachzuegen, haertet Mini-first/Codex-Eskalation und fuehrt pro Phase explizite Akzeptanzkriterien sowie Verifikations-Gates.
+  Phase 4 (Read‑only Settings‑Audit) ist ebenfalls abgeschlossen; kein Drift, keine Settings‑Mutation erforderlich (siehe novapolis-dev/docs/donelog.md, DONELOG‑Eintrag, 2026-06-13 15:20).
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt weiter keine offenen Punkte. Der Wochenabschlusslauf hat hier nur den Freshness-Stand nachgezogen; inhaltlich bleibt der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` unveraendert der harte Vorlauf vor `export+pack` und LoRA.
 
