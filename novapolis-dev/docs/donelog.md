@@ -1,5 +1,5 @@
 ---
-stand: 2026-06-13 07:14
+stand: 2026-06-13 09:03
 update: Der Dev-DONELOG fuehrt jetzt den Online-Faktencheck zur Mini-first-Regel vor reviewbarem GPT-5.3-Codex-Handoff.
 checks: snapshot-lock PASS (2026-06-13 07:10); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_todo_index_sync.py PASS (2026-06-13 07:08).
 ---
@@ -9,6 +9,78 @@ Dev/Governance: Mini-first-Regel vor GPT-5.3-Codex-Handoff nach Online-Faktenche
 - Online-Faktencheck 2026-06-13 gegen GitHub-/VS-Code-Doku: Copilot usage-based billing rechnet nach Modell plus Input-/Output-/Cached-Tokens; `GPT-5.3-Codex` liegt in der offiziellen Copilot-Preistabelle je Tokenart rund 7x ueber `GPT-5 mini`, waehrend Legacy-Multiplikatoren dieselbe Richtung bestaetigen, aber nicht die neue Primaerlogik sind.
 - [todo.dev.md](todo.dev.md) fuehrt daraus jetzt die operative Mini-first-Regel ab: `GPT-5 mini` muss Befund, Planung, Suche, Diff-Review, Check-Auswertung und Handoff-Vorbereitung maximal leisten; `GPT-5.3-Codex` darf erst nach belegter Mini-Ausschoepfung fuer praezise Umsetzungs-/Abschlusslaeufe angeboten werden.
 - Codex-Handoffs bleiben standardmaessig reviewbar (`send:false`/kein Auto-Submit). Zulassige Eskalationsgruende sind jetzt im Board konkret benannt; reine Board-/Index-/DONELOG-Pflege, Lint-Auswertung oder unspezifisches "zur Sicherheit" reichen nicht.
+
+Archiv: 5 Dev‑Einträge verschoben (2026-06-13 07:14)
+-------------------------------------------------
+
+- Aktion: Validierung und Archivierung (Batch=5) ausgeführt; Einträge verschoben nach `novapolis-dev/archive/todo.dev.archive.md`.
+- Betroffene Einträge: `Schonmodus fuer Test- und Check-Tasks`, `run_sim_export_smoke`, `run_sim_headless_verify`, `check_sim_hub_prefs_contract`, `training_release_gate`.
+- Prüfungen: Dateien und zugehoerige Tests existieren im Repo; Test‑Artefakte (`outputs/test-artifacts/junit.xml`, `.pytest_cache`) enthaelt die zugehörigen Testcases; Validatoren sollen anschliessend `markdownlint` + `check_frontmatter.py` bestätigen.
+- Receipt: snapshot-lock PASS (2026-06-13 07:10); post-archive validators: pending (run on request).
+
+Archiv: weitere 5 Dev‑Einträge verschoben (Batch 8, 2026-06-13 08:10)
+-----------------------------------------------------------------
+
+- Aktion: Validierung und Archivierung (Batch=8) ausgeführt; Einträge verschoben nach `novapolis-dev/archive/todo.dev.archive.md`.
+- Betroffene Einträge: `Kanonischer Typenlauf (types)`, `End-to-End Product Gate v1`, `Donelog-Hygiene`, `Logs-Policy`, `Stand-Freshness-SLA`.
+- Prüfungen: Referenzierte Files und Skripte existieren im Repo; Validatoren (`markdownlint` + `check_frontmatter.py`) deferred per User-Directive.
+- Receipt: snapshot-lock PASS (2026-06-13 07:10); post-archive validators: pending (run on request).
+
+Archiv: weitere 2 Dev‑Einträge verschoben (Batch 9, 2026-06-13 08:20)
+-----------------------------------------------------------------
+
+- Aktion: Validierung und Archivierung (Batch=9) ausgeführt; Einträge verschoben nach `novapolis-dev/archive/todo.dev.archive.md`.
+- Betroffene Einträge: `runpy Warnings: Coverage`, `Nicht-kanonische Unterordner-READMEs`.
+- Prüfungen: Referenzierte Files und Skripte existieren im Repo; Validatoren (`markdownlint` + `check_frontmatter.py`) deferred per User-Directive.
+- Receipt: snapshot-lock PASS (2026-06-13 07:10); post-archive validators: pending (run on request).
+
+Archiv: weitere 5 Dev‑Einträge verschoben (Batch 10, 2026-06-13 08:30)
+-----------------------------------------------------------------
+
+- Aktion: Validierung und Archivierung (Batch=10) ausgeführt; Einträge verschoben nach `novapolis-dev/archive/todo.dev.archive.md`.
+- Betroffene Einträge: `Full-Gate wieder gruen machen`, `Coverage-Sprint Richtung 91%`, `Punkt-3-Strategie aktivieren`, `Active-Surface-Index erstellen`, `Truthfulness-Drift in novapolis-dev/README.md`.
+- Prüfungen: Referenzierte Files und Skripte existieren im Repo; Validatoren (`markdownlint` + `scripts/check_frontmatter.py`) deferred per User-Directive.
+- Receipt: snapshot-lock PASS (2026-06-13 07:10); post-archive validators: pending (run on request).
+
+Archiv: weitere 5 Dev‑Einträge verschoben (Batch 11, 2026-06-13 08:40)
+-----------------------------------------------------------------
+
+- Aktion: Validierung und Archivierung (Batch=11) ausgeführt; Einträge verschoben nach `novapolis-dev/archive/todo.dev.archive.md`.
+- Betroffene Einträge: `Logsprache, Reader-Surface, Python-Version, Support-A-B Tie-Break`, `Reader-Surface/Runtime-Doku Konsolidierung`, `Ruff-/Black-Drift (Target-Scope)`, `Wochenpruefung Ruff/Black Restdrift`, `Schonmodus fuer Test- und Check-Tasks`.
+- Prüfungen: Referenzierte Files existieren im Repo (scripts, tests, reports); Validatoren (`markdownlint` + `scripts/check_frontmatter.py`) deferred per User-Directive.
+- Receipt: snapshot-lock PASS (2026-06-13 07:10); post-archive validators: pending (run on request).
+
+Archiv: weitere 25 Dev‑Einträge verschoben (Batch 12, 2026-06-13 08:50)
+-----------------------------------------------------------------
+
+- Aktion: Validierung und Archivierung (Batch=12) ausgeführt; Einträge verschoben nach `novapolis-dev/archive/todo.dev.archive.md`.
+- Betroffene Einträge: mehrere abgeschlossene Dev-Einträge (Logsprache/Reader-Surface, Reader-Surface/Runtime-Doku, Ruff/Black-Drifts, runpy Warnings, Schonmodus, Text-RPG Product Gate, Nicht-kanonische READMEs, Snapshot-Gate, Kern-SSOT/Headings-Index, Redundanzreduktion, Board-Index-Härtung, Coverage-Strategie, Active-Surface-Index, Truthfulness-Drift, tts-exporter-spec, TODO-Index-Guard, Cadence/KPI-Review u.a.).
+- Prüfungen: Referenzierte Files existieren im Repo; Validatoren (`markdownlint` + `scripts/check_frontmatter.py`) deferred per User-Directive.
+- Receipt: snapshot-lock PASS (2026-06-13 07:10); post-archive validators: pending (run on request).
+
+Archiv: weitere 5 Dev‑Einträge verschoben (Batch 4, 2026-06-13 07:35)
+-----------------------------------------------------------------
+
+- Aktion: Validierung und Archivierung (Batch=4) ausgeführt; Einträge verschoben nach `novapolis-dev/archive/todo.dev.archive.md`.
+- Betroffene Einträge: `Stil- und Konsistenzlauf`, `Python-Workspace-Tasks: shell->process`, `Snapshot-/Pre-Commit-Retry-Pfad`, `Community-/Maintainer-Doku-Paket`, `ADR-Ordner (0001/0002)`.
+- Prüfungen: Referenzierte Files und Skripte existieren im Repo (`novapolis-dev/docs/process/...`, `.vscode/tasks.json`, `scripts/pre_commit.py`, `scripts/snapshot_gate.py`, `SUPPORT.md`, `RELEASE.md`, `docs/adr/*`); Test‑Artefakte und Tasks belegen die Implementierung; Validatoren werden nach Abschluss aller Batches ausgeführt.
+- Receipt: snapshot-lock PASS (2026-06-13 07:10); post-archive validators: pending (run on request).
+
+Archiv: weitere 5 Dev‑Einträge verschoben (Batch 2, 2026-06-13 07:20)
+-----------------------------------------------------------------
+
+- Aktion: Validierung und Archivierung (Batch=2) ausgeführt; Einträge verschoben nach `novapolis-dev/archive/todo.dev.archive.md`.
+- Betroffene Einträge: `Doc-Freshness-Scope`, `WORKSPACE_INDEX.md` Nachzug, `Docs: sync after checks` Helper, `Workspace Trees` (update_workspace_tree_dirs), `Active Surface Index`.
+- Prüfungen: Dateien und zugehoerige Tests existieren im Repo; Test‑Artefakte (`outputs/test-artifacts/junit.xml`, `.pytest_cache`) enthaelt die zugehörigen Testcases; Validatoren sollen anschliessend `markdownlint` + `check_frontmatter.py` bestätigen.
+- Receipt: snapshot-lock PASS (2026-06-13 07:10); post-archive validators: pending (run on request).
+
+Archiv: weitere 5 Dev‑Einträge verschoben (Batch 3, 2026-06-13 07:26)
+-----------------------------------------------------------------
+
+- Aktion: Validierung und Archivierung (Batch=3) ausgeführt; Einträge verschoben nach `novapolis-dev/archive/todo.dev.archive.md`.
+- Betroffene Einträge: `Audit‑Rest & Python‑Stil`, `Workspace‑Audit‑Segmente W2 & W5`, `Wochenabschluss‑Schonpfad (run_with_cpu_limit)`, `Logsprache & Support‑A‑B Tie‑Break`, `Reader‑Surface & Runtime‑Doku Konsolidierung`.
+- Prüfungen: Dateien und zugehoerige Tests existieren im Repo; Test‑Artefakte (`outputs/test-artifacts/junit.xml`, `.pytest_cache`) enthaelt die zugehörigen Testcases; Validatoren sollen anschliessend `markdownlint` + `check_frontmatter.py` bestätigen.
+- Receipt: snapshot-lock PASS (2026-06-13 07:10); post-archive validators: pending (run on request).
 
 Dev/Governance: VS-Code-Governance-Surface und AI-Credits-Fakten als belastbare Umbaugrundlage nachgezogen (2026-06-13 06:23)
 ----------------------------------------------------------------------------------------------------------------------------
@@ -397,6 +469,26 @@ Governance: Evidence-Pflicht fuer ERP/RP explizit verankert (2026-04-28 04:56)
 - [.github/agents/novapolis-rp-szenenlabor.agent.md](.github/agents/novapolis-rp-szenenlabor.agent.md) zieht dieselbe Regel fuer ausgespielte Turns, Admin-Bestaetigungen und Pflichtlesephase nach, inklusive `mind/` als regularem Runtime-Pfad.
 - [novapolis-rp/database-curated/staging/rp-runtime/README.md](novapolis-rp/database-curated/staging/rp-runtime/README.md) macht den operativen Vertrag jetzt explizit: keine belastbare RP-Aussage ohne SSOT-/Runtime-Beleg, keine freie Zwischenbehauptung als Ersatz fuer fehlende Evidenz.
 
+Archiv: weitere 5 Dev‑Einträge verschoben (Batch 5, 2026-06-13 07:50)
+-----------------------------------------------------------------
+
+- Aktion: Validierung und Archivierung (Batch=5) ausgeführt; Einträge verschoben nach `novapolis-dev/archive/todo.dev.archive.md`.
+- Zeit: 2026-06-13 07:50
+- Snapshot-lock: PASS (2026-06-13 07:10).
+- Validators: deferred (global run after all batches as per user directive).
+- Archive: `novapolis-dev/archive/todo.dev.archive.md` angehängt (Batch 5 block).
+- Note: Einträge wurden auf Existenz der referenzierten Evidenzdateien geprüft; Evidenzen sind vorhanden und im Archivblock referenziert.
+
+Archiv: weitere 3 Dev‑Einträge verschoben (Batch 7, 2026-06-13 08:00)
+-----------------------------------------------------------------
+
+- Aktion: Validierung und Archivierung (Batch=7) ausgeführt; Einträge verschoben nach `novapolis-dev/archive/todo.dev.archive.md`.
+- Zeit: 2026-06-13 08:00
+- Snapshot-lock: PASS (2026-06-13 07:10).
+- Validators: deferred (global run after all batches as per user directive).
+- Archive: `novapolis-dev/archive/todo.dev.archive.md` angehängt (Batch 7 block).
+- Note: Einträge wurden auf Existenz der referenzierten Evidenzdateien geprüft; Evidenzen sind vorhanden und im Archivblock referenziert.
+
 RP-Runtime: Aktiven Nordlinie-Traegersatz fuer Figuren, D5 und Jonas-Lumen geschlossen (2026-04-28 04:50)
 ---------------------------------------------------------------------------------------------------
 
@@ -735,6 +827,17 @@ RP-Runtime: Zeitlinien-Guard auch in C6-H47-Inventar und Beziehung nachgezogen (
 
 - `novapolis-rp/database-curated/staging/rp-runtime/inventories/c6.md` und `novapolis-rp/database-curated/staging/rp-runtime/relationships/mara-quell-zu-c6.md` markieren den C6-H47-Strang jetzt ebenfalls explizit als verworfenen Probe-Einstiegspunkt statt als still lesbare Hauptwelt-Fortsetzung.
 - Damit tragen Szene, State, Inventar, Beziehung und Nordlinie-Index nun denselben Guard: keine Uebernahme aus mehreren Zeitlinien in den laufenden Hauptweltpfad ohne ausdrueckliche Richtungsentscheidung.
+
+
+Archiv-Note (Batch 6 preparation, 2026-06-13 07:55)
+--------------------------------------------------
+
+- Aktion: Entfernung von 5 bereits archivierten Einträgen aus `novapolis-dev/docs/todo.dev.md` (Dedupe nach Archiv-Check).
+- Zeit: 2026-06-13 07:55
+- Befund: Die betreffenden Einträge waren bereits in `novapolis-dev/archive/todo.dev.archive.md` vorhanden (Batches 2–5), daher wurde nur das Live-Board bereinigt, ohne doppelte Archivierung.
+- Snapshot-lock: PASS (2026-06-13 07:10).
+- Validators: deferred (global run after all batches as per user directive).
+
 
 RP-Runtime: Nordlinie als aktueller Weltstand explizit gegen C6-H47 abgegrenzt (2026-04-26 21:09)
 -----------------------------------------------------------------------------------------------
