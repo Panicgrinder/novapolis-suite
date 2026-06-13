@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-29 06:56
+stand: 2026-06-13 09:17
 update: Nordlinie-Inventar fuehrt jetzt Schuttbruch aus dem C6-Schuttkeil als angefragte Pruefoption, nicht als gebuchten Bestand.
-checks: snapshot-lock PASS (2026-04-29 06:56); markdownlint PASS; frontmatter PASS; todo-index-sync PASS; logs-policy PASS; snapshot-gate PASS
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=SKIP; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_091615.md
 ---
 Runtime Inventory - Nordlinie 01
 ================================

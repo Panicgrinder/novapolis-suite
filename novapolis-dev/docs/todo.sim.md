@@ -1,7 +1,7 @@
 ---
-stand: 2026-05-19 04:34
+stand: 2026-06-13 09:17
 update: Das Sim-Board steht jetzt wieder bei `offen: 0`; der letzte Headless-Verify-Rest ist ueber den Resolver-Fallback auf die lokal laufende Godot-Binary geschlossen.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260518_222833.md; snapshot-lock PASS (2026-05-19 04:34)
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=SKIP; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_091615.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->

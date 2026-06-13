@@ -1,7 +1,7 @@
 ---
-stand: 2026-05-04 09:36
+stand: 2026-06-13 09:17
 update: Nordlinie-State fuehrt den RP-Stand jetzt mit Vorbereitungsanker fuer den naechsten Antwortzug zu C6-Schuttbruch und Draisine-Antrieb.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260504_083908.md; snapshot-lock PASS (2026-05-04 09:36)
+checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=SKIP; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_091615.md
 ---
 Runtime State - Nordlinie 01
 ============================

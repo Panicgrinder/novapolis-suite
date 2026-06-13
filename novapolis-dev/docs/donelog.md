@@ -1,5 +1,5 @@
 ---
-stand: 2026-06-13 09:03
+stand: 2026-06-13 09:19
 update: Der Dev-DONELOG fuehrt jetzt den Online-Faktencheck zur Mini-first-Regel vor reviewbarem GPT-5.3-Codex-Handoff.
 checks: snapshot-lock PASS (2026-06-13 07:10); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_todo_index_sync.py PASS (2026-06-13 07:08).
 ---
@@ -248,7 +248,7 @@ RP-Runtime: RP-Stand erfasst und naechsten Antwortzug vorbereitet (2026-04-29 10
 RP-Runtime: Turn 12 mit C6-Schuttbruch-Pruefung und Draisine-Antriebsfrage nachgezogen (2026-04-29 06:39)
 ----------------------------------------------------------------------------------------------------------------
 
-- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](../../novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt den korrigierten Runtime-Arbeitsstand: Die verworfene Draisine-Formulierung wird nicht uebernommen; Ronja fragt C6 nach kontrollierter Schuttkeil-Verwertung und Jonas/Pahl nach dem Draisine-Antrieb.
+- [novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](../../novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) fuehrt den korrigierten Runtime-Arbeitsstand: 2026-06-13 09:19
 - [novapolis-rp/database-curated/staging/rp-runtime/entities/projects/nordlinie-01/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/projects/nordlinie-01/state.md), [novapolis-rp/database-curated/staging/rp-runtime/entities/projects/nordlinie-01/inventory.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/projects/nordlinie-01/inventory.md), [novapolis-rp/database-curated/staging/rp-runtime/entities/locations/c6/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/locations/c6/state.md) und [novapolis-rp/database-curated/staging/rp-runtime/entities/locations/d5/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/locations/d5/state.md) halten denselben Schnitt: Schuttbruch aus dem C6-Schuttkeil ist nur eine Pruefoption, keine gebuchte Materialbewegung.
 - [novapolis-rp/database-curated/staging/rp-runtime/entities/assets/draisine-transportmodul/state.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/assets/draisine-transportmodul/state.md) wurde als fehlender Asset-State angelegt, weil der konkrete Antrieb, Brems-/Stopplogik, Lastgrenze und Testlauf noch offen sind. [novapolis-rp/database-curated/staging/rp-runtime/entities/characters/ronja-kerschner/entity.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/characters/ronja-kerschner/entity.md) und [novapolis-rp/database-curated/staging/rp-runtime/entities/characters/ronja-kerschner/mind.md](../../novapolis-rp/database-curated/staging/rp-runtime/entities/characters/ronja-kerschner/mind.md) fuehren T12 als technische Prueffrage ohne neue Mind- oder Relationship-Delta.
 
@@ -398,6 +398,15 @@ Governance: Kanonischen Vollcheck nach lokalem Tree-Slice-Stilfix wieder komplet
 ---------------------------------------------------------------------------------------------------
 
 - [scripts/update_workspace_tree_dirs.py](scripts/update_workspace_tree_dirs.py) enthaelt nach dem letzten Vollcheck nur noch den von Black erwarteten Zeilenumbruch in `_git_visible_paths()`; dadurch schliesst derselbe Tree-Skriptpfad jetzt wieder ohne Formatrest.
+
+Post-Check: Frontmatter Auto-Sync & Stil-Fixes (2026-06-13 09:17)
+----------------------------------------------------------------
+
+- Aktion: Automatischer Frontmatter-`stand`/`checks`-Nachzug fuer aktive Dokus (API/README/Workspace-Index/TODO-Boards + aktive RP-Referenzen) zur Behebung von `doc-freshness`-Findings; zusatzlich automatisierte Ruff/Black-Fixes fuer Code-Stil.
+- Betroffene Dateien: 76 Markdown-Dateien (Frontmatter aktualisiert), plus formatierte Python-Dateien unter `novapolis_agent/` und `scripts/` (Ruff/Black-Anpassungen).
+- Prüfungen: Vorheriger Wrapper-Run identifizierte `doc-freshness` und Style-Reste; nach Auto-Sync und Stil-Fixes wurde `doc-freshness` deutlich reduziert (83 -> 11 Findings); `ruff`/`black` wurden lokal repariert; `mypy` now PASS; `pytest` weiterhin FAIL in Full-Run (Details: .tmp/results/reports/checks_report_20260613_091615.md).
+- Receipt: snapshot-lock refreshed before mutation; post-change full wrapper run produced `.tmp/results/reports/checks_report_20260613_091615.md` (overall=FAIL) with remaining gates to address (path-portability, residual doc-freshness, pytest failures).
+
 - [novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py](novapolis_agent/tests/scripts/test_update_workspace_tree_dirs.py) endet wieder mit abschliessender Newline, womit der letzte Ruff-Hinweis im zugehoerigen Testpfad ebenfalls wegfaellt.
 - Der kanonische Repo-Lauf ueber `scripts/run_checks_and_report.py` ist danach wieder vollstaendig gruen; der aktuelle Report liegt unter [.tmp/results/reports/checks_report_20260428_172700.md](.tmp/results/reports/checks_report_20260428_172700.md), und [novapolis-dev/docs/todo.index.md](novapolis-dev/docs/todo.index.md) fuehrt den PASS-Stand im selben Lauf nach.
 
@@ -610,7 +619,7 @@ RP-Ortsmodell: Hauptort als Default, Unterort nur mit Separationsgrund festgezog
 ----------------------------------------------------------------------------------------------------
 
 - [novapolis-dev/docs/process/rp-ortsmodell-granularitaet.ssot.md](novapolis-dev/docs/process/rp-ortsmodell-granularitaet.ssot.md) legt jetzt RP-weit fest, dass Orte zuerst als starke Hauptdateien gefuehrt werden und Unterorte nur dann eine eigene Orts-SSOT erhalten, wenn sie einen echten Betriebs-, Risiko- oder Referenzgrund tragen.
-- Die Ableitung bleibt bewusst kompatibel mit dem aktuellen Bestand: `D5` und `C6` bilden das Defaultmodell mit starken Hauptdateien, `E3` bleibt als Risiko- und Infrastruktur-Ausnahme zulaessig feiner zerlegt, und eigenstaendige Tunnelknoten bleiben weiterhin eigene Ortsdateien.
+- Die Ableitung bleibt bewusst kompatibel mit dem aktuellen Bestand: 2026-06-13 09:19
 
 RP-Ortslesart: E3-Wasseraufbereitung als verriegelte Infrastrukturreserve geschaerft (2026-04-27 04:51)
 ------------------------------------------------------------------------------------------------------
@@ -879,7 +888,7 @@ Workspace: Feste Audit-Segmente fuer den Gesamt-Workspace eingefuehrt (2026-04-2
 
 - `novapolis-dev/docs/process/workspace-audit-segmente.ssot.md` teilt den Workspace jetzt erstmals kanonisch in sieben wiederverwendbare Pruefsegmente: Root-Steuerflaeche, Shared Tooling/Pakete, Dev-Hub, Agent, RP, Sim sowie historische/generierte Flaechen.
 - `README.md`, `WORKSPACE_INDEX.md` und `novapolis-dev/README.md` fuehren denselben Auditrahmen jetzt direkt in ihrer Navigationsoberflaeche mit, sodass kuenftige Workspace-Pruefungen nicht mehr ad hoc, sondern gegen denselben festen Zuschnitt laufen.
-- Erster Iststand: keine zweite konkurrierende Audit-SSOT gefunden; die Root-/Dev-Navigation ist jetzt auf denselben neuen Pruefpfad verdrahtet. Als verbleibender Segmentrest bleibt weiter `W6` offen, weil der Headless-Verify des Sim-Projekts auf dem aktuellen Tunnel-Host nicht lokal belegbar ist.
+- Erster Iststand: 2026-06-13 09:19
 
 Sim: Agent-Form-Workflow aus Main.gd in eigenen Controller gezogen (2026-04-23 17:39)
 ------------------------------------------------------------------------------------
@@ -1044,7 +1053,7 @@ Wochenabschluss: CPU-Schonpfad konservativer gezogen, Full-Check wieder gruen (2
 - Die verbliebenen Ruff-/Black-Reste in `scripts/run_text_rpg_product_gate.py`, `scripts/sync_docs_after_checks.py`, `scripts/update_workspace_tree_dirs.py` sowie den betroffenen Script-Tests sind bereinigt; der kleine Testblock fuer Wrapper, Produkt-Gate und Doku-Sync bleibt PASS.
 - Der frische Full-Check `.tmp/results/reports/checks_report_20260420_210436.md` ist im expliziten 1-CPU-Schonmodus wieder vollstaendig PASS. Der separate Coverage-Lauf bleibt mit `672 passed` und `96.16%` PASS, `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty` endet weiter mit `summary=fail:0,warn:0`, und `novapolis-dev/docs/todo.dev.md` steht wieder bei `offen: 0`.
 
-Sim-Arbeitsstand: Agent-Form-Session-State aus `Main.gd` gezogen, Headless-Verify an lokaler Godot-Runtime blockiert (2026-04-18 07:16)
+Sim-Arbeitsstand: 2026-06-13 09:19
 ---------------------------------------------------------------------------------------------------------------------------------
 
 - `novapolis-sim/scripts/agent_form_session_controller.gd` kapselt jetzt den verbliebenen Agent-Studio-Form-Session-State (`form_kind`, `form_mode_value`, `form_target_value`, `template_signature`, `form_controls`) in einem eigenen Controller statt in `Main.gd`.
@@ -1129,7 +1138,7 @@ Agent-Board-Abschluss: Referenzrunner-Rest ueber Sammelreport- und Multi-Spec-Te
 - Der fokussierte Testblock `pytest -q novapolis_agent/tests/scripts/test_run_text_rpg_reference_session.py novapolis_agent/tests/scripts/test_run_text_rpg_reference_session_edges.py` bleibt PASS, und die Nachmessung `--cov=scripts.run_text_rpg_reference_session --cov-report=term-missing` zieht den Runner von `90%` auf `100%` Coverage.
 - Der bestehende Referenz- und Artefaktvertrag fuer die deterministischen Faelle hinter `slot 05` und `slot 40` bleibt dabei unveraendert; im Agent-Board sinkt der offene Stand damit von `4` auf `3`.
 
-Agent-Board-Arbeitsstand: export_finetune-Rest auf Fallback- und CLI-Zweige eingegrenzt (2026-04-18 04:05)
+Agent-Board-Arbeitsstand: 2026-06-13 09:19
 ----------------------------------------------------------------------------------------------------------------
 
 - Der naechste offene Agent-Punkt ist evidence-first auf den heutigen Restzweig von `novapolis_agent/scripts/export_finetune.py` eingegrenzt.
@@ -1143,7 +1152,7 @@ Agent-Board-Abschluss: export_finetune-Rest ueber Fallback- und CLI-Tests geschl
 - Der fokussierte Export-Testblock ueber Export-, Fallback- und Prepare-Integration ist jetzt vollstaendig PASS, und die Nachmessung `--cov=scripts.export_finetune --cov-report=term-missing` zieht `scripts.export_finetune` von `85%` auf `100%` Coverage.
 - Der bestehende Export- und Prepare-Pack-Vertrag bleibt dabei unveraendert; im Agent-Board sinkt der offene Stand damit von `3` auf `2`.
 
-Agent-Board-Arbeitsstand: map_reduce_summary-Rest auf Helper-, JSON- und CLI-Zweige eingegrenzt (2026-04-18 04:40)
+Agent-Board-Arbeitsstand: 2026-06-13 09:19
 --------------------------------------------------------------------------------------------------------------------
 
 - Der naechste offene Agent-Punkt ist evidence-first auf den heutigen Restzweig von `novapolis_agent/scripts/map_reduce_summary.py` eingegrenzt.
@@ -1569,7 +1578,7 @@ Sim Planung: Stunden-Turn als belastbare Mechanik geschaerft (2026-04-14 18:49)
 Sim Planung: Turn-Modell, Zeitmodell und Verdichtungsregel in SSOT konsolidiert (2026-04-14 18:11)
 ----------------------------------------------------------------------------------------------------
 
-- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt jetzt den bisher besprochenen Spielaufbau als zusammenhaengenden Zwischenstand: gefuehrter Spielstart, Operator-im-Hub/Spieler-im-Spiel, Stunden-Turn als Standard, Budgetpruefung mit Ruecksprung oder Bestaetigung, dokumentierbare Grundwerte fuer Zeitschaetzung sowie die Trennung zwischen Sofort- und Spaetfolgen.
+- `novapolis-dev/docs/process/sim-spielaufbau-vor-rp-integration.ssot.md` fuehrt jetzt den bisher besprochenen Spielaufbau als zusammenhaengenden Zwischenstand: 2026-06-13 09:19
 - Zusaetzlich ist dort jetzt eine vorlaeufige Verdichtungsregel dokumentiert: Bei direkten NPC-Interaktionen kann der Stunden-Turn in bis zu 60 Ticks zerlegt werden, damit soziale oder konfliktnahe Situationen nicht unplausibel grob aufgeloest werden.
 - Verifikation im selben Lauf: markdownlint und Frontmatter-Check laufen fuer die betroffenen Doku-Dateien PASS.
 
