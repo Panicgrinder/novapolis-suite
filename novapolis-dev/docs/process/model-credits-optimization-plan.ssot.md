@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 12:53
-update: Die Phasenlogik ist auf den Ist-Stand nachgezogen: Phase 2 gilt als Agent-Policy-Haertung im Agent-Body (normative Schicht), waehrend technische Enforcement-Integration explizit offen bleibt.
-checks: snapshot-lock PASS (2026-06-13 12:53); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase2-alignment-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase2-alignment-docs PASS (EXITCODE=0)
+stand: 2026-06-13 13:25
+update: Phase 3 ist als Root-Governance-Sync minimal nachgezogen: KI-operative Framework-Semantik und Phase-2-Abgrenzung sind in der Root-SSOT deckungsgleich verankert.
+checks: snapshot-lock PASS (2026-06-13 13:23); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase3-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase3-docs PASS (EXITCODE=0)
 ---
 
 Model-Credits Optimization Plan (Dev SSOT)
@@ -88,7 +88,10 @@ Rollout-Phasen
 - Abgrenzung: Diese Schicht ist keine automatisch ausgewertete VS-Code-Frontmatter-Enforcement und keine Runtime-Hook-Enforcement-Implementierung.
 - Offen: Technische Enforcement-Integration (Hook-/Runtime-/Gate-Ausfuehrlogik) bleibt bewusst ausserhalb dieses Zwischenschritts.
 
-4. Phase 3 - Root-Governance synchronisieren
+4. Phase 3 - Root-Governance synchronisieren (abgeschlossen)
+
+- Ergebnisstand: `.github/copilot-instructions.md` fuehrt jetzt explizit KI-operative Steuersemantik fuer aktive Normtexte, die Rolle von Stop-/Rueckfrage-/Scope-Checks als Alignment-Mechanismus und die Abgrenzung zwischen Phase-2-Agent-Policy-Schicht und technischer Enforcement-Integration.
+- Abgrenzung: Keine Runtime-Hook-Enforcement-Implementierung, keine VS-Code-Settings-Aenderung, keine Phase-4/5/6-Vorwegnahme.
 
 5. Phase 4 - VS-Code-Settings nur bei belegtem Drift
 

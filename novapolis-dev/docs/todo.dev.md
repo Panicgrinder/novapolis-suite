@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 12:53
-update: Phase 2 ist semantisch ausgerichtet: Agent-Policy-Haertung im Navigator-Agent ist abgeschlossen, technische Enforcement-Integration bleibt offen fuer spaetere Phasen.
-checks: snapshot-lock PASS (2026-06-13 12:53); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase2-alignment-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase2-alignment-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-13 13:25
+update: Phase 3 ist abgeschlossen: Die Root-Governance ist minimal auf KI-operative Framework-Semantik und die Phase-2-Abgrenzung synchronisiert.
+checks: snapshot-lock PASS (2026-06-13 13:23); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase3-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase3-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -50,6 +50,8 @@ Geplanter, mehrstufiger Umsetzungsplan (Kurzfassung)
 - Phase 3 — Root-Governance synchronisieren
   - Aufgabe: Nur notwendige Klarstellungen in `.github/copilot-instructions.md` vornehmen; keine Scope-Ausweitung.
   - Akzeptanzkriterium: Root-Regeln bleiben minimal, aber deckungsgleich zum gehaerteten Agent- und Dev-Plan.
+  - Status: Abgeschlossen (2026-06-13 13:23).
+  - Evidenz: `.github/copilot-instructions.md` fuehrt KI-operative Steuersemantik fuer aktive Normtexte und die Phase-2-Abgrenzung (Agent-Body normativ, keine automatische Frontmatter-/Runtime-Enforcement).
 
 - Phase 4 — VS-Code-Settings (nur bei belegtem Drift)
   - Aufgabe: Settings ausschliesslich dann nachziehen, wenn aus Phase 0 Drift-Reduktion belegbar wird.

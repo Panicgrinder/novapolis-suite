@@ -1,4 +1,4 @@
-stand: 2026-05-19 05:14
+stand: 2026-06-13 13:25
 Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-05-19 05:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py README.md WORKSPACE_STATUS.md DONELOG.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/donelog.md PASS (EXITCODE=0, 2026-05-19 05:10); GOV-EX-FM-001 fuer '.github/copilot-instructions.md' beachtet; snapshot-lock PASS (2026-05-19 05:14)
 
 
@@ -15,8 +15,10 @@ LLM-Dokumentenheader (nicht löschen)
 TL;DR / Runtime Essentials
 ==========================
 - Dieser Block ist nur Schnellorientierung; bindend fuer Runtime-Entscheidungen sind die `Regel-ID-Landepunkte (Kern)` plus passende scoped Instruction-Files.
+- Aktive Governance-/Runtime-/SSOT-/Board-/Agent-Dateien sind primaer KI-operative Steuertexte; menschliche Lesbarkeit ist nachrangig.
 - Snapshot-/Freshness-Pfad: siehe `R-SNAP`.
 - STOP-/Freigabelogik: siehe `R-STOP`.
+- Phase-2-Status: Agent-Policy-Haertung ist als normative Agent-Body-Schicht aktiv; automatische VS-Code-Frontmatter-Enforcement und Runtime-Hook-Enforcement sind davon getrennt.
 - Wrapper-Policy: siehe `R-WRAP`.
 - Markdown-/Frontmatter-Gates: siehe `R-LINT` und `R-FM`.
 - DONELOG- und Receipt-Pflicht: siehe `R-DONELOG` und `R-LOG`.
@@ -45,6 +47,7 @@ Dateipfad & Geltungsbereich
 
 ### Aktive vs. sekundäre Quellen
 - Aktiv bindend sind nur `.github/copilot-instructions.md` und `.github/instructions/*.instructions.md`.
+- `README.md` ist Einstieg und Kontextoberflaeche, aber keine aktive Runtime-Regelbasis.
 - Ergänzend, aber nicht bindend für Runtime-Governance, sind Leitfäden wie `novapolis-dev/docs/copilot-vscode-usage.md`.
 - Archivpfade unter `novapolis-dev/archive/**` sind historische Evidenz und nie als aktive Regelbasis zu behandeln.
 - Bei Suchtreffern mit Mischlage (aktiv + archiviert) muss aktiv bindende Quelle explizit priorisiert und genannt werden.
@@ -55,6 +58,7 @@ Globale Kernregeln
 - Bindend fuer Runtime-Entscheidungen sind in dieser Datei nur die `Regel-ID-Landepunkte (Kern)`.
 - Der `Regel-ID-Index (Kern)` ist reine Navigation.
 - Die `Regelmatrix (Kern)` ist eine abgeleitete Kurzreferenz fuer Scanbarkeit und darf keine zusaetzlichen Normen gegenueber den Landepunkten einfuehren.
+- Normtexte in aktiven Steuerdateien muessen KI-operativ eindeutig sein (Rollen, Scope, Load-Order, SSOT/Runtime-Grenzen, Gate-Status, erlaubte Aktionen) und duerfen nicht in menschenberatende Fliesstexte driften.
 - Bei Abweichungen oder Pflegekonflikten gewinnen die `Regel-ID-Landepunkte (Kern)`; danach folgen scoped Instruction-Files gemaess `applyTo`.
 
 ### Regel-ID-Index (Kern)
@@ -83,6 +87,7 @@ Globale Kernregeln
 - Hard-Trigger: Code-/Doc-Mutationen, skriptgestützte Änderungen, Policy-Änderungen.
 - Soft-Trigger: Mehrdeutigkeit, Konflikt, fehlender Kontext.
 - Ohne Freigabe bei Hard-Trigger keine Ausführung.
+- Stop-, Rueckfrage- und Scope-Checks sind explizite Semantik-Alignment-Mechanismen gegen KI-Default-Drift und kein Stoerfaktor.
 - Eine explizite User-Anweisung im aktuellen Chat kann diese Freigabe selbst darstellen, wenn Ziel und Scope klar sind; bei Mehrdeutigkeit, Konflikt oder verdeckter Scope-Ausweitung bleibt STOP verpflichtend.
 
 #### R-WRAP Wrapper-Policy und Guards

@@ -1,8 +1,16 @@
 ---
-stand: 2026-06-13 12:53
-update: Die KI-operative Alignment-Zwischenphase vor Phase 3 ist dokumentiert: Phase 2 gilt als Agent-Policy-Haertung abgeschlossen, waehrend technische Enforcement-Integration explizit offen bleibt.
-checks: snapshot-lock PASS (2026-06-13 12:53); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase2-alignment-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase2-alignment-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-13 13:25
+update: Phase 3 ist als minimaler Root-Governance-Sync abgeschlossen; KI-operative Steuersemantik und Phase-2-Abgrenzung sind jetzt deckungsgleich in Root- und Dev-SSOT verankert.
+checks: snapshot-lock PASS (2026-06-13 13:23); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase3-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase3-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
+
+Dev/Governance: Phase-3 Root-Governance auf KI-operative Semantik synchronisiert (2026-06-13 13:23)
+-------------------------------------------------------------------------------------------------------
+
+- `.github/copilot-instructions.md` fuehrt als Root-SSOT jetzt explizit, dass aktive Governance-/Runtime-/SSOT-/Board-/Agent-Dateien primaer KI-operative Steuertexte sind und menschliche Lesbarkeit nachrangig bleibt.
+- Derselbe Root-Sync verankert Stop-/Rueckfrage-/Scope-Checks als Semantik-Alignment gegen KI-Default-Drift.
+- Die Abgrenzung von Phase 2 ist jetzt rootseitig deckungsgleich: Agent-Body-Policy ist normativ bindend, aber keine automatische VS-Code-Frontmatter-Enforcement und keine Runtime-Hook-Enforcement-Implementierung.
+- `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` fuehren den Phase-3-Status im selben Lauf synchron nach, ohne Scope-Ausweitung auf Phase 4/5/6.
 
 Dev/Governance: Phase-2-Status auf KI-operative Framework-Semantik ausgerichtet (2026-06-13 11:25)
 ------------------------------------------------------------------------------------------------------
