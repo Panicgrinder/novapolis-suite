@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 06:28
-update: Das Dev-Board fuehrt jetzt den VS-Code-Governance-Surface-Datensatz plus AI-Credits-Fakten als explizite Grundlage fuer den credits-optimierten Umbau.
-checks: snapshot-lock PASS (2026-06-13 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-13 06:24).
+stand: 2026-06-13 07:14
+update: Das Dev-Board fuehrt jetzt die Mini-first-Regel: GPT-5 mini muss die credits-effiziente Vorarbeit maximal leisten, bevor ein reviewbarer GPT-5.3-Codex-Handoff angeboten wird.
+checks: snapshot-lock PASS (2026-06-13 07:10); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_todo_index_sync.py PASS (2026-06-13 07:08).
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -16,17 +16,62 @@ Hinweis
 - RP-Aufgaben liegen in `docs/todo.rp.md`. Agent-Aufgaben liegen in `docs/todo.agent-board.md`.
 - Vollstaendig erledigte Bloecke werden nach `novapolis-dev/archive/todo.dev.archive.md` verschoben.
 
+
 Offene Aufgaben (Dev)
 ---------------------
 
 - [ ] [Jetzt] Governance- und Behavior-Leitplanken auf credits-optimierte Modellnutzung umstellen.
-  - Ziel: Arbeitsmodus fuer die aktuelle Modelltendenz (`GPT-5 mini` fuer breite, schnelle Durchlaeufe und `GPT-5.3-Codex` fuer praezise Umsetzungslaeufe) explizit und reproduzierbar in Governance-/Behavior-Dokus verankern.
+  - Ziel: Arbeitsmodus fuer die aktuelle Modelltendenz explizit und reproduzierbar in Governance-/Behavior-Dokus verankern: `GPT-5 mini` ist der verpflichtende Default fuer Befund, Planung, Suche, Diff-Review, Check-Auswertung und Handoff-Vorbereitung; `GPT-5.3-Codex` darf erst nach belegter Mini-Ausschoepfung als reviewbarer Handoff fuer praezise Umsetzungs-/Abschlusslaeufe angeboten werden.
   - Akzeptanzkriterien:
-    1) ein Dev-Plan unter `novapolis-dev/docs/process/` fuehrt Scope, Rollout und Guardrails fuer credits-effiziente Modellwahl,
-    2) alle unmittelbar betroffenen Governance-/Behavior-Dateien sind vor Implementierung explizit erfasst,
-    3) die Umstellung bleibt minimalinvasiv (keine fachfremden Nebenbaustellen),
-    4) `todo.dev.md`, `todo.index.md` und `novapolis-dev/docs/donelog.md` fuehren denselben Startstand im selben Lauf.
-  - Evidenz: Initiale Scope-Erfassung liegt vor in `.github/agents/novapolis-workspace-navigator.agent.md`, `.github/agents/novapolis-rp-szenenlabor.agent.md`, `.github/copilot-instructions.md`, `novapolis-dev/docs/copilot-vscode-usage.md`, `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md`, `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` und `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md`. Belastbar nachgezogen sind dabei explizit: AI-Credits statt Legacy-Request-Primat, Logging-Waechter als Orchestrierungsinstanz, VS-Code-Customization-Surface (Instructions, Agents, Hooks, Prompt Files, MCP, Settings) sowie die Feststellung, dass Deutsch als Repo-Sprache bleiben kann, waehrend Tokenmenge, Kontext und Modellwahl die eigentlichen Kostentreiber sind.
+    1) Ein Dev-Plan unter `novapolis-dev/docs/process/` fuehrt Scope, Rollout und Guardrails fuer credits-effiziente Modellwahl.
+    2) Alle unmittelbar betroffenen Governance-/Behavior-Dateien sind vor Implementierung explizit erfasst.
+    3) Die Umstellung bleibt minimalinvasiv (keine fachfremden Nebenbaustellen).
+    4) Die Policy erzwingt Mini-first vor Codex: Scope, betroffene Dateien, Risiko, offene Frage und konkrete Codex-Aufgabe muessen mit `GPT-5 mini` vorbereitet sein, bevor ein Codex-Handoff erscheint.
+    5) Codex-Handoffs bleiben standardmaessig reviewbar (`send:false`/kein Auto-Submit); `send:true` ist nur mit ausdruecklicher Begruendung erlaubt.
+    6) `todo.dev.md`, `todo.index.md` und `novapolis-dev/docs/donelog.md` fuehren denselben Startstand im selben Lauf.
+  - Evidenz: Scope- und Befunddateien sind vorhanden und explizit erfasst: `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md`, `.github/agents/novapolis-workspace-navigator.agent.md`, `.github/agents/novapolis-rp-szenenlabor.agent.md`, `.github/hooks/rp-runtime-loop-guard.json`, `.vscode/settings.json`, `novapolis-dev/docs/copilot-vscode-usage.md`, `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md`, `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md`, `novapolis-dev/docs/donelog.md`, `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md`. Online-Faktenlage 2026-06-13: GitHub Copilot usage-based billing rechnet nach Modell plus Input-/Output-/Cached-Tokens; in der offiziellen Preistabelle kostet `GPT-5.3-Codex` gegenueber `GPT-5 mini` je Tokenart rund 7x mehr (`mini`: 0.25/0.025/2.00 USD pro 1M Input/Cached/Output; `Codex`: 1.75/0.175/14.00 USD). Legacy-Multiplikatoren bestaetigen die Richtung (`mini` 0.33, `GPT-5.3-Codex` 6), sind aber nicht die Primaerlogik fuer usage-based billing. VS-Code-Handoffs sind als reviewbare Uebergaenge gedacht; `send:false` laesst den Prompt vorgefuellt, `send:true` sendet automatisch.
+
+  Geplanter, mehrstufiger Umsetzungsplan (zu protokollieren und schrittweise abzuhaken):
+
+  - Phase 0 — Baseline, Hook-Risiko & Befund (Evidenzaufnahme)
+    - Aufgabe: Reproduzierbare Ist-Aufnahme erstellen: geladene Instructions/Agents/Hooks/Prompt-Files, `chat`-Settings, Hook-Logs, aktuelle TODO/DONELOG-Eintraege; Hook-Risiken vor Policy-/Settings-Umbau zuerst bewerten.
+    - Akzeptanz: Befund-Block in `novapolis-dev/docs/donelog.md` oder `process/*.ssot.md` abgelegt.
+
+  - Phase 1 — Zielvertrag (Dev-SSOT)
+    - Aufgabe: Soll-Vertrag in `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` erweitern (Logging-Waechter-Rollen, Mini-first-Pflicht, Modell-Eskalation `GPT-5 mini` -> `GPT-5.3-Codex` nur nach belegter Ausschoepfung, Handoff-Policy, Kontextbudget).
+    - Akzeptanz: Vertragstext steht, Review-Checklist und Akzeptanzkriterien stehen im Dev-Board.
+
+  - Phase 2 — Logging-Wächter härten (Agent-Datei)
+    - Aufgabe: `.github/agents/novapolis-workspace-navigator.agent.md` konkretisieren: `mini-first.required=true`, `model-escalation`, `codex-handoff.requires=escalation-evidence`, `handoff.default=review`, `handoff.send=false`, `max-context-tokens`, `stop-early-rules`, `diagnostics.level`.
+    - Akzeptanz: Agent-Frontmatter & Text konkret; Tests: Chat Diagnostics zeigen gewuenschtes Laden/Verhalten; Codex-Handoff erscheint erst nach Mini-Befund mit Scope, Dateien, Risiko, offener Frage und konkreter Codex-Aufgabe.
+
+  - Phase 3 — Root-Governance synchronisieren
+    - Aufgabe: Nur notwendige Klarstellungen in `.github/copilot-instructions.md` vornehmen, keine Ausweitung der Scope.
+    - Akzeptanz: Keine Widersprueche zwischen Root-SSOT und Agent-Policy.
+
+  - Phase 4 — VS-Code-Settings (wenn nötig)
+    - Aufgabe: Optionales Hinzufuegen von `chat.instructionsFilesLocations`, `chat.agentFilesLocations`, `chat.promptFilesLocations` oder `chat.hookFilesLocations` in `.vscode/settings.json` — nur wenn es Drift reduziert.
+    - Akzeptanz: Settings-Change dokumentiert, lokal getestet, kein Konflikt mit User/Org-Instructions.
+
+  - Phase 5 — Hooks auditieren
+    - Aufgabe: Aus Phase 0 belegte Hook-Befunde fuer `.github/hooks/rp-runtime-loop-guard.json` und weitere Hooks auf `timeout`, `stop-loop`-Risiken und `send:true`-Folgen pruefen; ggf. minimal patchen.
+    - Akzeptanz: Hook-Logs zeigen keine Stop-Loops; PreToolUse/PostToolUse verhalten sich erwartbar.
+
+  - Phase 6 — Konsistenz- und Verifikationslauf
+    - Aufgabe: Vollständiger Konsistenzcheck: Agent-Dateien vs Root-SSOT vs Dev-SSOT vs TODO/DONELOG vs Settings vs Hook-Logs.
+    - Akzeptanz: Alle Checks grün; Abweichungen dokumentiert und priorisiert.
+
+  - Phase 7 — Staged Rollout & Monitoring
+    - Aufgabe: Rollout in kleinen Commits; nach jeder Phase: Lint, Frontmatter, TODO-Index-Sync, Snapshot-Lock und prägnanter Postflight-Receipt in DONELOG.
+    - Akzeptanz: Rollback-Pfade, Monitoring-Checks, und Board-Status aktualisiert.
+
+  - Sonstige Hinweise
+    - Hooks zuerst auditieren; Hooks sind die hauptkritische Credit-Risikoquelle.
+    - Mini-first ist Pflicht: breite Suche, Befund, Planung, Diff-Review, Check-Auswertung und Handoff-Prompt werden zuerst mit `GPT-5 mini` erledigt.
+    - Zulassige Codex-Eskalationsgruende: konkurrierende Architekturwege, zentrale Governance-/Agent-/Hook-Policy, hohes Regressionsrisiko, widerspruechliche Checkbefunde oder Abschlusspruefung mit besonders hoher Praezisionsanforderung.
+    - Nicht ausreichend fuer Codex: viele Dateien allein, reine Zusammenfassung, Board-/Index-/DONELOG-Pflege, Lint-Auswertung oder ein unspezifisches "zur Sicherheit".
+    - `send:true` nur mit ausdruecklicher Begruendung; Handoffs standardmaessig `review`/`send:false`.
+    - Jede Aenderung einzeln committen und mit Snapshot-Lock/Freshness pruefen.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------

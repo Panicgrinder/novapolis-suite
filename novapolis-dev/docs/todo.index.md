@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 06:28
-update: Der TODO-Index fuehrt fuer den offenen Dev-Punkt jetzt auch den VS-Code-Governance-Surface-Datensatz und AI-Credits-Fakten als belastbare Umsetzungsgrundlage.
-checks: snapshot-lock PASS (2026-06-13 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-13 06:24).
+stand: 2026-06-13 07:14
+update: Der TODO-Index fuehrt fuer den offenen Dev-Punkt jetzt die Mini-first-Regel vor reviewbarem GPT-5.3-Codex-Handoff mit.
+checks: snapshot-lock PASS (2026-06-13 07:10); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_todo_index_sync.py PASS (2026-06-13 07:08).
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,7 +23,7 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` bleibt die schlanke Live-Oberflaeche ohne offene suiteweite Querschnittspunkte. Der Wochenabschluss 2026-05-18 ist gruen belegt: `.tmp\results\reports\checks_report_20260518_222833.md` ist PASS, `Checks: sim epoch assets` bleibt PASS (`summary=fail:0,warn:0`), `Tests: coverage (fail-under)` bleibt bei `92.19%` und `709 passed`, und Root bleibt bewusst ausserhalb der Modul-Open-Counts. Der initiale Vollcheck `.tmp\results\reports\checks_report_20260518_222210.md` fiel nur an Freshness-/Tree-Drift und ist im selben Lauf geschlossen.
 
-- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt jetzt wieder genau einen offenen Punkt fuer die Governance-/Behavior-Umstellung auf credits-optimierte Modellnutzung. Der Startlauf erfasst die unmittelbar betroffenen Governance-/Behavior-Dateien, fuehrt den Rollout unter `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` und haelt mit `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md` jetzt zusaetzlich die aktuelle VS-Code-Customization-Surface, den AI-Credits-Rahmen und den Logging-Waechter als Orchestrierungsinstanz belastbar fest.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt jetzt wieder genau einen offenen Punkt fuer die Governance-/Behavior-Umstellung auf credits-optimierte Modellnutzung. Der Startlauf erfasst die unmittelbar betroffenen Governance-/Behavior-Dateien, fuehrt den Rollout unter `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` und haelt mit `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md` jetzt zusaetzlich die aktuelle VS-Code-Customization-Surface, den AI-Credits-Rahmen und den Logging-Waechter als Orchestrierungsinstanz belastbar fest. Nach Online-Faktencheck ist die operative Modellregel geschaerft: `GPT-5 mini` muss Befund, Planung, Suche, Diff-Review, Check-Auswertung und Handoff-Vorbereitung maximal leisten, bevor `GPT-5.3-Codex` nur reviewbar (`send:false`) mit belegter Eskalationsgruendung angeboten wird.
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt weiter keine offenen Punkte. Der Wochenabschlusslauf hat hier nur den Freshness-Stand nachgezogen; inhaltlich bleibt der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` unveraendert der harte Vorlauf vor `export+pack` und LoRA.
 
@@ -38,10 +38,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-06-12 | Governance-/Behavior-Umstellung auf credits-optimierte Modellnutzung (offen: 1) | nein |
-| RP (`docs/todo.rp.md`) | 2026-05-20 | Nordlinie-Folgepaket in drei Zuegen schliessen und Reflex-Herkunft gegen Datenrettung pruefen (offen: 1) | nein |
+| Dev (`docs/todo.dev.md`) | 2026-06-13 | - [ ] [Jetzt] Governance- und Behavior-Leitplanken auf credits-optimierte Modellnutzung umstellen. | nein |
+| RP (`docs/todo.rp.md`) | 2026-05-20 | - [ ] [Jetzt] Nordlinie-Folgepaket in drei Zuegen schliessen und Reflex-Herkunft gegen Datenrettung pruefen. | nein |
 | Agent (`docs/todo.agent-board.md`) | 2026-05-11 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-04-26 | keiner (offen: 0) | nein |
+| Sim (`docs/todo.sim.md`) | 2026-05-19 | keiner (offen: 0) | nein |
 
 
 Hinweise (Index)

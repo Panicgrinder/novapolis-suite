@@ -1,8 +1,15 @@
 ---
-stand: 2026-06-13 06:28
-update: Der Dev-DONELOG fuehrt jetzt den nachgezogenen VS-Code-Governance-Surface-Datensatz und die AI-Credits-Fakten fuer den laufenden Governance-Umbau.
-checks: snapshot-lock PASS (2026-06-13 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py PASS (2026-06-13 06:24).
+stand: 2026-06-13 07:14
+update: Der Dev-DONELOG fuehrt jetzt den Online-Faktencheck zur Mini-first-Regel vor reviewbarem GPT-5.3-Codex-Handoff.
+checks: snapshot-lock PASS (2026-06-13 07:10); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_todo_index_sync.py PASS (2026-06-13 07:08).
 ---
+Dev/Governance: Mini-first-Regel vor GPT-5.3-Codex-Handoff nach Online-Faktencheck geschaerft (2026-06-13 07:08)
+-----------------------------------------------------------------------------------------------------------------------------
+
+- Online-Faktencheck 2026-06-13 gegen GitHub-/VS-Code-Doku: Copilot usage-based billing rechnet nach Modell plus Input-/Output-/Cached-Tokens; `GPT-5.3-Codex` liegt in der offiziellen Copilot-Preistabelle je Tokenart rund 7x ueber `GPT-5 mini`, waehrend Legacy-Multiplikatoren dieselbe Richtung bestaetigen, aber nicht die neue Primaerlogik sind.
+- [todo.dev.md](todo.dev.md) fuehrt daraus jetzt die operative Mini-first-Regel ab: `GPT-5 mini` muss Befund, Planung, Suche, Diff-Review, Check-Auswertung und Handoff-Vorbereitung maximal leisten; `GPT-5.3-Codex` darf erst nach belegter Mini-Ausschoepfung fuer praezise Umsetzungs-/Abschlusslaeufe angeboten werden.
+- Codex-Handoffs bleiben standardmaessig reviewbar (`send:false`/kein Auto-Submit). Zulassige Eskalationsgruende sind jetzt im Board konkret benannt; reine Board-/Index-/DONELOG-Pflege, Lint-Auswertung oder unspezifisches "zur Sicherheit" reichen nicht.
+
 Dev/Governance: VS-Code-Governance-Surface und AI-Credits-Fakten als belastbare Umbaugrundlage nachgezogen (2026-06-13 06:23)
 ----------------------------------------------------------------------------------------------------------------------------
 
