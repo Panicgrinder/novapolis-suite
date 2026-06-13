@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 09:34
-update: Der TODO-Index fuehrt fuer den offenen Dev-Punkt jetzt die Mini-first-Regel vor reviewbarem GPT-5.3-Codex-Handoff mit.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_093323.md
+stand: 2026-06-13 10:02
+update: Der TODO-Index fuehrt den Dev-Plan jetzt mit abgeschlossenem Phase-0-Startbefund (Prioritaetenpfad + Hook-Risikoampel) konsistent bei offen: 0.
+checks: snapshot-lock PASS (2026-06-13 09:57); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase0-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase0-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,7 +23,7 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` bleibt die schlanke Live-Oberflaeche ohne offene suiteweite Querschnittspunkte. Der Wochenabschluss 2026-05-18 ist gruen belegt: `.tmp\results\reports\checks_report_20260518_222833.md` ist PASS, `Checks: sim epoch assets` bleibt PASS (`summary=fail:0,warn:0`), `Tests: coverage (fail-under)` bleibt bei `92.19%` und `709 passed`, und Root bleibt bewusst ausserhalb der Modul-Open-Counts. Der initiale Vollcheck `.tmp\results\reports\checks_report_20260518_222210.md` fiel nur an Freshness-/Tree-Drift und ist im selben Lauf geschlossen.
 
-- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt jetzt wieder genau einen offenen Punkt fuer die Governance-/Behavior-Umstellung auf credits-optimierte Modellnutzung. Der Startlauf erfasst die unmittelbar betroffenen Governance-/Behavior-Dateien, fuehrt den Rollout unter `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` und haelt mit `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md` jetzt zusaetzlich die aktuelle VS-Code-Customization-Surface, den AI-Credits-Rahmen und den Logging-Waechter als Orchestrierungsinstanz belastbar fest. Nach Online-Faktencheck ist die operative Modellregel geschaerft: `GPT-5 mini` muss Befund, Planung, Suche, Diff-Review, Check-Auswertung und Handoff-Vorbereitung maximal leisten, bevor `GPT-5.3-Codex` nur reviewbar (`send:false`) mit belegter Eskalationsgruendung angeboten wird.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell keine offenen Checkbox-Tasks (`offen: 0`), sondern den freigegebenen hooks-first Governance-Umsetzungsplan als Startgrundlage. Phase 0 (Baseline + VS-Code-Governance-Surface + Hook-Audit) ist dokumentiert abgeschlossen: Prioritaetenpfad und Hook-Risikoampel sind in `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md` nachgezogen. Der Plan priorisiert damit weiterhin Baseline+Hook-Audit vor Root-/Settings-Nachzuegen, haertet Mini-first/Codex-Eskalation und fuehrt pro Phase explizite Akzeptanzkriterien sowie Verifikations-Gates.
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt weiter keine offenen Punkte. Der Wochenabschlusslauf hat hier nur den Freshness-Stand nachgezogen; inhaltlich bleibt der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` unveraendert der harte Vorlauf vor `export+pack` und LoRA.
 

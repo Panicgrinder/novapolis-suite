@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 06:28
-update: VS-Code-Customization-Surface, Credits-Hebel und lokale Governance-Anker sind als eigener Datensatz dokumentiert.
-checks: snapshot-lock PASS (2026-06-13 06:28); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 06:24); .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 06:24).
+stand: 2026-06-13 10:02
+update: Phase-0-Startbefund ist jetzt explizit abgeschlossen: Prioritaetenpfad, lokale Surface-Evidenz und Hook-Risikoampel sind als reproduzierbarer Ist-Stand nachgezogen.
+checks: snapshot-lock PASS (2026-06-13 09:57); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase0-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase0-docs PASS (EXITCODE=0)
 ---
 
 VS Code Agent Governance Surface (Dev SSOT)
@@ -32,6 +32,50 @@ Lokale aktive Governance-Flaechen
 - Workspace-Custom-Agents: `.github/agents/*.agent.md`
 - Workspace-Hooks: `.github/hooks/*.json`
 - Workspace-Settings-Anker: `.vscode/settings.json`
+
+Phase-0-Startbefund (2026-06-13 09:57)
+--------------------------------------
+
+- Ziel von Phase 0: Reproduzierbare Ist-Aufnahme vor jedem mutativen Policy-Umbau.
+- Erfasst wurden im aktuellen Lauf die aktive Repo-Surface (Instructions, Agents, Hooks, Settings), die Hook-Ausfuehrlogik und der aktuelle TODO/DONELOG-Status.
+
+Prioritaetenpfad (operativ)
+---------------------------
+
+- 1) Always-on Instructions: `.github/copilot-instructions.md`
+- 2) Scoped Instructions: `.github/instructions/*.instructions.md` (Kombination nach `applyTo`, keine garantierte feste Reihenfolge)
+- 3) Agent/Hook/Prompt/MCP-Surface: `.github/agents/*.agent.md`, `.github/hooks/*.json`, Prompt-Files im Repo aktuell nicht vorhanden, MCP im Workspace als Integrationscode vorhanden
+- 4) Settings-Layer: Workspace-Settings (`.vscode/settings.json`), danach User-/Org-Layer ausserhalb des Repos
+
+Ist-Aufnahme je Surface-Bereich
+-------------------------------
+
+| Bereich | Evidenz | Befund |
+| --- | --- | --- |
+| Always-on Instruction | `.github/copilot-instructions.md` | vorhanden und aktiv als SSOT-Kern |
+| Scoped Instructions | `.github/instructions/*.instructions.md` | 6 aktive Dateien gefunden |
+| Custom Agents | `.github/agents/*.agent.md` | 2 Agent-Dateien gefunden |
+| AGENTS.md (nearest-wins) | Repo-Suche `**/AGENTS.md` | kein Treffer |
+| Hooks | `.github/hooks/rp-runtime-loop-guard.json` | 1 PreToolUse-Hook aktiv |
+| Hook-Implementierung | `scripts/rp_runtime_loop_guard.py` | erlaubt/ask/deny-Entscheidlogik im RP-Runtime-Slice |
+| Git-Pre-Commit-Hook | `githooks/pre-commit`, `scripts/pre_commit.py` | markdownlint + frontmatter + RP-hard-gates + snapshot-gate in definierter Reihenfolge |
+| Prompt Files (Repo) | Suche `.github/prompts/**/*.md` | kein Treffer |
+| MCP-Settings (Workspace) | Suche `.vscode/**/*.json` nach MCP-Schluesseln | kein dedizierter MCP-Client-Settings-Block gefunden |
+| MCP-Integrationscode | `.vscode/tasks.json`, `.vscode/launch.json` | MCP-OpenAI-Eval-Integration als Task/Launch vorhanden |
+| Hook-Logs (Dev) | `novapolis-dev/logs/**` | keine aktuellen Hook-Ereignislogs; nur historischer Open-Case-Log |
+
+Hook-Risikoampel (Phase 0)
+--------------------------
+
+| Hook | Event | Risiko | Grund | Sofortmassnahme |
+| --- | --- | --- | --- | --- |
+| `rp-runtime-loop-guard.json` | `PreToolUse` | gelb | Hook kann bei RP-Runtime-Mutationen `ask/deny` ausloesen und dadurch Zusatzturns verursachen; operative Logs sind aktuell nicht als laufender Hook-Event-Strom dokumentiert | Bei RP-Scope explizite Freigabe-/Admin-Anker in Prompt und Patch halten; Hook-Outputs im naechsten mutativen RP-Lauf aktiv mitprotokollieren |
+
+Phase-0-Ergebnis
+----------------
+
+- Akzeptanzkriterium erreicht: Prioritaetenpfad und Hook-Risikoampel sind explizit dokumentiert.
+- Offene Restluecke aus Phase 0: Hook-Ereignislogging als laufende Evidenzschiene ist noch nicht standardisiert im Dev-Log verankert.
 
 Lokale Settings-Lage
 --------------------

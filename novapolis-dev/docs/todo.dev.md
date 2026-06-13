@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 09:03
-update: Das Dev-Board fuehrt jetzt die Mini-first-Regel: GPT-5 mini muss die credits-effiziente Vorarbeit maximal leisten, bevor ein reviewbarer GPT-5.3-Codex-Handoff angeboten wird.
-checks: snapshot-lock PASS (2026-06-13 07:10); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_todo_index_sync.py PASS (2026-06-13 07:08).
+stand: 2026-06-13 10:02
+update: Phase 0 (Baseline + VS-Code-Governance-Surface + Hook-Audit) ist als Startbefund mit Prioritaetenpfad und Hook-Risikoampel abgeschlossen; der Dev-Plan bleibt hooks-first und evidenzbasiert.
+checks: snapshot-lock PASS (2026-06-13 09:57); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase0-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase0-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -22,40 +22,46 @@ Hinweis
 Offene Aufgaben (Dev)
 ---------------------
 
-- Derzeit sind keine als erledigt markierten Eintraege im Board. Offene Tasks werden im zentralen Index und in Modul-Boards gehalten: siehe `novapolis-dev/docs/todo.index.md`.
-
-- Wenn du möchtest, kann ich die offenen Einträge aus `todo.index.md` hier eintragen oder priorisiert nachtragen. Sag mir kurz, wie du die Darstellung bevorzugst (kompakt / nach Priorität / nach Modul).
+- Aktuell offene Dev-Aufgaben: `0` (Quelle: `novapolis-dev/docs/todo.index.md`, Board-Metadaten).
+- Dieses Board fuehrt damit derzeit keine operativen Checkbox-Tasks, sondern den freigegebenen Governance-Umsetzungsplan als Startgrundlage fuer den naechsten mutativen Lauf.
 
 Geplanter, mehrstufiger Umsetzungsplan (Kurzfassung)
 --------------------------------------------------
 
-- Phase 0 — Baseline, Hook-Risiko & Befund (Evidenzaufnahme)
+- Phase 0 — Baseline + VS-Code-Governance-Surface + Hook-Audit (Evidenzaufnahme)
   - Aufgabe: Reproduzierbare Ist-Aufnahme erstellen: geladene Instructions/Agents/Hooks/Prompt-Files, `chat`-Settings, Hook-Logs, aktuelle TODO/DONELOG-Eintraege.
+  - Akzeptanzkriterium: Startbefund enthaelt Prioritaetenpfad (Always-on Instructions -> scoped Instructions -> Agents/Hooks/Prompts/MCP -> Workspace/User/Org-Settings) und Hook-Risikoampel.
+  - Status: Abgeschlossen (2026-06-13 09:57).
+  - Evidenz: `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md`, `.github/agents/*.agent.md`, `.github/hooks/rp-runtime-loop-guard.json`, `scripts/rp_runtime_loop_guard.py`, `scripts/pre_commit.py`, `.vscode/settings.json`, `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md`, `novapolis-dev/docs/todo.index.md`, `novapolis-dev/docs/donelog.md`.
 
-- Phase 1 — Zielvertrag (Dev-SSOT)
-  - Aufgabe: Soll-Vertrag in `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` erweitern (Mini-first, Modell-Eskalation, Handoff-Policy).
+- Phase 1 — Zielvertrag (Dev-SSOT) praezisieren
+  - Aufgabe: Soll-Vertrag in `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` auf AI-Credits-Logik und Mini-first-Eskalation schaerfen.
+  - Akzeptanzkriterium: Klarer Eskalationspfad (`GPT-5 mini` zuerst, `GPT-5.3-Codex` nur mit belegter Begruendung und reviewbarem Handoff).
 
-- Phase 2 — Logging-Wächter härten (Agent-Datei)
-  - Aufgabe: `.github/agents/novapolis-workspace-navigator.agent.md` konkretisieren (mini-first.required, codex-handoff.requires, diagnostics.level).
+- Phase 2 — Logging-Waechter haerten (Agent-Datei)
+  - Aufgabe: `.github/agents/novapolis-workspace-navigator.agent.md` konkretisieren (`mini-first.required`, `codex-handoff.requires`, `diagnostics.level`, `hook-budget-guard`).
+  - Akzeptanzkriterium: Keine widerspruechlichen Modell-/Handoff-Regeln mehr zwischen Dev-SSOT, Agent-Datei und Root-Governance.
 
 - Phase 3 — Root-Governance synchronisieren
-  - Aufgabe: Nur notwendige Klarstellungen in `.github/copilot-instructions.md` vornehmen; keine Scope‑Ausweitung.
+  - Aufgabe: Nur notwendige Klarstellungen in `.github/copilot-instructions.md` vornehmen; keine Scope-Ausweitung.
+  - Akzeptanzkriterium: Root-Regeln bleiben minimal, aber deckungsgleich zum gehaerteten Agent- und Dev-Plan.
 
-- Phase 4 — VS-Code-Settings (optional)
-  - Aufgabe: Optionales Hinzufuegen von Settings, falls Drift reduziert wird.
+- Phase 4 — VS-Code-Settings (nur bei belegtem Drift)
+  - Aufgabe: Settings ausschliesslich dann nachziehen, wenn aus Phase 0 Drift-Reduktion belegbar wird.
+  - Akzeptanzkriterium: Keine hostgebundenen Pfade in aktiven SSOT-/Policy-Texten; Settings-Aenderungen sind direkt evidenzverknuepft.
 
-- Phase 5 — Hooks auditieren
-  - Aufgabe: Hook-Risiken pruefen und ggf. minimal patchen.
+- Phase 5 — Konsistenz- und Verifikationslauf
+  - Aufgabe: Vollstaendiger Konsistenzcheck: Agent-Dateien vs Root-SSOT vs Dev-SSOT vs TODO/DONELOG vs Settings vs Hook-Logs.
+  - Akzeptanzkriterium: `markdownlint`, `check_frontmatter.py`, `check_todo_index_sync.py` und Full-Check-Report ohne Governance-Widerspruch.
 
-- Phase 6 — Konsistenz- und Verifikationslauf
-  - Aufgabe: Vollständiger Konsistenzcheck: Agent-Dateien vs Root-SSOT vs Dev-SSOT vs TODO/DONELOG vs Settings vs Hook-Logs.
-
-- Phase 7 — Staged Rollout & Monitoring
+- Phase 6 — Staged Rollout & Monitoring
   - Aufgabe: Rollout in kleinen Commits; nach jeder Phase: Lint, Frontmatter, TODO-Index-Sync, Snapshot-Lock und Postflight-Receipt in DONELOG.
+  - Akzeptanzkriterium: Jede Mutation ist minimal, rueckverfolgbar und im passenden DONELOG dokumentiert.
 
 Sonstige Hinweise
 -----------------
 
+- Phase-0-Befund ist abgeschlossen; verbleibende Phasen bauen auf dem dokumentierten Prioritaetenpfad und der Hook-Risikoampel auf.
 - Hooks zuerst auditieren; Hooks sind die hauptkritische Credit‑Risikoquelle.
 - Mini‑first ist Pflicht: breite Suche, Befund, Planung, Diff‑Review, Check‑Auswertung und Handoff‑Prompt werden zuerst mit `GPT-5 mini` erledigt.
 - `send:true` nur mit ausdruecklicher Begruendung; Handoffs standardmaessig `review`/`send:false`.
@@ -69,4 +75,4 @@ Abgeschlossene Eintraege
 Hinweis zu Validatoren
 ----------------------
 
-- Post‑archive Validatoren (`markdownlint` und `scripts/check_frontmatter.py`) wurden auf Wunsch deferred und sind nicht automatisch ausgeführt. Soll ich sie jetzt laufen lassen und bei grün die Änderungen committen und pushen?
+- Validatoren laufen im Governance-Pfad verpflichtend pro mutativem Lauf: `markdownlint`, `scripts/check_frontmatter.py`, `scripts/check_todo_index_sync.py` sowie bei Bedarf der Full-Check-Wrapper.

@@ -1,8 +1,23 @@
 ---
-stand: 2026-06-13 09:34
-update: Der Dev-DONELOG fuehrt jetzt den Online-Faktencheck zur Mini-first-Regel vor reviewbarem GPT-5.3-Codex-Handoff.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_093323.md
+stand: 2026-06-13 10:02
+update: Phase 0 des hooks-first Governance-Plans ist als belastbarer Startbefund (Prioritaetenpfad + Hook-Risikoampel) abgeschlossen und in Board/Index/Surface-SSOT synchronisiert.
+checks: snapshot-lock PASS (2026-06-13 09:57); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase0-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase0-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
+
+Dev/Governance: Phase-0-Startbefund abgeschlossen (2026-06-13 09:57)
+---------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md` dokumentiert jetzt explizit den Prioritaetenpfad (Always-on -> scoped Instructions -> Agents/Hooks/Prompts/MCP -> Settings-Layer), eine Ist-Aufnahme aller lokalen Surface-Bereiche und eine Hook-Risikoampel.
+- Hook-Audit-Befund: aktiv ist aktuell `PreToolUse` ueber `.github/hooks/rp-runtime-loop-guard.json` mit `scripts/rp_runtime_loop_guard.py`; Risiko bleibt `gelb`, weil `ask/deny`-Pfad Zusatzturns erzeugen kann und kein laufender Hook-Ereignisstrom in `novapolis-dev/logs/**` dokumentiert ist.
+- `novapolis-dev/docs/todo.dev.md` markiert Phase 0 als abgeschlossen und fuehrt die belastbare Evidenzliste als Startgrundlage fuer die naechsten mutativen Governance-Phasen.
+- `novapolis-dev/docs/todo.index.md` ist im selben Lauf auf denselben Dev-Status synchronisiert (offen: 0, Phase-0-Abschluss explizit nachgezogen).
+
+Dev/Governance: TODO-Index-Divergenz geschlossen und Dev-Plan hooks-first nachgeschaerft (2026-06-13 09:34)
+-----------------------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/todo.dev.md` fuehrt jetzt keinen Dialog-/Aufforderungstext mehr als Board-Inhalt, sondern den konsistenten Status `offen: 0` plus einen operativen hooks-first Phasenplan mit Akzeptanzkriterien je Phase.
+- `novapolis-dev/docs/todo.index.md` ist auf denselben Stand nachgezogen: Dev bleibt in Uebersicht und Statushinweis konsistent bei `offen: 0`; der Text verweist auf den gehaerteten Governance-Plan statt auf einen nicht mehr vorhandenen offenen Einzelpunkt.
+- Plan-Schaerfung basiert auf bereits im Repo dokumentierter Evidenz zu AI-Credits-Logik und VS-Code-Customization-Surface (`model-credits-optimization-plan.ssot.md`, `vscode-agent-governance-surface.ssot.md`, bestehender Online-Faktencheck vom 2026-06-13).
 
 Dev/Checks: Portability- und Restlint-Fixes fuer den F:-Workspace (2026-06-13 09:33)
 -----------------------------------------------------------------------------------
