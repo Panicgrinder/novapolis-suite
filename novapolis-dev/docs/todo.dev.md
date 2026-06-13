@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 11:25
-update: Phase 1 ist abgeschlossen: Der Zielvertrag im Credits-SSOT ist jetzt verbindlich auf Mini-first, begruendete Codex-Eskalation und reviewbaren Handoff geschaerft.
-checks: snapshot-lock PASS (2026-06-13 10:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase1-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase1-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-13 12:53
+update: Phase 2 ist semantisch ausgerichtet: Agent-Policy-Haertung im Navigator-Agent ist abgeschlossen, technische Enforcement-Integration bleibt offen fuer spaetere Phasen.
+checks: snapshot-lock PASS (2026-06-13 12:53); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase2-alignment-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase2-alignment-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -43,6 +43,9 @@ Geplanter, mehrstufiger Umsetzungsplan (Kurzfassung)
 - Phase 2 — Logging-Waechter haerten (Agent-Datei)
   - Aufgabe: `.github/agents/novapolis-workspace-navigator.agent.md` konkretisieren (`mini-first.required`, `codex-handoff.requires`, `diagnostics.level`, `hook-budget-guard`).
   - Akzeptanzkriterium: Keine widerspruechlichen Modell-/Handoff-Regeln mehr zwischen Dev-SSOT, Agent-Datei und Root-Governance.
+  - Status: Abgeschlossen als Agent-Policy-Schicht (2026-06-13 11:25).
+  - Evidenz: `.github/agents/novapolis-workspace-navigator.agent.md` fuehrt die normativen Policy-Felder im Agent-Body.
+  - Abgrenzung: Noch nicht abgeschlossen ist die technische Enforcement-Integration (keine automatische VS-Code-Frontmatter-Auswertung, keine Runtime-Hook-Enforcement-Implementierung in diesem Schritt).
 
 - Phase 3 — Root-Governance synchronisieren
   - Aufgabe: Nur notwendige Klarstellungen in `.github/copilot-instructions.md` vornehmen; keine Scope-Ausweitung.

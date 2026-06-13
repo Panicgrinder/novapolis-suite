@@ -97,4 +97,4 @@ Agent-Policy (Phase 2 — Härtung)
 
 - `audit_requirements`: Jede Mutation in Scope muss die Hook-Output-IDs oder Hook-Decision-Payloads (sofern vorhanden) referenzieren, damit Hook-Ereignislogs als Evidenz im DEV-Log gesammelt werden koennen.
 
-Hinweis: Diese Felder sind als normative Schicht fuer Phase 2 gedacht; sie wirken als Durchsetzungs- und Dokumentationsanker, nicht als vollständige technische Implementierung. Die konkrete Enforcement-Integration erfolgt in `scripts/rp_runtime_loop_guard.py` und in Pre-Commit/Snapshot-Gates, die in Phase 2 pruefbar gemacht werden.
+Hinweis: Diese Felder sind als normative Schicht fuer Phase 2 gedacht und im Agent-Body bindend. Sie sind kein automatisch ausgewertetes VS-Code-Frontmatter-Enforcement und keine abgeschlossene Runtime-Hook-Enforcement-Implementierung. Die technische Enforcement-Integration bleibt ein separater, spaeterer Umsetzungsschritt.

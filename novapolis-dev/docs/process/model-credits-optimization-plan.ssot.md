@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 11:25
-update: Phase 1 ist als verbindlicher Zielvertrag nachgezogen: Mini-first-Pflicht, belegte Codex-Eskalation und reviewbarer Handoff sind jetzt explizit als Soll-Regeln dokumentiert.
-checks: snapshot-lock PASS (2026-06-13 10:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase1-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase1-docs PASS (EXITCODE=0)
+stand: 2026-06-13 12:53
+update: Die Phasenlogik ist auf den Ist-Stand nachgezogen: Phase 2 gilt als Agent-Policy-Haertung im Agent-Body (normative Schicht), waehrend technische Enforcement-Integration explizit offen bleibt.
+checks: snapshot-lock PASS (2026-06-13 12:53); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase2-alignment-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase2-alignment-docs PASS (EXITCODE=0)
 ---
 
 Model-Credits Optimization Plan (Dev SSOT)
@@ -13,6 +13,15 @@ Ziel
 - Governance- und Behavior-Dokumente so nachziehen, dass Modellwahl und Toolnutzung credits-effizient, reproduzierbar und minimalinvasiv erfolgen.
 - Arbeitsannahme aus dem aktuellen Lauf: `GPT-5 mini` fuer schnelle Broad-Pass-Analyse, `GPT-5.3-Codex` fuer praezise Umsetzung und Abschlusslaeufe.
 - Aktiver Kostenrahmen ist kuenftig AI-Credits-/Token-basiert, nicht primar `premium requests`-basiert.
+
+Framework-Semantik (KI-operativ, verbindlich)
+---------------------------------------------
+
+- Novapolis-Steuerdateien sind primaer als agentisch/maschinenorientierte Laufzeit- und Governance-Flaechen zu schreiben.
+- Aktive Governance-, Runtime-, SSOT-, Board- und Agent-Dateien muessen Rollen, Scope, Load-Order, SSOT/Runtime-Grenzen, Gate-Status und erlaubte Aktionen fuer KI-Akteure eindeutig ableitbar machen.
+- Menschliche Lesbarkeit ist erlaubt, aber nachrangig gegenueber operativer Eindeutigkeit fuer Agenten.
+- Dateilaenge ist zulaessig, wenn sie steuerrelevante Semantik traegt; problematisch ist Laenge nur bei Redundanz, Historienlast, Widerspruch oder menschenberatender Drift.
+- Stop-/Rueckfrage-/Scope-Checks sind explizite Semantik-Alignment-Mechanismen gegen KI-Default-Drift und kein Stoerfaktor.
 
 Phase-1-Zielvertrag (verbindlich)
 ---------------------------------
@@ -69,12 +78,15 @@ Rollout-Phasen
 - Logging-Waechter explizit als Orchestrator benennen: STOP, Handoffs, Kontextbegrenzung, Modellwechsel und Validierungslast werden dort gesteuert.
 - Ergebnisstand: Mini-first-Pflicht, Codex-Eskalationskriterien und reviewbare Handoff-Policy sind in dieser SSOT als Soll-Vertrag verankert.
 
-3. Phase 2 - Logging-Waechter haerten
+3. Phase 2 - Logging-Waechter haerten (Agent-Policy-Schicht abgeschlossen; technische Enforcement-Integration offen)
 
 - Toolcall-Budget und Kontext-Budget als feste Guardrails dokumentieren.
 - Vollscans nur bei Evidenzbedarf; sonst fokussierte Suchpfade.
 - Handoffs standardmaessig reviewbar statt automatisch sendend halten; `send: true` nur mit ausdruecklicher Begruendung.
 - Hooks darauf pruefen, ob sie unnoetige Zusatzturns erzeugen oder `Stop`-Schleifen mit weiteren AI-Credit-Kosten verursachen koennen.
+- Ergebnisstand: In `.github/agents/novapolis-workspace-navigator.agent.md` ist die normative Agent-Body-Policy fuer `mini-first.required`, `codex-handoff.requires`, `diagnostics.level` und `hook-budget-guard` dokumentiert.
+- Abgrenzung: Diese Schicht ist keine automatisch ausgewertete VS-Code-Frontmatter-Enforcement und keine Runtime-Hook-Enforcement-Implementierung.
+- Offen: Technische Enforcement-Integration (Hook-/Runtime-/Gate-Ausfuehrlogik) bleibt bewusst ausserhalb dieses Zwischenschritts.
 
 4. Phase 3 - Root-Governance synchronisieren
 

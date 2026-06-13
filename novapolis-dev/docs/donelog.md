@@ -1,8 +1,16 @@
 ---
-stand: 2026-06-13 11:25
-update: Phase 1 des hooks-first Governance-Plans ist abgeschlossen; der Dev-Zielvertrag fuer Mini-first und Codex-Eskalation ist jetzt verbindlich dokumentiert und mit Board/Index synchronisiert.
-checks: snapshot-lock PASS (2026-06-13 10:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase1-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase1-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-13 12:53
+update: Die KI-operative Alignment-Zwischenphase vor Phase 3 ist dokumentiert: Phase 2 gilt als Agent-Policy-Haertung abgeschlossen, waehrend technische Enforcement-Integration explizit offen bleibt.
+checks: snapshot-lock PASS (2026-06-13 12:53); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase2-alignment-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase2-alignment-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
+
+Dev/Governance: Phase-2-Status auf KI-operative Framework-Semantik ausgerichtet (2026-06-13 11:25)
+------------------------------------------------------------------------------------------------------
+
+- `.github/agents/novapolis-workspace-navigator.agent.md` fuehrt Phase 2 als normative Agent-Body-Schicht mit `mini-first.required`, `codex-handoff.requires`, `diagnostics.level` und `hook-budget-guard`; diese Schicht ist bindende Agenteninstruktion.
+- Die Abgrenzung ist jetzt explizit dokumentiert: keine automatische VS-Code-Frontmatter-Enforcement und keine Runtime-Hook-Enforcement-Implementierung in diesem Zwischenschritt.
+- `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` fuehrt die Phasenlogik mit dem Ist-Stand nach (Phase 2 Policy abgeschlossen, technische Enforcement-Integration offen) und verankert die Framework-Semantik: aktive Governance-/Runtime-Dateien sind KI-operativ eindeutig zu schreiben, menschliche Lesbarkeit ist nachrangig.
+- `novapolis-dev/docs/todo.dev.md` und `novapolis-dev/docs/todo.index.md` spiegeln den gleichen Status synchron (`offen: 0`; Phasen 0/1/2 dokumentiert, Enforcement offen), ohne neues operatives Checkbox-Backlog.
 
 Dev/Governance: Phase-1-Zielvertrag im Credits-SSOT verbindlich geschaerft (2026-06-13 10:51)
 ---------------------------------------------------------------------------------------------
