@@ -1,5 +1,5 @@
-stand: 2026-06-13 13:25
-Checks: npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc 'README.md' 'novapolis-dev/docs/copilot-vscode-usage.md' 'WORKSPACE_STATUS.md' 'DONELOG.md' 'novapolis-dev/docs/donelog.md' PASS (2026-05-19 05:10); .\.venv\Scripts\python.exe scripts\check_frontmatter.py README.md WORKSPACE_STATUS.md DONELOG.md novapolis-dev/docs/copilot-vscode-usage.md novapolis-dev/docs/donelog.md PASS (EXITCODE=0, 2026-05-19 05:10); GOV-EX-FM-001 fuer '.github/copilot-instructions.md' beachtet; snapshot-lock PASS (2026-05-19 05:14)
+stand: 2026-06-13 15:06
+Checks: snapshot-lock PASS (2026-06-13 15:06); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc .github/copilot-instructions.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py .github/copilot-instructions.md PASS (EXITCODE=0); GOV-EX-FM-001 fuer '.github/copilot-instructions.md' beachtet
 
 
 LLM-Dokumentenheader (nicht löschen)

@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 13:25
+stand: 2026-06-13 15:06
 update: Phase 3 ist als minimaler Root-Governance-Sync abgeschlossen; KI-operative Steuersemantik und Phase-2-Abgrenzung sind jetzt deckungsgleich in Root- und Dev-SSOT verankert.
-checks: snapshot-lock PASS (2026-06-13 13:23); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase3-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase3-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+checks: snapshot-lock PASS (2026-06-13 15:06); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase3-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase3-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 
 Dev/Governance: Phase-3 Root-Governance auf KI-operative Semantik synchronisiert (2026-06-13 13:23)
