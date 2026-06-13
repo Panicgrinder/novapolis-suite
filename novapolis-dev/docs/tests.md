@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
+stand: 2026-06-13 09:34
 update: Phase-2-Konsistenzlauf zieht die Test- und Coverage-Policy auf aktuelle Root-Wrapper und einen einheitlichen PASS-Kontext.
-checks: markdownlint PASS; frontmatter PASS; path-portability PASS; logs-policy PASS (2026-03-28 01:31)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_093323.md
 ---
 
 Tests, Gates und Coverage-Policy

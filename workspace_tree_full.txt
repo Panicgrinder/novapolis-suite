@@ -565,6 +565,7 @@ Root = .
 |   |   |-- naming-policy.md
 |   |   |-- readme.hub.md
 |   |   |-- readme_decisions.md
+|   |   |-- sim-autostart.md
 |   |   |-- tests.md
 |   |   |-- todo.agent-board.md
 |   |   |-- todo.dev.md
@@ -583,6 +584,7 @@ Root = .
 |   |   |   |-- abschluss-routine.ssot.md
 |   |   |   |-- betriebsmodi-sicherheitsprotokoll-notizen.md
 |   |   |   |-- doku-konsistenzlauf-aktive-surface-2026-03-28.md
+|   |   |   |-- model-credits-optimization-plan.ssot.md
 |   |   |   |-- project-context-bridge.ssot.md
 |   |   |   |-- rp-chat-transcript-flow.ssot.md
 |   |   |   |-- rp-folgekorridor-slot-00-05.ssot.md
@@ -623,6 +625,7 @@ Root = .
 |   |   |   |-- sim-controller-roadmap.ssot.md
 |   |   |   |-- sim-export-release-path.ssot.md
 |   |   |   |-- sim-ui-menue-ia.ssot.md
+|   |   |   |-- sim-ui-restart-plan.md
 |   |   |   |-- standalone-beta-gates.ssot.md
 |   |   |   |-- standalone-beta-installblatt.md
 |   |   |   |-- text-rpg-pre-rp-product-model-v1.ssot.md
@@ -630,8 +633,10 @@ Root = .
 |   |   |   |-- text-rpg-release-evidence-bundle-v1.ssot.md
 |   |   |   |-- text-rpg-slice-2-handover-v1.ssot.md
 |   |   |   |-- text-rpg-turn-budget-model-v1.ssot.md
+|   |   |   |-- vscode-agent-governance-surface.ssot.md
 |   |   |   |-- wochenbericht-2026-05-04.md
 |   |   |   |-- wochenbericht-2026-05-11.md
+|   |   |   |-- wochenbericht-2026-05-18.md
 |   |   |   |-- workspace-audit-segmente.ssot.md
 |   |   |   `-- rp-canvas-rescue/
 |   |   |       |-- canvas-rescue-plan.md
@@ -1102,10 +1107,12 @@ Root = .
 |   |           |   |   |   `-- mind.md
 |   |           |   |   |-- reflex/
 |   |           |   |   |   |-- entity.md
-|   |           |   |   |   `-- mind.md
+|   |           |   |   |   |-- mind.md
+|   |           |   |   |   `-- relationships.md
 |   |           |   |   `-- ronja-kerschner/
 |   |           |   |       |-- entity.md
-|   |           |   |       `-- mind.md
+|   |           |   |       |-- mind.md
+|   |           |   |       `-- relationships.md
 |   |           |   |-- factions/
 |   |           |   |   |-- README.md
 |   |           |   |   |-- haendlerbund/
@@ -2630,6 +2637,7 @@ Root = .
 |   |-- snapshot_gate.py
 |   |-- snapshot_write_lock.py
 |   |-- sync_docs_after_checks.py
+|   |-- sync_frontmatter_from_doc_freshness.py
 |   |-- terminal_progress.py
 |   |-- tests_pytest_root.py
 |   |-- update_backups_manifest.py

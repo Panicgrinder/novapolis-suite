@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 09:17
+stand: 2026-06-13 09:34
 update: Der TODO-Index fuehrt fuer den offenen Dev-Punkt jetzt die Mini-first-Regel vor reviewbarem GPT-5.3-Codex-Handoff mit.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=SKIP; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_091615.md
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_093323.md
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -39,9 +39,9 @@ Board-Metadaten (automationsrelevant)
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
 | Dev (`docs/todo.dev.md`) | 2026-06-13 | keiner (offen: 0) | nein |
-| RP (`docs/todo.rp.md`) | 2026-05-20 | - [ ] [Jetzt] Nordlinie-Folgepaket in drei Zuegen schliessen und Reflex-Herkunft gegen Datenrettung pruefen. | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-05-11 | keiner (offen: 0) | nein |
-| Sim (`docs/todo.sim.md`) | 2026-05-19 | keiner (offen: 0) | nein |
+| RP (`docs/todo.rp.md`) | 2026-06-13 | - [ ] [Jetzt] Nordlinie-Folgepaket in drei Zuegen schliessen und Reflex-Herkunft gegen Datenrettung pruefen. | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-06-13 | keiner (offen: 0) | nein |
+| Sim (`docs/todo.sim.md`) | 2026-06-13 | keiner (offen: 0) | nein |
 
 
 Hinweise (Index)

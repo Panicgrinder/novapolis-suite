@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-28 06:51
+stand: 2026-06-13 09:34
 update: Reader-Surface des RP-Moduls auf den aktuellen Single-Root-Kontext gezogen; Titel, Agent-Verweis und Sim-Startpfad sind jetzt repo-relativ und portable.
-checks: markdownlint PASS; frontmatter PASS; todo-index PASS; logs-policy PASS (2026-03-28 00:28)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_093323.md
 ---
 
 Novapolis-RP Workspace

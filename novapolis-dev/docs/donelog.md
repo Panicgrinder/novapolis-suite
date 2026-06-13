@@ -1,8 +1,16 @@
 ---
-stand: 2026-06-13 09:19
+stand: 2026-06-13 09:34
 update: Der Dev-DONELOG fuehrt jetzt den Online-Faktencheck zur Mini-first-Regel vor reviewbarem GPT-5.3-Codex-Handoff.
-checks: snapshot-lock PASS (2026-06-13 07:10); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-dev-md PASS (2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_frontmatter.py changed-dev-md PASS (EXITCODE=0, 2026-06-13 07:08); C:/Users/FloAu/AppData/Local/Programs/Python/Python313/python.exe scripts/check_todo_index_sync.py PASS (2026-06-13 07:08).
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_093323.md
 ---
+
+Dev/Checks: Portability- und Restlint-Fixes fuer den F:-Workspace (2026-06-13 09:33)
+-----------------------------------------------------------------------------------
+
+- `.vscode/settings.json` fuehrt PowerShell-Pfade jetzt portabel ueber `pwsh.exe` statt hostgebundener `C:/Users/...`-Pfade, damit der Transfer auf `F:` keine `path-portability`-Drifts mehr erzeugt.
+- `scripts/check_sim_hub_prefs_contract.py` akzeptiert den inzwischen aktiven Hub-Key `server_autostart_enabled` und setzt den passenden Default, damit Contract-Check und Sim-Preferences wieder deckungsgleich sind.
+- `scripts/sync_frontmatter_from_doc_freshness.py` ist auf Ruff/Black-konforme Importordnung und Spacing nachgezogen; der doppelte Heading-Titel in `novapolis-dev/docs/donelog.md` wurde aufgelöst.
+
 Dev/Governance: Mini-first-Regel vor GPT-5.3-Codex-Handoff nach Online-Faktencheck geschaerft (2026-06-13 07:08)
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -1152,8 +1160,8 @@ Agent-Board-Abschluss: export_finetune-Rest ueber Fallback- und CLI-Tests geschl
 - Der fokussierte Export-Testblock ueber Export-, Fallback- und Prepare-Integration ist jetzt vollstaendig PASS, und die Nachmessung `--cov=scripts.export_finetune --cov-report=term-missing` zieht `scripts.export_finetune` von `85%` auf `100%` Coverage.
 - Der bestehende Export- und Prepare-Pack-Vertrag bleibt dabei unveraendert; im Agent-Board sinkt der offene Stand damit von `3` auf `2`.
 
-Agent-Board-Arbeitsstand: 2026-06-13 09:19
---------------------------------------------------------------------------------------------------------------------
+Agent-Board-Arbeitsstand (map_reduce_summary): 2026-06-13 09:19
+---------------------------------------------------------------------------------------------------------------------
 
 - Der naechste offene Agent-Punkt ist evidence-first auf den heutigen Restzweig von `novapolis_agent/scripts/map_reduce_summary.py` eingegrenzt.
 - Der fokussierte Testblock fuer Heuristik-, JSON-, Markdown-, Python- und Smoke-Pfade ist grün, misst fuer `scripts.map_reduce_summary` aktuell aber nur `89%` Coverage.

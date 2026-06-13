@@ -1,7 +1,7 @@
 ---
-stand: 2026-03-30 05:08
+stand: 2026-06-13 09:34
 update: Phase-2-Konsistenzlauf aktualisiert den Hub-Header und die manuellen Pruefbeispiele auf den aktuellen Root-Wrapper-Stil.
-checks: snapshot-lock PASS; markdownlint PASS; frontmatter PASS; todo-index PASS; naming-policy PASS; path-portability PASS; logs-policy PASS; doc-freshness PASS; scan-links PASS; validate-rp PASS (2026-03-30 05:08)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_093323.md
 ---
 
 Novapolis Dokumentations-Hub

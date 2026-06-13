@@ -5,10 +5,12 @@ Usage: python scripts/sync_frontmatter_from_doc_freshness.py \
 
 It will only update files that already contain both `stand:` and `checks:` in their frontmatter.
 """
+
 from __future__ import annotations
+
+import datetime
 import sys
 from pathlib import Path
-import datetime
 
 if len(sys.argv) < 2:
     print("Usage: sync_frontmatter_from_doc_freshness.py <doc-freshness.log>")
@@ -42,6 +44,7 @@ checks_line = "scripts/run_checks_and_report.py auto-sync"
 
 updated = []
 
+
 def split_frontmatter(text: str):
     lines = text.splitlines()
     if not lines or lines[0].strip() != "---":
@@ -50,6 +53,7 @@ def split_frontmatter(text: str):
         if lines[idx].strip() == "---":
             return lines[: idx + 1], lines[idx + 1 :], lines
     return [], [], lines
+
 
 for rel in active_paths:
     # normalize path
@@ -86,4 +90,3 @@ for rel in active_paths:
     print(f"Updated: {rel}")
 
 print(f"Done. Updated {len(updated)} files.")
-
