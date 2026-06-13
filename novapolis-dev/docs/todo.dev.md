@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 10:02
-update: Phase 0 (Baseline + VS-Code-Governance-Surface + Hook-Audit) ist als Startbefund mit Prioritaetenpfad und Hook-Risikoampel abgeschlossen; der Dev-Plan bleibt hooks-first und evidenzbasiert.
-checks: snapshot-lock PASS (2026-06-13 09:57); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase0-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase0-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-13 11:22
+update: Phase 1 ist abgeschlossen: Der Zielvertrag im Credits-SSOT ist jetzt verbindlich auf Mini-first, begruendete Codex-Eskalation und reviewbaren Handoff geschaerft.
+checks: snapshot-lock PASS (2026-06-13 10:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase1-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase1-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -37,6 +37,8 @@ Geplanter, mehrstufiger Umsetzungsplan (Kurzfassung)
 - Phase 1 — Zielvertrag (Dev-SSOT) praezisieren
   - Aufgabe: Soll-Vertrag in `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` auf AI-Credits-Logik und Mini-first-Eskalation schaerfen.
   - Akzeptanzkriterium: Klarer Eskalationspfad (`GPT-5 mini` zuerst, `GPT-5.3-Codex` nur mit belegter Begruendung und reviewbarem Handoff).
+  - Status: Abgeschlossen (2026-06-13 10:51).
+  - Evidenz: `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` fuehrt jetzt einen verbindlichen Phase-1-Zielvertrag mit Mini-first-Pflicht, Eskalationskriterien, Handoff-Standard (`send:false`) und Rueckfuehrungspflicht in den Mini-Flow.
 
 - Phase 2 — Logging-Waechter haerten (Agent-Datei)
   - Aufgabe: `.github/agents/novapolis-workspace-navigator.agent.md` konkretisieren (`mini-first.required`, `codex-handoff.requires`, `diagnostics.level`, `hook-budget-guard`).

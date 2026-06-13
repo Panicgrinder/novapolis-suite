@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 10:02
-update: Der TODO-Index fuehrt den Dev-Plan jetzt mit abgeschlossenem Phase-0-Startbefund (Prioritaetenpfad + Hook-Risikoampel) konsistent bei offen: 0.
-checks: snapshot-lock PASS (2026-06-13 09:57); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase0-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase0-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-13 11:22
+update: Der TODO-Index fuehrt den Dev-Plan jetzt mit abgeschlossenem Phase-1-Zielvertrag (Mini-first + begruendete Codex-Eskalation + reviewbarer Handoff) konsistent bei offen: 0.
+checks: snapshot-lock PASS (2026-06-13 10:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase1-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase1-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -23,7 +23,7 @@ Statushinweise (aktuell)
 
 - Root/Meta: `todo.root.md` bleibt die schlanke Live-Oberflaeche ohne offene suiteweite Querschnittspunkte. Der Wochenabschluss 2026-05-18 ist gruen belegt: `.tmp\results\reports\checks_report_20260518_222833.md` ist PASS, `Checks: sim epoch assets` bleibt PASS (`summary=fail:0,warn:0`), `Tests: coverage (fail-under)` bleibt bei `92.19%` und `709 passed`, und Root bleibt bewusst ausserhalb der Modul-Open-Counts. Der initiale Vollcheck `.tmp\results\reports\checks_report_20260518_222210.md` fiel nur an Freshness-/Tree-Drift und ist im selben Lauf geschlossen.
 
-- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell keine offenen Checkbox-Tasks (`offen: 0`), sondern den freigegebenen hooks-first Governance-Umsetzungsplan als Startgrundlage. Phase 0 (Baseline + VS-Code-Governance-Surface + Hook-Audit) ist dokumentiert abgeschlossen: Prioritaetenpfad und Hook-Risikoampel sind in `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md` nachgezogen. Der Plan priorisiert damit weiterhin Baseline+Hook-Audit vor Root-/Settings-Nachzuegen, haertet Mini-first/Codex-Eskalation und fuehrt pro Phase explizite Akzeptanzkriterien sowie Verifikations-Gates.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt aktuell keine offenen Checkbox-Tasks (`offen: 0`), sondern den freigegebenen hooks-first Governance-Umsetzungsplan als Startgrundlage. Phase 0 (Baseline + VS-Code-Governance-Surface + Hook-Audit) und Phase 1 (verbindlicher Zielvertrag im Credits-SSOT) sind dokumentiert abgeschlossen. Der Plan priorisiert weiterhin Baseline+Hook-Audit vor Root-/Settings-Nachzuegen, haertet Mini-first/Codex-Eskalation und fuehrt pro Phase explizite Akzeptanzkriterien sowie Verifikations-Gates.
 
 - Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt weiter keine offenen Punkte. Der Wochenabschlusslauf hat hier nur den Freshness-Stand nachgezogen; inhaltlich bleibt der gemeinsame Release-Gate-Pfad `novapolis_agent/scripts/training_release_gate.py` unveraendert der harte Vorlauf vor `export+pack` und LoRA.
 

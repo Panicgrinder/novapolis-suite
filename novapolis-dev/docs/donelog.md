@@ -1,8 +1,16 @@
 ---
-stand: 2026-06-13 10:02
-update: Phase 0 des hooks-first Governance-Plans ist als belastbarer Startbefund (Prioritaetenpfad + Hook-Risikoampel) abgeschlossen und in Board/Index/Surface-SSOT synchronisiert.
-checks: snapshot-lock PASS (2026-06-13 09:57); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase0-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase0-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-13 11:22
+update: Phase 1 des hooks-first Governance-Plans ist abgeschlossen; der Dev-Zielvertrag fuer Mini-first und Codex-Eskalation ist jetzt verbindlich dokumentiert und mit Board/Index synchronisiert.
+checks: snapshot-lock PASS (2026-06-13 10:51); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase1-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase1-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
+
+Dev/Governance: Phase-1-Zielvertrag im Credits-SSOT verbindlich geschaerft (2026-06-13 10:51)
+---------------------------------------------------------------------------------------------
+
+- `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md` fuehrt jetzt einen explizit verbindlichen Phase-1-Zielvertrag: `GPT-5 mini` als Pflicht-Startmodell, `GPT-5.3-Codex` nur als begruendete Eskalation nach belegter Mini-Ausschoepfung.
+- Der Zielvertrag trennt zulaessige von unzulaessigen Eskalationsgruenden, setzt reviewbaren Handoff (`send:false`) als Standard und markiert `send:true` als begruendungspflichtige Ausnahme.
+- Derselbe Zielvertrag verankert die Rueckfuehrungspflicht in den Mini-Flow nach Codex-Einsatz inklusive Validatoren sowie Board/Index/DONELOG-Sync.
+- `novapolis-dev/docs/todo.dev.md` markiert Phase 1 als abgeschlossen; `novapolis-dev/docs/todo.index.md` fuehrt den Dev-Status im selben Lauf konsistent nach (`offen: 0`, Phase 0+1 abgeschlossen).
 
 Dev/Governance: Phase-0-Startbefund abgeschlossen (2026-06-13 09:57)
 ---------------------------------------------------------------------
