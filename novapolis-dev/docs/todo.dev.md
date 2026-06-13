@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 13:25
-update: Phase 3 ist abgeschlossen: Die Root-Governance ist minimal auf KI-operative Framework-Semantik und die Phase-2-Abgrenzung synchronisiert.
-checks: snapshot-lock PASS (2026-06-13 13:23); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase3-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase3-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-13 15:20
+update: Phase 3 ist abgeschlossen: Die Root-Governance ist minimal auf KI-operative Framework-Semantik und die Phase-2-Abgrenzung synchronisiert. Phase 4 (Read-only-Audit der VS-Code-Settings) abgeschlossen: kein Drift; keine Settings-Mutation erforderlich.
+checks: snapshot-lock PASS (2026-06-13 15:20); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc novapolis-dev/docs/todo.dev.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.dev.md PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->

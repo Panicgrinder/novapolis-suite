@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 13:25
-update: Phase 3 ist als Root-Governance-Sync minimal nachgezogen: KI-operative Framework-Semantik und Phase-2-Abgrenzung sind in der Root-SSOT deckungsgleich verankert.
-checks: snapshot-lock PASS (2026-06-13 13:23); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-phase3-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-phase3-docs PASS (EXITCODE=0)
+stand: 2026-06-13 15:20
+update: Phase 3 ist als Root-Governance-Sync minimal nachgezogen: KI-operative Framework-Semantik und Phase-2-Abgrenzung sind in der Root-SSOT deckungsgleich verankert. Phase 4 (Read-only-Audit der VS-Code-Settings) abgeschlossen: kein Drift; keine Settings-Mutation erforderlich.
+checks: snapshot-lock PASS (2026-06-13 15:20); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md PASS (EXITCODE=0)
 ---
 
 Model-Credits Optimization Plan (Dev SSOT)
