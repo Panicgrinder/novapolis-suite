@@ -598,6 +598,18 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, o
         write_log(todo_index_sync_log, f"FAIL: {reason}\n")
 
     doc_freshness_script = repo_root / "scripts" / "check_doc_freshness.py"
+    # Optional: regenerate workspace tree before running doc-freshness
+    if getattr(args, "update_workspace_tree", False):
+        workspace_tree_script = repo_root / "scripts" / "update_workspace_tree_dirs.py"
+        if workspace_tree_script.exists():
+            run_or_fail(
+                "workspace-tree",
+                [str(python_exec), str(workspace_tree_script), "--mode", "all"],
+                repo_root,
+                required=False,
+            )
+        else:
+            write_log(logs_dir / "workspace-tree.log", "SKIP: workspace-tree script missing\n")
     if doc_freshness_script.exists():
         run_or_fail(
             "doc-freshness",
@@ -773,6 +785,21 @@ def run_checks(args: argparse.Namespace) -> tuple[list[CheckResult], dict[str, o
         timeout=PYTEST_TIMEOUT_SECONDS,
         note=pytest_note,
     )
+
+    # Optional: write snapshot lock file if requested (useful for snapshot-gate workflows)
+    if getattr(args, "write_snapshot_lock", False):
+        snapshot_script = repo_root / "scripts" / "snapshot_write_lock.py"
+        if snapshot_script.exists():
+            run_or_fail(
+                "snapshot-write-lock",
+                [str(python_exec), str(snapshot_script)],
+                repo_root,
+                required=False,
+            )
+        else:
+            write_log(
+                logs_dir / "snapshot-write-lock.log", "SKIP: snapshot_write_lock.py missing\n"
+            )
 
     yamllint_exec = check_tool_available("yamllint")
     yamllint_config_candidates = [repo_root / ".yamllint", repo_root / ".yamllint.yaml"]
@@ -1010,6 +1037,21 @@ def build_argparser() -> argparse.ArgumentParser:
             "that already contain both keys (default: enabled)."
         ),
     )
+    parser.add_argument(
+        "--update-workspace-tree",
+        action="store_true",
+        help="Run update_workspace_tree_dirs.py --mode all before doc-freshness.",
+    )
+    parser.add_argument(
+        "--write-snapshot-lock",
+        action="store_true",
+        help="Write a fresh snapshot lock (.snapshot.now) via scripts/snapshot_write_lock.py.",
+    )
+    parser.add_argument(
+        "--sync-docs-after-checks",
+        action="store_true",
+        help="Run scripts/sync_docs_after_checks.py after the checks/report (optional).",
+    )
     return parser
 
 
@@ -1033,6 +1075,16 @@ def main() -> int:
         print(f"Frontmatter sync: updated_files={len(updated_files)}")
     print(f"Markdown report: {markdown_path}")
     print(f"JSON summary: {json_path}")
+    # Optional: run docs sync after checks if requested
+    if getattr(args, "sync_docs_after_checks", False):
+        sync_script = ctx["repo_root"] / "scripts" / "sync_docs_after_checks.py"
+        if sync_script.exists():
+            try:
+                subprocess.run(
+                    [str(ctx["python"]), str(sync_script)], cwd=str(ctx["repo_root"]), check=False
+                )
+            except Exception:
+                pass
     exit_code = cast(dict[str, Any], summary["overall"])["exitcode"]
     if args.allow_non_zero:
         return 0
