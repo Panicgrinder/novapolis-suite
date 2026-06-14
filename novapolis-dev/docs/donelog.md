@@ -1,8 +1,18 @@
 ---
-stand: 2026-06-14 14:25
+stand: 2026-06-14 15:00
 update: Root-/Workspace-Landing-, Board- und Governance-Sync ist nachgezogen; Phase-4-Dev-Stand bleibt konsistent in Header und Body verankert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260614_130350.md
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260614_143533.md
 ---
+
+- Dev/Checks: Wrapper-Run mit Governance-Optionen dokumentiert (2026-06-14 14:37)
+--------------------------------------------------------------------------------
+
+- Snapshot: `.snapshot.now=2026-06-14 14:37`.
+- Commit: `9d3d593e336c7890e2b3ded461fed4776136f20f`.
+- Befehl: `scripts/run_checks_and_report.py --update-workspace-tree --write-snapshot-lock --sync-docs-after-checks`.
+- Report: `.tmp/results/reports/checks_report_20260614_143533.md`.
+- Ergebnis: `overall=PASS`.
+- Abgrenzung: Der Report bleibt Laufartefakt unter `.tmp/results/reports/**`; keine Kopie nach `novapolis-dev/docs/process/**`.
 
 Dev/Process: Mini-Lamas-Architektur-SSOT angelegt (2026-06-14 12:07)
 ---------------------------------------------------------------------
