@@ -1,5 +1,5 @@
 ---
-stand: 2026-06-14 14:37
+stand: 2026-06-14 16:17
 update: Governance-Compliance-Notiz zum Wrapper-Checklauf und Doku-Mutationen
 checks: overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260614_143533.md
 ---

@@ -1,11 +1,19 @@
 ---
-stand: 2026-06-14 15:00
+stand: 2026-06-14 16:17
 update: Root-/Workspace-Landing-, Board- und Governance-Sync ist nachgezogen; Phase-4-Dev-Stand bleibt konsistent in Header und Body verankert.
 checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260614_143533.md
 ---
 
 - Dev/Checks: Wrapper-Run mit Governance-Optionen dokumentiert (2026-06-14 14:37)
 --------------------------------------------------------------------------------
+
+Archivierung: postflight governance_compliance_20260614 (2026-06-14)
+------------------------------------------------------------------
+
+- Aktion: `novapolis-dev/docs/process/governance_compliance_20260614.md` archiviert nach `novapolis-dev/archive/docs/postflight_governance_compliance_20260614.md`.
+- Beleg: Proof-Source HEAD SHA: 3f5370c4ae690e463cd73dee566f68ad331cc9a8; enthaltene Commits in Dokumentation: 8211bad8f1d0, 9d3d593e336c.
+- Validatoren: `npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc` + `.venv\\Scripts\\python.exe scripts/check_frontmatter.py` (auszuführen vor Commit).
+- Hinweis: Keine Quarantine; keine `.tmp`-Report-Kopie; Archivträger: `novapolis-dev/archive/docs/`.
 
 - Snapshot: `.snapshot.now=2026-06-14 14:37`.
 - Commit: `9d3d593e336c7890e2b3ded461fed4776136f20f`.
