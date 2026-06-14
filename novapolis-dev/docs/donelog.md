@@ -1,5 +1,5 @@
 ---
-stand: 2026-06-14 14:08
+stand: 2026-06-14 14:25
 update: Root-/Workspace-Landing-, Board- und Governance-Sync ist nachgezogen; Phase-4-Dev-Stand bleibt konsistent in Header und Body verankert.
 checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260614_130350.md
 ---
@@ -2715,3 +2715,11 @@ Archivhinweis
 
 - Aeltere Current-Window-Eintraege bleiben unveraendert in Git-Historie und den Donelog-Archiven.
 - Dieses aktive Dokument wird bewusst kurz gehalten und dient als menschlich lesbare Entscheidungs- und Fortschrittsansicht.
+
+Dev/Checks: Wrapper-Checklauf dokumentiert (2026-06-14 14:24)
+----------------------------------------------------------------
+
+- Lauf: scripts/run_checks_and_report.py --update-workspace-tree --write-snapshot-lock --sync-docs-after-checks
+- Ergebnis: overall=FAIL (ruff=FAIL, black=FAIL, pytest=PASS)
+- Report: .tmp/results/reports/checks_report_20260614_142241.md
+- Dokumentation: novapolis-dev/docs/process/checks_run_20260614_142241_documentation.md
