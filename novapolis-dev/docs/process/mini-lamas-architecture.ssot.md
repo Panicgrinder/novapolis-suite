@@ -1,3 +1,4 @@
+---
 stand: 2026-06-14 14:08
 update: Neue Dev-/Process-SSOT fuer die Mini-Lamas-Architektur als KI-operativer Zielrahmen angelegt.
 checks: pending post-mutation checks (naming, frontmatter, markdownlint)
