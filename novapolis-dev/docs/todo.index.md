@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-13 21:52
-update: Der TODO-Index fuehrt den Dev-Plan jetzt mit abgeschlossenen Phasen 0/1/2/3 konsistent bei offen: 0 und behaelt die technische Enforcement-Integration weiterhin offen. Phase 4 (Read-only-Audit der VS-Code-Settings) abgeschlossen: kein Drift; keine Settings-Mutation erforderlich.
-checks: snapshot-lock PASS (2026-06-13 21:52); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc novapolis-dev/docs/todo.index.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.index.md PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-14 03:15
+update: Der TODO-Index fuehrt den Dev-Plan jetzt mit abgeschlossenen Phasen 0/1/2/3 konsistent bei offen: 0 und behaelt die technische Enforcement-Integration weiterhin offen. Phase 4 (Read-only-Audit der VS-Code-Settings) abgeschlossen: kein Drift; keine Settings-Mutation erforderlich. Root-Kurzstatus ist im selben Lauf auf `RP=1` synchronisiert.
+checks: snapshot-lock PASS (2026-06-14 01:54); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc novapolis-dev/docs/todo.index.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.index.md PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->

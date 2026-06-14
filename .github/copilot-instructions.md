@@ -1,5 +1,5 @@
-stand: 2026-06-13 15:06
-Checks: snapshot-lock PASS (2026-06-13 15:06); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc .github/copilot-instructions.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py .github/copilot-instructions.md PASS (EXITCODE=0); GOV-EX-FM-001 fuer '.github/copilot-instructions.md' beachtet
+stand: 2026-06-14 03:15
+Checks: snapshot-lock PASS (2026-06-14 01:54); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc .github/copilot-instructions.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py .github/copilot-instructions.md PASS (EXITCODE=0); GOV-EX-FM-001 fuer '.github/copilot-instructions.md' beachtet
 
 
 LLM-Dokumentenheader (nicht löschen)
@@ -113,6 +113,9 @@ Globale Kernregeln
 #### R-SEC Sicherheitsprinzip
 - Minimalinvasive Diffs.
 - Keine destruktiven Änderungen ohne vorgeschaltete WhatIf-/Prüfphase.
+- Direkte Entfernung aktiver Dateien ist kein Standardpfad; bevorzugt werden Archivierung oder Quarantäne mit nachvollziehbarer Quelle und Begründung.
+- Archivierungs-, Quarantäne- und begründete Entfernungsaktionen sind im selben Lauf über passenden DONELOG und Postflight-Receipt nachweisbar zu dokumentieren.
+- Direkte Löschung ist nur als belegte Ausnahme zulässig (STOP-Klärung plus dokumentierte Begründung), wenn Archivierung/Quarantäne fachlich nicht tragfähig ist.
 - Keine Secrets/PII in Logs/Receipts.
 - In langlebigen SSOT-/Policy-/README-Dokumenten keine hostgebundenen absoluten Pfade (`F:/`, `C:/`); stattdessen repo-relative Pfade oder `${workspaceFolder}` nutzen.
 - Ausnahme: reine Audit-/Forensik-/Artefaktprotokolle (z. B. Postflight-Logs, generierte Reports, Archiv-Metadaten) dürfen absolute Pfade enthalten, wenn dies für Nachvollziehbarkeit notwendig ist.
