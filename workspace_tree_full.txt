@@ -583,6 +583,7 @@ Root = .
 |   |   |-- process/
 |   |   |   |-- abschluss-routine.ssot.md
 |   |   |   |-- betriebsmodi-sicherheitsprotokoll-notizen.md
+|   |   |   |-- checks_run_20260614_142241_documentation.md
 |   |   |   |-- doku-konsistenzlauf-aktive-surface-2026-03-28.md
 |   |   |   |-- mini-lamas-architecture.ssot.md
 |   |   |   |-- model-credits-optimization-plan.ssot.md

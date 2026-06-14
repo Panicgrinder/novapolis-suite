@@ -37344,6 +37344,7 @@ novapolis-dev\docs\naming-policy.md
 novapolis-dev\docs\process/
 novapolis-dev\docs\process\abschluss-routine.ssot.md
 novapolis-dev\docs\process\betriebsmodi-sicherheitsprotokoll-notizen.md
+novapolis-dev\docs\process\checks_run_20260614_142241_documentation.md
 novapolis-dev\docs\process\doku-konsistenzlauf-aktive-surface-2026-03-28.md
 novapolis-dev\docs\process\mini-lamas-architecture.ssot.md
 novapolis-dev\docs\process\model-credits-optimization-plan.ssot.md

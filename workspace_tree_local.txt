@@ -1,5 +1,5 @@
 Folder PATH listing for volume Games
-Volume serial number is 00000072 6EE6:7436
+Volume serial number is 000000DE 6EE6:7436
 F:.
 |   .coverage
 |   .editorconfig
@@ -407,6 +407,14 @@ F:.
 |           |   checks_report_20260614_122355.md
 |           |   checks_report_20260614_123048.json
 |           |   checks_report_20260614_123048.md
+|           |   checks_report_20260614_130350.json
+|           |   checks_report_20260614_130350.md
+|           |   checks_report_20260614_141018.json
+|           |   checks_report_20260614_141018.md
+|           |   checks_report_20260614_142241.json
+|           |   checks_report_20260614_142241.md
+|           |   checks_report_20260614_143309.json
+|           |   checks_report_20260614_143309.md
 |           |   checks_rp_consistency_20260327_095748.log
 |           |   checks_rp_consistency_20260328_065328.log
 |           |   checks_rp_consistency_20260328_065404.log
@@ -3017,22 +3025,101 @@ F:.
 |           |       todo-index-sync.log
 |           |       yamllint.log
 |           |       
-|           \---checks_run_20260614_123048
-|                   black.log
-|                   doc-freshness.log
+|           +---checks_run_20260614_123048
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260614_130350
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260614_141018
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       todo-index-sync.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260614_142241
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       snapshot-write-lock.log
+|           |       todo-index-sync.log
+|           |       workspace-tree.log
+|           |       yamllint.log
+|           |       
+|           +---checks_run_20260614_143309
+|           |       black.log
+|           |       doc-freshness.log
+|           |       frontmatter.log
+|           |       hadolint.log
+|           |       jsonlint.log
+|           |       logs-policy.log
+|           |       markdownlint.log
+|           |       mypy.log
+|           |       namingpolicy.log
+|           |       path-portability.log
+|           |       pyright.log
+|           |       pytest.log
+|           |       ruff.log
+|           |       snapshot-write-lock.log
+|           |       todo-index-sync.log
+|           |       workspace-tree.log
+|           |       yamllint.log
+|           |       
+|           \---checks_run_20260614_143533
 |                   frontmatter.log
-|                   hadolint.log
-|                   jsonlint.log
-|                   logs-policy.log
 |                   markdownlint.log
-|                   mypy.log
 |                   namingpolicy.log
 |                   path-portability.log
-|                   pyright.log
-|                   pytest.log
-|                   ruff.log
 |                   todo-index-sync.log
-|                   yamllint.log
 |                   
 +---.venv
 |   |   .gitignore
@@ -156210,6 +156297,7 @@ F:.
 |   |   +---process
 |   |   |   |   abschluss-routine.ssot.md
 |   |   |   |   betriebsmodi-sicherheitsprotokoll-notizen.md
+|   |   |   |   checks_run_20260614_142241_documentation.md
 |   |   |   |   doku-konsistenzlauf-aktive-surface-2026-03-28.md
 |   |   |   |   mini-lamas-architecture.ssot.md
 |   |   |   |   model-credits-optimization-plan.ssot.md
@@ -172776,6 +172864,10 @@ F:.
 |   |       |   finetune_alpaca_results_20250101_0101_20260613_0933.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260614_1224.jsonl
 |   |       |   finetune_alpaca_results_20250101_0101_20260614_1231.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260614_1304.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260614_1410.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260614_1423.jsonl
+|   |       |   finetune_alpaca_results_20250101_0101_20260614_1433.jsonl
 |   |       |   finetune_openai_chat_results_20260226_0306_quality_de_round7b_repeat3_20260227_0527.jsonl
 |   |       |   results_20260226_0025_quality_de.jsonl
 |   |       |   results_20260226_0209_quality_de.jsonl
@@ -173144,6 +173236,14 @@ F:.
 |   |       |   results_20260614_1226_rerun.jsonl
 |   |       |   results_20260614_1231.jsonl
 |   |       |   results_20260614_1232_rerun.jsonl
+|   |       |   results_20260614_1304.jsonl
+|   |       |   results_20260614_1305_rerun.jsonl
+|   |       |   results_20260614_1410.jsonl
+|   |       |   results_20260614_1412_rerun.jsonl
+|   |       |   results_20260614_1423.jsonl
+|   |       |   results_20260614_1424_rerun.jsonl
+|   |       |   results_20260614_1433.jsonl
+|   |       |   results_20260614_1434_rerun.jsonl
 |   |       |   
 |   |       +---baselines
 |   |       |       training_profiles.2026-02.json
@@ -173320,6 +173420,10 @@ F:.
 |   |               finetune_alpaca_r_20260613_0933.jsonl
 |   |               finetune_alpaca_r_20260614_1224.jsonl
 |   |               finetune_alpaca_r_20260614_1231.jsonl
+|   |               finetune_alpaca_r_20260614_1304.jsonl
+|   |               finetune_alpaca_r_20260614_1410.jsonl
+|   |               finetune_alpaca_r_20260614_1423.jsonl
+|   |               finetune_alpaca_r_20260614_1433.jsonl
 |   |               
 |   +---examples
 |   |   |   unrestricted_prompt_example.txt
@@ -175165,6 +175269,12 @@ F:.
 |   +---lora-20260614_1224
 |   +---lora-20260614_1225
 |   +---lora-20260614_1231
+|   +---lora-20260614_1304
+|   +---lora-20260614_1410
+|   +---lora-20260614_1411
+|   +---lora-20260614_1423
+|   +---lora-20260614_1433
+|   +---lora-20260614_1434
 |   +---lora-baseline-20260227_01
 |   |   |   adapter_config.json
 |   |   |   adapter_model.safetensors
