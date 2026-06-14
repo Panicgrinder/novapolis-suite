@@ -39,5 +39,13 @@
   "terminal.integrated.shellIntegration.enabled": true,
   "terminal.integrated.enablePersistentSessions": false,
   "godotTools.editorPath.godot4": "${env:GODOT4_PATH}",
-  "python-envs.defaultEnvManager": "ms-python.python:venv"
+  "python-envs.defaultEnvManager": "ms-python.python:venv",
+  "oaicopilot.host": "http://127.0.0.1:11434",
+  "oaicopilot.models": [
+    "qwen3.5:9b",
+    "qwen3.5:4b",
+    "qwen2.5:7b",
+    "llama3.1:8b"
+  },
+  "chat.remoteAgentHosts": []
 }

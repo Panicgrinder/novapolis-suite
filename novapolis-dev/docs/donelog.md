@@ -1,8 +1,17 @@
 ---
-stand: 2026-06-14 03:15
+stand: 2026-06-14 14:08
 update: Root-/Workspace-Landing-, Board- und Governance-Sync ist nachgezogen; Phase-4-Dev-Stand bleibt konsistent in Header und Body verankert.
-checks: snapshot-lock PASS (2026-06-14 01:54); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc changed-root-governance-sync-docs PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py changed-root-governance-sync-docs PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp\results\reports\checks_report_20260614_130350.md
 ---
+
+Dev/Process: Mini-Lamas-Architektur-SSOT angelegt (2026-06-14 12:07)
+---------------------------------------------------------------------
+
+- Neue Dev-/Process-SSOT fuer die Mini-Lamas-Architektur angelegt.
+- Primaertraeger: `novapolis-dev/docs/process/mini-lamas-architecture.ssot.md`.
+- Keine Runtime-, Agent-, Root-, Settings-, TTS-, Sim- oder RP-Datenmutation in diesem Lauf.
+- GPT-5 mini bleibt optionales externes User-QA-Werkzeug und keine notwendige Repo-Betriebskomponente.
+- Lokale Mini-Lamas sind als autonomer Arbeitskern dokumentiert.
 
 Dev/Governance: Root-Landing-/Board-Sync und Lösch-/Archivierungsregel präzisiert (2026-06-14 01:54)
 ----------------------------------------------------------------------------------------------------------

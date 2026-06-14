@@ -584,6 +584,7 @@ Root = .
 |   |   |   |-- abschluss-routine.ssot.md
 |   |   |   |-- betriebsmodi-sicherheitsprotokoll-notizen.md
 |   |   |   |-- doku-konsistenzlauf-aktive-surface-2026-03-28.md
+|   |   |   |-- mini-lamas-architecture.ssot.md
 |   |   |   |-- model-credits-optimization-plan.ssot.md
 |   |   |   |-- project-context-bridge.ssot.md
 |   |   |   |-- rp-chat-transcript-flow.ssot.md
