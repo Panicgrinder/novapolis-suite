@@ -1,7 +1,8 @@
 ---
-stand: 2026-06-13 09:17
+stand: 2026-06-19 15:17
 update: Das Sim-Board steht jetzt wieder bei `offen: 0`; der letzte Headless-Verify-Rest ist ueber den Resolver-Fallback auf die lokal laufende Godot-Binary geschlossen.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=SKIP; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_091615.md
+
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -28,7 +29,13 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (Sim)
 ---------------------
 
-- Derzeit keine offenen Sim-Aufgaben im aktiven Board.
+- [ ] [Als naechstes] GOV-STRANG-02: Sim-Governance-Bruecke fuer den Umbau als explizite Planarbeit fuehren.
+  - Ziel: Sim-seitige Checks/Gates bleiben im Governance-Umbau sichtbar repraesentiert, ohne Sim-Fachroadmap zu uebersteuern.
+  - Akzeptanzkriterien:
+    1) Sim-relevante Governance-Bezuege sind auf Root-/Dev-Planlandschaft verlinkt,
+    2) Sim-Board fuehrt einen klaren Umbaupunkt mit Evidenz,
+    3) keine unnoetige Mutation in `.godot/` oder Sim-Exportartefakten.
+  - Evidenz: `.github/copilot-instructions.md` (Workspace-Atlas/Sim-Hinweise), `novapolis-dev/docs/todo.index.md`.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------

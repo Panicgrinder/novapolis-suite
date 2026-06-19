@@ -1,8 +1,16 @@
 ---
-stand: 2026-06-19 09:07
+stand: 2026-06-19 15:17
 update: Root-/Workspace-Landing-, Board- und Governance-Sync ist nachgezogen; Phase-4-Dev-Stand bleibt konsistent in Header und Body verankert.
 checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260619_090547.md; snapshot-lock PASS (2026-06-19 09:07)
+
 ---
+
+- Dev/Governance: Neunstraengige Planlandschaft fuer Governance-Umbau auf Root/Modul-Boards materialisiert (2026-06-19 09:22)
+------------------------------------------------------------------------------------------------------------------------
+
+- `todo.root.md`, `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.rp.md` und `novapolis-dev/docs/todo.sim.md` fuehren jetzt den beschlossenen Governance-Umbau als sichtbare Planlandschaft mit neun strategischen Straengen (`GOV-STRANG-01` bis `GOV-STRANG-09`).
+- Die Modulverteilung ist damit explizit repraesentiert (`Dev=4`, `RP=2`, `Agent=1`, `Sim=1`); Root fuehrt zusaetzlich drei offene Querschnittspunkte ausserhalb der Modul-Open-Counts.
+- `novapolis-dev/docs/todo.index.md` ist im selben Lauf auf die neuen Open-Counts, Statushinweise und Board-Metadaten nachgezogen, damit die Automationssicht denselben Stand fuehrt.
 
 - Dev/Checks: Wrapper-Run mit Governance-Optionen dokumentiert (2026-06-14 14:37)
 --------------------------------------------------------------------------------

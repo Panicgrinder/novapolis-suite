@@ -1,7 +1,8 @@
 ---
-stand: 2026-06-13 09:17
+stand: 2026-06-19 15:17
 update: Das Agent-Board bleibt ohne offene Punkte; der Wochenabschluss 2026-05-11 zieht nur den Freshness-Stand auf den aktuellen grünen Agent-Kontext nach.
 checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=SKIP; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_091615.md
+
 ---
 
 <!-- markdownlint-disable MD012 MD022 MD041 -->
@@ -25,7 +26,13 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (Agent)
 -----------------------
 
-- Aktuell keine offenen Agent-Punkte.
+- [ ] [Als naechstes] GOV-STRANG-08: Agent-Runtime-Projektion fuer den Governance-Umbau als belegten Umsetzungsstrang fuehren.
+  - Ziel: Die Agent-Seite fuehrt mini-first-, Handoff- und Gate-/Receipt-Nachweise als operativ pruefbare Projektion statt nur als Planvertrag.
+  - Akzeptanzkriterien:
+    1) betroffene Agent-Pfade und Nachweisstellen sind explizit benannt,
+    2) Ausleitung bleibt konsistent zu Root-Governance und Dev-Phasenplan,
+    3) keine fachliche RP-/Sim-Scope-Ausweitung.
+  - Evidenz: `.github/agents/novapolis-workspace-navigator.agent.md`, `.github/copilot-instructions.md`, `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md`.
 
 Abgeschlossene Eintraege (Bestand)
 ----------------------------------

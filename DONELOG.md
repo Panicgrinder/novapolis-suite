@@ -1,8 +1,9 @@
 ---
-stand: 2026-06-19 09:22
+stand: 2026-06-19 15:17
 update: Root-DONELOG dokumentiert den Quarantaene-Nachzug fuer die alte Broken-Venv plus Drift-Guard in .gitignore.
 checks: snapshot-lock PASS (2026-06-19 09:07); scripts/run_checks_and_report.py overall=PASS; report=.tmp/results/reports/checks_report_20260619_090547.md
 ---
+- 2026-06-19 09:22: Governance-Umbau-Planlandschaft in den aktiven TODO-Traegern materialisiert. `todo.root.md` fuehrt jetzt drei offene Root-Querschnittspunkte (`GOV-STRANG-01` bis `GOV-STRANG-03`), und die Modulboards bilden die restlichen Straenge sichtbar ab (`Dev=4`, `RP=2`, `Agent=1`, `Sim=1`). `novapolis-dev/docs/todo.index.md` und `novapolis-dev/docs/donelog.md` sind im selben Lauf auf denselben Stand synchronisiert.
 - 2026-06-19 09:07: Update: `README.md` Frontmatter `stand` und `checks` auf aktuellen Full-Check-Report synchronisiert (overall=PASS). Report: `.tmp/results/reports/checks_report_20260619_090547.md`. Aktion: Kurz-Fix und Commit durch Agent per User-Freigabe.
 - 2026-06-12 22:38: Root-Governance/Quarantaene-Nachzug: Der alte lokale Arbeitsordner `.venv_broken_py312_20260612_221541` wurde aus dem Repo-Root nach `novapolis-dev/archive/quarantine/.venapolis-broken_py312_20260612-2238/` verschoben, um den 10k+-Statusdrift aus untracked Root-Artefakten zu beenden. `.gitignore` ignoriert zusaetzlich `/.venv_broken_py*/` sowie `/novapolis-dev/archive/quarantine/.venapolis-broken_py312_20260612-2238/`, damit derselbe Drift nicht erneut in den aktiven Commitpfad laeuft. Die tracked Arbeitsaenderungen bleiben davon unberuehrt.
 
