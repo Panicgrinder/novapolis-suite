@@ -1,9 +1,9 @@
 ---
-stand: 2026-06-19 15:17
+stand: 2026-06-19 15:40
 date: 2025-11-12 08:59
 tags: [doc]
 update: Das RP-Board fuehrt jetzt den ausgespielten Reflex-Wahrnehmungszug mit Weltendruck, CRISIS-Kante und Turn 15.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=SKIP; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_091615.md
+checks: snapshot-lock PASS (2026-06-19 15:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md" PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.rp.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 <!-- markdownlint-disable MD012 MD022 MD041 -->
 TODO (Novapolis-RP)
@@ -35,7 +35,7 @@ Offene Aufgaben (RP)
   - Einschub 2026-05-20 13:46: Die unbelegte Lesart, Ronja habe Reflex formale Stop-/Freigabe-/Request-Kommandos beigebracht oder ausgespielt, wird aus den aktiven SSOTs chirurgisch entfernt. Akzeptanz: Contact-/Control-Safety bleibt als Abbruch-, Distanz- und Consent-Logik erhalten; konkrete Kommandophrasen gelten erst nach belegter Szene als kanonisch. Evidenz: RAW-/Review-Pruefung fand keine ausgespielte Ronja-Unterweisung; [../../novapolis-rp/database-curated/staging/chat-export.review.md](../../novapolis-rp/database-curated/staging/chat-export.review.md) markiert die Stop-Szene selbst als Klaerpunkt.
   - Einschub 2026-05-20 15:25: Die Reflex-Profillesart wird freigegeben festgeschrieben: psychologische Bindungs-/Regulationslesart darf Reflex nicht glaetten. Weltendruck, Tunnelgefahr, Mangel und Anomalie-Kontext halten die Schutzlogik kantig; `CRISIS`-Kokon/Vollschutz bleibt als belegter Notfallmodus erhalten. Akzeptanz: Turn 15 spielt Reflex' Wahrnehmung dieses Drucks aus, ohne Ronja neu zu steuern, ohne technische Freigabe und ohne neue Symbiose-Stufe. Evidenz: [../../novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md](../../novapolis-rp/database-rp/00-admin/Reference-Campaign-State.md) fuehrt `CRISIS`-Kokon/Abschirmung, [../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md](../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex.md) fuehrt Notfall-Kokon und Profilkante, [../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex-Wissensstand-Trainingsstand.md](../../novapolis-rp/database-rp/01-factions/novapolis/02-characters/Reflex-Wissensstand-Trainingsstand.md) haelt Ausmass/Dauer dynamisch, und [../../novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md](../../novapolis-rp/database-curated/staging/rp-runtime/sessions/d5-c6-nordlinie-sanierung-01/scene-log.md) belegt Turn 15 als ausgespielten Wahrnehmungszug.
 
-- [ ] [Als naechstes] GOV-STRANG-09: RP-SSOT-to-Runtime-Projektion fuer Governance-Regeln als eigenen Arbeitsstrang schliessen.
+- [ ] [Als naechstes] RP-SSOT-to-Runtime-Projektion fuer Governance-Regeln als eigenen Arbeitsstrang schliessen.
   - Ziel: RP-spezifische Governance-Regeln (PC-Agency, Evidence-first, Turn-/Admin-Schleife) sind nicht nur vertraglich, sondern mit Trigger-/Hook-/Evidenzkette nachvollziehbar verbunden.
   - Akzeptanzkriterien:
     1) RP-Instructions, RP-Agent und Hook-Guard sind als gemeinsame Projektion dokumentiert,

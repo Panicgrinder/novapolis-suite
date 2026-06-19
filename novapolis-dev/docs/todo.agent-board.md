@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-19 15:17
-update: Das Agent-Board bleibt ohne offene Punkte; der Wochenabschluss 2026-05-11 zieht nur den Freshness-Stand auf den aktuellen grünen Agent-Kontext nach.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=SKIP; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_091615.md
+stand: 2026-06-19 15:40
+update: Das Agent-Board fuehrt aktuell einen offenen Governance-Korrekturpunkt; Header und Body sind damit wieder konsistent.
+checks: snapshot-lock PASS (2026-06-19 15:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md" PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.agent-board.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 
 ---
 
@@ -26,7 +26,7 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (Agent)
 -----------------------
 
-- [ ] [Als naechstes] GOV-STRANG-08: Agent-Runtime-Projektion fuer den Governance-Umbau als belegten Umsetzungsstrang fuehren.
+- [ ] [Als naechstes] Agent-Runtime-Projektion fuer den Governance-Umbau als belegten Umsetzungsstrang fuehren.
   - Ziel: Die Agent-Seite fuehrt mini-first-, Handoff- und Gate-/Receipt-Nachweise als operativ pruefbare Projektion statt nur als Planvertrag.
   - Akzeptanzkriterien:
     1) betroffene Agent-Pfade und Nachweisstellen sind explizit benannt,

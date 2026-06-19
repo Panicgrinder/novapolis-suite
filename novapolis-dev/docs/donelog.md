@@ -1,9 +1,16 @@
 ---
-stand: 2026-06-19 15:17
-update: Root-/Workspace-Landing-, Board- und Governance-Sync ist nachgezogen; Phase-4-Dev-Stand bleibt konsistent in Header und Body verankert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260619_090547.md; snapshot-lock PASS (2026-06-19 09:07)
+stand: 2026-06-19 15:40
+update: Korrektur-Planlauf fuer den Governance-Umbau ist gestartet: kuenstliche GOV-Nummerierung entfernt, Header-/Count-Drift repariert und Rollenableitung der Boards neu ausgerichtet.
+checks: snapshot-lock PASS (2026-06-19 15:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md" PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/donelog.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 
 ---
+
+- Dev/Governance: Korrektur-Planlauf statt kuenstlichem Neun-Strang-Paket (2026-06-19 15:40)
+-------------------------------------------------------------------------------------------
+
+- `todo.root.md`, `novapolis-dev/docs/todo.dev.md`, `novapolis-dev/docs/todo.index.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.rp.md` und `novapolis-dev/docs/todo.sim.md` fuehren den Governance-Umbau jetzt ohne kuenstliche GOV-Nummerierung und ohne Header-gegen-Body-Widersprueche.
+- Der Dev-Plan ist vom engen Teilplan auf den vollstaendigeren Problemraum korrigiert (Kettenregel, Bootstrap-Regel, Berichtsvertraege, Scope-/Wiring-Audit, semantische Autoritaetsverdrahtung; Hook-Logging als technische Folgearbeit).
+- `novapolis-dev/docs/todo.index.md` fuehrt den neuen Iststand synchron: Modul-Open-Counts `Dev=6`, `RP=2`, `Agent=1`, `Sim=1`; Root bleibt ausserhalb der Modul-Open-Counts mit zwei offenen Querschnittspunkten.
 
 - Dev/Governance: Neunstraengige Planlandschaft fuer Governance-Umbau auf Root/Modul-Boards materialisiert (2026-06-19 09:22)
 ------------------------------------------------------------------------------------------------------------------------

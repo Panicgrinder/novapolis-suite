@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-19 15:17
-update: Das Sim-Board steht jetzt wieder bei `offen: 0`; der letzte Headless-Verify-Rest ist ueber den Resolver-Fallback auf die lokal laufende Godot-Binary geschlossen.
-checks: scripts/run_checks_and_report.py overall=FAIL; markdownlint=PASS; frontmatter=PASS; path-portability=FAIL; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=FAIL; logs-policy=PASS; ruff=FAIL; black=FAIL; pytest=FAIL; pyright=SKIP; mypy=PASS; report=.tmp\results\reports\checks_report_20260613_091615.md
+stand: 2026-06-19 15:40
+update: Das Sim-Board fuehrt aktuell einen offenen Governance-Korrekturpunkt; Header und Body sind damit wieder konsistent.
+checks: snapshot-lock PASS (2026-06-19 15:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md" PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.sim.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 
 ---
 
@@ -29,7 +29,7 @@ Prioritaetstags (aktiv)
 Offene Aufgaben (Sim)
 ---------------------
 
-- [ ] [Als naechstes] GOV-STRANG-02: Sim-Governance-Bruecke fuer den Umbau als explizite Planarbeit fuehren.
+- [ ] [Als naechstes] Sim-Governance-Bruecke fuer den Umbau als explizite Planarbeit fuehren.
   - Ziel: Sim-seitige Checks/Gates bleiben im Governance-Umbau sichtbar repraesentiert, ohne Sim-Fachroadmap zu uebersteuern.
   - Akzeptanzkriterien:
     1) Sim-relevante Governance-Bezuege sind auf Root-/Dev-Planlandschaft verlinkt,

@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-19 15:17
-update: Der TODO-Index fuehrt den Dev-Plan jetzt mit abgeschlossenen Phasen 0/1/2/3 konsistent bei offen: 0 und behaelt die technische Enforcement-Integration weiterhin offen. Phase 4 (Read-only-Audit der VS-Code-Settings) abgeschlossen: kein Drift; keine Settings-Mutation erforderlich. Root-Kurzstatus ist im selben Lauf auf `RP=1` synchronisiert.
-checks: snapshot-lock PASS (2026-06-14 01:54); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc novapolis-dev/docs/todo.index.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.index.md PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-19 15:40
+update: Der TODO-Index fuehrt jetzt den Korrektur-Planlauf fuer den Governance-Umbau ohne kuenstliche GOV-Nummerierung; Open-Counts und Statushinweise sind auf den aktuellen Board-Iststand synchronisiert.
+checks: snapshot-lock PASS (2026-06-19 15:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md" PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.index.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 
 ---
 
@@ -14,7 +14,7 @@ TODO-Index (Novapolis-Dev)
 ---------
 
 - RP-Module: `docs/todo.rp.md` — Aufgaben, Kanon-/Canvas-Arbeit, Logs (offen: 2)
-- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 4)
+- Dev-Module: `docs/todo.dev.md` — Tooling, Lint/CI, Validatoren, Doku-Infra (offen: 6)
 - Agent-Module: `docs/todo.agent-board.md` — Backend (FastAPI/Ollama), Tests/Typing, Scripts (offen: 1)
 - Sim-Module: `docs/todo.sim.md` — Godot/Visualisierung, API-Polling, Exportprofile (offen: 1)
 - Root-Backlog: `todo.root.md` — suiteweiter Querschnitts-Backlog und Meta-Aufgaben (nicht Teil der Modul-Open-Counts oben)
@@ -22,15 +22,15 @@ TODO-Index (Novapolis-Dev)
 Statushinweise (aktuell)
 ------------------------
 
-- Root/Meta: `todo.root.md` fuehrt jetzt drei offene Querschnittspunkte (GOV-STRANG-01 bis GOV-STRANG-03) fuer den beschlossenen Governance-Umbau und bleibt bewusst ausserhalb der Modul-Open-Counts.
+- Root/Meta: `todo.root.md` fuehrt aktuell zwei offene Querschnittspunkte fuer den Korrektur-Planlauf des Governance-Umbaus und bleibt bewusst ausserhalb der Modul-Open-Counts.
 
-- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt jetzt vier offene Governance-Umbaupunkte (GOV-STRANG-04 bis GOV-STRANG-07) als aktive Umsetzungsarbeit fuer technische Projektion, Hook-Evidenz, Freshness-Harmonisierung und Mini-Lamas-Vertragskonsolidierung.
+- Dev: `novapolis-dev/docs/todo.dev.md` fuehrt jetzt sechs offene Korrekturpunkte fuer Kettenregel, Bootstrap, Berichtsvertraege, Scope-/Wiring-Audit, semantische Autoritaetsverdrahtung und nachgelagertes Hook-Logging.
 
-- Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt jetzt einen offenen Governance-Umbaupunkt (GOV-STRANG-08) fuer die operative Agent-Runtime-Projektion inklusive mini-first/Handoff/Gate-Nachweis.
+- Agent: `novapolis-dev/docs/todo.agent-board.md` fuehrt einen offenen Governance-Umbaupunkt fuer die operative Agent-Runtime-Projektion inklusive mini-first/Handoff/Gate-Nachweis.
 
-- RP: `novapolis-dev/docs/todo.rp.md` fuehrt jetzt zwei offene Punkte: den laufenden Nordlinie-Fachpunkt plus den Governance-Umbaupunkt GOV-STRANG-09 fuer die RP-SSOT-to-Runtime-Projektion.
+- RP: `novapolis-dev/docs/todo.rp.md` fuehrt zwei offene Punkte: den laufenden Nordlinie-Fachpunkt plus den Governance-Umbaupunkt fuer die RP-SSOT-to-Runtime-Projektion.
 
-- Sim: `novapolis-dev/docs/todo.sim.md` fuehrt jetzt einen offenen Governance-Umbaupunkt (GOV-STRANG-02) als Sim-Bruecke in die Root-/Dev-Planlandschaft.
+- Sim: `novapolis-dev/docs/todo.sim.md` fuehrt einen offenen Governance-Umbaupunkt als Sim-Bruecke in die Root-/Dev-Planlandschaft.
 
 - Historische Zwischenstaende und offene Uebergangsphasen bleiben im Dev-DONELOG dokumentiert; der TODO-Index fuehrt absichtlich nur noch den aktuellen Board- und Gate-Stand.
 
@@ -39,10 +39,10 @@ Board-Metadaten (automationsrelevant)
 
 | Board | letzte Aenderung | aeltester offener Punkt | Widerspruch "keine offenen" |
 | --- | --- | --- | --- |
-| Dev (`docs/todo.dev.md`) | 2026-06-19 | - [ ] [Jetzt] GOV-STRANG-04: Phase-5-Verifikation vom Vertragsstand auf technische Runtime-Projektion heben. | nein |
+| Dev (`docs/todo.dev.md`) | 2026-06-19 | - [ ] [Jetzt] Kettenregel verbindlich machen: Plantraeger vor Analyse und Mutation. | nein |
 | RP (`docs/todo.rp.md`) | 2026-06-19 | - [ ] [Jetzt] Nordlinie-Folgepaket in drei Zuegen schliessen und Reflex-Herkunft gegen Datenrettung pruefen. | nein |
-| Agent (`docs/todo.agent-board.md`) | 2026-06-19 | - [ ] [Als naechstes] GOV-STRANG-08: Agent-Runtime-Projektion fuer den Governance-Umbau als belegten Umsetzungsstrang fuehren. | nein |
-| Sim (`docs/todo.sim.md`) | 2026-06-19 | - [ ] [Als naechstes] GOV-STRANG-02: Sim-Governance-Bruecke fuer den Umbau als explizite Planarbeit fuehren. | nein |
+| Agent (`docs/todo.agent-board.md`) | 2026-06-19 | - [ ] [Als naechstes] Agent-Runtime-Projektion fuer den Governance-Umbau als belegten Umsetzungsstrang fuehren. | nein |
+| Sim (`docs/todo.sim.md`) | 2026-06-19 | - [ ] [Als naechstes] Sim-Governance-Bruecke fuer den Umbau als explizite Planarbeit fuehren. | nein |
 
 
 Hinweise (Index)

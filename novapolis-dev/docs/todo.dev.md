@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-19 15:26
-update: Phase 3 ist abgeschlossen: Die Root-Governance ist minimal auf KI-operative Framework-Semantik und die Phase-2-Abgrenzung synchronisiert. Phase 4 (Read-only-Audit der VS-Code-Settings) abgeschlossen: kein Drift; keine Settings-Mutation erforderlich.
-checks: snapshot-lock PASS (2026-06-13 21:52); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc novapolis-dev/docs/todo.dev.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.dev.md PASS (EXITCODE=0); .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-19 15:40
+update: Der Governance-Umbau wird als Korrektur-Planlauf neu gefasst: vollstaendiger Problemraum statt kuenstlicher Nummernpakete, klare Rollenableitung und Trennung von Kernarbeit vs. technischer Folgearbeit.
+checks: snapshot-lock PASS (2026-06-19 15:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md" PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.dev.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
 ---
 
 <!-- markdownlint-disable MD022 MD041 -->
@@ -19,39 +19,55 @@ Hinweis
 Offene Aufgaben (Dev)
 ---------------------
 
-- Aktuell offene Dev-Aufgaben: `4` (Quelle: `novapolis-dev/docs/todo.index.md`, Board-Metadaten).
+- Aktuell offene Dev-Aufgaben: `6` (Quelle: `novapolis-dev/docs/todo.index.md`, Board-Metadaten).
 
-- [ ] [Jetzt] GOV-STRANG-04: Phase-5-Verifikation vom Vertragsstand auf technische Runtime-Projektion heben.
-  - Ziel: Der bestehende Governance-Plan führt nicht nur Soll-Regeln, sondern belegte technische Ausleitung für mini-first, Codex-Eskalation, Hook-Budget und Nachweisfluss.
+- [ ] [Jetzt] Kettenregel verbindlich machen: Plantraeger vor Analyse und Mutation.
+  - Ziel: Der Umbau folgt fuer mutative Laeufe einem festen Ablauf (Plantraeger zuerst), damit Board-/Index-/DONELOG-Sync kein Nachgedanke bleibt.
   - Akzeptanzkriterien:
-    1) für die offenen Phase-5-Punkte liegen explizite technische Zielpfade vor,
-    2) die Ausleitung bleibt konsistent zu `.github/copilot-instructions.md` und `.github/agents/novapolis-workspace-navigator.agent.md`,
-    3) kein stiller Scope-Sprung in RP-/Sim-Fachdaten.
-  - Evidenz: `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md`, `.github/agents/novapolis-workspace-navigator.agent.md`.
+    1) Plantraeger fuer Root/Dev/Agent/RP/Sim sind vor mutativen Schritten explizit referenziert,
+    2) Startreihenfolge (Plan -> Analyse -> Mutation -> Sync) ist dokumentiert und in TODO/Index sichtbar,
+    3) keine verdeckte Scope-Ausweitung in Fachmodule.
+  - Evidenz: `.github/copilot-instructions.md`, `todo.root.md`, `novapolis-dev/docs/todo.index.md`.
 
-- [ ] [Jetzt] GOV-STRANG-05: Hook-Ereignislogging als laufende Evidenzschiene standardisieren.
-  - Ziel: Hook-Entscheidungen (`allow/ask/deny`) werden für Governance-Audits reproduzierbar als Dev-Evidenz lesbar.
+- [ ] [Jetzt] Bootstrap-Regel fuer den ersten Governance-Umbau als explizite Leitplanke nachziehen.
+  - Ziel: Der erste Umbau wird als Sonderfall sauber gefuehrt, damit keine bereits laufenden Folgearbeiten als Kernplan missverstanden werden.
+  - Akzeptanzkriterien:
+    1) Erstumbau-Regeln sind von regularem Betriebsmodus getrennt beschrieben,
+    2) Kernarbeit und Folgearbeit sind als solche gekennzeichnet,
+    3) Root/Index/Board fuehren denselben Bootstrap-Status.
+  - Evidenz: `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md`, `todo.root.md`, `novapolis-dev/docs/todo.index.md`.
+
+- [ ] [Jetzt] Reportvertraege in `abschluss-routine.ssot.md` auf heutigen Arbeitsmodus aktualisieren.
+  - Ziel: Workspace-Abschluss, Modulstatus, technischer Checkbericht und Postflight-Receipt sind als getrennte Berichtstypen verbindlich und verwechselungsfrei dokumentiert.
+  - Akzeptanzkriterien:
+    1) Berichtstypen sind klar getrennt und benannt,
+    2) Zustaendigkeit je Berichtstyp ist festgezogen,
+    3) Board-/Index-Claims verweisen nicht mehr auf fremde Berichtstypen.
+  - Evidenz: `novapolis-dev/docs/process/abschluss-routine.ssot.md`, `WORKSPACE_STATUS.md`, `novapolis-dev/docs/donelog.md`, `DONELOG.md`.
+
+- [ ] [Jetzt] `workspace-audit-segmente.ssot.md` fuer Scope-/Wiring-Audit aller aktiven Steuerflaechen nachziehen.
+  - Ziel: Vollstaendiger Audit der aktiven Steuerflaechen, nicht nur Freshness, sondern Autoritaetsrolle, Verdrahtung und Delta-Routing.
+  - Akzeptanzkriterien:
+    1) alle aktiven Steuerflaechen sind mit Rolle/Autoritaet/Folgebezug erfasst,
+    2) Delta-Routing- und Vertiefungsregeln sind als Arbeitsvertrag sichtbar,
+    3) Schnittstellen zwischen Root/Dev/Agent/RP/Sim sind ohne Luecken markiert.
+  - Evidenz: `novapolis-dev/docs/process/workspace-audit-segmente.ssot.md`, `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md`, `.github/agents/*.agent.md`.
+
+- [ ] [Als naechstes] Semantische Verdrahtung von Index, Status und SSOT nach Autoritaetsrolle konsolidieren.
+  - Ziel: Nicht nur zeitliche Freshness, sondern semantische Fuehrung (wer ist autoritativ fuer was) bleibt eindeutig.
+  - Akzeptanzkriterien:
+    1) `novapolis-dev/docs/todo.index.md`, `WORKSPACE_STATUS.md`, `todo.root.md` und Prozess-SSOTs fuehren keine konkurrierenden Autoritaetsaussagen,
+    2) Modulstatus und Root-Querschnitt sind klar getrennt,
+    3) Konflikte werden als STOP-/Klärpunkt markiert statt implizit ueberschrieben.
+  - Evidenz: `novapolis-dev/docs/todo.index.md`, `WORKSPACE_STATUS.md`, `todo.root.md`, `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md`.
+
+- [ ] [Als naechstes] Technische Folgearbeit: Hook-Ereignislogging als laufende Evidenzschiene standardisieren.
+  - Ziel: Der technische Rest bleibt sichtbar, aber nachrangig hinter der strategischen Kernkorrektur.
   - Akzeptanzkriterien:
     1) Loggingpfad und Pflichtfelder sind festgezogen,
-    2) Nachweise lassen sich in Dev-DONELOG und Auditläufen referenzieren,
+    2) Nachweise lassen sich in Dev-DONELOG und Auditlaeufen referenzieren,
     3) keine Kollision mit bestehender Hook-/Pre-Commit-Logik.
   - Evidenz: `novapolis-dev/docs/process/vscode-agent-governance-surface.ssot.md`, `.github/hooks/rp-runtime-loop-guard.json`, `scripts/rp_runtime_loop_guard.py`.
-
-- [ ] [Als nächstes] GOV-STRANG-06: Board-/Status-Freshness zwischen Root, Modulboards, Index und DONELOG harmonisieren.
-  - Ziel: Aktive Flächen führen keinen divergierenden Check-/Freshness-Stand.
-  - Akzeptanzkriterien:
-    1) Root- und Modulboards verweisen auf denselben gültigen Laufstand,
-    2) `novapolis-dev/docs/todo.index.md` bleibt synchron,
-    3) stale Claims werden explizit nachgezogen statt implizit toleriert.
-  - Evidenz: `todo.root.md`, `novapolis-dev/docs/todo.index.md`, `novapolis-dev/docs/todo.agent-board.md`, `novapolis-dev/docs/todo.rp.md`, `novapolis-dev/docs/todo.sim.md`.
-
-- [ ] [Als nächstes] GOV-STRANG-07: Mini-Lamas-Architekturvertrag auf Runtime-/Governance-Schnitt und Validierungsstand konsolidieren.
-  - Ziel: Die Mini-Lamas-SSOT bleibt als Architekturquelle aktiv, aber ihre Ausführungskette und ihr Validierungsstatus sind gegen Root-/Dev-Governance eindeutig gespiegelt.
-  - Akzeptanzkriterien:
-    1) Rollenabgrenzung kollidiert nicht mit mini-first/Codex-Policy,
-    2) offene Validierungs-/Projektionsthemen sind als klare Folgearbeit markiert,
-    3) keine Umwandlung in Instructions ohne belegten Bedarf.
-  - Evidenz: `novapolis-dev/docs/process/mini-lamas-architecture.ssot.md`, `novapolis-dev/docs/process/model-credits-optimization-plan.ssot.md`.
 
 Geplanter, mehrstufiger Umsetzungsplan (Kurzfassung)
 ---------------------------------------------------
