@@ -1,9 +1,10 @@
 ---
-stand: 2026-06-12 22:38
+stand: 2026-06-19 09:22
 update: Root-DONELOG dokumentiert den Quarantaene-Nachzug fuer die alte Broken-Venv plus Drift-Guard in .gitignore.
-checks: snapshot-lock PASS (2026-06-12 22:38); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc '**/*.md' PASS (2026-06-12 22:39); .\.venv\Scripts\python.exe scripts\check_frontmatter.py DONELOG.md novapolis-dev/docs/donelog.md PASS (EXITCODE=0, 2026-06-12 22:39).
+checks: snapshot-lock PASS (2026-06-19 09:07); scripts/run_checks_and_report.py overall=PASS; report=.tmp/results/reports/checks_report_20260619_090547.md
 ---
-- 2026-06-12 22:38: Root-Governance/Quarantaene-Nachzug: Der alte lokale Arbeitsordner `.venv_broken_py312_20260612_221541` wurde aus dem Repo-Root nach `novapolis-dev/archive/quarantine/.venv_broken_py312_20260612_221541-20260612-2238/` verschoben, um den 10k+-Statusdrift aus untracked Root-Artefakten zu beenden. `.gitignore` ignoriert zusaetzlich `/.venv_broken_py*/` sowie `/novapolis-dev/archive/quarantine/.venv_broken_py*/`, damit derselbe Drift nicht erneut in den aktiven Commitpfad laeuft. Die tracked Arbeitsaenderungen bleiben davon unberuehrt.
+- 2026-06-19 09:07: Update: `README.md` Frontmatter `stand` und `checks` auf aktuellen Full-Check-Report synchronisiert (overall=PASS). Report: `.tmp/results/reports/checks_report_20260619_090547.md`. Aktion: Kurz-Fix und Commit durch Agent per User-Freigabe.
+- 2026-06-12 22:38: Root-Governance/Quarantaene-Nachzug: Der alte lokale Arbeitsordner `.venv_broken_py312_20260612_221541` wurde aus dem Repo-Root nach `novapolis-dev/archive/quarantine/.venapolis-broken_py312_20260612-2238/` verschoben, um den 10k+-Statusdrift aus untracked Root-Artefakten zu beenden. `.gitignore` ignoriert zusaetzlich `/.venv_broken_py*/` sowie `/novapolis-dev/archive/quarantine/.venapolis-broken_py312_20260612-2238/`, damit derselbe Drift nicht erneut in den aktiven Commitpfad laeuft. Die tracked Arbeitsaenderungen bleiben davon unberuehrt.
 
 - 2026-06-12 12:05: Update: Set `github.copilot.chat.workspaceInstructions` to `.github/copilot-instructions.md` in [.vscode/settings.json](.vscode/settings.json#L1). Action by agent: change applied per user Option 1 after explicit user instruction; NO snapshot-lock or global checks were run in this quick fix. Next required steps: restart VS Code, verify Copilot Chat Output log and run `scripts/snapshot_write_lock.py` + `npx --yes markdownlint-cli2` if committing.
 

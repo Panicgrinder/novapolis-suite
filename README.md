@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-14 03:15
+stand: 2026-06-19 09:22
 update: Root-Landing auf den aktiven Dev-/Board-Iststand synchronisiert (Phase-4-Dev-Stand und RP-Open-Count konsistent nachgezogen).
-checks: snapshot-lock PASS (2026-06-14 03:15); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc README.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py README.md PASS (EXITCODE=0)
+checks: scripts/run_checks_and_report.py overall=PASS; report=.tmp/results/reports/checks_report_20260619_090547.md
 ---
 Novapolis Suite
 ===============
