@@ -89,6 +89,7 @@ Root = .
 |   |   |-- todo.rp.historical-backlog.md
 |   |   |-- todo.sim.archive.md
 |   |   |-- docs/
+|   |   |   |-- postflight_governance_compliance_20260614.md
 |   |   |   |-- donelogs/
 |   |   |   |   |-- INDEX.md
 |   |   |   |   |-- dedupe_identical_verify_20251115_081134.md
@@ -639,6 +640,7 @@ Root = .
 |   |   |   |-- wochenbericht-2026-05-04.md
 |   |   |   |-- wochenbericht-2026-05-11.md
 |   |   |   |-- wochenbericht-2026-05-18.md
+|   |   |   |-- wochenbericht-2026-06-14-dev.md
 |   |   |   |-- workspace-audit-segmente.ssot.md
 |   |   |   `-- rp-canvas-rescue/
 |   |   |       |-- canvas-rescue-plan.md

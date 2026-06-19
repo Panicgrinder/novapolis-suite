@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-14 16:17
+stand: 2026-06-19 09:07
 update: Root-/Workspace-Landing-, Board- und Governance-Sync ist nachgezogen; Phase-4-Dev-Stand bleibt konsistent in Header und Body verankert.
-checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260614_143533.md
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260619_090547.md; snapshot-lock PASS (2026-06-19 09:07)
 ---
 
 - Dev/Checks: Wrapper-Run mit Governance-Optionen dokumentiert (2026-06-14 14:37)
@@ -198,6 +198,12 @@ Dev/Governance: Alte Broken-Venv in Quarantaene verschoben und Drift-Guard geset
 
 - Der lokale Altordner `.venv_broken_py312_20260612_221541` wurde aus dem Workspace-Root nach [../archive/quarantine/.venv_broken_py312_20260612_221541-20260612-2238](../archive/quarantine/.venv_broken_py312_20260612_221541-20260612-2238) verschoben, damit Root nicht mehr durch untracked Paketmassen blockiert wird.
 - [.gitignore](../../.gitignore) ignoriert jetzt zusaetzlich `/.venv_broken_py*/` sowie `/novapolis-dev/archive/quarantine/.venv_broken_py*/`, damit derselbe Drift kuenftig nicht erneut im aktiven Git-Status auftaucht.
+
+
+- 2026-06-19 12:10: Dev-Wochenbericht ergänzt: `novapolis-dev/docs/process/wochenbericht-2026-06-14-dev.md` angelegt.
+  - Aktion: Erweiterte Wochenzusammenfassung (Dev-Fokus) erstellt, inkl. Phasen 0–6, Archiv‑Batches und Validator‑Belegen.
+  - Beleg: Snapshot-Lock zur Erstellung: 2026-06-14 14:37; Validator-Header in der Zusammenfassung zeigt `markdownlint` + `check_frontmatter.py` PASS.
+  - Hinweise: Dieser Eintrag wurde im selben Änderungslauf hinzugefügt, um die DONELOG‑Pflicht für Dateimutationen zu erfüllen.
 - Scope bewusst minimal: keine inhaltlichen Aenderungen an Sim-/Agent-/RP-Fachdateien; nur Quarantaene-Nachzug plus Doku.
 
 Sim/UI: Topbar-Status entdoppelt und rote Statuszeile dauerhaft entfernt (2026-06-12 13:35)

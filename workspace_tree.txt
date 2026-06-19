@@ -99,6 +99,7 @@ novapolis-dev\archive\docs\others\copilot-instructions-update-tode.archive.md
 novapolis-dev\archive\docs\others\copilot-instructions.2025-11-15 23-48.md
 novapolis-dev\archive\docs\others\sim-spielaufbau-vor-rp-integration.archive.2026-04-15.md
 novapolis-dev\archive\docs\others\workspace-status.archive.pre-2026-02-20.md
+novapolis-dev\archive\docs\postflight_governance_compliance_20260614.md
 novapolis-dev\archive\quarantine/
 novapolis-dev\archive\quarantine\.venv_broken_py312_20260612_221541-20260612-2238/
 novapolis-dev\archive\quarantine\.venv_broken_py312_20260612_221541-20260612-2238\Include/
@@ -37410,6 +37411,7 @@ novapolis-dev\docs\process\vscode-agent-governance-surface.ssot.md
 novapolis-dev\docs\process\wochenbericht-2026-05-04.md
 novapolis-dev\docs\process\wochenbericht-2026-05-11.md
 novapolis-dev\docs\process\wochenbericht-2026-05-18.md
+novapolis-dev\docs\process\wochenbericht-2026-06-14-dev.md
 novapolis-dev\docs\process\workspace-audit-segmente.ssot.md
 novapolis-dev\docs\readme.hub.md
 novapolis-dev\docs\readme_decisions.md
