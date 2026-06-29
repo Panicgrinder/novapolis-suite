@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 01:22
+stand: 2026-06-29 16:07
 update: Der Active-Surface-Index bleibt jetzt ausdruecklich die Dev-Hub-Klassifikation; der workspaceweite Freshness-Scope lebt getrennt unter docs/meta/doc-freshness-scope.md.
-checks: snapshot-lock PASS (2026-04-28 01:22); doc-freshness PASS (scope_rows=46, checked_docs=262, findings=0, 2026-04-28 01:17)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260629_155310.md; snapshot-lock PASS (2026-06-29 16:07)
 ---
 
 Active Surface Index (Dev Docs)

@@ -641,6 +641,7 @@ Root = .
 |   |   |   |-- wochenbericht-2026-05-11.md
 |   |   |   |-- wochenbericht-2026-05-18.md
 |   |   |   |-- wochenbericht-2026-06-14-dev.md
+|   |   |   |-- wochenbericht-2026-06-29.md
 |   |   |   |-- workspace-audit-segmente.ssot.md
 |   |   |   `-- rp-canvas-rescue/
 |   |   |       |-- canvas-rescue-plan.md

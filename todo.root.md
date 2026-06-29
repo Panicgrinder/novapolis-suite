@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-19 15:40
-update: Root fuehrt den Korrektur-Planlauf fuer den Governance-Umbau jetzt ohne kuenstliche GOV-Nummerierung; offene Querschnittsarbeit und Modulrollen sind konsistent auf den realen Problemraum ausgerichtet.
-checks: snapshot-lock PASS (2026-06-19 15:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md" PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py todo.root.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-29 16:07
+update: Wochenabschluss 2026-06-29 ist technisch gruen geschlossen; Full-Check, Sim-Assets und Coverage sind belegt PASS.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260629_155310.md; snapshot-lock PASS (2026-06-29 16:07)
 
 ---
 
@@ -14,6 +14,8 @@ Kurzstatus
 - Der zuletzt abgeschlossene Root-Block ist vollstaendig validiert und unter `novapolis-dev/archive/todo.root.archive.md` archiviert.
 - Die aktive Root-Datei ist damit wieder die schlanke Live-Oberflaeche fuer neue suiteweite Querschnittspunkte.
 - Die Modul-Boards stehen aktuell bei `Dev=6`, `RP=2`, `Agent=1`, `Sim=1`; Root bleibt bewusst ausserhalb dieser Modul-Open-Counts.
+- Der Wochenabschluss vom 2026-06-29 ist gruen belegt: Der finale Recheck `.tmp/results/reports/checks_report_20260629_155005.md` ist vollstaendig PASS, `Checks: sim epoch assets` bleibt PASS (`summary=fail:0,warn:0`) und `Tests: coverage (fail-under)` bleibt bei `92.19%` mit `709 passed`.
+- Der initiale Vollcheck `.tmp/results/reports/checks_report_20260629_153748.md` fiel nur an `doc-freshness` (`74` stale Dokus). Nach gezieltem Freshness-Sync der stale Frontmatter-/mtime-Pfade ist der Recheck wieder gruen (`findings=0`).
 - Der Wochenabschluss vom 2026-05-18 22:32 ist gruen belegt: Der finale Recheck `.tmp/results/reports/checks_report_20260518_222833.md` ist vollstaendig PASS, `Checks: sim epoch assets` bleibt PASS (`summary=fail:0,warn:0`) und `Tests: coverage (fail-under)` bleibt bei `92.19%` mit `709 passed`. Der konsolidierte Wochenstand liegt zusaetzlich in `novapolis-dev/docs/process/wochenbericht-2026-05-18.md` vor.
 - Seit dem Abschluss vom 2026-05-11 kam kein neuer Repo-Commit hinzu; der einzige Wochenrest war diesmal reine Hygiene-Drift. Der erste Vollcheck `.tmp/results/reports/checks_report_20260518_222210.md` fiel nur an 23 stale aktiven/Referenzdokus und stale Workspace-Trees, die im selben Lauf zusammen mit `novapolis-dev/docs/todo.index.md` nachgezogen wurden.
 - Die suiteweite Hygiene-Cadence fuer KPI- und Boardpflege bleibt ueber `novapolis-dev/docs/process/abschluss-routine.ssot.md` als aktiver 60-Minuten-Takt mit den KPI-Feldern `todo_index_drift`, `active_docs_stale`, `placeholder_conflicts` und `logs_policy_violations` verankert.

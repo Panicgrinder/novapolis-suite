@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-19 15:40
-update: Der TODO-Index fuehrt jetzt den Korrektur-Planlauf fuer den Governance-Umbau ohne kuenstliche GOV-Nummerierung; Open-Counts und Statushinweise sind auf den aktuellen Board-Iststand synchronisiert.
-checks: snapshot-lock PASS (2026-06-19 15:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md" PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/todo.index.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-29 16:07
+update: Wochenabschluss 2026-06-29 ist im TODO-Index synchronisiert; Open-Counts bleiben stabil und der Freshness-Repair ist dokumentiert.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260629_155310.md; snapshot-lock PASS (2026-06-29 16:07)
 
 ---
 
@@ -23,6 +23,8 @@ Statushinweise (aktuell)
 ------------------------
 
 - Root/Meta: `todo.root.md` fuehrt aktuell zwei offene Querschnittspunkte fuer den Korrektur-Planlauf des Governance-Umbaus und bleibt bewusst ausserhalb der Modul-Open-Counts.
+
+- Wochenabschluss 2026-06-29: Der initiale Full-Check fiel nur an `doc-freshness` (`74` stale Dokus); der Recheck nach Freshness-Repair ist wieder vollstaendig PASS (`.tmp/results/reports/checks_report_20260629_155005.md`).
 
 - Dev: `novapolis-dev/docs/todo.dev.md` fuehrt jetzt sechs offene Korrekturpunkte fuer Kettenregel, Bootstrap, Berichtsvertraege, Scope-/Wiring-Audit, semantische Autoritaetsverdrahtung und nachgelagertes Hook-Logging.
 

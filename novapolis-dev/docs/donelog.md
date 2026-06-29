@@ -1,9 +1,18 @@
 ---
-stand: 2026-06-19 15:40
-update: Korrektur-Planlauf fuer den Governance-Umbau ist gestartet: kuenstliche GOV-Nummerierung entfernt, Header-/Count-Drift repariert und Rollenableitung der Boards neu ausgerichtet.
-checks: snapshot-lock PASS (2026-06-19 15:40); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc "**/*.md" PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py novapolis-dev/docs/donelog.md PASS; .\.venv\Scripts\python.exe scripts\check_todo_index_sync.py --repo-root . PASS
+stand: 2026-06-29 16:07
+update: Wochenabschluss 2026-06-29 ist im Dev-Hub grün dokumentiert; Freshness-Recheck, Sim-Assets und Coverage sind belegt PASS.
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260629_155310.md; snapshot-lock PASS (2026-06-29 16:07)
 
 ---
+
+- Dev/Governance: Wochenabschluss 2026-06-29 nach Freshness-Repair wieder vollstaendig gruen (2026-06-29 15:45)
+-------------------------------------------------------------------------------------------------------------
+
+- Der initiale Vollcheck `.tmp/results/reports/checks_report_20260629_153748.md` fiel nur an `doc-freshness` mit `74` stale Dokumenten; alle uebrigen Gates (`markdownlint`, `frontmatter`, `path-portability`, `namingpolicy`, `todo-index-sync`, `logs-policy`, `ruff`, `black`, `pyright`, `mypy`, `pytest`) waren bereits PASS.
+- Der gezielte Freshness-Repair synchronisierte stale Frontmatter-Pfade und zog stale `mode=mtime`-Pfade auf den aktuellen Zeitanker; der Recheck `.tmp/results/reports/checks_report_20260629_155005.md` endet danach vollstaendig PASS mit `doc-freshness=PASS` (`findings=0`).
+- `scripts/check_sim_epoch_assets.py --repo-root . --allow-empty` bleibt PASS mit `summary=fail:0,warn:0`; `scripts/run_pytest_coverage.py` bestaetigt `709 passed` und `92.19%`.
+- KPI-Hygiene-Slot: `todo_index_drift=0`, `active_docs_stale=74 -> 0 im selben Lauf`, `placeholder_conflicts=0`, `logs_policy_violations=0`.
+- Der konsolidierte Wochenbericht fuer den Lauf liegt unter [process/wochenbericht-2026-06-29.md](process/wochenbericht-2026-06-29.md).
 
 - Dev/Governance: Korrektur-Planlauf statt kuenstlichem Neun-Strang-Paket (2026-06-19 15:40)
 -------------------------------------------------------------------------------------------

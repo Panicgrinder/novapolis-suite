@@ -1,7 +1,7 @@
 ---
-stand: 2026-04-28 11:26
+stand: 2026-06-29 16:07
 update: Die README-Entscheidungsliste fuehrt den Workspace-Index nicht mehr als offenen Phase-2-Verkuerzungspunkt, sondern nur noch als zielgerichtete Driftfix-Flaeche.
-checks: snapshot-lock PASS (2026-04-28 11:26); markdownlint=PASS; frontmatter=PASS; path-portability=PASS
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260629_155310.md; snapshot-lock PASS (2026-06-29 16:07)
 ---
 README Konsolidierungs-Entscheidungsliste
 =========================================

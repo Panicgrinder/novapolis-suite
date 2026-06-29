@@ -1,7 +1,7 @@
 ---
-stand: 2026-06-14 03:15
+stand: 2026-06-29 16:07
 update: Workspace-Landing auf den aktiven Root-/Dev-Status synchronisiert; stale Check-/Board-Summary aus dem 09:17-Stand ist nachgezogen.
-checks: snapshot-lock PASS (2026-06-14 03:15); npx --yes markdownlint-cli2 --config .markdownlint-cli2.jsonc WORKSPACE_INDEX.md PASS; .\.venv\Scripts\python.exe scripts\check_frontmatter.py WORKSPACE_INDEX.md PASS (EXITCODE=0)
+checks: scripts/run_checks_and_report.py overall=PASS; markdownlint=PASS; frontmatter=PASS; path-portability=PASS; namingpolicy=PASS; todo-index-sync=PASS; doc-freshness=PASS; logs-policy=PASS; ruff=PASS; black=PASS; pytest=PASS; pyright=PASS; mypy=PASS; report=.tmp/results/reports/checks_report_20260629_155310.md; snapshot-lock PASS (2026-06-29 16:07)
 ---
 
 <!-- markdownlint-disable MD013 -->

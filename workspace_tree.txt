@@ -37412,6 +37412,7 @@ novapolis-dev\docs\process\wochenbericht-2026-05-04.md
 novapolis-dev\docs\process\wochenbericht-2026-05-11.md
 novapolis-dev\docs\process\wochenbericht-2026-05-18.md
 novapolis-dev\docs\process\wochenbericht-2026-06-14-dev.md
+novapolis-dev\docs\process\wochenbericht-2026-06-29.md
 novapolis-dev\docs\process\workspace-audit-segmente.ssot.md
 novapolis-dev\docs\readme.hub.md
 novapolis-dev\docs\readme_decisions.md
